@@ -32,36 +32,46 @@ An example has been created with the following requirements:
 - the other 3 items are left aligned in breakpoints zero to medium, and right aligned from large to ultra;
 - the last item is not visible in breakpoints zero to small.
 
-To achieve this result, a `div` tag with a class named `spacer` was added between the first 
+To achieve this result, a `div` tag with a CSS class named `sbb-header-spacer` was added between the first 
 and the second `sbb-header-action` item, then a class named `last-element` was added to the last one.
 Finally, the following custom CSS has been added*. The result can be seen in the home and home--logged-in stories.
 
 ```css
-.spacer {
-  display: none;
-}
-
 .last-element {
   display: none;
 }
 
-@media screen and (min-width: 840px) {
+@media screen and (width >= 840px) {
   .last-element {
     display: block;
   }
 }
 
-@media screen and (min-width: 1024px) {
-  .spacer {
-    display: flex;
-    flex-grow: 1;
-  }
-
-  .last-element {
-    margin-inline-end: var(--sbb-spacing-responsive-s);
+@media screen and (width < 1024px) {
+  .sbb-header-spacer {
+    display: none;
   }
 }
 ```
+
+### Content overflow
+
+If a certain `sbb-header-action` should be shrunken (receive ellipsis) when there is too little space, 
+set the CSS class `sbb-header-shrinkable` on the desired `sbb-header-action`.
+
+```html
+<sbb-header shadow="true">
+  <sbb-header-action
+    icon-name="hamburger-menu-small"
+    href="https://sbb.ch/somewhere"
+    target="_blank"
+  >
+    Menu
+  </sbb-header-action>
+  <sbb-header-action class="sbb-header-shrinkable">Christina Müller has a long name</sbb-header-action>
+</sbb-header>
+```
+
 
 *Technical note: Due the presence of media-query rules, it was not possible to add those rules directly 
 in the component's stories (see also [this Storybook issue](https://github.com/storybookjs/storybook/issues/8820)),

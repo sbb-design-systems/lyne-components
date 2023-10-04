@@ -29,11 +29,8 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   // To avoid duplicated css definitions, the value itself is assigned here in
   // sbb-header-action instead of sbb-header.
   //
-  // Move it left by distance between button's left side and the start of the icon.
-  // As result, the icon should be aligned with the left side of the page wrapper.
-  --sbb-header-first-item-margin-inline-start: calc(
-    -0.5 * (var(--sbb-header-action-min-width) - var(--sbb-size-icon-ui-small))
-  );
+  // Move it left by 12px in collapsed width.
+  --sbb-header-first-item-margin-inline-start: #{sbb.px-to-rem-build(-12)};
 
   display: inline-block;
 
@@ -122,6 +119,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   transition: transform var(--sbb-header-action-transition-duration)
     var(--sbb-header-action-transition-easing);
   will-change: transform;
+  max-width: 100%;
 }
 
 .sbb-header-action__icon {
@@ -136,6 +134,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 
 .sbb-header-action__text {
   @include sbb.text-xs--bold;
+  @include sbb.ellipsis;
 
   display: flex;
 
