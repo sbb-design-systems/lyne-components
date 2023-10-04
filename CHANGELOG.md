@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.41.1](https://github.com/lyne-design-system/lyne-components/compare/v0.41.0...v0.41.1) (2023-10-04)
+
+### Bug Fixes
+
+- **sbb-breadcrumb-group:** fix color of divider arrow ([#2042](https://github.com/lyne-design-system/lyne-components/issues/2042)) ([cbab58d](https://github.com/lyne-design-system/lyne-components/commit/cbab58d38689b7380e724a370de9276facaa55af))
+
 ## [0.41.0](https://github.com/lyne-design-system/lyne-components/compare/v0.40.22...v0.41.0) (2023-10-04)
 
 ### ⚠ BREAKING CHANGES
