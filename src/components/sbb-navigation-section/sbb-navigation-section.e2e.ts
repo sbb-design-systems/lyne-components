@@ -2,12 +2,15 @@ import { waitForCondition } from '../../global/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { SbbNavigationSection } from './sbb-navigation-section';
+import '../sbb-navigation';
+import '../sbb-navigation-list';
+import '../sbb-navigation-action';
 
 describe('sbb-navigation-section', () => {
   let element: SbbNavigationSection;
 
   beforeEach(async () => {
-    element = await fixture(html`
+    await fixture(html`
       <sbb-navigation disable-animation>
         <sbb-navigation-section disable-animation>
           <sbb-navigation-list>
@@ -19,6 +22,7 @@ describe('sbb-navigation-section', () => {
         </sbb-navigation-section>
       </sbb-navigation>
     `);
+    element = document.querySelector('sbb-navigation-section');
   });
 
   it('renders', async () => {

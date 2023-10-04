@@ -1,11 +1,11 @@
-import { SbbNavigation } from './sbb-navigation';
-import { newSpecPage } from '@stencil/core/testing';
+import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import './sbb-navigation';
+import '../sbb-button';
 
 describe('sbb-navigation', () => {
   it('renders', async () => {
-    const { root } = await newSpecPage({
-      components: [SbbNavigation],
-      html: `
+    await fixture(html`
       <sbb-button id="nav-trigger">Navigation trigger</sbb-button>
       <sbb-navigation trigger="nav-trigger">
         <sbb-navigation-marker>
@@ -13,36 +13,12 @@ describe('sbb-navigation', () => {
           <sbb-navigation-action id="nav-2">Vacations & Recreation</sbb-navigation-action>
         </sbb-navigation-marker>
       </sbb-navigation>
-      `,
-    });
+    `);
+    const nav = document.querySelector('sbb-navigation');
 
-    expect(root).toEqualHtml(`
+    expect(nav).dom.to.be.equal(
+      `
         <sbb-navigation trigger="nav-trigger" role="navigation" data-state="closed" id="sbb-navigation-1">
-          <mock:shadow-root>
-            <div class="sbb-navigation__container">
-              <dialog class="sbb-navigation" id="sbb-navigation-dialog-id" role="group">
-                <div class="sbb-navigation__header">
-                  <sbb-button
-                    aria-label="Close navigation"
-                    aria-controls="sbb-navigation-dialog-id"
-                    class="sbb-navigation__close"
-                    icon-name="cross-small"
-                    negative=""
-                    sbb-navigation-close=""
-                    size="m"
-                    type="button"
-                    variant="transparent">
-                  </sbb-button>
-                </div>
-                <div class="sbb-navigation__wrapper">
-                  <div class="sbb-navigation__content">
-                    <slot></slot>
-                  </div>
-                </div>
-              </dialog>
-              <slot name="navigation-section"></slot>
-            </div>
-          </mock:shadow-root>
           <sbb-navigation-marker>
             <sbb-navigation-action id="nav-1">
               Tickets &amp; Offers
@@ -52,6 +28,38 @@ describe('sbb-navigation', () => {
             </sbb-navigation-action>
           </sbb-navigation-marker>
         </sbb-navigation>
-      `);
+      `,
+    );
+    expect(nav).shadowDom.to.be.equal(
+      `
+        <div class="sbb-navigation__container">
+          <dialog class="sbb-navigation" id="sbb-navigation-dialog-id" role="group">
+            <div class="sbb-navigation__header">
+              <sbb-button
+                aria-label="Close navigation"
+                aria-controls="sbb-navigation-dialog-id"
+                class="sbb-navigation__close"
+                data-icon-only=""
+                dir="ltr"
+                icon-name="cross-small"
+                negative=""
+                role="button"
+                sbb-navigation-close=""
+                size="m"
+                tabindex="0"
+                type="button"
+                variant="transparent">
+              </sbb-button>
+            </div>
+            <div class="sbb-navigation__wrapper">
+              <div class="sbb-navigation__content">
+                <slot></slot>
+              </div>
+            </div>
+          </dialog>
+          <slot name="navigation-section"></slot>
+        </div>
+      `,
+    );
   });
 });

@@ -7,7 +7,7 @@ import { expect } from '@storybook/jest';
 import { waitForComponentsReady } from '../../global/testing/wait-for-components-ready';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import './sbb-navigation-section';
+import '../sbb-navigation-section';
 import '../sbb-navigation-list';
 import '../sbb-navigation-action';
 import '../sbb-navigation';

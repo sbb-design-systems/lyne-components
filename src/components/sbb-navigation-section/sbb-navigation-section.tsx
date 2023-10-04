@@ -26,6 +26,7 @@ import { SbbNavigationMarker } from '../sbb-navigation-marker/index';
 import { setAttribute } from '../../global/dom';
 import { ref } from 'lit/directives/ref.js';
 import Style from './sbb-navigation-section.scss?lit&inline';
+import '../sbb-divider';
 
 let nextId = 0;
 
@@ -390,8 +391,8 @@ export class SbbNavigationSection extends LitElement {
               <sbb-divider
                 class="sbb-navigation-section__divider"
                 orientation="vertical"
-                negative
-              />
+                negative=${true}
+              ></sbb-divider>
               ${!!this.titleContent || this._namedSlots.title ? labelElement : nothing}
               <slot></slot>
             </div>
