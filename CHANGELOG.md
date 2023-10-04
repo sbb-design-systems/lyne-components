@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.41.0](https://github.com/lyne-design-system/lyne-components/compare/v0.40.22...v0.41.0) (2023-10-04)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-header:** - The spacing between the logo and the `sbb-header-action`s is now in responsibility of Lyne. Therefore consumers need to remove any manually added spacing. Lyne examples are updated.
+
+### Bug Fixes
+
+- **sbb-header:** guarantee space between logo and other header content ([#2035](https://github.com/lyne-design-system/lyne-components/issues/2035)) ([07cbf30](https://github.com/lyne-design-system/lyne-components/commit/07cbf3080f834171a9b6580398711138aea7558e)), closes [#1984](https://github.com/lyne-design-system/lyne-components/issues/1984)
+
 ### [0.40.22](https://github.com/lyne-design-system/lyne-components/compare/v0.40.21...v0.40.22) (2023-10-03)
 
 ### Bug Fixes
