@@ -217,7 +217,10 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
         <li class="sbb-breadcrumb-group__item" key={element.id}>
           <slot name={slotName(index)} onSlotchange={(): void => this._readBreadcrumb()} />
           {index !== this._breadcrumbs.length - 1 && (
-            <sbb-icon name="chevron-small-right-small"></sbb-icon>
+            <sbb-icon
+              name="chevron-small-right-small"
+              class="sbb-breadcrumb-group__divider-icon"
+            ></sbb-icon>
           )}
         </li>
       );
