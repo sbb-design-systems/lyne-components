@@ -8,10 +8,10 @@
   --sbb-expansion-panel-animation-duration: var(--sbb-animation-duration-4x);
   --sbb-expansion-panel-background-color: var(--sbb-color-white-default);
   --sbb-expansion-panel-content-visibility: hidden;
-  --sbb-expansion-panel-content-max-height: 0;
+  --sbb-expansion-panel-grid-template-rows: 0fr;
   --sbb-expansion-panel-content-opacity: 0;
-  --sbb-expansion-panel-content-transition: max-height var(--sbb-expansion-panel-animation-duration)
-      var(--sbb-animation-easing),
+  --sbb-expansion-panel-content-transition: grid-template-rows
+      var(--sbb-expansion-panel-animation-duration) var(--sbb-animation-easing),
     padding var(--sbb-expansion-panel-animation-duration) var(--sbb-animation-easing),
     opacity var(--sbb-expansion-panel-animation-duration) var(--sbb-animation-easing);
   --sbb-expansion-panel-border-width: var(--sbb-border-width-1x);
@@ -38,10 +38,10 @@
 
 :host([expanded]) {
   --sbb-expansion-panel-content-visibility: visible;
-  --sbb-expansion-panel-content-max-height: var(--sbb-expansion-panel-content-height);
+  --sbb-expansion-panel-grid-template-rows: 1fr;
   --sbb-expansion-panel-content-opacity: 1;
-  --sbb-expansion-panel-content-transition: max-height var(--sbb-expansion-panel-animation-duration)
-      var(--sbb-animation-easing),
+  --sbb-expansion-panel-content-transition: grid-template-rows
+      var(--sbb-expansion-panel-animation-duration) var(--sbb-animation-easing),
     padding var(--sbb-expansion-panel-animation-duration) var(--sbb-animation-easing),
     opacity var(--sbb-expansion-panel-animation-duration)
       var(--sbb-expansion-panel-animation-duration) var(--sbb-animation-easing);
@@ -122,11 +122,14 @@
   margin: 0;
 }
 
-.sbb-expansion-panel__content {
-  display: block;
-  overflow: hidden;
+.sbb-expansion-panel__content-wrapper {
+  display: grid;
+  grid-template-rows: var(--sbb-expansion-panel-grid-template-rows);
   visibility: var(--sbb-expansion-panel-content-visibility);
-  max-height: var(--sbb-expansion-panel-content-max-height);
   opacity: var(--sbb-expansion-panel-content-opacity);
   transition: var(--sbb-expansion-panel-content-transition);
+}
+
+.sbb-expansion-panel__content {
+  overflow: hidden;
 }
