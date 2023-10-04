@@ -6,6 +6,7 @@ import {
   EventEmitter,
   Fragment,
   h,
+  Host,
   JSX,
   Method,
   Prop,
@@ -1197,6 +1198,10 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   public render(): JSX.Element {
-    return <div class="sbb-calendar__wrapper">{this._getView}</div>;
+    return (
+      <Host data-wide={this._wide}>
+        <div class="sbb-calendar__wrapper">{this._getView}</div>
+      </Host>
+    );
   }
 }
