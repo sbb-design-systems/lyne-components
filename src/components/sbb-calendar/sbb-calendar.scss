@@ -142,6 +142,10 @@
 
 .sbb-calendar__table {
   width: 100%;
+
+  // Due to a Safari iOS bug we need to define min-width as well.
+  // After orientation change there is a wrong width otherwise.
+  min-width: 100%;
   border-collapse: collapse;
   height: max-content;
 
