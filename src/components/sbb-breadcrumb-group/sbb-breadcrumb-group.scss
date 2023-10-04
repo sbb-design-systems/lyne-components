@@ -32,6 +32,10 @@
   column-gap: var(--sbb-spacing-fixed-1x);
 }
 
+.sbb-breadcrumb-group__divider-icon {
+  color: var(--sbb-color-granite-default);
+}
+
 #sbb-breadcrumb-ellipsis {
   --sbb-breadcrumb-group-ellipsis-color: var(--sbb-color-granite-default);
   --sbb-breadcrumb-group-ellipsis-background-color: transparent;

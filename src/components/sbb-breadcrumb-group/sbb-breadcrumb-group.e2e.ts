@@ -60,7 +60,7 @@ describe('sbb-breadcrumb-group', () => {
     it('renders', async () => {
       const ellipsisBreadcrumb = `
         <li class="sbb-breadcrumb-group__item" id="sbb-breadcrumb-group-ellipsis">
-          <sbb-icon aria-hidden="true" class="hydrated" data-namespace="default" name="chevron-small-right-small" role="img"></sbb-icon>
+          <sbb-icon aria-hidden="true" class="hydrated sbb-breadcrumb-group__divider-icon" data-namespace="default" name="chevron-small-right-small" role="img"></sbb-icon>
           <button aria-expanded="false" aria-label="Show more breadcrumbs" id="sbb-breadcrumb-ellipsis" type="button">
             ...
           </button>

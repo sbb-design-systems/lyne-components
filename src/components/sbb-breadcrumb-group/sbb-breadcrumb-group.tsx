@@ -186,7 +186,10 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
         />
       </li>,
       <li class="sbb-breadcrumb-group__item" id="sbb-breadcrumb-group-ellipsis">
-        <sbb-icon name="chevron-small-right-small"></sbb-icon>
+        <sbb-icon
+          name="chevron-small-right-small"
+          class="sbb-breadcrumb-group__divider-icon"
+        ></sbb-icon>
         <button
           type="button"
           id="sbb-breadcrumb-ellipsis"
@@ -198,7 +201,10 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
         </button>
       </li>,
       <li class="sbb-breadcrumb-group__item">
-        <sbb-icon name="chevron-small-right-small"></sbb-icon>
+        <sbb-icon
+          name="chevron-small-right-small"
+          class="sbb-breadcrumb-group__divider-icon"
+        ></sbb-icon>
         <slot
           name={`breadcrumb-${this._breadcrumbs.length - 1}`}
           key={idLastElement}
@@ -217,7 +223,10 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
         <li class="sbb-breadcrumb-group__item" key={element.id}>
           <slot name={slotName(index)} onSlotchange={(): void => this._readBreadcrumb()} />
           {index !== this._breadcrumbs.length - 1 && (
-            <sbb-icon name="chevron-small-right-small"></sbb-icon>
+            <sbb-icon
+              name="chevron-small-right-small"
+              class="sbb-breadcrumb-group__divider-icon"
+            ></sbb-icon>
           )}
         </li>
       );
