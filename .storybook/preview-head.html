@@ -5,28 +5,19 @@
 
 <style>
   /* Classes used for the custom sbb-header story. */
-  .spacer {
-    display: none;
-  }
-
   .last-element {
     display: none;
   }
 
-  @media screen and (min-width: 840px) {
+  @media screen and (width >= 840px) {
     .last-element {
       display: block;
     }
   }
 
-  @media screen and (min-width: 1024px) {
-    .spacer {
-      display: flex;
-      flex-grow: 1;
-    }
-
-    .last-element {
-      margin-inline-end: var(--sbb-spacing-responsive-s);
+  @media screen and (width < 1023px) {
+    .sbb-header-spacer {
+      display: none;
     }
   }
 </style>
@@ -39,18 +30,27 @@
       div.textContent = 'EXAMPLE / BEISPIEL / EXEMPLE / ESEMPIO ';
       div.style.cssText = `
         position: fixed;
-        display: inline-block;
+        z-index: 100000;
+        display: flex;
+        gap: 0.5rem;
         border: 1px solid red;
         border-radius: 0.25rem;
         background-color: yellow;
-        padding-inline: 0.5rem;
-        inset: 0.5rem auto auto 50%;
-        transform: translateX(-50%);
+        padding: 0.5rem;
+        inset: 0.5rem 0 auto;
+        margin: 0 auto;
+        max-width: fit-content;
       `;
       const a = document.createElement('a');
       a.href = 'https://lyne-storybook.app.sbb.ch/';
       a.textContent = '(Create your own)';
+
+      const button = document.createElement('button');
+      button.textContent = 'Close';
+      button.addEventListener('click', () => div.remove());
+
       div.append(a);
+      div.append(button);
       document.body.append(div);
     });
   }
