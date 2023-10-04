@@ -161,11 +161,6 @@ export class SbbCalendar extends LitElement {
 
   private _calendarController: AbortController;
 
-  public constructor() {
-    super();
-    this.dateFilter = () => true;
-  }
-
   private _convertMinDate(newMin: Date | string | number): void {
     this._min = this._dateAdapter.deserializeDate(newMin);
   }
@@ -179,8 +174,7 @@ export class SbbCalendar extends LitElement {
     const value = this._dateAdapter.deserializeDate(selectedDate);
     if (
       !!value &&
-      (!this._isDayInRange(this._dateAdapter.getISOString(value)) ||
-        (this.dateFilter ? this.dateFilter(value) : true))
+      (!this._isDayInRange(this._dateAdapter.getISOString(value)) || this.dateFilter(value))
     ) {
       this._selected = this._dateAdapter.getISOString(value);
     } else {
@@ -200,6 +194,9 @@ export class SbbCalendar extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
 
+    if (!this.dateFilter) {
+      this.dateFilter = () => true;
+    }
     this.focus = () => {
       this._resetFocus = true;
       this._focusCell();
@@ -897,7 +894,7 @@ export class SbbCalendar extends LitElement {
   private _createDayCells(week: Day[], today: string): TemplateResult[] {
     return week.map((day: Day) => {
       const isOutOfRange = !this._isDayInRange(day.value);
-      const isFilteredOut = !this.dateFilter(this._dateAdapter.createDateFromISOString(day.value));
+      const isFilteredOut = !this?.dateFilter(this._dateAdapter.createDateFromISOString(day.value));
       const selected: boolean = !!this._selected && day.value === this._selected;
       const dayValue = `${day.dayValue} ${day.monthValue} ${day.yearValue}`;
       const isToday = day.value === today;
