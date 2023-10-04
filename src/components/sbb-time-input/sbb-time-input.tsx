@@ -1,25 +1,17 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  Event,
-  EventEmitter,
-  h,
-  JSX,
-  Method,
-  Prop,
-  State,
-  Watch,
-} from '@stencil/core';
 import { findInput, isValidAttribute, toggleDatasetEntry } from '../../global/dom';
 import {
   documentLanguage,
   forwardEventToHost,
   HandlerRepository,
   languageChangeHandlerAspect,
+  EventEmitter,
 } from '../../global/eventing';
 import { ValidationChangeEvent } from '../../global/interfaces';
 import { i18nTimeInputChange } from '../../global/i18n';
+import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
+import Style from './sbb-time-input.scss?lit&inline';
 
 const REGEX_ALLOWED_CHARACTERS = /[0-9.:,\-;_hH]/;
 const REGEX_GROUPS_WITHOUT_COLON = /^([0-9]{1,2})([0-9]{2})$/;
@@ -30,46 +22,105 @@ interface Time {
   minutes: number;
 }
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-time-input.scss',
-  tag: 'sbb-time-input',
-})
-export class SbbTimeInput implements ComponentInterface {
+export const events = {
+  didChange: 'didChange',
+  validationChange: 'validationChange',
+};
+
+@customElement('sbb-time-input')
+export class SbbTimeInput extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /** Reference of the native input connected to the datepicker. */
-  @Prop() public input?: string | HTMLElement;
+  @property()
+  public get input(): string | HTMLElement {
+    return this._input;
+  }
+  public set input(value: string | HTMLElement) {
+    const oldValue = this._input;
+    this._input = value;
+    this._findInputElement();
+    this.requestUpdate('input', oldValue);
+  }
+  private _input: string | HTMLElement;
+
+  @state() private _inputElement: HTMLInputElement | null;
 
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
-  @Event({ bubbles: true, cancelable: true }) public didChange: EventEmitter;
+  private _didChange: EventEmitter = new EventEmitter(this, events.didChange, {
+    bubbles: true,
+    cancelable: true,
+  });
 
   /** Emits whenever the internal validation state changes. */
-  @Event() public validationChange: EventEmitter<ValidationChangeEvent>;
+  private _validationChange: EventEmitter<ValidationChangeEvent> = new EventEmitter(
+    this,
+    events.validationChange,
+    {
+      bubbles: true,
+      composed: false,
+    },
+  );
 
-  @Element() private _element!: HTMLSbbTimeInputElement;
-  @State() private _inputElement: HTMLInputElement | null;
   private _statusContainer: HTMLParagraphElement | null;
   private _abortController = new AbortController();
   private _currentLanguage = documentLanguage();
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
-  @Watch('input')
-  public findInput(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
-    if (newValue !== oldValue) {
-      this._inputElement = findInput(this._element, this.input);
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this._handlerRepository.connect();
+
+    this._findInputElement();
+    if (this._inputElement) {
+      this._updateValue(this._inputElement.value);
     }
   }
 
-  @Watch('_inputElement')
-  public registerInputElement(newValue: HTMLInputElement, oldValue: HTMLInputElement): void {
-    if (newValue === oldValue) {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this._abortController?.abort();
+    this._handlerRepository.disconnect();
+  }
+
+  // TODO: refactor this to be a get/set
+  /** Gets the input value with the correct date format. */
+  public getValueAsDate(): Date | null {
+    return this._formatValueAsDate(this._parseInput(this._inputElement?.value));
+  }
+
+  /** Set the input value to the correctly formatted value. */
+  public setValueAsDate(date: Date | number | string): void {
+    if (!date || !this._inputElement) {
       return;
     }
+    const dateObj = date instanceof Date ? date : new Date(date);
 
+    this._inputElement.value = this._formatValue({
+      hours: dateObj.getHours(),
+      minutes: dateObj.getMinutes(),
+    });
+
+    // Emit blur event when value is changed programmatically to notify
+    // frameworks that rely on that event to update form status.
+    this._inputElement.dispatchEvent(new FocusEvent('blur', { composed: true }));
+  }
+
+  private _findInputElement(): void {
+    const oldInput = this._inputElement;
+    this._inputElement = findInput(this, this.input);
+
+    if (oldInput !== this._inputElement) {
+      this._registerInputElement();
+    }
+  }
+
+  private _registerInputElement(): void {
     this._abortController?.abort();
 
     if (!this._inputElement) {
@@ -89,7 +140,7 @@ export class SbbTimeInput implements ComponentInterface {
 
     this._inputElement.addEventListener(
       'input',
-      (event: InputEvent) => forwardEventToHost(event, this._element),
+      (event: InputEvent) => forwardEventToHost(event, this),
       { signal: this._abortController.signal },
     );
     this._inputElement.addEventListener(
@@ -104,41 +155,6 @@ export class SbbTimeInput implements ComponentInterface {
         signal: this._abortController.signal,
       },
     );
-  }
-
-  public connectedCallback(): void {
-    this._handlerRepository.connect();
-    this._inputElement = findInput(this._element, this.input);
-    if (this._inputElement) {
-      this._updateValue(this._inputElement.value);
-    }
-  }
-
-  public disconnectedCallback(): void {
-    this._abortController?.abort();
-    this._handlerRepository.disconnect();
-  }
-
-  /** Gets the input value with the correct date format. */
-  @Method() public async getValueAsDate(): Promise<Date | null> {
-    return this._formatValueAsDate(this._parseInput(this._inputElement?.value));
-  }
-
-  /** Set the input value to the correctly formatted value. */
-  @Method() public async setValueAsDate(date: Date | number | string): Promise<void> {
-    if (!date || !this._inputElement) {
-      return;
-    }
-    const dateObj = date instanceof Date ? date : new Date(date);
-
-    this._inputElement.value = this._formatValue({
-      hours: dateObj.getHours(),
-      minutes: dateObj.getMinutes(),
-    });
-
-    // Emit blur event when value is changed programmatically to notify
-    // frameworks that rely on that event to update form status.
-    this._inputElement.dispatchEvent(new FocusEvent('blur', { composed: true }));
   }
 
   /** Applies the correct format to values and triggers event dispatch. */
@@ -171,14 +187,14 @@ export class SbbTimeInput implements ComponentInterface {
     const wasValid = !isValidAttribute(this._inputElement, 'data-sbb-invalid');
     toggleDatasetEntry(this._inputElement, 'sbbInvalid', !isEmptyOrValid);
     if (wasValid !== isEmptyOrValid) {
-      this.validationChange.emit({ valid: isEmptyOrValid });
+      this._validationChange.emit({ valid: isEmptyOrValid });
     }
   }
 
   /** Emits the change event. */
   private _emitChange(event: Event): void {
-    forwardEventToHost(event, this._element);
-    this.didChange.emit();
+    forwardEventToHost(event, this);
+    this._didChange.emit();
   }
 
   /** Returns the right format for the `value` property . */
@@ -267,7 +283,16 @@ export class SbbTimeInput implements ComponentInterface {
     }.`;
   }
 
-  public render(): JSX.Element {
-    return <p role="status" ref={(ref) => (this._statusContainer = ref)}></p>;
+  protected override render(): TemplateResult {
+    return html`
+      <p role="status" ${ref((el) => (this._statusContainer = el as HTMLParagraphElement))}></p>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-time-input': SbbTimeInput;
   }
 }

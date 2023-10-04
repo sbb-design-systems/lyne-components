@@ -2,10 +2,12 @@
 import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/html';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import events from './sbb-time-input.events';
-import { StoryContext } from '@storybook/html';
+import { StoryContext } from '@storybook/web-components';
+import { events } from './sbb-time-input';
+import './sbb-time-input';
+import '../sbb-form-field';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative
