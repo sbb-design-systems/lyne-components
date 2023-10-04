@@ -47,7 +47,7 @@
       var(--sbb-expansion-panel-animation-duration) var(--sbb-animation-easing);
 }
 
-:host(:is([data-resize-disable-animation], [disable-animation]:not([disable-animation='false']))) {
+:host([disable-animation]:not([disable-animation='false'])) {
   --sbb-expansion-panel-animation-duration: 0s;
 }
 
