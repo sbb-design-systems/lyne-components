@@ -1,5 +1,5 @@
 import { AgnosticResizeObserver } from '../../global/observers';
-import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { CSSResult, html, LitElement, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { SbbNavigationAction } from '../sbb-navigation-action/index';
 import { setAttribute } from '../../global/dom';
@@ -16,17 +16,7 @@ export class SbbNavigationMarker extends LitElement {
   /**
    * Marker size variant.
    */
-  @property({ reflect: true })
-  public get size(): 'l' | 's' | null {
-    return this._size;
-  }
-  public set size(value: 'l' | 's' | null) {
-    const oldValue = this._size;
-    this._size = value;
-    this._updateMarkerActions();
-    this.requestUpdate('size', oldValue);
-  }
-  private _size: 'l' | 's' | null = 'l';
+  @property({ reflect: true }) public size?: 'l' | 's' = 'l';
 
   /**
    * Whether the list has an active action.
@@ -43,6 +33,12 @@ export class SbbNavigationMarker extends LitElement {
     this._setMarkerPosition(),
   );
 
+  public override willUpdate(changedProperties: PropertyValues<this>): void {
+    if (changedProperties.has('size')) {
+      this._updateMarkerActions();
+    }
+  }
+
   private _updateMarkerActions(): void {
     for (const action of this._navigationActions) {
       action.size = this.size;
@@ -57,7 +53,6 @@ export class SbbNavigationMarker extends LitElement {
     super.connectedCallback();
     this._navigationMarkerResizeObserver.observe(this);
     this._readActions();
-    this._updateMarkerActions();
   }
 
   public override disconnectedCallback(): void {
@@ -108,7 +103,6 @@ export class SbbNavigationMarker extends LitElement {
   protected override render(): TemplateResult {
     this._actions.forEach((action, index) => action.setAttribute('slot', `action-${index}`));
     setAttribute(this, 'data-has-active-action', this._hasActiveAction);
-    setAttribute(this, 'size', this._size);
 
     return html`
       <ul class="sbb-navigation-marker">
