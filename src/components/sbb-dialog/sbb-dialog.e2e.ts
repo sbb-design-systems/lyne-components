@@ -361,6 +361,14 @@ describe('sbb-dialog', () => {
     stackedDialog.open();
     await element.updateComplete;
 
+    await waitForCondition(() => willOpen.events.length === 2);
+    expect(willOpen.count).to.be.equal(2);
+    await element.updateComplete;
+
+    await waitForCondition(() => didOpen.events.length === 2);
+    expect(didOpen.count).to.be.equal(2);
+    await element.updateComplete;
+
     expect(stackedDialogElement).to.have.attribute('open');
 
     await sendKeys({ down: 'Tab' });
