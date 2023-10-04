@@ -1,75 +1,75 @@
-import { E2EElement, E2EPage, EventSpy, newE2EPage } from '@stencil/core/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { sendKeys } from '@web/test-runner-commands';
+import { EventSpy } from '../../global/testing/event-spy';
+import { SbbTag } from './sbb-tag';
 
 describe('sbb-tag', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbTag;
 
   beforeEach(async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-tag value="tag">Tag</sbb-tag>');
-    element = await page.find('sbb-tag');
+    element = await fixture(html`<sbb-tag value="tag">Tag</sbb-tag>`);
   });
 
   it('renders', async () => {
-    expect(element).toHaveClass('hydrated');
+    assert.instanceOf(element, SbbTag);
   });
 
   it('should be checked after click', async () => {
-    expect(element).toEqualAttribute('checked', null);
-    const changeSpy: EventSpy = await page.spyOnEvent('change');
-    const inputSpy: EventSpy = await page.spyOnEvent('input');
+    expect(element).to.have.attribute('checked', null);
+    const changeSpy = new EventSpy('change', document);
+    const inputSpy = new EventSpy('input', document);
 
-    await element.click();
+    element.click();
+    await element.updateComplete;
 
-    await page.waitForChanges();
-    expect(changeSpy).toHaveReceivedEvent();
-    expect(inputSpy).toHaveReceivedEvent();
-    expect(element).toEqualAttribute('checked', '');
+    expect(changeSpy.count).to.be.greaterThan(0);
+    expect(inputSpy.count).to.be.greaterThan(0);
+    expect(element).to.have.attribute('checked', '');
   });
 
   it('should not be checked after click when disabled', async () => {
-    expect(element).toEqualAttribute('checked', null);
+    expect(element).to.have.attribute('checked', null);
     element.setAttribute('disabled', '');
-    await page.waitForChanges();
+    await element.updateComplete;
 
-    const changeSpy: EventSpy = await page.spyOnEvent('change');
-    const inputSpy: EventSpy = await page.spyOnEvent('input');
+    const changeSpy = new EventSpy('change', document);
+    const inputSpy = new EventSpy('input', document);
 
-    await element.click();
+    element.click();
+    await element.updateComplete;
 
-    await page.waitForChanges();
-    expect(changeSpy).not.toHaveReceivedEvent();
-    expect(inputSpy).not.toHaveReceivedEvent();
-    expect(element).not.toHaveAttribute('checked');
+    expect(changeSpy.count).not.to.be.greaterThan(0);
+    expect(inputSpy.count).not.to.be.greaterThan(0);
+    expect(element).not.to.have.attribute('checked');
   });
 
   it('should be checked after "Space" keypress', async () => {
-    expect(element).toEqualAttribute('checked', null);
-    const changeSpy: EventSpy = await page.spyOnEvent('change');
-    const inputSpy: EventSpy = await page.spyOnEvent('input');
+    expect(element).to.have.attribute('checked', null);
+    const changeSpy = new EventSpy('change', document);
+    const inputSpy = new EventSpy('input', document);
 
-    await element.focus();
-    await element.press('Space');
+    element.focus();
+    await sendKeys({ press: 'Space' });
 
-    await page.waitForChanges();
-    expect(changeSpy).toHaveReceivedEvent();
-    expect(inputSpy).toHaveReceivedEvent();
-    expect(element).toEqualAttribute('checked', '');
+    await element.updateComplete;
+    expect(changeSpy.count).to.be.greaterThan(0);
+    expect(inputSpy.count).to.be.greaterThan(0);
+    expect(element).to.have.attribute('checked', '');
   });
 
   it('should be unchecked after "Space" keypress', async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-tag value="tag" checked>Tag</sbb-tag>');
-    element = await page.find('sbb-tag');
+    element = await fixture(html`<sbb-tag value="tag" checked>Tag</sbb-tag>`);
 
-    const changeSpy: EventSpy = await page.spyOnEvent('change');
-    const inputSpy: EventSpy = await page.spyOnEvent('input');
+    const changeSpy = new EventSpy('change', document);
+    const inputSpy = new EventSpy('input', document);
 
-    await element.focus();
-    await element.press('Space');
+    element.focus();
+    await sendKeys({ press: 'Space' });
 
-    await page.waitForChanges();
-    expect(changeSpy).toHaveReceivedEvent();
-    expect(inputSpy).toHaveReceivedEvent();
-    expect(element).toEqualAttribute('checked', null);
+    await element.updateComplete;
+    expect(changeSpy.count).to.be.greaterThan(0);
+    expect(inputSpy.count).to.be.greaterThan(0);
+    expect(element).to.have.attribute('checked', null);
   });
 });

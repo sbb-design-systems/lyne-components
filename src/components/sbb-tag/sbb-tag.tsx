@@ -1,77 +1,91 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  Event,
-  EventEmitter,
-  h,
-  Host,
-  JSX,
-  Listen,
-  Prop,
-  State,
-  Watch,
-} from '@stencil/core';
-import { ButtonProperties, resolveButtonRenderVariables } from '../../global/interfaces';
+import { resolveButtonRenderVariables } from '../../global/interfaces';
 import { TagStateChange } from './sbb-tag.custom';
 import {
   createNamedSlotState,
   HandlerRepository,
   actionElementHandlerAspect,
   namedSlotChangeHandlerAspect,
+  EventEmitter,
+  ConnectedAbortController,
 } from '../../global/eventing';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { SbbTagGroup } from '../sbb-tag-group/index';
+import { setAttributes } from '../../global/dom';
+import Style from './sbb-tag.scss?lit&inline';
 
 /**
  * @slot unnamed - This slot will show the provided tag label.
  * @slot icon - Use this slot to display an icon at the component start, by providing a `sbb-icon` component.
  * @slot amount - Provide an amount to show it at the component end.
  */
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-tag.scss',
-  tag: 'sbb-tag',
-})
-export class SbbTag implements ComponentInterface, ButtonProperties {
+export const events = {
+  stateChange: 'state-change',
+  input: 'input',
+  didChange: 'did-change',
+  change: 'change',
+};
+
+@customElement('sbb-tag')
+export class SbbTag extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /** The name attribute to use for the button. */
-  @Prop({ reflect: true }) public name: string | undefined;
+  @property({ reflect: true }) public name: string | undefined;
 
   /** Value of the tag. */
-  @Prop() public value?: string;
+  @property()
+  public get value(): string | null {
+    return this._value;
+  }
+  public set value(value: string | null) {
+    const oldValue = this._value;
+    this._value = value;
+    this._handleValueChange(this._value, oldValue);
+    this.requestUpdate('value', oldValue);
+  }
+  private _value: string | null = null;
 
   /** The <form> element to associate the button with. */
-  @Prop() public form?: string;
+  @property() public form?: string;
 
   /** Amount displayed inside the tag. */
-  @Prop() public amount?: string;
+  @property() public amount?: string;
 
   /** Whether the toggle is checked. */
-  @Prop({ mutable: true, reflect: true }) public checked = false;
+  @property({ reflect: true, type: Boolean })
+  public get checked(): boolean {
+    return this._checked;
+  }
+  public set checked(value: boolean) {
+    const oldValue = this._checked;
+    this._checked = value;
+    this._handleCheckedChange(this._checked, oldValue);
+    this.requestUpdate('checked', oldValue);
+  }
+  private _checked: boolean = false;
 
   /** Whether the tag is disabled. */
-  @Prop({ reflect: true }) public disabled = false;
+  @property({ reflect: true, type: Boolean }) public disabled = false;
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @State() private _namedSlots = createNamedSlotState('icon', 'amount');
+  @state() private _namedSlots = createNamedSlotState('icon', 'amount');
 
   /**
    * The icon name we want to use, choose from the small icon variants from the ui-icons category
    * from https://icons.app.sbb.ch (optional).
    */
-  @Prop() public iconName?: string;
+  @property({ attribute: 'icon-name' }) public iconName?: string;
 
-  @Element() private _element!: HTMLElement;
-
-  @Watch('checked')
-  public handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
+  private _handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
     if (currentValue !== previousValue) {
-      this.stateChange.emit({ type: 'checked', checked: currentValue });
+      this._stateChange.emit({ type: 'checked', checked: currentValue });
     }
   }
 
-  @Watch('value')
-  public handleValueChange(currentValue: string, previousValue: string): void {
+  private _handleValueChange(currentValue: string, previousValue: string): void {
     if (this.checked && currentValue !== previousValue) {
-      this.stateChange.emit({ type: 'value', value: currentValue });
+      this._stateChange.emit({ type: 'value', value: currentValue });
     }
   }
 
@@ -79,77 +93,91 @@ export class SbbTag implements ComponentInterface, ButtonProperties {
    * Internal event that emits whenever the state of the tag
    * in relation to the parent toggle changes.
    */
-  @Event({
+  private _stateChange: EventEmitter<TagStateChange> = new EventEmitter(this, events.stateChange, {
     bubbles: true,
-    eventName: 'state-change',
-  })
-  public stateChange: EventEmitter<TagStateChange>;
+  });
 
   /** Input event emitter */
-  @Event({ bubbles: true, composed: true }) public input: EventEmitter;
+  private _input: EventEmitter = new EventEmitter(this, events.input, {
+    bubbles: true,
+    composed: true,
+  });
 
   /** @deprecated only used for React. Will probably be removed once React 19 is available. */
-  @Event({ bubbles: true }) public didChange: EventEmitter;
+  private _didChange: EventEmitter = new EventEmitter(this, events.didChange, { bubbles: true });
 
   /** Change event emitter */
-  @Event({ bubbles: true }) public change: EventEmitter;
+  private _change: EventEmitter = new EventEmitter(this, events.change, { bubbles: true });
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     actionElementHandlerAspect,
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    const signal = this._abort.signal;
+    this.addEventListener('click', () => this._handleClick(), { signal });
     this._handlerRepository.connect();
   }
+  private _abort = new ConnectedAbortController(this);
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
   }
 
   /** Method triggered on button click. Inverts the checked value and emits events. */
-  @Listen('click')
-  public handleClick(): void {
+  private _handleClick(): void {
     if (this.disabled) {
       return;
     }
 
-    const tagGroup = this._element.closest('sbb-tag-group') as HTMLSbbTagGroupElement;
+    const tagGroup = this.closest('sbb-tag-group') as SbbTagGroup;
 
     // Prevent deactivating on exclusive / radio mode
     if (tagGroup && !tagGroup.multiple && this.checked) {
       return;
     }
     this.checked = !this.checked;
-    this.input.emit();
-    this.change.emit();
-    this.didChange.emit();
+    this._input.emit();
+    this._change.emit();
+    this._didChange.emit();
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const { hostAttributes } = resolveButtonRenderVariables(this);
     // We have to ensure that the value is always present
     hostAttributes['aria-pressed'] = this.checked.toString();
 
-    return (
-      <Host {...hostAttributes}>
-        <span class="sbb-tag">
-          {(this.iconName || this._namedSlots['icon']) && (
-            <span class="sbb-tag__icon sbb-tag--shift">
-              <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
-            </span>
-          )}
-          <span class="sbb-tag__text sbb-tag--shift">
-            <slot></slot>
-          </span>
-          {(this.amount || this._namedSlots['amount']) && (
-            <span class="sbb-tag__amount sbb-tag--shift">
-              <slot name="amount">{this.amount}</slot>
-            </span>
-          )}
+    setAttributes(this, hostAttributes);
+
+    return html`
+      <span class="sbb-tag">
+        ${this.iconName || this._namedSlots['icon']
+          ? html`<span class="sbb-tag__icon sbb-tag--shift">
+              <slot name="icon"
+                >${this.iconName ? html`<sbb-icon name=${this.iconName} />` : nothing}</slot
+              >
+            </span>`
+          : nothing}
+        <span class="sbb-tag__text sbb-tag--shift">
+          <slot></slot>
         </span>
-      </Host>
-    );
+        ${this.amount || this._namedSlots['amount']
+          ? html`<span class="sbb-tag__amount sbb-tag--shift">
+              <slot name="amount">${this.amount}</slot>
+            </span>`
+          : nothing}
+      </span>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-tag': SbbTag;
   }
 }
