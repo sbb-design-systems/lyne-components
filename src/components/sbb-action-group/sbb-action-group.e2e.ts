@@ -8,7 +8,7 @@ describe('sbb-action-group', () => {
   let element: SbbActionGroup;
 
   beforeEach(async () => {
-    await fixture(html`
+    element = await fixture(html`
       <sbb-action-group align-group="start" orientation="horizontal">
         <sbb-button variant="secondary">Button</sbb-button>
         <sbb-link
@@ -20,7 +20,6 @@ describe('sbb-action-group', () => {
         </sbb-link>
       </sbb-action-group>
     `);
-    element = document.querySelector('sbb-action-group');
   });
 
   it('renders', async () => {
@@ -29,7 +28,6 @@ describe('sbb-action-group', () => {
 
   describe('property sync', () => {
     it('should sync default size with sbb-button', async () => {
-      await element.updateComplete;
       const links = Array.from(
         document.querySelectorAll('sbb-action-group sbb-button'),
       ) as SbbButton[];

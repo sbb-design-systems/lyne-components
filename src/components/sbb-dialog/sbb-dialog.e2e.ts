@@ -20,7 +20,6 @@ describe('sbb-dialog', () => {
         <div slot="action-group">Action group</div>
       </sbb-dialog>
     `);
-    await element.updateComplete;
   });
 
   it('renders', () => {
