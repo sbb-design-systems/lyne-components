@@ -1,40 +1,41 @@
-import { Component, ComponentInterface, Element, h, Host, JSX, Prop, State } from '@stencil/core';
 import {
   createNamedSlotState,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
 } from '../../global/eventing';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { spread } from '@open-wc/lit-helpers';
+import { SbbNavigationAction } from '../sbb-navigation-action/index';
+import { setAttribute } from '../../global/dom';
+import Style from './sbb-navigation-list.scss?lit&inline';
 
 /**
  * @slot label - Use this to provide a label element.
  * @slot unnamed - Use this to provide content for sbb-navigation-list
  */
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-navigation-list.scss',
-  tag: 'sbb-navigation-list',
-})
-export class SbbNavigationList implements ComponentInterface {
+@customElement('sbb-navigation-list')
+export class SbbNavigationList extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /*
    * The label to be shown before the action list.
    */
-  @Prop() public label?: string;
+  @property() public label?: string;
 
   /*
    * Navigation action elements.
    */
-  @State() private _actions: HTMLSbbNavigationActionElement[];
+  @state() private _actions: SbbNavigationAction[];
 
   /**
    * State of listed named slots, by indicating whether any element for a named slot is defined.
    */
-  @State() private _namedSlots = createNamedSlotState('label');
-
-  @Element() private _element!: HTMLElement;
+  @state() private _namedSlots = createNamedSlotState('label');
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
@@ -42,21 +43,23 @@ export class SbbNavigationList implements ComponentInterface {
    * Create an array with only the sbb-navigation-action children.
    */
   private _readActions(): void {
-    this._actions = Array.from(this._element.children).filter(
-      (e): e is HTMLSbbNavigationActionElement => e.tagName === 'SBB-NAVIGATION-ACTION',
+    this._actions = Array.from(this.children).filter(
+      (e): e is SbbNavigationAction => e.tagName === 'SBB-NAVIGATION-ACTION',
     );
   }
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
     this._handlerRepository.connect();
     this._readActions();
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const hasLabel = !!this.label || this._namedSlots['label'];
     this._actions.forEach((action, index) => {
       action.setAttribute('slot', `action-${index}`);
@@ -65,24 +68,34 @@ export class SbbNavigationList implements ComponentInterface {
     const ariaLabelledByAttribute = hasLabel
       ? { 'aria-labelledby': 'sbb-navigation-link-label-id' }
       : {};
-    return (
-      <Host class="sbb-navigation-list">
-        {hasLabel && (
-          <span class="sbb-navigation-list__label" id="sbb-navigation-link-label-id">
-            <slot name="label">{this.label}</slot>
-          </span>
-        )}
-        <ul class="sbb-navigation-list__content" {...ariaLabelledByAttribute}>
-          {this._actions.map((_, index) => (
+
+    setAttribute(this, 'class', 'sbb-navigation-list');
+
+    return html`
+      ${hasLabel
+        ? html`<span class="sbb-navigation-list__label" id="sbb-navigation-link-label-id">
+            <slot name="label">${this.label}</slot>
+          </span>`
+        : nothing}
+      <ul class="sbb-navigation-list__content" ${spread(ariaLabelledByAttribute)}>
+        ${this._actions.map(
+          (_, index) => html`
             <li class="sbb-navigation-list__action">
-              <slot name={`action-${index}`} onSlotchange={(): void => this._readActions()} />
+              <slot name=${`action-${index}`} @slotchange=${(): void => this._readActions()}></slot>
             </li>
-          ))}
-        </ul>
-        <span hidden>
-          <slot onSlotchange={(): void => this._readActions()} />
-        </span>
-      </Host>
-    );
+          `,
+        )}
+      </ul>
+      <span hidden>
+        <slot @slotchange=${(): void => this._readActions()}></slot>
+      </span>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-navigation-list': SbbNavigationList;
   }
 }

@@ -1,34 +1,33 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { SbbNavigationList } from './sbb-navigation-list';
+import '../sbb-navigation-action';
 
 describe('sbb-navigation-list', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbNavigationList;
 
   beforeEach(async () => {
-    page = await newE2EPage();
-    await page.setContent(`
+    element = await fixture(html`
       <sbb-navigation-list>
         <sbb-navigation-action>Label</sbb-navigation-action>
       </sbb-navigation-list>
     `);
-
-    element = await page.find('sbb-navigation-list');
   });
 
-  it('renders', async () => {
-    expect(element).toHaveClass('hydrated');
+  it('renders', () => {
+    assert.instanceOf(element, SbbNavigationList);
   });
 
-  it('automatic list generation', async () => {
-    const list = await page.find('sbb-navigation-list >>> ul');
-    expect(list.className).toBe('sbb-navigation-list__content');
+  it('automatic list generation', () => {
+    const list = element.shadowRoot.querySelector('ul');
+    expect(list.className).to.be.equal('sbb-navigation-list__content');
 
-    const listItem = await list.find('li');
-
-    expect(listItem).toHaveClass('sbb-navigation-list__action');
+    const listItem = list.querySelector('li');
+    expect(listItem).to.have.class('sbb-navigation-list__action');
   });
 
-  it('force size on children elements', async () => {
-    const action = await page.find('sbb-navigation-list > sbb-navigation-action');
-    expect(action).toEqualAttribute('size', 'm');
+  it('force size on children elements', () => {
+    const action = element.querySelector('sbb-navigation-action');
+    expect(action).to.have.attribute('size', 'm');
   });
 });

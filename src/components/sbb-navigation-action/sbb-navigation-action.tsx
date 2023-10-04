@@ -106,7 +106,7 @@ export class SbbNavigationAction extends LitElement {
     this.addEventListener(
       'click',
       () => {
-        if (!this.active) {
+        if (!this.active && this._navigationMarker) {
           this.active = true;
         }
       },
