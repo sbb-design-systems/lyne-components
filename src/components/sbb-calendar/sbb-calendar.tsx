@@ -1,18 +1,3 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  Event,
-  EventEmitter,
-  Fragment,
-  h,
-  Host,
-  JSX,
-  Method,
-  Prop,
-  State,
-  Watch,
-} from '@stencil/core';
 import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../../global/a11y';
 import {
   DateAdapter,
@@ -27,6 +12,7 @@ import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
+  EventEmitter,
 } from '../../global/eventing';
 import {
   i18nCalendarDateSelection,
@@ -39,6 +25,12 @@ import {
   i18nYearMonthSelection,
 } from '../../global/i18n';
 import { CalendarView, Day, Month, Weekday } from './sbb-calendar.custom';
+import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
+import Style from './sbb-calendar.scss?lit&inline';
+import '../sbb-button';
+import '../sbb-icon';
 
 /**
  * In keyboard navigation, the cell's index and the element's index in its month / year batch must be distinguished;
@@ -64,50 +56,58 @@ interface CalendarKeyboardNavigationParameters {
   verticalOffset: number;
 }
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-calendar.scss',
-  tag: 'sbb-calendar',
-})
-export class SbbCalendar implements ComponentInterface {
-  /** If set to true, two months are displayed. */
-  @Prop() public wide = false;
+export const events = {
+  dateSelected: 'date-selected',
+};
+
+@customElement('sbb-calendar')
+export class SbbCalendar extends LitElement {
+  public static override styles: CSSResult = Style;
+
+  /** If set to true, two months are displayed */
+  @property({ type: Boolean }) public wide = false;
 
   /** The minimum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
-  @Prop() public min: Date | string | number;
+  @property() public min: Date | string | number;
 
   /** The maximum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
-  @Prop() public max: Date | string | number;
+  @property() public max: Date | string | number;
 
   /** A function used to filter out dates. */
-  @Prop() public dateFilter: (date: Date | null) => boolean = () => true;
+  @property({ attribute: 'date-filter' }) public dateFilter: (date: Date | null) => boolean;
 
   /** The selected date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
-  @Prop() public selectedDate: Date | string | number;
+  @property({ attribute: 'selected-date' }) public selectedDate: Date | string | number;
 
   /** Event emitted on date selection. */
-  @Event({ eventName: 'date-selected' }) public dateSelected: EventEmitter<Date>;
+  private _dateSelected: EventEmitter<Date> = new EventEmitter(this, events.dateSelected);
 
   /** The currently active date. */
-  @State() private _activeDate: Date;
+  @state() private _activeDate: Date;
 
   /** The selected date as ISOString. */
-  @State() private _selected: string;
+  @state() private _selected: string;
 
   /** The current wide property considering property value and breakpoints. From zero to small `wide` has always to be false. */
-  @State() private _wide: boolean;
+  @state() private _wide: boolean;
 
+<<<<<<< HEAD
   /** Minimum value converted to date. */
   @State() private _min: Date;
 
   /** Maximum value converted to date. */
   @State() private _max: Date;
+=======
+  /** Minimum value converted to date */
+  @state() private _min: Date;
 
-  @State() private _calendarView: CalendarView = 'day';
+  /** Maximum value converted to date */
+  @state() private _max: Date;
+>>>>>>> c36c091c (refactor(sbb-calendar): migrate component)
 
-  @State() private _currentLanguage = documentLanguage();
+  @state() private _calendarView: CalendarView = 'day';
 
-  @Element() private _element!: HTMLElement;
+  @state() private _currentLanguage = documentLanguage();
 
   private _nextCalendarView: CalendarView = 'day';
 
@@ -137,11 +137,9 @@ export class SbbCalendar implements ComponentInterface {
   /** A list of buttons corresponding to days, months or years depending on the view. */
   private get _cells(): HTMLButtonElement[] {
     return Array.from(
-      this._element.shadowRoot.querySelectorAll('.sbb-calendar__cell'),
+      this.shadowRoot.querySelectorAll('.sbb-calendar__cell'),
     ) as HTMLButtonElement[];
   }
-
-  private _calendarController: AbortController;
 
   /** The chosen year in the year selection view. */
   private _chosenYear: number;
@@ -153,7 +151,7 @@ export class SbbCalendar implements ComponentInterface {
   private _resetFocus = false;
 
   private _handlerRepository = new HandlerRepository(
-    this._element as HTMLElement,
+    this as HTMLElement,
     languageChangeHandlerAspect((l) => {
       this._currentLanguage = l;
       this._monthNames = this._dateAdapter.getMonthNames('long');
@@ -161,34 +159,37 @@ export class SbbCalendar implements ComponentInterface {
     }),
   );
 
-  @Watch('min')
+  private _calendarController: AbortController;
+
+  public constructor() {
+    super();
+    this.dateFilter = () => true;
+  }
+
   private _convertMinDate(newMin: Date | string | number): void {
     this._min = this._dateAdapter.deserializeDate(newMin);
   }
 
-  @Watch('max')
   private _convertMaxDate(newMax: Date | string | number): void {
     this._max = this._dateAdapter.deserializeDate(newMax);
   }
 
   /** Sets the selected date. */
-  @Watch('selectedDate')
-  private _setSelectedDate(selectedDate: Date | null): void {
+  private _setSelectedDate(selectedDate: Date | string | number): void {
+    const value = this._dateAdapter.deserializeDate(selectedDate);
     if (
-      !!selectedDate &&
-      (!this._isDayInRange(this._dateAdapter.getISOString(selectedDate)) ||
-        this.dateFilter(selectedDate))
+      !!value &&
+      (!this._isDayInRange(this._dateAdapter.getISOString(value)) ||
+        (this.dateFilter ? this.dateFilter(value) : true))
     ) {
-      this._selected = this._dateAdapter.getISOString(selectedDate);
+      this._selected = this._dateAdapter.getISOString(value);
     } else {
       this._selected = undefined;
     }
   }
 
   /** Resets the active month according to the new state of the calendar. */
-  @Method()
-  @Watch('wide')
-  public async resetPosition(): Promise<void> {
+  public resetPosition(): void {
     if (this._calendarView !== 'day') {
       this._resetToDayView();
     }
@@ -196,8 +197,10 @@ export class SbbCalendar implements ComponentInterface {
     this._init();
   }
 
-  public connectedCallback(): void {
-    this._element.focus = () => {
+  public override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.focus = () => {
       this._resetFocus = true;
       this._focusCell();
     };
@@ -213,7 +216,22 @@ export class SbbCalendar implements ComponentInterface {
     this._init();
   }
 
-  public componentDidRender(): void {
+  public override willUpdate(changedProperties: PropertyValues<this>): void {
+    if (changedProperties.has('min')) {
+      this._convertMinDate(this.min);
+    }
+    if (changedProperties.has('max')) {
+      this._convertMaxDate(this.max);
+    }
+    if (changedProperties.has('selectedDate')) {
+      this._setSelectedDate(this.selectedDate as Date);
+    }
+    if (changedProperties.has('wide')) {
+      this.resetPosition();
+    }
+  }
+
+  protected override updated(): void {
     // The calendar needs to calculate tab-indexes on first render,
     // and every time a date is selected or the month view changes.
     this._setTabIndex();
@@ -225,7 +243,8 @@ export class SbbCalendar implements ComponentInterface {
     }
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._calendarController.abort();
     this._handlerRepository.disconnect();
   }
@@ -233,7 +252,7 @@ export class SbbCalendar implements ComponentInterface {
   /** Initializes the component. */
   private _init(): void {
     this._wide = isBreakpoint('medium') && this.wide;
-    toggleDatasetEntry(this._element, 'wide', this._wide);
+    toggleDatasetEntry(this, 'wide', this._wide);
     this._setWeekdays();
     this._weeks = this._createWeekRows(
       this._dateAdapter.getMonth(this._activeDate),
@@ -426,7 +445,7 @@ export class SbbCalendar implements ComponentInterface {
     this._chosenYear = undefined;
     if (this._selected !== day) {
       this._selected = day;
-      this.dateSelected.emit(this._dateAdapter.createDateFromISOString(day));
+      this._dateSelected.emit(this._dateAdapter.createDateFromISOString(day));
     }
   }
 
@@ -530,9 +549,9 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   private _setTabIndex(): void {
-    Array.from(
-      this._element.shadowRoot.querySelectorAll('.sbb-calendar__cell[tabindex="0"]'),
-    ).forEach((day) => ((day as HTMLElement).tabIndex = -1));
+    Array.from(this.shadowRoot.querySelectorAll('.sbb-calendar__cell[tabindex="0"]')).forEach(
+      (day) => ((day as HTMLElement).tabIndex = -1),
+    );
     const firstFocusable = this._getFirstFocusable();
     if (firstFocusable) {
       firstFocusable.tabIndex = 0;
@@ -542,18 +561,16 @@ export class SbbCalendar implements ComponentInterface {
   private _getFirstFocusable(): HTMLButtonElement {
     const active = this._selected ? new Date(this._selected) : this._now();
     let firstFocusable =
-      this._element.shadowRoot.querySelector('.sbb-calendar__selected') ??
-      this._element.shadowRoot.querySelector(
+      this.shadowRoot.querySelector('.sbb-calendar__selected') ??
+      this.shadowRoot.querySelector(
         `[data-day="${active.getDate()} ${
           this._activeDate.getMonth() + 1
         } ${this._activeDate.getFullYear()}"]`,
       ) ??
-      this._element.shadowRoot.querySelector(`[data-month="${this._activeDate.getMonth()}"]`) ??
-      this._element.shadowRoot.querySelector(`[data-year="${this._activeDate.getFullYear()}"]`);
+      this.shadowRoot.querySelector(`[data-month="${this._activeDate.getMonth()}"]`) ??
+      this.shadowRoot.querySelector(`[data-year="${this._activeDate.getFullYear()}"]`);
     if (!firstFocusable || (firstFocusable as HTMLButtonElement)?.disabled) {
-      firstFocusable = this._element.shadowRoot.querySelector(
-        '.sbb-calendar__cell:not([disabled])',
-      );
+      firstFocusable = this.shadowRoot.querySelector('.sbb-calendar__cell:not([disabled])');
     }
     return (firstFocusable as HTMLButtonElement) || null;
   }
@@ -568,7 +585,7 @@ export class SbbCalendar implements ComponentInterface {
     const cells: HTMLButtonElement[] = this._cells;
     const index: number = cells.findIndex((e: HTMLButtonElement) => e === event.target);
     const nextEl: HTMLButtonElement = this._navigateByKeyboard(event, index, cells, day);
-    const activeEl: HTMLButtonElement = this._element.shadowRoot.activeElement as HTMLButtonElement;
+    const activeEl: HTMLButtonElement = this.shadowRoot.activeElement as HTMLButtonElement;
     if (nextEl !== activeEl) {
       (nextEl as HTMLButtonElement).tabIndex = 0;
       nextEl?.focus();
@@ -728,7 +745,7 @@ export class SbbCalendar implements ComponentInterface {
 
   private _now(): Date {
     if (this._hasDataNow()) {
-      const today = new Date(+this._element.dataset?.now);
+      const today = new Date(+this.dataset?.now);
       today.setHours(0, 0, 0, 0);
       return today;
     }
@@ -736,7 +753,7 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   private _hasDataNow(): boolean {
-    const dataNow = +this._element.dataset?.now;
+    const dataNow = +this.dataset?.now;
     return !isNaN(dataNow);
   }
 
@@ -750,62 +767,60 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   /** Render the view for the day selection. */
-  private _renderDayView(): JSX.Element {
+  private _renderDayView(): TemplateResult {
     const nextMonthActiveDate = this._wide
       ? this._dateAdapter.addCalendarMonths(this._activeDate, 1)
       : undefined;
-    return (
-      <Fragment>
-        <div class="sbb-calendar__controls">
-          {this._getArrow(
-            'left',
-            () => this._goToDifferentMonth(-1),
-            i18nPreviousMonth[this._currentLanguage],
-            this._previousMonthDisabled(),
-          )}
-          <div class="sbb-calendar__controls-month">
-            {this._createLabelForDayView(this._activeDate)}
-            {this._wide && this._createLabelForDayView(nextMonthActiveDate)}
-            <span role="status" class="sbb-calendar__visually-hidden">
-              {this._createAriaLabelForDayView(this._activeDate, nextMonthActiveDate)}
-            </span>
-          </div>
-          {this._getArrow(
-            'right',
-            () => this._goToDifferentMonth(1),
-            i18nNextMonth[this._currentLanguage],
-            this._nextMonthDisabled(),
-          )}
+    return html`
+      <div class="sbb-calendar__controls">
+        ${this._getArrow(
+          'left',
+          () => this._goToDifferentMonth(-1),
+          i18nPreviousMonth[this._currentLanguage],
+          this._previousMonthDisabled(),
+        )}
+        <div class="sbb-calendar__controls-month">
+          ${this._createLabelForDayView(this._activeDate)}
+          ${this._wide ? this._createLabelForDayView(nextMonthActiveDate) : nothing}
+          <span role="status" class="sbb-calendar__visually-hidden">
+            ${this._createAriaLabelForDayView(this._activeDate, nextMonthActiveDate)}
+          </span>
         </div>
-        <div class="sbb-calendar__table-container sbb-calendar__table-day-view">
-          {this._createDayTable(this._weeks)}
-          {this._wide && this._createDayTable(this._nextMonthWeeks)}
-        </div>
-      </Fragment>
-    );
+        ${this._getArrow(
+          'right',
+          () => this._goToDifferentMonth(1),
+          i18nNextMonth[this._currentLanguage],
+          this._nextMonthDisabled(),
+        )}
+      </div>
+      <div class="sbb-calendar__table-container sbb-calendar__table-day-view">
+        ${this._createDayTable(this._weeks)}
+        ${this._wide ? this._createDayTable(this._nextMonthWeeks) : nothing}
+      </div>
+    `;
   }
 
   /** Creates the label with the month for the daily view. */
-  private _createLabelForDayView(d: Date): JSX.Element {
+  private _createLabelForDayView(d: Date): TemplateResult {
     const monthLabel = `${
       this._monthNames[this._dateAdapter.getMonth(d)]
     } ${this._dateAdapter.getYear(d)}`;
-    return (
+    return html`
       <button
         type="button"
         id="sbb-calendar__date-selection"
         class="sbb-calendar__controls-change-date"
-        aria-label={`${i18nYearMonthSelection[this._currentLanguage]} ${monthLabel}`}
-        onClick={() => {
+        aria-label="${i18nYearMonthSelection[this._currentLanguage]} ${monthLabel}"
+        @click=${() => {
           this._resetFocus = true;
           this._nextCalendarView = 'year';
           this._removeTable();
         }}
       >
-        {monthLabel}
+        ${monthLabel}
         <sbb-icon name="chevron-small-down-small"></sbb-icon>
       </button>
-    );
+    `;
   }
 
   /** Creates the aria-label for the daily view. */
@@ -822,209 +837,207 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   /** Creates the calendar table for the daily view. */
-  private _createDayTable(weeks: Day[][]): JSX.Element {
-    return (
+  private _createDayTable(weeks: Day[][]): TemplateResult {
+    return html`
       <table
         class="sbb-calendar__table"
-        onFocusout={(event) => this._handleTableBlur(event.relatedTarget as HTMLElement)}
-        onAnimationEnd={(e) => this._tableAnimationEnd(e)}
+        @focusout=${(event) => this._handleTableBlur(event.relatedTarget as HTMLElement)}
+        @animationend=${(e) => this._tableAnimationEnd(e)}
       >
         <thead class="sbb-calendar__table-header">
-          <tr class="sbb-calendar__table-header-row">{this._createDayTableHeader()}</tr>
+          <tr class="sbb-calendar__table-header-row">
+            ${this._createDayTableHeader()}
+          </tr>
         </thead>
-        <tbody class="sbb-calendar__table-body">{this._createDayTableBody(weeks)}</tbody>
+        <tbody class="sbb-calendar__table-body">
+          ${this._createDayTableBody(weeks)}
+        </tbody>
       </table>
-    );
+    `;
   }
 
   /** Creates the table header with the month header cells. */
-  private _createDayTableHeader(): JSX.Element {
-    return this._weekdays.map((day: Weekday) => (
-      <th class="sbb-calendar__table-header">
-        <span class="sbb-calendar__visually-hidden">{day.long}</span>
-        <span aria-hidden="true">{day.narrow}</span>
-      </th>
-    ));
+  private _createDayTableHeader(): TemplateResult[] {
+    return this._weekdays.map(
+      (day: Weekday) => html`
+        <th class="sbb-calendar__table-header">
+          <span class="sbb-calendar__visually-hidden">${day.long}</span>
+          <span aria-hidden="true">${day.narrow}</span>
+        </th>
+      `,
+    );
   }
 
   /** Creates the table body with the day cells. For the first row, it also considers the possible day's offset. */
-  private _createDayTableBody(weeks: Day[][]): JSX.Element {
+  private _createDayTableBody(weeks: Day[][]): TemplateResult[] {
     const today: string = this._dateAdapter.getISOString(this._now());
     return weeks.map((week: Day[], rowIndex: number) => {
       const firstRowOffset: number = DAYS_PER_ROW - week.length;
       if (rowIndex === 0 && firstRowOffset) {
-        return (
+        return html`
           <tr>
-            {[...Array(firstRowOffset).keys()].map(() => (
-              <td
-                class="sbb-calendar__table-data"
-                data-day={`0 ${week[0].monthValue} ${week[0].yearValue}`}
-              ></td>
-            ))}
-            {this._createDayCells(week, today)}
+            ${[...Array(firstRowOffset).keys()].map(
+              () =>
+                html`<td
+                  class="sbb-calendar__table-data"
+                  data-day=${`0 ${week[0].monthValue} ${week[0].yearValue}`}
+                ></td>`,
+            )}
+            ${this._createDayCells(week, today)}
           </tr>
-        );
+        `;
       }
-      return <tr>{this._createDayCells(week, today)}</tr>;
+      return html`<tr>
+        ${this._createDayCells(week, today)}
+      </tr>`;
     });
   }
 
   /** Creates the cells for the daily view. */
-  private _createDayCells(week: Day[], today: string): JSX.Element {
+  private _createDayCells(week: Day[], today: string): TemplateResult[] {
     return week.map((day: Day) => {
       const isOutOfRange = !this._isDayInRange(day.value);
       const isFilteredOut = !this.dateFilter(this._dateAdapter.createDateFromISOString(day.value));
       const selected: boolean = !!this._selected && day.value === this._selected;
       const dayValue = `${day.dayValue} ${day.monthValue} ${day.yearValue}`;
       const isToday = day.value === today;
-      return (
+      return html`
         <td
-          class={{
+          class=${classMap({
             'sbb-calendar__table-data': true,
             'sbb-calendar__table-data-selected': selected,
-          }}
+          })}
         >
           <button
-            class={{
+            class=${classMap({
               'sbb-calendar__cell': true,
               'sbb-calendar__day': true,
               'sbb-calendar__cell-current': isToday,
               'sbb-calendar__selected': selected,
               'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
-            }}
-            onClick={() => this._selectDate(day.value)}
-            disabled={isOutOfRange || isFilteredOut}
-            aria-label={this._dateAdapter.getAccessibilityFormatDate(day.value)}
-            aria-pressed={String(selected)}
-            aria-disabled={String(isOutOfRange || isFilteredOut)}
-            aria-current={isToday ? 'date' : undefined}
-            data-day={dayValue}
+            })}
+            @click=${() => this._selectDate(day.value)}
+            ?disabled=${isOutOfRange || isFilteredOut}
+            aria-label=${this._dateAdapter.getAccessibilityFormatDate(day.value)}
+            aria-pressed=${selected}
+            aria-disabled=${isOutOfRange || isFilteredOut}
+            aria-current=${isToday ? 'date' : nothing}
+            data-day=${dayValue}
             tabindex="-1"
-            onKeyDown={(evt: KeyboardEvent) => this._handleKeyboardEvent(evt, day)}
+            @keydown=${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt, day)}
             sbb-tooltip-close
           >
-            {day.dayValue}
+            ${day.dayValue}
           </button>
         </td>
-      );
+      `;
     });
   }
 
   /** Render the view for the month selection. */
-  private _renderMonthView(): JSX.Element {
-    return (
-      <Fragment>
-        <div class="sbb-calendar__controls">
-          {this._getArrow(
-            'left',
-            () => this._goToDifferentYear(-1),
-            i18nPreviousYear[this._currentLanguage],
-            this._previousYearDisabled(),
-          )}
-          <div class="sbb-calendar__controls-month">{this._createLabelForMonthView()}</div>
-          {this._getArrow(
-            'right',
-            () => this._goToDifferentYear(1),
-            i18nNextYear[this._currentLanguage],
-            this._nextYearDisabled(),
-          )}
-        </div>
-        <div class="sbb-calendar__table-container sbb-calendar__table-month-view">
-          {this._createMonthTable(this._months, this._chosenYear)}
-          {this._wide && this._createMonthTable(this._months, this._chosenYear + 1, true)}
-        </div>
-      </Fragment>
-    );
+  private _renderMonthView(): TemplateResult {
+    return html`
+      <div class="sbb-calendar__controls">
+        ${this._getArrow(
+          'left',
+          () => this._goToDifferentYear(-1),
+          i18nPreviousYear[this._currentLanguage],
+          this._previousYearDisabled(),
+        )}
+        <div class="sbb-calendar__controls-month">${this._createLabelForMonthView()}</div>
+        ${this._getArrow(
+          'right',
+          () => this._goToDifferentYear(1),
+          i18nNextYear[this._currentLanguage],
+          this._nextYearDisabled(),
+        )}
+      </div>
+      <div class="sbb-calendar__table-container sbb-calendar__table-month-view">
+        ${this._createMonthTable(this._months, this._chosenYear)}
+        ${this._wide ? this._createMonthTable(this._months, this._chosenYear + 1, true) : nothing}
+      </div>
+    `;
   }
 
   /** Creates the label with the year for the monthly view. */
-  private _createLabelForMonthView(): JSX.Element {
-    return (
-      <Fragment>
-        <button
-          type="button"
-          id="sbb-calendar__month-selection"
-          class="sbb-calendar__controls-change-date"
-          aria-label={`${i18nCalendarDateSelection[this._currentLanguage]} ${this._chosenYear}`}
-          onClick={() => this._resetToDayView()}
-        >
-          {this._chosenYear}
-          {this._wide && ` - ${this._chosenYear + 1}`}
-          <sbb-icon name="chevron-small-up-small"></sbb-icon>
-        </button>
-        <span role="status" class="sbb-calendar__visually-hidden">
-          {this._chosenYear}
-        </span>
-      </Fragment>
-    );
+  private _createLabelForMonthView(): TemplateResult {
+    return html` <button
+        type="button"
+        id="sbb-calendar__month-selection"
+        class="sbb-calendar__controls-change-date"
+        aria-label=${`${i18nCalendarDateSelection[this._currentLanguage]} ${this._chosenYear}`}
+        @click=${() => this._resetToDayView()}
+      >
+        ${this._chosenYear} ${this._wide ? ` - ${this._chosenYear + 1}` : nothing}
+        <sbb-icon name="chevron-small-up-small"></sbb-icon>
+      </button>
+      <span role="status" class="sbb-calendar__visually-hidden"> ${this._chosenYear} </span>`;
   }
 
   /** Creates the table for the month selection view. */
-  private _createMonthTable(months: Month[][], year: number, shiftRight = false): JSX.Element {
-    return (
-      <table class="sbb-calendar__table" onAnimationEnd={(e) => this._tableAnimationEnd(e)}>
-        {this._wide && (
-          <thead class="sbb-calendar__table-header" aria-hidden={true}>
-            <tr class="sbb-calendar__table-header-row">
-              <th class="sbb-calendar__table-header" colSpan={MONTHS_PER_ROW}>
-                {year}
-              </th>
-            </tr>
-          </thead>
-        )}
+  private _createMonthTable(months: Month[][], year: number, shiftRight = false): TemplateResult {
+    return html`
+      <table class="sbb-calendar__table" @animationend=${(e) => this._tableAnimationEnd(e)}>
+        ${this._wide
+          ? html`<thead class="sbb-calendar__table-header" aria-hidden="true">
+              <tr class="sbb-calendar__table-header-row">
+                <th class="sbb-calendar__table-header" .colspan=${MONTHS_PER_ROW}>${year}</th>
+              </tr>
+            </thead>`
+          : nothing}
         <tbody class="sbb-calendar__table-body">
-          {months.map((row: Month[]) => (
-            <tr>
-              {row.map((month: Month) => {
-                const isOutOfRange = !this._isMonthInRange(month.monthValue);
-                const isFilteredOut = !this._isMonthFilteredOut(month.monthValue);
-                const selectedMonth = this._selected
-                  ? this._dateAdapter.getMonth(new Date(this._selected))
-                  : undefined;
-                const selectedYear = this._selected
-                  ? this._dateAdapter.getYear(new Date(this._selected))
-                  : undefined;
-                const selected: boolean =
-                  !!this._selected && year === selectedYear && month.monthValue === selectedMonth;
+          ${months.map(
+            (row: Month[]) => html`
+              <tr>
+                ${row.map((month: Month) => {
+                  const isOutOfRange = !this._isMonthInRange(month.monthValue);
+                  const isFilteredOut = !this._isMonthFilteredOut(month.monthValue);
+                  const selectedMonth = this._selected
+                    ? this._dateAdapter.getMonth(new Date(this._selected))
+                    : undefined;
+                  const selectedYear = this._selected
+                    ? this._dateAdapter.getYear(new Date(this._selected))
+                    : undefined;
+                  const selected: boolean =
+                    !!this._selected && year === selectedYear && month.monthValue === selectedMonth;
 
-                const isCurrentMonth =
-                  year === this._dateAdapter.getYear(this._now()) &&
-                  this._dateAdapter.getMonth(this._now()) === month.monthValue;
+                  const isCurrentMonth =
+                    year === this._dateAdapter.getYear(this._now()) &&
+                    this._dateAdapter.getMonth(this._now()) === month.monthValue;
 
-                return (
-                  <td
-                    class={{
+                  return html` <td
+                    class=${classMap({
                       'sbb-calendar__table-data': true,
                       'sbb-calendar__table-month': true,
-                    }}
+                    })}
                   >
                     <button
-                      class={{
+                      class=${classMap({
                         'sbb-calendar__cell': true,
                         'sbb-calendar__pill': true,
                         'sbb-calendar__cell-current': isCurrentMonth,
                         'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
                         'sbb-calendar__selected': selected,
-                      }}
-                      onClick={() => this._onMonthSelection(month.monthValue, year, shiftRight)}
-                      disabled={isOutOfRange || isFilteredOut}
-                      aria-label={`${month.longValue} ${this._chosenYear}`}
-                      aria-pressed={String(selected)}
-                      aria-disabled={String(isOutOfRange || isFilteredOut)}
+                      })}
+                      @click=${() => this._onMonthSelection(month.monthValue, year, shiftRight)}
+                      ?disabled=${isOutOfRange || isFilteredOut}
+                      aria-label=${`${month.longValue} ${this._chosenYear}`}
+                      aria-pressed=${selected}
+                      aria-disabled=${String(isOutOfRange || isFilteredOut)}
                       tabindex="-1"
-                      data-month={month.monthValue}
-                      onKeyDown={(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}
+                      data-month=${month.monthValue}
+                      @keydown=${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}
                     >
-                      {month.value}
+                      ${month.value}
                     </button>
-                  </td>
-                );
-              })}
-            </tr>
-          ))}
+                  </td>`;
+                })}
+              </tr>
+            `,
+          )}
         </tbody>
       </table>
-    );
+    `;
   }
 
   /** Select the month and change the view to day selection. */
@@ -1038,30 +1051,28 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   /** Render the view for the year selection. */
-  private _renderYearView(): JSX.Element {
-    return (
-      <Fragment>
-        <div class="sbb-calendar__controls">
-          {this._getArrow(
-            'left',
-            () => this._goToDifferentYearRange(-YEARS_PER_PAGE),
-            i18nPreviousYearRange(YEARS_PER_PAGE)[this._currentLanguage],
-            this._previousYearRangeDisabled(),
-          )}
-          <div class="sbb-calendar__controls-month">{this._createLabelForYearView()}</div>
-          {this._getArrow(
-            'right',
-            () => this._goToDifferentYearRange(YEARS_PER_PAGE),
-            i18nNextYearRange(YEARS_PER_PAGE)[this._currentLanguage],
-            this._nextYearRangeDisabled(),
-          )}
-        </div>
-        <div class="sbb-calendar__table-container sbb-calendar__table-year-view">
-          {this._createYearTable(this._years)}
-          {this._wide && this._createYearTable(this._nextMonthYears, true)}
-        </div>
-      </Fragment>
-    );
+  private _renderYearView(): TemplateResult {
+    return html`
+      <div class="sbb-calendar__controls">
+        ${this._getArrow(
+          'left',
+          () => this._goToDifferentYearRange(-YEARS_PER_PAGE),
+          i18nPreviousYearRange(YEARS_PER_PAGE)[this._currentLanguage],
+          this._previousYearRangeDisabled(),
+        )}
+        <div class="sbb-calendar__controls-month">${this._createLabelForYearView()}</div>
+        ${this._getArrow(
+          'right',
+          () => this._goToDifferentYearRange(YEARS_PER_PAGE),
+          i18nNextYearRange(YEARS_PER_PAGE)[this._currentLanguage],
+          this._nextYearRangeDisabled(),
+        )}
+      </div>
+      <div class="sbb-calendar__table-container sbb-calendar__table-year-view">
+        ${this._createYearTable(this._years)}
+        ${this._wide ? this._createYearTable(this._nextMonthYears, true) : nothing}
+      </div>
+    `;
   }
 
   /** Creates the button arrow for all the views. */
@@ -1070,55 +1081,52 @@ export class SbbCalendar implements ComponentInterface {
     click: () => void,
     ariaLabel: string,
     disabled: boolean,
-  ): JSX.Element {
-    return (
-      <sbb-button
-        variant="secondary"
-        size="m"
-        iconName={`chevron-small-${direction}-small`}
-        aria-label={ariaLabel}
-        onClick={click}
-        disabled={disabled}
-        id={`sbb-calendar__controls-${direction === 'left' ? 'previous' : 'next'}`}
-      />
-    );
+  ): TemplateResult {
+    return html`<sbb-button
+      variant="secondary"
+      size="m"
+      icon-name="chevron-small-${direction}-small"
+      aria-label=${ariaLabel}
+      @click=${click}
+      ?disabled=${disabled}
+      id="sbb-calendar__controls-${direction === 'left' ? 'previous' : 'next'}"
+    ></sbb-button>`;
   }
 
   /** Creates the label with the year range for the yearly view. */
-  private _createLabelForYearView(): JSX.Element {
+  private _createLabelForYearView(): TemplateResult {
     const firstYear: number = this._years.flat()[0];
     const lastYearArray: number[] = (
       isBreakpoint('medium') && this.wide ? this._nextMonthYears : this._years
     ).flat();
     const lastYear: number = lastYearArray[lastYearArray.length - 1];
     const yearLabel = `${firstYear} - ${lastYear}`;
-    return (
-      <Fragment>
-        <button
-          type="button"
-          id="sbb-calendar__year-selection"
-          class="sbb-calendar__controls-change-date"
-          aria-label={`${i18nCalendarDateSelection[this._currentLanguage]} ${yearLabel}`}
-          onClick={() => this._resetToDayView()}
-        >
-          {yearLabel}
-          <sbb-icon name="chevron-small-up-small"></sbb-icon>
-        </button>
-        <span role="status" class="sbb-calendar__visually-hidden">
-          {yearLabel}
-        </span>
-      </Fragment>
-    );
+    return html`
+      <button
+        type="button"
+        id="sbb-calendar__year-selection"
+        class="sbb-calendar__controls-change-date"
+        aria-label="${i18nCalendarDateSelection[this._currentLanguage]} ${yearLabel}"
+        @click=${() => this._resetToDayView()}
+      >
+        ${yearLabel}
+        <sbb-icon name="chevron-small-up-small"></sbb-icon>
+      </button>
+      <span role="status" class="sbb-calendar__visually-hidden"> ${yearLabel} </span>
+    `;
   }
 
   /** Creates the table for the year selection view. */
-  private _createYearTable(years: number[][], shiftRight = false): JSX.Element {
-    return (
-      <table class="sbb-calendar__table" onAnimationEnd={(e) => this._tableAnimationEnd(e)}>
-        <tbody class="sbb-calendar__table-body">
-          {years.map((row: number[]) => (
-            <tr>
-              {row.map((year: number) => {
+  private _createYearTable(years: number[][], shiftRight = false): TemplateResult {
+    return html` <table
+      class="sbb-calendar__table"
+      @animationend=${(e) => this._tableAnimationEnd(e)}
+    >
+      <tbody class="sbb-calendar__table-body">
+        ${years.map(
+          (row: number[]) =>
+            html` <tr>
+              ${row.map((year: number) => {
                 const isOutOfRange = !this._isYearInRange(year);
                 const isFilteredOut = !this._isYearFilteredOut(year);
                 const selectedYear = this._selected
@@ -1126,35 +1134,32 @@ export class SbbCalendar implements ComponentInterface {
                   : undefined;
                 const selected: boolean = !!this._selected && year === selectedYear;
                 const isCurrentYear = this._dateAdapter.getYear(this._now()) === year;
-                return (
-                  <td class="sbb-calendar__table-data sbb-calendar__table-year">
-                    <button
-                      class={{
-                        'sbb-calendar__cell': true,
-                        'sbb-calendar__pill': true,
-                        'sbb-calendar__cell-current': isCurrentYear,
-                        'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
-                        'sbb-calendar__selected': selected,
-                      }}
-                      onClick={() => this._onYearSelection(year, shiftRight)}
-                      disabled={isOutOfRange || isFilteredOut}
-                      aria-label={year}
-                      aria-pressed={String(selected)}
-                      aria-disabled={String(isOutOfRange || isFilteredOut)}
-                      tabindex="-1"
-                      data-year={year}
-                      onKeyDown={(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}
-                    >
-                      {year}
-                    </button>
-                  </td>
-                );
+                return html` <td class="sbb-calendar__table-data sbb-calendar__table-year">
+                  <button
+                    class=${classMap({
+                      'sbb-calendar__cell': true,
+                      'sbb-calendar__pill': true,
+                      'sbb-calendar__cell-current': isCurrentYear,
+                      'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
+                      'sbb-calendar__selected': selected,
+                    })}
+                    @click=${() => this._onYearSelection(year, shiftRight)}
+                    ?disabled=${isOutOfRange || isFilteredOut}
+                    aria-label=${year}
+                    aria-pressed=${selected}
+                    aria-disabled=${String(isOutOfRange || isFilteredOut)}
+                    tabindex="-1"
+                    data-year=${year}
+                    @keydown=${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}
+                  >
+                    ${year}
+                  </button>
+                </td>`;
               })}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    );
+            </tr>`,
+        )}
+      </tbody>
+    </table>`;
   }
 
   /** Select the year and change the view to month selection. */
@@ -1168,7 +1173,7 @@ export class SbbCalendar implements ComponentInterface {
     this._removeTable();
   }
 
-  private get _getView(): JSX.Element {
+  private get _getView(): TemplateResult {
     switch (this._calendarView) {
       case 'year':
         return this._renderYearView();
@@ -1192,16 +1197,19 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   private _removeTable(): void {
-    const table = this._element.shadowRoot.querySelectorAll('table');
+    const table = this.shadowRoot.querySelectorAll('table');
     table.forEach((e) => e.classList.toggle('sbb-calendar__table-hide'));
     return;
   }
 
-  public render(): JSX.Element {
-    return (
-      <Host data-wide={this._wide}>
-        <div class="sbb-calendar__wrapper">{this._getView}</div>
-      </Host>
-    );
+  protected override render(): TemplateResult {
+    return html`<div class="sbb-calendar__wrapper">${this._getView}</div>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-calendar': SbbCalendar;
   }
 }
