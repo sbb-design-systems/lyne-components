@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.41.2](https://github.com/lyne-design-system/lyne-components/compare/v0.41.1...v0.41.2) (2023-10-04)
+
+### Bug Fixes
+
+- **sbb-calendar:** fix wrong width when orientation changes in iOS ([#2044](https://github.com/lyne-design-system/lyne-components/issues/2044)) ([ccf2704](https://github.com/lyne-design-system/lyne-components/commit/ccf2704ba067efa82ea1a27bb3997025625ca0b8))
+
 ### [0.41.1](https://github.com/lyne-design-system/lyne-components/compare/v0.41.0...v0.41.1) (2023-10-04)
 
 ### Bug Fixes
