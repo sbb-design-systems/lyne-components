@@ -1,16 +1,4 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  h,
-  Host,
-  JSX,
-  Method,
-  Prop,
-  State,
-  Watch,
-} from '@stencil/core';
-import { SbbOverlayState } from '../../components';
+import { SbbOverlayState } from '../../global/overlay';
 import {
   assignId,
   getFirstFocusableElement,
@@ -30,6 +18,14 @@ import {
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
 } from '../../global/overlay';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { spread } from '@open-wc/lit-helpers';
+import { SbbNavigation } from '../sbb-navigation/index';
+import { SbbNavigationMarker } from '../sbb-navigation-marker/index';
+import { setAttribute } from '../../global/dom';
+import { ref } from 'lit/directives/ref.js';
+import Style from './sbb-navigation-section.scss?lit&inline';
 
 let nextId = 0;
 
@@ -37,53 +33,64 @@ let nextId = 0;
  * @slot unnamed - Use this to project any content inside the navigation section.
  */
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-navigation-section.scss',
-  tag: 'sbb-navigation-section',
-})
-export class SbbNavigationSection implements ComponentInterface {
+@customElement('sbb-navigation-section')
+export class SbbNavigationSection extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /*
    * The label to be shown before the action list.
    */
-  @Prop() public titleContent?: string;
+  @property({ attribute: 'title-content' }) public titleContent?: string;
 
   /**
    * The element that will trigger the navigation section.
    * Accepts both a string (id of an element) or an HTML element.
    */
-  @Prop() public trigger: string | HTMLElement;
+  @property()
+  public get trigger(): string | HTMLElement {
+    return this._trigger;
+  }
+  public set trigger(value: string | HTMLElement) {
+    const oldValue = this._trigger;
+    this._trigger = value;
+    this._removeTriggerClickListener(this._trigger, oldValue);
+    this.requestUpdate('trigger', oldValue);
+  }
+  private _trigger: string | HTMLElement = null;
 
   /**
    * This will be forwarded as aria-label to the dialog and is read as a title of the navigation-section.
    */
-  @Prop() public accessibilityLabel: string | undefined;
+  @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
 
   /**
    * This will be forwarded as aria-label to the back button element.
    */
-  @Prop() public accessibilityBackLabel: string | undefined;
+  @property({ attribute: 'accessibility-back-label' }) public accessibilityBackLabel:
+    | string
+    | undefined;
 
   /**
    * Whether the animation is enabled.
    */
-  @Prop({ reflect: true }) public disableAnimation = false;
+  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
+  public disableAnimation = false;
 
   /**
    * The state of the navigation section.
    */
-  @State() private _state: SbbOverlayState = 'closed';
+  @state() private _state: SbbOverlayState = 'closed';
 
   /**
    * State of listed named slots, by indicating whether any element for a named slot is defined.
    */
-  @State() private _namedSlots = createNamedSlotState('title');
+  @state() private _namedSlots = createNamedSlotState('title');
 
-  @State() private _currentLanguage = documentLanguage();
+  @state() private _currentLanguage = documentLanguage();
 
-  @State() private _renderBackButton = this._isZeroToLargeBreakpoint();
+  @state() private _renderBackButton = this._isZeroToLargeBreakpoint();
 
-  private _firstLevelNavigation: HTMLSbbNavigationElement;
+  private _firstLevelNavigation: SbbNavigation;
   private _navigationSection: HTMLDialogElement;
   private _navigationSectionContainerElement: HTMLElement;
   private _triggerElement: HTMLElement;
@@ -91,10 +98,8 @@ export class SbbNavigationSection implements ComponentInterface {
   private _windowEventsController: AbortController;
   private _navigationSectionId = `sbb-navigation-section-${++nextId}`;
 
-  @Element() private _element!: HTMLElement;
-
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
@@ -102,8 +107,7 @@ export class SbbNavigationSection implements ComponentInterface {
   /**
    * Opens the navigation section on trigger click.
    */
-  @Method()
-  public async open(): Promise<void> {
+  public open(): void {
     if (this._state !== 'closed' || !this._navigationSection) {
       return;
     }
@@ -117,20 +121,18 @@ export class SbbNavigationSection implements ComponentInterface {
   /**
    * Closes the navigation section.
    */
-  @Method()
-  public async close(): Promise<void> {
+  public close(): void {
     if (this._state !== 'opened') {
       return;
     }
 
-    await this._resetMarker();
+    this._resetMarker();
     this._state = 'closing';
     this._triggerElement?.setAttribute('aria-expanded', 'false');
   }
 
   // Removes trigger click listener on trigger change.
-  @Watch('trigger')
-  public removeTriggerClickListener(
+  private _removeTriggerClickListener(
     newValue: string | HTMLElement,
     oldValue: string | HTMLElement,
   ): void {
@@ -158,18 +160,16 @@ export class SbbNavigationSection implements ComponentInterface {
     setAriaOverlayTriggerAttributes(
       this._triggerElement,
       'menu',
-      this._element.id || this._navigationSectionId,
+      this.id || this._navigationSectionId,
       this._state,
     );
     this._navigationSectionController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._navigationSectionController.signal,
     });
-    this._element.addEventListener(
-      'keydown',
-      (event) => this._handleNavigationSectionFocus(event),
-      { signal: this._navigationSectionController.signal },
-    );
+    this.addEventListener('keydown', (event) => this._handleNavigationSectionFocus(event), {
+      signal: this._navigationSectionController.signal,
+    });
   }
 
   private _setNavigationInert(): void {
@@ -223,12 +223,12 @@ export class SbbNavigationSection implements ComponentInterface {
   }
 
   // Check if the click was triggered on an element that should close the section.
-  private _handleNavigationSectionClose = async (event: Event): Promise<void> => {
+  private _handleNavigationSectionClose = (event: Event): void => {
     const composedPathElements = event
       .composedPath()
       .filter((el) => el instanceof window.HTMLElement);
     if (composedPathElements.some((el) => this._isCloseElement(el as HTMLElement))) {
-      await this.close();
+      this.close();
     }
   };
 
@@ -252,16 +252,16 @@ export class SbbNavigationSection implements ComponentInterface {
     return isBreakpoint('zero', 'large');
   }
 
-  private async _resetMarker(): Promise<void> {
+  private _resetMarker(): void {
     if (this._isZeroToLargeBreakpoint()) {
-      await (this._triggerElement?.parentElement as HTMLSbbNavigationMarkerElement)?.reset();
+      (this._triggerElement?.parentElement as SbbNavigationMarker)?.reset();
     }
   }
 
   // Closes the navigation on "Esc" key pressed.
-  private async _onKeydownEvent(event: KeyboardEvent): Promise<void> {
+  private _onKeydownEvent(event: KeyboardEvent): void {
     if (this._state === 'opened' && event.key === 'Escape') {
-      await this.close();
+      this.close();
     }
   }
 
@@ -269,9 +269,7 @@ export class SbbNavigationSection implements ComponentInterface {
   private _setNavigationSectionFocus(): void {
     if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
       getFirstFocusableElement(
-        Array.from(this._element.children).filter(
-          (e): e is HTMLElement => e instanceof window.HTMLElement,
-        ),
+        Array.from(this.children).filter((e): e is HTMLElement => e instanceof window.HTMLElement),
       )?.focus();
     } else {
       // Focusing sbb-navigation__wrapper in order to provide a consistent behavior in Safari where else
@@ -294,16 +292,14 @@ export class SbbNavigationSection implements ComponentInterface {
 
     // Dynamically get first and last focusable element, as this might have changed since opening overlay
     const navigationChildren: HTMLElement[] = Array.from(
-      this._element.closest('sbb-navigation').shadowRoot.children,
+      this.closest('sbb-navigation').shadowRoot.children,
     ) as HTMLElement[];
     const navigationFocusableElements = getFocusableElements(
       navigationChildren,
       (el) => el.nodeName === 'SBB-NAVIGATION-SECTION',
     );
 
-    const sectionChildren: HTMLElement[] = Array.from(
-      this._element.shadowRoot.children,
-    ) as HTMLElement[];
+    const sectionChildren: HTMLElement[] = Array.from(this.shadowRoot.children) as HTMLElement[];
     const sectionFocusableElements = getFocusableElements(sectionChildren);
 
     const firstFocusable = sectionFocusableElements[0] as HTMLElement;
@@ -326,41 +322,43 @@ export class SbbNavigationSection implements ComponentInterface {
     }
   }
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
     this._handlerRepository.connect();
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
     this._firstLevelNavigation = this._triggerElement?.closest('sbb-navigation');
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
     this._navigationSectionController?.abort();
     this._windowEventsController?.abort();
   }
 
-  public render(): JSX.Element {
-    const backButton = (
+  protected override render(): TemplateResult {
+    const backButton = html`
       <sbb-button
         class="sbb-navigation-section__back"
-        arial-label={this.accessibilityBackLabel || i18nGoBack[this._currentLanguage]}
+        arial-label=${this.accessibilityBackLabel || i18nGoBack[this._currentLanguage]}
         variant="transparent"
-        negative={true}
+        negative=${true}
         size="m"
         type="button"
         icon-name="chevron-small-left-small"
         sbb-navigation-section-close
       ></sbb-button>
-    );
+    `;
 
-    const labelElement = (
+    const labelElement = html`
       <div class="sbb-navigation-section__header">
-        {this._renderBackButton && backButton}
+        ${this._renderBackButton ? backButton : nothing}
         <span class="sbb-navigation-section__title" id="title">
-          <slot name="title">{this.titleContent}</slot>
+          <slot name="title">${this.titleContent}</slot>
         </span>
       </div>
-    );
+    `;
 
     // Accessibility label should win over aria-labelledby
     let accessibilityAttributes: Record<string, string> = { 'aria-labelledby': 'title' };
@@ -368,37 +366,45 @@ export class SbbNavigationSection implements ComponentInterface {
       accessibilityAttributes = { 'aria-label': this.accessibilityLabel };
     }
 
-    return (
-      <Host
-        slot="navigation-section"
-        data-state={this._state}
-        ref={assignId(() => this._navigationSectionId)}
+    setAttribute(this, 'slot', 'navigation-section');
+    setAttribute(this, 'data-state', this._state);
+    assignId(() => this._navigationSectionId)(this);
+
+    return html`
+      <div
+        class="sbb-navigation-section__container"
+        ${ref((el) => (this._navigationSectionContainerElement = el as HTMLElement))}
       >
-        <div
-          class="sbb-navigation-section__container"
-          ref={(el) => (this._navigationSectionContainerElement = el)}
+        <dialog
+          ${ref(
+            (navigationSectionRef) =>
+              (this._navigationSection = navigationSectionRef as HTMLDialogElement),
+          )}
+          @animationend=${(event: AnimationEvent) => this._onAnimationEnd(event)}
+          class="sbb-navigation-section"
+          role="group"
+          ${spread(accessibilityAttributes)}
         >
-          <dialog
-            ref={(navigationSectionRef) => (this._navigationSection = navigationSectionRef)}
-            onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
-            class="sbb-navigation-section"
-            role="group"
-            {...accessibilityAttributes}
-          >
-            <div class="sbb-navigation-section__wrapper">
-              <div class="sbb-navigation-section__content">
-                <sbb-divider
-                  class="sbb-navigation-section__divider"
-                  orientation="vertical"
-                  negative
-                />
-                {(!!this.titleContent || this._namedSlots.title) && labelElement}
-                <slot />
-              </div>
+          <div class="sbb-navigation-section__wrapper">
+            <div class="sbb-navigation-section__content">
+              <sbb-divider
+                class="sbb-navigation-section__divider"
+                orientation="vertical"
+                negative
+              />
+              ${!!this.titleContent || this._namedSlots.title ? labelElement : nothing}
+              <slot></slot>
             </div>
-          </dialog>
-        </div>
-      </Host>
-    );
+          </div>
+        </dialog>
+      </div>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-navigation-section': SbbNavigationSection;
   }
 }

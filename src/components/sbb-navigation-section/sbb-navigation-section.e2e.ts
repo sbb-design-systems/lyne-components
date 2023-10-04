@@ -1,16 +1,17 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 import { waitForCondition } from '../../global/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { SbbNavigationSection } from './sbb-navigation-section';
 
 describe('sbb-navigation-section', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbNavigationSection;
 
   beforeEach(async () => {
-    page = await newE2EPage();
-    await page.setContent(`
+    element = await fixture(html`
       <sbb-navigation disable-animation>
         <sbb-navigation-section disable-animation>
           <sbb-navigation-list>
-            <sbb-navigation-action >Tickets & Offers</sbb-navigation-action>
+            <sbb-navigation-action>Tickets & Offers</sbb-navigation-action>
             <sbb-navigation-action>Vacations & Recreation</sbb-navigation-action>
             <sbb-navigation-action>Travel information</sbb-navigation-action>
             <sbb-navigation-action>Help & Contact</sbb-navigation-action>
@@ -18,42 +19,41 @@ describe('sbb-navigation-section', () => {
         </sbb-navigation-section>
       </sbb-navigation>
     `);
-    element = await page.find('sbb-navigation-section');
   });
 
   it('renders', async () => {
-    expect(element).toHaveClass('hydrated');
+    assert.instanceOf(element, SbbNavigationSection);
   });
 
   it('opens the section', async () => {
-    const dialog = await page.find('sbb-navigation-section >>> dialog');
+    const dialog = element.shadowRoot.querySelector('dialog');
 
-    await element.callMethod('open');
-    await page.waitForChanges();
+    element.open();
+    await element.updateComplete;
 
-    expect(await waitForCondition(() => element.getAttribute('data-state') === 'opened')).toBe(
-      true,
-    );
-    expect(dialog).toHaveAttribute('open');
+    expect(
+      await waitForCondition(() => element.getAttribute('data-state') === 'opened'),
+    ).to.be.equal(true);
+    expect(dialog).to.have.attribute('open');
   });
 
   it('closes the section', async () => {
-    const dialog = await page.find('sbb-navigation-section >>> dialog');
+    const dialog = element.shadowRoot.querySelector('dialog');
 
-    await element.callMethod('open');
-    await page.waitForChanges();
+    element.open();
+    await element.updateComplete;
 
-    expect(await waitForCondition(() => element.getAttribute('data-state') === 'opened')).toBe(
-      true,
-    );
-    expect(dialog).toHaveAttribute('open');
+    expect(
+      await waitForCondition(() => element.getAttribute('data-state') === 'opened'),
+    ).to.be.equal(true);
+    expect(dialog).to.have.attribute('open');
 
-    await element.callMethod('close');
-    await page.waitForChanges();
+    element.close();
+    await element.updateComplete;
 
-    expect(await waitForCondition(() => element.getAttribute('data-state') === 'closed')).toBe(
-      true,
-    );
-    expect(dialog).not.toHaveAttribute('open');
+    expect(
+      await waitForCondition(() => element.getAttribute('data-state') === 'closed'),
+    ).to.be.equal(true);
+    expect(dialog).not.to.have.attribute('open');
   });
 });
