@@ -203,7 +203,7 @@ const TicketsOptionsExampleTemplate = ({ checkedInput, disabledInput, ...args })
         {suffixAndSubtext()}
       </sbb-checkbox>
       <div slot="content">
-        <sbb-radio-button-group orientation="vertical">
+        <sbb-radio-button-group orientation="vertical" value="non-flex">
           <sbb-radio-button value="non-flex" style={{ width: '100%' }}>
             Non-Flex
             <span slot="subtext">No refund possible</span>
@@ -312,7 +312,7 @@ const NestedRadioTemplate = ({ checkedInput, disabledInput, ...args }): JSX.Elem
       <sbb-radio-button value="mainoption1" checked={checkedInput}>
         Main Option 1
       </sbb-radio-button>
-      <sbb-radio-button-group orientation="vertical" slot="content">
+      <sbb-radio-button-group orientation="vertical" value="suboption1" slot="content">
         <sbb-radio-button value="suboption1">Suboption 1</sbb-radio-button>
         <sbb-radio-button value="suboption2">Suboption 2</sbb-radio-button>
       </sbb-radio-button-group>
@@ -322,7 +322,7 @@ const NestedRadioTemplate = ({ checkedInput, disabledInput, ...args }): JSX.Elem
       <sbb-radio-button value="mainoption2" disabled={disabledInput}>
         Main Option 2
       </sbb-radio-button>
-      <sbb-radio-button-group orientation="vertical" slot="content">
+      <sbb-radio-button-group orientation="vertical" value="suboption2" slot="content">
         <sbb-radio-button value="suboption1">Suboption 1</sbb-radio-button>
         <sbb-radio-button value="suboption2">Suboption 2</sbb-radio-button>
       </sbb-radio-button-group>
