@@ -21,9 +21,9 @@ describe('sbb-button', () => {
       await element.updateComplete;
       const clickSpy = new EventSpy('click');
 
-      await element.click();
+      element.click();
       await waitForCondition(() => clickSpy.events.length === 1);
-      expect(clickSpy.count).to.be.equal(1);
+      await expect(clickSpy.count).to.be.equal(1);
     });
 
     it('should not dispatch event on click if disabled', async () => {
@@ -44,7 +44,7 @@ describe('sbb-button', () => {
 
       const clickSpy = new EventSpy('click');
 
-      await element.click();
+      element.click();
       expect(clickSpy.count).to.be.greaterThan(0);
     });
 
@@ -97,7 +97,7 @@ describe('sbb-button', () => {
       element.focus();
       await element.updateComplete;
 
-      expect(document.activeElement.id).to.be.equal('focus-id');
+      await expect(document.activeElement.id).to.be.equal('focus-id');
     });
   });
 });

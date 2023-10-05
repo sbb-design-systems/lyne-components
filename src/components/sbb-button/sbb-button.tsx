@@ -3,7 +3,6 @@ import {
   ButtonType,
   IsStaticProperty,
   LinkButtonProperties,
-  LinkButtonRenderVariables,
   LinkTargetType,
   resolveRenderVariables,
   targetsNewWindow,
@@ -130,11 +129,7 @@ export class SbbButton extends LitElement implements LinkButtonProperties, IsSta
   }
 
   protected override render(): TemplateResult {
-    const {
-      tagName: TAG_NAME,
-      attributes,
-      hostAttributes,
-    }: LinkButtonRenderVariables = resolveRenderVariables(this);
+    const { tagName: TAG_NAME, attributes, hostAttributes } = resolveRenderVariables(this);
 
     setAttributes(this, hostAttributes);
     setAttribute(this, 'data-icon-only', !this._hasText);
