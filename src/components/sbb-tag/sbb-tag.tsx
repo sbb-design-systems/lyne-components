@@ -11,7 +11,7 @@ import {
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { SbbTagGroup } from '../sbb-tag-group/index';
-import { setAttributes } from '../../global/dom';
+import { setAttribute, setAttributes } from '../../global/dom';
 import Style from './sbb-tag.scss?lit&inline';
 
 /**
@@ -62,6 +62,7 @@ export class SbbTag extends LitElement {
     this._checked = value;
     this._handleCheckedChange(this._checked, oldValue);
     this.requestUpdate('checked', oldValue);
+    console.log(value);
   }
   private _checked: boolean = false;
 
@@ -109,6 +110,7 @@ export class SbbTag extends LitElement {
   /** Change event emitter */
   private _change: EventEmitter = new EventEmitter(this, events.change, { bubbles: true });
 
+  private _abort = new ConnectedAbortController(this);
   private _handlerRepository = new HandlerRepository(
     this,
     actionElementHandlerAspect,
@@ -121,7 +123,6 @@ export class SbbTag extends LitElement {
     this.addEventListener('click', () => this._handleClick(), { signal });
     this._handlerRepository.connect();
   }
-  private _abort = new ConnectedAbortController(this);
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
@@ -152,6 +153,7 @@ export class SbbTag extends LitElement {
     hostAttributes['aria-pressed'] = this.checked.toString();
 
     setAttributes(this, hostAttributes);
+    setAttribute(this, 'checked', this._checked);
 
     return html`
       <span class="sbb-tag">

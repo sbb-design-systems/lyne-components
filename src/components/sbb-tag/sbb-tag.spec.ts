@@ -31,7 +31,7 @@ describe('sbb-tag', () => {
 
     expect(root).dom.to.be.equal(
       `
-      <sbb-tag aria-pressed="true" checked role="button" tabindex="0" value="info" dir="ltr">
+      <sbb-tag aria-pressed="true" checked="true" role="button" tabindex="0" value="info" dir="ltr">
         Info
       </sbb-tag>
     `,

@@ -16,7 +16,7 @@ describe('sbb-tag', () => {
   });
 
   it('should be checked after click', async () => {
-    expect(element).to.have.attribute('checked', null);
+    expect(element).not.to.have.attribute('checked');
     const changeSpy = new EventSpy('change', document);
     const inputSpy = new EventSpy('input', document);
 
@@ -25,11 +25,11 @@ describe('sbb-tag', () => {
 
     expect(changeSpy.count).to.be.greaterThan(0);
     expect(inputSpy.count).to.be.greaterThan(0);
-    expect(element).to.have.attribute('checked', '');
+    expect(element).to.have.attribute('checked');
   });
 
   it('should not be checked after click when disabled', async () => {
-    expect(element).to.have.attribute('checked', null);
+    expect(element).not.to.have.attribute('checked');
     element.setAttribute('disabled', '');
     await element.updateComplete;
 
@@ -45,7 +45,7 @@ describe('sbb-tag', () => {
   });
 
   it('should be checked after "Space" keypress', async () => {
-    expect(element).to.have.attribute('checked', null);
+    expect(element).not.to.have.attribute('checked');
     const changeSpy = new EventSpy('change', document);
     const inputSpy = new EventSpy('input', document);
 
@@ -55,7 +55,7 @@ describe('sbb-tag', () => {
     await element.updateComplete;
     expect(changeSpy.count).to.be.greaterThan(0);
     expect(inputSpy.count).to.be.greaterThan(0);
-    expect(element).to.have.attribute('checked', '');
+    expect(element).to.have.attribute('checked');
   });
 
   it('should be unchecked after "Space" keypress', async () => {
@@ -70,6 +70,6 @@ describe('sbb-tag', () => {
     await element.updateComplete;
     expect(changeSpy.count).to.be.greaterThan(0);
     expect(inputSpy.count).to.be.greaterThan(0);
-    expect(element).to.have.attribute('checked', null);
+    expect(element).not.to.have.attribute('checked');
   });
 });
