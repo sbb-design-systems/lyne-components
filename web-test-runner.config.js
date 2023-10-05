@@ -26,9 +26,9 @@ const e2eFiles = glob
 
 const browsers = isCIEnvironment
   ? [
-      playwrightLauncher({ product: 'chromium', concurrency: 1 }),
-      playwrightLauncher({ product: 'firefox', concurrency: 1 }),
-      playwrightLauncher({ product: 'webkit', concurrency: 1 }),
+      playwrightLauncher({ product: 'chromium' }),
+      playwrightLauncher({ product: 'firefox' }),
+      playwrightLauncher({ product: 'webkit' }),
     ]
   : isDebugMode
   ? [puppeteerLauncher({ concurrency: 1, launchOptions: { headless: false, devtools: true } })]
