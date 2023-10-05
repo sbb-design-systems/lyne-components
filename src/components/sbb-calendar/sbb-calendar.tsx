@@ -24,6 +24,7 @@ import {
   i18nPreviousYearRange,
   i18nYearMonthSelection,
 } from '../../global/i18n';
+import { setAttribute } from '../../global/dom';
 import { CalendarView, Day, Month, Weekday } from './sbb-calendar.custom';
 import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
@@ -1200,6 +1201,7 @@ export class SbbCalendar extends LitElement {
   }
 
   protected override render(): TemplateResult {
+    setAttribute(this, 'data-wide', this._wide);
     return html`<div class="sbb-calendar__wrapper">${this._getView}</div>`;
   }
 }
