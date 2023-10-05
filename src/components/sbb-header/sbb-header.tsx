@@ -1,5 +1,8 @@
-import { Component, ComponentInterface, Element, h, JSX, Prop, State, Watch } from '@stencil/core';
 import { findReferencedElement, toggleDatasetEntry } from '../../global/dom';
+import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import Style from './sbb-header.scss?lit&inline';
+import '../sbb-logo';
 
 const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
 
@@ -8,57 +11,62 @@ const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
  * @slot logo - Slot used to render the logo on the right side (sbb-logo as default).
  */
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-header.scss',
-  tag: 'sbb-header',
-})
-export class SbbHeader implements ComponentInterface {
+@customElement('sbb-header')
+export class SbbHeader extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /**
    * Whether to allow the header content to stretch to full width.
    * By default, the content has the appropriate page size.
    */
-  @Prop({ reflect: true }) public expanded = false;
+  @property({ reflect: true, type: Boolean }) public expanded = false;
 
   /** The element's id or the element on which the scroll listener is attached. */
-  @Prop() public scrollOrigin: string | HTMLElement | Document = document;
+  @property({ attribute: 'scroll-origin' })
+  public get scrollOrigin(): string | HTMLElement | Document {
+    return this._scrollOrigin;
+  }
+  public set scrollOrigin(value: string | HTMLElement | Document) {
+    const oldValue = this._scrollOrigin;
+    this._scrollOrigin = value;
+    this._updateScrollOrigin(this._scrollOrigin, oldValue);
+    this.requestUpdate('scrollOrigin', oldValue);
+  }
+  private _scrollOrigin: string | HTMLElement | Document = document;
 
   /** Whether the header should hide and show on scroll. */
-  @Prop({ reflect: true }) public hideOnScroll = false;
+  @property({ attribute: 'hide-on-scroll', reflect: true, type: Boolean }) public hideOnScroll =
+    false;
 
-  @State() private _headerOnTop = true;
-
-  @Element() private _element!: HTMLElement;
+  @state() private _headerOnTop = true;
 
   private _scrollElement: HTMLElement | Document;
-
   private _scrollEventsController: AbortController;
-
   private _scrollFunction: () => void;
-
   private _lastScroll = 0;
 
-  @Watch('scrollOrigin')
-  public watchScrollOrigin(
+  private _updateScrollOrigin(
     newValue: string | HTMLElement | Document,
     oldValue: string | HTMLElement | Document,
   ): void {
     if (newValue !== oldValue) {
       this._scrollEventsController?.abort();
       this._setListenerOnScrollElement(newValue);
-      const currentScroll = this._getCurrentScroll();
+      const currentScroll = this._getCurrentScrollProperty('scrollTop');
       // `currentScroll` can be negative, e.g. on mobile; this is not allowed.
       this._lastScroll = currentScroll <= 0 ? 0 : currentScroll;
     }
   }
 
   /** If `hideOnScroll` is set, checks the element to hook the listener on, and possibly add it.*/
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
     this._setListenerOnScrollElement(this.scrollOrigin);
   }
 
   /** Removes the scroll listener, if previously attached. */
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._scrollEventsController?.abort();
   }
 
@@ -77,17 +85,12 @@ export class SbbHeader implements ComponentInterface {
     return this.hideOnScroll ? this._scrollListener() : this._scrollShadowListener();
   }
 
-  /** Return the correct scroll element. */
-  private _getScrollDocumentElement(): HTMLElement {
+  /** Returns the requested property of the scrollContext. */
+  private _getCurrentScrollProperty(property: 'scrollTop' | 'scrollHeight'): number {
     if (this._scrollElement instanceof Document) {
-      return this._scrollElement.documentElement || this._scrollElement.body;
+      return this._scrollElement.documentElement[property] || this._scrollElement.body[property];
     }
-    return this._scrollElement;
-  }
-
-  /** Calculates the correct scrollTop value based on the value of `_scrollElement`. */
-  private _getCurrentScroll(): number {
-    return this._getScrollDocumentElement().scrollTop;
+    return this._scrollElement[property];
   }
 
   /**
@@ -97,36 +100,36 @@ export class SbbHeader implements ComponentInterface {
    * - shows the header and re-apply the shadow if the element/document has been scrolled up.
    */
   private _scrollListener(): void {
-    const currentScroll = this._getCurrentScroll();
+    const currentScroll = this._getCurrentScrollProperty('scrollTop');
 
     // Whether the scroll view is bouncing past the edge of content and back again.
-    if (this._getScrollDocumentElement().scrollHeight - window.innerHeight - currentScroll <= 0) {
+    if (this._getCurrentScrollProperty('scrollHeight') - window.innerHeight - currentScroll <= 0) {
       return;
     }
 
-    toggleDatasetEntry(this._element, 'shadow', currentScroll !== 0);
+    toggleDatasetEntry(this, 'shadow', currentScroll !== 0);
 
     // Close open overlays when scrolling down if the header is scrolled out of sight.
     if (
-      currentScroll > this._element.offsetHeight &&
+      currentScroll > this.offsetHeight &&
       currentScroll > 0 &&
       this._lastScroll < currentScroll
     ) {
       this._closeOpenOverlays();
     }
     // Check if header is scrolled out of sight, scroll position > header height * 2.
-    if (currentScroll > this._element.offsetHeight * 2) {
+    if (currentScroll > this.offsetHeight * 2) {
       this._headerOnTop = false;
       if (currentScroll > 0 && this._lastScroll < currentScroll) {
         // Scrolling down
-        toggleDatasetEntry(this._element, 'shadow', false);
-        toggleDatasetEntry(this._element, 'visible', false);
+        toggleDatasetEntry(this, 'shadow', false);
+        toggleDatasetEntry(this, 'visible', false);
       } else {
         // Scrolling up
-        toggleDatasetEntry(this._element, 'fixed', true);
-        toggleDatasetEntry(this._element, 'shadow', true);
-        toggleDatasetEntry(this._element, 'animated', true);
-        toggleDatasetEntry(this._element, 'visible', true);
+        toggleDatasetEntry(this, 'fixed', true);
+        toggleDatasetEntry(this, 'shadow', true);
+        toggleDatasetEntry(this, 'animated', true);
+        toggleDatasetEntry(this, 'visible', true);
       }
     } else {
       // Check if header in its original position, scroll position < header height.
@@ -135,10 +138,10 @@ export class SbbHeader implements ComponentInterface {
         this._headerOnTop = true;
       }
       if (this._headerOnTop) {
-        toggleDatasetEntry(this._element, 'shadow', false);
-        toggleDatasetEntry(this._element, 'animated', false);
-        toggleDatasetEntry(this._element, 'fixed', false);
-        toggleDatasetEntry(this._element, 'visible', false);
+        toggleDatasetEntry(this, 'shadow', false);
+        toggleDatasetEntry(this, 'animated', false);
+        toggleDatasetEntry(this, 'fixed', false);
+        toggleDatasetEntry(this, 'visible', false);
       }
     }
     // `currentScroll` can be negative, e.g. on mobile; this is not allowed.
@@ -147,12 +150,12 @@ export class SbbHeader implements ComponentInterface {
 
   /** Apply the shadow if the element/document has been scrolled down. */
   private _scrollShadowListener(): void {
-    toggleDatasetEntry(this._element, 'shadow', this._getCurrentScroll() !== 0);
+    toggleDatasetEntry(this, 'shadow', this._getCurrentScrollProperty('scrollTop') !== 0);
   }
 
   private _closeOpenOverlays(): void {
     const overlayTriggers: HTMLElement[] = Array.from(
-      this._element.querySelectorAll(IS_MENU_OPENED_QUERY) as NodeListOf<HTMLElement>,
+      this.querySelectorAll(IS_MENU_OPENED_QUERY) as NodeListOf<HTMLElement>,
     );
     for (const overlayTrigger of overlayTriggers) {
       const overlayId: string = overlayTrigger.getAttribute('aria-controls');
@@ -163,18 +166,25 @@ export class SbbHeader implements ComponentInterface {
     }
   }
 
-  public render(): JSX.Element {
-    return (
+  protected override render(): TemplateResult {
+    return html`
       <header class="sbb-header">
         <div class="sbb-header__wrapper">
-          <slot />
+          <slot></slot>
           <div class="sbb-header__logo">
             <slot name="logo">
-              <sbb-logo protective-room="none" />
+              <sbb-logo protective-room="none"></sbb-logo>
             </slot>
           </div>
         </div>
       </header>
-    );
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-header': SbbHeader;
   }
 }
