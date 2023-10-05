@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.41.3](https://github.com/lyne-design-system/lyne-components/compare/v0.41.2...v0.41.3) (2023-10-05)
+
+### Bug Fixes
+
+- **sbb-selection-panel:** panel content overflow ([#2048](https://github.com/lyne-design-system/lyne-components/issues/2048)) ([def7fcb](https://github.com/lyne-design-system/lyne-components/commit/def7fcb7e1ba98c76576deb6999253d6f2600e0b))
+
 ### [0.41.2](https://github.com/lyne-design-system/lyne-components/compare/v0.41.1...v0.41.2) (2023-10-04)
 
 ### Bug Fixes
