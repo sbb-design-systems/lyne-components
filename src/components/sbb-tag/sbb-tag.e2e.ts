@@ -17,8 +17,8 @@ describe('sbb-tag', () => {
 
   it('should be checked after click', async () => {
     expect(element).not.to.have.attribute('checked');
-    const changeSpy = new EventSpy('change', document);
-    const inputSpy = new EventSpy('input', document);
+    const changeSpy = new EventSpy('change');
+    const inputSpy = new EventSpy('input');
 
     element.click();
     await element.updateComplete;
@@ -33,8 +33,8 @@ describe('sbb-tag', () => {
     element.setAttribute('disabled', '');
     await element.updateComplete;
 
-    const changeSpy = new EventSpy('change', document);
-    const inputSpy = new EventSpy('input', document);
+    const changeSpy = new EventSpy('change');
+    const inputSpy = new EventSpy('input');
 
     element.click();
     await element.updateComplete;
@@ -46,8 +46,8 @@ describe('sbb-tag', () => {
 
   it('should be checked after "Space" keypress', async () => {
     expect(element).not.to.have.attribute('checked');
-    const changeSpy = new EventSpy('change', document);
-    const inputSpy = new EventSpy('input', document);
+    const changeSpy = new EventSpy('change');
+    const inputSpy = new EventSpy('input');
 
     element.focus();
     await sendKeys({ press: 'Space' });
@@ -61,8 +61,8 @@ describe('sbb-tag', () => {
   it('should be unchecked after "Space" keypress', async () => {
     element = await fixture(html`<sbb-tag value="tag" checked>Tag</sbb-tag>`);
 
-    const changeSpy = new EventSpy('change', document);
-    const inputSpy = new EventSpy('input', document);
+    const changeSpy = new EventSpy('change');
+    const inputSpy = new EventSpy('input');
 
     element.focus();
     await sendKeys({ press: 'Space' });

@@ -8,10 +8,10 @@ import {
   EventEmitter,
   ConnectedAbortController,
 } from '../../global/eventing';
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResult, html, LitElement, nothing, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { SbbTagGroup } from '../sbb-tag-group/index';
-import { setAttribute, setAttributes } from '../../global/dom';
+import { setAttributes } from '../../global/dom';
 import Style from './sbb-tag.scss?lit&inline';
 
 /**
@@ -34,17 +34,7 @@ export class SbbTag extends LitElement {
   @property({ reflect: true }) public name: string | undefined;
 
   /** Value of the tag. */
-  @property()
-  public get value(): string | null {
-    return this._value;
-  }
-  public set value(value: string | null) {
-    const oldValue = this._value;
-    this._value = value;
-    this._handleValueChange(this._value, oldValue);
-    this.requestUpdate('value', oldValue);
-  }
-  private _value: string | null = null;
+  @property() public value?: string;
 
   /** The <form> element to associate the button with. */
   @property() public form?: string;
@@ -52,19 +42,8 @@ export class SbbTag extends LitElement {
   /** Amount displayed inside the tag. */
   @property() public amount?: string;
 
-  /** Whether the toggle is checked. */
-  @property({ reflect: true, type: Boolean })
-  public get checked(): boolean {
-    return this._checked;
-  }
-  public set checked(value: boolean) {
-    const oldValue = this._checked;
-    this._checked = value;
-    this._handleCheckedChange(this._checked, oldValue);
-    this.requestUpdate('checked', oldValue);
-    console.log(value);
-  }
-  private _checked: boolean = false;
+  /** Whether the tag is checked. */
+  @property({ reflect: true, type: Boolean }) public checked = false;
 
   /** Whether the tag is disabled. */
   @property({ reflect: true, type: Boolean }) public disabled = false;
@@ -124,6 +103,15 @@ export class SbbTag extends LitElement {
     this._handlerRepository.connect();
   }
 
+  public override willUpdate(changedProperties: PropertyValues<this>): void {
+    if (changedProperties.has('checked')) {
+      this._handleCheckedChange(this.checked, changedProperties.get('checked'));
+    }
+    if (changedProperties.has('value')) {
+      this._handleValueChange(this.value, changedProperties.get('value'));
+    }
+  }
+
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._handlerRepository.disconnect();
@@ -153,7 +141,6 @@ export class SbbTag extends LitElement {
     hostAttributes['aria-pressed'] = this.checked.toString();
 
     setAttributes(this, hostAttributes);
-    setAttribute(this, 'checked', this._checked);
 
     return html`
       <span class="sbb-tag">

@@ -57,7 +57,7 @@ export class SbbTagGroup extends LitElement {
 
     const isChecked: (tag: SbbTag) => boolean = this.multiple
       ? (t) => value.includes(t.value)
-      : (t) => t.value === value;
+      : (t) => (value ? t.value === value : t.hasAttribute('checked'));
 
     this._tags.forEach((tag) => (tag.checked = isChecked(tag)));
   }
