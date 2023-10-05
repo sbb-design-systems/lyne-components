@@ -8,7 +8,7 @@ import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import * as sass from 'sass';
 
-const isCIEnvironment = !!process.env.CI;
+const isCIEnvironment = !!process.env.CI || process.argv.includes('--ci');
 const isDebugMode = process.argv.includes('--debug');
 
 const globalCss = sass.compile('./src/global/styles/global.scss', { loadPaths: ['.'] });
