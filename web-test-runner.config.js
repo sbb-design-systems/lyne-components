@@ -52,7 +52,7 @@ export default {
       // Excluding the dependencies, prevents this from happening at the cost of slightly
       // increased test times.
       optimizeDeps: {
-        disable: true,
+        disabled: true,
       },
     }),
   ],
