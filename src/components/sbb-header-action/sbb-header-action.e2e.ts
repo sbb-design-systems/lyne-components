@@ -18,7 +18,6 @@ describe('sbb-header-action', () => {
 
   describe('events', () => {
     it('dispatches event on click', async () => {
-      await element.updateComplete;
       const clickSpy = new EventSpy('click');
 
       element.click();
