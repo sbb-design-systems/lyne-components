@@ -23,7 +23,7 @@ describe('sbb-header-action', () => {
 
       element.click();
       await waitForCondition(() => clickSpy.events.length === 1);
-      await expect(clickSpy.count).to.be.equal(1);
+      expect(clickSpy.count).to.be.equal(1);
     });
 
     it('should dispatch click event on pressing Enter', async () => {
@@ -64,7 +64,7 @@ describe('sbb-header-action', () => {
       element.focus();
       await element.updateComplete;
 
-      await expect(document.activeElement.id).to.be.equal('focus-id');
+      expect(document.activeElement.id).to.be.equal('focus-id');
     });
   });
 });
