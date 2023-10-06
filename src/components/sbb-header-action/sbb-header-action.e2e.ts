@@ -1,62 +1,69 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 import { waitForCondition } from '../../global/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { sendKeys } from '@web/test-runner-commands';
+import { EventSpy } from '../../global/testing/event-spy';
+import { SbbHeaderAction } from './sbb-header-action';
 
 describe('sbb-header-action', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbHeaderAction;
 
   beforeEach(async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-header-action id="focus-id">Action</sbb-header-action>');
-    await page.waitForChanges();
+    element = await fixture(html`<sbb-header-action id="focus-id">Action</sbb-header-action>`);
+  });
 
-    element = await page.find('sbb-header-action');
+  it('renders', async () => {
+    assert.instanceOf(element, SbbHeaderAction);
   });
 
   describe('events', () => {
     it('dispatches event on click', async () => {
-      await page.waitForChanges();
-      const changeSpy = await page.spyOnEvent('click');
+      const clickSpy = new EventSpy('click');
 
-      await element.click();
-      await waitForCondition(() => changeSpy.events.length === 1);
-      expect(changeSpy).toHaveReceivedEventTimes(1);
+      element.click();
+      await waitForCondition(() => clickSpy.events.length === 1);
+      expect(clickSpy.count).to.be.equal(1);
     });
 
     it('should dispatch click event on pressing Enter', async () => {
-      const changeSpy = await page.spyOnEvent('click');
-      await element.press('Enter');
-      expect(changeSpy).toHaveReceivedEvent();
+      const clickSpy = new EventSpy('click');
+      element.focus();
+      await sendKeys({ press: 'Enter' });
+      expect(clickSpy.count).to.be.greaterThan(0);
     });
 
     it('should dispatch click event on pressing Space', async () => {
-      const changeSpy = await page.spyOnEvent('click');
-      await element.press(' ');
-      expect(changeSpy).toHaveReceivedEvent();
+      const clickSpy = new EventSpy('click');
+      element.focus();
+      await sendKeys({ press: ' ' });
+      expect(clickSpy.count).to.be.greaterThan(0);
     });
 
     it('should dispatch click event on pressing Enter with href', async () => {
-      element.setAttribute('href', 'test');
-      await page.waitForChanges();
+      element.setAttribute('href', '#');
+      await element.updateComplete;
 
-      const changeSpy = await page.spyOnEvent('click');
-      await element.press('Enter');
-      expect(changeSpy).toHaveReceivedEvent();
+      const clickSpy = new EventSpy('click');
+      element.focus();
+      await sendKeys({ press: 'Enter' });
+      expect(clickSpy.count).to.be.greaterThan(0);
     });
 
     it('should not dispatch click event on pressing Space with href', async () => {
-      element.setAttribute('href', 'test');
-      await page.waitForChanges();
+      element.setAttribute('href', '#');
+      await element.updateComplete;
 
-      const changeSpy = await page.spyOnEvent('click');
-      await element.press(' ');
-      expect(changeSpy).not.toHaveReceivedEvent();
+      const clickSpy = new EventSpy('click');
+      element.focus();
+      await sendKeys({ press: ' ' });
+      expect(clickSpy.count).not.to.be.greaterThan(0);
     });
 
     it('should receive focus', async () => {
-      await element.focus();
-      await page.waitForChanges();
+      element.focus();
+      await element.updateComplete;
 
-      expect(await page.evaluate(() => document.activeElement.id)).toBe('focus-id');
+      expect(document.activeElement.id).to.be.equal('focus-id');
     });
   });
 });

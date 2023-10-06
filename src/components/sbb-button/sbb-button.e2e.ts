@@ -21,7 +21,7 @@ describe('sbb-button', () => {
       await element.updateComplete;
       const clickSpy = new EventSpy('click');
 
-      await element.click();
+      element.click();
       await waitForCondition(() => clickSpy.events.length === 1);
       expect(clickSpy.count).to.be.equal(1);
     });
@@ -44,7 +44,7 @@ describe('sbb-button', () => {
 
       const clickSpy = new EventSpy('click');
 
-      await element.click();
+      element.click();
       expect(clickSpy.count).to.be.greaterThan(0);
     });
 
