@@ -104,34 +104,22 @@ export class SbbNavigation extends LitElement {
   /**
    * Emits whenever the navigation begins the opening transition.
    */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, events.willOpen, {
-    bubbles: true,
-    composed: true,
-  });
+  private _willOpen: EventEmitter<void> = new EventEmitter(this, events.willOpen);
 
   /**
    * Emits whenever the navigation is opened.
    */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, events.didOpen, {
-    bubbles: true,
-    composed: true,
-  });
+  private _didOpen: EventEmitter<void> = new EventEmitter(this, events.didOpen);
 
   /**
    * Emits whenever the navigation begins the closing transition.
    */
-  private _willClose: EventEmitter<void> = new EventEmitter(this, events.willClose, {
-    bubbles: true,
-    composed: true,
-  });
+  private _willClose: EventEmitter<void> = new EventEmitter(this, events.willClose);
 
   /**
    * Emits whenever the navigation is closed.
    */
-  private _didClose: EventEmitter<void> = new EventEmitter(this, events.didClose, {
-    bubbles: true,
-    composed: true,
-  });
+  private _didClose: EventEmitter<void> = new EventEmitter(this, events.didClose);
 
   private _navigation: HTMLDialogElement;
   private _navigationContainerElement: HTMLElement;

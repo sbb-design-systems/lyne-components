@@ -18,7 +18,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  // size: size.options[0],
+  size: size.options[0],
 };
 
 const style = {

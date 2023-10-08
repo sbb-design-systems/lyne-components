@@ -17,23 +17,22 @@ describe('sbb-navigation-action', () => {
 
   describe('events', () => {
     it('dispatches event on click', async () => {
-      await element.updateComplete;
       const navigationAction = document.querySelector('sbb-navigation-action');
-      const changeSpy = new EventSpy('click', document);
+      const changeSpy = new EventSpy('click');
       navigationAction.click();
       await waitForCondition(() => changeSpy.events.length === 1);
       expect(changeSpy.count).to.be.equal(1);
     });
 
     it('should dispatch click event on pressing Enter', async () => {
-      const changeSpy = new EventSpy('click', document);
+      const changeSpy = new EventSpy('click');
       element.focus();
       await sendKeys({ press: 'Enter' });
       expect(changeSpy.count).to.be.greaterThan(0);
     });
 
     it('should dispatch click event on pressing Space', async () => {
-      const changeSpy = new EventSpy('click', document);
+      const changeSpy = new EventSpy('click');
       element.focus();
       await sendKeys({ press: ' ' });
       expect(changeSpy.count).to.be.greaterThan(0);
@@ -42,7 +41,7 @@ describe('sbb-navigation-action', () => {
     it('should dispatch click event on pressing Enter with href', async () => {
       element.setAttribute('href', '#');
       await element.updateComplete;
-      const changeSpy = new EventSpy('click', document);
+      const changeSpy = new EventSpy('click');
       element.focus();
       await sendKeys({ press: 'Enter' });
       expect(changeSpy.count).to.be.greaterThan(0);
@@ -52,7 +51,7 @@ describe('sbb-navigation-action', () => {
       element.setAttribute('href', '#');
       await element.updateComplete;
 
-      const changeSpy = new EventSpy('click', document);
+      const changeSpy = new EventSpy('click');
       element.focus();
       await sendKeys({ press: ' ' });
       expect(changeSpy.count).not.to.be.greaterThan(0);
@@ -69,7 +68,7 @@ describe('sbb-navigation-action', () => {
     element = await fixture(html`<sbb-navigation-action>Label</sbb-navigation-action>`);
     assert.instanceOf(element, SbbNavigationAction);
 
-    const clickedSpy = new EventSpy('click', document);
+    const clickedSpy = new EventSpy('click');
     element.click();
     await waitForCondition(() => clickedSpy.events.length === 1);
     expect(clickedSpy.count).to.be.equal(1);

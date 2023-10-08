@@ -344,7 +344,7 @@ export class SbbNavigationSection extends LitElement {
         class="sbb-navigation-section__back"
         arial-label=${this.accessibilityBackLabel || i18nGoBack[this._currentLanguage]}
         variant="transparent"
-        negative=${true}
+        negative
         size="m"
         type="button"
         icon-name="chevron-small-left-small"
@@ -391,7 +391,7 @@ export class SbbNavigationSection extends LitElement {
               <sbb-divider
                 class="sbb-navigation-section__divider"
                 orientation="vertical"
-                negative=${true}
+                negative
               ></sbb-divider>
               ${!!this.titleContent || this._namedSlots.title ? labelElement : nothing}
               <slot></slot>

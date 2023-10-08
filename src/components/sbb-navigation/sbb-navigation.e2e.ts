@@ -40,7 +40,7 @@ describe('sbb-navigation', () => {
   });
 
   it('opens the navigation', async () => {
-    const didOpenEventSpy = new EventSpy(events.didOpen, document);
+    const didOpenEventSpy = new EventSpy(events.didOpen);
     const dialog = element.shadowRoot.querySelector('dialog');
 
     element.open();
@@ -55,8 +55,8 @@ describe('sbb-navigation', () => {
   });
 
   it('closes the navigation', async () => {
-    const didOpenEventSpy = new EventSpy(events.didOpen, document);
-    const didCloseEventSpy = new EventSpy(events.didClose, document);
+    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const didCloseEventSpy = new EventSpy(events.didClose);
     const dialog = element.shadowRoot.querySelector('dialog');
 
     element.open();
@@ -79,8 +79,8 @@ describe('sbb-navigation', () => {
   });
 
   it('closes the navigation on close button click', async () => {
-    const didOpenEventSpy = new EventSpy(events.didOpen, document);
-    const didCloseEventSpy = new EventSpy(events.didClose, document);
+    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const didCloseEventSpy = new EventSpy(events.didClose);
     const dialog = element.shadowRoot.querySelector('dialog');
     const closeButton = element.shadowRoot.querySelector('.sbb-navigation__close') as HTMLElement;
 
@@ -104,8 +104,8 @@ describe('sbb-navigation', () => {
   });
 
   it('closes the navigation on Esc key press', async () => {
-    const didOpenEventSpy = new EventSpy(events.didOpen, document);
-    const didCloseEventSpy = new EventSpy(events.didClose, document);
+    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const didCloseEventSpy = new EventSpy(events.didClose);
     const dialog = element.shadowRoot.querySelector('dialog');
 
     element.open();
@@ -131,8 +131,8 @@ describe('sbb-navigation', () => {
   });
 
   it('closes navigation with sbb-navigation-close', async () => {
-    const didOpenEventSpy = new EventSpy(events.didOpen, document);
-    const didCloseEventSpy = new EventSpy(events.didClose, document);
+    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const didCloseEventSpy = new EventSpy(events.didClose);
     const dialog = element.shadowRoot.querySelector('dialog');
     const sectionDialog = document
       .querySelector('sbb-navigation-section#first-section')
@@ -169,7 +169,7 @@ describe('sbb-navigation', () => {
   });
 
   it('opens navigation and opens section', async () => {
-    const didOpenEventSpy = new EventSpy(events.didOpen, document);
+    const didOpenEventSpy = new EventSpy(events.didOpen);
     const navDialog = element.shadowRoot.querySelector('dialog');
     const sectionDialog = document
       .querySelector('sbb-navigation-section#first-section')
@@ -196,7 +196,7 @@ describe('sbb-navigation', () => {
   });
 
   it('opens navigation and toggles sections', async () => {
-    const didOpenEventSpy = new EventSpy(events.didOpen, document);
+    const didOpenEventSpy = new EventSpy(events.didOpen);
     const navDialog = element.shadowRoot.querySelector('dialog');
     const firstSection = document.querySelector('#first-section');
     const firstSectionDialog = firstSection.shadowRoot.querySelector('dialog');
@@ -235,8 +235,8 @@ describe('sbb-navigation', () => {
   });
 
   it('closes the navigation and the section on close button click', async () => {
-    const didOpenEventSpy = new EventSpy(events.didOpen, document);
-    const didCloseEventSpy = new EventSpy(events.didClose, document);
+    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const didCloseEventSpy = new EventSpy(events.didClose);
     const dialog = element.shadowRoot.querySelector('dialog');
     const sectionDialog = document
       .querySelector('sbb-navigation-section#first-section')
@@ -271,8 +271,8 @@ describe('sbb-navigation', () => {
   });
 
   it('closes the navigation and the section on Esc key press', async () => {
-    const didOpenEventSpy = new EventSpy(events.didOpen, document);
-    const didCloseEventSpy = new EventSpy(events.didClose, document);
+    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const didCloseEventSpy = new EventSpy(events.didClose);
     const dialog = element.shadowRoot.querySelector('dialog');
     const sectionDialog = document
       .querySelector('sbb-navigation-section#first-section')
@@ -309,7 +309,7 @@ describe('sbb-navigation', () => {
   });
 
   it('closes section with sbb-navigation-section-close', async () => {
-    const didOpenEventSpy = new EventSpy(events.didOpen, document);
+    const didOpenEventSpy = new EventSpy(events.didOpen);
     const dialog = element.shadowRoot.querySelector('dialog');
     const section = document.querySelector('#first-section');
     const sectionDialog = section.shadowRoot.querySelector('dialog');
@@ -337,6 +337,6 @@ describe('sbb-navigation', () => {
     await element.updateComplete;
 
     expect(dialog).to.have.attribute('open');
-    expect(section.getAttribute('data-state')).not.to.be.equal('opened');
+    expect(section).not.to.have.attribute('data-state', 'opened');
   });
 });
