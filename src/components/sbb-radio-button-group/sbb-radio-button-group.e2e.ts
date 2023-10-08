@@ -1,150 +1,162 @@
-import { E2EPage, newE2EPage, E2EElement } from '@stencil/core/testing';
 import { waitForCondition } from '../../global/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { sendKeys } from '@web/test-runner-commands';
+import { EventSpy } from '../../global/testing/event-spy';
+import { SbbRadioButtonGroup } from './sbb-radio-button-group';
+import { SbbRadioButton } from '../sbb-radio-button';
+import './sbb-radio-button-group';
+import '../sbb-radio-button';
 
 describe('sbb-radio-button-group', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbRadioButtonGroup;
 
   beforeEach(async () => {
-    page = await newE2EPage();
-    await page.setContent(`
-    <sbb-radio-button-group name="radio-group-name" value="Value one">
+    element = await fixture(html`
+      <sbb-radio-button-group name="radio-group-name" value="Value one">
         <sbb-radio-button id="sbb-radio-1" value="Value one">Value one</sbb-radio-button>
         <sbb-radio-button id="sbb-radio-2" value="Value two">Value two</sbb-radio-button>
-        <sbb-radio-button id="sbb-radio-3" value="Value three" disabled>Value three</sbb-radio-button>
+        <sbb-radio-button id="sbb-radio-3" value="Value three" disabled
+          >Value three</sbb-radio-button
+        >
         <sbb-radio-button id="sbb-radio-4" value="Value four">Value four</sbb-radio-button>
       </sbb-radio-button-group>
     `);
-    element = await page.find('sbb-radio-button-group');
   });
 
   it('renders', () => {
-    expect(element).toHaveClass('hydrated');
+    assert.instanceOf(element, SbbRadioButtonGroup);
   });
 
   describe('events', () => {
     it('selects radio on click', async () => {
-      const firstRadio = await page.find('sbb-radio-button-group > sbb-radio-button#sbb-radio-1');
-      const radio = await page.find('sbb-radio-button-group > sbb-radio-button#sbb-radio-2');
+      const firstRadio = element.querySelector('#sbb-radio-1') as SbbRadioButton;
+      const radio = element.querySelector('#sbb-radio-2') as SbbRadioButton;
 
-      expect(firstRadio).toHaveAttribute('checked');
+      await element.updateComplete;
+      expect(firstRadio).to.have.attribute('checked');
 
-      await radio.click();
+      radio.click();
+      await element.updateComplete;
+      expect(radio).to.have.attribute('checked');
 
-      expect(radio).toHaveAttribute('checked');
-      expect(firstRadio).not.toHaveAttribute('checked');
+      await element.updateComplete;
+      expect(firstRadio).not.to.have.attribute('checked');
     });
 
     it('dispatches event on radio change', async () => {
-      const firstRadio = await page.find('sbb-radio-button-group > sbb-radio-button#sbb-radio-1');
-      const checkedRadio = await page.find('sbb-radio-button-group > sbb-radio-button#sbb-radio-2');
-      const changeSpy = await page.spyOnEvent('change');
-      const inputSpy = await page.spyOnEvent('input');
+      const firstRadio = element.querySelector('#sbb-radio-1') as SbbRadioButton;
+      const checkedRadio = element.querySelector('#sbb-radio-2') as SbbRadioButton;
+      const changeSpy = new EventSpy('change');
+      const inputSpy = new EventSpy('input');
 
-      await checkedRadio.click();
+      checkedRadio.click();
       await waitForCondition(() => changeSpy.events.length === 1);
-      expect(changeSpy).toHaveReceivedEventTimes(1);
+      expect(changeSpy.count).to.be.equal(1);
       await waitForCondition(() => inputSpy.events.length === 1);
-      expect(inputSpy).toHaveReceivedEventTimes(1);
+      expect(inputSpy.count).to.be.equal(1);
 
-      await firstRadio.click();
-      expect(firstRadio).toHaveAttribute('checked');
+      firstRadio.click();
+      await element.updateComplete;
+      expect(firstRadio).to.have.attribute('checked');
     });
 
     it('does not select disabled radio on click', async () => {
-      const firstRadio = await page.find('sbb-radio-button-group > sbb-radio-button#sbb-radio-1');
-      const disabledRadio = await page.find(
-        'sbb-radio-button-group > sbb-radio-button#sbb-radio-3',
-      );
+      const firstRadio = element.querySelector('#sbb-radio-1') as SbbRadioButton;
+      const disabledRadio = element.querySelector('#sbb-radio-3') as SbbRadioButton;
 
-      await disabledRadio.click();
-      await page.waitForChanges();
+      disabledRadio.click();
+      await element.updateComplete;
 
-      expect(disabledRadio).not.toHaveAttribute('checked');
-      expect(firstRadio).toHaveAttribute('checked');
+      expect(disabledRadio).not.to.have.attribute('checked');
+      expect(firstRadio).to.have.attribute('checked');
     });
 
     it('preserves radio button disabled state after being disabled from group', async () => {
-      const firstRadio = await page.find('sbb-radio-button-group > sbb-radio-button#sbb-radio-1');
-      const secondRadio = await page.find('sbb-radio-button-group > sbb-radio-button#sbb-radio-2');
-      const disabledRadio = await page.find(
-        'sbb-radio-button-group > sbb-radio-button#sbb-radio-3',
-      );
+      const firstRadio = element.querySelector('#sbb-radio-1') as SbbRadioButton;
+      const secondRadio = element.querySelector('#sbb-radio-2') as SbbRadioButton;
+      const disabledRadio = element.querySelector('#sbb-radio-3') as SbbRadioButton;
 
-      await element.setProperty('disabled', true);
-      await page.waitForChanges();
+      element.disabled = true;
+      await element.updateComplete;
 
-      await disabledRadio.click();
-      await page.waitForChanges();
-      expect(disabledRadio).not.toHaveAttribute('checked');
-      expect(firstRadio).toHaveAttribute('checked');
+      disabledRadio.click();
+      await element.updateComplete;
+      expect(disabledRadio).not.to.have.attribute('checked');
+      expect(firstRadio).to.have.attribute('checked');
 
-      await secondRadio.click();
-      await page.waitForChanges();
-      expect(secondRadio).not.toHaveAttribute('checked');
+      secondRadio.click();
+      await element.updateComplete;
+      expect(secondRadio).not.to.have.attribute('checked');
 
-      await element.setProperty('disabled', false);
-      await page.waitForChanges();
+      element.disabled = false;
+      await element.updateComplete;
 
-      await disabledRadio.click();
-      await page.waitForChanges();
-      expect(disabledRadio).not.toHaveAttribute('checked');
-      expect(firstRadio).toHaveAttribute('checked');
+      disabledRadio.click();
+      await element.updateComplete;
+      expect(disabledRadio).not.to.have.attribute('checked');
+      expect(firstRadio).to.have.attribute('checked');
     });
 
     it('selects radio on left arrow key pressed', async () => {
-      const firstRadio = await page.find('sbb-radio-button-group > sbb-radio-button#sbb-radio-1');
+      const firstRadio = element.querySelector('#sbb-radio-1') as SbbRadioButton;
 
-      await firstRadio.click();
-      await page.keyboard.down('ArrowLeft');
+      firstRadio.focus();
+      await element.updateComplete;
 
-      await page.waitForChanges();
-      const radio = await page.find('sbb-radio-button-group > sbb-radio-button#sbb-radio-4');
+      await sendKeys({ down: 'ArrowLeft' });
+      await element.updateComplete;
 
-      expect(radio).toHaveAttribute('checked');
+      const radio = element.querySelector('#sbb-radio-4');
+      expect(radio).to.have.attribute('checked');
 
-      await firstRadio.click();
-      await page.waitForChanges();
+      firstRadio.click();
+      await element.updateComplete;
 
-      expect(firstRadio).toHaveAttribute('checked');
+      expect(firstRadio).to.have.attribute('checked');
     });
 
     it('selects radio on right arrow key pressed', async () => {
-      const firstRadio = await page.find('sbb-radio-button-group > sbb-radio-button#sbb-radio-1');
+      const firstRadio = element.querySelector('#sbb-radio-1') as SbbRadioButton;
 
-      await firstRadio.click();
-      await page.keyboard.down('ArrowRight');
+      firstRadio.focus();
+      await sendKeys({ down: 'ArrowRight' });
 
-      await page.waitForChanges();
-      const radio = await page.find('sbb-radio-button-group > sbb-radio-button#sbb-radio-2');
+      await element.updateComplete;
+      const radio = element.querySelector('#sbb-radio-2');
 
-      expect(radio).toHaveAttribute('checked');
+      expect(radio).to.have.attribute('checked');
 
-      await firstRadio.click();
-      await page.waitForChanges();
+      firstRadio.click();
+      await element.updateComplete;
 
-      expect(firstRadio).toHaveAttribute('checked');
+      expect(firstRadio).to.have.attribute('checked');
     });
 
     it('wraps around on arrow key navigation', async () => {
-      const firstRadio = await page.find('sbb-radio-button-group > sbb-radio-button#sbb-radio-1');
-      const checkedRadio = await page.find('sbb-radio-button-group > sbb-radio-button#sbb-radio-2');
+      const firstRadio = element.querySelector('#sbb-radio-1') as SbbRadioButton;
+      const secondRadio = element.querySelector('#sbb-radio-2') as SbbRadioButton;
 
-      await checkedRadio.click();
-      await page.waitForChanges();
-      expect(checkedRadio).toHaveAttribute('checked');
+      secondRadio.click();
+      await element.updateComplete;
+      expect(secondRadio).to.have.attribute('checked');
 
-      await page.keyboard.down('ArrowRight');
-      await page.keyboard.down('ArrowRight');
+      secondRadio.focus();
+      await element.updateComplete;
 
-      await page.waitForChanges();
-      const radio = await page.find('sbb-radio-button-group > sbb-radio-button#sbb-radio-1');
+      await sendKeys({ down: 'ArrowRight' });
+      await element.updateComplete;
 
-      expect(radio).toHaveAttribute('checked');
+      await sendKeys({ down: 'ArrowRight' });
+      await element.updateComplete;
 
-      await firstRadio.click();
-      await page.waitForChanges();
+      const radio = element.querySelector('#sbb-radio-1');
+      expect(radio).to.have.attribute('checked');
 
-      expect(firstRadio).toHaveAttribute('checked');
+      firstRadio.click();
+      await element.updateComplete;
+
+      expect(firstRadio).to.have.attribute('checked');
     });
   });
 });

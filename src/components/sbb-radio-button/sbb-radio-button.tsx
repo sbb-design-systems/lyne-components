@@ -19,6 +19,7 @@ import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } 
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttributes } from '../../global/dom';
 import Style from './sbb-radio-button.scss?lit&inline';
+import { SbbRadioButtonGroup } from '../sbb-radio-button-group/sbb-radio-button-group';
 
 /** Configuration for the attribute to look at if component is nested in a sbb-radio-button-group */
 const radioButtonObserverConfig: MutationObserverInit = {
@@ -189,8 +190,7 @@ export class SbbRadioButton extends LitElement {
 
   // Set up the initial disabled/required values and start observe attributes changes.
   private _setupInitialStateAndAttributeObserver(): void {
-    // TODO: as any --> SbbRadioButtonGroup
-    const parentGroup = this.closest('sbb-radio-button-group') as any;
+    const parentGroup = this.closest('sbb-radio-button-group') as SbbRadioButtonGroup;
     if (parentGroup) {
       this._requiredFromGroup = isValidAttribute(parentGroup, 'required');
       this._disabledFromGroup = isValidAttribute(parentGroup, 'disabled');
