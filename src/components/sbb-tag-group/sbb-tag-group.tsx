@@ -1,5 +1,5 @@
 import { TagStateChange } from '../sbb-tag/sbb-tag.custom';
-import { CSSResult, html, LitElement, TemplateResult, PropertyValues, nothing } from 'lit';
+import { CSSResult, html, LitElement, TemplateResult, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ConnectedAbortController } from '../../global/eventing';
 import { SbbTag } from '../sbb-tag/index';
@@ -31,11 +31,25 @@ export class SbbTagGroup extends LitElement {
    * If set multiple to false, the value is a string (or null).
    * If set multiple to true, the value is an array.
    */
-  @property() public value: string | string[] | null = null;
+  @property()
+  public get value(): string | string[] | null {
+    return this._value;
+  }
+  public set value(value: string | string[] | null) {
+    const oldValue = this._value;
+    this._value = value;
+    this._valueChanged(this._value);
+    this.requestUpdate('value', oldValue);
+  }
+  private _value: string | string[] | null = null;
 
   private _abort = new ConnectedAbortController(this);
 
   private _valueChanged(value: string | string[] | null): void {
+    if (!this._tags.every((tag) => tag.value)) {
+      return;
+    }
+
     if (Array.isArray(value) && !this.multiple) {
       console.warn(
         'Trying to set array value for sbb-tag-group but multiple mode is not activated.',
@@ -57,7 +71,7 @@ export class SbbTagGroup extends LitElement {
 
     const isChecked: (tag: SbbTag) => boolean = this.multiple
       ? (t) => value.includes(t.value)
-      : (t) => (value ? t.value === value : t.hasAttribute('checked'));
+      : (t) => t.value === value;
 
     this._tags.forEach((tag) => (tag.checked = isChecked(tag)));
   }
@@ -114,12 +128,6 @@ export class SbbTagGroup extends LitElement {
     }
   }
 
-  public override willUpdate(changedProperties: PropertyValues<this>): void {
-    if (changedProperties.has('value')) {
-      this._valueChanged(this.value);
-    }
-  }
-
   private get _tags(): SbbTag[] {
     return Array.from(this.querySelectorAll('sbb-tag')) as SbbTag[];
   }
@@ -139,7 +147,6 @@ export class SbbTagGroup extends LitElement {
                   name=${`tag-${index}`}
                   @slotchange=${(): void => {
                     this._ensureOnlyOneTagSelected();
-                    this._updateValueByReadingTags();
                   }}
                 ></slot>
               </li>`,
@@ -149,7 +156,6 @@ export class SbbTagGroup extends LitElement {
           <slot
             @slotchange=${() => {
               this._ensureOnlyOneTagSelected();
-              this._updateValueByReadingTags();
             }}
           ></slot>
         </span>

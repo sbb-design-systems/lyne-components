@@ -163,8 +163,14 @@ describe('sbb-tag-group', () => {
         await element.updateComplete;
 
         expect(element.value).to.be.eql(['tag1', 'tag3']);
+        await element.updateComplete;
+
         expect(element.querySelector('sbb-tag#sbb-tag-1')).to.have.attribute('checked');
+        await element.updateComplete;
+
         expect(element.querySelector('sbb-tag#sbb-tag-2')).not.to.have.attribute('checked');
+        await element.updateComplete;
+
         expect(element.querySelector('sbb-tag#sbb-tag-3')).to.have.attribute('checked');
       });
 
