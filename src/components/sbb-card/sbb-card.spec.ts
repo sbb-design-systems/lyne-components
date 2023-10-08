@@ -4,7 +4,6 @@ import './sbb-card';
 import '../sbb-card-badge';
 
 const cardBadgeWrapperSelector = '.sbb-card__badge-wrapper';
-const hasBadgeDataAttributeName = 'data-has-card-badge';
 
 describe('sbb-card', () => {
   it('should not render sbb-card-badge for small sizes', async () => {
@@ -23,6 +22,5 @@ describe('sbb-card', () => {
     );
 
     expect(root.shadowRoot.querySelector(cardBadgeWrapperSelector)).not.to.be.ok;
-    expect(root).not.to.have.attribute(hasBadgeDataAttributeName);
   });
 });

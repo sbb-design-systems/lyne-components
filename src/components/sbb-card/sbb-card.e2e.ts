@@ -24,33 +24,34 @@ describe('sbb-card', () => {
       </sbb-card>
     `);
 
+    await element.updateComplete;
     expect(
       getComputedStyle(
         element.shadowRoot.querySelector('.sbb-card__badge-wrapper'),
       ).getPropertyValue('display'),
     ).not.to.be.equal('none');
-    expect(element).to.have.attribute('data-has-element-badge');
+    expect(element).to.have.attribute('data-has-card-badge');
     expect(element).dom.to.be.equal(`
-      <sbb-card color="white" data-has-card-badge size="xl" class="hydrated">
-        <mock:shadow-root>
-          <span class="sbb-card">
-            <slot name="action"></slot>
-            <span class="sbb-card__wrapper">
-              <slot></slot>
-            </span>
-            <span class="sbb-card__badge-wrapper">
-              <slot name="badge" />
-            </span>
-          </span>
-        </mock:shadow-root>
+      <sbb-card color="white" data-has-card-badge size="xl">
         <h2>Title</h2>
         Content text
-        <sbb-card-badge class="hydrated" color="charcoal" dir="ltr" role="text" slot="badge">
+        <sbb-card-badge color="charcoal" dir="ltr" role="text" slot="badge">
           <span>%</span>
           <span>from CHF</span>
           <span>19.99</span>
         </sbb-card-badge>
       </sbb-card>
+    `);
+    expect(element).shadowDom.to.be.equal(`
+      <span class="sbb-card">
+        <slot name="action"></slot>
+        <span class="sbb-card__wrapper">
+          <slot></slot>
+        </span>
+        <span class="sbb-card__badge-wrapper">
+          <slot name="badge" />
+        </span>
+      </span>
     `);
   });
 
