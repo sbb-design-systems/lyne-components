@@ -1,32 +1,31 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { EventSpy } from '../../global/testing/event-spy';
+import { SbbExpansionPanelHeader } from './sbb-expansion-panel-header';
 
 describe('sbb-expansion-panel-header', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbExpansionPanelHeader;
 
   beforeEach(async () => {
-    page = await newE2EPage();
-    await page.setContent(`<sbb-expansion-panel-header>Header</sbb-expansion-panel-header>`);
-    element = await page.find('sbb-expansion-panel-header');
+    await fixture(html`<sbb-expansion-panel-header>Header</sbb-expansion-panel-header>`);
+    element = document.querySelector('sbb-expansion-panel-header');
   });
 
   it('renders', async () => {
-    expect(element).toHaveClass('hydrated');
+    assert.instanceOf(element, SbbExpansionPanelHeader);
   });
 
   it('should emit event on click', async () => {
-    const spy = await page.spyOnEvent('toggle-expanded');
-    await element.click();
-    expect(spy).toHaveReceivedEvent();
+    const spy = new EventSpy('toggle-expanded');
+    element.click();
+    expect(spy.count).to.be.greaterThan(0);
   });
 
   it('should not emit event on click if disabled', async () => {
-    page = await newE2EPage();
-    await page.setContent(
-      `<sbb-expansion-panel-header disabled>Header</sbb-expansion-panel-header>`,
-    );
-    element = await page.find('sbb-expansion-panel-header');
-    const spy = await page.spyOnEvent('toggle-expanded');
-    await element.click();
-    expect(spy).not.toHaveReceivedEvent();
+    await fixture(html`<sbb-expansion-panel-header disabled>Header</sbb-expansion-panel-header>`);
+    element = document.querySelector('sbb-expansion-panel-header');
+    const spy = new EventSpy('toggle-expanded');
+    element.click();
+    expect(spy.count).not.to.be.greaterThan(0);
   });
 });
