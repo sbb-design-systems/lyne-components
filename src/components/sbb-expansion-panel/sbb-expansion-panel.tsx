@@ -13,7 +13,6 @@ import {
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import { toggleDatasetEntry } from '../../global/dom';
 import { InterfaceSbbExpansionPanelAttributes } from './sbb-expansion-panel.custom';
-import { AgnosticResizeObserver } from '../../global/observers';
 
 let nextId = 0;
 
@@ -44,11 +43,6 @@ export class SbbExpansionPanel implements ComponentInterface {
 
   /** Whether the animations should be disabled. */
   @Prop({ reflect: true }) public disableAnimation = false;
-
-  private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
-  private _panelContentResizeObserver = new AgnosticResizeObserver(() =>
-    this._onPanelContentResize(),
-  );
 
   /** Emits whenever the sbb-expansion-panel starts the opening transition. */
   @Event({
@@ -124,24 +118,17 @@ export class SbbExpansionPanel implements ComponentInterface {
     toggleDatasetEntry(this._element, 'accordion', !!accordion);
   }
 
-  public componentDidLoad(): void {
-    this._setPanelContentHeight();
-  }
-
   public disconnectedCallback(): void {
     this._transitionEventController?.abort();
     toggleDatasetEntry(this._element, 'accordion', false);
-    this._panelContentResizeObserver.disconnect();
   }
 
   private _onOpened(): void {
     this.didOpen.emit();
-    this._panelContentResizeObserver.observe(this._contentRef);
   }
 
   private _onClosed(): void {
     this.didClose.emit();
-    this._panelContentResizeObserver.unobserve(this._contentRef);
   }
 
   private _onHeaderSlotChange(event): void {
@@ -174,9 +161,6 @@ export class SbbExpansionPanel implements ComponentInterface {
       return;
     }
 
-    if (this._contentRef) {
-      this._panelContentResizeObserver.unobserve(this._contentRef);
-    }
     this._transitionEventController?.abort();
 
     this._contentRef = (event.target as HTMLSlotElement)
@@ -189,8 +173,6 @@ export class SbbExpansionPanel implements ComponentInterface {
     if (!this._contentRef) {
       return;
     }
-
-    this._panelContentResizeObserver.observe(this._contentRef);
 
     this._transitionEventController = new AbortController();
     this._contentRef.setAttribute('aria-hidden', String(!this.expanded));
@@ -236,31 +218,6 @@ export class SbbExpansionPanel implements ComponentInterface {
     }
   }
 
-  private _onPanelContentResize(): void {
-    if (!this.expanded) {
-      return;
-    }
-
-    clearTimeout(this._resizeObserverTimeout);
-
-    toggleDatasetEntry(this._element, 'resizeDisableAnimation', true);
-    this._setPanelContentHeight();
-
-    // Disable the animation when resizing the panel content to avoid strange height transition effects.
-    this._resizeObserverTimeout = setTimeout(
-      () => toggleDatasetEntry(this._element, 'resizeDisableAnimation', false),
-      150,
-    );
-  }
-
-  private _setPanelContentHeight(): void {
-    const panelContentHeight =
-      this._contentRef?.scrollHeight && !this.disableAnimation
-        ? `${this._contentRef?.scrollHeight}px`
-        : 'auto';
-    this._element.style.setProperty('--sbb-expansion-panel-content-height', panelContentHeight);
-  }
-
   public render(): JSX.Element {
     const TAGNAME = this.titleLevel ? `h${this.titleLevel}` : 'div';
 
@@ -269,9 +226,11 @@ export class SbbExpansionPanel implements ComponentInterface {
         <TAGNAME class="sbb-expansion-panel__header">
           <slot name="header" onSlotchange={(event) => this._onHeaderSlotChange(event)}></slot>
         </TAGNAME>
-        <span class="sbb-expansion-panel__content">
-          <slot name="content" onSlotchange={(event) => this._onContentSlotChange(event)}></slot>
-        </span>
+        <div class="sbb-expansion-panel__content-wrapper">
+          <span class="sbb-expansion-panel__content">
+            <slot name="content" onSlotchange={(event) => this._onContentSlotChange(event)}></slot>
+          </span>
+        </div>
       </div>
     );
   }
