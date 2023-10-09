@@ -1,6 +1,6 @@
 /** @jsx h */
 import { Fragment, h, JSX } from 'jsx-dom';
-import readme from './readme.md';
+import readme from './readme.md?raw';
 import isChromatic from 'chromatic';
 import { userEvent, waitFor, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';

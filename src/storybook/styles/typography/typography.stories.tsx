@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /** @jsx h */
 import { Fragment, h, JSX } from 'jsx-dom';
-import readme from './readme.md';
+import readme from './readme.md?raw';
 import './typo-internal.scss';
 import type { Meta, StoryObj } from '@storybook/html';
 

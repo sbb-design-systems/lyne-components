@@ -1,6 +1,6 @@
 /** @jsx h */
 import { Fragment, h, JSX } from 'jsx-dom';
-import readme from './readme.md';
+import readme from './readme.md?raw';
 import events from './sbb-option.events';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType } from '@storybook/types';

@@ -1,6 +1,6 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
-import readme from './readme.md';
+import readme from './readme.md?raw';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../global/testing/wait-for-stable-position';

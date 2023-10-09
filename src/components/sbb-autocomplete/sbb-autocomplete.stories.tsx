@@ -2,7 +2,7 @@
 import { h, JSX } from 'jsx-dom';
 import events from './sbb-autocomplete.events';
 import optionEvents from '../sbb-option/sbb-option.events';
-import readme from './readme.md';
+import readme from './readme.md?raw';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/testing/wait-for-components-ready';
 import isChromatic from 'chromatic';

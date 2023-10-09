@@ -1,7 +1,7 @@
 /** @jsx h */
 import events from './sbb-file-selector.events';
 import { h, JSX } from 'jsx-dom';
-import readme from './readme.md';
+import readme from './readme.md?raw';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import { InputType } from '@storybook/types';

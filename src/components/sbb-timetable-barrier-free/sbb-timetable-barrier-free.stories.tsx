@@ -1,6 +1,6 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
-import readme from './readme.md';
+import readme from './readme.md?raw';
 import sampleData from './sbb-timetable-barrier-free.sample-data';
 import type { Meta, StoryObj, Args } from '@storybook/html';
 

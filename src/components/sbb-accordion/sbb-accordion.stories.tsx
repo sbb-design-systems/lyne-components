@@ -1,6 +1,6 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
-import readme from './readme.md';
+import readme from './readme.md?raw';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import { InputType, StoryContext } from '@storybook/types';
 import sbbExpansionPanelEvents from '../sbb-expansion-panel/sbb-expansion-panel.events';

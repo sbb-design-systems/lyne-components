@@ -1,6 +1,6 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
-import readme from './readme.md';
+import readme from './readme.md?raw';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, Decorator, StoryContext } from '@storybook/html';
 import { InputType } from '@storybook/types';

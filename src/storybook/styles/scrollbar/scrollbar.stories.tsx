@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 
-import readme from './readme.md';
+import readme from './readme.md?raw';
 import './scrollbar-internal.scss';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';

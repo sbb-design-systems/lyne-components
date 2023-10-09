@@ -1,6 +1,6 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
-import readme from './readme.md';
+import readme from './readme.md?raw';
 import sampleData from './sbb-timetable-park-and-rail.sample-data';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';

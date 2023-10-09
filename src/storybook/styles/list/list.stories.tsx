@@ -1,6 +1,6 @@
 /** @jsx h */
 import { Fragment, h, JSX } from 'jsx-dom';
-import readme from './readme.md';
+import readme from './readme.md?raw';
 import type { Meta, StoryObj } from '@storybook/html';
 
 const ListContent = (): JSX.Element[] => [

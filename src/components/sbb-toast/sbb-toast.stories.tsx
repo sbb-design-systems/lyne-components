@@ -1,7 +1,7 @@
 /** @jsx h */
 import './sbb-toast';
 import { Fragment, h, JSX } from 'jsx-dom';
-import readme from './readme.md';
+import readme from './readme.md?raw';
 import { withActions } from '@storybook/addon-actions/decorator';
 import isChromatic from 'chromatic';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
