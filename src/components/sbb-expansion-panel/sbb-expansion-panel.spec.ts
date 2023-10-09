@@ -14,15 +14,17 @@ describe('sbb-expansion-panel', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-expansion-panel style="--sbb-expansion-panel-content-height: auto;">
+      <sbb-expansion-panel>
         <mock:shadow-root>
           <div class="sbb-expansion-panel">
             <div class="sbb-expansion-panel__header">
               <slot name="header"></slot>
             </div>
-            <span class="sbb-expansion-panel__content">
-              <slot name="content"></slot>
-            </span>
+            <div class="sbb-expansion-panel__content-wrapper">
+              <span class="sbb-expansion-panel__content">
+                <slot name="content"></slot>
+              </span>
+            </div>
           </div>
         </mock:shadow-root>
         <sbb-expansion-panel-header>Header</sbb-expansion-panel-header>
@@ -43,15 +45,17 @@ describe('sbb-expansion-panel', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-expansion-panel title-level="4" style="--sbb-expansion-panel-content-height: auto;">
+      <sbb-expansion-panel title-level="4">
         <mock:shadow-root>
           <div class="sbb-expansion-panel">
             <h4 class="sbb-expansion-panel__header">
               <slot name="header"></slot>
             </h4>
-            <span class="sbb-expansion-panel__content">
-              <slot name="content"></slot>
-            </span>
+            <div class="sbb-expansion-panel__content-wrapper">
+              <span class="sbb-expansion-panel__content">
+                <slot name="content"></slot>
+              </span>
+            </div>
           </div>
         </mock:shadow-root>
         <sbb-expansion-panel-header>Header</sbb-expansion-panel-header>
