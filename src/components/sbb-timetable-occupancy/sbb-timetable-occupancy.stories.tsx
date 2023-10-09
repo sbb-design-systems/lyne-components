@@ -2,7 +2,8 @@
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import sampleData from './sbb-timetable-occupancy.sample-data';
-import type { Meta, StoryObj, Args } from '@storybook/html';
+import type { Meta, StoryObj, Args } from '@storybook/web-components';
+import './sbb-timetable-occupancy';
 
 const Template = (args): JSX.Element => (
   <sbb-timetable-occupancy config={JSON.stringify(args.config)}></sbb-timetable-occupancy>
