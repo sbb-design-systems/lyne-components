@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.41.4](https://github.com/lyne-design-system/lyne-components/compare/v0.41.3...v0.41.4) (2023-10-09)
+
+### Bug Fixes
+
+- **sbb-footer:** use correct focus outline color in negative mode ([#2057](https://github.com/lyne-design-system/lyne-components/issues/2057)) ([5134baa](https://github.com/lyne-design-system/lyne-components/commit/5134baa6fbe8d5cf290292b6bee14706984e26ea))
+
+### Refactorings
+
+- **sbb-expansion-panel:** improve expansion animation ([#2043](https://github.com/lyne-design-system/lyne-components/issues/2043)) ([2e155a0](https://github.com/lyne-design-system/lyne-components/commit/2e155a085355d0e940f9ffed85558feaa0f4d552))
+
 ### [0.41.3](https://github.com/lyne-design-system/lyne-components/compare/v0.41.2...v0.41.3) (2023-10-05)
 
 ### Bug Fixes
