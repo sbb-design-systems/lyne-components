@@ -1,9 +1,12 @@
-import { Component, ComponentInterface, Element, h, Host, JSX, State } from '@stencil/core';
-
-import clockFaceSVG from './assets/sbb_clock_face.svg';
-import clockHandleHoursSVG from './assets/sbb_clock_hours.svg';
-import clockHandleMinutesSVG from './assets/sbb_clock_minutes.svg';
-import clockHandleSecondsSVG from './assets/sbb_clock_seconds.svg';
+import clockFaceSVG from './assets/sbb_clock_face.svg?raw';
+import clockHandleHoursSVG from './assets/sbb_clock_hours.svg?raw';
+import clockHandleMinutesSVG from './assets/sbb_clock_minutes.svg?raw';
+import clockHandleSecondsSVG from './assets/sbb_clock_seconds.svg?raw';
+import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { customElement, state } from 'lit/decorators.js';
+import { setAttributes } from '../../global/dom';
+import { ref } from 'lit/directives/ref.js';
+import Style from './sbb-clock.scss?lit&inline';
 
 /** Number of hours on the clock face. */
 const TOTAL_HOURS_ON_CLOCK_FACE = 12;
@@ -40,17 +43,14 @@ const ADD_EVENT_LISTENER_OPTIONS: AddEventListenerOptions = {
   passive: true,
 };
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-clock.scss',
-  tag: 'sbb-clock',
-})
-export class SbbClock implements ComponentInterface {
+@customElement('sbb-clock')
+export class SbbClock extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /** If it's false, the clock's hands are hidden; it's set to true when calculations are ready. */
-  @State() private _isInitialized = false;
+  @state() private _isInitialized = false;
 
   /** Reference to the host element. */
-  @Element() private _element: HTMLElement;
 
   /** Reference to the hour hand. */
   private _clockHandHours: HTMLElement;
@@ -104,15 +104,15 @@ export class SbbClock implements ComponentInterface {
 
   private _removeHoursAnimationStyles(): void {
     this._clockHandHours?.classList.remove('sbb-clock__hand-hours--initial-hour');
-    this._element.style.removeProperty('--sbb-clock-hours-animation-start-angle');
-    this._element.style.removeProperty('--sbb-clock-hours-animation-duration');
+    this.style.removeProperty('--sbb-clock-hours-animation-start-angle');
+    this.style.removeProperty('--sbb-clock-hours-animation-duration');
   }
 
   private _removeSecondsAnimationStyles(): void {
     this._clockHandSeconds?.classList.remove('sbb-clock__hand-seconds--initial-minute');
     this._clockHandMinutes?.classList.remove('sbb-clock__hand-minutes--no-transition');
-    this._element.style.removeProperty('--sbb-clock-seconds-animation-start-angle');
-    this._element.style.removeProperty('--sbb-clock-seconds-animation-duration');
+    this.style.removeProperty('--sbb-clock-seconds-animation-start-angle');
+    this.style.removeProperty('--sbb-clock-seconds-animation-duration');
   }
 
   /** Given the current date, calculates the hh/mm/ss values and the hh/mm/ss left to the next midnight. */
@@ -153,28 +153,22 @@ export class SbbClock implements ComponentInterface {
       this._clockHandSeconds.style.animation = '';
     }
 
-    this._element.style.setProperty(
+    this.style.setProperty(
       '--sbb-clock-hours-animation-start-angle',
       `${Math.ceil(this._hours * HOURS_ANGLE + this._minutes / 2)}deg`,
     );
-    this._element.style.setProperty(
-      '--sbb-clock-hours-animation-duration',
-      `${hoursAnimationDuration}s`,
-    );
-    this._element.style.setProperty(
+    this.style.setProperty('--sbb-clock-hours-animation-duration', `${hoursAnimationDuration}s`);
+    this.style.setProperty(
       '--sbb-clock-seconds-animation-start-angle',
       `${Math.ceil(this._seconds * SBB_SECONDS_ANGLE)}deg`,
     );
-    this._element.style.setProperty(
-      '--sbb-clock-seconds-animation-duration',
-      `${remainingSeconds}s`,
-    );
+    this.style.setProperty('--sbb-clock-seconds-animation-duration', `${remainingSeconds}s`);
 
     this._setMinutesHand();
 
     this._clockHandSeconds?.classList.add('sbb-clock__hand-seconds--initial-minute');
     this._clockHandHours?.classList.add('sbb-clock__hand-hours--initial-hour');
-    this._element.style.setProperty('--sbb-clock-animation-play-state', 'running');
+    this.style.setProperty('--sbb-clock-animation-play-state', 'running');
 
     this._isInitialized = true;
   }
@@ -237,7 +231,7 @@ export class SbbClock implements ComponentInterface {
 
     this._clockHandMinutes?.classList.add('sbb-clock__hand-minutes--no-transition');
 
-    this._element.style.setProperty('--sbb-clock-animation-play-state', 'paused');
+    this.style.setProperty('--sbb-clock-animation-play-state', 'paused');
   }
 
   /** Starts the clock by defining the hands starting position then starting the animations. */
@@ -257,18 +251,18 @@ export class SbbClock implements ComponentInterface {
   }
 
   private _hasDataNow(): boolean {
-    const dataNow = +this._element.dataset?.now;
+    const dataNow = +this.dataset?.now;
     return !isNaN(dataNow);
   }
 
   private _now(): Date {
     if (this._hasDataNow()) {
-      return new Date(+this._element.dataset?.now);
+      return new Date(+this.dataset?.now);
     }
     return new Date();
   }
 
-  public componentDidLoad(): void {
+  protected override firstUpdated(): void {
     this._addEventListeners();
 
     if (this._hasDataNow()) {
@@ -278,39 +272,47 @@ export class SbbClock implements ComponentInterface {
     }
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._removeEventListeners();
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const hostAttributes = { 'data-initialized': this._isInitialized };
-    return (
-      <Host {...hostAttributes}>
-        <div class="sbb-clock">
-          <span class="sbb-clock__face" innerHTML={clockFaceSVG} />
-          <span
-            class="sbb-clock__hand-hours"
-            innerHTML={clockHandleHoursSVG}
-            ref={(el): void => {
-              this._clockHandHours = el;
-            }}
-          />
-          <span
-            class="sbb-clock__hand-minutes sbb-clock__hand-minutes--no-transition"
-            innerHTML={clockHandleMinutesSVG}
-            ref={(el): void => {
-              this._clockHandMinutes = el;
-            }}
-          />
-          <span
-            class="sbb-clock__hand-seconds"
-            innerHTML={clockHandleSecondsSVG}
-            ref={(el): void => {
-              this._clockHandSeconds = el;
-            }}
-          />
-        </div>
-      </Host>
-    );
+    setAttributes(this, hostAttributes);
+
+    return html`
+      <div class="sbb-clock">
+        <span class="sbb-clock__face" .innerHTML=${clockFaceSVG}></span>
+        <span
+          class="sbb-clock__hand-hours"
+          .innerHTML=${clockHandleHoursSVG}
+          ${ref((e: HTMLSpanElement): void => {
+            this._clockHandHours = e;
+          })}
+        ></span>
+        <span
+          class="sbb-clock__hand-minutes sbb-clock__hand-minutes--no-transition"
+          .innerHTML=${clockHandleMinutesSVG}
+          ${ref((el: HTMLSpanElement): void => {
+            this._clockHandMinutes = el;
+          })}
+        ></span>
+        <span
+          class="sbb-clock__hand-seconds"
+          .innerHTML=${clockHandleSecondsSVG}
+          ${ref((el: HTMLSpanElement): void => {
+            this._clockHandSeconds = el;
+          })}
+        ></span>
+      </div>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-clock': SbbClock;
   }
 }
