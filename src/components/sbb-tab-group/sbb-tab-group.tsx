@@ -5,7 +5,7 @@ import { throttle, EventEmitter, ConnectedAbortController } from '../../global/e
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../global/observers';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { SbbTabTitle } from '../sbb-tab-title/index';
+import { SbbTabTitle } from '../sbb-tab-title';
 import { setAttribute } from '../../global/dom';
 import { ref } from 'lit/directives/ref.js';
 import Style from './sbb-tab-group.scss?lit&inline';

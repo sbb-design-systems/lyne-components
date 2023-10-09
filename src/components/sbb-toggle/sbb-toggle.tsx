@@ -6,7 +6,7 @@ import { AgnosticResizeObserver } from '../../global/observers';
 import { html, LitElement, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { EventEmitter, ConnectedAbortController } from '../../global/eventing';
-import { SbbToggleOption } from '../sbb-toggle-option/index';
+import { SbbToggleOption } from '../sbb-toggle-option';
 import { setAttribute } from '../../global/dom';
 import { ref } from 'lit/directives/ref.js';
 import Style from './sbb-toggle.scss?lit&inline';
