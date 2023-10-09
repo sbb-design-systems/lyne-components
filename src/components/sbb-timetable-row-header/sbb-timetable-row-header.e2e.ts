@@ -1,18 +1,18 @@
-import { newE2EPage } from '@stencil/core/testing';
 import sampleData from './sbb-timetable-row-header.sample-data';
+import { assert, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { SbbTimetableRowHeader } from './sbb-timetable-row-header';
 
 const config = JSON.stringify(sampleData[0]);
 
 describe('sbb-timetable-row-header', () => {
-  let element, page;
+  let element: SbbTimetableRowHeader;
 
   it('renders', async () => {
-    page = await newE2EPage();
-    await page.setContent(
-      `<sbb-timetable-row-header config='${config}'></sbb-timetable-row-header>`,
+    element = await fixture(
+      html`<sbb-timetable-row-header config="${config}"></sbb-timetable-row-header>`,
     );
 
-    element = await page.find('sbb-timetable-row-header');
-    expect(element).toHaveClass('hydrated');
+    assert.instanceOf(element, SbbTimetableRowHeader);
   });
 });
