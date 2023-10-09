@@ -1,18 +1,19 @@
-import { newE2EPage } from '@stencil/core/testing';
 import sampleData from './sbb-timetable-transportation-number.sample-data';
+import { assert, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { SbbTimetableTransportationNumber } from './sbb-timetable-transportation-number';
 
 const config = JSON.stringify(sampleData.bus);
 
 describe('sbb-timetable-transportation-number', () => {
-  let element, page;
+  let element: SbbTimetableTransportationNumber;
 
   it('renders', async () => {
-    page = await newE2EPage();
-    await page.setContent(
-      `<sbb-timetable-transportation-number config='${config}'></sbb-timetable-transportation-number>`,
+    element = await fixture(
+      html`<sbb-timetable-transportation-number
+        config="${config}"
+      ></sbb-timetable-transportation-number>`,
     );
-
-    element = await page.find('sbb-timetable-transportation-number');
-    expect(element).toHaveClass('hydrated');
+    assert.instanceOf(element, SbbTimetableTransportationNumber);
   });
 });
