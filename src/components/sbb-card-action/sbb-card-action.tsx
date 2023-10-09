@@ -1,5 +1,6 @@
 import {
   ButtonType,
+  LinkButtonProperties,
   LinkButtonRenderVariables,
   LinkTargetType,
   resolveRenderVariables,
@@ -27,7 +28,7 @@ import { i18nTargetOpensInNewWindow } from '../../global/i18n';
  * @slot unnamed - Slot to render a descriptive label / title of the action (important!). This is relevant for SEO and screen readers.
  */
 @customElement('sbb-card-action')
-export class SbbCardAction extends LitElement {
+export class SbbCardAction extends LitElement implements LinkButtonProperties {
   public static override styles: CSSResult = Style;
 
   /** Whether the card is active. */

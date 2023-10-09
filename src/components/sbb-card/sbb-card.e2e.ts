@@ -24,7 +24,6 @@ describe('sbb-card', () => {
       </sbb-card>
     `);
 
-    await element.updateComplete;
     expect(
       getComputedStyle(
         element.shadowRoot.querySelector('.sbb-card__badge-wrapper'),

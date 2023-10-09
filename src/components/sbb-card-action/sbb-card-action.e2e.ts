@@ -4,8 +4,8 @@ import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { EventSpy } from '../../global/testing/event-spy';
 import { SbbCard } from '../sbb-card/sbb-card';
-import './sbb-card-action';
 import { SbbCardAction } from './sbb-card-action';
+import './sbb-card-action';
 
 // As tests don't work in specs at all (missing :is support in Jest), we moved all tests to e2e.
 
@@ -27,12 +27,15 @@ describe('sbb-card-action', () => {
     expect(element).to.have.attribute('data-has-action');
     expect(element).not.to.have.attribute('data-has-active-action');
     expect(element).to.have.attribute('data-action-role', 'link');
-    expect(element.querySelector('sbb-card-action')).dom.to.be.equal(`
+
+    const cardAction = element.querySelector('sbb-card-action');
+
+    expect(cardAction).dom.to.be.equal(`
       <sbb-card-action href="https://github.com/lyne-design-system/lyne-components" target="_blank" role="link" dir="ltr" tabindex="0" slot="action">
         Follow me
       </sbb-card-action>
     `);
-    expect(element.querySelector('sbb-card-action')).shadowDom.to.be.equal(`
+    expect(cardAction).shadowDom.to.be.equal(`
       <a class="sbb-card-action" href="https://github.com/lyne-design-system/lyne-components" target="_blank" rel="external noopener nofollow" role="presentation" tabindex="-1">
         <span class="sbb-card-action__label">
           <slot></slot>
@@ -50,12 +53,15 @@ describe('sbb-card-action', () => {
     expect(element).to.have.attribute('data-has-action');
     expect(element).to.have.attribute('data-has-active-action');
     expect(element).to.have.attribute('data-action-role', 'button');
-    expect(element.querySelector('sbb-card-action')).dom.to.be.equal(`
+
+    const cardAction = element.querySelector('sbb-card-action');
+
+    expect(cardAction).dom.to.be.equal(`
       <sbb-card-action role="button" dir="ltr" tabindex="0" slot="action" active>
         Click me
       </sbb-card-action>
     `);
-    expect(element.querySelector('sbb-card-action')).shadowDom.to.be.equal(`
+    expect(cardAction).shadowDom.to.be.equal(`
       <span class="sbb-card-action">
         <span class="sbb-card-action__label">
           <slot></slot>
@@ -120,7 +126,7 @@ describe('sbb-card-action', () => {
     ).to.be.equal(true);
 
     // Remove all buttons
-    document.querySelectorAll('button').forEach((el) => el.remove());
+    buttons.forEach((el) => el.remove());
     await element.updateComplete;
 
     // Card should not have marker anymore
@@ -171,46 +177,46 @@ describe('sbb-card-action', () => {
 
     it('dispatches event on click', async () => {
       await element.updateComplete;
-      const changeSpy = new EventSpy('click');
+      const clickSpy = new EventSpy('click');
 
       action.click();
 
-      await waitForCondition(() => changeSpy.events.length === 1);
-      expect(changeSpy.count).to.be.equal(1);
+      await waitForCondition(() => clickSpy.events.length === 1);
+      expect(clickSpy.count).to.be.equal(1);
     });
 
     it('should dispatch click event on pressing Enter', async () => {
-      const changeSpy = new EventSpy('click');
+      const clickSpy = new EventSpy('click');
       action.focus();
       await sendKeys({ press: 'Enter' });
-      expect(changeSpy.count).to.be.greaterThan(0);
+      expect(clickSpy.count).to.be.greaterThan(0);
     });
 
     it('should dispatch click event on pressing Space', async () => {
-      const changeSpy = new EventSpy('click');
+      const clickSpy = new EventSpy('click');
       action.focus();
       await sendKeys({ press: ' ' });
-      expect(changeSpy.count).to.be.greaterThan(0);
+      expect(clickSpy.count).to.be.greaterThan(0);
     });
 
     it('should dispatch click event on pressing Enter with href', async () => {
       element.setAttribute('href', 'test');
       await element.updateComplete;
 
-      const changeSpy = new EventSpy('click');
+      const clickSpy = new EventSpy('click');
       action.focus();
       await sendKeys({ press: 'Enter' });
-      expect(changeSpy.count).to.be.greaterThan(0);
+      expect(clickSpy.count).to.be.greaterThan(0);
     });
 
     it('should not dispatch click event on pressing Space with href', async () => {
       action.setAttribute('href', 'test');
       await element.updateComplete;
 
-      const changeSpy = new EventSpy('click');
+      const clickSpy = new EventSpy('click');
       action.focus();
       await sendKeys({ press: ' ' });
-      expect(changeSpy.count).not.to.be.greaterThan(0);
+      expect(clickSpy.count).not.to.be.greaterThan(0);
     });
 
     it('should receive focus', async () => {
