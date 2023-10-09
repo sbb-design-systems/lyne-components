@@ -46,7 +46,7 @@ export class SbbTagGroup extends LitElement {
   private _abort = new ConnectedAbortController(this);
 
   private _valueChanged(value: string | string[] | null): void {
-    if (!this._tags.every((tag) => tag.value)) {
+    if (this._tags.some((tag) => !tag.value)) {
       return;
     }
 
@@ -89,7 +89,7 @@ export class SbbTagGroup extends LitElement {
   }
 
   private _handleStateChange(event: CustomEvent<TagStateChange>): void {
-    const target: SbbTag = event.target as SbbTag;
+    const target = event.target as SbbTag;
     event.stopPropagation();
 
     if (this.multiple || (event.detail.type === 'checked' && !event.detail.checked)) {
@@ -105,6 +105,8 @@ export class SbbTagGroup extends LitElement {
   }
 
   private _updateValueByReadingTags(): void {
+    console.log('_updateValueByReadingTags');
+
     if (this.multiple) {
       this.value = this._tags.filter((tag) => tag.checked).map((tag) => tag.value);
     } else {
@@ -147,6 +149,7 @@ export class SbbTagGroup extends LitElement {
                   name=${`tag-${index}`}
                   @slotchange=${(): void => {
                     this._ensureOnlyOneTagSelected();
+                    this._updateValueByReadingTags();
                   }}
                 ></slot>
               </li>`,
@@ -156,6 +159,7 @@ export class SbbTagGroup extends LitElement {
           <slot
             @slotchange=${() => {
               this._ensureOnlyOneTagSelected();
+              this._updateValueByReadingTags();
             }}
           ></slot>
         </span>

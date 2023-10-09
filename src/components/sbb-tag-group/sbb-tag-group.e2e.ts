@@ -27,7 +27,7 @@ describe('sbb-tag-group', () => {
 
       it('should have no default activated tag', async () => {
         expect(element.querySelectorAll('sbb-tag[checked]').length).to.be.equal(0);
-        expect(element.value).to.be.empty;
+        expect(element.value).to.be.an('array').that.is.empty;
       });
 
       it('should emit events and update value by checking manually', async () => {
@@ -112,7 +112,7 @@ describe('sbb-tag-group', () => {
         expect(inputSpy.count).to.be.equal(1);
         await waitForCondition(() => changeSpy.events.length === 1);
         expect(changeSpy.count).to.be.equal(1);
-        expect(element.value).to.be.empty;
+        expect(element.value).to.be.an('array').that.is.empty;
       });
 
       it('should not emit events by setting checked programmatically [prop]', async () => {
@@ -149,7 +149,7 @@ describe('sbb-tag-group', () => {
         element = await fixture(html` <sbb-tag-group multiple value="[]"></sbb-tag-group> `);
 
         await element.updateComplete;
-        expect(element.value).to.be.empty;
+        expect(element.value).to.be.an('array').that.is.empty;
       });
 
       it('should read array as value [template attribute]', async () => {
@@ -160,17 +160,10 @@ describe('sbb-tag-group', () => {
             <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
           </sbb-tag-group>
         `);
-        await element.updateComplete;
 
         expect(element.value).to.be.eql(['tag1', 'tag3']);
-        await element.updateComplete;
-
         expect(element.querySelector('sbb-tag#sbb-tag-1')).to.have.attribute('checked');
-        await element.updateComplete;
-
         expect(element.querySelector('sbb-tag#sbb-tag-2')).not.to.have.attribute('checked');
-        await element.updateComplete;
-
         expect(element.querySelector('sbb-tag#sbb-tag-3')).to.have.attribute('checked');
       });
 
@@ -179,7 +172,7 @@ describe('sbb-tag-group', () => {
         element.value = [];
 
         await element.updateComplete;
-        expect(element.value).to.be.empty;
+        expect(element.value).to.be.an('array').that.is.empty;
       });
 
       it('should read array as value [prop]', async () => {
@@ -491,7 +484,7 @@ describe('sbb-tag-group', () => {
         element.value = [];
 
         await element.updateComplete;
-        expect(element.value).to.be.empty;
+        expect(element.value).to.be.an('array').that.is.empty;
       });
 
       it('should ensure only first option selected', async () => {
@@ -502,7 +495,6 @@ describe('sbb-tag-group', () => {
             <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
           </sbb-tag-group>
         `);
-        await element.updateComplete;
         expect(element.querySelectorAll('sbb-tag[checked]').length).to.be.equal(1);
         expect(element.value).to.be.equal('tag1');
       });
@@ -511,7 +503,7 @@ describe('sbb-tag-group', () => {
     describe('value change', () => {
       beforeEach(async () => {
         element = await fixture(html`
-          <sbb-tag-group id="lillo">
+          <sbb-tag-group>
             <sbb-tag id="sbb-tag-1" value="tag1" checked>Tag 1</sbb-tag>
             <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
             <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
@@ -520,7 +512,6 @@ describe('sbb-tag-group', () => {
       });
 
       it('should update group value if single value changes [prop]', async () => {
-        await element.updateComplete;
         expect(element.value).to.be.equal('tag1');
 
         const tag1 = element.querySelector('sbb-tag#sbb-tag-1') as SbbTag;

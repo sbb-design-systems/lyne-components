@@ -1,4 +1,4 @@
-import { resolveButtonRenderVariables } from '../../global/interfaces';
+import { ButtonProperties, resolveButtonRenderVariables } from '../../global/interfaces';
 import { TagStateChange } from './sbb-tag.custom';
 import {
   createNamedSlotState,
@@ -10,7 +10,7 @@ import {
 } from '../../global/eventing';
 import { CSSResult, html, LitElement, nothing, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { SbbTagGroup } from '../sbb-tag-group/index';
+import { SbbTagGroup } from '../sbb-tag-group';
 import { setAttributes } from '../../global/dom';
 import Style from './sbb-tag.scss?lit&inline';
 
@@ -27,7 +27,7 @@ export const events = {
 };
 
 @customElement('sbb-tag')
-export class SbbTag extends LitElement {
+export class SbbTag extends LitElement implements ButtonProperties {
   public static override styles: CSSResult = Style;
 
   /** The name attribute to use for the button. */
@@ -146,9 +146,9 @@ export class SbbTag extends LitElement {
       <span class="sbb-tag">
         ${this.iconName || this._namedSlots['icon']
           ? html`<span class="sbb-tag__icon sbb-tag--shift">
-              <slot name="icon"
-                >${this.iconName ? html`<sbb-icon name=${this.iconName} />` : nothing}</slot
-              >
+              <slot name="icon">
+                ${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}
+              </slot>
             </span>`
           : nothing}
         <span class="sbb-tag__text sbb-tag--shift">
