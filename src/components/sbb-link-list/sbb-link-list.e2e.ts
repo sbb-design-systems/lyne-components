@@ -1,53 +1,63 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { SbbLinkList } from './sbb-link-list';
+import '../sbb-link';
 
 describe('sbb-link-list', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbLinkList;
 
   beforeEach(async () => {
-    page = await newE2EPage();
-    await page.setContent(`
+    element = await fixture(html`
       <sbb-link-list title-level="2">
         <span slot="title">Help &amp; Contact</span>
-        <sbb-link href='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html'>Rückerstattungen</sbb-link>
-        <sbb-link href='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html'>Fundbüro</sbb-link>
-        <sbb-link href='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html'>Beschwerden</sbb-link>
-        <sbb-link href='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html'>Lob aussprechen</sbb-link>
-        <sbb-link href='https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html'>Sachbeschädigung melden</sbb-link>
+        <sbb-link
+          href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+          >Rückerstattungen</sbb-link
+        >
+        <sbb-link
+          href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+          >Fundbüro</sbb-link
+        >
+        <sbb-link
+          href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+          >Beschwerden</sbb-link
+        >
+        <sbb-link
+          href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+          >Lob aussprechen</sbb-link
+        >
+        <sbb-link
+          href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+          >Sachbeschädigung melden</sbb-link
+        >
       </sbb-link-list>
     `);
-    element = await page.find('sbb-link-list');
   });
 
   it('renders', async () => {
-    expect(element).toHaveClass('hydrated');
+    assert.instanceOf(element, SbbLinkList);
   });
 
   describe('property sync', () => {
     it('should sync properties/attributes with sbb-link', async () => {
-      await page.waitForChanges();
-      const links = await page.findAll('sbb-link-list sbb-link');
+      const links = Array.from(element.querySelectorAll('sbb-link'));
       expect(
-        links.every(
-          (l) =>
-            l.getAttribute('size') === 's' &&
-            l.getAttribute('variant') === 'block' &&
-            l.getAttribute('negative') === null,
-        ),
-      ).toBeTruthy();
+        links.every((l) => l.size === 's' && l.variant === 'block' && l.negative === undefined),
+      ).to.be.true;
     });
 
     it('should update attributes with size m', async () => {
       element.setAttribute('size', 'm');
-      await page.waitForChanges();
-      const links = await page.findAll('sbb-link-list sbb-link');
-      expect(links.every((l) => l.getAttribute('size') === 'm')).toBeTruthy();
+      await element.updateComplete;
+      const links = Array.from(element.querySelectorAll('sbb-link'));
+      expect(links.every((l) => l.size === 'm')).to.be.true;
     });
 
     it('should update attributes with negative', async () => {
       element.setAttribute('negative', '');
-      await page.waitForChanges();
-      const links = await page.findAll('sbb-link-list sbb-link');
-      expect(links.every((l) => l.getAttribute('negative') === '')).toBeTruthy();
+      await element.updateComplete;
+      const links = Array.from(element.querySelectorAll('sbb-link'));
+      expect(links.every((l) => l.negative)).to.be.true;
     });
   });
 });
