@@ -1,27 +1,51 @@
-import { Component, ComponentInterface, Element, h, JSX, Listen, Prop, Watch } from '@stencil/core';
-import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import { toggleDatasetEntry } from '../../global/dom';
+import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import { ConnectedAbortController } from '../../global/eventing';
+import { SbbExpansionPanel } from '../sbb-expansion-panel/index';
+import { TitleLevel } from '../sbb-title';
+import Style from './sbb-accordion.scss?lit&inline';
 
 /**
  * @slot unnamed - Use this to add one or more sbb-expansion-panel.
  */
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-accordion.scss',
-  tag: 'sbb-accordion',
-})
-export class SbbAccordion implements ComponentInterface {
+@customElement('sbb-accordion')
+export class SbbAccordion extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /** The heading level for the sbb-expansion-panel-headers within the component. */
-  @Prop() public titleLevel?: InterfaceTitleAttributes['level'];
+  @property({ attribute: 'title-level' })
+  public get titleLevel(): TitleLevel | null {
+    return this._titleLevel;
+  }
+  public set titleLevel(value: TitleLevel | null) {
+    const oldValue = this._titleLevel;
+    this._titleLevel = value;
+    this._setTitleLevelOnChildren();
+    this.requestUpdate('titleLevel', oldValue);
+  }
+  private _titleLevel: TitleLevel | null = null;
 
   /** Whether the animation should be disabled. */
-  @Prop({ reflect: true }) public disableAnimation = false;
+  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
+  public disableAnimation = false;
 
   /** Whether more than one sbb-expansion-panel can be open at the same time. */
-  @Prop() public multi = false;
+  @property({ type: Boolean })
+  public get multi(): boolean {
+    return this._multi;
+  }
+  public set multi(value: boolean) {
+    const oldValue = this._multi;
+    this._multi = value;
+    this._resetExpansionPanels(this._multi, oldValue);
+    this.requestUpdate('multi', oldValue);
+  }
+  private _multi: boolean = false;
 
-  @Listen('will-open')
-  public closePanels(e): void {
+  private _abort = new ConnectedAbortController(this);
+
+  private _closePanels(e): void {
     if (e.target?.tagName !== 'SBB-EXPANSION-PANEL' || this.multi) {
       return;
     }
@@ -31,8 +55,7 @@ export class SbbAccordion implements ComponentInterface {
       .forEach((panel) => (panel.expanded = false));
   }
 
-  @Watch('multi')
-  public resetExpansionPanels(newValue: boolean, oldValue: boolean): void {
+  private _resetExpansionPanels(newValue: boolean, oldValue: boolean): void {
     // If it's changing from "multi = true" to "multi = false", open the first panel and close all the others.
     const expansionPanels = this._expansionPanels;
     if (expansionPanels.length > 1 && oldValue && !newValue) {
@@ -43,15 +66,12 @@ export class SbbAccordion implements ComponentInterface {
     }
   }
 
-  @Watch('titleLevel')
-  public setTitleLevelOnChildren(): void {
+  private _setTitleLevelOnChildren(): void {
     this._expansionPanels.forEach((panel) => (panel.titleLevel = this.titleLevel));
   }
 
-  @Element() private _element!: HTMLElement;
-
-  private get _expansionPanels(): HTMLSbbExpansionPanelElement[] {
-    return Array.from(this._element.querySelectorAll('sbb-expansion-panel'));
+  private get _expansionPanels(): SbbExpansionPanel[] {
+    return Array.from(this.querySelectorAll('sbb-expansion-panel'));
   }
 
   private _setChildrenParameters(): void {
@@ -60,7 +80,7 @@ export class SbbAccordion implements ComponentInterface {
       return;
     }
 
-    expansionPanels.forEach((panel: HTMLSbbExpansionPanelElement) => {
+    expansionPanels.forEach((panel: SbbExpansionPanel) => {
       panel.titleLevel = this.titleLevel;
 
       toggleDatasetEntry(panel, 'accordionFirst', false);
@@ -76,11 +96,24 @@ export class SbbAccordion implements ComponentInterface {
     toggleDatasetEntry(expansionPanels[expansionPanels.length - 1], 'accordionLast', true);
   }
 
-  public render(): JSX.Element {
-    return (
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    const signal = this._abort.signal;
+    this.addEventListener('will-open', (e) => this._closePanels(e), { signal });
+  }
+
+  protected override render(): TemplateResult {
+    return html`
       <div class="sbb-accordion">
-        <slot onSlotchange={() => this._setChildrenParameters()}></slot>
+        <slot @slotchange=${() => this._setChildrenParameters()}></slot>
       </div>
-    );
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-accordion': SbbAccordion;
   }
 }

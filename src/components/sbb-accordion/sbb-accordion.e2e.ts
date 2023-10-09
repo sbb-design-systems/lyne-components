@@ -1,217 +1,218 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 import { waitForCondition } from '../../global/testing';
-import sbbExpansionPanelEvents from '../sbb-expansion-panel/sbb-expansion-panel.events';
+import {
+  SbbExpansionPanel,
+  events as sbbExpansionPanelEvents,
+} from '../sbb-expansion-panel/sbb-expansion-panel';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { EventSpy } from '../../global/testing/event-spy';
+import { SbbAccordion } from './sbb-accordion';
+import { SbbExpansionPanelHeader } from '../sbb-expansion-panel-header';
 
 describe('sbb-accordion', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbAccordion;
 
   beforeEach(async () => {
-    page = await newE2EPage();
-    await page.setContent(`
-      <sbb-accordion title-level='4'>
-        <sbb-expansion-panel id='panel-1' disable-animation>
-          <sbb-expansion-panel-header id='header-1'>Header 1</sbb-expansion-panel-header>
+    element = await fixture(html`
+      <sbb-accordion title-level="4">
+        <sbb-expansion-panel id="panel-1" disable-animation>
+          <sbb-expansion-panel-header id="header-1">Header 1</sbb-expansion-panel-header>
           <sbb-expansion-panel-content>Content 1</sbb-expansion-panel-content>
         </sbb-expansion-panel>
-        <sbb-expansion-panel id='panel-2' disable-animation>
-          <sbb-expansion-panel-header id='header-2'>Header 2</sbb-expansion-panel-header>
+        <sbb-expansion-panel id="panel-2" disable-animation>
+          <sbb-expansion-panel-header id="header-2">Header 2</sbb-expansion-panel-header>
           <sbb-expansion-panel-content>Content 2</sbb-expansion-panel-content>
         </sbb-expansion-panel>
-        <sbb-expansion-panel id='panel-3' disable-animation>
-          <sbb-expansion-panel-header id='header-3'>Header 3</sbb-expansion-panel-header>
+        <sbb-expansion-panel id="panel-3" disable-animation>
+          <sbb-expansion-panel-header id="header-3">Header 3</sbb-expansion-panel-header>
           <sbb-expansion-panel-content>Content 3</sbb-expansion-panel-content>
         </sbb-expansion-panel>
       </sbb-accordion>
     `);
-
-    element = await page.find('sbb-accordion');
-    await page.waitForChanges();
   });
 
   it('renders', async () => {
-    expect(element).toHaveClass('hydrated');
+    assert.instanceOf(element, SbbAccordion);
   });
 
   it('should set accordion context on expansion panel', async () => {
-    const panels = await page.findAll('sbb-expansion-panel');
+    const panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
 
-    expect(panels[0]).toHaveAttribute('data-accordion-first');
-    expect(panels[0]).toHaveAttribute('data-accordion');
-    expect(panels[1]).toHaveAttribute('data-accordion');
-    expect(panels[2]).toHaveAttribute('data-accordion');
-    expect(panels[2]).toHaveAttribute('data-accordion-last');
+    expect(panels[0]).to.have.attribute('data-accordion-first');
+    expect(panels[0]).to.have.attribute('data-accordion');
+    expect(panels[1]).to.have.attribute('data-accordion');
+    expect(panels[2]).to.have.attribute('data-accordion');
+    expect(panels[2]).to.have.attribute('data-accordion-last');
   });
 
   it('should set accordion context on expansion panel when removing and adding expansion-panels', async () => {
-    let panels: E2EElement[];
-    await page.waitForChanges();
+    let panels: SbbExpansionPanel[];
+    await element.updateComplete;
 
-    await page.evaluate(() => document.querySelector('sbb-expansion-panel').remove());
-    await page.waitForChanges();
+    element.querySelector('sbb-expansion-panel').remove();
+    await element.updateComplete;
 
-    panels = await page.findAll('sbb-expansion-panel');
-    expect(panels[0]).toHaveAttribute('data-accordion-first');
-    expect(panels[1]).toHaveAttribute('data-accordion-last');
+    panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
+    expect(panels[0]).to.have.attribute('data-accordion-first');
+    expect(panels[1]).to.have.attribute('data-accordion-last');
 
-    await page.evaluate(() => document.querySelector('sbb-expansion-panel').remove());
-    await page.waitForChanges();
+    element.querySelector('sbb-expansion-panel').remove();
+    await element.updateComplete;
 
-    const lastRemainingPanel = await page.find('sbb-expansion-panel');
-    expect(lastRemainingPanel).toHaveAttribute('data-accordion-first');
-    expect(lastRemainingPanel).toHaveAttribute('data-accordion-last');
+    const lastRemainingPanel = element.querySelector('sbb-expansion-panel');
+    expect(lastRemainingPanel).to.have.attribute('data-accordion-first');
+    expect(lastRemainingPanel).to.have.attribute('data-accordion-last');
 
-    await page.evaluate(() => {
-      const panel = document.createElement('sbb-expansion-panel');
-      document.querySelector('sbb-accordion').append(panel);
-    });
-    await page.waitForChanges();
+    const panel = document.createElement('sbb-expansion-panel');
+    element.querySelector('sbb-accordion').append(panel);
+    await element.updateComplete;
 
-    panels = await page.findAll('sbb-expansion-panel');
-    expect(panels[0]).toHaveAttribute('data-accordion-first');
-    expect(panels[0]).not.toHaveAttribute('data-accordion-last');
-    expect(panels[1]).toHaveAttribute('data-accordion-last');
+    panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
+    expect(panels[0]).to.have.attribute('data-accordion-first');
+    expect(panels[0]).not.to.have.attribute('data-accordion-last');
+    expect(panels[1]).to.have.attribute('data-accordion-last');
   });
 
   it('should inherit titleLevel prop by panels', async () => {
-    const panels = await page.findAll('sbb-expansion-panel');
-    expect(panels.length).toEqual(3);
-    expect(panels[0].shadowRoot.querySelector('.sbb-expansion-panel').firstChild.nodeName).toEqual(
-      'H4',
-    );
-    expect(panels[1].shadowRoot.querySelector('.sbb-expansion-panel').firstChild.nodeName).toEqual(
-      'H4',
-    );
-    expect(panels[2].shadowRoot.querySelector('.sbb-expansion-panel').firstChild.nodeName).toEqual(
-      'H4',
-    );
+    const panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
+    expect(panels.length).to.be.equal(3);
+    expect(
+      panels[0].shadowRoot.querySelector('.sbb-expansion-panel').firstChild.nodeName,
+    ).to.be.equal('H4');
+    expect(
+      panels[1].shadowRoot.querySelector('.sbb-expansion-panel').firstChild.nodeName,
+    ).to.be.equal('H4');
+    expect(
+      panels[2].shadowRoot.querySelector('.sbb-expansion-panel').firstChild.nodeName,
+    ).to.be.equal('H4');
   });
 
   it('should dynamically update titleLevel prop', async () => {
-    await element.setProperty('titleLevel', '6');
-    await page.waitForChanges();
-    const panels = await page.findAll('sbb-expansion-panel');
-    expect(panels.length).toEqual(3);
-    expect(panels[0].shadowRoot.querySelector('.sbb-expansion-panel').firstChild.nodeName).toEqual(
-      'H6',
-    );
-    expect(panels[1].shadowRoot.querySelector('.sbb-expansion-panel').firstChild.nodeName).toEqual(
-      'H6',
-    );
-    expect(panels[2].shadowRoot.querySelector('.sbb-expansion-panel').firstChild.nodeName).toEqual(
-      'H6',
-    );
+    element.titleLevel = '6';
+    await element.updateComplete;
+    const panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
+    expect(panels.length).to.be.equal(3);
+    expect(
+      panels[0].shadowRoot.querySelector('.sbb-expansion-panel').firstChild.nodeName,
+    ).to.be.equal('H6');
+    expect(
+      panels[1].shadowRoot.querySelector('.sbb-expansion-panel').firstChild.nodeName,
+    ).to.be.equal('H6');
+    expect(
+      panels[2].shadowRoot.querySelector('.sbb-expansion-panel').firstChild.nodeName,
+    ).to.be.equal('H6');
   });
 
   it('should close others when expanding and multi = false', async () => {
-    const willOpenEventSpy = await page.spyOnEvent(sbbExpansionPanelEvents.willOpen);
-    const panelOne: E2EElement = await page.find('#panel-1');
-    const headerOne: E2EElement = await page.find('#header-1');
-    const panelTwo: E2EElement = await page.find('#panel-2');
-    const headerTwo: E2EElement = await page.find('#header-2');
-    const panelThree: E2EElement = await page.find('#panel-3');
-    const headerThree: E2EElement = await page.find('#header-3');
+    const willOpenEventSpy = new EventSpy(sbbExpansionPanelEvents.willOpen);
+    const panelOne: SbbExpansionPanel = element.querySelector('#panel-1');
+    const headerOne: SbbExpansionPanelHeader = element.querySelector('#header-1');
+    const panelTwo: SbbExpansionPanel = element.querySelector('#panel-2');
+    const headerTwo: SbbExpansionPanelHeader = element.querySelector('#header-2');
+    const panelThree: SbbExpansionPanel = element.querySelector('#panel-3');
+    const headerThree: SbbExpansionPanelHeader = element.querySelector('#header-3');
 
     for (const panel of [panelOne, panelTwo, panelThree]) {
-      expect(await panel.getProperty('expanded')).toEqual(false);
+      expect(panel.expanded).to.be.equal(false);
     }
 
-    await headerTwo.click();
-    await page.waitForChanges();
+    headerTwo.click();
+    await element.updateComplete;
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
-    expect(await panelOne.getProperty('expanded')).toEqual(false);
-    expect(await panelTwo.getProperty('expanded')).toEqual(true);
-    expect(await panelThree.getProperty('expanded')).toEqual(false);
+    expect(willOpenEventSpy.count).to.be.equal(1);
+    await element.updateComplete;
+    expect(panelOne.expanded).to.be.equal(false);
+    expect(panelTwo.expanded).to.be.equal(true);
+    expect(panelThree.expanded).to.be.equal(false);
 
-    await headerOne.click();
-    await page.waitForChanges();
+    headerOne.click();
+    await element.updateComplete;
     await waitForCondition(() => willOpenEventSpy.events.length === 2);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(2);
-    await page.waitForChanges();
-    expect(await panelOne.getProperty('expanded')).toEqual(true);
-    expect(await panelTwo.getProperty('expanded')).toEqual(false);
-    expect(await panelThree.getProperty('expanded')).toEqual(false);
+    expect(willOpenEventSpy.count).to.be.equal(2);
+    await element.updateComplete;
+    expect(panelOne.expanded).to.be.equal(true);
+    expect(panelTwo.expanded).to.be.equal(false);
+    expect(panelThree.expanded).to.be.equal(false);
 
-    await headerThree.click();
-    await page.waitForChanges();
+    headerThree.click();
+    await element.updateComplete;
     await waitForCondition(() => willOpenEventSpy.events.length === 3);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(3);
-    await page.waitForChanges();
-    expect(await panelOne.getProperty('expanded')).toEqual(false);
-    expect(await panelTwo.getProperty('expanded')).toEqual(false);
-    expect(await panelThree.getProperty('expanded')).toEqual(true);
+    expect(willOpenEventSpy.count).to.be.equal(3);
+    await element.updateComplete;
+    expect(panelOne.expanded).to.be.equal(false);
+    expect(panelTwo.expanded).to.be.equal(false);
+    expect(panelThree.expanded).to.be.equal(true);
   });
 
   it('should not change others when expanding and multi = false', async () => {
-    await element.setProperty('multi', 'true');
-    await page.waitForChanges();
-    const willOpenEventSpy = await page.spyOnEvent(sbbExpansionPanelEvents.willOpen);
-    const panelOne: E2EElement = await page.find('#panel-1');
-    const panelTwo: E2EElement = await page.find('#panel-2');
-    const panelThree: E2EElement = await page.find('#panel-3');
+    element.multi = true;
+    await element.updateComplete;
+    const willOpenEventSpy = new EventSpy(sbbExpansionPanelEvents.willOpen);
+    const panelOne: SbbExpansionPanel = element.querySelector('#panel-1');
+    const panelTwo: SbbExpansionPanel = element.querySelector('#panel-2');
+    const panelThree: SbbExpansionPanel = element.querySelector('#panel-3');
     for (const panel of [panelOne, panelTwo, panelThree]) {
-      expect(await panel.getProperty('expanded')).toEqual(false);
+      expect(panel.expanded).to.be.equal(false);
     }
 
-    await panelTwo.click();
-    await page.waitForChanges();
+    panelTwo.click();
+    await element.updateComplete;
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
-    expect(await panelOne.getProperty('expanded')).toEqual(false);
-    expect(await panelTwo.getProperty('expanded')).toEqual(true);
-    expect(await panelThree.getProperty('expanded')).toEqual(false);
+    expect(willOpenEventSpy.count).to.be.equal(1);
+    await element.updateComplete;
+    expect(panelOne.expanded).to.be.equal(false);
+    expect(panelTwo.expanded).to.be.equal(true);
+    expect(panelThree.expanded).to.be.equal(false);
 
-    await panelOne.click();
-    await page.waitForChanges();
+    panelOne.click();
+    await element.updateComplete;
     await waitForCondition(() => willOpenEventSpy.events.length === 2);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(2);
-    await page.waitForChanges();
-    expect(await panelOne.getProperty('expanded')).toEqual(true);
-    expect(await panelTwo.getProperty('expanded')).toEqual(true);
-    expect(await panelThree.getProperty('expanded')).toEqual(false);
+    expect(willOpenEventSpy.count).to.be.equal(2);
+    await element.updateComplete;
+    expect(panelOne.expanded).to.be.equal(true);
+    expect(panelTwo.expanded).to.be.equal(true);
+    expect(panelThree.expanded).to.be.equal(false);
 
-    await panelThree.click();
-    await page.waitForChanges();
+    panelThree.click();
+    await element.updateComplete;
     await waitForCondition(() => willOpenEventSpy.events.length === 3);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(3);
-    await page.waitForChanges();
-    expect(await panelOne.getProperty('expanded')).toEqual(true);
-    expect(await panelTwo.getProperty('expanded')).toEqual(true);
-    expect(await panelThree.getProperty('expanded')).toEqual(true);
+    expect(willOpenEventSpy.count).to.be.equal(3);
+    await element.updateComplete;
+    expect(panelOne.expanded).to.be.equal(true);
+    expect(panelTwo.expanded).to.be.equal(true);
+    expect(panelThree.expanded).to.be.equal(true);
   });
 
   it('should close all panels except the first when multi changes from true to false', async () => {
-    await element.setProperty('multi', 'true');
-    await page.waitForChanges();
-    const panelOne: E2EElement = await page.find('#panel-1');
-    const panelTwo: E2EElement = await page.find('#panel-2');
-    const panelThree: E2EElement = await page.find('#panel-3');
+    element.multi = true;
+    await element.updateComplete;
+    const panelOne: SbbExpansionPanel = element.querySelector('#panel-1');
+    const panelTwo: SbbExpansionPanel = element.querySelector('#panel-2');
+    const panelThree: SbbExpansionPanel = element.querySelector('#panel-3');
     for (const panel of [panelOne, panelTwo, panelThree]) {
-      expect(await panel.getProperty('expanded')).toEqual(false);
+      expect(panel.expanded).to.be.equal(false);
     }
 
-    const willOpenEventSpy = await page.spyOnEvent(sbbExpansionPanelEvents.willOpen);
+    const willOpenEventSpy = new EventSpy(sbbExpansionPanelEvents.willOpen);
 
-    await panelTwo.click();
-    await page.waitForChanges();
+    panelTwo.click();
+    await element.updateComplete;
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
-    expect(await panelTwo.getProperty('expanded')).toEqual(true);
+    expect(willOpenEventSpy.count).to.be.equal(1);
+    await element.updateComplete;
+    expect(panelTwo.expanded).to.be.equal(true);
 
-    await panelThree.click();
-    await page.waitForChanges();
+    panelThree.click();
+    await element.updateComplete;
     await waitForCondition(() => willOpenEventSpy.events.length === 2);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(2);
-    await page.waitForChanges();
-    expect(await panelThree.getProperty('expanded')).toEqual(true);
+    expect(willOpenEventSpy.count).to.be.equal(2);
+    await element.updateComplete;
+    expect(panelThree.expanded).to.be.equal(true);
 
-    await element.setProperty('multi', 'false');
-    await page.waitForChanges();
-    expect(await panelOne.getProperty('expanded')).toEqual(true);
-    expect(await panelTwo.getProperty('expanded')).toEqual(false);
-    expect(await panelThree.getProperty('expanded')).toEqual(false);
+    element.multi = false;
+    await element.updateComplete;
+    expect(panelOne.expanded).to.be.equal(true);
+    expect(panelTwo.expanded).to.be.equal(false);
+    expect(panelThree.expanded).to.be.equal(false);
   });
 });
