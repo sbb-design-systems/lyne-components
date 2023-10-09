@@ -1,21 +1,25 @@
-import { SbbTimetableParkAndRail } from './sbb-timetable-park-and-rail';
-import { newSpecPage } from '@stencil/core/testing';
 import sampleData from './sbb-timetable-park-and-rail.sample-data';
+import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import './sbb-timetable-park-and-rail';
 
 const config = JSON.stringify(sampleData[0]);
 
 describe('sbb-timetable-park-and-rail', () => {
   it('renders', async () => {
-    const { root } = await newSpecPage({
-      components: [SbbTimetableParkAndRail],
-      html: `<sbb-timetable-park-and-rail config='${config}'/>`,
-    });
+    const root = await fixture(html`<sbb-timetable-park-and-rail config="${config}" />`);
 
-    expect(root).toEqualHtml(`
+    expect(root).dom.to.be.equal(
+      `
         <sbb-timetable-park-and-rail
             config="{&quot;distance&quot;:178}"
         >
-          <mock:shadow-root>
+
+        </sbb-timetable-park-and-rail>
+      `,
+    );
+    expect(root).shadowDom.to.be.equal(
+      `
             <div class="park-and-rail park-and-rail--first-level">
                 <span
                     aria-label="available at departure station. (178 Meters of walking distance to departing station.)"
@@ -28,8 +32,7 @@ describe('sbb-timetable-park-and-rail', () => {
                     </svg>
                 </span>
             </div>
-          </mock:shadow-root>
-        </sbb-timetable-park-and-rail>
-      `);
+          `,
+    );
   });
 });
