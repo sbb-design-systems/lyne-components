@@ -38,7 +38,6 @@ export class SbbRadioButtonGroup extends LitElement {
     return this._allowEmptySelection;
   }
   public set allowEmptySelection(value: boolean) {
-    // TODO: Validate logic
     const oldValue = this._allowEmptySelection;
     this._allowEmptySelection = value;
     this._updateAllowEmptySelection();
@@ -54,7 +53,6 @@ export class SbbRadioButtonGroup extends LitElement {
     return this._disabled;
   }
   public set disabled(value: boolean) {
-    // TODO: Validate logic
     const oldValue = this._disabled;
     this._disabled = value;
     this._updateDisabled();
@@ -70,7 +68,6 @@ export class SbbRadioButtonGroup extends LitElement {
     return this._required;
   }
   public set required(value: boolean) {
-    // TODO: Validate logic
     const oldValue = this._required;
     this._required = value;
     this._updateRequired();
@@ -86,7 +83,6 @@ export class SbbRadioButtonGroup extends LitElement {
     return this._value;
   }
   public set value(value: any | null | null) {
-    // TODO: Validate logic
     const oldValue = this._value;
     this._value = value;
     this._valueChanged(this._value);
@@ -102,7 +98,6 @@ export class SbbRadioButtonGroup extends LitElement {
     return this._size;
   }
   public set size(value: InterfaceSbbRadioButtonGroupAttributes['size']) {
-    // TODO: Validate logic
     const oldValue = this._size;
     this._size = value;
     this._updateSize();
@@ -311,7 +306,7 @@ export class SbbRadioButtonGroup extends LitElement {
 
     return html`
       <div class="sbb-radio-group">
-        <slot @slotchange=${() => this._updateRadios()} />
+        <slot @slotchange=${() => this._updateRadios()}></slot>
       </div>
       ${this._namedSlots.error
         ? html`<div class="sbb-radio-group__error">

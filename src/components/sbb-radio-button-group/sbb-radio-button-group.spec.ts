@@ -4,7 +4,7 @@ import './sbb-radio-button-group';
 
 describe('sbb-radio-button-group', () => {
   it('renders', async () => {
-    const root = await fixture(html`<sbb-radio-button-group />`);
+    const root = await fixture(html`<sbb-radio-button-group></sbb-radio-button-group>`);
 
     expect(root).dom.to.be.equal(
       `
