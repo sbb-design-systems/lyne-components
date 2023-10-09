@@ -1,18 +1,13 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  Event,
-  EventEmitter,
-  h,
-  JSX,
-  Listen,
-  Prop,
-  Watch,
-} from '@stencil/core';
-import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import { toggleDatasetEntry } from '../../global/dom';
 import { InterfaceSbbExpansionPanelAttributes } from './sbb-expansion-panel.custom';
+import { CSSResult, LitElement, TemplateResult } from 'lit';
+import { html, unsafeStatic } from 'lit/static-html.js';
+import { customElement, property } from 'lit/decorators.js';
+import { EventEmitter, ConnectedAbortController } from '../../global/eventing';
+import { SbbExpansionPanelHeader } from '../sbb-expansion-panel-header/index';
+import { SbbExpansionPanelContent } from '../sbb-expansion-panel-content/index';
+import { TitleLevel } from '../sbb-title';
+import Style from './sbb-expansion-panel.scss?lit&inline';
 
 let nextId = 0;
 
@@ -20,82 +15,86 @@ let nextId = 0;
  * @slot header - Use this to render the sbb-expansion-panel-header.
  * @slot content - Use this to render the sbb-expansion-panel-content.
  */
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-expansion-panel.scss',
-  tag: 'sbb-expansion-panel',
-})
-export class SbbExpansionPanel implements ComponentInterface {
+export const events = {
+  willOpen: 'will-open',
+  didOpen: 'did-open',
+  willClose: 'will-close',
+  didClose: 'did-close',
+};
+
+@customElement('sbb-expansion-panel')
+export class SbbExpansionPanel extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /** Heading level; if unset, a `div` will be rendered. */
-  @Prop() public titleLevel?: InterfaceTitleAttributes['level'];
+  @property({ attribute: 'title-level' }) public titleLevel?: TitleLevel;
 
   /** The background color of the panel. */
-  @Prop() public color: InterfaceSbbExpansionPanelAttributes['color'] = 'white';
+  @property() public color: InterfaceSbbExpansionPanelAttributes['color'] = 'white';
 
   /** Whether the panel is expanded. */
-  @Prop({ mutable: true, reflect: true }) public expanded = false;
+  @property({ reflect: true, type: Boolean })
+  public get expanded(): boolean {
+    return this._expanded;
+  }
+  public set expanded(value: boolean) {
+    const oldValue = this._expanded;
+    this._expanded = value;
+    this._onExpandedChange();
+    this.requestUpdate('expanded', oldValue);
+  }
+  private _expanded: boolean = false;
 
   /** Whether the panel is disabled, so its expanded state can't be changed. */
-  @Prop({ reflect: true }) public disabled = false;
+  @property({ reflect: true, type: Boolean })
+  public get disabled(): boolean {
+    return this._disabled;
+  }
+  public set disabled(value: boolean) {
+    const oldValue = this._disabled;
+    this._disabled = value;
+    this._updateDisabledOnHeader(this._disabled);
+    this.requestUpdate('disabled', oldValue);
+  }
+  private _disabled: boolean = false;
 
   /** Whether the panel has no border. */
-  @Prop({ reflect: true }) public borderless = false;
+  @property({ reflect: true, type: Boolean }) public borderless = false;
 
   /** Whether the animations should be disabled. */
-  @Prop({ reflect: true }) public disableAnimation = false;
+  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
+  public disableAnimation = false;
 
   /** Emits whenever the sbb-expansion-panel starts the opening transition. */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'will-open',
-  })
-  public willOpen: EventEmitter<void>;
+  private _willOpen: EventEmitter<void> = new EventEmitter(this, events.willOpen);
 
   /** Emits whenever the sbb-expansion-panel is opened. */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'did-open',
-  })
-  public didOpen: EventEmitter<void>;
+  private _didOpen: EventEmitter<void> = new EventEmitter(this, events.didOpen);
 
   /** Emits whenever the sbb-expansion-panel begins the closing transition. */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'will-close',
-  })
-  public willClose: EventEmitter<void>;
+  private _willClose: EventEmitter<void> = new EventEmitter(this, events.willClose);
 
   /** Emits whenever the sbb-expansion-panel is closed. */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'did-close',
-  })
-  public didClose: EventEmitter<void>;
+  private _didClose: EventEmitter<void> = new EventEmitter(this, events.didClose);
 
-  @Element() private _element!: HTMLSbbExpansionPanelElement;
+  private _abort = new ConnectedAbortController(this);
 
-  @Listen('toggle-expanded')
-  public toggleExpanded(): void {
+  private _toggleExpanded(): void {
     this.expanded = !this.expanded;
   }
 
-  @Watch('expanded')
-  public onExpandedChange(): void {
+  private _onExpandedChange(): void {
     this._headerRef.setAttribute('aria-expanded', String(this.expanded));
     this._contentRef.setAttribute('aria-hidden', String(!this.expanded));
 
     if (this.expanded) {
-      this.willOpen.emit();
+      this._willOpen.emit();
       // As with 0s duration, transitionEnd will not be fired, we need to programmatically trigger didOpen event
       if (this.disableAnimation) {
         this._onOpened();
       }
     } else {
-      this.willClose.emit();
+      this._willClose.emit();
       // As with 0s duration, transitionEnd will not be fired, we need to programmatically trigger didClose event
       if (this.disableAnimation) {
         this._onClosed();
@@ -103,32 +102,35 @@ export class SbbExpansionPanel implements ComponentInterface {
     }
   }
 
-  @Watch('disabled')
-  public updateDisabledOnHeader(newDisabledValue: boolean): void {
+  private _updateDisabledOnHeader(newDisabledValue: boolean): void {
     this._headerRef.disabled = newDisabledValue;
   }
 
   private _transitionEventController: AbortController;
   private _progressiveId = `-${++nextId}`;
-  private _headerRef: HTMLSbbExpansionPanelHeaderElement;
-  private _contentRef: HTMLSbbExpansionPanelContentElement;
+  private _headerRef: SbbExpansionPanelHeader;
+  private _contentRef: SbbExpansionPanelContent;
 
-  public connectedCallback(): void {
-    const accordion = this._element.closest('sbb-accordion');
-    toggleDatasetEntry(this._element, 'accordion', !!accordion);
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    const signal = this._abort.signal;
+    this.addEventListener('toggle-expanded', () => this._toggleExpanded(), { signal });
+    const accordion = this.closest('sbb-accordion');
+    toggleDatasetEntry(this, 'accordion', !!accordion);
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._transitionEventController?.abort();
-    toggleDatasetEntry(this._element, 'accordion', false);
+    toggleDatasetEntry(this, 'accordion', false);
   }
 
   private _onOpened(): void {
-    this.didOpen.emit();
+    this._didOpen.emit();
   }
 
   private _onClosed(): void {
-    this.didClose.emit();
+    this._didClose.emit();
   }
 
   private _onHeaderSlotChange(event): void {
@@ -140,7 +142,7 @@ export class SbbExpansionPanel implements ComponentInterface {
     }
 
     this._headerRef = elements.find(
-      (e): e is HTMLSbbExpansionPanelHeaderElement => e.tagName === 'SBB-EXPANSION-PANEL-HEADER',
+      (e): e is SbbExpansionPanelHeader => e.tagName === 'SBB-EXPANSION-PANEL-HEADER',
     );
 
     if (!this._headerRef) {
@@ -165,10 +167,7 @@ export class SbbExpansionPanel implements ComponentInterface {
 
     this._contentRef = (event.target as HTMLSlotElement)
       .assignedElements()
-      .find(
-        (e): e is HTMLSbbExpansionPanelContentElement =>
-          e.tagName === 'SBB-EXPANSION-PANEL-CONTENT',
-      );
+      .find((e): e is SbbExpansionPanelContent => e.tagName === 'SBB-EXPANSION-PANEL-CONTENT');
 
     if (!this._contentRef) {
       return;
@@ -218,20 +217,29 @@ export class SbbExpansionPanel implements ComponentInterface {
     }
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const TAGNAME = this.titleLevel ? `h${this.titleLevel}` : 'div';
 
-    return (
+    /* eslint-disable lit/binding-positions */
+    return html`
       <div class="sbb-expansion-panel">
-        <TAGNAME class="sbb-expansion-panel__header">
-          <slot name="header" onSlotchange={(event) => this._onHeaderSlotChange(event)}></slot>
-        </TAGNAME>
+        <${unsafeStatic(TAGNAME)} class="sbb-expansion-panel__header">
+          <slot name="header" @slotchange=${(event) => this._onHeaderSlotChange(event)}></slot>
+        </${unsafeStatic(TAGNAME)}>
         <div class="sbb-expansion-panel__content-wrapper">
           <span class="sbb-expansion-panel__content">
-            <slot name="content" onSlotchange={(event) => this._onContentSlotChange(event)}></slot>
+            <slot name="content" @slotchange=${(event) => this._onContentSlotChange(event)}></slot>
           </span>
         </div>
       </div>
-    );
+    `;
+    /* eslint-disable lit/binding-positions */
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-expansion-panel': SbbExpansionPanel;
   }
 }
