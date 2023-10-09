@@ -81,12 +81,12 @@ export class SbbToggleCheck extends LitElement {
     }
   }
 
-  private async _handleKeyup(event: KeyboardEvent): Promise<void> {
+  private _handleKeyup(event: KeyboardEvent): void {
     // The native checkbox input toggles state on keyup with space.
     if (!this.disabled && event.key === ' ') {
       // The toggle needs to happen after the keyup event finishes, so we schedule
       // it to be triggered after the current event loop.
-      await new Promise(() => setTimeout(() => findShadowInput(this).click(), 0));
+      setTimeout(() => findShadowInput(this).click());
     }
   }
 
