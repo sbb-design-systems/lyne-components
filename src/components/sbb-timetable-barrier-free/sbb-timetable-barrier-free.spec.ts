@@ -1,21 +1,25 @@
-import { SbbTimetableBarrierFree } from './sbb-timetable-barrier-free';
-import { newSpecPage } from '@stencil/core/testing';
 import sampleData from './sbb-timetable-barrier-free.sample-data';
+import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import './sbb-timetable-barrier-free';
 
 const config = JSON.stringify(sampleData[0]);
 
 describe('sbb-timetable-barrier-free', () => {
   it('renders', async () => {
-    const { root } = await newSpecPage({
-      components: [SbbTimetableBarrierFree],
-      html: `<sbb-timetable-barrier-free config='${config}' />`,
-    });
+    const root = await fixture(html`<sbb-timetable-barrier-free config="${config}" />`);
 
-    expect(root).toEqualHtml(`
+    expect(root).dom.to.be.equal(
+      `
         <sbb-timetable-barrier-free
             config="{&quot;icon&quot;:&quot;wheelchair&quot;,&quot;text&quot;:&quot;Independent boarding/alighting possible.&quot;}"
         >
-          <mock:shadow-root>
+
+        </sbb-timetable-barrier-free>
+      `,
+    );
+    expect(root).shadowDom.to.be.equal(
+      `
             <p
                 aria-label="Barrier-free travel. Independent boarding/alighting possible."
                 class="barrier-free barrier-free--second-level"
@@ -37,8 +41,7 @@ describe('sbb-timetable-barrier-free', () => {
                     Independent boarding/alighting possible.
                 </span>
             </p>
-          </mock:shadow-root>
-        </sbb-timetable-barrier-free>
-      `);
+          `,
+    );
   });
 });

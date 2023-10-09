@@ -2,7 +2,8 @@
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import sampleData from './sbb-timetable-barrier-free.sample-data';
-import type { Meta, StoryObj, Args } from '@storybook/html';
+import type { Meta, StoryObj, Args } from '@storybook/web-components';
+import './sbb-timetable-barrier-free';
 
 const Template = (args): JSX.Element => (
   <sbb-timetable-barrier-free config={JSON.stringify(args.config)}></sbb-timetable-barrier-free>
