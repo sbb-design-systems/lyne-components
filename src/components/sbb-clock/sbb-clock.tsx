@@ -79,11 +79,11 @@ export class SbbClock extends LitElement {
   /** Move the minutes hand every minute. */
   private _handMovement: ReturnType<typeof setInterval>;
 
-  private _handlePageVisibilityChange(): void {
+  private async _handlePageVisibilityChange(): Promise<void> {
     if (document.visibilityState === 'hidden') {
       this._stopClock();
     } else if (!this._hasDataNow()) {
-      this._startClock();
+      await this._startClock();
     }
   }
 
@@ -235,7 +235,7 @@ export class SbbClock extends LitElement {
   }
 
   /** Starts the clock by defining the hands starting position then starting the animations. */
-  private _startClock(): void {
+  private async _startClock(): Promise<void> {
     this._clockHandHours?.addEventListener(
       'animationend',
       this._moveHoursHandFn,
@@ -247,7 +247,9 @@ export class SbbClock extends LitElement {
       ADD_EVENT_LISTENER_OPTIONS,
     );
 
-    setTimeout(() => this._setHandsStartingPosition(), INITIAL_TIMEOUT_DURATION);
+    await new Promise(() =>
+      setTimeout(() => this._setHandsStartingPosition(), INITIAL_TIMEOUT_DURATION),
+    );
   }
 
   private _hasDataNow(): boolean {
@@ -262,13 +264,13 @@ export class SbbClock extends LitElement {
     return new Date();
   }
 
-  protected override firstUpdated(): void {
+  protected override async firstUpdated(): Promise<void> {
     this._addEventListeners();
 
     if (this._hasDataNow()) {
       this._stopClock();
     } else {
-      this._startClock();
+      await this._startClock();
     }
   }
 
