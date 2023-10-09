@@ -1,13 +1,12 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { assert, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { SbbFooter } from './sbb-footer';
 
 describe('sbb-footer', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbFooter;
 
   it('renders', async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-footer></sbb-footer>');
-
-    element = await page.find('sbb-footer');
-    expect(element).toHaveClass('hydrated');
+    element = await fixture(html`<sbb-footer></sbb-footer>`);
+    assert.instanceOf(element, SbbFooter);
   });
 });

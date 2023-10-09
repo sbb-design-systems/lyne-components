@@ -27,12 +27,11 @@ export function setAttribute(element: HTMLElement, attribute: string, value: any
 }
 
 /**
- * Set the attribute only if value is not 'false'
- * @param element The element that will have the attribute
- * @param attribute The attribute name
- * @param value The attribute value
+ * Set multiple attributes
+ * @param element The element that will have the attributes
+ * @param attributes Attributes object
  */
-export function setAttributes(element: HTMLElement, attributes: any): void {
+export function setAttributes(element: HTMLElement, attributes: Record<string, any>): void {
   if (!attributes) {
     return;
   }
