@@ -7,8 +7,7 @@ describe('sbb-expansion-panel-header', () => {
   let element: SbbExpansionPanelHeader;
 
   beforeEach(async () => {
-    await fixture(html`<sbb-expansion-panel-header>Header</sbb-expansion-panel-header>`);
-    element = document.querySelector('sbb-expansion-panel-header');
+    element = await fixture(html`<sbb-expansion-panel-header>Header</sbb-expansion-panel-header>`);
   });
 
   it('renders', async () => {
@@ -22,8 +21,9 @@ describe('sbb-expansion-panel-header', () => {
   });
 
   it('should not emit event on click if disabled', async () => {
-    await fixture(html`<sbb-expansion-panel-header disabled>Header</sbb-expansion-panel-header>`);
-    element = document.querySelector('sbb-expansion-panel-header');
+    element = await fixture(
+      html`<sbb-expansion-panel-header disabled>Header</sbb-expansion-panel-header>`,
+    );
     const spy = new EventSpy('toggle-expanded');
     element.click();
     expect(spy.count).not.to.be.greaterThan(0);

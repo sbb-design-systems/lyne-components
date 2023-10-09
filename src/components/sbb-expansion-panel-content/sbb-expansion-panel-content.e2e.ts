@@ -1,13 +1,14 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { assert, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { SbbExpansionPanelContent } from './sbb-expansion-panel-content';
 
 describe('sbb-expansion-panel-content', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbExpansionPanelContent;
 
   it('renders', async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-expansion-panel-content>Content</sbb-expansion-panel-content>');
-
-    element = await page.find('sbb-expansion-panel-content');
-    expect(element).toHaveClass('hydrated');
+    element = await fixture(
+      html`<sbb-expansion-panel-content>Content</sbb-expansion-panel-content>`,
+    );
+    assert.instanceOf(element, SbbExpansionPanelContent);
   });
 });
