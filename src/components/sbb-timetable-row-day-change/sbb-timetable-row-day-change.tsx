@@ -59,7 +59,7 @@ export class SbbTimetableRowDayChange extends LitElement {
     const a11yLabel = `${dayChange}${attention}${departsOn}${config.day}, ${config.date}`;
 
     return html`
-      <div class=${`day-change${visuallyHiddenClass}`} colspan=${config.colSpan}>
+      <div class=${`day-change${visuallyHiddenClass}`} colspan=${config.colSpan ?? nothing}>
         <h2 class="day-change__text">
           <span aria-hidden="true" class="day-change__text--visual" role="presentation">
             ${visualText}

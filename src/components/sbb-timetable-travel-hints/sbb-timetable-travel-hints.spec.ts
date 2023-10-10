@@ -8,7 +8,7 @@ const config = JSON.stringify(sampleData[0]);
 describe('sbb-timetable-travel-hints', () => {
   it('renders', async () => {
     const root = await fixture(
-      html`<sbb-timetable-travel-hints config="${config}" appearance="first-level-list" />`,
+      html`<sbb-timetable-travel-hints config="${config}" appearance="first-level-list"></sbb-timetable-travel-hints>`,
     );
 
     expect(root).dom.to.be.equal(
