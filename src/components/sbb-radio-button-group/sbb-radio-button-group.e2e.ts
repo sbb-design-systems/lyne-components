@@ -1,4 +1,4 @@
-import { waitForCondition } from '../../global/testing';
+import { waitForCondition, waitForLitRender } from '../../global/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
@@ -33,14 +33,12 @@ describe('sbb-radio-button-group', () => {
       const firstRadio = element.querySelector('#sbb-radio-1') as SbbRadioButton;
       const radio = element.querySelector('#sbb-radio-2') as SbbRadioButton;
 
-      await element.updateComplete;
       expect(firstRadio).to.have.attribute('checked');
 
       radio.click();
-      await element.updateComplete;
-      expect(radio).to.have.attribute('checked');
+      await waitForLitRender(element);
 
-      await element.updateComplete;
+      expect(radio).to.have.attribute('checked');
       expect(firstRadio).not.to.have.attribute('checked');
     });
 
@@ -57,7 +55,7 @@ describe('sbb-radio-button-group', () => {
       expect(inputSpy.count).to.be.equal(1);
 
       firstRadio.click();
-      await element.updateComplete;
+      await waitForLitRender(element);
       expect(firstRadio).to.have.attribute('checked');
     });
 
@@ -66,7 +64,7 @@ describe('sbb-radio-button-group', () => {
       const disabledRadio = element.querySelector('#sbb-radio-3') as SbbRadioButton;
 
       disabledRadio.click();
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(disabledRadio).not.to.have.attribute('checked');
       expect(firstRadio).to.have.attribute('checked');
@@ -78,22 +76,22 @@ describe('sbb-radio-button-group', () => {
       const disabledRadio = element.querySelector('#sbb-radio-3') as SbbRadioButton;
 
       element.disabled = true;
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       disabledRadio.click();
-      await element.updateComplete;
+      await waitForLitRender(element);
       expect(disabledRadio).not.to.have.attribute('checked');
       expect(firstRadio).to.have.attribute('checked');
 
       secondRadio.click();
-      await element.updateComplete;
+      await waitForLitRender(element);
       expect(secondRadio).not.to.have.attribute('checked');
 
       element.disabled = false;
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       disabledRadio.click();
-      await element.updateComplete;
+      await waitForLitRender(element);
       expect(disabledRadio).not.to.have.attribute('checked');
       expect(firstRadio).to.have.attribute('checked');
     });
@@ -102,16 +100,16 @@ describe('sbb-radio-button-group', () => {
       const firstRadio = element.querySelector('#sbb-radio-1') as SbbRadioButton;
 
       firstRadio.focus();
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       await sendKeys({ down: 'ArrowLeft' });
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       const radio = element.querySelector('#sbb-radio-4');
       expect(radio).to.have.attribute('checked');
 
       firstRadio.click();
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(firstRadio).to.have.attribute('checked');
     });
@@ -122,13 +120,13 @@ describe('sbb-radio-button-group', () => {
       firstRadio.focus();
       await sendKeys({ down: 'ArrowRight' });
 
-      await element.updateComplete;
+      await waitForLitRender(element);
       const radio = element.querySelector('#sbb-radio-2');
 
       expect(radio).to.have.attribute('checked');
 
       firstRadio.click();
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(firstRadio).to.have.attribute('checked');
     });
@@ -138,23 +136,23 @@ describe('sbb-radio-button-group', () => {
       const secondRadio = element.querySelector('#sbb-radio-2') as SbbRadioButton;
 
       secondRadio.click();
-      await element.updateComplete;
+      await waitForLitRender(element);
       expect(secondRadio).to.have.attribute('checked');
 
       secondRadio.focus();
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       await sendKeys({ down: 'ArrowRight' });
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       await sendKeys({ down: 'ArrowRight' });
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       const radio = element.querySelector('#sbb-radio-1');
       expect(radio).to.have.attribute('checked');
 
       firstRadio.click();
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(firstRadio).to.have.attribute('checked');
     });

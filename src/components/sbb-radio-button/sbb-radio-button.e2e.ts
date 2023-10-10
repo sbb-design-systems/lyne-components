@@ -1,5 +1,5 @@
 import { events } from './sbb-radio-button';
-import { waitForCondition } from '../../global/testing';
+import { waitForCondition, waitForLitRender } from '../../global/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { EventSpy } from '../../global/testing/event-spy';
@@ -25,7 +25,7 @@ describe('sbb-radio-button', () => {
     const stateChange = new EventSpy(events.stateChange);
 
     element.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(element).to.have.attribute('checked');
     await waitForCondition(() => stateChange.events.length === 1);
@@ -36,13 +36,13 @@ describe('sbb-radio-button', () => {
     const stateChange = new EventSpy(events.stateChange);
 
     element.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element).to.have.attribute('checked');
     await waitForCondition(() => stateChange.events.length === 1);
     expect(stateChange.count).to.be.equal(1);
 
     element.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element).to.have.attribute('checked');
     await waitForCondition(() => stateChange.events.length === 1);
     expect(stateChange.count).to.be.equal(1);
@@ -53,13 +53,13 @@ describe('sbb-radio-button', () => {
 
     element.allowEmptySelection = true;
     element.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element).to.have.attribute('checked');
     await waitForCondition(() => stateChange.events.length === 1);
     expect(stateChange.count).to.be.equal(1);
 
     element.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element).not.to.have.attribute('checked');
     await waitForCondition(() => stateChange.events.length === 2);
     expect(stateChange.count).to.be.equal(2);
