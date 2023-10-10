@@ -123,8 +123,7 @@ describe('sbb-form-field', () => {
     `);
   });
 
-  // TODO-Migr: Unskip when the 'sbb-form-error' is migrated
-  it.skip('renders readonly input with error', async () => {
+  it('renders readonly input with error', async () => {
     const root = await fixture(html`
       <sbb-form-field label="Fill input">
         <input
@@ -139,12 +138,12 @@ describe('sbb-form-field', () => {
     `);
 
     expect(root).dom.to.be.equal(`
-      <sbb-form-field error-space="none" size="m" label="Fill input" width="default">
+      <sbb-form-field error-space="none" size="m" label="Fill input" width="default" data-has-error>
         <label data-creator="SBB-FORM-FIELD" slot="label">
           Fill input
         </label>
         <input aria-describedby="error" class="input" placeholder="This is an input" readonly="" slot="input">
-        <sbb-form-error id="error">
+        <sbb-form-error id="error" role="status" slot="error">
           You can't change this value.
         </sbb-form-error>
       </sbb-form-field>

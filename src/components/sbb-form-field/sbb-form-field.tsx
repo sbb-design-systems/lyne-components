@@ -13,7 +13,7 @@ import { SbbInputModality, sbbInputModalityDetector } from '../../global/a11y';
 import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import Style from './sbb-form-field.scss?lit&inline';
-//import { SbbSelect } from '../sbb-select'; TODO-Migr: Uncomment when the sbb-select has been migrated
+import { SbbSelect } from '../sbb-select';
 import '../sbb-icon';
 
 let nextId = 0;
@@ -371,8 +371,7 @@ export class SbbFormField extends LitElement {
     } else if (this._input instanceof HTMLSelectElement) {
       return this._input.selectedOptions?.item(0)?.label?.trim() === '';
     } else if (this._input.tagName === 'SBB-SELECT') {
-      // TODO-Migr: change the 'any' to SbbSelect
-      return (this._input as any).getDisplayValue()?.trim() === '';
+      return (this._input as SbbSelect).getDisplayValue()?.trim() === '';
     } else {
       return this._isInputValueEmpty();
     }

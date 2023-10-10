@@ -16,6 +16,8 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { setAttribute } from '../../global/dom';
 import Style from './sbb-toast.scss?lit&inline';
 import { SbbOverlayState } from '../../global/overlay';
+import { SbbButton } from '../sbb-button';
+import { SbbLink } from '../sbb-link';
 import '../sbb-link';
 import '../sbb-button';
 
@@ -203,8 +205,7 @@ export class SbbToast extends LitElement {
     // Force the visual state on slotted buttons
     slotNodes
       .filter((el) => el.nodeName === 'SBB-BUTTON')
-      .forEach((btn: any) => {
-        // TODO-Migr: use SbbButton once the button is migrated
+      .forEach((btn: SbbButton) => {
         btn.variant = 'transparent';
         btn.negative = true;
         btn.size = 'm';
@@ -213,8 +214,7 @@ export class SbbToast extends LitElement {
     // Force the visual state on slotted links
     slotNodes
       .filter((el) => el.nodeName === 'SBB-LINK')
-      .forEach((link: any) => {
-        // TODO-Migr: use SbbLink once the button is migrated
+      .forEach((link: SbbLink) => {
         link.variant = 'inline';
         link.negative = true;
       });
