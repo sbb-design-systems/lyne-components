@@ -274,27 +274,26 @@ describe('sbb-form-field', () => {
     });
 
     it('should update floating label when resetting form', async () => {
-      await fixture(html`
+      const form = (await fixture(html`
         <form>
           <sbb-form-field floating-label>
             <input />
           </sbb-form-field>
         </form>
-      `);
-      const element = document.querySelector('sbb-form-field');
-      document.querySelector('input').focus();
+      `)) as HTMLFormElement;
+      const element = form.querySelector('sbb-form-field');
+      form.querySelector('input').focus();
       await sendKeys({ type: 'test' });
       await waitForLitRender(element);
       expect(element).not.to.have.attribute('data-input-empty');
 
-      document.querySelector('form').reset();
-      await waitForLitRender(element);
+      form.reset();
 
       // This is necessary to await for the reset event to be propagated
       // In general, 'element.updateComplete' should suffice. Unless the changes
       // do not trigger a rendering of the component
-      await nextFrame();
       await waitForLitRender(element);
+      await nextFrame();
 
       expect(element).to.have.attribute('data-input-empty');
     });
