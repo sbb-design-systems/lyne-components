@@ -4,12 +4,12 @@ export default [
       {
         class: '1',
         icon: 'utilization-none',
-        occupancy: 'none',
+        occupancy: 'unknown',
       },
       {
         class: '2',
         icon: 'utilization-none',
-        occupancy: 'none',
+        occupancy: 'unknown',
       },
     ],
   },
@@ -18,7 +18,7 @@ export default [
       {
         class: '1',
         icon: 'utilization-none',
-        occupancy: 'none',
+        occupancy: 'unknown',
       },
       {
         class: '2',
