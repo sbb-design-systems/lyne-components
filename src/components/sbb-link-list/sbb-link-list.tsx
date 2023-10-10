@@ -1,58 +1,56 @@
-import { Component, h, Prop, State, JSX, Element, Watch, ComponentInterface } from '@stencil/core';
 import { InterfaceLinkListAttributes } from './sbb-link-list.custom';
-import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import { InterfaceLinkAttributes } from '../sbb-link/sbb-link.custom';
 import {
   createNamedSlotState,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
 } from '../../global/eventing';
+import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { spread } from '@open-wc/lit-helpers';
+import { SbbLink } from '../sbb-link';
+import { TitleLevel } from '../sbb-title';
+import '../sbb-title';
+import Style from './sbb-link-list.scss?lit&inline';
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-link-list.scss',
-  tag: 'sbb-link-list',
-})
-export class SbbLinkList implements ComponentInterface {
+@customElement('sbb-link-list')
+export class SbbLinkList extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /** The title text we want to show before the list. */
-  @Prop() public titleContent?: string;
+  @property({ attribute: 'title-content' }) public titleContent?: string;
 
   /** The semantic level of the title, e.g. 2 = h2. */
-  @Prop() public titleLevel?: InterfaceTitleAttributes['level'] = '2';
+  @property({ attribute: 'title-level' }) public titleLevel?: TitleLevel = '2';
 
   /**
    * Text size of the nested sbb-link instances. This will overwrite the size attribute of
    * nested sbb-link instances.
    */
-  @Prop({ reflect: true }) public size: InterfaceLinkAttributes['size'] = 's';
+  @property({ reflect: true }) public size: InterfaceLinkAttributes['size'] = 's';
 
   /**
    * Whether to render the link list and nested sbb-link instances as negative. This will overwrite
    * the negative attribute of nested sbb-link instances.
    */
-  @Prop({ reflect: true }) public negative: boolean;
+  @property({ reflect: true, type: Boolean }) public negative: boolean;
 
   /** Selected breakpoint from which the list is rendered horizontally. */
-  @Prop({ reflect: true })
+  @property({ attribute: 'horizontal-from', reflect: true })
   public horizontalFrom?: InterfaceLinkListAttributes['horizontalFromBreakpoint'];
 
   /** The orientation in which the list will be shown vertical or horizontal. */
-  @Prop({ reflect: true }) public orientation: InterfaceLinkListAttributes['orientation'] =
+  @property({ reflect: true }) public orientation: InterfaceLinkListAttributes['orientation'] =
     'vertical';
 
   /** Sbb-Link elements */
-  @State() private _links: HTMLSbbLinkElement[];
+  @state() private _links: SbbLink[];
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @State() private _namedSlots = createNamedSlotState('title');
+  @state() private _namedSlots = createNamedSlotState('title');
 
-  /** Host element */
-  @Element() private _element!: HTMLElement;
-
-  @Watch('size')
-  @Watch('negative')
-  public syncLinks(): void {
-    this._element.querySelectorAll('sbb-link').forEach((link) => {
+  private _syncLinks(): void {
+    this.querySelectorAll('sbb-link').forEach((link) => {
       link.negative = this.negative;
       link.size = this.size;
       link.variant = 'block';
@@ -60,7 +58,7 @@ export class SbbLinkList implements ComponentInterface {
   }
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
@@ -68,9 +66,7 @@ export class SbbLinkList implements ComponentInterface {
    * Create an array with only the sbb-link children
    */
   private _readLinks(): void {
-    const links = Array.from(this._element.children).filter(
-      (e): e is HTMLSbbLinkElement => e.tagName === 'SBB-LINK',
-    );
+    const links = Array.from(this.children).filter((e): e is SbbLink => e.tagName === 'SBB-LINK');
     // If the slotted sbb-link instances have not changed, we can skip syncing and updating
     // the link reference list.
     if (
@@ -81,20 +77,28 @@ export class SbbLinkList implements ComponentInterface {
       return;
     }
 
-    this.syncLinks();
+    this._syncLinks();
     this._links = links;
   }
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
     this._handlerRepository.connect();
     this._readLinks();
   }
 
-  public disconnectedCallback(): void {
+  public override willUpdate(changedProperties: PropertyValues<this>): void {
+    if (changedProperties.has('size') || changedProperties.has('negative')) {
+      this._syncLinks();
+    }
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     let ariaLabelledByAttribute: Record<string, string> = {};
 
     if (this._namedSlots.title || this.titleContent) {
@@ -104,30 +108,38 @@ export class SbbLinkList implements ComponentInterface {
     }
     this._links.forEach((link, index) => link.setAttribute('slot', `link-${index}`));
 
-    return (
+    return html`
       <div class="sbb-link-list-wrapper">
-        {(this._namedSlots.title || this.titleContent) && (
-          <sbb-title
-            class="sbb-link-list-title"
-            level={this.titleLevel}
-            visual-level="5"
-            negative={this.negative}
-            id="sbb-link-list-title-id"
-          >
-            <slot name="title">{this.titleContent}</slot>
-          </sbb-title>
-        )}
-        <ul {...ariaLabelledByAttribute} class="sbb-link-list">
-          {this._links.map((_, index) => (
-            <li>
-              <slot name={`link-${index}`} onSlotchange={(): void => this._readLinks()} />
-            </li>
-          ))}
+        ${this._namedSlots.title || this.titleContent
+          ? html`<sbb-title
+              class="sbb-link-list-title"
+              level=${this.titleLevel}
+              visual-level="5"
+              ?negative=${this.negative}
+              id="sbb-link-list-title-id"
+            >
+              <slot name="title">${this.titleContent}</slot>
+            </sbb-title>`
+          : nothing}
+        <ul ${spread(ariaLabelledByAttribute)} class="sbb-link-list">
+          ${this._links.map(
+            (_, index) =>
+              html`<li>
+                <slot name=${`link-${index}`} @slotchange=${(): void => this._readLinks()}></slot>
+              </li>`,
+          )}
         </ul>
         <span hidden>
-          <slot onSlotchange={(): void => this._readLinks()} />
+          <slot @slotchange=${(): void => this._readLinks()}></slot>
         </span>
       </div>
-    );
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-link-list': SbbLinkList;
   }
 }

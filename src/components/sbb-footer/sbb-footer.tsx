@@ -1,47 +1,59 @@
-import { Component, h, JSX, Prop } from '@stencil/core';
 import { InterfaceFooterAttributes } from './sbb-footer.custom';
-import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
+import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import Style from './sbb-footer.scss?lit&inline';
+import { html, unsafeStatic } from 'lit/static-html.js';
+import { TitleLevel } from '../sbb-title';
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-footer.scss',
-  tag: 'sbb-footer',
-})
-export class SbbFooter {
+@customElement('sbb-footer')
+export class SbbFooter extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /**
    * Variants to display the footer. The default, displays the content in regular block element
    * approach. The clock-columns, used a css-grid for displaying the content over different
    * breakpoints.
    */
-  @Prop({ reflect: true }) public variant: InterfaceFooterAttributes['variant'] = 'default';
+  @property({ reflect: true }) public variant: InterfaceFooterAttributes['variant'] = 'default';
 
   /** Negative coloring variant flag. */
-  @Prop({ reflect: true }) public negative = false;
+  @property({ reflect: true, type: Boolean }) public negative = false;
 
   /**
    * Whether to allow the footer content to stretch to full width.
    * By default, the content has the appropriate page size.
    */
-  @Prop({ reflect: true }) public expanded = false;
+  @property({ reflect: true, type: Boolean }) public expanded = false;
 
   /** Footer title text, visually hidden, necessary for screen readers. */
-  @Prop() public accessibilityTitle?: string;
+  @property({ attribute: 'accessibility-title' }) public accessibilityTitle?: string;
 
   /** Level of the accessibility title, will be rendered as heading tag (e.g. h1). Defaults to level 1. */
-  @Prop() public accessibilityTitleLevel: InterfaceTitleAttributes['level'] = '1';
+  @property({ attribute: 'accessibility-title-level' })
+  public accessibilityTitleLevel: TitleLevel = '1';
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const TITLE_TAG_NAME = `h${this.accessibilityTitleLevel}`;
 
-    return (
+    /* eslint-disable lit/binding-positions */
+    const accessibilityTitle = html`<${unsafeStatic(TITLE_TAG_NAME)} class="sbb-footer__title"
+        >${this.accessibilityTitle}</${unsafeStatic(TITLE_TAG_NAME)}>`;
+    /* eslint-enable lit/binding-positions */
+
+    return html`
       <footer class="sbb-footer">
         <div class="sbb-footer-wrapper">
-          {this.accessibilityTitle && (
-            <TITLE_TAG_NAME class="sbb-footer__title">{this.accessibilityTitle}</TITLE_TAG_NAME>
-          )}
+          ${this.accessibilityTitle ? accessibilityTitle : nothing}
           <slot />
         </div>
       </footer>
-    );
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-footer': SbbFooter;
   }
 }
