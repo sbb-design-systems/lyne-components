@@ -294,6 +294,7 @@ describe('sbb-form-field', () => {
       // In general, 'element.updateComplete' should suffice. Unless the changes
       // do not trigger a rendering of the component
       await nextFrame();
+      await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-input-empty');
     });
