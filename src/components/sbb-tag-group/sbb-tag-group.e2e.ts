@@ -148,7 +148,6 @@ describe('sbb-tag-group', () => {
       it('should read empty array as value [template attribute]', async () => {
         element = await fixture(html` <sbb-tag-group multiple value="[]"></sbb-tag-group> `);
 
-        await element.updateComplete;
         expect(element.value).to.be.an('array').that.is.empty;
       });
 
@@ -170,8 +169,8 @@ describe('sbb-tag-group', () => {
       it('should read empty array as value [prop]', async () => {
         element = await fixture(html` <sbb-tag-group multiple></sbb-tag-group> `);
         element.value = [];
-
         await element.updateComplete;
+
         expect(element.value).to.be.an('array').that.is.empty;
       });
 
@@ -184,7 +183,6 @@ describe('sbb-tag-group', () => {
           </sbb-tag-group>
         `);
         element.value = ['tag1', 'tag3'];
-
         await element.updateComplete;
 
         expect(element.value).to.be.eql(['tag1', 'tag3']);
@@ -196,8 +194,8 @@ describe('sbb-tag-group', () => {
       it('should ignore because value is not an array', async () => {
         element = await fixture(html` <sbb-tag-group multiple></sbb-tag-group> `);
         element.value = 'invalid';
-
         await element.updateComplete;
+
         expect(element.value).to.be.equal('invalid');
       });
     });
@@ -377,10 +375,10 @@ describe('sbb-tag-group', () => {
 
         tag3.click();
         await element.updateComplete;
+        await element.updateComplete;
 
         expect(tag3).to.have.attribute('checked');
         expect(tag3.checked).to.be.equal(true);
-        await element.updateComplete;
 
         expect(tag2).not.to.have.attribute('checked');
         expect(tag2.checked).to.be.equal(false);
@@ -403,10 +401,10 @@ describe('sbb-tag-group', () => {
 
         tag1.click();
         await element.updateComplete;
+        await element.updateComplete;
 
         expect(tag1).to.have.attribute('checked');
         expect(tag1.checked).to.be.equal(true);
-        await element.updateComplete;
 
         expect(tag2).not.to.have.attribute('checked');
         expect(tag2.checked).to.be.equal(false);
@@ -429,10 +427,10 @@ describe('sbb-tag-group', () => {
 
         tag3.checked = true;
         await element.updateComplete;
+        await element.updateComplete;
 
         expect(tag3).to.have.attribute('checked');
         expect(tag3.checked).to.be.equal(true);
-        await element.updateComplete;
 
         expect(tag2).not.to.have.attribute('checked');
         expect(tag2.checked).to.be.equal(false);
@@ -482,8 +480,8 @@ describe('sbb-tag-group', () => {
       it('should ignore because value is an array', async () => {
         element = await fixture(html` <sbb-tag-group></sbb-tag-group> `);
         element.value = [];
-
         await element.updateComplete;
+
         expect(element.value).to.be.an('array').that.is.empty;
       });
 

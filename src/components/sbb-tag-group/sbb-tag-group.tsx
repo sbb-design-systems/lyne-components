@@ -2,7 +2,7 @@ import { TagStateChange } from '../sbb-tag/sbb-tag.custom';
 import { CSSResult, html, LitElement, TemplateResult, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ConnectedAbortController } from '../../global/eventing';
-import { SbbTag } from '../sbb-tag/index';
+import { SbbTag } from '../sbb-tag';
 import { setAttribute } from '../../global/dom';
 import Style from './sbb-tag-group.scss?lit&inline';
 
@@ -105,8 +105,6 @@ export class SbbTagGroup extends LitElement {
   }
 
   private _updateValueByReadingTags(): void {
-    console.log('_updateValueByReadingTags');
-
     if (this.multiple) {
       this.value = this._tags.filter((tag) => tag.checked).map((tag) => tag.value);
     } else {
