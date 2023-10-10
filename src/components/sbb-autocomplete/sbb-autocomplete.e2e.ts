@@ -86,9 +86,7 @@ describe('sbb-autocomplete', () => {
     expect(input).to.have.attribute('aria-expanded', 'true');
 
     // Simulate backdrop click
-    sendMouse({ type: 'move', position: [350, 25] });
-    sendMouse({ type: 'down' });
-    sendMouse({ type: 'up' });
+    sendMouse({ type: 'click', position: [formField.offsetWidth + 25, 25] });
 
     await waitForCondition(() => willCloseEventSpy.events.length === 3);
     expect(willCloseEventSpy.count).to.be.equal(3);
@@ -110,7 +108,6 @@ describe('sbb-autocomplete', () => {
 
     await sendKeys({ press: 'ArrowDown' });
     await sendKeys({ press: 'ArrowDown' });
-    await waitForLitRender(element);
     await sendKeys({ press: 'Enter' });
     await waitForLitRender(element);
 

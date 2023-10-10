@@ -24,9 +24,6 @@ import Style from './sbb-autocomplete.scss?lit&inline';
 
 let nextId = 0;
 
-/**
- * @slot unnamed - Use this slot to project options.
- */
 export const events = {
   willOpen: 'will-open',
   didOpen: 'did-open',
@@ -34,6 +31,9 @@ export const events = {
   didClose: 'did-close',
 };
 
+/**
+ * @slot unnamed - Use this slot to project options.
+ */
 @customElement('sbb-autocomplete')
 export class SbbAutocomplete extends LitElement {
   public static override styles: CSSResult = Style;
@@ -153,7 +153,7 @@ export class SbbAutocomplete extends LitElement {
 
   /** When an option is selected, update the input value and close the autocomplete. */
   private _onOptionSelected(event: CustomEvent): void {
-    const target: SbbOption = event.target as SbbOption;
+    const target = event.target as SbbOption;
     if (!target.selected) {
       return;
     }
@@ -192,6 +192,7 @@ export class SbbAutocomplete extends LitElement {
     if (this._didLoad) {
       this._componentSetup();
     }
+    this._syncNegative();
 
     this.addEventListener('option-selection-change', (e) => this._onOptionSelected(e), { signal });
     this.addEventListener('click', (e) => this._onOptionClick(e), { signal });
