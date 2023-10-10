@@ -1,14 +1,14 @@
-import { Component, h, JSX, Prop } from '@stencil/core';
+import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import Style from './sbb-timetable-row-header.scss?lit&inline';
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-timetable-row-header.scss',
-  tag: 'sbb-timetable-row-header',
-})
-export class SbbTimetableRowHeader {
-  @Prop() public config!: string;
+@customElement('sbb-timetable-row-header')
+export class SbbTimetableRowHeader extends LitElement {
+  public static override styles: CSSResult = Style;
 
-  public render(): JSX.Element {
+  @property() public config!: string;
+
+  protected override render(): TemplateResult {
     /**
      * Stringified JSON which defines most of the
      * content of the component. Please check the
@@ -17,11 +17,14 @@ export class SbbTimetableRowHeader {
      */
     const config = JSON.parse(this.config);
 
-    return (
-      <h3 class="row-header">
-        {config.departure.time} {config.departure.productText}{' '}
-        {config.departure.productMarketingName} {config.departure.direction}.
-      </h3>
-    );
+    const output = `${config.departure.time} ${config.departure.productText} ${config.departure.productMarketingName} ${config.departure.direction}.`;
+    return html` <h3 class="row-header">${output}</h3> `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-timetable-row-header': SbbTimetableRowHeader;
   }
 }

@@ -1,18 +1,17 @@
-import { newE2EPage } from '@stencil/core/testing';
 import sampleData from './sbb-timetable-park-and-rail.sample-data';
+import { assert, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { SbbTimetableParkAndRail } from './sbb-timetable-park-and-rail';
 
 const config = JSON.stringify(sampleData[0]);
 
 describe('sbb-timetable-park-and-rail', () => {
-  let element, page;
+  let element: SbbTimetableParkAndRail;
 
   it('renders', async () => {
-    page = await newE2EPage();
-    await page.setContent(
-      `<sbb-timetable-park-and-rail config='${config}'></sbb-timetable-park-and-rail>`,
+    element = await fixture(
+      html`<sbb-timetable-park-and-rail config="${config}"></sbb-timetable-park-and-rail>`,
     );
-
-    element = await page.find('sbb-timetable-park-and-rail');
-    expect(element).toHaveClass('hydrated');
+    assert.instanceOf(element, SbbTimetableParkAndRail);
   });
 });

@@ -1,5 +1,3 @@
-import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
-
 import icons from '../../global/timetable/icons.json';
 import { InterfaceTimetableParkAndRailAttributes } from './sbb-timetable-park-and-rail.custom';
 import {
@@ -12,18 +10,19 @@ import {
   HandlerRepository,
   languageChangeHandlerAspect,
 } from '../../global/eventing';
+import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import Style from './sbb-timetable-park-and-rail.scss?lit&inline';
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-timetable-park-and-rail.scss',
-  tag: 'sbb-timetable-park-and-rail',
-})
-export class SbbTimetableParkAndRail {
+@customElement('sbb-timetable-park-and-rail')
+export class SbbTimetableParkAndRail extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /**
    * Set the desired appearance of
    * the component.
    */
-  @Prop()
+  @property()
   public appearance?: InterfaceTimetableParkAndRailAttributes['appearance'] = 'first-level';
 
   /**
@@ -32,26 +31,26 @@ export class SbbTimetableParkAndRail {
    * individual stories to get an idea of the
    * structure.
    */
-  @Prop() public config!: string;
+  @property() public config!: string;
 
-  @State() private _currentLanguage = documentLanguage();
-
-  @Element() private _element!: HTMLElement;
+  @state() private _currentLanguage = documentLanguage();
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
     this._handlerRepository.connect();
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const config = JSON.parse(this.config);
 
     let a11yMeters = i18nDistanceMeter.multiple.long[this._currentLanguage];
@@ -71,16 +70,23 @@ export class SbbTimetableParkAndRail {
 
     const appearanceClass = ` park-and-rail--${this.appearance}`;
 
-    return (
-      <div class={`park-and-rail${appearanceClass}`}>
+    return html`
+      <div class=${`park-and-rail${appearanceClass}`}>
         <span
-          aria-label={a11yLabel}
+          aria-label=${a11yLabel}
           class="park-and-rail__icon"
-          innerHTML={icons['park-and-rail-small']}
+          .innerHTML=${icons['park-and-rail-small']}
           role="text"
-          title={a11yLabel}
+          title=${a11yLabel}
         ></span>
       </div>
-    );
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-timetable-park-and-rail': SbbTimetableParkAndRail;
   }
 }

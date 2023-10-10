@@ -1,43 +1,43 @@
-import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
 import { i18nDurationHour, i18nDurationMinute } from '../../global/i18n';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
 } from '../../global/eventing';
+import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import Style from './sbb-timetable-duration.scss?lit&inline';
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-timetable-duration.scss',
-  tag: 'sbb-timetable-duration',
-})
-export class SbbTimetableDuration {
+@customElement('sbb-timetable-duration')
+export class SbbTimetableDuration extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /**
    * Stringified JSON which defines most of the
    * content of the component. Please check the
    * individual stories to get an idea of the
    * structure.
    */
-  @Prop() public config!: string;
+  @property() public config!: string;
 
-  @State() private _currentLanguage = documentLanguage();
-
-  @Element() private _element!: HTMLElement;
+  @state() private _currentLanguage = documentLanguage();
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
     this._handlerRepository.connect();
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const config = JSON.parse(this.config);
 
     const hoursLabelShort = i18nDurationHour.multiple.short[this._currentLanguage];
@@ -65,13 +65,20 @@ export class SbbTimetableDuration {
     visualText += ` ${config.minutes} ${minutesLabelShort}`;
     a11yLabel += ` ${config.minutes} ${minutesLabelLong}.`;
 
-    return (
-      <p aria-label={a11yLabel} class="duration" role="text">
+    return html`
+      <p aria-label=${a11yLabel} class="duration" role="text">
         <span aria-hidden="true" class="duration__text--visual" role="presentation">
-          {visualText}
+          ${visualText}
         </span>
-        <span class="duration__text--visually-hidden">{a11yLabel}</span>
+        <span class="duration__text--visually-hidden">${a11yLabel}</span>
       </p>
-    );
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-timetable-duration': SbbTimetableDuration;
   }
 }

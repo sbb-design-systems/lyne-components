@@ -1,28 +1,35 @@
-import { Component, h, JSX, Prop } from '@stencil/core';
+import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import Style from './sbb-timetable-row-column-headers.scss?lit&inline';
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-timetable-row-column-headers.scss',
-  tag: 'sbb-timetable-row-column-headers',
-})
-export class SbbTimetableRowColumnHeaders {
+@customElement('sbb-timetable-row-column-headers')
+export class SbbTimetableRowColumnHeaders extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /**
    * Stringified JSON which defines most of the
    * content of the component. Please check the
    * individual stories to get an idea of the
    * structure.
    */
-  @Prop() public config!: string;
+  @property() public config!: string;
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const columnHeaders = JSON.parse(this.config);
 
-    return (
+    return html`
       <div class="column-headers" role="none">
-        {columnHeaders.map((columnHeader) => (
-          <div role="columnheader">{columnHeader}</div>
-        ))}
+        ${columnHeaders.map(
+          (columnHeader) => html` <div role="columnheader">${columnHeader}</div> `,
+        )}
       </div>
-    );
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-timetable-row-column-headers': SbbTimetableRowColumnHeaders;
   }
 }

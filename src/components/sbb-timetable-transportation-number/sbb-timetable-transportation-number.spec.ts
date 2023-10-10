@@ -1,21 +1,25 @@
-import { SbbTimetableTransportationNumber } from './sbb-timetable-transportation-number';
-import { newSpecPage } from '@stencil/core/testing';
 import sampleData from './sbb-timetable-transportation-number.sample-data';
+import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import './sbb-timetable-transportation-number';
 
 const config = JSON.stringify(sampleData.bus);
 
 describe('sbb-timetable-transportation-number', () => {
   it('renders', async () => {
-    const { root } = await newSpecPage({
-      components: [SbbTimetableTransportationNumber],
-      html: `<sbb-timetable-transportation-number config='${config}' />`,
-    });
+    const root = await fixture(html`<sbb-timetable-transportation-number config="${config}" />`);
 
-    expect(root).toEqualHtml(`
+    expect(root).dom.to.be.equal(
+      `
         <sbb-timetable-transportation-number
             config="{&quot;direction&quot;:&quot;Richtung Bern Wankdorf, Bahnhof&quot;,&quot;marketingName&quot;:&quot;&quot;,&quot;meansOfTransport&quot;:{&quot;picto&quot;:&quot;transportation-bus-right&quot;,&quot;text&quot;:&quot;Bus&quot;},&quot;product&quot;:{&quot;icon&quot;:&quot;&quot;,&quot;text&quot;:&quot;B 20&quot;}}"
         >
-          <mock:shadow-root>
+
+        </sbb-timetable-transportation-number>
+      `,
+    );
+    expect(root).shadowDom.to.be.equal(
+      `
             <p
                 aria-label="Bus B 20  Richtung Bern Wankdorf, Bahnhof"
                 class="transportation-number transportation-number--first-level"
@@ -46,8 +50,7 @@ describe('sbb-timetable-transportation-number', () => {
                     Bus B 20  Richtung Bern Wankdorf, Bahnhof
                 </span>
              </p>
-          </mock:shadow-root>
-        </sbb-timetable-transportation-number>
-      `);
+          `,
+    );
   });
 });

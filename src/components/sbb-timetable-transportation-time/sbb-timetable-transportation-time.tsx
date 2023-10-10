@@ -1,4 +1,3 @@
-import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
 import { InterfaceTimetableTransportationTimeAttributes } from './sbb-timetable-transportation-time.custom';
 
 import { i18nArrival, i18nDeparture } from '../../global/i18n';
@@ -7,18 +6,19 @@ import {
   HandlerRepository,
   languageChangeHandlerAspect,
 } from '../../global/eventing';
+import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import Style from './sbb-timetable-transportation-time.scss?lit&inline';
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-timetable-transportation-time.scss',
-  tag: 'sbb-timetable-transportation-time',
-})
-export class SbbTimetableTransportationTime {
+@customElement('sbb-timetable-transportation-time')
+export class SbbTimetableTransportationTime extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /**
    * Set the desired appearance of
    * the component.
    */
-  @Prop()
+  @property()
   public appearance?: InterfaceTimetableTransportationTimeAttributes['appearance'] = 'first-level';
 
   /**
@@ -27,26 +27,26 @@ export class SbbTimetableTransportationTime {
    * individual stories to get an idea of the
    * structure.
    */
-  @Prop() public config!: string;
+  @property() public config!: string;
 
-  @State() private _currentLanguage = documentLanguage();
-
-  @Element() private _element!: HTMLElement;
+  @state() private _currentLanguage = documentLanguage();
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
     this._handlerRepository.connect();
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const config = JSON.parse(this.config);
 
     let a11yLabel = `${i18nArrival[this._currentLanguage]} ${config.time}.`;
@@ -57,13 +57,18 @@ export class SbbTimetableTransportationTime {
 
     const appearanceClasses = ` time--${this.appearance} time--${config.type}`;
 
-    return (
-      <p aria-label={a11yLabel} class={`time${appearanceClasses}`} role="text">
-        <span aria-hidden="true" class="time__text" role="presentation">
-          {config.time}
-        </span>
-        <span class="time__text--visually-hidden">{a11yLabel}</span>
+    return html`
+      <p aria-label=${a11yLabel} class=${`time${appearanceClasses}`} role="text">
+        <span aria-hidden="true" class="time__text" role="presentation"> ${config.time} </span>
+        <span class="time__text--visually-hidden">${a11yLabel}</span>
       </p>
-    );
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-timetable-transportation-time': SbbTimetableTransportationTime;
   }
 }

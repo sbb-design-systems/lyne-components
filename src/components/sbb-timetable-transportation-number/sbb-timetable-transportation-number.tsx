@@ -1,19 +1,18 @@
-import { Component, h, JSX, Prop } from '@stencil/core';
-
 import icons from '../../global/timetable/icons.json';
 import { InterfaceTimetableTransportationNumberAttributes } from './sbb-timetable-transportation-number.custom';
+import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import Style from './sbb-timetable-transportation-number.scss?lit&inline';
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-timetable-transportation-number.scss',
-  tag: 'sbb-timetable-transportation-number',
-})
-export class SbbTimetableTransportationNumber {
+@customElement('sbb-timetable-transportation-number')
+export class SbbTimetableTransportationNumber extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /**
    * Set the desired appearance of
    * the component.
    */
-  @Prop()
+  @property()
   public appearance?: InterfaceTimetableTransportationNumberAttributes['appearance'] =
     'first-level';
 
@@ -23,9 +22,9 @@ export class SbbTimetableTransportationNumber {
    * individual stories to get an idea of the
    * structure.
    */
-  @Prop() public config!: string;
+  @property() public config!: string;
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const config = JSON.parse(this.config);
     const a11yLabel = `${config.meansOfTransport.text} ${config.product.text} ${config.marketingName} ${config.direction}`;
 
@@ -41,29 +40,34 @@ export class SbbTimetableTransportationNumber {
      * https://bit.ly/3n5tuhH
      */
 
-    return (
-      <p aria-label={a11yLabel} class={`transportation-number${appearanceClasses}`} role="text">
+    return html`
+      <p aria-label=${a11yLabel} class=${`transportation-number${appearanceClasses}`} role="text">
         <span aria-hidden="true" class="transportation-number--visual" role="presentation">
           <span
             class="transportation-number__means-of-transport"
-            innerHTML={icons[config.meansOfTransport.picto]}
+            .innerHTML=${icons[config.meansOfTransport.picto]}
           ></span>
-          {config.product.icon ? (
-            <span
-              class="transportation-number__product-icon"
-              innerHTML={icons[config.product.icon]}
-            ></span>
-          ) : (
-            <span class="transportation-number__product-text">{config.product.text}</span>
-          )}
+          ${config.product.icon
+            ? html`<span
+                class="transportation-number__product-icon"
+                .innerHTML=${icons[config.product.icon]}
+              ></span>`
+            : html`<span class="transportation-number__product-text">${config.product.text}</span>`}
           <span class="transportation-number__direction">
             <span class="transportation-number__direction-text">
-              {config.marketingName} {config.direction}
+              ${config.marketingName} ${config.direction}
             </span>
           </span>
         </span>
-        <span class="transportation-number--visually-hidden">{a11yLabel}</span>
+        <span class="transportation-number--visually-hidden">${a11yLabel}</span>
       </p>
-    );
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-timetable-transportation-number': SbbTimetableTransportationNumber;
   }
 }

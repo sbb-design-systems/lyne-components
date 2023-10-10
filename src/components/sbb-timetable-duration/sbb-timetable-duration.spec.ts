@@ -1,21 +1,26 @@
-import { SbbTimetableDuration } from './sbb-timetable-duration';
-import { newSpecPage } from '@stencil/core/testing';
 import sampleData from './sbb-timetable-duration.sample-data';
+import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+
+import './sbb-timetable-duration';
 
 const config = JSON.stringify(sampleData[0]);
 
 describe('sbb-timetable-duration', () => {
   it('renders', async () => {
-    const { root } = await newSpecPage({
-      components: [SbbTimetableDuration],
-      html: `<sbb-timetable-duration config='${config}' />`,
-    });
+    const root = await fixture(html`<sbb-timetable-duration config="${config}" />`);
 
-    expect(root).toEqualHtml(`
+    expect(root).dom.to.be.equal(
+      `
         <sbb-timetable-duration
             config="{&quot;hours&quot;:0,&quot;minutes&quot;:37}"
         >
-          <mock:shadow-root>
+
+        </sbb-timetable-duration>
+      `,
+    );
+    expect(root).shadowDom.to.be.equal(
+      `
             <p
                 aria-label=" 37 Minutes."
                 class="duration"
@@ -32,8 +37,7 @@ describe('sbb-timetable-duration', () => {
                     37 Minutes.
                 </span>
             </p>
-          </mock:shadow-root>
-        </sbb-timetable-duration>
-      `);
+          `,
+    );
   });
 });

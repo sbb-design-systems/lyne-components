@@ -1,16 +1,17 @@
-import { newE2EPage } from '@stencil/core/testing';
 import sampleData from './sbb-timetable-duration.sample-data';
+import { assert, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { SbbTimetableDuration } from './sbb-timetable-duration';
 
 const config = JSON.stringify(sampleData[0]);
 
 describe('sbb-timetable-duration', () => {
-  let element, page;
+  let element: SbbTimetableDuration;
 
   it('renders', async () => {
-    page = await newE2EPage();
-    await page.setContent(`<sbb-timetable-duration config='${config}'></sbb-timetable-duration>`);
-
-    element = await page.find('sbb-timetable-duration');
-    expect(element).toHaveClass('hydrated');
+    element = await fixture(
+      html`<sbb-timetable-duration config="${config}"></sbb-timetable-duration>`,
+    );
+    assert.instanceOf(element, SbbTimetableDuration);
   });
 });

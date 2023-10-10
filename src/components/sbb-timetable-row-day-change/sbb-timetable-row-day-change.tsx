@@ -1,43 +1,43 @@
-import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
 import { i18nAttention, i18nConnectionsDepartOn, i18nDayChange } from '../../global/i18n';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
 } from '../../global/eventing';
+import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import Style from './sbb-timetable-row-day-change.scss?lit&inline';
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-timetable-row-day-change.scss',
-  tag: 'sbb-timetable-row-day-change',
-})
-export class SbbTimetableRowDayChange {
+@customElement('sbb-timetable-row-day-change')
+export class SbbTimetableRowDayChange extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /**
    * Stringified JSON which defines most of the
    * content of the component. Please check the
    * individual stories to get an idea of the
    * structure.
    */
-  @Prop() public config!: string;
+  @property() public config!: string;
 
-  @State() private _currentLanguage = documentLanguage();
-
-  @Element() private _element!: HTMLElement;
+  @state() private _currentLanguage = documentLanguage();
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
     this._handlerRepository.connect();
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const config = JSON.parse(this.config);
 
     let attention = '';
@@ -58,21 +58,24 @@ export class SbbTimetableRowDayChange {
     const visualText = `${config.day}, ${config.date}`;
     const a11yLabel = `${dayChange}${attention}${departsOn}${config.day}, ${config.date}`;
 
-    return (
-      <div
-        class={`day-change${visuallyHiddenClass}`}
-        // @ts-expect-error the role makes the colspan attribute usable
-        colspan={config.colSpan}
-      >
+    return html`
+      <div class=${`day-change${visuallyHiddenClass}`} colspan=${config.colSpan ?? nothing}>
         <h2 class="day-change__text">
           <span aria-hidden="true" class="day-change__text--visual" role="presentation">
-            {visualText}
+            ${visualText}
           </span>
-          <span aria-label={a11yLabel} class="day-change__text--visually-hidden" role="text">
-            {dayChange} {attention} {departsOn} {config.day}, {config.date}
+          <span aria-label=${a11yLabel} class="day-change__text--visually-hidden" role="text">
+            ${dayChange} ${attention} ${departsOn} ${config.day}, ${config.date}
           </span>
         </h2>
       </div>
-    );
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-timetable-row-day-change': SbbTimetableRowDayChange;
   }
 }

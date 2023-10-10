@@ -1,21 +1,25 @@
-import { SbbTimetableOccupancy } from './sbb-timetable-occupancy';
-import { newSpecPage } from '@stencil/core/testing';
 import sampleData from './sbb-timetable-occupancy.sample-data';
+import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import './sbb-timetable-occupancy';
 
 const config = JSON.stringify(sampleData[3]);
 
 describe('sbb-timetable-occupancy', () => {
   it('renders', async () => {
-    const { root } = await newSpecPage({
-      components: [SbbTimetableOccupancy],
-      html: `<sbb-timetable-occupancy config='${config}' />`,
-    });
+    const root = await fixture(html`<sbb-timetable-occupancy config="${config}" />`);
 
-    expect(root).toEqualHtml(`
+    expect(root).dom.to.be.equal(
+      `
         <sbb-timetable-occupancy
             config="{&quot;occupancyItems&quot;:[{&quot;class&quot;:&quot;1&quot;,&quot;icon&quot;:&quot;utilization-low&quot;,&quot;occupancy&quot;:&quot;low&quot;},{&quot;class&quot;:&quot;2&quot;,&quot;icon&quot;:&quot;utilization-medium&quot;,&quot;occupancy&quot;:&quot;medium&quot;}]}"
         >
-          <mock:shadow-root>
+
+        </sbb-timetable-occupancy>
+      `,
+    );
+    expect(root).shadowDom.to.be.equal(
+      `
             <ul
                 class="occupancy__list"
                 role="list"
@@ -75,8 +79,7 @@ describe('sbb-timetable-occupancy', () => {
                     </span>
                 </li>
             </ul>
-          </mock:shadow-root>
-        </sbb-timetable-occupancy>
-      `);
+          `,
+    );
   });
 });
