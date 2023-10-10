@@ -2,8 +2,8 @@ import { waitForCondition } from '../../global/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { SbbHeaderAction } from './sbb-header-action';
 import { EventSpy, waitForLitRender } from '../../global/testing';
+import { SbbHeaderAction } from './sbb-header-action';
 
 describe('sbb-header-action', () => {
   let element: SbbHeaderAction;

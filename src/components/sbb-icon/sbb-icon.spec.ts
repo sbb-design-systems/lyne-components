@@ -3,8 +3,8 @@ import { SbbIcon } from './sbb-icon';
 import { SbbIconConfig, readConfig } from '../../global/config';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-icon';
 import { waitForLitRender } from '../../global/testing';
+import './sbb-icon';
 
 describe('sbb-icon', () => {
   it('renders', async () => {

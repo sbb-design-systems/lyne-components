@@ -2,12 +2,12 @@ import { waitForCondition } from '../../global/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
+import { EventSpy, waitForLitRender } from '../../global/testing';
 import { SbbMenu, events } from './sbb-menu';
 import '../sbb-button';
 import '../sbb-menu-action';
 import '../sbb-link';
 import '../sbb-divider';
-import { EventSpy, waitForLitRender } from '../../global/testing';
 
 describe('sbb-menu', () => {
   let element: SbbMenu, trigger: HTMLElement;

@@ -1,8 +1,8 @@
 import { aTimeout, assert, expect, fixture, nextFrame } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { SbbFormField } from './sbb-form-field';
 import { waitForLitRender } from '../../global/testing';
+import { SbbFormField } from './sbb-form-field';
 
 describe('sbb-form-field', () => {
   describe('with input', () => {

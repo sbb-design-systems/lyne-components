@@ -2,8 +2,8 @@ import { waitForCondition } from '../../global/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { SbbMenuAction } from './sbb-menu-action';
 import { EventSpy, waitForLitRender } from '../../global/testing';
+import { SbbMenuAction } from './sbb-menu-action';
 
 describe('sbb-menu-action', () => {
   let element: SbbMenuAction;

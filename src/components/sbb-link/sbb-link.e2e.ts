@@ -2,9 +2,9 @@ import { waitForCondition } from '../../global/testing';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
+import { EventSpy, waitForLitRender } from '../../global/testing';
 import { SbbLink } from './sbb-link';
 import './sbb-link';
-import { EventSpy, waitForLitRender } from '../../global/testing';
 
 describe('sbb-link', () => {
   let element: SbbLink;

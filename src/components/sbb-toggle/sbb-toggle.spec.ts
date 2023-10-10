@@ -1,11 +1,11 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+import { waitForLitRender } from '../../global/testing';
 import { SbbToggle } from './sbb-toggle';
-import { SbbToggleOption } from '../sbb-toggle-option/sbb-toggle-option';
 
+import { SbbToggleOption } from '../sbb-toggle-option/sbb-toggle-option';
 import '../sbb-toggle';
 import '../sbb-toggle-option';
-import { waitForLitRender } from '../../global/testing';
 
 describe('sbb-toggle', () => {
   let option: SbbToggleOption, page: SbbToggle;

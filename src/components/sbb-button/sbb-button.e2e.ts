@@ -2,8 +2,8 @@ import { waitForCondition } from '../../global/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { SbbButton } from './sbb-button';
 import { EventSpy, waitForLitRender } from '../../global/testing';
+import { SbbButton } from './sbb-button';
 
 describe('sbb-button', () => {
   let element: SbbButton;

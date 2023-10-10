@@ -2,9 +2,9 @@ import { i18nTimeInputChange } from '../../global/i18n';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
+import { EventSpy, waitForLitRender } from '../../global/testing';
 import { SbbTimeInput } from './sbb-time-input';
 import { ValidationChangeEvent } from '../../global/interfaces';
-import { EventSpy, waitForLitRender } from '../../global/testing';
 
 describe('sbb-time-input', () => {
   let element: SbbTimeInput, input: HTMLInputElement;

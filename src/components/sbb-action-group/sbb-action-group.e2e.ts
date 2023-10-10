@@ -1,9 +1,9 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+import { waitForLitRender } from '../../global/testing';
 import { SbbActionGroup } from './sbb-action-group';
 import { SbbButton } from '../sbb-button';
 import { SbbLink } from '../sbb-link';
-import { waitForLitRender } from '../../global/testing';
 
 describe('sbb-action-group', () => {
   let element: SbbActionGroup;
