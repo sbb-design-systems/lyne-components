@@ -18,7 +18,6 @@ describe('sbb-button', () => {
 
   describe('events', () => {
     it('dispatches event on click', async () => {
-      await waitForLitRender(element);
       const clickSpy = new EventSpy('click');
 
       element.click();
