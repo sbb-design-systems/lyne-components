@@ -6,7 +6,9 @@ import { html } from 'lit/static-html.js';
 
 describe('sbb-footer', () => {
   it('renders', async () => {
-    const element: SbbFooter = await fixture(html`<sbb-footer accessibility-title="Footer" />`);
+    const element: SbbFooter = await fixture(
+      html`<sbb-footer accessibility-title="Footer"></sbb-footer>`,
+    );
 
     expect(element).dom.to.be.equal(
       `
