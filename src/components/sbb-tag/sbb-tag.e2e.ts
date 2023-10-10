@@ -3,6 +3,7 @@ import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { EventSpy } from '../../global/testing/event-spy';
 import { SbbTag } from './sbb-tag';
+import { waitForLitRender } from '../../global/testing';
 
 describe('sbb-tag', () => {
   let element: SbbTag;
@@ -21,7 +22,7 @@ describe('sbb-tag', () => {
     const inputSpy = new EventSpy('input');
 
     element.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(changeSpy.count).to.be.greaterThan(0);
     expect(inputSpy.count).to.be.greaterThan(0);
@@ -31,13 +32,13 @@ describe('sbb-tag', () => {
   it('should not be checked after click when disabled', async () => {
     expect(element).not.to.have.attribute('checked');
     element.setAttribute('disabled', '');
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     const changeSpy = new EventSpy('change');
     const inputSpy = new EventSpy('input');
 
     element.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(changeSpy.count).not.to.be.greaterThan(0);
     expect(inputSpy.count).not.to.be.greaterThan(0);
@@ -52,7 +53,7 @@ describe('sbb-tag', () => {
     element.focus();
     await sendKeys({ press: 'Space' });
 
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(changeSpy.count).to.be.greaterThan(0);
     expect(inputSpy.count).to.be.greaterThan(0);
     expect(element).to.have.attribute('checked');
@@ -67,7 +68,7 @@ describe('sbb-tag', () => {
     element.focus();
     await sendKeys({ press: 'Space' });
 
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(changeSpy.count).to.be.greaterThan(0);
     expect(inputSpy.count).to.be.greaterThan(0);
     expect(element).not.to.have.attribute('checked');

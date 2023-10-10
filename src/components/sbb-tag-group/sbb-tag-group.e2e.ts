@@ -1,4 +1,4 @@
-import { waitForCondition } from '../../global/testing';
+import { waitForCondition, waitForLitRender } from '../../global/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { EventSpy } from '../../global/testing/event-spy';
@@ -39,7 +39,7 @@ describe('sbb-tag-group', () => {
         expect(tag1.checked).to.be.equal(false);
 
         tag1.click();
-        await element.updateComplete;
+        await waitForLitRender(element);
 
         expect(tag1).to.have.attribute('checked');
         expect(tag1.checked).to.be.equal(true);
@@ -56,7 +56,7 @@ describe('sbb-tag-group', () => {
         const tag1 = document.querySelector('sbb-tag');
 
         tag1.checked = true;
-        await element.updateComplete;
+        await waitForLitRender(element);
 
         expect(tag1).to.have.attribute('checked');
         expect(tag1.checked).to.be.equal(true);
@@ -70,7 +70,7 @@ describe('sbb-tag-group', () => {
         const tag1 = document.querySelector('sbb-tag');
 
         tag1.setAttribute('checked', 'true');
-        await element.updateComplete;
+        await waitForLitRender(element);
 
         expect(tag1).to.have.attribute('checked');
         expect(tag1.checked).to.be.equal(true);
@@ -104,7 +104,7 @@ describe('sbb-tag-group', () => {
         expect(tag2.checked).to.be.equal(true);
 
         tag2.click();
-        await element.updateComplete;
+        await waitForLitRender(element);
 
         expect(tag2).not.to.have.attribute('checked');
         expect(tag2.checked).to.be.equal(false);
@@ -121,7 +121,7 @@ describe('sbb-tag-group', () => {
         const tag2 = document.querySelector('sbb-tag#sbb-tag-2') as SbbTag;
 
         tag2.checked = false;
-        await element.updateComplete;
+        await waitForLitRender(element);
 
         expect(tag2).not.to.have.attribute('checked');
         expect(tag2.checked).to.be.equal(false);
@@ -135,7 +135,7 @@ describe('sbb-tag-group', () => {
         const tag2 = document.querySelector('sbb-tag#sbb-tag-2') as SbbTag;
 
         tag2.removeAttribute('checked');
-        await element.updateComplete;
+        await waitForLitRender(element);
 
         expect(tag2).not.to.have.attribute('checked');
         expect(tag2.checked).to.be.equal(false);
@@ -169,7 +169,7 @@ describe('sbb-tag-group', () => {
       it('should read empty array as value [prop]', async () => {
         element = await fixture(html` <sbb-tag-group multiple></sbb-tag-group> `);
         element.value = [];
-        await element.updateComplete;
+        await waitForLitRender(element);
 
         expect(element.value).to.be.an('array').that.is.empty;
       });
@@ -183,7 +183,7 @@ describe('sbb-tag-group', () => {
           </sbb-tag-group>
         `);
         element.value = ['tag1', 'tag3'];
-        await element.updateComplete;
+        await waitForLitRender(element);
 
         expect(element.value).to.be.eql(['tag1', 'tag3']);
         expect(element.querySelector('sbb-tag#sbb-tag-1')).to.have.attribute('checked');
@@ -194,7 +194,7 @@ describe('sbb-tag-group', () => {
       it('should ignore because value is not an array', async () => {
         element = await fixture(html` <sbb-tag-group multiple></sbb-tag-group> `);
         element.value = 'invalid';
-        await element.updateComplete;
+        await waitForLitRender(element);
 
         expect(element.value).to.be.equal('invalid');
       });
@@ -216,7 +216,7 @@ describe('sbb-tag-group', () => {
         const tag1 = element.querySelector('sbb-tag#sbb-tag-1') as SbbTag;
 
         tag1.value = 'new value';
-        await element.updateComplete;
+        await waitForLitRender(element);
 
         expect(element.value).to.be.eql(['new value', 'tag2', 'tag3']);
       });
@@ -226,7 +226,7 @@ describe('sbb-tag-group', () => {
         const tag1 = element.querySelector('sbb-tag#sbb-tag-1');
 
         tag1.setAttribute('value', 'new value');
-        await element.updateComplete;
+        await waitForLitRender(element);
 
         expect(element.value).to.be.eql(['new value', 'tag2', 'tag3']);
       });
@@ -263,7 +263,7 @@ describe('sbb-tag-group', () => {
         expect(tag1.checked).to.be.equal(false);
 
         tag1.click();
-        await element.updateComplete;
+        await waitForLitRender(element);
 
         expect(tag1).to.have.attribute('checked');
         expect(tag1.checked).to.be.equal(true);
@@ -280,7 +280,7 @@ describe('sbb-tag-group', () => {
         const tag1 = document.querySelector('sbb-tag');
 
         tag1.checked = true;
-        await element.updateComplete;
+        await waitForLitRender(element);
 
         expect(tag1).to.have.attribute('checked');
         expect(tag1.checked).to.be.equal(true);
@@ -294,7 +294,7 @@ describe('sbb-tag-group', () => {
         const tag1 = document.querySelector('sbb-tag');
 
         tag1.setAttribute('checked', 'true');
-        await element.updateComplete;
+        await waitForLitRender(element);
 
         expect(tag1).to.have.attribute('checked');
         expect(tag1.checked).to.be.equal(true);
@@ -328,7 +328,7 @@ describe('sbb-tag-group', () => {
         expect(tag2.checked).to.be.equal(true);
 
         tag2.click();
-        await element.updateComplete;
+        await waitForLitRender(element);
 
         expect(tag2).to.have.attribute('checked');
         expect(tag2.checked).to.be.equal(true);
@@ -343,7 +343,7 @@ describe('sbb-tag-group', () => {
         const tag2 = document.querySelector('sbb-tag#sbb-tag-2') as SbbTag;
 
         tag2.checked = false;
-        await element.updateComplete;
+        await waitForLitRender(element);
 
         expect(tag2).not.to.have.attribute('checked');
         expect(tag2.checked).to.be.equal(false);
@@ -358,7 +358,7 @@ describe('sbb-tag-group', () => {
         const tag2 = document.querySelector('sbb-tag#sbb-tag-2') as SbbTag;
 
         tag2.removeAttribute('checked');
-        await element.updateComplete;
+        await waitForLitRender(element);
 
         expect(tag2).not.to.have.attribute('checked');
         expect(tag2.checked).to.be.equal(false);
@@ -374,8 +374,7 @@ describe('sbb-tag-group', () => {
         const tag3 = document.querySelector('sbb-tag#sbb-tag-3') as SbbTag;
 
         tag3.click();
-        await element.updateComplete;
-        await element.updateComplete;
+        await waitForLitRender(element);
 
         expect(tag3).to.have.attribute('checked');
         expect(tag3.checked).to.be.equal(true);
@@ -400,8 +399,7 @@ describe('sbb-tag-group', () => {
         const tag2 = document.querySelector('sbb-tag#sbb-tag-2') as SbbTag;
 
         tag1.click();
-        await element.updateComplete;
-        await element.updateComplete;
+        await waitForLitRender(element);
 
         expect(tag1).to.have.attribute('checked');
         expect(tag1.checked).to.be.equal(true);
@@ -426,8 +424,7 @@ describe('sbb-tag-group', () => {
         const tag3 = document.querySelector('sbb-tag#sbb-tag-3') as SbbTag;
 
         tag3.checked = true;
-        await element.updateComplete;
-        await element.updateComplete;
+        await waitForLitRender(element);
 
         expect(tag3).to.have.attribute('checked');
         expect(tag3.checked).to.be.equal(true);
@@ -469,7 +466,7 @@ describe('sbb-tag-group', () => {
         `);
 
         element.value = 'tag2';
-        await element.updateComplete;
+        await waitForLitRender(element);
 
         expect(element.value).to.be.equal('tag2');
         expect(element.querySelector('sbb-tag#sbb-tag-1')).not.to.have.attribute('checked');
@@ -480,7 +477,7 @@ describe('sbb-tag-group', () => {
       it('should ignore because value is an array', async () => {
         element = await fixture(html` <sbb-tag-group></sbb-tag-group> `);
         element.value = [];
-        await element.updateComplete;
+        await waitForLitRender(element);
 
         expect(element.value).to.be.an('array').that.is.empty;
       });
@@ -514,7 +511,7 @@ describe('sbb-tag-group', () => {
 
         const tag1 = element.querySelector('sbb-tag#sbb-tag-1') as SbbTag;
         tag1.value = 'new value';
-        await element.updateComplete;
+        await waitForLitRender(element);
 
         expect(element.value).to.be.equal('new value');
       });
@@ -524,7 +521,7 @@ describe('sbb-tag-group', () => {
         const tag1 = element.querySelector('sbb-tag#sbb-tag-1') as SbbTag;
 
         tag1.setAttribute('value', 'new value');
-        await element.updateComplete;
+        await waitForLitRender(element);
 
         expect(element.value).to.be.equal('new value');
       });
@@ -536,7 +533,7 @@ describe('sbb-tag-group', () => {
         expect(element.querySelector('sbb-tag#sbb-tag-3')).not.to.have.attribute('checked');
 
         element.value = 'tag2';
-        await element.updateComplete;
+        await waitForLitRender(element);
 
         expect(element.value).to.be.equal('tag2');
         expect(element.querySelector('sbb-tag#sbb-tag-1')).not.to.have.attribute('checked');
