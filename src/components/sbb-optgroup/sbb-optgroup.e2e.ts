@@ -2,6 +2,7 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { SbbOptGroup } from './sbb-optgroup';
 import { SbbOption } from '../sbb-option';
+import { waitForLitRender } from '../../global/testing';
 import '../sbb-option';
 
 describe('sbb-optgroup', () => {
@@ -26,7 +27,7 @@ describe('sbb-optgroup', () => {
     const optionTwo = document.querySelector('sbb-optgroup > sbb-option#option-2');
     const optionThree = document.querySelector('sbb-optgroup > sbb-option#option-3');
     element.setAttribute('disabled', '');
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(element).to.have.attribute('disabled');
     expect(optionOne).to.have.attribute('data-group-disabled');
@@ -35,7 +36,7 @@ describe('sbb-optgroup', () => {
     expect(optionThree).to.have.attribute('data-group-disabled');
 
     element.removeAttribute('disabled');
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(optionTwo).not.to.have.attribute('data-group-disabled');
     expect(optionTwo).to.have.attribute('disabled');
   });
@@ -49,21 +50,21 @@ describe('sbb-optgroup', () => {
     options.forEach((opt) => expect(opt).not.to.have.attribute('selected'));
 
     element.setAttribute('disabled', '');
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element).to.have.attribute('disabled');
 
     // clicks should have no effect since the group is disabled
     for (const opt of options) {
       opt.click();
-      await opt.updateComplete;
+      await waitForLitRender(opt);
       expect(opt).not.to.have.attribute('selected');
     }
 
     element.removeAttribute('disabled');
-    await element.updateComplete;
+    await waitForLitRender(element);
     for (const opt of options) {
       opt.click();
-      await opt.updateComplete;
+      await waitForLitRender(opt);
     }
 
     expect(optionOne).to.have.attribute('selected');

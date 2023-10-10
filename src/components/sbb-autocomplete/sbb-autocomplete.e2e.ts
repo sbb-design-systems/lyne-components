@@ -1,6 +1,6 @@
 import { events } from './sbb-autocomplete';
 import { events as optionEvents } from '../sbb-option';
-import { waitForCondition } from '../../global/testing';
+import { waitForCondition, waitForLitRender } from '../../global/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys, sendMouse } from '@web/test-runner-commands';
@@ -110,9 +110,9 @@ describe('sbb-autocomplete', () => {
 
     await sendKeys({ press: 'ArrowDown' });
     await sendKeys({ press: 'ArrowDown' });
-    await element.updateComplete;
+    await waitForLitRender(element);
     await sendKeys({ press: 'Enter' });
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(optionSelectedEventSpy.count).to.be.equal(1);
     expect(optionSelectedEventSpy.firstEvent.target).to.have.property('id', 'option-2');
@@ -131,7 +131,7 @@ describe('sbb-autocomplete', () => {
 
     await sendKeys({ press: 'ArrowDown' });
     await sendKeys({ press: 'ArrowDown' });
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(optOne).not.to.have.attribute('active');
     expect(optOne).not.to.have.attribute('selected');
     expect(optTwo).to.have.attribute('active');
@@ -153,15 +153,15 @@ describe('sbb-autocomplete', () => {
     input.setAttribute('disabled', '');
 
     input.focus();
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(input).to.have.attribute('aria-expanded', 'false');
 
     input.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(input).to.have.attribute('aria-expanded', 'false');
 
     await sendKeys({ press: 'ArrowDown' });
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(input).to.have.attribute('aria-expanded', 'false');
   });
 
@@ -169,15 +169,15 @@ describe('sbb-autocomplete', () => {
     input.setAttribute('readonly', '');
 
     input.focus();
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(input).to.have.attribute('aria-expanded', 'false');
 
     input.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(input).to.have.attribute('aria-expanded', 'false');
 
     await sendKeys({ press: 'ArrowDown' });
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(input).to.have.attribute('aria-expanded', 'false');
   });
 });

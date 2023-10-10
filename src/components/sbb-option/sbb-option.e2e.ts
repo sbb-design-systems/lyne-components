@@ -2,6 +2,7 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { EventSpy } from '../../global/testing/event-spy';
+import { waitForLitRender } from '../../global/testing';
 import { SbbOption, events } from './sbb-option';
 import { SbbFormField } from '../sbb-form-field';
 import '../sbb-autocomplete';
@@ -34,7 +35,7 @@ describe('sbb-option', () => {
       const optionOne = element.querySelector('sbb-option');
 
       optionOne.dispatchEvent(new CustomEvent('click'));
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(optionOne.selected).to.be.equal(true);
       expect(selectionChangeSpy.count).to.be.equal(1);
@@ -50,7 +51,7 @@ describe('sbb-option', () => {
 
       input.focus();
       await sendKeys({ press: '1' });
-      await autocomplete.updateComplete;
+      await waitForLitRender(autocomplete);
 
       expect(optionOneLabel).dom.to.be.equal(`
         <span class="sbb-option__label">

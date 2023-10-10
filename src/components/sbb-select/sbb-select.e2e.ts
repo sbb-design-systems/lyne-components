@@ -1,5 +1,5 @@
 import { SbbOption, events as optionEvents } from '../sbb-option';
-import { waitForCondition } from '../../global/testing';
+import { waitForCondition, waitForLitRender } from '../../global/testing';
 import { aTimeout, assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
@@ -46,24 +46,24 @@ describe('sbb-select', () => {
     const willClose = new EventSpy(events.willClose);
     const didClose = new EventSpy(events.didClose);
     element.dispatchEvent(new CustomEvent('click'));
-    await element.updateComplete;
+    await waitForLitRender(element);
     await waitForCondition(() => willOpen.events.length === 1);
     expect(willOpen.count).to.be.equal(1);
     await waitForCondition(() => didOpen.events.length === 1);
 
     expect(didOpen.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
 
     element.dispatchEvent(new CustomEvent('click'));
-    await element.updateComplete;
+    await waitForLitRender(element);
     await waitForCondition(() => willClose.events.length === 1);
     expect(willClose.count).to.be.equal(1);
     await waitForCondition(() => didClose.events.length === 1);
 
     expect(didClose.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
   });
@@ -79,14 +79,14 @@ describe('sbb-select', () => {
     expect(displayValue).to.have.trimmed.text('Placeholder');
 
     element.value = '1';
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(displayValue).to.have.trimmed.text('First');
     expect(firstOption).to.have.attribute('selected');
     expect(secondOption).not.to.have.attribute('selected');
     expect(thirdOption).not.to.have.attribute('selected');
 
     element.value = '000000000';
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(displayValue).to.have.trimmed.text('Placeholder');
     expect(firstOption).not.to.have.attribute('selected');
     expect(secondOption).not.to.have.attribute('selected');
@@ -98,14 +98,14 @@ describe('sbb-select', () => {
     element.setAttribute('multiple', '');
 
     element.value = ['1', '3'];
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(displayValue).to.have.trimmed.text('First, Third');
     expect(firstOption).to.have.attribute('selected');
     expect(secondOption).not.to.have.attribute('selected');
     expect(thirdOption).to.have.attribute('selected');
 
     element.value = '000000000';
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(displayValue).to.have.trimmed.text('Placeholder');
     expect(firstOption).not.to.have.attribute('selected');
     expect(secondOption).not.to.have.attribute('selected');
@@ -149,7 +149,7 @@ describe('sbb-select', () => {
     element = root.querySelector('sbb-select');
     comboBoxElement = root.querySelector('[role="combobox"]');
     focusableElement = comboBoxElement;
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     const displayValue = element.shadowRoot.querySelector('.sbb-select__trigger');
     expect(displayValue).to.have.trimmed.text('First');
@@ -164,7 +164,7 @@ describe('sbb-select', () => {
     await waitForCondition(() => didOpen.events.length === 1);
 
     expect(didOpen.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     firstOption = element.querySelector('#option-1');
     expect(firstOption).not.to.have.attribute('active');
@@ -179,7 +179,7 @@ describe('sbb-select', () => {
     const didClose = new EventSpy(events.didClose);
 
     secondOption.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     // Event received, panel is closed
     expect(selectionChange.count).to.be.equal(1);
@@ -189,7 +189,7 @@ describe('sbb-select', () => {
     expect(willClose.count).to.be.equal(1);
     await waitForCondition(() => didClose.events.length === 1);
     expect(didClose.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(element.value).to.be.equal('2');
     expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
@@ -197,7 +197,7 @@ describe('sbb-select', () => {
 
   it('handles selection in multiple', async () => {
     element.setAttribute('multiple', '');
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     const willOpen = new EventSpy(events.willOpen);
     const didOpen = new EventSpy(events.didOpen);
@@ -207,7 +207,7 @@ describe('sbb-select', () => {
     expect(willOpen.count).to.be.equal(1);
     await waitForCondition(() => didOpen.events.length === 1);
     expect(didOpen.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(firstOption).not.to.have.attribute('active');
     expect(firstOption).not.to.have.attribute('selected');
     expect(secondOption).not.to.have.attribute('active');
@@ -215,22 +215,22 @@ describe('sbb-select', () => {
 
     const selectionChange = new EventSpy(optionEvents.selectionChange);
     firstOption.dispatchEvent(new CustomEvent('click'));
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(selectionChange.count).to.be.equal(1);
     expect(element.value).to.be.eql(['1']);
     expect(displayValue).to.have.trimmed.text('First');
 
     secondOption.dispatchEvent(new CustomEvent('click'));
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(selectionChange.count).to.be.equal(2);
     expect(element.value).to.be.eql(['1', '2']);
     expect(displayValue).to.have.trimmed.text('First, Second');
 
     firstOption.dispatchEvent(new CustomEvent('click'));
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element.value).to.be.eql(['2']);
     secondOption.dispatchEvent(new CustomEvent('click'));
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element.value).to.be.eql([]);
     expect(displayValue).to.have.trimmed.text('Placeholder');
     // Panel is still open
@@ -243,13 +243,13 @@ describe('sbb-select', () => {
 
     focusableElement.focus();
     await sendKeys({ press: 'Enter' });
-    await element.updateComplete;
+    await waitForLitRender(element);
     await waitForCondition(() => didOpen.events.length === 1);
     expect(didOpen.count).to.be.equal(1);
 
     focusableElement.focus();
     await sendKeys({ press: 'Escape' });
-    await element.updateComplete;
+    await waitForLitRender(element);
     await waitForCondition(() => didClose.events.length === 1);
     expect(didClose.count).to.be.equal(1);
 
@@ -265,7 +265,7 @@ describe('sbb-select', () => {
 
     focusableElement.focus();
     await sendKeys({ press: 'F' });
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(didOpen.count).to.be.equal(2);
     expect(didClose.count).to.be.equal(2);
     expect(displayValue).to.have.trimmed.text('First');
@@ -274,7 +274,7 @@ describe('sbb-select', () => {
 
     focusableElement.focus();
     await sendKeys({ press: 'S' });
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(didOpen.count).to.be.equal(2);
     expect(didClose.count).to.be.equal(2);
     expect(displayValue).to.have.trimmed.text('Second');
@@ -299,7 +299,7 @@ describe('sbb-select', () => {
 
     focusableElement.focus();
     await sendKeys({ press: 'T' });
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(didOpen.count).to.be.equal(1);
     expect(displayValue).to.have.trimmed.text('Third');
     expect(thirdOption).to.have.attribute('active');
@@ -310,7 +310,7 @@ describe('sbb-select', () => {
 
     focusableElement.focus();
     await sendKeys({ press: 'S' });
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(didOpen.count).to.be.equal(1);
     expect(displayValue).to.have.trimmed.text('Second');
     expect(secondOption).to.have.attribute('active');
@@ -320,7 +320,7 @@ describe('sbb-select', () => {
 
   it('handles keyboard selection in multiple', async () => {
     element.setAttribute('multiple', '');
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     const didOpen = new EventSpy(events.didOpen);
     const didClose = new EventSpy(events.didClose);
@@ -346,7 +346,7 @@ describe('sbb-select', () => {
 
     element.focus();
     await sendKeys({ press: 'ArrowDown' });
-    await element.updateComplete;
+    await waitForLitRender(element);
     await waitForCondition(() => didOpen.events.length === 2);
     expect(didOpen.count).to.be.equal(2);
     expect(secondOption).not.to.have.attribute('active');
