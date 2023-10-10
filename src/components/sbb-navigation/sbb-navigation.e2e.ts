@@ -1,6 +1,6 @@
 import { events } from './sbb-navigation';
 import { waitForCondition } from '../../global/testing';
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect, fixture, nextFrame } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { EventSpy } from '../../global/testing/event-spy';
@@ -212,6 +212,7 @@ describe('sbb-navigation', () => {
 
     element.open();
     await element.updateComplete;
+    await nextFrame();
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
@@ -248,9 +249,11 @@ describe('sbb-navigation', () => {
 
     element.open();
     await element.updateComplete;
+    await nextFrame();
 
     action.click();
     await element.updateComplete;
+    await nextFrame();
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
