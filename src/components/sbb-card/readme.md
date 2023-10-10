@@ -42,7 +42,7 @@ For API details (mainly accessibility), see the [sbb-card-action](/docs/componen
 ## Style
 
 It's possible to choose among seven different values for the `size` property (from `xs` to `xxxl`, default `m`); 
-the choice mainly affect the content's padding. 
+the choice mainly affects the content's padding. 
 
 ```html
 <sbb-card size="xs">Card content</sbb-card>
