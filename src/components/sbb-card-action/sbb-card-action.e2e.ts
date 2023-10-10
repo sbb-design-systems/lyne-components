@@ -1,10 +1,9 @@
-import { waitForCondition } from '../../global/testing';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { EventSpy } from '../../global/testing/event-spy';
 import { SbbCard } from '../sbb-card/sbb-card';
 import { SbbCardAction } from './sbb-card-action';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../global/testing';
 import './sbb-card-action';
 
 // As tests don't work in specs at all (missing :is support in Jest), we moved all tests to e2e.
@@ -77,7 +76,7 @@ describe('sbb-card-action', () => {
     expect(element).not.to.have.attribute('data-has-active-action');
 
     element.querySelector('sbb-card-action').setAttribute('active', '');
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-has-active-action');
   });
@@ -96,7 +95,7 @@ describe('sbb-card-action', () => {
 
     // Remove action from DOM
     element.querySelector('sbb-card-action').remove();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(element).not.to.have.attribute('data-has-action');
     expect(element).not.to.have.attribute('data-has-active-action');
@@ -118,7 +117,7 @@ describe('sbb-card-action', () => {
       .insertBefore(document.createElement('button'), document.querySelector('button'));
 
     // Both buttons should be marked as focusable
-    await element.updateComplete;
+    await waitForLitRender(element);
     const buttons = document.querySelectorAll('button');
     expect(buttons.length).to.be.equal(2);
     expect(
@@ -127,7 +126,7 @@ describe('sbb-card-action', () => {
 
     // Remove all buttons
     buttons.forEach((el) => el.remove());
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     // Card should not have marker anymore
     expect(document.querySelectorAll('button').length).to.be.equal(0);
@@ -144,7 +143,7 @@ describe('sbb-card-action', () => {
     document
       .querySelector('sbb-card')
       .insertBefore(document.createElement('button'), document.getElementById('content'));
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     // Button should be marked as focusable
     expect(document.querySelector('button')).to.have.attribute('data-card-focusable');
@@ -159,7 +158,7 @@ describe('sbb-card-action', () => {
 
     // Add a sbb-card-action
     document.querySelector('sbb-card').appendChild(document.createElement('sbb-card-action'));
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     // Button should be marked as focusable
     expect(document.querySelector('button')).to.have.attribute('data-card-focusable');
@@ -176,7 +175,7 @@ describe('sbb-card-action', () => {
     });
 
     it('dispatches event on click', async () => {
-      await element.updateComplete;
+      await waitForLitRender(element);
       const clickSpy = new EventSpy('click');
 
       action.click();
@@ -201,7 +200,7 @@ describe('sbb-card-action', () => {
 
     it('should dispatch click event on pressing Enter with href', async () => {
       element.setAttribute('href', 'test');
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       const clickSpy = new EventSpy('click');
       action.focus();
@@ -211,7 +210,7 @@ describe('sbb-card-action', () => {
 
     it('should not dispatch click event on pressing Space with href', async () => {
       action.setAttribute('href', 'test');
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       const clickSpy = new EventSpy('click');
       action.focus();
@@ -221,7 +220,7 @@ describe('sbb-card-action', () => {
 
     it('should receive focus', async () => {
       action.focus();
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(document.activeElement.id).to.be.equal('focus-id');
     });

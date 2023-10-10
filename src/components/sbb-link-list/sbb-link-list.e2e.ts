@@ -1,5 +1,6 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+import { waitForLitRender } from '../../global/testing';
 import { SbbLinkList } from './sbb-link-list';
 import '../sbb-link';
 
@@ -48,14 +49,14 @@ describe('sbb-link-list', () => {
 
     it('should update attributes with size m', async () => {
       element.setAttribute('size', 'm');
-      await element.updateComplete;
+      await waitForLitRender(element);
       const links = Array.from(element.querySelectorAll('sbb-link'));
       expect(links.every((l) => l.size === 'm')).to.be.true;
     });
 
     it('should update attributes with negative', async () => {
       element.setAttribute('negative', '');
-      await element.updateComplete;
+      await waitForLitRender(element);
       const links = Array.from(element.querySelectorAll('sbb-link'));
       expect(links.every((l) => l.negative)).to.be.true;
     });

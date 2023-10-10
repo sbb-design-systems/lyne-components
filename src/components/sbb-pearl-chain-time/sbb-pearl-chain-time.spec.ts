@@ -1,6 +1,7 @@
 import { SbbPearlChainTime } from './sbb-pearl-chain-time';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+import { waitForLitRender } from '../../global/testing';
 import { PtRideLeg } from '../../global/timetable';
 import './sbb-pearl-chain-time';
 
@@ -21,7 +22,7 @@ describe('sbb-pearl-chain-time', () => {
         __typename: 'PTRideLeg',
       } as PtRideLeg,
     ];
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element).dom.to.be.equal(`
       <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00" data-now="1660662000000">
       </sbb-pearl-chain-time>
@@ -60,7 +61,7 @@ describe('sbb-pearl-chain-time', () => {
         __typename: 'PTRideLeg',
       } as PtRideLeg,
     ];
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element).dom.to.be.equal(`
       <sbb-pearl-chain-time departure-time='2022-08-16T12:00:00' arrival-time='2022-08-16T15:00:00' departure-walk="10" data-now="1660662000000">
       </sbb-pearl-chain-time>
@@ -111,7 +112,7 @@ describe('sbb-pearl-chain-time', () => {
         __typename: 'PTRideLeg',
       } as PtRideLeg,
     ];
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element).dom.to.be.equal(`
       <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00" arrival-walk="10" data-now="1660662000000">
       </sbb-pearl-chain-time>
@@ -163,7 +164,7 @@ describe('sbb-pearl-chain-time', () => {
         __typename: 'PTRideLeg',
       } as PtRideLeg,
     ];
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element).dom.to.be.equal(`
       <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00" departure-walk="20" arrival-walk="10" data-now="1660662000000">
       </sbb-pearl-chain-time>

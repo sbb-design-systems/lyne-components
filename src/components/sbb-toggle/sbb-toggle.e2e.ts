@@ -1,8 +1,7 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect, fixture, nextFrame } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
-import { waitForCondition } from '../../global/testing';
-import { EventSpy } from '../../global/testing/event-spy';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../global/testing';
 import '../sbb-toggle-option';
 import { SbbToggleOption } from '../sbb-toggle-option';
 import './sbb-toggle';
@@ -36,7 +35,8 @@ describe('sbb-toggle', () => {
       expect(firstOption).to.have.attribute('checked');
 
       secondOption.click();
-      await secondOption.updateComplete;
+      await waitForLitRender(secondOption);
+      await nextFrame();
 
       expect(secondOption).to.have.attribute('checked');
       expect(firstOption).not.to.have.attribute('checked');
@@ -53,7 +53,7 @@ describe('sbb-toggle', () => {
       expect(firstOption).to.have.attribute('checked');
 
       secondOption.setAttribute('checked', '');
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(secondOption).to.have.attribute('checked');
       expect(firstOption).not.to.have.attribute('checked');
@@ -76,7 +76,7 @@ describe('sbb-toggle', () => {
       expect(inputSpy.count).to.be.equal(1);
 
       firstOption.click();
-      await firstOption.updateComplete;
+      await waitForLitRender(firstOption);
       expect(firstOption).to.have.attribute('checked');
     });
 
@@ -89,18 +89,18 @@ describe('sbb-toggle', () => {
       ) as SbbToggleOption;
 
       element.disabled = true;
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       await secondOption.click();
-      await element.updateComplete;
+      await waitForLitRender(element);
       expect(secondOption).not.to.have.attribute('checked');
       expect(firstOption).to.have.attribute('checked');
 
       element.disabled = false;
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       await secondOption.click();
-      await element.updateComplete;
+      await waitForLitRender(element);
       expect(secondOption).to.have.attribute('checked');
       expect(firstOption).not.to.have.attribute('checked');
     });
@@ -117,7 +117,7 @@ describe('sbb-toggle', () => {
 
       firstOption.focus();
       await sendKeys({ down: 'ArrowLeft' });
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(secondOption).to.have.attribute('checked');
       await waitForCondition(() => changeSpy.events.length === 1);
@@ -126,7 +126,7 @@ describe('sbb-toggle', () => {
       expect(inputSpy.count).to.be.equal(1);
 
       firstOption.click();
-      await firstOption.updateComplete;
+      await waitForLitRender(firstOption);
 
       expect(firstOption).to.have.attribute('checked');
     });
@@ -142,9 +142,9 @@ describe('sbb-toggle', () => {
       ) as SbbToggleOption;
 
       firstOption.focus();
-      await firstOption.updateComplete;
+      await waitForLitRender(firstOption);
       await sendKeys({ down: 'ArrowRight' });
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(secondOption).to.have.attribute('checked');
       await waitForCondition(() => changeSpy.events.length === 1);
@@ -153,7 +153,7 @@ describe('sbb-toggle', () => {
       expect(inputSpy.count).to.be.equal(1);
 
       firstOption.click();
-      await firstOption.updateComplete;
+      await waitForLitRender(firstOption);
 
       expect(firstOption).to.have.attribute('checked');
     });

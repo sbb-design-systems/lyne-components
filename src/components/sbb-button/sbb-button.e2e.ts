@@ -1,8 +1,7 @@
-import { waitForCondition } from '../../global/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { EventSpy } from '../../global/testing/event-spy';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../global/testing';
 import { SbbButton } from './sbb-button';
 
 describe('sbb-button', () => {
@@ -18,7 +17,6 @@ describe('sbb-button', () => {
 
   describe('events', () => {
     it('dispatches event on click', async () => {
-      await element.updateComplete;
       const clickSpy = new EventSpy('click');
 
       element.click();
@@ -29,7 +27,7 @@ describe('sbb-button', () => {
     it('should not dispatch event on click if disabled', async () => {
       element.setAttribute('disabled', 'true');
 
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       const clickSpy = new EventSpy('click');
 
@@ -40,7 +38,7 @@ describe('sbb-button', () => {
     it('should dispatch event on click if is-static', async () => {
       element.setAttribute('is-static', 'true');
 
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       const clickSpy = new EventSpy('click');
 
@@ -64,7 +62,7 @@ describe('sbb-button', () => {
 
     it('should dispatch click event on pressing Enter with href', async () => {
       element.setAttribute('href', '#');
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       const clickSpy = new EventSpy('click');
       element.focus();
@@ -74,7 +72,7 @@ describe('sbb-button', () => {
 
     it('should not dispatch click event on pressing Space with href', async () => {
       element.setAttribute('href', '#');
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       const clickSpy = new EventSpy('click');
       element.focus();
@@ -88,14 +86,14 @@ describe('sbb-button', () => {
       const clickSpy = new EventSpy('click');
 
       element.dispatchEvent(new CustomEvent('click'));
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(clickSpy.count).not.to.be.greaterThan(0);
     });
 
     it('should receive focus', async () => {
       element.focus();
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(document.activeElement.id).to.be.equal('focus-id');
     });

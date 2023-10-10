@@ -1,5 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+import { waitForLitRender } from '../../global/testing';
 import { SbbTabGroup } from './sbb-tab-group';
 import '../sbb-tab-group';
 import '../sbb-tab-title';
@@ -40,7 +41,7 @@ describe('sbb-tab-group', () => {
 
   it('activates tab by index', async () => {
     element.activateTab(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
     const tab = document.querySelectorAll('sbb-tab-title')[1];
 
     expect(tab).to.have.attribute('active');
@@ -48,7 +49,7 @@ describe('sbb-tab-group', () => {
 
   it('disables tab by index', async () => {
     element.disableTab(0);
-    await element.updateComplete;
+    await waitForLitRender(element);
     const tab = document.querySelectorAll('sbb-tab-title')[0];
 
     expect(tab).to.have.attribute('disabled');
@@ -56,7 +57,7 @@ describe('sbb-tab-group', () => {
 
   it('enables tab by index', async () => {
     element.enableTab(2);
-    await element.updateComplete;
+    await waitForLitRender(element);
     const tab = document.querySelectorAll('sbb-tab-title')[2];
 
     expect(tab).not.to.have.attribute('disabled');
@@ -67,7 +68,7 @@ describe('sbb-tab-group', () => {
 
     tab.disabled = true;
     element.activateTab(2);
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(tab).not.to.have.attribute('active');
   });
 

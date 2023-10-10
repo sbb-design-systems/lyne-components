@@ -1,5 +1,6 @@
 import { aTimeout, assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+import { waitForLitRender } from '../../global/testing';
 import { SbbImage } from './sbb-image';
 import images from '../../global/images';
 
@@ -13,11 +14,11 @@ describe('sbb-image', () => {
     element = await fixture(html`<sbb-image image-src="${url}"></sbb-image>`);
 
     assert.instanceOf(element, SbbImage);
-    await element.updateComplete;
+    await waitForLitRender(element);
     // Wait five seconds in hope the image will successfully be loaded
     // TODO: Find more reliable solution
     await aTimeout(5000);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(element).dom.to.be.equal(`
       <sbb-image image-src="${url}"></sbb-image>

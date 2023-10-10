@@ -1,6 +1,7 @@
 import { SbbPearlChain } from './sbb-pearl-chain';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+import { waitForLitRender } from '../../global/testing';
 import { PtRideLeg } from '../../global/timetable';
 import './sbb-pearl-chain';
 
@@ -15,7 +16,7 @@ describe('sbb-pearl-chain', () => {
           departure: { time: '2022-08-18T04:00' },
         } as PtRideLeg,
       ];
-      await element.updateComplete;
+      await waitForLitRender(element);
       expect(element).dom.to.be.equal(`<sbb-pearl-chain></sbb-pearl-chain>`);
       expect(element).shadowDom.to.be.equal(`
         <div class="sbb-pearl-chain">
@@ -52,7 +53,7 @@ describe('sbb-pearl-chain', () => {
           },
         } as PtRideLeg,
       ];
-      await element.updateComplete;
+      await waitForLitRender(element);
       expect(element).dom.to.be.equal(`<sbb-pearl-chain></sbb-pearl-chain>`);
       expect(element).shadowDom.to.be.equal(`
         <div class="sbb-pearl-chain">
@@ -100,7 +101,7 @@ describe('sbb-pearl-chain', () => {
           },
         } as PtRideLeg,
       ];
-      await element.updateComplete;
+      await waitForLitRender(element);
       expect(element).dom.to.be.equal(`<sbb-pearl-chain></sbb-pearl-chain>`);
       expect(element).shadowDom.to.be.equal(`
         <div class="sbb-pearl-chain">
@@ -146,7 +147,7 @@ describe('sbb-pearl-chain', () => {
           },
         } as PtRideLeg,
       ];
-      await element.updateComplete;
+      await waitForLitRender(element);
       expect(element).dom.to.be.equal(`<sbb-pearl-chain></sbb-pearl-chain>`);
       expect(element).shadowDom.to.be.equal(`
         <div class="sbb-pearl-chain">

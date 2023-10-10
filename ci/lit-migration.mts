@@ -959,7 +959,7 @@ declare global {
       .set('@open-wc/testing', ['assert', 'expect', 'fixture', 'oneEvent', 'waitUntil'])
       .set('lit/static-html.js', ['html'])
       .set('@web/test-runner-commands', ['sendKeys', 'setViewport'])
-      .set('../../global/testing/event-spy', ['EventSpy']);
+      .set('../../global/testing', ['EventSpy, waitForLitRender']);
 
     const assertionConversionMap = [
       { from: 'toEqual', to: 'to.be.equal' },
@@ -1098,7 +1098,7 @@ declare global {
           }
 
           if (node.getText().match(/\.waitForChanges\(/)) {
-            mutator.replace(node, 'await element.updateComplete;'); // TODO it's not always called 'element'
+            mutator.replace(node, 'await waitForLitRender(element);'); // TODO it's not always called 'element'
           }
 
           if (node.getText().match(/\.press\(/)) {

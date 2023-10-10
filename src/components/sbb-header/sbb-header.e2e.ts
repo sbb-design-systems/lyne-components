@@ -1,9 +1,8 @@
-import { mockScrollTo, waitForCondition } from '../../global/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { setViewport } from '@web/test-runner-commands';
-import { EventSpy } from '../../global/testing/event-spy';
 import { events } from '../sbb-menu';
+import { EventSpy, waitForLitRender, mockScrollTo, waitForCondition } from '../../global/testing';
 import { SbbHeader } from './sbb-header';
 import '../sbb-header-action';
 import '../sbb-menu';
@@ -29,7 +28,7 @@ describe('sbb-header', () => {
     element = document.querySelector('sbb-header');
 
     mockScrollTo({ top: 200 });
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element).to.have.attribute('data-shadow');
   });
 
@@ -46,12 +45,12 @@ describe('sbb-header', () => {
 
     // Scroll bottom (0px to 400px): header fixed.
     mockScrollTo({ top: 400 });
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     // Scroll top (400px to 200px): header fixed and visible, with shadow and animated.
     mockScrollTo({ top: 200 });
 
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-shadow');
     expect(element).to.have.attribute('data-animated');
@@ -61,7 +60,7 @@ describe('sbb-header', () => {
     // Scroll top (100 to 0px): initial situation.
     mockScrollTo({ top: 0 });
 
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(element).not.to.have.attribute('data-shadow');
     expect(element).not.to.have.attribute('data-animated');
@@ -85,11 +84,11 @@ describe('sbb-header', () => {
 
     // Scroll down a little bit
     mockScrollTo({ top: 250 });
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     // Scroll up to show header
     mockScrollTo({ top: 200 });
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element).to.have.attribute('data-visible');
 
     // Open menu
@@ -97,13 +96,13 @@ describe('sbb-header', () => {
     const didOpenEventSpy = new EventSpy(events.didOpen);
     const menuTrigger = document.querySelector('sbb-header-action');
     menuTrigger.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
     const menuId = menuTrigger.getAttribute('aria-controls');
     const menu = document.querySelector(`#${menuId}`);
 
@@ -114,7 +113,7 @@ describe('sbb-header', () => {
 
     // Scroll down to hide header.
     mockScrollTo({ top: 250 });
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     // Assert menu closed
     expect(element).not.to.have.attribute('data-visible');
