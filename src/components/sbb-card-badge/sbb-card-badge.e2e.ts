@@ -1,13 +1,12 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { assert, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { SbbCardBadge } from './sbb-card-badge';
 
 describe('sbb-card-badge', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbCardBadge;
 
   it('renders', async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-card-badge></sbb-card-badge>');
-
-    element = await page.find('sbb-card-badge');
-    expect(element).toHaveClass('hydrated');
+    element = await fixture(html`<sbb-card-badge></sbb-card-badge>`);
+    assert.instanceOf(element, SbbCardBadge);
   });
 });

@@ -1,52 +1,57 @@
-import { Component, ComponentInterface, Element, h, Host, JSX, Prop } from '@stencil/core';
 import { InterfaceSbbCardBadgeAttributes } from './sbb-card-badge.custom';
 import { toggleDatasetEntry, getDocumentWritingMode } from '../../global/dom';
+import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import { setAttribute } from '../../global/dom';
+import Style from './sbb-card-badge.scss?lit&inline';
 
 /**
  * @slot unnamed - Content of the badge.
  * Content parts should be wrapped in `<span>` tags to achieve correct spacings.
  */
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-card-badge.scss',
-  tag: 'sbb-card-badge',
-})
-export class SbbCardBadge implements ComponentInterface {
+@customElement('sbb-card-badge')
+export class SbbCardBadge extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /** Color of the card badge. */
-  @Prop({ reflect: true }) public color: InterfaceSbbCardBadgeAttributes['color'] = 'charcoal';
-
-  @Element() private _element!: HTMLElement;
-
-  public constructor() {
-    // Set slot name as early as possible
-    this._element.setAttribute('slot', 'badge');
-  }
+  @property({ reflect: true }) public color: InterfaceSbbCardBadgeAttributes['color'] = 'charcoal';
 
   private _parentElement?: HTMLElement;
 
-  public connectedCallback(): void {
-    this._parentElement = this._element.parentElement;
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this._parentElement = this.parentElement;
     toggleDatasetEntry(this._parentElement, 'hasCardBadge', true);
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     toggleDatasetEntry(this._parentElement, 'hasCardBadge', false);
     this._parentElement = undefined;
   }
 
-  public render(): JSX.Element {
-    return (
-      <Host dir={getDocumentWritingMode()} role="text">
-        <span class="sbb-card-badge-wrapper">
-          <span class="sbb-card-badge">
-            <span class="sbb-card-badge-background" aria-hidden="true"></span>
-            <span class="sbb-card-badge-content">
-              <slot />
-            </span>
+  protected override render(): TemplateResult {
+    setAttribute(this, 'slot', 'badge');
+    setAttribute(this, 'dir', getDocumentWritingMode());
+    setAttribute(this, 'role', 'text');
+
+    return html`
+      <span class="sbb-card-badge-wrapper">
+        <span class="sbb-card-badge">
+          <span class="sbb-card-badge-background" aria-hidden="true"></span>
+          <span class="sbb-card-badge-content">
+            <slot></slot>
           </span>
         </span>
-      </Host>
-    );
+      </span>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-card-badge': SbbCardBadge;
   }
 }

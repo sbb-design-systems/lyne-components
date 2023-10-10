@@ -1,21 +1,21 @@
-import { Component, ComponentInterface, h, JSX, Prop } from '@stencil/core';
 import { InterfaceSbbCardAttributes } from './sbb-card.custom';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import Style from './sbb-card.scss?lit&inline';
 
 /**
  * @slot unnamed - Slot to render the content.
  * @slot badge - Slot to render `<sbb-card-badge>`.
  */
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-card.scss',
-  tag: 'sbb-card',
-})
-export class SbbCard implements ComponentInterface {
+@customElement('sbb-card')
+export class SbbCard extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /** Size variant, either xs, s, m, l, xl, xxl or xxxl. */
-  @Prop({ reflect: true }) public size?: InterfaceSbbCardAttributes['size'] = 'm';
+  @property({ reflect: true }) public size?: InterfaceSbbCardAttributes['size'] = 'm';
 
   /** Option to set the component's background color. */
-  @Prop({ reflect: true }) public color: InterfaceSbbCardAttributes['color'] = 'white';
+  @property({ reflect: true }) public color: InterfaceSbbCardAttributes['color'] = 'white';
 
   /**
    * It is used internally to show the `<sbb-card-badge>`.
@@ -26,19 +26,26 @@ export class SbbCard implements ComponentInterface {
     return ['m', 'l', 'xl', 'xxl', 'xxxl'].includes(this.size);
   }
 
-  public render(): JSX.Element {
-    return (
+  protected override render(): TemplateResult {
+    return html`
       <span class="sbb-card">
         <slot name="action"></slot>
         <span class="sbb-card__wrapper">
-          <slot />
+          <slot></slot>
         </span>
-        {this._isBadgeVisible() && (
-          <span class="sbb-card__badge-wrapper">
-            <slot name="badge" />
-          </span>
-        )}
+        ${this._isBadgeVisible()
+          ? html`<span class="sbb-card__badge-wrapper">
+              <slot name="badge"></slot>
+            </span>`
+          : nothing}
       </span>
-    );
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-card': SbbCard;
   }
 }

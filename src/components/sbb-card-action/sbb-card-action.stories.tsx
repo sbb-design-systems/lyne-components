@@ -1,7 +1,8 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import '../sbb-card';
 
 const Template = (): JSX.Element => (
   <sbb-card color="milk">

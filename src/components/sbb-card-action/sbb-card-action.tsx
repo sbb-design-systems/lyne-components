@@ -1,17 +1,4 @@
 import {
-  Component,
-  ComponentInterface,
-  Element,
-  Fragment,
-  h,
-  Host,
-  JSX,
-  Prop,
-  State,
-  Watch,
-} from '@stencil/core';
-import { i18nTargetOpensInNewWindow } from '../../global/i18n';
-import {
   ButtonType,
   LinkButtonProperties,
   LinkButtonRenderVariables,
@@ -28,75 +15,84 @@ import {
   languageChangeHandlerAspect,
 } from '../../global/eventing';
 import { AgnosticMutationObserver } from '../../global/observers';
+import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { SbbCard } from '../sbb-card/index';
+import { setAttribute, setAttributes } from '../../global/dom';
+import Style from './sbb-card-action.scss?lit&inline';
+import { html, unsafeStatic } from 'lit/static-html.js';
+import { spread } from '@open-wc/lit-helpers';
+import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 
 /**
  * @slot unnamed - Slot to render a descriptive label / title of the action (important!). This is relevant for SEO and screen readers.
  */
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-card-action.scss',
-  tag: 'sbb-card-action',
-})
-export class SbbCardAction implements ComponentInterface, LinkButtonProperties {
+@customElement('sbb-card-action')
+export class SbbCardAction extends LitElement implements LinkButtonProperties {
+  public static override styles: CSSResult = Style;
+
   /** Whether the card is active. */
-  @Prop({ reflect: true }) public active = false;
+  @property({ reflect: true, type: Boolean })
+  public get active(): boolean {
+    return this._active;
+  }
+  public set active(value: boolean) {
+    const oldValue = this._active;
+    this._active = value;
+    this._onActiveChange();
+    this.requestUpdate('active', oldValue);
+  }
+  private _active: boolean = false;
 
   /** The href value you want to link to. */
-  @Prop({ reflect: true }) public href: string | undefined;
+  @property({ reflect: true }) public href: string | undefined;
 
   /** Where to display the linked URL. */
-  @Prop() public target?: LinkTargetType | string | undefined;
+  @property() public target?: LinkTargetType | string | undefined;
 
   /** The relationship of the linked URL as space-separated link types. */
-  @Prop() public rel?: string | undefined;
+  @property() public rel?: string | undefined;
 
   /** Whether the browser will show the download dialog on click. */
-  @Prop() public download?: boolean | undefined;
+  @property() public download?: boolean | undefined;
 
   /** Default behaviour of the button. */
-  @Prop() public type: ButtonType | undefined;
+  @property() public type: ButtonType | undefined;
 
   /** The name of the button. */
-  @Prop({ reflect: true }) public name: string | undefined;
+  @property({ reflect: true }) public name: string | undefined;
 
   /** The <form> element to associate the button to it. */
-  @Prop() public form?: string | undefined;
+  @property() public form?: string | undefined;
 
   /** The value associated with button `name` when it's submitted with the form data. */
-  @Prop() public value?: string | undefined;
+  @property() public value?: string | undefined;
 
-  @State() private _currentLanguage = documentLanguage();
+  @state() private _currentLanguage = documentLanguage();
 
-  @Watch('active')
-  public onActiveChange(): void {
+  private _onActiveChange(): void {
     if (this._card) {
       toggleDatasetEntry(this._card, 'hasActiveAction', this.active);
     }
   }
 
-  @Element() private _element!: HTMLElement;
-
   private _abortController = new AbortController();
-  private _card: HTMLSbbCardElement | null = null;
+  private _card: SbbCard | null = null;
   private _cardMutationObserver = new AgnosticMutationObserver(() =>
     this._checkForSlottedActions(),
   );
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     actionElementHandlerAspect,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
-  public constructor() {
-    // Set slot name as early as possible
-    this._element.setAttribute('slot', 'action');
-  }
-
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
     this._abortController = new AbortController();
 
-    this._card = this._element.closest('sbb-card');
+    this._card = this.closest('sbb-card');
     if (this._card) {
       toggleDatasetEntry(this._card, 'hasAction', true);
       toggleDatasetEntry(this._card, 'hasActiveAction', this.active);
@@ -111,7 +107,8 @@ export class SbbCardAction implements ComponentInterface, LinkButtonProperties {
     this._handlerRepository.connect();
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     if (this._card) {
       toggleDatasetEntry(this._card, 'hasAction', false);
       toggleDatasetEntry(this._card, 'hasActiveAction', false);
@@ -140,7 +137,7 @@ export class SbbCardAction implements ComponentInterface, LinkButtonProperties {
       .forEach((el) => el.setAttribute(cardFocusableAttributeName, ''));
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const {
       tagName: TAG_NAME,
       attributes,
@@ -151,17 +148,29 @@ export class SbbCardAction implements ComponentInterface, LinkButtonProperties {
       this._card.dataset.actionRole = hostAttributes.role;
     }
 
-    return (
-      <Host {...hostAttributes}>
-        <TAG_NAME {...attributes} class="sbb-card-action">
-          <span class="sbb-card-action__label">
-            <slot></slot>
-            {targetsNewWindow(this) && (
-              <Fragment>. {i18nTargetOpensInNewWindow[this._currentLanguage]}</Fragment>
-            )}
-          </span>
-        </TAG_NAME>
-      </Host>
-    );
+    setAttribute(this, 'slot', 'action');
+    setAttributes(this, hostAttributes);
+
+    /* eslint-disable lit/binding-positions */
+    return html`
+      <${unsafeStatic(TAG_NAME)} ${spread(attributes)} class="sbb-card-action">
+        <span class="sbb-card-action__label">
+          <slot></slot>
+          ${
+            targetsNewWindow(this)
+              ? html`. ${i18nTargetOpensInNewWindow[this._currentLanguage]}`
+              : nothing
+          }
+        </span>
+      </${unsafeStatic(TAG_NAME)}>
+    `;
+    /* eslint-disable lit/binding-positions */
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-card-action': SbbCardAction;
   }
 }
