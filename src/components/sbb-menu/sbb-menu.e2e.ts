@@ -2,12 +2,12 @@ import { waitForCondition } from '../../global/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
-import { EventSpy } from '../../global/testing/event-spy';
 import { SbbMenu, events } from './sbb-menu';
 import '../sbb-button';
 import '../sbb-menu-action';
 import '../sbb-link';
 import '../sbb-divider';
+import { EventSpy, waitForLitRender } from '../../global/testing';
 
 describe('sbb-menu', () => {
   let element: SbbMenu, trigger: HTMLElement;
@@ -42,15 +42,15 @@ describe('sbb-menu', () => {
     const didOpenEventSpy = new EventSpy(events.didOpen);
 
     trigger.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
 
-    await element.updateComplete;
+    await waitForLitRender(element);
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
 
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(dialog).to.have.attribute('open');
   });
 
@@ -62,31 +62,31 @@ describe('sbb-menu', () => {
     const dialog = element.shadowRoot.querySelector('dialog');
 
     trigger.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(dialog).to.have.attribute('open');
 
     await sendKeys({ down: 'Tab' });
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await sendKeys({ down: 'Escape' });
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
     expect(willCloseEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(dialog).not.to.have.attribute('open');
   });
@@ -100,29 +100,29 @@ describe('sbb-menu', () => {
     const menuAction = document.querySelector('sbb-menu > sbb-menu-action') as HTMLElement;
 
     trigger.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(dialog).to.have.attribute('open');
     expect(menuAction).not.to.be.null;
 
     menuAction.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
     expect(willCloseEventSpy.count).to.be.equal(1);
 
-    await element.updateComplete;
+    await waitForLitRender(element);
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy.count).to.be.equal(1);
 
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(dialog).not.to.have.attribute('open');
   });
 
@@ -135,29 +135,29 @@ describe('sbb-menu', () => {
     const menuLink = document.querySelector('sbb-menu > sbb-link') as HTMLElement;
 
     trigger.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(dialog).to.have.attribute('open');
     expect(menuLink).not.to.be.null;
 
     menuLink.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
     expect(willCloseEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(dialog).not.to.have.attribute('open');
   });
@@ -169,15 +169,15 @@ describe('sbb-menu', () => {
     const dialog = element.shadowRoot.querySelector('dialog');
 
     trigger.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(dialog).to.have.attribute('open');
 
@@ -204,15 +204,15 @@ describe('sbb-menu', () => {
     const dialog = element.shadowRoot.querySelector('dialog');
 
     trigger.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(dialog).to.have.attribute('open');
 
@@ -229,21 +229,21 @@ describe('sbb-menu', () => {
     const dialog = element.shadowRoot.querySelector('dialog');
 
     trigger.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(dialog).to.have.attribute('open');
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await sendKeys({ down: 'Tab' });
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(document.activeElement.id).to.be.equal('menu-link');
   });
@@ -254,22 +254,22 @@ describe('sbb-menu', () => {
     const dialog = element.shadowRoot.querySelector('dialog');
 
     await sendKeys({ down: 'Tab' });
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await sendKeys({ down: 'Enter' });
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(dialog).to.have.attribute('open');
 
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(document.activeElement.id).to.be.equal('menu-link');
   });
 });

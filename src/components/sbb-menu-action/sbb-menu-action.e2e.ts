@@ -2,8 +2,8 @@ import { waitForCondition } from '../../global/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { EventSpy } from '../../global/testing/event-spy';
 import { SbbMenuAction } from './sbb-menu-action';
+import { EventSpy, waitForLitRender } from '../../global/testing';
 
 describe('sbb-menu-action', () => {
   let element: SbbMenuAction;
@@ -24,7 +24,7 @@ describe('sbb-menu-action', () => {
     it('should not dispatch event on click if disabled', async () => {
       element.setAttribute('disabled', 'true');
 
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       const clickSpy = new EventSpy('click');
 
@@ -50,7 +50,7 @@ describe('sbb-menu-action', () => {
 
     it('should dispatch click event on pressing Enter with href', async () => {
       element.setAttribute('href', '#');
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       const changeSpy = new EventSpy('click');
       element.focus();
@@ -60,7 +60,7 @@ describe('sbb-menu-action', () => {
 
     it('should not dispatch click event on pressing Space with href', async () => {
       element.setAttribute('href', '#');
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       const changeSpy = new EventSpy('click');
       element.focus();
@@ -70,7 +70,7 @@ describe('sbb-menu-action', () => {
 
     it('should receive focus', async () => {
       element.focus();
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(document.activeElement.id).to.be.equal('focus-id');
     });

@@ -1,8 +1,8 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { waitForCondition } from '../../global/testing';
-import { EventSpy } from '../../global/testing/event-spy';
 import { SbbToggleOption } from './sbb-toggle-option';
+import { EventSpy, waitForLitRender } from '../../global/testing';
 
 describe('sbb-toggle-option', () => {
   let element: SbbToggleOption;
@@ -19,7 +19,7 @@ describe('sbb-toggle-option', () => {
     const onInput = new EventSpy('input');
 
     element.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(element).to.have.attribute('checked');
     await waitForCondition(() => onInput.events.length === 1);
@@ -30,14 +30,14 @@ describe('sbb-toggle-option', () => {
     const onInput = new EventSpy('input');
 
     element.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(element).to.have.attribute('checked');
     await waitForCondition(() => onInput.events.length === 1);
     expect(onInput.count).to.be.equal(1);
 
     element.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(element).to.have.attribute('checked');
     await waitForCondition(() => onInput.events.length === 1);

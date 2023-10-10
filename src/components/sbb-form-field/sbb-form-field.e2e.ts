@@ -2,6 +2,7 @@ import { aTimeout, assert, expect, fixture, nextFrame } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { SbbFormField } from './sbb-form-field';
+import { waitForLitRender } from '../../global/testing';
 
 describe('sbb-form-field', () => {
   describe('with input', () => {
@@ -22,11 +23,11 @@ describe('sbb-form-field', () => {
       expect(element.querySelector('label')).to.be.null;
 
       element.setAttribute('label', 'Label');
-      await element.updateComplete;
+      await waitForLitRender(element);
       expect(element.querySelector('label')).not.to.be.null;
 
       element.removeAttribute('label');
-      await element.updateComplete;
+      await waitForLitRender(element);
       expect(element.querySelector('label')).to.be.null;
     });
 
@@ -35,21 +36,21 @@ describe('sbb-form-field', () => {
 
       input.focus();
       await sendKeys({ type: 'v' });
-      await element.updateComplete;
+      await waitForLitRender(element);
       expect(element).not.to.have.attribute('data-input-empty');
 
       await sendKeys({ press: 'Backspace' });
-      await element.updateComplete;
+      await waitForLitRender(element);
       expect(element).to.have.attribute('data-input-empty');
 
       await sendKeys({ type: 'v' });
-      await element.updateComplete;
+      await waitForLitRender(element);
       expect(element).not.to.have.attribute('data-input-empty');
 
       // Clearing value programmatically which does not trigger input event but can be caught by blur event.
       input.value = '';
       input.blur();
-      await element.updateComplete;
+      await waitForLitRender(element);
       expect(element).to.have.attribute('data-input-empty');
     });
 
@@ -64,22 +65,22 @@ describe('sbb-form-field', () => {
 
       input.focus();
       await sendKeys({ type: 'v' });
-      await element.updateComplete;
+      await waitForLitRender(element);
       expect(element).to.have.attribute('data-input-focused');
 
       input.focus();
       await sendKeys({ press: 'Tab' });
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(element).not.to.have.attribute('data-input-focused');
     });
 
     it('should assign id to input and reference it in the label', async () => {
       element.setAttribute('label', 'Example');
-      await element.updateComplete;
+      await waitForLitRender(element);
       const label = document.querySelector('label');
 
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(input.id).to.match(/^sbb-form-field-input-/);
       expect(label).to.have.attribute('for', input.id);
@@ -89,7 +90,7 @@ describe('sbb-form-field', () => {
       // When adding a sbb-form-error
       const formError = document.createElement('sbb-form-error');
       element.append(formError);
-      await element.updateComplete;
+      await waitForLitRender(element);
       await nextFrame();
 
       // Then input should be linked and sbb-form-error configured
@@ -101,7 +102,7 @@ describe('sbb-form-field', () => {
 
       // When removing sbb-form-error
       formError.remove();
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       // Then aria-describedby should be removed
       expect(input).not.to.have.attribute('aria-describedby');
@@ -112,7 +113,7 @@ describe('sbb-form-field', () => {
       // When adding a sbb-form-error
       const formError = document.createElement('sbb-form-error');
       element.append(formError);
-      await element.updateComplete;
+      await waitForLitRender(element);
       await nextFrame();
 
       // Then input should be linked and original aria-describedby preserved
@@ -123,7 +124,7 @@ describe('sbb-form-field', () => {
       // When removing sbb-form-error
 
       formError.remove();
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       // Then aria-describedby should be set to foo
       expect(input).to.have.attribute('aria-describedby');
@@ -148,12 +149,12 @@ describe('sbb-form-field', () => {
       expect(element).not.to.have.attribute('data-input-focused');
 
       select.focus();
-      await element.updateComplete;
+      await waitForLitRender(element);
       expect(element).to.have.attribute('data-input-focused');
 
       // TODO The select should also handle the 'blur' function
       (document.querySelector('.sbb-select-invisible-trigger') as HTMLDivElement).blur();
-      await element.updateComplete;
+      await waitForLitRender(element);
       expect(element).not.to.have.attribute('data-input-focused');
     });
 
@@ -162,27 +163,27 @@ describe('sbb-form-field', () => {
 
       const label = document.querySelector('label');
       label.click();
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(select).to.have.attribute('data-state', 'opened');
     });
 
     it('should focus select on form field click readonly', async () => {
       select.setAttribute('readonly', '');
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(element).not.to.have.attribute('data-input-focused');
 
       const label = document.querySelector('label');
       label.click();
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-input-focused');
     });
 
     it('should assign id to label and reference it in the sbb-select', async () => {
       element.setAttribute('label', 'Example');
-      await element.updateComplete;
+      await waitForLitRender(element);
       const label = document.querySelector('label');
 
       expect(label.id).to.match(/^sbb-form-field-label-/);
@@ -264,7 +265,7 @@ describe('sbb-form-field', () => {
 
       // TODO-Migr: Remove as any
       (document.querySelector('sbb-select') as any).value = '';
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-input-empty');
     });
@@ -280,11 +281,11 @@ describe('sbb-form-field', () => {
       const element = document.querySelector('sbb-form-field');
       document.querySelector('input').focus();
       await sendKeys({ type: 'test' });
-      await element.updateComplete;
+      await waitForLitRender(element);
       expect(element).not.to.have.attribute('data-input-empty');
 
       document.querySelector('form').reset();
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       // This is necessary to await for the reset event to be propagated
       // In general, 'element.updateComplete' should suffice. Unless the changes
@@ -305,19 +306,19 @@ describe('sbb-form-field', () => {
 
       input.focus();
       await sendKeys({ type: 'test' });
-      await element.updateComplete;
+      await waitForLitRender(element);
       expect(element).not.to.have.attribute('data-input-empty');
 
       // When setting value to empty
       input.value = '';
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       // Then empty state is not updated
       expect(element).not.to.have.attribute('data-input-empty');
 
       // When manually calling reset method
       element.reset();
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       // Then empty state should be updated
       expect(element).to.have.attribute('data-input-empty');

@@ -5,6 +5,7 @@ import { SbbToggleOption } from '../sbb-toggle-option/sbb-toggle-option';
 
 import '../sbb-toggle';
 import '../sbb-toggle-option';
+import { waitForLitRender } from '../../global/testing';
 
 describe('sbb-toggle', () => {
   let option: SbbToggleOption, page: SbbToggle;
@@ -36,8 +37,8 @@ describe('sbb-toggle', () => {
       `);
       option = page.querySelectorAll('sbb-toggle-option')[1];
 
-      await option.updateComplete;
-      await page.updateComplete;
+      await waitForLitRender(option);
+      await waitForLitRender(page);
 
       expect(option).to.have.attribute('checked');
     });
@@ -47,7 +48,7 @@ describe('sbb-toggle', () => {
       option = page.querySelectorAll('sbb-toggle-option')[1];
       page.value = 'Value two';
 
-      await page.updateComplete;
+      await waitForLitRender(page);
 
       expect(option).to.have.attribute('checked');
     });
@@ -57,7 +58,7 @@ describe('sbb-toggle', () => {
       option = page.querySelectorAll('sbb-toggle-option')[0];
       option.value = 'Changed';
 
-      await page.updateComplete;
+      await waitForLitRender(page);
 
       expect(page.value).to.be.equal(option.value);
     });
@@ -67,7 +68,7 @@ describe('sbb-toggle', () => {
       option = page.querySelectorAll('sbb-toggle-option')[1];
       option.value = 'Changed';
 
-      await page.updateComplete;
+      await waitForLitRender(page);
 
       expect(page.value).not.to.be.equal(option.value);
     });
@@ -78,7 +79,7 @@ describe('sbb-toggle', () => {
       page = await fixture(simpleToggleTemplate);
       option = page.querySelectorAll('sbb-toggle-option')[0];
 
-      await page.updateComplete;
+      await waitForLitRender(page);
 
       expect(option).to.have.attribute('checked');
     });
@@ -87,7 +88,7 @@ describe('sbb-toggle', () => {
       page = await fixture(simpleToggleTemplate);
       option = page.querySelectorAll('sbb-toggle-option')[0];
 
-      await page.updateComplete;
+      await waitForLitRender(page);
 
       expect(option.checked).to.be.equal(true);
     });
@@ -97,7 +98,7 @@ describe('sbb-toggle', () => {
       option = page.querySelectorAll('sbb-toggle-option')[1];
       option.checked = true;
 
-      await option.updateComplete;
+      await waitForLitRender(option);
 
       expect(option).to.have.attribute('checked');
     });
@@ -119,7 +120,7 @@ describe('sbb-toggle', () => {
       option = page.querySelectorAll('sbb-toggle-option')[0];
       option.setAttribute('checked', 'false');
 
-      await option.updateComplete;
+      await waitForLitRender(option);
 
       expect(option.checked).to.be.equal(true);
     });
@@ -148,7 +149,7 @@ describe('sbb-toggle', () => {
       option = page.querySelectorAll('sbb-toggle-option')[0];
       option.disabled = false;
 
-      await page.updateComplete;
+      await waitForLitRender(page);
 
       expect(option).to.have.attribute('disabled');
     });
@@ -158,7 +159,7 @@ describe('sbb-toggle', () => {
       option = page.querySelectorAll('sbb-toggle-option')[0];
       option.disabled = true;
 
-      await page.updateComplete;
+      await waitForLitRender(page);
 
       expect(option).not.to.have.attribute('disabled');
     });

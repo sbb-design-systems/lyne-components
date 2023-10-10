@@ -2,8 +2,8 @@ import { waitForCondition } from '../../global/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { EventSpy } from '../../global/testing/event-spy';
 import { SbbHeaderAction } from './sbb-header-action';
+import { EventSpy, waitForLitRender } from '../../global/testing';
 
 describe('sbb-header-action', () => {
   let element: SbbHeaderAction;
@@ -41,7 +41,7 @@ describe('sbb-header-action', () => {
 
     it('should dispatch click event on pressing Enter with href', async () => {
       element.setAttribute('href', '#');
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       const clickSpy = new EventSpy('click');
       element.focus();
@@ -51,7 +51,7 @@ describe('sbb-header-action', () => {
 
     it('should not dispatch click event on pressing Space with href', async () => {
       element.setAttribute('href', '#');
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       const clickSpy = new EventSpy('click');
       element.focus();
@@ -61,7 +61,7 @@ describe('sbb-header-action', () => {
 
     it('should receive focus', async () => {
       element.focus();
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(document.activeElement.id).to.be.equal('focus-id');
     });

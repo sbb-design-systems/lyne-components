@@ -2,8 +2,8 @@ import { assert, expect, fixture, nextFrame } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import { waitForCondition } from '../../global/testing';
-import { EventSpy } from '../../global/testing/event-spy';
 import { SbbToggleCheck } from './sbb-toggle-check';
+import { EventSpy, waitForLitRender } from '../../global/testing';
 
 describe('sbb-toggle-check', () => {
   let element: SbbToggleCheck;
@@ -21,7 +21,7 @@ describe('sbb-toggle-check', () => {
       const changeSpy = new EventSpy('change');
 
       element.click();
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       await waitForCondition(() => changeSpy.events.length === 1);
       expect(changeSpy.count).to.be.equal(1);
@@ -32,7 +32,7 @@ describe('sbb-toggle-check', () => {
 
       element.focus();
       await sendKeys({ press: ' ' });
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       await waitForCondition(() => changeSpy.events.length === 1);
       expect(changeSpy.count).to.be.equal(1);
@@ -65,7 +65,7 @@ describe('sbb-toggle-check', () => {
 
     toggle.focus();
     await sendKeys({ press: ' ' });
-    await toggle.updateComplete;
+    await waitForLitRender(toggle);
     await nextFrame();
 
     expect(toggle).to.have.attribute('checked');

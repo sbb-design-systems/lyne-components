@@ -2,6 +2,7 @@ import { LineColor, SbbPearlChainVerticalItem } from './sbb-pearl-chain-vertical
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import './sbb-pearl-chain-vertical-item';
+import { waitForLitRender } from '../../global/testing';
 
 describe('sbb-pearl-chain-vertical-item', () => {
   it('renders component with charcoal standard line and bullet', async () => {
@@ -19,7 +20,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
       bulletSize: 'start-end',
       position: 0,
     };
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element).dom.to.be.equal(`
       <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes>
       </sbb-pearl-chain-vertical-item>
@@ -29,7 +30,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
         <slot name="left"></slot>
       </div>
       <div class="sbb-pearl-chain-vertical-item__column  sbb-pearl-chain-vertical-item__column--middle" aria-hidden="true">
-        <div class="sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--default sbb-pearl-chain-vertical-item__line--standard" style="--sbb-pearl-chain-vertical-item-leg-status:0%;"></div>       
+        <div class="sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--default sbb-pearl-chain-vertical-item__line--standard" style="--sbb-pearl-chain-vertical-item-leg-status:0%;"></div>
         <div class="sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--default sbb-pearl-chain-vertical-item__bullet--start-end"></div>
       </div>
       <slot name="right"></slot>
@@ -51,7 +52,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
       bulletSize: 'start-end',
       position: 0,
     };
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element).dom.to.be.equal(`
       <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes>
       </sbb-pearl-chain-vertical-item>
@@ -83,7 +84,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
       bulletSize: 'start-end',
       hideLine: true,
     };
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element).dom.to.be.equal(`
       <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes>
         <div slot="left">content</div>
@@ -115,7 +116,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
       bulletSize: 'start-end',
       hideLine: true,
     };
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element).dom.to.be.equal(`
       <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes>
         <div slot="right">right content</div>
@@ -148,7 +149,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
       bulletSize: 'start-end',
       hideLine: true,
     };
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element).dom.to.be.equal(`
       <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes>
         <div slot="right">right content</div>
@@ -183,7 +184,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
       bulletSize: 'start-end',
       position: 50,
     };
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element).dom.to.be.equal(`
       <sbb-pearl-chain-vertical-item pearlchainverticalitemattributes>
         <div slot="right">right content</div>
@@ -219,7 +220,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
       bulletSize: 'start-end',
       position: 0,
     };
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element).dom.to.be.equal(`
       <sbb-pearl-chain-vertical-item pearlchainverticalitemattributes>
         <div slot="right">right content</div>

@@ -3,6 +3,7 @@ import { html } from 'lit/static-html.js';
 import { SbbActionGroup } from './sbb-action-group';
 import { SbbButton } from '../sbb-button';
 import { SbbLink } from '../sbb-link';
+import { waitForLitRender } from '../../global/testing';
 
 describe('sbb-action-group', () => {
   let element: SbbActionGroup;
@@ -36,7 +37,7 @@ describe('sbb-action-group', () => {
 
     it('should update attributes with button-size="m"', async () => {
       element.setAttribute('button-size', 'm');
-      await element.updateComplete;
+      await waitForLitRender(element);
       const links = Array.from(
         document.querySelectorAll('sbb-action-group sbb-button'),
       ) as SbbButton[];
@@ -45,13 +46,13 @@ describe('sbb-action-group', () => {
 
     it('should update attributes with link-size="s"', async () => {
       element.setAttribute('link-size', 's');
-      await element.updateComplete;
+      await waitForLitRender(element);
       const links = Array.from(document.querySelectorAll('sbb-action-group sbb-link')) as SbbLink[];
       expect(links.every((l) => l.size === 's')).to.be.ok;
     });
 
     it('should apply variant block to sbb-link', async () => {
-      await element.updateComplete;
+      await waitForLitRender(element);
       const links = Array.from(document.querySelectorAll('sbb-action-group sbb-link')) as SbbLink[];
       expect(links.every((l) => l.variant === 'block')).to.be.ok;
     });

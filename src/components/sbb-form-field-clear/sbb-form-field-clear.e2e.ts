@@ -2,6 +2,7 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { SbbFormFieldClear } from './sbb-form-field-clear';
 import { SbbFormField } from '../sbb-form-field/sbb-form-field';
+import { waitForLitRender } from '../../global/testing';
 
 describe('sbb-form-field-clear', () => {
   let element: SbbFormFieldClear;
@@ -28,7 +29,7 @@ describe('sbb-form-field-clear', () => {
     expect(input.value).to.be.equal('Input value');
 
     await element.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(input.value).not.to.be.ok; // to be falsy
     expect(document.activeElement.id).to.be.equal('input');
@@ -38,7 +39,7 @@ describe('sbb-form-field-clear', () => {
   it('is hidden if the form field is disabled', async () => {
     input.setAttribute('disabled', '');
 
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(element).to.have.style('display', 'none');
   });
@@ -46,7 +47,7 @@ describe('sbb-form-field-clear', () => {
   it('is hidden if the form field is readonly', async () => {
     input.setAttribute('readonly', '');
 
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(element).to.have.style('display', 'none');
   });

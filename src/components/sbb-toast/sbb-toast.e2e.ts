@@ -1,8 +1,8 @@
 import { waitForCondition } from '../../global/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { EventSpy } from '../../global/testing/event-spy';
 import { SbbToast, events } from './sbb-toast';
+import { EventSpy, waitForLitRender } from '../../global/testing';
 
 describe('sbb-toast', () => {
   let element: SbbToast;
@@ -25,30 +25,30 @@ describe('sbb-toast', () => {
     const didCloseEventSpy = new EventSpy(events.didClose);
 
     element.setAttribute('timeout', '50');
-    await element.updateComplete;
+    await waitForLitRender(element);
     element.open();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element.getAttribute('data-state')).to.be.equal('opened');
 
     // Will wait for timeout and then close itself
 
-    await element.updateComplete;
+    await waitForLitRender(element);
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
     expect(willCloseEventSpy.count).to.be.equal(1);
 
-    await element.updateComplete;
+    await waitForLitRender(element);
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy.count).to.be.equal(1);
 
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element.getAttribute('data-state')).to.be.equal('closed');
   });
 
@@ -58,24 +58,24 @@ describe('sbb-toast', () => {
     const didCloseEventSpy = new EventSpy(events.didClose);
 
     element.setAttribute('dismissible', '');
-    await element.updateComplete;
+    await waitForLitRender(element);
     element.open();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
 
     const dismissBtn = element.shadowRoot.querySelector('sbb-button') as HTMLElement;
     dismissBtn.click();
 
-    await element.updateComplete;
+    await waitForLitRender(element);
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
     expect(willCloseEventSpy.count).to.be.equal(1);
 
-    await element.updateComplete;
+    await waitForLitRender(element);
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy.count).to.be.equal(1);
 
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element.getAttribute('data-state')).to.be.equal('closed');
   });
 
@@ -92,20 +92,20 @@ describe('sbb-toast', () => {
     const didCloseEventSpy = new EventSpy(events.didClose);
 
     element.open();
-    await element.updateComplete;
+    await waitForLitRender(element);
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
 
     actionBtn.click();
 
-    await element.updateComplete;
+    await waitForLitRender(element);
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
     expect(willCloseEventSpy.count).to.be.equal(1);
 
-    await element.updateComplete;
+    await waitForLitRender(element);
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy.count).to.be.equal(1);
 
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element.getAttribute('data-state')).to.be.equal('closed');
   });
 
@@ -146,14 +146,14 @@ describe('sbb-toast', () => {
 
     // Open the first toast
     toast1.open();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => toast1.getAttribute('data-state') === 'opened');
     expect(toast1).to.have.attribute('data-state', 'opened');
 
     // Open the second toast and expect the first to be closed
     toast2.open();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => toast1.getAttribute('data-state') === 'closed');
     expect(toast1).to.have.attribute('data-state', 'closed');

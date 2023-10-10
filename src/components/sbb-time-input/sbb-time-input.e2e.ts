@@ -2,9 +2,9 @@ import { i18nTimeInputChange } from '../../global/i18n';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { EventSpy } from '../../global/testing/event-spy';
 import { SbbTimeInput } from './sbb-time-input';
 import { ValidationChangeEvent } from '../../global/interfaces';
+import { EventSpy, waitForLitRender } from '../../global/testing';
 
 describe('sbb-time-input', () => {
   let element: SbbTimeInput, input: HTMLInputElement;
@@ -38,7 +38,7 @@ describe('sbb-time-input', () => {
     input.focus();
     await sendKeys({ press: '1' });
     input.blur();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(changeSpy.count).to.be.greaterThan(0);
     expect(inputSpy.count).to.be.greaterThan(0);
@@ -86,7 +86,7 @@ describe('sbb-time-input', () => {
     input.focus();
     await sendKeys({ type: '99' });
     input.blur();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     const validationChangeSpy = new EventSpy<CustomEvent<ValidationChangeEvent>>(
       'validationChange',
@@ -181,7 +181,7 @@ describe('sbb-time-input', () => {
   it('should handle deletion', async () => {
     input.value = '12:00';
 
-    await element.updateComplete;
+    await waitForLitRender(element);
     input.focus();
     input.setSelectionRange(0, 0);
     await sendKeys({ press: 'Delete' });
@@ -197,7 +197,7 @@ describe('sbb-time-input', () => {
     const date = new Date('2023-01-01T15:00:00');
 
     element.setValueAsDate(date);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(input.value).to.be.equal('15:00');
     expect(blurSpy.count).to.be.equal(1);
@@ -211,7 +211,7 @@ describe('sbb-time-input', () => {
     const date = new Date('2023-01-01T15:00:00');
 
     element.setValueAsDate(date.toISOString());
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(input.value).to.be.equal('15:00');
 
     const dateCalculated = element.getValueAsDate().getTime();
@@ -230,7 +230,7 @@ describe('sbb-time-input', () => {
     input = root.querySelector('input');
 
     element.setValueAsDate('2023-01-01T15:00:00');
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(input.value).to.be.equal('15:00');
   });
 
@@ -245,7 +245,7 @@ describe('sbb-time-input', () => {
     input = root.querySelector('input');
     element.input = input;
     element.setValueAsDate('2023-01-01T15:00:00');
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(input.value).to.be.equal('15:00');
   });
@@ -262,7 +262,7 @@ describe('sbb-time-input', () => {
 
     element.input = 'input-2';
     element.setValueAsDate('2023-01-01T15:00:00');
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(input.value).to.be.equal('15:00');
   });
