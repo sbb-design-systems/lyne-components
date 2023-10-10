@@ -101,7 +101,7 @@
     "puppeteer": "21.1.1",
     "react": "16.14.0",
     "react-dom": "16.14.0",
-    "sass": "1.69.0",
+    "sass": "1.69.1",
     "sass-loader": "13.3.2",
     "standard-version": "9.5.0",
     "stencil-inline-svg": "1.1.0",
