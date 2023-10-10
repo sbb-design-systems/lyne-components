@@ -1,19 +1,4 @@
 import {
-  Component,
-  ComponentInterface,
-  Element,
-  Event,
-  EventEmitter,
-  h,
-  Host,
-  JSX,
-  Listen,
-  Method,
-  Prop,
-  State,
-  Watch,
-} from '@stencil/core';
-import {
   isEventOnElement,
   overlayGapFixCorners,
   removeAriaComboBoxAttributes,
@@ -29,76 +14,68 @@ import {
   toggleDatasetEntry,
 } from '../../global/dom';
 import { assignId, getNextElementIndex } from '../../global/a11y';
+import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { setAttribute } from '../../global/dom';
+import { ref } from 'lit/directives/ref.js';
+import { ConnectedAbortController, EventEmitter } from '../../global/eventing';
+import { SbbOption } from '../sbb-option';
+import Style from './sbb-autocomplete.scss?lit&inline';
 
 let nextId = 0;
 
 /**
  * @slot unnamed - Use this slot to project options.
  */
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-autocomplete.scss',
-  tag: 'sbb-autocomplete',
-})
-export class SbbAutocomplete implements ComponentInterface {
+export const events = {
+  willOpen: 'will-open',
+  didOpen: 'did-open',
+  willClose: 'will-close',
+  didClose: 'did-close',
+};
+
+@customElement('sbb-autocomplete')
+export class SbbAutocomplete extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /**
    * The element where the autocomplete will attach; accepts both an element's id or an HTMLElement.
    * If not set, will search for the first 'sbb-form-field' ancestor.
    */
-  @Prop() public origin: string | HTMLElement;
+  @property() public origin: string | HTMLElement;
 
   /**
    * The input element that will trigger the autocomplete opening; accepts both an element's id or an HTMLElement.
    * By default, the autocomplete will open on focus, click, input or `ArrowDown` keypress of the 'trigger' element.
    * If not set, will search for the first 'input' child of a 'sbb-form-field' ancestor.
    */
-  @Prop() public trigger: string | HTMLInputElement;
+  @property() public trigger: string | HTMLInputElement;
 
   /** Whether the animation is disabled. */
-  @Prop({ reflect: true }) public disableAnimation = false;
+  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
+  public disableAnimation = false;
 
   /** Whether the icon space is preserved when no icon is set. */
-  @Prop({ reflect: true }) public preserveIconSpace: boolean;
+  @property({ attribute: 'preserve-icon-space', reflect: true, type: Boolean })
+  public preserveIconSpace: boolean;
 
   /** Negative coloring variant flag. */
-  @Prop({ reflect: true, mutable: true }) public negative = false;
+  @property({ reflect: true, type: Boolean }) public negative = false;
 
   /** The state of the autocomplete. */
-  @State() private _state: SbbOverlayState = 'closed';
+  @state() private _state: SbbOverlayState = 'closed';
 
   /** Emits whenever the autocomplete starts the opening transition. */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'will-open',
-  })
-  public willOpen: EventEmitter<void>;
+  private _willOpen: EventEmitter = new EventEmitter(this, events.willOpen);
 
   /** Emits whenever the autocomplete is opened. */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'did-open',
-  })
-  public didOpen: EventEmitter<void>;
+  private _didOpen: EventEmitter = new EventEmitter(this, events.didOpen);
 
   /** Emits whenever the autocomplete begins the closing transition. */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'will-close',
-  })
-  public willClose: EventEmitter<void>;
+  private _willClose: EventEmitter = new EventEmitter(this, events.willClose);
 
   /** Emits whenever the autocomplete is closed. */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'did-close',
-  })
-  public didClose: EventEmitter<void>;
-
-  @Element() private _element!: HTMLElement;
+  private _didClose: EventEmitter = new EventEmitter(this, events.didClose);
 
   private _overlay: HTMLElement;
   private _optionContainer: HTMLElement;
@@ -110,6 +87,7 @@ export class SbbAutocomplete implements ComponentInterface {
   private _activeItemIndex = -1;
   private _didLoad = false;
   private _isPointerDownEventOnMenu: boolean;
+  private _abort = new ConnectedAbortController(this);
 
   /**
    * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
@@ -122,13 +100,12 @@ export class SbbAutocomplete implements ComponentInterface {
     return this._triggerElement && isValidAttribute(this._triggerElement, 'readonly');
   }
 
-  private get _options(): HTMLSbbOptionElement[] {
-    return Array.from(this._element.querySelectorAll('sbb-option')) as HTMLSbbOptionElement[];
+  private get _options(): SbbOption[] {
+    return Array.from(this.querySelectorAll('sbb-option'));
   }
 
   /** Opens the autocomplete. */
-  @Method()
-  public async open(): Promise<void> {
+  public open(): void {
     if (
       this._state !== 'closed' ||
       !this._overlay ||
@@ -139,25 +116,23 @@ export class SbbAutocomplete implements ComponentInterface {
     }
 
     this._state = 'opening';
-    this.willOpen.emit();
+    this._willOpen.emit();
     this._setOverlayPosition();
   }
 
   /** Closes the autocomplete. */
-  @Method()
-  public async close(): Promise<void> {
+  public close(): void {
     if (this._state !== 'opened') {
       return;
     }
 
     this._state = 'closing';
-    this.willClose.emit();
+    this._willClose.emit();
     this._openPanelEventsController.abort();
   }
 
   /** Removes trigger click listener on trigger change. */
-  @Watch('origin')
-  public resetOriginClickListener(
+  private _resetOriginClickListener(
     newValue: string | HTMLElement,
     oldValue: string | HTMLElement,
   ): void {
@@ -167,8 +142,7 @@ export class SbbAutocomplete implements ComponentInterface {
   }
 
   /** Removes trigger click listener on trigger change. */
-  @Watch('trigger')
-  public resetTriggerClickListener(
+  private _resetTriggerClickListener(
     newValue: string | HTMLElement,
     oldValue: string | HTMLElement,
   ): void {
@@ -178,9 +152,8 @@ export class SbbAutocomplete implements ComponentInterface {
   }
 
   /** When an option is selected, update the input value and close the autocomplete. */
-  @Listen('option-selection-change')
-  public async onOptionSelected(event: CustomEvent): Promise<void> {
-    const target: HTMLSbbOptionElement = event.target as HTMLSbbOptionElement;
+  private _onOptionSelected(event: CustomEvent): void {
+    const target: SbbOption = event.target as SbbOption;
     if (!target.selected) {
       return;
     }
@@ -197,50 +170,62 @@ export class SbbAutocomplete implements ComponentInterface {
     this._triggerElement.dispatchEvent(new window.Event('change', { bubbles: true }));
     this._triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
 
-    await this.close();
+    this.close();
   }
 
-  @Listen('click')
-  public async onOptionClick(event): Promise<void> {
+  private _onOptionClick(event): void {
     if (event.target?.tagName !== 'SBB-OPTION' || event.target.disabled) {
       return;
     }
-    await this.close();
+    this.close();
   }
 
-  public componentDidLoad(): void {
-    this._componentSetup();
-    this._didLoad = true;
-  }
-
-  public connectedCallback(): void {
-    const formField =
-      this._element.closest('sbb-form-field') ?? this._element.closest('[data-form-field]');
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    const signal = this._abort.signal;
+    const formField = this.closest('sbb-form-field') ?? this.closest('[data-form-field]');
 
     if (formField) {
       this.negative = isValidAttribute(formField, 'negative');
     }
-    this._syncNegative();
 
     if (this._didLoad) {
       this._componentSetup();
     }
+
+    this.addEventListener('option-selection-change', (e) => this._onOptionSelected(e), { signal });
+    this.addEventListener('click', (e) => this._onOptionClick(e), { signal });
   }
 
-  @Watch('negative')
+  public override willUpdate(changedProperties: PropertyValues<this>): void {
+    if (changedProperties.has('origin')) {
+      this._resetOriginClickListener(this.origin, changedProperties.get('origin'));
+    }
+    if (changedProperties.has('trigger')) {
+      this._resetTriggerClickListener(this.trigger, changedProperties.get('trigger'));
+    }
+    if (changedProperties.has('negative')) {
+      this._syncNegative();
+    }
+  }
+
+  protected override firstUpdated(): void {
+    this._componentSetup();
+    this._didLoad = true;
+  }
+
   private _syncNegative(): void {
-    this._element
-      .querySelectorAll('sbb-divider')
-      .forEach((element) =>
-        this.negative ? element.setAttribute('negative', '') : element.removeAttribute('negative'),
-      );
+    this.querySelectorAll('sbb-divider').forEach((element) =>
+      setAttribute(element, 'negative', this.negative),
+    );
 
-    this._element
-      .querySelectorAll('sbb-option, sbb-optgroup')
-      .forEach((element: HTMLElement) => toggleDatasetEntry(element, 'negative', this.negative));
+    this.querySelectorAll('sbb-option, sbb-optgroup').forEach((element: HTMLElement) =>
+      toggleDatasetEntry(element, 'negative', this.negative),
+    );
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._triggerEventsController?.abort();
     this._openPanelEventsController?.abort();
   }
@@ -261,7 +246,7 @@ export class SbbAutocomplete implements ComponentInterface {
     let result: HTMLElement;
 
     if (!this.origin) {
-      result = this._element.closest('sbb-form-field')?.shadowRoot.querySelector('#overlay-anchor');
+      result = this.closest('sbb-form-field')?.shadowRoot.querySelector('#overlay-anchor');
     } else {
       result = findReferencedElement(this.origin);
     }
@@ -281,7 +266,7 @@ export class SbbAutocomplete implements ComponentInterface {
    */
   private _getTriggerElement(): HTMLInputElement {
     if (!this.trigger) {
-      return this._element.closest('sbb-form-field')?.querySelector('input') as HTMLInputElement;
+      return this.closest('sbb-form-field')?.querySelector('input') as HTMLInputElement;
     }
 
     const result = findReferencedElement<HTMLInputElement>(this.trigger);
@@ -303,9 +288,9 @@ export class SbbAutocomplete implements ComponentInterface {
     this._originElement = anchorElem;
 
     toggleDatasetEntry(
-      this._element,
+      this,
       'optionPanelOriginBorderless',
-      this._element.closest('sbb-form-field')?.hasAttribute('borderless'),
+      this.closest('sbb-form-field')?.hasAttribute('borderless'),
     );
   }
 
@@ -335,8 +320,8 @@ export class SbbAutocomplete implements ComponentInterface {
     });
     this._triggerElement.addEventListener(
       'input',
-      async (event) => {
-        await this.open();
+      (event) => {
+        this.open();
         this._highlightOptions((event.target as HTMLInputElement).value);
       },
       { signal: this._triggerEventsController.signal },
@@ -350,7 +335,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
   // Set overlay position, width and max height
   private _setOverlayPosition(): void {
-    setOverlayPosition(this._overlay, this._originElement, this._optionContainer, this._element);
+    setOverlayPosition(this._overlay, this._originElement, this._optionContainer, this);
   }
 
   /** On open/close animation end.
@@ -369,7 +354,7 @@ export class SbbAutocomplete implements ComponentInterface {
     this._state = 'opened';
     this._attachOpenPanelEvents();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
-    this.didOpen.emit();
+    this._didOpen.emit();
   }
 
   private _onCloseAnimationEnd(): void {
@@ -377,7 +362,7 @@ export class SbbAutocomplete implements ComponentInterface {
     this._triggerElement?.setAttribute('aria-expanded', 'false');
     this._resetActiveElement();
     this._optionContainer.scrollTop = 0;
-    this.didClose.emit();
+    this._didClose.emit();
   }
 
   private _attachOpenPanelEvents(): void {
@@ -417,17 +402,17 @@ export class SbbAutocomplete implements ComponentInterface {
   };
 
   // If the click is outside the autocomplete, closes the panel.
-  private _closeOnBackdropClick = async (event: PointerEvent): Promise<void> => {
+  private _closeOnBackdropClick = (event: PointerEvent): void => {
     if (
       !this._isPointerDownEventOnMenu &&
       !isEventOnElement(this._overlay, event) &&
       !isEventOnElement(this._originElement, event)
     ) {
-      await this.close();
+      this.close();
     }
   };
 
-  private async _closedPanelKeyboardInteraction(event: KeyboardEvent): Promise<void> {
+  private _closedPanelKeyboardInteraction(event: KeyboardEvent): void {
     if (this._state !== 'closed') {
       return;
     }
@@ -436,12 +421,12 @@ export class SbbAutocomplete implements ComponentInterface {
       case 'Enter':
       case 'ArrowDown':
       case 'ArrowUp':
-        await this.open();
+        this.open();
         break;
     }
   }
 
-  private async _openedPanelKeyboardInteraction(event: KeyboardEvent): Promise<void> {
+  private _openedPanelKeyboardInteraction(event: KeyboardEvent): void {
     if (this._state !== 'opened') {
       return;
     }
@@ -449,11 +434,11 @@ export class SbbAutocomplete implements ComponentInterface {
     switch (event.key) {
       case 'Escape':
       case 'Tab':
-        await this.close();
+        this.close();
         break;
 
       case 'Enter':
-        await this._selectByKeyboard();
+        this._selectByKeyboard();
         break;
 
       case 'ArrowDown':
@@ -463,11 +448,11 @@ export class SbbAutocomplete implements ComponentInterface {
     }
   }
 
-  private async _selectByKeyboard(): Promise<void> {
+  private _selectByKeyboard(): void {
     const activeOption = this._options[this._activeItemIndex];
 
     if (activeOption) {
-      await activeOption.setSelectedViaUserInteraction(true);
+      activeOption.setSelectedViaUserInteraction(true);
     }
   }
 
@@ -508,43 +493,48 @@ export class SbbAutocomplete implements ComponentInterface {
   }
 
   private _setTriggerAttributes(element: HTMLInputElement): void {
-    setAriaComboBoxAttributes(element, this._element.id || this._overlayId, false);
+    setAriaComboBoxAttributes(element, this.id || this._overlayId, false);
   }
 
   private _removeTriggerAttributes(element: HTMLInputElement): void {
     removeAriaComboBoxAttributes(element);
   }
 
-  public render(): JSX.Element {
-    return (
-      <Host
-        data-state={this._state}
-        role={this._ariaRoleOnHost ? 'listbox' : null}
-        ref={this._ariaRoleOnHost && assignId(() => this._overlayId)}
-        dir={getDocumentWritingMode()}
-      >
-        <div class="sbb-autocomplete__gap-fix"></div>
-        <div class="sbb-autocomplete__container">
-          <div class="sbb-autocomplete__gap-fix">{overlayGapFixCorners()}</div>
-          <div
-            onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
-            class="sbb-autocomplete__panel"
-            data-open={this._state === 'opened' || this._state === 'opening'}
-            ref={(overlayRef) => (this._overlay = overlayRef)}
-          >
-            <div class="sbb-autocomplete__wrapper">
-              <div
-                class="sbb-autocomplete__options"
-                ref={(containerRef) => (this._optionContainer = containerRef)}
-                role={!this._ariaRoleOnHost ? 'listbox' : null}
-                id={!this._ariaRoleOnHost ? this._overlayId : null}
-              >
-                <slot />
-              </div>
+  protected override render(): TemplateResult {
+    setAttribute(this, 'data-state', this._state);
+    setAttribute(this, 'role', this._ariaRoleOnHost ? 'listbox' : null);
+    setAttribute(this, 'dir', getDocumentWritingMode());
+    this._ariaRoleOnHost && assignId(() => this._overlayId)(this);
+
+    return html`
+      <div class="sbb-autocomplete__gap-fix"></div>
+      <div class="sbb-autocomplete__container">
+        <div class="sbb-autocomplete__gap-fix">${overlayGapFixCorners()}</div>
+        <div
+          @animationend=${this._onAnimationEnd}
+          class="sbb-autocomplete__panel"
+          ?data-open=${this._state === 'opened' || this._state === 'opening'}
+          ${ref((overlayRef) => (this._overlay = overlayRef as HTMLElement))}
+        >
+          <div class="sbb-autocomplete__wrapper">
+            <div
+              class="sbb-autocomplete__options"
+              ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
+              role=${!this._ariaRoleOnHost ? 'listbox' : nothing}
+              id=${!this._ariaRoleOnHost ? this._overlayId : nothing}
+            >
+              <slot></slot>
             </div>
           </div>
         </div>
-      </Host>
-    );
+      </div>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-autocomplete': SbbAutocomplete;
   }
 }

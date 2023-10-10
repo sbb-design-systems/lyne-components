@@ -1,17 +1,22 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
-import events from './sbb-autocomplete.events';
-import optionEvents from '../sbb-option/sbb-option.events';
+import { events } from './sbb-autocomplete';
+import { events as optionEvents } from '../sbb-option';
 import { waitForCondition } from '../../global/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { sendKeys, sendMouse } from '@web/test-runner-commands';
+import { EventSpy } from '../../global/testing/event-spy';
+import { SbbAutocomplete } from './sbb-autocomplete';
+import { SbbFormField } from '../sbb-form-field';
+import '../sbb-option';
 
 describe('sbb-autocomplete', () => {
-  let element: E2EElement, formField: E2EElement, input: E2EElement, page: E2EPage;
+  let element: SbbAutocomplete, formField: SbbFormField, input: HTMLInputElement;
 
   beforeEach(async () => {
-    page = await newE2EPage();
-    await page.setContent(`
+    formField = await fixture(html`
       <sbb-form-field>
         <input />
-        <sbb-autocomplete id="myAutocomplete">
+        <sbb-autocomplete id="myAutocomplete" style="--sbb-options-panel-animation-duration: 0.01s">
           <sbb-option id="option-1" value="1">1</sbb-option>
           <sbb-option id="option-2" value="2">2</sbb-option>
           <sbb-option id="option-3" value="3">3</sbb-option>
@@ -19,172 +24,160 @@ describe('sbb-autocomplete', () => {
       </sbb-form-field>
       <button>Use this for backdrop click</button>
     `);
-
-    formField = await page.find('sbb-form-field');
-    input = await page.find('input');
-    element = await page.find('sbb-autocomplete');
+    input = formField.querySelector('input');
+    element = formField.querySelector('sbb-autocomplete');
   });
 
   it('renders and sets the correct attributes', () => {
-    expect(formField).toHaveClass('hydrated');
-    expect(element).toHaveClass('hydrated');
+    assert.instanceOf(formField, SbbFormField);
+    assert.instanceOf(element, SbbAutocomplete);
 
-    expect(element).not.toHaveAttribute('autocomplete-origin-borderless');
+    expect(element).not.to.have.attribute('autocomplete-origin-borderless');
 
-    expect(input).toEqualAttribute('autocomplete', 'off');
-    expect(input).toEqualAttribute('role', 'combobox');
-    expect(input).toEqualAttribute('aria-autocomplete', 'list');
-    expect(input).toEqualAttribute('aria-haspopup', 'listbox');
-    expect(input).toEqualAttribute('aria-controls', 'myAutocomplete');
-    expect(input).toEqualAttribute('aria-owns', 'myAutocomplete');
-    expect(input).toEqualAttribute('aria-expanded', 'false');
+    expect(input).to.have.attribute('autocomplete', 'off');
+    expect(input).to.have.attribute('role', 'combobox');
+    expect(input).to.have.attribute('aria-autocomplete', 'list');
+    expect(input).to.have.attribute('aria-haspopup', 'listbox');
+    expect(input).to.have.attribute('aria-controls', 'myAutocomplete');
+    expect(input).to.have.attribute('aria-owns', 'myAutocomplete');
+    expect(input).to.have.attribute('aria-expanded', 'false');
   });
 
   it('opens and closes with mouse and keyboard', async () => {
-    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
-    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-    const willCloseEventSpy = await page.spyOnEvent(events.willClose);
-    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
+    const willOpenEventSpy = new EventSpy(events.willOpen);
+    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const willCloseEventSpy = new EventSpy(events.willClose);
+    const didCloseEventSpy = new EventSpy(events.didClose);
 
-    await input.focus();
-    await page.waitForChanges();
+    input.click();
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willOpenEventSpy.count).to.be.equal(1);
+
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
-    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
-    expect(input.getAttribute('aria-expanded')).toEqual('true');
+    expect(didOpenEventSpy.count).to.be.equal(1);
+    expect(input).to.have.attribute('aria-expanded', 'true');
 
-    await element.press('Escape');
-    await page.waitForChanges();
+    await sendKeys({ press: 'Escape' });
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
-    expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willCloseEventSpy.count).to.be.equal(1);
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
-    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
-    expect(input.getAttribute('aria-expanded')).toEqual('false');
+    expect(didCloseEventSpy.count).to.be.equal(1);
+    expect(input).to.have.attribute('aria-expanded', 'false');
 
-    await element.press('ArrowDown');
-    await page.waitForChanges();
+    await sendKeys({ press: 'ArrowDown' });
     await waitForCondition(() => willOpenEventSpy.events.length === 2);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(2);
-    await page.waitForChanges();
+    expect(willOpenEventSpy.count).to.be.equal(2);
     await waitForCondition(() => didOpenEventSpy.events.length === 2);
-    expect(didOpenEventSpy).toHaveReceivedEventTimes(2);
-    expect(input.getAttribute('aria-expanded')).toEqual('true');
+    expect(didOpenEventSpy.count).to.be.equal(2);
+    expect(input).to.have.attribute('aria-expanded', 'true');
 
-    await element.press('Tab');
-    await page.waitForChanges();
+    await sendKeys({ press: 'Tab' });
     await waitForCondition(() => willCloseEventSpy.events.length === 2);
-    expect(willCloseEventSpy).toHaveReceivedEventTimes(2);
-    await page.waitForChanges();
+    expect(willCloseEventSpy.count).to.be.equal(2);
     await waitForCondition(() => didCloseEventSpy.events.length === 2);
-    expect(didCloseEventSpy).toHaveReceivedEventTimes(2);
-    expect(input.getAttribute('aria-expanded')).toEqual('false');
+    expect(didCloseEventSpy.count).to.be.equal(2);
+    expect(input).to.have.attribute('aria-expanded', 'false');
 
-    await input.click();
-    await page.waitForChanges();
+    input.click();
     await waitForCondition(() => willOpenEventSpy.events.length === 3);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(3);
-    await page.waitForChanges();
+    expect(willOpenEventSpy.count).to.be.equal(3);
     await waitForCondition(() => didOpenEventSpy.events.length === 3);
-    expect(didOpenEventSpy).toHaveReceivedEventTimes(3);
-    expect(input.getAttribute('aria-expanded')).toEqual('true');
+    expect(didOpenEventSpy.count).to.be.equal(3);
+    expect(input).to.have.attribute('aria-expanded', 'true');
 
-    const button = await page.find('button');
-    await button.click();
+    // Simulate backdrop click
+    sendMouse({ type: 'move', position: [350, 25] });
+    sendMouse({ type: 'down' });
+    sendMouse({ type: 'up' });
+
     await waitForCondition(() => willCloseEventSpy.events.length === 3);
-    expect(willCloseEventSpy).toHaveReceivedEventTimes(3);
-    await page.waitForChanges();
+    expect(willCloseEventSpy.count).to.be.equal(3);
     await waitForCondition(() => didCloseEventSpy.events.length === 3);
-    expect(didCloseEventSpy).toHaveReceivedEventTimes(3);
-    expect(input.getAttribute('aria-expanded')).toEqual('false');
+    expect(didCloseEventSpy.count).to.be.equal(3);
+    expect(input).to.have.attribute('aria-expanded', 'false');
   });
 
   it('select by mouse', async () => {
-    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
-    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-    const optionSelectedEventSpy = await page.spyOnEvent(optionEvents.optionSelected);
+    const willOpenEventSpy = new EventSpy(events.willOpen);
+    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const optionSelectedEventSpy = new EventSpy(optionEvents.optionSelected);
 
-    await input.focus();
-    await page.waitForChanges();
+    input.focus();
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willOpenEventSpy.count).to.be.equal(1);
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
-    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
+    expect(didOpenEventSpy.count).to.be.equal(1);
 
-    await element.press('ArrowDown');
-    await element.press('ArrowDown');
-    await page.waitForChanges();
-    await element.press('Enter');
-    await page.waitForChanges();
+    await sendKeys({ press: 'ArrowDown' });
+    await sendKeys({ press: 'ArrowDown' });
+    await element.updateComplete;
+    await sendKeys({ press: 'Enter' });
+    await element.updateComplete;
 
-    expect(optionSelectedEventSpy).toHaveReceivedEventTimes(1);
-    expect(optionSelectedEventSpy.firstEvent.target.id).toBe('option-2');
+    expect(optionSelectedEventSpy.count).to.be.equal(1);
+    expect(optionSelectedEventSpy.firstEvent.target).to.have.property('id', 'option-2');
   });
 
   it('opens and select with keyboard', async () => {
-    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
-    const optionSelectedEventSpy = await page.spyOnEvent(optionEvents.optionSelected);
-    await input.focus();
-    await page.waitForChanges();
+    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const didCloseEventSpy = new EventSpy(events.didClose);
+    const optionSelectedEventSpy = new EventSpy(optionEvents.optionSelected);
+    const optOne = element.querySelector('#option-1');
+    const optTwo = element.querySelector('#option-2');
+    input.focus();
+
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
-    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
+    expect(didOpenEventSpy.count).to.be.equal(1);
 
-    await element.press('ArrowDown');
-    await page.waitForChanges();
-    await element.press('ArrowDown');
-    await page.waitForChanges();
-    const optOne = await page.find('sbb-autocomplete > sbb-option#option-1');
-    expect(await optOne.getProperty('active')).toEqual(false);
-    expect(await optOne.getProperty('selected')).toEqual(false);
-    const optTwo = await page.find('sbb-autocomplete > sbb-option#option-2');
-    expect(await optTwo.getProperty('active')).toEqual(true);
-    expect(await optTwo.getProperty('selected')).toEqual(false);
-    expect(input.getAttribute('aria-activedescendant')).toEqual('option-2');
+    await sendKeys({ press: 'ArrowDown' });
+    await sendKeys({ press: 'ArrowDown' });
+    await element.updateComplete;
+    expect(optOne).not.to.have.attribute('active');
+    expect(optOne).not.to.have.attribute('selected');
+    expect(optTwo).to.have.attribute('active');
+    expect(optTwo).not.to.have.attribute('selected');
+    expect(input).to.have.attribute('aria-activedescendant', 'option-2');
 
-    await element.press('Enter');
-    await page.waitForChanges();
+    await sendKeys({ press: 'Enter' });
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
-    expect(await optTwo.getProperty('active')).toEqual(false);
-    expect(await optTwo.getProperty('selected')).toEqual(true);
-    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
-    expect(optionSelectedEventSpy).toHaveReceivedEventTimes(1);
-    expect(input.getAttribute('aria-expanded')).toEqual('false');
-    expect(input).not.toHaveAttribute('aria-activedescendant');
+    expect(didCloseEventSpy.count).to.be.equal(1);
+
+    expect(optTwo).not.to.have.attribute('active');
+    expect(optTwo).to.have.attribute('selected');
+    expect(optionSelectedEventSpy.count).to.be.equal(1);
+    expect(input).to.have.attribute('aria-expanded', 'false');
+    expect(input).not.to.have.attribute('aria-activedescendant');
   });
 
   it('should stay closed when disabled', async () => {
-    await page.$eval('input', (e) => e.setAttribute('disabled', 'true'));
+    input.setAttribute('disabled', '');
 
-    await input.focus();
-    await page.waitForChanges();
-    expect(input.getAttribute('aria-expanded')).toEqual('false');
+    input.focus();
+    await element.updateComplete;
+    expect(input).to.have.attribute('aria-expanded', 'false');
 
-    await input.click();
-    await page.waitForChanges();
-    expect(input.getAttribute('aria-expanded')).toEqual('false');
+    input.click();
+    await element.updateComplete;
+    expect(input).to.have.attribute('aria-expanded', 'false');
 
-    await element.press('ArrowDown');
-    await page.waitForChanges();
-    expect(input.getAttribute('aria-expanded')).toEqual('false');
+    await sendKeys({ press: 'ArrowDown' });
+    await element.updateComplete;
+    expect(input).to.have.attribute('aria-expanded', 'false');
   });
 
   it('should stay closed when readonly', async () => {
-    await page.$eval('input', (e) => e.setAttribute('readonly', 'true'));
+    input.setAttribute('readonly', '');
 
-    await input.focus();
-    await page.waitForChanges();
-    expect(input.getAttribute('aria-expanded')).toEqual('false');
+    input.focus();
+    await element.updateComplete;
+    expect(input).to.have.attribute('aria-expanded', 'false');
 
-    await input.click();
-    await page.waitForChanges();
-    expect(input.getAttribute('aria-expanded')).toEqual('false');
+    input.click();
+    await element.updateComplete;
+    expect(input).to.have.attribute('aria-expanded', 'false');
 
-    await element.press('ArrowDown');
-    await page.waitForChanges();
-    expect(input.getAttribute('aria-expanded')).toEqual('false');
+    await sendKeys({ press: 'ArrowDown' });
+    await element.updateComplete;
+    expect(input).to.have.attribute('aria-expanded', 'false');
   });
 });
