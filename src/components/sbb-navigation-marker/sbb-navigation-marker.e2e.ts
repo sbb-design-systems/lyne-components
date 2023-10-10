@@ -3,6 +3,7 @@ import { html } from 'lit/static-html.js';
 import { SbbNavigationMarker } from './sbb-navigation-marker';
 import '../sbb-navigation-marker';
 import '../sbb-navigation-action';
+import { waitForLitRender } from '../../global/testing';
 
 describe('sbb-navigation-marker', () => {
   let element: SbbNavigationMarker;
@@ -27,13 +28,13 @@ describe('sbb-navigation-marker', () => {
     const secondAction = element.querySelector('sbb-navigation-action#nav-2') as HTMLElement;
 
     secondAction.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(secondAction).to.have.attribute('active');
     expect(firstAction).not.to.have.attribute('active');
 
     firstAction.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(firstAction).to.have.attribute('active');
     expect(secondAction).not.to.have.attribute('active');

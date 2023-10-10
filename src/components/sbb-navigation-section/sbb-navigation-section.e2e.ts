@@ -1,4 +1,4 @@
-import { waitForCondition } from '../../global/testing';
+import { waitForCondition, waitForLitRender } from '../../global/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { SbbNavigationSection } from './sbb-navigation-section';
@@ -33,7 +33,7 @@ describe('sbb-navigation-section', () => {
     const dialog = element.shadowRoot.querySelector('dialog');
 
     element.open();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(
       await waitForCondition(() => element.getAttribute('data-state') === 'opened'),
@@ -45,7 +45,7 @@ describe('sbb-navigation-section', () => {
     const dialog = element.shadowRoot.querySelector('dialog');
 
     element.open();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(
       await waitForCondition(() => element.getAttribute('data-state') === 'opened'),
@@ -53,7 +53,7 @@ describe('sbb-navigation-section', () => {
     expect(dialog).to.have.attribute('open');
 
     element.close();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(
       await waitForCondition(() => element.getAttribute('data-state') === 'closed'),

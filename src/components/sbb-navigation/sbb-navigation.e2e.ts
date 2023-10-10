@@ -1,5 +1,5 @@
 import { events } from './sbb-navigation';
-import { waitForCondition } from '../../global/testing';
+import { waitForCondition, waitForLitRender } from '../../global/testing';
 import { assert, expect, fixture, nextFrame } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
@@ -44,11 +44,11 @@ describe('sbb-navigation', () => {
     const dialog = element.shadowRoot.querySelector('dialog');
 
     element.open();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'opened');
     expect(dialog).to.have.attribute('open');
@@ -60,20 +60,20 @@ describe('sbb-navigation', () => {
     const dialog = element.shadowRoot.querySelector('dialog');
 
     element.open();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(dialog).to.have.attribute('open');
 
     element.close();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(dialog).not.to.have.attribute('open');
   });
@@ -85,20 +85,20 @@ describe('sbb-navigation', () => {
     const closeButton = element.shadowRoot.querySelector('.sbb-navigation__close') as HTMLElement;
 
     element.open();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(dialog).to.have.attribute('open');
 
     closeButton.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(dialog).not.to.have.attribute('open');
   });
@@ -109,23 +109,23 @@ describe('sbb-navigation', () => {
     const dialog = element.shadowRoot.querySelector('dialog');
 
     element.open();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(dialog).to.have.attribute('open');
 
     await sendKeys({ down: 'Tab' });
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await sendKeys({ down: 'Escape' });
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(dialog).not.to.have.attribute('open');
   });
@@ -145,24 +145,24 @@ describe('sbb-navigation', () => {
     ) as HTMLElement;
 
     element.open();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     action.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(dialog).to.have.attribute('open');
     expect(sectionDialog).to.have.attribute('open');
 
     closeEl.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(dialog).not.to.have.attribute('open');
     expect(sectionDialog).not.to.have.attribute('open');
@@ -179,17 +179,17 @@ describe('sbb-navigation', () => {
     ) as HTMLElement;
 
     element.open();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(navDialog).to.have.attribute('open');
     expect(sectionDialog).not.to.have.attribute('open');
 
     action.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(navDialog).to.have.attribute('open');
     expect(sectionDialog).to.have.attribute('open');
@@ -211,25 +211,25 @@ describe('sbb-navigation', () => {
     ) as HTMLElement;
 
     element.open();
-    await element.updateComplete;
+    await waitForLitRender(element);
     await nextFrame();
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(navDialog).to.have.attribute('open');
     expect(firstSectionDialog).not.to.have.attribute('open');
     expect(secondSectionDialog).not.to.have.attribute('open');
 
     firstAction.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(firstSectionDialog).to.have.attribute('open');
     expect(secondSectionDialog).not.to.have.attribute('open');
 
     secondAction.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(firstSection.getAttribute('data-state')).not.to.be.equal('opened');
     expect(secondSectionDialog).to.have.attribute('open');
@@ -248,26 +248,26 @@ describe('sbb-navigation', () => {
     const closeButton = element.shadowRoot.querySelector('.sbb-navigation__close') as HTMLElement;
 
     element.open();
-    await element.updateComplete;
+    await waitForLitRender(element);
     await nextFrame();
 
     action.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
     await nextFrame();
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(dialog).to.have.attribute('open');
     expect(sectionDialog).to.have.attribute('open');
 
     closeButton.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(dialog).not.to.have.attribute('open');
     expect(sectionDialog).not.to.have.attribute('open');
@@ -285,27 +285,27 @@ describe('sbb-navigation', () => {
     ) as HTMLElement;
 
     element.open();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     action.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(dialog).to.have.attribute('open');
     expect(sectionDialog).to.have.attribute('open');
 
     await sendKeys({ down: 'Tab' });
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await sendKeys({ down: 'Escape' });
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(dialog).not.to.have.attribute('open');
     expect(sectionDialog).not.to.have.attribute('open');
@@ -324,20 +324,20 @@ describe('sbb-navigation', () => {
     ) as HTMLElement;
 
     element.open();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     action.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(dialog).to.have.attribute('open');
     expect(sectionDialog).to.have.attribute('open');
 
     closeEl.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(dialog).to.have.attribute('open');
     expect(section).not.to.have.attribute('data-state', 'opened');

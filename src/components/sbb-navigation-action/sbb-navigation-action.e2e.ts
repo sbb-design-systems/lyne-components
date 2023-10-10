@@ -1,4 +1,4 @@
-import { waitForCondition } from '../../global/testing';
+import { waitForCondition, waitForLitRender } from '../../global/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
@@ -40,7 +40,7 @@ describe('sbb-navigation-action', () => {
 
     it('should dispatch click event on pressing Enter with href', async () => {
       element.setAttribute('href', '#');
-      await element.updateComplete;
+      await waitForLitRender(element);
       const changeSpy = new EventSpy('click');
       element.focus();
       await sendKeys({ press: 'Enter' });
@@ -49,7 +49,7 @@ describe('sbb-navigation-action', () => {
 
     it('should not dispatch click event on pressing Space with href', async () => {
       element.setAttribute('href', '#');
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       const changeSpy = new EventSpy('click');
       element.focus();
@@ -59,7 +59,7 @@ describe('sbb-navigation-action', () => {
 
     it('should receive focus', async () => {
       element.focus();
-      await element.updateComplete;
+      await waitForLitRender(element);
       expect(document.activeElement.id).to.be.equal('focus-id');
     });
   });
