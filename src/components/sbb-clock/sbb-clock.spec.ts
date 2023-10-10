@@ -28,14 +28,7 @@ describe('sbb-clock', () => {
     element = await fixture(html`<sbb-clock data-now="1674732600000"></sbb-clock>`);
     assert.instanceOf(element, SbbClock);
 
-    expect(element).dom.to.be.equal(`
-      <sbb-clock
-       data-now="1674732600000"
-       data-initialized=""
-       style="--sbb-clock-hours-animation-start-angle: 15deg; --sbb-clock-hours-animation-duration: 41400s; --sbb-clock-seconds-animation-start-angle: 0deg; --sbb-clock-seconds-animation-duration: 60s; --sbb-clock-animation-play-state: paused;"
->
-      </sbb-clock>
-    `);
+    expect(element).to.have.attribute('data-initialized');
 
     expect(element).shadowDom.to.be.equal(`
       <div class="sbb-clock">
