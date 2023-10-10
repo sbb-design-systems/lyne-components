@@ -1,8 +1,7 @@
 import { assert, expect, fixture, nextFrame } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
-import { waitForCondition } from '../../global/testing';
-import { EventSpy, waitForLitRender } from '../../global/testing';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../global/testing';
 import { SbbToggleCheck } from './sbb-toggle-check';
 
 describe('sbb-toggle-check', () => {

@@ -1,7 +1,6 @@
-import { waitForCondition } from '../../global/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { EventSpy, waitForLitRender } from '../../global/testing';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../global/testing';
 import { SbbToast, events } from './sbb-toast';
 
 describe('sbb-toast', () => {

@@ -1,9 +1,8 @@
-import { mockScrollTo, waitForCondition } from '../../global/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { setViewport } from '@web/test-runner-commands';
 import { events } from '../sbb-menu';
-import { EventSpy, waitForLitRender } from '../../global/testing';
+import { EventSpy, waitForLitRender, mockScrollTo, waitForCondition } from '../../global/testing';
 import { SbbHeader } from './sbb-header';
 import '../sbb-header-action';
 import '../sbb-menu';

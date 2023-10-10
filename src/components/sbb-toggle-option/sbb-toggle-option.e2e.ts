@@ -1,7 +1,6 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { waitForCondition } from '../../global/testing';
-import { EventSpy, waitForLitRender } from '../../global/testing';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../global/testing';
 import { SbbToggleOption } from './sbb-toggle-option';
 
 describe('sbb-toggle-option', () => {

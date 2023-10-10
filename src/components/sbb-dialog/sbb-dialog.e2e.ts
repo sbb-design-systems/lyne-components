@@ -1,9 +1,8 @@
 import { events } from './sbb-dialog';
-import { waitForCondition } from '../../global/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
-import { EventSpy, waitForLitRender } from '../../global/testing';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../global/testing';
 import { SbbDialog } from './sbb-dialog';
 import '../sbb-button';
 import '../sbb-icon';

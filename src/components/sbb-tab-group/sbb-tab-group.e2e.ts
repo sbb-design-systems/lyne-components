@@ -1,8 +1,7 @@
-import { waitForCondition } from '../../global/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { EventSpy } from '../../global/testing';
+import { EventSpy, waitForCondition } from '../../global/testing';
 import { SbbTabGroup } from './sbb-tab-group';
 import { SbbTabTitle } from '../sbb-tab-title';
 
