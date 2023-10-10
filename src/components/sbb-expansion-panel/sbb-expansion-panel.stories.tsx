@@ -9,6 +9,7 @@ import { InputType, StoryContext } from '@storybook/types';
 import './sbb-expansion-panel';
 import '../sbb-expansion-panel-header';
 import '../sbb-expansion-panel-content';
+import '../sbb-icon';
 
 const longText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et

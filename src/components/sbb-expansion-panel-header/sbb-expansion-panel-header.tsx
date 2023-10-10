@@ -6,11 +6,10 @@ import {
   EventEmitter,
 } from '../../global/eventing';
 import { resolveButtonRenderVariables } from '../../global/interfaces';
-import { toggleDatasetEntry } from '../../global/dom';
+import { setAttribute, setAttributes, toggleDatasetEntry } from '../../global/dom';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { SbbExpansionPanel } from '../sbb-expansion-panel/index';
-import { setAttribute, setAttributes } from '../../global/dom';
+import { SbbExpansionPanel } from '../sbb-expansion-panel';
 import Style from './sbb-expansion-panel-header.scss?lit&inline';
 
 /**
@@ -78,8 +77,9 @@ export class SbbExpansionPanelHeader extends LitElement {
   protected override render(): TemplateResult {
     const { hostAttributes } = resolveButtonRenderVariables(this);
 
-    setAttribute(this, 'slot', 'header');
     setAttributes(this, hostAttributes);
+    setAttribute(this, 'aria-disabled', hostAttributes['aria-disabled']);
+    setAttribute(this, 'slot', 'header');
     setAttribute(this, 'data-icon', !!(this.iconName || this._namedSlots.icon));
 
     return html`
@@ -88,8 +88,8 @@ export class SbbExpansionPanelHeader extends LitElement {
           ${this.iconName || this._namedSlots.icon
             ? html`<span class="sbb-expansion-panel-header__icon">
                 <slot name="icon"
-                  >${this.iconName ? html`<sbb-icon name=${this.iconName} />` : nothing}</slot
-                >
+                  >${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}
+                </slot>
               </span>`
             : nothing}
           <slot></slot>

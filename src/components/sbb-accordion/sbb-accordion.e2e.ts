@@ -8,6 +8,8 @@ import { html } from 'lit/static-html.js';
 import { EventSpy } from '../../global/testing/event-spy';
 import { SbbAccordion } from './sbb-accordion';
 import { SbbExpansionPanelHeader } from '../sbb-expansion-panel-header';
+import '../sbb-expansion-panel-header';
+import '../sbb-expansion-panel-content';
 
 describe('sbb-accordion', () => {
   let element: SbbAccordion;
@@ -64,7 +66,7 @@ describe('sbb-accordion', () => {
     expect(lastRemainingPanel).to.have.attribute('data-accordion-last');
 
     const panel = document.createElement('sbb-expansion-panel');
-    element.querySelector('sbb-accordion').append(panel);
+    element.append(panel);
     await element.updateComplete;
 
     panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
@@ -77,13 +79,13 @@ describe('sbb-accordion', () => {
     const panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
     expect(panels.length).to.be.equal(3);
     expect(
-      panels[0].shadowRoot.querySelector('.sbb-expansion-panel').firstChild.nodeName,
+      panels[0].shadowRoot.querySelector('.sbb-expansion-panel').firstElementChild.tagName,
     ).to.be.equal('H4');
     expect(
-      panels[1].shadowRoot.querySelector('.sbb-expansion-panel').firstChild.nodeName,
+      panels[1].shadowRoot.querySelector('.sbb-expansion-panel').firstElementChild.tagName,
     ).to.be.equal('H4');
     expect(
-      panels[2].shadowRoot.querySelector('.sbb-expansion-panel').firstChild.nodeName,
+      panels[2].shadowRoot.querySelector('.sbb-expansion-panel').firstElementChild.tagName,
     ).to.be.equal('H4');
   });
 
@@ -93,13 +95,13 @@ describe('sbb-accordion', () => {
     const panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
     expect(panels.length).to.be.equal(3);
     expect(
-      panels[0].shadowRoot.querySelector('.sbb-expansion-panel').firstChild.nodeName,
+      panels[0].shadowRoot.querySelector('.sbb-expansion-panel').firstElementChild.tagName,
     ).to.be.equal('H6');
     expect(
-      panels[1].shadowRoot.querySelector('.sbb-expansion-panel').firstChild.nodeName,
+      panels[1].shadowRoot.querySelector('.sbb-expansion-panel').firstElementChild.tagName,
     ).to.be.equal('H6');
     expect(
-      panels[2].shadowRoot.querySelector('.sbb-expansion-panel').firstChild.nodeName,
+      panels[2].shadowRoot.querySelector('.sbb-expansion-panel').firstElementChild.tagName,
     ).to.be.equal('H6');
   });
 
@@ -149,13 +151,17 @@ describe('sbb-accordion', () => {
     await element.updateComplete;
     const willOpenEventSpy = new EventSpy(sbbExpansionPanelEvents.willOpen);
     const panelOne: SbbExpansionPanel = element.querySelector('#panel-1');
+    const headerOne: SbbExpansionPanelHeader = element.querySelector('#header-1');
     const panelTwo: SbbExpansionPanel = element.querySelector('#panel-2');
+    const headerTwo: SbbExpansionPanelHeader = element.querySelector('#header-2');
     const panelThree: SbbExpansionPanel = element.querySelector('#panel-3');
+    const headerThree: SbbExpansionPanelHeader = element.querySelector('#header-3');
+
     for (const panel of [panelOne, panelTwo, panelThree]) {
       expect(panel.expanded).to.be.equal(false);
     }
 
-    panelTwo.click();
+    headerTwo.click();
     await element.updateComplete;
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
@@ -164,7 +170,7 @@ describe('sbb-accordion', () => {
     expect(panelTwo.expanded).to.be.equal(true);
     expect(panelThree.expanded).to.be.equal(false);
 
-    panelOne.click();
+    headerOne.click();
     await element.updateComplete;
     await waitForCondition(() => willOpenEventSpy.events.length === 2);
     expect(willOpenEventSpy.count).to.be.equal(2);
@@ -173,7 +179,7 @@ describe('sbb-accordion', () => {
     expect(panelTwo.expanded).to.be.equal(true);
     expect(panelThree.expanded).to.be.equal(false);
 
-    panelThree.click();
+    headerThree.click();
     await element.updateComplete;
     await waitForCondition(() => willOpenEventSpy.events.length === 3);
     expect(willOpenEventSpy.count).to.be.equal(3);
@@ -188,21 +194,24 @@ describe('sbb-accordion', () => {
     await element.updateComplete;
     const panelOne: SbbExpansionPanel = element.querySelector('#panel-1');
     const panelTwo: SbbExpansionPanel = element.querySelector('#panel-2');
+    const headerTwo: SbbExpansionPanelHeader = element.querySelector('#header-2');
     const panelThree: SbbExpansionPanel = element.querySelector('#panel-3');
+    const headerThree: SbbExpansionPanelHeader = element.querySelector('#header-3');
+
     for (const panel of [panelOne, panelTwo, panelThree]) {
       expect(panel.expanded).to.be.equal(false);
     }
 
     const willOpenEventSpy = new EventSpy(sbbExpansionPanelEvents.willOpen);
 
-    panelTwo.click();
+    headerTwo.click();
     await element.updateComplete;
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
     await element.updateComplete;
     expect(panelTwo.expanded).to.be.equal(true);
 
-    panelThree.click();
+    headerThree.click();
     await element.updateComplete;
     await waitForCondition(() => willOpenEventSpy.events.length === 2);
     expect(willOpenEventSpy.count).to.be.equal(2);

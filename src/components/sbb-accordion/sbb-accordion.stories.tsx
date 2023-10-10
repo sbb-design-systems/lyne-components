@@ -10,6 +10,7 @@ import './sbb-accordion';
 import '../sbb-expansion-panel';
 import '../sbb-expansion-panel-header';
 import '../sbb-expansion-panel-content';
+import '../sbb-icon';
 
 const numberOfPanels: InputType = {
   control: {

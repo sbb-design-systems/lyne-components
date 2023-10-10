@@ -2,7 +2,7 @@ import { toggleDatasetEntry } from '../../global/dom';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ConnectedAbortController } from '../../global/eventing';
-import { SbbExpansionPanel } from '../sbb-expansion-panel/index';
+import { SbbExpansionPanel } from '../sbb-expansion-panel';
 import { TitleLevel } from '../sbb-title';
 import Style from './sbb-accordion.scss?lit&inline';
 

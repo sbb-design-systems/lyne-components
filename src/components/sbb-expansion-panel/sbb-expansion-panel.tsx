@@ -4,8 +4,8 @@ import { CSSResult, LitElement, TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property } from 'lit/decorators.js';
 import { EventEmitter, ConnectedAbortController } from '../../global/eventing';
-import { SbbExpansionPanelHeader } from '../sbb-expansion-panel-header/index';
-import { SbbExpansionPanelContent } from '../sbb-expansion-panel-content/index';
+import { SbbExpansionPanelHeader } from '../sbb-expansion-panel-header';
+import { SbbExpansionPanelContent } from '../sbb-expansion-panel-content';
 import { TitleLevel } from '../sbb-title';
 import Style from './sbb-expansion-panel.scss?lit&inline';
 
