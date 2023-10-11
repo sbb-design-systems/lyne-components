@@ -191,7 +191,7 @@ export class SbbCheckbox extends LitElement {
     this._checkboxAttributeObserver.disconnect();
   }
 
-  // Forward the click on the inner label. Used in e2e tests only.
+  // Forward the click on the inner label.
   private _handleClick(event: MouseEvent): void {
     if (!this.disabled && !this._disabledFromGroup && getEventTarget(event) === this) {
       this.shadowRoot.querySelector('label').click();
@@ -261,9 +261,9 @@ export class SbbCheckbox extends LitElement {
             type="checkbox"
             aria-hidden="true"
             tabindex=${-1}
-            .disabled=${this.disabled || this._disabledFromGroup || nothing}
-            .required=${this.required || this._requiredFromGroup || nothing}
-            .checked=${this.checked || nothing}
+            ?disabled=${this.disabled || this._disabledFromGroup}
+            ?required=${this.required || this._requiredFromGroup}
+            ?checked=${this.checked}
             .value=${this.value || nothing}
             @input=${() => this.handleInputEvent()}
             @change=${(event) => this.handleChangeEvent(event)}
@@ -272,9 +272,9 @@ export class SbbCheckbox extends LitElement {
           <span class="sbb-checkbox__inner">
             <span class="sbb-checkbox__aligner">
               <sbb-visual-checkbox
-                .checked=${this.checked}
-                .indeterminate=${this.indeterminate}
-                .disabled=${this.disabled || this._disabledFromGroup}
+                ?checked=${this.checked}
+                ?indeterminate=${this.indeterminate}
+                ?disabled=${this.disabled || this._disabledFromGroup}
               ></sbb-visual-checkbox>
             </span>
             <span class="sbb-checkbox__label">
@@ -282,17 +282,19 @@ export class SbbCheckbox extends LitElement {
               ${this.iconName || (this._namedSlots['icon'] && !this._isSelectionPanelInput)
                 ? html`<span class="sbb-checkbox__label--icon">
                     <slot name="icon">
-                      ${this.iconName ? html`<sbb-icon name="${this.iconName}" />` : nothing}
+                      ${this.iconName
+                        ? html`<sbb-icon name="${this.iconName}"></sbb-icon>`
+                        : nothing}
                     </slot>
                   </span>`
                 : nothing}
               ${!!this._selectionPanelElement && this._namedSlots['suffix']
-                ? html`<slot name="suffix" />`
+                ? html`<slot name="suffix"></slot>`
                 : nothing}
             </span>
           </span>
           ${!!this._selectionPanelElement && this._namedSlots['subtext']
-            ? html`<slot name="subtext" />`
+            ? html`<slot name="subtext"></slot>`
             : nothing}
           ${this._selectionPanelElement && this._selectionPanelExpandedLabel
             ? html`<span class="sbb-checkbox__expanded-label"

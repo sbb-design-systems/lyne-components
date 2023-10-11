@@ -2,6 +2,7 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { SbbCheckboxGroup } from './sbb-checkbox-group';
 import { SbbCheckbox } from '../sbb-checkbox';
+import { waitForLitRender } from '../../global/testing';
 
 describe('sbb-checkbox-group', () => {
   let element: SbbCheckboxGroup;
@@ -18,11 +19,23 @@ describe('sbb-checkbox-group', () => {
 
   it('renders', async () => {
     assert.instanceOf(element, SbbCheckboxGroup);
+    assert.instanceOf(
+      document.querySelector('sbb-checkbox-group > sbb-checkbox#checkbox-1'),
+      SbbCheckbox,
+    );
+    assert.instanceOf(
+      document.querySelector('sbb-checkbox-group > sbb-checkbox#checkbox-2'),
+      SbbCheckbox,
+    );
+    assert.instanceOf(
+      document.querySelector('sbb-checkbox-group > sbb-checkbox#checkbox-3'),
+      SbbCheckbox,
+    );
   });
 
   it('disabled status is inherited', async () => {
     element.setAttribute('disabled', 'true');
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element).to.have.attribute('disabled', 'true');
     const checkboxOne = document.querySelector('sbb-checkbox-group > sbb-checkbox#checkbox-1');
     expect(checkboxOne.getAttribute('data-group-disabled')).not.to.be.null;
@@ -32,7 +45,7 @@ describe('sbb-checkbox-group', () => {
     const checkboxThree = document.querySelector('sbb-checkbox-group > sbb-checkbox#checkbox-3');
     expect(checkboxThree.getAttribute('data-group-disabled')).not.to.be.null;
     element.removeAttribute('disabled');
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(checkboxTwo.getAttribute('data-group-disabled')).to.be.null;
     expect(checkboxTwo.getAttribute('disabled')).not.to.be.null;
   });
@@ -51,22 +64,22 @@ describe('sbb-checkbox-group', () => {
     checkboxes.forEach((check: SbbCheckbox) => expect(check).not.to.have.attribute('checked'));
 
     element.setAttribute('disabled', 'true');
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element).to.have.attribute('disabled', 'true');
     for (const check of checkboxes) {
       await check.click();
-      await check.updateComplete;
+      await waitForLitRender(check);
     }
-    await element.updateComplete;
+    await waitForLitRender(element);
     checkboxes.forEach((check: SbbCheckbox) => expect(check).not.to.have.attribute('checked'));
 
     element.removeAttribute('disabled');
-    await element.updateComplete;
+    await waitForLitRender(element);
     for (const check of checkboxes) {
       await check.click();
-      await check.updateComplete;
+      await waitForLitRender(check);
     }
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(checkboxOne).to.have.attribute('checked', '');
     expect(checkboxTwo).not.to.have.attribute('checked');
@@ -75,7 +88,7 @@ describe('sbb-checkbox-group', () => {
 
   it('required status', async () => {
     element.setAttribute('required', 'true');
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element).to.have.attribute('required', 'true');
     const checkboxOne = document.querySelector('sbb-checkbox-group > sbb-checkbox#checkbox-1');
     expect(checkboxOne.getAttribute('data-group-required')).not.to.be.null;
