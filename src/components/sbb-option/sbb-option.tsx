@@ -13,6 +13,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { setAttribute } from '../../global/dom';
 import { classMap } from 'lit/directives/class-map.js';
 import Style from './sbb-option.scss?lit&inline';
+import '../sbb-visual-checkbox';
 
 let nextId = 0;
 
