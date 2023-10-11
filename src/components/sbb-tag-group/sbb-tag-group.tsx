@@ -1,31 +1,22 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  h,
-  Host,
-  JSX,
-  Listen,
-  Prop,
-  Watch,
-} from '@stencil/core';
 import { TagStateChange } from '../sbb-tag/sbb-tag.custom';
+import { CSSResult, html, LitElement, TemplateResult, nothing } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import { ConnectedAbortController } from '../../global/eventing';
+import { SbbTag } from '../sbb-tag';
+import { setAttribute } from '../../global/dom';
+import Style from './sbb-tag-group.scss?lit&inline';
 
 /**
  * @slot unnamed - Provide one or more 'sbb-tag' to add to the group.
  */
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-tag-group.scss',
-  tag: 'sbb-tag-group',
-})
-export class SbbTagGroup implements ComponentInterface {
-  @Element() private _element: HTMLElement;
+@customElement('sbb-tag-group')
+export class SbbTagGroup extends LitElement {
+  public static override styles: CSSResult = Style;
 
   /**
    * This will be forwarded as aria-label to the inner list.
    */
-  @Prop() public listAccessibilityLabel?: string;
+  @property({ attribute: 'list-accessibility-label' }) public listAccessibilityLabel?: string;
 
   /**
    * If set multiple to false, the selection is exclusive and the value is a string (or null).
@@ -33,17 +24,32 @@ export class SbbTagGroup implements ComponentInterface {
    *
    * Changing multiple during run time is not supported.
    */
-  @Prop() public multiple = false;
+  @property({ type: Boolean }) public multiple = false;
 
   /**
    * Value of the sbb-tag-group.
    * If set multiple to false, the value is a string (or null).
    * If set multiple to true, the value is an array.
    */
-  @Prop({ mutable: true }) public value: string | string[] | null = null;
+  @property()
+  public get value(): string | string[] | null {
+    return this._value;
+  }
+  public set value(value: string | string[] | null) {
+    const oldValue = this._value;
+    this._value = value;
+    this._valueChanged(this._value);
+    this.requestUpdate('value', oldValue);
+  }
+  private _value: string | string[] | null = null;
 
-  @Watch('value')
-  public valueChanged(value: string | string[] | null): void {
+  private _abort = new ConnectedAbortController(this);
+
+  private _valueChanged(value: string | string[] | null): void {
+    if (this._tags.some((tag) => !tag.value)) {
+      return;
+    }
+
     if (Array.isArray(value) && !this.multiple) {
       console.warn(
         'Trying to set array value for sbb-tag-group but multiple mode is not activated.',
@@ -63,7 +69,7 @@ export class SbbTagGroup implements ComponentInterface {
       return;
     }
 
-    const isChecked: (tag: HTMLSbbTagElement) => boolean = this.multiple
+    const isChecked: (tag: SbbTag) => boolean = this.multiple
       ? (t) => value.includes(t.value)
       : (t) => t.value === value;
 
@@ -82,9 +88,8 @@ export class SbbTagGroup implements ComponentInterface {
       .forEach((tag) => (tag.checked = false));
   }
 
-  @Listen('state-change', { passive: true })
-  public handleStateChange(event: CustomEvent<TagStateChange>): void {
-    const target: HTMLSbbTagElement = event.target as HTMLSbbTagElement;
+  private _handleStateChange(event: CustomEvent<TagStateChange>): void {
+    const target = event.target as SbbTag;
     event.stopPropagation();
 
     if (this.multiple || (event.detail.type === 'checked' && !event.detail.checked)) {
@@ -107,44 +112,63 @@ export class SbbTagGroup implements ComponentInterface {
     }
   }
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    const signal = this._abort.signal;
+    this.addEventListener(
+      'state-change',
+      (e: CustomEvent<TagStateChange>) => this._handleStateChange(e),
+      {
+        signal,
+        passive: true,
+      },
+    );
     if (this.value) {
-      this.valueChanged(this.value);
+      this._valueChanged(this.value);
     }
   }
 
-  private get _tags(): HTMLSbbTagElement[] {
-    return Array.from(this._element.querySelectorAll('sbb-tag')) as HTMLSbbTagElement[];
+  private get _tags(): SbbTag[] {
+    return Array.from(this.querySelectorAll('sbb-tag')) as SbbTag[];
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     this._tags.forEach((tag, index) => tag.setAttribute('slot', `tag-${index}`));
-    return (
-      <Host role={this.listAccessibilityLabel ? '' : 'group'}>
-        <div class="sbb-tag-group">
-          <ul class="sbb-tag-group__list" aria-label={this.listAccessibilityLabel}>
-            {this._tags.map((_, index) => (
-              <li class="sbb-tag-group__list-item">
+
+    setAttribute(this, 'role', this.listAccessibilityLabel ? '' : 'group');
+
+    return html`
+      <div class="sbb-tag-group">
+        <ul class="sbb-tag-group__list" aria-label=${this.listAccessibilityLabel ?? nothing}>
+          ${this._tags.map(
+            (_, index) =>
+              html`<li class="sbb-tag-group__list-item">
                 <slot
-                  name={`tag-${index}`}
-                  onSlotchange={(): void => {
+                  name=${`tag-${index}`}
+                  @slotchange=${(): void => {
                     this._ensureOnlyOneTagSelected();
                     this._updateValueByReadingTags();
                   }}
-                />
-              </li>
-            ))}
-          </ul>
-          <span hidden>
-            <slot
-              onSlotchange={() => {
-                this._ensureOnlyOneTagSelected();
-                this._updateValueByReadingTags();
-              }}
-            />
-          </span>
-        </div>
-      </Host>
-    );
+                ></slot>
+              </li>`,
+          )}
+        </ul>
+        <span hidden>
+          <slot
+            @slotchange=${() => {
+              this._ensureOnlyOneTagSelected();
+              this._updateValueByReadingTags();
+            }}
+          ></slot>
+        </span>
+      </div>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-tag-group': SbbTagGroup;
   }
 }
