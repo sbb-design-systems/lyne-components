@@ -97,6 +97,7 @@ export class SbbNavigationSection extends LitElement {
   private _triggerElement: HTMLElement;
   private _navigationSectionController: AbortController;
   private _windowEventsController: AbortController;
+  private _timeoutController: ReturnType<typeof setTimeout>;
   private _navigationSectionId = `sbb-navigation-section-${++nextId}`;
 
   private _handlerRepository = new HandlerRepository(
@@ -189,7 +190,7 @@ export class SbbNavigationSection extends LitElement {
       this._state = 'opened';
       this._attachWindowEvents();
       this._setNavigationInert();
-      setTimeout(() => this._setNavigationSectionFocus());
+      this._timeout = setTimeout(() => this._setNavigationSectionFocus());
     } else if (event.animationName === 'close' && this._state === 'closing') {
       this._state = 'closed';
       this._navigationSectionContainerElement.scrollTo(0, 0);
@@ -336,6 +337,7 @@ export class SbbNavigationSection extends LitElement {
     this._handlerRepository.disconnect();
     this._navigationSectionController?.abort();
     this._windowEventsController?.abort();
+    clearTimeout(this._timeoutController);
   }
 
   protected override render(): TemplateResult {
