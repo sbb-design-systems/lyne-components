@@ -27,9 +27,6 @@ export interface SelectChange {
   value: string | string[];
 }
 
-/**
- * @slot unnamed - Use this slot to project options.
- */
 export const events = {
   didChange: 'did-change',
   change: 'change',
@@ -41,6 +38,9 @@ export const events = {
   didClose: 'did-close',
 };
 
+/**
+ * @slot unnamed - Use this slot to project options.
+ */
 @customElement('sbb-select')
 export class SbbSelect extends LitElement {
   public static override styles: CSSResult = Style;
@@ -123,7 +123,7 @@ export class SbbSelect extends LitElement {
 
   /** Gets all the HTMLSbbOptionElement projected in the select. */
   private get _options(): SbbOption[] {
-    return Array.from(this.querySelectorAll('sbb-option')) as SbbOption[];
+    return Array.from(this.querySelectorAll('sbb-option'));
   }
 
   private get _filteredOptions(): SbbOption[] {
@@ -162,7 +162,7 @@ export class SbbSelect extends LitElement {
 
   /** Listens to option changes. */
   private _onOptionChanged(event: Event): void {
-    const target: SbbOption = event.target as SbbOption;
+    const target = event.target as SbbOption;
     if (target.selected) {
       this._onOptionSelected(target);
     } else {
@@ -237,7 +237,6 @@ export class SbbSelect extends LitElement {
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
-    // TODO: Verify parity
     if (changedProperties.has('value')) {
       this._onValueChanged(this.value);
     }

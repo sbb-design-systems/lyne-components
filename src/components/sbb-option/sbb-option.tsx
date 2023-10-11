@@ -21,15 +21,15 @@ const optionObserverConfig: MutationObserverInit = {
   attributeFilter: ['data-group-disabled', 'data-negative'],
 };
 
-/**
- * @slot unnamed - Use this to provide the option label.
- * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
- */
 export const events = {
   selectionChange: 'option-selection-change',
   optionSelected: 'option-selected',
 };
 
+/**
+ * @slot unnamed - Use this to provide the option label.
+ * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
+ */
 export type SbbOptionVariant = 'autocomplete' | 'select';
 
 @customElement('sbb-option')

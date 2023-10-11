@@ -4,6 +4,10 @@ import readme from './readme.md?raw';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 import { StoryContext } from '@storybook/web-components';
+import '../sbb-form-field';
+import '../sbb-autocomplete';
+import '../sbb-select';
+import '../sbb-option';
 import './sbb-optgroup';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({

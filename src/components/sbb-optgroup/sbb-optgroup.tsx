@@ -1,6 +1,6 @@
 import { isSafari, isValidAttribute, toggleDatasetEntry } from '../../global/dom';
 import { AgnosticMutationObserver } from '../../global/observers';
-import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import { CSSResult, html, LitElement, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttribute } from '../../global/dom';
 import { SbbOption, SbbOptionVariant } from '../sbb-option';

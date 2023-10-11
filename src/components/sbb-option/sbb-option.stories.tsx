@@ -5,6 +5,9 @@ import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-c
 import type { InputType } from '@storybook/types';
 import { StoryContext } from '@storybook/web-components';
 import { events } from './sbb-option';
+import '../sbb-form-field';
+import '../sbb-select';
+import '../sbb-autocomplete';
 import './sbb-option';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
