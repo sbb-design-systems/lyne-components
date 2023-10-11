@@ -227,11 +227,12 @@ describe('sbb-navigation', () => {
     expect(secondSectionDialog).not.to.have.attribute('open');
 
     secondAction.click();
+    console.log('second click');
 
     await waitForCondition(() => secondSection.getAttribute('data-state') === 'opened');
     expect(firstSection.getAttribute('data-state')).not.to.be.equal('opened');
     expect(secondSectionDialog).to.have.attribute('open');
-    await aTimeout(500);
+    await aTimeout(1000);
   });
 
   it('closes the navigation and the section on close button click', async () => {
