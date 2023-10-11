@@ -912,7 +912,7 @@ export class SbbCalendar extends LitElement {
             aria-pressed=${selected}
             aria-disabled=${isOutOfRange || isFilteredOut}
             aria-current=${isToday ? 'date' : nothing}
-            data-day=${dayValue}
+            data-day=${dayValue || nothing}
             tabindex="-1"
             @keydown=${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt, day)}
             sbb-tooltip-close
@@ -1015,7 +1015,7 @@ export class SbbCalendar extends LitElement {
                       aria-pressed=${selected}
                       aria-disabled=${String(isOutOfRange || isFilteredOut)}
                       tabindex="-1"
-                      data-month=${month.monthValue}
+                      data-month=${month.monthValue || nothing}
                       @keydown=${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}
                     >
                       ${month.value}

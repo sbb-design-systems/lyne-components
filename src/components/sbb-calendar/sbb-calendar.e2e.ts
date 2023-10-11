@@ -16,11 +16,9 @@ describe('sbb-calendar', () => {
   let element: SbbCalendar;
 
   beforeEach(async () => {
-    await fixture(
+    element = await fixture(
       html`<sbb-calendar data-now="1673348400000" selected-date="${selected}"></sbb-calendar>`,
     );
-    element = document.querySelector('sbb-calendar');
-    await element.updateComplete;
   });
 
   it('renders', async () => {
@@ -98,9 +96,8 @@ describe('sbb-calendar', () => {
 
   it('selects a different date', async () => {
     const selectedSpy = new EventSpy('date-selected');
-    await element.updateComplete;
-
     const selectedDate = element.shadowRoot.querySelector('button[data-day="15 1 2023"]');
+
     expect(selectedDate).to.have.class('sbb-calendar__selected');
 
     const newSelectedDate = element.shadowRoot.querySelector(
@@ -194,7 +191,7 @@ describe('sbb-calendar', () => {
     expect(monthCells.length).to.be.equal(12);
     expect(monthCells[0]).dom.to.be.equal(`
       <td class="sbb-calendar__table-data sbb-calendar__table-month">
-        <button aria-disabled="false" aria-label="January 2023" aria-pressed="true" class="sbb-calendar__cell sbb-calendar__pill sbb-calendar__selected sbb-calendar__cell-current"  data-month="0" tabindex="0">
+        <button aria-disabled="false" aria-label="January 2023" aria-pressed="true" class="sbb-calendar__cell sbb-calendar__pill sbb-calendar__selected sbb-calendar__cell-current" tabindex="0">
           Jan
         </button>
       </td>
@@ -395,7 +392,6 @@ describe('sbb-calendar', () => {
     });
 
     it('navigates up via keyboard', async () => {
-      await element.updateComplete;
       expect(
         (document.activeElement.shadowRoot.activeElement as HTMLElement).innerText,
       ).to.be.equal('2023');
@@ -424,7 +420,6 @@ describe('sbb-calendar', () => {
     });
 
     it('navigates to first day via keyboard', async () => {
-      await element.updateComplete;
       expect(
         (document.activeElement.shadowRoot.activeElement as HTMLElement).innerText,
       ).to.be.equal('2023');
