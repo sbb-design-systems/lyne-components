@@ -45,8 +45,7 @@ export class SbbOptGroup extends LitElement {
     super.connectedCallback();
     this._negativeObserver?.disconnect();
     this._negative = !!this.closest(
-      // :is() selector not possible due to test environment
-      `sbb-autocomplete[negative]:not([negative='false']),sbb-select[negative]:not([negative='false']),sbb-form-field[negative]:not([negative='false'])`,
+      `:is(sbb-autocomplete, sbb-select, sbb-form-field)[negative]:not([negative='false']`,
     );
     toggleDatasetEntry(this, 'negative', this._negative);
 
