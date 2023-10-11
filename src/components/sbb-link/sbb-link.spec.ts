@@ -21,13 +21,11 @@ describe('sbb-link', () => {
         href="https://github.com/lyne-design-system/lyne-components"
         size="m"
         download
-        aria-disabled="false"
         aria-label="Travelcards &amp; tickets"
         role="link"
         tabindex="0"
         dir="ltr"
       >
-        
         Travelcards &amp; tickets.
       </sbb-link>
     `);
@@ -72,10 +70,8 @@ describe('sbb-link', () => {
         form="formid"
         disabled
         aria-disabled="true"
-        tabindex="-1"
         dir="ltr"
       >
-        
         <sbb-icon name="chevron-small-right-small" slot="icon" role="img" aria-hidden="true" data-namespace="default"></sbb-icon>
         Travelcards &amp; tickets.
       </sbb-link>
@@ -150,7 +146,6 @@ describe('sbb-link', () => {
 
     expect(root).dom.to.be.equal(`
       <sbb-link
-        aria-disabled="false"
         size="m"
         variant="inline"
         href="#link"

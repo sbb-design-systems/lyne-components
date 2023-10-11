@@ -73,7 +73,6 @@ describe('sbb-toggle-check', () => {
         expect(root).dom.to.be.equal(
           `
           <sbb-toggle-check size="s" aria-checked="true" aria-disabled="false" aria-required="false" checked label-position="after" role="checkbox" tabindex="0">
-            
           </sbb-toggle-check>
         `,
         );

@@ -19,7 +19,7 @@ describe('sbb-form-field-clear', () => {
           Label
         </label>
         <input placeholder="Input placeholder" type="text" value="Input value" id="sbb-form-field-input-0">
-        <sbb-form-field-clear aria-disabled="false" aria-label="Clear input value" dir="ltr" role="button" slot="suffix" tabindex="0">
+        <sbb-form-field-clear aria-label="Clear input value" dir="ltr" role="button" slot="suffix" tabindex="0">
         </sbb-form-field-clear>
       </sbb-form-field>
     `);

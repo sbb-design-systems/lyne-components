@@ -28,8 +28,7 @@ describe('sbb-button', () => {
         disabled
         aria-disabled="true"
         name="name"
-        value="value"
-        tabindex="-1"
+        value="value"     
         form="formid"
         role="button"
         dir="ltr"
@@ -54,7 +53,7 @@ describe('sbb-button', () => {
     );
 
     expect(root).dom.to.be.equal(`
-      <sbb-button aria-disabled="false" size="l" variant="primary" role="button" tabindex="0" dir="ltr">
+      <sbb-button size="l" variant="primary" role="button" tabindex="0" dir="ltr">
         <sbb-icon slot="icon" name="chevron-small-left-small" role="img" aria-hidden="true" data-namespace="default"></sbb-icon>
         Label Text
       </sbb-button>
@@ -83,7 +82,6 @@ describe('sbb-button', () => {
         href="https://www.sbb.ch"
         target="_blank"
         rel="noopener"
-        aria-disabled="false"
         download
         role="link"
         tabindex="0"

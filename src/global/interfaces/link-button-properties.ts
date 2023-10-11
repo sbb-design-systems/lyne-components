@@ -114,8 +114,8 @@ function hostProperties(role: string, disabled: boolean): Record<string, string>
   return Object.assign(
     { role, dir: getDocumentWritingMode() },
     disabled
-      ? { 'aria-disabled': 'true', tabIndex: '-1' }
-      : { 'aria-disabled': 'false', tabIndex: '0' },
+      ? { 'aria-disabled': 'true', tabIndex: null }
+      : { 'aria-disabled': null, tabIndex: '0' },
   );
 }
 
