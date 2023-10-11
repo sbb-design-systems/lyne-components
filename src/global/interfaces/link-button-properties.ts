@@ -113,7 +113,9 @@ function getLinkAttributeList(linkProperties: LinkProperties): Record<string, st
 function hostProperties(role: string, disabled: boolean): Record<string, string> {
   return Object.assign(
     { role, dir: getDocumentWritingMode() },
-    disabled ? { 'aria-disabled': 'true' } : { tabIndex: '0' },
+    disabled
+      ? { 'aria-disabled': 'true', tabIndex: null }
+      : { 'aria-disabled': null, tabIndex: '0' },
   );
 }
 

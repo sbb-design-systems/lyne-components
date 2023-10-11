@@ -28,7 +28,7 @@ describe('sbb-button', () => {
         disabled
         aria-disabled="true"
         name="name"
-        value="value"
+        value="value"     
         form="formid"
         role="button"
         dir="ltr"
@@ -165,8 +165,7 @@ describe('sbb-button', () => {
     expect(root).to.have.attribute('data-icon-only');
   });
 
-  // TODO-Migr: enable this test after the FormField migration
-  it.skip('should render form field button variant when inside of a form field', async () => {
+  it('should render form field button variant when inside of a form field', async () => {
     const root = await fixture(
       html` <sbb-form-field>
         <input />
@@ -174,6 +173,6 @@ describe('sbb-button', () => {
       </sbb-form-field>`,
     );
 
-    expect(root).to.have.attribute('data-icon-small');
+    expect(root.querySelector('sbb-button')).to.have.attribute('data-icon-small');
   });
 });

@@ -26,7 +26,6 @@ describe('sbb-link', () => {
         tabindex="0"
         dir="ltr"
       >
-        
         Travelcards &amp; tickets.
       </sbb-link>
     `);
@@ -73,7 +72,6 @@ describe('sbb-link', () => {
         aria-disabled="true"
         dir="ltr"
       >
-        
         <sbb-icon name="chevron-small-right-small" slot="icon" role="img" aria-hidden="true" data-namespace="default"></sbb-icon>
         Travelcards &amp; tickets.
       </sbb-link>
