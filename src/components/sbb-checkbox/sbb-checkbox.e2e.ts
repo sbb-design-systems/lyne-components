@@ -1,7 +1,7 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { EventSpy, waitForLitRender } from '../../global/testing';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../global/testing';
 import { SbbCheckbox } from './sbb-checkbox';
 
 describe('sbb-checkbox', () => {
@@ -21,7 +21,7 @@ describe('sbb-checkbox', () => {
   });
 
   describe('events', () => {
-    it.only('emit event on click', async () => {
+    it('emit event on click', async () => {
       expect(element.getAttribute('checked')).to.be.null;
       await waitForLitRender(element);
       const changeSpy = new EventSpy('change');
@@ -68,22 +68,21 @@ describe('sbb-checkbox', () => {
   });
 
   it('should prevent scrolling on space bar press', async () => {
-    await fixture(
+    const root = await fixture(
       html`<div style="height: 100px; overflow: scroll" id="scroll-context">
         <div style="height: 500px">
           <sbb-checkbox></sbb-checkbox>
         </div>
       </div>`,
     );
-    element = document.querySelector('sbb-checkbox');
+    element = root.querySelector('sbb-checkbox');
     expect(element).not.to.have.attribute('checked');
-    expect(document.querySelector('#scroll-context').scrollTop).to.be.equal(0);
+    expect(root.scrollTop).to.be.equal(0);
 
     element.focus();
     await sendKeys({ press: ' ' });
     await waitForLitRender(element);
-
-    expect(element).to.have.attribute('checked');
-    expect(document.querySelector('#scroll-context').scrollTop).to.be.equal(0);
+    await waitForCondition(() => element.getAttribute('checked') !== null);
+    expect(root.scrollTop).to.be.equal(0);
   });
 });
