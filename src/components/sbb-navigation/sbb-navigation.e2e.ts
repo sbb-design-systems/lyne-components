@@ -1,6 +1,6 @@
 import { events } from './sbb-navigation';
 import { waitForCondition, waitForLitRender } from '../../global/testing';
-import { aTimeout, assert, expect, fixture, nextFrame } from '@open-wc/testing';
+import { assert, expect, fixture, nextFrame } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { EventSpy } from '../../global/testing/event-spy';
@@ -220,19 +220,22 @@ describe('sbb-navigation', () => {
     expect(firstSectionDialog).not.to.have.attribute('open');
     expect(secondSectionDialog).not.to.have.attribute('open');
 
+    console.log('before first click');
     firstAction.click();
+    console.log('after first click');
 
     await waitForCondition(() => firstSection.getAttribute('data-state') === 'opened');
     expect(firstSectionDialog).to.have.attribute('open');
     expect(secondSectionDialog).not.to.have.attribute('open');
 
+    console.log('before second click');
     secondAction.click();
-    console.log('second click');
+    console.log('after second click');
 
     await waitForCondition(() => secondSection.getAttribute('data-state') === 'opened');
     expect(firstSection.getAttribute('data-state')).not.to.be.equal('opened');
     expect(secondSectionDialog).to.have.attribute('open');
-    await aTimeout(1000);
+    await nextFrame();
   });
 
   it('closes the navigation and the section on close button click', async () => {

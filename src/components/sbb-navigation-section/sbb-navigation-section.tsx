@@ -24,7 +24,7 @@ import { spread } from '@open-wc/lit-helpers';
 import { SbbNavigation } from '../sbb-navigation/index';
 import { SbbNavigationMarker } from '../sbb-navigation-marker/index';
 import { setAttribute } from '../../global/dom';
-import { ref } from 'lit/directives/ref.js';
+import { createRef, ref } from 'lit/directives/ref.js';
 import Style from './sbb-navigation-section.scss?lit&inline';
 import '../sbb-divider';
 
@@ -93,11 +93,14 @@ export class SbbNavigationSection extends LitElement {
 
   private _firstLevelNavigation: SbbNavigation;
   private _navigationSection: HTMLDialogElement;
-  private _navigationSectionContainerElement: HTMLElement;
   private _triggerElement: HTMLElement;
   private _navigationSectionController: AbortController;
   private _windowEventsController: AbortController;
   private _navigationSectionId = `sbb-navigation-section-${++nextId}`;
+  private _navigationSectionContainerRef = createRef<HTMLElement>();
+  private get _navigationSectionContainerElement(): HTMLElement {
+    return this._navigationSectionContainerRef.value;
+  }
 
   private _handlerRepository = new HandlerRepository(
     this,
@@ -372,10 +375,7 @@ export class SbbNavigationSection extends LitElement {
     assignId(() => this._navigationSectionId)(this);
 
     return html`
-      <div
-        class="sbb-navigation-section__container"
-        ${ref((el) => (this._navigationSectionContainerElement = el as HTMLElement))}
-      >
+      <div class="sbb-navigation-section__container" ${ref(this._navigationSectionContainerRef)}>
         <dialog
           ${ref(
             (navigationSectionRef) =>
