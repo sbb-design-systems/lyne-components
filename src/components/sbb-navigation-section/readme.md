@@ -1,25 +1,26 @@
-The `<sbb-navigation-section>` is a container for both [sbb-navigation-list](../sbb-navigation-list/readme.md) and [sbb-button](../sbb-button/readme.md). 
+The `sbb-navigation-section` is a container for both [sbb-navigation-list](../sbb-navigation-list/readme.md) and [sbb-button](../sbb-button/readme.md).
+Its intended use is inside a [sbb-navigation](../sbb-navigation/readme.md) component, in which it can be seen as a 'second-level' panel.
 
-Optionally a label can be provided via slot.
+## Trigger
 
-Its intended use is inside a [sbb-navigation](../sbb-navigation/readme.md) component.
-
-## Usage
+To display the `sbb-navigation-section` component you must provide a trigger element using the `trigger` property,
+Optionally a label can be provided via slot or via the `titleContent` property.
 
 ```html
-<sbb-navigation-section trigger="nav1" label="Title 1">
-    <sbb-navigation-list label="Label 1.1">
-      <sbb-navigation-action aria-current="page" href="...">Label 1.1.1</sbb-navigation-action>
-      <sbb-navigation-action href="...">Label 1.1.2</sbb-navigation-action>
-      ...
-    </sbb-navigation-list>
-    <sbb-button>Something</sbb-button>
+<sbb-navigation-section trigger="nav1" titleContent="Title 1">
+  <sbb-navigation-list label="Label 1.1">
+    <sbb-navigation-action aria-current="page" href="...">Label 1.1.1</sbb-navigation-action>
+    <sbb-navigation-action href="...">Label 1.1.2</sbb-navigation-action>
+    ...
+  </sbb-navigation-list>
+  <sbb-button>Something</sbb-button>
 </sbb-navigation-section>
 ```
 
 ## Accessibility
 
-When a navigation action is marked to indicate the user is currently on that page, `aria-current="page"` should be set on that action. Similarly, if a navigation action is marked to indicate a selected option (e.g. the selected language) `aria-pressed` should be set on that action.
+When a navigation action is marked to indicate the user is currently on that page, `aria-current="page"` should be set on that action. 
+Similarly, if a navigation action is marked to indicate a selected option (e.g., the selected language) `aria-pressed` should be set on that action.
 
 <!-- Auto Generated Below -->
 

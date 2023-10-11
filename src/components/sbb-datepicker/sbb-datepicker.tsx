@@ -59,10 +59,10 @@ export class SbbDatepicker implements ComponentInterface {
 
   @Event({ bubbles: true }) public change: EventEmitter;
 
-  /** Notifies that the attributes of the input connected to the datepicker has changes. */
+  /** Notifies that the attributes of the input connected to the datepicker have changes. */
   @Event({ bubbles: true, cancelable: true }) public inputUpdated: EventEmitter<InputUpdateEvent>;
 
-  /** Notifies that the attributes of the datepicker has changes. */
+  /** Notifies that the attributes of the datepicker have changes. */
   @Event({ bubbles: true, cancelable: true }) public datePickerUpdated: EventEmitter;
 
   /** Emits whenever the internal validation state changes. */
@@ -131,7 +131,7 @@ export class SbbDatepicker implements ComponentInterface {
   @Method() public async setValueAsDate(date: Date | number | string): Promise<void> {
     const parsedDate = date instanceof Date ? date : new Date(date);
     await this._formatAndUpdateValue(this._inputElement.value, parsedDate);
-    /* Emit blur event when value is changed programmatically to notify 
+    /* Emit blur event when value is changed programmatically to notify
     frameworks that rely on that event to update form status. */
     this._inputElement.dispatchEvent(new FocusEvent('blur', { composed: true }));
   }

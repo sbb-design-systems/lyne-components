@@ -6,6 +6,7 @@ import Style from './sbb-card.scss?lit&inline';
 /**
  * @slot unnamed - Slot to render the content.
  * @slot badge - Slot to render `<sbb-card-badge>`.
+ * @slot action - Slot to render `<sbb-card-action>`.
  */
 @customElement('sbb-card')
 export class SbbCard extends LitElement {

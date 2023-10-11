@@ -70,7 +70,7 @@ interface CalendarKeyboardNavigationParameters {
   tag: 'sbb-calendar',
 })
 export class SbbCalendar implements ComponentInterface {
-  /** If set to true, two months are displayed */
+  /** If set to true, two months are displayed. */
   @Prop() public wide = false;
 
   /** The minimum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
@@ -97,10 +97,10 @@ export class SbbCalendar implements ComponentInterface {
   /** The current wide property considering property value and breakpoints. From zero to small `wide` has always to be false. */
   @State() private _wide: boolean;
 
-  /** Minimum value converted to date */
+  /** Minimum value converted to date. */
   @State() private _min: Date;
 
-  /** Maximum value converted to date */
+  /** Maximum value converted to date. */
   @State() private _max: Date;
 
   @State() private _calendarView: CalendarView = 'day';

@@ -15,9 +15,6 @@ import { SbbFormField } from '../sbb-form-field';
 import Style from './sbb-form-field-clear.scss?lit&inline';
 import '../sbb-icon';
 
-/**
- * @slot unnamed - Slot to render the content.
- */
 @customElement('sbb-form-field-clear')
 export class SbbFormFieldClear extends LitElement {
   public static override styles: CSSResult = Style;

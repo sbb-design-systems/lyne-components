@@ -1,7 +1,62 @@
-The `<sbb-link>`can both be used as an anchor (`<a>`)
-(if the href property is set) or as a button. If the `<sbb-link>` is placed inside another
-anchor or button tag, it is internally rendered as a span in order to not break HTML functionality.
-  
+The `sbb-link` component provides the same functionality as a native `<a>` enhanced with the SBB Design.
+
+## Slots
+
+The link text is provided via an unnamed slot; the component can optionally display a `sbb-icon` using 
+the `iconName` property or via custom content using the `icon` slot. 
+By default, the icon is placed at the component's end, but this can be changed using the `iconPlacement` property.
+
+```html
+<sbb-link href="https://www.sbb.ch" icon-name='chevron-small-right-small'>
+  Help
+</sbb-link>
+
+<sbb-link href="https://www.sbb.ch" icon-name='chevron-small-left-small' icon-placement='start'>
+  Contact
+</sbb-link>
+```
+
+## States
+
+The component can be displayed in `disabled` state using the self-named property.
+
+```html
+<sbb-link disabled>Refunds</sbb-link>
+```
+
+## Link / button properties
+
+The component can be internally rendered as a button or as a link,
+depending on the value of the `href` property, so the associated properties are available
+(`href`, `target`, `rel` and `download` for link; `type`, `name`, `value` and `form` for button).
+If `isStatic` is set, the component will be rendered as a link without any user interaction.
+Please note that if the `sbb-link` is placed inside another anchor or button tag, 
+it is internally rendered as a span in order to not break HTML functionality.
+
+```html
+<sbb-link href="https://github.com/lyne-design-system/lyne-components" target='_blank'>
+  Travel-cards and tickets
+</sbb-link>
+
+<sbb-link type='button' name='tickets' form='buy' value='tickets'>
+  Travel-cards and tickets
+</sbb-link>
+```
+ 
+## Style
+
+The component has two variants (`block`, which is the default, and `inline`), that can be set using the `variant` property,
+and it has also three sizes (`xs`, `s`, which is the default, and `m`) that are relevant only in `variant='block`'.
+
+```html
+<sbb-link size='m'>Refunds</sbb-link>
+
+<p>
+  Some informative text.
+  <sbb-link variant='inline' href='#info'>Show more.</sbb-link>
+</p>
+```
+
 <!-- Auto Generated Below -->
 
 

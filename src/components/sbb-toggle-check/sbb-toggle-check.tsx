@@ -17,6 +17,10 @@ export const events = {
   didChange: 'did-change',
 };
 
+/**
+ * @slot unnamed - Use this slot to provide the toggle label.
+ * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
+ */
 @customElement('sbb-toggle-check')
 export class SbbToggleCheck extends LitElement {
   public static override styles = Style;

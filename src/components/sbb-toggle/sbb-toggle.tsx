@@ -40,7 +40,7 @@ export class SbbToggle extends LitElement {
   private _disabled: boolean = false;
 
   /**
-   * If true set the width of the component fixed; if false the width is dynamic based on the label of the sbb-toggle-option.
+   * If true, set the width of the component fixed; if false, the width is dynamic based on the label of the sbb-toggle-option.
    */
   @property({ reflect: true, type: Boolean }) public even: boolean;
 

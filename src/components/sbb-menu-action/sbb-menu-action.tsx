@@ -22,7 +22,7 @@ import Style from './sbb-menu-action.scss?lit&inline';
 
 /**
  * @slot unnamed - Use this slot to provide the menu action label.
- * @slot icon - Use this slot to provide an icon. If `icon` is set, a sbb-icon will be used.
+ * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
  */
 @customElement('sbb-menu-action')
 export class SbbMenuAction extends LitElement implements LinkButtonProperties {

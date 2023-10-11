@@ -33,7 +33,7 @@ export class SbbPearlChainVerticalItem extends LitElement {
   @property({ attribute: 'pearl-chain-vertical-item-attributes', type: Object })
   public pearlChainVerticalItemAttributes!: PearlChainVerticalItemAttributes;
 
-  /** If true the position won't be animated. */
+  /** If true, the position won't be animated. */
   @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
   public disableAnimation?: boolean;
 

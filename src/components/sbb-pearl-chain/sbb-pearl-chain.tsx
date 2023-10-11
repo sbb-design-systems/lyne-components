@@ -7,12 +7,13 @@ import { styleMap } from 'lit/directives/style-map.js';
 import Style from './sbb-pearl-chain.scss?lit&inline';
 
 type Status = 'progress' | 'future' | 'past';
+
 @customElement('sbb-pearl-chain')
 export class SbbPearlChain extends LitElement {
   public static override styles: CSSResult = Style;
 
   /**
-   * define the legs of the pearl-chain.
+   * Define the legs of the pearl-chain.
    * Format:
    * `{"legs": [{"duration": 25}, ...]}`
    * `duration` in minutes. Duration of the leg is relative

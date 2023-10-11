@@ -1,46 +1,59 @@
-The `sbb-tooltip-trigger` component is used to trigger a tooltip by pressing a button. 
-By default, it renders the `sbb-icon` `information-circle-small`; with the property `icon-name` it is possible to define a custom icon. 
-Moreover, it is possible to override the `sbb-icon` with custom content by slotting it.
-
-## Usage
-
-The examples below shows how to use the component with the `<sbb-icon>` and custom content.
- 
-### Tooltip trigger with sbb-icon
+The `sbb-tooltip-trigger` component is used to trigger a [sbb-tooltip](/docs/components-sbb-tooltip-sbb-tooltip--docs) 
+by pressing or hovering on it. 
 
 ```html
- <sbb-tooltip-trigger id="tooltip-trigger"></sbb-tooltip-trigger>
+<sbb-tooltip-trigger id="tooltip-trigger"></sbb-tooltip-trigger>
 
 <sbb-tooltip trigger="tooltip-trigger">
-  <p>
-    Tooltip content. 
-  </p>
+  <p>Tooltip content.</p>
 </sbb-tooltip>
 ```
 
-### Tooltip trigger with custom content
+## Slots
+
+By default, it renders the `sbb-icon` named `information-circle-small`; 
+it is possible to define a custom icon with the property `iconName`. 
+Moreover, it is possible to override the `sbb-icon` with custom content by slotting it.
 
 ```html
+<sbb-tooltip-trigger id="tooltip-trigger" icon-name='pie-small'>
+</sbb-tooltip-trigger>
+
+<sbb-tooltip trigger="tooltip-trigger">
+  <p>Tooltip content.</p>
+</sbb-tooltip>
+
 <sbb-tooltip-trigger id="tooltip-trigger2">
   Custom Content
 </sbb-tooltip-trigger>
 
 <sbb-tooltip trigger="tooltip-trigger2">
-  <p>
-    Tooltip content. 
-  </p>
+  <p>Another tooltip content.</p>
 </sbb-tooltip>
 ```
 
-### Accessibility
-In order to make screen readers announce the type of the trigger when is focused, use the `aria-label` attribute, as shown below:
+## State
+
+It is possible to display the component in `disabled`  state by using the self-named properties. 
 
 ```html
-<sbb-tooltip-trigger aria-label="Custom label" id="tooltip-trigger">
-</sbb-tooltip-trigger>
+<sbb-tooltip-trigger id="tooltip-trigger" disabled></sbb-tooltip-trigger>
+
+<sbb-tooltip trigger="tooltip-trigger">
+  <p>Tooltip content.</p>
+</sbb-tooltip>
 ```
 
-To make screen readers announce the tooltip content when the trigger is focused, 
+## Accessibility
+
+To make screen-readers announce the type of the trigger when is focused, 
+use the `aria-label` attribute, as shown below:
+
+```html
+<sbb-tooltip-trigger aria-label="Custom label" id="tooltip-trigger"></sbb-tooltip-trigger>
+```
+
+To make screen-readers announce the tooltip content when the trigger is focused, 
 associate the tooltip trigger with the tooltip via `aria-describedby` and an `id`.
 
 ```html

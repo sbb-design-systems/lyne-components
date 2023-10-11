@@ -15,7 +15,6 @@ import {
 } from '../../global/eventing';
 
 /**
- * Generalized Teaser - for displaying an image, title and paragraph
  * @slot image - Slot used to render the image
  * @slot title - Slot used to render the title
  * @slot description - Slot used to render the description

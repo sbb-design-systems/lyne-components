@@ -1,18 +1,19 @@
-The `<sbb-navigation>` component provides a way to present a navigation menu. 
+The `sbb-navigation` component provides a way to present a navigation menu. 
 
 Some of its features are: 
 
 - uses a native dialog element;
-- creates a backdrop, for disabling interaction below the navigation;
+- creates a backdrop for disabling interaction below the navigation;
 - disables scrolling of the page content while open;
 - manages focus properly by setting it on the first focusable element;
-- can act as a host for components as [sbb-navigation-list](../sbb-navigation-list/readme.md), [sbb-navigation-marker](../sbb-navigation-marker/readme.md) and [sbb-navigation-section](../sbb-navigation-section/readme.md);
+- can act as a host for components as [sbb-navigation-list](/docs/components-sbb-navigation-sbb-navigation-list--docs), 
+ [sbb-navigation-marker](/docs/components-sbb-navigation-sbb-navigation-marker--docs) 
+ and [sbb-navigation-section](/docs/components-sbb-navigation-sbb-navigation-section--docs);
 
-## Usage
+## Interactions
 
-To display the navigation you can either provide a trigger element or call the `open()` method on the `sbb-navigation` component.
-
-The default `z-index` of the component is set to `1000`; to specify a custom stack order, the `z-index` can be changed by defining the CSS variable `--sbb-navigation-z-index`. 
+To display the `sbb-navigation` component you can either provide a trigger element using the `trigger` property,
+or call the `open()` method on the `sbb-navigation` component.
 
 ```html
 <!-- Trigger element -->
@@ -47,9 +48,15 @@ The default `z-index` of the component is set to `1000`; to specify a custom sta
 </sbb-navigation>
 ```
 
+## Style
+
+The default `z-index` of the component is set to `1000`; 
+to specify a custom stack order, the `z-index` can be changed by defining the CSS variable `--sbb-navigation-z-index`.
+
 ## Accessibility
 
-When a navigation action is marked to indicate the user is currently on that page, `aria-current="page"` should be set on that action. Similarly, if a navigation action is marked to indicate a selected option (e.g. the selected language) `aria-pressed` should be set on that action.
+When a navigation action is marked to indicate the user is currently on that page, `aria-current="page"` should be set on that action. 
+Similarly, if a navigation action is marked to indicate a selected option (e.g., the selected language) `aria-pressed` should be set on that action.
 
 <!-- Auto Generated Below -->
 

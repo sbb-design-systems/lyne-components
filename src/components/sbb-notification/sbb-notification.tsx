@@ -52,7 +52,7 @@ export class SbbNotification implements ComponentInterface {
   @Prop() public titleContent?: string;
 
   /**
-   * Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.
+   * Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3.
    */
   @Prop() public titleLevel: InterfaceTitleAttributes['level'] = '3';
 
