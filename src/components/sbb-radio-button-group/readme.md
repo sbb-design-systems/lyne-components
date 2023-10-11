@@ -1,11 +1,6 @@
-Radio buttons should be used within a `sbb-radio-button-group`. 
-Pressing a radio checks it and unchecks the previously selected radio, if any. 
-They can also be controlled programmatically by setting the value property of the parent radio group to the value of the radio.
-
-## Usage
-
-Within a group of radio buttons, only one radio button can be selected at a time. 
-If you need to select more than one item, it is recommended to use checkboxes.
+The `sbb-radio-button-group` is a component which can be used as a wrapper for 
+a collection of [sbb-radio-button](/docs/components-sbb-radio-button-sbb-radio-button--docs)s,
+or, alternatively, for a collection of [sbb-selection-panel](/docs/components-sbb-selection-panel--docs)s.
 
 ```html
 <!-- The first option will be selected by default -->
@@ -15,7 +10,14 @@ If you need to select more than one item, it is recommended to use checkboxes.
   <sbb-radio-button value="Value three">Option three</sbb-radio-button>
 </sbb-radio-button-group>
 ```
-### States
+
+Pressing a `sbb-radio-button` checks it and unchecks the previously selected one, if any.
+They can also be controlled programmatically by setting the value property of the parent radio group to the value of the radio.
+
+Please note that within a `sbb-radio-button-group`, only one `sbb-radio-button` can be selected at a time;
+if you need to select more than one item, it is recommended to use the `sbb-checkbox-group` component.
+
+## States
 
 The radio group can have different states:
 
@@ -25,23 +27,43 @@ The radio group can have different states:
 ```html
 <!-- All child radio buttons will be disabled -->
 <sbb-radio-button-group value="Value one" aria-label="Radio group label" disabled>
-  <sbb-radio-button value="Value one">Option one</sbb-radio-button>
-  <sbb-radio-button value="Value two">Option two</sbb-radio-button>
+  ...
 </sbb-radio-button-group>
 
 <!-- The radio group and all child radio buttons will be marked as required -->
 <sbb-radio-button-group value="Value one" aria-label="Radio group label" required>
-  <sbb-radio-button value="Value one">Option one</sbb-radio-button>
-  <sbb-radio-button value="Value two">Option two</sbb-radio-button>
+  ...
 </sbb-radio-button-group>
 ```
 
-### Deselecting Radios
+In order to deselect a `sbb-radio-button` inside the `sbb-radio-button-group`,
+you can use the `allowEmptySelection` property, which will be proxied to the inner `sbb-radio-button` 
+enabling their deselection (by default, a selected `sbb-radio-button` cannot be deselected).
 
-In order to deselect a radio inside the group you can use the `allowEmptySelection` property on the parent radio group, 
-which enables the radios to be deselected (by default, a selected cannot be deselected).
+```html
+<sbb-radio-button-group allow-empty-selection>
+  ...
+</sbb-radio-button-group>
+```
 
-### Accessibility
+## Style
+
+The `orientation` property is used to set item orientation. Possible values are `horizontal` (default) and `vertical`.
+The optional property `horizontalFrom` can be used in combination with `orientation='vertical'` to
+indicate the minimum breakpoint from which the orientation changes to `horizontal`.
+
+```html
+<sbb-radio-button-group orientation="vertical" horizontal-from="large">
+  ...
+</sbb-radio-button-group>
+```
+
+## Events
+
+Consumers can listen to the native `change`/`input` event on the `sbb-radio-button-group` component 
+to intercept the selection's change; the current value can be read from `event.detail.value`.
+
+## Accessibility
 
 In order to ensure readability for screen-readers, please provide an `aria-label` attribute for the `sbb-radio-button-group`.
 

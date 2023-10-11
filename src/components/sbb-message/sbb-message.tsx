@@ -2,11 +2,11 @@ import { Component, ComponentInterface, JSX, Prop, h } from '@stencil/core';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 
 /**
- * @slot image - Use this slot to provide an sbb-image component.
+ * @slot image - Use this slot to provide a sbb-image component.
  * @slot title - Use this slot to provide title text for the component.
  * @slot subtitle - Use this slot to provide a subtitle, must be a paragraph.
  * @slot legend - Use this slot to provide a legend, must be a paragraph.
- * @slot action - Use this slot to provide an sbb-button.
+ * @slot action - Use this slot to provide a sbb-button.
  */
 @Component({
   shadow: true,
@@ -17,7 +17,7 @@ export class SbbMessage implements ComponentInterface {
   /** Content of title. */
   @Prop() public titleContent?: string;
 
-  /** Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3. */
+  /** Level of title, it will be rendered as heading tag (e.g., h3). Defaults to level 3. */
   @Prop() public titleLevel: InterfaceTitleAttributes['level'] = '3';
 
   public render(): JSX.Element {

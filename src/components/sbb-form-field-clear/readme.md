@@ -1,8 +1,5 @@
-The `sbb-form-field-clear` component can be used with the `sbb-form-field` component to provide the possibility to display a clear button which can clear the input value.
-
-## Usage
-
-It currently works with simple inputs and does not support, for example, `select` inputs:
+The `sbb-form-field-clear` component can be used with the [sbb-form-field](/docs/components-sbb-form-field-sbb-form-field--docs) component 
+to provide the possibility to display a clear button which can clear the input value.
 
 ```html
 <sbb-form-field label="Label">
@@ -10,6 +7,9 @@ It currently works with simple inputs and does not support, for example, `select
   <sbb-form-field-clear />
 </sbb-form-field>
 ```
+
+**Note:** it currently works with simple inputs and does not support, for example, `select` inputs.
+
 
 <!-- Auto Generated Below -->
 
@@ -19,13 +19,6 @@ It currently works with simple inputs and does not support, for example, `select
 | Property   | Attribute  | Description                     | Type      | Default |
 | ---------- | ---------- | ------------------------------- | --------- | ------- |
 | `negative` | `negative` | Negative coloring variant flag. | `boolean` | `false` |
-
-
-## Slots
-
-| Slot        | Description                 |
-| ----------- | --------------------------- |
-| `"unnamed"` | Slot to render the content. |
 
 
 ## Dependencies

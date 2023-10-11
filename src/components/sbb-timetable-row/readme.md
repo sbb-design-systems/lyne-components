@@ -1,31 +1,40 @@
-The `<sbb-timetable-row>` component displays a journey. The whole component is clickable and therefore emits a click-event. 
+The `sbb-timetable-row` component displays a journey. 
 A Journey consists of various icons that display information about the means of transport, 
 the occupancy in the first and second class, the most important warning for the trip and travel hints. 
 Train changes are displayed in a pearl chain, which has the capability to show, 
 if a connection is in the past, future or cancelled. 
 In addition to that, the current position within the journey can be shown.
 
+The whole component is clickable and therefore emits a click-event.
+
 ## Usage with props
-Example props:  priceProp: {price:'12', text: 'CHF', isDiscount: true} <br>
-                tripProp: {
-                  legs: [
-                    {
-                      duration: 360,
-                      id: 'test',
-                      arrival: { time: '2022-08-40T15:00:00+02:00' },
-                      departure: { time: '2022-04-30T15:00:00+02:00' },
-                      serviceJourney: {
-                        serviceAlteration: {
-                          cancelled: false,
-                        },
-                      },
-                    },
-                  ],
-                }
+
+```json5
+// `priceProp` property
+{ price:'12', text: 'CHF', isDiscount: true }
+```
+
+```json5
+// `tripProp` property
+{
+  legs: [
+    {
+      duration: 360,
+      id: 'test',
+      arrival: { time: '2022-08-40T15:00:00+02:00' },
+      departure: { time: '2022-04-30T15:00:00+02:00' },
+      serviceJourney: {
+        serviceAlteration: {
+          cancelled: false
+        }
+      }
+    }
+  ]
+}
+```
 
 ```html
-<sbb-timetable-row disable-animation={false} loading-price={false} loading-trip={false} 
-price={priceProp} trip={tripProp}></sbb-timetable-row>
+<sbb-timetable-row price={priceProp} trip={tripProp}></sbb-timetable-row>
 ```
 
 ## Testing

@@ -45,6 +45,21 @@ In SCSS code, always use `//` style comments.
 
 In HTML code, use `<!-- ... -->` comments, which will be stripped when packaging a build.
 
+#### Write clear and exhaustive documentation
+
+Every time a component is created, a `readme.md` file is generated;
+don't underestimate its value, as it will be the documentation entry point for consumers.
+
+The `generate` script will create a base structure for the component description; try to stick at it if you can.
+
+Start with a brief sentence which describes the main purpose of the component and why it should be used;
+if it is related to other components, mention them and add a link to their documentation.
+
+Then describe how the component should be used, adding code examples:
+if it's a presentational one explain its graphic variants using the `### Style` paragraph,
+while if it's a complex one you could use the `### Interaction` paragraph.
+Almost all the components has `### Slots` and can have different `### States`; describe how they can be used.
+
 #### Prefer small, focused modules
 
 Keeping modules to a single responsibility makes the code easier to test, consume, and maintain.

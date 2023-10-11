@@ -1,10 +1,5 @@
 The `sbb-expansion-panel-content` is a component which acts as a container for any element 
-that needs to be displayed in a `sbb-expansion-panel`.
-
-When it's used in combination with a `sbb-expansion-panel-header` with an icon displayed via slot or `iconName` property,
-the slotted content receives a padding on the left side in order to align it with the header label.
-
-## Usage
+that needs to be displayed in a [sbb-expansion-panel](/docs/components-sbb-accordion-sbb-expansion-panel--docs).
 
 ```html
 <sbb-expansion-panel-content>
@@ -20,6 +15,11 @@ the slotted content receives a padding on the left side in order to align it wit
   </p>
 </sbb-expansion-panel-content>
 ```
+
+## Style
+
+When it's used in combination with a `sbb-expansion-panel-header` with an icon displayed via slot or `iconName` property,
+the `sbb-expansion-panel-content` receives a padding on the left side in order to align it with the header label.
 
 <!-- Auto Generated Below -->
 

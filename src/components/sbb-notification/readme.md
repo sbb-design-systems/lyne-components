@@ -1,20 +1,17 @@
-Use the `sbb-notification` component to inform users of updates. A notification is an element that displays a brief, important message in a way that attracts the user's attention without interrupting the user's task.
+The `sbb-notification` is a component which purpose is to inform users of updates. 
+A notification is an element that displays a brief, important message in a way that attracts the user's attention without interrupting the user's task.
 
-Inline notifications show up in task flows, to notify users of the status of an action or other information. They usually appear at the top of the primary content area or close to the item needing attention.
+Inline notifications show up in task flows, to notify users of an action status or other information. 
+They usually appear at the top of the primary content area or close to the item needing attention.
 
 The `sbb-notification` is structured in the following way:
-- Icon: informs users of the kind of notification at a glance.
+- Icon: informs users of the notification type at a glance.
 - Title (optional): gives users a quick overview of the notification.
 - Close button (optional): closes the notification.
 - Message: provides additional detail and/or actionable steps for the user to take.
 
-### Usage
-The `sbb-notification` supports four types: "info" (default), "success", "warn" and "error" based on the type of the information displayed.
-
-Here is an example of how to use the component:
-
 ```html
-<sbb-notification type="success" title-content="Notification title">
+<sbb-notification>
   The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
   <sbb-link variant="inline" href="/">Link one</sbb-link>
   <sbb-link variant="inline" href="/">Link two</sbb-link>
@@ -22,15 +19,44 @@ Here is an example of how to use the component:
 </sbb-notification>
 ```
 
-Note that the notification only supports inline links, therefore any slotted link will be forced to be an inline variant link.
+Note that the notification only supports inline links, therefore any slotted link will be forced to be a `variant="inline"` link.
 
-### Dismissal
-Inline notifications do not dismiss automatically. They persist on the page until the user dismisses them or takes action that resolves the notification.
+## Variants
 
-By default, a close button is displayed to dismiss inline notifications. Including the close button is optional and should not be included if it is critical for a user to read or interact with the notification by setting the `readonly` property to `true`.
+The `sbb-notification` supports four types: `info` (default), `success`, `warn` and `error`, based on the type of the information displayed.
 
-### Animation
-If the `sbb-notification` host needs a margin, in order to properly animate it on open/close we suggest to use the `--sbb-notification-margin` variable to set it. For example, use `--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0` to apply a bottom margin. 
+```html
+<sbb-notification type="success">...</sbb-notification>
+
+<sbb-notification type="warn">...</sbb-notification>
+
+<sbb-notification type="error">...</sbb-notification>
+```
+
+## States
+
+It is possible to display the component in `readonly` state by using the self-named property.
+In this case, the close button will not be shown.
+
+```html
+<sbb-notification readonly>
+  ...
+</sbb-notification>
+```
+
+## Interactions
+
+Inline notifications do not dismiss automatically. 
+They persist on the page until the user dismisses them or takes action that resolves the notification.
+
+By default, a close button is displayed to dismiss inline notifications. Including the close button is optional 
+and should not be included if it is critical for a user to read or interact with the notification by setting the `readonly` property to `true`.
+
+## Style
+
+If the `sbb-notification` host needs a margin, in order to properly animate it on open/close, 
+we suggest using the `--sbb-notification-margin` variable to set it. 
+For example, use `--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0` to apply a bottom margin. 
 
 <!-- Auto Generated Below -->
 
@@ -42,7 +68,7 @@ If the `sbb-notification` host needs a margin, in order to properly animate it o
 | `disableAnimation` | `disable-animation` | Whether the animation is enabled.                                                                       | `boolean`                                  | `false`     |
 | `readonly`         | `readonly`          | Whether the notification is readonly. In readonly mode, there is no dismiss button offered to the user. | `boolean`                                  | `false`     |
 | `titleContent`     | `title-content`     | Content of title.                                                                                       | `string`                                   | `undefined` |
-| `titleLevel`       | `title-level`       | Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.                         | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"`   | `'3'`       |
+| `titleLevel`       | `title-level`       | Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3.                      | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"`   | `'3'`       |
 | `type`             | `type`              | The type of the notification.                                                                           | `"error" \| "info" \| "success" \| "warn"` | `'info'`    |
 
 

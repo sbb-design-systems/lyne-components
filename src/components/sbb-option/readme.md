@@ -1,18 +1,41 @@
-The `<sbb-option>` component can be used to display items in components like `<sbb-autocomplete>` or `<sbb-select>`.
+The `sbb-option` is a component which can be used to display items in components like
+[sbb-autocomplete](/docs/components-sbb-autocomplete--docs) or a [sbb-select](/docs/components-sbb-select--docs).
 
-Like the native `option`, the component has a `value` property. The `selected`, `disabled` and `active` properties are 
-connected to the self-named states. When disabled, the selection via click is prevented.
+## Slots
+
+It is possible to provide a label via an unnamed slot; the component can optionally display a `sbb-icon`
+at the component start using the `iconName` property or via custom content using the `icon` slot.
+Icon space can be reserved even if the `iconName` property is not set by overriding the `--sbb-option-icon-container-display` variable.
+
+```html
+<sbb-option>Option label</sbb-option>
+
+<sbb-option icon-name="info">Option label</sbb-option>
+```
+
+## States
+
+Like the native `option`, the component has a `value` property. 
+
+The `selected`, `disabled` and `active` properties are connected to the self-named states. 
+When disabled, the selection via click is prevented.
 If the `sbb-option` is nested in a `sbb-optgroup` component, it inherits from the parent the `disabled` state.
 
-It is possible to provide a label via an unnamed slot; the component can optionally display a `<sbb-icon>`
-at the component start using the `iconName` property or via custom content using the `icon` slot. 
-Icon space can be reserved even if the `iconName` property is not set by overriding the `--sbb-option-icon-container-display` variable.
+```html
+<sbb-option value="value" selected>Option label</sbb-option>
+
+<sbb-option value="value" active>Option label</sbb-option>
+
+<sbb-option value="value"ß disabled>Option label</sbb-option>
+```
+
+## Events
 
 Consumers can listen to the `optionSelected` event on the `sbb-option` component to intercept the selected value;
 the event is triggered if the element has been selected by some user interaction. Alternatively, 
 the `selectionChange` event can be listened to, which is triggered if the element has been both selected or deselected.
 
-### Highlight
+## Style
 
 If the label slot contains only a **text node**, it is possible to search for text in the `sbb-option` using the 
 `highlight` method, passing the desired text; if the text is present it will be highlighted in bold.
@@ -31,27 +54,6 @@ If the label slot contains only a **text node**, it is possible to search for te
   Highlightable caption 
 </sbb-option>
 ```
-
-## Usage
-
-Default:
-
-```html
-<sbb-option value="value">Option label</sbb-option>
-```
-
-Selected and active with icon:
-
-```html
-<sbb-option value="value" icon-name="info" selected active>Option label</sbb-option>
-```
-
-Disabled:
-
-```html
-<sbb-option value="value" disabled>Option label</sbb-option>
-```
-
 
 <!-- Auto Generated Below -->
 

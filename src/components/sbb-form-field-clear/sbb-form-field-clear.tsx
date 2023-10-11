@@ -19,9 +19,6 @@ import {
 } from '../../global/eventing';
 import { i18nClearInput } from '../../global/i18n';
 
-/**
- * @slot unnamed - Slot to render the content.
- */
 @Component({
   shadow: true,
   styleUrl: 'sbb-form-field-clear.scss',

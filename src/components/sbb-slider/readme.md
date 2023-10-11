@@ -1,34 +1,18 @@
-The `<sbb-slider>` is an input component that allows for the selection of a value within a range;
-this can be set by consumers using the `min` and `max` properties (default values are 0 and 100).
+The `sbb-slider` is an input component that allows for the selection of a value within a range.
 
-The initial value can be set using the `value` property (string), or the `valueAsNumber` (number).
+This can be set using the `min` and `max` properties (default values are 0 and 100),
+while the initial value can be set using the `value` property (string), or the `valueAsNumber` (number).
 If no value is provided, by default it is set halfway between the minimum and maximum.
 
-The component can optionally display two `<sbb-icon>`s at either end; 
-consumers could set one/both of them using the `startIcon` and `endIcon` properties, 
-or can provide their own using the two slots named `prefix` and `suffix`.
-
-It is possible to display the component in disabled or readonly state by using the self-named properties.
-
-Consumers can listen to the native `change` event on the `sbb-slider` component to intercept the input's change `event`;
-the current value can be read from `event.target.value` or `event.target.valueAsNumber`.
-
-The component can be used within a `<sbb-form-field>` component.
-
-## Usage
-Simple slider with default range and icons:
-
 ```html
-<sbb-slider value="40" start-icon="circle-minus-small" end-icon="circle-plus-small"></sbb-slider>
+<sbb-slider max="5" min="1"></sbb-slider>
+
+<sbb-slider value="0"></sbb-slider>
 ```
 
-Slider with no icons and custom range:
+## In `sbb-form-field`
 
-```html
-<sbb-slider max="5" min="1" value="5"></sbb-slider>
-```
-
-Slider inside a `<sbb-form-field>`:
+The component can be used within a `sbb-form-field` component.
 
 ```html
 <sbb-form-field label="Slider">
@@ -36,9 +20,39 @@ Slider inside a `<sbb-form-field>`:
 </sbb-form-field>
 ```
 
-## Accessibility
+## Slots 
 
-The `<sbb-slider>` has the following behaviour on keypress when focused:
+The component can optionally display two `sbb-icon`s at either end; 
+consumers could set one/both of them using the `startIcon` and `endIcon` properties, 
+or can provide their own using the two slots named `prefix` and `suffix`.
+
+```html
+<sbb-slider start-icon="circle-minus-small" end-icon="circle-plus-small"></sbb-slider>
+
+<sbb-slider>
+  <sbb-icon slot="prefix" name="battery-level-empty-small" />
+  <sbb-icon slot="suffix" name="battery-level-high-small" />
+</sbb-slider>
+```
+
+## States
+
+It is possible to display the component in `disabled` or `readonly` state by using the self-named properties.
+
+```html
+<sbb-slider disabled></sbb-slider>
+
+<sbb-slider readonly></sbb-slider>
+```
+
+## Events
+
+Consumers can listen to the native `change` event on the `sbb-slider` component to intercept the input's change `event`;
+the current value can be read from `event.target.value` or `event.target.valueAsNumber`.
+
+## Keyboard interaction
+
+The `sbb-slider` has the following behaviour on keypress when focused:
 
 | Key         | Action                                            |
 |-------------|---------------------------------------------------|

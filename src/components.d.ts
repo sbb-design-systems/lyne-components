@@ -334,7 +334,7 @@ export namespace Components {
          */
         "selectedDate": Date | string | number;
         /**
-          * If set to true, two months are displayed
+          * If set to true, two months are displayed.
          */
         "wide": boolean;
     }
@@ -1141,7 +1141,7 @@ export namespace Components {
          */
         "titleContent"?: string;
         /**
-          * Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.
+          * Level of title, it will be rendered as heading tag (e.g., h3). Defaults to level 3.
          */
         "titleLevel": InterfaceTitleAttributes['level'];
     }
@@ -1262,7 +1262,7 @@ export namespace Components {
          */
         "titleContent"?: string;
         /**
-          * Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.
+          * Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3.
          */
         "titleLevel": InterfaceTitleAttributes['level'];
         /**
@@ -1319,7 +1319,7 @@ export namespace Components {
          */
         "disableAnimation"?: boolean;
         /**
-          * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
+          * Define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
          */
         "legs": Leg[];
     }
@@ -1353,7 +1353,7 @@ export namespace Components {
     }
     interface SbbPearlChainVerticalItem {
         /**
-          * If true the position won't be animated.
+          * If true, the position won't be animated.
          */
         "disableAnimation"?: boolean;
         /**
@@ -1635,9 +1635,6 @@ export namespace Components {
          */
         "value": string | string[] | null;
     }
-    /**
-     * Generalized Teaser - for displaying an image, title and paragraph
-     */
     interface SbbTeaser {
         /**
           * The href value you want to link to.
@@ -1873,7 +1870,7 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * If true set the width of the component fixed; if false the width is dynamic based on the label of the sbb-toggle-option.
+          * If true, set the width of the component fixed; if false, the width is dynamic based on the label of the sbb-toggle-option.
          */
         "even": boolean;
         /**
@@ -2591,9 +2588,6 @@ declare global {
         prototype: HTMLSbbTagGroupElement;
         new (): HTMLSbbTagGroupElement;
     };
-    /**
-     * Generalized Teaser - for displaying an image, title and paragraph
-     */
     interface HTMLSbbTeaserElement extends Components.SbbTeaser, HTMLStencilElement {
     }
     var HTMLSbbTeaserElement: {
@@ -3105,7 +3099,7 @@ declare namespace LocalJSX {
          */
         "selectedDate"?: Date | string | number;
         /**
-          * If set to true, two months are displayed
+          * If set to true, two months are displayed.
          */
         "wide"?: boolean;
     }
@@ -3255,7 +3249,7 @@ declare namespace LocalJSX {
         "input"?: string | HTMLElement;
         "onChange"?: (event: SbbDatepickerCustomEvent<any>) => void;
         /**
-          * Notifies that the attributes of the datepicker has changes.
+          * Notifies that the attributes of the datepicker have changes.
          */
         "onDatePickerUpdated"?: (event: SbbDatepickerCustomEvent<any>) => void;
         /**
@@ -3263,7 +3257,7 @@ declare namespace LocalJSX {
          */
         "onDidChange"?: (event: SbbDatepickerCustomEvent<any>) => void;
         /**
-          * Notifies that the attributes of the input connected to the datepicker has changes.
+          * Notifies that the attributes of the input connected to the datepicker have changes.
          */
         "onInputUpdated"?: (event: SbbDatepickerCustomEvent<InputUpdateEvent>) => void;
         /**
@@ -3947,7 +3941,7 @@ declare namespace LocalJSX {
          */
         "titleContent"?: string;
         /**
-          * Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.
+          * Level of title, it will be rendered as heading tag (e.g., h3). Defaults to level 3.
          */
         "titleLevel"?: InterfaceTitleAttributes['level'];
     }
@@ -4081,7 +4075,7 @@ declare namespace LocalJSX {
          */
         "titleContent"?: string;
         /**
-          * Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.
+          * Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3.
          */
         "titleLevel"?: InterfaceTitleAttributes['level'];
         /**
@@ -4135,7 +4129,7 @@ declare namespace LocalJSX {
          */
         "disableAnimation"?: boolean;
         /**
-          * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
+          * Define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
          */
         "legs"?: Leg[];
     }
@@ -4169,7 +4163,7 @@ declare namespace LocalJSX {
     }
     interface SbbPearlChainVerticalItem {
         /**
-          * If true the position won't be animated.
+          * If true, the position won't be animated.
          */
         "disableAnimation"?: boolean;
         /**
@@ -4503,9 +4497,6 @@ declare namespace LocalJSX {
          */
         "value"?: string | string[] | null;
     }
-    /**
-     * Generalized Teaser - for displaying an image, title and paragraph
-     */
     interface SbbTeaser {
         /**
           * The href value you want to link to.
@@ -4749,7 +4740,7 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * If true set the width of the component fixed; if false the width is dynamic based on the label of the sbb-toggle-option.
+          * If true, set the width of the component fixed; if false, the width is dynamic based on the label of the sbb-toggle-option.
          */
         "even"?: boolean;
         /**
@@ -5141,9 +5132,6 @@ declare module "@stencil/core" {
             "sbb-tab-title": LocalJSX.SbbTabTitle & JSXBase.HTMLAttributes<HTMLSbbTabTitleElement>;
             "sbb-tag": LocalJSX.SbbTag & JSXBase.HTMLAttributes<HTMLSbbTagElement>;
             "sbb-tag-group": LocalJSX.SbbTagGroup & JSXBase.HTMLAttributes<HTMLSbbTagGroupElement>;
-            /**
-             * Generalized Teaser - for displaying an image, title and paragraph
-             */
             "sbb-teaser": LocalJSX.SbbTeaser & JSXBase.HTMLAttributes<HTMLSbbTeaserElement>;
             "sbb-teaser-hero": LocalJSX.SbbTeaserHero & JSXBase.HTMLAttributes<HTMLSbbTeaserHeroElement>;
             "sbb-time-input": LocalJSX.SbbTimeInput & JSXBase.HTMLAttributes<HTMLSbbTimeInputElement>;

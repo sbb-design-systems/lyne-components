@@ -1,6 +1,29 @@
-The `<sbb-navigation-action>` component is an action element contained by a [sbb-navigation-list](../sbb-navigation-list/readme.md) component or a [sbb-navigation-marker](../sbb-navigation-marker/readme.md) component. 
+The `sbb-navigation-action` component is an action element contained by 
+a [sbb-navigation-list](/docs/components-sbb-navigation-sbb-navigation-list--docs) component 
+or a [sbb-navigation-marker](/docs/components-sbb-navigation-sbb-navigation-marker--docs) component. 
 
-As the [sbb-link](../sbb-link/readme.md), it can be internally rendered as a button or as a link, depending on the value of the `href` property.
+## Link / button properties
+
+As the [sbb-link](/docs/components-sbb-link--docs) and the [sbb-button](/docs/components-sbb-button--docs), 
+the component can be internally rendered as a button or as a link,
+depending on the value of the `href` property, so the associated properties are available
+(`href`, `target`, `rel` and `download` for link; `type`, `name`, `value` and `form` for button).
+
+```html
+<sbb-navigation-action href="#info" target='_blank'>Link</sbb-navigation-action>
+
+<sbb-navigation-action type='button' value='menu' name='menu'>Button</sbb-navigation-action>
+```
+
+## Style
+
+The component has three different sizes, which can be changed using the `size` property (`l`, which is the default, `m` and `s`).
+
+```html
+<sbb-navigation-action href="#info" size='m'>Link</sbb-navigation-action>
+
+<sbb-navigation-action type='button' value='menu' name='menu'>Button</sbb-navigation-action>
+```
 
 <!-- Auto Generated Below -->
 

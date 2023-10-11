@@ -1,44 +1,59 @@
-The `sbb-calendar` component displays a calendar that allows the user to select a date. For accessibility purposes, it's rendered as a native table element and each day is a button. 
+The `sbb-calendar` component displays a calendar that allows the user to select a date. 
 
-While being deeply linked to the implementation of the `sbb-datepicker-toggle` component, it can be used on its own.
+While being deeply linked to the implementation of the [sbb-datepicker-toggle](/docs/components-sbb-datepicker-sbb-datepicker-toggle--docs) component, 
+it can be used on its own.
 
-For date inputs (`min`, `max`, `selected-date`) the accepted formats are: 
+```html
+<sbb-calendar></sbb-calendar>
+```
+
+It's possible to set a date using the `dateSelected` property. Also, it's possible to place limits on the selection
+using the two properties named `min` and `max`. For these three properties, the accepted formats are:
+
 - Date objects
-- ISO String 
+- ISO String
 - Unix Timestamp (number of seconds since Jan 1, 1970)
-and it's recommended to set the time to 00:00:00.
 
-The component displays one month by default; two months can be displayed setting the `wide` property to `true`. It's also
-possible to filter out unwanted date using the `dateFilter` function property.
+It's recommended to set the time to 00:00:00.
+
+```html
+<sbb-calendar min="1600000000" max="1700000000" selected-date="1650000000"></sbb-calendar>
+```
+
+## Style
+
+The component displays one month by default; two months can be displayed setting the `wide` property to `true`.
+
+```html
+<sbb-calendar wide='true' selected-date="1650000000"></sbb-calendar>
+```
+
+It's also possible to filter out unwanted date using the `dateFilter` function property.
+Note that using the `dateFilter` function as a replacement for the `min` and `max` properties will most likely result in a significant loss of performance.
+
+## Events
 
 Consumers can listen to the `dateSelected` event on the `sbb-calendar` component to intercept the selected date 
 which can be read from `event.detail`.
 
-Note that using the `dateFilter` function as a replacement for the `min` and `max` properties will most likely result in a significant loss of performance.
+## Keyboard interaction
+
+It's possible to move within the component using the keyboard.
+
+| Keyboard               | Action                                                        |
+|------------------------|---------------------------------------------------------------|
+| <kbd>Left Arrow</kbd>  | Go to previous day.                                           |
+| <kbd>Right Arrow</kbd> | Go to next day.                                               |
+| <kbd>Up Arrow</kbd>    | Go to the same day in the previous week.                      |
+| <kbd>Down Arrow</kbd>  | Go to the same day in the next week.                          |
+| <kbd>Home</kbd>        | Go to the first day of the month.                             |
+| <kbd>End</kbd>         | Go to the last day of the month.                              |
+| <kbd>Page Up</kbd>     | Go to the top of the column of the currently selected day.    |
+| <kbd>Page Down</kbd>   | Go to the bottom of the column of the currently selected day. |
 
 ## Accessibility
 
-Keyboard navigation summary:
-- Left arrow: go to previous day
-- Right arrow: go to next day
-- Up arrow: go to the same day in the previous week
-- Down arrow: go to the same day in the next week
-- Home: go to the first day of the month
-- End: go to the last day of the month
-- Page Up: go to the top of the column of the currently selected day
-- Page Down: go to the bottom of the column of the currently selected day
-
-## Usage
-
-Calendar with selected date and bounds:
-
-```html
-<sbb-calendar 
-  min="1600000000" 
-  max="1700000000" 
-  selected-date="1650000000"
-></sbb-calendar>
-```
+For accessibility purposes, the component is rendered as a native table element and each day is a button.
 
 ## Testing
 
@@ -56,7 +71,7 @@ This is helpful if you need a specific state of the component.
 | `max`          | `max`           | The maximum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). | `Date \| number \| string` | `undefined`  |
 | `min`          | `min`           | The minimum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). | `Date \| number \| string` | `undefined`  |
 | `selectedDate` | `selected-date` | The selected date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970).      | `Date \| number \| string` | `undefined`  |
-| `wide`         | `wide`          | If set to true, two months are displayed                                                                        | `boolean`                  | `false`      |
+| `wide`         | `wide`          | If set to true, two months are displayed.                                                                       | `boolean`                  | `false`      |
 
 
 ## Events

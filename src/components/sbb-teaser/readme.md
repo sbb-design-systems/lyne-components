@@ -1,18 +1,29 @@
-The sbb-teaser acts as a link containing an image next to a title and a description.
-It's important to set the accessibilityLabel which describes the teaser for screenreader users.
-The title level can be set by the consumer.
+The `sbb-teaser` is a component which can display an image with a caption, and it behaves like a link on user interaction.
+
+## Slots
+
+The component displays the `image`, the `title` and the `description` in the self-named slots.
+
+```html
+<sbb-teaser href='https://www.sbb.ch'>
+  <img slot="image" src="..." alt="400x300" />
+  <span slot="title"> Title </span>
+  <span slot="description"> A brief description. </span>
+</sbb-teaser>
+```
+
+The title level can be set by the consumer using the `titleLevel` property.
 
 ## Accessibility
 
+It's important to set the `accessibilityLabel` property, which describes the `sbb-teaser` for screen-reader users.
+
 The description text is wrapped into an `<p>` element to guarantee the semantic meaning.
+
 Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and can have negative effects on screen readers.
 
 <!-- Auto Generated Below -->
 
-
-## Overview
-
-Generalized Teaser - for displaying an image, title and paragraph
 
 ## Properties
 

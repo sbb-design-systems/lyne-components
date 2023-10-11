@@ -33,7 +33,7 @@ export class SbbToggle implements ComponentInterface {
   @Prop({ reflect: true }) public disabled = false;
 
   /**
-   * If true set the width of the component fixed; if false the width is dynamic based on the label of the sbb-toggle-option.
+   * If true, set the width of the component fixed; if false, the width is dynamic based on the label of the sbb-toggle-option.
    */
   @Prop({ reflect: true }) public even: boolean;
 

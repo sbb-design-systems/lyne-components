@@ -1,41 +1,21 @@
-The `<sbb-action-group>` component is a generic content container which can contain up to three
-action items (`<sbb-button>` or `<sbb-link>` or other HTML elements) in various allocations.
+The `sbb-action-group` component is a generic content container which can contain up to three action items 
+([sbb-button](/docs/components-sbb-button--docs) or [sbb-link](/docs/components-sbb-link--docs) or other HTML elements) 
+in various [allocations](#allocations).
 
-The `orientation` property is used to set items orientation. Possible values are `horizontal`
-(default) and `vertical`.
+## Style
 
-The optional property `horizontalFrom` indicates the minimum breakpoint from which the orientation
-changes to `horizontal`.
+### Orientation
 
-The `align-group` property can be used to set the default alignment of the contained elements; 
-possible values are `start`, `center`, `stretch` and `end`.
+The `orientation` property is used to set item's orientation. 
+Possible values are `horizontal` (default) and `vertical`.
 
-It is also possible to set the `align-self` attribute on action items in order to move them in the
-opposite direction to the group; possible values are `start`, `center` or `end`.
-
-**NOTE**: `<sbb-action-group>` will automatically set variant `block` and will sync the `linkSize`
- property with nested `<sbb-link>` and the `buttonSize` property with the nested `<sbb-button>`
- instances.
-
-## Usage
-
-The examples below shows how to use the `<sbb-action-group>` component using `<sbb-button>` and `<sbb-link>` as action items.
+The optional property `horizontalFrom` can be used in combination with `orientation='vertical'` to
+indicate the minimum breakpoint from which the orientation changes to `horizontal`.
 
 ```html
-<sbb-action-group>
+<sbb-action-group orientation="vertical" horizontal-from='small'>
   <sbb-button variant="secondary">Action 1</sbb-button>
   <sbb-button>Action 2</sbb-button>
-</sbb-action-group>
-
-<sbb-action-group align="end">
-  <sbb-button align-self="start" variant="secondary">Action 1</sbb-button>
-  <sbb-button variant="secondary">Action 2</sbb-button>
-  <sbb-button>Action 3</sbb-button>
-</sbb-action-group>
-
-<sbb-action-group orientation="vertical">
-  <sbb-button variant="secondary">Action 1</sbb-button>
-  <sbb-button variant="secondary">Action 2</sbb-button>
   <sbb-link
     align-self="end"
     icon-name="chevron-small-left-small"
@@ -43,6 +23,43 @@ The examples below shows how to use the `<sbb-action-group>` component using `<s
   >
     Action 3
   </sbb-link>
+</sbb-action-group>
+```
+
+### Button-size and link-size
+
+The two props `button-size` and `link-size` can be used to override, respectively, the size of the inner `sbb-button` and `sbb-link`.
+Default values are `l` for `sbb-button` and `m` for `sbb-link`.
+
+```html
+<sbb-action-group button-size='m' link-size='s'>
+  <sbb-button variant="secondary">Action 1</sbb-button>
+  <sbb-link
+    icon-name="chevron-small-left-small"
+    href="https://github.com/lyne-design-system/lyne-components"
+  >
+    Action 3
+  </sbb-link>
+</sbb-action-group>
+```
+
+### Align-group and align-self
+
+The `align-group` property can be used to set the default alignment of the contained elements; 
+possible values are `start`, `center`, `stretch` and `end`.
+
+It is also possible to set the `align-self` attribute on action items in order to move them in the
+opposite direction to the group; possible values are `start`, `center` or `end`.
+
+**NOTE**: The `sbb-action-group` will automatically set variant `block` and will sync the `linkSize`
+ property with nested `sbb-link` and the `buttonSize` property with the nested `sbb-button`
+ instances.
+
+```html
+<sbb-action-group align-group="end">
+  <sbb-button align-self="start" variant="secondary">Action 1</sbb-button>
+  <sbb-button variant="secondary">Action 2</sbb-button>
+  <sbb-button>Action 3</sbb-button>
 </sbb-action-group>
 ```
 
@@ -63,7 +80,7 @@ and we consider a template like the following one (possibly removing the link fo
 </sbb-action-group>
 ```
 
-the values for `align-group` and `align-self` for the various allocations are as follows.
+The values for `align-group` and `align-self` for the various allocations are as follows:
 
 ### Horizontal
 

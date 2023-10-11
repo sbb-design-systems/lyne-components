@@ -1,98 +1,99 @@
-The `sbb-datepicker` component can be used together with a native input element to display the typed value 
-as a formatted date (dd.MM.yyyy). 
+The `sbb-datepicker` is a component which can be used together with a native `<input>` element 
+to display the typed value as a formatted date (default: `dd.MM.yyyy`). 
 
-The component allows the insertion of up to 10 numbers, possibly with separators like `.`, `-`, ` `, `,` or `/`, 
-then automatically formats the value as date and displays it. It also exposes methods to get/set the value formatted as Date.
+The component allows the insertion of up to 10 numbers, possibly with separators like `.`, `-`, `` ``, `,` or `/`, 
+then automatically formats the value as date and displays it. 
+It also exposes methods to get / set the value formatted as Date.
 
-If the `sbb-datepicker` is used within a `sbb-form-field` with a native input, they are automatically linked; otherwise,
-they can be connected using the `input` property, which accepts the id of the native input, or directly its reference.
+The component and the native `input` can be connected using the `input` property, 
+which accepts the id of the native input, or directly its reference.
 
-When the two are linked, the component sets the input placeholder, and the input's type as `text`, then reads 
-the `disabled`, `readonly`, `min` and `max` attributes from the input and emits then as payload of the `inputUpdated` event.
-If the input's value changes, it is formatted then a `change` event is emitted with the new value. If it's an invalid date, the `data-sbb-invalid` attribute is added to the input. The component also listens for changes in its two properties, `wide` and `dateFilter`, and emits a `datePickerUpdated` event when changed.
+```html
+<input id="datepicker-input" />
+<sbb-datepicker input="datepicker-input" id="datepicker"></sbb-datepicker>
+```
 
-Consumers can listen to the native `change` and `input` events on the `sbb-datepicker` component to intercept date changes, the current value can be read from the async method `event.target.getValueAsDate()`.
-To set the value programmatically it's recommended to use the `setValueAsDate()` method of the `<sbb-datepicker>`.
-Each time the user changes the date by using the calendar, the next and previous day arrow, or by using the `setValueAsDate()` method, a `blur` event is fired on the input to ensure compatibility with any framework that relies on that event to update the current state.
+## In `sbb-form-field`
 
-Note that using the `dateFilter` function as a replacement for the `min` and `max` properties will most likely result in a significant loss of performance.
+If the `sbb-datepicker` is used within a [sbb-form-field](/docs/components-sbb-form-field-sbb-form-field--docs) with a native input, 
+they are automatically linked; the component sets the input placeholder and the input's type as `text`, 
+then reads the `disabled`, `readonly`, `min` and `max` attributes from the input and emits then as payload of the `inputUpdated` event.
+
+It's possible to remove unwanted dates from selection using the `dateFilter` function, however, this should **not** 
+be used as a replacement for the `min` and `max` properties will most likely result in a significant loss of performance.
+
+It's also possible to display a two-months view using the `wide` property.
+
+```html
+<sbb-form-field>
+  <input/>
+  <sbb-datepicker></sbb-datepicker>
+</sbb-form-field>
+```
+
+```html
+<!-- Component's usage with all the related components. -->
+<sbb-form-field>
+  <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
+  <sbb-datepicker-toggle></sbb-datepicker-toggle>
+  <input value="01.01.2023" min="1600000000" max="1700000000"/>
+  <sbb-datepicker></sbb-datepicker>
+  <sbb-datepicker-next-day></sbb-datepicker-next-day>
+</sbb-form-field>
+```
+
+## Events
+
+If the input's value changes, it is formatted then a `change` event is emitted with the new value. 
+If it's an invalid date, the `data-sbb-invalid` attribute is added to the input. 
+The component also listens for changes in its two properties, `wide` and `dateFilter`, and emits a `datePickerUpdated` event when changed.
+
+Consumers can listen to the native `change` and `input` events on the `sbb-datepicker` component to intercept date changes, 
+the current value can be read from the async method `event.target.getValueAsDate()`.
+To set the value programmatically, it's recommended to use the `setValueAsDate()` method of the `sbb-datepicker`.
+
+Each time the user changes the date by using the calendar, or the next and previous day arrow, or by using the `setValueAsDate()` method, 
+a `blur` event is fired on the input to ensure compatibility with any framework that relies on that event to update the current state.
 
 ## Custom date formats
 
-Using a combination of the `dateParser` and `format` properties, it's possible to configure the datepicker to accept date formats other than the default `EE, dd.mm.yyyy`.
-In the following example the datepicker is set to accept dates in the format `yyyy-mm-dd`. In particular, `dateParser` is the function that the component uses internally to decode strings and parse them into `Date` objects, while the `format` function is the one that the component uses internally to display a given `Date` object as a string.
+Using a combination of the `dateParser` and `format` properties, it's possible to configure the datepicker 
+to accept date formats other than the default `EE, dd.mm.yyyy`.
+In the following example the datepicker is set to accept dates in the format `yyyy-mm-dd`. 
+In particular, `dateParser` is the function that the component uses internally to decode strings and parse them into `Date` objects, 
+while the `format` function is the one that the component uses internally to display a given `Date` object as a string.
 
 ```ts
-    // datePicker is a HTMLSbbDatepickerElement
-    datePicker.dateParser = (value: string) => {
-        // You should implement some kind of input validation
-        if (!value || !isValid(value)) {
-            return undefined;
-        }
+// datePicker is a HTMLSbbDatepickerElement
+datePicker.dateParser = (value: string) => {
+  // You should implement some kind of input validation
+  if (!value || !isValid(value)) {
+      return undefined;
+  }
 
-        return new Date(value);
-    };
+  return new Date(value);
+};
 
-    datePicker.format = (value: Date) => {
-        if (!value) {
-            return '';
-        }
+datePicker.format = (value: Date) => {
+  if (!value) {
+      return '';
+  }
 
-        const offset = value.getTimezoneOffset();
-        value = new Date(yourDate.getTime() - (offset * 60 * 1000));
-        return yourDate.toISOString().split('T')[0];
-    };
+  const offset = value.getTimezoneOffset();
+  value = new Date(yourDate.getTime() - (offset * 60 * 1000));
+  return yourDate.toISOString().split('T')[0];
+};
 ```
 
-Usually these functions need to be changed together, although in simple cases where the default `dateParser` might still work properly (e.g. in case we wanted to accept the format `dd.mm.yyyy`), it's possible to provide just the `format` function. 
+Usually these functions need to be changed together, although in simple cases where the default `dateParser` might still work properly 
+(e.g., in case we wanted to accept the format `dd.mm.yyyy`), it's possible to provide just the `format` function. 
 For custom `format` functions is recommended to use the `Intl.DateTimeFormat` API, as it's done in the default implementation.
 
 <!-- TODO: add date adapter configuration documentation -->
 
 ## Validation Change
 
-Whenever the validation state changes (e.g. a valid value becomes invalid or vice versa), the `validationChange` event is emitted.
-
-
-## Usage
-
-Without `sbb-form-field`:
-
-```html
-    <input id="datepicker-input" />
-    <sbb-datepicker input="datepicker-input"></sbb-datepicker>
-```
-
-Without `sbb-form-field`, with all related components:
-
-```html
-    <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-previous-day>
-    <sbb-datepicker-toggle date-picker="datepicker"></sbb-datepicker-toggle>
-    <input id="datepicker-input" />
-    <sbb-datepicker input="datepicker-input" id="datepicker"></sbb-datepicker>
-    <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
-```
-
-With `sbb-form-field`, and input params set:
-
-```html
-    <sbb-form-field>
-      <input min="1600000000" max="1700000000" value="01.01.2023" readonly=""/>
-      <sbb-datepicker></sbb-datepicker>
-    </sbb-form-field>
-```
-
-With `sbb-form-field` and all related components, input's value set, `wide` set to true:
-
-```html
-    <sbb-form-field>
-      <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
-      <sbb-datepicker-toggle></sbb-datepicker-toggle>
-      <input value="01.01.2023"/>
-      <sbb-datepicker wide></sbb-datepicker>
-      <sbb-datepicker-next-day></sbb-datepicker-next-day>
-    </sbb-form-field>
-```
+Whenever the validation state changes (e.g., a valid value becomes invalid or vice-versa), the `validationChange` event is emitted.
 
 ## Testing
 
@@ -118,9 +119,9 @@ This is helpful if you need a specific state of the component.
 | Event               | Description                                                                                                                         | Type                                 |
 | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
 | `change`            |                                                                                                                                     | `CustomEvent<any>`                   |
-| `datePickerUpdated` | Notifies that the attributes of the datepicker has changes.                                                                         | `CustomEvent<any>`                   |
+| `datePickerUpdated` | Notifies that the attributes of the datepicker have changes.                                                                        | `CustomEvent<any>`                   |
 | `didChange`         | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/> | `CustomEvent<any>`                   |
-| `inputUpdated`      | Notifies that the attributes of the input connected to the datepicker has changes.                                                  | `CustomEvent<InputUpdateEvent>`      |
+| `inputUpdated`      | Notifies that the attributes of the input connected to the datepicker have changes.                                                 | `CustomEvent<InputUpdateEvent>`      |
 | `validationChange`  | Emits whenever the internal validation state changes.                                                                               | `CustomEvent<ValidationChangeEvent>` |
 
 

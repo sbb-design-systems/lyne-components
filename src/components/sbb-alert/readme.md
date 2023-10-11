@@ -1,39 +1,46 @@
-The alert component should be used to display important messages to a client. 
-There are two sizes available and a `sbb-alert` can optionally be hidden by a user. 
-It's possible to place an action, which by clicking navigates somewhere to display more information.
+The `sbb-alert` is a component which should be used to display important messages to a client.
 
-**Note:** Clicking on the close button does not remove it from the DOM, this would be in responsibility
-of the library consumer to do it by reacting to the specific event. 
-See also the `sbb-alert-group` which automatically removes an alert after clicking the close button.
+Multiple instances of this component can be used within 
+the [sbb-alert-group](/docs/components-sbb-alert-sbb-alert-group--docs) component.
 
-## Accessibility
+## Slots
 
-The description text is wrapped into an `<p>` element to guarantee the semantic meaning. 
-Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and can have negative effects on screen readers.
-
-## Usage
-
-Default with link:
+The text content is projected using and unnamed slot, while the title uses the slot named `title` or alternatively the `titleContent` property. 
+The component can optionally display a `sbb-icon` at the component start using the `iconName` property or via custom content using the `icon` slot.
 
 ```html
-<sbb-alert title-content='Interruption between Berne and Olten' icon-name='disruption' href='https://www.sbb.ch'>
+<sbb-alert title-content='Interruption between Berne and Olten' icon-name='disruption'>
+  Between Bern and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock 
+  construction work will take place. 
+  You have to expect changed travel times and changed connections.
+</sbb-alert>
+
+<sbb-alert>
+  <span slot='title'>Interruption between Berne and Olten</span>
+  <sbb-icon slot='icon' name='disruption'></sbb-icon>
   Between Bern and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock 
   construction work will take place. 
   You have to expect changed travel times and changed connections.
 </sbb-alert>
 ```
 
-Without link:
+## Interactions
+
+It's possible to place an action, which by clicking navigates somewhere to display more information. 
+This can be done using the `linkContent` property combined with the `href` one. 
+The `target` and `rel` property are also configurable via the self-named properties.
 
 ```html
-<sbb-alert title-content='Interruption between Berne and Olten'>
-  Between Bern and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock 
-  construction work will take place. 
-  You have to expect changed travel times and changed connections.
+<sbb-alert title-content='Interruption' link-content='Show more' href='https://www.sbb.ch' target='_blank'>
+  ...
 </sbb-alert>
 ```
 
-Readonly (no close button):
+The `sbb-alert` can optionally be hidden by a user, if the `readonly` prop is not set. 
+Please note that clicking on the close button does not remove it from the DOM, this would be the responsibility 
+of the library consumer to do it by reacting to the specific event.
+See also the [sbb-alert-group](/docs/components-sbb-alert-sbb-alert-group--docs) 
+which automatically removes an alert after clicking the close button.
 
 ```html
 <sbb-alert title-content='Interruption between Berne and Olten' readonly>
@@ -43,15 +50,13 @@ Readonly (no close button):
 </sbb-alert>
 ```
 
-Slot variant:
+## Style
+
+Users can choose between two `size`, `m` (default) and `l`.
 
 ```html
-<sbb-alert href='https://www.sbb.ch'>
-  <span slot='title'>Interruption between Berne and Olten</span>
-  <sbb-icon slot='icon' name='disruption'></sbb-icon>
-  Between Bern and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock 
-  construction work will take place. 
-  You have to expect changed travel times and changed connections.
+<sbb-alert size='l'>
+  ...
 </sbb-alert>
 ```
 
@@ -59,6 +64,9 @@ Slot variant:
 
 Accessibility is mainly done by wrapping the alerts into the `sbb-alert-group`.
 
+The description text is wrapped into an `<p>` element to guarantee the semantic meaning. 
+
+Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and can have negative effects on screen readers.
 
 <!-- Auto Generated Below -->
 

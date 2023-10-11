@@ -1,18 +1,54 @@
-The `<sbb-link-list>` is a collection of sbb-links. It has an optional title which is visually
-shown as a level 5 `<sbb-title>`. The title is used as the aria-labelledby attribute of the ul
-element. The list can be oriented vertically or horizontally. The title will not be display in the
-horizontal orientation.
+The `sbb-link-list` is a component that can be used to collect and display more [sbb-link](/docs/components-sbb-link--docs)s. 
 
 ```html
-<sbb-link-list title-level="2" title-content="Help &amp; Contact" horizontal-from="medium">
+<sbb-link-list>
   <sbb-link href='https://www.sbb.ch/en/help-and-contact/refunds-compensation/ticket-refunds.html'>Refunds</sbb-link>
   <sbb-link href='https://www.sbb.ch/en/help-and-contact/lost-found-office/submit-loss-report.html'>Loss Report</sbb-link>
   ...
 </sbb-link-list>
 ```
-  
-**NOTE**: `<sbb-link-list>` will automatically set variant `block` on nested `<sbb-link>` instances
- and will sync the `textSize` and `negative` property.
+
+## Slots
+
+The component can display an optional title, 
+which is visually shown as a level-5 [sbb-title](/docs/components-sbb-title--docs) 
+and is used as the `aria-labelledby` attribute of the `ul` element.
+
+The title can be set using the `titleContent` property or, alternatively, can be projected using the `title` slot.
+
+```html
+<sbb-link-list title-content="Help &amp; Contact">
+  ...
+</sbb-link-list>
+```
+
+## Style
+
+The component will automatically set variant `block` on nested `sbb-link` instances, 
+and it will sync its `size` and `negative` property with the inner links.
+
+```html
+<sbb-link-list size='s' negative>
+  <sbb-link href='https://www.sbb.ch/en/help-and-contact/refunds-compensation/ticket-refunds.html'>Refunds</sbb-link>
+  <sbb-link href='https://www.sbb.ch/en/help-and-contact/lost-found-office/submit-loss-report.html'>Loss Report</sbb-link>
+  ...
+</sbb-link-list>
+```
+
+### Orientation
+
+The `orientation` property is used to set links' orientation; possible values are `horizontal` and `vertical` (default).
+The optional property `horizontalFrom` can be used in combination with `orientation='vertical'` 
+to indicate the minimum breakpoint from which the orientation changes to `horizontal`.
+The title will not be displayed in the horizontal orientation.
+
+```html
+<sbb-link-list horizontal-from="medium">
+  <sbb-link href='https://www.sbb.ch/en/help-and-contact/refunds-compensation/ticket-refunds.html'>Refunds</sbb-link>
+  <sbb-link href='https://www.sbb.ch/en/help-and-contact/lost-found-office/submit-loss-report.html'>Loss Report</sbb-link>
+  ...
+</sbb-link-list>
+```
 
 <!-- Auto Generated Below -->
 
