@@ -92,19 +92,11 @@ export class SbbCalendar extends LitElement {
   /** The current wide property considering property value and breakpoints. From zero to small `wide` has always to be false. */
   @state() private _wide: boolean;
 
-<<<<<<< HEAD
-  /** Minimum value converted to date. */
-  @State() private _min: Date;
-
-  /** Maximum value converted to date. */
-  @State() private _max: Date;
-=======
   /** Minimum value converted to date */
   @state() private _min: Date;
 
   /** Maximum value converted to date */
   @state() private _max: Date;
->>>>>>> c36c091c (refactor(sbb-calendar): migrate component)
 
   @state() private _calendarView: CalendarView = 'day';
 
