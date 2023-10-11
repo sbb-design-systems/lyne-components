@@ -5,6 +5,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 import './sbb-checkbox-group';
+import '../sbb-checkbox';
 import '../sbb-form-error';
 
 const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
