@@ -64,8 +64,8 @@ describe('sbb-toggle-check', () => {
 
     toggle.focus();
     await sendKeys({ press: ' ' });
-    await waitForLitRender(toggle);
     await nextFrame();
+    await waitForLitRender(toggle);
 
     expect(toggle).to.have.attribute('checked');
     expect(document.querySelector('#scroll-context').scrollTop).to.be.equal(0);
