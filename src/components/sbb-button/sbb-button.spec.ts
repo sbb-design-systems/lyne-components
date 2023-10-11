@@ -29,6 +29,7 @@ describe('sbb-button', () => {
         aria-disabled="true"
         name="name"
         value="value"
+        tabindex="-1"
         form="formid"
         role="button"
         dir="ltr"
@@ -53,7 +54,7 @@ describe('sbb-button', () => {
     );
 
     expect(root).dom.to.be.equal(`
-      <sbb-button size="l" variant="primary" role="button" tabindex="0" dir="ltr">
+      <sbb-button aria-disabled="false" size="l" variant="primary" role="button" tabindex="0" dir="ltr">
         <sbb-icon slot="icon" name="chevron-small-left-small" role="img" aria-hidden="true" data-namespace="default"></sbb-icon>
         Label Text
       </sbb-button>
@@ -82,6 +83,7 @@ describe('sbb-button', () => {
         href="https://www.sbb.ch"
         target="_blank"
         rel="noopener"
+        aria-disabled="false"
         download
         role="link"
         tabindex="0"
@@ -165,8 +167,7 @@ describe('sbb-button', () => {
     expect(root).to.have.attribute('data-icon-only');
   });
 
-  // TODO-Migr: enable this test after the FormField migration
-  it.skip('should render form field button variant when inside of a form field', async () => {
+  it('should render form field button variant when inside of a form field', async () => {
     const root = await fixture(
       html` <sbb-form-field>
         <input />
@@ -174,6 +175,6 @@ describe('sbb-button', () => {
       </sbb-form-field>`,
     );
 
-    expect(root).to.have.attribute('data-icon-small');
+    expect(root.querySelector('sbb-button')).to.have.attribute('data-icon-small');
   });
 });

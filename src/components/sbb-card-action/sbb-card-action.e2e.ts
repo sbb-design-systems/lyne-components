@@ -30,7 +30,7 @@ describe('sbb-card-action', () => {
     const cardAction = element.querySelector('sbb-card-action');
 
     expect(cardAction).dom.to.be.equal(`
-      <sbb-card-action href="https://github.com/lyne-design-system/lyne-components" target="_blank" role="link" dir="ltr" tabindex="0" slot="action">
+      <sbb-card-action aria-disabled="false" href="https://github.com/lyne-design-system/lyne-components" target="_blank" role="link" dir="ltr" tabindex="0" slot="action">
         Follow me
       </sbb-card-action>
     `);
@@ -56,7 +56,7 @@ describe('sbb-card-action', () => {
     const cardAction = element.querySelector('sbb-card-action');
 
     expect(cardAction).dom.to.be.equal(`
-      <sbb-card-action role="button" dir="ltr" tabindex="0" slot="action" active>
+      <sbb-card-action aria-disabled="false" role="button" dir="ltr" tabindex="0" slot="action" active>
         Click me
       </sbb-card-action>
     `);

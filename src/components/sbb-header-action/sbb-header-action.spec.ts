@@ -18,7 +18,7 @@ describe('sbb-header-action', () => {
 
     expect(root).dom.to.be.equal(
       `
-      <sbb-header-action icon-name='pie-small' expand-from="zero" name="test" type="reset" value="value" role="button" tabindex="0" data-expanded dir="ltr">
+      <sbb-header-action aria-disabled="false" icon-name='pie-small' expand-from="zero" name="test" type="reset" value="value" role="button" tabindex="0" data-expanded dir="ltr">
         Action
       </sbb-header-action>
     `,
@@ -65,6 +65,7 @@ describe('sbb-header-action', () => {
        href="https://github.com/lyne-design-system/lyne-components"
        role="link"
        tabindex="0"
+       aria-disabled="false"
        target="_blank"
        >
         Action

@@ -12,7 +12,7 @@ describe('sbb-menu-action', () => {
 
     expect(root).dom.to.be.equal(
       `
-        <sbb-menu-action form="formid" name="name" type="submit" role="button" tabindex="0" dir="ltr">
+        <sbb-menu-action aria-disabled="false" form="formid" name="name" type="submit" role="button" tabindex="0" dir="ltr">
           <span>Action</span>
         </sbb-menu-action>
       `,
@@ -47,7 +47,7 @@ describe('sbb-menu-action', () => {
 
     expect(root).dom.to.be.equal(
       `
-        <sbb-menu-action amount="123456" icon-name="menu-small" href="https://github.com/lyne-design-system/lyne-components" target="_blank" role="link" tabindex="0" dir="ltr">
+        <sbb-menu-action aria-disabled="false" amount="123456" icon-name="menu-small" href="https://github.com/lyne-design-system/lyne-components" target="_blank" role="link" tabindex="0" dir="ltr">
           <span>Action</span>
         </sbb-menu-action>
       `,

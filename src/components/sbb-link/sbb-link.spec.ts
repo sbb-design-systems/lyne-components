@@ -21,6 +21,7 @@ describe('sbb-link', () => {
         href="https://github.com/lyne-design-system/lyne-components"
         size="m"
         download
+        aria-disabled="false"
         aria-label="Travelcards &amp; tickets"
         role="link"
         tabindex="0"
@@ -71,6 +72,7 @@ describe('sbb-link', () => {
         form="formid"
         disabled
         aria-disabled="true"
+        tabindex="-1"
         dir="ltr"
       >
         
@@ -148,6 +150,7 @@ describe('sbb-link', () => {
 
     expect(root).dom.to.be.equal(`
       <sbb-link
+        aria-disabled="false"
         size="m"
         variant="inline"
         href="#link"

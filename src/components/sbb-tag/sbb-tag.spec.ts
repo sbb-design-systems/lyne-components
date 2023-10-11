@@ -10,7 +10,7 @@ describe('sbb-tag', () => {
 
     expect(root).dom.to.be.equal(
       `
-        <sbb-tag aria-label="Check to remove filters" aria-pressed="false" role="button" tabindex="0" value="all" dir="ltr">
+        <sbb-tag aria-disabled="false" aria-label="Check to remove filters" aria-pressed="false" role="button" tabindex="0" value="all" dir="ltr">
           All
         </sbb-tag>
       `,
@@ -31,7 +31,7 @@ describe('sbb-tag', () => {
 
     expect(root).dom.to.be.equal(
       `
-      <sbb-tag aria-pressed="true" checked role="button" tabindex="0" value="info" dir="ltr">
+      <sbb-tag aria-disabled="false" aria-pressed="true" checked role="button" tabindex="0" value="info" dir="ltr">
         Info
       </sbb-tag>
     `,
@@ -61,7 +61,7 @@ describe('sbb-tag', () => {
 
     expect(root).dom.to.be.equal(
       `
-        <sbb-tag amount="123" aria-disabled="true" aria-pressed="false" disabled icon-name="circle-information-small" role="button" value="information" dir="ltr">
+        <sbb-tag tabindex="-1" amount="123" aria-disabled="true" aria-pressed="false" disabled icon-name="circle-information-small" role="button" value="information" dir="ltr">
           Info
         </sbb-tag>
       `,
@@ -98,7 +98,7 @@ describe('sbb-tag', () => {
 
     expect(root).dom.to.be.equal(
       `
-        <sbb-tag value="foo" aria-pressed="false" role="button" tabindex="0" dir="ltr">
+        <sbb-tag aria-disabled="false" value="foo" aria-pressed="false" role="button" tabindex="0" dir="ltr">
           <sbb-icon slot="icon" name="cross-small"></sbb-icon>
           Info
           <span slot="amount">123</span>
