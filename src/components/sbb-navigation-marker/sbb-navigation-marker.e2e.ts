@@ -1,52 +1,55 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { SbbNavigationMarker } from './sbb-navigation-marker';
+import '../sbb-navigation-marker';
+import '../sbb-navigation-action';
+import { waitForLitRender } from '../../global/testing';
 
 describe('sbb-navigation-marker', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbNavigationMarker;
 
   beforeEach(async () => {
-    page = await newE2EPage();
-    await page.setContent(
-      `<sbb-navigation-marker size="l">
+    element = await fixture(
+      html`<sbb-navigation-marker size="l">
         <sbb-navigation-action id="nav-1" size="s">Tickets & Offers</sbb-navigation-action>
         <sbb-navigation-action id="nav-2">Vacations & Recreation</sbb-navigation-action>
         <sbb-navigation-action id="nav-3">Travel information</sbb-navigation-action>
         <sbb-navigation-action id="nav-4">Help & Contact</sbb-navigation-action>
       </sbb-navigation-marker>`,
     );
-
-    element = await page.find('sbb-navigation-marker');
   });
 
   it('renders', async () => {
-    expect(element).toHaveClass('hydrated');
+    assert.instanceOf(element, SbbNavigationMarker);
   });
 
   it('selects action on click', async () => {
-    const firstAction = await page.find('sbb-navigation-marker > sbb-navigation-action#nav-1');
-    const secondAction = await page.find('sbb-navigation-marker > sbb-navigation-action#nav-2');
+    const firstAction = element.querySelector('sbb-navigation-action#nav-1') as HTMLElement;
+    const secondAction = element.querySelector('sbb-navigation-action#nav-2') as HTMLElement;
 
-    await secondAction.click();
+    secondAction.click();
+    await waitForLitRender(element);
 
-    expect(secondAction).toHaveAttribute('active');
-    expect(firstAction).not.toHaveAttribute('active');
+    expect(secondAction).to.have.attribute('active');
+    expect(firstAction).not.to.have.attribute('active');
 
-    await firstAction.click();
+    firstAction.click();
+    await waitForLitRender(element);
 
-    expect(firstAction).toHaveAttribute('active');
-    expect(secondAction).not.toHaveAttribute('active');
+    expect(firstAction).to.have.attribute('active');
+    expect(secondAction).not.to.have.attribute('active');
   });
 
-  it('automatic list generation', async () => {
-    const list = await page.find('sbb-navigation-marker >>> ul');
-    expect(list.className).toBe('sbb-navigation-marker');
+  it('automatic list generation', () => {
+    const list = element.shadowRoot.querySelector('ul');
+    expect(list.className).to.be.equal('sbb-navigation-marker');
 
-    const listItem = await list.find('li');
-
-    expect(listItem).toHaveClass('sbb-navigation-marker__action');
+    const listItem = list.querySelector('li');
+    expect(listItem).to.have.class('sbb-navigation-marker__action');
   });
 
-  it('force size on children elements', async () => {
-    const firstAction = await page.find('sbb-navigation-marker > sbb-navigation-action#nav-1');
-    expect(firstAction).toEqualAttribute('size', 'l');
+  it('force size on children elements', () => {
+    const firstAction = element.querySelector('sbb-navigation-action#nav-1');
+    expect(firstAction).to.have.attribute('size', 'l');
   });
 });

@@ -1,4 +1,4 @@
-import { assert, expect, fixture, nextFrame } from '@open-wc/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../global/testing';
@@ -64,9 +64,8 @@ describe('sbb-toggle-check', () => {
 
     toggle.focus();
     await sendKeys({ press: ' ' });
-    await waitForLitRender(toggle);
-    await nextFrame();
 
+    await waitForCondition(() => toggle.hasAttribute('checked'));
     expect(toggle).to.have.attribute('checked');
     expect(document.querySelector('#scroll-context').scrollTop).to.be.equal(0);
   });
