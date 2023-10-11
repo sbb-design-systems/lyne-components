@@ -76,7 +76,7 @@ describe('sbb-checkbox', () => {
       expect(root).shadowDom.to.be.equal(`
         <span class="sbb-checkbox-wrapper">
           <label class="sbb-checkbox">
-            <input aria-hidden="true" tabindex="-1" type="checkbox"/>
+            <input aria-hidden="true" tabindex="-1" type="checkbox" checked=''/>
             <span class="sbb-checkbox__inner">
               <span class="sbb-checkbox__aligner">
                 <sbb-visual-checkbox checked=""></sbb-visual-checkbox>

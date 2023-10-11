@@ -5,9 +5,6 @@ import { EventSpy, waitForLitRender } from '../../global/testing';
 import { SbbCheckbox } from './sbb-checkbox';
 
 describe('sbb-checkbox', () => {
-  /** NOTE: These are too hard to migrate and are prone to errors :/
-   * consider that the E2EPage is now the 'document' (you should just delete it)
-   * and that the E2EElement equivalent is directly the SbbComponent (e.g. SbbTimeInput) */
   let element: SbbCheckbox;
 
   beforeEach(async () => {
@@ -36,8 +33,6 @@ describe('sbb-checkbox', () => {
     it('emit event on keypress', async () => {
       await waitForLitRender(element);
       const changeSpy = new EventSpy('change');
-      element.focus();
-      await sendKeys({ press: 'Tab' });
       element.focus();
       await sendKeys({ press: 'Space' });
       await waitForLitRender(element);

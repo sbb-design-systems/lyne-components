@@ -74,7 +74,6 @@ export class SbbCheckboxGroup extends LitElement {
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
-    // TODO: Verify parity
     if (changedProperties.has('disabled')) {
       this._updateDisabled();
     }
@@ -133,11 +132,11 @@ export class SbbCheckboxGroup extends LitElement {
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-checkbox-group">
-        <slot @slotchange=${() => this._updateCheckboxes()} />
+        <slot @slotchange=${() => this._updateCheckboxes()}></slot>
       </div>
       ${this._namedSlots.error
         ? html`<div class="sbb-checkbox-group__error">
-            <slot name="error" />
+            <slot name="error"></slot>
           </div>`
         : nothing}
     `;
