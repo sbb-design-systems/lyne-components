@@ -1,73 +1,76 @@
-import { Component, ComponentInterface, Element, h, Host, JSX, Prop, State } from '@stencil/core';
 import {
-  LinkProperties,
   LinkTargetType,
   resolveLinkOrStaticRenderVariables,
   targetsNewWindow,
 } from '../../global/interfaces';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import {
+  actionElementHandlerAspect,
   createNamedSlotState,
   documentLanguage,
   HandlerRepository,
-  actionElementHandlerAspect,
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
 } from '../../global/eventing';
+import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
+import { html, unsafeStatic } from 'lit/static-html.js';
+import { customElement, property, state } from 'lit/decorators.js';
+import { setAttributes } from '../../global/dom';
+import Style from './sbb-breadcrumb.scss?lit&inline';
+import { spread } from '@open-wc/lit-helpers';
+import '../sbb-icon';
 
 /**
  * @slot unnamed - Use this to slot the breadcrumb's text.
  * @slot icon - Use this to display an icon as breadcrumb.
  */
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-breadcrumb.scss',
-  tag: 'sbb-breadcrumb',
-})
-export class SbbBreadcrumb implements ComponentInterface, LinkProperties {
+@customElement('sbb-breadcrumb')
+export class SbbBreadcrumb extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /** The href value you want to link to. */
-  @Prop() public href: string | undefined;
+  @property() public href: string | undefined;
 
   /** Where to display the linked URL. */
-  @Prop() public target?: LinkTargetType | string | undefined;
+  @property() public target?: LinkTargetType | string | undefined;
 
   /** The relationship of the linked URL as space-separated link types. */
-  @Prop() public rel?: string | undefined;
+  @property() public rel?: string | undefined;
 
   /** Whether the browser will show the download dialog on click. */
-  @Prop() public download?: boolean;
+  @property({ type: Boolean }) public download?: boolean;
 
   /**
    * The icon name we want to use, choose from the small icon variants
    * from the ui-icons category from here
    * https://icons.app.sbb.ch.
    */
-  @Prop() public iconName?: string;
+  @property({ attribute: 'icon-name' }) public iconName?: string;
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @State() private _namedSlots = createNamedSlotState('icon');
+  @state() private _namedSlots = createNamedSlotState('icon');
 
-  @State() private _currentLanguage = documentLanguage();
+  @state() private _currentLanguage = documentLanguage();
 
-  @State() private _hasText = false;
-
-  @Element() private _element!: HTMLElement;
+  @state() private _hasText = false;
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     actionElementHandlerAspect,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
-  public connectedCallback(): void {
-    this._hasText = Array.from(this._element.childNodes).some(
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this._hasText = Array.from(this.childNodes).some(
       (n) => !(n as Element).slot && n.textContent?.trim(),
     );
     this._handlerRepository.connect();
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
   }
 
@@ -77,38 +80,59 @@ export class SbbBreadcrumb implements ComponentInterface, LinkProperties {
       .some((n) => !!n.textContent?.trim());
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const {
       tagName: TAG_NAME,
       attributes,
       hostAttributes,
     } = resolveLinkOrStaticRenderVariables(this);
 
-    return (
-      <Host {...hostAttributes}>
-        <TAG_NAME class="sbb-breadcrumb" {...attributes}>
-          {(this.iconName || this._namedSlots.icon) && (
-            <span class="sbb-breadcrumb__icon">
-              <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
-            </span>
-          )}
-          {this._hasText && (
-            <span class="sbb-breadcrumb__label">
-              <slot onSlotchange={(event): void => this._onLabelSlotChange(event)} />
-              {targetsNewWindow(this) && (
-                <span class="sbb-breadcrumb__label--opens-in-new-window">
-                  . {i18nTargetOpensInNewWindow[this._currentLanguage]}
-                </span>
-              )}
-            </span>
-          )}
-          {!this._hasText && (
-            <span hidden>
-              <slot onSlotchange={(event): void => this._onLabelSlotChange(event)}></slot>
-            </span>
-          )}
-        </TAG_NAME>
-      </Host>
-    );
+    setAttributes(this, hostAttributes);
+
+    /* eslint-disable lit/binding-positions */
+    return html`
+      <${unsafeStatic(TAG_NAME)} class='sbb-breadcrumb' ${spread(attributes)}>
+        ${
+          this.iconName || this._namedSlots.icon
+            ? html` <span class="sbb-breadcrumb__icon">
+                <slot name="icon">
+                  ${this.iconName ? html` <sbb-icon name="${this.iconName}"></sbb-icon>` : nothing}
+                </slot>
+              </span>`
+            : nothing
+        }
+        ${
+          this._hasText
+            ? html` <span class="sbb-breadcrumb__label">
+                <slot
+                  @slotchange="${(event: Event): void => this._onLabelSlotChange(event)}"
+                ></slot>
+                ${targetsNewWindow(this)
+                  ? html` <span class="sbb-breadcrumb__label--opens-in-new-window">
+                      . ${i18nTargetOpensInNewWindow[this._currentLanguage]}
+                    </span>`
+                  : nothing}
+              </span>`
+            : nothing
+        }
+        ${
+          !this._hasText
+            ? html` <span hidden>
+                <slot
+                  @slotchange="${(event: Event): void => this._onLabelSlotChange(event)}"
+                ></slot>
+              </span>`
+            : nothing
+        }
+      </${unsafeStatic(TAG_NAME)}>
+    `;
+    /* eslint-disable lit/binding-positions */
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-breadcrumb': SbbBreadcrumb;
   }
 }
