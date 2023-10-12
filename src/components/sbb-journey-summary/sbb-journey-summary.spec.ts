@@ -53,14 +53,9 @@ describe('sbb-journey-summary', () => {
             </div>
             <div class="sbb-journey-summary__date">
               <span>
-                <span>
-                  Mon.
-                </span>
-                <span>
-                  <time datetime="29 8">
-                    29.08.2022
-                  </time>
-                </span>
+                <time datetime="29 8">
+                  Mo. 29.08.2022
+                </time>
               </span>
               <time>
                 <span class="sbb-screenreaderonly">
@@ -93,14 +88,9 @@ describe('sbb-journey-summary', () => {
           <div>
             <div class="sbb-journey-summary__date">
               <span>
-                <span>
-                  Mon.
-                </span>
-                <span>
-                  <time datetime="29 8">
-                    29.08.2022
-                  </time>
-                </span>
+                <time datetime="29 8">
+                  Mo. 29.08.2022
+                </time>
               </span>
               <time>
                 <span class="sbb-screenreaderonly">
@@ -135,14 +125,9 @@ describe('sbb-journey-summary', () => {
           <div>
             <div class="sbb-journey-summary__date">
               <span>
-                <span>
-                  Mon.
-                </span>
-                <span>
-                  <time datetime="29 8">
-                    29.08.2022
-                  </time>
-                </span>
+                <time datetime="29 8">
+                  Mo. 29.08.2022
+                </time>
               </span>
               <time>
                 <span class="sbb-screenreaderonly">
@@ -169,14 +154,9 @@ describe('sbb-journey-summary', () => {
               </div>
               <div class="sbb-journey-summary__date">
                 <span>
-                  <span>
-                    Mon.
-                  </span>
-                  <span>
-                    <time datetime="29 8">
-                      29.08.2022
-                    </time>
-                  </span>
+                  <time datetime="29 8">
+                    Mo. 29.08.2022
+                  </time>
                 </span>
                 <time>
                   <span class="sbb-screenreaderonly">
