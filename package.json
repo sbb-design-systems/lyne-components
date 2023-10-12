@@ -36,7 +36,7 @@
     "docs": "npm-run-all --sequential docs:manifest",
     "docs:manifest": "custom-elements-manifest analyze",
     "format": "prettier \"**/*\" --write --ignore-unknown",
-    "integrity": "yarn -S format",
+    "integrity": "yarn format",
     "lint": "npm-run-all --sequential lint:*",
     "lint:ts": "eslint \"**/*.{ts,tsx}\"",
     "lint:js": "eslint \"**/*.js\"",
