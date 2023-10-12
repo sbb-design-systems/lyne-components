@@ -3,7 +3,7 @@ import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import './sbb-expansion-panel-content';
-// import '../sbb-card';
+import '../sbb-card';
 
 const Template = (): JSX.Element => (
   <sbb-card color="milk">

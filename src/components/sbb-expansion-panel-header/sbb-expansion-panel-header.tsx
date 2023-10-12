@@ -78,7 +78,6 @@ export class SbbExpansionPanelHeader extends LitElement {
     const { hostAttributes } = resolveButtonRenderVariables(this);
 
     setAttributes(this, hostAttributes);
-    setAttribute(this, 'aria-disabled', hostAttributes['aria-disabled']);
     setAttribute(this, 'slot', 'header');
     setAttribute(this, 'data-icon', !!(this.iconName || this._namedSlots.icon));
 
@@ -99,7 +98,8 @@ export class SbbExpansionPanelHeader extends LitElement {
               <sbb-icon
                 name="chevron-small-down-medium"
                 class="sbb-expansion-panel-header__toggle-icon"
-              />
+              >
+              </sbb-icon>
             </span>`
           : nothing}
       </span>

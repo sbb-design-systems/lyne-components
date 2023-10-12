@@ -7,6 +7,7 @@ import { EventEmitter, ConnectedAbortController } from '../../global/eventing';
 import { SbbExpansionPanelHeader } from '../sbb-expansion-panel-header';
 import { SbbExpansionPanelContent } from '../sbb-expansion-panel-content';
 import { TitleLevel } from '../sbb-title';
+import { SbbOverlayState } from '../../global/overlay';
 import Style from './sbb-expansion-panel.scss?lit&inline';
 
 let nextId = 0;
@@ -78,6 +79,7 @@ export class SbbExpansionPanel extends LitElement {
   private _didClose: EventEmitter<void> = new EventEmitter(this, events.didClose);
 
   private _abort = new ConnectedAbortController(this);
+  private _state: SbbOverlayState = 'closed';
 
   private _toggleExpanded(): void {
     this.expanded = !this.expanded;
@@ -89,12 +91,14 @@ export class SbbExpansionPanel extends LitElement {
 
     if (this.expanded) {
       this._willOpen.emit();
+      this._state = 'opening';
       // As with 0s duration, transitionEnd will not be fired, we need to programmatically trigger didOpen event
       if (this.disableAnimation) {
         this._onOpened();
       }
-    } else {
+    } else if (this._state === 'opened') {
       this._willClose.emit();
+      this._state = 'closing';
       // As with 0s duration, transitionEnd will not be fired, we need to programmatically trigger didClose event
       if (this.disableAnimation) {
         this._onClosed();
@@ -110,6 +114,7 @@ export class SbbExpansionPanel extends LitElement {
   private _progressiveId = `-${++nextId}`;
   private _headerRef: SbbExpansionPanelHeader;
   private _contentRef: SbbExpansionPanelContent;
+  private _contentWrapperRef: HTMLElement;
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -127,10 +132,12 @@ export class SbbExpansionPanel extends LitElement {
 
   private _onOpened(): void {
     this._didOpen.emit();
+    this._state = 'opened';
   }
 
   private _onClosed(): void {
     this._didClose.emit();
+    this._state = 'closed';
   }
 
   private _onHeaderSlotChange(event): void {
@@ -156,7 +163,7 @@ export class SbbExpansionPanel extends LitElement {
     this._linkHeaderAndContent();
   }
 
-  private _onContentSlotChange(event): void {
+  private _onContentSlotChange(event: Event): void {
     const elements = (event.target as HTMLSlotElement).assignedElements();
 
     if (!elements.length) {
@@ -169,15 +176,23 @@ export class SbbExpansionPanel extends LitElement {
       .assignedElements()
       .find((e): e is SbbExpansionPanelContent => e.tagName === 'SBB-EXPANSION-PANEL-CONTENT');
 
-    if (!this._contentRef) {
+    this._contentWrapperRef = this.shadowRoot.querySelector(
+      '.sbb-expansion-panel__content-wrapper',
+    );
+
+    if (!this._contentRef || !this._contentWrapperRef) {
       return;
     }
 
     this._transitionEventController = new AbortController();
     this._contentRef.setAttribute('aria-hidden', String(!this.expanded));
-    this._contentRef.addEventListener('transitionend', (event) => this._onTransitionEnd(event), {
-      signal: this._transitionEventController.signal,
-    });
+    this._contentWrapperRef.addEventListener(
+      'transitionend',
+      (event) => this._onTransitionEnd(event),
+      {
+        signal: this._transitionEventController.signal,
+      },
+    );
     this._linkHeaderAndContent();
   }
 
@@ -204,7 +219,7 @@ export class SbbExpansionPanel extends LitElement {
     toggleDatasetEntry(this._contentRef, 'iconSpace', this._headerRef.hasAttribute('data-icon'));
   }
 
-  private _onTransitionEnd(event): void {
+  private _onTransitionEnd(event: TransitionEvent): void {
     // All transitions have the same timing and opacity is defined last, be sure that they have all been performed.
     if (event.propertyName !== 'opacity') {
       return;
@@ -224,11 +239,13 @@ export class SbbExpansionPanel extends LitElement {
     return html`
       <div class="sbb-expansion-panel">
         <${unsafeStatic(TAGNAME)} class="sbb-expansion-panel__header">
-          <slot name="header" @slotchange=${(event) => this._onHeaderSlotChange(event)}></slot>
+          <slot name="header" @slotchange=${(event: Event) =>
+            this._onHeaderSlotChange(event)}></slot>
         </${unsafeStatic(TAGNAME)}>
-        <div class="sbb-expansion-panel__content-wrapper">
+        <div class="sbb-expansion-panel__content-wrapper" >
           <span class="sbb-expansion-panel__content">
-            <slot name="content" @slotchange=${(event) => this._onContentSlotChange(event)}></slot>
+            <slot name="content" @slotchange=${(event: Event) =>
+              this._onContentSlotChange(event)}></slot>
           </span>
         </div>
       </div>
