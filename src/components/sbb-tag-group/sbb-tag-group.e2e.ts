@@ -10,6 +10,7 @@ describe('sbb-tag-group', () => {
       <sbb-tag-group>
         <sbb-tag value="tag-1">First tag</sbb-tag>
         <sbb-tag value="tag-2">Second tag</sbb-tag>
+        <div></div>
         <sbb-tag value="tag-3">Third tag</sbb-tag>
       </sbb-tag-group>
     `);
@@ -28,6 +29,9 @@ describe('sbb-tag-group', () => {
               <li class="sbb-tag-group__list-item">
                 <slot name="tag-2"></slot>
               </li>
+              <li class="sbb-tag-group__list-item">
+                <slot name="tag-3"></slot>
+              </li>
             </ul>
             <span hidden="">
               <slot></slot>
@@ -40,7 +44,8 @@ describe('sbb-tag-group', () => {
         <sbb-tag aria-pressed="false" class="hydrated" dir="ltr" role="button" tabindex="0" slot="tag-1" value="tag-2">
           Second tag
         </sbb-tag>
-        <sbb-tag aria-pressed="false" class="hydrated" dir="ltr" role="button" tabindex="0" slot="tag-2" value="tag-3">
+        <div slot="tag-2"></div>
+        <sbb-tag aria-pressed="false" class="hydrated" dir="ltr" role="button" tabindex="0" slot="tag-3" value="tag-3">
           Third tag
         </sbb-tag>
       </sbb-tag-group>
