@@ -1,9 +1,9 @@
-import { Component, ComponentInterface, Element, h, Host, JSX, Listen, State } from '@stencil/core';
 import { i18nBreadcrumbEllipsisButtonLabel } from '../../global/i18n';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
+  ConnectedAbortController,
 } from '../../global/eventing';
 import {
   getNextElementIndex,
@@ -11,30 +11,32 @@ import {
   sbbInputModalityDetector,
 } from '../../global/a11y';
 import { AgnosticResizeObserver } from '../../global/observers';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, state } from 'lit/decorators.js';
+import { SbbBreadcrumb } from '../sbb-breadcrumb';
+import { setAttribute } from '../../global/dom';
+import Style from './sbb-breadcrumb-group.scss?lit&inline';
+import { InterfaceSbbBreadcrumbGroupAttributes } from './sbb-breadcrumb-group.custom';
 
 /**
  * @slot unnamed - Use this to slot the sbb-breadcrumb elements.
  */
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-breadcrumb-group.scss',
-  tag: 'sbb-breadcrumb-group',
-})
-export class SbbBreadcrumbGroup implements ComponentInterface {
+@customElement('sbb-breadcrumb-group')
+export class SbbBreadcrumbGroup extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /** Local instance of slotted sbb-breadcrumb elements */
-  @State() private _breadcrumbs: HTMLSbbBreadcrumbElement[];
+  @state() private _breadcrumbs: SbbBreadcrumb[];
 
-  @State() private _state?: 'collapsed' | 'manually-expanded';
+  @state() private _state?: InterfaceSbbBreadcrumbGroupAttributes['state'];
 
-  @State() private _loaded = false;
+  @state() private _loaded = false;
 
   /** Current document language used for translation of the button label. */
-  @State() private _currentLanguage = documentLanguage();
-
-  @Element() private _element!: HTMLElement;
+  @state() private _currentLanguage = documentLanguage();
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
@@ -42,13 +44,11 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
 
   private _markForFocus = false;
 
-  @Listen('keydown')
-  public handleKeyDown(evt: KeyboardEvent): void {
+  private _handleKeyDown(evt: KeyboardEvent): void {
     if (
       !this._breadcrumbs ||
       // don't trap nested handling
-      ((evt.target as HTMLElement) !== this._element &&
-        (evt.target as HTMLElement).parentElement !== this._element)
+      ((evt.target as HTMLElement) !== this && (evt.target as HTMLElement).parentElement !== this)
     ) {
       return;
     }
@@ -60,18 +60,22 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
       this._focusNext(evt);
     }
   }
+  private _abort = new ConnectedAbortController(this);
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    const signal = this._abort.signal;
+    this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
     this._readBreadcrumb();
     this._handlerRepository.connect();
   }
 
-  public componentDidLoad(): void {
-    this._resizeObserver.observe(this._element);
+  protected override firstUpdated(): void {
+    this._resizeObserver.observe(this);
     this._loaded = true;
   }
 
-  public componentDidRender(): void {
+  protected override updated(): void {
     if (this._markForFocus && sbbInputModalityDetector.mostRecentModality === 'keyboard') {
       this._breadcrumbs[1]?.focus();
 
@@ -80,7 +84,8 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     }
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._resizeObserver.disconnect();
     this._handlerRepository.disconnect();
   }
@@ -89,11 +94,11 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
   private _readBreadcrumb(): void {
     this._evaluateCollapsedState();
 
-    const breadcrumbs = Array.from(this._element.children).filter(
-      (e): e is HTMLSbbBreadcrumbElement => e.tagName === 'SBB-BREADCRUMB',
+    const breadcrumbs = Array.from(this.children).filter(
+      (e): e is SbbBreadcrumb => e.tagName === 'SBB-BREADCRUMB',
     );
     // If the slotted sbb-breadcrumb instances have not changed,
-    // we can skip syncing and updating the breadcrumbs reference list.
+    // we can skip syncing and updating the breadcrumb reference list.
     if (
       this._breadcrumbs &&
       breadcrumbs.length === this._breadcrumbs.length &&
@@ -125,22 +130,17 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
    * Sets the focus on the correct element when the ellipsis breadcrumb is displayed and the user is navigating with keyboard's arrows.
    */
   private _focusNextCollapsed(evt: KeyboardEvent): void {
-    const arrayCollapsed: HTMLSbbBreadcrumbElement[] = [
+    const arrayCollapsed: SbbBreadcrumb[] = [
       this._breadcrumbs[0],
-      this._element.shadowRoot.querySelector(
-        '#sbb-breadcrumb-ellipsis',
-      ) as HTMLSbbBreadcrumbElement,
+      this.shadowRoot.querySelector('#sbb-breadcrumb-ellipsis') as SbbBreadcrumb,
       this._breadcrumbs[this._breadcrumbs.length - 1],
     ];
     this._focusNext(evt, arrayCollapsed);
   }
 
-  private _focusNext(
-    evt: KeyboardEvent,
-    breadcrumbs: HTMLSbbBreadcrumbElement[] = this._breadcrumbs,
-  ): void {
+  private _focusNext(evt: KeyboardEvent, breadcrumbs: SbbBreadcrumb[] = this._breadcrumbs): void {
     const current: number = breadcrumbs.findIndex(
-      (e) => e === document.activeElement || e === this._element.shadowRoot.activeElement,
+      (e) => e === document.activeElement || e === this.shadowRoot.activeElement,
     );
     const nextIndex: number = getNextElementIndex(evt, current, breadcrumbs.length);
     breadcrumbs[nextIndex]?.focus();
@@ -158,13 +158,13 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
 
   /** Evaluate if the expanded breadcrumb element fits in page width, otherwise it needs ellipsis */
   private _evaluateCollapsedState(): void {
-    if (this._element && !this._state && this._element.scrollWidth > this._element.offsetWidth) {
+    if (this && !this._state && this.scrollWidth > this.offsetWidth) {
       this._state = 'collapsed';
       this._resizeObserver.disconnect();
     }
   }
 
-  private _renderCollapsed(): JSX.Element {
+  private _renderCollapsed(): TemplateResult[] {
     for (let i = 0; i < this._breadcrumbs.length; i++) {
       if (i === 0 || i === this._breadcrumbs.length - 1) {
         this._breadcrumbs[i].setAttribute('slot', `breadcrumb-${i}`);
@@ -172,77 +172,84 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
         this._breadcrumbs[i].removeAttribute('slot');
       }
     }
-    const idFirstElement = this._breadcrumbs[0].id ?? `sbb-breadcrumb-0`;
-    const idLastElement =
-      this._breadcrumbs[this._breadcrumbs.length - 1].id ??
-      `sbb-breadcrumb-${this._breadcrumbs.length - 1}`;
 
     return [
-      <li class="sbb-breadcrumb-group__item">
-        <slot
-          name="breadcrumb-0"
-          key={idFirstElement}
-          onSlotchange={(): void => this._readBreadcrumb()}
-        />
-      </li>,
-      <li class="sbb-breadcrumb-group__item" id="sbb-breadcrumb-group-ellipsis">
-        <sbb-icon
-          name="chevron-small-right-small"
-          class="sbb-breadcrumb-group__divider-icon"
-        ></sbb-icon>
-        <button
-          type="button"
-          id="sbb-breadcrumb-ellipsis"
-          aria-label={i18nBreadcrumbEllipsisButtonLabel[this._currentLanguage]}
-          aria-expanded="false"
-          onClick={() => this._expandBreadcrumbs()}
-        >
-          ...
-        </button>
-      </li>,
-      <li class="sbb-breadcrumb-group__item">
-        <sbb-icon
-          name="chevron-small-right-small"
-          class="sbb-breadcrumb-group__divider-icon"
-        ></sbb-icon>
-        <slot
-          name={`breadcrumb-${this._breadcrumbs.length - 1}`}
-          key={idLastElement}
-          onSlotchange={(): void => this._readBreadcrumb()}
-        />
-      </li>,
+      html`
+        <li class="sbb-breadcrumb-group__item">
+          <slot name="breadcrumb-0" @slotchange=${(): void => this._readBreadcrumb()}></slot>
+        </li>
+      `,
+      html`
+        <li class="sbb-breadcrumb-group__item" id="sbb-breadcrumb-group-ellipsis">
+          <sbb-icon
+            name="chevron-small-right-small"
+            class="sbb-breadcrumb-group__divider-icon"
+          ></sbb-icon>
+          <button
+            type="button"
+            id="sbb-breadcrumb-ellipsis"
+            aria-label=${i18nBreadcrumbEllipsisButtonLabel[this._currentLanguage]}
+            aria-expanded="false"
+            @click=${() => this._expandBreadcrumbs()}
+          >
+            ...
+          </button>
+        </li>
+      `,
+      html`
+        <li class="sbb-breadcrumb-group__item">
+          <sbb-icon
+            name="chevron-small-right-small"
+            class="sbb-breadcrumb-group__divider-icon"
+          ></sbb-icon>
+          <slot
+            name=${`breadcrumb-${this._breadcrumbs.length - 1}`}
+            @slotchange=${(): void => this._readBreadcrumb()}
+          ></slot>
+        </li>
+      `,
     ];
   }
 
-  private _renderExpanded(): JSX.Element {
+  private _renderExpanded(): TemplateResult[] {
     const slotName = (index: number): string => `breadcrumb-${index}`;
 
-    return this._breadcrumbs.map((element: HTMLSbbBreadcrumbElement, index: number) => {
+    return this._breadcrumbs.map((element: SbbBreadcrumb, index: number) => {
       element.setAttribute('slot', slotName(index));
-      return (
-        <li class="sbb-breadcrumb-group__item" key={element.id}>
-          <slot name={slotName(index)} onSlotchange={(): void => this._readBreadcrumb()} />
-          {index !== this._breadcrumbs.length - 1 && (
-            <sbb-icon
-              name="chevron-small-right-small"
-              class="sbb-breadcrumb-group__divider-icon"
-            ></sbb-icon>
-          )}
+
+      return html`
+        <li class="sbb-breadcrumb-group__item">
+          <slot name="${slotName(index)}" @slotchange=${(): void => this._readBreadcrumb()}></slot>
+          ${index !== this._breadcrumbs.length - 1
+            ? html`<sbb-icon
+                name="chevron-small-right-small"
+                class="sbb-breadcrumb-group__divider-icon"
+              ></sbb-icon>`
+            : nothing}
         </li>
-      );
+      `;
     });
   }
 
-  public render(): JSX.Element {
-    return (
-      <Host role="navigation" data-loaded={this._loaded} data-state={this._state}>
-        <ol class="sbb-breadcrumb-group">
-          {this._state === 'collapsed' ? this._renderCollapsed() : this._renderExpanded()}
-        </ol>
-        <span hidden>
-          <slot onSlotchange={(): void => this._readBreadcrumb()} />
-        </span>
-      </Host>
-    );
+  protected override render(): TemplateResult {
+    setAttribute(this, 'role', 'navigation');
+    setAttribute(this, 'data-loaded', this._loaded);
+    setAttribute(this, 'data-state', this._state);
+
+    return html`
+      <ol class="sbb-breadcrumb-group">
+        ${this._state === 'collapsed' ? this._renderCollapsed() : this._renderExpanded()}
+      </ol>
+      <span hidden>
+        <slot @slotchange=${(): void => this._readBreadcrumb()}></slot>
+      </span>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-breadcrumb-group': SbbBreadcrumbGroup;
   }
 }
