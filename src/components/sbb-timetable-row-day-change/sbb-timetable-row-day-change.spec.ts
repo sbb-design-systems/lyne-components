@@ -7,7 +7,9 @@ const config = JSON.stringify(sampleData[1]);
 
 describe('sbb-timetable-row-day-change', () => {
   it('renders', async () => {
-    const root = await fixture(html`<sbb-timetable-row-day-change config="${config}"></sbb-timetable-row-day-change>`);
+    const root = await fixture(
+      html`<sbb-timetable-row-day-change config="${config}"></sbb-timetable-row-day-change>`,
+    );
 
     expect(root).dom.to.be.equal(
       `

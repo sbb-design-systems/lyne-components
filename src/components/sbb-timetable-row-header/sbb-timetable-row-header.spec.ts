@@ -8,7 +8,10 @@ const config = JSON.stringify(sampleData[0]);
 describe('sbb-timetable-row-header', () => {
   it('renders', async () => {
     const root = await fixture(
-      html`<sbb-timetable-row-header config="${config}" role="rowheader"></sbb-timetable-row-header>`,
+      html`<sbb-timetable-row-header
+        config="${config}"
+        role="rowheader"
+      ></sbb-timetable-row-header>`,
     );
 
     expect(root).dom.to.be.equal(

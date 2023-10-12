@@ -7,7 +7,9 @@ const config = JSON.stringify(sampleData[0]);
 
 describe('sbb-timetable-park-and-rail', () => {
   it('renders', async () => {
-    const root = await fixture(html`<sbb-timetable-park-and-rail config="${config}"></sbb-timetable-park-and-rail>`);
+    const root = await fixture(
+      html`<sbb-timetable-park-and-rail config="${config}"></sbb-timetable-park-and-rail>`,
+    );
 
     expect(root).dom.to.be.equal(
       `
