@@ -1,15 +1,13 @@
-import events from './sbb-tooltip.events';
-
 import { assert, expect, fixture, fixtureCleanup } from '@open-wc/testing';
 import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
-import { waitForCondition, waitForLitRender } from '../../global/testing';
+import { waitForCondition } from '../../global/testing';
 import { EventSpy } from '../../global/testing/event-spy';
 import '../sbb-button';
 import { SbbButton } from '../sbb-button';
 import '../sbb-link';
 import './sbb-tooltip';
-import { SbbTooltip } from './sbb-tooltip';
+import { SbbTooltip, events } from './sbb-tooltip';
 
 describe('sbb-tooltip', () => {
   let element: SbbTooltip, trigger: SbbButton;
@@ -34,19 +32,15 @@ describe('sbb-tooltip', () => {
   it('shows the tooltip', async () => {
     const willOpenEventSpy = new EventSpy(events.willOpen);
     const didOpenEventSpy = new EventSpy(events.didOpen);
-    // NOTE: the ">>>" operator is not supported outside stencil. (convert it to something like "element.shadowRoot.querySelector(...)")
     const dialog = element.shadowRoot.querySelector('dialog');
 
     element.open();
-    await waitForLitRender(element);
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     expect(dialog).to.have.attribute('open');
   });
@@ -54,19 +48,15 @@ describe('sbb-tooltip', () => {
   it('shows on trigger click', async () => {
     const willOpenEventSpy = new EventSpy(events.willOpen);
     const didOpenEventSpy = new EventSpy(events.didOpen);
-    // NOTE: the ">>>" operator is not supported outside stencil. (convert it to something like "element.shadowRoot.querySelector(...)")
     const dialog = element.shadowRoot.querySelector('dialog');
 
-    trigger.dispatchEvent(new CustomEvent('click'));
-    await waitForLitRender(element);
+    trigger.click();
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     expect(dialog).to.have.attribute('open');
   });
@@ -76,33 +66,24 @@ describe('sbb-tooltip', () => {
     const didOpenEventSpy = new EventSpy(events.didOpen);
     const willCloseEventSpy = new EventSpy(events.willClose);
     const didCloseEventSpy = new EventSpy(events.didClose);
-    // NOTE: the ">>>" operator is not supported outside stencil. (convert it to something like "element.shadowRoot.querySelector(...)")
     const dialog = element.shadowRoot.querySelector('dialog');
 
     element.open();
-    await waitForLitRender(element);
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
-
     expect(dialog).to.have.attribute('open');
 
     element.close();
-    await waitForLitRender(element);
 
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
     expect(willCloseEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
-
     expect(dialog).not.to.have.attribute('open');
   });
 
@@ -115,18 +96,15 @@ describe('sbb-tooltip', () => {
     const closeButton = element.shadowRoot.querySelector('[sbb-tooltip-close]') as HTMLElement;
 
     element.open();
-    await waitForLitRender(element);
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
-
     expect(dialog).to.have.attribute('open');
 
     closeButton.click();
-    await waitForLitRender(element);
 
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
     expect(willCloseEventSpy.count).to.be.equal(1);
@@ -147,14 +125,12 @@ describe('sbb-tooltip', () => {
       .shadowRoot.querySelector('[sbb-tooltip-close]') as HTMLElement;
 
     element.open();
-    await waitForLitRender(element);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
 
-    await closeButton.focus();
+    closeButton.focus();
     await sendKeys({ down: 'Enter' });
-    await waitForLitRender(element);
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy.count).to.be.equal(1);
@@ -170,8 +146,7 @@ describe('sbb-tooltip', () => {
     const didCloseEventSpy = new EventSpy(events.didClose);
     const dialog = element.shadowRoot.querySelector('dialog');
 
-    trigger.dispatchEvent(new CustomEvent('click'));
-    await waitForLitRender(element);
+    trigger.click();
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
@@ -182,10 +157,7 @@ describe('sbb-tooltip', () => {
     expect(dialog).to.have.attribute('open');
 
     await sendKeys({ down: 'Tab' });
-    await waitForLitRender(element);
-
     await sendKeys({ down: 'Escape' });
-    await waitForLitRender(element);
 
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
     expect(willCloseEventSpy.count).to.be.equal(1);
@@ -206,8 +178,7 @@ describe('sbb-tooltip', () => {
     const dialog = element.shadowRoot.querySelector('dialog');
     const tooltipLink = document.querySelector('sbb-tooltip > sbb-link') as HTMLElement;
 
-    trigger.dispatchEvent(new CustomEvent('click'));
-    await waitForLitRender(element);
+    trigger.click();
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
@@ -219,7 +190,6 @@ describe('sbb-tooltip', () => {
     expect(tooltipLink).not.to.be.null;
 
     tooltipLink.click();
-    await waitForLitRender(element);
 
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
     expect(willCloseEventSpy.count).to.be.equal(1);
@@ -237,8 +207,7 @@ describe('sbb-tooltip', () => {
     const didCloseEventSpy = new EventSpy(events.didClose);
     const tooltipLink = document.querySelector('sbb-tooltip > sbb-link') as HTMLElement;
 
-    trigger.dispatchEvent(new CustomEvent('click'));
-    await waitForLitRender(element);
+    trigger.click();
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
@@ -247,7 +216,6 @@ describe('sbb-tooltip', () => {
 
     tooltipLink.focus();
     await sendKeys({ down: 'Enter' });
-    await waitForLitRender(element);
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy.count).to.be.equal(1);
@@ -263,8 +231,7 @@ describe('sbb-tooltip', () => {
     await setViewport({ width: 1200, height: 800 });
     const dialog = element.shadowRoot.querySelector('dialog');
 
-    trigger.dispatchEvent(new CustomEvent('click'));
-    await waitForLitRender(element);
+    trigger.click();
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
@@ -292,11 +259,9 @@ describe('sbb-tooltip', () => {
   it('sets the focus on the dialog content when the tooltip is opened by click', async () => {
     const willOpenEventSpy = new EventSpy(events.willOpen);
     const didOpenEventSpy = new EventSpy(events.didOpen);
-    // NOTE: the ">>>" operator is not supported outside stencil. (convert it to something like "element.shadowRoot.querySelector(...)")
     const dialog = element.shadowRoot.querySelector('dialog');
 
-    trigger.dispatchEvent(new CustomEvent('click'));
-    await waitForLitRender(element);
+    trigger.click();
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
@@ -308,7 +273,6 @@ describe('sbb-tooltip', () => {
     expect(element.shadowRoot.activeElement.className).to.be.equal('sbb-tooltip__content');
 
     await sendKeys({ down: 'Tab' });
-    await waitForLitRender(element);
 
     expect(document.activeElement.id).to.be.equal('tooltip-link');
   });
@@ -316,14 +280,10 @@ describe('sbb-tooltip', () => {
   it('sets the focus to the first focusable element when the tooltip is opened by keyboard', async () => {
     const willOpenEventSpy = new EventSpy(events.willOpen);
     const didOpenEventSpy = new EventSpy(events.didOpen);
-    // NOTE: the ">>>" operator is not supported outside stencil. (convert it to something like "element.shadowRoot.querySelector(...)")
     const dialog = element.shadowRoot.querySelector('dialog');
 
     await sendKeys({ down: 'Tab' });
-    await waitForLitRender(element);
-
     await sendKeys({ down: 'Enter' });
-    await waitForLitRender(element);
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
@@ -332,7 +292,6 @@ describe('sbb-tooltip', () => {
     expect(didOpenEventSpy.count).to.be.equal(1);
     expect(dialog).to.have.attribute('open');
 
-    await waitForLitRender(element);
     expect(document.activeElement.id).to.be.equal('tooltip');
     expect(
       document.activeElement.shadowRoot.activeElement ===
@@ -345,17 +304,14 @@ describe('sbb-tooltip', () => {
     const didCloseEventSpy = new EventSpy(events.didClose);
 
     element.open();
-    await waitForLitRender(element);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
-    await waitForLitRender(element);
 
     // Simulate backdrop click
     document.dispatchEvent(new MouseEvent('mousedown', { buttons: 1, clientX: 1 }));
     window.dispatchEvent(new PointerEvent('pointerup'));
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
-    await waitForLitRender(element);
 
     expect(trigger).to.have.attribute('data-focus-origin', 'mouse');
     expect(document.activeElement.id).to.be.equal('tooltip-trigger');
@@ -369,20 +325,15 @@ describe('sbb-tooltip', () => {
     const didCloseEventSpy = new EventSpy(events.didClose);
 
     element.open();
-    await waitForLitRender(element);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
-    await waitForLitRender(element);
 
     const interactiveElementPosition = interactiveBackgroundElement.getBoundingClientRect();
     await sendMouse({
       type: 'click',
       position: [interactiveElementPosition.x, interactiveElementPosition.y],
     });
-    await waitForLitRender(element);
-
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
-    await waitForLitRender(element);
 
     expect(document.activeElement.id).to.be.equal('interactive-background-element');
   });
@@ -425,32 +376,27 @@ describe('sbb-tooltip', () => {
 
     trigger.focus();
     await sendKeys({ press: 'Space' });
-    await waitForLitRender(element);
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
 
-    await waitForLitRender(element);
     expect(didOpenEventSpy.count).to.be.equal(1);
-
     expect(dialog.open).to.be.equal(true);
+
     trigger.focus();
     await sendKeys({ press: 'Tab' });
 
     expect(document.activeElement.id).to.be.equal('another-tooltip-trigger');
 
     await sendKeys({ press: 'Space' });
-    await waitForLitRender(element);
 
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
     expect(willCloseEventSpy.count).to.be.equal(1);
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
-
     expect(dialog).not.to.have.attribute('open');
 
     await waitForCondition(() => willOpenEventSpy.events.length === 2);

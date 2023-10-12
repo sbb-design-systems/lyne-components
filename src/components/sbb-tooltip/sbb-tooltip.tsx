@@ -26,6 +26,7 @@ import {
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
 } from '../../global/overlay';
+import '../sbb-button';
 import Style from './sbb-tooltip.scss?lit&inline';
 
 const VERTICAL_OFFSET = 16;
@@ -109,39 +110,27 @@ export class SbbTooltip extends LitElement {
   /**
    * Emits whenever the tooltip starts the opening transition.
    */
-
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, events.willOpen, {
-    bubbles: true,
-    composed: true,
-  });
+  private _willOpen: EventEmitter<void> = new EventEmitter(this, events.willOpen);
 
   /**
    * Emits whenever the tooltip is opened.
    */
-
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, events.didOpen, {
-    bubbles: true,
-    composed: true,
-  });
+  private _didOpen: EventEmitter<void> = new EventEmitter(this, events.didOpen);
 
   /**
    * Emits whenever the tooltip begins the closing transition.
    */
-
   private _willClose: EventEmitter<{ closeTarget: HTMLElement }> = new EventEmitter(
     this,
     events.willClose,
-    { bubbles: true, composed: true },
   );
 
   /**
    * Emits whenever the tooltip is closed.
    */
-
   private _didClose: EventEmitter<{ closeTarget: HTMLElement }> = new EventEmitter(
     this,
     events.didClose,
-    { bubbles: true, composed: true },
   );
 
   private _dialog: HTMLDialogElement;
@@ -167,7 +156,6 @@ export class SbbTooltip extends LitElement {
   /**
    * Opens the tooltip on trigger click.
    */
-
   public open(): void {
     if ((this._state !== 'closed' && this._state !== 'closing') || !this._dialog) {
       return;
@@ -191,7 +179,6 @@ export class SbbTooltip extends LitElement {
   /**
    * Closes the tooltip.
    */
-
   public close(target?: HTMLElement): void {
     if (this._state !== 'opened' && this._state !== 'opening') {
       return;
@@ -216,7 +203,6 @@ export class SbbTooltip extends LitElement {
   }
 
   // Removes trigger click listener on trigger change.
-
   private _removeTriggerClickListener(
     newValue: string | HTMLElement,
     oldValue: string | HTMLElement,
@@ -238,7 +224,6 @@ export class SbbTooltip extends LitElement {
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
-    // TODO: Verify parity
     if (changedProperties.has('trigger')) {
       this._removeTriggerClickListener(this.trigger, changedProperties.get('trigger'));
     }
@@ -487,10 +472,8 @@ export class SbbTooltip extends LitElement {
       </span>
     `;
 
-    // ## Migr: Host attributes ##
     setAttribute(this, 'data-position', this._alignment?.vertical);
     assignId(() => this._tooltipId)(this);
-    // ####
 
     return html`
       <div class="sbb-tooltip__container">

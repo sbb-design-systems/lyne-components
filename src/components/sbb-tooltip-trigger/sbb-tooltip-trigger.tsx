@@ -26,7 +26,7 @@ export class SbbTooltipTrigger extends LitElement {
   @property({ attribute: 'icon-name' }) public iconName = 'circle-information-small';
 
   /** Whether the tooltip-trigger is disabled. */
-  @property({ reflect: true, type: Boolean }) public disabled;
+  @property({ reflect: true, type: Boolean }) public disabled: boolean;
 
   private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
 

@@ -1,17 +1,17 @@
 /** @jsx h */
-import events from './sbb-tooltip.events';
-import { Fragment, h, JSX } from 'jsx-dom';
-import readme from './readme.md?raw';
-import isChromatic from 'chromatic';
+import { withActions } from '@storybook/addon-actions/decorator';
 import { userEvent, within } from '@storybook/testing-library';
+import type { InputType } from '@storybook/types';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import isChromatic from 'chromatic';
+import { Fragment, h, JSX } from 'jsx-dom';
 import { waitForComponentsReady } from '../../global/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../global/testing/wait-for-stable-position';
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
-import type { InputType } from '@storybook/types';
-import './sbb-tooltip';
-import '../sbb-tooltip-trigger';
 import '../sbb-link';
+import '../sbb-tooltip-trigger';
+import readme from './readme.md?raw';
+import './sbb-tooltip';
+import { events } from './sbb-tooltip';
 
 async function commonPlayStory(canvasElement): Promise<Element> {
   const canvas = within(canvasElement);
