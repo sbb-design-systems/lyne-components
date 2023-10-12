@@ -88,6 +88,8 @@ describe('sbb-breadcrumb-group', () => {
     });
 
     it('keyboard navigation with ellipsis', async () => {
+      expect(ellipsisListItemElement).not.to.be.null;
+      expect(ellipsisButton).not.to.be.null;
       const first: SbbBreadcrumb = document.querySelector('#breadcrumb-0');
       const last: SbbBreadcrumb = document.querySelector('#breadcrumb-6');
 
@@ -106,6 +108,8 @@ describe('sbb-breadcrumb-group', () => {
     });
 
     it('expand breadcrumbs with ellipsis', async () => {
+      expect(ellipsisListItemElement).not.to.be.null;
+      expect(ellipsisButton).not.to.be.null;
       const changeSpy = new EventSpy('click', ellipsisButton);
       ellipsisButton.click();
       await waitForLitRender(ellipsisListItemElement);
@@ -120,6 +124,8 @@ describe('sbb-breadcrumb-group', () => {
     });
 
     it('should expand breadcrumbs and focus correctly by keyboard', async () => {
+      expect(ellipsisListItemElement).not.to.be.null;
+      expect(ellipsisButton).not.to.be.null;
       // When pressing the space key on ellipsis button
       ellipsisButton.focus();
       await sendKeys({ press: 'Space' });
@@ -143,6 +149,9 @@ describe('sbb-breadcrumb-group', () => {
     });
 
     it('should remove expand button when too less breadcrumbs available', async () => {
+      expect(ellipsisListItemElement).not.to.be.null;
+      expect(ellipsisButton).not.to.be.null;
+
       // Remove every breadcrumb from DOM except the first two
       Array.from(document.querySelectorAll('sbb-breadcrumb'))
         .slice(2)
