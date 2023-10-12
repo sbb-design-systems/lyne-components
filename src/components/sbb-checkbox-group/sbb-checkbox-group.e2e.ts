@@ -3,6 +3,7 @@ import { html } from 'lit/static-html.js';
 import { SbbCheckboxGroup } from './sbb-checkbox-group';
 import { SbbCheckbox } from '../sbb-checkbox';
 import { waitForLitRender } from '../../global/testing';
+import { sendKeys } from '@web/test-runner-commands';
 
 describe('sbb-checkbox-group', () => {
   let element: SbbCheckboxGroup;
@@ -76,5 +77,16 @@ describe('sbb-checkbox-group', () => {
     expect(checkboxOne).to.have.attribute('data-group-required');
     expect(checkboxTwo).to.have.attribute('data-group-required');
     expect(checkboxThree).to.have.attribute('data-group-required');
+  });
+
+  it('arrow navigation', async () => {
+    checkboxOne.focus();
+    expect(document.activeElement.textContent).to.equal('Label 1');
+    await sendKeys({ press: 'ArrowRight' });
+    expect(document.activeElement.textContent).to.equal('Label 3');
+    checkboxTwo.removeAttribute('disabled');
+    await waitForLitRender(element);
+    await sendKeys({ press: 'ArrowLeft' });
+    expect(document.activeElement.textContent).to.equal('Label 2');
   });
 });

@@ -77,7 +77,7 @@ describe('sbb-checkbox', () => {
     element.focus();
     await sendKeys({ press: ' ' });
     await waitForLitRender(element);
-    await waitForCondition(() => element.getAttribute('checked') !== null);
+    await waitForCondition(() => element.hasAttribute('checked'));
     await expect(root.scrollTop).to.be.equal(0);
   });
 });
