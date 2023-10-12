@@ -8,7 +8,7 @@ describe('sbb-breadcrumb', () => {
   let element: SbbBreadcrumb;
 
   beforeEach(async () => {
-    await fixture(html`<sbb-breadcrumb id="focus-id" href="/">Test</sbb-breadcrumb>`);
+    await fixture(html`<sbb-breadcrumb id="focus-id" href="#">Test</sbb-breadcrumb>`);
     element = document.querySelector('sbb-breadcrumb');
   });
 
