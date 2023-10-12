@@ -1,29 +1,36 @@
-import { SbbCalendar } from './sbb-calendar';
-import { newSpecPage } from '@stencil/core/testing';
+import './sbb-calendar';
+import '../sbb-button';
+
+import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
 
 describe('sbb-calendar', () => {
   it('renders', async () => {
-    const { root } = await newSpecPage({
-      components: [SbbCalendar],
-      html: '<sbb-calendar selected-date="2023-01-20T00:00:00" data-now="1672790400000"></sbb-calendar>',
-    });
+    const root = await fixture(
+      html`<sbb-calendar
+        selected-date="2023-01-20T00:00:00"
+        data-now="1672790400000"
+      ></sbb-calendar>`,
+    );
 
-    expect(root).toEqualHtml(`
-    <sbb-calendar data-now="1672790400000" selected-date="2023-01-20T00:00:00">
-      <mock:shadow-root>
+    expect(root).dom.to.be.equal(
+      `<sbb-calendar data-now="1672790400000" selected-date="2023-01-20T00:00:00"></sbb-calendar>`,
+    );
+    expect(root).shadowDom.to.be.equal(
+      `
         <div class="sbb-calendar__wrapper">
           <div class="sbb-calendar__controls">
-            <sbb-button aria-label="Change to the previous month" iconname="chevron-small-left-small" id="sbb-calendar__controls-previous" size="m" variant="secondary"></sbb-button>
+            <sbb-button tabindex="0" role="button" dir="ltr" data-icon-only="" aria-label="Change to the previous month" icon-name="chevron-small-left-small" id="sbb-calendar__controls-previous" size="m" variant="secondary"></sbb-button>
             <div class="sbb-calendar__controls-month">
               <button type="button" aria-label="Choose year and month January 2023" id="sbb-calendar__date-selection" class="sbb-calendar__controls-change-date">
                 January 2023
-                <sbb-icon name="chevron-small-down-small"></sbb-icon>
+                <sbb-icon aria-hidden="true" data-namespace="default" name="chevron-small-down-small" role="img"></sbb-icon>
               </button>
               <span class="sbb-calendar__visually-hidden" role="status">
                 January 2023
               </span>
             </div>
-            <sbb-button aria-label="Change to the next month" iconname="chevron-small-right-small" id="sbb-calendar__controls-next" size="m" variant="secondary"></sbb-button>
+            <sbb-button tabindex="0" role="button" dir="ltr" data-icon-only="" aria-label="Change to the next month" icon-name="chevron-small-right-small" id="sbb-calendar__controls-next" size="m" variant="secondary"></sbb-button>
           </div>
           <div class="sbb-calendar__table-container sbb-calendar__table-day-view">
             <table class="sbb-calendar__table">
@@ -237,41 +244,43 @@ describe('sbb-calendar', () => {
             </table>
           </div>
         </div>
-      </mock:shadow-root>
-    </sbb-calendar>
-    `);
+      `,
+    );
   });
 
   it('renders with min and max', async () => {
-    const page = await newSpecPage({
-      components: [SbbCalendar],
-      html: "<sbb-calendar selected-date='2023-01-20T00:00:00' min='2023-01-09T00:00:00' max='2023-01-29T00:00:00'/>",
-    });
-
-    const buttonPrevDay = page.root.shadowRoot.querySelector(
-      "sbb-button[iconname='chevron-small-left-small']",
+    const page: HTMLElement = await fixture(
+      html`<sbb-calendar
+        selected-date="2023-01-20T00:00:00"
+        min="2023-01-09T00:00:00"
+        max="2023-01-29T00:00:00"
+      ></sbb-calendar>`,
     );
-    expect(buttonPrevDay).toHaveAttribute('disabled');
-    const buttonNextDay = page.root.shadowRoot.querySelector(
-      "sbb-button[iconname='chevron-small-right-small']",
+
+    const buttonPrevDay = page.shadowRoot.querySelector(
+      "sbb-button[icon-name='chevron-small-left-small']",
     );
-    expect(buttonNextDay).toHaveAttribute('disabled');
+    expect(buttonPrevDay).to.have.attribute('disabled');
+    const buttonNextDay = page.shadowRoot.querySelector(
+      "sbb-button[icon-name='chevron-small-right-small']",
+    );
+    expect(buttonNextDay).to.have.attribute('disabled');
 
-    const emptyCells = page.root.shadowRoot.querySelectorAll("[data-day='0 1 2023']");
-    expect(emptyCells.length).toEqual(6);
+    const emptyCells = page.shadowRoot.querySelectorAll("[data-day='0 1 2023']");
+    expect(emptyCells.length).to.be.equal(6);
 
-    const lastDisabledMinDate = page.root.shadowRoot.querySelector("[data-day='8 1 2023']");
-    expect(lastDisabledMinDate).toHaveAttribute('disabled');
-    expect(lastDisabledMinDate).toEqualAttribute('aria-disabled', 'true');
-    const firstNotDisabledMinDate = page.root.shadowRoot.querySelector("[data-day='9 1 2023']");
-    expect(firstNotDisabledMinDate).not.toHaveAttribute('disabled');
-    expect(firstNotDisabledMinDate).toEqualAttribute('aria-disabled', 'false');
+    const lastDisabledMinDate = page.shadowRoot.querySelector("[data-day='8 1 2023']");
+    expect(lastDisabledMinDate).to.have.attribute('disabled');
+    expect(lastDisabledMinDate).to.have.attribute('aria-disabled', 'true');
+    const firstNotDisabledMinDate = page.shadowRoot.querySelector("[data-day='9 1 2023']");
+    expect(firstNotDisabledMinDate).not.to.have.attribute('disabled');
+    expect(firstNotDisabledMinDate).to.have.attribute('aria-disabled', 'false');
 
-    const lastNotDisabledMaxDate = page.root.shadowRoot.querySelector("[data-day='29 1 2023']");
-    expect(lastNotDisabledMaxDate).not.toHaveAttribute('disabled');
-    expect(lastNotDisabledMaxDate).toEqualAttribute('aria-disabled', 'false');
-    const firstDisabledMaxDate = page.root.shadowRoot.querySelector("[data-day='30 1 2023']");
-    expect(firstDisabledMaxDate).toHaveAttribute('disabled');
-    expect(firstDisabledMaxDate).toEqualAttribute('aria-disabled', 'true');
+    const lastNotDisabledMaxDate = page.shadowRoot.querySelector("[data-day='29 1 2023']");
+    expect(lastNotDisabledMaxDate).not.to.have.attribute('disabled');
+    expect(lastNotDisabledMaxDate).to.have.attribute('aria-disabled', 'false');
+    const firstDisabledMaxDate = page.shadowRoot.querySelector("[data-day='30 1 2023']");
+    expect(firstDisabledMaxDate).to.have.attribute('disabled');
+    expect(firstDisabledMaxDate).to.have.attribute('aria-disabled', 'true');
   });
 });
