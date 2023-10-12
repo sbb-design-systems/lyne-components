@@ -35,7 +35,7 @@
   --sbb-tooltip-color: var(--sbb-color-cement-default);
 }
 
-:host([disabled]:not([disabled='false'])) {
+:host([disabled]) {
   --sbb-tooltip-color: var(--sbb-color-graphite-default);
 
   @include sbb.if-forced-colors {
@@ -45,7 +45,7 @@
   pointer-events: none;
 }
 
-:host([disabled]:not([disabled='false'])[negative]:not([negative='false'])) {
+:host([disabled][negative]:not([negative='false'])) {
   --sbb-tooltip-color: var(--sbb-color-smoke-default);
 }
 
@@ -55,7 +55,7 @@
   @include sbb.icon-button-variables-negative;
 }
 
-:host([data-icon-small][disabled]:not([disabled='false'])) {
+:host([data-icon-small][disabled]) {
   @include sbb.icon-button-disabled('.sbb-tooltip-trigger');
 }
 
@@ -65,7 +65,7 @@
   @include sbb.icon-button-focus-visible('.sbb-tooltip-trigger');
 }
 
-:host([data-icon-small]:not([disabled]:not([disabled='false']), :active, [data-active]):hover) {
+:host([data-icon-small]:not([disabled], :active, [data-active]):hover) {
   @include sbb.icon-button-hover('.sbb-tooltip-trigger');
 }
 

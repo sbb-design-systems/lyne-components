@@ -7,8 +7,11 @@ import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../global/testing/wait-for-stable-position';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/html';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
+import './sbb-tooltip';
+import '../sbb-tooltip-trigger';
+import '../sbb-link';
 
 async function commonPlayStory(canvasElement): Promise<Element> {
   const canvas = within(canvasElement);
