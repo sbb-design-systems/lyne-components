@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.41.7](https://github.com/lyne-design-system/lyne-components/compare/v0.41.6...v0.41.7) (2023-10-12)
+
+### Features
+
+- **sbb-tag-group:** allow other slotted elements than `sbb-tag`s ([#2067](https://github.com/lyne-design-system/lyne-components/issues/2067)) ([2b86f98](https://github.com/lyne-design-system/lyne-components/commit/2b86f98ccf6b0120f61a80f9601f235a6795c737))
+
 ### [0.41.6](https://github.com/lyne-design-system/lyne-components/compare/v0.41.5...v0.41.6) (2023-10-12)
 
 ### Bug Fixes
