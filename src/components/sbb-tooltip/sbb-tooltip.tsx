@@ -191,13 +191,13 @@ export class SbbTooltip extends LitElement {
   }
 
   // Closes the tooltip on "Esc" key pressed and traps focus within the tooltip.
-  private async _onKeydownEvent(event: KeyboardEvent): Promise<void> {
+  private _onKeydownEvent(event: KeyboardEvent): void {
     if (this._state !== 'opened') {
       return;
     }
 
     if (event.key === 'Escape') {
-      await this.close();
+      this.close();
       return;
     }
   }
@@ -285,7 +285,7 @@ export class SbbTooltip extends LitElement {
         'keydown',
         async (evt: KeyboardEvent) => {
           if (evt.code === 'Space' || evt.code === 'Enter') {
-            await this.open();
+            this.open();
           }
         },
         {
@@ -329,12 +329,12 @@ export class SbbTooltip extends LitElement {
   }
 
   // Close the tooltip on click of any element that has the 'sbb-tooltip-close' attribute.
-  private async _closeOnSbbTooltipCloseClick(event: Event): Promise<void> {
+  private _closeOnSbbTooltipCloseClick(event: Event): void {
     const closeElement = composedPathHasAttribute(event, 'sbb-tooltip-close', this);
 
     if (closeElement && !isValidAttribute(closeElement, 'disabled')) {
       clearTimeout(this._closeTimeout);
-      await this.close(closeElement);
+      this.close(closeElement);
     }
   }
 
