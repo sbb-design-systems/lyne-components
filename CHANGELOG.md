@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.41.6](https://github.com/lyne-design-system/lyne-components/compare/v0.41.5...v0.41.6) (2023-10-12)
+
+### Bug Fixes
+
+- **sbb-journey-summary:** remove obsolete dot after weekday ([#2068](https://github.com/lyne-design-system/lyne-components/issues/2068)) ([c7d6356](https://github.com/lyne-design-system/lyne-components/commit/c7d6356062ae04d9ab908555eacdcab2abb7530f))
+
 ### [0.41.5](https://github.com/lyne-design-system/lyne-components/compare/v0.41.4...v0.41.5) (2023-10-11)
 
 ### Documentation
