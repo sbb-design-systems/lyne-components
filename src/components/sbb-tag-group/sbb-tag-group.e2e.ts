@@ -4,6 +4,49 @@ import { waitForCondition } from '../../global/testing';
 describe('sbb-tag-group', () => {
   let element: E2EElement, page: E2EPage;
 
+  it('renders', async () => {
+    page = await newE2EPage();
+    await page.setContent(`
+      <sbb-tag-group>
+        <sbb-tag value="tag-1">First tag</sbb-tag>
+        <sbb-tag value="tag-2">Second tag</sbb-tag>
+        <sbb-tag value="tag-3">Third tag</sbb-tag>
+      </sbb-tag-group>
+    `);
+
+    expect(await page.find('sbb-tag-group')).toEqualHtml(`
+      <sbb-tag-group role="group" class="hydrated">
+        <mock:shadow-root>
+          <div class="sbb-tag-group">
+            <ul class="sbb-tag-group__list">
+              <li class="sbb-tag-group__list-item">
+                <slot name="tag-0"></slot>
+              </li>
+              <li class="sbb-tag-group__list-item">
+                <slot name="tag-1"></slot>
+              </li>
+              <li class="sbb-tag-group__list-item">
+                <slot name="tag-2"></slot>
+              </li>
+            </ul>
+            <span hidden="">
+              <slot></slot>
+            </span>
+          </div>
+        </mock:shadow-root>
+        <sbb-tag aria-pressed="false" class="hydrated" dir="ltr" role="button" tabindex="0" slot="tag-0" value="tag-1">
+          First tag
+        </sbb-tag>
+        <sbb-tag aria-pressed="false" class="hydrated" dir="ltr" role="button" tabindex="0" slot="tag-1" value="tag-2">
+          Second tag
+        </sbb-tag>
+        <sbb-tag aria-pressed="false" class="hydrated" dir="ltr" role="button" tabindex="0" slot="tag-2" value="tag-3">
+          Third tag
+        </sbb-tag>
+      </sbb-tag-group>
+    `);
+  });
+
   describe('multiple mode', () => {
     describe('no initialized checked tag', () => {
       beforeEach(async () => {
