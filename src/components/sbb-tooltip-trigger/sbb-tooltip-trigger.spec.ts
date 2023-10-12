@@ -1,12 +1,11 @@
 import '../sbb-icon';
 import './sbb-tooltip-trigger';
-
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 describe('sbb-tooltip-trigger', () => {
   it('renders', async () => {
-    const root = await fixture(html`<sbb-tooltip-trigger />`);
+    const root = await fixture(html`<sbb-tooltip-trigger></sbb-tooltip-trigger>`);
 
     expect(root).dom.to.be.equal(
       `<sbb-tooltip-trigger role="button" tabindex="0" dir="ltr"></sbb-tooltip-trigger>`,

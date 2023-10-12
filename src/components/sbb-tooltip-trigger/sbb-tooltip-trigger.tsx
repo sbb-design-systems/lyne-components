@@ -3,7 +3,6 @@ import { customElement, property } from 'lit/decorators.js';
 import { hostContext, isValidAttribute, setAttributes, toggleDatasetEntry } from '../../global/dom';
 import { HandlerRepository, actionElementHandlerAspect } from '../../global/eventing';
 import { resolveButtonRenderVariables } from '../../global/interfaces';
-import '../sbb-icon';
 import Style from './sbb-tooltip-trigger.scss?lit&inline';
 
 /**
