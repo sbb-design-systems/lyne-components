@@ -72,12 +72,12 @@ describe('sbb-checkbox', () => {
     );
     element = root.querySelector('sbb-checkbox');
     expect(element).not.to.have.attribute('checked');
-    await expect(root.scrollTop).to.be.equal(0);
+    expect(root.scrollTop).to.be.equal(0);
 
     element.focus();
     await sendKeys({ press: ' ' });
     await waitForLitRender(element);
     await waitForCondition(() => element.hasAttribute('checked'));
-    await expect(root.scrollTop).to.be.equal(0);
+    expect(root.scrollTop).to.be.equal(0);
   });
 });
