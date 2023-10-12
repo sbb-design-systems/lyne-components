@@ -7,6 +7,7 @@ import {
   JSX,
   Listen,
   Prop,
+  State,
   Watch,
 } from '@stencil/core';
 import { TagStateChange } from '../sbb-tag/sbb-tag.custom';
@@ -41,6 +42,12 @@ export class SbbTagGroup implements ComponentInterface {
    * If set multiple to true, the value is an array.
    */
   @Prop({ mutable: true }) public value: string | string[] | null = null;
+
+  /**
+   * We hold the slotted elements in a separate state than the tags itself.
+   * In rare usages, consumers need to slot other elements than tags into the tag group.
+   */
+  @State() private _slottedElements: HTMLElement[];
 
   @Watch('value')
   public valueChanged(value: string | string[] | null): void {
@@ -108,6 +115,7 @@ export class SbbTagGroup implements ComponentInterface {
   }
 
   public connectedCallback(): void {
+    this._readSlottedElements();
     if (this.value) {
       this.valueChanged(this.value);
     }
@@ -117,17 +125,24 @@ export class SbbTagGroup implements ComponentInterface {
     return Array.from(this._element.querySelectorAll('sbb-tag')) as HTMLSbbTagElement[];
   }
 
+  private _readSlottedElements(): void {
+    this._slottedElements = Array.from(this._element.children).filter(
+      (e): e is HTMLElement => e instanceof window.HTMLElement,
+    );
+  }
+
   public render(): JSX.Element {
-    this._tags.forEach((tag, index) => tag.setAttribute('slot', `tag-${index}`));
+    this._slottedElements.forEach((tag, index) => tag.setAttribute('slot', `tag-${index}`));
     return (
       <Host role={this.listAccessibilityLabel ? '' : 'group'}>
         <div class="sbb-tag-group">
           <ul class="sbb-tag-group__list" aria-label={this.listAccessibilityLabel}>
-            {this._tags.map((_, index) => (
+            {this._slottedElements.map((_, index) => (
               <li class="sbb-tag-group__list-item">
                 <slot
                   name={`tag-${index}`}
                   onSlotchange={(): void => {
+                    this._readSlottedElements();
                     this._ensureOnlyOneTagSelected();
                     this._updateValueByReadingTags();
                   }}
@@ -138,6 +153,7 @@ export class SbbTagGroup implements ComponentInterface {
           <span hidden>
             <slot
               onSlotchange={() => {
+                this._readSlottedElements();
                 this._ensureOnlyOneTagSelected();
                 this._updateValueByReadingTags();
               }}
