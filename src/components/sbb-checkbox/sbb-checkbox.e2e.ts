@@ -22,16 +22,15 @@ describe('sbb-checkbox', () => {
 
   describe('events', () => {
     it('emit event on click', async () => {
-      expect(element.getAttribute('checked')).to.be.null;
-      await waitForLitRender(element);
+      expect(element).not.to.have.attribute('checked');
       const changeSpy = new EventSpy('change');
-      await element.click();
+      element.click();
+      await waitForLitRender(element);
       expect(changeSpy.count).to.be.greaterThan(0);
-      expect(element.getAttribute('checked')).not.to.be.null;
+      expect(element).to.have.attribute('checked');
     });
 
     it('emit event on keypress', async () => {
-      await waitForLitRender(element);
       const changeSpy = new EventSpy('change');
       element.focus();
       await sendKeys({ press: 'Space' });
@@ -44,26 +43,22 @@ describe('sbb-checkbox', () => {
     it('should set indeterminate to false after checked', async () => {
       element.setAttribute('indeterminate', 'true');
       await waitForLitRender(element);
+      expect(element.checked).to.be.false;
+      expect(element.indeterminate).to.be.true;
 
-      expect(element.checked).to.be.equal(false);
-      expect(element.indeterminate).to.be.equal(true);
-
-      await element.click();
+      element.click();
       await waitForLitRender(element);
-
-      expect(element.checked).to.be.equal(true);
-      expect(element.indeterminate).to.be.equal(false);
+      expect(element.checked).to.be.true;
+      expect(element.indeterminate).to.be.false;
     });
 
     it('should update indeterminate state of input', async () => {
-      await waitForLitRender(element);
-
-      expect(element.indeterminate).to.be.equal(false);
+      expect(element.indeterminate).to.be.false;
 
       element.indeterminate = true;
       await waitForLitRender(element);
 
-      expect(element.indeterminate).to.be.equal(true);
+      expect(element.shadowRoot.querySelector('input').indeterminate).to.be.true;
     });
   });
 
@@ -77,12 +72,12 @@ describe('sbb-checkbox', () => {
     );
     element = root.querySelector('sbb-checkbox');
     expect(element).not.to.have.attribute('checked');
-    expect(root.scrollTop).to.be.equal(0);
+    await expect(root.scrollTop).to.be.equal(0);
 
     element.focus();
     await sendKeys({ press: ' ' });
     await waitForLitRender(element);
     await waitForCondition(() => element.getAttribute('checked') !== null);
-    expect(root.scrollTop).to.be.equal(0);
+    await expect(root.scrollTop).to.be.equal(0);
   });
 });

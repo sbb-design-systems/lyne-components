@@ -6,6 +6,7 @@ import { waitForLitRender } from '../../global/testing';
 
 describe('sbb-checkbox-group', () => {
   let element: SbbCheckboxGroup;
+  let checkboxOne: SbbCheckbox, checkboxTwo: SbbCheckbox, checkboxThree: SbbCheckbox;
 
   beforeEach(async () => {
     element = await fixture(html`
@@ -15,60 +16,43 @@ describe('sbb-checkbox-group', () => {
         <sbb-checkbox id="checkbox-3" value="checkbox-3">Label 3</sbb-checkbox>
       </sbb-checkbox-group>
     `);
+    checkboxOne = document.querySelector('#checkbox-1');
+    checkboxTwo = document.querySelector('#checkbox-2');
+    checkboxThree = document.querySelector('#checkbox-3');
   });
 
   it('renders', async () => {
     assert.instanceOf(element, SbbCheckboxGroup);
-    assert.instanceOf(
-      document.querySelector('sbb-checkbox-group > sbb-checkbox#checkbox-1'),
-      SbbCheckbox,
-    );
-    assert.instanceOf(
-      document.querySelector('sbb-checkbox-group > sbb-checkbox#checkbox-2'),
-      SbbCheckbox,
-    );
-    assert.instanceOf(
-      document.querySelector('sbb-checkbox-group > sbb-checkbox#checkbox-3'),
-      SbbCheckbox,
-    );
+    assert.instanceOf(checkboxOne, SbbCheckbox);
+    assert.instanceOf(checkboxTwo, SbbCheckbox);
+    assert.instanceOf(checkboxThree, SbbCheckbox);
   });
 
   it('disabled status is inherited', async () => {
     element.setAttribute('disabled', 'true');
     await waitForLitRender(element);
-    expect(element).to.have.attribute('disabled', 'true');
-    const checkboxOne = document.querySelector('sbb-checkbox-group > sbb-checkbox#checkbox-1');
-    expect(checkboxOne.getAttribute('data-group-disabled')).not.to.be.null;
-    const checkboxTwo = document.querySelector('sbb-checkbox-group > sbb-checkbox#checkbox-2');
-    expect(checkboxTwo.getAttribute('data-group-disabled')).not.to.be.null;
-    expect(checkboxTwo.getAttribute('disabled')).not.to.be.null;
-    const checkboxThree = document.querySelector('sbb-checkbox-group > sbb-checkbox#checkbox-3');
-    expect(checkboxThree.getAttribute('data-group-disabled')).not.to.be.null;
+    expect(element).to.have.attribute('disabled');
+
+    expect(checkboxOne).to.have.attribute('data-group-disabled');
+    expect(checkboxTwo).to.have.attribute('data-group-disabled');
+    expect(checkboxTwo).to.have.attribute('disabled');
+    expect(checkboxThree).to.have.attribute('data-group-disabled');
+
     element.removeAttribute('disabled');
     await waitForLitRender(element);
-    expect(checkboxTwo.getAttribute('data-group-disabled')).to.be.null;
-    expect(checkboxTwo.getAttribute('disabled')).not.to.be.null;
+    expect(checkboxTwo).not.to.have.attribute('data-group-disabled');
+    expect(checkboxTwo).to.have.attribute('disabled');
   });
 
   it('disabled status prevents changes', async () => {
-    const checkboxOne: SbbCheckbox = document.querySelector(
-      'sbb-checkbox-group > sbb-checkbox#checkbox-1',
-    );
-    const checkboxTwo: SbbCheckbox = document.querySelector(
-      'sbb-checkbox-group > sbb-checkbox#checkbox-2',
-    );
-    const checkboxThree: SbbCheckbox = document.querySelector(
-      'sbb-checkbox-group > sbb-checkbox#checkbox-3',
-    );
     const checkboxes: SbbCheckbox[] = [checkboxOne, checkboxTwo, checkboxThree];
     checkboxes.forEach((check: SbbCheckbox) => expect(check).not.to.have.attribute('checked'));
 
     element.setAttribute('disabled', 'true');
     await waitForLitRender(element);
-    expect(element).to.have.attribute('disabled', 'true');
+    expect(element).to.have.attribute('disabled');
     for (const check of checkboxes) {
-      await check.click();
-      await waitForLitRender(check);
+      check.click();
     }
     await waitForLitRender(element);
     checkboxes.forEach((check: SbbCheckbox) => expect(check).not.to.have.attribute('checked'));
@@ -76,25 +60,21 @@ describe('sbb-checkbox-group', () => {
     element.removeAttribute('disabled');
     await waitForLitRender(element);
     for (const check of checkboxes) {
-      await check.click();
-      await waitForLitRender(check);
+      check.click();
     }
     await waitForLitRender(element);
 
-    expect(checkboxOne).to.have.attribute('checked', '');
+    expect(checkboxOne).to.have.attribute('checked');
     expect(checkboxTwo).not.to.have.attribute('checked');
-    expect(checkboxThree).to.have.attribute('checked', '');
+    expect(checkboxThree).to.have.attribute('checked');
   });
 
   it('required status', async () => {
     element.setAttribute('required', 'true');
     await waitForLitRender(element);
-    expect(element).to.have.attribute('required', 'true');
-    const checkboxOne = document.querySelector('sbb-checkbox-group > sbb-checkbox#checkbox-1');
-    expect(checkboxOne.getAttribute('data-group-required')).not.to.be.null;
-    const checkboxTwo = document.querySelector('sbb-checkbox-group > sbb-checkbox#checkbox-2');
-    expect(checkboxTwo.getAttribute('data-group-required')).not.to.be.null;
-    const checkboxThree = document.querySelector('sbb-checkbox-group > sbb-checkbox#checkbox-3');
-    expect(checkboxThree.getAttribute('data-group-required')).not.to.be.null;
+    expect(element).to.have.attribute('required');
+    expect(checkboxOne).to.have.attribute('data-group-required');
+    expect(checkboxTwo).to.have.attribute('data-group-required');
+    expect(checkboxThree).to.have.attribute('data-group-required');
   });
 });

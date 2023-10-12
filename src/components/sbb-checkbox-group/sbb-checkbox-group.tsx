@@ -114,7 +114,7 @@ export class SbbCheckboxGroup extends LitElement {
   }
 
   private _updateCheckboxes(): void {
-    const checkboxes = this._checkboxes;
+    const checkboxes: SbbCheckbox[] = this._checkboxes;
 
     for (const checkbox of checkboxes) {
       checkbox.size = this.size;
@@ -124,8 +124,8 @@ export class SbbCheckboxGroup extends LitElement {
   }
 
   private get _checkboxes(): SbbCheckbox[] {
-    return (Array.from(this.querySelectorAll('sbb-checkbox')) as SbbCheckbox[]).filter(
-      (el) => el.closest('sbb-checkbox-group') === this,
+    return Array.from(this.querySelectorAll('sbb-checkbox')).filter(
+      (el: SbbCheckbox) => el.closest('sbb-checkbox-group') === this,
     );
   }
 
