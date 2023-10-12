@@ -47,7 +47,7 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@babel/core": "7.23.0",
+    "@babel/core": "7.23.2",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@babel/plugin-syntax-jsx": "7.22.5",
     "@babel/plugin-transform-react-jsx": "7.22.15",
