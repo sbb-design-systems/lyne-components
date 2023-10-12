@@ -182,7 +182,7 @@ export class SbbCheckbox extends LitElement {
   }
 
   protected override firstUpdated(): void {
-    this._selectionPanelElement && this._updateExpandedLabel();
+    this._isSelectionPanelInput && this._updateExpandedLabel();
   }
 
   public override disconnectedCallback(): void {
@@ -296,7 +296,7 @@ export class SbbCheckbox extends LitElement {
           ${!!this._selectionPanelElement && this._namedSlots['subtext']
             ? html`<slot name="subtext"></slot>`
             : nothing}
-          ${this._selectionPanelElement && this._selectionPanelExpandedLabel
+          ${this._isSelectionPanelInput && this._selectionPanelExpandedLabel
             ? html`<span class="sbb-checkbox__expanded-label"
                 >${this._selectionPanelExpandedLabel}</span
               >`

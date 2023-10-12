@@ -114,7 +114,7 @@ export class SbbCheckboxGroup extends LitElement {
   }
 
   private _updateCheckboxes(): void {
-    const checkboxes: SbbCheckbox[] = this._checkboxes;
+    const checkboxes = this._checkboxes;
 
     for (const checkbox of checkboxes) {
       checkbox.size = this.size;
