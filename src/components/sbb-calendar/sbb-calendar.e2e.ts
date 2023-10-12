@@ -1,18 +1,15 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
-import { waitForCondition } from '../../global/testing';
+import { waitForCondition, waitForLitRender } from '../../global/testing';
 import { EventSpy } from '../../global/testing/event-spy';
-import { SbbCalendar } from './sbb-calendar';
-import './sbb-calendar';
 import '../sbb-button';
 import '../sbb-icon';
+import './sbb-calendar';
+import { SbbCalendar } from './sbb-calendar';
 
 describe('sbb-calendar', () => {
   const selected = new Date(2023, 0, 15).getTime() / 1000;
-  /** NOTE: These are too hard to migrate and are prone to errors :/
-   * consider that the E2EPage is now the 'document' (you should just delete it)
-   * and that the E2EElement equivalent is directly the SbbComponent (e.g. SbbTimeInput) */
   let element: SbbCalendar;
 
   beforeEach(async () => {
@@ -38,7 +35,7 @@ describe('sbb-calendar', () => {
       '#sbb-calendar__controls-next',
     );
     nextMonthButton.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     day = element.shadowRoot.querySelector('.sbb-calendar__day');
     expect(await day.getAttribute('data-day')).to.be.equal('1 2 2023');
@@ -52,7 +49,7 @@ describe('sbb-calendar', () => {
       '#sbb-calendar__controls-previous',
     );
     nextMonthButton.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     day = element.shadowRoot.querySelector('.sbb-calendar__day');
     expect(await day.getAttribute('data-day')).to.be.equal('1 12 2022');
@@ -60,7 +57,7 @@ describe('sbb-calendar', () => {
 
   it('sets max and next month button gets disabled', async () => {
     element.max = 1674946800;
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     let day = element.shadowRoot.querySelector('.sbb-calendar__day');
     expect(await day.getAttribute('data-day')).to.be.equal('1 1 2023');
@@ -70,7 +67,7 @@ describe('sbb-calendar', () => {
     );
     expect(nextMonthButton).to.have.attribute('disabled');
     nextMonthButton.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     day = element.shadowRoot.querySelector('.sbb-calendar__day');
     expect(await day.getAttribute('data-day')).to.be.equal('1 1 2023');
@@ -78,7 +75,7 @@ describe('sbb-calendar', () => {
 
   it('sets min and previous month button gets disabled', async () => {
     element.min = 1673737200;
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     let day = element.shadowRoot.querySelector('.sbb-calendar__day');
     expect(await day.getAttribute('data-day')).to.be.equal('1 1 2023');
@@ -88,7 +85,7 @@ describe('sbb-calendar', () => {
     ) as HTMLElement;
     expect(nextMonthButton).to.have.attribute('disabled');
     nextMonthButton.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     day = element.shadowRoot.querySelector('.sbb-calendar__day');
     expect(await day.getAttribute('data-day')).to.be.equal('1 1 2023');
@@ -116,13 +113,13 @@ describe('sbb-calendar', () => {
     const selectedSpy = new EventSpy('date-selected');
 
     element.max = 1674946800;
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     const day = element.shadowRoot.querySelector('button[data-day="30 1 2023"]') as HTMLElement;
     expect(day).to.have.attribute('disabled');
     expect(day).not.to.have.class('sbb-calendar__selected');
     day.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     expect(day).not.to.have.class('sbb-calendar__selected');
     expect(selectedSpy.count).not.to.be.greaterThan(0);
@@ -136,7 +133,7 @@ describe('sbb-calendar', () => {
 
     expect(yearSelectionButton).not.to.be.null;
     yearSelectionButton.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
     await waitForCondition(() => animationSpy.events.length >= 1);
 
     const yearSelection: HTMLElement = element.shadowRoot.querySelector(
@@ -170,7 +167,7 @@ describe('sbb-calendar', () => {
     expect(yearCells[yearCells.length - 1].innerText).to.be.equal('2039');
 
     yearButton.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => animationSpy.events.length >= 1);
 
@@ -200,7 +197,7 @@ describe('sbb-calendar', () => {
     animationSpy = new EventSpy('animationend', element.shadowRoot.querySelector('table'));
 
     monthCells[0].querySelector('button').click();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     await waitForCondition(() => animationSpy.events.length >= 1);
 
@@ -211,7 +208,7 @@ describe('sbb-calendar', () => {
   describe('navigation', () => {
     it('navigates left via keyboard', async () => {
       element.focus();
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
         '15 1 2023',
@@ -219,7 +216,7 @@ describe('sbb-calendar', () => {
 
       element.focus();
       await sendKeys({ press: 'ArrowLeft' });
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
         '14 1 2023',
@@ -228,7 +225,7 @@ describe('sbb-calendar', () => {
 
     it('navigates right via keyboard', async () => {
       element.focus();
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
         '15 1 2023',
@@ -236,7 +233,7 @@ describe('sbb-calendar', () => {
 
       element.focus();
       await sendKeys({ press: 'ArrowRight' });
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
         '16 1 2023',
@@ -245,7 +242,7 @@ describe('sbb-calendar', () => {
 
     it('navigates up via keyboard', async () => {
       element.focus();
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
         '15 1 2023',
@@ -253,7 +250,7 @@ describe('sbb-calendar', () => {
 
       element.focus();
       await sendKeys({ press: 'ArrowUp' });
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
         '8 1 2023',
@@ -262,7 +259,7 @@ describe('sbb-calendar', () => {
 
     it('navigates down via keyboard', async () => {
       element.focus();
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
         '15 1 2023',
@@ -270,7 +267,7 @@ describe('sbb-calendar', () => {
 
       element.focus();
       await sendKeys({ press: 'ArrowDown' });
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
         '22 1 2023',
@@ -279,7 +276,7 @@ describe('sbb-calendar', () => {
 
     it('navigates to first day via keyboard', async () => {
       element.focus();
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
         '15 1 2023',
@@ -287,7 +284,7 @@ describe('sbb-calendar', () => {
 
       element.focus();
       await sendKeys({ press: 'Home' });
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
         '1 1 2023',
@@ -296,7 +293,7 @@ describe('sbb-calendar', () => {
 
     it('navigates to last day via keyboard', async () => {
       element.focus();
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
         '15 1 2023',
@@ -304,7 +301,7 @@ describe('sbb-calendar', () => {
 
       element.focus();
       await sendKeys({ press: 'End' });
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
         '31 1 2023',
@@ -313,7 +310,7 @@ describe('sbb-calendar', () => {
 
     it('navigates to column start via keyboard', async () => {
       element.focus();
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
         '15 1 2023',
@@ -321,7 +318,7 @@ describe('sbb-calendar', () => {
 
       element.focus();
       await sendKeys({ press: 'PageUp' });
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
         '1 1 2023',
@@ -330,7 +327,7 @@ describe('sbb-calendar', () => {
 
     it('navigates to column end via keyboard', async () => {
       element.focus();
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
         '15 1 2023',
@@ -338,7 +335,7 @@ describe('sbb-calendar', () => {
 
       element.focus();
       await sendKeys({ press: 'PageDown' });
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
         '29 1 2023',
@@ -370,7 +367,7 @@ describe('sbb-calendar', () => {
 
       element.focus();
       await sendKeys({ press: 'ArrowLeft' });
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(
         (document.activeElement.shadowRoot.activeElement as HTMLElement).innerText,
@@ -384,7 +381,7 @@ describe('sbb-calendar', () => {
 
       element.focus();
       await sendKeys({ press: 'ArrowRight' });
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(
         (document.activeElement.shadowRoot.activeElement as HTMLElement).innerText,
@@ -398,7 +395,7 @@ describe('sbb-calendar', () => {
 
       element.focus();
       await sendKeys({ press: 'ArrowUp' });
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(
         (document.activeElement.shadowRoot.activeElement as HTMLElement).innerText,
@@ -412,7 +409,7 @@ describe('sbb-calendar', () => {
 
       element.focus();
       await sendKeys({ press: 'ArrowDown' });
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(
         (document.activeElement.shadowRoot.activeElement as HTMLElement).innerText,
@@ -426,7 +423,7 @@ describe('sbb-calendar', () => {
 
       element.focus();
       await sendKeys({ press: 'Home' });
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(
         (document.activeElement.shadowRoot.activeElement as HTMLElement).innerText,
@@ -440,7 +437,7 @@ describe('sbb-calendar', () => {
 
       element.focus();
       await sendKeys({ press: 'End' });
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(
         (document.activeElement.shadowRoot.activeElement as HTMLElement).innerText,
@@ -454,7 +451,7 @@ describe('sbb-calendar', () => {
 
       element.focus();
       await sendKeys({ press: 'PageUp' });
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(
         (document.activeElement.shadowRoot.activeElement as HTMLElement).innerText,
@@ -468,7 +465,7 @@ describe('sbb-calendar', () => {
 
       element.focus();
       await sendKeys({ press: 'PageDown' });
-      await element.updateComplete;
+      await waitForLitRender(element);
 
       expect(
         (document.activeElement.shadowRoot.activeElement as HTMLElement).innerText,

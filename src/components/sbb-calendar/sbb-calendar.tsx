@@ -887,7 +887,7 @@ export class SbbCalendar extends LitElement {
   private _createDayCells(week: Day[], today: string): TemplateResult[] {
     return week.map((day: Day) => {
       const isOutOfRange = !this._isDayInRange(day.value);
-      const isFilteredOut = !this?.dateFilter(this._dateAdapter.createDateFromISOString(day.value));
+      const isFilteredOut = !this.dateFilter(this._dateAdapter.createDateFromISOString(day.value));
       const selected: boolean = !!this._selected && day.value === this._selected;
       const dayValue = `${day.dayValue} ${day.monthValue} ${day.yearValue}`;
       const isToday = day.value === today;
@@ -1139,7 +1139,7 @@ export class SbbCalendar extends LitElement {
                     aria-pressed=${selected}
                     aria-disabled=${String(isOutOfRange || isFilteredOut)}
                     tabindex="-1"
-                    data-year=${year}
+                    data-year=${year || nothing}
                     @keydown=${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}
                   >
                     ${year}
