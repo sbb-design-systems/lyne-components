@@ -1,7 +1,7 @@
 import { assert, expect, fixture, nextFrame } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { waitForLitRender } from '../../global/testing';
+import { waitForCondition, waitForLitRender } from '../../global/testing';
 import { SbbFormField } from './sbb-form-field';
 import { SbbSelect } from '../sbb-select';
 import { SbbOption } from '../sbb-option';
@@ -290,11 +290,7 @@ describe('sbb-form-field', () => {
       form.reset();
 
       // This is necessary to await for the reset event to be propagated
-      // In general, 'element.updateComplete' should suffice. Unless the changes
-      // do not trigger a rendering of the component
-      await waitForLitRender(element);
-      await nextFrame();
-
+      await waitForCondition(() => element.hasAttribute('data-input-empty'));
       expect(element).to.have.attribute('data-input-empty');
     });
 
