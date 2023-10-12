@@ -1,6 +1,6 @@
 import { TagStateChange } from '../sbb-tag/sbb-tag.custom';
 import { CSSResult, html, LitElement, TemplateResult, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
 import { ConnectedAbortController } from '../../global/eventing';
 import { SbbTag } from '../sbb-tag';
 import { setAttribute } from '../../global/dom';
@@ -44,6 +44,12 @@ export class SbbTagGroup extends LitElement {
   private _value: string | string[] | null = null;
 
   private _abort = new ConnectedAbortController(this);
+
+  /**
+   * We hold the slotted elements in a separate state than the tags itself.
+   * In rare usages, consumers need to slot other elements than tags into the tag group.
+   */
+  @state() private _slottedElements: HTMLElement[];
 
   private _valueChanged(value: string | string[] | null): void {
     if (this._tags.some((tag) => !tag.value)) {
@@ -114,6 +120,7 @@ export class SbbTagGroup extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this._readSlottedElements();
     const signal = this._abort.signal;
     this.addEventListener(
       'state-change',
@@ -132,20 +139,27 @@ export class SbbTagGroup extends LitElement {
     return Array.from(this.querySelectorAll('sbb-tag')) as SbbTag[];
   }
 
+  private _readSlottedElements(): void {
+    this._slottedElements = Array.from(this.children).filter(
+      (e): e is HTMLElement => e instanceof window.HTMLElement,
+    );
+  }
+
   protected override render(): TemplateResult {
-    this._tags.forEach((tag, index) => tag.setAttribute('slot', `tag-${index}`));
+    this._slottedElements.forEach((tag, index) => tag.setAttribute('slot', `tag-${index}`));
 
     setAttribute(this, 'role', this.listAccessibilityLabel ? '' : 'group');
 
     return html`
       <div class="sbb-tag-group">
         <ul class="sbb-tag-group__list" aria-label=${this.listAccessibilityLabel ?? nothing}>
-          ${this._tags.map(
+          ${this._slottedElements.map(
             (_, index) =>
               html`<li class="sbb-tag-group__list-item">
                 <slot
                   name=${`tag-${index}`}
                   @slotchange=${(): void => {
+                    this._readSlottedElements();
                     this._ensureOnlyOneTagSelected();
                     this._updateValueByReadingTags();
                   }}
@@ -156,6 +170,7 @@ export class SbbTagGroup extends LitElement {
         <span hidden>
           <slot
             @slotchange=${() => {
+              this._readSlottedElements();
               this._ensureOnlyOneTagSelected();
               this._updateValueByReadingTags();
             }}
