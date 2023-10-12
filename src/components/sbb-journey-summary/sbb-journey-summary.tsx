@@ -3,7 +3,11 @@ import { InterfaceSbbJourneySummaryAttributes } from './sbb-journey-summary.cust
 import { isValid, format } from 'date-fns';
 
 import { i18nTripDuration } from '../../global/i18n';
-import { durationToTime, removeTimezoneFromISOTimeString } from '../../global/datetime';
+import {
+  durationToTime,
+  NativeDateAdapter,
+  removeTimezoneFromISOTimeString,
+} from '../../global/datetime';
 import {
   documentLanguage,
   HandlerRepository,
@@ -67,17 +71,14 @@ export class SbbJourneySummary implements ComponentInterface {
 
   /**  renders the date of the journey or if it is the current or next day */
   private _renderJourneyStart(departureTime: Date): JSX.Element {
+    const dateAdapter = new NativeDateAdapter();
+
     if (isValid(departureTime))
       return (
         <span>
-          <span>
-            {departureTime.toLocaleDateString(this._currentLanguage, { weekday: 'short' })}.{' '}
-          </span>
-          <span>
-            <time dateTime={format(departureTime, 'd') + ' ' + format(departureTime, 'M')}>
-              {format(departureTime, 'dd.MM.yyyy')}
-            </time>
-          </span>
+          <time dateTime={format(departureTime, 'd') + ' ' + format(departureTime, 'M')}>
+            {dateAdapter.format(departureTime).replace(',', '.')}
+          </time>
         </span>
       );
   }
