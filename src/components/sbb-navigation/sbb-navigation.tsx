@@ -331,8 +331,8 @@ export class SbbNavigation extends LitElement {
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
     this._navigationObserver.observe(this, navigationObserverConfig);
-    this.addEventListener('pointerup', (event) => this._closeOnBackdropClick(event));
-    this.addEventListener('pointerdown', (event) => this._pointerDownListener(event));
+    this.addEventListener('pointerup', (event) => this._closeOnBackdropClick(event), { signal });
+    this.addEventListener('pointerdown', (event) => this._pointerDownListener(event), { signal });
   }
 
   public override disconnectedCallback(): void {

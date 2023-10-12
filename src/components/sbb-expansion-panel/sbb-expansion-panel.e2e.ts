@@ -1,4 +1,4 @@
-import { waitForCondition } from '../../global/testing';
+import { waitForCondition, waitForLitRender } from '../../global/testing';
 import {
   SbbExpansionPanelHeader,
   events as sbbExpansionPanelHeaderEvents,
@@ -70,7 +70,7 @@ describe('sbb-expansion-panel', () => {
     header.click();
     await waitForCondition(() => toggleExpandedEventSpy.events.length === 1);
     expect(toggleExpandedEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element.expanded).to.be.equal(true);
     expect(header.getAttribute('aria-expanded')).to.be.equal('true');
     expect(content.getAttribute('aria-hidden')).to.be.equal('false');
@@ -82,7 +82,7 @@ describe('sbb-expansion-panel', () => {
     header.click();
     await waitForCondition(() => toggleExpandedEventSpy.events.length === 2);
     expect(toggleExpandedEventSpy.count).to.be.equal(2);
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(element.expanded).to.be.equal(false);
     expect(header.getAttribute('aria-expanded')).to.be.equal('false');
     expect(content.getAttribute('aria-hidden')).to.be.equal('true');
@@ -98,12 +98,12 @@ describe('sbb-expansion-panel', () => {
     expect(header).not.to.have.attribute('aria-disabled');
 
     element.disabled = true;
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(header.disabled).to.be.equal(true);
     expect(header).to.have.attribute('aria-disabled', 'true');
 
     element.disabled = false;
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(header.disabled).to.be.equal(false);
     expect(header).not.to.have.attribute('aria-disabled');
   });

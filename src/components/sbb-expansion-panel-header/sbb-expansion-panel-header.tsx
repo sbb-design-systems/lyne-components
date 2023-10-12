@@ -4,6 +4,7 @@ import {
   HandlerRepository,
   namedSlotChangeHandlerAspect,
   EventEmitter,
+  ConnectedAbortController,
 } from '../../global/eventing';
 import { resolveButtonRenderVariables } from '../../global/interfaces';
 import { setAttribute, setAttributes, toggleDatasetEntry } from '../../global/dom';
@@ -40,6 +41,7 @@ export class SbbExpansionPanelHeader extends LitElement {
   private _toggleExpanded: EventEmitter = new EventEmitter(this, events.toggleExpanded, {
     bubbles: true,
   });
+  private _abort = new ConnectedAbortController(this);
 
   private _handlerRepository = new HandlerRepository(
     this,
@@ -49,10 +51,11 @@ export class SbbExpansionPanelHeader extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    const signal = this._abort.signal;
     this._handlerRepository.connect();
-    this.addEventListener('click', () => this._emitExpandedEvent());
-    this.addEventListener('mouseenter', () => this._onMouseMovement(true));
-    this.addEventListener('mouseleave', () => this._onMouseMovement(false));
+    this.addEventListener('click', () => this._emitExpandedEvent(), { signal });
+    this.addEventListener('mouseenter', () => this._onMouseMovement(true), { signal });
+    this.addEventListener('mouseleave', () => this._onMouseMovement(false), { signal });
   }
 
   public override disconnectedCallback(): void {

@@ -1,4 +1,4 @@
-import { waitForCondition } from '../../global/testing';
+import { waitForCondition, waitForLitRender } from '../../global/testing';
 import {
   SbbExpansionPanel,
   events as sbbExpansionPanelEvents,
@@ -8,6 +8,7 @@ import { html } from 'lit/static-html.js';
 import { EventSpy } from '../../global/testing/event-spy';
 import { SbbAccordion } from './sbb-accordion';
 import { SbbExpansionPanelHeader } from '../sbb-expansion-panel-header';
+import '../sbb-expansion-panel';
 import '../sbb-expansion-panel-header';
 import '../sbb-expansion-panel-content';
 
@@ -49,17 +50,17 @@ describe('sbb-accordion', () => {
 
   it('should set accordion context on expansion panel when removing and adding expansion-panels', async () => {
     let panels: SbbExpansionPanel[];
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     element.querySelector('sbb-expansion-panel').remove();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
     expect(panels[0]).to.have.attribute('data-accordion-first');
     expect(panels[1]).to.have.attribute('data-accordion-last');
 
     element.querySelector('sbb-expansion-panel').remove();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     const lastRemainingPanel = element.querySelector('sbb-expansion-panel');
     expect(lastRemainingPanel).to.have.attribute('data-accordion-first');
@@ -67,7 +68,7 @@ describe('sbb-accordion', () => {
 
     const panel = document.createElement('sbb-expansion-panel');
     element.append(panel);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
     expect(panels[0]).to.have.attribute('data-accordion-first');
@@ -91,7 +92,7 @@ describe('sbb-accordion', () => {
 
   it('should dynamically update titleLevel prop', async () => {
     element.titleLevel = '6';
-    await element.updateComplete;
+    await waitForLitRender(element);
     const panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
     expect(panels.length).to.be.equal(3);
     expect(
@@ -119,28 +120,28 @@ describe('sbb-accordion', () => {
     }
 
     headerTwo.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(panelOne.expanded).to.be.equal(false);
     expect(panelTwo.expanded).to.be.equal(true);
     expect(panelThree.expanded).to.be.equal(false);
 
     headerOne.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
     await waitForCondition(() => willOpenEventSpy.events.length === 2);
     expect(willOpenEventSpy.count).to.be.equal(2);
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(panelOne.expanded).to.be.equal(true);
     expect(panelTwo.expanded).to.be.equal(false);
     expect(panelThree.expanded).to.be.equal(false);
 
     headerThree.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
     await waitForCondition(() => willOpenEventSpy.events.length === 3);
     expect(willOpenEventSpy.count).to.be.equal(3);
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(panelOne.expanded).to.be.equal(false);
     expect(panelTwo.expanded).to.be.equal(false);
     expect(panelThree.expanded).to.be.equal(true);
@@ -148,7 +149,7 @@ describe('sbb-accordion', () => {
 
   it('should not change others when expanding and multi = false', async () => {
     element.multi = true;
-    await element.updateComplete;
+    await waitForLitRender(element);
     const willOpenEventSpy = new EventSpy(sbbExpansionPanelEvents.willOpen);
     const panelOne: SbbExpansionPanel = element.querySelector('#panel-1');
     const headerOne: SbbExpansionPanelHeader = element.querySelector('#header-1');
@@ -162,28 +163,28 @@ describe('sbb-accordion', () => {
     }
 
     headerTwo.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(panelOne.expanded).to.be.equal(false);
     expect(panelTwo.expanded).to.be.equal(true);
     expect(panelThree.expanded).to.be.equal(false);
 
     headerOne.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
     await waitForCondition(() => willOpenEventSpy.events.length === 2);
     expect(willOpenEventSpy.count).to.be.equal(2);
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(panelOne.expanded).to.be.equal(true);
     expect(panelTwo.expanded).to.be.equal(true);
     expect(panelThree.expanded).to.be.equal(false);
 
     headerThree.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
     await waitForCondition(() => willOpenEventSpy.events.length === 3);
     expect(willOpenEventSpy.count).to.be.equal(3);
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(panelOne.expanded).to.be.equal(true);
     expect(panelTwo.expanded).to.be.equal(true);
     expect(panelThree.expanded).to.be.equal(true);
@@ -191,7 +192,7 @@ describe('sbb-accordion', () => {
 
   it('should close all panels except the first when multi changes from true to false', async () => {
     element.multi = true;
-    await element.updateComplete;
+    await waitForLitRender(element);
     const panelOne: SbbExpansionPanel = element.querySelector('#panel-1');
     const panelTwo: SbbExpansionPanel = element.querySelector('#panel-2');
     const headerTwo: SbbExpansionPanelHeader = element.querySelector('#header-2');
@@ -205,21 +206,21 @@ describe('sbb-accordion', () => {
     const willOpenEventSpy = new EventSpy(sbbExpansionPanelEvents.willOpen);
 
     headerTwo.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(panelTwo.expanded).to.be.equal(true);
 
     headerThree.click();
-    await element.updateComplete;
+    await waitForLitRender(element);
     await waitForCondition(() => willOpenEventSpy.events.length === 2);
     expect(willOpenEventSpy.count).to.be.equal(2);
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(panelThree.expanded).to.be.equal(true);
 
     element.multi = false;
-    await element.updateComplete;
+    await waitForLitRender(element);
     expect(panelOne.expanded).to.be.equal(true);
     expect(panelTwo.expanded).to.be.equal(false);
     expect(panelThree.expanded).to.be.equal(false);
