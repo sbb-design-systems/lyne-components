@@ -1,10 +1,14 @@
 /** @jsx h */
 import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
-import events from './sbb-option.events';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import { StoryContext } from '@storybook/html';
+import { StoryContext } from '@storybook/web-components';
+import { events } from './sbb-option';
+import '../sbb-form-field';
+import '../sbb-select';
+import '../sbb-autocomplete';
+import './sbb-option';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative

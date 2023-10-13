@@ -1,15 +1,24 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
-import events from './sbb-autocomplete.events';
-import optionEvents from '../sbb-option/sbb-option.events';
+import { events } from './sbb-autocomplete';
+import { events as optionEvents } from '../sbb-option';
 import readme from './readme.md?raw';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/testing/wait-for-components-ready';
 import isChromatic from 'chromatic';
 import { waitForStablePosition } from '../../global/testing/wait-for-stable-position';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator, StoryContext } from '@storybook/html';
+import type {
+  Meta,
+  StoryObj,
+  ArgTypes,
+  Args,
+  Decorator,
+  StoryContext,
+} from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 import { withActions } from '@storybook/addon-actions/decorator';
+import '../sbb-form-field';
+import './sbb-autocomplete';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative

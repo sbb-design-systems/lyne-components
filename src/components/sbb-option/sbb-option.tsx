@@ -1,26 +1,19 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  Event,
-  EventEmitter,
-  h,
-  Host,
-  JSX,
-  Listen,
-  Method,
-  Prop,
-  State,
-} from '@stencil/core';
 import { assignId } from '../../global/a11y';
 import { isSafari, isValidAttribute, isAndroid, toggleDatasetEntry } from '../../global/dom';
 import {
   createNamedSlotState,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
+  EventEmitter,
+  ConnectedAbortController,
 } from '../../global/eventing';
 import { AgnosticMutationObserver } from '../../global/observers';
-import { SbbOptionVariant } from './sbb-option.custom';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { setAttribute } from '../../global/dom';
+import { classMap } from 'lit/directives/class-map.js';
+import Style from './sbb-option.scss?lit&inline';
+import '../sbb-visual-checkbox';
 
 let nextId = 0;
 
@@ -29,78 +22,68 @@ const optionObserverConfig: MutationObserverInit = {
   attributeFilter: ['data-group-disabled', 'data-negative'],
 };
 
+export const events = {
+  selectionChange: 'option-selection-change',
+  optionSelected: 'option-selected',
+};
+
 /**
  * @slot unnamed - Use this to provide the option label.
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
  */
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-option.scss',
-  tag: 'sbb-option',
-})
-export class SbbOption implements ComponentInterface {
+export type SbbOptionVariant = 'autocomplete' | 'select';
+
+@customElement('sbb-option')
+export class SbbOption extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /** Value of the option. */
-  @Prop() public value?: string;
+  @property() public value?: string;
 
   /**
    * The icon name we want to use, choose from the small icon variants
    * from the ui-icons category from here
    * https://icons.app.sbb.ch.
    */
-  @Prop() public iconName?: string;
+  @property({ attribute: 'icon-name' }) public iconName?: string;
 
   /** Whether the option is currently active. */
-  @Prop({ reflect: true }) public active?: boolean;
+  @property({ reflect: true, type: Boolean }) public active?: boolean;
 
   /** Whether the option is selected. */
-  @Prop({ mutable: true, reflect: true }) public selected = false;
+  @property({ reflect: true, type: Boolean }) public selected = false;
 
-  @State() private _negative = false;
-
-  /** Whether the component must be set disabled due disabled attribute on sbb-checkbox-group. */
-  @State() private _disabledFromGroup = false;
-
-  /** Whether the option is disabled. TBI: missing disabled style, will be implemented with the select component. */
-  @Prop() public disabled?: boolean;
+  /** Whether the option is disabled. */
+  @property({ type: Boolean }) public disabled?: boolean;
 
   /** Emits when the option selection status changes. */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'option-selection-change',
-  })
-  public selectionChange: EventEmitter;
+  private _selectionChange: EventEmitter = new EventEmitter(this, events.selectionChange);
 
   /** Emits when an option was selected by user. */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'option-selected',
-  })
-  public optionSelected: EventEmitter;
+  private _optionSelected: EventEmitter = new EventEmitter(this, events.optionSelected);
+
+  /** Wheter to apply the negative styling */
+  @state() private _negative = false;
+
+  /** Whether the component must be set disabled due disabled attribute on sbb-checkbox-group. */
+  @state() private _disabledFromGroup = false;
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @State() private _namedSlots = createNamedSlotState('icon');
+  @state() private _namedSlots = createNamedSlotState('icon');
 
-  @State() private _label: string;
+  @state() private _label: string;
 
   /** The portion of the highlighted label. */
-  @State() private _highlightString: string;
+  @state() private _highlightString: string;
 
   /** Disable the highlight of the label. */
-  @State() private _disableLabelHighlight: boolean;
+  @state() private _disableLabelHighlight: boolean;
 
-  @State() private _groupLabel: string;
-
-  @Element() private _element!: HTMLSbbOptionElement;
-
-  private _handlerRepository = new HandlerRepository(
-    this._element,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
-  );
+  @state() private _groupLabel: string;
 
   private _optionId = `sbb-option-${++nextId}`;
   private _variant: SbbOptionVariant;
+  private _abort = new ConnectedAbortController(this);
 
   /**
    * On Safari, the groups labels are not read by VoiceOver.
@@ -109,6 +92,16 @@ export class SbbOption implements ComponentInterface {
    */
   private _inertAriaGroups = isSafari();
 
+  private _handlerRepository = new HandlerRepository(
+    this,
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
+  );
+
+  /** MutationObserver on data attributes. */
+  private _optionAttributeObserver = new AgnosticMutationObserver((mutationsList) =>
+    this._onOptionAttributesChange(mutationsList),
+  );
+
   private get _isAutocomplete(): boolean {
     return this._variant === 'autocomplete';
   }
@@ -116,21 +109,15 @@ export class SbbOption implements ComponentInterface {
     return this._variant === 'select';
   }
   private get _isMultiple(): boolean {
-    return this._element.closest('sbb-select')?.hasAttribute('multiple');
+    return this.closest('sbb-select')?.hasAttribute('multiple');
   }
-
-  /** MutationObserver on data attributes. */
-  private _optionAttributeObserver = new AgnosticMutationObserver((mutationsList) =>
-    this._onOptionAttributesChange(mutationsList),
-  );
 
   /**
    * Highlight the label of the option
    * @param value the highlighted portion of the label
    * @internal
    */
-  @Method()
-  public async highlight(value: string): Promise<void> {
+  public highlight(value: string): void {
     this._highlightString = value;
   }
 
@@ -138,25 +125,22 @@ export class SbbOption implements ComponentInterface {
    * Set the option group label (used for a11y)
    * @param value the label of the option group
    */
-  @Method()
-  public async setGroupLabel(value: string): Promise<void> {
+  public setGroupLabel(value: string): void {
     this._groupLabel = value;
   }
 
   /**
    * @internal
    */
-  @Method()
-  public async setSelectedViaUserInteraction(selected: boolean): Promise<void> {
+  public setSelectedViaUserInteraction(selected: boolean): void {
     this.selected = selected;
-    this.selectionChange.emit();
+    this._selectionChange.emit();
     if (this.selected) {
-      this.optionSelected.emit();
+      this._optionSelected.emit();
     }
   }
 
-  @Listen('click', { passive: true })
-  public async selectByClick(event): Promise<void> {
+  private _selectByClick(event): void {
     if (this.disabled || this._disabledFromGroup) {
       event.stopPropagation();
       return;
@@ -164,41 +148,46 @@ export class SbbOption implements ComponentInterface {
 
     if (this._isMultiple) {
       event.stopPropagation();
-      await this.setSelectedViaUserInteraction(!this.selected);
+      this.setSelectedViaUserInteraction(!this.selected);
     } else {
-      await this.setSelectedViaUserInteraction(true);
+      this.setSelectedViaUserInteraction(true);
     }
   }
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    const signal = this._abort.signal;
     this._handlerRepository.connect();
-    const parentGroup = this._element.closest('sbb-optgroup');
+    const parentGroup = this.closest('sbb-optgroup');
     if (parentGroup) {
       this._disabledFromGroup = isValidAttribute(parentGroup, 'disabled');
     }
-    this._optionAttributeObserver.observe(this._element, optionObserverConfig);
+    this._optionAttributeObserver.observe(this, optionObserverConfig);
 
-    this._negative = !!this._element.closest(
+    this._negative = !!this.closest(
       // :is() selector not possible due to test environment
       `sbb-autocomplete[negative]:not([negative='false']),sbb-select[negative]:not([negative='false']),sbb-form-field[negative]:not([negative='false'])`,
     );
-    toggleDatasetEntry(this._element, 'negative', this._negative);
+    toggleDatasetEntry(this, 'negative', this._negative);
 
     this._setVariantByContext();
+
+    this.addEventListener('click', (e) => this._selectByClick(e), { signal, passive: true });
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
     this._optionAttributeObserver.disconnect();
   }
 
   private _setVariantByContext(): void {
-    if (this._element.closest('sbb-autocomplete')) {
+    if (this.closest('sbb-autocomplete')) {
       this._variant = 'autocomplete';
       return;
     }
 
-    if (this._element.closest('sbb-select')) {
+    if (this.closest('sbb-select')) {
       this._variant = 'select';
     }
   }
@@ -207,9 +196,9 @@ export class SbbOption implements ComponentInterface {
   private _onOptionAttributesChange(mutationsList: MutationRecord[]): void {
     for (const mutation of mutationsList) {
       if (mutation.attributeName === 'data-group-disabled') {
-        this._disabledFromGroup = isValidAttribute(this._element, 'data-group-disabled');
+        this._disabledFromGroup = isValidAttribute(this, 'data-group-disabled');
       } else if (mutation.attributeName === 'data-negative') {
-        this._negative = isValidAttribute(this._element, 'data-negative');
+        this._negative = isValidAttribute(this, 'data-negative');
       }
     }
   }
@@ -231,15 +220,15 @@ export class SbbOption implements ComponentInterface {
     this._label = labelNode.wholeText;
   }
 
-  private _getHighlightedLabel(): JSX.Element {
+  private _getHighlightedLabel(): TemplateResult {
     if (!this._highlightString || !this._highlightString.trim()) {
-      return this._label;
+      return html`${this._label}`;
     }
 
     const matchIndex = this._label.toLowerCase().indexOf(this._highlightString.toLowerCase());
 
     if (matchIndex === -1) {
-      return this._label;
+      return html`${this._label}`;
     }
 
     const prefix = this._label.substring(0, matchIndex);
@@ -249,71 +238,77 @@ export class SbbOption implements ComponentInterface {
     );
     const postfix = this._label.substring(matchIndex + this._highlightString.length);
 
-    return [
-      <span class="sbb-option__label--highlight">{prefix}</span>,
-      <span>{highlighted}</span>,
-      <span class="sbb-option__label--highlight">{postfix}</span>,
-    ];
+    return html`
+      <span class="sbb-option__label--highlight">${prefix}</span><span>${highlighted}</span
+      ><span class="sbb-option__label--highlight">${postfix}</span>
+    `;
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const isMultiple = this._isMultiple;
-    return (
-      <Host
-        role="option"
-        tabindex={isAndroid() && !this.disabled && 0}
-        data-variant={this._variant}
-        data-multiple={isMultiple}
-        data-disable-highlight={this._disableLabelHighlight}
-        ref={assignId(() => this._optionId)}
-        /* eslint-disable jsx-a11y/aria-proptypes */
-        aria-selected={`${this.selected}`}
-        aria-disabled={`${this.disabled || this._disabledFromGroup}`}
-        /* eslint-enable jsx-a11y/aria-proptypes */
-      >
-        <div class="sbb-option__container">
-          <div class="sbb-option">
-            {/* Icon */}
-            {!isMultiple && (
-              <span
-                class={{
+    setAttribute(this, 'role', 'option');
+    setAttribute(this, 'tabindex', isAndroid() && !this.disabled && 0);
+    setAttribute(this, 'data-variant', this._variant);
+    setAttribute(this, 'data-multiple', isMultiple);
+    setAttribute(this, 'data-disable-highlight', this._disableLabelHighlight);
+    setAttribute(this, 'aria-selected', `${this.selected}`);
+    setAttribute(this, 'aria-disabled', `${this.disabled || this._disabledFromGroup}`);
+    assignId(() => this._optionId)(this);
+
+    return html`
+      <div class="sbb-option__container">
+        <div class="sbb-option">
+          <!-- Icon -->
+          ${!isMultiple
+            ? html` <span
+                class=${classMap({
                   'sbb-option__icon': true,
                   'sbb-option__icon--empty': !this._namedSlots.icon && !this.iconName,
-                }}
+                })}
               >
-                <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
-              </span>
-            )}
+                <slot name="icon">
+                  ${this.iconName ? html`<sbb-icon name=${this.iconName} />` : nothing}
+                </slot>
+              </span>`
+            : nothing}
 
-            {/* Checkbox */}
-            {isMultiple && (
-              <sbb-visual-checkbox
-                checked={this.selected}
-                disabled={this.disabled || this._disabledFromGroup}
-                negative={this._negative}
-              ></sbb-visual-checkbox>
-            )}
+          <!-- Checkbox -->
+          ${isMultiple
+            ? html` <sbb-visual-checkbox
+                ?checked=${this.selected}
+                ?disabled=${this.disabled || this._disabledFromGroup}
+                ?negative=${this._negative}
+              ></sbb-visual-checkbox>`
+            : nothing}
 
-            {/* Label */}
-            <span class="sbb-option__label">
-              <slot onSlotchange={(event) => this._setupHighlightHandler(event)} />
+          <!-- Label -->
+          <span class="sbb-option__label">
+            <slot @slotchange=${this._setupHighlightHandler}></slot>
 
-              {/* Search highlight */}
-              {this._isAutocomplete &&
-                this._label &&
-                !this._disableLabelHighlight &&
-                this._getHighlightedLabel()}
+            <!-- Search highlight -->
+            ${this._isAutocomplete && this._label && !this._disableLabelHighlight
+              ? this._getHighlightedLabel()
+              : nothing}
+            ${this._inertAriaGroups && this._groupLabel
+              ? html` <span class="sbb-option__group-label--visually-hidden">
+                  (${this._groupLabel})</span
+                >`
+              : nothing}
+          </span>
 
-              {this._inertAriaGroups && this._groupLabel && (
-                <span class="sbb-option__group-label--visually-hidden"> ({this._groupLabel})</span>
-              )}
-            </span>
-
-            {/* Selected tick */}
-            {this._isSelect && !isMultiple && this.selected && <sbb-icon name="tick-small" />}
-          </div>
+          <!-- Selected tick -->
+          ${this._isSelect && !isMultiple && this.selected
+            ? html`<sbb-icon name="tick-small"></sbb-icon>`
+            : nothing}
         </div>
-      </Host>
-    );
+      </div>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-option': SbbOption;
   }
 }

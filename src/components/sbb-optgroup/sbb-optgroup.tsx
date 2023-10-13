@@ -1,36 +1,26 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  h,
-  Host,
-  JSX,
-  Prop,
-  State,
-  Watch,
-} from '@stencil/core';
-import { SbbOptionVariant } from '../sbb-option/sbb-option.custom';
 import { isSafari, isValidAttribute, toggleDatasetEntry } from '../../global/dom';
 import { AgnosticMutationObserver } from '../../global/observers';
+import { CSSResult, html, LitElement, TemplateResult, PropertyValues } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { setAttribute } from '../../global/dom';
+import { SbbOption, SbbOptionVariant } from '../sbb-option';
+import Style from './sbb-optgroup.scss?lit&inline';
+import '../sbb-divider';
 
 /**
  * @slot unnamed - Used to display options.
  */
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-optgroup.scss',
-  tag: 'sbb-optgroup',
-})
-export class SbbOptGroup implements ComponentInterface {
+@customElement('sbb-optgroup')
+export class SbbOptGroup extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /** Option group label. */
-  @Prop() public label: string;
+  @property() public label: string;
 
   /** Whether the group is disabled. */
-  @Prop() public disabled = false;
+  @property({ type: Boolean }) public disabled = false;
 
-  @Element() private _element: HTMLElement;
-
-  @State() private _negative = false;
+  @state() private _negative = false;
 
   private _negativeObserver = new AgnosticMutationObserver(() => this._onNegativeChange());
 
@@ -44,58 +34,58 @@ export class SbbOptGroup implements ComponentInterface {
   private _inertAriaGroups = isSafari();
 
   private get _isMultiple(): boolean {
-    return (
-      this._variant === 'select' && this._element.closest('sbb-select')?.hasAttribute('multiple')
-    );
+    return this._variant === 'select' && this.closest('sbb-select')?.hasAttribute('multiple');
   }
 
-  @Watch('disabled')
-  public updateDisabled(): void {
-    this._proxyDisabledToOptions();
+  private get _options(): SbbOption[] {
+    return Array.from(this.querySelectorAll('sbb-option')) as SbbOption[];
   }
 
-  @Watch('label')
-  public proxyGroupLabelToOptions(): void {
-    if (!this._inertAriaGroups) {
-      return;
-    }
-
-    for (const option of this._options) {
-      option.setGroupLabel(this.label);
-    }
-  }
-
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
     this._negativeObserver?.disconnect();
-    this._negative = !!this._element.closest(
-      // :is() selector not possible due to test environment
-      `sbb-autocomplete[negative]:not([negative='false']),sbb-select[negative]:not([negative='false']),sbb-form-field[negative]:not([negative='false'])`,
+    this._negative = !!this.closest(
+      `:is(sbb-autocomplete, sbb-select, sbb-form-field)[negative]:not([negative='false']`,
     );
-    toggleDatasetEntry(this._element, 'negative', this._negative);
+    toggleDatasetEntry(this, 'negative', this._negative);
 
-    this._negativeObserver.observe(this._element, {
+    this._negativeObserver.observe(this, {
       attributes: true,
       attributeFilter: ['data-negative'],
     });
 
     this._setVariantByContext();
-    this.proxyGroupLabelToOptions();
+    this._proxyGroupLabelToOptions();
   }
 
-  public disconnectedCallback(): void {
+  public override willUpdate(changedProperties: PropertyValues<this>): void {
+    if (changedProperties.has('disabled')) {
+      this._proxyDisabledToOptions();
+    }
+    if (changedProperties.has('label')) {
+      this._proxyGroupLabelToOptions();
+    }
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._negativeObserver?.disconnect();
   }
 
-  private get _options(): HTMLSbbOptionElement[] {
-    return Array.from(this._element.querySelectorAll('sbb-option')) as HTMLSbbOptionElement[];
-  }
-
   private _setVariantByContext(): void {
-    if (this._element.closest('sbb-autocomplete')) {
+    if (this.closest('sbb-autocomplete')) {
       this._variant = 'autocomplete';
-    } else if (this._element.closest('sbb-select')) {
+    } else if (this.closest('sbb-select')) {
       this._variant = 'select';
     }
+  }
+
+  private _proxyGroupLabelToOptions(): void {
+    if (!this._inertAriaGroups) {
+      return;
+    }
+
+    this._options.forEach((opt) => opt.setGroupLabel(this.label));
   }
 
   private _proxyDisabledToOptions(): void {
@@ -105,27 +95,32 @@ export class SbbOptGroup implements ComponentInterface {
   }
 
   private _onNegativeChange(): void {
-    this._negative = isValidAttribute(this._element, 'data-negative');
+    this._negative = isValidAttribute(this, 'data-negative');
   }
 
-  public render(): JSX.Element {
-    return (
-      <Host
-        role={!this._inertAriaGroups ? 'group' : null}
-        data-variant={this._variant}
-        data-multiple={this._isMultiple}
-        aria-label={!this._inertAriaGroups && this.label}
-        aria-disabled={!this._inertAriaGroups && this.disabled.toString()}
-      >
-        <div class="sbb-optgroup__divider">
-          <sbb-divider negative={this._negative}></sbb-divider>
-        </div>
-        <div class="sbb-optgroup__label" aria-hidden="true">
-          <div class="sbb-optgroup__icon-space" />
-          <span>{this.label}</span>
-        </div>
-        <slot onSlotchange={() => this._proxyDisabledToOptions()} />
-      </Host>
-    );
+  protected override render(): TemplateResult {
+    setAttribute(this, 'role', !this._inertAriaGroups ? 'group' : null);
+    setAttribute(this, 'data-variant', this._variant);
+    setAttribute(this, 'data-multiple', this._isMultiple);
+    setAttribute(this, 'aria-label', !this._inertAriaGroups && this.label);
+    setAttribute(this, 'aria-disabled', !this._inertAriaGroups && this.disabled.toString());
+
+    return html`
+      <div class="sbb-optgroup__divider">
+        <sbb-divider ?negative=${this._negative}></sbb-divider>
+      </div>
+      <div class="sbb-optgroup__label" aria-hidden="true">
+        <div class="sbb-optgroup__icon-space"></div>
+        <span>${this.label}</span>
+      </div>
+      <slot @slotchange=${this._proxyDisabledToOptions}></slot>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-optgroup': SbbOptGroup;
   }
 }

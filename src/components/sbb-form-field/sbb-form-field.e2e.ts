@@ -1,8 +1,10 @@
-import { aTimeout, assert, expect, fixture, nextFrame } from '@open-wc/testing';
+import { assert, expect, fixture, nextFrame } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { waitForLitRender } from '../../global/testing';
+import { waitForCondition, waitForLitRender } from '../../global/testing';
 import { SbbFormField } from './sbb-form-field';
+import { SbbSelect } from '../sbb-select';
+import { SbbOption } from '../sbb-option';
 
 describe('sbb-form-field', () => {
   describe('with input', () => {
@@ -131,10 +133,9 @@ describe('sbb-form-field', () => {
     });
   });
 
-  // TODO-Migr: Unskip this when sbb-select is migrated
-  describe.skip('with sbb-select', () => {
+  describe('with sbb-select', () => {
     let element: SbbFormField;
-    let select: any; // TODO-Migr: Change to SbbSelect
+    let select: SbbSelect;
 
     beforeEach(async () => {
       element = await fixture(html`
@@ -143,6 +144,12 @@ describe('sbb-form-field', () => {
         </sbb-form-field>
       `);
       select = document.querySelector('sbb-select');
+    });
+
+    it('renders', async () => {
+      const option = select.querySelector('sbb-option');
+      assert.instanceOf(select, SbbSelect);
+      assert.instanceOf(option, SbbOption);
     });
 
     it('should react to focus state', async () => {
@@ -165,7 +172,7 @@ describe('sbb-form-field', () => {
       label.click();
       await waitForLitRender(element);
 
-      expect(select).to.have.attribute('data-state', 'opened');
+      expect(select).to.have.attribute('data-state', 'opening');
     });
 
     it('should focus select on form field click readonly', async () => {
@@ -225,8 +232,7 @@ describe('sbb-form-field', () => {
       expect(element).not.to.have.attribute('data-input-empty');
     });
 
-    // TODO-Migr: Unskip this when sbb-select is migrated
-    it.skip('should read sbb-select empty state', async () => {
+    it('should read sbb-select empty state', async () => {
       const element: SbbFormField = await fixture(html`
         <sbb-form-field floating-label>
           <sbb-select value="0">
@@ -239,9 +245,8 @@ describe('sbb-form-field', () => {
       expect(element).to.have.attribute('data-input-empty');
     });
 
-    // TODO-Migr: Unskip this when sbb-select is migrated
-    it.skip('should not read sbb-select empty state', async () => {
-      const element: SbbFormField = await fixture(html`
+    it('should not read sbb-select empty state', async () => {
+      const element = await fixture(html`
         <sbb-form-field floating-label>
           <sbb-select>
             <sbb-option value="" selected>Empty Value</sbb-option>
@@ -253,8 +258,7 @@ describe('sbb-form-field', () => {
       expect(element).not.to.have.attribute('data-input-empty');
     });
 
-    // TODO-Migr: Unskip this when sbb-select is migrated
-    it.skip('should update floating label after clearing', async () => {
+    it('should update floating label after clearing', async () => {
       const element: SbbFormField = await fixture(
         html` <sbb-form-field floating-label>
           <sbb-select>
@@ -263,35 +267,30 @@ describe('sbb-form-field', () => {
         </sbb-form-field>`,
       );
 
-      // TODO-Migr: Remove as any
-      (document.querySelector('sbb-select') as any).value = '';
+      document.querySelector('sbb-select').value = '';
       await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-input-empty');
     });
 
     it('should update floating label when resetting form', async () => {
-      await fixture(html`
+      const form = (await fixture(html`
         <form>
           <sbb-form-field floating-label>
             <input />
           </sbb-form-field>
         </form>
-      `);
-      const element = document.querySelector('sbb-form-field');
-      document.querySelector('input').focus();
+      `)) as HTMLFormElement;
+      const element = form.querySelector('sbb-form-field');
+      form.querySelector('input').focus();
       await sendKeys({ type: 'test' });
       await waitForLitRender(element);
       expect(element).not.to.have.attribute('data-input-empty');
 
-      document.querySelector('form').reset();
-      await waitForLitRender(element);
+      form.reset();
 
       // This is necessary to await for the reset event to be propagated
-      // In general, 'element.updateComplete' should suffice. Unless the changes
-      // do not trigger a rendering of the component
-      await aTimeout(0);
-
+      await waitForCondition(() => element.hasAttribute('data-input-empty'));
       expect(element).to.have.attribute('data-input-empty');
     });
 

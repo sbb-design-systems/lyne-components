@@ -1,19 +1,3 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  Event,
-  EventEmitter,
-  h,
-  Host,
-  JSX,
-  Listen,
-  Method,
-  Prop,
-  State,
-  Watch,
-} from '@stencil/core';
-import { SbbOverlayState } from '../../components';
 import { getNextElementIndex, assignId } from '../../global/a11y';
 import {
   isSafari,
@@ -21,96 +5,102 @@ import {
   toggleDatasetEntry,
   getDocumentWritingMode,
 } from '../../global/dom';
-import { setOverlayPosition, isEventOnElement, overlayGapFixCorners } from '../../global/overlay';
-import { SelectChange } from './sbb-select.custom';
+import {
+  setOverlayPosition,
+  isEventOnElement,
+  overlayGapFixCorners,
+  SbbOverlayState,
+} from '../../global/overlay';
+import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
+import { SbbOption } from '../sbb-option';
+import { setAttribute } from '../../global/dom';
+import { ConnectedAbortController, EventEmitter } from '../../global/eventing';
+import { SbbOptGroup } from '../sbb-optgroup';
+import Style from './sbb-select.scss?lit&inline';
 
 let nextId = 0;
+
+export interface SelectChange {
+  type: 'value';
+  value: string | string[];
+}
+
+export const events = {
+  didChange: 'did-change',
+  change: 'change',
+  input: 'input',
+  stateChange: 'state-change',
+  willOpen: 'will-open',
+  didOpen: 'did-open',
+  willClose: 'will-close',
+  didClose: 'did-close',
+};
 
 /**
  * @slot unnamed - Use this slot to project options.
  */
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-select.scss',
-  tag: 'sbb-select',
-})
-export class SbbSelect implements ComponentInterface {
+@customElement('sbb-select')
+export class SbbSelect extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /** The value of the select component. If `multiple` is true, it's an array. */
-  @Prop({ mutable: true }) public value: string | string[];
+  @property() public value: string | string[];
 
   /** The placeholder used if no value has been selected. */
-  @Prop() public placeholder: string;
+  @property() public placeholder: string;
 
   /** Whether the select allows for multiple selection. */
-  @Prop() public multiple = false;
+  @property({ type: Boolean }) public multiple = false;
 
   /** Whether the select is required. */
-  @Prop() public required = false;
+  @property({ type: Boolean }) public required = false;
 
   /** Whether the select is disabled. */
-  @Prop() public disabled = false;
+  @property({ type: Boolean }) public disabled = false;
 
   /** Whether the select is readonly. */
-  @Prop() public readonly = false;
+  @property({ type: Boolean }) public readonly = false;
 
   /** Negative coloring variant flag. */
-  @Prop({ reflect: true, mutable: true }) public negative = false;
+  @property({ reflect: true, type: Boolean }) public negative = false;
 
   /** Whether the animation is disabled. */
-  @Prop({ reflect: true }) public disableAnimation = false;
-
-  @Element() private _element: HTMLElement;
+  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
+  public disableAnimation = false;
 
   /** The state of the select. */
-  @State() private _state: SbbOverlayState = 'closed';
+  @state() private _state: SbbOverlayState = 'closed';
 
   /** The value displayed by the component. */
-  @State() private _displayValue: string;
+  @state() private _displayValue: string;
 
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
-  @Event({ bubbles: true, cancelable: true }) public didChange: EventEmitter;
+  private _didChange: EventEmitter = new EventEmitter(this, events.didChange);
 
-  @Event({ bubbles: true }) public change: EventEmitter;
+  private _change: EventEmitter = new EventEmitter(this, events.change);
 
-  @Event({ bubbles: true, composed: true }) public input: EventEmitter;
+  private _input: EventEmitter = new EventEmitter(this, events.input);
 
   /** @internal */
-  @Event({ bubbles: true, eventName: 'state-change' })
-  public stateChange: EventEmitter<SelectChange>;
+  private _stateChange: EventEmitter<SelectChange> = new EventEmitter(this, events.stateChange, {
+    composed: false,
+  });
 
   /** Emits whenever the select starts the opening transition. */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'will-open',
-  })
-  public willOpen: EventEmitter<void>;
+  private _willOpen: EventEmitter<void> = new EventEmitter(this, events.willOpen);
 
   /** Emits whenever the select is opened. */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'did-open',
-  })
-  public didOpen: EventEmitter<void>;
+  private _didOpen: EventEmitter<void> = new EventEmitter(this, events.didOpen);
 
   /** Emits whenever the select begins the closing transition. */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'will-close',
-  })
-  public willClose: EventEmitter<void>;
+  private _willClose: EventEmitter<void> = new EventEmitter(this, events.willClose);
 
   /** Emits whenever the select is closed. */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'did-close',
-  })
-  public didClose: EventEmitter<void>;
+  private _didClose: EventEmitter<void> = new EventEmitter(this, events.didClose);
 
   private _overlay: HTMLElement;
   private _optionContainer: HTMLElement;
@@ -123,6 +113,7 @@ export class SbbSelect implements ComponentInterface {
   private _searchString = '';
   private _didLoad = false;
   private _isPointerDownEventOnMenu: boolean;
+  private _abort = new ConnectedAbortController(this);
 
   /**
    * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
@@ -131,48 +122,47 @@ export class SbbSelect implements ComponentInterface {
   private _ariaRoleOnHost = isSafari();
 
   /** Gets all the HTMLSbbOptionElement projected in the select. */
-  private get _options(): HTMLSbbOptionElement[] {
-    return Array.from(this._element.querySelectorAll('sbb-option')) as HTMLSbbOptionElement[];
+  private get _options(): SbbOption[] {
+    return Array.from(this.querySelectorAll('sbb-option'));
   }
 
-  private get _filteredOptions(): HTMLSbbOptionElement[] {
+  private get _filteredOptions(): SbbOption[] {
     return this._options.filter(
-      (opt: HTMLSbbOptionElement) =>
+      (opt: SbbOption) =>
         !isValidAttribute(opt, 'disabled') && !isValidAttribute(opt, 'data-group-disabled'),
     );
   }
 
   /** Opens the selection panel. */
-  @Method() public async open(): Promise<void> {
+  public open(): void {
     if (this._state !== 'closed' || !this._overlay || this._options.length === 0) {
       return;
     }
 
     this._state = 'opening';
-    this.willOpen.emit();
+    this._willOpen.emit();
     this._setOverlayPosition();
   }
 
   /** Closes the selection panel. */
-  @Method() public async close(): Promise<void> {
+  public close(): void {
     if (this._state !== 'opened') {
       return;
     }
 
     this._state = 'closing';
-    this.willClose.emit();
+    this._willClose.emit();
     this._openPanelEventsController.abort();
   }
 
   /** Gets the current displayed value. */
-  @Method() public async getDisplayValue(): Promise<string> {
+  public getDisplayValue(): string {
     return !this._displayValue ? '' : this._displayValue;
   }
 
   /** Listens to option changes. */
-  @Listen('option-selection-change')
-  public onOptionChanged(event: CustomEvent): void {
-    const target: HTMLSbbOptionElement = event.target as HTMLSbbOptionElement;
+  private _onOptionChanged(event: Event): void {
+    const target = event.target as SbbOption;
     if (target.selected) {
       this._onOptionSelected(target);
     } else {
@@ -180,20 +170,18 @@ export class SbbSelect implements ComponentInterface {
     }
   }
 
-  @Listen('click')
-  public async onOptionClick(event): Promise<void> {
+  private _onOptionClick(event): void {
     if (event.target?.tagName !== 'SBB-OPTION' || event.target.disabled) {
       return;
     }
 
     if (!this.multiple) {
-      await this.close();
+      this.close();
     }
   }
 
   /** Sets the _displayValue by checking the internal sbb-options and setting the correct `selected` value on them. */
-  @Watch('value')
-  public onValueChanged(newValue: string | string[]): void {
+  private _onValueChanged(newValue: string | string[]): void {
     if (!Array.isArray(newValue)) {
       const optionElement = this._filteredOptions.find((e) => e.value === newValue);
       if (optionElement) {
@@ -213,21 +201,22 @@ export class SbbSelect implements ComponentInterface {
       selectedOptionElements.forEach((e) => (e.selected = true));
       this._displayValue = selectedOptionElements.map((e) => e.textContent).join(', ') || null;
     }
-    this.stateChange.emit({ type: 'value', value: newValue });
+    this._stateChange.emit({ type: 'value', value: newValue });
   }
 
-  public componentDidLoad(): void {
+  protected override firstUpdated(): void {
     this._setupOrigin();
     this._setupTrigger();
 
     // Override the default focus behavior
-    this._element.focus = () => this._triggerElement.focus();
+    this.focus = () => this._triggerElement.focus();
     this._didLoad = true;
   }
 
-  public connectedCallback(): void {
-    const formField =
-      this._element.closest('sbb-form-field') ?? this._element.closest('[data-form-field]');
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    const signal = this._abort.signal;
+    const formField = this.closest('sbb-form-field') ?? this.closest('[data-form-field]');
 
     if (formField) {
       this.negative = isValidAttribute(formField, 'negative');
@@ -239,36 +228,45 @@ export class SbbSelect implements ComponentInterface {
       this._setupTrigger();
     }
     if (this.value) {
-      this.onValueChanged(this.value);
+      this._onValueChanged(this.value);
+    }
+
+    this.addEventListener('option-selection-change', (e) => this._onOptionChanged(e), { signal });
+    this.addEventListener('click', (e) => this._onOptionClick(e), { signal });
+    this.addEventListener('click', () => this._toggleOpening(), { signal });
+  }
+
+  public override willUpdate(changedProperties: PropertyValues<this>): void {
+    if (changedProperties.has('value')) {
+      this._onValueChanged(this.value);
+    }
+    if (changedProperties.has('negative')) {
+      this._syncNegative();
     }
   }
 
-  public disconnectedCallback(): void {
-    this._element.prepend(this._triggerElement); // Take back the trigger element previously moved to the light DOM
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this.prepend(this._triggerElement); // Take back the trigger element previously moved to the light DOM
     this._openPanelEventsController?.abort();
   }
 
-  @Watch('negative')
   private _syncNegative(): void {
-    this._element
-      .querySelectorAll('sbb-divider')
-      .forEach((element) =>
-        this.negative ? element.setAttribute('negative', '') : element.removeAttribute('negative'),
-      );
+    this.querySelectorAll('sbb-divider').forEach((element) => (element.negative = this.negative));
 
-    this._element
-      .querySelectorAll('sbb-option, sbb-optgroup')
-      .forEach((element: HTMLElement) => toggleDatasetEntry(element, 'negative', this.negative));
+    this.querySelectorAll('sbb-option, sbb-optgroup').forEach((element: SbbOption | SbbOptGroup) =>
+      toggleDatasetEntry(element, 'negative', this.negative),
+    );
   }
 
   /** Sets the originElement; if the component is used in a sbb-form-field uses it, otherwise uses the parentElement. */
   private _setupOrigin(): void {
-    const formField = this._element.closest('sbb-form-field');
+    const formField = this.closest('sbb-form-field');
     this._originElement =
-      formField?.shadowRoot.querySelector('#overlay-anchor') || this._element.parentElement;
+      formField?.shadowRoot.querySelector('#overlay-anchor') || this.parentElement;
     if (this._originElement) {
       toggleDatasetEntry(
-        this._element,
+        this,
         'optionPanelOriginBorderless',
         formField?.hasAttribute('borderless'),
       );
@@ -281,17 +279,17 @@ export class SbbSelect implements ComponentInterface {
    */
   private _setupTrigger(): void {
     // Move the trigger before the sbb-select
-    this._element.parentElement.insertBefore(this._triggerElement, this._element);
+    this.parentElement.insertBefore(this._triggerElement, this);
 
     // Set the invisible trigger element dimension to match the parent (needed for screen readers)
-    const containerElement = this._element.closest('sbb-form-field') ?? this._element;
+    const containerElement = this.closest('sbb-form-field') ?? this;
     this._triggerElement.style.top = '0px';
     this._triggerElement.style.height = `${containerElement.offsetHeight}px`;
     this._triggerElement.style.width = `${containerElement.offsetWidth}px`;
   }
 
   private _setOverlayPosition(): void {
-    setOverlayPosition(this._overlay, this._originElement, this._optionContainer, this._element);
+    setOverlayPosition(this._overlay, this._originElement, this._optionContainer, this);
   }
 
   // In rare cases it can be that the animationEnd event is triggered twice.
@@ -309,7 +307,7 @@ export class SbbSelect implements ComponentInterface {
     this._attachOpenPanelEvents();
     this._triggerElement.setAttribute('aria-expanded', 'true');
 
-    this.didOpen.emit();
+    this._didOpen.emit();
   }
 
   private _onCloseAnimationEnd(): void {
@@ -317,11 +315,11 @@ export class SbbSelect implements ComponentInterface {
     this._triggerElement.setAttribute('aria-expanded', 'false');
     this._resetActiveElement();
     this._optionContainer.scrollTop = 0;
-    this.didClose.emit();
+    this._didClose.emit();
   }
 
   /** When an option is selected, updates the displayValue; it also closes the select if not `multiple`. */
-  private _onOptionSelected(optionSelectionChange: HTMLSbbOptionElement): void {
+  private _onOptionSelected(optionSelectionChange: SbbOption): void {
     if (!this.multiple) {
       this._filteredOptions
         .filter((option) => option.id !== optionSelectionChange.id)
@@ -335,21 +333,21 @@ export class SbbSelect implements ComponentInterface {
       }
     }
 
-    this.input.emit();
-    this.change.emit();
-    this.didChange.emit();
+    this._input.emit();
+    this._change.emit();
+    this._didChange.emit();
   }
 
   /** When an option is unselected in `multiple`, removes it from value and updates displayValue. */
-  private _onOptionDeselected(optionSelectionChange: HTMLSbbOptionElement): void {
+  private _onOptionDeselected(optionSelectionChange: SbbOption): void {
     if (this.multiple) {
       this.value = (this.value as string[]).filter(
         (el: string) => el !== optionSelectionChange.value,
       );
 
-      this.input.emit();
-      this.change.emit();
-      this.didChange.emit();
+      this._input.emit();
+      this._change.emit();
+      this._didChange.emit();
     }
   }
 
@@ -467,13 +465,13 @@ export class SbbSelect implements ComponentInterface {
 
     // Reorder the _filteredOption array to have the last selected element at the bottom.
     const indexForSlice: number = this._activeItemIndex + 1;
-    const filteredOptionsSorted: HTMLSbbOptionElement[] = [
+    const filteredOptionsSorted: SbbOption[] = [
       ...this._filteredOptions.slice(indexForSlice),
       ...this._filteredOptions.slice(0, indexForSlice),
     ];
 
-    const match: HTMLSbbOptionElement = filteredOptionsSorted.find(
-      (option: HTMLSbbOptionElement) =>
+    const match: SbbOption = filteredOptionsSorted.find(
+      (option: SbbOption) =>
         option.textContent.toLowerCase().indexOf(this._searchString.toLowerCase()) === 0,
     );
     if (match) {
@@ -485,8 +483,8 @@ export class SbbSelect implements ComponentInterface {
     ) {
       // If no exact match has been found but the string to search is made by the same repeated letter,
       // go to the first element, if exists, that matches the letter.
-      const firstMatch: HTMLSbbOptionElement = filteredOptionsSorted.find(
-        (option: HTMLSbbOptionElement) =>
+      const firstMatch: SbbOption = filteredOptionsSorted.find(
+        (option: SbbOption) =>
           option.textContent.toLowerCase().indexOf(this._searchString[0].toLowerCase()) === 0,
       );
       if (firstMatch) {
@@ -500,7 +498,7 @@ export class SbbSelect implements ComponentInterface {
   }
 
   private async _selectByKeyboard(): Promise<void> {
-    const activeOption: HTMLSbbOptionElement = this._filteredOptions[this._activeItemIndex];
+    const activeOption: SbbOption = this._filteredOptions[this._activeItemIndex];
 
     if (this.multiple) {
       await activeOption.setSelectedViaUserInteraction(!activeOption.selected);
@@ -526,8 +524,8 @@ export class SbbSelect implements ComponentInterface {
   }
 
   private _setActiveElement(
-    nextActiveOption: HTMLSbbOptionElement,
-    lastActiveOption: HTMLSbbOptionElement = null,
+    nextActiveOption: SbbOption,
+    lastActiveOption: SbbOption = null,
     setActiveDescendant = true,
   ): void {
     nextActiveOption.active = true;
@@ -544,8 +542,8 @@ export class SbbSelect implements ComponentInterface {
   }
 
   private async _setSelectedElement(
-    nextActiveOption: HTMLSbbOptionElement,
-    lastActiveOption: HTMLSbbOptionElement,
+    nextActiveOption: SbbOption,
+    lastActiveOption: SbbOption,
   ): Promise<void> {
     await nextActiveOption.setSelectedViaUserInteraction(true);
 
@@ -605,11 +603,11 @@ export class SbbSelect implements ComponentInterface {
 
     switch (this._state) {
       case 'opened': {
-        await this.close();
+        this.close();
         break;
       }
       case 'closed': {
-        await this.open();
+        this.open();
         break;
       }
       default:
@@ -617,68 +615,68 @@ export class SbbSelect implements ComponentInterface {
     }
   }
 
-  public render(): JSX.Element {
-    return (
-      <Host
-        data-state={this._state}
-        data-multiple={this.multiple}
-        role={this._ariaRoleOnHost ? 'listbox' : null}
-        ref={this._ariaRoleOnHost && assignId(() => this._overlayId)}
-        onClick={() => this._toggleOpening()}
-        dir={getDocumentWritingMode()}
+  protected override render(): TemplateResult {
+    setAttribute(this, 'data-state', this._state);
+    setAttribute(this, 'data-multiple', this.multiple);
+    setAttribute(this, 'role', this._ariaRoleOnHost ? 'listbox' : null);
+    setAttribute(this, 'dir', getDocumentWritingMode());
+    this._ariaRoleOnHost && assignId(() => this._overlayId)(this);
+
+    return html`
+      <!-- This element is visually hidden and will be appended to the light DOM to allow screen
+      readers to work properly -->
+      <div
+        class="sbb-screen-reader-only sbb-select-invisible-trigger"
+        tabindex=${this.disabled ? nothing : '0'}
+        role="combobox"
+        aria-haspopup="listbox"
+        aria-expanded="false"
+        aria-required=${this.required.toString()}
+        aria-controls=${this._overlayId}
+        aria-owns=${this._overlayId}
+        ${ref((ref) => (this._triggerElement = ref as HTMLElement))}
+        @keydown=${this._onKeyDown}
+        @click=${this._toggleOpening}
       >
-        {/* This element is visually hidden and will be appended to the light DOM to allow screen readers to work properly */}
+        ${this._displayValue ? html`${this._displayValue}` : html`<span>${this.placeholder}</span>`}
+      </div>
+
+      <!-- Visually display the value -->
+      <div class="sbb-select__trigger" aria-hidden="true">
+        ${this._displayValue
+          ? html`${this._displayValue}`
+          : html`<span class="sbb-select__trigger--placeholder">${this.placeholder}</span>`}
+      </div>
+
+      <div class="sbb-select__gap-fix"></div>
+      <div class="sbb-select__container">
+        <div class="sbb-select__gap-fix">${overlayGapFixCorners()}</div>
         <div
-          class="sbb-screen-reader-only sbb-select-invisible-trigger"
-          tabindex={this.disabled ? null : '0'}
-          role="combobox"
-          aria-haspopup="listbox"
-          aria-expanded="false"
-          aria-required={this.required.toString()}
-          aria-controls={this._overlayId}
-          aria-owns={this._overlayId}
-          ref={(ref) => (this._triggerElement = ref)}
-          onKeyDown={(event) => this._onKeyDown(event)}
-          onClick={() => this._toggleOpening()}
+          @animationend=${this._onAnimationEnd}
+          class="sbb-select__panel"
+          ?data-open=${this._state === 'opened' || this._state === 'opening'}
+          ${ref((dialogRef) => (this._overlay = dialogRef as HTMLElement))}
         >
-          {this._displayValue ?? <span>{this.placeholder}</span>}
-        </div>
-
-        {/* Visually display the value */}
-        <div class="sbb-select__trigger" aria-hidden="true">
-          {this._displayValue ?? (
-            <span class="sbb-select__trigger--placeholder">{this.placeholder}</span>
-          )}
-        </div>
-
-        <div class="sbb-select__gap-fix"></div>
-        <div class="sbb-select__container">
-          <div class="sbb-select__gap-fix">{overlayGapFixCorners()}</div>
-          <div
-            onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
-            class="sbb-select__panel"
-            data-open={this._state === 'opened' || this._state === 'opening'}
-            ref={(dialogRef) => (this._overlay = dialogRef)}
-          >
-            <div class="sbb-select__wrapper">
-              <div
-                id={!this._ariaRoleOnHost ? this._overlayId : null}
-                class="sbb-select__options"
-                role={!this._ariaRoleOnHost ? 'listbox' : null}
-                aria-multiselectable={this.multiple}
-                ref={(containerRef) => (this._optionContainer = containerRef)}
-              >
-                <slot
-                  onSlotchange={(): void => {
-                    this._syncNegative();
-                    this._setValueFromSelectedOption();
-                  }}
-                ></slot>
-              </div>
+          <div class="sbb-select__wrapper">
+            <div
+              id=${!this._ariaRoleOnHost ? this._overlayId : nothing}
+              class="sbb-select__options"
+              role=${!this._ariaRoleOnHost ? 'listbox' : nothing}
+              ?aria-multiselectable=${this.multiple}
+              ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
+            >
+              <slot @slotchange=${this._setValueFromSelectedOption}></slot>
             </div>
           </div>
         </div>
-      </Host>
-    );
+      </div>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-select': SbbSelect;
   }
 }

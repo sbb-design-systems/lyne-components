@@ -1,5 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+import '../sbb-form-field';
 import './sbb-button';
 
 describe('sbb-button', () => {
@@ -172,7 +173,7 @@ describe('sbb-button', () => {
         <sbb-button slot="suffix" icon-name="cross-small" />
       </sbb-form-field>`,
     );
-
-    expect(root.querySelector('sbb-button')).to.have.attribute('data-icon-small');
+    const button = root.querySelector('sbb-button');
+    expect(button).to.have.attribute('data-icon-small');
   });
 });

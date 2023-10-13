@@ -37,7 +37,6 @@ describe('sbb-toggle', () => {
       `);
       option = page.querySelectorAll('sbb-toggle-option')[1];
 
-      await waitForLitRender(option);
       await waitForLitRender(page);
 
       expect(option).to.have.attribute('checked');

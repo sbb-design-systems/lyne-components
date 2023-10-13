@@ -1,24 +1,23 @@
-import { SbbSelect } from './sbb-select';
-import { newSpecPage } from '@stencil/core/testing';
-import { SbbOption } from '../sbb-option/sbb-option';
+import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import '../sbb-option';
+import './sbb-select';
+import { isSafari } from '../../global/dom';
 
-// NOTE: it needs to load also the SbbOption component, otherwise the value is not correctly read as a component's attribute.
 describe('sbb-select', () => {
   it('renders', async () => {
-    const { root } = await newSpecPage({
-      components: [SbbSelect, SbbOption],
-      html: `
-        <sbb-select>
-          <sbb-option value="1">Option 1</sbb-option>
-          <sbb-option value="2">Option 2</sbb-option>
-          <sbb-option value="3">Option 3</sbb-option>
-        </sbb-select>
-      `,
-    });
+    const root = await fixture(html`
+      <sbb-select>
+        <sbb-option value="1">Option 1</sbb-option>
+        <sbb-option value="2">Option 2</sbb-option>
+        <sbb-option value="3">Option 3</sbb-option>
+      </sbb-select>
+    `);
+    const listboxAttr = 'id="sbb-select-1" role="listbox"';
 
-    expect(root.shadowRoot.host).toEqualAttribute('dir', 'ltr');
-    expect(root.shadowRoot.host).toEqualAttribute('data-state', 'closed');
-    expect(root.shadowRoot).toEqualHtml(`
+    expect(root.shadowRoot.host).to.have.attribute('dir', 'ltr');
+    expect(root.shadowRoot.host).to.have.attribute('data-state', 'closed');
+    expect(root).shadowDom.to.be.equal(`
       <div class="sbb-select__trigger" aria-hidden="true">
         <span class="sbb-select__trigger--placeholder"></span>
       </div>
@@ -34,7 +33,7 @@ describe('sbb-select', () => {
         </div>
         <div class="sbb-select__panel">
           <div class="sbb-select__wrapper">
-            <div id="sbb-select-1" class="sbb-select__options" role="listbox">
+            <div class="sbb-select__options" ${!isSafari() ? listboxAttr : ''}>
               <slot></slot>
             </div>
           </div>
@@ -44,22 +43,20 @@ describe('sbb-select', () => {
   });
 
   it('renders multiple', async () => {
-    const { root } = await newSpecPage({
-      components: [SbbSelect, SbbOption],
-      html: `
-        <sbb-select multiple>
-          <sbb-option value="1">Option 1</sbb-option>
-          <sbb-option value="2">Option 2</sbb-option>
-          <sbb-option value="3">Option 3</sbb-option>
-        </sbb-select>
-      `,
-    });
+    const root = await fixture(html`
+      <sbb-select multiple>
+        <sbb-option value="1">Option 1</sbb-option>
+        <sbb-option value="2">Option 2</sbb-option>
+        <sbb-option value="3">Option 3</sbb-option>
+      </sbb-select>
+    `);
+    const listboxAttr = 'id="sbb-select-2" role="listbox"';
 
-    expect(root.shadowRoot.host).toEqualAttribute('dir', 'ltr');
-    expect(root.shadowRoot.host).toEqualAttribute('data-state', 'closed');
-    expect(root.shadowRoot.host).toHaveAttribute('data-multiple');
-    expect(root.shadowRoot.host).toHaveAttribute('multiple');
-    expect(root.shadowRoot).toEqualHtml(`
+    expect(root.shadowRoot.host).to.have.attribute('dir', 'ltr');
+    expect(root.shadowRoot.host).to.have.attribute('data-state', 'closed');
+    expect(root.shadowRoot.host).to.have.attribute('data-multiple');
+    expect(root.shadowRoot.host).to.have.attribute('multiple');
+    expect(root).shadowDom.to.be.equal(`
       <div class="sbb-select__trigger" aria-hidden="true">
         <span class="sbb-select__trigger--placeholder"></span>
       </div>
@@ -75,7 +72,9 @@ describe('sbb-select', () => {
         </div>
         <div class="sbb-select__panel">
           <div class="sbb-select__wrapper">
-            <div id="sbb-select-2" class="sbb-select__options" role="listbox" aria-multiselectable="">
+            <div class="sbb-select__options" aria-multiselectable="" ${
+              !isSafari() ? listboxAttr : ''
+            }>
               <slot></slot>
             </div>
           </div>

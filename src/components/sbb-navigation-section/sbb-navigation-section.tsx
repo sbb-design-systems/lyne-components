@@ -190,7 +190,7 @@ export class SbbNavigationSection extends LitElement {
       this._state = 'opened';
       this._attachWindowEvents();
       this._setNavigationInert();
-      this._timeout = setTimeout(() => this._setNavigationSectionFocus());
+      this._timeoutController = setTimeout(() => this._setNavigationSectionFocus());
     } else if (event.animationName === 'close' && this._state === 'closing') {
       this._state = 'closed';
       this._navigationSectionContainerElement.scrollTo(0, 0);

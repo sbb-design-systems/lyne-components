@@ -1,15 +1,21 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
-import events from './sbb-option.events';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { sendKeys } from '@web/test-runner-commands';
+import { EventSpy } from '../../global/testing/event-spy';
+import { waitForLitRender } from '../../global/testing';
+import { SbbOption, events } from './sbb-option';
+import { SbbFormField } from '../sbb-form-field';
+import '../sbb-autocomplete';
+import '../sbb-form-field';
 
 describe('sbb-option', () => {
   describe('autocomplete', () => {
-    let element: E2EElement, page: E2EPage;
+    let element: SbbFormField;
 
     beforeEach(async () => {
-      page = await newE2EPage();
-      await page.setContent(`
+      element = await fixture(html`
         <sbb-form-field>
-          <input/>
+          <input />
           <sbb-autocomplete>
             <sbb-option id="option-1" value="1">Option 1</sbb-option>
             <sbb-option id="option-2" value="2">Option 2</sbb-option>
@@ -17,32 +23,37 @@ describe('sbb-option', () => {
           </sbb-autocomplete>
         </sbb-form-field>
       `);
-      element = await page.find('sbb-autocomplete');
     });
 
     it('renders', async () => {
-      expect(element).toHaveClass('hydrated');
+      const option = element.querySelector('sbb-option');
+      assert.instanceOf(option, SbbOption);
     });
 
     it('set selected and emits on click', async () => {
-      const optionOne = await page.find('sbb-autocomplete > sbb-option#option-1');
-      expect(optionOne).not.toBeNull();
-      const selectionChangeSpy = await page.spyOnEvent(events.selectionChange);
-      optionOne.triggerEvent('click');
-      await page.waitForChanges();
-      expect(await optionOne.getProperty('selected')).toEqual(true);
-      expect(selectionChangeSpy).toHaveReceivedEventTimes(1);
+      const selectionChangeSpy = new EventSpy(events.selectionChange);
+      const optionOne = element.querySelector('sbb-option');
+
+      optionOne.dispatchEvent(new CustomEvent('click'));
+      await waitForLitRender(element);
+
+      expect(optionOne.selected).to.be.equal(true);
+      expect(selectionChangeSpy.count).to.be.equal(1);
     });
 
     it('highlight on input', async () => {
-      const input = await page.find('sbb-form-field > input');
-      expect(input).not.toBeNull();
-      await input.focus();
-      await input.press('1');
-      const optionOne = await page.find(
-        'sbb-autocomplete > sbb-option#option-1 >>> .sbb-option__label',
-      );
-      expect(optionOne).toEqualHtml(`
+      const input = element.querySelector('input');
+      const autocomplete = element.querySelector('sbb-autocomplete');
+      const options = element.querySelectorAll('sbb-option');
+      const optionOneLabel = options[0].shadowRoot.querySelector('.sbb-option__label');
+      const optionTwoLabel = options[1].shadowRoot.querySelector('.sbb-option__label');
+      const optionThreeLabel = options[2].shadowRoot.querySelector('.sbb-option__label');
+
+      input.focus();
+      await sendKeys({ press: '1' });
+      await waitForLitRender(autocomplete);
+
+      expect(optionOneLabel).dom.to.be.equal(`
         <span class="sbb-option__label">
           <slot></slot>
           <span class="sbb-option__label--highlight">Option</span>
@@ -50,19 +61,13 @@ describe('sbb-option', () => {
           <span class="sbb-option__label--highlight"></span>
         </span>
       `);
-      const optionTwo = await page.find(
-        'sbb-autocomplete > sbb-option#option-2 >>> .sbb-option__label',
-      );
-      expect(optionTwo).toEqualHtml(`
+      expect(optionTwoLabel).dom.to.be.equal(`
         <span class="sbb-option__label">
           <slot></slot>
           Option 2
         </span>
       `);
-      const optionThree = await page.find(
-        'sbb-autocomplete > sbb-option#option-3 >>> .sbb-option__label',
-      );
-      expect(optionThree).toEqualHtml(`
+      expect(optionThreeLabel).dom.to.be.equal(`
         <span class="sbb-option__label">
           <slot></slot>
           Option 3
