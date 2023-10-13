@@ -117,24 +117,6 @@ describe('sbb-tooltip', () => {
     expect(document.activeElement.id).to.be.equal('tooltip-trigger');
   });
 
-  it('should set correct focus attribute on trigger after backdrop click', async () => {
-    const didOpenEventSpy = new EventSpy(events.didOpen);
-    const didCloseEventSpy = new EventSpy(events.didClose);
-
-    element.open();
-
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
-
-    // Simulate backdrop click
-    document.dispatchEvent(new MouseEvent('mousedown', { buttons: 1, clientX: 1 }));
-    window.dispatchEvent(new PointerEvent('pointerup'));
-
-    await waitForCondition(() => didCloseEventSpy.events.length === 1);
-
-    expect(trigger).to.have.attribute('data-focus-origin', 'mouse');
-    expect(document.activeElement.id).to.be.equal('tooltip-trigger');
-  });
-
   it('closes the tooltip on close button click by keyboard', async () => {
     const didOpenEventSpy = new EventSpy(events.didOpen);
     const didCloseEventSpy = new EventSpy(events.didClose);
@@ -315,6 +297,24 @@ describe('sbb-tooltip', () => {
       document.activeElement.shadowRoot.activeElement ===
         document.activeElement.shadowRoot.querySelector('[sbb-tooltip-close]'),
     ).to.be.equal(true);
+  });
+
+  it('should set correct focus attribute on trigger after backdrop click', async () => {
+    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const didCloseEventSpy = new EventSpy(events.didClose);
+
+    element.open();
+
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+
+    // Simulate backdrop click
+    document.dispatchEvent(new MouseEvent('mousedown', { buttons: 1, clientX: 1 }));
+    window.dispatchEvent(new PointerEvent('pointerup'));
+
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+
+    expect(trigger).to.have.attribute('data-focus-origin', 'mouse');
+    expect(document.activeElement.id).to.be.equal('tooltip-trigger');
   });
 
   it('should set correct focus attribute on trigger after backdrop click on an interactive element', async () => {

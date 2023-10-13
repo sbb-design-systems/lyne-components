@@ -25,7 +25,18 @@ describe('sbb-tooltip', () => {
                 </slot>
               </span>
               <span class="sbb-tooltip__close">
-                <sbb-button aria-label="${i18nCloseTooltip.en}" icon-name="cross-small" sbb-tooltip-close="" size="m" type="button" variant="secondary"></sbb-button>
+                <sbb-button 
+                  data-icon-only="" 
+                  dir="ltr" 
+                  aria-label="${i18nCloseTooltip.en}" 
+                  icon-name="cross-small" 
+                  role="button" 
+                  sbb-tooltip-close="" 
+                  size="m" 
+                  type="button" 
+                  tabindex="0" 
+                  variant="secondary"
+                ></sbb-button>
               </span>
             </div>
           </dialog>
