@@ -1,82 +1,101 @@
-import { newE2EPage } from '@stencil/core/testing';
-import events from './sbb-alert-group.events';
+import { events } from './sbb-alert-group';
 import { waitForCondition } from '../../global/testing';
+import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { EventSpy, waitForLitRender } from '../../global/testing';
+import { SbbAlertGroup } from './sbb-alert-group';
+import { SbbButton } from '../sbb-button';
+import '../sbb-alert';
 
 describe('sbb-alert-group', () => {
+  let element: SbbAlertGroup;
+
   it('should handle events ond states on interacting with alerts', async () => {
     const alertGroupId = 'alertgroup';
     const accessibilityTitle = 'Disruptions';
     const accessibilityTitleLevel = '3';
 
     // Given sbb-alert-group with two alerts
-    const page = await newE2EPage();
-    await page.setContent(`
-  <sbb-alert-group id='${alertGroupId}' accessibility-title='${accessibilityTitle}' accessibility-title-level='${accessibilityTitleLevel}'>
-    <sbb-alert title-content='Interruption' href='www.sbb.ch'>First</sbb-alert>
-    <sbb-alert title-content='Interruption' href='www.sbb.ch'>Second</sbb-alert>
-  </sbb-alert-group>
-`);
-    const didDismissAlertSpy = await page.spyOnEvent(events.didDismissAlert);
-    const emptySpy = await page.spyOnEvent(events.empty);
+    element = await fixture(html`
+      <sbb-alert-group
+        id="${alertGroupId}"
+        accessibility-title="${accessibilityTitle}"
+        accessibility-title-level="${accessibilityTitleLevel}"
+      >
+        <sbb-alert title-content="Interruption" href="www.sbb.ch">First</sbb-alert>
+        <sbb-alert title-content="Interruption" href="www.sbb.ch">Second</sbb-alert>
+      </sbb-alert-group>
+    `);
+    const didDismissAlertSpy = new EventSpy(events.didDismissAlert);
+    const emptySpy = new EventSpy(events.empty);
 
     // When rendering initially
-    await page.waitForChanges();
+    await waitForLitRender(element);
 
     // Then two alerts should be rendered and accessibility title should be displayed
-    expect((await page.findAll('sbb-alert')).length).toBe(2);
-    const alertGroupTitle = await page.find('sbb-alert-group >>> .sbb-alert-group__title');
-    expect(alertGroupTitle.textContent).toBe(accessibilityTitle);
-    expect(alertGroupTitle.tagName).toBe(`H${accessibilityTitleLevel}`);
+    expect(element.querySelectorAll('sbb-alert').length).to.be.equal(2);
+    const alertGroupTitle = element.shadowRoot.querySelector('.sbb-alert-group__title');
+    expect(alertGroupTitle.textContent.trim()).to.be.equal(accessibilityTitle);
+    expect(alertGroupTitle.tagName).to.be.equal(`H${accessibilityTitleLevel}`);
 
     // When clicking on close button of the first alert
-    await (await page.find('sbb-alert >>> .sbb-alert__close-button-wrapper sbb-button')).click();
-    await page.waitForChanges();
+    const closeButton = element
+      .querySelector('sbb-alert')
+      .shadowRoot.querySelector('.sbb-alert__close-button-wrapper sbb-button') as SbbButton;
+
+    closeButton.focus();
+    closeButton.click();
+    await waitForLitRender(element);
 
     // Then one alert should be removed from sbb-alert-group, tabindex should be set to 0,
     // focus should be on sbb-alert-group and accessibility title should still be rendered.
     // Moreover, didDismissAlert event should have been fired.
-    expect((await page.findAll('sbb-alert')).length).toBe(1);
-    expect((await page.find('sbb-alert-group')).tabIndex).toBe(0);
-    expect(await page.evaluate(() => document.activeElement.id)).toBe(alertGroupId);
-    expect((await page.find('sbb-alert-group >>> .sbb-alert-group__title')).textContent).toBe(
-      accessibilityTitle,
-    );
-    expect(didDismissAlertSpy).toHaveReceivedEvent();
-    expect(emptySpy).not.toHaveReceivedEvent();
+    await waitForCondition(() => didDismissAlertSpy.events.length === 1);
+    expect(didDismissAlertSpy.count).to.be.equal(1);
+    expect(element.querySelectorAll('sbb-alert').length).to.be.equal(1);
+    expect(element.tabIndex).to.be.equal(0);
+    expect(document.activeElement.id).to.be.equal(alertGroupId);
+    expect(
+      element.shadowRoot.querySelector('.sbb-alert-group__title').textContent.trim(),
+    ).to.be.equal(accessibilityTitle);
+    expect(emptySpy.count).not.to.be.greaterThan(0);
 
     // When clicking on close button of the second alert
-    await (await page.find('sbb-alert >>> .sbb-alert__close-button-wrapper sbb-button')).click();
-    await page.waitForChanges();
+    (
+      element
+        .querySelector('sbb-alert')
+        .shadowRoot.querySelector('.sbb-alert__close-button-wrapper sbb-button') as SbbButton
+    ).click();
+    await waitForLitRender(element);
 
     // Then the alert should be removed from sbb-alert-group, tabindex should be set to 0,
     // focus should be on sbb-alert-group, accessibility title should be removed and empty event should be fired.
-    expect((await page.findAll('sbb-alert')).length).toBe(0);
-    expect((await page.find('sbb-alert-group')).tabIndex).toBe(0);
-    expect(await page.evaluate(() => document.activeElement.id)).toBe(alertGroupId);
-    expect(await page.find('sbb-alert-group >>> .sbb-alert-group__title')).toBeNull();
+    expect(element.querySelectorAll('sbb-alert').length).to.be.equal(0);
+    expect(element.tabIndex).to.be.equal(0);
+    expect(document.activeElement.id).to.be.equal(alertGroupId);
+    expect(element.shadowRoot.querySelector('.sbb-alert-group__title')).to.be.null;
     await waitForCondition(() => didDismissAlertSpy.events.length === 2);
-    expect(didDismissAlertSpy).toHaveReceivedEventTimes(2);
-    expect(emptySpy).toHaveReceivedEvent();
+    expect(didDismissAlertSpy.count).to.be.equal(2);
+    expect(emptySpy.count).to.be.greaterThan(0);
 
     // When clicking away (simulated by blur event)
-    (await page.find('sbb-alert-group')).triggerEvent('blur');
-    await page.waitForChanges();
+    element.dispatchEvent(new CustomEvent('blur'));
+    await waitForLitRender(element);
 
     // Then the active element id should be unset and tabindex should be removed
-    expect(await page.evaluate(() => document.activeElement.id)).toBe('');
-    expect((await page.find('sbb-alert-group')).tabIndex).toBe(-1);
+    expect(document.activeElement.id).to.be.equal('');
+    expect(element.tabIndex).to.be.equal(-1);
   });
 
   it('should not trigger empty event after initializing with empty sbb-alert-group', async () => {
     // Given empty sbb-alert-group
-    const page = await newE2EPage();
-    const emptySpy = await page.spyOnEvent(events.empty);
-
-    await page.setContent(`<sbb-alert-group accessibility-title='Disruptions'></sbb-alert-group>`);
-    await page.waitForChanges();
+    element = await fixture(
+      html`<sbb-alert-group accessibility-title="Disruptions"></sbb-alert-group>`,
+    );
+    const emptySpy = new EventSpy(events.empty);
 
     // Then no title should be rendered and no empty event fired
-    expect(await page.find('sbb-alert-group >>> .sbb-alert-group__title')).toBeNull();
-    expect(emptySpy).not.toHaveReceivedEvent();
+    expect(element.shadowRoot.querySelector('.sbb-alert-group__title')).to.be.null;
+    expect(emptySpy.count).not.to.be.greaterThan(0);
   });
 });
