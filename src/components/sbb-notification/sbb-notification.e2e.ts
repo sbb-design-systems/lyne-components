@@ -1,97 +1,102 @@
 import { waitForCondition } from '../../global/testing';
-import events from './sbb-notification.events';
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { events } from './sbb-notification';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { sendKeys } from '@web/test-runner-commands';
+import { EventSpy, waitForLitRender } from '../../global/testing';
+import { SbbNotification } from './sbb-notification';
+import { SbbButton } from '../sbb-button';
+import '../sbb-link';
+import '../sbb-button';
 
 describe('sbb-notification', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbNotification;
 
   beforeEach(async () => {
-    page = await newE2EPage();
-    await page.setContent(`
+    element = await fixture(html`
       <sbb-notification id="notification" disable-animation>
         The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
         <sbb-link href="/" variant="inline">Link one</sbb-link>
       </sbb-notification>
     `);
-    element = await page.find('sbb-notification');
   });
 
   it('renders', async () => {
-    expect(element).toHaveClass('hydrated');
+    assert.instanceOf(element, SbbNotification);
   });
 
   it('closes the notification and removes it from the DOM', async () => {
-    const willCloseEventSpy = await page.spyOnEvent(events.willClose);
-    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
+    const willCloseEventSpy = new EventSpy(events.willClose);
+    const didCloseEventSpy = new EventSpy(events.didClose);
 
-    expect(element).not.toBeNull();
-    expect(element).toEqualAttribute('data-state', 'opened');
+    expect(element).not.to.be.null;
+    expect(element).to.have.attribute('data-state', 'opened');
 
-    await element.callMethod('close');
-    await page.waitForChanges();
+    element.close();
+    await waitForLitRender(element);
 
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
-    expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willCloseEventSpy.count).to.be.equal(1);
+    await waitForLitRender(element);
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
-    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(didCloseEventSpy.count).to.be.equal(1);
+    await waitForLitRender(element);
 
-    expect(element).toEqualAttribute('data-state', 'closed');
+    expect(element).to.have.attribute('data-state', 'closed');
 
-    element = await page.find('sbb-notification');
-    expect(element).toBeNull();
+    element = document.querySelector('sbb-notification');
+    expect(element).to.be.null;
   });
 
   it('closes the notification and removes it from the DOM on close button click', async () => {
-    const willCloseEventSpy = await page.spyOnEvent(events.willClose);
-    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
-    const closeButton = await page.find('sbb-notification >>> .sbb-notification__close');
+    const willCloseEventSpy = new EventSpy(events.willClose);
+    const didCloseEventSpy = new EventSpy(events.didClose);
+    const closeButton = element.shadowRoot.querySelector('.sbb-notification__close') as SbbButton;
 
-    expect(element).not.toBeNull();
-    expect(element).toEqualAttribute('data-state', 'opened');
+    expect(element).not.to.be.null;
+    expect(element).to.have.attribute('data-state', 'opened');
 
-    await closeButton.click();
-    await page.waitForChanges();
+    closeButton.click();
+    await waitForLitRender(element);
 
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
-    expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willCloseEventSpy.count).to.be.equal(1);
+    await waitForLitRender(element);
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
-    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(didCloseEventSpy.count).to.be.equal(1);
+    await waitForLitRender(element);
 
-    expect(element).toEqualAttribute('data-state', 'closed');
+    expect(element).to.have.attribute('data-state', 'closed');
 
-    element = await page.find('sbb-notification');
-    expect(element).toBeNull();
+    element = document.querySelector('sbb-notification');
+    expect(element).to.be.null;
   });
 
   it('closes the notification and removes it from the DOM on close button click by keyboard', async () => {
-    const willCloseEventSpy = await page.spyOnEvent(events.willClose);
-    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
-    const closeButton = await page.find('sbb-notification >>> .sbb-notification__close');
+    const willCloseEventSpy = new EventSpy(events.willClose);
+    const didCloseEventSpy = new EventSpy(events.didClose);
+    const closeButton = element.shadowRoot.querySelector('.sbb-notification__close') as SbbButton;
 
-    expect(element).not.toBeNull();
-    expect(element).toEqualAttribute('data-state', 'opened');
+    expect(element).not.to.be.null;
+    expect(element).to.have.attribute('data-state', 'opened');
 
-    await closeButton.focus();
-    await page.keyboard.down('Enter');
-    await page.waitForChanges();
+    closeButton.focus();
+    await sendKeys({ down: 'Enter' });
+    await waitForLitRender(element);
 
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
-    expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willCloseEventSpy.count).to.be.equal(1);
+    await waitForLitRender(element);
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
-    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(didCloseEventSpy.count).to.be.equal(1);
+    await waitForLitRender(element);
 
-    expect(element).toEqualAttribute('data-state', 'closed');
+    expect(element).to.have.attribute('data-state', 'closed');
 
-    element = await page.find('sbb-notification');
-    expect(element).toBeNull();
+    element = document.querySelector('sbb-notification');
+    expect(element).to.be.null;
   });
 });

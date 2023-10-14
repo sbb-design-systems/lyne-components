@@ -1,11 +1,14 @@
 /** @jsx h */
-import events from './sbb-notification.events';
+import { events } from './sbb-notification';
 import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 import isChromatic from 'chromatic/isChromatic';
+import './sbb-notification';
+import '../sbb-button';
+import '../sbb-link';
 
 const titleContent: InputType = {
   control: {

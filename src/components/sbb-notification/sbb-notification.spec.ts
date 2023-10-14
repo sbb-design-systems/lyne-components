@@ -1,120 +1,146 @@
-import { SbbNotification } from './sbb-notification';
-import { newSpecPage } from '@stencil/core/testing';
+import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import './sbb-notification';
+import '../sbb-link';
+import '../sbb-button';
+import '../sbb-icon';
+import '../sbb-divider';
 
 describe('sbb-notification', () => {
   it('renders', async () => {
-    const { root } = await newSpecPage({
-      components: [SbbNotification],
-      html: '<sbb-notification disable-animation>The quick brown fox jumps over the lazy dog.</sbb-notification>',
-    });
+    const root = await fixture(
+      html`<sbb-notification disable-animation
+        >The quick brown fox jumps over the lazy dog.</sbb-notification
+      >`,
+    );
 
-    expect(root).toEqualHtml(`
+    expect(root).dom.to.be.equal(
+      `
       <sbb-notification disable-animation data-state="opened" type="info" style="--sbb-notification-height: auto;">
-        <mock:shadow-root>
-          <div class="sbb-notification__wrapper">  
-            <div class="sbb-notification">
-              <sbb-icon class="sbb-notification__icon" name="circle-information-small"></sbb-icon>
-              <span class="sbb-notification__content">
-                <slot></slot>
-              </span>
-              <span class="sbb-notification__close-wrapper">
-                <sbb-divider class="sbb-notification__divider" orientation="vertical"></sbb-divider>
-                <sbb-button aria-label="Close message" class="sbb-notification__close" icon-name="cross-small" size="m" variant="secondary"></sbb-button>
-              </span>
-            </div>
-          </div>
-        </mock:shadow-root>
         The quick brown fox jumps over the lazy dog.
-      </sbb-notification>`);
+      </sbb-notification>`,
+    );
+    expect(root).shadowDom.to.be.equal(
+      `
+        <div class="sbb-notification__wrapper">  
+          <div class="sbb-notification">
+            <sbb-icon aria-hidden="true" data-namespace="default" role="img" class="sbb-notification__icon" name="circle-information-small"></sbb-icon>
+            <span class="sbb-notification__content">
+              <slot></slot>
+            </span>
+            <span class="sbb-notification__close-wrapper">
+              <sbb-divider aria-orientation="vertical" role="separator" class="sbb-notification__divider" orientation="vertical"></sbb-divider>
+              <sbb-button data-icon-only dir="ltr" role="button" tabindex="0" aria-label="Close message" class="sbb-notification__close" icon-name="cross-small" size="m" variant="secondary"></sbb-button>
+            </span>
+          </div>
+        </div>
+      `,
+    );
   });
 
   it('renders with a title', async () => {
-    const { root } = await newSpecPage({
-      components: [SbbNotification],
-      html: '<sbb-notification disable-animation title-content="Title">The quick brown fox jumps over the lazy dog.</sbb-notification>',
-    });
+    const root = await fixture(
+      html`<sbb-notification disable-animation title-content="Title"
+        >The quick brown fox jumps over the lazy dog.</sbb-notification
+      >`,
+    );
 
-    expect(root).toEqualHtml(`
+    expect(root).dom.to.be.equal(
+      `
       <sbb-notification disable-animation data-has-title data-state="opened" title-content="Title" type="info" style="--sbb-notification-height: auto;">
-        <mock:shadow-root>
-          <div class="sbb-notification__wrapper">  
-            <div class="sbb-notification">
-              <sbb-icon class="sbb-notification__icon" name="circle-information-small"></sbb-icon>
-              <span class="sbb-notification__content">
-                <sbb-title level="3" visualLevel="5" class="sbb-notification__title">
-                  <slot name="title">
-                    Title
-                  </slot>
-                </sbb-title>
-                <slot></slot>
-              </span>
-              <span class="sbb-notification__close-wrapper">
-                <sbb-divider class="sbb-notification__divider" orientation="vertical"></sbb-divider>
-                <sbb-button aria-label="Close message" class="sbb-notification__close" icon-name="cross-small" size="m" variant="secondary"></sbb-button>
-              </span>
-            </div>
-          </div>
-        </mock:shadow-root>
         The quick brown fox jumps over the lazy dog.
-      </sbb-notification>`);
+      </sbb-notification>`,
+    );
+    expect(root).shadowDom.to.be.equal(
+      `
+        <div class="sbb-notification__wrapper">  
+          <div class="sbb-notification">
+            <sbb-icon aria-hidden="true" data-namespace="default" role="img" class="sbb-notification__icon" name="circle-information-small"></sbb-icon>
+            <span class="sbb-notification__content">
+              <sbb-title aria-level="3" role="heading" level="3" visual-level="5" class="sbb-notification__title">
+                <slot name="title">
+                  Title
+                </slot>
+              </sbb-title>
+              <slot></slot>
+            </span>
+            <span class="sbb-notification__close-wrapper">
+              <sbb-divider aria-orientation="vertical" role="separator" class="sbb-notification__divider" orientation="vertical"></sbb-divider>
+              <sbb-button data-icon-only dir="ltr" role="button" tabindex="0" aria-label="Close message" class="sbb-notification__close" icon-name="cross-small" size="m" variant="secondary"></sbb-button>
+            </span>
+          </div>
+        </div>
+      `,
+    );
   });
 
   it('renders with a slotted title', async () => {
-    const { root } = await newSpecPage({
-      components: [SbbNotification],
-      html: '<sbb-notification disable-animation><span slot="title">Slotted title</span> The quick brown fox jumps over the lazy dog.</sbb-notification>',
-    });
+    const root = await fixture(
+      html`<sbb-notification disable-animation
+        ><span slot="title">Slotted title</span>
+        The quick brown fox jumps over the lazy dog.
+      </sbb-notification>`,
+    );
 
-    expect(root).toEqualHtml(`
+    expect(root).dom.to.be.equal(
+      `
       <sbb-notification disable-animation data-has-title data-state="opened" type="info" style="--sbb-notification-height: auto;">
-        <mock:shadow-root>
-          <div class="sbb-notification__wrapper">  
-            <div class="sbb-notification">
-              <sbb-icon class="sbb-notification__icon" name="circle-information-small"></sbb-icon>
-              <span class="sbb-notification__content">
-                <sbb-title level="3" visualLevel="5" class="sbb-notification__title">
-                  <slot name="title"></slot>
-                </sbb-title>
-                <slot></slot>
-              </span>
-              <span class="sbb-notification__close-wrapper">
-                <sbb-divider class="sbb-notification__divider" orientation="vertical"></sbb-divider>
-                <sbb-button aria-label="Close message" class="sbb-notification__close" icon-name="cross-small" size="m" variant="secondary"></sbb-button>
-              </span>
-            </div>
-          </div>
-        </mock:shadow-root>
         <span slot="title">
           Slotted title
         </span>
         The quick brown fox jumps over the lazy dog.
-      </sbb-notification>`);
+      </sbb-notification>`,
+    );
+    expect(root).shadowDom.to.be.equal(
+      `
+        <div class="sbb-notification__wrapper">  
+          <div class="sbb-notification">
+            <sbb-icon aria-hidden="true" data-namespace="default" role="img" class="sbb-notification__icon" name="circle-information-small"></sbb-icon>
+            <span class="sbb-notification__content">
+              <sbb-title aria-level="3" role="heading" level="3" visual-level="5" class="sbb-notification__title">
+                <slot name="title"></slot>
+              </sbb-title>
+              <slot></slot>
+            </span>
+            <span class="sbb-notification__close-wrapper">
+              <sbb-divider aria-orientation="vertical" role="separator" class="sbb-notification__divider" orientation="vertical"></sbb-divider>
+              <sbb-button data-icon-only dir="ltr" role="button" tabindex="0" aria-label="Close message" class="sbb-notification__close" icon-name="cross-small" size="m" variant="secondary"></sbb-button>
+            </span>
+          </div>
+        </div>
+      `,
+    );
   });
 
   it('renders without the close button', async () => {
-    const { root } = await newSpecPage({
-      components: [SbbNotification],
-      html: '<sbb-notification disable-animation title-content="Title" readonly>The quick brown fox jumps over the lazy dog.</sbb-notification>',
-    });
+    const root = await fixture(
+      html`<sbb-notification disable-animation title-content="Title" readonly
+        >The quick brown fox jumps over the lazy dog.</sbb-notification
+      >`,
+    );
 
-    expect(root).toEqualHtml(`
+    expect(root).dom.to.be.equal(
+      `
       <sbb-notification disable-animation data-has-title readonly data-state="opened" title-content="Title" type="info" style="--sbb-notification-height: auto;">
-        <mock:shadow-root>
-          <div class="sbb-notification__wrapper">  
-           <div class="sbb-notification">
-              <sbb-icon class="sbb-notification__icon" name="circle-information-small"></sbb-icon>
-              <span class="sbb-notification__content">
-                <sbb-title level="3" visualLevel="5" class="sbb-notification__title">
-                  <slot name="title">
-                    Title
-                  </slot>
-                </sbb-title>
-                <slot></slot>
-              </span>
-            </div>
-          </div>
-        </mock:shadow-root>
         The quick brown fox jumps over the lazy dog.
-      </sbb-notification>`);
+      </sbb-notification>`,
+    );
+    expect(root).shadowDom.to.be.equal(
+      `
+        <div class="sbb-notification__wrapper">  
+          <div class="sbb-notification">
+            <sbb-icon aria-hidden="true" data-namespace="default" role="img" class="sbb-notification__icon" name="circle-information-small"></sbb-icon>
+            <span class="sbb-notification__content">
+              <sbb-title aria-level="3" role="heading" level="3" visual-level="5" class="sbb-notification__title">
+                <slot name="title">
+                  Title
+                </slot>
+              </sbb-title>
+              <slot></slot>
+            </span>
+          </div>
+        </div>
+      `,
+    );
   });
 });
