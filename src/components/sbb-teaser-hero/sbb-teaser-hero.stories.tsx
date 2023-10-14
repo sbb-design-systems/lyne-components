@@ -3,8 +3,9 @@ import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import sampleImages from '../../global/images';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
+import './sbb-teaser-hero';
 
 const ariaLabel: InputType = {
   control: {

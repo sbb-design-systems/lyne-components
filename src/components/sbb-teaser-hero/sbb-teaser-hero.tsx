@@ -1,4 +1,3 @@
-import { Component, ComponentInterface, Element, h, Host, JSX, Prop, State } from '@stencil/core';
 import {
   LinkProperties,
   LinkTargetType,
@@ -12,6 +11,14 @@ import {
   linkHandlerAspect,
   languageChangeHandlerAspect,
 } from '../../global/eventing';
+import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
+import { html, unsafeStatic } from 'lit/static-html.js';
+import { customElement, property, state } from 'lit/decorators.js';
+import { spread } from '@open-wc/lit-helpers';
+import { setAttributes } from '../../global/dom';
+import Style from './sbb-teaser-hero.scss?lit&inline';
+import '../sbb-link';
+import '../sbb-image';
 
 /**
  * @slot unnamed - text content of panel
@@ -19,84 +26,99 @@ import {
  * @slot image - the background image, can be a `sbb-image`
  */
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-teaser-hero.scss',
-  tag: 'sbb-teaser-hero',
-})
-export class SbbTeaserHero implements ComponentInterface, LinkProperties {
+@customElement('sbb-teaser-hero')
+export class SbbTeaserHero extends LitElement implements LinkProperties {
+  public static override styles: CSSResult = Style;
+
   /** The href value you want to link to. */
-  @Prop() public href: string | undefined;
+  @property() public href: string | undefined;
 
   /** The relationship of the linked URL as space-separated link types. */
-  @Prop() public rel?: string | undefined;
+  @property() public rel?: string | undefined;
 
   /** Where to display the linked URL. */
-  @Prop() public target?: LinkTargetType | string | undefined;
+  @property() public target?: LinkTargetType | string | undefined;
 
   /** Panel link text. */
-  @Prop() public linkContent?: string;
+  @property({ attribute: 'link-content' }) public linkContent?: string;
 
   /** Image src will be passed to `sbb-image`. */
-  @Prop() public imageSrc?: string;
+  @property({ attribute: 'image-src' }) public imageSrc?: string;
 
   /** Image alt text will be passed to `sbb-image`. */
-  @Prop() public imageAlt?: string;
+  @property({ attribute: 'image-alt' }) public imageAlt?: string;
 
-  @State() private _currentLanguage = documentLanguage();
-
-  @Element() private _element!: HTMLElement;
+  @state() private _currentLanguage = documentLanguage();
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     linkHandlerAspect,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
     this._handlerRepository.connect();
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const {
       tagName: TAG_NAME,
       attributes,
       hostAttributes,
     } = resolveLinkOrStaticRenderVariables(this);
 
-    return (
-      <Host {...hostAttributes}>
-        <TAG_NAME class="sbb-teaser-hero" {...attributes}>
+    setAttributes(this, hostAttributes);
+
+    /* eslint-disable lit/binding-positions */
+    return html`
+        <${unsafeStatic(TAG_NAME)} class="sbb-teaser-hero" ${spread(attributes)}>
           <span class="sbb-teaser-hero__panel">
             <p class="sbb-teaser-hero__panel-text">
-              <slot />
+              <slot></slot>
             </p>
-            {this.href && (
-              <sbb-link
-                class="sbb-teaser-hero__panel-link"
-                icon-name="chevron-small-right-small"
-                icon-placement="end"
-                size="m"
-                negative
-              >
-                <slot name="link-content">{this.linkContent}</slot>
-              </sbb-link>
-            )}
+            ${
+              this.href
+                ? html`<sbb-link
+                    class="sbb-teaser-hero__panel-link"
+                    icon-name="chevron-small-right-small"
+                    icon-placement="end"
+                    size="m"
+                    negative
+                  >
+                    <slot name="link-content">${this.linkContent}</slot>
+                  </sbb-link>`
+                : nothing
+            }
           </span>
           <slot name="image">
-            {this.imageSrc && <sbb-image image-src={this.imageSrc} alt={this.imageAlt}></sbb-image>}
+            ${
+              this.imageSrc
+                ? html`<sbb-image image-src=${this.imageSrc} alt=${this.imageAlt}></sbb-image>`
+                : nothing
+            }
           </slot>
-          {targetsNewWindow(this) && (
-            <span class="sbb-teaser-hero__opens-in-new-window">
-              . {i18nTargetOpensInNewWindow[this._currentLanguage]}
-            </span>
-          )}
-        </TAG_NAME>
-      </Host>
-    );
+          ${
+            targetsNewWindow(this)
+              ? html`<span class="sbb-teaser-hero__opens-in-new-window">
+                  . ${i18nTargetOpensInNewWindow[this._currentLanguage]}
+                </span>`
+              : nothing
+          }
+        </${unsafeStatic(TAG_NAME)}>
+      `;
+    /* eslint-disable lit/binding-positions */
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-teaser-hero': SbbTeaserHero;
   }
 }
