@@ -1,10 +1,12 @@
+import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
 import { SbbTrainWagon } from './sbb-train-wagon';
-import { newSpecPage } from '@stencil/core/testing';
+import '../sbb-icon';
 
 async function extractAriaLabels(
   properties: Partial<
     Pick<
-      HTMLSbbTrainWagonElement,
+      SbbTrainWagon,
       | 'type'
       | 'occupancy'
       | 'sector'
@@ -35,14 +37,11 @@ async function extractAriaLabels(
     })
     .join(' ');
 
-  const { root } = await newSpecPage({
-    components: [SbbTrainWagon],
-    html: `<sbb-train-wagon ${attributes}/>`,
-  });
+  const element = await fixture(html`<sbb-train-wagon ${attributes}></sbb-train-wagon>`);
 
   // Select all accessibility relevant text parts
   return Array.from(
-    root.shadowRoot.querySelectorAll(
+    element.shadowRoot.querySelectorAll(
       '[aria-hidden=false], [aria-label]:not(.sbb-train-wagon__icons-list), .sbb-screenreaderonly:not(.sbb-train-wagon__label > span)',
     ),
   ).map((entry) =>
@@ -53,175 +52,199 @@ async function extractAriaLabels(
 describe('sbb-train-wagon', () => {
   describe('render', () => {
     it('should render as type wagon', async () => {
-      const { root } = await newSpecPage({
-        components: [SbbTrainWagon],
-        html: '<sbb-train-wagon occupancy="unknown" wagon-class="1" type="wagon" label="38" blocked-passage="previous"/>',
-      });
+      const root = await fixture(
+        html`<sbb-train-wagon
+          occupancy="unknown"
+          wagon-class="1"
+          type="wagon"
+          label="38"
+          blocked-passage="previous"
+        />`,
+      );
 
-      expect(root).toEqualHtml(`
+      expect(root).dom.to.be.equal(
+        `
         <sbb-train-wagon data-has-visible-wagon-content blocked-passage="previous" label="38" occupancy="unknown" type="wagon" wagon-class="1">
-          <mock:shadow-root>
-            <div class="sbb-train-wagon">
-              <ul aria-label="Train coach" class="sbb-train-wagon__compartment">
-                <li class="sbb-train-wagon__label" aria-hidden="false">
-                  <span class="sbb-screenreaderonly">Number, </span>
-                  38
-                </li>
-                <li class="sbb-train-wagon__class">
-                  <span class="sbb-screenreaderonly">First Class</span>
-                  <span aria-hidden="true">1</span>
-                </li>
-                <sbb-icon
-                  class="sbb-train-wagon__occupancy"
-                  role="listitem"
-                  name="utilization-none"
-                  aria-hidden="false"
-                  aria-label="No occupancy forecast available"
-                ></sbb-icon>
-                <li class="sbb-screenreaderonly">No passage to the previous train coach</li>
-              </ul>
-              <span class="sbb-train-wagon__icons" hidden>
-                <span class="sbb-train-wagon__icons-item" hidden><slot></slot></span>
-              </span>
-            </div>
-          </mock:shadow-root>
         </sbb-train-wagon>
-      `);
+      `,
+      );
+      expect(root).shadowDom.to.be.equal(
+        `
+          <div class="sbb-train-wagon">
+            <ul aria-label="Train coach" class="sbb-train-wagon__compartment">
+              <li class="sbb-train-wagon__label" aria-hidden="false">
+                <span class="sbb-screenreaderonly">Number, </span>
+                38
+              </li>
+              <li class="sbb-train-wagon__class">
+                <span class="sbb-screenreaderonly">First Class</span>
+                <span aria-hidden="true">1</span>
+              </li>
+              <sbb-icon
+                class="sbb-train-wagon__occupancy"
+                role="listitem"
+                name="utilization-none"
+                aria-hidden="false"
+                aria-label="No occupancy forecast available"
+              ></sbb-icon>
+              <li class="sbb-screenreaderonly">No passage to the previous train coach</li>
+            </ul>
+            <span class="sbb-train-wagon__icons" hidden>
+              <span class="sbb-train-wagon__icons-item" hidden><slot></slot></span>
+            </span>
+          </div>
+        `,
+      );
     });
 
     it('should render as type wagon with one icon', async () => {
-      const { root } = await newSpecPage({
-        components: [SbbTrainWagon],
-        html: '<sbb-train-wagon><sbb-icon name="sa-rs"></sbb-icon></sbb-train-wagon>',
-      });
+      const root = await fixture(
+        html`<sbb-train-wagon><sbb-icon name="sa-rs"></sbb-icon></sbb-train-wagon>`,
+      );
 
-      expect(root).toEqualHtml(`
-        <sbb-train-wagon data-has-visible-wagon-content type="wagon">
-          <mock:shadow-root>
-            <div class="sbb-train-wagon">
-              <ul
-                aria-label="Train coach"
-                class="sbb-train-wagon__compartment"
-              >
-                <li aria-hidden="true" class="sbb-train-wagon__label"></li>
-                <sbb-icon aria-hidden="false" aria-label="No occupancy forecast available" class="sbb-train-wagon__occupancy" name="utilization-none" role="listitem"></sbb-icon>
-              </ul>
-              <span class="sbb-train-wagon__icons">
-                <span class="sbb-train-wagon__icons-item">
-                  <span class="sbb-screenreaderonly">Additional wagon information</span>
-                  <slot></slot>
-                </span>
+      expect(root).dom.to.be.equal(
+        `
+          <sbb-train-wagon data-has-visible-wagon-content type="wagon">
+            <sbb-icon name="sa-rs"></sbb-icon>
+          </sbb-train-wagon>
+        `,
+      );
+      expect(root).shadowDom.to.be.equal(
+        `
+          <div class="sbb-train-wagon">
+            <ul
+              aria-label="Train coach"
+              class="sbb-train-wagon__compartment"
+            >
+              <li aria-hidden="true" class="sbb-train-wagon__label"></li>
+              <sbb-icon aria-hidden="false" aria-label="No occupancy forecast available" class="sbb-train-wagon__occupancy" name="utilization-none" role="listitem"></sbb-icon>
+            </ul>
+            <span class="sbb-train-wagon__icons">
+              <span class="sbb-train-wagon__icons-item">
+                <span class="sbb-screenreaderonly">Additional wagon information</span>
+                <slot></slot>
               </span>
-            </div>
-          </mock:shadow-root>
-          <sbb-icon name="sa-rs"></sbb-icon>
-        </sbb-train-wagon>
-      `);
+            </span>
+          </div>
+        `,
+      );
     });
 
     it('should render as type wagon with multiple icons', async () => {
-      const { root } = await newSpecPage({
-        components: [SbbTrainWagon],
-        html: '<sbb-train-wagon><sbb-icon name="sa-rs"></sbb-icon><sbb-icon name="sa-rs"></sbb-icon></sbb-train-wagon>',
-      });
+      const root = await fixture(
+        html`<sbb-train-wagon
+          ><sbb-icon name="sa-rs"></sbb-icon><sbb-icon name="sa-rs"></sbb-icon
+        ></sbb-train-wagon>`,
+      );
 
-      expect(root).toEqualHtml(`
+      expect(root).dom.to.be.equal(
+        `
         <sbb-train-wagon data-has-visible-wagon-content type="wagon">
-          <mock:shadow-root>
-            <div class="sbb-train-wagon">
-              <ul
-                aria-label="Train coach"
-                class="sbb-train-wagon__compartment"
-              >
-                <li aria-hidden="true" class="sbb-train-wagon__label"></li>
-                <sbb-icon aria-hidden="false" aria-label="No occupancy forecast available" class="sbb-train-wagon__occupancy" name="utilization-none" role="listitem"></sbb-icon>
-              </ul>
-              <span class="sbb-train-wagon__icons">
-                <ul aria-label="Additional wagon information" class="sbb-train-wagon__icons-list">
-                  <li class="sbb-train-wagon__icons-item">
-                    <slot name="sbb-train-wagon-icon-0"></slot>
-                  </li>
-                  <li class="sbb-train-wagon__icons-item">
-                    <slot name="sbb-train-wagon-icon-1"></slot>
-                  </li>
-                </ul>
-                <span class="sbb-train-wagon__icons-item" hidden>
-                  <slot></slot>
-                </span>
-              </span>
-            </div>
-          </mock:shadow-root>
           <sbb-icon name="sa-rs" slot="sbb-train-wagon-icon-0"></sbb-icon>
           <sbb-icon name="sa-rs" slot="sbb-train-wagon-icon-1"></sbb-icon>
         </sbb-train-wagon>
-      `);
+      `,
+      );
+      expect(root).shadowDom.to.be.equal(
+        `
+          <div class="sbb-train-wagon">
+            <ul
+              aria-label="Train coach"
+              class="sbb-train-wagon__compartment"
+            >
+              <li aria-hidden="true" class="sbb-train-wagon__label"></li>
+              <sbb-icon aria-hidden="false" aria-label="No occupancy forecast available" class="sbb-train-wagon__occupancy" name="utilization-none" role="listitem"></sbb-icon>
+            </ul>
+            <span class="sbb-train-wagon__icons">
+              <ul aria-label="Additional wagon information" class="sbb-train-wagon__icons-list">
+                <li class="sbb-train-wagon__icons-item">
+                  <slot name="sbb-train-wagon-icon-0"></slot>
+                </li>
+                <li class="sbb-train-wagon__icons-item">
+                  <slot name="sbb-train-wagon-icon-1"></slot>
+                </li>
+              </ul>
+              <span class="sbb-train-wagon__icons-item" hidden>
+                <slot></slot>
+              </span>
+            </span>
+          </div>
+        `,
+      );
     });
 
     it('should render as type locomotive', async () => {
-      const { root } = await newSpecPage({
-        components: [SbbTrainWagon],
-        html: '<sbb-train-wagon type="locomotive" additional-accessibility-text="Top of the train"/>',
-      });
+      const root = await fixture(
+        html`<sbb-train-wagon
+          type="locomotive"
+          additional-accessibility-text="Top of the train"
+        />`,
+      );
 
-      expect(root).toEqualHtml(`
-        <sbb-train-wagon type="locomotive" additional-accessibility-text="Top of the train">
-          <mock:shadow-root>
-            <div class="sbb-train-wagon">
-              <span class="sbb-train-wagon__compartment">
-                <span class="sbb-screenreaderonly">
-                  Locomotive
-                </span>
-                <span aria-hidden="true" class="sbb-train-wagon__label"></span>
-                <svg class="sbb-train-wagon__locomotive" aria-hidden="true" width="80" height="40" viewBox="0 0 80 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.7906 4.42719C19.9743 1.93152 23.129 0.5 26.4452 0.5H53.5548C56.871 0.5 60.0257 1.93152 62.2094 4.4272L76.2094 20.4272C82.7157 27.8629 77.4351 39.5 67.5548 39.5H12.4452C2.56489 39.5 -2.71566 27.8629 3.79058 20.4272L17.7906 4.42719Z" stroke="var(--sbb-train-wagon-shape-color-closed)"></path></svg>
-              </span>
+      expect(root).dom.to.be.equal(
+        `
+          <sbb-train-wagon type="locomotive" additional-accessibility-text="Top of the train">
+          </sbb-train-wagon>
+        `,
+      );
+      expect(root).shadowDom.to.be.equal(
+        `
+          <div class="sbb-train-wagon">
+            <span class="sbb-train-wagon__compartment">
               <span class="sbb-screenreaderonly">
-                , Top of the train
+                Locomotive
               </span>
+              <span aria-hidden="true" class="sbb-train-wagon__label"></span>
+              <svg class="sbb-train-wagon__locomotive" aria-hidden="true" width="80" height="40" viewBox="0 0 80 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.7906 4.42719C19.9743 1.93152 23.129 0.5 26.4452 0.5H53.5548C56.871 0.5 60.0257 1.93152 62.2094 4.4272L76.2094 20.4272C82.7157 27.8629 77.4351 39.5 67.5548 39.5H12.4452C2.56489 39.5 -2.71566 27.8629 3.79058 20.4272L17.7906 4.42719Z" stroke="var(--sbb-train-wagon-shape-color-closed)"></path></svg>
+            </span>
+            <span class="sbb-screenreaderonly">
+              , Top of the train
+            </span>
 
-            </div>
-          </mock:shadow-root>
-        </sbb-train-wagon>
-      `);
+          </div>
+        `,
+      );
     });
 
     it('should render as type closed wagon without number', async () => {
-      const { root } = await newSpecPage({
-        components: [SbbTrainWagon],
-        html: '<sbb-train-wagon type="closed" />',
-      });
+      const root = await fixture(html`<sbb-train-wagon type="closed" />`);
 
-      expect(root).toEqualHtml(`
-        <sbb-train-wagon type="closed">
-          <mock:shadow-root>
-            <div class="sbb-train-wagon">
-              <span class="sbb-train-wagon__compartment">
-                <span class="sbb-screenreaderonly">
-                  Closed train coach
-                </span>
-                <span aria-hidden="true" class="sbb-train-wagon__label"></span>
+      expect(root).dom.to.be.equal(
+        `
+          <sbb-train-wagon type="closed">
+          </sbb-train-wagon>
+        `,
+      );
+      expect(root).shadowDom.to.be.equal(
+        `
+          <div class="sbb-train-wagon">
+            <span class="sbb-train-wagon__compartment">
+              <span class="sbb-screenreaderonly">
+                Closed train coach
               </span>
-            </div>
-          </mock:shadow-root>
-        </sbb-train-wagon>
-      `);
+              <span aria-hidden="true" class="sbb-train-wagon__label"></span>
+            </span>
+          </div>
+        `,
+      );
     });
   });
 
   it('should set aria labels correctly', async () => {
-    expect(await extractAriaLabels({})).toEqual([]);
-    expect(await extractAriaLabels({ type: 'locomotive' })).toEqual(['Locomotive']);
+    expect(await extractAriaLabels({})).to.be.equal([]);
+    expect(await extractAriaLabels({ type: 'locomotive' })).to.be.equal(['Locomotive']);
     expect(
       await extractAriaLabels({ type: 'closed', additionalAccessibilityText: `Don't enter` }),
-    ).toEqual(['Closed train coach', `, Don't enter`]);
-    expect(await extractAriaLabels({ type: 'wagon' })).toEqual(['Train coach']);
+    ).to.be.equal(['Closed train coach', `, Don't enter`]);
+    expect(await extractAriaLabels({ type: 'wagon' })).to.be.equal(['Train coach']);
 
-    expect(await extractAriaLabels({ sector: 'A', type: 'locomotive' })).toEqual([
+    expect(await extractAriaLabels({ sector: 'A', type: 'locomotive' })).to.be.equal([
       'Locomotive, Sector, A',
     ]);
-    expect(await extractAriaLabels({ sector: 'A', type: 'closed' })).toEqual([
+    expect(await extractAriaLabels({ sector: 'A', type: 'closed' })).to.be.equal([
       'Closed train coach, Sector, A',
     ]);
-    expect(await extractAriaLabels({ sector: 'A', type: 'wagon' })).toEqual([
+    expect(await extractAriaLabels({ sector: 'A', type: 'wagon' })).to.be.equal([
       'Train coach',
       'Sector, A',
     ]);
@@ -235,7 +258,7 @@ describe('sbb-train-wagon', () => {
         occupancy: 'unknown',
         blockedPassage: 'previous',
       }),
-    ).toEqual([
+    ).to.be.equal([
       'Train coach',
       'Sector, A',
       'Number,\u00A038',
@@ -244,33 +267,33 @@ describe('sbb-train-wagon', () => {
       'No passage to the previous train coach',
     ]);
 
-    expect(await extractAriaLabels({ type: 'wagon', wagonClass: '2' })).toEqual([
+    expect(await extractAriaLabels({ type: 'wagon', wagonClass: '2' })).to.be.equal([
       'Train coach',
       'Second Class',
     ]);
 
-    expect(await extractAriaLabels({ type: 'wagon', occupancy: 'low' })).toEqual([
+    expect(await extractAriaLabels({ type: 'wagon', occupancy: 'low' })).to.be.equal([
       'Train coach',
       'Low to medium occupancy expected',
     ]);
-    expect(await extractAriaLabels({ type: 'wagon', occupancy: 'medium' })).toEqual([
+    expect(await extractAriaLabels({ type: 'wagon', occupancy: 'medium' })).to.be.equal([
       'Train coach',
       'High occupancy expected',
     ]);
-    expect(await extractAriaLabels({ type: 'wagon', occupancy: 'high' })).toEqual([
+    expect(await extractAriaLabels({ type: 'wagon', occupancy: 'high' })).to.be.equal([
       'Train coach',
       'Very high occupancy expected',
     ]);
 
-    expect(await extractAriaLabels({ type: 'wagon', blockedPassage: 'next' })).toEqual([
+    expect(await extractAriaLabels({ type: 'wagon', blockedPassage: 'next' })).to.be.equal([
       'Train coach',
       'No passage to the next train coach',
     ]);
-    expect(await extractAriaLabels({ type: 'wagon', blockedPassage: 'both' })).toEqual([
+    expect(await extractAriaLabels({ type: 'wagon', blockedPassage: 'both' })).to.be.equal([
       'Train coach',
       'No passage to the next and previous train coach',
     ]);
-    expect(await extractAriaLabels({ type: 'wagon', blockedPassage: 'none' })).toEqual([
+    expect(await extractAriaLabels({ type: 'wagon', blockedPassage: 'none' })).to.be.equal([
       'Train coach',
     ]);
   });
