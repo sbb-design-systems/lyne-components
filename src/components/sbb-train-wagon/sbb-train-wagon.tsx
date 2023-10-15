@@ -17,7 +17,7 @@ import {
   EventEmitter,
 } from '../../global/eventing';
 import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
-import { html, unsafeStatic } from '@open-wc/testing';
+import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import { SbbIcon } from '../sbb-icon';
 import { setAttribute } from '../../global/dom';
