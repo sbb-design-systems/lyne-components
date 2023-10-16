@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig, Plugin } from 'vite';
 import postcssLit from 'rollup-plugin-postcss-lit';
 import dts from 'vite-plugin-dts';
 import glob from 'glob';
@@ -12,8 +12,18 @@ const modules = glob
   })
   .map(dirname);
 
+// https://github.com/rollup/rollup/blob/master/docs/plugin-development/index.md#source-code-transformations
+function excludeNodeModulesSourceMaps(): Plugin {
+  return {
+    name: 'sourcemap-exclude',
+    transform: (code: string, id: string) =>
+      id.includes('node_modules') ? { code, map: { mappings: '' } } : undefined,
+  };
+}
+
 export default defineConfig(({ command, mode }) => ({
   plugins: [
+    excludeNodeModulesSourceMaps(),
     postcssLit({
       exclude: ['**/*global.*', 'src/storybook/**/*'],
     }),
