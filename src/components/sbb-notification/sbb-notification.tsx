@@ -25,16 +25,17 @@ const notificationTypes = new Map([
   ['error', 'circle-cross-small'],
 ]);
 
-/**
- * @slot title - Use this to provide a notification title (optional).
- * @slot unnamed - Use this to provide the notification message.
- */
 export const events = {
   willOpen: 'will-open',
   didOpen: 'did-open',
   willClose: 'will-close',
   didClose: 'did-close',
 };
+
+/**
+ * @slot title - Use this to provide a notification title (optional).
+ * @slot unnamed - Use this to provide the notification message.
+ */
 
 @customElement('sbb-notification')
 export class SbbNotification extends LitElement {
