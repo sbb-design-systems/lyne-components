@@ -1,15 +1,3 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  h,
-  Host,
-  JSX,
-  Listen,
-  Prop,
-  State,
-  Watch,
-} from '@stencil/core';
 import { InterfaceSbbCheckboxGroupAttributes } from './sbb-checkbox-group.custom';
 import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../global/a11y';
 import { toggleDatasetEntry, isValidAttribute } from '../../global/dom';
@@ -17,113 +5,109 @@ import {
   createNamedSlotState,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
+  ConnectedAbortController,
 } from '../../global/eventing';
+import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { SbbCheckbox } from '../sbb-checkbox';
+import Style from './sbb-checkbox-group.scss?lit&inline';
 
 /**
  * @slot unnamed - Slot used to render the <sbb-checkbox> inside the <sbb-checkbox-group>.
  * @slot error - Slot used to render the <sbb-form-error> inside the <sbb-checkbox-group>.
  */
+@customElement('sbb-checkbox-group')
+export class SbbCheckboxGroup extends LitElement {
+  public static override styles: CSSResult = Style;
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-checkbox-group.scss',
-  tag: 'sbb-checkbox-group',
-})
-export class SbbCheckboxGroup implements ComponentInterface {
-  /**
-   * Whether the checkbox group is disabled.
-   */
-  @Prop() public disabled = false;
+  /** Whether the checkbox group is disabled. */
+  @property({ type: Boolean }) public disabled = false;
 
-  /**
-   * Whether the checkbox group is required.
-   */
-  @Prop() public required = false;
+  /** Whether the checkbox group is required. */
+  @property({ type: Boolean }) public required = false;
 
-  /**
-   * Size variant, either m or s.
-   */
-  @Prop() public size: InterfaceSbbCheckboxGroupAttributes['size'] = 'm';
+  /** Size variant, either m or s. */
+  @property() public size: InterfaceSbbCheckboxGroupAttributes['size'] = 'm';
 
-  /**
-   * Overrides the behaviour of `orientation` property.
-   */
-  @Prop({ reflect: true })
+  /** Overrides the behaviour of `orientation` property. */
+  @property({ attribute: 'horizontal-from', reflect: true })
   public horizontalFrom?: InterfaceSbbCheckboxGroupAttributes['horizontalFrom'];
 
-  /**
-   * Indicates the orientation of the checkboxes inside the `<sbb-checkbox-group>`.
-   */
-  @Prop({ reflect: true }) public orientation: InterfaceSbbCheckboxGroupAttributes['orientation'] =
-    'horizontal';
+  /** Indicates the orientation of the checkboxes inside the `<sbb-checkbox-group>`. */
+  @property({ reflect: true })
+  public orientation: InterfaceSbbCheckboxGroupAttributes['orientation'] = 'horizontal';
 
-  /**
-   * State of listed named slots, by indicating whether any element for a named slot is defined.
-   */
-  @State() private _namedSlots = createNamedSlotState('error');
-
-  @Element() private _element!: HTMLElement;
+  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
+  @state() private _namedSlots = createNamedSlotState('error');
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
-  @Watch('disabled')
-  public updateDisabled(): void {
+  private _abort: ConnectedAbortController = new ConnectedAbortController(this);
+
+  private _updateDisabled(): void {
     for (const checkbox of this._checkboxes) {
       toggleDatasetEntry(checkbox, 'groupDisabled', this.disabled);
     }
   }
 
-  @Watch('required')
-  public updateRequired(): void {
+  private _updateRequired(): void {
     for (const checkbox of this._checkboxes) {
       toggleDatasetEntry(checkbox, 'groupRequired', this.required);
     }
   }
 
-  @Watch('size')
-  public updateSize(): void {
+  private _updateSize(): void {
     for (const checkbox of this._checkboxes) {
       checkbox.size = this.size;
     }
   }
 
-  public connectedCallback(): void {
-    toggleDatasetEntry(
-      this._element,
-      'hasSelectionPanel',
-      !!this._element.querySelector('sbb-selection-panel'),
-    );
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    const signal = this._abort.signal;
+    this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
+    toggleDatasetEntry(this, 'hasSelectionPanel', !!this.querySelector('sbb-selection-panel'));
     this._handlerRepository.connect();
   }
 
-  public disconnectedCallback(): void {
+  public override willUpdate(changedProperties: PropertyValues<this>): void {
+    if (changedProperties.has('disabled')) {
+      this._updateDisabled();
+    }
+    if (changedProperties.has('required')) {
+      this._updateRequired();
+    }
+    if (changedProperties.has('size')) {
+      this._updateSize();
+    }
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
   }
 
-  @Listen('keydown')
-  public handleKeyDown(evt: KeyboardEvent): void {
-    const enabledCheckboxes: HTMLSbbCheckboxElement[] = this._checkboxes.filter(
-      (checkbox: HTMLSbbCheckboxElement) =>
+  private _handleKeyDown(evt: KeyboardEvent): void {
+    const enabledCheckboxes: SbbCheckbox[] = this._checkboxes.filter(
+      (checkbox: SbbCheckbox) =>
         !isValidAttribute(checkbox, 'disabled') && interactivityChecker.isVisible(checkbox),
     );
 
     if (
       !enabledCheckboxes ||
       // don't trap nested handling
-      ((evt.target as HTMLElement) !== this._element &&
-        (evt.target as HTMLElement).parentElement !== this._element &&
+      ((evt.target as HTMLElement) !== this &&
+        (evt.target as HTMLElement).parentElement !== this &&
         (evt.target as HTMLElement).parentElement.nodeName !== 'SBB-SELECTION-PANEL')
     ) {
       return;
     }
 
     if (isArrowKeyPressed(evt)) {
-      const current: number = enabledCheckboxes.findIndex(
-        (e: HTMLSbbCheckboxElement) => e === evt.target,
-      );
+      const current: number = enabledCheckboxes.findIndex((e: SbbCheckbox) => e === evt.target);
       const nextIndex: number = getNextElementIndex(evt, current, enabledCheckboxes.length);
       enabledCheckboxes[nextIndex]?.focus();
     }
@@ -139,24 +123,29 @@ export class SbbCheckboxGroup implements ComponentInterface {
     }
   }
 
-  private get _checkboxes(): HTMLSbbCheckboxElement[] {
-    return (
-      Array.from(this._element.querySelectorAll('sbb-checkbox')) as HTMLSbbCheckboxElement[]
-    ).filter((el) => el.closest('sbb-checkbox-group') === this._element);
+  private get _checkboxes(): SbbCheckbox[] {
+    return Array.from(this.querySelectorAll('sbb-checkbox')).filter(
+      (el: SbbCheckbox) => el.closest('sbb-checkbox-group') === this,
+    );
   }
 
-  public render(): JSX.Element {
-    return (
-      <Host>
-        <div class="sbb-checkbox-group">
-          <slot onSlotchange={() => this._updateCheckboxes()} />
-        </div>
-        {this._namedSlots.error && (
-          <div class="sbb-checkbox-group__error">
-            <slot name="error" />
-          </div>
-        )}
-      </Host>
-    );
+  protected override render(): TemplateResult {
+    return html`
+      <div class="sbb-checkbox-group">
+        <slot @slotchange=${() => this._updateCheckboxes()}></slot>
+      </div>
+      ${this._namedSlots.error
+        ? html`<div class="sbb-checkbox-group__error">
+            <slot name="error"></slot>
+          </div>`
+        : nothing}
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-checkbox-group': SbbCheckboxGroup;
   }
 }
