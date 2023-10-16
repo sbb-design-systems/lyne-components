@@ -50,7 +50,6 @@ describe('sbb-accordion', () => {
 
   it('should set accordion context on expansion panel when removing and adding expansion-panels', async () => {
     let panels: SbbExpansionPanel[];
-    await waitForLitRender(element);
 
     element.querySelector('sbb-expansion-panel').remove();
     await waitForLitRender(element);
@@ -120,28 +119,22 @@ describe('sbb-accordion', () => {
     }
 
     headerTwo.click();
-    await waitForLitRender(element);
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
     expect(panelOne.expanded).to.be.equal(false);
     expect(panelTwo.expanded).to.be.equal(true);
     expect(panelThree.expanded).to.be.equal(false);
 
     headerOne.click();
-    await waitForLitRender(element);
     await waitForCondition(() => willOpenEventSpy.events.length === 2);
     expect(willOpenEventSpy.count).to.be.equal(2);
-    await waitForLitRender(element);
     expect(panelOne.expanded).to.be.equal(true);
     expect(panelTwo.expanded).to.be.equal(false);
     expect(panelThree.expanded).to.be.equal(false);
 
     headerThree.click();
-    await waitForLitRender(element);
     await waitForCondition(() => willOpenEventSpy.events.length === 3);
     expect(willOpenEventSpy.count).to.be.equal(3);
-    await waitForLitRender(element);
     expect(panelOne.expanded).to.be.equal(false);
     expect(panelTwo.expanded).to.be.equal(false);
     expect(panelThree.expanded).to.be.equal(true);
@@ -163,28 +156,22 @@ describe('sbb-accordion', () => {
     }
 
     headerTwo.click();
-    await waitForLitRender(element);
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
     expect(panelOne.expanded).to.be.equal(false);
     expect(panelTwo.expanded).to.be.equal(true);
     expect(panelThree.expanded).to.be.equal(false);
 
     headerOne.click();
-    await waitForLitRender(element);
     await waitForCondition(() => willOpenEventSpy.events.length === 2);
     expect(willOpenEventSpy.count).to.be.equal(2);
-    await waitForLitRender(element);
     expect(panelOne.expanded).to.be.equal(true);
     expect(panelTwo.expanded).to.be.equal(true);
     expect(panelThree.expanded).to.be.equal(false);
 
     headerThree.click();
-    await waitForLitRender(element);
     await waitForCondition(() => willOpenEventSpy.events.length === 3);
     expect(willOpenEventSpy.count).to.be.equal(3);
-    await waitForLitRender(element);
     expect(panelOne.expanded).to.be.equal(true);
     expect(panelTwo.expanded).to.be.equal(true);
     expect(panelThree.expanded).to.be.equal(true);
@@ -206,17 +193,13 @@ describe('sbb-accordion', () => {
     const willOpenEventSpy = new EventSpy(sbbExpansionPanelEvents.willOpen);
 
     headerTwo.click();
-    await waitForLitRender(element);
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
     expect(panelTwo.expanded).to.be.equal(true);
 
     headerThree.click();
-    await waitForLitRender(element);
     await waitForCondition(() => willOpenEventSpy.events.length === 2);
     expect(willOpenEventSpy.count).to.be.equal(2);
-    await waitForLitRender(element);
     expect(panelThree.expanded).to.be.equal(true);
 
     element.multi = false;

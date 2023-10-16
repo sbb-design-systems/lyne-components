@@ -12,6 +12,7 @@ import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { SbbExpansionPanel } from '../sbb-expansion-panel';
 import Style from './sbb-expansion-panel-header.scss?lit&inline';
+import '../sbb-icon';
 
 /**
  * @slot icon - Slot used to render the panel header icon.
