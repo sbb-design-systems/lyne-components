@@ -1,6 +1,4 @@
-import { Component, Element, h, Host, JSX, Prop, State } from '@stencil/core';
 import { Boarding, HimCus, Price } from './sbb-timetable-row.custom';
-
 import {
   i18nArrival,
   i18nClass,
@@ -36,82 +34,93 @@ import {
   languageChangeHandlerAspect,
 } from '../../global/eventing';
 import { getDepartureArrivalTimeAttribute, ITripItem } from '../../global/timetable';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { setAttribute } from '../../global/dom';
+import Style from './sbb-timetable-row.scss?lit&inline';
+import '../sbb-card';
+import '../sbb-card-badge';
+import '../sbb-card-action';
+import '../sbb-icon';
+import '../sbb-pearl-chain-time';
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-timetable-row.scss',
-  tag: 'sbb-timetable-row',
-})
-export class SbbTimetableRow {
+@customElement('sbb-timetable-row')
+export class SbbTimetableRow extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /** The trip Prop. */
-  @Prop() public trip: ITripItem;
+  @property() public trip: ITripItem;
 
   /** The price Prop, which consists of the data for the badge. */
-  @Prop() public price?: Price;
+  @property() public price?: Price;
 
   /** This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated. */
-  @Prop({ reflect: true }) public disableAnimation?: boolean;
+  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
+  public disableAnimation?: boolean;
 
   /** This will be forwarded to the notices section */
-  @Prop() public boarding?: Boarding;
+  @property() public boarding?: Boarding;
 
   /**
    * The loading state -
    * when this is true it will be render skeleton with an idling animation
    */
-  @Prop() public loadingTrip?: boolean;
+  @property({ attribute: 'loading-trip', type: Boolean }) public loadingTrip?: boolean;
 
   /**
    * The loading state -
    * when this is true it will be render skeleton with an idling animation
    */
-  @Prop() public loadingPrice?: boolean;
+  @property({ attribute: 'loading-price', type: Boolean }) public loadingPrice?: boolean;
 
   /**
    * Hidden label for the card action. It overrides the automatically generated accessibility text for the component. Use this prop to provide custom accessibility information for the component.
    */
-  @Prop() public cardActionLabel?: string;
+  @property({ attribute: 'card-action-label' }) public cardActionLabel?: string;
 
   /** This will be forwarded to the sbb-card component as aria-expanded. */
-  @Prop() public accessibilityExpanded?: boolean;
+  @property({ attribute: 'accessibility-expanded', type: Boolean })
+  public accessibilityExpanded?: boolean;
 
   /** When this prop is true the sbb-card will be in the active state. */
-  @Prop() public active?: boolean;
+  @property({ type: Boolean }) public active?: boolean;
 
-  @State() private _currentLanguage = documentLanguage();
-
-  @Element() private _element!: HTMLElement;
+  @state() private _currentLanguage = documentLanguage();
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
     this._handlerRepository.connect();
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
   }
 
   private _now(): number {
-    const dataNow = +this._element.dataset?.now;
+    const dataNow = +this.dataset?.now;
     return isNaN(dataNow) ? Date.now() : dataNow;
   }
 
   /** The skeleton render function for the loading state */
-  private _renderSkeleton(): JSX.Element {
-    return (
+  private _renderSkeleton(): TemplateResult {
+    return html`
       <sbb-card size="l" class="sbb-loading">
-        {this.loadingPrice && <sbb-card-badge class="sbb-loading__badge" />}
+        ${this.loadingPrice
+          ? html`<sbb-card-badge class="sbb-loading__badge"></sbb-card-badge>`
+          : nothing}
         <div class="sbb-loading__wrapper">
           <div class="sbb-loading__row"></div>
           <div class="sbb-loading__row"></div>
           <div class="sbb-loading__row"></div>
         </div>
       </sbb-card>
-    );
+    `;
   }
 
   private _getQuayType(vehicleMode: string): any {
@@ -139,15 +148,17 @@ export class SbbTimetableRow {
   }
 
   /** map Quay */
-  private _renderQuayType(): JSX.Element | undefined {
+  private _renderQuayType(): TemplateResult | undefined {
     if (!this.trip.summary?.product) return undefined;
     const quayTypeStrings = this._getQuayTypeStrings();
-    return (
+    return html`
       <span class="sbb-timetable__row--quay">
-        <span class="sbb-screenreaderonly">{quayTypeStrings?.long}&nbsp;</span>
-        <span aria-hidden="true">{quayTypeStrings?.short}</span>
+        <span class="sbb-screenreaderonly">${quayTypeStrings?.long}&nbsp;</span>
+        <span class="sbb-timetable__row--quay-type" aria-hidden="true"
+          >${quayTypeStrings?.short}</span
+        >
       </span>
-    );
+    `;
   }
 
   private _handleHimCus(trip: ITripItem): { cus: HimCus | null; him: HimCus | null } {
@@ -282,7 +293,7 @@ export class SbbTimetableRow {
     } ${arrivalTimeText} ${arrivalWalkText} ${durationText} ${transferProcedures} ${occupancyText} ${attributesText}`;
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     if (this.loadingTrip) {
       return this._renderSkeleton();
     }
@@ -306,173 +317,182 @@ export class SbbTimetableRow {
     const noticeAttributes = notices && handleNotices(notices);
 
     const durationObj = durationToTime(duration, this._currentLanguage);
-    return (
-      <Host role="rowgroup">
-        <sbb-card size="l" id={id}>
-          <sbb-card-action
-            active={this.active}
-            aria-expanded={this.accessibilityExpanded?.toString()}
-          >
-            {this.cardActionLabel ? this.cardActionLabel : this._getAccessibilityText(this.trip)}
-          </sbb-card-action>
-          {this.loadingPrice && <sbb-card-badge class="sbb-loading__badge" />}
-          {this.price && !this.loadingPrice && (
-            <sbb-card-badge color={this.price.isDiscount ? 'charcoal' : 'white'}>
-              {this.price.isDiscount && (
-                <span aria-hidden="true">
-                  %<span class="sbb-screenreaderonly">{i18nSupersaver[this._currentLanguage]}</span>
-                </span>
-              )}
-              {this.price.text && <span>{this.price.text}</span>}
-              {this.price.price && <span>{this.price.price}</span>}
-            </sbb-card-badge>
-          )}
-          <div class="sbb-timetable__row" role="row">
-            <div class="sbb-timetable__row-header" role="gridcell">
-              <div class="sbb-timetable__row-details">
-                {product &&
-                  getTransportIcon(
-                    product.vehicleMode,
-                    product.vehicleSubModeShortName || '',
-                    this._currentLanguage,
-                  ) && (
-                    <span class="sbb-timetable__row-transport-wrapper">
-                      <sbb-icon
-                        class="sbb-timetable__row-transport-icon"
-                        name={
-                          'picto:' +
-                          getTransportIcon(
-                            product.vehicleMode,
-                            product.vehicleSubModeShortName || '',
-                            this._currentLanguage,
-                          )
-                        }
-                      />
-                      <span class="sbb-screenreaderonly">
-                        {product &&
-                          product.vehicleMode &&
-                          i18nMeansOfTransport[product.vehicleMode.toLowerCase()] &&
-                          i18nMeansOfTransport[product.vehicleMode.toLowerCase()][
-                            this._currentLanguage
-                          ]}
-                        &nbsp;
-                      </span>
+    setAttribute(this, 'role', 'rowgroup');
+
+    return html`
+      <sbb-card size="l" id=${id}>
+        <sbb-card-action
+          ?active=${this.active}
+          aria-expanded=${this.accessibilityExpanded?.toString()}
+        >
+          ${this.cardActionLabel ? this.cardActionLabel : this._getAccessibilityText(this.trip)}
+        </sbb-card-action>
+        ${this.loadingPrice
+          ? html`<sbb-card-badge class="sbb-loading__badge"></sbb-card-badge>`
+          : nothing}
+        ${this.price && !this.loadingPrice
+          ? html`<sbb-card-badge color=${this.price.isDiscount ? 'charcoal' : 'white'}>
+              ${this.price.isDiscount ? (
+                html`<span aria-hidden="true">
+                  %<span class="sbb-screenreaderonly">${i18nSupersaver[this._currentLanguage]}</span>
+                </span>`
+              ) : nothing}
+              ${this.price.text ? html`<span>${this.price.text}</span>` : nothing}
+              ${this.price.price ? html`<span>${this.price.price}</span>` : nothing}
+            </sbb-card-badge>`
+          : nothing}
+        <div class="sbb-timetable__row" role="row">
+          <div class="sbb-timetable__row-header" role="gridcell">
+            <div class="sbb-timetable__row-details">
+              ${product &&
+              getTransportIcon(
+                product.vehicleMode,
+                product.vehicleSubModeShortName || '',
+                this._currentLanguage,
+              )
+                ? html`<span class="sbb-timetable__row-transport-wrapper">
+                    <sbb-icon
+                      class="sbb-timetable__row-transport-icon"
+                      name=${'picto:' +
+                      getTransportIcon(
+                        product.vehicleMode,
+                        product.vehicleSubModeShortName || '',
+                        this._currentLanguage,
+                      )}
+                    ></sbb-icon>
+                    <span class="sbb-screenreaderonly">
+                      ${product &&
+                      product.vehicleMode &&
+                      i18nMeansOfTransport[product.vehicleMode.toLowerCase()] &&
+                      i18nMeansOfTransport[product.vehicleMode.toLowerCase()][
+                        this._currentLanguage
+                      ]}
+                      &nbsp;
                     </span>
-                  )}
-                {product &&
-                  product.vehicleSubModeShortName &&
-                  (isProductIcon(product?.vehicleSubModeShortName?.toLocaleLowerCase())
-                    ? renderIconProduct(product.vehicleSubModeShortName, product.line)
-                    : renderStringProduct(product.vehicleSubModeShortName, product?.line))}
-              </div>
-              {direction && <p>{`${i18nDirection[this._currentLanguage]} ${direction}`}</p>}
+                  </span>`
+                : nothing}
+              ${product &&
+              product.vehicleSubModeShortName &&
+              (isProductIcon(product?.vehicleSubModeShortName?.toLocaleLowerCase())
+                ? renderIconProduct(product.vehicleSubModeShortName, product.line)
+                : renderStringProduct(product.vehicleSubModeShortName, product?.line))}
             </div>
-            <sbb-pearl-chain-time
-              role="gridcell"
-              legs={legs}
-              departureTime={departure?.time}
-              arrivalTime={arrival?.time}
-              departureWalk={departureWalk}
-              arrivalWalk={arrivalWalk}
-              disableAnimation={this.disableAnimation}
-              data-now={this._now()}
-            ></sbb-pearl-chain-time>
-            <div class="sbb-timetable__row-footer" role="gridcell">
-              {product && this._getQuayType(product.vehicleMode) && departure?.quayFormatted && (
-                <span class={departure?.quayChanged ? `sbb-timetable__row-quay--changed` : ''}>
+            ${direction
+              ? html`<p>${`${i18nDirection[this._currentLanguage]} ${direction}`}</p>`
+              : nothing}
+          </div>
+          <sbb-pearl-chain-time
+            role="gridcell"
+            .legs=${legs}
+            departure-time=${departure?.time || nothing}
+            arrival-time=${arrival?.time || nothing}
+            departure-walk=${departureWalk || nothing}
+            arrival-walk=${arrivalWalk || nothing}
+            ?disable-animation=${this.disableAnimation}
+            data-now=${this._now()}
+          ></sbb-pearl-chain-time>
+          <div class="sbb-timetable__row-footer" role="gridcell">
+            ${product && this._getQuayType(product.vehicleMode) && departure?.quayFormatted
+              ? html`<span
+                  class=${departure?.quayChanged ? `sbb-timetable__row-quay--changed` : nothing}
+                >
                   <span class="sbb-screenreaderonly">
-                    {`${i18nDeparture[this._currentLanguage]} ${
+                    ${`${i18nDeparture[this._currentLanguage]} ${
                       departure?.quayChanged ? i18nNew[this._currentLanguage] : ''
                     }`}
                     &nbsp;
                   </span>
-                  {this._renderQuayType()}
-                  {departure?.quayFormatted}
-                </span>
-              )}
-              {((occupancy?.firstClass && occupancy?.firstClass !== 'UNKNOWN') ||
-                (occupancy?.secondClass && occupancy.secondClass !== 'UNKNOWN')) && (
-                <ul class="sbb-timetable__row-occupancy" role="list">
-                  {occupancy?.firstClass && occupancy.firstClass !== 'UNKNOWN' && (
-                    <li>
-                      <span aria-hidden="true">1.</span>
-                      <sbb-icon
-                        class="sbb-occupancy__item"
-                        name={`utilization-` + occupancy?.firstClass?.toLowerCase()}
-                      />
-                      <span class="sbb-screenreaderonly">
-                        {i18nOccupancy[occupancy?.firstClass?.toLowerCase()] &&
+                  ${this._renderQuayType()} ${departure?.quayFormatted}
+                </span>`
+              : nothing}
+            ${(occupancy?.firstClass && occupancy?.firstClass !== 'UNKNOWN') ||
+            (occupancy?.secondClass && occupancy.secondClass !== 'UNKNOWN')
+              ? html`<ul class="sbb-timetable__row-occupancy" role="list">
+                  ${occupancy?.firstClass && occupancy.firstClass !== 'UNKNOWN'
+                    ? html`<li>
+                        <span aria-hidden="true">1.</span>
+                        <sbb-icon
+                          class="sbb-occupancy__item"
+                          name=${`utilization-` + occupancy?.firstClass?.toLowerCase()}
+                        ></sbb-icon>
+                        <span class="sbb-screenreaderonly">
+                          ${i18nOccupancy[occupancy?.firstClass?.toLowerCase()] &&
                           `${i18nClass.first[this._currentLanguage]} ${
                             i18nOccupancy[occupancy?.firstClass?.toLowerCase()][
                               this._currentLanguage
                             ]
                           }.`}
-                      </span>
-                    </li>
-                  )}
-                  {occupancy?.secondClass && occupancy.secondClass !== 'UNKNOWN' && (
-                    <li>
-                      <span aria-hidden="true">2.</span>
-                      <sbb-icon
-                        class="sbb-occupancy__item"
-                        name={`utilization-` + occupancy?.secondClass?.toLowerCase()}
-                      />
-                      <span class="sbb-screenreaderonly">
-                        {i18nOccupancy[occupancy?.secondClass?.toLowerCase()] &&
+                        </span>
+                      </li>`
+                    : nothing}
+                  ${occupancy?.secondClass && occupancy.secondClass !== 'UNKNOWN'
+                    ? html`<li>
+                        <span aria-hidden="true">2.</span>
+                        <sbb-icon
+                          class="sbb-occupancy__item"
+                          name=${`utilization-` + occupancy?.secondClass?.toLowerCase()}
+                        ></sbb-icon>
+                        <span class="sbb-screenreaderonly">
+                          ${i18nOccupancy[occupancy?.secondClass?.toLowerCase()] &&
                           `${i18nClass.second[this._currentLanguage]} ${
                             i18nOccupancy[occupancy?.secondClass?.toLowerCase()][
                               this._currentLanguage
                             ]
                           }.`}
-                      </span>
-                    </li>
-                  )}
-                </ul>
-              )}
-              {((noticeAttributes && noticeAttributes.length) || this.boarding) && (
-                <ul class="sbb-timetable__row-hints" role="list">
-                  {noticeAttributes?.map(
-                    (notice, index) =>
-                      index < 4 && (
-                        <li>
+                        </span>
+                      </li>`
+                    : nothing}
+                </ul>`
+              : nothing}
+            ${(noticeAttributes && noticeAttributes.length) || this.boarding
+              ? html`<ul class="sbb-timetable__row-hints" role="list">
+                  ${noticeAttributes?.map((notice, index) =>
+                    index < 4
+                      ? html`<li>
                           <sbb-icon
                             class="sbb-travel-hints__item"
-                            name={'sa-' + notice.name?.toLowerCase()}
-                          />
-                          <span class="sbb-screenreaderonly">{notice.text?.template}</span>
-                        </li>
-                      ),
+                            name=${'sa-' + notice.name?.toLowerCase()}
+                          ></sbb-icon>
+                          <span class="sbb-screenreaderonly">${notice.text?.template}</span>
+                        </li>`
+                      : nothing,
                   )}
-                  {this.boarding && (
-                    <li>
-                      <sbb-icon
-                        class="sbb-travel-hints__item"
-                        name={this.boarding?.name}
-                        aria-label={this.boarding?.text}
-                        aria-hidden="false"
-                      />
-                    </li>
-                  )}
-                </ul>
-              )}
-              {duration > 0 && (
-                <time>
+                  ${this.boarding
+                    ? html`<li>
+                        <sbb-icon
+                          class="sbb-travel-hints__item"
+                          name=${this.boarding?.name}
+                          aria-label=${this.boarding?.text}
+                          aria-hidden="false"
+                        ></sbb-icon>
+                      </li>`
+                    : nothing}
+                </ul>`
+              : nothing}
+            ${duration > 0
+              ? html`<time>
                   <span class="sbb-screenreaderonly">
-                    {`${i18nTripDuration[this._currentLanguage]} ${durationObj.long}`}
+                    ${`${i18nTripDuration[this._currentLanguage]} ${durationObj.long}`}
                   </span>
-                  <span aria-hidden="true">{durationObj.short}</span>
-                </time>
-              )}
-              {hasHimCus && (
-                <span class="sbb-timetable__row-warning">
-                  <sbb-icon name={(himCus.cus || himCus.him).name} />
-                  <span class="sbb-screenreaderonly">{(himCus.cus || himCus.him).text}</span>
-                </span>
-              )}
-            </div>
+                  <span aria-hidden="true">${durationObj.short}</span>
+                </time>`
+              : nothing}
+            ${hasHimCus
+              ? html`<span class="sbb-timetable__row-warning">
+                  <sbb-icon name=${(himCus.cus || himCus.him).name}></sbb-icon>
+                  <span class="sbb-screenreaderonly">${(himCus.cus || himCus.him).text}</span>
+                </span>`
+              : nothing}
           </div>
-        </sbb-card>
-      </Host>
-    );
+        </div>
+      </sbb-card>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-timetable-row': SbbTimetableRow;
   }
 }

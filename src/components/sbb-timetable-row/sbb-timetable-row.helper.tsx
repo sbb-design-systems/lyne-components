@@ -1,4 +1,3 @@
-import { h, JSX } from '@stencil/core';
 import { HimCus } from './sbb-timetable-row.custom';
 import { i18nTripQuayChange } from '../../global/i18n';
 import {
@@ -9,6 +8,7 @@ import {
   PtSituation,
   VehicleModeEnum,
 } from '../../global/timetable';
+import { html, TemplateResult } from 'lit';
 
 export const getTransportIcon = (
   vehicleMode: VehicleModeEnum,
@@ -76,24 +76,20 @@ export const isProductIcon = (transport: string): boolean => {
   return possibleTransportTypes.includes(transport);
 };
 
-export const renderIconProduct = (transport: string, line?: string | null): JSX.Element => {
+export const renderIconProduct = (transport: string, line?: string | null): TemplateResult => {
   const dashLine = line ? '-' + line : '';
 
-  return (
-    <span class="sbb-timetable__row-transport">
-      <sbb-icon name={transport.toLowerCase() + dashLine} />
-      <span class="sbb-screenreaderonly"> {transport.toLowerCase() + dashLine}</span>
-    </span>
-  );
+  return html`<span class="sbb-timetable__row-transport">
+    <sbb-icon name=${transport.toLowerCase() + dashLine}></sbb-icon>
+    <span class="sbb-screenreaderonly"> ${transport.toLowerCase() + dashLine}</span>
+  </span>`;
 };
 
-export const renderStringProduct = (vehicleName: string, line?: string | null): JSX.Element => {
+export const renderStringProduct = (vehicleName: string, line?: string | null): TemplateResult => {
   const space = ['M', 'B', 'T'].includes(vehicleName) ? ' ' : '';
-  return (
-    <span class="sbb-timetable__row-transportnumber">
-      {line !== null ? vehicleName + space + line : vehicleName}
-    </span>
-  );
+  return html`<span class="sbb-timetable__row-transportnumber">
+    ${line !== null ? vehicleName + space + line : vehicleName}
+  </span>`;
 };
 
 const getReachableText = (legs: PtRideLeg[]): string => {

@@ -1,5 +1,6 @@
 import { Notice } from '../../global/timetable';
 import { extractTimeAndStringFromNoticeText } from './sbb-pearl-chain-time.helper';
+import { expect } from '@open-wc/testing';
 
 describe('extractTimeAndStringFromNoticeText', () => {
   it('should return duration and text from notice', () => {
@@ -10,14 +11,14 @@ describe('extractTimeAndStringFromNoticeText', () => {
     };
     const result = extractTimeAndStringFromNoticeText(notice as Notice);
 
-    expect(result.duration).toEqual(10);
-    expect(result.text).toEqual('The trip will start ');
+    expect(result.duration).to.be.equal(10);
+    expect(result.text).to.be.equal('The trip will start ');
   });
 
   it('should return default values when notice is undefined', () => {
     const result = extractTimeAndStringFromNoticeText(undefined);
 
-    expect(result.duration).toEqual(0);
-    expect(result.text).toEqual('');
+    expect(result.duration).to.be.equal(0);
+    expect(result.text).to.be.equal('');
   });
 });

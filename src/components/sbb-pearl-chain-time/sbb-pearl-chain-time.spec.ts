@@ -75,7 +75,7 @@ describe('sbb-pearl-chain-time', () => {
               minutes of walking time before departure:
             </span>
             10
-            <span aria-hidden="true">
+            <span class="sbb-pearl-chain__time-walktime-prime-symbol" aria-hidden="true">
               '
             </span>
           </time>
@@ -139,7 +139,7 @@ describe('sbb-pearl-chain-time', () => {
               minutes of walking time after arrival:
             </span>
             10
-            <span aria-hidden="true">
+            <span class="sbb-pearl-chain__time-walktime-prime-symbol" aria-hidden="true">
               '
             </span>
           </time>
@@ -178,7 +178,7 @@ describe('sbb-pearl-chain-time', () => {
               minutes of walking time before departure:
             </span>
             20
-            <span aria-hidden="true">
+            <span class="sbb-pearl-chain__time-walktime-prime-symbol" aria-hidden="true">
               '
             </span>
           </time>
@@ -203,7 +203,7 @@ describe('sbb-pearl-chain-time', () => {
               minutes of walking time after arrival:
             </span>
             10
-            <span aria-hidden="true">
+            <span class="sbb-pearl-chain__time-walktime-prime-symbol" aria-hidden="true">
               '
             </span>
           </time>

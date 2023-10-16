@@ -1,28 +1,29 @@
-import { E2EPage, newE2EPage, E2EElement } from '@stencil/core/testing';
 import { waitForCondition } from '../../global/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { EventSpy, waitForLitRender } from '../../global/testing';
+import { SbbTimetableRow } from './sbb-timetable-row';
 
 describe('sbb-timetable-row', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbTimetableRow;
 
   beforeEach(async () => {
-    page = await newE2EPage();
-    await page.setContent(`<sbb-timetable-row></sbb-timetable-row>`);
-    element = await page.find('sbb-timetable-row');
+    element = await fixture(html`<sbb-timetable-row></sbb-timetable-row>`);
   });
 
   it('renders', () => {
-    expect(element).toHaveClass('hydrated');
+    assert.instanceOf(element, SbbTimetableRow);
   });
 
   describe('events', () => {
     it('emits an event when clicked', async () => {
-      await page.waitForChanges();
-      const card = await page.find('sbb-timetable-row >>> sbb-card');
-      const changeSpy = await page.spyOnEvent('click');
+      await waitForLitRender(element);
+      const card = element.shadowRoot.querySelector('sbb-card');
+      const changeSpy = new EventSpy('click');
 
-      await card.click();
+      card.click();
       await waitForCondition(() => changeSpy.events.length === 1);
-      expect(changeSpy).toHaveReceivedEventTimes(1);
+      expect(changeSpy.count).to.be.equal(1);
     });
   });
 });
