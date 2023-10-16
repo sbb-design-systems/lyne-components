@@ -1,100 +1,94 @@
-import {
-  Component,
-  Element,
-  Event,
-  EventEmitter,
-  h,
-  JSX,
-  Method,
-  Prop,
-  ComponentInterface,
-  Fragment,
-  State,
-} from '@stencil/core';
 import { InterfaceAlertAttributes } from './sbb-alert.custom';
 import { i18nCloseAlert, i18nFindOutMore } from '../../global/i18n';
 import { LinkProperties, LinkTargetType } from '../../global/interfaces';
-import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
+import { TitleLevel } from '../sbb-title/sbb-title';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
+  EventEmitter,
 } from '../../global/eventing';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
+import { spread } from '@open-wc/lit-helpers';
+import Style from './sbb-alert.scss?lit&inline';
+import '../sbb-title';
+import '../sbb-divider';
+import '../sbb-link';
+import '../sbb-button';
+
+export const events = {
+  willPresent: 'will-present',
+  didPresent: 'did-present',
+  dismissalRequested: 'dismissal-requested',
+};
 
 /**
  * @slot icon - Should be a sbb-icon which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.
  * @slot title - Title content.
  * @slot unnamed - Content of the alert.
  */
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-alert.scss',
-  tag: 'sbb-alert',
-})
-export class SbbAlert implements ComponentInterface, LinkProperties {
+
+@customElement('sbb-alert')
+export class SbbAlert extends LitElement implements LinkProperties {
+  public static override styles: CSSResult = Style;
+
   /**
    * Whether the alert is readonly.
    * In readonly mode, there is no dismiss button offered to the user.
    */
-  @Prop({ reflect: true }) public readonly = false;
+  @property({ reflect: true, type: Boolean }) public readonly = false;
 
   /** You can choose between `m` or `l` size. */
-  @Prop({ reflect: true }) public size: InterfaceAlertAttributes['size'] = 'm';
+  @property({ reflect: true }) public size: InterfaceAlertAttributes['size'] = 'm';
 
   /** Whether the fade in animation should be disabled. */
-  @Prop() public disableAnimation = false;
+  @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation = false;
 
   /**
    * Name of the icon which will be forward to the nested `sbb-icon`.
    * Choose the icons from https://icons.app.sbb.ch.
    * Styling is optimized for icons of type HIM-CUS.
    */
-  @Prop() public iconName?: string;
+  @property({ attribute: 'icon-name' }) public iconName?: string;
 
   /** Content of title. */
-  @Prop() public titleContent?: string;
+  @property({ attribute: 'title-content' }) public titleContent?: string;
 
   /** Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3. */
-  @Prop() public titleLevel: InterfaceTitleAttributes['level'] = '3';
+  @property({ attribute: 'title-level' }) public titleLevel: TitleLevel = '3';
 
   /** Content of the link. */
-  @Prop() public linkContent?: string;
+  @property({ attribute: 'link-content' }) public linkContent?: string;
 
   /** The href value you want to link to. */
-  @Prop() public href: string | undefined;
+  @property() public href: string | undefined;
 
   /** Where to display the linked URL. */
-  @Prop() public target: LinkTargetType | string | undefined;
+  @property() public target: LinkTargetType | string | undefined;
 
   /** The relationship of the linked URL as space-separated link types. */
-  @Prop() public rel: string | undefined;
+  @property() public rel: string | undefined;
 
   /** This will be forwarded as aria-label to the relevant nested element. */
-  @Prop() public accessibilityLabel: string | undefined;
+  @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
 
   /** Emits when the fade in animation starts. */
-  @Event({
-    eventName: 'will-present',
-  })
-  public willPresent: EventEmitter<void>;
+  private _willPresent: EventEmitter<void> = new EventEmitter(this, events.willPresent);
 
   /** Emits when the fade in animation ends and the button is displayed. */
-  @Event({
-    eventName: 'did-present',
-  })
-  public didPresent: EventEmitter<void>;
+  private _didPresent: EventEmitter<void> = new EventEmitter(this, events.didPresent);
 
   /** Emits when dismissal of an alert was requested. */
-  @Event({
-    eventName: 'dismissal-requested',
-  })
-  public dismissalRequested: EventEmitter<void>;
+  private _dismissalRequested: EventEmitter<void> = new EventEmitter(
+    this,
+    events.dismissalRequested,
+  );
 
-  @Element() private _element!: HTMLElement;
-
-  @State() private _currentLanguage = documentLanguage();
+  @state() private _currentLanguage = documentLanguage();
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
@@ -103,7 +97,8 @@ export class SbbAlert implements ComponentInterface, LinkProperties {
 
   private _firstRenderingDone = false;
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
     this._handlerRepository.connect();
     // Skip very first render where the animation elements are not yet ready.
     // Presentation is postponed to componentDidRender().
@@ -113,11 +108,12 @@ export class SbbAlert implements ComponentInterface, LinkProperties {
     }
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
   }
 
-  public componentDidRender(): void {
+  protected override updated(): void {
     // During the very first rendering, the animation elements are only present in componentDidRender.
     // So we need to fire the fade in animation later than at connectedCallback().
     if (!this._firstRenderingDone) {
@@ -127,13 +123,13 @@ export class SbbAlert implements ComponentInterface, LinkProperties {
   }
 
   /** Requests dismissal of the alert. */
-  @Method() public async requestDismissal(): Promise<void> {
-    this.dismissalRequested.emit();
+  public requestDismissal(): void {
+    this._dismissalRequested.emit();
   }
 
   /** Present the alert. */
   private _present(): Promise<void> {
-    this.willPresent.emit();
+    this._willPresent.emit();
 
     if (this.disableAnimation) {
       this._onHeightTransitionEnd();
@@ -173,7 +169,7 @@ export class SbbAlert implements ComponentInterface, LinkProperties {
   }
 
   private _onOpacityTransitionEnd(): void {
-    this.didPresent.emit();
+    this._didPresent.emit();
   }
 
   private _linkProperties(): Record<string, string> {
@@ -185,69 +181,75 @@ export class SbbAlert implements ComponentInterface, LinkProperties {
     };
   }
 
-  public render(): JSX.Element {
-    return (
+  protected override render(): TemplateResult {
+    return html`
       <div
         class="sbb-alert__transition-wrapper"
-        ref={(el): void => {
+        ${ref((el: HTMLElement): void => {
           this._transitionWrapperElement = el;
-        }}
+        })}
       >
         <div
           class="sbb-alert"
-          ref={(el): void => {
+          ${ref((el: HTMLElement): void => {
             const isFirstInitialization = !this._alertElement;
 
             this._alertElement = el;
             if (isFirstInitialization) {
               this._initFadeInTransitionStyles();
             }
-          }}
+          })}
         >
           <span class="sbb-alert__icon">
-            <slot name="icon">{<sbb-icon name={this.iconName || 'info'} />}</slot>
+            <slot name="icon">
+              <sbb-icon name=${this.iconName || 'info'}></sbb-icon>
+            </slot>
           </span>
           <span class="sbb-alert__content">
             <sbb-title
               class="sbb-alert__title"
-              level={this.titleLevel}
-              visual-level={this.size === 'l' ? '3' : '5'}
+              level=${this.titleLevel}
+              visual-level=${this.size === 'l' ? '3' : '5'}
               negative
             >
-              <slot name="title">{this.titleContent}</slot>
+              <slot name="title">${this.titleContent}</slot>
             </sbb-title>
             <p class="sbb-alert__content-slot">
-              <slot />
+              <slot></slot>
             </p>
-            {this.href && (
-              <Fragment>
-                <span aria-hidden="true">&nbsp;</span>
-                <sbb-link {...this._linkProperties()} variant="inline" negative>
-                  {this.linkContent ? this.linkContent : i18nFindOutMore[this._currentLanguage]}
-                </sbb-link>
-              </Fragment>
-            )}
+            ${this.href
+              ? html` <sbb-link ${spread(this._linkProperties())} variant="inline" negative>
+                  ${this.linkContent ? this.linkContent : i18nFindOutMore[this._currentLanguage]}
+                </sbb-link>`
+              : nothing}
           </span>
-          {!this.readonly && (
-            <span class="sbb-alert__close-button-wrapper">
-              <sbb-divider
-                orientation="vertical"
-                negative
-                class="sbb-alert__close-button-divider"
-              ></sbb-divider>
-              <sbb-button
-                variant="transparent"
-                negative
-                size="m"
-                icon-name="cross-small"
-                onClick={() => this.requestDismissal()}
-                aria-label={i18nCloseAlert[this._currentLanguage]}
-                class="sbb-alert__close-button"
-              />
-            </span>
-          )}
+          ${!this.readonly
+            ? html`<span class="sbb-alert__close-button-wrapper">
+                <sbb-divider
+                  orientation="vertical"
+                  negative
+                  class="sbb-alert__close-button-divider"
+                ></sbb-divider>
+                <sbb-button
+                  variant="transparent"
+                  negative
+                  size="m"
+                  icon-name="cross-small"
+                  @click=${() => this.requestDismissal()}
+                  aria-label=${i18nCloseAlert[this._currentLanguage]}
+                  class="sbb-alert__close-button"
+                ></sbb-button>
+              </span>`
+            : nothing}
         </div>
       </div>
-    );
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-alert': SbbAlert;
   }
 }

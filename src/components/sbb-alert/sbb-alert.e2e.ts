@@ -1,32 +1,27 @@
-import { newE2EPage } from '@stencil/core/testing';
-import events from './sbb-alert.events';
+import { events } from './sbb-alert';
 import { waitForCondition } from '../../global/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { EventSpy } from '../../global/testing';
+import { SbbAlert } from './sbb-alert';
 
 describe('sbb-alert', () => {
-  let alert, page;
+  let alert: SbbAlert;
 
   it('renders', async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-alert></sbb-alert>');
-
-    alert = await page.find('sbb-alert');
-    expect(alert).toHaveClass('hydrated');
+    alert = await fixture(html`<sbb-alert></sbb-alert>`);
+    assert.instanceOf(alert, SbbAlert);
   });
 
-  // TODO: maybe fix some day. Test just doesn't work for unknown reason.
-  // eslint-disable-next-line
-  it.skip('should fire animation events', async () => {
-    page = await newE2EPage();
+  it('should fire animation events', async () => {
+    const willPresentSpy = new EventSpy(events.willPresent);
+    const didPresentSpy = new EventSpy(events.didPresent);
 
-    const willPresentSpy = await page.spyOnEvent(events.willPresent);
-    const didPresentSpy = await page.spyOnEvent(events.didPresent);
-
-    await page.setContent(`<sbb-alert title-content="disruption">Interruption</sbb-alert>`);
-    await page.waitForChanges();
+    await fixture(html`<sbb-alert title-content="disruption">Interruption</sbb-alert>`);
 
     await waitForCondition(() => willPresentSpy.events.length === 1);
-    expect(willPresentSpy).toHaveReceivedEventTimes(1);
+    expect(willPresentSpy.count).to.be.equal(1);
     await waitForCondition(() => didPresentSpy.events.length === 1);
-    expect(didPresentSpy).toHaveReceivedEventTimes(1);
+    expect(didPresentSpy.count).to.be.equal(1);
   });
 });
