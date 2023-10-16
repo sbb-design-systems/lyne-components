@@ -2,8 +2,11 @@
 import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
+import './sbb-slider';
+import '../sbb-form-field';
+import '../sbb-icon';
 
 const changeEventHandler = (event): void => {
   const div = document.createElement('div');
@@ -16,7 +19,7 @@ const TemplateSbbSlider = (args): JSX.Element => <sbb-slider {...args}></sbb-sli
 const TemplateSbbSliderChangeEvent = (args): JSX.Element => (
   <Fragment>
     <sbb-slider {...args} onChange={(event) => changeEventHandler(event)}></sbb-slider>
-    <div style={{ 'margin-block-start': '2rem' }}>Change slider position:</div>
+    <div style="margin-block-start: 2rem;">Change slider position:</div>
     <div id="container-value"></div>
   </Fragment>
 );
