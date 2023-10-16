@@ -1,421 +1,349 @@
-import events from './sbb-tooltip.events';
-import { E2EPage, newE2EPage, E2EElement } from '@stencil/core/testing';
+import { assert, expect, fixture, fixtureCleanup } from '@open-wc/testing';
+import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
+import { html } from 'lit/static-html.js';
 import { waitForCondition } from '../../global/testing';
+import { EventSpy } from '../../global/testing/event-spy';
+import '../sbb-button';
+import { SbbButton } from '../sbb-button';
+import '../sbb-link';
+import './sbb-tooltip';
+import { SbbTooltip, events } from './sbb-tooltip';
 
 describe('sbb-tooltip', () => {
-  let element: E2EElement, trigger: E2EElement, page: E2EPage;
+  let element: SbbTooltip, trigger: SbbButton;
 
   beforeEach(async () => {
-    page = await newE2EPage();
-    await page.setContent(`
+    await fixture(html`
       <sbb-button id="tooltip-trigger">Tooltip trigger</sbb-button>
       <sbb-tooltip id="tooltip" trigger="tooltip-trigger" disable-animation>
-        Tooltip content. <sbb-link id="tooltip-link" variant="inline" sbb-tooltip-close>Link</sbb-link>
+        Tooltip content.
+        <sbb-link id="tooltip-link" href="#" variant="inline" sbb-tooltip-close>Link</sbb-link>
       </sbb-tooltip>
-      <sbb-link href="#somewhere" id="interactive-background-element">Other interactive element</sbb-link>
+      <sbb-link href="#" id="interactive-background-element">Other interactive element</sbb-link>
     `);
-    trigger = await page.find('sbb-button');
-    element = await page.find('sbb-tooltip');
+    trigger = document.querySelector('sbb-button');
+    element = document.querySelector('sbb-tooltip');
   });
 
   it('renders', () => {
-    expect(element).toHaveClass('hydrated');
+    assert.instanceOf(element, SbbTooltip);
   });
 
   it('shows the tooltip', async () => {
-    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
-    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-    const dialog = await page.find('sbb-tooltip >>> dialog');
+    const willOpenEventSpy = new EventSpy(events.willOpen);
+    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const dialog = element.shadowRoot.querySelector('dialog');
 
-    await element.callMethod('open');
-    await page.waitForChanges();
+    element.open();
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willOpenEventSpy.count).to.be.equal(1);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
-    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(didOpenEventSpy.count).to.be.equal(1);
 
-    expect(dialog).toHaveAttribute('open');
+    expect(dialog).to.have.attribute('open');
   });
 
   it('shows on trigger click', async () => {
-    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
-    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-    const dialog = await page.find('sbb-tooltip >>> dialog');
+    const willOpenEventSpy = new EventSpy(events.willOpen);
+    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const dialog = element.shadowRoot.querySelector('dialog');
 
-    trigger.triggerEvent('click');
-    await page.waitForChanges();
+    trigger.click();
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willOpenEventSpy.count).to.be.equal(1);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
-    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(didOpenEventSpy.count).to.be.equal(1);
 
-    expect(dialog).toHaveAttribute('open');
+    expect(dialog).to.have.attribute('open');
   });
 
   it('closes the tooltip', async () => {
-    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
-    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-    const willCloseEventSpy = await page.spyOnEvent(events.willClose);
-    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
-    const dialog = await page.find('sbb-tooltip >>> dialog');
+    const willOpenEventSpy = new EventSpy(events.willOpen);
+    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const willCloseEventSpy = new EventSpy(events.willClose);
+    const didCloseEventSpy = new EventSpy(events.didClose);
+    const dialog = element.shadowRoot.querySelector('dialog');
 
-    await element.callMethod('open');
-    await page.waitForChanges();
+    element.open();
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willOpenEventSpy.count).to.be.equal(1);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
-    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(didOpenEventSpy.count).to.be.equal(1);
+    expect(dialog).to.have.attribute('open');
 
-    expect(dialog).toHaveAttribute('open');
-
-    await element.callMethod('close');
-    await page.waitForChanges();
+    element.close();
 
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
-    expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willCloseEventSpy.count).to.be.equal(1);
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
-    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
-
-    expect(dialog).not.toHaveAttribute('open');
+    expect(didCloseEventSpy.count).to.be.equal(1);
+    expect(dialog).not.to.have.attribute('open');
   });
 
   it('closes the tooltip on close button click', async () => {
-    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
-    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-    const willCloseEventSpy = await page.spyOnEvent(events.willClose);
-    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
-    const dialog = await page.find('sbb-tooltip >>> dialog');
-    const closeButton = await page.find('sbb-tooltip >>> [sbb-tooltip-close]');
+    const willOpenEventSpy = new EventSpy(events.willOpen);
+    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const willCloseEventSpy = new EventSpy(events.willClose);
+    const didCloseEventSpy = new EventSpy(events.didClose);
+    const dialog = element.shadowRoot.querySelector('dialog');
+    const closeButton = element.shadowRoot.querySelector('[sbb-tooltip-close]') as HTMLElement;
 
-    await element.callMethod('open');
-    await page.waitForChanges();
-
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
-
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
-    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
-
-    expect(dialog).toHaveAttribute('open');
-
-    await closeButton.click();
-    await page.waitForChanges();
-
-    await waitForCondition(() => willCloseEventSpy.events.length === 1);
-    expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
-
-    await waitForCondition(() => didCloseEventSpy.events.length === 1);
-    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
-
-    expect(dialog).not.toHaveAttribute('open');
-    expect(trigger).toEqualAttribute('data-focus-origin', 'mouse');
-    expect(await page.evaluate(() => document.activeElement.id)).toBe('tooltip-trigger');
-  });
-
-  it('closes the tooltip on close button click by keyboard', async () => {
-    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
-    const closeButton = await page.find('sbb-tooltip >>> [sbb-tooltip-close]');
-
-    await element.callMethod('open');
-    await page.waitForChanges();
-
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
-    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
-
-    await closeButton.focus();
-    await page.keyboard.down('Enter');
-    await page.waitForChanges();
-
-    await waitForCondition(() => didCloseEventSpy.events.length === 1);
-    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
-
-    expect(trigger).toEqualAttribute('data-focus-origin', 'keyboard');
-    expect(await page.evaluate(() => document.activeElement.id)).toBe('tooltip-trigger');
-  });
-
-  it('closes on Esc keypress', async () => {
-    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
-    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-    const willCloseEventSpy = await page.spyOnEvent(events.willClose);
-    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
-    const dialog = await page.find('sbb-tooltip >>> dialog');
-
-    trigger.triggerEvent('click');
-    await page.waitForChanges();
+    element.open();
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willOpenEventSpy.count).to.be.equal(1);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
-    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(didOpenEventSpy.count).to.be.equal(1);
+    expect(dialog).to.have.attribute('open');
 
-    expect(dialog).toHaveAttribute('open');
-
-    await page.keyboard.down('Tab');
-    await page.waitForChanges();
-
-    await page.keyboard.down('Escape');
-    await page.waitForChanges();
+    closeButton.click();
 
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
-    expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willCloseEventSpy.count).to.be.equal(1);
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
-    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(didCloseEventSpy.count).to.be.equal(1);
 
-    expect(dialog).not.toHaveAttribute('open');
-    expect(trigger).toEqualAttribute('data-focus-origin', 'keyboard');
-    expect(await page.evaluate(() => document.activeElement.id)).toBe('tooltip-trigger');
+    expect(dialog).not.to.have.attribute('open');
+    expect(trigger).to.have.attribute('data-focus-origin', 'mouse');
+    expect(document.activeElement.id).to.be.equal('tooltip-trigger');
   });
 
   it('closes on interactive element click', async () => {
-    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
-    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-    const willCloseEventSpy = await page.spyOnEvent(events.willClose);
-    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
-    const dialog = await page.find('sbb-tooltip >>> dialog');
-    const tooltipLink = await page.find('sbb-tooltip > sbb-link');
+    const willOpenEventSpy = new EventSpy(events.willOpen);
+    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const willCloseEventSpy = new EventSpy(events.willClose);
+    const didCloseEventSpy = new EventSpy(events.didClose);
+    const dialog = element.shadowRoot.querySelector('dialog');
+    const tooltipLink = document.querySelector('sbb-tooltip > sbb-link') as HTMLElement;
 
-    await trigger.triggerEvent('click');
-    await page.waitForChanges();
+    trigger.click();
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willOpenEventSpy.count).to.be.equal(1);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
-    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(didOpenEventSpy.count).to.be.equal(1);
 
-    expect(dialog).toHaveAttribute('open');
-    expect(tooltipLink).not.toBeNull();
+    expect(dialog).to.have.attribute('open');
+    expect(tooltipLink).not.to.be.null;
 
-    await tooltipLink.click();
-    await page.waitForChanges();
+    tooltipLink.click();
 
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
-    expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willCloseEventSpy.count).to.be.equal(1);
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
-    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(didCloseEventSpy.count).to.be.equal(1);
 
-    expect(dialog).not.toHaveAttribute('open');
-    expect(trigger).toEqualAttribute('data-focus-origin', 'mouse');
-    expect(await page.evaluate(() => document.activeElement.id)).toBe('tooltip-trigger');
-  });
-
-  it('closes on interactive element click by keyboard', async () => {
-    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
-    const tooltipLink = await page.find('sbb-tooltip > sbb-link');
-
-    await trigger.triggerEvent('click');
-    await page.waitForChanges();
-
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
-    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
-
-    expect(tooltipLink).not.toBeNull();
-
-    await tooltipLink.focus();
-    await page.keyboard.down('Enter');
-    await page.waitForChanges();
-
-    await waitForCondition(() => didCloseEventSpy.events.length === 1);
-    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
-
-    expect(trigger).toEqualAttribute('data-focus-origin', 'keyboard');
-    expect(await page.evaluate(() => document.activeElement.id)).toBe('tooltip-trigger');
+    expect(dialog).not.to.have.attribute('open');
+    expect(trigger).to.have.attribute('data-focus-origin', 'mouse');
+    expect(document.activeElement.id).to.be.equal('tooltip-trigger');
   });
 
   it('is correctly positioned on screen', async () => {
-    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
-    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+    const willOpenEventSpy = new EventSpy(events.willOpen);
+    const didOpenEventSpy = new EventSpy(events.didOpen);
 
-    await page.setViewport({ width: 1200, height: 800 });
-    const dialog = await page.find('sbb-tooltip >>> dialog');
+    await setViewport({ width: 1200, height: 800 });
+    const dialog = element.shadowRoot.querySelector('dialog');
 
-    trigger.triggerEvent('click');
-    await page.waitForChanges();
+    trigger.click();
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willOpenEventSpy.count).to.be.equal(1);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
-    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(didOpenEventSpy.count).to.be.equal(1);
 
-    expect(dialog).toHaveAttribute('open');
+    expect(dialog).to.have.attribute('open');
 
-    const buttonHeight = await page.evaluate(() =>
-      getComputedStyle(document.documentElement).getPropertyValue(
-        `--sbb-size-button-l-min-height-large`,
-      ),
+    const buttonHeight = getComputedStyle(document.documentElement).getPropertyValue(
+      `--sbb-size-button-l-min-height-large`,
     );
-    expect(buttonHeight.trim()).toBe('3.5rem');
+    expect(buttonHeight.trim()).to.be.equal('3.5rem');
 
     const buttonHeightPx = parseFloat(buttonHeight) * 16;
-    expect(await page.evaluate(() => document.querySelector('sbb-button').offsetHeight)).toBe(
-      buttonHeightPx,
-    );
-    expect(await page.evaluate(() => document.querySelector('sbb-button').offsetTop)).toBe(0);
-    expect(await page.evaluate(() => document.querySelector('sbb-button').offsetLeft)).toBe(0);
+    expect(document.querySelector('sbb-button').offsetHeight).to.be.equal(buttonHeightPx);
+    expect(document.querySelector('sbb-button').offsetTop).to.be.equal(0);
+    expect(document.querySelector('sbb-button').offsetLeft).to.be.equal(0);
 
     // Expect dialog offsetTop to be equal to the trigger height + the dialog offset (8px)
-    expect(
-      await page.evaluate(
-        () => document.querySelector('sbb-tooltip').shadowRoot.querySelector('dialog').offsetTop,
-      ),
-    ).toBe(buttonHeightPx + 16);
-    expect(
-      await page.evaluate(
-        () => document.querySelector('sbb-tooltip').shadowRoot.querySelector('dialog').offsetLeft,
-      ),
-    ).toBe(0);
-  });
-
-  it('sets the focus on the dialog content when the tooltip is opened by click', async () => {
-    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
-    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-    const dialog = await page.find('sbb-tooltip >>> dialog');
-
-    trigger.triggerEvent('click');
-    await page.waitForChanges();
-
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
-
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
-    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
-
-    expect(dialog).toHaveAttribute('open');
-
-    await page.waitForChanges();
-    expect(
-      await page.evaluate(
-        () => document.querySelector('sbb-tooltip').shadowRoot.activeElement.className,
-      ),
-    ).toBe('sbb-tooltip__content');
-
-    await page.keyboard.down('Tab');
-    await page.waitForChanges();
-
-    expect(await page.evaluate(() => document.activeElement.id)).toBe('tooltip-link');
-  });
-
-  it('sets the focus to the first focusable element when the tooltip is opened by keyboard', async () => {
-    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
-    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-    const dialog = await page.find('sbb-tooltip >>> dialog');
-
-    await page.keyboard.down('Tab');
-    await page.waitForChanges();
-
-    await page.keyboard.down('Enter');
-    await page.waitForChanges();
-
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
-
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
-    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
-
-    expect(dialog).toHaveAttribute('open');
-
-    await page.waitForChanges();
-    expect(await page.evaluate(() => document.activeElement.id)).toBe('tooltip');
-    expect(
-      await page.evaluate(
-        () =>
-          document.activeElement.shadowRoot.activeElement ===
-          document.activeElement.shadowRoot.querySelector('[sbb-tooltip-close]'),
-      ),
-    ).toBe(true);
+    expect(element.shadowRoot.querySelector('dialog').offsetTop).to.be.equal(buttonHeightPx + 16);
+    expect(element.shadowRoot.querySelector('dialog').offsetLeft).to.be.equal(0);
   });
 
   it('should set correct focus attribute on trigger after backdrop click', async () => {
-    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
+    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const didCloseEventSpy = new EventSpy(events.didClose);
 
-    await element.callMethod('open');
-    await page.waitForChanges();
+    element.open();
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
-    await page.waitForChanges();
 
     // Simulate backdrop click
-    await page.evaluate(() =>
-      document.dispatchEvent(new MouseEvent('mousedown', { buttons: 1, clientX: 1 })),
-    );
-    await page.evaluate(() => window.dispatchEvent(new PointerEvent('pointerup')));
+    window.dispatchEvent(new MouseEvent('mousedown', { buttons: 1, clientX: 1 }));
+    window.dispatchEvent(new PointerEvent('pointerup'));
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
-    await page.waitForChanges();
 
-    expect(trigger).toEqualAttribute('data-focus-origin', 'mouse');
-    expect(await page.evaluate(() => document.activeElement.id)).toBe('tooltip-trigger');
+    expect(trigger).to.have.attribute('data-focus-origin', 'mouse');
+    expect(document.activeElement.id).to.be.equal('tooltip-trigger');
   });
 
   it('should set correct focus attribute on trigger after backdrop click on an interactive element', async () => {
-    const interactiveBackgroundElement = await page.find('#interactive-background-element');
-    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
+    const interactiveBackgroundElement = document.querySelector(
+      '#interactive-background-element',
+    ) as HTMLElement;
+    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const didCloseEventSpy = new EventSpy(events.didClose);
 
-    await element.callMethod('open');
-    await page.waitForChanges();
+    element.open();
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
-    await page.waitForChanges();
 
-    await interactiveBackgroundElement.click();
-    await page.waitForChanges();
+    const interactiveElementPosition = interactiveBackgroundElement.getBoundingClientRect();
+    await sendMouse({
+      type: 'click',
+      position: [interactiveElementPosition.x, interactiveElementPosition.y],
+    });
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+
+    expect(document.activeElement.id).to.be.equal('interactive-background-element');
+  });
+
+  it('closes on interactive element click by keyboard', async () => {
+    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const didCloseEventSpy = new EventSpy(events.didClose);
+    const tooltipLink = document.querySelector('sbb-tooltip > sbb-link') as HTMLElement;
+
+    trigger.click();
+
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    expect(didOpenEventSpy.count).to.be.equal(1);
+
+    expect(tooltipLink).not.to.be.null;
+
+    tooltipLink.focus();
+    await sendKeys({ down: 'Enter' });
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
-    await page.waitForChanges();
+    expect(didCloseEventSpy.count).to.be.equal(1);
 
-    expect(await page.evaluate(() => document.activeElement.id)).toBe(
-      'interactive-background-element',
-    );
+    expect(trigger).to.have.attribute('data-focus-origin', 'keyboard');
+    expect(document.activeElement.id).to.be.equal('tooltip-trigger');
+  });
+
+  it('sets the focus to the first focusable element when the tooltip is opened by keyboard', async () => {
+    const willOpenEventSpy = new EventSpy(events.willOpen);
+    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const dialog = element.shadowRoot.querySelector('dialog');
+
+    await sendKeys({ down: 'Tab' });
+    await sendKeys({ down: 'Enter' });
+
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    expect(willOpenEventSpy.count).to.be.equal(1);
+
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    expect(didOpenEventSpy.count).to.be.equal(1);
+    expect(dialog).to.have.attribute('open');
+
+    expect(document.activeElement.id).to.be.equal('tooltip');
+    expect(
+      document.activeElement.shadowRoot.activeElement ===
+        document.activeElement.shadowRoot.querySelector('[sbb-tooltip-close]'),
+    ).to.be.equal(true);
+  });
+
+  it('closes the tooltip on close button click by keyboard', async () => {
+    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const didCloseEventSpy = new EventSpy(events.didClose);
+    const closeButton = document
+      .querySelector('sbb-tooltip')
+      .shadowRoot.querySelector('[sbb-tooltip-close]') as HTMLElement;
+
+    element.open();
+
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    expect(didOpenEventSpy.count).to.be.equal(1);
+
+    closeButton.focus();
+    await sendKeys({ down: 'Enter' });
+
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    expect(didCloseEventSpy.count).to.be.equal(1);
+
+    expect(trigger).to.have.attribute('data-focus-origin', 'keyboard');
+    expect(document.activeElement.id).to.be.equal('tooltip-trigger');
+  });
+
+  it('closes on Esc keypress', async () => {
+    const willOpenEventSpy = new EventSpy(events.willOpen);
+    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const willCloseEventSpy = new EventSpy(events.willClose);
+    const didCloseEventSpy = new EventSpy(events.didClose);
+    const dialog = element.shadowRoot.querySelector('dialog');
+
+    trigger.click();
+
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    expect(willOpenEventSpy.count).to.be.equal(1);
+
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    expect(didOpenEventSpy.count).to.be.equal(1);
+
+    expect(dialog).to.have.attribute('open');
+
+    await sendKeys({ down: 'Tab' });
+    await sendKeys({ down: 'Escape' });
+
+    await waitForCondition(() => willCloseEventSpy.events.length === 1);
+    expect(willCloseEventSpy.count).to.be.equal(1);
+
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    expect(didCloseEventSpy.count).to.be.equal(1);
+
+    expect(dialog).not.to.have.attribute('open');
+    expect(trigger).to.have.attribute('data-focus-origin', 'keyboard');
+    expect(document.activeElement.id).to.be.equal('tooltip-trigger');
+  });
+
+  it('sets the focus on the dialog content when the tooltip is opened by click', async () => {
+    const willOpenEventSpy = new EventSpy(events.willOpen);
+    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const dialog = element.shadowRoot.querySelector('dialog');
+
+    trigger.click();
+
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    expect(willOpenEventSpy.count).to.be.equal(1);
+
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+
+    expect(didOpenEventSpy.count).to.be.equal(1);
+    expect(dialog).to.have.attribute('open');
+    expect(element.shadowRoot.activeElement.className).to.be.equal('sbb-tooltip__content');
+
+    await sendKeys({ down: 'Tab' });
+
+    expect(document.activeElement.id).to.be.equal('tooltip-link');
   });
 
   it('should close an open tooltip when another one is opened', async () => {
-    page = await newE2EPage();
-    await page.setContent(`
+    fixtureCleanup();
+    await fixture(html`
+      <sbb-link href="#somewhere" id="interactive-background-element"
+        >Other interactive element</sbb-link
+      >
       <sbb-button id="tooltip-trigger">Tooltip trigger</sbb-button>
       <sbb-button id="another-tooltip-trigger">Another tooltip trigger</sbb-button>
       <sbb-tooltip id="tooltip" trigger="tooltip-trigger" disable-animation>
@@ -424,60 +352,58 @@ describe('sbb-tooltip', () => {
       <sbb-tooltip id="another-tooltip" trigger="another-tooltip-trigger" disable-animation>
         Another tooltip content.
       </sbb-tooltip>
-      <sbb-link href="#somewhere" id="interactive-background-element">Other interactive element</sbb-link>
     `);
-    trigger = await page.find('#tooltip-trigger');
-    const secondTrigger = await page.find('#another-tooltip-trigger');
-    element = await page.find('#tooltip');
-    const secondElement = await page.find('#another-tooltip');
-    const dialog = await page.find('#tooltip >>> dialog');
-    const secondDialog = await page.find('#another-tooltip >>> dialog');
+    trigger = document.querySelector('#tooltip-trigger');
+    const secondTrigger = document.querySelector('#another-tooltip-trigger');
+    element = document.querySelector('#tooltip');
+    const secondElement: SbbTooltip = document.querySelector('#another-tooltip');
 
-    const willOpenEventSpy = await page.spyOnEvent(events.didOpen);
-    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-    const willCloseEventSpy = await page.spyOnEvent(events.didClose);
-    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
+    const dialog: HTMLDialogElement = document
+      .querySelector('#tooltip')
+      .shadowRoot.querySelector('dialog');
+    const secondDialog = document
+      .querySelector('#another-tooltip')
+      .shadowRoot.querySelector('dialog');
 
-    expect(secondTrigger).not.toBeNull();
-    expect(secondElement).not.toBeNull();
-    expect(secondDialog).not.toBeNull();
+    const willOpenEventSpy = new EventSpy(events.didOpen);
+    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const willCloseEventSpy = new EventSpy(events.didClose);
+    const didCloseEventSpy = new EventSpy(events.didClose, element);
 
-    await trigger.focus();
-    await trigger.press('Space');
-    await page.waitForChanges();
+    expect(secondTrigger).not.to.be.null;
+    expect(secondElement).not.to.be.null;
+    expect(secondDialog).not.to.be.null;
+
+    trigger.focus();
+    await sendKeys({ press: 'Space' });
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willOpenEventSpy.count).to.be.equal(1);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
-    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
 
-    expect(dialog).toHaveAttribute('open');
-    await trigger.press('Tab');
-    expect(await page.evaluate(() => document.activeElement.id)).toBe('another-tooltip-trigger');
+    expect(didOpenEventSpy.count).to.be.equal(1);
+    expect(dialog.open).to.be.equal(true);
 
-    await page.keyboard.down('Enter');
+    trigger.focus();
+    await sendKeys({ press: 'Tab' });
+
+    expect(document.activeElement.id).to.be.equal('another-tooltip-trigger');
+
+    await sendKeys({ press: 'Space' });
 
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
-    expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willCloseEventSpy.count).to.be.equal(1);
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
-    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
-
-    expect(dialog).not.toHaveAttribute('open');
+    expect(didCloseEventSpy.count).to.be.equal(1);
+    expect(dialog).not.to.have.attribute('open');
 
     await waitForCondition(() => willOpenEventSpy.events.length === 2);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(2);
-    await page.waitForChanges();
+    expect(willOpenEventSpy.count).to.be.equal(2);
 
     await waitForCondition(() => didOpenEventSpy.events.length === 2);
-    expect(didOpenEventSpy).toHaveReceivedEventTimes(2);
-    await page.waitForChanges();
-
-    expect(secondDialog).toHaveAttribute('open');
+    expect(didOpenEventSpy.count).to.be.equal(2);
+    expect(secondDialog).to.have.attribute('open');
   });
 });
