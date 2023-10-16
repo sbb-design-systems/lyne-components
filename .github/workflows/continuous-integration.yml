@@ -82,7 +82,7 @@ jobs:
         run: yarn build
         env:
           STORYBOOK_COMPONENTS_VERSION: ${{ github.event.pull_request.head.sha || github.sha }}
-          NODE_OPTIONS: --max_old_space_size=6144
+          NODE_OPTIONS: --max_old_space_size=6656
       - name: Store build artifacts
         uses: actions/upload-artifact@v3
         with:
