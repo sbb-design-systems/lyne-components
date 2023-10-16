@@ -14,9 +14,9 @@ describe('sbb-breadcrumb-group', () => {
     beforeEach(async () => {
       element = await fixture(html`
         <sbb-breadcrumb-group>
-          <sbb-breadcrumb href="/" icon-name="house-small" id="breadcrumb-0"></sbb-breadcrumb>
-          <sbb-breadcrumb href="/" id="breadcrumb-1">One</sbb-breadcrumb>
-          <sbb-breadcrumb href="/" id="breadcrumb-2">Two</sbb-breadcrumb>
+          <sbb-breadcrumb href="#" icon-name="house-small" id="breadcrumb-0"></sbb-breadcrumb>
+          <sbb-breadcrumb href="#" id="breadcrumb-1">One</sbb-breadcrumb>
+          <sbb-breadcrumb href="#" id="breadcrumb-2">Two</sbb-breadcrumb>
         </sbb-breadcrumb-group>
       `);
     });
@@ -47,16 +47,15 @@ describe('sbb-breadcrumb-group', () => {
       await setViewport({ width: 160, height: 320 });
       breadcrumbGroup = await fixture(html`
         <sbb-breadcrumb-group id="sbb-breadcrumb-group">
-          <sbb-breadcrumb href="/" icon-name="house-small" id="breadcrumb-0"></sbb-breadcrumb>
-          <sbb-breadcrumb href="/" id="breadcrumb-1">First</sbb-breadcrumb>
-          <sbb-breadcrumb href="/" id="breadcrumb-2">Second</sbb-breadcrumb>
-          <sbb-breadcrumb href="/" id="breadcrumb-3">Third</sbb-breadcrumb>
-          <sbb-breadcrumb href="/" id="breadcrumb-4">Fourth</sbb-breadcrumb>
-          <sbb-breadcrumb href="/" id="breadcrumb-5">Fifth</sbb-breadcrumb>
-          <sbb-breadcrumb href="/" id="breadcrumb-6">Sixth</sbb-breadcrumb>
+          <sbb-breadcrumb href="#" icon-name="house-small" id="breadcrumb-0"></sbb-breadcrumb>
+          <sbb-breadcrumb href="#" id="breadcrumb-1">First</sbb-breadcrumb>
+          <sbb-breadcrumb href="#" id="breadcrumb-2">Second</sbb-breadcrumb>
+          <sbb-breadcrumb href="#" id="breadcrumb-3">Third</sbb-breadcrumb>
+          <sbb-breadcrumb href="#" id="breadcrumb-4">Fourth</sbb-breadcrumb>
+          <sbb-breadcrumb href="#" id="breadcrumb-5">Fifth</sbb-breadcrumb>
+          <sbb-breadcrumb href="#" id="breadcrumb-6">Sixth</sbb-breadcrumb>
         </sbb-breadcrumb-group>
       `);
-      await waitForLitRender(breadcrumbGroup);
       ellipsisListItemElement = breadcrumbGroup.shadowRoot.querySelector(
         '#sbb-breadcrumb-group-ellipsis',
       );

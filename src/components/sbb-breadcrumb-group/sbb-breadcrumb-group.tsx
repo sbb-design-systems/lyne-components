@@ -41,7 +41,7 @@ export class SbbBreadcrumbGroup extends LitElement {
   );
 
   private _resizeObserver = new AgnosticResizeObserver(() => this._evaluateCollapsedState());
-
+  private _abort = new ConnectedAbortController(this);
   private _markForFocus = false;
 
   private _handleKeyDown(evt: KeyboardEvent): void {
@@ -60,7 +60,6 @@ export class SbbBreadcrumbGroup extends LitElement {
       this._focusNext(evt);
     }
   }
-  private _abort = new ConnectedAbortController(this);
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -164,7 +163,7 @@ export class SbbBreadcrumbGroup extends LitElement {
     }
   }
 
-  private _renderCollapsed(): TemplateResult[] {
+  private _renderCollapsed(): TemplateResult {
     for (let i = 0; i < this._breadcrumbs.length; i++) {
       if (i === 0 || i === this._breadcrumbs.length - 1) {
         this._breadcrumbs[i].setAttribute('slot', `breadcrumb-${i}`);
@@ -173,42 +172,36 @@ export class SbbBreadcrumbGroup extends LitElement {
       }
     }
 
-    return [
-      html`
-        <li class="sbb-breadcrumb-group__item">
-          <slot name="breadcrumb-0" @slotchange=${(): void => this._readBreadcrumb()}></slot>
-        </li>
-      `,
-      html`
-        <li class="sbb-breadcrumb-group__item" id="sbb-breadcrumb-group-ellipsis">
-          <sbb-icon
-            name="chevron-small-right-small"
-            class="sbb-breadcrumb-group__divider-icon"
-          ></sbb-icon>
-          <button
-            type="button"
-            id="sbb-breadcrumb-ellipsis"
-            aria-label=${i18nBreadcrumbEllipsisButtonLabel[this._currentLanguage]}
-            aria-expanded="false"
-            @click=${() => this._expandBreadcrumbs()}
-          >
-            ...
-          </button>
-        </li>
-      `,
-      html`
-        <li class="sbb-breadcrumb-group__item">
-          <sbb-icon
-            name="chevron-small-right-small"
-            class="sbb-breadcrumb-group__divider-icon"
-          ></sbb-icon>
-          <slot
-            name=${`breadcrumb-${this._breadcrumbs.length - 1}`}
-            @slotchange=${(): void => this._readBreadcrumb()}
-          ></slot>
-        </li>
-      `,
-    ];
+    return html`
+      <li class="sbb-breadcrumb-group__item">
+        <slot name="breadcrumb-0" @slotchange=${(): void => this._readBreadcrumb()}></slot>
+      </li>
+      <li class="sbb-breadcrumb-group__item" id="sbb-breadcrumb-group-ellipsis">
+        <sbb-icon
+          name="chevron-small-right-small"
+          class="sbb-breadcrumb-group__divider-icon"
+        ></sbb-icon>
+        <button
+          type="button"
+          id="sbb-breadcrumb-ellipsis"
+          aria-label=${i18nBreadcrumbEllipsisButtonLabel[this._currentLanguage]}
+          aria-expanded="false"
+          @click=${() => this._expandBreadcrumbs()}
+        >
+          ...
+        </button>
+      </li>
+      <li class="sbb-breadcrumb-group__item">
+        <sbb-icon
+          name="chevron-small-right-small"
+          class="sbb-breadcrumb-group__divider-icon"
+        ></sbb-icon>
+        <slot
+          name=${`breadcrumb-${this._breadcrumbs.length - 1}`}
+          @slotchange=${(): void => this._readBreadcrumb()}
+        ></slot>
+      </li>
+    `;
   }
 
   private _renderExpanded(): TemplateResult[] {
