@@ -369,6 +369,13 @@ export const i18nFromPier: Record<string, Record<string, string>> = {
   },
 };
 
+export const i18nSupersaver: Record<string, string> = {
+  de: 'Sparbillette',
+  en: 'Supersaver tickets',
+  fr: 'Billets dégriffés',
+  it: 'Biglietti risparmio',
+};
+
 export const i18nNone: Record<string, string> = {
   de: 'Keine',
   en: 'None',

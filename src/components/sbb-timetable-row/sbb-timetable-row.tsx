@@ -13,6 +13,7 @@ import {
   i18nNew,
   i18nOccupancy,
   i18nRealTimeInfo,
+  i18nSupersaver,
   i18nTransferProcedures,
   i18nTravelhints,
   i18nTripDuration,
@@ -233,9 +234,9 @@ export class SbbTimetableRow {
 
     const boardingText = this.boarding ? `${this.boarding.text}. ` : '';
 
-    const priceText = `${
+    const priceText = `${this.price?.isDiscount ? i18nSupersaver[this._currentLanguage] : ''} ${
       this.price?.text && this.price?.price
-        ? (this.price?.text || '') + ' ' + (this.price?.price || '') + '. '
+        ? (this.price?.text || '') + ' ' + (this.price?.price || '') + ', '
         : ''
     }`;
 
@@ -317,7 +318,11 @@ export class SbbTimetableRow {
           {this.loadingPrice && <sbb-card-badge class="sbb-loading__badge" />}
           {this.price && !this.loadingPrice && (
             <sbb-card-badge color={this.price.isDiscount ? 'charcoal' : 'white'}>
-              {this.price.isDiscount && <span>%</span>}
+              {this.price.isDiscount && (
+                <span aria-hidden="true">
+                  %<span class="sbb-screenreaderonly">{i18nSupersaver[this._currentLanguage]}</span>
+                </span>
+              )}
               {this.price.text && <span>{this.price.text}</span>}
               {this.price.price && <span>{this.price.price}</span>}
             </sbb-card-badge>
