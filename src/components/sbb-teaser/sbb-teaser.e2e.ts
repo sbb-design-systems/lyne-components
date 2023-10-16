@@ -1,16 +1,18 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { waitForLitRender } from '../../global/testing';
+import { SbbTeaser } from './sbb-teaser';
+import '../sbb-teaser';
 
 describe('sbb-teaser', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbTeaser;
 
   it('should receive focus', async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-teaser href="link" id="focus-id">Hero content</sbb-teaser>');
+    element = await fixture(html`<sbb-teaser href="link" id="focus-id">Hero content</sbb-teaser>`);
 
-    element = await page.find('sbb-teaser');
-    await element.focus();
-    await page.waitForChanges();
+    element.focus();
+    await waitForLitRender(element);
 
-    expect(await page.evaluate(() => document.activeElement.id)).toBe('focus-id');
+    expect(document.activeElement.id).to.be.equal('focus-id');
   });
 });

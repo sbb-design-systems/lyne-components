@@ -1,56 +1,71 @@
-import { SbbTeaser } from './sbb-teaser';
-import { newSpecPage } from '@stencil/core/testing';
+import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import './sbb-teaser';
+import '../sbb-title';
 
 describe('sbb-teaser', () => {
   describe('sbb-teaser is stacked', () => {
     it('renders', async () => {
-      const { root } = await newSpecPage({
-        components: [SbbTeaser],
-        html: '<sbb-teaser href="https://github.com/lyne-design-system/lyne-components" is-stacked aria-label="Sbb teaser"></sbb-teaser>',
-      });
+      const root = await fixture(
+        html`<sbb-teaser
+          href="https://github.com/lyne-design-system/lyne-components"
+          is-stacked
+          aria-label="Sbb teaser"
+        ></sbb-teaser>`,
+      );
 
-      expect(root).toEqualHtml(`
+      expect(root).dom.to.be.equal(
+        `
         <sbb-teaser aria-label="Sbb teaser" href="https://github.com/lyne-design-system/lyne-components" is-stacked role="link" tabindex="0" dir="ltr">
-          <mock:shadow-root>
-            <a class="sbb-teaser" href="https://github.com/lyne-design-system/lyne-components" role="presentation" tabindex="-1">
-              <span class="sbb-teaser__container">
-                <span class='sbb-teaser__image-wrapper'><slot name='image'/></span>
-                <span class='sbb-teaser__text'>
-                  <sbb-title class="sbb-teaser__lead" level="5" visuallevel="5">
-                    <slot name='title'/>
-                  </sbb-title>
-                <p class='sbb-teaser__description'><slot name='description'/></p>
-              </span>
-            </a>
-          </mock:shadow-root>
         </sbb-teaser>
-        `);
+        `,
+      );
+      expect(root).shadowDom.to.be.equal(
+        `
+          <a class="sbb-teaser" href="https://github.com/lyne-design-system/lyne-components" role="presentation" tabindex="-1">
+            <span class="sbb-teaser__container">
+              <span class='sbb-teaser__image-wrapper'><slot name='image'/></span>
+              <span class='sbb-teaser__text'>
+                <sbb-title aria-level="5" role="heading" class="sbb-teaser__lead" level="5" visual-level="5">
+                  <slot name='title'/>
+                </sbb-title>
+              <p class='sbb-teaser__description'><slot name='description'/></p>
+            </span>
+          </a>
+        `,
+      );
     });
   });
   describe('sbb-teaser is not stacked', () => {
     it('renders', async () => {
-      const { root } = await newSpecPage({
-        components: [SbbTeaser],
-        html: '<sbb-teaser href="https://github.com/lyne-design-system/lyne-components" aria-label="Sbb teaser" />',
-      });
+      const root = await fixture(
+        html`<sbb-teaser
+          href="https://github.com/lyne-design-system/lyne-components"
+          aria-label="Sbb teaser"
+        />`,
+      );
 
-      expect(root).toEqualHtml(`
+      expect(root).dom.to.be.equal(
+        `
         <sbb-teaser aria-label="Sbb teaser" href="https://github.com/lyne-design-system/lyne-components" role="link" tabindex="0" dir="ltr">
-          <mock:shadow-root>
-            <a class="sbb-teaser" href="https://github.com/lyne-design-system/lyne-components" role="presentation" tabindex="-1">
-              <span class="sbb-teaser__container">
-                <span class='sbb-teaser__image-wrapper'><slot name='image'/></span>
-                  <span class='sbb-teaser__text'>
-                    <sbb-title class="sbb-teaser__lead" level="5" visuallevel="5">
-                      <slot name='title'/>
-                    </sbb-title>
-                  <p class='sbb-teaser__description'><slot name='description'/></p>
-                </span>
-              </span>
-            </a>
-          </mock:shadow-root>
         </sbb-teaser>
-        `);
+        `,
+      );
+      expect(root).shadowDom.to.be.equal(
+        `
+          <a class="sbb-teaser" href="https://github.com/lyne-design-system/lyne-components" role="presentation" tabindex="-1">
+            <span class="sbb-teaser__container">
+              <span class='sbb-teaser__image-wrapper'><slot name='image'/></span>
+                <span class='sbb-teaser__text'>
+                  <sbb-title aria-level="5" role="heading" class="sbb-teaser__lead" level="5" visual-level="5">
+                    <slot name='title'/>
+                  </sbb-title>
+                <p class='sbb-teaser__description'><slot name='description'/></p>
+              </span>
+            </span>
+          </a>
+        `,
+      );
     });
   });
 });
