@@ -1,29 +1,30 @@
 import images from '../../global/images';
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { waitForLitRender } from '../../global/testing';
+import { SbbTeaserHero } from './sbb-teaser-hero';
+import '../sbb-teaser-hero';
+import '../sbb-link';
+import '../sbb-image';
 
 describe('sbb-teaser-hero', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbTeaserHero;
 
   it('renders', async () => {
-    page = await newE2EPage();
-    await page.setContent(
-      `<sbb-teaser-hero href="https://www.sbb.ch" image-src="${images[0]}"></sbb-teaser-hero>`,
+    element = await fixture(
+      html`<sbb-teaser-hero href="https://www.sbb.ch" image-src="${images[0]}"></sbb-teaser-hero>`,
     );
-
-    element = await page.find('sbb-teaser-hero');
-    expect(element).toHaveClass('hydrated');
+    assert.instanceOf(element, SbbTeaserHero);
   });
 
   it('should receive focus', async () => {
-    page = await newE2EPage();
-    await page.setContent(
-      '<sbb-teaser-hero href="link" id="focus-id">Hero content</sbb-teaser-hero>',
+    element = await fixture(
+      html`<sbb-teaser-hero href="link" id="focus-id">Hero content</sbb-teaser-hero>`,
     );
 
-    element = await page.find('sbb-teaser-hero');
-    await element.focus();
-    await page.waitForChanges();
+    element.focus();
+    await waitForLitRender(element);
 
-    expect(await page.evaluate(() => document.activeElement.id)).toBe('focus-id');
+    expect(document.activeElement.id).to.be.equal('focus-id');
   });
 });
