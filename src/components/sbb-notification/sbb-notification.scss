@@ -58,7 +58,7 @@
   margin: var(--sbb-notification-margin);
 }
 
-:host(:is([data-resize-disable-animation], [disable-animation])) {
+:host(:is([data-resize-disable-animation], [disable-animation]:not([disable-animation='false']))) {
   --sbb-notification-animation-duration: 0s;
 }
 
