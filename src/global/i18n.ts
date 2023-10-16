@@ -326,10 +326,10 @@ export const i18nNew: Record<string, string> = {
 
 export const i18nFromPlatform: Record<string, Record<string, string>> = {
   long: {
-    de: 'Von Gleis',
-    en: 'from platform',
-    fr: 'à partir de la voie',
-    it: 'Dalla piattaforma',
+    de: 'Auf Gleis',
+    en: 'on platform',
+    fr: 'sur la voie',
+    it: 'sulla piattaforma',
   },
   short: {
     de: 'Gl.',
