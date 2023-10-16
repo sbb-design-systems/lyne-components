@@ -1,17 +1,4 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  Event,
-  EventEmitter,
-  h,
-  Host,
-  JSX,
-  Method,
-  Prop,
-  State,
-} from '@stencil/core';
-import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
+import { TitleLevel } from '../sbb-title';
 import { i18nCloseNotification } from '../../global/i18n';
 import {
   createNamedSlotState,
@@ -19,10 +6,17 @@ import {
   HandlerRepository,
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
+  EventEmitter,
 } from '../../global/eventing';
 import { AgnosticResizeObserver } from '../../global/observers';
 import { InterfaceNotificationAttributes } from './sbb-notification.custom';
 import { toggleDatasetEntry } from '../../global/dom';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { setAttribute } from '../../global/dom';
+import { ref } from 'lit/directives/ref.js';
+import Style from './sbb-notification.scss?lit&inline';
+import '../sbb-title';
 
 const notificationTypes = new Map([
   ['info', 'circle-information-small'],
@@ -31,55 +25,60 @@ const notificationTypes = new Map([
   ['error', 'circle-cross-small'],
 ]);
 
+export const events = {
+  willOpen: 'will-open',
+  didOpen: 'did-open',
+  willClose: 'will-close',
+  didClose: 'did-close',
+};
+
 /**
  * @slot title - Use this to provide a notification title (optional).
  * @slot unnamed - Use this to provide the notification message.
  */
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-notification.scss',
-  tag: 'sbb-notification',
-})
-export class SbbNotification implements ComponentInterface {
+
+@customElement('sbb-notification')
+export class SbbNotification extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /**
    * The type of the notification.
    */
-  @Prop({ reflect: true }) public type?: InterfaceNotificationAttributes['type'] = 'info';
+  @property({ reflect: true }) public type?: InterfaceNotificationAttributes['type'] = 'info';
 
   /**
    * Content of title.
    */
-  @Prop() public titleContent?: string;
+  @property({ attribute: 'title-content' }) public titleContent?: string;
 
   /**
    * Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3.
    */
-  @Prop() public titleLevel: InterfaceTitleAttributes['level'] = '3';
+  @property({ attribute: 'title-level' }) public titleLevel: TitleLevel = '3';
 
   /**
    * Whether the notification is readonly.
    * In readonly mode, there is no dismiss button offered to the user.
    */
-  @Prop({ reflect: true }) public readonly = false;
+  @property({ reflect: true, type: Boolean }) public readonly = false;
 
   /**
    * Whether the animation is enabled.
    */
-  @Prop({ reflect: true }) public disableAnimation = false;
+  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
+  public disableAnimation = false;
 
   /**
    * State of listed named slots, by indicating whether any element for a named slot is defined.
    */
-  @State() private _namedSlots = createNamedSlotState('title');
+  @state() private _namedSlots = createNamedSlotState('title');
 
   /**
    * The state of the notification.
    */
-  @State() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'opened';
+  @state() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'opened';
 
-  @State() private _currentLanguage = documentLanguage();
-
-  @Element() private _element!: HTMLElement;
+  @state() private _currentLanguage = documentLanguage();
 
   private _notificationElement: HTMLElement;
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -90,75 +89,56 @@ export class SbbNotification implements ComponentInterface {
   /**
    * Emits whenever the notification starts the opening transition.
    */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'will-open',
-  })
-  public willOpen: EventEmitter<void>;
+  private _willOpen: EventEmitter<void> = new EventEmitter(this, events.willOpen);
 
   /**
    * Emits whenever the notification is opened.
    */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'did-open',
-  })
-  public didOpen: EventEmitter<void>;
+  private _didOpen: EventEmitter<void> = new EventEmitter(this, events.didOpen);
 
   /**
    * Emits whenever the notification begins the closing transition.
    */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'will-close',
-  })
-  public willClose: EventEmitter<void>;
+  private _willClose: EventEmitter<void> = new EventEmitter(this, events.willClose);
 
   /**
    * Emits whenever the notification is closed.
    */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'did-close',
-  })
-  public didClose: EventEmitter<void>;
+  private _didClose: EventEmitter<void> = new EventEmitter(this, events.didClose);
 
-  @Method()
-  public async close(): Promise<void> {
+  public close(): void {
     if (this._state === 'opened') {
       this._state = 'closing';
-      this.willClose.emit();
+      this._willClose.emit();
       this.disableAnimation && this._handleClosing();
     }
   }
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
     this._handlerRepository.connect();
     this._setInlineLinks();
   }
 
-  public componentDidLoad(): void {
-    this.willOpen.emit();
+  protected override firstUpdated(): void {
+    this._willOpen.emit();
     this._setNotificationHeight();
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
     this._notificationResizeObserver.disconnect();
   }
 
   private _setInlineLinks(): void {
-    this._element.querySelectorAll('sbb-link')?.forEach((link) => (link.variant = 'inline'));
+    this.querySelectorAll('sbb-link')?.forEach((link) => (link.variant = 'inline'));
   }
 
   private _setNotificationHeight(): void {
@@ -166,7 +146,7 @@ export class SbbNotification implements ComponentInterface {
       this._notificationElement.scrollHeight && !this.disableAnimation
         ? `${this._notificationElement.scrollHeight}px`
         : 'auto';
-    this._element.style.setProperty('--sbb-notification-height', notificationHeight);
+    this.style.setProperty('--sbb-notification-height', notificationHeight);
   }
 
   private _onNotificationResize(): void {
@@ -176,12 +156,12 @@ export class SbbNotification implements ComponentInterface {
 
     clearTimeout(this._resizeObserverTimeout);
 
-    toggleDatasetEntry(this._element, 'resizeDisableAnimation', true);
+    toggleDatasetEntry(this, 'resizeDisableAnimation', true);
     this._setNotificationHeight();
 
     // Disable the animation when resizing the notification to avoid strange height transition effects.
     this._resizeObserverTimeout = setTimeout(
-      () => toggleDatasetEntry(this._element, 'resizeDisableAnimation', false),
+      () => toggleDatasetEntry(this, 'resizeDisableAnimation', false),
       150,
     );
   }
@@ -200,56 +180,71 @@ export class SbbNotification implements ComponentInterface {
 
   private _handleOpening(): void {
     this._state = 'opened';
-    this.didOpen.emit();
+    this._didOpen.emit();
     this._notificationResizeObserver.observe(this._notificationElement);
   }
 
   private _handleClosing(): void {
     this._state = 'closed';
-    this.didClose.emit();
+    this._didClose.emit();
     this._notificationResizeObserver.unobserve(this._notificationElement);
-    this._element.remove();
+    this.remove();
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const hasTitle = !!this.titleContent || this._namedSlots['title'];
 
-    return (
-      <Host data-state={this._state} data-has-title={hasTitle}>
-        <div
-          class="sbb-notification__wrapper"
-          ref={(el) => (this._notificationElement = el)}
-          onTransitionEnd={(event) => this._onNotificationTransitionEnd(event)}
-          onAnimationEnd={(event) => this._onNotificationAnimationEnd(event)}
-        >
-          <div class="sbb-notification">
-            <sbb-icon class="sbb-notification__icon" name={notificationTypes.get(this.type)} />
+    setAttribute(this, 'data-state', this._state);
+    setAttribute(this, 'data-has-title', hasTitle);
 
-            <span class="sbb-notification__content">
-              {hasTitle && (
-                <sbb-title class="sbb-notification__title" level={this.titleLevel} visualLevel="5">
-                  <slot name="title">{this.titleContent}</slot>
-                </sbb-title>
-              )}
-              <slot onSlotchange={() => this._setInlineLinks()} />
-            </span>
+    return html`
+      <div
+        class="sbb-notification__wrapper"
+        ${ref((el) => (this._notificationElement = el as HTMLElement))}
+        @transitionend=${(event: TransitionEvent) => this._onNotificationTransitionEnd(event)}
+        @animationend=${(event: AnimationEvent) => this._onNotificationAnimationEnd(event)}
+      >
+        <div class="sbb-notification">
+          <sbb-icon
+            class="sbb-notification__icon"
+            name=${notificationTypes.get(this.type)}
+          ></sbb-icon>
 
-            {!this.readonly && (
-              <span class="sbb-notification__close-wrapper">
-                <sbb-divider class="sbb-notification__divider" orientation="vertical" />
+          <span class="sbb-notification__content">
+            ${hasTitle
+              ? html`<sbb-title
+                  class="sbb-notification__title"
+                  level=${this.titleLevel}
+                  visual-level="5"
+                >
+                  <slot name="title">${this.titleContent}</slot>
+                </sbb-title>`
+              : nothing}
+            <slot @slotchange=${() => this._setInlineLinks()}></slot>
+          </span>
+
+          ${!this.readonly
+            ? html`<span class="sbb-notification__close-wrapper">
+                <sbb-divider class="sbb-notification__divider" orientation="vertical"></sbb-divider>
                 <sbb-button
                   variant="secondary"
                   size="m"
                   icon-name="cross-small"
-                  onClick={() => this.close()}
-                  aria-label={i18nCloseNotification[this._currentLanguage]}
+                  @click=${() => this.close()}
+                  aria-label=${i18nCloseNotification[this._currentLanguage]}
                   class="sbb-notification__close"
-                />
-              </span>
-            )}
-          </div>
+                ></sbb-button>
+              </span>`
+            : nothing}
         </div>
-      </Host>
-    );
+      </div>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-notification': SbbNotification;
   }
 }
