@@ -1,4 +1,4 @@
-import { Leg } from '../../global/interfaces';
+import { Leg } from '../../global/timetable';
 
 export interface InterfaceSbbJourneySummaryAttributes {
   legs: Leg[];

@@ -1,11 +1,10 @@
-import { newE2EPage } from '@stencil/core/testing';
+import { assert, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { SbbJourneySummary } from './sbb-journey-summary';
 
 describe('sbb-journey-summary', () => {
   it('renders', async () => {
-    const page = await newE2EPage();
-    await page.setContent('<sbb-journey-summary></sbb-journey-summary>');
-
-    const element = await page.find('sbb-journey-summary');
-    expect(element).toHaveClass('hydrated');
+    const element = await fixture(html`<sbb-journey-summary></sbb-journey-summary>`);
+    assert.instanceOf(element, SbbJourneySummary);
   });
 });
