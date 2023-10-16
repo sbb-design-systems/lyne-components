@@ -5,8 +5,10 @@ import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../global/testing/wait-for-stable-position';
 import isChromatic from 'chromatic';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
+import './sbb-skiplink-list';
+import '../sbb-link';
 
 const titleContent: InputType = {
   control: {

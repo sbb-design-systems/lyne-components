@@ -1,23 +1,28 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { waitForLitRender } from '../../global/testing';
+import { SbbSkiplinkList } from './sbb-skiplink-list';
 
 describe('sbb-skiplink-list', () => {
-  let element: E2EElement, page: E2EPage;
+  /** NOTE: These are too hard to migrate and are prone to errors :/
+   * consider that the E2EPage is now the 'document' (you should just delete it)
+   * and that the E2EElement equivalent is directly the SbbComponent (e.g. SbbTimeInput) */
+  let element: SbbSkiplinkList;
 
   beforeEach(async () => {
-    page = await newE2EPage();
-    await page.setContent(`
+    await fixture(html`
       <sbb-skiplink-list>
-        <sbb-link href='1'>Link 1</sbb-link>
-        <sbb-link href='2'>Link 2</sbb-link>
-        <sbb-link href='3'>Link 3</sbb-link>
+        <sbb-link href="1">Link 1</sbb-link>
+        <sbb-link href="2">Link 2</sbb-link>
+        <sbb-link href="3">Link 3</sbb-link>
       </sbb-skiplink-list>
       <button id="button">Focus me</button>
     `);
-    element = await page.find('sbb-skiplink-list');
+    element = document.querySelector('sbb-skiplink-list');
   });
 
   it('renders', async () => {
-    expect(element).toHaveClass('hydrated');
+    assert.instanceOf(element, SbbSkiplinkList);
   });
 
   it('should be visible on focus', async () => {
@@ -28,39 +33,39 @@ describe('sbb-skiplink-list', () => {
       return (await el.getComputedStyle()).getPropertyValue(prop);
     };
 
-    expect(await getProperty(listItemLinks[0], 'height')).toEqual('0px');
-    expect(await getProperty(listItemLinks[0], 'overflow')).toEqual('hidden');
+    expect(await getProperty(listItemLinks[0], 'height')).to.be.equal('0px');
+    expect(await getProperty(listItemLinks[0], 'overflow')).to.be.equal('hidden');
 
-    const firstLink = await page.find('sbb-skiplink-list > sbb-link#sbb-skiplink-list-link-0');
+    const firstLink = document.querySelector(
+      'sbb-skiplink-list > sbb-link#sbb-skiplink-list-link-0',
+    );
     await firstLink.focus();
-    expect(await getProperty(listItemLinks[0], 'height')).not.toEqual('0px');
-    expect(await getProperty(listItemLinks[0], 'overflow')).toEqual('visible');
+    expect(await getProperty(listItemLinks[0], 'height')).not.to.be.equal('0px');
+    expect(await getProperty(listItemLinks[0], 'overflow')).to.be.equal('visible');
 
-    const secondLink = await page.find('sbb-skiplink-list > sbb-link#sbb-skiplink-list-link-1');
+    const secondLink = document.querySelector(
+      'sbb-skiplink-list > sbb-link#sbb-skiplink-list-link-1',
+    );
     await secondLink.focus();
-    expect(await getProperty(listItemLinks[0], 'height')).toEqual('0px');
-    expect(await getProperty(listItemLinks[0], 'overflow')).toEqual('hidden');
-    expect(await getProperty(listItemLinks[1], 'height')).not.toEqual('0px');
-    expect(await getProperty(listItemLinks[1], 'overflow')).toEqual('visible');
+    expect(await getProperty(listItemLinks[0], 'height')).to.be.equal('0px');
+    expect(await getProperty(listItemLinks[0], 'overflow')).to.be.equal('hidden');
+    expect(await getProperty(listItemLinks[1], 'height')).not.to.be.equal('0px');
+    expect(await getProperty(listItemLinks[1], 'overflow')).to.be.equal('visible');
   });
 
   it('should detected later added links', async () => {
-    page = await newE2EPage();
-    await page.setContent(`<sbb-skiplink-list></sbb-skiplink-list>`);
-    element = await page.find('sbb-skiplink-list');
+    await fixture(html`<sbb-skiplink-list></sbb-skiplink-list>`);
+    element = document.querySelector('sbb-skiplink-list');
 
-    await page.waitForChanges();
+    await waitForLitRender(element);
 
-    await page.evaluate(
-      () =>
-        (document.querySelector('sbb-skiplink-list').innerHTML = `
+    document.querySelector('sbb-skiplink-list').innerHTML = `
         <sbb-link href='1'>Link 1</sbb-link>
-        <sbb-link href='2'>Link 2</sbb-link>`),
-    );
+        <sbb-link href='2'>Link 2</sbb-link>`;
 
-    await page.waitForChanges();
+    await waitForLitRender(element);
 
-    expect(await page.find('sbb-link')).toHaveAttribute('id');
-    expect(await page.find('sbb-link')).toHaveAttribute('slot');
+    expect(document.querySelector('sbb-link')).to.have.attribute('id');
+    expect(document.querySelector('sbb-link')).to.have.attribute('slot');
   });
 });
