@@ -21,7 +21,7 @@
   --sbb-teaser-brightness-hover: 1.075;
 }
 
-:host([is-stacked]) {
+:host([is-stacked]:not([is-stacked='false'])) {
   --sbb-teaser-flex-direction: column;
   --sbb-teaser-align-items: baseline;
   --sbb-teaser-gap: var(--sbb-spacing-fixed-3x);
