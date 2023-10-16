@@ -5,6 +5,7 @@ import { html } from 'lit/static-html.js';
 import { EventSpy, waitForLitRender } from '../../global/testing';
 import { SbbAlertGroup } from './sbb-alert-group';
 import { SbbButton } from '../sbb-button';
+import '../sbb-alert-group';
 import '../sbb-alert';
 
 describe('sbb-alert-group', () => {
@@ -83,6 +84,7 @@ describe('sbb-alert-group', () => {
     await waitForLitRender(element);
 
     // Then the active element id should be unset and tabindex should be removed
+    await waitForCondition(() => document.activeElement.id === '');
     expect(document.activeElement.id).to.be.equal('');
     expect(element.tabIndex).to.be.equal(-1);
   });

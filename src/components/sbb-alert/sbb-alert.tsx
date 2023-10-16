@@ -237,7 +237,7 @@ export class SbbAlert extends LitElement implements LinkProperties {
                   @click=${() => this.requestDismissal()}
                   aria-label=${i18nCloseAlert[this._currentLanguage]}
                   class="sbb-alert__close-button"
-                />
+                ></sbb-button>
               </span>`
             : nothing}
         </div>

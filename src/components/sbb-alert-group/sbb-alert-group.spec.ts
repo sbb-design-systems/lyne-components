@@ -19,7 +19,7 @@ describe('sbb-alert-group', () => {
     // TODO: sbb-alert-group-empty class is wrongly placed in test due to missing slotchange support
     expect(root).dom.to.be.equal(
       `
-        <sbb-alert-group accessibility-title='Disruptions' accessibility-level='3' role='status' class="sbb-alert-group-empty">
+        <sbb-alert-group accessibility-title='Disruptions' accessibility-level='3' role='status'>
           <sbb-alert title-content='Interruption between Genève and Lausanne' href='https://www.sbb.ch' size="m">
             The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
           </sbb-alert>
@@ -29,6 +29,11 @@ describe('sbb-alert-group', () => {
     expect(root).shadowDom.to.be.equal(
       `
         <div class="sbb-alert-group">
+          <h2 class="sbb-alert-group__title">
+            <slot name="accessibility-title">
+              Disruptions
+            </slot>
+          </h2>
           <slot></slot>
         </div>
       `,
@@ -51,7 +56,7 @@ describe('sbb-alert-group', () => {
     // TODO: sbb-alert-group-empty class is wrongly placed in test due to missing slotchange support
     expect(root).dom.to.be.equal(
       `
-        <sbb-alert-group accessibility-level='3' role='status' class="sbb-alert-group-empty">
+        <sbb-alert-group accessibility-level='3' role='status'>
           <span slot="accessibility-title">
             Interruptions
           </span>
@@ -64,6 +69,9 @@ describe('sbb-alert-group', () => {
     expect(root).shadowDom.to.be.equal(
       `
         <div class="sbb-alert-group">
+          <h2 class="sbb-alert-group__title">
+            <slot name="accessibility-title"></slot>
+          </h2>
           <slot></slot>
         </div>
       `,

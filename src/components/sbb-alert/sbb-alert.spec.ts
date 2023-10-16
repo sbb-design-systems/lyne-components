@@ -1,3 +1,4 @@
+import { SbbAlert } from '../sbb-alert';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import '../sbb-alert';
@@ -7,22 +8,24 @@ import '../sbb-title';
 import '../sbb-button';
 
 describe('sbb-alert', () => {
+  let element: SbbAlert;
+
   it('should render default properties', async () => {
-    const root = await fixture(
-      html`<sbb-alert title-content="Interruption">Alert content</sbb-alert>`,
+    element = await fixture(
+      html`<sbb-alert disable-animation title-content="Interruption">Alert content</sbb-alert>`,
     );
 
-    expect(root).dom.to.be.equal(
+    expect(element).dom.to.be.equal(
       `
-        <sbb-alert title-content="Interruption" size="m">
+        <sbb-alert disable-animation title-content="Interruption" size="m">
            Alert content
         </sbb-alert>
       `,
     );
-    expect(root).shadowDom.to.be.equal(
+    expect(element).shadowDom.to.be.equal(
       `
-        <div class="sbb-alert__transition-wrapper" style="height: 57px;">
-          <div class="sbb-alert" style="opacity: 0;">
+        <div class="sbb-alert__transition-wrapper">
+          <div class="sbb-alert">
             <span class="sbb-alert__icon">
               <slot name="icon">
                 <sbb-icon
@@ -52,7 +55,7 @@ describe('sbb-alert', () => {
   });
 
   it('should render customized properties', async () => {
-    const root = await fixture(
+    element = await fixture(
       html`<sbb-alert
         title-content="Interruption"
         title-level="2"
@@ -68,14 +71,14 @@ describe('sbb-alert', () => {
       >`,
     );
 
-    expect(root).dom.to.be.equal(
+    expect(element).dom.to.be.equal(
       `
         <sbb-alert title-content="Interruption" title-level="2" size="l" disable-animation="true" icon-name="disruption" accessibility-label="label" href="https://www.sbb.ch" rel="noopener" target="_blank" link-content="Show much more">
            Alert content
         </sbb-alert>
       `,
     );
-    expect(root).shadowDom.to.be.equal(
+    expect(element).shadowDom.to.be.equal(
       `
         <div class="sbb-alert__transition-wrapper">
           <div class="sbb-alert">
@@ -111,10 +114,10 @@ describe('sbb-alert', () => {
   });
 
   it('should hide close button in readonly mode', async () => {
-    const root = await fixture(
+    element = await fixture(
       html`<sbb-alert title-content="Interruption" readonly>Alert content</sbb-alert>`,
     );
 
-    expect(root.shadowRoot.querySelector('.sbb-alert__close-button-wrapper')).to.be.null;
+    expect(element.shadowRoot.querySelector('.sbb-alert__close-button-wrapper')).to.be.null;
   });
 });
