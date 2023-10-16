@@ -16,7 +16,6 @@ describe('sbb-alert-group', () => {
       </sbb-alert-group>
     `);
 
-    // TODO: sbb-alert-group-empty class is wrongly placed in test due to missing slotchange support
     expect(root).dom.to.be.equal(
       `
         <sbb-alert-group accessibility-title='Disruptions' accessibility-level='3' role='status'>
@@ -53,7 +52,6 @@ describe('sbb-alert-group', () => {
       </sbb-alert-group>
     `);
 
-    // TODO: sbb-alert-group-empty class is wrongly placed in test due to missing slotchange support
     expect(root).dom.to.be.equal(
       `
         <sbb-alert-group accessibility-level='3' role='status'>

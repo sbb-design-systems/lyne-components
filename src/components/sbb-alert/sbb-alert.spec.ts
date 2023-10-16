@@ -2,10 +2,6 @@ import { SbbAlert } from '../sbb-alert';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import '../sbb-alert';
-import '../sbb-link';
-import '../sbb-icon';
-import '../sbb-title';
-import '../sbb-button';
 
 describe('sbb-alert', () => {
   let element: SbbAlert;

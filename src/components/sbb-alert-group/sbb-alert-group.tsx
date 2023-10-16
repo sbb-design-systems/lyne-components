@@ -8,15 +8,15 @@ import { SbbAlert } from '../sbb-alert';
 import { setAttribute } from '../../global/dom';
 import Style from './sbb-alert-group.scss?lit&inline';
 
-/**
- * @slot unnamed - content slot, should be filled with `sbb-alert` items.
- * @slot accessibility-title - title for this sbb-alert-group which is only visible for screen reader users.
- */
-
 export const events = {
   didDismissAlert: 'did-dismiss-alert',
   empty: 'empty',
 };
+
+/**
+ * @slot unnamed - content slot, should be filled with `sbb-alert` items.
+ * @slot accessibility-title - title for this sbb-alert-group which is only visible for screen reader users.
+ */
 
 @customElement('sbb-alert-group')
 export class SbbAlertGroup extends LitElement {
@@ -49,9 +49,6 @@ export class SbbAlertGroup extends LitElement {
 
   private _abort = new ConnectedAbortController(this);
 
-  /**
-   * @internal
-   */
   private _removeAlert(event: Event): void {
     const target = event.target as SbbAlert;
     const hasFocusInsideAlertGroup = document.activeElement === target;

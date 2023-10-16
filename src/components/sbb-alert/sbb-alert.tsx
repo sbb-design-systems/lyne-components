@@ -18,16 +18,17 @@ import '../sbb-divider';
 import '../sbb-link';
 import '../sbb-button';
 
-/**
- * @slot icon - Should be a sbb-icon which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.
- * @slot title - Title content.
- * @slot unnamed - Content of the alert.
- */
 export const events = {
   willPresent: 'will-present',
   didPresent: 'did-present',
   dismissalRequested: 'dismissal-requested',
 };
+
+/**
+ * @slot icon - Should be a sbb-icon which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.
+ * @slot title - Title content.
+ * @slot unnamed - Content of the alert.
+ */
 
 @customElement('sbb-alert')
 export class SbbAlert extends LitElement implements LinkProperties {
@@ -184,16 +185,16 @@ export class SbbAlert extends LitElement implements LinkProperties {
     return html`
       <div
         class="sbb-alert__transition-wrapper"
-        ${ref((el): void => {
-          this._transitionWrapperElement = el as HTMLElement;
+        ${ref((el: HTMLElement): void => {
+          this._transitionWrapperElement = el;
         })}
       >
         <div
           class="sbb-alert"
-          ${ref((el): void => {
+          ${ref((el: HTMLElement): void => {
             const isFirstInitialization = !this._alertElement;
 
-            this._alertElement = el as HTMLElement;
+            this._alertElement = el;
             if (isFirstInitialization) {
               this._initFadeInTransitionStyles();
             }

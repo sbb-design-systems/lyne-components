@@ -13,9 +13,7 @@ describe('sbb-alert', () => {
     assert.instanceOf(alert, SbbAlert);
   });
 
-  // TODO: maybe fix some day. Test just doesn't work for unknown reason.
-  // eslint-disable-next-line
-  it.skip('should fire animation events', async () => {
+  it('should fire animation events', async () => {
     const willPresentSpy = new EventSpy(events.willPresent);
     const didPresentSpy = new EventSpy(events.didPresent);
 
