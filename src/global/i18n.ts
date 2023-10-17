@@ -326,10 +326,10 @@ export const i18nNew: Record<string, string> = {
 
 export const i18nFromPlatform: Record<string, Record<string, string>> = {
   long: {
-    de: 'Von Gleis',
-    en: 'from platform',
-    fr: 'à partir de la voie',
-    it: 'Dalla piattaforma',
+    de: 'Auf Gleis',
+    en: 'on platform',
+    fr: 'sur la voie',
+    it: 'sulla piattaforma',
   },
   short: {
     de: 'Gl.',
@@ -367,6 +367,13 @@ export const i18nFromPier: Record<string, Record<string, string>> = {
     fr: 'Quai',
     it: 'Imbarco.',
   },
+};
+
+export const i18nSupersaver: Record<string, string> = {
+  de: 'Sparbillette',
+  en: 'Supersaver tickets',
+  fr: 'Billets dégriffés',
+  it: 'Biglietti risparmio',
 };
 
 export const i18nNone: Record<string, string> = {
