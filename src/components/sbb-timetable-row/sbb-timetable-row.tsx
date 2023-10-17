@@ -384,10 +384,10 @@ export class SbbTimetableRow extends LitElement {
           <sbb-pearl-chain-time
             role="gridcell"
             .legs=${legs}
-            departure-time=${departure?.time || nothing}
-            arrival-time=${arrival?.time || nothing}
-            departure-walk=${departureWalk || nothing}
-            arrival-walk=${arrivalWalk || nothing}
+            .departureTime=${departure?.time}
+            .arrivalTime=${arrival?.time}
+            .departureWalk=${departureWalk}
+            .arrivalWalk=${arrivalWalk}
             ?disable-animation=${this.disableAnimation}
             data-now=${this._now()}
           ></sbb-pearl-chain-time>

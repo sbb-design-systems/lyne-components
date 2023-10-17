@@ -1,7 +1,7 @@
 import { waitForCondition } from '../../global/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { EventSpy, waitForLitRender } from '../../global/testing';
+import { EventSpy } from '../../global/testing';
 import { SbbTimetableRow } from './sbb-timetable-row';
 
 describe('sbb-timetable-row', () => {
@@ -17,7 +17,6 @@ describe('sbb-timetable-row', () => {
 
   describe('events', () => {
     it('emits an event when clicked', async () => {
-      await waitForLitRender(element);
       const card = element.shadowRoot.querySelector('sbb-card');
       const changeSpy = new EventSpy('click');
 
