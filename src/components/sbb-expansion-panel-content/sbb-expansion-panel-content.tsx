@@ -1,21 +1,30 @@
-import { Component, ComponentInterface, h, Host, JSX } from '@stencil/core';
+import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import { setAttribute } from '../../global/dom';
+import Style from './sbb-expansion-panel-content.scss?lit&inline';
 
 /**
  * @slot unnamed - Slot to render the content in the sbb-expansion-panel.
  */
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-expansion-panel-content.scss',
-  tag: 'sbb-expansion-panel-content',
-})
-export class SbbExpansionPanelContent implements ComponentInterface {
-  public render(): JSX.Element {
-    return (
-      <Host slot="content" role="region">
-        <div class="sbb-expansion-panel-content">
-          <slot></slot>
-        </div>
-      </Host>
-    );
+@customElement('sbb-expansion-panel-content')
+export class SbbExpansionPanelContent extends LitElement {
+  public static override styles: CSSResult = Style;
+
+  protected override render(): TemplateResult {
+    setAttribute(this, 'slot', 'content');
+    setAttribute(this, 'role', 'region');
+
+    return html`
+      <div class="sbb-expansion-panel-content">
+        <slot></slot>
+      </div>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-expansion-panel-content': SbbExpansionPanelContent;
   }
 }

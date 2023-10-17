@@ -1,11 +1,15 @@
 /** @jsx h */
-import events from './sbb-expansion-panel.events';
-import panelHeaderEvents from '../sbb-expansion-panel-header/sbb-expansion-panel-header.events';
+import { events } from './sbb-expansion-panel';
+import { events as panelHeaderEvents } from '../sbb-expansion-panel-header/sbb-expansion-panel-header';
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import { InputType, StoryContext } from '@storybook/types';
+import './sbb-expansion-panel';
+import '../sbb-expansion-panel-header';
+import '../sbb-expansion-panel-content';
+import '../sbb-icon';
 
 const longText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et

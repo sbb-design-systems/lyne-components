@@ -1,114 +1,119 @@
 import {
-  Component,
-  ComponentInterface,
-  Element,
-  Event,
-  EventEmitter,
-  h,
-  Host,
-  JSX,
-  Prop,
-  State,
-} from '@stencil/core';
-import {
   actionElementHandlerAspect,
   createNamedSlotState,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
+  EventEmitter,
+  ConnectedAbortController,
 } from '../../global/eventing';
-import { ButtonProperties, resolveButtonRenderVariables } from '../../global/interfaces';
-import { toggleDatasetEntry } from '../../global/dom';
+import { resolveButtonRenderVariables } from '../../global/interfaces';
+import { setAttribute, setAttributes, toggleDatasetEntry } from '../../global/dom';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { SbbExpansionPanel } from '../sbb-expansion-panel';
+import Style from './sbb-expansion-panel-header.scss?lit&inline';
+import '../sbb-icon';
 
 /**
  * @slot icon - Slot used to render the panel header icon.
  * @slot unnamed - Slot used to render the panel header text.
  */
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-expansion-panel-header.scss',
-  tag: 'sbb-expansion-panel-header',
-})
-export class SbbExpansionPanelHeader implements ButtonProperties, ComponentInterface {
+export const events = {
+  toggleExpanded: 'toggle-expanded',
+};
+
+@customElement('sbb-expansion-panel-header')
+export class SbbExpansionPanelHeader extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /**
    * The icon name we want to use, choose from the small icon variants
    * from the ui-icons category from here
    * https://icons.app.sbb.ch.
    */
-  @Prop() public iconName?: string;
+  @property({ attribute: 'icon-name' }) public iconName?: string;
 
   /** Whether the button is disabled. */
-  @Prop({ reflect: true }) public disabled: boolean;
-
-  @Element() private _element!: HTMLElement;
+  @property({ reflect: true, type: Boolean }) public disabled: boolean;
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @State() private _namedSlots = createNamedSlotState('icon');
+  @state() private _namedSlots = createNamedSlotState('icon');
 
-  @Event({
+  private _toggleExpanded: EventEmitter = new EventEmitter(this, events.toggleExpanded, {
     bubbles: true,
-    eventName: 'toggle-expanded',
-  })
-  public toggleExpanded: EventEmitter;
+  });
+  private _abort = new ConnectedAbortController(this);
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     actionElementHandlerAspect,
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    const signal = this._abort.signal;
     this._handlerRepository.connect();
+    this.addEventListener('click', () => this._emitExpandedEvent(), { signal });
+    this.addEventListener('mouseenter', () => this._onMouseMovement(true), { signal });
+    this.addEventListener('mouseleave', () => this._onMouseMovement(false), { signal });
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
   }
 
   private _emitExpandedEvent(): void {
     if (!this.disabled) {
-      this.toggleExpanded.emit();
+      this._toggleExpanded.emit();
     }
   }
 
   private _onMouseMovement(toggleDataAttribute: boolean): void {
-    const parent: HTMLSbbExpansionPanelElement = this._element.closest('sbb-expansion-panel');
+    const parent: SbbExpansionPanel = this.closest('sbb-expansion-panel');
     // The `sbb.hover-mq` logic has been removed from scss, but it must be replicated to have the correct behavior on mobile.
     if (!toggleDataAttribute || (parent && window.matchMedia('(any-hover: hover)').matches)) {
       toggleDatasetEntry(parent, 'toggleHover', toggleDataAttribute);
     }
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const { hostAttributes } = resolveButtonRenderVariables(this);
 
-    return (
-      <Host
-        slot="header"
-        {...hostAttributes}
-        data-icon={!!(this.iconName || this._namedSlots.icon)}
-        onClick={() => this._emitExpandedEvent()}
-        onMouseenter={() => this._onMouseMovement(true)}
-        onMouseleave={() => this._onMouseMovement(false)}
-      >
-        <span class="sbb-expansion-panel-header">
-          <span class="sbb-expansion-panel-header__title">
-            {(this.iconName || this._namedSlots.icon) && (
-              <span class="sbb-expansion-panel-header__icon">
-                <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
-              </span>
-            )}
-            <slot />
-          </span>
-          {!this.disabled && (
-            <span class="sbb-expansion-panel-header__toggle">
+    setAttributes(this, hostAttributes);
+    setAttribute(this, 'slot', 'header');
+    setAttribute(this, 'data-icon', !!(this.iconName || this._namedSlots.icon));
+
+    return html`
+      <span class="sbb-expansion-panel-header">
+        <span class="sbb-expansion-panel-header__title">
+          ${this.iconName || this._namedSlots.icon
+            ? html`<span class="sbb-expansion-panel-header__icon">
+                <slot name="icon"
+                  >${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}
+                </slot>
+              </span>`
+            : nothing}
+          <slot></slot>
+        </span>
+        ${!this.disabled
+          ? html`<span class="sbb-expansion-panel-header__toggle">
               <sbb-icon
                 name="chevron-small-down-medium"
                 class="sbb-expansion-panel-header__toggle-icon"
-              />
-            </span>
-          )}
-        </span>
-      </Host>
-    );
+              >
+              </sbb-icon>
+            </span>`
+          : nothing}
+      </span>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-expansion-panel-header': SbbExpansionPanelHeader;
   }
 }

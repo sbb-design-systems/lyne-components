@@ -1,106 +1,110 @@
-import { E2EElement, E2EPage, EventSpy, newE2EPage } from '@stencil/core/testing';
-import { waitForCondition } from '../../global/testing';
-import sbbExpansionPanelHeaderEvents from '../sbb-expansion-panel-header/sbb-expansion-panel-header.events';
-import sbbExpansionPanelEvents from './sbb-expansion-panel.events';
+import { waitForCondition, waitForLitRender } from '../../global/testing';
+import {
+  SbbExpansionPanelHeader,
+  events as sbbExpansionPanelHeaderEvents,
+} from '../sbb-expansion-panel-header/sbb-expansion-panel-header';
+import { events as sbbExpansionPanelEvents } from './sbb-expansion-panel';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { EventSpy } from '../../global/testing/event-spy';
+import { SbbExpansionPanel } from './sbb-expansion-panel';
+import { SbbExpansionPanelContent } from '../sbb-expansion-panel-content';
+import '../sbb-expansion-panel-header';
+import '../sbb-expansion-panel-content';
 
 describe('sbb-expansion-panel', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbExpansionPanel;
 
   beforeEach(async () => {
-    page = await newE2EPage();
-    await page.setContent(`
+    element = await fixture(html`
       <sbb-expansion-panel disable-animation>
-        <sbb-expansion-panel-header icon-name='dog-medium'>Header</sbb-expansion-panel-header>
+        <sbb-expansion-panel-header icon-name="dog-medium">Header</sbb-expansion-panel-header>
         <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
       </sbb-expansion-panel>
     `);
-
-    element = await page.find('sbb-expansion-panel');
   });
 
   it('renders', async () => {
-    expect(element).toHaveClass('hydrated');
+    assert.instanceOf(element, SbbExpansionPanel);
   });
 
   it('has slotted elements with the correct properties', async () => {
-    const header = await page.find('sbb-expansion-panel-header');
-    expect(header).toEqualAttribute('id', 'sbb-expansion-panel-header-1');
-    expect(header).toEqualAttribute('aria-controls', 'sbb-expansion-panel-content-1');
-    expect(header).toEqualAttribute('data-icon', '');
-    const content = await page.find('sbb-expansion-panel-content');
-    expect(content).toEqualAttribute('id', 'sbb-expansion-panel-content-1');
-    expect(content).toEqualAttribute('aria-labelledby', `sbb-expansion-panel-header-1`);
-    expect(content).toEqualAttribute('data-icon-space', '');
+    const header = element.querySelector('sbb-expansion-panel-header');
+    expect(header).to.have.attribute('id', 'sbb-expansion-panel-header-2');
+    expect(header).to.have.attribute('aria-controls', 'sbb-expansion-panel-content-2');
+    expect(header).to.have.attribute('data-icon');
+
+    const content = element.querySelector('sbb-expansion-panel-content');
+    expect(content).to.have.attribute('id', 'sbb-expansion-panel-content-2');
+    expect(content).to.have.attribute('aria-labelledby', `sbb-expansion-panel-header-2`);
+    expect(content).to.have.attribute('data-icon-space');
   });
 
   it('has slotted elements with the correct properties when id are set', async () => {
-    page = await newE2EPage();
-    await page.setContent(`
+    element = await fixture(html`
       <sbb-expansion-panel disable-animation>
-        <sbb-expansion-panel-header id='header'>Header</sbb-expansion-panel-header>
-        <sbb-expansion-panel-content id='content'>Content</sbb-expansion-panel-content>
+        <sbb-expansion-panel-header id="header">Header</sbb-expansion-panel-header>
+        <sbb-expansion-panel-content id="content">Content</sbb-expansion-panel-content>
       </sbb-expansion-panel>
     `);
 
-    const header = await page.find('sbb-expansion-panel-header');
-    expect(header).toEqualAttribute('aria-controls', 'content');
-    const content = await page.find('sbb-expansion-panel-content');
-    expect(content).toEqualAttribute('aria-labelledby', `header`);
+    const header = element.querySelector('sbb-expansion-panel-header');
+    expect(header).to.have.attribute('aria-controls', 'content');
+    const content = element.querySelector('sbb-expansion-panel-content');
+    expect(content).to.have.attribute('aria-labelledby', `header`);
   });
 
   it('click the header expands the panel, click again collapses it', async () => {
-    const header: E2EElement = await page.find('sbb-expansion-panel-header');
-    const content: E2EElement = await page.find('sbb-expansion-panel-content');
-    expect(await element.getProperty('expanded')).toEqual(false);
-    expect(header.getAttribute('aria-expanded')).toEqual('false');
-    expect(content.getAttribute('aria-hidden')).toEqual('true');
+    const header: SbbExpansionPanelHeader = element.querySelector('sbb-expansion-panel-header');
+    const content: SbbExpansionPanelContent = element.querySelector('sbb-expansion-panel-content');
+    expect(element.expanded).to.be.equal(false);
+    expect(header.getAttribute('aria-expanded')).to.be.equal('false');
+    expect(content.getAttribute('aria-hidden')).to.be.equal('true');
 
-    const toggleExpandedEventSpy: EventSpy = await page.spyOnEvent(
-      sbbExpansionPanelHeaderEvents.toggleExpanded,
-    );
-    const willOpenEventSpy: EventSpy = await page.spyOnEvent(sbbExpansionPanelEvents.willOpen);
-    const willCloseEventSpy: EventSpy = await page.spyOnEvent(sbbExpansionPanelEvents.willClose);
-    const didOpenEventSpy: EventSpy = await page.spyOnEvent(sbbExpansionPanelEvents.didOpen);
-    const didCloseEventSpy: EventSpy = await page.spyOnEvent(sbbExpansionPanelEvents.didClose);
+    const toggleExpandedEventSpy = new EventSpy(sbbExpansionPanelHeaderEvents.toggleExpanded);
+    const willOpenEventSpy = new EventSpy(sbbExpansionPanelEvents.willOpen);
+    const willCloseEventSpy = new EventSpy(sbbExpansionPanelEvents.willClose);
+    const didOpenEventSpy = new EventSpy(sbbExpansionPanelEvents.didOpen);
+    const didCloseEventSpy = new EventSpy(sbbExpansionPanelEvents.didClose);
 
-    await header.click();
+    header.click();
     await waitForCondition(() => toggleExpandedEventSpy.events.length === 1);
-    expect(toggleExpandedEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
-    expect(await element.getProperty('expanded')).toEqual(true);
-    expect(header.getAttribute('aria-expanded')).toEqual('true');
-    expect(content.getAttribute('aria-hidden')).toEqual('false');
+    expect(toggleExpandedEventSpy.count).to.be.equal(1);
+    await waitForLitRender(element);
+    expect(element.expanded).to.be.equal(true);
+    expect(header.getAttribute('aria-expanded')).to.be.equal('true');
+    expect(content.getAttribute('aria-hidden')).to.be.equal('false');
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
+    expect(willOpenEventSpy.count).to.be.equal(1);
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
-    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
+    expect(didOpenEventSpy.count).to.be.equal(1);
 
-    await header.click();
+    header.click();
     await waitForCondition(() => toggleExpandedEventSpy.events.length === 2);
-    expect(toggleExpandedEventSpy).toHaveReceivedEventTimes(2);
-    await page.waitForChanges();
-    expect(await element.getProperty('expanded')).toEqual(false);
-    expect(header.getAttribute('aria-expanded')).toEqual('false');
-    expect(content.getAttribute('aria-hidden')).toEqual('true');
+    expect(toggleExpandedEventSpy.count).to.be.equal(2);
+    await waitForLitRender(element);
+    expect(element.expanded).to.be.equal(false);
+    expect(header.getAttribute('aria-expanded')).to.be.equal('false');
+    expect(content.getAttribute('aria-hidden')).to.be.equal('true');
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
-    expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
+    expect(willCloseEventSpy.count).to.be.equal(1);
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
-    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
+    expect(didCloseEventSpy.count).to.be.equal(1);
   });
 
   it('disabled property is proxied to header', async () => {
-    const header: E2EElement = await page.find('sbb-expansion-panel-header');
-    expect(await header.getProperty('disabled')).toBeUndefined();
-    expect(header).not.toHaveAttribute('aria-disabled');
+    const header: SbbExpansionPanelHeader = element.querySelector('sbb-expansion-panel-header');
+    expect(header.disabled).to.be.undefined;
+    expect(header).not.to.have.attribute('aria-disabled');
 
-    element.setProperty('disabled', true);
-    await page.waitForChanges();
-    expect(await header.getProperty('disabled')).toEqual(true);
-    expect(header).toEqualAttribute('aria-disabled', 'true');
+    element.disabled = true;
+    await waitForLitRender(element);
+    expect(header.disabled).to.be.equal(true);
+    expect(header).to.have.attribute('aria-disabled', 'true');
 
-    element.setProperty('disabled', false);
-    await page.waitForChanges();
-    expect(await header.getProperty('disabled')).toEqual(false);
-    expect(header).toEqualAttribute('aria-disabled', null);
+    element.disabled = false;
+    await waitForLitRender(element);
+    expect(header.disabled).to.be.equal(false);
+    expect(header).not.to.have.attribute('aria-disabled');
   });
 });
