@@ -6,6 +6,7 @@ import { ref } from 'lit/directives/ref.js';
 import Style from './sbb-slider.scss?lit&inline';
 import { spread } from '@open-wc/lit-helpers';
 import { styleMap } from 'lit/directives/style-map.js';
+import '../sbb-icon';
 
 export const events = {
   didChange: 'did-change',
@@ -79,9 +80,12 @@ export class SbbSlider extends LitElement {
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
-    if (changedProperties.has('value') && !!changedProperties.get('value')) {
+    if (changedProperties.has('value') && changedProperties.get('value') !== undefined) {
       this._handleChange(Number(this.value));
-    } else if (changedProperties.has('valueAsNumber') && !!changedProperties.get('valueAsNumber')) {
+    } else if (
+      changedProperties.has('valueAsNumber') &&
+      !!changedProperties.get('valueAsNumber') !== undefined
+    ) {
       this._handleChange(Number(this.valueAsNumber));
     }
   }

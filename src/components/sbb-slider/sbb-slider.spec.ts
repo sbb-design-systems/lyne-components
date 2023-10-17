@@ -34,7 +34,7 @@ describe('sbb-slider', () => {
       <div class="sbb-slider__height-container">
         <div class="sbb-slider__wrapper">
           <slot name="prefix">
-            <sbb-icon name="walk-slow-small"></sbb-icon>
+            <sbb-icon aria-hidden="true" data-namespace="default" name="walk-slow-small" role="img">
           </slot>
           <div class="sbb-slider__container" style="--sbb-slider-value-fraction:0.2;">
             <input class="sbb-slider__range-input" max="500" min="0" tabindex="-1" value="100" valueasnumber="100" type="range">
@@ -44,7 +44,7 @@ describe('sbb-slider', () => {
             <div class="sbb-slider__knob"></div>
           </div>
           <slot name="suffix">
-            <sbb-icon name="walk-fast-small"></sbb-icon>
+            <sbb-icon aria-hidden="true" data-namespace="default" name="walk-fast-small" role="img">
           </slot>
         </div>
       </div>
