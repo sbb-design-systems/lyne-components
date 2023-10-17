@@ -44,6 +44,10 @@
   margin-inline-end: var(--sbb-spacing-fixed-1x);
 }
 
+.sbb-timetable__row--quay-type {
+  float: left;
+}
+
 // resets lists
 ul {
   @include sbb.list-reset;

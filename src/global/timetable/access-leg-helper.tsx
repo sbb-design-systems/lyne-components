@@ -106,7 +106,7 @@ function renderTransferTime(
           ${label ? html`<span>${label}</span>` : nothing}&nbsp;
         </span>
         ${duration}
-        <span aria-hidden="true">'</span>
+        <span class="sbb-pearl-chain__time-walktime-prime-symbol" aria-hidden="true">'</span>
         <span class="sbb-screenreaderonly">min</span>
       </time>
     </span>
@@ -127,7 +127,7 @@ function renderWalkTime(
       <time datetime=${duration + 'M'}>
         <span class="sbb-screenreaderonly">${label}</span>
         ${duration}
-        <span aria-hidden="true">'</span>
+        <span class="sbb-pearl-chain__time-walktime-prime-symbol" aria-hidden="true">'</span>
       </time>
     </span>
   `;

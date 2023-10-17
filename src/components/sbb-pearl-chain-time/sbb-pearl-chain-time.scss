@@ -41,6 +41,10 @@
   margin-inline-start: calc(var(--sbb-spacing-fixed-2x) - sbb.px-to-rem-build(4));
 }
 
+.sbb-pearl-chain__time-walktime-prime-symbol {
+  float: right;
+}
+
 .sbb-pearl-chain__time-transfer {
   gap: var(--sbb-spacing-fixed-1x);
 }
