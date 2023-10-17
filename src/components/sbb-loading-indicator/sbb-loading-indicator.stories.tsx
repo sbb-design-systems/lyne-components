@@ -1,10 +1,12 @@
 /** @jsx h */
 import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 import isChromatic from 'chromatic';
 import { userEvent, within } from '@storybook/testing-library';
+import './sbb-loading-indicator';
+import '../sbb-button';
 
 const textBlockStyle: Args = {
   marginBlock: '1rem',

@@ -1,32 +1,36 @@
-import { Component, ComponentInterface, h, Host, JSX, Prop } from '@stencil/core';
 import { InterfaceSbbLoadingIndicatorAttributes } from './sbb-loading-indicator.custom';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import { setAttribute } from '../../global/dom';
+import Style from './sbb-loading-indicator.scss?lit&inline';
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-loading-indicator.scss',
-  tag: 'sbb-loading-indicator',
-})
-export class SbbLoadingIndicator implements ComponentInterface {
+@customElement('sbb-loading-indicator')
+export class SbbLoadingIndicator extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /** Variant of the loading indicator; `circle` is meant to be used inline, while `window` as overlay. */
-  @Prop({ reflect: true }) public variant?: InterfaceSbbLoadingIndicatorAttributes['variant'];
+  @property({ reflect: true }) public variant?: InterfaceSbbLoadingIndicatorAttributes['variant'];
 
   /** Size variant, either s or m. */
-  @Prop({ reflect: true }) public size: InterfaceSbbLoadingIndicatorAttributes['size'] = 's';
+  @property({ reflect: true }) public size: InterfaceSbbLoadingIndicatorAttributes['size'] = 's';
 
   /** Color variant. */
-  @Prop({ reflect: true }) public color: InterfaceSbbLoadingIndicatorAttributes['color'] =
+  @property({ reflect: true }) public color: InterfaceSbbLoadingIndicatorAttributes['color'] =
     'default';
 
   /** Whether the animation is enabled. */
-  @Prop({ reflect: true }) public disableAnimation = false;
+  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
+  public disableAnimation = false;
 
-  public render(): JSX.Element {
-    return (
-      <Host role="progressbar" aria-busy="true">
-        <span class="sbb-loading-indicator">
-          <span class="sbb-loading-indicator__animated-element">
-            {this.variant === 'window' && (
-              <span>
+  protected override render(): TemplateResult {
+    setAttribute(this, 'role', 'progressbar');
+    setAttribute(this, 'aria-busy', 'true');
+
+    return html`
+      <span class="sbb-loading-indicator">
+        <span class="sbb-loading-indicator__animated-element">
+          ${this.variant === 'window'
+            ? html`<span>
                 <span>
                   <span></span>
                   <span></span>
@@ -34,11 +38,17 @@ export class SbbLoadingIndicator implements ComponentInterface {
                   <span></span>
                   <span></span>
                 </span>
-              </span>
-            )}
-          </span>
+              </span>`
+            : nothing}
         </span>
-      </Host>
-    );
+      </span>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-loading-indicator': SbbLoadingIndicator;
   }
 }

@@ -1,136 +1,156 @@
-import { SbbLoadingIndicator } from './sbb-loading-indicator';
-import { newSpecPage } from '@stencil/core/testing';
+import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import './sbb-loading-indicator';
 
 describe('sbb-loading-indicator', () => {
   it('renders with variant `window`', async () => {
-    const { root } = await newSpecPage({
-      components: [SbbLoadingIndicator],
-      html: '<sbb-loading-indicator variant="window" size="m"/>',
-    });
+    const root = await fixture(
+      html`<sbb-loading-indicator variant="window" size="m"></sbb-loading-indicator>`,
+    );
 
-    expect(root).toEqualHtml(`
-      <sbb-loading-indicator variant="window" size="m" color="default" role="progressbar" aria-busy='true'>
-        <mock:shadow-root>
-          <span class="sbb-loading-indicator">
-            <span class="sbb-loading-indicator__animated-element">
+    expect(root).dom.to.be.equal(
+      `
+        <sbb-loading-indicator variant="window" size="m" color="default" role="progressbar" aria-busy='true'>  
+        </sbb-loading-indicator>
+      `,
+    );
+    expect(root).shadowDom.to.be.equal(
+      `
+        <span class="sbb-loading-indicator">
+          <span class="sbb-loading-indicator__animated-element">
+            <span>
               <span>
-                <span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
               </span>
             </span>
           </span>
-        </mock:shadow-root>
-      </sbb-loading-indicator>
-    `);
+        </span>
+      `,
+    );
   });
 
   it('renders with variant `window` and color smoke', async () => {
-    const { root } = await newSpecPage({
-      components: [SbbLoadingIndicator],
-      html: '<sbb-loading-indicator variant="window" size="m" color="smoke"/>',
-    });
+    const root = await fixture(
+      html`<sbb-loading-indicator variant="window" size="m" color="smoke"></sbb-loading-indicator>`,
+    );
 
-    expect(root).toEqualHtml(`
+    expect(root).dom.to.be.equal(
+      `
       <sbb-loading-indicator variant="window" size="m" color="smoke" role="progressbar" aria-busy='true'>
-        <mock:shadow-root>
-          <span class="sbb-loading-indicator">
-            <span class="sbb-loading-indicator__animated-element">
+        
+      </sbb-loading-indicator>
+    `,
+    );
+    expect(root).shadowDom.to.be.equal(
+      `
+        <span class="sbb-loading-indicator">
+          <span class="sbb-loading-indicator__animated-element">
+            <span>
               <span>
-                <span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
               </span>
             </span>
           </span>
-        </mock:shadow-root>
-      </sbb-loading-indicator>
-    `);
+        </span>
+      `,
+    );
   });
 
   it('renders with variant `window` and color white', async () => {
-    const { root } = await newSpecPage({
-      components: [SbbLoadingIndicator],
-      html: '<sbb-loading-indicator variant="window" size="m" color="white"/>',
-    });
+    const root = await fixture(
+      html`<sbb-loading-indicator variant="window" size="m" color="white"></sbb-loading-indicator>`,
+    );
 
-    expect(root).toEqualHtml(`
-      <sbb-loading-indicator variant="window" size="m" color="white" role="progressbar" aria-busy='true'>
-        <mock:shadow-root>
-          <span class="sbb-loading-indicator">
-            <span class="sbb-loading-indicator__animated-element">
+    expect(root).dom.to.be.equal(
+      `
+        <sbb-loading-indicator variant="window" size="m" color="white" role="progressbar" aria-busy='true'>
+        </sbb-loading-indicator>
+      `,
+    );
+    expect(root).shadowDom.to.be.equal(
+      `
+        <span class="sbb-loading-indicator">
+          <span class="sbb-loading-indicator__animated-element">
+            <span>
               <span>
-                <span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
               </span>
             </span>
           </span>
-        </mock:shadow-root>
-      </sbb-loading-indicator>
-    `);
+        </span>
+      `,
+    );
   });
 
   it('renders with variant `circle`', async () => {
-    const { root } = await newSpecPage({
-      components: [SbbLoadingIndicator],
-      html: '<sbb-loading-indicator variant="circle"/>',
-    });
+    const root = await fixture(
+      html`<sbb-loading-indicator variant="circle"></sbb-loading-indicator>`,
+    );
 
-    expect(root).toEqualHtml(`
-      <sbb-loading-indicator variant="circle" size="s" color="default" role="progressbar" aria-busy="true">
-        <mock:shadow-root>
-          <span class="sbb-loading-indicator">
-            <span class="sbb-loading-indicator__animated-element"></span>
-          </span>
-        </mock:shadow-root>
-      </sbb-loading-indicator>
-    `);
+    expect(root).dom.to.be.equal(
+      `
+        <sbb-loading-indicator variant="circle" size="s" color="default" role="progressbar" aria-busy="true">
+        </sbb-loading-indicator>
+      `,
+    );
+    expect(root).shadowDom.to.be.equal(
+      `
+        <span class="sbb-loading-indicator">
+          <span class="sbb-loading-indicator__animated-element"></span>
+        </span>
+      `,
+    );
   });
 
   it('renders with variant `circle` and color smoke', async () => {
-    const { root } = await newSpecPage({
-      components: [SbbLoadingIndicator],
-      html: '<sbb-loading-indicator variant="circle" color="smoke"/>',
-    });
+    const root = await fixture(
+      html`<sbb-loading-indicator variant="circle" color="smoke"></sbb-loading-indicator>`,
+    );
 
-    expect(root).toEqualHtml(`
-      <sbb-loading-indicator variant="circle" color="smoke" size="s" role="progressbar" aria-busy="true">
-        <mock:shadow-root>
-          <span class="sbb-loading-indicator">
-            <span class="sbb-loading-indicator__animated-element"></span>
-          </span>
-        </mock:shadow-root>
-      </sbb-loading-indicator>
-    `);
+    expect(root).dom.to.be.equal(
+      `
+        <sbb-loading-indicator variant="circle" color="smoke" size="s" role="progressbar" aria-busy="true">
+        </sbb-loading-indicator>
+      `,
+    );
+    expect(root).shadowDom.to.be.equal(
+      `
+        <span class="sbb-loading-indicator">
+          <span class="sbb-loading-indicator__animated-element"></span>
+        </span>
+      `,
+    );
   });
 
   it('renders with variant `circle` and color white', async () => {
-    const { root } = await newSpecPage({
-      components: [SbbLoadingIndicator],
-      html: '<sbb-loading-indicator variant="circle" color="white"/>',
-    });
+    const root = await fixture(
+      html`<sbb-loading-indicator variant="circle" color="white"></sbb-loading-indicator>`,
+    );
 
-    expect(root).toEqualHtml(`
-      <sbb-loading-indicator variant="circle" color="white" size="s" role="progressbar" aria-busy="true">
-        <mock:shadow-root>
-          <span class="sbb-loading-indicator">
-            <span class="sbb-loading-indicator__animated-element"></span>
-          </span>
-        </mock:shadow-root>
-      </sbb-loading-indicator>
-    `);
+    expect(root).dom.to.be.equal(
+      `
+        <sbb-loading-indicator variant="circle" color="white" size="s" role="progressbar" aria-busy="true">
+        </sbb-loading-indicator>
+      `,
+    );
+    expect(root).shadowDom.to.be.equal(
+      `
+        <span class="sbb-loading-indicator">
+          <span class="sbb-loading-indicator__animated-element"></span>
+        </span>
+      `,
+    );
   });
 });
