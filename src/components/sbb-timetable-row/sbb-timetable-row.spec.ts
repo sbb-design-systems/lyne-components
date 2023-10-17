@@ -26,7 +26,7 @@ describe('sbb-timetable-row', () => {
       expect(element).shadowDom.to.be.equal(`
         <sbb-card color="white" data-action-role="button" data-has-action size="l">
           <sbb-card-action aria-expanded dir="ltr" role="button" slot="action" tabindex="0">
-           Departure: 11:08.   Train.  IR 37.  Direction Basel SBB.      Arrival: 12:13.   Travel time 1 Hour 15 Minutes.
+            Departure: 11:08,   Train,  IR 37,  Direction Basel SBB,       Arrival: 12:13,   Travel time 1 Hour 15 Minutes,
           </sbb-card-action>
           <div class="sbb-timetable__row" role="row">
             <div class="sbb-timetable__row-header" role="gridcell">
@@ -79,8 +79,8 @@ describe('sbb-timetable-row', () => {
 
       expect(element).shadowDom.to.be.equal(`
         <sbb-card color="white" data-action-role="button" data-has-action size="l">
-         <sbb-card-action aria-expanded dir="ltr" role="button" slot="action" tabindex="0">
-           Departure: 16:30.  from Stand 4.  Bus.  B 19.  Direction Spiegel, Blinzern.      Arrival: 17:06.   Travel time 41 Minutes.  2 changes.  First Class Low to medium occupancy expected. Second Class High occupancy expected.
+          <sbb-card-action aria-expanded dir="ltr" role="button" slot="action" tabindex="0">
+            Departure: 16:30,  from Stand 4,  Bus,  B 19,  Direction Spiegel, Blinzern,       Arrival: 17:06,   Travel time 41 Minutes,  2 changes,  First Class Low to medium occupancy expected. Second Class High occupancy expected.
           </sbb-card-action>
           <div class="sbb-timetable__row" role="row">
             <div class="sbb-timetable__row-header" role="gridcell">
