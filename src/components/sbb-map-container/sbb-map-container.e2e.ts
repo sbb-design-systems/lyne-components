@@ -1,42 +1,47 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 import { waitForCondition } from '../../global/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { setViewport } from '@web/test-runner-commands';
+import { SbbMapContainer } from './sbb-map-container';
+import '../sbb-map-container';
 
 describe('sbb-map-container', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbMapContainer;
 
   it('should react to scrolling', async () => {
-    page = await newE2EPage();
-    await page.setViewport({ width: 320, height: 600 });
+    await setViewport({ width: 320, height: 600 });
 
-    await page.setContent(`
-      <sbb-map-container>
-        <div style="height: 1000px; width: 100%"></div>
-        <div slot="map" style="height: 100%;"></div>
-      </sbb-map-container>`);
+    await fixture(
+      html` <sbb-map-container>
+        <div>
+          <sbb-title level="4">Operations & Disruptions</sbb-title>
+          ${[...Array(10).keys()].map(
+            (value) =>
+              html` <div>
+                <p>Situation ${value}</p>
+              </div>`,
+          )}
+        </div>
+        <div slot="map">
+          <div style="height: 1200px">map</div>
+        </div>
+      </sbb-map-container>`,
+    );
+    element = document.querySelector('sbb-map-container');
+    assert.instanceOf(element, SbbMapContainer);
 
-    element = await page.find('sbb-map-container');
-    expect(element).toHaveClass('hydrated');
-
-    await page.waitForChanges();
-
-    async function getInert(): Promise<boolean> {
-      return await page.evaluate(() =>
-        document
-          .querySelector('sbb-map-container')
-          .shadowRoot.querySelector('sbb-button')
-          .hasAttribute('inert'),
-      );
+    function getInert(): boolean {
+      return element.shadowRoot.querySelector('sbb-button').hasAttribute('inert');
     }
 
-    expect(element).not.toHaveAttribute('data-scroll-up-button-visible');
-    expect(await getInert()).toBe(true);
+    expect(element).not.to.have.attribute('data-scroll-up-button-visible');
+    expect(getInert()).to.be.equal(true);
 
     // Scroll down
-    await page.evaluate(() => (document.documentElement.scrollTop = 400));
-    await page.waitForChanges();
+    window.scrollTo(0, 400);
+    await waitForCondition(async () => !getInert());
 
-    await waitForCondition(async () => !(await getInert()));
-    expect(element).toHaveAttribute('data-scroll-up-button-visible');
-    expect(await getInert()).toBe(false);
+    expect(element).to.have.attribute('data-scroll-up-button-visible');
+    expect(getInert()).to.be.equal(false);
   });
 });

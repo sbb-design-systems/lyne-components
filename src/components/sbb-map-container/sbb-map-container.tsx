@@ -1,4 +1,3 @@
-import { Component, ComponentInterface, Element, h, JSX, Prop, State } from '@stencil/core';
 import { i18nMapContainerButtonLabel } from '../../global/i18n';
 import { toggleDatasetEntry } from '../../global/dom';
 import {
@@ -7,30 +6,31 @@ import {
   languageChangeHandlerAspect,
 } from '../../global/eventing';
 import { AgnosticIntersectionObserver } from '../../global/observers';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
+import Style from './sbb-map-container.scss?lit&inline';
+import '../sbb-button';
 
 /**
  * @slot unnamed - Used for slotting the sidebar content.
  * @slot map - Used for slotting the map.
  */
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-map-container.scss',
-  tag: 'sbb-map-container',
-})
-export class SbbMapContainer implements ComponentInterface {
+@customElement('sbb-map-container')
+export class SbbMapContainer extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /** Flag to show/hide the scroll up button inside the sidebar on mobile. */
-  @Prop({ reflect: true }) public hideScrollUpButton = false;
+  @property({ attribute: 'hide-scroll-up-button', reflect: true, type: Boolean })
+  public hideScrollUpButton = false;
 
-  /** Container element. */
-  @Element() private _element!: HTMLElement;
-
-  @State() private _scrollUpButtonVisible = false;
+  @state() private _scrollUpButtonVisible = false;
 
   /** Current document language used for translation of the button label. */
-  @State() private _currentLanguage = documentLanguage();
+  @state() private _currentLanguage = documentLanguage();
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
@@ -44,22 +44,23 @@ export class SbbMapContainer implements ComponentInterface {
    * @private
    */
   private _onScrollButtonClick(): void {
-    this._element.scrollIntoView({ behavior: 'smooth' });
+    this.scrollIntoView({ behavior: 'smooth' });
   }
   /**
    * Intersection callback. Toggles the visibility.
    * @param entries
    * @private
    */
-  private _toggleButtonVisibilityOnIntersect(entries): void {
+  private _toggleButtonVisibilityOnIntersect(entries: IntersectionObserverEntry[]): void {
     entries.forEach((entry) => {
       const mapIsHidden = !entry.isIntersecting;
-      toggleDatasetEntry(this._element, 'scrollUpButtonVisible', mapIsHidden);
+      toggleDatasetEntry(this, 'scrollUpButtonVisible', mapIsHidden);
       this._scrollUpButtonVisible = mapIsHidden;
     });
   }
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
     this._handlerRepository.connect();
     this._updateIntersectionObserver();
   }
@@ -71,47 +72,59 @@ export class SbbMapContainer implements ComponentInterface {
     }
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.connect();
     this._observer.disconnect();
   }
 
-  public render(): JSX.Element {
-    return (
+  protected override render(): TemplateResult {
+    return html`
       <div class="sbb-map-container">
         <div class="sbb-map-container__sidebar">
-          {!this.hideScrollUpButton && (
-            <span
-              ref={(el): void => {
-                if (this._intersector === el) {
-                  return;
-                }
-                this._intersector = el;
-                this._updateIntersectionObserver();
-              }}
-            ></span>
-          )}
+          ${!this.hideScrollUpButton
+            ? html`<span
+                ${ref((el: HTMLElement): void => {
+                  if (this._intersector === el) {
+                    return;
+                  }
+                  this._intersector = el;
+                  this._updateIntersectionObserver();
+                })}
+              ></span>`
+            : nothing}
 
-          <slot />
+          <slot></slot>
 
-          {!this.hideScrollUpButton && (
-            <sbb-button
-              class="sbb-map-container__sidebar-button"
-              ref={(ref) => (ref.inert = !this._scrollUpButtonVisible)}
-              variant="tertiary"
-              size="l"
-              icon-name="location-pin-map-small"
-              type="button"
-              onClick={() => this._onScrollButtonClick()}
-            >
-              {i18nMapContainerButtonLabel[this._currentLanguage]}
-            </sbb-button>
-          )}
+          ${!this.hideScrollUpButton
+            ? html`<sbb-button
+                class="sbb-map-container__sidebar-button"
+                ${ref((ref: HTMLElement) => {
+                  if (ref) {
+                    ref.inert = !this._scrollUpButtonVisible;
+                  }
+                })}
+                variant="tertiary"
+                size="l"
+                icon-name="location-pin-map-small"
+                type="button"
+                @click=${() => this._onScrollButtonClick()}
+              >
+                ${i18nMapContainerButtonLabel[this._currentLanguage]}
+              </sbb-button>`
+            : nothing}
         </div>
         <div class="sbb-map-container__map">
-          <slot name="map" />
+          <slot name="map"></slot>
         </div>
       </div>
-    );
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-map-container': SbbMapContainer;
   }
 }
