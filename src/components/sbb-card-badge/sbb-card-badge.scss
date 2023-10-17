@@ -43,8 +43,7 @@
   display: flex;
   inset-block-start: 0;
   inset-inline-end: 0;
-  padding-inline-end: var(--sbb-spacing-fixed-3x);
-  padding-inline-start: var(--sbb-spacing-fixed-2x);
+  padding-inline: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-3x);
 }
 
 .sbb-card-badge-content {

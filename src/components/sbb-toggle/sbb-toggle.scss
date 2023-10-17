@@ -89,8 +89,8 @@
 
     // Selected option exceeds toggle dimensions by 2x border width
     inset-block: calc(-2 * var(--sbb-toggle-border-width));
-    inset-inline-end: calc(var(--sbb-toggle-option-right) - #{sbb.px-to-rem-build(2)});
-    inset-inline-start: calc(var(--sbb-toggle-option-left) - #{sbb.px-to-rem-build(2)});
+    inset-inline: calc(var(--sbb-toggle-option-left) - #{sbb.px-to-rem-build(2)})
+      calc(var(--sbb-toggle-option-right) - #{sbb.px-to-rem-build(2)});
     transition: {
       duration: var(--sbb-toggle-animation-duration);
       timing-function: ease;

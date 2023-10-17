@@ -208,8 +208,7 @@
   position: relative;
   height: var(--sbb-navigation-height);
   padding-inline: var(--sbb-navigation-padding-inline);
-  padding-block-start: var(--sbb-navigation-padding-block-start);
-  padding-block-end: var(--sbb-navigation-padding-block-end);
+  padding-block: var(--sbb-navigation-padding-block-start) var(--sbb-navigation-padding-block-end);
   overflow-y: auto;
   transform: var(--sbb-navigation-content-transform);
 }
