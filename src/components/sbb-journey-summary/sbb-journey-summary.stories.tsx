@@ -8,8 +8,10 @@ import {
 } from '../sbb-pearl-chain/sbb-pearl-chain.sample-data';
 import readme from './readme.md?raw';
 import isChromatic from 'chromatic';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
+import './sbb-journey-summary';
+import '../sbb-button';
 
 const disableAnimation: InputType = {
   control: {

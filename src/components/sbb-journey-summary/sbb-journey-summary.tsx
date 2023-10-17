@@ -1,7 +1,5 @@
-import { Component, h, JSX, Prop, Element, ComponentInterface, State } from '@stencil/core';
 import { InterfaceSbbJourneySummaryAttributes } from './sbb-journey-summary.custom';
 import { isValid, format } from 'date-fns';
-
 import { i18nTripDuration } from '../../global/i18n';
 import {
   durationToTime,
@@ -13,151 +11,161 @@ import {
   HandlerRepository,
   languageChangeHandlerAspect,
 } from '../../global/eventing';
-import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { TitleLevel } from '../sbb-title';
+import Style from './sbb-journey-summary.scss?lit&inline';
+import '../sbb-pearl-chain-time';
+import '../sbb-journey-header';
+import '../sbb-divider';
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-journey-summary.scss',
-  tag: 'sbb-journey-summary',
-})
-export class SbbJourneySummary implements ComponentInterface {
+@customElement('sbb-journey-summary')
+export class SbbJourneySummary extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /**  The trip prop */
-  @Prop() public trip!: InterfaceSbbJourneySummaryAttributes;
+  @property() public trip!: InterfaceSbbJourneySummaryAttributes;
 
   /**  The tripBack prop */
-  @Prop() public tripBack?: InterfaceSbbJourneySummaryAttributes;
+  @property({ attribute: 'trip-back' }) public tripBack?: InterfaceSbbJourneySummaryAttributes;
 
   /**
    * The RoundTrip prop. This prop controls if one or two arrows are displayed in the header.
    */
-  @Prop() public roundTrip?: boolean;
+  @property({ attribute: 'round-trip', type: Boolean }) public roundTrip?: boolean;
 
   /** Heading level of the journey header element (e.g. h1-h6). */
-  @Prop() public headerLevel?: InterfaceTitleAttributes['level'] = '3';
+  @property({ attribute: 'header-level' }) public headerLevel?: TitleLevel = '3';
 
   /**
    * Per default, the current location has a pulsating animation. You can
    * disable the animation with this property.
    */
-  @Prop() public disableAnimation?: boolean;
+  @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
 
-  @State() private _currentLanguage = documentLanguage();
-
-  @Element() private _element!: HTMLElement;
+  @state() private _currentLanguage = documentLanguage();
 
   private _hasContentSlot: boolean;
 
-  public componentWillLoad(): void {
-    this._hasContentSlot = Boolean(this._element.querySelector('[slot="content"]'));
-  }
-
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this._hasContentSlot = Boolean(this.querySelector('[slot="content"]'));
     this._handlerRepository.connect();
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
   }
 
   private _now(): number {
-    const dataNow = +this._element.dataset?.now;
+    const dataNow = +this.dataset?.now;
     return isNaN(dataNow) ? Date.now() : dataNow;
   }
 
   /**  renders the date of the journey or if it is the current or next day */
-  private _renderJourneyStart(departureTime: Date): JSX.Element {
+  private _renderJourneyStart(departureTime: Date): TemplateResult {
     const dateAdapter = new NativeDateAdapter();
 
     if (isValid(departureTime))
-      return (
+      return html`
         <span>
-          <time dateTime={format(departureTime, 'd') + ' ' + format(departureTime, 'M')}>
-            {dateAdapter.format(departureTime).replace(',', '.')}
+          <time datetime=${format(departureTime, 'd') + ' ' + format(departureTime, 'M')}>
+            ${dateAdapter.format(departureTime).replace(',', '.')}
           </time>
         </span>
-      );
+      `;
   }
 
-  private _renderJourneyVias(vias: string[]): JSX.Element {
+  private _renderJourneyVias(vias: string[]): TemplateResult {
     const slicedVias = vias.slice(0, 5);
-    return (
+    return html`
       <div class="sbb-journey-summary__via-block">
         <span class="sbb-journey-summary__via-text">Via</span>
         <ul class="sbb-journey-summary__vias">
-          {slicedVias.map((via, index) => (
-            <li class="sbb-journey-summary__via">
-              {via}
-              {index !== slicedVias.length - 1 && index < 4 && <span>,</span>}
-            </li>
-          ))}
+          ${slicedVias.map(
+            (via, index) =>
+              html`<li class="sbb-journey-summary__via">
+                ${via}${index !== slicedVias.length - 1 && index < 4
+                  ? html`<span>,</span>`
+                  : nothing}
+              </li>`,
+          )}
         </ul>
       </div>
-    );
+    `;
   }
 
-  private _renderJourneyInformation(trip: InterfaceSbbJourneySummaryAttributes): JSX.Element {
+  private _renderJourneyInformation(trip: InterfaceSbbJourneySummaryAttributes): TemplateResult {
     const { vias, duration, departureWalk, departure, arrivalWalk, arrival, legs } = trip || {};
 
     const durationObj = durationToTime(duration, this._currentLanguage);
 
-    return (
+    return html`
       <div>
-        {vias?.length > 0 && this._renderJourneyVias(vias)}
+        ${vias?.length > 0 ? this._renderJourneyVias(vias) : nothing}
         <div class="sbb-journey-summary__date">
-          {this._renderJourneyStart(removeTimezoneFromISOTimeString(departure))}
-          {duration > 0 && (
-            <time>
-              <span class="sbb-screenreaderonly">
-                {`${i18nTripDuration[this._currentLanguage]} ${durationObj.long}`}
-              </span>
-              <span aria-hidden="true">, {durationObj.short}</span>
-            </time>
-          )}
+          ${this._renderJourneyStart(removeTimezoneFromISOTimeString(departure))}
+          ${duration > 0
+            ? html` <time>
+                <span class="sbb-screenreaderonly">
+                  ${i18nTripDuration[this._currentLanguage]} ${durationObj.long}
+                </span>
+                <span aria-hidden="true">, ${durationObj.short}</span>
+              </time>`
+            : nothing}
         </div>
         <sbb-pearl-chain-time
-          arrivalTime={arrival}
-          departureTime={departure}
-          departureWalk={departureWalk}
-          arrivalWalk={arrivalWalk}
-          legs={legs}
-          disableAnimation={this.disableAnimation}
-          data-now={this._now()}
-        />
+          .arrivalTime=${arrival}
+          .departureTime=${departure}
+          .departureWalk=${departureWalk}
+          .arrivalWalk=${arrivalWalk}
+          .legs=${legs}
+          ?disable-animation=${this.disableAnimation}
+          data-now=${this._now()}
+        ></sbb-pearl-chain-time>
       </div>
-    );
+    `;
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const { origin, destination } = this.trip || {};
-    return (
+    return html`
       <div class="sbb-journey-summary">
-        {origin && (
-          <sbb-journey-header
-            size="l"
-            level={this.headerLevel}
-            origin={origin}
-            destination={destination}
-            roundTrip={this.roundTrip}
-          ></sbb-journey-header>
-        )}
-        {this._renderJourneyInformation(this.trip)}
-        {this.tripBack && (
-          <div>
-            <sbb-divider class="sbb-journey-summary__divider"></sbb-divider>
-            {this._renderJourneyInformation(this.tripBack)}
-          </div>
-        )}
-        {this._hasContentSlot && (
-          <div class="sbb-journey-summary__slot">
-            <slot name="content" />
-          </div>
-        )}
+        ${origin
+          ? html`<sbb-journey-header
+              size="l"
+              level=${this.headerLevel}
+              origin=${origin}
+              destination=${destination}
+              roundTrip=${this.roundTrip}
+            ></sbb-journey-header>`
+          : nothing}
+        ${this._renderJourneyInformation(this.trip)}
+        ${this.tripBack
+          ? html`<div>
+              <sbb-divider class="sbb-journey-summary__divider"></sbb-divider>
+              ${this._renderJourneyInformation(this.tripBack)}
+            </div>`
+          : nothing}
+        ${this._hasContentSlot
+          ? html` <div class="sbb-journey-summary__slot">
+              <slot name="content"></slot>
+            </div>`
+          : nothing}
       </div>
-    );
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-journey-summary': SbbJourneySummary;
   }
 }

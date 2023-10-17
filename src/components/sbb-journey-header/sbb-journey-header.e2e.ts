@@ -1,16 +1,15 @@
-import { newE2EPage } from '@stencil/core/testing';
+import { assert, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { SbbJourneyHeader } from './sbb-journey-header';
 
 describe('sbb-journey-header', () => {
-  let element, page;
+  let element: SbbJourneyHeader;
 
   beforeEach(async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-journey-header></sbb-journey-header>');
-    element = await page.find('sbb-journey-header');
+    element = await fixture(html`<sbb-journey-header></sbb-journey-header>`);
   });
 
   it('renders', async () => {
-    element = await page.find('sbb-journey-header');
-    expect(element).toHaveClass('hydrated');
+    assert.instanceOf(element, SbbJourneyHeader);
   });
 });
