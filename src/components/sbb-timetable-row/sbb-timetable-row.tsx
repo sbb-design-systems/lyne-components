@@ -13,6 +13,7 @@ import {
   i18nNew,
   i18nOccupancy,
   i18nRealTimeInfo,
+  i18nSupersaver,
   i18nTransferProcedures,
   i18nTravelhints,
   i18nTripDuration,
@@ -189,15 +190,15 @@ export class SbbTimetableRow {
       : undefined;
 
     const departureWalkText = departureTimeAttribute
-      ? `${departureTimeAttribute.text} ${departureTimeAttribute.duration}. `
+      ? `${departureTimeAttribute.text} ${departureTimeAttribute.duration}, `
       : '';
 
     const arrivalWalkText = arrivalTimeAttribute
-      ? `${arrivalTimeAttribute.text} ${arrivalTimeAttribute.duration}. `
+      ? `${arrivalTimeAttribute.text} ${arrivalTimeAttribute.duration}, `
       : '';
 
     const departureTimeText = departureTime
-      ? `${i18nDeparture[this._currentLanguage]}: ${format(departureTime, 'HH:mm')}. `
+      ? `${i18nDeparture[this._currentLanguage]}: ${format(departureTime, 'HH:mm')}, `
       : '';
 
     const getDepartureQuayText = (): string => {
@@ -208,44 +209,44 @@ export class SbbTimetableRow {
       // add prefix "new" if quay was changed
       const changedQuayPrefix = departure?.quayChanged ? `${i18nNew[this._currentLanguage]} ` : '';
       return `${changedQuayPrefix}${this._getQuayTypeStrings()
-        ?.long} ${departure?.quayFormatted}. `;
+        ?.long} ${departure?.quayFormatted}, `;
     };
 
     const meansOfTransportText =
       product && product.vehicleMode
         ? i18nMeansOfTransport[product.vehicleMode.toLowerCase()] &&
-          `${i18nMeansOfTransport[product.vehicleMode.toLowerCase()][this._currentLanguage]}. `
+          `${i18nMeansOfTransport[product.vehicleMode.toLowerCase()][this._currentLanguage]}, `
         : '';
 
     const vehicleSubModeText = product?.vehicleSubModeShortName
-      ? `${product.vehicleSubModeShortName} ${product.line || ''}. `
+      ? `${product.vehicleSubModeShortName} ${product.line || ''}, `
       : '';
 
-    const directionText = `${i18nDirection[this._currentLanguage]} ${direction}. `;
+    const directionText = `${i18nDirection[this._currentLanguage]} ${direction}, `;
 
     const himCus = this._handleHimCus(trip);
     const cusText = himCus?.cus?.text
-      ? `${i18nRealTimeInfo[this._currentLanguage]}: ${himCus?.cus?.text}. `
+      ? `${i18nRealTimeInfo[this._currentLanguage]}: ${himCus?.cus?.text}, `
       : '';
     const himText = himCus?.him?.text
-      ? `${i18nRealTimeInfo[this._currentLanguage]}: ${himCus?.him?.text}. `
+      ? `${i18nRealTimeInfo[this._currentLanguage]}: ${himCus?.him?.text}, `
       : '';
 
-    const boardingText = this.boarding ? `${this.boarding.text}. ` : '';
+    const boardingText = this.boarding ? `${this.boarding.text}, ` : '';
 
-    const priceText = `${
+    const priceText = `${this.price?.isDiscount ? i18nSupersaver[this._currentLanguage] : ''} ${
       this.price?.text && this.price?.price
-        ? (this.price?.text || '') + ' ' + (this.price?.price || '') + '. '
+        ? (this.price?.text || '') + ' ' + (this.price?.price || '') + ', '
         : ''
     }`;
 
     const transferProcedures =
       legs?.length > 1
-        ? `${legs?.length - 1} ${i18nTransferProcedures[this._currentLanguage]}. `
+        ? `${legs?.length - 1} ${i18nTransferProcedures[this._currentLanguage]}, `
         : '';
 
     const arrivalTimeText = arrivalTime
-      ? `${i18nArrival[this._currentLanguage]}: ${format(arrivalTime, 'HH:mm')}. `
+      ? `${i18nArrival[this._currentLanguage]}: ${format(arrivalTime, 'HH:mm')}, `
       : '';
 
     const occupancyText =
@@ -263,7 +264,7 @@ export class SbbTimetableRow {
       handleNotices(notices).length &&
       handleNotices(notices)
         ?.map((notice, index) => index < 4 && notice.text?.template)
-        .join(', ') + '. ';
+        .join(', ') + ', ';
 
     const attributesText = attributes
       ? `${i18nTravelhints[this._currentLanguage]}: ${attributes}`
@@ -273,7 +274,7 @@ export class SbbTimetableRow {
       duration > 0
         ? `${i18nTripDuration[this._currentLanguage]} ${
             durationToTime(duration, this._currentLanguage).long
-          }. `
+          }, `
         : '';
 
     return `${departureWalkText} ${departureTimeText} ${getDepartureQuayText()} ${meansOfTransportText} ${vehicleSubModeText} ${directionText} ${cusText} ${boardingText} ${priceText} ${
@@ -317,7 +318,11 @@ export class SbbTimetableRow {
           {this.loadingPrice && <sbb-card-badge class="sbb-loading__badge" />}
           {this.price && !this.loadingPrice && (
             <sbb-card-badge color={this.price.isDiscount ? 'charcoal' : 'white'}>
-              {this.price.isDiscount && <span>%</span>}
+              {this.price.isDiscount && (
+                <span aria-hidden="true">
+                  %<span class="sbb-screenreaderonly">{i18nSupersaver[this._currentLanguage]}</span>
+                </span>
+              )}
               {this.price.text && <span>{this.price.text}</span>}
               {this.price.price && <span>{this.price.price}</span>}
             </sbb-card-badge>
