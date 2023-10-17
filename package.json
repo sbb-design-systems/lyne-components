@@ -78,7 +78,7 @@
     "chromatic": "7.4.0",
     "css-loader": "6.8.1",
     "date-fns": "2.30.0",
-    "esbuild": "0.19.4",
+    "esbuild": "0.19.5",
     "eslint": "8.51.0",
     "eslint-config-prettier": "9.0.0",
     "eslint-plugin-jest": "27.4.2",
