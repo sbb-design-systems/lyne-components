@@ -22,6 +22,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { SbbIcon } from '../sbb-icon';
 import { setAttribute } from '../../global/dom';
 import Style from './sbb-train-wagon.scss?lit&inline';
+import '../sbb-icon';
 
 /**
  * @slot unnamed - Used to slot one to x icons for meta information of the sbb-train-wagon.

@@ -1,6 +1,8 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { SbbTrainWagon } from './sbb-train-wagon';
+import { waitForLitRender } from '../../global/testing';
+import '../sbb-train-wagon';
 import '../sbb-icon';
 
 async function extractAriaLabels(
@@ -17,7 +19,10 @@ async function extractAriaLabels(
     >
   >,
 ): Promise<string[]> {
-  const attributes = [
+  const element = await fixture(html`<sbb-train-wagon></sbb-train-wagon>`);
+
+  // attributes
+  [
     'type',
     'occupancy',
     'sector',
@@ -25,19 +30,17 @@ async function extractAriaLabels(
     'wagonClass',
     'label',
     'additionalAccessibilityText',
-  ]
-    .map((property) => {
-      const value = properties[property];
-      // Convert camelCase to kebab-case
-      const attributeName = property.replace(
-        /[A-Z]+(?![a-z])|[A-Z]/g,
-        ($, ofs) => (ofs ? '-' : '') + $.toLowerCase(),
-      );
-      return value ? `${attributeName}="${value}"` : attributeName;
-    })
-    .join(' ');
+  ].forEach((attr) => {
+    const attributeValue = properties[attr];
+    // Convert camelCase to kebab-case
+    const attributeName = attr.replace(
+      /[A-Z]+(?![a-z])|[A-Z]/g,
+      ($, ofs) => (ofs ? '-' : '') + $.toLowerCase(),
+    );
+    element.setAttribute(attributeName, attributeValue ?? '');
+  });
 
-  const element = await fixture(html`<sbb-train-wagon ${attributes}></sbb-train-wagon>`);
+  await waitForLitRender(element);
 
   // Select all accessibility relevant text parts
   return Array.from(
@@ -45,7 +48,9 @@ async function extractAriaLabels(
       '[aria-hidden=false], [aria-label]:not(.sbb-train-wagon__icons-list), .sbb-screenreaderonly:not(.sbb-train-wagon__label > span)',
     ),
   ).map((entry) =>
-    entry.hasAttribute('aria-label') ? entry.getAttribute('aria-label') : entry.textContent,
+    entry.hasAttribute('aria-label')
+      ? entry.getAttribute('aria-label')
+      : entry.textContent.replace(/\s+/g, ' ').trim(),
   );
 }
 
@@ -59,7 +64,7 @@ describe('sbb-train-wagon', () => {
           type="wagon"
           label="38"
           blocked-passage="previous"
-        />`,
+        ></sbb-train-wagon>`,
       );
 
       expect(root).dom.to.be.equal(
@@ -81,6 +86,7 @@ describe('sbb-train-wagon', () => {
                 <span aria-hidden="true">1</span>
               </li>
               <sbb-icon
+                data-namespace="default"
                 class="sbb-train-wagon__occupancy"
                 role="listitem"
                 name="utilization-none"
@@ -105,7 +111,12 @@ describe('sbb-train-wagon', () => {
       expect(root).dom.to.be.equal(
         `
           <sbb-train-wagon data-has-visible-wagon-content type="wagon">
-            <sbb-icon name="sa-rs"></sbb-icon>
+            <sbb-icon
+              aria-hidden="true"
+              data-namespace="default"
+              name="sa-rs"
+              role="img"
+            ></sbb-icon>
           </sbb-train-wagon>
         `,
       );
@@ -117,7 +128,7 @@ describe('sbb-train-wagon', () => {
               class="sbb-train-wagon__compartment"
             >
               <li aria-hidden="true" class="sbb-train-wagon__label"></li>
-              <sbb-icon aria-hidden="false" aria-label="No occupancy forecast available" class="sbb-train-wagon__occupancy" name="utilization-none" role="listitem"></sbb-icon>
+              <sbb-icon aria-hidden="false" aria-label="No occupancy forecast available" class="sbb-train-wagon__occupancy" name="utilization-none" data-namespace="default" role="listitem"></sbb-icon>
             </ul>
             <span class="sbb-train-wagon__icons">
               <span class="sbb-train-wagon__icons-item">
@@ -140,8 +151,18 @@ describe('sbb-train-wagon', () => {
       expect(root).dom.to.be.equal(
         `
         <sbb-train-wagon data-has-visible-wagon-content type="wagon">
-          <sbb-icon name="sa-rs" slot="sbb-train-wagon-icon-0"></sbb-icon>
-          <sbb-icon name="sa-rs" slot="sbb-train-wagon-icon-1"></sbb-icon>
+          <sbb-icon 
+            aria-hidden="true"
+            data-namespace="default"
+            name="sa-rs"
+            role="img"
+            slot="sbb-train-wagon-icon-0"></sbb-icon>
+          <sbb-icon 
+            aria-hidden="true"
+            data-namespace="default"
+            name="sa-rs"
+            role="img"
+            slot="sbb-train-wagon-icon-1"></sbb-icon>
         </sbb-train-wagon>
       `,
       );
@@ -153,7 +174,7 @@ describe('sbb-train-wagon', () => {
               class="sbb-train-wagon__compartment"
             >
               <li aria-hidden="true" class="sbb-train-wagon__label"></li>
-              <sbb-icon aria-hidden="false" aria-label="No occupancy forecast available" class="sbb-train-wagon__occupancy" name="utilization-none" role="listitem"></sbb-icon>
+              <sbb-icon aria-hidden="false" aria-label="No occupancy forecast available" class="sbb-train-wagon__occupancy" name="utilization-none" data-namespace="default" role="listitem"></sbb-icon>
             </ul>
             <span class="sbb-train-wagon__icons">
               <ul aria-label="Additional wagon information" class="sbb-train-wagon__icons-list">
@@ -178,7 +199,7 @@ describe('sbb-train-wagon', () => {
         html`<sbb-train-wagon
           type="locomotive"
           additional-accessibility-text="Top of the train"
-        />`,
+        ></sbb-train-wagon>`,
       );
 
       expect(root).dom.to.be.equal(
@@ -200,14 +221,13 @@ describe('sbb-train-wagon', () => {
             <span class="sbb-screenreaderonly">
               , Top of the train
             </span>
-
           </div>
         `,
       );
     });
 
     it('should render as type closed wagon without number', async () => {
-      const root = await fixture(html`<sbb-train-wagon type="closed" />`);
+      const root = await fixture(html`<sbb-train-wagon type="closed"></sbb-train-wagon>`);
 
       expect(root).dom.to.be.equal(
         `
@@ -231,20 +251,20 @@ describe('sbb-train-wagon', () => {
   });
 
   it('should set aria labels correctly', async () => {
-    expect(await extractAriaLabels({})).to.be.equal([]);
-    expect(await extractAriaLabels({ type: 'locomotive' })).to.be.equal(['Locomotive']);
+    expect(await extractAriaLabels({})).to.be.eql([]);
+    expect(await extractAriaLabels({ type: 'locomotive' })).to.be.eql(['Locomotive']);
     expect(
       await extractAriaLabels({ type: 'closed', additionalAccessibilityText: `Don't enter` }),
-    ).to.be.equal(['Closed train coach', `, Don't enter`]);
-    expect(await extractAriaLabels({ type: 'wagon' })).to.be.equal(['Train coach']);
+    ).to.be.eql(['Closed train coach', `, Don't enter`]);
+    expect(await extractAriaLabels({ type: 'wagon' })).to.be.eql(['Train coach']);
 
-    expect(await extractAriaLabels({ sector: 'A', type: 'locomotive' })).to.be.equal([
-      'Locomotive, Sector, A',
+    expect(await extractAriaLabels({ sector: 'A', type: 'locomotive' })).to.be.eql([
+      'Locomotive , Sector, A',
     ]);
-    expect(await extractAriaLabels({ sector: 'A', type: 'closed' })).to.be.equal([
-      'Closed train coach, Sector, A',
+    expect(await extractAriaLabels({ sector: 'A', type: 'closed' })).to.be.eql([
+      'Closed train coach , Sector, A',
     ]);
-    expect(await extractAriaLabels({ sector: 'A', type: 'wagon' })).to.be.equal([
+    expect(await extractAriaLabels({ sector: 'A', type: 'wagon' })).to.be.eql([
       'Train coach',
       'Sector, A',
     ]);
@@ -258,42 +278,42 @@ describe('sbb-train-wagon', () => {
         occupancy: 'unknown',
         blockedPassage: 'previous',
       }),
-    ).to.be.equal([
+    ).to.be.eql([
       'Train coach',
       'Sector, A',
-      'Number,\u00A038',
+      'Number, 38',
       'First Class',
       'No occupancy forecast available',
       'No passage to the previous train coach',
     ]);
 
-    expect(await extractAriaLabels({ type: 'wagon', wagonClass: '2' })).to.be.equal([
+    expect(await extractAriaLabels({ type: 'wagon', wagonClass: '2' })).to.be.eql([
       'Train coach',
       'Second Class',
     ]);
 
-    expect(await extractAriaLabels({ type: 'wagon', occupancy: 'low' })).to.be.equal([
+    expect(await extractAriaLabels({ type: 'wagon', occupancy: 'low' })).to.be.eql([
       'Train coach',
       'Low to medium occupancy expected',
     ]);
-    expect(await extractAriaLabels({ type: 'wagon', occupancy: 'medium' })).to.be.equal([
+    expect(await extractAriaLabels({ type: 'wagon', occupancy: 'medium' })).to.be.eql([
       'Train coach',
       'High occupancy expected',
     ]);
-    expect(await extractAriaLabels({ type: 'wagon', occupancy: 'high' })).to.be.equal([
+    expect(await extractAriaLabels({ type: 'wagon', occupancy: 'high' })).to.be.eql([
       'Train coach',
       'Very high occupancy expected',
     ]);
 
-    expect(await extractAriaLabels({ type: 'wagon', blockedPassage: 'next' })).to.be.equal([
+    expect(await extractAriaLabels({ type: 'wagon', blockedPassage: 'next' })).to.be.eql([
       'Train coach',
       'No passage to the next train coach',
     ]);
-    expect(await extractAriaLabels({ type: 'wagon', blockedPassage: 'both' })).to.be.equal([
+    expect(await extractAriaLabels({ type: 'wagon', blockedPassage: 'both' })).to.be.eql([
       'Train coach',
       'No passage to the next and previous train coach',
     ]);
-    expect(await extractAriaLabels({ type: 'wagon', blockedPassage: 'none' })).to.be.equal([
+    expect(await extractAriaLabels({ type: 'wagon', blockedPassage: 'none' })).to.be.eql([
       'Train coach',
     ]);
   });

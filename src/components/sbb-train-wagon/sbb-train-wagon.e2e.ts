@@ -1,6 +1,6 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { EventSpy, waitForLitRender } from '../../global/testing';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../global/testing';
 import { SbbTrainWagon } from './sbb-train-wagon';
 
 describe('sbb-train-wagon', () => {
@@ -13,9 +13,10 @@ describe('sbb-train-wagon', () => {
 
   it('should emit sectorChange', async () => {
     element = await fixture(html`<sbb-train-wagon sector="A"></sbb-train-wagon>`);
-    const sectorChangeSpy = new EventSpy('sectorChange', element);
+    const sectorChangeSpy = new EventSpy('sector-change');
     element.sector = 'B';
-    await waitForLitRender(element);
+
+    await waitForCondition(() => sectorChangeSpy.events.length === 1);
     expect(sectorChangeSpy.count).to.be.greaterThan(0);
   });
 

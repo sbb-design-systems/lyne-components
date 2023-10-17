@@ -27,7 +27,7 @@ describe('sbb-train', () => {
           </div>
           <div class="sbb-train__direction-indicator">
             <div class="sbb-train__sticky-wrapper">
-              <sbb-icon class="sbb-train__direction-arrow" name="chevron-small-left-small"></sbb-icon>
+              <sbb-icon aria-hidden="true" data-namespace="default" role="img" class="sbb-train__direction-arrow" name="chevron-small-left-small"></sbb-icon>
             </div>
           </div>
         </div>
@@ -72,7 +72,7 @@ describe('sbb-train', () => {
       const root = await fixture(html`<sbb-train />`);
 
       expect(
-        root.shadowRoot.querySelector('.sbb-train__direction-label-sr').textContent,
+        root.shadowRoot.querySelector('.sbb-train__direction-label-sr').textContent.trim(),
       ).to.be.equal('Train.');
     });
 
@@ -80,7 +80,7 @@ describe('sbb-train', () => {
       const root = await fixture(html`<sbb-train direction-label="Direction of Travel" />`);
 
       expect(
-        root.shadowRoot.querySelector('.sbb-train__direction-label-sr').textContent,
+        root.shadowRoot.querySelector('.sbb-train__direction-label-sr').textContent.trim(),
       ).to.be.equal('Train.');
     });
 
@@ -90,7 +90,7 @@ describe('sbb-train', () => {
       );
 
       expect(
-        root.shadowRoot.querySelector('.sbb-train__direction-label-sr').textContent,
+        root.shadowRoot.querySelector('.sbb-train__direction-label-sr').textContent.trim(),
       ).to.be.equal('Train, Direction of Travel Bern.');
     });
 
@@ -104,7 +104,7 @@ describe('sbb-train', () => {
       );
 
       expect(
-        root.shadowRoot.querySelector('.sbb-train__direction-label-sr').textContent,
+        root.shadowRoot.querySelector('.sbb-train__direction-label-sr').textContent.trim(),
       ).to.be.equal('Train, Direction of Travel Bern, Additional label.');
     });
   });
