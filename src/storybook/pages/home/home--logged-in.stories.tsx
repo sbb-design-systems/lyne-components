@@ -18,8 +18,9 @@ import {
   TimetableInput,
   wrapperStyle,
 } from './home.common';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
+import './home.common';
 
 /* ************************************************* */
 /* Storybook controls                                */

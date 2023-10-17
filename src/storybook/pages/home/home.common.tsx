@@ -1,8 +1,30 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /** @jsx h */
-import { StoryContext } from '@storybook/html';
+import { StoryContext } from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import { JSX, h } from 'jsx-dom';
+
+import { SbbNavigationMarker } from '../../../components/sbb-navigation-marker';
+import '../../../components/sbb-button';
+import '../../../components/sbb-card';
+import '../../../components/sbb-card-action';
+import '../../../components/sbb-clock';
+import '../../../components/sbb-divider';
+import '../../../components/sbb-footer';
+import '../../../components/sbb-icon';
+import '../../../components/sbb-header';
+import '../../../components/sbb-header-action';
+import '../../../components/sbb-logo';
+import '../../../components/sbb-link';
+import '../../../components/sbb-link-list';
+import '../../../components/sbb-navigation';
+import '../../../components/sbb-navigation-marker';
+import '../../../components/sbb-navigation-action';
+import '../../../components/sbb-navigation-section';
+import '../../../components/sbb-navigation-list';
+// import '../../../components/sbb-skiplink-list'; // TODO-Migr: Wait for skiplink migration
+import '../../../components/sbb-teaser-hero';
+import '../../../components/sbb-title';
 
 export const SkiplinkList = (): JSX.Element => (
   <sbb-skiplink-list title-level="2" title-content="Skip to">
