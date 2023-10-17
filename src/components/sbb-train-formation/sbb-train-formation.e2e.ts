@@ -1,65 +1,61 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { waitForLitRender } from '../../global/testing';
+import { SbbTrainFormation } from './sbb-train-formation';
+import { TemplateResult } from 'lit';
+import '../sbb-icon';
+import '../sbb-train';
+import '../sbb-train-wagon';
+import '../sbb-train-blocked-passage';
 
-async function extractAggregatedSectors(page: E2EPage): Promise<Record<string, string>[]> {
-  return await page.evaluate(() =>
-    Array.from(
-      document
-        .querySelector('sbb-train-formation')
-        .shadowRoot.querySelectorAll('.sbb-train-formation__sector'),
-    ).map((sector) => {
-      const computedStyles = getComputedStyle(sector);
+function extractAggregatedSectors(): Record<string, string>[] {
+  return Array.from(
+    document
+      .querySelector('sbb-train-formation')
+      .shadowRoot.querySelectorAll('.sbb-train-formation__sector'),
+  ).map((sector) => {
+    const computedStyles = getComputedStyle(sector);
 
-      return {
-        label: sector
-          .querySelector('.sbb-train-formation__sector-sticky-wrapper')
-          .textContent.trim(),
-        wagonCount: computedStyles.getPropertyValue('--sbb-train-formation-wagon-count'),
-        blockedPassageCount: computedStyles.getPropertyValue(
-          '--sbb-train-formation-wagon-blocked-passage-count',
-        ),
-      };
-    }),
-  );
+    return {
+      label: sector.querySelector('.sbb-train-formation__sector-sticky-wrapper').textContent.trim(),
+      wagonCount: computedStyles.getPropertyValue('--sbb-train-formation-wagon-count'),
+      blockedPassageCount: computedStyles.getPropertyValue(
+        '--sbb-train-formation-wagon-blocked-passage-count',
+      ),
+    };
+  });
 }
 
 async function createAndExtractAggregatedSectors(
-  wagonsOrBlockedPassages: string[],
+  wagonsOrBlockedPassages: TemplateResult[],
 ): Promise<Record<string, string>[]> {
-  const page = await newE2EPage();
-  await page.setContent(`
-      <sbb-train-formation>
-        <sbb-train>
-          ${wagonsOrBlockedPassages.join('')}
-        </sbb-train>
-      </sbb-train-formation>
-    `);
+  await fixture(html`
+    <sbb-train-formation>
+      <sbb-train> ${wagonsOrBlockedPassages} </sbb-train>
+    </sbb-train-formation>
+  `);
 
-  await page.waitForChanges();
-
-  return await extractAggregatedSectors(page);
+  return extractAggregatedSectors();
 }
 
 describe('sbb-train-formation', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbTrainFormation;
 
   it('should render', async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-train-formation></sbb-train-formation>');
-
-    element = await page.find('sbb-train-formation');
-    expect(element).toHaveClass('hydrated');
+    element = await fixture(html`<sbb-train-formation></sbb-train-formation>`);
+    assert.instanceOf(element, SbbTrainFormation);
   });
 
   describe('sectors building', () => {
     it('should collect wagons with one sector', async () => {
       const aggregatedSectors = await createAndExtractAggregatedSectors([
-        '<sbb-train-wagon sector="A" />',
-        '<sbb-train-blocked-passage />',
-        '<sbb-train-wagon sector="A" />',
-        '<sbb-train-wagon sector="A" />',
+        html`<sbb-train-wagon sector="A"></sbb-train-wagon>`,
+        html`<sbb-train-blocked-passage></sbb-train-blocked-passage>`,
+        html`<sbb-train-wagon sector="A"></sbb-train-wagon>`,
+        html`<sbb-train-wagon sector="A"></sbb-train-wagon>`,
       ]);
 
-      expect(aggregatedSectors).toEqual([
+      expect(aggregatedSectors).to.be.eql([
         {
           label: 'Sector A',
           wagonCount: '3',
@@ -70,13 +66,13 @@ describe('sbb-train-formation', () => {
 
     it('should collect wagons with two sectors', async () => {
       const aggregatedSectors = await createAndExtractAggregatedSectors([
-        '<sbb-train-wagon sector="A" />',
-        '<sbb-train-blocked-passage />',
-        '<sbb-train-wagon sector="B" />',
-        '<sbb-train-wagon sector="B" />',
+        html`<sbb-train-wagon sector="A"></sbb-train-wagon>`,
+        html`<sbb-train-blocked-passage></sbb-train-blocked-passage>`,
+        html`<sbb-train-wagon sector="B"></sbb-train-wagon>`,
+        html`<sbb-train-wagon sector="B"></sbb-train-wagon>`,
       ]);
 
-      expect(aggregatedSectors).toEqual([
+      expect(aggregatedSectors).to.be.eql([
         {
           label: 'Sec. A',
           wagonCount: '1',
@@ -92,13 +88,13 @@ describe('sbb-train-formation', () => {
 
     it('should collect wagons when a middle sector name is missing', async () => {
       const aggregatedSectors = await createAndExtractAggregatedSectors([
-        '<sbb-train-wagon sector="A" />',
-        '<sbb-train-blocked-passage />',
-        '<sbb-train-wagon />',
-        '<sbb-train-wagon sector="B" />',
+        html`<sbb-train-wagon sector="A"></sbb-train-wagon>`,
+        html`<sbb-train-blocked-passage></sbb-train-blocked-passage>`,
+        html`<sbb-train-wagon></sbb-train-wagon>`,
+        html`<sbb-train-wagon sector="B"></sbb-train-wagon>`,
       ]);
 
-      expect(aggregatedSectors).toEqual([
+      expect(aggregatedSectors).to.be.eql([
         {
           label: 'Sector A',
           wagonCount: '2',
@@ -114,13 +110,13 @@ describe('sbb-train-formation', () => {
 
     it('should collect wagons when the first sector name is missing', async () => {
       const aggregatedSectors = await createAndExtractAggregatedSectors([
-        '<sbb-train-wagon />',
-        '<sbb-train-blocked-passage />',
-        '<sbb-train-wagon sector="B" />',
-        '<sbb-train-wagon sector="B" />',
+        html`<sbb-train-wagon></sbb-train-wagon>`,
+        html`<sbb-train-blocked-passage></sbb-train-blocked-passage>`,
+        html`<sbb-train-wagon sector="B"></sbb-train-wagon>`,
+        html`<sbb-train-wagon sector="B"></sbb-train-wagon>`,
       ]);
 
-      expect(aggregatedSectors).toEqual([
+      expect(aggregatedSectors).to.be.eql([
         {
           label: 'Sector B',
           wagonCount: '3',
@@ -131,11 +127,11 @@ describe('sbb-train-formation', () => {
 
     it('should collect wagons when skipping a wagon in the middle', async () => {
       const aggregatedSectors = await createAndExtractAggregatedSectors([
-        '<sbb-train-wagon sector="A"/>',
-        '<sbb-train-wagon />',
-        '<sbb-train-wagon sector="A" />',
+        html`<sbb-train-wagon sector="A"></sbb-train-wagon>`,
+        html`<sbb-train-wagon></sbb-train-wagon>`,
+        html`<sbb-train-wagon sector="A"></sbb-train-wagon>`,
       ]);
-      expect(aggregatedSectors).toEqual([
+      expect(aggregatedSectors).to.be.eql([
         {
           label: 'Sector A',
           wagonCount: '3',
@@ -145,8 +141,7 @@ describe('sbb-train-formation', () => {
     });
 
     it('should collect over multiple trains', async () => {
-      const page = await newE2EPage();
-      await page.setContent(`
+      await fixture(html`
         <sbb-train-formation>
           <sbb-train>
             <sbb-train-wagon sector="A"></sbb-train-wagon>
@@ -155,10 +150,9 @@ describe('sbb-train-formation', () => {
             <sbb-train-wagon sector="B"></sbb-train-wagon>
           </sbb-train>
         </sbb-train-formation>
-    `);
-      await page.waitForChanges();
+      `);
 
-      expect(await extractAggregatedSectors(page)).toEqual([
+      expect(extractAggregatedSectors()).to.be.eql([
         {
           label: 'Sec. A',
           wagonCount: '1',
@@ -173,8 +167,7 @@ describe('sbb-train-formation', () => {
     });
 
     it('should update sectors when sector property of a wagon is changing', async () => {
-      const page = await newE2EPage();
-      await page.setContent(`
+      element = await fixture(html`
         <sbb-train-formation>
           <sbb-train>
             <sbb-train-wagon sector="A"></sbb-train-wagon>
@@ -182,10 +175,9 @@ describe('sbb-train-formation', () => {
             <sbb-train-wagon sector="A"></sbb-train-wagon>
           </sbb-train>
         </sbb-train-formation>
-    `);
-      await page.waitForChanges();
+      `);
 
-      expect(await extractAggregatedSectors(page)).toEqual([
+      expect(extractAggregatedSectors()).to.be.eql([
         {
           label: 'Sector A',
           wagonCount: '3',
@@ -193,10 +185,10 @@ describe('sbb-train-formation', () => {
         },
       ]);
 
-      (await page.find('sbb-train-wagon')).setProperty('sector', 'Z');
-      await page.waitForChanges();
+      element.querySelector('sbb-train-wagon').sector = 'Z';
+      await waitForLitRender(element);
 
-      expect(await extractAggregatedSectors(page)).toEqual([
+      expect(extractAggregatedSectors()).to.be.eql([
         {
           label: 'Sec. Z',
           wagonCount: '1',
@@ -211,8 +203,7 @@ describe('sbb-train-formation', () => {
     });
 
     it('should update sectors when sector attribute of a wagon is changing', async () => {
-      const page = await newE2EPage();
-      await page.setContent(`
+      element = await fixture(html`
         <sbb-train-formation>
           <sbb-train>
             <sbb-train-wagon sector="A"></sbb-train-wagon>
@@ -220,10 +211,9 @@ describe('sbb-train-formation', () => {
             <sbb-train-wagon sector="A"></sbb-train-wagon>
           </sbb-train>
         </sbb-train-formation>
-    `);
-      await page.waitForChanges();
+      `);
 
-      expect(await extractAggregatedSectors(page)).toEqual([
+      expect(extractAggregatedSectors()).to.be.eql([
         {
           label: 'Sector A',
           wagonCount: '3',
@@ -231,10 +221,10 @@ describe('sbb-train-formation', () => {
         },
       ]);
 
-      (await page.find('sbb-train-wagon')).setAttribute('sector', 'Z');
-      await page.waitForChanges();
+      element.querySelector('sbb-train-wagon').setAttribute('sector', 'Z');
+      await waitForLitRender(element);
 
-      expect(await extractAggregatedSectors(page)).toEqual([
+      expect(extractAggregatedSectors()).to.be.eql([
         {
           label: 'Sec. Z',
           wagonCount: '1',
@@ -249,8 +239,7 @@ describe('sbb-train-formation', () => {
     });
 
     it('should update sectors when wagon was removed', async () => {
-      const page = await newE2EPage();
-      await page.setContent(`
+      element = await fixture(html`
         <sbb-train-formation>
           <sbb-train>
             <sbb-train-wagon sector="A"></sbb-train-wagon>
@@ -258,13 +247,12 @@ describe('sbb-train-formation', () => {
             <sbb-train-wagon sector="C"></sbb-train-wagon>
           </sbb-train>
         </sbb-train-formation>
-    `);
-      await page.waitForChanges();
+      `);
 
-      await page.evaluate(() => document.querySelector('sbb-train-wagon').remove());
-      await page.waitForChanges();
+      element.querySelector('sbb-train-wagon').remove();
+      await waitForLitRender(element);
 
-      expect(await extractAggregatedSectors(page)).toEqual([
+      expect(extractAggregatedSectors()).to.be.eql([
         {
           label: 'Sec. B',
           wagonCount: '1',
@@ -279,8 +267,7 @@ describe('sbb-train-formation', () => {
     });
 
     it('should update sectors when train was removed', async () => {
-      const page = await newE2EPage();
-      await page.setContent(`
+      element = await fixture(html`
         <sbb-train-formation>
           <sbb-train>
             <sbb-train-wagon sector="A"></sbb-train-wagon>
@@ -289,13 +276,13 @@ describe('sbb-train-formation', () => {
             <sbb-train-wagon sector="B"></sbb-train-wagon>
           </sbb-train>
         </sbb-train-formation>
-    `);
-      await page.waitForChanges();
+      `);
+      await waitForLitRender(element);
 
-      await page.evaluate(() => document.querySelector('sbb-train').remove());
-      await page.waitForChanges();
+      element.querySelector('sbb-train').remove();
+      await waitForLitRender(element);
 
-      expect(await extractAggregatedSectors(page)).toEqual([
+      expect(extractAggregatedSectors()).to.be.eql([
         {
           label: 'Sec. B',
           wagonCount: '1',
