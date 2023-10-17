@@ -46,10 +46,9 @@
   @include sbb.text-s--regular;
 
   padding-block-start: var(--sbb-train-direction-spacing);
-  margin-block-end: var(--sbb-train-direction-spacing);
+  margin-block: auto var(--sbb-train-direction-spacing);
   display: flex;
   position: relative;
-  margin-block-start: auto;
   width: 100%;
 }
 

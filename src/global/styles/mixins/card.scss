@@ -132,8 +132,7 @@
   display: block;
   position: relative;
   padding-inline: var(--sbb-card-padding-inline);
-  padding-block-start: var(--sbb-card-padding-block-start);
-  padding-block-end: var(--sbb-card-padding-block-end);
+  padding-block: var(--sbb-card-padding-block-start) var(--sbb-card-padding-block-end);
   border-radius: var(--sbb-card-border-radius);
   background-color: var(--sbb-card-background-color);
   box-shadow: none;

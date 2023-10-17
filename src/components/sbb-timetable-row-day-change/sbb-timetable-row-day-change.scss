@@ -1,8 +1,7 @@
 @use '../../global/styles' as sbb;
 
 .day-change:not(day-change--visually-hidden) {
-  padding-block-start: var(--sbb-spacing-fixed-2x);
-  padding-block-end: var(--sbb-spacing-fixed-1x);
+  padding-block: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-1x);
 }
 
 .day-change__text {

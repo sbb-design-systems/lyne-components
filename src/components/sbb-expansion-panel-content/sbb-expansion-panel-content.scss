@@ -24,8 +24,8 @@
 
 .sbb-expansion-panel-content {
   padding-block-end: var(--sbb-spacing-responsive-s);
-  padding-inline-start: var(--sbb-expansion-panel-content-padding-inline-start);
-  padding-inline-end: var(--sbb-expansion-panel-content-padding-inline);
+  padding-inline: var(--sbb-expansion-panel-content-padding-inline-start)
+    var(--sbb-expansion-panel-content-padding-inline);
 }
 
 ::slotted(:is(p, sbb-title):first-child) {

@@ -38,10 +38,7 @@
   flex-wrap: nowrap;
   color: var(--sbb-pearl-chain-color);
   width: 100%;
-  padding-block-start: calc(
-    (var(--sbb-pearl-chain-bullet-size-start-end) - var(--sbb-pearl-chain-height)) / 2
-  );
-  padding-block-end: calc(
+  padding-block: calc(
     (var(--sbb-pearl-chain-bullet-size-start-end) - var(--sbb-pearl-chain-height)) / 2
   );
   padding-inline-end: var(--sbb-pearl-chain-bullet-size-start-end);
@@ -175,8 +172,7 @@
 .sbb-pearl-chain__leg::after {
   content: '';
   position: absolute;
-  inset-block-start: 0;
-  inset-block-end: 0;
+  inset-block: 0;
   inset-inline-start: 0;
   background-color: currentcolor;
   border-radius: var(--sbb-pearl-chain-height);
