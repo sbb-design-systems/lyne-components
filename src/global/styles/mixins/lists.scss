@@ -118,15 +118,15 @@
     counter-increment: steps;
     background-color: var(--sbb-color-milk-default);
     border-radius: var(--sbb-border-radius-4x);
-    padding-block-start: calc(
-      var(--sbb-step-list-padding-block) + var(--sbb-step-list-text-to-marker-block-offset)
-    );
-    padding-block-end: var(--sbb-step-list-padding-block);
-    padding-inline-start: calc(
-      var(--sbb-step-list-padding-inline) + var(--sbb-step-list-marker-dimensions) +
-        var(--sbb-step-list-marker-to-text-gap)
-    );
-    padding-inline-end: var(--sbb-step-list-padding-inline);
+    padding-block: calc(
+        var(--sbb-step-list-padding-block) + var(--sbb-step-list-text-to-marker-block-offset)
+      )
+      var(--sbb-step-list-padding-block);
+    padding-inline: calc(
+        var(--sbb-step-list-padding-inline) + var(--sbb-step-list-marker-dimensions) +
+          var(--sbb-step-list-marker-to-text-gap)
+      )
+      var(--sbb-step-list-padding-inline);
     min-height: calc(
       var(--sbb-step-list-marker-dimensions) + 2 * var(--sbb-step-list-padding-block)
     );

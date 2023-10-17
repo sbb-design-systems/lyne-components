@@ -71,8 +71,7 @@
 
     @include sbb.mq($from: wide) {
       max-width: var(--sbb-footer-content-max-width);
-      margin-inline-start: auto;
-      margin-inline-end: auto;
+      margin-inline: auto;
       grid-template-columns: repeat(4, 1fr);
     }
   }
@@ -98,8 +97,8 @@
   }
 
   ::slotted(sbb-divider) {
-    margin-block-start: calc(var(--sbb-spacing-responsive-xl) - var(--sbb-footer-gap-vertical));
-    margin-block-end: var(--sbb-spacing-responsive-s);
+    margin-block: calc(var(--sbb-spacing-responsive-xl) - var(--sbb-footer-gap-vertical))
+      var(--sbb-spacing-responsive-s);
 
     @include sbb.mq($from: small) {
       grid-row: 3;

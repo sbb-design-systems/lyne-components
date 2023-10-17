@@ -46,8 +46,7 @@
   color: var(--sbb-optgroup-label-color);
   -webkit-text-fill-color: var(--sbb-optgroup-label-color);
   padding-inline: var(--sbb-optgroup-label-padding-inline);
-  padding-block-start: var(--sbb-optgroup-label-padding-start);
-  padding-block-end: var(--sbb-spacing-fixed-2x);
+  padding-block: var(--sbb-optgroup-label-padding-start) var(--sbb-spacing-fixed-2x);
 
   :host([data-variant='select'][data-multiple]) & {
     @include sbb.text-xs--regular;
