@@ -110,7 +110,7 @@ describe('sbb-selection-panel', () => {
       await input.click();
 
       expect(input).toHaveAttribute('checked');
-      expect(contentOne).not.toHaveAttribute('data-expanded');
+      expect(contentOne).toHaveAttribute('data-expanded');
       expect(firstInput).not.toHaveAttribute('checked');
     });
 
@@ -430,7 +430,7 @@ describe('sbb-selection-panel', () => {
       await input.click();
 
       expect(input).toHaveAttribute('checked');
-      expect(contentOne).not.toHaveAttribute('data-expanded');
+      expect(contentOne).toHaveAttribute('data-expanded');
     });
 
     it('dispatches event on input change', async () => {
