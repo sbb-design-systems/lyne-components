@@ -93,8 +93,6 @@
 }
 
 .sbb-menu {
-  display: block;
-  visibility: hidden;
   opacity: 0;
   pointer-events: none;
   max-width: var(--sbb-menu-max-width);
@@ -113,7 +111,6 @@
   overflow: hidden;
 
   &[open] {
-    visibility: visible;
     opacity: 1;
     pointer-events: all;
     animation: {
@@ -184,13 +181,11 @@
 
 @keyframes open {
   from {
-    visibility: hidden;
     opacity: 0;
     transform: var(--sbb-menu-transform);
   }
 
   to {
-    visibility: visible;
     opacity: 1;
     transform: translateY(0%);
   }
@@ -198,13 +193,11 @@
 
 @keyframes close {
   from {
-    visibility: visible;
     opacity: 1;
     transform: translateY(0%);
   }
 
   to {
-    visibility: hidden;
     opacity: 0;
     transform: var(--sbb-menu-transform);
   }
