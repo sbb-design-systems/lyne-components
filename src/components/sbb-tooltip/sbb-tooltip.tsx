@@ -187,6 +187,16 @@ export class SbbTooltip implements ComponentInterface {
     this.willOpen.emit();
     this._state = 'opening';
     this._setTooltipPosition();
+
+    const firstFocusable = getFirstFocusableElement(
+      Array.from(this._element.children).filter(
+        (e): e is HTMLElement => e instanceof window.HTMLElement,
+      ),
+    );
+
+    // TODO: not working because not visible
+
+    setModalityOnNextFocus(firstFocusable);
     this._dialog.show();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
     this._nextFocusedElement = undefined;
@@ -397,11 +407,11 @@ export class SbbTooltip implements ComponentInterface {
   // viewport from overflowing. And set the focus to the first focusable element once the tooltip is open.
   // In rare cases it can be that the animationEnd event is triggered twice.
   // To avoid entering a corrupt state, exit when state is not expected.
-  private _onTooltipAnimationEnd(event: AnimationEvent): void {
+  private async _onTooltipAnimationEnd(event: AnimationEvent): Promise<void> {
     if (event.animationName === 'open' && this._state === 'opening') {
       this._state = 'opened';
       this.didOpen.emit();
-      this._setTooltipFocus();
+      await this._setTooltipFocus();
       this._focusTrap.trap(this._element);
       this._attachWindowEvents();
     } else if (event.animationName === 'close' && this._state === 'closing') {
@@ -421,29 +431,31 @@ export class SbbTooltip implements ComponentInterface {
   }
 
   // Set focus on the first focusable element.
-  private _setTooltipFocus(): void {
+  private async _setTooltipFocus(): Promise<void> {
+    const firstFocusable =
+      (this._element.shadowRoot.querySelector('[sbb-tooltip-close]') as HTMLElement) ||
+      getFirstFocusableElement(
+        Array.from(this._element.children).filter(
+          (e): e is HTMLElement => e instanceof window.HTMLElement,
+        ),
+      );
+
+    // Focusing sbb-tooltip__content in order to provide a consistent behavior in Safari where else
+    // the focus-visible styles would be incorrectly applied
+    this._tooltipContentElement.tabIndex = 0;
+    this._tooltipContentElement.focus();
+    this._element.addEventListener(
+      'blur',
+      () => this._tooltipContentElement.removeAttribute('tabindex'),
+      {
+        once: true,
+      },
+    );
+
     if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-      const firstFocusable =
-        (this._element.shadowRoot.querySelector('[sbb-tooltip-close]') as HTMLElement) ||
-        getFirstFocusableElement(
-          Array.from(this._element.children).filter(
-            (e): e is HTMLElement => e instanceof window.HTMLElement,
-          ),
-        );
+      await new Promise((resolve) => setTimeout(resolve, 0));
 
       firstFocusable?.focus();
-    } else {
-      // Focusing sbb-tooltip__content in order to provide a consistent behavior in Safari where else
-      // the focus-visible styles would be incorrectly applied
-      this._tooltipContentElement.tabIndex = 0;
-      this._tooltipContentElement.focus();
-      this._element.addEventListener(
-        'blur',
-        () => this._tooltipContentElement.removeAttribute('tabindex'),
-        {
-          once: true,
-        },
-      );
     }
   }
 

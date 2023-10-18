@@ -266,23 +266,25 @@ export class SbbNavigationSection implements ComponentInterface {
   }
 
   // Set focus on the first focusable element.
-  private _setNavigationSectionFocus(): void {
+  private async _setNavigationSectionFocus(): Promise<void> {
+    // Focusing sbb-navigation__wrapper in order to provide a consistent behavior in Safari where else
+    // the focus-visible styles would be incorrectly applied
+    this._navigationSectionContainerElement.tabIndex = 0;
+    this._navigationSectionContainerElement.focus();
+
+    this._navigationSectionContainerElement.addEventListener(
+      'blur',
+      () => this._navigationSectionContainerElement.removeAttribute('tabindex'),
+      { once: true },
+    );
+
     if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
       getFirstFocusableElement(
         Array.from(this._element.children).filter(
           (e): e is HTMLElement => e instanceof window.HTMLElement,
         ),
-      )?.focus();
-    } else {
-      // Focusing sbb-navigation__wrapper in order to provide a consistent behavior in Safari where else
-      // the focus-visible styles would be incorrectly applied
-      this._navigationSectionContainerElement.tabIndex = 0;
-      this._navigationSectionContainerElement.focus();
-
-      this._navigationSectionContainerElement.addEventListener(
-        'blur',
-        () => this._navigationSectionContainerElement.removeAttribute('tabindex'),
-        { once: true },
       );
     }
   }

@@ -196,6 +196,12 @@ export class SbbDialog implements ComponentInterface {
     this._lastFocusedElement = document.activeElement as HTMLElement;
     this.willOpen.emit();
     this._state = 'opening';
+
+    const firstFocusable = this._element.shadowRoot.querySelector(
+      IS_FOCUSABLE_QUERY,
+    ) as HTMLElement;
+    setModalityOnNextFocus(firstFocusable);
+
     this._dialog.show();
     // Add this dialog to the global collection
     dialogRefs.push(this._element as HTMLSbbDialogElement);
@@ -310,11 +316,11 @@ export class SbbDialog implements ComponentInterface {
   // Wait for dialog transition to complete.
   // In rare cases it can be that the animationEnd event is triggered twice.
   // To avoid entering a corrupt state, exit when state is not expected.
-  private _onDialogAnimationEnd(event: AnimationEvent): void {
+  private async _onDialogAnimationEnd(event: AnimationEvent): Promise<void> {
     if (event.animationName === 'open' && this._state === 'opening') {
       this._state = 'opened';
       this.didOpen.emit();
-      this._setDialogFocus();
+      await this._setDialogFocus();
       this._focusTrap.trap(this._element);
       this._dialogContentResizeObserver.observe(this._dialogContentElement);
       this._attachWindowEvents();
@@ -336,24 +342,25 @@ export class SbbDialog implements ComponentInterface {
   }
 
   // Set focus on the first focusable element.
-  private _setDialogFocus(): void {
+  private async _setDialogFocus(): Promise<void> {
     const firstFocusable = this._element.shadowRoot.querySelector(
       IS_FOCUSABLE_QUERY,
     ) as HTMLElement;
 
-    if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-      firstFocusable.focus();
-    } else {
-      // Focusing sbb-dialog__wrapper in order to provide a consistent behavior in Safari where else
-      // the focus-visible styles would be incorrectly applied
-      this._dialogWrapperElement.tabIndex = 0;
-      this._dialogWrapperElement.focus();
+    // Focusing sbb-dialog__wrapper in order to provide a consistent behavior in Safari where else
+    // the focus-visible styles would be incorrectly applied
+    this._dialogWrapperElement.tabIndex = 0;
+    this._dialogWrapperElement.focus();
 
-      this._dialogWrapperElement.addEventListener(
-        'blur',
-        () => this._dialogWrapperElement.removeAttribute('tabindex'),
-        { once: true },
-      );
+    this._dialogWrapperElement.addEventListener(
+      'blur',
+      () => this._dialogWrapperElement.removeAttribute('tabindex'),
+      { once: true },
+    );
+
+    if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
+      await new Promise((resolve) => setTimeout(resolve, 0));
+      firstFocusable.focus();
     }
   }
 

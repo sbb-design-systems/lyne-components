@@ -280,24 +280,25 @@ export class SbbNavigation implements ComponentInterface {
   }
 
   // Set focus on the first focusable element.
-  private _setNavigationFocus(): void {
+  private async _setNavigationFocus(): Promise<void> {
     const firstFocusable = this._element.shadowRoot.querySelector(
       IS_FOCUSABLE_QUERY,
     ) as HTMLElement;
 
-    if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-      firstFocusable.focus();
-    } else {
-      // Focusing sbb-navigation__wrapper in order to provide a consistent behavior in Safari where else
-      // the focus-visible styles would be incorrectly applied
-      this._navigationContainerElement.tabIndex = 0;
-      this._navigationContainerElement.focus();
+    // Focusing sbb-navigation__wrapper in order to provide a consistent behavior in Safari where else
+    // the focus-visible styles would be incorrectly applied
+    this._navigationContainerElement.tabIndex = 0;
+    this._navigationContainerElement.focus();
 
-      this._navigationContainerElement.addEventListener(
-        'blur',
-        () => this._navigationContainerElement.removeAttribute('tabindex'),
-        { once: true },
-      );
+    this._navigationContainerElement.addEventListener(
+      'blur',
+      () => this._navigationContainerElement.removeAttribute('tabindex'),
+      { once: true },
+    );
+
+    if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
+      await new Promise((resolve) => setTimeout(resolve, 0));
+      firstFocusable.focus();
     }
   }
 
