@@ -1,133 +1,101 @@
-import {
-  Component,
-  ComponentInterface,
-  h,
-  Element,
-  Event,
-  Host,
-  JSX,
-  Listen,
-  Prop,
-  State,
-  EventEmitter,
-} from '@stencil/core';
 import { CheckboxStateChange } from '../sbb-checkbox/sbb-checkbox.custom';
 import { RadioButtonStateChange } from '../sbb-radio-button/sbb-radio-button.custom';
 import {
   createNamedSlotState,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
+  EventEmitter,
+  ConnectedAbortController,
 } from '../../global/eventing';
 import { InterfaceSbbSelectionPanelAttributes } from './sbb-selection-panel.custom';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { SbbCheckbox } from '../sbb-checkbox';
+import { SbbRadioButton } from '../sbb-radio-button';
+import { setAttribute } from '../../global/dom';
+import { ref } from 'lit/directives/ref.js';
+import Style from './sbb-selection-panel.scss?lit&inline';
+
+export const events = {
+  willOpen: 'will-open',
+  didOpen: 'did-open',
+  willClose: 'will-close',
+  didClose: 'did-close',
+};
 
 /**
  * @slot unnamed - Use this slot to provide a `sbb-checkbox` or a `sbb-radio-button`.
  * @slot badge - Use this slot to provide a `sbb-card-badge` (optional).
  * @slot content - Use this slot to provide custom content for the panel (optional).
  */
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-selection-panel.scss',
-  tag: 'sbb-selection-panel',
-})
-export class SbbSelectionPanel implements ComponentInterface {
-  /**
-   * The background color of the panel.
-   */
-  @Prop() public color: InterfaceSbbSelectionPanelAttributes['color'] = 'white';
+@customElement('sbb-selection-panel')
+export class SbbSelectionPanel extends LitElement {
+  public static override styles: CSSResult = Style;
 
-  /**
-   * Whether the content section is always visible.
-   */
-  @Prop({ reflect: true }) public forceOpen = false;
+  /** The background color of the panel. */
+  @property() public color: InterfaceSbbSelectionPanelAttributes['color'] = 'white';
 
-  /**
-   * Whether the unselected panel has a border.
-   */
-  @Prop({ reflect: true }) public borderless = false;
+  /** Whether the content section is always visible. */
+  @property({ attribute: 'force-open', reflect: true, type: Boolean }) public forceOpen = false;
 
-  /**
-   * Whether the animation is enabled.
-   */
-  @Prop({ reflect: true }) public disableAnimation = false;
+  /** Whether the unselected panel has a border. */
+  @property({ reflect: true, type: Boolean }) public borderless = false;
 
-  /**
-   * The state of the selection panel.
-   */
-  @State() private _state: 'closed' | 'opening' | 'opened' | 'closing';
+  /** Whether the animation is enabled. */
+  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
+  public disableAnimation = false;
 
-  /**
-   * Whether the selection panel is checked.
-   */
-  @State() private _checked = false;
+  /** The state of the selection panel. */
+  @state() private _state: 'closed' | 'opening' | 'opened' | 'closing';
 
-  /**
-   * Whether the selection panel is disabled.
-   */
-  @State() private _disabled = false;
+  /** Whether the selection panel is checked. */
+  @state() private _checked = false;
 
-  /**
-   * State of listed named slots, by indicating whether any element for a named slot is defined.
-   */
-  @State() private _namedSlots = createNamedSlotState('content');
+  /** Whether the selection panel is disabled. */
+  @state() private _disabled = false;
 
-  @Element() private _element!: HTMLElement;
+  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
+  @state() private _namedSlots = createNamedSlotState('content');
 
-  /**
-   * Emits whenever the content section starts the opening transition.
-   */
-  @Event({
+  /** Emits whenever the content section starts the opening transition. */
+  private _willOpen: EventEmitter<void> = new EventEmitter(this, events.willOpen, {
     bubbles: true,
     composed: true,
-    eventName: 'will-open',
-  })
-  public willOpen: EventEmitter<void>;
+  });
 
-  /**
-   * Emits whenever the content section is opened.
-   */
-  @Event({
+  /** Emits whenever the content section is opened. */
+  private _didOpen: EventEmitter<void> = new EventEmitter(this, events.didOpen, {
     bubbles: true,
     composed: true,
-    eventName: 'did-open',
-  })
-  public didOpen: EventEmitter<void>;
+  });
 
-  /**
-   * Emits whenever the content section begins the closing transition.
-   */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'will-close',
-  })
-  public willClose: EventEmitter<{ closeTarget: HTMLElement }>;
+  /** Emits whenever the content section begins the closing transition. */
+  private _willClose: EventEmitter<{ closeTarget: HTMLElement }> = new EventEmitter(
+    this,
+    events.willClose,
+    { bubbles: true, composed: true },
+  );
 
-  /**
-   * Emits whenever the content section is closed.
-   */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'did-close',
-  })
-  public didClose: EventEmitter<{ closeTarget: HTMLElement }>;
+  /** Emits whenever the content section is closed. */
+  private _didClose: EventEmitter<{ closeTarget: HTMLElement }> = new EventEmitter(
+    this,
+    events.didClose,
+    { bubbles: true, composed: true },
+  );
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
   private _contentElement: HTMLElement;
+  private _abort = new ConnectedAbortController(this);
 
-  private get _input(): HTMLSbbCheckboxElement | HTMLSbbRadioButtonElement {
-    return this._element.querySelector('sbb-checkbox, sbb-radio-button') as
-      | HTMLSbbCheckboxElement
-      | HTMLSbbRadioButtonElement;
+  private get _input(): SbbCheckbox | SbbRadioButton {
+    return this.querySelector('sbb-checkbox, sbb-radio-button') as SbbCheckbox | SbbRadioButton;
   }
 
-  @Listen('state-change', { passive: true })
-  public onInputChange(event: CustomEvent<RadioButtonStateChange | CheckboxStateChange>): void {
+  private _onInputChange(event: CustomEvent<RadioButtonStateChange | CheckboxStateChange>): void {
     if (!this._state) {
       return;
     }
@@ -147,21 +115,29 @@ export class SbbSelectionPanel implements ComponentInterface {
 
     if (this._checked) {
       this._state = 'opening';
-      this.willOpen.emit();
+      this._willOpen.emit();
       this.disableAnimation && this._handleOpening();
     } else {
       this._state = 'closing';
-      this.willClose.emit();
+      this._willClose.emit();
       this.disableAnimation && this._handleClosing();
     }
   }
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    const signal = this._abort.signal;
+    this.addEventListener(
+      'state-change',
+      (e: CustomEvent<RadioButtonStateChange | CheckboxStateChange>) => this._onInputChange(e),
+      { signal, passive: true },
+    );
     this._updateSelectionPanel();
     this._handlerRepository.connect();
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
   }
 
@@ -185,49 +161,56 @@ export class SbbSelectionPanel implements ComponentInterface {
 
   private _handleOpening(): void {
     this._state = 'opened';
-    this.didOpen.emit();
+    this._didOpen.emit();
   }
 
   private _handleClosing(): void {
     this._state = 'closed';
-    this.didClose.emit();
+    this._didClose.emit();
   }
 
-  public render(): JSX.Element {
-    return (
-      <Host
-        data-has-content={this._namedSlots['content']}
-        data-state={this._state}
-        data-checked={this._checked}
-        data-disabled={this._disabled}
-      >
-        <div class="sbb-selection-panel">
-          <div class="sbb-selection-panel__badge">
-            <slot name="badge" />
-          </div>
+  protected override render(): TemplateResult {
+    setAttribute(this, 'data-has-content', this._namedSlots['content']);
+    setAttribute(this, 'data-state', this._state);
+    setAttribute(this, 'data-checked', this._checked);
+    setAttribute(this, 'data-disabled', this._disabled);
 
-          <div class="sbb-selection-panel__input">
-            <slot />
-          </div>
+    return html`
+      <div class="sbb-selection-panel">
+        <div class="sbb-selection-panel__badge">
+          <slot name="badge"></slot>
+        </div>
 
-          {this._namedSlots['content'] && (
-            <div
+        <div class="sbb-selection-panel__input">
+          <slot></slot>
+        </div>
+
+        ${this._namedSlots['content']
+          ? html` <div
               class="sbb-selection-panel__content--wrapper"
-              data-expanded={this._checked || this.forceOpen}
-              ref={(el) => {
+              data-expanded=${this._checked || this.forceOpen}
+              ${ref((el: HTMLElement) => {
                 this._contentElement = el;
-                this._contentElement.inert = !this._checked && !this.forceOpen;
-              }}
-              onTransitionEnd={(event: TransitionEvent) => this._onTransitionEnd(event)}
+                if (this._contentElement) {
+                  this._contentElement.inert = !this._checked && !this.forceOpen;
+                }
+              })}
+              @transitionend=${(event: TransitionEvent) => this._onTransitionEnd(event)}
             >
               <div class="sbb-selection-panel__content">
-                <sbb-divider />
-                <slot name="content" />
+                <sbb-divider></sbb-divider>
+                <slot name="content"></slot>
               </div>
-            </div>
-          )}
-        </div>
-      </Host>
-    );
+            </div>`
+          : nothing}
+      </div>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-selection-panel': SbbSelectionPanel;
   }
 }
