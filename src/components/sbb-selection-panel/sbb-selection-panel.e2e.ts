@@ -16,7 +16,7 @@ describe('sbb-selection-panel', () => {
         }>Value one</sbb-${inputType}>
         <div id="panel-content-1" slot="content">
           Inner Content
-          <sbb-link>Linko</sbb-link>
+          <sbb-link>Link</sbb-link>
         </div>
       </sbb-selection-panel>
 
