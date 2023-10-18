@@ -110,8 +110,6 @@
 }
 
 .sbb-navigation-section {
-  visibility: hidden;
-  opacity: 0;
   border: none;
   margin: 0;
   width: 100%;
@@ -122,8 +120,6 @@
   overflow: hidden;
 
   &[open] {
-    visibility: visible;
-    opacity: 1;
     animation: {
       name: open;
       duration: var(--sbb-navigation-section-animation-duration);
