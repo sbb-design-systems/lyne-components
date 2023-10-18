@@ -19,7 +19,7 @@ const TemplateSbbSlider = (args): JSX.Element => <sbb-slider {...args}></sbb-sli
 const TemplateSbbSliderChangeEvent = (args): JSX.Element => (
   <Fragment>
     <sbb-slider {...args} onChange={(event) => changeEventHandler(event)}></sbb-slider>
-    <div style="margin-block-start: 2rem;">Change slider position:</div>
+    <div style={{ 'margin-block-start': '2rem' }}>Change slider position:</div>
     <div id="container-value"></div>
   </Fragment>
 );
