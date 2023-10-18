@@ -255,13 +255,11 @@
 // especially for accessibility.
 @keyframes open {
   from {
-    visibility: hidden;
     opacity: 0;
     transform: translateY(var(--sbb-spacing-fixed-4x));
   }
 
   to {
-    visibility: visible;
     opacity: 1;
     transform: translateY(0%);
   }
@@ -269,13 +267,11 @@
 
 @keyframes close {
   from {
-    visibility: visible;
     opacity: 1;
     transform: translateY(0%);
   }
 
   to {
-    visibility: hidden;
     opacity: 0;
     transform: translateY(var(--sbb-spacing-fixed-4x));
   }
