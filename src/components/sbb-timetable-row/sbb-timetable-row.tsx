@@ -332,11 +332,13 @@ export class SbbTimetableRow extends LitElement {
           : nothing}
         ${this.price && !this.loadingPrice
           ? html`<sbb-card-badge color=${this.price.isDiscount ? 'charcoal' : 'white'}>
-              ${this.price.isDiscount ? (
-                html`<span aria-hidden="true">
-                  %<span class="sbb-screenreaderonly">${i18nSupersaver[this._currentLanguage]}</span>
-                </span>`
-              ) : nothing}
+              ${this.price.isDiscount
+                ? html`<span aria-hidden="true">
+                    %<span class="sbb-screenreaderonly"
+                      >${i18nSupersaver[this._currentLanguage]}</span
+                    >
+                  </span>`
+                : nothing}
               ${this.price.text ? html`<span>${this.price.text}</span>` : nothing}
               ${this.price.price ? html`<span>${this.price.price}</span>` : nothing}
             </sbb-card-badge>`
