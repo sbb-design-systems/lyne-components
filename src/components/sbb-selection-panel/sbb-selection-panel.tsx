@@ -128,6 +128,10 @@ export class SbbSelectionPanel implements ComponentInterface {
 
   @Listen('state-change', { passive: true })
   public onInputChange(event: CustomEvent<RadioButtonStateChange | CheckboxStateChange>): void {
+    if (!this._state) {
+      return;
+    }
+
     if (event.detail.type === 'disabled') {
       this._disabled = event.detail.disabled;
       return;
@@ -163,7 +167,7 @@ export class SbbSelectionPanel implements ComponentInterface {
 
   private _updateSelectionPanel(): void {
     this._checked = this._input?.checked;
-    this._state = this._checked ? 'opened' : 'closed';
+    this._state = this._checked || this.forceOpen ? 'opened' : 'closed';
     this._disabled = this._input?.disabled;
   }
 
@@ -209,7 +213,7 @@ export class SbbSelectionPanel implements ComponentInterface {
           {this._namedSlots['content'] && (
             <div
               class="sbb-selection-panel__content--wrapper"
-              data-expanded={this._checked && !this.forceOpen}
+              data-expanded={this._checked || this.forceOpen}
               ref={(el) => {
                 this._contentElement = el;
                 this._contentElement.inert = !this._checked && !this.forceOpen;
