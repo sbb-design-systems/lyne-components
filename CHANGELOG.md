@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.41.9](https://github.com/lyne-design-system/lyne-components/compare/v0.41.8...v0.41.9) (2023-10-18)
+
+### Bug Fixes
+
+- **sbb-selection-panel:** handle data-state correctly ([#2088](https://github.com/lyne-design-system/lyne-components/issues/2088)) ([1c7a67c](https://github.com/lyne-design-system/lyne-components/commit/1c7a67c74e2f1a6e122f8d096261b79b78f2ea60))
+
 ### [0.41.8](https://github.com/lyne-design-system/lyne-components/compare/v0.41.7...v0.41.8) (2023-10-17)
 
 ### Bug Fixes
