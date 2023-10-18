@@ -76,7 +76,6 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           cache: 'yarn'
-      - uses: ./.github/actions/swap-memory
       - run: yarn install --frozen-lockfile --non-interactive
 
       - name: Run build

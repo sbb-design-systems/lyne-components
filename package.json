@@ -29,7 +29,7 @@
   ],
   "scripts": {
     "postinstall": "yarn playwright install --with-deps",
-    "build:components": "NODE_OPTIONS=--max_old_space_size=12000 vite build",
+    "build:components": "NODE_OPTIONS=--max_old_space_size=10000 vite build",
     "build:storybook": "storybook build --quiet",
     "build:chromatic-stories": "tsx ci/chromatic-stories-generator.ts",
     "build": "npm-run-all --sequential build:components build:storybook",
