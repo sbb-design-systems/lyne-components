@@ -89,7 +89,6 @@ export class SbbNavigationSection implements ComponentInterface {
 
   @State() private _renderBackButton = this._isZeroToLargeBreakpoint();
 
-  private _firstLevelNavigation: HTMLSbbNavigationElement;
   private _navigationSection: HTMLDialogElement;
   private _navigationSectionContainerElement: HTMLElement;
   private _triggerElement: HTMLElement;
@@ -115,6 +114,7 @@ export class SbbNavigationSection implements ComponentInterface {
     }
 
     this._state = 'opening';
+    this._element.inert = true;
     this._renderBackButton = this._isZeroToLargeBreakpoint();
     this._navigationSection.show();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
@@ -131,6 +131,7 @@ export class SbbNavigationSection implements ComponentInterface {
 
     await this._resetMarker();
     this._state = 'closing';
+    this._element.inert = true;
     this._triggerElement?.setAttribute('aria-expanded', 'false');
   }
 
@@ -178,22 +179,13 @@ export class SbbNavigationSection implements ComponentInterface {
     );
   }
 
-  private _setNavigationInert(): void {
-    if (!this._firstLevelNavigation) {
-      return;
-    }
-    (
-      this._firstLevelNavigation.shadowRoot.querySelector('.sbb-navigation__content') as HTMLElement
-    ).inert = this._isZeroToLargeBreakpoint() && this._state !== 'closed';
-  }
-
   // In rare cases it can be that the animationEnd event is triggered twice.
   // To avoid entering a corrupt state, exit when state is not expected.
   private _onAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open' && this._state === 'opening') {
       this._state = 'opened';
+      this._element.inert = false;
       this._attachWindowEvents();
-      this._setNavigationInert();
       this._setNavigationSectionFocus();
     } else if (event.animationName === 'close' && this._state === 'closing') {
       this._state = 'closed';
@@ -202,7 +194,6 @@ export class SbbNavigationSection implements ComponentInterface {
       this._triggerElement?.focus();
       this._navigationSection.close();
       this._windowEventsController?.abort();
-      this._setNavigationInert();
       this._isZeroToLargeBreakpoint() && this._triggerElement?.focus();
     }
   }
@@ -335,7 +326,6 @@ export class SbbNavigationSection implements ComponentInterface {
     this._handlerRepository.connect();
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
-    this._firstLevelNavigation = this._triggerElement?.closest('sbb-navigation');
 
     // TODO: Remove if possible, related to https://bugs.chromium.org/p/chromium/issues/detail?id=1493323
     // For Safari we need to keep the solution which doesn't work in Chrome as it seems mutual exclusive.
@@ -383,7 +373,6 @@ export class SbbNavigationSection implements ComponentInterface {
         data-state={this._state}
         aria-hidden={this._state !== 'opened' ? 'true' : null}
         ref={assignId(() => this._navigationSectionId)}
-        inert={this._state !== 'opened'}
       >
         <div
           class="sbb-navigation-section__container"

@@ -49,7 +49,7 @@ import { SbbToastAriaPoliteness, SbbToastPosition } from "./components/sbb-toast
 import { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 import { ToggleOptionStateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
-import { SbbOverlayState } from "./components";
+import { SbbOverlayState } from "./global/overlay";
 import { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom";
 import { InterfaceSbbTrainWagonAttributes } from "./components/sbb-train-wagon/sbb-train-wagon.custom";
 export { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
@@ -96,7 +96,7 @@ export { SbbToastAriaPoliteness, SbbToastPosition } from "./components/sbb-toast
 export { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 export { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 export { ToggleOptionStateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
-export { SbbOverlayState } from "./components";
+export { SbbOverlayState } from "./global/overlay";
 export { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom";
 export { InterfaceSbbTrainWagonAttributes } from "./components/sbb-train-wagon/sbb-train-wagon.custom";
 export namespace Components {
