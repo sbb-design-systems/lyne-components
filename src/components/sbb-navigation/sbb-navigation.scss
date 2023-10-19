@@ -143,6 +143,12 @@
   color: var(--sbb-color-white-default);
   background-color: var(--sbb-color-midnight-default);
 
+  :host([data-is-safari]) & {
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+  }
+
   &::before {
     @include transition(width);
 
@@ -160,6 +166,11 @@
       name: open;
       duration: var(--sbb-navigation-animation-duration);
       timing-function: var(--sbb-navigation-animation-easing);
+    }
+
+    :host([data-is-safari]) & {
+      opacity: 1;
+      visibility: visible;
     }
   }
 

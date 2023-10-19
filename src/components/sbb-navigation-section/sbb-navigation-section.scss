@@ -119,11 +119,21 @@
   padding: 0;
   overflow: hidden;
 
+  :host([data-is-safari]) & {
+    opacity: 0;
+    visibility: hidden;
+  }
+
   &[open] {
     animation: {
       name: open;
       duration: var(--sbb-navigation-section-animation-duration);
       timing-function: var(--sbb-navigation-section-animation-easing);
+    }
+
+    :host([data-is-safari]) & {
+      opacity: 1;
+      visibility: visible;
     }
   }
 
