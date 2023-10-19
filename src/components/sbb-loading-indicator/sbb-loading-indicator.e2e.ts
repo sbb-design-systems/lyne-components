@@ -1,13 +1,12 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { assert, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { SbbLoadingIndicator } from './sbb-loading-indicator';
 
 describe('sbb-loading-indicator', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbLoadingIndicator;
 
   it('renders', async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-loading-indicator></sbb-loading-indicator>');
-
-    element = await page.find('sbb-loading-indicator');
-    expect(element).toHaveClass('hydrated');
+    element = await fixture(html`<sbb-loading-indicator></sbb-loading-indicator>`);
+    assert.instanceOf(element, SbbLoadingIndicator);
   });
 });
