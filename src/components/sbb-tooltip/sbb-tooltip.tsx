@@ -407,13 +407,19 @@ export class SbbTooltip implements ComponentInterface {
   // In rare cases it can be that the animationEnd event is triggered twice.
   // To avoid entering a corrupt state, exit when state is not expected.
   private _onTooltipAnimationEnd(event: AnimationEvent): void {
-    if (event.animationName === 'open' && this._state === 'opening') {
+    if (
+      (event.animationName === 'open' || event.animationName === 'open-safari') &&
+      this._state === 'opening'
+    ) {
       this._state = 'opened';
       this.didOpen.emit();
       this._setTooltipFocus();
       this._focusTrap.trap(this._element);
       this._attachWindowEvents();
-    } else if (event.animationName === 'close' && this._state === 'closing') {
+    } else if (
+      (event.animationName === 'close' || event.animationName === 'close-safari') &&
+      this._state === 'closing'
+    ) {
       this._state = 'closed';
       this._dialog.firstElementChild.scrollTo(0, 0);
 
@@ -431,6 +437,7 @@ export class SbbTooltip implements ComponentInterface {
 
   // Set focus on the first focusable element.
   private _setTooltipFocus(): void {
+    console.log('focus!');
     if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
       const firstFocusable =
         (this._element.shadowRoot.querySelector('[sbb-tooltip-close]') as HTMLElement) ||
@@ -439,7 +446,7 @@ export class SbbTooltip implements ComponentInterface {
             (e): e is HTMLElement => e instanceof window.HTMLElement,
           ),
         );
-
+      console.log(firstFocusable);
       firstFocusable?.focus();
     } else {
       // Focusing sbb-tooltip__content in order to provide a consistent behavior in Safari where else
