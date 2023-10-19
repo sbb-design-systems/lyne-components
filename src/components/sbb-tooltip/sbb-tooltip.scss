@@ -85,6 +85,10 @@
       duration: var(--sbb-tooltip-animation-duration);
       timing-function: var(--sbb-tooltip-animation-easing);
     }
+
+    :host([data-is-safari]) & {
+      animation-name: open-safari;
+    }
   }
 
   // Tooltip arrow
@@ -109,6 +113,10 @@
       duration: var(--sbb-tooltip-animation-duration);
       timing-function: var(--sbb-tooltip-animation-easing);
     }
+  }
+
+  :host([data-state='closing'][data-is-safari]) & {
+    animation-name: close-safari;
   }
 
   @include sbb.if-forced-colors {
@@ -151,6 +159,34 @@
   }
 
   to {
+    opacity: 0;
+    transform: var(--sbb-tooltip-transform);
+  }
+}
+
+@keyframes open-safari {
+  from {
+    visibility: hidden;
+    opacity: 0;
+    transform: var(--sbb-tooltip-transform);
+  }
+
+  to {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes close-safari {
+  from {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    visibility: hidden;
     opacity: 0;
     transform: var(--sbb-tooltip-transform);
   }

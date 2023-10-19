@@ -21,7 +21,12 @@ import {
   setModalityOnNextFocus,
   getFirstFocusableElement,
 } from '../../global/a11y';
-import { findReferencedElement, isValidAttribute } from '../../global/dom';
+import {
+  findReferencedElement,
+  isSafari,
+  isValidAttribute,
+  toggleDatasetEntry,
+} from '../../global/dom';
 import {
   documentLanguage,
   HandlerRepository,
@@ -187,16 +192,6 @@ export class SbbTooltip implements ComponentInterface {
     this.willOpen.emit();
     this._state = 'opening';
     this._setTooltipPosition();
-
-    const firstFocusable = getFirstFocusableElement(
-      Array.from(this._element.children).filter(
-        (e): e is HTMLElement => e instanceof window.HTMLElement,
-      ),
-    );
-
-    // TODO: not working because not visible
-
-    setModalityOnNextFocus(firstFocusable);
     this._dialog.show();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
     this._nextFocusedElement = undefined;
@@ -248,6 +243,10 @@ export class SbbTooltip implements ComponentInterface {
     this._configure(this.trigger);
     this._state = 'closed';
     tooltipsRef.add(this._element as HTMLSbbTooltipElement);
+
+    // TODO: Remove if possible, related to https://bugs.chromium.org/p/chromium/issues/detail?id=1493323
+    // For Safari we need to keep the solution which doesn't work in Chrome as it seems mutual exclusive.
+    toggleDatasetEntry(this._element, 'isSafari', isSafari());
   }
 
   public componentDidLoad(): void {
@@ -407,11 +406,11 @@ export class SbbTooltip implements ComponentInterface {
   // viewport from overflowing. And set the focus to the first focusable element once the tooltip is open.
   // In rare cases it can be that the animationEnd event is triggered twice.
   // To avoid entering a corrupt state, exit when state is not expected.
-  private async _onTooltipAnimationEnd(event: AnimationEvent): Promise<void> {
+  private _onTooltipAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open' && this._state === 'opening') {
       this._state = 'opened';
       this.didOpen.emit();
-      await this._setTooltipFocus();
+      this._setTooltipFocus();
       this._focusTrap.trap(this._element);
       this._attachWindowEvents();
     } else if (event.animationName === 'close' && this._state === 'closing') {
@@ -431,31 +430,29 @@ export class SbbTooltip implements ComponentInterface {
   }
 
   // Set focus on the first focusable element.
-  private async _setTooltipFocus(): Promise<void> {
-    const firstFocusable =
-      (this._element.shadowRoot.querySelector('[sbb-tooltip-close]') as HTMLElement) ||
-      getFirstFocusableElement(
-        Array.from(this._element.children).filter(
-          (e): e is HTMLElement => e instanceof window.HTMLElement,
-        ),
-      );
-
-    // Focusing sbb-tooltip__content in order to provide a consistent behavior in Safari where else
-    // the focus-visible styles would be incorrectly applied
-    this._tooltipContentElement.tabIndex = 0;
-    this._tooltipContentElement.focus();
-    this._element.addEventListener(
-      'blur',
-      () => this._tooltipContentElement.removeAttribute('tabindex'),
-      {
-        once: true,
-      },
-    );
-
+  private _setTooltipFocus(): void {
     if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-      await new Promise((resolve) => setTimeout(resolve, 0));
+      const firstFocusable =
+        (this._element.shadowRoot.querySelector('[sbb-tooltip-close]') as HTMLElement) ||
+        getFirstFocusableElement(
+          Array.from(this._element.children).filter(
+            (e): e is HTMLElement => e instanceof window.HTMLElement,
+          ),
+        );
 
       firstFocusable?.focus();
+    } else {
+      // Focusing sbb-tooltip__content in order to provide a consistent behavior in Safari where else
+      // the focus-visible styles would be incorrectly applied
+      this._tooltipContentElement.tabIndex = 0;
+      this._tooltipContentElement.focus();
+      this._element.addEventListener(
+        'blur',
+        () => this._tooltipContentElement.removeAttribute('tabindex'),
+        {
+          once: true,
+        },
+      );
     }
   }
 
