@@ -8,9 +8,7 @@ describe('sbb-train', () => {
   let element: SbbTrain;
 
   it('should render', async () => {
-    await fixture(html`<sbb-train></sbb-train>`);
-
-    element = document.querySelector('sbb-train');
+    element = await fixture(html`<sbb-train></sbb-train>`);
     assert.instanceOf(element, SbbTrain);
   });
 
@@ -24,7 +22,7 @@ describe('sbb-train', () => {
     `);
     const trainSlotChangeSpy = new EventSpy('train-slot-change');
 
-    document.querySelector('sbb-train-wagon').remove();
+    element.querySelector('sbb-train-wagon').remove();
 
     await waitForCondition(() => trainSlotChangeSpy.events.length === 4);
     expect(trainSlotChangeSpy.count).to.be.greaterThan(0);

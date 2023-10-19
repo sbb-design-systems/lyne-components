@@ -6,7 +6,7 @@ import '../sbb-icon';
 describe('sbb-train', () => {
   it('should render', async () => {
     const root = await fixture(
-      html`<sbb-train direction-label="Driving direction" station="Bern" />`,
+      html`<sbb-train direction-label="Driving direction" station="Bern"></sbb-train>`,
     );
 
     expect(root).dom.to.be.equal(
@@ -36,13 +36,13 @@ describe('sbb-train', () => {
   });
 
   it('should hide direction label element if not present', async () => {
-    const root = await fixture(html`<sbb-train />`);
+    const root = await fixture(html`<sbb-train></sbb-train>`);
 
     expect(root.shadowRoot.querySelector('.sbb-train__direction')).to.be.null;
   });
 
   it('should hide station element if not present', async () => {
-    const root = await fixture(html`<sbb-train direction-label="Driving direction" />`);
+    const root = await fixture(html`<sbb-train direction-label="Driving direction"></sbb-train>`);
 
     expect(root.shadowRoot.querySelector('.sbb-train__direction-station')).to.be.null;
   });
@@ -69,7 +69,7 @@ describe('sbb-train', () => {
 
   describe('accessibility label', () => {
     it('should create aria label with no direction-label and no accessibility-label', async () => {
-      const root = await fixture(html`<sbb-train />`);
+      const root = await fixture(html`<sbb-train></sbb-train>`);
 
       expect(
         root.shadowRoot.querySelector('.sbb-train__direction-label-sr').textContent.trim(),

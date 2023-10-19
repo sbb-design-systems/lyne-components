@@ -24,13 +24,13 @@ import { setAttribute } from '../../global/dom';
 import Style from './sbb-train-wagon.scss?lit&inline';
 import '../sbb-icon';
 
-/**
- * @slot unnamed - Used to slot one to x icons for meta information of the sbb-train-wagon.
- */
-
 export const events = {
   sectorChange: 'sector-change',
 };
+
+/**
+ * @slot unnamed - Used to slot one to x icons for meta information of the sbb-train-wagon.
+ */
 
 @customElement('sbb-train-wagon')
 export class SbbTrainWagon extends LitElement {
@@ -186,7 +186,7 @@ export class SbbTrainWagon extends LitElement {
           ? html`<span class="sbb-train-wagon__compartment">
               <span class="sbb-screenreaderonly">
                 ${i18nClosedCompartmentLabel(parseInt(this.label))[this._currentLanguage]}
-                ${this.sector && `, ${sectorString}`}
+                ${this.sector ? `, ${sectorString}` : nothing}
               </span>
               ${label('span')}
             </span>`
@@ -194,7 +194,8 @@ export class SbbTrainWagon extends LitElement {
         ${this.type === 'locomotive'
           ? html`<span class="sbb-train-wagon__compartment">
               <span class="sbb-screenreaderonly">
-                ${i18nLocomotiveLabel[this._currentLanguage]} ${this.sector && `, ${sectorString}`}
+                ${i18nLocomotiveLabel[this._currentLanguage]}
+                ${this.sector ? `, ${sectorString}` : nothing}
               </span>
               ${label('span')}
               <svg

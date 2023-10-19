@@ -4,7 +4,7 @@ import './sbb-train-blocked-passage';
 
 describe('sbb-train-blocked-passage', () => {
   it('renders', async () => {
-    const root = await fixture(html`<sbb-train-blocked-passage />`);
+    const root = await fixture(html`<sbb-train-blocked-passage></sbb-train-blocked-passage>`);
 
     expect(root).dom.to.be.equal(
       `

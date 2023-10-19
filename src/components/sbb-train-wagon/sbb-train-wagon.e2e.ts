@@ -32,16 +32,16 @@ describe('sbb-train-wagon', () => {
       Array.from(element.querySelectorAll('sbb-icon')).every((icon) =>
         icon.getAttribute('slot').startsWith('sbb-train-wagon-icon-'),
       ),
-    ).to.be.equal(true);
+    ).to.be.true;
 
     // Remove one icon
-    document.querySelector('sbb-icon').remove();
+    element.querySelector('sbb-icon').remove();
     await waitForLitRender(element);
 
     expect(
       Array.from(element.querySelectorAll('sbb-icon')).every(
         (icon) => icon.getAttribute('slot') === null,
       ),
-    ).to.be.equal(true);
+    ).to.be.true;
   });
 });

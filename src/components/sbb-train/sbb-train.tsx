@@ -15,13 +15,13 @@ import { SbbTrainWagon } from '../sbb-train-wagon';
 import Style from './sbb-train.scss?lit&inline';
 import '../sbb-icon';
 
-/**
- * @slot unnamed - Used for slotting sbb-train-wagons.
- */
-
 export const events = {
   trainSlotChange: 'train-slot-change',
 };
+
+/**
+ * @slot unnamed - Used for slotting sbb-train-wagons.
+ */
 
 @customElement('sbb-train')
 export class SbbTrain extends LitElement {

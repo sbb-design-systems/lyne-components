@@ -131,18 +131,15 @@ export class SbbTrainFormation extends LitElement {
     }
 
     return html`
-      <div
-        class="sbb-train-formation"
-        ${ref((el: HTMLDivElement): void => this._updateFormationDiv(el))}
-      >
+      <div class="sbb-train-formation" ${ref(this._updateFormationDiv)}>
         <div class="sbb-train-formation__sectors" aria-hidden="true">
           ${this._sectors.map(
             (aggregatedSector) =>
               html`<span
                 class="sbb-train-formation__sector"
                 style="
-                --sbb-train-formation-wagon-count: ${aggregatedSector.wagonCount.toString()};
-                --sbb-train-formation-wagon-blocked-passage-count: ${aggregatedSector.blockedPassageCount.toString()}"
+                --sbb-train-formation-wagon-count: ${aggregatedSector.wagonCount};
+                --sbb-train-formation-wagon-blocked-passage-count: ${aggregatedSector.blockedPassageCount}"
               >
                 <span class="sbb-train-formation__sector-sticky-wrapper">
                   ${`${
