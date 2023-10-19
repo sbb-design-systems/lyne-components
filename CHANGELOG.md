@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.41.10](https://github.com/lyne-design-system/lyne-components/compare/v0.41.9...v0.41.10) (2023-10-19)
+
+### Bug Fixes
+
+- **sbb-navigation, sbb-menu, sbb-dialog:** screen readers readability ([#2092](https://github.com/lyne-design-system/lyne-components/issues/2092)) ([dbddfa8](https://github.com/lyne-design-system/lyne-components/commit/dbddfa8f569c5ed8692d719ce52c901cd86cbd80))
+
 ### [0.41.9](https://github.com/lyne-design-system/lyne-components/compare/v0.41.8...v0.41.9) (2023-10-18)
 
 ### Bug Fixes
