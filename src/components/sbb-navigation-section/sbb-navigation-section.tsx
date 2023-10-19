@@ -10,7 +10,6 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { SbbOverlayState } from '../../components';
 import {
   assignId,
   getFirstFocusableElement,
@@ -34,6 +33,7 @@ import {
 import { i18nGoBack } from '../../global/i18n';
 import {
   removeAriaOverlayTriggerAttributes,
+  SbbOverlayState,
   setAriaOverlayTriggerAttributes,
 } from '../../global/overlay';
 
@@ -381,8 +381,9 @@ export class SbbNavigationSection implements ComponentInterface {
       <Host
         slot="navigation-section"
         data-state={this._state}
-        aria-hidden={(this._state !== 'opened').toString()}
+        aria-hidden={this._state !== 'opened' ? 'true' : null}
         ref={assignId(() => this._navigationSectionId)}
+        inert={this._state !== 'opened'}
       >
         <div
           class="sbb-navigation-section__container"

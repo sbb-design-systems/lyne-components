@@ -12,7 +12,6 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { SbbOverlayState } from '../../components';
 import {
   FocusTrap,
   IS_FOCUSABLE_QUERY,
@@ -40,6 +39,7 @@ import {
   setAriaOverlayTriggerAttributes,
   isEventOnElement,
   getElementPosition,
+  SbbOverlayState,
 } from '../../global/overlay';
 
 const VERTICAL_OFFSET = 16;

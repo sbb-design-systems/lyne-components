@@ -13,7 +13,6 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { SbbOverlayState } from '../../components';
 import {
   FocusTrap,
   IS_FOCUSABLE_QUERY,
@@ -40,6 +39,7 @@ import {
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
   isEventOnElement,
+  SbbOverlayState,
 } from '../../global/overlay';
 
 /** Configuration for the attribute to look at if a navigation section is displayed */

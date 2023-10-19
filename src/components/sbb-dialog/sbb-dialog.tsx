@@ -13,7 +13,6 @@ import {
 } from '@stencil/core';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import { i18nCloseDialog, i18nGoBack } from '../../global/i18n';
-import { SbbOverlayState } from '../../components';
 import {
   FocusTrap,
   IS_FOCUSABLE_QUERY,
@@ -35,6 +34,7 @@ import {
   namedSlotChangeHandlerAspect,
 } from '../../global/eventing';
 import { AgnosticResizeObserver } from '../../global/observers';
+import { SbbOverlayState } from '../../global/overlay';
 
 // A global collection of existing dialogs
 const dialogRefs: HTMLSbbDialogElement[] = [];
