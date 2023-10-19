@@ -437,7 +437,6 @@ export class SbbTooltip implements ComponentInterface {
 
   // Set focus on the first focusable element.
   private _setTooltipFocus(): void {
-    console.log('focus!');
     if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
       const firstFocusable =
         (this._element.shadowRoot.querySelector('[sbb-tooltip-close]') as HTMLElement) ||
@@ -446,7 +445,6 @@ export class SbbTooltip implements ComponentInterface {
             (e): e is HTMLElement => e instanceof window.HTMLElement,
           ),
         );
-      console.log(firstFocusable);
       firstFocusable?.focus();
     } else {
       // Focusing sbb-tooltip__content in order to provide a consistent behavior in Safari where else
