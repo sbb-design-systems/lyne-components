@@ -191,6 +191,7 @@ export class SbbTooltip implements ComponentInterface {
 
     this.willOpen.emit();
     this._state = 'opening';
+    this._element.inert = true;
     this._setTooltipPosition();
     this._dialog.show();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
@@ -209,6 +210,7 @@ export class SbbTooltip implements ComponentInterface {
     this._tooltipCloseElement = target;
     this.willClose.emit({ closeTarget: this._tooltipCloseElement });
     this._state = 'closing';
+    this._element.inert = true;
     this._triggerElement?.setAttribute('aria-expanded', 'false');
   }
 
@@ -413,6 +415,7 @@ export class SbbTooltip implements ComponentInterface {
     ) {
       this._state = 'opened';
       this.didOpen.emit();
+      this._element.inert = false;
       this._setTooltipFocus();
       this._focusTrap.trap(this._element);
       this._attachWindowEvents();
