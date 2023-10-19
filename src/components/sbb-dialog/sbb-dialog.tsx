@@ -20,7 +20,13 @@ import {
   sbbInputModalityDetector,
   setModalityOnNextFocus,
 } from '../../global/a11y';
-import { ScrollHandler, toggleDatasetEntry, isValidAttribute, hostContext } from '../../global/dom';
+import {
+  ScrollHandler,
+  toggleDatasetEntry,
+  isValidAttribute,
+  hostContext,
+  isSafari,
+} from '../../global/dom';
 import {
   createNamedSlotState,
   documentLanguage,
@@ -196,12 +202,6 @@ export class SbbDialog implements ComponentInterface {
     this._lastFocusedElement = document.activeElement as HTMLElement;
     this.willOpen.emit();
     this._state = 'opening';
-
-    const firstFocusable = this._element.shadowRoot.querySelector(
-      IS_FOCUSABLE_QUERY,
-    ) as HTMLElement;
-    setModalityOnNextFocus(firstFocusable);
-
     this._dialog.show();
     // Add this dialog to the global collection
     dialogRefs.push(this._element as HTMLSbbDialogElement);
@@ -249,6 +249,10 @@ export class SbbDialog implements ComponentInterface {
     this._element.addEventListener('pointerup', this._closeOnBackdropClick, {
       signal: this._dialogController.signal,
     });
+
+    // TODO: Remove if possible, related to https://bugs.chromium.org/p/chromium/issues/detail?id=1493323
+    // For Safari we need to keep the solution which doesn't work in Chrome as it seems mutual exclusive.
+    toggleDatasetEntry(this._element, 'isSafari', isSafari());
   }
 
   public disconnectedCallback(): void {
@@ -316,15 +320,21 @@ export class SbbDialog implements ComponentInterface {
   // Wait for dialog transition to complete.
   // In rare cases it can be that the animationEnd event is triggered twice.
   // To avoid entering a corrupt state, exit when state is not expected.
-  private async _onDialogAnimationEnd(event: AnimationEvent): Promise<void> {
-    if (event.animationName === 'open' && this._state === 'opening') {
+  private _onDialogAnimationEnd(event: AnimationEvent): void {
+    if (
+      (event.animationName === 'open' || event.animationName === 'open-safari') &&
+      this._state === 'opening'
+    ) {
       this._state = 'opened';
       this.didOpen.emit();
-      await this._setDialogFocus();
+      this._setDialogFocus();
       this._focusTrap.trap(this._element);
       this._dialogContentResizeObserver.observe(this._dialogContentElement);
       this._attachWindowEvents();
-    } else if (event.animationName === 'close' && this._state === 'closing') {
+    } else if (
+      (event.animationName === 'close' || event.animationName === 'close-safari') &&
+      this._state === 'closing'
+    ) {
       this._state = 'closed';
       this._dialogWrapperElement.querySelector('.sbb-dialog__content').scrollTo(0, 0);
       setModalityOnNextFocus(this._lastFocusedElement);
@@ -342,25 +352,24 @@ export class SbbDialog implements ComponentInterface {
   }
 
   // Set focus on the first focusable element.
-  private async _setDialogFocus(): Promise<void> {
+  private _setDialogFocus(): void {
     const firstFocusable = this._element.shadowRoot.querySelector(
       IS_FOCUSABLE_QUERY,
     ) as HTMLElement;
 
-    // Focusing sbb-dialog__wrapper in order to provide a consistent behavior in Safari where else
-    // the focus-visible styles would be incorrectly applied
-    this._dialogWrapperElement.tabIndex = 0;
-    this._dialogWrapperElement.focus();
-
-    this._dialogWrapperElement.addEventListener(
-      'blur',
-      () => this._dialogWrapperElement.removeAttribute('tabindex'),
-      { once: true },
-    );
-
     if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-      await new Promise((resolve) => setTimeout(resolve, 0));
       firstFocusable.focus();
+    } else {
+      // Focusing sbb-dialog__wrapper in order to provide a consistent behavior in Safari where else
+      // the focus-visible styles would be incorrectly applied
+      this._dialogWrapperElement.tabIndex = 0;
+      this._dialogWrapperElement.focus();
+
+      this._dialogWrapperElement.addEventListener(
+        'blur',
+        () => this._dialogWrapperElement.removeAttribute('tabindex'),
+        { once: true },
+      );
     }
   }
 
