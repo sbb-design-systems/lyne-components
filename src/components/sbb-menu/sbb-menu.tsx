@@ -33,8 +33,10 @@ import {
 import {
   findReferencedElement,
   isBreakpoint,
+  isSafari,
   isValidAttribute,
   ScrollHandler,
+  toggleDatasetEntry,
 } from '../../global/dom';
 
 const MENU_OFFSET = 8;
@@ -220,6 +222,7 @@ export class SbbMenu implements ComponentInterface {
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
     this._readActions();
+    toggleDatasetEntry(this._element, 'isSafari', isSafari());
   }
 
   public disconnectedCallback(): void {
