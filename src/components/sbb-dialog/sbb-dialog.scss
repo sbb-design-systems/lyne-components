@@ -136,6 +136,14 @@
       duration: var(--sbb-dialog-animation-duration);
       timing-function: ease;
     }
+
+    :host([data-is-safari]) & {
+      animation-name: open-safari;
+    }
+  }
+
+  :host([data-fullscreen]) & {
+    border-radius: 0;
   }
 
   :host([data-state='closing']) & {
@@ -143,8 +151,8 @@
     animation-name: close;
   }
 
-  :host([data-fullscreen]) & {
-    border-radius: 0;
+  :host([data-state='closing'][data-is-safari]) & {
+    animation-name: close-safari;
   }
 
   @include sbb.if-forced-colors {
@@ -255,6 +263,30 @@
 // especially for accessibility.
 @keyframes open {
   from {
+    opacity: 0;
+    transform: translateY(var(--sbb-spacing-fixed-4x));
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
+@keyframes close {
+  from {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(var(--sbb-spacing-fixed-4x));
+  }
+}
+
+@keyframes open-safari {
+  from {
     visibility: hidden;
     opacity: 0;
     transform: translateY(var(--sbb-spacing-fixed-4x));
@@ -267,7 +299,7 @@
   }
 }
 
-@keyframes close {
+@keyframes close-safari {
   from {
     visibility: visible;
     opacity: 1;

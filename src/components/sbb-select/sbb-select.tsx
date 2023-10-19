@@ -13,7 +13,6 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { SbbOverlayState } from '../../components';
 import { getNextElementIndex, assignId } from '../../global/a11y';
 import {
   isSafari,
@@ -21,7 +20,12 @@ import {
   toggleDatasetEntry,
   getDocumentWritingMode,
 } from '../../global/dom';
-import { setOverlayPosition, isEventOnElement, overlayGapFixCorners } from '../../global/overlay';
+import {
+  setOverlayPosition,
+  isEventOnElement,
+  overlayGapFixCorners,
+  SbbOverlayState,
+} from '../../global/overlay';
 import { SelectChange } from './sbb-select.custom';
 
 let nextId = 0;

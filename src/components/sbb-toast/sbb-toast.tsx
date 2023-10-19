@@ -12,7 +12,6 @@ import {
   Prop,
   State,
 } from '@stencil/core';
-import { SbbOverlayState } from '../../components';
 import { isFirefox, isValidAttribute } from '../../global/dom';
 import {
   createNamedSlotState,
@@ -24,6 +23,7 @@ import {
 } from '../../global/eventing';
 import { i18nCloseAlert } from '../../global/i18n';
 import { SbbToastPosition, SbbToastAriaPoliteness, SbbToastAriaRole } from './sbb-toast.custom';
+import { SbbOverlayState } from '../../global/overlay';
 
 // A global collection of existing toasts
 const toastRefs = new Set<HTMLSbbToastElement>();

@@ -110,8 +110,6 @@
 }
 
 .sbb-navigation-section {
-  visibility: hidden;
-  opacity: 0;
   border: none;
   margin: 0;
   width: 100%;
@@ -121,13 +119,21 @@
   padding: 0;
   overflow: hidden;
 
+  :host([data-is-safari]) & {
+    opacity: 0;
+    visibility: hidden;
+  }
+
   &[open] {
-    visibility: visible;
-    opacity: 1;
     animation: {
       name: open;
       duration: var(--sbb-navigation-section-animation-duration);
       timing-function: var(--sbb-navigation-section-animation-easing);
+    }
+
+    :host([data-is-safari]) & {
+      opacity: 1;
+      visibility: visible;
     }
   }
 

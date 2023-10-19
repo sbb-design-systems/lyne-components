@@ -12,7 +12,6 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { SbbOverlayState } from '../../components';
 import {
   FocusTrap,
   IS_FOCUSABLE_QUERY,
@@ -21,7 +20,12 @@ import {
   setModalityOnNextFocus,
   getFirstFocusableElement,
 } from '../../global/a11y';
-import { findReferencedElement, isValidAttribute } from '../../global/dom';
+import {
+  findReferencedElement,
+  isSafari,
+  isValidAttribute,
+  toggleDatasetEntry,
+} from '../../global/dom';
 import {
   documentLanguage,
   HandlerRepository,
@@ -35,6 +39,7 @@ import {
   setAriaOverlayTriggerAttributes,
   isEventOnElement,
   getElementPosition,
+  SbbOverlayState,
 } from '../../global/overlay';
 
 const VERTICAL_OFFSET = 16;
@@ -186,6 +191,7 @@ export class SbbTooltip implements ComponentInterface {
 
     this.willOpen.emit();
     this._state = 'opening';
+    this._element.inert = true;
     this._setTooltipPosition();
     this._dialog.show();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
@@ -204,6 +210,7 @@ export class SbbTooltip implements ComponentInterface {
     this._tooltipCloseElement = target;
     this.willClose.emit({ closeTarget: this._tooltipCloseElement });
     this._state = 'closing';
+    this._element.inert = true;
     this._triggerElement?.setAttribute('aria-expanded', 'false');
   }
 
@@ -238,6 +245,10 @@ export class SbbTooltip implements ComponentInterface {
     this._configure(this.trigger);
     this._state = 'closed';
     tooltipsRef.add(this._element as HTMLSbbTooltipElement);
+
+    // TODO: Remove if possible, related to https://bugs.chromium.org/p/chromium/issues/detail?id=1493323
+    // For Safari we need to keep the solution which doesn't work in Chrome as it seems mutual exclusive.
+    toggleDatasetEntry(this._element, 'isSafari', isSafari());
   }
 
   public componentDidLoad(): void {
@@ -398,13 +409,20 @@ export class SbbTooltip implements ComponentInterface {
   // In rare cases it can be that the animationEnd event is triggered twice.
   // To avoid entering a corrupt state, exit when state is not expected.
   private _onTooltipAnimationEnd(event: AnimationEvent): void {
-    if (event.animationName === 'open' && this._state === 'opening') {
+    if (
+      (event.animationName === 'open' || event.animationName === 'open-safari') &&
+      this._state === 'opening'
+    ) {
       this._state = 'opened';
       this.didOpen.emit();
+      this._element.inert = false;
       this._setTooltipFocus();
       this._focusTrap.trap(this._element);
       this._attachWindowEvents();
-    } else if (event.animationName === 'close' && this._state === 'closing') {
+    } else if (
+      (event.animationName === 'close' || event.animationName === 'close-safari') &&
+      this._state === 'closing'
+    ) {
       this._state = 'closed';
       this._dialog.firstElementChild.scrollTo(0, 0);
 
@@ -430,7 +448,6 @@ export class SbbTooltip implements ComponentInterface {
             (e): e is HTMLElement => e instanceof window.HTMLElement,
           ),
         );
-
       firstFocusable?.focus();
     } else {
       // Focusing sbb-tooltip__content in order to provide a consistent behavior in Safari where else

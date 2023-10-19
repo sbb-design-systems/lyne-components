@@ -10,14 +10,19 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { SbbOverlayState } from '../../components';
 import {
   assignId,
   getFirstFocusableElement,
   getFocusableElements,
   sbbInputModalityDetector,
 } from '../../global/a11y';
-import { findReferencedElement, isBreakpoint, isValidAttribute } from '../../global/dom';
+import {
+  findReferencedElement,
+  isBreakpoint,
+  isSafari,
+  isValidAttribute,
+  toggleDatasetEntry,
+} from '../../global/dom';
 import {
   createNamedSlotState,
   documentLanguage,
@@ -28,6 +33,7 @@ import {
 import { i18nGoBack } from '../../global/i18n';
 import {
   removeAriaOverlayTriggerAttributes,
+  SbbOverlayState,
   setAriaOverlayTriggerAttributes,
 } from '../../global/overlay';
 
@@ -109,6 +115,7 @@ export class SbbNavigationSection implements ComponentInterface {
     }
 
     this._state = 'opening';
+    this._element.inert = true;
     this._renderBackButton = this._isZeroToLargeBreakpoint();
     this._navigationSection.show();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
@@ -125,6 +132,7 @@ export class SbbNavigationSection implements ComponentInterface {
 
     await this._resetMarker();
     this._state = 'closing';
+    this._element.inert = true;
     this._triggerElement?.setAttribute('aria-expanded', 'false');
   }
 
@@ -186,9 +194,10 @@ export class SbbNavigationSection implements ComponentInterface {
   private _onAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open' && this._state === 'opening') {
       this._state = 'opened';
+      this._element.inert = false;
       this._attachWindowEvents();
       this._setNavigationInert();
-      setTimeout(() => this._setNavigationSectionFocus());
+      this._setNavigationSectionFocus();
     } else if (event.animationName === 'close' && this._state === 'closing') {
       this._state = 'closed';
       this._navigationSectionContainerElement.scrollTo(0, 0);
@@ -196,7 +205,6 @@ export class SbbNavigationSection implements ComponentInterface {
       this._triggerElement?.focus();
       this._navigationSection.close();
       this._windowEventsController?.abort();
-
       this._setNavigationInert();
       this._isZeroToLargeBreakpoint() && this._triggerElement?.focus();
     }
@@ -331,6 +339,10 @@ export class SbbNavigationSection implements ComponentInterface {
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
     this._firstLevelNavigation = this._triggerElement?.closest('sbb-navigation');
+
+    // TODO: Remove if possible, related to https://bugs.chromium.org/p/chromium/issues/detail?id=1493323
+    // For Safari we need to keep the solution which doesn't work in Chrome as it seems mutual exclusive.
+    toggleDatasetEntry(this._element, 'isSafari', isSafari());
   }
 
   public disconnectedCallback(): void {
@@ -372,6 +384,7 @@ export class SbbNavigationSection implements ComponentInterface {
       <Host
         slot="navigation-section"
         data-state={this._state}
+        aria-hidden={this._state !== 'opened' ? 'true' : null}
         ref={assignId(() => this._navigationSectionId)}
       >
         <div

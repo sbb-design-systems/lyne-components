@@ -130,14 +130,11 @@
 .sbb-navigation {
   @include transition(width);
 
-  display: block;
   width: var(--sbb-navigation-width);
   grid-column: var(--sbb-navigation-grid-column);
   padding: 0;
   margin: 0;
   position: relative;
-  visibility: hidden;
-  opacity: 0;
   inset-inline-start: var(--sbb-navigation-inline-start);
   inset-block-start: 0;
   border: none;
@@ -145,6 +142,12 @@
   height: var(--sbb-navigation-height);
   color: var(--sbb-color-white-default);
   background-color: var(--sbb-color-midnight-default);
+
+  :host([data-is-safari]) & {
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+  }
 
   &::before {
     @include transition(width);
@@ -157,14 +160,17 @@
   }
 
   &[open] {
-    visibility: visible;
-    opacity: 1;
     pointer-events: all;
 
     animation: {
       name: open;
       duration: var(--sbb-navigation-animation-duration);
       timing-function: var(--sbb-navigation-animation-easing);
+    }
+
+    :host([data-is-safari]) & {
+      opacity: 1;
+      visibility: visible;
     }
   }
 

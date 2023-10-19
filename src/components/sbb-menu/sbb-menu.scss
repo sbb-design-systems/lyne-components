@@ -93,8 +93,6 @@
 }
 
 .sbb-menu {
-  display: block;
-  visibility: hidden;
   opacity: 0;
   pointer-events: none;
   max-width: var(--sbb-menu-max-width);
@@ -112,14 +110,22 @@
   padding: 0;
   overflow: hidden;
 
+  :host([data-is-safari]) & {
+    display: block;
+    visibility: hidden;
+  }
+
   &[open] {
-    visibility: visible;
     opacity: 1;
     pointer-events: all;
     animation: {
       name: open;
       duration: var(--sbb-menu-animation-duration);
       timing-function: var(--sbb-menu-animation-easing);
+    }
+
+    :host([data-is-safari]) & {
+      visibility: visible;
     }
   }
 
@@ -184,13 +190,11 @@
 
 @keyframes open {
   from {
-    visibility: hidden;
     opacity: 0;
     transform: var(--sbb-menu-transform);
   }
 
   to {
-    visibility: visible;
     opacity: 1;
     transform: translateY(0%);
   }
@@ -198,13 +202,11 @@
 
 @keyframes close {
   from {
-    visibility: visible;
     opacity: 1;
     transform: translateY(0%);
   }
 
   to {
-    visibility: hidden;
     opacity: 0;
     transform: var(--sbb-menu-transform);
   }
