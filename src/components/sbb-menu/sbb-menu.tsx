@@ -222,6 +222,9 @@ export class SbbMenu implements ComponentInterface {
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
     this._readActions();
+
+    // TODO: Remove if possible, related to https://bugs.chromium.org/p/chromium/issues/detail?id=1493323
+    // For Safari we need to keep the solution which doesn't work in Chrome as it seems mutual exclusive.
     toggleDatasetEntry(this._element, 'isSafari', isSafari());
   }
 
