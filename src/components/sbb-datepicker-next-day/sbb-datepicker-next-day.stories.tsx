@@ -2,9 +2,10 @@
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj, Decorator, StoryContext } from '@storybook/html';
+import type { Meta, StoryObj, Decorator, StoryContext } from '@storybook/web-components';
 import { InputType } from '@storybook/types';
-import { Args, ArgTypes } from '@storybook/html';
+import { Args, ArgTypes } from '@storybook/web-components';
+import './sbb-datepicker-next-day';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative

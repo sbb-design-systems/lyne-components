@@ -1,95 +1,110 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  Event,
-  EventEmitter,
-  h,
-  JSX,
-  Listen,
-  Method,
-  Prop,
-  State,
-  Watch,
-} from '@stencil/core';
-import { i18nDatePickerPlaceholder, i18nDateChangedTo } from '../../global/i18n';
-import { InputUpdateEvent, isDateAvailable } from './sbb-datepicker.helper';
+import { CSSResult, LitElement, PropertyValues, TemplateResult, html } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { readConfig } from '../../global/config';
 import { DateAdapter } from '../../global/datetime';
 import { findInput, isValidAttribute, toggleDatasetEntry } from '../../global/dom';
 import {
-  documentLanguage,
+  ConnectedAbortController,
+  EventEmitter,
   HandlerRepository,
+  documentLanguage,
   languageChangeHandlerAspect,
 } from '../../global/eventing';
-import { AgnosticMutationObserver } from '../../global/observers';
-import { readConfig } from '../../global/config';
+import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../global/i18n';
 import { ValidationChangeEvent } from '../../global/interfaces';
 import { SbbDateLike } from '../../global/types';
+import { AgnosticMutationObserver } from '../../global/observers';
+import { InputUpdateEvent, isDateAvailable } from './sbb-datepicker.helper';
+import Style from './sbb-datepicker.scss?lit&inline';
 
 const FORMAT_DATE =
   /(^0?[1-9]?|[12]?[0-9]?|3?[01]?)[.,\\/\-\s](0?[1-9]?|1?[0-2]?)?[.,\\/\-\s](\d{1,4}$)?/;
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-datepicker.scss',
-  tag: 'sbb-datepicker',
-})
-export class SbbDatepicker implements ComponentInterface {
+export const events = {
+  didChange: 'did-change',
+  change: 'change',
+  inputUpdated: 'input-updated',
+  datePickerUpdated: 'date-picker-updated',
+  validationChange: 'validation-change',
+};
+
+@customElement('sbb-datepicker')
+export class SbbDatepicker extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /** If set to true, two months are displayed */
-  @Prop() public wide = false;
+  @property({ type: Boolean }) public wide = false;
 
   /** A function used to filter out dates. */
-  @Prop() public dateFilter: (date: Date | null) => boolean = () => true;
+  @property({ attribute: 'date-filter' }) public dateFilter: (date: Date | null) => boolean = () =>
+    true;
 
   /** A function used to parse string value into dates. */
-  @Prop() public dateParser?: (value: string) => Date | undefined;
+  @property({ attribute: 'date-parser' }) public dateParser?: (value: string) => Date | undefined;
 
   /** A function used to format dates into the preferred string format. */
-  @Prop() public format?: (date: Date) => string;
+  @property() public format?: (date: Date) => string;
 
   /** Reference of the native input connected to the datepicker. */
-  @Prop() public input?: string | HTMLElement;
-
-  /** Host element */
-  @Element() private _element!: HTMLSbbDatepickerElement;
+  @property() public input?: string | HTMLElement;
 
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
-  @Event({ bubbles: true, cancelable: true }) public didChange: EventEmitter;
+  private _didChange: EventEmitter = new EventEmitter(this, events.didChange, {
+    bubbles: true,
+    cancelable: true,
+  });
 
-  @Event({ bubbles: true }) public change: EventEmitter;
+  private _change: EventEmitter = new EventEmitter(this, events.change, { bubbles: true });
 
   /** Notifies that the attributes of the input connected to the datepicker have changes. */
-  @Event({ bubbles: true, cancelable: true }) public inputUpdated: EventEmitter<InputUpdateEvent>;
+  private _inputUpdated: EventEmitter<InputUpdateEvent> = new EventEmitter(
+    this,
+    events.inputUpdated,
+    { bubbles: true, cancelable: true },
+  );
 
   /** Notifies that the attributes of the datepicker have changes. */
-  @Event({ bubbles: true, cancelable: true }) public datePickerUpdated: EventEmitter;
+  private _datePickerUpdated: EventEmitter = new EventEmitter(this, events.datePickerUpdated, {
+    bubbles: true,
+    cancelable: true,
+  });
 
   /** Emits whenever the internal validation state changes. */
-  @Event() public validationChange: EventEmitter<ValidationChangeEvent>;
+  private _validationChange: EventEmitter<ValidationChangeEvent> = new EventEmitter(
+    this,
+    events.validationChange,
+  );
 
-  @State() private _inputElement: HTMLInputElement | null;
+  private get _inputElement(): HTMLInputElement | null {
+    return this._inputElementInternaValue;
+  }
 
-  @State() private _currentLanguage = documentLanguage();
+  private set _inputElement(value) {
+    const oldValue = this._inputElementInternaValue;
+    this._inputElementInternaValue = value;
+    this._registerInputElement(this._inputElementInternaValue, oldValue);
+    this.requestUpdate('active', oldValue);
+  }
 
-  @Watch('input')
-  public findInput(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
+  private _inputElementInternaValue: HTMLInputElement | null;
+
+  @state() private _currentLanguage = documentLanguage();
+
+  private _findInput(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
     if (newValue !== oldValue) {
-      this._inputElement = findInput(this._element, this.input);
+      this._inputElement = findInput(this, this.input);
     }
   }
 
-  @Watch('wide')
-  @Watch('dateFilter')
-  public datepickerPropChanged(newValue: any, oldValue: any): void {
+  private _datepickerPropChanged(newValue: any, oldValue: any): void {
     if (newValue !== oldValue) {
-      this.datePickerUpdated.emit();
+      this._datePickerUpdated.emit();
     }
   }
 
-  @Watch('_inputElement')
-  public registerInputElement(newValue: HTMLInputElement, oldValue: HTMLInputElement): void {
+  private _registerInputElement(newValue: HTMLInputElement, oldValue: HTMLInputElement): void {
     if (newValue !== oldValue) {
       this._datePickerController?.abort();
       this._datePickerController = new AbortController();
@@ -124,22 +139,21 @@ export class SbbDatepicker implements ComponentInterface {
   }
 
   /** Gets the input value with the correct date format. */
-  @Method() public async getValueAsDate(): Promise<Date> {
+  public getValueAsDate(): Date {
     return this._parse(this._inputElement?.value);
   }
 
   /** Set the input value to the correctly formatted value. */
-  @Method() public async setValueAsDate(date: SbbDateLike): Promise<void> {
+  public setValueAsDate(date: SbbDateLike): void {
     const parsedDate = date instanceof Date ? date : new Date(date);
-    await this._formatAndUpdateValue(this._inputElement.value, parsedDate);
+    this._formatAndUpdateValue(this._inputElement.value, parsedDate);
     /* Emit blur event when value is changed programmatically to notify
     frameworks that rely on that event to update form status. */
     this._inputElement.dispatchEvent(new FocusEvent('blur', { composed: true }));
   }
 
-  @Listen('datepicker-control-registered')
   private _onInputPropertiesChange(mutationsList?: MutationRecord[]): void {
-    this.inputUpdated.emit({
+    this._inputUpdated.emit({
       disabled: this._inputElement?.disabled,
       readonly: this._inputElement?.readOnly,
       min: this._inputElement?.min,
@@ -160,7 +174,7 @@ export class SbbDatepicker implements ComponentInterface {
   private _statusContainer: HTMLParagraphElement | null;
 
   private _handlerRepository = new HandlerRepository(
-    this._element as HTMLElement,
+    this as HTMLElement,
     languageChangeHandlerAspect(async (l) => {
       this._currentLanguage = l;
       if (this._inputElement) {
@@ -171,15 +185,31 @@ export class SbbDatepicker implements ComponentInterface {
     }),
   );
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    const signal = this._abort.signal;
+    this.addEventListener('datepicker-control-registered', () => this._onInputPropertiesChange(), {
+      signal,
+    });
     this._handlerRepository.connect();
-    this._inputElement = findInput(this._element, this.input);
+    this._inputElement = findInput(this, this.input);
     if (this._inputElement) {
       this._inputElement.value = this._getValidValue(this._inputElement.value);
     }
   }
 
-  public disconnectedCallback(): void {
+  public override willUpdate(changedProperties: PropertyValues<this>): void {
+    if (changedProperties.has('input')) {
+      this._findInput(this.input, changedProperties.get('input'));
+    }
+    if (changedProperties.has('wide') || changedProperties.has('dateFilter')) {
+      this._datepickerPropChanged(this.wide, changedProperties.get('wide'));
+    }
+  }
+  private _abort = new ConnectedAbortController(this);
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._inputObserver?.disconnect();
     this._datePickerController?.abort();
     this._handlerRepository.disconnect();
@@ -211,14 +241,14 @@ export class SbbDatepicker implements ComponentInterface {
         (!!valueAsDate &&
           isDateAvailable(
             valueAsDate,
-            this._element.dateFilter,
+            this.dateFilter,
             this._inputElement?.min,
             this._inputElement?.max,
           ));
       const wasValid = !isValidAttribute(this._inputElement, 'data-sbb-invalid');
       toggleDatasetEntry(this._inputElement, 'sbbInvalid', !isEmptyOrValid);
       if (wasValid !== isEmptyOrValid) {
-        this.validationChange.emit({ valid: isEmptyOrValid });
+        this._validationChange.emit({ valid: isEmptyOrValid });
       }
       this._emitChange(valueAsDate);
     }
@@ -228,8 +258,8 @@ export class SbbDatepicker implements ComponentInterface {
   private _emitChange(date: Date): void {
     this._setAriaLiveMessage(date);
 
-    this.change.emit();
-    this.didChange.emit();
+    this._change.emit();
+    this._didChange.emit();
 
     if (this._inputElement) {
       this._inputElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
@@ -276,7 +306,14 @@ export class SbbDatepicker implements ComponentInterface {
       : '';
   }
 
-  public render(): JSX.Element {
-    return <p role="status" ref={(ref) => (this._statusContainer = ref)}></p>;
+  protected override render(): TemplateResult {
+    return html`<p role="status" ref=${(ref) => (this._statusContainer = ref)}></p>`;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-datepicker': SbbDatepicker;
   }
 }

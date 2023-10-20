@@ -1,57 +1,50 @@
 import { SbbDatepickerNextDay } from './sbb-datepicker-next-day';
-import { newSpecPage, SpecPage } from '@stencil/core/testing';
+
+import '../sbb-form-field/sbb-form-field';
+import '../sbb-datepicker/sbb-datepicker';
+import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
 import { SbbFormField } from '../sbb-form-field/sbb-form-field';
-import { SbbDatepicker } from '../sbb-datepicker/sbb-datepicker';
+import './sbb-datepicker-next-day';
 
 describe('sbb-datepicker-next-day', () => {
   it('renders', async () => {
-    const page: SpecPage = await newSpecPage({
-      components: [SbbDatepickerNextDay],
-      html: '<sbb-datepicker-next-day />',
-    });
+    const page: SbbDatepickerNextDay = await fixture(html`<sbb-datepicker-next-day />`);
 
-    expect(page.root).toEqualHtml(`
-      <sbb-datepicker-next-day dir="ltr" role="button" slot="suffix" tabindex="0">
-        <mock:shadow-root>
-          <span class="sbb-datepicker-next-day">
-            <sbb-icon name="chevron-small-right-small" />
-          </span>
-        </mock:shadow-root>
-      </sbb-datepicker-next-day>
+    expect(page).dom.to.be.equal(`
+      <sbb-datepicker-next-day dir="ltr" role="button" slot="suffix" tabindex="0"></sbb-datepicker-next-day>
+    `);
+
+    expect(page).shadowDom.to.be.equal(`
+    <span class="sbb-datepicker-next-day">
+      <sbb-icon name="chevron-small-right-small" />
+    </span>
     `);
   });
 
   it('renders with datepicker and input disabled', async () => {
-    const page: SpecPage = await newSpecPage({
-      components: [SbbFormField, SbbDatepicker, SbbDatepickerNextDay],
-      html: `
-        <sbb-form-field>
-          <input disabled="">
-          <sbb-datepicker></sbb-datepicker>
-          <sbb-datepicker-next-day></sbb-datepicker-next-day>
-        </sbb-form-field>
-      `,
-    });
+    const page: SbbFormField = await fixture(html`
+      <sbb-form-field>
+        <input disabled="" />
+        <sbb-datepicker></sbb-datepicker>
+        <sbb-datepicker-next-day></sbb-datepicker-next-day>
+      </sbb-form-field>
+    `);
 
-    const element: HTMLSbbDatepickerNextDayElement =
-      page.doc.querySelector('sbb-datepicker-next-day');
-    expect(element).toHaveAttribute('data-disabled');
+    const element: SbbDatepickerNextDay = page.querySelector('sbb-datepicker-next-day');
+    expect(element).to.have.attribute('data-disabled');
   });
 
   it('renders with datepicker and input readonly', async () => {
-    const page: SpecPage = await newSpecPage({
-      components: [SbbFormField, SbbDatepicker, SbbDatepickerNextDay],
-      html: `
-        <sbb-form-field>
-          <input readonly="">
-          <sbb-datepicker></sbb-datepicker>
-          <sbb-datepicker-next-day></sbb-datepicker-next-day>
-        </sbb-form-field>
-      `,
-    });
+    const page: SbbFormField = await fixture(html`
+      <sbb-form-field>
+        <input readonly="" />
+        <sbb-datepicker></sbb-datepicker>
+        <sbb-datepicker-next-day></sbb-datepicker-next-day>
+      </sbb-form-field>
+    `);
 
-    const element: HTMLSbbDatepickerNextDayElement =
-      page.doc.querySelector('sbb-datepicker-next-day');
-    expect(element).toHaveAttribute('data-disabled');
+    const element: SbbDatepickerNextDay = page.querySelector('sbb-datepicker-next-day');
+    expect(element).to.have.attribute('data-disabled');
   });
 });

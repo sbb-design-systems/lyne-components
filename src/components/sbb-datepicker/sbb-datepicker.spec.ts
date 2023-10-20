@@ -1,19 +1,13 @@
-import { SbbDatepicker } from './sbb-datepicker';
-import { newSpecPage } from '@stencil/core/testing';
+import './sbb-datepicker';
+
+import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
 
 describe('sbb-datepicker', () => {
   it('renders', async () => {
-    const { root } = await newSpecPage({
-      components: [SbbDatepicker],
-      html: '<sbb-datepicker />',
-    });
+    const root = await fixture(html`<sbb-datepicker></sbb-datepicker>`);
 
-    expect(root).toEqualHtml(`
-      <sbb-datepicker>
-        <mock:shadow-root>
-          <p role="status"></p>
-        </mock:shadow-root>
-      </sbb-datepicker>
-    `);
+    expect(root).dom.to.be.equal(`<sbb-datepicker></sbb-datepicker>`);
+    expect(root).shadowDom.to.be.equal(`<p role="status"></p>`);
   });
 });

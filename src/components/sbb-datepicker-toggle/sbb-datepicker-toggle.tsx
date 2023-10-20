@@ -1,16 +1,3 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  h,
-  Host,
-  JSX,
-  Method,
-  Prop,
-  State,
-  Watch,
-} from '@stencil/core';
-import { SbbCalendarCustomEvent } from '../../components';
 import { i18nShowCalendar } from '../../global/i18n';
 import {
   datepickerControlRegisteredEvent,
@@ -23,79 +10,89 @@ import {
   languageChangeHandlerAspect,
 } from '../../global/eventing';
 import { sbbInputModalityDetector } from '../../global/a11y';
-import { isValidAttribute } from '../../global/dom';
+import { isValidAttribute, setAttributes } from '../../global/dom';
+import { CSSResult, html, LitElement, TemplateResult, PropertyValues } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { SbbDatepicker } from '../sbb-datepicker/index';
+import { SbbCalendar } from '../sbb-calendar/index';
+import { setAttribute } from '../../global/dom';
+import { ref } from 'lit/directives/ref.js';
+import Style from './sbb-datepicker-toggle.scss?lit&inline';
+import { SbbTooltipTrigger } from '../sbb-tooltip-trigger';
+import '../sbb-tooltip-trigger';
+import '../sbb-tooltip';
+import '../sbb-calendar';
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-datepicker-toggle.scss',
-  tag: 'sbb-datepicker-toggle',
-})
-export class SbbDatepickerToggle implements ComponentInterface {
+@customElement('sbb-datepicker-toggle')
+export class SbbDatepickerToggle extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /** Datepicker reference. */
-  @Prop() public datePicker?: string | HTMLElement;
+  @property({ attribute: 'date-picker' }) public datePicker?: string | HTMLElement;
 
   /** Whether the animation is disabled. */
-  @Prop() public disableAnimation = false;
+  @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation = false;
 
   /** Negative coloring variant flag. */
-  @Prop({ reflect: true, mutable: true }) public negative = false;
+  @property({ reflect: true, type: Boolean }) public negative = false;
 
-  @Element() private _element!: HTMLSbbDatepickerToggleElement;
+  @state() private _disabled = false;
 
-  @State() private _triggerElement: HTMLElement;
+  @state() private _min: string | number;
 
-  @State() private _disabled = false;
+  @state() private _max: string | number;
 
-  @State() private _min: string | number;
+  @state() private _currentLanguage = documentLanguage();
 
-  @State() private _max: string | number;
+  private _datePickerElement: SbbDatepicker;
 
-  @State() private _currentLanguage = documentLanguage();
+  private _calendarElement: SbbCalendar;
 
-  private _datePickerElement: HTMLSbbDatepickerElement;
-
-  private _calendarElement: HTMLSbbCalendarElement;
+  private _triggerElement: SbbTooltipTrigger =
+    this.ownerDocument.createElement('sbb-tooltip-trigger');
 
   private _datePickerController: AbortController;
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
-  @Watch('datePicker')
-  public async findDatePicker(
-    newValue: string | HTMLElement,
-    oldValue: string | HTMLElement,
-  ): Promise<void> {
+  private _findDatePicker(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
     if (newValue !== oldValue) {
-      await this._init(this.datePicker);
+      this._init(this.datePicker);
     }
   }
 
   /**
    * Opens the calendar.
    */
-  @Method()
-  public async open(): Promise<void> {
+  public open(): void {
     if (!this._triggerElement) {
-      this._triggerElement = this._element.shadowRoot.querySelector('sbb-tooltip-trigger');
+      this._triggerElement = this.shadowRoot.querySelector('sbb-tooltip-trigger');
     }
     this._triggerElement.click();
   }
 
-  public async connectedCallback(): Promise<void> {
+  public override connectedCallback(): void {
+    super.connectedCallback();
     this._handlerRepository.connect();
-    await this._init(this.datePicker);
+    this._init(this.datePicker);
 
-    const formField =
-      this._element.closest('sbb-form-field') ?? this._element.closest('[data-form-field]');
+    const formField = this.closest('sbb-form-field') ?? this.closest('[data-form-field]');
     if (formField) {
       this.negative = isValidAttribute(formField, 'negative');
     }
   }
 
-  public disconnectedCallback(): void {
+  public override willUpdate(changedProperties: PropertyValues<this>): void {
+    if (changedProperties.has('datePicker')) {
+      this._findDatePicker(this.datePicker, changedProperties.get('datePicker'));
+    }
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._datePickerController?.abort();
     this._handlerRepository.disconnect();
   }
@@ -103,7 +100,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
   private async _init(datePicker?: string | HTMLElement): Promise<void> {
     this._datePickerController?.abort();
     this._datePickerController = new AbortController();
-    this._datePickerElement = getDatePicker(this._element, datePicker);
+    this._datePickerElement = getDatePicker(this, datePicker);
     if (!this._datePickerElement) {
       return;
     }
@@ -111,7 +108,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
     this._datePickerElement?.addEventListener(
       'inputUpdated',
       (event: CustomEvent<InputUpdateEvent>) => {
-        this._datePickerElement = event.target as HTMLSbbDatepickerElement;
+        this._datePickerElement = event.target as SbbDatepicker;
         this._disabled = event.detail.disabled || event.detail.readonly;
         this._min = event.detail.min;
         this._max = event.detail.max;
@@ -128,36 +125,37 @@ export class SbbDatepickerToggle implements ComponentInterface {
     this._datePickerElement?.addEventListener(
       'datePickerUpdated',
       (event: Event) =>
-        this._configureCalendar(this._calendarElement, event.target as HTMLSbbDatepickerElement),
+        this._configureCalendar(this._calendarElement, event.target as SbbDatepicker),
       { signal: this._datePickerController.signal },
     );
     this._datePickerElement.dispatchEvent(datepickerControlRegisteredEvent);
   }
 
-  private _configureCalendar(
-    calendar: HTMLSbbCalendarElement,
-    datepicker: HTMLSbbDatepickerElement,
-  ): void {
+  private _configureCalendar(calendar: SbbCalendar, datepicker: SbbDatepicker): void {
     calendar.wide = datepicker?.wide;
     calendar.dateFilter = datepicker?.dateFilter;
   }
 
-  private async _datePickerChanged(event: Event): Promise<void> {
-    this._datePickerElement = event.target as HTMLSbbDatepickerElement;
-    this._calendarElement.selectedDate = await this._datePickerElement.getValueAsDate();
+  private _datePickerChanged(event: Event): void {
+    this._datePickerElement = event.target as SbbDatepicker;
+    this._calendarElement.selectedDate = this._datePickerElement.getValueAsDate();
   }
 
-  private async _assignCalendar(calendar: HTMLSbbCalendarElement): Promise<void> {
+  private _assignCalendar(calendar: SbbCalendar): void {
     if (this._calendarElement && this._calendarElement === calendar) {
       return;
     }
     this._calendarElement = calendar;
-    if (!this._datePickerElement || !this._calendarElement.resetPosition) {
+    if (
+      !this._datePickerElement ||
+      !this._datePickerElement.getValueAsDate ||
+      !this._calendarElement?.resetPosition
+    ) {
       return;
     }
-    this._calendarElement.selectedDate = await this._datePickerElement.getValueAsDate();
+    this._calendarElement.selectedDate = this._datePickerElement.getValueAsDate();
     this._configureCalendar(this._calendarElement, this._datePickerElement);
-    await this._calendarElement.resetPosition();
+    this._calendarElement.resetPosition();
   }
 
   private _hasDataNow(): boolean {
@@ -177,44 +175,48 @@ export class SbbDatepickerToggle implements ComponentInterface {
     return undefined;
   }
 
-  public render(): JSX.Element {
-    return (
-      <Host slot="prefix">
-        <sbb-tooltip-trigger
-          aria-label={i18nShowCalendar[this._currentLanguage]}
-          iconName="calendar-small"
-          disabled={!this._datePickerElement || this._disabled}
-          negative={this.negative}
-          ref={(trigger) => {
-            this._triggerElement = trigger;
+  protected override render(): TemplateResult {
+    setAttribute(this, 'slot', 'prefix');
+    setAttributes(this._triggerElement as HTMLElement, {
+      'aria-label': i18nShowCalendar[this._currentLanguage],
+      'icon-name': 'calendar-small',
+      disabled: !this._datePickerElement || this._disabled,
+      negative: this.negative,
+      'data-icon-small': true,
+    });
+    return html`
+      ${this._triggerElement}
+      <sbb-tooltip
+        @will-open=${() => this._calendarElement.resetPosition()}
+        @did-open=${() => {
+          sbbInputModalityDetector.mostRecentModality === 'keyboard' &&
+            this._calendarElement.focus();
+        }}
+        .trigger=${this._triggerElement}
+        disableAnimation=${this.disableAnimation}
+        hide-close-button=${true}
+      >
+        <sbb-calendar
+          data-now=${this._now()?.valueOf()}
+          ${ref((calendar: SbbCalendar) => this._assignCalendar(calendar))}
+          min=${this._min}
+          max=${this._max}
+          wide=${this._datePickerElement?.wide}
+          dateFilter=${this._datePickerElement?.dateFilter}
+          @date-selected=${async (d: CustomEvent<Date>) => {
+            const newDate = new Date(d.detail);
+            this._calendarElement.selectedDate = newDate;
+            this._datePickerElement.setValueAsDate(newDate);
           }}
-          data-icon-small
-        />
-        <sbb-tooltip
-          onWill-open={() => this._calendarElement.resetPosition()}
-          onDid-open={() => {
-            sbbInputModalityDetector.mostRecentModality === 'keyboard' &&
-              this._calendarElement.focus();
-          }}
-          trigger={this._triggerElement}
-          disableAnimation={this.disableAnimation}
-          hide-close-button={true}
-        >
-          <sbb-calendar
-            data-now={this._now()?.valueOf()}
-            ref={async (calendar: HTMLSbbCalendarElement) => this._assignCalendar(calendar)}
-            min={this._min}
-            max={this._max}
-            wide={this._datePickerElement?.wide}
-            dateFilter={this._datePickerElement?.dateFilter}
-            onDate-selected={async (d: SbbCalendarCustomEvent<Date>) => {
-              const newDate = new Date(d.detail);
-              this._calendarElement.selectedDate = newDate;
-              await this._datePickerElement.setValueAsDate(newDate);
-            }}
-          />
-        </sbb-tooltip>
-      </Host>
-    );
+        ></sbb-calendar>
+      </sbb-tooltip>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-datepicker-toggle': SbbDatepickerToggle;
   }
 }

@@ -6,10 +6,15 @@ import { waitForComponentsReady } from '../../global/testing/wait-for-components
 import { waitForStablePosition } from '../../global/testing/wait-for-stable-position';
 import { withActions } from '@storybook/addon-actions/decorator';
 import isChromatic from 'chromatic';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 import events from './sbb-datepicker.events';
-import { StoryContext } from '@storybook/html';
+import { StoryContext } from '@storybook/web-components';
+import './sbb-datepicker';
+import '../sbb-form-field';
+import '../sbb-datepicker-next-day';
+import '../sbb-datepicker-previous-day';
+import '../sbb-datepicker-toggle';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative
