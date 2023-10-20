@@ -34,7 +34,7 @@ import {
   namedSlotChangeHandlerAspect,
 } from '../../global/eventing';
 import { AgnosticResizeObserver } from '../../global/observers';
-import { SbbOverlayState } from '../../global/overlay';
+import { applyInertMechanism, removeInertMechanism, SbbOverlayState } from '../../global/overlay';
 
 // A global collection of existing dialogs
 const dialogRefs: HTMLSbbDialogElement[] = [];
@@ -208,6 +208,7 @@ export class SbbDialog implements ComponentInterface {
     this._setOverflowAttribute();
     // Disable scrolling for content below the dialog
     this._scrollHandler.disableScroll();
+    applyInertMechanism(this._element);
   }
 
   /**
@@ -339,6 +340,7 @@ export class SbbDialog implements ComponentInterface {
       this._dialogWrapperElement.querySelector('.sbb-dialog__content').scrollTo(0, 0);
       setModalityOnNextFocus(this._lastFocusedElement);
       this._dialog.close();
+      removeInertMechanism();
       // Manually focus last focused element in order to avoid showing outline in Safari
       this._lastFocusedElement?.focus();
       this.didClose.emit({ returnValue: this._returnValue, closeTarget: this._dialogCloseElement });

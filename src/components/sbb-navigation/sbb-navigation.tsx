@@ -40,6 +40,8 @@ import {
   setAriaOverlayTriggerAttributes,
   isEventOnElement,
   SbbOverlayState,
+  applyInertMechanism,
+  removeInertMechanism,
 } from '../../global/overlay';
 
 /** Configuration for the attribute to look at if a navigation section is displayed */
@@ -232,6 +234,7 @@ export class SbbNavigation implements ComponentInterface {
     if (event.animationName === 'open' && this._state === 'opening') {
       this._state = 'opened';
       this.didOpen.emit();
+      applyInertMechanism(this._element);
       this._focusTrap.trap(this._element, this._trapFocusFilter);
       this._attachWindowEvents();
     } else if (event.animationName === 'close' && this._state === 'closing') {
@@ -242,6 +245,7 @@ export class SbbNavigation implements ComponentInterface {
       // To enable focusing other element than the trigger, we need to call focus() a second time.
       this._triggerElement?.focus();
       this.didClose.emit();
+      removeInertMechanism();
       this._windowEventsController?.abort();
       this._focusTrap.disconnect();
 
