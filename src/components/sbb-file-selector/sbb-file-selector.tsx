@@ -23,8 +23,6 @@ import '../sbb-button';
 import '../sbb-icon';
 
 export type DOMEvent = globalThis.Event;
-export type FileSelectorVariant = 'default' | 'dropzone';
-export type FileSelectorMultipleMode = 'default' | 'persistent';
 
 export const events = {
   fileChangedEvent: 'file-changed',
@@ -38,14 +36,14 @@ export class SbbFileSelector extends LitElement {
   public static override styles: CSSResult = Style;
 
   /** Whether the component has a dropzone area or not. */
-  @property() public variant: FileSelectorVariant = 'default';
+  @property() public variant: 'default' | 'dropzone' = 'default';
 
   /** Whether more than one file can be selected. */
   @property({ type: Boolean }) public multiple: boolean;
 
   /** Whether the newly added files should override the previously added ones. */
   @property({ attribute: 'multiple-mode' })
-  public multipleMode: FileSelectorMultipleMode;
+  public multipleMode: 'default' | 'persistent';
 
   /** A comma-separated list of allowed unique file type specifiers. */
   @property() public accept: string;
