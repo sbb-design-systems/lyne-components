@@ -228,6 +228,10 @@ export class SbbMenu implements ComponentInterface {
     // TODO: Remove if possible, related to https://bugs.chromium.org/p/chromium/issues/detail?id=1493323
     // For Safari we need to keep the solution which doesn't work in Chrome as it seems mutual exclusive.
     toggleDatasetEntry(this._element, 'isSafari', isSafari());
+
+    if (this._state === 'opened') {
+      applyInertMechanism(this._element);
+    }
   }
 
   public disconnectedCallback(): void {
@@ -322,6 +326,7 @@ export class SbbMenu implements ComponentInterface {
       this._state = 'closed';
       this._dialog.firstElementChild.scrollTo(0, 0);
       setModalityOnNextFocus(this._triggerElement);
+      removeInertMechanism();
       this._dialog.close();
       // Manually focus last focused element in order to avoid showing outline in Safari
       this._triggerElement?.focus({
@@ -329,7 +334,6 @@ export class SbbMenu implements ComponentInterface {
         preventScroll: this._triggerElement.tagName === 'SBB-HEADER-ACTION',
       });
       this.didClose.emit();
-      removeInertMechanism();
       this._windowEventsController?.abort();
       this._focusTrap.disconnect();
 

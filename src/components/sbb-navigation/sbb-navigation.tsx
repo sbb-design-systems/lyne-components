@@ -241,11 +241,11 @@ export class SbbNavigation implements ComponentInterface {
       this._state = 'closed';
       this._navigationContentElement.scrollTo(0, 0);
       setModalityOnNextFocus(this._triggerElement);
+      removeInertMechanism();
       this._navigation.close();
       // To enable focusing other element than the trigger, we need to call focus() a second time.
       this._triggerElement?.focus();
       this.didClose.emit();
-      removeInertMechanism();
       this._windowEventsController?.abort();
       this._focusTrap.disconnect();
 
@@ -351,6 +351,10 @@ export class SbbNavigation implements ComponentInterface {
     // TODO: Remove if possible, related to https://bugs.chromium.org/p/chromium/issues/detail?id=1493323
     // For Safari we need to keep the solution which doesn't work in Chrome as it seems mutual exclusive.
     toggleDatasetEntry(this._element, 'isSafari', isSafari());
+
+    if (this._state === 'opened') {
+      applyInertMechanism(this._element);
+    }
   }
 
   public disconnectedCallback(): void {

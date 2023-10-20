@@ -208,7 +208,6 @@ export class SbbDialog implements ComponentInterface {
     this._setOverflowAttribute();
     // Disable scrolling for content below the dialog
     this._scrollHandler.disableScroll();
-    applyInertMechanism(this._element);
   }
 
   /**
@@ -240,7 +239,7 @@ export class SbbDialog implements ComponentInterface {
 
   public connectedCallback(): void {
     this._handlerRepository.connect();
-    this._state = 'closed';
+    this._state = this._state || 'closed';
     this._dialogController = new AbortController();
 
     // Close dialog on backdrop click
@@ -254,6 +253,10 @@ export class SbbDialog implements ComponentInterface {
     // TODO: Remove if possible, related to https://bugs.chromium.org/p/chromium/issues/detail?id=1493323
     // For Safari we need to keep the solution which doesn't work in Chrome as it seems mutual exclusive.
     toggleDatasetEntry(this._element, 'isSafari', isSafari());
+
+    if (this._state === 'opened') {
+      applyInertMechanism(this._element);
+    }
   }
 
   public disconnectedCallback(): void {
@@ -329,6 +332,7 @@ export class SbbDialog implements ComponentInterface {
     ) {
       this._state = 'opened';
       this.didOpen.emit();
+      applyInertMechanism(this._element);
       this._setDialogFocus();
       this._focusTrap.trap(this._element);
       this._dialogContentResizeObserver.observe(this._dialogContentElement);
@@ -340,8 +344,8 @@ export class SbbDialog implements ComponentInterface {
       this._state = 'closed';
       this._dialogWrapperElement.querySelector('.sbb-dialog__content').scrollTo(0, 0);
       setModalityOnNextFocus(this._lastFocusedElement);
-      this._dialog.close();
       removeInertMechanism();
+      this._dialog.close();
       // Manually focus last focused element in order to avoid showing outline in Safari
       this._lastFocusedElement?.focus();
       this.didClose.emit({ returnValue: this._returnValue, closeTarget: this._dialogCloseElement });
