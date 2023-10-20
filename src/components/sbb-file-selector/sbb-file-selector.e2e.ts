@@ -1,154 +1,129 @@
-import { E2EElement, E2EPage, EventSpy, newE2EPage } from '@stencil/core/testing';
-import events from './sbb-file-selector.events';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { EventSpy, waitForLitRender } from '../../global/testing';
+import { SbbFileSelector, events } from './sbb-file-selector';
+import { SbbButton } from '../sbb-button';
 
-async function addFilesToComponentInput(page: E2EPage, numberOfFiles: number): Promise<void> {
-  await page.evaluate((numberOfFiles: number): void => {
-    const dataTransfer: DataTransfer = new DataTransfer();
-    for (let i: number = 0; i < numberOfFiles; i++) {
-      dataTransfer.items.add(
-        new File([`Hello world - ${i}`], `hello${i}.txt`, {
-          type: 'text/plain',
-          lastModified: new Date(i).getMilliseconds(),
-        }),
-      );
-    }
-    const input: HTMLInputElement = document
-      .querySelector('sbb-file-selector')
-      .shadowRoot.querySelector('input');
-    input.files = dataTransfer.files;
-    input.dispatchEvent(new Event('change'));
-  }, numberOfFiles);
+function addFilesToComponentInput(
+  elem: SbbFileSelector,
+  numberOfFiles: number,
+  filesContent: string | string[] = 'Hello world',
+): void {
+  const dataTransfer: DataTransfer = new DataTransfer();
+  for (let i: number = 0; i < numberOfFiles; i++) {
+    const content = filesContent instanceof Array ? filesContent[i] : filesContent;
+    dataTransfer.items.add(
+      new File([`${content} - ${i}`], `hello${i}.txt`, {
+        type: 'text/plain',
+        lastModified: new Date(i).getMilliseconds(),
+      }),
+    );
+  }
+  const input: HTMLInputElement = elem.shadowRoot.querySelector('input');
+  input.files = dataTransfer.files;
+  input.dispatchEvent(new Event('change'));
 }
 
 describe('sbb-file-selector', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbFileSelector;
 
   beforeEach(async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-file-selector></sbb-file-selector>');
-    element = await page.find('sbb-file-selector');
+    element = await fixture(html`<sbb-file-selector></sbb-file-selector>`);
   });
 
   it('renders', () => {
-    expect(element).toHaveClass('hydrated');
+    assert.instanceOf(element, SbbFileSelector);
   });
 
   it('loads a file, then deletes it', async () => {
-    const fileChangedSpy: EventSpy = await page.spyOnEvent(events.fileChangedEvent);
-    await addFilesToComponentInput(page, 1);
-    await page.waitForChanges();
+    const fileChangedSpy = new EventSpy(events.fileChangedEvent);
+    addFilesToComponentInput(element, 1);
+    await waitForLitRender(element);
 
-    expect(fileChangedSpy).toHaveReceivedEventTimes(1);
-    expect(await element.getProperty('files')).not.toBeNull();
+    expect(fileChangedSpy.count).to.be.equal(1);
+    expect(element.files.length).to.be.greaterThan(0);
 
-    const listItems: E2EElement = await page.find(
-      'sbb-file-selector >>> .sbb-file-selector__file-list',
-    );
-    expect(listItems).toEqualHtml(`
+    const listItems = element.shadowRoot.querySelector('.sbb-file-selector__file-list');
+    expect(listItems).dom.to.be.equal(`
       <div class="sbb-file-selector__file-list">
         <span class="sbb-file-selector__file">
           <span class="sbb-file-selector__file-details">
             <span class="sbb-file-selector__file-name">hello0.txt</span>
             <span class="sbb-file-selector__file-size">15 B</span>
           </span>
-          <sbb-button aria-label="Remove file - hello0.txt" class="hydrated" data-icon-only dir="ltr" icon-name="trash-small"
+          <sbb-button aria-label="Remove file - hello0.txt" data-icon-only dir="ltr" icon-name="trash-small"
                       role="button" size="m" tabindex="0" variant="secondary">
           </sbb-button>
         </span>
       </div>
     `);
 
-    const button: E2EElement = await page.find(
-      'sbb-file-selector >>> sbb-button[icon-name="trash-small"]',
+    const button: SbbButton = element.shadowRoot.querySelector(
+      'sbb-button[icon-name="trash-small"]',
     );
-    expect(button).not.toBeNull();
-    await button.click();
-    await page.waitForChanges();
-    expect(fileChangedSpy).toHaveReceivedEventTimes(2);
-    expect((await page.findAll('sbb-file-selector >>> .sbb-file-selector__file')).length).toEqual(
-      0,
-    );
+    expect(button).not.to.be.null;
+    button.click();
+    await waitForLitRender(element);
+
+    const files = element.shadowRoot.querySelectorAll('.sbb-file-selector__file');
+    expect(fileChangedSpy.count).to.be.equal(2);
+    expect(files.length).to.be.equal(0);
   });
 
   it('loads more than one file in multiple mode', async () => {
-    const fileChangedSpy: EventSpy = await page.spyOnEvent(events.fileChangedEvent);
-    await element.setProperty('multiple', true);
-    await page.waitForChanges();
-    await addFilesToComponentInput(page, 2);
-    await page.waitForChanges();
-    expect(fileChangedSpy).toHaveReceivedEvent();
+    const fileChangedSpy = new EventSpy(events.fileChangedEvent);
+    element.multiple = true;
+    await waitForLitRender(element);
+    addFilesToComponentInput(element, 2);
+    await waitForLitRender(element);
+    expect(fileChangedSpy.count).to.be.greaterThan(0);
 
-    const listItems: E2EElement[] = await page.findAll('sbb-file-selector >>> li');
-    expect(listItems.length).toEqual(2);
-    expect(
-      (await page.findAll('sbb-file-selector >>> .sbb-file-selector__file-details')).length,
-    ).toEqual(2);
-    expect(
-      (await page.findAll('sbb-file-selector >>> .sbb-file-selector__file-name'))[0],
-    ).toEqualText('hello0.txt');
-    expect(
-      (await page.findAll('sbb-file-selector >>> .sbb-file-selector__file-name'))[1],
-    ).toEqualText('hello1.txt');
-    expect(
-      (await page.findAll('sbb-file-selector >>> .sbb-file-selector__file-size'))[0],
-    ).toEqualText('15 B');
-    expect(
-      (await page.findAll('sbb-file-selector >>> .sbb-file-selector__file-size'))[1],
-    ).toEqualText('15 B');
+    const listItems = element.shadowRoot.querySelectorAll('li');
+    const filesDetails = element.shadowRoot.querySelectorAll('.sbb-file-selector__file-details');
+    const filesName = element.shadowRoot.querySelectorAll('.sbb-file-selector__file-name');
+    const filesSize = element.shadowRoot.querySelectorAll('.sbb-file-selector__file-size');
+
+    expect(listItems.length).to.be.equal(2);
+    expect(filesDetails.length).to.be.equal(2);
+    expect(filesName[0]).dom.text('hello0.txt');
+    expect(filesName[1]).dom.text('hello1.txt');
+    expect(filesSize[0]).dom.text('15 B');
+    expect(filesSize[1]).dom.text('15 B');
   });
 
   it('loads files in multiple persistent mode', async () => {
-    const fileChangedSpy: EventSpy = await page.spyOnEvent(events.fileChangedEvent);
-    await element.setProperty('multiple', true);
-    await element.setProperty('multipleMode', 'persistent');
-    await page.waitForChanges();
-    await addFilesToComponentInput(page, 1);
-    await page.waitForChanges();
-    expect(fileChangedSpy).toHaveReceivedEventTimes(1);
+    const fileChangedSpy = new EventSpy(events.fileChangedEvent);
+    element.multiple = true;
+    element.multipleMode = 'persistent';
+    await waitForLitRender(element);
+    addFilesToComponentInput(element, 1);
+    await waitForLitRender(element);
+    expect(fileChangedSpy.count).to.be.equal(1);
 
-    expect(await element.getProperty('files')).not.toBeNull();
-    expect(
-      (await page.findAll('sbb-file-selector >>> .sbb-file-selector__file-name')).length,
-    ).toEqual(1);
-    expect(
-      (await page.findAll('sbb-file-selector >>> .sbb-file-selector__file-details')).length,
-    ).toEqual(1);
-    expect(
-      (await page.findAll('sbb-file-selector >>> .sbb-file-selector__file-name'))[0],
-    ).toEqualText('hello0.txt');
-    expect(
-      (await page.findAll('sbb-file-selector >>> .sbb-file-selector__file-size'))[0],
-    ).toEqualText('15 B');
+    const filesDetails = element.shadowRoot.querySelectorAll('.sbb-file-selector__file-details');
+    let filesName = element.shadowRoot.querySelectorAll('.sbb-file-selector__file-name');
+    let filesSize = element.shadowRoot.querySelectorAll('.sbb-file-selector__file-size');
 
-    await page.evaluate((longContent: string) => {
-      const dataTransfer: DataTransfer = new DataTransfer();
-      dataTransfer.items.add(
-        new File([`Hello world - 0`], `hello0.txt`, {
-          type: 'text/plain',
-          lastModified: new Date(0).getMilliseconds(),
-        }),
-      );
-      dataTransfer.items.add(new File([longContent], 'third.txt', { type: 'text/plain' }));
-      const input: HTMLInputElement = document
-        .querySelector('sbb-file-selector')
-        .shadowRoot.querySelector('input');
-      input.files = dataTransfer.files;
-      input.dispatchEvent(new Event('change'));
-    }, 'Lorem ipsum dolor sit amet. '.repeat(100));
-    await page.waitForChanges();
-    expect(fileChangedSpy).toHaveReceivedEventTimes(2);
-    expect((await page.findAll('sbb-file-selector >>> li')).length).toEqual(2);
-    expect(
-      (await page.findAll('sbb-file-selector >>> .sbb-file-selector__file-name'))[0],
-    ).toEqualText('third.txt');
-    expect(
-      (await page.findAll('sbb-file-selector >>> .sbb-file-selector__file-size'))[0],
-    ).toEqualText('3 kB');
-    expect(
-      (await page.findAll('sbb-file-selector >>> .sbb-file-selector__file-name'))[1],
-    ).toEqualText('hello0.txt');
-    expect(
-      (await page.findAll('sbb-file-selector >>> .sbb-file-selector__file-size'))[1],
-    ).toEqualText('15 B');
+    expect(element.files).not.to.be.null;
+    expect(filesName.length).to.be.equal(1);
+    expect(filesDetails.length).to.be.equal(1);
+    expect(filesName[0]).dom.text('hello0.txt');
+    expect(filesSize[0]).dom.text('15 B');
+
+    const longContent = 'Lorem ipsum dolor sit amet. '.repeat(100);
+    addFilesToComponentInput(element, 2, ['Hello world', longContent]);
+
+    await waitForLitRender(element);
+
+    const files = element.shadowRoot.querySelectorAll('li');
+    filesName = element.shadowRoot.querySelectorAll('.sbb-file-selector__file-name');
+    filesSize = element.shadowRoot.querySelectorAll('.sbb-file-selector__file-size');
+
+    expect(fileChangedSpy.count).to.be.equal(2);
+    expect(files.length).to.be.equal(2);
+    expect(filesName[0]).dom.text('hello1.txt');
+    expect(filesSize[0]).dom.text('3 kB');
+    expect(filesName[1]).dom.text('hello0.txt');
+    expect(filesSize[1]).dom.text('15 B');
   });
 });

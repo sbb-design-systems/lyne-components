@@ -1,22 +1,10 @@
 import {
-  Component,
-  ComponentInterface,
-  Element,
-  Event,
-  EventEmitter,
-  h,
-  JSX,
-  Method,
-  Prop,
-  State,
-} from '@stencil/core';
-import { InterfaceSbbFileSelectorAttributes } from './sbb-file-selector.custom';
-import {
   createNamedSlotState,
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
+  EventEmitter,
 } from '../../global/eventing';
 import {
   i18nFileSelectorButtonLabel,
@@ -26,60 +14,72 @@ import {
 } from '../../global/i18n';
 import { toggleDatasetEntry } from '../../global/dom';
 import { sbbInputModalityDetector } from '../../global/a11y';
+import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
+import { html, unsafeStatic } from 'lit/static-html.js';
+import Style from './sbb-file-selector.scss?lit&inline';
+import '../sbb-button';
+import '../sbb-icon';
 
 export type DOMEvent = globalThis.Event;
+
+export const events = {
+  fileChangedEvent: 'file-changed',
+};
 
 /**
  * @slot error - Use this to provide a `sbb-form-error` to show an error message.
  */
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-file-selector.scss',
-  tag: 'sbb-file-selector',
-})
-export class SbbFileSelector implements ComponentInterface {
+@customElement('sbb-file-selector')
+export class SbbFileSelector extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /** Whether the component has a dropzone area or not. */
-  @Prop() public variant: InterfaceSbbFileSelectorAttributes['variant'] = 'default';
+  @property() public variant: 'default' | 'dropzone' = 'default';
 
   /** Whether more than one file can be selected. */
-  @Prop() public multiple: boolean;
+  @property({ type: Boolean }) public multiple: boolean;
 
   /** Whether the newly added files should override the previously added ones. */
-  @Prop() public multipleMode: InterfaceSbbFileSelectorAttributes['multipleMode'];
+  @property({ attribute: 'multiple-mode' })
+  public multipleMode: 'default' | 'persistent';
 
   /** A comma-separated list of allowed unique file type specifiers. */
-  @Prop() public accept: string;
+  @property() public accept: string;
 
   /** The title displayed in `dropzone` variant. */
-  @Prop() public titleContent?: string;
+  @property({ attribute: 'title-content' }) public titleContent?: string;
 
   /** Whether the component is disabled. */
-  @Prop({ reflect: true }) public disabled: boolean;
+  @property({ reflect: true, type: Boolean }) public disabled: boolean;
 
   /** This will be forwarded as aria-label to the native input element. */
-  @Prop() public accessibilityLabel: string | undefined;
+  @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
 
   /** The list of selected files. */
-  @State() private _files: File[];
+  @state() private _files: File[];
 
   /** Current document language used for translations. */
-  @State() private _currentLanguage = documentLanguage();
+  @state() private _currentLanguage = documentLanguage();
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @State() private _namedSlots = createNamedSlotState('error');
+  @state() private _namedSlots = createNamedSlotState('error');
 
   /** An event which is emitted each time the file list changes. */
-  @Event({
-    eventName: 'file-changed',
-  })
-  public fileChangedEvent: EventEmitter<File[]>;
+  private _fileChangedEvent: EventEmitter<File[]> = new EventEmitter(this, events.fileChangedEvent);
 
-  @Element() private _element!: HTMLElement;
+  /**
+   * Gets the currently selected files.
+   */
+  public get files(): File[] {
+    return this._files || [];
+  }
 
-  // TODO: during Lit migration, convert this method in a getter
-  /** Gets the currently selected files. */
-  @Method()
-  public async getFiles(): Promise<File[]> {
+  /**
+   * @deprecated use 'files' property instead
+   */
+  public getFiles(): File[] {
     return this._files || [];
   }
 
@@ -94,16 +94,18 @@ export class SbbFileSelector implements ComponentInterface {
   private _liveRegion: HTMLElement;
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
     this._handlerRepository.connect();
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
   }
 
@@ -159,7 +161,7 @@ export class SbbFileSelector implements ComponentInterface {
 
   private _setDragState(dragTarget: HTMLElement = undefined, isDragEnter: boolean = false): void {
     this._dragTarget = dragTarget;
-    toggleDatasetEntry(this._element, 'active', isDragEnter);
+    toggleDatasetEntry(this, 'active', isDragEnter);
     toggleDatasetEntry(this._loadButton, 'active', isDragEnter);
   }
 
@@ -190,7 +192,7 @@ export class SbbFileSelector implements ComponentInterface {
     this._liveRegion.innerText = i18nFileSelectorCurrentlySelected(this._files.map((e) => e.name))[
       this._currentLanguage
     ];
-    this.fileChangedEvent.emit(this._files);
+    this._fileChangedEvent.emit(this._files);
   }
 
   private _removeFile(file: File): void {
@@ -202,7 +204,7 @@ export class SbbFileSelector implements ComponentInterface {
     this._liveRegion.innerText = i18nFileSelectorCurrentlySelected(this._files.map((e) => e.name))[
       this._currentLanguage
     ];
-    this.fileChangedEvent.emit(this._files);
+    this._fileChangedEvent.emit(this._files);
   }
 
   /** Calculates the correct unit for the file's size. */
@@ -211,119 +213,130 @@ export class SbbFileSelector implements ComponentInterface {
     return `${(size / Math.pow(1024, i)).toFixed(0)} ${this._suffixes[i]}`;
   }
 
-  private _renderDefaultMode(): JSX.Element {
-    return (
+  private _renderDefaultMode(): TemplateResult {
+    return html`
       <sbb-button
         variant="secondary"
         size="m"
-        is-static={true}
+        is-static
         icon-name="folder-open-small"
-        disabled={this.disabled}
-        ref={(el): void => {
+        ?disabled=${this.disabled}
+        ${ref((el: HTMLElement): void => {
           this._loadButton = el;
-        }}
+        })}
       >
-        {i18nFileSelectorButtonLabel[this._currentLanguage]}
+        ${i18nFileSelectorButtonLabel[this._currentLanguage]}
       </sbb-button>
-    );
+    `;
   }
 
-  private _renderDropzoneArea(): JSX.Element {
-    return (
+  private _renderDropzoneArea(): TemplateResult {
+    return html`
       <span class="sbb-file-selector__dropzone-area">
         <span class="sbb-file-selector__dropzone-area--icon">
           <sbb-icon name="folder-open-medium"></sbb-icon>
         </span>
-        <span class="sbb-file-selector__dropzone-area--title">{this.titleContent}</span>
+        <span class="sbb-file-selector__dropzone-area--title">${this.titleContent}</span>
         <span class="sbb-file-selector__dropzone-area--subtitle">
-          {i18nFileSelectorSubtitleLabel[this._currentLanguage]}
+          ${i18nFileSelectorSubtitleLabel[this._currentLanguage]}
         </span>
         <span class="sbb-file-selector__dropzone-area--button">
           <sbb-button
             variant="secondary"
             size="m"
-            disabled={this.disabled}
-            is-static={true}
-            ref={(el): void => {
+            ?disabled=${this.disabled}
+            is-static
+            ${ref((el: HTMLElement): void => {
               this._loadButton = el;
-            }}
+            })}
           >
-            {i18nFileSelectorButtonLabel[this._currentLanguage]}
+            ${i18nFileSelectorButtonLabel[this._currentLanguage]}
           </sbb-button>
         </span>
       </span>
-    );
+    `;
   }
 
-  private _renderFileList(): JSX.Element {
+  private _renderFileList(): TemplateResult {
     const TAG_NAME: Record<string, string> =
       this._files.length > 1
         ? { WRAPPER: 'ul', ELEMENT: 'li' }
         : { WRAPPER: 'div', ELEMENT: 'span' };
-    return (
-      <TAG_NAME.WRAPPER class="sbb-file-selector__file-list">
-        {this._files.map((file: File) => (
-          <TAG_NAME.ELEMENT class="sbb-file-selector__file">
+
+    /* eslint-disable lit/binding-positions */
+    return html`
+      <${unsafeStatic(TAG_NAME.WRAPPER)} class="sbb-file-selector__file-list">
+        ${this._files.map(
+          (file: File) => html`
+          <${unsafeStatic(TAG_NAME.ELEMENT)} class="sbb-file-selector__file">
             <span class="sbb-file-selector__file-details">
-              <span class="sbb-file-selector__file-name">{file.name}</span>
-              <span class="sbb-file-selector__file-size">{this._formatFileSize(file.size)}</span>
+              <span class="sbb-file-selector__file-name">${file.name}</span>
+              <span class="sbb-file-selector__file-size">${this._formatFileSize(file.size)}</span>
             </span>
             <sbb-button
               variant="secondary"
               size="m"
               icon-name="trash-small"
-              onClick={() => this._removeFile(file)}
-              aria-label={`${i18nFileSelectorDeleteFile[this._currentLanguage]} - ${file.name}`}
+              @click=${() => this._removeFile(file)}
+              aria-label=${`${i18nFileSelectorDeleteFile[this._currentLanguage]} - ${file.name}`}
             ></sbb-button>
-          </TAG_NAME.ELEMENT>
-        ))}
-      </TAG_NAME.WRAPPER>
-    );
+          </${unsafeStatic(TAG_NAME.ELEMENT)}>`,
+        )}
+      </${unsafeStatic(TAG_NAME.WRAPPER)}>
+    `;
+    /* eslint-disable lit/binding-positions */
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const ariaLabel = this.accessibilityLabel
       ? `${i18nFileSelectorButtonLabel[this._currentLanguage]} - ${this.accessibilityLabel}`
       : undefined;
-    return (
+    return html`
       <div class="sbb-file-selector">
         <div
           class="sbb-file-selector__input-container"
-          onDragEnter={(e: DragEvent) => this._onDragEnter(e)}
-          onDragOver={(e: DragEvent) => this._blockEvent(e)}
-          onDragLeave={(e: DragEvent) => this._onDragLeave(e)}
-          onDrop={(e: DragEvent) => this._onFileDrop(e)}
+          @dragenter=${this._onDragEnter}
+          @dragover=${this._blockEvent}
+          @dragleave=${this._onDragLeave}
+          @drop=${this._onFileDrop}
         >
           <label>
-            {this.variant === 'default' ? this._renderDefaultMode() : this._renderDropzoneArea()}
+            ${this.variant === 'default' ? this._renderDefaultMode() : this._renderDropzoneArea()}
             <input
               class="sbb-file-selector__visually-hidden"
               type="file"
-              disabled={this.disabled}
-              multiple={this.multiple}
-              accept={this.accept}
-              onChange={(event) => this._readFiles(event)}
-              onFocus={() => this._onFocus()}
-              onBlur={() => this._onBlur()}
-              aria-label={ariaLabel}
-              ref={(el): void => {
+              ?disabled=${this.disabled}
+              ?multiple=${this.multiple}
+              accept=${this.accept || nothing}
+              aria-label=${ariaLabel || nothing}
+              @change=${this._readFiles}
+              @focus=${this._onFocus}
+              @blur=${this._onBlur}
+              ${ref((el: HTMLInputElement): void => {
                 this._hiddenInput = el;
-              }}
+              })}
             />
           </label>
         </div>
         <p
           role="status"
           class="sbb-file-selector__visually-hidden"
-          ref={(p) => (this._liveRegion = p)}
+          ${ref((p: HTMLElement) => (this._liveRegion = p))}
         ></p>
-        {this._files && this._files.length > 0 && this._renderFileList()}
-        {this._namedSlots.error && (
-          <div class="sbb-file-selector__error">
-            <slot name="error" />
-          </div>
-        )}
+        ${this._files && this._files.length > 0 ? this._renderFileList() : nothing}
+        ${this._namedSlots.error
+          ? html`<div class="sbb-file-selector__error">
+              <slot name="error"></slot>
+            </div>`
+          : nothing}
       </div>
-    );
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-file-selector': SbbFileSelector;
   }
 }
