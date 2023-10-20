@@ -2,7 +2,7 @@ import { h, JSX } from '@stencil/core';
 import { toggleDatasetEntry } from '../dom';
 
 export type SbbOverlayState = 'closed' | 'opening' | 'opened' | 'closing';
-const IS_OPEN_OVERLAY_QUERY = `:is(sbb-dialog, sbb-navigation, sbb-menu, sbb-tooltip)[data-state='opened']`;
+const IS_OPEN_OVERLAY_QUERY = `:is(sbb-dialog, sbb-navigation, sbb-menu)[data-state='opened']`;
 
 /**
  * Used to create the "wrapping" effect around the anchor for overlays (es. autocomplete)
