@@ -359,6 +359,7 @@ export class SbbNavigation implements ComponentInterface {
     this._windowEventsController?.abort();
     this._focusTrap.disconnect();
     this._navigationObserver.disconnect();
+    removeInertMechanism();
   }
 
   public render(): JSX.Element {

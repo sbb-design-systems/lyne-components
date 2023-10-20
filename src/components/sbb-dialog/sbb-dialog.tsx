@@ -262,6 +262,7 @@ export class SbbDialog implements ComponentInterface {
     this._windowEventsController?.abort();
     this._focusTrap.disconnect();
     this._removeInstanceFromGlobalCollection();
+    removeInertMechanism();
   }
 
   private _removeInstanceFromGlobalCollection(): void {

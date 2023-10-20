@@ -26,9 +26,6 @@ const getAncestors = (overlay: HTMLElement, root: HTMLElement): HTMLElement[] =>
   let el = overlay.parentElement;
   const ancestors: HTMLElement[] = [];
   while (el) {
-    if (el.matches(IS_OPEN_OVERLAY_QUERY)) {
-      el.dataset.sbbInert = `${+el.dataset.sbbInert + 1 || 0}`;
-    }
     ancestors.push(el);
     el = el !== root && el.parentElement;
   }
@@ -76,11 +73,11 @@ export function applyInertMechanism(overlay: HTMLElement): void {
   removeSbbInert(overlay);
 
   const overlayRoot = overlay.closest('body > *') as HTMLElement;
-  const documentChilds = Array.from(document.querySelectorAll('body > *')).filter(
+  const documentChildren = Array.from(document.querySelectorAll('body > *')).filter(
     (el) => el !== overlayRoot,
   ) as HTMLElement[];
 
-  documentChilds.forEach((el) => setSbbInert(el));
+  documentChildren.forEach((el) => setSbbInert(el));
 
   let children: HTMLElement[] = [];
   const ancestors = getAncestors(overlay, overlayRoot);
@@ -91,6 +88,9 @@ export function applyInertMechanism(overlay: HTMLElement): void {
         (el: HTMLElement) => el !== overlay && !ancestors.includes(el),
       ) as HTMLElement[],
     );
+    if (el.matches(IS_OPEN_OVERLAY_QUERY)) {
+      el.dataset.sbbInert = `${+el.dataset.sbbInert + 1 || 0}`;
+    }
   }
 
   children.forEach((el) => setSbbInert(el));

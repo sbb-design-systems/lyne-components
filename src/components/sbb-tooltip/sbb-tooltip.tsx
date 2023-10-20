@@ -40,8 +40,6 @@ import {
   isEventOnElement,
   getElementPosition,
   SbbOverlayState,
-  applyInertMechanism,
-  removeInertMechanism,
 } from '../../global/overlay';
 
 const VERTICAL_OFFSET = 16;
@@ -417,7 +415,6 @@ export class SbbTooltip implements ComponentInterface {
     ) {
       this._state = 'opened';
       this.didOpen.emit();
-      applyInertMechanism(this._element);
       this._element.inert = false;
       this._setTooltipFocus();
       this._focusTrap.trap(this._element);
@@ -436,7 +433,6 @@ export class SbbTooltip implements ComponentInterface {
       // To enable focusing other element than the trigger, we need to call focus() a second time.
       elementToFocus?.focus();
       this.didClose.emit({ closeTarget: this._tooltipCloseElement });
-      removeInertMechanism();
       this._windowEventsController?.abort();
       this._focusTrap.disconnect();
     }

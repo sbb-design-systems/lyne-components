@@ -234,6 +234,7 @@ export class SbbMenu implements ComponentInterface {
     this._menuController?.abort();
     this._windowEventsController?.abort();
     this._focusTrap.disconnect();
+    removeInertMechanism();
   }
 
   // Check if the trigger is valid and attach click event listeners.
