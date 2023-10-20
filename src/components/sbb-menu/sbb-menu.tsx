@@ -14,9 +14,11 @@ import {
   Watch,
 } from '@stencil/core';
 import {
+  applyInertMechanism,
   getElementPosition,
   isEventOnElement,
   removeAriaOverlayTriggerAttributes,
+  removeInertMechanism,
   SbbOverlayState,
   setAriaOverlayTriggerAttributes,
 } from '../../global/overlay';
@@ -232,6 +234,7 @@ export class SbbMenu implements ComponentInterface {
     this._menuController?.abort();
     this._windowEventsController?.abort();
     this._focusTrap.disconnect();
+    removeInertMechanism();
   }
 
   // Check if the trigger is valid and attach click event listeners.
@@ -311,6 +314,7 @@ export class SbbMenu implements ComponentInterface {
     if (event.animationName === 'open' && this._state === 'opening') {
       this._state = 'opened';
       this.didOpen.emit();
+      applyInertMechanism(this._element);
       this._setDialogFocus();
       this._focusTrap.trap(this._element);
       this._attachWindowEvents();
@@ -325,6 +329,7 @@ export class SbbMenu implements ComponentInterface {
         preventScroll: this._triggerElement.tagName === 'SBB-HEADER-ACTION',
       });
       this.didClose.emit();
+      removeInertMechanism();
       this._windowEventsController?.abort();
       this._focusTrap.disconnect();
 
