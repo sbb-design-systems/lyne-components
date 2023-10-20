@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.41.12](https://github.com/lyne-design-system/lyne-components/compare/v0.41.11...v0.41.12) (2023-10-20)
+
+### Bug Fixes
+
+- overlays focus and inert ([#2097](https://github.com/lyne-design-system/lyne-components/issues/2097)) ([f8706c1](https://github.com/lyne-design-system/lyne-components/commit/f8706c1ffabb12b1e8ee8e7d7e447b4ad1b2839c))
+
 ### [0.41.11](https://github.com/lyne-design-system/lyne-components/compare/v0.41.10...v0.41.11) (2023-10-20)
 
 ### Bug Fixes
