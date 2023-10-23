@@ -353,8 +353,8 @@ export class SbbMenu implements ComponentInterface {
           (e): e is HTMLElement => e instanceof window.HTMLElement,
         ),
       );
-      firstFocusable?.focus();
       setModalityOnNextFocus(firstFocusable);
+      firstFocusable?.focus();
     } else {
       // Focusing sbb-menu__content in order to provide a consistent behavior in Safari where else
       // the focus-visible styles would be incorrectly applied
