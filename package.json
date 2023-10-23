@@ -59,7 +59,7 @@
     "@sbb-esta/lyne-design-tokens": "0.3.7",
     "@stencil/core": "4.5.0",
     "@stencil/react-output-target": "0.5.3",
-    "@stencil/sass": "3.0.6",
+    "@stencil/sass": "3.0.7",
     "@storybook/addon-a11y": "7.5.1",
     "@storybook/addon-actions": "7.5.1",
     "@storybook/addon-essentials": "7.5.1",

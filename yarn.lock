@@ -2289,10 +2289,10 @@
   resolved "https://registry.yarnpkg.com/@stencil/react-output-target/-/react-output-target-0.5.3.tgz#2a7186b7ba6c8721f92f4200e414b70854030d79"
   integrity sha512-68jwRp35CjAcwhTJ9yFD/3n+jrHOqvEH2jreVuPVvZK+4tkhPlYlwz0d1E1RlF3jyifUSfdkWUGgXIEy8Fo3yw==
 
-"@stencil/sass@3.0.6":
-  version "3.0.6"
-  resolved "https://registry.yarnpkg.com/@stencil/sass/-/sass-3.0.6.tgz#941833b96fb427949db6c8864bcf30aca70c1c5e"
-  integrity sha512-d+k8qCvDgzI/vIV7M5QavIS6b75X4yn+YQH80KA/L0oL/hKD8KeF3wMOd7P1nDhGLIGRNw5tBDbe0GeIsGVU7A==
+"@stencil/sass@3.0.7":
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/@stencil/sass/-/sass-3.0.7.tgz#7f8225cd0122b3c517c0f9007ed0cd98cf82ea3d"
+  integrity sha512-HcBjrh2CJ6aJnkOrBNSVyf1+x3FnUneYFk44rcx/jDK6Lx7R4w0dXMEsIR5MXqtROYWonZt7WtR8wsM1vcD+6w==
 
 "@storybook/addon-a11y@7.5.1":
   version "7.5.1"
