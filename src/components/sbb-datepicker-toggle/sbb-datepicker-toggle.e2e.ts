@@ -7,6 +7,10 @@ import { SbbTooltip } from '../sbb-tooltip';
 import { SbbFormField } from '../sbb-form-field';
 import { SbbCalendar } from '../sbb-calendar';
 
+import '../sbb-datepicker';
+import '../sbb-form-field';
+import './sbb-datepicker-toggle';
+
 describe('sbb-datepicker-toggle', () => {
   it('renders standalone', async () => {
     const element: SbbDatepickerToggle = await fixture(

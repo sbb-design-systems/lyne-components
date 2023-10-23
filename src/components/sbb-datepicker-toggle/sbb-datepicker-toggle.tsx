@@ -11,7 +11,7 @@ import {
 } from '../../global/eventing';
 import { sbbInputModalityDetector } from '../../global/a11y';
 import { isValidAttribute, setAttributes } from '../../global/dom';
-import { CSSResult, html, LitElement, TemplateResult, PropertyValues } from 'lit';
+import { CSSResult, html, LitElement, TemplateResult, PropertyValues, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { SbbDatepicker } from '../sbb-datepicker/index';
 import { SbbCalendar } from '../sbb-calendar/index';
@@ -106,7 +106,7 @@ export class SbbDatepickerToggle extends LitElement {
     }
 
     this._datePickerElement?.addEventListener(
-      'inputUpdated',
+      'input-updated',
       (event: CustomEvent<InputUpdateEvent>) => {
         this._datePickerElement = event.target as SbbDatepicker;
         this._disabled = event.detail.disabled || event.detail.readonly;
@@ -123,7 +123,7 @@ export class SbbDatepickerToggle extends LitElement {
       },
     );
     this._datePickerElement?.addEventListener(
-      'datePickerUpdated',
+      'date-picker-updated',
       (event: Event) =>
         this._configureCalendar(this._calendarElement, event.target as SbbDatepicker),
       { signal: this._datePickerController.signal },
@@ -193,16 +193,16 @@ export class SbbDatepickerToggle extends LitElement {
             this._calendarElement.focus();
         }}
         .trigger=${this._triggerElement}
-        disableAnimation=${this.disableAnimation}
-        hide-close-button=${true}
+        ?disableAnimation=${this.disableAnimation}
+        hide-close-button
       >
         <sbb-calendar
-          data-now=${this._now()?.valueOf()}
+          data-now=${this._now()?.valueOf() || nothing}
           ${ref((calendar: SbbCalendar) => this._assignCalendar(calendar))}
-          min=${this._min}
-          max=${this._max}
-          wide=${this._datePickerElement?.wide}
-          dateFilter=${this._datePickerElement?.dateFilter}
+          .min=${this._min}
+          .max=${this._max}
+          ?wide=${this._datePickerElement?.wide}
+          .dateFilter=${this._datePickerElement?.dateFilter}
           @date-selected=${async (d: CustomEvent<Date>) => {
             const newDate = new Date(d.detail);
             this._calendarElement.selectedDate = newDate;

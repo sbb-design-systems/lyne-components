@@ -3,6 +3,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { readConfig } from '../../global/config';
 import { DateAdapter } from '../../global/datetime';
 import { findInput, isValidAttribute, toggleDatasetEntry } from '../../global/dom';
+import { ref } from 'lit/directives/ref.js';
 import {
   ConnectedAbortController,
   EventEmitter,
@@ -195,6 +196,12 @@ export class SbbDatepicker extends LitElement {
     this._inputElement = findInput(this, this.input);
     if (this._inputElement) {
       this._inputElement.value = this._getValidValue(this._inputElement.value);
+      this._inputUpdated.emit({
+        disabled: this._inputElement?.disabled,
+        readonly: this._inputElement?.readOnly,
+        min: this._inputElement?.min,
+        max: this._inputElement?.max,
+      });
     }
   }
 
@@ -307,7 +314,12 @@ export class SbbDatepicker extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    return html`<p role="status" ref=${(ref) => (this._statusContainer = ref)}></p>`;
+    return html`<p
+      role="status"
+      ${ref((ref: HTMLParagraphElement): void => {
+        this._statusContainer = ref;
+      })}
+    ></p>`;
   }
 }
 

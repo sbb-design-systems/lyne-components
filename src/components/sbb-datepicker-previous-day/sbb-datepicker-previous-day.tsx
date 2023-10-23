@@ -62,21 +62,18 @@ export class SbbDatepickerPreviousDay extends LitElement {
 
   private _datePickerController: AbortController;
 
-  private async _findDatePicker(
-    newValue: string | HTMLElement,
-    oldValue: string | HTMLElement,
-  ): Promise<void> {
+  private _findDatePicker(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
     if (newValue !== oldValue) {
-      await this._init(this.datePicker);
+      this._init(this.datePicker);
     }
   }
   private _abort = new ConnectedAbortController(this);
 
-  private async _handleClick(): Promise<void> {
+  private _handleClick(): void {
     if (!this._datePickerElement || isValidAttribute(this, 'data-disabled')) {
       return;
     }
-    const startingDate: Date = (await this._datePickerElement.getValueAsDate()) ?? this._now();
+    const startingDate: Date = this._datePickerElement.getValueAsDate() ?? this._now();
     const date: Date = findPreviousAvailableDate(
       startingDate,
       this._datePickerElement.dateFilter,
@@ -88,13 +85,13 @@ export class SbbDatepickerPreviousDay extends LitElement {
     }
   }
 
-  public override async connectedCallback(): Promise<void> {
+  public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener('click', () => this._handleClick(), { signal });
     this._handlerRepository.connect();
     this._syncUpstreamProperties();
-    await this._init(this.datePicker);
+    this._init(this.datePicker);
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -125,15 +122,15 @@ export class SbbDatepickerPreviousDay extends LitElement {
     this._datePickerController?.abort();
   }
 
-  private async _init(picker?: string | HTMLElement): Promise<void> {
+  private _init(picker?: string | HTMLElement): void {
     this._datePickerController?.abort();
     this._datePickerController = new AbortController();
     this._datePickerElement = getDatePicker(this, picker);
     if (!this._datePickerElement) {
       return;
     }
-    await this._setDisabledState(this._datePickerElement);
-    await this._setAriaLabel();
+    this._setDisabledState(this._datePickerElement);
+    this._setAriaLabel();
 
     this._datePickerElement.addEventListener(
       'change',
@@ -144,7 +141,7 @@ export class SbbDatepickerPreviousDay extends LitElement {
       { signal: this._datePickerController.signal },
     );
     this._datePickerElement.addEventListener(
-      'datePickerUpdated',
+      'date-picker-updated',
       (event: Event) => {
         this._setDisabledState(event.target as SbbDatepicker);
         this._setAriaLabel();
@@ -152,7 +149,7 @@ export class SbbDatepickerPreviousDay extends LitElement {
       { signal: this._datePickerController.signal },
     );
     this._datePickerElement.addEventListener(
-      'inputUpdated',
+      'input-updated',
       (event: CustomEvent<InputUpdateEvent>) => {
         this._inputDisabled = event.detail.disabled || event.detail.readonly;
         if (this._min !== event.detail.min) {
@@ -201,8 +198,8 @@ export class SbbDatepickerPreviousDay extends LitElement {
     return this._dateAdapter.today();
   }
 
-  private async _setAriaLabel(): Promise<void> {
-    const currentDate = await this._datePickerElement.getValueAsDate();
+  private _setAriaLabel(): void {
+    const currentDate = this._datePickerElement.getValueAsDate();
 
     if (!currentDate) {
       this.setAttribute('aria-label', i18nPreviousDay[this._currentLanguage]);

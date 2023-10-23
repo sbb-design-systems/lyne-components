@@ -4,6 +4,10 @@ import { EventSpy, waitForCondition, waitForLitRender } from '../../global/testi
 import { SbbDatepickerPreviousDay } from './sbb-datepicker-previous-day';
 import { SbbFormField } from '../sbb-form-field';
 
+import '../sbb-datepicker';
+import '../sbb-form-field';
+import './sbb-datepicker-previous-day';
+
 describe('sbb-datepicker-previous-day', () => {
   describe('standalone', () => {
     it('renders', async () => {
@@ -83,9 +87,7 @@ describe('sbb-datepicker-previous-day', () => {
       await waitForLitRender(element);
 
       expect(input.value).to.be.equal('Fr, 20.01.2023');
-      expect(
-        document.querySelector('sbb-datepicker-previous-day').getAttribute('data-disabled'),
-      ).to.be.equal('');
+      expect(form.querySelector('sbb-datepicker-previous-day')).to.have.attribute('data-disabled');
 
       element.click();
       await waitForLitRender(element);

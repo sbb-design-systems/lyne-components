@@ -17,7 +17,7 @@ describe('sbb-datepicker-next-day', () => {
 
     expect(page).shadowDom.to.be.equal(`
     <span class="sbb-datepicker-next-day">
-      <sbb-icon name="chevron-small-right-small" />
+      <sbb-icon aria-hidden="true" data-namespace="default" name="chevron-small-right-small" role="img"></sbb-icon>
     </span>
     `);
   });

@@ -1,7 +1,8 @@
 import { SbbDatepickerPreviousDay } from './sbb-datepicker-previous-day';
 
-import '../sbb-form-field/sbb-form-field';
-import '../sbb-datepicker/sbb-datepicker';
+import './sbb-datepicker-previous-day';
+import '../sbb-form-field';
+import '../sbb-datepicker';
 
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
@@ -19,7 +20,7 @@ describe('sbb-datepicker-previous-day', () => {
 
     expect(page).shadowDom.to.equal(`
     <span class="sbb-datepicker-previous-day">
-      <sbb-icon name="chevron-small-left-small" />
+      <sbb-icon aria-hidden="true" data-namespace="default" name="chevron-small-left-small" role="img"></sbb-icon>
     </span>`);
   });
 

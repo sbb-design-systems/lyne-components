@@ -1,5 +1,4 @@
 import { SbbDatepicker } from './sbb-datepicker';
-import { newSpecPage, SpecPage } from '@stencil/core/testing';
 import {
   findNextAvailableDate,
   findPreviousAvailableDate,
@@ -9,70 +8,66 @@ import {
 } from './sbb-datepicker.helper';
 import { NativeDateAdapter } from '../../global/datetime';
 import { findInput } from '../../global/dom';
+import { expect, fixture } from '@open-wc/testing';
+import { SbbFormField } from '../sbb-form-field';
+import { html } from 'lit';
+import { SbbDatepickerNextDay } from '../sbb-datepicker-next-day';
+import { SbbDatepickerPreviousDay } from '../sbb-datepicker-previous-day';
 
 describe('getDatePicker', () => {
   it('returns the datepicker if no trigger', async () => {
-    const page: SpecPage = await newSpecPage({
-      components: [SbbDatepicker],
-      html: `
-        <sbb-form-field>
-          <input/>
-          <sbb-datepicker />
-          <sbb-datepicker-next-day />
-        </sbb-form-field>
-      `,
-    });
-    const picker: HTMLSbbDatepickerElement = page.doc.querySelector('sbb-datepicker');
-    const elementNext: HTMLSbbDatepickerNextDayElement =
-      page.doc.querySelector('sbb-datepicker-next-day');
-    expect(getDatePicker(elementNext)).toEqual(picker);
+    const page: SbbFormField = await fixture(html`
+      <sbb-form-field>
+        <input />
+        <sbb-datepicker></sbb-datepicker>
+        <sbb-datepicker-next-day></sbb-datepicker-next-day>
+      </sbb-form-field>
+    `);
+    const picker: SbbDatepicker = page.querySelector('sbb-datepicker');
+    const elementNext: SbbDatepickerNextDay = page.querySelector('sbb-datepicker-next-day');
+    expect(getDatePicker(elementNext)).to.equal(picker);
   });
 
   it('returns the datepicker if its id is passed as trigger', async () => {
-    const page: SpecPage = await newSpecPage({
-      components: [SbbDatepicker],
-      html: `
-        <input/>
-        <sbb-datepicker id="picker"/>
-        <sbb-datepicker-previous-day />
-      `,
-    });
-    const picker: HTMLSbbDatepickerElement = page.doc.querySelector('#picker');
-    const elementPrevious: HTMLSbbDatepickerPreviousDayElement = page.doc.querySelector(
+    const page = await fixture(html`
+      <div>
+        <input />
+        <sbb-datepicker id="picker"></sbb-datepicker>
+        <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
+      </div>
+    `);
+    const picker: SbbDatepicker = page.querySelector('#picker');
+    const elementPrevious: SbbDatepickerPreviousDay = page.querySelector(
       'sbb-datepicker-previous-day',
     );
-    expect(getDatePicker(elementPrevious, 'picker')).toEqual(picker);
+    expect(getDatePicker(elementPrevious, 'picker')).to.equal(picker);
   });
 });
 
 describe('getInput', () => {
   it('returns the input if no trigger', async () => {
-    const page: SpecPage = await newSpecPage({
-      components: [SbbDatepicker],
-      html: `
-        <sbb-form-field>
-          <input/>
-          <sbb-datepicker />
-        </sbb-form-field>
-      `,
-    });
-    const element: HTMLSbbDatepickerElement = page.doc.querySelector('sbb-datepicker');
-    const input: HTMLInputElement = page.doc.querySelector('input');
-    expect(findInput(element)).toEqual(input);
+    const page: SbbFormField = await fixture(html`
+      <sbb-form-field>
+        <input />
+        <sbb-datepicker></sbb-datepicker>
+      </sbb-form-field>
+    `);
+    const element: SbbDatepicker = page.querySelector('sbb-datepicker');
+    const input: HTMLInputElement = page.querySelector('input');
+    expect(findInput(element)).to.equal(input);
   });
 
   it('returns the input if its id is passed as trigger', async () => {
-    const page: SpecPage = await newSpecPage({
-      components: [SbbDatepicker],
-      html: `
-        <input id="input"/>
-        <sbb-datepicker/>
-        <sbb-datepicker-previous-day />
-      `,
-    });
-    const picker: HTMLSbbDatepickerElement = page.doc.querySelector('sbb-datepicker');
-    const input: HTMLInputElement = page.doc.querySelector('input');
-    expect(findInput(picker, 'input')).toEqual(input);
+    const page = await fixture(html`
+      <div>
+        <input id="input" />
+        <sbb-datepicker></sbb-datepicker>
+        <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
+      </div>
+    `);
+    const picker: SbbDatepicker = page.querySelector('sbb-datepicker');
+    const input: HTMLInputElement = page.querySelector('input');
+    expect(findInput(picker, 'input')).to.equal(input);
   });
 });
 
@@ -84,7 +79,7 @@ describe('getAvailableDate', () => {
       (d: Date) => d.getDay() === 1,
       new NativeDateAdapter(),
     );
-    expect(availableDate.getTime()).toEqual(new Date(2024, 0, 8, 0, 0, 0, 0).getTime());
+    expect(availableDate.getTime()).to.equal(new Date(2024, 0, 8, 0, 0, 0, 0).getTime());
   });
 
   it('without dateFilter', async () => {
@@ -94,7 +89,7 @@ describe('getAvailableDate', () => {
       () => true,
       new NativeDateAdapter(),
     );
-    expect(availableDate.getTime()).toEqual(new Date(2024, 0, 2, 0, 0, 0, 0).getTime());
+    expect(availableDate.getTime()).to.equal(new Date(2024, 0, 2, 0, 0, 0, 0).getTime());
   });
 });
 
@@ -106,7 +101,7 @@ describe('findPreviousAvailableDate', () => {
       new NativeDateAdapter(),
       null,
     );
-    expect(availableDate.getTime()).toEqual(new Date(2023, 1, 25, 0, 0, 0, 0).getTime());
+    expect(availableDate.getTime()).to.equal(new Date(2023, 1, 25, 0, 0, 0, 0).getTime());
   });
 
   it('get date without dateFilter and with current date equal to min date', async () => {
@@ -117,7 +112,7 @@ describe('findPreviousAvailableDate', () => {
       new NativeDateAdapter(),
       date.valueOf() / 1000,
     );
-    expect(availableDate.getTime()).toEqual(date.getTime());
+    expect(availableDate.getTime()).to.equal(date.getTime());
   });
 
   it('get date with dateFilter and min', async () => {
@@ -128,7 +123,7 @@ describe('findPreviousAvailableDate', () => {
       new NativeDateAdapter(),
       minDate.valueOf() / 1000,
     );
-    expect(availableDate.getTime()).toEqual(minDate.getTime());
+    expect(availableDate.getTime()).to.equal(minDate.getTime());
   });
 });
 
@@ -140,7 +135,7 @@ describe('findNextAvailableDate', () => {
       new NativeDateAdapter(),
       null,
     );
-    expect(availableDate.getTime()).toEqual(new Date(2023, 1, 27, 0, 0, 0, 0).getTime());
+    expect(availableDate.getTime()).to.equal(new Date(2023, 1, 27, 0, 0, 0, 0).getTime());
   });
 
   it('get date without dateFilter with current date equal to max date', async () => {
@@ -151,7 +146,7 @@ describe('findNextAvailableDate', () => {
       new NativeDateAdapter(),
       date.valueOf() / 1000,
     );
-    expect(availableDate.getTime()).toEqual(date.getTime());
+    expect(availableDate.getTime()).to.equal(date.getTime());
   });
 
   it('get date with dateFilter and max', async () => {
@@ -162,7 +157,7 @@ describe('findNextAvailableDate', () => {
       new NativeDateAdapter(),
       maxDate.valueOf() / 1000,
     );
-    expect(availableDate.getTime()).toEqual(maxDate.getTime());
+    expect(availableDate.getTime()).to.equal(maxDate.getTime());
   });
 });
 
@@ -176,7 +171,7 @@ describe('isDateAvailable', () => {
           new Date('2023-02-26').valueOf() / 1000,
           null,
         ),
-      ).toBeFalsy();
+      ).to.be.false;
     });
 
     it('get invalid date with max', async () => {
@@ -187,7 +182,7 @@ describe('isDateAvailable', () => {
           null,
           new Date('2023-02-26').valueOf() / 1000,
         ),
-      ).toBeFalsy();
+      ).to.be.false;
     });
 
     it('get invalid date with dateFilter', async () => {
@@ -198,13 +193,13 @@ describe('isDateAvailable', () => {
           null,
           null,
         ),
-      ).toBeFalsy();
+      ).to.be.false;
     });
   });
 
   describe('valid', function () {
     it('get valid date without dateFilter, min and max', async () => {
-      expect(isDateAvailable(new Date('2023-02-25'), null, null, null)).toBeTruthy();
+      expect(isDateAvailable(new Date('2023-02-25'), null, null, null)).to.be.true;
     });
 
     it('get valid date with min', async () => {
@@ -215,7 +210,7 @@ describe('isDateAvailable', () => {
           new Date('2023-02-01').valueOf() / 1000,
           null,
         ),
-      ).toBeTruthy();
+      ).to.be.true;
     });
 
     it('get valid date with max', async () => {
@@ -226,7 +221,7 @@ describe('isDateAvailable', () => {
           null,
           new Date('2023-03-31').valueOf() / 1000,
         ),
-      ).toBeTruthy();
+      ).to.be.true;
     });
 
     it('get invalid date with dateFilter', async () => {
@@ -237,7 +232,7 @@ describe('isDateAvailable', () => {
           null,
           null,
         ),
-      ).toBeTruthy();
+      ).to.be.true;
     });
   });
 });

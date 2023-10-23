@@ -6,6 +6,9 @@ import { EventSpy, waitForCondition, waitForLitRender } from '../../global/testi
 import { SbbDatepicker } from './sbb-datepicker';
 import { TemplateResult } from 'lit';
 
+import '../sbb-form-field';
+import './sbb-datepicker';
+
 describe('sbb-datepicker', () => {
   it('renders', async () => {
     const element = await fixture(html`<sbb-datepicker></sbb-datepicker>`);
@@ -139,10 +142,9 @@ describe('sbb-datepicker', () => {
     });
 
     it('renders and emits event when input parameter changes', async () => {
-      const datePickerUpdatedSpy = new EventSpy('datePickerUpdated');
+      const datePickerUpdatedSpy = new EventSpy('date-picker-updated');
       const picker = document.querySelector('sbb-datepicker');
       picker.wide = true;
-      await waitForLitRender(element);
       await waitForCondition(() => datePickerUpdatedSpy.events.length === 1);
       expect(datePickerUpdatedSpy.count).to.be.equal(1);
       picker.dateFilter = () => null;
@@ -182,21 +184,20 @@ describe('sbb-datepicker', () => {
     });
 
     it('should emit validation change event', async () => {
-      let validationChangeSpy = new EventSpy('validationChange', element);
+      let validationChangeSpy = new EventSpy('validation-change', element);
 
       // When entering 99
-      await input.focus();
       input.focus();
       await sendKeys({ type: '20' });
       input.focus();
       await sendKeys({ press: 'Tab' });
 
       // Then validation event should emit with false
-      expect(validationChangeSpy).toHaveFirstReceivedEventDetail({ valid: false });
+      await waitForCondition(() => validationChangeSpy.events.length === 1);
+      expect((validationChangeSpy.lastEvent as CustomEvent).detail['valid']).to.be.equal(false);
       expect(input).to.have.attribute('data-sbb-invalid');
 
       // When adding valid date
-      await input.focus();
       input.focus();
       await sendKeys({ press: '.' });
       input.focus();
@@ -207,17 +208,17 @@ describe('sbb-datepicker', () => {
       expect(input).to.have.attribute('data-sbb-invalid');
 
       // Reset event spy
-      validationChangeSpy = new EventSpy('validationChange', element);
+      validationChangeSpy = new EventSpy('validation-change', element);
 
       // When adding missing parts of a valid date
-      await input.focus();
       input.focus();
       await sendKeys({ type: '8.23' });
       input.focus();
       await sendKeys({ press: 'Tab' });
 
       // Then validation event should be emitted with true
-      expect(validationChangeSpy).toHaveFirstReceivedEventDetail({ valid: true });
+      await waitForCondition(() => validationChangeSpy.events.length === 1);
+      expect((validationChangeSpy.lastEvent as CustomEvent).detail['valid']).to.be.equal(true);
       expect(input).not.to.have.attribute('data-sbb-invalid');
     });
 
@@ -312,16 +313,18 @@ describe('sbb-datepicker', () => {
 
   describe('with input', () => {
     const template = html`
-      <sbb-datepicker input="datepicker-input"></sbb-datepicker>
-      <input id="datepicker-input" />
-      <button></button>
+      <div>
+        <sbb-datepicker input="datepicker-input"></sbb-datepicker>
+        <input id="datepicker-input" />
+        <button></button>
+      </div>
     `;
 
     it('renders', async () => {
-      await fixture(html`emplat`);
-      expect(document.querySelector('sbb-datepicker')).to.have.class('hydrated');
-      expect(document.querySelector('input')).to.be.equal(
-        '<input id="datepicker-input" placeholder="DD.MM.YYYY" type="text">',
+      const page = await fixture(template);
+      assert.instanceOf(page.querySelector('sbb-datepicker'), SbbDatepicker);
+      expect(document.querySelector('input')).dom.to.be.equal(
+        '<input id="datepicker-input" type="text" placeholder="DD.MM.YYYY">',
       );
     });
 
@@ -338,9 +341,9 @@ describe('sbb-datepicker', () => {
     `;
 
     it('renders', async () => {
-      await fixture(html`emplat`);
-      expect(document.querySelector('sbb-datepicker')).to.have.class('hydrated');
-      expect(document.querySelector('input')).to.be.equal(
+      const page = await fixture(template);
+      assert.instanceOf(page.querySelector('sbb-datepicker'), SbbDatepicker);
+      expect(document.querySelector('input')).dom.to.be.equal(
         '<input id="datepicker-input" placeholder="DD.MM.YYYY" type="text">',
       );
     });

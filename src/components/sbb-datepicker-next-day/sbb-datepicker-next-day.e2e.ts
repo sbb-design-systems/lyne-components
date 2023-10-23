@@ -4,6 +4,10 @@ import { EventSpy, waitForCondition, waitForLitRender } from '../../global/testi
 import { SbbDatepickerNextDay } from './sbb-datepicker-next-day';
 import { SbbFormField } from '../sbb-form-field';
 
+import '../sbb-datepicker';
+import '../sbb-form-field';
+import './sbb-datepicker-next-day';
+
 describe('sbb-datepicker-next-day', () => {
   describe('standalone', () => {
     it('renders', async () => {
@@ -16,25 +20,29 @@ describe('sbb-datepicker-next-day', () => {
 
   describe('with picker', () => {
     it('renders and click', async () => {
-      await fixture(html`
-        <input id="datepicker-input" value="31-12-2022" />
-        <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
-        <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
+      const page = await fixture(html`
+        <div>
+          <input id="datepicker-input" value="31-12-2022" />
+          <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
+          <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
+        </div>
       `);
 
-      const element: SbbDatepickerNextDay = document.querySelector('sbb-datepicker-next-day');
-      const input: HTMLInputElement = document.querySelector('input');
+      const element: SbbDatepickerNextDay = page.querySelector('sbb-datepicker-next-day');
+      const input: HTMLInputElement = page.querySelector('input');
+      const changeSpy = new EventSpy('change', input);
+      const blurSpy = new EventSpy('blur', input);
+
       await waitForLitRender(element);
+
       assert.instanceOf(element, SbbDatepickerNextDay);
       expect(input.value).to.be.equal('Sa, 31.12.2022');
 
-      const changeSpy = new EventSpy('change', input);
-      const blurSpy = new EventSpy('blur', input);
       element.click();
       await waitForCondition(() => changeSpy.events.length === 1);
+
       expect(changeSpy.count).to.be.equal(1);
       expect(blurSpy.count).to.be.equal(1);
-
       expect(input.value).to.be.equal('Su, 01.01.2023');
     });
   });
@@ -84,9 +92,7 @@ describe('sbb-datepicker-next-day', () => {
       expect(input.value).to.be.equal('Sa, 21.01.2023');
       await waitForLitRender(element);
 
-      expect(
-        document.querySelector('sbb-datepicker-next-day').hasAttribute('data-disabled'),
-      ).to.be.equal(true);
+      expect(form.querySelector('sbb-datepicker-next-day')).to.have.attribute('data-disabled');
 
       element.click();
       await waitForLitRender(element);
