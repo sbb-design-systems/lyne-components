@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.41.13](https://github.com/lyne-design-system/lyne-components/compare/v0.41.12...v0.41.13) (2023-10-23)
+
+### Bug Fixes
+
+- **sbb-menu:** menu action focus on mobile ([#2103](https://github.com/lyne-design-system/lyne-components/issues/2103)) ([9827fa1](https://github.com/lyne-design-system/lyne-components/commit/9827fa16b6cc5d4efa295bd873f17a93fd49525e))
+
 ### [0.41.12](https://github.com/lyne-design-system/lyne-components/compare/v0.41.11...v0.41.12) (2023-10-20)
 
 ### Bug Fixes
