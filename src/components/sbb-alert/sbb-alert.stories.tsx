@@ -1,11 +1,10 @@
 /** @jsx h */
-import { events } from './sbb-alert';
+import { SbbAlert } from './sbb-alert';
 import readme from './readme.md?raw';
 import { h, JSX } from 'jsx-dom';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import './sbb-alert';
 
 const Default = ({ 'content-slot-text': contentSlotText, ...args }): JSX.Element => (
   <sbb-alert {...args}>{contentSlotText}</sbb-alert>
@@ -224,7 +223,11 @@ const meta: Meta = {
   ],
   parameters: {
     actions: {
-      handles: [events.willPresent, events.didPresent, events.dismissalRequested],
+      handles: [
+        SbbAlert.events.willPresent,
+        SbbAlert.events.didPresent,
+        SbbAlert.events.dismissalRequested,
+      ],
     },
     backgrounds: {
       disable: true,

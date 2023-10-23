@@ -1,15 +1,10 @@
 import { waitForCondition, waitForLitRender } from '../../global/testing';
-import {
-  SbbExpansionPanelHeader,
-  events as sbbExpansionPanelHeaderEvents,
-} from '../sbb-expansion-panel-header/sbb-expansion-panel-header';
-import { events as sbbExpansionPanelEvents } from './sbb-expansion-panel';
+import { SbbExpansionPanelHeader } from '../sbb-expansion-panel-header';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { EventSpy } from '../../global/testing/event-spy';
 import { SbbExpansionPanel } from './sbb-expansion-panel';
 import { SbbExpansionPanelContent } from '../sbb-expansion-panel-content';
-import '../sbb-expansion-panel-header';
 import '../sbb-expansion-panel-content';
 
 describe('sbb-expansion-panel', () => {
@@ -61,11 +56,11 @@ describe('sbb-expansion-panel', () => {
     expect(header.getAttribute('aria-expanded')).to.be.equal('false');
     expect(content.getAttribute('aria-hidden')).to.be.equal('true');
 
-    const toggleExpandedEventSpy = new EventSpy(sbbExpansionPanelHeaderEvents.toggleExpanded);
-    const willOpenEventSpy = new EventSpy(sbbExpansionPanelEvents.willOpen);
-    const willCloseEventSpy = new EventSpy(sbbExpansionPanelEvents.willClose);
-    const didOpenEventSpy = new EventSpy(sbbExpansionPanelEvents.didOpen);
-    const didCloseEventSpy = new EventSpy(sbbExpansionPanelEvents.didClose);
+    const toggleExpandedEventSpy = new EventSpy(SbbExpansionPanelHeader.events.toggleExpanded);
+    const willOpenEventSpy = new EventSpy(SbbExpansionPanel.events.willOpen);
+    const willCloseEventSpy = new EventSpy(SbbExpansionPanel.events.willClose);
+    const didOpenEventSpy = new EventSpy(SbbExpansionPanel.events.didOpen);
+    const didCloseEventSpy = new EventSpy(SbbExpansionPanel.events.didClose);
 
     header.click();
     await waitForCondition(() => toggleExpandedEventSpy.events.length === 1);

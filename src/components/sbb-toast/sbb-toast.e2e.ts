@@ -1,7 +1,7 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../global/testing';
-import { SbbToast, events } from './sbb-toast';
+import { SbbToast } from './sbb-toast';
 
 describe('sbb-toast', () => {
   let element: SbbToast;
@@ -18,10 +18,10 @@ describe('sbb-toast', () => {
   });
 
   it('opens and closes after timeout', async () => {
-    const willOpenEventSpy = new EventSpy(events.willOpen);
-    const didOpenEventSpy = new EventSpy(events.didOpen);
-    const willCloseEventSpy = new EventSpy(events.willClose);
-    const didCloseEventSpy = new EventSpy(events.didClose);
+    const willOpenEventSpy = new EventSpy(SbbToast.events.willOpen);
+    const didOpenEventSpy = new EventSpy(SbbToast.events.didOpen);
+    const willCloseEventSpy = new EventSpy(SbbToast.events.willClose);
+    const didCloseEventSpy = new EventSpy(SbbToast.events.didClose);
 
     element.setAttribute('timeout', '50');
     await waitForLitRender(element);
@@ -52,9 +52,9 @@ describe('sbb-toast', () => {
   });
 
   it('closes by dismiss button click', async () => {
-    const didOpenEventSpy = new EventSpy(events.didOpen);
-    const willCloseEventSpy = new EventSpy(events.willClose);
-    const didCloseEventSpy = new EventSpy(events.didClose);
+    const didOpenEventSpy = new EventSpy(SbbToast.events.didOpen);
+    const willCloseEventSpy = new EventSpy(SbbToast.events.willClose);
+    const didCloseEventSpy = new EventSpy(SbbToast.events.didClose);
 
     element.setAttribute('dismissible', '');
     await waitForLitRender(element);
@@ -86,9 +86,9 @@ describe('sbb-toast', () => {
     `);
     const actionBtn = element.querySelector('sbb-button') as HTMLElement;
 
-    const didOpenEventSpy = new EventSpy(events.didOpen);
-    const willCloseEventSpy = new EventSpy(events.willClose);
-    const didCloseEventSpy = new EventSpy(events.didClose);
+    const didOpenEventSpy = new EventSpy(SbbToast.events.didOpen);
+    const willCloseEventSpy = new EventSpy(SbbToast.events.willClose);
+    const didCloseEventSpy = new EventSpy(SbbToast.events.didClose);
 
     element.open();
     await waitForLitRender(element);

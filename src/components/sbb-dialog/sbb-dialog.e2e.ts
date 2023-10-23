@@ -1,4 +1,3 @@
-import { events } from './sbb-dialog';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
@@ -27,8 +26,8 @@ describe('sbb-dialog', () => {
 
   it('opens the dialog', async () => {
     const dialog = element.shadowRoot.querySelector('dialog');
-    const willOpen = new EventSpy(events.willOpen);
-    const didOpen = new EventSpy(events.didOpen);
+    const willOpen = new EventSpy(SbbDialog.events.willOpen);
+    const didOpen = new EventSpy(SbbDialog.events.didOpen);
 
     element.open();
     await waitForLitRender(element);
@@ -46,10 +45,10 @@ describe('sbb-dialog', () => {
   });
 
   it('closes the dialog', async () => {
-    const willOpen = new EventSpy(events.willOpen);
-    const didOpen = new EventSpy(events.didOpen);
-    const willClose = new EventSpy(events.willClose);
-    const didClose = new EventSpy(events.didClose);
+    const willOpen = new EventSpy(SbbDialog.events.willOpen);
+    const didOpen = new EventSpy(SbbDialog.events.didOpen);
+    const willClose = new EventSpy(SbbDialog.events.willClose);
+    const didClose = new EventSpy(SbbDialog.events.didClose);
     const dialog = element.shadowRoot.querySelector('dialog');
 
     element.open();
@@ -83,10 +82,10 @@ describe('sbb-dialog', () => {
   });
 
   it('closes the dialog on backdrop click', async () => {
-    const willOpen = new EventSpy(events.willOpen);
-    const didOpen = new EventSpy(events.didOpen);
-    const willClose = new EventSpy(events.willClose);
-    const didClose = new EventSpy(events.didClose);
+    const willOpen = new EventSpy(SbbDialog.events.willOpen);
+    const didOpen = new EventSpy(SbbDialog.events.didOpen);
+    const willClose = new EventSpy(SbbDialog.events.willClose);
+    const didClose = new EventSpy(SbbDialog.events.didClose);
     const dialog = element.shadowRoot.querySelector('dialog');
 
     element.open();
@@ -122,10 +121,10 @@ describe('sbb-dialog', () => {
   });
 
   it('does not close the dialog on backdrop click', async () => {
-    const willOpen = new EventSpy(events.willOpen);
-    const didOpen = new EventSpy(events.didOpen);
-    const willClose = new EventSpy(events.willClose);
-    const didClose = new EventSpy(events.didClose);
+    const willOpen = new EventSpy(SbbDialog.events.willOpen);
+    const didOpen = new EventSpy(SbbDialog.events.didOpen);
+    const willClose = new EventSpy(SbbDialog.events.willClose);
+    const didClose = new EventSpy(SbbDialog.events.didClose);
     const dialog = element.shadowRoot.querySelector('dialog');
 
     element.backdropAction = 'none';
@@ -163,10 +162,10 @@ describe('sbb-dialog', () => {
   it('closes the dialog on close button click', async () => {
     const dialog = element.shadowRoot.querySelector('dialog');
     const closeButton = element.shadowRoot.querySelector('[sbb-dialog-close]') as HTMLElement;
-    const willOpen = new EventSpy(events.willOpen);
-    const didOpen = new EventSpy(events.didOpen);
-    const willClose = new EventSpy(events.willClose);
-    const didClose = new EventSpy(events.didClose);
+    const willOpen = new EventSpy(SbbDialog.events.willOpen);
+    const didOpen = new EventSpy(SbbDialog.events.didOpen);
+    const willClose = new EventSpy(SbbDialog.events.willClose);
+    const didClose = new EventSpy(SbbDialog.events.didClose);
 
     element.open();
     await waitForLitRender(element);
@@ -198,10 +197,10 @@ describe('sbb-dialog', () => {
 
   it('closes the dialog on Esc key press', async () => {
     const dialog = element.shadowRoot.querySelector('dialog');
-    const willOpen = new EventSpy(events.willOpen);
-    const didOpen = new EventSpy(events.didOpen);
-    const willClose = new EventSpy(events.willClose);
-    const didClose = new EventSpy(events.didClose);
+    const willOpen = new EventSpy(SbbDialog.events.willOpen);
+    const didOpen = new EventSpy(SbbDialog.events.didOpen);
+    const willClose = new EventSpy(SbbDialog.events.willClose);
+    const didClose = new EventSpy(SbbDialog.events.didClose);
 
     element.open();
     await waitForLitRender(element);
@@ -236,10 +235,10 @@ describe('sbb-dialog', () => {
 
   it('does not have the fullscreen attribute', async () => {
     const dialog = element.shadowRoot.querySelector('dialog');
-    const willOpen = new EventSpy(events.willOpen);
-    const didOpen = new EventSpy(events.didOpen);
-    const willClose = new EventSpy(events.willClose);
-    const didClose = new EventSpy(events.didClose);
+    const willOpen = new EventSpy(SbbDialog.events.willOpen);
+    const didOpen = new EventSpy(SbbDialog.events.didOpen);
+    const willClose = new EventSpy(SbbDialog.events.willClose);
+    const didClose = new EventSpy(SbbDialog.events.didClose);
 
     element.open();
     await waitForLitRender(element);
@@ -283,10 +282,10 @@ describe('sbb-dialog', () => {
     `);
 
     const dialog = element.shadowRoot.querySelector('dialog');
-    const willOpen = new EventSpy(events.willOpen);
-    const didOpen = new EventSpy(events.didOpen);
-    const willClose = new EventSpy(events.willClose);
-    const didClose = new EventSpy(events.didClose);
+    const willOpen = new EventSpy(SbbDialog.events.willOpen);
+    const didOpen = new EventSpy(SbbDialog.events.didOpen);
+    const willClose = new EventSpy(SbbDialog.events.willClose);
+    const didClose = new EventSpy(SbbDialog.events.didClose);
 
     element.open();
     await waitForLitRender(element);
@@ -334,10 +333,10 @@ describe('sbb-dialog', () => {
     `);
 
     const dialog = element.shadowRoot.querySelector('dialog');
-    const willOpen = new EventSpy(events.willOpen);
-    const didOpen = new EventSpy(events.didOpen);
-    const willClose = new EventSpy(events.willClose);
-    const didClose = new EventSpy(events.didClose);
+    const willOpen = new EventSpy(SbbDialog.events.willOpen);
+    const didOpen = new EventSpy(SbbDialog.events.didOpen);
+    const willClose = new EventSpy(SbbDialog.events.willClose);
+    const didClose = new EventSpy(SbbDialog.events.didClose);
 
     element.open();
     await waitForLitRender(element);
@@ -419,10 +418,10 @@ describe('sbb-dialog', () => {
         </sbb-dialog>
       </sbb-dialog>
     `);
-    const willOpen = new EventSpy(events.willOpen);
-    const didOpen = new EventSpy(events.didOpen);
-    const willClose = new EventSpy(events.willClose);
-    const didClose = new EventSpy(events.didClose);
+    const willOpen = new EventSpy(SbbDialog.events.willOpen);
+    const didOpen = new EventSpy(SbbDialog.events.didOpen);
+    const willClose = new EventSpy(SbbDialog.events.willClose);
+    const didClose = new EventSpy(SbbDialog.events.didClose);
     const outerDialog = element.shadowRoot.querySelector('dialog');
     const innerElement = element.querySelector('sbb-dialog') as SbbDialog;
     const innerDialog = element.querySelector('sbb-dialog').shadowRoot.querySelector('dialog');

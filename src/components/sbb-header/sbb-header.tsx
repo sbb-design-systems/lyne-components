@@ -10,7 +10,6 @@ const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
  * @slot unnamed - Slot used to render the actions on the left side.
  * @slot logo - Slot used to render the logo on the right side (sbb-logo as default).
  */
-
 @customElement('sbb-header')
 export class SbbHeader extends LitElement {
   public static override styles: CSSResult = Style;

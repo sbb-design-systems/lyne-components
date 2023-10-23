@@ -3,11 +3,10 @@ import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import { InputType, StoryContext } from '@storybook/types';
-import { events as sbbExpansionPanelEvents } from '../sbb-expansion-panel/sbb-expansion-panel';
+import { SbbExpansionPanel } from '../sbb-expansion-panel';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { Decorator } from '@storybook/web-components';
 import './sbb-accordion';
-import '../sbb-expansion-panel';
 import '../sbb-expansion-panel-header';
 import '../sbb-expansion-panel-content';
 import '../sbb-icon';
@@ -264,10 +263,10 @@ const meta: Meta = {
     },
     actions: {
       handles: [
-        sbbExpansionPanelEvents.willOpen,
-        sbbExpansionPanelEvents.didOpen,
-        sbbExpansionPanelEvents.willClose,
-        sbbExpansionPanelEvents.didClose,
+        SbbExpansionPanel.events.willOpen,
+        SbbExpansionPanel.events.didOpen,
+        SbbExpansionPanel.events.willClose,
+        SbbExpansionPanel.events.didClose,
       ],
     },
     docs: {

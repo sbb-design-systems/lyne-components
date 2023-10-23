@@ -22,11 +22,6 @@ const optionObserverConfig: MutationObserverInit = {
   attributeFilter: ['data-group-disabled', 'data-negative'],
 };
 
-export const events = {
-  selectionChange: 'option-selection-change',
-  optionSelected: 'option-selected',
-};
-
 /**
  * @slot unnamed - Use this to provide the option label.
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
@@ -36,6 +31,10 @@ export type SbbOptionVariant = 'autocomplete' | 'select';
 @customElement('sbb-option')
 export class SbbOption extends LitElement {
   public static override styles: CSSResult = Style;
+  public static readonly events = {
+    selectionChange: 'option-selection-change',
+    optionSelected: 'option-selected',
+  } as const;
 
   /** Value of the option. */
   @property() public value?: string;
@@ -57,10 +56,10 @@ export class SbbOption extends LitElement {
   @property({ type: Boolean }) public disabled?: boolean;
 
   /** Emits when the option selection status changes. */
-  private _selectionChange: EventEmitter = new EventEmitter(this, events.selectionChange);
+  private _selectionChange: EventEmitter = new EventEmitter(this, SbbOption.events.selectionChange);
 
   /** Emits when an option was selected by user. */
-  private _optionSelected: EventEmitter = new EventEmitter(this, events.optionSelected);
+  private _optionSelected: EventEmitter = new EventEmitter(this, SbbOption.events.optionSelected);
 
   /** Wheter to apply the negative styling */
   @state() private _negative = false;

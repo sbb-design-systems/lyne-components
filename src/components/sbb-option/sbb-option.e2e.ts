@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { EventSpy } from '../../global/testing/event-spy';
 import { waitForLitRender } from '../../global/testing';
-import { SbbOption, events } from './sbb-option';
+import { SbbOption } from './sbb-option';
 import { SbbFormField } from '../sbb-form-field';
 import '../sbb-autocomplete';
 import '../sbb-form-field';
@@ -31,7 +31,7 @@ describe('sbb-option', () => {
     });
 
     it('set selected and emits on click', async () => {
-      const selectionChangeSpy = new EventSpy(events.selectionChange);
+      const selectionChangeSpy = new EventSpy(SbbOption.events.selectionChange);
       const optionOne = element.querySelector('sbb-option');
 
       optionOne.dispatchEvent(new CustomEvent('click'));

@@ -3,8 +3,7 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import { waitForCondition } from '../../global/testing';
 import { EventSpy } from '../../global/testing/event-spy';
-import '../sbb-tooltip/sbb-tooltip';
-import { SbbTooltip, events } from '../sbb-tooltip/sbb-tooltip';
+import { SbbTooltip } from '../sbb-tooltip';
 import { SbbTooltipTrigger } from './sbb-tooltip-trigger';
 
 describe('sbb-tooltip-trigger', () => {
@@ -28,8 +27,8 @@ describe('sbb-tooltip-trigger', () => {
 
   it('shows tooltip on tooltip-trigger click', async () => {
     const dialog = tooltip.shadowRoot.querySelector('dialog');
-    const willOpenEventSpy = new EventSpy(events.willOpen);
-    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const willOpenEventSpy = new EventSpy(SbbTooltip.events.willOpen);
+    const didOpenEventSpy = new EventSpy(SbbTooltip.events.didOpen);
 
     element.click();
 
@@ -43,7 +42,7 @@ describe('sbb-tooltip-trigger', () => {
 
   it("doesn't show tooltip on disabled tooltip-trigger click", async () => {
     const dialog = tooltip.shadowRoot.querySelector('dialog');
-    const willOpenEventSpy = new EventSpy(events.willOpen);
+    const willOpenEventSpy = new EventSpy(SbbTooltip.events.willOpen);
     element.disabled = true;
     element.click();
 

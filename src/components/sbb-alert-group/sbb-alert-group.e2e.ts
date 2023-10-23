@@ -1,4 +1,3 @@
-import { events } from './sbb-alert-group';
 import { waitForCondition } from '../../global/testing';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
@@ -27,8 +26,8 @@ describe('sbb-alert-group', () => {
         <sbb-alert title-content="Interruption" href="www.sbb.ch">Second</sbb-alert>
       </sbb-alert-group>
     `);
-    const didDismissAlertSpy = new EventSpy(events.didDismissAlert);
-    const emptySpy = new EventSpy(events.empty);
+    const didDismissAlertSpy = new EventSpy(SbbAlertGroup.events.didDismissAlert);
+    const emptySpy = new EventSpy(SbbAlertGroup.events.empty);
 
     // When rendering initially
     await waitForLitRender(element);
@@ -94,7 +93,7 @@ describe('sbb-alert-group', () => {
     element = await fixture(
       html`<sbb-alert-group accessibility-title="Disruptions"></sbb-alert-group>`,
     );
-    const emptySpy = new EventSpy(events.empty);
+    const emptySpy = new EventSpy(SbbAlertGroup.events.empty);
 
     // Then no title should be rendered and no empty event fired
     expect(element.shadowRoot.querySelector('.sbb-alert-group__title')).to.be.null;

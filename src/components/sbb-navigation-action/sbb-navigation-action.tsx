@@ -25,7 +25,6 @@ import Style from './sbb-navigation-action.scss?lit&inline';
 /**
  * @slot unnamed - Use this slot to provide the navigation action label.
  */
-
 @customElement('sbb-navigation-action')
 export class SbbNavigationAction extends LitElement {
   public static override styles: CSSResult = Style;

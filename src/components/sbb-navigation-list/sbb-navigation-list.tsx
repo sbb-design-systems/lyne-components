@@ -14,7 +14,6 @@ import Style from './sbb-navigation-list.scss?lit&inline';
  * @slot label - Use this to provide a label element.
  * @slot unnamed - Use this to provide content for sbb-navigation-list
  */
-
 @customElement('sbb-navigation-list')
 export class SbbNavigationList extends LitElement {
   public static override styles: CSSResult = Style;

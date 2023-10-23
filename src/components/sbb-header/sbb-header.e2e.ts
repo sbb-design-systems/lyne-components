@@ -1,11 +1,10 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { setViewport } from '@web/test-runner-commands';
-import { events } from '../sbb-menu';
+import { SbbMenu } from '../sbb-menu';
 import { EventSpy, waitForLitRender, mockScrollTo, waitForCondition } from '../../global/testing';
 import { SbbHeader } from './sbb-header';
 import '../sbb-header-action';
-import '../sbb-menu';
 import '../sbb-menu-action';
 
 describe('sbb-header', () => {
@@ -34,7 +33,7 @@ describe('sbb-header', () => {
 
   it('should hide/show on scroll', async () => {
     await fixture(html`
-      <sbb-header hide-on-scroll="true"></sbb-header>
+      <sbb-header hide-on-scroll></sbb-header>
       <div style="height: 2000px;"></div>
     `);
 
@@ -70,7 +69,7 @@ describe('sbb-header', () => {
 
   it('should close menu on scroll', async () => {
     await fixture(html`
-      <sbb-header hide-on-scroll="true">
+      <sbb-header hide-on-scroll>
         <sbb-header-action id="language-menu-trigger">English</sbb-header-action>
         <sbb-menu trigger="language-menu-trigger" disable-animation>
           <sbb-menu-action>Deutsch</sbb-menu-action>
@@ -92,8 +91,8 @@ describe('sbb-header', () => {
     expect(element).to.have.attribute('data-visible');
 
     // Open menu
-    const willOpenEventSpy = new EventSpy(events.willOpen);
-    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const willOpenEventSpy = new EventSpy(SbbMenu.events.willOpen);
+    const didOpenEventSpy = new EventSpy(SbbMenu.events.didOpen);
     const menuTrigger = document.querySelector('sbb-header-action');
     menuTrigger.click();
     await waitForLitRender(element);

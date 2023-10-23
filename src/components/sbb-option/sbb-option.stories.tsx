@@ -4,11 +4,10 @@ import readme from './readme.md?raw';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 import { StoryContext } from '@storybook/web-components';
-import { events } from './sbb-option';
+import { SbbOption } from './sbb-option';
 import '../sbb-form-field';
 import '../sbb-select';
 import '../sbb-autocomplete';
-import './sbb-option';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative
@@ -186,7 +185,7 @@ const meta: Meta = {
   ],
   parameters: {
     actions: {
-      handles: [events.selectionChange, events.optionSelected],
+      handles: [SbbOption.events.selectionChange, SbbOption.events.optionSelected],
     },
     backgrounds: {
       disable: true,

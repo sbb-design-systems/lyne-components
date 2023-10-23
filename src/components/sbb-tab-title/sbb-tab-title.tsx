@@ -14,7 +14,6 @@ import Style from './sbb-tab-title.scss?lit&inline';
  * @slot icon - Use this slot to display an icon to the left of the title, by providing the `sbb-icon` component.
  * @slot amount - Provide a number to show an amount to the right of the title.
  */
-
 @customElement('sbb-tab-title')
 export class SbbTabTitle extends LitElement {
   public static override styles: CSSResult = Style;

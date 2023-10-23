@@ -1,4 +1,3 @@
-import { events } from './sbb-alert';
 import { waitForCondition } from '../../global/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
@@ -14,8 +13,8 @@ describe('sbb-alert', () => {
   });
 
   it('should fire animation events', async () => {
-    const willPresentSpy = new EventSpy(events.willPresent);
-    const didPresentSpy = new EventSpy(events.didPresent);
+    const willPresentSpy = new EventSpy(SbbAlert.events.willPresent);
+    const didPresentSpy = new EventSpy(SbbAlert.events.didPresent);
 
     await fixture(html`<sbb-alert title-content="disruption">Interruption</sbb-alert>`);
 

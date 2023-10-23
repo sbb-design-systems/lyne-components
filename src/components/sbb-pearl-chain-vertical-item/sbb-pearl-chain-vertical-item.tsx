@@ -24,7 +24,6 @@ export interface PearlChainVerticalItemAttributes {
  * @slot left - content of the left side of the item
  * @slot right - content of the right side of the item
  */
-
 @customElement('sbb-pearl-chain-vertical-item')
 export class SbbPearlChainVerticalItem extends LitElement {
   public static override styles: CSSResult = Style;

@@ -25,7 +25,6 @@ import '../sbb-image';
  * @slot link-content - link content of the panel
  * @slot image - the background image, can be a `sbb-image`
  */
-
 @customElement('sbb-teaser-hero')
 export class SbbTeaserHero extends LitElement implements LinkProperties {
   public static override styles: CSSResult = Style;

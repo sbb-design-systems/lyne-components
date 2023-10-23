@@ -8,19 +8,17 @@ import { SbbAlert } from '../sbb-alert';
 import { setAttribute } from '../../global/dom';
 import Style from './sbb-alert-group.scss?lit&inline';
 
-export const events = {
-  didDismissAlert: 'did-dismiss-alert',
-  empty: 'empty',
-};
-
 /**
  * @slot unnamed - content slot, should be filled with `sbb-alert` items.
  * @slot accessibility-title - title for this sbb-alert-group which is only visible for screen reader users.
  */
-
 @customElement('sbb-alert-group')
 export class SbbAlertGroup extends LitElement {
   public static override styles: CSSResult = Style;
+  public static readonly events = {
+    didDismissAlert: 'did-dismiss-alert',
+    empty: 'empty',
+  } as const;
 
   /**
    * The role attribute defines how to announce alerts to the user.
@@ -42,10 +40,13 @@ export class SbbAlertGroup extends LitElement {
   @state() private _hasAlerts: boolean;
 
   /** Emits when an alert was removed from DOM. */
-  private _didDismissAlert: EventEmitter<SbbAlert> = new EventEmitter(this, events.didDismissAlert);
+  private _didDismissAlert: EventEmitter<SbbAlert> = new EventEmitter(
+    this,
+    SbbAlertGroup.events.didDismissAlert,
+  );
 
   /** Emits when `sbb-alert-group` becomes empty. */
-  private _empty: EventEmitter<void> = new EventEmitter(this, events.empty);
+  private _empty: EventEmitter<void> = new EventEmitter(this, SbbAlertGroup.events.empty);
 
   private _abort = new ConnectedAbortController(this);
 

@@ -8,7 +8,6 @@ import Style from './sbb-navigation-marker.scss?lit&inline';
 /**
  * @slot unnamed - Use this slot to provide navigation actions into the sbb-navigation-marker.
  */
-
 @customElement('sbb-navigation-marker')
 export class SbbNavigationMarker extends LitElement {
   public static override styles: CSSResult = Style;
