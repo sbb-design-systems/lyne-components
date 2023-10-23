@@ -20,7 +20,9 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { SbbDatepicker } from '../sbb-datepicker';
 import { setAttribute, setAttributes } from '../../global/dom';
 import Style from './sbb-datepicker-next-day.scss?lit&inline';
+
 import '../sbb-icon';
+import '../sbb-datepicker';
 
 @customElement('sbb-datepicker-next-day')
 export class SbbDatepickerNextDay extends LitElement {

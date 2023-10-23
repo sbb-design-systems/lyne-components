@@ -4,7 +4,6 @@ import { EventSpy, waitForCondition, waitForLitRender } from '../../global/testi
 import { SbbDatepickerNextDay } from './sbb-datepicker-next-day';
 import { SbbFormField } from '../sbb-form-field';
 
-import '../sbb-datepicker';
 import '../sbb-form-field';
 import './sbb-datepicker-next-day';
 
@@ -29,17 +28,18 @@ describe('sbb-datepicker-next-day', () => {
       `);
 
       const element: SbbDatepickerNextDay = page.querySelector('sbb-datepicker-next-day');
+      await waitForLitRender(element);
       const input: HTMLInputElement = page.querySelector('input');
+
       const changeSpy = new EventSpy('change', input);
       const blurSpy = new EventSpy('blur', input);
-
-      await waitForLitRender(element);
 
       assert.instanceOf(element, SbbDatepickerNextDay);
       expect(input.value).to.be.equal('Sa, 31.12.2022');
 
-      element.click();
-      await waitForCondition(() => changeSpy.events.length === 1);
+      await element.click();
+
+      await waitForCondition(() => changeSpy.events.length >= 1);
 
       expect(changeSpy.count).to.be.equal(1);
       expect(blurSpy.count).to.be.equal(1);

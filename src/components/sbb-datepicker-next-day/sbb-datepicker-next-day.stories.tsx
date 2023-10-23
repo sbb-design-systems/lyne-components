@@ -6,6 +6,7 @@ import type { Meta, StoryObj, Decorator, StoryContext } from '@storybook/web-com
 import { InputType } from '@storybook/types';
 import { Args, ArgTypes } from '@storybook/web-components';
 import './sbb-datepicker-next-day';
+import '../sbb-form-field';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative
@@ -100,7 +101,7 @@ const meta: Meta = {
   ],
   parameters: {
     actions: {
-      handles: ['click', 'change'],
+      handles: ['click', 'change', 'input'],
     },
     backgrounds: {
       disable: true,

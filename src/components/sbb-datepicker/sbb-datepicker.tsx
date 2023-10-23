@@ -150,7 +150,7 @@ export class SbbDatepicker extends LitElement {
     this._formatAndUpdateValue(this._inputElement.value, parsedDate);
     /* Emit blur event when value is changed programmatically to notify
     frameworks that rely on that event to update form status. */
-    this._inputElement.dispatchEvent(new FocusEvent('blur', { composed: true }));
+    this._inputElement.dispatchEvent(new Event('blur', { composed: true }));
   }
 
   private _onInputPropertiesChange(mutationsList?: MutationRecord[]): void {
@@ -232,8 +232,8 @@ export class SbbDatepicker extends LitElement {
     return this._format(date);
   }
 
-  private async _valueChanged(event): Promise<void> {
-    await this._formatAndUpdateValue(event.target.value, this._parse(event.target.value));
+  private _valueChanged(event): void {
+    this._formatAndUpdateValue(event.target.value, this._parse(event.target.value));
   }
 
   /** Applies the correct format to values and triggers event dispatch. */
@@ -270,7 +270,9 @@ export class SbbDatepicker extends LitElement {
 
     if (this._inputElement) {
       this._inputElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
-      this._inputElement.dispatchEvent(new CustomEvent('change', { bubbles: true }));
+      this._inputElement.dispatchEvent(
+        new CustomEvent('change', { bubbles: true, composed: true }),
+      );
     }
   }
 

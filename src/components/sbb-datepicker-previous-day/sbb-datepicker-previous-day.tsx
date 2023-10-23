@@ -22,6 +22,7 @@ import { setAttribute, setAttributes } from '../../global/dom';
 import Style from './sbb-datepicker-previous-day.scss?lit&inline';
 
 import '../sbb-icon';
+import '../sbb-datepicker';
 
 @customElement('sbb-datepicker-previous-day')
 export class SbbDatepickerPreviousDay extends LitElement {
