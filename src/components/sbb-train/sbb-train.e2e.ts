@@ -1,33 +1,30 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { EventSpy, waitForCondition } from '../../global/testing';
+import { SbbTrain } from './sbb-train';
+import '../sbb-icon';
 
 describe('sbb-train', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbTrain;
 
   it('should render', async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-train></sbb-train>');
-
-    element = await page.find('sbb-train');
-    expect(element).toHaveClass('hydrated');
+    element = await fixture(html`<sbb-train></sbb-train>`);
+    assert.instanceOf(element, SbbTrain);
   });
 
   it('should emit trainSlotChange', async () => {
-    page = await newE2EPage();
-    await page.setContent(`
+    element = await fixture(html`
       <sbb-train>
         <sbb-train-wagon></sbb-train-wagon>
         <sbb-train-wagon></sbb-train-wagon>
         <sbb-train-wagon></sbb-train-wagon>
       </sbb-train>
     `);
+    const trainSlotChangeSpy = new EventSpy('train-slot-change');
 
-    await page.waitForChanges();
-    element = await page.find('sbb-train');
-    const trainSlotChangeSpy = await element.spyOnEvent('trainSlotChange');
+    element.querySelector('sbb-train-wagon').remove();
 
-    await page.evaluate(() => document.querySelector('sbb-train-wagon').remove());
-    await page.waitForChanges();
-
-    expect(trainSlotChangeSpy).toHaveReceivedEvent();
+    await waitForCondition(() => trainSlotChangeSpy.events.length === 4);
+    expect(trainSlotChangeSpy.count).to.be.greaterThan(0);
   });
 });

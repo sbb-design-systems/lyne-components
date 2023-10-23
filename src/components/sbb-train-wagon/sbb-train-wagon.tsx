@@ -1,17 +1,3 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  Event,
-  EventEmitter,
-  Fragment,
-  h,
-  Host,
-  JSX,
-  Prop,
-  State,
-  Watch,
-} from '@stencil/core';
 import { InterfaceSbbTrainWagonAttributes } from './sbb-train-wagon.custom';
 import {
   i18nAdditionalWagonInformationHeading,
@@ -28,57 +14,79 @@ import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
+  EventEmitter,
 } from '../../global/eventing';
+import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
+import { html, unsafeStatic } from 'lit/static-html.js';
+import { customElement, property, state } from 'lit/decorators.js';
+import { SbbIcon } from '../sbb-icon';
+import { setAttribute } from '../../global/dom';
+import Style from './sbb-train-wagon.scss?lit&inline';
+import '../sbb-icon';
+
+export const events = {
+  sectorChange: 'sector-change',
+};
 
 /**
  * @slot unnamed - Used to slot one to x icons for meta information of the sbb-train-wagon.
  */
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-train-wagon.scss',
-  tag: 'sbb-train-wagon',
-})
-export class SbbTrainWagon implements ComponentInterface {
+@customElement('sbb-train-wagon')
+export class SbbTrainWagon extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /** Wagon type. */
-  @Prop({ reflect: true }) public type: InterfaceSbbTrainWagonAttributes['type'] = 'wagon';
+  @property({ reflect: true }) public type: InterfaceSbbTrainWagonAttributes['type'] = 'wagon';
 
   /** Occupancy of a wagon. */
-  @Prop() public occupancy?: InterfaceSbbTrainWagonAttributes['occupancy'] = 'unknown';
+  @property() public occupancy?: InterfaceSbbTrainWagonAttributes['occupancy'] = 'unknown';
 
   /** Sector in which to wagon stops. */
-  @Prop({ reflect: true }) public sector: string;
+  @property({ reflect: true })
+  public get sector(): string {
+    return this._sector;
+  }
+  public set sector(value: string) {
+    const oldValue = this._sector;
+    this._sector = value;
+    this._sectorChanged();
+    this.requestUpdate('sector', oldValue);
+  }
+  private _sector: string = null;
 
   /** Accessibility text for blocked passages of the wagon. */
-  @Prop() public blockedPassage: InterfaceSbbTrainWagonAttributes['blockedPassage'] = 'none';
+  @property({ attribute: 'blocked-passage' })
+  public blockedPassage: InterfaceSbbTrainWagonAttributes['blockedPassage'] = 'none';
 
   /** Visible class label of a wagon. */
-  @Prop() public wagonClass?: '1' | '2';
+  @property({ attribute: 'wagon-class' }) public wagonClass?: '1' | '2';
 
   /** Visible label for the wagon number. Not used by type locomotive or closed. */
-  @Prop() public label?: string;
+  @property() public label?: string;
 
   /** Additional accessibility text which will be appended to the end. */
-  @Prop() public additionalAccessibilityText?: string;
+  @property({ attribute: 'additional-accessibility-text' })
+  public additionalAccessibilityText?: string;
 
   /** Slotted Sbb-icons. */
-  @State() private _icons: HTMLSbbIconElement[];
+  @state() private _icons: SbbIcon[];
 
-  @State() private _currentLanguage = documentLanguage();
-
-  @Element() private _element!: HTMLSbbTrainWagonElement;
+  @state() private _currentLanguage = documentLanguage();
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
     this._handlerRepository.connect();
     this._readSlottedIcons();
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
   }
 
@@ -86,23 +94,23 @@ export class SbbTrainWagon implements ComponentInterface {
    * @internal
    * Emits whenever the sector value changes.
    */
-  @Event({ bubbles: true, cancelable: true }) public sectorChange: EventEmitter;
+  private _sectorChange: EventEmitter = new EventEmitter(this, events.sectorChange, {
+    bubbles: true,
+    cancelable: true,
+  });
 
-  @Watch('sector')
-  public sectorChanged(): void {
-    this.sectorChange.emit();
+  private _sectorChanged(): void {
+    this._sectorChange.emit();
   }
 
   /**
    * Create an array with only the sbb-icon children.
    */
   private _readSlottedIcons(): void {
-    this._icons = Array.from(this._element.children).filter(
-      (e): e is HTMLSbbIconElement => e.tagName === 'SBB-ICON',
-    );
+    this._icons = Array.from(this.children).filter((e): e is SbbIcon => e.tagName === 'SBB-ICON');
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     // We should avoid lists with only one entry
     if (this._icons?.length > 1) {
       this._icons.forEach((icon, index) =>
@@ -112,84 +120,84 @@ export class SbbTrainWagon implements ComponentInterface {
       this._icons?.forEach((icon) => icon.removeAttribute('slot'));
     }
 
-    const label = (tagName: string): JSX.Element => {
+    const label = (tagName: string): TemplateResult => {
       const TAG_NAME = tagName;
-      return (
-        <TAG_NAME class="sbb-train-wagon__label" aria-hidden={(!this.label).toString()}>
-          {this.label && (
-            <Fragment>
-              <span class="sbb-screenreaderonly">
-                {`${i18nWagonLabelNumber[this._currentLanguage]},`}&nbsp;
-              </span>
-              {this.label}
-            </Fragment>
-          )}
-        </TAG_NAME>
-      );
+      /* eslint-disable lit/binding-positions */
+      return html`
+        <${unsafeStatic(TAG_NAME)} class="sbb-train-wagon__label" aria-hidden=${(!this
+          .label).toString()}>
+          ${
+            this.label
+              ? html` <span class="sbb-screenreaderonly">
+                    ${`${i18nWagonLabelNumber[this._currentLanguage]},`}&nbsp;
+                  </span>
+                  ${this.label}`
+              : nothing
+          }
+        </${unsafeStatic(TAG_NAME)}>
+      `;
+      /* eslint-disable lit/binding-positions */
     };
 
     const sectorString = `${i18nSector[this._currentLanguage]}, ${this.sector}`;
 
-    return (
-      <Host
-        data-has-visible-wagon-content={Boolean(
-          (this.type === 'wagon' && this.occupancy) || this.wagonClass,
-        )}
-      >
-        <div class="sbb-train-wagon">
-          {this.type === 'wagon' && (
-            <ul
-              aria-label={i18nWagonLabel[this._currentLanguage]}
+    setAttribute(
+      this,
+      'data-has-visible-wagon-content',
+      Boolean((this.type === 'wagon' && this.occupancy) || this.wagonClass),
+    );
+
+    return html`
+      <div class="sbb-train-wagon">
+        ${this.type === 'wagon'
+          ? html`<ul
+              aria-label=${i18nWagonLabel[this._currentLanguage]}
               class="sbb-train-wagon__compartment"
             >
-              {this.sector && <li class="sbb-screenreaderonly">{sectorString}</li>}
-              {label('li')}
-              {this.wagonClass && (
-                <li class="sbb-train-wagon__class">
-                  <span class="sbb-screenreaderonly">
-                    {this.wagonClass === '1'
-                      ? i18nClass['first'][this._currentLanguage]
-                      : i18nClass['second'][this._currentLanguage]}
-                  </span>
-                  <span aria-hidden="true">{this.wagonClass}</span>
-                </li>
-              )}
-
-              {this.occupancy && (
-                <sbb-icon
-                  class="sbb-train-wagon__occupancy"
-                  role="listitem"
-                  name={`utilization-${this.occupancy === 'unknown' ? 'none' : this.occupancy}`}
-                  aria-hidden="false"
-                  aria-label={i18nOccupancy[this.occupancy][this._currentLanguage]}
-                ></sbb-icon>
-              )}
-
-              {this.blockedPassage && this.blockedPassage !== 'none' && (
-                <li class="sbb-screenreaderonly">
-                  {i18nBlockedPassage[this.blockedPassage][this._currentLanguage]}
-                </li>
-              )}
-            </ul>
-          )}
-
-          {this.type === 'closed' && (
-            <span class="sbb-train-wagon__compartment">
+              ${this.sector ? html`<li class="sbb-screenreaderonly">${sectorString}</li>` : nothing}
+              ${label('li')}
+              ${this.wagonClass
+                ? html`<li class="sbb-train-wagon__class">
+                    <span class="sbb-screenreaderonly">
+                      ${this.wagonClass === '1'
+                        ? i18nClass['first'][this._currentLanguage]
+                        : i18nClass['second'][this._currentLanguage]}
+                    </span>
+                    <span aria-hidden="true">${this.wagonClass}</span>
+                  </li>`
+                : nothing}
+              ${this.occupancy
+                ? html`<sbb-icon
+                    class="sbb-train-wagon__occupancy"
+                    role="listitem"
+                    name=${`utilization-${this.occupancy === 'unknown' ? 'none' : this.occupancy}`}
+                    aria-hidden="false"
+                    aria-label=${i18nOccupancy[this.occupancy][this._currentLanguage]}
+                  ></sbb-icon>`
+                : nothing}
+              ${this.blockedPassage && this.blockedPassage !== 'none'
+                ? html`<li class="sbb-screenreaderonly">
+                    ${i18nBlockedPassage[this.blockedPassage][this._currentLanguage]}
+                  </li>`
+                : nothing}
+            </ul>`
+          : nothing}
+        ${this.type === 'closed'
+          ? html`<span class="sbb-train-wagon__compartment">
               <span class="sbb-screenreaderonly">
-                {i18nClosedCompartmentLabel(parseInt(this.label))[this._currentLanguage]}
-                {this.sector && `, ${sectorString}`}
+                ${i18nClosedCompartmentLabel(parseInt(this.label))[this._currentLanguage]}
+                ${this.sector ? `, ${sectorString}` : nothing}
               </span>
-              {label('span')}
-            </span>
-          )}
-
-          {this.type === 'locomotive' && (
-            <span class="sbb-train-wagon__compartment">
+              ${label('span')}
+            </span>`
+          : nothing}
+        ${this.type === 'locomotive'
+          ? html`<span class="sbb-train-wagon__compartment">
               <span class="sbb-screenreaderonly">
-                {i18nLocomotiveLabel[this._currentLanguage]}
-                {this.sector && `, ${sectorString}`}
+                ${i18nLocomotiveLabel[this._currentLanguage]}
+                ${this.sector ? `, ${sectorString}` : nothing}
               </span>
-              {label('span')}
+              ${label('span')}
               <svg
                 class="sbb-train-wagon__locomotive"
                 aria-hidden="true"
@@ -204,42 +212,50 @@ export class SbbTrainWagon implements ComponentInterface {
                   stroke="var(--sbb-train-wagon-shape-color-closed)"
                 />
               </svg>
-            </span>
-          )}
-
-          {this.additionalAccessibilityText && (
-            <span class="sbb-screenreaderonly">, {this.additionalAccessibilityText}</span>
-          )}
-
-          {this.type === 'wagon' && (
-            <span class="sbb-train-wagon__icons" hidden={!this._icons || this._icons?.length === 0}>
-              {this._icons?.length > 1 && (
-                <ul
-                  class="sbb-train-wagon__icons-list"
-                  aria-label={i18nAdditionalWagonInformationHeading[this._currentLanguage]}
-                >
-                  {this._icons.map((_, index) => (
-                    <li class="sbb-train-wagon__icons-item">
-                      <slot
-                        name={`sbb-train-wagon-icon-${index}`}
-                        onSlotchange={(): void => this._readSlottedIcons()}
-                      />
-                    </li>
-                  ))}
-                </ul>
-              )}
-              <span class="sbb-train-wagon__icons-item" hidden={this._icons?.length !== 1}>
-                {this._icons?.length === 1 && (
-                  <span class="sbb-screenreaderonly">
-                    {i18nAdditionalWagonInformationHeading[this._currentLanguage]}
-                  </span>
-                )}
-                <slot onSlotchange={(): void => this._readSlottedIcons()} />
+            </span>`
+          : nothing}
+        ${this.additionalAccessibilityText
+          ? html`<span class="sbb-screenreaderonly">, ${this.additionalAccessibilityText}</span>`
+          : nothing}
+        ${this.type === 'wagon'
+          ? html`<span
+              class="sbb-train-wagon__icons"
+              ?hidden=${!this._icons || this._icons?.length === 0}
+            >
+              ${this._icons?.length > 1
+                ? html`<ul
+                    class="sbb-train-wagon__icons-list"
+                    aria-label=${i18nAdditionalWagonInformationHeading[this._currentLanguage]}
+                  >
+                    ${this._icons.map(
+                      (_, index) =>
+                        html`<li class="sbb-train-wagon__icons-item">
+                          <slot
+                            name=${`sbb-train-wagon-icon-${index}`}
+                            @slotchange=${(): void => this._readSlottedIcons()}
+                          ></slot>
+                        </li>`,
+                    )}
+                  </ul>`
+                : nothing}
+              <span class="sbb-train-wagon__icons-item" ?hidden=${this._icons?.length !== 1}>
+                ${this._icons?.length === 1
+                  ? html`<span class="sbb-screenreaderonly">
+                      ${i18nAdditionalWagonInformationHeading[this._currentLanguage]}
+                    </span>`
+                  : nothing}
+                <slot @slotchange=${(): void => this._readSlottedIcons()}></slot>
               </span>
-            </span>
-          )}
-        </div>
-      </Host>
-    );
+            </span>`
+          : nothing}
+      </div>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-train-wagon': SbbTrainWagon;
   }
 }

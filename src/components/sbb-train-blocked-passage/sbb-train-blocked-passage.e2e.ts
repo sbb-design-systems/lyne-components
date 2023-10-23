@@ -1,13 +1,12 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { assert, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { SbbTrainBlockedPassage } from './sbb-train-blocked-passage';
 
 describe('sbb-train-blocked-passage', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbTrainBlockedPassage;
 
   it('renders', async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-train-blocked-passage></sbb-train-blocked-passage>');
-
-    element = await page.find('sbb-train-blocked-passage');
-    expect(element).toHaveClass('hydrated');
+    element = await fixture(html`<sbb-train-blocked-passage></sbb-train-blocked-passage>`);
+    assert.instanceOf(element, SbbTrainBlockedPassage);
   });
 });

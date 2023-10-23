@@ -1,52 +1,47 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../global/testing';
+import { SbbTrainWagon } from './sbb-train-wagon';
 
 describe('sbb-train-wagon', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbTrainWagon;
 
   it('renders', async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-train-wagon></sbb-train-wagon>');
-
-    element = await page.find('sbb-train-wagon');
-    expect(element).toHaveClass('hydrated');
+    element = await fixture(html`<sbb-train-wagon></sbb-train-wagon>`);
+    assert.instanceOf(element, SbbTrainWagon);
   });
 
   it('should emit sectorChange', async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-train-wagon sector="A"></sbb-train-wagon>');
-    await page.waitForChanges();
-    element = await page.find('sbb-train-wagon');
-    const sectorChangeSpy = await element.spyOnEvent('sectorChange');
+    element = await fixture(html`<sbb-train-wagon sector="A"></sbb-train-wagon>`);
+    const sectorChangeSpy = new EventSpy('sector-change');
+    element.sector = 'B';
 
-    element.setProperty('sector', 'B');
-    await page.waitForChanges();
-
-    expect(sectorChangeSpy).toHaveReceivedEvent();
+    await waitForCondition(() => sectorChangeSpy.events.length === 1);
+    expect(sectorChangeSpy.count).to.be.greaterThan(0);
   });
 
   it('should change slot name when changing from multiple to single icon', async () => {
-    page = await newE2EPage();
-    await page.setContent(
-      `<sbb-train-wagon sector="A">
-              <sbb-icon name="sa-rs"></sbb-icon>
-              <sbb-icon name="sa-rs"></sbb-icon>
-            </sbb-train-wagon>`,
+    element = await fixture(
+      html`<sbb-train-wagon sector="A">
+        <sbb-icon name="sa-rs"></sbb-icon>
+        <sbb-icon name="sa-rs"></sbb-icon>
+      </sbb-train-wagon>`,
     );
-    await page.waitForChanges();
-    element = await page.find('sbb-train-wagon');
 
     expect(
-      (await page.findAll('sbb-icon')).every((icon) =>
+      Array.from(element.querySelectorAll('sbb-icon')).every((icon) =>
         icon.getAttribute('slot').startsWith('sbb-train-wagon-icon-'),
       ),
-    ).toBe(true);
+    ).to.be.true;
 
     // Remove one icon
-    await page.evaluate(() => document.querySelector('sbb-icon').remove());
-    await page.waitForChanges();
+    element.querySelector('sbb-icon').remove();
+    await waitForLitRender(element);
 
     expect(
-      (await page.findAll('sbb-icon')).every((icon) => icon.getAttribute('slot') === null),
-    ).toBe(true);
+      Array.from(element.querySelectorAll('sbb-icon')).every(
+        (icon) => icon.getAttribute('slot') === null,
+      ),
+    ).to.be.true;
   });
 });

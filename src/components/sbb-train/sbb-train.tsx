@@ -1,71 +1,73 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  Event,
-  EventEmitter,
-  h,
-  JSX,
-  Prop,
-  State,
-} from '@stencil/core';
 import { InterfaceSbbTrainAttributes } from './sbb-train.custom';
 import { i18nTrain, i18nWagonsLabel } from '../../global/i18n';
-import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
+import { TitleLevel } from '../sbb-title';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
+  EventEmitter,
 } from '../../global/eventing';
+import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
+import { html, unsafeStatic } from 'lit/static-html.js';
+import { customElement, property, state } from 'lit/decorators.js';
+import { SbbTrainBlockedPassage } from '../sbb-train-blocked-passage';
+import { SbbTrainWagon } from '../sbb-train-wagon';
+import Style from './sbb-train.scss?lit&inline';
+import '../sbb-icon';
+
+export const events = {
+  trainSlotChange: 'train-slot-change',
+};
 
 /**
  * @slot unnamed - Used for slotting sbb-train-wagons.
  */
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-train.scss',
-  tag: 'sbb-train',
-})
-export class SbbTrain implements ComponentInterface {
+@customElement('sbb-train')
+export class SbbTrain extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /** General label for "driving direction". */
-  @Prop() public directionLabel!: string;
+  @property({ attribute: 'direction-label' }) public directionLabel!: string;
 
   /** Heading level of the direction label, used for screen readers. */
-  @Prop() public directionLabelLevel: InterfaceTitleAttributes['level'] = '6';
+  @property({ attribute: 'direction-label-level' }) public directionLabelLevel: TitleLevel = '6';
 
   /** Label for the destination station of the train. */
-  @Prop() public station?: string;
+  @property() public station?: string;
 
   /** Accessibility label for additional information regarding the leaving direction of the train. */
-  @Prop() public accessibilityLabel?: string;
+  @property({ attribute: 'accessibility-label' }) public accessibilityLabel?: string;
 
   /** Controls the direction indicator to show the arrow left or right. Default is left.  */
-  @Prop({ reflect: true }) public direction: InterfaceSbbTrainAttributes['direction'] = 'left';
+  @property({ reflect: true }) public direction: InterfaceSbbTrainAttributes['direction'] = 'left';
 
-  @State() private _wagons: (HTMLSbbTrainBlockedPassageElement | HTMLSbbTrainWagonElement)[];
+  @state() private _wagons: (SbbTrainBlockedPassage | SbbTrainWagon)[];
 
-  @State() private _currentLanguage = documentLanguage();
+  @state() private _currentLanguage = documentLanguage();
 
   /**
    * @internal
    * Emits whenever the train slot changes.
    */
-  @Event({ bubbles: true, cancelable: true }) public trainSlotChange: EventEmitter;
-
-  @Element() private _element!: HTMLSbbTrainElement;
+  private _trainSlotChange: EventEmitter = new EventEmitter(this, events.trainSlotChange, {
+    bubbles: true,
+    cancelable: true,
+  });
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
     this._handlerRepository.connect();
     this._readWagons();
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
   }
 
@@ -87,8 +89,8 @@ export class SbbTrain implements ComponentInterface {
   }
 
   private _readWagons(): void {
-    const wagons = Array.from(this._element.children).filter(
-      (e): e is HTMLSbbTrainBlockedPassageElement | HTMLSbbTrainWagonElement =>
+    const wagons = Array.from(this.children).filter(
+      (e): e is SbbTrainBlockedPassage | SbbTrainWagon =>
         e.tagName === 'SBB-TRAIN-WAGON' || e.tagName === 'SBB-TRAIN-BLOCKED-PASSAGE',
     );
     // If the slotted sbb-train-wagon and sbb-train-blocked-passage instances have not changed, we can skip syncing and updating
@@ -105,51 +107,66 @@ export class SbbTrain implements ComponentInterface {
   }
 
   private _handleSlotChange(): void {
-    this.trainSlotChange.emit();
+    this._trainSlotChange.emit();
     this._readWagons();
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const TITLE_TAG_NAME = `h${this.directionLabelLevel}`;
     this._wagons.forEach((wagon, index) => wagon.setAttribute('slot', `wagon-${index}`));
 
-    return (
+    /* eslint-disable lit/binding-positions */
+    return html`
       <div class="sbb-train">
-        <TITLE_TAG_NAME class="sbb-train__direction-label-sr">
-          {this._getDirectionAriaLabel()}
-        </TITLE_TAG_NAME>
-        <ul class="sbb-train__wagons" aria-label={i18nWagonsLabel[this._currentLanguage]}>
-          {this._wagons.map((_, index) => (
-            <li>
-              <slot name={`wagon-${index}`} onSlotchange={(): void => this._handleSlotChange()} />
-            </li>
-          ))}
+        <${unsafeStatic(TITLE_TAG_NAME)} class="sbb-train__direction-label-sr">
+          ${this._getDirectionAriaLabel()}
+        </${unsafeStatic(TITLE_TAG_NAME)}>
+        <ul class="sbb-train__wagons" aria-label=${i18nWagonsLabel[this._currentLanguage]}>
+          ${this._wagons.map(
+            (_, index) =>
+              html`<li>
+                <slot
+                  name=${`wagon-${index}`}
+                  @slotchange=${(): void => this._handleSlotChange()}
+                ></slot>
+              </li>`,
+          )}
         </ul>
         <span hidden>
-          <slot onSlotchange={() => this._handleSlotChange()} />
+          <slot @slotchange=${() => this._handleSlotChange()}></slot>
         </span>
 
-        {this.directionLabel && (
-          <div class="sbb-train__direction" aria-hidden="true">
-            <div class="sbb-train__direction-heading">
-              <span class="sbb-train__direction-label">{this.directionLabel}</span>
-              {this.station && <span class="sbb-train__direction-station">{this.station}</span>}
-            </div>
-            <div class="sbb-train__direction-indicator">
-              <div class="sbb-train__sticky-wrapper">
-                <sbb-icon
-                  class="sbb-train__direction-arrow"
-                  name={
-                    this.direction === 'left'
-                      ? 'chevron-small-left-small'
-                      : 'chevron-small-right-small'
-                  }
-                ></sbb-icon>
-              </div>
-            </div>
-          </div>
-        )}
+        ${
+          this.directionLabel
+            ? html`<div class="sbb-train__direction" aria-hidden="true">
+                <div class="sbb-train__direction-heading">
+                  <span class="sbb-train__direction-label">${this.directionLabel}</span>
+                  ${this.station
+                    ? html`<span class="sbb-train__direction-station">${this.station}</span>`
+                    : nothing}
+                </div>
+                <div class="sbb-train__direction-indicator">
+                  <div class="sbb-train__sticky-wrapper">
+                    <sbb-icon
+                      class="sbb-train__direction-arrow"
+                      name=${this.direction === 'left'
+                        ? 'chevron-small-left-small'
+                        : 'chevron-small-right-small'}
+                    ></sbb-icon>
+                  </div>
+                </div>
+              </div>`
+            : nothing
+        }
       </div>
-    );
+    `;
+    /* eslint-disable lit/binding-positions */
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-train': SbbTrain;
   }
 }
