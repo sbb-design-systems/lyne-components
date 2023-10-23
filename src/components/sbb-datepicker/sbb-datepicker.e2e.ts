@@ -190,7 +190,8 @@ describe('sbb-datepicker', () => {
       input.focus();
       await sendKeys({ type: '20' });
       input.focus();
-      await sendKeys({ press: 'Tab' });
+      input.blur();
+      await waitForLitRender(element);
 
       // Then validation event should emit with false
       await waitForCondition(() => validationChangeSpy.events.length === 1);
@@ -214,7 +215,7 @@ describe('sbb-datepicker', () => {
       input.focus();
       await sendKeys({ type: '8.23' });
       input.focus();
-      await sendKeys({ press: 'Tab' });
+      input.blur();
 
       // Then validation event should be emitted with true
       await waitForCondition(() => validationChangeSpy.events.length === 1);
@@ -273,7 +274,9 @@ describe('sbb-datepicker', () => {
         input.focus();
         await sendKeys({ type: testCase.value });
         input.focus();
-        await sendKeys({ press: 'Tab' });
+        input.blur();
+        await waitForLitRender(element);
+
         expect(input.value).to.be.equal(testCase.interpretedAs);
         const paragraphElement = document
           .querySelector('sbb-datepicker')
