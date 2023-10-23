@@ -224,6 +224,7 @@ describe('sbb-datepicker', () => {
     });
 
     it('should interpret valid values and set accessibility labels', async () => {
+      document.documentElement.lang = 'en';
       const testCases = [
         {
           value: '5.5.0',

@@ -303,19 +303,15 @@ export class SbbDatepicker extends LitElement {
   }
 
   private _setAriaLiveMessage(date: Date): void {
-    const ariaLiveFormatterDay = new Intl.DateTimeFormat(`${this._currentLanguage}-CH`, {
+    const ariaLiveFormatter = new Intl.DateTimeFormat(`${this._currentLanguage}-CH`, {
       weekday: 'long',
-    });
-    const ariaLiveFormatterDate = new Intl.DateTimeFormat(`${this._currentLanguage}-CH`, {
       year: 'numeric',
       month: '2-digit',
       day: '2-digit',
     });
 
     this._statusContainer.innerText = date
-      ? `${i18nDateChangedTo[this._currentLanguage]} ${ariaLiveFormatterDay.format(
-          date,
-        )}, ${ariaLiveFormatterDate.format(date)}`
+      ? `${i18nDateChangedTo[this._currentLanguage]} ${ariaLiveFormatter.format(date)}`
       : '';
   }
 
