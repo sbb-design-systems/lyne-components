@@ -27,6 +27,10 @@
   --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s) 0;
   --sbb-dialog-footer-border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default);
 
+  position: fixed;
+  inset: var(--sbb-dialog-inset);
+  z-index: var(--sbb-dialog-z-index, var(--sbb-overlay-z-index));
+
   @include sbb.mq($from: micro) {
     --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-6x);
   }
@@ -91,12 +95,11 @@
 }
 
 .sbb-dialog__container {
-  position: fixed;
   pointer-events: var(--sbb-dialog-pointer-events);
   display: flex;
   align-items: center;
+  position: fixed;
   inset: var(--sbb-dialog-inset);
-  z-index: var(--sbb-dialog-z-index, var(--sbb-overlay-z-index));
 
   // Dialog backdrop (not visible on mobile)
   &::before {

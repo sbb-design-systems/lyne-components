@@ -15,7 +15,7 @@ const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
-    canvas.getByTestId('navigation').shadowRoot.querySelector('dialog.sbb-navigation'),
+    canvas.getByTestId('navigation').shadowRoot.querySelector('.sbb-navigation'),
   );
 
   const button = canvas.getByTestId('navigation-trigger');

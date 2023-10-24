@@ -13,7 +13,7 @@ const playStory = async (trigger, canvasElement): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
-    canvas.getByTestId('navigation').shadowRoot.querySelector('dialog.sbb-navigation'),
+    canvas.getByTestId('navigation').shadowRoot.querySelector('.sbb-navigation'),
   );
 
   const button = canvas.getByTestId('navigation-trigger');
@@ -23,9 +23,7 @@ const playStory = async (trigger, canvasElement): Promise<void> => {
   );
   await waitFor(() =>
     expect(
-      canvas
-        .getByTestId('navigation-section')
-        .shadowRoot.querySelector('dialog.sbb-navigation-section'),
+      canvas.getByTestId('navigation-section').shadowRoot.querySelector('.sbb-navigation-section'),
     ).toBeTruthy(),
   );
   const action = canvas.getByTestId(trigger);

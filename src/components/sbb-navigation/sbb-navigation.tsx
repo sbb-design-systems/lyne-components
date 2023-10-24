@@ -357,7 +357,7 @@ export class SbbNavigation implements ComponentInterface {
         onPointerUp={(event) => this._closeOnBackdropClick(event)}
         onPointerDown={(event) => this._pointerDownListener(event)}
       >
-        <div class="sbb-navigation__container" aria-modal="true">
+        <div class="sbb-navigation__container">
           <div
             ref={(navigationRef) => (this._navigation = navigationRef)}
             id="sbb-navigation-dialog"

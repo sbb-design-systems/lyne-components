@@ -26,10 +26,15 @@
   --sbb-navigation-inline-start: 0;
   --sbb-navigation-expanded-width: 100%;
   --sbb-navigation-inset: 0 auto auto 0;
-  --sbb-navgation-transform: translateX(-100%);
+  --sbb-navigation-transform: translateX(-100%);
   --sbb-navigation-content-transform: translateX(0);
   --sbb-navigation-width: 100%;
   --sbb-navigation-height: 100vh;
+
+  position: fixed;
+  inset: var(--sbb-navigation-inset);
+  z-index: var(--sbb-navigation-z-index, var(--sbb-overlay-z-index));
+  overflow: hidden;
 
   // Needed for backwards compatibility on Chromatic
   // TODO: Remove once not needed
@@ -71,7 +76,7 @@
 
 :host(:not([data-state='closed'])) {
   --sbb-navigation-inset: 0;
-  --sbb-navgation-transform: translateX(0);
+  --sbb-navigation-transform: translateX(0);
 }
 
 :host([data-has-navigation-section]) {
@@ -97,13 +102,8 @@
   @include sbb.grid-base;
 
   padding-inline: 0;
-  position: fixed;
-  inset: var(--sbb-navigation-inset);
   pointer-events: none;
-  outline: none;
-  overflow: hidden;
-  z-index: var(--sbb-navigation-z-index, var(--sbb-overlay-z-index));
-  transform: var(--sbb-navgation-transform);
+  transform: var(--sbb-navigation-transform);
 
   @include sbb.mq($from: large) {
     padding-inline: var(--sbb-layout-base-offset-responsive);
