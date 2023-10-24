@@ -305,13 +305,18 @@ export class SbbDatepicker extends LitElement {
   private _setAriaLiveMessage(date: Date): void {
     const ariaLiveFormatter = new Intl.DateTimeFormat(`${this._currentLanguage}-CH`, {
       weekday: 'long',
-      year: 'numeric',
-      month: '2-digit',
+    });
+
+    const dateFormatter = new Intl.DateTimeFormat('de-CH', {
       day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
     });
 
     this._statusContainer.innerText = date
-      ? `${i18nDateChangedTo[this._currentLanguage]} ${ariaLiveFormatter.format(date)}`
+      ? `${i18nDateChangedTo[this._currentLanguage]} ${ariaLiveFormatter.format(
+          date,
+        )}, ${dateFormatter.format(date)}`
       : '';
   }
 
