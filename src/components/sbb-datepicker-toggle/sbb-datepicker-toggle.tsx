@@ -10,15 +10,16 @@ import {
   languageChangeHandlerAspect,
 } from '../../global/eventing';
 import { sbbInputModalityDetector } from '../../global/a11y';
-import { isValidAttribute, setAttributes } from '../../global/dom';
+import { isValidAttribute } from '../../global/dom';
 import { CSSResult, html, LitElement, TemplateResult, PropertyValues, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { SbbDatepicker } from '../sbb-datepicker/index';
 import { SbbCalendar } from '../sbb-calendar/index';
 import { setAttribute } from '../../global/dom';
 import { ref } from 'lit/directives/ref.js';
-import Style from './sbb-datepicker-toggle.scss?lit&inline';
 import { SbbTooltipTrigger } from '../sbb-tooltip-trigger';
+import { SbbTooltip } from '../sbb-tooltip';
+import Style from './sbb-datepicker-toggle.scss?lit&inline';
 import '../sbb-tooltip-trigger';
 import '../sbb-tooltip';
 import '../sbb-calendar';
@@ -48,8 +49,9 @@ export class SbbDatepickerToggle extends LitElement {
 
   private _calendarElement: SbbCalendar;
 
-  private _triggerElement: SbbTooltipTrigger =
-    this.ownerDocument.createElement('sbb-tooltip-trigger');
+  private _triggerElement: SbbTooltipTrigger;
+
+  private _tooltipElement: SbbTooltip;
 
   private _datePickerController: AbortController;
 
@@ -175,26 +177,30 @@ export class SbbDatepickerToggle extends LitElement {
     return undefined;
   }
 
+  protected override updated(): void {
+    this._tooltipElement.trigger = this._triggerElement;
+  }
+
   protected override render(): TemplateResult {
     setAttribute(this, 'slot', 'prefix');
-    setAttributes(this._triggerElement as HTMLElement, {
-      'aria-label': i18nShowCalendar[this._currentLanguage],
-      'icon-name': 'calendar-small',
-      disabled: !this._datePickerElement || this._disabled,
-      negative: this.negative,
-      'data-icon-small': true,
-    });
     return html`
-      ${this._triggerElement}
+      <sbb-tooltip-trigger
+        icon-name="calendar-small"
+        aria-label=${i18nShowCalendar[this._currentLanguage]}
+        ?disabled=${!this._datePickerElement || this._disabled}
+        ?negative=${this.negative}
+        data-icon-small
+        ${ref((el: SbbTooltipTrigger) => (this._triggerElement = el))}
+      ></sbb-tooltip-trigger>
       <sbb-tooltip
         @will-open=${() => this._calendarElement.resetPosition()}
         @did-open=${() => {
           sbbInputModalityDetector.mostRecentModality === 'keyboard' &&
             this._calendarElement.focus();
         }}
-        .trigger=${this._triggerElement}
         ?disableAnimation=${this.disableAnimation}
         hide-close-button
+        ${ref((el: SbbTooltip) => (this._tooltipElement = el))}
       >
         <sbb-calendar
           data-now=${this._now()?.valueOf() || nothing}
