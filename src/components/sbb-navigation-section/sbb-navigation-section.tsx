@@ -267,9 +267,9 @@ export class SbbNavigationSection implements ComponentInterface {
   // Set focus on the first focusable element.
   private _setNavigationSectionFocus(): void {
     const firstFocusableElement = getFirstFocusableElement(
-      Array.from(this._element.children).filter(
-        (e): e is HTMLElement => e instanceof window.HTMLElement,
-      ),
+      [this._element.shadowRoot.querySelector('#sbb-navigation-section-back-button')]
+        .concat(Array.from(this._element.children))
+        .filter((e): e is HTMLElement => e instanceof window.HTMLElement),
     );
     if (firstFocusableElement) {
       setModalityOnNextFocus(firstFocusableElement);
@@ -332,6 +332,7 @@ export class SbbNavigationSection implements ComponentInterface {
   public render(): JSX.Element {
     const backButton = (
       <sbb-button
+        id="sbb-navigation-section-back-button"
         class="sbb-navigation-section__back"
         aria-label={this.accessibilityBackLabel || i18nGoBack[this._currentLanguage]}
         variant="transparent"
