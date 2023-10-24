@@ -63,12 +63,12 @@ if (!fs.existsSync(tempFolderPath)) {
 fs.writeFileSync(`${tempFolderPath}/components.md`, markdown);
 
 // Split the generated file into the single readme of each component
-const matches = Array.from(markdown.matchAll(/^# class: `(.*)`$/gm));
+const matches = Array.from(markdown.matchAll(/^# class: `(?<name>.*)`$/gm));
 
 for (let i = 0; i < matches.length; i++) {
   const startIndex = matches[i].index!;
   const endIndex = matches[i + 1]?.index ?? markdown.length;
-  const compName = matches[i][1];
+  const compName = matches[i].groups!.name;
 
   updateComponentReadme(compName, markdown.substring(startIndex, endIndex));
 }
