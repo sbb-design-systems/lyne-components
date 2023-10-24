@@ -32,7 +32,7 @@ the last element of the list receives the attribute `aria-current="page"`.
 
 ## Slots
 
-| Name | Description                                              |
-| ---- | -------------------------------------------------------- |
-|      | Use the unnamed slot to add \`sbb-breadcrumb\` elements. |
+| Name      | Description                                   |
+| --------- | --------------------------------------------- |
+| `unnamed` | Use this to slot the sbb-breadcrumb elements. |
 

@@ -25,15 +25,15 @@ Similarly, if a navigation action is marked to indicate a selected option (e.g.,
 <!-- Auto Generated Below --> 
  
 
-## Properties 
+## Properties
 
-| Name                     | Attribute                     | Privacy | Type                         | Default | Description                                                                                                            |
-| ------------------------ | ------------------------ | ------- | ---------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `titleContent`           | `title-content`           | public  | `string \| undefined`        |         |                                                                                                                        |
-| `trigger`                | `trigger`                | public  | `string \| HTMLElement`      |         | The element that will trigger the navigation section.&#xA;Accepts both a string (id of an element) or an HTML element. |
-| `accessibilityLabel`     | `accessibility-label`     | public  | `string \| undefined`        |         | This will be forwarded as aria-label to the nav element and is read as a title of the navigation-section.              |
-| `accessibilityBackLabel` | `accessibility-back-label` | public  | `\| string     \| undefined` |         | This will be forwarded as aria-label to the back button element.                                                       |
-| `disableAnimation`       | `disable-animation`       | public  | `boolean`                    | `false` | Whether the animation is enabled.                                                                                      |
+| Name                     | Privacy | Type                         | Default | Description                                                                                                            | Inherited From |
+| ------------------------ | ------- | ---------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `titleContent`           | public  | `string \| undefined`        |         |                                                                                                                        |                |
+| `trigger`                | public  | `string \| HTMLElement`      |         | The element that will trigger the navigation section.&#xA;Accepts both a string (id of an element) or an HTML element. |                |
+| `accessibilityLabel`     | public  | `string \| undefined`        |         | This will be forwarded as aria-label to the dialog and is read as a title of the navigation-section.                   |                |
+| `accessibilityBackLabel` | public  | `\| string     \| undefined` |         | This will be forwarded as aria-label to the back button element.                                                       |                |
+| `disableAnimation`       | public  | `boolean`                    | `false` | Whether the animation is enabled.                                                                                      |                |
 
 ## Methods
 
@@ -42,19 +42,9 @@ Similarly, if a navigation action is marked to indicate a selected option (e.g.,
 | `open`  | public  | Opens the navigation section on trigger click. |            | `void` |                |
 | `close` | public  | Closes the navigation section.                 |            | `void` |                |
 
-## Attributes
-
-| Name                       | Field                  | Inherited From |
-| -------------------------- | ---------------------- | -------------- |
-| `title-content`            | titleContent           |                |
-| `trigger`                  | trigger                |                |
-| `accessibility-label`      | accessibilityLabel     |                |
-| `accessibility-back-label` | accessibilityBackLabel |                |
-| `disable-animation`        | disableAnimation       |                |
-
 ## Slots
 
-| Name | Description                                                      |
-| ---- | ---------------------------------------------------------------- |
-|      | Use the unnamed slot to add content into the navigation section. |
+| Name      | Description                                                    |
+| --------- | -------------------------------------------------------------- |
+| `unnamed` | Use this to project any content inside the navigation section. |
 

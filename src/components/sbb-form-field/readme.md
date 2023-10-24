@@ -115,48 +115,36 @@ technology will announce errors when they appear.
 <!-- Auto Generated Below --> 
  
 
-## Properties 
+## Properties
 
-| Name            | Attribute            | Privacy | Type                                                   | Default     | Description                                                                                                                                                                       |
-| --------------- | --------------- | ------- | ------------------------------------------------------ | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `errorSpace`    | `error-space`    | public  | `'none' \| 'reserve' \| undefined`                     | `'none'`    | Whether to reserve space for an error message.&#xA;\`none\` does not reserve any space.&#xA;\`reserve\` does reserve one row for an error message.                                |
-| `label`         | `label`         | public  | `string`                                               |             | Label text for the input which is internally rendered as \`\<label>\`.                                                                                                            |
-| `optional`      | `optional`      | public  | `boolean \| undefined`                                 |             | Indicates whether the input is optional.                                                                                                                                          |
-| `size`          | `size`          | public  | `'l' \| 'm' \| undefined`                              | `'m'`       | Size variant, either l or m.                                                                                                                                                      |
-| `borderless`    | `borderless`    | public  | `boolean`                                              | `false`     | Whether to display the form field without a border.                                                                                                                               |
-| `width`         | `width`         | public  | `'default' \| 'collapse'`                              | `'default'` | Defines the width of the component:&#xA;- \`default\`: the component has defined width and min-width;&#xA;- \`collapse\`: the component adapts itself to its inner input content. |
-| `floatingLabel` | `floating-label` | public  | `boolean`                                              | `false`     | Whether the label should float. If activated, the placeholder of the input is hidden.                                                                                             |
-| `negative`      | `negative`      | public  | `boolean`                                              | `false`     | Negative coloring variant flag.                                                                                                                                                   |
-| `inputElement`  | `input-element`  | public  | `HTMLInputElement \| HTMLSelectElement \| HTMLElement` |             | Returns the input element.                                                                                                                                                        |
+| Name            | Privacy | Type                                                   | Default     | Description                                                                                                                                                                       | Inherited From |
+| --------------- | ------- | ------------------------------------------------------ | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `errorSpace`    | public  | `'none' \| 'reserve' \| undefined`                     | `'none'`    | Whether to reserve space for an error message.&#xA;\`none\` does not reserve any space.&#xA;\`reserve\` does reserve one row for an error message.                                |                |
+| `label`         | public  | `string`                                               |             | Label text for the input which is internally rendered as \`\<label>\`.                                                                                                            |                |
+| `optional`      | public  | `boolean \| undefined`                                 |             | Indicates whether the input is optional.                                                                                                                                          |                |
+| `size`          | public  | `'l' \| 'm' \| undefined`                              | `'m'`       | Size variant, either l or m.                                                                                                                                                      |                |
+| `borderless`    | public  | `boolean`                                              | `false`     | Whether to display the form field without a border.                                                                                                                               |                |
+| `width`         | public  | `'default' \| 'collapse'`                              | `'default'` | Defines the width of the component:&#xA;- \`default\`: the component has defined width and min-width;&#xA;- \`collapse\`: the component adapts itself to its inner input content. |                |
+| `floatingLabel` | public  | `boolean`                                              | `false`     | Whether the label should float. If activated, the placeholder of the input is hidden.                                                                                             |                |
+| `negative`      | public  | `boolean`                                              | `false`     | Negative coloring variant flag.                                                                                                                                                   |                |
+| `inputElement`  | public  | `HTMLInputElement \| HTMLSelectElement \| HTMLElement` |             | Returns the input element.                                                                                                                                                        |                |
 
 ## Methods
 
-| Name              | Privacy | Description                                                                           | Parameters | Return                                                 | Inherited From |
-| ----------------- | ------- | ------------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------ | -------------- |
-| `reset`           | public  | Manually reset the form field. Currently, this only resets the floating label.        |            | `void`                                                 |                |
-| `clear`           | public  | Manually clears the input value. It only works for inputs, selects are not supported. |            | `void`                                                 |                |
-| `getInputElement` | public  | Returns the input element.                                                            |            | `HTMLInputElement \| HTMLSelectElement \| HTMLElement` |                |
-
-## Attributes
-
-| Name             | Field         | Inherited From |
-| ---------------- | ------------- | -------------- |
-| `error-space`    | errorSpace    |                |
-| `label`          | label         |                |
-| `optional`       | optional      |                |
-| `size`           | size          |                |
-| `borderless`     | borderless    |                |
-| `width`          | width         |                |
-| `floating-label` | floatingLabel |                |
-| `negative`       | negative      |                |
+| Name              | Privacy | Description                                                                           | Parameters                                | Return                                                 | Inherited From |
+| ----------------- | ------- | ------------------------------------------------------------------------------------- | ----------------------------------------- | ------------------------------------------------------ | -------------- |
+| `willUpdate`      | public  |                                                                                       | `changedProperties: PropertyValues<this>` | `void`                                                 |                |
+| `reset`           | public  | Manually reset the form field. Currently, this only resets the floating label.        |                                           | `void`                                                 |                |
+| `clear`           | public  | Manually clears the input value. It only works for inputs, selects are not supported. |                                           | `void`                                                 |                |
+| `getInputElement` | public  | Returns the input element.                                                            |                                           | `HTMLInputElement \| HTMLSelectElement \| HTMLElement` |                |
 
 ## Slots
 
-| Name     | Description                                            |
-| -------- | ------------------------------------------------------ |
-| `label`  | Slot to render a label.                                |
-| `prefix` | Slot to render an icon on the left side of the input.  |
-|          | Slot to render an input/select.                        |
-| `suffix` | Slot to render an icon on the right side of the input. |
-| `error`  | Slot to render an error.                               |
+| Name      | Description                                            |
+| --------- | ------------------------------------------------------ |
+| `label`   | Slot to render a label.                                |
+| `prefix`  | Slot to render an icon on the left side of the input.  |
+| `unnamed` | Slot to render an input/select.                        |
+| `suffix`  | Slot to render an icon on the right side of the input. |
+| `error`   | Slot to render an error.                               |
 

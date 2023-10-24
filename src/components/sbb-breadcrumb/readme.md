@@ -38,8 +38,6 @@ By default, the `sbb-breadcrumb-group` component sets `aria-current="page"` on t
 <!-- Auto Generated Below --> 
  
 
-## Properties 
-
 | Name       | Attribute       | Privacy | Type                                                 | Default | Description                                                                                                                               |
 | ---------- | ---------- | ------- | ---------------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | `href`     | `href`     | public  | `string \| undefined`                                |         | The href value you want to link to.                                                                                                       |
@@ -48,20 +46,18 @@ By default, the `sbb-breadcrumb-group` component sets `aria-current="page"` on t
 | `download` | `download` | public  | `boolean \| undefined`                               |         | Whether the browser will show the download dialog on click.                                                                               |
 | `iconName` | `icon-name` | public  | `string \| undefined`                                |         | The icon name we want to use, choose from the small icon variants&#xA;from the ui-icons category from here&#xA;https\://icons.app.sbb.ch. |
 
-## Attributes
-
-| Name        | Field    | Inherited From |
-| ----------- | -------- | -------------- |
-| `href`      | href     |                |
-| `target`    | target   |                |
-| `rel`       | rel      |                |
-| `download`  | download |                |
-| `icon-name` | iconName |                |
+| Name       | Privacy | Type                                                 | Default | Description                                                                                                                               | Inherited From |
+| ---------- | ------- | ---------------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `href`     | public  | `string \| undefined`                                |         | The href value you want to link to.                                                                                                       |                |
+| `target`   | public  | `LinkTargetType \| string \| undefined \| undefined` |         | Where to display the linked URL.                                                                                                          |                |
+| `rel`      | public  | `string \| undefined \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                                                                         |                |
+| `download` | public  | `boolean \| undefined`                               |         | Whether the browser will show the download dialog on click.                                                                               |                |
+| `iconName` | public  | `string \| undefined`                                |         | The icon name we want to use, choose from the small icon variants&#xA;from the ui-icons category from here&#xA;https\://icons.app.sbb.ch. |                |
 
 ## Slots
 
-| Name   | Description                                            |
-| ------ | ------------------------------------------------------ |
-|        | Use the unnamed slot to add content to the breadcrumb. |
-| `icon` | Use this to display an icon as breadcrumb.             |
+| Name      | Description                                |
+| --------- | ------------------------------------------ |
+| `unnamed` | Use this to slot the breadcrumb's text.    |
+| `icon`    | Use this to display an icon as breadcrumb. |
 

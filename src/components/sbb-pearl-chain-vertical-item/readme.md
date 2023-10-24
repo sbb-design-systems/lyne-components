@@ -33,19 +33,15 @@ The slots themselves are unstyled, so that they can be used in various ways.
 <!-- Auto Generated Below --> 
  
 
-## Properties 
-
 | Name                               | Attribute                               | Privacy | Type                               | Default | Description                                                                 |
 | ---------------------------------- | ---------------------------------- | ------- | ---------------------------------- | ------- | --------------------------------------------------------------------------- |
 | `pearlChainVerticalItemAttributes` | `pearl-chain-vertical-item-attributes` | public  | `PearlChainVerticalItemAttributes` |         | The pearlChainVerticalItemAttributes Prop for styling the bullets and line. |
 | `disableAnimation`                 | `disable-animation`                 | public  | `boolean \| undefined`             |         | If true, the position won't be animated.                                    |
 
-## Attributes
-
-| Name                                   | Field                            | Inherited From |
-| -------------------------------------- | -------------------------------- | -------------- |
-| `pearl-chain-vertical-item-attributes` | pearlChainVerticalItemAttributes |                |
-| `disable-animation`                    | disableAnimation                 |                |
+| Name                               | Privacy | Type                               | Default | Description                                                                 | Inherited From |
+| ---------------------------------- | ------- | ---------------------------------- | ------- | --------------------------------------------------------------------------- | -------------- |
+| `pearlChainVerticalItemAttributes` | public  | `PearlChainVerticalItemAttributes` |         | The pearlChainVerticalItemAttributes Prop for styling the bullets and line. |                |
+| `disableAnimation`                 | public  | `boolean \| undefined`             |         | If true, the position won't be animated.                                    |                |
 
 ## Slots
 
@@ -53,6 +49,4 @@ The slots themselves are unstyled, so that they can be used in various ways.
 | ------- | ------------------------------------- |
 | `left`  | content of the left side of the item  |
 | `right` | content of the right side of the item |
-
-<hr/>
 

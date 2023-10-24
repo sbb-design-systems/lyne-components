@@ -28,8 +28,6 @@ The component has three different sizes, which can be changed using the `size` p
 <!-- Auto Generated Below --> 
  
 
-## Properties 
-
 | Name       | Attribute       | Privacy | Type                                                 | Default | Description                                                                                    |
 | ---------- | ---------- | ------- | ---------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------- |
 | `size`     | `size`     | public  | `'l' \| 'm' \| 's' \| undefined`                     | `'l'`   | Action size variant.                                                                           |
@@ -42,23 +40,21 @@ The component has three different sizes, which can be changed using the `size` p
 | `name`     | `name`     | public  | `string \| undefined`                                |         | The name attribute to use for the button.                                                      |
 | `value`    | `value`    | public  | `string \| undefined`                                |         | The value attribute to use for the button.                                                     |
 
-## Attributes
-
-| Name       | Field    | Inherited From |
-| ---------- | -------- | -------------- |
-| `size`     | size     |                |
-| `href`     | href     |                |
-| `target`   | target   |                |
-| `rel`      | rel      |                |
-| `download` | download |                |
-| `type`     | type     |                |
-| `active`   | active   |                |
-| `name`     | name     |                |
-| `value`    | value    |                |
+| Name       | Privacy | Type                                                 | Default | Description                                                                                    | Inherited From |
+| ---------- | ------- | ---------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------- | -------------- |
+| `size`     | public  | `'l' \| 'm' \| 's' \| undefined`                     | `'l'`   | Action size variant.                                                                           |                |
+| `href`     | public  | `string \| undefined`                                |         | The href value you want to link to (if it is not present, navigation action becomes a button). |                |
+| `target`   | public  | `LinkTargetType \| string \| undefined \| undefined` |         | Where to display the linked URL.                                                               |                |
+| `rel`      | public  | `string \| undefined \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                              |                |
+| `download` | public  | `boolean \| undefined`                               |         | Whether the browser will show the download dialog on click.                                    |                |
+| `type`     | public  | `ButtonType \| undefined`                            |         | The type attribute to use for the button.                                                      |                |
+| `active`   | public  | `boolean`                                            |         | Whether the action is active.                                                                  |                |
+| `name`     | public  | `string \| undefined`                                |         | The name attribute to use for the button.                                                      |                |
+| `value`    | public  | `string \| undefined`                                |         | The value attribute to use for the button.                                                     |                |
 
 ## Slots
 
-| Name | Description                                                   |
-| ---- | ------------------------------------------------------------- |
-|      | Use the unnamed slot to add content to the navigation action. |
+| Name      | Description                                           |
+| --------- | ----------------------------------------------------- |
+| `unnamed` | Use this slot to provide the navigation action label. |
 

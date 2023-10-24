@@ -4,17 +4,11 @@ here to show the various configuration options to component developers. !!
 <!-- Auto Generated Below --> 
  
 
-## Properties 
-
 | Name     | Attribute     | Privacy | Type     | Default | Description |
 | -------- | -------- | ------- | -------- | ------- | ----------- |
 | `config` | `config` | public  | `string` |         |             |
 
-## Attributes
-
-| Name     | Field  | Inherited From |
-| -------- | ------ | -------------- |
-| `config` | config |                |
-
-<hr/>
+| Name     | Privacy | Type     | Default | Description | Inherited From |
+| -------- | ------- | -------- | ------- | ----------- | -------------- |
+| `config` | public  | `string` |         |             |                |
 

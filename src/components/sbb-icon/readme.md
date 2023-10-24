@@ -30,8 +30,6 @@ In thinking about accessibility, it is useful to place icon use into one of thre
 <!-- Auto Generated Below --> 
  
 
-## Properties 
-
 | Name         | Attribute         | Privacy | Type      | Default  | Description                                                                                                                                                                                                               |
 | ------------ | ------------ | ------- | --------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `name`       | `name`       | public  | `string`  |          | The provided name consisting of the namespace and the name of the icon.&#xA;If the namespace is missing, the default namespace "sbb" will be used.&#xA;E.g. \`name\` (will use "sbb" as namespace) or \`namespace:name\`. |
@@ -39,12 +37,16 @@ In thinking about accessibility, it is useful to place icon use into one of thre
 | `ariaHidden` | `aria-hidden` | public  | `string`  | `'true'` | The aria-hidden property is set to "true" by default, since an icon alone&#xA;does not convey any useful information for a screen-reader user.                                                                            |
 | `ariaLabel`  | `aria-label`  | public  | `string`  |          | Only set the aria-label if aria-hidden is set to "false".                                                                                                                                                                 |
 
-## Attributes
+| Name         | Privacy | Type      | Default  | Description                                                                                                                                                                                                               | Inherited From |
+| ------------ | ------- | --------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `name`       | public  | `string`  |          | The provided name consisting of the namespace and the name of the icon.&#xA;If the namespace is missing, the default namespace "sbb" will be used.&#xA;E.g. \`name\` (will use "sbb" as namespace) or \`namespace:name\`. |                |
+| `sanitize`   | public  | `boolean` | `true`   | When set to \`false\`, SVG content that is HTTP fetched will not be checked&#xA;if the response SVG content has any \`\<script>\` elements, or any attributes&#xA;that start with \`on\`, such as \`onclick\`.            |                |
+| `ariaHidden` | public  | `string`  | `'true'` | The aria-hidden property is set to "true" by default, since an icon alone&#xA;does not convey any useful information for a screen-reader user.                                                                            |                |
+| `ariaLabel`  | public  | `string`  |          | Only set the aria-label if aria-hidden is set to "false".                                                                                                                                                                 |                |
 
-| Name          | Field      | Inherited From |
-| ------------- | ---------- | -------------- |
-| `name`        | name       |                |
-| `sanitize`    | sanitize   |                |
-| `aria-hidden` | ariaHidden |                |
-| `aria-label`  | ariaLabel  |                |
+## Methods
+
+| Name         | Privacy | Description | Parameters                                | Return | Inherited From |
+| ------------ | ------- | ----------- | ----------------------------------------- | ------ | -------------- |
+| `willUpdate` | public  |             | `changedProperties: PropertyValues<this>` | `void` |                |
 

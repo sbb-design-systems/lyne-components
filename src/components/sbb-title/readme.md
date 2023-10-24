@@ -34,8 +34,6 @@ If the title is needed, but it must to not be displayed, it's possible to use th
 <!-- Auto Generated Below --> 
  
 
-## Properties 
-
 | Name             | Attribute             | Privacy | Type                      | Default | Description                                                                                                                                                                                            |
 | ---------------- | ---------------- | ------- | ------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `level`          | `level`          | public  | `TitleLevel \| undefined` | `'1'`   | Title level                                                                                                                                                                                            |
@@ -43,14 +41,10 @@ If the title is needed, but it must to not be displayed, it's possible to use th
 | `visuallyHidden` | `visually-hidden` | public  | `boolean \| undefined`    |         | Sometimes we need a title in the markup to present a proper hierarchy&#xA;to the screen readers while we do not want to let that title appear&#xA;visually. In this case we set visuallyHidden to true |
 | `negative`       | `negative`       | public  | `boolean \| undefined`    | `false` | Choose negative variant                                                                                                                                                                                |
 
-## Attributes
-
-| Name              | Field          | Inherited From |
-| ----------------- | -------------- | -------------- |
-| `level`           | level          |                |
-| `visual-level`    | visualLevel    |                |
-| `visually-hidden` | visuallyHidden |                |
-| `negative`        | negative       |                |
-
-<hr/>
+| Name             | Privacy | Type                      | Default | Description                                                                                                                                                                                            | Inherited From |
+| ---------------- | ------- | ------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
+| `level`          | public  | `TitleLevel \| undefined` | `'1'`   | Title level                                                                                                                                                                                            |                |
+| `visualLevel`    | public  | `TitleLevel \| undefined` |         | Visual level for the title. Optional, if not set, the value of level will be used.                                                                                                                     |                |
+| `visuallyHidden` | public  | `boolean \| undefined`    |         | Sometimes we need a title in the markup to present a proper hierarchy&#xA;to the screen readers while we do not want to let that title appear&#xA;visually. In this case we set visuallyHidden to true |                |
+| `negative`       | public  | `boolean \| undefined`    | `false` | Choose negative variant                                                                                                                                                                                |                |
 

@@ -42,39 +42,21 @@ The component has two different sizes, which can be changed using the `size` pro
 <!-- Auto Generated Below --> 
  
 
-## Properties 
+## Properties
 
-| Name                  | Attribute                  | Privacy | Type                 | Default | Description                           |
-| --------------------- | --------------------- | ------- | -------------------- | ------- | ------------------------------------- |
-| `allowEmptySelection` | `allow-empty-selection` | public  | `boolean`            | `false` | Whether the radio can be deselected.  |
-| `value`               | `value`               | public  | `string`             |         | Value of radio button.                |
-| `disabled`            | `disabled`            | public  | `boolean`            | `false` | Whether the radio button is disabled. |
-| `required`            | `required`            | public  | `boolean`            | `false` | Whether the radio button is required. |
-| `checked`             | `checked`             | public  | `boolean`            | `false` | Whether the radio button is checked.  |
-| `size`                | `size`                | public  | `SbbRadioButtonSize` | `'m'`   | Label size variant, either m or s.    |
+| Name                  | Privacy | Type                                        | Default | Description                           | Inherited From |
+| --------------------- | ------- | ------------------------------------------- | ------- | ------------------------------------- | -------------- |
+| `allowEmptySelection` | public  | `boolean`                                   | `false` | Whether the radio can be deselected.  |                |
+| `value`               | public  | `string`                                    |         | Value of radio button.                |                |
+| `disabled`            | public  | `boolean`                                   | `false` | Whether the radio button is disabled. |                |
+| `required`            | public  | `boolean`                                   | `false` | Whether the radio button is required. |                |
+| `checked`             | public  | `boolean`                                   | `false` | Whether the radio button is checked.  |                |
+| `size`                | public  | `InterfaceSbbRadioButtonAttributes['size']` | `'m'`   | Label size variant, either m or s.    |                |
 
 ## Methods
 
-| Name     | Privacy | Description | Parameters | Return | Inherited From |
-| -------- | ------- | ----------- | ---------- | ------ | -------------- |
-| `select` | public  |             |            | `void` |                |
-
-## Attributes
-
-| Name                    | Field               | Inherited From |
-| ----------------------- | ------------------- | -------------- |
-| `allow-empty-selection` | allowEmptySelection |                |
-| `value`                 | value               |                |
-| `disabled`              | disabled            |                |
-| `required`              | required            |                |
-| `checked`               | checked             |                |
-| `size`                  | size                |                |
-
-## Slots
-
-| Name      | Description                                                                                     |
-| --------- | ----------------------------------------------------------------------------------------------- |
-|           | Use the unnamed slot to add content to the radio label.                                         |
-| `subtext` | Slot used to render a subtext under the label (only visible within a selection panel).          |
-| `suffix`  | Slot used to render additional content after the label (only visible within a selection panel). |
+| Name         | Privacy | Description | Parameters                                | Return | Inherited From |
+| ------------ | ------- | ----------- | ----------------------------------------- | ------ | -------------- |
+| `select`     | public  |             |                                           | `void` |                |
+| `willUpdate` | public  |             | `changedProperties: PropertyValues<this>` | `void` |                |
 

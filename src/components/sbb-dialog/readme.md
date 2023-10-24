@@ -85,19 +85,19 @@ The default `z-index` of the component is set to `1000`; to specify a custom sta
 <!-- Auto Generated Below --> 
  
 
-## Properties 
+## Properties
 
-| Name                      | Attribute                      | Privacy | Type                         | Default   | Description                                                                     |
-| ------------------------- | ------------------------- | ------- | ---------------------------- | --------- | ------------------------------------------------------------------------------- |
-| `titleContent`            | `title-content`            | public  | `string`                     |           | Dialog title.                                                                   |
-| `titleLevel`              | `title-level`              | public  | `TitleLevel`                 | `'1'`     | Level of title, will be rendered as heading tag (e.g. h1). Defaults to level 1. |
-| `titleBackButton`         | `title-back-button`         | public  | `boolean`                    | `false`   | Whether a back button is displayed next to the title.                           |
-| `backdropAction`          | `backdrop-action`          | public  | `'close' \| 'none'`          | `'close'` | Backdrop click action.                                                          |
-| `negative`                | `negative`                | public  | `boolean`                    | `false`   | Negative coloring variant flag.                                                 |
-| `accessibilityLabel`      | `accessibility-label`      | public  | `string \| undefined`        |           | This will be forwarded as aria-label to the relevant nested element.            |
-| `accessibilityCloseLabel` | `accessibility-close-label` | public  | `\| string     \| undefined` |           | This will be forwarded as aria-label to the close button element.               |
-| `accessibilityBackLabel`  | `accessibility-back-label`  | public  | `\| string     \| undefined` |           | This will be forwarded as aria-label to the back button element.                |
-| `disableAnimation`        | `disable-animation`        | public  | `boolean`                    | `false`   | Whether the animation is enabled.                                               |
+| Name                      | Privacy | Type                         | Default   | Description                                                                     | Inherited From |
+| ------------------------- | ------- | ---------------------------- | --------- | ------------------------------------------------------------------------------- | -------------- |
+| `titleContent`            | public  | `string`                     |           | Dialog title.                                                                   |                |
+| `titleLevel`              | public  | `TitleLevel`                 | `'1'`     | Level of title, will be rendered as heading tag (e.g. h1). Defaults to level 1. |                |
+| `titleBackButton`         | public  | `boolean`                    | `false`   | Whether a back button is displayed next to the title.                           |                |
+| `backdropAction`          | public  | `'close' \| 'none'`          | `'close'` | Backdrop click action.                                                          |                |
+| `negative`                | public  | `boolean`                    | `false`   | Negative coloring variant flag.                                                 |                |
+| `accessibilityLabel`      | public  | `string \| undefined`        |           | This will be forwarded as aria-label to the relevant nested element.            |                |
+| `accessibilityCloseLabel` | public  | `\| string     \| undefined` |           | This will be forwarded as aria-label to the close button element.               |                |
+| `accessibilityBackLabel`  | public  | `\| string     \| undefined` |           | This will be forwarded as aria-label to the back button element.                |                |
+| `disableAnimation`        | public  | `boolean`                    | `false`   | Whether the animation is enabled.                                               |                |
 
 ## Methods
 
@@ -105,26 +105,4 @@ The default `z-index` of the component is set to `1000`; to specify a custom sta
 | ------- | ------- | -------------------------- | ---------------------------------- | ------ | -------------- |
 | `open`  | public  | Opens the dialog element.  |                                    | `void` |                |
 | `close` | public  | Closes the dialog element. | `result: any, target: HTMLElement` | `any`  |                |
-
-## Attributes
-
-| Name                        | Field                   | Inherited From |
-| --------------------------- | ----------------------- | -------------- |
-| `title-content`             | titleContent            |                |
-| `title-level`               | titleLevel              |                |
-| `title-back-button`         | titleBackButton         |                |
-| `backdrop-action`           | backdropAction          |                |
-| `negative`                  | negative                |                |
-| `accessibility-label`       | accessibilityLabel      |                |
-| `accessibility-close-label` | accessibilityCloseLabel |                |
-| `accessibility-back-label`  | accessibilityBackLabel  |                |
-| `disable-animation`         | disableAnimation        |                |
-
-## Slots
-
-| Name           | Description                                             |
-| -------------- | ------------------------------------------------------- |
-|                | Use the unnamed slot to add content to the dialog.      |
-| `title`        | Use this slot to provide a title.                       |
-| `action-group` | Use this slot to display an action group in the footer. |
 

@@ -70,8 +70,6 @@ In order to ensure readability for screen-readers, please provide an `aria-label
 <!-- Auto Generated Below --> 
  
 
-## Properties 
-
 | Name                  | Attribute                  | Privacy | Type                             | Default        | Description                                               |
 | --------------------- | --------------------- | ------- | -------------------------------- | -------------- | --------------------------------------------------------- |
 | `allowEmptySelection` | `allow-empty-selection` | public  | `boolean`                        |                | Whether the radios can be deselected.                     |
@@ -82,22 +80,13 @@ In order to ensure readability for screen-readers, please provide an `aria-label
 | `horizontalFrom`      | `horizontal-from`      | public  | `SbbHorizontalFrom \| undefined` |                | Overrides the behaviour of \`orientation\` property.      |
 | `orientation`         | `orientation`         | public  | `SbbOrientation`                 | `'horizontal'` | Radio group's orientation, either horizontal or vertical. |
 
-## Attributes
-
-| Name                    | Field               | Inherited From |
-| ----------------------- | ------------------- | -------------- |
-| `allow-empty-selection` | allowEmptySelection |                |
-| `disabled`              | disabled            |                |
-| `required`              | required            |                |
-| `value`                 | value               |                |
-| `size`                  | size                |                |
-| `horizontal-from`       | horizontalFrom      |                |
-| `orientation`           | orientation         |                |
-
-## Slots
-
-| Name    | Description                                                                           |
-| ------- | ------------------------------------------------------------------------------------- |
-|         | Use the unnamed slot to add \`sbb-radio-button\` elements to this radio button group. |
-| `error` | Use this to provide a \`sbb-form-error\` to show an error message.                    |
+| Name                  | Privacy | Type                                                                    | Default        | Description                                               | Inherited From |
+| --------------------- | ------- | ----------------------------------------------------------------------- | -------------- | --------------------------------------------------------- | -------------- |
+| `allowEmptySelection` | public  | `boolean`                                                               |                | Whether the radios can be deselected.                     |                |
+| `disabled`            | public  | `boolean`                                                               |                | Whether the radio group is disabled.                      |                |
+| `required`            | public  | `boolean`                                                               |                | Whether the radio group is required.                      |                |
+| `value`               | public  | `any \| null \| null`                                                   |                | The value of the radio group.                             |                |
+| `size`                | public  | `InterfaceSbbRadioButtonGroupAttributes['size']`                        |                | Size variant, either m or s.                              |                |
+| `horizontalFrom`      | public  | `InterfaceSbbRadioButtonGroupAttributes['horizontalFrom'] \| undefined` |                | Overrides the behaviour of \`orientation\` property.      |                |
+| `orientation`         | public  | `InterfaceSbbRadioButtonGroupAttributes['orientation']`                 | `'horizontal'` | Radio group's orientation, either horizontal or vertical. |                |
 

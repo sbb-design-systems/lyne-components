@@ -28,8 +28,6 @@ Avoid slotting block elements (e.g. `div`) as this violates semantic rules and c
 <!-- Auto Generated Below --> 
  
 
-## Properties 
-
 | Name          | Attribute          | Privacy | Type                                                 | Default | Description                                                       |
 | ------------- | ------------- | ------- | ---------------------------------------------------- | ------- | ----------------------------------------------------------------- |
 | `href`        | `href`        | public  | `string \| undefined`                                |         | The href value you want to link to.                               |
@@ -39,22 +37,20 @@ Avoid slotting block elements (e.g. `div`) as this violates semantic rules and c
 | `imageSrc`    | `image-src`    | public  | `string \| undefined`                                |         | Image src will be passed to \`sbb-image\`.                        |
 | `imageAlt`    | `image-alt`    | public  | `string \| undefined`                                |         | Image alt text will be passed to \`sbb-image\`.                   |
 
-## Attributes
-
-| Name           | Field       | Inherited From |
-| -------------- | ----------- | -------------- |
-| `href`         | href        |                |
-| `rel`          | rel         |                |
-| `target`       | target      |                |
-| `link-content` | linkContent |                |
-| `image-src`    | imageSrc    |                |
-| `image-alt`    | imageAlt    |                |
+| Name          | Privacy | Type                                                 | Default | Description                                                       | Inherited From |
+| ------------- | ------- | ---------------------------------------------------- | ------- | ----------------------------------------------------------------- | -------------- |
+| `href`        | public  | `string \| undefined`                                |         | The href value you want to link to.                               |                |
+| `rel`         | public  | `string \| undefined \| undefined`                   |         | The relationship of the linked URL as space-separated link types. |                |
+| `target`      | public  | `LinkTargetType \| string \| undefined \| undefined` |         | Where to display the linked URL.                                  |                |
+| `linkContent` | public  | `string \| undefined`                                |         | Panel link text.                                                  |                |
+| `imageSrc`    | public  | `string \| undefined`                                |         | Image src will be passed to \`sbb-image\`.                        |                |
+| `imageAlt`    | public  | `string \| undefined`                                |         | Image alt text will be passed to \`sbb-image\`.                   |                |
 
 ## Slots
 
-| Name           | Description                                           |
-| -------------- | ----------------------------------------------------- |
-|                | Use the unnamed slot to add text content to the panel |
-| `link-content` | Link content of the panel                             |
-| `image`        | The background image that can be a \`sbb-image\`      |
+| Name           | Description                                  |
+| -------------- | -------------------------------------------- |
+| `unnamed`      | text content of panel                        |
+| `link-content` | link content of the panel                    |
+| `image`        | the background image, can be a \`sbb-image\` |
 

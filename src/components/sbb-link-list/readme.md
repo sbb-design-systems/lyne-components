@@ -53,8 +53,6 @@ The title will not be displayed in the horizontal orientation.
 <!-- Auto Generated Below --> 
  
 
-## Properties 
-
 | Name             | Attribute             | Privacy | Type                             | Default      | Description                                                                                                                                             |
 | ---------------- | ---------------- | ------- | -------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `titleContent`   | `title-content`   | public  | `string \| undefined`            |              | The title text we want to show before the list.                                                                                                         |
@@ -64,14 +62,18 @@ The title will not be displayed in the horizontal orientation.
 | `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| undefined` |              | Selected breakpoint from which the list is rendered horizontally.                                                                                       |
 | `orientation`    | `orientation`    | public  | `SbbOrientation`                 | `'vertical'` | The orientation in which the list will be shown vertical or horizontal.                                                                                 |
 
-## Attributes
+| Name             | Privacy | Type                                                                   | Default      | Description                                                                                                                                             | Inherited From |
+| ---------------- | ------- | ---------------------------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `titleContent`   | public  | `string \| undefined`                                                  |              | The title text we want to show before the list.                                                                                                         |                |
+| `titleLevel`     | public  | `TitleLevel \| undefined`                                              | `'2'`        | The semantic level of the title, e.g. 2 = h2.                                                                                                           |                |
+| `size`           | public  | `InterfaceLinkAttributes['size']`                                      | `'s'`        | Text size of the nested sbb-link instances. This will overwrite the size attribute of&#xA;nested sbb-link instances.                                    |                |
+| `negative`       | public  | `boolean`                                                              |              | Whether to render the link list and nested sbb-link instances as negative. This will overwrite&#xA;the negative attribute of nested sbb-link instances. |                |
+| `horizontalFrom` | public  | `InterfaceLinkListAttributes['horizontalFromBreakpoint'] \| undefined` |              | Selected breakpoint from which the list is rendered horizontally.                                                                                       |                |
+| `orientation`    | public  | `InterfaceLinkListAttributes['orientation']`                           | `'vertical'` | The orientation in which the list will be shown vertical or horizontal.                                                                                 |                |
 
-| Name              | Field          | Inherited From |
-| ----------------- | -------------- | -------------- |
-| `title-content`   | titleContent   |                |
-| `title-level`     | titleLevel     |                |
-| `size`            | size           |                |
-| `negative`        | negative       |                |
-| `horizontal-from` | horizontalFrom |                |
-| `orientation`     | orientation    |                |
+## Methods
+
+| Name         | Privacy | Description | Parameters                                | Return | Inherited From |
+| ------------ | ------- | ----------- | ----------------------------------------- | ------ | -------------- |
+| `willUpdate` | public  |             | `changedProperties: PropertyValues<this>` | `void` |                |
 

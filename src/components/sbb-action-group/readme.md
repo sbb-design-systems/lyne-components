@@ -116,8 +116,6 @@ The values for `align-group` and `align-self` for the various allocations are as
 <!-- Auto Generated Below --> 
  
 
-## Properties 
-
 | Name             | Attribute             | Privacy | Type                                        | Default        | Description                                                                                                         |
 | ---------------- | ---------------- | ------- | ------------------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------- |
 | `alignGroup`     | `align-group`     | public  | `'start' \| 'center' \| 'stretch' \| 'end'` | `'start'`      | Set the slotted \`\<sbb-action-group>\` children's alignment.                                                       |
@@ -126,19 +124,23 @@ The values for `align-group` and `align-self` for the various allocations are as
 | `buttonSize`     | `button-size`     | public  | `SbbButtonSize \| undefined`                | `'l'`          | Size of the nested sbb-button instances. This will overwrite the size attribute of nested&#xA;sbb-button instances. |
 | `linkSize`       | `link-size`       | public  | `SbbLinkSize \| undefined`                  | `'m'`          | Size of the nested sbb-link instances. This will overwrite the size attribute of nested&#xA;sbb-link instances.     |
 
-## Attributes
+| Name             | Privacy | Type                                                               | Default        | Description                                                                                                         | Inherited From |
+| ---------------- | ------- | ------------------------------------------------------------------ | -------------- | ------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `alignGroup`     | public  | `InterfaceSbbActionGroupAttributes['alignGroup']`                  | `'start'`      | Set the slotted \`\<sbb-action-group>\` children's alignment.                                                       |                |
+| `horizontalFrom` | public  | `InterfaceSbbActionGroupAttributes['horizontalFrom'] \| undefined` | `'medium'`     | Overrides the behaviour of \`orientation\` property.                                                                |                |
+| `orientation`    | public  | `InterfaceSbbActionGroupAttributes['orientation']`                 | `'horizontal'` | Indicates the orientation of the components inside the \`\<sbb-action-group>\`.                                     |                |
+| `buttonSize`     | public  | `InterfaceButtonAttributes['size'] \| undefined`                   | `'l'`          | Size of the nested sbb-button instances. This will overwrite the size attribute of nested&#xA;sbb-button instances. |                |
+| `linkSize`       | public  | `InterfaceLinkAttributes['size'] \| undefined`                     | `'m'`          | Size of the nested sbb-link instances. This will overwrite the size attribute of nested&#xA;sbb-link instances.     |                |
 
-| Name              | Field          | Inherited From |
-| ----------------- | -------------- | -------------- |
-| `align-group`     | alignGroup     |                |
-| `horizontal-from` | horizontalFrom |                |
-| `orientation`     | orientation    |                |
-| `button-size`     | buttonSize     |                |
-| `link-size`       | linkSize       |                |
+## Methods
+
+| Name         | Privacy | Description | Parameters                                | Return | Inherited From |
+| ------------ | ------- | ----------- | ----------------------------------------- | ------ | -------------- |
+| `willUpdate` | public  |             | `changedProperties: PropertyValues<this>` | `void` |                |
 
 ## Slots
 
-| Name | Description                                                                               |
-| ---- | ----------------------------------------------------------------------------------------- |
-|      | Use the unnamed slot to add \`sbb-link\` or \`sbb-button\` elements to this action group. |
+| Name      | Description                                      |
+| --------- | ------------------------------------------------ |
+| `unnamed` | Slot to render the content inside the container. |
 

@@ -14,15 +14,11 @@ to provide the possibility to display a clear button which can clear the input v
 <!-- Auto Generated Below --> 
  
 
-## Properties 
-
 | Name       | Attribute       | Privacy | Type      | Default | Description                     |
 | ---------- | ---------- | ------- | --------- | ------- | ------------------------------- |
 | `negative` | `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |
 
-## Attributes
-
-| Name       | Field    | Inherited From |
-| ---------- | -------- | -------------- |
-| `negative` | negative |                |
+| Name       | Privacy | Type      | Default | Description                     | Inherited From |
+| ---------- | ------- | --------- | ------- | ------------------------------- | -------------- |
+| `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |                |
 

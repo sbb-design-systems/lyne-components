@@ -61,15 +61,15 @@ For example, use `--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0` 
 <!-- Auto Generated Below --> 
  
 
-## Properties 
+## Properties
 
-| Name               | Attribute               | Privacy | Type                                                    | Default  | Description                                                                                                 |
-| ------------------ | ------------------ | ------- | ------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------- |
-| `type`             | `type`             | public  | `'info' \| 'success' \| 'warn' \| 'error' \| undefined` | `'info'` | The type of the notification.                                                                               |
-| `titleContent`     | `title-content`     | public  | `string \| undefined`                                   |          | Content of title.                                                                                           |
-| `titleLevel`       | `title-level`       | public  | `TitleLevel`                                            | `'3'`    | Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3.                          |
-| `readonly`         | `readonly`         | public  | `boolean`                                               | `false`  | Whether the notification is readonly.&#xA;In readonly mode, there is no dismiss button offered to the user. |
-| `disableAnimation` | `disable-animation` | public  | `boolean`                                               | `false`  | Whether the animation is enabled.                                                                           |
+| Name               | Privacy | Type                                                   | Default  | Description                                                                                                 | Inherited From |
+| ------------------ | ------- | ------------------------------------------------------ | -------- | ----------------------------------------------------------------------------------------------------------- | -------------- |
+| `type`             | public  | `InterfaceNotificationAttributes['type'] \| undefined` | `'info'` | The type of the notification.                                                                               |                |
+| `titleContent`     | public  | `string \| undefined`                                  |          | Content of title.                                                                                           |                |
+| `titleLevel`       | public  | `TitleLevel`                                           | `'3'`    | Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3.                          |                |
+| `readonly`         | public  | `boolean`                                              | `false`  | Whether the notification is readonly.&#xA;In readonly mode, there is no dismiss button offered to the user. |                |
+| `disableAnimation` | public  | `boolean`                                              | `false`  | Whether the animation is enabled.                                                                           |                |
 
 ## Methods
 
@@ -77,20 +77,10 @@ For example, use `--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0` 
 | ------- | ------- | ----------- | ---------- | ------ | -------------- |
 | `close` | public  |             |            | `void` |                |
 
-## Attributes
-
-| Name                | Field            | Inherited From |
-| ------------------- | ---------------- | -------------- |
-| `type`              | type             |                |
-| `title-content`     | titleContent     |                |
-| `title-level`       | titleLevel       |                |
-| `readonly`          | readonly         |                |
-| `disable-animation` | disableAnimation |                |
-
 ## Slots
 
-| Name    | Description                                                      |
-| ------- | ---------------------------------------------------------------- |
-| `title` | Use this to provide a notification title (optional).             |
-|         | Use the unnamed slot to add content to the notification message. |
+| Name      | Description                                          |
+| --------- | ---------------------------------------------------- |
+| `title`   | Use this to provide a notification title (optional). |
+| `unnamed` | Use this to provide the notification message.        |
 

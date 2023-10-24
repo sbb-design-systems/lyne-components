@@ -58,29 +58,19 @@ If the label slot contains only a **text node**, it is possible to search for te
 <!-- Auto Generated Below --> 
  
 
-## Properties 
+## Properties
 
-| Name       | Attribute       | Privacy | Type                   | Default | Description                                                                                                                               |
-| ---------- | ---------- | ------- | ---------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `value`    | `value`    | public  | `string \| undefined`  |         | Value of the option.                                                                                                                      |
-| `iconName` | `icon-name` | public  | `string \| undefined`  |         | The icon name we want to use, choose from the small icon variants&#xA;from the ui-icons category from here&#xA;https\://icons.app.sbb.ch. |
-| `active`   | `active`   | public  | `boolean \| undefined` |         | Whether the option is currently active.                                                                                                   |
-| `selected` | `selected` | public  | `boolean`              | `false` | Whether the option is selected.                                                                                                           |
-| `disabled` | `disabled` | public  | `boolean \| undefined` |         | Whether the option is disabled.                                                                                                           |
+| Name       | Privacy | Type                   | Default | Description                                                                                                                               | Inherited From |
+| ---------- | ------- | ---------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `value`    | public  | `string \| undefined`  |         | Value of the option.                                                                                                                      |                |
+| `iconName` | public  | `string \| undefined`  |         | The icon name we want to use, choose from the small icon variants&#xA;from the ui-icons category from here&#xA;https\://icons.app.sbb.ch. |                |
+| `active`   | public  | `boolean \| undefined` |         | Whether the option is currently active.                                                                                                   |                |
+| `selected` | public  | `boolean`              | `false` | Whether the option is selected.                                                                                                           |                |
+| `disabled` | public  | `boolean \| undefined` |         | Whether the option is disabled.                                                                                                           |                |
 
 ## Methods
 
 | Name            | Privacy | Description                                | Parameters      | Return | Inherited From |
 | --------------- | ------- | ------------------------------------------ | --------------- | ------ | -------------- |
 | `setGroupLabel` | public  | Set the option group label (used for a11y) | `value: string` | `void` |                |
-
-## Attributes
-
-| Name        | Field    | Inherited From |
-| ----------- | -------- | -------------- |
-| `value`     | value    |                |
-| `icon-name` | iconName |                |
-| `active`    | active   |                |
-| `selected`  | selected |                |
-| `disabled`  | disabled |                |
 

@@ -45,8 +45,6 @@ This is helpful if you need a specific state of the component.
 <!-- Auto Generated Below --> 
  
 
-## Properties 
-
 | Name                    | Attribute                    | Privacy | Type                    | Default | Description                                                                                                                                                                                   |
 | ----------------------- | ----------------------- | ------- | ----------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `trip`                  | `trip`                  | public  | `ITripItem`             |         | The trip Prop.                                                                                                                                                                                |
@@ -59,17 +57,15 @@ This is helpful if you need a specific state of the component.
 | `accessibilityExpanded` | `accessibility-expanded` | public  | `boolean \| undefined`  |         | This will be forwarded to the sbb-card component as aria-expanded.                                                                                                                            |
 | `active`                | `active`                | public  | `boolean \| undefined`  |         | When this prop is true the sbb-card will be in the active state.                                                                                                                              |
 
-## Attributes
-
-| Name                     | Field                 | Inherited From |
-| ------------------------ | --------------------- | -------------- |
-| `trip`                   | trip                  |                |
-| `price`                  | price                 |                |
-| `disable-animation`      | disableAnimation      |                |
-| `boarding`               | boarding              |                |
-| `loading-trip`           | loadingTrip           |                |
-| `loading-price`          | loadingPrice          |                |
-| `card-action-label`      | cardActionLabel       |                |
-| `accessibility-expanded` | accessibilityExpanded |                |
-| `active`                 | active                |                |
+| Name                    | Privacy | Type                    | Default | Description                                                                                                                                                                                   | Inherited From |
+| ----------------------- | ------- | ----------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `trip`                  | public  | `ITripItem`             |         | The trip Prop.                                                                                                                                                                                |                |
+| `price`                 | public  | `Price \| undefined`    |         | The price Prop, which consists of the data for the badge.                                                                                                                                     |                |
+| `disableAnimation`      | public  | `boolean \| undefined`  |         | This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated.                                                                                             |                |
+| `boarding`              | public  | `Boarding \| undefined` |         | This will be forwarded to the notices section                                                                                                                                                 |                |
+| `loadingTrip`           | public  | `boolean \| undefined`  |         | The loading state -&#xA;when this is true it will be render skeleton with an idling animation                                                                                                 |                |
+| `loadingPrice`          | public  | `boolean \| undefined`  |         | The loading state -&#xA;when this is true it will be render skeleton with an idling animation                                                                                                 |                |
+| `cardActionLabel`       | public  | `string \| undefined`   |         | Hidden label for the card action. It overrides the automatically generated accessibility text for the component. Use this prop to provide custom accessibility information for the component. |                |
+| `accessibilityExpanded` | public  | `boolean \| undefined`  |         | This will be forwarded to the sbb-card component as aria-expanded.                                                                                                                            |                |
+| `active`                | public  | `boolean \| undefined`  |         | When this prop is true the sbb-card will be in the active state.                                                                                                                              |                |
 

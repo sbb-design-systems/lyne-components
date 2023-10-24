@@ -59,22 +59,16 @@ Whenever the validation state changes (e.g., a valid value becomes invalid or vi
 <!-- Auto Generated Below --> 
  
 
-## Properties 
+## Properties
 
-| Name    | Attribute    | Privacy | Type                    | Default | Description                                                |
-| ------- | ------- | ------- | ----------------------- | ------- | ---------------------------------------------------------- |
-| `input` | `input` | public  | `string \| HTMLElement` |         | Reference of the native input connected to the datepicker. |
+| Name    | Privacy | Type                    | Default | Description                                                | Inherited From |
+| ------- | ------- | ----------------------- | ------- | ---------------------------------------------------------- | -------------- |
+| `input` | public  | `string \| HTMLElement` |         | Reference of the native input connected to the datepicker. |                |
 
 ## Methods
 
-| Name             | Privacy | Description                                           | Parameters          | Return         | Inherited From |
-| ---------------- | ------- | ----------------------------------------------------- | ------------------- | -------------- | -------------- |
-| `getValueAsDate` | public  | Gets the input value with the correct date format.    |                     | `Date \| null` |                |
-| `setValueAsDate` | public  | Set the input value to the correctly formatted value. | `date: SbbDateLike` | `void`         |                |
-
-## Attributes
-
-| Name    | Field | Inherited From |
-| ------- | ----- | -------------- |
-| `input` | input |                |
+| Name             | Privacy | Description                                           | Parameters                       | Return         | Inherited From |
+| ---------------- | ------- | ----------------------------------------------------- | -------------------------------- | -------------- | -------------- |
+| `getValueAsDate` | public  | Gets the input value with the correct date format.    |                                  | `Date \| null` |                |
+| `setValueAsDate` | public  | Set the input value to the correctly formatted value. | `date: Date \| number \| string` | `void`         |                |
 

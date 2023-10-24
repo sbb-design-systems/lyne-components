@@ -26,9 +26,7 @@ the `sbb-expansion-panel-content` receives a padding on the left side in order t
 
 ## Slots
 
-| Name | Description                                                 |
-| ---- | ----------------------------------------------------------- |
-|      | Use the unnamed slot to add content to the expansion panel. |
-
-<hr/>
+| Name      | Description                                            |
+| --------- | ------------------------------------------------------ |
+| `unnamed` | Slot to render the content in the sbb-expansion-panel. |
 

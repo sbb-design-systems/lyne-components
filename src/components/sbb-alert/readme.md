@@ -71,21 +71,21 @@ Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and
 <!-- Auto Generated Below --> 
  
 
-## Properties 
+## Properties
 
-| Name                 | Attribute                 | Privacy | Type                                    | Default | Description                                                                                                                                                                 |
-| -------------------- | -------------------- | ------- | --------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `readonly`           | `readonly`           | public  | `boolean`                               | `false` | Whether the alert is readonly.&#xA;In readonly mode, there is no dismiss button offered to the user.                                                                        |
-| `size`               | `size`               | public  | `'m' \| 'l'`                            | `'m'`   | You can choose between \`m\` or \`l\` size.                                                                                                                                 |
-| `disableAnimation`   | `disable-animation`   | public  | `boolean`                               | `false` | Whether the fade in animation should be disabled.                                                                                                                           |
-| `iconName`           | `icon-name`           | public  | `string \| undefined`                   |         | Name of the icon which will be forward to the nested \`sbb-icon\`.&#xA;Choose the icons from https\://icons.app.sbb.ch.&#xA;Styling is optimized for icons of type HIM-CUS. |
-| `titleContent`       | `title-content`       | public  | `string \| undefined`                   |         | Content of title.                                                                                                                                                           |
-| `titleLevel`         | `title-level`         | public  | `TitleLevel`                            | `'3'`   | Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.                                                                                             |
-| `linkContent`        | `link-content`        | public  | `string \| undefined`                   |         | Content of the link.                                                                                                                                                        |
-| `href`               | `href`               | public  | `string \| undefined`                   |         | The href value you want to link to.                                                                                                                                         |
-| `target`             | `target`             | public  | `LinkTargetType \| string \| undefined` |         | Where to display the linked URL.                                                                                                                                            |
-| `rel`                | `rel`                | public  | `string \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                                                                                                           |
-| `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`                   |         | This will be forwarded as aria-label to the relevant nested element.                                                                                                        |
+| Name                 | Privacy | Type                                    | Default | Description                                                                                                                                                                 | Inherited From |
+| -------------------- | ------- | --------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `readonly`           | public  | `boolean`                               | `false` | Whether the alert is readonly.&#xA;In readonly mode, there is no dismiss button offered to the user.                                                                        |                |
+| `size`               | public  | `InterfaceAlertAttributes['size']`      | `'m'`   | You can choose between \`m\` or \`l\` size.                                                                                                                                 |                |
+| `disableAnimation`   | public  | `boolean`                               | `false` | Whether the fade in animation should be disabled.                                                                                                                           |                |
+| `iconName`           | public  | `string \| undefined`                   |         | Name of the icon which will be forward to the nested \`sbb-icon\`.&#xA;Choose the icons from https\://icons.app.sbb.ch.&#xA;Styling is optimized for icons of type HIM-CUS. |                |
+| `titleContent`       | public  | `string \| undefined`                   |         | Content of title.                                                                                                                                                           |                |
+| `titleLevel`         | public  | `TitleLevel`                            | `'3'`   | Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.                                                                                             |                |
+| `linkContent`        | public  | `string \| undefined`                   |         | Content of the link.                                                                                                                                                        |                |
+| `href`               | public  | `string \| undefined`                   |         | The href value you want to link to.                                                                                                                                         |                |
+| `target`             | public  | `LinkTargetType \| string \| undefined` |         | Where to display the linked URL.                                                                                                                                            |                |
+| `rel`                | public  | `string \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                                                                                                           |                |
+| `accessibilityLabel` | public  | `string \| undefined`                   |         | This will be forwarded as aria-label to the relevant nested element.                                                                                                        |                |
 
 ## Methods
 
@@ -93,27 +93,11 @@ Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and
 | ------------------ | ------- | -------------------------------- | ---------- | ------ | -------------- |
 | `requestDismissal` | public  | Requests dismissal of the alert. |            | `void` |                |
 
-## Attributes
-
-| Name                  | Field              | Inherited From |
-| --------------------- | ------------------ | -------------- |
-| `readonly`            | readonly           |                |
-| `size`                | size               |                |
-| `disable-animation`   | disableAnimation   |                |
-| `icon-name`           | iconName           |                |
-| `title-content`       | titleContent       |                |
-| `title-level`         | titleLevel         |                |
-| `link-content`        | linkContent        |                |
-| `href`                | href               |                |
-| `target`              | target             |                |
-| `rel`                 | rel                |                |
-| `accessibility-label` | accessibilityLabel |                |
-
 ## Slots
 
-| Name    | Description                                                                                                |
-| ------- | ---------------------------------------------------------------------------------------------------------- |
-| `icon`  | Should be a sbb-icon which is displayed next to the title. Styling is optimized for icons of type HIM-CUS. |
-| `title` | Title content.                                                                                             |
-|         | Use the unnamed slot to add content to the alert.                                                          |
+| Name      | Description                                                                                                |
+| --------- | ---------------------------------------------------------------------------------------------------------- |
+| `icon`    | Should be a sbb-icon which is displayed next to the title. Styling is optimized for icons of type HIM-CUS. |
+| `title`   | Title content.                                                                                             |
+| `unnamed` | Content of the alert.                                                                                      |
 

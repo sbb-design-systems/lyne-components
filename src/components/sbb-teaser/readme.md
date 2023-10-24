@@ -25,8 +25,6 @@ Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and
 <!-- Auto Generated Below --> 
  
 
-## Properties 
-
 | Name         | Attribute         | Privacy | Type                                                 | Default | Description                                                                                                                           |
 | ------------ | ------------ | ------- | ---------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | `isStacked`  | `is-stacked`  | public  | `boolean`                                            |         | Teaser variant -&#xA;when this is true the text-content will be under the image&#xA;otherwise it will be displayed next to the image. |
@@ -35,15 +33,13 @@ Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and
 | `target`     | `target`     | public  | `LinkTargetType \| string \| undefined \| undefined` |         | Where to display the linked URL.                                                                                                      |
 | `rel`        | `rel`        | public  | `string \| undefined \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                                                                     |
 
-## Attributes
-
-| Name          | Field      | Inherited From |
-| ------------- | ---------- | -------------- |
-| `is-stacked`  | isStacked  |                |
-| `title-level` | titleLevel |                |
-| `href`        | href       |                |
-| `target`      | target     |                |
-| `rel`         | rel        |                |
+| Name         | Privacy | Type                                                 | Default | Description                                                                                                                           | Inherited From |
+| ------------ | ------- | ---------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `isStacked`  | public  | `boolean`                                            |         | Teaser variant -&#xA;when this is true the text-content will be under the image&#xA;otherwise it will be displayed next to the image. |                |
+| `titleLevel` | public  | `TitleLevel`                                         | `'5'`   | Heading level of the sbb-title element (e.g. h1-h6).                                                                                  |                |
+| `href`       | public  | `string \| undefined`                                |         | The href value you want to link to.                                                                                                   |                |
+| `target`     | public  | `LinkTargetType \| string \| undefined \| undefined` |         | Where to display the linked URL.                                                                                                      |                |
+| `rel`        | public  | `string \| undefined \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                                                                     |                |
 
 ## Slots
 

@@ -24,21 +24,17 @@ as in the example above.
 <!-- Auto Generated Below --> 
  
 
-## Properties 
-
 | Name    | Attribute    | Privacy | Type                    | Default      | Description              |
 | ------- | ------- | ------- | ----------------------- | ------------ | ------------------------ |
 | `color` | `color` | public  | `'charcoal' \| 'white'` | `'charcoal'` | Color of the card badge. |
 
-## Attributes
-
-| Name    | Field | Inherited From |
-| ------- | ----- | -------------- |
-| `color` | color |                |
+| Name    | Privacy | Type                                       | Default      | Description              | Inherited From |
+| ------- | ------- | ------------------------------------------ | ------------ | ------------------------ | -------------- |
+| `color` | public  | `InterfaceSbbCardBadgeAttributes['color']` | `'charcoal'` | Color of the card badge. |                |
 
 ## Slots
 
-| Name | Description                                                                                                                        |
-| ---- | ---------------------------------------------------------------------------------------------------------------------------------- |
-|      | Use the unnamed slot to add content to the badge. Content parts should be wrapped in \`\<span>\` tags to achieve correct spacings. |
+| Name      | Description                                                                                            |
+| --------- | ------------------------------------------------------------------------------------------------------ |
+| `unnamed` | Content of the badge. Content parts should be wrapped in \`\<span>\` tags to achieve correct spacings. |
 

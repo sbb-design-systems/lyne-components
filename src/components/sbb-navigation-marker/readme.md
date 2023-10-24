@@ -23,28 +23,23 @@ Possible values are `l` (default) and `s`.
 <!-- Auto Generated Below --> 
  
 
-## Properties 
+## Properties
 
-| Name   | Attribute   | Privacy | Type                      | Default | Description          |
-| ------ | ------ | ------- | ------------------------- | ------- | -------------------- |
-| `size` | `size` | public  | `'l' \| 's' \| undefined` | `'l'`   | Marker size variant. |
+| Name   | Privacy | Type                      | Default | Description          | Inherited From |
+| ------ | ------- | ------------------------- | ------- | -------------------- | -------------- |
+| `size` | public  | `'l' \| 's' \| undefined` | `'l'`   | Marker size variant. |                |
 
 ## Methods
 
-| Name     | Privacy | Description | Parameters                    | Return | Inherited From |
-| -------- | ------- | ----------- | ----------------------------- | ------ | -------------- |
-| `select` | public  |             | `action: SbbNavigationAction` | `void` |                |
-| `reset`  | public  |             |                               | `void` |                |
-
-## Attributes
-
-| Name   | Field | Inherited From |
-| ------ | ----- | -------------- |
-| `size` | size  |                |
+| Name         | Privacy | Description | Parameters                                | Return | Inherited From |
+| ------------ | ------- | ----------- | ----------------------------------------- | ------ | -------------- |
+| `willUpdate` | public  |             | `changedProperties: PropertyValues<this>` | `void` |                |
+| `select`     | public  |             | `action: SbbNavigationAction`             | `void` |                |
+| `reset`      | public  |             |                                           | `void` |                |
 
 ## Slots
 
-| Name | Description                                                                                    |
-| ---- | ---------------------------------------------------------------------------------------------- |
-|      | Use the unnamed slot to add \`sbb-navigation-action\` elements into the sbb-navigation-marker. |
+| Name      | Description                                                                 |
+| --------- | --------------------------------------------------------------------------- |
+| `unnamed` | Use this slot to provide navigation actions into the sbb-navigation-marker. |
 

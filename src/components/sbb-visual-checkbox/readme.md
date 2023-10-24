@@ -14,8 +14,6 @@ It has four different states related to the properties `checked`, `indeterminate
 <!-- Auto Generated Below --> 
  
 
-## Properties 
-
 | Name            | Attribute            | Privacy | Type      | Default | Description                     |
 | --------------- | --------------- | ------- | --------- | ------- | ------------------------------- |
 | `checked`       | `checked`       | public  | `boolean` |         | Checked state.                  |
@@ -23,13 +21,11 @@ It has four different states related to the properties `checked`, `indeterminate
 | `indeterminate` | `indeterminate` | public  | `boolean` | `false` | Indeterminate state.            |
 | `negative`      | `negative`      | public  | `boolean` | `false` | Negative coloring variant flag. |
 
-## Attributes
-
-| Name            | Field         | Inherited From |
-| --------------- | ------------- | -------------- |
-| `checked`       | checked       |                |
-| `disabled`      | disabled      |                |
-| `indeterminate` | indeterminate |                |
-| `negative`      | negative      |                |
+| Name            | Privacy | Type      | Default | Description                     | Inherited From |
+| --------------- | ------- | --------- | ------- | ------------------------------- | -------------- |
+| `checked`       | public  | `boolean` |         | Checked state.                  |                |
+| `disabled`      | public  | `boolean` |         | Disabled state.                 |                |
+| `indeterminate` | public  | `boolean` | `false` | Indeterminate state.            |                |
+| `negative`      | public  | `boolean` | `false` | Negative coloring variant flag. |                |
 
 <hr/>

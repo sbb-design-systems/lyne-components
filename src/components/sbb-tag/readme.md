@@ -48,8 +48,6 @@ The state is reflected via `aria-pressed` attribute.
 <!-- Auto Generated Below --> 
  
 
-## Properties 
-
 | Name       | Attribute       | Privacy | Type                  | Default | Description                                                                                                                                 |
 | ---------- | ---------- | ------- | --------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | `name`     | `name`     | public  | `string \| undefined` |         | The name attribute to use for the button.                                                                                                   |
@@ -60,23 +58,19 @@ The state is reflected via `aria-pressed` attribute.
 | `disabled` | `disabled` | public  | `boolean`             | `false` | Whether the tag is disabled.                                                                                                                |
 | `iconName` | `icon-name` | public  | `string \| undefined` |         | The icon name we want to use, choose from the small icon variants from the ui-icons category&#xA;from https\://icons.app.sbb.ch (optional). |
 
-## Attributes
+| Name       | Privacy | Type                  | Default | Description                                                                                                                                 | Inherited From |
+| ---------- | ------- | --------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `name`     | public  | `string \| undefined` |         | The name attribute to use for the button.                                                                                                   |                |
+| `value`    | public  | `string \| undefined` |         | Value of the tag.                                                                                                                           |                |
+| `form`     | public  | `string \| undefined` |         | The \<form> element to associate the button with.                                                                                           |                |
+| `amount`   | public  | `string \| undefined` |         | Amount displayed inside the tag.                                                                                                            |                |
+| `checked`  | public  | `boolean`             | `false` | Whether the tag is checked.                                                                                                                 |                |
+| `disabled` | public  | `boolean`             | `false` | Whether the tag is disabled.                                                                                                                |                |
+| `iconName` | public  | `string \| undefined` |         | The icon name we want to use, choose from the small icon variants from the ui-icons category&#xA;from https\://icons.app.sbb.ch (optional). |                |
 
-| Name        | Field    | Inherited From |
-| ----------- | -------- | -------------- |
-| `name`      | name     |                |
-| `value`     | value    |                |
-| `form`      | form     |                |
-| `amount`    | amount   |                |
-| `checked`   | checked  |                |
-| `disabled`  | disabled |                |
-| `icon-name` | iconName |                |
+## Methods
 
-## Slots
-
-| Name     | Description                                                                                     |
-| -------- | ----------------------------------------------------------------------------------------------- |
-|          | Use the unnamed slot to add content to the tag label.                                           |
-| `icon`   | Use this slot to display an icon at the component start, by providing a \`sbb-icon\` component. |
-| `amount` | Provide an amount to show it at the component end.                                              |
+| Name         | Privacy | Description | Parameters                                | Return | Inherited From |
+| ------------ | ------- | ----------- | ----------------------------------------- | ------ | -------------- |
+| `willUpdate` | public  |             | `changedProperties: PropertyValues<this>` | `void` |                |
 

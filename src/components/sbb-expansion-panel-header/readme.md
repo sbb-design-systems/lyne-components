@@ -36,24 +36,13 @@ When the element is clicked, the `toggle-expanded` event is emitted.
 <!-- Auto Generated Below --> 
  
 
-## Properties 
-
 | Name       | Attribute       | Privacy | Type                  | Default | Description                                                                                                                               |
 | ---------- | ---------- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | `iconName` | `icon-name` | public  | `string \| undefined` |         | The icon name we want to use, choose from the small icon variants&#xA;from the ui-icons category from here&#xA;https\://icons.app.sbb.ch. |
 | `disabled` | `disabled` | public  | `boolean`             |         | Whether the button is disabled.                                                                                                           |
 
-## Attributes
-
-| Name        | Field    | Inherited From |
-| ----------- | -------- | -------------- |
-| `icon-name` | iconName |                |
-| `disabled`  | disabled |                |
-
-## Slots
-
-| Name   | Description                                                        |
-| ------ | ------------------------------------------------------------------ |
-| `icon` | Slot used to render the panel header icon.                         |
-|        | Use the unnamed slot to add content to the expansion panel header. |
+| Name       | Privacy | Type                  | Default | Description                                                                                                                               | Inherited From |
+| ---------- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `iconName` | public  | `string \| undefined` |         | The icon name we want to use, choose from the small icon variants&#xA;from the ui-icons category from here&#xA;https\://icons.app.sbb.ch. |                |
+| `disabled` | public  | `boolean`             |         | Whether the button is disabled.                                                                                                           |                |
 

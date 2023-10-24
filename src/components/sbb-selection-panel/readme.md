@@ -84,8 +84,6 @@ It's also possible to display the `sbb-selection-panel` without border by settin
 <!-- Auto Generated Below --> 
  
 
-## Properties 
-
 | Name               | Attribute               | Privacy | Type                | Default   | Description                                    |
 | ------------------ | ------------------ | ------- | ------------------- | --------- | ---------------------------------------------- |
 | `color`            | `color`            | public  | `'white' \| 'milk'` | `'white'` | The background color of the panel.             |
@@ -93,20 +91,29 @@ It's also possible to display the `sbb-selection-panel` without border by settin
 | `borderless`       | `borderless`       | public  | `boolean`           | `false`   | Whether the unselected panel has a border.     |
 | `disableAnimation` | `disable-animation` | public  | `boolean`           | `false`   | Whether the animation is enabled.              |
 
-## Attributes
+| Name               | Privacy | Type                                            | Default   | Description                                                       | Inherited From |
+| ------------------ | ------- | ----------------------------------------------- | --------- | ----------------------------------------------------------------- | -------------- |
+| `color`            | public  | `InterfaceSbbSelectionPanelAttributes['color']` | `'white'` | The background color of the panel.                                |                |
+| `forceOpen`        | public  | `boolean`                                       | `false`   | Whether the content section is always visible.                    |                |
+| `borderless`       | public  | `boolean`                                       | `false`   | Whether the unselected panel has a border.                        |                |
+| `disableAnimation` | public  | `boolean`                                       | `false`   | Whether the animation is enabled.                                 |                |
+| `willOpen`         | public  | `EventEmitter<void>`                            |           | Emits whenever the content section starts the opening transition. |                |
+| `didOpen`          | public  | `EventEmitter<void>`                            |           | Emits whenever the content section is opened.                     |                |
+| `willClose`        | public  | `EventEmitter<{ closeTarget: HTMLElement }>`    |           | Emits whenever the content section begins the closing transition. |                |
+| `didClose`         | public  | `EventEmitter<{ closeTarget: HTMLElement }>`    |           | Emits whenever the content section is closed.                     |                |
 
-| Name                | Field            | Inherited From |
-| ------------------- | ---------------- | -------------- |
-| `color`             | color            |                |
-| `force-open`        | forceOpen        |                |
-| `borderless`        | borderless       |                |
-| `disable-animation` | disableAnimation |                |
+## Methods
+
+| Name            | Privacy | Description | Parameters                                                          | Return        | Inherited From |
+| --------------- | ------- | ----------- | ------------------------------------------------------------------- | ------------- | -------------- |
+| `onInputChange` | public  |             | `event: CustomEvent<RadioButtonStateChange \| CheckboxStateChange>` | `void`        |                |
+| `render`        | public  |             |                                                                     | `JSX.Element` |                |
 
 ## Slots
 
-| Name      | Description                                                                                            |
-| --------- | ------------------------------------------------------------------------------------------------------ |
-|           | Use the unnamed slot to add \`sbb-checkbox\` or \`sbb-radio-button\` elements to this selection panel. |
-| `badge`   | Use this slot to provide a \`sbb-card-badge\` (optional).                                              |
-| `content` | Use this slot to provide custom content for the panel (optional).                                      |
+| Name      | Description                                                            |
+| --------- | ---------------------------------------------------------------------- |
+| `unnamed` | Use this slot to provide a \`sbb-checkbox\` or a \`sbb-radio-button\`. |
+| `badge`   | Use this slot to provide a \`sbb-card-badge\` (optional).              |
+| `content` | Use this slot to provide custom content for the panel (optional).      |
 

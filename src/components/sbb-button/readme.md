@@ -81,8 +81,6 @@ Use the accessibility properties in case of an icon-only button to describe the 
 <!-- Auto Generated Below --> 
  
 
-## Properties 
-
 | Name       | Attribute       | Privacy | Type                                                                     | Default     | Description                                                                                                                                                |
 | ---------- | ---------- | ------- | ------------------------------------------------------------------------ | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `variant`  | `variant`  | public  | `\| 'primary'     \| 'secondary'     \| 'tertiary'     \| 'transparent'` | `'primary'` | Variant of the button, like primary, secondary etc.                                                                                                        |
@@ -100,29 +98,27 @@ Use the accessibility properties in case of an icon-only button to describe the 
 | `value`    | `value`    | public  | `string \| undefined`                                                    |             | The value attribute to use for the button.                                                                                                                 |
 | `form`     | `form`     | public  | `string \| undefined`                                                    |             | The \<form> element to associate the button with.                                                                                                          |
 
-## Attributes
-
-| Name        | Field    | Inherited From |
-| ----------- | -------- | -------------- |
-| `variant`   | variant  |                |
-| `negative`  | negative |                |
-| `size`      | size     |                |
-| `is-static` | isStatic |                |
-| `icon-name` | iconName |                |
-| `href`      | href     |                |
-| `target`    | target   |                |
-| `rel`       | rel      |                |
-| `download`  | download |                |
-| `type`      | type     |                |
-| `disabled`  | disabled |                |
-| `name`      | name     |                |
-| `value`     | value    |                |
-| `form`      | form     |                |
+| Name       | Privacy | Type                                                 | Default     | Description                                                                                                                                                | Inherited From |
+| ---------- | ------- | ---------------------------------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `variant`  | public  | `InterfaceButtonAttributes['variant']`               | `'primary'` | Variant of the button, like primary, secondary etc.                                                                                                        |                |
+| `negative` | public  | `boolean`                                            | `false`     | Negative coloring variant flag.                                                                                                                            |                |
+| `size`     | public  | `InterfaceButtonAttributes['size'] \| undefined`     | `'l'`       | Size variant, either l or m.                                                                                                                               |                |
+| `isStatic` | public  | `boolean`                                            | `false`     | Set this property to true if you want only a visual representation of a&#xA;button, but no interaction (a span instead of a link/button will be rendered). |                |
+| `iconName` | public  | `string \| undefined`                                |             | The icon name we want to use, choose from the small icon variants&#xA;from the ui-icons category from here&#xA;https\://icons.app.sbb.ch.                  |                |
+| `href`     | public  | `string \| undefined`                                |             | The href value you want to link to (if it is present, button becomes a link).                                                                              |                |
+| `target`   | public  | `LinkTargetType \| string \| undefined \| undefined` |             | Where to display the linked URL.                                                                                                                           |                |
+| `rel`      | public  | `string \| undefined \| undefined`                   |             | The relationship of the linked URL as space-separated link types.                                                                                          |                |
+| `download` | public  | `boolean \| undefined`                               |             | Whether the browser will show the download dialog on click.                                                                                                |                |
+| `type`     | public  | `ButtonType \| undefined`                            |             | The type attribute to use for the button.                                                                                                                  |                |
+| `disabled` | public  | `boolean`                                            | `false`     | Whether the button is disabled.                                                                                                                            |                |
+| `name`     | public  | `string \| undefined`                                |             | The name attribute to use for the button.                                                                                                                  |                |
+| `value`    | public  | `string \| undefined`                                |             | The value attribute to use for the button.                                                                                                                 |                |
+| `form`     | public  | `string \| undefined`                                |             | The \<form> element to associate the button with.                                                                                                          |                |
 
 ## Slots
 
-| Name   | Description                                        |
-| ------ | -------------------------------------------------- |
-|        | Use the unnamed slot to add content to the button. |
-| `icon` | Slot used to display the icon, if one is set       |
+| Name      | Description                                  |
+| --------- | -------------------------------------------- |
+| `unnamed` | Button Content                               |
+| `icon`    | Slot used to display the icon, if one is set |
 

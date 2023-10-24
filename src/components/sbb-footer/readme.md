@@ -74,8 +74,6 @@ to the content where needed (e.g. `sbb-link-list`, `sbb-link` and `sbb-divider`)
 <!-- Auto Generated Below --> 
  
 
-## Properties 
-
 | Name                      | Attribute                      | Privacy | Type                           | Default     | Description                                                                                                                                                                                            |
 | ------------------------- | ------------------------- | ------- | ------------------------------ | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `variant`                 | `variant`                 | public  | `'default' \| 'clock-columns'` | `'default'` | Variants to display the footer. The default, displays the content in regular block element&#xA;approach. The clock-columns, used a css-grid for displaying the content over different&#xA;breakpoints. |
@@ -84,15 +82,11 @@ to the content where needed (e.g. `sbb-link-list`, `sbb-link` and `sbb-divider`)
 | `accessibilityTitle`      | `accessibility-title`      | public  | `string \| undefined`          |             | Footer title text, visually hidden, necessary for screen readers.                                                                                                                                      |
 | `accessibilityTitleLevel` | `accessibility-title-level` | public  | `TitleLevel`                   | `'1'`       | Level of the accessibility title, will be rendered as heading tag (e.g. h1). Defaults to level 1.                                                                                                      |
 
-## Attributes
-
-| Name                        | Field                   | Inherited From |
-| --------------------------- | ----------------------- | -------------- |
-| `variant`                   | variant                 |                |
-| `negative`                  | negative                |                |
-| `expanded`                  | expanded                |                |
-| `accessibility-title`       | accessibilityTitle      |                |
-| `accessibility-title-level` | accessibilityTitleLevel |                |
-
-<hr/>
+| Name                      | Privacy | Type                                   | Default     | Description                                                                                                                                                                                            | Inherited From |
+| ------------------------- | ------- | -------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
+| `variant`                 | public  | `InterfaceFooterAttributes['variant']` | `'default'` | Variants to display the footer. The default, displays the content in regular block element&#xA;approach. The clock-columns, used a css-grid for displaying the content over different&#xA;breakpoints. |                |
+| `negative`                | public  | `boolean`                              | `false`     | Negative coloring variant flag.                                                                                                                                                                        |                |
+| `expanded`                | public  | `boolean`                              | `false`     | Whether to allow the footer content to stretch to full width.&#xA;By default, the content has the appropriate page size.                                                                               |                |
+| `accessibilityTitle`      | public  | `string \| undefined`                  |             | Footer title text, visually hidden, necessary for screen readers.                                                                                                                                      |                |
+| `accessibilityTitleLevel` | public  | `TitleLevel`                           | `'1'`       | Level of the accessibility title, will be rendered as heading tag (e.g. h1). Defaults to level 1.                                                                                                      |                |
 

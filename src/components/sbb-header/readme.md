@@ -104,26 +104,22 @@ so they were wrapped into a `style` tag and added to the Storybook's configurati
 <!-- Auto Generated Below --> 
  
 
-## Properties 
-
 | Name           | Attribute           | Privacy | Type                                | Default | Description                                                                                                              |
 | -------------- | -------------- | ------- | ----------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
 | `expanded`     | `expanded`     | public  | `boolean`                           | `false` | Whether to allow the header content to stretch to full width.&#xA;By default, the content has the appropriate page size. |
 | `scrollOrigin` | `scroll-origin` | public  | `string \| HTMLElement \| Document` |         | The element's id or the element on which the scroll listener is attached.                                                |
 | `hideOnScroll` | `hide-on-scroll` | public  | `boolean`                           | `false` | Whether the header should hide and show on scroll.                                                                       |
 
-## Attributes
-
-| Name             | Field        | Inherited From |
-| ---------------- | ------------ | -------------- |
-| `expanded`       | expanded     |                |
-| `scroll-origin`  | scrollOrigin |                |
-| `hide-on-scroll` | hideOnScroll |                |
+| Name           | Privacy | Type                                | Default | Description                                                                                                              | Inherited From |
+| -------------- | ------- | ----------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ | -------------- |
+| `expanded`     | public  | `boolean`                           | `false` | Whether to allow the header content to stretch to full width.&#xA;By default, the content has the appropriate page size. |                |
+| `scrollOrigin` | public  | `string \| HTMLElement \| Document` |         | The element's id or the element on which the scroll listener is attached.                                                |                |
+| `hideOnScroll` | public  | `boolean`                           | `false` | Whether the header should hide and show on scroll.                                                                       |                |
 
 ## Slots
 
-| Name   | Description                                                           |
-| ------ | --------------------------------------------------------------------- |
-|        | Use the unnamed slot to add actions or content to the header.         |
-| `logo` | Slot used to render the logo on the right side (sbb-logo as default). |
+| Name      | Description                                                           |
+| --------- | --------------------------------------------------------------------- |
+| `unnamed` | Slot used to render the actions on the left side.                     |
+| `logo`    | Slot used to render the logo on the right side (sbb-logo as default). |
 

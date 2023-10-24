@@ -52,8 +52,6 @@ you can not provide it and then use `aria-label` to specify an appropriate label
 <!-- Auto Generated Below --> 
  
 
-## Properties 
-
 | Name            | Attribute            | Privacy | Type                               | Default        | Description                                                    |
 | --------------- | --------------- | ------- | ---------------------------------- | -------------- | -------------------------------------------------------------- |
 | `checked`       | `checked`       | public  | `boolean`                          | `false`        | Whether the toggle-check is checked.                           |
@@ -65,23 +63,28 @@ you can not provide it and then use `aria-label` to specify an appropriate label
 | `required`      | `required`      | public  | `boolean`                          | `false`        | The required prop for the required state.                      |
 | `labelPosition` | `label-position` | public  | `'before' \| 'after' \| undefined` | `'after'`      | The label position relative to the toggle. Defaults to 'after' |
 
-## Attributes
+| Name            | Privacy | Type                                                           | Default        | Description                                                    | Inherited From |
+| --------------- | ------- | -------------------------------------------------------------- | -------------- | -------------------------------------------------------------- | -------------- |
+| `checked`       | public  | `boolean`                                                      | `false`        | Whether the toggle-check is checked.                           |                |
+| `value`         | public  | `string \| undefined`                                          |                | Value of toggle-check.                                         |                |
+| `name`          | public  | `string \| undefined`                                          |                | Name of the toggle-check.                                      |                |
+| `size`          | public  | `InterfaceToggleCheckAttributes['size']`                       | `'s'`          | Size variant, either m or s.                                   |                |
+| `iconName`      | public  | `string`                                                       | `'tick-small'` | The svg name for the true state - default -> 'tick-small'      |                |
+| `disabled`      | public  | `boolean`                                                      | `false`        | The disabled prop for the disabled state.                      |                |
+| `required`      | public  | `boolean`                                                      | `false`        | The required prop for the required state.                      |                |
+| `labelPosition` | public  | `InterfaceToggleCheckAttributes['labelPosition'] \| undefined` | `'after'`      | The label position relative to the toggle. Defaults to 'after' |                |
 
-| Name             | Field         | Inherited From |
-| ---------------- | ------------- | -------------- |
-| `checked`        | checked       |                |
-| `value`          | value         |                |
-| `name`           | name          |                |
-| `size`           | size          |                |
-| `icon-name`      | iconName      |                |
-| `disabled`       | disabled      |                |
-| `required`       | required      |                |
-| `label-position` | labelPosition |                |
+## Methods
+
+| Name                | Privacy | Description                                                                                                            | Parameters     | Return | Inherited From |
+| ------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------- | -------------- | ------ | -------------- |
+| `handleChangeEvent` | public  |                                                                                                                        | `event: Event` | `void` |                |
+| `handleInputEvent`  | public  | Method triggered on checkbox input event.&#xA;If not indeterminate, inverts the value; otherwise sets checked to true. |                | `void` |                |
 
 ## Slots
 
-| Name   | Description                                                                         |
-| ------ | ----------------------------------------------------------------------------------- |
-|        | Use the unnamed slot to add content to the toggle label.                            |
-| `icon` | Use this slot to provide an icon. If \`icon-name\` is set, a sbb-icon will be used. |
+| Name      | Description                                                                         |
+| --------- | ----------------------------------------------------------------------------------- |
+| `unnamed` | Use this slot to provide the toggle label.                                          |
+| `icon`    | Use this slot to provide an icon. If \`icon-name\` is set, a sbb-icon will be used. |
 

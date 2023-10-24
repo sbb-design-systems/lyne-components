@@ -31,19 +31,23 @@ if it is disabled, or if the selected date is equal to the input's `min` attribu
 <!-- Auto Generated Below --> 
  
 
-## Properties 
-
 | Name         | Attribute         | Privacy | Type                                   | Default | Description                               |
 | ------------ | ------------ | ------- | -------------------------------------- | ------- | ----------------------------------------- |
 | `name`       | `name`       | public  | `string \| undefined`                  |         | The name attribute to use for the button. |
 | `negative`   | `negative`   | public  | `boolean`                              | `false` | Negative coloring variant flag.           |
 | `datePicker` | `date-picker` | public  | `string \| SbbDatepicker \| undefined` |         | Datepicker reference.                     |
 
-## Attributes
+| Name         | Privacy | Type                                 | Default | Description                               | Inherited From |
+| ------------ | ------- | ------------------------------------ | ------- | ----------------------------------------- | -------------- |
+| `name`       | public  | `string \| undefined`                |         | The name attribute to use for the button. |                |
+| `negative`   | public  | `boolean`                            | `false` | Negative coloring variant flag.           |                |
+| `datePicker` | public  | `string \| HTMLElement \| undefined` |         | Datepicker reference.                     |                |
 
-| Name          | Field      | Inherited From |
-| ------------- | ---------- | -------------- |
-| `name`        | name       |                |
-| `negative`    | negative   |                |
-| `date-picker` | datePicker |                |
+## Methods
+
+| Name             | Privacy | Description | Parameters                                                         | Return          | Inherited From |
+| ---------------- | ------- | ----------- | ------------------------------------------------------------------ | --------------- | -------------- |
+| `findDatePicker` | public  |             | `newValue: string \| HTMLElement, oldValue: string \| HTMLElement` | `Promise<void>` |                |
+| `handleClick`    | public  |             |                                                                    | `Promise<void>` |                |
+| `render`         | public  |             |                                                                    | `JSX.Element`   |                |
 

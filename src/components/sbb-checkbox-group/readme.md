@@ -80,8 +80,6 @@ Two values are available, `s` and `m`, which is the default
 <!-- Auto Generated Below --> 
  
 
-## Properties 
-
 | Name             | Attribute             | Privacy | Type                             | Default        | Description                                                                       |
 | ---------------- | ---------------- | ------- | -------------------------------- | -------------- | --------------------------------------------------------------------------------- |
 | `disabled`       | `disabled`       | public  | `boolean`                        | `false`        | Whether the checkbox group is disabled.                                           |
@@ -90,20 +88,24 @@ Two values are available, `s` and `m`, which is the default
 | `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| undefined` |                | Overrides the behaviour of \`orientation\` property.                              |
 | `orientation`    | `orientation`    | public  | `SbbOrientation`                 | `'horizontal'` | Indicates the orientation of the checkboxes inside the \`\<sbb-checkbox-group>\`. |
 
-## Attributes
+| Name             | Privacy | Type                                                                 | Default        | Description                                                                       | Inherited From |
+| ---------------- | ------- | -------------------------------------------------------------------- | -------------- | --------------------------------------------------------------------------------- | -------------- |
+| `disabled`       | public  | `boolean`                                                            | `false`        | Whether the checkbox group is disabled.                                           |                |
+| `required`       | public  | `boolean`                                                            | `false`        | Whether the checkbox group is required.                                           |                |
+| `size`           | public  | `InterfaceSbbCheckboxGroupAttributes['size']`                        | `'m'`          | Size variant, either m or s.                                                      |                |
+| `horizontalFrom` | public  | `InterfaceSbbCheckboxGroupAttributes['horizontalFrom'] \| undefined` |                | Overrides the behaviour of \`orientation\` property.                              |                |
+| `orientation`    | public  | `InterfaceSbbCheckboxGroupAttributes['orientation']`                 | `'horizontal'` | Indicates the orientation of the checkboxes inside the \`\<sbb-checkbox-group>\`. |                |
 
-| Name              | Field          | Inherited From |
-| ----------------- | -------------- | -------------- |
-| `disabled`        | disabled       |                |
-| `required`        | required       |                |
-| `size`            | size           |                |
-| `horizontal-from` | horizontalFrom |                |
-| `orientation`     | orientation    |                |
+## Methods
+
+| Name         | Privacy | Description | Parameters                                | Return | Inherited From |
+| ------------ | ------- | ----------- | ----------------------------------------- | ------ | -------------- |
+| `willUpdate` | public  |             | `changedProperties: PropertyValues<this>` | `void` |                |
 
 ## Slots
 
-| Name    | Description                                                                  |
-| ------- | ---------------------------------------------------------------------------- |
-|         | Use the unnamed slot to add \`sbb-checkbox\` elements to the checkbox group. |
-| `error` | Slot used to render the \<sbb-form-error> inside the \<sbb-checkbox-group>.  |
+| Name      | Description                                                                 |
+| --------- | --------------------------------------------------------------------------- |
+| `unnamed` | Slot used to render the \<sbb-checkbox> inside the \<sbb-checkbox-group>.   |
+| `error`   | Slot used to render the \<sbb-form-error> inside the \<sbb-checkbox-group>. |
 

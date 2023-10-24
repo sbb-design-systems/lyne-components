@@ -20,25 +20,19 @@ and four different values for the `color` property (`charcoal`, `granite`, `whit
 <!-- Auto Generated Below --> 
  
 
-## Properties 
-
 | Name    | Attribute    | Privacy | Type                                           | Default  | Description        |
 | ------- | ------- | ------- | ---------------------------------------------- | -------- | ------------------ |
 | `size`  | `size`  | public  | `'xxs' \| 'xs' \| 's'`                         | `'xxs'`  | Size of the chip.  |
 | `color` | `color` | public  | `'milk' \| 'charcoal' \| 'white' \| 'granite'` | `'milk'` | Color of the chip. |
 
-## Attributes
-
-| Name    | Field | Inherited From |
-| ------- | ----- | -------------- |
-| `size`  | size  |                |
-| `color` | color |                |
+| Name    | Privacy | Type                                  | Default  | Description        | Inherited From |
+| ------- | ------- | ------------------------------------- | -------- | ------------------ | -------------- |
+| `size`  | public  | `InterfaceSbbChipAttributes['size']`  | `'xxs'`  | Size of the chip.  |                |
+| `color` | public  | `InterfaceSbbChipAttributes['color']` | `'milk'` | Color of the chip. |                |
 
 ## Slots
 
-| Name | Description                                      |
-| ---- | ------------------------------------------------ |
-|      | Use the unnamed slot to add content to the chip. |
-
-<hr/>
+| Name      | Description                 |
+| --------- | --------------------------- |
+| `unnamed` | Content / Label of the chip |
 

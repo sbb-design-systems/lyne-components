@@ -76,8 +76,6 @@ and the `aria-hidden` attribute on the content.
 <!-- Auto Generated Below --> 
  
 
-## Properties 
-
 | Name               | Attribute               | Privacy | Type                      | Default   | Description                                                            |
 | ------------------ | ------------------ | ------- | ------------------------- | --------- | ---------------------------------------------------------------------- |
 | `titleLevel`       | `title-level`       | public  | `TitleLevel \| undefined` |           | Heading level; if unset, a \`div\` will be rendered.                   |
@@ -87,21 +85,12 @@ and the `aria-hidden` attribute on the content.
 | `borderless`       | `borderless`       | public  | `boolean`                 | `false`   | Whether the panel has no border.                                       |
 | `disableAnimation` | `disable-animation` | public  | `boolean`                 | `false`   | Whether the animations should be disabled.                             |
 
-## Attributes
-
-| Name                | Field            | Inherited From |
-| ------------------- | ---------------- | -------------- |
-| `title-level`       | titleLevel       |                |
-| `color`             | color            |                |
-| `expanded`          | expanded         |                |
-| `disabled`          | disabled         |                |
-| `borderless`        | borderless       |                |
-| `disable-animation` | disableAnimation |                |
-
-## Slots
-
-| Name      | Description                                         |
-| --------- | --------------------------------------------------- |
-| `header`  | Use this to render the sbb-expansion-panel-header.  |
-| `content` | Use this to render the sbb-expansion-panel-content. |
+| Name               | Privacy | Type                                            | Default   | Description                                                            | Inherited From |
+| ------------------ | ------- | ----------------------------------------------- | --------- | ---------------------------------------------------------------------- | -------------- |
+| `titleLevel`       | public  | `TitleLevel \| undefined`                       |           | Heading level; if unset, a \`div\` will be rendered.                   |                |
+| `color`            | public  | `InterfaceSbbExpansionPanelAttributes['color']` | `'white'` | The background color of the panel.                                     |                |
+| `expanded`         | public  | `boolean`                                       |           | Whether the panel is expanded.                                         |                |
+| `disabled`         | public  | `boolean`                                       |           | Whether the panel is disabled, so its expanded state can't be changed. |                |
+| `borderless`       | public  | `boolean`                                       | `false`   | Whether the panel has no border.                                       |                |
+| `disableAnimation` | public  | `boolean`                                       | `false`   | Whether the animations should be disabled.                             |                |
 
