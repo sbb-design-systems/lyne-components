@@ -19,6 +19,16 @@
   --sbb-navigation-section-width: 100vw;
   --sbb-navigation-section-height: 100vh;
 
+  // We have to place the styles on the host as it has to be aligned on the grid of the navigation
+  display: var(--sbb-navigation-section-display);
+  position: var(--sbb-navigation-section-position);
+  grid-column: var(--sbb-navigation-section-column);
+  inset-inline-start: 0;
+  inset-block-start: 0;
+  width: var(--sbb-navigation-section-width);
+  height: var(--sbb-navigation-section-height);
+  z-index: var(--sbb-navigation-z-index, var(--sbb-overlay-z-index));
+
   // Needed for backwards compatibility on Chromatic
   // TODO: Remove once not needed
   @supports (width: 100dvw) {
@@ -30,11 +40,6 @@
   @supports (height: 100dvh) {
     --sbb-navigation-section-height: 100dvh;
   }
-
-  // We use this rule to make the inner container element to appear as if it were a
-  // direct child of the host's parent element. This is useful because the host
-  // should be ignored when using CSS grid or similar layout techniques.
-  display: contents;
 
   @include sbb.mq($from: large) {
     --sbb-navigation-section-column: 5 / 9;
@@ -93,20 +98,8 @@
 }
 
 .sbb-navigation-section__container {
-  display: var(--sbb-navigation-section-display);
   pointer-events: var(--sbb-navigation-section-pointer-events);
-  position: var(--sbb-navigation-section-position);
-  grid-column: var(--sbb-navigation-section-column);
-  inset-inline-start: 0;
-  inset-block-start: 0;
-  width: var(--sbb-navigation-section-width);
   height: var(--sbb-navigation-section-height);
-  outline: none;
-  z-index: var(--sbb-navigation-z-index, var(--sbb-overlay-z-index));
-
-  @include sbb.mq($from: large) {
-    transform: translateX(calc(var(--sbb-grid-base-gutter-responsive) * -1));
-  }
 }
 
 .sbb-navigation-section {
