@@ -19,7 +19,7 @@ describe('sbb-navigation', () => {
     expect(root).toEqualHtml(`
         <sbb-navigation trigger="nav-trigger" role="navigation" data-state="closed" id="sbb-navigation-1">
           <mock:shadow-root>
-            <div class="sbb-navigation__container" aria-modal="true">
+            <div class="sbb-navigation__container">
               <div class="sbb-navigation" id="sbb-navigation-dialog">
                 <div class="sbb-navigation__header">
                   <sbb-button
