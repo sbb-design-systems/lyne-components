@@ -80,12 +80,9 @@ export class SbbSlider extends LitElement {
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
-    if (changedProperties.has('value') && changedProperties.get('value') !== undefined) {
+    if (changedProperties.has('value')) {
       this._handleChange(Number(this.value));
-    } else if (
-      changedProperties.has('valueAsNumber') &&
-      !!changedProperties.get('valueAsNumber') !== undefined
-    ) {
+    } else if (changedProperties.has('valueAsNumber')) {
       this._handleChange(Number(this.valueAsNumber));
     }
   }
