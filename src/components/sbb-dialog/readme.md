@@ -82,83 +82,27 @@ It's possible to display the component in `negative` variant using the self-name
 The default `z-index` of the component is set to `1000`; to specify a custom stack order, the
 `z-index` can be changed by defining the CSS variable `--sbb-dialog-z-index`.
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property                  | Attribute                   | Description                                                                     | Type                                     | Default     |
-| ------------------------- | --------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------- | ----------- |
-| `accessibilityBackLabel`  | `accessibility-back-label`  | This will be forwarded as aria-label to the back button element.                | `string`                                 | `undefined` |
-| `accessibilityCloseLabel` | `accessibility-close-label` | This will be forwarded as aria-label to the close button element.               | `string`                                 | `undefined` |
-| `accessibilityLabel`      | `accessibility-label`       | This will be forwarded as aria-label to the relevant nested element.            | `string`                                 | `undefined` |
-| `backdropAction`          | `backdrop-action`           | Backdrop click action.                                                          | `"close" \| "none"`                      | `'close'`   |
-| `disableAnimation`        | `disable-animation`         | Whether the animation is enabled.                                               | `boolean`                                | `false`     |
-| `negative`                | `negative`                  | Negative coloring variant flag.                                                 | `boolean`                                | `false`     |
-| `titleBackButton`         | `title-back-button`         | Whether a back button is displayed next to the title.                           | `boolean`                                | `false`     |
-| `titleContent`            | `title-content`             | Dialog title.                                                                   | `string`                                 | `undefined` |
-| `titleLevel`              | `title-level`               | Level of title, will be rendered as heading tag (e.g. h1). Defaults to level 1. | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'1'`       |
-
-
-## Events
-
-| Event                 | Description                                              | Type                |
-| --------------------- | -------------------------------------------------------- | ------------------- |
-| `did-close`           | Emits whenever the dialog is closed.                     | `CustomEvent<any>`  |
-| `did-open`            | Emits whenever the dialog is opened.                     | `CustomEvent<void>` |
-| `request-back-action` | Emits whenever the back button is clicked.               | `CustomEvent<void>` |
-| `will-close`          | Emits whenever the dialog begins the closing transition. | `CustomEvent<any>`  |
-| `will-open`           | Emits whenever the dialog starts the opening transition. | `CustomEvent<void>` |
-
+| Name                      | Privacy | Type                         | Default   | Description                                                                     | Inherited From |
+| ------------------------- | ------- | ---------------------------- | --------- | ------------------------------------------------------------------------------- | -------------- |
+| `titleContent`            | public  | `string`                     |           | Dialog title.                                                                   |                |
+| `titleLevel`              | public  | `TitleLevel`                 | `'1'`     | Level of title, will be rendered as heading tag (e.g. h1). Defaults to level 1. |                |
+| `titleBackButton`         | public  | `boolean`                    | `false`   | Whether a back button is displayed next to the title.                           |                |
+| `backdropAction`          | public  | `'close' \| 'none'`          | `'close'` | Backdrop click action.                                                          |                |
+| `negative`                | public  | `boolean`                    | `false`   | Negative coloring variant flag.                                                 |                |
+| `accessibilityLabel`      | public  | `string \| undefined`        |           | This will be forwarded as aria-label to the relevant nested element.            |                |
+| `accessibilityCloseLabel` | public  | `\| string     \| undefined` |           | This will be forwarded as aria-label to the close button element.               |                |
+| `accessibilityBackLabel`  | public  | `\| string     \| undefined` |           | This will be forwarded as aria-label to the back button element.                |                |
+| `disableAnimation`        | public  | `boolean`                    | `false`   | Whether the animation is enabled.                                               |                |
 
 ## Methods
 
-### `close(result?: any, target?: HTMLElement) => Promise<any>`
-
-Closes the dialog element.
-
-#### Returns
-
-Type: `Promise<any>`
-
-
-
-### `open() => Promise<void>`
-
-Opens the dialog element.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
-
-## Slots
-
-| Slot             | Description                                             |
-| ---------------- | ------------------------------------------------------- |
-| `"action-group"` | Use this slot to display an action group in the footer. |
-| `"title"`        | Use this slot to provide a title.                       |
-| `"unnamed"`      | Use this slot to provide the dialog content.            |
-
-
-## Dependencies
-
-### Depends on
-
-- [sbb-button](../sbb-button)
-- [sbb-title](../sbb-title)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-dialog --> sbb-button
-  sbb-dialog --> sbb-title
-  sbb-button --> sbb-icon
-  style sbb-dialog fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name    | Privacy | Description                | Parameters                         | Return | Inherited From |
+| ------- | ------- | -------------------------- | ---------------------------------- | ------ | -------------- |
+| `open`  | public  | Opens the dialog element.  |                                    | `void` |                |
+| `close` | public  | Closes the dialog element. | `result: any, target: HTMLElement` | `any`  |                |
 

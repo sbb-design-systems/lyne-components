@@ -113,27 +113,28 @@ The values for `align-group` and `align-self` for the various allocations are as
 |                0-0-3                |   stretch   |   Link: 'end'  |
 |                0-0-2                |   stretch   |        /       |
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property         | Attribute         | Description                                                                                                     | Type                                                                       | Default        |
-| ---------------- | ----------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------- |
-| `alignGroup`     | `align-group`     | Set the slotted `<sbb-action-group>` children's alignment.                                                      | `"center" \| "end" \| "start" \| "stretch"`                                | `'start'`      |
-| `buttonSize`     | `button-size`     | Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances. | `"l" \| "m"`                                                               | `'l'`          |
-| `horizontalFrom` | `horizontal-from` | Overrides the behaviour of `orientation` property.                                                              | `"large" \| "medium" \| "micro" \| "small" \| "ultra" \| "wide" \| "zero"` | `'medium'`     |
-| `linkSize`       | `link-size`       | Size of the nested sbb-link instances. This will overwrite the size attribute of nested sbb-link instances.     | `"m" \| "s" \| "xs"`                                                       | `'m'`          |
-| `orientation`    | `orientation`     | Indicates the orientation of the components inside the `<sbb-action-group>`.                                    | `"horizontal" \| "vertical"`                                               | `'horizontal'` |
+| Name             | Privacy | Type                                                               | Default        | Description                                                                                                         | Inherited From |
+| ---------------- | ------- | ------------------------------------------------------------------ | -------------- | ------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `alignGroup`     | public  | `InterfaceSbbActionGroupAttributes['alignGroup']`                  | `'start'`      | Set the slotted \`\<sbb-action-group>\` children's alignment.                                                       |                |
+| `horizontalFrom` | public  | `InterfaceSbbActionGroupAttributes['horizontalFrom'] \| undefined` | `'medium'`     | Overrides the behaviour of \`orientation\` property.                                                                |                |
+| `orientation`    | public  | `InterfaceSbbActionGroupAttributes['orientation']`                 | `'horizontal'` | Indicates the orientation of the components inside the \`\<sbb-action-group>\`.                                     |                |
+| `buttonSize`     | public  | `InterfaceButtonAttributes['size'] \| undefined`                   | `'l'`          | Size of the nested sbb-button instances. This will overwrite the size attribute of nested&#xA;sbb-button instances. |                |
+| `linkSize`       | public  | `InterfaceLinkAttributes['size'] \| undefined`                     | `'m'`          | Size of the nested sbb-link instances. This will overwrite the size attribute of nested&#xA;sbb-link instances.     |                |
 
+## Methods
+
+| Name         | Privacy | Description | Parameters                                | Return | Inherited From |
+| ------------ | ------- | ----------- | ----------------------------------------- | ------ | -------------- |
+| `willUpdate` | public  |             | `changedProperties: PropertyValues<this>` | `void` |                |
 
 ## Slots
 
-| Slot        | Description                                      |
-| ----------- | ------------------------------------------------ |
-| `"unnamed"` | Slot to render the content inside the container. |
-
-
-----------------------------------------------
-
+| Name      | Description                                      |
+| --------- | ------------------------------------------------ |
+| `unnamed` | Slot to render the content inside the container. |
 

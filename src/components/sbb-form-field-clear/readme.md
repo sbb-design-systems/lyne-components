@@ -11,29 +11,12 @@ to provide the possibility to display a clear button which can clear the input v
 **Note:** it currently works with simple inputs and does not support, for example, `select` inputs.
 
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property   | Attribute  | Description                     | Type      | Default |
-| ---------- | ---------- | ------------------------------- | --------- | ------- |
-| `negative` | `negative` | Negative coloring variant flag. | `boolean` | `false` |
-
-
-## Dependencies
-
-### Depends on
-
-- [sbb-icon](../sbb-icon)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-form-field-clear --> sbb-icon
-  style sbb-form-field-clear fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name       | Privacy | Type      | Default | Description                     | Inherited From |
+| ---------- | ------- | --------- | ------- | ------------------------------- | -------------- |
+| `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |                |
 

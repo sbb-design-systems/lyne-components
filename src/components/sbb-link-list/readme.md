@@ -50,34 +50,23 @@ The title will not be displayed in the horizontal orientation.
 </sbb-link-list>
 ```
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property         | Attribute         | Description                                                                                                                                         | Type                                                                       | Default      |
-| ---------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ------------ |
-| `horizontalFrom` | `horizontal-from` | Selected breakpoint from which the list is rendered horizontally.                                                                                   | `"large" \| "medium" \| "micro" \| "small" \| "ultra" \| "wide" \| "zero"` | `undefined`  |
-| `negative`       | `negative`        | Whether to render the link list and nested sbb-link instances as negative. This will overwrite the negative attribute of nested sbb-link instances. | `boolean`                                                                  | `undefined`  |
-| `orientation`    | `orientation`     | The orientation in which the list will be shown vertical or horizontal.                                                                             | `"horizontal" \| "vertical"`                                               | `'vertical'` |
-| `size`           | `size`            | Text size of the nested sbb-link instances. This will overwrite the size attribute of nested sbb-link instances.                                    | `"m" \| "s" \| "xs"`                                                       | `'s'`        |
-| `titleContent`   | `title-content`   | The title text we want to show before the list.                                                                                                     | `string`                                                                   | `undefined`  |
-| `titleLevel`     | `title-level`     | The semantic level of the title, e.g. 2 = h2.                                                                                                       | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"`                                   | `'2'`        |
+| Name             | Privacy | Type                                                                   | Default      | Description                                                                                                                                             | Inherited From |
+| ---------------- | ------- | ---------------------------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `titleContent`   | public  | `string \| undefined`                                                  |              | The title text we want to show before the list.                                                                                                         |                |
+| `titleLevel`     | public  | `TitleLevel \| undefined`                                              | `'2'`        | The semantic level of the title, e.g. 2 = h2.                                                                                                           |                |
+| `size`           | public  | `InterfaceLinkAttributes['size']`                                      | `'s'`        | Text size of the nested sbb-link instances. This will overwrite the size attribute of&#xA;nested sbb-link instances.                                    |                |
+| `negative`       | public  | `boolean`                                                              |              | Whether to render the link list and nested sbb-link instances as negative. This will overwrite&#xA;the negative attribute of nested sbb-link instances. |                |
+| `horizontalFrom` | public  | `InterfaceLinkListAttributes['horizontalFromBreakpoint'] \| undefined` |              | Selected breakpoint from which the list is rendered horizontally.                                                                                       |                |
+| `orientation`    | public  | `InterfaceLinkListAttributes['orientation']`                           | `'vertical'` | The orientation in which the list will be shown vertical or horizontal.                                                                                 |                |
 
+## Methods
 
-## Dependencies
-
-### Depends on
-
-- [sbb-title](../sbb-title)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-link-list --> sbb-title
-  style sbb-link-list fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name         | Privacy | Description | Parameters                                | Return | Inherited From |
+| ------------ | ------- | ----------- | ----------------------------------------- | ------ | -------------- |
+| `willUpdate` | public  |             | `changedProperties: PropertyValues<this>` | `void` |                |
 

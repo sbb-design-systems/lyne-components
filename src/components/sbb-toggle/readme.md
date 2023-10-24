@@ -34,35 +34,22 @@ The component has two different sizes, `s` and `m` (default), which can be set u
 </sbb-toggle>
 ```
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property           | Attribute           | Description                                                                                                                                      | Type         | Default     |
-| ------------------ | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------ | ----------- |
-| `disableAnimation` | `disable-animation` | Whether the animation is enabled.                                                                                                                | `boolean`    | `false`     |
-| `disabled`         | `disabled`          | Whether the toggle is disabled.                                                                                                                  | `boolean`    | `false`     |
-| `even`             | `even`              | If true, set the width of the component fixed; if false, the width is dynamic based on the label of the sbb-toggle-option.                       | `boolean`    | `undefined` |
-| `size`             | `size`              | Size variant, either m or s.                                                                                                                     | `"m" \| "s"` | `'m'`       |
-| `value`            | `value`             | The value of the toggle. It needs to be mutable since it is updated whenever a new option is selected (see the `onToggleOptionSelect()` method). | `any`        | `undefined` |
+| Name               | Privacy | Type                                                | Default | Description                                                                                                                                            | Inherited From |
+| ------------------ | ------- | --------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
+| `disabled`         | public  | `boolean`                                           |         | Whether the toggle is disabled.                                                                                                                        |                |
+| `even`             | public  | `boolean`                                           |         | If true, set the width of the component fixed; if false, the width is dynamic based on the label of the sbb-toggle-option.                             |                |
+| `size`             | public  | `InterfaceSbbToggleAttributes['size'] \| undefined` | `'m'`   | Size variant, either m or s.                                                                                                                           |                |
+| `value`            | public  | `any \| null`                                       |         | The value of the toggle. It needs to be mutable since it is updated whenever&#xA;a new option is selected (see the \`onToggleOptionSelect()\` method). |                |
+| `disableAnimation` | public  | `boolean`                                           | `false` | Whether the animation is enabled.                                                                                                                      |                |
 
+## Methods
 
-## Events
-
-| Event       | Description                                                                                                                                                                      | Type               |
-| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| `change`    | Emits whenever the radio group value changes.                                                                                                                                    | `CustomEvent<any>` |
-| `didChange` | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/>Emits whenever the radio group value changes. | `CustomEvent<any>` |
-
-
-## Slots
-
-| Slot        | Description                                    |
-| ----------- | ---------------------------------------------- |
-| `"unnamed"` | Slot used to render the `<sbb-toggle-option>`. |
-
-
-----------------------------------------------
-
+| Name         | Privacy | Description | Parameters                                | Return | Inherited From |
+| ------------ | ------- | ----------- | ----------------------------------------- | ------ | -------------- |
+| `willUpdate` | public  |             | `changedProperties: PropertyValues<this>` | `void` |                |
 

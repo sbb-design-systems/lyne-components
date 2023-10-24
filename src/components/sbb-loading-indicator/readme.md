@@ -41,19 +41,15 @@ and then append the `sbb-loading-indicator` on it after giving it the correct `a
 </div>
 ```
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property           | Attribute           | Description                                                                                       | Type                              | Default     |
-| ------------------ | ------------------- | ------------------------------------------------------------------------------------------------- | --------------------------------- | ----------- |
-| `color`            | `color`             | Color variant.                                                                                    | `"default" \| "smoke" \| "white"` | `'default'` |
-| `disableAnimation` | `disable-animation` | Whether the animation is enabled.                                                                 | `boolean`                         | `false`     |
-| `size`             | `size`              | Size variant, either s or m.                                                                      | `"l" \| "s"`                      | `'s'`       |
-| `variant`          | `variant`           | Variant of the loading indicator; `circle` is meant to be used inline, while `window` as overlay. | `"circle" \| "window"`            | `undefined` |
-
-
-----------------------------------------------
-
+| Name               | Privacy | Type                                                             | Default     | Description                                                                                           | Inherited From |
+| ------------------ | ------- | ---------------------------------------------------------------- | ----------- | ----------------------------------------------------------------------------------------------------- | -------------- |
+| `variant`          | public  | `InterfaceSbbLoadingIndicatorAttributes['variant'] \| undefined` |             | Variant of the loading indicator; \`circle\` is meant to be used inline, while \`window\` as overlay. |                |
+| `size`             | public  | `InterfaceSbbLoadingIndicatorAttributes['size']`                 | `'s'`       | Size variant, either s or m.                                                                          |                |
+| `color`            | public  | `InterfaceSbbLoadingIndicatorAttributes['color']`                | `'default'` | Color variant.                                                                                        |                |
+| `disableAnimation` | public  | `boolean`                                                        | `false`     | Whether the animation is enabled.                                                                     |                |
 

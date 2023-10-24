@@ -14,40 +14,16 @@ If the tripBack prop is passed to the component a second journey-summary, withou
 ```html
 <sbb-journey-summary trip={trip}><sbb-button /></sbb-journey-summary>
 ```
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property            | Attribute           | Description                                                                                                    | Type                                     | Default     |
-| ------------------- | ------------------- | -------------------------------------------------------------------------------------------------------------- | ---------------------------------------- | ----------- |
-| `disableAnimation`  | `disable-animation` | Per default, the current location has a pulsating animation. You can disable the animation with this property. | `boolean`                                | `undefined` |
-| `headerLevel`       | `header-level`      | Heading level of the journey header element (e.g. h1-h6).                                                      | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'3'`       |
-| `roundTrip`         | `round-trip`        | The RoundTrip prop. This prop controls if one or two arrows are displayed in the header.                       | `boolean`                                | `undefined` |
-| `trip` _(required)_ | --                  | The trip prop                                                                                                  | `InterfaceSbbJourneySummaryAttributes`   | `undefined` |
-| `tripBack`          | --                  | The tripBack prop                                                                                              | `InterfaceSbbJourneySummaryAttributes`   | `undefined` |
-
-
-## Dependencies
-
-### Depends on
-
-- [sbb-pearl-chain-time](../sbb-pearl-chain-time)
-- [sbb-journey-header](../sbb-journey-header)
-- [sbb-divider](../sbb-divider)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-journey-summary --> sbb-pearl-chain-time
-  sbb-journey-summary --> sbb-journey-header
-  sbb-journey-summary --> sbb-divider
-  sbb-pearl-chain-time --> sbb-pearl-chain
-  sbb-journey-header --> sbb-title
-  sbb-journey-header --> sbb-icon
-  style sbb-journey-summary fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name               | Privacy | Type                                                | Default | Description                                                                                                        | Inherited From |
+| ------------------ | ------- | --------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------ | -------------- |
+| `trip`             | public  | `InterfaceSbbJourneySummaryAttributes`              |         | The trip prop                                                                                                      |                |
+| `tripBack`         | public  | `InterfaceSbbJourneySummaryAttributes \| undefined` |         | The tripBack prop                                                                                                  |                |
+| `roundTrip`        | public  | `boolean \| undefined`                              |         | The RoundTrip prop. This prop controls if one or two arrows are displayed in the header.                           |                |
+| `headerLevel`      | public  | `TitleLevel \| undefined`                           | `'3'`   | Heading level of the journey header element (e.g. h1-h6).                                                          |                |
+| `disableAnimation` | public  | `boolean \| undefined`                              |         | Per default, the current location has a pulsating animation. You can&#xA;disable the animation with this property. |                |
 

@@ -58,73 +58,22 @@ to specify a custom stack order, the `z-index` can be changed by defining the CS
 When a navigation action is marked to indicate the user is currently on that page, `aria-current="page"` should be set on that action. 
 Similarly, if a navigation action is marked to indicate a selected option (e.g., the selected language) `aria-pressed` should be set on that action.
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property                  | Attribute                   | Description                                                                                                | Type                    | Default     |
-| ------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------- | ----------------------- | ----------- |
-| `accessibilityCloseLabel` | `accessibility-close-label` | This will be forwarded as aria-label to the close button element.                                          | `string`                | `undefined` |
-| `accessibilityLabel`      | `accessibility-label`       | This will be forwarded as aria-label to the dialog and is read as a title of the navigation.               | `string`                | `undefined` |
-| `disableAnimation`        | `disable-animation`         | Whether the animation is enabled.                                                                          | `boolean`               | `false`     |
-| `trigger`                 | `trigger`                   | The element that will trigger the navigation. Accepts both a string (id of an element) or an HTML element. | `HTMLElement \| string` | `undefined` |
-
-
-## Events
-
-| Event       | Description                                                  | Type                |
-| ----------- | ------------------------------------------------------------ | ------------------- |
-| `didClose`  | Emits whenever the navigation is closed.                     | `CustomEvent<void>` |
-| `didOpen`   | Emits whenever the navigation is opened.                     | `CustomEvent<void>` |
-| `willClose` | Emits whenever the navigation begins the closing transition. | `CustomEvent<void>` |
-| `willOpen`  | Emits whenever the navigation begins the opening transition. | `CustomEvent<void>` |
-
+| Name                      | Privacy | Type                         | Default | Description                                                                                                    | Inherited From |
+| ------------------------- | ------- | ---------------------------- | ------- | -------------------------------------------------------------------------------------------------------------- | -------------- |
+| `trigger`                 | public  | `string \| HTMLElement`      |         | The element that will trigger the navigation.&#xA;Accepts both a string (id of an element) or an HTML element. |                |
+| `accessibilityLabel`      | public  | `string \| undefined`        |         | This will be forwarded as aria-label to the dialog and is read as a title of the navigation.                   |                |
+| `accessibilityCloseLabel` | public  | `\| string     \| undefined` |         | This will be forwarded as aria-label to the close button element.                                              |                |
+| `disableAnimation`        | public  | `boolean`                    | `false` | Whether the animation is enabled.                                                                              |                |
 
 ## Methods
 
-### `close() => Promise<void>`
-
-Closes the navigation.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
-### `open() => Promise<void>`
-
-Opens the navigation.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
-
-## Slots
-
-| Slot        | Description                                            |
-| ----------- | ------------------------------------------------------ |
-| `"unnamed"` | Use this to project any content inside the navigation. |
-
-
-## Dependencies
-
-### Depends on
-
-- [sbb-button](../sbb-button)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-navigation --> sbb-button
-  sbb-button --> sbb-icon
-  style sbb-navigation fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name    | Privacy | Description            | Parameters | Return | Inherited From |
+| ------- | ------- | ---------------------- | ---------- | ------ | -------------- |
+| `open`  | public  | Opens the navigation.  |            | `void` |                |
+| `close` | public  | Closes the navigation. |            | `void` |                |
 

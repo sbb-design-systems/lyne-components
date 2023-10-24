@@ -19,37 +19,26 @@ and it can be set using the `title-content` property.
 The default `z-index` of the component is set to `1000`; 
 to specify a custom stack order, the `z-index` can be changed by defining the CSS variable `--sbb-skiplink-z-index`.
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property       | Attribute       | Description                                      | Type                                     | Default     |
-| -------------- | --------------- | ------------------------------------------------ | ---------------------------------------- | ----------- |
-| `titleContent` | `title-content` | The title text we want to place before the list. | `string`                                 | `undefined` |
-| `titleLevel`   | `title-level`   | The semantic level of the title, e.g. 2 = h2.    | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'2'`       |
+| Name           | Privacy | Type                                             | Default | Description                                      | Inherited From |
+| -------------- | ------- | ------------------------------------------------ | ------- | ------------------------------------------------ | -------------- |
+| `titleContent` | public  | `string \| undefined`                            |         | The title text we want to place before the list. |                |
+| `titleLevel`   | public  | `InterfaceTitleAttributes['level'] \| undefined` | `'2'`   | The semantic level of the title, e.g. 2 = h2.    |                |
 
+## Methods
+
+| Name        | Privacy | Description | Parameters | Return        | Inherited From |
+| ----------- | ------- | ----------- | ---------- | ------------- | -------------- |
+| `syncLinks` | public  |             |            | `void`        |                |
+| `render`    | public  |             |            | `JSX.Element` |                |
 
 ## Slots
 
-| Slot        | Description                             |
-| ----------- | --------------------------------------- |
-| `"unnamed"` | Use this to provide links for the list. |
-
-
-## Dependencies
-
-### Depends on
-
-- [sbb-title](../sbb-title)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-skiplink-list --> sbb-title
-  style sbb-skiplink-list fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name      | Description                             |
+| --------- | --------------------------------------- |
+| `unnamed` | Use this to provide links for the list. |
 

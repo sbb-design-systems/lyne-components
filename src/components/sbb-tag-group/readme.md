@@ -83,25 +83,20 @@ that communicates the collective meaning of all `sbb-tag`s.
 </sbb-tag-group>
 ```
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property                 | Attribute                  | Description                                                                                                                                                                                                                                     | Type                 | Default     |
-| ------------------------ | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- | ----------- |
-| `listAccessibilityLabel` | `list-accessibility-label` | This will be forwarded as aria-label to the inner list.                                                                                                                                                                                         | `string`             | `undefined` |
-| `multiple`               | `multiple`                 | If set multiple to false, the selection is exclusive and the value is a string (or null). If set multiple to true, the selection can have multiple values and therefore value is an array.  Changing multiple during run time is not supported. | `boolean`            | `false`     |
-| `value`                  | `value`                    | Value of the sbb-tag-group. If set multiple to false, the value is a string (or null). If set multiple to true, the value is an array.                                                                                                          | `string \| string[]` | `null`      |
-
+| Name                     | Privacy | Type                         | Default | Description                                                                                                                                                                                                                                                 | Inherited From |
+| ------------------------ | ------- | ---------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `listAccessibilityLabel` | public  | `string \| undefined`        |         | This will be forwarded as aria-label to the inner list.                                                                                                                                                                                                     |                |
+| `multiple`               | public  | `boolean`                    | `false` | If set multiple to false, the selection is exclusive and the value is a string (or null).&#xA;If set multiple to true, the selection can have multiple values and therefore value is an array.&#xA;&#xA;Changing multiple during run time is not supported. |                |
+| `value`                  | public  | `string \| string[] \| null` |         | Value of the sbb-tag-group.&#xA;If set multiple to false, the value is a string (or null).&#xA;If set multiple to true, the value is an array.                                                                                                              |                |
 
 ## Slots
 
-| Slot        | Description                                        |
-| ----------- | -------------------------------------------------- |
-| `"unnamed"` | Provide one or more 'sbb-tag' to add to the group. |
-
-
-----------------------------------------------
-
+| Name      | Description                                        |
+| --------- | -------------------------------------------------- |
+| `unnamed` | Provide one or more 'sbb-tag' to add to the group. |
 

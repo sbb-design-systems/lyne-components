@@ -66,53 +66,36 @@ The `sbb-slider` has the following behaviour on keypress when focused:
 | Home        | Set the value to the minimum.                     |
 
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property        | Attribute         | Description                                                                                                                                    | Type      | Default     |
-| --------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `disabled`      | `disabled`        | Disabled state for the inner HTMLInputElement.                                                                                                 | `boolean` | `false`     |
-| `endIcon`       | `end-icon`        | Name of the icon at component's end, which will be forward to the nested `sbb-icon`.                                                           | `string`  | `undefined` |
-| `form`          | `form`            | The <form> element to associate the inner HTMLInputElement with.                                                                               | `string`  | `undefined` |
-| `max`           | `max`             | Maximum acceptable value for the inner HTMLInputElement.                                                                                       | `string`  | `'100'`     |
-| `min`           | `min`             | Minimum acceptable value for the inner HTMLInputElement.                                                                                       | `string`  | `'0'`       |
-| `name`          | `name`            | Name of the inner HTMLInputElement.                                                                                                            | `string`  | `''`        |
-| `readonly`      | `readonly`        | Readonly state for the inner HTMLInputElement. Since the input range does not allow this attribute, it will be merged with the `disabled` one. | `boolean` | `false`     |
-| `startIcon`     | `start-icon`      | Name of the icon at component's start, which will be forward to the nested `sbb-icon`.                                                         | `string`  | `undefined` |
-| `value`         | `value`           | Value for the inner HTMLInputElement.                                                                                                          | `string`  | `''`        |
-| `valueAsNumber` | `value-as-number` | Numeric value for the inner HTMLInputElement.                                                                                                  | `number`  | `undefined` |
+| Name            | Privacy | Type                   | Default | Description                                                                                                                                          | Inherited From |
+| --------------- | ------- | ---------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `value`         | public  | `string \| undefined`  | `''`    | Value for the inner HTMLInputElement.                                                                                                                |                |
+| `valueAsNumber` | public  | `number \| undefined`  |         | Numeric value for the inner HTMLInputElement.                                                                                                        |                |
+| `name`          | public  | `string \| undefined`  | `''`    | Name of the inner HTMLInputElement.                                                                                                                  |                |
+| `form`          | public  | `string \| undefined`  |         | The \<form> element to associate the inner HTMLInputElement with.                                                                                    |                |
+| `min`           | public  | `string \| undefined`  | `'0'`   | Minimum acceptable value for the inner HTMLInputElement.                                                                                             |                |
+| `max`           | public  | `string \| undefined`  | `'100'` | Maximum acceptable value for the inner HTMLInputElement.                                                                                             |                |
+| `readonly`      | public  | `boolean \| undefined` | `false` | Readonly state for the inner HTMLInputElement.&#xA;Since the input range does not allow this attribute, it will be merged with the \`disabled\` one. |                |
+| `disabled`      | public  | `boolean \| undefined` | `false` | Disabled state for the inner HTMLInputElement.                                                                                                       |                |
+| `startIcon`     | public  | `string \| undefined`  |         | Name of the icon at component's start, which will be forward to the nested \`sbb-icon\`.                                                             |                |
+| `endIcon`       | public  | `string \| undefined`  |         | Name of the icon at component's end, which will be forward to the nested \`sbb-icon\`.                                                               |                |
+| `didChange`     | public  | `EventEmitter`         |         |                                                                                                                                                      |                |
 
+## Methods
 
-## Events
-
-| Event       | Description                                                                                                                         | Type               |
-| ----------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| `didChange` | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/> | `CustomEvent<any>` |
-
+| Name            | Privacy | Description | Parameters             | Return          | Inherited From |
+| --------------- | ------- | ----------- | ---------------------- | --------------- | -------------- |
+| `handleKeydown` | public  |             | `event: KeyboardEvent` | `Promise<void>` |                |
+| `render`        | public  |             |                        | `JSX.Element`   |                |
 
 ## Slots
 
-| Slot       | Description                                            |
-| ---------- | ------------------------------------------------------ |
-| `"prefix"` | Slot to render an icon on the left side of the input.  |
-| `"suffix"` | Slot to render an icon on the right side of the input. |
-
-
-## Dependencies
-
-### Depends on
-
-- [sbb-icon](../sbb-icon)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-slider --> sbb-icon
-  style sbb-slider fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name     | Description                                            |
+| -------- | ------------------------------------------------------ |
+| `prefix` | Slot to render an icon on the left side of the input.  |
+| `suffix` | Slot to render an icon on the right side of the input. |
 

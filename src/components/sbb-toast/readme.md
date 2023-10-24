@@ -99,78 +99,30 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 </sbb-toast>
 ```
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property           | Attribute           | Description                                                                                                                                      | Type                                                                                                                                                            | Default           |
-| ------------------ | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
-| `disableAnimation` | `disable-animation` | Whether the animation is disabled.                                                                                                               | `boolean`                                                                                                                                                       | `false`           |
-| `dismissible`      | `dismissible`       | Whether the toast has a close button.                                                                                                            | `boolean`                                                                                                                                                       | `false`           |
-| `iconName`         | `icon-name`         | The name of the icon, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                         | `string`                                                                                                                                                        | `undefined`       |
-| `politeness`       | `politeness`        | The ARIA politeness level. Check https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions#live_regions for further info | `"assertive" \| "off" \| "polite"`                                                                                                                              | `'polite'`        |
-| `position`         | `position`          | The position where to place the toast.                                                                                                           | `"bottom-center" \| "bottom-end" \| "bottom-left" \| "bottom-right" \| "bottom-start" \| "top-center" \| "top-end" \| "top-left" \| "top-right" \| "top-start"` | `'bottom-center'` |
-| `timeout`          | `timeout`           | The length of time in milliseconds to wait before automatically dismissing the toast. If 0, it stays open indefinitely.                          | `number`                                                                                                                                                        | `6000`            |
-
-
-## Events
-
-| Event        | Description                                                    | Type                |
-| ------------ | -------------------------------------------------------------- | ------------------- |
-| `did-close`  | Emits whenever the autocomplete is closed.                     | `CustomEvent<void>` |
-| `did-open`   | Emits whenever the autocomplete is opened.                     | `CustomEvent<void>` |
-| `will-close` | Emits whenever the autocomplete begins the closing transition. | `CustomEvent<void>` |
-| `will-open`  | Emits whenever the autocomplete starts the opening transition. | `CustomEvent<void>` |
-
+| Name               | Privacy | Type                     | Default           | Description                                                                                                                                              | Inherited From |
+| ------------------ | ------- | ------------------------ | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `timeout`          | public  | `number`                 | `6000`            | The length of time in milliseconds to wait before automatically dismissing the toast.&#xA;If 0, it stays open indefinitely.                              |                |
+| `iconName`         | public  | `string \| undefined`    |                   | The name of the icon, choose from the small icon variants&#xA;from the ui-icons category from here&#xA;https\://icons.app.sbb.ch.                        |                |
+| `position`         | public  | `SbbToastPosition`       | `'bottom-center'` | The position where to place the toast.                                                                                                                   |                |
+| `dismissible`      | public  | `boolean`                | `false`           | Whether the toast has a close button.                                                                                                                    |                |
+| `politeness`       | public  | `SbbToastAriaPoliteness` | `'polite'`        | The ARIA politeness level.&#xA;Check https\://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA\_Live\_Regions#live\_regions for further info |                |
+| `disableAnimation` | public  | `boolean`                | `false`           | Whether the animation is disabled.                                                                                                                       |                |
 
 ## Methods
 
-### `close() => Promise<void>`
-
-Close the toast.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
-### `open() => Promise<void>`
-
-Open the toast.
-If there are other opened toasts in the page, close them first.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
+| Name    | Privacy | Description                                                                         | Parameters | Return | Inherited From |
+| ------- | ------- | ----------------------------------------------------------------------------------- | ---------- | ------ | -------------- |
+| `open`  | public  | Open the toast.&#xA;If there are other opened toasts in the page, close them first. |            | `void` |                |
+| `close` | public  | Close the toast.                                                                    |            | `void` |                |
 
 ## Slots
 
-| Slot        | Description                  |
-| ----------- | ---------------------------- |
-| `"unnamed"` | Use this to document a slot. |
-
-
-## Dependencies
-
-### Depends on
-
-- [sbb-icon](../sbb-icon)
-- [sbb-button](../sbb-button)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-toast --> sbb-icon
-  sbb-toast --> sbb-button
-  sbb-button --> sbb-icon
-  style sbb-toast fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name      | Description                  |
+| --------- | ---------------------------- |
+| `unnamed` | Use this to document a slot. |
 

@@ -41,25 +41,20 @@ In the following example, all the `sbb-expansion-panel-header` would be wrapped 
 </sbb-accordion>
 ```
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property           | Attribute           | Description                                                                 | Type                                     | Default     |
-| ------------------ | ------------------- | --------------------------------------------------------------------------- | ---------------------------------------- | ----------- |
-| `disableAnimation` | `disable-animation` | Whether the animation should be disabled.                                   | `boolean`                                | `false`     |
-| `multi`            | `multi`             | Whether more than one sbb-expansion-panel can be open at the same time.     | `boolean`                                | `false`     |
-| `titleLevel`       | `title-level`       | The heading level for the sbb-expansion-panel-headers within the component. | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `undefined` |
-
+| Name               | Privacy | Type                 | Default | Description                                                                 | Inherited From |
+| ------------------ | ------- | -------------------- | ------- | --------------------------------------------------------------------------- | -------------- |
+| `titleLevel`       | public  | `TitleLevel \| null` |         | The heading level for the sbb-expansion-panel-headers within the component. |                |
+| `disableAnimation` | public  | `boolean`            | `false` | Whether the animation should be disabled.                                   |                |
+| `multi`            | public  | `boolean`            |         | Whether more than one sbb-expansion-panel can be open at the same time.     |                |
 
 ## Slots
 
-| Slot        | Description                                      |
-| ----------- | ------------------------------------------------ |
-| `"unnamed"` | Use this to add one or more sbb-expansion-panel. |
-
-
-----------------------------------------------
-
+| Name      | Description                                      |
+| --------- | ------------------------------------------------ |
+| `unnamed` | Use this to add one or more sbb-expansion-panel. |
 

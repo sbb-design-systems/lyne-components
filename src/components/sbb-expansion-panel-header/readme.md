@@ -33,45 +33,13 @@ The component can be displayed in `disabled` state using the self-named property
 When the element is clicked, the `toggle-expanded` event is emitted.
 
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property   | Attribute   | Description                                                                                                                      | Type      | Default     |
-| ---------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `disabled` | `disabled`  | Whether the button is disabled.                                                                                                  | `boolean` | `undefined` |
-| `iconName` | `icon-name` | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. | `string`  | `undefined` |
-
-
-## Events
-
-| Event             | Description | Type               |
-| ----------------- | ----------- | ------------------ |
-| `toggle-expanded` |             | `CustomEvent<any>` |
-
-
-## Slots
-
-| Slot        | Description                                |
-| ----------- | ------------------------------------------ |
-| `"icon"`    | Slot used to render the panel header icon. |
-| `"unnamed"` | Slot used to render the panel header text. |
-
-
-## Dependencies
-
-### Depends on
-
-- [sbb-icon](../sbb-icon)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-expansion-panel-header --> sbb-icon
-  style sbb-expansion-panel-header fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name       | Privacy | Type                  | Default | Description                                                                                                                               | Inherited From |
+| ---------- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `iconName` | public  | `string \| undefined` |         | The icon name we want to use, choose from the small icon variants&#xA;from the ui-icons category from here&#xA;https\://icons.app.sbb.ch. |                |
+| `disabled` | public  | `boolean`             |         | Whether the button is disabled.                                                                                                           |                |
 

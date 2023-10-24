@@ -101,39 +101,21 @@ set the CSS class `sbb-header-shrinkable` on the desired `sbb-header-action`.
 in the component's stories (see also [this Storybook issue](https://github.com/storybookjs/storybook/issues/8820)),
 so they were wrapped into a `style` tag and added to the Storybook's configuration file named `preview-head.html`.
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property       | Attribute        | Description                                                                                                          | Type                                | Default    |
-| -------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ---------- |
-| `expanded`     | `expanded`       | Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size. | `boolean`                           | `false`    |
-| `hideOnScroll` | `hide-on-scroll` | Whether the header should hide and show on scroll.                                                                   | `boolean`                           | `false`    |
-| `scrollOrigin` | `scroll-origin`  | The element's id or the element on which the scroll listener is attached.                                            | `Document \| HTMLElement \| string` | `document` |
-
+| Name           | Privacy | Type                                | Default | Description                                                                                                              | Inherited From |
+| -------------- | ------- | ----------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ | -------------- |
+| `expanded`     | public  | `boolean`                           | `false` | Whether to allow the header content to stretch to full width.&#xA;By default, the content has the appropriate page size. |                |
+| `scrollOrigin` | public  | `string \| HTMLElement \| Document` |         | The element's id or the element on which the scroll listener is attached.                                                |                |
+| `hideOnScroll` | public  | `boolean`                           | `false` | Whether the header should hide and show on scroll.                                                                       |                |
 
 ## Slots
 
-| Slot        | Description                                                           |
-| ----------- | --------------------------------------------------------------------- |
-| `"logo"`    | Slot used to render the logo on the right side (sbb-logo as default). |
-| `"unnamed"` | Slot used to render the actions on the left side.                     |
-
-
-## Dependencies
-
-### Depends on
-
-- [sbb-logo](../sbb-logo)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-header --> sbb-logo
-  style sbb-header fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name      | Description                                                           |
+| --------- | --------------------------------------------------------------------- |
+| `unnamed` | Slot used to render the actions on the left side.                     |
+| `logo`    | Slot used to render the logo on the right side (sbb-logo as default). |
 

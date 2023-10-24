@@ -35,47 +35,29 @@ depending on the value of the `href` property, so the associated properties are 
 For cases where smaller outer paddings are needed, 
 you can set the css variable `--sbb-menu-action-outer-horizontal-padding` to your desired outer padding.
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property   | Attribute   | Description                                                                                                              | Type                              | Default     |
-| ---------- | ----------- | ------------------------------------------------------------------------------------------------------------------------ | --------------------------------- | ----------- |
-| `amount`   | `amount`    | Value shown as badge at component end.                                                                                   | `string`                          | `undefined` |
-| `disabled` | `disabled`  | Whether the button is disabled.                                                                                          | `boolean`                         | `false`     |
-| `download` | `download`  | Whether the browser will show the download dialog on click.                                                              | `boolean`                         | `undefined` |
-| `form`     | `form`      | The <form> element to associate the button with.                                                                         | `string`                          | `undefined` |
-| `href`     | `href`      | The href value you want to link to (if it is not present menu action becomes a button).                                  | `string`                          | `undefined` |
-| `iconName` | `icon-name` | The name of the icon, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. | `string`                          | `undefined` |
-| `name`     | `name`      | The name attribute to use for the button.                                                                                | `string`                          | `undefined` |
-| `rel`      | `rel`       | The relationship of the linked URL as space-separated link types.                                                        | `string`                          | `undefined` |
-| `target`   | `target`    | Where to display the linked URL.                                                                                         | `string`                          | `undefined` |
-| `type`     | `type`      | The type attribute to use for the button.                                                                                | `"button" \| "reset" \| "submit"` | `undefined` |
-| `value`    | `value`     | The value attribute to use for the button.                                                                               | `string`                          | `undefined` |
-
+| Name       | Privacy | Type                                                 | Default | Description                                                                                                                       | Inherited From |
+| ---------- | ------- | ---------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `iconName` | public  | `string \| undefined \| undefined`                   |         | The name of the icon, choose from the small icon variants&#xA;from the ui-icons category from here&#xA;https\://icons.app.sbb.ch. |                |
+| `amount`   | public  | `string \| undefined \| undefined`                   |         | Value shown as badge at component end.                                                                                            |                |
+| `href`     | public  | `string \| undefined`                                |         | The href value you want to link to (if it is not present menu action becomes a button).                                           |                |
+| `target`   | public  | `LinkTargetType \| string \| undefined \| undefined` |         | Where to display the linked URL.                                                                                                  |                |
+| `rel`      | public  | `string \| undefined \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                                                                 |                |
+| `download` | public  | `boolean \| undefined`                               |         | Whether the browser will show the download dialog on click.                                                                       |                |
+| `type`     | public  | `ButtonType \| undefined`                            |         | The type attribute to use for the button.                                                                                         |                |
+| `disabled` | public  | `boolean`                                            | `false` | Whether the button is disabled.                                                                                                   |                |
+| `name`     | public  | `string \| undefined`                                |         | The name attribute to use for the button.                                                                                         |                |
+| `value`    | public  | `string \| undefined`                                |         | The value attribute to use for the button.                                                                                        |                |
+| `form`     | public  | `string \| undefined`                                |         | The \<form> element to associate the button with.                                                                                 |                |
 
 ## Slots
 
-| Slot        | Description                                                                       |
-| ----------- | --------------------------------------------------------------------------------- |
-| `"icon"`    | Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used. |
-| `"unnamed"` | Use this slot to provide the menu action label.                                   |
-
-
-## Dependencies
-
-### Depends on
-
-- [sbb-icon](../sbb-icon)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-menu-action --> sbb-icon
-  style sbb-menu-action fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name      | Description                                                                         |
+| --------- | ----------------------------------------------------------------------------------- |
+| `unnamed` | Use this slot to provide the menu action label.                                     |
+| `icon`    | Use this slot to provide an icon. If \`icon-name\` is set, a sbb-icon will be used. |
 

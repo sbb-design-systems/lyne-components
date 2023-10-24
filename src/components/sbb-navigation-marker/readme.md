@@ -20,46 +20,26 @@ Possible values are `l` (default) and `s`.
 <sbb-navigation-marker>
 ```
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property | Attribute | Description          | Type         | Default |
-| -------- | --------- | -------------------- | ------------ | ------- |
-| `size`   | `size`    | Marker size variant. | `"l" \| "s"` | `'l'`   |
-
+| Name   | Privacy | Type                      | Default | Description          | Inherited From |
+| ------ | ------- | ------------------------- | ------- | -------------------- | -------------- |
+| `size` | public  | `'l' \| 's' \| undefined` | `'l'`   | Marker size variant. |                |
 
 ## Methods
 
-### `reset() => Promise<void>`
-
-
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
-### `select(action: HTMLSbbNavigationActionElement) => Promise<void>`
-
-
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
+| Name         | Privacy | Description | Parameters                                | Return | Inherited From |
+| ------------ | ------- | ----------- | ----------------------------------------- | ------ | -------------- |
+| `willUpdate` | public  |             | `changedProperties: PropertyValues<this>` | `void` |                |
+| `select`     | public  |             | `action: SbbNavigationAction`             | `void` |                |
+| `reset`      | public  |             |                                           | `void` |                |
 
 ## Slots
 
-| Slot        | Description                                                                 |
-| ----------- | --------------------------------------------------------------------------- |
-| `"unnamed"` | Use this slot to provide navigation actions into the sbb-navigation-marker. |
-
-
-----------------------------------------------
-
+| Name      | Description                                                                 |
+| --------- | --------------------------------------------------------------------------- |
+| `unnamed` | Use this slot to provide navigation actions into the sbb-navigation-marker. |
 

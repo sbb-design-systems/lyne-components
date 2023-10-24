@@ -100,54 +100,32 @@ Whenever the validation state changes (e.g., a valid value becomes invalid or vi
 To specify a specific date for the current datetime, you can use the `data-now` attribute (timestamp in milliseconds).
 This is helpful if you need a specific state of the component.
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property     | Attribute | Description                                                       | Type                      | Default      |
-| ------------ | --------- | ----------------------------------------------------------------- | ------------------------- | ------------ |
-| `dateFilter` | --        | A function used to filter out dates.                              | `(date: Date) => boolean` | `() => true` |
-| `dateParser` | --        | A function used to parse string value into dates.                 | `(value: string) => Date` | `undefined`  |
-| `format`     | --        | A function used to format dates into the preferred string format. | `(date: Date) => string`  | `undefined`  |
-| `input`      | `input`   | Reference of the native input connected to the datepicker.        | `HTMLElement \| string`   | `undefined`  |
-| `wide`       | `wide`    | If set to true, two months are displayed                          | `boolean`                 | `false`      |
-
-
-## Events
-
-| Event               | Description                                                                                                                         | Type                                 |
-| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
-| `change`            |                                                                                                                                     | `CustomEvent<any>`                   |
-| `datePickerUpdated` | Notifies that the attributes of the datepicker have changes.                                                                        | `CustomEvent<any>`                   |
-| `didChange`         | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/> | `CustomEvent<any>`                   |
-| `inputUpdated`      | Notifies that the attributes of the input connected to the datepicker have changes.                                                 | `CustomEvent<InputUpdateEvent>`      |
-| `validationChange`  | Emits whenever the internal validation state changes.                                                                               | `CustomEvent<ValidationChangeEvent>` |
-
+| Name                | Privacy | Type                                                | Default      | Description                                                                         | Inherited From |
+| ------------------- | ------- | --------------------------------------------------- | ------------ | ----------------------------------------------------------------------------------- | -------------- |
+| `wide`              | public  | `boolean`                                           | `false`      | If set to true, two months are displayed                                            |                |
+| `dateFilter`        | public  | `(date: Date \| null) => boolean`                   | `() => true` | A function used to filter out dates.                                                |                |
+| `dateParser`        | public  | `(value: string) => Date \| undefined \| undefined` |              | A function used to parse string value into dates.                                   |                |
+| `format`            | public  | `(date: Date) => string \| undefined`               |              | A function used to format dates into the preferred string format.                   |                |
+| `input`             | public  | `string \| HTMLElement \| undefined`                |              | Reference of the native input connected to the datepicker.                          |                |
+| `didChange`         | public  | `EventEmitter`                                      |              |                                                                                     |                |
+| `change`            | public  | `EventEmitter`                                      |              |                                                                                     |                |
+| `inputUpdated`      | public  | `EventEmitter<InputUpdateEvent>`                    |              | Notifies that the attributes of the input connected to the datepicker have changes. |                |
+| `datePickerUpdated` | public  | `EventEmitter`                                      |              | Notifies that the attributes of the datepicker have changes.                        |                |
+| `validationChange`  | public  | `EventEmitter<ValidationChangeEvent>`               |              | Emits whenever the internal validation state changes.                               |                |
 
 ## Methods
 
-### `getValueAsDate() => Promise<Date>`
-
-Gets the input value with the correct date format.
-
-#### Returns
-
-Type: `Promise<Date>`
-
-
-
-### `setValueAsDate(date: Date | number | string) => Promise<void>`
-
-Set the input value to the correctly formatted value.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
-
-----------------------------------------------
-
+| Name                    | Privacy | Description                                           | Parameters                                                         | Return          | Inherited From |
+| ----------------------- | ------- | ----------------------------------------------------- | ------------------------------------------------------------------ | --------------- | -------------- |
+| `findInput`             | public  |                                                       | `newValue: string \| HTMLElement, oldValue: string \| HTMLElement` | `void`          |                |
+| `datepickerPropChanged` | public  |                                                       | `newValue: any, oldValue: any`                                     | `void`          |                |
+| `registerInputElement`  | public  |                                                       | `newValue: HTMLInputElement, oldValue: HTMLInputElement`           | `void`          |                |
+| `getValueAsDate`        | public  | Gets the input value with the correct date format.    |                                                                    | `Promise<Date>` |                |
+| `setValueAsDate`        | public  | Set the input value to the correctly formatted value. | `date: Date \| number \| string`                                   | `Promise<void>` |                |
+| `render`                | public  |                                                       |                                                                    | `JSX.Element`   |                |
 

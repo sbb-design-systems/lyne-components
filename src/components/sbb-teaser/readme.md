@@ -22,42 +22,24 @@ The description text is wrapped into an `<p>` element to guarantee the semantic 
 
 Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and can have negative effects on screen readers.
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property     | Attribute     | Description                                                                                                                   | Type                                     | Default     |
-| ------------ | ------------- | ----------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- | ----------- |
-| `href`       | `href`        | The href value you want to link to.                                                                                           | `string`                                 | `undefined` |
-| `isStacked`  | `is-stacked`  | Teaser variant - when this is true the text-content will be under the image otherwise it will be displayed next to the image. | `boolean`                                | `undefined` |
-| `rel`        | `rel`         | The relationship of the linked URL as space-separated link types.                                                             | `string`                                 | `undefined` |
-| `target`     | `target`      | Where to display the linked URL.                                                                                              | `string`                                 | `undefined` |
-| `titleLevel` | `title-level` | Heading level of the sbb-title element (e.g. h1-h6).                                                                          | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'5'`       |
-
+| Name         | Privacy | Type                                                 | Default | Description                                                                                                                           | Inherited From |
+| ------------ | ------- | ---------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `isStacked`  | public  | `boolean`                                            |         | Teaser variant -&#xA;when this is true the text-content will be under the image&#xA;otherwise it will be displayed next to the image. |                |
+| `titleLevel` | public  | `TitleLevel`                                         | `'5'`   | Heading level of the sbb-title element (e.g. h1-h6).                                                                                  |                |
+| `href`       | public  | `string \| undefined`                                |         | The href value you want to link to.                                                                                                   |                |
+| `target`     | public  | `LinkTargetType \| string \| undefined \| undefined` |         | Where to display the linked URL.                                                                                                      |                |
+| `rel`        | public  | `string \| undefined \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                                                                     |                |
 
 ## Slots
 
-| Slot            | Description                         |
-| --------------- | ----------------------------------- |
-| `"description"` | Slot used to render the description |
-| `"image"`       | Slot used to render the image       |
-| `"title"`       | Slot used to render the title       |
-
-
-## Dependencies
-
-### Depends on
-
-- [sbb-title](../sbb-title)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-teaser --> sbb-title
-  style sbb-teaser fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name          | Description                         |
+| ------------- | ----------------------------------- |
+| `image`       | Slot used to render the image       |
+| `title`       | Slot used to render the title       |
+| `description` | Slot used to render the description |
 

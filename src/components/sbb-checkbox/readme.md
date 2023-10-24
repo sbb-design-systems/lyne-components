@@ -66,55 +66,36 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 <sbb-checkbox aria-label="Subscribed to email message" />
 ```
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property        | Attribute        | Description                                                                                                                            | Type               | Default     |
-| --------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ----------- |
-| `checked`       | `checked`        | Whether the checkbox is checked.                                                                                                       | `boolean`          | `false`     |
-| `disabled`      | `disabled`       | Whether the checkbox is disabled.                                                                                                      | `boolean`          | `false`     |
-| `iconName`      | `icon-name`      | The icon name we want to use, choose from the small icon variants from the ui-icons category from https://icons.app.sbb.ch (optional). | `string`           | `undefined` |
-| `iconPlacement` | `icon-placement` | The label position relative to the labelIcon. Defaults to end                                                                          | `"end" \| "start"` | `'end'`     |
-| `indeterminate` | `indeterminate`  | Whether the checkbox is indeterminate.                                                                                                 | `boolean`          | `false`     |
-| `required`      | `required`       | Whether the checkbox is required.                                                                                                      | `boolean`          | `false`     |
-| `size`          | `size`           | Label size variant, either m or s.                                                                                                     | `"m" \| "s"`       | `'m'`       |
-| `value`         | `value`          | Value of checkbox.                                                                                                                     | `string`           | `undefined` |
+| Name            | Privacy | Type                                              | Default | Description                                                                                                                                 | Inherited From |
+| --------------- | ------- | ------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `value`         | public  | `string \| undefined`                             |         | Value of checkbox.                                                                                                                          |                |
+| `disabled`      | public  | `boolean`                                         | `false` | Whether the checkbox is disabled.                                                                                                           |                |
+| `required`      | public  | `boolean`                                         | `false` | Whether the checkbox is required.                                                                                                           |                |
+| `indeterminate` | public  | `boolean`                                         | `false` | Whether the checkbox is indeterminate.                                                                                                      |                |
+| `iconName`      | public  | `string \| undefined`                             |         | The icon name we want to use, choose from the small icon variants from the ui-icons category&#xA;from https\://icons.app.sbb.ch (optional). |                |
+| `iconPlacement` | public  | `InterfaceSbbCheckboxAttributes['iconPlacement']` | `'end'` | The label position relative to the labelIcon. Defaults to end                                                                               |                |
+| `checked`       | public  | `boolean`                                         | `false` | Whether the checkbox is checked.                                                                                                            |                |
+| `size`          | public  | `InterfaceSbbCheckboxAttributes['size']`          | `'m'`   | Label size variant, either m or s.                                                                                                          |                |
 
+## Methods
 
-## Events
-
-| Event       | Description                                                                                                                         | Type               |
-| ----------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| `didChange` | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/> | `CustomEvent<any>` |
-
+| Name                | Privacy | Description                                                                                                            | Parameters                                | Return | Inherited From |
+| ------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- | ------ | -------------- |
+| `willUpdate`        | public  |                                                                                                                        | `changedProperties: PropertyValues<this>` | `void` |                |
+| `handleChangeEvent` | public  |                                                                                                                        | `event: Event`                            | `void` |                |
+| `handleInputEvent`  | public  | Method triggered on checkbox input event.&#xA;If not indeterminate, inverts the value; otherwise sets checked to true. |                                           | `void` |                |
 
 ## Slots
 
-| Slot        | Description                                                                                     |
-| ----------- | ----------------------------------------------------------------------------------------------- |
-| `"icon"`    | Slot used to render the checkbox icon (disabled inside a selection panel).                      |
-| `"subtext"` | Slot used to render a subtext under the label (only visible within a selection panel).          |
-| `"suffix"`  | Slot used to render additional content after the label (only visible within a selection panel). |
-| `"unnamed"` | Slot used to render the checkbox label's text.                                                  |
-
-
-## Dependencies
-
-### Depends on
-
-- [sbb-visual-checkbox](../sbb-visual-checkbox)
-- [sbb-icon](../sbb-icon)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-checkbox --> sbb-visual-checkbox
-  sbb-checkbox --> sbb-icon
-  style sbb-checkbox fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name      | Description                                                                                     |
+| --------- | ----------------------------------------------------------------------------------------------- |
+| `unnamed` | Slot used to render the checkbox label's text.                                                  |
+| `icon`    | Slot used to render the checkbox icon (disabled inside a selection panel).                      |
+| `subtext` | Slot used to render a subtext under the label (only visible within a selection panel).          |
+| `suffix`  | Slot used to render additional content after the label (only visible within a selection panel). |
 

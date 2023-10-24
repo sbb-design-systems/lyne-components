@@ -27,29 +27,12 @@ to describe what context the breadcrumbs have.
 Whenever the `sbb-breadcrumb` list within the component is loaded or updated, 
 the last element of the list receives the attribute `aria-current="page"`.
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Slots
 
-| Slot        | Description                                   |
-| ----------- | --------------------------------------------- |
-| `"unnamed"` | Use this to slot the sbb-breadcrumb elements. |
-
-
-## Dependencies
-
-### Depends on
-
-- [sbb-icon](../sbb-icon)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-breadcrumb-group --> sbb-icon
-  style sbb-breadcrumb-group fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name      | Description                                   |
+| --------- | --------------------------------------------- |
+| `unnamed` | Use this to slot the sbb-breadcrumb elements. |
 

@@ -96,60 +96,30 @@ The component preserves focus on the input trigger,
 using `aria-activedescendant` to support navigation though the autocomplete options.
 
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property            | Attribute             | Description                                                                                                                                                                                                                                                                                                       | Type                         | Default     |
-| ------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- | ----------- |
-| `disableAnimation`  | `disable-animation`   | Whether the animation is disabled.                                                                                                                                                                                                                                                                                | `boolean`                    | `false`     |
-| `negative`          | `negative`            | Negative coloring variant flag.                                                                                                                                                                                                                                                                                   | `boolean`                    | `false`     |
-| `origin`            | `origin`              | The element where the autocomplete will attach; accepts both an element's id or an HTMLElement. If not set, will search for the first 'sbb-form-field' ancestor.                                                                                                                                                  | `HTMLElement \| string`      | `undefined` |
-| `preserveIconSpace` | `preserve-icon-space` | Whether the icon space is preserved when no icon is set.                                                                                                                                                                                                                                                          | `boolean`                    | `undefined` |
-| `trigger`           | `trigger`             | The input element that will trigger the autocomplete opening; accepts both an element's id or an HTMLElement. By default, the autocomplete will open on focus, click, input or `ArrowDown` keypress of the 'trigger' element. If not set, will search for the first 'input' child of a 'sbb-form-field' ancestor. | `HTMLInputElement \| string` | `undefined` |
-
-
-## Events
-
-| Event        | Description                                                    | Type                |
-| ------------ | -------------------------------------------------------------- | ------------------- |
-| `did-close`  | Emits whenever the autocomplete is closed.                     | `CustomEvent<void>` |
-| `did-open`   | Emits whenever the autocomplete is opened.                     | `CustomEvent<void>` |
-| `will-close` | Emits whenever the autocomplete begins the closing transition. | `CustomEvent<void>` |
-| `will-open`  | Emits whenever the autocomplete starts the opening transition. | `CustomEvent<void>` |
-
+| Name                | Privacy | Type                         | Default | Description                                                                                                                                                                                                                                                                                                                 | Inherited From |
+| ------------------- | ------- | ---------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `origin`            | public  | `string \| HTMLElement`      |         | The element where the autocomplete will attach; accepts both an element's id or an HTMLElement.&#xA;If not set, will search for the first 'sbb-form-field' ancestor.                                                                                                                                                        |                |
+| `trigger`           | public  | `string \| HTMLInputElement` |         | The input element that will trigger the autocomplete opening; accepts both an element's id or an HTMLElement.&#xA;By default, the autocomplete will open on focus, click, input or \`ArrowDown\` keypress of the 'trigger' element.&#xA;If not set, will search for the first 'input' child of a 'sbb-form-field' ancestor. |                |
+| `disableAnimation`  | public  | `boolean`                    | `false` | Whether the animation is disabled.                                                                                                                                                                                                                                                                                          |                |
+| `preserveIconSpace` | public  | `boolean`                    |         | Whether the icon space is preserved when no icon is set.                                                                                                                                                                                                                                                                    |                |
+| `negative`          | public  | `boolean`                    | `false` | Negative coloring variant flag.                                                                                                                                                                                                                                                                                             |                |
 
 ## Methods
 
-### `close() => Promise<void>`
-
-Closes the autocomplete.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
-### `open() => Promise<void>`
-
-Opens the autocomplete.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
+| Name         | Privacy | Description              | Parameters                                | Return | Inherited From |
+| ------------ | ------- | ------------------------ | ----------------------------------------- | ------ | -------------- |
+| `open`       | public  | Opens the autocomplete.  |                                           | `void` |                |
+| `close`      | public  | Closes the autocomplete. |                                           | `void` |                |
+| `willUpdate` | public  |                          | `changedProperties: PropertyValues<this>` | `void` |                |
 
 ## Slots
 
-| Slot        | Description                       |
-| ----------- | --------------------------------- |
-| `"unnamed"` | Use this slot to project options. |
-
-
-----------------------------------------------
-
+| Name      | Description                       |
+| --------- | --------------------------------- |
+| `unnamed` | Use this slot to project options. |
 

@@ -67,44 +67,21 @@ associate the tooltip trigger with the tooltip via `aria-describedby` and an `id
 </sbb-tooltip>
 ```
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property   | Attribute   | Description                                                                                                                      | Type      | Default                      |
-| ---------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------- | --------- | ---------------------------- |
-| `disabled` | `disabled`  | Whether the tooltip-trigger is disabled.                                                                                         | `boolean` | `false`                      |
-| `iconName` | `icon-name` | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. | `string`  | `'circle-information-small'` |
-| `name`     | `name`      | The name attribute to use for the button.                                                                                        | `string`  | `undefined`                  |
-| `negative` | `negative`  | Negative coloring variant flag.                                                                                                  | `boolean` | `false`                      |
-
+| Name       | Privacy | Type                  | Default                      | Description                                                                                                                               | Inherited From |
+| ---------- | ------- | --------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `name`     | public  | `string \| undefined` |                              | The name attribute to use for the button.                                                                                                 |                |
+| `negative` | public  | `boolean`             | `false`                      | Negative coloring variant flag.                                                                                                           |                |
+| `iconName` | public  | `string`              | `'circle-information-small'` | The icon name we want to use, choose from the small icon variants&#xA;from the ui-icons category from here&#xA;https\://icons.app.sbb.ch. |                |
+| `disabled` | public  | `boolean`             |                              | Whether the tooltip-trigger is disabled.                                                                                                  |                |
 
 ## Slots
 
-| Slot        | Description                 |
-| ----------- | --------------------------- |
-| `"unnamed"` | Slot to render the content. |
-
-
-## Dependencies
-
-### Used by
-
- - [sbb-datepicker-toggle](../sbb-datepicker-toggle)
-
-### Depends on
-
-- [sbb-icon](../sbb-icon)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-tooltip-trigger --> sbb-icon
-  sbb-datepicker-toggle --> sbb-tooltip-trigger
-  style sbb-tooltip-trigger fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name      | Description                 |
+| --------- | --------------------------- |
+| `unnamed` | Slot to render the content. |
 

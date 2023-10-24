@@ -68,80 +68,36 @@ The description text is wrapped into an `<p>` element to guarantee the semantic 
 
 Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and can have negative effects on screen readers.
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property             | Attribute             | Description                                                                                                                                                      | Type                                     | Default     |
-| -------------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- | ----------- |
-| `accessibilityLabel` | `accessibility-label` | This will be forwarded as aria-label to the relevant nested element.                                                                                             | `string`                                 | `undefined` |
-| `disableAnimation`   | `disable-animation`   | Whether the fade in animation should be disabled.                                                                                                                | `boolean`                                | `false`     |
-| `href`               | `href`                | The href value you want to link to.                                                                                                                              | `string`                                 | `undefined` |
-| `iconName`           | `icon-name`           | Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://icons.app.sbb.ch. Styling is optimized for icons of type HIM-CUS. | `string`                                 | `undefined` |
-| `linkContent`        | `link-content`        | Content of the link.                                                                                                                                             | `string`                                 | `undefined` |
-| `readonly`           | `readonly`            | Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user.                                                                 | `boolean`                                | `false`     |
-| `rel`                | `rel`                 | The relationship of the linked URL as space-separated link types.                                                                                                | `string`                                 | `undefined` |
-| `size`               | `size`                | You can choose between `m` or `l` size.                                                                                                                          | `"l" \| "m"`                             | `'m'`       |
-| `target`             | `target`              | Where to display the linked URL.                                                                                                                                 | `string`                                 | `undefined` |
-| `titleContent`       | `title-content`       | Content of title.                                                                                                                                                | `string`                                 | `undefined` |
-| `titleLevel`         | `title-level`         | Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.                                                                                  | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'3'`       |
-
-
-## Events
-
-| Event                 | Description                                                        | Type                |
-| --------------------- | ------------------------------------------------------------------ | ------------------- |
-| `did-present`         | Emits when the fade in animation ends and the button is displayed. | `CustomEvent<void>` |
-| `dismissal-requested` | Emits when dismissal of an alert was requested.                    | `CustomEvent<void>` |
-| `will-present`        | Emits when the fade in animation starts.                           | `CustomEvent<void>` |
-
+| Name                 | Privacy | Type                                    | Default | Description                                                                                                                                                                 | Inherited From |
+| -------------------- | ------- | --------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `readonly`           | public  | `boolean`                               | `false` | Whether the alert is readonly.&#xA;In readonly mode, there is no dismiss button offered to the user.                                                                        |                |
+| `size`               | public  | `InterfaceAlertAttributes['size']`      | `'m'`   | You can choose between \`m\` or \`l\` size.                                                                                                                                 |                |
+| `disableAnimation`   | public  | `boolean`                               | `false` | Whether the fade in animation should be disabled.                                                                                                                           |                |
+| `iconName`           | public  | `string \| undefined`                   |         | Name of the icon which will be forward to the nested \`sbb-icon\`.&#xA;Choose the icons from https\://icons.app.sbb.ch.&#xA;Styling is optimized for icons of type HIM-CUS. |                |
+| `titleContent`       | public  | `string \| undefined`                   |         | Content of title.                                                                                                                                                           |                |
+| `titleLevel`         | public  | `TitleLevel`                            | `'3'`   | Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.                                                                                             |                |
+| `linkContent`        | public  | `string \| undefined`                   |         | Content of the link.                                                                                                                                                        |                |
+| `href`               | public  | `string \| undefined`                   |         | The href value you want to link to.                                                                                                                                         |                |
+| `target`             | public  | `LinkTargetType \| string \| undefined` |         | Where to display the linked URL.                                                                                                                                            |                |
+| `rel`                | public  | `string \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                                                                                                           |                |
+| `accessibilityLabel` | public  | `string \| undefined`                   |         | This will be forwarded as aria-label to the relevant nested element.                                                                                                        |                |
 
 ## Methods
 
-### `requestDismissal() => Promise<void>`
-
-Requests dismissal of the alert.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
+| Name               | Privacy | Description                      | Parameters | Return | Inherited From |
+| ------------------ | ------- | -------------------------------- | ---------- | ------ | -------------- |
+| `requestDismissal` | public  | Requests dismissal of the alert. |            | `void` |                |
 
 ## Slots
 
-| Slot        | Description                                                                                                |
-| ----------- | ---------------------------------------------------------------------------------------------------------- |
-| `"icon"`    | Should be a sbb-icon which is displayed next to the title. Styling is optimized for icons of type HIM-CUS. |
-| `"title"`   | Title content.                                                                                             |
-| `"unnamed"` | Content of the alert.                                                                                      |
-
-
-## Dependencies
-
-### Depends on
-
-- [sbb-icon](../sbb-icon)
-- [sbb-title](../sbb-title)
-- [sbb-link](../sbb-link)
-- [sbb-divider](../sbb-divider)
-- [sbb-button](../sbb-button)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-alert --> sbb-icon
-  sbb-alert --> sbb-title
-  sbb-alert --> sbb-link
-  sbb-alert --> sbb-divider
-  sbb-alert --> sbb-button
-  sbb-link --> sbb-icon
-  sbb-button --> sbb-icon
-  style sbb-alert fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name      | Description                                                                                                |
+| --------- | ---------------------------------------------------------------------------------------------------------- |
+| `icon`    | Should be a sbb-icon which is displayed next to the title. Styling is optimized for icons of type HIM-CUS. |
+| `title`   | Title content.                                                                                             |
+| `unnamed` | Content of the alert.                                                                                      |
 

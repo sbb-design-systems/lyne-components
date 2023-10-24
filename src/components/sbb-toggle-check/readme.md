@@ -49,51 +49,33 @@ you can not provide it and then use `aria-label` to specify an appropriate label
 <sbb-toggle-check aria-label="Subscribed to email message" />
 ```
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property        | Attribute        | Description                                                    | Type                  | Default        |
-| --------------- | ---------------- | -------------------------------------------------------------- | --------------------- | -------------- |
-| `checked`       | `checked`        | Whether the toggle-check is checked.                           | `boolean`             | `false`        |
-| `disabled`      | `disabled`       | The disabled prop for the disabled state.                      | `boolean`             | `false`        |
-| `iconName`      | `icon-name`      | The svg name for the true state - default -> 'tick-small'      | `string`              | `'tick-small'` |
-| `labelPosition` | `label-position` | The label position relative to the toggle. Defaults to 'after' | `"after" \| "before"` | `'after'`      |
-| `name`          | `name`           | Name of the toggle-check.                                      | `string`              | `undefined`    |
-| `required`      | `required`       | The required prop for the required state.                      | `boolean`             | `false`        |
-| `size`          | `size`           | Size variant, either m or s.                                   | `"m" \| "s"`          | `'s'`          |
-| `value`         | `value`          | Value of toggle-check.                                         | `string`              | `undefined`    |
+| Name            | Privacy | Type                                                           | Default        | Description                                                    | Inherited From |
+| --------------- | ------- | -------------------------------------------------------------- | -------------- | -------------------------------------------------------------- | -------------- |
+| `checked`       | public  | `boolean`                                                      | `false`        | Whether the toggle-check is checked.                           |                |
+| `value`         | public  | `string \| undefined`                                          |                | Value of toggle-check.                                         |                |
+| `name`          | public  | `string \| undefined`                                          |                | Name of the toggle-check.                                      |                |
+| `size`          | public  | `InterfaceToggleCheckAttributes['size']`                       | `'s'`          | Size variant, either m or s.                                   |                |
+| `iconName`      | public  | `string`                                                       | `'tick-small'` | The svg name for the true state - default -> 'tick-small'      |                |
+| `disabled`      | public  | `boolean`                                                      | `false`        | The disabled prop for the disabled state.                      |                |
+| `required`      | public  | `boolean`                                                      | `false`        | The required prop for the required state.                      |                |
+| `labelPosition` | public  | `InterfaceToggleCheckAttributes['labelPosition'] \| undefined` | `'after'`      | The label position relative to the toggle. Defaults to 'after' |                |
 
+## Methods
 
-## Events
-
-| Event       | Description                                                                                                                         | Type               |
-| ----------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| `didChange` | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/> | `CustomEvent<any>` |
-
+| Name                | Privacy | Description                                                                                                            | Parameters     | Return | Inherited From |
+| ------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------- | -------------- | ------ | -------------- |
+| `handleChangeEvent` | public  |                                                                                                                        | `event: Event` | `void` |                |
+| `handleInputEvent`  | public  | Method triggered on checkbox input event.&#xA;If not indeterminate, inverts the value; otherwise sets checked to true. |                | `void` |                |
 
 ## Slots
 
-| Slot        | Description                                                                       |
-| ----------- | --------------------------------------------------------------------------------- |
-| `"icon"`    | Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used. |
-| `"unnamed"` | Use this slot to provide the toggle label.                                        |
-
-
-## Dependencies
-
-### Depends on
-
-- [sbb-icon](../sbb-icon)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-toggle-check --> sbb-icon
-  style sbb-toggle-check fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name      | Description                                                                         |
+| --------- | ----------------------------------------------------------------------------------- |
+| `unnamed` | Use this slot to provide the toggle label.                                          |
+| `icon`    | Use this slot to provide an icon. If \`icon-name\` is set, a sbb-icon will be used. |
 

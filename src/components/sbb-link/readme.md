@@ -57,58 +57,33 @@ and it has also three sizes (`xs`, `s`, which is the default, and `m`) that are 
 </p>
 ```
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property        | Attribute        | Description                                                                                                                                                            | Type                              | Default     |
-| --------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | ----------- |
-| `disabled`      | `disabled`       | Whether the button is disabled.                                                                                                                                        | `boolean`                         | `false`     |
-| `download`      | `download`       | Whether the browser will show the download dialog on click.                                                                                                            | `boolean`                         | `undefined` |
-| `form`          | `form`           | The <form> element to associate the button with.                                                                                                                       | `string`                          | `undefined` |
-| `href`          | `href`           | The href value you want to link to (if it is not present link becomes a button).                                                                                       | `string`                          | `undefined` |
-| `iconName`      | `icon-name`      | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. Inline variant doesn't support icons. | `string`                          | `undefined` |
-| `iconPlacement` | `icon-placement` | Moves the icon to the end of the component if set to true.                                                                                                             | `"end" \| "start"`                | `'start'`   |
-| `isStatic`      | `is-static`      | Set this property to true if you want only a visual representation of a link, but no interaction (a span instead of a link/button will be rendered).                   | `boolean`                         | `false`     |
-| `name`          | `name`           | The name attribute to use for the button.                                                                                                                              | `string`                          | `undefined` |
-| `negative`      | `negative`       | Negative coloring variant flag.                                                                                                                                        | `boolean`                         | `false`     |
-| `rel`           | `rel`            | The relationship of the linked URL as space-separated link types.                                                                                                      | `string`                          | `undefined` |
-| `size`          | `size`           | Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used.                                             | `"m" \| "s" \| "xs"`              | `'s'`       |
-| `target`        | `target`         | Where to display the linked URL.                                                                                                                                       | `string`                          | `undefined` |
-| `type`          | `type`           | The type attribute to use for the button.                                                                                                                              | `"button" \| "reset" \| "submit"` | `undefined` |
-| `value`         | `value`          | The value attribute to use for the button.                                                                                                                             | `string`                          | `undefined` |
-| `variant`       | `variant`        | Variant of the link (block or inline).                                                                                                                                 | `"block" \| "inline"`             | `'block'`   |
-
+| Name            | Privacy | Type                                                    | Default   | Description                                                                                                                                                                         | Inherited From |
+| --------------- | ------- | ------------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `variant`       | public  | `InterfaceLinkAttributes['variant']`                    | `'block'` | Variant of the link (block or inline).                                                                                                                                              |                |
+| `negative`      | public  | `boolean`                                               | `false`   | Negative coloring variant flag.                                                                                                                                                     |                |
+| `size`          | public  | `InterfaceLinkAttributes['size']`                       | `'s'`     | Text size, the link should get in the non-button variation.&#xA;With inline variant, the text size adapts to where it is used.                                                      |                |
+| `isStatic`      | public  | `boolean`                                               | `false`   | Set this property to true if you want only a visual representation of a&#xA;link, but no interaction (a span instead of a link/button will be rendered).                            |                |
+| `iconName`      | public  | `string \| undefined`                                   |           | The icon name we want to use, choose from the small icon variants&#xA;from the ui-icons category from here&#xA;https\://icons.app.sbb.ch.&#xA;Inline variant doesn't support icons. |                |
+| `iconPlacement` | public  | `InterfaceLinkAttributes['iconPlacement'] \| undefined` | `'start'` | Moves the icon to the end of the component if set to true.                                                                                                                          |                |
+| `href`          | public  | `string \| undefined`                                   |           | The href value you want to link to (if it is not present link becomes a button).                                                                                                    |                |
+| `target`        | public  | `LinkTargetType \| string \| undefined \| undefined`    |           | Where to display the linked URL.                                                                                                                                                    |                |
+| `rel`           | public  | `string \| undefined \| undefined`                      |           | The relationship of the linked URL as space-separated link types.                                                                                                                   |                |
+| `download`      | public  | `boolean \| undefined`                                  |           | Whether the browser will show the download dialog on click.                                                                                                                         |                |
+| `type`          | public  | `ButtonType \| undefined`                               |           | The type attribute to use for the button.                                                                                                                                           |                |
+| `disabled`      | public  | `boolean`                                               | `false`   | Whether the button is disabled.                                                                                                                                                     |                |
+| `name`          | public  | `string \| undefined`                                   |           | The name attribute to use for the button.                                                                                                                                           |                |
+| `value`         | public  | `string \| undefined`                                   |           | The value attribute to use for the button.                                                                                                                                          |                |
+| `form`          | public  | `string \| undefined`                                   |           | The \<form> element to associate the button with.                                                                                                                                   |                |
 
 ## Slots
 
-| Slot        | Description                                  |
-| ----------- | -------------------------------------------- |
-| `"icon"`    | Slot used to display the icon, if one is set |
-| `"unnamed"` | Link Content                                 |
-
-
-## Dependencies
-
-### Used by
-
- - [sbb-alert](../sbb-alert)
- - [sbb-teaser-hero](../sbb-teaser-hero)
-
-### Depends on
-
-- [sbb-icon](../sbb-icon)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-link --> sbb-icon
-  sbb-alert --> sbb-link
-  sbb-teaser-hero --> sbb-link
-  style sbb-link fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name      | Description                                  |
+| --------- | -------------------------------------------- |
+| `unnamed` | Link Content                                 |
+| `icon`    | Slot used to display the icon, if one is set |
 

@@ -17,24 +17,19 @@ and four different values for the `color` property (`charcoal`, `granite`, `whit
 <sbb-chip color="white">Label</sbb-chip>
 ```
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property | Attribute | Description        | Type                                           | Default  |
-| -------- | --------- | ------------------ | ---------------------------------------------- | -------- |
-| `color`  | `color`   | Color of the chip. | `"charcoal" \| "granite" \| "milk" \| "white"` | `'milk'` |
-| `size`   | `size`    | Size of the chip.  | `"s" \| "xs" \| "xxs"`                         | `'xxs'`  |
-
+| Name    | Privacy | Type                                  | Default  | Description        | Inherited From |
+| ------- | ------- | ------------------------------------- | -------- | ------------------ | -------------- |
+| `size`  | public  | `InterfaceSbbChipAttributes['size']`  | `'xxs'`  | Size of the chip.  |                |
+| `color` | public  | `InterfaceSbbChipAttributes['color']` | `'milk'` | Color of the chip. |                |
 
 ## Slots
 
-| Slot        | Description                 |
-| ----------- | --------------------------- |
-| `"unnamed"` | Content / Label of the chip |
-
-
-----------------------------------------------
-
+| Name      | Description                 |
+| --------- | --------------------------- |
+| `unnamed` | Content / Label of the chip |
 

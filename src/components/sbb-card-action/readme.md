@@ -21,44 +21,26 @@ as it is used for search engines and screen-reader users.
 ```
 
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property   | Attribute  | Description                                                                     | Type                              | Default     |
-| ---------- | ---------- | ------------------------------------------------------------------------------- | --------------------------------- | ----------- |
-| `active`   | `active`   | Whether the card is active.                                                     | `boolean`                         | `false`     |
-| `download` | `download` | Whether the browser will show the download dialog on click.                     | `boolean`                         | `undefined` |
-| `form`     | `form`     | The <form> element to associate the button to it.                               | `string`                          | `undefined` |
-| `href`     | `href`     | The href value you want to link to.                                             | `string`                          | `undefined` |
-| `name`     | `name`     | The name of the button.                                                         | `string`                          | `undefined` |
-| `rel`      | `rel`      | The relationship of the linked URL as space-separated link types.               | `string`                          | `undefined` |
-| `target`   | `target`   | Where to display the linked URL.                                                | `string`                          | `undefined` |
-| `type`     | `type`     | Default behaviour of the button.                                                | `"button" \| "reset" \| "submit"` | `undefined` |
-| `value`    | `value`    | The value associated with button `name` when it's submitted with the form data. | `string`                          | `undefined` |
-
+| Name       | Privacy | Type                                                 | Default | Description                                                                       | Inherited From |
+| ---------- | ------- | ---------------------------------------------------- | ------- | --------------------------------------------------------------------------------- | -------------- |
+| `active`   | public  | `boolean`                                            |         | Whether the card is active.                                                       |                |
+| `href`     | public  | `string \| undefined`                                |         | The href value you want to link to.                                               |                |
+| `target`   | public  | `LinkTargetType \| string \| undefined \| undefined` |         | Where to display the linked URL.                                                  |                |
+| `rel`      | public  | `string \| undefined \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                 |                |
+| `download` | public  | `boolean \| undefined \| undefined`                  |         | Whether the browser will show the download dialog on click.                       |                |
+| `type`     | public  | `ButtonType \| undefined`                            |         | Default behaviour of the button.                                                  |                |
+| `name`     | public  | `string \| undefined`                                |         | The name of the button.                                                           |                |
+| `form`     | public  | `string \| undefined \| undefined`                   |         | The \<form> element to associate the button to it.                                |                |
+| `value`    | public  | `string \| undefined \| undefined`                   |         | The value associated with button \`name\` when it's submitted with the form data. |                |
 
 ## Slots
 
-| Slot        | Description                                                                                                         |
-| ----------- | ------------------------------------------------------------------------------------------------------------------- |
-| `"unnamed"` | Slot to render a descriptive label / title of the action (important!). This is relevant for SEO and screen readers. |
-
-
-## Dependencies
-
-### Used by
-
- - [sbb-timetable-row](../sbb-timetable-row)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-timetable-row --> sbb-card-action
-  style sbb-card-action fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name      | Description                                                                                                         |
+| --------- | ------------------------------------------------------------------------------------------------------------------- |
+| `unnamed` | Slot to render a descriptive label / title of the action (important!). This is relevant for SEO and screen readers. |
 

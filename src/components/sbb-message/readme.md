@@ -25,41 +25,23 @@ This can be changed by the user via the `title-level` property.
 As all other elements are regularly slotted, their accessibility relies on the standard techniques provided 
 by the used components (e.g. `alt-text` and `aria-label`).
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property       | Attribute       | Description                                                                         | Type                                     | Default     |
-| -------------- | --------------- | ----------------------------------------------------------------------------------- | ---------------------------------------- | ----------- |
-| `titleContent` | `title-content` | Content of title.                                                                   | `string`                                 | `undefined` |
-| `titleLevel`   | `title-level`   | Level of title, it will be rendered as heading tag (e.g., h3). Defaults to level 3. | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'3'`       |
-
+| Name           | Privacy | Type                  | Default | Description                                                                         | Inherited From |
+| -------------- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------- | -------------- |
+| `titleContent` | public  | `string \| undefined` |         | Content of title.                                                                   |                |
+| `titleLevel`   | public  | `TitleLevel`          | `'3'`   | Level of title, it will be rendered as heading tag (e.g., h3). Defaults to level 3. |                |
 
 ## Slots
 
-| Slot         | Description                                               |
-| ------------ | --------------------------------------------------------- |
-| `"action"`   | Use this slot to provide a sbb-button.                    |
-| `"image"`    | Use this slot to provide a sbb-image component.           |
-| `"legend"`   | Use this slot to provide a legend, must be a paragraph.   |
-| `"subtitle"` | Use this slot to provide a subtitle, must be a paragraph. |
-| `"title"`    | Use this slot to provide title text for the component.    |
-
-
-## Dependencies
-
-### Depends on
-
-- [sbb-title](../sbb-title)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-message --> sbb-title
-  style sbb-message fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name       | Description                                               |
+| ---------- | --------------------------------------------------------- |
+| `image`    | Use this slot to provide a sbb-image component.           |
+| `title`    | Use this slot to provide title text for the component.    |
+| `subtitle` | Use this slot to provide a subtitle, must be a paragraph. |
+| `legend`   | Use this slot to provide a legend, must be a paragraph.   |
+| `action`   | Use this slot to provide a sbb-button.                    |
 

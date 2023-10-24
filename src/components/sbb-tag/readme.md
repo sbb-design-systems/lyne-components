@@ -45,54 +45,24 @@ It's recommended to check the parent's `sbb-tag-group` for the value.
 The component imitates an `button` element to provide an accessible experience. 
 The state is reflected via `aria-pressed` attribute.
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property   | Attribute   | Description                                                                                                                            | Type      | Default     |
-| ---------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `amount`   | `amount`    | Amount displayed inside the tag.                                                                                                       | `string`  | `undefined` |
-| `checked`  | `checked`   | Whether the toggle is checked.                                                                                                         | `boolean` | `false`     |
-| `disabled` | `disabled`  | Whether the tag is disabled.                                                                                                           | `boolean` | `false`     |
-| `form`     | `form`      | The <form> element to associate the button with.                                                                                       | `string`  | `undefined` |
-| `iconName` | `icon-name` | The icon name we want to use, choose from the small icon variants from the ui-icons category from https://icons.app.sbb.ch (optional). | `string`  | `undefined` |
-| `name`     | `name`      | The name attribute to use for the button.                                                                                              | `string`  | `undefined` |
-| `value`    | `value`     | Value of the tag.                                                                                                                      | `string`  | `undefined` |
+| Name       | Privacy | Type                  | Default | Description                                                                                                                                 | Inherited From |
+| ---------- | ------- | --------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `name`     | public  | `string \| undefined` |         | The name attribute to use for the button.                                                                                                   |                |
+| `value`    | public  | `string \| undefined` |         | Value of the tag.                                                                                                                           |                |
+| `form`     | public  | `string \| undefined` |         | The \<form> element to associate the button with.                                                                                           |                |
+| `amount`   | public  | `string \| undefined` |         | Amount displayed inside the tag.                                                                                                            |                |
+| `checked`  | public  | `boolean`             | `false` | Whether the tag is checked.                                                                                                                 |                |
+| `disabled` | public  | `boolean`             | `false` | Whether the tag is disabled.                                                                                                                |                |
+| `iconName` | public  | `string \| undefined` |         | The icon name we want to use, choose from the small icon variants from the ui-icons category&#xA;from https\://icons.app.sbb.ch (optional). |                |
 
+## Methods
 
-## Events
-
-| Event          | Description                                                                                                                         | Type                                                        |
-| -------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
-| `change`       | Change event emitter                                                                                                                | `CustomEvent<any>`                                          |
-| `didChange`    | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/> | `CustomEvent<any>`                                          |
-| `input`        | Input event emitter                                                                                                                 | `CustomEvent<any>`                                          |
-| `state-change` | Internal event that emits whenever the state of the tag in relation to the parent toggle changes.                                   | `CustomEvent<TagStateChangeChecked \| TagStateChangeValue>` |
-
-
-## Slots
-
-| Slot        | Description                                                                                   |
-| ----------- | --------------------------------------------------------------------------------------------- |
-| `"amount"`  | Provide an amount to show it at the component end.                                            |
-| `"icon"`    | Use this slot to display an icon at the component start, by providing a `sbb-icon` component. |
-| `"unnamed"` | This slot will show the provided tag label.                                                   |
-
-
-## Dependencies
-
-### Depends on
-
-- [sbb-icon](../sbb-icon)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-tag --> sbb-icon
-  style sbb-tag fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name         | Privacy | Description | Parameters                                | Return | Inherited From |
+| ------------ | ------- | ----------- | ----------------------------------------- | ------ | -------------- |
+| `willUpdate` | public  |             | `changedProperties: PropertyValues<this>` | `void` |                |
 

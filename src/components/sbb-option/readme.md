@@ -55,64 +55,22 @@ If the label slot contains only a **text node**, it is possible to search for te
 </sbb-option>
 ```
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property   | Attribute   | Description                                                                                                                      | Type      | Default     |
-| ---------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `active`   | `active`    | Whether the option is currently active.                                                                                          | `boolean` | `undefined` |
-| `disabled` | `disabled`  | Whether the option is disabled. TBI: missing disabled style, will be implemented with the select component.                      | `boolean` | `undefined` |
-| `iconName` | `icon-name` | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. | `string`  | `undefined` |
-| `selected` | `selected`  | Whether the option is selected.                                                                                                  | `boolean` | `false`     |
-| `value`    | `value`     | Value of the option.                                                                                                             | `string`  | `undefined` |
-
-
-## Events
-
-| Event                     | Description                                     | Type               |
-| ------------------------- | ----------------------------------------------- | ------------------ |
-| `option-selected`         | Emits when an option was selected by user.      | `CustomEvent<any>` |
-| `option-selection-change` | Emits when the option selection status changes. | `CustomEvent<any>` |
-
+| Name       | Privacy | Type                   | Default | Description                                                                                                                               | Inherited From |
+| ---------- | ------- | ---------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `value`    | public  | `string \| undefined`  |         | Value of the option.                                                                                                                      |                |
+| `iconName` | public  | `string \| undefined`  |         | The icon name we want to use, choose from the small icon variants&#xA;from the ui-icons category from here&#xA;https\://icons.app.sbb.ch. |                |
+| `active`   | public  | `boolean \| undefined` |         | Whether the option is currently active.                                                                                                   |                |
+| `selected` | public  | `boolean`              | `false` | Whether the option is selected.                                                                                                           |                |
+| `disabled` | public  | `boolean \| undefined` |         | Whether the option is disabled.                                                                                                           |                |
 
 ## Methods
 
-### `setGroupLabel(value: string) => Promise<void>`
-
-Set the option group label (used for a11y)
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
-
-## Slots
-
-| Slot        | Description                                                                       |
-| ----------- | --------------------------------------------------------------------------------- |
-| `"icon"`    | Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used. |
-| `"unnamed"` | Use this to provide the option label.                                             |
-
-
-## Dependencies
-
-### Depends on
-
-- [sbb-icon](../sbb-icon)
-- [sbb-visual-checkbox](../sbb-visual-checkbox)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-option --> sbb-icon
-  sbb-option --> sbb-visual-checkbox
-  style sbb-option fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name            | Privacy | Description                                | Parameters      | Return | Inherited From |
+| --------------- | ------- | ------------------------------------------ | --------------- | ------ | -------------- |
+| `setGroupLabel` | public  | Set the option group label (used for a11y) | `value: string` | `void` |                |
 

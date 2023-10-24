@@ -42,41 +42,17 @@ The following one will be read as (locale: ENG): `Connection from Point A to Poi
 <sbb-journey-header origin="Point A" destination="Point B" round-trip="true"/>
 ```
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property                   | Attribute     | Description                                                                       | Type                                     | Default     |
-| -------------------------- | ------------- | --------------------------------------------------------------------------------- | ---------------------------------------- | ----------- |
-| `destination` _(required)_ | `destination` | Destination location for the journey header.                                      | `string`                                 | `undefined` |
-| `level`                    | `level`       | Heading level of the journey header element (e.g. h1-h6).                         | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'3'`       |
-| `negative`                 | `negative`    | Negative coloring variant flag.                                                   | `boolean`                                | `false`     |
-| `origin` _(required)_      | `origin`      | Origin location for the journey header.                                           | `string`                                 | `undefined` |
-| `roundTrip`                | `round-trip`  | Whether the journey is a round trip. If so, the icon changes to a round-trip one. | `boolean`                                | `undefined` |
-| `size`                     | `size`        | Journey header size.                                                              | `"l" \| "m"`                             | `'m'`       |
-
-
-## Dependencies
-
-### Used by
-
- - [sbb-journey-summary](../sbb-journey-summary)
-
-### Depends on
-
-- [sbb-title](../sbb-title)
-- [sbb-icon](../sbb-icon)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-journey-header --> sbb-title
-  sbb-journey-header --> sbb-icon
-  sbb-journey-summary --> sbb-journey-header
-  style sbb-journey-header fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name          | Privacy | Type                             | Default | Description                                                                       | Inherited From |
+| ------------- | ------- | -------------------------------- | ------- | --------------------------------------------------------------------------------- | -------------- |
+| `origin`      | public  | `string`                         |         | Origin location for the journey header.                                           |                |
+| `destination` | public  | `string`                         |         | Destination location for the journey header.                                      |                |
+| `roundTrip`   | public  | `boolean \| undefined`           |         | Whether the journey is a round trip. If so, the icon changes to a round-trip one. |                |
+| `level`       | public  | `TitleLevel \| undefined`        | `'3'`   | Heading level of the journey header element (e.g. h1-h6).                         |                |
+| `negative`    | public  | `boolean`                        | `false` | Negative coloring variant flag.                                                   |                |
+| `size`        | public  | `JourneyHeaderSize \| undefined` | `'m'`   | Journey header size.                                                              |                |
 

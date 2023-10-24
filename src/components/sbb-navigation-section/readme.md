@@ -22,66 +22,29 @@ Optionally a label can be provided via slot or via the `titleContent` property.
 When a navigation action is marked to indicate the user is currently on that page, `aria-current="page"` should be set on that action. 
 Similarly, if a navigation action is marked to indicate a selected option (e.g., the selected language) `aria-pressed` should be set on that action.
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property                 | Attribute                  | Description                                                                                                        | Type                    | Default     |
-| ------------------------ | -------------------------- | ------------------------------------------------------------------------------------------------------------------ | ----------------------- | ----------- |
-| `accessibilityBackLabel` | `accessibility-back-label` | This will be forwarded as aria-label to the back button element.                                                   | `string`                | `undefined` |
-| `accessibilityLabel`     | `accessibility-label`      | This will be forwarded as aria-label to the dialog and is read as a title of the navigation-section.               | `string`                | `undefined` |
-| `disableAnimation`       | `disable-animation`        | Whether the animation is enabled.                                                                                  | `boolean`               | `false`     |
-| `titleContent`           | `title-content`            |                                                                                                                    | `string`                | `undefined` |
-| `trigger`                | `trigger`                  | The element that will trigger the navigation section. Accepts both a string (id of an element) or an HTML element. | `HTMLElement \| string` | `undefined` |
-
+| Name                     | Privacy | Type                         | Default | Description                                                                                                            | Inherited From |
+| ------------------------ | ------- | ---------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `titleContent`           | public  | `string \| undefined`        |         |                                                                                                                        |                |
+| `trigger`                | public  | `string \| HTMLElement`      |         | The element that will trigger the navigation section.&#xA;Accepts both a string (id of an element) or an HTML element. |                |
+| `accessibilityLabel`     | public  | `string \| undefined`        |         | This will be forwarded as aria-label to the dialog and is read as a title of the navigation-section.                   |                |
+| `accessibilityBackLabel` | public  | `\| string     \| undefined` |         | This will be forwarded as aria-label to the back button element.                                                       |                |
+| `disableAnimation`       | public  | `boolean`                    | `false` | Whether the animation is enabled.                                                                                      |                |
 
 ## Methods
 
-### `close() => Promise<void>`
-
-Closes the navigation section.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
-### `open() => Promise<void>`
-
-Opens the navigation section on trigger click.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
+| Name    | Privacy | Description                                    | Parameters | Return | Inherited From |
+| ------- | ------- | ---------------------------------------------- | ---------- | ------ | -------------- |
+| `open`  | public  | Opens the navigation section on trigger click. |            | `void` |                |
+| `close` | public  | Closes the navigation section.                 |            | `void` |                |
 
 ## Slots
 
-| Slot        | Description                                                    |
-| ----------- | -------------------------------------------------------------- |
-| `"unnamed"` | Use this to project any content inside the navigation section. |
-
-
-## Dependencies
-
-### Depends on
-
-- [sbb-button](../sbb-button)
-- [sbb-divider](../sbb-divider)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-navigation-section --> sbb-button
-  sbb-navigation-section --> sbb-divider
-  sbb-button --> sbb-icon
-  style sbb-navigation-section fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name      | Description                                                    |
+| --------- | -------------------------------------------------------------- |
+| `unnamed` | Use this to project any content inside the navigation section. |
 

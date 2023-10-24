@@ -19,38 +19,19 @@ On desktop, the sidebar and the map are shown in a two column layout side by sid
 The component comes along with a height calculation that subtracts the height of the header. 
 The header height can be overridden setting the variable `--sbb-map-container-margin-start`, if needed.
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property             | Attribute               | Description                                                          | Type      | Default |
-| -------------------- | ----------------------- | -------------------------------------------------------------------- | --------- | ------- |
-| `hideScrollUpButton` | `hide-scroll-up-button` | Flag to show/hide the scroll up button inside the sidebar on mobile. | `boolean` | `false` |
-
+| Name                 | Privacy | Type      | Default | Description                                                          | Inherited From |
+| -------------------- | ------- | --------- | ------- | -------------------------------------------------------------------- | -------------- |
+| `hideScrollUpButton` | public  | `boolean` | `false` | Flag to show/hide the scroll up button inside the sidebar on mobile. |                |
 
 ## Slots
 
-| Slot        | Description                            |
-| ----------- | -------------------------------------- |
-| `"map"`     | Used for slotting the map.             |
-| `"unnamed"` | Used for slotting the sidebar content. |
-
-
-## Dependencies
-
-### Depends on
-
-- [sbb-button](../sbb-button)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-map-container --> sbb-button
-  sbb-button --> sbb-icon
-  style sbb-map-container fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name      | Description                            |
+| --------- | -------------------------------------- |
+| `unnamed` | Used for slotting the sidebar content. |
+| `map`     | Used for slotting the map.             |
 

@@ -11,34 +11,15 @@ It has four different states related to the properties `checked`, `indeterminate
 - an indeterminate state (`checked` unset and `indeterminate` set to `true`): a horizontal line is displayed in the square;
 - a disabled state (`disabled` set to `true`): a grayed out empty square is shown.
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Properties
 
-| Property        | Attribute       | Description                     | Type      | Default     |
-| --------------- | --------------- | ------------------------------- | --------- | ----------- |
-| `checked`       | `checked`       | Checked state.                  | `boolean` | `undefined` |
-| `disabled`      | `disabled`      | Disabled state.                 | `boolean` | `undefined` |
-| `indeterminate` | `indeterminate` | Indeterminate state.            | `boolean` | `false`     |
-| `negative`      | `negative`      | Negative coloring variant flag. | `boolean` | `false`     |
-
-
-## Dependencies
-
-### Used by
-
- - [sbb-checkbox](../sbb-checkbox)
- - [sbb-option](../sbb-option)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-checkbox --> sbb-visual-checkbox
-  sbb-option --> sbb-visual-checkbox
-  style sbb-visual-checkbox fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name            | Privacy | Type      | Default | Description                     | Inherited From |
+| --------------- | ------- | --------- | ------- | ------------------------------- | -------------- |
+| `checked`       | public  | `boolean` |         | Checked state.                  |                |
+| `disabled`      | public  | `boolean` |         | Disabled state.                 |                |
+| `indeterminate` | public  | `boolean` | `false` | Indeterminate state.            |                |
+| `negative`      | public  | `boolean` | `false` | Negative coloring variant flag. |                |
 
