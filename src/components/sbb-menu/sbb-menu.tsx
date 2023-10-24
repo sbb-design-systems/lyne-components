@@ -25,20 +25,17 @@ import {
 import {
   assignId,
   FocusTrap,
-  getFirstFocusableElement,
   getNextElementIndex,
   interactivityChecker,
+  IS_FOCUSABLE_QUERY,
   isArrowKeyPressed,
-  sbbInputModalityDetector,
   setModalityOnNextFocus,
 } from '../../global/a11y';
 import {
   findReferencedElement,
   isBreakpoint,
-  isSafari,
   isValidAttribute,
   ScrollHandler,
-  toggleDatasetEntry,
 } from '../../global/dom';
 
 const MENU_OFFSET = 8;
@@ -47,7 +44,7 @@ const INTERACTIVE_ELEMENTS = ['A', 'BUTTON', 'SBB-BUTTON', 'SBB-LINK'];
 let nextId = 0;
 
 /**
- * @slot unnamed - Use this slot to project any content inside the dialog.
+ * @slot unnamed - Use this slot to project any content inside the menu.
  */
 @Component({
   shadow: true,
@@ -56,7 +53,7 @@ let nextId = 0;
 })
 export class SbbMenu implements ComponentInterface {
   /**
-   * The element that will trigger the menu dialog.
+   * The element that will trigger the menu overlay.
    * Accepts both a string (id of an element) or an HTML element.
    */
   @Prop() public trigger: string | HTMLElement;
@@ -120,7 +117,7 @@ export class SbbMenu implements ComponentInterface {
   })
   public didClose: EventEmitter<void>;
 
-  private _dialog: HTMLDialogElement;
+  private _menu: HTMLDivElement;
   private _triggerElement: HTMLElement;
   private _menuContentElement: HTMLElement;
   private _isPointerDownEventOnMenu: boolean;
@@ -137,14 +134,13 @@ export class SbbMenu implements ComponentInterface {
    */
   @Method()
   public async open(): Promise<void> {
-    if (this._state === 'closing' || !this._dialog) {
+    if (this._state === 'closing' || !this._menu) {
       return;
     }
 
     this.willOpen.emit();
     this._state = 'opening';
     this._setMenuPosition();
-    this._dialog.show();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
 
     // Starting from breakpoint medium, disable scroll
@@ -225,10 +221,6 @@ export class SbbMenu implements ComponentInterface {
     this._configure(this.trigger);
     this._readActions();
 
-    // TODO: Remove if possible, related to https://bugs.chromium.org/p/chromium/issues/detail?id=1493323
-    // For Safari we need to keep the solution which doesn't work in Chrome as it seems mutual exclusive.
-    toggleDatasetEntry(this._element, 'isSafari', isSafari());
-
     if (this._state === 'opened') {
       applyInertMechanism(this._element);
     }
@@ -300,12 +292,12 @@ export class SbbMenu implements ComponentInterface {
 
   // Check if the pointerdown event target is triggered on the menu.
   private _pointerDownListener = (event: PointerEvent): void => {
-    this._isPointerDownEventOnMenu = isEventOnElement(this._dialog, event);
+    this._isPointerDownEventOnMenu = isEventOnElement(this._menu, event);
   };
 
   // Close menu on backdrop click.
   private _closeOnBackdropClick = async (event: PointerEvent): Promise<void> => {
-    if (!this._isPointerDownEventOnMenu && !isEventOnElement(this._dialog, event)) {
+    if (!this._isPointerDownEventOnMenu && !isEventOnElement(this._menu, event)) {
       await this.close();
     }
   };
@@ -319,16 +311,15 @@ export class SbbMenu implements ComponentInterface {
       this._state = 'opened';
       this.didOpen.emit();
       applyInertMechanism(this._element);
-      this._setDialogFocus();
+      this._setMenuFocus();
       this._focusTrap.trap(this._element);
       this._attachWindowEvents();
     } else if (event.animationName === 'close' && this._state === 'closing') {
       this._state = 'closed';
-      this._dialog.firstElementChild.scrollTo(0, 0);
-      setModalityOnNextFocus(this._triggerElement);
+      this._menu.firstElementChild.scrollTo(0, 0);
       removeInertMechanism();
-      this._dialog.close();
-      // Manually focus last focused element in order to avoid showing outline in Safari
+      setModalityOnNextFocus(this._triggerElement);
+      // Manually focus last focused element
       this._triggerElement?.focus({
         // When inside the sbb-header, we prevent the scroll to avoid the snapping to the top of the page
         preventScroll: this._triggerElement.tagName === 'SBB-HEADER-ACTION',
@@ -343,31 +334,10 @@ export class SbbMenu implements ComponentInterface {
   }
 
   // Set focus on the first focusable element.
-  private _setDialogFocus(): void {
-    if (
-      sbbInputModalityDetector.mostRecentModality === 'keyboard' ||
-      sbbInputModalityDetector.mostRecentModality === 'touch'
-    ) {
-      const firstFocusable = getFirstFocusableElement(
-        Array.from(this._element.children).filter(
-          (e): e is HTMLElement => e instanceof window.HTMLElement,
-        ),
-      );
-      setModalityOnNextFocus(firstFocusable);
-      firstFocusable?.focus();
-    } else {
-      // Focusing sbb-menu__content in order to provide a consistent behavior in Safari where else
-      // the focus-visible styles would be incorrectly applied
-      this._menuContentElement.tabIndex = 0;
-      this._menuContentElement.focus();
-      this._element.addEventListener(
-        'blur',
-        () => this._menuContentElement.removeAttribute('tabindex'),
-        {
-          once: true,
-        },
-      );
-    }
+  private _setMenuFocus(): void {
+    const firstFocusable = this._element.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement;
+    setModalityOnNextFocus(firstFocusable);
+    firstFocusable.focus();
   }
 
   // Set menu position and max height if the breakpoint is medium-ultra.
@@ -375,7 +345,7 @@ export class SbbMenu implements ComponentInterface {
     // Starting from breakpoint medium
     if (
       !isBreakpoint('medium') ||
-      !this._dialog ||
+      !this._menu ||
       !this._triggerElement ||
       this._state === 'closing'
     ) {
@@ -421,9 +391,9 @@ export class SbbMenu implements ComponentInterface {
     return (
       <Host data-state={this._state} ref={assignId(() => this._menuId)}>
         <div class="sbb-menu__container">
-          <dialog
+          <div
             onAnimationEnd={(event: AnimationEvent) => this._onMenuAnimationEnd(event)}
-            ref={(dialogRef) => (this._dialog = dialogRef)}
+            ref={(el) => (this._menu = el)}
             class="sbb-menu"
             role="presentation"
           >
@@ -453,7 +423,7 @@ export class SbbMenu implements ComponentInterface {
                 <slot onSlotchange={(): void => this._readActions()} />
               )}
             </div>
-          </dialog>
+          </div>
         </div>
       </Host>
     );

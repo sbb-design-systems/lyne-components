@@ -27,7 +27,6 @@ describe('sbb-menu', () => {
   });
 
   it('opens on trigger click', async () => {
-    const dialog = await page.find('sbb-menu >>> dialog');
     const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
 
@@ -41,7 +40,7 @@ describe('sbb-menu', () => {
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
 
     await page.waitForChanges();
-    expect(dialog).toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'opened');
   });
 
   it('closes on Esc keypress', async () => {
@@ -49,7 +48,6 @@ describe('sbb-menu', () => {
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
     const willCloseEventSpy = await page.spyOnEvent(events.willClose);
     const didCloseEventSpy = await page.spyOnEvent(events.didClose);
-    const dialog = await page.find('sbb-menu >>> dialog');
 
     trigger.triggerEvent('click');
     await page.waitForChanges();
@@ -62,7 +60,7 @@ describe('sbb-menu', () => {
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'opened');
 
     await page.keyboard.down('Tab');
     await page.waitForChanges();
@@ -78,7 +76,7 @@ describe('sbb-menu', () => {
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).not.toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'closed');
   });
 
   it('closes on menu action click', async () => {
@@ -86,7 +84,6 @@ describe('sbb-menu', () => {
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
     const willCloseEventSpy = await page.spyOnEvent(events.willClose);
     const didCloseEventSpy = await page.spyOnEvent(events.didClose);
-    const dialog = await page.find('sbb-menu >>> dialog');
     const menuAction = await page.find('sbb-menu > sbb-menu-action');
 
     trigger.triggerEvent('click');
@@ -100,7 +97,7 @@ describe('sbb-menu', () => {
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'opened');
     expect(menuAction).not.toBeNull();
 
     menuAction.triggerEvent('click');
@@ -113,7 +110,7 @@ describe('sbb-menu', () => {
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
 
     await page.waitForChanges();
-    expect(dialog).not.toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'closed');
   });
 
   it('closes on interactive element click', async () => {
@@ -121,7 +118,6 @@ describe('sbb-menu', () => {
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
     const willCloseEventSpy = await page.spyOnEvent(events.willClose);
     const didCloseEventSpy = await page.spyOnEvent(events.didClose);
-    const dialog = await page.find('sbb-menu >>> dialog');
     const menuLink = await page.find('sbb-menu > sbb-link');
 
     trigger.triggerEvent('click');
@@ -135,7 +131,7 @@ describe('sbb-menu', () => {
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'opened');
     expect(menuLink).not.toBeNull();
 
     menuLink.triggerEvent('click');
@@ -149,14 +145,13 @@ describe('sbb-menu', () => {
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).not.toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'closed');
   });
 
   it('is correctly positioned on desktop', async () => {
     const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
     await page.setViewport({ width: 1200, height: 800 });
-    const dialog = await page.find('sbb-menu >>> dialog');
 
     trigger.triggerEvent('click');
     await page.waitForChanges();
@@ -169,7 +164,7 @@ describe('sbb-menu', () => {
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'opened');
 
     const buttonHeight = await page.evaluate(() =>
       getComputedStyle(document.documentElement).getPropertyValue(
@@ -185,15 +180,19 @@ describe('sbb-menu', () => {
     expect(await page.evaluate(() => document.querySelector('sbb-button').offsetTop)).toBe(0);
     expect(await page.evaluate(() => document.querySelector('sbb-button').offsetLeft)).toBe(0);
 
-    // Expect dialog offsetTop to be equal to the trigger height + the dialog offset (8px)
+    // Expect menu offsetTop to be equal to the trigger height + the menu offset (8px)
     expect(
       await page.evaluate(
-        () => document.querySelector('sbb-menu').shadowRoot.querySelector('dialog').offsetTop,
+        () =>
+          (document.querySelector('sbb-menu').shadowRoot.querySelector('.sbb-menu') as HTMLElement)
+            .offsetTop,
       ),
     ).toBe(buttonHeightPx + 8);
     expect(
       await page.evaluate(
-        () => document.querySelector('sbb-menu').shadowRoot.querySelector('dialog').offsetLeft,
+        () =>
+          (document.querySelector('sbb-menu').shadowRoot.querySelector('.sbb-menu') as HTMLElement)
+            .offsetLeft,
       ),
     ).toBe(0);
   });
@@ -203,7 +202,6 @@ describe('sbb-menu', () => {
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
 
     await page.setViewport({ width: 800, height: 600 });
-    const dialog = await page.find('sbb-menu >>> dialog');
 
     trigger.triggerEvent('click');
     await page.waitForChanges();
@@ -216,54 +214,26 @@ describe('sbb-menu', () => {
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'opened');
 
     const menuOffsetTop = await page.evaluate(
-      () => document.querySelector('sbb-menu').shadowRoot.querySelector('dialog').offsetTop,
+      () =>
+        (document.querySelector('sbb-menu').shadowRoot.querySelector('.sbb-menu') as HTMLElement)
+          .offsetTop,
     );
     const menuHeight = await page.evaluate(
-      () => document.querySelector('sbb-menu').shadowRoot.querySelector('dialog').offsetHeight,
+      () =>
+        (document.querySelector('sbb-menu').shadowRoot.querySelector('.sbb-menu') as HTMLElement)
+          .offsetHeight,
     );
     const pageHeight = await page.evaluate(() => window.innerHeight);
 
     expect(menuOffsetTop).toBe(pageHeight - menuHeight);
   });
 
-  it('sets the focus on the dialog content when the menu is opened by click', async () => {
-    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
-    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-    const dialog = await page.find('sbb-menu >>> dialog');
-
-    trigger.triggerEvent('click');
-    await page.waitForChanges();
-
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
-
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
-    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
-
-    expect(dialog).toHaveAttribute('open');
-
-    await page.waitForChanges();
-    expect(
-      await page.evaluate(
-        () => document.querySelector('sbb-menu').shadowRoot.activeElement.className,
-      ),
-    ).toBe('sbb-menu__content');
-
-    await page.keyboard.down('Tab');
-    await page.waitForChanges();
-
-    expect(await page.evaluate(() => document.activeElement.id)).toBe('menu-link');
-  });
-
   it('sets the focus to the first focusable element when the menu is opened by keyboard', async () => {
     const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-    const dialog = await page.find('sbb-menu >>> dialog');
 
     await page.keyboard.down('Tab');
     await page.waitForChanges();
@@ -279,7 +249,7 @@ describe('sbb-menu', () => {
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'opened');
 
     await page.waitForChanges();
     expect(await page.evaluate(() => document.activeElement.id)).toBe('menu-link');

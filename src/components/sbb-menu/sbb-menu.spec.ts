@@ -21,11 +21,11 @@ describe('sbb-menu', () => {
       <sbb-menu trigger="menu-trigger" data-state="closed" id="sbb-menu-1">
         <mock:shadow-root>
           <div class="sbb-menu__container">
-            <dialog class="sbb-menu" role="presentation">
+            <div class="sbb-menu" role="presentation">
               <div class="sbb-menu__content">
                 <slot></slot>
               </div>
-            </dialog>
+            </div>
           </div>
         </mock:shadow-root>
         <sbb-link href="https://www.sbb.ch/en" variant="block">
@@ -66,7 +66,7 @@ describe('sbb-menu', () => {
     <sbb-menu data-state="closed" id="sbb-menu-2" trigger="menu-trigger">
       <mock:shadow-root>
         <div class="sbb-menu__container">
-          <dialog class="sbb-menu" role="presentation">
+          <div class="sbb-menu" role="presentation">
             <div class="sbb-menu__content">
               <ul class="sbb-menu-list">
                 <li>
@@ -86,7 +86,7 @@ describe('sbb-menu', () => {
                 <slot></slot>
               </span>
             </div>
-          </dialog>
+          </div>
         </div>
       </mock:shadow-root>
       <sbb-menu-action icon="tick-small" slot="action-0">

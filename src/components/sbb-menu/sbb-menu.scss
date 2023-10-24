@@ -93,6 +93,7 @@
 }
 
 .sbb-menu {
+  display: none;
   opacity: 0;
   pointer-events: none;
   max-width: var(--sbb-menu-max-width);
@@ -110,22 +111,14 @@
   padding: 0;
   overflow: hidden;
 
-  :host([data-is-safari]) & {
+  :host(:not([data-state='closed'])) & {
     display: block;
-    visibility: hidden;
-  }
-
-  &[open] {
     opacity: 1;
     pointer-events: all;
     animation: {
       name: open;
       duration: var(--sbb-menu-animation-duration);
       timing-function: var(--sbb-menu-animation-easing);
-    }
-
-    :host([data-is-safari]) & {
-      visibility: visible;
     }
   }
 
@@ -146,7 +139,7 @@
     max-height: fit-content;
     border-radius: var(--sbb-menu-border-radius);
 
-    &[open] {
+    :host(:not([data-state='closed'])) & {
       top: var(--sbb-menu-position-y);
       left: var(--sbb-menu-position-x);
       max-height: var(--sbb-menu-max-height);
@@ -173,7 +166,7 @@
   @include sbb.mq($from: medium) {
     max-height: fit-content;
 
-    .sbb-menu[open] & {
+    :host(:not([data-state='closed'])) & {
       max-height: var(--sbb-menu-max-height);
       min-height: var(--sbb-menu-min-height);
     }

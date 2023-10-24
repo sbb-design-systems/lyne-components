@@ -1085,7 +1085,7 @@ export namespace Components {
          */
         "open": () => Promise<void>;
         /**
-          * The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element.
+          * The element that will trigger the menu overlay. Accepts both a string (id of an element) or an HTML element.
          */
         "trigger": string | HTMLElement;
     }
@@ -3881,7 +3881,7 @@ declare namespace LocalJSX {
          */
         "onWill-open"?: (event: SbbMenuCustomEvent<void>) => void;
         /**
-          * The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element.
+          * The element that will trigger the menu overlay. Accepts both a string (id of an element) or an HTML element.
          */
         "trigger"?: string | HTMLElement;
     }
