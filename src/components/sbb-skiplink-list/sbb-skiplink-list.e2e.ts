@@ -2,6 +2,7 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { waitForLitRender } from '../../global/testing';
 import { SbbSkiplinkList } from './sbb-skiplink-list';
+import '../sbb-skiplink-list';
 
 describe('sbb-skiplink-list', () => {
   /** NOTE: These are too hard to migrate and are prone to errors :/
@@ -10,7 +11,7 @@ describe('sbb-skiplink-list', () => {
   let element: SbbSkiplinkList;
 
   beforeEach(async () => {
-    await fixture(html`
+    element = await fixture(html`
       <sbb-skiplink-list>
         <sbb-link href="1">Link 1</sbb-link>
         <sbb-link href="2">Link 2</sbb-link>
@@ -18,7 +19,6 @@ describe('sbb-skiplink-list', () => {
       </sbb-skiplink-list>
       <button id="button">Focus me</button>
     `);
-    element = document.querySelector('sbb-skiplink-list');
   });
 
   it('renders', async () => {
@@ -26,8 +26,9 @@ describe('sbb-skiplink-list', () => {
   });
 
   it('should be visible on focus', async () => {
-    const listItemLinks = await page.findAll('sbb-skiplink-list >>> li');
-    expect(listItemLinks).toHaveLength(3);
+    const listItemLinks = await element.shadowRoot.querySelectorAll('li');
+    expect(listItemLinks).not.to.be.null;
+    expect(listItemLinks.length).to.be.equal(3);
 
     const getProperty = async (el: E2EElement, prop: string): Promise<string> => {
       return (await el.getComputedStyle()).getPropertyValue(prop);
