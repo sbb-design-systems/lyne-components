@@ -1151,10 +1151,6 @@ export namespace Components {
          */
         "accessibilityCloseLabel": string | undefined;
         /**
-          * This will be forwarded as aria-label to the dialog and is read as a title of the navigation.
-         */
-        "accessibilityLabel": string | undefined;
-        /**
           * Closes the navigation.
          */
         "close": () => Promise<void>;
@@ -3950,10 +3946,6 @@ declare namespace LocalJSX {
           * This will be forwarded as aria-label to the close button element.
          */
         "accessibilityCloseLabel"?: string | undefined;
-        /**
-          * This will be forwarded as aria-label to the dialog and is read as a title of the navigation.
-         */
-        "accessibilityLabel"?: string | undefined;
         /**
           * Whether the animation is enabled.
          */

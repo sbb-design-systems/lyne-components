@@ -61,11 +61,6 @@ export class SbbNavigation implements ComponentInterface {
   @Prop() public trigger: string | HTMLElement;
 
   /**
-   * This will be forwarded as aria-label to the dialog and is read as a title of the navigation.
-   */
-  @Prop() public accessibilityLabel: string | undefined;
-
-  /**
    * This will be forwarded as aria-label to the close button element.
    */
   @Prop() public accessibilityCloseLabel: string | undefined;
@@ -344,7 +339,7 @@ export class SbbNavigation implements ComponentInterface {
         id="sbb-navigation-close-button"
         class="sbb-navigation__close"
         aria-label={this.accessibilityCloseLabel || i18nCloseNavigation[this._currentLanguage]}
-        aria-controls="sbb-navigation-dialog-id"
+        aria-controls="sbb-navigation-dialog"
         variant="transparent"
         negative={true}
         size="m"
@@ -365,8 +360,7 @@ export class SbbNavigation implements ComponentInterface {
         <div class="sbb-navigation__container" aria-modal="true">
           <div
             ref={(navigationRef) => (this._navigation = navigationRef)}
-            id="sbb-navigation-dialog-id"
-            aria-label={this.accessibilityLabel}
+            id="sbb-navigation-dialog"
             onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
             class="sbb-navigation"
           >
