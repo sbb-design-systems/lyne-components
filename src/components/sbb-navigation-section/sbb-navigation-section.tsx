@@ -14,15 +14,9 @@ import {
   assignId,
   getFirstFocusableElement,
   getFocusableElements,
-  sbbInputModalityDetector,
+  setModalityOnNextFocus,
 } from '../../global/a11y';
-import {
-  findReferencedElement,
-  isBreakpoint,
-  isSafari,
-  isValidAttribute,
-  toggleDatasetEntry,
-} from '../../global/dom';
+import { findReferencedElement, isBreakpoint, isValidAttribute } from '../../global/dom';
 import {
   createNamedSlotState,
   documentLanguage,
@@ -42,7 +36,6 @@ let nextId = 0;
 /**
  * @slot unnamed - Use this to project any content inside the navigation section.
  */
-
 @Component({
   shadow: true,
   styleUrl: 'sbb-navigation-section.scss',
@@ -90,7 +83,7 @@ export class SbbNavigationSection implements ComponentInterface {
   @State() private _renderBackButton = this._isZeroToLargeBreakpoint();
 
   private _firstLevelNavigation: HTMLSbbNavigationElement;
-  private _navigationSection: HTMLDialogElement;
+  private _navigationSection: HTMLElement;
   private _navigationSectionContainerElement: HTMLElement;
   private _triggerElement: HTMLElement;
   private _navigationSectionController: AbortController;
@@ -117,7 +110,6 @@ export class SbbNavigationSection implements ComponentInterface {
     this._state = 'opening';
     this._element.inert = true;
     this._renderBackButton = this._isZeroToLargeBreakpoint();
-    this._navigationSection.show();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
   }
 
@@ -203,7 +195,6 @@ export class SbbNavigationSection implements ComponentInterface {
       this._navigationSectionContainerElement.scrollTo(0, 0);
       // Manually focus last focused element in order to avoid showing outline in Safari
       this._triggerElement?.focus();
-      this._navigationSection.close();
       this._windowEventsController?.abort();
       this._setNavigationInert();
       this._isZeroToLargeBreakpoint() && this._triggerElement?.focus();
@@ -275,23 +266,14 @@ export class SbbNavigationSection implements ComponentInterface {
 
   // Set focus on the first focusable element.
   private _setNavigationSectionFocus(): void {
-    if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-      getFirstFocusableElement(
-        Array.from(this._element.children).filter(
-          (e): e is HTMLElement => e instanceof window.HTMLElement,
-        ),
-      )?.focus();
-    } else {
-      // Focusing sbb-navigation__wrapper in order to provide a consistent behavior in Safari where else
-      // the focus-visible styles would be incorrectly applied
-      this._navigationSectionContainerElement.tabIndex = 0;
-      this._navigationSectionContainerElement.focus();
-
-      this._navigationSectionContainerElement.addEventListener(
-        'blur',
-        () => this._navigationSectionContainerElement.removeAttribute('tabindex'),
-        { once: true },
-      );
+    const firstFocusableElement = getFirstFocusableElement(
+      Array.from(this._element.children).filter(
+        (e): e is HTMLElement => e instanceof window.HTMLElement,
+      ),
+    );
+    if (firstFocusableElement) {
+      setModalityOnNextFocus(firstFocusableElement);
+      firstFocusableElement.focus();
     }
   }
 
@@ -339,10 +321,6 @@ export class SbbNavigationSection implements ComponentInterface {
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
     this._firstLevelNavigation = this._triggerElement?.closest('sbb-navigation');
-
-    // TODO: Remove if possible, related to https://bugs.chromium.org/p/chromium/issues/detail?id=1493323
-    // For Safari we need to keep the solution which doesn't work in Chrome as it seems mutual exclusive.
-    toggleDatasetEntry(this._element, 'isSafari', isSafari());
   }
 
   public disconnectedCallback(): void {
@@ -355,7 +333,7 @@ export class SbbNavigationSection implements ComponentInterface {
     const backButton = (
       <sbb-button
         class="sbb-navigation-section__back"
-        arial-label={this.accessibilityBackLabel || i18nGoBack[this._currentLanguage]}
+        aria-label={this.accessibilityBackLabel || i18nGoBack[this._currentLanguage]}
         variant="transparent"
         negative={true}
         size="m"
@@ -391,11 +369,10 @@ export class SbbNavigationSection implements ComponentInterface {
           class="sbb-navigation-section__container"
           ref={(el) => (this._navigationSectionContainerElement = el)}
         >
-          <dialog
+          <nav
             ref={(navigationSectionRef) => (this._navigationSection = navigationSectionRef)}
             onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
             class="sbb-navigation-section"
-            role="group"
             {...accessibilityAttributes}
           >
             <div class="sbb-navigation-section__wrapper">
@@ -409,7 +386,7 @@ export class SbbNavigationSection implements ComponentInterface {
                 <slot />
               </div>
             </div>
-          </dialog>
+          </nav>
         </div>
       </Host>
     );

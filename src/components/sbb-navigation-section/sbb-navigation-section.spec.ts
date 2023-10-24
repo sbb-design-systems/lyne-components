@@ -12,14 +12,14 @@ describe('sbb-navigation-section', () => {
         <sbb-navigation-section aria-hidden="true" slot="navigation-section" data-state="closed" id="sbb-navigation-section-1">
           <mock:shadow-root>
             <div class="sbb-navigation-section__container">
-              <dialog class="sbb-navigation-section" role="group" aria-labelledby="title">
+              <nav class="sbb-navigation-section" aria-labelledby="title">
                 <div class="sbb-navigation-section__wrapper">
                   <div class="sbb-navigation-section__content">
                     <sbb-divider class="sbb-navigation-section__divider" negative orientation="vertical"></sbb-divider>
                     <slot></slot>
                   </div>
                 </div>
-              </dialog>
+              </nav>
             </div>
           </mock:shadow-root>
         </sbb-navigation-section>

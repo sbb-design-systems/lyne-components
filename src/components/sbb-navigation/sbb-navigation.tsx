@@ -13,20 +13,12 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import {
-  FocusTrap,
-  IS_FOCUSABLE_QUERY,
-  assignId,
-  sbbInputModalityDetector,
-  setModalityOnNextFocus,
-} from '../../global/a11y';
+import { FocusTrap, IS_FOCUSABLE_QUERY, assignId, setModalityOnNextFocus } from '../../global/a11y';
 import {
   ScrollHandler,
   isValidAttribute,
   isBreakpoint,
   findReferencedElement,
-  isSafari,
-  toggleDatasetEntry,
 } from '../../global/dom';
 import {
   documentLanguage,
@@ -131,8 +123,7 @@ export class SbbNavigation implements ComponentInterface {
   })
   public didClose: EventEmitter<void>;
 
-  private _navigation: HTMLDialogElement;
-  private _navigationContainerElement: HTMLElement;
+  private _navigation: HTMLDivElement;
   private _navigationContentElement: HTMLElement;
   private _triggerElement: HTMLElement;
   private _navigationController: AbortController;
@@ -166,8 +157,6 @@ export class SbbNavigation implements ComponentInterface {
 
     // Disable scrolling for content below the dialog
     this._scrollHandler.disableScroll();
-    this._navigation.show();
-    this._setNavigationFocus();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
   }
 
@@ -237,12 +226,12 @@ export class SbbNavigation implements ComponentInterface {
       applyInertMechanism(this._element);
       this._focusTrap.trap(this._element, this._trapFocusFilter);
       this._attachWindowEvents();
+      this._setNavigationFocus();
     } else if (event.animationName === 'close' && this._state === 'closing') {
       this._state = 'closed';
       this._navigationContentElement.scrollTo(0, 0);
       setModalityOnNextFocus(this._triggerElement);
       removeInertMechanism();
-      this._navigation.close();
       // To enable focusing other element than the trigger, we need to call focus() a second time.
       this._triggerElement?.focus();
       this.didClose.emit();
@@ -287,24 +276,11 @@ export class SbbNavigation implements ComponentInterface {
 
   // Set focus on the first focusable element.
   private _setNavigationFocus(): void {
-    const firstFocusable = this._element.shadowRoot.querySelector(
-      IS_FOCUSABLE_QUERY,
+    const closeButton = this._element.shadowRoot.querySelector(
+      '#sbb-navigation-close-button',
     ) as HTMLElement;
-
-    if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-      firstFocusable.focus();
-    } else {
-      // Focusing sbb-navigation__wrapper in order to provide a consistent behavior in Safari where else
-      // the focus-visible styles would be incorrectly applied
-      this._navigationContainerElement.tabIndex = 0;
-      this._navigationContainerElement.focus();
-
-      this._navigationContainerElement.addEventListener(
-        'blur',
-        () => this._navigationContainerElement.removeAttribute('tabindex'),
-        { once: true },
-      );
-    }
+    setModalityOnNextFocus(closeButton);
+    closeButton.focus();
   }
 
   // Check if the pointerdown event target is triggered on the navigation.
@@ -314,7 +290,7 @@ export class SbbNavigation implements ComponentInterface {
       isEventOnElement(
         this._element
           .querySelector('sbb-navigation-section[data-state="opened"]')
-          ?.shadowRoot.querySelector('dialog') as HTMLElement,
+          ?.shadowRoot.querySelector('nav.sbb-navigation-section') as HTMLElement,
         event,
       );
   };
@@ -348,10 +324,6 @@ export class SbbNavigation implements ComponentInterface {
     this._configure(this.trigger);
     this._navigationObserver.observe(this._element, navigationObserverConfig);
 
-    // TODO: Remove if possible, related to https://bugs.chromium.org/p/chromium/issues/detail?id=1493323
-    // For Safari we need to keep the solution which doesn't work in Chrome as it seems mutual exclusive.
-    toggleDatasetEntry(this._element, 'isSafari', isSafari());
-
     if (this._state === 'opened') {
       applyInertMechanism(this._element);
     }
@@ -369,6 +341,7 @@ export class SbbNavigation implements ComponentInterface {
   public render(): JSX.Element {
     const closeButton = (
       <sbb-button
+        id="sbb-navigation-close-button"
         class="sbb-navigation__close"
         aria-label={this.accessibilityCloseLabel || i18nCloseNavigation[this._currentLanguage]}
         aria-controls="sbb-navigation-dialog-id"
@@ -389,17 +362,13 @@ export class SbbNavigation implements ComponentInterface {
         onPointerUp={(event) => this._closeOnBackdropClick(event)}
         onPointerDown={(event) => this._pointerDownListener(event)}
       >
-        <div
-          class="sbb-navigation__container"
-          ref={(el) => (this._navigationContainerElement = el)}
-        >
-          <dialog
+        <div class="sbb-navigation__container" aria-modal="true">
+          <div
             ref={(navigationRef) => (this._navigation = navigationRef)}
             id="sbb-navigation-dialog-id"
             aria-label={this.accessibilityLabel}
             onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
             class="sbb-navigation"
-            role="group"
           >
             <div class="sbb-navigation__header">{closeButton}</div>
             <div class="sbb-navigation__wrapper">
@@ -410,7 +379,7 @@ export class SbbNavigation implements ComponentInterface {
                 <slot />
               </div>
             </div>
-          </dialog>
+          </div>
           <slot name="navigation-section" />
         </div>
       </Host>

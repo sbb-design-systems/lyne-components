@@ -19,10 +19,11 @@ describe('sbb-navigation', () => {
     expect(root).toEqualHtml(`
         <sbb-navigation trigger="nav-trigger" role="navigation" data-state="closed" id="sbb-navigation-1">
           <mock:shadow-root>
-            <div class="sbb-navigation__container">
-              <dialog class="sbb-navigation" id="sbb-navigation-dialog-id" role="group">
+            <div class="sbb-navigation__container" aria-modal="true">
+              <div class="sbb-navigation" id="sbb-navigation-dialog-id">
                 <div class="sbb-navigation__header">
                   <sbb-button
+                    id="sbb-navigation-close-button"
                     aria-label="Close navigation"
                     aria-controls="sbb-navigation-dialog-id"
                     class="sbb-navigation__close"
@@ -39,7 +40,7 @@ describe('sbb-navigation', () => {
                     <slot></slot>
                   </div>
                 </div>
-              </dialog>
+              </div>
               <slot name="navigation-section"></slot>
             </div>
           </mock:shadow-root>
