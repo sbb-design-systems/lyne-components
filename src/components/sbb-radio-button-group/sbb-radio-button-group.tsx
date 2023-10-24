@@ -1,5 +1,3 @@
-import { InterfaceSbbRadioButtonGroupAttributes } from './sbb-radio-button-group.custom';
-import { RadioButtonStateChange } from '../sbb-radio-button/sbb-radio-button.custom';
 import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../global/a11y';
 import { toggleDatasetEntry } from '../../global/dom';
 import {
@@ -11,9 +9,10 @@ import {
 } from '../../global/eventing';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { SbbRadioButton } from '../sbb-radio-button/index';
+import { SbbRadioButton, SbbRadioButtonStateChange } from '../sbb-radio-button';
 import { setAttribute } from '../../global/dom';
 import Style from './sbb-radio-button-group.scss?lit&inline';
+import { SbbHorizontalFrom, SbbOrientation } from '../../global/types';
 
 /**
  * @slot unnamed - Use this to provide radio buttons within the group.
@@ -77,43 +76,43 @@ export class SbbRadioButtonGroup extends LitElement {
    * The value of the radio group.
    */
   @property()
-  public get value(): any | null | null {
+  public get value(): any | null {
     return this._value;
   }
-  public set value(value: any | null | null) {
+  public set value(value: any | null) {
     const oldValue = this._value;
     this._value = value;
     this._valueChanged(this._value);
     this.requestUpdate('value', oldValue);
   }
-  private _value: any | null | null = null;
+  private _value: any | null = null;
 
   /**
    * Size variant, either m or s.
    */
   @property()
-  public get size(): InterfaceSbbRadioButtonGroupAttributes['size'] {
+  public get size(): 's' | 'm' {
     return this._size;
   }
-  public set size(value: InterfaceSbbRadioButtonGroupAttributes['size']) {
+  public set size(value: 's' | 'm') {
     const oldValue = this._size;
     this._size = value;
     this._updateSize();
     this.requestUpdate('size', oldValue);
   }
-  private _size: InterfaceSbbRadioButtonGroupAttributes['size'] = 'm';
+  private _size: 's' | 'm' = 'm';
 
   /**
    * Overrides the behaviour of `orientation` property.
    */
   @property({ attribute: 'horizontal-from', reflect: true })
-  public horizontalFrom?: InterfaceSbbRadioButtonGroupAttributes['horizontalFrom'];
+  public horizontalFrom?: SbbHorizontalFrom;
 
   /**
    * Radio group's orientation, either horizontal or vertical.
    */
   @property({ reflect: true })
-  public orientation: InterfaceSbbRadioButtonGroupAttributes['orientation'] = 'horizontal';
+  public orientation: SbbOrientation = 'horizontal';
 
   /**
    * State of listed named slots, by indicating whether any element for a named slot is defined.
@@ -183,7 +182,7 @@ export class SbbRadioButtonGroup extends LitElement {
     const signal = this._abort.signal;
     this.addEventListener(
       'state-change',
-      (e: CustomEvent<RadioButtonStateChange>) => this._onRadioButtonSelect(e),
+      (e: CustomEvent<SbbRadioButtonStateChange>) => this._onRadioButtonSelect(e),
       {
         signal,
         passive: true,
@@ -200,7 +199,7 @@ export class SbbRadioButtonGroup extends LitElement {
     this._handlerRepository.disconnect();
   }
 
-  private _onRadioButtonSelect(event: CustomEvent<RadioButtonStateChange>): void {
+  private _onRadioButtonSelect(event: CustomEvent<SbbRadioButtonStateChange>): void {
     event.stopPropagation();
     if (event.detail.type !== 'checked') {
       return;

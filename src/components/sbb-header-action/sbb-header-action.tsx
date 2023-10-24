@@ -6,7 +6,6 @@ import {
   resolveRenderVariables,
   targetsNewWindow,
 } from '../../global/interfaces';
-import { InterfaceSbbHeaderActionAttributes } from './sbb-header-action.custom';
 import { toggleDatasetEntry, isBreakpoint } from '../../global/dom';
 import {
   documentLanguage,
@@ -22,6 +21,7 @@ import Style from './sbb-header-action.scss?lit&inline';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { spread } from '@open-wc/lit-helpers';
 import '../sbb-icon';
+import { SbbHorizontalFrom } from '../../global/types';
 
 /**
  * @slot icon - Slot used to render the action icon.
@@ -37,16 +37,16 @@ export class SbbHeaderAction extends LitElement implements LinkButtonProperties 
    * and hidden for all the others.
    */
   @property({ attribute: 'expand-from', reflect: true })
-  public get expandFrom(): InterfaceSbbHeaderActionAttributes['expandFrom'] {
+  public get expandFrom(): SbbHorizontalFrom {
     return this._expandFrom;
   }
-  public set expandFrom(value: InterfaceSbbHeaderActionAttributes['expandFrom']) {
+  public set expandFrom(value: SbbHorizontalFrom) {
     const oldValue = this._expandFrom;
     this._expandFrom = value;
     this._updateExpanded();
     this.requestUpdate('expandFrom', oldValue);
   }
-  private _expandFrom: InterfaceSbbHeaderActionAttributes['expandFrom'] = 'medium';
+  private _expandFrom: SbbHorizontalFrom = 'medium';
 
   /**
    * The icon name we want to use, choose from the small icon variants

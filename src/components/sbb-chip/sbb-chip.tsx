@@ -1,4 +1,3 @@
-import { InterfaceSbbChipAttributes } from './sbb-chip.custom';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import Style from './sbb-chip.scss?lit&inline';
@@ -12,11 +11,11 @@ export class SbbChip extends LitElement {
 
   /** Size of the chip. */
   @property({ reflect: true })
-  public size: InterfaceSbbChipAttributes['size'] = 'xxs';
+  public size: 's' | 'xs' | 'xxs' = 'xxs';
 
   /** Color of the chip. */
   @property({ reflect: true })
-  public color: InterfaceSbbChipAttributes['color'] = 'milk';
+  public color: 'milk' | 'charcoal' | 'white' | 'granite' = 'milk';
 
   protected override render(): TemplateResult {
     return html`

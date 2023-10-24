@@ -1,5 +1,3 @@
-import { CheckboxStateChange } from '../sbb-checkbox/sbb-checkbox.custom';
-import { RadioButtonStateChange } from '../sbb-radio-button/sbb-radio-button.custom';
 import {
   createNamedSlotState,
   HandlerRepository,
@@ -9,8 +7,8 @@ import {
 } from '../../global/eventing';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { SbbCheckbox } from '../sbb-checkbox';
-import { SbbRadioButton } from '../sbb-radio-button';
+import { type SbbCheckbox, SbbCheckboxStateChange } from '../sbb-checkbox';
+import { type SbbRadioButton, SbbRadioButtonStateChange } from '../sbb-radio-button';
 import { setAttribute } from '../../global/dom';
 import { ref } from 'lit/directives/ref.js';
 import Style from './sbb-selection-panel.scss?lit&inline';
@@ -24,7 +22,6 @@ import '../sbb-divider';
 @customElement('sbb-selection-panel')
 export class SbbSelectionPanel extends LitElement {
   public static override styles: CSSResult = Style;
-
   public static readonly events: Record<string, string> = {
     willOpen: 'will-open',
     didOpen: 'did-open',
@@ -99,7 +96,9 @@ export class SbbSelectionPanel extends LitElement {
     return this.querySelector('sbb-checkbox, sbb-radio-button') as SbbCheckbox | SbbRadioButton;
   }
 
-  private _onInputChange(event: CustomEvent<RadioButtonStateChange | CheckboxStateChange>): void {
+  private _onInputChange(
+    event: CustomEvent<SbbRadioButtonStateChange | SbbCheckboxStateChange>,
+  ): void {
     if (!this._state) {
       return;
     }
@@ -133,7 +132,8 @@ export class SbbSelectionPanel extends LitElement {
     const signal = this._abort.signal;
     this.addEventListener(
       'state-change',
-      (e: CustomEvent<RadioButtonStateChange | CheckboxStateChange>) => this._onInputChange(e),
+      (e: CustomEvent<SbbRadioButtonStateChange | SbbCheckboxStateChange>) =>
+        this._onInputChange(e),
       { signal, passive: true },
     );
     this._updateSelectionPanel();

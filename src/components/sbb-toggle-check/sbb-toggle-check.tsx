@@ -1,4 +1,3 @@
-import { InterfaceToggleCheckAttributes } from './sbb-toggle-check.custom';
 import { findShadowInput } from '../../global/dom';
 import {
   HandlerRepository,
@@ -34,7 +33,7 @@ export class SbbToggleCheck extends LitElement {
   @property({ reflect: true }) public name?: string;
 
   /** Size variant, either m or s. */
-  @property({ reflect: true }) public size: InterfaceToggleCheckAttributes['size'] = 's';
+  @property({ reflect: true }) public size: 'm' | 's' = 's';
 
   /** The svg name for the true state - default -> 'tick-small' */
   @property({ attribute: 'icon-name' }) public iconName = 'tick-small';
@@ -47,7 +46,7 @@ export class SbbToggleCheck extends LitElement {
 
   /** The label position relative to the toggle. Defaults to 'after' */
   @property({ attribute: 'label-position', reflect: true })
-  public labelPosition?: InterfaceToggleCheckAttributes['labelPosition'] = 'after';
+  public labelPosition?: 'before' | 'after' = 'after';
 
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.

@@ -1,7 +1,6 @@
-import { InterfaceAlertAttributes } from './sbb-alert.custom';
 import { i18nCloseAlert, i18nFindOutMore } from '../../global/i18n';
 import { LinkProperties, LinkTargetType } from '../../global/interfaces';
-import { TitleLevel } from '../sbb-title/sbb-title';
+import { TitleLevel } from '../sbb-title';
 import {
   documentLanguage,
   HandlerRepository,
@@ -39,7 +38,7 @@ export class SbbAlert extends LitElement implements LinkProperties {
   @property({ reflect: true, type: Boolean }) public readonly = false;
 
   /** You can choose between `m` or `l` size. */
-  @property({ reflect: true }) public size: InterfaceAlertAttributes['size'] = 'm';
+  @property({ reflect: true }) public size: 'm' | 'l' = 'm';
 
   /** Whether the fade in animation should be disabled. */
   @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation = false;

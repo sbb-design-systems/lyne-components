@@ -1,5 +1,3 @@
-import { InterfaceSbbToggleAttributes } from './sbb-toggle.custom';
-import { ToggleOptionStateChange } from '../sbb-toggle-option/sbb-toggle-option.custom';
 import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../global/a11y';
 import { toggleDatasetEntry } from '../../global/dom';
 import { AgnosticResizeObserver } from '../../global/observers';
@@ -10,6 +8,12 @@ import { SbbToggleOption } from '../sbb-toggle-option';
 import { setAttribute } from '../../global/dom';
 import { ref } from 'lit/directives/ref.js';
 import Style from './sbb-toggle.scss?lit&inline';
+import { SbbCheckedStateChange, SbbStateChange, SbbValueStateChange } from '../../global/types';
+
+export type SbbToggleStateChange = Extract<
+  SbbStateChange,
+  SbbValueStateChange | SbbCheckedStateChange
+>;
 
 /**
  * @slot unnamed - Slot used to render the `<sbb-toggle-option>`.
@@ -45,7 +49,7 @@ export class SbbToggle extends LitElement {
   /**
    * Size variant, either m or s.
    */
-  @property({ reflect: true }) public size?: InterfaceSbbToggleAttributes['size'] = 'm';
+  @property({ reflect: true }) public size?: 'm' | 's' = 'm';
 
   /**
    * The value of the toggle. It needs to be mutable since it is updated whenever
@@ -117,7 +121,7 @@ export class SbbToggle extends LitElement {
   }
   private _abort = new ConnectedAbortController(this);
 
-  private _handleStateChange(event: CustomEvent<ToggleOptionStateChange>): void {
+  private _handleStateChange(event: CustomEvent<SbbToggleStateChange>): void {
     const target: SbbToggleOption = event.target as SbbToggleOption;
     event.stopPropagation();
     if (event.detail.type === 'value') {
@@ -168,7 +172,7 @@ export class SbbToggle extends LitElement {
     this.addEventListener('input', () => this._handleInput(), { signal, passive: true });
     this.addEventListener(
       'state-change',
-      (e) => this._handleStateChange(e as CustomEvent<ToggleOptionStateChange>),
+      (e) => this._handleStateChange(e as CustomEvent<SbbToggleStateChange>),
       {
         signal,
         passive: true,

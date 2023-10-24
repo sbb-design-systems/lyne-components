@@ -6,7 +6,7 @@ import {
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';
-import { SbbNavigationAction } from '../sbb-navigation-action/index';
+import { SbbNavigationAction } from '../sbb-navigation-action';
 import { setAttribute } from '../../global/dom';
 import Style from './sbb-navigation-list.scss?lit&inline';
 

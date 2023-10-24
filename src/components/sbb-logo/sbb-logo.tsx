@@ -1,7 +1,7 @@
-import { InterfaceLogoAttributes } from './sbb-logo.custom';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import Style from './sbb-logo.scss?lit&inline';
+import { SbbProtectiveRoom } from '../../global/types';
 
 @customElement('sbb-logo')
 export class SbbLogo extends LitElement {
@@ -12,7 +12,7 @@ export class SbbLogo extends LitElement {
 
   /** Visual protective room around logo. */
   @property({ attribute: 'protective-room', reflect: true })
-  public protectiveRoom?: InterfaceLogoAttributes['protectiveRoom'] = 'ideal';
+  public protectiveRoom?: SbbProtectiveRoom = 'ideal';
 
   /** Accessibility label which will be forwarded to the SVG logo. */
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel = 'Logo';

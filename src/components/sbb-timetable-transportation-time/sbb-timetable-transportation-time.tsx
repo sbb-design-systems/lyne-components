@@ -1,5 +1,3 @@
-import { InterfaceTimetableTransportationTimeAttributes } from './sbb-timetable-transportation-time.custom';
-
 import { i18nArrival, i18nDeparture } from '../../global/i18n';
 import {
   documentLanguage,
@@ -9,6 +7,7 @@ import {
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import Style from './sbb-timetable-transportation-time.scss?lit&inline';
+import { SbbTimetableAppearance } from '../../global/types';
 
 @customElement('sbb-timetable-transportation-time')
 export class SbbTimetableTransportationTime extends LitElement {
@@ -19,7 +18,7 @@ export class SbbTimetableTransportationTime extends LitElement {
    * the component.
    */
   @property()
-  public appearance?: InterfaceTimetableTransportationTimeAttributes['appearance'] = 'first-level';
+  public appearance?: SbbTimetableAppearance = 'first-level';
 
   /**
    * Stringified JSON which defines most of the

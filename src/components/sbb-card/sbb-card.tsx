@@ -1,4 +1,3 @@
-import { InterfaceSbbCardAttributes } from './sbb-card.custom';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import Style from './sbb-card.scss?lit&inline';
@@ -13,10 +12,14 @@ export class SbbCard extends LitElement {
   public static override styles: CSSResult = Style;
 
   /** Size variant, either xs, s, m, l, xl, xxl or xxxl. */
-  @property({ reflect: true }) public size?: InterfaceSbbCardAttributes['size'] = 'm';
+  @property({ reflect: true }) public size?: 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl' | 'xxxl' = 'm';
 
   /** Option to set the component's background color. */
-  @property({ reflect: true }) public color: InterfaceSbbCardAttributes['color'] = 'white';
+  @property({ reflect: true }) public color:
+    | 'white'
+    | 'milk'
+    | 'transparent-bordered'
+    | 'transparent-bordered-dashed' = 'white';
 
   /**
    * It is used internally to show the `<sbb-card-badge>`.

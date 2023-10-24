@@ -1,4 +1,3 @@
-import { InterfaceSbbLoadingIndicatorAttributes } from './sbb-loading-indicator.custom';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { setAttribute } from '../../global/dom';
@@ -9,14 +8,13 @@ export class SbbLoadingIndicator extends LitElement {
   public static override styles: CSSResult = Style;
 
   /** Variant of the loading indicator; `circle` is meant to be used inline, while `window` as overlay. */
-  @property({ reflect: true }) public variant?: InterfaceSbbLoadingIndicatorAttributes['variant'];
+  @property({ reflect: true }) public variant?: 'window' | 'circle';
 
   /** Size variant, either s or m. */
-  @property({ reflect: true }) public size: InterfaceSbbLoadingIndicatorAttributes['size'] = 's';
+  @property({ reflect: true }) public size: 's' | 'l' = 's';
 
   /** Color variant. */
-  @property({ reflect: true }) public color: InterfaceSbbLoadingIndicatorAttributes['color'] =
-    'default';
+  @property({ reflect: true }) public color: 'default' | 'smoke' | 'white' = 'default';
 
   /** Whether the animation is enabled. */
   @property({ attribute: 'disable-animation', reflect: true, type: Boolean })

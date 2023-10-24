@@ -25,7 +25,6 @@ import {
   i18nYearMonthSelection,
 } from '../../global/i18n';
 import { setAttribute } from '../../global/dom';
-import { CalendarView, Day, Month, Weekday } from './sbb-calendar.custom';
 import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -44,7 +43,7 @@ import '../sbb-icon';
  * the element index instead goes from 0 to a max value of 24 for years and 31 for days.
  * Moreover, in day view, the index of the first day of the second rendered month and the index of the last rendered day
  * can also vary depending on which months are rendered; for July-August they are equals to 31 and 61, while for February-March they are 28 and 58.
- * So, some additional parameters are needed, besides the cell's index, to correctly calculate the element to navigate to.
+ * So, some additional parameters are needed, beside the cell's index, to correctly calculate the element to navigate to.
  */
 interface CalendarKeyboardNavigationParameters {
   /** The element index within its month (or year range). */
@@ -56,6 +55,26 @@ interface CalendarKeyboardNavigationParameters {
   /** The number of cells displayed in a single row, depending on the rendered view. */
   verticalOffset: number;
 }
+
+export interface Day {
+  value: string;
+  dayValue: string;
+  monthValue: string;
+  yearValue: string;
+}
+
+export interface Month {
+  value: string;
+  longValue: string;
+  monthValue: number;
+}
+
+export interface Weekday {
+  long: string;
+  narrow: string;
+}
+
+export type CalendarView = 'day' | 'month' | 'year';
 
 @customElement('sbb-calendar')
 export class SbbCalendar extends LitElement {

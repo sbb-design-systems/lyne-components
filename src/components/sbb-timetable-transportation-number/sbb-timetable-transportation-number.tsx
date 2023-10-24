@@ -1,8 +1,8 @@
 import icons from '../../global/timetable/icons.json';
-import { InterfaceTimetableTransportationNumberAttributes } from './sbb-timetable-transportation-number.custom';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import Style from './sbb-timetable-transportation-number.scss?lit&inline';
+import { SbbTimetableAppearance } from '../../global/types';
 
 @customElement('sbb-timetable-transportation-number')
 export class SbbTimetableTransportationNumber extends LitElement {
@@ -13,8 +13,7 @@ export class SbbTimetableTransportationNumber extends LitElement {
    * the component.
    */
   @property()
-  public appearance?: InterfaceTimetableTransportationNumberAttributes['appearance'] =
-    'first-level';
+  public appearance?: SbbTimetableAppearance = 'first-level';
 
   /**
    * Stringified JSON which defines most of the

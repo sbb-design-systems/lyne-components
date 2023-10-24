@@ -1,4 +1,3 @@
-import { InterfaceSbbTabGroupTab } from './sbb-tab-group.custom';
 import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../global/a11y';
 import { isValidAttribute, hostContext, toggleDatasetEntry } from '../../global/dom';
 import { throttle, EventEmitter, ConnectedAbortController } from '../../global/eventing';
@@ -9,6 +8,23 @@ import { SbbTabTitle } from '../sbb-tab-title';
 import { setAttribute } from '../../global/dom';
 import { ref } from 'lit/directives/ref.js';
 import Style from './sbb-tab-group.scss?lit&inline';
+
+export interface InterfaceSbbTabGroupActions {
+  activate(): void;
+  deactivate(): void;
+  enable(): void;
+  disable(): void;
+  select(): void;
+}
+
+export interface InterfaceSbbTabGroupTab extends HTMLElement {
+  active?: boolean;
+  disabled?: boolean;
+  relatedContent?: HTMLElement;
+  index?: number;
+  tabGroupActions?: InterfaceSbbTabGroupActions;
+  size: 'l' | 'xl';
+}
 
 const tabObserverConfig: MutationObserverInit = {
   attributeFilter: ['active', 'disabled'],

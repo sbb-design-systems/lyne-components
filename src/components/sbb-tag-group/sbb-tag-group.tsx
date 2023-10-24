@@ -1,8 +1,7 @@
-import { TagStateChange } from '../sbb-tag/sbb-tag.custom';
 import { CSSResult, html, LitElement, TemplateResult, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ConnectedAbortController } from '../../global/eventing';
-import { SbbTag } from '../sbb-tag';
+import { SbbTag, SbbTagStateChange } from '../sbb-tag';
 import { setAttribute } from '../../global/dom';
 import Style from './sbb-tag-group.scss?lit&inline';
 
@@ -94,7 +93,7 @@ export class SbbTagGroup extends LitElement {
       .forEach((tag) => (tag.checked = false));
   }
 
-  private _handleStateChange(event: CustomEvent<TagStateChange>): void {
+  private _handleStateChange(event: CustomEvent<SbbTagStateChange>): void {
     const target = event.target as SbbTag;
     event.stopPropagation();
 
@@ -124,7 +123,7 @@ export class SbbTagGroup extends LitElement {
     const signal = this._abort.signal;
     this.addEventListener(
       'state-change',
-      (e: CustomEvent<TagStateChange>) => this._handleStateChange(e),
+      (e: CustomEvent<SbbTagStateChange>) => this._handleStateChange(e),
       {
         signal,
         passive: true,

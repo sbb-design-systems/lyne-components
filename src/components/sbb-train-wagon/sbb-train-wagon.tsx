@@ -1,4 +1,3 @@
-import { InterfaceSbbTrainWagonAttributes } from './sbb-train-wagon.custom';
 import {
   i18nAdditionalWagonInformationHeading,
   i18nBlockedPassage,
@@ -35,10 +34,10 @@ export class SbbTrainWagon extends LitElement {
   } as const;
 
   /** Wagon type. */
-  @property({ reflect: true }) public type: InterfaceSbbTrainWagonAttributes['type'] = 'wagon';
+  @property({ reflect: true }) public type: 'locomotive' | 'closed' | 'wagon' = 'wagon';
 
   /** Occupancy of a wagon. */
-  @property() public occupancy?: InterfaceSbbTrainWagonAttributes['occupancy'] = 'unknown';
+  @property() public occupancy?: 'high' | 'medium' | 'low' | 'unknown' = 'unknown';
 
   /** Sector in which to wagon stops. */
   @property({ reflect: true })
@@ -55,7 +54,7 @@ export class SbbTrainWagon extends LitElement {
 
   /** Accessibility text for blocked passages of the wagon. */
   @property({ attribute: 'blocked-passage' })
-  public blockedPassage: InterfaceSbbTrainWagonAttributes['blockedPassage'] = 'none';
+  public blockedPassage: 'previous' | 'next' | 'both' | 'none' = 'none';
 
   /** Visible class label of a wagon. */
   @property({ attribute: 'wagon-class' }) public wagonClass?: '1' | '2';

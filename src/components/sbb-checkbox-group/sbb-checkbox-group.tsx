@@ -1,4 +1,3 @@
-import { InterfaceSbbCheckboxGroupAttributes } from './sbb-checkbox-group.custom';
 import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../global/a11y';
 import { toggleDatasetEntry, isValidAttribute } from '../../global/dom';
 import {
@@ -11,6 +10,7 @@ import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } 
 import { customElement, property, state } from 'lit/decorators.js';
 import { SbbCheckbox } from '../sbb-checkbox';
 import Style from './sbb-checkbox-group.scss?lit&inline';
+import { SbbHorizontalFrom, SbbOrientation } from '../../global/types';
 
 /**
  * @slot unnamed - Slot used to render the <sbb-checkbox> inside the <sbb-checkbox-group>.
@@ -27,15 +27,15 @@ export class SbbCheckboxGroup extends LitElement {
   @property({ type: Boolean }) public required = false;
 
   /** Size variant, either m or s. */
-  @property() public size: InterfaceSbbCheckboxGroupAttributes['size'] = 'm';
+  @property() public size: 'm' | 's' = 'm';
 
   /** Overrides the behaviour of `orientation` property. */
   @property({ attribute: 'horizontal-from', reflect: true })
-  public horizontalFrom?: InterfaceSbbCheckboxGroupAttributes['horizontalFrom'];
+  public horizontalFrom?: SbbHorizontalFrom;
 
   /** Indicates the orientation of the checkboxes inside the `<sbb-checkbox-group>`. */
   @property({ reflect: true })
-  public orientation: InterfaceSbbCheckboxGroupAttributes['orientation'] = 'horizontal';
+  public orientation: SbbOrientation = 'horizontal';
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @state() private _namedSlots = createNamedSlotState('error');

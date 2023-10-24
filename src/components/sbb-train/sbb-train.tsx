@@ -1,4 +1,3 @@
-import { InterfaceSbbTrainAttributes } from './sbb-train.custom';
 import { i18nTrain, i18nWagonsLabel } from '../../global/i18n';
 import { TitleLevel } from '../sbb-title';
 import {
@@ -38,7 +37,7 @@ export class SbbTrain extends LitElement {
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel?: string;
 
   /** Controls the direction indicator to show the arrow left or right. Default is left.  */
-  @property({ reflect: true }) public direction: InterfaceSbbTrainAttributes['direction'] = 'left';
+  @property({ reflect: true }) public direction: 'left' | 'right' = 'left';
 
   @state() private _wagons: (SbbTrainBlockedPassage | SbbTrainWagon)[];
 

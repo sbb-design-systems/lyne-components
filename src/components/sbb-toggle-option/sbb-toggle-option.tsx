@@ -9,8 +9,7 @@ import {
   namedSlotChangeHandlerAspect,
 } from '../../global/eventing';
 import '../sbb-icon';
-import { SbbToggle } from '../sbb-toggle';
-import { ToggleOptionStateChange } from './sbb-toggle-option.custom';
+import { SbbToggle, SbbToggleStateChange } from '../sbb-toggle';
 import Style from './sbb-toggle-option.scss?lit&inline';
 
 /**
@@ -100,7 +99,7 @@ export class SbbToggleOption extends LitElement {
    * in relation to the parent toggle changes.
    */
 
-  private _stateChange: EventEmitter<ToggleOptionStateChange> = new EventEmitter(
+  private _stateChange: EventEmitter<SbbToggleStateChange> = new EventEmitter(
     this,
     SbbToggleOption.events.stateChange,
     { bubbles: true },

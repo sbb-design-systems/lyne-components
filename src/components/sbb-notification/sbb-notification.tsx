@@ -9,7 +9,6 @@ import {
   EventEmitter,
 } from '../../global/eventing';
 import { AgnosticResizeObserver } from '../../global/observers';
-import { InterfaceNotificationAttributes } from './sbb-notification.custom';
 import { toggleDatasetEntry } from '../../global/dom';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
@@ -42,7 +41,7 @@ export class SbbNotification extends LitElement {
   /**
    * The type of the notification.
    */
-  @property({ reflect: true }) public type?: InterfaceNotificationAttributes['type'] = 'info';
+  @property({ reflect: true }) public type?: 'info' | 'success' | 'warn' | 'error' = 'info';
 
   /**
    * Content of title.

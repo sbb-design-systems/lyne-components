@@ -1,7 +1,7 @@
 import {
   InterfaceImageAttributes,
   InterfaceImageAttributesSizesConfigBreakpoint,
-} from './sbb-image.custom';
+} from './sbb-image.helper';
 import imageHelperGetBreakpoints from './sbb-image.helper';
 import { hostContext } from '../../global/dom';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';

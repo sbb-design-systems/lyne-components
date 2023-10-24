@@ -1,6 +1,6 @@
 import { waitForLitRender } from '../../global/testing';
 import { SbbJourneySummary } from './sbb-journey-summary';
-import { InterfaceSbbJourneySummaryAttributes } from './sbb-journey-summary.custom';
+import { InterfaceSbbJourneySummaryAttributes } from './sbb-journey-summary';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import './sbb-journey-summary';
