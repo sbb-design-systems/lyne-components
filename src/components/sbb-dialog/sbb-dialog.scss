@@ -27,11 +27,6 @@
   --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s) 0;
   --sbb-dialog-footer-border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default);
 
-  // We use this rule to make the inner container element to appear as if it were a
-  // direct child of the host's parent element. This is useful because the host
-  // should be ignored when using CSS grid or similar layout techniques.
-  display: contents;
-
   @include sbb.mq($from: micro) {
     --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-6x);
   }
@@ -120,6 +115,10 @@
 }
 
 .sbb-dialog {
+  display: none;
+  position: absolute;
+  inset-inline: 0;
+  margin: auto;
   padding: 0;
   border: none;
   width: var(--sbb-dialog-width);
@@ -130,15 +129,13 @@
   color: var(--sbb-dialog-color);
   background-color: var(--sbb-dialog-background-color);
 
-  &[open] {
+  :host(:not([data-state='closed'])) & {
+    display: block;
+
     animation: {
       name: open;
       duration: var(--sbb-dialog-animation-duration);
       timing-function: ease;
-    }
-
-    :host([data-is-safari]) & {
-      animation-name: open-safari;
     }
   }
 
@@ -149,10 +146,6 @@
   :host([data-state='closing']) & {
     pointer-events: none;
     animation-name: close;
-  }
-
-  :host([data-state='closing'][data-is-safari]) & {
-    animation-name: close-safari;
   }
 
   @include sbb.if-forced-colors {
@@ -280,34 +273,6 @@
   }
 
   to {
-    opacity: 0;
-    transform: translateY(var(--sbb-spacing-fixed-4x));
-  }
-}
-
-@keyframes open-safari {
-  from {
-    visibility: hidden;
-    opacity: 0;
-    transform: translateY(var(--sbb-spacing-fixed-4x));
-  }
-
-  to {
-    visibility: visible;
-    opacity: 1;
-    transform: translateY(0%);
-  }
-}
-
-@keyframes close-safari {
-  from {
-    visibility: visible;
-    opacity: 1;
-    transform: translateY(0%);
-  }
-
-  to {
-    visibility: hidden;
     opacity: 0;
     transform: translateY(var(--sbb-spacing-fixed-4x));
   }

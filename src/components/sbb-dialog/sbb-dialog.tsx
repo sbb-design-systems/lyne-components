@@ -13,19 +13,8 @@ import {
 } from '@stencil/core';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import { i18nCloseDialog, i18nGoBack } from '../../global/i18n';
-import {
-  FocusTrap,
-  IS_FOCUSABLE_QUERY,
-  sbbInputModalityDetector,
-  setModalityOnNextFocus,
-} from '../../global/a11y';
-import {
-  ScrollHandler,
-  toggleDatasetEntry,
-  isValidAttribute,
-  hostContext,
-  isSafari,
-} from '../../global/dom';
+import { FocusTrap, IS_FOCUSABLE_QUERY, setModalityOnNextFocus } from '../../global/a11y';
+import { ScrollHandler, toggleDatasetEntry, isValidAttribute, hostContext } from '../../global/dom';
 import {
   createNamedSlotState,
   documentLanguage,
@@ -168,7 +157,7 @@ export class SbbDialog implements ComponentInterface {
   })
   public backClick: EventEmitter<void>;
 
-  private _dialog: HTMLDialogElement;
+  private _dialog: HTMLDivElement;
   private _dialogWrapperElement: HTMLElement;
   private _dialogContentElement: HTMLElement;
   private _dialogCloseElement: HTMLElement;
@@ -202,7 +191,6 @@ export class SbbDialog implements ComponentInterface {
     this._lastFocusedElement = document.activeElement as HTMLElement;
     this.willOpen.emit();
     this._state = 'opening';
-    this._dialog.show();
     // Add this dialog to the global collection
     dialogRefs.push(this._element as HTMLSbbDialogElement);
     this._setOverflowAttribute();
@@ -249,10 +237,6 @@ export class SbbDialog implements ComponentInterface {
     this._element.addEventListener('pointerup', this._closeOnBackdropClick, {
       signal: this._dialogController.signal,
     });
-
-    // TODO: Remove if possible, related to https://bugs.chromium.org/p/chromium/issues/detail?id=1493323
-    // For Safari we need to keep the solution which doesn't work in Chrome as it seems mutual exclusive.
-    toggleDatasetEntry(this._element, 'isSafari', isSafari());
 
     if (this._state === 'opened') {
       applyInertMechanism(this._element);
@@ -326,10 +310,7 @@ export class SbbDialog implements ComponentInterface {
   // In rare cases it can be that the animationEnd event is triggered twice.
   // To avoid entering a corrupt state, exit when state is not expected.
   private _onDialogAnimationEnd(event: AnimationEvent): void {
-    if (
-      (event.animationName === 'open' || event.animationName === 'open-safari') &&
-      this._state === 'opening'
-    ) {
+    if (event.animationName === 'open' && this._state === 'opening') {
       this._state = 'opened';
       this.didOpen.emit();
       applyInertMechanism(this._element);
@@ -337,16 +318,12 @@ export class SbbDialog implements ComponentInterface {
       this._focusTrap.trap(this._element);
       this._dialogContentResizeObserver.observe(this._dialogContentElement);
       this._attachWindowEvents();
-    } else if (
-      (event.animationName === 'close' || event.animationName === 'close-safari') &&
-      this._state === 'closing'
-    ) {
+    } else if (event.animationName === 'close' && this._state === 'closing') {
       this._state = 'closed';
       this._dialogWrapperElement.querySelector('.sbb-dialog__content').scrollTo(0, 0);
-      setModalityOnNextFocus(this._lastFocusedElement);
       removeInertMechanism();
-      this._dialog.close();
-      // Manually focus last focused element in order to avoid showing outline in Safari
+      setModalityOnNextFocus(this._lastFocusedElement);
+      // Manually focus last focused element
       this._lastFocusedElement?.focus();
       this.didClose.emit({ returnValue: this._returnValue, closeTarget: this._dialogCloseElement });
       this._windowEventsController?.abort();
@@ -363,21 +340,8 @@ export class SbbDialog implements ComponentInterface {
     const firstFocusable = this._element.shadowRoot.querySelector(
       IS_FOCUSABLE_QUERY,
     ) as HTMLElement;
-
-    if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-      firstFocusable.focus();
-    } else {
-      // Focusing sbb-dialog__wrapper in order to provide a consistent behavior in Safari where else
-      // the focus-visible styles would be incorrectly applied
-      this._dialogWrapperElement.tabIndex = 0;
-      this._dialogWrapperElement.focus();
-
-      this._dialogWrapperElement.addEventListener(
-        'blur',
-        () => this._dialogWrapperElement.removeAttribute('tabindex'),
-        { once: true },
-      );
-    }
+    setModalityOnNextFocus(firstFocusable);
+    firstFocusable.focus();
   }
 
   private _setOverflowAttribute(): void {
@@ -451,7 +415,7 @@ export class SbbDialog implements ComponentInterface {
     return (
       <Host data-fullscreen={!hasTitle}>
         <div class="sbb-dialog__container">
-          <dialog
+          <div
             ref={(dialogRef) => (this._dialog = dialogRef)}
             onAnimationEnd={(event: AnimationEvent) => this._onDialogAnimationEnd(event)}
             class="sbb-dialog"
@@ -474,7 +438,7 @@ export class SbbDialog implements ComponentInterface {
               </div>
               {hasActionGroup && dialogFooter}
             </div>
-          </dialog>
+          </div>
         </div>
       </Host>
     );

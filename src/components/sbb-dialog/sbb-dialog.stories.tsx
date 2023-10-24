@@ -50,7 +50,7 @@ const negative: InputType = {
   },
 };
 
-const accessibilityLabel: InputType = {
+const ariaLabel: InputType = {
   control: {
     type: 'text',
   },
@@ -95,7 +95,7 @@ const basicArgTypes: ArgTypes = {
   'title-level': titleLevel,
   'title-back-button': titleBackButton,
   negative,
-  'accessibility-label': accessibilityLabel,
+  'aria-label': ariaLabel,
   'accessibility-close-label': accessibilityCloseLabel,
   'accessibility-back-label': accessibilityBackLabel,
   'disable-animation': disableAnimation,
@@ -107,7 +107,7 @@ const basicArgs: Args = {
   'title-level': undefined,
   'title-back-button': true,
   negative: false,
-  'accessibility-label': undefined,
+  'aria-label': undefined,
   'accessibility-close-label': undefined,
   'accessibility-back-label': undefined,
   'disable-animation': isChromatic(),
