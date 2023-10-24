@@ -65,7 +65,7 @@ describe('sbb-selection-panel', () => {
 
     elements.forEach((e) => {
       const panel = e.shadowRoot.querySelector('.sbb-selection-panel__content--wrapper');
-      expect(panel).to.have.attribute('data-expanded', 'true');
+      expect(panel).to.have.attribute('data-expanded', '');
     });
 
     expect(secondInput).not.to.have.attribute('checked');
@@ -74,24 +74,6 @@ describe('sbb-selection-panel', () => {
     await waitForLitRender(wrapper);
     expect(secondInput).to.have.attribute('checked');
     expect(secondContent).to.have.attribute('data-expanded');
-  };
-
-  const eventOnInputChange = async (wrapper, firstInput, secondInput): Promise<void> => {
-    const changeSpy = new EventSpy('change');
-    const inputSpy = new EventSpy('input');
-
-    secondInput.click();
-    await waitForLitRender(wrapper);
-    expect(secondInput).to.have.attribute('checked');
-    expect(changeSpy.count).to.be.equal(1);
-    expect(inputSpy.count).to.be.equal(1);
-
-    firstInput.click();
-    await waitForLitRender(wrapper);
-    expect(secondInput).not.to.have.attribute('checked');
-    expect(firstInput).to.have.attribute('checked');
-    expect(changeSpy.count).to.be.equal(2);
-    expect(inputSpy.count).to.be.equal(2);
   };
 
   const preservesDisabled = async (wrapper, disabledInput, secondInput): Promise<void> => {
@@ -164,19 +146,19 @@ describe('sbb-selection-panel', () => {
       assert.instanceOf(firstPanel, SbbSelectionPanel);
       assert.instanceOf(firstInput, SbbRadioButton);
       expect(firstInput).not.to.have.attribute('checked');
-      expect(firstContent).to.have.attribute('data-expanded', 'false');
+      expect(firstContent).not.to.have.attribute('data-expanded');
 
       assert.instanceOf(secondPanel, SbbSelectionPanel);
       assert.instanceOf(secondInput, SbbRadioButton);
       expect(secondInput).not.to.have.attribute('checked');
-      expect(secondContent).to.have.attribute('data-expanded', 'false');
+      expect(secondContent).not.to.have.attribute('data-expanded');
 
       secondInput.click();
       await waitForLitRender(wrapper);
       expect(firstInput).not.to.have.attribute('checked');
-      expect(firstContent).to.have.attribute('data-expanded', 'false');
+      expect(firstContent).not.to.have.attribute('data-expanded');
       expect(secondInput).to.have.attribute('checked');
-      expect(secondContent).to.have.attribute('data-expanded', 'true');
+      expect(secondContent).to.have.attribute('data-expanded', '');
     });
 
     it('always displays related content with forceOpen', async () => {
@@ -377,19 +359,19 @@ describe('sbb-selection-panel', () => {
       assert.instanceOf(firstPanel, SbbSelectionPanel);
       assert.instanceOf(firstInput, SbbCheckbox);
       expect(firstInput).to.have.attribute('checked');
-      expect(firstContent).to.have.attribute('data-expanded', 'true');
+      expect(firstContent).to.have.attribute('data-expanded', '');
 
       assert.instanceOf(secondPanel, SbbSelectionPanel);
       assert.instanceOf(secondInput, SbbCheckbox);
       expect(secondInput).not.to.have.attribute('checked');
-      expect(secondContent).to.have.attribute('data-expanded', 'false');
+      expect(secondContent).not.to.have.attribute('data-expanded');
 
       secondInput.click();
       await waitForLitRender(wrapper);
       expect(firstInput).to.have.attribute('checked');
-      expect(firstContent).to.have.attribute('data-expanded', 'true');
+      expect(firstContent).to.have.attribute('data-expanded', '');
       expect(secondInput).to.have.attribute('checked');
-      expect(secondContent).to.have.attribute('data-expanded', 'true');
+      expect(secondContent).to.have.attribute('data-expanded', '');
     });
 
     it('deselects input on click and hides related content', async () => {
@@ -399,7 +381,7 @@ describe('sbb-selection-panel', () => {
       firstInput.click();
       await waitForLitRender(wrapper);
       expect(firstInput).not.to.have.attribute('checked');
-      expect(firstContent).to.have.attribute('data-expanded', 'false');
+      expect(firstContent).not.to.have.attribute('data-expanded');
     });
 
     it('always displays related content with forceOpen', async () => {

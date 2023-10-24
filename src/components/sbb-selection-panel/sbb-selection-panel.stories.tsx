@@ -1,11 +1,11 @@
 /** @jsx h */
-import events from './sbb-selection-panel.events';
 import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import isChromatic from 'chromatic';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
+import { SbbSelectionPanel } from './sbb-selection-panel';
 import './sbb-selection-panel';
 import '../sbb-card-badge';
 import '../sbb-checkbox';
@@ -702,7 +702,12 @@ const meta: Meta = {
   ],
   parameters: {
     actions: {
-      handles: [events.didOpen, events.didClose, events.willOpen, events.willClose],
+      handles: [
+        SbbSelectionPanel.events.didOpen,
+        SbbSelectionPanel.events.didClose,
+        SbbSelectionPanel.events.willOpen,
+        SbbSelectionPanel.events.willClose,
+      ],
     },
     backgrounds: {
       disable: true,

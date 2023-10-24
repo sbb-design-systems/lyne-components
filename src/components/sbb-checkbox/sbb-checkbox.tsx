@@ -173,10 +173,10 @@ export class SbbCheckbox extends LitElement {
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
-    if (changedProperties.has('checked') && changedProperties.get('checked') !== undefined) {
+    if (changedProperties.has('checked')) {
       this._handleCheckedChange(this.checked, changedProperties.get('checked'));
     }
-    if (changedProperties.has('disabled') && changedProperties.get('disabled') !== undefined) {
+    if (changedProperties.has('disabled')) {
       this._handleDisabledChange(this.disabled, changedProperties.get('disabled'));
     }
   }

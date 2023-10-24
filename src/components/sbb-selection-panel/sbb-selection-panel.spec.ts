@@ -41,9 +41,9 @@ describe('sbb-selection-panel', () => {
         <div class="sbb-selection-panel__input">
           <slot></slot>
         </div>
-        <div class="sbb-selection-panel__content--wrapper" data-expanded="false" inert="">
+        <div class="sbb-selection-panel__content--wrapper" inert="">
           <div class="sbb-selection-panel__content">
-            <sbb-divider></sbb-divider>
+            <sbb-divider aria-orientation="horizontal" orientation="horizontal" role="separator"></sbb-divider>
             <slot name="content"></slot>
           </div>
         </div>

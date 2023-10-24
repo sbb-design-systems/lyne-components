@@ -7,7 +7,6 @@ import {
   EventEmitter,
   ConnectedAbortController,
 } from '../../global/eventing';
-import { InterfaceSbbSelectionPanelAttributes } from './sbb-selection-panel.custom';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { SbbCheckbox } from '../sbb-checkbox';
@@ -15,13 +14,7 @@ import { SbbRadioButton } from '../sbb-radio-button';
 import { setAttribute } from '../../global/dom';
 import { ref } from 'lit/directives/ref.js';
 import Style from './sbb-selection-panel.scss?lit&inline';
-
-export const events = {
-  willOpen: 'will-open',
-  didOpen: 'did-open',
-  willClose: 'will-close',
-  didClose: 'did-close',
-};
+import '../sbb-divider';
 
 /**
  * @slot unnamed - Use this slot to provide a `sbb-checkbox` or a `sbb-radio-button`.
@@ -32,8 +25,15 @@ export const events = {
 export class SbbSelectionPanel extends LitElement {
   public static override styles: CSSResult = Style;
 
+  public static readonly events: Record<string, string> = {
+    willOpen: 'will-open',
+    didOpen: 'did-open',
+    willClose: 'will-close',
+    didClose: 'did-close',
+  };
+
   /** The background color of the panel. */
-  @property() public color: InterfaceSbbSelectionPanelAttributes['color'] = 'white';
+  @property() public color: 'white' | 'milk' = 'white';
 
   /** Whether the content section is always visible. */
   @property({ attribute: 'force-open', reflect: true, type: Boolean }) public forceOpen = false;
@@ -58,13 +58,17 @@ export class SbbSelectionPanel extends LitElement {
   @state() private _namedSlots = createNamedSlotState('content');
 
   /** Emits whenever the content section starts the opening transition. */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, events.willOpen, {
-    bubbles: true,
-    composed: true,
-  });
+  private _willOpen: EventEmitter<void> = new EventEmitter(
+    this,
+    SbbSelectionPanel.events.willOpen,
+    {
+      bubbles: true,
+      composed: true,
+    },
+  );
 
   /** Emits whenever the content section is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, events.didOpen, {
+  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbSelectionPanel.events.didOpen, {
     bubbles: true,
     composed: true,
   });
@@ -72,14 +76,14 @@ export class SbbSelectionPanel extends LitElement {
   /** Emits whenever the content section begins the closing transition. */
   private _willClose: EventEmitter<{ closeTarget: HTMLElement }> = new EventEmitter(
     this,
-    events.willClose,
+    SbbSelectionPanel.events.willClose,
     { bubbles: true, composed: true },
   );
 
   /** Emits whenever the content section is closed. */
   private _didClose: EventEmitter<{ closeTarget: HTMLElement }> = new EventEmitter(
     this,
-    events.didClose,
+    SbbSelectionPanel.events.didClose,
     { bubbles: true, composed: true },
   );
 
@@ -188,7 +192,7 @@ export class SbbSelectionPanel extends LitElement {
         ${this._namedSlots['content']
           ? html` <div
               class="sbb-selection-panel__content--wrapper"
-              data-expanded=${this._checked || this.forceOpen}
+              ?data-expanded=${this._checked || this.forceOpen}
               ${ref((el: HTMLElement) => {
                 this._contentElement = el;
                 if (this._contentElement) {
