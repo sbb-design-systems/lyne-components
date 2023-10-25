@@ -1222,7 +1222,7 @@ export namespace Components {
          */
         "accessibilityBackLabel": string | undefined;
         /**
-          * This will be forwarded as aria-label to the dialog and is read as a title of the navigation-section.
+          * This will be forwarded as aria-label to the nav element and is read as a title of the navigation-section.
          */
         "accessibilityLabel": string | undefined;
         /**
@@ -4024,7 +4024,7 @@ declare namespace LocalJSX {
          */
         "accessibilityBackLabel"?: string | undefined;
         /**
-          * This will be forwarded as aria-label to the dialog and is read as a title of the navigation-section.
+          * This will be forwarded as aria-label to the nav element and is read as a title of the navigation-section.
          */
         "accessibilityLabel"?: string | undefined;
         /**
