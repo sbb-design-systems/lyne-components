@@ -125,7 +125,7 @@ export class SbbNavigation implements ComponentInterface {
   private _windowEventsController: AbortController;
   private _focusTrap = new FocusTrap();
   private _scrollHandler = new ScrollHandler();
-  private _isPointerDownEventOnDialog: boolean;
+  private _isPointerDownEventOnNavigation: boolean;
   private _navigationObserver = new AgnosticMutationObserver((mutationsList: MutationRecord[]) =>
     this._onNavigationSectionChange(mutationsList),
   );
@@ -150,7 +150,7 @@ export class SbbNavigation implements ComponentInterface {
     this.willOpen.emit();
     this._state = 'opening';
 
-    // Disable scrolling for content below the dialog
+    // Disable scrolling for content below the navigation
     this._scrollHandler.disableScroll();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
   }
@@ -233,7 +233,7 @@ export class SbbNavigation implements ComponentInterface {
       this._windowEventsController?.abort();
       this._focusTrap.disconnect();
 
-      // Enable scrolling for content below the dialog
+      // Enable scrolling for content below the navigation
       this._scrollHandler.enableScroll();
     }
   }
@@ -280,7 +280,7 @@ export class SbbNavigation implements ComponentInterface {
 
   // Check if the pointerdown event target is triggered on the navigation.
   private _pointerDownListener = (event: PointerEvent): void => {
-    this._isPointerDownEventOnDialog =
+    this._isPointerDownEventOnNavigation =
       isEventOnElement(this._navigation, event) ||
       isEventOnElement(
         this._element
@@ -292,7 +292,7 @@ export class SbbNavigation implements ComponentInterface {
 
   // Close navigation on backdrop click.
   private _closeOnBackdropClick = async (event: PointerEvent): Promise<void> => {
-    if (!this._isPointerDownEventOnDialog && !isEventOnElement(this._navigation, event)) {
+    if (!this._isPointerDownEventOnNavigation && !isEventOnElement(this._navigation, event)) {
       await this.close();
     }
   };
@@ -339,7 +339,7 @@ export class SbbNavigation implements ComponentInterface {
         id="sbb-navigation-close-button"
         class="sbb-navigation__close"
         aria-label={this.accessibilityCloseLabel || i18nCloseNavigation[this._currentLanguage]}
-        aria-controls="sbb-navigation-dialog"
+        aria-controls="sbb-navigation-overlay"
         variant="transparent"
         negative={true}
         size="m"
@@ -360,7 +360,7 @@ export class SbbNavigation implements ComponentInterface {
         <div class="sbb-navigation__container">
           <div
             ref={(navigationRef) => (this._navigation = navigationRef)}
-            id="sbb-navigation-dialog"
+            id="sbb-navigation-overlay"
             onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
             class="sbb-navigation"
           >

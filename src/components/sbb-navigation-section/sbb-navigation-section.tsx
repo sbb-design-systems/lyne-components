@@ -54,7 +54,7 @@ export class SbbNavigationSection implements ComponentInterface {
   @Prop() public trigger: string | HTMLElement;
 
   /**
-   * This will be forwarded as aria-label to the dialog and is read as a title of the navigation-section.
+   * This will be forwarded as aria-label to the nav element and is read as a title of the navigation-section.
    */
   @Prop() public accessibilityLabel: string | undefined;
 
