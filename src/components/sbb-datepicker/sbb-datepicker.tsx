@@ -33,7 +33,7 @@ export const events = {
 export class SbbDatepicker extends LitElement {
   public static override styles: CSSResult = Style;
 
-  /** If set to true, two months are displayed */
+  /** If set to true, two months are displayed. */
   @property({ type: Boolean }) public wide = false;
 
   /** A function used to filter out dates. */
