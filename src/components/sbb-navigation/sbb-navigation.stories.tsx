@@ -32,9 +32,7 @@ const playStoryWithSection = async ({ canvasElement }): Promise<void> => {
 
   await waitFor(() =>
     expect(
-      canvas
-        .getByTestId('navigation-section')
-        .shadowRoot.querySelector('dialog.sbb-navigation-section'),
+      canvas.getByTestId('navigation-section').shadowRoot.querySelector('.sbb-navigation-section'),
     ).toBeTruthy(),
   );
   const actionL = canvas.getByTestId('navigation-section-trigger-1');
