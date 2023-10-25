@@ -66,6 +66,7 @@
 .sbb-tooltip {
   @include sbb.shadow-level-5-hard;
 
+  display: none;
   position: var(--sbb-tooltip-position);
   pointer-events: all;
   top: var(--sbb-tooltip-position-y);
@@ -79,15 +80,13 @@
   width: max-content;
   background-color: var(--sbb-tooltip-background);
 
-  &[open] {
+  :host(:not([data-state='closed'])) & {
+    display: block;
+
     animation: {
       name: open;
       duration: var(--sbb-tooltip-animation-duration);
       timing-function: var(--sbb-tooltip-animation-easing);
-    }
-
-    :host([data-is-safari]) & {
-      animation-name: open-safari;
     }
   }
 
@@ -113,10 +112,6 @@
       duration: var(--sbb-tooltip-animation-duration);
       timing-function: var(--sbb-tooltip-animation-easing);
     }
-  }
-
-  :host([data-state='closing'][data-is-safari]) & {
-    animation-name: close-safari;
   }
 
   @include sbb.if-forced-colors {
@@ -159,34 +154,6 @@
   }
 
   to {
-    opacity: 0;
-    transform: var(--sbb-tooltip-transform);
-  }
-}
-
-@keyframes open-safari {
-  from {
-    visibility: hidden;
-    opacity: 0;
-    transform: var(--sbb-tooltip-transform);
-  }
-
-  to {
-    visibility: visible;
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes close-safari {
-  from {
-    visibility: visible;
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  to {
-    visibility: hidden;
     opacity: 0;
     transform: var(--sbb-tooltip-transform);
   }

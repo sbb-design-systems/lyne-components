@@ -25,7 +25,6 @@ describe('sbb-tooltip', () => {
   it('shows the tooltip', async () => {
     const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-    const dialog = await page.find('sbb-tooltip >>> dialog');
 
     await element.callMethod('open');
     await page.waitForChanges();
@@ -38,13 +37,12 @@ describe('sbb-tooltip', () => {
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'opened');
   });
 
   it('shows on trigger click', async () => {
     const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-    const dialog = await page.find('sbb-tooltip >>> dialog');
 
     trigger.triggerEvent('click');
     await page.waitForChanges();
@@ -57,7 +55,7 @@ describe('sbb-tooltip', () => {
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'opened');
   });
 
   it('closes the tooltip', async () => {
@@ -65,7 +63,6 @@ describe('sbb-tooltip', () => {
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
     const willCloseEventSpy = await page.spyOnEvent(events.willClose);
     const didCloseEventSpy = await page.spyOnEvent(events.didClose);
-    const dialog = await page.find('sbb-tooltip >>> dialog');
 
     await element.callMethod('open');
     await page.waitForChanges();
@@ -78,7 +75,7 @@ describe('sbb-tooltip', () => {
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'opened');
 
     await element.callMethod('close');
     await page.waitForChanges();
@@ -91,7 +88,7 @@ describe('sbb-tooltip', () => {
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).not.toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'closed');
   });
 
   it('closes the tooltip on close button click', async () => {
@@ -99,7 +96,6 @@ describe('sbb-tooltip', () => {
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
     const willCloseEventSpy = await page.spyOnEvent(events.willClose);
     const didCloseEventSpy = await page.spyOnEvent(events.didClose);
-    const dialog = await page.find('sbb-tooltip >>> dialog');
     const closeButton = await page.find('sbb-tooltip >>> [sbb-tooltip-close]');
 
     await element.callMethod('open');
@@ -113,7 +109,7 @@ describe('sbb-tooltip', () => {
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'opened');
 
     await closeButton.click();
     await page.waitForChanges();
@@ -126,7 +122,7 @@ describe('sbb-tooltip', () => {
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).not.toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'closed');
     expect(trigger).toEqualAttribute('data-focus-origin', 'mouse');
     expect(await page.evaluate(() => document.activeElement.id)).toBe('tooltip-trigger');
   });
@@ -160,7 +156,6 @@ describe('sbb-tooltip', () => {
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
     const willCloseEventSpy = await page.spyOnEvent(events.willClose);
     const didCloseEventSpy = await page.spyOnEvent(events.didClose);
-    const dialog = await page.find('sbb-tooltip >>> dialog');
 
     trigger.triggerEvent('click');
     await page.waitForChanges();
@@ -173,7 +168,7 @@ describe('sbb-tooltip', () => {
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'opened');
 
     await page.keyboard.down('Tab');
     await page.waitForChanges();
@@ -189,7 +184,7 @@ describe('sbb-tooltip', () => {
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).not.toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'closed');
     expect(trigger).toEqualAttribute('data-focus-origin', 'keyboard');
     expect(await page.evaluate(() => document.activeElement.id)).toBe('tooltip-trigger');
   });
@@ -199,7 +194,6 @@ describe('sbb-tooltip', () => {
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
     const willCloseEventSpy = await page.spyOnEvent(events.willClose);
     const didCloseEventSpy = await page.spyOnEvent(events.didClose);
-    const dialog = await page.find('sbb-tooltip >>> dialog');
     const tooltipLink = await page.find('sbb-tooltip > sbb-link');
 
     await trigger.triggerEvent('click');
@@ -213,7 +207,7 @@ describe('sbb-tooltip', () => {
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'opened');
     expect(tooltipLink).not.toBeNull();
 
     await tooltipLink.click();
@@ -227,7 +221,7 @@ describe('sbb-tooltip', () => {
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).not.toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'closed');
     expect(trigger).toEqualAttribute('data-focus-origin', 'mouse');
     expect(await page.evaluate(() => document.activeElement.id)).toBe('tooltip-trigger');
   });
@@ -263,7 +257,6 @@ describe('sbb-tooltip', () => {
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
 
     await page.setViewport({ width: 1200, height: 800 });
-    const dialog = await page.find('sbb-tooltip >>> dialog');
 
     trigger.triggerEvent('click');
     await page.waitForChanges();
@@ -276,7 +269,7 @@ describe('sbb-tooltip', () => {
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'opened');
 
     const buttonHeight = await page.evaluate(() =>
       getComputedStyle(document.documentElement).getPropertyValue(
@@ -292,54 +285,32 @@ describe('sbb-tooltip', () => {
     expect(await page.evaluate(() => document.querySelector('sbb-button').offsetTop)).toBe(0);
     expect(await page.evaluate(() => document.querySelector('sbb-button').offsetLeft)).toBe(0);
 
-    // Expect dialog offsetTop to be equal to the trigger height + the dialog offset (8px)
+    // Expect overlay offsetTop to be equal to the trigger height + the overlay offset (8px)
     expect(
       await page.evaluate(
-        () => document.querySelector('sbb-tooltip').shadowRoot.querySelector('dialog').offsetTop,
+        () =>
+          (
+            document
+              .querySelector('sbb-tooltip')
+              .shadowRoot.querySelector('.sbb-tooltip') as HTMLElement
+          ).offsetTop,
       ),
     ).toBe(buttonHeightPx + 16);
     expect(
       await page.evaluate(
-        () => document.querySelector('sbb-tooltip').shadowRoot.querySelector('dialog').offsetLeft,
+        () =>
+          (
+            document
+              .querySelector('sbb-tooltip')
+              .shadowRoot.querySelector('.sbb-tooltip') as HTMLElement
+          ).offsetLeft,
       ),
     ).toBe(0);
   });
 
-  it('sets the focus on the dialog content when the tooltip is opened by click', async () => {
+  it('sets the focus to the first focusable element when the tooltip is opened', async () => {
     const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-    const dialog = await page.find('sbb-tooltip >>> dialog');
-
-    trigger.triggerEvent('click');
-    await page.waitForChanges();
-
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
-
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
-    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
-
-    expect(dialog).toHaveAttribute('open');
-
-    await page.waitForChanges();
-    expect(
-      await page.evaluate(
-        () => document.querySelector('sbb-tooltip').shadowRoot.activeElement.className,
-      ),
-    ).toBe('sbb-tooltip__content');
-
-    await page.keyboard.down('Tab');
-    await page.waitForChanges();
-
-    expect(await page.evaluate(() => document.activeElement.id)).toBe('tooltip-link');
-  });
-
-  it('sets the focus to the first focusable element when the tooltip is opened by keyboard', async () => {
-    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
-    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-    const dialog = await page.find('sbb-tooltip >>> dialog');
 
     await page.keyboard.down('Tab');
     await page.waitForChanges();
@@ -355,7 +326,7 @@ describe('sbb-tooltip', () => {
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'opened');
 
     await page.waitForChanges();
     expect(await page.evaluate(() => document.activeElement.id)).toBe('tooltip');
@@ -430,8 +401,6 @@ describe('sbb-tooltip', () => {
     const secondTrigger = await page.find('#another-tooltip-trigger');
     element = await page.find('#tooltip');
     const secondElement = await page.find('#another-tooltip');
-    const dialog = await page.find('#tooltip >>> dialog');
-    const secondDialog = await page.find('#another-tooltip >>> dialog');
 
     const willOpenEventSpy = await page.spyOnEvent(events.didOpen);
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
@@ -440,7 +409,6 @@ describe('sbb-tooltip', () => {
 
     expect(secondTrigger).not.toBeNull();
     expect(secondElement).not.toBeNull();
-    expect(secondDialog).not.toBeNull();
 
     await trigger.focus();
     await trigger.press('Space');
@@ -454,7 +422,7 @@ describe('sbb-tooltip', () => {
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'opened');
     await trigger.press('Tab');
     expect(await page.evaluate(() => document.activeElement.id)).toBe('another-tooltip-trigger');
 
@@ -468,7 +436,7 @@ describe('sbb-tooltip', () => {
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).not.toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'closed');
 
     await waitForCondition(() => willOpenEventSpy.events.length === 2);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(2);
@@ -478,6 +446,6 @@ describe('sbb-tooltip', () => {
     expect(didOpenEventSpy).toHaveReceivedEventTimes(2);
     await page.waitForChanges();
 
-    expect(secondDialog).toHaveAttribute('open');
+    expect(secondElement).toEqualAttribute('data-state', 'opened');
   });
 });

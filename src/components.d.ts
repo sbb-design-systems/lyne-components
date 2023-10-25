@@ -1964,7 +1964,7 @@ export namespace Components {
          */
         "openDelay"?: number;
         /**
-          * The element that will trigger the tooltip dialog. Accepts both a string (id of an element) or an HTML element.
+          * The element that will trigger the tooltip overlay. Accepts both a string (id of an element) or an HTML element.
          */
         "trigger": string | HTMLElement;
     }
@@ -4855,7 +4855,7 @@ declare namespace LocalJSX {
          */
         "openDelay"?: number;
         /**
-          * The element that will trigger the tooltip dialog. Accepts both a string (id of an element) or an HTML element.
+          * The element that will trigger the tooltip overlay. Accepts both a string (id of an element) or an HTML element.
          */
         "trigger"?: string | HTMLElement;
     }
