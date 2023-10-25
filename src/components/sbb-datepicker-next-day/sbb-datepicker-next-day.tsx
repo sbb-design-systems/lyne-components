@@ -92,10 +92,7 @@ export class SbbDatepickerNextDay extends LitElement {
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
-    if (
-      changedProperties.has('datePicker') &&
-      this.datePicker !== changedProperties.get('datePicker')
-    ) {
+    if (changedProperties.has('datePicker')) {
       this._init(this.datePicker);
     }
   }
