@@ -79,7 +79,9 @@ export class SbbDatepickerToggle extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     this._handlerRepository.connect();
-    this._init(this.datePicker);
+    if (!this.datePicker) {
+      this._init();
+    }
 
     const formField = this.closest('sbb-form-field') ?? this.closest('[data-form-field]');
     if (formField) {

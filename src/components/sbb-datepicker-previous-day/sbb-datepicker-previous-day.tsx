@@ -86,7 +86,9 @@ export class SbbDatepickerPreviousDay extends LitElement {
     this.addEventListener('click', () => this._handleClick(), { signal });
     this._handlerRepository.connect();
     this._syncUpstreamProperties();
-    this._init(this.datePicker);
+    if (!this.datePicker) {
+      this._init();
+    }
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
