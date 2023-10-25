@@ -63,7 +63,7 @@ describe('sbb-datepicker', () => {
       const changeSpy = new EventSpy('change', element);
       input.focus();
       await sendKeys({ type: '20/01/2023' });
-      await button.focus();
+      button.focus();
       await waitForCondition(() => changeSpy.events.length === 1);
       expect(input.value).to.be.equal('Fr, 20.01.2023');
       expect(changeSpy.count).to.be.equal(1);
@@ -73,7 +73,7 @@ describe('sbb-datepicker', () => {
       const changeSpy = new EventSpy('change', element);
       input.focus();
       await sendKeys({ type: '20/01/12' });
-      await button.focus();
+      button.focus();
       await waitForCondition(() => changeSpy.events.length === 1);
       expect(input.value).to.be.equal('Fr, 20.01.2012');
       expect(changeSpy.count).to.be.equal(1);
@@ -83,7 +83,7 @@ describe('sbb-datepicker', () => {
       const changeSpy = new EventSpy('change', element);
       input.focus();
       await sendKeys({ type: '20/01/99' });
-      await button.focus();
+      button.focus();
       await waitForCondition(() => changeSpy.events.length === 1);
       expect(input.value).to.be.equal('We, 20.01.1999');
       expect(changeSpy.count).to.be.equal(1);
@@ -93,7 +93,7 @@ describe('sbb-datepicker', () => {
       const changeSpy = new EventSpy('change', element);
       input.focus();
       await sendKeys({ type: '20..2012' });
-      await button.focus();
+      button.focus();
       await waitForCondition(() => changeSpy.events.length === 1);
       expect(input).to.have.attribute('data-sbb-invalid');
       expect(changeSpy.count).to.be.equal(1);
@@ -103,7 +103,7 @@ describe('sbb-datepicker', () => {
       const changeSpy = new EventSpy('change', element);
       input.focus();
       await sendKeys({ type: '20.05.' });
-      await button.focus();
+      button.focus();
       await waitForCondition(() => changeSpy.events.length === 1);
       expect(input).to.have.attribute('data-sbb-invalid');
       expect(changeSpy.count).to.be.equal(1);
@@ -113,7 +113,7 @@ describe('sbb-datepicker', () => {
       const changeSpy = new EventSpy('change', element);
       input.focus();
       await sendKeys({ type: '20.00.2012' });
-      await button.focus();
+      button.focus();
       await waitForCondition(() => changeSpy.events.length === 1);
       expect(input).to.have.attribute('data-sbb-invalid');
       expect(changeSpy.count).to.be.equal(1);
@@ -123,7 +123,7 @@ describe('sbb-datepicker', () => {
       const changeSpy = new EventSpy('change', element);
       input.focus();
       await sendKeys({ type: '00.05.2020' });
-      await button.focus();
+      button.focus();
       await waitForCondition(() => changeSpy.events.length === 1);
       expect(input).to.have.attribute('data-sbb-invalid');
       expect(changeSpy.count).to.be.equal(1);
@@ -131,10 +131,8 @@ describe('sbb-datepicker', () => {
 
     it('renders with errors when typing letters', async () => {
       expect(input.value).to.be.equal('');
-      await input.focus();
       input.focus();
       await sendKeys({ type: 'invalid' });
-      input.focus();
       await sendKeys({ press: 'Enter' });
       await waitForLitRender(element);
       expect(input.value).to.be.equal('invalid');
@@ -143,11 +141,10 @@ describe('sbb-datepicker', () => {
 
     it('renders and emits event when input parameter changes', async () => {
       const datePickerUpdatedSpy = new EventSpy('date-picker-updated');
-      const picker = document.querySelector('sbb-datepicker');
-      picker.wide = true;
+      element.wide = true;
       await waitForCondition(() => datePickerUpdatedSpy.events.length === 1);
       expect(datePickerUpdatedSpy.count).to.be.equal(1);
-      picker.dateFilter = () => null;
+      element.dateFilter = () => null;
       await waitForLitRender(element);
       await waitForCondition(() => datePickerUpdatedSpy.events.length === 2);
       expect(datePickerUpdatedSpy.count).to.be.equal(2);
@@ -156,13 +153,12 @@ describe('sbb-datepicker', () => {
     it('renders and interprets date with custom parse and format functions', async () => {
       const changeSpy = new EventSpy('change', element);
 
-      const localDatepicker = document.querySelector('sbb-datepicker');
-      localDatepicker.dateParser = (s) => {
+      element.dateParser = (s) => {
         s = s.replace(/\D/g, ' ').trim();
         const date = s.split(' ');
         return new Date(new Date().getFullYear(), +date[1] - 1, +date[0]);
       };
-      localDatepicker.format = (d) => {
+      element.format = (d) => {
         //Intl.DateTimeFormat API is not available in test environment.
         const weekdays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
         const weekday = weekdays[d.getDay()];
@@ -175,7 +171,6 @@ describe('sbb-datepicker', () => {
       await waitForLitRender(element);
       input.focus();
       await sendKeys({ type: '7.8' });
-      input.focus();
       await sendKeys({ press: 'Enter' });
       await waitForCondition(() => changeSpy.events.length === 1);
       await waitForLitRender(element);
@@ -189,7 +184,6 @@ describe('sbb-datepicker', () => {
       // When entering 99
       input.focus();
       await sendKeys({ type: '20' });
-      input.focus();
       input.blur();
       await waitForLitRender(element);
 
@@ -201,7 +195,6 @@ describe('sbb-datepicker', () => {
       // When adding valid date
       input.focus();
       await sendKeys({ press: '.' });
-      input.focus();
       await sendKeys({ press: 'Tab' });
 
       // Then validation event should not be emitted a second time
@@ -214,7 +207,6 @@ describe('sbb-datepicker', () => {
       // When adding missing parts of a valid date
       input.focus();
       await sendKeys({ type: '8.23' });
-      input.focus();
       input.blur();
 
       // Then validation event should be emitted with true
@@ -269,11 +261,10 @@ describe('sbb-datepicker', () => {
 
       for (const testCase of testCases) {
         // Clear input
-        (document.getElementById('datepicker-input') as HTMLInputElement).value = '';
+        input.value = '';
 
         input.focus();
         await sendKeys({ type: testCase.value });
-        input.focus();
         input.blur();
         await waitForLitRender(element);
 
@@ -299,11 +290,10 @@ describe('sbb-datepicker', () => {
 
       for (const testCase of testCases) {
         // Clear input
-        (document.getElementById('datepicker-input') as HTMLInputElement).value = '';
+        input.value = '';
 
         input.focus();
         await sendKeys({ type: testCase.value });
-        input.focus();
         await sendKeys({ press: 'Tab' });
         expect(input.value).to.be.equal(testCase.interpretedAs);
         const paragraphElement = document
