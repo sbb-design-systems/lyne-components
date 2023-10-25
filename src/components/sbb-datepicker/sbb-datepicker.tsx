@@ -78,18 +78,17 @@ export class SbbDatepicker extends LitElement {
     events.validationChange,
   );
 
-  private get _inputElement(): HTMLInputElement | null {
-    return this._inputElementInternaValue;
+  @state() private get _inputElement(): HTMLInputElement | null {
+    return this._inputElementState;
   }
 
   private set _inputElement(value) {
-    const oldValue = this._inputElementInternaValue;
-    this._inputElementInternaValue = value;
-    this._registerInputElement(this._inputElementInternaValue, oldValue);
-    this.requestUpdate('active', oldValue);
+    const oldValue = this._inputElementState;
+    this._inputElementState = value;
+    this._registerInputElement(this._inputElementState, oldValue);
   }
 
-  private _inputElementInternaValue: HTMLInputElement | null;
+  private _inputElementState: HTMLInputElement | null;
 
   @state() private _currentLanguage = documentLanguage();
 
