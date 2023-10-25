@@ -90,12 +90,6 @@ const FormFieldTemplate = ({ negative, ...args }): JSX.Element => (
   </sbb-form-field>
 );
 
-export const Standalone: StoryObj = {
-  render: StandaloneTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
-  play: isChromatic() && playStory,
-};
 export const WithPicker: StoryObj = {
   render: PickerAndButtonTemplate,
   argTypes: defaultArgTypes,
