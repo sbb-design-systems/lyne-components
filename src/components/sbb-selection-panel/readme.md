@@ -99,10 +99,9 @@ It's also possible to display the `sbb-selection-panel` without border by settin
 
 ## Methods
 
-| Name            | Privacy | Description | Parameters                                                          | Return        | Inherited From |
-| --------------- | ------- | ----------- | ------------------------------------------------------------------- | ------------- | -------------- |
-| `onInputChange` | public  |             | `event: CustomEvent<RadioButtonStateChange \| CheckboxStateChange>` | `void`        |                |
-| `render`        | public  |             |                                                                     | `JSX.Element` |                |
+| Name            | Privacy | Description | Parameters                                                          | Return | Inherited From |
+| --------------- | ------- | ----------- | ------------------------------------------------------------------- | ------ | -------------- |
+| `onInputChange` | public  |             | `event: CustomEvent<RadioButtonStateChange \| CheckboxStateChange>` | `void` |                |
 
 ## Slots
 

@@ -23,3 +23,4 @@ It has four different states related to the properties `checked`, `indeterminate
 | `indeterminate` | public  | `boolean` | `false` | Indeterminate state.            |                |
 | `negative`      | public  | `boolean` | `false` | Negative coloring variant flag. |                |
 
+<hr/>

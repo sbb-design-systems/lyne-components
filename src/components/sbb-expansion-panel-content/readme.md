@@ -30,3 +30,5 @@ the `sbb-expansion-panel-content` receives a padding on the left side in order t
 | --------- | ------------------------------------------------------ |
 | `unnamed` | Slot to render the content in the sbb-expansion-panel. |
 
+<hr/>
+

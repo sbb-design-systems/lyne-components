@@ -30,3 +30,5 @@ Possible values are `ideal` (default), `minimal` and `none`.
 | `protectiveRoom`     | public  | `InterfaceSignetAttributes['protectiveRoom'] \| undefined` | `'ideal'` | Visual protective room around signet.                                |                |
 | `accessibilityLabel` | public  | `string`                                                   | `'Logo'`  | Accessibility label which will be forwarded to the inner SVG signet. |                |
 
+<hr/>
+

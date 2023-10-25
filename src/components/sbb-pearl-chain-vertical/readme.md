@@ -32,3 +32,5 @@ Please refer to its documentation for more details.
 | --------- | ------------------------------------------------ |
 | `unnamed` | for \<sbb-pearl-chain-vertical-item /> component |
 
+<hr/>
+

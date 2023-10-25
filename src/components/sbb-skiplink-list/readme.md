@@ -31,10 +31,9 @@ to specify a custom stack order, the `z-index` can be changed by defining the CS
 
 ## Methods
 
-| Name        | Privacy | Description | Parameters | Return        | Inherited From |
-| ----------- | ------- | ----------- | ---------- | ------------- | -------------- |
-| `syncLinks` | public  |             |            | `void`        |                |
-| `render`    | public  |             |            | `JSX.Element` |                |
+| Name        | Privacy | Description | Parameters | Return | Inherited From |
+| ----------- | ------- | ----------- | ---------- | ------ | -------------- |
+| `syncLinks` | public  |             |            | `void` |                |
 
 ## Slots
 

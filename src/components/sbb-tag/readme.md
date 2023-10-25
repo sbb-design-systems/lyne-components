@@ -60,9 +60,3 @@ The state is reflected via `aria-pressed` attribute.
 | `disabled` | public  | `boolean`             | `false` | Whether the tag is disabled.                                                                                                                |                |
 | `iconName` | public  | `string \| undefined` |         | The icon name we want to use, choose from the small icon variants from the ui-icons category&#xA;from https\://icons.app.sbb.ch (optional). |                |
 
-## Methods
-
-| Name         | Privacy | Description | Parameters                                | Return | Inherited From |
-| ------------ | ------- | ----------- | ----------------------------------------- | ------ | -------------- |
-| `willUpdate` | public  |             | `changedProperties: PropertyValues<this>` | `void` |                |
-

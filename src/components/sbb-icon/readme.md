@@ -39,9 +39,3 @@ In thinking about accessibility, it is useful to place icon use into one of thre
 | `ariaHidden` | public  | `string`  | `'true'` | The aria-hidden property is set to "true" by default, since an icon alone&#xA;does not convey any useful information for a screen-reader user.                                                                            |                |
 | `ariaLabel`  | public  | `string`  |          | Only set the aria-label if aria-hidden is set to "false".                                                                                                                                                                 |                |
 
-## Methods
-
-| Name         | Privacy | Description | Parameters                                | Return | Inherited From |
-| ------------ | ------- | ----------- | ----------------------------------------- | ------ | -------------- |
-| `willUpdate` | public  |             | `changedProperties: PropertyValues<this>` | `void` |                |
-

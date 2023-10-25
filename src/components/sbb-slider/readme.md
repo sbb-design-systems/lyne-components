@@ -90,7 +90,6 @@ The `sbb-slider` has the following behaviour on keypress when focused:
 | Name            | Privacy | Description | Parameters             | Return          | Inherited From |
 | --------------- | ------- | ----------- | ---------------------- | --------------- | -------------- |
 | `handleKeydown` | public  |             | `event: KeyboardEvent` | `Promise<void>` |                |
-| `render`        | public  |             |                        | `JSX.Element`   |                |
 
 ## Slots
 

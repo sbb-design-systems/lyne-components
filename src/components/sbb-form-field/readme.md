@@ -131,12 +131,11 @@ technology will announce errors when they appear.
 
 ## Methods
 
-| Name              | Privacy | Description                                                                           | Parameters                                | Return                                                 | Inherited From |
-| ----------------- | ------- | ------------------------------------------------------------------------------------- | ----------------------------------------- | ------------------------------------------------------ | -------------- |
-| `willUpdate`      | public  |                                                                                       | `changedProperties: PropertyValues<this>` | `void`                                                 |                |
-| `reset`           | public  | Manually reset the form field. Currently, this only resets the floating label.        |                                           | `void`                                                 |                |
-| `clear`           | public  | Manually clears the input value. It only works for inputs, selects are not supported. |                                           | `void`                                                 |                |
-| `getInputElement` | public  | Returns the input element.                                                            |                                           | `HTMLInputElement \| HTMLSelectElement \| HTMLElement` |                |
+| Name              | Privacy | Description                                                                           | Parameters | Return                                                 | Inherited From |
+| ----------------- | ------- | ------------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------ | -------------- |
+| `reset`           | public  | Manually reset the form field. Currently, this only resets the floating label.        |            | `void`                                                 |                |
+| `clear`           | public  | Manually clears the input value. It only works for inputs, selects are not supported. |            | `void`                                                 |                |
+| `getInputElement` | public  | Returns the input element.                                                            |            | `HTMLInputElement \| HTMLSelectElement \| HTMLElement` |                |
 
 ## Slots
 

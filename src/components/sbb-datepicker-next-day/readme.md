@@ -45,5 +45,4 @@ if it is disabled, or if the selected date is equal to the input's `max` attribu
 | ---------------- | ------- | ----------- | ------------------------------------------------------------------ | --------------- | -------------- |
 | `findDatePicker` | public  |             | `newValue: string \| HTMLElement, oldValue: string \| HTMLElement` | `Promise<void>` |                |
 | `handleClick`    | public  |             |                                                                    | `Promise<void>` |                |
-| `render`         | public  |             |                                                                    | `JSX.Element`   |                |
 

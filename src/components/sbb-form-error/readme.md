@@ -28,3 +28,5 @@ the component displays an icon by default, that can be changed using the `icon` 
 | ---------- | ------- | --------- | ------- | ------------------------------- | -------------- |
 | `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |                |
 
+<hr/>
+

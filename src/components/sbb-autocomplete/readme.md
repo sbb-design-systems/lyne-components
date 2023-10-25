@@ -111,11 +111,10 @@ using `aria-activedescendant` to support navigation though the autocomplete opti
 
 ## Methods
 
-| Name         | Privacy | Description              | Parameters                                | Return | Inherited From |
-| ------------ | ------- | ------------------------ | ----------------------------------------- | ------ | -------------- |
-| `open`       | public  | Opens the autocomplete.  |                                           | `void` |                |
-| `close`      | public  | Closes the autocomplete. |                                           | `void` |                |
-| `willUpdate` | public  |                          | `changedProperties: PropertyValues<this>` | `void` |                |
+| Name    | Privacy | Description              | Parameters | Return | Inherited From |
+| ------- | ------- | ------------------------ | ---------- | ------ | -------------- |
+| `open`  | public  | Opens the autocomplete.  |            | `void` |                |
+| `close` | public  | Closes the autocomplete. |            | `void` |                |
 
 ## Slots
 
