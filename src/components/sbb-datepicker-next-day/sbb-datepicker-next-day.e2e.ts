@@ -5,6 +5,7 @@ import { SbbDatepickerNextDay } from './sbb-datepicker-next-day';
 import { SbbFormField } from '../sbb-form-field';
 
 import '../sbb-form-field';
+import '../sbb-datepicker';
 import './sbb-datepicker-next-day';
 
 describe('sbb-datepicker-next-day', () => {

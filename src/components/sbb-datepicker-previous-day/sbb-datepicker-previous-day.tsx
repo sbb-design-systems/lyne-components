@@ -22,7 +22,6 @@ import { setAttribute, setAttributes } from '../../global/dom';
 import Style from './sbb-datepicker-previous-day.scss?lit&inline';
 
 import '../sbb-icon';
-import '../sbb-datepicker';
 
 @customElement('sbb-datepicker-previous-day')
 export class SbbDatepickerPreviousDay extends LitElement {
@@ -63,11 +62,6 @@ export class SbbDatepickerPreviousDay extends LitElement {
 
   private _datePickerController: AbortController;
 
-  private _findDatePicker(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
-    if (newValue !== oldValue) {
-      this._init(this.datePicker);
-    }
-  }
   private _abort = new ConnectedAbortController(this);
 
   private _handleClick(): void {
@@ -96,8 +90,11 @@ export class SbbDatepickerPreviousDay extends LitElement {
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
-    if (changedProperties.has('datePicker')) {
-      this._findDatePicker(this.datePicker, changedProperties.get('datePicker'));
+    if (
+      changedProperties.has('datePicker') &&
+      this.datePicker !== changedProperties.get('datePicker')
+    ) {
+      this._init(this.datePicker);
     }
   }
 
@@ -229,7 +226,7 @@ export class SbbDatepickerPreviousDay extends LitElement {
 
     return html`
       <span class="sbb-datepicker-previous-day">
-        <sbb-icon name="chevron-small-left-small" />
+        <sbb-icon name="chevron-small-left-small"></sbb-icon>
       </span>
     `;
   }

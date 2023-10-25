@@ -1,10 +1,10 @@
-import { SbbDatepickerNextDay } from './sbb-datepicker-next-day';
-
-import '../sbb-form-field/sbb-form-field';
-import '../sbb-datepicker/sbb-datepicker';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { SbbFormField } from '../sbb-form-field/sbb-form-field';
+import { SbbDatepickerNextDay } from './sbb-datepicker-next-day';
+
+import '../sbb-datepicker';
+import '../sbb-form-field';
 import './sbb-datepicker-next-day';
 
 describe('sbb-datepicker-next-day', () => {

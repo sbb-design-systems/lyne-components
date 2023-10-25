@@ -198,7 +198,8 @@ export class SbbDatepickerToggle extends LitElement {
           sbbInputModalityDetector.mostRecentModality === 'keyboard' &&
             this._calendarElement.focus();
         }}
-        ?disableAnimation=${this.disableAnimation}
+        .trigger=${this._triggerElement}
+        ?disable-animation=${this.disableAnimation}
         hide-close-button
         ${ref((el: SbbTooltip) => (this._tooltipElement = el))}
       >

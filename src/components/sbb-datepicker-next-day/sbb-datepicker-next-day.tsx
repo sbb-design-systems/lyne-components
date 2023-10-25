@@ -22,7 +22,6 @@ import { setAttribute, setAttributes } from '../../global/dom';
 import Style from './sbb-datepicker-next-day.scss?lit&inline';
 
 import '../sbb-icon';
-import '../sbb-datepicker';
 
 @customElement('sbb-datepicker-next-day')
 export class SbbDatepickerNextDay extends LitElement {
@@ -63,11 +62,6 @@ export class SbbDatepickerNextDay extends LitElement {
 
   private _datePickerController: AbortController;
 
-  private _findDatePicker(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
-    if (newValue !== oldValue) {
-      this._init(this.datePicker);
-    }
-  }
   private _abort = new ConnectedAbortController(this);
 
   private _handleClick(): void {
@@ -96,8 +90,11 @@ export class SbbDatepickerNextDay extends LitElement {
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
-    if (changedProperties.has('datePicker')) {
-      this._findDatePicker(this.datePicker, changedProperties.get('datePicker'));
+    if (
+      changedProperties.has('datePicker') &&
+      this.datePicker !== changedProperties.get('datePicker')
+    ) {
+      this._init(this.datePicker);
     }
   }
 
@@ -227,7 +224,7 @@ export class SbbDatepickerNextDay extends LitElement {
 
     return html`
       <span class="sbb-datepicker-next-day">
-        <sbb-icon name="chevron-small-right-small" />
+        <sbb-icon name="chevron-small-right-small"></sbb-icon>
       </span>
     `;
   }
