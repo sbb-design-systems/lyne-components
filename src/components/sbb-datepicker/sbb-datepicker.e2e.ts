@@ -1,10 +1,10 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
+import { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 import { i18nDateChangedTo } from '../../global/i18n';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../global/testing';
 import { SbbDatepicker } from './sbb-datepicker';
-import { TemplateResult } from 'lit';
 
 import '../sbb-form-field';
 import './sbb-datepicker';

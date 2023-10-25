@@ -1,20 +1,21 @@
 /** @jsx h */
-import { Fragment, h, JSX } from 'jsx-dom';
-import readme from './readme.md?raw';
+import { withActions } from '@storybook/addon-actions/decorator';
 import { userEvent, within } from '@storybook/testing-library';
+import type { InputType } from '@storybook/types';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import { StoryContext } from '@storybook/web-components';
+import isChromatic from 'chromatic';
+import { Fragment, h, JSX } from 'jsx-dom';
 import { waitForComponentsReady } from '../../global/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../global/testing/wait-for-stable-position';
-import { withActions } from '@storybook/addon-actions/decorator';
-import isChromatic from 'chromatic';
+import readme from './readme.md?raw';
 import { events } from './sbb-datepicker';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import type { InputType } from '@storybook/types';
-import { StoryContext } from '@storybook/web-components';
-import './sbb-datepicker';
-import '../sbb-form-field';
+
 import '../sbb-datepicker-next-day';
 import '../sbb-datepicker-previous-day';
 import '../sbb-datepicker-toggle';
+import '../sbb-form-field';
+import './sbb-datepicker';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative

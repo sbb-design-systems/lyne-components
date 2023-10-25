@@ -14,6 +14,10 @@ import { html } from 'lit';
 import { SbbDatepickerNextDay } from '../sbb-datepicker-next-day';
 import { SbbDatepickerPreviousDay } from '../sbb-datepicker-previous-day';
 
+import '../sbb-form-field';
+import '../sbb-datepicker-next-day';
+import '../sbb-datepicker-previous-day';
+
 describe('getDatePicker', () => {
   it('returns the datepicker if no trigger', async () => {
     const page: SbbFormField = await fixture(html`

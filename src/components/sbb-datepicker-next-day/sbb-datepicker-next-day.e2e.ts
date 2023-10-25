@@ -1,11 +1,11 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../global/testing';
-import { SbbDatepickerNextDay } from './sbb-datepicker-next-day';
 import { SbbFormField } from '../sbb-form-field';
+import { SbbDatepickerNextDay } from './sbb-datepicker-next-day';
 
-import '../sbb-form-field';
 import '../sbb-datepicker';
+import '../sbb-form-field';
 import './sbb-datepicker-next-day';
 
 describe('sbb-datepicker-next-day', () => {

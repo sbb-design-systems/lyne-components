@@ -1,28 +1,28 @@
-import { i18nShowCalendar } from '../../global/i18n';
-import {
-  datepickerControlRegisteredEvent,
-  getDatePicker,
-  InputUpdateEvent,
-} from '../sbb-datepicker/sbb-datepicker.helper';
+import { CSSResult, html, LitElement, nothing, PropertyValues, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
+import { sbbInputModalityDetector } from '../../global/a11y';
+import { isValidAttribute, setAttribute } from '../../global/dom';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
 } from '../../global/eventing';
-import { sbbInputModalityDetector } from '../../global/a11y';
-import { isValidAttribute } from '../../global/dom';
-import { CSSResult, html, LitElement, TemplateResult, PropertyValues, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { SbbDatepicker } from '../sbb-datepicker/index';
+import { i18nShowCalendar } from '../../global/i18n';
 import { SbbCalendar } from '../sbb-calendar/index';
-import { setAttribute } from '../../global/dom';
-import { ref } from 'lit/directives/ref.js';
-import { SbbTooltipTrigger } from '../sbb-tooltip-trigger';
+import { SbbDatepicker } from '../sbb-datepicker/index';
+import {
+  datepickerControlRegisteredEvent,
+  getDatePicker,
+  InputUpdateEvent,
+} from '../sbb-datepicker/sbb-datepicker.helper';
 import { SbbTooltip } from '../sbb-tooltip';
+import { SbbTooltipTrigger } from '../sbb-tooltip-trigger';
 import Style from './sbb-datepicker-toggle.scss?lit&inline';
-import '../sbb-tooltip-trigger';
-import '../sbb-tooltip';
+
 import '../sbb-calendar';
+import '../sbb-tooltip';
+import '../sbb-tooltip-trigger';
 
 @customElement('sbb-datepicker-toggle')
 export class SbbDatepickerToggle extends LitElement {

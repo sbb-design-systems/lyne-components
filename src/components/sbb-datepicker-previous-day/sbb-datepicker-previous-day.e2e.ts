@@ -1,8 +1,8 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../global/testing';
-import { SbbDatepickerPreviousDay } from './sbb-datepicker-previous-day';
 import { SbbFormField } from '../sbb-form-field';
+import { SbbDatepickerPreviousDay } from './sbb-datepicker-previous-day';
 
 import '../sbb-datepicker';
 import '../sbb-form-field';

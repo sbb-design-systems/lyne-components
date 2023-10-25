@@ -1,9 +1,9 @@
 import { CSSResult, LitElement, PropertyValues, TemplateResult, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
 import { readConfig } from '../../global/config';
 import { DateAdapter } from '../../global/datetime';
 import { findInput, isValidAttribute, toggleDatasetEntry } from '../../global/dom';
-import { ref } from 'lit/directives/ref.js';
 import {
   ConnectedAbortController,
   EventEmitter,

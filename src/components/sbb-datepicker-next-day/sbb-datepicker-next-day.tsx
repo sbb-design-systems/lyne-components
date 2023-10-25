@@ -1,24 +1,28 @@
+import { CSSResult, LitElement, PropertyValues, TemplateResult, html } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { DateAdapter, NativeDateAdapter } from '../../global/datetime';
+import {
+  isValidAttribute,
+  setAttribute,
+  setAttributes,
+  toggleDatasetEntry,
+} from '../../global/dom';
+import {
+  ConnectedAbortController,
+  HandlerRepository,
+  actionElementHandlerAspect,
+  documentLanguage,
+  languageChangeHandlerAspect,
+} from '../../global/eventing';
 import { i18nNextDay, i18nSelectNextDay, i18nToday } from '../../global/i18n';
 import { resolveButtonRenderVariables } from '../../global/interfaces';
+import { SbbDatepicker } from '../sbb-datepicker';
 import {
+  InputUpdateEvent,
   datepickerControlRegisteredEvent,
   findNextAvailableDate,
   getDatePicker,
-  InputUpdateEvent,
 } from '../sbb-datepicker/sbb-datepicker.helper';
-import { DateAdapter, NativeDateAdapter } from '../../global/datetime';
-import {
-  documentLanguage,
-  HandlerRepository,
-  actionElementHandlerAspect,
-  languageChangeHandlerAspect,
-  ConnectedAbortController,
-} from '../../global/eventing';
-import { isValidAttribute, toggleDatasetEntry } from '../../global/dom';
-import { CSSResult, html, LitElement, TemplateResult, PropertyValues } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { SbbDatepicker } from '../sbb-datepicker';
-import { setAttribute, setAttributes } from '../../global/dom';
 import Style from './sbb-datepicker-next-day.scss?lit&inline';
 
 import '../sbb-icon';
