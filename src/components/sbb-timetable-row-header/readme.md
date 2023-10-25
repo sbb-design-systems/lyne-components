@@ -12,3 +12,5 @@ here to show the various configuration options to component developers. !!
 | -------- | ------- | -------- | ------- | ----------- | -------------- |
 | `config` | public  | `string` |         |             |                |
 
+<hr/>
+

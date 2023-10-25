@@ -116,12 +116,11 @@ Opened panel:
 
 ## Methods
 
-| Name              | Privacy | Description                       | Parameters                                | Return   | Inherited From |
-| ----------------- | ------- | --------------------------------- | ----------------------------------------- | -------- | -------------- |
-| `open`            | public  | Opens the selection panel.        |                                           | `void`   |                |
-| `close`           | public  | Closes the selection panel.       |                                           | `void`   |                |
-| `getDisplayValue` | public  | Gets the current displayed value. |                                           | `string` |                |
-| `willUpdate`      | public  |                                   | `changedProperties: PropertyValues<this>` | `void`   |                |
+| Name              | Privacy | Description                       | Parameters | Return   | Inherited From |
+| ----------------- | ------- | --------------------------------- | ---------- | -------- | -------------- |
+| `open`            | public  | Opens the selection panel.        |            | `void`   |                |
+| `close`           | public  | Closes the selection panel.       |            | `void`   |                |
+| `getDisplayValue` | public  | Gets the current displayed value. |            | `string` |                |
 
 ## Slots
 

@@ -90,3 +90,5 @@ to the content where needed (e.g. `sbb-link-list`, `sbb-link` and `sbb-divider`)
 | `accessibilityTitle`      | public  | `string \| undefined`                  |             | Footer title text, visually hidden, necessary for screen readers.                                                                                                                                      |                |
 | `accessibilityTitleLevel` | public  | `TitleLevel`                           | `'1'`       | Level of the accessibility title, will be rendered as heading tag (e.g. h1). Defaults to level 1.                                                                                                      |                |
 
+<hr/>
+

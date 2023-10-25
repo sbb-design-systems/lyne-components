@@ -132,12 +132,6 @@ The values for `align-group` and `align-self` for the various allocations are as
 | `buttonSize`     | public  | `InterfaceButtonAttributes['size'] \| undefined`                   | `'l'`          | Size of the nested sbb-button instances. This will overwrite the size attribute of nested&#xA;sbb-button instances. |                |
 | `linkSize`       | public  | `InterfaceLinkAttributes['size'] \| undefined`                     | `'m'`          | Size of the nested sbb-link instances. This will overwrite the size attribute of nested&#xA;sbb-link instances.     |                |
 
-## Methods
-
-| Name         | Privacy | Description | Parameters                                | Return | Inherited From |
-| ------------ | ------- | ----------- | ----------------------------------------- | ------ | -------------- |
-| `willUpdate` | public  |             | `changedProperties: PropertyValues<this>` | `void` |                |
-
 ## Slots
 
 | Name      | Description                                      |

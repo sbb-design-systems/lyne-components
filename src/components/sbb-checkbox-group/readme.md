@@ -96,12 +96,6 @@ Two values are available, `s` and `m`, which is the default
 | `horizontalFrom` | public  | `InterfaceSbbCheckboxGroupAttributes['horizontalFrom'] \| undefined` |                | Overrides the behaviour of \`orientation\` property.                              |                |
 | `orientation`    | public  | `InterfaceSbbCheckboxGroupAttributes['orientation']`                 | `'horizontal'` | Indicates the orientation of the checkboxes inside the \`\<sbb-checkbox-group>\`. |                |
 
-## Methods
-
-| Name         | Privacy | Description | Parameters                                | Return | Inherited From |
-| ------------ | ------- | ----------- | ----------------------------------------- | ------ | -------------- |
-| `willUpdate` | public  |             | `changedProperties: PropertyValues<this>` | `void` |                |
-
 ## Slots
 
 | Name      | Description                                                                 |

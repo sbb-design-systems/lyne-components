@@ -93,11 +93,10 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 
 ## Methods
 
-| Name                | Privacy | Description                                                                                                            | Parameters                                | Return | Inherited From |
-| ------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- | ------ | -------------- |
-| `willUpdate`        | public  |                                                                                                                        | `changedProperties: PropertyValues<this>` | `void` |                |
-| `handleChangeEvent` | public  |                                                                                                                        | `event: Event`                            | `void` |                |
-| `handleInputEvent`  | public  | Method triggered on checkbox input event.&#xA;If not indeterminate, inverts the value; otherwise sets checked to true. |                                           | `void` |                |
+| Name                | Privacy | Description                                                                                                            | Parameters     | Return | Inherited From |
+| ------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------- | -------------- | ------ | -------------- |
+| `handleChangeEvent` | public  |                                                                                                                        | `event: Event` | `void` |                |
+| `handleInputEvent`  | public  | Method triggered on checkbox input event.&#xA;If not indeterminate, inverts the value; otherwise sets checked to true. |                | `void` |                |
 
 ## Slots
 

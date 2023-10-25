@@ -55,8 +55,7 @@ The component has two different sizes, which can be changed using the `size` pro
 
 ## Methods
 
-| Name         | Privacy | Description | Parameters                                | Return | Inherited From |
-| ------------ | ------- | ----------- | ----------------------------------------- | ------ | -------------- |
-| `select`     | public  |             |                                           | `void` |                |
-| `willUpdate` | public  |             | `changedProperties: PropertyValues<this>` | `void` |                |
+| Name     | Privacy | Description | Parameters | Return | Inherited From |
+| -------- | ------- | ----------- | ---------- | ------ | -------------- |
+| `select` | public  |             |            | `void` |                |
 

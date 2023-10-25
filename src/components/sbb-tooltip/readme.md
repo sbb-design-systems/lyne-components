@@ -112,9 +112,8 @@ that have an ARIA `role`.
 
 ## Methods
 
-| Name         | Privacy | Description                         | Parameters                                | Return | Inherited From |
-| ------------ | ------- | ----------------------------------- | ----------------------------------------- | ------ | -------------- |
-| `open`       | public  | Opens the tooltip on trigger click. |                                           | `void` |                |
-| `close`      | public  | Closes the tooltip.                 | `target: HTMLElement`                     | `void` |                |
-| `willUpdate` | public  |                                     | `changedProperties: PropertyValues<this>` | `void` |                |
+| Name    | Privacy | Description                         | Parameters            | Return | Inherited From |
+| ------- | ------- | ----------------------------------- | --------------------- | ------ | -------------- |
+| `open`  | public  | Opens the tooltip on trigger click. |                       | `void` |                |
+| `close` | public  | Closes the tooltip.                 | `target: HTMLElement` | `void` |                |
 

@@ -25,3 +25,5 @@ It's also possible to display the component in `negative` variant using the self
 | `negative`    | public  | `boolean \| undefined`                                      | `false`        | Negative coloring variant flag                                                                |                |
 | `orientation` | public  | `InterfaceSbbDividerAttributes['orientation'] \| undefined` | `'horizontal'` | Orientation property with possible values 'horizontal' \| 'vertical'. Defaults to horizontal. |                |
 
+<hr/>
+

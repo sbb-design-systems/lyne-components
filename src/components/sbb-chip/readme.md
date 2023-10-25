@@ -36,3 +36,5 @@ and four different values for the `color` property (`charcoal`, `granite`, `whit
 | --------- | --------------------------- |
 | `unnamed` | Content / Label of the chip |
 
+<hr/>
+

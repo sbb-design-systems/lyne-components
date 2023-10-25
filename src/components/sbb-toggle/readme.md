@@ -53,9 +53,3 @@ The component has two different sizes, `s` and `m` (default), which can be set u
 | `value`            | public  | `any \| null`                                       |         | The value of the toggle. It needs to be mutable since it is updated whenever&#xA;a new option is selected (see the \`onToggleOptionSelect()\` method). |                |
 | `disableAnimation` | public  | `boolean`                                           | `false` | Whether the animation is enabled.                                                                                                                      |                |
 
-## Methods
-
-| Name         | Privacy | Description | Parameters                                | Return | Inherited From |
-| ------------ | ------- | ----------- | ----------------------------------------- | ------ | -------------- |
-| `willUpdate` | public  |             | `changedProperties: PropertyValues<this>` | `void` |                |
-

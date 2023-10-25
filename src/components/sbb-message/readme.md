@@ -48,3 +48,5 @@ by the used components (e.g. `alt-text` and `aria-label`).
 | `legend`   | Use this slot to provide a legend, must be a paragraph.   |
 | `action`   | Use this slot to provide a sbb-button.                    |
 
+<hr/>
+

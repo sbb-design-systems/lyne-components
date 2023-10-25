@@ -58,3 +58,5 @@ and then append the `sbb-loading-indicator` on it after giving it the correct `a
 | `color`            | public  | `InterfaceSbbLoadingIndicatorAttributes['color']`                | `'default'` | Color variant.                                                                                        |                |
 | `disableAnimation` | public  | `boolean`                                                        | `false`     | Whether the animation is enabled.                                                                     |                |
 
+<hr/>
+

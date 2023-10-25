@@ -31,11 +31,10 @@ Possible values are `l` (default) and `s`.
 
 ## Methods
 
-| Name         | Privacy | Description | Parameters                                | Return | Inherited From |
-| ------------ | ------- | ----------- | ----------------------------------------- | ------ | -------------- |
-| `willUpdate` | public  |             | `changedProperties: PropertyValues<this>` | `void` |                |
-| `select`     | public  |             | `action: SbbNavigationAction`             | `void` |                |
-| `reset`      | public  |             |                                           | `void` |                |
+| Name     | Privacy | Description | Parameters                    | Return | Inherited From |
+| -------- | ------- | ----------- | ----------------------------- | ------ | -------------- |
+| `select` | public  |             | `action: SbbNavigationAction` | `void` |                |
+| `reset`  | public  |             |                               | `void` |                |
 
 ## Slots
 

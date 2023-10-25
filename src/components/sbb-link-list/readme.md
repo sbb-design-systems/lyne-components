@@ -71,9 +71,3 @@ The title will not be displayed in the horizontal orientation.
 | `horizontalFrom` | public  | `InterfaceLinkListAttributes['horizontalFromBreakpoint'] \| undefined` |              | Selected breakpoint from which the list is rendered horizontally.                                                                                       |                |
 | `orientation`    | public  | `InterfaceLinkListAttributes['orientation']`                           | `'vertical'` | The orientation in which the list will be shown vertical or horizontal.                                                                                 |                |
 
-## Methods
-
-| Name         | Privacy | Description | Parameters                                | Return | Inherited From |
-| ------------ | ------- | ----------- | ----------------------------------------- | ------ | -------------- |
-| `willUpdate` | public  |             | `changedProperties: PropertyValues<this>` | `void` |                |
-

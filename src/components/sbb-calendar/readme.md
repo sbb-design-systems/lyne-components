@@ -75,8 +75,7 @@ This is helpful if you need a specific state of the component.
 
 ## Methods
 
-| Name            | Privacy | Description                                                         | Parameters                                | Return | Inherited From |
-| --------------- | ------- | ------------------------------------------------------------------- | ----------------------------------------- | ------ | -------------- |
-| `resetPosition` | public  | Resets the active month according to the new state of the calendar. |                                           | `void` |                |
-| `willUpdate`    | public  |                                                                     | `changedProperties: PropertyValues<this>` | `void` |                |
+| Name            | Privacy | Description                                                         | Parameters | Return | Inherited From |
+| --------------- | ------- | ------------------------------------------------------------------- | ---------- | ------ | -------------- |
+| `resetPosition` | public  | Resets the active month according to the new state of the calendar. |            | `void` |                |
 

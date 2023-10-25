@@ -14,3 +14,5 @@ here to show the various configuration options to component developers. !
 | `appearance` | public  | `InterfaceTimetableTransportationNumberAttributes['appearance'] \| undefined` | `'first-level'` | Set the desired appearance of&#xA;the component.                                                                                                      |                |
 | `config`     | public  | `string`                                                                      |                 | Stringified JSON which defines most of the&#xA;content of the component. Please check the&#xA;individual stories to get an idea of the&#xA;structure. |                |
 
+<hr/>
+

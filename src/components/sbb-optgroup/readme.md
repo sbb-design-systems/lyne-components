@@ -42,12 +42,6 @@ The component has a `disabled` property which sets all the `sbb-option` in the g
 | `label`    | public  | `string`  |         | Option group label.            |                |
 | `disabled` | public  | `boolean` | `false` | Whether the group is disabled. |                |
 
-## Methods
-
-| Name         | Privacy | Description | Parameters                                | Return | Inherited From |
-| ------------ | ------- | ----------- | ----------------------------------------- | ------ | -------------- |
-| `willUpdate` | public  |             | `changedProperties: PropertyValues<this>` | `void` |                |
-
 ## Slots
 
 | Name      | Description              |

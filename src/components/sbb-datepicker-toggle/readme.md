@@ -46,5 +46,4 @@ otherwise, they can be connected using the `datePicker` property as described ab
 | ---------------- | ------- | ------------------- | ------------------------------------------------------------------ | --------------- | -------------- |
 | `findDatePicker` | public  |                     | `newValue: string \| HTMLElement, oldValue: string \| HTMLElement` | `Promise<void>` |                |
 | `open`           | public  | Opens the calendar. |                                                                    | `Promise<void>` |                |
-| `render`         | public  |                     |                                                                    | `JSX.Element`   |                |
 
