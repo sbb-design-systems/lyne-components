@@ -10,7 +10,7 @@ const tempFolderPath = './dist/docs';
 const componentsFolder = './src/components';
 
 // List of components for which the 'toKebabCase' naming convention is not followed
-const componentNameMapping: { [key: string]: string } = {
+const componentsNameMapping: { [key: string]: string } = {
   SbbOptGroup: 'sbb-optgroup',
 };
 
@@ -22,7 +22,7 @@ function toKebabCase(value: string): string {
 }
 
 function updateComponentReadme(name: string, docs: string): void {
-  const compFolder = componentNameMapping[name] ?? toKebabCase(name);
+  const compFolder = componentsNameMapping[name] ?? toKebabCase(name);
   const path = `${componentsFolder}/${compFolder}/readme.md`;
   if (!fs.existsSync(path)) {
     console.error(`Component ${name} has no readme file, please create it following the template`);
@@ -36,6 +36,7 @@ function updateComponentReadme(name: string, docs: string): void {
   // Remove the title
   newDocs.replace(/^# class: `.*`\n/m, '');
 
+  // Replace 'Fields' title with 'Properties'
   newDocs.replace(/## Fields/, '## Properties');
 
   // Remove the details section
