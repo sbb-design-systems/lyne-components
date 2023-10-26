@@ -33,7 +33,6 @@ let nextId = 0;
 /**
  * @slot unnamed - Use this to project any content inside the navigation section.
  */
-
 @customElement('sbb-navigation-section')
 export class SbbNavigationSection extends LitElement {
   public static override styles: CSSResult = Style;

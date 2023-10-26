@@ -8,7 +8,6 @@ import Style from './sbb-action-group.scss?lit&inline';
 /**
  * @slot unnamed - Slot to render the content inside the container.
  */
-
 @customElement('sbb-action-group')
 export class SbbActionGroup extends LitElement {
   public static override styles: CSSResult = Style;

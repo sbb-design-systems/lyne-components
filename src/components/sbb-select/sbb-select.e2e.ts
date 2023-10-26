@@ -1,10 +1,10 @@
-import { SbbOption, events as optionEvents } from '../sbb-option';
+import { SbbOption } from '../sbb-option';
 import { waitForCondition, waitForLitRender } from '../../global/testing';
 import { aTimeout, assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { EventSpy } from '../../global/testing/event-spy';
-import { events, SbbSelect } from './sbb-select';
+import { SbbSelect } from './sbb-select';
 
 describe('sbb-select', () => {
   let element: SbbSelect,
@@ -41,10 +41,10 @@ describe('sbb-select', () => {
   });
 
   it('opens and closes the dialog', async () => {
-    const willOpen = new EventSpy(events.willOpen);
-    const didOpen = new EventSpy(events.didOpen);
-    const willClose = new EventSpy(events.willClose);
-    const didClose = new EventSpy(events.didClose);
+    const willOpen = new EventSpy(SbbSelect.events.willOpen);
+    const didOpen = new EventSpy(SbbSelect.events.didOpen);
+    const willClose = new EventSpy(SbbSelect.events.willClose);
+    const didClose = new EventSpy(SbbSelect.events.didClose);
     element.dispatchEvent(new CustomEvent('click'));
     await waitForLitRender(element);
     await waitForCondition(() => willOpen.events.length === 1);
@@ -155,8 +155,8 @@ describe('sbb-select', () => {
     expect(displayValue).to.have.trimmed.text('First');
     expect(element.value).to.be.equal('1');
 
-    const willOpen = new EventSpy(events.willOpen);
-    const didOpen = new EventSpy(events.didOpen);
+    const willOpen = new EventSpy(SbbSelect.events.willOpen);
+    const didOpen = new EventSpy(SbbSelect.events.didOpen);
     element.click();
 
     await waitForCondition(() => willOpen.events.length === 1);
@@ -173,10 +173,10 @@ describe('sbb-select', () => {
     expect(secondOption).not.to.have.attribute('active');
     expect(secondOption).not.to.have.attribute('selected');
 
-    const selectionChange = new EventSpy(optionEvents.selectionChange);
-    const optionSelected = new EventSpy(optionEvents.optionSelected);
-    const willClose = new EventSpy(events.willClose);
-    const didClose = new EventSpy(events.didClose);
+    const selectionChange = new EventSpy(SbbOption.events.selectionChange);
+    const optionSelected = new EventSpy(SbbOption.events.optionSelected);
+    const willClose = new EventSpy(SbbSelect.events.willClose);
+    const didClose = new EventSpy(SbbSelect.events.didClose);
 
     secondOption.click();
     await waitForLitRender(element);
@@ -199,8 +199,8 @@ describe('sbb-select', () => {
     element.setAttribute('multiple', '');
     await waitForLitRender(element);
 
-    const willOpen = new EventSpy(events.willOpen);
-    const didOpen = new EventSpy(events.didOpen);
+    const willOpen = new EventSpy(SbbSelect.events.willOpen);
+    const didOpen = new EventSpy(SbbSelect.events.didOpen);
     element.dispatchEvent(new CustomEvent('click'));
 
     await waitForCondition(() => willOpen.events.length === 1);
@@ -213,7 +213,7 @@ describe('sbb-select', () => {
     expect(secondOption).not.to.have.attribute('active');
     expect(secondOption).not.to.have.attribute('selected');
 
-    const selectionChange = new EventSpy(optionEvents.selectionChange);
+    const selectionChange = new EventSpy(SbbOption.events.selectionChange);
     firstOption.dispatchEvent(new CustomEvent('click'));
     await waitForLitRender(element);
     expect(selectionChange.count).to.be.equal(1);
@@ -238,8 +238,8 @@ describe('sbb-select', () => {
   });
 
   it('handles keypress on host', async () => {
-    const didOpen = new EventSpy(events.didOpen);
-    const didClose = new EventSpy(events.didClose);
+    const didOpen = new EventSpy(SbbSelect.events.didOpen);
+    const didClose = new EventSpy(SbbSelect.events.didClose);
 
     focusableElement.focus();
     await sendKeys({ press: 'Enter' });
@@ -281,7 +281,7 @@ describe('sbb-select', () => {
   });
 
   it('handles keyboard selection', async () => {
-    const didOpen = new EventSpy(events.didOpen);
+    const didOpen = new EventSpy(SbbSelect.events.didOpen);
     focusableElement.focus();
     await sendKeys({ press: ' ' });
     await waitForCondition(() => didOpen.events.length === 1);
@@ -322,8 +322,8 @@ describe('sbb-select', () => {
     element.setAttribute('multiple', '');
     await waitForLitRender(element);
 
-    const didOpen = new EventSpy(events.didOpen);
-    const didClose = new EventSpy(events.didClose);
+    const didOpen = new EventSpy(SbbSelect.events.didOpen);
+    const didClose = new EventSpy(SbbSelect.events.didClose);
     focusableElement.focus();
     await sendKeys({ press: 'ArrowUp' });
     await waitForCondition(() => didOpen.events.length === 1);

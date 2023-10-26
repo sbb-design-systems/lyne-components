@@ -1,4 +1,3 @@
-import { events } from './sbb-navigation';
 import { waitForCondition, waitForLitRender } from '../../global/testing';
 import { aTimeout, assert, expect, fixture, nextFrame } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
@@ -40,7 +39,7 @@ describe('sbb-navigation', () => {
   });
 
   it('opens the navigation', async () => {
-    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const didOpenEventSpy = new EventSpy(SbbNavigation.events.didOpen);
     const dialog = element.shadowRoot.querySelector('dialog');
 
     element.open();
@@ -55,8 +54,8 @@ describe('sbb-navigation', () => {
   });
 
   it('closes the navigation', async () => {
-    const didOpenEventSpy = new EventSpy(events.didOpen);
-    const didCloseEventSpy = new EventSpy(events.didClose);
+    const didOpenEventSpy = new EventSpy(SbbNavigation.events.didOpen);
+    const didCloseEventSpy = new EventSpy(SbbNavigation.events.didClose);
     const dialog = element.shadowRoot.querySelector('dialog');
 
     element.open();
@@ -79,8 +78,8 @@ describe('sbb-navigation', () => {
   });
 
   it('closes the navigation on close button click', async () => {
-    const didOpenEventSpy = new EventSpy(events.didOpen);
-    const didCloseEventSpy = new EventSpy(events.didClose);
+    const didOpenEventSpy = new EventSpy(SbbNavigation.events.didOpen);
+    const didCloseEventSpy = new EventSpy(SbbNavigation.events.didClose);
     const dialog = element.shadowRoot.querySelector('dialog');
     const closeButton = element.shadowRoot.querySelector('.sbb-navigation__close') as HTMLElement;
 
@@ -104,8 +103,8 @@ describe('sbb-navigation', () => {
   });
 
   it('closes the navigation on Esc key press', async () => {
-    const didOpenEventSpy = new EventSpy(events.didOpen);
-    const didCloseEventSpy = new EventSpy(events.didClose);
+    const didOpenEventSpy = new EventSpy(SbbNavigation.events.didOpen);
+    const didCloseEventSpy = new EventSpy(SbbNavigation.events.didClose);
     const dialog = element.shadowRoot.querySelector('dialog');
 
     element.open();
@@ -131,8 +130,8 @@ describe('sbb-navigation', () => {
   });
 
   it('closes navigation with sbb-navigation-close', async () => {
-    const didOpenEventSpy = new EventSpy(events.didOpen);
-    const didCloseEventSpy = new EventSpy(events.didClose);
+    const didOpenEventSpy = new EventSpy(SbbNavigation.events.didOpen);
+    const didCloseEventSpy = new EventSpy(SbbNavigation.events.didClose);
     const dialog = element.shadowRoot.querySelector('dialog');
     const sectionDialog = document
       .querySelector('sbb-navigation-section#first-section')
@@ -169,7 +168,7 @@ describe('sbb-navigation', () => {
   });
 
   it('opens navigation and opens section', async () => {
-    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const didOpenEventSpy = new EventSpy(SbbNavigation.events.didOpen);
     const navDialog = element.shadowRoot.querySelector('dialog');
     const sectionDialog = document
       .querySelector('sbb-navigation-section#first-section')
@@ -196,7 +195,7 @@ describe('sbb-navigation', () => {
   });
 
   it('opens navigation and toggles sections', async () => {
-    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const didOpenEventSpy = new EventSpy(SbbNavigation.events.didOpen);
     const navDialog = element.shadowRoot.querySelector('dialog');
     const firstSection = document.querySelector('#first-section');
     const secondSection = document.querySelector('#second-section');
@@ -235,8 +234,8 @@ describe('sbb-navigation', () => {
   });
 
   it('closes the navigation and the section on close button click', async () => {
-    const didOpenEventSpy = new EventSpy(events.didOpen);
-    const didCloseEventSpy = new EventSpy(events.didClose);
+    const didOpenEventSpy = new EventSpy(SbbNavigation.events.didOpen);
+    const didCloseEventSpy = new EventSpy(SbbNavigation.events.didClose);
     const dialog = element.shadowRoot.querySelector('dialog');
     const sectionDialog = document
       .querySelector('sbb-navigation-section#first-section')
@@ -273,8 +272,8 @@ describe('sbb-navigation', () => {
   });
 
   it('closes the navigation and the section on Esc key press', async () => {
-    const didOpenEventSpy = new EventSpy(events.didOpen);
-    const didCloseEventSpy = new EventSpy(events.didClose);
+    const didOpenEventSpy = new EventSpy(SbbNavigation.events.didOpen);
+    const didCloseEventSpy = new EventSpy(SbbNavigation.events.didClose);
     const dialog = element.shadowRoot.querySelector('dialog');
     const sectionDialog = document
       .querySelector('sbb-navigation-section#first-section')
@@ -311,7 +310,7 @@ describe('sbb-navigation', () => {
   });
 
   it('closes section with sbb-navigation-section-close', async () => {
-    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const didOpenEventSpy = new EventSpy(SbbNavigation.events.didOpen);
     const dialog = element.shadowRoot.querySelector('dialog');
     const section = document.querySelector('#first-section');
     const sectionDialog = section.shadowRoot.querySelector('dialog');

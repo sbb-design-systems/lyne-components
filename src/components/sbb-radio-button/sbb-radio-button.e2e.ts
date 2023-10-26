@@ -1,4 +1,3 @@
-import { events } from './sbb-radio-button';
 import { waitForCondition, waitForLitRender } from '../../global/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
@@ -22,7 +21,7 @@ describe('sbb-radio-button', () => {
   });
 
   it('selects radio on click', async () => {
-    const stateChange = new EventSpy(events.stateChange);
+    const stateChange = new EventSpy(SbbRadioButton.events.stateChange);
 
     element.click();
     await waitForLitRender(element);
@@ -33,7 +32,7 @@ describe('sbb-radio-button', () => {
   });
 
   it('does not deselect radio if already checked', async () => {
-    const stateChange = new EventSpy(events.stateChange);
+    const stateChange = new EventSpy(SbbRadioButton.events.stateChange);
 
     element.click();
     await waitForLitRender(element);
@@ -49,7 +48,7 @@ describe('sbb-radio-button', () => {
   });
 
   it('allows empty selection', async () => {
-    const stateChange = new EventSpy(events.stateChange);
+    const stateChange = new EventSpy(SbbRadioButton.events.stateChange);
 
     element.allowEmptySelection = true;
     element.click();

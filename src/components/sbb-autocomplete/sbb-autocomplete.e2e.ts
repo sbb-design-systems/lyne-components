@@ -1,5 +1,4 @@
-import { events } from './sbb-autocomplete';
-import { events as optionEvents } from '../sbb-option';
+import { SbbOption } from '../sbb-option';
 import { waitForCondition, waitForLitRender } from '../../global/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
@@ -44,10 +43,10 @@ describe('sbb-autocomplete', () => {
   });
 
   it('opens and closes with mouse and keyboard', async () => {
-    const willOpenEventSpy = new EventSpy(events.willOpen);
-    const didOpenEventSpy = new EventSpy(events.didOpen);
-    const willCloseEventSpy = new EventSpy(events.willClose);
-    const didCloseEventSpy = new EventSpy(events.didClose);
+    const willOpenEventSpy = new EventSpy(SbbAutocomplete.events.willOpen);
+    const didOpenEventSpy = new EventSpy(SbbAutocomplete.events.didOpen);
+    const willCloseEventSpy = new EventSpy(SbbAutocomplete.events.willClose);
+    const didCloseEventSpy = new EventSpy(SbbAutocomplete.events.didClose);
 
     input.click();
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
@@ -96,9 +95,9 @@ describe('sbb-autocomplete', () => {
   });
 
   it('select by mouse', async () => {
-    const willOpenEventSpy = new EventSpy(events.willOpen);
-    const didOpenEventSpy = new EventSpy(events.didOpen);
-    const optionSelectedEventSpy = new EventSpy(optionEvents.optionSelected);
+    const willOpenEventSpy = new EventSpy(SbbAutocomplete.events.willOpen);
+    const didOpenEventSpy = new EventSpy(SbbAutocomplete.events.didOpen);
+    const optionSelectedEventSpy = new EventSpy(SbbOption.events.optionSelected);
 
     input.focus();
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
@@ -116,9 +115,9 @@ describe('sbb-autocomplete', () => {
   });
 
   it('opens and select with keyboard', async () => {
-    const didOpenEventSpy = new EventSpy(events.didOpen);
-    const didCloseEventSpy = new EventSpy(events.didClose);
-    const optionSelectedEventSpy = new EventSpy(optionEvents.optionSelected);
+    const didOpenEventSpy = new EventSpy(SbbAutocomplete.events.didOpen);
+    const didCloseEventSpy = new EventSpy(SbbAutocomplete.events.didClose);
+    const optionSelectedEventSpy = new EventSpy(SbbOption.events.optionSelected);
     const optOne = element.querySelector('#option-1');
     const optTwo = element.querySelector('#option-2');
     input.focus();

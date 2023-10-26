@@ -27,7 +27,6 @@ import '../sbb-icon';
  * @slot icon - Slot used to render the action icon.
  * @slot unnamed - Slot used to render the action text.
  */
-
 @customElement('sbb-header-action')
 export class SbbHeaderAction extends LitElement implements LinkButtonProperties {
   public static override styles: CSSResult = Style;

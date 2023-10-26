@@ -1,7 +1,7 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { EventSpy, waitForLitRender } from '../../global/testing';
-import { SbbFileSelector, events } from './sbb-file-selector';
+import { SbbFileSelector } from './sbb-file-selector';
 import { SbbButton } from '../sbb-button';
 
 function addFilesToComponentInput(
@@ -36,7 +36,7 @@ describe('sbb-file-selector', () => {
   });
 
   it('loads a file, then deletes it', async () => {
-    const fileChangedSpy = new EventSpy(events.fileChangedEvent);
+    const fileChangedSpy = new EventSpy(SbbFileSelector.events.fileChangedEvent);
     addFilesToComponentInput(element, 1);
     await waitForLitRender(element);
 
@@ -71,7 +71,7 @@ describe('sbb-file-selector', () => {
   });
 
   it('loads more than one file in multiple mode', async () => {
-    const fileChangedSpy = new EventSpy(events.fileChangedEvent);
+    const fileChangedSpy = new EventSpy(SbbFileSelector.events.fileChangedEvent);
     element.multiple = true;
     await waitForLitRender(element);
     addFilesToComponentInput(element, 2);
@@ -92,7 +92,7 @@ describe('sbb-file-selector', () => {
   });
 
   it('loads files in multiple persistent mode', async () => {
-    const fileChangedSpy = new EventSpy(events.fileChangedEvent);
+    const fileChangedSpy = new EventSpy(SbbFileSelector.events.fileChangedEvent);
     element.multiple = true;
     element.multipleMode = 'persistent';
     await waitForLitRender(element);

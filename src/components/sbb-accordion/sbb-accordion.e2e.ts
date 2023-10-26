@@ -1,14 +1,10 @@
 import { waitForCondition, waitForLitRender } from '../../global/testing';
-import {
-  SbbExpansionPanel,
-  events as sbbExpansionPanelEvents,
-} from '../sbb-expansion-panel/sbb-expansion-panel';
+import { SbbExpansionPanel } from '../sbb-expansion-panel';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { EventSpy } from '../../global/testing/event-spy';
 import { SbbAccordion } from './sbb-accordion';
-import { SbbExpansionPanelHeader } from '../sbb-expansion-panel-header';
-import '../sbb-expansion-panel';
+import { type SbbExpansionPanelHeader } from '../sbb-expansion-panel-header';
 import '../sbb-expansion-panel-header';
 import '../sbb-expansion-panel-content';
 
@@ -106,7 +102,7 @@ describe('sbb-accordion', () => {
   });
 
   it('should close others when expanding and multi = false', async () => {
-    const willOpenEventSpy = new EventSpy(sbbExpansionPanelEvents.willOpen);
+    const willOpenEventSpy = new EventSpy(SbbExpansionPanel.events.willOpen);
     const panelOne: SbbExpansionPanel = element.querySelector('#panel-1');
     const headerOne: SbbExpansionPanelHeader = element.querySelector('#header-1');
     const panelTwo: SbbExpansionPanel = element.querySelector('#panel-2');
@@ -143,7 +139,7 @@ describe('sbb-accordion', () => {
   it('should not change others when expanding and multi = false', async () => {
     element.multi = true;
     await waitForLitRender(element);
-    const willOpenEventSpy = new EventSpy(sbbExpansionPanelEvents.willOpen);
+    const willOpenEventSpy = new EventSpy(SbbExpansionPanel.events.willOpen);
     const panelOne: SbbExpansionPanel = element.querySelector('#panel-1');
     const headerOne: SbbExpansionPanelHeader = element.querySelector('#header-1');
     const panelTwo: SbbExpansionPanel = element.querySelector('#panel-2');
@@ -190,7 +186,7 @@ describe('sbb-accordion', () => {
       expect(panel.expanded).to.be.equal(false);
     }
 
-    const willOpenEventSpy = new EventSpy(sbbExpansionPanelEvents.willOpen);
+    const willOpenEventSpy = new EventSpy(SbbExpansionPanel.events.willOpen);
 
     headerTwo.click();
     await waitForCondition(() => willOpenEventSpy.events.length === 1);

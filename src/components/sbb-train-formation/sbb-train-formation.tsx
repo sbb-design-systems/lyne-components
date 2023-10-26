@@ -23,7 +23,6 @@ interface AggregatedSector {
 /**
  * @slot unnamed - Used for slotting sbb-trains.
  */
-
 @customElement('sbb-train-formation')
 export class SbbTrainFormation extends LitElement {
   public static override styles: CSSResult = Style;

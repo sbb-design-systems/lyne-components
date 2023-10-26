@@ -1,5 +1,5 @@
 /** @jsx h */
-import { events } from './sbb-menu';
+import { SbbMenu } from './sbb-menu';
 import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import isChromatic from 'chromatic';
@@ -9,7 +9,7 @@ import { waitForStablePosition } from '../../global/testing/wait-for-stable-posi
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import './sbb-menu';
+
 import '../sbb-button';
 
 // Story interaction executed after the story renders
@@ -279,7 +279,12 @@ const meta: Meta = {
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {
-      handles: [events.willOpen, events.didOpen, events.didClose, events.willClose],
+      handles: [
+        SbbMenu.events.willOpen,
+        SbbMenu.events.didOpen,
+        SbbMenu.events.didClose,
+        SbbMenu.events.willClose,
+      ],
     },
     backgrounds: {
       disable: true,

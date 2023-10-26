@@ -5,8 +5,8 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 import { StoryContext } from '@storybook/web-components';
-import { events } from './sbb-time-input';
-import './sbb-time-input';
+import { SbbTimeInput } from './sbb-time-input';
+
 import '../sbb-form-field';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
@@ -236,7 +236,7 @@ const TemplateSbbTimeInput = ({
   </Fragment>
 );
 
-export const SbbTimeInput: StoryObj = {
+export const SbbTimeInputBase: StoryObj = {
   render: TemplateSbbTimeInput,
   argTypes: { ...formFieldBasicArgsTypes },
   args: { ...formFieldBasicArgs },
@@ -347,7 +347,7 @@ const meta: Meta = {
   ],
   parameters: {
     actions: {
-      handles: ['change', 'input', events.validationChange],
+      handles: ['change', 'input', SbbTimeInput.events.validationChange],
     },
     backgrounds: {
       disable: true,

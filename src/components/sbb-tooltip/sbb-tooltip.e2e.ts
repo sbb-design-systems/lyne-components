@@ -7,7 +7,7 @@ import '../sbb-button';
 import { SbbButton } from '../sbb-button';
 import '../sbb-link';
 import './sbb-tooltip';
-import { SbbTooltip, events } from './sbb-tooltip';
+import { SbbTooltip } from './sbb-tooltip';
 
 describe('sbb-tooltip', () => {
   let element: SbbTooltip, trigger: SbbButton;
@@ -30,8 +30,8 @@ describe('sbb-tooltip', () => {
   });
 
   it('shows the tooltip', async () => {
-    const willOpenEventSpy = new EventSpy(events.willOpen);
-    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const willOpenEventSpy = new EventSpy(SbbTooltip.events.willOpen);
+    const didOpenEventSpy = new EventSpy(SbbTooltip.events.didOpen);
     const dialog = element.shadowRoot.querySelector('dialog');
 
     element.open();
@@ -46,8 +46,8 @@ describe('sbb-tooltip', () => {
   });
 
   it('shows on trigger click', async () => {
-    const willOpenEventSpy = new EventSpy(events.willOpen);
-    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const willOpenEventSpy = new EventSpy(SbbTooltip.events.willOpen);
+    const didOpenEventSpy = new EventSpy(SbbTooltip.events.didOpen);
     const dialog = element.shadowRoot.querySelector('dialog');
 
     trigger.click();
@@ -62,10 +62,10 @@ describe('sbb-tooltip', () => {
   });
 
   it('closes the tooltip', async () => {
-    const willOpenEventSpy = new EventSpy(events.willOpen);
-    const didOpenEventSpy = new EventSpy(events.didOpen);
-    const willCloseEventSpy = new EventSpy(events.willClose);
-    const didCloseEventSpy = new EventSpy(events.didClose);
+    const willOpenEventSpy = new EventSpy(SbbTooltip.events.willOpen);
+    const didOpenEventSpy = new EventSpy(SbbTooltip.events.didOpen);
+    const willCloseEventSpy = new EventSpy(SbbTooltip.events.willClose);
+    const didCloseEventSpy = new EventSpy(SbbTooltip.events.didClose);
     const dialog = element.shadowRoot.querySelector('dialog');
 
     element.open();
@@ -88,10 +88,10 @@ describe('sbb-tooltip', () => {
   });
 
   it('closes the tooltip on close button click', async () => {
-    const willOpenEventSpy = new EventSpy(events.willOpen);
-    const didOpenEventSpy = new EventSpy(events.didOpen);
-    const willCloseEventSpy = new EventSpy(events.willClose);
-    const didCloseEventSpy = new EventSpy(events.didClose);
+    const willOpenEventSpy = new EventSpy(SbbTooltip.events.willOpen);
+    const didOpenEventSpy = new EventSpy(SbbTooltip.events.didOpen);
+    const willCloseEventSpy = new EventSpy(SbbTooltip.events.willClose);
+    const didCloseEventSpy = new EventSpy(SbbTooltip.events.didClose);
     const dialog = element.shadowRoot.querySelector('dialog');
     const closeButton = element.shadowRoot.querySelector('[sbb-tooltip-close]') as HTMLElement;
 
@@ -118,10 +118,10 @@ describe('sbb-tooltip', () => {
   });
 
   it('closes on interactive element click', async () => {
-    const willOpenEventSpy = new EventSpy(events.willOpen);
-    const didOpenEventSpy = new EventSpy(events.didOpen);
-    const willCloseEventSpy = new EventSpy(events.willClose);
-    const didCloseEventSpy = new EventSpy(events.didClose);
+    const willOpenEventSpy = new EventSpy(SbbTooltip.events.willOpen);
+    const didOpenEventSpy = new EventSpy(SbbTooltip.events.didOpen);
+    const willCloseEventSpy = new EventSpy(SbbTooltip.events.willClose);
+    const didCloseEventSpy = new EventSpy(SbbTooltip.events.didClose);
     const dialog = element.shadowRoot.querySelector('dialog');
     const tooltipLink = document.querySelector('sbb-tooltip > sbb-link') as HTMLElement;
 
@@ -150,8 +150,8 @@ describe('sbb-tooltip', () => {
   });
 
   it('is correctly positioned on screen', async () => {
-    const willOpenEventSpy = new EventSpy(events.willOpen);
-    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const willOpenEventSpy = new EventSpy(SbbTooltip.events.willOpen);
+    const didOpenEventSpy = new EventSpy(SbbTooltip.events.didOpen);
 
     await setViewport({ width: 1200, height: 800 });
     const dialog = element.shadowRoot.querySelector('dialog');
@@ -182,8 +182,8 @@ describe('sbb-tooltip', () => {
   });
 
   it('should set correct focus attribute on trigger after backdrop click', async () => {
-    const didOpenEventSpy = new EventSpy(events.didOpen);
-    const didCloseEventSpy = new EventSpy(events.didClose);
+    const didOpenEventSpy = new EventSpy(SbbTooltip.events.didOpen);
+    const didCloseEventSpy = new EventSpy(SbbTooltip.events.didClose);
 
     element.open();
 
@@ -203,8 +203,8 @@ describe('sbb-tooltip', () => {
     const interactiveBackgroundElement = document.querySelector(
       '#interactive-background-element',
     ) as HTMLElement;
-    const didOpenEventSpy = new EventSpy(events.didOpen);
-    const didCloseEventSpy = new EventSpy(events.didClose);
+    const didOpenEventSpy = new EventSpy(SbbTooltip.events.didOpen);
+    const didCloseEventSpy = new EventSpy(SbbTooltip.events.didClose);
 
     element.open();
 
@@ -221,8 +221,8 @@ describe('sbb-tooltip', () => {
   });
 
   it('closes on interactive element click by keyboard', async () => {
-    const didOpenEventSpy = new EventSpy(events.didOpen);
-    const didCloseEventSpy = new EventSpy(events.didClose);
+    const didOpenEventSpy = new EventSpy(SbbTooltip.events.didOpen);
+    const didCloseEventSpy = new EventSpy(SbbTooltip.events.didClose);
     const tooltipLink = document.querySelector('sbb-tooltip > sbb-link') as HTMLElement;
 
     trigger.click();
@@ -243,8 +243,8 @@ describe('sbb-tooltip', () => {
   });
 
   it('sets the focus to the first focusable element when the tooltip is opened by keyboard', async () => {
-    const willOpenEventSpy = new EventSpy(events.willOpen);
-    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const willOpenEventSpy = new EventSpy(SbbTooltip.events.willOpen);
+    const didOpenEventSpy = new EventSpy(SbbTooltip.events.didOpen);
     const dialog = element.shadowRoot.querySelector('dialog');
 
     await sendKeys({ down: 'Tab' });
@@ -265,8 +265,8 @@ describe('sbb-tooltip', () => {
   });
 
   it('closes the tooltip on close button click by keyboard', async () => {
-    const didOpenEventSpy = new EventSpy(events.didOpen);
-    const didCloseEventSpy = new EventSpy(events.didClose);
+    const didOpenEventSpy = new EventSpy(SbbTooltip.events.didOpen);
+    const didCloseEventSpy = new EventSpy(SbbTooltip.events.didClose);
     const closeButton = document
       .querySelector('sbb-tooltip')
       .shadowRoot.querySelector('[sbb-tooltip-close]') as HTMLElement;
@@ -287,10 +287,10 @@ describe('sbb-tooltip', () => {
   });
 
   it('closes on Esc keypress', async () => {
-    const willOpenEventSpy = new EventSpy(events.willOpen);
-    const didOpenEventSpy = new EventSpy(events.didOpen);
-    const willCloseEventSpy = new EventSpy(events.willClose);
-    const didCloseEventSpy = new EventSpy(events.didClose);
+    const willOpenEventSpy = new EventSpy(SbbTooltip.events.willOpen);
+    const didOpenEventSpy = new EventSpy(SbbTooltip.events.didOpen);
+    const willCloseEventSpy = new EventSpy(SbbTooltip.events.willClose);
+    const didCloseEventSpy = new EventSpy(SbbTooltip.events.didClose);
     const dialog = element.shadowRoot.querySelector('dialog');
 
     trigger.click();
@@ -318,8 +318,8 @@ describe('sbb-tooltip', () => {
   });
 
   it('sets the focus on the dialog content when the tooltip is opened by click', async () => {
-    const willOpenEventSpy = new EventSpy(events.willOpen);
-    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const willOpenEventSpy = new EventSpy(SbbTooltip.events.willOpen);
+    const didOpenEventSpy = new EventSpy(SbbTooltip.events.didOpen);
     const dialog = element.shadowRoot.querySelector('dialog');
 
     trigger.click();
@@ -365,10 +365,10 @@ describe('sbb-tooltip', () => {
       .querySelector('#another-tooltip')
       .shadowRoot.querySelector('dialog');
 
-    const willOpenEventSpy = new EventSpy(events.didOpen);
-    const didOpenEventSpy = new EventSpy(events.didOpen);
-    const willCloseEventSpy = new EventSpy(events.didClose);
-    const didCloseEventSpy = new EventSpy(events.didClose, element);
+    const willOpenEventSpy = new EventSpy(SbbTooltip.events.didOpen);
+    const didOpenEventSpy = new EventSpy(SbbTooltip.events.didOpen);
+    const willCloseEventSpy = new EventSpy(SbbTooltip.events.didClose);
+    const didCloseEventSpy = new EventSpy(SbbTooltip.events.didClose, element);
 
     expect(secondTrigger).not.to.be.null;
     expect(secondElement).not.to.be.null;
