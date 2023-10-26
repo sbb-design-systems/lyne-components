@@ -31,7 +31,7 @@ import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link
 import { InterfaceSbbLoadingIndicatorAttributes } from "./components/sbb-loading-indicator/sbb-loading-indicator.custom";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceNotificationAttributes } from "./components/sbb-notification/sbb-notification.custom";
-import { ITripItem, Leg } from "./global/timetable";
+import { ITripItem, Leg, Occupancy } from "./global/timetable";
 import { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
 import { InterfaceSbbRadioButtonAttributes, RadioButtonStateChange } from "./components/sbb-radio-button/sbb-radio-button.custom";
 import { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
@@ -78,7 +78,7 @@ export { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link
 export { InterfaceSbbLoadingIndicatorAttributes } from "./components/sbb-loading-indicator/sbb-loading-indicator.custom";
 export { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 export { InterfaceNotificationAttributes } from "./components/sbb-notification/sbb-notification.custom";
-export { ITripItem, Leg } from "./global/timetable";
+export { ITripItem, Leg, Occupancy } from "./global/timetable";
 export { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
 export { InterfaceSbbRadioButtonAttributes, RadioButtonStateChange } from "./components/sbb-radio-button/sbb-radio-button.custom";
 export { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
@@ -1711,9 +1711,13 @@ export namespace Components {
     }
     interface SbbTimetableOccupancy {
         /**
-          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+          * Negative coloring variant flag.
          */
-        "config": string;
+        "negative": boolean;
+        /**
+          * Occupancy object.
+         */
+        "occupancy": Occupancy;
     }
     interface SbbTimetableParkAndRail {
         /**
@@ -4573,9 +4577,13 @@ declare namespace LocalJSX {
     }
     interface SbbTimetableOccupancy {
         /**
-          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
+          * Negative coloring variant flag.
          */
-        "config": string;
+        "negative"?: boolean;
+        /**
+          * Occupancy object.
+         */
+        "occupancy"?: Occupancy;
     }
     interface SbbTimetableParkAndRail {
         /**

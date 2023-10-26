@@ -6,10 +6,29 @@ here to show the various configuration options to component developers. !!
 
 ## Properties
 
-| Property              | Attribute | Description                                                                                                                               | Type     | Default     |
-| --------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
-| `config` _(required)_ | `config`  | Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure. | `string` | `undefined` |
+| Property    | Attribute  | Description                     | Type                                                           | Default     |
+| ----------- | ---------- | ------------------------------- | -------------------------------------------------------------- | ----------- |
+| `negative`  | `negative` | Negative coloring variant flag. | `boolean`                                                      | `false`     |
+| `occupancy` | --         | Occupancy object.               | `{ firstClass?: OccupancyEnum; secondClass?: OccupancyEnum; }` | `undefined` |
 
+
+## Dependencies
+
+### Used by
+
+ - [sbb-timetable-row](../sbb-timetable-row)
+
+### Depends on
+
+- [sbb-icon](../sbb-icon)
+
+### Graph
+```mermaid
+graph TD;
+  sbb-timetable-occupancy --> sbb-icon
+  sbb-timetable-row --> sbb-timetable-occupancy
+  style sbb-timetable-occupancy fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

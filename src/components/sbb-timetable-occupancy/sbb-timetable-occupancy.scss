@@ -1,46 +1,94 @@
 @use '../../global/styles' as sbb;
 
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
 :host {
-  --occupancy-icon-height: #{sbb.px-to-rem-build(12)};
-  --occupancy-icon-width: #{sbb.px-to-rem-build(14)};
+  --sbb-icon-svg-height: #{sbb.px-to-rem-build(12)};
+  --sbb-timetable-occupancy-color: var(--sbb-color-black-default);
+  --sbb-timetable-occupancy-display: inline-flex;
+  --sbb-timetable-occupancy-display-negative: none;
+  --sbb-timetable-occupancy-display-high-contrast: none;
 
   @include sbb.mq($from: medium) {
-    --occupancy-icon-height: #{sbb.px-to-rem-build(16)};
-    --occupancy-icon-width: #{sbb.px-to-rem-build(19)};
+    --sbb-icon-svg-height: #{sbb.px-to-rem-build(16)};
+  }
+
+  @include sbb.if-dark-mode {
+    --sbb-timetable-occupancy-color: var(--sbb-color-white-default);
+    --sbb-timetable-occupancy-display: none;
+    --sbb-timetable-occupancy-display-negative: inline-flex;
+    --sbb-timetable-occupancy-display-high-contrast: none;
+  }
+
+  @include sbb.if-forced-colors-light {
+    --sbb-timetable-occupancy-display: none;
+    --sbb-timetable-occupancy-display-negative: none;
+    --sbb-timetable-occupancy-display-high-contrast: inline-flex;
+
+    sbb-icon {
+      filter: invert(1);
+    }
+  }
+
+  @include sbb.if-forced-colors-dark {
+    --sbb-timetable-occupancy-color: var(--sbb-color-white-default);
+    --sbb-timetable-occupancy-display: none;
+    --sbb-timetable-occupancy-display-negative: none;
+    --sbb-timetable-occupancy-display-high-contrast: inline-flex;
   }
 }
 
-.occupancy__list {
+:host([negative]:not([negative='false'])) {
+  --sbb-timetable-occupancy-color: var(--sbb-color-white-default);
+  --sbb-timetable-occupancy-display: none;
+  --sbb-timetable-occupancy-display-negative: inline-flex;
+  --sbb-timetable-occupancy-display-high-contrast: none;
+
+  @include sbb.if-forced-colors-light {
+    --sbb-timetable-occupancy-display: none;
+    --sbb-timetable-occupancy-display-negative: none;
+    --sbb-timetable-occupancy-display-high-contrast: inline-flex;
+
+    sbb-icon {
+      filter: invert(1);
+    }
+  }
+
+  @include sbb.if-forced-colors-dark {
+    --sbb-timetable-occupancy-display: none;
+    --sbb-timetable-occupancy-display-negative: none;
+    --sbb-timetable-occupancy-display-high-contrast: inline-flex;
+  }
+}
+
+.sbb-timetable-occupancy {
   @include sbb.list-reset;
 
-  display: flex;
-  align-items: center;
-  flex-wrap: nowrap;
+  display: inline-flex;
   gap: var(--sbb-spacing-fixed-2x);
+  color: var(--sbb-timetable-occupancy-color);
 }
 
-.occupancy__list-item {
-  display: flex;
+.sbb-timetable-occupancy__item {
+  display: var(--sbb-timetable-occupancy-display);
+}
+
+.sbb-timetable-occupancy__item--negative {
+  display: var(--sbb-timetable-occupancy-display-negative);
+}
+
+.sbb-timetable-occupancy__item--high-contrast {
+  display: var(--sbb-timetable-occupancy-display-high-contrast);
+}
+
+.sbb-timetable-occupancy li {
+  display: inline-flex;
   align-items: center;
-  flex-wrap: nowrap;
-  gap: #{sbb.px-to-rem-build(2)};
+  gap: var(--sbb-spacing-fixed-1x);
 }
 
-.occupancy__class--visual {
-  @include sbb.text-s--regular;
-}
-
-.occupancy__class--visually-hidden {
+.sbb-timetable-occupancy--visually-hidden {
   @include sbb.screen-reader-only;
-}
-
-.occupancy__icon {
-  height: var(--occupancy-icon-height);
-}
-
-.occupancy__icon svg {
-  float: inline-start;
-  height: var(--occupancy-icon-height);
-  width: var(--occupancy-icon-width);
-  fill: currentcolor;
 }

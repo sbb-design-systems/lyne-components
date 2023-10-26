@@ -1,5 +1,5 @@
 import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
-import icons from '../../global/timetable/icons.json';
+import { Occupancy } from '../../global/timetable';
 import { i18nClass, i18nOccupancy } from '../../global/i18n';
 import {
   documentLanguage,
@@ -13,13 +13,11 @@ import {
   tag: 'sbb-timetable-occupancy',
 })
 export class SbbTimetableOccupancy {
-  /**
-   * Stringified JSON which defines most of the
-   * content of the component. Please check the
-   * individual stories to get an idea of the
-   * structure.
-   */
-  @Prop() public config!: string;
+  /** Occupancy object. */
+  @Prop() public occupancy: Occupancy;
+
+  /** Negative coloring variant flag. */
+  @Prop({ reflect: true }) public negative = false;
 
   @State() private _currentLanguage = documentLanguage();
 
@@ -39,35 +37,47 @@ export class SbbTimetableOccupancy {
   }
 
   public render(): JSX.Element {
-    const { occupancyItems } = JSON.parse(this.config);
+    const firstClassOccupancy: string = this.occupancy?.firstClass
+      ? this.occupancy.firstClass.toLowerCase()
+      : null;
+    const secondClassOccupancy: string = this.occupancy?.secondClass
+      ? this.occupancy.secondClass.toLowerCase()
+      : null;
 
     return (
-      <ul class="occupancy__list" role="list">
-        {occupancyItems.map((occupancyItem) => {
-          const occupancyText = i18nOccupancy[occupancyItem.occupancy][this._currentLanguage];
-
-          const classText = occupancyItem.class === '1' ? 'first' : 'second';
-
-          const a11yLabel = `${i18nClass[classText][this._currentLanguage]}. ${occupancyText}.`;
-
-          return (
-            <li class="occupancy__list-item">
-              <span class="occupancy__class">
-                <span aria-hidden="true" class="occupancy__class--visual">
-                  {occupancyItem.class}.
-                </span>
-                <span class="occupancy__class--visually-hidden">{a11yLabel}</span>
-              </span>
-              <span
-                aria-hidden="true"
-                class="occupancy__icon"
-                innerHTML={icons[occupancyItem.icon]}
-                role="presentation"
-              ></span>
-            </li>
-          );
-        })}
-      </ul>
+      (firstClassOccupancy || secondClassOccupancy) && (
+        <ul class="sbb-timetable-occupancy" role="list">
+          {[firstClassOccupancy, secondClassOccupancy].map((occupancy: string, index: number) => {
+            const iconName = occupancy === 'unknown' ? 'none' : occupancy;
+            const occupancyClass = index === 0 ? 'first' : 'second';
+            return (
+              occupancy && (
+                <li>
+                  <span aria-hidden="true">{index + 1}.</span>
+                  <sbb-icon
+                    class="sbb-timetable-occupancy__item"
+                    name={`utilization-${iconName}`}
+                  />
+                  <sbb-icon
+                    class="sbb-timetable-occupancy__item--negative"
+                    name={`utilization-${iconName}-negative`}
+                  />
+                  <sbb-icon
+                    class="sbb-timetable-occupancy__item--high-contrast"
+                    name={`utilization-${iconName}-high-contrast`}
+                  />
+                  <span class="sbb-timetable-occupancy--visually-hidden">
+                    {i18nOccupancy[occupancy] &&
+                      `${i18nClass[occupancyClass][this._currentLanguage]} ${
+                        i18nOccupancy[occupancy][this._currentLanguage]
+                      }.`}
+                  </span>
+                </li>
+              )
+            );
+          })}
+        </ul>
+      )
     );
   }
 }

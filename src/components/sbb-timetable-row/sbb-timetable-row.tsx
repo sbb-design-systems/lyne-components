@@ -390,45 +390,7 @@ export class SbbTimetableRow {
                   {departure?.quayFormatted}
                 </span>
               )}
-              {((occupancy?.firstClass && occupancy?.firstClass !== 'UNKNOWN') ||
-                (occupancy?.secondClass && occupancy.secondClass !== 'UNKNOWN')) && (
-                <ul class="sbb-timetable__row-occupancy" role="list">
-                  {occupancy?.firstClass && occupancy.firstClass !== 'UNKNOWN' && (
-                    <li>
-                      <span aria-hidden="true">1.</span>
-                      <sbb-icon
-                        class="sbb-occupancy__item"
-                        name={`utilization-` + occupancy?.firstClass?.toLowerCase()}
-                      />
-                      <span class="sbb-screenreaderonly">
-                        {i18nOccupancy[occupancy?.firstClass?.toLowerCase()] &&
-                          `${i18nClass.first[this._currentLanguage]} ${
-                            i18nOccupancy[occupancy?.firstClass?.toLowerCase()][
-                              this._currentLanguage
-                            ]
-                          }.`}
-                      </span>
-                    </li>
-                  )}
-                  {occupancy?.secondClass && occupancy.secondClass !== 'UNKNOWN' && (
-                    <li>
-                      <span aria-hidden="true">2.</span>
-                      <sbb-icon
-                        class="sbb-occupancy__item"
-                        name={`utilization-` + occupancy?.secondClass?.toLowerCase()}
-                      />
-                      <span class="sbb-screenreaderonly">
-                        {i18nOccupancy[occupancy?.secondClass?.toLowerCase()] &&
-                          `${i18nClass.second[this._currentLanguage]} ${
-                            i18nOccupancy[occupancy?.secondClass?.toLowerCase()][
-                              this._currentLanguage
-                            ]
-                          }.`}
-                      </span>
-                    </li>
-                  )}
-                </ul>
-              )}
+              <sbb-timetable-occupancy occupancy={occupancy}></sbb-timetable-occupancy>
               {((noticeAttributes && noticeAttributes.length) || this.boarding) && (
                 <ul class="sbb-timetable__row-hints" role="list">
                   {noticeAttributes?.map(

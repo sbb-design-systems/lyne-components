@@ -69,6 +69,7 @@ This is helpful if you need a specific state of the component.
 - [sbb-card-action](../sbb-card-action)
 - [sbb-icon](../sbb-icon)
 - [sbb-pearl-chain-time](../sbb-pearl-chain-time)
+- [sbb-timetable-occupancy](../sbb-timetable-occupancy)
 
 ### Graph
 ```mermaid
@@ -78,7 +79,9 @@ graph TD;
   sbb-timetable-row --> sbb-card-action
   sbb-timetable-row --> sbb-icon
   sbb-timetable-row --> sbb-pearl-chain-time
+  sbb-timetable-row --> sbb-timetable-occupancy
   sbb-pearl-chain-time --> sbb-pearl-chain
+  sbb-timetable-occupancy --> sbb-icon
   style sbb-timetable-row fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

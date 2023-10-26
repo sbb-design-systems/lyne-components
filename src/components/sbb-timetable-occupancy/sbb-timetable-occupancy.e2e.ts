@@ -1,16 +1,37 @@
-import { newE2EPage } from '@stencil/core/testing';
-import sampleData from './sbb-timetable-occupancy.sample-data';
-
-const config = JSON.stringify(sampleData[3]);
+import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { occupancySampleData } from './sbb-timetable-occupancy.sample-data';
 
 describe('sbb-timetable-occupancy', () => {
-  let element, page;
+  let element: E2EElement, page: E2EPage;
 
   it('renders', async () => {
-    page = await newE2EPage();
-    await page.setContent(`<sbb-timetable-occupancy config='${config}'></sbb-timetable-occupancy>`);
-
+    page = await newE2EPage({
+      html: `<sbb-timetable-occupancy></sbb-timetable-occupancy>`,
+    });
     element = await page.find('sbb-timetable-occupancy');
+    element.setProperty('occupancy', occupancySampleData[9]);
+    await page.waitForChanges();
+
     expect(element).toHaveClass('hydrated');
+    expect(
+      await page.evaluate(
+        () =>
+          getComputedStyle(
+            document
+              .querySelector('sbb-timetable-occupancy')
+              .shadowRoot.querySelector('.sbb-timetable-occupancy__item--negative'),
+          ).display,
+      ),
+    ).toBe('none');
+    expect(
+      await page.evaluate(
+        () =>
+          getComputedStyle(
+            document
+              .querySelector('sbb-timetable-occupancy')
+              .shadowRoot.querySelector('.sbb-timetable-occupancy__item--high-contrast'),
+          ).display,
+      ),
+    ).toBe('none');
   });
 });

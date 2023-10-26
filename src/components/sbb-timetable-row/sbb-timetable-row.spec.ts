@@ -45,6 +45,7 @@ describe('sbb-timetable-row', () => {
                 </div>
                 <sbb-pearl-chain-time arrivaltime="2022-11-30T12:13:00+01:00" data-now="1660662000000" departuretime="2022-11-30T11:08:00+01:00" role="gridcell"></sbb-pearl-chain-time>
                 <div class="sbb-timetable__row-footer" role="gridcell">
+                  <sbb-timetable-occupancy></sbb-timetable-occupancy>
                   <time>
                     <span class="sbb-screenreaderonly">
                       Travel time 1 Hour 15 Minutes
@@ -112,26 +113,7 @@ describe('sbb-timetable-row', () => {
                     </span>
                     4
                   </span>
-                  <ul class="sbb-timetable__row-occupancy" role="list">
-                    <li>
-                      <span aria-hidden="true">
-                        1.
-                      </span>
-                      <sbb-icon class="sbb-occupancy__item" name="utilization-low"></sbb-icon>
-                      <span class="sbb-screenreaderonly">
-                        First Class Low to medium occupancy expected.
-                      </span>
-                    </li>
-                    <li>
-                      <span aria-hidden="true">
-                        2.
-                      </span>
-                      <sbb-icon class="sbb-occupancy__item" name="utilization-medium"></sbb-icon>
-                      <span class="sbb-screenreaderonly">
-                        Second Class High occupancy expected.
-                      </span>
-                    </li>
-                  </ul>
+                  <sbb-timetable-occupancy></sbb-timetable-occupancy>
                   <time>
                   <span class="sbb-screenreaderonly">
                     Travel time 41 Minutes
