@@ -21,7 +21,7 @@ describe('sbb-menu', () => {
       <sbb-menu trigger="menu-trigger" data-state="closed" id="sbb-menu-1">
         <mock:shadow-root>
           <div class="sbb-menu__container">
-            <div class="sbb-menu" role="presentation">
+            <div class="sbb-menu">
               <div class="sbb-menu__content">
                 <slot></slot>
               </div>
@@ -66,7 +66,7 @@ describe('sbb-menu', () => {
     <sbb-menu data-state="closed" id="sbb-menu-2" trigger="menu-trigger">
       <mock:shadow-root>
         <div class="sbb-menu__container">
-          <div class="sbb-menu" role="presentation">
+          <div class="sbb-menu">
             <div class="sbb-menu__content">
               <ul class="sbb-menu-list">
                 <li>
