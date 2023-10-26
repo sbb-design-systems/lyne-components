@@ -20,10 +20,10 @@ export class __nameUpperCase__ extends LitElement {
   @state() private _myState = false;
 
   private _abort = new ConnectedAbortController(this);
-  private _fileChangedEvent: EventEmitter<any> = new EventEmitter(this, __nameUpperCase__.events.myEventName);
+  private _myEvent: EventEmitter<any> = new EventEmitter(this, __nameUpperCase__.events.myEventName);
 
   private _onClickFn(): void {
-    this._fileChangedEvent.emit();
+    this._myEvent.emit();
   }
 
   public override connectedCallback(): void {

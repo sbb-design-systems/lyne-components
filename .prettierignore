@@ -7,5 +7,5 @@ src/components.d.ts
 src/components/*/readme.md
 src/global/core/components/*/readme.md
 convenience/generate-component/boilerplate/readme.md
-convenience/generate-component/boilerplate/component.tsx
+convenience/generate-component/boilerplate/component.ts
 react-library
