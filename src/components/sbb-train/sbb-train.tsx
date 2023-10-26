@@ -1,11 +1,11 @@
-import { i18nTrain, i18nWagonsLabel } from '../../global/i18n';
+import { i18nTrain, i18nWagonsLabel } from '../core/i18n';
 import { TitleLevel } from '../sbb-title';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
   EventEmitter,
-} from '../../global/eventing';
+} from '../core/eventing';
 import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';

@@ -1,9 +1,9 @@
 import { SbbOption } from '../sbb-option';
-import { waitForCondition, waitForLitRender } from '../../global/testing';
+import { waitForCondition, waitForLitRender } from '../core/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys, sendMouse } from '@web/test-runner-commands';
-import { EventSpy } from '../../global/testing/event-spy';
+import { EventSpy } from '../core/testing/event-spy';
 import { SbbAutocomplete } from './sbb-autocomplete';
 import { SbbFormField } from '../sbb-form-field';
 import '../sbb-option';

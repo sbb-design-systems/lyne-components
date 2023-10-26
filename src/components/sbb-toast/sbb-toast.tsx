@@ -1,4 +1,4 @@
-import { isFirefox, isValidAttribute } from '../../global/dom';
+import { isFirefox, isValidAttribute } from '../core/dom';
 import {
   createNamedSlotState,
   documentLanguage,
@@ -8,13 +8,13 @@ import {
   composedPathHasAttribute,
   EventEmitter,
   ConnectedAbortController,
-} from '../../global/eventing';
-import { i18nCloseAlert } from '../../global/i18n';
+} from '../core/eventing';
+import { i18nCloseAlert } from '../core/i18n';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { setAttribute } from '../../global/dom';
+import { setAttribute } from '../core/dom';
 import style from './sbb-toast.scss?lit&inline';
-import { SbbOverlayState } from '../../global/overlay';
+import { SbbOverlayState } from '../core/overlay';
 import { SbbButton } from '../sbb-button';
 import { SbbLink } from '../sbb-link';
 import '../sbb-link';

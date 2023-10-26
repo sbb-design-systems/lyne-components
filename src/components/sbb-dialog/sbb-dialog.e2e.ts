@@ -1,8 +1,8 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../global/testing';
-import { i18nDialog } from '../../global/i18n';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
+import { i18nDialog } from '../core/i18n';
 import { SbbDialog } from './sbb-dialog';
 import '../sbb-button';
 import '../sbb-icon';

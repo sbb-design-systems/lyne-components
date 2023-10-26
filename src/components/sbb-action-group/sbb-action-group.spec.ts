@@ -1,4 +1,4 @@
-import { patchSlotchangeEvent } from '../../global/testing';
+import { patchSlotchangeEvent } from '../core/testing';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { SbbActionGroup } from './sbb-action-group';

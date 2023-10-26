@@ -25,7 +25,7 @@
   "files": [
     "dist/",
     "_index.scss",
-    "src/global/**/*.scss"
+    "src/components/core/**/*.scss"
   ],
   "scripts": {
     "postinstall": "yarn playwright install",

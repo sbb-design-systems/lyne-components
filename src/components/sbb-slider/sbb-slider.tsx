@@ -1,7 +1,7 @@
-import { forwardEventToHost, EventEmitter, ConnectedAbortController } from '../../global/eventing';
+import { forwardEventToHost, EventEmitter, ConnectedAbortController } from '../core/eventing';
 import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { setAttributes } from '../../global/dom';
+import { setAttributes } from '../core/dom';
 import { ref } from 'lit/directives/ref.js';
 import style from './sbb-slider.scss?lit&inline';
 import { spread } from '@open-wc/lit-helpers';

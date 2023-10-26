@@ -1,21 +1,21 @@
 import { CSSResult, LitElement, PropertyValues, TemplateResult, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { DateAdapter, NativeDateAdapter } from '../../global/datetime';
+import { DateAdapter, NativeDateAdapter } from '../core/datetime';
 import {
   isValidAttribute,
   setAttribute,
   setAttributes,
   toggleDatasetEntry,
-} from '../../global/dom';
+} from '../core/dom';
 import {
   ConnectedAbortController,
   HandlerRepository,
   actionElementHandlerAspect,
   documentLanguage,
   languageChangeHandlerAspect,
-} from '../../global/eventing';
-import { i18nPreviousDay, i18nSelectPreviousDay, i18nToday } from '../../global/i18n';
-import { resolveButtonRenderVariables } from '../../global/interfaces';
+} from '../core/eventing';
+import { i18nPreviousDay, i18nSelectPreviousDay, i18nToday } from '../core/i18n';
+import { resolveButtonRenderVariables } from '../core/interfaces';
 import type { SbbDatepicker } from '../sbb-datepicker';
 import {
   InputUpdateEvent,

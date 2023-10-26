@@ -1,20 +1,20 @@
 import { CSSResult, LitElement, PropertyValues, TemplateResult, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
-import { readConfig } from '../../global/config';
-import { DateAdapter } from '../../global/datetime';
-import { findInput, isValidAttribute, toggleDatasetEntry } from '../../global/dom';
+import { readConfig } from '../core/config';
+import { DateAdapter } from '../core/datetime';
+import { findInput, isValidAttribute, toggleDatasetEntry } from '../core/dom';
 import {
   ConnectedAbortController,
   EventEmitter,
   HandlerRepository,
   documentLanguage,
   languageChangeHandlerAspect,
-} from '../../global/eventing';
-import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../global/i18n';
-import { ValidationChangeEvent } from '../../global/interfaces';
-import { SbbDateLike } from '../../global/types';
-import { AgnosticMutationObserver } from '../../global/observers';
+} from '../core/eventing';
+import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../core/i18n';
+import { ValidationChangeEvent } from '../core/interfaces';
+import { SbbDateLike } from '../core/interfaces';
+import { AgnosticMutationObserver } from '../core/observers';
 import { InputUpdateEvent, isDateAvailable } from './sbb-datepicker.helper';
 import style from './sbb-datepicker.scss?lit&inline';
 

@@ -3,7 +3,7 @@ import {
   createNamedSlotState,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
-} from '../../global/eventing';
+} from '../core/eventing';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';

@@ -5,15 +5,15 @@ import {
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
   EventEmitter,
-} from '../../global/eventing';
+} from '../core/eventing';
 import {
   i18nFileSelectorButtonLabel,
   i18nFileSelectorCurrentlySelected,
   i18nFileSelectorDeleteFile,
   i18nFileSelectorSubtitleLabel,
-} from '../../global/i18n';
-import { toggleDatasetEntry } from '../../global/dom';
-import { sbbInputModalityDetector } from '../../global/a11y';
+} from '../core/i18n';
+import { toggleDatasetEntry } from '../core/dom';
+import { sbbInputModalityDetector } from '../core/a11y';
 import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';

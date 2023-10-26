@@ -1,12 +1,12 @@
-import { i18nCloseAlert, i18nFindOutMore } from '../../global/i18n';
-import { LinkProperties, LinkTargetType } from '../../global/interfaces';
+import { i18nCloseAlert, i18nFindOutMore } from '../core/i18n';
+import { LinkProperties, LinkTargetType } from '../core/interfaces';
 import { TitleLevel } from '../sbb-title';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
   EventEmitter,
-} from '../../global/eventing';
+} from '../core/eventing';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';

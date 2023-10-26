@@ -7,16 +7,16 @@ import {
   assignId,
   getFirstFocusableElement,
   setModalityOnNextFocus,
-} from '../../global/a11y';
-import { findReferencedElement, isValidAttribute, setAttribute } from '../../global/dom';
+} from '../core/a11y';
+import { findReferencedElement, isValidAttribute, setAttribute } from '../core/dom';
 import {
   EventEmitter,
   HandlerRepository,
   composedPathHasAttribute,
   documentLanguage,
   languageChangeHandlerAspect,
-} from '../../global/eventing';
-import { i18nCloseTooltip } from '../../global/i18n';
+} from '../core/eventing';
+import { i18nCloseTooltip } from '../core/i18n';
 import {
   Alignment,
   SbbOverlayState,
@@ -24,7 +24,7 @@ import {
   isEventOnElement,
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
-} from '../../global/overlay';
+} from '../core/overlay';
 import '../sbb-button';
 import style from './sbb-tooltip.scss?lit&inline';
 

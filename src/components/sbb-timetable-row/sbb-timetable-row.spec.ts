@@ -1,5 +1,5 @@
-import { waitForLitRender } from '../../global/testing';
-import { ITripItem, Notice, PtSituation } from '../../global/timetable';
+import { waitForLitRender } from '../core/testing';
+import { ITripItem, Notice, PtSituation } from '../core/timetable';
 import {
   SbbTimetableRow,
   filterNotices,

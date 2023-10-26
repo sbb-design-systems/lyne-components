@@ -1,7 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit';
-import { NativeDateAdapter } from '../../global/datetime';
-import { findInput } from '../../global/dom';
+import { NativeDateAdapter } from '../core/datetime';
+import { findInput } from '../core/dom';
 import { SbbFormField } from '../sbb-form-field';
 import { SbbDatepicker } from './sbb-datepicker';
 import {

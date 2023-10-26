@@ -1,5 +1,5 @@
 import { TitleLevel } from '../sbb-title';
-import { i18nCloseNotification } from '../../global/i18n';
+import { i18nCloseNotification } from '../core/i18n';
 import {
   createNamedSlotState,
   documentLanguage,
@@ -7,12 +7,12 @@ import {
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
   EventEmitter,
-} from '../../global/eventing';
-import { AgnosticResizeObserver } from '../../global/observers';
-import { toggleDatasetEntry } from '../../global/dom';
+} from '../core/eventing';
+import { AgnosticResizeObserver } from '../core/observers';
+import { toggleDatasetEntry } from '../core/dom';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { setAttribute } from '../../global/dom';
+import { setAttribute } from '../core/dom';
 import { ref } from 'lit/directives/ref.js';
 import style from './sbb-notification.scss?lit&inline';
 import '../sbb-button';

@@ -2,7 +2,7 @@ import {
   createNamedSlotState,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
-} from '../../global/eventing';
+} from '../core/eventing';
 import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';
@@ -10,7 +10,7 @@ import { SbbLink, SbbLinkSize } from '../sbb-link';
 import { TitleLevel } from '../sbb-title';
 import '../sbb-title';
 import style from './sbb-link-list.scss?lit&inline';
-import { SbbHorizontalFrom, SbbOrientation } from '../../global/types';
+import { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
 
 @customElement('sbb-link-list')
 export class SbbLinkList extends LitElement {

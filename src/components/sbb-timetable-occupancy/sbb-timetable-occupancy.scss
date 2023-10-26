@@ -1,4 +1,4 @@
-@use '../../global/styles' as sbb;
+@use '../core/styles' as sbb;
 
 :host {
   --occupancy-icon-height: #{sbb.px-to-rem-build(12)};

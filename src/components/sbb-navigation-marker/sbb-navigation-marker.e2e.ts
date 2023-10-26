@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 import { SbbNavigationMarker } from './sbb-navigation-marker';
 import '../sbb-navigation-marker';
 import '../sbb-navigation-action';
-import { waitForLitRender } from '../../global/testing';
+import { waitForLitRender } from '../core/testing';
 
 describe('sbb-navigation-marker', () => {
   let element: SbbNavigationMarker;

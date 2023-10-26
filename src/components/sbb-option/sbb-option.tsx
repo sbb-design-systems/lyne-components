@@ -1,16 +1,16 @@
-import { assignId } from '../../global/a11y';
-import { isSafari, isValidAttribute, isAndroid, toggleDatasetEntry } from '../../global/dom';
+import { assignId } from '../core/a11y';
+import { isSafari, isValidAttribute, isAndroid, toggleDatasetEntry } from '../core/dom';
 import {
   createNamedSlotState,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
   EventEmitter,
   ConnectedAbortController,
-} from '../../global/eventing';
-import { AgnosticMutationObserver } from '../../global/observers';
+} from '../core/eventing';
+import { AgnosticMutationObserver } from '../core/observers';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { setAttribute } from '../../global/dom';
+import { setAttribute } from '../core/dom';
 import { classMap } from 'lit/directives/class-map.js';
 import style from './sbb-option.scss?lit&inline';
 import '../sbb-visual-checkbox';

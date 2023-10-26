@@ -9,7 +9,7 @@ import {
   redirectedOnDepartureLeg,
 } from '../sbb-pearl-chain/sbb-pearl-chain.sample-data';
 
-import { ITripItem } from '../../global/timetable';
+import { ITripItem } from '../core/timetable';
 
 type DeepPartial<T> = T extends object
   ? {

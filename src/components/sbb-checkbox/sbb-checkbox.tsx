@@ -1,5 +1,5 @@
-import { i18nCollapsed, i18nExpanded } from '../../global/i18n';
-import { isValidAttribute } from '../../global/dom';
+import { i18nCollapsed, i18nExpanded } from '../core/i18n';
+import { isValidAttribute } from '../core/dom';
 import {
   createNamedSlotState,
   documentLanguage,
@@ -11,11 +11,11 @@ import {
   forwardEventToHost,
   EventEmitter,
   ConnectedAbortController,
-} from '../../global/eventing';
-import { AgnosticMutationObserver } from '../../global/observers';
+} from '../core/eventing';
+import { AgnosticMutationObserver } from '../core/observers';
 import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { setAttributes } from '../../global/dom';
+import { setAttributes } from '../core/dom';
 import { ref } from 'lit/directives/ref.js';
 import style from './sbb-checkbox.scss?lit&inline';
 import '../sbb-visual-checkbox';
@@ -25,7 +25,7 @@ import {
   SbbStateChange,
   SbbCheckedStateChange,
   SbbDisabledStateChange,
-} from '../../global/types';
+} from '../core/interfaces';
 
 export type SbbCheckboxStateChange = Extract<
   SbbStateChange,

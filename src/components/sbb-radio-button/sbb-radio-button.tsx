@@ -1,5 +1,5 @@
-import { i18nCollapsed, i18nExpanded } from '../../global/i18n';
-import { isValidAttribute } from '../../global/dom';
+import { i18nCollapsed, i18nExpanded } from '../core/i18n';
+import { isValidAttribute } from '../core/dom';
 import {
   createNamedSlotState,
   documentLanguage,
@@ -9,14 +9,14 @@ import {
   formElementHandlerAspect,
   EventEmitter,
   ConnectedAbortController,
-} from '../../global/eventing';
-import { AgnosticMutationObserver } from '../../global/observers';
+} from '../core/eventing';
+import { AgnosticMutationObserver } from '../core/observers';
 import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { setAttributes } from '../../global/dom';
+import { setAttributes } from '../core/dom';
 import style from './sbb-radio-button.scss?lit&inline';
 import { SbbRadioButtonGroup } from '../sbb-radio-button-group';
-import { SbbCheckedStateChange, SbbDisabledStateChange, SbbStateChange } from '../../global/types';
+import { SbbCheckedStateChange, SbbDisabledStateChange, SbbStateChange } from '../core/interfaces';
 
 export type SbbRadioButtonStateChange = Extract<
   SbbStateChange,

@@ -3,27 +3,27 @@ import {
   getFirstFocusableElement,
   getFocusableElements,
   setModalityOnNextFocus,
-} from '../../global/a11y';
-import { findReferencedElement, isBreakpoint, isValidAttribute } from '../../global/dom';
+} from '../core/a11y';
+import { findReferencedElement, isBreakpoint, isValidAttribute } from '../core/dom';
 import {
   createNamedSlotState,
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
-} from '../../global/eventing';
-import { i18nGoBack } from '../../global/i18n';
+} from '../core/eventing';
+import { i18nGoBack } from '../core/i18n';
 import {
   removeAriaOverlayTriggerAttributes,
   SbbOverlayState,
   setAriaOverlayTriggerAttributes,
-} from '../../global/overlay';
+} from '../core/overlay';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';
 import { SbbNavigation } from '../sbb-navigation';
 import { SbbNavigationMarker } from '../sbb-navigation-marker';
-import { setAttribute } from '../../global/dom';
+import { setAttribute } from '../core/dom';
 import { ref } from 'lit/directives/ref.js';
 import style from './sbb-navigation-section.scss?lit&inline';
 import '../sbb-divider';

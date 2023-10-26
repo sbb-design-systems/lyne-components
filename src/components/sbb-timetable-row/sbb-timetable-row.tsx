@@ -15,14 +15,14 @@ import {
   i18nTravelhints,
   i18nTripDuration,
   i18nTripQuayChange,
-} from '../../global/i18n';
+} from '../core/i18n';
 import { format } from 'date-fns';
-import { removeTimezoneFromISOTimeString, durationToTime } from '../../global/datetime';
+import { removeTimezoneFromISOTimeString, durationToTime } from '../core/datetime';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
-} from '../../global/eventing';
+} from '../core/eventing';
 import {
   getDepartureArrivalTimeAttribute,
   isRideLeg,
@@ -31,10 +31,10 @@ import {
   PtRideLeg,
   PtSituation,
   VehicleModeEnum,
-} from '../../global/timetable';
+} from '../core/timetable';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { setAttribute } from '../../global/dom';
+import { setAttribute } from '../core/dom';
 import style from './sbb-timetable-row.scss?lit&inline';
 import '../sbb-card';
 import '../sbb-card-badge';

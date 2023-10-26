@@ -741,7 +741,7 @@ declare global {
 
     function migrateJsxHost(host: ts.JsxOpeningElement) {
       const codeToAdd: string[] = [];
-      newImports.set('../../global/dom', ['setAttribute, setAttributes']);
+      newImports.set('../core/dom', ['setAttribute, setAttributes']);
 
       // Remove the <Host> tag
       mutator.remove(host);
@@ -957,7 +957,7 @@ declare global {
       .set('@open-wc/testing', ['assert', 'expect', 'fixture', 'oneEvent', 'waitUntil'])
       .set('lit/static-html.js', ['html'])
       .set('@web/test-runner-commands', ['sendKeys', 'setViewport'])
-      .set('../../global/testing', ['EventSpy, waitForLitRender']);
+      .set('../core/testing', ['EventSpy, waitForLitRender']);
 
     const assertionConversionMap = [
       { from: 'toEqual', to: 'to.be.equal' },

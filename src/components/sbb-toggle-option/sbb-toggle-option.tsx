@@ -1,15 +1,15 @@
-import { LitElement, TemplateResult, html, nothing } from 'lit';
+import { CSSResult, LitElement, TemplateResult, html, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { setAttribute } from '../../global/dom';
+import { setAttribute } from '../core/dom';
 import {
   ConnectedAbortController,
   EventEmitter,
   HandlerRepository,
   createNamedSlotState,
   namedSlotChangeHandlerAspect,
-} from '../../global/eventing';
+} from '../core/eventing';
 import '../sbb-icon';
-import { SbbToggle, SbbToggleStateChange } from '../sbb-toggle';
+import { type SbbToggle, type SbbToggleStateChange } from '../sbb-toggle';
 import style from './sbb-toggle-option.scss?lit&inline';
 
 /**
@@ -18,7 +18,7 @@ import style from './sbb-toggle-option.scss?lit&inline';
  */
 @customElement('sbb-toggle-option')
 export class SbbToggleOption extends LitElement {
-  public static override styles = style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     stateChange: 'state-change',
   } as const;

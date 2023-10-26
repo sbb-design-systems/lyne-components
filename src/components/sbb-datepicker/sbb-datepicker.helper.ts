@@ -1,5 +1,5 @@
-import { DateAdapter, NativeDateAdapter } from '../../global/datetime';
-import { findReferencedElement } from '../../global/dom';
+import { DateAdapter, NativeDateAdapter } from '../core/datetime';
+import { findReferencedElement } from '../core/dom';
 import type { SbbDatepickerPreviousDay } from '../sbb-datepicker-previous-day';
 import type { SbbDatepickerNextDay } from '../sbb-datepicker-next-day';
 import type { SbbDatepickerToggle } from '../sbb-datepicker-toggle';

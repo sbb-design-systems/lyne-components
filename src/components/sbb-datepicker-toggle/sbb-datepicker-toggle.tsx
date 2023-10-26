@@ -1,14 +1,14 @@
 import { CSSResult, html, LitElement, nothing, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
-import { sbbInputModalityDetector } from '../../global/a11y';
-import { isValidAttribute, setAttribute } from '../../global/dom';
+import { sbbInputModalityDetector } from '../core/a11y';
+import { isValidAttribute, setAttribute } from '../core/dom';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
-} from '../../global/eventing';
-import { i18nShowCalendar } from '../../global/i18n';
+} from '../core/eventing';
+import { i18nShowCalendar } from '../core/i18n';
 import { SbbCalendar } from '../sbb-calendar/index';
 import type { SbbDatepicker } from '../sbb-datepicker';
 import {

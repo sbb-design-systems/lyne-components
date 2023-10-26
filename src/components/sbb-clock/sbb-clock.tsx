@@ -4,7 +4,7 @@ import clockHandleMinutesSVG from './assets/sbb_clock_minutes.svg?raw';
 import clockHandleSecondsSVG from './assets/sbb_clock_seconds.svg?raw';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { setAttributes } from '../../global/dom';
+import { setAttributes } from '../core/dom';
 import { ref } from 'lit/directives/ref.js';
 import style from './sbb-clock.scss?lit&inline';
 

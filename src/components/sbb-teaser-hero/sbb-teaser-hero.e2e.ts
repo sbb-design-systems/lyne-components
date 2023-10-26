@@ -1,7 +1,7 @@
-import images from '../../global/images';
+import images from '../core/images';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { waitForLitRender } from '../../global/testing';
+import { waitForLitRender } from '../core/testing';
 import { SbbTeaserHero } from './sbb-teaser-hero';
 import '../sbb-teaser-hero';
 import '../sbb-link';

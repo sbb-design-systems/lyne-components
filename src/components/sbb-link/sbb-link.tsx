@@ -6,9 +6,9 @@ import {
   LinkTargetType,
   resolveRenderVariables,
   targetsNewWindow,
-} from '../../global/interfaces';
-import { i18nTargetOpensInNewWindow } from '../../global/i18n';
-import { hostContext, ACTION_ELEMENTS } from '../../global/dom';
+} from '../core/interfaces';
+import { i18nTargetOpensInNewWindow } from '../core/i18n';
+import { hostContext, ACTION_ELEMENTS } from '../core/dom';
 import {
   createNamedSlotState,
   documentLanguage,
@@ -16,15 +16,15 @@ import {
   actionElementHandlerAspect,
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
-} from '../../global/eventing';
-import { LitElement, nothing, TemplateResult } from 'lit';
+} from '../core/eventing';
+import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
-import { setAttributes } from '../../global/dom';
+import { setAttributes } from '../core/dom';
 import style from './sbb-link.scss?lit&inline';
 import { spread } from '@open-wc/lit-helpers';
 import '../sbb-icon';
-import { SbbIconPlacement } from '../../global/types';
+import { SbbIconPlacement } from '../core/interfaces';
 
 export type SbbLinkSize = 'xs' | 's' | 'm';
 

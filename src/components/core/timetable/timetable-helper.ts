@@ -1,4 +1,16 @@
-import { Notice } from '../../global/timetable';
+/* eslint-disable @typescript-eslint/naming-convention */
+
+import { Leg, Notice } from './timetable-properties';
+
+export const isRideLeg = (leg: any): leg is Extract<Leg, { __typename: 'PTRideLeg' }> => {
+  return leg?.__typename === 'PTRideLeg';
+};
+
+export const isConnectionLeg = (
+  leg: any,
+): leg is Extract<Leg, { __typename: 'PTConnectionLeg' }> => {
+  return leg?.__typename === 'PTConnectionLeg';
+};
 
 export const extractTimeAndStringFromNoticeText = (
   notice: Notice,

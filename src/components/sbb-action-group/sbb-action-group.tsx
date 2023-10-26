@@ -1,7 +1,7 @@
 import { CSSResult, html, LitElement, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import style from './sbb-action-group.scss?lit&inline';
-import { SbbHorizontalFrom, SbbOrientation } from '../../global/types';
+import { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
 import { SbbButtonSize } from '../sbb-button';
 import { SbbLinkSize } from '../sbb-link';
 

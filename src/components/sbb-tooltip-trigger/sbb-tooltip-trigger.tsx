@@ -1,8 +1,8 @@
 import { CSSResult, LitElement, TemplateResult, html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { hostContext, isValidAttribute, setAttributes, toggleDatasetEntry } from '../../global/dom';
-import { HandlerRepository, actionElementHandlerAspect } from '../../global/eventing';
-import { resolveButtonRenderVariables } from '../../global/interfaces';
+import { hostContext, isValidAttribute, setAttributes, toggleDatasetEntry } from '../core/dom';
+import { HandlerRepository, actionElementHandlerAspect } from '../core/eventing';
+import { resolveButtonRenderVariables } from '../core/interfaces';
 import style from './sbb-tooltip-trigger.scss?lit&inline';
 import '../sbb-icon';
 

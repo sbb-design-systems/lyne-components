@@ -1,8 +1,8 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
-import { waitForCondition, waitForLitRender } from '../../global/testing';
-import { EventSpy } from '../../global/testing/event-spy';
+import { waitForCondition, waitForLitRender } from '../core/testing';
+import { EventSpy } from '../core/testing/event-spy';
 import '../sbb-button';
 import '../sbb-icon';
 import './sbb-calendar';

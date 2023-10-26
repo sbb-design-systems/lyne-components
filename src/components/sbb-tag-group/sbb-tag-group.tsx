@@ -1,8 +1,8 @@
 import { CSSResult, html, LitElement, TemplateResult, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { ConnectedAbortController } from '../../global/eventing';
+import { ConnectedAbortController } from '../core/eventing';
 import { SbbTag, SbbTagStateChange } from '../sbb-tag';
-import { setAttribute } from '../../global/dom';
+import { setAttribute } from '../core/dom';
 import style from './sbb-tag-group.scss?lit&inline';
 
 /**

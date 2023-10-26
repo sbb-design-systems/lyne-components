@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { readdirSync, writeFileSync, renameSync } from 'fs';
 import { basename, dirname, join, relative } from 'path';
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -22,7 +23,7 @@ window = { navigator: { userAgent: '' }, location: { href: '' } } as any;
 window.parent = window.window = window;
 globalThis.React = React;
 
-const chromaticFile = join(__dirname, '../src/global/chromatic.js');
+const chromaticFile = join(__dirname, '../src/storybook/testing/chromatic.tsx');
 
 function walk(root: string, filter: RegExp): string[] {
   return readdirSync(root, { withFileTypes: true }).reduce((current, next) => {
@@ -50,7 +51,7 @@ async function generateChromaticStory(
 
   const targetStoryFile = storyFile.replace(/(\.stories\.[^.]+)$/, (_m, m) => `.chromatic${m}`);
   const relativeImport = basename(storyFile).replace(/\.(jsx|tsx)$/, '');
-  const chromaticImport = relative(dirname(targetStoryFile), chromaticFile).replace(/\.js$/, '');
+  const chromaticImport = relative(dirname(targetStoryFile), chromaticFile).replace(/\.tsx$/, '');
 
   const chromaticConfig = Object.entries(chromaticParameters)
     .map(([key, value]) => `${key}: ${JSON.stringify(value)}, `)

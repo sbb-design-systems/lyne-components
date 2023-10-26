@@ -1,16 +1,16 @@
-import { ButtonProperties, resolveButtonRenderVariables } from '../../global/interfaces';
-import { hostContext, isValidAttribute } from '../../global/dom';
+import { ButtonProperties, resolveButtonRenderVariables } from '../core/interfaces';
+import { hostContext, isValidAttribute } from '../core/dom';
 import {
   HandlerRepository,
   actionElementHandlerAspect,
   documentLanguage,
   languageChangeHandlerAspect,
   ConnectedAbortController,
-} from '../../global/eventing';
-import { i18nClearInput } from '../../global/i18n';
+} from '../core/eventing';
+import { i18nClearInput } from '../core/i18n';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { setAttribute, setAttributes } from '../../global/dom';
+import { setAttribute, setAttributes } from '../core/dom';
 import { SbbFormField } from '../sbb-form-field';
 import style from './sbb-form-field-clear.scss?lit&inline';
 import '../sbb-icon';

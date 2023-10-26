@@ -1,5 +1,5 @@
 import TokensRaw from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens-raw.json';
-import '../src/global/styles/global.scss';
+import '../src/components/core/styles/global.scss';
 
 const getBreakpointTokens = () =>
   TokensRaw.tokens.filter(
