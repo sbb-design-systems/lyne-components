@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.42.0](https://github.com/lyne-design-system/lyne-components/compare/v0.41.13...v0.42.0) (2023-10-26)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-dialog, sbb-menu, sbb-navigation, sbb-tooltip:** - The property `accessibilityLabel` of the `sbb-navigation` was removed. As replacement, an `aria-label` can now directly be placed on the `sbb-navigation` element.
+
+### Bug Fixes
+
+- **sbb-dialog, sbb-menu, sbb-navigation, sbb-tooltip:** fix reading order for VoiceOver with Safari ([#2106](https://github.com/lyne-design-system/lyne-components/issues/2106)) ([6497b18](https://github.com/lyne-design-system/lyne-components/commit/6497b18b96d4955789fd858d66a29ad7913023ce)), closes [#2015](https://github.com/lyne-design-system/lyne-components/issues/2015) [#1879](https://github.com/lyne-design-system/lyne-components/issues/1879) [#1880](https://github.com/lyne-design-system/lyne-components/issues/1880)
+
 ### [0.41.13](https://github.com/lyne-design-system/lyne-components/compare/v0.41.12...v0.41.13) (2023-10-23)
 
 ### Bug Fixes
