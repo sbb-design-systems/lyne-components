@@ -254,6 +254,10 @@
 }
 // stylelint-enable selector-not-notation
 
+.sbb-screen-reader-only {
+  @include sbb.screen-reader-only;
+}
+
 // It is necessary to use animations with keyframes instead of transitions in order not to alter
 // the default `display: block` of the modal otherwise it causes several problems,
 // especially for accessibility.
