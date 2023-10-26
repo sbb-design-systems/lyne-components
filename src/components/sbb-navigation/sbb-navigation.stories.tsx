@@ -41,7 +41,7 @@ const playStoryWithSection = async ({ canvasElement }): Promise<void> => {
   userEvent.click(actionS);
 };
 
-const accessibilityLabel: InputType = {
+const ariaLabel: InputType = {
   control: {
     type: 'text',
   },
@@ -66,13 +66,13 @@ const disableAnimation: InputType = {
 };
 
 const basicArgTypes: ArgTypes = {
-  'accessibility-label': accessibilityLabel,
+  'aria-label': ariaLabel,
   'accessibility-close-label': accessibilityCloseLabel,
   'disable-animation': disableAnimation,
 };
 
 const basicArgs: Args = {
-  'accessibility-label': undefined,
+  'aria-label': undefined,
   'accessibility-close-label': undefined,
   'disable-animation': isChromatic(),
 };
