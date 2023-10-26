@@ -16,7 +16,7 @@ import type {
 } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 
-import './sbb-datepicker-toggle';
+//import './sbb-datepicker-toggle';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative
