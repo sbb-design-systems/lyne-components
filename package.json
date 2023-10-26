@@ -36,6 +36,7 @@
     "docs": "npm-run-all --sequential docs:manifest",
     "docs:manifest": "custom-elements-manifest analyze",
     "format": "prettier \"**/*\" --write --ignore-unknown",
+    "generate": "tsx convenience/generate-component/index.mts",
     "integrity": "yarn format",
     "lint": "npm-run-all --sequential lint:*",
     "lint:ts": "eslint \"**/*.{ts,tsx}\"",
