@@ -1,9 +1,10 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 import events from './sbb-dialog.events';
 import { waitForCondition } from '../../global/testing';
+import { i18nDialog } from '../../global/i18n';
 
 describe('sbb-dialog', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: E2EElement, ariaLiveRef: E2EElement, page: E2EPage;
 
   beforeEach(async () => {
     page = await newE2EPage();
@@ -15,6 +16,7 @@ describe('sbb-dialog', () => {
       </sbb-dialog>
     `);
     element = await page.find('sbb-dialog');
+    ariaLiveRef = await page.find('sbb-dialog >>> span.sbb-screen-reader-only');
     await page.waitForChanges();
   });
 
@@ -23,7 +25,6 @@ describe('sbb-dialog', () => {
   });
 
   it('opens the dialog', async () => {
-    const dialog = await page.find('sbb-dialog >>> dialog');
     const willOpen = await page.spyOnEvent(events.willOpen);
     const didOpen = await page.spyOnEvent(events.didOpen);
 
@@ -39,7 +40,6 @@ describe('sbb-dialog', () => {
     await page.waitForChanges();
 
     expect(element).toEqualAttribute('data-state', 'opened');
-    expect(dialog).toHaveAttribute('open');
   });
 
   it('closes the dialog', async () => {
@@ -47,7 +47,6 @@ describe('sbb-dialog', () => {
     const didOpen = await page.spyOnEvent(events.didOpen);
     const willClose = await page.spyOnEvent(events.willClose);
     const didClose = await page.spyOnEvent(events.didClose);
-    const dialog = await page.find('sbb-dialog >>> dialog');
 
     await element.callMethod('open');
     await page.waitForChanges();
@@ -60,7 +59,8 @@ describe('sbb-dialog', () => {
     expect(didOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'opened');
+    expect(ariaLiveRef.innerText.trim()).toBe(`${i18nDialog.en}, Title`);
 
     await element.callMethod('close');
     await page.waitForChanges();
@@ -74,7 +74,7 @@ describe('sbb-dialog', () => {
     await page.waitForChanges();
 
     expect(element).toEqualAttribute('data-state', 'closed');
-    expect(dialog).not.toHaveAttribute('open');
+    expect(ariaLiveRef.innerText).toBe('');
   });
 
   it('closes the dialog on backdrop click', async () => {
@@ -82,7 +82,6 @@ describe('sbb-dialog', () => {
     const didOpen = await page.spyOnEvent(events.didOpen);
     const willClose = await page.spyOnEvent(events.willClose);
     const didClose = await page.spyOnEvent(events.didClose);
-    const dialog = await page.find('sbb-dialog >>> dialog');
 
     await element.callMethod('open');
     await page.waitForChanges();
@@ -95,7 +94,7 @@ describe('sbb-dialog', () => {
     expect(didOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'opened');
 
     // Simulate backdrop click
     await page.mouse.click(1, 1);
@@ -110,7 +109,6 @@ describe('sbb-dialog', () => {
     await page.waitForChanges();
 
     expect(element).toEqualAttribute('data-state', 'closed');
-    expect(dialog).not.toHaveAttribute('open');
   });
 
   it('does not close the dialog on backdrop click', async () => {
@@ -118,7 +116,6 @@ describe('sbb-dialog', () => {
     const didOpen = await page.spyOnEvent(events.didOpen);
     const willClose = await page.spyOnEvent(events.willClose);
     const didClose = await page.spyOnEvent(events.didClose);
-    const dialog = await page.find('sbb-dialog >>> dialog');
 
     await element.setProperty('backdropAction', 'none');
     await page.waitForChanges();
@@ -134,7 +131,7 @@ describe('sbb-dialog', () => {
     expect(didOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'opened');
 
     // Simulate backdrop click
     await page.mouse.click(1, 1);
@@ -147,11 +144,9 @@ describe('sbb-dialog', () => {
     await page.waitForChanges();
 
     expect(element).toEqualAttribute('data-state', 'opened');
-    expect(dialog).not.toHaveAttribute('closed');
   });
 
   it('closes the dialog on close button click', async () => {
-    const dialog = await page.find('sbb-dialog >>> dialog');
     const closeButton = await page.find('sbb-dialog >>> [sbb-dialog-close]');
     const willOpen = await page.spyOnEvent(events.willOpen);
     const didOpen = await page.spyOnEvent(events.didOpen);
@@ -169,7 +164,7 @@ describe('sbb-dialog', () => {
     expect(didOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'opened');
 
     closeButton.triggerEvent('click');
     await page.waitForChanges();
@@ -182,11 +177,10 @@ describe('sbb-dialog', () => {
     expect(didClose).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).not.toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'closed');
   });
 
   it('closes the dialog on Esc key press', async () => {
-    const dialog = await page.find('sbb-dialog >>> dialog');
     const willOpen = await page.spyOnEvent(events.willOpen);
     const didOpen = await page.spyOnEvent(events.didOpen);
     const willClose = await page.spyOnEvent(events.willClose);
@@ -203,7 +197,7 @@ describe('sbb-dialog', () => {
     expect(didOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'opened');
 
     await page.keyboard.down('Tab');
     await page.waitForChanges();
@@ -219,11 +213,10 @@ describe('sbb-dialog', () => {
     expect(didClose).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).not.toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'closed');
   });
 
   it('does not have the fullscreen attribute', async () => {
-    const dialog = await page.find('sbb-dialog >>> dialog');
     const willOpen = await page.spyOnEvent(events.willOpen);
     const didOpen = await page.spyOnEvent(events.didOpen);
 
@@ -238,7 +231,7 @@ describe('sbb-dialog', () => {
     expect(didOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'opened');
 
     await page.waitForChanges();
     expect(element).not.toHaveAttribute('data-fullscreen');
@@ -253,8 +246,8 @@ describe('sbb-dialog', () => {
       </sbb-dialog>
     `);
     element = await page.find('sbb-dialog');
+    ariaLiveRef = await page.find('sbb-dialog >>> span.sbb-screen-reader-only');
 
-    const dialog = await page.find('sbb-dialog >>> dialog');
     const willOpen = await page.spyOnEvent(events.willOpen);
     const didOpen = await page.spyOnEvent(events.didOpen);
 
@@ -269,10 +262,11 @@ describe('sbb-dialog', () => {
     expect(didOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'opened');
 
     await page.waitForChanges();
     expect(element).toHaveAttribute('data-fullscreen');
+    expect(ariaLiveRef.innerText.trim()).toBe(`${i18nDialog.en}`);
   });
 
   it('closes stacked dialogs one by one on ESC key pressed', async () => {
@@ -280,7 +274,7 @@ describe('sbb-dialog', () => {
     await page.setContent(`
       <sbb-dialog id="my-dialog" title-content="Title" title-back-button="true" disable-animation>
         Dialog content.
-        <div slot="action-group">Action group</div>  
+        <div slot="action-group">Action group</div>
       </sbb-dialog>
 
       <sbb-dialog id="stacked-dialog" disable-animation>
@@ -289,7 +283,6 @@ describe('sbb-dialog', () => {
     `);
     element = await page.find('sbb-dialog');
 
-    const dialog = await page.find('#my-dialog >>> dialog');
     const willOpen = await page.spyOnEvent(events.willOpen);
     const didOpen = await page.spyOnEvent(events.didOpen);
 
@@ -304,16 +297,15 @@ describe('sbb-dialog', () => {
     expect(didOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(dialog).toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'opened');
     await page.waitForChanges();
 
     const stackedDialog = await page.find('#stacked-dialog');
-    const stackedDialogElement = await page.find('#stacked-dialog >>> dialog');
 
     await stackedDialog.callMethod('open');
     await page.waitForChanges();
 
-    expect(stackedDialogElement).toHaveAttribute('open');
+    expect(stackedDialog).toEqualAttribute('data-state', 'opened');
 
     await page.keyboard.down('Tab');
     await page.waitForChanges();
@@ -321,8 +313,8 @@ describe('sbb-dialog', () => {
     await page.keyboard.down('Escape');
     await page.waitForChanges();
 
-    expect(stackedDialogElement).not.toHaveAttribute('open');
-    expect(dialog).toHaveAttribute('open');
+    expect(stackedDialog).toEqualAttribute('data-state', 'closed');
+    expect(element).toEqualAttribute('data-state', 'opened');
 
     await page.keyboard.down('Tab');
     await page.waitForChanges();
@@ -330,8 +322,8 @@ describe('sbb-dialog', () => {
     await page.keyboard.down('Escape');
     await page.waitForChanges();
 
-    expect(stackedDialogElement).not.toHaveAttribute('open');
-    expect(dialog).not.toHaveAttribute('open');
+    expect(stackedDialog).toEqualAttribute('data-state', 'closed');
+    expect(element).toEqualAttribute('data-state', 'closed');
   });
 
   it('does not close the dialog on other overlay click', async () => {
@@ -352,9 +344,7 @@ describe('sbb-dialog', () => {
     const didOpen = await page.spyOnEvent(events.didOpen);
     const willClose = await page.spyOnEvent(events.willClose);
     const didClose = await page.spyOnEvent(events.didClose);
-    const outerDialog = await page.find('sbb-dialog >>> dialog');
     const innerElement = await page.find('sbb-dialog > sbb-dialog');
-    const innerDialog = await page.find('sbb-dialog > sbb-dialog >>> dialog');
 
     await element.callMethod('open');
     await page.waitForChanges();
@@ -367,7 +357,7 @@ describe('sbb-dialog', () => {
     expect(didOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(outerDialog).toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'opened');
 
     await innerElement.callMethod('open');
     await page.waitForChanges();
@@ -380,7 +370,7 @@ describe('sbb-dialog', () => {
     expect(didOpen).toHaveReceivedEventTimes(2);
     await page.waitForChanges();
 
-    expect(innerDialog).toHaveAttribute('open');
+    expect(innerElement).toEqualAttribute('data-state', 'opened');
 
     // Simulate a click on the inner dialog's backdrop
     await page.mouse.click(1, 1);
@@ -395,9 +385,74 @@ describe('sbb-dialog', () => {
     await page.waitForChanges();
 
     expect(innerElement).toEqualAttribute('data-state', 'closed');
-    expect(innerDialog).not.toHaveAttribute('open');
+    expect(element).toEqualAttribute('data-state', 'opened');
+  });
+
+  it('should remove ariaLiveRef content on any click interaction', async () => {
+    const willOpen = await page.spyOnEvent(events.willOpen);
+    const didOpen = await page.spyOnEvent(events.didOpen);
+
+    await element.callMethod('open');
+    await page.waitForChanges();
+
+    await waitForCondition(() => willOpen.events.length === 1);
+    expect(willOpen).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    await waitForCondition(() => didOpen.events.length === 1);
+    expect(didOpen).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
 
     expect(element).toEqualAttribute('data-state', 'opened');
-    expect(outerDialog).toHaveAttribute('open');
+    expect(ariaLiveRef.innerText.trim()).toBe(`${i18nDialog.en}, Title`);
+
+    await element.press('Tab');
+    await page.waitForChanges();
+
+    expect(ariaLiveRef.innerText).toBe('');
+  });
+
+  it('should remove ariaLiveRef content on any keyboard interaction', async () => {
+    const willOpen = await page.spyOnEvent(events.willOpen);
+    const didOpen = await page.spyOnEvent(events.didOpen);
+
+    await element.callMethod('open');
+    await page.waitForChanges();
+
+    await waitForCondition(() => willOpen.events.length === 1);
+    expect(willOpen).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    await waitForCondition(() => didOpen.events.length === 1);
+    expect(didOpen).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    expect(element).toEqualAttribute('data-state', 'opened');
+    expect(ariaLiveRef.innerText.trim()).toBe(`${i18nDialog.en}, Title`);
+
+    await element.click();
+    await page.waitForChanges();
+
+    expect(ariaLiveRef.innerText).toBe('');
+  });
+
+  it('should announce accessibility label in ariaLiveRef if explicitly set', async () => {
+    const willOpen = await page.spyOnEvent(events.willOpen);
+    const didOpen = await page.spyOnEvent(events.didOpen);
+
+    await element.setProperty('accessibilityLabel', 'Special Dialog');
+    await element.callMethod('open');
+    await page.waitForChanges();
+
+    await waitForCondition(() => willOpen.events.length === 1);
+    expect(willOpen).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    await waitForCondition(() => didOpen.events.length === 1);
+    expect(didOpen).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    expect(element).toEqualAttribute('data-state', 'opened');
+    expect(ariaLiveRef.innerText.trim()).toBe(`${i18nDialog.en}, Special Dialog`);
   });
 });

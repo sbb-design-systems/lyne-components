@@ -16,16 +16,10 @@ import {
   FocusTrap,
   IS_FOCUSABLE_QUERY,
   assignId,
-  sbbInputModalityDetector,
   setModalityOnNextFocus,
   getFirstFocusableElement,
 } from '../../global/a11y';
-import {
-  findReferencedElement,
-  isSafari,
-  isValidAttribute,
-  toggleDatasetEntry,
-} from '../../global/dom';
+import { findReferencedElement, isValidAttribute } from '../../global/dom';
 import {
   documentLanguage,
   HandlerRepository,
@@ -59,7 +53,7 @@ const tooltipsRef = new Set<HTMLSbbTooltipElement>();
 })
 export class SbbTooltip implements ComponentInterface {
   /**
-   * The element that will trigger the tooltip dialog.
+   * The element that will trigger the tooltip overlay.
    * Accepts both a string (id of an element) or an HTML element.
    */
   @Prop() public trigger: string | HTMLElement;
@@ -151,9 +145,8 @@ export class SbbTooltip implements ComponentInterface {
   })
   public didClose: EventEmitter<{ closeTarget: HTMLElement }>;
 
-  private _dialog: HTMLDialogElement;
+  private _overlay: HTMLDivElement;
   private _triggerElement: HTMLElement;
-  private _tooltipContentElement: HTMLElement;
   // The element which should receive focus after closing based on where in the backdrop the user clicks.
   private _nextFocusedElement?: HTMLElement;
   private _tooltipCloseElement: HTMLElement;
@@ -178,7 +171,7 @@ export class SbbTooltip implements ComponentInterface {
    */
   @Method()
   public async open(): Promise<void> {
-    if ((this._state !== 'closed' && this._state !== 'closing') || !this._dialog) {
+    if ((this._state !== 'closed' && this._state !== 'closing') || !this._overlay) {
       return;
     }
 
@@ -193,7 +186,6 @@ export class SbbTooltip implements ComponentInterface {
     this._state = 'opening';
     this._element.inert = true;
     this._setTooltipPosition();
-    this._dialog.show();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
     this._nextFocusedElement = undefined;
   }
@@ -245,16 +237,12 @@ export class SbbTooltip implements ComponentInterface {
     this._configure(this.trigger);
     this._state = 'closed';
     tooltipsRef.add(this._element as HTMLSbbTooltipElement);
-
-    // TODO: Remove if possible, related to https://bugs.chromium.org/p/chromium/issues/detail?id=1493323
-    // For Safari we need to keep the solution which doesn't work in Chrome as it seems mutual exclusive.
-    toggleDatasetEntry(this._element, 'isSafari', isSafari());
   }
 
   public componentDidLoad(): void {
     if (this._hoverTrigger) {
-      this._dialog.addEventListener('mouseenter', () => this._onDialogMouseEnter());
-      this._dialog.addEventListener('mouseleave', () => this._onDialogMouseLeave());
+      this._overlay.addEventListener('mouseenter', () => this._onOverlayMouseEnter());
+      this._overlay.addEventListener('mouseleave', () => this._onOverlayMouseLeave());
     }
   }
 
@@ -361,12 +349,12 @@ export class SbbTooltip implements ComponentInterface {
 
   // Check if the pointerdown event target is triggered on the tooltip.
   private _pointerDownListener = (event: PointerEvent): void => {
-    this._isPointerDownEventOnTooltip = isEventOnElement(this._dialog, event);
+    this._isPointerDownEventOnTooltip = isEventOnElement(this._overlay, event);
   };
 
   // Close tooltip on backdrop click.
   private _closeOnBackdropClick = async (event: PointerEvent): Promise<void> => {
-    if (!this._isPointerDownEventOnTooltip && !isEventOnElement(this._dialog, event)) {
+    if (!this._isPointerDownEventOnTooltip && !isEventOnElement(this._overlay, event)) {
       this._nextFocusedElement = event
         .composedPath()
         .filter((el) => el instanceof window.HTMLElement)
@@ -392,13 +380,13 @@ export class SbbTooltip implements ComponentInterface {
     }
   };
 
-  private _onDialogMouseEnter = (): void => {
+  private _onOverlayMouseEnter = (): void => {
     if (this._state !== 'opening') {
       clearTimeout(this._closeTimeout);
     }
   };
 
-  private _onDialogMouseLeave = (): void => {
+  private _onOverlayMouseLeave = (): void => {
     if (this._state !== 'opening') {
       this._closeTimeout = setTimeout(() => this.close(), this.closeDelay);
     }
@@ -424,12 +412,11 @@ export class SbbTooltip implements ComponentInterface {
       this._state === 'closing'
     ) {
       this._state = 'closed';
-      this._dialog.firstElementChild.scrollTo(0, 0);
+      this._overlay.firstElementChild.scrollTo(0, 0);
 
       const elementToFocus = this._nextFocusedElement || this._triggerElement;
 
       setModalityOnNextFocus(elementToFocus);
-      this._dialog.close();
       // To enable focusing other element than the trigger, we need to call focus() a second time.
       elementToFocus?.focus();
       this.didClose.emit({ closeTarget: this._tooltipCloseElement });
@@ -440,36 +427,25 @@ export class SbbTooltip implements ComponentInterface {
 
   // Set focus on the first focusable element.
   private _setTooltipFocus(): void {
-    if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-      const firstFocusable =
-        (this._element.shadowRoot.querySelector('[sbb-tooltip-close]') as HTMLElement) ||
-        getFirstFocusableElement(
-          Array.from(this._element.children).filter(
-            (e): e is HTMLElement => e instanceof window.HTMLElement,
-          ),
-        );
-      firstFocusable?.focus();
-    } else {
-      // Focusing sbb-tooltip__content in order to provide a consistent behavior in Safari where else
-      // the focus-visible styles would be incorrectly applied
-      this._tooltipContentElement.tabIndex = 0;
-      this._tooltipContentElement.focus();
-      this._element.addEventListener(
-        'blur',
-        () => this._tooltipContentElement.removeAttribute('tabindex'),
-        {
-          once: true,
-        },
+    const firstFocusable =
+      (this._element.shadowRoot.querySelector('[sbb-tooltip-close]') as HTMLElement) ||
+      getFirstFocusableElement(
+        Array.from(this._element.children).filter(
+          (e): e is HTMLElement => e instanceof window.HTMLElement,
+        ),
       );
+    if (firstFocusable) {
+      setModalityOnNextFocus(firstFocusable);
+      firstFocusable.focus();
     }
   }
 
   private _setTooltipPosition(): void {
-    if (!this._dialog || !this._triggerElement) {
+    if (!this._overlay || !this._triggerElement) {
       return;
     }
 
-    const tooltipPosition = getElementPosition(this._dialog, this._triggerElement, {
+    const tooltipPosition = getElementPosition(this._overlay, this._triggerElement, {
       verticalOffset: VERTICAL_OFFSET,
       horizontalOffset: HORIZONTAL_OFFSET,
       centered: true,
@@ -504,18 +480,20 @@ export class SbbTooltip implements ComponentInterface {
     );
 
     return (
-      <Host data-position={this._alignment?.vertical} ref={assignId(() => this._tooltipId)}>
+      <Host
+        data-position={this._alignment?.vertical}
+        ref={assignId(() => this._tooltipId)}
+        role="tooltip"
+      >
         <div class="sbb-tooltip__container">
-          <dialog
+          <div
             onAnimationEnd={(event: AnimationEvent) => this._onTooltipAnimationEnd(event)}
-            ref={(dialogRef) => (this._dialog = dialogRef)}
+            ref={(el) => (this._overlay = el)}
             class="sbb-tooltip"
-            role="tooltip"
           >
             {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
             <div
               onClick={(event: Event) => this._closeOnSbbTooltipCloseClick(event)}
-              ref={(tooltipContentRef) => (this._tooltipContentElement = tooltipContentRef)}
               class="sbb-tooltip__content"
             >
               <span>
@@ -523,7 +501,7 @@ export class SbbTooltip implements ComponentInterface {
               </span>
               {!this.hideCloseButton && !this._hoverTrigger && closeButton}
             </div>
-          </dialog>
+          </div>
         </div>
       </Host>
     );

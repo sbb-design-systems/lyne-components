@@ -26,27 +26,21 @@ describe('sbb-navigation-section', () => {
   });
 
   it('opens the section', async () => {
-    const dialog = await page.find('sbb-navigation-section >>> dialog');
-
     await element.callMethod('open');
     await page.waitForChanges();
 
     expect(await waitForCondition(() => element.getAttribute('data-state') === 'opened')).toBe(
       true,
     );
-    expect(dialog).toHaveAttribute('open');
   });
 
   it('closes the section', async () => {
-    const dialog = await page.find('sbb-navigation-section >>> dialog');
-
     await element.callMethod('open');
     await page.waitForChanges();
 
     expect(await waitForCondition(() => element.getAttribute('data-state') === 'opened')).toBe(
       true,
     );
-    expect(dialog).toHaveAttribute('open');
 
     await element.callMethod('close');
     await page.waitForChanges();
@@ -54,6 +48,5 @@ describe('sbb-navigation-section', () => {
     expect(await waitForCondition(() => element.getAttribute('data-state') === 'closed')).toBe(
       true,
     );
-    expect(dialog).not.toHaveAttribute('open');
   });
 });

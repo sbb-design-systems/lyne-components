@@ -69,7 +69,7 @@ to identify which actions are active and which are not.
 | ------------------------ | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------- | ----------- |
 | `disableAnimation`       | `disable-animation`        | Whether the animation is enabled.                                                                                                 | `boolean`               | `false`     |
 | `listAccessibilityLabel` | `list-accessibility-label` | This will be forwarded as aria-label to the inner list. Used only if the menu automatically renders the actions inside as a list. | `string`                | `undefined` |
-| `trigger`                | `trigger`                  | The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element.                       | `HTMLElement \| string` | `undefined` |
+| `trigger`                | `trigger`                  | The element that will trigger the menu overlay. Accepts both a string (id of an element) or an HTML element.                      | `HTMLElement \| string` | `undefined` |
 
 
 ## Events
@@ -107,9 +107,9 @@ Type: `Promise<void>`
 
 ## Slots
 
-| Slot        | Description                                             |
-| ----------- | ------------------------------------------------------- |
-| `"unnamed"` | Use this slot to project any content inside the dialog. |
+| Slot        | Description                                           |
+| ----------- | ----------------------------------------------------- |
+| `"unnamed"` | Use this slot to project any content inside the menu. |
 
 
 ----------------------------------------------

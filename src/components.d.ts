@@ -1085,7 +1085,7 @@ export namespace Components {
          */
         "open": () => Promise<void>;
         /**
-          * The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element.
+          * The element that will trigger the menu overlay. Accepts both a string (id of an element) or an HTML element.
          */
         "trigger": string | HTMLElement;
     }
@@ -1150,10 +1150,6 @@ export namespace Components {
           * This will be forwarded as aria-label to the close button element.
          */
         "accessibilityCloseLabel": string | undefined;
-        /**
-          * This will be forwarded as aria-label to the dialog and is read as a title of the navigation.
-         */
-        "accessibilityLabel": string | undefined;
         /**
           * Closes the navigation.
          */
@@ -1226,7 +1222,7 @@ export namespace Components {
          */
         "accessibilityBackLabel": string | undefined;
         /**
-          * This will be forwarded as aria-label to the dialog and is read as a title of the navigation-section.
+          * This will be forwarded as aria-label to the nav element and is read as a title of the navigation-section.
          */
         "accessibilityLabel": string | undefined;
         /**
@@ -1968,7 +1964,7 @@ export namespace Components {
          */
         "openDelay"?: number;
         /**
-          * The element that will trigger the tooltip dialog. Accepts both a string (id of an element) or an HTML element.
+          * The element that will trigger the tooltip overlay. Accepts both a string (id of an element) or an HTML element.
          */
         "trigger": string | HTMLElement;
     }
@@ -3885,7 +3881,7 @@ declare namespace LocalJSX {
          */
         "onWill-open"?: (event: SbbMenuCustomEvent<void>) => void;
         /**
-          * The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element.
+          * The element that will trigger the menu overlay. Accepts both a string (id of an element) or an HTML element.
          */
         "trigger"?: string | HTMLElement;
     }
@@ -3950,10 +3946,6 @@ declare namespace LocalJSX {
           * This will be forwarded as aria-label to the close button element.
          */
         "accessibilityCloseLabel"?: string | undefined;
-        /**
-          * This will be forwarded as aria-label to the dialog and is read as a title of the navigation.
-         */
-        "accessibilityLabel"?: string | undefined;
         /**
           * Whether the animation is enabled.
          */
@@ -4032,7 +4024,7 @@ declare namespace LocalJSX {
          */
         "accessibilityBackLabel"?: string | undefined;
         /**
-          * This will be forwarded as aria-label to the dialog and is read as a title of the navigation-section.
+          * This will be forwarded as aria-label to the nav element and is read as a title of the navigation-section.
          */
         "accessibilityLabel"?: string | undefined;
         /**
@@ -4863,7 +4855,7 @@ declare namespace LocalJSX {
          */
         "openDelay"?: number;
         /**
-          * The element that will trigger the tooltip dialog. Accepts both a string (id of an element) or an HTML element.
+          * The element that will trigger the tooltip overlay. Accepts both a string (id of an element) or an HTML element.
          */
         "trigger"?: string | HTMLElement;
     }

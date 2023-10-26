@@ -15,7 +15,7 @@ const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
-    canvas.getByTestId('navigation').shadowRoot.querySelector('dialog.sbb-navigation'),
+    canvas.getByTestId('navigation').shadowRoot.querySelector('.sbb-navigation'),
   );
 
   const button = canvas.getByTestId('navigation-trigger');
@@ -32,9 +32,7 @@ const playStoryWithSection = async ({ canvasElement }): Promise<void> => {
 
   await waitFor(() =>
     expect(
-      canvas
-        .getByTestId('navigation-section')
-        .shadowRoot.querySelector('dialog.sbb-navigation-section'),
+      canvas.getByTestId('navigation-section').shadowRoot.querySelector('.sbb-navigation-section'),
     ).toBeTruthy(),
   );
   const actionL = canvas.getByTestId('navigation-section-trigger-1');
@@ -43,7 +41,7 @@ const playStoryWithSection = async ({ canvasElement }): Promise<void> => {
   userEvent.click(actionS);
 };
 
-const accessibilityLabel: InputType = {
+const ariaLabel: InputType = {
   control: {
     type: 'text',
   },
@@ -68,13 +66,13 @@ const disableAnimation: InputType = {
 };
 
 const basicArgTypes: ArgTypes = {
-  'accessibility-label': accessibilityLabel,
+  'aria-label': ariaLabel,
   'accessibility-close-label': accessibilityCloseLabel,
   'disable-animation': disableAnimation,
 };
 
 const basicArgs: Args = {
-  'accessibility-label': undefined,
+  'aria-label': undefined,
   'accessibility-close-label': undefined,
   'disable-animation': isChromatic(),
 };

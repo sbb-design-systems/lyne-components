@@ -3,7 +3,7 @@ import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 import { waitForCondition } from '../../global/testing';
 
 describe('sbb-tooltip-trigger', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: E2EElement, tooltip: E2EElement, page: E2EPage;
 
   beforeEach(async () => {
     page = await newE2EPage();
@@ -14,6 +14,7 @@ describe('sbb-tooltip-trigger', () => {
       </sbb-tooltip>
     `);
     element = await page.find('sbb-tooltip-trigger');
+    tooltip = await page.find('sbb-tooltip');
     await page.waitForChanges();
   });
 
@@ -22,7 +23,6 @@ describe('sbb-tooltip-trigger', () => {
   });
 
   it('shows tooltip on tooltip-trigger click', async () => {
-    const dialog = await page.find('sbb-tooltip >>> dialog');
     const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
 
@@ -38,11 +38,10 @@ describe('sbb-tooltip-trigger', () => {
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
 
     await page.waitForChanges();
-    expect(dialog).toHaveAttribute('open');
+    expect(tooltip).toEqualAttribute('data-state', 'opened');
   });
 
   it("doesn't show tooltip on disabled tooltip-trigger click", async () => {
-    const dialog = await page.find('sbb-tooltip >>> dialog');
     const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
     element.setProperty('disabled', true);
 
@@ -54,15 +53,13 @@ describe('sbb-tooltip-trigger', () => {
     expect(willOpenEventSpy).toHaveReceivedEventTimes(0);
 
     await page.waitForChanges();
-    expect(dialog).not.toHaveAttribute('open');
+    expect(tooltip).toEqualAttribute('data-state', 'closed');
   });
 
   it('shows tooltip on keyboard event', async () => {
-    const tooltipTrigger = await page.find('sbb-tooltip-trigger');
-    const dialog = await page.find('sbb-tooltip >>> dialog');
-    const changeSpy = await tooltipTrigger.spyOnEvent('focus');
+    const changeSpy = await element.spyOnEvent('focus');
 
-    await tooltipTrigger.focus();
+    await element.focus();
     await page.waitForChanges();
     await waitForCondition(() => changeSpy.events.length === 1);
     expect(changeSpy).toHaveReceivedEventTimes(1);
@@ -70,19 +67,16 @@ describe('sbb-tooltip-trigger', () => {
     await page.keyboard.down('Enter');
     await page.waitForChanges();
 
-    expect(dialog).toHaveAttribute('open');
+    expect(tooltip).toEqualAttribute('data-state', 'opened');
   });
 
   it('shows tooltip on keyboard event with hover-trigger', async () => {
-    const tooltipTrigger = await page.find('sbb-tooltip-trigger');
-    const tooltip = await page.find('sbb-tooltip');
-    const dialog = await page.find('sbb-tooltip >>> dialog');
-    const changeSpy = await tooltipTrigger.spyOnEvent('focus');
+    const changeSpy = await element.spyOnEvent('focus');
 
     tooltip.setProperty('hoverTrigger', true);
     await page.waitForChanges();
 
-    await tooltipTrigger.focus();
+    await element.focus();
     await page.waitForChanges();
     await waitForCondition(() => changeSpy.events.length === 1);
     expect(changeSpy).toHaveReceivedEventTimes(1);
@@ -90,23 +84,20 @@ describe('sbb-tooltip-trigger', () => {
     await page.keyboard.down('Enter');
     await page.waitForChanges();
 
-    expect(dialog).toHaveAttribute('open');
+    expect(tooltip).toEqualAttribute('data-state', 'opened');
   });
 
   it("doesn't focus tooltip-trigger on keyboard event when disabled", async () => {
-    const tooltipTrigger = await page.find('sbb-tooltip-trigger');
-    const tooltip = await page.find('sbb-tooltip');
-    const dialog = await page.find('sbb-tooltip >>> dialog');
-    const changeSpy = await tooltipTrigger.spyOnEvent('focus');
+    const changeSpy = await element.spyOnEvent('focus');
 
     element.setProperty('disabled', true);
     tooltip.setProperty('hoverTrigger', true);
     await page.waitForChanges();
 
-    await tooltipTrigger.focus();
+    await element.focus();
     await page.waitForChanges();
 
     expect(changeSpy).not.toHaveReceivedEvent();
-    expect(dialog).not.toHaveAttribute('open');
+    expect(tooltip).toEqualAttribute('data-state', 'closed');
   });
 });

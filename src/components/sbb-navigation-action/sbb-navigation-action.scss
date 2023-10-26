@@ -16,7 +16,7 @@
   --sbb-navigation-action-color: var(--sbb-color-storm-default);
 
   @include sbb.if-forced-colors {
-    --sbb-navigation-action-color: AccentColor;
+    --sbb-navigation-action-color: Highlight;
   }
 }
 
