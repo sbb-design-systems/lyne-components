@@ -107,8 +107,8 @@ export class SbbDialog implements ComponentInterface {
     this._setOverflowAttribute(),
   );
 
-  private _ariaLive: HTMLElement;
-  private _ariaLiveToggle = false;
+  private _ariaLiveRef: HTMLElement;
+  private _ariaLiveRefToggle = false;
 
   /**
    * Emits whenever the dialog starts the opening transition.
@@ -214,7 +214,7 @@ export class SbbDialog implements ComponentInterface {
     this._dialogCloseElement = target;
     this.willClose.emit({ returnValue: this._returnValue, closeTarget: this._dialogCloseElement });
     this._state = 'closing';
-    this._removeAriaLabel();
+    this._removeAriaLiveRefContent();
   }
 
   // Closes the dialog on "Esc" key pressed.
@@ -266,14 +266,14 @@ export class SbbDialog implements ComponentInterface {
     window.addEventListener(
       'keydown',
       async (event: KeyboardEvent) => {
-        this._removeAriaLabel();
+        this._removeAriaLiveRefContent();
         await this._onKeydownEvent(event);
       },
       {
         signal: this._windowEventsController.signal,
       },
     );
-    window.addEventListener('click', () => this._removeAriaLabel(), {
+    window.addEventListener('click', () => this._removeAriaLiveRefContent(), {
       signal: this._windowEventsController.signal,
     });
   }
@@ -331,7 +331,7 @@ export class SbbDialog implements ComponentInterface {
       applyInertMechanism(this._element);
       this._setDialogFocus();
       // Use timeout to read label after focused element
-      setTimeout(() => this._setAriaLabel());
+      setTimeout(() => this._setAriaLiveRefContent());
       this._focusTrap.trap(this._element);
       this._dialogContentResizeObserver.observe(this._dialogContentElement);
       this._attachWindowEvents();
@@ -352,8 +352,8 @@ export class SbbDialog implements ComponentInterface {
     }
   }
 
-  private _setAriaLabel(): void {
-    this._ariaLiveToggle = !this._ariaLiveToggle;
+  private _setAriaLiveRefContent(): void {
+    this._ariaLiveRefToggle = !this._ariaLiveRefToggle;
 
     // Take accessibility label or current string in title section
     const label =
@@ -362,13 +362,13 @@ export class SbbDialog implements ComponentInterface {
 
     // If the text content remains the same, on VoiceOver the aria-live region is not announced a second time.
     // In order to support reading on every opening, we toggle an invisible space.
-    this._ariaLive.innerText = `${i18nDialog[this._currentLanguage]}${label ? `, ${label}` : ''}${
-      this._ariaLiveToggle ? ' ' : ' '
-    }`;
+    this._ariaLiveRef.innerText = `${i18nDialog[this._currentLanguage]}${
+      label ? `, ${label}` : ''
+    }${this._ariaLiveRefToggle ? ' ' : ''}`;
   }
 
-  private _removeAriaLabel(): void {
-    this._ariaLive.innerText = '';
+  private _removeAriaLiveRefContent(): void {
+    this._ariaLiveRef.innerText = '';
   }
 
   // Set focus on the first focusable element.
@@ -471,7 +471,7 @@ export class SbbDialog implements ComponentInterface {
         <span
           aria-live="polite"
           class="sbb-screen-reader-only"
-          ref={(el) => (this._ariaLive = el)}
+          ref={(el) => (this._ariaLiveRef = el)}
         ></span>
       </Host>
     );
