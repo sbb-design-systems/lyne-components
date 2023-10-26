@@ -1,634 +1,526 @@
-import events from './sbb-selection-panel.events';
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
-import { waitForCondition } from '../../global/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { html, unsafeStatic } from 'lit/static-html.js';
+import { sendKeys } from '@web/test-runner-commands';
+import { EventSpy, waitForLitRender } from '../../global/testing';
+import { TemplateResult } from 'lit';
+import { SbbSelectionPanel } from './sbb-selection-panel';
+import { SbbRadioButton } from '../sbb-radio-button';
+import { SbbRadioButtonGroup } from '../sbb-radio-button-group';
+import { SbbCheckbox } from '../sbb-checkbox';
+import { SbbCheckboxGroup } from '../sbb-checkbox-group';
+import './sbb-selection-panel';
+import '../sbb-radio-button';
+import '../sbb-radio-button-group';
+import '../sbb-checkbox';
+import '../sbb-checkbox-group';
 
 describe('sbb-selection-panel', () => {
-  let element: E2EElement, page: E2EPage;
+  let elements: SbbSelectionPanel[];
 
-  const getPageContent = (inputType: string): string => {
-    return `
-    <sbb-${inputType}-group name="input-group-name" ${
-      inputType === 'radio-button' && 'value="Value one"'
-    }>
-      <sbb-selection-panel disable-animation id="sbb-selection-panel-1">
-        <sbb-${inputType} id="sbb-input-1" value="Value one" ${
-          inputType === 'checkbox' && 'checked'
-        }>Value one</sbb-${inputType}>
-        <div id="panel-content-1" slot="content">
-          Inner Content
-          <sbb-link>Link</sbb-link>
-        </div>
-      </sbb-selection-panel>
+  const getPageContent = (inputType: string): TemplateResult => {
+    const tagGroupElement = unsafeStatic(`sbb-${inputType}-group`);
+    const tagSingle = unsafeStatic(`sbb-${inputType}`);
+    /* eslint-disable lit/binding-positions */
+    return html`
+      <${tagGroupElement} name="input-group-name" ${
+        inputType === 'radio-button' && 'value="Value one"'
+      }>
+        <sbb-selection-panel disable-animation id="sbb-selection-panel-1">
+          <${tagSingle} id="sbb-input-1" value="Value one" ?checked='${
+            inputType === 'checkbox'
+          }'>Value one</${tagSingle}>
+          <div id="panel-content-1" slot="content">
+            Inner Content
+            <sbb-link>Link</sbb-link>
+          </div>
+        </sbb-selection-panel>
+        <sbb-selection-panel disable-animation id="sbb-selection-panel-2">
+          <${tagSingle} id="sbb-input-2" value="Value two">Value two</${tagSingle}>
+          <div id="panel-content-2" slot="content">
+            Inner Content
+            <sbb-link>Link</sbb-link>
+          </div>
+        </sbb-selection-panel>
+        <sbb-selection-panel disable-animation id="sbb-selection-panel-3">
+          <${tagSingle} id="sbb-input-3" value="Value three" disabled>Value three</${tagSingle}>
+          <div id="panel-content-3" slot="content">
+            Inner Content
+            <sbb-link>Link</sbb-link>
+          </div>
+        </sbb-selection-panel>
+        <sbb-selection-panel disable-animation id="sbb-selection-panel-4">
+          <${tagSingle} id="sbb-input-4" value="Value four">Value four</${tagSingle}>
+          <div id="panel-content-4" slot="content">
+            Inner Content
+            <sbb-link>Link</sbb-link>
+          </div>
+        </sbb-selection-panel>
+      </${tagGroupElement}>`;
+    /* eslint-enable lit/binding-positions */
+  };
 
-      <sbb-selection-panel disable-animation id="sbb-selection-panel-2">
-        <sbb-${inputType} id="sbb-input-2" value="Value two">Value two</sbb-${inputType}>
-        <div id="panel-content-2" slot="content">
-          Inner Content
-          <sbb-link>Link</sbb-link>
-        </div>
-      </sbb-selection-panel>
+  const forceOpenTest = async (wrapper, secondInput, secondContent): Promise<void> => {
+    elements.forEach((e) => (e.forceOpen = true));
+    await waitForLitRender(wrapper);
 
-      <sbb-selection-panel disable-animation id="sbb-selection-panel-3">
-        <sbb-${inputType} id="sbb-input-3" value="Value three" disabled>Value three</sbb-${inputType}>
-        <div id="panel-content-3" slot="content">
-          Inner Content
-          <sbb-link>Link</sbb-link>
-        </div>
-      </sbb-selection-panel>
+    elements.forEach((e) => {
+      const panel = e.shadowRoot.querySelector('.sbb-selection-panel__content--wrapper');
+      expect(panel).to.have.attribute('data-expanded', '');
+    });
 
-      <sbb-selection-panel disable-animation id="sbb-selection-panel-4">
-        <sbb-${inputType} id="sbb-input-4" value="Value four">Value four</sbb-${inputType}>
-        <div id="panel-content-4" slot="content">
-          Inner Content
-          <sbb-link>Link</sbb-link>
-        </div>
-      </sbb-selection-panel>
-    </sbb-${inputType}-group>`;
+    expect(secondInput).not.to.have.attribute('checked');
+    expect(secondContent).to.have.attribute('data-expanded');
+    secondInput.click();
+    await waitForLitRender(wrapper);
+    expect(secondInput).to.have.attribute('checked');
+    expect(secondContent).to.have.attribute('data-expanded');
+  };
+
+  const preservesDisabled = async (wrapper, disabledInput, secondInput): Promise<void> => {
+    wrapper.disabled = true;
+    await waitForLitRender(wrapper);
+
+    disabledInput.click();
+    await waitForLitRender(wrapper);
+    expect(disabledInput).not.to.have.attribute('checked');
+
+    secondInput.click();
+    await waitForLitRender(wrapper);
+    expect(secondInput).not.to.have.attribute('checked');
+
+    wrapper.disabled = false;
+    await waitForLitRender(wrapper);
+
+    disabledInput.click();
+    await waitForLitRender(wrapper);
+    expect(disabledInput).not.to.have.attribute('checked');
+
+    secondInput.click();
+    await waitForLitRender(wrapper);
+    expect(secondInput).to.have.attribute('checked');
+  };
+
+  const wrapsAround = async (wrapper, firstInput, secondInput): Promise<void> => {
+    secondInput.click();
+    secondInput.focus();
+    await waitForLitRender(wrapper);
+
+    expect(secondInput).to.have.attribute('checked');
+    await sendKeys({ down: 'ArrowRight' });
+    await sendKeys({ down: 'ArrowRight' });
+    await waitForLitRender(wrapper);
+
+    expect(document.activeElement.id).to.be.equal(firstInput.id);
   };
 
   describe('with radio buttons', () => {
+    let wrapper: SbbRadioButtonGroup;
+    let firstPanel: SbbSelectionPanel;
+    let firstInput: SbbRadioButton;
+    let firstContent: HTMLDivElement;
+    let secondPanel: SbbSelectionPanel;
+    let secondInput: SbbRadioButton;
+    let secondContent: HTMLDivElement;
+    let disabledInput: SbbRadioButton;
+
     beforeEach(async () => {
-      page = await newE2EPage();
-      await page.setContent(getPageContent('radio-button'));
-      element = await page.find('sbb-radio-button-group');
+      await fixture(getPageContent('radio-button'));
+      elements = Array.from(document.querySelectorAll('sbb-selection-panel'));
+      wrapper = document.querySelector('sbb-radio-button-group');
+      firstPanel = document.querySelector('#sbb-selection-panel-1');
+      firstInput = document.querySelector('#sbb-input-1');
+      firstContent = firstPanel.shadowRoot.querySelector('.sbb-selection-panel__content--wrapper');
+      secondPanel = document.querySelector('#sbb-selection-panel-2');
+      secondInput = document.querySelector('#sbb-input-2');
+      secondContent = secondPanel.shadowRoot.querySelector(
+        '.sbb-selection-panel__content--wrapper',
+      );
+      disabledInput = document.querySelector('#sbb-input-3');
     });
 
     it('renders', () => {
-      expect(element).toHaveClass('hydrated');
+      elements.forEach((e) => assert.instanceOf(e, SbbSelectionPanel));
     });
 
     it('selects input on click and shows related content', async () => {
-      const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
-      const input = await page.find('sbb-selection-panel > #sbb-input-2');
-      const content = await page.find(
-        '#sbb-selection-panel-2 >>> .sbb-selection-panel__content--wrapper',
-      );
+      assert.instanceOf(firstPanel, SbbSelectionPanel);
+      assert.instanceOf(firstInput, SbbRadioButton);
+      expect(firstInput).not.to.have.attribute('checked');
+      expect(firstContent).not.to.have.attribute('data-expanded');
 
-      const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
-      const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-      const willClose = await page.spyOnEvent(events.willClose);
-      const didClose = await page.spyOnEvent(events.didClose);
+      assert.instanceOf(secondPanel, SbbSelectionPanel);
+      assert.instanceOf(secondInput, SbbRadioButton);
+      expect(secondInput).not.to.have.attribute('checked');
+      expect(secondContent).not.to.have.attribute('data-expanded');
 
-      expect(firstInput).toHaveAttribute('checked');
-      expect(content).not.toHaveAttribute('data-expanded');
-
-      await input.click();
-
-      await page.waitForChanges();
-      await waitForCondition(() => willOpenEventSpy.events.length === 1);
-      expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
-
-      await page.waitForChanges();
-      await waitForCondition(() => didOpenEventSpy.events.length === 1);
-      expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
-
-      await waitForCondition(() => willClose.events.length === 1);
-      expect(willClose).toHaveReceivedEventTimes(1);
-      await page.waitForChanges();
-
-      await waitForCondition(() => didClose.events.length === 1);
-      expect(didClose).toHaveReceivedEventTimes(1);
-      await page.waitForChanges();
-
-      expect(input).toHaveAttribute('checked');
-      expect(content).toHaveAttribute('data-expanded');
-      expect(firstInput).not.toHaveAttribute('checked');
+      secondInput.click();
+      await waitForLitRender(wrapper);
+      expect(firstInput).not.to.have.attribute('checked');
+      expect(firstContent).not.to.have.attribute('data-expanded');
+      expect(secondInput).to.have.attribute('checked');
+      expect(secondContent).to.have.attribute('data-expanded', '');
     });
 
     it('always displays related content with forceOpen', async () => {
-      const selectionPanel = await page.find('#sbb-selection-panel-1');
-      selectionPanel.setProperty('forceOpen', true);
-
-      const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
-      const input = await page.find('sbb-selection-panel > #sbb-input-2');
-      const contentOne = await page.find(
-        '#sbb-selection-panel-1 >>> .sbb-selection-panel__content--wrapper',
-      );
-
-      expect(firstInput).toHaveAttribute('checked');
-
-      await input.click();
-
-      expect(input).toHaveAttribute('checked');
-      expect(contentOne).toHaveAttribute('data-expanded');
-      expect(firstInput).not.toHaveAttribute('checked');
+      await forceOpenTest(wrapper, secondInput, secondContent);
     });
 
     it('dispatches event on input change', async () => {
-      const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
-      const checkedInput = await page.find('sbb-selection-panel > #sbb-input-2');
-      const changeSpy = await page.spyOnEvent('change');
-      const inputSpy = await page.spyOnEvent('input');
+      const changeSpy = new EventSpy('change');
+      const inputSpy = new EventSpy('input');
 
-      await checkedInput.click();
-      expect(changeSpy).toHaveReceivedEventTimes(1);
-      expect(inputSpy).toHaveReceivedEventTimes(1);
+      secondInput.click();
+      await waitForLitRender(wrapper);
+      expect(secondInput).to.have.attribute('checked');
+      expect(firstInput).not.to.have.attribute('checked');
+      expect(changeSpy.count).to.be.equal(1);
+      expect(inputSpy.count).to.be.equal(1);
 
-      await firstInput.click();
-      expect(firstInput).toHaveAttribute('checked');
+      firstInput.click();
+      await waitForLitRender(wrapper);
+      expect(secondInput).not.to.have.attribute('checked');
+      expect(firstInput).to.have.attribute('checked');
+      expect(changeSpy.count).to.be.equal(2);
+      expect(inputSpy.count).to.be.equal(2);
     });
 
     it('does not select disabled input on click', async () => {
-      const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
-      const disabledInput = await page.find('sbb-selection-panel > #sbb-input-3');
+      firstInput.click();
+      await waitForLitRender(wrapper);
+      expect(firstInput).to.have.attribute('checked');
+      expect(disabledInput).not.to.have.attribute('checked');
 
-      await disabledInput.click();
-      await page.waitForChanges();
-
-      expect(disabledInput).not.toHaveAttribute('checked');
-      expect(firstInput).toHaveAttribute('checked');
+      disabledInput.click();
+      await waitForLitRender(wrapper);
+      expect(disabledInput).not.to.have.attribute('checked');
+      expect(firstInput).to.have.attribute('checked');
     });
 
     it('preserves input button disabled state after being disabled from group', async () => {
-      const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
-      const secondInput = await page.find('sbb-selection-panel > #sbb-input-2');
-      const disabledInput = await page.find('sbb-selection-panel > #sbb-input-3');
-
-      element.setProperty('disabled', true);
-      await page.waitForChanges();
-
-      await disabledInput.click();
-      await page.waitForChanges();
-      expect(disabledInput).not.toHaveAttribute('checked');
-      expect(firstInput).toHaveAttribute('checked');
-
-      await secondInput.click();
-      await page.waitForChanges();
-      expect(secondInput).not.toHaveAttribute('checked');
-
-      element.setProperty('disabled', false);
-      await page.waitForChanges();
-
-      await disabledInput.click();
-      await page.waitForChanges();
-      expect(disabledInput).not.toHaveAttribute('checked');
-      expect(firstInput).toHaveAttribute('checked');
+      await preservesDisabled(wrapper, disabledInput, secondInput);
     });
 
     it('focuses input on left arrow key pressed and selects it on space key pressed', async () => {
-      const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
+      const fourthInput: SbbRadioButton = document.querySelector('#sbb-input-4');
 
-      await firstInput.click();
-      await page.keyboard.down('ArrowLeft');
+      firstInput.click();
+      firstInput.focus();
+      await sendKeys({ down: 'ArrowLeft' });
+      await waitForLitRender(wrapper);
+      expect(document.activeElement.id).to.be.equal(fourthInput.id);
+      expect(firstInput).to.have.attribute('checked');
+      expect(fourthInput).not.to.have.attribute('checked');
 
-      await page.waitForChanges();
-      const input = (await page.find('sbb-selection-panel > #sbb-input-4')) as unknown as Element;
-
-      const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
-      const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-      const willClose = await page.spyOnEvent(events.willClose);
-      const didClose = await page.spyOnEvent(events.didClose);
-
-      expect(await page.evaluate(() => document.activeElement.id)).toBe(input.id);
-      expect(input).not.toHaveAttribute('checked');
-
-      await element.press(' ');
-
-      await page.waitForChanges();
-      await waitForCondition(() => willOpenEventSpy.events.length === 1);
-      expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
-
-      await page.waitForChanges();
-      await waitForCondition(() => didOpenEventSpy.events.length === 1);
-      expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
-
-      await waitForCondition(() => willClose.events.length === 1);
-      expect(willClose).toHaveReceivedEventTimes(1);
-      await page.waitForChanges();
-
-      await waitForCondition(() => didClose.events.length === 1);
-      expect(didClose).toHaveReceivedEventTimes(1);
-      await page.waitForChanges();
-
-      expect(input).toHaveAttribute('checked');
-      expect(firstInput).not.toHaveAttribute('checked');
+      await sendKeys({ press: ' ' });
+      expect(fourthInput).to.have.attribute('checked');
+      expect(firstInput).not.to.have.attribute('checked');
     });
 
     it('focuses input on right arrow key pressed and selects it on space key pressed', async () => {
-      const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
+      firstInput.click();
+      firstInput.focus();
+      await sendKeys({ down: 'ArrowRight' });
+      await waitForLitRender(wrapper);
+      expect(document.activeElement.id).to.be.equal(secondInput.id);
+      expect(firstInput).to.have.attribute('checked');
+      expect(secondInput).not.to.have.attribute('checked');
 
-      await firstInput.click();
-      await page.keyboard.down('ArrowRight');
-
-      await page.waitForChanges();
-      const input = await page.find('sbb-selection-panel > #sbb-input-2');
-
-      const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
-      const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-      const willClose = await page.spyOnEvent(events.willClose);
-      const didClose = await page.spyOnEvent(events.didClose);
-
-      expect(await page.evaluate(() => document.activeElement.id)).toBe(input.id);
-      expect(input).not.toHaveAttribute('checked');
-
-      await element.press(' ');
-
-      await page.waitForChanges();
-      await waitForCondition(() => willOpenEventSpy.events.length === 1);
-      expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
-
-      await page.waitForChanges();
-      await waitForCondition(() => didOpenEventSpy.events.length === 1);
-      expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
-
-      await waitForCondition(() => willClose.events.length === 1);
-      expect(willClose).toHaveReceivedEventTimes(1);
-      await page.waitForChanges();
-
-      await waitForCondition(() => didClose.events.length === 1);
-      expect(didClose).toHaveReceivedEventTimes(1);
-      await page.waitForChanges();
-
-      expect(input).toHaveAttribute('checked');
-      expect(firstInput).not.toHaveAttribute('checked');
+      await sendKeys({ press: ' ' });
+      expect(secondInput).to.have.attribute('checked');
+      expect(firstInput).not.to.have.attribute('checked');
     });
 
     it('wraps around on arrow key navigation', async () => {
-      const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
-      const checkedInput = await page.find('sbb-selection-panel > #sbb-input-2');
-
-      await checkedInput.click();
-      await page.waitForChanges();
-      expect(checkedInput).toHaveAttribute('checked');
-
-      await page.keyboard.down('ArrowRight');
-      await page.keyboard.down('ArrowRight');
-      await page.waitForChanges();
-
-      expect(await page.evaluate(() => document.activeElement.id)).toBe(firstInput.id);
+      await wrapsAround(wrapper, firstInput, secondInput);
     });
   });
 
   describe('with nested radio buttons', () => {
+    let nestedElement: SbbRadioButtonGroup;
+
     beforeEach(async () => {
-      page = await newE2EPage();
-      await page.setContent(`
-  <sbb-radio-button-group orientation="vertical" horizontal-from="large">
-    <sbb-selection-panel disable-animation>
-      <sbb-radio-button value="main1" checked="true">
-        Main Option 1
-      </sbb-radio-button>
-      <sbb-radio-button-group orientation="vertical" slot="content">
-        <sbb-radio-button value="sub1" checked>Suboption 1</sbb-radio-button>
-        <sbb-radio-button value="sub2">Suboption 2</sbb-radio-button>
-      </sbb-radio-button-group>
-    </sbb-selection-panel>
+      nestedElement = await fixture(html`
+        <sbb-radio-button-group orientation="vertical" horizontal-from="large">
+          <sbb-selection-panel disable-animation>
+            <sbb-radio-button value="main1" checked="true"> Main Option 1 </sbb-radio-button>
+            <sbb-radio-button-group orientation="vertical" slot="content">
+              <sbb-radio-button value="sub1" checked>Suboption 1</sbb-radio-button>
+              <sbb-radio-button value="sub2">Suboption 2</sbb-radio-button>
+            </sbb-radio-button-group>
+          </sbb-selection-panel>
 
-    <sbb-selection-panel disable-animation>
-      <sbb-radio-button value="main2">
-        Main Option 2
-      </sbb-radio-button>
-      <sbb-radio-button-group orientation="vertical" slot="content">
-        <sbb-radio-button value="sub3">Suboption 3</sbb-radio-button>
-        <sbb-radio-button value="sub4">Suboption 4</sbb-radio-button>
-      </sbb-radio-button-group>
-    </sbb-selection-panel>
-  </sbb-radio-button-group>
-`);
-      element = await page.find('sbb-radio-button-group');
-
-      await page.waitForChanges();
+          <sbb-selection-panel disable-animation>
+            <sbb-radio-button value="main2"> Main Option 2 </sbb-radio-button>
+            <sbb-radio-button-group orientation="vertical" slot="content">
+              <sbb-radio-button value="sub3">Suboption 3</sbb-radio-button>
+              <sbb-radio-button value="sub4">Suboption 4</sbb-radio-button>
+            </sbb-radio-button-group>
+          </sbb-selection-panel>
+        </sbb-radio-button-group>
+      `);
     });
 
     it('should display expanded label correctly', async () => {
-      await page.waitForChanges();
+      const mainRadioButton1: SbbRadioButton = document.querySelector(
+        "sbb-radio-button[value='main1']",
+      );
+      const mainRadioButton1Label = mainRadioButton1.shadowRoot.querySelector(
+        '.sbb-radio-button__expanded-label',
+      );
+      const mainRadioButton2: SbbRadioButton = document.querySelector(
+        "sbb-radio-button[value='main2']",
+      );
+      const mainRadioButton2Label = mainRadioButton2.shadowRoot.querySelector(
+        '.sbb-radio-button__expanded-label',
+      );
+      const subRadioButton1 = document
+        .querySelector("sbb-radio-button[value='sub1']")
+        .shadowRoot.querySelector('.sbb-radio-button__expanded-label');
 
-      const mainRadioButton1 = await page.find(
-        "sbb-radio-button[value='main1'] >>> .sbb-radio-button__expanded-label",
-      );
-      const mainRadioButton2 = await page.find(
-        "sbb-radio-button[value='main2'] >>> .sbb-radio-button__expanded-label",
-      );
-      const subRadioButton1 = await page.find(
-        "sbb-radio-button[value='sub1'] >>> .sbb-radio-button__expanded-label",
-      );
-
-      expect(mainRadioButton1.textContent).toBe(', expanded');
-      expect(mainRadioButton2.textContent).toBe(', collapsed');
-      expect(subRadioButton1).toBeFalsy();
+      expect(mainRadioButton1Label.textContent.trim()).to.be.equal(', expanded');
+      expect(mainRadioButton2Label.textContent.trim()).to.be.equal(', collapsed');
+      expect(subRadioButton1).to.be.null;
 
       // Activate main option 2
-      await mainRadioButton2.click();
+      mainRadioButton2.click();
 
-      await page.waitForChanges();
+      await waitForLitRender(nestedElement);
 
-      expect(mainRadioButton1.textContent).toBe(', collapsed');
-      expect(mainRadioButton2.textContent).toBe(', expanded');
-      expect(subRadioButton1).toBeFalsy();
+      expect(mainRadioButton1Label.textContent.trim()).to.be.equal(', collapsed');
+      expect(mainRadioButton2Label.textContent.trim()).to.be.equal(', expanded');
+      expect(subRadioButton1).to.be.null;
     });
 
     it('should mark only outer group children as disabled', async () => {
-      element.setAttribute('disabled', '');
+      nestedElement.setAttribute('disabled', '');
+      await waitForLitRender(nestedElement);
 
-      await page.waitForChanges();
+      const radioButtons: SbbRadioButton[] = Array.from(
+        document.querySelectorAll('sbb-radio-button'),
+      );
 
-      const radiobuttons = await page.findAll('sbb-radio-button');
-
-      expect(radiobuttons.length).toBe(6);
-      expect(radiobuttons[0]).toHaveAttribute('data-group-disabled');
-      expect(radiobuttons[1]).not.toHaveAttribute('data-group-disabled');
-      expect(radiobuttons[2]).not.toHaveAttribute('data-group-disabled');
-      expect(radiobuttons[3]).toHaveAttribute('data-group-disabled');
-      expect(radiobuttons[4]).not.toHaveAttribute('data-group-disabled');
-      expect(radiobuttons[5]).not.toHaveAttribute('data-group-disabled');
+      expect(radioButtons.length).to.be.equal(6);
+      expect(radioButtons[0]).to.have.attribute('data-group-disabled');
+      expect(radioButtons[1]).not.to.have.attribute('data-group-disabled');
+      expect(radioButtons[2]).not.to.have.attribute('data-group-disabled');
+      expect(radioButtons[3]).to.have.attribute('data-group-disabled');
+      expect(radioButtons[4]).not.to.have.attribute('data-group-disabled');
+      expect(radioButtons[5]).not.to.have.attribute('data-group-disabled');
     });
 
     it('should not with interfere content on selection', async () => {
-      const main1 = await page.find('sbb-radio-button[value="main1"]');
-      const main2 = await page.find('sbb-radio-button[value="main2"]');
-      const sub1 = await page.find('sbb-radio-button[value="sub1"]');
+      const main1: SbbRadioButton = document.querySelector('sbb-radio-button[value="main1"]');
+      const main2: SbbRadioButton = document.querySelector('sbb-radio-button[value="main2"]');
+      const sub1: SbbRadioButton = document.querySelector('sbb-radio-button[value="sub1"]');
 
-      expect(main1).toHaveAttribute('checked');
-      expect(main2).not.toHaveAttribute('checked');
-      expect(sub1).toHaveAttribute('checked');
+      expect(main1).to.have.attribute('checked');
+      expect(main2).not.to.have.attribute('checked');
+      expect(sub1).to.have.attribute('checked');
 
-      await main2.setProperty('checked', 'true');
-      await page.waitForChanges();
+      main2.checked = true;
+      await waitForLitRender(nestedElement);
 
-      expect(main1).not.toHaveAttribute('checked');
-      expect(main2).toHaveAttribute('checked');
-      expect(sub1).toHaveAttribute('checked');
+      expect(main1).not.to.have.attribute('checked');
+      expect(main2).to.have.attribute('checked');
+      expect(sub1).to.have.attribute('checked');
     });
   });
 
   describe('with checkboxes', () => {
+    let wrapper: SbbCheckboxGroup;
+    let firstPanel: SbbSelectionPanel;
+    let firstInput: SbbCheckbox;
+    let firstContent: HTMLDivElement;
+    let secondPanel: SbbSelectionPanel;
+    let secondInput: SbbCheckbox;
+    let secondContent: HTMLDivElement;
+    let disabledInput: SbbCheckbox;
+
     beforeEach(async () => {
-      page = await newE2EPage();
-      await page.setContent(getPageContent('checkbox'));
-      element = await page.find('sbb-checkbox-group');
+      await fixture(getPageContent('checkbox'));
+      elements = Array.from(document.querySelectorAll('sbb-selection-panel'));
+      wrapper = document.querySelector('sbb-checkbox-group');
+      firstPanel = document.querySelector('#sbb-selection-panel-1');
+      firstInput = document.querySelector('#sbb-input-1');
+      firstContent = firstPanel.shadowRoot.querySelector('.sbb-selection-panel__content--wrapper');
+      secondPanel = document.querySelector('#sbb-selection-panel-2');
+      secondInput = document.querySelector('#sbb-input-2');
+      secondContent = secondPanel.shadowRoot.querySelector(
+        '.sbb-selection-panel__content--wrapper',
+      );
+      disabledInput = document.querySelector('#sbb-input-3');
     });
 
     it('renders', () => {
-      expect(element).toHaveClass('hydrated');
+      elements.forEach((e) => assert.instanceOf(e, SbbSelectionPanel));
     });
 
     it('selects input on click and shows related content', async () => {
-      const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
-      const input = await page.find('sbb-selection-panel > #sbb-input-2');
-      const content = await page.find(
-        '#sbb-selection-panel-2 >>> .sbb-selection-panel__content--wrapper',
-      );
+      assert.instanceOf(firstPanel, SbbSelectionPanel);
+      assert.instanceOf(firstInput, SbbCheckbox);
+      expect(firstInput).to.have.attribute('checked');
+      expect(firstContent).to.have.attribute('data-expanded', '');
 
-      const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
-      const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+      assert.instanceOf(secondPanel, SbbSelectionPanel);
+      assert.instanceOf(secondInput, SbbCheckbox);
+      expect(secondInput).not.to.have.attribute('checked');
+      expect(secondContent).not.to.have.attribute('data-expanded');
 
-      expect(firstInput).toHaveAttribute('checked');
-      expect(content).not.toHaveAttribute('data-expanded');
-
-      await input.click();
-
-      await page.waitForChanges();
-      await waitForCondition(() => willOpenEventSpy.events.length === 1);
-      expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
-
-      await page.waitForChanges();
-      await waitForCondition(() => didOpenEventSpy.events.length === 1);
-      expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
-
-      expect(input).toHaveAttribute('checked');
-      expect(content).toHaveAttribute('data-expanded');
+      secondInput.click();
+      await waitForLitRender(wrapper);
+      expect(firstInput).to.have.attribute('checked');
+      expect(firstContent).to.have.attribute('data-expanded', '');
+      expect(secondInput).to.have.attribute('checked');
+      expect(secondContent).to.have.attribute('data-expanded', '');
     });
 
     it('deselects input on click and hides related content', async () => {
-      const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
-      const content = await page.find(
-        '#sbb-selection-panel-1 >>> .sbb-selection-panel__content--wrapper',
-      );
+      expect(firstInput).to.have.attribute('checked');
+      expect(firstContent).to.have.attribute('data-expanded');
 
-      const willCloseEventSpy = await page.spyOnEvent(events.willClose);
-      const didCloseEventSpy = await page.spyOnEvent(events.didClose);
-
-      expect(firstInput).toHaveAttribute('checked');
-      expect(content).toHaveAttribute('data-expanded');
-
-      await firstInput.click();
-
-      await page.waitForChanges();
-      await waitForCondition(() => willCloseEventSpy.events.length === 1);
-      expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
-
-      await page.waitForChanges();
-      await waitForCondition(() => didCloseEventSpy.events.length === 1);
-      expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
-
-      expect(firstInput).not.toHaveAttribute('checked');
-      expect(content).not.toHaveAttribute('data-expanded');
+      firstInput.click();
+      await waitForLitRender(wrapper);
+      expect(firstInput).not.to.have.attribute('checked');
+      expect(firstContent).not.to.have.attribute('data-expanded');
     });
 
     it('always displays related content with forceOpen', async () => {
-      const selectionPanel = await page.find('#sbb-selection-panel-1');
-      selectionPanel.setProperty('forceOpen', true);
-
-      const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
-      const input = await page.find('sbb-selection-panel > #sbb-input-2');
-      const contentOne = await page.find(
-        '#sbb-selection-panel-1 >>> .sbb-selection-panel__content--wrapper',
-      );
-
-      expect(firstInput).toHaveAttribute('checked');
-
-      await input.click();
-
-      expect(input).toHaveAttribute('checked');
-      expect(contentOne).toHaveAttribute('data-expanded');
+      await forceOpenTest(wrapper, secondInput, secondContent);
     });
 
     it('dispatches event on input change', async () => {
-      const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
-      const changeSpy = await page.spyOnEvent('change');
-      const inputSpy = await page.spyOnEvent('input');
+      const changeSpy = new EventSpy('change');
+      const inputSpy = new EventSpy('input');
 
-      await firstInput.click();
+      secondInput.click();
+      await waitForLitRender(wrapper);
+      expect(secondInput).to.have.attribute('checked');
+      expect(firstInput).to.have.attribute('checked');
+      expect(changeSpy.count).to.be.equal(1);
+      expect(inputSpy.count).to.be.equal(1);
 
-      expect(changeSpy).toHaveReceivedEventTimes(1);
-      expect(inputSpy).toHaveReceivedEventTimes(1);
-      expect(firstInput).not.toHaveAttribute('checked');
+      firstInput.click();
+      await waitForLitRender(wrapper);
+      expect(firstInput).not.to.have.attribute('checked');
+      expect(secondInput).to.have.attribute('checked');
+      expect(changeSpy.count).to.be.equal(2);
+      expect(inputSpy.count).to.be.equal(2);
     });
 
     it('does not select disabled input on click', async () => {
-      const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
-      const disabledInput = await page.find('sbb-selection-panel > #sbb-input-3');
-
-      await disabledInput.click();
-      await page.waitForChanges();
-
-      expect(disabledInput).not.toHaveAttribute('checked');
-      expect(firstInput).toHaveAttribute('checked');
+      disabledInput.click();
+      await waitForLitRender(wrapper);
+      expect(disabledInput).not.to.have.attribute('checked');
+      expect(firstInput).to.have.attribute('checked');
     });
 
     it('preserves input button disabled state after being disabled from group', async () => {
-      const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
-      const secondInput = await page.find('sbb-selection-panel > #sbb-input-2');
-      const disabledInput = await page.find('sbb-selection-panel > #sbb-input-3');
-
-      element.setProperty('disabled', true);
-      await page.waitForChanges();
-
-      await disabledInput.click();
-      await page.waitForChanges();
-      expect(disabledInput).not.toHaveAttribute('checked');
-      expect(firstInput).toHaveAttribute('checked');
-
-      await secondInput.click();
-      await page.waitForChanges();
-      expect(secondInput).not.toHaveAttribute('checked');
-
-      element.setProperty('disabled', false);
-      await page.waitForChanges();
-
-      await disabledInput.click();
-      await page.waitForChanges();
-      expect(disabledInput).not.toHaveAttribute('checked');
-      expect(firstInput).toHaveAttribute('checked');
+      await preservesDisabled(wrapper, disabledInput, secondInput);
     });
 
     it('focuses input on left arrow key pressed and selects it on space key pressed', async () => {
-      const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
+      const fourthInput: SbbRadioButton = document.querySelector('#sbb-input-4');
 
-      const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
-      const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+      firstInput.click();
+      firstInput.focus();
+      await sendKeys({ down: 'ArrowLeft' });
+      await waitForLitRender(wrapper);
+      expect(document.activeElement.id).to.be.equal(fourthInput.id);
+      expect(firstInput).not.to.have.attribute('checked');
+      expect(fourthInput).not.to.have.attribute('checked');
 
-      await firstInput.click();
-      await page.keyboard.down('ArrowLeft');
-
-      await page.waitForChanges();
-      const input = (await page.find('sbb-selection-panel > #sbb-input-4')) as unknown as Element;
-
-      expect(await page.evaluate(() => document.activeElement.id)).toBe(input.id);
-      expect(input).not.toHaveAttribute('checked');
-
-      await element.press(' ');
-
-      await page.waitForChanges();
-      await waitForCondition(() => willOpenEventSpy.events.length === 1);
-      expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
-
-      await page.waitForChanges();
-      await waitForCondition(() => didOpenEventSpy.events.length === 1);
-      expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
-
-      expect(input).toHaveAttribute('checked');
+      await sendKeys({ press: ' ' });
+      expect(fourthInput).to.have.attribute('checked');
+      expect(firstInput).not.to.have.attribute('checked');
     });
 
     it('focuses input on right arrow key pressed and selects it on space key pressed', async () => {
-      const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
+      firstInput.click();
+      firstInput.focus();
+      await sendKeys({ down: 'ArrowRight' });
+      await waitForLitRender(wrapper);
+      expect(document.activeElement.id).to.be.equal(secondInput.id);
+      expect(firstInput).not.to.have.attribute('checked');
+      expect(secondInput).not.to.have.attribute('checked');
 
-      const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
-      const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-
-      await firstInput.click();
-      await page.keyboard.down('ArrowRight');
-
-      await page.waitForChanges();
-      const input = await page.find('sbb-selection-panel > #sbb-input-2');
-
-      expect(await page.evaluate(() => document.activeElement.id)).toBe(input.id);
-      expect(input).not.toHaveAttribute('checked');
-
-      await element.press(' ');
-
-      await page.waitForChanges();
-      await waitForCondition(() => willOpenEventSpy.events.length === 1);
-      expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
-
-      await page.waitForChanges();
-      await waitForCondition(() => didOpenEventSpy.events.length === 1);
-      expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
-
-      expect(input).toHaveAttribute('checked');
+      await sendKeys({ press: ' ' });
+      expect(firstInput).not.to.have.attribute('checked');
+      expect(secondInput).to.have.attribute('checked');
     });
 
     it('wraps around on arrow key navigation', async () => {
-      const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
-      const checkedInput = await page.find('sbb-selection-panel > #sbb-input-2');
-
-      await checkedInput.click();
-      await page.waitForChanges();
-      expect(checkedInput).toHaveAttribute('checked');
-
-      await page.keyboard.down('ArrowRight');
-      await page.keyboard.down('ArrowRight');
-      await page.waitForChanges();
-
-      expect(await page.evaluate(() => document.activeElement.id)).toBe(firstInput.id);
+      await wrapsAround(wrapper, firstInput, secondInput);
     });
   });
 
   describe('with nested checkboxes', () => {
+    let nestedElement: SbbCheckboxGroup;
+
     beforeEach(async () => {
-      page = await newE2EPage();
-      await page.setContent(`
-  <sbb-checkbox-group orientation="vertical" horizontal-from="large">
-    <sbb-selection-panel disable-animation>
-      <sbb-checkbox value="main1" checked="true">
-        Main Option 1
-      </sbb-checkbox>
-      <sbb-checkbox-group orientation="vertical" slot="content">
-        <sbb-checkbox value="sub1" checked>Suboption 1</sbb-checkbox>
-        <sbb-checkbox value="sub2">Suboption 2</sbb-checkbox>
-      </sbb-checkbox-group>
-    </sbb-selection-panel>
+      nestedElement = await fixture(html`
+        <sbb-checkbox-group orientation="vertical" horizontal-from="large">
+          <sbb-selection-panel disable-animation>
+            <sbb-checkbox value="main1" checked="true"> Main Option 1 </sbb-checkbox>
+            <sbb-checkbox-group orientation="vertical" slot="content">
+              <sbb-checkbox value="sub1" checked>Suboption 1</sbb-checkbox>
+              <sbb-checkbox value="sub2">Suboption 2</sbb-checkbox>
+            </sbb-checkbox-group>
+          </sbb-selection-panel>
 
-    <sbb-selection-panel disable-animation>
-      <sbb-checkbox value="main2">
-        Main Option 2
-      </sbb-checkbox>
-      <sbb-checkbox-group orientation="vertical" slot="content">
-        <sbb-checkbox value="sub3">Suboption 3</sbb-checkbox>
-        <sbb-checkbox value="sub4">Suboption 4</sbb-checkbox>
-      </sbb-checkbox-group>
-    </sbb-selection-panel>
-  </sbb-checkbox-group>
-`);
-      element = await page.find('sbb-checkbox-group');
-
-      await page.waitForChanges();
+          <sbb-selection-panel disable-animation>
+            <sbb-checkbox value="main2"> Main Option 2 </sbb-checkbox>
+            <sbb-checkbox-group orientation="vertical" slot="content">
+              <sbb-checkbox value="sub3">Suboption 3</sbb-checkbox>
+              <sbb-checkbox value="sub4">Suboption 4</sbb-checkbox>
+            </sbb-checkbox-group>
+          </sbb-selection-panel>
+        </sbb-checkbox-group>
+      `);
     });
 
     it('should display expanded label correctly', async () => {
-      await page.waitForChanges();
+      const mainCheckbox1: SbbCheckbox = document.querySelector("sbb-checkbox[value='main1']");
+      const mainCheckbox1Label = mainCheckbox1.shadowRoot.querySelector(
+        '.sbb-checkbox__expanded-label',
+      );
+      const mainCheckbox2: SbbCheckbox = document.querySelector("sbb-checkbox[value='main2']");
+      const mainCheckbox2Label = mainCheckbox2.shadowRoot.querySelector(
+        '.sbb-checkbox__expanded-label',
+      );
+      const subCheckbox1 = document
+        .querySelector("sbb-checkbox[value='sub1']")
+        .shadowRoot.querySelector('.sbb-checkbox__expanded-label');
 
-      const mainCheckbox1 = await page.find(
-        "sbb-checkbox[value='main1'] >>> .sbb-checkbox__expanded-label",
-      );
-      const mainCheckbox2 = await page.find(
-        "sbb-checkbox[value='main2'] >>> .sbb-checkbox__expanded-label",
-      );
-      const subCheckbox1 = await page.find(
-        "sbb-checkbox[value='sub1'] >>> .sbb-checkbox__expanded-label",
-      );
-
-      expect(mainCheckbox1.textContent).toBe(', expanded');
-      expect(mainCheckbox2.textContent).toBe(', collapsed');
-      expect(subCheckbox1).toBeFalsy();
+      expect(mainCheckbox1Label.textContent.trim()).to.be.equal(', expanded');
+      expect(mainCheckbox2Label.textContent.trim()).to.be.equal(', collapsed');
+      expect(subCheckbox1).to.be.null;
 
       // Deactivate main option 1
-      await mainCheckbox1.click();
+      mainCheckbox1.click();
 
       // Activate main option 2
-      await mainCheckbox2.click();
+      mainCheckbox2.click();
 
-      await page.waitForChanges();
+      await waitForLitRender(nestedElement);
 
-      expect(mainCheckbox1.textContent).toBe(', collapsed');
-      expect(mainCheckbox2.textContent).toBe(', expanded');
-      expect(subCheckbox1).toBeFalsy();
+      expect(mainCheckbox1Label.textContent.trim()).to.be.equal(', collapsed');
+      expect(mainCheckbox2Label.textContent.trim()).to.be.equal(', expanded');
+      expect(subCheckbox1).to.be.null;
     });
 
     it('should mark only outer group children as disabled', async () => {
-      element.setAttribute('disabled', '');
+      nestedElement.setAttribute('disabled', '');
+      await waitForLitRender(nestedElement);
 
-      await page.waitForChanges();
+      const checkboxes: SbbCheckbox[] = Array.from(document.querySelectorAll('sbb-checkbox'));
 
-      const checkboxes = await page.findAll('sbb-checkbox');
-
-      expect(checkboxes.length).toBe(6);
-      expect(checkboxes[0]).toHaveAttribute('data-group-disabled');
-      expect(checkboxes[1]).not.toHaveAttribute('data-group-disabled');
-      expect(checkboxes[2]).not.toHaveAttribute('data-group-disabled');
-      expect(checkboxes[3]).toHaveAttribute('data-group-disabled');
-      expect(checkboxes[4]).not.toHaveAttribute('data-group-disabled');
-      expect(checkboxes[5]).not.toHaveAttribute('data-group-disabled');
+      expect(checkboxes.length).to.be.equal(6);
+      expect(checkboxes[0]).to.have.attribute('data-group-disabled');
+      expect(checkboxes[1]).not.to.have.attribute('data-group-disabled');
+      expect(checkboxes[2]).not.to.have.attribute('data-group-disabled');
+      expect(checkboxes[3]).to.have.attribute('data-group-disabled');
+      expect(checkboxes[4]).not.to.have.attribute('data-group-disabled');
+      expect(checkboxes[5]).not.to.have.attribute('data-group-disabled');
     });
   });
 });
