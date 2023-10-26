@@ -4,7 +4,7 @@ import { waitForCondition } from '../../global/testing';
 import { i18nDialog } from '../../global/i18n';
 
 describe('sbb-dialog', () => {
-  let element: E2EElement, accessibilityLabel: E2EElement, page: E2EPage;
+  let element: E2EElement, ariaLiveRef: E2EElement, page: E2EPage;
 
   beforeEach(async () => {
     page = await newE2EPage();
@@ -16,7 +16,7 @@ describe('sbb-dialog', () => {
       </sbb-dialog>
     `);
     element = await page.find('sbb-dialog');
-    accessibilityLabel = await page.find('sbb-dialog >>> span.sbb-screen-reader-only');
+    ariaLiveRef = await page.find('sbb-dialog >>> span.sbb-screen-reader-only');
     await page.waitForChanges();
   });
 
@@ -60,7 +60,7 @@ describe('sbb-dialog', () => {
     await page.waitForChanges();
 
     expect(element).toEqualAttribute('data-state', 'opened');
-    expect(accessibilityLabel.innerText.trim()).toBe(`${i18nDialog.en}, Title`);
+    expect(ariaLiveRef.innerText.trim()).toBe(`${i18nDialog.en}, Title`);
 
     await element.callMethod('close');
     await page.waitForChanges();
@@ -74,7 +74,7 @@ describe('sbb-dialog', () => {
     await page.waitForChanges();
 
     expect(element).toEqualAttribute('data-state', 'closed');
-    expect(accessibilityLabel.innerText).toBe('');
+    expect(ariaLiveRef.innerText).toBe('');
   });
 
   it('closes the dialog on backdrop click', async () => {
@@ -246,7 +246,7 @@ describe('sbb-dialog', () => {
       </sbb-dialog>
     `);
     element = await page.find('sbb-dialog');
-    accessibilityLabel = await page.find('sbb-dialog >>> span.sbb-screen-reader-only');
+    ariaLiveRef = await page.find('sbb-dialog >>> span.sbb-screen-reader-only');
 
     const willOpen = await page.spyOnEvent(events.willOpen);
     const didOpen = await page.spyOnEvent(events.didOpen);
@@ -266,7 +266,7 @@ describe('sbb-dialog', () => {
 
     await page.waitForChanges();
     expect(element).toHaveAttribute('data-fullscreen');
-    expect(accessibilityLabel.innerText.trim()).toBe(`${i18nDialog.en}`);
+    expect(ariaLiveRef.innerText.trim()).toBe(`${i18nDialog.en}`);
   });
 
   it('closes stacked dialogs one by one on ESC key pressed', async () => {
@@ -388,7 +388,7 @@ describe('sbb-dialog', () => {
     expect(element).toEqualAttribute('data-state', 'opened');
   });
 
-  it('should remove accessibilityLabel on any click interaction', async () => {
+  it('should remove ariaLiveRef content on any click interaction', async () => {
     const willOpen = await page.spyOnEvent(events.willOpen);
     const didOpen = await page.spyOnEvent(events.didOpen);
 
@@ -404,15 +404,15 @@ describe('sbb-dialog', () => {
     await page.waitForChanges();
 
     expect(element).toEqualAttribute('data-state', 'opened');
-    expect(accessibilityLabel.innerText.trim()).toBe(`${i18nDialog.en}, Title`);
+    expect(ariaLiveRef.innerText.trim()).toBe(`${i18nDialog.en}, Title`);
 
     await element.press('Tab');
     await page.waitForChanges();
 
-    expect(accessibilityLabel.innerText).toBe('');
+    expect(ariaLiveRef.innerText).toBe('');
   });
 
-  it('should remove accessibilityLabel on any keyboard interaction', async () => {
+  it('should remove ariaLiveRef content on any keyboard interaction', async () => {
     const willOpen = await page.spyOnEvent(events.willOpen);
     const didOpen = await page.spyOnEvent(events.didOpen);
 
@@ -428,15 +428,15 @@ describe('sbb-dialog', () => {
     await page.waitForChanges();
 
     expect(element).toEqualAttribute('data-state', 'opened');
-    expect(accessibilityLabel.innerText.trim()).toBe(`${i18nDialog.en}, Title`);
+    expect(ariaLiveRef.innerText.trim()).toBe(`${i18nDialog.en}, Title`);
 
     await element.click();
     await page.waitForChanges();
 
-    expect(accessibilityLabel.innerText).toBe('');
+    expect(ariaLiveRef.innerText).toBe('');
   });
 
-  it('should announce accessibility label if explicitly set', async () => {
+  it('should announce accessibility label in ariaLiveRef if explicitly set', async () => {
     const willOpen = await page.spyOnEvent(events.willOpen);
     const didOpen = await page.spyOnEvent(events.didOpen);
 
@@ -453,6 +453,6 @@ describe('sbb-dialog', () => {
     await page.waitForChanges();
 
     expect(element).toEqualAttribute('data-state', 'opened');
-    expect(accessibilityLabel.innerText.trim()).toBe(`${i18nDialog.en}, Special Dialog`);
+    expect(ariaLiveRef.innerText.trim()).toBe(`${i18nDialog.en}, Special Dialog`);
   });
 });
