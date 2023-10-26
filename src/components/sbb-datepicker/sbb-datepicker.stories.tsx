@@ -11,11 +11,11 @@ import { waitForStablePosition } from '../../global/testing/wait-for-stable-posi
 import readme from './readme.md?raw';
 import { events } from './sbb-datepicker';
 
-// import '../sbb-datepicker-next-day';
-// import '../sbb-datepicker-previous-day';
-// import '../sbb-datepicker-toggle';
-// import '../sbb-form-field';
-// import './sbb-datepicker';
+import '../sbb-datepicker-next-day';
+import '../sbb-datepicker-previous-day';
+import '../sbb-datepicker-toggle';
+import '../sbb-form-field';
+import './sbb-datepicker';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative

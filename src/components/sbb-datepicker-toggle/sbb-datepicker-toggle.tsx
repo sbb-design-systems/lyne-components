@@ -10,7 +10,7 @@ import {
 } from '../../global/eventing';
 import { i18nShowCalendar } from '../../global/i18n';
 import { SbbCalendar } from '../sbb-calendar/index';
-import { SbbDatepicker } from '../sbb-datepicker/index';
+//import { SbbDatepicker } from '../sbb-datepicker/index';
 import {
   datepickerControlRegisteredEvent,
   getDatePicker,
@@ -45,7 +45,7 @@ export class SbbDatepickerToggle extends LitElement {
 
   @state() private _currentLanguage = documentLanguage();
 
-  private _datePickerElement: SbbDatepicker;
+  private _datePickerElement: any;
 
   private _calendarElement: SbbCalendar;
 
@@ -112,7 +112,7 @@ export class SbbDatepickerToggle extends LitElement {
     this._datePickerElement?.addEventListener(
       'input-updated',
       (event: CustomEvent<InputUpdateEvent>) => {
-        this._datePickerElement = event.target as SbbDatepicker;
+        this._datePickerElement = event.target as any;
         this._disabled = event.detail.disabled || event.detail.readonly;
         this._min = event.detail.min;
         this._max = event.detail.max;
@@ -128,20 +128,19 @@ export class SbbDatepickerToggle extends LitElement {
     );
     this._datePickerElement?.addEventListener(
       'date-picker-updated',
-      (event: Event) =>
-        this._configureCalendar(this._calendarElement, event.target as SbbDatepicker),
+      (event: Event) => this._configureCalendar(this._calendarElement, event.target as any),
       { signal: this._datePickerController.signal },
     );
     this._datePickerElement.dispatchEvent(datepickerControlRegisteredEvent);
   }
 
-  private _configureCalendar(calendar: SbbCalendar, datepicker: SbbDatepicker): void {
+  private _configureCalendar(calendar: SbbCalendar, datepicker: any): void {
     calendar.wide = datepicker?.wide;
     calendar.dateFilter = datepicker?.dateFilter;
   }
 
   private _datePickerChanged(event: Event): void {
-    this._datePickerElement = event.target as SbbDatepicker;
+    this._datePickerElement = event.target as any;
     this._calendarElement.selectedDate = this._datePickerElement.getValueAsDate();
   }
 
