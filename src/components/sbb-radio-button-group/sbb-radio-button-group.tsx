@@ -9,7 +9,7 @@ import {
 } from '../../global/eventing';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { SbbRadioButton, SbbRadioButtonStateChange } from '../sbb-radio-button';
+import { SbbRadioButton, SbbRadioButtonSize, SbbRadioButtonStateChange } from '../sbb-radio-button';
 import { setAttribute } from '../../global/dom';
 import Style from './sbb-radio-button-group.scss?lit&inline';
 import { SbbHorizontalFrom, SbbOrientation } from '../../global/types';
@@ -91,16 +91,16 @@ export class SbbRadioButtonGroup extends LitElement {
    * Size variant, either m or s.
    */
   @property()
-  public get size(): 's' | 'm' {
+  public get size(): SbbRadioButtonSize {
     return this._size;
   }
-  public set size(value: 's' | 'm') {
+  public set size(value: SbbRadioButtonSize) {
     const oldValue = this._size;
     this._size = value;
     this._updateSize();
     this.requestUpdate('size', oldValue);
   }
-  private _size: 's' | 'm' = 'm';
+  private _size: SbbRadioButtonSize = 'm';
 
   /**
    * Overrides the behaviour of `orientation` property.

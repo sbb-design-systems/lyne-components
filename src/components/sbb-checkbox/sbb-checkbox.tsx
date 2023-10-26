@@ -32,6 +32,8 @@ export type SbbCheckboxStateChange = Extract<
   SbbDisabledStateChange | SbbCheckedStateChange
 >;
 
+export type SbbCheckboxSize = 's' | 'm';
+
 /** Configuration for the attribute to look at if component is nested in a sbb-checkbox-group */
 const checkboxObserverConfig: MutationObserverInit = {
   attributeFilter: ['data-group-required', 'data-group-disabled'],
@@ -77,7 +79,7 @@ export class SbbCheckbox extends LitElement {
   @property({ reflect: true, type: Boolean }) public checked = false;
 
   /** Label size variant, either m or s. */
-  @property({ reflect: true }) public size: 'm' | 's' = 'm';
+  @property({ reflect: true }) public size: SbbCheckboxSize = 'm';
 
   /** Whether the component must be set disabled due disabled attribute on sbb-checkbox-group. */
   @state() private _disabledFromGroup = false;

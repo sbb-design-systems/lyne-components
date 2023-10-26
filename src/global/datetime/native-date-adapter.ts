@@ -1,5 +1,6 @@
 import { DateAdapter } from './date-adapter';
 import { documentLanguage } from '../eventing';
+import { SbbDateLike } from '../types';
 
 export const DAYS_PER_ROW: number = 7;
 export const MONTHS_PER_ROW: number = 4;
@@ -221,7 +222,7 @@ export class NativeDateAdapter implements DateAdapter<Date> {
   }
 
   /** Creates a Date from a valid input (Date, string or number in seconds). */
-  public deserializeDate(date: Date | string | number): Date | null {
+  public deserializeDate(date: SbbDateLike): Date | null {
     if (!date) {
       return null;
     }

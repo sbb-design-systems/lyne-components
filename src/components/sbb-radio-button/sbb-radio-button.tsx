@@ -23,6 +23,8 @@ export type SbbRadioButtonStateChange = Extract<
   SbbDisabledStateChange | SbbCheckedStateChange
 >;
 
+export type SbbRadioButtonSize = 's' | 'm';
+
 /** Configuration for the attribute to look at if component is nested in a sbb-radio-button-group */
 const radioButtonObserverConfig: MutationObserverInit = {
   attributeFilter: ['data-group-required', 'data-group-disabled'],
@@ -69,7 +71,7 @@ export class SbbRadioButton extends LitElement {
   /**
    * Label size variant, either m or s.
    */
-  @property({ reflect: true }) public size: 'm' | 's' = 'm';
+  @property({ reflect: true }) public size: SbbRadioButtonSize = 'm';
 
   /**
    * Whether the component must be set disabled due disabled attribute on sbb-radio-button-group.

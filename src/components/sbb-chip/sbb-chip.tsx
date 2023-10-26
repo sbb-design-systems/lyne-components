@@ -11,7 +11,7 @@ export class SbbChip extends LitElement {
 
   /** Size of the chip. */
   @property({ reflect: true })
-  public size: 's' | 'xs' | 'xxs' = 'xxs';
+  public size: 'xxs' | 'xs' | 's' = 'xxs';
 
   /** Color of the chip. */
   @property({ reflect: true })

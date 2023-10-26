@@ -49,7 +49,7 @@ export class SbbToggle extends LitElement {
   /**
    * Size variant, either m or s.
    */
-  @property({ reflect: true }) public size?: 'm' | 's' = 'm';
+  @property({ reflect: true }) public size?: 's' | 'm' = 'm';
 
   /**
    * The value of the toggle. It needs to be mutable since it is updated whenever

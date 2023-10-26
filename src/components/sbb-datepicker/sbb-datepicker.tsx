@@ -24,6 +24,7 @@ import {
 import { AgnosticMutationObserver } from '../../global/observers';
 import { readConfig } from '../../global/config';
 import { ValidationChangeEvent } from '../../global/interfaces';
+import { SbbDateLike } from '../../global/types';
 
 const FORMAT_DATE =
   /(^0?[1-9]?|[12]?[0-9]?|3?[01]?)[.,\\/\-\s](0?[1-9]?|1?[0-2]?)?[.,\\/\-\s](\d{1,4}$)?/;
@@ -128,7 +129,7 @@ export class SbbDatepicker implements ComponentInterface {
   }
 
   /** Set the input value to the correctly formatted value. */
-  @Method() public async setValueAsDate(date: Date | number | string): Promise<void> {
+  @Method() public async setValueAsDate(date: SbbDateLike): Promise<void> {
     const parsedDate = date instanceof Date ? date : new Date(date);
     await this._formatAndUpdateValue(this._inputElement.value, parsedDate);
     /* Emit blur event when value is changed programmatically to notify
@@ -189,7 +190,7 @@ export class SbbDatepicker implements ComponentInterface {
     return !this._dateAdapter.isValid(d) ? value : this._format(d);
   }
 
-  private _createAndComposeDate(value: string | number | Date): string {
+  private _createAndComposeDate(value: SbbDateLike): string {
     const date = new Date(value);
     return this._format(date);
   }

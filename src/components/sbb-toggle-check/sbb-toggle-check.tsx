@@ -33,7 +33,7 @@ export class SbbToggleCheck extends LitElement {
   @property({ reflect: true }) public name?: string;
 
   /** Size variant, either m or s. */
-  @property({ reflect: true }) public size: 'm' | 's' = 's';
+  @property({ reflect: true }) public size: 's' | 'm' = 's';
 
   /** The svg name for the true state - default -> 'tick-small' */
   @property({ attribute: 'icon-name' }) public iconName = 'tick-small';

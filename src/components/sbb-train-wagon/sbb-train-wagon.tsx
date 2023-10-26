@@ -20,6 +20,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import { SbbIcon } from '../sbb-icon';
 import { setAttribute } from '../../global/dom';
+import { SbbOccupancy } from '../../global/types';
 import Style from './sbb-train-wagon.scss?lit&inline';
 import '../sbb-icon';
 
@@ -37,7 +38,7 @@ export class SbbTrainWagon extends LitElement {
   @property({ reflect: true }) public type: 'locomotive' | 'closed' | 'wagon' = 'wagon';
 
   /** Occupancy of a wagon. */
-  @property() public occupancy?: 'high' | 'medium' | 'low' | 'unknown' = 'unknown';
+  @property() public occupancy?: SbbOccupancy = 'unknown';
 
   /** Sector in which to wagon stops. */
   @property({ reflect: true })

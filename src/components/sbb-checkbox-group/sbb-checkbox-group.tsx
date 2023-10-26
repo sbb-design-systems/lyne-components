@@ -8,7 +8,7 @@ import {
 } from '../../global/eventing';
 import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { SbbCheckbox } from '../sbb-checkbox';
+import { SbbCheckbox, SbbCheckboxSize } from '../sbb-checkbox';
 import Style from './sbb-checkbox-group.scss?lit&inline';
 import { SbbHorizontalFrom, SbbOrientation } from '../../global/types';
 
@@ -27,7 +27,7 @@ export class SbbCheckboxGroup extends LitElement {
   @property({ type: Boolean }) public required = false;
 
   /** Size variant, either m or s. */
-  @property() public size: 'm' | 's' = 'm';
+  @property() public size: SbbCheckboxSize = 'm';
 
   /** Overrides the behaviour of `orientation` property. */
   @property({ attribute: 'horizontal-from', reflect: true })

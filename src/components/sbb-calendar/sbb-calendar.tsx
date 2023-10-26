@@ -28,6 +28,7 @@ import { setAttribute } from '../../global/dom';
 import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { SbbDateLike } from '../../global/types';
 import Style from './sbb-calendar.scss?lit&inline';
 import '../sbb-button';
 import '../sbb-icon';
@@ -87,16 +88,16 @@ export class SbbCalendar extends LitElement {
   @property({ type: Boolean }) public wide = false;
 
   /** The minimum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
-  @property() public min: Date | string | number;
+  @property() public min: SbbDateLike;
 
   /** The maximum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
-  @property() public max: Date | string | number;
+  @property() public max: SbbDateLike;
 
   /** A function used to filter out dates. */
   @property({ attribute: 'date-filter' }) public dateFilter: (date: Date | null) => boolean;
 
   /** The selected date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
-  @property({ attribute: 'selected-date' }) public selectedDate: Date | string | number;
+  @property({ attribute: 'selected-date' }) public selectedDate: SbbDateLike;
 
   /** Event emitted on date selection. */
   private _dateSelected: EventEmitter<Date> = new EventEmitter(
@@ -175,16 +176,16 @@ export class SbbCalendar extends LitElement {
 
   private _calendarController: AbortController;
 
-  private _convertMinDate(newMin: Date | string | number): void {
+  private _convertMinDate(newMin: SbbDateLike): void {
     this._min = this._dateAdapter.deserializeDate(newMin);
   }
 
-  private _convertMaxDate(newMax: Date | string | number): void {
+  private _convertMaxDate(newMax: SbbDateLike): void {
     this._max = this._dateAdapter.deserializeDate(newMax);
   }
 
   /** Sets the selected date. */
-  private _setSelectedDate(selectedDate: Date | string | number): void {
+  private _setSelectedDate(selectedDate: SbbDateLike): void {
     const value = this._dateAdapter.deserializeDate(selectedDate);
     if (
       !!value &&
