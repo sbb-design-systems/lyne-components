@@ -60,3 +60,11 @@ The state is reflected via `aria-pressed` attribute.
 | `disabled` | `disabled` | public  | `boolean`             | `false` | Whether the tag is disabled.                                                                                                                |
 | `iconName` | `icon-name` | public  | `string \| undefined` |         |                |
 
+## Slots
+
+| Name      | Description                                                                                     |
+| --------- | ----------------------------------------------------------------------------------------------- |
+| `unnamed` | This slot will show the provided tag label.                                                     |
+| `icon`    | Use this slot to display an icon at the component start, by providing a \`sbb-icon\` component. |
+| `amount`  | Provide an amount to show it at the component end.                                              |
+

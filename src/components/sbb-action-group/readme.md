@@ -118,13 +118,13 @@ The values for `align-group` and `align-self` for the various allocations are as
 
 ## Properties 
 
-| Name             | Attribute             | Privacy | Type                                                               | Default        | Description                                                                                                         |
-| ---------------- | ---------------- | ------- | ------------------------------------------------------------------ | -------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `alignGroup`     | `align-group`     | public  | `InterfaceSbbActionGroupAttributes['alignGroup']`                  | `'start'`      | Set the slotted \`\<sbb-action-group>\` children's alignment.                                                       |
-| `horizontalFrom` | `horizontal-from` | public  | `InterfaceSbbActionGroupAttributes['horizontalFrom'] \| undefined` | `'medium'`     |                |
-| `orientation`    | `orientation`    | public  | `InterfaceSbbActionGroupAttributes['orientation']`                 | `'horizontal'` | Indicates the orientation of the components inside the \`\<sbb-action-group>\`.                                     |
-| `buttonSize`     | `button-size`     | public  | `InterfaceButtonAttributes['size'] \| undefined`                   | `'l'`          |                |
-| `linkSize`       | `link-size`       | public  | `InterfaceLinkAttributes['size'] \| undefined`                     | `'m'`          |                |
+| Name             | Attribute             | Privacy | Type                                        | Default        | Description                                                                                                         |
+| ---------------- | ---------------- | ------- | ------------------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `alignGroup`     | `align-group`     | public  | `'start' \| 'center' \| 'stretch' \| `'start'`      | Set the slotted \`\<sbb-action-group>\` children's alignment.                                                       |                |
+| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| undefined`            | `'medium'`     |                |
+| `orientation`    | `orientation`    | public  | `SbbOrientation`                            | `'horizontal'` | Indicates the orientation of the components inside the \`\<sbb-action-group>\`.                                     |
+| `buttonSize`     | `button-size`     | public  | `SbbButtonSize \| undefined`                | `'l'`          |                |
+| `linkSize`       | `link-size`       | public  | `SbbLinkSize \| undefined`                  | `'m'`          |                |
 
 ## Slots
 

@@ -78,12 +78,19 @@ and the `aria-hidden` attribute on the content.
 
 ## Properties 
 
-| Name               | Attribute               | Privacy | Type                                            | Default   | Description                                                            |
-| ------------------ | ------------------ | ------- | ----------------------------------------------- | --------- | ---------------------------------------------------------------------- |
-| `titleLevel`       | `title-level`       | public  | `TitleLevel \| undefined`                       |           |                |
-| `color`            | `color`            | public  | `InterfaceSbbExpansionPanelAttributes['color']` | `'white'` | The background color of the panel.                                     |
-| `expanded`         | `expanded`         | public  | `boolean`                                       |           | Whether the panel is expanded.                                         |
-| `disabled`         | `disabled`         | public  | `boolean`                                       |           | Whether the panel is disabled, so its expanded state can't be changed. |
-| `borderless`       | `borderless`       | public  | `boolean`                                       | `false`   | Whether the panel has no border.                                       |
-| `disableAnimation` | `disable-animation` | public  | `boolean`                                       | `false`   | Whether the animations should be disabled.                             |
+| Name               | Attribute               | Privacy | Type                      | Default   | Description                                                            |
+| ------------------ | ------------------ | ------- | ------------------------- | --------- | ---------------------------------------------------------------------- |
+| `titleLevel`       | `title-level`       | public  | `TitleLevel \| undefined` |           |                |
+| `color`            | `color`            | public  | `'white' \| 'milk'`       | `'white'` |                |
+| `expanded`         | `expanded`         | public  | `boolean`                 |           | Whether the panel is expanded.                                         |
+| `disabled`         | `disabled`         | public  | `boolean`                 |           | Whether the panel is disabled, so its expanded state can't be changed. |
+| `borderless`       | `borderless`       | public  | `boolean`                 | `false`   | Whether the panel has no border.                                       |
+| `disableAnimation` | `disable-animation` | public  | `boolean`                 | `false`   | Whether the animations should be disabled.                             |
+
+## Slots
+
+| Name      | Description                                         |
+| --------- | --------------------------------------------------- |
+| `header`  | Use this to render the sbb-expansion-panel-header.  |
+| `content` | Use this to render the sbb-expansion-panel-content. |
 

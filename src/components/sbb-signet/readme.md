@@ -25,8 +25,8 @@ Possible values are `ideal` (default), `minimal` and `none`.
 
 ## Properties 
 
-| Name                 | Attribute                 | Privacy | Type                                                       | Default   | Description                                                          |
-| -------------------- | -------------------- | ------- | ---------------------------------------------------------- | --------- | -------------------------------------------------------------------- |
-| `protectiveRoom`     | `protective-room`     | public  | `InterfaceSignetAttributes['protectiveRoom'] \| undefined` | `'ideal'` |                |
-| `accessibilityLabel` | `accessibility-label` | public  | `string`                                                   | `'Logo'`  | Accessibility label which will be forwarded to the inner SVG signet. |
+| Name                 | Attribute                 | Privacy | Type                             | Default   | Description                                                          |
+| -------------------- | -------------------- | ------- | -------------------------------- | --------- | -------------------------------------------------------------------- |
+| `protectiveRoom`     | `protective-room`     | public  | `SbbProtectiveRoom \| undefined` | `'ideal'` |                |
+| `accessibilityLabel` | `accessibility-label` | public  | `string`                         | `'Logo'`  | Accessibility label which will be forwarded to the inner SVG signet. |
 

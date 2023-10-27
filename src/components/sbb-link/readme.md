@@ -62,23 +62,23 @@ and it has also three sizes (`xs`, `s`, which is the default, and `m`) that are 
 
 ## Properties 
 
-| Name            | Attribute            | Privacy | Type                                                    | Default   | Description                                                                                                                                                                         |
-| --------------- | --------------- | ------- | ------------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `variant`       | `variant`       | public  | `InterfaceLinkAttributes['variant']`                    | `'block'` | Variant of the link (block or inline).                                                                                                                                              |
-| `negative`      | `negative`      | public  | `boolean`                                               | `false`   | Negative coloring variant flag.                                                                                                                                                     |
-| `size`          | `size`          | public  | `InterfaceLinkAttributes['size']`                       | `'s'`     | Text size, the link should get in the non-button variation.&#xA;With inline variant, the text size adapts to where it is used.                                                      |
-| `isStatic`      | `is-static`      | public  | `boolean`                                               | `false`   | Set this property to true if you want only a visual representation of a&#xA;link, but no interaction (a span instead of a link/button will be rendered).                            |
-| `iconName`      | `icon-name`      | public  | `string \| undefined`                                   |           |                |
-| `iconPlacement` | `icon-placement` | public  | `InterfaceLinkAttributes['iconPlacement'] \| undefined` | `'start'` |                |
-| `href`          | `href`          | public  | `string \| undefined`                                   |           |                |
+| Name            | Attribute            | Privacy | Type                                                 | Default   | Description                                                                                                                                                                         |
+| --------------- | --------------- | ------- | ---------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `variant`       | `variant`       | public  | `'block' \| 'inline'`                                | `'block'` |                |
+| `negative`      | `negative`      | public  | `boolean`                                            | `false`   | Negative coloring variant flag.                                                                                                                                                     |
+| `size`          | `size`          | public  | `SbbLinkSize`                                        | `'s'`     | Text size, the link should get in the non-button variation.&#xA;With inline variant, the text size adapts to where it is used.                                                      |
+| `isStatic`      | `is-static`      | public  | `boolean`                                            | `false`   | Set this property to true if you want only a visual representation of a&#xA;link, but no interaction (a span instead of a link/button will be rendered).                            |
+| `iconName`      | `icon-name`      | public  | `string \| undefined`                                |           |                |
+| `iconPlacement` | `icon-placement` | public  | `SbbIconPlacement \| undefined`                      | `'start'` |                |
+| `href`          | `href`          | public  | `string \| undefined`                                |           |                |
 | `target`        | `target`        | public  | `LinkTargetType \| string \| undefined \|           | Where to display the linked URL.                                                                                                                                                    |                |
-| `rel`           | `rel`           | public  | `string \| undefined \| undefined`                      | The relationship of the linked URL as space-separated link types.                                                                                                                   |                |
-| `download`      | `download`      | public  | `boolean \| undefined`                                  |           |                |
-| `type`          | `type`          | public  | `ButtonType \| undefined`                               |           |                |
-| `disabled`      | `disabled`      | public  | `boolean`                                               | `false`   | Whether the button is disabled.                                                                                                                                                     |
-| `name`          | `name`          | public  | `string \| undefined`                                   |           |                |
-| `value`         | `value`         | public  | `string \| undefined`                                   |           |                |
-| `form`          | `form`          | public  | `string \| undefined`                                   |           |                |
+| `rel`           | `rel`           | public  | `string \| undefined \| undefined`                   | The relationship of the linked URL as space-separated link types.                                                                                                                   |                |
+| `download`      | `download`      | public  | `boolean \| undefined`                               |           |                |
+| `type`          | `type`          | public  | `ButtonType \| undefined`                            |           |                |
+| `disabled`      | `disabled`      | public  | `boolean`                                            | `false`   | Whether the button is disabled.                                                                                                                                                     |
+| `name`          | `name`          | public  | `string \| undefined`                                |           |                |
+| `value`         | `value`         | public  | `string \| undefined`                                |           |                |
+| `form`          | `form`          | public  | `string \| undefined`                                |           |                |
 
 ## Slots
 

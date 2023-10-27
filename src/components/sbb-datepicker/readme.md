@@ -126,5 +126,5 @@ This is helpful if you need a specific state of the component.
 | `datepickerPropChanged` | public  |                                                       | `newValue: any, oldValue: any`                                     | `void`          |                |
 | `registerInputElement`  | public  |                                                       | `newValue: HTMLInputElement, oldValue: HTMLInputElement`           | `void`          |                |
 | `getValueAsDate`        | public  | Gets the input value with the correct date format.    |                                                                    | `Promise<Date>` |                |
-| `setValueAsDate`        | public  | Set the input value to the correctly formatted value. | `date: Date \| number \| string`                                   | `Promise<void>` |                |
+| `setValueAsDate`        | public  | Set the input value to the correctly formatted value. | `date: SbbDateLike`                                                | `Promise<void>` |                |
 

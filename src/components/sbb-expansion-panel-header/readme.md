@@ -43,3 +43,10 @@ When the element is clicked, the `toggle-expanded` event is emitted.
 | `iconName` | `icon-name` | public  | `string \| undefined` |         |                |
 | `disabled` | `disabled` | public  | `boolean`             |         | Whether the button is disabled.                                                                                                           |
 
+## Slots
+
+| Name      | Description                                |
+| --------- | ------------------------------------------ |
+| `icon`    | Slot used to render the panel header icon. |
+| `unnamed` | Slot used to render the panel header text. |
+

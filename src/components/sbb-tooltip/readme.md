@@ -117,3 +117,9 @@ that have an ARIA `role`.
 | `open`  | public  | Opens the tooltip on trigger click. |                       | `void` |                |
 | `close` | public  | Closes the tooltip.                 | `target: HTMLElement` | `void` |                |
 
+## Slots
+
+| Name      | Description                                              |
+| --------- | -------------------------------------------------------- |
+| `unnamed` | Use this slot to project any content inside the tooltip. |
+

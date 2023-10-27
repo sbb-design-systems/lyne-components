@@ -83,13 +83,12 @@ The `sbb-slider` has the following behaviour on keypress when focused:
 | `disabled`      | `disabled`      | public  | `boolean \| undefined` | `false` |                |
 | `startIcon`     | `start-icon`     | public  | `string \| undefined`  |         |                |
 | `endIcon`       | `end-icon`       | public  | `string \| undefined`  |         |                |
-| `didChange`     | `did-change`     | public  | `EventEmitter`         |         |                                                                                                                                                      |
 
-## Methods
+## Events
 
-| Name            | Privacy | Description | Parameters             | Return          | Inherited From |
-| --------------- | ------- | ----------- | ---------------------- | --------------- | -------------- |
-| `handleKeydown` | public  |             | `event: KeyboardEvent` | `Promise<void>` |                |
+| Name    | Type         | Description | Inherited From |
+| ------- | ------------ | ----------- | -------------- |
+| `input` | `InputEvent` |             |                |
 
 ## Slots
 

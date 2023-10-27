@@ -68,10 +68,10 @@ This is helpful if you need a specific state of the component.
 | Name           | Attribute           | Privacy | Type                              | Default | Description                                                                                                     |
 | -------------- | -------------- | ------- | --------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------- |
 | `wide`         | `wide`         | public  | `boolean`                         | `false` | If set to true, two months are displayed                                                                        |
-| `min`          | `min`          | public  | `Date \| string \| number`        | The minimum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). |                |
-| `max`          | `max`          | public  | `Date \| string \| number`        | The maximum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). |                |
+| `min`          | `min`          | public  | `SbbDateLike`                     |         | The minimum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). |
+| `max`          | `max`          | public  | `SbbDateLike`                     |         | The maximum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). |
 | `dateFilter`   | `date-filter`   | public  | `(date: Date \| null) => boolean` |         |                |
-| `selectedDate` | `selected-date` | public  | `Date \| string \| number`        | The selected date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970).      |                |
+| `selectedDate` | `selected-date` | public  | `SbbDateLike`                     |         | The selected date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970).      |
 
 ## Methods
 

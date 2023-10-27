@@ -67,8 +67,8 @@ Whenever the validation state changes (e.g., a valid value becomes invalid or vi
 
 ## Methods
 
-| Name             | Privacy | Description                                           | Parameters                       | Return         | Inherited From |
-| ---------------- | ------- | ----------------------------------------------------- | -------------------------------- | -------------- | -------------- |
-| `getValueAsDate` | public  | Gets the input value with the correct date format.    |                                  | `Date \| null` |                |
-| `setValueAsDate` | public  | Set the input value to the correctly formatted value. | `date: Date \| number \| string` | `void`         |                |
+| Name             | Privacy | Description                                           | Parameters          | Return         | Inherited From |
+| ---------------- | ------- | ----------------------------------------------------- | ------------------- | -------------- | -------------- |
+| `getValueAsDate` | public  | Gets the input value with the correct date format.    |                     | `Date \| null` |                |
+| `setValueAsDate` | public  | Set the input value to the correctly formatted value. | `date: SbbDateLike` | `void`         |                |
 

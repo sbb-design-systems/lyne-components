@@ -30,13 +30,13 @@ It should refer to the section where the locomotive is placed.
 
 ## Properties 
 
-| Name                  | Attribute                  | Privacy | Type                                       | Default  | Description                                                                                  |
-| --------------------- | --------------------- | ------- | ------------------------------------------ | -------- | -------------------------------------------------------------------------------------------- |
-| `directionLabel`      | `direction-label`      | public  | `string`                                   |          | General label for "driving direction".                                                       |
-| `directionLabelLevel` | `direction-label-level` | public  | `TitleLevel`                               | `'6'`    | Heading level of the direction label, used for screen readers.                               |
-| `station`             | `station`             | public  | `string \| undefined`                      |          |                |
-| `accessibilityLabel`  | `accessibility-label`  | public  | `string \| undefined`                      |          |                |
-| `direction`           | `direction`           | public  | `InterfaceSbbTrainAttributes['direction']` | `'left'` | Controls the direction indicator to show the arrow left or right. Default is left.           |
+| Name                  | Attribute                  | Privacy | Type                  | Default  | Description                                                                                  |
+| --------------------- | --------------------- | ------- | --------------------- | -------- | -------------------------------------------------------------------------------------------- |
+| `directionLabel`      | `direction-label`      | public  | `string`              |          | General label for "driving direction".                                                       |
+| `directionLabelLevel` | `direction-label-level` | public  | `TitleLevel`          | `'6'`    | Heading level of the direction label, used for screen readers.                               |
+| `station`             | `station`             | public  | `string \| undefined` |          |                |
+| `accessibilityLabel`  | `accessibility-label`  | public  | `string \| undefined` |          |                |
+| `direction`           | `direction`           | public  | `'left' \| 'right'`   | `'left'` |                |
 
 ## Slots
 

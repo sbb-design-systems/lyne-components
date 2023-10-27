@@ -17,8 +17,8 @@ It's also possible to display the component in `negative` variant using the self
 
 ## Properties 
 
-| Name          | Attribute          | Privacy | Type                                                        | Default        | Description                                                                                   |
-| ------------- | ------------- | ------- | ----------------------------------------------------------- | -------------- | --------------------------------------------------------------------------------------------- |
-| `negative`    | `negative`    | public  | `boolean \| undefined`                                      | `false`        |                |
-| `orientation` | `orientation` | public  | `InterfaceSbbDividerAttributes['orientation'] \| undefined` | `'horizontal'` | 'vertical'. Defaults to horizontal. |                |
+| Name          | Attribute          | Privacy | Type                          | Default        | Description                                                                                   |
+| ------------- | ------------- | ------- | ----------------------------- | -------------- | --------------------------------------------------------------------------------------------- |
+| `negative`    | `negative`    | public  | `boolean \| undefined`        | `false`        |                |
+| `orientation` | `orientation` | public  | `SbbOrientation \| undefined` | `'horizontal'` | 'vertical'. Defaults to horizontal. |                |
 
