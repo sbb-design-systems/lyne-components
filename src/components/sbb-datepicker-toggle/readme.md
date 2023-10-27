@@ -36,7 +36,7 @@ otherwise, they can be connected using the `datePicker` property as described ab
 
 | Name               | Attribute               | Privacy | Type                                 | Default | Description                        |
 | ------------------ | ------------------ | ------- | ------------------------------------ | ------- | ---------------------------------- |
-| `datePicker`       | `date-picker`       | public  | `string \| HTMLElement \| undefined` | Datepicker reference.              |                |
+| `datePicker`       | `date-picker`       | public  | `string \| HTMLElement \| undefined` |         | Datepicker reference.              |
 | `disableAnimation` | `disable-animation` | public  | `boolean`                            | `false` | Whether the animation is disabled. |
 | `negative`         | `negative`         | public  | `boolean`                            | `false` | Negative coloring variant flag.    |
 

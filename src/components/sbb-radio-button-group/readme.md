@@ -85,9 +85,9 @@ In order to ensure readability for screen-readers, please provide an `aria-label
 | `allowEmptySelection` | `allow-empty-selection` | public  | `boolean`                        |                | Whether the radios can be deselected.                     |
 | `disabled`            | `disabled`            | public  | `boolean`                        |                | Whether the radio group is disabled.                      |
 | `required`            | `required`            | public  | `boolean`                        |                | Whether the radio group is required.                      |
-| `value`               | `value`               | public  | `any \| null`                    |                |                |
+| `value`               | `value`               | public  | `any \| null`                    |                | The value of the radio group.                             |
 | `size`                | `size`                | public  | `SbbRadioButtonSize`             |                | Size variant, either m or s.                              |
-| `horizontalFrom`      | `horizontal-from`      | public  | `SbbHorizontalFrom \| undefined` |                |                |
+| `horizontalFrom`      | `horizontal-from`      | public  | `SbbHorizontalFrom \| undefined` |                | Overrides the behaviour of \`orientation\` property.      |
 | `orientation`         | `orientation`         | public  | `SbbOrientation`                 | `'horizontal'` | Radio group's orientation, either horizontal or vertical. |
 
 ## Slots

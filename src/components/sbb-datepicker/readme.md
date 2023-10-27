@@ -108,10 +108,10 @@ This is helpful if you need a specific state of the component.
 | Name                | Attribute                | Privacy | Type                                                | Default      | Description                                                                         |
 | ------------------- | ------------------- | ------- | --------------------------------------------------- | ------------ | ----------------------------------------------------------------------------------- |
 | `wide`              | `wide`              | public  | `boolean`                                           | `false`      | If set to true, two months are displayed                                            |
-| `dateFilter`        | `date-filter`        | public  | `(date: Date \| null) => boolean`                   | `() => true` |                |
-| `dateParser`        | `date-parser`        | public  | `(value: string) => Date \| undefined \| undefined` | A function used to parse string value into dates.                                   |                |
-| `format`            | `format`            | public  | `(date: Date) => string \| undefined`               |              |                |
-| `input`             | `input`             | public  | `string \| HTMLElement \| undefined`                | Reference of the native input connected to the datepicker.                          |                |
+| `dateFilter`        | `date-filter`        | public  | `(date: Date \| null) => boolean`                   | `() => true` | A function used to filter out dates.                                                |
+| `dateParser`        | `date-parser`        | public  | `(value: string) => Date \| undefined \| undefined` |              | A function used to parse string value into dates.                                   |
+| `format`            | `format`            | public  | `(date: Date) => string \| undefined`               |              | A function used to format dates into the preferred string format.                   |
+| `input`             | `input`             | public  | `string \| HTMLElement \| undefined`                |              | Reference of the native input connected to the datepicker.                          |
 | `didChange`         | `did-change`         | public  | `EventEmitter`                                      |              |                                                                                     |
 | `change`            | `change`            | public  | `EventEmitter`                                      |              |                                                                                     |
 | `inputUpdated`      | `input-updated`      | public  | `EventEmitter<InputUpdateEvent>`                    |              | Notifies that the attributes of the input connected to the datepicker have changes. |

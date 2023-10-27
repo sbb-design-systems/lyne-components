@@ -42,15 +42,15 @@ The component has three different sizes, which can be changed using the `size` p
 
 | Name       | Attribute       | Privacy | Type                                                 | Default | Description                                                                                    |
 | ---------- | ---------- | ------- | ---------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------- |
-| `size`     | `size`     | public  | `'l' \| 'm' \| 's' \| `'l'`   | Action size variant.                                                                           |                |
-| `href`     | `href`     | public  | `string \| undefined`                                |         |                |
-| `target`   | `target`   | public  | `LinkTargetType \| string \| undefined \|         | Where to display the linked URL.                                                               |                |
-| `rel`      | `rel`      | public  | `string \| undefined \| undefined`                   | The relationship of the linked URL as space-separated link types.                              |                |
-| `download` | `download` | public  | `boolean \| undefined`                               |         |                |
-| `type`     | `type`     | public  | `ButtonType \| undefined`                            |         |                |
+| `size`     | `size`     | public  | `'l' \| 'm' \| 's' \| undefined`                     | `'l'`   | Action size variant.                                                                           |
+| `href`     | `href`     | public  | `string \| undefined`                                |         | The href value you want to link to (if it is not present, navigation action becomes a button). |
+| `target`   | `target`   | public  | `LinkTargetType \| string \| undefined \| undefined` |         | Where to display the linked URL.                                                               |
+| `rel`      | `rel`      | public  | `string \| undefined \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                              |
+| `download` | `download` | public  | `boolean \| undefined`                               |         | Whether the browser will show the download dialog on click.                                    |
+| `type`     | `type`     | public  | `ButtonType \| undefined`                            |         | The type attribute to use for the button.                                                      |
 | `active`   | `active`   | public  | `boolean`                                            |         | Whether the action is active.                                                                  |
-| `name`     | `name`     | public  | `string \| undefined`                                |         |                |
-| `value`    | `value`    | public  | `string \| undefined`                                |         |                |
+| `name`     | `name`     | public  | `string \| undefined`                                |         | The name attribute to use for the button.                                                      |
+| `value`    | `value`    | public  | `string \| undefined`                                |         | The value attribute to use for the button.                                                     |
 
 ## Slots
 

@@ -65,8 +65,8 @@ For example, use `--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0` 
 
 | Name               | Attribute               | Privacy | Type                                                    | Default  | Description                                                                                                 |
 | ------------------ | ------------------ | ------- | ------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------- |
-| `type`             | `type`             | public  | `'info' \| 'success' \| 'warn' \| undefined` | `'info'` | The type of the notification.                                                                               |                |
-| `titleContent`     | `title-content`     | public  | `string \| undefined`                                   |          |                |
+| `type`             | `type`             | public  | `'info' \| 'success' \| 'warn' \| 'error' \| undefined` | `'info'` | The type of the notification.                                                                               |
+| `titleContent`     | `title-content`     | public  | `string \| undefined`                                   |          | Content of title.                                                                                           |
 | `titleLevel`       | `title-level`       | public  | `TitleLevel`                                            | `'3'`    | Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3.                          |
 | `readonly`         | `readonly`         | public  | `boolean`                                               | `false`  | Whether the notification is readonly.&#xA;In readonly mode, there is no dismiss button offered to the user. |
 | `disableAnimation` | `disable-animation` | public  | `boolean`                                               | `false`  | Whether the animation is enabled.                                                                           |
