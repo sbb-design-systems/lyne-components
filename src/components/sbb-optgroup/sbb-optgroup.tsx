@@ -58,7 +58,7 @@ export class SbbOptGroup extends LitElement {
     this._proxyGroupLabelToOptions();
   }
 
-  public override willUpdate(changedProperties: PropertyValues<this>): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('disabled')) {
       this._proxyDisabledToOptions();
     }

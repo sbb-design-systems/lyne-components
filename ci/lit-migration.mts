@@ -315,7 +315,7 @@ async function migrate(component: string, debug = false) {
         pivot,
         `
 
-  public override willUpdate(changedProperties: PropertyValues<this>): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     // TODO: Verify parity${propertyWatchers
       .map(
         (pw) => `

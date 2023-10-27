@@ -9,7 +9,7 @@ import Style from './__name__.scss?lit&inline';
 @customElement('__name__')
 export class __nameUpperCase__ extends LitElement {
   public static override styles: CSSResult = Style;
-  public static readonly events: Record<string, string> = {
+  public static readonly events = {
     myEventName: 'my-event-name',
   } as const;
 
@@ -33,7 +33,7 @@ export class __nameUpperCase__ extends LitElement {
     // do stuff
   }
 
-  public override willUpdate(changedProperties: PropertyValues<this>): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('myProp')) {
       // do stuff
     }

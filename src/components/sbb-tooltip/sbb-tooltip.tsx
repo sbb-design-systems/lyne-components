@@ -222,7 +222,7 @@ export class SbbTooltip extends LitElement {
     tooltipsRef.add(this as SbbTooltip);
   }
 
-  public override willUpdate(changedProperties: PropertyValues<this>): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('trigger')) {
       this._removeTriggerClickListener(this.trigger, changedProperties.get('trigger'));
     }

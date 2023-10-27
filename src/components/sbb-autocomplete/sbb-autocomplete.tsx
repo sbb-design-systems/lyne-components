@@ -201,7 +201,7 @@ export class SbbAutocomplete extends LitElement {
     this.addEventListener('click', (e) => this._onOptionClick(e), { signal });
   }
 
-  public override willUpdate(changedProperties: PropertyValues<this>): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('origin')) {
       this._resetOriginClickListener(this.origin, changedProperties.get('origin'));
     }

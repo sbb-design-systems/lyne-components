@@ -73,7 +73,7 @@ export class SbbCheckboxGroup extends LitElement {
     this._handlerRepository.connect();
   }
 
-  public override willUpdate(changedProperties: PropertyValues<this>): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('disabled')) {
       this._updateDisabled();
     }

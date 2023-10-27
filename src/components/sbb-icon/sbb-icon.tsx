@@ -45,7 +45,7 @@ export class SbbIcon extends LitElement {
    */
   @property({ attribute: 'aria-label', reflect: true }) public override ariaLabel: string;
 
-  public override willUpdate(changedProperties: PropertyValues<this>): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('name')) {
       this._updateSvgIcon(this.name, changedProperties.get('name'));
     }

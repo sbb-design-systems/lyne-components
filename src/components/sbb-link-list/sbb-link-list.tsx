@@ -85,7 +85,7 @@ export class SbbLinkList extends LitElement {
     this._readLinks();
   }
 
-  public override willUpdate(changedProperties: PropertyValues<this>): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('size') || changedProperties.has('negative')) {
       this._syncLinks();
     }

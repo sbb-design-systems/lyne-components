@@ -79,7 +79,7 @@ export class SbbSlider extends LitElement {
     this._handleChange();
   }
 
-  public override willUpdate(changedProperties: PropertyValues<this>): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('value')) {
       this._handleChange(Number(this.value));
     } else if (changedProperties.has('valueAsNumber')) {

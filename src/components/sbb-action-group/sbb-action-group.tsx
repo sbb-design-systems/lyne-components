@@ -48,7 +48,7 @@ export class SbbActionGroup extends LitElement {
     this.querySelectorAll('sbb-button').forEach((b) => (b.size = this.buttonSize));
   }
 
-  public override willUpdate(changedProperties: PropertyValues<this>): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('buttonSize')) {
       this._syncButtons();
     }

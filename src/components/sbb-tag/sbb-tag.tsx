@@ -113,7 +113,7 @@ export class SbbTag extends LitElement implements ButtonProperties {
     this._handlerRepository.connect();
   }
 
-  public override willUpdate(changedProperties: PropertyValues<this>): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('checked')) {
       this._handleCheckedChange(this.checked, changedProperties.get('checked'));
     }

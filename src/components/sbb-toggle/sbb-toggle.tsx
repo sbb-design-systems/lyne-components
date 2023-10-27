@@ -183,7 +183,7 @@ export class SbbToggle extends LitElement {
     this._updateToggle();
   }
 
-  public override willUpdate(changedProperties: PropertyValues<this>): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('value')) {
       this._valueChanged(this.value);
     }

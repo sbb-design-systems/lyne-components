@@ -228,7 +228,7 @@ export class SbbCalendar extends LitElement {
     this._init();
   }
 
-  public override willUpdate(changedProperties: PropertyValues<this>): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('min')) {
       this._convertMinDate(this.min);
     }

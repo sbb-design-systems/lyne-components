@@ -239,7 +239,7 @@ export class SbbSelect extends LitElement {
     this.addEventListener('click', () => this._toggleOpening(), { signal });
   }
 
-  public override willUpdate(changedProperties: PropertyValues<this>): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('value')) {
       this._onValueChanged(this.value);
     }

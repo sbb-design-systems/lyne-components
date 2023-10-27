@@ -32,7 +32,7 @@ export class SbbNavigationMarker extends LitElement {
     this._setMarkerPosition(),
   );
 
-  public override willUpdate(changedProperties: PropertyValues<this>): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('size')) {
       this._updateMarkerActions();
     }

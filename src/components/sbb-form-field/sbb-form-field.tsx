@@ -149,7 +149,7 @@ export class SbbFormField extends LitElement {
     this._syncNegative();
   }
 
-  public override willUpdate(changedProperties: PropertyValues<this>): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('label')) {
       this._renderLabel(this.label);
     }
