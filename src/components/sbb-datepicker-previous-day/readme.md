@@ -39,10 +39,3 @@ if it is disabled, or if the selected date is equal to the input's `min` attribu
 | `negative`   | `negative`   | public  | `boolean`                            | `false` | Negative coloring variant flag.           |
 | `datePicker` | `date-picker` | public  | `string \| HTMLElement \| undefined` |         | Datepicker reference.                     |
 
-## Methods
-
-| Name             | Privacy | Description | Parameters                                                         | Return          | Inherited From |
-| ---------------- | ------- | ----------- | ------------------------------------------------------------------ | --------------- | -------------- |
-| `findDatePicker` | public  |             | `newValue: string \| HTMLElement, oldValue: string \| HTMLElement` | `Promise<void>` |                |
-| `handleClick`    | public  |             |                                                                    | `Promise<void>` |                |
-

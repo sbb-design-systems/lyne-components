@@ -105,26 +105,17 @@ This is helpful if you need a specific state of the component.
 
 ## Properties 
 
-| Name                | Attribute                | Privacy | Type                                                | Default      | Description                                                                         |
-| ------------------- | ------------------- | ------- | --------------------------------------------------- | ------------ | ----------------------------------------------------------------------------------- |
-| `wide`              | `wide`              | public  | `boolean`                                           | `false`      | If set to true, two months are displayed                                            |
-| `dateFilter`        | `date-filter`        | public  | `(date: Date \| null) => boolean`                   | `() => true` | A function used to filter out dates.                                                |
-| `dateParser`        | `date-parser`        | public  | `(value: string) => Date \| undefined \| undefined` |              | A function used to parse string value into dates.                                   |
-| `format`            | `format`            | public  | `(date: Date) => string \| undefined`               |              | A function used to format dates into the preferred string format.                   |
-| `input`             | `input`             | public  | `string \| HTMLElement \| undefined`                |              | Reference of the native input connected to the datepicker.                          |
-| `didChange`         | `did-change`         | public  | `EventEmitter`                                      |              |                                                                                     |
-| `change`            | `change`            | public  | `EventEmitter`                                      |              |                                                                                     |
-| `inputUpdated`      | `input-updated`      | public  | `EventEmitter<InputUpdateEvent>`                    |              | Notifies that the attributes of the input connected to the datepicker have changes. |
-| `datePickerUpdated` | `date-picker-updated` | public  | `EventEmitter`                                      |              | Notifies that the attributes of the datepicker have changes.                        |
-| `validationChange`  | `validation-change`  | public  | `EventEmitter<ValidationChangeEvent>`               |              | Emits whenever the internal validation state changes.                               |
+| Name         | Attribute         | Privacy | Type                                                | Default          | Description                                                       |
+| ------------ | ------------ | ------- | --------------------------------------------------- | ---------------- | ----------------------------------------------------------------- |
+| `wide`       | `wide`       | public  | `boolean`                                           | `false`          | If set to true, two months are displayed.                         |
+| `dateParser` | `date-parser` | public  | `(value: string) => Date \| undefined \| undefined` |                  | A function used to parse string value into dates.                 |
+| `format`     | `format`     | public  | `(date: Date) => string \| undefined`               |                  | A function used to format dates into the preferred string format. |
+| `input`      | `input`      | public  | `string \| HTMLElement \| undefined`                |                  | Reference of the native input connected to the datepicker.        |
 
 ## Methods
 
-| Name                    | Privacy | Description                                           | Parameters                                                         | Return          | Inherited From |
-| ----------------------- | ------- | ----------------------------------------------------- | ------------------------------------------------------------------ | --------------- | -------------- |
-| `findInput`             | public  |                                                       | `newValue: string \| HTMLElement, oldValue: string \| HTMLElement` | `void`          |                |
-| `datepickerPropChanged` | public  |                                                       | `newValue: any, oldValue: any`                                     | `void`          |                |
-| `registerInputElement`  | public  |                                                       | `newValue: HTMLInputElement, oldValue: HTMLInputElement`           | `void`          |                |
-| `getValueAsDate`        | public  | Gets the input value with the correct date format.    |                                                                    | `Promise<Date>` |                |
-| `setValueAsDate`        | public  | Set the input value to the correctly formatted value. | `date: SbbDateLike`                                                | `Promise<void>` |                |
+| Name             | Privacy | Description                                           | Parameters          | Return | Inherited From |
+| ---------------- | ------- | ----------------------------------------------------- | ------------------- | ------ | -------------- |
+| `getValueAsDate` | public  | Gets the input value with the correct date format.    |                     | `Date` |                |
+| `setValueAsDate` | public  | Set the input value to the correctly formatted value. | `date: SbbDateLike` | `void` |                |
 

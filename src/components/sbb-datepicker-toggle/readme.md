@@ -42,8 +42,7 @@ otherwise, they can be connected using the `datePicker` property as described ab
 
 ## Methods
 
-| Name             | Privacy | Description         | Parameters                                                         | Return          | Inherited From |
-| ---------------- | ------- | ------------------- | ------------------------------------------------------------------ | --------------- | -------------- |
-| `findDatePicker` | public  |                     | `newValue: string \| HTMLElement, oldValue: string \| HTMLElement` | `Promise<void>` |                |
-| `open`           | public  | Opens the calendar. |                                                                    | `Promise<void>` |                |
+| Name   | Privacy | Description         | Parameters | Return | Inherited From |
+| ------ | ------- | ------------------- | ---------- | ------ | -------------- |
+| `open` | public  | Opens the calendar. |            | `void` |                |
 
