@@ -1,6 +1,6 @@
 const defaultOptions = {
   bubbles: true,
-  cancelable: false,
+  cancelable: true,
   composed: true,
 };
 
