@@ -10,24 +10,19 @@ Optionally, a label can be provided via slot via the self-named property or the 
 </sbb-navigation-list>
 ```
 
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
+## Properties 
 
-## Properties
-
-| Property | Attribute | Description | Type     | Default     |
-| -------- | --------- | ----------- | -------- | ----------- |
-| `label`  | `label`   |             | `string` | `undefined` |
-
+| Name    | Attribute    | Privacy | Type                  | Default | Description |
+| ------- | ------- | ------- | --------------------- | ------- | ----------- |
+| `label` | `label` | public  | `string \| undefined` |         |             |
 
 ## Slots
 
-| Slot        | Description                                         |
-| ----------- | --------------------------------------------------- |
-| `"label"`   | Use this to provide a label element.                |
-| `"unnamed"` | Use this to provide content for sbb-navigation-list |
-
-
-----------------------------------------------
-
+| Name      | Description                                         |
+| --------- | --------------------------------------------------- |
+| `label`   | Use this to provide a label element.                |
+| `unnamed` | Use this to provide content for sbb-navigation-list |
 

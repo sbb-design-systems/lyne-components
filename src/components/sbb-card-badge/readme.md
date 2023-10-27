@@ -21,36 +21,18 @@ All content parts are presented with a predefined gap in between.
 It's recommended to place an `aria-label` on `sbb-card-badge` to describe the displayed information in a full sentence,
 as in the example above.
 
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
+## Properties 
 
-## Properties
-
-| Property | Attribute | Description              | Type                    | Default      |
-| -------- | --------- | ------------------------ | ----------------------- | ------------ |
-| `color`  | `color`   | Color of the card badge. | `"charcoal" \| "white"` | `'charcoal'` |
-
+| Name    | Attribute    | Privacy | Type                    | Default      | Description              |
+| ------- | ------- | ------- | ----------------------- | ------------ | ------------------------ |
+| `color` | `color` | public  | `'charcoal' \| 'white'` | `'charcoal'` | Color of the card badge. |
 
 ## Slots
 
-| Slot        | Description                                                                                         |
-| ----------- | --------------------------------------------------------------------------------------------------- |
-| `"unnamed"` | Content of the badge. Content parts should be wrapped in `<span>` tags to achieve correct spacings. |
-
-
-## Dependencies
-
-### Used by
-
- - [sbb-timetable-row](../sbb-timetable-row)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-timetable-row --> sbb-card-badge
-  style sbb-card-badge fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name      | Description                                                                                            |
+| --------- | ------------------------------------------------------------------------------------------------------ |
+| `unnamed` | Content of the badge. Content parts should be wrapped in \`\<span>\` tags to achieve correct spacings. |
 

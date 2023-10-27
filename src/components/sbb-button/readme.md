@@ -78,73 +78,32 @@ sbb-button {
 
 Use the accessibility properties in case of an icon-only button to describe the purpose of the `sbb-button` for screen-reader users.
 
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
+## Properties 
 
-## Properties
-
-| Property   | Attribute   | Description                                                                                                                                            | Type                                                      | Default     |
-| ---------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------- | ----------- |
-| `disabled` | `disabled`  | Whether the button is disabled.                                                                                                                        | `boolean`                                                 | `false`     |
-| `download` | `download`  | Whether the browser will show the download dialog on click.                                                                                            | `boolean`                                                 | `undefined` |
-| `form`     | `form`      | The <form> element to associate the button with.                                                                                                       | `string`                                                  | `undefined` |
-| `href`     | `href`      | The href value you want to link to (if it is present, button becomes a link).                                                                          | `string`                                                  | `undefined` |
-| `iconName` | `icon-name` | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                       | `string`                                                  | `undefined` |
-| `isStatic` | `is-static` | Set this property to true if you want only a visual representation of a button, but no interaction (a span instead of a link/button will be rendered). | `boolean`                                                 | `false`     |
-| `name`     | `name`      | The name attribute to use for the button.                                                                                                              | `string`                                                  | `undefined` |
-| `negative` | `negative`  | Negative coloring variant flag.                                                                                                                        | `boolean`                                                 | `false`     |
-| `rel`      | `rel`       | The relationship of the linked URL as space-separated link types.                                                                                      | `string`                                                  | `undefined` |
-| `size`     | `size`      | Size variant, either l or m.                                                                                                                           | `"l" \| "m"`                                              | `'l'`       |
-| `target`   | `target`    | Where to display the linked URL.                                                                                                                       | `string`                                                  | `undefined` |
-| `type`     | `type`      | The type attribute to use for the button.                                                                                                              | `"button" \| "reset" \| "submit"`                         | `undefined` |
-| `value`    | `value`     | The value attribute to use for the button.                                                                                                             | `string`                                                  | `undefined` |
-| `variant`  | `variant`   | Variant of the button, like primary, secondary etc.                                                                                                    | `"primary" \| "secondary" \| "tertiary" \| "transparent"` | `'primary'` |
-
+| Name       | Attribute       | Privacy | Type                                                                     | Default     | Description                                                                                                                                                |
+| ---------- | ---------- | ------- | ------------------------------------------------------------------------ | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `variant`  | `variant`  | public  | `\| 'primary'     \| 'secondary'     \| 'tertiary'     \| 'transparent'` | `'primary'` | Variant of the button, like primary, secondary etc.                                                                                                        |
+| `negative` | `negative` | public  | `boolean`                                                                | `false`     | Negative coloring variant flag.                                                                                                                            |
+| `size`     | `size`     | public  | `SbbButtonSize \| undefined`                                             | `'l'`       | Size variant, either l or m.                                                                                                                               |
+| `isStatic` | `is-static` | public  | `boolean`                                                                | `false`     | Set this property to true if you want only a visual representation of a&#xA;button, but no interaction (a span instead of a link/button will be rendered). |
+| `iconName` | `icon-name` | public  | `string \| undefined`                                                    |             | The icon name we want to use, choose from the small icon variants&#xA;from the ui-icons category from here&#xA;https\://icons.app.sbb.ch.                  |
+| `href`     | `href`     | public  | `string \| undefined`                                                    |             | The href value you want to link to (if it is present, button becomes a link).                                                                              |
+| `target`   | `target`   | public  | `LinkTargetType \| string \| undefined \| undefined`                     |             | Where to display the linked URL.                                                                                                                           |
+| `rel`      | `rel`      | public  | `string \| undefined \| undefined`                                       |             | The relationship of the linked URL as space-separated link types.                                                                                          |
+| `download` | `download` | public  | `boolean \| undefined`                                                   |             | Whether the browser will show the download dialog on click.                                                                                                |
+| `type`     | `type`     | public  | `ButtonType \| undefined`                                                |             | The type attribute to use for the button.                                                                                                                  |
+| `disabled` | `disabled` | public  | `boolean`                                                                | `false`     | Whether the button is disabled.                                                                                                                            |
+| `name`     | `name`     | public  | `string \| undefined`                                                    |             | The name attribute to use for the button.                                                                                                                  |
+| `value`    | `value`    | public  | `string \| undefined`                                                    |             | The value attribute to use for the button.                                                                                                                 |
+| `form`     | `form`     | public  | `string \| undefined`                                                    |             | The \<form> element to associate the button with.                                                                                                          |
 
 ## Slots
 
-| Slot        | Description                                  |
-| ----------- | -------------------------------------------- |
-| `"icon"`    | Slot used to display the icon, if one is set |
-| `"unnamed"` | Button Content                               |
-
-
-## Dependencies
-
-### Used by
-
- - [sbb-alert](../sbb-alert)
- - [sbb-calendar](../sbb-calendar)
- - [sbb-dialog](../sbb-dialog)
- - [sbb-file-selector](../sbb-file-selector)
- - [sbb-map-container](../sbb-map-container)
- - [sbb-navigation](../sbb-navigation)
- - [sbb-navigation-section](../sbb-navigation-section)
- - [sbb-notification](../sbb-notification)
- - [sbb-toast](../sbb-toast)
- - [sbb-tooltip](../sbb-tooltip)
-
-### Depends on
-
-- [sbb-icon](../sbb-icon)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-button --> sbb-icon
-  sbb-alert --> sbb-button
-  sbb-calendar --> sbb-button
-  sbb-dialog --> sbb-button
-  sbb-file-selector --> sbb-button
-  sbb-map-container --> sbb-button
-  sbb-navigation --> sbb-button
-  sbb-navigation-section --> sbb-button
-  sbb-notification --> sbb-button
-  sbb-toast --> sbb-button
-  sbb-tooltip --> sbb-button
-  style sbb-button fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name      | Description                                  |
+| --------- | -------------------------------------------- |
+| `unnamed` | Button Content                               |
+| `icon`    | Slot used to display the icon, if one is set |
 

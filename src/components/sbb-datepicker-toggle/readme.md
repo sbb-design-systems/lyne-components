@@ -29,53 +29,21 @@ otherwise, they can be connected using the `datePicker` property as described ab
 </sbb-form-field>
 ```
 
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
+## Properties 
 
-## Properties
-
-| Property           | Attribute           | Description                        | Type                    | Default     |
-| ------------------ | ------------------- | ---------------------------------- | ----------------------- | ----------- |
-| `datePicker`       | `date-picker`       | Datepicker reference.              | `HTMLElement \| string` | `undefined` |
-| `disableAnimation` | `disable-animation` | Whether the animation is disabled. | `boolean`               | `false`     |
-| `negative`         | `negative`          | Negative coloring variant flag.    | `boolean`               | `false`     |
-
+| Name               | Attribute               | Privacy | Type                                 | Default | Description                        |
+| ------------------ | ------------------ | ------- | ------------------------------------ | ------- | ---------------------------------- |
+| `datePicker`       | `date-picker`       | public  | `string \| HTMLElement \| undefined` |         | Datepicker reference.              |
+| `disableAnimation` | `disable-animation` | public  | `boolean`                            | `false` | Whether the animation is disabled. |
+| `negative`         | `negative`         | public  | `boolean`                            | `false` | Negative coloring variant flag.    |
 
 ## Methods
 
-### `open() => Promise<void>`
-
-Opens the calendar.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
-
-## Dependencies
-
-### Depends on
-
-- [sbb-tooltip-trigger](../sbb-tooltip-trigger)
-- [sbb-tooltip](../sbb-tooltip)
-- [sbb-calendar](../sbb-calendar)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-datepicker-toggle --> sbb-tooltip-trigger
-  sbb-datepicker-toggle --> sbb-tooltip
-  sbb-datepicker-toggle --> sbb-calendar
-  sbb-tooltip-trigger --> sbb-icon
-  sbb-tooltip --> sbb-button
-  sbb-button --> sbb-icon
-  sbb-calendar --> sbb-icon
-  sbb-calendar --> sbb-button
-  style sbb-datepicker-toggle fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name             | Privacy | Description         | Parameters                                                         | Return          | Inherited From |
+| ---------------- | ------- | ------------------- | ------------------------------------------------------------------ | --------------- | -------------- |
+| `findDatePicker` | public  |                     | `newValue: string \| HTMLElement, oldValue: string \| HTMLElement` | `Promise<void>` |                |
+| `open`           | public  | Opens the calendar. |                                                                    | `Promise<void>` |                |
 

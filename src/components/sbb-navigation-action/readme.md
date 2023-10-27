@@ -25,31 +25,26 @@ The component has three different sizes, which can be changed using the `size` p
 <sbb-navigation-action type='button' value='menu' name='menu'>Button</sbb-navigation-action>
 ```
 
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
+## Properties 
 
-## Properties
-
-| Property   | Attribute  | Description                                                                                    | Type                              | Default     |
-| ---------- | ---------- | ---------------------------------------------------------------------------------------------- | --------------------------------- | ----------- |
-| `active`   | `active`   | Whether the action is active.                                                                  | `boolean`                         | `false`     |
-| `download` | `download` | Whether the browser will show the download dialog on click.                                    | `boolean`                         | `undefined` |
-| `href`     | `href`     | The href value you want to link to (if it is not present, navigation action becomes a button). | `string`                          | `undefined` |
-| `name`     | `name`     | The name attribute to use for the button.                                                      | `string`                          | `undefined` |
-| `rel`      | `rel`      | The relationship of the linked URL as space-separated link types.                              | `string`                          | `undefined` |
-| `size`     | `size`     | Action size variant.                                                                           | `"l" \| "m" \| "s"`               | `'l'`       |
-| `target`   | `target`   | Where to display the linked URL.                                                               | `string`                          | `undefined` |
-| `type`     | `type`     | The type attribute to use for the button.                                                      | `"button" \| "reset" \| "submit"` | `undefined` |
-| `value`    | `value`    | The value attribute to use for the button.                                                     | `string`                          | `undefined` |
-
+| Name       | Attribute       | Privacy | Type                                                 | Default | Description                                                                                    |
+| ---------- | ---------- | ------- | ---------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------- |
+| `size`     | `size`     | public  | `'l' \| 'm' \| 's' \| undefined`                     | `'l'`   | Action size variant.                                                                           |
+| `href`     | `href`     | public  | `string \| undefined`                                |         | The href value you want to link to (if it is not present, navigation action becomes a button). |
+| `target`   | `target`   | public  | `LinkTargetType \| string \| undefined \| undefined` |         | Where to display the linked URL.                                                               |
+| `rel`      | `rel`      | public  | `string \| undefined \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                              |
+| `download` | `download` | public  | `boolean \| undefined`                               |         | Whether the browser will show the download dialog on click.                                    |
+| `type`     | `type`     | public  | `ButtonType \| undefined`                            |         | The type attribute to use for the button.                                                      |
+| `active`   | `active`   | public  | `boolean`                                            |         | Whether the action is active.                                                                  |
+| `name`     | `name`     | public  | `string \| undefined`                                |         | The name attribute to use for the button.                                                      |
+| `value`    | `value`    | public  | `string \| undefined`                                |         | The value attribute to use for the button.                                                     |
 
 ## Slots
 
-| Slot        | Description                                           |
-| ----------- | ----------------------------------------------------- |
-| `"unnamed"` | Use this slot to provide the navigation action label. |
-
-
-----------------------------------------------
-
+| Name      | Description                                           |
+| --------- | ----------------------------------------------------- |
+| `unnamed` | Use this slot to provide the navigation action label. |
 

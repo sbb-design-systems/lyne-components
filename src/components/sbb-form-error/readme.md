@@ -19,16 +19,12 @@ the component displays an icon by default, that can be changed using the `icon` 
 </sbb-form-error>
 ```
 
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
+## Properties 
 
-## Properties
-
-| Property   | Attribute  | Description                     | Type      | Default |
-| ---------- | ---------- | ------------------------------- | --------- | ------- |
-| `negative` | `negative` | Negative coloring variant flag. | `boolean` | `false` |
-
-
-----------------------------------------------
-
+| Name       | Attribute       | Privacy | Type      | Default | Description                     |
+| ---------- | ---------- | ------- | --------- | ------- | ------------------------------- |
+| `negative` | `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |
 

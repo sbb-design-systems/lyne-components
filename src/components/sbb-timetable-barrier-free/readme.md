@@ -1,15 +1,11 @@
 to be documented...
 
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
+## Properties 
 
-## Properties
-
-| Property              | Attribute | Description                                                                                                                               | Type     | Default     |
-| --------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
-| `config` _(required)_ | `config`  | Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure. | `string` | `undefined` |
-
-
-----------------------------------------------
-
+| Name     | Attribute     | Privacy | Type     | Default | Description                                                                                                                                           |
+| -------- | -------- | ------- | -------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `config` | `config` | public  | `string` |         | Stringified JSON which defines most of the&#xA;content of the component. Please check the&#xA;individual stories to get an idea of the&#xA;structure. |
 

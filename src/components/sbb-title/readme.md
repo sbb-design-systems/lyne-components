@@ -31,46 +31,15 @@ If the title is needed, but it must to not be displayed, it's possible to use th
 <sbb-title visually-hidden>Screen-reader only.</sbb-title>
 ```
 
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
+## Properties 
 
-## Properties
-
-| Property         | Attribute         | Description                                                                                                                                                                                    | Type                                     | Default     |
-| ---------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- | ----------- |
-| `level`          | `level`           | Title level                                                                                                                                                                                    | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'1'`       |
-| `negative`       | `negative`        | Choose negative variant                                                                                                                                                                        | `boolean`                                | `false`     |
-| `visualLevel`    | `visual-level`    | Visual level for the title. Optional, if not set, the value of level will be used.                                                                                                             | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `undefined` |
-| `visuallyHidden` | `visually-hidden` | Sometimes we need a title in the markup to present a proper hierarchy to the screen readers while we do not want to let that title appear visually. In this case we set visuallyHidden to true | `boolean`                                | `undefined` |
-
-
-## Dependencies
-
-### Used by
-
- - [sbb-alert](../sbb-alert)
- - [sbb-dialog](../sbb-dialog)
- - [sbb-journey-header](../sbb-journey-header)
- - [sbb-link-list](../sbb-link-list)
- - [sbb-message](../sbb-message)
- - [sbb-notification](../sbb-notification)
- - [sbb-skiplink-list](../sbb-skiplink-list)
- - [sbb-teaser](../sbb-teaser)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-alert --> sbb-title
-  sbb-dialog --> sbb-title
-  sbb-journey-header --> sbb-title
-  sbb-link-list --> sbb-title
-  sbb-message --> sbb-title
-  sbb-notification --> sbb-title
-  sbb-skiplink-list --> sbb-title
-  sbb-teaser --> sbb-title
-  style sbb-title fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name             | Attribute             | Privacy | Type                      | Default | Description                                                                                                                                                                                            |
+| ---------------- | ---------------- | ------- | ------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `level`          | `level`          | public  | `TitleLevel \| undefined` | `'1'`   | Title level                                                                                                                                                                                            |
+| `visualLevel`    | `visual-level`    | public  | `TitleLevel \| undefined` |         | Visual level for the title. Optional, if not set, the value of level will be used.                                                                                                                     |
+| `visuallyHidden` | `visually-hidden` | public  | `boolean \| undefined`    |         | Sometimes we need a title in the markup to present a proper hierarchy&#xA;to the screen readers while we do not want to let that title appear&#xA;visually. In this case we set visuallyHidden to true |
+| `negative`       | `negative`       | public  | `boolean \| undefined`    | `false` | Choose negative variant                                                                                                                                                                                |
 

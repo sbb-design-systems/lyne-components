@@ -39,34 +39,21 @@ and therefore interrupts screen reader flow, to immediately read out the alert c
 
 **Note that with role `alert`, in some combinations of screen readers and browsers not every part of the alert is fully read.**
 
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
+## Properties 
 
-## Properties
-
-| Property                  | Attribute                   | Description                                                                                                                                                                               | Type                                     | Default     |
-| ------------------------- | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- | ----------- |
-| `accessibilityTitle`      | `accessibility-title`       | Title for this alert group which is only visible for screen reader users.                                                                                                                 | `string`                                 | `undefined` |
-| `accessibilityTitleLevel` | `accessibility-title-level` | Level of the accessibility title, will be rendered as heading tag (e.g. h2). Defaults to level 2.                                                                                         | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'2'`       |
-| `role`                    | `role`                      | The role attribute defines how to announce alerts to the user.  'status': sets aria-live to polite and aria-atomic to true. 'alert': sets aria-live to assertive and aria-atomic to true. | `string`                                 | `'status'`  |
-
-
-## Events
-
-| Event               | Description                                 | Type                               |
-| ------------------- | ------------------------------------------- | ---------------------------------- |
-| `did-dismiss-alert` | Emits when an alert was removed from DOM.   | `CustomEvent<HTMLSbbAlertElement>` |
-| `empty`             | Emits when `sbb-alert-group` becomes empty. | `CustomEvent<void>`                |
-
+| Name                      | Attribute                      | Privacy | Type                            | Default    | Description                                                                                                                                                                                           |
+| ------------------------- | ------------------------- | ------- | ------------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `role`                    | `role`                    | public  | `'alert' \| 'status' \| string` | `'status'` | The role attribute defines how to announce alerts to the user.&#xA;&#xA;'status': sets aria-live to polite and aria-atomic to true.&#xA;'alert': sets aria-live to assertive and aria-atomic to true. |
+| `accessibilityTitle`      | `accessibility-title`      | public  | `string`                        |            | Title for this alert group which is only visible for screen reader users.                                                                                                                             |
+| `accessibilityTitleLevel` | `accessibility-title-level` | public  | `TitleLevel`                    | `'2'`      | Level of the accessibility title, will be rendered as heading tag (e.g. h2). Defaults to level 2.                                                                                                     |
 
 ## Slots
 
-| Slot                    | Description                                                                   |
-| ----------------------- | ----------------------------------------------------------------------------- |
-| `"accessibility-title"` | title for this sbb-alert-group which is only visible for screen reader users. |
-| `"unnamed"`             | content slot, should be filled with `sbb-alert` items.                        |
-
-
-----------------------------------------------
-
+| Name                  | Description                                                                   |
+| --------------------- | ----------------------------------------------------------------------------- |
+| `unnamed`             | content slot, should be filled with \`sbb-alert\` items.                      |
+| `accessibility-title` | title for this sbb-alert-group which is only visible for screen reader users. |
 

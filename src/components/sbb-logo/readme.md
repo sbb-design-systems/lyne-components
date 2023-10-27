@@ -25,31 +25,14 @@ Possible values are `ideal` (default), `minimal` and `none`.
 <sbb-logo protective-room='minimal'></sbb-logo>
 ```
 
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
+## Properties 
 
-## Properties
-
-| Property             | Attribute             | Description                                                  | Type                             | Default   |
-| -------------------- | --------------------- | ------------------------------------------------------------ | -------------------------------- | --------- |
-| `accessibilityLabel` | `accessibility-label` | Accessibility label which will be forwarded to the SVG logo. | `string`                         | `'Logo'`  |
-| `negative`           | `negative`            | Variants of the logo.                                        | `boolean`                        | `false`   |
-| `protectiveRoom`     | `protective-room`     | Visual protective room around logo.                          | `"ideal" \| "minimal" \| "none"` | `'ideal'` |
-
-
-## Dependencies
-
-### Used by
-
- - [sbb-header](../sbb-header)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-header --> sbb-logo
-  style sbb-logo fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name                 | Attribute                 | Privacy | Type                             | Default   | Description                                                  |
+| -------------------- | -------------------- | ------- | -------------------------------- | --------- | ------------------------------------------------------------ |
+| `negative`           | `negative`           | public  | `boolean`                        | `false`   | Variants of the logo.                                        |
+| `protectiveRoom`     | `protective-room`     | public  | `SbbProtectiveRoom \| undefined` | `'ideal'` | Visual protective room around logo.                          |
+| `accessibilityLabel` | `accessibility-label` | public  | `string`                         | `'Logo'`  | Accessibility label which will be forwarded to the SVG logo. |
 

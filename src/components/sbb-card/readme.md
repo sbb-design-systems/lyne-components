@@ -77,39 +77,21 @@ However, as the content of the card is not directly inside the button or link,
 this does not happen when the slotted content has a specific color set.
 To improve coloring, it's needed to manually define styles for Window high contrast mode (setting `LinkText` or `ButtonText`).
 
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
+## Properties 
 
-## Properties
-
-| Property | Attribute | Description                                        | Type                                                                           | Default   |
-| -------- | --------- | -------------------------------------------------- | ------------------------------------------------------------------------------ | --------- |
-| `color`  | `color`   | Option to set the component's background color.    | `"milk" \| "transparent-bordered" \| "transparent-bordered-dashed" \| "white"` | `'white'` |
-| `size`   | `size`    | Size variant, either xs, s, m, l, xl, xxl or xxxl. | `"l" \| "m" \| "s" \| "xl" \| "xs" \| "xxl" \| "xxxl"`                         | `'m'`     |
-
+| Name    | Attribute    | Privacy | Type                                                                                          | Default   | Description                                        |
+| ------- | ------- | ------- | --------------------------------------------------------------------------------------------- | --------- | -------------------------------------------------- |
+| `size`  | `size`  | public  | `'xs' \| 's' \| 'm' \| 'l' \| 'xl' \| 'xxl' \| 'xxxl' \| undefined`                           | `'m'`     | Size variant, either xs, s, m, l, xl, xxl or xxxl. |
+| `color` | `color` | public  | `\| 'white'     \| 'milk'     \| 'transparent-bordered'     \| 'transparent-bordered-dashed'` | `'white'` | Option to set the component's background color.    |
 
 ## Slots
 
-| Slot        | Description                         |
-| ----------- | ----------------------------------- |
-| `"action"`  | Slot to render `<sbb-card-action>`. |
-| `"badge"`   | Slot to render `<sbb-card-badge>`.  |
-| `"unnamed"` | Slot to render the content.         |
-
-
-## Dependencies
-
-### Used by
-
- - [sbb-timetable-row](../sbb-timetable-row)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-timetable-row --> sbb-card
-  style sbb-card fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name      | Description                            |
+| --------- | -------------------------------------- |
+| `unnamed` | Slot to render the content.            |
+| `badge`   | Slot to render \`\<sbb-card-badge>\`.  |
+| `action`  | Slot to render \`\<sbb-card-action>\`. |
 

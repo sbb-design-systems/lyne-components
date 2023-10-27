@@ -30,25 +30,22 @@ The component has many styling options, which can be configured through the 'pea
 The slots themselves are unstyled, so that they can be used in various ways.
 
 
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
+## Properties 
 
-## Properties
-
-| Property                                        | Attribute           | Description                                                                 | Type                               | Default     |
-| ----------------------------------------------- | ------------------- | --------------------------------------------------------------------------- | ---------------------------------- | ----------- |
-| `disableAnimation`                              | `disable-animation` | If true, the position won't be animated.                                    | `boolean`                          | `undefined` |
-| `pearlChainVerticalItemAttributes` _(required)_ | --                  | The pearlChainVerticalItemAttributes Prop for styling the bullets and line. | `PearlChainVerticalItemAttributes` | `undefined` |
-
+| Name                               | Attribute                               | Privacy | Type                               | Default | Description                                                                 |
+| ---------------------------------- | ---------------------------------- | ------- | ---------------------------------- | ------- | --------------------------------------------------------------------------- |
+| `pearlChainVerticalItemAttributes` | `pearl-chain-vertical-item-attributes` | public  | `PearlChainVerticalItemAttributes` |         | The pearlChainVerticalItemAttributes Prop for styling the bullets and line. |
+| `disableAnimation`                 | `disable-animation`                 | public  | `boolean \| undefined`             |         | If true, the position won't be animated.                                    |
 
 ## Slots
 
-| Slot      | Description                           |
-| --------- | ------------------------------------- |
-| `"left"`  | content of the left side of the item  |
-| `"right"` | content of the right side of the item |
+| Name    | Description                           |
+| ------- | ------------------------------------- |
+| `left`  | content of the left side of the item  |
+| `right` | content of the right side of the item |
 
-
-----------------------------------------------
-
+<hr/>
 

@@ -27,47 +27,22 @@ The component can be displayed in `checked` or `disabled` states using the self-
 <sbb-toggle-option value="Value" disabled>Option</sbb-toggle-option>
 ```
 
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
+## Properties 
 
-## Properties
-
-| Property   | Attribute   | Description                            | Type      | Default     |
-| ---------- | ----------- | -------------------------------------- | --------- | ----------- |
-| `checked`  | `checked`   | Whether the toggle-option is checked.  | `boolean` | `false`     |
-| `disabled` | `disabled`  | Whether the toggle option is disabled. | `boolean` | `false`     |
-| `iconName` | `icon-name` | Name of the icon for `<sbb-icon>`.     | `string`  | `undefined` |
-| `value`    | `value`     | Value of toggle-option.                | `string`  | `undefined` |
-
-
-## Events
-
-| Event          | Description                                                                                                 | Type                                                                          |
-| -------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| `state-change` | Internal event that emits whenever the state of the toggle option in relation to the parent toggle changes. | `CustomEvent<ToggleOptionStateChangeChecked \| ToggleOptionStateChangeValue>` |
-
+| Name       | Attribute       | Privacy | Type                  | Default | Description                            |
+| ---------- | ---------- | ------- | --------------------- | ------- | -------------------------------------- |
+| `checked`  | `checked`  | public  | `boolean`             |         | Whether the toggle-option is checked.  |
+| `disabled` | `disabled` | public  | `boolean`             |         | Whether the toggle option is disabled. |
+| `iconName` | `icon-name` | public  | `string \| undefined` |         | Name of the icon for \`\<sbb-icon>\`.  |
+| `value`    | `value`    | public  | `string \| null`      |         | Value of toggle-option.                |
 
 ## Slots
 
-| Slot        | Description                                         |
-| ----------- | --------------------------------------------------- |
-| `"icon"`    | Slot used to render the `<sbb-icon>`.               |
-| `"unnamed"` | Slot used to render the label of the toggle option. |
-
-
-## Dependencies
-
-### Depends on
-
-- [sbb-icon](../sbb-icon)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-toggle-option --> sbb-icon
-  style sbb-toggle-option fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name      | Description                                         |
+| --------- | --------------------------------------------------- |
+| `unnamed` | Slot used to render the label of the toggle option. |
+| `icon`    | Slot used to render the \`\<sbb-icon>\`.            |
 

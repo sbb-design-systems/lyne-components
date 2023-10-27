@@ -77,28 +77,23 @@ Two values are available, `s` and `m`, which is the default
 </sbb-checkbox-group>
 ```
 
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
+## Properties 
 
-## Properties
-
-| Property         | Attribute         | Description                                                                    | Type                                                                       | Default        |
-| ---------------- | ----------------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------- | -------------- |
-| `disabled`       | `disabled`        | Whether the checkbox group is disabled.                                        | `boolean`                                                                  | `false`        |
-| `horizontalFrom` | `horizontal-from` | Overrides the behaviour of `orientation` property.                             | `"large" \| "medium" \| "micro" \| "small" \| "ultra" \| "wide" \| "zero"` | `undefined`    |
-| `orientation`    | `orientation`     | Indicates the orientation of the checkboxes inside the `<sbb-checkbox-group>`. | `"horizontal" \| "vertical"`                                               | `'horizontal'` |
-| `required`       | `required`        | Whether the checkbox group is required.                                        | `boolean`                                                                  | `false`        |
-| `size`           | `size`            | Size variant, either m or s.                                                   | `"m" \| "s"`                                                               | `'m'`          |
-
+| Name             | Attribute             | Privacy | Type                             | Default        | Description                                                                       |
+| ---------------- | ---------------- | ------- | -------------------------------- | -------------- | --------------------------------------------------------------------------------- |
+| `disabled`       | `disabled`       | public  | `boolean`                        | `false`        | Whether the checkbox group is disabled.                                           |
+| `required`       | `required`       | public  | `boolean`                        | `false`        | Whether the checkbox group is required.                                           |
+| `size`           | `size`           | public  | `SbbCheckboxSize`                | `'m'`          | Size variant, either m or s.                                                      |
+| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| undefined` |                | Overrides the behaviour of \`orientation\` property.                              |
+| `orientation`    | `orientation`    | public  | `SbbOrientation`                 | `'horizontal'` | Indicates the orientation of the checkboxes inside the \`\<sbb-checkbox-group>\`. |
 
 ## Slots
 
-| Slot        | Description                                                               |
-| ----------- | ------------------------------------------------------------------------- |
-| `"error"`   | Slot used to render the <sbb-form-error> inside the <sbb-checkbox-group>. |
-| `"unnamed"` | Slot used to render the <sbb-checkbox> inside the <sbb-checkbox-group>.   |
-
-
-----------------------------------------------
-
+| Name      | Description                                                                 |
+| --------- | --------------------------------------------------------------------------- |
+| `unnamed` | Slot used to render the \<sbb-checkbox> inside the \<sbb-checkbox-group>.   |
+| `error`   | Slot used to render the \<sbb-form-error> inside the \<sbb-checkbox-group>. |
 

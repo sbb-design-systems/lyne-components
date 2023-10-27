@@ -60,61 +60,22 @@ For accessibility purposes, the component is rendered as a native table element 
 To specify a specific date for the current datetime, you can use the `data-now` attribute (timestamp in milliseconds).
 This is helpful if you need a specific state of the component.
 
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
+## Properties 
 
-## Properties
-
-| Property       | Attribute       | Description                                                                                                     | Type                       | Default      |
-| -------------- | --------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------- | ------------ |
-| `dateFilter`   | --              | A function used to filter out dates.                                                                            | `(date: Date) => boolean`  | `() => true` |
-| `max`          | `max`           | The maximum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). | `Date \| number \| string` | `undefined`  |
-| `min`          | `min`           | The minimum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). | `Date \| number \| string` | `undefined`  |
-| `selectedDate` | `selected-date` | The selected date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970).      | `Date \| number \| string` | `undefined`  |
-| `wide`         | `wide`          | If set to true, two months are displayed.                                                                       | `boolean`                  | `false`      |
-
-
-## Events
-
-| Event           | Description                      | Type                |
-| --------------- | -------------------------------- | ------------------- |
-| `date-selected` | Event emitted on date selection. | `CustomEvent<Date>` |
-
+| Name           | Attribute           | Privacy | Type                              | Default | Description                                                                                                     |
+| -------------- | -------------- | ------- | --------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------- |
+| `wide`         | `wide`         | public  | `boolean`                         | `false` | If set to true, two months are displayed                                                                        |
+| `min`          | `min`          | public  | `SbbDateLike`                     |         | The minimum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). |
+| `max`          | `max`          | public  | `SbbDateLike`                     |         | The maximum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). |
+| `dateFilter`   | `date-filter`   | public  | `(date: Date \| null) => boolean` |         | A function used to filter out dates.                                                                            |
+| `selectedDate` | `selected-date` | public  | `SbbDateLike`                     |         | The selected date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970).      |
 
 ## Methods
 
-### `resetPosition() => Promise<void>`
-
-Resets the active month according to the new state of the calendar.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
-
-## Dependencies
-
-### Used by
-
- - [sbb-datepicker-toggle](../sbb-datepicker-toggle)
-
-### Depends on
-
-- [sbb-icon](../sbb-icon)
-- [sbb-button](../sbb-button)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-calendar --> sbb-icon
-  sbb-calendar --> sbb-button
-  sbb-button --> sbb-icon
-  sbb-datepicker-toggle --> sbb-calendar
-  style sbb-calendar fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name            | Privacy | Description                                                         | Parameters | Return | Inherited From |
+| --------------- | ------- | ------------------------------------------------------------------- | ---------- | ------ | -------------- |
+| `resetPosition` | public  | Resets the active month according to the new state of the calendar. |            | `void` |                |
 

@@ -60,58 +60,27 @@ As the menu opens, the focus will automatically be set to the first focusable it
 When using the `sbb-menu` as a select (e.g. language selection) it's recommended to use the `aria-pressed` attribute 
 to identify which actions are active and which are not.
 
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
+## Properties 
 
-## Properties
-
-| Property                 | Attribute                  | Description                                                                                                                       | Type                    | Default     |
-| ------------------------ | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------- | ----------- |
-| `disableAnimation`       | `disable-animation`        | Whether the animation is enabled.                                                                                                 | `boolean`               | `false`     |
-| `listAccessibilityLabel` | `list-accessibility-label` | This will be forwarded as aria-label to the inner list. Used only if the menu automatically renders the actions inside as a list. | `string`                | `undefined` |
-| `trigger`                | `trigger`                  | The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element.                       | `HTMLElement \| string` | `undefined` |
-
-
-## Events
-
-| Event        | Description                                            | Type                |
-| ------------ | ------------------------------------------------------ | ------------------- |
-| `did-close`  | Emits whenever the menu is closed.                     | `CustomEvent<void>` |
-| `did-open`   | Emits whenever the menu is opened.                     | `CustomEvent<void>` |
-| `will-close` | Emits whenever the menu begins the closing transition. | `CustomEvent<void>` |
-| `will-open`  | Emits whenever the menu starts the opening transition. | `CustomEvent<void>` |
-
+| Name                     | Attribute                     | Privacy | Type                    | Default | Description                                                                                                                           |
+| ------------------------ | ------------------------ | ------- | ----------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `trigger`                | `trigger`                | public  | `string \| HTMLElement` |         | The element that will trigger the menu dialog.&#xA;Accepts both a string (id of an element) or an HTML element.                       |
+| `disableAnimation`       | `disable-animation`       | public  | `boolean`               | `false` | Whether the animation is enabled.                                                                                                     |
+| `listAccessibilityLabel` | `list-accessibility-label` | public  | `string \| undefined`   |         | This will be forwarded as aria-label to the inner list.&#xA;Used only if the menu automatically renders the actions inside as a list. |
 
 ## Methods
 
-### `close() => Promise<void>`
-
-Closes the menu.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
-### `open() => Promise<void>`
-
-Opens the menu on trigger click.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
+| Name    | Privacy | Description                      | Parameters | Return | Inherited From |
+| ------- | ------- | -------------------------------- | ---------- | ------ | -------------- |
+| `open`  | public  | Opens the menu on trigger click. |            | `void` |                |
+| `close` | public  | Closes the menu.                 |            | `void` |                |
 
 ## Slots
 
-| Slot        | Description                                             |
-| ----------- | ------------------------------------------------------- |
-| `"unnamed"` | Use this slot to project any content inside the dialog. |
-
-
-----------------------------------------------
-
+| Name      | Description                                             |
+| --------- | ------------------------------------------------------- |
+| `unnamed` | Use this slot to project any content inside the dialog. |
 

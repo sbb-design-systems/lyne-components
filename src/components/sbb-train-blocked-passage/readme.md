@@ -6,9 +6,8 @@ It is used inside the [sbb-train](/docs/timetable-sbb-train--docs) element.
 ```html
 <sbb-train-blocked-passage />
 ```
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
-
-----------------------------------------------
-
+<hr/>
 

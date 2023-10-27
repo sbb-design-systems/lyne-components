@@ -35,42 +35,24 @@ They will be applied internally into a list (using `<ul>` and `<li>`) and requir
 </sbb-train-wagon>
 ```
 
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
+## Properties 
 
-## Properties
-
-| Property                      | Attribute                       | Description                                                                | Type                                       | Default     |
-| ----------------------------- | ------------------------------- | -------------------------------------------------------------------------- | ------------------------------------------ | ----------- |
-| `additionalAccessibilityText` | `additional-accessibility-text` | Additional accessibility text which will be appended to the end.           | `string`                                   | `undefined` |
-| `blockedPassage`              | `blocked-passage`               | Accessibility text for blocked passages of the wagon.                      | `"both" \| "next" \| "none" \| "previous"` | `'none'`    |
-| `label`                       | `label`                         | Visible label for the wagon number. Not used by type locomotive or closed. | `string`                                   | `undefined` |
-| `occupancy`                   | `occupancy`                     | Occupancy of a wagon.                                                      | `"high" \| "low" \| "medium" \| "unknown"` | `'unknown'` |
-| `sector`                      | `sector`                        | Sector in which to wagon stops.                                            | `string`                                   | `undefined` |
-| `type`                        | `type`                          | Wagon type.                                                                | `"closed" \| "locomotive" \| "wagon"`      | `'wagon'`   |
-| `wagonClass`                  | `wagon-class`                   | Visible class label of a wagon.                                            | `"1" \| "2"`                               | `undefined` |
-
+| Name                          | Attribute                          | Privacy | Type                                       | Default     | Description                                                                |
+| ----------------------------- | ----------------------------- | ------- | ------------------------------------------ | ----------- | -------------------------------------------------------------------------- |
+| `type`                        | `type`                        | public  | `'locomotive' \| 'closed' \| 'wagon'`      | `'wagon'`   | Wagon type.                                                                |
+| `occupancy`                   | `occupancy`                   | public  | `SbbOccupancy \| undefined`                | `'unknown'` | Occupancy of a wagon.                                                      |
+| `sector`                      | `sector`                      | public  | `string`                                   |             | Sector in which to wagon stops.                                            |
+| `blockedPassage`              | `blocked-passage`              | public  | `'previous' \| 'next' \| 'both' \| 'none'` | `'none'`    | Accessibility text for blocked passages of the wagon.                      |
+| `wagonClass`                  | `wagon-class`                  | public  | `'1' \| '2' \| undefined`                  |             | Visible class label of a wagon.                                            |
+| `label`                       | `label`                       | public  | `string \| undefined`                      |             | Visible label for the wagon number. Not used by type locomotive or closed. |
+| `additionalAccessibilityText` | `additional-accessibility-text` | public  | `string \| undefined`                      |             | Additional accessibility text which will be appended to the end.           |
 
 ## Slots
 
-| Slot        | Description                                                              |
-| ----------- | ------------------------------------------------------------------------ |
-| `"unnamed"` | Used to slot one to x icons for meta information of the sbb-train-wagon. |
-
-
-## Dependencies
-
-### Depends on
-
-- [sbb-icon](../sbb-icon)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-train-wagon --> sbb-icon
-  style sbb-train-wagon fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name      | Description                                                              |
+| --------- | ------------------------------------------------------------------------ |
+| `unnamed` | Used to slot one to x icons for meta information of the sbb-train-wagon. |
 

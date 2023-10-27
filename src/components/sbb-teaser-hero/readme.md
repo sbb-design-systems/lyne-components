@@ -25,46 +25,25 @@ The description text is wrapped into an `p` element to guarantee the semantic me
 
 Avoid slotting block elements (e.g. `div`) as this violates semantic rules and can have negative effects on screen readers.
 
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
+## Properties 
 
-## Properties
-
-| Property      | Attribute      | Description                                                       | Type     | Default     |
-| ------------- | -------------- | ----------------------------------------------------------------- | -------- | ----------- |
-| `href`        | `href`         | The href value you want to link to.                               | `string` | `undefined` |
-| `imageAlt`    | `image-alt`    | Image alt text will be passed to `sbb-image`.                     | `string` | `undefined` |
-| `imageSrc`    | `image-src`    | Image src will be passed to `sbb-image`.                          | `string` | `undefined` |
-| `linkContent` | `link-content` | Panel link text.                                                  | `string` | `undefined` |
-| `rel`         | `rel`          | The relationship of the linked URL as space-separated link types. | `string` | `undefined` |
-| `target`      | `target`       | Where to display the linked URL.                                  | `string` | `undefined` |
-
+| Name          | Attribute          | Privacy | Type                                                 | Default | Description                                                       |
+| ------------- | ------------- | ------- | ---------------------------------------------------- | ------- | ----------------------------------------------------------------- |
+| `href`        | `href`        | public  | `string \| undefined`                                |         | The href value you want to link to.                               |
+| `rel`         | `rel`         | public  | `string \| undefined \| undefined`                   |         | The relationship of the linked URL as space-separated link types. |
+| `target`      | `target`      | public  | `LinkTargetType \| string \| undefined \| undefined` |         | Where to display the linked URL.                                  |
+| `linkContent` | `link-content` | public  | `string \| undefined`                                |         | Panel link text.                                                  |
+| `imageSrc`    | `image-src`    | public  | `string \| undefined`                                |         | Image src will be passed to \`sbb-image\`.                        |
+| `imageAlt`    | `image-alt`    | public  | `string \| undefined`                                |         | Image alt text will be passed to \`sbb-image\`.                   |
 
 ## Slots
 
-| Slot             | Description                                |
-| ---------------- | ------------------------------------------ |
-| `"image"`        | the background image, can be a `sbb-image` |
-| `"link-content"` | link content of the panel                  |
-| `"unnamed"`      | text content of panel                      |
-
-
-## Dependencies
-
-### Depends on
-
-- [sbb-link](../sbb-link)
-- [sbb-image](../sbb-image)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-teaser-hero --> sbb-link
-  sbb-teaser-hero --> sbb-image
-  sbb-link --> sbb-icon
-  style sbb-teaser-hero fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name           | Description                                  |
+| -------------- | -------------------------------------------- |
+| `unnamed`      | text content of panel                        |
+| `link-content` | link content of the panel                    |
+| `image`        | the background image, can be a \`sbb-image\` |
 

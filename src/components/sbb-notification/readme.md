@@ -58,71 +58,29 @@ If the `sbb-notification` host needs a margin, in order to properly animate it o
 we suggest using the `--sbb-notification-margin` variable to set it. 
 For example, use `--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0` to apply a bottom margin. 
 
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
+## Properties 
 
-## Properties
-
-| Property           | Attribute           | Description                                                                                             | Type                                       | Default     |
-| ------------------ | ------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------ | ----------- |
-| `disableAnimation` | `disable-animation` | Whether the animation is enabled.                                                                       | `boolean`                                  | `false`     |
-| `readonly`         | `readonly`          | Whether the notification is readonly. In readonly mode, there is no dismiss button offered to the user. | `boolean`                                  | `false`     |
-| `titleContent`     | `title-content`     | Content of title.                                                                                       | `string`                                   | `undefined` |
-| `titleLevel`       | `title-level`       | Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3.                      | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"`   | `'3'`       |
-| `type`             | `type`              | The type of the notification.                                                                           | `"error" \| "info" \| "success" \| "warn"` | `'info'`    |
-
-
-## Events
-
-| Event        | Description                                                    | Type                |
-| ------------ | -------------------------------------------------------------- | ------------------- |
-| `did-close`  | Emits whenever the notification is closed.                     | `CustomEvent<void>` |
-| `did-open`   | Emits whenever the notification is opened.                     | `CustomEvent<void>` |
-| `will-close` | Emits whenever the notification begins the closing transition. | `CustomEvent<void>` |
-| `will-open`  | Emits whenever the notification starts the opening transition. | `CustomEvent<void>` |
-
+| Name               | Attribute               | Privacy | Type                                                    | Default  | Description                                                                                                 |
+| ------------------ | ------------------ | ------- | ------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------- |
+| `type`             | `type`             | public  | `'info' \| 'success' \| 'warn' \| 'error' \| undefined` | `'info'` | The type of the notification.                                                                               |
+| `titleContent`     | `title-content`     | public  | `string \| undefined`                                   |          | Content of title.                                                                                           |
+| `titleLevel`       | `title-level`       | public  | `TitleLevel`                                            | `'3'`    | Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3.                          |
+| `readonly`         | `readonly`         | public  | `boolean`                                               | `false`  | Whether the notification is readonly.&#xA;In readonly mode, there is no dismiss button offered to the user. |
+| `disableAnimation` | `disable-animation` | public  | `boolean`                                               | `false`  | Whether the animation is enabled.                                                                           |
 
 ## Methods
 
-### `close() => Promise<void>`
-
-
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
+| Name    | Privacy | Description | Parameters | Return | Inherited From |
+| ------- | ------- | ----------- | ---------- | ------ | -------------- |
+| `close` | public  |             |            | `void` |                |
 
 ## Slots
 
-| Slot        | Description                                          |
-| ----------- | ---------------------------------------------------- |
-| `"title"`   | Use this to provide a notification title (optional). |
-| `"unnamed"` | Use this to provide the notification message.        |
-
-
-## Dependencies
-
-### Depends on
-
-- [sbb-icon](../sbb-icon)
-- [sbb-title](../sbb-title)
-- [sbb-divider](../sbb-divider)
-- [sbb-button](../sbb-button)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-notification --> sbb-icon
-  sbb-notification --> sbb-title
-  sbb-notification --> sbb-divider
-  sbb-notification --> sbb-button
-  sbb-button --> sbb-icon
-  style sbb-notification fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name      | Description                                          |
+| --------- | ---------------------------------------------------- |
+| `title`   | Use this to provide a notification title (optional). |
+| `unnamed` | Use this to provide the notification message.        |
 

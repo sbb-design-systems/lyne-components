@@ -29,37 +29,19 @@ The component has a `disabled` property which sets all the `sbb-option` in the g
 </sbb-optgroup>
 ```
 
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
+## Properties 
 
-## Properties
-
-| Property   | Attribute  | Description                    | Type      | Default     |
-| ---------- | ---------- | ------------------------------ | --------- | ----------- |
-| `disabled` | `disabled` | Whether the group is disabled. | `boolean` | `false`     |
-| `label`    | `label`    | Option group label.            | `string`  | `undefined` |
-
+| Name       | Attribute       | Privacy | Type      | Default | Description                    |
+| ---------- | ---------- | ------- | --------- | ------- | ------------------------------ |
+| `label`    | `label`    | public  | `string`  |         | Option group label.            |
+| `disabled` | `disabled` | public  | `boolean` | `false` | Whether the group is disabled. |
 
 ## Slots
 
-| Slot        | Description              |
-| ----------- | ------------------------ |
-| `"unnamed"` | Used to display options. |
-
-
-## Dependencies
-
-### Depends on
-
-- [sbb-divider](../sbb-divider)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-optgroup --> sbb-divider
-  style sbb-optgroup fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name      | Description              |
+| --------- | ------------------------ |
+| `unnamed` | Used to display options. |
 

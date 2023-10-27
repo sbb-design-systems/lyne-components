@@ -67,39 +67,25 @@ to intercept the selection's change; the current value can be read from `event.d
 
 In order to ensure readability for screen-readers, please provide an `aria-label` attribute for the `sbb-radio-button-group`.
 
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
+## Properties 
 
-## Properties
-
-| Property              | Attribute               | Description                                               | Type                                                                       | Default        |
-| --------------------- | ----------------------- | --------------------------------------------------------- | -------------------------------------------------------------------------- | -------------- |
-| `allowEmptySelection` | `allow-empty-selection` | Whether the radios can be deselected.                     | `boolean`                                                                  | `false`        |
-| `disabled`            | `disabled`              | Whether the radio group is disabled.                      | `boolean`                                                                  | `false`        |
-| `horizontalFrom`      | `horizontal-from`       | Overrides the behaviour of `orientation` property.        | `"large" \| "medium" \| "micro" \| "small" \| "ultra" \| "wide" \| "zero"` | `undefined`    |
-| `orientation`         | `orientation`           | Radio group's orientation, either horizontal or vertical. | `"horizontal" \| "vertical"`                                               | `'horizontal'` |
-| `required`            | `required`              | Whether the radio group is required.                      | `boolean`                                                                  | `false`        |
-| `size`                | `size`                  | Size variant, either m or s.                              | `"m" \| "s"`                                                               | `'m'`          |
-| `value`               | `value`                 | The value of the radio group.                             | `any`                                                                      | `undefined`    |
-
-
-## Events
-
-| Event       | Description                                                                                                                                                                      | Type               |
-| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| `change`    | Emits whenever the radio group value changes.                                                                                                                                    | `CustomEvent<any>` |
-| `didChange` | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/>Emits whenever the radio group value changes. | `CustomEvent<any>` |
-| `input`     | Emits whenever the radio group value changes.                                                                                                                                    | `CustomEvent<any>` |
-
+| Name                  | Attribute                  | Privacy | Type                             | Default        | Description                                               |
+| --------------------- | --------------------- | ------- | -------------------------------- | -------------- | --------------------------------------------------------- |
+| `allowEmptySelection` | `allow-empty-selection` | public  | `boolean`                        |                | Whether the radios can be deselected.                     |
+| `disabled`            | `disabled`            | public  | `boolean`                        |                | Whether the radio group is disabled.                      |
+| `required`            | `required`            | public  | `boolean`                        |                | Whether the radio group is required.                      |
+| `value`               | `value`               | public  | `any \| null`                    |                | The value of the radio group.                             |
+| `size`                | `size`                | public  | `SbbRadioButtonSize`             |                | Size variant, either m or s.                              |
+| `horizontalFrom`      | `horizontal-from`      | public  | `SbbHorizontalFrom \| undefined` |                | Overrides the behaviour of \`orientation\` property.      |
+| `orientation`         | `orientation`         | public  | `SbbOrientation`                 | `'horizontal'` | Radio group's orientation, either horizontal or vertical. |
 
 ## Slots
 
-| Slot        | Description                                                      |
-| ----------- | ---------------------------------------------------------------- |
-| `"error"`   | Use this to provide a `sbb-form-error` to show an error message. |
-| `"unnamed"` | Use this to provide radio buttons within the group.              |
-
-
-----------------------------------------------
-
+| Name      | Description                                                        |
+| --------- | ------------------------------------------------------------------ |
+| `unnamed` | Use this to provide radio buttons within the group.                |
+| `error`   | Use this to provide a \`sbb-form-error\` to show an error message. |
 

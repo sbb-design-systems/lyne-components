@@ -39,50 +39,31 @@ The component has two different sizes, which can be changed using the `size` pro
 ```
 
 
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
+## Properties 
 
-## Properties
-
-| Property              | Attribute               | Description                           | Type         | Default     |
-| --------------------- | ----------------------- | ------------------------------------- | ------------ | ----------- |
-| `allowEmptySelection` | `allow-empty-selection` | Whether the radio can be deselected.  | `boolean`    | `false`     |
-| `checked`             | `checked`               | Whether the radio button is checked.  | `boolean`    | `false`     |
-| `disabled`            | `disabled`              | Whether the radio button is disabled. | `boolean`    | `false`     |
-| `required`            | `required`              | Whether the radio button is required. | `boolean`    | `false`     |
-| `size`                | `size`                  | Label size variant, either m or s.    | `"m" \| "s"` | `'m'`       |
-| `value`               | `value`                 | Value of radio button.                | `string`     | `undefined` |
-
-
-## Events
-
-| Event          | Description                                                                                                         | Type                                                                           |
-| -------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| `state-change` | Internal event that emits whenever the state of the radio option in relation to the parent selection panel changes. | `CustomEvent<RadioButtonStateChangeChecked \| RadioButtonStateChangeDisabled>` |
-
+| Name                  | Attribute                  | Privacy | Type                 | Default | Description                           |
+| --------------------- | --------------------- | ------- | -------------------- | ------- | ------------------------------------- |
+| `allowEmptySelection` | `allow-empty-selection` | public  | `boolean`            | `false` | Whether the radio can be deselected.  |
+| `value`               | `value`               | public  | `string`             |         | Value of radio button.                |
+| `disabled`            | `disabled`            | public  | `boolean`            | `false` | Whether the radio button is disabled. |
+| `required`            | `required`            | public  | `boolean`            | `false` | Whether the radio button is required. |
+| `checked`             | `checked`             | public  | `boolean`            | `false` | Whether the radio button is checked.  |
+| `size`                | `size`                | public  | `SbbRadioButtonSize` | `'m'`   | Label size variant, either m or s.    |
 
 ## Methods
 
-### `select() => Promise<void>`
-
-
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
+| Name     | Privacy | Description | Parameters | Return | Inherited From |
+| -------- | ------- | ----------- | ---------- | ------ | -------------- |
+| `select` | public  |             |            | `void` |                |
 
 ## Slots
 
-| Slot        | Description                                                                                     |
-| ----------- | ----------------------------------------------------------------------------------------------- |
-| `"subtext"` | Slot used to render a subtext under the label (only visible within a selection panel).          |
-| `"suffix"`  | Slot used to render additional content after the label (only visible within a selection panel). |
-| `"unnamed"` | Use this slot to provide the radio label.                                                       |
-
-
-----------------------------------------------
-
+| Name      | Description                                                                                     |
+| --------- | ----------------------------------------------------------------------------------------------- |
+| `unnamed` | Use this slot to provide the radio label.                                                       |
+| `subtext` | Slot used to render a subtext under the label (only visible within a selection panel).          |
+| `suffix`  | Slot used to render additional content after the label (only visible within a selection panel). |
 

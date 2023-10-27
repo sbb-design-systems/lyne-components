@@ -21,16 +21,14 @@ that needs to be displayed in a [sbb-expansion-panel](/docs/components-sbb-accor
 When it's used in combination with a `sbb-expansion-panel-header` with an icon displayed via slot or `iconName` property,
 the `sbb-expansion-panel-content` receives a padding on the left side in order to align it with the header label.
 
-<!-- Auto Generated Below -->
-
+<!-- Auto Generated Below --> 
+ 
 
 ## Slots
 
-| Slot        | Description                                            |
-| ----------- | ------------------------------------------------------ |
-| `"unnamed"` | Slot to render the content in the sbb-expansion-panel. |
+| Name      | Description                                            |
+| --------- | ------------------------------------------------------ |
+| `unnamed` | Slot to render the content in the sbb-expansion-panel. |
 
-
-----------------------------------------------
-
+<hr/>
 

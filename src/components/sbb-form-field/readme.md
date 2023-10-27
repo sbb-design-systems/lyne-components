@@ -112,80 +112,38 @@ to the form element's `aria-describedby` attribute.
 Additionally, `sbb-form-error` is slotted to an element having `aria-live="polite"` so that assistive
 technology will announce errors when they appear.
 
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
+## Properties 
 
-## Properties
-
-| Property        | Attribute        | Description                                                                                                                                                           | Type                      | Default     |
-| --------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- | ----------- |
-| `borderless`    | `borderless`     | Whether to display the form field without a border.                                                                                                                   | `boolean`                 | `false`     |
-| `errorSpace`    | `error-space`    | Whether to reserve space for an error message. `none` does not reserve any space. `reserve` does reserve one row for an error message.                                | `"none" \| "reserve"`     | `'none'`    |
-| `floatingLabel` | `floating-label` | Whether the label should float. If activated, the placeholder of the input is hidden.                                                                                 | `boolean`                 | `false`     |
-| `label`         | `label`          | Label text for the input which is internally rendered as `<label>`.                                                                                                   | `string`                  | `undefined` |
-| `negative`      | `negative`       | Negative coloring variant flag.                                                                                                                                       | `boolean`                 | `false`     |
-| `optional`      | `optional`       | Indicates whether the input is optional.                                                                                                                              | `boolean`                 | `undefined` |
-| `size`          | `size`           | Size variant, either l or m.                                                                                                                                          | `"l" \| "m"`              | `'m'`       |
-| `width`         | `width`          | Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content. | `"collapse" \| "default"` | `'default'` |
-
+| Name            | Attribute            | Privacy | Type                                                   | Default     | Description                                                                                                                                                                       |
+| --------------- | --------------- | ------- | ------------------------------------------------------ | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `errorSpace`    | `error-space`    | public  | `'none' \| 'reserve' \| undefined`                     | `'none'`    | Whether to reserve space for an error message.&#xA;\`none\` does not reserve any space.&#xA;\`reserve\` does reserve one row for an error message.                                |
+| `label`         | `label`         | public  | `string`                                               |             | Label text for the input which is internally rendered as \`\<label>\`.                                                                                                            |
+| `optional`      | `optional`      | public  | `boolean \| undefined`                                 |             | Indicates whether the input is optional.                                                                                                                                          |
+| `size`          | `size`          | public  | `'l' \| 'm' \| undefined`                              | `'m'`       | Size variant, either l or m.                                                                                                                                                      |
+| `borderless`    | `borderless`    | public  | `boolean`                                              | `false`     | Whether to display the form field without a border.                                                                                                                               |
+| `width`         | `width`         | public  | `'default' \| 'collapse'`                              | `'default'` | Defines the width of the component:&#xA;- \`default\`: the component has defined width and min-width;&#xA;- \`collapse\`: the component adapts itself to its inner input content. |
+| `floatingLabel` | `floating-label` | public  | `boolean`                                              | `false`     | Whether the label should float. If activated, the placeholder of the input is hidden.                                                                                             |
+| `negative`      | `negative`      | public  | `boolean`                                              | `false`     | Negative coloring variant flag.                                                                                                                                                   |
+| `inputElement`  | `input-element`  | public  | `HTMLInputElement \| HTMLSelectElement \| HTMLElement` |             | Returns the input element.                                                                                                                                                        |
 
 ## Methods
 
-### `clear() => Promise<void>`
-
-Manually clears the input value. It only works for inputs, selects are not supported.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
-### `getInputElement() => Promise<HTMLInputElement | HTMLSelectElement | HTMLElement>`
-
-Returns the input element.
-
-#### Returns
-
-Type: `Promise<HTMLElement | HTMLInputElement | HTMLSelectElement>`
-
-
-
-### `reset() => Promise<void>`
-
-Manually reset the form field. Currently, this only resets the floating label.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
+| Name              | Privacy | Description                                                                           | Parameters | Return                                                 | Inherited From |
+| ----------------- | ------- | ------------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------ | -------------- |
+| `reset`           | public  | Manually reset the form field. Currently, this only resets the floating label.        |            | `void`                                                 |                |
+| `clear`           | public  | Manually clears the input value. It only works for inputs, selects are not supported. |            | `void`                                                 |                |
+| `getInputElement` | public  | Returns the input element.                                                            |            | `HTMLInputElement \| HTMLSelectElement \| HTMLElement` |                |
 
 ## Slots
 
-| Slot        | Description                                            |
-| ----------- | ------------------------------------------------------ |
-| `"error"`   | Slot to render an error.                               |
-| `"label"`   | Slot to render a label.                                |
-| `"prefix"`  | Slot to render an icon on the left side of the input.  |
-| `"suffix"`  | Slot to render an icon on the right side of the input. |
-| `"unnamed"` | Slot to render an input/select.                        |
-
-
-## Dependencies
-
-### Depends on
-
-- [sbb-icon](../sbb-icon)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-form-field --> sbb-icon
-  style sbb-form-field fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-----------------------------------------------
-
+| Name      | Description                                            |
+| --------- | ------------------------------------------------------ |
+| `label`   | Slot to render a label.                                |
+| `prefix`  | Slot to render an icon on the left side of the input.  |
+| `unnamed` | Slot to render an input/select.                        |
+| `suffix`  | Slot to render an icon on the right side of the input. |
+| `error`   | Slot to render an error.                               |
 

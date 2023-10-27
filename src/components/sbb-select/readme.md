@@ -98,76 +98,33 @@ Opened panel:
 | Any char or number                      | If exists, select the first non-disabled matching option after the selected value.                                                                |
 
 
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
+## Properties 
 
-## Properties
-
-| Property           | Attribute           | Description                                                              | Type                 | Default     |
-| ------------------ | ------------------- | ------------------------------------------------------------------------ | -------------------- | ----------- |
-| `disableAnimation` | `disable-animation` | Whether the animation is disabled.                                       | `boolean`            | `false`     |
-| `disabled`         | `disabled`          | Whether the select is disabled.                                          | `boolean`            | `false`     |
-| `multiple`         | `multiple`          | Whether the select allows for multiple selection.                        | `boolean`            | `false`     |
-| `negative`         | `negative`          | Negative coloring variant flag.                                          | `boolean`            | `false`     |
-| `placeholder`      | `placeholder`       | The placeholder used if no value has been selected.                      | `string`             | `undefined` |
-| `readonly`         | `readonly`          | Whether the select is readonly.                                          | `boolean`            | `false`     |
-| `required`         | `required`          | Whether the select is required.                                          | `boolean`            | `false`     |
-| `value`            | `value`             | The value of the select component. If `multiple` is true, it's an array. | `string \| string[]` | `undefined` |
-
-
-## Events
-
-| Event        | Description                                                                                                                         | Type                |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
-| `change`     |                                                                                                                                     | `CustomEvent<any>`  |
-| `did-close`  | Emits whenever the select is closed.                                                                                                | `CustomEvent<void>` |
-| `did-open`   | Emits whenever the select is opened.                                                                                                | `CustomEvent<void>` |
-| `didChange`  | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/> | `CustomEvent<any>`  |
-| `input`      |                                                                                                                                     | `CustomEvent<any>`  |
-| `will-close` | Emits whenever the select begins the closing transition.                                                                            | `CustomEvent<void>` |
-| `will-open`  | Emits whenever the select starts the opening transition.                                                                            | `CustomEvent<void>` |
-
+| Name               | Attribute               | Privacy | Type                 | Default | Description                                                                |
+| ------------------ | ------------------ | ------- | -------------------- | ------- | -------------------------------------------------------------------------- |
+| `value`            | `value`            | public  | `string \| string[]` |         | The value of the select component. If \`multiple\` is true, it's an array. |
+| `placeholder`      | `placeholder`      | public  | `string`             |         | The placeholder used if no value has been selected.                        |
+| `multiple`         | `multiple`         | public  | `boolean`            | `false` | Whether the select allows for multiple selection.                          |
+| `required`         | `required`         | public  | `boolean`            | `false` | Whether the select is required.                                            |
+| `disabled`         | `disabled`         | public  | `boolean`            | `false` | Whether the select is disabled.                                            |
+| `readonly`         | `readonly`         | public  | `boolean`            | `false` | Whether the select is readonly.                                            |
+| `negative`         | `negative`         | public  | `boolean`            | `false` | Negative coloring variant flag.                                            |
+| `disableAnimation` | `disable-animation` | public  | `boolean`            | `false` | Whether the animation is disabled.                                         |
 
 ## Methods
 
-### `close() => Promise<void>`
-
-Closes the selection panel.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
-### `getDisplayValue() => Promise<string>`
-
-Gets the current displayed value.
-
-#### Returns
-
-Type: `Promise<string>`
-
-
-
-### `open() => Promise<void>`
-
-Opens the selection panel.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
+| Name              | Privacy | Description                       | Parameters | Return   | Inherited From |
+| ----------------- | ------- | --------------------------------- | ---------- | -------- | -------------- |
+| `open`            | public  | Opens the selection panel.        |            | `void`   |                |
+| `close`           | public  | Closes the selection panel.       |            | `void`   |                |
+| `getDisplayValue` | public  | Gets the current displayed value. |            | `string` |                |
 
 ## Slots
 
-| Slot        | Description                       |
-| ----------- | --------------------------------- |
-| `"unnamed"` | Use this slot to project options. |
-
-
-----------------------------------------------
-
+| Name      | Description                       |
+| --------- | --------------------------------- |
+| `unnamed` | Use this slot to project options. |
 

@@ -56,47 +56,19 @@ See the table below for some formatting examples:
 
 Whenever the validation state changes (e.g., a valid value becomes invalid or vice-versa), the `validationChange` event is emitted.
 
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
+## Properties 
 
-## Properties
-
-| Property | Attribute | Description                                                | Type                    | Default     |
-| -------- | --------- | ---------------------------------------------------------- | ----------------------- | ----------- |
-| `input`  | `input`   | Reference of the native input connected to the datepicker. | `HTMLElement \| string` | `undefined` |
-
-
-## Events
-
-| Event              | Description                                                                                                                         | Type                                 |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
-| `didChange`        | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/> | `CustomEvent<any>`                   |
-| `validationChange` | Emits whenever the internal validation state changes.                                                                               | `CustomEvent<ValidationChangeEvent>` |
-
+| Name    | Attribute    | Privacy | Type                    | Default | Description                                                |
+| ------- | ------- | ------- | ----------------------- | ------- | ---------------------------------------------------------- |
+| `input` | `input` | public  | `string \| HTMLElement` |         | Reference of the native input connected to the datepicker. |
 
 ## Methods
 
-### `getValueAsDate() => Promise<Date | null>`
-
-Gets the input value with the correct date format.
-
-#### Returns
-
-Type: `Promise<Date>`
-
-
-
-### `setValueAsDate(date: Date | number | string) => Promise<void>`
-
-Set the input value to the correctly formatted value.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
-
-----------------------------------------------
-
+| Name             | Privacy | Description                                           | Parameters          | Return         | Inherited From |
+| ---------------- | ------- | ----------------------------------------------------- | ------------------- | -------------- | -------------- |
+| `getValueAsDate` | public  | Gets the input value with the correct date format.    |                     | `Date \| null` |                |
+| `setValueAsDate` | public  | Set the input value to the correctly formatted value. | `date: SbbDateLike` | `void`         |                |
 

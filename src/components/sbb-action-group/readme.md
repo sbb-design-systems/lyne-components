@@ -113,27 +113,22 @@ The values for `align-group` and `align-self` for the various allocations are as
 |                0-0-3                |   stretch   |   Link: 'end'  |
 |                0-0-2                |   stretch   |        /       |
 
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
+## Properties 
 
-## Properties
-
-| Property         | Attribute         | Description                                                                                                     | Type                                                                       | Default        |
-| ---------------- | ----------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------- |
-| `alignGroup`     | `align-group`     | Set the slotted `<sbb-action-group>` children's alignment.                                                      | `"center" \| "end" \| "start" \| "stretch"`                                | `'start'`      |
-| `buttonSize`     | `button-size`     | Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances. | `"l" \| "m"`                                                               | `'l'`          |
-| `horizontalFrom` | `horizontal-from` | Overrides the behaviour of `orientation` property.                                                              | `"large" \| "medium" \| "micro" \| "small" \| "ultra" \| "wide" \| "zero"` | `'medium'`     |
-| `linkSize`       | `link-size`       | Size of the nested sbb-link instances. This will overwrite the size attribute of nested sbb-link instances.     | `"m" \| "s" \| "xs"`                                                       | `'m'`          |
-| `orientation`    | `orientation`     | Indicates the orientation of the components inside the `<sbb-action-group>`.                                    | `"horizontal" \| "vertical"`                                               | `'horizontal'` |
-
+| Name             | Attribute             | Privacy | Type                                        | Default        | Description                                                                                                         |
+| ---------------- | ---------------- | ------- | ------------------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `alignGroup`     | `align-group`     | public  | `'start' \| 'center' \| 'stretch' \| 'end'` | `'start'`      | Set the slotted \`\<sbb-action-group>\` children's alignment.                                                       |
+| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| undefined`            | `'medium'`     | Overrides the behaviour of \`orientation\` property.                                                                |
+| `orientation`    | `orientation`    | public  | `SbbOrientation`                            | `'horizontal'` | Indicates the orientation of the components inside the \`\<sbb-action-group>\`.                                     |
+| `buttonSize`     | `button-size`     | public  | `SbbButtonSize \| undefined`                | `'l'`          | Size of the nested sbb-button instances. This will overwrite the size attribute of nested&#xA;sbb-button instances. |
+| `linkSize`       | `link-size`       | public  | `SbbLinkSize \| undefined`                  | `'m'`          | Size of the nested sbb-link instances. This will overwrite the size attribute of nested&#xA;sbb-link instances.     |
 
 ## Slots
 
-| Slot        | Description                                      |
-| ----------- | ------------------------------------------------ |
-| `"unnamed"` | Slot to render the content inside the container. |
-
-
-----------------------------------------------
-
+| Name      | Description                                      |
+| --------- | ------------------------------------------------ |
+| `unnamed` | Slot to render the content inside the container. |
 

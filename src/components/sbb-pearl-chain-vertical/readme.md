@@ -23,9 +23,14 @@ Please refer to its documentation for more details.
 </sbb-pearl-chain-vertical>
 ```
 
-<!-- Auto Generated Below -->
+<!-- Auto Generated Below --> 
+ 
 
+## Slots
 
-----------------------------------------------
+| Name      | Description                                      |
+| --------- | ------------------------------------------------ |
+| `unnamed` | for \<sbb-pearl-chain-vertical-item /> component |
 
+<hr/>
 
