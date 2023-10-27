@@ -36,17 +36,17 @@ as it is used for search engines and screen-reader users.
 | `form`     | `form`     | public  | `string \| undefined \| undefined`                   |         | The \<form> element to associate the button to it.                                |
 | `value`    | `value`    | public  | `string \| undefined \| undefined`                   |         | The value associated with button \`name\` when it's submitted with the form data. |
 
-| Name       | Privacy | Type                                                 | Default | Description                                                                       | Inherited From |
-| ---------- | ------- | ---------------------------------------------------- | ------- | --------------------------------------------------------------------------------- | -------------- |
-| `active`   | public  | `boolean`                                            |         | Whether the card is active.                                                       |                |
-| `href`     | public  | `string \| undefined`                                |         | The href value you want to link to.                                               |                |
-| `target`   | public  | `LinkTargetType \| string \| undefined \| undefined` |         | Where to display the linked URL.                                                  |                |
-| `rel`      | public  | `string \| undefined \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                 |                |
-| `download` | public  | `boolean \| undefined \| undefined`                  |         | Whether the browser will show the download dialog on click.                       |                |
-| `type`     | public  | `ButtonType \| undefined`                            |         | Default behaviour of the button.                                                  |                |
-| `name`     | public  | `string \| undefined`                                |         | The name of the button.                                                           |                |
-| `form`     | public  | `string \| undefined \| undefined`                   |         | The \<form> element to associate the button to it.                                |                |
-| `value`    | public  | `string \| undefined \| undefined`                   |         | The value associated with button \`name\` when it's submitted with the form data. |                |
+| Name       | Attribute       | Privacy | Type                                                 | Default | Description                                                                       |
+| ---------- | ---------- | ------- | ---------------------------------------------------- | ------- | --------------------------------------------------------------------------------- |
+| `active`   | `active`   | public  | `boolean`                                            |         | Whether the card is active.                                                       |
+| `href`     | `href`     | public  | `string \| undefined`                                |         |                |
+| `target`   | `target`   | public  | `LinkTargetType \| string \| undefined \|         | Where to display the linked URL.                                                  |                |
+| `rel`      | `rel`      | public  | `string \| undefined \| undefined`                   | The relationship of the linked URL as space-separated link types.                 |                |
+| `download` | `download` | public  | `boolean \| undefined \| undefined`                  | Whether the browser will show the download dialog on click.                       |                |
+| `type`     | `type`     | public  | `ButtonType \| undefined`                            |         |                |
+| `name`     | `name`     | public  | `string \| undefined`                                |         |                |
+| `form`     | `form`     | public  | `string \| undefined \| undefined`                   | The \<form> element to associate the button to it.                                |                |
+| `value`    | `value`    | public  | `string \| undefined \| undefined`                   | The value associated with button \`name\` when it's submitted with the form data. |                |
 
 ## Slots
 

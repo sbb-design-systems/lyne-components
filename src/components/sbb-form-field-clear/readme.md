@@ -18,7 +18,7 @@ to provide the possibility to display a clear button which can clear the input v
 | ---------- | ---------- | ------- | --------- | ------- | ------------------------------- |
 | `negative` | `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |
 
-| Name       | Privacy | Type      | Default | Description                     | Inherited From |
-| ---------- | ------- | --------- | ------- | ------------------------------- | -------------- |
-| `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |                |
+| Name       | Attribute       | Privacy | Type      | Default | Description                     |
+| ---------- | ---------- | ------- | --------- | ------- | ------------------------------- |
+| `negative` | `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |
 

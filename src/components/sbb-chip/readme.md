@@ -25,10 +25,10 @@ and four different values for the `color` property (`charcoal`, `granite`, `whit
 | `size`  | `size`  | public  | `'xxs' \| 'xs' \| 's'`                         | `'xxs'`  | Size of the chip.  |
 | `color` | `color` | public  | `'milk' \| 'charcoal' \| 'white' \| 'granite'` | `'milk'` | Color of the chip. |
 
-| Name    | Privacy | Type                                  | Default  | Description        | Inherited From |
-| ------- | ------- | ------------------------------------- | -------- | ------------------ | -------------- |
-| `size`  | public  | `InterfaceSbbChipAttributes['size']`  | `'xxs'`  | Size of the chip.  |                |
-| `color` | public  | `InterfaceSbbChipAttributes['color']` | `'milk'` | Color of the chip. |                |
+| Name    | Attribute    | Privacy | Type                                  | Default  | Description        |
+| ------- | ------- | ------- | ------------------------------------- | -------- | ------------------ |
+| `size`  | `size`  | public  | `InterfaceSbbChipAttributes['size']`  | `'xxs'`  | Size of the chip.  |
+| `color` | `color` | public  | `InterfaceSbbChipAttributes['color']` | `'milk'` | Color of the chip. |
 
 ## Slots
 

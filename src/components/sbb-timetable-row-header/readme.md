@@ -8,9 +8,7 @@ here to show the various configuration options to component developers. !!
 | -------- | -------- | ------- | -------- | ------- | ----------- |
 | `config` | `config` | public  | `string` |         |             |
 
-| Name     | Privacy | Type     | Default | Description | Inherited From |
-| -------- | ------- | -------- | ------- | ----------- | -------------- |
-| `config` | public  | `string` |         |             |                |
-
-<hr/>
+| Name     | Attribute     | Privacy | Type     | Default | Description |
+| -------- | -------- | ------- | -------- | ------- | ----------- |
+| `config` | `config` | public  | `string` |         |             |
 

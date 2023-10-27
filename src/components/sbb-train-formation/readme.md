@@ -60,9 +60,9 @@ as CSS variable (`--sbb-train-direction-width`) initially and on resize.
 | ---------------- | ---------------- | ------- | --------- | ------- | -------------------------------- |
 | `hideWagonLabel` | `hide-wagon-label` | public  | `boolean` | `false` | Option to hide all wagon labels. |
 
-| Name             | Privacy | Type      | Default | Description                      | Inherited From |
-| ---------------- | ------- | --------- | ------- | -------------------------------- | -------------- |
-| `hideWagonLabel` | public  | `boolean` | `false` | Option to hide all wagon labels. |                |
+| Name             | Attribute             | Privacy | Type      | Default | Description                      |
+| ---------------- | ---------------- | ------- | --------- | ------- | -------------------------------- |
+| `hideWagonLabel` | `hide-wagon-label` | public  | `boolean` | `false` | Option to hide all wagon labels. |
 
 ## Slots
 

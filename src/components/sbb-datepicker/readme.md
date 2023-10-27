@@ -103,20 +103,20 @@ This is helpful if you need a specific state of the component.
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name                | Privacy | Type                                                | Default      | Description                                                                         | Inherited From |
-| ------------------- | ------- | --------------------------------------------------- | ------------ | ----------------------------------------------------------------------------------- | -------------- |
-| `wide`              | public  | `boolean`                                           | `false`      | If set to true, two months are displayed                                            |                |
-| `dateFilter`        | public  | `(date: Date \| null) => boolean`                   | `() => true` | A function used to filter out dates.                                                |                |
-| `dateParser`        | public  | `(value: string) => Date \| undefined \| undefined` |              | A function used to parse string value into dates.                                   |                |
-| `format`            | public  | `(date: Date) => string \| undefined`               |              | A function used to format dates into the preferred string format.                   |                |
-| `input`             | public  | `string \| HTMLElement \| undefined`                |              | Reference of the native input connected to the datepicker.                          |                |
-| `didChange`         | public  | `EventEmitter`                                      |              |                                                                                     |                |
-| `change`            | public  | `EventEmitter`                                      |              |                                                                                     |                |
-| `inputUpdated`      | public  | `EventEmitter<InputUpdateEvent>`                    |              | Notifies that the attributes of the input connected to the datepicker have changes. |                |
-| `datePickerUpdated` | public  | `EventEmitter`                                      |              | Notifies that the attributes of the datepicker have changes.                        |                |
-| `validationChange`  | public  | `EventEmitter<ValidationChangeEvent>`               |              | Emits whenever the internal validation state changes.                               |                |
+| Name                | Attribute                | Privacy | Type                                                | Default      | Description                                                                         |
+| ------------------- | ------------------- | ------- | --------------------------------------------------- | ------------ | ----------------------------------------------------------------------------------- |
+| `wide`              | `wide`              | public  | `boolean`                                           | `false`      | If set to true, two months are displayed                                            |
+| `dateFilter`        | `date-filter`        | public  | `(date: Date \| null) => boolean`                   | `() => true` |                |
+| `dateParser`        | `date-parser`        | public  | `(value: string) => Date \| undefined \| undefined` | A function used to parse string value into dates.                                   |                |
+| `format`            | `format`            | public  | `(date: Date) => string \| undefined`               |              |                |
+| `input`             | `input`             | public  | `string \| HTMLElement \| undefined`                | Reference of the native input connected to the datepicker.                          |                |
+| `didChange`         | `did-change`         | public  | `EventEmitter`                                      |              |                                                                                     |
+| `change`            | `change`            | public  | `EventEmitter`                                      |              |                                                                                     |
+| `inputUpdated`      | `input-updated`      | public  | `EventEmitter<InputUpdateEvent>`                    |              | Notifies that the attributes of the input connected to the datepicker have changes. |
+| `datePickerUpdated` | `date-picker-updated` | public  | `EventEmitter`                                      |              | Notifies that the attributes of the datepicker have changes.                        |
+| `validationChange`  | `validation-change`  | public  | `EventEmitter<ValidationChangeEvent>`               |              | Emits whenever the internal validation state changes.                               |
 
 ## Methods
 

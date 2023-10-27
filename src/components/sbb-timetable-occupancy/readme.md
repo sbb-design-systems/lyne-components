@@ -8,7 +8,7 @@ here to show the various configuration options to component developers. !!
 | -------- | -------- | ------- | -------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `config` | `config` | public  | `string` |         | Stringified JSON which defines most of the&#xA;content of the component. Please check the&#xA;individual stories to get an idea of the&#xA;structure. |
 
-| Name     | Privacy | Type     | Default | Description                                                                                                                                           | Inherited From |
-| -------- | ------- | -------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `config` | public  | `string` |         | Stringified JSON which defines most of the&#xA;content of the component. Please check the&#xA;individual stories to get an idea of the&#xA;structure. |                |
+| Name     | Attribute     | Privacy | Type     | Default | Description                                                                                                                                           |
+| -------- | -------- | ------- | -------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `config` | `config` | public  | `string` |         | Stringified JSON which defines most of the&#xA;content of the component. Please check the&#xA;individual stories to get an idea of the&#xA;structure. |
 

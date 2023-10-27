@@ -51,12 +51,10 @@ and then append the `sbb-loading-indicator` on it after giving it the correct `a
 | `color`            | `color`            | public  | `'default' \| 'smoke' \| 'white'`   | `'default'` | Color variant.                                                                                        |
 | `disableAnimation` | `disable-animation` | public  | `boolean`                           | `false`     | Whether the animation is enabled.                                                                     |
 
-| Name               | Privacy | Type                                                             | Default     | Description                                                                                           | Inherited From |
-| ------------------ | ------- | ---------------------------------------------------------------- | ----------- | ----------------------------------------------------------------------------------------------------- | -------------- |
-| `variant`          | public  | `InterfaceSbbLoadingIndicatorAttributes['variant'] \| undefined` |             | Variant of the loading indicator; \`circle\` is meant to be used inline, while \`window\` as overlay. |                |
-| `size`             | public  | `InterfaceSbbLoadingIndicatorAttributes['size']`                 | `'s'`       | Size variant, either s or m.                                                                          |                |
-| `color`            | public  | `InterfaceSbbLoadingIndicatorAttributes['color']`                | `'default'` | Color variant.                                                                                        |                |
-| `disableAnimation` | public  | `boolean`                                                        | `false`     | Whether the animation is enabled.                                                                     |                |
-
-<hr/>
+| Name               | Attribute               | Privacy | Type                                                             | Default     | Description                                                                                           |
+| ------------------ | ------------------ | ------- | ---------------------------------------------------------------- | ----------- | ----------------------------------------------------------------------------------------------------- |
+| `variant`          | `variant`          | public  | `InterfaceSbbLoadingIndicatorAttributes['variant'] \| undefined` |             |                |
+| `size`             | `size`             | public  | `InterfaceSbbLoadingIndicatorAttributes['size']`                 | `'s'`       | Size variant, either s or m.                                                                          |
+| `color`            | `color`            | public  | `InterfaceSbbLoadingIndicatorAttributes['color']`                | `'default'` | Color variant.                                                                                        |
+| `disableAnimation` | `disable-animation` | public  | `boolean`                                                        | `false`     | Whether the animation is enabled.                                                                     |
 

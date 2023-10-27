@@ -38,10 +38,10 @@ The slots themselves are unstyled, so that they can be used in various ways.
 | `pearlChainVerticalItemAttributes` | `pearl-chain-vertical-item-attributes` | public  | `PearlChainVerticalItemAttributes` |         | The pearlChainVerticalItemAttributes Prop for styling the bullets and line. |
 | `disableAnimation`                 | `disable-animation`                 | public  | `boolean \| undefined`             |         | If true, the position won't be animated.                                    |
 
-| Name                               | Privacy | Type                               | Default | Description                                                                 | Inherited From |
-| ---------------------------------- | ------- | ---------------------------------- | ------- | --------------------------------------------------------------------------- | -------------- |
-| `pearlChainVerticalItemAttributes` | public  | `PearlChainVerticalItemAttributes` |         | The pearlChainVerticalItemAttributes Prop for styling the bullets and line. |                |
-| `disableAnimation`                 | public  | `boolean \| undefined`             |         | If true, the position won't be animated.                                    |                |
+| Name                               | Attribute                               | Privacy | Type                               | Default | Description                                                                 |
+| ---------------------------------- | ---------------------------------- | ------- | ---------------------------------- | ------- | --------------------------------------------------------------------------- |
+| `pearlChainVerticalItemAttributes` | `pearl-chain-vertical-item-attributes` | public  | `PearlChainVerticalItemAttributes` |         | The pearlChainVerticalItemAttributes Prop for styling the bullets and line. |
+| `disableAnimation`                 | `disable-animation`                 | public  | `boolean \| undefined`             |         |                |
 
 ## Slots
 

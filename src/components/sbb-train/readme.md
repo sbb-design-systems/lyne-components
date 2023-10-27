@@ -36,13 +36,13 @@ It should refer to the section where the locomotive is placed.
 | `accessibilityLabel`  | `accessibility-label`  | public  | `string \| undefined` |          | Accessibility label for additional information regarding the leaving direction of the train. |
 | `direction`           | `direction`           | public  | `'left' \| 'right'`   | `'left'` | Controls the direction indicator to show the arrow left or right. Default is left.           |
 
-| Name                  | Privacy | Type                                       | Default  | Description                                                                                  | Inherited From |
-| --------------------- | ------- | ------------------------------------------ | -------- | -------------------------------------------------------------------------------------------- | -------------- |
-| `directionLabel`      | public  | `string`                                   |          | General label for "driving direction".                                                       |                |
-| `directionLabelLevel` | public  | `TitleLevel`                               | `'6'`    | Heading level of the direction label, used for screen readers.                               |                |
-| `station`             | public  | `string \| undefined`                      |          | Label for the destination station of the train.                                              |                |
-| `accessibilityLabel`  | public  | `string \| undefined`                      |          | Accessibility label for additional information regarding the leaving direction of the train. |                |
-| `direction`           | public  | `InterfaceSbbTrainAttributes['direction']` | `'left'` | Controls the direction indicator to show the arrow left or right. Default is left.           |                |
+| Name                  | Attribute                  | Privacy | Type                                       | Default  | Description                                                                                  |
+| --------------------- | --------------------- | ------- | ------------------------------------------ | -------- | -------------------------------------------------------------------------------------------- |
+| `directionLabel`      | `direction-label`      | public  | `string`                                   |          | General label for "driving direction".                                                       |
+| `directionLabelLevel` | `direction-label-level` | public  | `TitleLevel`                               | `'6'`    | Heading level of the direction label, used for screen readers.                               |
+| `station`             | `station`             | public  | `string \| undefined`                      |          |                |
+| `accessibilityLabel`  | `accessibility-label`  | public  | `string \| undefined`                      |          |                |
+| `direction`           | `direction`           | public  | `InterfaceSbbTrainAttributes['direction']` | `'left'` | Controls the direction indicator to show the arrow left or right. Default is left.           |
 
 ## Slots
 

@@ -41,8 +41,8 @@ When the element is clicked, the `toggle-expanded` event is emitted.
 | `iconName` | `icon-name` | public  | `string \| undefined` |         | The icon name we want to use, choose from the small icon variants&#xA;from the ui-icons category from here&#xA;https\://icons.app.sbb.ch. |
 | `disabled` | `disabled` | public  | `boolean`             |         | Whether the button is disabled.                                                                                                           |
 
-| Name       | Privacy | Type                  | Default | Description                                                                                                                               | Inherited From |
-| ---------- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `iconName` | public  | `string \| undefined` |         | The icon name we want to use, choose from the small icon variants&#xA;from the ui-icons category from here&#xA;https\://icons.app.sbb.ch. |                |
-| `disabled` | public  | `boolean`             |         | Whether the button is disabled.                                                                                                           |                |
+| Name       | Attribute       | Privacy | Type                  | Default | Description                                                                                                                               |
+| ---------- | ---------- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `iconName` | `icon-name` | public  | `string \| undefined` |         |                |
+| `disabled` | `disabled` | public  | `boolean`             |         | Whether the button is disabled.                                                                                                           |
 

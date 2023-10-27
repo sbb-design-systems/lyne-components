@@ -124,13 +124,13 @@ The values for `align-group` and `align-self` for the various allocations are as
 | `buttonSize`     | `button-size`     | public  | `SbbButtonSize \| undefined`                | `'l'`          | Size of the nested sbb-button instances. This will overwrite the size attribute of nested&#xA;sbb-button instances. |
 | `linkSize`       | `link-size`       | public  | `SbbLinkSize \| undefined`                  | `'m'`          | Size of the nested sbb-link instances. This will overwrite the size attribute of nested&#xA;sbb-link instances.     |
 
-| Name             | Privacy | Type                                                               | Default        | Description                                                                                                         | Inherited From |
-| ---------------- | ------- | ------------------------------------------------------------------ | -------------- | ------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `alignGroup`     | public  | `InterfaceSbbActionGroupAttributes['alignGroup']`                  | `'start'`      | Set the slotted \`\<sbb-action-group>\` children's alignment.                                                       |                |
-| `horizontalFrom` | public  | `InterfaceSbbActionGroupAttributes['horizontalFrom'] \| undefined` | `'medium'`     | Overrides the behaviour of \`orientation\` property.                                                                |                |
-| `orientation`    | public  | `InterfaceSbbActionGroupAttributes['orientation']`                 | `'horizontal'` | Indicates the orientation of the components inside the \`\<sbb-action-group>\`.                                     |                |
-| `buttonSize`     | public  | `InterfaceButtonAttributes['size'] \| undefined`                   | `'l'`          | Size of the nested sbb-button instances. This will overwrite the size attribute of nested&#xA;sbb-button instances. |                |
-| `linkSize`       | public  | `InterfaceLinkAttributes['size'] \| undefined`                     | `'m'`          | Size of the nested sbb-link instances. This will overwrite the size attribute of nested&#xA;sbb-link instances.     |                |
+| Name             | Attribute             | Privacy | Type                                                               | Default        | Description                                                                                                         |
+| ---------------- | ---------------- | ------- | ------------------------------------------------------------------ | -------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `alignGroup`     | `align-group`     | public  | `InterfaceSbbActionGroupAttributes['alignGroup']`                  | `'start'`      | Set the slotted \`\<sbb-action-group>\` children's alignment.                                                       |
+| `horizontalFrom` | `horizontal-from` | public  | `InterfaceSbbActionGroupAttributes['horizontalFrom'] \| undefined` | `'medium'`     |                |
+| `orientation`    | `orientation`    | public  | `InterfaceSbbActionGroupAttributes['orientation']`                 | `'horizontal'` | Indicates the orientation of the components inside the \`\<sbb-action-group>\`.                                     |
+| `buttonSize`     | `button-size`     | public  | `InterfaceButtonAttributes['size'] \| undefined`                   | `'l'`          |                |
+| `linkSize`       | `link-size`       | public  | `InterfaceLinkAttributes['size'] \| undefined`                     | `'m'`          |                |
 
 ## Slots
 

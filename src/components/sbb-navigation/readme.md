@@ -61,14 +61,14 @@ Similarly, if a navigation action is marked to indicate a selected option (e.g.,
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name                      | Privacy | Type                         | Default | Description                                                                                                    | Inherited From |
-| ------------------------- | ------- | ---------------------------- | ------- | -------------------------------------------------------------------------------------------------------------- | -------------- |
-| `trigger`                 | public  | `string \| HTMLElement`      |         | The element that will trigger the navigation.&#xA;Accepts both a string (id of an element) or an HTML element. |                |
-| `accessibilityLabel`      | public  | `string \| undefined`        |         | This will be forwarded as aria-label to the dialog and is read as a title of the navigation.                   |                |
-| `accessibilityCloseLabel` | public  | `\| string     \| undefined` |         | This will be forwarded as aria-label to the close button element.                                              |                |
-| `disableAnimation`        | public  | `boolean`                    | `false` | Whether the animation is enabled.                                                                              |                |
+| Name                      | Attribute                      | Privacy | Type                         | Default | Description                                                                                                    |
+| ------------------------- | ------------------------- | ------- | ---------------------------- | ------- | -------------------------------------------------------------------------------------------------------------- |
+| `trigger`                 | `trigger`                 | public  | `string \| HTMLElement`      |         |                |
+| `accessibilityLabel`      | `accessibility-label`      | public  | `string \| undefined`        |         |                |
+| `accessibilityCloseLabel` | `accessibility-close-label` | public  | `\| string     \| undefined` | This will be forwarded as aria-label to the close button element.                                              |                |
+| `disableAnimation`        | `disable-animation`        | public  | `boolean`                    | `false` | Whether the animation is enabled.                                                                              |
 
 ## Methods
 

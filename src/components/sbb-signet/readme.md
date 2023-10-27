@@ -28,10 +28,8 @@ Possible values are `ideal` (default), `minimal` and `none`.
 | `protectiveRoom`     | `protective-room`     | public  | `SbbProtectiveRoom \| undefined` | `'ideal'` | Visual protective room around signet.                                |
 | `accessibilityLabel` | `accessibility-label` | public  | `string`                         | `'Logo'`  | Accessibility label which will be forwarded to the inner SVG signet. |
 
-| Name                 | Privacy | Type                                                       | Default   | Description                                                          | Inherited From |
-| -------------------- | ------- | ---------------------------------------------------------- | --------- | -------------------------------------------------------------------- | -------------- |
-| `protectiveRoom`     | public  | `InterfaceSignetAttributes['protectiveRoom'] \| undefined` | `'ideal'` | Visual protective room around signet.                                |                |
-| `accessibilityLabel` | public  | `string`                                                   | `'Logo'`  | Accessibility label which will be forwarded to the inner SVG signet. |                |
-
-<hr/>
+| Name                 | Attribute                 | Privacy | Type                                                       | Default   | Description                                                          |
+| -------------------- | -------------------- | ------- | ---------------------------------------------------------- | --------- | -------------------------------------------------------------------- |
+| `protectiveRoom`     | `protective-room`     | public  | `InterfaceSignetAttributes['protectiveRoom'] \| undefined` | `'ideal'` |                |
+| `accessibilityLabel` | `accessibility-label` | public  | `string`                                                   | `'Logo'`  | Accessibility label which will be forwarded to the inner SVG signet. |
 

@@ -26,9 +26,7 @@ the component displays an icon by default, that can be changed using the `icon` 
 | ---------- | ---------- | ------- | --------- | ------- | ------------------------------- |
 | `negative` | `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |
 
-| Name       | Privacy | Type      | Default | Description                     | Inherited From |
-| ---------- | ------- | --------- | ------- | ------------------------------- | -------------- |
-| `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |                |
-
-<hr/>
+| Name       | Attribute       | Privacy | Type      | Default | Description                     |
+| ---------- | ---------- | ------- | --------- | ------- | ------------------------------- |
+| `negative` | `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |
 
