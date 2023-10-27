@@ -37,7 +37,7 @@ function updateFieldsTable(newDocs: MagicString, sections: RegExpMatchArray[]): 
   const fieldsSection = newDocs.original.substring(startIndex!, endIndex);
   const tableRows = Array.from(fieldsSection.matchAll(/^\|.*\|$/gm))
     .map((match) => match[0])
-    .map((row) => row.split('|'));
+    .map((row) => row.split(/(?<!\\)\|/g)); // Split by not escaped '|'
 
   // Remove the 'Inherited from' column
   tableRows.forEach((row) => row.splice(inheritedFromColumnIndex, 1));
