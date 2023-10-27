@@ -16,7 +16,7 @@ import {
 } from '../../global/eventing';
 import { i18nPreviousDay, i18nSelectPreviousDay, i18nToday } from '../../global/i18n';
 import { resolveButtonRenderVariables } from '../../global/interfaces';
-//import { SbbDatepicker } from '../sbb-datepicker/index';
+import type { SbbDatepicker } from '../sbb-datepicker';
 import {
   InputUpdateEvent,
   datepickerControlRegisteredEvent,
@@ -60,7 +60,7 @@ export class SbbDatepickerPreviousDay extends LitElement {
     }),
   );
 
-  private _datePickerElement: any;
+  private _datePickerElement: SbbDatepicker;
 
   private _dateAdapter: DateAdapter<Date> = new NativeDateAdapter();
 
@@ -136,7 +136,7 @@ export class SbbDatepickerPreviousDay extends LitElement {
     this._datePickerElement.addEventListener(
       'change',
       (event: Event) => {
-        this._setDisabledState(event.target as any);
+        this._setDisabledState(event.target as SbbDatepicker);
         this._setAriaLabel();
       },
       { signal: this._datePickerController.signal },
@@ -144,7 +144,7 @@ export class SbbDatepickerPreviousDay extends LitElement {
     this._datePickerElement.addEventListener(
       'date-picker-updated',
       (event: Event) => {
-        this._setDisabledState(event.target as any);
+        this._setDisabledState(event.target as SbbDatepicker);
         this._setAriaLabel();
       },
       { signal: this._datePickerController.signal },
@@ -165,7 +165,7 @@ export class SbbDatepickerPreviousDay extends LitElement {
     this._datePickerElement.dispatchEvent(datepickerControlRegisteredEvent);
   }
 
-  private _setDisabledState(datepicker: any): void {
+  private _setDisabledState(datepicker: SbbDatepicker): void {
     const pickerValueAsDate: Date = datepicker.getValueAsDate();
 
     if (!pickerValueAsDate) {

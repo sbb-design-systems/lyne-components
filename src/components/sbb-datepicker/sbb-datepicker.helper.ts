@@ -1,6 +1,6 @@
 import { DateAdapter, NativeDateAdapter } from '../../global/datetime';
 import { findReferencedElement } from '../../global/dom';
-//import { SbbDatepicker } from './sbb-datepicker';
+import type { SbbDatepicker } from './sbb-datepicker';
 
 export interface InputUpdateEvent {
   disabled: boolean;
@@ -15,13 +15,13 @@ export interface InputUpdateEvent {
  * @param element The element potentially connected to the SbbDatepicker.
  * @param trigger The id or the reference of the SbbDatePicker.
  */
-export function getDatePicker(element: HTMLElement, trigger?: string | HTMLElement): HTMLElement {
+export function getDatePicker(element: HTMLElement, trigger?: string | HTMLElement): SbbDatepicker {
   if (!trigger) {
     const parent = element.closest('sbb-form-field');
-    return parent?.querySelector('sbb-datepicker') as HTMLElement;
+    return parent?.querySelector('sbb-datepicker');
   }
 
-  return findReferencedElement<HTMLElement>(trigger);
+  return findReferencedElement<SbbDatepicker>(trigger);
 }
 
 /**
