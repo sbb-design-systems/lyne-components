@@ -13,6 +13,7 @@ import '../sbb-radio-button';
 import '../sbb-radio-button-group';
 import '../sbb-checkbox';
 import '../sbb-checkbox-group';
+import '../sbb-link';
 
 describe('sbb-selection-panel', () => {
   let elements: SbbSelectionPanel[];
@@ -444,6 +445,7 @@ describe('sbb-selection-panel', () => {
       expect(secondInput).not.to.have.attribute('checked');
 
       await sendKeys({ press: ' ' });
+      await waitForLitRender(wrapper);
       expect(firstInput).not.to.have.attribute('checked');
       expect(secondInput).to.have.attribute('checked');
     });

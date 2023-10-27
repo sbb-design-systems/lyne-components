@@ -350,7 +350,7 @@ export class SbbTooltip extends LitElement {
         .filter((el) => el instanceof window.HTMLElement)
         .find((el) => (el as HTMLElement).matches(IS_FOCUSABLE_QUERY)) as HTMLElement;
       clearTimeout(this._closeTimeout);
-      await this.close();
+      this.close();
     }
   };
 
