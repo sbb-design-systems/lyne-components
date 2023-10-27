@@ -1,7 +1,7 @@
 import { TitleLevel } from '../sbb-title';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import Style from './sbb-message.scss?lit&inline';
+import style from './sbb-message.scss?lit&inline';
 
 /**
  * @slot image - Use this slot to provide a sbb-image component.
@@ -12,7 +12,7 @@ import Style from './sbb-message.scss?lit&inline';
  */
 @customElement('sbb-message')
 export class SbbMessage extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /** Content of title. */
   @property({ attribute: 'title-content' }) public titleContent?: string;

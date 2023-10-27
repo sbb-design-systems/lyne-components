@@ -11,15 +11,15 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import { SbbTrainBlockedPassage } from '../sbb-train-blocked-passage';
 import { SbbTrainWagon } from '../sbb-train-wagon';
-import Style from './sbb-train.scss?lit&inline';
+import style from './sbb-train.scss?lit&inline';
 import '../sbb-icon';
 
 /**
- * @slot unnamed - Used for slotting sbb-train-wagons.
+ * @slot - Used for slotting sbb-train-wagons.
  */
 @customElement('sbb-train')
 export class SbbTrain extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     trainSlotChange: 'train-slot-change',
   } as const;

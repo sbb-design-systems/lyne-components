@@ -16,18 +16,19 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';
 import { setAttributes } from '../../global/dom';
-import Style from './sbb-teaser-hero.scss?lit&inline';
+import style from './sbb-teaser-hero.scss?lit&inline';
 import '../sbb-link';
+import '../sbb-icon';
 import '../sbb-image';
 
 /**
- * @slot unnamed - text content of panel
+ * @slot - text content of panel
  * @slot link-content - link content of the panel
  * @slot image - the background image, can be a `sbb-image`
  */
 @customElement('sbb-teaser-hero')
 export class SbbTeaserHero extends LitElement implements LinkProperties {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /** The href value you want to link to. */
   @property() public href: string | undefined;
@@ -98,7 +99,10 @@ export class SbbTeaserHero extends LitElement implements LinkProperties {
           <slot name="image">
             ${
               this.imageSrc
-                ? html`<sbb-image image-src=${this.imageSrc} alt=${this.imageAlt}></sbb-image>`
+                ? html`<sbb-image
+                    image-src=${this.imageSrc}
+                    alt=${this.imageAlt ?? nothing}
+                  ></sbb-image>`
                 : nothing
             }
           </slot>

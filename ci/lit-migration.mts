@@ -539,7 +539,7 @@ async function migrate(component: string, debug = false) {
       mutator.insertAtEnd(classDeclaration.name!, ` extends LitElement`);
       mutator.insertAt(
         classDeclaration.members[0].getFullStart(),
-        `\n  public static override styles: CSSResult = Style;\n`,
+        `\n  public static override styles: CSSResult = style;\n`,
       );
     }
 
@@ -601,7 +601,7 @@ async function migrate(component: string, debug = false) {
           .join(', ')} } from '${importName}';`,
       );
     });
-    newImport.push(`import Style from './${component}.scss?lit&inline';`);
+    newImport.push(`import style from './${component}.scss?lit&inline';`);
     mutator.insertAtEnd(lastImport!, `\n${newImport.join('\n')}`);
 
     mutator.insertAtEnd(

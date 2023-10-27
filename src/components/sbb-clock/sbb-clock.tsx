@@ -6,7 +6,7 @@ import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { setAttributes } from '../../global/dom';
 import { ref } from 'lit/directives/ref.js';
-import Style from './sbb-clock.scss?lit&inline';
+import style from './sbb-clock.scss?lit&inline';
 
 /** Number of hours on the clock face. */
 const TOTAL_HOURS_ON_CLOCK_FACE = 12;
@@ -45,7 +45,7 @@ const ADD_EVENT_LISTENER_OPTIONS: AddEventListenerOptions = {
 
 @customElement('sbb-clock')
 export class SbbClock extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /** If it's false, the clock's hands are hidden; it's set to true when calculations are ready. */
   @state() private _isInitialized = false;

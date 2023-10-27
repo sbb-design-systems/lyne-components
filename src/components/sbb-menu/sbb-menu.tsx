@@ -21,13 +21,13 @@ import {
   isValidAttribute,
   ScrollHandler,
 } from '../../global/dom';
-import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { EventEmitter, ConnectedAbortController } from '../../global/eventing';
 import { SbbMenuAction } from '../sbb-menu-action';
 import { setAttribute } from '../../global/dom';
 import { ref } from 'lit/directives/ref.js';
-import Style from './sbb-menu.scss?lit&inline';
+import style from './sbb-menu.scss?lit&inline';
 
 const MENU_OFFSET = 8;
 const INTERACTIVE_ELEMENTS = ['A', 'BUTTON', 'SBB-BUTTON', 'SBB-LINK'];
@@ -35,11 +35,11 @@ const INTERACTIVE_ELEMENTS = ['A', 'BUTTON', 'SBB-BUTTON', 'SBB-LINK'];
 let nextId = 0;
 
 /**
- * @slot unnamed - Use this slot to project any content inside the dialog.
+ * @slot - Use this slot to project any content inside the dialog.
  */
 @customElement('sbb-menu')
 export class SbbMenu extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     willOpen: 'will-open',
     didOpen: 'did-open',
@@ -407,7 +407,7 @@ export class SbbMenu extends LitElement {
             class="sbb-menu__content"
           >
             ${this._actions
-              ? html`<ul class="sbb-menu-list" aria-label=${this.listAccessibilityLabel}>
+              ? html`<ul class="sbb-menu-list" aria-label=${this.listAccessibilityLabel ?? nothing}>
                     ${this._actions.map(
                       (_, index) =>
                         html`<li>

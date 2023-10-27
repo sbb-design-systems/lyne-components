@@ -7,7 +7,7 @@ import { EventEmitter, ConnectedAbortController } from '../../global/eventing';
 import { SbbToggleOption } from '../sbb-toggle-option';
 import { setAttribute } from '../../global/dom';
 import { ref } from 'lit/directives/ref.js';
-import Style from './sbb-toggle.scss?lit&inline';
+import style from './sbb-toggle.scss?lit&inline';
 import { SbbCheckedStateChange, SbbStateChange, SbbValueStateChange } from '../../global/types';
 
 export type SbbToggleStateChange = Extract<
@@ -16,11 +16,11 @@ export type SbbToggleStateChange = Extract<
 >;
 
 /**
- * @slot unnamed - Slot used to render the `<sbb-toggle-option>`.
+ * @slot - Slot used to render the `<sbb-toggle-option>`.
  */
 @customElement('sbb-toggle')
 export class SbbToggle extends LitElement {
-  public static override styles = Style;
+  public static override styles = style;
   public static readonly events = {
     didChange: 'did-change',
     change: 'change',

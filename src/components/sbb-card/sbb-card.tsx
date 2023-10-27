@@ -1,15 +1,15 @@
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import Style from './sbb-card.scss?lit&inline';
+import style from './sbb-card.scss?lit&inline';
 
 /**
- * @slot unnamed - Slot to render the content.
+ * @slot - Slot to render the content.
  * @slot badge - Slot to render `<sbb-card-badge>`.
  * @slot action - Slot to render `<sbb-card-action>`.
  */
 @customElement('sbb-card')
 export class SbbCard extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /** Size variant, either xs, s, m, l, xl, xxl or xxxl. */
   @property({ reflect: true }) public size?: 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl' | 'xxxl' = 'm';

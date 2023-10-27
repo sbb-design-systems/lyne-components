@@ -21,15 +21,15 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { SbbIcon } from '../sbb-icon';
 import { setAttribute } from '../../global/dom';
 import { SbbOccupancy } from '../../global/types';
-import Style from './sbb-train-wagon.scss?lit&inline';
+import style from './sbb-train-wagon.scss?lit&inline';
 import '../sbb-icon';
 
 /**
- * @slot unnamed - Used to slot one to x icons for meta information of the sbb-train-wagon.
+ * @slot - Used to slot one to x icons for meta information of the sbb-train-wagon.
  */
 @customElement('sbb-train-wagon')
 export class SbbTrainWagon extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     sectorChange: 'sector-change',
   } as const;

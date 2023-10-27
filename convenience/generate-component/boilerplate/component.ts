@@ -1,15 +1,15 @@
 import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ConnectedAbortController, EventEmitter } from '../../global/eventing';
-import Style from './__name__.scss?lit&inline';
+import style from './__name__.scss?lit&inline';
 
 /**
- * @slot unnamed - Use this to document a slot.
+ * @slot - Use this to document a slot.
  */
 @customElement('__name__')
 export class __nameUpperCase__ extends LitElement {
-  public static override styles: CSSResult = Style;
-  public static readonly events = {
+  public static override styles: CSSResult = style;
+  public static readonly events: Record<string, string> = {
     myEventName: 'my-event-name',
   } as const;
 

@@ -1,12 +1,12 @@
 import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import Style from './sbb-footer.scss?lit&inline';
+import style from './sbb-footer.scss?lit&inline';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { TitleLevel } from '../sbb-title';
 
 @customElement('sbb-footer')
 export class SbbFooter extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /**
    * Variants to display the footer. The default, displays the content in regular block element
@@ -43,7 +43,7 @@ export class SbbFooter extends LitElement {
       <footer class="sbb-footer">
         <div class="sbb-footer-wrapper">
           ${this.accessibilityTitle ? accessibilityTitle : nothing}
-          <slot />
+          <slot></slot>
         </div>
       </footer>
     `;

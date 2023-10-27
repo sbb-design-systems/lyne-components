@@ -17,7 +17,7 @@ import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } 
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttributes } from '../../global/dom';
 import { ref } from 'lit/directives/ref.js';
-import Style from './sbb-checkbox.scss?lit&inline';
+import style from './sbb-checkbox.scss?lit&inline';
 import '../sbb-visual-checkbox';
 import '../sbb-icon';
 import {
@@ -40,14 +40,14 @@ const checkboxObserverConfig: MutationObserverInit = {
 };
 
 /**
- * @slot unnamed - Slot used to render the checkbox label's text.
+ * @slot - Slot used to render the checkbox label's text.
  * @slot icon - Slot used to render the checkbox icon (disabled inside a selection panel).
  * @slot subtext - Slot used to render a subtext under the label (only visible within a selection panel).
  * @slot suffix - Slot used to render additional content after the label (only visible within a selection panel).
  */
 @customElement('sbb-checkbox')
 export class SbbCheckbox extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     didChange: 'did-change',
     stateChange: 'state-change',

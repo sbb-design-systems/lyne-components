@@ -14,7 +14,7 @@ import { AgnosticMutationObserver } from '../../global/observers';
 import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttributes } from '../../global/dom';
-import Style from './sbb-radio-button.scss?lit&inline';
+import style from './sbb-radio-button.scss?lit&inline';
 import { SbbRadioButtonGroup } from '../sbb-radio-button-group';
 import { SbbCheckedStateChange, SbbDisabledStateChange, SbbStateChange } from '../../global/types';
 
@@ -31,13 +31,13 @@ const radioButtonObserverConfig: MutationObserverInit = {
 };
 
 /**
- * @slot unnamed - Use this slot to provide the radio label.
+ * @slot - Use this slot to provide the radio label.
  * @slot subtext - Slot used to render a subtext under the label (only visible within a selection panel).
  * @slot suffix - Slot used to render additional content after the label (only visible within a selection panel).
  */
 @customElement('sbb-radio-button')
 export class SbbRadioButton extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     stateChange: 'state-change',
   } as const;

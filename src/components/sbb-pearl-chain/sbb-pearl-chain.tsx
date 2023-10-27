@@ -4,13 +4,13 @@ import { isRideLeg, Leg, PtRideLeg } from '../../global/timetable';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import Style from './sbb-pearl-chain.scss?lit&inline';
+import style from './sbb-pearl-chain.scss?lit&inline';
 
 type Status = 'progress' | 'future' | 'past';
 
 @customElement('sbb-pearl-chain')
 export class SbbPearlChain extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /**
    * Define the legs of the pearl-chain.

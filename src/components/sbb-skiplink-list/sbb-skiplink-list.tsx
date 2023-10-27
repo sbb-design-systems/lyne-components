@@ -7,7 +7,7 @@ import {
 } from '../../global/eventing';
 
 /**
- * @slot unnamed - Use this to provide links for the list.
+ * @slot - Use this to provide links for the list.
  */
 @Component({
   shadow: true,

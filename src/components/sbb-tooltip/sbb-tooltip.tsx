@@ -27,7 +27,7 @@ import {
   setAriaOverlayTriggerAttributes,
 } from '../../global/overlay';
 import '../sbb-button';
-import Style from './sbb-tooltip.scss?lit&inline';
+import style from './sbb-tooltip.scss?lit&inline';
 
 const VERTICAL_OFFSET = 16;
 const HORIZONTAL_OFFSET = 32;
@@ -37,11 +37,11 @@ let nextId = 0;
 const tooltipsRef = new Set<SbbTooltip>();
 
 /**
- * @slot unnamed - Use this slot to project any content inside the tooltip.
+ * @slot - Use this slot to project any content inside the tooltip.
  */
 @customElement('sbb-tooltip')
 export class SbbTooltip extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     willOpen: 'will-open',
     didOpen: 'did-open',
@@ -69,12 +69,12 @@ export class SbbTooltip extends LitElement {
   /**
    * Open the tooltip after a certain delay.
    */
-  @property({ attribute: 'open-delay' }) public openDelay? = 0;
+  @property({ attribute: 'open-delay', type: Number }) public openDelay? = 0;
 
   /**
    * Close the tooltip after a certain delay.
    */
-  @property({ attribute: 'close-delay' }) public closeDelay? = 0;
+  @property({ attribute: 'close-delay', type: Number }) public closeDelay? = 0;
 
   /**
    * Whether the animation is enabled.

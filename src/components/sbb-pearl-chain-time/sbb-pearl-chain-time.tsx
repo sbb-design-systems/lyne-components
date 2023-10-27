@@ -14,12 +14,12 @@ import {
 } from '../../global/timetable';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import Style from './sbb-pearl-chain-time.scss?lit&inline';
+import style from './sbb-pearl-chain-time.scss?lit&inline';
 import '../sbb-pearl-chain';
 
 @customElement('sbb-pearl-chain-time')
 export class SbbPearlChainTime extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /**
    * define the legs of the pearl-chain.
@@ -29,7 +29,7 @@ export class SbbPearlChainTime extends LitElement {
    * to the total travel time. Example: departure 16:30, change at 16:40,
    * arrival at 17:00. So the change should have a duration of 33.33%.
    */
-  @property() public legs!: (Leg | PtRideLeg)[];
+  @property({ type: Array }) public legs!: (Leg | PtRideLeg)[];
 
   /** Prop to render the departure time - will be formatted as "H:mm" */
   @property({ attribute: 'departure-time' }) public departureTime?: string;
@@ -38,10 +38,10 @@ export class SbbPearlChainTime extends LitElement {
   @property({ attribute: 'arrival-time' }) public arrivalTime?: string;
 
   /** Optional prop to render the walk time (in minutes) before departure */
-  @property({ attribute: 'departure-walk' }) public departureWalk?: number;
+  @property({ attribute: 'departure-walk', type: Number }) public departureWalk?: number;
 
   /** Optional prop to render the walk time (in minutes) after arrival */
-  @property({ attribute: 'arrival-walk' }) public arrivalWalk?: number;
+  @property({ attribute: 'arrival-walk', type: Number }) public arrivalWalk?: number;
 
   /**
    * Per default, the current location has a pulsating animation. You can
@@ -92,7 +92,7 @@ export class SbbPearlChainTime extends LitElement {
       <div class="sbb-pearl-chain__time">
         ${renderDepartureTimeAttribute()}
         ${departure
-          ? html`<time class="sbb-pearl-chain__time-time" datetime=${this.departureTime}>
+          ? html`<time class="sbb-pearl-chain__time-time" datetime=${this.departureTime!}>
               <span class="sbb-screenreaderonly"
                 >${i18nDeparture[this._currentLanguage]}:&nbsp;</span
               >
@@ -111,7 +111,7 @@ export class SbbPearlChainTime extends LitElement {
           data-now=${this._now()}
         ></sbb-pearl-chain>
         ${arrival
-          ? html`<time class="sbb-pearl-chain__time-time" datetime=${this.arrivalTime}>
+          ? html`<time class="sbb-pearl-chain__time-time" datetime=${this.arrivalTime!}>
               <span class="sbb-screenreaderonly">${i18nArrival[this._currentLanguage]}:&nbsp;</span>
               ${format(arrival, 'HH:mm')}
             </time>`

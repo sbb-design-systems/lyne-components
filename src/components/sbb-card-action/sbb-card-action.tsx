@@ -19,17 +19,17 @@ import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { SbbCard } from '../sbb-card';
 import { setAttribute, setAttributes } from '../../global/dom';
-import Style from './sbb-card-action.scss?lit&inline';
+import style from './sbb-card-action.scss?lit&inline';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { spread } from '@open-wc/lit-helpers';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 
 /**
- * @slot unnamed - Slot to render a descriptive label / title of the action (important!). This is relevant for SEO and screen readers.
+ * @slot - Slot to render a descriptive label / title of the action (important!). This is relevant for SEO and screen readers.
  */
 @customElement('sbb-card-action')
 export class SbbCardAction extends LitElement implements LinkButtonProperties {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /** Whether the card is active. */
   @property({ reflect: true, type: Boolean })
@@ -54,7 +54,7 @@ export class SbbCardAction extends LitElement implements LinkButtonProperties {
   @property() public rel?: string | undefined;
 
   /** Whether the browser will show the download dialog on click. */
-  @property() public download?: boolean | undefined;
+  @property({ type: Boolean }) public download?: boolean | undefined;
 
   /** Default behaviour of the button. */
   @property() public type: ButtonType | undefined;

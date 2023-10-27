@@ -20,16 +20,16 @@ import { setAttribute } from '../../global/dom';
 import { ref } from 'lit/directives/ref.js';
 import { ConnectedAbortController, EventEmitter } from '../../global/eventing';
 import { SbbOption } from '../sbb-option';
-import Style from './sbb-autocomplete.scss?lit&inline';
+import style from './sbb-autocomplete.scss?lit&inline';
 
 let nextId = 0;
 
 /**
- * @slot unnamed - Use this slot to project options.
+ * @slot - Use this slot to project options.
  */
 @customElement('sbb-autocomplete')
 export class SbbAutocomplete extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     willOpen: 'will-open',
     didOpen: 'did-open',

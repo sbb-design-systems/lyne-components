@@ -10,15 +10,15 @@ import {
 } from '../../global/eventing';
 import '../sbb-icon';
 import { SbbToggle, SbbToggleStateChange } from '../sbb-toggle';
-import Style from './sbb-toggle-option.scss?lit&inline';
+import style from './sbb-toggle-option.scss?lit&inline';
 
 /**
- * @slot unnamed - Slot used to render the label of the toggle option.
+ * @slot - Slot used to render the label of the toggle option.
  * @slot icon - Slot used to render the `<sbb-icon>`.
  */
 @customElement('sbb-toggle-option')
 export class SbbToggleOption extends LitElement {
-  public static override styles = Style;
+  public static override styles = style;
   public static readonly events = {
     stateChange: 'state-change',
   } as const;

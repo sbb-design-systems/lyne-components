@@ -12,12 +12,12 @@ import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttribute, setAttributes } from '../../global/dom';
 import { SbbFormField } from '../sbb-form-field';
-import Style from './sbb-form-field-clear.scss?lit&inline';
+import style from './sbb-form-field-clear.scss?lit&inline';
 import '../sbb-icon';
 
 @customElement('sbb-form-field-clear')
 export class SbbFormFieldClear extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /** Negative coloring variant flag. */
   @property({ reflect: true, type: Boolean }) public negative = false;

@@ -89,7 +89,7 @@ describe('sbb-menu', () => {
         <div class="sbb-menu__container">
           <dialog class="sbb-menu" role="presentation">
             <div class="sbb-menu__content">
-              <ul aria-label="" class="sbb-menu-list">
+              <ul class="sbb-menu-list">
                 <li>
                   <slot name="action-0"></slot>
                 </li>

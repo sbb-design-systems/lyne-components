@@ -1,11 +1,11 @@
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import Style from './sbb-signet.scss?lit&inline';
+import style from './sbb-signet.scss?lit&inline';
 import { SbbProtectiveRoom } from '../../global/types';
 
 @customElement('sbb-signet')
 export class SbbSignet extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /** Visual protective room around signet. */
   @property({ attribute: 'protective-room', reflect: true })

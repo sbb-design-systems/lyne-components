@@ -23,13 +23,13 @@ import {
   findNextAvailableDate,
   getDatePicker,
 } from '../sbb-datepicker/sbb-datepicker.helper';
-import Style from './sbb-datepicker-next-day.scss?lit&inline';
+import style from './sbb-datepicker-next-day.scss?lit&inline';
 
 import '../sbb-icon';
 
 @customElement('sbb-datepicker-next-day')
 export class SbbDatepickerNextDay extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /** The name attribute to use for the button. */
   @property({ reflect: true }) public name: string | undefined;

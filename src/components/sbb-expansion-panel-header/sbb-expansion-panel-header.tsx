@@ -11,16 +11,16 @@ import { setAttribute, setAttributes, toggleDatasetEntry } from '../../global/do
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { SbbExpansionPanel } from '../sbb-expansion-panel';
-import Style from './sbb-expansion-panel-header.scss?lit&inline';
+import style from './sbb-expansion-panel-header.scss?lit&inline';
 import '../sbb-icon';
 
 /**
  * @slot icon - Slot used to render the panel header icon.
- * @slot unnamed - Slot used to render the panel header text.
+ * @slot - Slot used to render the panel header text.
  */
 @customElement('sbb-expansion-panel-header')
 export class SbbExpansionPanelHeader extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     toggleExpanded: 'toggle-expanded',
   } as const;

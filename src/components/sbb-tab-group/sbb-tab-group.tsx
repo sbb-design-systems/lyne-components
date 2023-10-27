@@ -7,7 +7,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { SbbTabTitle } from '../sbb-tab-title';
 import { setAttribute } from '../../global/dom';
 import { ref } from 'lit/directives/ref.js';
-import Style from './sbb-tab-group.scss?lit&inline';
+import style from './sbb-tab-group.scss?lit&inline';
 
 export interface InterfaceSbbTabGroupActions {
   activate(): void;
@@ -37,14 +37,14 @@ let nextId = 0;
 /**
  * @slot tab-bar - When you provide the `sbb-tab-title` tag through the unnamed slot,
  * it will be automatically moved to this slot. You do not need to use it directly.
- * @slot unnamed - Provide html-content to show as tab content.
+ * @slot - Provide html-content to show as tab content.
  * Wrap the content in a `div`, a `section`, an `article` or provide a nested `sbb-tab-group`:
  * This is correct: `<div>Some text <p>Some other text</p></div>`
  * This is not correct: `<span>Some text</span><p>Some other text</p>`
  */
 @customElement('sbb-tab-group')
 export class SbbTabGroup extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     selectedTabChanged: 'did-change',
   } as const;

@@ -2,7 +2,7 @@ import { defaultReporter, summaryReporter } from '@web/test-runner';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { puppeteerLauncher } from '@web/test-runner-puppeteer';
 import { existsSync } from 'fs';
-import glob from 'glob';
+import * as glob from 'glob';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import * as sass from 'sass';

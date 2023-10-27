@@ -1,7 +1,7 @@
 import { ConfigEnv, defineConfig } from 'vite';
 import postcssLit from 'rollup-plugin-postcss-lit';
 import dts from 'vite-plugin-dts';
-import glob from 'glob';
+import * as glob from 'glob';
 import { dirname, join, relative } from 'path';
 import { fileURLToPath } from 'url';
 

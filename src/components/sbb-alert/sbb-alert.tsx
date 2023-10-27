@@ -11,7 +11,7 @@ import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { spread } from '@open-wc/lit-helpers';
-import Style from './sbb-alert.scss?lit&inline';
+import style from './sbb-alert.scss?lit&inline';
 import '../sbb-title';
 import '../sbb-divider';
 import '../sbb-link';
@@ -20,11 +20,11 @@ import '../sbb-button';
 /**
  * @slot icon - Should be a sbb-icon which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.
  * @slot title - Title content.
- * @slot unnamed - Content of the alert.
+ * @slot - Content of the alert.
  */
 @customElement('sbb-alert')
 export class SbbAlert extends LitElement implements LinkProperties {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     willPresent: 'will-present',
     didPresent: 'did-present',

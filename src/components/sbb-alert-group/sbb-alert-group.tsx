@@ -5,15 +5,15 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { EventEmitter, ConnectedAbortController } from '../../global/eventing';
 import { SbbAlert } from '../sbb-alert';
 import { setAttribute } from '../../global/dom';
-import Style from './sbb-alert-group.scss?lit&inline';
+import style from './sbb-alert-group.scss?lit&inline';
 
 /**
- * @slot unnamed - content slot, should be filled with `sbb-alert` items.
+ * @slot - content slot, should be filled with `sbb-alert` items.
  * @slot accessibility-title - title for this sbb-alert-group which is only visible for screen reader users.
  */
 @customElement('sbb-alert-group')
 export class SbbAlertGroup extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     didDismissAlert: 'did-dismiss-alert',
     empty: 'empty',

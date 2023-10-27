@@ -11,16 +11,16 @@ import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { SbbRadioButton, SbbRadioButtonSize, SbbRadioButtonStateChange } from '../sbb-radio-button';
 import { setAttribute } from '../../global/dom';
-import Style from './sbb-radio-button-group.scss?lit&inline';
+import style from './sbb-radio-button-group.scss?lit&inline';
 import { SbbHorizontalFrom, SbbOrientation } from '../../global/types';
 
 /**
- * @slot unnamed - Use this to provide radio buttons within the group.
+ * @slot - Use this to provide radio buttons within the group.
  * @slot error - Use this to provide a `sbb-form-error` to show an error message.
  */
 @customElement('sbb-radio-button-group')
 export class SbbRadioButtonGroup extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     didChange: 'did-change',
     change: 'change',

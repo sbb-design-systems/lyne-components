@@ -29,7 +29,7 @@ import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } 
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { SbbDateLike } from '../../global/types';
-import Style from './sbb-calendar.scss?lit&inline';
+import style from './sbb-calendar.scss?lit&inline';
 import '../sbb-button';
 import '../sbb-icon';
 
@@ -79,7 +79,7 @@ export type CalendarView = 'day' | 'month' | 'year';
 
 @customElement('sbb-calendar')
 export class SbbCalendar extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     dateSelected: 'date-selected',
   } as const;

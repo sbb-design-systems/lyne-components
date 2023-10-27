@@ -3,7 +3,7 @@ import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } 
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttributes } from '../../global/dom';
 import { ref } from 'lit/directives/ref.js';
-import Style from './sbb-slider.scss?lit&inline';
+import style from './sbb-slider.scss?lit&inline';
 import { spread } from '@open-wc/lit-helpers';
 import { styleMap } from 'lit/directives/style-map.js';
 import '../sbb-icon';
@@ -14,7 +14,7 @@ import '../sbb-icon';
  */
 @customElement('sbb-slider')
 export class SbbSlider extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     didChange: 'did-change',
   } as const;
@@ -23,7 +23,7 @@ export class SbbSlider extends LitElement {
   @property() public value?: string = '';
 
   /** Numeric value for the inner HTMLInputElement. */
-  @property({ attribute: 'value-as-number' }) public valueAsNumber?: number;
+  @property({ attribute: 'value-as-number', type: Number }) public valueAsNumber?: number;
 
   /** Name of the inner HTMLInputElement. */
   @property({ reflect: true }) public name?: string = '';

@@ -4,14 +4,14 @@ import { customElement, property } from 'lit/decorators.js';
 import { ConnectedAbortController } from '../../global/eventing';
 import { SbbExpansionPanel } from '../sbb-expansion-panel';
 import { TitleLevel } from '../sbb-title';
-import Style from './sbb-accordion.scss?lit&inline';
+import style from './sbb-accordion.scss?lit&inline';
 
 /**
- * @slot unnamed - Use this to add one or more sbb-expansion-panel.
+ * @slot - Use this to add one or more sbb-expansion-panel.
  */
 @customElement('sbb-accordion')
 export class SbbAccordion extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /** The heading level for the sbb-expansion-panel-headers within the component. */
   @property({ attribute: 'title-level' })

@@ -13,7 +13,7 @@ import { i18nCloseAlert } from '../../global/i18n';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttribute } from '../../global/dom';
-import Style from './sbb-toast.scss?lit&inline';
+import style from './sbb-toast.scss?lit&inline';
 import { SbbOverlayState } from '../../global/overlay';
 import { SbbButton } from '../sbb-button';
 import { SbbLink } from '../sbb-link';
@@ -28,11 +28,11 @@ export type SbbToastPosition = `${SbbToastPositionVertical}-${SbbToastPositionHo
 const toastRefs = new Set<SbbToast>();
 
 /**
- * @slot unnamed - Use this to document a slot.
+ * @slot - Use this to document a slot.
  */
 @customElement('sbb-toast')
 export class SbbToast extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     willOpen: 'will-open',
     didOpen: 'did-open',

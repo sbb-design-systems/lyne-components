@@ -27,20 +27,21 @@ import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';
 import { ref } from 'lit/directives/ref.js';
-import Style from './sbb-dialog.scss?lit&inline';
+import style from './sbb-dialog.scss?lit&inline';
+import '../sbb-button';
 
 // A global collection of existing dialogs
 const dialogRefs: SbbDialog[] = [];
 let nextId = 0;
 
 /**
- * @slot unnamed - Use this slot to provide the dialog content.
+ * @slot - Use this slot to provide the dialog content.
  * @slot title - Use this slot to provide a title.
  * @slot action-group - Use this slot to display an action group in the footer.
  */
 @customElement('sbb-dialog')
 export class SbbDialog extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     willOpen: 'will-open',
     didOpen: 'did-open',

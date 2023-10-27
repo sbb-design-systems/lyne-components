@@ -18,7 +18,7 @@ import { SbbOption } from '../sbb-option';
 import { setAttribute } from '../../global/dom';
 import { ConnectedAbortController, EventEmitter } from '../../global/eventing';
 import { SbbOptGroup } from '../sbb-optgroup';
-import Style from './sbb-select.scss?lit&inline';
+import style from './sbb-select.scss?lit&inline';
 
 let nextId = 0;
 
@@ -28,11 +28,11 @@ export interface SelectChange {
 }
 
 /**
- * @slot unnamed - Use this slot to project options.
+ * @slot - Use this slot to project options.
  */
 @customElement('sbb-select')
 export class SbbSelect extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     didChange: 'did-change',
     change: 'change',

@@ -3,6 +3,7 @@
  */
 import fs from 'fs';
 import { customElementsManifestToMarkdown } from '@custom-elements-manifest/to-markdown';
+// eslint-disable-next-line @typescript-eslint/naming-convention
 import MagicString from 'magic-string';
 
 const manifestFilePath = './dist/custom-elements.json';
@@ -66,6 +67,7 @@ function updateComponentReadme(name: string, docs: string): void {
   const path = `${componentsFolder}/${compFolder}/readme.md`;
   if (!fs.existsSync(path)) {
     console.error(`Component ${name} has no readme file, please create it following the template`);
+    return;
   }
   const newReadme = new MagicString(fs.readFileSync(path, 'utf8'));
   let newDocs = new MagicString(docs);
@@ -106,7 +108,7 @@ if (!fs.existsSync(tempFolderPath)) {
 fs.writeFileSync(`${tempFolderPath}/components.md`, markdown);
 
 // Split the generated file into the single readme of each component
-const matches = Array.from(markdown.matchAll(/^# class: `(?<name>.*)`$/gm));
+const matches = Array.from(markdown.matchAll(/^# class: `(?<name>[^`]+?)`$/gm));
 
 for (let i = 0; i < matches.length; i++) {
   const startIndex = matches[i].index!;

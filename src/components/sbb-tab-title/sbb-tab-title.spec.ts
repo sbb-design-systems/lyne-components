@@ -31,7 +31,14 @@ describe('sbb-tab-title', () => {
         <div class="sbb-tab-title__wrapper">
           <h2 class="sbb-tab-title">
             <span class="sbb-tab-title__icon">
-              <slot name="icon"><sbb-icon name="pie-small"></sbb-icon></slot>
+              <slot name="icon">
+                <sbb-icon
+                  aria-hidden="true"
+                  data-namespace="default"
+                  name="pie-small"
+                  role="img"
+                ></sbb-icon>
+              </slot>
             </span>
             <span class="sbb-tab-title__text">
               <slot></slot>

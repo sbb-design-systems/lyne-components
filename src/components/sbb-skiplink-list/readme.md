@@ -37,7 +37,7 @@ to specify a custom stack order, the `z-index` can be changed by defining the CS
 
 ## Slots
 
-| Name      | Description                             |
-| --------- | --------------------------------------- |
-| `unnamed` | Use this to provide links for the list. |
+| Name | Description                             |
+| ---- | --------------------------------------- |
+|      | Use this to provide links for the list. |
 

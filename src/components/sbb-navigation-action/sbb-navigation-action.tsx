@@ -20,14 +20,14 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';
 import { SbbNavigationMarker } from '../sbb-navigation-marker';
 import { setAttributes } from '../../global/dom';
-import Style from './sbb-navigation-action.scss?lit&inline';
+import style from './sbb-navigation-action.scss?lit&inline';
 
 /**
- * @slot unnamed - Use this slot to provide the navigation action label.
+ * @slot - Use this slot to provide the navigation action label.
  */
 @customElement('sbb-navigation-action')
 export class SbbNavigationAction extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /**
    * Action size variant.

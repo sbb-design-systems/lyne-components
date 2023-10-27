@@ -1,10 +1,10 @@
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import Style from './sbb-timetable-row-header.scss?lit&inline';
+import style from './sbb-timetable-row-header.scss?lit&inline';
 
 @customElement('sbb-timetable-row-header')
 export class SbbTimetableRowHeader extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   @property() public config!: string;
 

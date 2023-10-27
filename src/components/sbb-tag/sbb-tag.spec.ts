@@ -71,7 +71,13 @@ describe('sbb-tag', () => {
         <span class="sbb-tag">
           <span class="sbb-tag__icon sbb-tag--shift">
             <slot name="icon">
-              <sbb-icon name="circle-information-small" />
+              <sbb-icon
+                aria-hidden="true"
+                data-namespace="default"
+                name="circle-information-small"
+                role="img"
+              >
+              </sbb-icon>
             </slot>
           </span>
           <span class="sbb-tag__text sbb-tag--shift">
@@ -99,7 +105,8 @@ describe('sbb-tag', () => {
     expect(root).dom.to.be.equal(
       `
         <sbb-tag value="foo" aria-pressed="false" role="button" tabindex="0" dir="ltr">
-          <sbb-icon slot="icon" name="cross-small"></sbb-icon>
+          <sbb-icon slot="icon" name="cross-small" aria-hidden="true" data-namespace="default" role="img">
+          </sbb-icon>
           Info
           <span slot="amount">123</span>
         </sbb-tag>

@@ -1,7 +1,20 @@
 import { waitForLitRender } from '../../global/testing';
-import { ITripItem } from '../../global/timetable';
-import { SbbTimetableRow } from './sbb-timetable-row';
-import { defaultTrip, busTrip } from './sbb-timetable-row.sample-data';
+import { ITripItem, Notice, PtSituation } from '../../global/timetable';
+import {
+  SbbTimetableRow,
+  filterNotices,
+  getCus,
+  getHimIcon,
+  getTransportIcon,
+  isProductIcon,
+  sortSituation,
+} from './sbb-timetable-row';
+import {
+  defaultTrip,
+  busTrip,
+  partiallyCancelled,
+  walkTimeTrip,
+} from './sbb-timetable-row.sample-data';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import '../sbb-timetable-row';
@@ -25,7 +38,7 @@ describe('sbb-timetable-row', () => {
 
       expect(element).shadowDom.to.be.equal(`
         <sbb-card color="white" data-action-role="button" data-has-action size="l">
-          <sbb-card-action aria-expanded dir="ltr" role="button" slot="action" tabindex="0">
+          <sbb-card-action dir="ltr" role="button" slot="action" tabindex="0">
             Departure: 11:08,   Train,  IR 37,  Direction Basel SBB,       Arrival: 12:13,   Travel time 1 Hour 15 Minutes,
           </sbb-card-action>
           <div class="sbb-timetable__row" role="row">
@@ -79,7 +92,7 @@ describe('sbb-timetable-row', () => {
 
       expect(element).shadowDom.to.be.equal(`
         <sbb-card color="white" data-action-role="button" data-has-action size="l">
-          <sbb-card-action aria-expanded dir="ltr" role="button" slot="action" tabindex="0">
+          <sbb-card-action dir="ltr" role="button" slot="action" tabindex="0">
             Departure: 16:30,  from Stand 4,  Bus,  B 19,  Direction Spiegel, Blinzern,       Arrival: 17:06,   Travel time 41 Minutes,  2 changes,  First Class Low to medium occupancy expected. Second Class High occupancy expected.
           </sbb-card-action>
           <div class="sbb-timetable__row" role="row">
@@ -180,5 +193,103 @@ describe('sbb-timetable-row', () => {
         </sbb-card>
       `);
     });
+  });
+});
+
+describe('getTransportIcon', () => {
+  it('should return ship / jetty', () => {
+    expect(getTransportIcon('SHIP', '', 'de')).to.be.equal('jetty-right');
+  });
+
+  it('should return empty string', () => {
+    expect(getTransportIcon('UNKNOWN', '', 'de')).to.be.equal('');
+  });
+
+  it('should return metro string', () => {
+    expect(getTransportIcon('METRO', 'PB', 'fr')).to.be.equal('metro-right-fr');
+  });
+
+  it('should return metro en string', () => {
+    expect(getTransportIcon('METRO', 'PB', 'en')).to.be.equal('metro-right-de');
+  });
+
+  it('should return cableway string', () => {
+    expect(getTransportIcon('GONDOLA', 'PB', 'de')).to.be.equal('cableway-right');
+  });
+
+  it('should return gondola string', () => {
+    expect(getTransportIcon('GONDOLA', 'GB', 'de')).to.be.equal('gondola-lift-right');
+  });
+});
+
+describe('isProductIcon', () => {
+  it('should return true', () => {
+    expect(isProductIcon('ic')).to.be.equal(true);
+  });
+
+  it('should return false', () => {
+    expect(isProductIcon('icc')).to.be.equal(false);
+  });
+});
+
+describe('sortSituation', () => {
+  it('should return sorted array', () => {
+    expect(
+      sortSituation([
+        { cause: 'TRAIN_REPLACEMENT_BY_BUS', broadcastMessages: [] },
+        { cause: 'DISTURBANCE', broadcastMessages: [] },
+      ]),
+    ).to.be.eql([
+      { cause: 'DISTURBANCE', broadcastMessages: [] },
+      { cause: 'TRAIN_REPLACEMENT_BY_BUS', broadcastMessages: [] },
+    ]);
+  });
+
+  it('should return sorted array even with double causes', () => {
+    expect(
+      sortSituation([
+        { cause: 'TRAIN_REPLACEMENT_BY_BUS', broadcastMessages: [] },
+        { cause: 'DISTURBANCE', broadcastMessages: [] },
+        { cause: 'DISTURBANCE', broadcastMessages: [] },
+      ]),
+    ).to.be.eql([
+      { cause: 'DISTURBANCE', broadcastMessages: [] },
+      { cause: 'DISTURBANCE', broadcastMessages: [] },
+      { cause: 'TRAIN_REPLACEMENT_BY_BUS', broadcastMessages: [] },
+    ]);
+  });
+});
+
+describe('getHimIcon', () => {
+  it('should return replacementbus', () => {
+    const situation: PtSituation = {
+      cause: 'TRAIN_REPLACEMENT_BY_BUS',
+      broadcastMessages: [],
+    };
+    expect(getHimIcon(situation).name).to.be.equal('replacementbus');
+    expect(getHimIcon(situation).text).to.be.equal('');
+  });
+
+  it('should return info', () => {
+    const situation: PtSituation = {
+      cause: null,
+      broadcastMessages: [],
+    };
+    expect(getHimIcon(situation).name).to.be.equal('info');
+  });
+});
+
+describe('getCus', () => {
+  it('should return cancellation', () => {
+    expect(getCus(partiallyCancelled as ITripItem, 'en')).to.be.eql({
+      name: 'cancellation',
+      text: undefined,
+    });
+  });
+});
+
+describe('filterNotices', () => {
+  it('should return sa-rr', () => {
+    expect(filterNotices(walkTimeTrip?.notices as Notice[])).to.be.eql([]);
   });
 });

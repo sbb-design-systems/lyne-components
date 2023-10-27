@@ -17,7 +17,7 @@ import { AgnosticResizeObserver } from '../../global/observers';
 import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttributes } from '../../global/dom';
-import Style from './sbb-header-action.scss?lit&inline';
+import style from './sbb-header-action.scss?lit&inline';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { spread } from '@open-wc/lit-helpers';
 import '../sbb-icon';
@@ -25,11 +25,11 @@ import { SbbHorizontalFrom } from '../../global/types';
 
 /**
  * @slot icon - Slot used to render the action icon.
- * @slot unnamed - Slot used to render the action text.
+ * @slot - Slot used to render the action text.
  */
 @customElement('sbb-header-action')
 export class SbbHeaderAction extends LitElement implements LinkButtonProperties {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /**
    * Used to set the minimum breakpoint from which the text is displayed.
