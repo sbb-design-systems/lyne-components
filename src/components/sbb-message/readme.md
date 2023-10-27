@@ -28,12 +28,12 @@ by the used components (e.g. `alt-text` and `aria-label`).
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name           | Privacy | Type                  | Default | Description                                                                         | Inherited From |
-| -------------- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------- | -------------- |
-| `titleContent` | public  | `string \| undefined` |         | Content of title.                                                                   |                |
-| `titleLevel`   | public  | `TitleLevel`          | `'3'`   | Level of title, it will be rendered as heading tag (e.g., h3). Defaults to level 3. |                |
+| Name           | Attribute           | Privacy | Type                  | Default | Description                                                                         |
+| -------------- | -------------- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------- |
+| `titleContent` | `title-content` | public  | `string \| undefined` |         |                |
+| `titleLevel`   | `title-level`   | public  | `TitleLevel`          | `'3'`   | Level of title, it will be rendered as heading tag (e.g., h3). Defaults to level 3. |
 
 ## Slots
 

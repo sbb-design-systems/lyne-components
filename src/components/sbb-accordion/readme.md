@@ -44,13 +44,13 @@ In the following example, all the `sbb-expansion-panel-header` would be wrapped 
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name               | Privacy | Type                 | Default | Description                                                                 | Inherited From |
-| ------------------ | ------- | -------------------- | ------- | --------------------------------------------------------------------------- | -------------- |
-| `titleLevel`       | public  | `TitleLevel \| null` |         | The heading level for the sbb-expansion-panel-headers within the component. |                |
-| `disableAnimation` | public  | `boolean`            | `false` | Whether the animation should be disabled.                                   |                |
-| `multi`            | public  | `boolean`            |         | Whether more than one sbb-expansion-panel can be open at the same time.     |                |
+| Name               | Attribute               | Privacy | Type                 | Default | Description                                                                 |
+| ------------------ | ------------------ | ------- | -------------------- | ------- | --------------------------------------------------------------------------- |
+| `titleLevel`       | `title-level`       | public  | `TitleLevel \| null` |         |                |
+| `disableAnimation` | `disable-animation` | public  | `boolean`            | `false` | Whether the animation should be disabled.                                   |
+| `multi`            | `multi`            | public  | `boolean`            |         | Whether more than one sbb-expansion-panel can be open at the same time.     |
 
 ## Slots
 

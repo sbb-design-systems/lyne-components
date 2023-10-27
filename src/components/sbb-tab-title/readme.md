@@ -40,15 +40,15 @@ It is possible to display the component in `disabled` state by using the self-na
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name       | Privacy | Type                      | Default | Description                                                                                                                                                       | Inherited From |
-| ---------- | ------- | ------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `level`    | public  | `TitleLevel \| undefined` | `'1'`   | The level will correspond to the heading tag generated in the title.&#xA;Use this property to generate the appropriate header tag, taking SEO into consideration. |                |
-| `active`   | public  | `boolean \| undefined`    |         | Active tab state                                                                                                                                                  |                |
-| `disabled` | public  | `boolean \| undefined`    |         | Disabled tab state                                                                                                                                                |                |
-| `iconName` | public  | `string \| undefined`     |         | The icon name we want to use, choose from the small icon variants&#xA;from the ui-icons category from here&#xA;https\://icons.app.sbb.ch.                         |                |
-| `amount`   | public  | `string \| undefined`     |         | Amount displayed inside the tab.                                                                                                                                  |                |
+| Name       | Attribute       | Privacy | Type                      | Default | Description                                                                                                                                                       |
+| ---------- | ---------- | ------- | ------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `level`    | `level`    | public  | `TitleLevel \| undefined` | `'1'`   |                |
+| `active`   | `active`   | public  | `boolean \| undefined`    |         |                |
+| `disabled` | `disabled` | public  | `boolean \| undefined`    |         |                |
+| `iconName` | `icon-name` | public  | `string \| undefined`     |         |                |
+| `amount`   | `amount`   | public  | `string \| undefined`     |         |                |
 
 ## Slots
 

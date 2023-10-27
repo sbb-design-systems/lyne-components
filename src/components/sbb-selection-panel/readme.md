@@ -84,18 +84,18 @@ It's also possible to display the `sbb-selection-panel` without border by settin
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name               | Privacy | Type                                            | Default   | Description                                                       | Inherited From |
-| ------------------ | ------- | ----------------------------------------------- | --------- | ----------------------------------------------------------------- | -------------- |
-| `color`            | public  | `InterfaceSbbSelectionPanelAttributes['color']` | `'white'` | The background color of the panel.                                |                |
-| `forceOpen`        | public  | `boolean`                                       | `false`   | Whether the content section is always visible.                    |                |
-| `borderless`       | public  | `boolean`                                       | `false`   | Whether the unselected panel has a border.                        |                |
-| `disableAnimation` | public  | `boolean`                                       | `false`   | Whether the animation is enabled.                                 |                |
-| `willOpen`         | public  | `EventEmitter<void>`                            |           | Emits whenever the content section starts the opening transition. |                |
-| `didOpen`          | public  | `EventEmitter<void>`                            |           | Emits whenever the content section is opened.                     |                |
-| `willClose`        | public  | `EventEmitter<{ closeTarget: HTMLElement }>`    |           | Emits whenever the content section begins the closing transition. |                |
-| `didClose`         | public  | `EventEmitter<{ closeTarget: HTMLElement }>`    |           | Emits whenever the content section is closed.                     |                |
+| Name               | Attribute               | Privacy | Type                                            | Default   | Description                                                       |
+| ------------------ | ------------------ | ------- | ----------------------------------------------- | --------- | ----------------------------------------------------------------- |
+| `color`            | `color`            | public  | `InterfaceSbbSelectionPanelAttributes['color']` | `'white'` | The background color of the panel.                                |
+| `forceOpen`        | `force-open`        | public  | `boolean`                                       | `false`   | Whether the content section is always visible.                    |
+| `borderless`       | `borderless`       | public  | `boolean`                                       | `false`   | Whether the unselected panel has a border.                        |
+| `disableAnimation` | `disable-animation` | public  | `boolean`                                       | `false`   | Whether the animation is enabled.                                 |
+| `willOpen`         | `will-open`         | public  | `EventEmitter<void>`                            |           | Emits whenever the content section starts the opening transition. |
+| `didOpen`          | `did-open`          | public  | `EventEmitter<void>`                            |           | Emits whenever the content section is opened.                     |
+| `willClose`        | `will-close`        | public  | `EventEmitter<{ closeTarget: HTMLElement }>`    |           | Emits whenever the content section begins the closing transition. |
+| `didClose`         | `did-close`         | public  | `EventEmitter<{ closeTarget: HTMLElement }>`    |           | Emits whenever the content section is closed.                     |
 
 ## Methods
 

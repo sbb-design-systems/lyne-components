@@ -24,11 +24,11 @@ as in the example above.
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name    | Privacy | Type                                       | Default      | Description              | Inherited From |
-| ------- | ------- | ------------------------------------------ | ------------ | ------------------------ | -------------- |
-| `color` | public  | `InterfaceSbbCardBadgeAttributes['color']` | `'charcoal'` | Color of the card badge. |                |
+| Name    | Attribute    | Privacy | Type                                       | Default      | Description              |
+| ------- | ------- | ------- | ------------------------------------------ | ------------ | ------------------------ |
+| `color` | `color` | public  | `InterfaceSbbCardBadgeAttributes['color']` | `'charcoal'` | Color of the card badge. |
 
 ## Slots
 

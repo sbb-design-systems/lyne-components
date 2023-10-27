@@ -45,14 +45,14 @@ The following one will be read as (locale: ENG): `Connection from Point A to Poi
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name          | Privacy | Type                             | Default | Description                                                                       | Inherited From |
-| ------------- | ------- | -------------------------------- | ------- | --------------------------------------------------------------------------------- | -------------- |
-| `origin`      | public  | `string`                         |         | Origin location for the journey header.                                           |                |
-| `destination` | public  | `string`                         |         | Destination location for the journey header.                                      |                |
-| `roundTrip`   | public  | `boolean \| undefined`           |         | Whether the journey is a round trip. If so, the icon changes to a round-trip one. |                |
-| `level`       | public  | `TitleLevel \| undefined`        | `'3'`   | Heading level of the journey header element (e.g. h1-h6).                         |                |
-| `negative`    | public  | `boolean`                        | `false` | Negative coloring variant flag.                                                   |                |
-| `size`        | public  | `JourneyHeaderSize \| undefined` | `'m'`   | Journey header size.                                                              |                |
+| Name          | Attribute          | Privacy | Type                             | Default | Description                                                                       |
+| ------------- | ------------- | ------- | -------------------------------- | ------- | --------------------------------------------------------------------------------- |
+| `origin`      | `origin`      | public  | `string`                         |         | Origin location for the journey header.                                           |
+| `destination` | `destination` | public  | `string`                         |         | Destination location for the journey header.                                      |
+| `roundTrip`   | `round-trip`   | public  | `boolean \| undefined`           |         |                |
+| `level`       | `level`       | public  | `TitleLevel \| undefined`        | `'3'`   |                |
+| `negative`    | `negative`    | public  | `boolean`                        | `false` | Negative coloring variant flag.                                                   |
+| `size`        | `size`        | public  | `JourneyHeaderSize \| undefined` | `'m'`   |                |
 

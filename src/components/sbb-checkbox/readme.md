@@ -69,18 +69,18 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name            | Privacy | Type                                              | Default | Description                                                                                                                                 | Inherited From |
-| --------------- | ------- | ------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `value`         | public  | `string \| undefined`                             |         | Value of checkbox.                                                                                                                          |                |
-| `disabled`      | public  | `boolean`                                         | `false` | Whether the checkbox is disabled.                                                                                                           |                |
-| `required`      | public  | `boolean`                                         | `false` | Whether the checkbox is required.                                                                                                           |                |
-| `indeterminate` | public  | `boolean`                                         | `false` | Whether the checkbox is indeterminate.                                                                                                      |                |
-| `iconName`      | public  | `string \| undefined`                             |         | The icon name we want to use, choose from the small icon variants from the ui-icons category&#xA;from https\://icons.app.sbb.ch (optional). |                |
-| `iconPlacement` | public  | `InterfaceSbbCheckboxAttributes['iconPlacement']` | `'end'` | The label position relative to the labelIcon. Defaults to end                                                                               |                |
-| `checked`       | public  | `boolean`                                         | `false` | Whether the checkbox is checked.                                                                                                            |                |
-| `size`          | public  | `InterfaceSbbCheckboxAttributes['size']`          | `'m'`   | Label size variant, either m or s.                                                                                                          |                |
+| Name            | Attribute            | Privacy | Type                                              | Default | Description                                                                                                                                 |
+| --------------- | --------------- | ------- | ------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `value`         | `value`         | public  | `string \| undefined`                             |         |                |
+| `disabled`      | `disabled`      | public  | `boolean`                                         | `false` | Whether the checkbox is disabled.                                                                                                           |
+| `required`      | `required`      | public  | `boolean`                                         | `false` | Whether the checkbox is required.                                                                                                           |
+| `indeterminate` | `indeterminate` | public  | `boolean`                                         | `false` | Whether the checkbox is indeterminate.                                                                                                      |
+| `iconName`      | `icon-name`      | public  | `string \| undefined`                             |         |                |
+| `iconPlacement` | `icon-placement` | public  | `InterfaceSbbCheckboxAttributes['iconPlacement']` | `'end'` | The label position relative to the labelIcon. Defaults to end                                                                               |
+| `checked`       | `checked`       | public  | `boolean`                                         | `false` | Whether the checkbox is checked.                                                                                                            |
+| `size`          | `size`          | public  | `InterfaceSbbCheckboxAttributes['size']`          | `'m'`   | Label size variant, either m or s.                                                                                                          |
 
 ## Methods
 

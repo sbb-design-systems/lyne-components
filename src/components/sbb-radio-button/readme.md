@@ -42,16 +42,16 @@ The component has two different sizes, which can be changed using the `size` pro
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name                  | Privacy | Type                                        | Default | Description                           | Inherited From |
-| --------------------- | ------- | ------------------------------------------- | ------- | ------------------------------------- | -------------- |
-| `allowEmptySelection` | public  | `boolean`                                   | `false` | Whether the radio can be deselected.  |                |
-| `value`               | public  | `string`                                    |         | Value of radio button.                |                |
-| `disabled`            | public  | `boolean`                                   | `false` | Whether the radio button is disabled. |                |
-| `required`            | public  | `boolean`                                   | `false` | Whether the radio button is required. |                |
-| `checked`             | public  | `boolean`                                   | `false` | Whether the radio button is checked.  |                |
-| `size`                | public  | `InterfaceSbbRadioButtonAttributes['size']` | `'m'`   | Label size variant, either m or s.    |                |
+| Name                  | Attribute                  | Privacy | Type                                        | Default | Description                           |
+| --------------------- | --------------------- | ------- | ------------------------------------------- | ------- | ------------------------------------- |
+| `allowEmptySelection` | `allow-empty-selection` | public  | `boolean`                                   | `false` | Whether the radio can be deselected.  |
+| `value`               | `value`               | public  | `string`                                    |         | Value of radio button.                |
+| `disabled`            | `disabled`            | public  | `boolean`                                   | `false` | Whether the radio button is disabled. |
+| `required`            | `required`            | public  | `boolean`                                   | `false` | Whether the radio button is required. |
+| `checked`             | `checked`             | public  | `boolean`                                   | `false` | Whether the radio button is checked.  |
+| `size`                | `size`                | public  | `InterfaceSbbRadioButtonAttributes['size']` | `'m'`   | Label size variant, either m or s.    |
 
 ## Methods
 

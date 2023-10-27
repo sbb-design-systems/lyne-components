@@ -22,11 +22,9 @@ the component displays an icon by default, that can be changed using the `icon` 
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name       | Privacy | Type      | Default | Description                     | Inherited From |
-| ---------- | ------- | --------- | ------- | ------------------------------- | -------------- |
-| `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |                |
-
-<hr/>
+| Name       | Attribute       | Privacy | Type      | Default | Description                     |
+| ---------- | ---------- | ------- | --------- | ------- | ------------------------------- |
+| `negative` | `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |
 

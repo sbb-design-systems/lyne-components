@@ -22,12 +22,12 @@ to specify a custom stack order, the `z-index` can be changed by defining the CS
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name           | Privacy | Type                                             | Default | Description                                      | Inherited From |
-| -------------- | ------- | ------------------------------------------------ | ------- | ------------------------------------------------ | -------------- |
-| `titleContent` | public  | `string \| undefined`                            |         | The title text we want to place before the list. |                |
-| `titleLevel`   | public  | `InterfaceTitleAttributes['level'] \| undefined` | `'2'`   | The semantic level of the title, e.g. 2 = h2.    |                |
+| Name           | Attribute           | Privacy | Type                                             | Default | Description                                      |
+| -------------- | -------------- | ------- | ------------------------------------------------ | ------- | ------------------------------------------------ |
+| `titleContent` | `title-content` | public  | `string \| undefined`                            |         |                |
+| `titleLevel`   | `title-level`   | public  | `InterfaceTitleAttributes['level'] \| undefined` | `'2'`   |                |
 
 ## Methods
 

@@ -31,13 +31,13 @@ if it is disabled, or if the selected date is equal to the input's `min` attribu
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name         | Privacy | Type                                 | Default | Description                               | Inherited From |
-| ------------ | ------- | ------------------------------------ | ------- | ----------------------------------------- | -------------- |
-| `name`       | public  | `string \| undefined`                |         | The name attribute to use for the button. |                |
-| `negative`   | public  | `boolean`                            | `false` | Negative coloring variant flag.           |                |
-| `datePicker` | public  | `string \| HTMLElement \| undefined` |         | Datepicker reference.                     |                |
+| Name         | Attribute         | Privacy | Type                                 | Default | Description                               |
+| ------------ | ------------ | ------- | ------------------------------------ | ------- | ----------------------------------------- |
+| `name`       | `name`       | public  | `string \| undefined`                |         |                |
+| `negative`   | `negative`   | public  | `boolean`                            | `false` | Negative coloring variant flag.           |
+| `datePicker` | `date-picker` | public  | `string \| HTMLElement \| undefined` | Datepicker reference.                     |                |
 
 ## Methods
 

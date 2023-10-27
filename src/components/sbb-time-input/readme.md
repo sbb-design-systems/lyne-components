@@ -59,11 +59,11 @@ Whenever the validation state changes (e.g., a valid value becomes invalid or vi
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name    | Privacy | Type                    | Default | Description                                                | Inherited From |
-| ------- | ------- | ----------------------- | ------- | ---------------------------------------------------------- | -------------- |
-| `input` | public  | `string \| HTMLElement` |         | Reference of the native input connected to the datepicker. |                |
+| Name    | Attribute    | Privacy | Type                    | Default | Description                                                |
+| ------- | ------- | ------- | ----------------------- | ------- | ---------------------------------------------------------- |
+| `input` | `input` | public  | `string \| HTMLElement` |         |                |
 
 ## Methods
 

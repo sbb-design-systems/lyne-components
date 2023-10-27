@@ -15,12 +15,10 @@ It's also possible to display the component in `negative` variant using the self
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name          | Privacy | Type                                                        | Default        | Description                                                                                   | Inherited From |
-| ------------- | ------- | ----------------------------------------------------------- | -------------- | --------------------------------------------------------------------------------------------- | -------------- |
-| `negative`    | public  | `boolean \| undefined`                                      | `false`        | Negative coloring variant flag                                                                |                |
-| `orientation` | public  | `InterfaceSbbDividerAttributes['orientation'] \| undefined` | `'horizontal'` | Orientation property with possible values 'horizontal' \| 'vertical'. Defaults to horizontal. |                |
-
-<hr/>
+| Name          | Attribute          | Privacy | Type                                                        | Default        | Description                                                                                   |
+| ------------- | ------------- | ------- | ----------------------------------------------------------- | -------------- | --------------------------------------------------------------------------------------------- |
+| `negative`    | `negative`    | public  | `boolean \| undefined`                                      | `false`        |                |
+| `orientation` | `orientation` | public  | `InterfaceSbbDividerAttributes['orientation'] \| undefined` | `'horizontal'` | 'vertical'. Defaults to horizontal. |                |
 

@@ -17,13 +17,13 @@ If the tripBack prop is passed to the component a second journey-summary, withou
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name               | Privacy | Type                                                | Default | Description                                                                                                        | Inherited From |
-| ------------------ | ------- | --------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------ | -------------- |
-| `trip`             | public  | `InterfaceSbbJourneySummaryAttributes`              |         | The trip prop                                                                                                      |                |
-| `tripBack`         | public  | `InterfaceSbbJourneySummaryAttributes \| undefined` |         | The tripBack prop                                                                                                  |                |
-| `roundTrip`        | public  | `boolean \| undefined`                              |         | The RoundTrip prop. This prop controls if one or two arrows are displayed in the header.                           |                |
-| `headerLevel`      | public  | `TitleLevel \| undefined`                           | `'3'`   | Heading level of the journey header element (e.g. h1-h6).                                                          |                |
-| `disableAnimation` | public  | `boolean \| undefined`                              |         | Per default, the current location has a pulsating animation. You can&#xA;disable the animation with this property. |                |
+| Name               | Attribute               | Privacy | Type                                                | Default | Description                                                                                                        |
+| ------------------ | ------------------ | ------- | --------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------ |
+| `trip`             | `trip`             | public  | `InterfaceSbbJourneySummaryAttributes`              |         | The trip prop                                                                                                      |
+| `tripBack`         | `trip-back`         | public  | `InterfaceSbbJourneySummaryAttributes \| undefined` |         |                |
+| `roundTrip`        | `round-trip`        | public  | `boolean \| undefined`                              |         |                |
+| `headerLevel`      | `header-level`      | public  | `TitleLevel \| undefined`                           | `'3'`   |                |
+| `disableAnimation` | `disable-animation` | public  | `boolean \| undefined`                              |         |                |
 

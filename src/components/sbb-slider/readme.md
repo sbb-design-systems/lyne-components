@@ -69,21 +69,21 @@ The `sbb-slider` has the following behaviour on keypress when focused:
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name            | Privacy | Type                   | Default | Description                                                                                                                                          | Inherited From |
-| --------------- | ------- | ---------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `value`         | public  | `string \| undefined`  | `''`    | Value for the inner HTMLInputElement.                                                                                                                |                |
-| `valueAsNumber` | public  | `number \| undefined`  |         | Numeric value for the inner HTMLInputElement.                                                                                                        |                |
-| `name`          | public  | `string \| undefined`  | `''`    | Name of the inner HTMLInputElement.                                                                                                                  |                |
-| `form`          | public  | `string \| undefined`  |         | The \<form> element to associate the inner HTMLInputElement with.                                                                                    |                |
-| `min`           | public  | `string \| undefined`  | `'0'`   | Minimum acceptable value for the inner HTMLInputElement.                                                                                             |                |
-| `max`           | public  | `string \| undefined`  | `'100'` | Maximum acceptable value for the inner HTMLInputElement.                                                                                             |                |
-| `readonly`      | public  | `boolean \| undefined` | `false` | Readonly state for the inner HTMLInputElement.&#xA;Since the input range does not allow this attribute, it will be merged with the \`disabled\` one. |                |
-| `disabled`      | public  | `boolean \| undefined` | `false` | Disabled state for the inner HTMLInputElement.                                                                                                       |                |
-| `startIcon`     | public  | `string \| undefined`  |         | Name of the icon at component's start, which will be forward to the nested \`sbb-icon\`.                                                             |                |
-| `endIcon`       | public  | `string \| undefined`  |         | Name of the icon at component's end, which will be forward to the nested \`sbb-icon\`.                                                               |                |
-| `didChange`     | public  | `EventEmitter`         |         |                                                                                                                                                      |                |
+| Name            | Attribute            | Privacy | Type                   | Default | Description                                                                                                                                          |
+| --------------- | --------------- | ------- | ---------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `value`         | `value`         | public  | `string \| undefined`  | `''`    |                |
+| `valueAsNumber` | `value-as-number` | public  | `number \| undefined`  |         |                |
+| `name`          | `name`          | public  | `string \| undefined`  | `''`    |                |
+| `form`          | `form`          | public  | `string \| undefined`  |         |                |
+| `min`           | `min`           | public  | `string \| undefined`  | `'0'`   |                |
+| `max`           | `max`           | public  | `string \| undefined`  | `'100'` |                |
+| `readonly`      | `readonly`      | public  | `boolean \| undefined` | `false` |                |
+| `disabled`      | `disabled`      | public  | `boolean \| undefined` | `false` |                |
+| `startIcon`     | `start-icon`     | public  | `string \| undefined`  |         |                |
+| `endIcon`       | `end-icon`       | public  | `string \| undefined`  |         |                |
+| `didChange`     | `did-change`     | public  | `EventEmitter`         |         |                                                                                                                                                      |
 
 ## Methods
 

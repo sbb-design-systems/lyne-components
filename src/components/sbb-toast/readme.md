@@ -102,16 +102,16 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name               | Privacy | Type                     | Default           | Description                                                                                                                                              | Inherited From |
-| ------------------ | ------- | ------------------------ | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `timeout`          | public  | `number`                 | `6000`            | The length of time in milliseconds to wait before automatically dismissing the toast.&#xA;If 0, it stays open indefinitely.                              |                |
-| `iconName`         | public  | `string \| undefined`    |                   | The name of the icon, choose from the small icon variants&#xA;from the ui-icons category from here&#xA;https\://icons.app.sbb.ch.                        |                |
-| `position`         | public  | `SbbToastPosition`       | `'bottom-center'` | The position where to place the toast.                                                                                                                   |                |
-| `dismissible`      | public  | `boolean`                | `false`           | Whether the toast has a close button.                                                                                                                    |                |
-| `politeness`       | public  | `SbbToastAriaPoliteness` | `'polite'`        | The ARIA politeness level.&#xA;Check https\://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA\_Live\_Regions#live\_regions for further info |                |
-| `disableAnimation` | public  | `boolean`                | `false`           | Whether the animation is disabled.                                                                                                                       |                |
+| Name               | Attribute               | Privacy | Type                     | Default           | Description                                                                                                                                              |
+| ------------------ | ------------------ | ------- | ------------------------ | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `timeout`          | `timeout`          | public  | `number`                 | `6000`            | The length of time in milliseconds to wait before automatically dismissing the toast.&#xA;If 0, it stays open indefinitely.                              |
+| `iconName`         | `icon-name`         | public  | `string \| undefined`    |                   |                |
+| `position`         | `position`         | public  | `SbbToastPosition`       | `'bottom-center'` | The position where to place the toast.                                                                                                                   |
+| `dismissible`      | `dismissible`      | public  | `boolean`                | `false`           | Whether the toast has a close button.                                                                                                                    |
+| `politeness`       | `politeness`       | public  | `SbbToastAriaPoliteness` | `'polite'`        | The ARIA politeness level.&#xA;Check https\://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA\_Live\_Regions#live\_regions for further info |
+| `disableAnimation` | `disable-animation` | public  | `boolean`                | `false`           | Whether the animation is disabled.                                                                                                                       |
 
 ## Methods
 

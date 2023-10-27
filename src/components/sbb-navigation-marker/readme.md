@@ -23,11 +23,11 @@ Possible values are `l` (default) and `s`.
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name   | Privacy | Type                      | Default | Description          | Inherited From |
-| ------ | ------- | ------------------------- | ------- | -------------------- | -------------- |
-| `size` | public  | `'l' \| 's' \| undefined` | `'l'`   | Marker size variant. |                |
+| Name   | Attribute   | Privacy | Type                      | Default | Description          |
+| ------ | ------ | ------- | ------------------------- | ------- | -------------------- |
+| `size` | `size` | public  | `'l' \| 's' \| undefined` | Marker size variant. |                |
 
 ## Methods
 

@@ -98,17 +98,17 @@ that have an ARIA `role`.
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name                      | Privacy | Type                         | Default | Description                                                                                                        | Inherited From |
-| ------------------------- | ------- | ---------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------ | -------------- |
-| `trigger`                 | public  | `string \| HTMLElement`      |         | The element that will trigger the tooltip dialog.&#xA;Accepts both a string (id of an element) or an HTML element. |                |
-| `hideCloseButton`         | public  | `boolean \| undefined`       | `false` | Whether the close button should be hidden.                                                                         |                |
-| `hoverTrigger`            | public  | `boolean \| undefined`       | `false` | Whether the tooltip should be triggered on hover.                                                                  |                |
-| `openDelay`               | public  | `number`                     | `0`     | Open the tooltip after a certain delay.                                                                            |                |
-| `closeDelay`              | public  | `number`                     | `0`     | Close the tooltip after a certain delay.                                                                           |                |
-| `disableAnimation`        | public  | `boolean`                    | `false` | Whether the animation is enabled.                                                                                  |                |
-| `accessibilityCloseLabel` | public  | `\| string     \| undefined` |         | This will be forwarded as aria-label to the close button element.                                                  |                |
+| Name                      | Attribute                      | Privacy | Type                         | Default | Description                                                                                                        |
+| ------------------------- | ------------------------- | ------- | ---------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------ |
+| `trigger`                 | `trigger`                 | public  | `string \| HTMLElement`      |         |                |
+| `hideCloseButton`         | `hide-close-button`         | public  | `boolean \| undefined`       | `false` |                |
+| `hoverTrigger`            | `hover-trigger`            | public  | `boolean \| undefined`       | `false` |                |
+| `openDelay`               | `open-delay`               | public  | `number`                     | `0`     | Open the tooltip after a certain delay.                                                                            |
+| `closeDelay`              | `close-delay`              | public  | `number`                     | `0`     | Close the tooltip after a certain delay.                                                                           |
+| `disableAnimation`        | `disable-animation`        | public  | `boolean`                    | `false` | Whether the animation is enabled.                                                                                  |
+| `accessibilityCloseLabel` | `accessibility-close-label` | public  | `\| string     \| undefined` | This will be forwarded as aria-label to the close button element.                                                  |                |
 
 ## Methods
 

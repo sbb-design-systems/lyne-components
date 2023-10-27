@@ -80,12 +80,12 @@ To improve coloring, it's needed to manually define styles for Window high contr
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name    | Privacy | Type                                              | Default   | Description                                        | Inherited From |
-| ------- | ------- | ------------------------------------------------- | --------- | -------------------------------------------------- | -------------- |
-| `size`  | public  | `InterfaceSbbCardAttributes['size'] \| undefined` | `'m'`     | Size variant, either xs, s, m, l, xl, xxl or xxxl. |                |
-| `color` | public  | `InterfaceSbbCardAttributes['color']`             | `'white'` | Option to set the component's background color.    |                |
+| Name    | Attribute    | Privacy | Type                                              | Default   | Description                                        |
+| ------- | ------- | ------- | ------------------------------------------------- | --------- | -------------------------------------------------- |
+| `size`  | `size`  | public  | `InterfaceSbbCardAttributes['size'] \| undefined` | `'m'`     |                |
+| `color` | `color` | public  | `InterfaceSbbCardAttributes['color']`             | `'white'` | Option to set the component's background color.    |
 
 ## Slots
 

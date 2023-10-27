@@ -30,12 +30,12 @@ The component can be displayed in `checked` or `disabled` states using the self-
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name       | Privacy | Type                  | Default | Description                            | Inherited From |
-| ---------- | ------- | --------------------- | ------- | -------------------------------------- | -------------- |
-| `checked`  | public  | `boolean`             |         | Whether the toggle-option is checked.  |                |
-| `disabled` | public  | `boolean`             |         | Whether the toggle option is disabled. |                |
-| `iconName` | public  | `string \| undefined` |         | Name of the icon for \`\<sbb-icon>\`.  |                |
-| `value`    | public  | `string \| null`      |         | Value of toggle-option.                |                |
+| Name       | Attribute       | Privacy | Type                  | Default | Description                            |
+| ---------- | ---------- | ------- | --------------------- | ------- | -------------------------------------- |
+| `checked`  | `checked`  | public  | `boolean`             |         | Whether the toggle-option is checked.  |
+| `disabled` | `disabled` | public  | `boolean`             |         | Whether the toggle option is disabled. |
+| `iconName` | `icon-name` | public  | `string \| undefined` |         |                |
+| `value`    | `value`    | public  | `string \| null`      |         |                |
 

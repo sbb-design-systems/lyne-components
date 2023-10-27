@@ -63,15 +63,15 @@ This is helpful if you need a specific state of the component.
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name           | Privacy | Type                              | Default | Description                                                                                                     | Inherited From |
-| -------------- | ------- | --------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------- | -------------- |
-| `wide`         | public  | `boolean`                         | `false` | If set to true, two months are displayed                                                                        |                |
-| `min`          | public  | `Date \| string \| number`        |         | The minimum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). |                |
-| `max`          | public  | `Date \| string \| number`        |         | The maximum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). |                |
-| `dateFilter`   | public  | `(date: Date \| null) => boolean` |         | A function used to filter out dates.                                                                            |                |
-| `selectedDate` | public  | `Date \| string \| number`        |         | The selected date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970).      |                |
+| Name           | Attribute           | Privacy | Type                              | Default | Description                                                                                                     |
+| -------------- | -------------- | ------- | --------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------- |
+| `wide`         | `wide`         | public  | `boolean`                         | `false` | If set to true, two months are displayed                                                                        |
+| `min`          | `min`          | public  | `Date \| string \| number`        | The minimum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). |                |
+| `max`          | `max`          | public  | `Date \| string \| number`        | The maximum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). |                |
+| `dateFilter`   | `date-filter`   | public  | `(date: Date \| null) => boolean` |         |                |
+| `selectedDate` | `selected-date` | public  | `Date \| string \| number`        | The selected date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970).      |                |
 
 ## Methods
 

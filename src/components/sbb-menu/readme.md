@@ -63,13 +63,13 @@ to identify which actions are active and which are not.
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name                     | Privacy | Type                    | Default | Description                                                                                                                           | Inherited From |
-| ------------------------ | ------- | ----------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `trigger`                | public  | `string \| HTMLElement` |         | The element that will trigger the menu dialog.&#xA;Accepts both a string (id of an element) or an HTML element.                       |                |
-| `disableAnimation`       | public  | `boolean`               | `false` | Whether the animation is enabled.                                                                                                     |                |
-| `listAccessibilityLabel` | public  | `string \| undefined`   |         | This will be forwarded as aria-label to the inner list.&#xA;Used only if the menu automatically renders the actions inside as a list. |                |
+| Name                     | Attribute                     | Privacy | Type                    | Default | Description                                                                                                                           |
+| ------------------------ | ------------------------ | ------- | ----------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `trigger`                | `trigger`                | public  | `string \| HTMLElement` |         |                |
+| `disableAnimation`       | `disable-animation`       | public  | `boolean`               | `false` | Whether the animation is enabled.                                                                                                     |
+| `listAccessibilityLabel` | `list-accessibility-label` | public  | `string \| undefined`   |         |                |
 
 ## Methods
 

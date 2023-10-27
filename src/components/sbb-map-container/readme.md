@@ -22,11 +22,11 @@ The header height can be overridden setting the variable `--sbb-map-container-ma
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name                 | Privacy | Type      | Default | Description                                                          | Inherited From |
-| -------------------- | ------- | --------- | ------- | -------------------------------------------------------------------- | -------------- |
-| `hideScrollUpButton` | public  | `boolean` | `false` | Flag to show/hide the scroll up button inside the sidebar on mobile. |                |
+| Name                 | Attribute                 | Privacy | Type      | Default | Description                                                          |
+| -------------------- | -------------------- | ------- | --------- | ------- | -------------------------------------------------------------------- |
+| `hideScrollUpButton` | `hide-scroll-up-button` | public  | `boolean` | `false` | Flag to show/hide the scroll up button inside the sidebar on mobile. |
 
 ## Slots
 

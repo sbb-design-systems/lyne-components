@@ -80,18 +80,18 @@ It's suggested to have a different value for each variant, e.g.:
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name                 | Privacy | Type                        | Default     | Description                                                              | Inherited From |
-| -------------------- | ------- | --------------------------- | ----------- | ------------------------------------------------------------------------ | -------------- |
-| `variant`            | public  | `'default' \| 'dropzone'`   | `'default'` | Whether the component has a dropzone area or not.                        |                |
-| `multiple`           | public  | `boolean`                   |             | Whether more than one file can be selected.                              |                |
-| `multipleMode`       | public  | `'default' \| 'persistent'` |             | Whether the newly added files should override the previously added ones. |                |
-| `accept`             | public  | `string`                    |             | A comma-separated list of allowed unique file type specifiers.           |                |
-| `titleContent`       | public  | `string \| undefined`       |             | The title displayed in \`dropzone\` variant.                             |                |
-| `disabled`           | public  | `boolean`                   |             | Whether the component is disabled.                                       |                |
-| `accessibilityLabel` | public  | `string \| undefined`       |             | This will be forwarded as aria-label to the native input element.        |                |
-| `files`              | public  | `File[]`                    |             | Gets the currently selected files.                                       |                |
+| Name                 | Attribute                 | Privacy | Type                        | Default     | Description                                                              |
+| -------------------- | -------------------- | ------- | --------------------------- | ----------- | ------------------------------------------------------------------------ |
+| `variant`            | `variant`            | public  | `'default' \| 'dropzone'`   | `'default'` |                |
+| `multiple`           | `multiple`           | public  | `boolean`                   |             | Whether more than one file can be selected.                              |
+| `multipleMode`       | `multiple-mode`       | public  | `'default' \| 'persistent'` |             |                |
+| `accept`             | `accept`             | public  | `string`                    |             | A comma-separated list of allowed unique file type specifiers.           |
+| `titleContent`       | `title-content`       | public  | `string \| undefined`       |             |                |
+| `disabled`           | `disabled`           | public  | `boolean`                   |             | Whether the component is disabled.                                       |
+| `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`       |             |                |
+| `files`              | `files`              | public  | `File[]`                    |             | Gets the currently selected files.                                       |
 
 ## Methods
 

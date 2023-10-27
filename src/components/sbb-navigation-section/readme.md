@@ -25,15 +25,15 @@ Similarly, if a navigation action is marked to indicate a selected option (e.g.,
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name                     | Privacy | Type                         | Default | Description                                                                                                            | Inherited From |
-| ------------------------ | ------- | ---------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `titleContent`           | public  | `string \| undefined`        |         |                                                                                                                        |                |
-| `trigger`                | public  | `string \| HTMLElement`      |         | The element that will trigger the navigation section.&#xA;Accepts both a string (id of an element) or an HTML element. |                |
-| `accessibilityLabel`     | public  | `string \| undefined`        |         | This will be forwarded as aria-label to the dialog and is read as a title of the navigation-section.                   |                |
-| `accessibilityBackLabel` | public  | `\| string     \| undefined` |         | This will be forwarded as aria-label to the back button element.                                                       |                |
-| `disableAnimation`       | public  | `boolean`                    | `false` | Whether the animation is enabled.                                                                                      |                |
+| Name                     | Attribute                     | Privacy | Type                         | Default | Description                                                                                                            |
+| ------------------------ | ------------------------ | ------- | ---------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `titleContent`           | `title-content`           | public  | `string \| undefined`        |         |                |
+| `trigger`                | `trigger`                | public  | `string \| HTMLElement`      |         |                |
+| `accessibilityLabel`     | `accessibility-label`     | public  | `string \| undefined`        |         |                |
+| `accessibilityBackLabel` | `accessibility-back-label` | public  | `\| string     \| undefined` | This will be forwarded as aria-label to the back button element.                                                       |                |
+| `disableAnimation`       | `disable-animation`       | public  | `boolean`                    | `false` | Whether the animation is enabled.                                                                                      |
 
 ## Methods
 

@@ -52,18 +52,18 @@ you can not provide it and then use `aria-label` to specify an appropriate label
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name            | Privacy | Type                                                           | Default        | Description                                                    | Inherited From |
-| --------------- | ------- | -------------------------------------------------------------- | -------------- | -------------------------------------------------------------- | -------------- |
-| `checked`       | public  | `boolean`                                                      | `false`        | Whether the toggle-check is checked.                           |                |
-| `value`         | public  | `string \| undefined`                                          |                | Value of toggle-check.                                         |                |
-| `name`          | public  | `string \| undefined`                                          |                | Name of the toggle-check.                                      |                |
-| `size`          | public  | `InterfaceToggleCheckAttributes['size']`                       | `'s'`          | Size variant, either m or s.                                   |                |
-| `iconName`      | public  | `string`                                                       | `'tick-small'` | The svg name for the true state - default -> 'tick-small'      |                |
-| `disabled`      | public  | `boolean`                                                      | `false`        | The disabled prop for the disabled state.                      |                |
-| `required`      | public  | `boolean`                                                      | `false`        | The required prop for the required state.                      |                |
-| `labelPosition` | public  | `InterfaceToggleCheckAttributes['labelPosition'] \| undefined` | `'after'`      | The label position relative to the toggle. Defaults to 'after' |                |
+| Name            | Attribute            | Privacy | Type                                                           | Default        | Description                                                    |
+| --------------- | --------------- | ------- | -------------------------------------------------------------- | -------------- | -------------------------------------------------------------- |
+| `checked`       | `checked`       | public  | `boolean`                                                      | `false`        | Whether the toggle-check is checked.                           |
+| `value`         | `value`         | public  | `string \| undefined`                                          |                |                |
+| `name`          | `name`          | public  | `string \| undefined`                                          |                |                |
+| `size`          | `size`          | public  | `InterfaceToggleCheckAttributes['size']`                       | `'s'`          | Size variant, either m or s.                                   |
+| `iconName`      | `icon-name`      | public  | `string`                                                       | `'tick-small'` | The svg name for the true state - default -> 'tick-small'      |
+| `disabled`      | `disabled`      | public  | `boolean`                                                      | `false`        | The disabled prop for the disabled state.                      |
+| `required`      | `required`      | public  | `boolean`                                                      | `false`        | The required prop for the required state.                      |
+| `labelPosition` | `label-position` | public  | `InterfaceToggleCheckAttributes['labelPosition'] \| undefined` | `'after'`      |                |
 
 ## Methods
 

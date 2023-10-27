@@ -48,15 +48,15 @@ The state is reflected via `aria-pressed` attribute.
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name       | Privacy | Type                  | Default | Description                                                                                                                                 | Inherited From |
-| ---------- | ------- | --------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `name`     | public  | `string \| undefined` |         | The name attribute to use for the button.                                                                                                   |                |
-| `value`    | public  | `string \| undefined` |         | Value of the tag.                                                                                                                           |                |
-| `form`     | public  | `string \| undefined` |         | The \<form> element to associate the button with.                                                                                           |                |
-| `amount`   | public  | `string \| undefined` |         | Amount displayed inside the tag.                                                                                                            |                |
-| `checked`  | public  | `boolean`             | `false` | Whether the tag is checked.                                                                                                                 |                |
-| `disabled` | public  | `boolean`             | `false` | Whether the tag is disabled.                                                                                                                |                |
-| `iconName` | public  | `string \| undefined` |         | The icon name we want to use, choose from the small icon variants from the ui-icons category&#xA;from https\://icons.app.sbb.ch (optional). |                |
+| Name       | Attribute       | Privacy | Type                  | Default | Description                                                                                                                                 |
+| ---------- | ---------- | ------- | --------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`     | `name`     | public  | `string \| undefined` |         |                |
+| `value`    | `value`    | public  | `string \| undefined` |         |                |
+| `form`     | `form`     | public  | `string \| undefined` |         |                |
+| `amount`   | `amount`   | public  | `string \| undefined` |         |                |
+| `checked`  | `checked`  | public  | `boolean`             | `false` | Whether the tag is checked.                                                                                                                 |
+| `disabled` | `disabled` | public  | `boolean`             | `false` | Whether the tag is disabled.                                                                                                                |
+| `iconName` | `icon-name` | public  | `string \| undefined` |         |                |
 

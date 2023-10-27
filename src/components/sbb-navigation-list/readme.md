@@ -13,11 +13,11 @@ Optionally, a label can be provided via slot via the self-named property or the 
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name    | Privacy | Type                  | Default | Description | Inherited From |
-| ------- | ------- | --------------------- | ------- | ----------- | -------------- |
-| `label` | public  | `string \| undefined` |         |             |                |
+| Name    | Attribute    | Privacy | Type                  | Default | Description |
+| ------- | ------- | ------- | --------------------- | ------- | ----------- |
+| `label` | `label` | public  | `string \| undefined` |         |                |
 
 ## Slots
 

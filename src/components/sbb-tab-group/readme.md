@@ -41,12 +41,12 @@ It's possible to set the first selected tab using the `initialSelectedIndex` pro
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name                   | Privacy | Type                              | Default | Description                                                                                                                            | Inherited From |
-| ---------------------- | ------- | --------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `size`                 | public  | `InterfaceSbbTabGroupTab['size']` |         | Size variant, either l or xl.                                                                                                          |                |
-| `initialSelectedIndex` | public  | `number`                          | `0`     | Sets the initial tab. If it matches a disabled tab or exceeds the length of&#xA;the tab group, the first enabled tab will be selected. |                |
+| Name                   | Attribute                   | Privacy | Type                              | Default | Description                                                                                                                            |
+| ---------------------- | ---------------------- | ------- | --------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `size`                 | `size`                 | public  | `InterfaceSbbTabGroupTab['size']` |         | Size variant, either l or xl.                                                                                                          |
+| `initialSelectedIndex` | `initial-selected-index` | public  | `number`                          | `0`     | Sets the initial tab. If it matches a disabled tab or exceeds the length of&#xA;the tab group, the first enabled tab will be selected. |
 
 ## Methods
 

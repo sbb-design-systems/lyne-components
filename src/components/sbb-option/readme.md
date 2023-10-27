@@ -58,15 +58,15 @@ If the label slot contains only a **text node**, it is possible to search for te
 <!-- Auto Generated Below --> 
  
 
-## Properties
+## Properties 
 
-| Name       | Privacy | Type                   | Default | Description                                                                                                                               | Inherited From |
-| ---------- | ------- | ---------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `value`    | public  | `string \| undefined`  |         | Value of the option.                                                                                                                      |                |
-| `iconName` | public  | `string \| undefined`  |         | The icon name we want to use, choose from the small icon variants&#xA;from the ui-icons category from here&#xA;https\://icons.app.sbb.ch. |                |
-| `active`   | public  | `boolean \| undefined` |         | Whether the option is currently active.                                                                                                   |                |
-| `selected` | public  | `boolean`              | `false` | Whether the option is selected.                                                                                                           |                |
-| `disabled` | public  | `boolean \| undefined` |         | Whether the option is disabled.                                                                                                           |                |
+| Name       | Attribute       | Privacy | Type                   | Default | Description                                                                                                                               |
+| ---------- | ---------- | ------- | ---------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `value`    | `value`    | public  | `string \| undefined`  |         |                |
+| `iconName` | `icon-name` | public  | `string \| undefined`  |         |                |
+| `active`   | `active`   | public  | `boolean \| undefined` |         |                |
+| `selected` | `selected` | public  | `boolean`              | `false` | Whether the option is selected.                                                                                                           |
+| `disabled` | `disabled` | public  | `boolean \| undefined` |         |                |
 
 ## Methods
 
