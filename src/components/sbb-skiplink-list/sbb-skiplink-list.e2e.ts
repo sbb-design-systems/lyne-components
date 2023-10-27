@@ -31,24 +31,20 @@ describe('sbb-skiplink-list', () => {
     expect(listItemLinks).not.to.be.null;
     expect(listItemLinks.length).to.be.equal(3);
 
-    expect(listItemLinks[0].style.height).to.be.equal('0px');
-    expect(listItemLinks[0].style.overflow).to.be.equal('hidden');
+    expect(listItemLinks[0]).to.have.style('height', '0px');
+    expect(listItemLinks[0]).to.have.style('overflow', 'hidden');
 
-    const firstLink: SbbLink = document.querySelector(
-      'sbb-skiplink-list > sbb-link#sbb-skiplink-list-link-0',
-    );
+    const firstLink: SbbLink = document.querySelector('#sbb-skiplink-list-link-0');
     firstLink.focus();
-    expect(listItemLinks[0].style.height).not.to.be.equal('0px');
-    expect(listItemLinks[0].style.overflow).to.be.equal('visible');
+    expect(listItemLinks[0]).not.to.have.style('height', '0px');
+    expect(listItemLinks[0]).to.have.style('overflow', 'visible');
 
-    const secondLink: SbbLink = document.querySelector(
-      'sbb-skiplink-list > sbb-link#sbb-skiplink-list-link-1',
-    );
+    const secondLink: SbbLink = document.querySelector('#sbb-skiplink-list-link-1');
     secondLink.focus();
-    expect(listItemLinks[0].style.height).to.be.equal('0px');
-    expect(listItemLinks[0].style.overflow).to.be.equal('hidden');
-    expect(listItemLinks[1].style.height).not.to.be.equal('0px');
-    expect(listItemLinks[1].style.overflow).to.be.equal('visible');
+    expect(listItemLinks[0]).to.have.style('height', '0px');
+    expect(listItemLinks[0]).to.have.style('overflow', 'hidden');
+    expect(listItemLinks[1]).not.to.have.style('height', '0px');
+    expect(listItemLinks[1]).to.have.style('overflow', 'visible');
   });
 
   it('should detected later added links', async () => {
