@@ -1,5 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+import './sbb-skiplink-list';
+import '../sbb-link';
 
 describe('sbb-skiplink-list', () => {
   it('renders', async () => {

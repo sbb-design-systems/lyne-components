@@ -9,6 +9,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';
 import { SbbLink } from '../sbb-link';
 import Style from './sbb-skiplink-list.scss?lit&inline';
+import '../sbb-title';
 
 /**
  * @slot - Use the unnamed slot to add `sbb-link` elements to this skiplink list.
