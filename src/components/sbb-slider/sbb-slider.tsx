@@ -8,10 +8,6 @@ import { spread } from '@open-wc/lit-helpers';
 import { styleMap } from 'lit/directives/style-map.js';
 import '../sbb-icon';
 
-export const events = {
-  didChange: 'did-change',
-};
-
 /**
  * @slot prefix - Slot to render an icon on the left side of the input.
  * @slot suffix - Slot to render an icon on the right side of the input.
@@ -19,6 +15,9 @@ export const events = {
 @customElement('sbb-slider')
 export class SbbSlider extends LitElement {
   public static override styles: CSSResult = Style;
+  public static readonly events = {
+    didChange: 'did-change',
+  } as const;
 
   /** Value for the inner HTMLInputElement. */
   @property() public value?: string = '';
@@ -62,7 +61,7 @@ export class SbbSlider extends LitElement {
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
-  private _didChange: EventEmitter = new EventEmitter(this, events.didChange, {
+  private _didChange: EventEmitter = new EventEmitter(this, SbbSlider.events.didChange, {
     bubbles: true,
     cancelable: true,
   });

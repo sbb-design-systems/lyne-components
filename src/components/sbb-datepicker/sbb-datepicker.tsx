@@ -21,17 +21,16 @@ import Style from './sbb-datepicker.scss?lit&inline';
 const FORMAT_DATE =
   /(^0?[1-9]?|[12]?[0-9]?|3?[01]?)[.,\\/\-\s](0?[1-9]?|1?[0-2]?)?[.,\\/\-\s](\d{1,4}$)?/;
 
-export const events = {
-  didChange: 'did-change',
-  change: 'change',
-  inputUpdated: 'input-updated',
-  datePickerUpdated: 'date-picker-updated',
-  validationChange: 'validation-change',
-};
-
 @customElement('sbb-datepicker')
 export class SbbDatepicker extends LitElement {
   public static override styles: CSSResult = Style;
+  public static readonly events = {
+    didChange: 'did-change',
+    change: 'change',
+    inputUpdated: 'input-updated',
+    datePickerUpdated: 'date-picker-updated',
+    validationChange: 'validation-change',
+  } as const;
 
   /** If set to true, two months are displayed. */
   @property({ type: Boolean }) public wide = false;
@@ -52,30 +51,36 @@ export class SbbDatepicker extends LitElement {
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
-  private _didChange: EventEmitter = new EventEmitter(this, events.didChange, {
+  private _didChange: EventEmitter = new EventEmitter(this, SbbDatepicker.events.didChange, {
     bubbles: true,
     cancelable: true,
   });
 
-  private _change: EventEmitter = new EventEmitter(this, events.change, { bubbles: true });
+  private _change: EventEmitter = new EventEmitter(this, SbbDatepicker.events.change, {
+    bubbles: true,
+  });
 
   /** Notifies that the attributes of the input connected to the datepicker have changes. */
   private _inputUpdated: EventEmitter<InputUpdateEvent> = new EventEmitter(
     this,
-    events.inputUpdated,
+    SbbDatepicker.events.inputUpdated,
     { bubbles: true, cancelable: true },
   );
 
   /** Notifies that the attributes of the datepicker have changes. */
-  private _datePickerUpdated: EventEmitter = new EventEmitter(this, events.datePickerUpdated, {
-    bubbles: true,
-    cancelable: true,
-  });
+  private _datePickerUpdated: EventEmitter = new EventEmitter(
+    this,
+    SbbDatepicker.events.datePickerUpdated,
+    {
+      bubbles: true,
+      cancelable: true,
+    },
+  );
 
   /** Emits whenever the internal validation state changes. */
   private _validationChange: EventEmitter<ValidationChangeEvent> = new EventEmitter(
     this,
-    events.validationChange,
+    SbbDatepicker.events.validationChange,
   );
 
   @state() private get _inputElement(): HTMLInputElement | null {

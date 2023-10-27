@@ -9,13 +9,12 @@ import { Fragment, h, JSX } from 'jsx-dom';
 import { waitForComponentsReady } from '../../global/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../global/testing/wait-for-stable-position';
 import readme from './readme.md?raw';
-import { events } from './sbb-datepicker';
+import { SbbDatepicker } from './sbb-datepicker';
 
 import '../sbb-datepicker-next-day';
 import '../sbb-datepicker-previous-day';
 import '../sbb-datepicker-toggle';
 import '../sbb-form-field';
-import './sbb-datepicker';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative
@@ -512,7 +511,7 @@ const meta: Meta = {
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {
-      handles: ['input', 'change', events.validationChange],
+      handles: ['input', 'change', SbbDatepicker.events.validationChange],
     },
     backgrounds: {
       disable: true,
