@@ -38,7 +38,7 @@ export class SbbDatepickerPreviousDay extends LitElement {
   @property({ reflect: true, type: Boolean }) public negative = false;
 
   /** Datepicker reference. */
-  @property({ attribute: 'date-picker' }) public datePicker?: string | HTMLElement;
+  @property({ attribute: 'date-picker' }) public datePicker?: string | SbbDatepicker;
 
   /** Whether the component is disabled due date equals to min date. */
   @state() private _disabled = false;
@@ -123,7 +123,7 @@ export class SbbDatepickerPreviousDay extends LitElement {
     this._datePickerController?.abort();
   }
 
-  private _init(picker?: string | HTMLElement): void {
+  private _init(picker?: string | SbbDatepicker): void {
     this._datePickerController?.abort();
     this._datePickerController = new AbortController();
     this._datePickerElement = getDatePicker(this, picker);

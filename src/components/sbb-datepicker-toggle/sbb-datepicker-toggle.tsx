@@ -29,7 +29,7 @@ export class SbbDatepickerToggle extends LitElement {
   public static override styles: CSSResult = Style;
 
   /** Datepicker reference. */
-  @property({ attribute: 'date-picker' }) public datePicker?: string | HTMLElement;
+  @property({ attribute: 'date-picker' }) public datePicker?: string | SbbDatepicker;
 
   /** Whether the animation is disabled. */
   @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation = false;
@@ -60,7 +60,10 @@ export class SbbDatepickerToggle extends LitElement {
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
-  private _findDatePicker(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
+  private _findDatePicker(
+    newValue: string | SbbDatepicker,
+    oldValue: string | SbbDatepicker,
+  ): void {
     if (newValue !== oldValue) {
       this._init(this.datePicker);
     }
@@ -101,7 +104,7 @@ export class SbbDatepickerToggle extends LitElement {
     this._handlerRepository.disconnect();
   }
 
-  private async _init(datePicker?: string | HTMLElement): Promise<void> {
+  private async _init(datePicker?: string | SbbDatepicker): Promise<void> {
     this._datePickerController?.abort();
     this._datePickerController = new AbortController();
     this._datePickerElement = getDatePicker(this, datePicker);

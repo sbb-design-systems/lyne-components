@@ -1,5 +1,8 @@
 import { DateAdapter, NativeDateAdapter } from '../../global/datetime';
 import { findReferencedElement } from '../../global/dom';
+import type { SbbDatepickerPreviousDay } from '../sbb-datepicker-previous-day';
+import type { SbbDatepickerNextDay } from '../sbb-datepicker-next-day';
+import type { SbbDatepickerToggle } from '../sbb-datepicker-toggle';
 import type { SbbDatepicker } from './sbb-datepicker';
 
 export interface InputUpdateEvent {
@@ -15,7 +18,10 @@ export interface InputUpdateEvent {
  * @param element The element potentially connected to the SbbDatepicker.
  * @param trigger The id or the reference of the SbbDatePicker.
  */
-export function getDatePicker(element: HTMLElement, trigger?: string | HTMLElement): SbbDatepicker {
+export function getDatePicker(
+  element: SbbDatepickerPreviousDay | SbbDatepickerNextDay | SbbDatepickerToggle,
+  trigger?: string | HTMLElement,
+): SbbDatepicker {
   if (!trigger) {
     const parent = element.closest('sbb-form-field');
     return parent?.querySelector('sbb-datepicker');
