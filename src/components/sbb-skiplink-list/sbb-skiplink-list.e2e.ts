@@ -34,7 +34,7 @@ describe('sbb-skiplink-list', () => {
     expect(listItemLinks[0]).to.have.style('height', '0px');
     expect(listItemLinks[0]).to.have.style('overflow', 'hidden');
 
-    const firstLink: SbbLink = document.querySelector('#sbb-skiplink-list-link-0');
+    const firstLink: HTMLElement = listItemLinks[0].querySelector('slot');
     firstLink.focus();
     expect(listItemLinks[0]).not.to.have.style('height', '0px');
     expect(listItemLinks[0]).to.have.style('overflow', 'visible');
