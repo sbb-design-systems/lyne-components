@@ -2,6 +2,7 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { waitForLitRender } from '../../global/testing';
 import { SbbSkiplinkList } from './sbb-skiplink-list';
+import { SbbLink } from '../sbb-link';
 import '../sbb-skiplink-list';
 
 describe('sbb-skiplink-list', () => {
@@ -26,28 +27,28 @@ describe('sbb-skiplink-list', () => {
   });
 
   it('should be visible on focus', async () => {
-    const listItemLinks = await element.shadowRoot.querySelectorAll('li');
+    const listItemLinks = element.shadowRoot.querySelectorAll('li');
     expect(listItemLinks).not.to.be.null;
     expect(listItemLinks.length).to.be.equal(3);
 
-    expect(listItemLinks[0].height).to.be.equal('0px');
-    expect(listItemLinks[0].overflow).to.be.equal('hidden');
+    expect(listItemLinks[0].style.height).to.be.equal('0px');
+    expect(listItemLinks[0].style.overflow).to.be.equal('hidden');
 
-    const firstLink = document.querySelector(
+    const firstLink: SbbLink = document.querySelector(
       'sbb-skiplink-list > sbb-link#sbb-skiplink-list-link-0',
     );
     firstLink.focus();
-    expect(listItemLinks[0].height).not.to.be.equal('0px');
-    expect(listItemLinks[0].overflow).to.be.equal('visible');
+    expect(listItemLinks[0].style.height).not.to.be.equal('0px');
+    expect(listItemLinks[0].style.overflow).to.be.equal('visible');
 
-    const secondLink = document.querySelector(
+    const secondLink: SbbLink = document.querySelector(
       'sbb-skiplink-list > sbb-link#sbb-skiplink-list-link-1',
     );
     secondLink.focus();
-    expect(listItemLinks[0].height).to.be.equal('0px');
-    expect(listItemLinks[0].overflow).to.be.equal('hidden');
-    expect(listItemLinks[1].height).not.to.be.equal('0px');
-    expect(listItemLinks[1].overflow).to.be.equal('visible');
+    expect(listItemLinks[0].style.height).to.be.equal('0px');
+    expect(listItemLinks[0].style.overflow).to.be.equal('hidden');
+    expect(listItemLinks[1].style.height).not.to.be.equal('0px');
+    expect(listItemLinks[1].style.overflow).to.be.equal('visible');
   });
 
   it('should detected later added links', async () => {
