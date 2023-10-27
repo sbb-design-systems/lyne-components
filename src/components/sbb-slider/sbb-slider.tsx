@@ -1,86 +1,93 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  h,
-  JSX,
-  Prop,
-  State,
-  Watch,
-  Event,
-  EventEmitter,
-  Host,
-  Listen,
-} from '@stencil/core';
-import { isEventPrevented, forwardEventToHost } from '../../global/eventing';
+import { forwardEventToHost, EventEmitter, ConnectedAbortController } from '../../global/eventing';
+import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { setAttributes } from '../../global/dom';
+import { ref } from 'lit/directives/ref.js';
+import Style from './sbb-slider.scss?lit&inline';
+import { spread } from '@open-wc/lit-helpers';
+import { styleMap } from 'lit/directives/style-map.js';
+import '../sbb-icon';
+
+export const events = {
+  didChange: 'did-change',
+};
 
 /**
  * @slot prefix - Slot to render an icon on the left side of the input.
  * @slot suffix - Slot to render an icon on the right side of the input.
  */
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-slider.scss',
-  tag: 'sbb-slider',
-})
-export class SbbSlider implements ComponentInterface {
+@customElement('sbb-slider')
+export class SbbSlider extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /** Value for the inner HTMLInputElement. */
-  @Prop({ mutable: true }) public value?: string = '';
+  @property() public value?: string = '';
 
   /** Numeric value for the inner HTMLInputElement. */
-  @Prop({ mutable: true }) public valueAsNumber?: number;
+  @property({ attribute: 'value-as-number' }) public valueAsNumber?: number;
 
   /** Name of the inner HTMLInputElement. */
-  @Prop({ reflect: true }) public name?: string = '';
+  @property({ reflect: true }) public name?: string = '';
 
   /** The <form> element to associate the inner HTMLInputElement with. */
-  @Prop() public form?: string;
+  @property() public form?: string;
 
   /** Minimum acceptable value for the inner HTMLInputElement. */
-  @Prop() public min?: string = '0';
+  @property() public min?: string = '0';
 
   /** Maximum acceptable value for the inner HTMLInputElement. */
-  @Prop() public max?: string = '100';
+  @property() public max?: string = '100';
 
   /**
    * Readonly state for the inner HTMLInputElement.
    * Since the input range does not allow this attribute, it will be merged with the `disabled` one.
    */
-  @Prop() public readonly?: boolean = false;
+  @property({ type: Boolean }) public readonly?: boolean = false;
 
   /** Disabled state for the inner HTMLInputElement. */
-  @Prop() public disabled?: boolean = false;
+  @property({ type: Boolean }) public disabled?: boolean = false;
 
   /** Name of the icon at component's start, which will be forward to the nested `sbb-icon`. */
-  @Prop() public startIcon?: string;
+  @property({ attribute: 'start-icon' }) public startIcon?: string;
 
   /** Name of the icon at component's end, which will be forward to the nested `sbb-icon`. */
-  @Prop() public endIcon?: string;
+  @property({ attribute: 'end-icon' }) public endIcon?: string;
 
   /**
    * The ratio between the absolute value and the validity interval.
    * E.g. given `min=0`, `max=100` and `value=50`, then `_valueFraction=0.5`
    */
-  @State() private _valueFraction = 0;
+  @state() private _valueFraction = 0;
 
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
-  @Event({ bubbles: true, cancelable: true }) public didChange: EventEmitter;
-
-  /** Host element */
-  @Element() private _element!: HTMLElement;
+  private _didChange: EventEmitter = new EventEmitter(this, events.didChange, {
+    bubbles: true,
+    cancelable: true,
+  });
 
   /** Reference to the inner HTMLInputElement with type='range'. */
   private _rangeInput!: HTMLInputElement;
 
-  public connectedCallback(): void {
+  private _abort = new ConnectedAbortController(this);
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    const signal = this._abort.signal;
+    this.addEventListener('keydown', (e) => this._handleKeydown(e), { signal });
     this._handleChange();
   }
 
-  @Watch('value')
-  @Watch('valueAsNumber')
-  private _syncValues(newValue: string | number = this._rangeInput?.valueAsNumber): void {
+  public override willUpdate(changedProperties: PropertyValues<this>): void {
+    if (changedProperties.has('value')) {
+      this._handleChange(Number(this.value));
+    } else if (changedProperties.has('valueAsNumber')) {
+      this._handleChange(Number(this.valueAsNumber));
+    }
+  }
+
+  private _syncValues(newValue: string | number): void {
     if (newValue == null) {
       return;
     } else if (newValue && typeof newValue !== 'number') {
@@ -97,9 +104,7 @@ export class SbbSlider implements ComponentInterface {
    * the `min` and `max` values are used; if `value` is not provided, the default value is halfway between min and max
    * (see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range#value).
    */
-  @Watch('value')
-  @Watch('valueAsNumber')
-  private _handleChange(value = this._rangeInput?.valueAsNumber): void {
+  private _handleChange(value: number = this._rangeInput?.valueAsNumber): void {
     let min: number, max: number;
     if (this._rangeInput) {
       min = +this._rangeInput.min;
@@ -117,12 +122,13 @@ export class SbbSlider implements ComponentInterface {
     const mathFraction: number = (value - min) / (max - min);
     this._valueFraction =
       isNaN(mathFraction) || mathFraction < 0 ? 0 : mathFraction > 1 ? 1 : mathFraction;
-    this._syncValues();
+    this._syncValues(value);
   }
 
-  @Listen('keydown')
-  public async handleKeydown(event: KeyboardEvent): Promise<void> {
-    if (this.disabled || this.readonly || (await isEventPrevented(event))) {
+  private async _handleKeydown(event: KeyboardEvent): Promise<void> {
+    // FIXME the third condition in the if doesn't prevent from scrolling
+    event.preventDefault();
+    if (this.disabled || this.readonly) {
       return;
     }
 
@@ -142,8 +148,8 @@ export class SbbSlider implements ComponentInterface {
       return;
     }
 
-    this._syncValues();
-    this._element.dispatchEvent(
+    this._handleChange();
+    this.dispatchEvent(
       new InputEvent('input', { bubbles: true, cancelable: true, composed: true }),
     );
     this._emitChange(
@@ -153,14 +159,14 @@ export class SbbSlider implements ComponentInterface {
 
   /** Emits the change event. */
   private _emitChange(event: Event): void {
-    forwardEventToHost(event, this._element);
-    this.didChange.emit();
+    forwardEventToHost(event, this);
+    this._didChange.emit();
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const hostAttributes = {
       role: 'slider',
-      tabIndex: this.disabled ? null : 0,
+      tabIndex: this.disabled ? null : '0',
       'aria-valuemin': this.min || null,
       'aria-valuemax': this.max || null,
       'aria-valuenow': this.value || null,
@@ -177,34 +183,43 @@ export class SbbSlider implements ComponentInterface {
       value: this.value || null,
     };
 
-    return (
-      <Host {...hostAttributes}>
-        <div class="sbb-slider__height-container">
-          <div class="sbb-slider__wrapper">
-            <slot name="prefix">{this.startIcon && <sbb-icon name={this.startIcon} />}</slot>
-            <div
-              class="sbb-slider__container"
-              style={{
-                '--sbb-slider-value-fraction': this._valueFraction.toString(),
-              }}
-            >
-              <input
-                class="sbb-slider__range-input"
-                type="range"
-                {...inputAttributes}
-                onChange={(event: Event) => this._emitChange(event)}
-                onInput={() => this._handleChange()}
-                ref={(input) => (this._rangeInput = input)}
-              />
-              <div class="sbb-slider__line">
-                <div class="sbb-slider__selected-line"></div>
-              </div>
-              <div class="sbb-slider__knob"></div>
+    setAttributes(this, hostAttributes);
+
+    return html`
+      <div class="sbb-slider__height-container">
+        <div class="sbb-slider__wrapper">
+          <slot name="prefix">
+            ${this.startIcon ? html`<sbb-icon name="${this.startIcon}"></sbb-icon>` : nothing}
+          </slot>
+          <div
+            class="sbb-slider__container"
+            style=${styleMap({ '--sbb-slider-value-fraction': this._valueFraction.toString() })}
+          >
+            <input
+              ${spread(inputAttributes)}
+              class="sbb-slider__range-input"
+              type="range"
+              @change=${(event: Event) => this._emitChange(event)}
+              @input=${() => this._handleChange()}
+              ${ref((input: HTMLInputElement) => (this._rangeInput = input))}
+            />
+            <div class="sbb-slider__line">
+              <div class="sbb-slider__selected-line"></div>
             </div>
-            <slot name="suffix">{this.endIcon && <sbb-icon name={this.endIcon} />}</slot>
+            <div class="sbb-slider__knob"></div>
           </div>
+          <slot name="suffix">
+            ${this.endIcon ? html`<sbb-icon name="${this.endIcon}"></sbb-icon>` : nothing}
+          </slot>
         </div>
-      </Host>
-    );
+      </div>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-slider': SbbSlider;
   }
 }
