@@ -1,59 +1,51 @@
-import { SbbDatepickerPreviousDay } from './sbb-datepicker-previous-day';
-import { newSpecPage, SpecPage } from '@stencil/core/testing';
+import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
 import { SbbFormField } from '../sbb-form-field/sbb-form-field';
-import { SbbDatepicker } from '../sbb-datepicker/sbb-datepicker';
+import { SbbDatepickerPreviousDay } from './sbb-datepicker-previous-day';
+
+import '../sbb-datepicker';
+import '../sbb-form-field';
+import './sbb-datepicker-previous-day';
 
 describe('sbb-datepicker-previous-day', () => {
   it('renders', async () => {
-    const page: SpecPage = await newSpecPage({
-      components: [SbbDatepickerPreviousDay],
-      html: '<sbb-datepicker-previous-day />',
-    });
+    const page: SbbDatepickerPreviousDay = await fixture(
+      html`<sbb-datepicker-previous-day></sbb-datepicker-previous-day>`,
+    );
 
-    expect(page.root).toEqualHtml(`
-      <sbb-datepicker-previous-day slot="prefix" dir="ltr" role="button" slot="prefix" tabindex="0">
-        <mock:shadow-root>
-          <span class="sbb-datepicker-previous-day">
-            <sbb-icon name="chevron-small-left-small" />
-          </span>
-        </mock:shadow-root>
-      </sbb-datepicker-previous-day>
+    expect(page).dom.to.equal(`
+      <sbb-datepicker-previous-day slot="prefix" dir="ltr" role="button" slot="prefix" tabindex="0"></sbb-datepicker-previous-day>
     `);
+
+    expect(page).shadowDom.to.equal(`
+    <span class="sbb-datepicker-previous-day">
+      <sbb-icon aria-hidden="true" data-namespace="default" name="chevron-small-left-small" role="img"></sbb-icon>
+    </span>`);
   });
 
   it('renders with datepicker and input disabled', async () => {
-    const page: SpecPage = await newSpecPage({
-      components: [SbbFormField, SbbDatepicker, SbbDatepickerPreviousDay],
-      html: `
-        <sbb-form-field>
-          <input disabled="">
-          <sbb-datepicker></sbb-datepicker>
-          <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
-        </sbb-form-field>
-      `,
-    });
+    const page: SbbFormField = await fixture(html`
+      <sbb-form-field>
+        <input disabled="" />
+        <sbb-datepicker></sbb-datepicker>
+        <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
+      </sbb-form-field>
+    `);
 
-    const element: HTMLSbbDatepickerPreviousDayElement = page.doc.querySelector(
-      'sbb-datepicker-previous-day',
-    );
-    expect(element).toHaveAttribute('data-disabled');
+    const element: SbbDatepickerPreviousDay = page.querySelector('sbb-datepicker-previous-day');
+    expect(element).to.have.attribute('data-disabled');
   });
 
   it('renders with datepicker and input readonly', async () => {
-    const page: SpecPage = await newSpecPage({
-      components: [SbbFormField, SbbDatepicker, SbbDatepickerPreviousDay],
-      html: `
-        <sbb-form-field>
-          <input readonly="">
-          <sbb-datepicker></sbb-datepicker>
-          <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
-        </sbb-form-field>
-      `,
-    });
+    const page: SbbFormField = await fixture(html`
+      <sbb-form-field>
+        <input readonly="" />
+        <sbb-datepicker></sbb-datepicker>
+        <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
+      </sbb-form-field>
+    `);
 
-    const element: HTMLSbbDatepickerPreviousDayElement = page.doc.querySelector(
-      'sbb-datepicker-previous-day',
-    );
-    expect(element).toHaveAttribute('data-disabled');
+    const element: SbbDatepickerPreviousDay = page.querySelector('sbb-datepicker-previous-day');
+    expect(element).to.have.attribute('data-disabled');
   });
 });

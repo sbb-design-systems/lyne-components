@@ -1,15 +1,20 @@
 /** @jsx h */
-import { Fragment, h, JSX } from 'jsx-dom';
-import readme from './readme.md?raw';
+import { withActions } from '@storybook/addon-actions/decorator';
 import { userEvent, within } from '@storybook/testing-library';
+import type { InputType } from '@storybook/types';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import { StoryContext } from '@storybook/web-components';
+import isChromatic from 'chromatic';
+import { Fragment, h, JSX } from 'jsx-dom';
 import { waitForComponentsReady } from '../../global/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../global/testing/wait-for-stable-position';
-import { withActions } from '@storybook/addon-actions/decorator';
-import isChromatic from 'chromatic';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
-import type { InputType } from '@storybook/types';
-import events from './sbb-datepicker.events';
-import { StoryContext } from '@storybook/html';
+import readme from './readme.md?raw';
+import { SbbDatepicker } from './sbb-datepicker';
+
+import '../sbb-datepicker-next-day';
+import '../sbb-datepicker-previous-day';
+import '../sbb-datepicker-toggle';
+import '../sbb-form-field';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative
@@ -506,7 +511,7 @@ const meta: Meta = {
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {
-      handles: ['input', 'change', events.validationChange],
+      handles: ['input', 'change', SbbDatepicker.events.validationChange],
     },
     backgrounds: {
       disable: true,

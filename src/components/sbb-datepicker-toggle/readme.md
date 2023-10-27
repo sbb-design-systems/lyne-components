@@ -34,16 +34,15 @@ otherwise, they can be connected using the `datePicker` property as described ab
 
 ## Properties 
 
-| Name               | Attribute               | Privacy | Type                                 | Default | Description                        |
-| ------------------ | ------------------ | ------- | ------------------------------------ | ------- | ---------------------------------- |
-| `datePicker`       | `date-picker`       | public  | `string \| HTMLElement \| undefined` |         | Datepicker reference.              |
-| `disableAnimation` | `disable-animation` | public  | `boolean`                            | `false` | Whether the animation is disabled. |
-| `negative`         | `negative`         | public  | `boolean`                            | `false` | Negative coloring variant flag.    |
+| Name               | Attribute               | Privacy | Type                                   | Default | Description                        |
+| ------------------ | ------------------ | ------- | -------------------------------------- | ------- | ---------------------------------- |
+| `datePicker`       | `date-picker`       | public  | `string \| SbbDatepicker \| undefined` |         | Datepicker reference.              |
+| `disableAnimation` | `disable-animation` | public  | `boolean`                              | `false` | Whether the animation is disabled. |
+| `negative`         | `negative`         | public  | `boolean`                              | `false` | Negative coloring variant flag.    |
 
 ## Methods
 
-| Name             | Privacy | Description         | Parameters                                                         | Return          | Inherited From |
-| ---------------- | ------- | ------------------- | ------------------------------------------------------------------ | --------------- | -------------- |
-| `findDatePicker` | public  |                     | `newValue: string \| HTMLElement, oldValue: string \| HTMLElement` | `Promise<void>` |                |
-| `open`           | public  | Opens the calendar. |                                                                    | `Promise<void>` |                |
+| Name   | Privacy | Description         | Parameters | Return | Inherited From |
+| ------ | ------- | ------------------- | ---------- | ------ | -------------- |
+| `open` | public  | Opens the calendar. |            | `void` |                |
 

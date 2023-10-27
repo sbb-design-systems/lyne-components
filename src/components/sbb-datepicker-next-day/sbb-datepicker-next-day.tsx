@@ -1,62 +1,58 @@
+import { CSSResult, LitElement, PropertyValues, TemplateResult, html } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { DateAdapter, NativeDateAdapter } from '../../global/datetime';
 import {
-  Component,
-  ComponentInterface,
-  Element,
-  h,
-  Host,
-  JSX,
-  Listen,
-  Prop,
-  State,
-  Watch,
-} from '@stencil/core';
+  isValidAttribute,
+  setAttribute,
+  setAttributes,
+  toggleDatasetEntry,
+} from '../../global/dom';
+import {
+  ConnectedAbortController,
+  HandlerRepository,
+  actionElementHandlerAspect,
+  documentLanguage,
+  languageChangeHandlerAspect,
+} from '../../global/eventing';
 import { i18nNextDay, i18nSelectNextDay, i18nToday } from '../../global/i18n';
-import { ButtonProperties, resolveButtonRenderVariables } from '../../global/interfaces';
+import { resolveButtonRenderVariables } from '../../global/interfaces';
+import type { SbbDatepicker } from '../sbb-datepicker';
 import {
+  InputUpdateEvent,
   datepickerControlRegisteredEvent,
   findNextAvailableDate,
   getDatePicker,
-  InputUpdateEvent,
 } from '../sbb-datepicker/sbb-datepicker.helper';
-import { DateAdapter, NativeDateAdapter } from '../../global/datetime';
-import {
-  documentLanguage,
-  HandlerRepository,
-  actionElementHandlerAspect,
-  languageChangeHandlerAspect,
-} from '../../global/eventing';
-import { isValidAttribute, toggleDatasetEntry } from '../../global/dom';
+import Style from './sbb-datepicker-next-day.scss?lit&inline';
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-datepicker-next-day.scss',
-  tag: 'sbb-datepicker-next-day',
-})
-export class SbbDatepickerNextDay implements ComponentInterface, ButtonProperties {
+import '../sbb-icon';
+
+@customElement('sbb-datepicker-next-day')
+export class SbbDatepickerNextDay extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /** The name attribute to use for the button. */
-  @Prop({ reflect: true }) public name: string | undefined;
+  @property({ reflect: true }) public name: string | undefined;
 
   /** Negative coloring variant flag. */
-  @Prop({ reflect: true, mutable: true }) public negative = false;
+  @property({ reflect: true, type: Boolean }) public negative = false;
 
   /** Datepicker reference. */
-  @Prop() public datePicker?: string | HTMLElement;
-
-  @Element() private _element!: HTMLSbbDatepickerNextDayElement;
+  @property({ attribute: 'date-picker' }) public datePicker?: string | SbbDatepicker;
 
   /** Whether the component is disabled due date equals to max date. */
-  @State() private _disabled = false;
+  @state() private _disabled = false;
 
   /** Whether the component is disabled due date-picker's input disabled. */
-  @State() private _inputDisabled = false;
+  @state() private _inputDisabled = false;
 
   /** The maximum date as set in the date-picker's input. */
-  @State() private _max: string | number;
+  @state() private _max: string | number;
 
-  @State() private _currentLanguage = documentLanguage();
+  @state() private _currentLanguage = documentLanguage();
 
   private _handlerRepository = new HandlerRepository(
-    this._element as HTMLElement,
+    this as HTMLElement,
     actionElementHandlerAspect,
     languageChangeHandlerAspect((l) => {
       this._currentLanguage = l;
@@ -64,28 +60,19 @@ export class SbbDatepickerNextDay implements ComponentInterface, ButtonPropertie
     }),
   );
 
-  private _datePickerElement: HTMLSbbDatepickerElement;
+  private _datePickerElement: SbbDatepicker;
 
   private _dateAdapter: DateAdapter<Date> = new NativeDateAdapter();
 
   private _datePickerController: AbortController;
 
-  @Watch('datePicker')
-  public async findDatePicker(
-    newValue: string | HTMLElement,
-    oldValue: string | HTMLElement,
-  ): Promise<void> {
-    if (newValue !== oldValue) {
-      await this._init(this.datePicker);
-    }
-  }
+  private _abort = new ConnectedAbortController(this);
 
-  @Listen('click')
-  public async handleClick(): Promise<void> {
-    if (!this._datePickerElement || isValidAttribute(this._element, 'data-disabled')) {
+  private _handleClick(): void {
+    if (!this._datePickerElement || isValidAttribute(this, 'data-disabled')) {
       return;
     }
-    const startingDate: Date = (await this._datePickerElement.getValueAsDate()) ?? this._now();
+    const startingDate: Date = this._datePickerElement.getValueAsDate() ?? this._now();
     const date: Date = findNextAvailableDate(
       startingDate,
       this._datePickerElement.dateFilter,
@@ -93,19 +80,29 @@ export class SbbDatepickerNextDay implements ComponentInterface, ButtonPropertie
       this._max,
     );
     if (this._dateAdapter.compareDate(date, startingDate) !== 0) {
-      await this._datePickerElement.setValueAsDate(date);
+      this._datePickerElement.setValueAsDate(date);
     }
   }
 
-  public async connectedCallback(): Promise<void> {
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    const signal = this._abort.signal;
+    this.addEventListener('click', () => this._handleClick(), { signal });
     this._handlerRepository.connect();
     this._syncUpstreamProperties();
-    await this._init(this.datePicker);
+    if (!this.datePicker) {
+      this._init();
+    }
+  }
+
+  public override willUpdate(changedProperties: PropertyValues<this>): void {
+    if (changedProperties.has('datePicker')) {
+      this._init(this.datePicker);
+    }
   }
 
   private _syncUpstreamProperties(): void {
-    const formField =
-      this._element.closest('sbb-form-field') ?? this._element.closest('[data-form-field]');
+    const formField = this.closest('sbb-form-field') ?? this.closest('[data-form-field]');
     if (formField) {
       this.negative = isValidAttribute(formField, 'negative');
 
@@ -120,39 +117,40 @@ export class SbbDatepickerNextDay implements ComponentInterface, ButtonPropertie
     }
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
     this._datePickerController?.abort();
   }
 
-  private async _init(picker?: string | HTMLElement): Promise<void> {
+  private _init(picker?: string | SbbDatepicker): void {
     this._datePickerController?.abort();
     this._datePickerController = new AbortController();
-    this._datePickerElement = getDatePicker(this._element, picker);
+    this._datePickerElement = getDatePicker(this, picker);
     if (!this._datePickerElement) {
       return;
     }
-    await this._setDisabledState(this._datePickerElement);
-    await this._setAriaLabel();
+    this._setDisabledState(this._datePickerElement);
+    this._setAriaLabel();
 
     this._datePickerElement.addEventListener(
       'change',
       (event: Event) => {
-        this._setDisabledState(event.target as HTMLSbbDatepickerElement);
+        this._setDisabledState(event.target as SbbDatepicker);
         this._setAriaLabel();
       },
       { signal: this._datePickerController.signal },
     );
     this._datePickerElement.addEventListener(
-      'datePickerUpdated',
+      'date-picker-updated',
       (event: Event) => {
-        this._setDisabledState(event.target as HTMLSbbDatepickerElement);
+        this._setDisabledState(event.target as SbbDatepicker);
         this._setAriaLabel();
       },
       { signal: this._datePickerController.signal },
     );
     this._datePickerElement.addEventListener(
-      'inputUpdated',
+      'input-updated',
       (event: CustomEvent<InputUpdateEvent>) => {
         this._inputDisabled = event.detail.disabled || event.detail.readonly;
         if (this._max !== event.detail.max) {
@@ -167,8 +165,8 @@ export class SbbDatepickerNextDay implements ComponentInterface, ButtonPropertie
     this._datePickerElement.dispatchEvent(datepickerControlRegisteredEvent);
   }
 
-  private async _setDisabledState(datepicker: HTMLSbbDatepickerElement): Promise<void> {
-    const pickerValueAsDate: Date = await datepicker.getValueAsDate();
+  private _setDisabledState(datepicker: SbbDatepicker): void {
+    const pickerValueAsDate: Date = datepicker.getValueAsDate();
 
     if (!pickerValueAsDate) {
       this._disabled = true;
@@ -201,11 +199,11 @@ export class SbbDatepickerNextDay implements ComponentInterface, ButtonPropertie
     return this._dateAdapter.today();
   }
 
-  private async _setAriaLabel(): Promise<void> {
-    const currentDate = await this._datePickerElement.getValueAsDate();
+  private _setAriaLabel(): void {
+    const currentDate = this._datePickerElement.getValueAsDate();
 
     if (!currentDate) {
-      this._element.setAttribute('aria-label', i18nNextDay[this._currentLanguage]);
+      this.setAttribute('aria-label', i18nNextDay[this._currentLanguage]);
       return;
     }
 
@@ -214,25 +212,30 @@ export class SbbDatepickerNextDay implements ComponentInterface, ButtonPropertie
         ? i18nToday[this._currentLanguage].toLowerCase()
         : this._dateAdapter.getAccessibilityFormatDate(currentDate);
 
-    this._element.setAttribute(
-      'aria-label',
-      i18nSelectNextDay(currentDateString)[this._currentLanguage],
-    );
+    this.setAttribute('aria-label', i18nSelectNextDay(currentDateString)[this._currentLanguage]);
   }
 
-  public render(): JSX.Element {
-    toggleDatasetEntry(this._element, 'disabled', this._disabled || this._inputDisabled);
+  protected override render(): TemplateResult {
+    toggleDatasetEntry(this, 'disabled', this._disabled || this._inputDisabled);
     const { hostAttributes } = resolveButtonRenderVariables({
       ...this,
-      disabled: isValidAttribute(this._element, 'data-disabled'),
+      disabled: isValidAttribute(this, 'data-disabled'),
     });
 
-    return (
-      <Host {...hostAttributes} slot="suffix">
-        <span class="sbb-datepicker-next-day">
-          <sbb-icon name="chevron-small-right-small" />
-        </span>
-      </Host>
-    );
+    setAttributes(this, hostAttributes);
+    setAttribute(this, 'slot', 'suffix');
+
+    return html`
+      <span class="sbb-datepicker-next-day">
+        <sbb-icon name="chevron-small-right-small"></sbb-icon>
+      </span>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-datepicker-next-day': SbbDatepickerNextDay;
   }
 }
