@@ -1,5 +1,4 @@
 import icons from '../../global/timetable/icons.json';
-import { InterfaceTimetableParkAndRailAttributes } from './sbb-timetable-park-and-rail.custom';
 import {
   i18nAvailableAtDepartingStation,
   i18nDistanceMeter,
@@ -23,7 +22,7 @@ export class SbbTimetableParkAndRail extends LitElement {
    * the component.
    */
   @property()
-  public appearance?: InterfaceTimetableParkAndRailAttributes['appearance'] = 'first-level';
+  public appearance? = 'first-level' as const;
 
   /**
    * Stringified JSON which defines most of the

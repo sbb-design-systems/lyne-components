@@ -1,4 +1,3 @@
-import { InterfaceButtonAttributes } from './sbb-button.custom';
 import {
   ButtonType,
   IsStaticProperty,
@@ -30,6 +29,8 @@ import { setAttribute, setAttributes } from '../../global/dom';
 import Style from './sbb-button.scss?lit&inline';
 import '../sbb-icon';
 
+export type SbbButtonSize = 'l' | 'm';
+
 /**
  * @slot unnamed - Button Content
  * @slot icon - Slot used to display the icon, if one is set
@@ -39,13 +40,17 @@ export class SbbButton extends LitElement implements LinkButtonProperties, IsSta
   public static override styles = Style;
 
   /** Variant of the button, like primary, secondary etc. */
-  @property({ reflect: true }) public variant: InterfaceButtonAttributes['variant'] = 'primary';
+  @property({ reflect: true }) public variant:
+    | 'primary'
+    | 'secondary'
+    | 'tertiary'
+    | 'transparent' = 'primary';
 
   /** Negative coloring variant flag. */
   @property({ reflect: true, type: Boolean }) public negative = false;
 
   /** Size variant, either l or m. */
-  @property({ reflect: true }) public size?: InterfaceButtonAttributes['size'] = 'l';
+  @property({ reflect: true }) public size?: SbbButtonSize = 'l';
 
   /**
    * Set this property to true if you want only a visual representation of a

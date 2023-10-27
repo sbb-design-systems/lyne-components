@@ -11,6 +11,7 @@ import { i18nTimeInputChange } from '../../global/i18n';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
+import { SbbDateLike } from '../../global/types';
 import Style from './sbb-time-input.scss?lit&inline';
 
 const REGEX_ALLOWED_CHARACTERS = /[0-9.:,\-;_hH]/;
@@ -94,7 +95,7 @@ export class SbbTimeInput extends LitElement {
   }
 
   /** Set the input value to the correctly formatted value. */
-  public setValueAsDate(date: Date | number | string): void {
+  public setValueAsDate(date: SbbDateLike): void {
     if (!date || !this._inputElement) {
       return;
     }

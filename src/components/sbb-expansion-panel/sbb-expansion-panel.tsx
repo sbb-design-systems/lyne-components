@@ -1,5 +1,4 @@
 import { toggleDatasetEntry } from '../../global/dom';
-import { InterfaceSbbExpansionPanelAttributes } from './sbb-expansion-panel.custom';
 import { CSSResult, LitElement, TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property } from 'lit/decorators.js';
@@ -30,7 +29,7 @@ export class SbbExpansionPanel extends LitElement {
   @property({ attribute: 'title-level' }) public titleLevel?: TitleLevel;
 
   /** The background color of the panel. */
-  @property() public color: InterfaceSbbExpansionPanelAttributes['color'] = 'white';
+  @property() public color: 'white' | 'milk' = 'white';
 
   /** Whether the panel is expanded. */
   @property({ reflect: true, type: Boolean })

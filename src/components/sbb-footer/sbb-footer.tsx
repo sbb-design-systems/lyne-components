@@ -1,4 +1,3 @@
-import { InterfaceFooterAttributes } from './sbb-footer.custom';
 import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import Style from './sbb-footer.scss?lit&inline';
@@ -14,7 +13,7 @@ export class SbbFooter extends LitElement {
    * approach. The clock-columns, used a css-grid for displaying the content over different
    * breakpoints.
    */
-  @property({ reflect: true }) public variant: InterfaceFooterAttributes['variant'] = 'default';
+  @property({ reflect: true }) public variant: 'default' | 'clock-columns' = 'default';
 
   /** Negative coloring variant flag. */
   @property({ reflect: true, type: Boolean }) public negative = false;

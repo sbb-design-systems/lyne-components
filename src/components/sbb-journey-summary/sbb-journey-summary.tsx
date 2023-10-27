@@ -1,4 +1,4 @@
-import { InterfaceSbbJourneySummaryAttributes } from './sbb-journey-summary.custom';
+import { Leg } from '../../global/timetable';
 import { isValid, format } from 'date-fns';
 import { i18nTripDuration } from '../../global/i18n';
 import {
@@ -18,6 +18,18 @@ import Style from './sbb-journey-summary.scss?lit&inline';
 import '../sbb-pearl-chain-time';
 import '../sbb-journey-header';
 import '../sbb-divider';
+
+export interface InterfaceSbbJourneySummaryAttributes {
+  legs: Leg[];
+  vias?: string[];
+  origin: string;
+  destination: string;
+  arrivalWalk?: number;
+  departure: string;
+  arrival: string;
+  departureWalk?: number;
+  duration?: number;
+}
 
 @customElement('sbb-journey-summary')
 export class SbbJourneySummary extends LitElement {

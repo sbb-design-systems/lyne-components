@@ -1,4 +1,3 @@
-import { Boarding, HimCus, Price } from './sbb-timetable-row.custom';
 import {
   i18nArrival,
   i18nClass,
@@ -25,6 +24,9 @@ import {
   renderIconProduct,
   renderStringProduct,
   sortSituation,
+  HimCus,
+  Boarding,
+  Price,
 } from './sbb-timetable-row.helper';
 import { format } from 'date-fns';
 import { removeTimezoneFromISOTimeString, durationToTime } from '../../global/datetime';

@@ -1,5 +1,3 @@
-import { InterfaceLinkListAttributes } from './sbb-link-list.custom';
-import { InterfaceLinkAttributes } from '../sbb-link/sbb-link.custom';
 import {
   createNamedSlotState,
   HandlerRepository,
@@ -8,10 +6,11 @@ import {
 import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';
-import { SbbLink } from '../sbb-link';
+import { SbbLink, SbbLinkSize } from '../sbb-link';
 import { TitleLevel } from '../sbb-title';
 import '../sbb-title';
 import Style from './sbb-link-list.scss?lit&inline';
+import { SbbHorizontalFrom, SbbOrientation } from '../../global/types';
 
 @customElement('sbb-link-list')
 export class SbbLinkList extends LitElement {
@@ -27,7 +26,7 @@ export class SbbLinkList extends LitElement {
    * Text size of the nested sbb-link instances. This will overwrite the size attribute of
    * nested sbb-link instances.
    */
-  @property({ reflect: true }) public size: InterfaceLinkAttributes['size'] = 's';
+  @property({ reflect: true }) public size: SbbLinkSize = 's';
 
   /**
    * Whether to render the link list and nested sbb-link instances as negative. This will overwrite
@@ -37,11 +36,10 @@ export class SbbLinkList extends LitElement {
 
   /** Selected breakpoint from which the list is rendered horizontally. */
   @property({ attribute: 'horizontal-from', reflect: true })
-  public horizontalFrom?: InterfaceLinkListAttributes['horizontalFromBreakpoint'];
+  public horizontalFrom?: SbbHorizontalFrom;
 
   /** The orientation in which the list will be shown vertical or horizontal. */
-  @property({ reflect: true }) public orientation: InterfaceLinkListAttributes['orientation'] =
-    'vertical';
+  @property({ reflect: true }) public orientation: SbbOrientation = 'vertical';
 
   /** Sbb-Link elements */
   @state() private _links: SbbLink[];

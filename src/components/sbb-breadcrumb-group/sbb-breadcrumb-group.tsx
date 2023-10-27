@@ -16,7 +16,6 @@ import { customElement, state } from 'lit/decorators.js';
 import { SbbBreadcrumb } from '../sbb-breadcrumb';
 import { setAttribute } from '../../global/dom';
 import Style from './sbb-breadcrumb-group.scss?lit&inline';
-import { InterfaceSbbBreadcrumbGroupAttributes } from './sbb-breadcrumb-group.custom';
 
 /**
  * @slot unnamed - Use this to slot the sbb-breadcrumb elements.
@@ -28,7 +27,7 @@ export class SbbBreadcrumbGroup extends LitElement {
   /** Local instance of slotted sbb-breadcrumb elements */
   @state() private _breadcrumbs: SbbBreadcrumb[];
 
-  @state() private _state?: InterfaceSbbBreadcrumbGroupAttributes['state'];
+  @state() private _state?: 'collapsed' | 'manually-expanded';
 
   @state() private _loaded = false;
 

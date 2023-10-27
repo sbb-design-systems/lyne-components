@@ -11,15 +11,19 @@ import {
   ConnectedAbortController,
 } from '../../global/eventing';
 import { AgnosticMutationObserver } from '../../global/observers';
-import {
-  InterfaceSbbRadioButtonAttributes,
-  RadioButtonStateChange,
-} from './sbb-radio-button.custom';
 import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttributes } from '../../global/dom';
 import Style from './sbb-radio-button.scss?lit&inline';
-import { SbbRadioButtonGroup } from '../sbb-radio-button-group/sbb-radio-button-group';
+import { SbbRadioButtonGroup } from '../sbb-radio-button-group';
+import { SbbCheckedStateChange, SbbDisabledStateChange, SbbStateChange } from '../../global/types';
+
+export type SbbRadioButtonStateChange = Extract<
+  SbbStateChange,
+  SbbDisabledStateChange | SbbCheckedStateChange
+>;
+
+export type SbbRadioButtonSize = 's' | 'm';
 
 /** Configuration for the attribute to look at if component is nested in a sbb-radio-button-group */
 const radioButtonObserverConfig: MutationObserverInit = {
@@ -67,7 +71,7 @@ export class SbbRadioButton extends LitElement {
   /**
    * Label size variant, either m or s.
    */
-  @property({ reflect: true }) public size: InterfaceSbbRadioButtonAttributes['size'] = 'm';
+  @property({ reflect: true }) public size: SbbRadioButtonSize = 'm';
 
   /**
    * Whether the component must be set disabled due disabled attribute on sbb-radio-button-group.
@@ -106,7 +110,7 @@ export class SbbRadioButton extends LitElement {
    * Internal event that emits whenever the state of the radio option
    * in relation to the parent selection panel changes.
    */
-  private _stateChange: EventEmitter<RadioButtonStateChange> = new EventEmitter(
+  private _stateChange: EventEmitter<SbbRadioButtonStateChange> = new EventEmitter(
     this,
     SbbRadioButton.events.stateChange,
     { bubbles: true },

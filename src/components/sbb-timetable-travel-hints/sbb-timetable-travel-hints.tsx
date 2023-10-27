@@ -1,5 +1,4 @@
 import icons from '../../global/timetable/icons.json';
-import { InterfaceTimetableTravelHintsAttributes } from './sbb-timetable-travel-hints.custom';
 import { i18nNone } from '../../global/i18n';
 import {
   documentLanguage,
@@ -20,7 +19,7 @@ export class SbbTimetableTravelHints extends LitElement {
    * the component.
    */
   @property()
-  public appearance?: InterfaceTimetableTravelHintsAttributes['appearance'] = 'first-level-list';
+  public appearance?: 'first-level-list' | 'second-level-list' = 'first-level-list'; // FIXME refactor with SbbTimetableAppearance ?
 
   /**
    * Stringified JSON which defines most of the

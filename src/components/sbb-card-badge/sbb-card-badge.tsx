@@ -1,4 +1,3 @@
-import { InterfaceSbbCardBadgeAttributes } from './sbb-card-badge.custom';
 import { toggleDatasetEntry, getDocumentWritingMode } from '../../global/dom';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -14,7 +13,7 @@ export class SbbCardBadge extends LitElement {
   public static override styles: CSSResult = Style;
 
   /** Color of the card badge. */
-  @property({ reflect: true }) public color: InterfaceSbbCardBadgeAttributes['color'] = 'charcoal';
+  @property({ reflect: true }) public color: 'charcoal' | 'white' = 'charcoal';
 
   private _parentElement?: HTMLElement;
 

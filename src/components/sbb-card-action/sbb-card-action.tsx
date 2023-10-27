@@ -17,7 +17,7 @@ import {
 import { AgnosticMutationObserver } from '../../global/observers';
 import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { SbbCard } from '../sbb-card/index';
+import { SbbCard } from '../sbb-card';
 import { setAttribute, setAttributes } from '../../global/dom';
 import Style from './sbb-card-action.scss?lit&inline';
 import { html, unsafeStatic } from 'lit/static-html.js';

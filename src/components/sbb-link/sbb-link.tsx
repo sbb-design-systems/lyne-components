@@ -7,7 +7,6 @@ import {
   resolveRenderVariables,
   targetsNewWindow,
 } from '../../global/interfaces';
-import { InterfaceLinkAttributes } from './sbb-link.custom';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import { hostContext, ACTION_ELEMENTS } from '../../global/dom';
 import {
@@ -25,6 +24,9 @@ import { setAttributes } from '../../global/dom';
 import Style from './sbb-link.scss?lit&inline';
 import { spread } from '@open-wc/lit-helpers';
 import '../sbb-icon';
+import { SbbIconPlacement } from '../../global/types';
+
+export type SbbLinkSize = 'xs' | 's' | 'm';
 
 /**
  * @slot unnamed - Link Content
@@ -35,7 +37,7 @@ export class SbbLink extends LitElement implements LinkButtonProperties, IsStati
   public static override styles = Style;
 
   /** Variant of the link (block or inline). */
-  @property({ reflect: true }) public variant: InterfaceLinkAttributes['variant'] = 'block';
+  @property({ reflect: true }) public variant: 'block' | 'inline' = 'block';
 
   /** Negative coloring variant flag. */
   @property({ reflect: true, type: Boolean }) public negative = false;
@@ -44,7 +46,7 @@ export class SbbLink extends LitElement implements LinkButtonProperties, IsStati
    * Text size, the link should get in the non-button variation.
    * With inline variant, the text size adapts to where it is used.
    */
-  @property({ reflect: true }) public size: InterfaceLinkAttributes['size'] = 's';
+  @property({ reflect: true }) public size: SbbLinkSize = 's';
 
   /**
    * Set this property to true if you want only a visual representation of a
@@ -62,7 +64,7 @@ export class SbbLink extends LitElement implements LinkButtonProperties, IsStati
 
   /** Moves the icon to the end of the component if set to true. */
   @property({ attribute: 'icon-placement' })
-  public iconPlacement?: InterfaceLinkAttributes['iconPlacement'] = 'start';
+  public iconPlacement?: SbbIconPlacement = 'start';
 
   /** The href value you want to link to (if it is not present link becomes a button). */
   @property() public href: string | undefined;

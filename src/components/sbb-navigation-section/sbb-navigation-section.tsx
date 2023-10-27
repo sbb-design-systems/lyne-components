@@ -21,8 +21,8 @@ import {
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';
-import { SbbNavigation } from '../sbb-navigation/index';
-import { SbbNavigationMarker } from '../sbb-navigation-marker/index';
+import { SbbNavigation } from '../sbb-navigation';
+import { SbbNavigationMarker } from '../sbb-navigation-marker';
 import { setAttribute } from '../../global/dom';
 import { ref } from 'lit/directives/ref.js';
 import Style from './sbb-navigation-section.scss?lit&inline';

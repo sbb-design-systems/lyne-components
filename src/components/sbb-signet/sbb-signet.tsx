@@ -1,7 +1,7 @@
-import { InterfaceSignetAttributes } from './sbb-signet.custom';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import Style from './sbb-signet.scss?lit&inline';
+import { SbbProtectiveRoom } from '../../global/types';
 
 @customElement('sbb-signet')
 export class SbbSignet extends LitElement {
@@ -9,7 +9,7 @@ export class SbbSignet extends LitElement {
 
   /** Visual protective room around signet. */
   @property({ attribute: 'protective-room', reflect: true })
-  public protectiveRoom?: InterfaceSignetAttributes['protectiveRoom'] = 'ideal';
+  public protectiveRoom?: SbbProtectiveRoom = 'ideal';
 
   /** Accessibility label which will be forwarded to the inner SVG signet. */
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel = 'Logo';

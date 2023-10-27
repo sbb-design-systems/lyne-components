@@ -1,4 +1,3 @@
-import { InterfaceSbbAlertGroupAttributes } from './sbb-alert-group.custom';
 import { TitleLevel } from '../sbb-title';
 import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
@@ -27,7 +26,7 @@ export class SbbAlertGroup extends LitElement {
    * 'alert': sets aria-live to assertive and aria-atomic to true.
    */
   @property({ reflect: true })
-  public override role: InterfaceSbbAlertGroupAttributes['role'] = 'status';
+  public override role: 'alert' | 'status' | string = 'status';
 
   /** Title for this alert group which is only visible for screen reader users. */
   @property({ attribute: 'accessibility-title' }) public accessibilityTitle: string;

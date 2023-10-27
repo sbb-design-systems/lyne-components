@@ -1,7 +1,7 @@
 import { AgnosticResizeObserver } from '../../global/observers';
 import { CSSResult, html, LitElement, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { SbbNavigationAction } from '../sbb-navigation-action/index';
+import { SbbNavigationAction } from '../sbb-navigation-action';
 import { setAttribute } from '../../global/dom';
 import Style from './sbb-navigation-marker.scss?lit&inline';
 

@@ -10,7 +10,6 @@ import {
   ConnectedAbortController,
 } from '../../global/eventing';
 import { i18nCloseAlert } from '../../global/i18n';
-import { SbbToastPosition, SbbToastAriaPoliteness, SbbToastAriaRole } from './sbb-toast.custom';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttribute } from '../../global/dom';
@@ -20,6 +19,10 @@ import { SbbButton } from '../sbb-button';
 import { SbbLink } from '../sbb-link';
 import '../sbb-link';
 import '../sbb-button';
+
+type SbbToastPositionVertical = 'top' | 'bottom';
+type SbbToastPositionHorizontal = 'left' | 'start' | 'center' | 'right' | 'end';
+export type SbbToastPosition = `${SbbToastPositionVertical}-${SbbToastPositionHorizontal}`;
 
 // A global collection of existing toasts
 const toastRefs = new Set<SbbToast>();
@@ -60,7 +63,7 @@ export class SbbToast extends LitElement {
    * The ARIA politeness level.
    * Check https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions#live_regions for further info
    */
-  @property() public politeness: SbbToastAriaPoliteness = 'polite';
+  @property() public politeness: 'polite' | 'assertive' | 'off' = 'polite';
 
   /** Whether the animation is disabled. */
   @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
@@ -114,7 +117,7 @@ export class SbbToast extends LitElement {
    * Role of the live region. This is only for Firefox as there is a known issue where Firefox +
    * JAWS does not read out aria-live message.
    */
-  private get _role(): SbbToastAriaRole {
+  private get _role(): 'status' | 'alert' {
     if (!isFirefox()) {
       return;
     }

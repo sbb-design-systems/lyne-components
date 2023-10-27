@@ -1,4 +1,3 @@
-import { CheckboxStateChange, InterfaceSbbCheckboxAttributes } from './sbb-checkbox.custom';
 import { i18nCollapsed, i18nExpanded } from '../../global/i18n';
 import { isValidAttribute } from '../../global/dom';
 import {
@@ -21,6 +20,19 @@ import { ref } from 'lit/directives/ref.js';
 import Style from './sbb-checkbox.scss?lit&inline';
 import '../sbb-visual-checkbox';
 import '../sbb-icon';
+import {
+  SbbIconPlacement,
+  SbbStateChange,
+  SbbCheckedStateChange,
+  SbbDisabledStateChange,
+} from '../../global/types';
+
+export type SbbCheckboxStateChange = Extract<
+  SbbStateChange,
+  SbbDisabledStateChange | SbbCheckedStateChange
+>;
+
+export type SbbCheckboxSize = 's' | 'm';
 
 /** Configuration for the attribute to look at if component is nested in a sbb-checkbox-group */
 const checkboxObserverConfig: MutationObserverInit = {
@@ -61,13 +73,13 @@ export class SbbCheckbox extends LitElement {
 
   /** The label position relative to the labelIcon. Defaults to end */
   @property({ attribute: 'icon-placement', reflect: true })
-  public iconPlacement: InterfaceSbbCheckboxAttributes['iconPlacement'] = 'end';
+  public iconPlacement: SbbIconPlacement = 'end';
 
   /** Whether the checkbox is checked. */
   @property({ reflect: true, type: Boolean }) public checked = false;
 
   /** Label size variant, either m or s. */
-  @property({ reflect: true }) public size: InterfaceSbbCheckboxAttributes['size'] = 'm';
+  @property({ reflect: true }) public size: SbbCheckboxSize = 'm';
 
   /** Whether the component must be set disabled due disabled attribute on sbb-checkbox-group. */
   @state() private _disabledFromGroup = false;
@@ -109,7 +121,7 @@ export class SbbCheckbox extends LitElement {
    * in relation to the parent selection panel changes.
    */
 
-  private _stateChange: EventEmitter<CheckboxStateChange> = new EventEmitter(
+  private _stateChange: EventEmitter<SbbCheckboxStateChange> = new EventEmitter(
     this,
     SbbCheckbox.events.stateChange,
     { bubbles: true },

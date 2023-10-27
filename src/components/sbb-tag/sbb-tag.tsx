@@ -1,5 +1,4 @@
 import { ButtonProperties, resolveButtonRenderVariables } from '../../global/interfaces';
-import { TagStateChange } from './sbb-tag.custom';
 import {
   createNamedSlotState,
   HandlerRepository,
@@ -13,6 +12,12 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { SbbTagGroup } from '../sbb-tag-group';
 import { setAttributes } from '../../global/dom';
 import Style from './sbb-tag.scss?lit&inline';
+import { SbbCheckedStateChange, SbbStateChange, SbbValueStateChange } from '../../global/types';
+
+export type SbbTagStateChange = Extract<
+  SbbStateChange,
+  SbbValueStateChange | SbbCheckedStateChange
+>;
 
 /**
  * @slot unnamed - This slot will show the provided tag label.
@@ -72,7 +77,7 @@ export class SbbTag extends LitElement implements ButtonProperties {
    * Internal event that emits whenever the state of the tag
    * in relation to the parent toggle changes.
    */
-  private _stateChange: EventEmitter<TagStateChange> = new EventEmitter(
+  private _stateChange: EventEmitter<SbbTagStateChange> = new EventEmitter(
     this,
     SbbTag.events.stateChange,
     {
