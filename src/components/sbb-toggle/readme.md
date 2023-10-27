@@ -45,11 +45,17 @@ The component has two different sizes, `s` and `m` (default), which can be set u
 | `value`            | `value`            | public  | `any \| null`             |         | The value of the toggle. It needs to be mutable since it is updated whenever&#xA;a new option is selected (see the \`onToggleOptionSelect()\` method). |
 | `disableAnimation` | `disable-animation` | public  | `boolean`                 | `false` | Whether the animation is enabled.                                                                                                                      |
 
-| Name               | Attribute               | Privacy | Type                                                | Default | Description                                                                                                                                            |
-| ------------------ | ------------------ | ------- | --------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `disabled`         | `disabled`         | public  | `boolean`                                           |         | Whether the toggle is disabled.                                                                                                                        |
-| `even`             | `even`             | public  | `boolean`                                           |         | If true, set the width of the component fixed; if false, the width is dynamic based on the label of the sbb-toggle-option.                             |
-| `size`             | `size`             | public  | `InterfaceSbbToggleAttributes['size'] \| undefined` | `'m'`   |                |
-| `value`            | `value`            | public  | `any \| null`                                       |         |                |
-| `disableAnimation` | `disable-animation` | public  | `boolean`                                           | `false` | Whether the animation is enabled.                                                                                                                      |
+| Name               | Attribute               | Privacy | Type                      | Default | Description                                                                                                                                            |
+| ------------------ | ------------------ | ------- | ------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `disabled`         | `disabled`         | public  | `boolean`                 |         | Whether the toggle is disabled.                                                                                                                        |
+| `even`             | `even`             | public  | `boolean`                 |         | If true, set the width of the component fixed; if false, the width is dynamic based on the label of the sbb-toggle-option.                             |
+| `size`             | `size`             | public  | `'s' \| 'm' \| undefined` | Size variant, either m or s.                                                                                                                           |                |
+| `value`            | `value`            | public  | `any \| null`             |         |                |
+| `disableAnimation` | `disable-animation` | public  | `boolean`                 | `false` | Whether the animation is enabled.                                                                                                                      |
+
+## Slots
+
+| Name      | Description                                       |
+| --------- | ------------------------------------------------- |
+| `unnamed` | Slot used to render the \`\<sbb-toggle-option>\`. |
 

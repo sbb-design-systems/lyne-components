@@ -98,22 +98,22 @@ Use the accessibility properties in case of an icon-only button to describe the 
 | `value`    | `value`    | public  | `string \| undefined`                                                    |             | The value attribute to use for the button.                                                                                                                 |
 | `form`     | `form`     | public  | `string \| undefined`                                                    |             | The \<form> element to associate the button with.                                                                                                          |
 
-| Name       | Attribute       | Privacy | Type                                                 | Default     | Description                                                                                                                                                |
-| ---------- | ---------- | ------- | ---------------------------------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `variant`  | `variant`  | public  | `InterfaceButtonAttributes['variant']`               | `'primary'` | Variant of the button, like primary, secondary etc.                                                                                                        |
-| `negative` | `negative` | public  | `boolean`                                            | `false`     | Negative coloring variant flag.                                                                                                                            |
-| `size`     | `size`     | public  | `InterfaceButtonAttributes['size'] \| undefined`     | `'l'`       |                |
-| `isStatic` | `is-static` | public  | `boolean`                                            | `false`     | Set this property to true if you want only a visual representation of a&#xA;button, but no interaction (a span instead of a link/button will be rendered). |
-| `iconName` | `icon-name` | public  | `string \| undefined`                                |             |                |
-| `href`     | `href`     | public  | `string \| undefined`                                |             |                |
+| Name       | Attribute       | Privacy | Type                                                                     | Default     | Description                                                                                                                                                |
+| ---------- | ---------- | ------- | ------------------------------------------------------------------------ | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `variant`  | `variant`  | public  | `\| 'primary'     \| 'secondary'     \| 'transparent'` | `'primary'` | Variant of the button, like primary, secondary etc.                                                                                                        |                |
+| `negative` | `negative` | public  | `boolean`                                                                | `false`     | Negative coloring variant flag.                                                                                                                            |
+| `size`     | `size`     | public  | `SbbButtonSize \| undefined`                                             | `'l'`       |                |
+| `isStatic` | `is-static` | public  | `boolean`                                                                | `false`     | Set this property to true if you want only a visual representation of a&#xA;button, but no interaction (a span instead of a link/button will be rendered). |
+| `iconName` | `icon-name` | public  | `string \| undefined`                                                    |             |                |
+| `href`     | `href`     | public  | `string \| undefined`                                                    |             |                |
 | `target`   | `target`   | public  | `LinkTargetType \| string \| undefined \|             | Where to display the linked URL.                                                                                                                           |                |
-| `rel`      | `rel`      | public  | `string \| undefined \| undefined`                   | The relationship of the linked URL as space-separated link types.                                                                                          |                |
-| `download` | `download` | public  | `boolean \| undefined`                               |             |                |
-| `type`     | `type`     | public  | `ButtonType \| undefined`                            |             |                |
-| `disabled` | `disabled` | public  | `boolean`                                            | `false`     | Whether the button is disabled.                                                                                                                            |
-| `name`     | `name`     | public  | `string \| undefined`                                |             |                |
-| `value`    | `value`    | public  | `string \| undefined`                                |             |                |
-| `form`     | `form`     | public  | `string \| undefined`                                |             |                |
+| `rel`      | `rel`      | public  | `string \| undefined \| undefined`                                       | The relationship of the linked URL as space-separated link types.                                                                                          |                |
+| `download` | `download` | public  | `boolean \| undefined`                                                   |             |                |
+| `type`     | `type`     | public  | `ButtonType \| undefined`                                                |             |                |
+| `disabled` | `disabled` | public  | `boolean`                                                                | `false`     | Whether the button is disabled.                                                                                                                            |
+| `name`     | `name`     | public  | `string \| undefined`                                                    |             |                |
+| `value`    | `value`    | public  | `string \| undefined`                                                    |             |                |
+| `form`     | `form`     | public  | `string \| undefined`                                                    |             |                |
 
 ## Slots
 

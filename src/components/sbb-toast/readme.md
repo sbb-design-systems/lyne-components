@@ -104,14 +104,14 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 
 ## Properties 
 
-| Name               | Attribute               | Privacy | Type                     | Default           | Description                                                                                                                                              |
-| ------------------ | ------------------ | ------- | ------------------------ | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `timeout`          | `timeout`          | public  | `number`                 | `6000`            | The length of time in milliseconds to wait before automatically dismissing the toast.&#xA;If 0, it stays open indefinitely.                              |
-| `iconName`         | `icon-name`         | public  | `string \| undefined`    |                   |                |
-| `position`         | `position`         | public  | `SbbToastPosition`       | `'bottom-center'` | The position where to place the toast.                                                                                                                   |
-| `dismissible`      | `dismissible`      | public  | `boolean`                | `false`           | Whether the toast has a close button.                                                                                                                    |
-| `politeness`       | `politeness`       | public  | `SbbToastAriaPoliteness` | `'polite'`        | The ARIA politeness level.&#xA;Check https\://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA\_Live\_Regions#live\_regions for further info |
-| `disableAnimation` | `disable-animation` | public  | `boolean`                | `false`           | Whether the animation is disabled.                                                                                                                       |
+| Name               | Attribute               | Privacy | Type                               | Default           | Description                                                                                                                                              |
+| ------------------ | ------------------ | ------- | ---------------------------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `timeout`          | `timeout`          | public  | `number`                           | `6000`            | The length of time in milliseconds to wait before automatically dismissing the toast.&#xA;If 0, it stays open indefinitely.                              |
+| `iconName`         | `icon-name`         | public  | `string \| undefined`              |                   |                |
+| `position`         | `position`         | public  | `SbbToastPosition`                 | `'bottom-center'` | The position where to place the toast.                                                                                                                   |
+| `dismissible`      | `dismissible`      | public  | `boolean`                          | `false`           | Whether the toast has a close button.                                                                                                                    |
+| `politeness`       | `politeness`       | public  | `'polite' \| 'assertive' \| 'off'` | The ARIA politeness level.&#xA;Check https\://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA\_Live\_Regions#live\_regions for further info |                |
+| `disableAnimation` | `disable-animation` | public  | `boolean`                          | `false`           | Whether the animation is disabled.                                                                                                                       |
 
 ## Methods
 

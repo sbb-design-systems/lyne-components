@@ -28,9 +28,9 @@ as in the example above.
 | ------- | ------- | ------- | ----------------------- | ------------ | ------------------------ |
 | `color` | `color` | public  | `'charcoal' \| 'white'` | `'charcoal'` | Color of the card badge. |
 
-| Name    | Attribute    | Privacy | Type                                       | Default      | Description              |
-| ------- | ------- | ------- | ------------------------------------------ | ------------ | ------------------------ |
-| `color` | `color` | public  | `InterfaceSbbCardBadgeAttributes['color']` | `'charcoal'` | Color of the card badge. |
+| Name    | Attribute    | Privacy | Type                    | Default      | Description              |
+| ------- | ------- | ------- | ----------------------- | ------------ | ------------------------ |
+| `color` | `color` | public  | `'charcoal' \| 'white'` | `'charcoal'` |                |
 
 ## Slots
 

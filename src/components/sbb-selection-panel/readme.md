@@ -91,22 +91,12 @@ It's also possible to display the `sbb-selection-panel` without border by settin
 | `borderless`       | `borderless`       | public  | `boolean`           | `false`   | Whether the unselected panel has a border.     |
 | `disableAnimation` | `disable-animation` | public  | `boolean`           | `false`   | Whether the animation is enabled.              |
 
-| Name               | Attribute               | Privacy | Type                                            | Default   | Description                                                       |
-| ------------------ | ------------------ | ------- | ----------------------------------------------- | --------- | ----------------------------------------------------------------- |
-| `color`            | `color`            | public  | `InterfaceSbbSelectionPanelAttributes['color']` | `'white'` | The background color of the panel.                                |
-| `forceOpen`        | `force-open`        | public  | `boolean`                                       | `false`   | Whether the content section is always visible.                    |
-| `borderless`       | `borderless`       | public  | `boolean`                                       | `false`   | Whether the unselected panel has a border.                        |
-| `disableAnimation` | `disable-animation` | public  | `boolean`                                       | `false`   | Whether the animation is enabled.                                 |
-| `willOpen`         | `will-open`         | public  | `EventEmitter<void>`                            |           | Emits whenever the content section starts the opening transition. |
-| `didOpen`          | `did-open`          | public  | `EventEmitter<void>`                            |           | Emits whenever the content section is opened.                     |
-| `willClose`        | `will-close`        | public  | `EventEmitter<{ closeTarget: HTMLElement }>`    |           | Emits whenever the content section begins the closing transition. |
-| `didClose`         | `did-close`         | public  | `EventEmitter<{ closeTarget: HTMLElement }>`    |           | Emits whenever the content section is closed.                     |
-
-## Methods
-
-| Name            | Privacy | Description | Parameters                                                          | Return | Inherited From |
-| --------------- | ------- | ----------- | ------------------------------------------------------------------- | ------ | -------------- |
-| `onInputChange` | public  |             | `event: CustomEvent<RadioButtonStateChange \| CheckboxStateChange>` | `void` |                |
+| Name               | Attribute               | Privacy | Type                | Default   | Description                                    |
+| ------------------ | ------------------ | ------- | ------------------- | --------- | ---------------------------------------------- |
+| `color`            | `color`            | public  | `'white' \| 'milk'` | `'white'` |                |
+| `forceOpen`        | `force-open`        | public  | `boolean`           | `false`   | Whether the content section is always visible. |
+| `borderless`       | `borderless`       | public  | `boolean`           | `false`   | Whether the unselected panel has a border.     |
+| `disableAnimation` | `disable-animation` | public  | `boolean`           | `false`   | Whether the animation is enabled.              |
 
 ## Slots
 

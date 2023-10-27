@@ -77,3 +77,9 @@ Similarly, if a navigation action is marked to indicate a selected option (e.g.,
 | `open`  | public  | Opens the navigation.  |            | `void` |                |
 | `close` | public  | Closes the navigation. |            | `void` |                |
 
+## Slots
+
+| Name      | Description                                            |
+| --------- | ------------------------------------------------------ |
+| `unnamed` | Use this to project any content inside the navigation. |
+

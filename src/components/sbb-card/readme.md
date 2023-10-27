@@ -85,10 +85,10 @@ To improve coloring, it's needed to manually define styles for Window high contr
 | `size`  | `size`  | public  | `'xs' \| 's' \| 'm' \| 'l' \| 'xl' \| 'xxl' \| 'xxxl' \| undefined`                           | `'m'`     | Size variant, either xs, s, m, l, xl, xxl or xxxl. |
 | `color` | `color` | public  | `\| 'white'     \| 'milk'     \| 'transparent-bordered'     \| 'transparent-bordered-dashed'` | `'white'` | Option to set the component's background color.    |
 
-| Name    | Attribute    | Privacy | Type                                              | Default   | Description                                        |
-| ------- | ------- | ------- | ------------------------------------------------- | --------- | -------------------------------------------------- |
-| `size`  | `size`  | public  | `InterfaceSbbCardAttributes['size'] \| undefined` | `'m'`     |                |
-| `color` | `color` | public  | `InterfaceSbbCardAttributes['color']`             | `'white'` | Option to set the component's background color.    |
+| Name    | Attribute    | Privacy | Type                                                                                          | Default   | Description                                        |
+| ------- | ------- | ------- | --------------------------------------------------------------------------------------------- | --------- | -------------------------------------------------- |
+| `size`  | `size`  | public  | `'xs' \| 's' \| 'm' \| 'xl' \| 'xxl' \| 'xxxl' \| undefined`                           | `'m'`     | Size variant, either xs, s, m, l, xl, xxl or xxxl. |                |
+| `color` | `color` | public  | `\| 'white'     \| 'milk'     \| 'transparent-bordered-dashed'` | `'white'` | Option to set the component's background color.    |                |
 
 ## Slots
 

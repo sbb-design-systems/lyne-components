@@ -48,15 +48,15 @@ They will be applied internally into a list (using `<ul>` and `<li>`) and requir
 | `label`                       | `label`                       | public  | `string \| undefined`                      |             | Visible label for the wagon number. Not used by type locomotive or closed. |
 | `additionalAccessibilityText` | `additional-accessibility-text` | public  | `string \| undefined`                      |             | Additional accessibility text which will be appended to the end.           |
 
-| Name                          | Attribute                          | Privacy | Type                                                         | Default     | Description                                                                |
-| ----------------------------- | ----------------------------- | ------- | ------------------------------------------------------------ | ----------- | -------------------------------------------------------------------------- |
-| `type`                        | `type`                        | public  | `InterfaceSbbTrainWagonAttributes['type']`                   | `'wagon'`   | Wagon type.                                                                |
-| `occupancy`                   | `occupancy`                   | public  | `InterfaceSbbTrainWagonAttributes['occupancy'] \| undefined` | `'unknown'` |                |
-| `sector`                      | `sector`                      | public  | `string`                                                     |             | Sector in which to wagon stops.                                            |
-| `blockedPassage`              | `blocked-passage`              | public  | `InterfaceSbbTrainWagonAttributes['blockedPassage']`         | `'none'`    | Accessibility text for blocked passages of the wagon.                      |
-| `wagonClass`                  | `wagon-class`                  | public  | `'1' \| '2' \| undefined`                                    | Visible class label of a wagon.                                            |                |
-| `label`                       | `label`                       | public  | `string \| undefined`                                        |             |                |
-| `additionalAccessibilityText` | `additional-accessibility-text` | public  | `string \| undefined`                                        |             |                |
+| Name                          | Attribute                          | Privacy | Type                                       | Default     | Description                                                                |
+| ----------------------------- | ----------------------------- | ------- | ------------------------------------------ | ----------- | -------------------------------------------------------------------------- |
+| `type`                        | `type`                        | public  | `'locomotive' \| 'closed' \| 'wagon'`      | Wagon type.                                                                |                |
+| `occupancy`                   | `occupancy`                   | public  | `SbbOccupancy \| undefined`                | `'unknown'` |                |
+| `sector`                      | `sector`                      | public  | `string`                                   |             | Sector in which to wagon stops.                                            |
+| `blockedPassage`              | `blocked-passage`              | public  | `'previous' \| 'next' \| 'both' \| `'none'`    | Accessibility text for blocked passages of the wagon.                      |                |
+| `wagonClass`                  | `wagon-class`                  | public  | `'1' \| '2' \| undefined`                  | Visible class label of a wagon.                                            |                |
+| `label`                       | `label`                       | public  | `string \| undefined`                      |             |                |
+| `additionalAccessibilityText` | `additional-accessibility-text` | public  | `string \| undefined`                      |             |                |
 
 ## Slots
 

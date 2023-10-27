@@ -80,13 +80,20 @@ In order to ensure readability for screen-readers, please provide an `aria-label
 | `horizontalFrom`      | `horizontal-from`      | public  | `SbbHorizontalFrom \| undefined` |                | Overrides the behaviour of \`orientation\` property.      |
 | `orientation`         | `orientation`         | public  | `SbbOrientation`                 | `'horizontal'` | Radio group's orientation, either horizontal or vertical. |
 
-| Name                  | Attribute                  | Privacy | Type                                                                    | Default        | Description                                               |
-| --------------------- | --------------------- | ------- | ----------------------------------------------------------------------- | -------------- | --------------------------------------------------------- |
-| `allowEmptySelection` | `allow-empty-selection` | public  | `boolean`                                                               |                | Whether the radios can be deselected.                     |
-| `disabled`            | `disabled`            | public  | `boolean`                                                               |                | Whether the radio group is disabled.                      |
-| `required`            | `required`            | public  | `boolean`                                                               |                | Whether the radio group is required.                      |
-| `value`               | `value`               | public  | `any \| null \| null`                                                   | The value of the radio group.                             |                |
-| `size`                | `size`                | public  | `InterfaceSbbRadioButtonGroupAttributes['size']`                        |                | Size variant, either m or s.                              |
-| `horizontalFrom`      | `horizontal-from`      | public  | `InterfaceSbbRadioButtonGroupAttributes['horizontalFrom'] \| undefined` |                |                |
-| `orientation`         | `orientation`         | public  | `InterfaceSbbRadioButtonGroupAttributes['orientation']`                 | `'horizontal'` | Radio group's orientation, either horizontal or vertical. |
+| Name                  | Attribute                  | Privacy | Type                             | Default        | Description                                               |
+| --------------------- | --------------------- | ------- | -------------------------------- | -------------- | --------------------------------------------------------- |
+| `allowEmptySelection` | `allow-empty-selection` | public  | `boolean`                        |                | Whether the radios can be deselected.                     |
+| `disabled`            | `disabled`            | public  | `boolean`                        |                | Whether the radio group is disabled.                      |
+| `required`            | `required`            | public  | `boolean`                        |                | Whether the radio group is required.                      |
+| `value`               | `value`               | public  | `any \| null`                    |                |                |
+| `size`                | `size`                | public  | `SbbRadioButtonSize`             |                | Size variant, either m or s.                              |
+| `horizontalFrom`      | `horizontal-from`      | public  | `SbbHorizontalFrom \| undefined` |                |                |
+| `orientation`         | `orientation`         | public  | `SbbOrientation`                 | `'horizontal'` | Radio group's orientation, either horizontal or vertical. |
+
+## Slots
+
+| Name      | Description                                                        |
+| --------- | ------------------------------------------------------------------ |
+| `unnamed` | Use this to provide radio buttons within the group.                |
+| `error`   | Use this to provide a \`sbb-form-error\` to show an error message. |
 

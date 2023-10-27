@@ -44,3 +44,10 @@ The component can be displayed in `checked` or `disabled` states using the self-
 | `iconName` | `icon-name` | public  | `string \| undefined` |         |                |
 | `value`    | `value`    | public  | `string \| null`      |         |                |
 
+## Slots
+
+| Name      | Description                                         |
+| --------- | --------------------------------------------------- |
+| `unnamed` | Slot used to render the label of the toggle option. |
+| `icon`    | Slot used to render the \`\<sbb-icon>\`.            |
+
