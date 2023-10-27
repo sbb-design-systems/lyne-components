@@ -73,16 +73,16 @@ The `sbb-slider` has the following behaviour on keypress when focused:
 
 | Name            | Attribute            | Privacy | Type                   | Default | Description                                                                                                                                          |
 | --------------- | --------------- | ------- | ---------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `value`         | `value`         | public  | `string \| undefined`  | `''`    |                |
-| `valueAsNumber` | `value-as-number` | public  | `number \| undefined`  |         |                |
-| `name`          | `name`          | public  | `string \| undefined`  | `''`    |                |
-| `form`          | `form`          | public  | `string \| undefined`  |         |                |
-| `min`           | `min`           | public  | `string \| undefined`  | `'0'`   |                |
-| `max`           | `max`           | public  | `string \| undefined`  | `'100'` |                |
-| `readonly`      | `readonly`      | public  | `boolean \| undefined` | `false` |                |
-| `disabled`      | `disabled`      | public  | `boolean \| undefined` | `false` |                |
-| `startIcon`     | `start-icon`     | public  | `string \| undefined`  |         |                |
-| `endIcon`       | `end-icon`       | public  | `string \| undefined`  |         |                |
+| `value`         | `value`         | public  | `string \| undefined`  | `''`    | Value for the inner HTMLInputElement.                                                                                                                |
+| `valueAsNumber` | `value-as-number` | public  | `number \| undefined`  |         | Numeric value for the inner HTMLInputElement.                                                                                                        |
+| `name`          | `name`          | public  | `string \| undefined`  | `''`    | Name of the inner HTMLInputElement.                                                                                                                  |
+| `form`          | `form`          | public  | `string \| undefined`  |         | The \<form> element to associate the inner HTMLInputElement with.                                                                                    |
+| `min`           | `min`           | public  | `string \| undefined`  | `'0'`   | Minimum acceptable value for the inner HTMLInputElement.                                                                                             |
+| `max`           | `max`           | public  | `string \| undefined`  | `'100'` | Maximum acceptable value for the inner HTMLInputElement.                                                                                             |
+| `readonly`      | `readonly`      | public  | `boolean \| undefined` | `false` | Readonly state for the inner HTMLInputElement.&#xA;Since the input range does not allow this attribute, it will be merged with the \`disabled\` one. |
+| `disabled`      | `disabled`      | public  | `boolean \| undefined` | `false` | Disabled state for the inner HTMLInputElement.                                                                                                       |
+| `startIcon`     | `start-icon`     | public  | `string \| undefined`  |         | Name of the icon at component's start, which will be forward to the nested \`sbb-icon\`.                                                             |
+| `endIcon`       | `end-icon`       | public  | `string \| undefined`  |         | Name of the icon at component's end, which will be forward to the nested \`sbb-icon\`.                                                               |
 
 ## Events
 

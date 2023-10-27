@@ -42,11 +42,11 @@ By default, the `sbb-breadcrumb-group` component sets `aria-current="page"` on t
 
 | Name       | Attribute       | Privacy | Type                                                 | Default | Description                                                                                                                               |
 | ---------- | ---------- | ------- | ---------------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `href`     | `href`     | public  | `string \| undefined`                                |         |                |
-| `target`   | `target`   | public  | `LinkTargetType \| string \| undefined \|         | Where to display the linked URL.                                                                                                          |                |
-| `rel`      | `rel`      | public  | `string \| undefined \| undefined`                   | The relationship of the linked URL as space-separated link types.                                                                         |                |
-| `download` | `download` | public  | `boolean \| undefined`                               |         |                |
-| `iconName` | `icon-name` | public  | `string \| undefined`                                |         |                |
+| `href`     | `href`     | public  | `string \| undefined`                                |         | The href value you want to link to.                                                                                                       |
+| `target`   | `target`   | public  | `LinkTargetType \| string \| undefined \| undefined` |         | Where to display the linked URL.                                                                                                          |
+| `rel`      | `rel`      | public  | `string \| undefined \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                                                                         |
+| `download` | `download` | public  | `boolean \| undefined`                               |         | Whether the browser will show the download dialog on click.                                                                               |
+| `iconName` | `icon-name` | public  | `string \| undefined`                                |         | The icon name we want to use, choose from the small icon variants&#xA;from the ui-icons category from here&#xA;https\://icons.app.sbb.ch. |
 
 ## Slots
 

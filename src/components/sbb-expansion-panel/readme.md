@@ -80,8 +80,8 @@ and the `aria-hidden` attribute on the content.
 
 | Name               | Attribute               | Privacy | Type                      | Default   | Description                                                            |
 | ------------------ | ------------------ | ------- | ------------------------- | --------- | ---------------------------------------------------------------------- |
-| `titleLevel`       | `title-level`       | public  | `TitleLevel \| undefined` |           |                |
-| `color`            | `color`            | public  | `'white' \| 'milk'`       | `'white'` |                |
+| `titleLevel`       | `title-level`       | public  | `TitleLevel \| undefined` |           | Heading level; if unset, a \`div\` will be rendered.                   |
+| `color`            | `color`            | public  | `'white' \| 'milk'`       | `'white'` | The background color of the panel.                                     |
 | `expanded`         | `expanded`         | public  | `boolean`                 |           | Whether the panel is expanded.                                         |
 | `disabled`         | `disabled`         | public  | `boolean`                 |           | Whether the panel is disabled, so its expanded state can't be changed. |
 | `borderless`       | `borderless`       | public  | `boolean`                 | `false`   | Whether the panel has no border.                                       |

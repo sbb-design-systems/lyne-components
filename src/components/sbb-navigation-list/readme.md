@@ -17,7 +17,7 @@ Optionally, a label can be provided via slot via the self-named property or the 
 
 | Name    | Attribute    | Privacy | Type                  | Default | Description |
 | ------- | ------- | ------- | --------------------- | ------- | ----------- |
-| `label` | `label` | public  | `string \| undefined` |         |                |
+| `label` | `label` | public  | `string \| undefined` |         |             |
 
 ## Slots
 

@@ -28,7 +28,7 @@ as in the example above.
 
 | Name    | Attribute    | Privacy | Type                    | Default      | Description              |
 | ------- | ------- | ------- | ----------------------- | ------------ | ------------------------ |
-| `color` | `color` | public  | `'charcoal' \| 'white'` | `'charcoal'` |                |
+| `color` | `color` | public  | `'charcoal' \| 'white'` | `'charcoal'` | Color of the card badge. |
 
 ## Slots
 

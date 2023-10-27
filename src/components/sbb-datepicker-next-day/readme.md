@@ -35,9 +35,9 @@ if it is disabled, or if the selected date is equal to the input's `max` attribu
 
 | Name         | Attribute         | Privacy | Type                                 | Default | Description                               |
 | ------------ | ------------ | ------- | ------------------------------------ | ------- | ----------------------------------------- |
-| `name`       | `name`       | public  | `string \| undefined`                |         |                |
+| `name`       | `name`       | public  | `string \| undefined`                |         | The name attribute to use for the button. |
 | `negative`   | `negative`   | public  | `boolean`                            | `false` | Negative coloring variant flag.           |
-| `datePicker` | `date-picker` | public  | `string \| HTMLElement \| undefined` | Datepicker reference.                     |                |
+| `datePicker` | `date-picker` | public  | `string \| HTMLElement \| undefined` |         | Datepicker reference.                     |
 
 ## Methods
 

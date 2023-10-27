@@ -32,12 +32,12 @@ Avoid slotting block elements (e.g. `div`) as this violates semantic rules and c
 
 | Name          | Attribute          | Privacy | Type                                                 | Default | Description                                                       |
 | ------------- | ------------- | ------- | ---------------------------------------------------- | ------- | ----------------------------------------------------------------- |
-| `href`        | `href`        | public  | `string \| undefined`                                |         |                |
-| `rel`         | `rel`         | public  | `string \| undefined \| undefined`                   | The relationship of the linked URL as space-separated link types. |                |
-| `target`      | `target`      | public  | `LinkTargetType \| string \| undefined \|         | Where to display the linked URL.                                  |                |
-| `linkContent` | `link-content` | public  | `string \| undefined`                                |         |                |
-| `imageSrc`    | `image-src`    | public  | `string \| undefined`                                |         |                |
-| `imageAlt`    | `image-alt`    | public  | `string \| undefined`                                |         |                |
+| `href`        | `href`        | public  | `string \| undefined`                                |         | The href value you want to link to.                               |
+| `rel`         | `rel`         | public  | `string \| undefined \| undefined`                   |         | The relationship of the linked URL as space-separated link types. |
+| `target`      | `target`      | public  | `LinkTargetType \| string \| undefined \| undefined` |         | Where to display the linked URL.                                  |
+| `linkContent` | `link-content` | public  | `string \| undefined`                                |         | Panel link text.                                                  |
+| `imageSrc`    | `image-src`    | public  | `string \| undefined`                                |         | Image src will be passed to \`sbb-image\`.                        |
+| `imageAlt`    | `image-alt`    | public  | `string \| undefined`                                |         | Image alt text will be passed to \`sbb-image\`.                   |
 
 ## Slots
 

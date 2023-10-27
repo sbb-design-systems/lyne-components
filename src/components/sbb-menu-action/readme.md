@@ -42,17 +42,17 @@ you can set the css variable `--sbb-menu-action-outer-horizontal-padding` to you
 
 | Name       | Attribute       | Privacy | Type                                                 | Default | Description                                                                                                                       |
 | ---------- | ---------- | ------- | ---------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `iconName` | `icon-name` | public  | `string \| undefined \| undefined`                   | The name of the icon, choose from the small icon variants&#xA;from the ui-icons category from here&#xA;https\://icons.app.sbb.ch. |                |
-| `amount`   | `amount`   | public  | `string \| undefined \| undefined`                   | Value shown as badge at component end.                                                                                            |                |
-| `href`     | `href`     | public  | `string \| undefined`                                |         |                |
-| `target`   | `target`   | public  | `LinkTargetType \| string \| undefined \|         | Where to display the linked URL.                                                                                                  |                |
-| `rel`      | `rel`      | public  | `string \| undefined \| undefined`                   | The relationship of the linked URL as space-separated link types.                                                                 |                |
-| `download` | `download` | public  | `boolean \| undefined`                               |         |                |
-| `type`     | `type`     | public  | `ButtonType \| undefined`                            |         |                |
+| `iconName` | `icon-name` | public  | `string \| undefined \| undefined`                   |         | The name of the icon, choose from the small icon variants&#xA;from the ui-icons category from here&#xA;https\://icons.app.sbb.ch. |
+| `amount`   | `amount`   | public  | `string \| undefined \| undefined`                   |         | Value shown as badge at component end.                                                                                            |
+| `href`     | `href`     | public  | `string \| undefined`                                |         | The href value you want to link to (if it is not present menu action becomes a button).                                           |
+| `target`   | `target`   | public  | `LinkTargetType \| string \| undefined \| undefined` |         | Where to display the linked URL.                                                                                                  |
+| `rel`      | `rel`      | public  | `string \| undefined \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                                                                 |
+| `download` | `download` | public  | `boolean \| undefined`                               |         | Whether the browser will show the download dialog on click.                                                                       |
+| `type`     | `type`     | public  | `ButtonType \| undefined`                            |         | The type attribute to use for the button.                                                                                         |
 | `disabled` | `disabled` | public  | `boolean`                                            | `false` | Whether the button is disabled.                                                                                                   |
-| `name`     | `name`     | public  | `string \| undefined`                                |         |                |
-| `value`    | `value`    | public  | `string \| undefined`                                |         |                |
-| `form`     | `form`     | public  | `string \| undefined`                                |         |                |
+| `name`     | `name`     | public  | `string \| undefined`                                |         | The name attribute to use for the button.                                                                                         |
+| `value`    | `value`    | public  | `string \| undefined`                                |         | The value attribute to use for the button.                                                                                        |
+| `form`     | `form`     | public  | `string \| undefined`                                |         | The \<form> element to associate the button with.                                                                                 |
 
 ## Slots
 

@@ -87,7 +87,7 @@ Two values are available, `s` and `m`, which is the default
 | `disabled`       | `disabled`       | public  | `boolean`                        | `false`        | Whether the checkbox group is disabled.                                           |
 | `required`       | `required`       | public  | `boolean`                        | `false`        | Whether the checkbox group is required.                                           |
 | `size`           | `size`           | public  | `SbbCheckboxSize`                | `'m'`          | Size variant, either m or s.                                                      |
-| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| undefined` |                |                |
+| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| undefined` |                | Overrides the behaviour of \`orientation\` property.                              |
 | `orientation`    | `orientation`    | public  | `SbbOrientation`                 | `'horizontal'` | Indicates the orientation of the checkboxes inside the \`\<sbb-checkbox-group>\`. |
 
 ## Slots

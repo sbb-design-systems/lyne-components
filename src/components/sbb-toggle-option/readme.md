@@ -36,8 +36,8 @@ The component can be displayed in `checked` or `disabled` states using the self-
 | ---------- | ---------- | ------- | --------------------- | ------- | -------------------------------------- |
 | `checked`  | `checked`  | public  | `boolean`             |         | Whether the toggle-option is checked.  |
 | `disabled` | `disabled` | public  | `boolean`             |         | Whether the toggle option is disabled. |
-| `iconName` | `icon-name` | public  | `string \| undefined` |         |                |
-| `value`    | `value`    | public  | `string \| null`      |         |                |
+| `iconName` | `icon-name` | public  | `string \| undefined` |         | Name of the icon for \`\<sbb-icon>\`.  |
+| `value`    | `value`    | public  | `string \| null`      |         | Value of toggle-option.                |
 
 ## Slots
 

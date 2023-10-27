@@ -63,7 +63,7 @@ Whenever the validation state changes (e.g., a valid value becomes invalid or vi
 
 | Name    | Attribute    | Privacy | Type                    | Default | Description                                                |
 | ------- | ------- | ------- | ----------------------- | ------- | ---------------------------------------------------------- |
-| `input` | `input` | public  | `string \| HTMLElement` |         |                |
+| `input` | `input` | public  | `string \| HTMLElement` |         | Reference of the native input connected to the datepicker. |
 
 ## Methods
 
