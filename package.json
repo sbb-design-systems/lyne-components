@@ -110,7 +110,7 @@
     "stylelint": "15.11.0",
     "stylelint-config-prettier-scss": "1.0.0",
     "stylelint-config-standard-scss": "11.0.0",
-    "stylelint-scss": "5.2.1",
+    "stylelint-scss": "5.3.0",
     "tsx": "3.14.0",
     "typescript": "5.2.2"
   },
