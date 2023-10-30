@@ -35,7 +35,7 @@ const INTERACTIVE_ELEMENTS = ['A', 'BUTTON', 'SBB-BUTTON', 'SBB-LINK'];
 let nextId = 0;
 
 /**
- * @slot - Use this slot to project any content inside the dialog.
+ * @slot - Use the unnamed slot to add `sbb-menu-action` or other elements to the menu.
  */
 @customElement('sbb-menu')
 export class SbbMenu extends LitElement {

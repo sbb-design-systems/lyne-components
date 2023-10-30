@@ -35,7 +35,7 @@ const dialogRefs: SbbDialog[] = [];
 let nextId = 0;
 
 /**
- * @slot - Use this slot to provide the dialog content.
+ * @slot - Use the unnamed slot to add content to the dialog.
  * @slot title - Use this slot to provide a title.
  * @slot action-group - Use this slot to display an action group in the footer.
  */

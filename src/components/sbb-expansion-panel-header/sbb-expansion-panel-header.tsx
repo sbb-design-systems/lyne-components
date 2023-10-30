@@ -16,7 +16,7 @@ import '../sbb-icon';
 
 /**
  * @slot icon - Slot used to render the panel header icon.
- * @slot - Slot used to render the panel header text.
+ * @slot - Use the unnamed slot to add content to the expansion panel header.
  */
 @customElement('sbb-expansion-panel-header')
 export class SbbExpansionPanelHeader extends LitElement {

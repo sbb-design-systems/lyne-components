@@ -5,8 +5,8 @@ import { setAttribute } from '../../global/dom';
 import style from './sbb-card-badge.scss?lit&inline';
 
 /**
- * @slot - Content of the badge.
- * Content parts should be wrapped in `<span>` tags to achieve correct spacings.
+ * @slot - Use the unnamed slot to add content to the badge.
+ *   Content parts should be wrapped in `<span>` tags to achieve correct spacings.
  */
 @customElement('sbb-card-badge')
 export class SbbCardBadge extends LitElement {

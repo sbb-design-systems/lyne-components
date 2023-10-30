@@ -29,7 +29,7 @@ import { SbbIconPlacement } from '../../global/types';
 export type SbbLinkSize = 'xs' | 's' | 'm';
 
 /**
- * @slot - Link Content
+ * @slot - Use the unnamed slot to add content to the link.
  * @slot icon - Slot used to display the icon, if one is set
  */
 @customElement('sbb-link')

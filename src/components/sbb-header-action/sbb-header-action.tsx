@@ -25,7 +25,7 @@ import { SbbHorizontalFrom } from '../../global/types';
 
 /**
  * @slot icon - Slot used to render the action icon.
- * @slot - Slot used to render the action text.
+ * @slot - Use the unnamed slot to add content to the header action.
  */
 @customElement('sbb-header-action')
 export class SbbHeaderAction extends LitElement implements LinkButtonProperties {

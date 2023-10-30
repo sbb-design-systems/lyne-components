@@ -13,7 +13,7 @@ import style from './sbb-checkbox-group.scss?lit&inline';
 import { SbbHorizontalFrom, SbbOrientation } from '../../global/types';
 
 /**
- * @slot - Slot used to render the <sbb-checkbox> inside the <sbb-checkbox-group>.
+ * @slot - Use the unnamed slot to add `sbb-checkbox` elements to the checkbox group.
  * @slot error - Slot used to render the <sbb-form-error> inside the <sbb-checkbox-group>.
  */
 @customElement('sbb-checkbox-group')

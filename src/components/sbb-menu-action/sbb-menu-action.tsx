@@ -22,7 +22,7 @@ import style from './sbb-menu-action.scss?lit&inline';
 import '../sbb-icon';
 
 /**
- * @slot - Use this slot to provide the menu action label.
+ * @slot - Use the unnamed slot to add content to the menu action.
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
  */
 @customElement('sbb-menu-action')

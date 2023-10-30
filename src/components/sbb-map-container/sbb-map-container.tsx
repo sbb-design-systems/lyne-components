@@ -13,7 +13,7 @@ import style from './sbb-map-container.scss?lit&inline';
 import '../sbb-button';
 
 /**
- * @slot - Used for slotting the sidebar content.
+ * @slot - Use the unnamed slot to add content to the sidebar.
  * @slot map - Used for slotting the map.
  */
 @customElement('sbb-map-container')

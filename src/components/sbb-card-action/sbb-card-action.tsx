@@ -25,7 +25,8 @@ import { spread } from '@open-wc/lit-helpers';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 
 /**
- * @slot - Slot to render a descriptive label / title of the action (important!). This is relevant for SEO and screen readers.
+ * @slot - Use the unnamed slot to add a descriptive label / title of the action (important!).
+ *   This is relevant for SEO and screen readers.
  */
 @customElement('sbb-card-action')
 export class SbbCardAction extends LitElement implements LinkButtonProperties {

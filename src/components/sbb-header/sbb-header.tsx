@@ -7,7 +7,7 @@ import '../sbb-logo';
 const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
 
 /**
- * @slot - Slot used to render the actions on the left side.
+ * @slot - Use the unnamed slot to add actions or content to the header.
  * @slot logo - Slot used to render the logo on the right side (sbb-logo as default).
  */
 @customElement('sbb-header')

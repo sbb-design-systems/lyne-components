@@ -3,7 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 import style from './sbb-card.scss?lit&inline';
 
 /**
- * @slot - Slot to render the content.
+ * @slot - Use the unnamed slot to add content to the card.
  * @slot badge - Slot to render `<sbb-card-badge>`.
  * @slot action - Slot to render `<sbb-card-action>`.
  */

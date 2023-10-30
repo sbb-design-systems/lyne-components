@@ -3,7 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 import style from './sbb-chip.scss?lit&inline';
 
 /**
- * @slot - Content / Label of the chip
+ * @slot - Use the unnamed slot to add content to the chip.
  */
 @customElement('sbb-chip')
 export class SbbChip extends LitElement {
