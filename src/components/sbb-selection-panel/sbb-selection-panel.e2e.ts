@@ -1,7 +1,7 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { EventSpy, waitForLitRender } from '../../global/testing';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../global/testing';
 import { TemplateResult } from 'lit';
 import { SbbSelectionPanel } from './sbb-selection-panel';
 import { SbbRadioButton } from '../sbb-radio-button';
@@ -431,7 +431,8 @@ describe('sbb-selection-panel', () => {
       expect(fourthInput).not.to.have.attribute('checked');
 
       await sendKeys({ press: ' ' });
-      await waitForLitRender(wrapper);
+
+      await waitForCondition(() => fourthInput.hasAttribute('checked'));
       expect(fourthInput).to.have.attribute('checked');
       expect(firstInput).not.to.have.attribute('checked');
     });
@@ -446,7 +447,8 @@ describe('sbb-selection-panel', () => {
       expect(secondInput).not.to.have.attribute('checked');
 
       await sendKeys({ press: ' ' });
-      await waitForLitRender(wrapper);
+
+      await waitForCondition(() => firstInput.hasAttribute('checked'));
       expect(firstInput).not.to.have.attribute('checked');
       expect(secondInput).to.have.attribute('checked');
     });
