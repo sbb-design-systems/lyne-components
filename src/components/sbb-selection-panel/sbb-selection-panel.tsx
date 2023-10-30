@@ -15,7 +15,7 @@ import style from './sbb-selection-panel.scss?lit&inline';
 import '../sbb-divider';
 
 /**
- * @slot - Use this slot to provide a `sbb-checkbox` or a `sbb-radio-button`.
+ * @slot - Use the unnamed slot to add `sbb-checkbox` or `sbb-radio-button` elements to this selection panel.
  * @slot badge - Use this slot to provide a `sbb-card-badge` (optional).
  * @slot content - Use this slot to provide custom content for the panel (optional).
  */

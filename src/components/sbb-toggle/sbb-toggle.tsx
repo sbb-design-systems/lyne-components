@@ -16,7 +16,7 @@ export type SbbToggleStateChange = Extract<
 >;
 
 /**
- * @slot - Slot used to render the `<sbb-toggle-option>`.
+ * @slot - Use the unnamed slot to add `<sbb-toggle-option>` elements to the toggle.
  */
 @customElement('sbb-toggle')
 export class SbbToggle extends LitElement {

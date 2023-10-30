@@ -7,7 +7,7 @@ import {
 } from '../../global/eventing';
 
 /**
- * @slot - Use this to provide links for the list.
+ * @slot - Use the unnamed slot to add `sbb-link` elements to this skiplink list.
  */
 @Component({
   shadow: true,

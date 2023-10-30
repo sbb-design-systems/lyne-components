@@ -6,7 +6,7 @@ import { setAttribute } from '../../global/dom';
 import style from './sbb-navigation-marker.scss?lit&inline';
 
 /**
- * @slot - Use this slot to provide navigation actions into the sbb-navigation-marker.
+ * @slot - Use the unnamed slot to add `sbb-navigation-action` elements into the sbb-navigation-marker.
  */
 @customElement('sbb-navigation-marker')
 export class SbbNavigationMarker extends LitElement {

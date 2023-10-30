@@ -24,7 +24,7 @@ const optionObserverConfig: MutationObserverInit = {
 };
 
 /**
- * @slot - Use this to provide the option label.
+ * @slot - Use the unnamed slot to add content to the option label.
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
  */
 export type SbbOptionVariant = 'autocomplete' | 'select';

@@ -13,7 +13,7 @@ import { SbbToggle, SbbToggleStateChange } from '../sbb-toggle';
 import style from './sbb-toggle-option.scss?lit&inline';
 
 /**
- * @slot - Slot used to render the label of the toggle option.
+ * @slot - Use the unnamed slot to add content to the label of the toggle option.
  * @slot icon - Slot used to render the `<sbb-icon>`.
  */
 @customElement('sbb-toggle-option')

@@ -22,9 +22,9 @@ import '../sbb-icon';
 import '../sbb-image';
 
 /**
- * @slot - text content of panel
- * @slot link-content - link content of the panel
- * @slot image - the background image, can be a `sbb-image`
+ * @slot - Use the unnamed slot to add text content to the panel
+ * @slot link-content - Link content of the panel
+ * @slot image - The background image that can be a `sbb-image`
  */
 @customElement('sbb-teaser-hero')
 export class SbbTeaserHero extends LitElement implements LinkProperties {

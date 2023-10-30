@@ -23,7 +23,7 @@ import { setAttributes } from '../../global/dom';
 import style from './sbb-navigation-action.scss?lit&inline';
 
 /**
- * @slot - Use this slot to provide the navigation action label.
+ * @slot - Use the unnamed slot to add content to the navigation action.
  */
 @customElement('sbb-navigation-action')
 export class SbbNavigationAction extends LitElement {

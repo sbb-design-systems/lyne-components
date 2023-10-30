@@ -37,7 +37,7 @@ let nextId = 0;
 const tooltipsRef = new Set<SbbTooltip>();
 
 /**
- * @slot - Use this slot to project any content inside the tooltip.
+ * @slot - Use the unnamed slot to add content into the tooltip.
  */
 @customElement('sbb-tooltip')
 export class SbbTooltip extends LitElement {

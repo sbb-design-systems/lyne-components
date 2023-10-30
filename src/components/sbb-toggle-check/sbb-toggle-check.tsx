@@ -14,7 +14,7 @@ import style from './sbb-toggle-check.scss?lit&inline';
 import '../sbb-icon';
 
 /**
- * @slot - Use this slot to provide the toggle label.
+ * @slot - Use the unnamed slot to add content to the toggle label.
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
  */
 @customElement('sbb-toggle-check')

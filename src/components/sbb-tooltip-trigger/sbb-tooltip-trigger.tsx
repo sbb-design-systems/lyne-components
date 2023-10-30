@@ -7,7 +7,7 @@ import style from './sbb-tooltip-trigger.scss?lit&inline';
 import '../sbb-icon';
 
 /**
- * @slot - Slot to render the content.
+ * @slot - Use the unnamed slot to add content to the tooltip trigger.
  */
 @customElement('sbb-tooltip-trigger')
 export class SbbTooltipTrigger extends LitElement {

@@ -21,7 +21,7 @@ interface AggregatedSector {
 }
 
 /**
- * @slot - Used for slotting sbb-trains.
+ * @slot - Use the unnamed slot to add 'sbb-train' elements to this train formation.
  */
 @customElement('sbb-train-formation')
 export class SbbTrainFormation extends LitElement {

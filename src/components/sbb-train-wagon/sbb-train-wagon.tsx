@@ -25,7 +25,7 @@ import style from './sbb-train-wagon.scss?lit&inline';
 import '../sbb-icon';
 
 /**
- * @slot - Used to slot one to x icons for meta information of the sbb-train-wagon.
+ * @slot - Use the unnamed slot to add one or more icons for meta information of the sbb-train-wagon.
  */
 @customElement('sbb-train-wagon')
 export class SbbTrainWagon extends LitElement {

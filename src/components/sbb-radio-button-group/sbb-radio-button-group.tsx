@@ -15,7 +15,7 @@ import style from './sbb-radio-button-group.scss?lit&inline';
 import { SbbHorizontalFrom, SbbOrientation } from '../../global/types';
 
 /**
- * @slot - Use this to provide radio buttons within the group.
+ * @slot - Use the unnamed slot to add `sbb-radio-button` elements to this radio button group.
  * @slot error - Use this to provide a `sbb-form-error` to show an error message.
  */
 @customElement('sbb-radio-button-group')

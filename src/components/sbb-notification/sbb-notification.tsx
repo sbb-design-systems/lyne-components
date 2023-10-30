@@ -29,7 +29,7 @@ const notificationTypes = new Map([
 
 /**
  * @slot title - Use this to provide a notification title (optional).
- * @slot - Use this to provide the notification message.
+ * @slot - Use the unnamed slot to add content to the notification message.
  */
 @customElement('sbb-notification')
 export class SbbNotification extends LitElement {

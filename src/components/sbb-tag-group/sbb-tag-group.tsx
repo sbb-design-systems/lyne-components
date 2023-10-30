@@ -6,7 +6,7 @@ import { setAttribute } from '../../global/dom';
 import style from './sbb-tag-group.scss?lit&inline';
 
 /**
- * @slot - Provide one or more 'sbb-tag' to add to the group.
+ * @slot - Use the unnamed slot to add one or more 'sbb-tag' elements to this tag group.
  */
 @customElement('sbb-tag-group')
 export class SbbTagGroup extends LitElement {

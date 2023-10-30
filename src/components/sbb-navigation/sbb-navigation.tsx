@@ -42,7 +42,7 @@ const navigationObserverConfig: MutationObserverInit = {
 let nextId = 0;
 
 /**
- * @slot - Use this to project any content inside the navigation.
+ * @slot - Use the unnamed slot to add `sbb-navigation-action` elements into the sbb-navigation menu.
  */
 @customElement('sbb-navigation')
 export class SbbNavigation extends LitElement {

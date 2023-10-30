@@ -28,7 +28,7 @@ export type SbbToastPosition = `${SbbToastPositionVertical}-${SbbToastPositionHo
 const toastRefs = new Set<SbbToast>();
 
 /**
- * @slot - Use this to document a slot.
+ * @slot - Use the unnamed slot to add content to the toast.
  */
 @customElement('sbb-toast')
 export class SbbToast extends LitElement {

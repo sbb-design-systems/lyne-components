@@ -28,7 +28,7 @@ export interface SelectChange {
 }
 
 /**
- * @slot - Use this slot to project options.
+ * @slot - Use the unnamed slot to add options.
  */
 @customElement('sbb-select')
 export class SbbSelect extends LitElement {
