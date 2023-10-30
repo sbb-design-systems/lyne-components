@@ -4,7 +4,7 @@ import { ConnectedAbortController, EventEmitter } from '../../global/eventing';
 import style from './__name__.scss?lit&inline';
 
 /**
- * @slot - Use this to document a slot.
+ * @slot - Use the unnamed slot to add `sbb-TODO` elements.
  */
 @customElement('__name__')
 export class __nameUpperCase__ extends LitElement {

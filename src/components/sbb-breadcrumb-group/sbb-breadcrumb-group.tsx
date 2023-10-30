@@ -18,7 +18,7 @@ import { setAttribute } from '../../global/dom';
 import style from './sbb-breadcrumb-group.scss?lit&inline';
 
 /**
- * @slot - Use this to slot the sbb-breadcrumb elements.
+ * @slot - Use the unnamed slot to add `sbb-breadcrumb` elements.
  */
 @customElement('sbb-breadcrumb-group')
 export class SbbBreadcrumbGroup extends LitElement {

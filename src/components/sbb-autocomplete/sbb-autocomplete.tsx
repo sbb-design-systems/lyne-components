@@ -25,7 +25,7 @@ import style from './sbb-autocomplete.scss?lit&inline';
 let nextId = 0;
 
 /**
- * @slot - Use this slot to project options.
+ * @slot - Use the unnamed slot to add `sbb-option` or `sbb-optgroup` elements to this alert group.
  */
 @customElement('sbb-autocomplete')
 export class SbbAutocomplete extends LitElement {

@@ -8,7 +8,7 @@ import { setAttribute } from '../../global/dom';
 import style from './sbb-alert-group.scss?lit&inline';
 
 /**
- * @slot - content slot, should be filled with `sbb-alert` items.
+ * @slot - Use the unnamed slot to add `sbb-alert` elements to this alert group.
  * @slot accessibility-title - title for this sbb-alert-group which is only visible for screen reader users.
  */
 @customElement('sbb-alert-group')

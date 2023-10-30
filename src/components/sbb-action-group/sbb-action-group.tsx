@@ -6,7 +6,7 @@ import { SbbButtonSize } from '../sbb-button';
 import { SbbLinkSize } from '../sbb-link';
 
 /**
- * @slot - Slot to render the content inside the container.
+ * @slot - Use the unnamed slot to add `sbb-link` or `sbb-button` elements to this action group.
  */
 @customElement('sbb-action-group')
 export class SbbActionGroup extends LitElement {

@@ -21,7 +21,7 @@ import { spread } from '@open-wc/lit-helpers';
 import '../sbb-icon';
 
 /**
- * @slot - Use this to slot the breadcrumb's text.
+ * @slot - Use the unnamed slot to add content to the breadcrumb.
  * @slot icon - Use this to display an icon as breadcrumb.
  */
 @customElement('sbb-breadcrumb')

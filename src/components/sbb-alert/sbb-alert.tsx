@@ -20,7 +20,7 @@ import '../sbb-button';
 /**
  * @slot icon - Should be a sbb-icon which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.
  * @slot title - Title content.
- * @slot - Content of the alert.
+ * @slot - Use the unnamed slot to add content to the alert.
  */
 @customElement('sbb-alert')
 export class SbbAlert extends LitElement implements LinkProperties {

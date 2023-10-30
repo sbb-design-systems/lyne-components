@@ -7,7 +7,7 @@ import { TitleLevel } from '../sbb-title';
 import style from './sbb-accordion.scss?lit&inline';
 
 /**
- * @slot - Use this to add one or more sbb-expansion-panel.
+ * @slot - Use the unnamed slot to add `sbb-expansion-panel` elements.
  */
 @customElement('sbb-accordion')
 export class SbbAccordion extends LitElement {
