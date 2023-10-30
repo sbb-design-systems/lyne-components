@@ -65,13 +65,6 @@ you can not provide it and then use `aria-label` to specify an appropriate label
 | `required`      | `required`      | public  | `boolean`                          | `false`        | The required prop for the required state.                      |
 | `labelPosition` | `label-position` | public  | `'before' \| 'after' \| undefined` | `'after'`      | The label position relative to the toggle. Defaults to 'after' |
 
-## Methods
-
-| Name                | Privacy | Description                                                                                                            | Parameters     | Return | Inherited From |
-| ------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------- | -------------- | ------ | -------------- |
-| `handleChangeEvent` | public  |                                                                                                                        | `event: Event` | `void` |                |
-| `handleInputEvent`  | public  | Method triggered on checkbox input event.&#xA;If not indeterminate, inverts the value; otherwise sets checked to true. |                | `void` |                |
-
 ## Slots
 
 | Name      | Description                                                                         |

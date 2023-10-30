@@ -82,13 +82,6 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 | `checked`       | `checked`       | public  | `boolean`             | `false` | Whether the checkbox is checked.                                                                                                            |
 | `size`          | `size`          | public  | `SbbCheckboxSize`     | `'m'`   | Label size variant, either m or s.                                                                                                          |
 
-## Methods
-
-| Name                | Privacy | Description                                                                                                            | Parameters     | Return | Inherited From |
-| ------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------- | -------------- | ------ | -------------- |
-| `handleChangeEvent` | public  |                                                                                                                        | `event: Event` | `void` |                |
-| `handleInputEvent`  | public  | Method triggered on checkbox input event.&#xA;If not indeterminate, inverts the value; otherwise sets checked to true. |                | `void` |                |
-
 ## Slots
 
 | Name      | Description                                                                                     |

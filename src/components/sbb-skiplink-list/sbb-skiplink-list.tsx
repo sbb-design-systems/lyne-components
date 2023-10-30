@@ -29,7 +29,7 @@ export class SbbSkiplinkList implements ComponentInterface {
 
   @Element() private _element!: HTMLElement;
 
-  public syncLinks(): void {
+  private _syncLinks(): void {
     this._element.querySelectorAll('sbb-link').forEach((link: HTMLSbbLinkElement) => {
       link.size = 'm';
       link.negative = true;
@@ -55,7 +55,7 @@ export class SbbSkiplinkList implements ComponentInterface {
       return;
     }
 
-    this.syncLinks();
+    this._syncLinks();
     this._links = links;
   }
 

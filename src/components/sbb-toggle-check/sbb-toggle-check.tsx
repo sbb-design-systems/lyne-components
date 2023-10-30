@@ -92,7 +92,7 @@ export class SbbToggleCheck extends LitElement {
     }
   }
 
-  public handleChangeEvent(event: Event): void {
+  private _handleChangeEvent(event: Event): void {
     forwardEventToHost(event, this);
     this._didChange.emit();
   }
@@ -101,7 +101,7 @@ export class SbbToggleCheck extends LitElement {
    * Method triggered on checkbox input event.
    * If not indeterminate, inverts the value; otherwise sets checked to true.
    */
-  public handleInputEvent(): void {
+  private _handleInputEvent(): void {
     this.checked = findShadowInput(this)?.checked ?? false;
   }
 
@@ -133,8 +133,8 @@ export class SbbToggleCheck extends LitElement {
           ?required=${this.required}
           ?checked=${this.checked}
           .value=${this.value || nothing}
-          @input=${() => this.handleInputEvent()}
-          @change=${(event) => this.handleChangeEvent(event)}
+          @input=${() => this._handleInputEvent()}
+          @change=${(event: Event) => this._handleChangeEvent(event)}
         />
         <span class="sbb-toggle-check__container">
           <span class="sbb-toggle-check__label" ?hidden=${!this._hasLabelText}>

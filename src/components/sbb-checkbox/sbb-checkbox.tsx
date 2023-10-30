@@ -218,7 +218,7 @@ export class SbbCheckbox extends LitElement {
     }
   }
 
-  public handleChangeEvent(event: Event): void {
+  private _handleChangeEvent(event: Event): void {
     forwardEventToHost(event, this);
     this._didChange.emit();
   }
@@ -227,7 +227,7 @@ export class SbbCheckbox extends LitElement {
    * Method triggered on checkbox input event.
    * If not indeterminate, inverts the value; otherwise sets checked to true.
    */
-  public handleInputEvent(): void {
+  private _handleInputEvent(): void {
     if (this.indeterminate) {
       this.checked = true;
       this.indeterminate = false;
@@ -276,8 +276,8 @@ export class SbbCheckbox extends LitElement {
             ?required=${this.required || this._requiredFromGroup}
             ?checked=${this.checked}
             .value=${this.value || nothing}
-            @input=${() => this.handleInputEvent()}
-            @change=${(event) => this.handleChangeEvent(event)}
+            @input=${() => this._handleInputEvent()}
+            @change=${(event) => this._handleChangeEvent(event)}
             @focus=${() => this.focus()}
           />
           <span class="sbb-checkbox__inner">
