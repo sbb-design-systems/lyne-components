@@ -1,7 +1,7 @@
 import { assert, expect, fixture, fixtureCleanup } from '@open-wc/testing';
 import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
-import { waitForCondition } from '../../global/testing';
+import { waitForCondition, waitForLitRender } from '../../global/testing';
 import { EventSpy } from '../../global/testing/event-spy';
 import '../sbb-button';
 import { SbbButton } from '../sbb-button';
@@ -275,6 +275,7 @@ describe('sbb-tooltip', () => {
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
+    await waitForLitRender(element);
 
     closeButton.focus();
     await sendKeys({ down: 'Enter' });

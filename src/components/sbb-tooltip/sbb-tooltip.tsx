@@ -282,7 +282,7 @@ export class SbbTooltip extends LitElement {
 
       this._triggerElement.addEventListener(
         'keydown',
-        async (evt: KeyboardEvent) => {
+        (evt: KeyboardEvent) => {
           if (evt.code === 'Space' || evt.code === 'Enter') {
             this.open();
           }
@@ -343,14 +343,14 @@ export class SbbTooltip extends LitElement {
   };
 
   // Close tooltip on backdrop click.
-  private _closeOnBackdropClick = async (event: PointerEvent): Promise<void> => {
+  private _closeOnBackdropClick = (event: PointerEvent): void => {
     if (!this._isPointerDownEventOnTooltip && !isEventOnElement(this._dialog, event)) {
       this._nextFocusedElement = event
         .composedPath()
         .filter((el) => el instanceof window.HTMLElement)
         .find((el) => (el as HTMLElement).matches(IS_FOCUSABLE_QUERY)) as HTMLElement;
       clearTimeout(this._closeTimeout);
-      await this.close();
+      this.close();
     }
   };
 
