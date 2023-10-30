@@ -431,6 +431,7 @@ describe('sbb-selection-panel', () => {
       expect(fourthInput).not.to.have.attribute('checked');
 
       await sendKeys({ press: ' ' });
+      await waitForLitRender(wrapper);
       expect(fourthInput).to.have.attribute('checked');
       expect(firstInput).not.to.have.attribute('checked');
     });
