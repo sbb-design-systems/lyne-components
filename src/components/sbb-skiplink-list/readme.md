@@ -37,7 +37,7 @@ to specify a custom stack order, the `z-index` can be changed by defining the CS
 
 ## Slots
 
-| Name | Description                             |
-| ---- | --------------------------------------- |
-|      | Use this to provide links for the list. |
+| Name | Description                                                              |
+| ---- | ------------------------------------------------------------------------ |
+|      | Use the unnamed slot to add \`sbb-link\` elements to this skiplink list. |
 
