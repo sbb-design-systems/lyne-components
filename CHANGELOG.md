@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.42.1](https://github.com/lyne-design-system/lyne-components/compare/v0.42.0...v0.42.1) (2023-10-30)
+
+### Bug Fixes
+
+- **sbb-skiplink-list:** avoid rendering before defined ([#2128](https://github.com/lyne-design-system/lyne-components/issues/2128)) ([47c4eec](https://github.com/lyne-design-system/lyne-components/commit/47c4eec48133ca887a298d5c5f7b85432ad9faa7)), closes [#2120](https://github.com/lyne-design-system/lyne-components/issues/2120)
+
 ## [0.42.0](https://github.com/lyne-design-system/lyne-components/compare/v0.41.13...v0.42.0) (2023-10-26)
 
 ### ⚠ BREAKING CHANGES
