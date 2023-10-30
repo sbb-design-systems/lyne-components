@@ -343,7 +343,7 @@ export class SbbTooltip extends LitElement {
   };
 
   // Close tooltip on backdrop click.
-  private _closeOnBackdropClick = (event: PointerEvent): Promise<void> => {
+  private _closeOnBackdropClick = (event: PointerEvent): void => {
     if (!this._isPointerDownEventOnTooltip && !isEventOnElement(this._dialog, event)) {
       this._nextFocusedElement = event
         .composedPath()
