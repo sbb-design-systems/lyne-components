@@ -448,7 +448,7 @@ describe('sbb-selection-panel', () => {
 
       await sendKeys({ press: ' ' });
 
-      await waitForCondition(() => firstInput.hasAttribute('checked'));
+      await waitForCondition(() => !firstInput.hasAttribute('checked'));
       expect(firstInput).not.to.have.attribute('checked');
       expect(secondInput).to.have.attribute('checked');
     });
