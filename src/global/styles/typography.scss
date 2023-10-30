@@ -45,14 +45,15 @@ sbb-form-field {
 
 // Hiding components until they are instantiated
 :is(
-    sbb-dialog,
-    sbb-navigation,
-    sbb-menu,
-    sbb-navigation-section,
-    sbb-tooltip,
     sbb-autocomplete,
+    sbb-dialog,
+    sbb-menu,
+    sbb-navigation,
+    sbb-navigation-section,
     sbb-select,
-    sbb-toast
+    sbb-skiplink-list,
+    sbb-toast,
+    sbb-tooltip
   ):not(:defined) {
   display: none;
 }
