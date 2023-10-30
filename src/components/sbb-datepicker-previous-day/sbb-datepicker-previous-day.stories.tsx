@@ -7,7 +7,7 @@ import { InputType } from '@storybook/types';
 import { Args, ArgTypes } from '@storybook/web-components';
 import './sbb-datepicker-previous-day';
 import '../sbb-form-field';
-//import '../sbb-datepicker';
+import '../sbb-datepicker';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative
