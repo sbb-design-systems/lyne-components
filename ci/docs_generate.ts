@@ -81,6 +81,10 @@ function updateComponentReadme(name: string, tag: string, docs: string): void {
   newDocs.replace(/^# class: `.*`\n/m, '');
 
   updateFieldsTable(newDocs, sections);
+  newDocs = new MagicString(newDocs.toString());
+
+  // Unescape ` in docs
+  newDocs.replace(/\\`/g, '`');
 
   // Replace the generated doc in the readme
   const generatedStartIndex =
