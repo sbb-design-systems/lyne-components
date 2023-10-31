@@ -16,17 +16,17 @@ import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttributes } from '../../global/dom';
-import Style from './sbb-breadcrumb.scss?lit&inline';
+import style from './sbb-breadcrumb.scss?lit&inline';
 import { spread } from '@open-wc/lit-helpers';
 import '../sbb-icon';
 
 /**
- * @slot unnamed - Use this to slot the breadcrumb's text.
+ * @slot - Use the unnamed slot to add content to the breadcrumb.
  * @slot icon - Use this to display an icon as breadcrumb.
  */
 @customElement('sbb-breadcrumb')
 export class SbbBreadcrumb extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /** The href value you want to link to. */
   @property() public href: string | undefined;

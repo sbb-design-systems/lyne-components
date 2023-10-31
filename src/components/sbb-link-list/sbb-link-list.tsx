@@ -9,12 +9,12 @@ import { spread } from '@open-wc/lit-helpers';
 import { SbbLink, SbbLinkSize } from '../sbb-link';
 import { TitleLevel } from '../sbb-title';
 import '../sbb-title';
-import Style from './sbb-link-list.scss?lit&inline';
+import style from './sbb-link-list.scss?lit&inline';
 import { SbbHorizontalFrom, SbbOrientation } from '../../global/types';
 
 @customElement('sbb-link-list')
 export class SbbLinkList extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /** The title text we want to show before the list. */
   @property({ attribute: 'title-content' }) public titleContent?: string;
@@ -111,7 +111,7 @@ export class SbbLinkList extends LitElement {
         ${this._namedSlots.title || this.titleContent
           ? html`<sbb-title
               class="sbb-link-list-title"
-              level=${this.titleLevel}
+              level=${this.titleLevel ?? nothing}
               visual-level="5"
               ?negative=${this.negative}
               id="sbb-link-list-title-id"

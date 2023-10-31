@@ -5,7 +5,7 @@ import '../sbb-dialog';
 
 describe('sbb-dialog', () => {
   it('renders', async () => {
-    const root = await fixture(html`<sbb-dialog />`);
+    const root = await fixture(html`<sbb-dialog></sbb-dialog>`);
 
     expect(root).dom.to.be.equal(`<sbb-dialog data-state="closed" data-fullscreen></sbb-dialog>`);
     expect(root).shadowDom.to.be.equal(
@@ -17,10 +17,14 @@ describe('sbb-dialog', () => {
                 <sbb-button
                   aria-label="${i18nCloseDialog.en}"
                   class="sbb-dialog__close"
+                  data-icon-only=""
+                  dir="ltr"
                   icon-name="cross-small"
                   sbb-dialog-close=""
                   size="m"
                   type="button"
+                  role="button"
+                  tabindex="0"
                   variant="secondary">
                 </sbb-button>
               </div>

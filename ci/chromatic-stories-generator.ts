@@ -1,8 +1,10 @@
 import { readdirSync, writeFileSync, renameSync } from 'fs';
 import { basename, dirname, join, relative } from 'path';
+// eslint-disable-next-line @typescript-eslint/naming-convention
 import Module from 'module';
 
 import { Meta } from '@storybook/html';
+// eslint-disable-next-line @typescript-eslint/naming-convention
 import React from 'react';
 
 // Configure stories environment to be able to load story file.

@@ -2,15 +2,15 @@ import { toggleDatasetEntry, getDocumentWritingMode } from '../../global/dom';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { setAttribute } from '../../global/dom';
-import Style from './sbb-card-badge.scss?lit&inline';
+import style from './sbb-card-badge.scss?lit&inline';
 
 /**
- * @slot unnamed - Content of the badge.
- * Content parts should be wrapped in `<span>` tags to achieve correct spacings.
+ * @slot - Use the unnamed slot to add content to the badge.
+ *   Content parts should be wrapped in `<span>` tags to achieve correct spacings.
  */
 @customElement('sbb-card-badge')
 export class SbbCardBadge extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /** Color of the card badge. */
   @property({ reflect: true }) public color: 'charcoal' | 'white' = 'charcoal';

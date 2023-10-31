@@ -15,14 +15,14 @@ import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { SbbBreadcrumb } from '../sbb-breadcrumb';
 import { setAttribute } from '../../global/dom';
-import Style from './sbb-breadcrumb-group.scss?lit&inline';
+import style from './sbb-breadcrumb-group.scss?lit&inline';
 
 /**
- * @slot unnamed - Use this to slot the sbb-breadcrumb elements.
+ * @slot - Use the unnamed slot to add `sbb-breadcrumb` elements.
  */
 @customElement('sbb-breadcrumb-group')
 export class SbbBreadcrumbGroup extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /** Local instance of slotted sbb-breadcrumb elements */
   @state() private _breadcrumbs: SbbBreadcrumb[];

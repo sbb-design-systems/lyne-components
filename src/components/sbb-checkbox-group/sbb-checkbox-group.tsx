@@ -9,16 +9,16 @@ import {
 import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { SbbCheckbox, SbbCheckboxSize } from '../sbb-checkbox';
-import Style from './sbb-checkbox-group.scss?lit&inline';
+import style from './sbb-checkbox-group.scss?lit&inline';
 import { SbbHorizontalFrom, SbbOrientation } from '../../global/types';
 
 /**
- * @slot unnamed - Slot used to render the <sbb-checkbox> inside the <sbb-checkbox-group>.
+ * @slot - Use the unnamed slot to add `sbb-checkbox` elements to the checkbox group.
  * @slot error - Slot used to render the <sbb-form-error> inside the <sbb-checkbox-group>.
  */
 @customElement('sbb-checkbox-group')
 export class SbbCheckboxGroup extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /** Whether the checkbox group is disabled. */
   @property({ type: Boolean }) public disabled = false;

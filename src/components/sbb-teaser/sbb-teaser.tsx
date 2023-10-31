@@ -17,7 +17,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';
 import { setAttributes } from '../../global/dom';
-import Style from './sbb-teaser.scss?lit&inline';
+import style from './sbb-teaser.scss?lit&inline';
 import '../sbb-title';
 
 /**
@@ -27,7 +27,7 @@ import '../sbb-title';
  */
 @customElement('sbb-teaser')
 export class SbbTeaser extends LitElement implements LinkProperties {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /**
    * Teaser variant -

@@ -12,7 +12,7 @@ import { SbbTrain } from '../sbb-train';
 import { SbbTrainWagon } from '../sbb-train-wagon';
 import { SbbTrainBlockedPassage } from '../sbb-train-blocked-passage';
 import { ref } from 'lit/directives/ref.js';
-import Style from './sbb-train-formation.scss?lit&inline';
+import style from './sbb-train-formation.scss?lit&inline';
 
 interface AggregatedSector {
   label: string;
@@ -21,11 +21,11 @@ interface AggregatedSector {
 }
 
 /**
- * @slot unnamed - Used for slotting sbb-trains.
+ * @slot - Use the unnamed slot to add 'sbb-train' elements to this train formation.
  */
 @customElement('sbb-train-formation')
 export class SbbTrainFormation extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /** Option to hide all wagon labels. */
   @property({ attribute: 'hide-wagon-label', reflect: true, type: Boolean }) public hideWagonLabel =

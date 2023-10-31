@@ -21,7 +21,7 @@ import { LitElement, nothing, TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttributes } from '../../global/dom';
-import Style from './sbb-link.scss?lit&inline';
+import style from './sbb-link.scss?lit&inline';
 import { spread } from '@open-wc/lit-helpers';
 import '../sbb-icon';
 import { SbbIconPlacement } from '../../global/types';
@@ -29,12 +29,12 @@ import { SbbIconPlacement } from '../../global/types';
 export type SbbLinkSize = 'xs' | 's' | 'm';
 
 /**
- * @slot unnamed - Link Content
+ * @slot - Use the unnamed slot to add content to the link.
  * @slot icon - Slot used to display the icon, if one is set
  */
 @customElement('sbb-link')
 export class SbbLink extends LitElement implements LinkButtonProperties, IsStaticProperty {
-  public static override styles = Style;
+  public static override styles = style;
 
   /** Variant of the link (block or inline). */
   @property({ reflect: true }) public variant: 'block' | 'inline' = 'block';

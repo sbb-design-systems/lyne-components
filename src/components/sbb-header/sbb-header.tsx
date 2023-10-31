@@ -1,18 +1,18 @@
 import { findReferencedElement, toggleDatasetEntry } from '../../global/dom';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import Style from './sbb-header.scss?lit&inline';
+import style from './sbb-header.scss?lit&inline';
 import '../sbb-logo';
 
 const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
 
 /**
- * @slot unnamed - Slot used to render the actions on the left side.
+ * @slot - Use the unnamed slot to add actions or content to the header.
  * @slot logo - Slot used to render the logo on the right side (sbb-logo as default).
  */
 @customElement('sbb-header')
 export class SbbHeader extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /**
    * Whether to allow the header content to stretch to full width.

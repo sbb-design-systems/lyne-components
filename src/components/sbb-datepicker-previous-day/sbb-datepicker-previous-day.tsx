@@ -23,13 +23,13 @@ import {
   findPreviousAvailableDate,
   getDatePicker,
 } from '../sbb-datepicker/sbb-datepicker.helper';
-import Style from './sbb-datepicker-previous-day.scss?lit&inline';
+import style from './sbb-datepicker-previous-day.scss?lit&inline';
 
 import '../sbb-icon';
 
 @customElement('sbb-datepicker-previous-day')
 export class SbbDatepickerPreviousDay extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /** The name attribute to use for the button. */
   @property({ reflect: true }) public name: string | undefined;

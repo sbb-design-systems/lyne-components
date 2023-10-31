@@ -11,11 +11,11 @@ import {
 } from '../../global/eventing';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import Style from './sbb-timetable-park-and-rail.scss?lit&inline';
+import style from './sbb-timetable-park-and-rail.scss?lit&inline';
 
 @customElement('sbb-timetable-park-and-rail')
 export class SbbTimetableParkAndRail extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /**
    * Set the desired appearance of

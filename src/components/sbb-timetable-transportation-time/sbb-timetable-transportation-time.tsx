@@ -6,12 +6,12 @@ import {
 } from '../../global/eventing';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import Style from './sbb-timetable-transportation-time.scss?lit&inline';
+import style from './sbb-timetable-transportation-time.scss?lit&inline';
 import { SbbTimetableAppearance } from '../../global/types';
 
 @customElement('sbb-timetable-transportation-time')
 export class SbbTimetableTransportationTime extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /**
    * Set the desired appearance of

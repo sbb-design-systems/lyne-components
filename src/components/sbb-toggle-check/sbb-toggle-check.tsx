@@ -10,15 +10,16 @@ import {
 import { html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttributes } from '../../global/dom';
-import Style from './sbb-toggle-check.scss?lit&inline';
+import style from './sbb-toggle-check.scss?lit&inline';
+import '../sbb-icon';
 
 /**
- * @slot unnamed - Use this slot to provide the toggle label.
+ * @slot - Use the unnamed slot to add content to the toggle label.
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
  */
 @customElement('sbb-toggle-check')
 export class SbbToggleCheck extends LitElement {
-  public static override styles = Style;
+  public static override styles = style;
   public static readonly events = {
     didChange: 'did-change',
   } as const;

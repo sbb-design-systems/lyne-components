@@ -3,14 +3,14 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ConnectedAbortController } from '../../global/eventing';
 import { SbbTag, SbbTagStateChange } from '../sbb-tag';
 import { setAttribute } from '../../global/dom';
-import Style from './sbb-tag-group.scss?lit&inline';
+import style from './sbb-tag-group.scss?lit&inline';
 
 /**
- * @slot unnamed - Provide one or more 'sbb-tag' to add to the group.
+ * @slot - Use the unnamed slot to add one or more 'sbb-tag' elements to this tag group.
  */
 @customElement('sbb-tag-group')
 export class SbbTagGroup extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /**
    * This will be forwarded as aria-label to the inner list.

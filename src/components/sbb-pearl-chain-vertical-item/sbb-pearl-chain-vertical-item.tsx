@@ -1,6 +1,6 @@
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import Style from './sbb-pearl-chain-vertical-item.scss?lit&inline';
+import style from './sbb-pearl-chain-vertical-item.scss?lit&inline';
 
 export type LineType = 'dotted' | 'standard' | 'thin';
 
@@ -26,7 +26,7 @@ export interface PearlChainVerticalItemAttributes {
  */
 @customElement('sbb-pearl-chain-vertical-item')
 export class SbbPearlChainVerticalItem extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /** The pearlChainVerticalItemAttributes Prop for styling the bullets and line.*/
   @property({ attribute: 'pearl-chain-vertical-item-attributes', type: Object })

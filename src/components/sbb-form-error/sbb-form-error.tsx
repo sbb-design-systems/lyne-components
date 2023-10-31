@@ -2,13 +2,13 @@ import { assignId } from '../../global/a11y';
 import { isValidAttribute } from '../../global/dom';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import Style from './sbb-form-error.scss?lit&inline';
+import style from './sbb-form-error.scss?lit&inline';
 
 let nextId = 0;
 
 @customElement('sbb-form-error')
 export class SbbFormError extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /** Negative coloring variant flag. */
   @property({ reflect: true, type: Boolean }) public negative = false;
@@ -43,7 +43,7 @@ export class SbbFormError extends LitElement {
         </slot>
       </span>
       <span class="form-error-content">
-        <slot />
+        <slot></slot>
       </span>
     `;
   }

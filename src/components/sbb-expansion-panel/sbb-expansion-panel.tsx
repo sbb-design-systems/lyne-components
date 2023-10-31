@@ -7,7 +7,7 @@ import { SbbExpansionPanelHeader } from '../sbb-expansion-panel-header';
 import { SbbExpansionPanelContent } from '../sbb-expansion-panel-content';
 import { TitleLevel } from '../sbb-title';
 import { SbbOverlayState } from '../../global/overlay';
-import Style from './sbb-expansion-panel.scss?lit&inline';
+import style from './sbb-expansion-panel.scss?lit&inline';
 
 let nextId = 0;
 
@@ -17,7 +17,7 @@ let nextId = 0;
  */
 @customElement('sbb-expansion-panel')
 export class SbbExpansionPanel extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     willOpen: 'will-open',
     didOpen: 'did-open',

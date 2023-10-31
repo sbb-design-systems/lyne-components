@@ -14,7 +14,10 @@ import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttribute } from '../../global/dom';
 import { ref } from 'lit/directives/ref.js';
-import Style from './sbb-notification.scss?lit&inline';
+import style from './sbb-notification.scss?lit&inline';
+import '../sbb-button';
+import '../sbb-divider';
+import '../sbb-icon';
 import '../sbb-title';
 
 const notificationTypes = new Map([
@@ -26,11 +29,11 @@ const notificationTypes = new Map([
 
 /**
  * @slot title - Use this to provide a notification title (optional).
- * @slot unnamed - Use this to provide the notification message.
+ * @slot - Use the unnamed slot to add content to the notification message.
  */
 @customElement('sbb-notification')
 export class SbbNotification extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     willOpen: 'will-open',
     didOpen: 'did-open',
@@ -204,7 +207,7 @@ export class SbbNotification extends LitElement {
         <div class="sbb-notification">
           <sbb-icon
             class="sbb-notification__icon"
-            name=${notificationTypes.get(this.type)}
+            name=${notificationTypes.get(this.type)!}
           ></sbb-icon>
 
           <span class="sbb-notification__content">

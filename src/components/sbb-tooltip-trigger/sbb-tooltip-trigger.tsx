@@ -3,14 +3,15 @@ import { customElement, property } from 'lit/decorators.js';
 import { hostContext, isValidAttribute, setAttributes, toggleDatasetEntry } from '../../global/dom';
 import { HandlerRepository, actionElementHandlerAspect } from '../../global/eventing';
 import { resolveButtonRenderVariables } from '../../global/interfaces';
-import Style from './sbb-tooltip-trigger.scss?lit&inline';
+import style from './sbb-tooltip-trigger.scss?lit&inline';
+import '../sbb-icon';
 
 /**
- * @slot unnamed - Slot to render the content.
+ * @slot - Use the unnamed slot to add content to the tooltip trigger.
  */
 @customElement('sbb-tooltip-trigger')
 export class SbbTooltipTrigger extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /** The name attribute to use for the button. */
   @property({ reflect: true }) public name: string | undefined;

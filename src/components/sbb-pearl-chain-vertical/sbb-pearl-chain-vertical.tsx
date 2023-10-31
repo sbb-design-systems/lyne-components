@@ -1,13 +1,13 @@
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import Style from './sbb-pearl-chain-vertical.scss?lit&inline';
+import style from './sbb-pearl-chain-vertical.scss?lit&inline';
 
 /**
- * @slot unnamed - for <sbb-pearl-chain-vertical-item /> component
+ * @slot - for <sbb-pearl-chain-vertical-item /> component
  */
 @customElement('sbb-pearl-chain-vertical')
 export class SbbPearlChainVertical extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   protected override render(): TemplateResult {
     return html`

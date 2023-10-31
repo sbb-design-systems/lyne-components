@@ -7,16 +7,17 @@ import { TitleLevel } from '../sbb-title';
 import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
-import Style from './sbb-tab-title.scss?lit&inline';
+import style from './sbb-tab-title.scss?lit&inline';
+import '../sbb-icon';
 
 /**
- * @slot unnamed - This slot will show the provided tab title.
+ * @slot - Use the unnamed slot to add content to the tab title.
  * @slot icon - Use this slot to display an icon to the left of the title, by providing the `sbb-icon` component.
  * @slot amount - Provide a number to show an amount to the right of the title.
  */
 @customElement('sbb-tab-title')
 export class SbbTabTitle extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /**
    * The level will correspond to the heading tag generated in the title.

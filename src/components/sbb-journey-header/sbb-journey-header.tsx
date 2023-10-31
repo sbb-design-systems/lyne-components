@@ -8,7 +8,7 @@ import {
 } from '../../global/eventing';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import Style from './sbb-journey-header.scss?lit&inline';
+import style from './sbb-journey-header.scss?lit&inline';
 import '../sbb-title';
 import '../sbb-icon';
 
@@ -16,7 +16,7 @@ export type JourneyHeaderSize = 'm' | 'l';
 
 @customElement('sbb-journey-header')
 export class SbbJourneyHeader extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /** Origin location for the journey header. */
   @property() public origin!: string;
@@ -58,7 +58,7 @@ export class SbbJourneyHeader extends LitElement {
 
     return html`
       <sbb-title
-        level=${this.level}
+        level=${this.level ?? nothing}
         ?negative=${this.negative}
         visual-level=${this.size === 'l' ? '4' : '5'}
       >

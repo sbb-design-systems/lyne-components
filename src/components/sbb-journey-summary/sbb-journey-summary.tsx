@@ -14,7 +14,7 @@ import {
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { TitleLevel } from '../sbb-title';
-import Style from './sbb-journey-summary.scss?lit&inline';
+import style from './sbb-journey-summary.scss?lit&inline';
 import '../sbb-pearl-chain-time';
 import '../sbb-journey-header';
 import '../sbb-divider';
@@ -33,13 +33,14 @@ export interface InterfaceSbbJourneySummaryAttributes {
 
 @customElement('sbb-journey-summary')
 export class SbbJourneySummary extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /**  The trip prop */
-  @property() public trip!: InterfaceSbbJourneySummaryAttributes;
+  @property({ type: Object }) public trip!: InterfaceSbbJourneySummaryAttributes;
 
   /**  The tripBack prop */
-  @property({ attribute: 'trip-back' }) public tripBack?: InterfaceSbbJourneySummaryAttributes;
+  @property({ attribute: 'trip-back', type: Object })
+  public tripBack?: InterfaceSbbJourneySummaryAttributes;
 
   /**
    * The RoundTrip prop. This prop controls if one or two arrows are displayed in the header.
@@ -152,10 +153,10 @@ export class SbbJourneySummary extends LitElement {
         ${origin
           ? html`<sbb-journey-header
               size="l"
-              level=${this.headerLevel}
+              level=${this.headerLevel ?? nothing}
               origin=${origin}
               destination=${destination}
-              roundTrip=${this.roundTrip}
+              roundTrip=${this.roundTrip ?? nothing}
             ></sbb-journey-header>`
           : nothing}
         ${this._renderJourneyInformation(this.trip)}

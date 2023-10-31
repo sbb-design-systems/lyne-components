@@ -9,16 +9,16 @@ import { AgnosticIntersectionObserver } from '../../global/observers';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
-import Style from './sbb-map-container.scss?lit&inline';
+import style from './sbb-map-container.scss?lit&inline';
 import '../sbb-button';
 
 /**
- * @slot unnamed - Used for slotting the sidebar content.
+ * @slot - Use the unnamed slot to add content to the sidebar.
  * @slot map - Used for slotting the map.
  */
 @customElement('sbb-map-container')
 export class SbbMapContainer extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /** Flag to show/hide the scroll up button inside the sidebar on mobile. */
   @property({ attribute: 'hide-scroll-up-button', reflect: true, type: Boolean })

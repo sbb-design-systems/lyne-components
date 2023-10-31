@@ -18,7 +18,7 @@ import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
-import Style from './sbb-file-selector.scss?lit&inline';
+import style from './sbb-file-selector.scss?lit&inline';
 import '../sbb-button';
 import '../sbb-icon';
 
@@ -29,7 +29,7 @@ export type DOMEvent = globalThis.Event;
  */
 @customElement('sbb-file-selector')
 export class SbbFileSelector extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     fileChangedEvent: 'file-changed',
   } as const;

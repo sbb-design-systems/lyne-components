@@ -12,7 +12,7 @@ import {
 import { SbbInputModality, sbbInputModalityDetector } from '../../global/a11y';
 import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import Style from './sbb-form-field.scss?lit&inline';
+import style from './sbb-form-field.scss?lit&inline';
 import { SbbSelect } from '../sbb-select';
 import '../sbb-icon';
 
@@ -24,13 +24,13 @@ const supportedPopupTagNames = ['SBB-AUTOCOMPLETE', 'SBB-SELECT'];
 /**
  * @slot label - Slot to render a label.
  * @slot prefix - Slot to render an icon on the left side of the input.
- * @slot unnamed - Slot to render an input/select.
+ * @slot - Slot to render an input/select.
  * @slot suffix - Slot to render an icon on the right side of the input.
  * @slot error - Slot to render an error.
  */
 @customElement('sbb-form-field')
 export class SbbFormField extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   private readonly _supportedNativeInputElements = ['INPUT', 'SELECT'];
   // List of supported element selectors in unnamed slot

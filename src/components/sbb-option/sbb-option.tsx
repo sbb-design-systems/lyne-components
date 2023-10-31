@@ -12,8 +12,9 @@ import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttribute } from '../../global/dom';
 import { classMap } from 'lit/directives/class-map.js';
-import Style from './sbb-option.scss?lit&inline';
+import style from './sbb-option.scss?lit&inline';
 import '../sbb-visual-checkbox';
+import '../sbb-icon';
 
 let nextId = 0;
 
@@ -23,14 +24,14 @@ const optionObserverConfig: MutationObserverInit = {
 };
 
 /**
- * @slot unnamed - Use this to provide the option label.
+ * @slot - Use the unnamed slot to add content to the option label.
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
  */
 export type SbbOptionVariant = 'autocomplete' | 'select';
 
 @customElement('sbb-option')
 export class SbbOption extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     selectionChange: 'option-selection-change',
     optionSelected: 'option-selected',

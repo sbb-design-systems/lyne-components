@@ -26,18 +26,18 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';
 import { setAttribute, setAttributes } from '../../global/dom';
-import Style from './sbb-button.scss?lit&inline';
+import style from './sbb-button.scss?lit&inline';
 import '../sbb-icon';
 
 export type SbbButtonSize = 'l' | 'm';
 
 /**
- * @slot unnamed - Button Content
+ * @slot - Use the unnamed slot to add content to the button.
  * @slot icon - Slot used to display the icon, if one is set
  */
 @customElement('sbb-button')
 export class SbbButton extends LitElement implements LinkButtonProperties, IsStaticProperty {
-  public static override styles = Style;
+  public static override styles = style;
 
   /** Variant of the button, like primary, secondary etc. */
   @property({ reflect: true }) public variant:

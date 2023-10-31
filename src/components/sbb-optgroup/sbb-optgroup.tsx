@@ -4,15 +4,15 @@ import { CSSResult, html, LitElement, TemplateResult, PropertyValues } from 'lit
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttribute } from '../../global/dom';
 import { SbbOption, SbbOptionVariant } from '../sbb-option';
-import Style from './sbb-optgroup.scss?lit&inline';
+import style from './sbb-optgroup.scss?lit&inline';
 import '../sbb-divider';
 
 /**
- * @slot unnamed - Used to display options.
+ * @slot - Use the unnamed slot to add `sbb-option` elements to this optgroup.
  */
 @customElement('sbb-optgroup')
 export class SbbOptGroup extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /** Option group label. */
   @property() public label: string;

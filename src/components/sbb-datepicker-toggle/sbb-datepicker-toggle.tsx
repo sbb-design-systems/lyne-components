@@ -18,7 +18,7 @@ import {
 } from '../sbb-datepicker/sbb-datepicker.helper';
 import { SbbTooltip } from '../sbb-tooltip';
 import { SbbTooltipTrigger } from '../sbb-tooltip-trigger';
-import Style from './sbb-datepicker-toggle.scss?lit&inline';
+import style from './sbb-datepicker-toggle.scss?lit&inline';
 
 import '../sbb-calendar';
 import '../sbb-tooltip';
@@ -26,7 +26,7 @@ import '../sbb-tooltip-trigger';
 
 @customElement('sbb-datepicker-toggle')
 export class SbbDatepickerToggle extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /** Datepicker reference. */
   @property({ attribute: 'date-picker' }) public datePicker?: string | SbbDatepicker;

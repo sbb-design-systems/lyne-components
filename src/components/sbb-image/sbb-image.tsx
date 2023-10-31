@@ -9,7 +9,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';
 import { classMap } from 'lit/directives/class-map.js';
 import { ref } from 'lit/directives/ref.js';
-import Style from './sbb-image.scss?lit&inline';
+import style from './sbb-image.scss?lit&inline';
 
 const eventListenerOptions = {
   once: true,
@@ -18,7 +18,7 @@ const eventListenerOptions = {
 
 @customElement('sbb-image')
 export class SbbImage extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   private _captionElement?: HTMLElement;
   private _imageElement!: HTMLElement;
@@ -432,8 +432,8 @@ export class SbbImage extends LitElement {
                 src=${imageUrlLQIP}
                 width="1000"
                 height="562"
-                loading=${this.loading}
-                decoding=${this.decoding}
+                loading=${this.loading ?? nothing}
+                decoding=${this.decoding ?? nothing}
               />`
             : nothing}
 
@@ -457,12 +457,12 @@ export class SbbImage extends LitElement {
             <img
               alt=${this.alt || nothing}
               class="image__img"
-              src=${this.imageSrc}
+              src=${this.imageSrc!}
               width="1000"
               height="562"
-              loading=${this.loading}
-              decoding=${this.decoding}
-              importance=${this.importance}
+              loading=${this.loading ?? nothing}
+              decoding=${this.decoding ?? nothing}
+              importance=${this.importance ?? nothing}
               ${ref((el): void => {
                 this._imageElement = el as HTMLElement;
               })}

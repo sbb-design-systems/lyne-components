@@ -11,8 +11,9 @@ import { CSSResult, html, LitElement, nothing, PropertyValues, TemplateResult } 
 import { customElement, property, state } from 'lit/decorators.js';
 import { SbbTagGroup } from '../sbb-tag-group';
 import { setAttributes } from '../../global/dom';
-import Style from './sbb-tag.scss?lit&inline';
+import style from './sbb-tag.scss?lit&inline';
 import { SbbCheckedStateChange, SbbStateChange, SbbValueStateChange } from '../../global/types';
+import '../sbb-icon';
 
 export type SbbTagStateChange = Extract<
   SbbStateChange,
@@ -20,13 +21,13 @@ export type SbbTagStateChange = Extract<
 >;
 
 /**
- * @slot unnamed - This slot will show the provided tag label.
+ * @slot - Use the unnamed slot to add content to the tag label.
  * @slot icon - Use this slot to display an icon at the component start, by providing a `sbb-icon` component.
  * @slot amount - Provide an amount to show it at the component end.
  */
 @customElement('sbb-tag')
 export class SbbTag extends LitElement implements ButtonProperties {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     stateChange: 'state-change',
     input: 'input',

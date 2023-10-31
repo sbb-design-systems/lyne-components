@@ -25,17 +25,18 @@ import { SbbNavigation } from '../sbb-navigation';
 import { SbbNavigationMarker } from '../sbb-navigation-marker';
 import { setAttribute } from '../../global/dom';
 import { ref } from 'lit/directives/ref.js';
-import Style from './sbb-navigation-section.scss?lit&inline';
+import style from './sbb-navigation-section.scss?lit&inline';
 import '../sbb-divider';
+import '../sbb-button';
 
 let nextId = 0;
 
 /**
- * @slot unnamed - Use this to project any content inside the navigation section.
+ * @slot - Use the unnamed slot to add content into the navigation section.
  */
 @customElement('sbb-navigation-section')
 export class SbbNavigationSection extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /*
    * The label to be shown before the action list.

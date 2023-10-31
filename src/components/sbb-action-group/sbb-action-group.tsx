@@ -1,16 +1,16 @@
 import { CSSResult, html, LitElement, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import Style from './sbb-action-group.scss?lit&inline';
+import style from './sbb-action-group.scss?lit&inline';
 import { SbbHorizontalFrom, SbbOrientation } from '../../global/types';
 import { SbbButtonSize } from '../sbb-button';
 import { SbbLinkSize } from '../sbb-link';
 
 /**
- * @slot unnamed - Slot to render the content inside the container.
+ * @slot - Use the unnamed slot to add `sbb-link` or `sbb-button` elements to this action group.
  */
 @customElement('sbb-action-group')
 export class SbbActionGroup extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /**
    * Set the slotted `<sbb-action-group>` children's alignment.

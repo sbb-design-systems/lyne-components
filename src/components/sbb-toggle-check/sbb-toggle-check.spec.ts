@@ -23,7 +23,12 @@ describe('sbb-toggle-check', () => {
             <span class="sbb-toggle-check__circle">
               <span class="sbb-toggle-check__icon">
                 <slot name="icon">
-                  <sbb-icon name="tick-small"></sbb-icon>
+                  <sbb-icon
+                    aria-hidden="true"
+                    data-namespace="default"
+                    name="tick-small"
+                    role="img"
+                  ></sbb-icon>
                 </slot>
               </span>
             </span>
@@ -55,7 +60,12 @@ describe('sbb-toggle-check', () => {
             <span class="sbb-toggle-check__circle">
               <span class="sbb-toggle-check__icon">
                 <slot name="icon">
-                  <sbb-icon name="tick-small"></sbb-icon>
+                  <sbb-icon
+                    aria-hidden="true"
+                    data-namespace="default"
+                    name="tick-small"
+                    role="img"
+                  ></sbb-icon>
                 </slot>
               </span>
             </span>
@@ -87,7 +97,12 @@ describe('sbb-toggle-check', () => {
                 <span class="sbb-toggle-check__circle">
                   <span class="sbb-toggle-check__icon">
                     <slot name="icon">
-                      <sbb-icon name="tick-small"></sbb-icon>
+                      <sbb-icon
+                        aria-hidden="true"
+                        data-namespace="default"
+                        name="tick-small"
+                        role="img"
+                      ></sbb-icon>
                     </slot>
                   </span>
                 </span>
@@ -117,7 +132,12 @@ describe('sbb-toggle-check', () => {
                 <span class="sbb-toggle-check__circle">
                   <span class="sbb-toggle-check__icon">
                     <slot name="icon">
-                      <sbb-icon name="tick-small"></sbb-icon>
+                      <sbb-icon
+                        aria-hidden="true"
+                        data-namespace="default"
+                        name="tick-small"
+                        role="img"
+                      ></sbb-icon>
                     </slot>
                   </span>
                 </span>
@@ -150,7 +170,12 @@ describe('sbb-toggle-check', () => {
                 <span class="sbb-toggle-check__circle">
                   <span class="sbb-toggle-check__icon">
                     <slot name="icon">
-                      <sbb-icon name="tick-small"></sbb-icon>
+                      <sbb-icon
+                        aria-hidden="true"
+                        data-namespace="default"
+                        name="tick-small"
+                        role="img"
+                      ></sbb-icon>
                     </slot>
                   </span>
                 </span>

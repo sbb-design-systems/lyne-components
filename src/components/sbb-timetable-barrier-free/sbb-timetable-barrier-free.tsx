@@ -7,11 +7,11 @@ import {
 } from '../../global/eventing';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import Style from './sbb-timetable-barrier-free.scss?lit&inline';
+import style from './sbb-timetable-barrier-free.scss?lit&inline';
 
 @customElement('sbb-timetable-barrier-free')
 export class SbbTimetableBarrierFree extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /**
    * Stringified JSON which defines most of the

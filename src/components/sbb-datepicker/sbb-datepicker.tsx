@@ -16,14 +16,14 @@ import { ValidationChangeEvent } from '../../global/interfaces';
 import { SbbDateLike } from '../../global/types';
 import { AgnosticMutationObserver } from '../../global/observers';
 import { InputUpdateEvent, isDateAvailable } from './sbb-datepicker.helper';
-import Style from './sbb-datepicker.scss?lit&inline';
+import style from './sbb-datepicker.scss?lit&inline';
 
 const FORMAT_DATE =
   /(^0?[1-9]?|[12]?[0-9]?|3?[01]?)[.,\\/\-\s](0?[1-9]?|1?[0-2]?)?[.,\\/\-\s](\d{1,4}$)?/;
 
 @customElement('sbb-datepicker')
 export class SbbDatepicker extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     didChange: 'did-change',
     change: 'change',

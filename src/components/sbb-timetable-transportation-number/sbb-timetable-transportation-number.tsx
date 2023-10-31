@@ -1,12 +1,12 @@
 import icons from '../../global/timetable/icons.json';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import Style from './sbb-timetable-transportation-number.scss?lit&inline';
+import style from './sbb-timetable-transportation-number.scss?lit&inline';
 import { SbbTimetableAppearance } from '../../global/types';
 
 @customElement('sbb-timetable-transportation-number')
 export class SbbTimetableTransportationNumber extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /**
    * Set the desired appearance of

@@ -3,14 +3,14 @@ import { CSSResult, html, LitElement, PropertyValues, TemplateResult } from 'lit
 import { customElement, property, state } from 'lit/decorators.js';
 import { SbbNavigationAction } from '../sbb-navigation-action';
 import { setAttribute } from '../../global/dom';
-import Style from './sbb-navigation-marker.scss?lit&inline';
+import style from './sbb-navigation-marker.scss?lit&inline';
 
 /**
- * @slot unnamed - Use this slot to provide navigation actions into the sbb-navigation-marker.
+ * @slot - Use the unnamed slot to add `sbb-navigation-action` elements into the sbb-navigation-marker.
  */
 @customElement('sbb-navigation-marker')
 export class SbbNavigationMarker extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /**
    * Marker size variant.

@@ -8,11 +8,11 @@ import {
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttribute } from '../../global/dom';
-import Style from './sbb-timetable-travel-hints.scss?lit&inline';
+import style from './sbb-timetable-travel-hints.scss?lit&inline';
 
 @customElement('sbb-timetable-travel-hints')
 export class SbbTimetableTravelHints extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /**
    * Set the desired appearance of

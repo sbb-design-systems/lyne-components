@@ -8,15 +8,15 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';
 import { SbbNavigationAction } from '../sbb-navigation-action';
 import { setAttribute } from '../../global/dom';
-import Style from './sbb-navigation-list.scss?lit&inline';
+import style from './sbb-navigation-list.scss?lit&inline';
 
 /**
  * @slot label - Use this to provide a label element.
- * @slot unnamed - Use this to provide content for sbb-navigation-list
+ * @slot - Use the unnamed slot to add content to this sbb-navigation-list
  */
 @customElement('sbb-navigation-list')
 export class SbbNavigationList extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /*
    * The label to be shown before the action list.
