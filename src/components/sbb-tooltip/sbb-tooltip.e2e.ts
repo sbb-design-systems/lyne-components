@@ -208,7 +208,10 @@ describe('sbb-tooltip', () => {
     const interactiveElementPosition = interactiveBackgroundElement.getBoundingClientRect();
     await sendMouse({
       type: 'click',
-      position: [interactiveElementPosition.x, interactiveElementPosition.y],
+      position: [
+        interactiveElementPosition.x + interactiveElementPosition.width / 2,
+        interactiveElementPosition.y + interactiveElementPosition.height / 2,
+      ],
     });
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
 
