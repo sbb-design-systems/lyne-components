@@ -23,7 +23,7 @@ const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
-    canvas.getByTestId('dialog').shadowRoot.querySelector('dialog.sbb-dialog'),
+    canvas.getByTestId('dialog').shadowRoot.querySelector('.sbb-dialog'),
   );
 
   await waitForStablePosition(() => canvas.getByTestId('dialog-trigger'));

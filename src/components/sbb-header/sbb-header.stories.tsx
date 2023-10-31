@@ -85,7 +85,7 @@ const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
-    canvas.getByTestId('user-menu').shadowRoot.querySelector('dialog.sbb-menu'),
+    canvas.getByTestId('user-menu').shadowRoot.querySelector('.sbb-menu'),
   );
 
   await waitForStablePosition(() => canvas.getByTestId('user-menu-trigger'));

@@ -528,6 +528,13 @@ export const i18nCloseNotification: Record<string, string> = {
   it: 'Chiudere il messaggio',
 };
 
+export const i18nDialog: Record<string, string> = {
+  de: 'Dialog',
+  en: 'Dialog',
+  fr: 'Dialogue',
+  it: 'Dialogo',
+};
+
 export const i18nCloseDialog: Record<string, string> = {
   de: 'Übergelagertes Fenster schliessen',
   en: 'Close secondary window',

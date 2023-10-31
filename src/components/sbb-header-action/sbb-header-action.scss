@@ -22,6 +22,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 
   @include sbb.if-forced-colors {
     --sbb-header-action-border-color: CanvasText;
+    --sbb-header-action-color: LinkText;
   }
 
   // The variable is assigned to the property in the sbb-header component if it is

@@ -1,9 +1,8 @@
-import { SbbOverlayState } from '../../global/overlay';
 import {
   assignId,
   getFirstFocusableElement,
   getFocusableElements,
-  sbbInputModalityDetector,
+  setModalityOnNextFocus,
 } from '../../global/a11y';
 import { findReferencedElement, isBreakpoint, isValidAttribute } from '../../global/dom';
 import {
@@ -16,6 +15,7 @@ import {
 import { i18nGoBack } from '../../global/i18n';
 import {
   removeAriaOverlayTriggerAttributes,
+  SbbOverlayState,
   setAriaOverlayTriggerAttributes,
 } from '../../global/overlay';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
@@ -60,7 +60,7 @@ export class SbbNavigationSection extends LitElement {
   private _trigger: string | HTMLElement = null;
 
   /**
-   * This will be forwarded as aria-label to the dialog and is read as a title of the navigation-section.
+   * This will be forwarded as aria-label to the nav element and is read as a title of the navigation-section.
    */
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
 
@@ -92,7 +92,7 @@ export class SbbNavigationSection extends LitElement {
   @state() private _renderBackButton = this._isZeroToLargeBreakpoint();
 
   private _firstLevelNavigation: SbbNavigation;
-  private _navigationSection: HTMLDialogElement;
+  private _navigationSection: HTMLElement;
   private _navigationSectionContainerElement: HTMLElement;
   private _triggerElement: HTMLElement;
   private _navigationSectionController: AbortController;
@@ -115,8 +115,8 @@ export class SbbNavigationSection extends LitElement {
     }
 
     this._state = 'opening';
+    this.inert = true;
     this._renderBackButton = this._isZeroToLargeBreakpoint();
-    this._navigationSection.show();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
   }
 
@@ -130,6 +130,7 @@ export class SbbNavigationSection extends LitElement {
 
     this._resetMarker();
     this._state = 'closing';
+    this.inert = true;
     this._triggerElement?.setAttribute('aria-expanded', 'false');
   }
 
@@ -188,17 +189,16 @@ export class SbbNavigationSection extends LitElement {
   private _onAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open' && this._state === 'opening') {
       this._state = 'opened';
+      this.inert = false;
       this._attachWindowEvents();
       this._setNavigationInert();
-      this._timeoutController = setTimeout(() => this._setNavigationSectionFocus());
+      this._setNavigationSectionFocus();
     } else if (event.animationName === 'close' && this._state === 'closing') {
       this._state = 'closed';
       this._navigationSectionContainerElement.scrollTo(0, 0);
       // Manually focus last focused element in order to avoid showing outline in Safari
       this._triggerElement?.focus();
-      this._navigationSection.close();
       this._windowEventsController?.abort();
-
       this._setNavigationInert();
       this._isZeroToLargeBreakpoint() && this._triggerElement?.focus();
     }
@@ -269,21 +269,14 @@ export class SbbNavigationSection extends LitElement {
 
   // Set focus on the first focusable element.
   private _setNavigationSectionFocus(): void {
-    if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-      getFirstFocusableElement(
-        Array.from(this.children).filter((e): e is HTMLElement => e instanceof window.HTMLElement),
-      )?.focus();
-    } else {
-      // Focusing sbb-navigation__wrapper in order to provide a consistent behavior in Safari where else
-      // the focus-visible styles would be incorrectly applied
-      this._navigationSectionContainerElement.tabIndex = 0;
-      this._navigationSectionContainerElement.focus();
-
-      this._navigationSectionContainerElement.addEventListener(
-        'blur',
-        () => this._navigationSectionContainerElement.removeAttribute('tabindex'),
-        { once: true },
-      );
+    const firstFocusableElement = getFirstFocusableElement(
+      [this.shadowRoot.querySelector('#sbb-navigation-section-back-button')]
+        .concat(Array.from(this.children))
+        .filter((e): e is HTMLElement => e instanceof window.HTMLElement),
+    );
+    if (firstFocusableElement) {
+      setModalityOnNextFocus(firstFocusableElement);
+      firstFocusableElement.focus();
     }
   }
 
@@ -343,8 +336,9 @@ export class SbbNavigationSection extends LitElement {
   protected override render(): TemplateResult {
     const backButton = html`
       <sbb-button
+        id="sbb-navigation-section-back-button"
         class="sbb-navigation-section__back"
-        arial-label=${this.accessibilityBackLabel || i18nGoBack[this._currentLanguage]}
+        aria-label=${this.accessibilityBackLabel || i18nGoBack[this._currentLanguage]}
         variant="transparent"
         negative
         size="m"
@@ -371,6 +365,7 @@ export class SbbNavigationSection extends LitElement {
 
     setAttribute(this, 'slot', 'navigation-section');
     setAttribute(this, 'data-state', this._state);
+    setAttribute(this, 'aria-hidden', this._state !== 'opened' ? 'true' : null);
     assignId(() => this._navigationSectionId)(this);
 
     return html`
@@ -378,14 +373,13 @@ export class SbbNavigationSection extends LitElement {
         class="sbb-navigation-section__container"
         ${ref((el) => (this._navigationSectionContainerElement = el as HTMLElement))}
       >
-        <dialog
+        <nav
           ${ref(
             (navigationSectionRef) =>
-              (this._navigationSection = navigationSectionRef as HTMLDialogElement),
+              (this._navigationSection = navigationSectionRef as HTMLElement),
           )}
           @animationend=${(event: AnimationEvent) => this._onAnimationEnd(event)}
           class="sbb-navigation-section"
-          role="group"
           ${spread(accessibilityAttributes)}
         >
           <div class="sbb-navigation-section__wrapper">
@@ -399,7 +393,7 @@ export class SbbNavigationSection extends LitElement {
               <slot></slot>
             </div>
           </div>
-        </dialog>
+        </nav>
       </div>
     `;
   }

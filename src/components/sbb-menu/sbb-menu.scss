@@ -93,8 +93,7 @@
 }
 
 .sbb-menu {
-  display: block;
-  visibility: hidden;
+  display: none;
   opacity: 0;
   pointer-events: none;
   max-width: var(--sbb-menu-max-width);
@@ -112,8 +111,8 @@
   padding: 0;
   overflow: hidden;
 
-  &[open] {
-    visibility: visible;
+  :host(:not([data-state='closed'])) & {
+    display: block;
     opacity: 1;
     pointer-events: all;
     animation: {
@@ -140,7 +139,7 @@
     max-height: fit-content;
     border-radius: var(--sbb-menu-border-radius);
 
-    &[open] {
+    :host(:not([data-state='closed'])) & {
       top: var(--sbb-menu-position-y);
       left: var(--sbb-menu-position-x);
       max-height: var(--sbb-menu-max-height);
@@ -167,7 +166,7 @@
   @include sbb.mq($from: medium) {
     max-height: fit-content;
 
-    .sbb-menu[open] & {
+    :host(:not([data-state='closed'])) & {
       max-height: var(--sbb-menu-max-height);
       min-height: var(--sbb-menu-min-height);
     }
@@ -184,13 +183,11 @@
 
 @keyframes open {
   from {
-    visibility: hidden;
     opacity: 0;
     transform: var(--sbb-menu-transform);
   }
 
   to {
-    visibility: visible;
     opacity: 1;
     transform: translateY(0%);
   }
@@ -198,13 +195,11 @@
 
 @keyframes close {
   from {
-    visibility: visible;
     opacity: 1;
     transform: translateY(0%);
   }
 
   to {
-    visibility: hidden;
     opacity: 0;
     transform: var(--sbb-menu-transform);
   }
