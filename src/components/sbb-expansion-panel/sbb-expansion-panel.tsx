@@ -32,28 +32,24 @@ export class SbbExpansionPanel extends LitElement {
   @property() public color: 'white' | 'milk' = 'white';
 
   /** Whether the panel is expanded. */
-  @property({ reflect: true, type: Boolean })
   public get expanded(): boolean {
     return this._expanded;
   }
+  @property({ reflect: true, type: Boolean })
   public set expanded(value: boolean) {
-    const oldValue = this._expanded;
     this._expanded = value;
     this._onExpandedChange();
-    this.requestUpdate('expanded', oldValue);
   }
   private _expanded: boolean = false;
 
   /** Whether the panel is disabled, so its expanded state can't be changed. */
-  @property({ reflect: true, type: Boolean })
   public get disabled(): boolean {
     return this._disabled;
   }
+  @property({ reflect: true, type: Boolean })
   public set disabled(value: boolean) {
-    const oldValue = this._disabled;
     this._disabled = value;
     this._updateDisabledOnHeader(this._disabled);
-    this.requestUpdate('disabled', oldValue);
   }
   private _disabled: boolean = false;
 

@@ -33,15 +33,13 @@ export class SbbCardAction extends LitElement implements LinkButtonProperties {
   public static override styles: CSSResult = style;
 
   /** Whether the card is active. */
-  @property({ reflect: true, type: Boolean })
   public get active(): boolean {
     return this._active;
   }
+  @property({ reflect: true, type: Boolean })
   public set active(value: boolean) {
-    const oldValue = this._active;
     this._active = value;
     this._onActiveChange();
-    this.requestUpdate('active', oldValue);
   }
   private _active: boolean = false;
 

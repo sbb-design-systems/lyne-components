@@ -30,75 +30,65 @@ export class SbbRadioButtonGroup extends LitElement {
   /**
    * Whether the radios can be deselected.
    */
-  @property({ attribute: 'allow-empty-selection', type: Boolean })
   public get allowEmptySelection(): boolean {
     return this._allowEmptySelection;
   }
+  @property({ attribute: 'allow-empty-selection', type: Boolean })
   public set allowEmptySelection(value: boolean) {
-    const oldValue = this._allowEmptySelection;
     this._allowEmptySelection = value;
     this._updateAllowEmptySelection();
-    this.requestUpdate('allowEmptySelection', oldValue);
   }
   private _allowEmptySelection: boolean = false;
 
   /**
    * Whether the radio group is disabled.
    */
-  @property({ type: Boolean })
   public get disabled(): boolean {
     return this._disabled;
   }
+  @property({ type: Boolean })
   public set disabled(value: boolean) {
-    const oldValue = this._disabled;
     this._disabled = value;
     this._updateDisabled();
-    this.requestUpdate('disabled', oldValue);
   }
   private _disabled: boolean = false;
 
   /**
    * Whether the radio group is required.
    */
-  @property({ type: Boolean })
   public get required(): boolean {
     return this._required;
   }
+  @property({ type: Boolean })
   public set required(value: boolean) {
-    const oldValue = this._required;
     this._required = value;
     this._updateRequired();
-    this.requestUpdate('required', oldValue);
   }
   private _required: boolean = false;
 
   /**
    * The value of the radio group.
    */
-  @property()
   public get value(): any | null {
     return this._value;
   }
+  @property()
   public set value(value: any | null) {
-    const oldValue = this._value;
     this._value = value;
     this._valueChanged(this._value);
-    this.requestUpdate('value', oldValue);
   }
   private _value: any | null = null;
 
   /**
    * Size variant, either m or s.
    */
-  @property()
   public get size(): SbbRadioButtonSize {
     return this._size;
   }
+  @property()
   public set size(value: SbbRadioButtonSize) {
-    const oldValue = this._size;
     this._size = value;
     this._updateSize();
-    this.requestUpdate('size', oldValue);
   }
   private _size: SbbRadioButtonSize = 'm';
 

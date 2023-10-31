@@ -68,15 +68,13 @@ export class SbbTabGroup extends LitElement {
   /**
    * Size variant, either l or xl.
    */
-  @property()
   public get size(): InterfaceSbbTabGroupTab['size'] {
     return this._size;
   }
+  @property()
   public set size(value: InterfaceSbbTabGroupTab['size']) {
-    const oldValue = this._size;
     this._size = value;
     this._updateSize();
-    this.requestUpdate('size', oldValue);
   }
   private _size: InterfaceSbbTabGroupTab['size'] = 'l';
 

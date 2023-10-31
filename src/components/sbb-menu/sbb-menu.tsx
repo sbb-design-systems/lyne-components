@@ -52,15 +52,14 @@ export class SbbMenu extends LitElement {
    * The element that will trigger the menu overlay.
    * Accepts both a string (id of an element) or an HTML element.
    */
-  @property()
   public get trigger(): string | HTMLElement {
     return this._trigger;
   }
+  @property()
   public set trigger(value: string | HTMLElement) {
     const oldValue = this._trigger;
     this._trigger = value;
     this._removeTriggerClickListener(this._trigger, oldValue);
-    this.requestUpdate('trigger', oldValue);
   }
   private _trigger: string | HTMLElement = null;
 
