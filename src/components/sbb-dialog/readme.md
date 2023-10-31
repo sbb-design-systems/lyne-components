@@ -110,7 +110,7 @@ The default `z-index` of the component is set to `1000`; to specify a custom sta
 
 | Name           | Description                                             |
 | -------------- | ------------------------------------------------------- |
-| `unnamed`      | Use this slot to provide the dialog content.            |
+|                | Use the unnamed slot to add content to the dialog.      |
 | `title`        | Use this slot to provide a title.                       |
 | `action-group` | Use this slot to display an action group in the footer. |
 

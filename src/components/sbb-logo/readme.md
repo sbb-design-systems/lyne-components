@@ -28,11 +28,7 @@ Possible values are `ideal` (default), `minimal` and `none`.
 <!-- Auto Generated Below --> 
  
 
-| Name                 | Attribute                 | Privacy | Type                             | Default   | Description                                                  |
-| -------------------- | -------------------- | ------- | -------------------------------- | --------- | ------------------------------------------------------------ |
-| `negative`           | `negative`           | public  | `boolean`                        | `false`   | Variants of the logo.                                        |
-| `protectiveRoom`     | `protective-room`     | public  | `SbbProtectiveRoom \| undefined` | `'ideal'` | Visual protective room around logo.                          |
-| `accessibilityLabel` | `accessibility-label` | public  | `string`                         | `'Logo'`  | Accessibility label which will be forwarded to the SVG logo. |
+## Properties 
 
 | Name                 | Attribute                 | Privacy | Type                             | Default   | Description                                                  |
 | -------------------- | -------------------- | ------- | -------------------------------- | --------- | ------------------------------------------------------------ |

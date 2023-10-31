@@ -14,12 +14,7 @@ It has four different states related to the properties `checked`, `indeterminate
 <!-- Auto Generated Below --> 
  
 
-| Name            | Attribute            | Privacy | Type      | Default | Description                     |
-| --------------- | --------------- | ------- | --------- | ------- | ------------------------------- |
-| `checked`       | `checked`       | public  | `boolean` |         | Checked state.                  |
-| `disabled`      | `disabled`      | public  | `boolean` |         | Disabled state.                 |
-| `indeterminate` | `indeterminate` | public  | `boolean` | `false` | Indeterminate state.            |
-| `negative`      | `negative`      | public  | `boolean` | `false` | Negative coloring variant flag. |
+## Properties 
 
 | Name            | Attribute            | Privacy | Type      | Default | Description                     |
 | --------------- | --------------- | ------- | --------- | ------- | ------------------------------- |

@@ -30,24 +30,19 @@ The component can be displayed in `checked` or `disabled` states using the self-
 <!-- Auto Generated Below --> 
  
 
-| Name       | Attribute       | Privacy | Type                  | Default | Description                            |
-| ---------- | ---------- | ------- | --------------------- | ------- | -------------------------------------- |
-| `checked`  | `checked`  | public  | `boolean`             |         | Whether the toggle-option is checked.  |
-| `disabled` | `disabled` | public  | `boolean`             |         | Whether the toggle option is disabled. |
-| `iconName` | `icon-name` | public  | `string \| undefined` |         | Name of the icon for \`\<sbb-icon>\`.  |
-| `value`    | `value`    | public  | `string \| null`      |         | Value of toggle-option.                |
+## Properties 
 
 | Name       | Attribute       | Privacy | Type                  | Default | Description                            |
 | ---------- | ---------- | ------- | --------------------- | ------- | -------------------------------------- |
 | `checked`  | `checked`  | public  | `boolean`             |         | Whether the toggle-option is checked.  |
 | `disabled` | `disabled` | public  | `boolean`             |         | Whether the toggle option is disabled. |
-| `iconName` | `icon-name` | public  | `string \| undefined` |         | Name of the icon for \`\<sbb-icon>\`.  |
+| `iconName` | `icon-name` | public  | `string \| undefined` |         | Name of the icon for `\<sbb-icon>`.  |
 | `value`    | `value`    | public  | `string \| null`      |         | Value of toggle-option.                |
 
 ## Slots
 
-| Name      | Description                                         |
-| --------- | --------------------------------------------------- |
-| `unnamed` | Slot used to render the label of the toggle option. |
-| `icon`    | Slot used to render the \`\<sbb-icon>\`.            |
+| Name   | Description                                                            |
+| ------ | ---------------------------------------------------------------------- |
+|        | Use the unnamed slot to add content to the label of the toggle option. |
+| `icon` | Slot used to render the `\<sbb-icon>`.                               |
 

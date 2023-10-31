@@ -63,7 +63,7 @@ The component has two different sizes, which can be changed using the `size` pro
 
 | Name      | Description                                                                                     |
 | --------- | ----------------------------------------------------------------------------------------------- |
-| `unnamed` | Use this slot to provide the radio label.                                                       |
+|           | Use the unnamed slot to add content to the radio label.                                         |
 | `subtext` | Slot used to render a subtext under the label (only visible within a selection panel).          |
 | `suffix`  | Slot used to render additional content after the label (only visible within a selection panel). |
 

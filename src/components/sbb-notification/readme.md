@@ -79,8 +79,8 @@ For example, use `--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0` 
 
 ## Slots
 
-| Name      | Description                                          |
-| --------- | ---------------------------------------------------- |
-| `title`   | Use this to provide a notification title (optional). |
-| `unnamed` | Use this to provide the notification message.        |
+| Name    | Description                                                      |
+| ------- | ---------------------------------------------------------------- |
+| `title` | Use this to provide a notification title (optional).             |
+|         | Use the unnamed slot to add content to the notification message. |
 

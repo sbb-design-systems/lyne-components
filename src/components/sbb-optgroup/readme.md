@@ -32,10 +32,7 @@ The component has a `disabled` property which sets all the `sbb-option` in the g
 <!-- Auto Generated Below --> 
  
 
-| Name       | Attribute       | Privacy | Type      | Default | Description                    |
-| ---------- | ---------- | ------- | --------- | ------- | ------------------------------ |
-| `label`    | `label`    | public  | `string`  |         | Option group label.            |
-| `disabled` | `disabled` | public  | `boolean` | `false` | Whether the group is disabled. |
+## Properties 
 
 | Name       | Attribute       | Privacy | Type      | Default | Description                    |
 | ---------- | ---------- | ------- | --------- | ------- | ------------------------------ |
@@ -44,7 +41,7 @@ The component has a `disabled` property which sets all the `sbb-option` in the g
 
 ## Slots
 
-| Name      | Description              |
-| --------- | ------------------------ |
-| `unnamed` | Used to display options. |
+| Name | Description                                                           |
+| ---- | --------------------------------------------------------------------- |
+|      | Use the unnamed slot to add `sbb-option` elements to this optgroup. |
 

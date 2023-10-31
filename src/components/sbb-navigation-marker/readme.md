@@ -38,7 +38,7 @@ Possible values are `l` (default) and `s`.
 
 ## Slots
 
-| Name      | Description                                                                 |
-| --------- | --------------------------------------------------------------------------- |
-| `unnamed` | Use this slot to provide navigation actions into the sbb-navigation-marker. |
+| Name | Description                                                                                    |
+| ---- | ---------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add `sbb-navigation-action` elements into the sbb-navigation-marker. |
 

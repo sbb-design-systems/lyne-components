@@ -28,9 +28,9 @@ Please refer to its documentation for more details.
 
 ## Slots
 
-| Name      | Description                                      |
-| --------- | ------------------------------------------------ |
-| `unnamed` | for \<sbb-pearl-chain-vertical-item /> component |
+| Name | Description                                      |
+| ---- | ------------------------------------------------ |
+|      | for \<sbb-pearl-chain-vertical-item /> component |
 
 <hr/>
 

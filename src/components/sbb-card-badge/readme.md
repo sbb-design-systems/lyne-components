@@ -24,9 +24,7 @@ as in the example above.
 <!-- Auto Generated Below --> 
  
 
-| Name    | Attribute    | Privacy | Type                    | Default      | Description              |
-| ------- | ------- | ------- | ----------------------- | ------------ | ------------------------ |
-| `color` | `color` | public  | `'charcoal' \| 'white'` | `'charcoal'` | Color of the card badge. |
+## Properties 
 
 | Name    | Attribute    | Privacy | Type                    | Default      | Description              |
 | ------- | ------- | ------- | ----------------------- | ------------ | ------------------------ |
@@ -34,7 +32,7 @@ as in the example above.
 
 ## Slots
 
-| Name      | Description                                                                                            |
-| --------- | ------------------------------------------------------------------------------------------------------ |
-| `unnamed` | Content of the badge. Content parts should be wrapped in \`\<span>\` tags to achieve correct spacings. |
+| Name | Description                                                                                                                        |
+| ---- | ---------------------------------------------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add content to the badge. Content parts should be wrapped in `\<span>` tags to achieve correct spacings. |
 

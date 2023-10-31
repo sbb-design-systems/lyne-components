@@ -80,10 +80,7 @@ To improve coloring, it's needed to manually define styles for Window high contr
 <!-- Auto Generated Below --> 
  
 
-| Name    | Attribute    | Privacy | Type                                                                                          | Default   | Description                                        |
-| ------- | ------- | ------- | --------------------------------------------------------------------------------------------- | --------- | -------------------------------------------------- |
-| `size`  | `size`  | public  | `'xs' \| 's' \| 'm' \| 'l' \| 'xl' \| 'xxl' \| 'xxxl' \| undefined`                           | `'m'`     | Size variant, either xs, s, m, l, xl, xxl or xxxl. |
-| `color` | `color` | public  | `\| 'white'     \| 'milk'     \| 'transparent-bordered'     \| 'transparent-bordered-dashed'` | `'white'` | Option to set the component's background color.    |
+## Properties 
 
 | Name    | Attribute    | Privacy | Type                                                                                          | Default   | Description                                        |
 | ------- | ------- | ------- | --------------------------------------------------------------------------------------------- | --------- | -------------------------------------------------- |
@@ -92,9 +89,9 @@ To improve coloring, it's needed to manually define styles for Window high contr
 
 ## Slots
 
-| Name      | Description                            |
-| --------- | -------------------------------------- |
-| `unnamed` | Slot to render the content.            |
-| `badge`   | Slot to render \`\<sbb-card-badge>\`.  |
-| `action`  | Slot to render \`\<sbb-card-action>\`. |
+| Name     | Description                                      |
+| -------- | ------------------------------------------------ |
+|          | Use the unnamed slot to add content to the card. |
+| `badge`  | Slot to render `\<sbb-card-badge>`.            |
+| `action` | Slot to render `\<sbb-card-action>`.           |
 

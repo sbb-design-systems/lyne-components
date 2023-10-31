@@ -69,16 +69,7 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 <!-- Auto Generated Below --> 
  
 
-| Name            | Attribute            | Privacy | Type                  | Default | Description                                                                                                                                 |
-| --------------- | --------------- | ------- | --------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| `value`         | `value`         | public  | `string \| undefined` |         | Value of checkbox.                                                                                                                          |
-| `disabled`      | `disabled`      | public  | `boolean`             | `false` | Whether the checkbox is disabled.                                                                                                           |
-| `required`      | `required`      | public  | `boolean`             | `false` | Whether the checkbox is required.                                                                                                           |
-| `indeterminate` | `indeterminate` | public  | `boolean`             | `false` | Whether the checkbox is indeterminate.                                                                                                      |
-| `iconName`      | `icon-name`      | public  | `string \| undefined` |         | The icon name we want to use, choose from the small icon variants from the ui-icons category&#xA;from https\://icons.app.sbb.ch (optional). |
-| `iconPlacement` | `icon-placement` | public  | `SbbIconPlacement`    | `'end'` | The label position relative to the labelIcon. Defaults to end                                                                               |
-| `checked`       | `checked`       | public  | `boolean`             | `false` | Whether the checkbox is checked.                                                                                                            |
-| `size`          | `size`          | public  | `SbbCheckboxSize`     | `'m'`   | Label size variant, either m or s.                                                                                                          |
+## Properties 
 
 | Name            | Attribute            | Privacy | Type                  | Default | Description                                                                                                                                 |
 | --------------- | --------------- | ------- | --------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -90,19 +81,12 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 | `iconPlacement` | `icon-placement` | public  | `SbbIconPlacement`    | `'end'` | The label position relative to the labelIcon. Defaults to end                                                                               |
 | `checked`       | `checked`       | public  | `boolean`             | `false` | Whether the checkbox is checked.                                                                                                            |
 | `size`          | `size`          | public  | `SbbCheckboxSize`     | `'m'`   | Label size variant, either m or s.                                                                                                          |
-
-## Methods
-
-| Name                | Privacy | Description                                                                                                            | Parameters     | Return | Inherited From |
-| ------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------- | -------------- | ------ | -------------- |
-| `handleChangeEvent` | public  |                                                                                                                        | `event: Event` | `void` |                |
-| `handleInputEvent`  | public  | Method triggered on checkbox input event.&#xA;If not indeterminate, inverts the value; otherwise sets checked to true. |                | `void` |                |
 
 ## Slots
 
 | Name      | Description                                                                                     |
 | --------- | ----------------------------------------------------------------------------------------------- |
-| `unnamed` | Slot used to render the checkbox label's text.                                                  |
+|           | Use the unnamed slot to add content to the checkbox.                                            |
 | `icon`    | Slot used to render the checkbox icon (disabled inside a selection panel).                      |
 | `subtext` | Slot used to render a subtext under the label (only visible within a selection panel).          |
 | `suffix`  | Slot used to render additional content after the label (only visible within a selection panel). |

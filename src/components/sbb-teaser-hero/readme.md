@@ -28,14 +28,7 @@ Avoid slotting block elements (e.g. `div`) as this violates semantic rules and c
 <!-- Auto Generated Below --> 
  
 
-| Name          | Attribute          | Privacy | Type                                                 | Default | Description                                                       |
-| ------------- | ------------- | ------- | ---------------------------------------------------- | ------- | ----------------------------------------------------------------- |
-| `href`        | `href`        | public  | `string \| undefined`                                |         | The href value you want to link to.                               |
-| `rel`         | `rel`         | public  | `string \| undefined \| undefined`                   |         | The relationship of the linked URL as space-separated link types. |
-| `target`      | `target`      | public  | `LinkTargetType \| string \| undefined \| undefined` |         | Where to display the linked URL.                                  |
-| `linkContent` | `link-content` | public  | `string \| undefined`                                |         | Panel link text.                                                  |
-| `imageSrc`    | `image-src`    | public  | `string \| undefined`                                |         | Image src will be passed to \`sbb-image\`.                        |
-| `imageAlt`    | `image-alt`    | public  | `string \| undefined`                                |         | Image alt text will be passed to \`sbb-image\`.                   |
+## Properties 
 
 | Name          | Attribute          | Privacy | Type                                                 | Default | Description                                                       |
 | ------------- | ------------- | ------- | ---------------------------------------------------- | ------- | ----------------------------------------------------------------- |
@@ -43,14 +36,14 @@ Avoid slotting block elements (e.g. `div`) as this violates semantic rules and c
 | `rel`         | `rel`         | public  | `string \| undefined \| undefined`                   |         | The relationship of the linked URL as space-separated link types. |
 | `target`      | `target`      | public  | `LinkTargetType \| string \| undefined \| undefined` |         | Where to display the linked URL.                                  |
 | `linkContent` | `link-content` | public  | `string \| undefined`                                |         | Panel link text.                                                  |
-| `imageSrc`    | `image-src`    | public  | `string \| undefined`                                |         | Image src will be passed to \`sbb-image\`.                        |
-| `imageAlt`    | `image-alt`    | public  | `string \| undefined`                                |         | Image alt text will be passed to \`sbb-image\`.                   |
+| `imageSrc`    | `image-src`    | public  | `string \| undefined`                                |         | Image src will be passed to `sbb-image`.                        |
+| `imageAlt`    | `image-alt`    | public  | `string \| undefined`                                |         | Image alt text will be passed to `sbb-image`.                   |
 
 ## Slots
 
-| Name           | Description                                  |
-| -------------- | -------------------------------------------- |
-| `unnamed`      | text content of panel                        |
-| `link-content` | link content of the panel                    |
-| `image`        | the background image, can be a \`sbb-image\` |
+| Name           | Description                                           |
+| -------------- | ----------------------------------------------------- |
+|                | Use the unnamed slot to add text content to the panel |
+| `link-content` | Link content of the panel                             |
+| `image`        | The background image that can be a `sbb-image`      |
 

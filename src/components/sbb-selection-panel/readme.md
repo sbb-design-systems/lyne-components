@@ -84,12 +84,7 @@ It's also possible to display the `sbb-selection-panel` without border by settin
 <!-- Auto Generated Below --> 
  
 
-| Name               | Attribute               | Privacy | Type                | Default   | Description                                    |
-| ------------------ | ------------------ | ------- | ------------------- | --------- | ---------------------------------------------- |
-| `color`            | `color`            | public  | `'white' \| 'milk'` | `'white'` | The background color of the panel.             |
-| `forceOpen`        | `force-open`        | public  | `boolean`           | `false`   | Whether the content section is always visible. |
-| `borderless`       | `borderless`       | public  | `boolean`           | `false`   | Whether the unselected panel has a border.     |
-| `disableAnimation` | `disable-animation` | public  | `boolean`           | `false`   | Whether the animation is enabled.              |
+## Properties 
 
 | Name               | Attribute               | Privacy | Type                | Default   | Description                                    |
 | ------------------ | ------------------ | ------- | ------------------- | --------- | ---------------------------------------------- |
@@ -100,9 +95,9 @@ It's also possible to display the `sbb-selection-panel` without border by settin
 
 ## Slots
 
-| Name      | Description                                                            |
-| --------- | ---------------------------------------------------------------------- |
-| `unnamed` | Use this slot to provide a \`sbb-checkbox\` or a \`sbb-radio-button\`. |
-| `badge`   | Use this slot to provide a \`sbb-card-badge\` (optional).              |
-| `content` | Use this slot to provide custom content for the panel (optional).      |
+| Name      | Description                                                                                            |
+| --------- | ------------------------------------------------------------------------------------------------------ |
+|           | Use the unnamed slot to add `sbb-checkbox` or `sbb-radio-button` elements to this selection panel. |
+| `badge`   | Use this slot to provide a `sbb-card-badge` (optional).                                              |
+| `content` | Use this slot to provide custom content for the panel (optional).                                      |
 

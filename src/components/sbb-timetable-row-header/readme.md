@@ -4,9 +4,7 @@ here to show the various configuration options to component developers. !!
 <!-- Auto Generated Below --> 
  
 
-| Name     | Attribute     | Privacy | Type     | Default | Description |
-| -------- | -------- | ------- | -------- | ------- | ----------- |
-| `config` | `config` | public  | `string` |         |             |
+## Properties 
 
 | Name     | Attribute     | Privacy | Type     | Default | Description |
 | -------- | -------- | ------- | -------- | ------- | ----------- |

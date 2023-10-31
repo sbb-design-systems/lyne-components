@@ -76,9 +76,9 @@ Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and
 | Name                 | Attribute                 | Privacy | Type                                    | Default | Description                                                                                                                                                                 |
 | -------------------- | -------------------- | ------- | --------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `readonly`           | `readonly`           | public  | `boolean`                               | `false` | Whether the alert is readonly.&#xA;In readonly mode, there is no dismiss button offered to the user.                                                                        |
-| `size`               | `size`               | public  | `'m' \| 'l'`                            | `'m'`   | You can choose between \`m\` or \`l\` size.                                                                                                                                 |
+| `size`               | `size`               | public  | `'m' \| 'l'`                            | `'m'`   | You can choose between `m` or `l` size.                                                                                                                                 |
 | `disableAnimation`   | `disable-animation`   | public  | `boolean`                               | `false` | Whether the fade in animation should be disabled.                                                                                                                           |
-| `iconName`           | `icon-name`           | public  | `string \| undefined`                   |         | Name of the icon which will be forward to the nested \`sbb-icon\`.&#xA;Choose the icons from https\://icons.app.sbb.ch.&#xA;Styling is optimized for icons of type HIM-CUS. |
+| `iconName`           | `icon-name`           | public  | `string \| undefined`                   |         | Name of the icon which will be forward to the nested `sbb-icon`.&#xA;Choose the icons from https\://icons.app.sbb.ch.&#xA;Styling is optimized for icons of type HIM-CUS. |
 | `titleContent`       | `title-content`       | public  | `string \| undefined`                   |         | Content of title.                                                                                                                                                           |
 | `titleLevel`         | `title-level`         | public  | `TitleLevel`                            | `'3'`   | Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.                                                                                             |
 | `linkContent`        | `link-content`        | public  | `string \| undefined`                   |         | Content of the link.                                                                                                                                                        |
@@ -95,9 +95,9 @@ Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and
 
 ## Slots
 
-| Name      | Description                                                                                                |
-| --------- | ---------------------------------------------------------------------------------------------------------- |
-| `icon`    | Should be a sbb-icon which is displayed next to the title. Styling is optimized for icons of type HIM-CUS. |
-| `title`   | Title content.                                                                                             |
-| `unnamed` | Content of the alert.                                                                                      |
+| Name    | Description                                                                                                |
+| ------- | ---------------------------------------------------------------------------------------------------------- |
+| `icon`  | Should be a sbb-icon which is displayed next to the title. Styling is optimized for icons of type HIM-CUS. |
+| `title` | Title content.                                                                                             |
+|         | Use the unnamed slot to add content to the alert.                                                          |
 

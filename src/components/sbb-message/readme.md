@@ -28,10 +28,7 @@ by the used components (e.g. `alt-text` and `aria-label`).
 <!-- Auto Generated Below --> 
  
 
-| Name           | Attribute           | Privacy | Type                  | Default | Description                                                                         |
-| -------------- | -------------- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------- |
-| `titleContent` | `title-content` | public  | `string \| undefined` |         | Content of title.                                                                   |
-| `titleLevel`   | `title-level`   | public  | `TitleLevel`          | `'3'`   | Level of title, it will be rendered as heading tag (e.g., h3). Defaults to level 3. |
+## Properties 
 
 | Name           | Attribute           | Privacy | Type                  | Default | Description                                                                         |
 | -------------- | -------------- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------- |

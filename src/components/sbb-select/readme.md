@@ -105,7 +105,7 @@ Opened panel:
 
 | Name               | Attribute               | Privacy | Type                 | Default | Description                                                                |
 | ------------------ | ------------------ | ------- | -------------------- | ------- | -------------------------------------------------------------------------- |
-| `value`            | `value`            | public  | `string \| string[]` |         | The value of the select component. If \`multiple\` is true, it's an array. |
+| `value`            | `value`            | public  | `string \| string[]` |         | The value of the select component. If `multiple` is true, it's an array. |
 | `placeholder`      | `placeholder`      | public  | `string`             |         | The placeholder used if no value has been selected.                        |
 | `multiple`         | `multiple`         | public  | `boolean`            | `false` | Whether the select allows for multiple selection.                          |
 | `required`         | `required`         | public  | `boolean`            | `false` | Whether the select is required.                                            |
@@ -124,7 +124,7 @@ Opened panel:
 
 ## Slots
 
-| Name      | Description                       |
-| --------- | --------------------------------- |
-| `unnamed` | Use this slot to project options. |
+| Name | Description                          |
+| ---- | ------------------------------------ |
+|      | Use the unnamed slot to add options. |
 

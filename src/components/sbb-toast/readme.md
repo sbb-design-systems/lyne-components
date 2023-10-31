@@ -122,7 +122,7 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 
 ## Slots
 
-| Name      | Description                  |
-| --------- | ---------------------------- |
-| `unnamed` | Use this to document a slot. |
+| Name | Description                                       |
+| ---- | ------------------------------------------------- |
+|      | Use the unnamed slot to add content to the toast. |
 

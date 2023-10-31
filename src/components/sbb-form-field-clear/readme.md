@@ -14,9 +14,7 @@ to provide the possibility to display a clear button which can clear the input v
 <!-- Auto Generated Below --> 
  
 
-| Name       | Attribute       | Privacy | Type      | Default | Description                     |
-| ---------- | ---------- | ------- | --------- | ------- | ------------------------------- |
-| `negative` | `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |
+## Properties 
 
 | Name       | Attribute       | Privacy | Type      | Default | Description                     |
 | ---------- | ---------- | ------- | --------- | ------- | ------------------------------- |
