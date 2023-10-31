@@ -54,7 +54,7 @@ describe('sbb-dialog', () => {
 
     await openDialog(element);
 
-    expect(ariaLiveRef.innerText.trim()).to.be.equal(`${i18nDialog.en}, Title`);
+    expect(ariaLiveRef.textContent.trim()).to.be.equal(`${i18nDialog.en}, Title`);
 
     element.close();
     await waitForLitRender(element);
@@ -68,7 +68,7 @@ describe('sbb-dialog', () => {
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-state', 'closed');
-    expect(ariaLiveRef.innerText).to.be.equal('');
+    expect(ariaLiveRef.textContent).to.be.equal('');
   });
 
   it('closes the dialog on backdrop click', async () => {
@@ -178,7 +178,7 @@ describe('sbb-dialog', () => {
     await openDialog(element);
 
     expect(element).to.have.attribute('data-fullscreen');
-    expect(ariaLiveRef.innerText.trim()).to.be.equal(`${i18nDialog.en}`);
+    expect(ariaLiveRef.textContent.trim()).to.be.equal(`${i18nDialog.en}`);
   });
 
   it('closes stacked dialogs one by one on ESC key pressed', async () => {
@@ -303,23 +303,23 @@ describe('sbb-dialog', () => {
   it('should remove ariaLiveRef content on any keyboard interaction', async () => {
     await openDialog(element);
 
-    expect(ariaLiveRef.innerText.trim()).to.be.equal(`${i18nDialog.en}, Title`);
+    expect(ariaLiveRef.textContent.trim()).to.be.equal(`${i18nDialog.en}, Title`);
 
     await sendKeys({ down: 'Tab' });
     await waitForLitRender(element);
 
-    expect(ariaLiveRef.innerText.trim()).to.be.equal('');
+    expect(ariaLiveRef.textContent.trim()).to.be.equal('');
   });
 
   it('should remove ariaLiveRef content on any click interaction', async () => {
     await openDialog(element);
 
-    expect(ariaLiveRef.innerText.trim()).to.be.equal(`${i18nDialog.en}, Title`);
+    expect(ariaLiveRef.textContent.trim()).to.be.equal(`${i18nDialog.en}, Title`);
 
     element.click();
     await waitForLitRender(element);
 
-    expect(ariaLiveRef.innerText).to.be.equal('');
+    expect(ariaLiveRef.textContent).to.be.equal('');
   });
 
   it('should announce accessibility label in ariaLiveRef if explicitly set', async () => {
@@ -327,6 +327,6 @@ describe('sbb-dialog', () => {
 
     await openDialog(element);
 
-    expect(ariaLiveRef.innerText.trim()).to.be.equal(`${i18nDialog.en}, Special Dialog`);
+    expect(ariaLiveRef.textContent.trim()).to.be.equal(`${i18nDialog.en}, Special Dialog`);
   });
 });

@@ -348,13 +348,13 @@ export class SbbDialog extends LitElement {
 
     // If the text content remains the same, on VoiceOver the aria-live region is not announced a second time.
     // In order to support reading on every opening, we toggle an invisible space.
-    this._ariaLiveRef.innerText = `${i18nDialog[this._currentLanguage]}${
+    this._ariaLiveRef.textContent = `${i18nDialog[this._currentLanguage]}${
       label ? `, ${label}` : ''
     }${this._ariaLiveRefToggle ? ' ' : ''}`;
   }
 
   private _removeAriaLiveRefContent(): void {
-    this._ariaLiveRef.innerText = '';
+    this._ariaLiveRef.textContent = '';
   }
 
   // Set focus on the first focusable element.

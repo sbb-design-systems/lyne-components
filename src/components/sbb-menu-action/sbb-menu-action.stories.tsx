@@ -5,9 +5,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 import './sbb-menu-action';
-import '../sbb-divider';
 import '../sbb-icon';
-import '../sbb-link';
 
 const getBasicTemplate = ({ text, ...args }, id, iconSlot = false): JSX.Element => (
   <sbb-menu-action {...args}>
