@@ -22,14 +22,14 @@ import '../../../components/sbb-navigation-marker';
 import '../../../components/sbb-navigation-action';
 import '../../../components/sbb-navigation-section';
 import '../../../components/sbb-navigation-list';
-// import '../../../components/sbb-skiplink-list'; // TODO-Migr: Wait for skiplink migration
+import '../../../components/sbb-skiplink-list';
 import '../../../components/sbb-teaser-hero';
 import '../../../components/sbb-title';
 
 export const SkiplinkList = (): JSX.Element => (
   <sbb-skiplink-list title-level="2" title-content="Skip to">
-    <sbb-link href="/">Skip to content</sbb-link>
-    <sbb-link href="/">Go to help page</sbb-link>
+    <sbb-link href="#">Skip to content</sbb-link>
+    <sbb-link href="#">Go to help page</sbb-link>
   </sbb-skiplink-list>
 );
 
