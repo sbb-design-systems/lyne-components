@@ -26,7 +26,6 @@ describe('sbb-skiplink-list', () => {
 
   it('should be visible on focus', async () => {
     const listItemLinks = element.shadowRoot.querySelectorAll('li');
-    expect(listItemLinks).not.to.be.null;
     expect(listItemLinks.length).to.be.equal(3);
 
     expect(listItemLinks[0]).to.have.style('height', '0px');

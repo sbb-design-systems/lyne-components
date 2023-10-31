@@ -97,12 +97,12 @@ export class SbbSkiplinkList extends LitElement {
           ${this._links.map(
             (_, index) =>
               html` <li>
-                <slot name=${`link-${index}`} @slotchange=${(): void => this._readLinks()} />
+                <slot name=${`link-${index}`} @slotchange=${(): void => this._readLinks()}></slot>
               </li>`,
           )}
         </ul>
         <span hidden>
-          <slot @slotchange=${() => this._readLinks()} />
+          <slot @slotchange=${() => this._readLinks()}></slot>
         </span>
       </div>
     `;
