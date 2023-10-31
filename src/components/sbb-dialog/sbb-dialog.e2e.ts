@@ -32,7 +32,11 @@ describe('sbb-dialog', () => {
   beforeEach(async () => {
     await setViewport({ width: 900, height: 600 });
     element = await fixture(html`
-      <sbb-dialog id="my-dialog-1" title-content="Title" disable-animation>
+      <sbb-dialog
+        id="my-dialog-1"
+        title-content="Title"
+        style="--sbb-dialog-animation-duration: 0.1ms"
+      >
         Dialog content.
         <div slot="action-group">Action group</div>
       </sbb-dialog>
@@ -168,7 +172,7 @@ describe('sbb-dialog', () => {
 
   it('renders in fullscreen mode if no title is provided', async () => {
     element = await fixture(html`
-      <sbb-dialog id="my-dialog-2" disable-animation>
+      <sbb-dialog id="my-dialog-2" style="--sbb-dialog-animation-duration: 0.1ms">
         Dialog content.
         <div slot="action-group">Action group</div>
       </sbb-dialog>
@@ -184,12 +188,20 @@ describe('sbb-dialog', () => {
 
   it('closes stacked dialogs one by one on ESC key pressed', async () => {
     element = await fixture(html`
-      <sbb-dialog id="my-dialog-3" title-content="Title" disable-animation>
+      <sbb-dialog
+        id="my-dialog-3"
+        title-content="Title"
+        style="--sbb-dialog-animation-duration: 0.1ms"
+      >
         Dialog content.
         <div slot="action-group">Action group</div>
       </sbb-dialog>
 
-      <sbb-dialog id="stacked-dialog" disable-animation title-content="Stacked title">
+      <sbb-dialog
+        id="stacked-dialog"
+        style="--sbb-dialog-animation-duration: 0.1ms"
+        title-content="Stacked title"
+      >
         Stacked dialog.
       </sbb-dialog>
     `);
@@ -254,10 +266,18 @@ describe('sbb-dialog', () => {
   it('does not close the dialog on other overlay click', async () => {
     await setViewport({ width: 900, height: 600 });
     element = await fixture(html`
-      <sbb-dialog id="my-dialog-4" title-content="Title" disable-animation>
+      <sbb-dialog
+        id="my-dialog-4"
+        title-content="Title"
+        style="--sbb-dialog-animation-duration: 0.1ms"
+      >
         Dialog content.
         <div slot="action-group">Action group</div>
-        <sbb-dialog id="inner-dialog" title-content="Inner Dialog title" disable-animation>
+        <sbb-dialog
+          id="inner-dialog"
+          title-content="Inner Dialog title"
+          style="--sbb-dialog-animation-duration: 0.1ms"
+        >
           Dialog content.
           <div slot="action-group">Action group</div>
         </sbb-dialog>

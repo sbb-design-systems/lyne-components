@@ -1,5 +1,5 @@
 import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
-import { assert, expect, fixture, nextFrame } from '@open-wc/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { SbbNavigation } from './sbb-navigation';
@@ -16,7 +16,7 @@ describe('sbb-navigation', () => {
 
   beforeEach(async () => {
     element = await fixture(html`
-      <sbb-navigation id="navigation" disable-animation>
+      <sbb-navigation id="navigation" style="--sbb-navigation-animation-duration: 0.1ms">
         <sbb-navigation-marker>
           <sbb-navigation-action id="action-1">Tickets & Offers</sbb-navigation-action>
           <sbb-navigation-action id="action-2">Vacations & Recreation</sbb-navigation-action>
@@ -24,11 +24,19 @@ describe('sbb-navigation', () => {
           <sbb-navigation-action sbb-navigation-close>Help & Contact</sbb-navigation-action>
         </sbb-navigation-marker>
 
-        <sbb-navigation-section trigger="action-1" id="first-section" disable-animation>
+        <sbb-navigation-section
+          trigger="action-1"
+          id="first-section"
+          style="--sbb-navigation-section-animation-duration: 0.1ms"
+        >
           <sbb-navigation-action sbb-navigation-section-close>Label</sbb-navigation-action>
           <sbb-navigation-action>Label</sbb-navigation-action>
         </sbb-navigation-section>
-        <sbb-navigation-section trigger="action-2" id="second-section" disable-animation>
+        <sbb-navigation-section
+          trigger="action-2"
+          id="second-section"
+          style="--sbb-navigation-section-animation-duration: 0.1ms"
+        >
           <sbb-navigation-action>Label</sbb-navigation-action>
           <sbb-navigation-action>Label</sbb-navigation-action>
         </sbb-navigation-section>
@@ -232,15 +240,14 @@ describe('sbb-navigation', () => {
 
     element.open();
     await waitForLitRender(element);
-    await nextFrame();
-
-    action.click();
-    await waitForLitRender(element);
-    await nextFrame();
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
+
+    action.click();
+    await waitForLitRender(element);
+    await waitForCondition(() => section.getAttribute('data-state') === 'opened');
 
     expect(element).to.have.attribute('data-state', 'opened');
     expect(section).to.have.attribute('data-state', 'opened');
@@ -267,12 +274,13 @@ describe('sbb-navigation', () => {
     element.open();
     await waitForLitRender(element);
 
-    action.click();
-    await waitForLitRender(element);
-
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
+
+    action.click();
+    await waitForLitRender(element);
+    await waitForCondition(() => section.getAttribute('data-state') === 'opened');
 
     expect(element).to.have.attribute('data-state', 'opened');
     expect(section).to.have.attribute('data-state', 'opened');
@@ -304,12 +312,13 @@ describe('sbb-navigation', () => {
     element.open();
     await waitForLitRender(element);
 
-    action.click();
-    await waitForLitRender(element);
-
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
+
+    action.click();
+    await waitForLitRender(element);
+    await waitForCondition(() => section.getAttribute('data-state') === 'opened');
 
     expect(element).to.have.attribute('data-state', 'opened');
     expect(section).to.have.attribute('data-state', 'opened');

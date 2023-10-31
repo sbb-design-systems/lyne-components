@@ -1,8 +1,7 @@
 import { assert, expect, fixture, fixtureCleanup } from '@open-wc/testing';
 import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
-import { waitForCondition, waitForLitRender } from '../core/testing';
-import { EventSpy } from '../core/testing/event-spy';
+import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
 import '../sbb-button';
 import { SbbButton } from '../sbb-button';
 import '../sbb-link';
@@ -15,7 +14,11 @@ describe('sbb-tooltip', () => {
   beforeEach(async () => {
     await fixture(html`
       <sbb-button id="tooltip-trigger">Tooltip trigger</sbb-button>
-      <sbb-tooltip id="tooltip" trigger="tooltip-trigger" disable-animation>
+      <sbb-tooltip
+        id="tooltip"
+        trigger="tooltip-trigger"
+        style="--sbb-tooltip-animation-duration: 1ms"
+      >
         Tooltip content.
         <sbb-link id="tooltip-link" href="#" variant="inline" sbb-tooltip-close>Link</sbb-link>
       </sbb-tooltip>
@@ -322,10 +325,18 @@ describe('sbb-tooltip', () => {
       >
       <sbb-button id="tooltip-trigger">Tooltip trigger</sbb-button>
       <sbb-button id="another-tooltip-trigger">Another tooltip trigger</sbb-button>
-      <sbb-tooltip id="tooltip" trigger="tooltip-trigger" disable-animation>
+      <sbb-tooltip
+        id="tooltip"
+        trigger="tooltip-trigger"
+        style="--sbb-tooltip-animation-duration: 0.1ms"
+      >
         Tooltip content.
       </sbb-tooltip>
-      <sbb-tooltip id="another-tooltip" trigger="another-tooltip-trigger" disable-animation>
+      <sbb-tooltip
+        id="another-tooltip"
+        trigger="another-tooltip-trigger"
+        style="--sbb-tooltip-animation-duration: 0.1ms"
+      >
         Another tooltip content.
       </sbb-tooltip>
     `);

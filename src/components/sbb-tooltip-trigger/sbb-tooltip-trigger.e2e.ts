@@ -11,7 +11,11 @@ describe('sbb-tooltip-trigger', () => {
   beforeEach(async () => {
     await fixture(html`
       <sbb-tooltip-trigger id="tooltip-trigger"></sbb-tooltip-trigger>
-      <sbb-tooltip id="tooltip" trigger="tooltip-trigger" disable-animation>
+      <sbb-tooltip
+        id="tooltip"
+        trigger="tooltip-trigger"
+        style="--sbb-tooltip-animation-duration: 0.1ms"
+      >
         Tooltip content.
         <sbb-link id="tooltip-link" variant="inline" sbb-tooltip-close>Link</sbb-link>
       </sbb-tooltip>

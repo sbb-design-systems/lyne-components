@@ -136,8 +136,8 @@ describe('sbb-toast', () => {
 
   it('closes other toasts on open', async () => {
     await fixture(html`
-      <sbb-toast id="toast1" disable-animation />
-      <sbb-toast id="toast2" disable-animation />
+      <sbb-toast id="toast1" style="--sbb-toast-animation-duration: 0.1ms" />
+      <sbb-toast id="toast2" style="--sbb-toast-animation-duration: 0.1ms" />
     `);
 
     const toast1: SbbToast = document.querySelector('#toast1');
