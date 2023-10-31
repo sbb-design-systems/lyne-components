@@ -38,9 +38,19 @@ It should refer to the section where the locomotive is placed.
 | `accessibilityLabel`  | `accessibility-label`  | public  | `string \| undefined` |          | Accessibility label for additional information regarding the leaving direction of the train. |
 | `direction`           | `direction`           | public  | `'left' \| 'right'`   | `'left'` | Controls the direction indicator to show the arrow left or right. Default is left.           |
 
+## Attributes
+
+| Name                    | Field               | Inherited From |
+| ----------------------- | ------------------- | -------------- |
+| `direction-label`       | directionLabel      |                |
+| `direction-label-level` | directionLabelLevel |                |
+| `station`               | station             |                |
+| `accessibility-label`   | accessibilityLabel  |                |
+| `direction`             | direction           |                |
+
 ## Slots
 
-| Name      | Description                         |
-| --------- | ----------------------------------- |
-| `unnamed` | Used for slotting sbb-train-wagons. |
+| Name | Description                                                           |
+| ---- | --------------------------------------------------------------------- |
+|      | Use the unnamed slot to add 'sbb-train-wagon' elements to this train. |
 

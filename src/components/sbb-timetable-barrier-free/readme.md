@@ -9,3 +9,9 @@ to be documented...
 | -------- | -------- | ------- | -------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `config` | `config` | public  | `string` |         | Stringified JSON which defines most of the&#xA;content of the component. Please check the&#xA;individual stories to get an idea of the&#xA;structure. |
 
+## Attributes
+
+| Name     | Field  | Inherited From |
+| -------- | ------ | -------------- |
+| `config` | config |                |
+

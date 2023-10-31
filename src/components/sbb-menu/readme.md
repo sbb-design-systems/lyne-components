@@ -78,9 +78,17 @@ to identify which actions are active and which are not.
 | `open`  | public  | Opens the menu on trigger click. |            | `void` |                |
 | `close` | public  | Closes the menu.                 |            | `void` |                |
 
+## Attributes
+
+| Name                       | Field                  | Inherited From |
+| -------------------------- | ---------------------- | -------------- |
+| `trigger`                  | trigger                |                |
+| `disable-animation`        | disableAnimation       |                |
+| `list-accessibility-label` | listAccessibilityLabel |                |
+
 ## Slots
 
-| Name      | Description                                             |
-| --------- | ------------------------------------------------------- |
-| `unnamed` | Use this slot to project any content inside the dialog. |
+| Name | Description                                                                    |
+| ---- | ------------------------------------------------------------------------------ |
+|      | Use the unnamed slot to add \`sbb-menu-action\` or other elements to the menu. |
 

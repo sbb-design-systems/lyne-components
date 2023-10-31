@@ -19,10 +19,16 @@ Optionally, a label can be provided via slot via the self-named property or the 
 | ------- | ------- | ------- | --------------------- | ------- | ----------- |
 | `label` | `label` | public  | `string \| undefined` |         |             |
 
+## Attributes
+
+| Name    | Field | Inherited From |
+| ------- | ----- | -------------- |
+| `label` | label |                |
+
 ## Slots
 
-| Name      | Description                                         |
-| --------- | --------------------------------------------------- |
-| `label`   | Use this to provide a label element.                |
-| `unnamed` | Use this to provide content for sbb-navigation-list |
+| Name    | Description                                                     |
+| ------- | --------------------------------------------------------------- |
+| `label` | Use this to provide a label element.                            |
+|         | Use the unnamed slot to add content to this sbb-navigation-list |
 

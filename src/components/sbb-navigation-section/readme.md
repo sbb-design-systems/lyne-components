@@ -42,9 +42,19 @@ Similarly, if a navigation action is marked to indicate a selected option (e.g.,
 | `open`  | public  | Opens the navigation section on trigger click. |            | `void` |                |
 | `close` | public  | Closes the navigation section.                 |            | `void` |                |
 
+## Attributes
+
+| Name                       | Field                  | Inherited From |
+| -------------------------- | ---------------------- | -------------- |
+| `title-content`            | titleContent           |                |
+| `trigger`                  | trigger                |                |
+| `accessibility-label`      | accessibilityLabel     |                |
+| `accessibility-back-label` | accessibilityBackLabel |                |
+| `disable-animation`        | disableAnimation       |                |
+
 ## Slots
 
-| Name      | Description                                                    |
-| --------- | -------------------------------------------------------------- |
-| `unnamed` | Use this to project any content inside the navigation section. |
+| Name | Description                                                      |
+| ---- | ---------------------------------------------------------------- |
+|      | Use the unnamed slot to add content into the navigation section. |
 

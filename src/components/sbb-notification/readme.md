@@ -77,10 +77,20 @@ For example, use `--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0` 
 | ------- | ------- | ----------- | ---------- | ------ | -------------- |
 | `close` | public  |             |            | `void` |                |
 
+## Attributes
+
+| Name                | Field            | Inherited From |
+| ------------------- | ---------------- | -------------- |
+| `type`              | type             |                |
+| `title-content`     | titleContent     |                |
+| `title-level`       | titleLevel       |                |
+| `readonly`          | readonly         |                |
+| `disable-animation` | disableAnimation |                |
+
 ## Slots
 
-| Name      | Description                                          |
-| --------- | ---------------------------------------------------- |
-| `title`   | Use this to provide a notification title (optional). |
-| `unnamed` | Use this to provide the notification message.        |
+| Name    | Description                                                      |
+| ------- | ---------------------------------------------------------------- |
+| `title` | Use this to provide a notification title (optional).             |
+|         | Use the unnamed slot to add content to the notification message. |
 

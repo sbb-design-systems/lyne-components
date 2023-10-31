@@ -52,9 +52,17 @@ In the following example, all the `sbb-expansion-panel-header` would be wrapped 
 | `disableAnimation` | `disable-animation` | public  | `boolean`            | `false` | Whether the animation should be disabled.                                   |
 | `multi`            | `multi`            | public  | `boolean`            |         | Whether more than one sbb-expansion-panel can be open at the same time.     |
 
+## Attributes
+
+| Name                | Field            | Inherited From |
+| ------------------- | ---------------- | -------------- |
+| `title-level`       | titleLevel       |                |
+| `disable-animation` | disableAnimation |                |
+| `multi`             | multi            |                |
+
 ## Slots
 
-| Name      | Description                                      |
-| --------- | ------------------------------------------------ |
-| `unnamed` | Use this to add one or more sbb-expansion-panel. |
+| Name | Description                                                   |
+| ---- | ------------------------------------------------------------- |
+|      | Use the unnamed slot to add \`sbb-expansion-panel\` elements. |
 

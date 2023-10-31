@@ -99,6 +99,18 @@ It's suggested to have a different value for each variant, e.g.:
 | ---------- | ------- | ----------- | ---------- | -------- | -------------- |
 | `getFiles` | public  |             |            | `File[]` |                |
 
+## Attributes
+
+| Name                  | Field              | Inherited From |
+| --------------------- | ------------------ | -------------- |
+| `variant`             | variant            |                |
+| `multiple`            | multiple           |                |
+| `multiple-mode`       | multipleMode       |                |
+| `accept`              | accept             |                |
+| `title-content`       | titleContent       |                |
+| `disabled`            | disabled           |                |
+| `accessibility-label` | accessibilityLabel |                |
+
 ## Slots
 
 | Name    | Description                                                        |

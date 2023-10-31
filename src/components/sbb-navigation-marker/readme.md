@@ -36,9 +36,15 @@ Possible values are `l` (default) and `s`.
 | `select` | public  |             | `action: SbbNavigationAction` | `void` |                |
 | `reset`  | public  |             |                               | `void` |                |
 
+## Attributes
+
+| Name   | Field | Inherited From |
+| ------ | ----- | -------------- |
+| `size` | size  |                |
+
 ## Slots
 
-| Name      | Description                                                                 |
-| --------- | --------------------------------------------------------------------------- |
-| `unnamed` | Use this slot to provide navigation actions into the sbb-navigation-marker. |
+| Name | Description                                                                                    |
+| ---- | ---------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add \`sbb-navigation-action\` elements into the sbb-navigation-marker. |
 

@@ -126,9 +126,19 @@ The values for `align-group` and `align-self` for the various allocations are as
 | `buttonSize`     | `button-size`     | public  | `SbbButtonSize \| undefined`                | `'l'`          | Size of the nested sbb-button instances. This will overwrite the size attribute of nested&#xA;sbb-button instances. |
 | `linkSize`       | `link-size`       | public  | `SbbLinkSize \| undefined`                  | `'m'`          | Size of the nested sbb-link instances. This will overwrite the size attribute of nested&#xA;sbb-link instances.     |
 
+## Attributes
+
+| Name              | Field          | Inherited From |
+| ----------------- | -------------- | -------------- |
+| `align-group`     | alignGroup     |                |
+| `horizontal-from` | horizontalFrom |                |
+| `orientation`     | orientation    |                |
+| `button-size`     | buttonSize     |                |
+| `link-size`       | linkSize       |                |
+
 ## Slots
 
-| Name      | Description                                      |
-| --------- | ------------------------------------------------ |
-| `unnamed` | Slot to render the content inside the container. |
+| Name | Description                                                                               |
+| ---- | ----------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add \`sbb-link\` or \`sbb-button\` elements to this action group. |
 

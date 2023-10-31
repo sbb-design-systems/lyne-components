@@ -42,9 +42,23 @@ The component has three different sizes, which can be changed using the `size` p
 | `name`     | `name`     | public  | `string \| undefined`                                |         | The name attribute to use for the button.                                                      |
 | `value`    | `value`    | public  | `string \| undefined`                                |         | The value attribute to use for the button.                                                     |
 
+## Attributes
+
+| Name       | Field    | Inherited From |
+| ---------- | -------- | -------------- |
+| `size`     | size     |                |
+| `href`     | href     |                |
+| `target`   | target   |                |
+| `rel`      | rel      |                |
+| `download` | download |                |
+| `type`     | type     |                |
+| `active`   | active   |                |
+| `name`     | name     |                |
+| `value`    | value    |                |
+
 ## Slots
 
-| Name      | Description                                           |
-| --------- | ----------------------------------------------------- |
-| `unnamed` | Use this slot to provide the navigation action label. |
+| Name | Description                                                   |
+| ---- | ------------------------------------------------------------- |
+|      | Use the unnamed slot to add content to the navigation action. |
 

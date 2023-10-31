@@ -40,6 +40,13 @@ The slots themselves are unstyled, so that they can be used in various ways.
 | `pearlChainVerticalItemAttributes` | `pearl-chain-vertical-item-attributes` | public  | `PearlChainVerticalItemAttributes` |         | The pearlChainVerticalItemAttributes Prop for styling the bullets and line. |
 | `disableAnimation`                 | `disable-animation`                 | public  | `boolean \| undefined`             |         | If true, the position won't be animated.                                    |
 
+## Attributes
+
+| Name                                   | Field                            | Inherited From |
+| -------------------------------------- | -------------------------------- | -------------- |
+| `pearl-chain-vertical-item-attributes` | pearlChainVerticalItemAttributes |                |
+| `disable-animation`                    | disableAnimation                 |                |
+
 ## Slots
 
 | Name    | Description                           |

@@ -82,11 +82,24 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 | `checked`       | `checked`       | public  | `boolean`             | `false` | Whether the checkbox is checked.                                                                                                            |
 | `size`          | `size`          | public  | `SbbCheckboxSize`     | `'m'`   | Label size variant, either m or s.                                                                                                          |
 
+## Attributes
+
+| Name             | Field         | Inherited From |
+| ---------------- | ------------- | -------------- |
+| `value`          | value         |                |
+| `disabled`       | disabled      |                |
+| `required`       | required      |                |
+| `indeterminate`  | indeterminate |                |
+| `icon-name`      | iconName      |                |
+| `icon-placement` | iconPlacement |                |
+| `checked`        | checked       |                |
+| `size`           | size          |                |
+
 ## Slots
 
 | Name      | Description                                                                                     |
 | --------- | ----------------------------------------------------------------------------------------------- |
-| `unnamed` | Slot used to render the checkbox label's text.                                                  |
+|           | Use the unnamed slot to add content to the checkbox.                                            |
 | `icon`    | Slot used to render the checkbox icon (disabled inside a selection panel).                      |
 | `subtext` | Slot used to render a subtext under the label (only visible within a selection panel).          |
 | `suffix`  | Slot used to render additional content after the label (only visible within a selection panel). |

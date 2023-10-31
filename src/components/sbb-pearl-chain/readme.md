@@ -62,3 +62,10 @@ This is helpful if you need a specific state of the component.
 | `legs`             | `legs`             | public  | `(Leg \| PtRideLeg)[]` |         | Define the legs of the pearl-chain.&#xA;Format:&#xA;\`{"legs": \[{"duration": 25}, ...]}\`&#xA;\`duration\` in minutes. Duration of the leg is relative&#xA;to the total travel time. Example: departure 16:30, change at 16:40,&#xA;arrival at 17:00. So the change should have a duration of 33.33%. |
 | `disableAnimation` | `disable-animation` | public  | `boolean \| undefined` |         | Per default, the current location has a pulsating animation. You can&#xA;disable the animation with this property.                                                                                                                                                                                     |
 
+## Attributes
+
+| Name                | Field            | Inherited From |
+| ------------------- | ---------------- | -------------- |
+| `legs`              | legs             |                |
+| `disable-animation` | disableAnimation |                |
+

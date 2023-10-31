@@ -36,3 +36,13 @@ Possible values are `ideal` (default), `minimal` and `none`.
 | `protectiveRoom`     | `protective-room`     | public  | `SbbProtectiveRoom \| undefined` | `'ideal'` | Visual protective room around logo.                          |
 | `accessibilityLabel` | `accessibility-label` | public  | `string`                         | `'Logo'`  | Accessibility label which will be forwarded to the SVG logo. |
 
+## Attributes
+
+| Name                  | Field              | Inherited From |
+| --------------------- | ------------------ | -------------- |
+| `negative`            | negative           |                |
+| `protective-room`     | protectiveRoom     |                |
+| `accessibility-label` | accessibilityLabel |                |
+
+<hr/>
+

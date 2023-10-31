@@ -137,13 +137,26 @@ technology will announce errors when they appear.
 | `clear`           | public  | Manually clears the input value. It only works for inputs, selects are not supported. |            | `void`                                                 |                |
 | `getInputElement` | public  | Returns the input element.                                                            |            | `HTMLInputElement \| HTMLSelectElement \| HTMLElement` |                |
 
+## Attributes
+
+| Name             | Field         | Inherited From |
+| ---------------- | ------------- | -------------- |
+| `error-space`    | errorSpace    |                |
+| `label`          | label         |                |
+| `optional`       | optional      |                |
+| `size`           | size          |                |
+| `borderless`     | borderless    |                |
+| `width`          | width         |                |
+| `floating-label` | floatingLabel |                |
+| `negative`       | negative      |                |
+
 ## Slots
 
-| Name      | Description                                            |
-| --------- | ------------------------------------------------------ |
-| `label`   | Slot to render a label.                                |
-| `prefix`  | Slot to render an icon on the left side of the input.  |
-| `unnamed` | Slot to render an input/select.                        |
-| `suffix`  | Slot to render an icon on the right side of the input. |
-| `error`   | Slot to render an error.                               |
+| Name     | Description                                            |
+| -------- | ------------------------------------------------------ |
+| `label`  | Slot to render a label.                                |
+| `prefix` | Slot to render an icon on the left side of the input.  |
+|          | Slot to render an input/select.                        |
+| `suffix` | Slot to render an icon on the right side of the input. |
+| `error`  | Slot to render an error.                               |
 

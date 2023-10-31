@@ -35,6 +35,16 @@ Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and
 | `target`     | `target`     | public  | `LinkTargetType \| string \| undefined \| undefined` |         | Where to display the linked URL.                                                                                                      |
 | `rel`        | `rel`        | public  | `string \| undefined \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                                                                     |
 
+## Attributes
+
+| Name          | Field      | Inherited From |
+| ------------- | ---------- | -------------- |
+| `is-stacked`  | isStacked  |                |
+| `title-level` | titleLevel |                |
+| `href`        | href       |                |
+| `target`      | target     |                |
+| `rel`         | rel        |                |
+
 ## Slots
 
 | Name          | Description                         |

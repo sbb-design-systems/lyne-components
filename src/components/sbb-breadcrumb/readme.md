@@ -48,10 +48,20 @@ By default, the `sbb-breadcrumb-group` component sets `aria-current="page"` on t
 | `download` | `download` | public  | `boolean \| undefined`                               |         | Whether the browser will show the download dialog on click.                                                                               |
 | `iconName` | `icon-name` | public  | `string \| undefined`                                |         | The icon name we want to use, choose from the small icon variants&#xA;from the ui-icons category from here&#xA;https\://icons.app.sbb.ch. |
 
+## Attributes
+
+| Name        | Field    | Inherited From |
+| ----------- | -------- | -------------- |
+| `href`      | href     |                |
+| `target`    | target   |                |
+| `rel`       | rel      |                |
+| `download`  | download |                |
+| `icon-name` | iconName |                |
+
 ## Slots
 
-| Name      | Description                                |
-| --------- | ------------------------------------------ |
-| `unnamed` | Use this to slot the breadcrumb's text.    |
-| `icon`    | Use this to display an icon as breadcrumb. |
+| Name   | Description                                            |
+| ------ | ------------------------------------------------------ |
+|        | Use the unnamed slot to add content to the breadcrumb. |
+| `icon` | Use this to display an icon as breadcrumb.             |
 

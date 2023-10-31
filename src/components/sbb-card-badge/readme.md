@@ -30,9 +30,15 @@ as in the example above.
 | ------- | ------- | ------- | ----------------------- | ------------ | ------------------------ |
 | `color` | `color` | public  | `'charcoal' \| 'white'` | `'charcoal'` | Color of the card badge. |
 
+## Attributes
+
+| Name    | Field | Inherited From |
+| ------- | ----- | -------------- |
+| `color` | color |                |
+
 ## Slots
 
-| Name      | Description                                                                                            |
-| --------- | ------------------------------------------------------------------------------------------------------ |
-| `unnamed` | Content of the badge. Content parts should be wrapped in \`\<span>\` tags to achieve correct spacings. |
+| Name | Description                                                                                                                        |
+| ---- | ---------------------------------------------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add content to the badge. Content parts should be wrapped in \`\<span>\` tags to achieve correct spacings. |
 

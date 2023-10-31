@@ -90,6 +90,21 @@ The `sbb-slider` has the following behaviour on keypress when focused:
 | ------- | ------------ | ----------- | -------------- |
 | `input` | `InputEvent` |             |                |
 
+## Attributes
+
+| Name              | Field         | Inherited From |
+| ----------------- | ------------- | -------------- |
+| `value`           | value         |                |
+| `value-as-number` | valueAsNumber |                |
+| `name`            | name          |                |
+| `form`            | form          |                |
+| `min`             | min           |                |
+| `max`             | max           |                |
+| `readonly`        | readonly      |                |
+| `disabled`        | disabled      |                |
+| `start-icon`      | startIcon     |                |
+| `end-icon`        | endIcon       |                |
+
 ## Slots
 
 | Name     | Description                                            |

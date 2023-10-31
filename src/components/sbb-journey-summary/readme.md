@@ -27,3 +27,13 @@ If the tripBack prop is passed to the component a second journey-summary, withou
 | `headerLevel`      | `header-level`      | public  | `TitleLevel \| undefined`                           | `'3'`   | Heading level of the journey header element (e.g. h1-h6).                                                          |
 | `disableAnimation` | `disable-animation` | public  | `boolean \| undefined`                              |         | Per default, the current location has a pulsating animation. You can&#xA;disable the animation with this property. |
 
+## Attributes
+
+| Name                | Field            | Inherited From |
+| ------------------- | ---------------- | -------------- |
+| `trip`              | trip             |                |
+| `trip-back`         | tripBack         |                |
+| `round-trip`        | roundTrip        |                |
+| `header-level`      | headerLevel      |                |
+| `disable-animation` | disableAnimation |                |
+

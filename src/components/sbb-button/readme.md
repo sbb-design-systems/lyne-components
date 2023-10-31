@@ -100,10 +100,29 @@ Use the accessibility properties in case of an icon-only button to describe the 
 | `value`    | `value`    | public  | `string \| undefined`                                                    |             | The value attribute to use for the button.                                                                                                                 |
 | `form`     | `form`     | public  | `string \| undefined`                                                    |             | The \<form> element to associate the button with.                                                                                                          |
 
+## Attributes
+
+| Name        | Field    | Inherited From |
+| ----------- | -------- | -------------- |
+| `variant`   | variant  |                |
+| `negative`  | negative |                |
+| `size`      | size     |                |
+| `is-static` | isStatic |                |
+| `icon-name` | iconName |                |
+| `href`      | href     |                |
+| `target`    | target   |                |
+| `rel`       | rel      |                |
+| `download`  | download |                |
+| `type`      | type     |                |
+| `disabled`  | disabled |                |
+| `name`      | name     |                |
+| `value`     | value    |                |
+| `form`      | form     |                |
+
 ## Slots
 
-| Name      | Description                                  |
-| --------- | -------------------------------------------- |
-| `unnamed` | Button Content                               |
-| `icon`    | Slot used to display the icon, if one is set |
+| Name   | Description                                        |
+| ------ | -------------------------------------------------- |
+|        | Use the unnamed slot to add content to the button. |
+| `icon` | Slot used to display the icon, if one is set       |
 

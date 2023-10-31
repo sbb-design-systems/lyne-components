@@ -59,3 +59,17 @@ This is helpful if you need a specific state of the component.
 | `accessibilityExpanded` | `accessibility-expanded` | public  | `boolean \| undefined`  |         | This will be forwarded to the sbb-card component as aria-expanded.                                                                                                                            |
 | `active`                | `active`                | public  | `boolean \| undefined`  |         | When this prop is true the sbb-card will be in the active state.                                                                                                                              |
 
+## Attributes
+
+| Name                     | Field                 | Inherited From |
+| ------------------------ | --------------------- | -------------- |
+| `trip`                   | trip                  |                |
+| `price`                  | price                 |                |
+| `disable-animation`      | disableAnimation      |                |
+| `boarding`               | boarding              |                |
+| `loading-trip`           | loadingTrip           |                |
+| `loading-price`          | loadingPrice          |                |
+| `card-action-label`      | cardActionLabel       |                |
+| `accessibility-expanded` | accessibilityExpanded |                |
+| `active`                 | active                |                |
+

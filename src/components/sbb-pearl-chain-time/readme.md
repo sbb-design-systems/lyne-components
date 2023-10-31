@@ -64,3 +64,14 @@ This is helpful if you need a specific state of the component.
 | `arrivalWalk`      | `arrival-walk`      | public  | `number \| undefined`  |         | Optional prop to render the walk time (in minutes) after arrival                                                                                                                                                                                                                                       |
 | `disableAnimation` | `disable-animation` | public  | `boolean \| undefined` |         | Per default, the current location has a pulsating animation. You can&#xA;disable the animation with this property.                                                                                                                                                                                     |
 
+## Attributes
+
+| Name                | Field            | Inherited From |
+| ------------------- | ---------------- | -------------- |
+| `legs`              | legs             |                |
+| `departure-time`    | departureTime    |                |
+| `arrival-time`      | arrivalTime      |                |
+| `departure-walk`    | departureWalk    |                |
+| `arrival-walk`      | arrivalWalk      |                |
+| `disable-animation` | disableAnimation |                |
+

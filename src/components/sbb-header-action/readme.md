@@ -49,10 +49,25 @@ depending on the value of the `href` property, so the associated properties are 
 | `value`      | `value`      | public  | `string \| undefined`                                |         | The value associated with button \`name\` when it's submitted with the form data.                                                                                                                |
 | `form`       | `form`       | public  | `string \| undefined`                                |         | Form attribute if component is displayed as a button.                                                                                                                                            |
 
+## Attributes
+
+| Name          | Field      | Inherited From |
+| ------------- | ---------- | -------------- |
+| `expand-from` | expandFrom |                |
+| `icon-name`   | iconName   |                |
+| `href`        | href       |                |
+| `target`      | target     |                |
+| `rel`         | rel        |                |
+| `download`    | download   |                |
+| `type`        | type       |                |
+| `name`        | name       |                |
+| `value`       | value      |                |
+| `form`        | form       |                |
+
 ## Slots
 
-| Name      | Description                          |
-| --------- | ------------------------------------ |
-| `icon`    | Slot used to render the action icon. |
-| `unnamed` | Slot used to render the action text. |
+| Name   | Description                                               |
+| ------ | --------------------------------------------------------- |
+| `icon` | Slot used to render the action icon.                      |
+|        | Use the unnamed slot to add content to the header action. |
 

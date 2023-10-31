@@ -120,9 +120,20 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 | `open`  | public  | Open the toast.&#xA;If there are other opened toasts in the page, close them first. |            | `void` |                |
 | `close` | public  | Close the toast.                                                                    |            | `void` |                |
 
+## Attributes
+
+| Name                | Field            | Inherited From |
+| ------------------- | ---------------- | -------------- |
+| `timeout`           | timeout          |                |
+| `icon-name`         | iconName         |                |
+| `position`          | position         |                |
+| `dismissible`       | dismissible      |                |
+| `politeness`        | politeness       |                |
+| `disable-animation` | disableAnimation |                |
+
 ## Slots
 
-| Name      | Description                  |
-| --------- | ---------------------------- |
-| `unnamed` | Use this to document a slot. |
+| Name | Description                                       |
+| ---- | ------------------------------------------------- |
+|      | Use the unnamed slot to add content to the toast. |
 

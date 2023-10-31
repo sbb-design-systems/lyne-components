@@ -50,10 +50,18 @@ and therefore interrupts screen reader flow, to immediately read out the alert c
 | `accessibilityTitle`      | `accessibility-title`      | public  | `string`                        |            | Title for this alert group which is only visible for screen reader users.                                                                                                                             |
 | `accessibilityTitleLevel` | `accessibility-title-level` | public  | `TitleLevel`                    | `'2'`      | Level of the accessibility title, will be rendered as heading tag (e.g. h2). Defaults to level 2.                                                                                                     |
 
+## Attributes
+
+| Name                        | Field                   | Inherited From |
+| --------------------------- | ----------------------- | -------------- |
+| `role`                      | role                    |                |
+| `accessibility-title`       | accessibilityTitle      |                |
+| `accessibility-title-level` | accessibilityTitleLevel |                |
+
 ## Slots
 
 | Name                  | Description                                                                   |
 | --------------------- | ----------------------------------------------------------------------------- |
-| `unnamed`             | content slot, should be filled with \`sbb-alert\` items.                      |
+|                       | Use the unnamed slot to add \`sbb-alert\` elements to this alert group.       |
 | `accessibility-title` | title for this sbb-alert-group which is only visible for screen reader users. |
 

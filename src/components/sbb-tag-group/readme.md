@@ -94,9 +94,17 @@ that communicates the collective meaning of all `sbb-tag`s.
 | `multiple`               | `multiple`               | public  | `boolean`                    | `false` | If set multiple to false, the selection is exclusive and the value is a string (or null).&#xA;If set multiple to true, the selection can have multiple values and therefore value is an array.&#xA;&#xA;Changing multiple during run time is not supported. |
 | `value`                  | `value`                  | public  | `string \| string[] \| null` |         | Value of the sbb-tag-group.&#xA;If set multiple to false, the value is a string (or null).&#xA;If set multiple to true, the value is an array.                                                                                                              |
 
+## Attributes
+
+| Name                       | Field                  | Inherited From |
+| -------------------------- | ---------------------- | -------------- |
+| `list-accessibility-label` | listAccessibilityLabel |                |
+| `multiple`                 | multiple               |                |
+| `value`                    | value                  |                |
+
 ## Slots
 
-| Name      | Description                                        |
-| --------- | -------------------------------------------------- |
-| `unnamed` | Provide one or more 'sbb-tag' to add to the group. |
+| Name | Description                                                                   |
+| ---- | ----------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add one or more 'sbb-tag' elements to this tag group. |
 

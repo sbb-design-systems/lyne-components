@@ -27,11 +27,18 @@ and four different values for the `color` property (`charcoal`, `granite`, `whit
 | `size`  | `size`  | public  | `'xxs' \| 'xs' \| 's'`                         | `'xxs'`  | Size of the chip.  |
 | `color` | `color` | public  | `'milk' \| 'charcoal' \| 'white' \| 'granite'` | `'milk'` | Color of the chip. |
 
+## Attributes
+
+| Name    | Field | Inherited From |
+| ------- | ----- | -------------- |
+| `size`  | size  |                |
+| `color` | color |                |
+
 ## Slots
 
-| Name      | Description                 |
-| --------- | --------------------------- |
-| `unnamed` | Content / Label of the chip |
+| Name | Description                                      |
+| ---- | ------------------------------------------------ |
+|      | Use the unnamed slot to add content to the chip. |
 
 <hr/>
 

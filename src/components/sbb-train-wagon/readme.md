@@ -50,9 +50,21 @@ They will be applied internally into a list (using `<ul>` and `<li>`) and requir
 | `label`                       | `label`                       | public  | `string \| undefined`                      |             | Visible label for the wagon number. Not used by type locomotive or closed. |
 | `additionalAccessibilityText` | `additional-accessibility-text` | public  | `string \| undefined`                      |             | Additional accessibility text which will be appended to the end.           |
 
+## Attributes
+
+| Name                            | Field                       | Inherited From |
+| ------------------------------- | --------------------------- | -------------- |
+| `type`                          | type                        |                |
+| `occupancy`                     | occupancy                   |                |
+| `sector`                        | sector                      |                |
+| `blocked-passage`               | blockedPassage              |                |
+| `wagon-class`                   | wagonClass                  |                |
+| `label`                         | label                       |                |
+| `additional-accessibility-text` | additionalAccessibilityText |                |
+
 ## Slots
 
-| Name      | Description                                                              |
-| --------- | ------------------------------------------------------------------------ |
-| `unnamed` | Used to slot one to x icons for meta information of the sbb-train-wagon. |
+| Name | Description                                                                                |
+| ---- | ------------------------------------------------------------------------------------------ |
+|      | Use the unnamed slot to add one or more icons for meta information of the sbb-train-wagon. |
 

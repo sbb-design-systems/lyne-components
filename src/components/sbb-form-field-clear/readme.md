@@ -20,3 +20,9 @@ to provide the possibility to display a clear button which can clear the input v
 | ---------- | ---------- | ------- | --------- | ------- | ------------------------------- |
 | `negative` | `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |
 
+## Attributes
+
+| Name       | Field    | Inherited From |
+| ---------- | -------- | -------------- |
+| `negative` | negative |                |
+

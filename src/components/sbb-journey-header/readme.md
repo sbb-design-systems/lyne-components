@@ -56,3 +56,14 @@ The following one will be read as (locale: ENG): `Connection from Point A to Poi
 | `negative`    | `negative`    | public  | `boolean`                        | `false` | Negative coloring variant flag.                                                   |
 | `size`        | `size`        | public  | `JourneyHeaderSize \| undefined` | `'m'`   | Journey header size.                                                              |
 
+## Attributes
+
+| Name          | Field       | Inherited From |
+| ------------- | ----------- | -------------- |
+| `origin`      | origin      |                |
+| `destination` | destination |                |
+| `round-trip`  | roundTrip   |                |
+| `level`       | level       |                |
+| `negative`    | negative    |                |
+| `size`        | size        |                |
+

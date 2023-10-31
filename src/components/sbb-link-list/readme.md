@@ -64,3 +64,14 @@ The title will not be displayed in the horizontal orientation.
 | `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| undefined` |              | Selected breakpoint from which the list is rendered horizontally.                                                                                       |
 | `orientation`    | `orientation`    | public  | `SbbOrientation`                 | `'vertical'` | The orientation in which the list will be shown vertical or horizontal.                                                                                 |
 
+## Attributes
+
+| Name              | Field          | Inherited From |
+| ----------------- | -------------- | -------------- |
+| `title-content`   | titleContent   |                |
+| `title-level`     | titleLevel     |                |
+| `size`            | size           |                |
+| `negative`        | negative       |                |
+| `horizontal-from` | horizontalFrom |                |
+| `orientation`     | orientation    |                |
+

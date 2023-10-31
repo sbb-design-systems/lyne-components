@@ -38,9 +38,23 @@ as it is used for search engines and screen-reader users.
 | `form`     | `form`     | public  | `string \| undefined \| undefined`                   |         | The \<form> element to associate the button to it.                                |
 | `value`    | `value`    | public  | `string \| undefined \| undefined`                   |         | The value associated with button \`name\` when it's submitted with the form data. |
 
+## Attributes
+
+| Name       | Field    | Inherited From |
+| ---------- | -------- | -------------- |
+| `active`   | active   |                |
+| `href`     | href     |                |
+| `target`   | target   |                |
+| `rel`      | rel      |                |
+| `download` | download |                |
+| `type`     | type     |                |
+| `name`     | name     |                |
+| `form`     | form     |                |
+| `value`    | value    |                |
+
 ## Slots
 
-| Name      | Description                                                                                                         |
-| --------- | ------------------------------------------------------------------------------------------------------------------- |
-| `unnamed` | Slot to render a descriptive label / title of the action (important!). This is relevant for SEO and screen readers. |
+| Name | Description                                                                                                                      |
+| ---- | -------------------------------------------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add a descriptive label / title of the action (important!). This is relevant for SEO and screen readers. |
 

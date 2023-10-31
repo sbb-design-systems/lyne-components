@@ -23,3 +23,13 @@ It has four different states related to the properties `checked`, `indeterminate
 | `indeterminate` | `indeterminate` | public  | `boolean` | `false` | Indeterminate state.            |
 | `negative`      | `negative`      | public  | `boolean` | `false` | Negative coloring variant flag. |
 
+## Attributes
+
+| Name            | Field         | Inherited From |
+| --------------- | ------------- | -------------- |
+| `checked`       | checked       |                |
+| `disabled`      | disabled      |                |
+| `indeterminate` | indeterminate |                |
+| `negative`      | negative      |                |
+
+<hr/>

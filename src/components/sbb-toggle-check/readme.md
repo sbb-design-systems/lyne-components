@@ -65,10 +65,23 @@ you can not provide it and then use `aria-label` to specify an appropriate label
 | `required`      | `required`      | public  | `boolean`                          | `false`        | The required prop for the required state.                      |
 | `labelPosition` | `label-position` | public  | `'before' \| 'after' \| undefined` | `'after'`      | The label position relative to the toggle. Defaults to 'after' |
 
+## Attributes
+
+| Name             | Field         | Inherited From |
+| ---------------- | ------------- | -------------- |
+| `checked`        | checked       |                |
+| `value`          | value         |                |
+| `name`           | name          |                |
+| `size`           | size          |                |
+| `icon-name`      | iconName      |                |
+| `disabled`       | disabled      |                |
+| `required`       | required      |                |
+| `label-position` | labelPosition |                |
+
 ## Slots
 
-| Name      | Description                                                                         |
-| --------- | ----------------------------------------------------------------------------------- |
-| `unnamed` | Use this slot to provide the toggle label.                                          |
-| `icon`    | Use this slot to provide an icon. If \`icon-name\` is set, a sbb-icon will be used. |
+| Name   | Description                                                                         |
+| ------ | ----------------------------------------------------------------------------------- |
+|        | Use the unnamed slot to add content to the toggle label.                            |
+| `icon` | Use this slot to provide an icon. If \`icon-name\` is set, a sbb-icon will be used. |
 

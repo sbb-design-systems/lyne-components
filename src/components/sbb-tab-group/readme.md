@@ -56,10 +56,17 @@ It's possible to set the first selected tab using the `initialSelectedIndex` pro
 | `enableTab`   | public  | Enables a tab by index.   | `tabIndex: number` | `void` |                |
 | `activateTab` | public  | Activates a tab by index. | `tabIndex: number` | `void` |                |
 
+## Attributes
+
+| Name                     | Field                | Inherited From |
+| ------------------------ | -------------------- | -------------- |
+| `size`                   | size                 |                |
+| `initial-selected-index` | initialSelectedIndex |                |
+
 ## Slots
 
-| Name      | Description                                                                                                                                                                                                                                                                                     |
-| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `tab-bar` | When you provide the \`sbb-tab-title\` tag through the unnamed slot, it will be automatically moved to this slot. You do not need to use it directly.                                                                                                                                           |
-| `unnamed` | Provide html-content to show as tab content. Wrap the content in a \`div\`, a \`section\`, an \`article\` or provide a nested \`sbb-tab-group\`: This is correct: \`\<div>Some text \<p>Some other text\</p>\</div>\` This is not correct: \`\<span>Some text\</span>\<p>Some other text\</p>\` |
+| Name      | Description                                                                                                                                                                                                                                                                                                    |
+| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `tab-bar` | When you provide the \`sbb-tab-title\` tag through the unnamed slot, it will be automatically moved to this slot. You do not need to use it directly.                                                                                                                                                          |
+|           | Use the unnamed slot to add html-content to this tab group. Wrap the content in a \`div\`, a \`section\`, an \`article\` or provide a nested \`sbb-tab-group\`: This is correct: \`\<div>Some text \<p>Some other text\</p>\</div>\` This is not correct: \`\<span>Some text\</span>\<p>Some other text\</p>\` |
 

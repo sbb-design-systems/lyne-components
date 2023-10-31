@@ -72,3 +72,9 @@ Whenever the validation state changes (e.g., a valid value becomes invalid or vi
 | `getValueAsDate` | public  | Gets the input value with the correct date format.    |                     | `Date \| null` |                |
 | `setValueAsDate` | public  | Set the input value to the correctly formatted value. | `date: SbbDateLike` | `void`         |                |
 
+## Attributes
+
+| Name    | Field | Inherited From |
+| ------- | ----- | -------------- |
+| `input` | input |                |
+

@@ -87,6 +87,17 @@ and the `aria-hidden` attribute on the content.
 | `borderless`       | `borderless`       | public  | `boolean`                 | `false`   | Whether the panel has no border.                                       |
 | `disableAnimation` | `disable-animation` | public  | `boolean`                 | `false`   | Whether the animations should be disabled.                             |
 
+## Attributes
+
+| Name                | Field            | Inherited From |
+| ------------------- | ---------------- | -------------- |
+| `title-level`       | titleLevel       |                |
+| `color`             | color            |                |
+| `expanded`          | expanded         |                |
+| `disabled`          | disabled         |                |
+| `borderless`        | borderless       |                |
+| `disable-animation` | disableAnimation |                |
+
 ## Slots
 
 | Name      | Description                                         |

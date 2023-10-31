@@ -46,3 +46,11 @@ otherwise, they can be connected using the `datePicker` property as described ab
 | ------ | ------- | ------------------- | ---------- | ------ | -------------- |
 | `open` | public  | Opens the calendar. |            | `void` |                |
 
+## Attributes
+
+| Name                | Field            | Inherited From |
+| ------------------- | ---------------- | -------------- |
+| `date-picker`       | datePicker       |                |
+| `disable-animation` | disableAnimation |                |
+| `negative`          | negative         |                |
+

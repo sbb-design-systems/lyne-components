@@ -22,3 +22,12 @@ It's also possible to display the component in `negative` variant using the self
 | `negative`    | `negative`    | public  | `boolean \| undefined`        | `false`        | Negative coloring variant flag                                                                |
 | `orientation` | `orientation` | public  | `SbbOrientation \| undefined` | `'horizontal'` | Orientation property with possible values 'horizontal' \| 'vertical'. Defaults to horizontal. |
 
+## Attributes
+
+| Name          | Field       | Inherited From |
+| ------------- | ----------- | -------------- |
+| `negative`    | negative    |                |
+| `orientation` | orientation |                |
+
+<hr/>
+

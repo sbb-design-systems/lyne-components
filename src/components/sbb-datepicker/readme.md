@@ -105,12 +105,13 @@ This is helpful if you need a specific state of the component.
 
 ## Properties 
 
-| Name         | Attribute         | Privacy | Type                                                | Default          | Description                                                       |
-| ------------ | ------------ | ------- | --------------------------------------------------- | ---------------- | ----------------------------------------------------------------- |
-| `wide`       | `wide`       | public  | `boolean`                                           | `false`          | If set to true, two months are displayed.                         |
-| `dateParser` | `date-parser` | public  | `(value: string) => Date \| undefined \| undefined` |                  | A function used to parse string value into dates.                 |
-| `format`     | `format`     | public  | `(date: Date) => string \| undefined`               |                  | A function used to format dates into the preferred string format. |
-| `input`      | `input`      | public  | `string \| HTMLElement \| undefined`                |                  | Reference of the native input connected to the datepicker.        |
+| Name         | Attribute         | Privacy | Type                                                | Default | Description                                                       |
+| ------------ | ------------ | ------- | --------------------------------------------------- | ------- | ----------------------------------------------------------------- |
+| `wide`       | `wide`       | public  | `boolean`                                           | `false` | If set to true, two months are displayed.                         |
+| `dateFilter` | `date-filter` | public  | `(date: Date \| null) => boolean`                   |         | A function used to filter out dates.                              |
+| `dateParser` | `date-parser` | public  | `(value: string) => Date \| undefined \| undefined` |         | A function used to parse string value into dates.                 |
+| `format`     | `format`     | public  | `(date: Date) => string \| undefined`               |         | A function used to format dates into the preferred string format. |
+| `input`      | `input`      | public  | `string \| HTMLElement \| undefined`                |         | Reference of the native input connected to the datepicker.        |
 
 ## Methods
 
@@ -118,4 +119,14 @@ This is helpful if you need a specific state of the component.
 | ---------------- | ------- | ----------------------------------------------------- | ------------------- | ------ | -------------- |
 | `getValueAsDate` | public  | Gets the input value with the correct date format.    |                     | `Date` |                |
 | `setValueAsDate` | public  | Set the input value to the correctly formatted value. | `date: SbbDateLike` | `void` |                |
+
+## Attributes
+
+| Name          | Field      | Inherited From |
+| ------------- | ---------- | -------------- |
+| `wide`        | wide       |                |
+| `date-filter` | dateFilter |                |
+| `date-parser` | dateParser |                |
+| `format`      | format     |                |
+| `input`       | input      |                |
 

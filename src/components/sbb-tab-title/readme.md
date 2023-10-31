@@ -50,11 +50,21 @@ It is possible to display the component in `disabled` state by using the self-na
 | `iconName` | `icon-name` | public  | `string \| undefined`     |         | The icon name we want to use, choose from the small icon variants&#xA;from the ui-icons category from here&#xA;https\://icons.app.sbb.ch.                         |
 | `amount`   | `amount`   | public  | `string \| undefined`     |         | Amount displayed inside the tab.                                                                                                                                  |
 
+## Attributes
+
+| Name        | Field    | Inherited From |
+| ----------- | -------- | -------------- |
+| `level`     | level    |                |
+| `active`    | active   |                |
+| `disabled`  | disabled |                |
+| `icon-name` | iconName |                |
+| `amount`    | amount   |                |
+
 ## Slots
 
-| Name      | Description                                                                                         |
-| --------- | --------------------------------------------------------------------------------------------------- |
-| `unnamed` | This slot will show the provided tab title.                                                         |
-| `icon`    | Use this slot to display an icon to the left of the title, by providing the \`sbb-icon\` component. |
-| `amount`  | Provide a number to show an amount to the right of the title.                                       |
+| Name     | Description                                                                                         |
+| -------- | --------------------------------------------------------------------------------------------------- |
+|          | Use the unnamed slot to add content to the tab title.                                               |
+| `icon`   | Use this slot to display an icon to the left of the title, by providing the \`sbb-icon\` component. |
+| `amount` | Provide a number to show an amount to the right of the title.                                       |
 

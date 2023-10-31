@@ -39,3 +39,11 @@ if it is disabled, or if the selected date is equal to the input's `min` attribu
 | `negative`   | `negative`   | public  | `boolean`                              | `false` | Negative coloring variant flag.           |
 | `datePicker` | `date-picker` | public  | `string \| SbbDatepicker \| undefined` |         | Datepicker reference.                     |
 
+## Attributes
+
+| Name          | Field      | Inherited From |
+| ------------- | ---------- | -------------- |
+| `name`        | name       |                |
+| `negative`    | negative   |                |
+| `date-picker` | datePicker |                |
+

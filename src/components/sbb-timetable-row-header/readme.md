@@ -10,3 +10,11 @@ here to show the various configuration options to component developers. !!
 | -------- | -------- | ------- | -------- | ------- | ----------- |
 | `config` | `config` | public  | `string` |         |             |
 
+## Attributes
+
+| Name     | Field  | Inherited From |
+| -------- | ------ | -------------- |
+| `config` | config |                |
+
+<hr/>
+

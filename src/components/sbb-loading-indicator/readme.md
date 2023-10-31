@@ -53,3 +53,14 @@ and then append the `sbb-loading-indicator` on it after giving it the correct `a
 | `color`            | `color`            | public  | `'default' \| 'smoke' \| 'white'`   | `'default'` | Color variant.                                                                                        |
 | `disableAnimation` | `disable-animation` | public  | `boolean`                           | `false`     | Whether the animation is enabled.                                                                     |
 
+## Attributes
+
+| Name                | Field            | Inherited From |
+| ------------------- | ---------------- | -------------- |
+| `variant`           | variant          |                |
+| `size`              | size             |                |
+| `color`             | color            |                |
+| `disable-animation` | disableAnimation |                |
+
+<hr/>
+

@@ -93,11 +93,20 @@ It's also possible to display the `sbb-selection-panel` without border by settin
 | `borderless`       | `borderless`       | public  | `boolean`           | `false`   | Whether the unselected panel has a border.     |
 | `disableAnimation` | `disable-animation` | public  | `boolean`           | `false`   | Whether the animation is enabled.              |
 
+## Attributes
+
+| Name                | Field            | Inherited From |
+| ------------------- | ---------------- | -------------- |
+| `color`             | color            |                |
+| `force-open`        | forceOpen        |                |
+| `borderless`        | borderless       |                |
+| `disable-animation` | disableAnimation |                |
+
 ## Slots
 
-| Name      | Description                                                            |
-| --------- | ---------------------------------------------------------------------- |
-| `unnamed` | Use this slot to provide a \`sbb-checkbox\` or a \`sbb-radio-button\`. |
-| `badge`   | Use this slot to provide a \`sbb-card-badge\` (optional).              |
-| `content` | Use this slot to provide custom content for the panel (optional).      |
+| Name      | Description                                                                                            |
+| --------- | ------------------------------------------------------------------------------------------------------ |
+|           | Use the unnamed slot to add \`sbb-checkbox\` or \`sbb-radio-button\` elements to this selection panel. |
+| `badge`   | Use this slot to provide a \`sbb-card-badge\` (optional).                                              |
+| `content` | Use this slot to provide custom content for the panel (optional).                                      |
 

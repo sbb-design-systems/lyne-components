@@ -74,3 +74,13 @@ If the label slot contains only a **text node**, it is possible to search for te
 | --------------- | ------- | ------------------------------------------ | --------------- | ------ | -------------- |
 | `setGroupLabel` | public  | Set the option group label (used for a11y) | `value: string` | `void` |                |
 
+## Attributes
+
+| Name        | Field    | Inherited From |
+| ----------- | -------- | -------------- |
+| `value`     | value    |                |
+| `icon-name` | iconName |                |
+| `active`    | active   |                |
+| `selected`  | selected |                |
+| `disabled`  | disabled |                |
+

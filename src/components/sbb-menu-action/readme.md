@@ -54,10 +54,26 @@ you can set the css variable `--sbb-menu-action-outer-horizontal-padding` to you
 | `value`    | `value`    | public  | `string \| undefined`                                |         | The value attribute to use for the button.                                                                                        |
 | `form`     | `form`     | public  | `string \| undefined`                                |         | The \<form> element to associate the button with.                                                                                 |
 
+## Attributes
+
+| Name        | Field    | Inherited From |
+| ----------- | -------- | -------------- |
+| `icon-name` | iconName |                |
+| `amount`    | amount   |                |
+| `href`      | href     |                |
+| `target`    | target   |                |
+| `rel`       | rel      |                |
+| `download`  | download |                |
+| `type`      | type     |                |
+| `disabled`  | disabled |                |
+| `name`      | name     |                |
+| `value`     | value    |                |
+| `form`      | form     |                |
+
 ## Slots
 
-| Name      | Description                                                                         |
-| --------- | ----------------------------------------------------------------------------------- |
-| `unnamed` | Use this slot to provide the menu action label.                                     |
-| `icon`    | Use this slot to provide an icon. If \`icon-name\` is set, a sbb-icon will be used. |
+| Name   | Description                                                                         |
+| ------ | ----------------------------------------------------------------------------------- |
+|        | Use the unnamed slot to add content to the menu action.                             |
+| `icon` | Use this slot to provide an icon. If \`icon-name\` is set, a sbb-icon will be used. |
 

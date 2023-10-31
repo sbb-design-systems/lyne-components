@@ -80,10 +80,30 @@ and it has also three sizes (`xs`, `s`, which is the default, and `m`) that are 
 | `value`         | `value`         | public  | `string \| undefined`                                |           | The value attribute to use for the button.                                                                                                                                          |
 | `form`          | `form`          | public  | `string \| undefined`                                |           | The \<form> element to associate the button with.                                                                                                                                   |
 
+## Attributes
+
+| Name             | Field         | Inherited From |
+| ---------------- | ------------- | -------------- |
+| `variant`        | variant       |                |
+| `negative`       | negative      |                |
+| `size`           | size          |                |
+| `is-static`      | isStatic      |                |
+| `icon-name`      | iconName      |                |
+| `icon-placement` | iconPlacement |                |
+| `href`           | href          |                |
+| `target`         | target        |                |
+| `rel`            | rel           |                |
+| `download`       | download      |                |
+| `type`           | type          |                |
+| `disabled`       | disabled      |                |
+| `name`           | name          |                |
+| `value`          | value         |                |
+| `form`           | form          |                |
+
 ## Slots
 
-| Name      | Description                                  |
-| --------- | -------------------------------------------- |
-| `unnamed` | Link Content                                 |
-| `icon`    | Slot used to display the icon, if one is set |
+| Name   | Description                                      |
+| ------ | ------------------------------------------------ |
+|        | Use the unnamed slot to add content to the link. |
+| `icon` | Slot used to display the icon, if one is set     |
 

@@ -79,3 +79,13 @@ This is helpful if you need a specific state of the component.
 | --------------- | ------- | ------------------------------------------------------------------- | ---------- | ------ | -------------- |
 | `resetPosition` | public  | Resets the active month according to the new state of the calendar. |            | `void` |                |
 
+## Attributes
+
+| Name            | Field        | Inherited From |
+| --------------- | ------------ | -------------- |
+| `wide`          | wide         |                |
+| `min`           | min          |                |
+| `max`           | max          |                |
+| `date-filter`   | dateFilter   |                |
+| `selected-date` | selectedDate |                |
+

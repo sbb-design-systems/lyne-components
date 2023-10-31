@@ -116,9 +116,19 @@ using `aria-activedescendant` to support navigation though the autocomplete opti
 | `open`  | public  | Opens the autocomplete.  |            | `void` |                |
 | `close` | public  | Closes the autocomplete. |            | `void` |                |
 
+## Attributes
+
+| Name                  | Field             | Inherited From |
+| --------------------- | ----------------- | -------------- |
+| `origin`              | origin            |                |
+| `trigger`             | trigger           |                |
+| `disable-animation`   | disableAnimation  |                |
+| `preserve-icon-space` | preserveIconSpace |                |
+| `negative`            | negative          |                |
+
 ## Slots
 
-| Name      | Description                       |
-| --------- | --------------------------------- |
-| `unnamed` | Use this slot to project options. |
+| Name | Description                                                                                  |
+| ---- | -------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add \`sbb-option\` or \`sbb-optgroup\` elements to this alert group. |
 

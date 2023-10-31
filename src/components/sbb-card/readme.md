@@ -87,11 +87,18 @@ To improve coloring, it's needed to manually define styles for Window high contr
 | `size`  | `size`  | public  | `'xs' \| 's' \| 'm' \| 'l' \| 'xl' \| 'xxl' \| 'xxxl' \| undefined`                           | `'m'`     | Size variant, either xs, s, m, l, xl, xxl or xxxl. |
 | `color` | `color` | public  | `\| 'white'     \| 'milk'     \| 'transparent-bordered'     \| 'transparent-bordered-dashed'` | `'white'` | Option to set the component's background color.    |
 
+## Attributes
+
+| Name    | Field | Inherited From |
+| ------- | ----- | -------------- |
+| `size`  | size  |                |
+| `color` | color |                |
+
 ## Slots
 
-| Name      | Description                            |
-| --------- | -------------------------------------- |
-| `unnamed` | Slot to render the content.            |
-| `badge`   | Slot to render \`\<sbb-card-badge>\`.  |
-| `action`  | Slot to render \`\<sbb-card-action>\`. |
+| Name     | Description                                      |
+| -------- | ------------------------------------------------ |
+|          | Use the unnamed slot to add content to the card. |
+| `badge`  | Slot to render \`\<sbb-card-badge>\`.            |
+| `action` | Slot to render \`\<sbb-card-action>\`.           |
 

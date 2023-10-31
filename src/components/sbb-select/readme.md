@@ -122,9 +122,22 @@ Opened panel:
 | `close`           | public  | Closes the selection panel.       |            | `void`   |                |
 | `getDisplayValue` | public  | Gets the current displayed value. |            | `string` |                |
 
+## Attributes
+
+| Name                | Field            | Inherited From |
+| ------------------- | ---------------- | -------------- |
+| `value`             | value            |                |
+| `placeholder`       | placeholder      |                |
+| `multiple`          | multiple         |                |
+| `required`          | required         |                |
+| `disabled`          | disabled         |                |
+| `readonly`          | readonly         |                |
+| `negative`          | negative         |                |
+| `disable-animation` | disableAnimation |                |
+
 ## Slots
 
-| Name      | Description                       |
-| --------- | --------------------------------- |
-| `unnamed` | Use this slot to project options. |
+| Name | Description                          |
+| ---- | ------------------------------------ |
+|      | Use the unnamed slot to add options. |
 

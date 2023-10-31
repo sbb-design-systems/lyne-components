@@ -90,10 +90,20 @@ Two values are available, `s` and `m`, which is the default
 | `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| undefined` |                | Overrides the behaviour of \`orientation\` property.                              |
 | `orientation`    | `orientation`    | public  | `SbbOrientation`                 | `'horizontal'` | Indicates the orientation of the checkboxes inside the \`\<sbb-checkbox-group>\`. |
 
+## Attributes
+
+| Name              | Field          | Inherited From |
+| ----------------- | -------------- | -------------- |
+| `disabled`        | disabled       |                |
+| `required`        | required       |                |
+| `size`            | size           |                |
+| `horizontal-from` | horizontalFrom |                |
+| `orientation`     | orientation    |                |
+
 ## Slots
 
-| Name      | Description                                                                 |
-| --------- | --------------------------------------------------------------------------- |
-| `unnamed` | Slot used to render the \<sbb-checkbox> inside the \<sbb-checkbox-group>.   |
-| `error`   | Slot used to render the \<sbb-form-error> inside the \<sbb-checkbox-group>. |
+| Name    | Description                                                                  |
+| ------- | ---------------------------------------------------------------------------- |
+|         | Use the unnamed slot to add \`sbb-checkbox\` elements to the checkbox group. |
+| `error` | Slot used to render the \<sbb-form-error> inside the \<sbb-checkbox-group>.  |
 

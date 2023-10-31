@@ -77,9 +77,18 @@ Similarly, if a navigation action is marked to indicate a selected option (e.g.,
 | `open`  | public  | Opens the navigation.  |            | `void` |                |
 | `close` | public  | Closes the navigation. |            | `void` |                |
 
+## Attributes
+
+| Name                        | Field                   | Inherited From |
+| --------------------------- | ----------------------- | -------------- |
+| `trigger`                   | trigger                 |                |
+| `accessibility-label`       | accessibilityLabel      |                |
+| `accessibility-close-label` | accessibilityCloseLabel |                |
+| `disable-animation`         | disableAnimation        |                |
+
 ## Slots
 
-| Name      | Description                                            |
-| --------- | ------------------------------------------------------ |
-| `unnamed` | Use this to project any content inside the navigation. |
+| Name | Description                                                                                  |
+| ---- | -------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add \`sbb-navigation-action\` elements into the sbb-navigation menu. |
 

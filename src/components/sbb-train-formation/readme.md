@@ -62,9 +62,15 @@ as CSS variable (`--sbb-train-direction-width`) initially and on resize.
 | ---------------- | ---------------- | ------- | --------- | ------- | -------------------------------- |
 | `hideWagonLabel` | `hide-wagon-label` | public  | `boolean` | `false` | Option to hide all wagon labels. |
 
+## Attributes
+
+| Name               | Field          | Inherited From |
+| ------------------ | -------------- | -------------- |
+| `hide-wagon-label` | hideWagonLabel |                |
+
 ## Slots
 
-| Name      | Description                   |
-| --------- | ----------------------------- |
-| `unnamed` | Used for slotting sbb-trains. |
+| Name | Description                                                               |
+| ---- | ------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add 'sbb-train' elements to this train formation. |
 
