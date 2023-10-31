@@ -12,11 +12,6 @@ const componentsFolder = './src/components';
 const inheritedFromColumnIndex = 6;
 const attributeColumnIndex = 2;
 
-// List of components for which the 'toKebabCase' naming convention is not followed
-const componentsNameMapping: { [key: string]: string } = {
-  SbbOptGroup: 'sbb-optgroup',
-};
-
 function toKebabCase(value: string): string {
   return value.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
 }
@@ -62,8 +57,8 @@ function updateFieldsTable(newDocs: MagicString, sections: RegExpMatchArray[]): 
   );
 }
 
-function updateComponentReadme(name: string, docs: string): void {
-  const compFolder = componentsNameMapping[name] ?? toKebabCase(name);
+function updateComponentReadme(name: string, tag: string, docs: string): void {
+  const compFolder = tag;
   const path = `${componentsFolder}/${compFolder}/readme.md`;
   if (!fs.existsSync(path)) {
     console.error(`Component ${name} has no readme file, please create it following the template`);
@@ -99,7 +94,14 @@ const markdown: string = customElementsManifestToMarkdown(manifest, {
   headingOffset: -1, // Default heading is '###'
   private: 'details', // We use 'details' cause it's the only way to remove 'protected' members from the tables
   omitDeclarations: ['exports'],
-  omitSections: ['super-class', 'css-properties', 'css-parts', 'main-heading', 'static-fields'],
+  omitSections: [
+    'super-class',
+    'css-properties',
+    'css-parts',
+    'main-heading',
+    'static-fields',
+    'attributes',
+  ],
 });
 
 if (!fs.existsSync(tempFolderPath)) {
@@ -108,13 +110,14 @@ if (!fs.existsSync(tempFolderPath)) {
 fs.writeFileSync(`${tempFolderPath}/components.md`, markdown);
 
 // Split the generated file into the single readme of each component
-const matches = Array.from(markdown.matchAll(/^# class: `(?<name>\w+?)`/gm));
+const matches = Array.from(markdown.matchAll(/^# class: `(?<name>.*)`, `(?<tag>.*)`$/gm));
 
 for (let i = 0; i < matches.length; i++) {
   const startIndex = matches[i].index!;
   const endIndex = matches[i + 1]?.index ?? markdown.length;
   const compName = matches[i].groups!.name;
+  const compTag = matches[i].groups!.tag;
 
-  updateComponentReadme(compName, markdown.substring(startIndex, endIndex));
+  updateComponentReadme(compName, compTag, markdown.substring(startIndex, endIndex));
 }
 console.log('Docs generated successufly');
