@@ -243,7 +243,7 @@ describe('sbb-selection-panel', () => {
       nestedElement = await fixture(html`
         <sbb-radio-button-group orientation="vertical" horizontal-from="large">
           <sbb-selection-panel disable-animation>
-            <sbb-radio-button value="main1" checked="true"> Main Option 1 </sbb-radio-button>
+            <sbb-radio-button value="main1" checked> Main Option 1 </sbb-radio-button>
             <sbb-radio-button-group orientation="vertical" slot="content">
               <sbb-radio-button value="sub1" checked>Suboption 1</sbb-radio-button>
               <sbb-radio-button value="sub2">Suboption 2</sbb-radio-button>
@@ -465,7 +465,7 @@ describe('sbb-selection-panel', () => {
       nestedElement = await fixture(html`
         <sbb-checkbox-group orientation="vertical" horizontal-from="large">
           <sbb-selection-panel disable-animation>
-            <sbb-checkbox value="main1" checked="true"> Main Option 1 </sbb-checkbox>
+            <sbb-checkbox value="main1" checked> Main Option 1 </sbb-checkbox>
             <sbb-checkbox-group orientation="vertical" slot="content">
               <sbb-checkbox value="sub1" checked>Suboption 1</sbb-checkbox>
               <sbb-checkbox value="sub2">Suboption 2</sbb-checkbox>

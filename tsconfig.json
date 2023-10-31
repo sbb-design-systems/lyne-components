@@ -34,6 +34,7 @@
           // The following rules are broken
           "no-incompatible-type-binding": "off",
           "no-property-visibility-mismatch": "off",
+          "no-missing-import": "off",
 
           // The following rules cannot be used, due to internal constraints
           // Reason: We use e.g. sbb-tooltip-close as indicators of close origins for overlays
