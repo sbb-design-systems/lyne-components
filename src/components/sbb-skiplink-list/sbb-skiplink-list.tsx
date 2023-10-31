@@ -8,7 +8,7 @@ import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';
 import { SbbLink } from '../sbb-link';
-import Style from './sbb-skiplink-list.scss?lit&inline';
+import style from './sbb-skiplink-list.scss?lit&inline';
 import '../sbb-title';
 
 /**
@@ -16,7 +16,7 @@ import '../sbb-title';
  */
 @customElement('sbb-skiplink-list')
 export class SbbSkiplinkList extends LitElement {
-  public static override styles: CSSResult = Style;
+  public static override styles: CSSResult = style;
 
   /** The title text we want to place before the list. */
   @property({ attribute: 'title-content' }) public titleContent?: string;
@@ -54,7 +54,7 @@ export class SbbSkiplinkList extends LitElement {
       return;
     }
 
-    this._syncLinks();
+    this.syncLinks();
     this._links = links;
   }
 

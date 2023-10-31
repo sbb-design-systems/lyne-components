@@ -18,3 +18,27 @@ here to show the various configuration options to component developers. !!
 
 <hr/>
 
+# Variables
+
+| Name                            | Description | Type                     |
+| ------------------------------- | ----------- | ------------------------ |
+| `defaultTrip`                   |             | `DeepPartial<ITripItem>` |
+| `cancelledTrip`                 |             | `DeepPartial<ITripItem>` |
+| `progressTrip`                  |             | `DeepPartial<ITripItem>` |
+| `partiallyCancelled`            |             | `DeepPartial<ITripItem>` |
+| `pastTrip`                      |             | `DeepPartial<ITripItem>` |
+| `skippedLastArrivalStopTrip`    |             | `DeepPartial<ITripItem>` |
+| `skippedArrivalStopTrip`        |             | `DeepPartial<ITripItem>` |
+| `skippedDepartureStopTrip`      |             | `DeepPartial<ITripItem>` |
+| `skippedFirstDepartureStopTrip` |             | `DeepPartial<ITripItem>` |
+| `disturbanceTrip`               |             | `DeepPartial<ITripItem>` |
+| `quayChangeTrip`                |             | `DeepPartial<ITripItem>` |
+| `trainTrip`                     |             | `DeepPartial<ITripItem>` |
+| `busTrip`                       |             | `DeepPartial<ITripItem>` |
+| `shipTrip`                      |             | `DeepPartial<ITripItem>` |
+| `walkTimeTrip`                  |             | `DeepPartial<ITripItem>` |
+| `extendedEnterTimeTrip`         |             | `DeepPartial<ITripItem>` |
+| `noticesTrip`                   |             | `DeepPartial<ITripItem>` |
+
+<hr/>
+

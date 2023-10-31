@@ -4,7 +4,6 @@ import { waitForLitRender } from '../../global/testing';
 import { SbbSkiplinkList } from './sbb-skiplink-list';
 import { SbbLink } from '../sbb-link';
 import '../sbb-link';
-import './sbb-skiplink-list';
 
 describe('sbb-skiplink-list', () => {
   let element: SbbSkiplinkList;
@@ -46,8 +45,6 @@ describe('sbb-skiplink-list', () => {
 
   it('should detected later added links', async () => {
     element = await fixture(html`<sbb-skiplink-list></sbb-skiplink-list>`);
-
-    await waitForLitRender(element);
 
     element.innerHTML = `
         <sbb-link href='1'>Link 1</sbb-link>
