@@ -238,11 +238,6 @@ const Template = (args): JSX.Element => (
               Open stacked dialog
             </sbb-button>
 
-            <sbb-dialog id="my-stacked-dialog" title-content="Stacked Dialog" title-back-button>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua.
-            </sbb-dialog>
-
             <sbb-action-group
               slot="action-group"
               align-group="stretch"
@@ -265,6 +260,11 @@ const Template = (args): JSX.Element => (
                 Button
               </sbb-button>
             </sbb-action-group>
+          </sbb-dialog>
+
+          <sbb-dialog id="my-stacked-dialog" title-content="Stacked Dialog" title-back-button>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua.
           </sbb-dialog>
         </div>
       </div>

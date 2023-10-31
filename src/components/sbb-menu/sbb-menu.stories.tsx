@@ -11,13 +11,16 @@ import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-c
 import type { InputType } from '@storybook/types';
 
 import '../sbb-button';
+import '../sbb-divider';
+import '../sbb-link';
+import '../sbb-menu-action';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
-    canvas.getByTestId('menu').shadowRoot.querySelector('dialog.sbb-menu'),
+    canvas.getByTestId('menu').shadowRoot.querySelector('.sbb-menu'),
   );
 
   await waitForStablePosition(() => canvas.getByTestId('menu-trigger'));

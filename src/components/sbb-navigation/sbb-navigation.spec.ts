@@ -33,11 +33,12 @@ describe('sbb-navigation', () => {
     expect(nav).shadowDom.to.be.equal(
       `
         <div class="sbb-navigation__container">
-          <dialog class="sbb-navigation" id="sbb-navigation-dialog-id" role="group">
+          <div class="sbb-navigation" id="sbb-navigation-overlay">
             <div class="sbb-navigation__header">
               <sbb-button
+                id="sbb-navigation-close-button"
                 aria-label="Close navigation"
-                aria-controls="sbb-navigation-dialog-id"
+                aria-controls="sbb-navigation-overlay"
                 class="sbb-navigation__close"
                 data-icon-only=""
                 dir="ltr"
@@ -56,7 +57,7 @@ describe('sbb-navigation', () => {
                 <slot></slot>
               </div>
             </div>
-          </dialog>
+          </div>
           <slot name="navigation-section"></slot>
         </div>
       `,

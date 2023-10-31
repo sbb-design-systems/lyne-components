@@ -30,34 +30,24 @@ describe('sbb-navigation-section', () => {
   });
 
   it('opens the section', async () => {
-    const dialog = element.shadowRoot.querySelector('dialog');
-
     element.open();
     await waitForLitRender(element);
 
-    expect(
-      await waitForCondition(() => element.getAttribute('data-state') === 'opened'),
-    ).to.be.equal(true);
-    expect(dialog).to.have.attribute('open');
+    await waitForCondition(() => element.getAttribute('data-state') === 'opened');
+    expect(element).to.have.attribute('data-state', 'opened');
   });
 
   it('closes the section', async () => {
-    const dialog = element.shadowRoot.querySelector('dialog');
-
     element.open();
     await waitForLitRender(element);
 
-    expect(
-      await waitForCondition(() => element.getAttribute('data-state') === 'opened'),
-    ).to.be.equal(true);
-    expect(dialog).to.have.attribute('open');
+    await waitForCondition(() => element.getAttribute('data-state') === 'opened');
+    expect(element).to.have.attribute('data-state', 'opened');
 
     element.close();
     await waitForLitRender(element);
 
-    expect(
-      await waitForCondition(() => element.getAttribute('data-state') === 'closed'),
-    ).to.be.equal(true);
-    expect(dialog).not.to.have.attribute('open');
+    await waitForCondition(() => element.getAttribute('data-state') === 'closed');
+    expect(element).to.have.attribute('data-state', 'closed');
   });
 });

@@ -43,11 +43,11 @@ describe('sbb-menu', () => {
     expect(menu).shadowDom.to.be.equal(
       `
           <div class="sbb-menu__container">
-            <dialog class="sbb-menu" role="presentation">
+            <div class="sbb-menu">
               <div class="sbb-menu__content">
                 <slot></slot>
               </div>
-            </dialog>
+            </div>
           </div>
         `,
     );
@@ -87,7 +87,7 @@ describe('sbb-menu', () => {
     expect(menu).shadowDom.to.be.equal(
       `
         <div class="sbb-menu__container">
-          <dialog class="sbb-menu" role="presentation">
+          <div class="sbb-menu">
             <div class="sbb-menu__content">
               <ul class="sbb-menu-list">
                 <li>
@@ -107,7 +107,7 @@ describe('sbb-menu', () => {
                 <slot></slot>
               </span>
             </div>
-          </dialog>
+          </div>
         </div>
       `,
     );

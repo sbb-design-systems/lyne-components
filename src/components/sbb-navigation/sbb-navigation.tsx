@@ -1,11 +1,4 @@
-import { SbbOverlayState } from '../../global/overlay';
-import {
-  FocusTrap,
-  IS_FOCUSABLE_QUERY,
-  assignId,
-  sbbInputModalityDetector,
-  setModalityOnNextFocus,
-} from '../../global/a11y';
+import { FocusTrap, IS_FOCUSABLE_QUERY, assignId, setModalityOnNextFocus } from '../../global/a11y';
 import {
   ScrollHandler,
   isValidAttribute,
@@ -25,6 +18,9 @@ import {
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
   isEventOnElement,
+  SbbOverlayState,
+  applyInertMechanism,
+  removeInertMechanism,
 } from '../../global/overlay';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
@@ -71,11 +67,6 @@ export class SbbNavigation extends LitElement {
   private _trigger: string | HTMLElement = null;
 
   /**
-   * This will be forwarded as aria-label to the dialog and is read as a title of the navigation.
-   */
-  @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
-
-  /**
    * This will be forwarded as aria-label to the close button element.
    */
   @property({ attribute: 'accessibility-close-label' }) public accessibilityCloseLabel:
@@ -120,8 +111,7 @@ export class SbbNavigation extends LitElement {
    */
   private _didClose: EventEmitter<void> = new EventEmitter(this, SbbNavigation.events.didClose);
 
-  private _navigation: HTMLDialogElement;
-  private _navigationContainerElement: HTMLElement;
+  private _navigation: HTMLDivElement;
   private _navigationContentElement: HTMLElement;
   private _triggerElement: HTMLElement;
   private _navigationController: AbortController;
@@ -129,7 +119,7 @@ export class SbbNavigation extends LitElement {
   private _abort = new ConnectedAbortController(this);
   private _focusTrap = new FocusTrap();
   private _scrollHandler = new ScrollHandler();
-  private _isPointerDownEventOnDialog: boolean;
+  private _isPointerDownEventOnNavigation: boolean;
   private _navigationObserver = new AgnosticMutationObserver((mutationsList: MutationRecord[]) =>
     this._onNavigationSectionChange(mutationsList),
   );
@@ -151,10 +141,8 @@ export class SbbNavigation extends LitElement {
     this._willOpen.emit();
     this._state = 'opening';
 
-    // Disable scrolling for content below the dialog
+    // Disable scrolling for content below the navigation
     this._scrollHandler.disableScroll();
-    this._navigation.show();
-    this._setNavigationFocus();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
   }
 
@@ -219,20 +207,22 @@ export class SbbNavigation extends LitElement {
     if (event.animationName === 'open' && this._state === 'opening') {
       this._state = 'opened';
       this._didOpen.emit();
+      applyInertMechanism(this);
       this._focusTrap.trap(this, this._trapFocusFilter);
       this._attachWindowEvents();
+      this._setNavigationFocus();
     } else if (event.animationName === 'close' && this._state === 'closing') {
       this._state = 'closed';
       this._navigationContentElement.scrollTo(0, 0);
       setModalityOnNextFocus(this._triggerElement);
-      this._navigation.close();
+      removeInertMechanism();
       // To enable focusing other element than the trigger, we need to call focus() a second time.
       this._triggerElement?.focus();
       this._didClose.emit();
       this._windowEventsController?.abort();
       this._focusTrap.disconnect();
 
-      // Enable scrolling for content below the dialog
+      // Enable scrolling for content below the navigation
       this._scrollHandler.enableScroll();
     }
   }
@@ -269,31 +259,20 @@ export class SbbNavigation extends LitElement {
 
   // Set focus on the first focusable element.
   private _setNavigationFocus(): void {
-    const firstFocusable = this.shadowRoot.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement;
-
-    if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-      firstFocusable.focus();
-    } else {
-      // Focusing sbb-navigation__wrapper in order to provide a consistent behavior in Safari where else
-      // the focus-visible styles would be incorrectly applied
-      this._navigationContainerElement.tabIndex = 0;
-      this._navigationContainerElement.focus();
-
-      this._navigationContainerElement.addEventListener(
-        'blur',
-        () => this._navigationContainerElement.removeAttribute('tabindex'),
-        { once: true },
-      );
-    }
+    const closeButton = this.shadowRoot.querySelector(
+      '#sbb-navigation-close-button',
+    ) as HTMLElement;
+    setModalityOnNextFocus(closeButton);
+    closeButton.focus();
   }
 
   // Check if the pointerdown event target is triggered on the navigation.
   private _pointerDownListener = (event: PointerEvent): void => {
-    this._isPointerDownEventOnDialog =
+    this._isPointerDownEventOnNavigation =
       isEventOnElement(this._navigation, event) ||
       isEventOnElement(
         this.querySelector('sbb-navigation-section[data-state="opened"]')?.shadowRoot.querySelector(
-          'dialog',
+          'nav.sbb-navigation-section',
         ) as HTMLElement,
         event,
       );
@@ -301,7 +280,7 @@ export class SbbNavigation extends LitElement {
 
   // Close navigation on backdrop click.
   private _closeOnBackdropClick = (event: PointerEvent): void => {
-    if (!this._isPointerDownEventOnDialog && !isEventOnElement(this._navigation, event)) {
+    if (!this._isPointerDownEventOnNavigation && !isEventOnElement(this._navigation, event)) {
       this.close();
     }
   };
@@ -332,6 +311,10 @@ export class SbbNavigation extends LitElement {
     this._navigationObserver.observe(this, navigationObserverConfig);
     this.addEventListener('pointerup', (event) => this._closeOnBackdropClick(event), { signal });
     this.addEventListener('pointerdown', (event) => this._pointerDownListener(event), { signal });
+
+    if (this._state === 'opened') {
+      applyInertMechanism(this);
+    }
   }
 
   public override disconnectedCallback(): void {
@@ -341,14 +324,16 @@ export class SbbNavigation extends LitElement {
     this._windowEventsController?.abort();
     this._focusTrap.disconnect();
     this._navigationObserver.disconnect();
+    removeInertMechanism();
   }
 
   protected override render(): TemplateResult {
     const closeButton = html`
       <sbb-button
+        id="sbb-navigation-close-button"
         class="sbb-navigation__close"
         aria-label=${this.accessibilityCloseLabel || i18nCloseNavigation[this._currentLanguage]}
-        aria-controls="sbb-navigation-dialog-id"
+        aria-controls="sbb-navigation-overlay"
         variant="transparent"
         negative
         size="m"
@@ -364,17 +349,12 @@ export class SbbNavigation extends LitElement {
     assignId(() => this._navigationId)(this);
 
     return html`
-      <div
-        class="sbb-navigation__container"
-        ${ref((el) => (this._navigationContainerElement = el as HTMLElement))}
-      >
-        <dialog
-          ${ref((navigationRef) => (this._navigation = navigationRef as HTMLDialogElement))}
-          id="sbb-navigation-dialog-id"
-          aria-label=${this.accessibilityLabel ?? nothing}
+      <div class="sbb-navigation__container">
+        <div
+          ${ref((navigationRef) => (this._navigation = navigationRef as HTMLDivElement))}
+          id="sbb-navigation-overlay"
           @animationend=${(event: AnimationEvent) => this._onAnimationEnd(event)}
           class="sbb-navigation"
-          role="group"
         >
           <div class="sbb-navigation__header">${closeButton}</div>
           <div class="sbb-navigation__wrapper">
@@ -385,7 +365,7 @@ export class SbbNavigation extends LitElement {
               <slot></slot>
             </div>
           </div>
-        </dialog>
+        </div>
         <slot name="navigation-section"></slot>
       </div>
     `;

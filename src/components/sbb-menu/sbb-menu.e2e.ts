@@ -36,7 +36,6 @@ describe('sbb-menu', () => {
   });
 
   it('opens on trigger click', async () => {
-    const dialog = element.shadowRoot.querySelector('dialog');
     const willOpenEventSpy = new EventSpy(SbbMenu.events.willOpen);
     const didOpenEventSpy = new EventSpy(SbbMenu.events.didOpen);
 
@@ -50,7 +49,7 @@ describe('sbb-menu', () => {
     expect(didOpenEventSpy.count).to.be.equal(1);
 
     await waitForLitRender(element);
-    expect(dialog).to.have.attribute('open');
+    expect(element).to.have.attribute('data-state', 'opened');
   });
 
   it('closes on Esc keypress', async () => {
@@ -58,7 +57,6 @@ describe('sbb-menu', () => {
     const didOpenEventSpy = new EventSpy(SbbMenu.events.didOpen);
     const willCloseEventSpy = new EventSpy(SbbMenu.events.willClose);
     const didCloseEventSpy = new EventSpy(SbbMenu.events.didClose);
-    const dialog = element.shadowRoot.querySelector('dialog');
 
     trigger.click();
     await waitForLitRender(element);
@@ -71,7 +69,7 @@ describe('sbb-menu', () => {
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    expect(dialog).to.have.attribute('open');
+    expect(element).to.have.attribute('data-state', 'opened');
 
     await sendKeys({ down: 'Tab' });
     await waitForLitRender(element);
@@ -87,7 +85,7 @@ describe('sbb-menu', () => {
     expect(didCloseEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    expect(dialog).not.to.have.attribute('open');
+    expect(element).to.have.attribute('data-state', 'closed');
   });
 
   it('closes on menu action click', async () => {
@@ -95,7 +93,6 @@ describe('sbb-menu', () => {
     const didOpenEventSpy = new EventSpy(SbbMenu.events.didOpen);
     const willCloseEventSpy = new EventSpy(SbbMenu.events.willClose);
     const didCloseEventSpy = new EventSpy(SbbMenu.events.didClose);
-    const dialog = element.shadowRoot.querySelector('dialog');
     const menuAction = document.querySelector('sbb-menu > sbb-menu-action') as HTMLElement;
 
     trigger.click();
@@ -109,7 +106,7 @@ describe('sbb-menu', () => {
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    expect(dialog).to.have.attribute('open');
+    expect(element).to.have.attribute('data-state', 'opened');
     expect(menuAction).not.to.be.null;
 
     menuAction.click();
@@ -122,7 +119,7 @@ describe('sbb-menu', () => {
     expect(didCloseEventSpy.count).to.be.equal(1);
 
     await waitForLitRender(element);
-    expect(dialog).not.to.have.attribute('open');
+    expect(element).to.have.attribute('data-state', 'closed');
   });
 
   it('closes on interactive element click', async () => {
@@ -130,7 +127,6 @@ describe('sbb-menu', () => {
     const didOpenEventSpy = new EventSpy(SbbMenu.events.didOpen);
     const willCloseEventSpy = new EventSpy(SbbMenu.events.willClose);
     const didCloseEventSpy = new EventSpy(SbbMenu.events.didClose);
-    const dialog = element.shadowRoot.querySelector('dialog');
     const menuLink = document.querySelector('sbb-menu > sbb-link') as HTMLElement;
 
     trigger.click();
@@ -144,7 +140,7 @@ describe('sbb-menu', () => {
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    expect(dialog).to.have.attribute('open');
+    expect(element).to.have.attribute('data-state', 'opened');
     expect(menuLink).not.to.be.null;
 
     menuLink.click();
@@ -158,14 +154,14 @@ describe('sbb-menu', () => {
     expect(didCloseEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    expect(dialog).not.to.have.attribute('open');
+    expect(element).to.have.attribute('data-state', 'closed');
   });
 
   it('is correctly positioned on desktop', async () => {
     const willOpenEventSpy = new EventSpy(SbbMenu.events.willOpen);
     const didOpenEventSpy = new EventSpy(SbbMenu.events.didOpen);
     await setViewport({ width: 1200, height: 800 });
-    const dialog = element.shadowRoot.querySelector('dialog');
+    const menu: HTMLElement = element.shadowRoot.querySelector('.sbb-menu');
 
     trigger.click();
     await waitForLitRender(element);
@@ -178,7 +174,7 @@ describe('sbb-menu', () => {
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    expect(dialog).to.have.attribute('open');
+    expect(element).to.have.attribute('data-state', 'opened');
 
     const buttonHeight = getComputedStyle(document.documentElement).getPropertyValue(
       `--sbb-size-button-l-min-height-large`,
@@ -190,9 +186,9 @@ describe('sbb-menu', () => {
     expect(trigger.offsetTop).to.be.equal(0);
     expect(trigger.offsetLeft).to.be.equal(0);
 
-    // Expect dialog offsetTop to be equal to the trigger height + the dialog offset (8px)
-    expect(dialog.offsetTop).to.be.equal(buttonHeightPx + 8);
-    expect(dialog.offsetLeft).to.be.equal(0);
+    // Expect menu offsetTop to be equal to the trigger height + the menu offset (8px)
+    expect(menu.offsetTop).to.be.equal(buttonHeightPx + 8);
+    expect(menu.offsetLeft).to.be.equal(0);
   });
 
   it('is correctly positioned on mobile', async () => {
@@ -200,7 +196,7 @@ describe('sbb-menu', () => {
     const didOpenEventSpy = new EventSpy(SbbMenu.events.didOpen);
 
     await setViewport({ width: 800, height: 600 });
-    const dialog = element.shadowRoot.querySelector('dialog');
+    const menu: HTMLElement = element.shadowRoot.querySelector('.sbb-menu');
 
     trigger.click();
     await waitForLitRender(element);
@@ -213,44 +209,18 @@ describe('sbb-menu', () => {
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    expect(dialog).to.have.attribute('open');
+    expect(element).to.have.attribute('data-state', 'opened');
 
-    const menuOffsetTop = dialog.offsetTop;
-    const menuHeight = dialog.offsetHeight;
+    const menuOffsetTop = menu.offsetTop;
+    const menuHeight = menu.offsetHeight;
     const pageHeight = window.innerHeight;
 
     expect(menuOffsetTop).to.be.equal(pageHeight - menuHeight);
   });
 
-  it('sets the focus on the dialog content when the menu is opened by click', async () => {
-    const willOpenEventSpy = new EventSpy(SbbMenu.events.willOpen);
-    const didOpenEventSpy = new EventSpy(SbbMenu.events.didOpen);
-    const dialog = element.shadowRoot.querySelector('dialog');
-
-    trigger.click();
-    await waitForLitRender(element);
-
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
-    expect(willOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
-
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
-    expect(didOpenEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
-
-    expect(dialog).to.have.attribute('open');
-    await waitForLitRender(element);
-
-    await sendKeys({ down: 'Tab' });
-    await waitForLitRender(element);
-
-    expect(document.activeElement.id).to.be.equal('menu-link');
-  });
-
   it('sets the focus to the first focusable element when the menu is opened by keyboard', async () => {
     const willOpenEventSpy = new EventSpy(SbbMenu.events.willOpen);
     const didOpenEventSpy = new EventSpy(SbbMenu.events.didOpen);
-    const dialog = element.shadowRoot.querySelector('dialog');
 
     await sendKeys({ down: 'Tab' });
     await waitForLitRender(element);
@@ -266,7 +236,7 @@ describe('sbb-menu', () => {
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    expect(dialog).to.have.attribute('open');
+    expect(element).to.have.attribute('data-state', 'opened');
 
     await waitForLitRender(element);
     expect(document.activeElement.id).to.be.equal('menu-link');

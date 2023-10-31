@@ -11,7 +11,7 @@ describe('sbb-dialog', () => {
     expect(root).shadowDom.to.be.equal(
       `
         <div class="sbb-dialog__container">
-          <dialog class="sbb-dialog" role="group" aria-labelledby="title" id="sbb-dialog-0">
+          <div class="sbb-dialog" id="sbb-dialog-0">
             <div class="sbb-dialog__wrapper">
               <div class="sbb-dialog__header">
                 <sbb-button
@@ -32,8 +32,9 @@ describe('sbb-dialog', () => {
                 <slot></slot>
               </div>
             </div>
-          </dialog>
+          </div>
         </div>
+        <span aria-live="polite" class="sbb-screen-reader-only"></span>
       `,
     );
   });

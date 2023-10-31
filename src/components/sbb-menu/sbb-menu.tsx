@@ -1,18 +1,19 @@
 import {
+  applyInertMechanism,
   getElementPosition,
   isEventOnElement,
   removeAriaOverlayTriggerAttributes,
+  removeInertMechanism,
   SbbOverlayState,
   setAriaOverlayTriggerAttributes,
 } from '../../global/overlay';
 import {
   assignId,
   FocusTrap,
-  getFirstFocusableElement,
   getNextElementIndex,
   interactivityChecker,
+  IS_FOCUSABLE_QUERY,
   isArrowKeyPressed,
-  sbbInputModalityDetector,
   setModalityOnNextFocus,
 } from '../../global/a11y';
 import {
@@ -20,12 +21,12 @@ import {
   isBreakpoint,
   isValidAttribute,
   ScrollHandler,
+  setAttribute,
 } from '../../global/dom';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { EventEmitter, ConnectedAbortController } from '../../global/eventing';
 import { SbbMenuAction } from '../sbb-menu-action';
-import { setAttribute } from '../../global/dom';
 import { ref } from 'lit/directives/ref.js';
 import style from './sbb-menu.scss?lit&inline';
 
@@ -48,7 +49,7 @@ export class SbbMenu extends LitElement {
   } as const;
 
   /**
-   * The element that will trigger the menu dialog.
+   * The element that will trigger the menu overlay.
    * Accepts both a string (id of an element) or an HTML element.
    */
   @property()
@@ -115,7 +116,7 @@ export class SbbMenu extends LitElement {
     composed: true,
   });
 
-  private _dialog: HTMLDialogElement;
+  private _menu: HTMLDivElement;
   private _triggerElement: HTMLElement;
   private _menuContentElement: HTMLElement;
   private _isPointerDownEventOnMenu: boolean;
@@ -130,14 +131,13 @@ export class SbbMenu extends LitElement {
    * Opens the menu on trigger click.
    */
   public open(): void {
-    if (this._state === 'closing' || !this._dialog) {
+    if (this._state === 'closing' || !this._menu) {
       return;
     }
 
     this._willOpen.emit();
     this._state = 'opening';
     this._setMenuPosition();
-    this._dialog.show();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
 
     // Starting from breakpoint medium, disable scroll
@@ -217,6 +217,10 @@ export class SbbMenu extends LitElement {
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
     this._readActions();
+
+    if (this._state === 'opened') {
+      applyInertMechanism(this);
+    }
   }
 
   public override disconnectedCallback(): void {
@@ -224,6 +228,7 @@ export class SbbMenu extends LitElement {
     this._menuController?.abort();
     this._windowEventsController?.abort();
     this._focusTrap.disconnect();
+    removeInertMechanism();
   }
 
   // Check if the trigger is valid and attach click event listeners.
@@ -285,12 +290,12 @@ export class SbbMenu extends LitElement {
 
   // Check if the pointerdown event target is triggered on the menu.
   private _pointerDownListener = (event: PointerEvent): void => {
-    this._isPointerDownEventOnMenu = isEventOnElement(this._dialog, event);
+    this._isPointerDownEventOnMenu = isEventOnElement(this._menu, event);
   };
 
   // Close menu on backdrop click.
   private _closeOnBackdropClick = (event: PointerEvent): void => {
-    if (!this._isPointerDownEventOnMenu && !isEventOnElement(this._dialog, event)) {
+    if (!this._isPointerDownEventOnMenu && !isEventOnElement(this._menu, event)) {
       this.close();
     }
   };
@@ -303,15 +308,16 @@ export class SbbMenu extends LitElement {
     if (event.animationName === 'open' && this._state === 'opening') {
       this._state = 'opened';
       this._didOpen.emit();
-      this._setDialogFocus();
+      applyInertMechanism(this);
+      this._setMenuFocus();
       this._focusTrap.trap(this);
       this._attachWindowEvents();
     } else if (event.animationName === 'close' && this._state === 'closing') {
       this._state = 'closed';
-      this._dialog.firstElementChild.scrollTo(0, 0);
+      this._menu.firstElementChild.scrollTo(0, 0);
+      removeInertMechanism();
       setModalityOnNextFocus(this._triggerElement);
-      this._dialog.close();
-      // Manually focus last focused element in order to avoid showing outline in Safari
+      // Manually focus last focused element
       this._triggerElement?.focus({
         // When inside the sbb-header, we prevent the scroll to avoid the snapping to the top of the page
         preventScroll: this._triggerElement.tagName === 'SBB-HEADER-ACTION',
@@ -326,20 +332,10 @@ export class SbbMenu extends LitElement {
   }
 
   // Set focus on the first focusable element.
-  private _setDialogFocus(): void {
-    if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-      getFirstFocusableElement(
-        Array.from(this.children).filter((e): e is HTMLElement => e instanceof window.HTMLElement),
-      )?.focus();
-    } else {
-      // Focusing sbb-menu__content in order to provide a consistent behavior in Safari where else
-      // the focus-visible styles would be incorrectly applied
-      this._menuContentElement.tabIndex = 0;
-      this._menuContentElement.focus();
-      this.addEventListener('blur', () => this._menuContentElement.removeAttribute('tabindex'), {
-        once: true,
-      });
-    }
+  private _setMenuFocus(): void {
+    const firstFocusable = this.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement;
+    setModalityOnNextFocus(firstFocusable);
+    firstFocusable.focus();
   }
 
   // Set menu position and max height if the breakpoint is medium-ultra.
@@ -347,7 +343,7 @@ export class SbbMenu extends LitElement {
     // Starting from breakpoint medium
     if (
       !isBreakpoint('medium') ||
-      !this._dialog ||
+      !this._menu ||
       !this._triggerElement ||
       this._state === 'closing'
     ) {
@@ -395,11 +391,10 @@ export class SbbMenu extends LitElement {
 
     return html`
       <div class="sbb-menu__container">
-        <dialog
+        <div
           @animationend=${(event: AnimationEvent) => this._onMenuAnimationEnd(event)}
-          ${ref((dialogRef) => (this._dialog = dialogRef as HTMLDialogElement))}
+          ${ref((el) => (this._menu = el as HTMLDivElement))}
           class="sbb-menu"
-          role="presentation"
         >
           <div
             @click=${(event: Event) => this._closeOnInteractiveElementClick(event)}
@@ -423,7 +418,7 @@ export class SbbMenu extends LitElement {
                   </span>`
               : html`<slot @slotchange=${(): void => this._readActions()}></slot>`}
           </div>
-        </dialog>
+        </div>
       </div>
     `;
   }

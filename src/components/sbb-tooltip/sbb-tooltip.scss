@@ -66,6 +66,7 @@
 .sbb-tooltip {
   @include sbb.shadow-level-5-hard;
 
+  display: none;
   position: var(--sbb-tooltip-position);
   pointer-events: all;
   top: var(--sbb-tooltip-position-y);
@@ -79,7 +80,9 @@
   width: max-content;
   background-color: var(--sbb-tooltip-background);
 
-  &[open] {
+  :host(:not([data-state='closed'])) & {
+    display: block;
+
     animation: {
       name: open;
       duration: var(--sbb-tooltip-animation-duration);
@@ -134,13 +137,11 @@
 
 @keyframes open {
   from {
-    visibility: hidden;
     opacity: 0;
     transform: var(--sbb-tooltip-transform);
   }
 
   to {
-    visibility: visible;
     opacity: 1;
     transform: translateY(0);
   }
@@ -148,13 +149,11 @@
 
 @keyframes close {
   from {
-    visibility: visible;
     opacity: 1;
     transform: translateY(0);
   }
 
   to {
-    visibility: hidden;
     opacity: 0;
     transform: var(--sbb-tooltip-transform);
   }

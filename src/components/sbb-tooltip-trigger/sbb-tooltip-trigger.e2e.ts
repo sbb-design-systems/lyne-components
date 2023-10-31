@@ -1,8 +1,7 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
-import { waitForCondition } from '../../global/testing';
-import { EventSpy } from '../../global/testing/event-spy';
+import { waitForCondition, EventSpy, waitForLitRender } from '../../global/testing';
 import { SbbTooltip } from '../sbb-tooltip';
 import { SbbTooltipTrigger } from './sbb-tooltip-trigger';
 
@@ -26,7 +25,6 @@ describe('sbb-tooltip-trigger', () => {
   });
 
   it('shows tooltip on tooltip-trigger click', async () => {
-    const dialog = tooltip.shadowRoot.querySelector('dialog');
     const willOpenEventSpy = new EventSpy(SbbTooltip.events.willOpen);
     const didOpenEventSpy = new EventSpy(SbbTooltip.events.didOpen);
 
@@ -37,36 +35,35 @@ describe('sbb-tooltip-trigger', () => {
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
-    expect(dialog).to.have.attribute('open');
+    expect(tooltip).to.have.attribute('data-state', 'opened');
   });
 
   it("doesn't show tooltip on disabled tooltip-trigger click", async () => {
-    const dialog = tooltip.shadowRoot.querySelector('dialog');
     const willOpenEventSpy = new EventSpy(SbbTooltip.events.willOpen);
     element.disabled = true;
-    element.click();
+    await waitForLitRender(element);
 
-    await waitForCondition(() => willOpenEventSpy.events.length === 0);
+    element.click();
+    await waitForLitRender(element);
 
     expect(willOpenEventSpy.count).to.be.equal(0);
-    expect(dialog).not.to.have.attribute('open');
+    expect(tooltip).to.have.attribute('data-state', 'closed');
   });
 
   it('shows tooltip on keyboard event', async () => {
-    const dialog = tooltip.shadowRoot.querySelector('dialog');
-    const changeSpy = new EventSpy('focus', element);
+    const focusSpy = new EventSpy('focus', element);
 
     element.focus();
-    await waitForCondition(() => changeSpy.events.length === 1);
-    expect(changeSpy.count).to.be.equal(1);
+    await waitForCondition(() => focusSpy.events.length === 1);
+    expect(focusSpy.count).to.be.equal(1);
 
     await sendKeys({ down: 'Enter' });
+    await waitForCondition(() => tooltip.getAttribute('data-state') === 'opened');
 
-    expect(dialog).to.have.attribute('open');
+    expect(tooltip).to.have.attribute('data-state', 'opened');
   });
 
   it('shows tooltip on keyboard event with hover-trigger', async () => {
-    const dialog = tooltip.shadowRoot.querySelector('dialog');
     const changeSpy = new EventSpy('focus', element);
 
     tooltip.hoverTrigger = true;
@@ -76,20 +73,21 @@ describe('sbb-tooltip-trigger', () => {
     expect(changeSpy.count).to.be.equal(1);
 
     await sendKeys({ down: 'Enter' });
+    await waitForCondition(() => tooltip.getAttribute('data-state') === 'opened');
 
-    expect(dialog).to.have.attribute('open');
+    expect(tooltip).to.have.attribute('data-state', 'opened');
   });
 
   it("doesn't focus tooltip-trigger on keyboard event when disabled", async () => {
-    const dialog = tooltip.shadowRoot.querySelector('dialog');
     const changeSpy = new EventSpy('focus', element);
 
     element.disabled = true;
     tooltip.hoverTrigger = true;
+    await waitForLitRender(element);
 
-    await sendKeys({ down: 'Tab' });
+    element.focus();
 
     expect(changeSpy.count).not.to.be.greaterThan(0);
-    expect(dialog).not.to.have.attribute('open');
+    expect(tooltip).to.have.attribute('data-state', 'closed');
   });
 });

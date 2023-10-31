@@ -49,7 +49,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   negative: false,
-  'aria-label': undefined,
+  'aria-label': 'Click to open the tooltip',
   'icon-name': 'circle-information-small',
   disabled: false,
 };
