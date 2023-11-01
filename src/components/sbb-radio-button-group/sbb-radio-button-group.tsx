@@ -164,10 +164,7 @@ export class SbbRadioButtonGroup implements ComponentInterface {
   @Listen('state-change', { passive: true })
   public onRadioButtonSelect(event: CustomEvent<RadioButtonStateChange>): void {
     event.stopPropagation();
-    if (
-      event.detail.type !== 'checked' ||
-      !(event.target as HTMLElement).parentElement.dataset.state
-    ) {
+    if (event.detail.type !== 'checked') {
       return;
     }
 
