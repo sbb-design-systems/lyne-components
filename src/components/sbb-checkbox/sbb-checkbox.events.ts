@@ -4,5 +4,6 @@
  */
 export default {
   didChange: 'didChange',
+  inputLoaded: 'input-loaded',
   stateChange: 'state-change',
 };

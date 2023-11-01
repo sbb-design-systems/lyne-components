@@ -115,6 +115,15 @@ export class SbbCheckbox implements ComponentInterface {
   })
   public stateChange: EventEmitter<CheckboxStateChange>;
 
+  /**
+   * Internal event that emits when the input element is loaded.
+   */
+  @Event({
+    bubbles: true,
+    eventName: 'input-loaded',
+  })
+  public inputLoaded: EventEmitter<void>;
+
   @Watch('checked')
   public handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
     if (this._isSelectionPanelInput && currentValue !== previousValue) {
@@ -168,6 +177,7 @@ export class SbbCheckbox implements ComponentInterface {
       !this._element.closest('sbb-selection-panel [slot="content"]');
     this._handlerRepository.connect();
     this._setupInitialStateAndAttributeObserver();
+    this.inputLoaded.emit();
   }
 
   public componentDidLoad(): void {

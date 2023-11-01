@@ -153,6 +153,7 @@ export class SbbSelectionPanel implements ComponentInterface {
   }
 
   public connectedCallback(): void {
+    this._updateSelectionPanel();
     this._handlerRepository.connect();
   }
 
@@ -161,7 +162,7 @@ export class SbbSelectionPanel implements ComponentInterface {
   }
 
   @Listen('input-loaded')
-  public updateSelectionPanel(): void {
+  private _updateSelectionPanel(): void {
     this._checked = this._input?.checked;
     this._state = this._checked || this.forceOpen ? 'opened' : 'closed';
     this._disabled = this._input?.disabled;

@@ -155,6 +155,7 @@ export class SbbRadioButtonGroup implements ComponentInterface {
     this._hasSelectionPanel = !!this._element.querySelector('sbb-selection-panel');
     toggleDatasetEntry(this._element, 'hasSelectionPanel', this._hasSelectionPanel);
     this._handlerRepository.connect();
+    this._updateRadios(this.value);
   }
 
   public disconnectedCallback(): void {
@@ -185,8 +186,8 @@ export class SbbRadioButtonGroup implements ComponentInterface {
     this.didChange.emit({ value });
   }
 
-  private _updateRadios(): void {
-    this.value = this._radioButtons.find((radio) => radio.checked)?.value;
+  private _updateRadios(initValue?: string): void {
+    this.value = initValue || this._radioButtons.find((radio) => radio.checked)?.value;
 
     for (const radio of this._radioButtons) {
       radio.checked = radio.value === this.value;

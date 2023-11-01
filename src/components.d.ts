@@ -3178,6 +3178,10 @@ declare namespace LocalJSX {
           * @deprecated only used for React. Will probably be removed once React 19 is available.
          */
         "onDidChange"?: (event: SbbCheckboxCustomEvent<any>) => void;
+        /**
+          * Internal event that emits when the input element is loaded.
+         */
+        "onInput-loaded"?: (event: SbbCheckboxCustomEvent<void>) => void;
         "onState-change"?: (event: SbbCheckboxCustomEvent<CheckboxStateChange>) => void;
         /**
           * Whether the checkbox is required.
