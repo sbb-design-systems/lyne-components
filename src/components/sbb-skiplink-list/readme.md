@@ -29,12 +29,6 @@ to specify a custom stack order, the `z-index` can be changed by defining the CS
 | `titleContent` | `title-content` | public  | `string \| undefined`     |         | The title text we want to place before the list. |
 | `titleLevel`   | `title-level`   | public  | `TitleLevel \| undefined` | `'2'`   | The semantic level of the title, e.g. 2 = h2.    |
 
-## Methods
-
-| Name        | Privacy | Description | Parameters | Return | Inherited From |
-| ----------- | ------- | ----------- | ---------- | ------ | -------------- |
-| `syncLinks` | public  |             |            | `void` |                |
-
 ## Attributes
 
 | Name            | Field        | Inherited From |

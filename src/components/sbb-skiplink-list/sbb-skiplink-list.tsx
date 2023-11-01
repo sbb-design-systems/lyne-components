@@ -54,7 +54,7 @@ export class SbbSkiplinkList extends LitElement {
       return;
     }
 
-    this.syncLinks();
+    this._syncLinks();
     this._links = links;
   }
 
