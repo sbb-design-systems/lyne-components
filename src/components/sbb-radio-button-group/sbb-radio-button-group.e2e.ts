@@ -70,7 +70,7 @@ describe('sbb-radio-button-group', () => {
         'sbb-radio-button-group > sbb-radio-button#sbb-radio-3',
       );
 
-      await element.setProperty('disabled', true);
+      element.setProperty('disabled', true);
       await page.waitForChanges();
 
       await disabledRadio.click();
@@ -82,7 +82,7 @@ describe('sbb-radio-button-group', () => {
       await page.waitForChanges();
       expect(secondRadio).not.toHaveAttribute('checked');
 
-      await element.setProperty('disabled', false);
+      element.setProperty('disabled', false);
       await page.waitForChanges();
 
       await disabledRadio.click();
@@ -145,6 +145,34 @@ describe('sbb-radio-button-group', () => {
       await page.waitForChanges();
 
       expect(firstRadio).toHaveAttribute('checked');
+    });
+
+    it('sets the value correctly on slot change', async () => {
+      const firstRadio = await page.find('sbb-radio-button-group > sbb-radio-button#sbb-radio-1');
+
+      expect(firstRadio).toHaveAttribute('checked');
+      expect(await element.getProperty('value')).toBe('Value one');
+
+      await page.evaluate(() => {
+        const newRadios = ['New radio one', 'New radio two'];
+        const radioGroup = document.querySelector('sbb-radio-button-group');
+
+        // Remove all the radio buttons
+        while (radioGroup.firstChild) {
+          radioGroup.removeChild(radioGroup.firstChild);
+        }
+
+        // Add two new radios
+        newRadios.forEach(async (radio, i) => {
+          const newRadio = document.createElement('SBB-RADIO-BUTTON') as HTMLSbbRadioButtonElement;
+          newRadio.innerText = radio;
+          newRadio.value = radio;
+          newRadio.checked = i === 0;
+          radioGroup.appendChild(newRadio);
+        });
+      });
+
+      expect(await element.getProperty('value')).toBe('New radio one');
     });
   });
 });
