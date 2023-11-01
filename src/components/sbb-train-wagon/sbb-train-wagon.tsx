@@ -42,14 +42,12 @@ export class SbbTrainWagon extends LitElement {
 
   /** Sector in which to wagon stops. */
   @property({ reflect: true })
-  public get sector(): string {
-    return this._sector;
-  }
   public set sector(value: string) {
-    const oldValue = this._sector;
     this._sector = value;
     this._sectorChanged();
-    this.requestUpdate('sector', oldValue);
+  }
+  public get sector(): string {
+    return this._sector;
   }
   private _sector: string = null;
 

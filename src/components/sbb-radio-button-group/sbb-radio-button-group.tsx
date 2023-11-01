@@ -31,14 +31,12 @@ export class SbbRadioButtonGroup extends LitElement {
    * Whether the radios can be deselected.
    */
   @property({ attribute: 'allow-empty-selection', type: Boolean })
-  public get allowEmptySelection(): boolean {
-    return this._allowEmptySelection;
-  }
   public set allowEmptySelection(value: boolean) {
-    const oldValue = this._allowEmptySelection;
     this._allowEmptySelection = value;
     this._updateAllowEmptySelection();
-    this.requestUpdate('allowEmptySelection', oldValue);
+  }
+  public get allowEmptySelection(): boolean {
+    return this._allowEmptySelection;
   }
   private _allowEmptySelection: boolean = false;
 
@@ -46,14 +44,12 @@ export class SbbRadioButtonGroup extends LitElement {
    * Whether the radio group is disabled.
    */
   @property({ type: Boolean })
-  public get disabled(): boolean {
-    return this._disabled;
-  }
   public set disabled(value: boolean) {
-    const oldValue = this._disabled;
     this._disabled = value;
     this._updateDisabled();
-    this.requestUpdate('disabled', oldValue);
+  }
+  public get disabled(): boolean {
+    return this._disabled;
   }
   private _disabled: boolean = false;
 
@@ -61,14 +57,12 @@ export class SbbRadioButtonGroup extends LitElement {
    * Whether the radio group is required.
    */
   @property({ type: Boolean })
-  public get required(): boolean {
-    return this._required;
-  }
   public set required(value: boolean) {
-    const oldValue = this._required;
     this._required = value;
     this._updateRequired();
-    this.requestUpdate('required', oldValue);
+  }
+  public get required(): boolean {
+    return this._required;
   }
   private _required: boolean = false;
 
@@ -76,14 +70,12 @@ export class SbbRadioButtonGroup extends LitElement {
    * The value of the radio group.
    */
   @property()
-  public get value(): any | null {
-    return this._value;
-  }
   public set value(value: any | null) {
-    const oldValue = this._value;
     this._value = value;
     this._valueChanged(this._value);
-    this.requestUpdate('value', oldValue);
+  }
+  public get value(): any | null {
+    return this._value;
   }
   private _value: any | null = null;
 
@@ -91,14 +83,12 @@ export class SbbRadioButtonGroup extends LitElement {
    * Size variant, either m or s.
    */
   @property()
-  public get size(): SbbRadioButtonSize {
-    return this._size;
-  }
   public set size(value: SbbRadioButtonSize) {
-    const oldValue = this._size;
     this._size = value;
     this._updateSize();
-    this.requestUpdate('size', oldValue);
+  }
+  public get size(): SbbRadioButtonSize {
+    return this._size;
   }
   private _size: SbbRadioButtonSize = 'm';
 

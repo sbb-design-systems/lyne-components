@@ -37,14 +37,12 @@ export class SbbHeaderAction extends LitElement implements LinkButtonProperties 
    * and hidden for all the others.
    */
   @property({ attribute: 'expand-from', reflect: true })
-  public get expandFrom(): SbbHorizontalFrom {
-    return this._expandFrom;
-  }
   public set expandFrom(value: SbbHorizontalFrom) {
-    const oldValue = this._expandFrom;
     this._expandFrom = value;
     this._updateExpanded();
-    this.requestUpdate('expandFrom', oldValue);
+  }
+  public get expandFrom(): SbbHorizontalFrom {
+    return this._expandFrom;
   }
   private _expandFrom: SbbHorizontalFrom = 'medium';
 

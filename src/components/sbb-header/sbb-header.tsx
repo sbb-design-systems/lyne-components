@@ -22,14 +22,13 @@ export class SbbHeader extends LitElement {
 
   /** The element's id or the element on which the scroll listener is attached. */
   @property({ attribute: 'scroll-origin' })
-  public get scrollOrigin(): string | HTMLElement | Document {
-    return this._scrollOrigin;
-  }
   public set scrollOrigin(value: string | HTMLElement | Document) {
     const oldValue = this._scrollOrigin;
     this._scrollOrigin = value;
     this._updateScrollOrigin(this._scrollOrigin, oldValue);
-    this.requestUpdate('scrollOrigin', oldValue);
+  }
+  public get scrollOrigin(): string | HTMLElement | Document {
+    return this._scrollOrigin;
   }
   private _scrollOrigin: string | HTMLElement | Document = document;
 

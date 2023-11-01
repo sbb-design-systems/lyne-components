@@ -48,14 +48,13 @@ export class SbbNavigationSection extends LitElement {
    * Accepts both a string (id of an element) or an HTML element.
    */
   @property()
-  public get trigger(): string | HTMLElement {
-    return this._trigger;
-  }
   public set trigger(value: string | HTMLElement) {
     const oldValue = this._trigger;
     this._trigger = value;
     this._removeTriggerClickListener(this._trigger, oldValue);
-    this.requestUpdate('trigger', oldValue);
+  }
+  public get trigger(): string | HTMLElement {
+    return this._trigger;
   }
   private _trigger: string | HTMLElement = null;
 

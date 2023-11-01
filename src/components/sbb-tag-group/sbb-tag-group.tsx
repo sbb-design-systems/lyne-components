@@ -31,14 +31,12 @@ export class SbbTagGroup extends LitElement {
    * If set multiple to true, the value is an array.
    */
   @property()
-  public get value(): string | string[] | null {
-    return this._value;
-  }
   public set value(value: string | string[] | null) {
-    const oldValue = this._value;
     this._value = value;
     this._valueChanged(this._value);
-    this.requestUpdate('value', oldValue);
+  }
+  public get value(): string | string[] | null {
+    return this._value;
   }
   private _value: string | string[] | null = null;
 

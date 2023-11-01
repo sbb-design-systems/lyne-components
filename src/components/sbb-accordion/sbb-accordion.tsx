@@ -15,14 +15,12 @@ export class SbbAccordion extends LitElement {
 
   /** The heading level for the sbb-expansion-panel-headers within the component. */
   @property({ attribute: 'title-level' })
-  public get titleLevel(): TitleLevel | null {
-    return this._titleLevel;
-  }
   public set titleLevel(value: TitleLevel | null) {
-    const oldValue = this._titleLevel;
     this._titleLevel = value;
     this._setTitleLevelOnChildren();
-    this.requestUpdate('titleLevel', oldValue);
+  }
+  public get titleLevel(): TitleLevel | null {
+    return this._titleLevel;
   }
   private _titleLevel: TitleLevel | null = null;
 
@@ -32,21 +30,20 @@ export class SbbAccordion extends LitElement {
 
   /** Whether more than one sbb-expansion-panel can be open at the same time. */
   @property({ type: Boolean })
-  public get multi(): boolean {
-    return this._multi;
-  }
   public set multi(value: boolean) {
     const oldValue = this._multi;
     this._multi = value;
     this._resetExpansionPanels(this._multi, oldValue);
-    this.requestUpdate('multi', oldValue);
+  }
+  public get multi(): boolean {
+    return this._multi;
   }
   private _multi: boolean = false;
 
   private _abort = new ConnectedAbortController(this);
 
-  private _closePanels(e): void {
-    if (e.target?.tagName !== 'SBB-EXPANSION-PANEL' || this.multi) {
+  private _closePanels(e: CustomEvent): void {
+    if ((e.target as HTMLElement)?.tagName !== 'SBB-EXPANSION-PANEL' || this.multi) {
       return;
     }
 
@@ -99,7 +96,7 @@ export class SbbAccordion extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
-    this.addEventListener('will-open', (e) => this._closePanels(e), { signal });
+    this.addEventListener('will-open', (e: CustomEvent) => this._closePanels(e), { signal });
   }
 
   protected override render(): TemplateResult {

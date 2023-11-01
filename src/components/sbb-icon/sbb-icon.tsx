@@ -1,5 +1,5 @@
 import { getSvgContent } from './sbb-icon-request';
-import { html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import { html, LitElement, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttribute } from '../../global/dom';
 import style from './sbb-icon.scss?lit&inline';

@@ -34,14 +34,12 @@ export class SbbCardAction extends LitElement implements LinkButtonProperties {
 
   /** Whether the card is active. */
   @property({ reflect: true, type: Boolean })
-  public get active(): boolean {
-    return this._active;
-  }
   public set active(value: boolean) {
-    const oldValue = this._active;
     this._active = value;
     this._onActiveChange();
-    this.requestUpdate('active', oldValue);
+  }
+  public get active(): boolean {
+    return this._active;
   }
   private _active: boolean = false;
 

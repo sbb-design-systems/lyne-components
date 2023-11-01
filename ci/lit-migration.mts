@@ -266,12 +266,10 @@ async function migrate(component: string, debug = false) {
   }
   public set ${propertyName}(value: ${type}) {
     // TODO: Validate logic
-    const oldValue = this._${propertyName};
     this._${propertyName} = value;
     this.${newWatcherName}(${
       argAmount === 0 ? '' : `this._${propertyName}${argAmount === 1 ? '' : ', oldValue'}`
     });
-    this.requestUpdate('${propertyName}', oldValue);
   }
   private _${propertyName}: ${type} = ${property.initializer?.getText() ?? 'null'};`,
           );
