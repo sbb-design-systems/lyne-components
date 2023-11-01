@@ -30,16 +30,3 @@ Possible values are `ideal` (default), `minimal` and `none`.
 | `protectiveRoom`     | `protective-room`     | public  | `SbbProtectiveRoom \| undefined` | `'ideal'` | Visual protective room around signet.                                |
 | `accessibilityLabel` | `accessibility-label` | public  | `string`                         | `'Logo'`  | Accessibility label which will be forwarded to the inner SVG signet. |
 
-## Fields
-
-| Name           | Privacy | Type                                             | Default | Description                                      | Inherited From |
-| -------------- | ------- | ------------------------------------------------ | ------- | ------------------------------------------------ | -------------- |
-| `titleContent` | public  | `string \| undefined`                            |         | The title text we want to place before the list. |                |
-| `titleLevel`   | public  | `InterfaceTitleAttributes['level'] \| undefined` | `'2'`   | The semantic level of the title, e.g. 2 = h2.    |                |
-
-## Slots
-
-| Name | Description                                                              |
-| ---- | ------------------------------------------------------------------------ |
-|      | Use the unnamed slot to add `sbb-link` elements to this skiplink list. |
-

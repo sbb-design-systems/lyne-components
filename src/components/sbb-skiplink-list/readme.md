@@ -24,21 +24,14 @@ to specify a custom stack order, the `z-index` can be changed by defining the CS
 
 ## Properties 
 
-| Name           | Attribute           | Privacy | Type                      | Default | Description                                      |
-| -------------- | -------------- | ------- | ------------------------- | ------- | ------------------------------------------------ |
+| Name           | Attribute       | Privacy | Type                      | Default | Description                                      |
+| -------------- | --------------- | ------- | ------------------------- | ------- | ------------------------------------------------ |
 | `titleContent` | `title-content` | public  | `string \| undefined`     |         | The title text we want to place before the list. |
 | `titleLevel`   | `title-level`   | public  | `TitleLevel \| undefined` | `'2'`   | The semantic level of the title, e.g. 2 = h2.    |
-
-## Attributes
-
-| Name            | Field        | Inherited From |
-| --------------- | ------------ | -------------- |
-| `title-content` | titleContent |                |
-| `title-level`   | titleLevel   |                |
 
 ## Slots
 
 | Name | Description                                                              |
 | ---- | ------------------------------------------------------------------------ |
-|      | Use the unnamed slot to add \`sbb-link\` elements to this skiplink list. |
+|      | Use the unnamed slot to add `sbb-link` elements to this skiplink list. |
 
