@@ -33,5 +33,3 @@ and four different values for the `color` property (`charcoal`, `granite`, `whit
 | ---- | ------------------------------------------------ |
 |      | Use the unnamed slot to add content to the chip. |
 
-<hr/>
-

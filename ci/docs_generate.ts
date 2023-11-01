@@ -129,6 +129,11 @@ for (let i = 0; i < matches.length; i++) {
   const compName = matches[i].groups!.name;
   const compTag = matches[i].groups!.tag;
 
-  updateComponentReadme(compName, compTag, markdown.substring(startIndex, endIndex));
+  const componentMarkdown = markdown.substring(startIndex, endIndex);
+
+  // If there is a `<hr/>` it indicates corrupted data respect. mixed data over different components.
+  // If we just stop before occurrence of `<hr/>` we are not including the corrupted data.
+  const hrIndex = componentMarkdown.indexOf('<hr/>');
+  updateComponentReadme(compName, compTag, componentMarkdown.substring(0, hrIndex));
 }
 console.log('Docs generated successfully');

@@ -9,5 +9,3 @@ It is used inside the [sbb-train](/docs/timetable-sbb-train--docs) element.
 <!-- Auto Generated Below --> 
  
 
-<hr/>
-
