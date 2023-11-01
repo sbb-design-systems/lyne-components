@@ -123,8 +123,8 @@
     "vite-plugin-dts": "3.6.3"
   },
   "resolutions": {
-    "jackspeak": "2.3.5",
-    "lit": "3.0.0"
+    "jackspeak": "^2.3.6",
+    "lit": "^3.0.0"
   },
   "publishConfig": {
     "access": "public"
