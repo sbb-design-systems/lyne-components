@@ -120,9 +120,9 @@ export class SbbCheckbox implements ComponentInterface {
    */
   @Event({
     bubbles: true,
-    eventName: 'input-loaded',
+    eventName: 'sbb-checkbox-loaded',
   })
-  public inputLoaded: EventEmitter<void>;
+  public sbbCheckboxLoaded: EventEmitter<void>;
 
   @Watch('checked')
   public handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
@@ -177,7 +177,7 @@ export class SbbCheckbox implements ComponentInterface {
       !this._element.closest('sbb-selection-panel [slot="content"]');
     this._handlerRepository.connect();
     this._setupInitialStateAndAttributeObserver();
-    this.inputLoaded.emit();
+    this._isSelectionPanelInput && this.sbbCheckboxLoaded.emit();
   }
 
   public componentDidLoad(): void {

@@ -161,7 +161,8 @@ export class SbbSelectionPanel implements ComponentInterface {
     this._handlerRepository.disconnect();
   }
 
-  @Listen('input-loaded')
+  @Listen('sbb-checkbox-loaded')
+  @Listen('sbb-radio-button-loaded')
   private _updateSelectionPanel(): void {
     this._checked = this._input?.checked;
     this._state = this._checked || this.forceOpen ? 'opened' : 'closed';

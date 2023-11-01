@@ -125,9 +125,9 @@ export class SbbRadioButton implements ComponentInterface {
    */
   @Event({
     bubbles: true,
-    eventName: 'input-loaded',
+    eventName: 'sbb-radio-button-loaded',
   })
-  public inputLoaded: EventEmitter<void>;
+  public sbbRadioButtonLoaded: EventEmitter<void>;
 
   @Watch('checked')
   public handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
@@ -178,7 +178,7 @@ export class SbbRadioButton implements ComponentInterface {
       !!this._selectionPanelElement &&
       !this._element.closest('sbb-selection-panel [slot="content"]');
     this._setupInitialStateAndAttributeObserver();
-    this.inputLoaded.emit();
+    this._isSelectionPanelInput && this.sbbRadioButtonLoaded.emit();
   }
 
   public componentDidLoad(): void {

@@ -187,7 +187,7 @@ export class SbbRadioButtonGroup implements ComponentInterface {
   }
 
   private _updateRadios(initValue?: string): void {
-    this.value = initValue || this._radioButtons.find((radio) => radio.checked)?.value;
+    this.value = initValue ?? this._radioButtons.find((radio) => radio.checked)?.value;
 
     for (const radio of this._radioButtons) {
       radio.checked = radio.value === this.value;

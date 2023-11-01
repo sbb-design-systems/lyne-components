@@ -4,6 +4,6 @@
  */
 export default {
   didChange: 'didChange',
-  inputLoaded: 'input-loaded',
+  sbbCheckboxLoaded: 'sbb-checkbox-loaded',
   stateChange: 'state-change',
 };

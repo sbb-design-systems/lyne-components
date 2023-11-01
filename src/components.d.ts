@@ -3181,7 +3181,7 @@ declare namespace LocalJSX {
         /**
           * Internal event that emits when the input element is loaded.
          */
-        "onInput-loaded"?: (event: SbbCheckboxCustomEvent<void>) => void;
+        "onSbb-checkbox-loaded"?: (event: SbbCheckboxCustomEvent<void>) => void;
         "onState-change"?: (event: SbbCheckboxCustomEvent<CheckboxStateChange>) => void;
         /**
           * Whether the checkbox is required.
@@ -4183,7 +4183,7 @@ declare namespace LocalJSX {
         /**
           * Internal event that emits when the input element is loaded.
          */
-        "onInput-loaded"?: (event: SbbRadioButtonCustomEvent<void>) => void;
+        "onSbb-radio-button-loaded"?: (event: SbbRadioButtonCustomEvent<void>) => void;
         /**
           * Internal event that emits whenever the state of the radio option in relation to the parent selection panel changes.
          */
