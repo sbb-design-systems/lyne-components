@@ -3,5 +3,6 @@
  * See stencil.config.ts in the root directory.
  */
 export default {
+  inputLoaded: 'input-loaded',
   stateChange: 'state-change',
 };

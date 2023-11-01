@@ -128,7 +128,7 @@ export class SbbSelectionPanel implements ComponentInterface {
 
   @Listen('state-change', { passive: true })
   public onInputChange(event: CustomEvent<RadioButtonStateChange | CheckboxStateChange>): void {
-    if (!this._state) {
+    if (!this._element.dataset.state) {
       return;
     }
 
@@ -165,6 +165,7 @@ export class SbbSelectionPanel implements ComponentInterface {
     this._handlerRepository.disconnect();
   }
 
+  @Listen('input-loaded', { passive: true })
   private _updateSelectionPanel(): void {
     this._checked = this._input?.checked;
     this._state = this._checked || this.forceOpen ? 'opened' : 'closed';

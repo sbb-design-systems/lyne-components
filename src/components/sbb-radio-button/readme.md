@@ -58,6 +58,7 @@ The component has two different sizes, which can be changed using the `size` pro
 
 | Event          | Description                                                                                                         | Type                                                                           |
 | -------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| `input-loaded` | Internal event that emits when the input element is loaded.                                                         | `CustomEvent<void>`                                                            |
 | `state-change` | Internal event that emits whenever the state of the radio option in relation to the parent selection panel changes. | `CustomEvent<RadioButtonStateChangeChecked \| RadioButtonStateChangeDisabled>` |
 
 

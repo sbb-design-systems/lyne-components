@@ -164,7 +164,10 @@ export class SbbRadioButtonGroup implements ComponentInterface {
   @Listen('state-change', { passive: true })
   public onRadioButtonSelect(event: CustomEvent<RadioButtonStateChange>): void {
     event.stopPropagation();
-    if (event.detail.type !== 'checked') {
+    if (
+      event.detail.type !== 'checked' ||
+      !(event.target as HTMLElement).parentElement.dataset.state
+    ) {
       return;
     }
 
@@ -186,10 +189,10 @@ export class SbbRadioButtonGroup implements ComponentInterface {
   }
 
   private _updateRadios(): void {
-    const value = this.value ?? this._radioButtons.find((radio) => radio.checked)?.value;
+    this.value = this._radioButtons.find((radio) => radio.checked)?.value;
 
     for (const radio of this._radioButtons) {
-      radio.checked = radio.value === value;
+      radio.checked = radio.value === this.value;
       radio.size = this.size;
       radio.allowEmptySelection = this.allowEmptySelection;
 
