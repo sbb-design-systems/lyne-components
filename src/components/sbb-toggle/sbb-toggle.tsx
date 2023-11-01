@@ -29,13 +29,13 @@ export class SbbToggle extends LitElement {
   /**
    * Whether the toggle is disabled.
    */
-  public get disabled(): boolean {
-    return this._disabled;
-  }
   @property({ reflect: true, type: Boolean })
   public set disabled(value: boolean) {
     this._disabled = value;
     this._updateDisabled();
+  }
+  public get disabled(): boolean {
+    return this._disabled;
   }
   private _disabled: boolean = false;
 

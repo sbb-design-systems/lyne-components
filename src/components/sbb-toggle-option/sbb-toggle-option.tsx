@@ -26,9 +26,6 @@ export class SbbToggleOption extends LitElement {
   /**
    * Whether the toggle-option is checked.
    */
-  public get checked(): boolean {
-    return this._checked;
-  }
   @property({ reflect: true, type: Boolean })
   public set checked(value: boolean) {
     const oldValue = this.checked;
@@ -37,19 +34,21 @@ export class SbbToggleOption extends LitElement {
       this._handleCheckedChange(this.checked, oldValue);
     }
   }
-
+  public get checked(): boolean {
+    return this._checked;
+  }
   private _checked = false;
 
   /**
    * Whether the toggle option is disabled.
    */
-  public get disabled(): boolean {
-    return this._disabled;
-  }
   @property({ reflect: true, type: Boolean })
   public set disabled(value: boolean) {
     this._disabled = value;
     this._handleDisabledChange(this._disabled);
+  }
+  public get disabled(): boolean {
+    return this._disabled;
   }
   private _disabled: boolean = false;
 
@@ -61,14 +60,14 @@ export class SbbToggleOption extends LitElement {
   /**
    * Value of toggle-option.
    */
-  public get value(): string | null {
-    return this._value;
-  }
   @property()
   public set value(value: string | null) {
     const oldValue = this._value;
     this._value = value;
     this._handleValueChange(this._value, oldValue);
+  }
+  public get value(): string | null {
+    return this._value;
   }
   private _value: string | null = null;
 

@@ -32,13 +32,13 @@ export class SbbTimeInput extends LitElement {
   } as const;
 
   /** Reference of the native input connected to the datepicker. */
-  public get input(): string | HTMLElement {
-    return this._input;
-  }
   @property()
   public set input(value: string | HTMLElement) {
     this._input = value;
     this._findInputElement();
+  }
+  public get input(): string | HTMLElement {
+    return this._input;
   }
   private _input: string | HTMLElement;
 

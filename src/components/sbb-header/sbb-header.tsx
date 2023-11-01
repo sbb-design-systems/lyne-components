@@ -21,14 +21,14 @@ export class SbbHeader extends LitElement {
   @property({ reflect: true, type: Boolean }) public expanded = false;
 
   /** The element's id or the element on which the scroll listener is attached. */
-  public get scrollOrigin(): string | HTMLElement | Document {
-    return this._scrollOrigin;
-  }
   @property({ attribute: 'scroll-origin' })
   public set scrollOrigin(value: string | HTMLElement | Document) {
     const oldValue = this._scrollOrigin;
     this._scrollOrigin = value;
     this._updateScrollOrigin(this._scrollOrigin, oldValue);
+  }
+  public get scrollOrigin(): string | HTMLElement | Document {
+    return this._scrollOrigin;
   }
   private _scrollOrigin: string | HTMLElement | Document = document;
 

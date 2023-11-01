@@ -34,3 +34,11 @@ Please refer to its documentation for more details.
 
 <hr/>
 
+# Functions
+
+| Name                                 | Description | Parameters       | Return                               |
+| ------------------------------------ | ----------- | ---------------- | ------------------------------------ |
+| `extractTimeAndStringFromNoticeText` |             | `notice: Notice` | `{ duration: number; text: string }` |
+
+<hr/>
+

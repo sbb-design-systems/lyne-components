@@ -41,13 +41,13 @@ export class SbbTrainWagon extends LitElement {
   @property() public occupancy?: SbbOccupancy = 'unknown';
 
   /** Sector in which to wagon stops. */
-  public get sector(): string {
-    return this._sector;
-  }
   @property({ reflect: true })
   public set sector(value: string) {
     this._sector = value;
     this._sectorChanged();
+  }
+  public get sector(): string {
+    return this._sector;
   }
   private _sector: string = null;
 

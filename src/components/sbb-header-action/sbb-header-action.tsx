@@ -36,13 +36,13 @@ export class SbbHeaderAction extends LitElement implements LinkButtonProperties 
    * E.g. if set to 'large', the text will be visible for breakpoints large, wide, ultra,
    * and hidden for all the others.
    */
-  public get expandFrom(): SbbHorizontalFrom {
-    return this._expandFrom;
-  }
   @property({ attribute: 'expand-from', reflect: true })
   public set expandFrom(value: SbbHorizontalFrom) {
     this._expandFrom = value;
     this._updateExpanded();
+  }
+  public get expandFrom(): SbbHorizontalFrom {
+    return this._expandFrom;
   }
   private _expandFrom: SbbHorizontalFrom = 'medium';
 

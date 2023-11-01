@@ -62,9 +62,6 @@ export class SbbNavigationAction extends LitElement {
   /**
    * Whether the action is active.
    */
-  public get active(): boolean {
-    return this._active;
-  }
   @property({ reflect: true, type: Boolean })
   public set active(value: boolean) {
     const oldValue = this.active;
@@ -73,7 +70,9 @@ export class SbbNavigationAction extends LitElement {
       this._handleActiveChange(this.active, oldValue);
     }
   }
-
+  public get active(): boolean {
+    return this._active;
+  }
   private _active = false;
 
   /**

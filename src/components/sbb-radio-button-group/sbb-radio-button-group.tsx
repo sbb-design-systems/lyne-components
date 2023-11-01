@@ -30,65 +30,65 @@ export class SbbRadioButtonGroup extends LitElement {
   /**
    * Whether the radios can be deselected.
    */
-  public get allowEmptySelection(): boolean {
-    return this._allowEmptySelection;
-  }
   @property({ attribute: 'allow-empty-selection', type: Boolean })
   public set allowEmptySelection(value: boolean) {
     this._allowEmptySelection = value;
     this._updateAllowEmptySelection();
+  }
+  public get allowEmptySelection(): boolean {
+    return this._allowEmptySelection;
   }
   private _allowEmptySelection: boolean = false;
 
   /**
    * Whether the radio group is disabled.
    */
-  public get disabled(): boolean {
-    return this._disabled;
-  }
   @property({ type: Boolean })
   public set disabled(value: boolean) {
     this._disabled = value;
     this._updateDisabled();
+  }
+  public get disabled(): boolean {
+    return this._disabled;
   }
   private _disabled: boolean = false;
 
   /**
    * Whether the radio group is required.
    */
-  public get required(): boolean {
-    return this._required;
-  }
   @property({ type: Boolean })
   public set required(value: boolean) {
     this._required = value;
     this._updateRequired();
+  }
+  public get required(): boolean {
+    return this._required;
   }
   private _required: boolean = false;
 
   /**
    * The value of the radio group.
    */
-  public get value(): any | null {
-    return this._value;
-  }
   @property()
   public set value(value: any | null) {
     this._value = value;
     this._valueChanged(this._value);
+  }
+  public get value(): any | null {
+    return this._value;
   }
   private _value: any | null = null;
 
   /**
    * Size variant, either m or s.
    */
-  public get size(): SbbRadioButtonSize {
-    return this._size;
-  }
   @property()
   public set size(value: SbbRadioButtonSize) {
     this._size = value;
     this._updateSize();
+  }
+  public get size(): SbbRadioButtonSize {
+    return this._size;
   }
   private _size: SbbRadioButtonSize = 'm';
 

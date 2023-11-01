@@ -30,13 +30,13 @@ export class SbbTagGroup extends LitElement {
    * If set multiple to false, the value is a string (or null).
    * If set multiple to true, the value is an array.
    */
-  public get value(): string | string[] | null {
-    return this._value;
-  }
   @property()
   public set value(value: string | string[] | null) {
     this._value = value;
     this._valueChanged(this._value);
+  }
+  public get value(): string | string[] | null {
+    return this._value;
   }
   private _value: string | string[] | null = null;
 
