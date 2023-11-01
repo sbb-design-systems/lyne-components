@@ -16,7 +16,7 @@ It has four different states related to the properties `checked`, `indeterminate
 
 ## Properties 
 
-| Name            | Attribute            | Privacy | Type      | Default | Description                     |
+| Name            | Attribute       | Privacy | Type      | Default | Description                     |
 | --------------- | --------------- | ------- | --------- | ------- | ------------------------------- |
 | `checked`       | `checked`       | public  | `boolean` |         | Checked state.                  |
 | `disabled`      | `disabled`      | public  | `boolean` |         | Disabled state.                 |

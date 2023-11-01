@@ -6,7 +6,7 @@ here to show the various configuration options to component developers. !!
 
 ## Properties 
 
-| Name     | Attribute     | Privacy | Type     | Default | Description |
-| -------- | -------- | ------- | -------- | ------- | ----------- |
-| `config` | `config` | public  | `string` |         |             |
+| Name     | Attribute | Privacy | Type     | Default | Description |
+| -------- | --------- | ------- | -------- | ------- | ----------- |
+| `config` | `config`  | public  | `string` |         |             |
 

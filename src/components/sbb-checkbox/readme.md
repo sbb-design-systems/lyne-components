@@ -71,16 +71,16 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 
 ## Properties 
 
-| Name            | Attribute            | Privacy | Type                  | Default | Description                                                                                                                                 |
-| --------------- | --------------- | ------- | --------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| `value`         | `value`         | public  | `string \| undefined` |         | Value of checkbox.                                                                                                                          |
-| `disabled`      | `disabled`      | public  | `boolean`             | `false` | Whether the checkbox is disabled.                                                                                                           |
-| `required`      | `required`      | public  | `boolean`             | `false` | Whether the checkbox is required.                                                                                                           |
-| `indeterminate` | `indeterminate` | public  | `boolean`             | `false` | Whether the checkbox is indeterminate.                                                                                                      |
+| Name            | Attribute        | Privacy | Type                  | Default | Description                                                                                                                                 |
+| --------------- | ---------------- | ------- | --------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `value`         | `value`          | public  | `string \| undefined` |         | Value of checkbox.                                                                                                                          |
+| `disabled`      | `disabled`       | public  | `boolean`             | `false` | Whether the checkbox is disabled.                                                                                                           |
+| `required`      | `required`       | public  | `boolean`             | `false` | Whether the checkbox is required.                                                                                                           |
+| `indeterminate` | `indeterminate`  | public  | `boolean`             | `false` | Whether the checkbox is indeterminate.                                                                                                      |
 | `iconName`      | `icon-name`      | public  | `string \| undefined` |         | The icon name we want to use, choose from the small icon variants from the ui-icons category&#xA;from https\://icons.app.sbb.ch (optional). |
 | `iconPlacement` | `icon-placement` | public  | `SbbIconPlacement`    | `'end'` | The label position relative to the labelIcon. Defaults to end                                                                               |
-| `checked`       | `checked`       | public  | `boolean`             | `false` | Whether the checkbox is checked.                                                                                                            |
-| `size`          | `size`          | public  | `SbbCheckboxSize`     | `'m'`   | Label size variant, either m or s.                                                                                                          |
+| `checked`       | `checked`        | public  | `boolean`             | `false` | Whether the checkbox is checked.                                                                                                            |
+| `size`          | `size`           | public  | `SbbCheckboxSize`     | `'m'`   | Label size variant, either m or s.                                                                                                          |
 
 ## Slots
 

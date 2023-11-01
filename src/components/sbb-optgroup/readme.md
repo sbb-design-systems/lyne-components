@@ -34,7 +34,7 @@ The component has a `disabled` property which sets all the `sbb-option` in the g
 
 ## Properties 
 
-| Name       | Attribute       | Privacy | Type      | Default | Description                    |
+| Name       | Attribute  | Privacy | Type      | Default | Description                    |
 | ---------- | ---------- | ------- | --------- | ------- | ------------------------------ |
 | `label`    | `label`    | public  | `string`  |         | Option group label.            |
 | `disabled` | `disabled` | public  | `boolean` | `false` | Whether the group is disabled. |

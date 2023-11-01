@@ -61,9 +61,9 @@ Whenever the validation state changes (e.g., a valid value becomes invalid or vi
 
 ## Properties 
 
-| Name    | Attribute    | Privacy | Type                    | Default | Description                                                |
-| ------- | ------- | ------- | ----------------------- | ------- | ---------------------------------------------------------- |
-| `input` | `input` | public  | `string \| HTMLElement` |         | Reference of the native input connected to the datepicker. |
+| Name    | Attribute | Privacy | Type                    | Default | Description                                                |
+| ------- | --------- | ------- | ----------------------- | ------- | ---------------------------------------------------------- |
+| `input` | `input`   | public  | `string \| HTMLElement` |         | Reference of the native input connected to the datepicker. |
 
 ## Methods
 

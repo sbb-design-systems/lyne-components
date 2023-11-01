@@ -63,11 +63,11 @@ Similarly, if a navigation action is marked to indicate a selected option (e.g.,
 
 ## Properties 
 
-| Name                      | Attribute                      | Privacy | Type                         | Default | Description                                                                                                    |
-| ------------------------- | ------------------------- | ------- | ---------------------------- | ------- | -------------------------------------------------------------------------------------------------------------- |
-| `trigger`                 | `trigger`                 | public  | `string \| HTMLElement`      |         | The element that will trigger the navigation.&#xA;Accepts both a string (id of an element) or an HTML element. |
+| Name                      | Attribute                   | Privacy | Type                         | Default | Description                                                                                                    |
+| ------------------------- | --------------------------- | ------- | ---------------------------- | ------- | -------------------------------------------------------------------------------------------------------------- |
+| `trigger`                 | `trigger`                   | public  | `string \| HTMLElement`      |         | The element that will trigger the navigation.&#xA;Accepts both a string (id of an element) or an HTML element. |
 | `accessibilityCloseLabel` | `accessibility-close-label` | public  | `\| string     \| undefined` |         | This will be forwarded as aria-label to the close button element.                                              |
-| `disableAnimation`        | `disable-animation`        | public  | `boolean`                    | `false` | Whether the animation is enabled.                                                                              |
+| `disableAnimation`        | `disable-animation`         | public  | `boolean`                    | `false` | Whether the animation is enabled.                                                                              |
 
 ## Methods
 

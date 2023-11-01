@@ -30,7 +30,7 @@ The component has three different sizes, which can be changed using the `size` p
 
 ## Properties 
 
-| Name       | Attribute       | Privacy | Type                                                 | Default | Description                                                                                    |
+| Name       | Attribute  | Privacy | Type                                                 | Default | Description                                                                                    |
 | ---------- | ---------- | ------- | ---------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------- |
 | `size`     | `size`     | public  | `'l' \| 'm' \| 's' \| undefined`                     | `'l'`   | Action size variant.                                                                           |
 | `href`     | `href`     | public  | `string \| undefined`                                |         | The href value you want to link to (if it is not present, navigation action becomes a button). |

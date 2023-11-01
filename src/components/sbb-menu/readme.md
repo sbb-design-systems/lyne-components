@@ -65,10 +65,10 @@ to identify which actions are active and which are not.
 
 ## Properties 
 
-| Name                     | Attribute                     | Privacy | Type                    | Default | Description                                                                                                                           |
-| ------------------------ | ------------------------ | ------- | ----------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `trigger`                | `trigger`                | public  | `string \| HTMLElement` |         | The element that will trigger the menu overlay.&#xA;Accepts both a string (id of an element) or an HTML element.                      |
-| `disableAnimation`       | `disable-animation`       | public  | `boolean`               | `false` | Whether the animation is enabled.                                                                                                     |
+| Name                     | Attribute                  | Privacy | Type                    | Default | Description                                                                                                                           |
+| ------------------------ | -------------------------- | ------- | ----------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `trigger`                | `trigger`                  | public  | `string \| HTMLElement` |         | The element that will trigger the menu overlay.&#xA;Accepts both a string (id of an element) or an HTML element.                      |
+| `disableAnimation`       | `disable-animation`        | public  | `boolean`               | `false` | Whether the animation is enabled.                                                                                                     |
 | `listAccessibilityLabel` | `list-accessibility-label` | public  | `string \| undefined`   |         | This will be forwarded as aria-label to the inner list.&#xA;Used only if the menu automatically renders the actions inside as a list. |
 
 ## Methods

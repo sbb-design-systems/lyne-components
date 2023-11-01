@@ -58,8 +58,8 @@ as CSS variable (`--sbb-train-direction-width`) initially and on resize.
 
 ## Properties 
 
-| Name             | Attribute             | Privacy | Type      | Default | Description                      |
-| ---------------- | ---------------- | ------- | --------- | ------- | -------------------------------- |
+| Name             | Attribute          | Privacy | Type      | Default | Description                      |
+| ---------------- | ------------------ | ------- | --------- | ------- | -------------------------------- |
 | `hideWagonLabel` | `hide-wagon-label` | public  | `boolean` | `false` | Option to hide all wagon labels. |
 
 ## Slots

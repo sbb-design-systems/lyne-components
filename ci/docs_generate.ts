@@ -39,15 +39,22 @@ function updateFieldsTable(newDocs: MagicString, sections: RegExpMatchArray[]): 
   tableRows.forEach((row) => row.splice(inheritedFromColumnIndex, 1));
 
   // Add the 'attribute' column
-  for (let i = 0; i < tableRows.length; i++) {
-    let attributeColumn: string;
-    if (i === 0) {
-      attributeColumn = tableRows[0][1].replace('Name', 'Attribute');
-    } else {
-      attributeColumn = toKebabCase(tableRows[i][1]);
-    }
-    tableRows[i].splice(attributeColumnIndex, 0, attributeColumn);
-  }
+  const attributes = [tableRows[0][1].replace('Name', 'Attribute').trim(), '-'].concat(
+    tableRows.slice(2).map((entry) => toKebabCase(entry[1]).trim()),
+  );
+  // Get the longest entry in column
+  const maxChars = attributes.reduce(
+    (max, attributeName) => (attributeName.length > max ? attributeName.length : max),
+    0,
+  );
+  // End pad with spaces (or `-`) to fix the table width
+  attributes.forEach((attributeColumn, i) =>
+    tableRows[i].splice(
+      attributeColumnIndex,
+      0,
+      ` ${attributeColumn.padEnd(maxChars, attributeColumn === '-' ? '-' : ' ')} `,
+    ),
+  );
 
   const fieldsTable = tableRows.map((cols) => cols.join('|')).join('\n');
   newDocs.update(
@@ -67,7 +74,7 @@ function updateComponentReadme(name: string, tag: string, docs: string): void {
   const newReadme = new MagicString(fs.readFileSync(path, 'utf8'));
   let newDocs = new MagicString(docs);
 
-  // Remove the details section and commit the change
+  // Remove the details (private API) section and commit the change
   const detailsSectionStart = newDocs.original.match(/<details>/)?.index;
   newDocs.remove(detailsSectionStart!, newDocs.original.length);
   newDocs = new MagicString(newDocs.toString());
@@ -96,7 +103,7 @@ function updateComponentReadme(name: string, tag: string, docs: string): void {
 const manifest = JSON.parse(fs.readFileSync(manifestFilePath, 'utf-8'));
 const markdown: string = customElementsManifestToMarkdown(manifest, {
   headingOffset: -1, // Default heading is '###'
-  private: 'details', // We use 'details' cause it's the only way to remove 'protected' members from the tables
+  private: 'details', // We use 'details' because it's the only way to remove 'protected' members from the tables. We remove details section later.
   omitDeclarations: ['exports'],
   omitSections: [
     'super-class',
@@ -124,4 +131,4 @@ for (let i = 0; i < matches.length; i++) {
 
   updateComponentReadme(compName, compTag, markdown.substring(startIndex, endIndex));
 }
-console.log('Docs generated successufly');
+console.log('Docs generated successfully');

@@ -26,7 +26,7 @@ as it is used for search engines and screen-reader users.
 
 ## Properties 
 
-| Name       | Attribute       | Privacy | Type                                                 | Default | Description                                                                       |
+| Name       | Attribute  | Privacy | Type                                                 | Default | Description                                                                       |
 | ---------- | ---------- | ------- | ---------------------------------------------------- | ------- | --------------------------------------------------------------------------------- |
 | `active`   | `active`   | public  | `boolean`                                            |         | Whether the card is active.                                                       |
 | `href`     | `href`     | public  | `string \| undefined`                                |         | The href value you want to link to.                                               |

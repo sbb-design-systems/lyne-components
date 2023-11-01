@@ -25,9 +25,9 @@ Possible values are `l` (default) and `s`.
 
 ## Properties 
 
-| Name   | Attribute   | Privacy | Type                      | Default | Description          |
-| ------ | ------ | ------- | ------------------------- | ------- | -------------------- |
-| `size` | `size` | public  | `'l' \| 's' \| undefined` | `'l'`   | Marker size variant. |
+| Name   | Attribute | Privacy | Type                      | Default | Description          |
+| ------ | --------- | ------- | ------------------------- | ------- | -------------------- |
+| `size` | `size`    | public  | `'l' \| 's' \| undefined` | `'l'`   | Marker size variant. |
 
 ## Methods
 
