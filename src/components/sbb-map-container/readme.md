@@ -21,7 +21,6 @@ The header height can be overridden setting the variable `--sbb-map-container-ma
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name                 | Attribute               | Privacy | Type      | Default | Description                                                          |
@@ -34,4 +33,3 @@ The header height can be overridden setting the variable `--sbb-map-container-ma
 | ----- | --------------------------------------------------- |
 |       | Use the unnamed slot to add content to the sidebar. |
 | `map` | Used for slotting the map.                          |
-

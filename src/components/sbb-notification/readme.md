@@ -60,7 +60,6 @@ For example, use `--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0` 
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name               | Attribute           | Privacy | Type                                                    | Default  | Description                                                                                                 |
@@ -83,4 +82,3 @@ For example, use `--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0` 
 | ------- | ---------------------------------------------------------------- |
 | `title` | Use this to provide a notification title (optional).             |
 |         | Use the unnamed slot to add content to the notification message. |
-

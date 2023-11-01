@@ -79,7 +79,6 @@ It's suggested to have a different value for each variant, e.g.:
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name                 | Attribute             | Privacy | Type                        | Default     | Description                                                              |
@@ -88,7 +87,7 @@ It's suggested to have a different value for each variant, e.g.:
 | `multiple`           | `multiple`            | public  | `boolean`                   |             | Whether more than one file can be selected.                              |
 | `multipleMode`       | `multiple-mode`       | public  | `'default' \| 'persistent'` |             | Whether the newly added files should override the previously added ones. |
 | `accept`             | `accept`              | public  | `string`                    |             | A comma-separated list of allowed unique file type specifiers.           |
-| `titleContent`       | `title-content`       | public  | `string \| undefined`       |             | The title displayed in `dropzone` variant.                             |
+| `titleContent`       | `title-content`       | public  | `string \| undefined`       |             | The title displayed in `dropzone` variant.                               |
 | `disabled`           | `disabled`            | public  | `boolean`                   |             | Whether the component is disabled.                                       |
 | `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`       |             | This will be forwarded as aria-label to the native input element.        |
 | `files`              | `files`               | public  | `File[]`                    |             | Gets the currently selected files.                                       |
@@ -101,7 +100,6 @@ It's suggested to have a different value for each variant, e.g.:
 
 ## Slots
 
-| Name    | Description                                                        |
-| ------- | ------------------------------------------------------------------ |
+| Name    | Description                                                      |
+| ------- | ---------------------------------------------------------------- |
 | `error` | Use this to provide a `sbb-form-error` to show an error message. |
-

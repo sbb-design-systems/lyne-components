@@ -79,7 +79,6 @@ To improve coloring, it's needed to manually define styles for Window high contr
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name    | Attribute | Privacy | Type                                                                                          | Default   | Description                                        |
@@ -92,6 +91,5 @@ To improve coloring, it's needed to manually define styles for Window high contr
 | Name     | Description                                      |
 | -------- | ------------------------------------------------ |
 |          | Use the unnamed slot to add content to the card. |
-| `badge`  | Slot to render `\<sbb-card-badge>`.            |
-| `action` | Slot to render `\<sbb-card-action>`.           |
-
+| `badge`  | Slot to render `<sbb-card-badge>`.               |
+| `action` | Slot to render `<sbb-card-action>`.              |

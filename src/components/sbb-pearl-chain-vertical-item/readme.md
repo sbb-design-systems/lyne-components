@@ -32,7 +32,6 @@ The slots themselves are unstyled, so that they can be used in various ways.
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name                               | Attribute                              | Privacy | Type                               | Default | Description                                                                 |
@@ -46,4 +45,3 @@ The slots themselves are unstyled, so that they can be used in various ways.
 | ------- | ------------------------------------- |
 | `left`  | content of the left side of the item  |
 | `right` | content of the right side of the item |
-

@@ -16,7 +16,6 @@ If the tripBack prop is passed to the component a second journey-summary, withou
 ```
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name               | Attribute           | Privacy | Type                                                | Default | Description                                                                                                        |
@@ -26,4 +25,3 @@ If the tripBack prop is passed to the component a second journey-summary, withou
 | `roundTrip`        | `round-trip`        | public  | `boolean \| undefined`                              |         | The RoundTrip prop. This prop controls if one or two arrows are displayed in the header.                           |
 | `headerLevel`      | `header-level`      | public  | `TitleLevel \| undefined`                           | `'3'`   | Heading level of the journey header element (e.g. h1-h6).                                                          |
 | `disableAnimation` | `disable-animation` | public  | `boolean \| undefined`                              |         | Per default, the current location has a pulsating animation. You can&#xA;disable the animation with this property. |
-

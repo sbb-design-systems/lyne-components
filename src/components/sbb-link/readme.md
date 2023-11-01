@@ -59,7 +59,6 @@ and it has also three sizes (`xs`, `s`, which is the default, and `m`) that are 
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name            | Attribute        | Privacy | Type                                                 | Default   | Description                                                                                                                                                                         |
@@ -78,7 +77,7 @@ and it has also three sizes (`xs`, `s`, which is the default, and `m`) that are 
 | `disabled`      | `disabled`       | public  | `boolean`                                            | `false`   | Whether the button is disabled.                                                                                                                                                     |
 | `name`          | `name`           | public  | `string \| undefined`                                |           | The name attribute to use for the button.                                                                                                                                           |
 | `value`         | `value`          | public  | `string \| undefined`                                |           | The value attribute to use for the button.                                                                                                                                          |
-| `form`          | `form`           | public  | `string \| undefined`                                |           | The \<form> element to associate the button with.                                                                                                                                   |
+| `form`          | `form`           | public  | `string \| undefined`                                |           | The <form> element to associate the button with.                                                                                                                                    |
 
 ## Slots
 
@@ -86,4 +85,3 @@ and it has also three sizes (`xs`, `s`, which is the default, and `m`) that are 
 | ------ | ------------------------------------------------ |
 |        | Use the unnamed slot to add content to the link. |
 | `icon` | Slot used to display the icon, if one is set     |
-

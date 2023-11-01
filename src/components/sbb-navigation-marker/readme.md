@@ -22,7 +22,6 @@ Possible values are `l` (default) and `s`.
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name   | Attribute | Privacy | Type                      | Default | Description          |
@@ -38,7 +37,6 @@ Possible values are `l` (default) and `s`.
 
 ## Slots
 
-| Name | Description                                                                                    |
-| ---- | ---------------------------------------------------------------------------------------------- |
+| Name | Description                                                                                  |
+| ---- | -------------------------------------------------------------------------------------------- |
 |      | Use the unnamed slot to add `sbb-navigation-action` elements into the sbb-navigation-marker. |
-

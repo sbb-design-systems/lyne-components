@@ -97,7 +97,6 @@ that have an ARIA `role`.
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name                      | Attribute                   | Privacy | Type                         | Default | Description                                                                                                         |
@@ -122,4 +121,3 @@ that have an ARIA `role`.
 | Name | Description                                           |
 | ---- | ----------------------------------------------------- |
 |      | Use the unnamed slot to add content into the tooltip. |
-

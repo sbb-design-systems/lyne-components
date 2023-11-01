@@ -27,7 +27,6 @@ The component has three different sizes, which can be changed using the `size` p
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name       | Attribute  | Privacy | Type                                                 | Default | Description                                                                                    |
@@ -47,4 +46,3 @@ The component has three different sizes, which can be changed using the `size` p
 | Name | Description                                                   |
 | ---- | ------------------------------------------------------------- |
 |      | Use the unnamed slot to add content to the navigation action. |
-

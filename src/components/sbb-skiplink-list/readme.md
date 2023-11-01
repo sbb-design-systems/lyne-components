@@ -21,7 +21,6 @@ to specify a custom stack order, the `z-index` can be changed by defining the CS
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name           | Attribute       | Privacy | Type                      | Default | Description                                      |
@@ -31,7 +30,6 @@ to specify a custom stack order, the `z-index` can be changed by defining the CS
 
 ## Slots
 
-| Name | Description                                                              |
-| ---- | ------------------------------------------------------------------------ |
+| Name | Description                                                            |
+| ---- | ---------------------------------------------------------------------- |
 |      | Use the unnamed slot to add `sbb-link` elements to this skiplink list. |
-

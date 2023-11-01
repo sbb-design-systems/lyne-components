@@ -85,7 +85,6 @@ that communicates the collective meaning of all `sbb-tag`s.
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name                     | Attribute                  | Privacy | Type                         | Default | Description                                                                                                                                                                                                                                                 |
@@ -99,4 +98,3 @@ that communicates the collective meaning of all `sbb-tag`s.
 | Name | Description                                                                   |
 | ---- | ----------------------------------------------------------------------------- |
 |      | Use the unnamed slot to add one or more 'sbb-tag' elements to this tag group. |
-

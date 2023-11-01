@@ -37,7 +37,6 @@ They will be applied internally into a list (using `<ul>` and `<li>`) and requir
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name                          | Attribute                       | Privacy | Type                                       | Default     | Description                                                                |
@@ -55,4 +54,3 @@ They will be applied internally into a list (using `<ul>` and `<li>`) and requir
 | Name | Description                                                                                |
 | ---- | ------------------------------------------------------------------------------------------ |
 |      | Use the unnamed slot to add one or more icons for meta information of the sbb-train-wagon. |
-

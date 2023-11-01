@@ -27,7 +27,6 @@ by the used components (e.g. `alt-text` and `aria-label`).
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name           | Attribute       | Privacy | Type                  | Default | Description                                                                         |
@@ -44,4 +43,3 @@ by the used components (e.g. `alt-text` and `aria-label`).
 | `subtitle` | Use this slot to provide a subtitle, must be a paragraph. |
 | `legend`   | Use this slot to provide a legend, must be a paragraph.   |
 | `action`   | Use this slot to provide a sbb-button.                    |
-

@@ -37,7 +37,6 @@ By default, the `sbb-breadcrumb-group` component sets `aria-current="page"` on t
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name       | Attribute   | Privacy | Type                                                 | Default | Description                                                                                                                               |
@@ -54,4 +53,3 @@ By default, the `sbb-breadcrumb-group` component sets `aria-current="page"` on t
 | ------ | ------------------------------------------------------ |
 |        | Use the unnamed slot to add content to the breadcrumb. |
 | `icon` | Use this to display an icon as breadcrumb.             |
-

@@ -100,19 +100,18 @@ Opened panel:
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
-| Name               | Attribute           | Privacy | Type                 | Default | Description                                                                |
-| ------------------ | ------------------- | ------- | -------------------- | ------- | -------------------------------------------------------------------------- |
+| Name               | Attribute           | Privacy | Type                 | Default | Description                                                              |
+| ------------------ | ------------------- | ------- | -------------------- | ------- | ------------------------------------------------------------------------ |
 | `value`            | `value`             | public  | `string \| string[]` |         | The value of the select component. If `multiple` is true, it's an array. |
-| `placeholder`      | `placeholder`       | public  | `string`             |         | The placeholder used if no value has been selected.                        |
-| `multiple`         | `multiple`          | public  | `boolean`            | `false` | Whether the select allows for multiple selection.                          |
-| `required`         | `required`          | public  | `boolean`            | `false` | Whether the select is required.                                            |
-| `disabled`         | `disabled`          | public  | `boolean`            | `false` | Whether the select is disabled.                                            |
-| `readonly`         | `readonly`          | public  | `boolean`            | `false` | Whether the select is readonly.                                            |
-| `negative`         | `negative`          | public  | `boolean`            | `false` | Negative coloring variant flag.                                            |
-| `disableAnimation` | `disable-animation` | public  | `boolean`            | `false` | Whether the animation is disabled.                                         |
+| `placeholder`      | `placeholder`       | public  | `string`             |         | The placeholder used if no value has been selected.                      |
+| `multiple`         | `multiple`          | public  | `boolean`            | `false` | Whether the select allows for multiple selection.                        |
+| `required`         | `required`          | public  | `boolean`            | `false` | Whether the select is required.                                          |
+| `disabled`         | `disabled`          | public  | `boolean`            | `false` | Whether the select is disabled.                                          |
+| `readonly`         | `readonly`          | public  | `boolean`            | `false` | Whether the select is readonly.                                          |
+| `negative`         | `negative`          | public  | `boolean`            | `false` | Negative coloring variant flag.                                          |
+| `disableAnimation` | `disable-animation` | public  | `boolean`            | `false` | Whether the animation is disabled.                                       |
 
 ## Methods
 
@@ -127,4 +126,3 @@ Opened panel:
 | Name | Description                          |
 | ---- | ------------------------------------ |
 |      | Use the unnamed slot to add options. |
-

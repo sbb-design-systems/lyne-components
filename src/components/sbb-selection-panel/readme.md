@@ -83,7 +83,6 @@ It's also possible to display the `sbb-selection-panel` without border by settin
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name               | Attribute           | Privacy | Type                | Default   | Description                                    |
@@ -95,9 +94,8 @@ It's also possible to display the `sbb-selection-panel` without border by settin
 
 ## Slots
 
-| Name      | Description                                                                                            |
-| --------- | ------------------------------------------------------------------------------------------------------ |
+| Name      | Description                                                                                        |
+| --------- | -------------------------------------------------------------------------------------------------- |
 |           | Use the unnamed slot to add `sbb-checkbox` or `sbb-radio-button` elements to this selection panel. |
-| `badge`   | Use this slot to provide a `sbb-card-badge` (optional).                                              |
-| `content` | Use this slot to provide custom content for the panel (optional).                                      |
-
+| `badge`   | Use this slot to provide a `sbb-card-badge` (optional).                                            |
+| `content` | Use this slot to provide custom content for the panel (optional).                                  |

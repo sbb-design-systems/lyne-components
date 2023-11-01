@@ -58,7 +58,6 @@ Whenever the validation state changes (e.g., a valid value becomes invalid or vi
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name    | Attribute | Privacy | Type                    | Default | Description                                                |
@@ -71,4 +70,3 @@ Whenever the validation state changes (e.g., a valid value becomes invalid or vi
 | ---------------- | ------- | ----------------------------------------------------- | ------------------- | -------------- | -------------- |
 | `getValueAsDate` | public  | Gets the input value with the correct date format.    |                     | `Date \| null` |                |
 | `setValueAsDate` | public  | Set the input value to the correctly formatted value. | `date: SbbDateLike` | `void`         |                |
-

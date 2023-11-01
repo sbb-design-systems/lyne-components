@@ -73,7 +73,6 @@ to the content where needed (e.g. `sbb-link-list`, `sbb-link` and `sbb-divider`)
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name                      | Attribute                   | Privacy | Type                           | Default     | Description                                                                                                                                                                                            |
@@ -83,4 +82,3 @@ to the content where needed (e.g. `sbb-link-list`, `sbb-link` and `sbb-divider`)
 | `expanded`                | `expanded`                  | public  | `boolean`                      | `false`     | Whether to allow the footer content to stretch to full width.&#xA;By default, the content has the appropriate page size.                                                                               |
 | `accessibilityTitle`      | `accessibility-title`       | public  | `string \| undefined`          |             | Footer title text, visually hidden, necessary for screen readers.                                                                                                                                      |
 | `accessibilityTitleLevel` | `accessibility-title-level` | public  | `TitleLevel`                   | `'1'`       | Level of the accessibility title, will be rendered as heading tag (e.g. h1). Defaults to level 1.                                                                                                      |
-

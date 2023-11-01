@@ -75,12 +75,11 @@ and the `aria-hidden` attribute on the content.
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name               | Attribute           | Privacy | Type                      | Default   | Description                                                            |
 | ------------------ | ------------------- | ------- | ------------------------- | --------- | ---------------------------------------------------------------------- |
-| `titleLevel`       | `title-level`       | public  | `TitleLevel \| undefined` |           | Heading level; if unset, a `div` will be rendered.                   |
+| `titleLevel`       | `title-level`       | public  | `TitleLevel \| undefined` |           | Heading level; if unset, a `div` will be rendered.                     |
 | `color`            | `color`             | public  | `'white' \| 'milk'`       | `'white'` | The background color of the panel.                                     |
 | `expanded`         | `expanded`          | public  | `boolean`                 |           | Whether the panel is expanded.                                         |
 | `disabled`         | `disabled`          | public  | `boolean`                 |           | Whether the panel is disabled, so its expanded state can't be changed. |
@@ -93,4 +92,3 @@ and the `aria-hidden` attribute on the content.
 | --------- | --------------------------------------------------- |
 | `header`  | Use this to render the sbb-expansion-panel-header.  |
 | `content` | Use this to render the sbb-expansion-panel-content. |
-

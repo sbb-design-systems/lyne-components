@@ -35,7 +35,6 @@ When the element is clicked, the `toggle-expanded` event is emitted.
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name       | Attribute   | Privacy | Type                  | Default | Description                                                                                                                               |
@@ -49,4 +48,3 @@ When the element is clicked, the `toggle-expanded` event is emitted.
 | ------ | ------------------------------------------------------------------ |
 | `icon` | Slot used to render the panel header icon.                         |
 |        | Use the unnamed slot to add content to the expansion panel header. |
-

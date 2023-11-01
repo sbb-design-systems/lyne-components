@@ -60,7 +60,6 @@ Similarly, if a navigation action is marked to indicate a selected option (e.g.,
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name                      | Attribute                   | Privacy | Type                         | Default | Description                                                                                                    |
@@ -78,7 +77,6 @@ Similarly, if a navigation action is marked to indicate a selected option (e.g.,
 
 ## Slots
 
-| Name | Description                                                                                  |
-| ---- | -------------------------------------------------------------------------------------------- |
+| Name | Description                                                                                |
+| ---- | ------------------------------------------------------------------------------------------ |
 |      | Use the unnamed slot to add `sbb-navigation-action` elements into the sbb-navigation menu. |
-

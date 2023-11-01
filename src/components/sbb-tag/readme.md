@@ -47,14 +47,13 @@ The state is reflected via `aria-pressed` attribute.
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name       | Attribute   | Privacy | Type                  | Default | Description                                                                                                                                 |
 | ---------- | ----------- | ------- | --------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | `name`     | `name`      | public  | `string \| undefined` |         | The name attribute to use for the button.                                                                                                   |
 | `value`    | `value`     | public  | `string \| undefined` |         | Value of the tag.                                                                                                                           |
-| `form`     | `form`      | public  | `string \| undefined` |         | The \<form> element to associate the button with.                                                                                           |
+| `form`     | `form`      | public  | `string \| undefined` |         | The <form> element to associate the button with.                                                                                            |
 | `amount`   | `amount`    | public  | `string \| undefined` |         | Amount displayed inside the tag.                                                                                                            |
 | `checked`  | `checked`   | public  | `boolean`             | `false` | Whether the tag is checked.                                                                                                                 |
 | `disabled` | `disabled`  | public  | `boolean`             | `false` | Whether the tag is disabled.                                                                                                                |
@@ -62,9 +61,8 @@ The state is reflected via `aria-pressed` attribute.
 
 ## Slots
 
-| Name     | Description                                                                                     |
-| -------- | ----------------------------------------------------------------------------------------------- |
-|          | Use the unnamed slot to add content to the tag label.                                           |
+| Name     | Description                                                                                   |
+| -------- | --------------------------------------------------------------------------------------------- |
+|          | Use the unnamed slot to add content to the tag label.                                         |
 | `icon`   | Use this slot to display an icon at the component start, by providing a `sbb-icon` component. |
-| `amount` | Provide an amount to show it at the component end.                                              |
-
+| `amount` | Provide an amount to show it at the component end.                                            |

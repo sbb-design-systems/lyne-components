@@ -57,7 +57,6 @@ If the label slot contains only a **text node**, it is possible to search for te
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name       | Attribute   | Privacy | Type                   | Default | Description                                                                                                                               |
@@ -73,4 +72,3 @@ If the label slot contains only a **text node**, it is possible to search for te
 | Name            | Privacy | Description                                | Parameters      | Return | Inherited From |
 | --------------- | ------- | ------------------------------------------ | --------------- | ------ | -------------- |
 | `setGroupLabel` | public  | Set the option group label (used for a11y) | `value: string` | `void` |                |
-

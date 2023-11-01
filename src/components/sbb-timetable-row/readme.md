@@ -44,7 +44,6 @@ This is helpful if you need a specific state of the component.
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name                    | Attribute                | Privacy | Type                    | Default | Description                                                                                                                                                                                   |
@@ -58,4 +57,3 @@ This is helpful if you need a specific state of the component.
 | `cardActionLabel`       | `card-action-label`      | public  | `string \| undefined`   |         | Hidden label for the card action. It overrides the automatically generated accessibility text for the component. Use this prop to provide custom accessibility information for the component. |
 | `accessibilityExpanded` | `accessibility-expanded` | public  | `boolean \| undefined`  |         | This will be forwarded to the sbb-card component as aria-expanded.                                                                                                                            |
 | `active`                | `active`                 | public  | `boolean \| undefined`  |         | When this prop is true the sbb-card will be in the active state.                                                                                                                              |
-

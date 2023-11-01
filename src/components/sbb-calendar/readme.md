@@ -62,7 +62,6 @@ This is helpful if you need a specific state of the component.
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name           | Attribute       | Privacy | Type                              | Default | Description                                                                                                     |
@@ -78,4 +77,3 @@ This is helpful if you need a specific state of the component.
 | Name            | Privacy | Description                                                         | Parameters | Return | Inherited From |
 | --------------- | ------- | ------------------------------------------------------------------- | ---------- | ------ | -------------- |
 | `resetPosition` | public  | Resets the active month according to the new state of the calendar. |            | `void` |                |
-

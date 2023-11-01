@@ -27,7 +27,6 @@ Avoid slotting block elements (e.g. `div`) as this violates semantic rules and c
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name          | Attribute      | Privacy | Type                                                 | Default | Description                                                       |
@@ -36,8 +35,8 @@ Avoid slotting block elements (e.g. `div`) as this violates semantic rules and c
 | `rel`         | `rel`          | public  | `string \| undefined \| undefined`                   |         | The relationship of the linked URL as space-separated link types. |
 | `target`      | `target`       | public  | `LinkTargetType \| string \| undefined \| undefined` |         | Where to display the linked URL.                                  |
 | `linkContent` | `link-content` | public  | `string \| undefined`                                |         | Panel link text.                                                  |
-| `imageSrc`    | `image-src`    | public  | `string \| undefined`                                |         | Image src will be passed to `sbb-image`.                        |
-| `imageAlt`    | `image-alt`    | public  | `string \| undefined`                                |         | Image alt text will be passed to `sbb-image`.                   |
+| `imageSrc`    | `image-src`    | public  | `string \| undefined`                                |         | Image src will be passed to `sbb-image`.                          |
+| `imageAlt`    | `image-alt`    | public  | `string \| undefined`                                |         | Image alt text will be passed to `sbb-image`.                     |
 
 ## Slots
 
@@ -45,5 +44,4 @@ Avoid slotting block elements (e.g. `div`) as this violates semantic rules and c
 | -------------- | ----------------------------------------------------- |
 |                | Use the unnamed slot to add text content to the panel |
 | `link-content` | Link content of the panel                             |
-| `image`        | The background image that can be a `sbb-image`      |
-
+| `image`        | The background image that can be a `sbb-image`        |

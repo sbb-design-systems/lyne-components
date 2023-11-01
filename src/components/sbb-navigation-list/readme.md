@@ -12,7 +12,6 @@ Optionally, a label can be provided via slot via the self-named property or the 
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name    | Attribute | Privacy | Type                  | Default | Description |
@@ -25,4 +24,3 @@ Optionally, a label can be provided via slot via the self-named property or the 
 | ------- | --------------------------------------------------------------- |
 | `label` | Use this to provide a label element.                            |
 |         | Use the unnamed slot to add content to this sbb-navigation-list |
-

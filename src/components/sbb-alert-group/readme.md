@@ -41,7 +41,6 @@ and therefore interrupts screen reader flow, to immediately read out the alert c
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name                      | Attribute                   | Privacy | Type                            | Default    | Description                                                                                                                                                                                           |
@@ -54,6 +53,5 @@ and therefore interrupts screen reader flow, to immediately read out the alert c
 
 | Name                  | Description                                                                   |
 | --------------------- | ----------------------------------------------------------------------------- |
-|                       | Use the unnamed slot to add `sbb-alert` elements to this alert group.       |
+|                       | Use the unnamed slot to add `sbb-alert` elements to this alert group.         |
 | `accessibility-title` | title for this sbb-alert-group which is only visible for screen reader users. |
-

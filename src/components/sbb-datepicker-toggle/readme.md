@@ -31,7 +31,6 @@ otherwise, they can be connected using the `datePicker` property as described ab
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name               | Attribute           | Privacy | Type                                   | Default | Description                        |
@@ -45,4 +44,3 @@ otherwise, they can be connected using the `datePicker` property as described ab
 | Name   | Privacy | Description         | Parameters | Return | Inherited From |
 | ------ | ------- | ------------------- | ---------- | ------ | -------------- |
 | `open` | public  | Opens the calendar. |            | `void` |                |
-

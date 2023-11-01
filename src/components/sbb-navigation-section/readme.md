@@ -24,7 +24,6 @@ Similarly, if a navigation action is marked to indicate a selected option (e.g.,
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name                     | Attribute                  | Privacy | Type                         | Default | Description                                                                                                            |
@@ -47,4 +46,3 @@ Similarly, if a navigation action is marked to indicate a selected option (e.g.,
 | Name | Description                                                      |
 | ---- | ---------------------------------------------------------------- |
 |      | Use the unnamed slot to add content into the navigation section. |
-

@@ -31,7 +31,6 @@ The component has a `disabled` property which sets all the `sbb-option` in the g
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name       | Attribute  | Privacy | Type      | Default | Description                    |
@@ -41,7 +40,6 @@ The component has a `disabled` property which sets all the `sbb-option` in the g
 
 ## Slots
 
-| Name | Description                                                           |
-| ---- | --------------------------------------------------------------------- |
+| Name | Description                                                         |
+| ---- | ------------------------------------------------------------------- |
 |      | Use the unnamed slot to add `sbb-option` elements to this optgroup. |
-

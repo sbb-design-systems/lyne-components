@@ -69,7 +69,6 @@ associate the tooltip trigger with the tooltip via `aria-describedby` and an `id
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name       | Attribute   | Privacy | Type                  | Default                      | Description                                                                                                                               |
@@ -84,4 +83,3 @@ associate the tooltip trigger with the tooltip via `aria-describedby` and an `id
 | Name | Description                                                 |
 | ---- | ----------------------------------------------------------- |
 |      | Use the unnamed slot to add content to the tooltip trigger. |
-

@@ -62,7 +62,6 @@ to identify which actions are active and which are not.
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name                     | Attribute                  | Privacy | Type                    | Default | Description                                                                                                                           |
@@ -80,7 +79,6 @@ to identify which actions are active and which are not.
 
 ## Slots
 
-| Name | Description                                                                    |
-| ---- | ------------------------------------------------------------------------------ |
+| Name | Description                                                                  |
+| ---- | ---------------------------------------------------------------------------- |
 |      | Use the unnamed slot to add `sbb-menu-action` or other elements to the menu. |
-

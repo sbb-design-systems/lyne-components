@@ -44,7 +44,6 @@ The following one will be read as (locale: ENG): `Connection from Point A to Poi
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name          | Attribute     | Privacy | Type                             | Default | Description                                                                       |
@@ -55,4 +54,3 @@ The following one will be read as (locale: ENG): `Connection from Point A to Poi
 | `level`       | `level`       | public  | `TitleLevel \| undefined`        | `'3'`   | Heading level of the journey header element (e.g. h1-h6).                         |
 | `negative`    | `negative`    | public  | `boolean`                        | `false` | Negative coloring variant flag.                                                   |
 | `size`        | `size`        | public  | `JourneyHeaderSize \| undefined` | `'m'`   | Journey header size.                                                              |
-

@@ -3,10 +3,8 @@ here to show the various configuration options to component developers. !!
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name     | Attribute | Privacy | Type     | Default | Description |
 | -------- | --------- | ------- | -------- | ------- | ----------- |
 | `config` | `config`  | public  | `string` |         |             |
-

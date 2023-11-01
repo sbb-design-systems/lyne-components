@@ -102,7 +102,6 @@ This is helpful if you need a specific state of the component.
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name         | Attribute     | Privacy | Type                                                | Default | Description                                                       |
@@ -119,4 +118,3 @@ This is helpful if you need a specific state of the component.
 | ---------------- | ------- | ----------------------------------------------------- | ------------------- | ------ | -------------- |
 | `getValueAsDate` | public  | Gets the input value with the correct date format.    |                     | `Date` |                |
 | `setValueAsDate` | public  | Set the input value to the correctly formatted value. | `date: SbbDateLike` | `void` |                |
-

@@ -51,7 +51,6 @@ you can not provide it and then use `aria-label` to specify an appropriate label
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name            | Attribute        | Privacy | Type                               | Default        | Description                                                    |
@@ -67,8 +66,7 @@ you can not provide it and then use `aria-label` to specify an appropriate label
 
 ## Slots
 
-| Name   | Description                                                                         |
-| ------ | ----------------------------------------------------------------------------------- |
-|        | Use the unnamed slot to add content to the toggle label.                            |
+| Name   | Description                                                                       |
+| ------ | --------------------------------------------------------------------------------- |
+|        | Use the unnamed slot to add content to the toggle label.                          |
 | `icon` | Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used. |
-

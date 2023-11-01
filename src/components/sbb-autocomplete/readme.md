@@ -98,16 +98,15 @@ using `aria-activedescendant` to support navigation though the autocomplete opti
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
-| Name                | Attribute             | Privacy | Type                         | Default | Description                                                                                                                                                                                                                                                                                                                 |
-| ------------------- | --------------------- | ------- | ---------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `origin`            | `origin`              | public  | `string \| HTMLElement`      |         | The element where the autocomplete will attach; accepts both an element's id or an HTMLElement.&#xA;If not set, will search for the first 'sbb-form-field' ancestor.                                                                                                                                                        |
+| Name                | Attribute             | Privacy | Type                         | Default | Description                                                                                                                                                                                                                                                                                                               |
+| ------------------- | --------------------- | ------- | ---------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `origin`            | `origin`              | public  | `string \| HTMLElement`      |         | The element where the autocomplete will attach; accepts both an element's id or an HTMLElement.&#xA;If not set, will search for the first 'sbb-form-field' ancestor.                                                                                                                                                      |
 | `trigger`           | `trigger`             | public  | `string \| HTMLInputElement` |         | The input element that will trigger the autocomplete opening; accepts both an element's id or an HTMLElement.&#xA;By default, the autocomplete will open on focus, click, input or `ArrowDown` keypress of the 'trigger' element.&#xA;If not set, will search for the first 'input' child of a 'sbb-form-field' ancestor. |
-| `disableAnimation`  | `disable-animation`   | public  | `boolean`                    | `false` | Whether the animation is disabled.                                                                                                                                                                                                                                                                                          |
-| `preserveIconSpace` | `preserve-icon-space` | public  | `boolean`                    |         | Whether the icon space is preserved when no icon is set.                                                                                                                                                                                                                                                                    |
-| `negative`          | `negative`            | public  | `boolean`                    | `false` | Negative coloring variant flag.                                                                                                                                                                                                                                                                                             |
+| `disableAnimation`  | `disable-animation`   | public  | `boolean`                    | `false` | Whether the animation is disabled.                                                                                                                                                                                                                                                                                        |
+| `preserveIconSpace` | `preserve-icon-space` | public  | `boolean`                    |         | Whether the icon space is preserved when no icon is set.                                                                                                                                                                                                                                                                  |
+| `negative`          | `negative`            | public  | `boolean`                    | `false` | Negative coloring variant flag.                                                                                                                                                                                                                                                                                           |
 
 ## Methods
 
@@ -118,7 +117,6 @@ using `aria-activedescendant` to support navigation though the autocomplete opti
 
 ## Slots
 
-| Name | Description                                                                                  |
-| ---- | -------------------------------------------------------------------------------------------- |
+| Name | Description                                                                              |
+| ---- | ---------------------------------------------------------------------------------------- |
 |      | Use the unnamed slot to add `sbb-option` or `sbb-optgroup` elements to this alert group. |
-

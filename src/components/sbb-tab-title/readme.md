@@ -39,7 +39,6 @@ It is possible to display the component in `disabled` state by using the self-na
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name       | Attribute   | Privacy | Type                      | Default | Description                                                                                                                                                       |
@@ -52,9 +51,8 @@ It is possible to display the component in `disabled` state by using the self-na
 
 ## Slots
 
-| Name     | Description                                                                                         |
-| -------- | --------------------------------------------------------------------------------------------------- |
-|          | Use the unnamed slot to add content to the tab title.                                               |
+| Name     | Description                                                                                       |
+| -------- | ------------------------------------------------------------------------------------------------- |
+|          | Use the unnamed slot to add content to the tab title.                                             |
 | `icon`   | Use this slot to display an icon to the left of the title, by providing the `sbb-icon` component. |
-| `amount` | Provide a number to show an amount to the right of the title.                                       |
-
+| `amount` | Provide a number to show an amount to the right of the title.                                     |

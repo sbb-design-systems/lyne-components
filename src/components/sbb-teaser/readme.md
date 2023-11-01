@@ -24,7 +24,6 @@ Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name         | Attribute     | Privacy | Type                                                 | Default | Description                                                                                                                           |
@@ -42,4 +41,3 @@ Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and
 | `image`       | Slot used to render the image       |
 | `title`       | Slot used to render the title       |
 | `description` | Slot used to render the description |
-

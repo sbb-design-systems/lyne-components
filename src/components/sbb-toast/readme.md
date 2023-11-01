@@ -101,7 +101,6 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name               | Attribute           | Privacy | Type                               | Default           | Description                                                                                                                                              |
@@ -125,4 +124,3 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 | Name | Description                                       |
 | ---- | ------------------------------------------------- |
 |      | Use the unnamed slot to add content to the toast. |
-

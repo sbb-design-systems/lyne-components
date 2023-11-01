@@ -52,7 +52,6 @@ The title will not be displayed in the horizontal orientation.
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name             | Attribute         | Privacy | Type                             | Default      | Description                                                                                                                                             |
@@ -63,4 +62,3 @@ The title will not be displayed in the horizontal orientation.
 | `negative`       | `negative`        | public  | `boolean`                        |              | Whether to render the link list and nested sbb-link instances as negative. This will overwrite&#xA;the negative attribute of nested sbb-link instances. |
 | `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| undefined` |              | Selected breakpoint from which the list is rendered horizontally.                                                                                       |
 | `orientation`    | `orientation`     | public  | `SbbOrientation`                 | `'vertical'` | The orientation in which the list will be shown vertical or horizontal.                                                                                 |
-

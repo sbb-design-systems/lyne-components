@@ -27,7 +27,6 @@ It should refer to the section where the locomotive is placed.
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name                  | Attribute               | Privacy | Type                  | Default  | Description                                                                                  |
@@ -43,4 +42,3 @@ It should refer to the section where the locomotive is placed.
 | Name | Description                                                           |
 | ---- | --------------------------------------------------------------------- |
 |      | Use the unnamed slot to add 'sbb-train-wagon' elements to this train. |
-

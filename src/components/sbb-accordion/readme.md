@@ -43,7 +43,6 @@ In the following example, all the `sbb-expansion-panel-header` would be wrapped 
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name               | Attribute           | Privacy | Type                 | Default | Description                                                                 |
@@ -54,7 +53,6 @@ In the following example, all the `sbb-expansion-panel-header` would be wrapped 
 
 ## Slots
 
-| Name | Description                                                   |
-| ---- | ------------------------------------------------------------- |
+| Name | Description                                                 |
+| ---- | ----------------------------------------------------------- |
 |      | Use the unnamed slot to add `sbb-expansion-panel` elements. |
-

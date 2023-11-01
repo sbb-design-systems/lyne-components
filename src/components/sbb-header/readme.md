@@ -103,7 +103,6 @@ so they were wrapped into a `style` tag and added to the Storybook's configurati
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name           | Attribute        | Privacy | Type                                | Default | Description                                                                                                              |
@@ -118,4 +117,3 @@ so they were wrapped into a `style` tag and added to the Storybook's configurati
 | ------ | --------------------------------------------------------------------- |
 |        | Use the unnamed slot to add actions or content to the header.         |
 | `logo` | Slot used to render the logo on the right side (sbb-logo as default). |
-

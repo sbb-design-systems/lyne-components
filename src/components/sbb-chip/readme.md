@@ -19,7 +19,6 @@ and four different values for the `color` property (`charcoal`, `granite`, `whit
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name    | Attribute | Privacy | Type                                           | Default  | Description        |
@@ -32,4 +31,3 @@ and four different values for the `color` property (`charcoal`, `granite`, `whit
 | Name | Description                                      |
 | ---- | ------------------------------------------------ |
 |      | Use the unnamed slot to add content to the chip. |
-

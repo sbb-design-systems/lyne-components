@@ -37,7 +37,6 @@ you can set the css variable `--sbb-menu-action-outer-horizontal-padding` to you
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
 | Name       | Attribute   | Privacy | Type                                                 | Default | Description                                                                                                                       |
@@ -52,12 +51,11 @@ you can set the css variable `--sbb-menu-action-outer-horizontal-padding` to you
 | `disabled` | `disabled`  | public  | `boolean`                                            | `false` | Whether the button is disabled.                                                                                                   |
 | `name`     | `name`      | public  | `string \| undefined`                                |         | The name attribute to use for the button.                                                                                         |
 | `value`    | `value`     | public  | `string \| undefined`                                |         | The value attribute to use for the button.                                                                                        |
-| `form`     | `form`      | public  | `string \| undefined`                                |         | The \<form> element to associate the button with.                                                                                 |
+| `form`     | `form`      | public  | `string \| undefined`                                |         | The <form> element to associate the button with.                                                                                  |
 
 ## Slots
 
-| Name   | Description                                                                         |
-| ------ | ----------------------------------------------------------------------------------- |
-|        | Use the unnamed slot to add content to the menu action.                             |
+| Name   | Description                                                                       |
+| ------ | --------------------------------------------------------------------------------- |
+|        | Use the unnamed slot to add content to the menu action.                           |
 | `icon` | Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used. |
-
