@@ -6,6 +6,7 @@ import {
 } from '../../global/eventing';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { spread } from '@open-wc/lit-helpers';
 import { SbbLink } from '../sbb-link';
 import style from './sbb-skiplink-list.scss?lit&inline';
@@ -84,7 +85,7 @@ export class SbbSkiplinkList extends LitElement {
         ${this._namedSlots.title || this.titleContent
           ? html`<sbb-title
               class="sbb-link-list-title"
-              level=${this.titleLevel}
+              level=${ifDefined(this.titleLevel)}
               visual-level="5"
               visually-hidden
               negative
