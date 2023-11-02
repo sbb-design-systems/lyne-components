@@ -59,7 +59,7 @@
 }
 
 :host(:is([data-resize-disable-animation], [disable-animation]:not([disable-animation='false']))) {
-  --sbb-notification-animation-duration: 0.01ms;
+  --sbb-notification-animation-duration: 0.1ms;
 }
 
 /* Types */

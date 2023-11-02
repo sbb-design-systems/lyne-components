@@ -75,7 +75,7 @@
 }
 
 :host([disable-animation]:not([disable-animation='false'])) {
-  --sbb-dialog-animation-duration: 0.01ms;
+  --sbb-dialog-animation-duration: 0.1ms;
 }
 
 :host([data-fullscreen]:not([negative]:not([negative='false']))) {

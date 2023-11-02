@@ -195,7 +195,7 @@ describe('NativeDateAdapter', () => {
       `${dateNumAsStr.getDate()}.${dateNumAsStr.getMonth() + 1}.${dateNumAsStr.getFullYear()}`,
     ).to.be.equal('1.1.2000');
 
-    const dateString: Date = nativeDateAdapter.deserializeDate('2024-1-1');
+    const dateString: Date = nativeDateAdapter.deserializeDate('2024-01-01');
     expect(dateString instanceof Date).to.be.equal(true);
     expect(
       `${dateString.getDate()}.${dateString.getMonth() + 1}.${dateString.getFullYear()}`,

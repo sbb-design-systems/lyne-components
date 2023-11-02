@@ -30,7 +30,7 @@
 }
 
 :host([disable-animation]:not([disable-animation='false'])) {
-  --sbb-tooltip-animation-duration: 0.01ms;
+  --sbb-tooltip-animation-duration: 0.1ms;
 }
 
 :host([data-position='above']) {
