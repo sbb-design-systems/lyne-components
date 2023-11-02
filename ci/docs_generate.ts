@@ -122,13 +122,13 @@ function updateComponentReadme(name: string, tag: string, docs: string): void {
   updateFieldsTable(newDocs, sections);
   newDocs = new MagicString(newDocs.toString());
 
-  // Unescape ` in docs
+  // Unescape `
   newDocs.replace(/\\`/g, '`');
 
   // Unescape tag openings
   newDocs.replace(/\\</g, '<');
 
-  // Unescape :
+  // Unescape : (Fixes URL)
   newDocs.replace(/\\:/g, ':');
 
   // Replace &#xA; with new line
