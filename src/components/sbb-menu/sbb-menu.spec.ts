@@ -32,11 +32,10 @@ describe('sbb-menu', () => {
         <sbb-menu-action amount="2" icon="swisspass-small">
           Details
         </sbb-menu-action>
-        <sbb-divider>
-          <sbb-menu-action icon="cross-small">
-            Cancel
-          </sbb-menu-action>
-        </sbb-divider>
+        <sbb-divider></sbb-divider>
+        <sbb-menu-action icon="cross-small">
+          Cancel
+        </sbb-menu-action>
       </sbb-menu>
     `,
     );

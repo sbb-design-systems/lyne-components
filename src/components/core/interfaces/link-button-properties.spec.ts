@@ -18,9 +18,9 @@ describe('getLinkAttributeList', () => {
       role: 'presentation',
       tabIndex: '-1',
     };
-    expect(resolveRenderVariables(linkProperties as LinkButtonProperties).attributes).to.be.equal(
-      expectedObj,
-    );
+    expect(
+      resolveRenderVariables(linkProperties as LinkButtonProperties).attributes,
+    ).to.be.deep.equal(expectedObj);
   });
 
   it('should return attributes for link with target _blank', () => {
@@ -35,9 +35,9 @@ describe('getLinkAttributeList', () => {
       role: 'presentation',
       tabIndex: '-1',
     };
-    expect(resolveRenderVariables(linkProperties as LinkButtonProperties).attributes).to.be.equal(
-      expectedObj,
-    );
+    expect(
+      resolveRenderVariables(linkProperties as LinkButtonProperties).attributes,
+    ).to.be.deep.equal(expectedObj);
   });
 
   it('should return attributes for link with label, target _blank and custom rel', () => {
@@ -53,9 +53,9 @@ describe('getLinkAttributeList', () => {
       role: 'presentation',
       tabIndex: '-1',
     };
-    expect(resolveRenderVariables(linkProperties as LinkButtonProperties).attributes).to.be.equal(
-      expectedObj,
-    );
+    expect(
+      resolveRenderVariables(linkProperties as LinkButtonProperties).attributes,
+    ).to.be.deep.equal(expectedObj);
   });
 
   it('should return attributes for link with a custom target', () => {
@@ -70,9 +70,9 @@ describe('getLinkAttributeList', () => {
       tabIndex: '-1',
     };
 
-    expect(resolveRenderVariables(linkProperties as LinkButtonProperties).attributes).to.be.equal(
-      expectedObj,
-    );
+    expect(
+      resolveRenderVariables(linkProperties as LinkButtonProperties).attributes,
+    ).to.be.deep.equal(expectedObj);
   });
 
   it('should return attributes for disabled link', () => {
@@ -88,7 +88,7 @@ describe('getLinkAttributeList', () => {
       role: 'presentation',
     };
 
-    expect(resolveRenderVariables(linkProperties).attributes).to.be.equal(expectedObj);
+    expect(resolveRenderVariables(linkProperties).attributes).to.be.deep.equal(expectedObj);
   });
 });
 
@@ -115,9 +115,10 @@ describe('getLinkRenderVariables', () => {
         'aria-disabled': 'true',
         role: 'link',
         dir: 'ltr',
+        tabIndex: null,
       },
     };
-    expect(resolveRenderVariables(linkButtonProperties)).to.be.equal(expectedObj);
+    expect(resolveRenderVariables(linkButtonProperties)).to.be.deep.equal(expectedObj);
   });
 });
 
@@ -132,13 +133,14 @@ describe('getButtonRenderVariables', () => {
       tagName: 'span',
       attributes: {},
       hostAttributes: {
+        'aria-disabled': null,
         role: 'button',
         tabIndex: '0',
         dir: 'ltr',
       },
     };
 
-    expect(resolveRenderVariables(buttonProperties as LinkButtonProperties)).to.be.equal(
+    expect(resolveRenderVariables(buttonProperties as LinkButtonProperties)).to.be.deep.equal(
       expectedObj,
     );
   });
@@ -178,7 +180,7 @@ describe('resolveRenderVariables', () => {
 
     expect(
       resolveRenderVariables({ isStatic: true, href: null, name: null, type: null }),
-    ).to.be.equal(expectedObj);
+    ).to.be.deep.equal(expectedObj);
   });
 });
 

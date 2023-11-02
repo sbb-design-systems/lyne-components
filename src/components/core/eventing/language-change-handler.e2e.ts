@@ -1,9 +1,15 @@
-import { documentLanguage } from './language-change-handler';
+import { documentLanguage, sbbLanguageChangeEventName } from './language-change-handler';
 import { EventSpy } from '../testing';
-import { expect, fixture } from '@open-wc/testing';
+import { expect, fixture, nextFrame } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
+import '../../components/sbb-button';
+
 describe('language', () => {
+  beforeEach(() => {
+    document.documentElement.removeAttribute('lang');
+  });
+
   it('should detect language of html tag', async () => {
     document.documentElement.setAttribute('lang', 'de');
     expect(documentLanguage()).to.be.equal('de');
@@ -27,9 +33,10 @@ describe('language', () => {
   it('should react to language change', async () => {
     // Use component which uses language
     await fixture(html`<sbb-button></sbb-button>`);
-    const changeSpy = new EventSpy<CustomEvent>('sbbLanguageChange', document);
+    const changeSpy = new EventSpy<CustomEvent>(sbbLanguageChangeEventName);
 
     document.documentElement.setAttribute('lang', 'fr');
+    await nextFrame();
 
     expect(document.documentElement.lang).to.be.equal('fr');
     expect(changeSpy.firstEvent.detail).to.be.equal('fr');
@@ -38,9 +45,14 @@ describe('language', () => {
   it('should not react to language change if language was not changed', async () => {
     // Use component which uses language
     await fixture(html`<sbb-button></sbb-button>`);
-    const changeSpy = new EventSpy<CustomEvent>('sbbLanguageChange', document);
 
     document.documentElement.setAttribute('lang', 'fr');
+    await nextFrame();
+
+    const changeSpy = new EventSpy<CustomEvent>(sbbLanguageChangeEventName);
+
+    document.documentElement.setAttribute('lang', 'fr');
+    await nextFrame();
 
     expect(document.documentElement.lang).to.be.equal('fr');
     expect(changeSpy.count).to.be.equal(0);
