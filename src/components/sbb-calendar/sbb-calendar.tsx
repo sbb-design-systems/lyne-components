@@ -1,4 +1,4 @@
-import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../../global/a11y';
+import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../core/a11y';
 import {
   DateAdapter,
   DAYS_PER_ROW,
@@ -6,14 +6,14 @@ import {
   NativeDateAdapter,
   YEARS_PER_PAGE,
   YEARS_PER_ROW,
-} from '../../global/datetime';
-import { isBreakpoint, toggleDatasetEntry } from '../../global/dom';
+} from '../core/datetime';
+import { isBreakpoint, toggleDatasetEntry } from '../core/dom';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
   EventEmitter,
-} from '../../global/eventing';
+} from '../core/eventing';
 import {
   i18nCalendarDateSelection,
   i18nNextMonth,
@@ -23,12 +23,12 @@ import {
   i18nPreviousYear,
   i18nPreviousYearRange,
   i18nYearMonthSelection,
-} from '../../global/i18n';
-import { setAttribute } from '../../global/dom';
+} from '../core/i18n';
+import { setAttribute } from '../core/dom';
 import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { SbbDateLike } from '../../global/types';
+import { SbbDateLike } from '../core/interfaces';
 import style from './sbb-calendar.scss?lit&inline';
 import '../sbb-button';
 import '../sbb-icon';

@@ -1,16 +1,12 @@
-import { Leg } from '../../global/timetable';
+import { Leg } from '../core/timetable';
 import { isValid, format } from 'date-fns';
-import { i18nTripDuration } from '../../global/i18n';
+import { i18nTripDuration } from '../core/i18n';
 import {
   durationToTime,
   NativeDateAdapter,
   removeTimezoneFromISOTimeString,
-} from '../../global/datetime';
-import {
-  documentLanguage,
-  HandlerRepository,
-  languageChangeHandlerAspect,
-} from '../../global/eventing';
+} from '../core/datetime';
+import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { TitleLevel } from '../sbb-title';

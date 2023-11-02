@@ -1,7 +1,7 @@
 import { assert, expect, fixture, nextFrame } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../global/testing';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
 import '../sbb-toggle-option';
 import { SbbToggleOption } from '../sbb-toggle-option';
 import './sbb-toggle';
@@ -48,7 +48,7 @@ describe('sbb-toggle', () => {
       );
       const secondOption = document.querySelector(
         'sbb-toggle > sbb-toggle-option#sbb-toggle-option-2',
-      );
+      )!;
 
       expect(firstOption).to.have.attribute('checked');
 

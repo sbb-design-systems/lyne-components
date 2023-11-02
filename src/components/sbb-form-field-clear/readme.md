@@ -1,4 +1,4 @@
-The `sbb-form-field-clear` component can be used with the [sbb-form-field](/docs/components-sbb-form-field-sbb-form-field--docs) component 
+The `sbb-form-field-clear` component can be used with the [sbb-form-field](/docs/components-sbb-form-field-sbb-form-field--docs) component
 to provide the possibility to display a clear button which can clear the input value.
 
 ```html
@@ -10,10 +10,9 @@ to provide the possibility to display a clear button which can clear the input v
 
 **Note:** it currently works with simple inputs and does not support, for example, `select` inputs.
 
+<!-- Auto Generated Below -->
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+## Properties
 
 | Name       | Attribute  | Privacy | Type      | Default | Description                     |
 | ---------- | ---------- | ------- | --------- | ------- | ------------------------------- |

@@ -2,7 +2,7 @@ import { getDepartureArrivalTimeAttribute } from './access-leg-helper';
 import {
   defaultTrip,
   extendedEnterTimeTrip,
-} from '../../components/sbb-timetable-row/sbb-timetable-row.sample-data';
+} from '../../sbb-timetable-row/sbb-timetable-row.sample-data';
 import { Leg } from './timetable-properties';
 
 describe('getDepartureArrivalTimeAttribute', () => {

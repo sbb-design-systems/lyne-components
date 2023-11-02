@@ -1,8 +1,8 @@
-import { Notice } from '../../global/timetable';
-import { extractTimeAndStringFromNoticeText } from './sbb-pearl-chain-time.helper';
 import { expect } from '@open-wc/testing';
+import { extractTimeAndStringFromNoticeText } from './timetable-helper';
+import { Notice } from './timetable-properties';
 
-describe('extractTimeAndStringFromNoticeText', () => {
+describe('timetable-helper', () => {
   it('should return duration and text from notice', () => {
     const notice = {
       text: {

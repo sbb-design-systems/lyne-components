@@ -1,9 +1,5 @@
-import { i18nDurationHour, i18nDurationMinute } from '../../global/i18n';
-import {
-  documentLanguage,
-  HandlerRepository,
-  languageChangeHandlerAspect,
-} from '../../global/eventing';
+import { i18nDurationHour, i18nDurationMinute } from '../core/i18n';
+import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import style from './sbb-timetable-duration.scss?lit&inline';

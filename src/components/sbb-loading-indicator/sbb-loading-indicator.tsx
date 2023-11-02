@@ -1,6 +1,6 @@
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { setAttribute } from '../../global/dom';
+import { setAttribute } from '../core/dom';
 import style from './sbb-loading-indicator.scss?lit&inline';
 
 @customElement('sbb-loading-indicator')

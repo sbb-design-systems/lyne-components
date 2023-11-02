@@ -1,5 +1,5 @@
-The `sbb-toggle-option` component is used inside the 
-[sbb-toggle](/docs/components-sbb-toggle-sbb-toggle--docs) in order to render the toggle's options. 
+The `sbb-toggle-option` component is used inside the
+[sbb-toggle](/docs/components-sbb-toggle-sbb-toggle--docs) in order to render the toggle's options.
 
 ```html
 <sbb-toggle-option value="Value">Option</sbb-toggle-option>
@@ -27,9 +27,9 @@ The component can be displayed in `checked` or `disabled` states using the self-
 <sbb-toggle-option value="Value" disabled>Option</sbb-toggle-option>
 ```
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name       | Attribute   | Privacy | Type                  | Default | Description                            |
 | ---------- | ----------- | ------- | --------------------- | ------- | -------------------------------------- |

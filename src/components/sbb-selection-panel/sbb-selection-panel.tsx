@@ -4,12 +4,12 @@ import {
   namedSlotChangeHandlerAspect,
   EventEmitter,
   ConnectedAbortController,
-} from '../../global/eventing';
+} from '../core/eventing';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { type SbbCheckbox, SbbCheckboxStateChange } from '../sbb-checkbox';
 import { type SbbRadioButton, SbbRadioButtonStateChange } from '../sbb-radio-button';
-import { setAttribute } from '../../global/dom';
+import { setAttribute } from '../core/dom';
 import { ref } from 'lit/directives/ref.js';
 import style from './sbb-selection-panel.scss?lit&inline';
 import '../sbb-divider';

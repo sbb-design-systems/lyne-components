@@ -1,12 +1,12 @@
-The `sbb-select` is a component which provides a list of selectable options in an overlay panel, 
-emulating the behaviour of a native `<select>`. 
+The `sbb-select` is a component which provides a list of selectable options in an overlay panel,
+emulating the behaviour of a native `<select>`.
 
 ## In `sbb-form-field`
 
-If the component is used within a `sbb-form-field`, it will automatically display the option panel above or below it; 
-otherwise, the panel takes the component's parent element as origin. 
+If the component is used within a `sbb-form-field`, it will automatically display the option panel above or below it;
+otherwise, the panel takes the component's parent element as origin.
 Options or groups of options (see [sbb-option](/docs/components-sbb-option-sbb-option--docs) /
-[sbb-option-group](/docs/components-sbb-option-sbb-option-group--docs) components) 
+[sbb-option-group](/docs/components-sbb-option-sbb-option-group--docs) components)
 can be provided via an unnamed slot.
 
 ```html
@@ -20,15 +20,15 @@ can be provided via an unnamed slot.
 ```
 
 The component has a `value` property, which can be a string or a string array (when `multiple` is set to true).
-If no `value` has been set, it is possible to display a placeholder using the `placeholder` property. 
+If no `value` has been set, it is possible to display a placeholder using the `placeholder` property.
 
-Also note that if the `value` is set on the `sbb-select`, it will override all the `selected` attributes on the internal `sbb-option`s, 
+Also note that if the `value` is set on the `sbb-select`, it will override all the `selected` attributes on the internal `sbb-option`s,
 so setting a default value should be done using the `value` attribute on the `sbb-select` and not by setting the
 `selected` attribute on the internal `sbb-option`s.
 
 ## States
 
-It is possible to display the component in `disabled` or `readonly` state by using the self-named properties. The component 
+It is possible to display the component in `disabled` or `readonly` state by using the self-named properties. The component
 has a `required` property, which can be useful for setting a custom `sbb-form-error` message within a `sbb-form-field`.
 
 ```html
@@ -44,8 +44,8 @@ has a `required` property, which can be useful for setting a custom `sbb-form-er
 
 ### Multiple
 
-If the `multiple` property is set to false, only one option can be selected: 
-in this case the placeholder will be replaced by the chosen value and a check mark will appear 
+If the `multiple` property is set to false, only one option can be selected:
+in this case the placeholder will be replaced by the chosen value and a check mark will appear
 on the right of the selected option in the panel.
 
 If the `multiple` attribute is set to true, a visual checkbox will appear on the left of any option in the panel, and
@@ -54,12 +54,12 @@ the selected values will be displayed in selection order, separated by a comma.
 ```html
 <sbb-form-field label="Cities">
   <sbb-select multiple>
-    <sbb-optgroup label='Switzerland'>
+    <sbb-optgroup label="Switzerland">
       <sbb-option value="Zurich">Zurich</sbb-option>
       <sbb-option value="Bern">Bern</sbb-option>
       <sbb-option value="Lugano">Lugano</sbb-option>
     </sbb-optgroup>
-    <sbb-optgroup label='Italy'>
+    <sbb-optgroup label="Italy">
       <sbb-option value="Rome">Rome</sbb-option>
       <sbb-option value="Milan">Milan</sbb-option>
     </sbb-optgroup>
@@ -70,7 +70,7 @@ the selected values will be displayed in selection order, separated by a comma.
 ## Events
 
 Consumers can listen to the native `change`/`input` event on the `sbb-select` component to intercept the selection's change;
-the current value can be read from `event.target.value`. 
+the current value can be read from `event.target.value`.
 Additionally `sbb-option` will emit `option-selected` when selected via user interaction.
 
 ## Keyboard interaction
@@ -78,7 +78,7 @@ Additionally `sbb-option` will emit `option-selected` when selected via user int
 Closed panel, `sbb-select` has focus:
 
 | Keyboard                                     | Action                                                                                                        |
-|----------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
 | <kbd>Down Arrow</kbd> or <kbd>Up Arrow</kbd> | If the `sbb-select` is neither `disabled` or `readonly`, opens the panel.                                     |
 | <kbd>Enter</kbd> or <kbd>Spacebar</kbd>      | If the `sbb-select` is neither `disabled` or `readonly`, opens the panel.                                     |
 | Any char or number                           | If exists, select the first non-disabled matching option after the selected value, without opening the panel. |
@@ -86,7 +86,7 @@ Closed panel, `sbb-select` has focus:
 Opened panel:
 
 | Keyboard                                | Action                                                                                                                                            |
-|-----------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | <kbd>Esc</kbd> or <kbd>Tab</kbd>        | Closes the panel.                                                                                                                                 |
 | <kbd>Down Arrow</kbd>                   | Select the next non-disabled option. If the bottom of the list has been reached, restart from the top. If `multiple`, move without selecting.     |
 | <kbd>Up Arrow</kbd>                     | Select the previous non-disabled option. If the top of the list has been reached, restart from the bottom. If `multiple`, move without selecting. |
@@ -97,10 +97,9 @@ Opened panel:
 | <kbd>Shift</kbd><kbd>Up Arrow</kbd>     | If `multiple`, moves to the next non-disabled option and toggle its selection.                                                                    |
 | Any char or number                      | If exists, select the first non-disabled matching option after the selected value.                                                                |
 
+<!-- Auto Generated Below -->
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+## Properties
 
 | Name               | Attribute           | Privacy | Type                 | Default | Description                                                              |
 | ------------------ | ------------------- | ------- | -------------------- | ------- | ------------------------------------------------------------------------ |

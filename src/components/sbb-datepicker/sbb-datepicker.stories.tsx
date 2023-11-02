@@ -6,8 +6,8 @@ import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-c
 import { StoryContext } from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import { Fragment, h, JSX } from 'jsx-dom';
-import { waitForComponentsReady } from '../../global/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../global/testing/wait-for-stable-position';
+import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
+import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
 import readme from './readme.md?raw';
 import { SbbDatepicker } from './sbb-datepicker';
 

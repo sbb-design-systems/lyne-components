@@ -1,6 +1,6 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { waitForLitRender } from '../../global/testing';
+import { waitForLitRender } from '../core/testing';
 import { SbbFormFieldClear } from './sbb-form-field-clear';
 import { SbbFormField } from '../sbb-form-field/sbb-form-field';
 

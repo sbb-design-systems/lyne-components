@@ -11,7 +11,9 @@ The icon can be placed before or after the label based on the value of the `icon
 
 <sbb-checkbox value="icon" icon-name="tickets-class-small">Icon</sbb-checkbox>
 
-<sbb-checkbox value="start-icon" icon-name="tickets-class-small" icon-placement="start">Icon at start</sbb-checkbox>
+<sbb-checkbox value="start-icon" icon-name="tickets-class-small" icon-placement="start"
+  >Icon at start</sbb-checkbox
+>
 ```
 
 ## States
@@ -23,7 +25,7 @@ The component could be checked or not depending on the value of the `checked` at
 ```
 
 It has a third state too, which is set if the `indeterminate` property is true.
-This is useful when multiple dependent checkboxes are used 
+This is useful when multiple dependent checkboxes are used
 (e.g., a parent which is checked only if all the children are checked, otherwise is in indeterminate state).
 Clicking on a `sbb-checkbox` in this state sets `checked` to `true` and `indeterminate` to false.
 
@@ -41,10 +43,10 @@ The component can be displayed in `disabled` or `required` state by using the se
 
 ## Style
 
-The component has two `size`, named `s` (default) and `m`. 
+The component has two `size`, named `s` (default) and `m`.
 
 ```html
-<sbb-checkbox value="size" size='m'>Size</sbb-checkbox>
+<sbb-checkbox value="size" size="m">Size</sbb-checkbox>
 ```
 
 ## Events
@@ -56,7 +58,7 @@ the current state can be read from `event.target.checked`, while the value from 
 
 The component uses an internal `<input type="checkbox"/>` element to provide an accessible experience.
 
-This internal checkbox receives focus and is automatically labeled by the text content of the `sbb-checkbox` element. 
+This internal checkbox receives focus and is automatically labeled by the text content of the `sbb-checkbox` element.
 Avoid adding other interactive controls into the content of `sbb-checkbox`, as this degrades the experience for users of assistive technology.
 
 Always provide an accessible label via `aria-label` for checkboxes without descriptive text content.
@@ -66,9 +68,9 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 <sbb-checkbox aria-label="Subscribed to email message" />
 ```
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name            | Attribute        | Privacy | Type                  | Default | Description                                                                                                                            |
 | --------------- | ---------------- | ------- | --------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------- |

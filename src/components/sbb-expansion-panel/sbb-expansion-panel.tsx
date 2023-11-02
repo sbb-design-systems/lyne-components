@@ -1,12 +1,12 @@
-import { toggleDatasetEntry } from '../../global/dom';
+import { toggleDatasetEntry } from '../core/dom';
 import { CSSResult, LitElement, TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property } from 'lit/decorators.js';
-import { EventEmitter, ConnectedAbortController } from '../../global/eventing';
+import { EventEmitter, ConnectedAbortController } from '../core/eventing';
 import { SbbExpansionPanelHeader } from '../sbb-expansion-panel-header';
 import { SbbExpansionPanelContent } from '../sbb-expansion-panel-content';
 import { TitleLevel } from '../sbb-title';
-import { SbbOverlayState } from '../../global/overlay';
+import { SbbOverlayState } from '../core/overlay';
 import style from './sbb-expansion-panel.scss?lit&inline';
 
 let nextId = 0;

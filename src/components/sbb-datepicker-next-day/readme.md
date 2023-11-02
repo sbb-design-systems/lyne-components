@@ -13,8 +13,8 @@ or directly its reference.
 
 ## In `sbb-form-field`
 
-If the two components are used within a [sbb-form-field](/docs/components-sbb-form-field-sbb-form-field--docs), 
-they are automatically linked and the `sbb-datepicker-next-day` will be projected in the `suffix` slot of the `sbb-form-field`; 
+If the two components are used within a [sbb-form-field](/docs/components-sbb-form-field-sbb-form-field--docs),
+they are automatically linked and the `sbb-datepicker-next-day` will be projected in the `suffix` slot of the `sbb-form-field`;
 otherwise, they can be connected using the `datePicker` property as described above.
 
 The `sbb-datepicker-next-day` has an internal disabled state, which is set looking at the `sbb-datepicker`'s input:
@@ -28,9 +28,9 @@ if it is disabled, or if the selected date is equal to the input's `max` attribu
 </sbb-form-field>
 ```
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name         | Attribute     | Privacy | Type                                   | Default | Description                               |
 | ------------ | ------------- | ------- | -------------------------------------- | ------- | ----------------------------------------- |

@@ -1,6 +1,6 @@
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { setAttribute } from '../../global/dom';
+import { setAttribute } from '../core/dom';
 import style from './sbb-expansion-panel-content.scss?lit&inline';
 
 /**

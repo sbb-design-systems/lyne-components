@@ -5,7 +5,7 @@ The `sbb-teaser` is a component which can display an image with a caption, and i
 The component displays the `image`, the `title` and the `description` in the self-named slots.
 
 ```html
-<sbb-teaser href='https://www.sbb.ch'>
+<sbb-teaser href="https://www.sbb.ch">
   <img slot="image" src="..." alt="400x300" />
   <span slot="title"> Title </span>
   <span slot="description"> A brief description. </span>
@@ -22,9 +22,9 @@ The description text is wrapped into an `<p>` element to guarantee the semantic 
 
 Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and can have negative effects on screen readers.
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name         | Attribute     | Privacy | Type                                                 | Default | Description                                                                                                                   |
 | ------------ | ------------- | ------- | ---------------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------- |

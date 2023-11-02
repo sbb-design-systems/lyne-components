@@ -1,11 +1,11 @@
-import { i18nSector, i18nSectorShort, i18nTrains } from '../../global/i18n';
+import { i18nSector, i18nSectorShort, i18nTrains } from '../core/i18n';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
   ConnectedAbortController,
-} from '../../global/eventing';
-import { AgnosticResizeObserver } from '../../global/observers';
+} from '../core/eventing';
+import { AgnosticResizeObserver } from '../core/observers';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { SbbTrain } from '../sbb-train';

@@ -1,6 +1,6 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
-import images from '../../global/images';
+import images from '../core/images';
 import readme from './readme.md?raw';
 import isChromatic from 'chromatic';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';

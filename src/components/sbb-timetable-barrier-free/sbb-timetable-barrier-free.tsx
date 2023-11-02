@@ -1,10 +1,6 @@
-import icons from '../../global/timetable/icons.json';
-import { i18nBarrierFreeTravel } from '../../global/i18n';
-import {
-  documentLanguage,
-  HandlerRepository,
-  languageChangeHandlerAspect,
-} from '../../global/eventing';
+import icons from '../core/timetable/icons.json';
+import { i18nBarrierFreeTravel } from '../core/i18n';
+import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import style from './sbb-timetable-barrier-free.scss?lit&inline';

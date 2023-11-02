@@ -1,4 +1,4 @@
-The `sbb-radio-button-group` is a component which can be used as a wrapper for 
+The `sbb-radio-button-group` is a component which can be used as a wrapper for
 a collection of [sbb-radio-button](/docs/components-sbb-radio-button-sbb-radio-button--docs)s,
 or, alternatively, for a collection of [sbb-selection-panel](/docs/components-sbb-selection-panel--docs)s.
 
@@ -37,13 +37,11 @@ The radio group can have different states:
 ```
 
 In order to deselect a `sbb-radio-button` inside the `sbb-radio-button-group`,
-you can use the `allowEmptySelection` property, which will be proxied to the inner `sbb-radio-button` 
+you can use the `allowEmptySelection` property, which will be proxied to the inner `sbb-radio-button`
 enabling their deselection (by default, a selected `sbb-radio-button` cannot be deselected).
 
 ```html
-<sbb-radio-button-group allow-empty-selection>
-  ...
-</sbb-radio-button-group>
+<sbb-radio-button-group allow-empty-selection> ... </sbb-radio-button-group>
 ```
 
 ## Style
@@ -60,16 +58,16 @@ indicate the minimum breakpoint from which the orientation changes to `horizonta
 
 ## Events
 
-Consumers can listen to the native `change`/`input` event on the `sbb-radio-button-group` component 
+Consumers can listen to the native `change`/`input` event on the `sbb-radio-button-group` component
 to intercept the selection's change; the current value can be read from `event.detail.value`.
 
 ## Accessibility
 
 In order to ensure readability for screen-readers, please provide an `aria-label` attribute for the `sbb-radio-button-group`.
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name                  | Attribute               | Privacy | Type                             | Default        | Description                                               |
 | --------------------- | ----------------------- | ------- | -------------------------------- | -------------- | --------------------------------------------------------- |

@@ -3,7 +3,7 @@ import {
   InterfaceImageAttributesSizesConfigBreakpoint,
 } from './sbb-image.helper';
 import imageHelperGetBreakpoints from './sbb-image.helper';
-import { hostContext } from '../../global/dom';
+import { hostContext } from '../core/dom';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';

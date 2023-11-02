@@ -1,17 +1,17 @@
-import { findInput, isValidAttribute, toggleDatasetEntry } from '../../global/dom';
+import { findInput, isValidAttribute, toggleDatasetEntry } from '../core/dom';
 import {
   documentLanguage,
   forwardEventToHost,
   HandlerRepository,
   languageChangeHandlerAspect,
   EventEmitter,
-} from '../../global/eventing';
-import { ValidationChangeEvent } from '../../global/interfaces';
-import { i18nTimeInputChange } from '../../global/i18n';
+} from '../core/eventing';
+import { ValidationChangeEvent } from '../core/interfaces';
+import { i18nTimeInputChange } from '../core/i18n';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
-import { SbbDateLike } from '../../global/types';
+import { SbbDateLike } from '../core/interfaces';
 import style from './sbb-time-input.scss?lit&inline';
 
 const REGEX_ALLOWED_CHARACTERS = /[0-9.:,\-;_hH]/;

@@ -1,4 +1,4 @@
-@use '../../global/styles' as sbb;
+@use '../core/styles' as sbb;
 
 :host {
   --transportation-number-element-height: #{sbb.px-to-rem-build(20)};

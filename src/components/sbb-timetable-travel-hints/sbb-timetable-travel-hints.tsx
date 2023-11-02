@@ -1,13 +1,9 @@
-import icons from '../../global/timetable/icons.json';
-import { i18nNone } from '../../global/i18n';
-import {
-  documentLanguage,
-  HandlerRepository,
-  languageChangeHandlerAspect,
-} from '../../global/eventing';
+import icons from '../core/timetable/icons.json';
+import { i18nNone } from '../core/i18n';
+import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { setAttribute } from '../../global/dom';
+import { setAttribute } from '../core/dom';
 import style from './sbb-timetable-travel-hints.scss?lit&inline';
 
 @customElement('sbb-timetable-travel-hints')

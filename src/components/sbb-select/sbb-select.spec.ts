@@ -2,7 +2,7 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import '../sbb-option';
 import './sbb-select';
-import { isSafari } from '../../global/dom';
+import { isSafari } from '../core/dom';
 
 describe('sbb-select', () => {
   it('renders', async () => {

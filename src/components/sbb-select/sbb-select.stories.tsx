@@ -4,9 +4,9 @@ import { SbbSelect } from './sbb-select';
 import { SbbOption } from '../sbb-option';
 import readme from './readme.md?raw';
 import { userEvent, within } from '@storybook/testing-library';
-import { waitForComponentsReady } from '../../global/testing/wait-for-components-ready';
+import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
 import isChromatic from 'chromatic/isChromatic';
-import { waitForStablePosition } from '../../global/testing/wait-for-stable-position';
+import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
 import type {
   Meta,
   StoryObj,

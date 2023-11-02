@@ -1,4 +1,4 @@
-The `sbb-loading-indicator` is a component which can be used to indicate progress status 
+The `sbb-loading-indicator` is a component which can be used to indicate progress status
 or an ongoing activity which require some time to complete.
 
 ### Variants
@@ -8,7 +8,7 @@ The component has two different variants.
 In `window` mode, the component completely covers the parent element, preventing interaction with it.
 
 ```html
-<sbb-loading-indicator variant="window"/>
+<sbb-loading-indicator variant="window" />
 ```
 
 While the `circle` mode can be used inline within another component (e.g. button);
@@ -26,24 +26,24 @@ in this case the component adjusts its size to the parent font size.
 In `window` mode it's possible to define the `size` of the component, choosing between `s` (default) and `l`.
 
 ```html
-<sbb-loading-indicator variant="window" size='l'/>
+<sbb-loading-indicator variant="window" size="l" />
 ```
 
 ## Accessibility
 
-If the `sbb-loading-indicator` should be announced by screen-readers, use an element with the correct aria attributes 
-(`aria-live` set to `polite` or `assertive`, and possibly `aria-atomic` and `aria-relevant`) 
+If the `sbb-loading-indicator` should be announced by screen-readers, use an element with the correct aria attributes
+(`aria-live` set to `polite` or `assertive`, and possibly `aria-atomic` and `aria-relevant`)
 and then append the `sbb-loading-indicator` on it after giving it the correct `aria-label`.
 
 ```html
 <div class="loader-container" aria-live="polite">
-  <sbb-loading-indicator variant="window" size='l' aria-label='Loading, please wait'/>
+  <sbb-loading-indicator variant="window" size="l" aria-label="Loading, please wait" />
 </div>
 ```
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name               | Attribute           | Privacy | Type                                | Default     | Description                                                                                       |
 | ------------------ | ------------------- | ------- | ----------------------------------- | ----------- | ------------------------------------------------------------------------------------------------- |

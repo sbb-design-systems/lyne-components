@@ -92,7 +92,7 @@ This has been implemented to the best of our know-how in the form of the
 This can be used as follows:
 
 ```ts
-import { actionElementHandlerAspect, HandlerRepository } from '../../global/eventing';
+import { actionElementHandlerAspect, HandlerRepository } from '../core/eventing';
 
 class ActionElement implements LinkButtonProperties {
   private _handlerRepository = new HandlerRepository(this._element, actionElementHandlerAspect);
@@ -461,7 +461,7 @@ Also define CSS variables in :host.
 // Variables are for example purposes only and do not actually exist.
 // For sizes you would usually use pre-defined sizes variables, which already
 // automatically scale with viewport size.
-@use '../../global/styles' as sbb;
+@use '../core/styles' as sbb;
 
 :host {
   --sbb-component-color: var(--sbb-color-standard);
@@ -488,7 +488,7 @@ Also define CSS variables in :host.
 #### Use/Check existing CSS variables and SCSS mixins/functions
 
 The `@sbb-esta/lyne-design-tokens` package provides global design tokens/CSS variables,
-which are used/configured in our code base (see `src/global/core/shared/variables.scss`).
+which are used/configured in our code base (see `src/components/core/styles/core/variables.scss`).
 
 Use these variables instead of the original ones and only define new variables for components.
 If a global variable is missing, create an issue or pull request in
@@ -596,7 +596,7 @@ you can write
 This is a low-effort task that makes a big difference for low-vision users. Example:
 
 ```scss
-@use '../../global/styles' as sbb;
+@use '../core/styles' as sbb;
 
 @include sbb.if-forced-colors {
   .unicorn-motorcycle {

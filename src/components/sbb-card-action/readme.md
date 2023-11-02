@@ -1,7 +1,9 @@
-The `sbb-card-action` is the component used to turn a `sbb-card` into an action. 
+The `sbb-card-action` is the component used to turn a `sbb-card` into an action.
 
 ```html
-<sbb-card-action href="https://www.sbb.ch">Check all the wonderful trips available.</sbb-card-action>
+<sbb-card-action href="https://www.sbb.ch"
+  >Check all the wonderful trips available.</sbb-card-action
+>
 ```
 
 ## Link / button properties
@@ -20,10 +22,9 @@ as it is used for search engines and screen-reader users.
 <sbb-card-action>Buy a half-fare ticket now</sbb-card-action>
 ```
 
+<!-- Auto Generated Below -->
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+## Properties
 
 | Name       | Attribute  | Privacy | Type                                                 | Default | Description                                                                     |
 | ---------- | ---------- | ------- | ---------------------------------------------------- | ------- | ------------------------------------------------------------------------------- |

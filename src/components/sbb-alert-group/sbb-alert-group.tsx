@@ -2,9 +2,9 @@ import { TitleLevel } from '../sbb-title';
 import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
-import { EventEmitter, ConnectedAbortController } from '../../global/eventing';
+import { EventEmitter, ConnectedAbortController } from '../core/eventing';
 import { SbbAlert } from '../sbb-alert';
-import { setAttribute } from '../../global/dom';
+import { setAttribute } from '../core/dom';
 import style from './sbb-alert-group.scss?lit&inline';
 
 /**

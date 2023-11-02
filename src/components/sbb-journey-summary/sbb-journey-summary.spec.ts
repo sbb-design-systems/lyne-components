@@ -1,4 +1,4 @@
-import { waitForLitRender } from '../../global/testing';
+import { waitForLitRender } from '../core/testing';
 import { SbbJourneySummary } from './sbb-journey-summary';
 import { InterfaceSbbJourneySummaryAttributes } from './sbb-journey-summary';
 import { expect, fixture } from '@open-wc/testing';

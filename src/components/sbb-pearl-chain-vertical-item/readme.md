@@ -1,10 +1,10 @@
-The `sbb-pearl-chain-vertical-item` is intended to be used 
-with the [sbb-pearl-chain-vertical](/docs/timetable-sbb-pearl-chain-vertical--docs)` component. 
+The `sbb-pearl-chain-vertical-item` is intended to be used
+with the [sbb-pearl-chain-vertical](/docs/timetable-sbb-pearl-chain-vertical--docs)` component.
 
-It renders a table-row with three table-cells, and it is used to display the dots and line of the pearl-chain. 
+It renders a table-row with three table-cells, and it is used to display the dots and line of the pearl-chain.
 There are two slots named `left` and `right` which make it possible to display content on the component sides.
 
-The `pearlChainVerticalItemAttributes` property is mandatory. 
+The `pearlChainVerticalItemAttributes` property is mandatory.
 
 ```json5
 {
@@ -18,10 +18,13 @@ The `pearlChainVerticalItemAttributes` property is mandatory.
 ```
 
 ```html
-<sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes={pearlChainVerticalItemAttributes}>
+<sbb-pearl-chain-vertical-item
+  pearlChainVerticalItemAttributes="{pearlChainVerticalItemAttributes}"
+>
   <div slot="right">content</div>
   <div slot="left">content</div>
-<sbb-pearl-chain-vertical-item>
+  <sbb-pearl-chain-vertical-item></sbb-pearl-chain-vertical-item
+></sbb-pearl-chain-vertical-item>
 ```
 
 ## Style
@@ -29,10 +32,9 @@ The `pearlChainVerticalItemAttributes` property is mandatory.
 The component has many styling options, which can be configured through the 'pearlChainVerticalItemAttributes' property.
 The slots themselves are unstyled, so that they can be used in various ways.
 
+<!-- Auto Generated Below -->
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+## Properties
 
 | Name                               | Attribute                              | Privacy | Type                               | Default | Description                                                                 |
 | ---------------------------------- | -------------------------------------- | ------- | ---------------------------------- | ------- | --------------------------------------------------------------------------- |

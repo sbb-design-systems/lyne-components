@@ -11,16 +11,14 @@ at the component start using the `iconName` property or via custom content using
 At least one is mandatory, so you can have a `sbb-button` with icon only, text only, or with both.
 
 ```html
-<sbb-button icon-name="info">
-  Button text
-</sbb-button>
+<sbb-button icon-name="info"> Button text </sbb-button>
 
 <sbb-button>
   <sbb-icon slot="icon" name="info"></sbb-icon>
   Button text
 </sbb-button>
 
-<sbb-button icon-name="info" aria-label='Click for more information.'></sbb-button>
+<sbb-button icon-name="info" aria-label="Click for more information."></sbb-button>
 ```
 
 ## Link / button properties
@@ -35,13 +33,11 @@ it is internally rendered as a span in order to not break HTML functionality.
 If the component is placed inside an `sbb-form-field`, it renders with the correct styling.
 
 ```html
-<sbb-button href="https://github.com/lyne-design-system/lyne-components" target='_blank'>
+<sbb-button href="https://github.com/lyne-design-system/lyne-components" target="_blank">
   Go to site
 </sbb-button>
 
-<sbb-button type='button' name='tickets' form='buy' value='tickets'>
-  Buy tickets
-</sbb-button>
+<sbb-button type="button" name="tickets" form="buy" value="tickets"> Buy tickets </sbb-button>
 ```
 
 ## Style
@@ -54,11 +50,11 @@ There are two different sizes (`m` and `l`, which is the default) that can be se
 The component can be displayed in `disabled` state using the self-named property.
 
 ```html
-<sbb-button variant='secondary'>Button</sbb-button>
-<sbb-button variant='tertiary'>Button</sbb-button>
-<sbb-button variant='transparent'>Button</sbb-button>
+<sbb-button variant="secondary">Button</sbb-button>
+<sbb-button variant="tertiary">Button</sbb-button>
+<sbb-button variant="transparent">Button</sbb-button>
 
-<sbb-button size='m'>Button</sbb-button>
+<sbb-button size="m">Button</sbb-button>
 
 <sbb-button disabled>Button</sbb-button>
 ```
@@ -78,9 +74,9 @@ sbb-button {
 
 Use the accessibility properties in case of an icon-only button to describe the purpose of the `sbb-button` for screen-reader users.
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name       | Attribute   | Privacy | Type                                                                     | Default     | Description                                                                                                                                            |
 | ---------- | ----------- | ------- | ------------------------------------------------------------------------ | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |

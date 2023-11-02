@@ -1,13 +1,9 @@
-import { i18nArrival, i18nDeparture } from '../../global/i18n';
-import {
-  documentLanguage,
-  HandlerRepository,
-  languageChangeHandlerAspect,
-} from '../../global/eventing';
+import { i18nArrival, i18nDeparture } from '../core/i18n';
+import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import style from './sbb-timetable-transportation-time.scss?lit&inline';
-import { SbbTimetableAppearance } from '../../global/types';
+import { SbbTimetableAppearance } from '../core/interfaces';
 
 @customElement('sbb-timetable-transportation-time')
 export class SbbTimetableTransportationTime extends LitElement {

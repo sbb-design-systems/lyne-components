@@ -1,6 +1,6 @@
 > Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
 > If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
-> For the examples, use triple backticks with file extension (```` ```html <code here>``` ````).<br>
+> For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
 > The following list of paragraphs is only suggested; remove, create and adapt as needed.
 
 The `__name__` is a component . . .
@@ -34,7 +34,7 @@ The `__name__` is a component . . .
 > If the component has logic for keyboard navigation (as the `sbb-calendar` or the `sbb-select`) describe it.
 
 | Keyboard       | Action        |
-|----------------|---------------|
+| -------------- | ------------- |
 | <kbd>Key</kbd> | What it does. |
 
 ## Accessibility

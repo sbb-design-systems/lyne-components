@@ -7,6 +7,7 @@ import isChromatic from 'chromatic';
 import { userEvent, within } from '@storybook/testing-library';
 import './sbb-loading-indicator';
 import '../sbb-button';
+import { SbbLoadingIndicator } from './sbb-loading-indicator';
 
 const textBlockStyle: Args = {
   marginBlock: '1rem',
@@ -23,9 +24,7 @@ const negativeBlockStyle: Args = {
 };
 
 const createLoadingIndicator = (args): void => {
-  const loader: HTMLSbbLoadingIndicatorElement = document.createElement(
-    'SBB-LOADING-INDICATOR',
-  ) as HTMLSbbLoadingIndicatorElement;
+  const loader: SbbLoadingIndicator = document.createElement('sbb-loading-indicator');
   loader.setAttribute('aria-label', 'Loading, please wait');
   loader.size = args['size'];
   loader.variant = args['variant'];

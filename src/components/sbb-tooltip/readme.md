@@ -1,4 +1,4 @@
-The `sbb-tooltip` component can be useful for displaying contextual and additional information on mouse hover or click of a trigger element. 
+The `sbb-tooltip` component can be useful for displaying contextual and additional information on mouse hover or click of a trigger element.
 
 The component could be used:
 
@@ -21,11 +21,11 @@ the [sbb-tooltip-trigger](/docs/components-sbb-tooltip-sbb-tooltip-trigger--docs
 
 ## Interactions
 
-The `sbb-tooltip` can be dismissed by clicking on an interactive element within its content, 
+The `sbb-tooltip` can be dismissed by clicking on an interactive element within its content,
 by clicking on the close button or by performing another action on the page.
 
-You can also indicate that an element within the tooltip content should close the `sbb-tooltip` when clicked 
-by marking it with the `sbb-tooltip-close` attribute; 
+You can also indicate that an element within the tooltip content should close the `sbb-tooltip` when clicked
+by marking it with the `sbb-tooltip-close` attribute;
 it's also possible to hide the default close button using the `hideCloseButton` property.
 
 ```html
@@ -39,17 +39,23 @@ it's also possible to hide the default close button using the `hideCloseButton` 
 ```
 
 You can also indicate that the `sbb-tooltip` should be shown on hover with the property `hoverTrigger`
-and set a custom delay for the open and close animations (defaults to 0). 
+and set a custom delay for the open and close animations (defaults to 0).
 In this case, the default close button is hidden.
 
 If hover is not supported by the current device, the component will be triggered on click/tap as default.
-The `sbb-tooltip` will automatically disappear after the hiding delay 
+The `sbb-tooltip` will automatically disappear after the hiding delay
 if neither the trigger element nor the tooltip are on hover or if another action is performed on the page.
 
 ```html
 <sbb-tooltip-trigger id="tooltip-trigger"></sbb-tooltip-trigger>
 
-<sbb-tooltip id="tooltip" trigger="tooltip-trigger" hover-trigger open-delay="500" close-delay="750">
+<sbb-tooltip
+  id="tooltip"
+  trigger="tooltip-trigger"
+  hover-trigger
+  open-delay="500"
+  close-delay="750"
+>
   <p id="tooltip-content">
     Tooltip content. <sbb-link id="tooltip-link" variant="inline">Link</sbb-link>
   </p>
@@ -66,11 +72,11 @@ to specify a custom stack order, the `z-index` can be changed by defining the CS
 
 As the tooltip opens, the focus will automatically be set to the first focusable item within the component.
 
-To make screen-readers announce the tooltip content when the trigger is focused, 
-associate the trigger with the `sbb-tooltip` via `aria-describedby` and `id` as shown below. 
+To make screen-readers announce the tooltip content when the trigger is focused,
+associate the trigger with the `sbb-tooltip` via `aria-describedby` and `id` as shown below.
 
-If the tooltip trigger is a `sbb-tooltip-trigger` component, set `role="button"` on it, 
-since the `aria-describedby` attribute can be used with semantic HTML elements and with elements 
+If the tooltip trigger is a `sbb-tooltip-trigger` component, set `role="button"` on it,
+since the `aria-describedby` attribute can be used with semantic HTML elements and with elements
 that have an ARIA `role`.
 
 ```html
@@ -79,25 +85,29 @@ that have an ARIA `role`.
 
 <!-- Tooltip component -->
 <sbb-tooltip id="tooltip" trigger="tooltip-trigger">
-    <p id="tooltip-content">
-      Tooltip content. <sbb-link id="tooltip-link" variant="inline">Link</sbb-link>
-    </p>
+  <p id="tooltip-content">
+    Tooltip content. <sbb-link id="tooltip-link" variant="inline">Link</sbb-link>
+  </p>
 </sbb-tooltip>
 
 <!-- Tooltip trigger component -->
-<sbb-tooltip-trigger role="button" aria-describedby="tooltip-content" id="tooltip-trigger"></sbb-tooltip-trigger>
+<sbb-tooltip-trigger
+  role="button"
+  aria-describedby="tooltip-content"
+  id="tooltip-trigger"
+></sbb-tooltip-trigger>
 
 <!-- Tooltip component -->
 <sbb-tooltip id="tooltip" trigger="tooltip-trigger">
-    <p id="tooltip-content">
-      Tooltip content. <sbb-link id="tooltip-link" variant="inline">Link</sbb-link>
-    </p>
+  <p id="tooltip-content">
+    Tooltip content. <sbb-link id="tooltip-link" variant="inline">Link</sbb-link>
+  </p>
 </sbb-tooltip>
 ```
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name                      | Attribute                   | Privacy | Type                         | Default | Description                                                                                                     |
 | ------------------------- | --------------------------- | ------- | ---------------------------- | ------- | --------------------------------------------------------------------------------------------------------------- |

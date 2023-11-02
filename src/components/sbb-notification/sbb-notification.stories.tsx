@@ -50,7 +50,7 @@ const basicArgs: Args = {
 };
 
 const appendNotification = (args): void => {
-  const newNotification = document.createElement('SBB-NOTIFICATION') as HTMLSbbNotificationElement;
+  const newNotification = document.createElement('sbb-notification');
   newNotification.style.setProperty(
     '--sbb-notification-margin',
     '0 0 var(--sbb-spacing-fixed-4x) 0',

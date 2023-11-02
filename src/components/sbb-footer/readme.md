@@ -1,10 +1,10 @@
-The `sbb-footer` component is used to display page related information like copyright, contact or other 
+The `sbb-footer` component is used to display page related information like copyright, contact or other
 content related links; for these, the [sbb-link-list](/docs/components-sbb-link-list--docs) component can be used.
 
 ## Variants
 
-There are two variants of the footer: the `variant='default'`, which displays the slotted content in regular 
-block element approach and the `variant='clock-columns'`, which uses a css-grid for displaying the content over different 
+There are two variants of the footer: the `variant='default'`, which displays the slotted content in regular
+block element approach and the `variant='clock-columns'`, which uses a css-grid for displaying the content over different
 breakpoints.
 
 **Note:**
@@ -43,7 +43,7 @@ class (`class="sbb-link-list-button-group"`) to be displayed correctly.
     <sbb-link href="#">Company</sbb-link>
   </sbb-link-list>
   ...
-  <sbb-divider />  
+  <sbb-divider />
   <sbb-link-list size="xs" horizontal-from="large">
     <sbb-link href="#">Refunds</sbb-link>
     <sbb-link href="#">Lost property office</sbb-link>
@@ -56,7 +56,7 @@ class (`class="sbb-link-list-button-group"`) to be displayed correctly.
 
 ## Style
 
-It's possible to display the footer in `negative` variant; please also apply the negative attribute 
+It's possible to display the footer in `negative` variant; please also apply the negative attribute
 to the content where needed (e.g. `sbb-link-list`, `sbb-link` and `sbb-divider`).
 
 ```html
@@ -71,9 +71,9 @@ to the content where needed (e.g. `sbb-link-list`, `sbb-link` and `sbb-divider`)
 </sbb-footer>
 ```
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name                      | Attribute                   | Privacy | Type                           | Default     | Description                                                                                                                                                                                    |
 | ------------------------- | --------------------------- | ------- | ------------------------------ | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

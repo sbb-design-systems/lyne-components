@@ -1,9 +1,9 @@
-The `sbb-train-formation` is a component used as a top container element 
+The `sbb-train-formation` is a component used as a top container element
 for wrapping [sbb-train](/docs/timetable-sbb-train--docs)s.
 
 ## Style
 
-It has no properties, and it applies the possible scrollable-width to every given `sbb-train` 
+It has no properties, and it applies the possible scrollable-width to every given `sbb-train`
 as CSS variable (`--sbb-train-direction-width`) initially and on resize.
 
 ```html
@@ -19,10 +19,7 @@ as CSS variable (`--sbb-train-direction-width`) initially and on resize.
       type="locomotive"
       additional-accessibility-text="Top of the train"
     ></sbb-train-wagon>
-    <sbb-train-wagon
-      sector="A"
-      type="closed">
-    </sbb-train-wagon>
+    <sbb-train-wagon sector="A" type="closed"> </sbb-train-wagon>
     <sbb-train-blocked-passage />
     <sbb-train-wagon
       sector="A"
@@ -53,9 +50,9 @@ as CSS variable (`--sbb-train-direction-width`) initially and on resize.
 </sbb-train-formation>
 ```
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name             | Attribute          | Privacy | Type      | Default | Description                      |
 | ---------------- | ------------------ | ------- | --------- | ------- | -------------------------------- |

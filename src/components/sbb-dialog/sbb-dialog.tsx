@@ -1,13 +1,13 @@
 import { TitleLevel } from '../sbb-title';
-import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../../global/i18n';
-import { FocusTrap, IS_FOCUSABLE_QUERY, setModalityOnNextFocus } from '../../global/a11y';
+import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n';
+import { FocusTrap, IS_FOCUSABLE_QUERY, setModalityOnNextFocus } from '../core/a11y';
 import {
   ScrollHandler,
   toggleDatasetEntry,
   isValidAttribute,
   hostContext,
   setAttribute,
-} from '../../global/dom';
+} from '../core/dom';
 import {
   createNamedSlotState,
   documentLanguage,
@@ -15,9 +15,9 @@ import {
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
   EventEmitter,
-} from '../../global/eventing';
-import { AgnosticResizeObserver } from '../../global/observers';
-import { applyInertMechanism, removeInertMechanism, SbbOverlayState } from '../../global/overlay';
+} from '../core/eventing';
+import { AgnosticResizeObserver } from '../core/observers';
+import { applyInertMechanism, removeInertMechanism, SbbOverlayState } from '../core/overlay';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';

@@ -1,4 +1,4 @@
-@use '../../global/styles' as sbb;
+@use '../core/styles' as sbb;
 
 .day-change:not(day-change--visually-hidden) {
   padding-block: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-1x);

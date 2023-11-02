@@ -5,6 +5,7 @@ import fs from 'fs';
 import { customElementsManifestToMarkdown } from '@custom-elements-manifest/to-markdown';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 import MagicString from 'magic-string';
+import { format, resolveConfig } from 'prettier';
 
 const manifestFilePath = './dist/custom-elements.json';
 const tempFolderPath = './dist/docs';
@@ -48,58 +49,11 @@ function updateFieldsTable(newDocs: MagicString, sections: RegExpMatchArray[]): 
   newDocs.update(
     startIndex!,
     endIndex ?? newDocs.original.length,
-    `## Properties \n\n${fieldsTable}\n\n`,
+    `## Properties\n\n${fieldsTable}\n\n`,
   );
 }
 
-function getTablesWithFixedSpacings(newDocs: string): string {
-  const tables = Array.from(newDocs.matchAll(/## (?<name>.+)/g));
-
-  return tables
-    .map((table, index) => {
-      const startIndex = table.index;
-      const endIndex = tables[index + 1]?.index;
-
-      // Create a matrix 'table[row][column]' structure for the table
-      const tableRows = Array.from(newDocs.substring(startIndex!, endIndex).matchAll(/^\|.*\|$/gm))
-        .map((match) => match[0])
-        .map((row) => row.split(/(?<!\\)\|/g)); // Split by not escaped '|'
-
-      // Get max chars count per column
-      const maxCharsPerColumn: number[] = [];
-      tableRows.forEach((row, rowIndex) =>
-        row.forEach((entry, columnIndex) => {
-          // We should not count the horizontal separator (row 1)
-          const length = rowIndex === 1 ? 0 : entry.trim().length;
-          const currentMax = maxCharsPerColumn[columnIndex] || 0;
-          maxCharsPerColumn[columnIndex] = length > currentMax ? length : currentMax;
-        }),
-      );
-
-      const fixedSpacings = tableRows.map((row, rowIndex) =>
-        row.map((entry, columnIndex, columnArray) => {
-          // First and last column should stay empty
-          if (columnIndex < 1 || columnIndex + 1 >= columnArray.length) {
-            return;
-          }
-
-          const padded =
-            rowIndex === 1
-              ? '-'.padEnd(maxCharsPerColumn[columnIndex], '-')
-              : entry.trim().padEnd(maxCharsPerColumn[columnIndex]);
-
-          return ` ${padded} `;
-        }),
-      );
-
-      return (
-        '## ' + table.groups!.name + '\n\n' + fixedSpacings.map((cols) => cols.join('|')).join('\n')
-      );
-    })
-    .join('\n\n');
-}
-
-function updateComponentReadme(name: string, tag: string, docs: string): void {
+async function updateComponentReadme(name: string, tag: string, docs: string): Promise<void> {
   const compFolder = tag;
   const path = `${componentsFolder}/${compFolder}/readme.md`;
   if (!fs.existsSync(path)) {
@@ -131,19 +85,18 @@ function updateComponentReadme(name: string, tag: string, docs: string): void {
   // Unescape : (Fixes URL)
   newDocs.replace(/\\:/g, ':');
 
-  // Replace &#xA; with new line
+  // Replace &#xA; with space
   newDocs.replace(/&#xA;/g, ' ');
 
-  newDocs = new MagicString(getTablesWithFixedSpacings(newDocs.toString()));
-
   // Change the generated doc here
-  newDocs.prepend('<!-- Auto Generated Below --> \n \n');
+  newDocs.prepend('<!-- Auto Generated Below -->\n\n');
 
   // Replace the generated doc in the readme
   const generatedStartIndex =
     newReadme.original.match('<!-- Auto Generated Below -->')?.index ?? newReadme.original.length;
   newReadme.update(generatedStartIndex, newReadme.length(), newDocs.toString());
-  fs.writeFileSync(path, newReadme.toString() + '\n');
+  const options = await resolveConfig(path);
+  fs.writeFileSync(path, await format(newReadme.toString(), { ...options, filepath: path }));
 }
 
 const manifest = JSON.parse(fs.readFileSync(manifestFilePath, 'utf-8'));
@@ -180,6 +133,6 @@ for (let i = 0; i < matches.length; i++) {
   // If there is a `<hr/>` it indicates corrupted data respect. mixed data over different components.
   // If we just stop before occurrence of `<hr/>` we are not including the corrupted data.
   const hrIndex = componentMarkdown.indexOf('<hr/>');
-  updateComponentReadme(compName, compTag, componentMarkdown.substring(0, hrIndex));
+  await updateComponentReadme(compName, compTag, componentMarkdown.substring(0, hrIndex));
 }
 console.log('Docs generated successfully');

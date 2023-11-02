@@ -5,23 +5,21 @@ or within the [sbb-form-field](/docs/components-sbb-form-field-sbb-form-field--d
 
 ## Slots
 
-It is possible to provide the error message via an unnamed slot; 
+It is possible to provide the error message via an unnamed slot;
 the component displays an icon by default, that can be changed using the `icon` slot.
 
 ```html
-<sbb-form-error>
-  This is a required field.
-</sbb-form-error>
+<sbb-form-error> This is a required field. </sbb-form-error>
 
 <sbb-form-error>
-  <sbb-icon name="pie-small" slot="icon"/>
+  <sbb-icon name="pie-small" slot="icon" />
   This is a required field.
 </sbb-form-error>
 ```
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name       | Attribute  | Privacy | Type      | Default | Description                     |
 | ---------- | ---------- | ------- | --------- | ------- | ------------------------------- |
