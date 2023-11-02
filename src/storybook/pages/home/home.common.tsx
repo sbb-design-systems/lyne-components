@@ -17,6 +17,8 @@ import '../../../components/sbb-header-action';
 import '../../../components/sbb-logo';
 import '../../../components/sbb-link';
 import '../../../components/sbb-link-list';
+import '../../../components/sbb-menu';
+import '../../../components/sbb-menu-action';
 import '../../../components/sbb-navigation';
 import '../../../components/sbb-navigation-marker';
 import '../../../components/sbb-navigation-action';
