@@ -11,13 +11,13 @@ import {
 } from '../core/eventing';
 import { i18nPreviousDay, i18nSelectPreviousDay, i18nToday } from '../core/i18n';
 import { resolveButtonRenderVariables } from '../core/interfaces';
-import type { SbbDatepicker } from '../sbb-datepicker';
 import {
   InputUpdateEvent,
   datepickerControlRegisteredEvent,
   findPreviousAvailableDate,
   getDatePicker,
-} from '../sbb-datepicker/sbb-datepicker.helper';
+  type SbbDatepicker,
+} from '../sbb-datepicker';
 import style from './sbb-datepicker-previous-day.scss?lit&inline';
 
 import '../sbb-icon';

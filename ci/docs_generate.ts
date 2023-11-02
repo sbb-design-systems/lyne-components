@@ -48,7 +48,7 @@ function updateFieldsTable(newDocs: MagicString, sections: RegExpMatchArray[]): 
   newDocs.update(
     startIndex!,
     endIndex ?? newDocs.original.length,
-    `## Properties \n\n${fieldsTable}\n\n`,
+    `## Properties\n\n${fieldsTable}\n\n`,
   );
 }
 
@@ -137,7 +137,7 @@ function updateComponentReadme(name: string, tag: string, docs: string): void {
   newDocs = new MagicString(getTablesWithFixedSpacings(newDocs.toString()));
 
   // Change the generated doc here
-  newDocs.prepend('<!-- Auto Generated Below --> \n \n');
+  newDocs.prepend('<!-- Auto Generated Below -->\n\n');
 
   // Replace the generated doc in the readme
   const generatedStartIndex =

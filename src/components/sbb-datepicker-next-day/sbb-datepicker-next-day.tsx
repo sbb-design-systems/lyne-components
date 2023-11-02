@@ -11,13 +11,13 @@ import {
 } from '../core/eventing';
 import { i18nNextDay, i18nSelectNextDay, i18nToday } from '../core/i18n';
 import { resolveButtonRenderVariables } from '../core/interfaces';
-import type { SbbDatepicker } from '../sbb-datepicker';
 import {
   InputUpdateEvent,
   datepickerControlRegisteredEvent,
   findNextAvailableDate,
   getDatePicker,
-} from '../sbb-datepicker/sbb-datepicker.helper';
+  type SbbDatepicker,
+} from '../sbb-datepicker';
 import style from './sbb-datepicker-next-day.scss?lit&inline';
 
 import '../sbb-icon';
