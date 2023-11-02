@@ -37,8 +37,6 @@ const playStoryWithSection = async ({ canvasElement }): Promise<void> => {
   );
   const actionL = canvas.getByTestId('navigation-section-trigger-1');
   userEvent.click(actionL);
-  const actionS = canvas.getByTestId('navigation-section-trigger-2');
-  userEvent.click(actionS);
 };
 
 const ariaLabel: InputType = {
@@ -120,9 +118,7 @@ const navigationList = (label): JSX.Element[] => [
 ];
 
 const actionLabels = (num): JSX.Element[] => {
-  const labels = [
-    <sbb-navigation-action data-testid="navigation-section-trigger-2">Label</sbb-navigation-action>,
-  ];
+  const labels = [<sbb-navigation-action>Label</sbb-navigation-action>];
   for (let i = 1; i <= num; i++) {
     labels.push(<sbb-navigation-action>Label</sbb-navigation-action>);
   }
