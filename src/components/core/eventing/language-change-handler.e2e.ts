@@ -1,48 +1,48 @@
 import { documentLanguage } from './language-change-handler';
-import { newE2EPage } from '@stencil/core/testing';
+import { EventSpy } from '../testing';
+import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
 
 describe('language', () => {
   it('should detect language of html tag', async () => {
     document.documentElement.setAttribute('lang', 'de');
-    expect(documentLanguage()).toEqual('de');
+    expect(documentLanguage()).to.be.equal('de');
   });
 
   it('should fallback to English if no lang attribute is present', () => {
     document.documentElement.removeAttribute('lang');
-    expect(documentLanguage()).toEqual('en');
+    expect(documentLanguage()).to.be.equal('en');
   });
 
   it('should extract language from composed language key', () => {
     document.documentElement.setAttribute('lang', 'fr-ch');
-    expect(documentLanguage()).toEqual('fr');
+    expect(documentLanguage()).to.be.equal('fr');
   });
 
   it('should fallback to English if language is unknown', () => {
     document.documentElement.setAttribute('lang', 'foo');
-    expect(documentLanguage()).toEqual('en');
+    expect(documentLanguage()).to.be.equal('en');
   });
 
   it('should react to language change', async () => {
-    const page = await newE2EPage();
     // Use component which uses language
-    await page.setContent('<sbb-button></sbb-button>');
-    const changeSpy = await page.spyOnEvent('sbbLanguageChange', 'document');
+    await fixture(html`<sbb-button></sbb-button>`);
+    const changeSpy = new EventSpy<CustomEvent>('sbbLanguageChange', document);
 
-    await page.evaluate(() => document.documentElement.setAttribute('lang', 'fr'));
+    document.documentElement.setAttribute('lang', 'fr');
 
-    expect(await page.evaluate(() => document.documentElement.lang)).toBe('fr');
-    expect(changeSpy).toHaveReceivedEventDetail('fr');
+    expect(document.documentElement.lang).to.be.equal('fr');
+    expect(changeSpy.firstEvent.detail).to.be.equal('fr');
   });
 
   it('should not react to language change if language was not changed', async () => {
-    const page = await newE2EPage();
     // Use component which uses language
-    await page.setContent('<sbb-button></sbb-button>');
-    await page.evaluate(() => document.documentElement.setAttribute('lang', 'fr'));
-    const changeSpy = await page.spyOnEvent('sbbLanguageChange', 'document');
+    await fixture(html`<sbb-button></sbb-button>`);
+    const changeSpy = new EventSpy<CustomEvent>('sbbLanguageChange', document);
 
-    await page.evaluate(() => document.documentElement.setAttribute('lang', 'fr'));
+    document.documentElement.setAttribute('lang', 'fr');
 
-    expect(changeSpy).not.toHaveReceivedEvent();
+    expect(document.documentElement.lang).to.be.equal('fr');
+    expect(changeSpy.count).to.be.equal(0);
   });
 });
