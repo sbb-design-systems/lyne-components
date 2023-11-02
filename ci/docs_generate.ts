@@ -128,6 +128,9 @@ function updateComponentReadme(name: string, tag: string, docs: string): void {
   // Unescape tag openings
   newDocs.replace(/\\</g, '<');
 
+  // Unescape :
+  newDocs.replace(/\\:/g, ':');
+
   // Replace &#xA; with new line
   newDocs.replace(/&#xA;/g, ' ');
 
