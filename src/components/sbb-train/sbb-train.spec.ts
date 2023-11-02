@@ -18,7 +18,7 @@ describe('sbb-train', () => {
         <h6 class="sbb-train__direction-label-sr">Train, Driving direction Bern.</h6>
         <ul class="sbb-train__wagons" aria-label="Coaches of the train"></ul>
         <span hidden>
-          <slot />
+          <slot></slot>
         </span>
         <div class="sbb-train__direction" aria-hidden="true">
           <div class="sbb-train__direction-heading">
@@ -49,7 +49,11 @@ describe('sbb-train', () => {
 
   it('should display left indicator if direction is left', async () => {
     const root = await fixture(
-      html`<sbb-train direction-label="Driving direction" station="Bern" direction="left" />`,
+      html`<sbb-train
+        direction-label="Driving direction"
+        station="Bern"
+        direction="left"
+      ></sbb-train>`,
     );
 
     expect(
@@ -59,7 +63,11 @@ describe('sbb-train', () => {
 
   it('should display right indicator if direction is right', async () => {
     const root = await fixture(
-      html`<sbb-train direction-label="Driving direction" station="Bern" direction="right" />`,
+      html`<sbb-train
+        direction-label="Driving direction"
+        station="Bern"
+        direction="right"
+      ></sbb-train>`,
     );
 
     expect(
@@ -77,7 +85,9 @@ describe('sbb-train', () => {
     });
 
     it('should create aria label with direction-label and no accessibility-label', async () => {
-      const root = await fixture(html`<sbb-train direction-label="Direction of Travel" />`);
+      const root = await fixture(
+        html`<sbb-train direction-label="Direction of Travel"></sbb-train>`,
+      );
 
       expect(
         root.shadowRoot.querySelector('.sbb-train__direction-label-sr').textContent.trim(),
@@ -86,7 +96,7 @@ describe('sbb-train', () => {
 
     it('should create aria label with direction-label, station and no accessibility-label', async () => {
       const root = await fixture(
-        html`<sbb-train direction-label="Direction of Travel" station="Bern" />`,
+        html`<sbb-train direction-label="Direction of Travel" station="Bern"></sbb-train>`,
       );
 
       expect(
@@ -100,7 +110,7 @@ describe('sbb-train', () => {
           direction-label="Direction of Travel"
           station="Bern"
           accessibility-label="Additional label"
-        />`,
+        ></sbb-train>`,
       );
 
       expect(

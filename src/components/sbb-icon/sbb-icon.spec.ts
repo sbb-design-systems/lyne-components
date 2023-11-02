@@ -8,7 +8,7 @@ import './sbb-icon';
 
 describe('sbb-icon', () => {
   it('renders', async () => {
-    const root = await fixture(html`<sbb-icon />`);
+    const root = await fixture(html`<sbb-icon></sbb-icon>`);
 
     expect(root).dom.to.be.equal(`
       <sbb-icon aria-hidden="true" role="img" data-empty data-namespace="default">
