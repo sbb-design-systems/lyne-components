@@ -25,13 +25,14 @@
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
-  gap: #{sbb.px-to-rem-build(2)};
+  gap: var(--sbb-spacing-fixed-1x);
 }
 
 .sbb-timetable-occupancy__list-item-class {
   @include sbb.text-s--regular;
 
   color: var(--sbb-timetable-occupancy-color);
+  line-height: 1rem;
 }
 
 .sbb-timetable-occupancy__list-item-icon {

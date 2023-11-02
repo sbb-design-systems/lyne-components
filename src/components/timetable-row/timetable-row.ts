@@ -37,6 +37,7 @@ import style from './timetable-row.scss?lit&inline';
 import '../card';
 import '../icon';
 import '../pearl-chain-time';
+import '../timetable-occupancy';
 
 /** HimCus interface for mapped icon name and text */
 export interface HimCus {
@@ -640,42 +641,7 @@ export class SbbTimetableRow extends LitElement {
               : nothing}
             ${(occupancy?.firstClass && occupancy?.firstClass !== 'UNKNOWN') ||
             (occupancy?.secondClass && occupancy.secondClass !== 'UNKNOWN')
-              ? html`<ul class="sbb-timetable__row-occupancy" role="list">
-                  ${occupancy?.firstClass && occupancy.firstClass !== 'UNKNOWN'
-                    ? html`<li>
-                        <span aria-hidden="true">1.</span>
-                        <sbb-icon
-                          class="sbb-occupancy__item"
-                          name=${`utilization-` + occupancy?.firstClass?.toLowerCase()}
-                        ></sbb-icon>
-                        <span class="sbb-screenreaderonly">
-                          ${i18nOccupancy[occupancy?.firstClass?.toLowerCase()] &&
-                          `${i18nClass.first[this._currentLanguage]} ${
-                            i18nOccupancy[occupancy?.firstClass?.toLowerCase()][
-                              this._currentLanguage
-                            ]
-                          }.`}
-                        </span>
-                      </li>`
-                    : nothing}
-                  ${occupancy?.secondClass && occupancy.secondClass !== 'UNKNOWN'
-                    ? html`<li>
-                        <span aria-hidden="true">2.</span>
-                        <sbb-icon
-                          class="sbb-occupancy__item"
-                          name=${`utilization-` + occupancy?.secondClass?.toLowerCase()}
-                        ></sbb-icon>
-                        <span class="sbb-screenreaderonly">
-                          ${i18nOccupancy[occupancy?.secondClass?.toLowerCase()] &&
-                          `${i18nClass.second[this._currentLanguage]} ${
-                            i18nOccupancy[occupancy?.secondClass?.toLowerCase()][
-                              this._currentLanguage
-                            ]
-                          }.`}
-                        </span>
-                      </li>`
-                    : nothing}
-                </ul>`
+              ? html`<sbb-timetable-occupancy .occupancy="${occupancy}"></sbb-timetable-occupancy>`
               : nothing}
             ${(noticeAttributes && noticeAttributes.length) || this.boarding
               ? html`<ul class="sbb-timetable__row-hints" role="list">

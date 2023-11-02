@@ -16,7 +16,7 @@ export class SbbTimetableOccupancy extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Occupancy for first and second classes wagons. */
-  @property({ attribute: false }) public occupancy!: Occupancy;
+  @property({ type: Object, attribute: false }) public occupancy!: Occupancy;
 
   /** Negative coloring variant flag. */
   @property({ type: Boolean }) public negative = false;

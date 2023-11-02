@@ -20,6 +20,7 @@ import {
   walkTimeTrip,
 } from './timetable-row.sample-data';
 import '.';
+import '../timetable-occupancy';
 
 const now = new Date('2022-08-16T15:00:00Z').valueOf();
 
@@ -130,26 +131,7 @@ describe('sbb-timetable-row', () => {
                 </span>
                 4
               </span>
-              <ul class="sbb-timetable__row-occupancy" role="list">
-                <li>
-                  <span aria-hidden="true">
-                    1.
-                  </span>
-                  <sbb-icon aria-hidden="true" data-namespace="default" role="img" class="sbb-occupancy__item" name="utilization-low"></sbb-icon>
-                  <span class="sbb-screenreaderonly">
-                    First Class Low to medium occupancy expected.
-                  </span>
-                </li>
-                <li>
-                  <span aria-hidden="true">
-                    2.
-                  </span>
-                  <sbb-icon aria-hidden="true" data-namespace="default" role="img" class="sbb-occupancy__item" name="utilization-medium"></sbb-icon>
-                  <span class="sbb-screenreaderonly">
-                    Second Class High occupancy expected.
-                  </span>
-                </li>
-              </ul>
+              <sbb-timetable-occupancy></sbb-timetable-occupancy>
               <time>
               <span class="sbb-screenreaderonly">
                 Travel time 41 Minutes
