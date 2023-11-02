@@ -43,11 +43,11 @@ and therefore interrupts screen reader flow, to immediately read out the alert c
  
 ## Properties 
 
-| Name                      | Attribute                   | Privacy | Type                            | Default    | Description                                                                                                                                                                                           |
-| ------------------------- | --------------------------- | ------- | ------------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `role`                    | `role`                      | public  | `'alert' \| 'status' \| string` | `'status'` | The role attribute defines how to announce alerts to the user.&#xA;&#xA;'status': sets aria-live to polite and aria-atomic to true.&#xA;'alert': sets aria-live to assertive and aria-atomic to true. |
-| `accessibilityTitle`      | `accessibility-title`       | public  | `string`                        |            | Title for this alert group which is only visible for screen reader users.                                                                                                                             |
-| `accessibilityTitleLevel` | `accessibility-title-level` | public  | `TitleLevel`                    | `'2'`      | Level of the accessibility title, will be rendered as heading tag (e.g. h2). Defaults to level 2.                                                                                                     |
+| Name                      | Attribute                   | Privacy | Type                            | Default    | Description                                                                                                                                                                               |
+| ------------------------- | --------------------------- | ------- | ------------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `role`                    | `role`                      | public  | `'alert' \| 'status' \| string` | `'status'` | The role attribute defines how to announce alerts to the user.  'status': sets aria-live to polite and aria-atomic to true. 'alert': sets aria-live to assertive and aria-atomic to true. |
+| `accessibilityTitle`      | `accessibility-title`       | public  | `string`                        |            | Title for this alert group which is only visible for screen reader users.                                                                                                                 |
+| `accessibilityTitleLevel` | `accessibility-title-level` | public  | `TitleLevel`                    | `'2'`      | Level of the accessibility title, will be rendered as heading tag (e.g. h2). Defaults to level 2.                                                                                         |
 
 ## Slots
 

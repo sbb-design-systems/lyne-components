@@ -105,11 +105,11 @@ so they were wrapped into a `style` tag and added to the Storybook's configurati
  
 ## Properties 
 
-| Name           | Attribute        | Privacy | Type                                | Default | Description                                                                                                              |
-| -------------- | ---------------- | ------- | ----------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `expanded`     | `expanded`       | public  | `boolean`                           | `false` | Whether to allow the header content to stretch to full width.&#xA;By default, the content has the appropriate page size. |
-| `scrollOrigin` | `scroll-origin`  | public  | `string \| HTMLElement \| Document` |         | The element's id or the element on which the scroll listener is attached.                                                |
-| `hideOnScroll` | `hide-on-scroll` | public  | `boolean`                           | `false` | Whether the header should hide and show on scroll.                                                                       |
+| Name           | Attribute        | Privacy | Type                                | Default | Description                                                                                                          |
+| -------------- | ---------------- | ------- | ----------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------- |
+| `expanded`     | `expanded`       | public  | `boolean`                           | `false` | Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size. |
+| `scrollOrigin` | `scroll-origin`  | public  | `string \| HTMLElement \| Document` |         | The element's id or the element on which the scroll listener is attached.                                            |
+| `hideOnScroll` | `hide-on-scroll` | public  | `boolean`                           | `false` | Whether the header should hide and show on scroll.                                                                   |
 
 ## Slots
 

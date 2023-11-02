@@ -10,6 +10,7 @@ const manifestFilePath = './dist/custom-elements.json';
 const tempFolderPath = './dist/docs';
 const componentsFolder = './src/components';
 const inheritedFromColumnIndex = 6;
+const propertyColumnIndex = 1;
 const attributeColumnIndex = 2;
 
 function toKebabCase(value: string): string {
@@ -38,23 +39,10 @@ function updateFieldsTable(newDocs: MagicString, sections: RegExpMatchArray[]): 
   // Remove the 'Inherited from' column
   tableRows.forEach((row) => row.splice(inheritedFromColumnIndex, 1));
 
-  // Add the 'attribute' column
-  const attributes = [tableRows[0][1].replace('Name', 'Attribute').trim(), '-'].concat(
-    tableRows.slice(2).map((entry) => toKebabCase(entry[1]).trim()),
-  );
-  // Get the longest entry in column
-  const maxChars = attributes.reduce(
-    (max, attributeName) => (attributeName.length > max ? attributeName.length : max),
-    0,
-  );
-  // End pad with spaces (or `-`) to fix the table width
-  attributes.forEach((attributeColumn, i) =>
-    tableRows[i].splice(
-      attributeColumnIndex,
-      0,
-      ` ${attributeColumn.padEnd(maxChars, attributeColumn === '-' ? '-' : ' ')} `,
-    ),
-  );
+  // Generate the 'attribute' column by copying the property column and transform string to kebab case
+  [tableRows[0][propertyColumnIndex].replace('Name', 'Attribute').trim()]
+    .concat(tableRows.slice(1).map((entry) => toKebabCase(entry[propertyColumnIndex]).trim()))
+    .forEach((attributeColumn, i) => tableRows[i].splice(attributeColumnIndex, 0, attributeColumn));
 
   const fieldsTable = tableRows.map((cols) => cols.join('|')).join('\n');
   newDocs.update(
@@ -62,6 +50,53 @@ function updateFieldsTable(newDocs: MagicString, sections: RegExpMatchArray[]): 
     endIndex ?? newDocs.original.length,
     `## Properties \n\n${fieldsTable}\n\n`,
   );
+}
+
+function getTablesWithFixedSpacings(newDocs: string): string {
+  const tables = Array.from(newDocs.matchAll(/## (?<name>.+)/g));
+
+  return tables
+    .map((table, index) => {
+      const startIndex = table.index;
+      const endIndex = tables[index + 1]?.index;
+
+      // Create a matrix 'table[row][column]' structure for the table
+      const tableRows = Array.from(newDocs.substring(startIndex!, endIndex).matchAll(/^\|.*\|$/gm))
+        .map((match) => match[0])
+        .map((row) => row.split(/(?<!\\)\|/g)); // Split by not escaped '|'
+
+      // Get max chars count per column
+      const maxCharsPerColumn: number[] = [];
+      tableRows.forEach((row, rowIndex) =>
+        row.forEach((entry, columnIndex) => {
+          // We should not count the horizontal separator (row 1)
+          const length = rowIndex === 1 ? 0 : entry.trim().length;
+          const currentMax = maxCharsPerColumn[columnIndex] || 0;
+          maxCharsPerColumn[columnIndex] = length > currentMax ? length : currentMax;
+        }),
+      );
+
+      const fixedSpacings = tableRows.map((row, rowIndex) =>
+        row.map((entry, columnIndex, columnArray) => {
+          // First and last column should stay empty
+          if (columnIndex < 1 || columnIndex + 1 >= columnArray.length) {
+            return;
+          }
+
+          const padded =
+            rowIndex === 1
+              ? '-'.padEnd(maxCharsPerColumn[columnIndex], '-')
+              : entry.trim().padEnd(maxCharsPerColumn[columnIndex]);
+
+          return ` ${padded} `;
+        }),
+      );
+
+      return (
+        '## ' + table.groups!.name + '\n\n' + fixedSpacings.map((cols) => cols.join('|')).join('\n')
+      );
+    })
+    .join('\n\n');
 }
 
 function updateComponentReadme(name: string, tag: string, docs: string): void {
@@ -81,9 +116,6 @@ function updateComponentReadme(name: string, tag: string, docs: string): void {
 
   const sections = Array.from(newDocs.original.matchAll(/## (?<name>.+)/g));
 
-  // Change the generated doc here
-  newDocs.prepend('<!-- Auto Generated Below --> \n \n');
-
   // Remove the title
   newDocs.replace(/^# class: `.*`\n/m, '');
 
@@ -93,11 +125,22 @@ function updateComponentReadme(name: string, tag: string, docs: string): void {
   // Unescape ` in docs
   newDocs.replace(/\\`/g, '`');
 
+  // Unescape tag openings
+  newDocs.replace(/\\</g, '<');
+
+  // Replace &#xA; with new line
+  newDocs.replace(/&#xA;/g, ' ');
+
+  newDocs = new MagicString(getTablesWithFixedSpacings(newDocs.toString()));
+
+  // Change the generated doc here
+  newDocs.prepend('<!-- Auto Generated Below --> \n \n');
+
   // Replace the generated doc in the readme
   const generatedStartIndex =
     newReadme.original.match('<!-- Auto Generated Below -->')?.index ?? newReadme.original.length;
   newReadme.update(generatedStartIndex, newReadme.length(), newDocs.toString());
-  fs.writeFileSync(path, newReadme.toString());
+  fs.writeFileSync(path, newReadme.toString() + '\n');
 }
 
 const manifest = JSON.parse(fs.readFileSync(manifestFilePath, 'utf-8'));

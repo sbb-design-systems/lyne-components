@@ -5,7 +5,7 @@ here to show the various configuration options to component developers. !!
  
 ## Properties 
 
-| Name         | Attribute    | Privacy | Type                                  | Default         | Description                                                                                                                                           |
-| ------------ | ------------ | ------- | ------------------------------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `appearance` | `appearance` | public  | `SbbTimetableAppearance \| undefined` | `'first-level'` | Set the desired appearance of&#xA;the component.                                                                                                      |
-| `config`     | `config`     | public  | `string`                              |                 | Stringified JSON which defines most of the&#xA;content of the component. Please check the&#xA;individual stories to get an idea of the&#xA;structure. |
+| Name         | Attribute    | Privacy | Type                                  | Default         | Description                                                                                                                               |
+| ------------ | ------------ | ------- | ------------------------------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `appearance` | `appearance` | public  | `SbbTimetableAppearance \| undefined` | `'first-level'` | Set the desired appearance of the component.                                                                                              |
+| `config`     | `config`     | public  | `string`                              |                 | Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure. |
