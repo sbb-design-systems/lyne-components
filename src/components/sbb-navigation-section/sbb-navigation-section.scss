@@ -85,7 +85,7 @@
 }
 
 :host([disable-animation]:not([disable-animation='false'])) {
-  --sbb-navigation-section-animation-duration: 0.001ms;
+  --sbb-navigation-section-animation-duration: 0.01ms;
 }
 
 ::slotted(*) {

@@ -52,7 +52,7 @@
 }
 
 :host([disable-animation]:not([disable-animation='false'])) {
-  --sbb-options-panel-animation-duration: 0.001ms;
+  --sbb-options-panel-animation-duration: 0.01ms;
 }
 
 :host([preserve-icon-space]:not([preserve-icon-space='false'])) {

@@ -95,7 +95,7 @@
 }
 
 :host([disable-animation]:not([disable-animation='false'])) {
-  --sbb-navigation-animation-duration: 0.001ms;
+  --sbb-navigation-animation-duration: 0.01ms;
 }
 
 .sbb-navigation__container {
