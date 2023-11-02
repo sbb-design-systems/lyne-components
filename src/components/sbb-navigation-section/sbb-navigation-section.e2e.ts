@@ -11,8 +11,8 @@ describe('sbb-navigation-section', () => {
 
   beforeEach(async () => {
     await fixture(html`
-      <sbb-navigation style="--sbb-navigation-animation-duration: 0.1ms">
-        <sbb-navigation-section style="--sbb-navigation-section-animation-duration: 0.1ms">
+      <sbb-navigation disable-animation>
+        <sbb-navigation-section disable-animation>
           <sbb-navigation-list>
             <sbb-navigation-action>Tickets & Offers</sbb-navigation-action>
             <sbb-navigation-action>Vacations & Recreation</sbb-navigation-action>

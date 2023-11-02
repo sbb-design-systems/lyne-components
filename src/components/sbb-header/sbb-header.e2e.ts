@@ -71,7 +71,7 @@ describe('sbb-header', () => {
     await fixture(html`
       <sbb-header hide-on-scroll>
         <sbb-header-action id="language-menu-trigger">English</sbb-header-action>
-        <sbb-menu trigger="language-menu-trigger" style="--sbb-menu-animation-duration: 0.1ms">
+        <sbb-menu trigger="language-menu-trigger" disable-animation>
           <sbb-menu-action>Deutsch</sbb-menu-action>
           <sbb-menu-action>Français</sbb-menu-action>
         </sbb-menu>
