@@ -1,8 +1,8 @@
 to be documented...
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name     | Attribute | Privacy | Type     | Default | Description                                                                                                                               |
 | -------- | --------- | ------- | -------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
