@@ -32,7 +32,7 @@ export type SbbButtonSize = 'l' | 'm';
  */
 @customElement('sbb-button')
 export class SbbButton extends LitElement implements LinkButtonProperties, IsStaticProperty {
-  public static override styles = style;
+  public static override styles: CSSResult = style;
 
   /** Variant of the button, like primary, secondary etc. */
   @property({ reflect: true }) public variant:

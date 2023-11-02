@@ -1,7 +1,7 @@
 import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../core/a11y';
 import { toggleDatasetEntry } from '../core/dom';
 import { AgnosticResizeObserver } from '../core/observers';
-import { html, LitElement, PropertyValues, TemplateResult } from 'lit';
+import { CSSResult, html, LitElement, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { EventEmitter, ConnectedAbortController } from '../core/eventing';
 import { type SbbToggleOption } from '../sbb-toggle-option';
@@ -20,7 +20,7 @@ export type SbbToggleStateChange = Extract<
  */
 @customElement('sbb-toggle')
 export class SbbToggle extends LitElement {
-  public static override styles = style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     didChange: 'did-change',
     change: 'change',

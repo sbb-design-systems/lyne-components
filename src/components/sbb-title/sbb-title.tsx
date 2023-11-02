@@ -8,7 +8,7 @@ export type TitleLevel = '1' | '2' | '3' | '4' | '5' | '6';
 
 @customElement('sbb-title')
 export class SbbTitle extends LitElement {
-  public static override styles = style;
+  public static override styles: CSSResult = style;
 
   /** Title level */
   @property({ reflect: true }) public level?: TitleLevel = '1';

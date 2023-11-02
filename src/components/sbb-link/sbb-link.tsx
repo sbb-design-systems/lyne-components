@@ -34,7 +34,7 @@ export type SbbLinkSize = 'xs' | 's' | 'm';
  */
 @customElement('sbb-link')
 export class SbbLink extends LitElement implements LinkButtonProperties, IsStaticProperty {
-  public static override styles = style;
+  public static override styles: CSSResult = style;
 
   /** Variant of the link (block or inline). */
   @property({ reflect: true }) public variant: 'block' | 'inline' = 'block';

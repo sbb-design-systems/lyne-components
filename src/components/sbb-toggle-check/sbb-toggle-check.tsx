@@ -19,7 +19,7 @@ import '../sbb-icon';
  */
 @customElement('sbb-toggle-check')
 export class SbbToggleCheck extends LitElement {
-  public static override styles = style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     didChange: 'did-change',
   } as const;

@@ -1,12 +1,12 @@
 import { getSvgContent } from './sbb-icon-request';
-import { html, LitElement, TemplateResult, PropertyValues } from 'lit';
+import { html, LitElement, TemplateResult, PropertyValues, CSSResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttribute } from '../core/dom';
 import style from './sbb-icon.scss?lit&inline';
 
 @customElement('sbb-icon')
 export class SbbIcon extends LitElement {
-  public static override styles = style;
+  public static override styles: CSSResult = style;
 
   private _svgName: string;
   private _svgFetchInProgress: boolean;
