@@ -21,7 +21,7 @@
   --sbb-calendar-cell-transition-easing-function: var(--sbb-animation-easing);
   --sbb-calendar-tables-gap: var(--sbb-spacing-fixed-10x);
   --sbb-calendar-table-animation-shift: #{sbb.px-to-rem-build(0.1)};
-  --sbb-calendar-table-animation-duration: 0ms;
+  --sbb-calendar-table-animation-duration: 0.001ms;
   --sbb-calendar-table-column-spaces: 12;
   --sbb-calendar-control-view-change-height: #{sbb.px-to-rem-build(44)};
   --sbb-calendar-control-view-change-color: var(--sbb-color-charcoal-default);

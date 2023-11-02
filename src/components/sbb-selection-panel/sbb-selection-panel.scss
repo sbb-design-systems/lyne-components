@@ -50,7 +50,7 @@
 }
 
 :host(:is([data-resize-disable-animation], [disable-animation]:not([disable-animation='false']))) {
-  --sbb-selection-panel-animation-duration: 0s;
+  --sbb-selection-panel-animation-duration: 0.001ms;
 }
 
 :host([data-has-content][force-open]:not([force-open='false'])),

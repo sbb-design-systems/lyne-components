@@ -52,7 +52,7 @@
 }
 
 :host([disable-animation]:not([disable-animation='false'])) {
-  --sbb-options-panel-animation-duration: 0s;
+  --sbb-options-panel-animation-duration: 0.001ms;
 }
 
 ::slotted(sbb-divider) {
