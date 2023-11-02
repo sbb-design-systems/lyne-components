@@ -1,5 +1,5 @@
 The `sbb-datepicker-previous-day` is a component closely connected to the [sbb-datepicker](/docs/components-sbb-datepicker-sbb-datepicker--docs);
-when the two are used together, the `sbb-datepicker-previous-day` can be used to choose 
+when the two are used together, the `sbb-datepicker-previous-day` can be used to choose
 the date before the selected date, or yesterday's date if the date-picker's input has no defined value.
 
 The components can be connected using the `datePicker` property, which accepts the id of the `sbb-datepicker`,
@@ -14,11 +14,11 @@ or directly its reference.
 ## In `sbb-form-field`
 
 If the two components are used within a [sbb-form-field](/docs/components-sbb-form-field-sbb-form-field--docs),
-they are automatically linked and the `sbb-datepicker-previous-day` will be projected in the `prefix` slot of the `sbb-form-field`; 
+they are automatically linked and the `sbb-datepicker-previous-day` will be projected in the `prefix` slot of the `sbb-form-field`;
 otherwise, they can be connected using the `datePicker` property as described above.
 
 The `sbb-datepicker-previous-day` has an internal disabled state, which is set looking at the `sbb-datepicker`'s input:
-if it is disabled, or if the selected date is equal to the input's `min` attribute, the component is disabled. 
+if it is disabled, or if the selected date is equal to the input's `min` attribute, the component is disabled.
 
 ```html
 <sbb-form-field>
@@ -28,9 +28,9 @@ if it is disabled, or if the selected date is equal to the input's `min` attribu
 </sbb-form-field>
 ```
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name         | Attribute     | Privacy | Type                                   | Default | Description                               |
 | ------------ | ------------- | ------- | -------------------------------------- | ------- | ----------------------------------------- |

@@ -1,7 +1,7 @@
 The `sbb-autocomplete` is a component that can be used to display a panel of suggested options connected to a text input.
 
 It's possible to set the element to which the component's panel will be attached using the `origin` prop,
-and the input which will work as a trigger using the `trigger` prop. 
+and the input which will work as a trigger using the `trigger` prop.
 Both accept an id or an element reference.
 
 ```html
@@ -20,13 +20,12 @@ Both accept an id or an element reference.
 
 ## In `sbb-form-field`
 
-If the component is used within a [sbb-form-field](/docs/components-sbb-form-field-sbb-form-field--docs), 
+If the component is used within a [sbb-form-field](/docs/components-sbb-form-field-sbb-form-field--docs),
 it will automatically connect to the native `<input>` as trigger and will display the option panel above or below the `sbb-form-field`.
 
 ```html
 <!-- Origin element -->
 <sbb-form-field label="Label">
-
   <!-- Trigger element -->
   <input placeholder="Trigger element" />
 
@@ -52,7 +51,6 @@ The displayed `sbb-option` can be collected into groups using `sbb-optgroup` ele
 ```html
 <!-- Origin element -->
 <sbb-form-field label="Label">
-
   <!-- Trigger element -->
   <input placeholder="Trigger element" />
 
@@ -61,9 +59,7 @@ The displayed `sbb-option` can be collected into groups using `sbb-optgroup` ele
       <sbb-option icon-name="clock-small" value="Option 1"> Option 1 </sbb-option>
       ...
     </sbb-optgroup>
-    <sbb-optgroup label="Group 2">
-      ...
-    </sbb-optgroup>
+    <sbb-optgroup label="Group 2"> ... </sbb-optgroup>
   </sbb-autocomplete>
 </sbb-form-field>
 ```
@@ -78,7 +74,7 @@ The options panel opens on `focus`, `click` or `input` events on the trigger ele
 it can be closed on backdrop click, or using the `Escape` or `Tab` keys.
 
 | Keyboard              | Action                                                  |
-|-----------------------|---------------------------------------------------------|
+| --------------------- | ------------------------------------------------------- |
 | <kbd>Down Arrow</kbd> | Navigate to the next option. Open the panel, if closed. |
 | <kbd>Up Arrow</kbd>   | Navigate to the previous option.                        |
 | <kbd>Enter</kbd>      | Select the active option.                               |
@@ -88,17 +84,16 @@ it can be closed on backdrop click, or using the `Escape` or `Tab` keys.
 
 The `sbb-autocomplete` implements the [ARIA combobox interaction pattern](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/).
 
-The text input trigger specifies `role="combobox"` while the content of the pop-up applies `role="listbox"`. 
-Because of this `listbox` pattern, you should not put other interactive controls, such as buttons or checkboxes, inside an autocomplete option. 
+The text input trigger specifies `role="combobox"` while the content of the pop-up applies `role="listbox"`.
+Because of this `listbox` pattern, you should not put other interactive controls, such as buttons or checkboxes, inside an autocomplete option.
 Nesting interactive controls like this interferes with many assistive technologies.
 
-The component preserves focus on the input trigger, 
+The component preserves focus on the input trigger,
 using `aria-activedescendant` to support navigation though the autocomplete options.
 
+<!-- Auto Generated Below -->
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+## Properties
 
 | Name                | Attribute             | Privacy | Type                         | Default | Description                                                                                                                                                                                                                                                                                                       |
 | ------------------- | --------------------- | ------- | ---------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

@@ -1,6 +1,6 @@
-The `sbb-radio-button` component provides the same functionality 
-as a native `<input type="radio"/>` enhanced with the SBB Design: use multiple `sbb-radio-button` components 
-inside a [sbb-radio-button-group](/docs/components-sbb-radio-button-sbb-radio-button-group--docs) component 
+The `sbb-radio-button` component provides the same functionality
+as a native `<input type="radio"/>` enhanced with the SBB Design: use multiple `sbb-radio-button` components
+inside a [sbb-radio-button-group](/docs/components-sbb-radio-button-sbb-radio-button-group--docs) component
 in order to display a radio input within a group.
 
 ```html
@@ -12,10 +12,10 @@ in order to display a radio input within a group.
 
 ## States
 
-It is possible to display the component in `disabled` or `checked` state by using the self-named properties. 
+It is possible to display the component in `disabled` or `checked` state by using the self-named properties.
 
 The component has a `required` property, which can be useful
-for setting a custom [sbb-form-error](/docs/components-sbb-form-field-sbb-form-error--docs) message 
+for setting a custom [sbb-form-error](/docs/components-sbb-form-field-sbb-form-error--docs) message
 within a [sbb-form-field](/docs/components-sbb-form-field-sbb-form-field--docs).
 
 The `allowEmptySelection` property allows user to deselect the component.
@@ -35,13 +35,12 @@ The `allowEmptySelection` property allows user to deselect the component.
 The component has two different sizes, which can be changed using the `size` property (`m`, which is the default, and `s`).
 
 ```html
-<sbb-radio-button value="small" size='s'>Size</sbb-radio-button>
+<sbb-radio-button value="small" size="s">Size</sbb-radio-button>
 ```
 
+<!-- Auto Generated Below -->
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+## Properties
 
 | Name                  | Attribute               | Privacy | Type                 | Default | Description                           |
 | --------------------- | ----------------------- | ------- | -------------------- | ------- | ------------------------------------- |

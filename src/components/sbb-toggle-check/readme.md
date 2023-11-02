@@ -8,15 +8,13 @@ enhanced with the SBB Design.
 ## Slots
 
 It is possible to provide a label via an unnamed slot; the component can optionally display a `sbb-icon`
-using the `iconName` property or via custom content using the `icon` slot. 
+using the `iconName` property or via custom content using the `icon` slot.
 The icon can be at the component start or end based on the value of the `labelPosition` property (default: `after`).
 
 ```html
-<sbb-toggle-check value="single-checkbox" icon-name='pie-small'>
-  Example
-</sbb-toggle-check>
+<sbb-toggle-check value="single-checkbox" icon-name="pie-small"> Example </sbb-toggle-check>
 
-<sbb-toggle-check value="single-checkbox" icon-name='pie-small' label-position='start'>
+<sbb-toggle-check value="single-checkbox" icon-name="pie-small" label-position="start">
   Another example
 </sbb-toggle-check>
 ```
@@ -39,7 +37,7 @@ the current state can be read from `event.target.checked` and the value from `ev
 ## Accessibility
 
 The `sbb-toggle-check` component uses an internal `<input type="checkbox"/>` to provide an accessible experience.
-This internal checkbox receives focus and is automatically labelled by the text content of the `sbb-toggle-check` element. 
+This internal checkbox receives focus and is automatically labelled by the text content of the `sbb-toggle-check` element.
 Avoid adding other interactive controls into the content of `sbb-toggle-check`, as this degrades the experience for users of assistive technology.
 
 If you don't want the label to appear next to the `sbb-toggle-check` component,
@@ -49,9 +47,9 @@ you can not provide it and then use `aria-label` to specify an appropriate label
 <sbb-toggle-check aria-label="Subscribed to email message" />
 ```
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name            | Attribute        | Privacy | Type                               | Default        | Description                                                    |
 | --------------- | ---------------- | ------- | ---------------------------------- | -------------- | -------------------------------------------------------------- |

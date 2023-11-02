@@ -1,4 +1,4 @@
-The `sbb-checkbox-group` component is used as a container for one or multiple 
+The `sbb-checkbox-group` component is used as a container for one or multiple
 [sbb-checkbox](/docs/components-sbb-checkbox-sbb-checkbox--docs) components,
 or, alternatively, for a collection of [sbb-selection-panel](/docs/components-sbb-selection-panel--docs).
 
@@ -14,7 +14,7 @@ or, alternatively, for a collection of [sbb-selection-panel](/docs/components-sb
     <sbb-checkbox>
       Value
       <span slot="suffix">
-        <sbb-icon/>
+        <sbb-icon />
         <span class="sbb-text-xs sbb-text--bold">CHF</span>
         <span class="sbb-text-m sbb-text--bold">40.00</span>
       </span>
@@ -27,7 +27,7 @@ or, alternatively, for a collection of [sbb-selection-panel](/docs/components-sb
 
 The content is projected in an unnamed slot.
 
-The component can display one or more [sbb-form-error](/docs/components-sbb-form-field-sbb-form-error--docs) components 
+The component can display one or more [sbb-form-error](/docs/components-sbb-form-field-sbb-form-error--docs) components
 right below the `sbb-checkbox-group` using the `error` slot.
 
 ```html
@@ -45,41 +45,33 @@ It is possible to mark the entire group as disabled or required using the proper
 
 ```html
 <!-- All the child sbb-checkbox will be marked as required. -->
-<sbb-checkbox-group required>
-  ...
-</sbb-checkbox-group>
+<sbb-checkbox-group required> ... </sbb-checkbox-group>
 
 <!-- All the child sbb-checkbox will be marked as disabled. -->
-<sbb-checkbox-group disabled>
-  ...
-</sbb-checkbox-group>
+<sbb-checkbox-group disabled> ... </sbb-checkbox-group>
 ```
 
 ## Style
 
-The `orientation` property is used to set item orientation. 
+The `orientation` property is used to set item orientation.
 Possible values are `horizontal` (default) and `vertical`.
 The optional property `horizontalFrom` can be used in combination with `orientation='vertical'` to
 indicate the minimum breakpoint from which the orientation changes to `horizontal`.
 
 ```html
-<sbb-checkbox-group orientation="vertical" horizontal-from="large">
-  ...
-</sbb-checkbox-group>
+<sbb-checkbox-group orientation="vertical" horizontal-from="large"> ... </sbb-checkbox-group>
 ```
 
-The component has a `size` property too, which can be used to change the size of all the inner `sbb-checkbox`. 
+The component has a `size` property too, which can be used to change the size of all the inner `sbb-checkbox`.
 Two values are available, `s` and `m`, which is the default
 
 ```html
-<sbb-checkbox-group size='s'>
-  ...
-</sbb-checkbox-group>
+<sbb-checkbox-group size="s"> ... </sbb-checkbox-group>
 ```
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name             | Attribute         | Privacy | Type                             | Default        | Description                                                                    |
 | ---------------- | ----------------- | ------- | -------------------------------- | -------------- | ------------------------------------------------------------------------------ |

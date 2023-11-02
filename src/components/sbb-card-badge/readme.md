@@ -2,7 +2,7 @@ The `sbb-card-badge` can contain some information like prices or discounts,
 and can be used in [sbb-card](/docs/components-sbb-card-sbb-card--docs) or
 [sbb-selection-panel](/docs/components-sbb-selection-panel--docs).
 
-To achieve the correct spacing between elements inside the card badge, we recommend to use `span`-elements. 
+To achieve the correct spacing between elements inside the card badge, we recommend to use `span`-elements.
 All content parts are presented with a predefined gap in between.
 
 ```html
@@ -21,9 +21,9 @@ All content parts are presented with a predefined gap in between.
 It's recommended to place an `aria-label` on `sbb-card-badge` to describe the displayed information in a full sentence,
 as in the example above.
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name    | Attribute | Privacy | Type                    | Default      | Description              |
 | ------- | --------- | ------- | ----------------------- | ------------ | ------------------------ |

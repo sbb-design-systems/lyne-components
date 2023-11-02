@@ -1,10 +1,10 @@
-A `sbb-train` is a component used as a container element for a collection of 
-[sbb-train-wagon](/docs/timetable-sbb-train-wagon--docs)s 
-or [sbb-train-blocked-passage](/docs/timetable-sbb-train-blocked-passage--docs)s, 
+A `sbb-train` is a component used as a container element for a collection of
+[sbb-train-wagon](/docs/timetable-sbb-train-wagon--docs)s
+or [sbb-train-blocked-passage](/docs/timetable-sbb-train-blocked-passage--docs)s,
 and it can be used within the [sbb-train-formation](/docs/timetable-sbb-train-formation--docs) component.
 
 ```html
-<sbb-train 
+<sbb-train
   direction-label="driving direction"
   direction-label-level="3"
   station="Genève-Aéroport"
@@ -15,9 +15,9 @@ and it can be used within the [sbb-train-formation](/docs/timetable-sbb-train-fo
 </sbb-train>
 ```
 
-It's possible to use the `station` property to display the label of the `sbb-train` destination, 
+It's possible to use the `station` property to display the label of the `sbb-train` destination,
 while the `direction` property can be used to display the direction indicator (default: `left`).
-The direction label and the level of its heading tag are set, respectively, 
+The direction label and the level of its heading tag are set, respectively,
 with the property `directionLabel` and `directionLabelLevel`.
 
 ## Accessibility
@@ -25,9 +25,9 @@ with the property `directionLabel` and `directionLabelLevel`.
 The `accessibility-label` property should be used to give further information about the leaving direction of the `sbb-train`.
 It should refer to the section where the locomotive is placed.
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name                  | Attribute               | Privacy | Type                  | Default  | Description                                                                                  |
 | --------------------- | ----------------------- | ------- | --------------------- | -------- | -------------------------------------------------------------------------------------------- |

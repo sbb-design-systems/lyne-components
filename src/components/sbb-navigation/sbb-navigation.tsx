@@ -1,10 +1,5 @@
 import { FocusTrap, IS_FOCUSABLE_QUERY, assignId, setModalityOnNextFocus } from '../core/a11y';
-import {
-  ScrollHandler,
-  isValidAttribute,
-  isBreakpoint,
-  findReferencedElement,
-} from '../core/dom';
+import { ScrollHandler, isValidAttribute, isBreakpoint, findReferencedElement } from '../core/dom';
 import {
   documentLanguage,
   HandlerRepository,

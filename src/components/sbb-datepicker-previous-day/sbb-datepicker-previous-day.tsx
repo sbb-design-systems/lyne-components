@@ -1,12 +1,7 @@
 import { CSSResult, LitElement, PropertyValues, TemplateResult, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { DateAdapter, NativeDateAdapter } from '../core/datetime';
-import {
-  isValidAttribute,
-  setAttribute,
-  setAttributes,
-  toggleDatasetEntry,
-} from '../core/dom';
+import { isValidAttribute, setAttribute, setAttributes, toggleDatasetEntry } from '../core/dom';
 import {
   ConnectedAbortController,
   HandlerRepository,

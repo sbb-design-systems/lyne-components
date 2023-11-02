@@ -2,15 +2,17 @@ The `sbb-header` component is a container for actions and a logo, and it is disp
 
 ## Slots
 
-It has two slots: 
-the first one can contain one or more [sbb-header-action](/docs/components-sbb-header-sbb-header-action--docs) 
-or other action items like [sbb-button](/docs/components-sbb-button--docs) or [sbb-link](/docs/components-sbb-link--docs), 
-and it is displayed at the left end of the component; the second slot is displayed at the right end, 
+It has two slots:
+the first one can contain one or more [sbb-header-action](/docs/components-sbb-header-sbb-header-action--docs)
+or other action items like [sbb-button](/docs/components-sbb-button--docs) or [sbb-link](/docs/components-sbb-link--docs),
+and it is displayed at the left end of the component; the second slot is displayed at the right end,
 and it can contain a logo, which by default is the [sbb-logo](/docs/components-sbb-logo--docs).
 
 ```html
 <sbb-header>
-  <sbb-header-action icon-name="hamburger-menu-small" href="https://sbb.ch/somewhere">Menu</sbb-header-action>
+  <sbb-header-action icon-name="hamburger-menu-small" href="https://sbb.ch/somewhere"
+    >Menu</sbb-header-action
+  >
   <sbb-header-action icon-name="magnifying-glass-small">Search</sbb-header-action>
 </sbb-header>
 ```
@@ -47,18 +49,19 @@ using the `scrollOrigin` property, which accepts an `HTMLElement` or the id of t
 
 ### Customizing
 
-Users can customize position and behaviour of actions inside the `sbb-header` component 
+Users can customize position and behaviour of actions inside the `sbb-header` component
 by adding classes to `sbb-header-action` elements and then defining their own style rules.
 
 [All the examples in Storybook](/story/components-sbb-header-sbb-header--basic) have the following requirements:
+
 - four action items (with custom icons);
 - the first item is always left aligned and has `expand-from` set to `small`;
 - the other three items are left aligned in breakpoints zero to medium, and right aligned from large to ultra;
 - the last item is not visible in breakpoints zero to small.
 
-To achieve this result, a `div` tag with a CSS class named `sbb-header-spacer` was added between the first 
+To achieve this result, a `div` tag with a CSS class named `sbb-header-spacer` was added between the first
 and the second `sbb-header-action` item, then a class named `last-element` was added to the last one.
-Finally, the following custom CSS has been added(*). The result can be seen in the home and home--logged-in stories.
+Finally, the following custom CSS has been added(\*). The result can be seen in the home and home--logged-in stories.
 
 ```css
 .last-element {
@@ -80,7 +83,7 @@ Finally, the following custom CSS has been added(*). The result can be seen in t
 
 ### Content overflow
 
-If a certain `sbb-header-action` should be shrunken (receive ellipsis) when there is too little space, 
+If a certain `sbb-header-action` should be shrunken (receive ellipsis) when there is too little space,
 set the CSS class `sbb-header-shrinkable` on the desired `sbb-header-action`.
 
 ```html
@@ -92,18 +95,19 @@ set the CSS class `sbb-header-shrinkable` on the desired `sbb-header-action`.
   >
     Menu
   </sbb-header-action>
-  <sbb-header-action class="sbb-header-shrinkable">Christina Müller has a long name</sbb-header-action>
+  <sbb-header-action class="sbb-header-shrinkable"
+    >Christina Müller has a long name</sbb-header-action
+  >
 </sbb-header>
 ```
 
-
-(*) Technical note: Due the presence of media-query rules, it was not possible to add those rules directly 
+(\*) Technical note: Due the presence of media-query rules, it was not possible to add those rules directly
 in the component's stories (see also [this Storybook issue](https://github.com/storybookjs/storybook/issues/8820)),
 so they were wrapped into a `style` tag and added to the Storybook's configuration file named `preview-head.html`.
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name           | Attribute        | Privacy | Type                                | Default | Description                                                                                                          |
 | -------------- | ---------------- | ------- | ----------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------- |

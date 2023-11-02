@@ -1,10 +1,10 @@
-The `sbb-icon` component provides a solid way of rendering registered and named icons. 
+The `sbb-icon` component provides a solid way of rendering registered and named icons.
 
-The component will dynamically load an SVG for each icon, avoiding multiple requests to the same icon. 
+The component will dynamically load an SVG for each icon, avoiding multiple requests to the same icon.
 The icon components are not tied to specific icon sets; you can register custom namespaces
-and then provide the `sbb-icon` with the `name` property in the format `name="icon-name"` or `name="namespace:icon-name"`. 
+and then provide the `sbb-icon` with the `name` property in the format `name="icon-name"` or `name="namespace:icon-name"`.
 
-Note that if you do not provide a namespace, the default namespace will be used pointing to the `SBB Icons CDN` (Work in progress). 
+Note that if you do not provide a namespace, the default namespace will be used pointing to the `SBB Icons CDN` (Work in progress).
 
 ```html
 <!-- Will use the default namespace -->
@@ -13,9 +13,9 @@ Note that if you do not provide a namespace, the default namespace will be used 
 
 ## Accessibility
 
-Similar to an `<img>` element, an icon alone does not convey any useful information for a screen-reader user. 
-The user of `sbb-icon` must provide additional information pertaining to how the icon is used. 
-Based on the use-cases described below, `sbb-icon` is marked as `aria-hidden="true"` by default, 
+Similar to an `<img>` element, an icon alone does not convey any useful information for a screen-reader user.
+The user of `sbb-icon` must provide additional information pertaining to how the icon is used.
+Based on the use-cases described below, `sbb-icon` is marked as `aria-hidden="true"` by default,
 but this can be overridden by adding `aria-hidden="false"` to the element.
 
 In thinking about accessibility, it is useful to place icon use into one of three categories:
@@ -27,9 +27,9 @@ In thinking about accessibility, it is useful to place icon use into one of thre
 
 <!-- TODO: add icon configuration documentation -->
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name         | Attribute     | Privacy | Type      | Default  | Description                                                                                                                                                                                                   |
 | ------------ | ------------- | ------- | --------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

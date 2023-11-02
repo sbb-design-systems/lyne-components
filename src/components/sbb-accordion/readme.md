@@ -1,5 +1,5 @@
-The `sbb-accordion` is a component which acts as a container 
-for one or more [sbb-expansion-panel](/docs/components-sbb-accordion-sbb-expansion-panel--docs). 
+The `sbb-accordion` is a component which acts as a container
+for one or more [sbb-expansion-panel](/docs/components-sbb-accordion-sbb-expansion-panel--docs).
 
 ```html
 <sbb-accordion>
@@ -19,9 +19,7 @@ for one or more [sbb-expansion-panel](/docs/components-sbb-accordion-sbb-expansi
 The `multi` property, if set, allows having more than one `sbb-expansion-panel` expanded at the same time.
 
 ```html
-<sbb-accordion multi>
-  ...
-</sbb-accordion>
+<sbb-accordion multi> ... </sbb-accordion>
 ```
 
 ## Style
@@ -32,7 +30,7 @@ to wrap the header of each `sbb-expansion-panel` in a heading tag; if the proper
 In the following example, all the `sbb-expansion-panel-header` would be wrapped in a `h3` heading tag.
 
 ```html
-<sbb-accordion title-level='3'>
+<sbb-accordion title-level="3">
   <sbb-expansion-panel>
     <sbb-expansion-panel-header>Header 1</sbb-expansion-panel-header>
     <sbb-expansion-panel-content>Content 1</sbb-expansion-panel-content>
@@ -41,9 +39,9 @@ In the following example, all the `sbb-expansion-panel-header` would be wrapped 
 </sbb-accordion>
 ```
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name               | Attribute           | Privacy | Type                 | Default | Description                                                                 |
 | ------------------ | ------------------- | ------- | -------------------- | ------- | --------------------------------------------------------------------------- |

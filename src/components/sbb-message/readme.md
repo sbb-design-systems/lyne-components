@@ -1,12 +1,12 @@
 The `sbb-message` component can be used to display a complex message.
 
-## Slots 
+## Slots
 
-It renders by default a [sbb-title](/docs/components-sbb-title--docs), 
+It renders by default a [sbb-title](/docs/components-sbb-title--docs),
 which can be provided via `titleContent` property or `title` slot.
-Optionally, the user can provide other elements such as a subtitle paragraph via the `subtitle` slot, 
-a [sbb-image](/docs/components-sbb-image--docs) to provide an image via the `image` slot, 
-a paragraph to provide an error code via the `legend` slot, 
+Optionally, the user can provide other elements such as a subtitle paragraph via the `subtitle` slot,
+a [sbb-image](/docs/components-sbb-image--docs) to provide an image via the `image` slot,
+a paragraph to provide an error code via the `legend` slot,
 and a [sbb-button](/docs/components-sbb-button--docs) to provide a custom action via the `action` slot.
 
 ```html
@@ -20,14 +20,14 @@ and a [sbb-button](/docs/components-sbb-button--docs) to provide a custom action
 
 ## Accessibility
 
-By default, the `sbb-title` has a visual level of 5 and an actual level of 3. 
-This can be changed by the user via the `title-level` property. 
-As all other elements are regularly slotted, their accessibility relies on the standard techniques provided 
+By default, the `sbb-title` has a visual level of 5 and an actual level of 3.
+This can be changed by the user via the `title-level` property.
+As all other elements are regularly slotted, their accessibility relies on the standard techniques provided
 by the used components (e.g. `alt-text` and `aria-label`).
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name           | Attribute       | Privacy | Type                  | Default | Description                                                                         |
 | -------------- | --------------- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------- |

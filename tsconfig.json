@@ -43,6 +43,5 @@
       }
     ]
   },
-  "include": ["./src/**/*.ts", "./src/**/*.tsx", "node_modules/lit-scss-loader/types.d.ts"],
-  "exclude": ["./src/**/*.e2e.ts", "./src/**/*.stories.tsx", "./src/**/*.spec.ts"]
+  "include": ["./src/**/*.ts", "./src/**/*.tsx", "node_modules/lit-scss-loader/types.d.ts"]
 }

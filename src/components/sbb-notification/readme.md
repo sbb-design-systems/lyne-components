@@ -1,10 +1,11 @@
-The `sbb-notification` is a component which purpose is to inform users of updates. 
+The `sbb-notification` is a component which purpose is to inform users of updates.
 A notification is an element that displays a brief, important message in a way that attracts the user's attention without interrupting the user's task.
 
-Inline notifications show up in task flows, to notify users of an action status or other information. 
+Inline notifications show up in task flows, to notify users of an action status or other information.
 They usually appear at the top of the primary content area or close to the item needing attention.
 
 The `sbb-notification` is structured in the following way:
+
 - Icon: informs users of the notification type at a glance.
 - Title (optional): gives users a quick overview of the notification.
 - Close button (optional): closes the notification.
@@ -39,28 +40,26 @@ It is possible to display the component in `readonly` state by using the self-na
 In this case, the close button will not be shown.
 
 ```html
-<sbb-notification readonly>
-  ...
-</sbb-notification>
+<sbb-notification readonly> ... </sbb-notification>
 ```
 
 ## Interactions
 
-Inline notifications do not dismiss automatically. 
+Inline notifications do not dismiss automatically.
 They persist on the page until the user dismisses them or takes action that resolves the notification.
 
-By default, a close button is displayed to dismiss inline notifications. Including the close button is optional 
+By default, a close button is displayed to dismiss inline notifications. Including the close button is optional
 and should not be included if it is critical for a user to read or interact with the notification by setting the `readonly` property to `true`.
 
 ## Style
 
-If the `sbb-notification` host needs a margin, in order to properly animate it on open/close, 
-we suggest using the `--sbb-notification-margin` variable to set it. 
-For example, use `--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0` to apply a bottom margin. 
+If the `sbb-notification` host needs a margin, in order to properly animate it on open/close,
+we suggest using the `--sbb-notification-margin` variable to set it.
+For example, use `--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0` to apply a bottom margin.
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name               | Attribute           | Privacy | Type                                                    | Default  | Description                                                                                             |
 | ------------------ | ------------------- | ------- | ------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------- |

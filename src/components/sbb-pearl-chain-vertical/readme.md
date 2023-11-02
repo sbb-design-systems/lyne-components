@@ -1,6 +1,6 @@
 The `sbb-pearl-chain-vertical` is a wrapper component for a
 [sbb-pearl-chain-vertical-item](/docs/timetable-sbb-pearl-chain-vertical-item--docs) component,
-which is projected within an unnamed slot. 
+which is projected within an unnamed slot.
 Please refer to its documentation for more details.
 
 ```json5
@@ -23,8 +23,8 @@ Please refer to its documentation for more details.
 </sbb-pearl-chain-vertical>
 ```
 
-<!-- Auto Generated Below --> 
- 
+<!-- Auto Generated Below -->
+
 ## Slots
 
 | Name | Description                                     |

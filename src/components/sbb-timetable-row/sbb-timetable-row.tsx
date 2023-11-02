@@ -18,11 +18,7 @@ import {
 } from '../core/i18n';
 import { format } from 'date-fns';
 import { removeTimezoneFromISOTimeString, durationToTime } from '../core/datetime';
-import {
-  documentLanguage,
-  HandlerRepository,
-  languageChangeHandlerAspect,
-} from '../core/eventing';
+import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import {
   getDepartureArrivalTimeAttribute,
   isRideLeg,

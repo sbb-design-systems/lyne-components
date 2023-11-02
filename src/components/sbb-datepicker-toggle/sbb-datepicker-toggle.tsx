@@ -3,11 +3,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { sbbInputModalityDetector } from '../core/a11y';
 import { isValidAttribute, setAttribute } from '../core/dom';
-import {
-  documentLanguage,
-  HandlerRepository,
-  languageChangeHandlerAspect,
-} from '../core/eventing';
+import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import { i18nShowCalendar } from '../core/i18n';
 import { SbbCalendar } from '../sbb-calendar/index';
 import type { SbbDatepicker } from '../sbb-datepicker';

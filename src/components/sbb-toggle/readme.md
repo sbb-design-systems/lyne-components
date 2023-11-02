@@ -1,9 +1,9 @@
 The `sbb-toggle` component is a wrapper for a couple of [sbb-toggle-option](/docs/components-sbb-toggle-sbb-toggle-option--docs)s
-that can be selected by the user; it is useful for switching between views within the content 
+that can be selected by the user; it is useful for switching between views within the content
 
-Their behavior is similar to [sbb-tab-group](/docs/components-sbb-tab-sbb-tab-group--docs) 
-or [sbb-radio-button-group](/docs/components-sbb-radio-button-sbb-radio-button-group--docs), 
-where selecting an option deselects the previously selected one. 
+Their behavior is similar to [sbb-tab-group](/docs/components-sbb-tab-sbb-tab-group--docs)
+or [sbb-radio-button-group](/docs/components-sbb-radio-button-sbb-radio-button-group--docs),
+where selecting an option deselects the previously selected one.
 
 ```html
 <sbb-toggle value="Value 1">
@@ -17,9 +17,7 @@ where selecting an option deselects the previously selected one.
 The component can be displayed in `disabled` state using the self-named property.
 
 ```html
-<sbb-toggle disabled>
-  ...
-</sbb-toggle>
+<sbb-toggle disabled> ... </sbb-toggle>
 ```
 
 ## Style
@@ -29,14 +27,12 @@ The `even` property can be used to let the component expand to the parent compon
 The component has two different sizes, `s` and `m` (default), which can be set using the `size` property.
 
 ```html
-<sbb-toggle size='s' even>
-  ...
-</sbb-toggle>
+<sbb-toggle size="s" even> ... </sbb-toggle>
 ```
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name               | Attribute           | Privacy | Type                      | Default | Description                                                                                                                                      |
 | ------------------ | ------------------- | ------- | ------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
