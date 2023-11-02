@@ -124,7 +124,7 @@ export class SbbSelect extends LitElement {
    */
   private _ariaRoleOnHost = isSafari();
 
-  /** Gets all the HTMLSbbOptionElement projected in the select. */
+  /** Gets all the SbbOption projected in the select. */
   private get _options(): SbbOption[] {
     return Array.from(this.querySelectorAll('sbb-option'));
   }

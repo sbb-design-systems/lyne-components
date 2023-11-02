@@ -21,7 +21,7 @@ export const TimetableInput = (): JSX.Element => (
 
 const onNavigationClose = (dialog): void => {
   dialog.addEventListener('didClose', () => {
-    (document.getElementById('nav-marker') as HTMLSbbNavigationMarkerElement).reset();
+    (document.getElementById('nav-marker') as SbbNavigationMarker).reset();
     document.getElementById('nav-1').setAttribute('active', '');
   });
 };

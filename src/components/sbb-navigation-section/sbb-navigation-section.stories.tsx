@@ -12,6 +12,7 @@ import '../sbb-navigation-list';
 import '../sbb-navigation-action';
 import '../sbb-navigation';
 import '../sbb-button';
+import { SbbNavigationMarker } from '../sbb-navigation-marker';
 
 // Story interaction executed after the story renders
 const playStory = async (trigger, canvasElement): Promise<void> => {
@@ -92,7 +93,7 @@ const navigationList = (label): JSX.Element[] => [
 
 const onNavigationClose = (dialog): void => {
   dialog.addEventListener('didClose', () => {
-    (document.getElementById('nav-marker') as HTMLSbbNavigationMarkerElement).reset();
+    (document.getElementById('nav-marker') as SbbNavigationMarker).reset();
   });
 };
 

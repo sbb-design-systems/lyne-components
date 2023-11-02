@@ -122,7 +122,7 @@ const basicArgs: Args = {
 };
 
 const openDialog = (_event, id): void => {
-  const dialog = document.getElementById(id) as HTMLSbbDialogElement;
+  const dialog = document.getElementById(id) as SbbDialog;
   dialog.open();
 };
 
