@@ -1,3 +1,5 @@
+import { expect } from '@open-wc/testing';
+
 import {
   ButtonProperties,
   LinkButtonProperties,
@@ -16,7 +18,7 @@ describe('getLinkAttributeList', () => {
       role: 'presentation',
       tabIndex: '-1',
     };
-    expect(resolveRenderVariables(linkProperties as LinkButtonProperties).attributes).toEqual(
+    expect(resolveRenderVariables(linkProperties as LinkButtonProperties).attributes).to.be.equal(
       expectedObj,
     );
   });
@@ -33,7 +35,7 @@ describe('getLinkAttributeList', () => {
       role: 'presentation',
       tabIndex: '-1',
     };
-    expect(resolveRenderVariables(linkProperties as LinkButtonProperties).attributes).toEqual(
+    expect(resolveRenderVariables(linkProperties as LinkButtonProperties).attributes).to.be.equal(
       expectedObj,
     );
   });
@@ -51,7 +53,7 @@ describe('getLinkAttributeList', () => {
       role: 'presentation',
       tabIndex: '-1',
     };
-    expect(resolveRenderVariables(linkProperties as LinkButtonProperties).attributes).toEqual(
+    expect(resolveRenderVariables(linkProperties as LinkButtonProperties).attributes).to.be.equal(
       expectedObj,
     );
   });
@@ -68,7 +70,7 @@ describe('getLinkAttributeList', () => {
       tabIndex: '-1',
     };
 
-    expect(resolveRenderVariables(linkProperties as LinkButtonProperties).attributes).toEqual(
+    expect(resolveRenderVariables(linkProperties as LinkButtonProperties).attributes).to.be.equal(
       expectedObj,
     );
   });
@@ -86,7 +88,7 @@ describe('getLinkAttributeList', () => {
       role: 'presentation',
     };
 
-    expect(resolveRenderVariables(linkProperties).attributes).toEqual(expectedObj);
+    expect(resolveRenderVariables(linkProperties).attributes).to.be.equal(expectedObj);
   });
 });
 
@@ -115,7 +117,7 @@ describe('getLinkRenderVariables', () => {
         dir: 'ltr',
       },
     };
-    expect(resolveRenderVariables(linkButtonProperties)).toEqual(expectedObj);
+    expect(resolveRenderVariables(linkButtonProperties)).to.be.equal(expectedObj);
   });
 });
 
@@ -136,7 +138,9 @@ describe('getButtonRenderVariables', () => {
       },
     };
 
-    expect(resolveRenderVariables(buttonProperties as LinkButtonProperties)).toEqual(expectedObj);
+    expect(resolveRenderVariables(buttonProperties as LinkButtonProperties)).to.be.equal(
+      expectedObj,
+    );
   });
 });
 
@@ -150,17 +154,17 @@ describe('resolveRenderVariables', () => {
 
   it('should return variables for the static case', () => {
     const retObj = resolveRenderVariables({ ...linkButtonProperties, isStatic: true });
-    expect(retObj.tagName).toEqual('span');
+    expect(retObj.tagName).to.be.equal('span');
   });
 
   it('should return variables for the link case', () => {
     const retObj = resolveRenderVariables(linkButtonProperties);
-    expect(retObj.tagName).toEqual('a');
+    expect(retObj.tagName).to.be.equal('a');
   });
 
   it('should return variables for the button case', () => {
     const retObj = resolveRenderVariables({ ...linkButtonProperties, href: undefined });
-    expect(retObj.tagName).toEqual('span');
+    expect(retObj.tagName).to.be.equal('span');
   });
 
   it('should return the correct variables', () => {
@@ -172,9 +176,9 @@ describe('resolveRenderVariables', () => {
       },
     };
 
-    expect(resolveRenderVariables({ isStatic: true, href: null, name: null, type: null })).toEqual(
-      expectedObj,
-    );
+    expect(
+      resolveRenderVariables({ isStatic: true, href: null, name: null, type: null }),
+    ).to.be.equal(expectedObj);
   });
 });
 
@@ -185,11 +189,11 @@ describe('resolveLinkRenderVariables', () => {
 
   it('should return variables for the static case', () => {
     const retObj = resolveLinkOrStaticRenderVariables({ ...linkProperties, href: undefined });
-    expect(retObj.tagName).toEqual('span');
+    expect(retObj.tagName).to.be.equal('span');
   });
 
   it('should return variables for the link case', () => {
     const retObj = resolveLinkOrStaticRenderVariables(linkProperties);
-    expect(retObj.tagName).toEqual('a');
+    expect(retObj.tagName).to.be.equal('a');
   });
 });

@@ -1,12 +1,13 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
+import { expect } from '@open-wc/testing';
 import { getElementPosition } from './position';
+import { stub } from 'sinon';
 
 describe('getElementPosition', () => {
   let trigger: HTMLElement, element: HTMLElement;
 
   beforeEach(() => {
-    trigger = new HTMLElement();
-    element = new HTMLElement();
+    trigger = document.createElement('span');
+    element = document.createElement('span');
 
     // Mock element size
     Object.defineProperty(HTMLElement.prototype, 'offsetWidth', { configurable: true, value: 160 });
@@ -19,7 +20,7 @@ describe('getElementPosition', () => {
   });
 
   it('returns the correct element coordinates', () => {
-    jest.spyOn(trigger, 'getBoundingClientRect').mockReturnValue({
+    stub(trigger, 'getBoundingClientRect').returns({
       x: 48,
       y: 48,
       width: 80,
@@ -33,7 +34,7 @@ describe('getElementPosition', () => {
 
     const elementPosition = getElementPosition(element, trigger);
 
-    expect(elementPosition).toEqual({
+    expect(elementPosition).to.be.deep.equal({
       top: 96,
       left: 48,
       maxHeight: '624px',
@@ -42,7 +43,7 @@ describe('getElementPosition', () => {
   });
 
   it('changes the horizontal alignment to end', () => {
-    jest.spyOn(trigger, 'getBoundingClientRect').mockReturnValue({
+    stub(trigger, 'getBoundingClientRect').returns({
       x: 952,
       y: 48,
       width: 80,
@@ -56,7 +57,7 @@ describe('getElementPosition', () => {
 
     const elementPosition = getElementPosition(element, trigger);
 
-    expect(elementPosition).toEqual({
+    expect(elementPosition).to.be.deep.equal({
       top: 96,
       left: 872,
       maxHeight: '624px',
@@ -65,7 +66,7 @@ describe('getElementPosition', () => {
   });
 
   it('changes the vertical alignment to above', () => {
-    jest.spyOn(trigger, 'getBoundingClientRect').mockReturnValue({
+    stub(trigger, 'getBoundingClientRect').returns({
       x: 48,
       y: 624,
       width: 80,
@@ -79,7 +80,7 @@ describe('getElementPosition', () => {
 
     const elementPosition = getElementPosition(element, trigger);
 
-    expect(elementPosition).toEqual({
+    expect(elementPosition).to.be.deep.equal({
       top: 544,
       left: 48,
       maxHeight: '624px',
@@ -88,7 +89,7 @@ describe('getElementPosition', () => {
   });
 
   it('changes the vertical alignment if there is more space above and the element overflows', () => {
-    jest.spyOn(trigger, 'getBoundingClientRect').mockReturnValue({
+    stub(trigger, 'getBoundingClientRect').returns({
       x: 48,
       y: 600,
       width: 80,
@@ -102,7 +103,7 @@ describe('getElementPosition', () => {
 
     const elementPosition = getElementPosition(element, trigger);
 
-    expect(elementPosition).toEqual({
+    expect(elementPosition).to.be.deep.equal({
       top: 520,
       left: 48,
       maxHeight: '600px',
@@ -111,7 +112,7 @@ describe('getElementPosition', () => {
   });
 
   it('does not changes the vertical alignment if there is more space above and the element does not overflow', () => {
-    jest.spyOn(trigger, 'getBoundingClientRect').mockReturnValue({
+    stub(trigger, 'getBoundingClientRect').returns({
       x: 48,
       y: 592,
       width: 80,
@@ -125,7 +126,7 @@ describe('getElementPosition', () => {
 
     const elementPosition = getElementPosition(element, trigger);
 
-    expect(elementPosition).toEqual({
+    expect(elementPosition).to.be.deep.equal({
       top: 640,
       left: 48,
       maxHeight: '80px',
@@ -134,7 +135,7 @@ describe('getElementPosition', () => {
   });
 
   it('changes the alignment to end/above', () => {
-    jest.spyOn(trigger, 'getBoundingClientRect').mockReturnValue({
+    stub(trigger, 'getBoundingClientRect').returns({
       x: 952,
       y: 624,
       width: 80,
@@ -148,7 +149,7 @@ describe('getElementPosition', () => {
 
     const elementPosition = getElementPosition(element, trigger);
 
-    expect(elementPosition).toEqual({
+    expect(elementPosition).to.be.deep.equal({
       top: 544,
       left: 872,
       maxHeight: '624px',
@@ -157,7 +158,7 @@ describe('getElementPosition', () => {
   });
 
   it('changes horizontal alignment to center', () => {
-    jest.spyOn(trigger, 'getBoundingClientRect').mockReturnValue({
+    stub(trigger, 'getBoundingClientRect').returns({
       x: 64,
       y: 48,
       width: 80,
@@ -171,7 +172,7 @@ describe('getElementPosition', () => {
 
     const elementPosition = getElementPosition(element, trigger, { centered: true });
 
-    expect(elementPosition).toEqual({
+    expect(elementPosition).to.be.deep.equal({
       top: 96,
       left: 24,
       maxHeight: '624px',
@@ -180,7 +181,7 @@ describe('getElementPosition', () => {
   });
 
   it('applies vertical offset', () => {
-    jest.spyOn(trigger, 'getBoundingClientRect').mockReturnValue({
+    stub(trigger, 'getBoundingClientRect').returns({
       x: 48,
       y: 48,
       width: 80,
@@ -194,7 +195,7 @@ describe('getElementPosition', () => {
 
     const elementPosition = getElementPosition(element, trigger, { verticalOffset: 8 });
 
-    expect(elementPosition).toEqual({
+    expect(elementPosition).to.be.deep.equal({
       top: 104,
       left: 48,
       maxHeight: '608px',
@@ -203,7 +204,7 @@ describe('getElementPosition', () => {
   });
 
   it('applies horizontal offset', () => {
-    jest.spyOn(trigger, 'getBoundingClientRect').mockReturnValue({
+    stub(trigger, 'getBoundingClientRect').returns({
       x: 48,
       y: 48,
       width: 24,
@@ -217,7 +218,7 @@ describe('getElementPosition', () => {
 
     const elementPosition = getElementPosition(element, trigger, { horizontalOffset: 32 });
 
-    expect(elementPosition).toEqual({
+    expect(elementPosition).to.be.deep.equal({
       top: 96,
       left: 16,
       maxHeight: '624px',

@@ -1,3 +1,5 @@
+import { expect } from '@open-wc/testing';
+
 import {
   getNextElementIndex,
   isArrowKeyPressed,
@@ -8,51 +10,51 @@ import {
 describe('isArrowKeyPressed', () => {
   it('should return false', () => {
     const event = new KeyboardEvent('keydown', { key: 'Test' });
-    expect(isArrowKeyPressed(event)).toEqual(false);
+    expect(isArrowKeyPressed(event)).to.be.equal(false);
   });
 
   it('should return true', () => {
     const event = new KeyboardEvent('keydown', { key: 'ArrowUp' });
-    expect(isArrowKeyPressed(event)).toEqual(true);
+    expect(isArrowKeyPressed(event)).to.be.equal(true);
   });
 });
 
 describe('isPreviousArrowKeyPressed', () => {
   describe('ltr', () => {
     beforeEach(() => {
-      document.getElementsByTagName('html')[0].setAttribute('dir', 'ltr');
+      document.querySelector('html').setAttribute('dir', 'ltr');
     });
 
     it('should return false', () => {
       const testEvent = new KeyboardEvent('keydown', { key: 'Test' });
-      expect(isPreviousArrowKeyPressed(testEvent)).toEqual(false);
+      expect(isPreviousArrowKeyPressed(testEvent)).to.be.equal(false);
       const downEvent = new KeyboardEvent('keydown', { key: 'ArrowDown' });
-      expect(isPreviousArrowKeyPressed(downEvent)).toEqual(false);
+      expect(isPreviousArrowKeyPressed(downEvent)).to.be.equal(false);
       const rightEvent = new KeyboardEvent('keydown', { key: 'ArrowRight' });
-      expect(isPreviousArrowKeyPressed(rightEvent)).toEqual(false);
+      expect(isPreviousArrowKeyPressed(rightEvent)).to.be.equal(false);
     });
 
     it('should return true', () => {
       const upEvent = new KeyboardEvent('keydown', { key: 'ArrowUp' });
-      expect(isPreviousArrowKeyPressed(upEvent)).toEqual(true);
+      expect(isPreviousArrowKeyPressed(upEvent)).to.be.equal(true);
       const leftEvent = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
-      expect(isPreviousArrowKeyPressed(leftEvent)).toEqual(true);
+      expect(isPreviousArrowKeyPressed(leftEvent)).to.be.equal(true);
     });
   });
 
   describe('rtl', () => {
     beforeEach(() => {
-      document.getElementsByTagName('html')[0].setAttribute('dir', 'rtl');
+      document.querySelector('html').setAttribute('dir', 'rtl');
     });
 
     it('should return false', () => {
       const leftEvent = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
-      expect(isPreviousArrowKeyPressed(leftEvent)).toEqual(false);
+      expect(isPreviousArrowKeyPressed(leftEvent)).to.be.equal(false);
     });
 
     it('should return true', () => {
       const rightEvent = new KeyboardEvent('keydown', { key: 'ArrowRight' });
-      expect(isPreviousArrowKeyPressed(rightEvent)).toEqual(true);
+      expect(isPreviousArrowKeyPressed(rightEvent)).to.be.equal(true);
     });
   });
 });
@@ -60,97 +62,101 @@ describe('isPreviousArrowKeyPressed', () => {
 describe('isNextArrowKeyPressed', () => {
   describe('ltr', () => {
     beforeEach(() => {
-      document.getElementsByTagName('html')[0].setAttribute('dir', 'ltr');
+      document.querySelector('html').setAttribute('dir', 'ltr');
     });
 
     it('should return false', () => {
       const testEvent = new KeyboardEvent('keydown', { key: 'Test' });
-      expect(isNextArrowKeyPressed(testEvent)).toEqual(false);
+      expect(isNextArrowKeyPressed(testEvent)).to.be.equal(false);
       const upEvent = new KeyboardEvent('keydown', { key: 'ArrowUp' });
-      expect(isNextArrowKeyPressed(upEvent)).toEqual(false);
+      expect(isNextArrowKeyPressed(upEvent)).to.be.equal(false);
       const leftEvent = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
-      expect(isNextArrowKeyPressed(leftEvent)).toEqual(false);
+      expect(isNextArrowKeyPressed(leftEvent)).to.be.equal(false);
     });
 
     it('should return true', () => {
       const downEvent = new KeyboardEvent('keydown', { key: 'ArrowDown' });
-      expect(isNextArrowKeyPressed(downEvent)).toEqual(true);
+      expect(isNextArrowKeyPressed(downEvent)).to.be.equal(true);
       const rightEvent = new KeyboardEvent('keydown', { key: 'ArrowRight' });
-      expect(isNextArrowKeyPressed(rightEvent)).toEqual(true);
+      expect(isNextArrowKeyPressed(rightEvent)).to.be.equal(true);
     });
   });
 
   describe('rtl', () => {
     beforeEach(() => {
-      document.getElementsByTagName('html')[0].setAttribute('dir', 'rtl');
+      document.querySelector('html').setAttribute('dir', 'rtl');
     });
 
     it('should return false', () => {
       const rightEvent = new KeyboardEvent('keydown', { key: 'ArrowRight' });
-      expect(isNextArrowKeyPressed(rightEvent)).toEqual(false);
+      expect(isNextArrowKeyPressed(rightEvent)).to.be.equal(false);
     });
 
     it('should return true', () => {
       const leftEvent = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
-      expect(isNextArrowKeyPressed(leftEvent)).toEqual(true);
+      expect(isNextArrowKeyPressed(leftEvent)).to.be.equal(true);
     });
   });
 });
 
 describe('getNextElementIndex', () => {
   describe('ltr', () => {
+    beforeEach(() => {
+      document.querySelector('html').setAttribute('dir', 'ltr');
+    });
+
     it('should return the next element', function () {
       const size = 10;
       const eventDown = new KeyboardEvent('keydown', { key: 'ArrowDown' });
       const eventRight = new KeyboardEvent('keydown', { key: 'ArrowRight' });
-      expect(getNextElementIndex(eventDown, 0, size)).toEqual(1);
-      expect(getNextElementIndex(eventRight, 1, size)).toEqual(2);
-      expect(getNextElementIndex(eventDown, size - 2, size)).toEqual(9);
-      expect(getNextElementIndex(eventRight, size - 1, size)).toEqual(0);
+      expect(getNextElementIndex(eventDown, 0, size)).to.be.equal(1);
+      expect(getNextElementIndex(eventRight, 1, size)).to.be.equal(2);
+      expect(getNextElementIndex(eventDown, size - 2, size)).to.be.equal(9);
+      expect(getNextElementIndex(eventRight, size - 1, size)).to.be.equal(0);
 
       // current out of bound tests
-      expect(getNextElementIndex(eventDown, -1, size)).toEqual(0);
-      expect(getNextElementIndex(eventRight, size, size)).toEqual(0);
+      expect(getNextElementIndex(eventDown, -1, size)).to.be.equal(0);
+      expect(getNextElementIndex(eventRight, size, size)).to.be.equal(0);
     });
 
     it('should return the previous element', function () {
       const size = 10;
       const eventUp = new KeyboardEvent('keydown', { key: 'ArrowUp' });
       const eventLeft = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
-      expect(getNextElementIndex(eventUp, size - 1, size)).toEqual(8);
-      expect(getNextElementIndex(eventLeft, size - 2, size)).toEqual(7);
-      expect(getNextElementIndex(eventUp, 1, size)).toEqual(0);
-      expect(getNextElementIndex(eventLeft, 0, size)).toEqual(9);
+      expect(getNextElementIndex(eventUp, size - 1, size)).to.be.equal(8);
+      expect(getNextElementIndex(eventLeft, size - 2, size)).to.be.equal(7);
+      expect(getNextElementIndex(eventUp, 1, size)).to.be.equal(0);
+      expect(getNextElementIndex(eventLeft, 0, size)).to.be.equal(9);
 
       // current out of bound tests
-      expect(getNextElementIndex(eventUp, -1, size)).toEqual(size - 1);
-      expect(getNextElementIndex(eventLeft, size, size)).toEqual(size - 1);
+      expect(getNextElementIndex(eventUp, -1, size)).to.be.equal(size - 1);
+      expect(getNextElementIndex(eventLeft, size, size)).to.be.equal(size - 1);
     });
   });
 
   describe('rtl', () => {
     beforeEach(() => {
-      document.getElementsByTagName('html')[0].setAttribute('dir', 'rtl');
+      document.querySelector('html').setAttribute('dir', 'rtl');
     });
 
     it('should return the next element', function () {
       const size = 10;
       const eventDown = new KeyboardEvent('keydown', { key: 'ArrowDown' });
       const eventLeft = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
-      expect(getNextElementIndex(eventDown, 0, size)).toEqual(1);
-      expect(getNextElementIndex(eventLeft, 1, size)).toEqual(2);
-      expect(getNextElementIndex(eventDown, size - 2, size)).toEqual(9);
-      expect(getNextElementIndex(eventLeft, size - 1, size)).toEqual(0);
+      expect(getNextElementIndex(eventDown, 0, size)).to.be.equal(1);
+      expect(getNextElementIndex(eventLeft, 1, size)).to.be.equal(2);
+      expect(getNextElementIndex(eventDown, size - 2, size)).to.be.equal(9);
+      expect(getNextElementIndex(eventLeft, size - 1, size)).to.be.equal(0);
     });
 
     it('should return the previous element', function () {
       const size = 10;
       const eventUp = new KeyboardEvent('keydown', { key: 'ArrowUp' });
       const eventRight = new KeyboardEvent('keydown', { key: 'ArrowRight' });
-      expect(getNextElementIndex(eventUp, size - 1, size)).toEqual(8);
-      expect(getNextElementIndex(eventRight, size - 2, size)).toEqual(7);
-      expect(getNextElementIndex(eventUp, 1, size)).toEqual(0);
-      expect(getNextElementIndex(eventRight, 0, size)).toEqual(9);
+      expect(getNextElementIndex(eventUp, size - 1, size)).to.be.equal(8);
+      expect(getNextElementIndex(eventRight, size - 2, size)).to.be.equal(7);
+      expect(getNextElementIndex(eventUp, 1, size)).to.be.equal(0);
+      expect(getNextElementIndex(eventRight, 0, size)).to.be.equal(9);
     });
   });
 });

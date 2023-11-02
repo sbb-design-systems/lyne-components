@@ -14,7 +14,7 @@ describe('sbb-autocomplete', () => {
     formField = await fixture(html`
       <sbb-form-field>
         <input />
-        <sbb-autocomplete id="myAutocomplete" style="--sbb-options-panel-animation-duration: 0.01s">
+        <sbb-autocomplete id="myAutocomplete" disable-animation>
           <sbb-option id="option-1" value="1">1</sbb-option>
           <sbb-option id="option-2" value="2">2</sbb-option>
           <sbb-option id="option-3" value="3">3</sbb-option>
