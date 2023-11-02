@@ -3,19 +3,19 @@ The component represents an action element contained by the [sbb-header](/docs/c
 ## Slots
 
 It is possible to provide a label via an unnamed slot; the component can optionally display a `sbb-icon`
-at the component start using the `iconName` property or via custom content using the `icon` slot. 
+at the component start using the `iconName` property or via custom content using the `icon` slot.
 
 ```html
 <sbb-header-action>Text</sbb-header-action>
 
-<sbb-header-action icon-name='pie-small'>Another text</sbb-header-action>
+<sbb-header-action icon-name="pie-small">Another text</sbb-header-action>
 ```
 
-If the component's icon is set, the property `expandFrom` can be used to define the minimum breakpoint 
+If the component's icon is set, the property `expandFrom` can be used to define the minimum breakpoint
 from which the label is displayed; below that, only the icon is visible.
 
 ```html
-<sbb-header-action expand-from='medium'>Text</sbb-header-action>
+<sbb-header-action expand-from="medium">Text</sbb-header-action>
 ```
 
 ## Link / button properties
@@ -26,14 +26,14 @@ depending on the value of the `href` property, so the associated properties are 
 (`href`, `target`, `rel` and `download` for link; `type`, `name`, `value` and `form` for button).
 
 ```html
-<sbb-header-action href="#info" target='_blank'>Link</sbb-header-action>
+<sbb-header-action href="#info" target="_blank">Link</sbb-header-action>
 
-<sbb-header-action type='button' value='menu' name='menu'>Button</sbb-header-action>
+<sbb-header-action type="button" value="menu" name="menu">Button</sbb-header-action>
 ```
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name         | Attribute     | Privacy | Type                                                 | Default | Description                                                                                                                                                                              |
 | ------------ | ------------- | ------- | ---------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

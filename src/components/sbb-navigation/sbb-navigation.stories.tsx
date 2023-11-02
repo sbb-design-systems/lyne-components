@@ -5,7 +5,7 @@ import readme from './readme.md?raw';
 import isChromatic from 'chromatic';
 import { userEvent, waitFor, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { waitForComponentsReady } from '../../global/testing/wait-for-components-ready';
+import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';

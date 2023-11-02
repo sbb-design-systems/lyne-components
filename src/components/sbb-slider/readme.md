@@ -20,10 +20,10 @@ The component can be used within a `sbb-form-field` component.
 </sbb-form-field>
 ```
 
-## Slots 
+## Slots
 
-The component can optionally display two `sbb-icon`s at either end; 
-consumers could set one/both of them using the `startIcon` and `endIcon` properties, 
+The component can optionally display two `sbb-icon`s at either end;
+consumers could set one/both of them using the `startIcon` and `endIcon` properties,
 or can provide their own using the two slots named `prefix` and `suffix`.
 
 ```html
@@ -55,7 +55,7 @@ the current value can be read from `event.target.value` or `event.target.valueAs
 The `sbb-slider` has the following behaviour on keypress when focused:
 
 | Key         | Action                                            |
-|-------------|---------------------------------------------------|
+| ----------- | ------------------------------------------------- |
 | Right arrow | Increment the slider value by one (or one step).  |
 | Up arrow    | Increment the slider value by one (or one step).  |
 | Left arrow  | Decrement the slider value by one (or one step).  |
@@ -65,10 +65,9 @@ The `sbb-slider` has the following behaviour on keypress when focused:
 | End         | Set the value to the maximum.                     |
 | Home        | Set the value to the minimum.                     |
 
+<!-- Auto Generated Below -->
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+## Properties
 
 | Name            | Attribute         | Privacy | Type                   | Default | Description                                                                                                                                    |
 | --------------- | ----------------- | ------- | ---------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |

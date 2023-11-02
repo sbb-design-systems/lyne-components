@@ -3,7 +3,7 @@ import { existsSync, mkdirSync, promises, readFileSync, Stats, writeFileSync } f
 
 const config = {
   boilerplateComponentName: 'component',
-  boilerplateDirectory: 'convenience/generate-component/boilerplate',
+  boilerplateDirectory: 'tools/generate-component/boilerplate',
   sourceDirectory: 'src/components',
 };
 

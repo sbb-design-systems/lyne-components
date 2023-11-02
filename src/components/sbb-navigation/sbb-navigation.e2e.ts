@@ -1,4 +1,4 @@
-import { waitForCondition, waitForLitRender, EventSpy } from '../../global/testing';
+import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
 import { assert, expect, fixture, nextFrame } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';

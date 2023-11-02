@@ -1,4 +1,4 @@
-import { DateAdapter, NativeDateAdapter } from './datetime';
+import { DateAdapter, NativeDateAdapter } from '../datetime';
 
 export interface SbbIconConfig {
   interceptor?: (parameters: {

@@ -1,6 +1,6 @@
-The `sbb-calendar` component displays a calendar that allows the user to select a date. 
+The `sbb-calendar` component displays a calendar that allows the user to select a date.
 
-While being deeply linked to the implementation of the [sbb-datepicker-toggle](/docs/components-sbb-datepicker-sbb-datepicker-toggle--docs) component, 
+While being deeply linked to the implementation of the [sbb-datepicker-toggle](/docs/components-sbb-datepicker-sbb-datepicker-toggle--docs) component,
 it can be used on its own.
 
 ```html
@@ -25,7 +25,7 @@ It's recommended to set the time to 00:00:00.
 The component displays one month by default; two months can be displayed setting the `wide` property to `true`.
 
 ```html
-<sbb-calendar wide='true' selected-date="1650000000"></sbb-calendar>
+<sbb-calendar wide="true" selected-date="1650000000"></sbb-calendar>
 ```
 
 It's also possible to filter out unwanted date using the `dateFilter` function property.
@@ -33,7 +33,7 @@ Note that using the `dateFilter` function as a replacement for the `min` and `ma
 
 ## Events
 
-Consumers can listen to the `dateSelected` event on the `sbb-calendar` component to intercept the selected date 
+Consumers can listen to the `dateSelected` event on the `sbb-calendar` component to intercept the selected date
 which can be read from `event.detail`.
 
 ## Keyboard interaction
@@ -41,7 +41,7 @@ which can be read from `event.detail`.
 It's possible to move within the component using the keyboard.
 
 | Keyboard               | Action                                                        |
-|------------------------|---------------------------------------------------------------|
+| ---------------------- | ------------------------------------------------------------- |
 | <kbd>Left Arrow</kbd>  | Go to previous day.                                           |
 | <kbd>Right Arrow</kbd> | Go to next day.                                               |
 | <kbd>Up Arrow</kbd>    | Go to the same day in the previous week.                      |
@@ -60,9 +60,9 @@ For accessibility purposes, the component is rendered as a native table element 
 To specify a specific date for the current datetime, you can use the `data-now` attribute (timestamp in milliseconds).
 This is helpful if you need a specific state of the component.
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name           | Attribute       | Privacy | Type                              | Default | Description                                                                                                     |
 | -------------- | --------------- | ------- | --------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------- |

@@ -6,7 +6,7 @@ import {
   removeInertMechanism,
   SbbOverlayState,
   setAriaOverlayTriggerAttributes,
-} from '../../global/overlay';
+} from '../core/overlay';
 import {
   assignId,
   FocusTrap,
@@ -15,17 +15,17 @@ import {
   IS_FOCUSABLE_QUERY,
   isArrowKeyPressed,
   setModalityOnNextFocus,
-} from '../../global/a11y';
+} from '../core/a11y';
 import {
   findReferencedElement,
   isBreakpoint,
   isValidAttribute,
   ScrollHandler,
   setAttribute,
-} from '../../global/dom';
+} from '../core/dom';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { EventEmitter, ConnectedAbortController } from '../../global/eventing';
+import { EventEmitter, ConnectedAbortController } from '../core/eventing';
 import { SbbMenuAction } from '../sbb-menu-action';
 import { ref } from 'lit/directives/ref.js';
 import style from './sbb-menu.scss?lit&inline';

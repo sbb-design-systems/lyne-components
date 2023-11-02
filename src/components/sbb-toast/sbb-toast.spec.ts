@@ -1,6 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { isFirefox } from '../../global/dom';
+import { isFirefox } from '../core/dom';
 import { SbbToast } from './sbb-toast';
 import './sbb-toast';
 

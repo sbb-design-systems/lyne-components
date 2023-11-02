@@ -2,7 +2,7 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { SbbCheckboxGroup } from './sbb-checkbox-group';
 import { SbbCheckbox } from '../sbb-checkbox';
-import { waitForLitRender } from '../../global/testing';
+import { waitForLitRender } from '../core/testing';
 import { sendKeys } from '@web/test-runner-commands';
 
 describe('sbb-checkbox-group', () => {

@@ -8,13 +8,13 @@ at the component start using the `iconName` property or via custom content using
 ```html
 <sbb-menu-action>Text</sbb-menu-action>
 
-<sbb-menu-action icon-name='pie-small'>Another text</sbb-menu-action>
+<sbb-menu-action icon-name="pie-small">Another text</sbb-menu-action>
 ```
 
 An amount can be rendered at the end of the action element as white text in a red circle via the `amount` property.
 
 ```html
-<sbb-menu-action amount='123'>Amount text</sbb-menu-action>
+<sbb-menu-action amount="123">Amount text</sbb-menu-action>
 ```
 
 ## Link / button properties
@@ -25,19 +25,19 @@ depending on the value of the `href` property, so the associated properties are 
 (`href`, `target`, `rel` and `download` for link; `type`, `name`, `value` and `form` for button).
 
 ```html
-<sbb-menu-action href="#info" target='_blank'>Link</sbb-menu-action>
+<sbb-menu-action href="#info" target="_blank">Link</sbb-menu-action>
 
-<sbb-menu-action type='button' value='menu' name='menu'>Button</sbb-menu-action>
+<sbb-menu-action type="button" value="menu" name="menu">Button</sbb-menu-action>
 ```
 
 ## Style
 
-For cases where smaller outer paddings are needed, 
+For cases where smaller outer paddings are needed,
 you can set the css variable `--sbb-menu-action-outer-horizontal-padding` to your desired outer padding.
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name       | Attribute   | Privacy | Type                                                 | Default | Description                                                                                                              |
 | ---------- | ----------- | ------- | ---------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |

@@ -1,22 +1,22 @@
-import { getNextElementIndex, assignId } from '../../global/a11y';
+import { getNextElementIndex, assignId } from '../core/a11y';
 import {
   isSafari,
   isValidAttribute,
   toggleDatasetEntry,
   getDocumentWritingMode,
-} from '../../global/dom';
+} from '../core/dom';
 import {
   setOverlayPosition,
   isEventOnElement,
   overlayGapFixCorners,
   SbbOverlayState,
-} from '../../global/overlay';
+} from '../core/overlay';
 import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { SbbOption } from '../sbb-option';
-import { setAttribute } from '../../global/dom';
-import { ConnectedAbortController, EventEmitter } from '../../global/eventing';
+import { setAttribute } from '../core/dom';
+import { ConnectedAbortController, EventEmitter } from '../core/eventing';
 import { SbbOptGroup } from '../sbb-optgroup';
 import style from './sbb-select.scss?lit&inline';
 
@@ -124,7 +124,7 @@ export class SbbSelect extends LitElement {
    */
   private _ariaRoleOnHost = isSafari();
 
-  /** Gets all the HTMLSbbOptionElement projected in the select. */
+  /** Gets all the SbbOption projected in the select. */
   private get _options(): SbbOption[] {
     return Array.from(this.querySelectorAll('sbb-option'));
   }

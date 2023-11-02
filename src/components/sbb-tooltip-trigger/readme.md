@@ -1,5 +1,5 @@
-The `sbb-tooltip-trigger` component is used to trigger a [sbb-tooltip](/docs/components-sbb-tooltip-sbb-tooltip--docs) 
-by pressing or hovering on it. 
+The `sbb-tooltip-trigger` component is used to trigger a [sbb-tooltip](/docs/components-sbb-tooltip-sbb-tooltip--docs)
+by pressing or hovering on it.
 
 ```html
 <sbb-tooltip-trigger id="tooltip-trigger"></sbb-tooltip-trigger>
@@ -11,21 +11,18 @@ by pressing or hovering on it.
 
 ## Slots
 
-By default, it renders the `sbb-icon` named `information-circle-small`; 
-it is possible to define a custom icon with the property `iconName`. 
+By default, it renders the `sbb-icon` named `information-circle-small`;
+it is possible to define a custom icon with the property `iconName`.
 Moreover, it is possible to override the `sbb-icon` with custom content by slotting it.
 
 ```html
-<sbb-tooltip-trigger id="tooltip-trigger" icon-name='pie-small'>
-</sbb-tooltip-trigger>
+<sbb-tooltip-trigger id="tooltip-trigger" icon-name="pie-small"> </sbb-tooltip-trigger>
 
 <sbb-tooltip trigger="tooltip-trigger">
   <p>Tooltip content.</p>
 </sbb-tooltip>
 
-<sbb-tooltip-trigger id="tooltip-trigger2">
-  Custom Content
-</sbb-tooltip-trigger>
+<sbb-tooltip-trigger id="tooltip-trigger2"> Custom Content </sbb-tooltip-trigger>
 
 <sbb-tooltip trigger="tooltip-trigger2">
   <p>Another tooltip content.</p>
@@ -34,7 +31,7 @@ Moreover, it is possible to override the `sbb-icon` with custom content by slott
 
 ## State
 
-It is possible to display the component in `disabled`  state by using the self-named properties. 
+It is possible to display the component in `disabled` state by using the self-named properties.
 
 ```html
 <sbb-tooltip-trigger id="tooltip-trigger" disabled></sbb-tooltip-trigger>
@@ -46,14 +43,14 @@ It is possible to display the component in `disabled`  state by using the self-n
 
 ## Accessibility
 
-To make screen-readers announce the type of the trigger when is focused, 
+To make screen-readers announce the type of the trigger when is focused,
 use the `aria-label` attribute, as shown below:
 
 ```html
 <sbb-tooltip-trigger aria-label="Custom label" id="tooltip-trigger"></sbb-tooltip-trigger>
 ```
 
-To make screen-readers announce the tooltip content when the trigger is focused, 
+To make screen-readers announce the tooltip content when the trigger is focused,
 associate the tooltip trigger with the tooltip via `aria-describedby` and an `id`.
 
 ```html
@@ -61,15 +58,15 @@ associate the tooltip trigger with the tooltip via `aria-describedby` and an `id
 
 <!-- Tooltip component -->
 <sbb-tooltip id="tooltip" trigger="tooltip-trigger">
-    <p id="tooltip-content">
-      Tooltip content. <sbb-link id="tooltip-link" variant="inline">Link</sbb-link>
-    </p>
+  <p id="tooltip-content">
+    Tooltip content. <sbb-link id="tooltip-link" variant="inline">Link</sbb-link>
+  </p>
 </sbb-tooltip>
 ```
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name       | Attribute   | Privacy | Type                  | Default                      | Description                                                                                                                      |
 | ---------- | ----------- | ------- | --------------------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |

@@ -1,6 +1,6 @@
 import { differenceInMinutes, isAfter, isBefore } from 'date-fns';
-import { removeTimezoneFromISOTimeString } from '../../global/datetime';
-import { isRideLeg, Leg, PtRideLeg } from '../../global/timetable';
+import { removeTimezoneFromISOTimeString } from '../core/datetime';
+import { isRideLeg, Leg, PtRideLeg } from '../core/timetable';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';

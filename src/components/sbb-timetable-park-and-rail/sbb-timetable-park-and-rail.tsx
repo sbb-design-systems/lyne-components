@@ -1,14 +1,10 @@
-import icons from '../../global/timetable/icons.json';
+import icons from '../core/timetable/icons.json';
 import {
   i18nAvailableAtDepartingStation,
   i18nDistanceMeter,
   i18nWalkingDistanceToDepartureStation,
-} from '../../global/i18n';
-import {
-  documentLanguage,
-  HandlerRepository,
-  languageChangeHandlerAspect,
-} from '../../global/eventing';
+} from '../core/i18n';
+import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import style from './sbb-timetable-park-and-rail.scss?lit&inline';

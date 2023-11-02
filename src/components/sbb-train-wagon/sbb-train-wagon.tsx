@@ -8,19 +8,19 @@ import {
   i18nSector,
   i18nWagonLabel,
   i18nWagonLabelNumber,
-} from '../../global/i18n';
+} from '../core/i18n';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
   EventEmitter,
-} from '../../global/eventing';
+} from '../core/eventing';
 import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import { SbbIcon } from '../sbb-icon';
-import { setAttribute } from '../../global/dom';
-import { SbbOccupancy } from '../../global/types';
+import { setAttribute } from '../core/dom';
+import { SbbOccupancy } from '../core/interfaces';
 import style from './sbb-train-wagon.scss?lit&inline';
 import '../sbb-icon';
 

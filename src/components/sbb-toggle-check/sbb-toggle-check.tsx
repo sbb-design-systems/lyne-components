@@ -1,4 +1,4 @@
-import { findShadowInput } from '../../global/dom';
+import { findShadowInput } from '../core/dom';
 import {
   HandlerRepository,
   formElementHandlerAspect,
@@ -6,10 +6,10 @@ import {
   forwardEventToHost,
   EventEmitter,
   ConnectedAbortController,
-} from '../../global/eventing';
-import { html, LitElement, nothing, TemplateResult } from 'lit';
+} from '../core/eventing';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { setAttributes } from '../../global/dom';
+import { setAttributes } from '../core/dom';
 import style from './sbb-toggle-check.scss?lit&inline';
 import '../sbb-icon';
 
@@ -19,7 +19,7 @@ import '../sbb-icon';
  */
 @customElement('sbb-toggle-check')
 export class SbbToggleCheck extends LitElement {
-  public static override styles = style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     didChange: 'did-change',
   } as const;

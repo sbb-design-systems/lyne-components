@@ -1,6 +1,6 @@
 import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { ConnectedAbortController, EventEmitter } from '../../global/eventing';
+import { ConnectedAbortController, EventEmitter } from '../core/eventing';
 import style from './__name__.scss?lit&inline';
 
 /**
@@ -20,7 +20,10 @@ export class __nameUpperCase__ extends LitElement {
   @state() private _myState = false;
 
   private _abort = new ConnectedAbortController(this);
-  private _myEvent: EventEmitter<any> = new EventEmitter(this, __nameUpperCase__.events.myEventName);
+  private _myEvent: EventEmitter<any> = new EventEmitter(
+    this,
+    __nameUpperCase__.events.myEventName,
+  );
 
   private _onClickFn(): void {
     this._myEvent.emit();
@@ -54,6 +57,6 @@ export class __nameUpperCase__ extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    '__name__': __nameUpperCase__;
+    __name__: __nameUpperCase__;
   }
 }

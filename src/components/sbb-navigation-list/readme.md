@@ -4,15 +4,15 @@ Optionally, a label can be provided via slot via the self-named property or the 
 
 ```html
 <sbb-navigation-list label="Label 1.1">
-    <sbb-navigation-action href="...">Label 1.1.1</sbb-navigation-action>
-    <sbb-navigation-action href="...">Label 1.1.2</sbb-navigation-action>
-    <sbb-navigation-action href="...">Label 1.1.3</sbb-navigation-action>
+  <sbb-navigation-action href="...">Label 1.1.1</sbb-navigation-action>
+  <sbb-navigation-action href="...">Label 1.1.2</sbb-navigation-action>
+  <sbb-navigation-action href="...">Label 1.1.3</sbb-navigation-action>
 </sbb-navigation-list>
 ```
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name    | Attribute | Privacy | Type                  | Default | Description |
 | ------- | --------- | ------- | --------------------- | ------- | ----------- |

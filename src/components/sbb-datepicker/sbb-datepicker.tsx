@@ -1,25 +1,167 @@
 import { CSSResult, LitElement, PropertyValues, TemplateResult, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
-import { readConfig } from '../../global/config';
-import { DateAdapter } from '../../global/datetime';
-import { findInput, isValidAttribute, toggleDatasetEntry } from '../../global/dom';
+import { readConfig } from '../core/config';
+import { DateAdapter, NativeDateAdapter } from '../core/datetime';
+import {
+  findInput,
+  findReferencedElement,
+  isValidAttribute,
+  toggleDatasetEntry,
+} from '../core/dom';
 import {
   ConnectedAbortController,
   EventEmitter,
   HandlerRepository,
   documentLanguage,
   languageChangeHandlerAspect,
-} from '../../global/eventing';
-import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../global/i18n';
-import { ValidationChangeEvent } from '../../global/interfaces';
-import { SbbDateLike } from '../../global/types';
-import { AgnosticMutationObserver } from '../../global/observers';
-import { InputUpdateEvent, isDateAvailable } from './sbb-datepicker.helper';
+} from '../core/eventing';
+import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../core/i18n';
+import { ValidationChangeEvent } from '../core/interfaces';
+import { SbbDateLike } from '../core/interfaces';
+import { AgnosticMutationObserver } from '../core/observers';
 import style from './sbb-datepicker.scss?lit&inline';
+import { type SbbDatepickerPreviousDay } from '../sbb-datepicker-previous-day';
+import { type SbbDatepickerNextDay } from '../sbb-datepicker-next-day';
+import { type SbbDatepickerToggle } from '../sbb-datepicker-toggle';
 
 const FORMAT_DATE =
   /(^0?[1-9]?|[12]?[0-9]?|3?[01]?)[.,\\/\-\s](0?[1-9]?|1?[0-2]?)?[.,\\/\-\s](\d{1,4}$)?/;
+
+export interface InputUpdateEvent {
+  disabled: boolean;
+  readonly: boolean;
+  min: string | number;
+  max: string | number;
+}
+
+/**
+ * Given a SbbDatepickerPreviousDay, a SbbDatepickerNextDay or a SbbDatepickerToggle component,
+ * it returns the related SbbDatepicker reference, if exists.
+ * @param element The element potentially connected to the SbbDatepicker.
+ * @param trigger The id or the reference of the SbbDatePicker.
+ */
+export function getDatePicker(
+  element: SbbDatepickerPreviousDay | SbbDatepickerNextDay | SbbDatepickerToggle,
+  trigger?: string | HTMLElement,
+): SbbDatepicker {
+  if (!trigger) {
+    const parent = element.closest('sbb-form-field');
+    return parent?.querySelector('sbb-datepicker');
+  }
+
+  return findReferencedElement<SbbDatepicker>(trigger);
+}
+
+/**
+ * Returns the first available date before or after a given one, considering the SbbDatepicker `dateFilter` property.
+ * @param date The starting date for calculations.
+ * @param delta The number of days to add/subtract from the starting one.
+ * @param dateFilter The dateFilter function from the SbbDatepicker.
+ * @param dateAdapter The adapter class.
+ */
+export function getAvailableDate(
+  date: Date,
+  delta: number,
+  dateFilter: (date: Date) => boolean,
+  dateAdapter: DateAdapter<Date>,
+): Date {
+  let availableDate = dateAdapter.addCalendarDays(date, delta);
+
+  if (dateFilter) {
+    while (!dateFilter(availableDate)) {
+      availableDate = dateAdapter.addCalendarDays(availableDate, delta);
+    }
+  }
+
+  return availableDate;
+}
+
+/**
+ * Calculates the first available date before the given one,
+ * considering the SbbDatepicker `dateFilter` property and `min` parameter (e.g. from the self-named input's attribute).
+ * @param date The starting date for calculations.
+ * @param dateFilter The dateFilter function from the SbbDatepicker.
+ * @param dateAdapter The adapter class.
+ * @param min The minimum value to consider in calculations.
+ */
+export function findPreviousAvailableDate(
+  date: Date,
+  dateFilter: (date: Date) => boolean,
+  dateAdapter: DateAdapter<Date>,
+  min: string | number,
+): Date {
+  const previousDate = getAvailableDate(date, -1, dateFilter, dateAdapter);
+  const dateMin: Date = dateAdapter.deserializeDate(min);
+
+  if (
+    !dateMin ||
+    (dateAdapter.isValid(dateMin) && dateAdapter.compareDate(previousDate, dateMin) >= 0)
+  ) {
+    return previousDate;
+  }
+  return date;
+}
+
+/**
+ * Calculates the first available date after the given one,
+ * considering the SbbDatepicker `dateFilter` property and `max` parameter (e.g. from the self-named input's attribute).
+ * @param date The starting date for calculations.
+ * @param dateFilter The dateFilter function from the SbbDatepicker.
+ * @param dateAdapter The adapter class.
+ * @param max The maximum value to consider in calculations.
+ */
+export function findNextAvailableDate(
+  date: Date,
+  dateFilter: (date: Date) => boolean,
+  dateAdapter: DateAdapter<Date>,
+  max: string | number,
+): Date {
+  const nextDate = getAvailableDate(date, 1, dateFilter, dateAdapter);
+  const dateMax: Date = dateAdapter.deserializeDate(max);
+
+  if (
+    !dateMax ||
+    (dateAdapter.isValid(dateMax) && dateAdapter.compareDate(nextDate, dateMax) <= 0)
+  ) {
+    return nextDate;
+  }
+  return date;
+}
+
+/**
+ * Checks if the provided date is a valid one, considering the SbbDatepicker `dateFilter` property
+ * and `min` and `max` parameters (e.g. from the self-named input's attributes).
+ * @param date The starting date for calculations.
+ * @param dateFilter The dateFilter function from the SbbDatepicker.
+ * @param min The minimum value to consider in calculations.
+ * @param max The maximum value to consider in calculations.
+ */
+export function isDateAvailable(
+  date: Date,
+  dateFilter: (date: Date) => boolean,
+  min: string | number,
+  max: string | number,
+): boolean {
+  // TODO: Get date adapter from config
+  const dateAdapter: DateAdapter<Date> = new NativeDateAdapter();
+  const dateMin: Date = dateAdapter.deserializeDate(min);
+  const dateMax: Date = dateAdapter.deserializeDate(max);
+
+  if (
+    (dateAdapter.isValid(dateMin) && dateAdapter.compareDate(date, dateMin) < 0) ||
+    (dateAdapter.isValid(dateMax) && dateAdapter.compareDate(date, dateMax) > 0)
+  ) {
+    return false;
+  }
+
+  return dateFilter ? dateFilter(date) : true;
+}
+
+export const datepickerControlRegisteredEvent = new CustomEvent('datepicker-control-registered', {
+  bubbles: false,
+  composed: true,
+});
 
 @customElement('sbb-datepicker')
 export class SbbDatepicker extends LitElement {

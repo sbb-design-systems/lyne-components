@@ -2,7 +2,7 @@ import {
   createNamedSlotState,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
-} from '../../global/eventing';
+} from '../core/eventing';
 import { TitleLevel } from '../sbb-title';
 import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';

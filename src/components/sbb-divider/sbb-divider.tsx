@@ -1,8 +1,8 @@
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { setAttribute } from '../../global/dom';
+import { setAttribute } from '../core/dom';
 import style from './sbb-divider.scss?lit&inline';
-import { SbbOrientation } from '../../global/types';
+import { SbbOrientation } from '../core/interfaces';
 
 @customElement('sbb-divider')
 export class SbbDivider extends LitElement {

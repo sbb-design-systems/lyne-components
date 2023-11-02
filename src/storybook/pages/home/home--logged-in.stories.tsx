@@ -215,7 +215,7 @@ const Template = (args): JSX.Element => (
           <sbb-button
             variant="secondary"
             class="all-purchased-tickets-button"
-            onClick={() => (document.getElementById('my-dialog') as HTMLSbbDialogElement).open()}
+            onClick={() => (document.getElementById('my-dialog') as SbbDialog).open()}
           >
             All purchased tickets
           </sbb-button>
@@ -231,9 +231,7 @@ const Template = (args): JSX.Element => (
             <sbb-button
               variant="secondary"
               size="m"
-              onClick={() =>
-                (document.getElementById('my-stacked-dialog') as HTMLSbbDialogElement).open()
-              }
+              onClick={() => (document.getElementById('my-stacked-dialog') as SbbDialog).open()}
             >
               Open stacked dialog
             </sbb-button>

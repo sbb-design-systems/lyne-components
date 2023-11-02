@@ -5,8 +5,8 @@ import {
   LinkTargetType,
   resolveRenderVariables,
   targetsNewWindow,
-} from '../../global/interfaces';
-import { i18nTargetOpensInNewWindow } from '../../global/i18n';
+} from '../core/interfaces';
+import { i18nTargetOpensInNewWindow } from '../core/i18n';
 import {
   actionElementHandlerAspect,
   createNamedSlotState,
@@ -14,18 +14,13 @@ import {
   HandlerRepository,
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
-} from '../../global/eventing';
-import {
-  ACTION_ELEMENTS,
-  hostContext,
-  isValidAttribute,
-  toggleDatasetEntry,
-} from '../../global/dom';
-import { LitElement, nothing, TemplateResult } from 'lit';
+} from '../core/eventing';
+import { ACTION_ELEMENTS, hostContext, isValidAttribute, toggleDatasetEntry } from '../core/dom';
+import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';
-import { setAttribute, setAttributes } from '../../global/dom';
+import { setAttribute, setAttributes } from '../core/dom';
 import style from './sbb-button.scss?lit&inline';
 import '../sbb-icon';
 
@@ -37,7 +32,7 @@ export type SbbButtonSize = 'l' | 'm';
  */
 @customElement('sbb-button')
 export class SbbButton extends LitElement implements LinkButtonProperties, IsStaticProperty {
-  public static override styles = style;
+  public static override styles: CSSResult = style;
 
   /** Variant of the button, like primary, secondary etc. */
   @property({ reflect: true }) public variant:

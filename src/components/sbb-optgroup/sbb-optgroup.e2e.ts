@@ -2,7 +2,7 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { SbbOptGroup } from './sbb-optgroup';
 import { SbbOption } from '../sbb-option';
-import { waitForLitRender } from '../../global/testing';
+import { waitForLitRender } from '../core/testing';
 import '../sbb-option';
 
 describe('sbb-optgroup', () => {

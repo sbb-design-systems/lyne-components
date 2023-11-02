@@ -1,8 +1,8 @@
-import { isSafari, isValidAttribute, toggleDatasetEntry } from '../../global/dom';
-import { AgnosticMutationObserver } from '../../global/observers';
+import { isSafari, isValidAttribute, toggleDatasetEntry } from '../core/dom';
+import { AgnosticMutationObserver } from '../core/observers';
 import { CSSResult, html, LitElement, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { setAttribute } from '../../global/dom';
+import { setAttribute } from '../core/dom';
 import { SbbOption, SbbOptionVariant } from '../sbb-option';
 import style from './sbb-optgroup.scss?lit&inline';
 import '../sbb-divider';

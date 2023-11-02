@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 import '../sbb-autocomplete';
 import '../sbb-option';
 import './sbb-optgroup';
-import { isSafari } from '../../global/dom';
+import { isSafari } from '../core/dom';
 
 describe('sbb-optgroup', () => {
   describe('autocomplete', function () {

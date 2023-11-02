@@ -1,7 +1,7 @@
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import style from './sbb-signet.scss?lit&inline';
-import { SbbProtectiveRoom } from '../../global/types';
+import { SbbProtectiveRoom } from '../core/interfaces';
 
 @customElement('sbb-signet')
 export class SbbSignet extends LitElement {

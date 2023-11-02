@@ -19,12 +19,12 @@ Optionally a label can be provided via slot or via the `titleContent` property.
 
 ## Accessibility
 
-When a navigation action is marked to indicate the user is currently on that page, `aria-current="page"` should be set on that action. 
+When a navigation action is marked to indicate the user is currently on that page, `aria-current="page"` should be set on that action.
 Similarly, if a navigation action is marked to indicate a selected option (e.g., the selected language) `aria-pressed` should be set on that action.
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name                     | Attribute                  | Privacy | Type                         | Default | Description                                                                                                        |
 | ------------------------ | -------------------------- | ------- | ---------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------ |

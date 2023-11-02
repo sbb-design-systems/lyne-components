@@ -1,8 +1,8 @@
-import { waitForCondition, waitForLitRender } from '../../global/testing';
+import { waitForCondition, waitForLitRender } from '../core/testing';
 import { SbbExpansionPanel } from '../sbb-expansion-panel';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { EventSpy } from '../../global/testing/event-spy';
+import { EventSpy } from '../core/testing/event-spy';
 import { SbbAccordion } from './sbb-accordion';
 import { type SbbExpansionPanelHeader } from '../sbb-expansion-panel-header';
 import '../sbb-expansion-panel-header';

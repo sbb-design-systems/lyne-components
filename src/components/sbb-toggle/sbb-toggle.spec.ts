@@ -1,10 +1,9 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { waitForLitRender } from '../../global/testing';
-import { SbbToggle } from './sbb-toggle';
-
-import { SbbToggleOption } from '../sbb-toggle-option/sbb-toggle-option';
-import '../sbb-toggle';
+import { waitForLitRender } from '../core/testing';
+import { type SbbToggle } from './sbb-toggle';
+import { type SbbToggleOption } from '../sbb-toggle-option';
+import './sbb-toggle';
 import '../sbb-toggle-option';
 
 describe('sbb-toggle', () => {

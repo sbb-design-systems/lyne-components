@@ -19,10 +19,9 @@ Possible values are `ideal` (default), `minimal` and `none`.
 <sbb-signet protective-room="none"></sbb-signet>
 ```
 
+<!-- Auto Generated Below -->
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+## Properties
 
 | Name                 | Attribute             | Privacy | Type                             | Default   | Description                                                          |
 | -------------------- | --------------------- | ------- | -------------------------------- | --------- | -------------------------------------------------------------------- |

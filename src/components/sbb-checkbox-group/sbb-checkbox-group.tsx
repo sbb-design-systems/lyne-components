@@ -1,16 +1,16 @@
-import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../global/a11y';
-import { toggleDatasetEntry, isValidAttribute } from '../../global/dom';
+import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../core/a11y';
+import { toggleDatasetEntry, isValidAttribute } from '../core/dom';
 import {
   createNamedSlotState,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
   ConnectedAbortController,
-} from '../../global/eventing';
+} from '../core/eventing';
 import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { SbbCheckbox, SbbCheckboxSize } from '../sbb-checkbox';
 import style from './sbb-checkbox-group.scss?lit&inline';
-import { SbbHorizontalFrom, SbbOrientation } from '../../global/types';
+import { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
 
 /**
  * @slot - Use the unnamed slot to add `sbb-checkbox` elements to the checkbox group.

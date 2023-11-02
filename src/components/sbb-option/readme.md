@@ -15,9 +15,9 @@ Icon space can be reserved even if the `iconName` property is not set by overrid
 
 ## States
 
-Like the native `option`, the component has a `value` property. 
+Like the native `option`, the component has a `value` property.
 
-The `selected`, `disabled` and `active` properties are connected to the self-named states. 
+The `selected`, `disabled` and `active` properties are connected to the self-named states.
 When disabled, the selection via click is prevented.
 If the `sbb-option` is nested in a `sbb-optgroup` component, it inherits from the parent the `disabled` state.
 
@@ -26,38 +26,38 @@ If the `sbb-option` is nested in a `sbb-optgroup` component, it inherits from th
 
 <sbb-option value="value" active>Option label</sbb-option>
 
-<sbb-option value="value"ß disabled>Option label</sbb-option>
+<sbb-option value="value" ß disabled>Option label</sbb-option>
 ```
 
 ## Events
 
 Consumers can listen to the `optionSelected` event on the `sbb-option` component to intercept the selected value;
-the event is triggered if the element has been selected by some user interaction. Alternatively, 
+the event is triggered if the element has been selected by some user interaction. Alternatively,
 the `selectionChange` event can be listened to, which is triggered if the element has been both selected or deselected.
 
 ## Style
 
-If the label slot contains only a **text node**, it is possible to search for text in the `sbb-option` using the 
+If the label slot contains only a **text node**, it is possible to search for text in the `sbb-option` using the
 `highlight` method, passing the desired text; if the text is present it will be highlighted in bold.
 
-```html  
+```html
 <!-- Supported scenario -->
 <sbb-option> Highlightable caption</sbb-option>
 
 <!-- Not supported scenarios -->
-<sbb-option> 
+<sbb-option>
   <span>Not highlightable caption</span>
 </sbb-option>
 
-<sbb-option> 
-  <img src="...">
-  Highlightable caption 
+<sbb-option>
+  <img src="..." />
+  Highlightable caption
 </sbb-option>
 ```
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name       | Attribute   | Privacy | Type                   | Default | Description                                                                                                                      |
 | ---------- | ----------- | ------- | ---------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |

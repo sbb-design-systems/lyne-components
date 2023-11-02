@@ -2,7 +2,7 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { setViewport } from '@web/test-runner-commands';
 import { SbbMenu } from '../sbb-menu';
-import { EventSpy, waitForLitRender, mockScrollTo, waitForCondition } from '../../global/testing';
+import { EventSpy, waitForLitRender, mockScrollTo, waitForCondition } from '../core/testing';
 import { SbbHeader } from './sbb-header';
 import '../sbb-header-action';
 import '../sbb-menu-action';

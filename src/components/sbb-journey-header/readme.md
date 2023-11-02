@@ -1,29 +1,29 @@
 The `sbb-journey-header` is a component used to display the journey's details.
 
-The component has two required properties, named `origin` and `destination`, 
+The component has two required properties, named `origin` and `destination`,
 which represents the two ends of the journey.
-An icon is placed between them: if the property `roundTrip` is set to false (default), 
+An icon is placed between them: if the property `roundTrip` is set to false (default),
 the icon is an arrow pointing to the `destination`, otherwise it is a double arrow to display the round-trip.
 
 ```html
 <sbb-journey-header origin="Point A" destination="Point B" />
 
-<sbb-journey-header origin="Point A" destination="Point B" round-trip/>
+<sbb-journey-header origin="Point A" destination="Point B" round-trip />
 ```
 
 ## Style
 
-The component has a `level` property, which is passed to its inner `sbb-title` component; 
-it is rendered as a heading from `h1` to `h6`. Default `level` is `3`. 
+The component has a `level` property, which is passed to its inner `sbb-title` component;
+it is rendered as a heading from `h1` to `h6`. Default `level` is `3`.
 
 The component also has two sizes, named `m` (default) and `l`, and a `negative` background variant.
 
 ```html
 <sbb-journey-header origin="Point A" destination="Point B" size="l" />
 
-<sbb-journey-header origin="Point A" destination="Point B" level="5"/>
+<sbb-journey-header origin="Point A" destination="Point B" level="5" />
 
-<sbb-journey-header origin="Point A" destination="Point B" negative/>
+<sbb-journey-header origin="Point A" destination="Point B" negative />
 ```
 
 ## Accessibility
@@ -39,12 +39,12 @@ The following example will be read as (locale: ENG): `Connection from Point A to
 The following one will be read as (locale: ENG): `Connection from Point A to Point B and back to Point A.`.
 
 ```html
-<sbb-journey-header origin="Point A" destination="Point B" round-trip="true"/>
+<sbb-journey-header origin="Point A" destination="Point B" round-trip="true" />
 ```
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name          | Attribute     | Privacy | Type                             | Default | Description                                                                       |
 | ------------- | ------------- | ------- | -------------------------------- | ------- | --------------------------------------------------------------------------------- |

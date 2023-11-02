@@ -5,20 +5,20 @@ import {
   SbbOverlayState,
   setAriaComboBoxAttributes,
   setOverlayPosition,
-} from '../../global/overlay';
+} from '../core/overlay';
 import {
   getDocumentWritingMode,
   findReferencedElement,
   isSafari,
   isValidAttribute,
   toggleDatasetEntry,
-} from '../../global/dom';
-import { assignId, getNextElementIndex } from '../../global/a11y';
+} from '../core/dom';
+import { assignId, getNextElementIndex } from '../core/a11y';
 import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { setAttribute } from '../../global/dom';
+import { setAttribute } from '../core/dom';
 import { ref } from 'lit/directives/ref.js';
-import { ConnectedAbortController, EventEmitter } from '../../global/eventing';
+import { ConnectedAbortController, EventEmitter } from '../core/eventing';
 import { SbbOption } from '../sbb-option';
 import style from './sbb-autocomplete.scss?lit&inline';
 

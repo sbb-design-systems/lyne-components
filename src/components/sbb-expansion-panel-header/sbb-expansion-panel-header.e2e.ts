@@ -1,6 +1,6 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { EventSpy } from '../../global/testing/event-spy';
+import { EventSpy } from '../core/testing/event-spy';
 import { SbbExpansionPanelHeader } from './sbb-expansion-panel-header';
 
 describe('sbb-expansion-panel-header', () => {

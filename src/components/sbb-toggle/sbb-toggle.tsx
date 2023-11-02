@@ -1,14 +1,14 @@
-import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../global/a11y';
-import { toggleDatasetEntry } from '../../global/dom';
-import { AgnosticResizeObserver } from '../../global/observers';
-import { html, LitElement, PropertyValues, TemplateResult } from 'lit';
+import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../core/a11y';
+import { toggleDatasetEntry } from '../core/dom';
+import { AgnosticResizeObserver } from '../core/observers';
+import { CSSResult, html, LitElement, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { EventEmitter, ConnectedAbortController } from '../../global/eventing';
-import { SbbToggleOption } from '../sbb-toggle-option';
-import { setAttribute } from '../../global/dom';
+import { EventEmitter, ConnectedAbortController } from '../core/eventing';
+import { type SbbToggleOption } from '../sbb-toggle-option';
+import { setAttribute } from '../core/dom';
 import { ref } from 'lit/directives/ref.js';
 import style from './sbb-toggle.scss?lit&inline';
-import { SbbCheckedStateChange, SbbStateChange, SbbValueStateChange } from '../../global/types';
+import { SbbCheckedStateChange, SbbStateChange, SbbValueStateChange } from '../core/interfaces';
 
 export type SbbToggleStateChange = Extract<
   SbbStateChange,
@@ -20,7 +20,7 @@ export type SbbToggleStateChange = Extract<
  */
 @customElement('sbb-toggle')
 export class SbbToggle extends LitElement {
-  public static override styles = style;
+  public static override styles: CSSResult = style;
   public static readonly events = {
     didChange: 'did-change',
     change: 'change',

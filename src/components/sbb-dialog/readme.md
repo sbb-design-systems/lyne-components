@@ -1,4 +1,4 @@
-The `sbb-dialog` component provides a way to present content on top of the app's content. 
+The `sbb-dialog` component provides a way to present content on top of the app's content.
 It offers the following features:
 
 - creates a backdrop for disabling interaction below the modal;
@@ -11,9 +11,7 @@ It offers the following features:
 - adds the appropriate ARIA roles automatically.
 
 ```html
-<sbb-dialog>
-  Dialog content.
-</sbb-dialog>
+<sbb-dialog> Dialog content. </sbb-dialog>
 ```
 
 ## Slots
@@ -21,21 +19,18 @@ It offers the following features:
 The content is projected in an unnamed slot, while the dialog's title can be provided via the `titleContent` property or via slot `name="title"`.
 It's also possible to display buttons in the component's footer using the `action-group` slot with the `sbb-action-group` component.
 
-**NOTE**: 
+**NOTE**:
+
 - The component will automatically set size `m` on slotted `sbb-action-group`;
 - If the title is not present, the footer will not be displayed even if provided;
-- If the title is not present, the dialog will be displayed in fullscreen mode with the close button in the content section along with the back button 
-(if visible, see [next paragraph](#interaction)).
+- If the title is not present, the dialog will be displayed in fullscreen mode with the close button in the content section along with the back button
+  (if visible, see [next paragraph](#interaction)).
 
 ```html
-<sbb-dialog title-content="Title">
-  Dialog content.
-</sbb-dialog>
+<sbb-dialog title-content="Title"> Dialog content. </sbb-dialog>
 
 <sbb-dialog>
-  <span slot="title">
-    My dialog title
-  </span>
+  <span slot="title"> My dialog title </span>
   Dialog content.
   <sbb-action-group slot="action-group">
     <sbb-button sbb-dialog-close>Abort</sbb-button>
@@ -47,7 +42,7 @@ It's also possible to display buttons in the component's footer using the `actio
 ## Interactions
 
 In order to show the dialog, you need to call the `open(event?: PointerEvent)` method on the `sbb-dialog` component.
-It is necessary to pass the event object to the `open()` method to allow the dialog to detect 
+It is necessary to pass the event object to the `open()` method to allow the dialog to detect
 whether it has been opened by click or keyboard, so that the focus can be better handled.
 
 ```html
@@ -65,11 +60,11 @@ whether it has been opened by click or keyboard, so that the focus can be better
 </script>
 ```
 
-To dismiss the dialog, you need to get a reference to the `sbb-dialog` element and call 
+To dismiss the dialog, you need to get a reference to the `sbb-dialog` element and call
 the `close(result?: any, target?: HTMLElement)` method, which will close the dialog element and
-emit a close event with an optional result as a payload. 
+emit a close event with an optional result as a payload.
 
-The component can also be dismissed by clicking on the close button, clicking on the backdrop, pressing the `Esc` key, 
+The component can also be dismissed by clicking on the close button, clicking on the backdrop, pressing the `Esc` key,
 or, if an element within the `sbb-dialog` has the `sbb-dialog-close` attribute, by clicking on it.
 
 You can also set the property `titleBackButton` to display the back button in the title section
@@ -82,9 +77,9 @@ It's possible to display the component in `negative` variant using the self-name
 The default `z-index` of the component is set to `1000`; to specify a custom stack order, the
 `z-index` can be changed by defining the CSS variable `--sbb-dialog-z-index`.
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name                      | Attribute                   | Privacy | Type                         | Default   | Description                                                                     |
 | ------------------------- | --------------------------- | ------- | ---------------------------- | --------- | ------------------------------------------------------------------------------- |

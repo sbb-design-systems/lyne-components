@@ -1,11 +1,11 @@
-import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../global/a11y';
-import { isValidAttribute, hostContext, toggleDatasetEntry } from '../../global/dom';
-import { throttle, EventEmitter, ConnectedAbortController } from '../../global/eventing';
-import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../global/observers';
+import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../core/a11y';
+import { isValidAttribute, hostContext, toggleDatasetEntry } from '../core/dom';
+import { throttle, EventEmitter, ConnectedAbortController } from '../core/eventing';
+import { AgnosticMutationObserver, AgnosticResizeObserver } from '../core/observers';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { SbbTabTitle } from '../sbb-tab-title';
-import { setAttribute } from '../../global/dom';
+import { setAttribute } from '../core/dom';
 import { ref } from 'lit/directives/ref.js';
 import style from './sbb-tab-group.scss?lit&inline';
 

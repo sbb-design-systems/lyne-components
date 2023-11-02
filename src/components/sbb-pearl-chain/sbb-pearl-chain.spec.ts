@@ -1,8 +1,8 @@
 import { SbbPearlChain } from './sbb-pearl-chain';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { waitForLitRender } from '../../global/testing';
-import { PtRideLeg } from '../../global/timetable';
+import { waitForLitRender } from '../core/testing';
+import { PtRideLeg } from '../core/timetable';
 import './sbb-pearl-chain';
 
 describe('sbb-pearl-chain', () => {

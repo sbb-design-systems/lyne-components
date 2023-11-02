@@ -1,4 +1,4 @@
-import { ButtonProperties, resolveButtonRenderVariables } from '../../global/interfaces';
+import { ButtonProperties, resolveButtonRenderVariables } from '../core/interfaces';
 import {
   createNamedSlotState,
   HandlerRepository,
@@ -6,13 +6,13 @@ import {
   namedSlotChangeHandlerAspect,
   EventEmitter,
   ConnectedAbortController,
-} from '../../global/eventing';
+} from '../core/eventing';
 import { CSSResult, html, LitElement, nothing, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { SbbTagGroup } from '../sbb-tag-group';
-import { setAttributes } from '../../global/dom';
+import { setAttributes } from '../core/dom';
 import style from './sbb-tag.scss?lit&inline';
-import { SbbCheckedStateChange, SbbStateChange, SbbValueStateChange } from '../../global/types';
+import { SbbCheckedStateChange, SbbStateChange, SbbValueStateChange } from '../core/interfaces';
 import '../sbb-icon';
 
 export type SbbTagStateChange = Extract<

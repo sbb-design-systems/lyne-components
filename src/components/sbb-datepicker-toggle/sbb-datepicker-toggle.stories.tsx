@@ -2,8 +2,8 @@
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import { userEvent, within } from '@storybook/testing-library';
-import { waitForComponentsReady } from '../../global/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../global/testing/wait-for-stable-position';
+import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
+import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
 import isChromatic from 'chromatic';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type {
@@ -15,6 +15,7 @@ import type {
   StoryContext,
 } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
+import { SbbTooltipTrigger } from '../sbb-tooltip-trigger';
 
 import './sbb-datepicker-toggle';
 
@@ -49,7 +50,7 @@ const defaultArgs: Args = {
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
-  const queryTrigger = (): HTMLSbbTooltipTriggerElement =>
+  const queryTrigger = (): SbbTooltipTrigger =>
     canvas.getByTestId('toggle').shadowRoot.querySelector('sbb-tooltip-trigger');
 
   await waitForComponentsReady(queryTrigger);

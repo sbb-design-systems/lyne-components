@@ -1,21 +1,17 @@
 import { CSSResult, html, LitElement, nothing, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
-import { sbbInputModalityDetector } from '../../global/a11y';
-import { isValidAttribute, setAttribute } from '../../global/dom';
-import {
-  documentLanguage,
-  HandlerRepository,
-  languageChangeHandlerAspect,
-} from '../../global/eventing';
-import { i18nShowCalendar } from '../../global/i18n';
+import { sbbInputModalityDetector } from '../core/a11y';
+import { isValidAttribute, setAttribute } from '../core/dom';
+import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
+import { i18nShowCalendar } from '../core/i18n';
 import { SbbCalendar } from '../sbb-calendar/index';
-import type { SbbDatepicker } from '../sbb-datepicker';
 import {
   datepickerControlRegisteredEvent,
   getDatePicker,
   InputUpdateEvent,
-} from '../sbb-datepicker/sbb-datepicker.helper';
+  type SbbDatepicker,
+} from '../sbb-datepicker';
 import { SbbTooltip } from '../sbb-tooltip';
 import { SbbTooltipTrigger } from '../sbb-tooltip-trigger';
 import style from './sbb-datepicker-toggle.scss?lit&inline';

@@ -1,6 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { i18nCloseTooltip } from '../../global/i18n';
+import { i18nCloseTooltip } from '../core/i18n';
 import './sbb-tooltip';
 
 describe('sbb-tooltip', () => {

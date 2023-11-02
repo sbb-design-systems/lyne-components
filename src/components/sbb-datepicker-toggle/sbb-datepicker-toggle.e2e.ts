@@ -1,6 +1,6 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../global/testing';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
 import { SbbDatepickerToggle } from './sbb-datepicker-toggle';
 import { SbbTooltipTrigger } from '../sbb-tooltip-trigger';
 import { SbbTooltip } from '../sbb-tooltip';

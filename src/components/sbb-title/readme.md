@@ -11,7 +11,7 @@ it is possible to use the `visualLevel` property.
 The available values for both `level` and `visualLevel` are the numbers from 1 to 6 (`h1` to `h6`).
 
 ```html
-<sbb-title title='3' visual-level='4'>Hi!</sbb-title>
+<sbb-title title="3" visual-level="4">Hi!</sbb-title>
 ```
 
 The component has a `negative` variant which can be set with the self-named property.
@@ -31,9 +31,9 @@ If the title is needed, but it must to not be displayed, it's possible to use th
 <sbb-title visually-hidden>Screen-reader only.</sbb-title>
 ```
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name             | Attribute         | Privacy | Type                      | Default | Description                                                                                                                                                                                    |
 | ---------------- | ----------------- | ------- | ------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

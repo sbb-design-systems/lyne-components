@@ -7,15 +7,13 @@ It's intended to be used inside the [sbb-tag-group](/docs/components-sbb-tag-sbb
 
 ## Slots
 
-It is possible to provide a label via an unnamed slot; the component can optionally display a `sbb-icon` 
+It is possible to provide a label via an unnamed slot; the component can optionally display a `sbb-icon`
 at the component start using the `iconName` property or via custom content using the `icon` slot.
 
 It's also possible to display a numeric amount at the component's end using the `amount` property or slot.
 
 ```html
-<sbb-tag value="All" icon-name='pie-small' amount='123'>
-  All
-</sbb-tag>
+<sbb-tag value="All" icon-name="pie-small" amount="123"> All </sbb-tag>
 
 <sbb-tag value="None">
   <sbb-icon slot="icon" name="pie-small" />
@@ -42,12 +40,12 @@ It's recommended to check the parent's `sbb-tag-group` for the value.
 
 ## Accessibility
 
-The component imitates an `button` element to provide an accessible experience. 
+The component imitates an `button` element to provide an accessible experience.
 The state is reflected via `aria-pressed` attribute.
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name       | Attribute   | Privacy | Type                  | Default | Description                                                                                                                            |
 | ---------- | ----------- | ------- | --------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------- |

@@ -1,17 +1,8 @@
-import { i18nDeparture, i18nArrival, i18nTransferProcedures } from '../../global/i18n';
+import { i18nDeparture, i18nArrival, i18nTransferProcedures } from '../core/i18n';
 import { format } from 'date-fns';
-import { removeTimezoneFromISOTimeString } from '../../global/datetime';
-import {
-  documentLanguage,
-  HandlerRepository,
-  languageChangeHandlerAspect,
-} from '../../global/eventing';
-import {
-  getDepartureArrivalTimeAttribute,
-  isRideLeg,
-  Leg,
-  PtRideLeg,
-} from '../../global/timetable';
+import { removeTimezoneFromISOTimeString } from '../core/datetime';
+import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
+import { getDepartureArrivalTimeAttribute, isRideLeg, Leg, PtRideLeg } from '../core/timetable';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import style from './sbb-pearl-chain-time.scss?lit&inline';

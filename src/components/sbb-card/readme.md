@@ -1,4 +1,4 @@
-The `sbb-card` component is a generic content container; its task is to contain content related to a single subject. 
+The `sbb-card` component is a generic content container; its task is to contain content related to a single subject.
 
 ```html
 <sbb-card>Card content</sbb-card>
@@ -34,15 +34,17 @@ For API details (mainly accessibility), see the [sbb-card-action](/docs/componen
 
 ```html
 <sbb-card>
-  <sbb-card-action href="https://www.sbb.ch">Check all the wonderful trips available.</sbb-card-action>
+  <sbb-card-action href="https://www.sbb.ch"
+    >Check all the wonderful trips available.</sbb-card-action
+  >
   Buy trips
 </sbb-card>
 ```
 
 ## Style
 
-It's possible to choose among seven different values for the `size` property (from `xs` to `xxxl`, default `m`); 
-the choice mainly affects the content's padding. 
+It's possible to choose among seven different values for the `size` property (from `xs` to `xxxl`, default `m`);
+the choice mainly affects the content's padding.
 
 ```html
 <sbb-card size="xs">Card content</sbb-card>
@@ -66,20 +68,20 @@ The component has four different values to choose from for the `color` property;
 
 Normally, a `sbb-card` should be a single action, however, it's possible to place other interactive elements
 in the card content. Interactive content will automatically be detected and made accessible to click / focus.
-In cases where there should be only a visual button or link inside the card content without a different action, the 
+In cases where there should be only a visual button or link inside the card content without a different action, the
 `is-static` attribute should be set (e.g. `<sbb-button is-static></sbb-button>`).
 
 ### Windows High Contrast Notes
 
-In high contrast mode, all the content of a link or a button receives a specific color which overrides every other color. 
+In high contrast mode, all the content of a link or a button receives a specific color which overrides every other color.
 
 However, as the content of the card is not directly inside the button or link,
 this does not happen when the slotted content has a specific color set.
 To improve coloring, it's needed to manually define styles for Window high contrast mode (setting `LinkText` or `ButtonText`).
 
-<!-- Auto Generated Below --> 
- 
-## Properties 
+<!-- Auto Generated Below -->
+
+## Properties
 
 | Name    | Attribute | Privacy | Type                                                                                          | Default   | Description                                        |
 | ------- | --------- | ------- | --------------------------------------------------------------------------------------------- | --------- | -------------------------------------------------- |

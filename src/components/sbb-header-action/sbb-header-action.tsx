@@ -1,27 +1,27 @@
-import { i18nTargetOpensInNewWindow } from '../../global/i18n';
+import { i18nTargetOpensInNewWindow } from '../core/i18n';
 import {
   ButtonType,
   LinkButtonProperties,
   LinkTargetType,
   resolveRenderVariables,
   targetsNewWindow,
-} from '../../global/interfaces';
-import { toggleDatasetEntry, isBreakpoint } from '../../global/dom';
+} from '../core/interfaces';
+import { toggleDatasetEntry, isBreakpoint } from '../core/dom';
 import {
   documentLanguage,
   HandlerRepository,
   actionElementHandlerAspect,
   languageChangeHandlerAspect,
-} from '../../global/eventing';
-import { AgnosticResizeObserver } from '../../global/observers';
+} from '../core/eventing';
+import { AgnosticResizeObserver } from '../core/observers';
 import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { setAttributes } from '../../global/dom';
+import { setAttributes } from '../core/dom';
 import style from './sbb-header-action.scss?lit&inline';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { spread } from '@open-wc/lit-helpers';
 import '../sbb-icon';
-import { SbbHorizontalFrom } from '../../global/types';
+import { SbbHorizontalFrom } from '../core/interfaces';
 
 /**
  * @slot icon - Slot used to render the action icon.

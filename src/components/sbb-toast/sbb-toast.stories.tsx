@@ -6,7 +6,7 @@ import isChromatic from 'chromatic';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 import { within } from '@storybook/testing-library';
-import { waitForComponentsReady } from '../../global/testing/wait-for-components-ready';
+import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
 import { SbbToast } from './sbb-toast';
 
 // Story interaction executed after the story renders

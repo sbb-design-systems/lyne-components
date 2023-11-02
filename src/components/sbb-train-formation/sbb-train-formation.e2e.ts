@@ -1,6 +1,6 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { waitForLitRender } from '../../global/testing';
+import { waitForLitRender } from '../core/testing';
 import { SbbTrainFormation } from './sbb-train-formation';
 import { TemplateResult } from 'lit';
 import '../sbb-icon';
