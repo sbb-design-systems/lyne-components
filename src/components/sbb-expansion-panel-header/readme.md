@@ -35,20 +35,12 @@ When the element is clicked, the `toggle-expanded` event is emitted.
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
-| Name       | Attribute       | Privacy | Type                  | Default | Description                                                                                                                               |
-| ---------- | ---------- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `iconName` | `icon-name` | public  | `string \| undefined` |         | The icon name we want to use, choose from the small icon variants&#xA;from the ui-icons category from here&#xA;https\://icons.app.sbb.ch. |
-| `disabled` | `disabled` | public  | `boolean`             |         | Whether the button is disabled.                                                                                                           |
-
-## Attributes
-
-| Name        | Field    | Inherited From |
-| ----------- | -------- | -------------- |
-| `icon-name` | iconName |                |
-| `disabled`  | disabled |                |
+| Name       | Attribute   | Privacy | Type                  | Default | Description                                                                                                                      |
+| ---------- | ----------- | ------- | --------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `iconName` | `icon-name` | public  | `string \| undefined` |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `disabled` | `disabled`  | public  | `boolean`             |         | Whether the button is disabled.                                                                                                  |
 
 ## Slots
 
@@ -56,4 +48,3 @@ When the element is clicked, the `toggle-expanded` event is emitted.
 | ------ | ------------------------------------------------------------------ |
 | `icon` | Slot used to render the panel header icon.                         |
 |        | Use the unnamed slot to add content to the expansion panel header. |
-

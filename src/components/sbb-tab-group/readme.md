@@ -40,13 +40,12 @@ It's possible to set the first selected tab using the `initialSelectedIndex` pro
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
-| Name                   | Attribute                   | Privacy | Type                              | Default | Description                                                                                                                            |
-| ---------------------- | ---------------------- | ------- | --------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| `size`                 | `size`                 | public  | `InterfaceSbbTabGroupTab['size']` |         | Size variant, either l or xl.                                                                                                          |
-| `initialSelectedIndex` | `initial-selected-index` | public  | `number`                          | `0`     | Sets the initial tab. If it matches a disabled tab or exceeds the length of&#xA;the tab group, the first enabled tab will be selected. |
+| Name                   | Attribute                | Privacy | Type                              | Default | Description                                                                                                                        |
+| ---------------------- | ------------------------ | ------- | --------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `size`                 | `size`                   | public  | `InterfaceSbbTabGroupTab['size']` |         | Size variant, either l or xl.                                                                                                      |
+| `initialSelectedIndex` | `initial-selected-index` | public  | `number`                          | `0`     | Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected. |
 
 ## Methods
 
@@ -56,17 +55,9 @@ It's possible to set the first selected tab using the `initialSelectedIndex` pro
 | `enableTab`   | public  | Enables a tab by index.   | `tabIndex: number` | `void` |                |
 | `activateTab` | public  | Activates a tab by index. | `tabIndex: number` | `void` |                |
 
-## Attributes
-
-| Name                     | Field                | Inherited From |
-| ------------------------ | -------------------- | -------------- |
-| `size`                   | size                 |                |
-| `initial-selected-index` | initialSelectedIndex |                |
-
 ## Slots
 
-| Name      | Description                                                                                                                                                                                                                                                                                                    |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `tab-bar` | When you provide the \`sbb-tab-title\` tag through the unnamed slot, it will be automatically moved to this slot. You do not need to use it directly.                                                                                                                                                          |
-|           | Use the unnamed slot to add html-content to this tab group. Wrap the content in a \`div\`, a \`section\`, an \`article\` or provide a nested \`sbb-tab-group\`: This is correct: \`\<div>Some text \<p>Some other text\</p>\</div>\` This is not correct: \`\<span>Some text\</span>\<p>Some other text\</p>\` |
-
+| Name      | Description                                                                                                                                                                                                                                                                                |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `tab-bar` | When you provide the `sbb-tab-title` tag through the unnamed slot, it will be automatically moved to this slot. You do not need to use it directly.                                                                                                                                        |
+|           | Use the unnamed slot to add html-content to this tab group. Wrap the content in a `div`, a `section`, an `article` or provide a nested `sbb-tab-group`: This is correct: `<div>Some text <p>Some other text</p></div>` This is not correct: `<span>Some text</span><p>Some other text</p>` |

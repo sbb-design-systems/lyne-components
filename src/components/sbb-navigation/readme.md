@@ -60,14 +60,13 @@ Similarly, if a navigation action is marked to indicate a selected option (e.g.,
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
-| Name                      | Attribute                      | Privacy | Type                         | Default | Description                                                                                                    |
-| ------------------------- | ------------------------- | ------- | ---------------------------- | ------- | -------------------------------------------------------------------------------------------------------------- |
-| `trigger`                 | `trigger`                 | public  | `string \| HTMLElement`      |         | The element that will trigger the navigation.&#xA;Accepts both a string (id of an element) or an HTML element. |
-| `accessibilityCloseLabel` | `accessibility-close-label` | public  | `\| string     \| undefined` |         | This will be forwarded as aria-label to the close button element.                                              |
-| `disableAnimation`        | `disable-animation`        | public  | `boolean`                    | `false` | Whether the animation is enabled.                                                                              |
+| Name                      | Attribute                   | Privacy | Type                         | Default | Description                                                                                                |
+| ------------------------- | --------------------------- | ------- | ---------------------------- | ------- | ---------------------------------------------------------------------------------------------------------- |
+| `trigger`                 | `trigger`                   | public  | `string \| HTMLElement`      |         | The element that will trigger the navigation. Accepts both a string (id of an element) or an HTML element. |
+| `accessibilityCloseLabel` | `accessibility-close-label` | public  | `\| string     \| undefined` |         | This will be forwarded as aria-label to the close button element.                                          |
+| `disableAnimation`        | `disable-animation`         | public  | `boolean`                    | `false` | Whether the animation is enabled.                                                                          |
 
 ## Methods
 
@@ -76,17 +75,8 @@ Similarly, if a navigation action is marked to indicate a selected option (e.g.,
 | `open`  | public  | Opens the navigation.  |            | `void` |                |
 | `close` | public  | Closes the navigation. |            | `void` |                |
 
-## Attributes
-
-| Name                        | Field                   | Inherited From |
-| --------------------------- | ----------------------- | -------------- |
-| `trigger`                   | trigger                 |                |
-| `accessibility-close-label` | accessibilityCloseLabel |                |
-| `disable-animation`         | disableAnimation        |                |
-
 ## Slots
 
-| Name | Description                                                                                  |
-| ---- | -------------------------------------------------------------------------------------------- |
-|      | Use the unnamed slot to add \`sbb-navigation-action\` elements into the sbb-navigation menu. |
-
+| Name | Description                                                                                |
+| ---- | ------------------------------------------------------------------------------------------ |
+|      | Use the unnamed slot to add `sbb-navigation-action` elements into the sbb-navigation menu. |

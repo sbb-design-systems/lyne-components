@@ -58,12 +58,11 @@ Whenever the validation state changes (e.g., a valid value becomes invalid or vi
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
-| Name    | Attribute    | Privacy | Type                    | Default | Description                                                |
-| ------- | ------- | ------- | ----------------------- | ------- | ---------------------------------------------------------- |
-| `input` | `input` | public  | `string \| HTMLElement` |         | Reference of the native input connected to the datepicker. |
+| Name    | Attribute | Privacy | Type                    | Default | Description                                                |
+| ------- | --------- | ------- | ----------------------- | ------- | ---------------------------------------------------------- |
+| `input` | `input`   | public  | `string \| HTMLElement` |         | Reference of the native input connected to the datepicker. |
 
 ## Methods
 
@@ -71,10 +70,3 @@ Whenever the validation state changes (e.g., a valid value becomes invalid or vi
 | ---------------- | ------- | ----------------------------------------------------- | ------------------- | -------------- | -------------- |
 | `getValueAsDate` | public  | Gets the input value with the correct date format.    |                     | `Date \| null` |                |
 | `setValueAsDate` | public  | Set the input value to the correctly formatted value. | `date: SbbDateLike` | `void`         |                |
-
-## Attributes
-
-| Name    | Field | Inherited From |
-| ------- | ----- | -------------- |
-| `input` | input |                |
-

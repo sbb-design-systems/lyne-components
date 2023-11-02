@@ -29,10 +29,8 @@ the last element of the list receives the attribute `aria-current="page"`.
 
 <!-- Auto Generated Below --> 
  
-
 ## Slots
 
-| Name | Description                                              |
-| ---- | -------------------------------------------------------- |
-|      | Use the unnamed slot to add \`sbb-breadcrumb\` elements. |
-
+| Name | Description                                            |
+| ---- | ------------------------------------------------------ |
+|      | Use the unnamed slot to add `sbb-breadcrumb` elements. |

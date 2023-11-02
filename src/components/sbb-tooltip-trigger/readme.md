@@ -69,28 +69,17 @@ associate the tooltip trigger with the tooltip via `aria-describedby` and an `id
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
-| Name       | Attribute       | Privacy | Type                  | Default                      | Description                                                                                                                               |
-| ---------- | ---------- | ------- | --------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `name`     | `name`     | public  | `string \| undefined` |                              | The name attribute to use for the button.                                                                                                 |
-| `negative` | `negative` | public  | `boolean`             | `false`                      | Negative coloring variant flag.                                                                                                           |
-| `iconName` | `icon-name` | public  | `string`              | `'circle-information-small'` | The icon name we want to use, choose from the small icon variants&#xA;from the ui-icons category from here&#xA;https\://icons.app.sbb.ch. |
-| `disabled` | `disabled` | public  | `boolean`             |                              | Whether the tooltip-trigger is disabled.                                                                                                  |
-
-## Attributes
-
-| Name        | Field    | Inherited From |
-| ----------- | -------- | -------------- |
-| `name`      | name     |                |
-| `negative`  | negative |                |
-| `icon-name` | iconName |                |
-| `disabled`  | disabled |                |
+| Name       | Attribute   | Privacy | Type                  | Default                      | Description                                                                                                                      |
+| ---------- | ----------- | ------- | --------------------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `name`     | `name`      | public  | `string \| undefined` |                              | The name attribute to use for the button.                                                                                        |
+| `negative` | `negative`  | public  | `boolean`             | `false`                      | Negative coloring variant flag.                                                                                                  |
+| `iconName` | `icon-name` | public  | `string`              | `'circle-information-small'` | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `disabled` | `disabled`  | public  | `boolean`             |                              | Whether the tooltip-trigger is disabled.                                                                                         |
 
 ## Slots
 
 | Name | Description                                                 |
 | ---- | ----------------------------------------------------------- |
 |      | Use the unnamed slot to add content to the tooltip trigger. |
-

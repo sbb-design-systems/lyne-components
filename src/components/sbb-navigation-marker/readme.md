@@ -22,12 +22,11 @@ Possible values are `l` (default) and `s`.
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
-| Name   | Attribute   | Privacy | Type                      | Default | Description          |
-| ------ | ------ | ------- | ------------------------- | ------- | -------------------- |
-| `size` | `size` | public  | `'l' \| 's' \| undefined` | `'l'`   | Marker size variant. |
+| Name   | Attribute | Privacy | Type                      | Default | Description          |
+| ------ | --------- | ------- | ------------------------- | ------- | -------------------- |
+| `size` | `size`    | public  | `'l' \| 's' \| undefined` | `'l'`   | Marker size variant. |
 
 ## Methods
 
@@ -36,15 +35,8 @@ Possible values are `l` (default) and `s`.
 | `select` | public  |             | `action: SbbNavigationAction` | `void` |                |
 | `reset`  | public  |             |                               | `void` |                |
 
-## Attributes
-
-| Name   | Field | Inherited From |
-| ------ | ----- | -------------- |
-| `size` | size  |                |
-
 ## Slots
 
-| Name | Description                                                                                    |
-| ---- | ---------------------------------------------------------------------------------------------- |
-|      | Use the unnamed slot to add \`sbb-navigation-action\` elements into the sbb-navigation-marker. |
-
+| Name | Description                                                                                  |
+| ---- | -------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add `sbb-navigation-action` elements into the sbb-navigation-marker. |

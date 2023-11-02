@@ -25,12 +25,8 @@ Please refer to its documentation for more details.
 
 <!-- Auto Generated Below --> 
  
-
 ## Slots
 
-| Name | Description                                      |
-| ---- | ------------------------------------------------ |
-|      | for \<sbb-pearl-chain-vertical-item /> component |
-
-<hr/>
-
+| Name | Description                                     |
+| ---- | ----------------------------------------------- |
+|      | for <sbb-pearl-chain-vertical-item /> component |

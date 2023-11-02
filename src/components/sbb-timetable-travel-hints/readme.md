@@ -3,18 +3,9 @@ here to show the various configuration options to component developers. !!
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
-| Name         | Attribute         | Privacy | Type                                                     | Default              | Description                                                                                                                                           |
-| ------------ | ------------ | ------- | -------------------------------------------------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `appearance` | `appearance` | public  | `'first-level-list' \| 'second-level-list' \| undefined` | `'first-level-list'` | Set the desired appearance of&#xA;the component.                                                                                                      |
-| `config`     | `config`     | public  | `string`                                                 |                      | Stringified JSON which defines most of the&#xA;content of the component. Please check the&#xA;individual stories to get an idea of the&#xA;structure. |
-
-## Attributes
-
-| Name         | Field      | Inherited From |
-| ------------ | ---------- | -------------- |
-| `appearance` | appearance |                |
-| `config`     | config     |                |
-
+| Name         | Attribute    | Privacy | Type                                                     | Default              | Description                                                                                                                               |
+| ------------ | ------------ | ------- | -------------------------------------------------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `appearance` | `appearance` | public  | `'first-level-list' \| 'second-level-list' \| undefined` | `'first-level-list'` | Set the desired appearance of the component.                                                                                              |
+| `config`     | `config`     | public  | `string`                                                 |                      | Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure. |

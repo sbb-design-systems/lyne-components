@@ -27,10 +27,9 @@ The component has three different sizes, which can be changed using the `size` p
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
-| Name       | Attribute       | Privacy | Type                                                 | Default | Description                                                                                    |
+| Name       | Attribute  | Privacy | Type                                                 | Default | Description                                                                                    |
 | ---------- | ---------- | ------- | ---------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------- |
 | `size`     | `size`     | public  | `'l' \| 'm' \| 's' \| undefined`                     | `'l'`   | Action size variant.                                                                           |
 | `href`     | `href`     | public  | `string \| undefined`                                |         | The href value you want to link to (if it is not present, navigation action becomes a button). |
@@ -42,23 +41,8 @@ The component has three different sizes, which can be changed using the `size` p
 | `name`     | `name`     | public  | `string \| undefined`                                |         | The name attribute to use for the button.                                                      |
 | `value`    | `value`    | public  | `string \| undefined`                                |         | The value attribute to use for the button.                                                     |
 
-## Attributes
-
-| Name       | Field    | Inherited From |
-| ---------- | -------- | -------------- |
-| `size`     | size     |                |
-| `href`     | href     |                |
-| `target`   | target   |                |
-| `rel`      | rel      |                |
-| `download` | download |                |
-| `type`     | type     |                |
-| `active`   | active   |                |
-| `name`     | name     |                |
-| `value`    | value    |                |
-
 ## Slots
 
 | Name | Description                                                   |
 | ---- | ------------------------------------------------------------- |
 |      | Use the unnamed slot to add content to the navigation action. |
-

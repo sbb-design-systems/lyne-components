@@ -27,20 +27,12 @@ by the used components (e.g. `alt-text` and `aria-label`).
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
-| Name           | Attribute           | Privacy | Type                  | Default | Description                                                                         |
-| -------------- | -------------- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------- |
+| Name           | Attribute       | Privacy | Type                  | Default | Description                                                                         |
+| -------------- | --------------- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------- |
 | `titleContent` | `title-content` | public  | `string \| undefined` |         | Content of title.                                                                   |
 | `titleLevel`   | `title-level`   | public  | `TitleLevel`          | `'3'`   | Level of title, it will be rendered as heading tag (e.g., h3). Defaults to level 3. |
-
-## Attributes
-
-| Name            | Field        | Inherited From |
-| --------------- | ------------ | -------------- |
-| `title-content` | titleContent |                |
-| `title-level`   | titleLevel   |                |
 
 ## Slots
 
@@ -51,6 +43,3 @@ by the used components (e.g. `alt-text` and `aria-label`).
 | `subtitle` | Use this slot to provide a subtitle, must be a paragraph. |
 | `legend`   | Use this slot to provide a legend, must be a paragraph.   |
 | `action`   | Use this slot to provide a sbb-button.                    |
-
-<hr/>
-

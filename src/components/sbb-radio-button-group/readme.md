@@ -69,35 +69,21 @@ In order to ensure readability for screen-readers, please provide an `aria-label
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
-| Name                  | Attribute                  | Privacy | Type                             | Default        | Description                                               |
-| --------------------- | --------------------- | ------- | -------------------------------- | -------------- | --------------------------------------------------------- |
+| Name                  | Attribute               | Privacy | Type                             | Default        | Description                                               |
+| --------------------- | ----------------------- | ------- | -------------------------------- | -------------- | --------------------------------------------------------- |
 | `allowEmptySelection` | `allow-empty-selection` | public  | `boolean`                        |                | Whether the radios can be deselected.                     |
-| `disabled`            | `disabled`            | public  | `boolean`                        |                | Whether the radio group is disabled.                      |
-| `required`            | `required`            | public  | `boolean`                        |                | Whether the radio group is required.                      |
-| `value`               | `value`               | public  | `any \| null`                    |                | The value of the radio group.                             |
-| `size`                | `size`                | public  | `SbbRadioButtonSize`             |                | Size variant, either m or s.                              |
-| `horizontalFrom`      | `horizontal-from`      | public  | `SbbHorizontalFrom \| undefined` |                | Overrides the behaviour of \`orientation\` property.      |
-| `orientation`         | `orientation`         | public  | `SbbOrientation`                 | `'horizontal'` | Radio group's orientation, either horizontal or vertical. |
-
-## Attributes
-
-| Name                    | Field               | Inherited From |
-| ----------------------- | ------------------- | -------------- |
-| `allow-empty-selection` | allowEmptySelection |                |
-| `disabled`              | disabled            |                |
-| `required`              | required            |                |
-| `value`                 | value               |                |
-| `size`                  | size                |                |
-| `horizontal-from`       | horizontalFrom      |                |
-| `orientation`           | orientation         |                |
+| `disabled`            | `disabled`              | public  | `boolean`                        |                | Whether the radio group is disabled.                      |
+| `required`            | `required`              | public  | `boolean`                        |                | Whether the radio group is required.                      |
+| `value`               | `value`                 | public  | `any \| null`                    |                | The value of the radio group.                             |
+| `size`                | `size`                  | public  | `SbbRadioButtonSize`             |                | Size variant, either m or s.                              |
+| `horizontalFrom`      | `horizontal-from`       | public  | `SbbHorizontalFrom \| undefined` |                | Overrides the behaviour of `orientation` property.        |
+| `orientation`         | `orientation`           | public  | `SbbOrientation`                 | `'horizontal'` | Radio group's orientation, either horizontal or vertical. |
 
 ## Slots
 
-| Name    | Description                                                                           |
-| ------- | ------------------------------------------------------------------------------------- |
-|         | Use the unnamed slot to add \`sbb-radio-button\` elements to this radio button group. |
-| `error` | Use this to provide a \`sbb-form-error\` to show an error message.                    |
-
+| Name    | Description                                                                         |
+| ------- | ----------------------------------------------------------------------------------- |
+|         | Use the unnamed slot to add `sbb-radio-button` elements to this radio button group. |
+| `error` | Use this to provide a `sbb-form-error` to show an error message.                    |

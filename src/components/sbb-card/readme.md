@@ -79,26 +79,17 @@ To improve coloring, it's needed to manually define styles for Window high contr
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
-| Name    | Attribute    | Privacy | Type                                                                                          | Default   | Description                                        |
-| ------- | ------- | ------- | --------------------------------------------------------------------------------------------- | --------- | -------------------------------------------------- |
-| `size`  | `size`  | public  | `'xs' \| 's' \| 'm' \| 'l' \| 'xl' \| 'xxl' \| 'xxxl' \| undefined`                           | `'m'`     | Size variant, either xs, s, m, l, xl, xxl or xxxl. |
-| `color` | `color` | public  | `\| 'white'     \| 'milk'     \| 'transparent-bordered'     \| 'transparent-bordered-dashed'` | `'white'` | Option to set the component's background color.    |
-
-## Attributes
-
-| Name    | Field | Inherited From |
-| ------- | ----- | -------------- |
-| `size`  | size  |                |
-| `color` | color |                |
+| Name    | Attribute | Privacy | Type                                                                                          | Default   | Description                                        |
+| ------- | --------- | ------- | --------------------------------------------------------------------------------------------- | --------- | -------------------------------------------------- |
+| `size`  | `size`    | public  | `'xs' \| 's' \| 'm' \| 'l' \| 'xl' \| 'xxl' \| 'xxxl' \| undefined`                           | `'m'`     | Size variant, either xs, s, m, l, xl, xxl or xxxl. |
+| `color` | `color`   | public  | `\| 'white'     \| 'milk'     \| 'transparent-bordered'     \| 'transparent-bordered-dashed'` | `'white'` | Option to set the component's background color.    |
 
 ## Slots
 
 | Name     | Description                                      |
 | -------- | ------------------------------------------------ |
 |          | Use the unnamed slot to add content to the card. |
-| `badge`  | Slot to render \`\<sbb-card-badge>\`.            |
-| `action` | Slot to render \`\<sbb-card-action>\`.           |
-
+| `badge`  | Slot to render `<sbb-card-badge>`.               |
+| `action` | Slot to render `<sbb-card-action>`.              |

@@ -19,26 +19,15 @@ and four different values for the `color` property (`charcoal`, `granite`, `whit
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
-| Name    | Attribute    | Privacy | Type                                           | Default  | Description        |
-| ------- | ------- | ------- | ---------------------------------------------- | -------- | ------------------ |
-| `size`  | `size`  | public  | `'xxs' \| 'xs' \| 's'`                         | `'xxs'`  | Size of the chip.  |
-| `color` | `color` | public  | `'milk' \| 'charcoal' \| 'white' \| 'granite'` | `'milk'` | Color of the chip. |
-
-## Attributes
-
-| Name    | Field | Inherited From |
-| ------- | ----- | -------------- |
-| `size`  | size  |                |
-| `color` | color |                |
+| Name    | Attribute | Privacy | Type                                           | Default  | Description        |
+| ------- | --------- | ------- | ---------------------------------------------- | -------- | ------------------ |
+| `size`  | `size`    | public  | `'xxs' \| 'xs' \| 's'`                         | `'xxs'`  | Size of the chip.  |
+| `color` | `color`   | public  | `'milk' \| 'charcoal' \| 'white' \| 'granite'` | `'milk'` | Color of the chip. |
 
 ## Slots
 
 | Name | Description                                      |
 | ---- | ------------------------------------------------ |
 |      | Use the unnamed slot to add content to the chip. |
-
-<hr/>
-

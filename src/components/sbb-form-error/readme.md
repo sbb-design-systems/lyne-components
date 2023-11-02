@@ -21,18 +21,8 @@ the component displays an icon by default, that can be changed using the `icon` 
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
-| Name       | Attribute       | Privacy | Type      | Default | Description                     |
+| Name       | Attribute  | Privacy | Type      | Default | Description                     |
 | ---------- | ---------- | ------- | --------- | ------- | ------------------------------- |
 | `negative` | `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |
-
-## Attributes
-
-| Name       | Field    | Inherited From |
-| ---------- | -------- | -------------- |
-| `negative` | negative |                |
-
-<hr/>
-

@@ -30,20 +30,10 @@ if it is disabled, or if the selected date is equal to the input's `max` attribu
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
-| Name         | Attribute         | Privacy | Type                                   | Default | Description                               |
-| ------------ | ------------ | ------- | -------------------------------------- | ------- | ----------------------------------------- |
-| `name`       | `name`       | public  | `string \| undefined`                  |         | The name attribute to use for the button. |
-| `negative`   | `negative`   | public  | `boolean`                              | `false` | Negative coloring variant flag.           |
+| Name         | Attribute     | Privacy | Type                                   | Default | Description                               |
+| ------------ | ------------- | ------- | -------------------------------------- | ------- | ----------------------------------------- |
+| `name`       | `name`        | public  | `string \| undefined`                  |         | The name attribute to use for the button. |
+| `negative`   | `negative`    | public  | `boolean`                              | `false` | Negative coloring variant flag.           |
 | `datePicker` | `date-picker` | public  | `string \| SbbDatepicker \| undefined` |         | Datepicker reference.                     |
-
-## Attributes
-
-| Name          | Field      | Inherited From |
-| ------------- | ---------- | -------------- |
-| `name`        | name       |                |
-| `negative`    | negative   |                |
-| `date-picker` | datePicker |                |
-

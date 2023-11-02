@@ -24,26 +24,15 @@ Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and
 
 <!-- Auto Generated Below --> 
  
-
 ## Properties 
 
-| Name         | Attribute         | Privacy | Type                                                 | Default | Description                                                                                                                           |
-| ------------ | ------------ | ------- | ---------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `isStacked`  | `is-stacked`  | public  | `boolean`                                            |         | Teaser variant -&#xA;when this is true the text-content will be under the image&#xA;otherwise it will be displayed next to the image. |
-| `titleLevel` | `title-level` | public  | `TitleLevel`                                         | `'5'`   | Heading level of the sbb-title element (e.g. h1-h6).                                                                                  |
-| `href`       | `href`       | public  | `string \| undefined`                                |         | The href value you want to link to.                                                                                                   |
-| `target`     | `target`     | public  | `LinkTargetType \| string \| undefined \| undefined` |         | Where to display the linked URL.                                                                                                      |
-| `rel`        | `rel`        | public  | `string \| undefined \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                                                                     |
-
-## Attributes
-
-| Name          | Field      | Inherited From |
-| ------------- | ---------- | -------------- |
-| `is-stacked`  | isStacked  |                |
-| `title-level` | titleLevel |                |
-| `href`        | href       |                |
-| `target`      | target     |                |
-| `rel`         | rel        |                |
+| Name         | Attribute     | Privacy | Type                                                 | Default | Description                                                                                                                   |
+| ------------ | ------------- | ------- | ---------------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `isStacked`  | `is-stacked`  | public  | `boolean`                                            |         | Teaser variant - when this is true the text-content will be under the image otherwise it will be displayed next to the image. |
+| `titleLevel` | `title-level` | public  | `TitleLevel`                                         | `'5'`   | Heading level of the sbb-title element (e.g. h1-h6).                                                                          |
+| `href`       | `href`        | public  | `string \| undefined`                                |         | The href value you want to link to.                                                                                           |
+| `target`     | `target`      | public  | `LinkTargetType \| string \| undefined \| undefined` |         | Where to display the linked URL.                                                                                              |
+| `rel`        | `rel`         | public  | `string \| undefined \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                                                             |
 
 ## Slots
 
@@ -52,4 +41,3 @@ Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and
 | `image`       | Slot used to render the image       |
 | `title`       | Slot used to render the title       |
 | `description` | Slot used to render the description |
-
