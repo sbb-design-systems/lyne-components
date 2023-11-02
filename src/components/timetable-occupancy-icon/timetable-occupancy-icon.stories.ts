@@ -1,10 +1,13 @@
-/** @jsx h */
-import { h, JSX } from 'jsx-dom';
-import readme from './readme.md?raw';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType, StoryContext } from '@storybook/types';
-import './sbb-timetable-occupancy-icon';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../core/dom';
+
+import readme from './readme.md?raw';
+import './timetable-occupancy-icon';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative
@@ -35,9 +38,9 @@ const defaultArgs: Args = {
   occupancy: occupancy.options[0],
 };
 
-const Template = ({ ...args }): JSX.Element => (
-  <sbb-timetable-occupancy-icon {...args}></sbb-timetable-occupancy-icon>
-);
+const Template = (args: Args): TemplateResult => html`
+  <sbb-timetable-occupancy-icon ${sbbSpread(args)}></sbb-timetable-occupancy-icon>
+`;
 
 export const HighOccupancy: StoryObj = {
   render: Template,
@@ -89,11 +92,9 @@ export const UnknownOccupancyNegative: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story, context) => (
-      <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
-        <Story />
-      </div>
-    ),
+    (story, context) => html`
+      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
+    `,
     withActions as Decorator,
   ],
   parameters: {
@@ -104,7 +105,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-timetable-occupancy-icon',
+  title: 'internals/sbb-timetable-occupancy-icon',
 };
 
 export default meta;

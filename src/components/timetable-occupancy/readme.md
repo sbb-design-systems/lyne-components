@@ -5,6 +5,7 @@ here to show the various configuration options to component developers. !!
 
 ## Properties
 
-| Name     | Attribute | Privacy | Type     | Default | Description                                                                                                                               |
-| -------- | --------- | ------- | -------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `config` | `config`  | public  | `string` |         | Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure. |
+| Name        | Attribute   | Privacy | Type        | Default | Description                                    |
+| ----------- | ----------- | ------- | ----------- | ------- | ---------------------------------------------- |
+| `occupancy` | `occupancy` | public  | `Occupancy` |         | Occupancy for first and second classes wagons. |
+| `negative`  | `negative`  | public  | `boolean`   | `false` | Negative coloring variant flag.                |

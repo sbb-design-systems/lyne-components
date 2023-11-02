@@ -1,6 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-timetable-occupancy-icon';
+import './timetable-occupancy-icon';
 
 describe('sbb-timetable-occupancy-icon', () => {
   it('renders with high occupancy', async () => {

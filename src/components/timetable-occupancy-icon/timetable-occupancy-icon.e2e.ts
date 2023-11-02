@@ -1,6 +1,7 @@
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SbbTimetableOccupancyIcon } from './sbb-timetable-occupancy-icon';
+
+import { SbbTimetableOccupancyIcon } from './timetable-occupancy-icon';
 
 describe('sbb-timetable-occupancy-icon', () => {
   let element: SbbTimetableOccupancyIcon;

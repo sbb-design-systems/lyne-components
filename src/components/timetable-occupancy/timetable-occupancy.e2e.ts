@@ -1,18 +1,23 @@
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbTimetableOccupancy } from './timetable-occupancy';
-import sampleData from './timetable-occupancy.sample-data';
+import { waitForLitRender } from '../core/testing';
 
-const config = JSON.stringify(sampleData[3]);
+import { SbbTimetableOccupancy } from './timetable-occupancy';
+import { occupancySampleData } from './timetable-occupancy.sample-data';
 
 describe('sbb-timetable-occupancy', () => {
   let element: SbbTimetableOccupancy;
 
+  beforeEach(async () => {
+    element = await fixture(html` <sbb-timetable-occupancy></sbb-timetable-occupancy> `);
+
+    await waitForLitRender(element);
+    element.occupancy = occupancySampleData[9];
+    await waitForLitRender(element);
+  });
+
   it('renders', async () => {
-    element = await fixture(
-      html`<sbb-timetable-occupancy config="${config}"></sbb-timetable-occupancy>`,
-    );
     assert.instanceOf(element, SbbTimetableOccupancy);
   });
 });

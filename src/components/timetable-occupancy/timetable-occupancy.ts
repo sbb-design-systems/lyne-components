@@ -2,8 +2,9 @@ import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
-import { i18nClass, i18nOccupancy } from '../core/i18n';
-import icons from '../core/timetable/icons.json';
+import { i18nClass } from '../core/i18n';
+import { Occupancy } from '../core/timetable';
+import '../timetable-occupancy-icon';
 
 import style from './timetable-occupancy.scss?lit&inline';
 
@@ -14,13 +15,11 @@ import style from './timetable-occupancy.scss?lit&inline';
 export class SbbTimetableOccupancy extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  /**
-   * Stringified JSON which defines most of the
-   * content of the component. Please check the
-   * individual stories to get an idea of the
-   * structure.
-   */
-  @property() public config!: string;
+  /** Occupancy for first and second classes wagons. */
+  @property({ attribute: false }) public occupancy!: Occupancy;
+
+  /** Negative coloring variant flag. */
+  @property({ type: Boolean }) public negative = false;
 
   @state() private _currentLanguage = documentLanguage();
 
@@ -40,34 +39,34 @@ export class SbbTimetableOccupancy extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    const { occupancyItems } = JSON.parse(this.config);
+    const firstClassOccupancy: string = this.occupancy?.firstClass ?? null;
+    const secondClassOccupancy: string = this.occupancy?.secondClass ?? null;
 
-    return html`
-      <ul class="occupancy__list" role="list">
-        ${occupancyItems.map((occupancyItem) => {
-          const occupancyText = i18nOccupancy[occupancyItem.occupancy][this._currentLanguage];
-
-          const classText = occupancyItem.class === '1' ? 'first' : 'second';
-
-          const a11yLabel = `${i18nClass[classText][this._currentLanguage]}. ${occupancyText}.`;
-
-          return html`<li class="occupancy__list-item">
-            <span class="occupancy__class">
-              <span aria-hidden="true" class="occupancy__class--visual">
-                ${occupancyItem.class}.
-              </span>
-              <span class="occupancy__class--visually-hidden">${a11yLabel}</span>
-            </span>
-            <span
-              aria-hidden="true"
-              class="occupancy__icon"
-              .innerHTML=${icons[occupancyItem.icon]}
-              role="presentation"
-            ></span>
-          </li>`;
-        })}
+    return html` ${(firstClassOccupancy || secondClassOccupancy) &&
+    html`
+      <ul class="sbb-timetable-occupancy__list" role="list">
+        ${[firstClassOccupancy, secondClassOccupancy].map(
+          (occupancy: string, index: number) =>
+            occupancy &&
+            html`
+              <li class="sbb-timetable-occupancy__list-item">
+                <span class="sbb-timetable-occupancy__list-item-class" aria-hidden="true">
+                  ${index + 1}.
+                </span>
+                <span class="sbb-timetable-occupancy__visually-hidden">
+                  ${`${i18nClass[index === 0 ? 'first' : 'second'][this._currentLanguage]}. `}
+                </span>
+                <sbb-timetable-occupancy-icon
+                  class="sbb-timetable-occupancy__list-item-icon"
+                  ?negative=${this.negative}
+                  occupancy="${occupancy}"
+                >
+                </sbb-timetable-occupancy-icon>
+              </li>
+            `,
+        )}
       </ul>
-    `;
+    `}`;
   }
 }
 

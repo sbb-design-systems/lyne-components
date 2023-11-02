@@ -1,24 +1,25 @@
-import { CSSResult, html, LitElement, PropertyValues, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import style from './sbb-timetable-occupancy-icon.scss?lit&inline';
-import { OccupancyEnum } from '../../global/timetable';
-import {
-  documentLanguage,
-  HandlerRepository,
-  languageChangeHandlerAspect,
-} from '../../global/eventing';
-import { i18nOccupancy } from '../../global/i18n';
-import '../sbb-icon';
 
+import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
+import { i18nOccupancy } from '../core/i18n';
+import { OccupancyEnum } from '../core/timetable';
+
+import style from './timetable-occupancy-icon.scss?lit&inline';
+import '../icon';
+
+/**
+ * Icon for wagon's occupancy.
+ */
 @customElement('sbb-timetable-occupancy-icon')
 export class SbbTimetableOccupancyIcon extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
-  /** Wagon occupancy */
+  /** Wagon occupancy. */
   @property() public occupancy!: OccupancyEnum;
 
   /** Negative coloring variant flag. */
-  @property() public negative: boolean = false;
+  @property({ type: Boolean }) public negative: boolean = false;
 
   /** The icon name which will be rendered. */
   @state() private _iconName: string;

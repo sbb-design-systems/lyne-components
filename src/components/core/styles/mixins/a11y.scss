@@ -13,6 +13,12 @@
   }
 }
 
+@mixin if-forced-colors-dark {
+  @media (forced-colors: active) and (prefers-color-scheme: dark) {
+    @content;
+  }
+}
+
 @mixin focus-outline {
   outline-offset: var(--sbb-focus-outline-offset);
   outline: var(--sbb-focus-outline-color) solid var(--sbb-focus-outline-width);

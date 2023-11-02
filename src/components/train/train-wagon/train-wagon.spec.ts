@@ -6,18 +6,13 @@ import { waitForLitRender } from '../../core/testing';
 import { SbbTrainWagon } from './train-wagon';
 import '.';
 import '../../icon';
+import '../../timetable-occupancy-icon';
 
 async function extractAriaLabels(
   properties: Partial<
     Pick<
       SbbTrainWagon,
-      | 'type'
-      | 'occupancy'
-      | 'sector'
-      | 'blockedPassage'
-      | 'wagonClass'
-      | 'label'
-      | 'additionalAccessibilityText'
+      'type' | 'sector' | 'blockedPassage' | 'wagonClass' | 'label' | 'additionalAccessibilityText'
     >
   >,
 ): Promise<string[]> {
@@ -26,7 +21,6 @@ async function extractAriaLabels(
   // attributes
   [
     'type',
-    'occupancy',
     'sector',
     'blockedPassage',
     'wagonClass',
@@ -87,14 +81,11 @@ describe('sbb-train-wagon', () => {
                 <span class="sbb-screenreaderonly">First Class</span>
                 <span aria-hidden="true">1</span>
               </li>
-              <sbb-icon
-                data-namespace="default"
+              <sbb-timetable-occupancy-icon
                 class="sbb-train-wagon__occupancy"
                 role="listitem"
-                name="utilization-none"
-                aria-hidden="false"
-                aria-label="No occupancy forecast available"
-              ></sbb-icon>
+                occupancy='UNKNOWN'
+              ></sbb-timetable-occupancy-icon>
               <li class="sbb-screenreaderonly">No passage to the previous train coach</li>
             </ul>
             <span class="sbb-train-wagon__icons" hidden>
@@ -130,7 +121,11 @@ describe('sbb-train-wagon', () => {
               class="sbb-train-wagon__compartment"
             >
               <li aria-hidden="true" class="sbb-train-wagon__label"></li>
-              <sbb-icon aria-hidden="false" aria-label="No occupancy forecast available" class="sbb-train-wagon__occupancy" name="utilization-none" data-namespace="default" role="listitem"></sbb-icon>
+              <sbb-timetable-occupancy-icon
+                class="sbb-train-wagon__occupancy"
+                role="listitem"
+                occupancy='UNKNOWN'
+              ></sbb-timetable-occupancy-icon>
             </ul>
             <span class="sbb-train-wagon__icons">
               <span class="sbb-train-wagon__icons-item">
@@ -153,13 +148,13 @@ describe('sbb-train-wagon', () => {
       expect(root).dom.to.be.equal(
         `
         <sbb-train-wagon data-has-visible-wagon-content type="wagon">
-          <sbb-icon 
+          <sbb-icon
             aria-hidden="true"
             data-namespace="default"
             name="sa-rs"
             role="img"
             slot="sbb-train-wagon-icon-0"></sbb-icon>
-          <sbb-icon 
+          <sbb-icon
             aria-hidden="true"
             data-namespace="default"
             name="sa-rs"
@@ -176,7 +171,11 @@ describe('sbb-train-wagon', () => {
               class="sbb-train-wagon__compartment"
             >
               <li aria-hidden="true" class="sbb-train-wagon__label"></li>
-              <sbb-icon aria-hidden="false" aria-label="No occupancy forecast available" class="sbb-train-wagon__occupancy" name="utilization-none" data-namespace="default" role="listitem"></sbb-icon>
+              <sbb-timetable-occupancy-icon
+                class="sbb-train-wagon__occupancy"
+                role="listitem"
+                occupancy='UNKNOWN'
+              ></sbb-timetable-occupancy-icon>
             </ul>
             <span class="sbb-train-wagon__icons">
               <ul aria-label="Additional wagon information" class="sbb-train-wagon__icons-list">
@@ -277,7 +276,6 @@ describe('sbb-train-wagon', () => {
         type: 'wagon',
         label: '38',
         wagonClass: '1',
-        occupancy: 'unknown',
         blockedPassage: 'previous',
       }),
     ).to.be.eql([
@@ -285,26 +283,12 @@ describe('sbb-train-wagon', () => {
       'Sector, A',
       'Number, 38',
       'First Class',
-      'No occupancy forecast available',
       'No passage to the previous train coach',
     ]);
 
     expect(await extractAriaLabels({ type: 'wagon', wagonClass: '2' })).to.be.eql([
       'Train coach',
       'Second Class',
-    ]);
-
-    expect(await extractAriaLabels({ type: 'wagon', occupancy: 'low' })).to.be.eql([
-      'Train coach',
-      'Low to medium occupancy expected',
-    ]);
-    expect(await extractAriaLabels({ type: 'wagon', occupancy: 'medium' })).to.be.eql([
-      'Train coach',
-      'High occupancy expected',
-    ]);
-    expect(await extractAriaLabels({ type: 'wagon', occupancy: 'high' })).to.be.eql([
-      'Train coach',
-      'Very high occupancy expected',
     ]);
 
     expect(await extractAriaLabels({ type: 'wagon', blockedPassage: 'next' })).to.be.eql([
