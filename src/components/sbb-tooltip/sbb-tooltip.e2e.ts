@@ -1,8 +1,7 @@
 import { assert, expect, fixture, fixtureCleanup } from '@open-wc/testing';
 import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
-import { waitForCondition, waitForLitRender } from '../core/testing';
-import { EventSpy } from '../core/testing/event-spy';
+import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
 import '../sbb-button';
 import { SbbButton } from '../sbb-button';
 import '../sbb-link';

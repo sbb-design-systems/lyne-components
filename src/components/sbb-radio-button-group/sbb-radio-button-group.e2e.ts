@@ -1,8 +1,7 @@
-import { waitForCondition, waitForLitRender } from '../core/testing';
+import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { EventSpy } from '../core/testing/event-spy';
 import { SbbRadioButtonGroup } from './sbb-radio-button-group';
 import { SbbRadioButton } from '../sbb-radio-button';
 import './sbb-radio-button-group';

@@ -1,9 +1,8 @@
 import { SbbOption } from '../sbb-option';
-import { waitForCondition, waitForLitRender } from '../core/testing';
+import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys, sendMouse } from '@web/test-runner-commands';
-import { EventSpy } from '../core/testing/event-spy';
 import { SbbAutocomplete } from './sbb-autocomplete';
 import { SbbFormField } from '../sbb-form-field';
 import '../sbb-option';
@@ -15,7 +14,7 @@ describe('sbb-autocomplete', () => {
     formField = await fixture(html`
       <sbb-form-field>
         <input />
-        <sbb-autocomplete id="myAutocomplete" style="--sbb-options-panel-animation-duration: 0.01s">
+        <sbb-autocomplete id="myAutocomplete" disable-animation>
           <sbb-option id="option-1" value="1">1</sbb-option>
           <sbb-option id="option-2" value="2">2</sbb-option>
           <sbb-option id="option-3" value="3">3</sbb-option>

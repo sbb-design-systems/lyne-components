@@ -29,12 +29,12 @@ describe('sbb-button', () => {
         disabled
         aria-disabled="true"
         name="name"
-        value="value"     
+        value="value"
         form="formid"
         role="button"
         dir="ltr"
       >
-        
+
         Label Text
       </sbb-button>
     `);
@@ -88,7 +88,7 @@ describe('sbb-button', () => {
         tabindex="0"
         dir="ltr"
       >
-        
+
         Label Text
       </sbb-button>
     `);
@@ -170,7 +170,7 @@ describe('sbb-button', () => {
     const root = await fixture(
       html` <sbb-form-field>
         <input />
-        <sbb-button slot="suffix" icon-name="cross-small" />
+        <sbb-button slot="suffix" icon-name="cross-small"></sbb-button>
       </sbb-form-field>`,
     );
     const button = root.querySelector('sbb-button');

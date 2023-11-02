@@ -135,7 +135,7 @@ export class SbbLink extends LitElement implements LinkButtonProperties, IsStati
           this.variant !== 'inline' && (this.iconName || this._namedSlots.icon)
             ? html`<span class="sbb-link__icon">
                 <slot name="icon">
-                  ${this.iconName ? html`<sbb-icon name=${this.iconName} />` : nothing}
+                  ${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}
                 </slot>
               </span>`
             : nothing

@@ -22,7 +22,7 @@
 }
 
 :host([disable-animation]:not([disable-animation='false'])) {
-  --sbb-toast-animation-duration: 0s;
+  --sbb-toast-animation-duration: 0.1ms;
 }
 
 :host([data-state='closed']) {

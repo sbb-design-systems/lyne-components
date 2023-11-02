@@ -2,7 +2,7 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { waitForLitRender } from '../core/testing';
 import { SbbFormFieldClear } from './sbb-form-field-clear';
-import { SbbFormField } from '../sbb-form-field/sbb-form-field';
+import { SbbFormField } from '../sbb-form-field';
 
 describe('sbb-form-field-clear', () => {
   let element: SbbFormFieldClear;
@@ -13,7 +13,7 @@ describe('sbb-form-field-clear', () => {
     formField = await fixture(
       html` <sbb-form-field label="Label">
         <input id="input" type="text" placeholder="Input placeholder" value="Input value" />
-        <sbb-form-field-clear />
+        <sbb-form-field-clear></sbb-form-field-clear>
       </sbb-form-field>`,
     );
     element = formField.querySelector('sbb-form-field-clear');

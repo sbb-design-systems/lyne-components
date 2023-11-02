@@ -5,7 +5,7 @@ import { sbbInputModalityDetector } from '../core/a11y';
 import { isValidAttribute, setAttribute } from '../core/dom';
 import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import { i18nShowCalendar } from '../core/i18n';
-import { SbbCalendar } from '../sbb-calendar/index';
+import { SbbCalendar } from '../sbb-calendar';
 import {
   datepickerControlRegisteredEvent,
   getDatePicker,

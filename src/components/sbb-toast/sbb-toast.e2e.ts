@@ -81,7 +81,7 @@ describe('sbb-toast', () => {
   it('closes by marked action element', async () => {
     element = await fixture(html`
       <sbb-toast>
-        <sbb-button slot="action" sbb-toast-close />
+        <sbb-button slot="action" sbb-toast-close></sbb-button>
       </sbb-toast>
     `);
     const actionBtn = element.querySelector('sbb-button') as HTMLElement;
@@ -111,7 +111,7 @@ describe('sbb-toast', () => {
   it('forces state on button actions', async () => {
     element = await fixture(html`
       <sbb-toast>
-        <sbb-button slot="action" />
+        <sbb-button slot="action"></sbb-button>
       </sbb-toast>
     `);
 
@@ -125,7 +125,7 @@ describe('sbb-toast', () => {
   it('forces state on link actions', async () => {
     element = await fixture(html`
       <sbb-toast>
-        <sbb-link slot="action" />
+        <sbb-link slot="action"></sbb-link>
       </sbb-toast>
     `);
     const actionLink = element.querySelector('sbb-link');
@@ -136,8 +136,8 @@ describe('sbb-toast', () => {
 
   it('closes other toasts on open', async () => {
     await fixture(html`
-      <sbb-toast id="toast1" disable-animation />
-      <sbb-toast id="toast2" disable-animation />
+      <sbb-toast id="toast1" disable-animation></sbb-toast>
+      <sbb-toast id="toast2" disable-animation></sbb-toast>
     `);
 
     const toast1: SbbToast = document.querySelector('#toast1');

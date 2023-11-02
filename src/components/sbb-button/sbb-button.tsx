@@ -141,7 +141,7 @@ export class SbbButton extends LitElement implements LinkButtonProperties, IsSta
           this.iconName || this._namedSlots.icon
             ? html`<span class="sbb-button__icon">
                 <slot name="icon">
-                  ${this.iconName ? html`<sbb-icon name="${this.iconName}" />` : nothing}
+                  ${this.iconName ? html`<sbb-icon name="${this.iconName}"></sbb-icon>` : nothing}
                 </slot>
               </span>`
             : nothing

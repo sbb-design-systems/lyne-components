@@ -1,12 +1,10 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { SbbCard } from '../sbb-card/sbb-card';
+import { SbbCard } from '../sbb-card';
 import { SbbCardAction } from './sbb-card-action';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
 import './sbb-card-action';
-
-// As tests don't work in specs at all (missing :is support in Jest), we moved all tests to e2e.
 
 describe('sbb-card-action', () => {
   let element: SbbCard;
