@@ -18,8 +18,14 @@ import {
   TimetableInput,
   wrapperStyle,
 } from './home.common';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
+import './home.common';
+
+import '../../../components/sbb-card-badge';
+import '../../../components/sbb-dialog';
+import '../../../components/sbb-journey-header';
+import '../../../components/sbb-pearl-chain';
 
 /* ************************************************* */
 /* Storybook controls                                */

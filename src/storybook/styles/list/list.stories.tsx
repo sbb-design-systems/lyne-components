@@ -1,7 +1,7 @@
 /** @jsx h */
 import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
-import type { Meta, StoryObj } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/web-components';
 
 const ListContent = (): JSX.Element[] => [
   <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor</li>,
