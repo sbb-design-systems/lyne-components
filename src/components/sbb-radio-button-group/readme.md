@@ -79,6 +79,14 @@ In order to ensure readability for screen-readers, please provide an `aria-label
 | `horizontalFrom`      | `horizontal-from`       | public  | `SbbHorizontalFrom \| undefined` |                | Overrides the behaviour of `orientation` property.        |
 | `orientation`         | `orientation`           | public  | `SbbOrientation`                 | `'horizontal'` | Radio group's orientation, either horizontal or vertical. |
 
+## Events
+
+| Name         | Type                | Description                                   | Inherited From |
+| ------------ | ------------------- | --------------------------------------------- | -------------- |
+| `did-change` | `CustomEvent<void>` | Emits whenever the radio group value changes. |                |
+| `change`     | `CustomEvent<void>` | Emits whenever the radio group value changes. |                |
+| `input`      | `CustomEvent<void>` | Emits whenever the radio group value changes. |                |
+
 ## Slots
 
 | Name    | Description                                                                         |

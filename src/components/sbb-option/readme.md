@@ -72,3 +72,10 @@ If the label slot contains only a **text node**, it is possible to search for te
 | Name            | Privacy | Description                                | Parameters      | Return | Inherited From |
 | --------------- | ------- | ------------------------------------------ | --------------- | ------ | -------------- |
 | `setGroupLabel` | public  | Set the option group label (used for a11y) | `value: string` | `void` |                |
+
+## Events
+
+| Name                      | Type                | Description                                     | Inherited From |
+| ------------------------- | ------------------- | ----------------------------------------------- | -------------- |
+| `option-selection-change` | `CustomEvent<void>` | Emits when the option selection status changes. |                |
+| `option-selected`         | `CustomEvent<void>` | Emits when an option was selected by user.      |                |

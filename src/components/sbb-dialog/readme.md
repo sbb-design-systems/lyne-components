@@ -100,6 +100,16 @@ The default `z-index` of the component is set to `1000`; to specify a custom sta
 | `open`  | public  | Opens the dialog element.  |                                    | `void` |                |
 | `close` | public  | Closes the dialog element. | `result: any, target: HTMLElement` | `any`  |                |
 
+## Events
+
+| Name                  | Type                | Description                                              | Inherited From |
+| --------------------- | ------------------- | -------------------------------------------------------- | -------------- |
+| `will-open`           | `CustomEvent<void>` | Emits whenever the dialog starts the opening transition. |                |
+| `did-open`            | `CustomEvent<void>` | Emits whenever the dialog is opened.                     |                |
+| `will-close`          | `CustomEvent<void>` | Emits whenever the dialog begins the closing transition. |                |
+| `did-close`           | `CustomEvent<void>` | Emits whenever the dialog is closed.                     |                |
+| `request-back-action` | `CustomEvent<void>` | Emits whenever the back button is clicked.               |                |
+
 ## Slots
 
 | Name           | Description                                             |

@@ -123,6 +123,15 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 | `open`  | public  | Open the toast. If there are other opened toasts in the page, close them first. |            | `void` |                |
 | `close` | public  | Close the toast.                                                                |            | `void` |                |
 
+## Events
+
+| Name         | Type                | Description                                                    | Inherited From |
+| ------------ | ------------------- | -------------------------------------------------------------- | -------------- |
+| `will-open`  | `CustomEvent<void>` | Emits whenever the autocomplete starts the opening transition. |                |
+| `did-open`   | `CustomEvent<void>` | Emits whenever the autocomplete is opened.                     |                |
+| `will-close` | `CustomEvent<void>` | Emits whenever the autocomplete begins the closing transition. |                |
+| `did-close`  | `CustomEvent<void>` | Emits whenever the autocomplete is closed.                     |                |
+
 ## Slots
 
 | Name | Description                                       |

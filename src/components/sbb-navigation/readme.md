@@ -75,6 +75,15 @@ Similarly, if a navigation action is marked to indicate a selected option (e.g.,
 | `open`  | public  | Opens the navigation.  |            | `void` |                |
 | `close` | public  | Closes the navigation. |            | `void` |                |
 
+## Events
+
+| Name         | Type                | Description                                                  | Inherited From |
+| ------------ | ------------------- | ------------------------------------------------------------ | -------------- |
+| `will-open`  | `CustomEvent<void>` | Emits whenever the navigation begins the opening transition. |                |
+| `did-open`   | `CustomEvent<void>` | Emits whenever the navigation is opened.                     |                |
+| `will-close` | `CustomEvent<void>` | Emits whenever the navigation begins the closing transition. |                |
+| `did-close`  | `CustomEvent<void>` | Emits whenever the navigation is closed.                     |                |
+
 ## Slots
 
 | Name | Description                                                                                |

@@ -6,6 +6,9 @@ import style from './sbb-title.scss?lit&inline';
 
 export type TitleLevel = '1' | '2' | '3' | '4' | '5' | '6';
 
+/**
+ * TODO: Document me
+ */
 @customElement('sbb-title')
 export class SbbTitle extends LitElement {
   public static override styles: CSSResult = style;

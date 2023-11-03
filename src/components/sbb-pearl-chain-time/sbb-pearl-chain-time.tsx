@@ -8,6 +8,9 @@ import { customElement, property, state } from 'lit/decorators.js';
 import style from './sbb-pearl-chain-time.scss?lit&inline';
 import '../sbb-pearl-chain';
 
+/**
+ * TODO: Document me
+ */
 @customElement('sbb-pearl-chain-time')
 export class SbbPearlChainTime extends LitElement {
   public static override styles: CSSResult = style;

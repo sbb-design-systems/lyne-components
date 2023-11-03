@@ -89,10 +89,10 @@ export class SbbToggleOption extends LitElement {
   );
 
   /**
+   * @internal
    * Internal event that emits whenever the state of the toggle option
    * in relation to the parent toggle changes.
    */
-
   private _stateChange: EventEmitter<SbbToggleStateChange> = new EventEmitter(
     this,
     SbbToggleOption.events.stateChange,

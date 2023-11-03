@@ -3,6 +3,9 @@ import { customElement, property } from 'lit/decorators.js';
 import { setAttribute } from '../core/dom';
 import style from './sbb-loading-indicator.scss?lit&inline';
 
+/**
+ * TODO: Document me
+ */
 @customElement('sbb-loading-indicator')
 export class SbbLoadingIndicator extends LitElement {
   public static override styles: CSSResult = style;

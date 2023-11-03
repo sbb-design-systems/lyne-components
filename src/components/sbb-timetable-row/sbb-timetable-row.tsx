@@ -272,6 +272,9 @@ export const handleNotices = (notices: Notice[]): Notice[] => {
   return [reservationNotice, ...filteredNotices];
 };
 
+/**
+ * TODO: Document me
+ */
 @customElement('sbb-timetable-row')
 export class SbbTimetableRow extends LitElement {
   public static override styles: CSSResult = style;

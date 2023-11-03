@@ -42,6 +42,13 @@ The component has two different sizes, `s` and `m` (default), which can be set u
 | `value`            | `value`             | public  | `any \| null`             |         | The value of the toggle. It needs to be mutable since it is updated whenever a new option is selected (see the `onToggleOptionSelect()` method). |
 | `disableAnimation` | `disable-animation` | public  | `boolean`                 | `false` | Whether the animation is enabled.                                                                                                                |
 
+## Events
+
+| Name         | Type                | Description                                   | Inherited From |
+| ------------ | ------------------- | --------------------------------------------- | -------------- |
+| `did-change` | `CustomEvent<void>` | Emits whenever the radio group value changes. |                |
+| `change`     | `CustomEvent<void>` | Emits whenever the radio group value changes. |                |
+
 ## Slots
 
 | Name | Description                                                               |

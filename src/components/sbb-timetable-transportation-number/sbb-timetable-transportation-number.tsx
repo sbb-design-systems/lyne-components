@@ -4,6 +4,9 @@ import { customElement, property } from 'lit/decorators.js';
 import style from './sbb-timetable-transportation-number.scss?lit&inline';
 import { SbbTimetableAppearance } from '../core/interfaces';
 
+/**
+ * TODO: Document me
+ */
 @customElement('sbb-timetable-transportation-number')
 export class SbbTimetableTransportationNumber extends LitElement {
   public static override styles: CSSResult = style;

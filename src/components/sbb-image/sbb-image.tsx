@@ -16,6 +16,9 @@ const eventListenerOptions = {
   passive: true,
 };
 
+/**
+ * TODO: Document me
+ */
 @customElement('sbb-image')
 export class SbbImage extends LitElement {
   public static override styles: CSSResult = style;

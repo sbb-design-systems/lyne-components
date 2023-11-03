@@ -84,6 +84,15 @@ It's also possible to display the `sbb-selection-panel` without border by settin
 | `borderless`       | `borderless`        | public  | `boolean`           | `false`   | Whether the unselected panel has a border.     |
 | `disableAnimation` | `disable-animation` | public  | `boolean`           | `false`   | Whether the animation is enabled.              |
 
+## Events
+
+| Name         | Type                                        | Description                                                       | Inherited From |
+| ------------ | ------------------------------------------- | ----------------------------------------------------------------- | -------------- |
+| `will-open`  | `CustomEvent<void>`                         | Emits whenever the content section starts the opening transition. |                |
+| `did-open`   | `CustomEvent<void>`                         | Emits whenever the content section is opened.                     |                |
+| `will-close` | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the content section begins the closing transition. |                |
+| `did-close`  | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the content section is closed.                     |                |
+
 ## Slots
 
 | Name      | Description                                                                                        |

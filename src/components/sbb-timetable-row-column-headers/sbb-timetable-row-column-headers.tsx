@@ -2,6 +2,9 @@ import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import style from './sbb-timetable-row-column-headers.scss?lit&inline';
 
+/**
+ * TODO: Document me
+ */
 @customElement('sbb-timetable-row-column-headers')
 export class SbbTimetableRowColumnHeaders extends LitElement {
   public static override styles: CSSResult = style;

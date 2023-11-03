@@ -57,6 +57,14 @@ The state is reflected via `aria-pressed` attribute.
 | `disabled` | `disabled`  | public  | `boolean`             | `false` | Whether the tag is disabled.                                                                                                           |
 | `iconName` | `icon-name` | public  | `string \| undefined` |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from https://icons.app.sbb.ch (optional). |
 
+## Events
+
+| Name         | Type                | Description                                                                      | Inherited From |
+| ------------ | ------------------- | -------------------------------------------------------------------------------- | -------------- |
+| `input`      | `CustomEvent<void>` | Input event emitter                                                              |                |
+| `did-change` | `CustomEvent<void>` | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
+| `change`     | `CustomEvent<void>` | Change event emitter                                                             |                |
+
 ## Slots
 
 | Name     | Description                                                                                   |

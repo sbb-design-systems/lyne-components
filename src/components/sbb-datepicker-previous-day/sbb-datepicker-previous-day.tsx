@@ -22,6 +22,9 @@ import style from './sbb-datepicker-previous-day.scss?lit&inline';
 
 import '../sbb-icon';
 
+/**
+ * TODO: Document me
+ */
 @customElement('sbb-datepicker-previous-day')
 export class SbbDatepickerPreviousDay extends LitElement {
   public static override styles: CSSResult = style;

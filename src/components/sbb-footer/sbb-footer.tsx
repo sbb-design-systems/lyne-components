@@ -4,6 +4,9 @@ import style from './sbb-footer.scss?lit&inline';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { TitleLevel } from '../sbb-title';
 
+/**
+ * TODO: Document me
+ */
 @customElement('sbb-footer')
 export class SbbFooter extends LitElement {
   public static override styles: CSSResult = style;

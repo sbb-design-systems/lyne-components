@@ -80,6 +80,15 @@ and the `aria-hidden` attribute on the content.
 | `borderless`       | `borderless`        | public  | `boolean`                 | `false`   | Whether the panel has no border.                                       |
 | `disableAnimation` | `disable-animation` | public  | `boolean`                 | `false`   | Whether the animations should be disabled.                             |
 
+## Events
+
+| Name         | Type                | Description                                                           | Inherited From |
+| ------------ | ------------------- | --------------------------------------------------------------------- | -------------- |
+| `will-open`  | `CustomEvent<void>` | Emits whenever the sbb-expansion-panel starts the opening transition. |                |
+| `did-open`   | `CustomEvent<void>` | Emits whenever the sbb-expansion-panel is opened.                     |                |
+| `will-close` | `CustomEvent<void>` | Emits whenever the sbb-expansion-panel begins the closing transition. |                |
+| `did-close`  | `CustomEvent<void>` | Emits whenever the sbb-expansion-panel is closed.                     |                |
+
 ## Slots
 
 | Name      | Description                                         |

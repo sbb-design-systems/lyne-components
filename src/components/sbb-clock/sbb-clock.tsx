@@ -43,6 +43,9 @@ const ADD_EVENT_LISTENER_OPTIONS: AddEventListenerOptions = {
   passive: true,
 };
 
+/**
+ * TODO: Document me
+ */
 @customElement('sbb-clock')
 export class SbbClock extends LitElement {
   public static override styles: CSSResult = style;

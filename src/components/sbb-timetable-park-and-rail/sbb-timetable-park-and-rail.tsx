@@ -9,6 +9,9 @@ import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import style from './sbb-timetable-park-and-rail.scss?lit&inline';
 
+/**
+ * TODO: Document me
+ */
 @customElement('sbb-timetable-park-and-rail')
 export class SbbTimetableParkAndRail extends LitElement {
   public static override styles: CSSResult = style;

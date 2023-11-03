@@ -4,6 +4,9 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { setAttribute } from '../core/dom';
 import style from './sbb-icon.scss?lit&inline';
 
+/**
+ * TODO: Document me
+ */
 @customElement('sbb-icon')
 export class SbbIcon extends LitElement {
   public static override styles: CSSResult = style;
