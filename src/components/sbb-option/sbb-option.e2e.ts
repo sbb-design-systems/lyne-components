@@ -1,8 +1,7 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { EventSpy } from '../core/testing/event-spy';
-import { waitForLitRender } from '../core/testing';
+import { waitForLitRender, EventSpy } from '../core/testing';
 import { SbbOption } from './sbb-option';
 import { SbbFormField } from '../sbb-form-field';
 import '../sbb-autocomplete';

@@ -56,7 +56,7 @@
 
 :host([disable-animation]:not([disable-animation='false'])),
 :host([data-disable-animation-on-resizing]) {
-  --sbb-toggle-animation-duration: 0s;
+  --sbb-toggle-animation-duration: 0.1ms;
 }
 
 .sbb-toggle {

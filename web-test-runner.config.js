@@ -2,9 +2,6 @@ import { dotReporter } from '@web/test-runner';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { puppeteerLauncher } from '@web/test-runner-puppeteer';
 import { existsSync } from 'fs';
-import * as glob from 'glob';
-import { dirname, join } from 'path';
-import { fileURLToPath } from 'url';
 import * as sass from 'sass';
 import { createServer } from 'vite';
 
@@ -13,34 +10,22 @@ const isDebugMode = process.argv.includes('--debug');
 
 const globalCss = sass.compile('./src/components/core/styles/global.scss', { loadPaths: ['.'] });
 
-const specFiles = glob
-  .sync('src/components/*/*.spec.ts', {
-    cwd: dirname(fileURLToPath(import.meta.url)),
-  })
-  .filter((f) => existsSync(join(dirname(f), 'index.ts')));
-const e2eFiles = glob
-  .sync('src/components/*/*.e2e.ts', {
-    cwd: dirname(fileURLToPath(import.meta.url)),
-  })
-  .filter((f) => existsSync(join(dirname(f), 'index.ts')));
-
 const browsers = isCIEnvironment
   ? [
-      playwrightLauncher({ product: 'chromium', concurrency: 1 }),
-      playwrightLauncher({ product: 'firefox', concurrency: 1 }),
-      playwrightLauncher({ product: 'webkit', concurrency: 1 }),
+      playwrightLauncher({ product: 'chromium' }),
+      playwrightLauncher({ product: 'firefox' }),
+      playwrightLauncher({ product: 'webkit' }),
     ]
   : isDebugMode
   ? [puppeteerLauncher({ concurrency: 1, launchOptions: { headless: false, devtools: true } })]
   : [playwrightLauncher({ product: 'chromium' })];
 
-// TODO: Revert to glob rules after migration
 /** @type {import('@web/test-runner').TestRunnerConfig} */
 export default {
-  files: [...specFiles, ...e2eFiles], // the global folder is temporary excluded until we migrate test
+  files: ['src/**/*.{e2e,spec}.ts'],
   groups: [
-    { name: 'spec', files: specFiles },
-    { name: 'e2e', files: e2eFiles },
+    { name: 'spec', files: '**/*.spec.ts' },
+    { name: 'e2e', files: '**/*.e2e.ts' },
   ],
   nodeResolve: true,
   reporters: [minimalReporter()],

@@ -54,7 +54,7 @@
 }
 
 :host([disable-animation]:not([disable-animation='false'])) {
-  --sbb-menu-animation-duration: 0s;
+  --sbb-menu-animation-duration: 0.1ms;
 }
 
 ::slotted(:not(sbb-menu-action, sbb-divider)) {

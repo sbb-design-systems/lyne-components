@@ -1,3 +1,5 @@
+import { expect } from '@open-wc/testing';
+
 import { hostContext } from './host-context';
 
 describe('hostContext', () => {
@@ -11,7 +13,7 @@ describe('hostContext', () => {
     shadow.appendChild(divElementShadowDom);
     tag.appendChild(host);
 
-    expect(hostContext(tagName, divElementShadowDom)).toBe(tag);
+    expect(hostContext(tagName, divElementShadowDom)).to.be.equal(tag);
   });
 
   it('should not find element itself', async () => {
@@ -21,6 +23,6 @@ describe('hostContext', () => {
     const inner = document.createElement(tagName);
     outer.appendChild(inner);
 
-    expect(hostContext(tagName, inner)).toBe(outer);
+    expect(hostContext(tagName, inner)).to.be.equal(outer);
   });
 });

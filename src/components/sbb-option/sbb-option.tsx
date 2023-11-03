@@ -267,7 +267,7 @@ export class SbbOption extends LitElement {
                 })}
               >
                 <slot name="icon">
-                  ${this.iconName ? html`<sbb-icon name=${this.iconName} />` : nothing}
+                  ${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}
                 </slot>
               </span>`
             : nothing}

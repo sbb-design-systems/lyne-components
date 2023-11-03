@@ -271,7 +271,7 @@ export class SbbToast extends LitElement {
         >
           <div class="sbb-toast__icon">
             <slot name="icon">
-              ${this.iconName ? html`<sbb-icon name=${this.iconName} />` : nothing}
+              ${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}
             </slot>
           </div>
 

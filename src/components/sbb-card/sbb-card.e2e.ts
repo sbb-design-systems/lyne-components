@@ -48,7 +48,7 @@ describe('sbb-card', () => {
           <slot></slot>
         </span>
         <span class="sbb-card__badge-wrapper">
-          <slot name="badge" />
+          <slot name="badge"></slot>
         </span>
       </span>
     `);

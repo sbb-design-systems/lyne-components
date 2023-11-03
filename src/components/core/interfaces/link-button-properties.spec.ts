@@ -1,3 +1,5 @@
+import { expect } from '@open-wc/testing';
+
 import {
   ButtonProperties,
   LinkButtonProperties,
@@ -16,9 +18,9 @@ describe('getLinkAttributeList', () => {
       role: 'presentation',
       tabIndex: '-1',
     };
-    expect(resolveRenderVariables(linkProperties as LinkButtonProperties).attributes).toEqual(
-      expectedObj,
-    );
+    expect(
+      resolveRenderVariables(linkProperties as LinkButtonProperties).attributes,
+    ).to.be.deep.equal(expectedObj);
   });
 
   it('should return attributes for link with target _blank', () => {
@@ -33,9 +35,9 @@ describe('getLinkAttributeList', () => {
       role: 'presentation',
       tabIndex: '-1',
     };
-    expect(resolveRenderVariables(linkProperties as LinkButtonProperties).attributes).toEqual(
-      expectedObj,
-    );
+    expect(
+      resolveRenderVariables(linkProperties as LinkButtonProperties).attributes,
+    ).to.be.deep.equal(expectedObj);
   });
 
   it('should return attributes for link with label, target _blank and custom rel', () => {
@@ -51,9 +53,9 @@ describe('getLinkAttributeList', () => {
       role: 'presentation',
       tabIndex: '-1',
     };
-    expect(resolveRenderVariables(linkProperties as LinkButtonProperties).attributes).toEqual(
-      expectedObj,
-    );
+    expect(
+      resolveRenderVariables(linkProperties as LinkButtonProperties).attributes,
+    ).to.be.deep.equal(expectedObj);
   });
 
   it('should return attributes for link with a custom target', () => {
@@ -68,9 +70,9 @@ describe('getLinkAttributeList', () => {
       tabIndex: '-1',
     };
 
-    expect(resolveRenderVariables(linkProperties as LinkButtonProperties).attributes).toEqual(
-      expectedObj,
-    );
+    expect(
+      resolveRenderVariables(linkProperties as LinkButtonProperties).attributes,
+    ).to.be.deep.equal(expectedObj);
   });
 
   it('should return attributes for disabled link', () => {
@@ -86,7 +88,7 @@ describe('getLinkAttributeList', () => {
       role: 'presentation',
     };
 
-    expect(resolveRenderVariables(linkProperties).attributes).toEqual(expectedObj);
+    expect(resolveRenderVariables(linkProperties).attributes).to.be.deep.equal(expectedObj);
   });
 });
 
@@ -113,9 +115,10 @@ describe('getLinkRenderVariables', () => {
         'aria-disabled': 'true',
         role: 'link',
         dir: 'ltr',
+        tabIndex: null,
       },
     };
-    expect(resolveRenderVariables(linkButtonProperties)).toEqual(expectedObj);
+    expect(resolveRenderVariables(linkButtonProperties)).to.be.deep.equal(expectedObj);
   });
 });
 
@@ -130,13 +133,16 @@ describe('getButtonRenderVariables', () => {
       tagName: 'span',
       attributes: {},
       hostAttributes: {
+        'aria-disabled': null,
         role: 'button',
         tabIndex: '0',
         dir: 'ltr',
       },
     };
 
-    expect(resolveRenderVariables(buttonProperties as LinkButtonProperties)).toEqual(expectedObj);
+    expect(resolveRenderVariables(buttonProperties as LinkButtonProperties)).to.be.deep.equal(
+      expectedObj,
+    );
   });
 });
 
@@ -150,17 +156,17 @@ describe('resolveRenderVariables', () => {
 
   it('should return variables for the static case', () => {
     const retObj = resolveRenderVariables({ ...linkButtonProperties, isStatic: true });
-    expect(retObj.tagName).toEqual('span');
+    expect(retObj.tagName).to.be.equal('span');
   });
 
   it('should return variables for the link case', () => {
     const retObj = resolveRenderVariables(linkButtonProperties);
-    expect(retObj.tagName).toEqual('a');
+    expect(retObj.tagName).to.be.equal('a');
   });
 
   it('should return variables for the button case', () => {
     const retObj = resolveRenderVariables({ ...linkButtonProperties, href: undefined });
-    expect(retObj.tagName).toEqual('span');
+    expect(retObj.tagName).to.be.equal('span');
   });
 
   it('should return the correct variables', () => {
@@ -172,9 +178,9 @@ describe('resolveRenderVariables', () => {
       },
     };
 
-    expect(resolveRenderVariables({ isStatic: true, href: null, name: null, type: null })).toEqual(
-      expectedObj,
-    );
+    expect(
+      resolveRenderVariables({ isStatic: true, href: null, name: null, type: null }),
+    ).to.be.deep.equal(expectedObj);
   });
 });
 
@@ -185,11 +191,11 @@ describe('resolveLinkRenderVariables', () => {
 
   it('should return variables for the static case', () => {
     const retObj = resolveLinkOrStaticRenderVariables({ ...linkProperties, href: undefined });
-    expect(retObj.tagName).toEqual('span');
+    expect(retObj.tagName).to.be.equal('span');
   });
 
   it('should return variables for the link case', () => {
     const retObj = resolveLinkOrStaticRenderVariables(linkProperties);
-    expect(retObj.tagName).toEqual('a');
+    expect(retObj.tagName).to.be.equal('a');
   });
 });

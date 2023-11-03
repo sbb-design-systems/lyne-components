@@ -17,7 +17,7 @@ import {
   applyInertMechanism,
   removeInertMechanism,
 } from '../core/overlay';
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttribute } from '../core/dom';
 import { ref } from 'lit/directives/ref.js';

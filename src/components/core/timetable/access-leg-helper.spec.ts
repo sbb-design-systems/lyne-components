@@ -1,3 +1,5 @@
+import { expect } from '@open-wc/testing';
+
 import { getDepartureArrivalTimeAttribute } from './access-leg-helper';
 import {
   defaultTrip,
@@ -14,7 +16,7 @@ describe('getDepartureArrivalTimeAttribute', () => {
       'en',
     );
 
-    expect(departureTimeAttribute).toStrictEqual({
+    expect(departureTimeAttribute).to.be.deep.equal({
       duration: 10,
       icon: 'walk-small',
       text: 'minutes of walking time before departure:',
@@ -29,7 +31,7 @@ describe('getDepartureArrivalTimeAttribute', () => {
       'en',
     );
 
-    expect(arrivalTimeAttribute).toStrictEqual({
+    expect(arrivalTimeAttribute).to.be.deep.equal({
       duration: 10,
       icon: 'walk-small',
       text: 'minutes of walking time after arrival:',
@@ -44,7 +46,7 @@ describe('getDepartureArrivalTimeAttribute', () => {
       'en',
     );
 
-    expect(departureTimeAttribute).toStrictEqual({
+    expect(departureTimeAttribute).to.be.deep.equal({
       duration: 45,
       icon: 'sa-ci',
       text: 'Extended boarding time ',
@@ -59,7 +61,7 @@ describe('getDepartureArrivalTimeAttribute', () => {
       'en',
     );
 
-    expect(departureTimeAttribute).toStrictEqual({
+    expect(departureTimeAttribute).to.be.deep.equal({
       duration: 65,
       icon: 'sa-ci',
       text: 'Extended boarding time ',

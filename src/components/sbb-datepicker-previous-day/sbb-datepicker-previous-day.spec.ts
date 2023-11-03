@@ -1,6 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SbbFormField } from '../sbb-form-field/sbb-form-field';
+import { SbbFormField } from '../sbb-form-field';
 import { SbbDatepickerPreviousDay } from './sbb-datepicker-previous-day';
 
 import '../sbb-datepicker';

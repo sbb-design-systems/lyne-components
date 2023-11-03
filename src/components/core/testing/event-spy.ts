@@ -25,7 +25,7 @@ export class EventSpy<T extends Event> {
 
   public constructor(
     private _event: string,
-    private _target: Node = null,
+    private readonly _target: Node = null,
   ) {
     if (!this._target) {
       this._target = document;

@@ -11,7 +11,7 @@ describe('sbb-menu', () => {
         <sbb-menu-action icon="tick-small">View</sbb-menu-action>
         <sbb-menu-action icon="pen-small" amount="1" disabled>Edit</sbb-menu-action>
         <sbb-menu-action icon="swisspass-small" amount="2">Details</sbb-menu-action>
-        <sbb-divider />
+        <sbb-divider></sbb-divider>
         <sbb-menu-action icon="cross-small">Cancel</sbb-menu-action>
       </sbb-menu>
     `);
@@ -32,11 +32,10 @@ describe('sbb-menu', () => {
         <sbb-menu-action amount="2" icon="swisspass-small">
           Details
         </sbb-menu-action>
-        <sbb-divider>
-          <sbb-menu-action icon="cross-small">
-            Cancel
-          </sbb-menu-action>
-        </sbb-divider>
+        <sbb-divider></sbb-divider>
+        <sbb-menu-action icon="cross-small">
+          Cancel
+        </sbb-menu-action>
       </sbb-menu>
     `,
     );

@@ -23,7 +23,7 @@ export class SbbSignet extends LitElement {
             <path
               id="sbb-signet__icon"
               d="M20.0265 40H31.6821L16 24.6154H35.3907V40H44.6093V24.6154H64.106L48.4238 40H60.0795L80 20.0531L60.0795 0H48.4238L64.106 15.3846H44.6093V0H35.3907V15.3846H16L31.6821 0H20.0265L0 20.0531L20.0265 40Z"
-            />
+            ></path>
           </svg>
         </span>
       </span>
