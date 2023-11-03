@@ -59,9 +59,9 @@ export class SbbTimetableOccupancyIcon extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     this._setIconName();
-    this._handlerRepository.connect();
     window.matchMedia('(forced-colors: active)').onchange = () => this._setIconName();
     window.matchMedia('(prefer-color-scheme: dark)').onchange = () => this._setIconName();
+    this._handlerRepository.connect();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

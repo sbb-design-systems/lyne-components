@@ -1,5 +1,5 @@
 The `sbb-timetable-occupancy-icon` is a component used to render a [sbb-icon](/docs/components-sbb-icon--docs)
-based on the wagon occupancy and the page style (normal, dark mode, high contrast mode).
+based on the wagon occupancy and on the page style (normal, dark mode, high contrast mode).
 
 ```html
 <sbb-timetable-occupancy-icon occupancy="HIGH"></sbb-timetable-occupancy-icon>
