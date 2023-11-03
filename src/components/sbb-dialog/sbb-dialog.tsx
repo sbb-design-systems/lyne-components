@@ -32,6 +32,11 @@ let nextId = 0;
  * @slot - Use the unnamed slot to add content to the dialog.
  * @slot title - Use this slot to provide a title.
  * @slot action-group - Use this slot to display an action group in the footer.
+ * @event {CustomEvent<void>} will-open - Emits whenever the dialog starts the opening transition.
+ * @event {CustomEvent<void>} did-open - Emits whenever the dialog is opened.
+ * @event {CustomEvent<void>} will-close - Emits whenever the dialog begins the closing transition.
+ * @event {CustomEvent<void>} did-close - Emits whenever the dialog is closed.
+ * @event {CustomEvent<void>} request-back-action - Emits whenever the back button is clicked.
  */
 @customElement('sbb-dialog')
 export class SbbDialog extends LitElement {

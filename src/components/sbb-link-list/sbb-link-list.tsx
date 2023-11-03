@@ -12,6 +12,9 @@ import '../sbb-title';
 import style from './sbb-link-list.scss?lit&inline';
 import { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
 
+/**
+ * TODO: Document me
+ */
 @customElement('sbb-link-list')
 export class SbbLinkList extends LitElement {
   public static override styles: CSSResult = style;

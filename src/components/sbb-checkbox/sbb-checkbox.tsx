@@ -44,6 +44,7 @@ const checkboxObserverConfig: MutationObserverInit = {
  * @slot icon - Slot used to render the checkbox icon (disabled inside a selection panel).
  * @slot subtext - Slot used to render a subtext under the label (only visible within a selection panel).
  * @slot suffix - Slot used to render additional content after the label (only visible within a selection panel).
+ * @event {CustomEvent<void>} did-change - Deprecated. used for React. Will probably be removed once React 19 is available.
  */
 @customElement('sbb-checkbox')
 export class SbbCheckbox extends LitElement {
@@ -120,7 +121,6 @@ export class SbbCheckbox extends LitElement {
    * Internal event that emits whenever the state of the checkbox
    * in relation to the parent selection panel changes.
    */
-
   private _stateChange: EventEmitter<SbbCheckboxStateChange> = new EventEmitter(
     this,
     SbbCheckbox.events.stateChange,

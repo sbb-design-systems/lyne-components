@@ -2,6 +2,9 @@ import { CSSResult, html, LitElement, TemplateResult, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import style from './sbb-visual-checkbox.scss?lit&inline';
 
+/**
+ * TODO: Document me
+ */
 @customElement('sbb-visual-checkbox')
 export class SbbVisualCheckbox extends LitElement {
   public static override styles: CSSResult = style;

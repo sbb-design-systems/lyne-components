@@ -37,6 +37,10 @@ let nextId = 0;
 
 /**
  * @slot - Use the unnamed slot to add `sbb-menu-action` or other elements to the menu.
+ * @event {CustomEvent<void>} will-open - Emits whenever the menu starts the opening transition.
+ * @event {CustomEvent<void>} did-open - Emits whenever the menu is opened.
+ * @event {CustomEvent<void>} will-close - Emits whenever the menu begins the closing transition.
+ * @event {CustomEvent<void>} did-close - Emits whenever the menu is closed.
  */
 @customElement('sbb-menu')
 export class SbbMenu extends LitElement {

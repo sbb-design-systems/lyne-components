@@ -77,6 +77,10 @@ export interface Weekday {
 
 export type CalendarView = 'day' | 'month' | 'year';
 
+/**
+ * TODO: Document me
+ * @event {CustomEvent<Date>} date-selected - Event emitted on date selection.
+ */
 @customElement('sbb-calendar')
 export class SbbCalendar extends LitElement {
   public static override styles: CSSResult = style;

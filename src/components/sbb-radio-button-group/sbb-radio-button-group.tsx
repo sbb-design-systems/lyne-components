@@ -17,6 +17,9 @@ import { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
 /**
  * @slot - Use the unnamed slot to add `sbb-radio-button` elements to this radio button group.
  * @slot error - Use this to provide a `sbb-form-error` to show an error message.
+ * @event {CustomEvent<void>} did-change - Emits whenever the radio group value changes.
+ * @event {CustomEvent<void>} change - Emits whenever the radio group value changes.
+ * @event {CustomEvent<void>} input - Emits whenever the radio group value changes.
  */
 @customElement('sbb-radio-button-group')
 export class SbbRadioButtonGroup extends LitElement {

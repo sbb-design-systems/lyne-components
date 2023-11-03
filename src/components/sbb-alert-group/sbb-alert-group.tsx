@@ -10,6 +10,8 @@ import style from './sbb-alert-group.scss?lit&inline';
 /**
  * @slot - Use the unnamed slot to add `sbb-alert` elements to this alert group.
  * @slot accessibility-title - title for this sbb-alert-group which is only visible for screen reader users.
+ * @event {CustomEvent<SbbAlert>} did-dismiss-alert - Emits when an alert was removed from DOM.
+ * @event {CustomEvent<void>} empty - Emits when `sbb-alert-group` becomes empty.
  */
 @customElement('sbb-alert-group')
 export class SbbAlertGroup extends LitElement {

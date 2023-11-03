@@ -99,6 +99,12 @@ It's suggested to have a different value for each variant, e.g.:
 | ---------- | ------- | ----------- | ---------- | -------- | -------------- |
 | `getFiles` | public  |             |            | `File[]` |                |
 
+## Events
+
+| Name           | Type                  | Description                                                | Inherited From |
+| -------------- | --------------------- | ---------------------------------------------------------- | -------------- |
+| `file-changed` | `CustomEvent<File[]>` | An event which is emitted each time the file list changes. |                |
+
 ## Slots
 
 | Name    | Description                                                      |

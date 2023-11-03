@@ -37,6 +37,10 @@ const tooltipsRef = new Set<SbbTooltip>();
 
 /**
  * @slot - Use the unnamed slot to add content into the tooltip.
+ * @event {CustomEvent<void>} will-open - Emits whenever the tooltip starts the opening transition.
+ * @event {CustomEvent<void>} did-open - Emits whenever the tooltip is opened.
+ * @event {CustomEvent<{ closeTarget: HTMLElement }>} will-close - Emits whenever the tooltip begins the closing transition.
+ * @event {CustomEvent<{ closeTarget: HTMLElement }>} did-close - Emits whenever the tooltip is closed.
  */
 @customElement('sbb-tooltip')
 export class SbbTooltip extends LitElement {

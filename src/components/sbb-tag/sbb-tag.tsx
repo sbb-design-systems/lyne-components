@@ -24,6 +24,9 @@ export type SbbTagStateChange = Extract<
  * @slot - Use the unnamed slot to add content to the tag label.
  * @slot icon - Use this slot to display an icon at the component start, by providing a `sbb-icon` component.
  * @slot amount - Provide an amount to show it at the component end.
+ * @event {CustomEvent<void>} input - Input event emitter
+ * @event {CustomEvent<void>} did-change - Deprecated. used for React. Will probably be removed once React 19 is available.
+ * @event {CustomEvent<void>} change - Change event emitter
  */
 @customElement('sbb-tag')
 export class SbbTag extends LitElement implements ButtonProperties {
@@ -75,6 +78,7 @@ export class SbbTag extends LitElement implements ButtonProperties {
   }
 
   /**
+   * @internal
    * Internal event that emits whenever the state of the tag
    * in relation to the parent toggle changes.
    */

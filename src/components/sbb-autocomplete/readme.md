@@ -110,6 +110,15 @@ using `aria-activedescendant` to support navigation though the autocomplete opti
 | `open`  | public  | Opens the autocomplete.  |            | `void` |                |
 | `close` | public  | Closes the autocomplete. |            | `void` |                |
 
+## Events
+
+| Name         | Type                | Description                                                    | Inherited From |
+| ------------ | ------------------- | -------------------------------------------------------------- | -------------- |
+| `will-open`  | `CustomEvent<void>` | Emits whenever the autocomplete starts the opening transition. |                |
+| `did-open`   | `CustomEvent<void>` | Emits whenever the autocomplete is opened.                     |                |
+| `will-close` | `CustomEvent<void>` | Emits whenever the autocomplete begins the closing transition. |                |
+| `did-close`  | `CustomEvent<void>` | Emits whenever the autocomplete is closed.                     |                |
+
 ## Slots
 
 | Name | Description                                                                              |

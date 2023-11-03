@@ -126,6 +126,15 @@ that have an ARIA `role`.
 | `open`  | public  | Opens the tooltip on trigger click. |                       | `void` |                |
 | `close` | public  | Closes the tooltip.                 | `target: HTMLElement` | `void` |                |
 
+## Events
+
+| Name         | Type                                        | Description                                               | Inherited From |
+| ------------ | ------------------------------------------- | --------------------------------------------------------- | -------------- |
+| `will-open`  | `CustomEvent<void>`                         | Emits whenever the tooltip starts the opening transition. |                |
+| `did-open`   | `CustomEvent<void>`                         | Emits whenever the tooltip is opened.                     |                |
+| `will-close` | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the tooltip begins the closing transition. |                |
+| `did-close`  | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the tooltip is closed.                     |                |
+
 ## Slots
 
 | Name | Description                                           |

@@ -6,6 +6,9 @@ import style from './sbb-form-error.scss?lit&inline';
 
 let nextId = 0;
 
+/**
+ * TODO: Document me
+ */
 @customElement('sbb-form-error')
 export class SbbFormError extends LitElement {
   public static override styles: CSSResult = style;

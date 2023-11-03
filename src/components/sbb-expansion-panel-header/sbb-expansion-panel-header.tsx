@@ -17,6 +17,7 @@ import '../sbb-icon';
 /**
  * @slot icon - Slot used to render the panel header icon.
  * @slot - Use the unnamed slot to add content to the expansion panel header.
+ * @event {CustomEvent<void>} toggle-expanded - TODO: Document this event
  */
 @customElement('sbb-expansion-panel-header')
 export class SbbExpansionPanelHeader extends LitElement {

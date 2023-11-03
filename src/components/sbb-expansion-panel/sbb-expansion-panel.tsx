@@ -14,6 +14,10 @@ let nextId = 0;
 /**
  * @slot header - Use this to render the sbb-expansion-panel-header.
  * @slot content - Use this to render the sbb-expansion-panel-content.
+ * @event {CustomEvent<void>} will-open - Emits whenever the sbb-expansion-panel starts the opening transition.
+ * @event {CustomEvent<void>} did-open - Emits whenever the sbb-expansion-panel is opened.
+ * @event {CustomEvent<void>} will-close - Emits whenever the sbb-expansion-panel begins the closing transition.
+ * @event {CustomEvent<void>} did-close - Emits whenever the sbb-expansion-panel is closed.
  */
 @customElement('sbb-expansion-panel')
 export class SbbExpansionPanel extends LitElement {

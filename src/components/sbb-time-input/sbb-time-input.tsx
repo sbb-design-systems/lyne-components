@@ -23,6 +23,11 @@ interface Time {
   minutes: number;
 }
 
+/**
+ * TODO: Document me
+ * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
+ * @event {CustomEvent<ValidationChangeEvent>} validationChange - Emits whenever the internal validation state changes.
+ */
 @customElement('sbb-time-input')
 export class SbbTimeInput extends LitElement {
   public static override styles: CSSResult = style;

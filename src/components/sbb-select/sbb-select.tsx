@@ -29,6 +29,13 @@ export interface SelectChange {
 
 /**
  * @slot - Use the unnamed slot to add options.
+ * @event {CustomEvent<void>} did-change - Deprecated. used for React. Will probably be removed once React 19 is available.
+ * @event {CustomEvent<void>} change - TODO: Document this event
+ * @event {CustomEvent<void>} input - TODO: Document this event
+ * @event {CustomEvent<void>} will-open - Emits whenever the select starts the opening transition.
+ * @event {CustomEvent<void>} did-open - Emits whenever the select is opened.
+ * @event {CustomEvent<void>} will-close - Emits whenever the select begins the closing transition.
+ * @event {CustomEvent<void>} did-close - Emits whenever the select is closed.
  */
 @customElement('sbb-select')
 export class SbbSelect extends LitElement {

@@ -26,6 +26,10 @@ let nextId = 0;
 
 /**
  * @slot - Use the unnamed slot to add `sbb-option` or `sbb-optgroup` elements to this alert group.
+ * @event {CustomEvent<void>} will-open - Emits whenever the autocomplete starts the opening transition.
+ * @event {CustomEvent<void>} did-open - Emits whenever the autocomplete is opened.
+ * @event {CustomEvent<void>} will-close - Emits whenever the autocomplete begins the closing transition.
+ * @event {CustomEvent<void>} did-close - Emits whenever the autocomplete is closed.
  */
 @customElement('sbb-autocomplete')
 export class SbbAutocomplete extends LitElement {
@@ -166,7 +170,7 @@ export class SbbAutocomplete extends LitElement {
     this._triggerElement.value = target.value;
 
     // Manually trigger the change events
-    this._triggerElement.dispatchEvent(new window.Event('change', { bubbles: true }));
+    this._triggerElement.dispatchEvent(new Event('change', { bubbles: true }));
     this._triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
 
     this.close();

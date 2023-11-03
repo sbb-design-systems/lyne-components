@@ -18,6 +18,10 @@ import '../sbb-divider';
  * @slot - Use the unnamed slot to add `sbb-checkbox` or `sbb-radio-button` elements to this selection panel.
  * @slot badge - Use this slot to provide a `sbb-card-badge` (optional).
  * @slot content - Use this slot to provide custom content for the panel (optional).
+ * @event {CustomEvent<void>} will-open - Emits whenever the content section starts the opening transition.
+ * @event {CustomEvent<void>} did-open - Emits whenever the content section is opened.
+ * @event {CustomEvent<{ closeTarget: HTMLElement }>} will-close - Emits whenever the content section begins the closing transition.
+ * @event {CustomEvent<{ closeTarget: HTMLElement }>} did-close - Emits whenever the content section is closed.
  */
 @customElement('sbb-selection-panel')
 export class SbbSelectionPanel extends LitElement {
@@ -27,7 +31,7 @@ export class SbbSelectionPanel extends LitElement {
     didOpen: 'did-open',
     willClose: 'will-close',
     didClose: 'did-close',
-  };
+  } as const;
 
   /** The background color of the panel. */
   @property() public color: 'white' | 'milk' = 'white';

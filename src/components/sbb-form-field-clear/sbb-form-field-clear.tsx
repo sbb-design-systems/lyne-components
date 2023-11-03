@@ -15,6 +15,9 @@ import { SbbFormField } from '../sbb-form-field';
 import style from './sbb-form-field-clear.scss?lit&inline';
 import '../sbb-icon';
 
+/**
+ * TODO: Document me
+ */
 @customElement('sbb-form-field-clear')
 export class SbbFormFieldClear extends LitElement {
   public static override styles: CSSResult = style;
@@ -59,7 +62,7 @@ export class SbbFormFieldClear extends LitElement {
     await this._formField.clear();
     input.focus();
     input.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
-    input.dispatchEvent(new window.Event('change', { bubbles: true }));
+    input.dispatchEvent(new Event('change', { bubbles: true }));
   }
 
   protected override render(): TemplateResult {

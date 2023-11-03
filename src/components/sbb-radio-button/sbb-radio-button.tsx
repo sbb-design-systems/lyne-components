@@ -107,6 +107,7 @@ export class SbbRadioButton extends LitElement {
   );
 
   /**
+   * @internal
    * Internal event that emits whenever the state of the radio option
    * in relation to the parent selection panel changes.
    */

@@ -13,7 +13,6 @@
       "jsx": true
     }
   },
-  "ignorePatterns": ["**/react-library/**/*"],
   "overrides": [
     {
       "files": ["*.js", "*.jsx"],
@@ -30,7 +29,12 @@
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@typescript-eslint/recommended", "plugin:lit/recommended", "prettier"],
+      "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:lit/recommended",
+        "plugin:lyne/all",
+        "prettier"
+      ],
       "rules": {
         "@typescript-eslint/array-type": "error",
         "@typescript-eslint/explicit-function-return-type": ["warn", { "allowExpressions": true }],

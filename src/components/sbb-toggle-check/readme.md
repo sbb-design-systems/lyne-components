@@ -62,6 +62,12 @@ you can not provide it and then use `aria-label` to specify an appropriate label
 | `required`      | `required`       | public  | `boolean`                          | `false`        | The required prop for the required state.                      |
 | `labelPosition` | `label-position` | public  | `'before' \| 'after' \| undefined` | `'after'`      | The label position relative to the toggle. Defaults to 'after' |
 
+## Events
+
+| Name         | Type                | Description                                                                      | Inherited From |
+| ------------ | ------------------- | -------------------------------------------------------------------------------- | -------------- |
+| `did-change` | `CustomEvent<void>` | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
+
 ## Slots
 
 | Name   | Description                                                                       |

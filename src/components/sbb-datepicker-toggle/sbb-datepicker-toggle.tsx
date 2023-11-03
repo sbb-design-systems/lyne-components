@@ -20,6 +20,9 @@ import '../sbb-calendar';
 import '../sbb-tooltip';
 import '../sbb-tooltip-trigger';
 
+/**
+ * TODO: Document me
+ */
 @customElement('sbb-datepicker-toggle')
 export class SbbDatepickerToggle extends LitElement {
   public static override styles: CSSResult = style;
