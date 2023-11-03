@@ -37,7 +37,7 @@
   --sbb-toggle-check-overall-height: calc(1em * var(--sbb-typo-line-height-body-text));
 }
 
-:host([checked]:not([checked='false'])) {
+:host([checked]) {
   --sbb-toggle-check-background-color: var(--sbb-toggle-check-checked-color);
   --sbb-toggle-check-circle-border-color: var(--sbb-toggle-check-background-color);
   --sbb-toggle-check-icon-opacity: 1;
@@ -56,7 +56,7 @@
   }
 }
 
-:host([disabled]:not([disabled='false'])) {
+:host([disabled]) {
   --sbb-toggle-check-background-color: var(--sbb-color-cloud-default);
   --sbb-toggle-check-circle-border-color: var(--sbb-color-smoke-default);
   --sbb-toggle-check-circle-border-style: dashed;
@@ -71,7 +71,7 @@
   }
 }
 
-:host([checked]:not([checked='false'])[disabled]:not([disabled='false'])) {
+:host([checked][disabled]) {
   --sbb-toggle-check-circle-background-color: var(--sbb-color-white-default);
 }
 

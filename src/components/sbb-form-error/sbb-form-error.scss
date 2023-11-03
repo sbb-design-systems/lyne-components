@@ -24,7 +24,7 @@
   min-height: var(--sbb-form-error-height);
 }
 
-:host([negative]:not([negative='false'])) {
+:host([negative]) {
   --sbb-form-error-color: var(--sbb-color-red-mode-dark);
 }
 

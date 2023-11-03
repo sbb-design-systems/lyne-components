@@ -22,7 +22,7 @@
     --sbb-tooltip-color: var(--sbb-color-iron-default);
   }
 
-  :host(:hover[negative]:not([negative='false'])) {
+  :host(:hover[negative]) {
     --sbb-tooltip-color: var(--sbb-color-cloud-default);
   }
 }
@@ -31,11 +31,11 @@
   --sbb-tooltip-color: var(--sbb-color-anthracite-default);
 }
 
-:host(:is(:active, [data-active])[negative]:not([negative='false'])) {
+:host(:is(:active, [data-active])[negative]) {
   --sbb-tooltip-color: var(--sbb-color-cement-default);
 }
 
-:host([disabled]:not([disabled='false'])) {
+:host([disabled]) {
   --sbb-tooltip-color: var(--sbb-color-graphite-default);
 
   @include sbb.if-forced-colors {
@@ -45,17 +45,17 @@
   pointer-events: none;
 }
 
-:host([disabled]:not([disabled='false'])[negative]:not([negative='false'])) {
+:host([disabled][negative]) {
   --sbb-tooltip-color: var(--sbb-color-smoke-default);
 }
 
 @include sbb.icon-button-base(':host([data-icon-small])', '.sbb-tooltip-trigger', 'sbb-icon');
 
-:host([data-icon-small][negative]:not([negative='false'])) {
+:host([data-icon-small][negative]) {
   @include sbb.icon-button-variables-negative;
 }
 
-:host([data-icon-small][disabled]:not([disabled='false'])) {
+:host([data-icon-small][disabled]) {
   @include sbb.icon-button-disabled('.sbb-tooltip-trigger');
 }
 
@@ -65,7 +65,7 @@
   @include sbb.icon-button-focus-visible('.sbb-tooltip-trigger');
 }
 
-:host([data-icon-small]:not([disabled]:not([disabled='false']), :active, [data-active]):hover) {
+:host([data-icon-small]:not([disabled], :active, [data-active]):hover) {
   @include sbb.icon-button-hover('.sbb-tooltip-trigger');
 }
 

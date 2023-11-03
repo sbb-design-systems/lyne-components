@@ -60,7 +60,7 @@
   }
 }
 
-:host([checked]:not([checked='false'])) {
+:host([checked]) {
   --sbb-radio-button-inner-circle-color: var(--sbb-color-red-default);
   --sbb-radio-button-background-fake-border-width: calc(
     (var(--sbb-radio-button-dimension) - var(--sbb-radio-button-inner-circle-dimension)) / 2
@@ -73,7 +73,7 @@
 }
 
 // Disabled definitions have to be after checked definitions
-:host(:is([data-group-disabled], [disabled]):not([disabled='false'])) {
+:host(:is([data-group-disabled], [disabled])) {
   --sbb-radio-button-background-color: var(--sbb-color-milk-default);
   --sbb-radio-button-subtext-color: var(--sbb-color-smoke-default);
   --sbb-radio-button-border-style: dashed;

@@ -472,7 +472,7 @@ Also define CSS variables in :host.
   }
 }
 
-:host([disabled]:not([disabled='false'])) {
+:host([disabled]) {
   --sbb-component-color: var(--sbb-color-disabled);
 }
 
@@ -618,27 +618,6 @@ When it is not super obvious, include a brief description of what a class repres
 
 // Portion of the floating panel that sits, invisibly, on top of the input.
 .sbb-datepicker-input-mask { }
-```
-
-#### Boolean properties
-
-When using a CSS attribute selector of a boolean property, it is necessary to exclude the case of value `false`.
-
-In TypeScript, when checking if an attribute value is truthy,
-you can use the `isValidAttribute()` function which checks both possible cases.
-
-```scss
-// AVOID
-:host([negative]) {
-  ...;
-}
-```
-
-```scss
-// PREFER
-:host([negative]:not([negative='false'])) {
-  ...;
-}
 ```
 
 ### Storybook

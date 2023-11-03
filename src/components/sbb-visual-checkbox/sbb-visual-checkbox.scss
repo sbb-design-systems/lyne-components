@@ -19,7 +19,7 @@
   }
 }
 
-:host([negative]:not([negative='false'])) {
+:host([negative]) {
   --sbb-visual-checkbox-background-color: var(--sbb-color-midnight-default);
   --sbb-visual-checkbox-border-color: var(--sbb-color-smoke-default);
   --sbb-visual-checkbox-selection-color: var(--sbb-color-red-default);
@@ -29,7 +29,7 @@
   }
 }
 
-:host([disabled]:not([disabled='false'])) {
+:host([disabled]) {
   --sbb-visual-checkbox-background-color: var(--sbb-color-milk-default);
   --sbb-visual-checkbox-border-color: var(--sbb-color-smoke-default);
   --sbb-visual-checkbox-border-style: dashed;
@@ -41,7 +41,7 @@
   }
 }
 
-:host([disabled]:not([disabled='false'])[negative]:not([negative='false'])) {
+:host([disabled][negative]) {
   --sbb-visual-checkbox-background-color: var(--sbb-color-charcoal-default);
   --sbb-visual-checkbox-border-color: var(--sbb-color-smoke-default);
   --sbb-visual-checkbox-selection-color: var(--sbb-color-white-default);
@@ -51,13 +51,13 @@
   }
 }
 
-:host([indeterminate]:not([indeterminate='false'])) {
+:host([indeterminate]) {
   @include sbb.if-forced-colors {
     --sbb-visual-checkbox-selection-color: ButtonBorder;
   }
 }
 
-:host([indeterminate]:not([indeterminate='false'])[disabled]:not([disabled='false'])) {
+:host([indeterminate][disabled]) {
   @include sbb.if-forced-colors {
     --sbb-visual-checkbox-selection-color: GrayText;
   }
@@ -80,16 +80,16 @@
     outline: var(--sbb-border-width-2x) solid ButtonBorder;
     outline-offset: calc(-1 * var(--sbb-border-width-2x));
 
-    :host([checked]:not([checked='false'])) & {
+    :host([checked]) & {
       background-color: HighLight;
       outline: none;
     }
 
-    :host([disabled]:not([disabled='false'])) & {
+    :host([disabled]) & {
       outline-color: GrayText;
     }
 
-    :host([checked]:not([checked='false'])[disabled]:not([disabled='false'])) & {
+    :host([checked][disabled]) & {
       background-color: GrayText;
     }
   }

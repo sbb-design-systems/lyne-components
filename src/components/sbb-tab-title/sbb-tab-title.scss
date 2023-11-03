@@ -38,7 +38,7 @@
   }
 }
 
-:host([disabled]:not([disabled='false'])) {
+:host([disabled]) {
   --sbb-tab-title-icon-color: var(--sbb-color-granite-default);
   --sbb-tab-title-background-color: var(--sbb-color-milk-default);
   --sbb-tab-title-cursor: unset;
@@ -53,7 +53,7 @@
 }
 
 // If active and not disabled
-:host([active]:not([active='false'], [disabled]:not([disabled='false']))) {
+:host([active]:not([disabled])) {
   --sbb-tab-title-color: var(--sbb-color-charcoal-default);
   --sbb-tab-title-icon-color: var(--sbb-tab-title-color);
   --sbb-tab-title-background-color: var(--sbb-color-black-default);
@@ -68,7 +68,7 @@
   }
 }
 
-:host(:hover:not([disabled]:not([disabled='false']))) {
+:host(:hover:not([disabled])) {
   @include sbb.hover-mq($hover: true) {
     --sbb-tab-title-marker-transform: scale(1);
   }

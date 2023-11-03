@@ -12,7 +12,7 @@
   --sbb-timetable-row-skeleton-pulse-duration: 1800ms;
 }
 
-:host([disable-animation]:not([disable-animation='false'])) {
+:host([disable-animation]) {
   --sbb-timetable-row-skeleton-pulse-duration: 0;
 }
 

@@ -65,7 +65,7 @@
   --sbb-dialog-max-height: 100%;
 }
 
-:host([negative]:not([negative='false'])) {
+:host([negative]) {
   @include sbb.scrollbar-variables--color-negative;
 
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
@@ -74,11 +74,11 @@
   --sbb-dialog-footer-border: none;
 }
 
-:host([disable-animation]:not([disable-animation='false'])) {
+:host([disable-animation]) {
   --sbb-dialog-animation-duration: 0.1ms;
 }
 
-:host([data-fullscreen]:not([negative]:not([negative='false']))) {
+:host([data-fullscreen]:not([negative])) {
   --sbb-dialog-background-color: var(--sbb-color-milk-default);
 }
 
@@ -86,7 +86,7 @@
   --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s);
 }
 
-:host([data-overflows]:not([data-fullscreen], [negative]:not([negative='false']))) {
+:host([data-overflows]:not([data-fullscreen], [negative])) {
   --sbb-dialog-footer-border: none;
 }
 
@@ -248,7 +248,7 @@
 
 // stylelint-disable selector-not-notation
 :is(.sbb-dialog__header, .sbb-dialog__footer) {
-  :host([data-overflows]:not([data-fullscreen], [negative]:not([negative='false']))) & {
+  :host([data-overflows]:not([data-fullscreen], [negative])) & {
     @include sbb.shadow-level-9-soft;
   }
 }

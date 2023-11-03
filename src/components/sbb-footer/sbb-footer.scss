@@ -16,7 +16,7 @@
   }
 }
 
-:host([negative]:not([negative='false'])) {
+:host([negative]) {
   --sbb-footer-background-color: var(--sbb-color-charcoal-default);
   --sbb-footer-color: var(--sbb-color-white-default);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
@@ -37,11 +37,11 @@
 
 .sbb-footer-wrapper {
   /* stylelint-disable-next-line plugin/stylelint-bem-namics */
-  :host(:not([expanded]:not([expanded='false']))) & {
+  :host(:not([expanded])) & {
     @include sbb.page-spacing;
   }
 
-  :host([expanded]:not([expanded='false'])) & {
+  :host([expanded]) & {
     @include sbb.page-spacing-expanded;
   }
 }

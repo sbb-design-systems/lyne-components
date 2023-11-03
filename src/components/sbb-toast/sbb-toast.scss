@@ -21,7 +21,7 @@
   --sbb-toast-vertical-position: initial;
 }
 
-:host([disable-animation]:not([disable-animation='false'])) {
+:host([disable-animation]) {
   --sbb-toast-animation-duration: 0.1ms;
 }
 

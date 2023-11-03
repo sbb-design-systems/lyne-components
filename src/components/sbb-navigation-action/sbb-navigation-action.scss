@@ -12,7 +12,7 @@
   --sbb-navigation-action-color: var(--sbb-color-cloud-default);
 }
 
-:host([active]:not([active='false'])) {
+:host([active]) {
   --sbb-navigation-action-color: var(--sbb-color-storm-default);
 
   @include sbb.if-forced-colors {

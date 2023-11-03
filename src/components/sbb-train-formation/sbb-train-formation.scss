@@ -16,7 +16,7 @@
   }
 }
 
-:host([hide-wagon-label]:not([hide-wagon-label='false'])) {
+:host([hide-wagon-label]) {
   --sbb-train-formation-wagon-label-display: none;
 }
 

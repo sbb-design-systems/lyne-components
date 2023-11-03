@@ -13,7 +13,7 @@
   height: 100%;
 }
 
-:host([negative]:not([negative='false'])) {
+:host([negative]) {
   --sbb-divider-color: var(--sbb-color-iron-default);
 }
 

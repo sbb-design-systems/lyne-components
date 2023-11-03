@@ -24,7 +24,7 @@
   height: var(--sbb-logo-height);
 }
 
-:host([negative]:not([negative='false'])) {
+:host([negative]) {
   --sbb-logo-word-mark-color: var(--sbb-color-white-default);
 }
 

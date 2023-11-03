@@ -14,7 +14,7 @@
   --sbb-options-panel-internal-z-index: var(--sbb-select-z-index, var(--sbb-overlay-z-index));
 }
 
-:host([negative]:not([negative='false'])) {
+:host([negative]) {
   @include sbb.options-panel-overlay-negative-variables;
 }
 
@@ -51,7 +51,7 @@
   );
 }
 
-:host([disable-animation]:not([disable-animation='false'])) {
+:host([disable-animation]) {
   --sbb-options-panel-animation-duration: 0.1ms;
 }
 
@@ -59,7 +59,7 @@
   margin-block: var(--sbb-spacing-fixed-3x);
 }
 
-:host([preserve-icon-space]:not([preserve-icon-space='false'])) {
+:host([preserve-icon-space]) {
   --sbb-option-icon-container-display: block;
 }
 
@@ -101,7 +101,7 @@
     @include sbb.shadow-level-5-hard;
   }
 
-  :host(:is([data-state='opened'], [data-state='opening'])[negative]:not([negative='false'])) & {
+  :host(:is([data-state='opened'], [data-state='opening'])[negative]) & {
     @include sbb.shadow-level-5-hard-negative;
   }
 
@@ -129,7 +129,7 @@
         :is(
             [data-state='opened'],
             [data-state='opening']
-          )[data-option-panel-origin-borderless][negative]:not([negative='false'])
+          )[data-option-panel-origin-borderless][negative]
       )
       & {
       @include sbb.shadow-level-5-hard-negative;

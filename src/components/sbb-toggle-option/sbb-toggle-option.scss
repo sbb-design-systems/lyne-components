@@ -24,11 +24,11 @@
   outline: none !important;
 }
 
-:host([checked]:not([checked='false'])) {
+:host([checked]) {
   --sbb-toggle-option-color: var(--sbb-color-charcoal-default);
 }
 
-:host([disabled]:not([disabled='false'])) {
+:host([disabled]) {
   --sbb-toggle-option-cursor: unset;
   --sbb-toggle-option-color: var(--sbb-color-granite-default);
 }
