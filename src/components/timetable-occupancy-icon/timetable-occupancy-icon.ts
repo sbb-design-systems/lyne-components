@@ -72,7 +72,9 @@ export class SbbTimetableOccupancyIcon extends LitElement {
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._handlerRepository.connect();
+    window.matchMedia('(forced-colors: active)').onchange = null;
+    window.matchMedia('(prefer-color-scheme: dark)').onchange = null;
+    this._handlerRepository.disconnect();
   }
 
   protected override render(): TemplateResult {
