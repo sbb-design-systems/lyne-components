@@ -26,7 +26,7 @@ const playStory = async ({ canvasElement }): Promise<void> => {
   );
 
   const button = canvas.getByTestId('navigation-trigger');
-  userEvent.click(button);
+  await userEvent.click(button);
 
   await waitFor(() =>
     expect(canvas.getByTestId('navigation').getAttribute('data-state') === 'opened').toBeTruthy(),
@@ -43,9 +43,13 @@ const playStoryWithSection = async ({ canvasElement }): Promise<void> => {
     ).toBeTruthy(),
   );
   const actionL = canvas.getByTestId('navigation-section-trigger-1');
-  userEvent.click(actionL);
-  const actionS = canvas.getByTestId('navigation-section-trigger-2');
-  userEvent.click(actionS);
+  await userEvent.click(actionL);
+
+  await waitFor(() =>
+    expect(
+      canvas.getByTestId('navigation-section').getAttribute('data-state') === 'opened',
+    ).toBeTruthy(),
+  );
 };
 
 const ariaLabel: InputType = {
@@ -110,7 +114,7 @@ const navigationActionsL = (): JSX.Element[] => [
 const navigationActionsS = (): JSX.Element[] => [
   <sbb-navigation-action id="nav-5">Deutsch</sbb-navigation-action>,
   <sbb-navigation-action id="nav-6">Français</sbb-navigation-action>,
-  <sbb-navigation-action id="nav-7" data-testid="navigation-section-trigger-2">
+  <sbb-navigation-action id="nav-7" active>
     Italiano
   </sbb-navigation-action>,
   <sbb-navigation-action id="nav-8">English</sbb-navigation-action>,
@@ -127,9 +131,7 @@ const navigationList = (label): JSX.Element[] => [
 ];
 
 const actionLabels = (num): JSX.Element[] => {
-  const labels = [
-    <sbb-navigation-action data-testid="navigation-section-trigger-2">Label</sbb-navigation-action>,
-  ];
+  const labels = [<sbb-navigation-action>Label</sbb-navigation-action>];
   for (let i = 1; i <= num; i++) {
     labels.push(<sbb-navigation-action>Label</sbb-navigation-action>);
   }

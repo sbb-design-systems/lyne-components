@@ -195,11 +195,12 @@ export class SbbNavigationSection extends LitElement {
     } else if (event.animationName === 'close' && this._state === 'closing') {
       this._state = 'closed';
       this._navigationSectionContainerElement.scrollTo(0, 0);
-      // Manually focus last focused element in order to avoid showing outline in Safari
-      this._triggerElement?.focus();
       this._windowEventsController?.abort();
       this._setNavigationInert();
-      this._isZeroToLargeBreakpoint() && this._triggerElement?.focus();
+      if (this._isZeroToLargeBreakpoint() && this._triggerElement) {
+        setModalityOnNextFocus(this._triggerElement);
+        this._triggerElement.focus();
+      }
     }
   }
 

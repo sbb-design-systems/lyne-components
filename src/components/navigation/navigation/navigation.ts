@@ -1,10 +1,5 @@
-import { FocusTrap, IS_FOCUSABLE_QUERY, assignId, setModalityOnNextFocus } from '../../core/a11y';
-import {
-  ScrollHandler,
-  isValidAttribute,
-  isBreakpoint,
-  findReferencedElement,
-} from '../../core/dom';
+import { FocusTrap, assignId, setModalityOnNextFocus } from '../../core/a11y';
+import { ScrollHandler, isValidAttribute, findReferencedElement } from '../../core/dom';
 import {
   documentLanguage,
   HandlerRepository,
@@ -295,11 +290,6 @@ export class SbbNavigation extends LitElement {
         this._activeNavigationSection = this.querySelector(
           'sbb-navigation-section[data-state="opening"], sbb-navigation-section[data-state="opened"]',
         );
-        if (!isBreakpoint('zero', 'large')) {
-          (
-            this._activeNavigationSection?.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement
-          )?.focus();
-        }
       }
     }
   }
