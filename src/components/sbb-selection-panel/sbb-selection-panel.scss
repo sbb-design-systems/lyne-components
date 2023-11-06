@@ -49,11 +49,11 @@
   --sbb-selection-panel-border-color: transparent;
 }
 
-:host(:is([data-resize-disable-animation], [disable-animation]:not([disable-animation='false']))) {
+:host(:is([data-resize-disable-animation], [disable-animation])) {
   --sbb-selection-panel-animation-duration: 0.1ms;
 }
 
-:host([data-has-content][force-open]:not([force-open='false'])),
+:host([data-has-content][force-open]),
 :host([data-has-content][data-checked]) {
   --sbb-selection-panel-input-padding: var(--sbb-spacing-responsive-xs)
     var(--sbb-spacing-responsive-xxs) var(--sbb-spacing-responsive-xxs)

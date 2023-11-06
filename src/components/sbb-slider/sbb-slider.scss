@@ -32,20 +32,20 @@
   width: min(#{sbb.px-to-rem-build(400)}, 100%);
 }
 
-:host([disabled]:not([disabled='false'])) {
+:host([disabled]) {
   --sbb-slider-icon-color: var(--sbb-color-graphite-default);
   --sbb-slider-knob-border-color: var(--sbb-color-smoke-default);
   --sbb-slider-knob-border-size: var(--sbb-border-width-2x);
   --sbb-slider-knob-border-style: dashed;
 }
 
-:host([readonly]:not([readonly='false'])) {
+:host([readonly]) {
   --sbb-slider-icon-color: var(--sbb-color-smoke-default);
   --sbb-slider-knob-border-color: var(--sbb-slider-selected-line-disabled-color);
 }
 
-:host([disabled]:not([disabled='false'])),
-:host([readonly]:not([readonly='false'])) {
+:host([disabled]),
+:host([readonly]) {
   @include sbb.if-forced-colors {
     --sbb-slider-icon-color: GrayText;
     --sbb-slider-selected-line-disabled-color: GrayText;
@@ -129,9 +129,7 @@
   }
 
   // slider knob resize on click (active / focus)
-  :host(:not(:is([disabled]:not([disabled='false']), [readonly]:not([readonly='false']))))
-    .sbb-slider__range-input:active
-    ~ & {
+  :host(:not(:is([disabled], [readonly]))) .sbb-slider__range-input:active ~ & {
     --sbb-slider-knob-size: var(--sbb-slider-knob-size-active);
   }
 }

@@ -171,7 +171,7 @@ export class SbbOption extends LitElement {
 
     this._negative = !!this.closest(
       // :is() selector not possible due to test environment
-      `sbb-autocomplete[negative]:not([negative='false']),sbb-select[negative]:not([negative='false']),sbb-form-field[negative]:not([negative='false'])`,
+      `sbb-autocomplete[negative],sbb-select[negative],sbb-form-field[negative]`,
     );
     toggleDatasetEntry(this, 'negative', this._negative);
 

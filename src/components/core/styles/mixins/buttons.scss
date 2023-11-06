@@ -25,11 +25,11 @@
 @mixin icon-button($button-selector, $icon-selector) {
   @include icon-button-base(':host', #{$button-selector}, #{$icon-selector});
 
-  :host([negative]:not([negative='false'])) {
+  :host([negative]) {
     @include icon-button-variables-negative;
   }
 
-  :host([data-disabled]:not([data-disabled='false'])) {
+  :host([data-disabled]) {
     @include icon-button-disabled(#{$button-selector});
   }
 

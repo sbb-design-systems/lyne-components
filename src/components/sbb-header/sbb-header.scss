@@ -75,11 +75,11 @@
   justify-content: flex-start;
   height: var(--sbb-header-height);
 
-  :host(:not([expanded]:not([expanded='false']))) & {
+  :host(:not([expanded])) & {
     @include sbb.page-spacing;
   }
 
-  :host([expanded]:not([expanded='false'])) & {
+  :host([expanded]) & {
     @include sbb.page-spacing-expanded;
   }
 }

@@ -1,6 +1,6 @@
 import { interactivityChecker } from './interactivity-checker';
 
-export const IS_FOCUSABLE_QUERY = `:is(button, [href], input, select, textarea, details, summary:not(:disabled), [tabindex]):not([disabled]:not([disabled='false'])):not([tabindex="-1"])`;
+export const IS_FOCUSABLE_QUERY = `:is(button, [href], input, select, textarea, details, summary:not(:disabled), [tabindex]):not([disabled]):not([tabindex="-1"])`;
 
 // Note: the use of this function for more complex scenarios (with many nested elements) may be expensive.
 export function getFocusableElements(

@@ -45,7 +45,7 @@
   width: min(#{sbb.px-to-rem-build(300)}, 100%);
 }
 
-:host([negative]:not([negative='false'])) {
+:host([negative]) {
   --sbb-form-field-background-color: var(--sbb-color-midnight-default);
   --sbb-form-field-border-color: var(--sbb-color-smoke-default);
   --sbb-form-field-label-color: var(--sbb-color-smoke-default);
@@ -81,7 +81,7 @@
   }
 }
 
-:host(:is([data-readonly], [data-disabled])[negative]:not([negative='false'])) {
+:host(:is([data-readonly], [data-disabled])[negative]) {
   --sbb-form-field-background-color: var(--sbb-color-charcoal-default);
   --sbb-form-field-arrow-color: var(--sbb-color-smoke-default);
 }
@@ -99,11 +99,11 @@
   }
 }
 
-:host([data-disabled][negative]:not([negative='false'])) {
+:host([data-disabled][negative]) {
   --sbb-form-field-text-color: var(--sbb-color-smoke-default);
 }
 
-:host([data-readonly]:not([negative]:not([negative='false']))) {
+:host([data-readonly]:not([negative])) {
   --sbb-form-field-label-color: var(--sbb-color-granite-default);
   --sbb-form-field-prefix-color: var(--sbb-color-granite-default);
 }
@@ -119,7 +119,7 @@
   }
 }
 
-:host(:is([data-input-focused], [data-has-popup-open])[negative]:not([negative='false'])) {
+:host(:is([data-input-focused], [data-has-popup-open])[negative]) {
   --sbb-form-field-border-color: var(--sbb-color-milk-default);
   --sbb-form-field-prefix-color: var(--sbb-color-milk-default);
 }
@@ -134,7 +134,7 @@
   }
 }
 
-:host([data-invalid][negative]:not([negative='false'])) {
+:host([data-invalid][negative]) {
   --sbb-form-field-border-color: var(--sbb-color-red-mode-dark);
   --sbb-form-field-text-color: var(--sbb-color-red-mode-dark);
 }
@@ -143,7 +143,7 @@
   --sbb-form-field-error-padding-block-start: 0;
 }
 
-:host([floating-label]:not([floating-label='false'])) {
+:host([floating-label]) {
   --sbb-select-placeholder-color: transparent;
 }
 
@@ -177,12 +177,11 @@
 
   // In high contrast, there is no borderless variant
   @media (forced-colors: none) {
-    :host(:is([borderless]:not([borderless='false']), [data-input-type='sbb-slider'])) & {
+    :host(:is([borderless], [data-input-type='sbb-slider'])) & {
       border-color: transparent;
     }
 
-    :host(:is([data-input-focused], [data-has-popup-open])[borderless]:not([borderless='false']))
-      & {
+    :host(:is([data-input-focused], [data-has-popup-open])[borderless]) & {
       position: relative;
 
       &::after {
@@ -261,7 +260,7 @@
     padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
   }
 
-  :host([floating-label]:not([floating-label='false'])) & {
+  :host([floating-label]) & {
     transform-origin: 0 0;
     pointer-events: none; // We shouldn't catch mouse events (let them through).
     backface-visibility: hidden;
@@ -279,7 +278,7 @@
   // then apply the label transition.
   // If it is empty and readonly, always apply transition
   :host(
-      [floating-label]:not([floating-label='false']):is(
+      [floating-label]:is(
           :not([data-input-focused]:not([data-input-type='sbb-select']), [data-has-popup-open]),
           [data-readonly]
         )[data-input-empty]
@@ -324,7 +323,7 @@
   &::placeholder {
     @include sbb.placeholder;
 
-    :host([floating-label]:not([floating-label='false'])) & {
+    :host([floating-label]) & {
       color: transparent !important;
       -webkit-text-fill-color: transparent !important;
 
@@ -334,7 +333,7 @@
       }
     }
 
-    :host([data-disabled]:not([floating-label]:not([floating-label='false']))) & {
+    :host([data-disabled]:not([floating-label])) & {
       color: var(--sbb-color-granite-default);
       -webkit-text-fill-color: var(--sbb-color-granite-default);
     }

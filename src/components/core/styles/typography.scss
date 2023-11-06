@@ -32,7 +32,7 @@ sbb-form-field {
     -webkit-text-fill-color: var(--sbb-color-granite-default);
   }
 
-  &[floating-label]:not([floating-label='false']) input::placeholder {
+  &[floating-label] input::placeholder {
     color: transparent;
     -webkit-text-fill-color: transparent;
 

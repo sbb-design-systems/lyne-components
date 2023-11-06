@@ -84,7 +84,7 @@
   --sbb-navigation-section-display: block;
 }
 
-:host([disable-animation]:not([disable-animation='false'])) {
+:host([disable-animation]) {
   --sbb-navigation-section-animation-duration: 0.1ms;
 }
 

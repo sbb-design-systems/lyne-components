@@ -29,7 +29,7 @@
   display: contents;
 }
 
-:host([disable-animation]:not([disable-animation='false'])) {
+:host([disable-animation]) {
   --sbb-tooltip-animation-duration: 0.1ms;
 }
 

@@ -16,7 +16,7 @@
   }
 }
 
-:host([disabled]:not([disabled='false'])) {
+:host([disabled]) {
   --sbb-expansion-panel-header-cursor: default;
   --sbb-expansion-panel-header-text-color: var(--sbb-color-granite-default);
 

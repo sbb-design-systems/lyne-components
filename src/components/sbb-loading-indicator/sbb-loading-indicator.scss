@@ -11,7 +11,7 @@
   line-height: 0;
 }
 
-:host([disable-animation]:not([disable-animation='false'])) {
+:host([disable-animation]) {
   --sbb-loading-indicator-duration: 0;
 }
 

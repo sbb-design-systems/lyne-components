@@ -25,7 +25,7 @@
 }
 
 // Using :where to be not more specific than inline variant
-:host([negative]:where(:not([negative='false']))) {
+:host([negative]) {
   @include sbb.link-variables--negative;
 }
 
@@ -33,7 +33,7 @@
   @include sbb.link-variables--inline;
 }
 
-:host([variant='inline'][negative]:not([negative='false'])) {
+:host([variant='inline'][negative]) {
   @include sbb.link-variables--inline-negative;
 }
 
@@ -56,6 +56,15 @@
     @include sbb.link-inline-base;
   }
 
+  :host([disabled]) & {
+    pointer-events: none;
+    cursor: default;
+
+    @include sbb.if-forced-colors {
+      color: GrayText;
+    }
+  }
+
   :host([size='xs']:not([variant='inline'])) & {
     @include sbb.text-xs--regular;
   }
@@ -68,15 +77,6 @@
     @include sbb.text-m--regular;
   }
 
-  :host([disabled]:not([disabled='false'])) & {
-    pointer-events: none;
-    cursor: default;
-
-    @include sbb.if-forced-colors {
-      color: GrayText;
-    }
-  }
-
   // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
   :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
     @include sbb.focus-outline;
@@ -84,11 +84,11 @@
     border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
   }
 
-  :host(:hover:not([disabled]:not([disabled='false']))) & {
+  :host(:hover:not([disabled])) & {
     @include sbb.link-hover-rules;
   }
 
-  :host(:is(:active, [data-active]):not([disabled]:not([disabled='false']))) & {
+  :host(:is(:active, [data-active]):not([disabled])) & {
     // Active definitions have to be after :hover definitions
     @include sbb.link-active-rules;
   }

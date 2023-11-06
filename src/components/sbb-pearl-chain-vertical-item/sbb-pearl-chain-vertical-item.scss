@@ -182,7 +182,7 @@ slot[name='right']::slotted(*) {
 
   inset-block-start: var(--sbb-pearl-chain-vertical-item-position);
 
-  :host([disable-animation]:not([disable-animation='false'])) & {
+  :host([disable-animation]) & {
     animation: unset !important;
   }
 }
