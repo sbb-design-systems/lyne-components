@@ -1,6 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-slider';
+import './slider';
 
 describe('sbb-slider', () => {
   it('renders', async () => {

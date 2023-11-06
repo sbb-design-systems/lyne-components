@@ -3,7 +3,7 @@ import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import type { Meta, StoryObj, ArgTypes } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import './sbb-icon';
+import './icon';
 
 const Template = (args): JSX.Element => <sbb-icon {...args}></sbb-icon>;
 

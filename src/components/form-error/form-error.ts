@@ -2,7 +2,7 @@ import { assignId } from '../core/a11y';
 import { isValidAttribute } from '../core/dom';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import style from './sbb-form-error.scss?lit&inline';
+import style from './form-error.scss?lit&inline';
 
 let nextId = 0;
 

@@ -4,7 +4,7 @@ import { isRideLeg, Leg, PtRideLeg } from '../core/timetable';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import style from './sbb-pearl-chain.scss?lit&inline';
+import style from './pearl-chain.scss?lit&inline';
 
 type Status = 'progress' | 'future' | 'past';
 

@@ -1,1 +1,1 @@
-export * from './sbb-menu';
+export * from './menu';

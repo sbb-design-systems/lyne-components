@@ -1,8 +1,8 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { EventSpy, waitForLitRender } from '../core/testing';
-import { SbbFileSelector } from './sbb-file-selector';
-import { SbbButton } from '../sbb-button';
+import { SbbFileSelector } from './file-selector';
+import { SbbButton } from '../button';
 
 function addFilesToComponentInput(
   elem: SbbFileSelector,

@@ -1,1 +1,1 @@
-export * from './sbb-button';
+export * from './button';

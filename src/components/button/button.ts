@@ -21,8 +21,8 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';
 import { setAttribute, setAttributes } from '../core/dom';
-import style from './sbb-button.scss?lit&inline';
-import '../sbb-icon';
+import style from './button.scss?lit&inline';
+import '../icon';
 
 export type SbbButtonSize = 'l' | 'm';
 

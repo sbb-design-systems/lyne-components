@@ -1,6 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-expansion-panel-content';
+import './expansion-panel-content';
 
 describe('sbb-expansion-panel-content', () => {
   it('renders', async () => {

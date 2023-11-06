@@ -1,7 +1,7 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { EventSpy } from '../core/testing';
-import { SbbExpansionPanelHeader } from './sbb-expansion-panel-header';
+import { EventSpy } from '../../core/testing';
+import { SbbExpansionPanelHeader } from './expansion-panel-header';
 
 describe('sbb-expansion-panel-header', () => {
   let element: SbbExpansionPanelHeader;

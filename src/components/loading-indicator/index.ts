@@ -1,1 +1,1 @@
-export * from './sbb-loading-indicator';
+export * from './loading-indicator';

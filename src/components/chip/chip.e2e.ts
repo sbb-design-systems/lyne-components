@@ -1,6 +1,6 @@
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SbbChip } from './sbb-chip';
+import { SbbChip } from './chip';
 
 describe('sbb-chip', () => {
   it('renders', async () => {

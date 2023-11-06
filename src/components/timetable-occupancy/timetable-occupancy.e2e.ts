@@ -1,7 +1,7 @@
-import sampleData from './sbb-timetable-occupancy.sample-data';
+import sampleData from './timetable-occupancy.sample-data';
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SbbTimetableOccupancy } from './sbb-timetable-occupancy';
+import { SbbTimetableOccupancy } from './timetable-occupancy';
 
 const config = JSON.stringify(sampleData[3]);
 

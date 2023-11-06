@@ -1,7 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { i18nCloseTooltip } from '../core/i18n';
-import './sbb-tooltip';
+import { i18nCloseTooltip } from '../../core/i18n';
+import './tooltip';
 
 describe('sbb-tooltip', () => {
   it('renders', async () => {

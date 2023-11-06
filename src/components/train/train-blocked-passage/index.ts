@@ -1,1 +1,1 @@
-export * from './sbb-train-blocked-passage';
+export * from './train-blocked-passage';

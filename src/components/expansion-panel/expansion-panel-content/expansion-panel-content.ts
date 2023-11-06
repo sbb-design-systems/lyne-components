@@ -1,7 +1,7 @@
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { setAttribute } from '../core/dom';
-import style from './sbb-expansion-panel-content.scss?lit&inline';
+import { setAttribute } from '../../core/dom';
+import style from './expansion-panel-content.scss?lit&inline';
 
 /**
  * @slot - Use the unnamed slot to add content to the expansion panel.

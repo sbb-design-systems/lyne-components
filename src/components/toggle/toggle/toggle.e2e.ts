@@ -1,11 +1,11 @@
 import { assert, expect, fixture, nextFrame } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
-import '../sbb-toggle-option';
-import { SbbToggleOption } from '../sbb-toggle-option';
-import './sbb-toggle';
-import { SbbToggle } from './sbb-toggle';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
+import '../toggle-option';
+import { SbbToggleOption } from '../toggle-option';
+import './toggle';
+import { SbbToggle } from './toggle';
 
 describe('sbb-toggle', () => {
   let element: SbbToggle;

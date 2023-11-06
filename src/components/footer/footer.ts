@@ -1,8 +1,8 @@
 import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import style from './sbb-footer.scss?lit&inline';
+import style from './footer.scss?lit&inline';
 import { html, unsafeStatic } from 'lit/static-html.js';
-import { TitleLevel } from '../sbb-title';
+import { TitleLevel } from '../title';
 
 /**
  * TODO: Document me

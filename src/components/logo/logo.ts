@@ -1,6 +1,6 @@
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import style from './sbb-logo.scss?lit&inline';
+import style from './logo.scss?lit&inline';
 import { SbbProtectiveRoom } from '../core/interfaces';
 
 /**

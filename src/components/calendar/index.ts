@@ -1,1 +1,1 @@
-export * from './sbb-calendar';
+export * from './calendar';

@@ -1,1 +1,1 @@
-export * from './sbb-skiplink-list';
+export * from './skiplink-list';

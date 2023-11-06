@@ -1,9 +1,9 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
-import sampleData from './sbb-timetable-duration.sample-data';
+import sampleData from './timetable-duration.sample-data';
 import type { Meta, StoryObj, Args } from '@storybook/web-components';
-import './sbb-timetable-duration';
+import './timetable-duration';
 
 const Template = (args): JSX.Element => (
   <sbb-timetable-duration config={JSON.stringify(args.config)}></sbb-timetable-duration>

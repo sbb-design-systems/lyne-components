@@ -1,10 +1,10 @@
 import { assert, expect, fixture, nextFrame } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { waitForCondition, waitForLitRender } from '../core/testing';
-import { SbbFormField } from './sbb-form-field';
-import { SbbSelect } from '../sbb-select';
-import { SbbOption } from '../sbb-option';
+import { waitForCondition, waitForLitRender } from '../../core/testing';
+import { SbbFormField } from './form-field';
+import { SbbSelect } from '../../select';
+import { SbbOption } from '../../option';
 
 describe('sbb-form-field', () => {
   describe('with input', () => {

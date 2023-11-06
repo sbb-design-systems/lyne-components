@@ -1,6 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-file-selector';
+import './file-selector';
 
 describe('sbb-file-selector', () => {
   it('renders default', async () => {

@@ -3,8 +3,8 @@ import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import '../sbb-link';
-import './sbb-link-list';
+import '../link';
+import './link-list';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative

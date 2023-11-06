@@ -1,5 +1,5 @@
-import './sbb-calendar';
-import '../sbb-button';
+import './calendar';
+import '../button';
 
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';

@@ -11,8 +11,8 @@ import type {
   StoryContext,
 } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import './sbb-form-field-clear';
-import '../sbb-form-field';
+import './form-field-clear';
+import '../form-field';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative

@@ -1,15 +1,15 @@
 import {
   InterfaceImageAttributes,
   InterfaceImageAttributesSizesConfigBreakpoint,
-} from './sbb-image.helper';
-import imageHelperGetBreakpoints from './sbb-image.helper';
+} from './image.helper';
+import imageHelperGetBreakpoints from './image.helper';
 import { hostContext } from '../core/dom';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';
 import { classMap } from 'lit/directives/class-map.js';
 import { ref } from 'lit/directives/ref.js';
-import style from './sbb-image.scss?lit&inline';
+import style from './image.scss?lit&inline';
 
 const eventListenerOptions = {
   once: true,

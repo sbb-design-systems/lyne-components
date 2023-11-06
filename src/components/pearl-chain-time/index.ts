@@ -1,1 +1,1 @@
-export * from './sbb-pearl-chain-time';
+export * from './pearl-chain-time';

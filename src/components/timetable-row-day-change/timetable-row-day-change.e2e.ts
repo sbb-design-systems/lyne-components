@@ -1,7 +1,7 @@
-import sampleData from './sbb-timetable-row-day-change.sample-data';
+import sampleData from './timetable-row-day-change.sample-data';
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SbbTimetableRowDayChange } from './sbb-timetable-row-day-change';
+import { SbbTimetableRowDayChange } from './timetable-row-day-change';
 
 const config = JSON.stringify(sampleData[1]);
 

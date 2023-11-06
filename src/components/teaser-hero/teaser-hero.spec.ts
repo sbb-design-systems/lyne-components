@@ -1,9 +1,9 @@
 import sampleImages from '../core/images';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-teaser-hero';
-import '../sbb-link';
-import '../sbb-image';
+import './teaser-hero';
+import '../link';
+import '../image';
 
 describe('sbb-teaser-hero', () => {
   it('should render all properties', async () => {

@@ -1,1 +1,1 @@
-export * from './sbb-map-container';
+export * from './map-container';

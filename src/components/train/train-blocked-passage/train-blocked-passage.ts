@@ -1,6 +1,6 @@
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import style from './sbb-train-blocked-passage.scss?lit&inline';
+import style from './train-blocked-passage.scss?lit&inline';
 
 /**
  * TODO: Document me

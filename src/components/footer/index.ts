@@ -1,1 +1,1 @@
-export * from './sbb-footer';
+export * from './footer';

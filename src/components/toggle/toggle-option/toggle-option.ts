@@ -1,16 +1,16 @@
 import { CSSResult, LitElement, TemplateResult, html, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { setAttribute } from '../core/dom';
+import { setAttribute } from '../../core/dom';
 import {
   ConnectedAbortController,
   EventEmitter,
   HandlerRepository,
   createNamedSlotState,
   namedSlotChangeHandlerAspect,
-} from '../core/eventing';
-import '../sbb-icon';
-import { type SbbToggle, type SbbToggleStateChange } from '../sbb-toggle';
-import style from './sbb-toggle-option.scss?lit&inline';
+} from '../../core/eventing';
+import '../../icon';
+import { type SbbToggle, type SbbToggleStateChange } from '../toggle';
+import style from './toggle-option.scss?lit&inline';
 
 /**
  * @slot - Use the unnamed slot to add content to the label of the toggle option.

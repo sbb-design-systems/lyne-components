@@ -1,6 +1,6 @@
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SbbJourneySummary } from './sbb-journey-summary';
+import { SbbJourneySummary } from './journey-summary';
 
 describe('sbb-journey-summary', () => {
   it('renders', async () => {

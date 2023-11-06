@@ -1,7 +1,7 @@
-import sampleData from './sbb-timetable-row-header.sample-data';
+import sampleData from './timetable-row-header.sample-data';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-timetable-row-header';
+import './timetable-row-header';
 
 const config = JSON.stringify(sampleData[0]);
 

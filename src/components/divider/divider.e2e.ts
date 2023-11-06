@@ -1,6 +1,6 @@
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SbbDivider } from './sbb-divider';
+import { SbbDivider } from './divider';
 
 describe('sbb-divider', () => {
   it('renders', async () => {

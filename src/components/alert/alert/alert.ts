@@ -1,21 +1,21 @@
-import { i18nCloseAlert, i18nFindOutMore } from '../core/i18n';
-import { LinkProperties, LinkTargetType } from '../core/interfaces';
-import { TitleLevel } from '../sbb-title';
+import { i18nCloseAlert, i18nFindOutMore } from '../../core/i18n';
+import { LinkProperties, LinkTargetType } from '../../core/interfaces';
+import { TitleLevel } from '../../title';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
   EventEmitter,
-} from '../core/eventing';
+} from '../../core/eventing';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { spread } from '@open-wc/lit-helpers';
-import style from './sbb-alert.scss?lit&inline';
-import '../sbb-title';
-import '../sbb-divider';
-import '../sbb-link';
-import '../sbb-button';
+import style from './alert.scss?lit&inline';
+import '../../title';
+import '../../divider';
+import '../../link';
+import '../../button';
 
 /**
  * @slot icon - Should be a sbb-icon which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.

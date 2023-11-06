@@ -1,9 +1,9 @@
-import { AgnosticResizeObserver } from '../core/observers';
+import { AgnosticResizeObserver } from '../../core/observers';
 import { CSSResult, html, LitElement, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { SbbNavigationAction } from '../sbb-navigation-action';
-import { setAttribute } from '../core/dom';
-import style from './sbb-navigation-marker.scss?lit&inline';
+import { SbbNavigationAction } from '../navigation-action';
+import { setAttribute } from '../../core/dom';
+import style from './navigation-marker.scss?lit&inline';
 
 /**
  * @slot - Use the unnamed slot to add `sbb-navigation-action` elements into the sbb-navigation-marker.

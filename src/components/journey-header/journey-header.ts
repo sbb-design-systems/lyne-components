@@ -1,12 +1,12 @@
 import { i18nConnectionFrom, i18nConnectionRoundtrip, i18nConnectionTo } from '../core/i18n';
-import { TitleLevel } from '../sbb-title';
+import { TitleLevel } from '../title';
 import { getDocumentWritingMode } from '../core/dom';
 import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import style from './sbb-journey-header.scss?lit&inline';
-import '../sbb-title';
-import '../sbb-icon';
+import style from './journey-header.scss?lit&inline';
+import '../title';
+import '../icon';
 
 export type JourneyHeaderSize = 'm' | 'l';
 

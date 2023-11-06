@@ -3,7 +3,7 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { EventSpy, waitForLitRender } from '../core/testing';
-import { SbbTimeInput } from './sbb-time-input';
+import { SbbTimeInput } from './time-input';
 import { ValidationChangeEvent } from '../core/interfaces';
 
 describe('sbb-time-input', () => {

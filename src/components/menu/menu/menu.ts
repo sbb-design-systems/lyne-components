@@ -6,7 +6,7 @@ import {
   removeInertMechanism,
   SbbOverlayState,
   setAriaOverlayTriggerAttributes,
-} from '../core/overlay';
+} from '../../core/overlay';
 import {
   assignId,
   FocusTrap,
@@ -15,20 +15,20 @@ import {
   IS_FOCUSABLE_QUERY,
   isArrowKeyPressed,
   setModalityOnNextFocus,
-} from '../core/a11y';
+} from '../../core/a11y';
 import {
   findReferencedElement,
   isBreakpoint,
   isValidAttribute,
   ScrollHandler,
   setAttribute,
-} from '../core/dom';
+} from '../../core/dom';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { EventEmitter, ConnectedAbortController } from '../core/eventing';
-import { SbbMenuAction } from '../sbb-menu-action';
+import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
+import { SbbMenuAction } from '../menu-action';
 import { ref } from 'lit/directives/ref.js';
-import style from './sbb-menu.scss?lit&inline';
+import style from './menu.scss?lit&inline';
 
 const MENU_OFFSET = 8;
 const INTERACTIVE_ELEMENTS = ['A', 'BUTTON', 'SBB-BUTTON', 'SBB-LINK'];

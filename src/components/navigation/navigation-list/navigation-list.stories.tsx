@@ -3,8 +3,8 @@ import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import './sbb-navigation-list';
-import '../sbb-navigation-action';
+import './navigation-list';
+import '../navigation-action';
 
 const label: InputType = {
   control: {

@@ -3,9 +3,9 @@ import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import './sbb-tooltip-trigger';
-import '../sbb-tooltip';
-import '../sbb-link';
+import './tooltip-trigger';
+import '../tooltip';
+import '../../link';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative

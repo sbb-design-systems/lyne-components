@@ -1,1 +1,1 @@
-export * from './sbb-time-input';
+export * from './time-input';

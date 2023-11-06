@@ -44,7 +44,7 @@
     "lint:js": "eslint \"**/*.js\"",
     "lint:yml": "eslint \"**/*.{yml,yaml}\"",
     "lint:styles": "stylelint \"**/*.scss\"",
-    "lint:lit": "yarn lit-analyzer \"src/components/**/*.tsx\"",
+    "lint:lit": "yarn lit-analyzer \"src/components/**/*.ts\"",
     "lint:circular-imports": "madge --circular --extensions ts,tsx ./",
     "start": "storybook dev -p 6006",
     "test": "wtr --coverage --group default",

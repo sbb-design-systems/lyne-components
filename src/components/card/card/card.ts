@@ -1,6 +1,6 @@
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import style from './sbb-card.scss?lit&inline';
+import style from './card.scss?lit&inline';
 
 /**
  * @slot - Use the unnamed slot to add content to the card.

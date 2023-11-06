@@ -3,10 +3,10 @@ import { html } from 'lit/static-html.js';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
 import { i18nDialog } from '../core/i18n';
-import { SbbDialog } from './sbb-dialog';
-import '../sbb-button';
-import '../sbb-icon';
-import '../sbb-title';
+import { SbbDialog } from './dialog';
+import '../button';
+import '../icon';
+import '../title';
 
 async function openDialog(element: SbbDialog): Promise<void> {
   const willOpen = new EventSpy(SbbDialog.events.willOpen);

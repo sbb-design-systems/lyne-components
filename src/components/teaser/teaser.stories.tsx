@@ -5,7 +5,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import placeholderImage from './stories/placeholder.png';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import './sbb-teaser';
+import './teaser';
 
 /* ************************************************* */
 /* Storybook controls                                */

@@ -1,1 +1,1 @@
-export * from './sbb-datepicker';
+export * from './datepicker';

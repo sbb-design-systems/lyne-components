@@ -1,1 +1,1 @@
-export * from './sbb-accordion';
+export * from './accordion';

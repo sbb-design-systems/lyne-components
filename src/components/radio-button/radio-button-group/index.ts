@@ -1,1 +1,1 @@
-export * from './sbb-radio-button-group';
+export * from './radio-button-group';

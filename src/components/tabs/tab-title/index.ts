@@ -1,1 +1,1 @@
-export * from './sbb-tab-title';
+export * from './tab-title';

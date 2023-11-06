@@ -2,12 +2,12 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
-import { i18nDateChangedTo } from '../core/i18n';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
-import { SbbDatepicker } from './sbb-datepicker';
+import { i18nDateChangedTo } from '../../core/i18n';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
+import { SbbDatepicker } from './datepicker';
 
-import '../sbb-form-field';
-import './sbb-datepicker';
+import '../../form-field';
+import './datepicker';
 
 describe('sbb-datepicker', () => {
   it('renders', async () => {

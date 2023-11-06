@@ -1,1 +1,1 @@
-export * from './sbb-action-group';
+export * from './action-group';

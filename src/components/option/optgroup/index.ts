@@ -1,1 +1,1 @@
-export * from './sbb-optgroup';
+export * from './optgroup';

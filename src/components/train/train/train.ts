@@ -1,18 +1,18 @@
-import { i18nTrain, i18nWagonsLabel } from '../core/i18n';
-import { TitleLevel } from '../sbb-title';
+import { i18nTrain, i18nWagonsLabel } from '../../core/i18n';
+import { TitleLevel } from '../../title';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
   EventEmitter,
-} from '../core/eventing';
+} from '../../core/eventing';
 import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
-import { SbbTrainBlockedPassage } from '../sbb-train-blocked-passage';
-import { SbbTrainWagon } from '../sbb-train-wagon';
-import style from './sbb-train.scss?lit&inline';
-import '../sbb-icon';
+import { SbbTrainBlockedPassage } from '../train-blocked-passage';
+import { SbbTrainWagon } from '../train-wagon';
+import style from './train.scss?lit&inline';
+import '../../icon';
 
 /**
  * @slot - Use the unnamed slot to add 'sbb-train-wagon' elements to this train.

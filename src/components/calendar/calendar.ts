@@ -29,9 +29,9 @@ import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } 
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { SbbDateLike } from '../core/interfaces';
-import style from './sbb-calendar.scss?lit&inline';
-import '../sbb-button';
-import '../sbb-icon';
+import style from './calendar.scss?lit&inline';
+import '../button';
+import '../icon';
 
 /**
  * In keyboard navigation, the cell's index and the element's index in its month / year batch must be distinguished;

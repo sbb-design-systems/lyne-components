@@ -1,10 +1,10 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
-import sampleData from './sbb-timetable-transportation-time.sample-data';
+import sampleData from './timetable-transportation-time.sample-data';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import './sbb-timetable-transportation-time';
+import './timetable-transportation-time';
 
 const Template = (args): JSX.Element => (
   <sbb-timetable-transportation-time

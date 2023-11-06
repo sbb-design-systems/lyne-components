@@ -1,10 +1,10 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { waitForLitRender } from '../core/testing';
-import { type SbbToggle } from './sbb-toggle';
-import { type SbbToggleOption } from '../sbb-toggle-option';
-import './sbb-toggle';
-import '../sbb-toggle-option';
+import { waitForLitRender } from '../../core/testing';
+import { type SbbToggle } from './toggle';
+import { type SbbToggleOption } from '../toggle-option';
+import './toggle';
+import '../toggle-option';
 
 describe('sbb-toggle', () => {
   let option: SbbToggleOption, page: SbbToggle;

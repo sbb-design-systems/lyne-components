@@ -4,7 +4,7 @@ import isChromatic from 'chromatic';
 import readme from './readme.md?raw';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import './sbb-clock';
+import './clock';
 
 const dataNow: InputType = {
   control: {

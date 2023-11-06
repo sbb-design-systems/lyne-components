@@ -1,6 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-tag-group';
+import './tag-group';
 
 describe('sbb-tag-group', () => {
   it('renders', async () => {

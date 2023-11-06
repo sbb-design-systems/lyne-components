@@ -1,17 +1,18 @@
-import { toggleDatasetEntry } from '../core/dom';
+import { toggleDatasetEntry } from '../../core/dom';
 import { CSSResult, LitElement, TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property } from 'lit/decorators.js';
-import { EventEmitter, ConnectedAbortController } from '../core/eventing';
-import { SbbExpansionPanelHeader } from '../sbb-expansion-panel-header';
-import { SbbExpansionPanelContent } from '../sbb-expansion-panel-content';
-import { TitleLevel } from '../sbb-title';
-import { SbbOverlayState } from '../core/overlay';
-import style from './sbb-expansion-panel.scss?lit&inline';
+import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
+import { SbbExpansionPanelHeader } from '../expansion-panel-header';
+import { SbbExpansionPanelContent } from '../expansion-panel-content';
+import { TitleLevel } from '../../title';
+import { SbbOverlayState } from '../../core/overlay';
+import style from './expansion-panel.scss?lit&inline';
 
 let nextId = 0;
 
 /**
+ * @slot - Use this slot to add a `sbb-expansion-panel-header` and a `sbb-expansion-panel-content` element.
  * @slot header - Use this to render the sbb-expansion-panel-header.
  * @slot content - Use this to render the sbb-expansion-panel-content.
  * @event {CustomEvent<void>} will-open - Emits whenever the sbb-expansion-panel starts the opening transition.

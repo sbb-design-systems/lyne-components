@@ -1,1 +1,1 @@
-export * from './sbb-breadcrumb-group';
+export * from './breadcrumb-group';

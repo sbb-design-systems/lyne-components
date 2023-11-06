@@ -1,5 +1,5 @@
-import { SbbFooter } from './sbb-footer';
-import './sbb-footer';
+import { SbbFooter } from './footer';
+import './footer';
 
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';

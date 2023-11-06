@@ -5,24 +5,24 @@ import {
   LinkTargetType,
   resolveRenderVariables,
   targetsNewWindow,
-} from '../core/interfaces';
-import { IS_FOCUSABLE_QUERY } from '../core/a11y';
-import { toggleDatasetEntry } from '../core/dom';
+} from '../../core/interfaces';
+import { IS_FOCUSABLE_QUERY } from '../../core/a11y';
+import { toggleDatasetEntry } from '../../core/dom';
 import {
   documentLanguage,
   HandlerRepository,
   actionElementHandlerAspect,
   languageChangeHandlerAspect,
-} from '../core/eventing';
-import { AgnosticMutationObserver } from '../core/observers';
+} from '../../core/eventing';
+import { AgnosticMutationObserver } from '../../core/observers';
 import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { SbbCard } from '../sbb-card';
-import { setAttribute, setAttributes } from '../core/dom';
-import style from './sbb-card-action.scss?lit&inline';
+import { SbbCard } from '../card';
+import { setAttribute, setAttributes } from '../../core/dom';
+import style from './card-action.scss?lit&inline';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { spread } from '@open-wc/lit-helpers';
-import { i18nTargetOpensInNewWindow } from '../core/i18n';
+import { i18nTargetOpensInNewWindow } from '../../core/i18n';
 
 /**
  * @slot - Use the unnamed slot to add a descriptive label / title of the action (important!).

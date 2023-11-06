@@ -1,9 +1,9 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { waitForLitRender } from '../core/testing';
-import { SbbTabGroup } from './sbb-tab-group';
-import '../sbb-tab-group';
-import '../sbb-tab-title';
+import { waitForLitRender } from '../../core/testing';
+import { SbbTabGroup } from './tab-group';
+import '../tab-group';
+import '../tab-title';
 
 describe('sbb-tab-group', () => {
   let element: SbbTabGroup;

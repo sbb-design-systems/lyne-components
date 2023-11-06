@@ -1,8 +1,8 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { waitForLitRender } from '../core/testing';
-import { SbbLinkList } from './sbb-link-list';
-import '../sbb-link';
+import { SbbLinkList } from './link-list';
+import '../link';
 
 describe('sbb-link-list', () => {
   let element: SbbLinkList;

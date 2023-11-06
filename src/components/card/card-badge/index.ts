@@ -1,1 +1,1 @@
-export * from './sbb-card-badge';
+export * from './card-badge';

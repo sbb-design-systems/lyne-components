@@ -1,26 +1,26 @@
 import { CSSResult, LitElement, PropertyValues, TemplateResult, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { DateAdapter, NativeDateAdapter } from '../core/datetime';
-import { isValidAttribute, setAttribute, setAttributes, toggleDatasetEntry } from '../core/dom';
+import { DateAdapter, NativeDateAdapter } from '../../core/datetime';
+import { isValidAttribute, setAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
 import {
   ConnectedAbortController,
   HandlerRepository,
   actionElementHandlerAspect,
   documentLanguage,
   languageChangeHandlerAspect,
-} from '../core/eventing';
-import { i18nPreviousDay, i18nSelectPreviousDay, i18nToday } from '../core/i18n';
-import { resolveButtonRenderVariables } from '../core/interfaces';
+} from '../../core/eventing';
+import { i18nPreviousDay, i18nSelectPreviousDay, i18nToday } from '../../core/i18n';
+import { resolveButtonRenderVariables } from '../../core/interfaces';
 import {
   InputUpdateEvent,
   datepickerControlRegisteredEvent,
   findPreviousAvailableDate,
   getDatePicker,
   type SbbDatepicker,
-} from '../sbb-datepicker';
-import style from './sbb-datepicker-previous-day.scss?lit&inline';
+} from '../datepicker';
+import style from './datepicker-previous-day.scss?lit&inline';
 
-import '../sbb-icon';
+import '../../icon';
 
 /**
  * TODO: Document me

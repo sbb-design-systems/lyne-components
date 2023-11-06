@@ -5,7 +5,7 @@ import sampleImages from '../core/images';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import './sbb-teaser-hero';
+import './teaser-hero';
 
 const ariaLabel: InputType = {
   control: {

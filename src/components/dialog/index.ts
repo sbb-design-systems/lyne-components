@@ -1,1 +1,1 @@
-export * from './sbb-dialog';
+export * from './dialog';

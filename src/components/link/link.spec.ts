@@ -1,6 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-link';
+import './link';
 
 describe('sbb-link', () => {
   it('renders a plain link with no icon', async () => {

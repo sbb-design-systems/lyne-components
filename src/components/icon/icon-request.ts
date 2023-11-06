@@ -1,4 +1,4 @@
-import { validateContent } from './sbb-icon-validate';
+import { validateContent } from './icon-validate';
 import { readConfig, SbbIconConfig } from '../core/config';
 
 const iconCdn = 'https://icons.app.sbb.ch/';

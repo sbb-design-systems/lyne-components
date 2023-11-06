@@ -9,11 +9,11 @@ import {
   longFutureLeg,
   redirectedOnDepartureLeg,
   redirectedOnArrivalLeg,
-} from './sbb-pearl-chain.sample-data';
+} from './pearl-chain.sample-data';
 import isChromatic from 'chromatic';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import './sbb-pearl-chain';
+import './pearl-chain';
 
 const disableAnimation: InputType = {
   control: {

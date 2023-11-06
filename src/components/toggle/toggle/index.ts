@@ -1,1 +1,1 @@
-export * from './sbb-toggle';
+export * from './toggle';

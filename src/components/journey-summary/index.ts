@@ -1,1 +1,1 @@
-export * from './sbb-journey-summary';
+export * from './journey-summary';

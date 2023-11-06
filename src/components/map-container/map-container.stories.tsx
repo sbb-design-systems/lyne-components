@@ -3,12 +3,12 @@ import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import './sbb-map-container';
-import '../sbb-form-field';
-import '../sbb-icon';
-import '../sbb-title';
-import '../sbb-header';
-import '../sbb-header-action';
+import './map-container';
+import '../form-field';
+import '../icon';
+import '../title';
+import '../header';
+import '../header';
 
 const hideScrollUpButton: InputType = {
   control: {

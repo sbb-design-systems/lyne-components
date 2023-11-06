@@ -3,7 +3,7 @@ import { i18nBarrierFreeTravel } from '../core/i18n';
 import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import style from './sbb-timetable-barrier-free.scss?lit&inline';
+import style from './timetable-barrier-free.scss?lit&inline';
 
 /**
  * TODO: Document me

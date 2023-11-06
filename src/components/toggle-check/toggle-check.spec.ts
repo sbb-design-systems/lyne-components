@@ -1,4 +1,4 @@
-import './sbb-toggle-check';
+import './toggle-check';
 
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';

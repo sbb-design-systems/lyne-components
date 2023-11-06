@@ -2,8 +2,8 @@
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import { userEvent, within } from '@storybook/testing-library';
-import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
+import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
+import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
 import isChromatic from 'chromatic';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type {
@@ -15,9 +15,9 @@ import type {
   StoryContext,
 } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import { SbbTooltipTrigger } from '../sbb-tooltip-trigger';
+import { SbbTooltipTrigger } from '../../tooltip';
 
-import './sbb-datepicker-toggle';
+import './datepicker-toggle';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative

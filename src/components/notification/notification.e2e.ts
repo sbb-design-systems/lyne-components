@@ -3,10 +3,10 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { EventSpy, waitForLitRender } from '../core/testing';
-import { SbbNotification } from './sbb-notification';
-import { SbbButton } from '../sbb-button';
-import '../sbb-link';
-import '../sbb-button';
+import { SbbNotification } from './notification';
+import { SbbButton } from '../button';
+import '../link';
+import '../button';
 
 describe('sbb-notification', () => {
   let element: SbbNotification;

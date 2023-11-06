@@ -1,1 +1,1 @@
-export * from './sbb-file-selector';
+export * from './file-selector';

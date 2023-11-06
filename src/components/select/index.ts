@@ -1,1 +1,1 @@
-export * from './sbb-select';
+export * from './select';

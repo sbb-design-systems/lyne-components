@@ -21,7 +21,7 @@ The icon can be placed before or after the label based on the value of the `icon
 The component could be checked or not depending on the value of the `checked` attribute.
 
 ```html
-<sbb-checkbox value="checked-checkbox" checked="true">Checked state</sbb-checkbox>
+<sbb-checkbox value="checked-checkbox" checked>Checked state</sbb-checkbox>
 ```
 
 It has a third state too, which is set if the `indeterminate` property is true.

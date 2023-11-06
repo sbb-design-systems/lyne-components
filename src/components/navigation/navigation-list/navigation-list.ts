@@ -2,13 +2,13 @@ import {
   createNamedSlotState,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
-} from '../core/eventing';
+} from '../../core/eventing';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';
-import { SbbNavigationAction } from '../sbb-navigation-action';
-import { setAttribute } from '../core/dom';
-import style from './sbb-navigation-list.scss?lit&inline';
+import { SbbNavigationAction } from '../navigation-action';
+import { setAttribute } from '../../core/dom';
+import style from './navigation-list.scss?lit&inline';
 
 /**
  * @slot label - Use this to provide a label element.

@@ -2,9 +2,9 @@ import { toggleDatasetEntry } from '../core/dom';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ConnectedAbortController } from '../core/eventing';
-import { SbbExpansionPanel } from '../sbb-expansion-panel';
-import { TitleLevel } from '../sbb-title';
-import style from './sbb-accordion.scss?lit&inline';
+import { SbbExpansionPanel } from '../expansion-panel';
+import { TitleLevel } from '../title';
+import style from './accordion.scss?lit&inline';
 
 /**
  * @slot - Use the unnamed slot to add `sbb-expansion-panel` elements.

@@ -2,7 +2,7 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
-import { SbbToggleCheck } from './sbb-toggle-check';
+import { SbbToggleCheck } from './toggle-check';
 
 describe('sbb-toggle-check', () => {
   let element: SbbToggleCheck;

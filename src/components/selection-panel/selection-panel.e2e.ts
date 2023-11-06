@@ -3,17 +3,17 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
 import { TemplateResult } from 'lit';
-import { SbbSelectionPanel } from './sbb-selection-panel';
-import { SbbRadioButton } from '../sbb-radio-button';
-import { SbbRadioButtonGroup } from '../sbb-radio-button-group';
-import { SbbCheckbox } from '../sbb-checkbox';
-import { SbbCheckboxGroup } from '../sbb-checkbox-group';
-import './sbb-selection-panel';
-import '../sbb-radio-button';
-import '../sbb-radio-button-group';
-import '../sbb-checkbox';
-import '../sbb-checkbox-group';
-import '../sbb-link';
+import { SbbSelectionPanel } from './selection-panel';
+import { SbbRadioButton } from '../radio-button';
+import { SbbRadioButtonGroup } from '../radio-button';
+import { SbbCheckbox } from '../checkbox';
+import { SbbCheckboxGroup } from '../checkbox';
+import './selection-panel';
+import '../radio-button';
+import '../radio-button';
+import '../checkbox';
+import '../checkbox';
+import '../link';
 
 describe('sbb-selection-panel', () => {
   let elements: SbbSelectionPanel[];

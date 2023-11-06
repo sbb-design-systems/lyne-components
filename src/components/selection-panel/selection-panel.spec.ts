@@ -1,6 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-selection-panel';
+import './selection-panel';
 
 describe('sbb-selection-panel', () => {
   it('renders', async () => {
@@ -13,9 +13,11 @@ describe('sbb-selection-panel', () => {
           <span>from CHF</span>
           <span>19.99</span>
         </sbb-card-badge>
-        <sbb-checkbox>Value one</sbb-checkbox>
-        <span slot="subtext">Subtext</span>
-        <span slot="suffix">Suffix</span>
+        <sbb-checkbox>
+          Value one
+          <span slot="subtext">Subtext</span>
+          <span slot="suffix">Suffix</span>
+        </sbb-checkbox>
         <div slot="content">Inner content</div>
       </sbb-selection-panel>`,
     );
@@ -27,9 +29,11 @@ describe('sbb-selection-panel', () => {
           <span>from CHF</span>
           <span>19.99</span>
         </sbb-card-badge>
-        <sbb-checkbox>Value one</sbb-checkbox>
-        <span slot="subtext">Subtext</span>
-        <span slot="suffix">Suffix</span>
+        <sbb-checkbox>
+          Value one
+          <span slot="subtext">Subtext</span>
+          <span slot="suffix">Suffix</span>
+        </sbb-checkbox>
         <div slot="content">Inner content</div>
       </sbb-selection-panel>`);
 

@@ -5,9 +5,9 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 import { StoryContext } from '@storybook/web-components';
-import { SbbTimeInput } from './sbb-time-input';
+import { SbbTimeInput } from './time-input';
 
-import '../sbb-form-field';
+import '../form-field';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative

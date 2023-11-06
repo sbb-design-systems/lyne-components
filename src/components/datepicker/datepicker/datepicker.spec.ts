@@ -1,8 +1,8 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { NativeDateAdapter } from '../core/datetime';
-import { findInput } from '../core/dom';
-import { SbbFormField } from '../sbb-form-field';
+import { NativeDateAdapter } from '../../core/datetime';
+import { findInput } from '../../core/dom';
+import { SbbFormField } from '../../form-field';
 import {
   SbbDatepicker,
   getDatePicker,
@@ -10,8 +10,8 @@ import {
   findPreviousAvailableDate,
   findNextAvailableDate,
   isDateAvailable,
-} from './sbb-datepicker';
-import './sbb-datepicker';
+} from './datepicker';
+import './datepicker';
 
 describe('sbb-datepicker', () => {
   it('renders', async () => {

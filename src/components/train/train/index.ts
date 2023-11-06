@@ -1,1 +1,1 @@
-export * from './sbb-train';
+export * from './train';

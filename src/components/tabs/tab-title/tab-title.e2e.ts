@@ -1,6 +1,6 @@
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SbbTabTitle } from './sbb-tab-title';
+import { SbbTabTitle } from './tab-title';
 
 describe('sbb-tab-title', () => {
   let element: SbbTabTitle;

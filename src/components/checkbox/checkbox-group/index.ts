@@ -1,1 +1,1 @@
-export * from './sbb-checkbox-group';
+export * from './checkbox-group';

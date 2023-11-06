@@ -1,5 +1,5 @@
 /** @jsx h */
-import { SbbAlert } from './sbb-alert';
+import { SbbAlert } from './alert';
 import readme from './readme.md?raw';
 import { h, JSX } from 'jsx-dom';
 import { withActions } from '@storybook/addon-actions/decorator';

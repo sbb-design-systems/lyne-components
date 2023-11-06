@@ -5,13 +5,13 @@ import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import { Fragment, h, JSX } from 'jsx-dom';
-import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
-import '../sbb-link';
-import '../sbb-tooltip-trigger';
+import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
+import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
+import '../../link';
+import '../tooltip-trigger';
 import readme from './readme.md?raw';
 
-import { SbbTooltip } from './sbb-tooltip';
+import { SbbTooltip } from './tooltip';
 
 async function commonPlayStory(canvasElement): Promise<Element> {
   const canvas = within(canvasElement);

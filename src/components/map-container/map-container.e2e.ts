@@ -2,8 +2,8 @@ import { waitForCondition } from '../core/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { setViewport } from '@web/test-runner-commands';
-import { SbbMapContainer } from './sbb-map-container';
-import '../sbb-map-container';
+import { SbbMapContainer } from './map-container';
+import '../map-container';
 
 describe('sbb-map-container', () => {
   let element: SbbMapContainer;

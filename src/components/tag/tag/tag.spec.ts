@@ -1,6 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-tag';
+import './tag';
 
 describe('sbb-tag', () => {
   it('renders unchecked', async () => {
@@ -27,7 +27,7 @@ describe('sbb-tag', () => {
   });
 
   it('renders checked', async () => {
-    const root = await fixture(html`<sbb-tag checked="true" value="info">Info</sbb-tag>`);
+    const root = await fixture(html`<sbb-tag checked value="info">Info</sbb-tag>`);
 
     expect(root).dom.to.be.equal(
       `
@@ -49,12 +49,7 @@ describe('sbb-tag', () => {
 
   it('renders disabled with icon and amount', async () => {
     const root = await fixture(html`
-      <sbb-tag
-        disabled="true"
-        amount="123"
-        icon-name="circle-information-small"
-        value="information"
-      >
+      <sbb-tag disabled amount="123" icon-name="circle-information-small" value="information">
         Info
       </sbb-tag>
     `);

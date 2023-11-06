@@ -5,21 +5,21 @@ import {
   LinkTargetType,
   resolveRenderVariables,
   targetsNewWindow,
-} from '../core/interfaces';
-import { i18nTargetOpensInNewWindow } from '../core/i18n';
+} from '../../core/interfaces';
+import { i18nTargetOpensInNewWindow } from '../../core/i18n';
 import {
   documentLanguage,
   HandlerRepository,
   actionElementHandlerAspect,
   languageChangeHandlerAspect,
-} from '../core/eventing';
+} from '../../core/eventing';
 import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';
-import { setAttributes } from '../core/dom';
-import style from './sbb-menu-action.scss?lit&inline';
-import '../sbb-icon';
+import { setAttributes } from '../../core/dom';
+import style from './menu-action.scss?lit&inline';
+import '../../icon';
 
 /**
  * @slot - Use the unnamed slot to add content to the menu action.

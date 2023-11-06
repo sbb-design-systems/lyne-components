@@ -1,7 +1,7 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SbbNavigationList } from './sbb-navigation-list';
-import '../sbb-navigation-action';
+import { SbbNavigationList } from './navigation-list';
+import '../navigation-action';
 
 describe('sbb-navigation-list', () => {
   let element: SbbNavigationList;

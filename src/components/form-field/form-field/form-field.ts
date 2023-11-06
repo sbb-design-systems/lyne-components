@@ -1,6 +1,6 @@
-import { i18nOptional } from '../core/i18n';
-import { AgnosticMutationObserver } from '../core/observers';
-import { isFirefox, isValidAttribute, toggleDatasetEntry } from '../core/dom';
+import { i18nOptional } from '../../core/i18n';
+import { AgnosticMutationObserver } from '../../core/observers';
+import { isFirefox, isValidAttribute, toggleDatasetEntry } from '../../core/dom';
 import {
   createNamedSlotState,
   documentLanguage,
@@ -8,13 +8,13 @@ import {
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
   ConnectedAbortController,
-} from '../core/eventing';
-import { SbbInputModality, sbbInputModalityDetector } from '../core/a11y';
+} from '../../core/eventing';
+import { SbbInputModality, sbbInputModalityDetector } from '../../core/a11y';
 import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import style from './sbb-form-field.scss?lit&inline';
-import { SbbSelect } from '../sbb-select';
-import '../sbb-icon';
+import style from './form-field.scss?lit&inline';
+import { SbbSelect } from '../../select';
+import '../../icon';
 
 let nextId = 0;
 let nextFormFieldErrorId = 0;

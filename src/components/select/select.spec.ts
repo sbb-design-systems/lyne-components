@@ -1,7 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import '../sbb-option';
-import './sbb-select';
+import '../option';
+import './select';
 import { isSafari } from '../core/dom';
 
 describe('sbb-select', () => {

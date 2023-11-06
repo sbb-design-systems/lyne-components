@@ -1,6 +1,6 @@
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import style from './sbb-chip.scss?lit&inline';
+import style from './chip.scss?lit&inline';
 
 /**
  * @slot - Use the unnamed slot to add content to the chip.

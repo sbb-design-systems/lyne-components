@@ -4,7 +4,7 @@ import readme from './readme.md?raw';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import './sbb-header-action';
+import './header-action';
 
 const TemplateSingle = (args): JSX.Element => (
   <sbb-header-action {...args}>{args.text}</sbb-header-action>

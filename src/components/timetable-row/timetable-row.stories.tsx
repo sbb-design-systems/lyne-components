@@ -19,12 +19,12 @@ import {
   skippedArrivalStopTrip,
   skippedFirstDepartureStopTrip,
   skippedLastArrivalStopTrip,
-} from './sbb-timetable-row.sample-data';
+} from './timetable-row.sample-data';
 import isChromatic from 'chromatic';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import './sbb-timetable-row';
+import './timetable-row';
 
 const cardActionLabel: InputType = {
   control: {

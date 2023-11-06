@@ -1,8 +1,8 @@
-import { findReferencedElement, toggleDatasetEntry } from '../core/dom';
+import { findReferencedElement, toggleDatasetEntry } from '../../core/dom';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import style from './sbb-header.scss?lit&inline';
-import '../sbb-logo';
+import style from './header.scss?lit&inline';
+import '../../logo';
 
 const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
 

@@ -1,7 +1,7 @@
-import sampleData from './sbb-timetable-park-and-rail.sample-data';
+import sampleData from './timetable-park-and-rail.sample-data';
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SbbTimetableParkAndRail } from './sbb-timetable-park-and-rail';
+import { SbbTimetableParkAndRail } from './timetable-park-and-rail';
 
 const config = JSON.stringify(sampleData[0]);
 

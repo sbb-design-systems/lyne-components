@@ -1,7 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-alert-group';
-import '../sbb-alert';
+import './alert-group';
+import '../alert';
 
 describe('sbb-alert-group', () => {
   it('should render', async () => {

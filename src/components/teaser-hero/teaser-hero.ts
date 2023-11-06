@@ -16,10 +16,10 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';
 import { setAttributes } from '../core/dom';
-import style from './sbb-teaser-hero.scss?lit&inline';
-import '../sbb-link';
-import '../sbb-icon';
-import '../sbb-image';
+import style from './teaser-hero.scss?lit&inline';
+import '../link';
+import '../icon';
+import '../image';
 
 /**
  * @slot - Use the unnamed slot to add text content to the panel

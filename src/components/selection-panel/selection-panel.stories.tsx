@@ -5,15 +5,15 @@ import isChromatic from 'chromatic';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import { SbbSelectionPanel } from './sbb-selection-panel';
-import './sbb-selection-panel';
-import '../sbb-card-badge';
-import '../sbb-checkbox';
-import '../sbb-checkbox-group';
-import '../sbb-form-error';
-import '../sbb-link';
-import '../sbb-radio-button';
-import '../sbb-radio-button-group';
+import { SbbSelectionPanel } from './selection-panel';
+import './selection-panel';
+import '../card';
+import '../checkbox';
+import '../checkbox';
+import '../form-error';
+import '../link';
+import '../radio-button';
+import '../radio-button';
 
 const color: InputType = {
   control: {

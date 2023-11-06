@@ -1,1 +1,1 @@
-export * from './sbb-menu-action';
+export * from './menu-action';

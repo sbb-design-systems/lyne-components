@@ -1,6 +1,6 @@
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SbbPearlChain } from './sbb-pearl-chain';
+import { SbbPearlChain } from './pearl-chain';
 
 describe('sbb-pearl-chain', () => {
   let element: SbbPearlChain;

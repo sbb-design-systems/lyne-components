@@ -5,9 +5,9 @@ import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 import isChromatic from 'chromatic';
 import { userEvent, within } from '@storybook/testing-library';
-import './sbb-loading-indicator';
-import '../sbb-button';
-import { SbbLoadingIndicator } from './sbb-loading-indicator';
+import './loading-indicator';
+import '../button';
+import { SbbLoadingIndicator } from './loading-indicator';
 
 const textBlockStyle: Args = {
   marginBlock: '1rem',

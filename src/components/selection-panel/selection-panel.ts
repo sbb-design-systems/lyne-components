@@ -7,12 +7,12 @@ import {
 } from '../core/eventing';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { type SbbCheckbox, SbbCheckboxStateChange } from '../sbb-checkbox';
-import { type SbbRadioButton, SbbRadioButtonStateChange } from '../sbb-radio-button';
+import { type SbbCheckbox, SbbCheckboxStateChange } from '../checkbox';
+import { type SbbRadioButton, SbbRadioButtonStateChange } from '../radio-button';
 import { setAttribute } from '../core/dom';
 import { ref } from 'lit/directives/ref.js';
-import style from './sbb-selection-panel.scss?lit&inline';
-import '../sbb-divider';
+import style from './selection-panel.scss?lit&inline';
+import '../divider';
 
 /**
  * @slot - Use the unnamed slot to add `sbb-checkbox` or `sbb-radio-button` elements to this selection panel.

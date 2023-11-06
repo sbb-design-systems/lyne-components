@@ -3,10 +3,10 @@ import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } 
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttributes } from '../core/dom';
 import { ref } from 'lit/directives/ref.js';
-import style from './sbb-slider.scss?lit&inline';
+import style from './slider.scss?lit&inline';
 import { spread } from '@open-wc/lit-helpers';
 import { styleMap } from 'lit/directives/style-map.js';
-import '../sbb-icon';
+import '../icon';
 
 /**
  * @slot prefix - Slot to render an icon on the left side of the input.

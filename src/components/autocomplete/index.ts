@@ -1,1 +1,1 @@
-export * from './sbb-autocomplete';
+export * from './autocomplete';

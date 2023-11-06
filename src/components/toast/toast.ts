@@ -13,12 +13,12 @@ import { i18nCloseAlert } from '../core/i18n';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttribute } from '../core/dom';
-import style from './sbb-toast.scss?lit&inline';
+import style from './toast.scss?lit&inline';
 import { SbbOverlayState } from '../core/overlay';
-import { SbbButton } from '../sbb-button';
-import { SbbLink } from '../sbb-link';
-import '../sbb-link';
-import '../sbb-button';
+import { SbbButton } from '../button';
+import { SbbLink } from '../link';
+import '../link';
+import '../button';
 
 type SbbToastPositionVertical = 'top' | 'bottom';
 type SbbToastPositionHorizontal = 'left' | 'start' | 'center' | 'right' | 'end';
@@ -29,6 +29,8 @@ const toastRefs = new Set<SbbToast>();
 
 /**
  * @slot - Use the unnamed slot to add content to the toast.
+ * @slot icon - Assign a custom icon via slot.
+ * @slot action - Provide a custom action for this toast.
  * @event {CustomEvent<void>} will-open - Emits whenever the autocomplete starts the opening transition.
  * @event {CustomEvent<void>} did-open - Emits whenever the autocomplete is opened.
  * @event {CustomEvent<void>} will-close - Emits whenever the autocomplete begins the closing transition.

@@ -1,1 +1,1 @@
-export * from './sbb-card-action';
+export * from './card-action';

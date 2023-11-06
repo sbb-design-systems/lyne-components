@@ -1,6 +1,6 @@
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import style from './sbb-timetable-row-column-headers.scss?lit&inline';
+import style from './timetable-row-column-headers.scss?lit&inline';
 
 /**
  * TODO: Document me

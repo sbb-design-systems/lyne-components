@@ -1,8 +1,8 @@
-import { waitForCondition } from '../core/testing';
+import { waitForCondition } from '../../core/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { EventSpy, waitForLitRender } from '../core/testing';
-import { SbbBreadcrumb } from './sbb-breadcrumb';
+import { EventSpy, waitForLitRender } from '../../core/testing';
+import { SbbBreadcrumb } from './breadcrumb';
 
 describe('sbb-breadcrumb', () => {
   let element: SbbBreadcrumb;

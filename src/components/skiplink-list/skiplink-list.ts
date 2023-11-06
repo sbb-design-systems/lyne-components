@@ -1,4 +1,4 @@
-import { TitleLevel } from '../sbb-title';
+import { TitleLevel } from '../title';
 import {
   createNamedSlotState,
   HandlerRepository,
@@ -8,9 +8,9 @@ import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { spread } from '@open-wc/lit-helpers';
-import { SbbLink } from '../sbb-link';
-import style from './sbb-skiplink-list.scss?lit&inline';
-import '../sbb-title';
+import { SbbLink } from '../link';
+import style from './skiplink-list.scss?lit&inline';
+import '../title';
 
 /**
  * @slot - Use the unnamed slot to add `sbb-link` elements to this skiplink list.

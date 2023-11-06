@@ -1,6 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-expansion-panel-header';
+import './expansion-panel-header';
 
 describe('sbb-expansion-panel-header', () => {
   it('renders collapsed', async () => {

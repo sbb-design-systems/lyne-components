@@ -1,29 +1,29 @@
 import { CSSResult, LitElement, PropertyValues, TemplateResult, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
-import { readConfig } from '../core/config';
-import { DateAdapter, NativeDateAdapter } from '../core/datetime';
+import { readConfig } from '../../core/config';
+import { DateAdapter, NativeDateAdapter } from '../../core/datetime';
 import {
   findInput,
   findReferencedElement,
   isValidAttribute,
   toggleDatasetEntry,
-} from '../core/dom';
+} from '../../core/dom';
 import {
   ConnectedAbortController,
   EventEmitter,
   HandlerRepository,
   documentLanguage,
   languageChangeHandlerAspect,
-} from '../core/eventing';
-import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../core/i18n';
-import { ValidationChangeEvent } from '../core/interfaces';
-import { SbbDateLike } from '../core/interfaces';
-import { AgnosticMutationObserver } from '../core/observers';
-import style from './sbb-datepicker.scss?lit&inline';
-import { type SbbDatepickerPreviousDay } from '../sbb-datepicker-previous-day';
-import { type SbbDatepickerNextDay } from '../sbb-datepicker-next-day';
-import { type SbbDatepickerToggle } from '../sbb-datepicker-toggle';
+} from '../../core/eventing';
+import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n';
+import { ValidationChangeEvent } from '../../core/interfaces';
+import { SbbDateLike } from '../../core/interfaces';
+import { AgnosticMutationObserver } from '../../core/observers';
+import style from './datepicker.scss?lit&inline';
+import { type SbbDatepickerPreviousDay } from '../datepicker-previous-day';
+import { type SbbDatepickerNextDay } from '../datepicker-next-day';
+import { type SbbDatepickerToggle } from '../datepicker-toggle';
 
 const FORMAT_DATE =
   /(^0?[1-9]?|[12]?[0-9]?|3?[01]?)[.,\\/\-\s](0?[1-9]?|1?[0-2]?)?[.,\\/\-\s](\d{1,4}$)?/;

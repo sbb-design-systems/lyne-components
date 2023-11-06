@@ -1,1 +1,1 @@
-export * from './sbb-logo';
+export * from './logo';
