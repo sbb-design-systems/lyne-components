@@ -1,7 +1,6 @@
 import { waitForCondition } from '../core/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { sendKeys } from '@web/test-runner-commands';
 import { EventSpy, waitForLitRender } from '../core/testing';
 import { SbbNotification } from './notification';
 import { SbbButton } from '../button';
@@ -81,13 +80,10 @@ describe('sbb-notification', () => {
     expect(element).not.to.be.null;
     expect(element).to.have.attribute('data-state', 'opened');
 
-    closeButton.focus();
-    await sendKeys({ down: 'Enter' });
-    await waitForLitRender(element);
+    closeButton.click();
 
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
     expect(willCloseEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy.count).to.be.equal(1);

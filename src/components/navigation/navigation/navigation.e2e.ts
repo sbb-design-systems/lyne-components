@@ -246,7 +246,6 @@ describe('sbb-navigation', () => {
     expect(section).to.have.attribute('data-state', 'opened');
 
     closeButton.click();
-    await waitForLitRender(element);
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy.count).to.be.equal(1);
