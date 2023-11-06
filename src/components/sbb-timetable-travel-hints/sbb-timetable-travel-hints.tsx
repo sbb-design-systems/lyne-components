@@ -6,6 +6,9 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { setAttribute } from '../core/dom';
 import style from './sbb-timetable-travel-hints.scss?lit&inline';
 
+/**
+ * TODO: Document me
+ */
 @customElement('sbb-timetable-travel-hints')
 export class SbbTimetableTravelHints extends LitElement {
   public static override styles: CSSResult = style;

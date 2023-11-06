@@ -5,6 +5,9 @@ import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import style from './sbb-timetable-occupancy.scss?lit&inline';
 
+/**
+ * TODO: Document me
+ */
 @customElement('sbb-timetable-occupancy')
 export class SbbTimetableOccupancy extends LitElement {
   public static override styles: CSSResult = style;

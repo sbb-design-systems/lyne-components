@@ -30,6 +30,10 @@ const notificationTypes = new Map([
 /**
  * @slot title - Use this to provide a notification title (optional).
  * @slot - Use the unnamed slot to add content to the notification message.
+ * @event {CustomEvent<void>} will-open - Emits whenever the notification starts the opening transition.
+ * @event {CustomEvent<void>} did-open - Emits whenever the notification is opened.
+ * @event {CustomEvent<void>} will-close - Emits whenever the notification begins the closing transition.
+ * @event {CustomEvent<void>} did-close - Emits whenever the notification is closed.
  */
 @customElement('sbb-notification')
 export class SbbNotification extends LitElement {

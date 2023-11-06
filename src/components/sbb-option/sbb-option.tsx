@@ -29,6 +29,11 @@ const optionObserverConfig: MutationObserverInit = {
  */
 export type SbbOptionVariant = 'autocomplete' | 'select';
 
+/**
+ * TODO: Document me
+ * @event {CustomEvent<void>} option-selection-change - Emits when the option selection status changes.
+ * @event {CustomEvent<void>} option-selected - Emits when an option was selected by user.
+ */
 @customElement('sbb-option')
 export class SbbOption extends LitElement {
   public static override styles: CSSResult = style;

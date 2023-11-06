@@ -34,6 +34,10 @@ let nextId = 0;
 
 /**
  * @slot - Use the unnamed slot to add `sbb-navigation-action` elements into the sbb-navigation menu.
+ * @event {CustomEvent<void>} will-open - Emits whenever the navigation begins the opening transition.
+ * @event {CustomEvent<void>} did-open - Emits whenever the navigation is opened.
+ * @event {CustomEvent<void>} will-close - Emits whenever the navigation begins the closing transition.
+ * @event {CustomEvent<void>} did-close - Emits whenever the navigation is closed.
  */
 @customElement('sbb-navigation')
 export class SbbNavigation extends LitElement {

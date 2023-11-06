@@ -5,6 +5,9 @@ import { customElement, property, state } from 'lit/decorators.js';
 import style from './sbb-timetable-transportation-time.scss?lit&inline';
 import { SbbTimetableAppearance } from '../core/interfaces';
 
+/**
+ * TODO: Document me
+ */
 @customElement('sbb-timetable-transportation-time')
 export class SbbTimetableTransportationTime extends LitElement {
   public static override styles: CSSResult = style;

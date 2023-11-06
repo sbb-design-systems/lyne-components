@@ -10,6 +10,9 @@ import '../sbb-icon';
 
 export type JourneyHeaderSize = 'm' | 'l';
 
+/**
+ * TODO: Document me
+ */
 @customElement('sbb-journey-header')
 export class SbbJourneyHeader extends LitElement {
   public static override styles: CSSResult = style;

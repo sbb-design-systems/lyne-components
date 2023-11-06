@@ -4,6 +4,9 @@ import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import style from './sbb-timetable-duration.scss?lit&inline';
 
+/**
+ * TODO: Document me
+ */
 @customElement('sbb-timetable-duration')
 export class SbbTimetableDuration extends LitElement {
   public static override styles: CSSResult = style;

@@ -77,6 +77,15 @@ to identify which actions are active and which are not.
 | `open`  | public  | Opens the menu on trigger click. |            | `void` |                |
 | `close` | public  | Closes the menu.                 |            | `void` |                |
 
+## Events
+
+| Name         | Type                | Description                                            | Inherited From |
+| ------------ | ------------------- | ------------------------------------------------------ | -------------- |
+| `will-open`  | `CustomEvent<void>` | Emits whenever the menu starts the opening transition. |                |
+| `did-open`   | `CustomEvent<void>` | Emits whenever the menu is opened.                     |                |
+| `will-close` | `CustomEvent<void>` | Emits whenever the menu begins the closing transition. |                |
+| `did-close`  | `CustomEvent<void>` | Emits whenever the menu is closed.                     |                |
+
 ## Slots
 
 | Name | Description                                                                  |

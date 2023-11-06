@@ -11,6 +11,7 @@ import '../sbb-icon';
 /**
  * @slot prefix - Slot to render an icon on the left side of the input.
  * @slot suffix - Slot to render an icon on the right side of the input.
+ * @event {CustomEvent<void>} did-change - Deprecated. used for React. Will probably be removed once React 19 is available.
  */
 @customElement('sbb-slider')
 export class SbbSlider extends LitElement {
@@ -151,9 +152,7 @@ export class SbbSlider extends LitElement {
     this.dispatchEvent(
       new InputEvent('input', { bubbles: true, cancelable: true, composed: true }),
     );
-    this._emitChange(
-      new window.Event('change', { bubbles: true, cancelable: true, composed: true }),
-    );
+    this._emitChange(new Event('change', { bubbles: true, cancelable: true, composed: true }));
   }
 
   /** Emits the change event. */

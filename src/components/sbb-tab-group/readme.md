@@ -53,6 +53,12 @@ It's possible to set the first selected tab using the `initialSelectedIndex` pro
 | `enableTab`   | public  | Enables a tab by index.   | `tabIndex: number` | `void` |                |
 | `activateTab` | public  | Activates a tab by index. | `tabIndex: number` | `void` |                |
 
+## Events
+
+| Name         | Type                | Description                           | Inherited From |
+| ------------ | ------------------- | ------------------------------------- | -------------- |
+| `did-change` | `CustomEvent<void>` | Emits an event on selected tab change |                |
+
 ## Slots
 
 | Name      | Description                                                                                                                                                                                                                                                                                |

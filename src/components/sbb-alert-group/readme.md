@@ -49,6 +49,13 @@ and therefore interrupts screen reader flow, to immediately read out the alert c
 | `accessibilityTitle`      | `accessibility-title`       | public  | `string`                        |            | Title for this alert group which is only visible for screen reader users.                                                                                                                |
 | `accessibilityTitleLevel` | `accessibility-title-level` | public  | `TitleLevel`                    | `'2'`      | Level of the accessibility title, will be rendered as heading tag (e.g. h2). Defaults to level 2.                                                                                        |
 
+## Events
+
+| Name                | Type                    | Description                                 | Inherited From |
+| ------------------- | ----------------------- | ------------------------------------------- | -------------- |
+| `did-dismiss-alert` | `CustomEvent<SbbAlert>` | Emits when an alert was removed from DOM.   |                |
+| `empty`             | `CustomEvent<void>`     | Emits when `sbb-alert-group` becomes empty. |                |
+
 ## Slots
 
 | Name                  | Description                                                                   |

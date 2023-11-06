@@ -95,6 +95,14 @@ Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and
 | ------------------ | ------- | -------------------------------- | ---------- | ------ | -------------- |
 | `requestDismissal` | public  | Requests dismissal of the alert. |            | `void` |                |
 
+## Events
+
+| Name                  | Type                | Description                                                        | Inherited From |
+| --------------------- | ------------------- | ------------------------------------------------------------------ | -------------- |
+| `will-present`        | `CustomEvent<void>` | Emits when the fade in animation starts.                           |                |
+| `did-present`         | `CustomEvent<void>` | Emits when the fade in animation ends and the button is displayed. |                |
+| `dismissal-requested` | `CustomEvent<void>` | Emits when dismissal of an alert was requested.                    |                |
+
 ## Slots
 
 | Name    | Description                                                                                                |

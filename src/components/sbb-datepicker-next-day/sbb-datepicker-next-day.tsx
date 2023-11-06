@@ -22,6 +22,9 @@ import style from './sbb-datepicker-next-day.scss?lit&inline';
 
 import '../sbb-icon';
 
+/**
+ * TODO: Document me
+ */
 @customElement('sbb-datepicker-next-day')
 export class SbbDatepickerNextDay extends LitElement {
   public static override styles: CSSResult = style;

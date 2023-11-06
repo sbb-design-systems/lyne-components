@@ -8,6 +8,9 @@ import style from './sbb-pearl-chain.scss?lit&inline';
 
 type Status = 'progress' | 'future' | 'past';
 
+/**
+ * TODO: Document me
+ */
 @customElement('sbb-pearl-chain')
 export class SbbPearlChain extends LitElement {
   public static override styles: CSSResult = style;

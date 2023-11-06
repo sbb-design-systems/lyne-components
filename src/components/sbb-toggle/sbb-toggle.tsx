@@ -17,6 +17,8 @@ export type SbbToggleStateChange = Extract<
 
 /**
  * @slot - Use the unnamed slot to add `<sbb-toggle-option>` elements to the toggle.
+ * @event {CustomEvent<void>} did-change - Emits whenever the radio group value changes.
+ * @event {CustomEvent<void>} change - Emits whenever the radio group value changes.
  */
 @customElement('sbb-toggle')
 export class SbbToggle extends LitElement {

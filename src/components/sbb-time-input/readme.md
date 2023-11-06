@@ -69,3 +69,10 @@ Whenever the validation state changes (e.g., a valid value becomes invalid or vi
 | ---------------- | ------- | ----------------------------------------------------- | ------------------- | -------------- | -------------- |
 | `getValueAsDate` | public  | Gets the input value with the correct date format.    |                     | `Date \| null` |                |
 | `setValueAsDate` | public  | Set the input value to the correctly formatted value. | `date: SbbDateLike` | `void`         |                |
+
+## Events
+
+| Name               | Type                                 | Description                                                                      | Inherited From |
+| ------------------ | ------------------------------------ | -------------------------------------------------------------------------------- | -------------- |
+| `didChange`        | `CustomEvent<void>`                  | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
+| `validationChange` | `CustomEvent<ValidationChangeEvent>` | Emits whenever the internal validation state changes.                            |                |

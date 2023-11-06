@@ -27,6 +27,9 @@ export interface InterfaceSbbJourneySummaryAttributes {
   duration?: number;
 }
 
+/**
+ * TODO: Document me
+ */
 @customElement('sbb-journey-summary')
 export class SbbJourneySummary extends LitElement {
   public static override styles: CSSResult = style;

@@ -83,6 +83,12 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 | `checked`       | `checked`        | public  | `boolean`             | `false` | Whether the checkbox is checked.                                                                                                       |
 | `size`          | `size`           | public  | `SbbCheckboxSize`     | `'m'`   | Label size variant, either m or s.                                                                                                     |
 
+## Events
+
+| Name         | Type                | Description                                                                      | Inherited From |
+| ------------ | ------------------- | -------------------------------------------------------------------------------- | -------------- |
+| `did-change` | `CustomEvent<void>` | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
+
 ## Slots
 
 | Name      | Description                                                                                     |

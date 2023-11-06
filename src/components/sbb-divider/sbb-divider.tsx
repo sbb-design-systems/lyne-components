@@ -4,6 +4,9 @@ import { setAttribute } from '../core/dom';
 import style from './sbb-divider.scss?lit&inline';
 import { SbbOrientation } from '../core/interfaces';
 
+/**
+ * TODO: Document me
+ */
 @customElement('sbb-divider')
 export class SbbDivider extends LitElement {
   public static override styles: CSSResult = style;

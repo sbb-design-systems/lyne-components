@@ -41,6 +41,7 @@ let nextId = 0;
  * Wrap the content in a `div`, a `section`, an `article` or provide a nested `sbb-tab-group`:
  * This is correct: `<div>Some text <p>Some other text</p></div>`
  * This is not correct: `<span>Some text</span><p>Some other text</p>`
+ * @event {CustomEvent<void>} did-change - Emits an event on selected tab change
  */
 @customElement('sbb-tab-group')
 export class SbbTabGroup extends LitElement {

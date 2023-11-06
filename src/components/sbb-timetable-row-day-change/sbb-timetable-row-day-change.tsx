@@ -4,6 +4,9 @@ import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import style from './sbb-timetable-row-day-change.scss?lit&inline';
 
+/**
+ * TODO: Document me
+ */
 @customElement('sbb-timetable-row-day-change')
 export class SbbTimetableRowDayChange extends LitElement {
   public static override styles: CSSResult = style;

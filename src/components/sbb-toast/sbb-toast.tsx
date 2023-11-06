@@ -29,6 +29,10 @@ const toastRefs = new Set<SbbToast>();
 
 /**
  * @slot - Use the unnamed slot to add content to the toast.
+ * @event {CustomEvent<void>} will-open - Emits whenever the autocomplete starts the opening transition.
+ * @event {CustomEvent<void>} did-open - Emits whenever the autocomplete is opened.
+ * @event {CustomEvent<void>} will-close - Emits whenever the autocomplete begins the closing transition.
+ * @event {CustomEvent<void>} did-close - Emits whenever the autocomplete is closed.
  */
 @customElement('sbb-toast')
 export class SbbToast extends LitElement {

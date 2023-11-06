@@ -163,6 +163,14 @@ export const datepickerControlRegisteredEvent = new CustomEvent('datepicker-cont
   composed: true,
 });
 
+/**
+ * TODO: Document me
+ * @event {CustomEvent<void>} did-change - Deprecated. used for React. Will probably be removed once React 19 is available.
+ * @event {CustomEvent<void>} change - TODO: Document this event
+ * @event {CustomEvent<InputUpdateEvent>} input-updated - Notifies that the attributes of the input connected to the datepicker have changes.
+ * @event {CustomEvent<void>} date-picker-updated - Notifies that the attributes of the datepicker have changes.
+ * @event {CustomEvent<ValidationChangeEvent>} validation-change - Emits whenever the internal validation state changes.
+ */
 @customElement('sbb-datepicker')
 export class SbbDatepicker extends LitElement {
   public static override styles: CSSResult = style;
