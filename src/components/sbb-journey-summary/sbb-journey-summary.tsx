@@ -88,7 +88,7 @@ export class SbbJourneySummary implements ComponentInterface {
     return (
       <div class="sbb-journey-summary__via-block">
         <span class="sbb-journey-summary__via-text">Via</span>
-        <ul class="sbb-journey-summary__vias">
+        <ul class="sbb-journey-summary__vias" role={vias.length <= 1 ? 'presentation' : undefined}>
           {slicedVias.map((via, index) => (
             <li class="sbb-journey-summary__via">
               {via}
