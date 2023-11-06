@@ -8,16 +8,16 @@ import {
   getTransportIcon,
   isProductIcon,
   sortSituation,
-} from './sbb-timetable-row';
+} from './timetable-row';
 import {
   defaultTrip,
   busTrip,
   partiallyCancelled,
   walkTimeTrip,
-} from './sbb-timetable-row.sample-data';
+} from './timetable-row.sample-data';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import '../sbb-timetable-row';
+import '../timetable-row';
 
 const now = new Date('2022-08-16T15:00:00Z').valueOf();
 

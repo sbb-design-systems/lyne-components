@@ -3,7 +3,7 @@ import { EventSpy } from '../testing';
 import { expect, fixture, nextFrame } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import '../../sbb-button';
+import '../../button';
 
 describe('language', () => {
   beforeEach(() => {

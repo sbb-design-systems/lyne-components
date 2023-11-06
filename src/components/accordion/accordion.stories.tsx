@@ -3,13 +3,13 @@ import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import { InputType, StoryContext } from '@storybook/types';
-import { SbbExpansionPanel } from '../sbb-expansion-panel';
+import { SbbExpansionPanel } from '../expansion-panel';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { Decorator } from '@storybook/web-components';
-import './sbb-accordion';
-import '../sbb-expansion-panel-header';
-import '../sbb-expansion-panel-content';
-import '../sbb-icon';
+import './accordion';
+import '../expansion-panel';
+import '../expansion-panel';
+import '../icon';
 
 const numberOfPanels: InputType = {
   control: {

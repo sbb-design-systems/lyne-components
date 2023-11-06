@@ -1,11 +1,11 @@
-import { isSafari, isValidAttribute, toggleDatasetEntry } from '../core/dom';
-import { AgnosticMutationObserver } from '../core/observers';
+import { isSafari, isValidAttribute, toggleDatasetEntry } from '../../core/dom';
+import { AgnosticMutationObserver } from '../../core/observers';
 import { CSSResult, html, LitElement, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { setAttribute } from '../core/dom';
-import { SbbOption, SbbOptionVariant } from '../sbb-option';
-import style from './sbb-optgroup.scss?lit&inline';
-import '../sbb-divider';
+import { setAttribute } from '../../core/dom';
+import { SbbOption, SbbOptionVariant } from '../option';
+import style from './optgroup.scss?lit&inline';
+import '../../divider';
 
 /**
  * @slot - Use the unnamed slot to add `sbb-option` elements to this optgroup.

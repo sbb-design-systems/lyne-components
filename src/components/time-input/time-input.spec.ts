@@ -1,6 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-time-input';
+import './time-input';
 
 describe('sbb-time-input', () => {
   it('renders', async () => {

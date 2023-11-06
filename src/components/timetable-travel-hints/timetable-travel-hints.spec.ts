@@ -1,7 +1,7 @@
-import sampleData from './sbb-timetable-travel-hints.sample-data';
+import sampleData from './timetable-travel-hints.sample-data';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-timetable-travel-hints';
+import './timetable-travel-hints';
 
 const config = JSON.stringify(sampleData[0]);
 

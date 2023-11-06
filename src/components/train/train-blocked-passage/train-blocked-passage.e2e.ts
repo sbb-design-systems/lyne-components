@@ -1,6 +1,6 @@
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SbbTrainBlockedPassage } from './sbb-train-blocked-passage';
+import { SbbTrainBlockedPassage } from './train-blocked-passage';
 
 describe('sbb-train-blocked-passage', () => {
   let element: SbbTrainBlockedPassage;

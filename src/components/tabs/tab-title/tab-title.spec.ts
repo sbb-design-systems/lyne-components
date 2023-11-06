@@ -1,6 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-tab-title';
+import './tab-title';
 
 describe('sbb-tab-title', () => {
   it('renders', async () => {

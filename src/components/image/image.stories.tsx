@@ -5,7 +5,7 @@ import readme from './readme.md?raw';
 import isChromatic from 'chromatic';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import './sbb-image';
+import './image';
 
 const Template = (args): JSX.Element => <sbb-image {...args} />;
 

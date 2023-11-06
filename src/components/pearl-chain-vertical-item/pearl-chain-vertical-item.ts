@@ -1,6 +1,6 @@
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import style from './sbb-pearl-chain-vertical-item.scss?lit&inline';
+import style from './pearl-chain-vertical-item.scss?lit&inline';
 
 export type LineType = 'dotted' | 'standard' | 'thin';
 

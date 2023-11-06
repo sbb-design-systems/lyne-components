@@ -1,6 +1,6 @@
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SbbIcon } from './sbb-icon';
+import { SbbIcon } from './icon';
 
 describe('sbb-icon', () => {
   let element;

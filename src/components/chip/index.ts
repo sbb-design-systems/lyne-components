@@ -1,1 +1,1 @@
-export * from './sbb-chip';
+export * from './chip';

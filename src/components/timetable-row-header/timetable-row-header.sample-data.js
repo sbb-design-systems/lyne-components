@@ -1,5 +1,5 @@
-import transportationNumberData from '../sbb-timetable-transportation-number/sbb-timetable-transportation-number.sample-data';
-import transportationTimeData from '../sbb-timetable-transportation-time/sbb-timetable-transportation-time.sample-data';
+import transportationNumberData from '../timetable-transportation-number/timetable-transportation-number.sample-data';
+import transportationTimeData from '../timetable-transportation-time/timetable-transportation-time.sample-data';
 
 export default [
   {

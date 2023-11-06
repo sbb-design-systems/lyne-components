@@ -4,29 +4,22 @@ import { StoryContext } from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import { JSX, h } from 'jsx-dom';
 
-import { SbbNavigationMarker } from '../../../components/sbb-navigation-marker';
-import '../../../components/sbb-button';
-import '../../../components/sbb-card';
-import '../../../components/sbb-card-action';
-import '../../../components/sbb-clock';
-import '../../../components/sbb-divider';
-import '../../../components/sbb-footer';
-import '../../../components/sbb-icon';
-import '../../../components/sbb-header';
-import '../../../components/sbb-header-action';
-import '../../../components/sbb-logo';
-import '../../../components/sbb-link';
-import '../../../components/sbb-link-list';
-import '../../../components/sbb-menu';
-import '../../../components/sbb-menu-action';
-import '../../../components/sbb-navigation';
-import '../../../components/sbb-navigation-marker';
-import '../../../components/sbb-navigation-action';
-import '../../../components/sbb-navigation-section';
-import '../../../components/sbb-navigation-list';
-import '../../../components/sbb-skiplink-list';
-import '../../../components/sbb-teaser-hero';
-import '../../../components/sbb-title';
+import { SbbNavigationMarker } from '../../../components/navigation';
+import '../../../components/button';
+import '../../../components/card';
+import '../../../components/clock';
+import '../../../components/divider';
+import '../../../components/footer';
+import '../../../components/icon';
+import '../../../components/header';
+import '../../../components/logo';
+import '../../../components/link';
+import '../../../components/link-list';
+import '../../../components/menu';
+import '../../../components/navigation';
+import '../../../components/skiplink-list';
+import '../../../components/teaser-hero';
+import '../../../components/title';
 
 export const SkiplinkList = (): JSX.Element => (
   <sbb-skiplink-list title-level="2" title-content="Skip to">

@@ -1,9 +1,9 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import '../sbb-autocomplete';
-import '../sbb-option';
-import './sbb-optgroup';
-import { isSafari } from '../core/dom';
+import '../../autocomplete';
+import '../option';
+import './optgroup';
+import { isSafari } from '../../core/dom';
 
 describe('sbb-optgroup', () => {
   describe('autocomplete', function () {
@@ -43,7 +43,7 @@ describe('sbb-optgroup', () => {
       const root = (
         await fixture(html`
           <sbb-autocomplete origin="anchor">
-            <sbb-optgroup label="Label" disabled="true">
+            <sbb-optgroup label="Label" disabled>
               <sbb-option value="1">1</sbb-option>
               <sbb-option value="2">2</sbb-option>
             </sbb-optgroup>
@@ -54,7 +54,7 @@ describe('sbb-optgroup', () => {
       const groupRoleAttr = 'aria-disabled="true" aria-label="Label" role="group"';
 
       expect(root).dom.to.be.equal(`
-        <sbb-optgroup disabled="true" data-variant="autocomplete" label="Label" ${
+        <sbb-optgroup disabled data-variant="autocomplete" label="Label" ${
           !isSafari() ? groupRoleAttr : ''
         }>
           <sbb-option value="1" data-group-disabled aria-disabled="true" aria-selected="false" data-variant="autocomplete" id="sbb-option-7" role="option">1</sbb-option>

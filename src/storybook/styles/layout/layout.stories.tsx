@@ -3,7 +3,7 @@ import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import './layout.scss';
 import type { Meta, StoryObj } from '@storybook/web-components';
-import '../../../components/sbb-link';
+import '../../../components/link';
 
 const PageSpacingTemplate = (): JSX.Element => (
   <section class="sbb-page-spacing visualized-page-spacing">

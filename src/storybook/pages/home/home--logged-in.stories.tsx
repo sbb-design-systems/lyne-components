@@ -2,10 +2,7 @@
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import isChromatic from 'chromatic';
-import {
-  futureLeg,
-  pastLeg,
-} from '../../../components/sbb-pearl-chain/sbb-pearl-chain.sample-data';
+import { futureLeg, pastLeg } from '../../../components/pearl-chain/pearl-chain.sample-data';
 import './home.scss';
 import {
   BikeProduct,
@@ -22,10 +19,9 @@ import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 import './home.common';
 
-import '../../../components/sbb-card-badge';
-import '../../../components/sbb-dialog';
-import '../../../components/sbb-journey-header';
-import '../../../components/sbb-pearl-chain';
+import '../../../components/dialog';
+import '../../../components/journey-header';
+import '../../../components/pearl-chain';
 
 /* ************************************************* */
 /* Storybook controls                                */

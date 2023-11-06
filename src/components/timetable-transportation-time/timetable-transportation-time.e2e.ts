@@ -1,7 +1,7 @@
-import sampleData from './sbb-timetable-transportation-time.sample-data';
+import sampleData from './timetable-transportation-time.sample-data';
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SbbTimetableTransportationTime } from './sbb-timetable-transportation-time';
+import { SbbTimetableTransportationTime } from './timetable-transportation-time';
 
 const config = JSON.stringify(sampleData[0]);
 

@@ -1,17 +1,17 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { isFirefox } from '../core/dom';
-import { SbbToast } from './sbb-toast';
-import './sbb-toast';
+import { SbbToast } from './toast';
+import './toast';
 
 describe('sbb-toast', () => {
   it('renders', async () => {
     const root: SbbToast = await fixture(html`
-      <sbb-toast icon-name="circle-tick-small" dismissible="true"> 'Lorem ipsum dolor' </sbb-toast>
+      <sbb-toast icon-name="circle-tick-small" dismissible> 'Lorem ipsum dolor' </sbb-toast>
     `);
 
     expect(root).dom.to.be.equal(`
-      <sbb-toast position="bottom-center" icon-name="circle-tick-small" dismissible="true" data-state="closed" 
+      <sbb-toast position="bottom-center" icon-name="circle-tick-small" dismissible="" data-state="closed" 
         data-has-icon data-has-action
       >
         <span>'Lorem ipsum dolor'</span>

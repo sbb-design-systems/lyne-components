@@ -1,1 +1,1 @@
-export * from './sbb-pearl-chain-vertical';
+export * from './pearl-chain-vertical';

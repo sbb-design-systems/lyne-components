@@ -1,14 +1,14 @@
-import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../core/a11y';
-import { toggleDatasetEntry } from '../core/dom';
-import { AgnosticResizeObserver } from '../core/observers';
+import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../core/a11y';
+import { toggleDatasetEntry } from '../../core/dom';
+import { AgnosticResizeObserver } from '../../core/observers';
 import { CSSResult, html, LitElement, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { EventEmitter, ConnectedAbortController } from '../core/eventing';
-import { type SbbToggleOption } from '../sbb-toggle-option';
-import { setAttribute } from '../core/dom';
+import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
+import { type SbbToggleOption } from '../toggle-option';
+import { setAttribute } from '../../core/dom';
 import { ref } from 'lit/directives/ref.js';
-import style from './sbb-toggle.scss?lit&inline';
-import { SbbCheckedStateChange, SbbStateChange, SbbValueStateChange } from '../core/interfaces';
+import style from './toggle.scss?lit&inline';
+import { SbbCheckedStateChange, SbbStateChange, SbbValueStateChange } from '../../core/interfaces';
 
 export type SbbToggleStateChange = Extract<
   SbbStateChange,

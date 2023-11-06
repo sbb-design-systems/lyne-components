@@ -1,1 +1,1 @@
-export * from './sbb-navigation-marker';
+export * from './navigation-marker';

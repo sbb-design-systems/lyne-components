@@ -1,9 +1,9 @@
-import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
+import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SbbTagGroup } from './sbb-tag-group';
-import { SbbTag } from '../sbb-tag';
-import '../sbb-tag';
+import { SbbTagGroup } from './tag-group';
+import { SbbTag } from '../tag';
+import '../tag';
 
 describe('sbb-tag-group', () => {
   let element: SbbTagGroup;

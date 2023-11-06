@@ -1,6 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-train-blocked-passage';
+import './train-blocked-passage';
 
 describe('sbb-train-blocked-passage', () => {
   it('renders', async () => {

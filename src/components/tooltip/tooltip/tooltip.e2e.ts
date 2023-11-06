@@ -1,12 +1,12 @@
 import { assert, expect, fixture, fixtureCleanup } from '@open-wc/testing';
 import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
-import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
-import '../sbb-button';
-import { SbbButton } from '../sbb-button';
-import '../sbb-link';
-import './sbb-tooltip';
-import { SbbTooltip } from './sbb-tooltip';
+import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
+import '../../button';
+import { SbbButton } from '../../button';
+import '../../link';
+import './tooltip';
+import { SbbTooltip } from './tooltip';
 
 describe('sbb-tooltip', () => {
   let element: SbbTooltip, trigger: SbbButton;

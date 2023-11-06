@@ -1,12 +1,12 @@
 /** @jsx h */
-import events from './sbb-calendar.events';
+import events from './calendar.events';
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import isChromatic from 'chromatic';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import './sbb-calendar';
+import './calendar';
 
 const getCalendarAttr = (min, max): Record<string, Date> => {
   const attr: Record<string, Date> = {};

@@ -5,7 +5,7 @@ import {
   targetsNewWindow,
 } from '../core/interfaces';
 import { i18nTargetOpensInNewWindow } from '../core/i18n';
-import { TitleLevel } from '../sbb-title';
+import { TitleLevel } from '../title';
 import {
   documentLanguage,
   HandlerRepository,
@@ -17,8 +17,8 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';
 import { setAttributes } from '../core/dom';
-import style from './sbb-teaser.scss?lit&inline';
-import '../sbb-title';
+import style from './teaser.scss?lit&inline';
+import '../title';
 
 /**
  * @slot image - Slot used to render the image

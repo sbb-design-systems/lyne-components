@@ -18,9 +18,9 @@ import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
-import style from './sbb-file-selector.scss?lit&inline';
-import '../sbb-button';
-import '../sbb-icon';
+import style from './file-selector.scss?lit&inline';
+import '../button';
+import '../icon';
 
 export type DOMEvent = globalThis.Event;
 

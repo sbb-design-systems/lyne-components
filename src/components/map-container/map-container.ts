@@ -5,8 +5,8 @@ import { AgnosticIntersectionObserver } from '../core/observers';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
-import style from './sbb-map-container.scss?lit&inline';
-import '../sbb-button';
+import style from './map-container.scss?lit&inline';
+import '../button';
 
 /**
  * @slot - Use the unnamed slot to add content to the sidebar.

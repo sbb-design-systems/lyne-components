@@ -31,12 +31,12 @@ import {
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttribute } from '../core/dom';
-import style from './sbb-timetable-row.scss?lit&inline';
-import '../sbb-card';
-import '../sbb-card-badge';
-import '../sbb-card-action';
-import '../sbb-icon';
-import '../sbb-pearl-chain-time';
+import style from './timetable-row.scss?lit&inline';
+import '../card';
+import '../card';
+import '../card';
+import '../icon';
+import '../pearl-chain-time';
 
 /** HimCus interface for mapped icon name and text */
 export interface HimCus {

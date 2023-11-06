@@ -1,12 +1,12 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
-import { SbbMenu } from './sbb-menu';
-import '../sbb-button';
-import '../sbb-menu-action';
-import '../sbb-link';
-import '../sbb-divider';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
+import { SbbMenu } from './menu';
+import '../../button';
+import '../menu-action';
+import '../../link';
+import '../../divider';
 
 describe('sbb-menu', () => {
   let element: SbbMenu, trigger: HTMLElement;

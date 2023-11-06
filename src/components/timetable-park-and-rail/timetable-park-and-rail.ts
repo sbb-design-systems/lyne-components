@@ -7,7 +7,7 @@ import {
 import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import style from './sbb-timetable-park-and-rail.scss?lit&inline';
+import style from './timetable-park-and-rail.scss?lit&inline';
 
 /**
  * TODO: Document me

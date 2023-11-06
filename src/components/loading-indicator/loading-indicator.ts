@@ -1,7 +1,7 @@
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { setAttribute } from '../core/dom';
-import style from './sbb-loading-indicator.scss?lit&inline';
+import style from './loading-indicator.scss?lit&inline';
 
 /**
  * TODO: Document me

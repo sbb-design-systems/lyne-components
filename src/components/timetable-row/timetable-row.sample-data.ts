@@ -7,7 +7,7 @@ import {
   progressLeg,
   redirectedOnArrivalLeg,
   redirectedOnDepartureLeg,
-} from '../sbb-pearl-chain/sbb-pearl-chain.sample-data';
+} from '../pearl-chain/pearl-chain.sample-data';
 
 import { ITripItem } from '../core/timetable';
 

@@ -1,6 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-breadcrumb';
+import './breadcrumb';
 
 describe('sbb-breadcrumb', () => {
   it('renders with text', async () => {

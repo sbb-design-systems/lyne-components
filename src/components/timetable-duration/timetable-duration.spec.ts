@@ -1,8 +1,8 @@
-import sampleData from './sbb-timetable-duration.sample-data';
+import sampleData from './timetable-duration.sample-data';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import './sbb-timetable-duration';
+import './timetable-duration';
 
 const config = JSON.stringify(sampleData[0]);
 

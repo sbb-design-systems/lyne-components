@@ -1,1 +1,1 @@
-export * from './sbb-toast';
+export * from './toast';

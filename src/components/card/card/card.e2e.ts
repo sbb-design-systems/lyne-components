@@ -1,7 +1,7 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SbbCard } from './sbb-card';
-import '../sbb-card-badge';
+import { SbbCard } from './card';
+import '../card-badge';
 
 describe('sbb-card', () => {
   let element: SbbCard;

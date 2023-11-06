@@ -1,1 +1,1 @@
-export * from './sbb-tooltip-trigger';
+export * from './tooltip-trigger';

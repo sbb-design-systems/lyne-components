@@ -1,7 +1,7 @@
 /** @jsx h */
 import { Fragment, h, JSX } from 'jsx-dom';
-import { SbbSelect } from './sbb-select';
-import { SbbOption } from '../sbb-option';
+import { SbbSelect } from './select';
+import { SbbOption } from '../option';
 import readme from './readme.md?raw';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
@@ -17,8 +17,8 @@ import type {
 } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 import { withActions } from '@storybook/addon-actions/decorator';
-import '../sbb-form-field';
-import '../sbb-optgroup';
+import '../form-field';
+import '../option';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative

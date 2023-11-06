@@ -19,8 +19,8 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { setAttribute } from '../core/dom';
 import { ref } from 'lit/directives/ref.js';
 import { ConnectedAbortController, EventEmitter } from '../core/eventing';
-import { SbbOption } from '../sbb-option';
-import style from './sbb-autocomplete.scss?lit&inline';
+import { SbbOption } from '../option';
+import style from './autocomplete.scss?lit&inline';
 
 let nextId = 0;
 

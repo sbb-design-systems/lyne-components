@@ -1,6 +1,6 @@
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SbbFormError } from './sbb-form-error';
+import { SbbFormError } from './form-error';
 
 describe('sbb-form-error', () => {
   let element: SbbFormError;

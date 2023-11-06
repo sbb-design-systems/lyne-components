@@ -2,7 +2,7 @@ import { CSSResult, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { setAttribute } from '../core/dom';
-import style from './sbb-title.scss?lit&inline';
+import style from './title.scss?lit&inline';
 
 export type TitleLevel = '1' | '2' | '3' | '4' | '5' | '6';
 

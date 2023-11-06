@@ -2,10 +2,10 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
-import '../sbb-button';
-import '../sbb-icon';
-import './sbb-calendar';
-import { SbbCalendar } from './sbb-calendar';
+import '../button';
+import '../icon';
+import './calendar';
+import { SbbCalendar } from './calendar';
 
 describe('sbb-calendar', () => {
   const selected = new Date(2023, 0, 15).getTime() / 1000;

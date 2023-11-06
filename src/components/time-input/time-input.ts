@@ -12,7 +12,7 @@ import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { SbbDateLike } from '../core/interfaces';
-import style from './sbb-time-input.scss?lit&inline';
+import style from './time-input.scss?lit&inline';
 
 const REGEX_ALLOWED_CHARACTERS = /[0-9.:,\-;_hH]/;
 const REGEX_GROUPS_WITHOUT_COLON = /^([0-9]{1,2})([0-9]{2})$/;

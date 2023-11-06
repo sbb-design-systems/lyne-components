@@ -6,10 +6,10 @@ import {
 import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';
-import { SbbLink, SbbLinkSize } from '../sbb-link';
-import { TitleLevel } from '../sbb-title';
-import '../sbb-title';
-import style from './sbb-link-list.scss?lit&inline';
+import { SbbLink, SbbLinkSize } from '../link';
+import { TitleLevel } from '../title';
+import '../title';
+import style from './link-list.scss?lit&inline';
 import { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
 
 /**

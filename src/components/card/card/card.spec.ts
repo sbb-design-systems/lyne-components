@@ -1,7 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-card';
-import '../sbb-card-badge';
+import './card';
+import '../card-badge';
 
 const cardBadgeWrapperSelector = '.sbb-card__badge-wrapper';
 

@@ -4,9 +4,9 @@ import readme from './readme.md?raw';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import './sbb-radio-button-group';
-import '../sbb-radio-button';
-import '../sbb-form-error';
+import './radio-button-group';
+import '../radio-button';
+import '../../form-error';
 
 const value: InputType = {
   control: {

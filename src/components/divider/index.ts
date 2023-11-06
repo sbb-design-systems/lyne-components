@@ -1,1 +1,1 @@
-export * from './sbb-divider';
+export * from './divider';

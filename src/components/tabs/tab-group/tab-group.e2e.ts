@@ -1,9 +1,9 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { EventSpy, waitForCondition } from '../core/testing';
-import { SbbTabGroup } from './sbb-tab-group';
-import { SbbTabTitle } from '../sbb-tab-title';
+import { EventSpy, waitForCondition } from '../../core/testing';
+import { SbbTabGroup } from './tab-group';
+import { SbbTabTitle } from '../tab-title';
 
 describe('sbb-tab-group', () => {
   let element: SbbTabGroup;

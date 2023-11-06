@@ -1,6 +1,6 @@
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SbbJourneyHeader } from './sbb-journey-header';
+import { SbbJourneyHeader } from './journey-header';
 
 describe('sbb-journey-header', () => {
   let element: SbbJourneyHeader;

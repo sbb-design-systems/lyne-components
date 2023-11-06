@@ -7,8 +7,8 @@ import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-p
 import isChromatic from 'chromatic';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import './sbb-skiplink-list';
-import '../sbb-link';
+import './skiplink-list';
+import '../link';
 
 const titleContent: InputType = {
   control: {

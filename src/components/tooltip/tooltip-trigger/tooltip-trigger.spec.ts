@@ -1,5 +1,5 @@
-import '../sbb-icon';
-import './sbb-tooltip-trigger';
+import '../../icon';
+import './tooltip-trigger';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 

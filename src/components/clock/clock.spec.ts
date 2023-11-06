@@ -1,7 +1,7 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-clock';
-import { SbbClock } from './sbb-clock';
+import './clock';
+import { SbbClock } from './clock';
 
 describe('sbb-clock', () => {
   let element: SbbClock;

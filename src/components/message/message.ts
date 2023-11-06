@@ -1,7 +1,7 @@
-import { TitleLevel } from '../sbb-title';
+import { TitleLevel } from '../title';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import style from './sbb-message.scss?lit&inline';
+import style from './message.scss?lit&inline';
 
 /**
  * @slot image - Use this slot to provide a sbb-image component.

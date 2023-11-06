@@ -1,1 +1,1 @@
-export * from './sbb-tag-group';
+export * from './tag-group';

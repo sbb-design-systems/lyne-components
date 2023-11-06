@@ -1,1 +1,1 @@
-export * from './sbb-image';
+export * from './image';

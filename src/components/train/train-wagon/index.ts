@@ -1,1 +1,1 @@
-export * from './sbb-train-wagon';
+export * from './train-wagon';

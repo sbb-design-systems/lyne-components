@@ -1,5 +1,5 @@
 /** @jsx h */
-import { SbbDialog } from './sbb-dialog';
+import { SbbDialog } from './dialog';
 import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import sampleImages from '../core/images';
@@ -11,12 +11,12 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 
-import '../sbb-button';
-import '../sbb-link';
-import '../sbb-title';
-import '../sbb-form-field';
-import '../sbb-image';
-import '../sbb-action-group';
+import '../button';
+import '../link';
+import '../title';
+import '../form-field';
+import '../image';
+import '../action-group';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }): Promise<void> => {

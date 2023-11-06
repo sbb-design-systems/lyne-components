@@ -2,13 +2,13 @@ import {
   createNamedSlotState,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
-} from '../core/eventing';
-import { TitleLevel } from '../sbb-title';
+} from '../../core/eventing';
+import { TitleLevel } from '../../title';
 import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
-import style from './sbb-tab-title.scss?lit&inline';
-import '../sbb-icon';
+import style from './tab-title.scss?lit&inline';
+import '../../icon';
 
 /**
  * @slot - Use the unnamed slot to add content to the tab title.

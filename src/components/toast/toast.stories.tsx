@@ -7,7 +7,7 @@ import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-c
 import type { InputType } from '@storybook/types';
 import { within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
-import { SbbToast } from './sbb-toast';
+import { SbbToast } from './toast';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }): Promise<void> => {

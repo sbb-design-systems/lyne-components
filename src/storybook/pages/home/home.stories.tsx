@@ -17,8 +17,7 @@ import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 
 import './home.common';
-import '../../../components/sbb-alert';
-import '../../../components/sbb-alert-group';
+import '../../../components/alert';
 
 /* ************************************************* */
 /* Storybook controls                                */

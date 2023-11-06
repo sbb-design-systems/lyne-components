@@ -1,12 +1,12 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { waitForLitRender } from '../core/testing';
-import { SbbTrainFormation } from './sbb-train-formation';
+import { waitForLitRender } from '../../core/testing';
+import { SbbTrainFormation } from './train-formation';
 import { TemplateResult } from 'lit';
-import '../sbb-icon';
-import '../sbb-train';
-import '../sbb-train-wagon';
-import '../sbb-train-blocked-passage';
+import '../../icon';
+import '../train';
+import '../train-wagon';
+import '../train-blocked-passage';
 
 function extractAggregatedSectors(): Record<string, string>[] {
   return Array.from(

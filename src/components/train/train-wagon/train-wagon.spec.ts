@@ -1,9 +1,9 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SbbTrainWagon } from './sbb-train-wagon';
-import { waitForLitRender } from '../core/testing';
-import '../sbb-train-wagon';
-import '../sbb-icon';
+import { SbbTrainWagon } from './train-wagon';
+import { waitForLitRender } from '../../core/testing';
+import '../train-wagon';
+import '../../icon';
 
 async function extractAriaLabels(
   properties: Partial<

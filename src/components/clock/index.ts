@@ -1,1 +1,1 @@
-export * from './sbb-clock';
+export * from './clock';

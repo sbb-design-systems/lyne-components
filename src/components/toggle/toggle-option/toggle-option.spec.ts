@@ -1,5 +1,5 @@
-import './sbb-toggle-option';
-import '../sbb-icon';
+import './toggle-option';
+import '../../icon';
 
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';

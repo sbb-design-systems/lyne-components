@@ -1,14 +1,14 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-form-field-clear';
-import '../sbb-form-field';
+import './form-field-clear';
+import '../form-field';
 
 describe('sbb-form-field-clear', () => {
   it('renders', async () => {
     const formField = await fixture(html`
       <sbb-form-field label="Label">
         <input type="text" placeholder="Input placeholder" value="Input value" />
-        <sbb-form-field-clear />
+        <sbb-form-field-clear></sbb-form-field-clear>
       </sbb-form-field>
     `);
     const formFieldClear = formField.querySelector('sbb-form-field-clear');

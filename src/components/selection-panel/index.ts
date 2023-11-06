@@ -1,1 +1,1 @@
-export * from './sbb-selection-panel';
+export * from './selection-panel';

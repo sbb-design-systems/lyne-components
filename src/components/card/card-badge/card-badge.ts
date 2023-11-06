@@ -1,8 +1,8 @@
-import { toggleDatasetEntry, getDocumentWritingMode } from '../core/dom';
+import { toggleDatasetEntry, getDocumentWritingMode } from '../../core/dom';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { setAttribute } from '../core/dom';
-import style from './sbb-card-badge.scss?lit&inline';
+import { setAttribute } from '../../core/dom';
+import style from './card-badge.scss?lit&inline';
 
 /**
  * @slot - Use the unnamed slot to add content to the badge.

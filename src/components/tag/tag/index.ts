@@ -1,1 +1,1 @@
-export * from './sbb-tag';
+export * from './tag';

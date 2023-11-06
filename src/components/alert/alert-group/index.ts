@@ -1,1 +1,1 @@
-export * from './sbb-alert-group';
+export * from './alert-group';

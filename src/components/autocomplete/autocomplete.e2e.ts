@@ -1,11 +1,11 @@
-import { SbbOption } from '../sbb-option';
+import { SbbOption } from '../option';
 import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys, sendMouse } from '@web/test-runner-commands';
-import { SbbAutocomplete } from './sbb-autocomplete';
-import { SbbFormField } from '../sbb-form-field';
-import '../sbb-option';
+import { SbbAutocomplete } from './autocomplete';
+import { SbbFormField } from '../form-field';
+import '../option';
 
 describe('sbb-autocomplete', () => {
   let element: SbbAutocomplete, formField: SbbFormField, input: HTMLInputElement;

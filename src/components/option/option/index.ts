@@ -1,1 +1,1 @@
-export * from './sbb-option';
+export * from './option';

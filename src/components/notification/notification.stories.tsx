@@ -1,5 +1,5 @@
 /** @jsx h */
-import { SbbNotification } from './sbb-notification';
+import { SbbNotification } from './notification';
 import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import { withActions } from '@storybook/addon-actions/decorator';
@@ -7,8 +7,8 @@ import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-c
 import type { InputType } from '@storybook/types';
 import isChromatic from 'chromatic/isChromatic';
 
-import '../sbb-button';
-import '../sbb-link';
+import '../button';
+import '../link';
 
 const titleContent: InputType = {
   control: {

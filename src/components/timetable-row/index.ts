@@ -1,1 +1,1 @@
-export * from './sbb-timetable-row';
+export * from './timetable-row';

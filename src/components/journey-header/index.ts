@@ -1,1 +1,1 @@
-export * from './sbb-journey-header';
+export * from './journey-header';

@@ -1,1 +1,1 @@
-export * from './sbb-form-field-clear';
+export * from './form-field-clear';

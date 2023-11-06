@@ -2,8 +2,8 @@ import {
   LinkTargetType,
   resolveLinkOrStaticRenderVariables,
   targetsNewWindow,
-} from '../core/interfaces';
-import { i18nTargetOpensInNewWindow } from '../core/i18n';
+} from '../../core/interfaces';
+import { i18nTargetOpensInNewWindow } from '../../core/i18n';
 import {
   actionElementHandlerAspect,
   createNamedSlotState,
@@ -11,14 +11,14 @@ import {
   HandlerRepository,
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
-} from '../core/eventing';
+} from '../../core/eventing';
 import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
-import { setAttributes } from '../core/dom';
-import style from './sbb-breadcrumb.scss?lit&inline';
+import { setAttributes } from '../../core/dom';
+import style from './breadcrumb.scss?lit&inline';
 import { spread } from '@open-wc/lit-helpers';
-import '../sbb-icon';
+import '../../icon';
 
 /**
  * @slot - Use the unnamed slot to add content to the breadcrumb.

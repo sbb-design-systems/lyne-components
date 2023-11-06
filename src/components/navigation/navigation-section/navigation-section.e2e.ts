@@ -1,10 +1,10 @@
-import { waitForCondition, waitForLitRender } from '../core/testing';
+import { waitForCondition, waitForLitRender } from '../../core/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SbbNavigationSection } from './sbb-navigation-section';
-import '../sbb-navigation';
-import '../sbb-navigation-list';
-import '../sbb-navigation-action';
+import { SbbNavigationSection } from './navigation-section';
+import '../navigation';
+import '../navigation-list';
+import '../navigation-action';
 
 describe('sbb-navigation-section', () => {
   let element: SbbNavigationSection;

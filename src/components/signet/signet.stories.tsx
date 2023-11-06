@@ -3,7 +3,7 @@ import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import './sbb-signet';
+import './signet';
 
 const Template = (args): JSX.Element => <sbb-signet {...args} />;
 

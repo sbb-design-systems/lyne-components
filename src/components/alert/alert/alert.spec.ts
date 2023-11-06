@@ -1,7 +1,7 @@
-import { SbbAlert } from './sbb-alert';
+import { SbbAlert } from './alert';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-alert';
+import './alert';
 
 describe('sbb-alert', () => {
   let element: SbbAlert;
@@ -56,7 +56,7 @@ describe('sbb-alert', () => {
         title-content="Interruption"
         title-level="2"
         size="l"
-        disable-animation="true"
+        disable-animation
         icon-name="disruption"
         accessibility-label="label"
         href="https://www.sbb.ch"
@@ -69,7 +69,7 @@ describe('sbb-alert', () => {
 
     expect(element).dom.to.be.equal(
       `
-        <sbb-alert title-content="Interruption" title-level="2" size="l" disable-animation="true" icon-name="disruption" accessibility-label="label" href="https://www.sbb.ch" rel="noopener" target="_blank" link-content="Show much more">
+        <sbb-alert title-content="Interruption" title-level="2" size="l" disable-animation icon-name="disruption" accessibility-label="label" href="https://www.sbb.ch" rel="noopener" target="_blank" link-content="Show much more">
            Alert content
         </sbb-alert>
       `,

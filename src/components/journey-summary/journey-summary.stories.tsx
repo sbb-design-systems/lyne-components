@@ -5,13 +5,13 @@ import {
   longFutureLeg,
   pastLeg,
   progressLeg,
-} from '../sbb-pearl-chain/sbb-pearl-chain.sample-data';
+} from '../pearl-chain/pearl-chain.sample-data';
 import readme from './readme.md?raw';
 import isChromatic from 'chromatic';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import './sbb-journey-summary';
-import '../sbb-button';
+import './journey-summary';
+import '../button';
 
 const disableAnimation: InputType = {
   control: {

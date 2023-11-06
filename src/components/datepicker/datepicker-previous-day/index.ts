@@ -1,1 +1,1 @@
-export * from './sbb-datepicker-previous-day';
+export * from './datepicker-previous-day';

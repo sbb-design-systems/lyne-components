@@ -1,18 +1,18 @@
-import { i18nSector, i18nSectorShort, i18nTrains } from '../core/i18n';
+import { i18nSector, i18nSectorShort, i18nTrains } from '../../core/i18n';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
   ConnectedAbortController,
-} from '../core/eventing';
-import { AgnosticResizeObserver } from '../core/observers';
+} from '../../core/eventing';
+import { AgnosticResizeObserver } from '../../core/observers';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { SbbTrain } from '../sbb-train';
-import { SbbTrainWagon } from '../sbb-train-wagon';
-import { SbbTrainBlockedPassage } from '../sbb-train-blocked-passage';
+import { SbbTrain } from '../train';
+import { SbbTrainWagon } from '../train-wagon';
+import { SbbTrainBlockedPassage } from '../train-blocked-passage';
 import { ref } from 'lit/directives/ref.js';
-import style from './sbb-train-formation.scss?lit&inline';
+import style from './train-formation.scss?lit&inline';
 
 interface AggregatedSector {
   label: string;

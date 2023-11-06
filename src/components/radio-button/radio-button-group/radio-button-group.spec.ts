@@ -1,6 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-radio-button-group';
+import './radio-button-group';
 
 describe('sbb-radio-button-group', () => {
   it('renders', async () => {

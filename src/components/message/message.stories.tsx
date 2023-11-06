@@ -5,10 +5,10 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 import images from '../core/images';
-import '../sbb-image';
-import '../sbb-title';
-import '../sbb-button';
-import './sbb-message';
+import '../image';
+import '../title';
+import '../button';
+import './message';
 
 const DefaultTemplate = (args): JSX.Element => (
   <sbb-message {...args}>

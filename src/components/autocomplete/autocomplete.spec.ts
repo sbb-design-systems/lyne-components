@@ -1,8 +1,8 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import '../sbb-form-field';
-import '../sbb-option';
-import './sbb-autocomplete';
+import '../form-field';
+import '../option';
+import './autocomplete';
 import { isSafari } from '../core/dom';
 
 describe('sbb-autocomplete', () => {

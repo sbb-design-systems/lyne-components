@@ -4,23 +4,23 @@ import {
   LinkTargetType,
   resolveRenderVariables,
   targetsNewWindow,
-} from '../core/interfaces';
-import { i18nTargetOpensInNewWindow } from '../core/i18n';
-import { hostContext } from '../core/dom';
+} from '../../core/interfaces';
+import { i18nTargetOpensInNewWindow } from '../../core/i18n';
+import { hostContext } from '../../core/dom';
 import {
   documentLanguage,
   HandlerRepository,
   actionElementHandlerAspect,
   languageChangeHandlerAspect,
   ConnectedAbortController,
-} from '../core/eventing';
+} from '../../core/eventing';
 import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';
-import { SbbNavigationMarker } from '../sbb-navigation-marker';
-import { setAttributes } from '../core/dom';
-import style from './sbb-navigation-action.scss?lit&inline';
+import { SbbNavigationMarker } from '../navigation-marker';
+import { setAttributes } from '../../core/dom';
+import style from './navigation-action.scss?lit&inline';
 
 /**
  * @slot - Use the unnamed slot to add content to the navigation action.

@@ -1,1 +1,1 @@
-export * from './sbb-form-error';
+export * from './form-error';

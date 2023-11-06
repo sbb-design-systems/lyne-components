@@ -2,8 +2,8 @@
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import type { Meta, StoryObj } from '@storybook/web-components';
-import '../sbb-pearl-chain-vertical';
-import './sbb-pearl-chain-vertical-item';
+import '../pearl-chain-vertical';
+import './pearl-chain-vertical-item';
 
 // We need to lie to the compiler in order for the CSS variables to work.
 // Remove once https://github.com/alex-kinokon/jsx-dom/pull/90 is merged and released.

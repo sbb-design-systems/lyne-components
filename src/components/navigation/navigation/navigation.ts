@@ -1,14 +1,19 @@
-import { FocusTrap, IS_FOCUSABLE_QUERY, assignId, setModalityOnNextFocus } from '../core/a11y';
-import { ScrollHandler, isValidAttribute, isBreakpoint, findReferencedElement } from '../core/dom';
+import { FocusTrap, IS_FOCUSABLE_QUERY, assignId, setModalityOnNextFocus } from '../../core/a11y';
+import {
+  ScrollHandler,
+  isValidAttribute,
+  isBreakpoint,
+  findReferencedElement,
+} from '../../core/dom';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
   EventEmitter,
   ConnectedAbortController,
-} from '../core/eventing';
-import { i18nCloseNavigation } from '../core/i18n';
-import { AgnosticMutationObserver } from '../core/observers';
+} from '../../core/eventing';
+import { i18nCloseNavigation } from '../../core/i18n';
+import { AgnosticMutationObserver } from '../../core/observers';
 import {
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
@@ -16,13 +21,13 @@ import {
   SbbOverlayState,
   applyInertMechanism,
   removeInertMechanism,
-} from '../core/overlay';
+} from '../../core/overlay';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { setAttribute } from '../core/dom';
+import { setAttribute } from '../../core/dom';
 import { ref } from 'lit/directives/ref.js';
-import style from './sbb-navigation.scss?lit&inline';
-import '../sbb-button';
+import style from './navigation.scss?lit&inline';
+import '../../button';
 
 /** Configuration for the attribute to look at if a navigation section is displayed */
 const navigationObserverConfig: MutationObserverInit = {

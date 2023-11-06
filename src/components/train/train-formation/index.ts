@@ -1,1 +1,1 @@
-export * from './sbb-train-formation';
+export * from './train-formation';

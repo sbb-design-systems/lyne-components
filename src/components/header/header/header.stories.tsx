@@ -3,15 +3,15 @@ import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import isChromatic from 'chromatic';
 import { userEvent, within } from '@storybook/testing-library';
-import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
+import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
+import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import './sbb-header';
-import '../sbb-header-action';
-import '../sbb-menu';
-import '../sbb-menu-action';
+import './header';
+import '../header-action';
+import '../../menu';
+import '../../menu';
 
 const LoremIpsumTemplate = (): JSX.Element[] => [
   <div>

@@ -2,8 +2,8 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
-import { SbbLink } from './sbb-link';
-import './sbb-link';
+import { SbbLink } from './link';
+import './link';
 
 describe('sbb-link', () => {
   let element: SbbLink;

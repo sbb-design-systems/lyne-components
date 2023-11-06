@@ -1,1 +1,1 @@
-export * from './sbb-tab-group';
+export * from './tab-group';

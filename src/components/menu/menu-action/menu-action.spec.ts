@@ -1,6 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-menu-action';
+import './menu-action';
 
 describe('sbb-menu-action', () => {
   it('renders component as button', async () => {

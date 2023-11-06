@@ -1,10 +1,10 @@
-import { SbbIcon } from './sbb-icon';
+import { SbbIcon } from './icon';
 
 import { SbbIconConfig, readConfig } from '../core/config';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { waitForLitRender } from '../core/testing';
-import './sbb-icon';
+import './icon';
 
 describe('sbb-icon', () => {
   it('renders', async () => {

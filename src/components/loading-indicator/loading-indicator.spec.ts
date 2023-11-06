@@ -1,6 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-loading-indicator';
+import './loading-indicator';
 
 describe('sbb-loading-indicator', () => {
   it('renders with variant `window`', async () => {

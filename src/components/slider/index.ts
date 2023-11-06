@@ -1,1 +1,1 @@
-export * from './sbb-slider';
+export * from './slider';

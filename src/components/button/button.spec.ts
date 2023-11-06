@@ -1,7 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import '../sbb-form-field';
-import './sbb-button';
+import '../form-field';
+import './button';
 
 describe('sbb-button', () => {
   it('renders a primary button without icon', async () => {

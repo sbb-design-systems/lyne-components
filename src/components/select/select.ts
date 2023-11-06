@@ -14,11 +14,11 @@ import {
 import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
-import { SbbOption } from '../sbb-option';
+import { SbbOption } from '../option';
 import { setAttribute } from '../core/dom';
 import { ConnectedAbortController, EventEmitter } from '../core/eventing';
-import { SbbOptGroup } from '../sbb-optgroup';
-import style from './sbb-select.scss?lit&inline';
+import { SbbOptGroup } from '../option';
+import style from './select.scss?lit&inline';
 
 let nextId = 0;
 

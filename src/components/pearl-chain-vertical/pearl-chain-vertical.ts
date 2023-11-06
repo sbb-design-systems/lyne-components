@@ -1,6 +1,6 @@
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import style from './sbb-pearl-chain-vertical.scss?lit&inline';
+import style from './pearl-chain-vertical.scss?lit&inline';
 
 /**
  * @slot - for <sbb-pearl-chain-vertical-item /> component

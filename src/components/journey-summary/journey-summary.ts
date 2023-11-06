@@ -9,11 +9,11 @@ import {
 import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { TitleLevel } from '../sbb-title';
-import style from './sbb-journey-summary.scss?lit&inline';
-import '../sbb-pearl-chain-time';
-import '../sbb-journey-header';
-import '../sbb-divider';
+import { TitleLevel } from '../title';
+import style from './journey-summary.scss?lit&inline';
+import '../pearl-chain-time';
+import '../journey-header';
+import '../divider';
 
 export interface InterfaceSbbJourneySummaryAttributes {
   legs: Leg[];

@@ -5,8 +5,8 @@ import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from
 import { getDepartureArrivalTimeAttribute, isRideLeg, Leg, PtRideLeg } from '../core/timetable';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import style from './sbb-pearl-chain-time.scss?lit&inline';
-import '../sbb-pearl-chain';
+import style from './pearl-chain-time.scss?lit&inline';
+import '../pearl-chain';
 
 /**
  * TODO: Document me

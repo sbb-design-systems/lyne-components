@@ -6,7 +6,7 @@ import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { setAttributes } from '../core/dom';
 import { ref } from 'lit/directives/ref.js';
-import style from './sbb-clock.scss?lit&inline';
+import style from './clock.scss?lit&inline';
 
 /** Number of hours on the clock face. */
 const TOTAL_HOURS_ON_CLOCK_FACE = 12;

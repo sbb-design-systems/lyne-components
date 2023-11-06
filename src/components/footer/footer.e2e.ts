@@ -1,6 +1,6 @@
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SbbFooter } from './sbb-footer';
+import { SbbFooter } from './footer';
 
 describe('sbb-footer', () => {
   let element: SbbFooter;

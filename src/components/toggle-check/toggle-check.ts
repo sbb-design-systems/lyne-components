@@ -10,8 +10,8 @@ import {
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttributes } from '../core/dom';
-import style from './sbb-toggle-check.scss?lit&inline';
-import '../sbb-icon';
+import style from './toggle-check.scss?lit&inline';
+import '../icon';
 
 /**
  * @slot - Use the unnamed slot to add content to the toggle label.

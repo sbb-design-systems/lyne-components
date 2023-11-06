@@ -1,6 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import '../sbb-message';
+import '../message';
 
 describe('sbb-message', () => {
   it('renders', async () => {

@@ -1,1 +1,1 @@
-export * from './sbb-navigation-section';
+export * from './navigation-section';

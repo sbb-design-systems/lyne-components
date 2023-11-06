@@ -1,1 +1,1 @@
-export * from './sbb-breadcrumb';
+export * from './breadcrumb';

@@ -1,10 +1,10 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-notification';
-import '../sbb-link';
-import '../sbb-button';
-import '../sbb-icon';
-import '../sbb-divider';
+import './notification';
+import '../link';
+import '../button';
+import '../icon';
+import '../divider';
 
 describe('sbb-notification', () => {
   it('renders', async () => {

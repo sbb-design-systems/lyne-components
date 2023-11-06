@@ -2,7 +2,7 @@ import { i18nAttention, i18nConnectionsDepartOn, i18nDayChange } from '../core/i
 import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import style from './sbb-timetable-row-day-change.scss?lit&inline';
+import style from './timetable-row-day-change.scss?lit&inline';
 
 /**
  * TODO: Document me

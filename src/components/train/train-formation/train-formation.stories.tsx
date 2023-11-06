@@ -3,11 +3,11 @@ import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import './sbb-train-formation';
-import '../sbb-icon';
-import '../sbb-train';
-import '../sbb-train-wagon';
-import '../sbb-train-blocked-passage';
+import './train-formation';
+import '../../icon';
+import '../train';
+import '../train-wagon';
+import '../train-blocked-passage';
 
 const MountedFormationTemplate = (args): JSX.Element => (
   <sbb-train-formation {...args}>

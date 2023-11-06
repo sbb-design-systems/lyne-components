@@ -1,1 +1,1 @@
-export * from './sbb-header-action';
+export * from './header-action';

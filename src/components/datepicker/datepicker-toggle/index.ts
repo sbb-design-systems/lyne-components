@@ -1,1 +1,1 @@
-export * from './sbb-datepicker-toggle';
+export * from './datepicker-toggle';

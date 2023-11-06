@@ -1,10 +1,10 @@
-import './sbb-checkbox';
+import './checkbox';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 describe('sbb-checkbox', () => {
   it('renders', async () => {
-    const root = await fixture(html`<sbb-checkbox>Label</sbb-checkox>`);
+    const root = await fixture(html`<sbb-checkbox>Label</sbb-checkbox>`);
 
     expect(root).dom.to.be.equal(`
       <sbb-checkbox aria-checked="false" aria-disabled="false" aria-required="false" icon-placement="end" role="checkbox" size="m" tabindex="0">
@@ -32,7 +32,9 @@ describe('sbb-checkbox', () => {
   describe('icon position', () => {
     it('start', async () => {
       const root = await fixture(
-        html`<sbb-checkbox icon-name="tickets-class-small" icon-placement="start" size="s">Label</sbb-checkox>`,
+        html`<sbb-checkbox icon-name="tickets-class-small" icon-placement="start" size="s"
+          >Label</sbb-checkbox
+        >`,
       );
 
       expect(root).dom.to.be.equal(`
@@ -65,7 +67,7 @@ describe('sbb-checkbox', () => {
 
   describe('state', () => {
     it('checked', async () => {
-      const root = await fixture(html`<sbb-checkbox checked="true">Label</sbb-checkbox>`);
+      const root = await fixture(html`<sbb-checkbox checked>Label</sbb-checkbox>`);
 
       expect(root).dom.to.be.equal(`
         <sbb-checkbox aria-checked="true" aria-disabled="false" aria-required="false" checked icon-placement="end" role="checkbox" size="m" tabindex="0">
@@ -120,7 +122,7 @@ describe('sbb-checkbox', () => {
     });
 
     it('unchecked disabled', async () => {
-      const root = await fixture(html`<sbb-checkbox disabled>Label</sbb-checkox>`);
+      const root = await fixture(html`<sbb-checkbox disabled>Label</sbb-checkbox>`);
       expect(root).dom.to.be.equal(`
         <sbb-checkbox aria-checked="false" aria-disabled="true" aria-required="false" disabled icon-placement="end" size="m" role="checkbox">
           Label

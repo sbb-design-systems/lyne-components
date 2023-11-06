@@ -3,31 +3,31 @@ import {
   getFirstFocusableElement,
   getFocusableElements,
   setModalityOnNextFocus,
-} from '../core/a11y';
-import { findReferencedElement, isBreakpoint, isValidAttribute } from '../core/dom';
+} from '../../core/a11y';
+import { findReferencedElement, isBreakpoint, isValidAttribute } from '../../core/dom';
 import {
   createNamedSlotState,
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
-} from '../core/eventing';
-import { i18nGoBack } from '../core/i18n';
+} from '../../core/eventing';
+import { i18nGoBack } from '../../core/i18n';
 import {
   removeAriaOverlayTriggerAttributes,
   SbbOverlayState,
   setAriaOverlayTriggerAttributes,
-} from '../core/overlay';
+} from '../../core/overlay';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';
-import { SbbNavigation } from '../sbb-navigation';
-import { SbbNavigationMarker } from '../sbb-navigation-marker';
-import { setAttribute } from '../core/dom';
+import { SbbNavigation } from '../navigation';
+import { SbbNavigationMarker } from '../navigation-marker';
+import { setAttribute } from '../../core/dom';
 import { ref } from 'lit/directives/ref.js';
-import style from './sbb-navigation-section.scss?lit&inline';
-import '../sbb-divider';
-import '../sbb-button';
+import style from './navigation-section.scss?lit&inline';
+import '../../divider';
+import '../../button';
 
 let nextId = 0;
 

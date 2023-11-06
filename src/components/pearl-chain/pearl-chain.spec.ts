@@ -1,9 +1,9 @@
-import { SbbPearlChain } from './sbb-pearl-chain';
+import { SbbPearlChain } from './pearl-chain';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { waitForLitRender } from '../core/testing';
 import { PtRideLeg } from '../core/timetable';
-import './sbb-pearl-chain';
+import './pearl-chain';
 
 describe('sbb-pearl-chain', () => {
   describe('sbb-pearl-chain with one leg', () => {

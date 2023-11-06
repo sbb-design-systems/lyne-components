@@ -1,11 +1,11 @@
-import { TitleLevel } from '../sbb-title';
+import { TitleLevel } from '../../title';
 import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
-import { EventEmitter, ConnectedAbortController } from '../core/eventing';
-import { SbbAlert } from '../sbb-alert';
-import { setAttribute } from '../core/dom';
-import style from './sbb-alert-group.scss?lit&inline';
+import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
+import { SbbAlert } from '../alert';
+import { setAttribute } from '../../core/dom';
+import style from './alert-group.scss?lit&inline';
 
 /**
  * @slot - Use the unnamed slot to add `sbb-alert` elements to this alert group.

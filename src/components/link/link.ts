@@ -21,9 +21,9 @@ import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttributes } from '../core/dom';
-import style from './sbb-link.scss?lit&inline';
+import style from './link.scss?lit&inline';
 import { spread } from '@open-wc/lit-helpers';
-import '../sbb-icon';
+import '../icon';
 import { SbbIconPlacement } from '../core/interfaces';
 
 export type SbbLinkSize = 'xs' | 's' | 'm';

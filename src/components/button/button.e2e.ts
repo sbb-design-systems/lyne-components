@@ -2,7 +2,7 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
-import { SbbButton } from './sbb-button';
+import { SbbButton } from './button';
 
 describe('sbb-button', () => {
   let element: SbbButton;

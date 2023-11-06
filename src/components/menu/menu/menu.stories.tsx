@@ -1,19 +1,19 @@
 /** @jsx h */
-import { SbbMenu } from './sbb-menu';
+import { SbbMenu } from './menu';
 import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import isChromatic from 'chromatic';
 import { userEvent, within } from '@storybook/testing-library';
-import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
+import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
+import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 
-import '../sbb-button';
-import '../sbb-divider';
-import '../sbb-link';
-import '../sbb-menu-action';
+import '../../button';
+import '../../divider';
+import '../../link';
+import '../menu-action';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }): Promise<void> => {

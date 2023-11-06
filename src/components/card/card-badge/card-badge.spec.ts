@@ -1,6 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-card-badge';
+import './card-badge';
 
 describe('sbb-card-badge', () => {
   it('renders', async () => {

@@ -1,11 +1,11 @@
-import { SbbDatepickerToggle } from './sbb-datepicker-toggle';
+import { SbbDatepickerToggle } from './datepicker-toggle';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SbbFormField } from '../sbb-form-field';
+import { SbbFormField } from '../../form-field';
 
-import './sbb-datepicker-toggle';
-import '../sbb-datepicker';
-import '../sbb-form-field';
+import './datepicker-toggle';
+import '../datepicker';
+import '../../form-field';
 
 describe('sbb-datepicker-toggle', () => {
   it('renders', async () => {
@@ -117,7 +117,7 @@ describe('sbb-datepicker-toggle', () => {
       const page = await fixture(html`
         <sbb-form-field>
           <sbb-datepicker-toggle></sbb-datepicker-toggle>
-          <sbb-datepicker wide="true"></sbb-datepicker>
+          <sbb-datepicker wide></sbb-datepicker>
           <input min="1600000000" max="1700000000" />
         </sbb-form-field>
       `);

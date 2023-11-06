@@ -1,7 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-teaser';
-import '../sbb-title';
+import './teaser';
+import '../title';
 
 describe('sbb-teaser', () => {
   describe('sbb-teaser is stacked', () => {

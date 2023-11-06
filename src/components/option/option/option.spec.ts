@@ -1,7 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import '../sbb-autocomplete';
-import './sbb-option';
+import '../../autocomplete';
+import './option';
 
 describe('sbb-option', () => {
   describe('autocomplete', () => {

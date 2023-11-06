@@ -1,6 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-train-formation';
+import './train-formation';
 
 describe('sbb-train-formation', () => {
   it('should render with one train', async () => {

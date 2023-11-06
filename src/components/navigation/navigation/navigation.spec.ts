@@ -1,7 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './sbb-navigation';
-import '../sbb-button';
+import './navigation';
+import '../../button';
 
 describe('sbb-navigation', () => {
   it('renders', async () => {

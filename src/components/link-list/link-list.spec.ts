@@ -1,9 +1,9 @@
 import { expect, fixture } from '@open-wc/testing';
 
 import { html } from 'lit/static-html.js';
-import { SbbLink } from '../sbb-link';
-import './sbb-link-list';
-import { SbbLinkList } from './sbb-link-list';
+import { SbbLink } from '../link';
+import './link-list';
+import { SbbLinkList } from './link-list';
 
 describe('sbb-link-list', () => {
   let element: SbbLinkList;

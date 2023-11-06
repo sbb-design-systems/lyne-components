@@ -5,8 +5,8 @@ import isChromatic from 'chromatic';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import './sbb-toggle';
-import '../sbb-toggle-option';
+import './toggle';
+import '../toggle-option';
 
 const disabled: InputType = {
   control: {

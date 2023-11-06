@@ -1,9 +1,9 @@
 import { CSSResult, html, LitElement, TemplateResult, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { ConnectedAbortController } from '../core/eventing';
-import { SbbTag, SbbTagStateChange } from '../sbb-tag';
-import { setAttribute } from '../core/dom';
-import style from './sbb-tag-group.scss?lit&inline';
+import { ConnectedAbortController } from '../../core/eventing';
+import { SbbTag, SbbTagStateChange } from '../tag';
+import { setAttribute } from '../../core/dom';
+import style from './tag-group.scss?lit&inline';
 
 /**
  * @slot - Use the unnamed slot to add one or more 'sbb-tag' elements to this tag group.

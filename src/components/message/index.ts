@@ -1,1 +1,1 @@
-export * from './sbb-message';
+export * from './message';

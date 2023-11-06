@@ -1,1 +1,1 @@
-export * from './sbb-teaser-hero';
+export * from './teaser-hero';

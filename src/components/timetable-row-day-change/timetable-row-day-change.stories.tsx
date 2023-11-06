@@ -1,9 +1,9 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
-import sampleData from './sbb-timetable-row-day-change.sample-data';
+import sampleData from './timetable-row-day-change.sample-data';
 import type { Meta, StoryObj, Args } from '@storybook/web-components';
-import './sbb-timetable-row-day-change';
+import './timetable-row-day-change';
 
 const Template = (args): JSX.Element => (
   <sbb-timetable-row-day-change config={JSON.stringify(args.config)}></sbb-timetable-row-day-change>

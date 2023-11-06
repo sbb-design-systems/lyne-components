@@ -1,1 +1,1 @@
-export * from './sbb-notification';
+export * from './notification';

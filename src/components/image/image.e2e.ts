@@ -1,7 +1,7 @@
 import { aTimeout, assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { waitForLitRender } from '../core/testing';
-import { SbbImage } from './sbb-image';
+import { SbbImage } from './image';
 import images from '../core/images';
 
 describe('sbb-image', () => {

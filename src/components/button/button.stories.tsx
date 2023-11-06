@@ -5,7 +5,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType, StoryContext } from '@storybook/types';
 import isChromatic from 'chromatic';
-import './sbb-button';
+import './button';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? '#484040' : 'var(--sbb-color-white-default)',

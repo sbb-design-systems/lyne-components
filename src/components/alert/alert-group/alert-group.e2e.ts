@@ -1,11 +1,11 @@
-import { waitForCondition } from '../core/testing';
+import { waitForCondition } from '../../core/testing';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { EventSpy, waitForLitRender } from '../core/testing';
-import { SbbAlertGroup } from './sbb-alert-group';
-import { SbbButton } from '../sbb-button';
-import '../sbb-alert-group';
-import '../sbb-alert';
+import { EventSpy, waitForLitRender } from '../../core/testing';
+import { SbbAlertGroup } from './alert-group';
+import { SbbButton } from '../../button';
+import '../alert-group';
+import '../alert';
 
 describe('sbb-alert-group', () => {
   let element: SbbAlertGroup;

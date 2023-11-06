@@ -1,1 +1,1 @@
-export * from './sbb-expansion-panel-content';
+export * from './expansion-panel-content';

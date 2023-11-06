@@ -8,21 +8,21 @@ import {
   i18nSector,
   i18nWagonLabel,
   i18nWagonLabelNumber,
-} from '../core/i18n';
+} from '../../core/i18n';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
   EventEmitter,
-} from '../core/eventing';
+} from '../../core/eventing';
 import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
-import { SbbIcon } from '../sbb-icon';
-import { setAttribute } from '../core/dom';
-import { SbbOccupancy } from '../core/interfaces';
-import style from './sbb-train-wagon.scss?lit&inline';
-import '../sbb-icon';
+import { SbbIcon } from '../../icon';
+import { setAttribute } from '../../core/dom';
+import { SbbOccupancy } from '../../core/interfaces';
+import style from './train-wagon.scss?lit&inline';
+import '../../icon';
 
 /**
  * @slot - Use the unnamed slot to add one or more icons for meta information of the sbb-train-wagon.

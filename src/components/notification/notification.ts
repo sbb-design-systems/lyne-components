@@ -1,4 +1,4 @@
-import { TitleLevel } from '../sbb-title';
+import { TitleLevel } from '../title';
 import { i18nCloseNotification } from '../core/i18n';
 import {
   createNamedSlotState,
@@ -14,11 +14,11 @@ import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttribute } from '../core/dom';
 import { ref } from 'lit/directives/ref.js';
-import style from './sbb-notification.scss?lit&inline';
-import '../sbb-button';
-import '../sbb-divider';
-import '../sbb-icon';
-import '../sbb-title';
+import style from './notification.scss?lit&inline';
+import '../button';
+import '../divider';
+import '../icon';
+import '../title';
 
 const notificationTypes = new Map([
   ['info', 'circle-information-small'],

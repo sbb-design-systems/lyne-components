@@ -1,1 +1,1 @@
-export * from './sbb-navigation-action';
+export * from './navigation-action';

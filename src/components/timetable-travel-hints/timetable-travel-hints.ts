@@ -4,7 +4,7 @@ import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttribute } from '../core/dom';
-import style from './sbb-timetable-travel-hints.scss?lit&inline';
+import style from './timetable-travel-hints.scss?lit&inline';
 
 /**
  * TODO: Document me
