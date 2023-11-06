@@ -17,7 +17,7 @@ const playStory = async (trigger, canvasElement): Promise<void> => {
   );
 
   const button = canvas.getByTestId('navigation-trigger');
-  userEvent.click(button);
+  await userEvent.click(button);
   await waitFor(() =>
     expect(canvas.getByTestId('navigation').getAttribute('data-state') === 'opened').toBeTruthy(),
   );
@@ -27,7 +27,7 @@ const playStory = async (trigger, canvasElement): Promise<void> => {
     ).toBeTruthy(),
   );
   const action = canvas.getByTestId(trigger);
-  userEvent.click(action);
+  await userEvent.click(action);
 };
 
 const accessibilityLabel: InputType = {
