@@ -42,3 +42,12 @@ export const occupancySampleData: Occupancy[] = [
     secondClass: 'HIGH',
   },
 ];
+
+export const occupancySampleDataSingleWagon: Occupancy[] = [
+  {
+    firstClass: 'LOW',
+  },
+  {
+    secondClass: 'MEDIUM',
+  },
+];

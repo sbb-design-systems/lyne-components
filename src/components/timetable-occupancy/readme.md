@@ -5,7 +5,7 @@ here to show the various configuration options to component developers. !!
 
 ## Properties
 
-| Name        | Attribute   | Privacy | Type        | Default | Description                                    |
-| ----------- | ----------- | ------- | ----------- | ------- | ---------------------------------------------- |
-| `occupancy` | `occupancy` | public  | `Occupancy` |         | Occupancy for first and second classes wagons. |
-| `negative`  | `negative`  | public  | `boolean`   | `false` | Negative coloring variant flag.                |
+| Name        | Attribute   | Privacy | Type        | Default | Description                                  |
+| ----------- | ----------- | ------- | ----------- | ------- | -------------------------------------------- |
+| `occupancy` | `occupancy` | public  | `Occupancy` |         | Occupancy for first and second class wagons. |
+| `negative`  | `negative`  | public  | `boolean`   | `false` | Negative coloring variant flag.              |

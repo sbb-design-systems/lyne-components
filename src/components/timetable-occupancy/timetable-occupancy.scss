@@ -8,7 +8,7 @@
   }
 }
 
-:host([negative]:not([negative='false'])) {
+:host([negative]) {
   --sbb-timetable-occupancy-color: var(--sbb-color-white-default);
 }
 
@@ -28,7 +28,7 @@
   gap: var(--sbb-spacing-fixed-1x);
 }
 
-.sbb-timetable-occupancy__list-item-class {
+.sbb-timetable-occupancy__list-item-wagon {
   @include sbb.text-s--regular;
 
   color: var(--sbb-timetable-occupancy-color);

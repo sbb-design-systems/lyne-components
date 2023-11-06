@@ -15,7 +15,7 @@ import style from './timetable-occupancy.scss?lit&inline';
 export class SbbTimetableOccupancy extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  /** Occupancy for first and second classes wagons. */
+  /** Occupancy for first and second class wagons. */
   @property({ type: Object, attribute: false }) public occupancy!: Occupancy;
 
   /** Negative coloring variant flag. */
@@ -44,17 +44,21 @@ export class SbbTimetableOccupancy extends LitElement {
 
     return html` ${(firstClassOccupancy || secondClassOccupancy) &&
     html`
-      <ul class="sbb-timetable-occupancy__list" role="list">
+      <ul class="sbb-timetable-occupancy__list">
         ${[firstClassOccupancy, secondClassOccupancy].map(
           (occupancy: string, index: number) =>
             occupancy &&
             html`
               <li class="sbb-timetable-occupancy__list-item">
-                <span class="sbb-timetable-occupancy__list-item-class" aria-hidden="true">
-                  ${index + 1}.
+                <span class="sbb-timetable-occupancy__list-item-wagon" aria-hidden="true">
+                  ${firstClassOccupancy && index === 0 ? '1' : '2'}.
                 </span>
                 <span class="sbb-timetable-occupancy__visually-hidden">
-                  ${`${i18nClass[index === 0 ? 'first' : 'second'][this._currentLanguage]}. `}
+                  ${`${
+                    i18nClass[firstClassOccupancy && index === 0 ? 'first' : 'second'][
+                      this._currentLanguage
+                    ]
+                  }. `}
                 </span>
                 <sbb-timetable-occupancy-icon
                   class="sbb-timetable-occupancy__list-item-icon"
