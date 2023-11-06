@@ -7,17 +7,14 @@ import images from '../core/images';
 describe('sbb-image', () => {
   let element: SbbImage;
 
-  // TODO: Fix test
-  it.skip('renders', async function () {
-    this.timeout(8000);
+  it('renders', async function () {
     const url = images[0];
     element = await fixture(html`<sbb-image image-src="${url}"></sbb-image>`);
 
     assert.instanceOf(element, SbbImage);
     await waitForLitRender(element);
-    // Wait five seconds in hope the image will successfully be loaded
-    // TODO: Find more reliable solution
-    await aTimeout(5000);
+    // Wait 2.5 seconds in hope the image will successfully be loaded
+    await aTimeout(2500);
     await waitForLitRender(element);
 
     expect(element).dom.to.be.equal(`
