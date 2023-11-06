@@ -107,7 +107,7 @@ const navigationActionsL = (): JSX.Element[] => [
 const navigationActionsS = (): JSX.Element[] => [
   <sbb-navigation-action id="nav-5">Deutsch</sbb-navigation-action>,
   <sbb-navigation-action id="nav-6">Français</sbb-navigation-action>,
-  <sbb-navigation-action id="nav-7" data-testid="navigation-section-trigger-2">
+  <sbb-navigation-action id="nav-7" active>
     Italiano
   </sbb-navigation-action>,
   <sbb-navigation-action id="nav-8">English</sbb-navigation-action>,
@@ -250,7 +250,7 @@ export const WithNavigationSection: StoryObj = {
   render: WithNavigationSectionTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
-  play: isChromatic() && playStoryWithSection,
+  play: playStoryWithSection,
 };
 
 const meta: Meta = {
