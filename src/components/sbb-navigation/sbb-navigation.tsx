@@ -13,13 +13,8 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { FocusTrap, IS_FOCUSABLE_QUERY, assignId, setModalityOnNextFocus } from '../../global/a11y';
-import {
-  ScrollHandler,
-  isValidAttribute,
-  isBreakpoint,
-  findReferencedElement,
-} from '../../global/dom';
+import { FocusTrap, assignId, setModalityOnNextFocus } from '../../global/a11y';
+import { ScrollHandler, isValidAttribute, findReferencedElement } from '../../global/dom';
 import {
   documentLanguage,
   HandlerRepository,
@@ -304,11 +299,6 @@ export class SbbNavigation implements ComponentInterface {
         this._activeNavigationSection = this._element.querySelector(
           'sbb-navigation-section[data-state="opening"], sbb-navigation-section[data-state="opened"]',
         );
-        if (!isBreakpoint('zero', 'large')) {
-          (
-            this._activeNavigationSection?.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement
-          )?.focus();
-        }
       }
     }
   }

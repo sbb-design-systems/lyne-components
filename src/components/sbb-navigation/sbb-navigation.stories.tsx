@@ -19,7 +19,7 @@ const playStory = async ({ canvasElement }): Promise<void> => {
   );
 
   const button = canvas.getByTestId('navigation-trigger');
-  userEvent.click(button);
+  await userEvent.click(button);
 
   await waitFor(() =>
     expect(canvas.getByTestId('navigation').getAttribute('data-state') === 'opened').toBeTruthy(),
@@ -36,7 +36,13 @@ const playStoryWithSection = async ({ canvasElement }): Promise<void> => {
     ).toBeTruthy(),
   );
   const actionL = canvas.getByTestId('navigation-section-trigger-1');
-  userEvent.click(actionL);
+  await userEvent.click(actionL);
+
+  await waitFor(() =>
+    expect(
+      canvas.getByTestId('navigation-section').getAttribute('data-state') === 'opened',
+    ).toBeTruthy(),
+  );
 };
 
 const ariaLabel: InputType = {
