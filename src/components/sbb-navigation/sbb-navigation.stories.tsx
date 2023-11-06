@@ -250,7 +250,7 @@ export const WithNavigationSection: StoryObj = {
   render: WithNavigationSectionTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
-  play: playStoryWithSection,
+  play: isChromatic() && playStoryWithSection,
 };
 
 const meta: Meta = {
