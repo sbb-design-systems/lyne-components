@@ -1,9 +1,10 @@
-import { CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from 'lit';
+import { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import { i18nOccupancy } from '../core/i18n';
 import { OccupancyEnum } from '../core/timetable';
+import type { SbbIcon } from '../icon';
 
 import style from './timetable-occupancy-icon.scss?lit&inline';
 import '../icon';
@@ -12,7 +13,7 @@ import '../icon';
  * Icon for wagon's occupancy.
  */
 @customElement('sbb-timetable-occupancy-icon')
-export class SbbTimetableOccupancyIcon extends LitElement {
+export class SbbTimetableOccupancyIcon extends SbbIcon {
   public static override styles: CSSResultGroup = style;
 
   /** Wagon occupancy. */
@@ -21,33 +22,43 @@ export class SbbTimetableOccupancyIcon extends LitElement {
   /** Negative coloring variant flag. */
   @property({ type: Boolean }) public negative: boolean = false;
 
-  /** The icon name which will be rendered. */
-  @state() private _iconName: string;
+  @property({ attribute: 'aria-hidden', reflect: true }) public override ariaHidden = 'false';
 
   @state() private _currentLanguage = documentLanguage();
 
   private _handlerRepository = new HandlerRepository(
     this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
+    languageChangeHandlerAspect((l) => {
+      this._currentLanguage = l;
+      this._setAriaLabel();
+    }),
   );
 
-  private _setIconName(): void {
+  private _setNameAndAriaLabel(): void {
     if (!this.occupancy) {
       return;
     }
 
     if (window.matchMedia('(forced-colors: active)').matches) {
       // high contrast
-      this._iconName = `utilization-${this._transformOccupancy()}-high-contrast`;
+      this.name = `utilization-${this._transformOccupancy()}-high-contrast`;
     } else if (
       this.hasAttribute('negative') ||
       window.matchMedia('(prefer-color-scheme: dark)').matches
     ) {
       // dark
-      this._iconName = `utilization-${this._transformOccupancy()}-negative`;
+      this.name = `utilization-${this._transformOccupancy()}-negative`;
     } else {
-      this._iconName = `utilization-${this._transformOccupancy()}`;
+      this.name = `utilization-${this._transformOccupancy()}`;
     }
+
+    this._setAriaLabel();
+  }
+
+  private _setAriaLabel(): void {
+    this.ariaLabel = i18nOccupancy[this.occupancy?.toLowerCase()]
+      ? `${i18nOccupancy[this.occupancy.toLowerCase()][this._currentLanguage]}.`
+      : null;
   }
 
   private _transformOccupancy(): string {
@@ -58,15 +69,16 @@ export class SbbTimetableOccupancyIcon extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._setIconName();
-    window.matchMedia('(forced-colors: active)').onchange = () => this._setIconName();
-    window.matchMedia('(prefer-color-scheme: dark)').onchange = () => this._setIconName();
+    this._setNameAndAriaLabel();
+    window.matchMedia('(forced-colors: active)').onchange = () => this._setNameAndAriaLabel();
+    window.matchMedia('(prefer-color-scheme: dark)').onchange = () => this._setNameAndAriaLabel();
     this._handlerRepository.connect();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
     if (changedProperties.has('occupancy') || changedProperties.has('negative')) {
-      this._setIconName();
+      this._setNameAndAriaLabel();
     }
   }
 
@@ -78,13 +90,7 @@ export class SbbTimetableOccupancyIcon extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    return html`
-      <sbb-icon name=${this._iconName}></sbb-icon>
-      <span class="sbb-timetable-occupancy-icon--visually-hidden">
-        ${i18nOccupancy[this.occupancy?.toLowerCase()] &&
-        `${i18nOccupancy[this.occupancy.toLowerCase()][this._currentLanguage]}`}
-      </span>
-    `;
+    return super.render();
   }
 }
 

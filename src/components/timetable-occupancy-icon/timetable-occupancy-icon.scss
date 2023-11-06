@@ -1,4 +1,5 @@
 @use '../core/styles' as sbb;
+@use '../sbb-icon/sbb-icon.scss';
 
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
@@ -12,12 +13,8 @@
   }
 
   @include sbb.if-forced-colors-light {
-    sbb-icon {
+    svg {
       filter: invert(1);
     }
   }
-}
-
-.sbb-timetable-occupancy-icon--visually-hidden {
-  @include sbb.screen-reader-only;
 }
