@@ -50,7 +50,7 @@ describe('sbb-journey-summary', () => {
             <span class="sbb-journey-summary__via-text">
               Via
             </span>
-            <ul class="sbb-journey-summary__vias">
+            <ul class="sbb-journey-summary__vias" role="presentation">
               <li class="sbb-journey-summary__via">
                 via
               </li>
@@ -152,7 +152,7 @@ describe('sbb-journey-summary', () => {
               <span class="sbb-journey-summary__via-text">
                 Via
               </span>
-              <ul class="sbb-journey-summary__vias">
+              <ul class="sbb-journey-summary__vias" role="presentation">
                 <li class="sbb-journey-summary__via">
                   via
                 </li>

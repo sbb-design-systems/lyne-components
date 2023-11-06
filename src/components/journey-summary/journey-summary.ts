@@ -99,7 +99,7 @@ export class SbbJourneySummary extends LitElement {
     return html`
       <div class="sbb-journey-summary__via-block">
         <span class="sbb-journey-summary__via-text">Via</span>
-        <ul class="sbb-journey-summary__vias">
+        <ul class="sbb-journey-summary__vias" role=${vias.length <= 1 ? 'presentation' : nothing}>
           ${slicedVias.map(
             (via, index) =>
               html`<li class="sbb-journey-summary__via">
