@@ -2,10 +2,6 @@
 
 :host {
   --sbb-timetable-occupancy-color: var(--sbb-color-black-default);
-
-  @include sbb.if-forced-colors-dark {
-    --sbb-timetable-occupancy-color: var(--sbb-color-white-default);
-  }
 }
 
 :host([negative]) {
