@@ -6,10 +6,11 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-icon-svg-height: #{sbb.px-to-rem-build(12)};
+  --sbb-timetable-occupancy-icon-height: #{sbb.px-to-rem-build(12)};
+  --sbb-icon-svg-height: var(--sbb-timetable-occupancy-icon-height);
 
   @include sbb.mq($from: medium) {
-    --sbb-icon-svg-height: #{sbb.px-to-rem-build(16)};
+    --sbb-timetable-occupancy-icon-height: #{sbb.px-to-rem-build(16)};
   }
 
   @include sbb.if-forced-colors-light {
