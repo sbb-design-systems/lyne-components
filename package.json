@@ -18,26 +18,19 @@
     "url": "https://github.com/lyne-design-system/lyne-components/issues"
   },
   "type": "module",
-  "main": "index.js",
-  "module": "index.js",
-  "types": "dist/types/index.d.ts",
-  "customElements": "dist/custom-elements.json",
-  "files": [
-    "dist/",
-    "_index.scss",
-    "src/components/core/**/*.scss"
-  ],
+  "private": true,
   "scripts": {
     "postinstall": "yarn playwright install",
-    "build:components": "vite build",
+    "build:components": "vite build --config src/components/vite.config.ts",
+    "build:react": "vite build --config src/react/vite.config.ts",
     "build:storybook": "storybook build --quiet",
-    "build:chromatic-stories": "tsx ci/chromatic-stories-generator.ts",
-    "build": "npm-run-all --sequential build:components build:storybook",
+    "build": "npm-run-all --sequential build:components build:react build:storybook",
     "docs": "npm-run-all --sequential docs:manifest docs:to-md",
-    "docs:manifest": "custom-elements-manifest analyze --litelement",
+    "docs:manifest": "custom-elements-manifest analyze --config config/custom-elements-manifest.config.js",
     "docs:to-md": "tsx ci/docs_generate.ts",
     "format": "prettier \"**/*\" --write --ignore-unknown",
     "generate": "tsx tools/generate-component/index.mts",
+    "generate:chromatic-stories": "tsx ci/chromatic-stories-generator.ts",
     "integrity": "npm-run-all format docs",
     "lint": "npm-run-all --sequential lint:*",
     "lint:ts": "eslint \"**/*.{ts,tsx}\"",
@@ -46,6 +39,9 @@
     "lint:styles": "stylelint \"**/*.scss\"",
     "lint:lit": "yarn lit-analyzer \"src/components/**/*.ts\"",
     "lint:circular-imports": "madge --circular --extensions ts,tsx ./",
+    "lint:tsc": "npm-run-all --sequential lint:tsc:*",
+    "lint:tsc:components": "tsc --noEmit --project src/components/tsconfig.json",
+    "lint:tsc:components-spec": "tsc --noEmit --project src/components/tsconfig.spec.json",
     "start": "storybook dev -p 6006",
     "test": "wtr --coverage --group default",
     "test:spec": "wtr --group spec",
@@ -61,6 +57,7 @@
     "@commitlint/config-conventional": "18.1.0",
     "@custom-elements-manifest/analyzer": "0.9.0",
     "@custom-elements-manifest/to-markdown": "0.1.0",
+    "@lit/react": "^1.0.1",
     "@open-wc/lit-helpers": "0.6.0",
     "@open-wc/testing": "4.0.0",
     "@sbb-esta/lyne-design-tokens": "0.3.7",
@@ -76,6 +73,7 @@
     "@storybook/web-components": "7.5.3",
     "@storybook/web-components-vite": "7.5.3",
     "@types/glob": "8.1.0",
+    "@types/mocha": "^10.0.4",
     "@types/node": "20.8.10",
     "@types/react": "18.2.36",
     "@types/react-dom": "18.2.14",
@@ -86,6 +84,7 @@
     "@web/test-runner-playwright": "0.11.0",
     "@web/test-runner-puppeteer": "0.15.0",
     "chromatic": "7.6.0",
+    "custom-elements-manifest": "^2.0.0",
     "date-fns": "2.30.0",
     "eslint": "8.53.0",
     "eslint-config-prettier": "9.0.0",
@@ -125,9 +124,6 @@
   "resolutions": {
     "jackspeak": "2.1.1",
     "lit": "3.0.2"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "standard-version": {
     "types": [

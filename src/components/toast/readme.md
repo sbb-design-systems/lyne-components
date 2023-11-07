@@ -125,6 +125,8 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 
 ## Slots
 
-| Name | Description                                       |
-| ---- | ------------------------------------------------- |
-|      | Use the unnamed slot to add content to the toast. |
+| Name     | Description                                       |
+| -------- | ------------------------------------------------- |
+|          | Use the unnamed slot to add content to the toast. |
+| `icon`   | Assign a custom icon via slot.                    |
+| `action` | Provide a custom action for this toast.           |
