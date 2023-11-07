@@ -54,19 +54,21 @@ function copyFiles(
   componentName: string,
   targetDirectory: string,
 ): void {
+  const componentFileName: string = componentName.replace('sbb-', '');
   foundFiles.forEach((file) => {
     try {
       const fileData: string = readFileSync(file, 'utf8');
 
       const fileDataWithCorrectName: string = fileData
         .replace(/__name__/gu, componentName)
+        .replace(/__noPrefixName__/gu, componentFileName)
         .replace(/__nameUpperCase__/gu, convertKebabCaseToPascalCase(componentName));
 
       try {
         const relativePath: string = relative(config.boilerplateDirectory, file);
         const fileName: string = relativePath.replace(
           `${config.boilerplateComponentName}.`,
-          `${componentName}.`,
+          `${componentFileName}.`,
         );
         const targetPath: string = `${targetDirectory}/${fileName}`;
 
@@ -96,7 +98,8 @@ async function createComponent(componentName): void {
     return;
   }
 
-  const targetDirectory: string = `${config.sourceDirectory}/${componentName}`;
+  const directoryName: string = componentName.replace('sbb-', '');
+  const targetDirectory: string = `${config.sourceDirectory}/${directoryName}`;
 
   // check if a component with the passed name does not already exist
   if (existsSync(targetDirectory)) {

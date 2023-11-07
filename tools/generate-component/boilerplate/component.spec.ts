@@ -1,6 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './__name__';
+import './__noPrefixName__';
 
 describe('__name__', () => {
   it('renders', async () => {

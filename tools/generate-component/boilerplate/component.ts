@@ -1,10 +1,11 @@
 import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ConnectedAbortController, EventEmitter } from '../core/eventing';
-import style from './__name__.scss?lit&inline';
+import style from './__noPrefixName__.scss?lit&inline';
 
 /**
  * @slot - Use the unnamed slot to add `sbb-TODO` elements.
+ * @event {CustomEvent<any>} my-event-name - TODO: Document this event
  */
 @customElement('__name__')
 export class __nameUpperCase__ extends LitElement {
@@ -57,6 +58,6 @@ export class __nameUpperCase__ extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    __name__: __nameUpperCase__;
+    '__name__': __nameUpperCase__;
   }
 }
