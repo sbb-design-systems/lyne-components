@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.42.3](https://github.com/lyne-design-system/lyne-components/compare/v0.42.2...v0.42.3) (2023-11-07)
+
+### Bug Fixes
+
+- **sbb-journey-summary:** avoid list role for single entry lists ([#2152](https://github.com/lyne-design-system/lyne-components/issues/2152)) ([1de5f61](https://github.com/lyne-design-system/lyne-components/commit/1de5f61bd36d75bca4172a3c371c506237266e4b))
+- **sbb-navigation:** fix automatic focus setting inside navigation ([#2141](https://github.com/lyne-design-system/lyne-components/issues/2141)) ([0039ce9](https://github.com/lyne-design-system/lyne-components/commit/0039ce9c7f809eb5ca96aed2982df3d04081369d))
+
 ### [0.42.2](https://github.com/lyne-design-system/lyne-components/compare/v0.42.1...v0.42.2) (2023-11-06)
 
 ### [0.42.1](https://github.com/lyne-design-system/lyne-components/compare/v0.42.0...v0.42.1) (2023-10-30)
