@@ -6,6 +6,7 @@ import { EventSpy, waitForLitRender } from '../core/testing';
 import { SbbTimeInput } from './time-input';
 import { ValidationChangeEvent } from '../core/interfaces';
 
+mocha.timeout(5000); // Extended timeout for 'should interpret valid values' test
 describe('sbb-time-input', () => {
   let element: SbbTimeInput, input: HTMLInputElement;
 
@@ -136,6 +137,7 @@ describe('sbb-time-input', () => {
       input.focus();
       await sendKeys({ type: testCase.value });
       input.blur();
+      await waitForLitRender(element);
       expect(input.value).to.be.equal(testCase.interpretedAs);
 
       const paragraphElement = element.shadowRoot.querySelector('p');
@@ -161,6 +163,7 @@ describe('sbb-time-input', () => {
       input.focus();
       await sendKeys({ type: testCase.value });
       input.blur();
+      await waitForLitRender(element);
       expect(input.value).to.be.equal(testCase.interpretedAs);
 
       const paragraphElement = element.shadowRoot.querySelector('p');

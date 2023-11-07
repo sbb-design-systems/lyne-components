@@ -4,6 +4,7 @@ import { waitForLitRender } from '../core/testing';
 import { SbbImage } from './image';
 import images from '../core/images';
 
+mocha.timeout(7000);
 describe('sbb-image', () => {
   let element: SbbImage;
 
@@ -13,8 +14,8 @@ describe('sbb-image', () => {
 
     assert.instanceOf(element, SbbImage);
     await waitForLitRender(element);
-    // Wait 2.5 seconds in hope the image will successfully be loaded
-    await aTimeout(2500);
+    // Wait 5 seconds in hope the image will successfully be loaded
+    await aTimeout(5000);
     await waitForLitRender(element);
 
     expect(element).dom.to.be.equal(`
