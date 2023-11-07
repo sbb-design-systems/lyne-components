@@ -1,10 +1,7 @@
 import { expect } from '@open-wc/testing';
 
 import { getDepartureArrivalTimeAttribute } from './access-leg-helper';
-import {
-  defaultTrip,
-  extendedEnterTimeTrip,
-} from '../../sbb-timetable-row/sbb-timetable-row.sample-data';
+import { defaultTrip, extendedEnterTimeTrip } from '../../timetable-row/timetable-row.sample-data';
 import { Leg } from './timetable-properties';
 
 describe('getDepartureArrivalTimeAttribute', () => {

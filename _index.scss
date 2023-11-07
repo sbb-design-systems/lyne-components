@@ -1,3 +1,2 @@
-@forward 'src/components/core/styles/_index' hide development-style, host-component-properties,
-  link-base, link-focus-visible, link-hover, link-active, link-inline-base,
-  link-inline-consolidation;
+@forward 'src/components/core/styles' hide development-style, host-component-properties, link-base,
+  link-focus-visible, link-hover, link-active, link-inline-base, link-inline-consolidation;

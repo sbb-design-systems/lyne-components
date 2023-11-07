@@ -17,8 +17,7 @@ import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 
 import './home.common';
-import '../../../components/sbb-alert';
-import '../../../components/sbb-alert-group';
+import '../../../components/alert';
 
 /* ************************************************* */
 /* Storybook controls                                */
@@ -44,7 +43,7 @@ const defaultArgs: Args = {
 
 const Template = (args): JSX.Element => (
   <div>
-    <SkiplinkList />
+    <SkiplinkList></SkiplinkList>
 
     {/* *************************************************
     Header section
@@ -53,7 +52,7 @@ const Template = (args): JSX.Element => (
       <sbb-header-action id="hamburger-menu" icon-name="hamburger-menu-small" expand-from="small">
         Menu
       </sbb-header-action>
-      <div class="sbb-header-spacer" />
+      <div class="sbb-header-spacer"></div>
       <sbb-header-action icon-name="magnifying-glass-small" href="/">
         Search
       </sbb-header-action>
@@ -76,12 +75,12 @@ const Template = (args): JSX.Element => (
       </a>
     </sbb-header>
 
-    <Navigation />
+    <Navigation></Navigation>
 
     {/* *************************************************
     Timetable input section
     ************************************************* */}
-    <TimetableInput />
+    <TimetableInput></TimetableInput>
 
     {/* *************************************************
     Alerts section
@@ -114,9 +113,9 @@ const Template = (args): JSX.Element => (
           Top Products.
         </sbb-title>
         <div class="top-products-grid">
-          <DailyTicketProduct />
-          <BikeProduct />
-          <LiberoProduct />
+          <DailyTicketProduct></DailyTicketProduct>
+          <BikeProduct></BikeProduct>
+          <LiberoProduct></LiberoProduct>
           <sbb-card color="milk" size="s">
             <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
               Buy daily ticket
@@ -195,12 +194,12 @@ const Template = (args): JSX.Element => (
     {/* *************************************************
     Hero Teaser section
     ************************************************* */}
-    <TeaserHero />
+    <TeaserHero></TeaserHero>
 
     {/* *************************************************
     Footer section
     ************************************************* */}
-    <Footer {...args} />
+    <Footer {...args}></Footer>
   </div>
 );
 
@@ -223,7 +222,7 @@ const meta: Meta = {
   decorators: [
     (Story, context) => (
       <div style={wrapperStyle(context)}>
-        <Story />
+        <Story></Story>
       </div>
     ),
   ],
