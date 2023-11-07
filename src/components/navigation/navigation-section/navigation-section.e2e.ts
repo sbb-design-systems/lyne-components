@@ -1,6 +1,8 @@
-import { waitForCondition, waitForLitRender } from '../../core/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { waitForCondition, waitForLitRender } from '../../core/testing';
+
 import { SbbNavigationSection } from './navigation-section';
 import '../navigation';
 import '../navigation-list';

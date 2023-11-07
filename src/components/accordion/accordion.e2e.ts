@@ -1,10 +1,11 @@
-import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
-import { SbbExpansionPanel } from '../expansion-panel';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SbbAccordion } from './accordion';
+
+import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
+import { SbbExpansionPanel } from '../expansion-panel';
 import { type SbbExpansionPanelHeader } from '../expansion-panel';
-import '../expansion-panel';
+
+import { SbbAccordion } from './accordion';
 
 describe('sbb-accordion', () => {
   let element: SbbAccordion;

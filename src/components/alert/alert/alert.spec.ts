@@ -1,6 +1,7 @@
-import { SbbAlert } from './alert';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import type { SbbAlert } from './alert';
 import './alert';
 
 describe('sbb-alert', () => {

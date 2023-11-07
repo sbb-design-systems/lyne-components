@@ -1,14 +1,15 @@
-import {
+import { spread } from '@open-wc/lit-helpers';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, eventOptions, property, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
+import { ref } from 'lit/directives/ref.js';
+
+import { hostContext } from '../core/dom';
+
+import imageHelperGetBreakpoints, {
   InterfaceImageAttributes,
   InterfaceImageAttributesSizesConfigBreakpoint,
 } from './image.helper';
-import imageHelperGetBreakpoints from './image.helper';
-import { hostContext } from '../core/dom';
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, eventOptions, property, state } from 'lit/decorators.js';
-import { spread } from '@open-wc/lit-helpers';
-import { classMap } from 'lit/directives/class-map.js';
-import { ref } from 'lit/directives/ref.js';
 import style from './image.scss?lit&inline';
 
 const eventListenerOptions = {

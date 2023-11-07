@@ -1,12 +1,14 @@
-import icons from '../core/timetable/icons.json';
+import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+
+import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import {
   i18nAvailableAtDepartingStation,
   i18nDistanceMeter,
   i18nWalkingDistanceToDepartureStation,
 } from '../core/i18n';
-import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
-import { CSSResult, html, LitElement, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import icons from '../core/timetable/icons.json';
+
 import style from './timetable-park-and-rail.scss?lit&inline';
 
 /**

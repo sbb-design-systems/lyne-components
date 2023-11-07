@@ -1,5 +1,6 @@
 import { CSSResult, LitElement, TemplateResult, html, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
+
 import { setAttribute } from '../../core/dom';
 import {
   ConnectedAbortController,
@@ -10,6 +11,7 @@ import {
 } from '../../core/eventing';
 import '../../icon';
 import { type SbbToggle, type SbbToggleStateChange } from '../toggle';
+
 import style from './toggle-option.scss?lit&inline';
 
 /**

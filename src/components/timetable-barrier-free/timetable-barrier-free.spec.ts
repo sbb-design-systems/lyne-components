@@ -1,6 +1,7 @@
-import sampleData from './timetable-barrier-free.sample-data';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import sampleData from './timetable-barrier-free.sample-data';
 import './timetable-barrier-free';
 
 const config = JSON.stringify(sampleData[0]);

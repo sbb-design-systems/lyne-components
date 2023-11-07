@@ -1,8 +1,10 @@
-import { SbbOption } from '../option';
-import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
 import { aTimeout, assert, expect, fixture } from '@open-wc/testing';
-import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
+import { html } from 'lit/static-html.js';
+
+import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
+import { SbbOption } from '../option';
+
 import { SbbSelect } from './select';
 
 describe('sbb-select', () => {

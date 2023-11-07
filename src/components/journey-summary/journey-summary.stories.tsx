@@ -1,15 +1,17 @@
 /** @jsx h */
-import { h, JSX } from 'jsx-dom';
+import type { InputType } from '@storybook/types';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
+import isChromatic from 'chromatic';
+import { h, type JSX } from 'jsx-dom';
+
 import {
   futureLeg,
   longFutureLeg,
   pastLeg,
   progressLeg,
 } from '../pearl-chain/pearl-chain.sample-data';
+
 import readme from './readme.md?raw';
-import isChromatic from 'chromatic';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import type { InputType } from '@storybook/types';
 import './journey-summary';
 import '../button';
 

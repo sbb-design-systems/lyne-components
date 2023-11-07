@@ -1,13 +1,15 @@
 /** @jsx h */
-import { h, JSX } from 'jsx-dom';
-import readme from './readme.md?raw';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import { InputType, StoryContext } from '@storybook/types';
-import { SbbExpansionPanel } from '../expansion-panel';
 import { withActions } from '@storybook/addon-actions/decorator';
+import { InputType, StoryContext } from '@storybook/types';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import { Decorator } from '@storybook/web-components';
+import { h, type JSX } from 'jsx-dom';
+
+import { SbbExpansionPanel } from '../expansion-panel';
+
+import readme from './readme.md?raw';
+
 import './accordion';
-import '../expansion-panel';
 import '../icon';
 
 const numberOfPanels: InputType = {

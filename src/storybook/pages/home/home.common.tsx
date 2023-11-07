@@ -16,7 +16,6 @@ import '../../../components/logo';
 import '../../../components/link';
 import '../../../components/link-list';
 import '../../../components/menu';
-import '../../../components/navigation';
 import '../../../components/skiplink-list';
 import '../../../components/teaser-hero';
 import '../../../components/title';

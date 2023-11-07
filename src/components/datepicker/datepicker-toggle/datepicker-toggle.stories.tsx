@@ -1,11 +1,7 @@
 /** @jsx h */
-import { h, JSX } from 'jsx-dom';
-import readme from './readme.md?raw';
-import { userEvent, within } from '@storybook/testing-library';
-import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
-import isChromatic from 'chromatic';
 import { withActions } from '@storybook/addon-actions/decorator';
+import { userEvent, within } from '@storybook/testing-library';
+import type { InputType } from '@storybook/types';
 import type {
   Meta,
   StoryObj,
@@ -14,12 +10,18 @@ import type {
   Decorator,
   StoryContext,
 } from '@storybook/web-components';
-import type { InputType } from '@storybook/types';
+import isChromatic from 'chromatic';
+import { h, type JSX } from 'jsx-dom';
+
+import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
+import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
 import { SbbTooltipTrigger } from '../../tooltip';
 
 import '../../form-field';
 import '../datepicker';
+
 import './datepicker-toggle';
+import readme from './readme.md?raw';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative

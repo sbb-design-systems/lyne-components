@@ -1,9 +1,11 @@
-import { toggleDatasetEntry } from '../core/dom';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+
+import { toggleDatasetEntry } from '../core/dom';
 import { ConnectedAbortController } from '../core/eventing';
 import { SbbExpansionPanel } from '../expansion-panel';
 import { TitleLevel } from '../title';
+
 import style from './accordion.scss?lit&inline';
 
 /**

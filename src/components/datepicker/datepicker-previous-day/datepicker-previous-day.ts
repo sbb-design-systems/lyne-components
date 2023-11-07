@@ -1,5 +1,6 @@
 import { CSSResult, LitElement, PropertyValues, TemplateResult, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
+
 import { DateAdapter, NativeDateAdapter } from '../../core/datetime';
 import { isValidAttribute, setAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
 import {
@@ -18,6 +19,7 @@ import {
   getDatePicker,
   type SbbDatepicker,
 } from '../datepicker';
+
 import style from './datepicker-previous-day.scss?lit&inline';
 
 import '../../icon';

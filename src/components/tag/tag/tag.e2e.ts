@@ -1,8 +1,10 @@
 import { assert, expect, fixture } from '@open-wc/testing';
-import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { SbbTag } from './tag';
+import { html } from 'lit/static-html.js';
+
 import { waitForLitRender, EventSpy } from '../../core/testing';
+
+import { SbbTag } from './tag';
 
 describe('sbb-tag', () => {
   let element: SbbTag;

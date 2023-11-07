@@ -1,5 +1,7 @@
-import { TitleLevel } from '../title';
-import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
+
 import { FocusTrap, IS_FOCUSABLE_QUERY, setModalityOnNextFocus } from '../core/a11y';
 import {
   ScrollHandler,
@@ -16,11 +18,11 @@ import {
   namedSlotChangeHandlerAspect,
   EventEmitter,
 } from '../core/eventing';
+import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n';
 import { AgnosticResizeObserver } from '../core/observers';
 import { applyInertMechanism, removeInertMechanism, SbbOverlayState } from '../core/overlay';
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
+import { TitleLevel } from '../title';
+
 import style from './dialog.scss?lit&inline';
 import '../button';
 

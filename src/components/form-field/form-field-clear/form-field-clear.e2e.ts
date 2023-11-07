@@ -1,8 +1,10 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
 import { waitForLitRender } from '../../core/testing';
-import { SbbFormFieldClear } from './form-field-clear';
 import { SbbFormField } from '../form-field';
+
+import { SbbFormFieldClear } from './form-field-clear';
 
 describe('sbb-form-field-clear', () => {
   let element: SbbFormFieldClear;

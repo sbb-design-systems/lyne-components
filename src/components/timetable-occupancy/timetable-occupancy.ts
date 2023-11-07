@@ -1,8 +1,10 @@
-import icons from '../core/timetable/icons.json';
-import { i18nClass, i18nOccupancy } from '../core/i18n';
-import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
+
+import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
+import { i18nClass, i18nOccupancy } from '../core/i18n';
+import icons from '../core/timetable/icons.json';
+
 import style from './timetable-occupancy.scss?lit&inline';
 
 /**

@@ -1,5 +1,6 @@
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
+
 import style from './pearl-chain-vertical.scss?lit&inline';
 
 /**

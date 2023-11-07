@@ -1,16 +1,18 @@
-import { i18nTrain, i18nWagonsLabel } from '../../core/i18n';
-import { TitleLevel } from '../../title';
+import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { html, unsafeStatic } from 'lit/static-html.js';
+
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
   EventEmitter,
 } from '../../core/eventing';
-import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
-import { html, unsafeStatic } from 'lit/static-html.js';
-import { customElement, property, state } from 'lit/decorators.js';
+import { i18nTrain, i18nWagonsLabel } from '../../core/i18n';
+import { TitleLevel } from '../../title';
 import { SbbTrainBlockedPassage } from '../train-blocked-passage';
 import { SbbTrainWagon } from '../train-wagon';
+
 import style from './train.scss?lit&inline';
 import '../../icon';
 

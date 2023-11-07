@@ -1,11 +1,12 @@
 import { assert, expect, fixture } from '@open-wc/testing';
-import { html } from 'lit/static-html.js';
 import { setViewport } from '@web/test-runner-commands';
-import { SbbMenu } from '../../menu';
+import { html } from 'lit/static-html.js';
+
 import { EventSpy, waitForLitRender, mockScrollTo, waitForCondition } from '../../core/testing';
+import { SbbMenu } from '../../menu';
+
 import { SbbHeader } from './header';
 import '../header-action';
-import '../../menu';
 
 describe('sbb-header', () => {
   let element: SbbHeader;

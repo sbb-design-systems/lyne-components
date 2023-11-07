@@ -1,3 +1,10 @@
+import { format } from 'date-fns';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+
+import { removeTimezoneFromISOTimeString, durationToTime } from '../core/datetime';
+import { setAttribute } from '../core/dom';
+import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import {
   i18nArrival,
   i18nClass,
@@ -16,9 +23,6 @@ import {
   i18nTripDuration,
   i18nTripQuayChange,
 } from '../core/i18n';
-import { format } from 'date-fns';
-import { removeTimezoneFromISOTimeString, durationToTime } from '../core/datetime';
-import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import {
   getDepartureArrivalTimeAttribute,
   isRideLeg,
@@ -28,9 +32,7 @@ import {
   PtSituation,
   VehicleModeEnum,
 } from '../core/timetable';
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { setAttribute } from '../core/dom';
+
 import style from './timetable-row.scss?lit&inline';
 import '../card';
 import '../icon';

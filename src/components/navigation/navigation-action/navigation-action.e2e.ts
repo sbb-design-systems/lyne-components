@@ -1,9 +1,11 @@
-import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
-import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
+import { html } from 'lit/static-html.js';
+
+import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
+
 import { SbbNavigationAction } from './navigation-action';
-import '../navigation-action';
+import '.';
 
 describe('sbb-navigation-action', () => {
   let element: SbbNavigationAction;

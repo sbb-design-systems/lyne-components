@@ -1,3 +1,10 @@
+import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
+import { html, unsafeStatic } from 'lit/static-html.js';
+
+import { sbbInputModalityDetector } from '../core/a11y';
+import { toggleDatasetEntry } from '../core/dom';
 import {
   createNamedSlotState,
   documentLanguage,
@@ -12,12 +19,7 @@ import {
   i18nFileSelectorDeleteFile,
   i18nFileSelectorSubtitleLabel,
 } from '../core/i18n';
-import { toggleDatasetEntry } from '../core/dom';
-import { sbbInputModalityDetector } from '../core/a11y';
-import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
-import { html, unsafeStatic } from 'lit/static-html.js';
+
 import style from './file-selector.scss?lit&inline';
 import '../button';
 import '../icon';

@@ -1,7 +1,8 @@
 /** @jsx h */
-import { h, JSX } from 'jsx-dom';
-import readme from './readme.md?raw';
 import type { Meta, StoryObj } from '@storybook/web-components';
+import { h, type JSX } from 'jsx-dom';
+
+import readme from './readme.md?raw';
 import './train-blocked-passage';
 
 const Template = (args): JSX.Element => (

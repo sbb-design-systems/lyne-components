@@ -1,11 +1,12 @@
-import { SbbDatepickerToggle } from './datepicker-toggle';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
 import { SbbFormField } from '../../form-field';
 
-import './datepicker-toggle';
+import type { SbbDatepickerToggle } from './datepicker-toggle';
+
 import '../datepicker';
-import '../../form-field';
+import './datepicker-toggle';
 
 describe('sbb-datepicker-toggle', () => {
   it('renders', async () => {

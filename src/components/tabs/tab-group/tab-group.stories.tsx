@@ -1,12 +1,12 @@
 /** @jsx h */
-import { h, JSX } from 'jsx-dom';
-import { SbbTabGroup } from './tab-group';
-import readme from './readme.md?raw';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
+import { h, type JSX } from 'jsx-dom';
 
-import './tab-group';
+import readme from './readme.md?raw';
+import { SbbTabGroup } from './tab-group';
+
 import '../tab-title';
 
 const firstTabTitle = (label, args): JSX.Element => (

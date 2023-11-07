@@ -1,4 +1,5 @@
 import { expect } from '@open-wc/testing';
+
 import { InteractivityChecker } from './interactivity-checker';
 
 describe('InteractivityChecker', () => {

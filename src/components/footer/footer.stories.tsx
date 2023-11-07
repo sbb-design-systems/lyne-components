@@ -1,11 +1,12 @@
 /** @jsx h */
-import readme from './readme.md?raw';
-import { h, JSX } from 'jsx-dom';
-import isChromatic from 'chromatic';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import '../button';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
+import isChromatic from 'chromatic';
+import { h, type JSX } from 'jsx-dom';
+
+import readme from './readme.md?raw';
 import '../clock';
+import '../button';
 import '../divider';
 import '../link';
 import '../link-list';

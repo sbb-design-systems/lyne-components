@@ -1,13 +1,15 @@
+import { spread } from '@open-wc/lit-helpers';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+
+import { setAttribute } from '../../core/dom';
 import {
   createNamedSlotState,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
 } from '../../core/eventing';
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { spread } from '@open-wc/lit-helpers';
 import { SbbNavigationAction } from '../navigation-action';
-import { setAttribute } from '../../core/dom';
+
 import style from './navigation-list.scss?lit&inline';
 
 /**

@@ -1,11 +1,13 @@
 /** @jsx h */
-import { SbbExpansionPanel } from './expansion-panel';
-import { SbbExpansionPanelHeader } from '../expansion-panel-header';
-import { h, JSX } from 'jsx-dom';
-import readme from './readme.md?raw';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import { InputType, StoryContext } from '@storybook/types';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
+import { h, type JSX } from 'jsx-dom';
+
+import { SbbExpansionPanelHeader } from '../expansion-panel-header';
+
+import { SbbExpansionPanel } from './expansion-panel';
+import readme from './readme.md?raw';
 
 import '../expansion-panel-content';
 import '../../icon';

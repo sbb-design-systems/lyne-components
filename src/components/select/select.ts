@@ -1,23 +1,24 @@
+import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
+
 import { getNextElementIndex, assignId } from '../core/a11y';
 import {
   isSafari,
   isValidAttribute,
   toggleDatasetEntry,
   getDocumentWritingMode,
+  setAttribute,
 } from '../core/dom';
+import { ConnectedAbortController, EventEmitter } from '../core/eventing';
 import {
   setOverlayPosition,
   isEventOnElement,
   overlayGapFixCorners,
   SbbOverlayState,
 } from '../core/overlay';
-import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
-import { SbbOption } from '../option';
-import { setAttribute } from '../core/dom';
-import { ConnectedAbortController, EventEmitter } from '../core/eventing';
-import { SbbOptGroup } from '../option';
+import { SbbOption, SbbOptGroup } from '../option';
+
 import style from './select.scss?lit&inline';
 
 let nextId = 0;

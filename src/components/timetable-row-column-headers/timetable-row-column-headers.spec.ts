@@ -1,6 +1,7 @@
-import sampleData from './timetable-row-column-headers.sample-data';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import sampleData from './timetable-row-column-headers.sample-data';
 import './timetable-row-column-headers';
 
 const config = JSON.stringify(sampleData);

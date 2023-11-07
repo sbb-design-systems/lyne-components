@@ -1,10 +1,11 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
 import { SbbFormField } from '../../form-field';
-import { SbbDatepickerNextDay } from './datepicker-next-day';
+
+import type { SbbDatepickerNextDay } from './datepicker-next-day';
 
 import '../datepicker';
-import '../../form-field';
 import './datepicker-next-day';
 
 describe('sbb-datepicker-next-day', () => {

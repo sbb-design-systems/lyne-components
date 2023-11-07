@@ -1,8 +1,11 @@
-import { SbbPearlChainTime } from './pearl-chain-time';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
 import { waitForLitRender } from '../core/testing';
 import { PtRideLeg } from '../core/timetable';
+
+import type { SbbPearlChainTime } from './pearl-chain-time';
+
 import './pearl-chain-time';
 
 const now = new Date('2022-08-16T15:00:00Z').valueOf();

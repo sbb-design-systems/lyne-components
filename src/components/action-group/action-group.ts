@@ -1,9 +1,11 @@
 import { CSSResult, html, LitElement, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import style from './action-group.scss?lit&inline';
-import { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
+
 import { SbbButtonSize } from '../button';
+import { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
 import { SbbLinkSize } from '../link';
+
+import style from './action-group.scss?lit&inline';
 
 /**
  * @slot - Use the unnamed slot to add `sbb-link` or `sbb-button` elements to this action group.

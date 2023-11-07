@@ -1,9 +1,11 @@
 /** @jsx h */
-import { Fragment, h, JSX } from 'jsx-dom';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { Fragment, h, type JSX } from 'jsx-dom';
+
+import '../../../components/link';
+
 import readme from './readme.md?raw';
 import './layout.scss';
-import type { Meta, StoryObj } from '@storybook/web-components';
-import '../../../components/link';
 
 const PageSpacingTemplate = (): JSX.Element => (
   <section class="sbb-page-spacing visualized-page-spacing">

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /** @jsx h */
 import type { Args, Meta, StoryContext, StoryObj } from '@storybook/web-components';
-import { h, JSX } from 'jsx-dom';
+import { h, type JSX } from 'jsx-dom';
 
 import '../../components/title';
 

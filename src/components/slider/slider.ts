@@ -1,11 +1,13 @@
-import { forwardEventToHost, EventEmitter, ConnectedAbortController } from '../core/eventing';
+import { spread } from '@open-wc/lit-helpers';
 import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { setAttributes } from '../core/dom';
 import { ref } from 'lit/directives/ref.js';
-import style from './slider.scss?lit&inline';
-import { spread } from '@open-wc/lit-helpers';
 import { styleMap } from 'lit/directives/style-map.js';
+
+import { setAttributes } from '../core/dom';
+import { forwardEventToHost, EventEmitter, ConnectedAbortController } from '../core/eventing';
+
+import style from './slider.scss?lit&inline';
 import '../icon';
 
 /**

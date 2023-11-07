@@ -1,4 +1,8 @@
-import { isFirefox, isValidAttribute } from '../core/dom';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+
+import type { SbbButton } from '../button';
+import { isFirefox, isValidAttribute, setAttribute } from '../core/dom';
 import {
   createNamedSlotState,
   documentLanguage,
@@ -10,14 +14,11 @@ import {
   ConnectedAbortController,
 } from '../core/eventing';
 import { i18nCloseAlert } from '../core/i18n';
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { setAttribute } from '../core/dom';
-import style from './toast.scss?lit&inline';
 import { SbbOverlayState } from '../core/overlay';
-import { SbbButton } from '../button';
 import { SbbLink } from '../link';
-import '../link';
+
+import style from './toast.scss?lit&inline';
+
 import '../button';
 
 type SbbToastPositionVertical = 'top' | 'bottom';

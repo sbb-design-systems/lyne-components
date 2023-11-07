@@ -1,7 +1,6 @@
 /** @jsx h */
-import { h, JSX } from 'jsx-dom';
-import readme from './readme.md?raw';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { InputType } from '@storybook/types';
 import type {
   Meta,
   StoryObj,
@@ -10,7 +9,9 @@ import type {
   Decorator,
   StoryContext,
 } from '@storybook/web-components';
-import type { InputType } from '@storybook/types';
+import { h, type JSX } from 'jsx-dom';
+
+import readme from './readme.md?raw';
 import './link';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({

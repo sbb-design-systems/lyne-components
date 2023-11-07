@@ -1,4 +1,7 @@
-import { ButtonProperties, resolveButtonRenderVariables } from '../../core/interfaces';
+import { CSSResult, html, LitElement, nothing, PropertyValues, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+
+import { setAttributes } from '../../core/dom';
 import {
   createNamedSlotState,
   HandlerRepository,
@@ -7,12 +10,17 @@ import {
   EventEmitter,
   ConnectedAbortController,
 } from '../../core/eventing';
-import { CSSResult, html, LitElement, nothing, PropertyValues, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { SbbTagGroup } from '../tag-group';
-import { setAttributes } from '../../core/dom';
+import {
+  ButtonProperties,
+  resolveButtonRenderVariables,
+  SbbCheckedStateChange,
+  SbbStateChange,
+  SbbValueStateChange,
+} from '../../core/interfaces';
+import { type SbbTagGroup } from '../tag-group';
+
 import style from './tag.scss?lit&inline';
-import { SbbCheckedStateChange, SbbStateChange, SbbValueStateChange } from '../../core/interfaces';
+
 import '../../icon';
 
 export type SbbTagStateChange = Extract<

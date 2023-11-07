@@ -1,5 +1,8 @@
-import { TitleLevel } from '../title';
-import { i18nCloseNotification } from '../core/i18n';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
+
+import { setAttribute, toggleDatasetEntry } from '../core/dom';
 import {
   createNamedSlotState,
   documentLanguage,
@@ -8,13 +11,12 @@ import {
   namedSlotChangeHandlerAspect,
   EventEmitter,
 } from '../core/eventing';
+import { i18nCloseNotification } from '../core/i18n';
 import { AgnosticResizeObserver } from '../core/observers';
-import { toggleDatasetEntry } from '../core/dom';
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { setAttribute } from '../core/dom';
-import { ref } from 'lit/directives/ref.js';
+import type { TitleLevel } from '../title';
+
 import style from './notification.scss?lit&inline';
+
 import '../button';
 import '../divider';
 import '../icon';

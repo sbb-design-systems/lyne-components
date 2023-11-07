@@ -1,10 +1,20 @@
+import { spread } from '@open-wc/lit-helpers';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
+
 import {
   assignId,
   getFirstFocusableElement,
   getFocusableElements,
   setModalityOnNextFocus,
 } from '../../core/a11y';
-import { findReferencedElement, isBreakpoint, isValidAttribute } from '../../core/dom';
+import {
+  findReferencedElement,
+  isBreakpoint,
+  isValidAttribute,
+  setAttribute,
+} from '../../core/dom';
 import {
   createNamedSlotState,
   documentLanguage,
@@ -18,13 +28,9 @@ import {
   SbbOverlayState,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay';
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { spread } from '@open-wc/lit-helpers';
 import { SbbNavigation } from '../navigation';
 import { SbbNavigationMarker } from '../navigation-marker';
-import { setAttribute } from '../../core/dom';
-import { ref } from 'lit/directives/ref.js';
+
 import style from './navigation-section.scss?lit&inline';
 import '../../divider';
 import '../../button';

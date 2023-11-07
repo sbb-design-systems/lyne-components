@@ -1,12 +1,13 @@
-import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../core/a11y';
-import { isValidAttribute, hostContext, toggleDatasetEntry } from '../../core/dom';
-import { throttle, EventEmitter, ConnectedAbortController } from '../../core/eventing';
-import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { SbbTabTitle } from '../tab-title';
-import { setAttribute } from '../../core/dom';
 import { ref } from 'lit/directives/ref.js';
+
+import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../core/a11y';
+import { isValidAttribute, hostContext, toggleDatasetEntry, setAttribute } from '../../core/dom';
+import { throttle, EventEmitter, ConnectedAbortController } from '../../core/eventing';
+import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers';
+import { SbbTabTitle } from '../tab-title';
+
 import style from './tab-group.scss?lit&inline';
 
 export interface InterfaceSbbTabGroupActions {

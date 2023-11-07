@@ -1,6 +1,7 @@
-import { DateAdapter } from './date-adapter';
 import { documentLanguage } from '../eventing';
 import { SbbDateLike } from '../interfaces';
+
+import { DateAdapter } from './date-adapter';
 
 export const DAYS_PER_ROW: number = 7;
 export const MONTHS_PER_ROW: number = 4;

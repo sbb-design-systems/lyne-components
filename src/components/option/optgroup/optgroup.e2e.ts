@@ -1,9 +1,11 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SbbOptGroup } from './optgroup';
-import { SbbOption } from '../option';
+
 import { waitForLitRender } from '../../core/testing';
+import type { SbbOption } from '../option';
 import '../option';
+
+import { SbbOptGroup } from './optgroup';
 
 describe('sbb-optgroup', () => {
   let element: SbbOptGroup;

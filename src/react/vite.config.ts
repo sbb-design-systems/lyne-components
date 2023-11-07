@@ -1,7 +1,3 @@
-import { CustomElementDeclaration, Package } from 'custom-elements-manifest/schema';
-import { ConfigEnv, PluginOption, UserConfig, defineConfig, mergeConfig } from 'vite';
-import dts from 'vite-plugin-dts';
-import rootConfig, { globIndexMap, packageJsonTemplate, root } from '../../vite.config';
 import {
   existsSync,
   mkdirSync,
@@ -12,6 +8,12 @@ import {
   unlinkSync,
   writeFileSync,
 } from 'fs';
+
+import type { CustomElementDeclaration, Package } from 'custom-elements-manifest/schema';
+import { ConfigEnv, PluginOption, UserConfig, defineConfig, mergeConfig } from 'vite';
+import dts from 'vite-plugin-dts';
+
+import rootConfig, { globIndexMap, packageJsonTemplate, root } from '../../vite.config';
 
 const packageRoot = new URL('.', import.meta.url);
 const outDir = new URL('./dist/react/', root);

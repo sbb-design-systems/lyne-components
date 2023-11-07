@@ -1,9 +1,11 @@
-import images from '../core/images';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import images from '../core/images';
 import { waitForLitRender } from '../core/testing';
+
 import { SbbTeaserHero } from './teaser-hero';
-import '../teaser-hero';
+import '.';
 import '../link';
 import '../image';
 

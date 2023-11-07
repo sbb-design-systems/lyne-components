@@ -1,5 +1,8 @@
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+
 import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../core/a11y';
-import { toggleDatasetEntry } from '../../core/dom';
+import { toggleDatasetEntry, setAttribute } from '../../core/dom';
 import {
   createNamedSlotState,
   HandlerRepository,
@@ -7,12 +10,14 @@ import {
   EventEmitter,
   ConnectedAbortController,
 } from '../../core/eventing';
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { SbbRadioButton, SbbRadioButtonSize, SbbRadioButtonStateChange } from '../radio-button';
-import { setAttribute } from '../../core/dom';
-import style from './radio-button-group.scss?lit&inline';
 import { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces';
+import {
+  type SbbRadioButton,
+  SbbRadioButtonSize,
+  SbbRadioButtonStateChange,
+} from '../radio-button';
+
+import style from './radio-button-group.scss?lit&inline';
 
 /**
  * @slot - Use the unnamed slot to add `sbb-radio-button` elements to this radio button group.

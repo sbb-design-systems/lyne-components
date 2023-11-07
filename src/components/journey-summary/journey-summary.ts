@@ -1,15 +1,17 @@
-import { Leg } from '../core/timetable';
 import { isValid, format } from 'date-fns';
-import { i18nTripDuration } from '../core/i18n';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+
 import {
   durationToTime,
   NativeDateAdapter,
   removeTimezoneFromISOTimeString,
 } from '../core/datetime';
 import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { i18nTripDuration } from '../core/i18n';
+import { Leg } from '../core/timetable';
 import { TitleLevel } from '../title';
+
 import style from './journey-summary.scss?lit&inline';
 import '../pearl-chain-time';
 import '../journey-header';

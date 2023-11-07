@@ -1,8 +1,10 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SbbActionGroup } from './action-group';
+
 import { SbbButton } from '../button';
-import '../action-group';
+
+import { SbbActionGroup } from './action-group';
+import '.';
 
 describe('sbb-action-group', () => {
   it('renders', async () => {

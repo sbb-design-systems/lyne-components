@@ -1,7 +1,8 @@
-import sampleData from './timetable-travel-hints.sample-data';
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
 import { SbbTimetableTravelHints } from './timetable-travel-hints';
+import sampleData from './timetable-travel-hints.sample-data';
 
 const config = JSON.stringify(sampleData[0]);
 

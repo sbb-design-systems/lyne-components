@@ -1,8 +1,9 @@
 /** @jsx h */
-import { Fragment, h, JSX } from 'jsx-dom';
-import readme from './readme.md?raw';
-import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
+import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
+import { Fragment, h, type JSX } from 'jsx-dom';
+
+import readme from './readme.md?raw';
 import './tooltip-trigger';
 import '../tooltip';
 import '../../link';

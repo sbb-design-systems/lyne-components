@@ -1,5 +1,7 @@
-import { ButtonProperties, resolveButtonRenderVariables } from '../../core/interfaces';
-import { hostContext, isValidAttribute } from '../../core/dom';
+import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+
+import { hostContext, isValidAttribute, setAttribute, setAttributes } from '../../core/dom';
 import {
   HandlerRepository,
   actionElementHandlerAspect,
@@ -8,10 +10,9 @@ import {
   ConnectedAbortController,
 } from '../../core/eventing';
 import { i18nClearInput } from '../../core/i18n';
-import { CSSResult, html, LitElement, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { setAttribute, setAttributes } from '../../core/dom';
+import { ButtonProperties, resolveButtonRenderVariables } from '../../core/interfaces';
 import { SbbFormField } from '../form-field';
+
 import style from './form-field-clear.scss?lit&inline';
 import '../../icon';
 

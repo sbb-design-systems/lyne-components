@@ -1,6 +1,7 @@
-import sampleData from './timetable-row-day-change.sample-data';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import sampleData from './timetable-row-day-change.sample-data';
 import './timetable-row-day-change';
 
 const config = JSON.stringify(sampleData[1]);

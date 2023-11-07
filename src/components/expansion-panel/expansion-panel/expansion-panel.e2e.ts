@@ -1,10 +1,12 @@
-import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
-import { SbbExpansionPanelHeader } from '../expansion-panel-header';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SbbExpansionPanel } from './expansion-panel';
-import { SbbExpansionPanelContent } from '../expansion-panel-content';
+
+import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
+import type { SbbExpansionPanelContent } from '../expansion-panel-content';
 import '../expansion-panel-content';
+import { SbbExpansionPanelHeader } from '../expansion-panel-header';
+
+import { SbbExpansionPanel } from './expansion-panel';
 
 describe('sbb-expansion-panel', () => {
   let element: SbbExpansionPanel;

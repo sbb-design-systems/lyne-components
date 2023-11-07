@@ -1,15 +1,18 @@
-import { TitleLevel } from '../title';
+import { spread } from '@open-wc/lit-helpers';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
+
 import {
   createNamedSlotState,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
 } from '../core/eventing';
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
-import { spread } from '@open-wc/lit-helpers';
 import { SbbLink } from '../link';
+import type { TitleLevel } from '../title';
+
 import style from './skiplink-list.scss?lit&inline';
+
 import '../title';
 
 /**

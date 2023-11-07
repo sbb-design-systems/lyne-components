@@ -1,8 +1,10 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
 import { waitForLitRender } from '../core/testing';
+
 import { SbbTeaser } from './teaser';
-import '../teaser';
+import '.';
 
 describe('sbb-teaser', () => {
   let element: SbbTeaser;

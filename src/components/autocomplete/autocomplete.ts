@@ -1,3 +1,17 @@
+import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
+
+import { assignId, getNextElementIndex } from '../core/a11y';
+import {
+  setAttribute,
+  getDocumentWritingMode,
+  findReferencedElement,
+  isSafari,
+  isValidAttribute,
+  toggleDatasetEntry,
+} from '../core/dom';
+import { ConnectedAbortController, EventEmitter } from '../core/eventing';
 import {
   isEventOnElement,
   overlayGapFixCorners,
@@ -6,20 +20,8 @@ import {
   setAriaComboBoxAttributes,
   setOverlayPosition,
 } from '../core/overlay';
-import {
-  getDocumentWritingMode,
-  findReferencedElement,
-  isSafari,
-  isValidAttribute,
-  toggleDatasetEntry,
-} from '../core/dom';
-import { assignId, getNextElementIndex } from '../core/a11y';
-import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { setAttribute } from '../core/dom';
-import { ref } from 'lit/directives/ref.js';
-import { ConnectedAbortController, EventEmitter } from '../core/eventing';
 import { SbbOption } from '../option';
+
 import style from './autocomplete.scss?lit&inline';
 
 let nextId = 0;

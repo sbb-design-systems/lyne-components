@@ -1,8 +1,10 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+
 import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing';
 import { SbbTooltip } from '../tooltip';
+
 import { SbbTooltipTrigger } from './tooltip-trigger';
 
 describe('sbb-tooltip-trigger', () => {

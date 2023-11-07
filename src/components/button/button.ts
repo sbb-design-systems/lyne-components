@@ -1,12 +1,16 @@
+import { spread } from '@open-wc/lit-helpers';
+import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { html, unsafeStatic } from 'lit/static-html.js';
+
 import {
-  ButtonType,
-  IsStaticProperty,
-  LinkButtonProperties,
-  LinkTargetType,
-  resolveRenderVariables,
-  targetsNewWindow,
-} from '../core/interfaces';
-import { i18nTargetOpensInNewWindow } from '../core/i18n';
+  ACTION_ELEMENTS,
+  hostContext,
+  isValidAttribute,
+  toggleDatasetEntry,
+  setAttribute,
+  setAttributes,
+} from '../core/dom';
 import {
   actionElementHandlerAspect,
   createNamedSlotState,
@@ -15,12 +19,16 @@ import {
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
 } from '../core/eventing';
-import { ACTION_ELEMENTS, hostContext, isValidAttribute, toggleDatasetEntry } from '../core/dom';
-import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
-import { html, unsafeStatic } from 'lit/static-html.js';
-import { customElement, property, state } from 'lit/decorators.js';
-import { spread } from '@open-wc/lit-helpers';
-import { setAttribute, setAttributes } from '../core/dom';
+import { i18nTargetOpensInNewWindow } from '../core/i18n';
+import {
+  ButtonType,
+  IsStaticProperty,
+  LinkButtonProperties,
+  LinkTargetType,
+  resolveRenderVariables,
+  targetsNewWindow,
+} from '../core/interfaces';
+
 import style from './button.scss?lit&inline';
 import '../icon';
 

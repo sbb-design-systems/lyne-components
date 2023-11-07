@@ -1,8 +1,10 @@
 import { aTimeout, assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { waitForCondition, waitForLitRender } from '../core/testing';
-import { SbbImage } from './image';
+
 import images from '../core/images';
+import { waitForCondition, waitForLitRender } from '../core/testing';
+
+import { SbbImage } from './image';
 
 describe('sbb-image', () => {
   let element: SbbImage;

@@ -1,9 +1,11 @@
 import { assert, expect, fixture } from '@open-wc/testing';
-import { html } from 'lit/static-html.js';
-import { SbbCheckboxGroup } from './checkbox-group';
-import { SbbCheckbox } from '../checkbox';
-import { waitForLitRender } from '../../core/testing';
 import { sendKeys } from '@web/test-runner-commands';
+import { html } from 'lit/static-html.js';
+
+import { waitForLitRender } from '../../core/testing';
+import { SbbCheckbox } from '../checkbox';
+
+import { SbbCheckboxGroup } from './checkbox-group';
 
 describe('sbb-checkbox-group', () => {
   let element: SbbCheckboxGroup;

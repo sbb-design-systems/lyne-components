@@ -1,5 +1,5 @@
-import { waitFor } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
+import { waitFor } from '@storybook/testing-library';
 
 export async function waitForComponentsReady(checkFirstRenderingDone: () => any): Promise<void> {
   await new Promise<void>((resolve: () => void) => {

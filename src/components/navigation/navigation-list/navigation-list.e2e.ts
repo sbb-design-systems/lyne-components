@@ -1,5 +1,6 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
 import { SbbNavigationList } from './navigation-list';
 import '../navigation-action';
 

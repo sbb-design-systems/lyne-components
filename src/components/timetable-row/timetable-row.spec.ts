@@ -1,5 +1,9 @@
+import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+
 import { waitForLitRender } from '../core/testing';
 import { ITripItem, Notice, PtSituation } from '../core/timetable';
+
 import {
   SbbTimetableRow,
   filterNotices,
@@ -15,9 +19,7 @@ import {
   partiallyCancelled,
   walkTimeTrip,
 } from './timetable-row.sample-data';
-import { expect, fixture } from '@open-wc/testing';
-import { html } from 'lit/static-html.js';
-import '../timetable-row';
+import '.';
 
 const now = new Date('2022-08-16T15:00:00Z').valueOf();
 

@@ -1,11 +1,12 @@
-import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
-import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { SbbRadioButtonGroup } from './radio-button-group';
-import { SbbRadioButton } from '../radio-button';
-import './radio-button-group';
+import { html } from 'lit/static-html.js';
+
+import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
+import type { SbbRadioButton } from '../radio-button';
 import '../radio-button';
+
+import { SbbRadioButtonGroup } from './radio-button-group';
 
 describe('sbb-radio-button-group', () => {
   let element: SbbRadioButtonGroup;

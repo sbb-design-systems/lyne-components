@@ -1,8 +1,10 @@
 import { assert, expect, fixture } from '@open-wc/testing';
-import { html } from 'lit/static-html.js';
-import { EventSpy, waitForLitRender } from '../core/testing';
-import { SbbSlider } from './slider';
 import { sendKeys } from '@web/test-runner-commands';
+import { html } from 'lit/static-html.js';
+
+import { EventSpy, waitForLitRender } from '../core/testing';
+
+import { SbbSlider } from './slider';
 
 const keyboardPressTimes = async (slider: SbbSlider, key: string, times = 1): Promise<void> => {
   slider.focus();

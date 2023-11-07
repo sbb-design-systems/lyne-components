@@ -1,15 +1,20 @@
-import { expect, fixture } from '@open-wc/testing';
-import { html } from 'lit/static-html.js';
+import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
+import { html } from 'lit/static-html.js';
+
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
+
 import { SbbLink } from './link';
-import './link';
 
 describe('sbb-link', () => {
   let element: SbbLink;
 
   beforeEach(async () => {
     element = await fixture(html`<sbb-link id="focus-id">Link as Button</sbb-link>`);
+  });
+
+  it('renders', async () => {
+    assert.instanceOf(element, SbbLink);
   });
 
   describe('events', () => {

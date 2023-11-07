@@ -1,11 +1,12 @@
-import { waitForCondition } from '../core/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { EventSpy, waitForLitRender } from '../core/testing';
-import { SbbNotification } from './notification';
+
 import { SbbButton } from '../button';
+import { waitForCondition, EventSpy, waitForLitRender } from '../core/testing';
+
+import { SbbNotification } from './notification';
+
 import '../link';
-import '../button';
 
 describe('sbb-notification', () => {
   let element: SbbNotification;

@@ -1,16 +1,19 @@
+import { spread } from '@open-wc/lit-helpers';
+import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+
 import {
   createNamedSlotState,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
 } from '../core/eventing';
-import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { spread } from '@open-wc/lit-helpers';
-import { SbbLink, SbbLinkSize } from '../link';
-import { TitleLevel } from '../title';
-import '../title';
-import style from './link-list.scss?lit&inline';
 import { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
+import type { SbbLink, SbbLinkSize } from '../link';
+import type { TitleLevel } from '../title';
+
+import style from './link-list.scss?lit&inline';
+
+import '../title';
 
 /**
  * TODO: Document me

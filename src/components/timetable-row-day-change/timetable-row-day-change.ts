@@ -1,7 +1,9 @@
-import { i18nAttention, i18nConnectionsDepartOn, i18nDayChange } from '../core/i18n';
-import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
+
+import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
+import { i18nAttention, i18nConnectionsDepartOn, i18nDayChange } from '../core/i18n';
+
 import style from './timetable-row-day-change.scss?lit&inline';
 
 /**

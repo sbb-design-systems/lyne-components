@@ -1,8 +1,11 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
 import { waitForLitRender } from '../core/testing';
+import type { SbbLink } from '../link';
+
 import { SbbSkiplinkList } from './skiplink-list';
-import { SbbLink } from '../link';
+
 import '../link';
 
 describe('sbb-skiplink-list', () => {

@@ -1,6 +1,7 @@
 import { expect } from '@open-wc/testing';
-import { getElementPosition } from './position';
 import { stub } from 'sinon';
+
+import { getElementPosition } from './position';
 
 describe('getElementPosition', () => {
   let trigger: HTMLElement, element: HTMLElement;

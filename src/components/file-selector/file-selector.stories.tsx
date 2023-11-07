@@ -1,10 +1,12 @@
 /** @jsx h */
-import { SbbFileSelector } from './file-selector';
-import { h, JSX } from 'jsx-dom';
-import readme from './readme.md?raw';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import { InputType } from '@storybook/types';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
+import { h, type JSX } from 'jsx-dom';
+
+import { SbbFileSelector } from './file-selector';
+import readme from './readme.md?raw';
+
 import '../form-error';
 
 const variant: InputType = {

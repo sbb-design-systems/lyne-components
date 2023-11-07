@@ -1,8 +1,9 @@
 /** @jsx h */
-import { h, JSX } from 'jsx-dom';
+import type { Meta, StoryObj, Args } from '@storybook/web-components';
+import { h, type JSX } from 'jsx-dom';
+
 import readme from './readme.md?raw';
 import sampleData from './timetable-occupancy.sample-data';
-import type { Meta, StoryObj, Args } from '@storybook/web-components';
 import './timetable-occupancy';
 
 const Template = (args): JSX.Element => (

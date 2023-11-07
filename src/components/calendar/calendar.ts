@@ -1,3 +1,7 @@
+import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
+
 import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../core/a11y';
 import {
   DateAdapter,
@@ -7,7 +11,7 @@ import {
   YEARS_PER_PAGE,
   YEARS_PER_ROW,
 } from '../core/datetime';
-import { isBreakpoint, toggleDatasetEntry } from '../core/dom';
+import { isBreakpoint, toggleDatasetEntry, setAttribute } from '../core/dom';
 import {
   documentLanguage,
   HandlerRepository,
@@ -24,11 +28,8 @@ import {
   i18nPreviousYearRange,
   i18nYearMonthSelection,
 } from '../core/i18n';
-import { setAttribute } from '../core/dom';
-import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
 import { SbbDateLike } from '../core/interfaces';
+
 import style from './calendar.scss?lit&inline';
 import '../button';
 import '../icon';
