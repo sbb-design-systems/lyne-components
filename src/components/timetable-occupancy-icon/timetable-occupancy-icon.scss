@@ -1,5 +1,5 @@
 @use '../core/styles' as sbb;
-@use '../sbb-icon/sbb-icon.scss';
+@use '../icon/icon.scss';
 
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
