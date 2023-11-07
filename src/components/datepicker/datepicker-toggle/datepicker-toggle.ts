@@ -87,6 +87,11 @@ export class SbbDatepickerToggle extends LitElement {
     this._handlerRepository.connect();
     if (!this.datePicker) {
       this._init();
+      // If the component is attached to the DOM before the datepicker, it has to listen for the datepicker init,
+      // assuming that the two components share the same parent element.
+      if (!this._datePickerElement) {
+        this.parentElement.addEventListener('input-updated', () => this._init(), { once: true });
+      }
     }
 
     const formField = this.closest('sbb-form-field') ?? this.closest('[data-form-field]');
