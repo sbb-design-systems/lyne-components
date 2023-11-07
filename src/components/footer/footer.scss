@@ -36,7 +36,6 @@
 }
 
 .sbb-footer-wrapper {
-  /* stylelint-disable-next-line plugin/stylelint-bem-namics */
   :host(:not([expanded])) & {
     @include sbb.page-spacing;
   }
