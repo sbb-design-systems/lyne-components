@@ -1,27 +1,13 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { readdirSync, writeFileSync, renameSync } from 'fs';
+import { readdirSync, readFileSync, writeFileSync } from 'fs';
 import { basename, dirname, join, relative } from 'path';
+import { fileURLToPath } from 'url';
+
 // eslint-disable-next-line @typescript-eslint/naming-convention
-import Module from 'module';
+import ts from 'typescript';
 
-import { Meta } from '@storybook/html';
-// eslint-disable-next-line @typescript-eslint/naming-convention
-import React from 'react';
-
-// Configure stories environment to be able to load story file.
-for (const extension of ['.md', '.png', '.scss']) {
-  Module._extensions[extension] = (module: Module, filePath: string) => {
-    if (filePath.endsWith(extension)) {
-      module._compile(`module.exports = '';`, filePath);
-    }
-  };
-}
-
-// Necessary to allow importing story files dynamically
-// eslint-disable-next-line no-global-assign
-window = { navigator: { userAgent: '' }, location: { href: '' } } as any;
-window.parent = window.window = window;
-globalThis.React = React;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const chromaticFile = join(__dirname, '../src/storybook/testing/chromatic.tsx');
 
@@ -38,12 +24,52 @@ function walk(root: string, filter: RegExp): string[] {
   }, [] as string[]);
 }
 
+function extractParameters(sourceFile: ts.SourceFile): Record<string, any> | undefined {
+  return ts.forEachChild(sourceFile, (node) => {
+    if (ts.isVariableStatement(node)) {
+      return ts.forEachChild(node.declarationList, (node2) => {
+        if (node2?.name?.getText() === 'meta') {
+          return ts.forEachChild(node2.initializer, (node3) => {
+            if (node3?.name?.getText() === 'parameters') {
+              return Function(
+                `return ${node3.initializer.getText().replace(/\w*\.events\.\w*/gm, '"dummy"')}`,
+              )() as Record<string, any>;
+            }
+          });
+        }
+      });
+    }
+  });
+}
+
+function extractTitle(sourceFile: ts.SourceFile): string | undefined {
+  return ts.forEachChild(sourceFile, (node) => {
+    if (ts.isVariableStatement(node)) {
+      return ts.forEachChild(node.declarationList, (node2) => {
+        if (node2?.name?.getText() === 'meta') {
+          return ts.forEachChild(node2.initializer, (node3) => {
+            if (node3?.name?.getText() === 'title') {
+              return node3.initializer.getText().replaceAll("'", '') as string;
+            }
+          });
+        }
+      });
+    }
+  });
+}
+
 async function generateChromaticStory(
   storyFile: string,
 ): Promise<'no params found' | 'disabledSnapshot configured' | undefined> {
-  const content: { default: Meta } = await import(storyFile);
-  const { disableSnapshot, ...chromaticParameters } = content.default?.parameters?.chromatic ?? {};
-  if (!content.default?.parameters) {
+  const content = readFileSync(storyFile, 'utf8');
+  const sourceFile = ts.createSourceFile(storyFile, content, ts.ScriptTarget.ES2020, true);
+  const parameters = extractParameters(sourceFile);
+  if (!parameters) {
+    return 'no params found';
+  }
+
+  const { disableSnapshot, ...chromaticParameters } = parameters?.chromatic ?? {};
+  if (!parameters) {
     return 'no params found';
   } else if (disableSnapshot !== undefined) {
     return 'disabledSnapshot configured';
@@ -57,7 +83,7 @@ async function generateChromaticStory(
     .map(([key, value]) => `${key}: ${JSON.stringify(value)}, `)
     .join('');
   const storyFileContent = `/** @jsx h */
-import type { Meta, StoryObj } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/web-components';
 import config, * as stories from './${relativeImport}';
 import { combineStories } from '${chromaticImport}';
 
@@ -68,7 +94,7 @@ const meta: Meta = {
     },
     chromatic: { ${chromaticConfig}disableSnapshot: false },
   },
-  title: 'chromatic-only/${content.default.title}',
+  title: 'chromatic-only/${extractTitle(sourceFile)}',
 };
 
 export default meta;
@@ -82,9 +108,6 @@ export const chromaticStories: StoryObj = {
 }
 
 async function generateChromaticStories(): Promise<void> {
-  for (const storyFile of walk(join(__dirname, '../src'), /.stories.js$/)) {
-    renameSync(storyFile, storyFile.replace(/\.js$/, '.jsx'));
-  }
   console.log(`Generating chromatic story files:`);
   for (const storyFile of walk(join(__dirname, '../src'), /.stories.(jsx|tsx)$/)) {
     if (storyFile.includes('chromatic')) {
@@ -106,30 +129,3 @@ async function generateChromaticStories(): Promise<void> {
 }
 
 (async () => await generateChromaticStories())();
-
-/* eslint-disable @typescript-eslint/naming-convention */
-
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace NodeJS {
-    export interface Module {
-      _compile(code: string, filename: string): string;
-    }
-  }
-}
-
-declare module 'module' {
-  export const _extensions: NodeJS.RequireExtensions;
-  export function _resolveFilename(
-    request: string,
-    parent: {
-      /**
-       * Can be null if the parent id is 'internal/preload' (e.g. via --require)
-       * which doesn't have a file path.
-       */
-      filename: string | null;
-    },
-    isMain: boolean,
-    options?: any,
-  ): string;
-}
