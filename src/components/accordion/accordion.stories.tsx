@@ -8,7 +8,6 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import { Decorator } from '@storybook/web-components';
 import './accordion';
 import '../expansion-panel';
-import '../expansion-panel';
 import '../icon';
 
 const numberOfPanels: InputType = {

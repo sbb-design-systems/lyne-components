@@ -4,14 +4,10 @@ import { sendKeys } from '@web/test-runner-commands';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
 import { TemplateResult } from 'lit';
 import { SbbSelectionPanel } from './selection-panel';
-import { SbbRadioButton } from '../radio-button';
-import { SbbRadioButtonGroup } from '../radio-button';
-import { SbbCheckbox } from '../checkbox';
-import { SbbCheckboxGroup } from '../checkbox';
+import { SbbRadioButton, SbbRadioButtonGroup } from '../radio-button';
+import { SbbCheckbox, SbbCheckboxGroup } from '../checkbox';
 import './selection-panel';
 import '../radio-button';
-import '../radio-button';
-import '../checkbox';
 import '../checkbox';
 import '../link';
 

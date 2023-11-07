@@ -8,7 +8,6 @@ import '../form-field';
 import '../icon';
 import '../title';
 import '../header';
-import '../header';
 
 const hideScrollUpButton: InputType = {
   control: {

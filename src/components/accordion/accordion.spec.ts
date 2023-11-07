@@ -2,8 +2,6 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import './accordion';
 import '../expansion-panel';
-import '../expansion-panel';
-import '../expansion-panel';
 
 describe('sbb-accordion', () => {
   it('renders', async () => {

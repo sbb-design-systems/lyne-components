@@ -33,8 +33,6 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { setAttribute } from '../core/dom';
 import style from './timetable-row.scss?lit&inline';
 import '../card';
-import '../card';
-import '../card';
 import '../icon';
 import '../pearl-chain-time';
 
