@@ -6,7 +6,6 @@ import { EventSpy, waitForLitRender } from '../core/testing';
 import { SbbTimeInput } from './time-input';
 import { ValidationChangeEvent } from '../core/interfaces';
 
-mocha.timeout(5000); // Extended timeout for 'should interpret valid values' test
 describe('sbb-time-input', () => {
   let element: SbbTimeInput, input: HTMLInputElement;
 
@@ -105,7 +104,8 @@ describe('sbb-time-input', () => {
     expect(input).not.to.have.attribute('data-sbb-invalid');
   });
 
-  it('should interpret valid values', async () => {
+  it('should interpret valid values', async function () {
+    this.timeout(5000);
     const testCases = [
       { value: '0', interpretedAs: '00:00' },
       { value: '1', interpretedAs: '01:00' },

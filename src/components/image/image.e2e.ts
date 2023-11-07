@@ -4,11 +4,11 @@ import { waitForLitRender } from '../core/testing';
 import { SbbImage } from './image';
 import images from '../core/images';
 
-mocha.timeout(7000);
 describe('sbb-image', () => {
   let element: SbbImage;
 
   it('renders', async function () {
+    this.timeout(7000);
     const url = images[0];
     element = await fixture(html`<sbb-image image-src="${url}"></sbb-image>`);
 
