@@ -25,7 +25,7 @@ const TemplateError = ({ errorText, ...args }): JSX.Element => (
 
 const TemplateErrorWithIcon = ({ errorText, iconName, ...args }): JSX.Element => (
   <sbb-form-error {...args}>
-    <sbb-icon name={iconName} slot="icon" />
+    <sbb-icon name={iconName} slot="icon"></sbb-icon>
     {errorText}
   </sbb-form-error>
 );
@@ -85,7 +85,7 @@ const meta: Meta = {
   decorators: [
     (Story, context) => (
       <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
   ],

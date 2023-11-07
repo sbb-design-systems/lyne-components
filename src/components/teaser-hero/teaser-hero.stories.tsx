@@ -110,7 +110,7 @@ const TemplateSbbTeaserWithSlots = ({
   <sbb-teaser-hero {...args}>
     {content}
     <span slot="link-content">{linkContent}</span>
-    <sbb-image slot="image" image-src={imageSrc} alt={imageAlt} />
+    <sbb-image slot="image" image-src={imageSrc} alt={imageAlt}></sbb-image>
   </sbb-teaser-hero>
 );
 
@@ -147,7 +147,7 @@ const meta: Meta = {
   decorators: [
     (Story) => (
       <div style={{ padding: '1em' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
     withActions as Decorator,

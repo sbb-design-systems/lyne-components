@@ -4,7 +4,7 @@ to provide the possibility to display a clear button which can clear the input v
 ```html
 <sbb-form-field label="Label">
   <input type="text" placeholder="Input placeholder" value="Input value" />
-  <sbb-form-field-clear />
+  <sbb-form-field-clear></sbb-form-field-clear>
 </sbb-form-field>
 ```
 

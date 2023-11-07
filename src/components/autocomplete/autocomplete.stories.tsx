@@ -171,7 +171,7 @@ const aboveDecorator: Decorator = (Story) => (
       'align-items': 'end',
     }}
   >
-    <Story />
+    <Story></Story>
   </div>
 );
 
@@ -183,7 +183,7 @@ const scrollDecorator: Decorator = (Story) => (
       'align-items': 'center',
     }}
   >
-    <Story />
+    <Story></Story>
   </div>
 );
 
@@ -209,7 +209,7 @@ const createOptionGroup1 = (iconName, disableOption): JSX.Element[] => {
       Option 2
     </sbb-option>,
     <sbb-option value="Option 3">
-      <sbb-icon slot="icon" name={iconName} />
+      <sbb-icon slot="icon" name={iconName}></sbb-icon>
       Option 3
     </sbb-option>,
   ];
@@ -508,7 +508,7 @@ const meta: Meta = {
   decorators: [
     (Story, context) => (
       <div style={{ ...wrapperStyle(context), padding: '2rem', height: 'calc(100vh - 2rem)' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
     withActions as Decorator,

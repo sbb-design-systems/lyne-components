@@ -231,7 +231,7 @@ const aboveDecorator: Decorator = (Story) => (
       'align-items': 'end',
     }}
   >
-    <Story />
+    <Story></Story>
   </div>
 );
 
@@ -243,7 +243,7 @@ const scrollDecorator: Decorator = (Story) => (
       'align-items': 'center',
     }}
   >
-    <Story />
+    <Story></Story>
   </div>
 );
 
@@ -636,7 +636,7 @@ const meta: Meta = {
   decorators: [
     (Story, context) => (
       <div style={{ ...wrapperStyle(context), padding: '2rem', height: 'calc(100vh - 2rem)' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
     withActions as Decorator,

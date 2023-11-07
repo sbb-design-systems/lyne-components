@@ -20,7 +20,7 @@ as CSS variable (`--sbb-train-direction-width`) initially and on resize.
       additional-accessibility-text="Top of the train"
     ></sbb-train-wagon>
     <sbb-train-wagon sector="A" type="closed"> </sbb-train-wagon>
-    <sbb-train-blocked-passage />
+    <sbb-train-blocked-passage></sbb-train-blocked-passage>
     <sbb-train-wagon
       sector="A"
       type="wagon"

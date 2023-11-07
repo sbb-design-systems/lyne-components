@@ -47,7 +47,7 @@ export const HoursAndMinutes: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(Story) => <Story />],
+  decorators: [(Story) => <Story></Story>],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

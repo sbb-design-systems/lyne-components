@@ -4,11 +4,11 @@ import '../navigation-action';
 
 describe('sbb-navigation-action', () => {
   it('renders', async () => {
-    const root = await fixture(html`<sbb-navigation-action />`);
+    const root = await fixture(html`<sbb-navigation-action></sbb-navigation-action>`);
 
     expect(root).dom.to.be.equal(
       `
-        <sbb-navigation-action size="l" role="button" tabindex="0" dir="ltr">  
+        <sbb-navigation-action size="l" role="button" tabindex="0" dir="ltr">
         </sbb-navigation-action>
       `,
     );

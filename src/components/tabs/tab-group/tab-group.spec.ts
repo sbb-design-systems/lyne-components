@@ -23,7 +23,7 @@ describe('sbb-tab-group', () => {
   });
 
   it('renders', async () => {
-    const root = await fixture(html`<sbb-tab-group />`);
+    const root = await fixture(html`<sbb-tab-group></sbb-tab-group>`);
 
     expect(root).dom.to.be.equal(`<sbb-tab-group></sbb-tab-group>`);
     expect(root).shadowDom.to.be.equal(

@@ -9,7 +9,9 @@ import './datepicker-next-day';
 
 describe('sbb-datepicker-next-day', () => {
   it('renders', async () => {
-    const page: SbbDatepickerNextDay = await fixture(html`<sbb-datepicker-next-day />`);
+    const page: SbbDatepickerNextDay = await fixture(
+      html`<sbb-datepicker-next-day></sbb-datepicker-next-day>`,
+    );
 
     expect(page).dom.to.be.equal(`
       <sbb-datepicker-next-day dir="ltr" role="button" slot="suffix" tabindex="0"></sbb-datepicker-next-day>

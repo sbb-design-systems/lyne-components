@@ -325,12 +325,12 @@ const Template = ({
   return (
     <Fragment>
       <div style={{ display: 'flex', gap: '0.25rem' }}>
-        <sbb-datepicker-previous-day date-picker="datepicker" />
+        <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-previous-day>
         <sbb-datepicker-toggle
           date-picker="datepicker"
           data-testid="toggle"
           disable-animation={disableAnimation}
-        />
+        ></sbb-datepicker-toggle>
         <input {...args} id="datepicker-input" {...getInputAttributes(min, max)} />
         <sbb-datepicker
           id="datepicker"
@@ -342,7 +342,7 @@ const Template = ({
           onChange={(event) => changeEventHandler(event)}
           data-now={dataNow}
         ></sbb-datepicker>
-        <sbb-datepicker-next-day date-picker="datepicker" />
+        <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
       </div>
       <div
         id="container-value"
@@ -379,9 +379,12 @@ const TemplateFormField = ({
         borderless={borderless}
         width="collapse"
       >
-        <sbb-datepicker-previous-day />
-        <sbb-datepicker-next-day />
-        <sbb-datepicker-toggle data-testid="toggle" disable-animation={disableAnimation} />
+        <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
+        <sbb-datepicker-next-day></sbb-datepicker-next-day>
+        <sbb-datepicker-toggle
+          data-testid="toggle"
+          disable-animation={disableAnimation}
+        ></sbb-datepicker-toggle>
         <input {...args} {...getInputAttributes(min, max)} />
         <sbb-datepicker
           ref={(calendarRef) => {
@@ -503,7 +506,7 @@ const meta: Meta = {
           'min-height': isChromatic() ? '100vh' : undefined,
         }}
       >
-        <Story />
+        <Story></Story>
       </div>
     ),
     withActions as Decorator,

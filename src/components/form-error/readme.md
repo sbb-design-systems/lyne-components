@@ -12,7 +12,7 @@ the component displays an icon by default, that can be changed using the `icon` 
 <sbb-form-error> This is a required field. </sbb-form-error>
 
 <sbb-form-error>
-  <sbb-icon name="pie-small" slot="icon" />
+  <sbb-icon name="pie-small" slot="icon"></sbb-icon>
   This is a required field.
 </sbb-form-error>
 ```

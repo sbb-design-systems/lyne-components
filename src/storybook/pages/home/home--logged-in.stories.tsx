@@ -47,7 +47,7 @@ const defaultArgs: Args = {
 
 const Template = (args): JSX.Element => (
   <div>
-    <SkiplinkList />
+    <SkiplinkList></SkiplinkList>
 
     {/* *************************************************
     Header section
@@ -56,7 +56,7 @@ const Template = (args): JSX.Element => (
       <sbb-header-action id="hamburger-menu" icon-name="hamburger-menu-small" expand-from="small">
         Menu
       </sbb-header-action>
-      <div class="sbb-header-spacer" />
+      <div class="sbb-header-spacer"></div>
       <sbb-header-action icon-name="magnifying-glass-small" href="/">
         Search
       </sbb-header-action>
@@ -75,7 +75,7 @@ const Template = (args): JSX.Element => (
         <sbb-menu-action icon-name="shopping-cart-small" amount="1">
           Shopping cart
         </sbb-menu-action>
-        <sbb-divider />
+        <sbb-divider></sbb-divider>
         <sbb-menu-action icon-name="exit-small">Sign out</sbb-menu-action>
       </sbb-menu>
       <sbb-header-action icon-name="globe-small" id="language-menu-trigger" class="last-element">
@@ -94,12 +94,12 @@ const Template = (args): JSX.Element => (
       </a>
     </sbb-header>
 
-    <Navigation />
+    <Navigation></Navigation>
 
     {/* *************************************************
     Timetable input section
     ************************************************* */}
-    <TimetableInput />
+    <TimetableInput></TimetableInput>
 
     {/* *************************************************
     Products — Logged in
@@ -155,7 +155,7 @@ const Template = (args): JSX.Element => (
                       legs={[pastLeg, futureLeg]}
                       data-now={new Date('2021-12-08T12:11:00+01:00').valueOf()}
                       disable-animation={isChromatic()}
-                    />
+                    ></sbb-pearl-chain>
                   </span>
                   <sbb-button variant="secondary" icon-name="qrcode-small" is-static>
                     Ticket
@@ -205,7 +205,7 @@ const Template = (args): JSX.Element => (
                       legs={[pastLeg, futureLeg]}
                       data-now={new Date('2021-12-08T12:11:00+01:00').valueOf()}
                       disable-animation={isChromatic()}
-                    />
+                    ></sbb-pearl-chain>
                   </span>
                   <sbb-button variant="secondary" is-static>
                     Details
@@ -283,9 +283,9 @@ const Template = (args): JSX.Element => (
             <sbb-title level="3" visual-level="4" negative={args.negative}>
               Purchase tickets again.
             </sbb-title>
-            <DailyTicketProduct />
-            <BikeProduct />
-            <LiberoProduct />
+            <DailyTicketProduct></DailyTicketProduct>
+            <BikeProduct></BikeProduct>
+            <LiberoProduct></LiberoProduct>
           </div>
           <div class="your-subscriptions">
             <sbb-title level="3" visual-level="4" negative={args.negative}>
@@ -319,12 +319,12 @@ const Template = (args): JSX.Element => (
     {/* *************************************************
     Hero Teaser section
     ************************************************* */}
-    <TeaserHero />
+    <TeaserHero></TeaserHero>
 
     {/* *************************************************
     Footer section
     ************************************************* */}
-    <Footer {...args} />
+    <Footer {...args}></Footer>
   </div>
 );
 
@@ -347,7 +347,7 @@ const meta: Meta = {
   decorators: [
     (Story, context) => (
       <div style={wrapperStyle(context)}>
-        <Story />
+        <Story></Story>
       </div>
     ),
   ],

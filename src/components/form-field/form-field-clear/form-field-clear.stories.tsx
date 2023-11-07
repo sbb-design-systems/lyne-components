@@ -58,9 +58,9 @@ const basicArgs: Args = {
 
 const DefaultTemplate = ({ negative, ...args }): JSX.Element => (
   <sbb-form-field label="Label" negative={negative}>
-    <sbb-icon slot="prefix" name="pie-small" />
+    <sbb-icon slot="prefix" name="pie-small"></sbb-icon>
     <input type="text" placeholder="Input placeholder" value="Input value" {...args} />
-    <sbb-form-field-clear />
+    <sbb-form-field-clear></sbb-form-field-clear>
   </sbb-form-field>
 );
 
@@ -104,7 +104,7 @@ const meta: Meta = {
   decorators: [
     (Story, context) => (
       <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
     withActions as Decorator,

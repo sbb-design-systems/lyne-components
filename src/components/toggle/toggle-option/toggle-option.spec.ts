@@ -6,12 +6,14 @@ import { html } from 'lit/static-html.js';
 
 describe('sbb-toggle-option', () => {
   it('renders', async () => {
-    const root = await fixture(html`<sbb-toggle-option checked value="Option 1" />`);
+    const root = await fixture(
+      html`<sbb-toggle-option checked value="Option 1"></sbb-toggle-option>`,
+    );
 
     expect(root).dom.to.be.equal(
       `
       <sbb-toggle-option aria-checked="true" checked="" role="radio" tabindex="0" value="Option 1">
-        
+
       </sbb-toggle-option>
     `,
     );
@@ -28,7 +30,9 @@ describe('sbb-toggle-option', () => {
   });
 
   it('renders with sbb-icon', async () => {
-    const root = await fixture(html`<sbb-toggle-option checked icon-name="arrow-right-small" />`);
+    const root = await fixture(
+      html`<sbb-toggle-option checked icon-name="arrow-right-small"></sbb-toggle-option>`,
+    );
 
     expect(root).dom.to.be.equal(
       `
@@ -40,7 +44,7 @@ describe('sbb-toggle-option', () => {
         tabindex="0"
         data-icon-only
       >
-        
+
       </sbb-toggle-option>
     `,
     );

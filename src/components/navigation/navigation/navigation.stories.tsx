@@ -262,7 +262,7 @@ const meta: Meta = {
   decorators: [
     (Story) => (
       <div style={{ padding: '2rem', height: '100vh' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
     withActions as Decorator,

@@ -8,7 +8,7 @@ The component has two different variants.
 In `window` mode, the component completely covers the parent element, preventing interaction with it.
 
 ```html
-<sbb-loading-indicator variant="window" />
+<sbb-loading-indicator variant="window"></sbb-loading-indicator>
 ```
 
 While the `circle` mode can be used inline within another component (e.g. button);
@@ -26,7 +26,7 @@ in this case the component adjusts its size to the parent font size.
 In `window` mode it's possible to define the `size` of the component, choosing between `s` (default) and `l`.
 
 ```html
-<sbb-loading-indicator variant="window" size="l" />
+<sbb-loading-indicator variant="window" size="l"></sbb-loading-indicator>
 ```
 
 ## Accessibility
@@ -37,7 +37,11 @@ and then append the `sbb-loading-indicator` on it after giving it the correct `a
 
 ```html
 <div class="loader-container" aria-live="polite">
-  <sbb-loading-indicator variant="window" size="l" aria-label="Loading, please wait" />
+  <sbb-loading-indicator
+    variant="window"
+    size="l"
+    aria-label="Loading, please wait"
+  ></sbb-loading-indicator>
 </div>
 ```
 

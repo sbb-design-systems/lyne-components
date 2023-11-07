@@ -19,7 +19,7 @@ similarly, the background image can be provided using the `image` slot or the `i
 
 <sbb-teaser-hero href="https://www.sbb.ch">
   Break out and explore castles and palaces.
-  <sbb-image slot="image" image-src="https://path-to-source" alt="SBB CFF FFS Employee" />
+  <sbb-image slot="image" image-src="https://path-to-source" alt="SBB CFF FFS Employee"></sbb-image>
   <span slot="link-content">Find out more</span>
 </sbb-teaser-hero>
 ```

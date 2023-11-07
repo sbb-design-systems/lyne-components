@@ -7,7 +7,9 @@ const config = JSON.stringify(sampleData[0]);
 
 describe('sbb-timetable-barrier-free', () => {
   it('renders', async () => {
-    const root = await fixture(html`<sbb-timetable-barrier-free config="${config}" />`);
+    const root = await fixture(
+      html`<sbb-timetable-barrier-free config="${config}"></sbb-timetable-barrier-free>`,
+    );
 
     expect(root).dom.to.be.equal(
       `

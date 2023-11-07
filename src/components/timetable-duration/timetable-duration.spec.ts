@@ -8,7 +8,9 @@ const config = JSON.stringify(sampleData[0]);
 
 describe('sbb-timetable-duration', () => {
   it('renders', async () => {
-    const root = await fixture(html`<sbb-timetable-duration config="${config}" />`);
+    const root = await fixture(
+      html`<sbb-timetable-duration config="${config}"></sbb-timetable-duration>`,
+    );
 
     expect(root).dom.to.be.equal(
       `

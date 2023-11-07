@@ -25,7 +25,7 @@ export function combineStories(config: Meta, stories: StoryParameter): StoryObj[
               {unCamelCase(name)}
             </sbb-title>
             <div style={{ outline: '1px solid #ad00ff' }}>
-              <Story />
+              <Story></Story>
             </div>
           </div>
         ),

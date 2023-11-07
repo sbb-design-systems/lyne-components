@@ -4,7 +4,7 @@ import './tab-title';
 
 describe('sbb-tab-title', () => {
   it('renders', async () => {
-    const root = await fixture(html`<sbb-tab-title />`);
+    const root = await fixture(html`<sbb-tab-title></sbb-tab-title>`);
 
     expect(root).dom.to.be.equal(`<sbb-tab-title></sbb-tab-title>`);
     expect(root).shadowDom.to.be.equal(

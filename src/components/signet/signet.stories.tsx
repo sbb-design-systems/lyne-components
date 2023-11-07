@@ -5,7 +5,7 @@ import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 import './signet';
 
-const Template = (args): JSX.Element => <sbb-signet {...args} />;
+const Template = (args): JSX.Element => <sbb-signet {...args}></sbb-signet>;
 
 const protectiveRoom: InputType = {
   control: {
@@ -52,7 +52,7 @@ const meta: Meta = {
   decorators: [
     (Story) => (
       <div style={{ 'max-width': '300px' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
   ],

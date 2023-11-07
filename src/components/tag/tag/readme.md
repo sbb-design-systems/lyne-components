@@ -16,7 +16,7 @@ It's also possible to display a numeric amount at the component's end using the 
 <sbb-tag value="All" icon-name="pie-small" amount="123"> All </sbb-tag>
 
 <sbb-tag value="None">
-  <sbb-icon slot="icon" name="pie-small" />
+  <sbb-icon slot="icon" name="pie-small"></sbb-icon>
   None
   <span slot="amount">123</span>
 </sbb-tag>

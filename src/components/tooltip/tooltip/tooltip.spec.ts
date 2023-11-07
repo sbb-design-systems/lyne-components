@@ -5,7 +5,7 @@ import './tooltip';
 
 describe('sbb-tooltip', () => {
   it('renders', async () => {
-    const root = await fixture(html`<sbb-tooltip />`);
+    const root = await fixture(html`<sbb-tooltip></sbb-tooltip>`);
 
     expect(root).dom.to.be.equal(
       `

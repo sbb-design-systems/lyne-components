@@ -61,7 +61,7 @@ const defaultArgs: Args = {
 };
 
 const Template = (args): JSX.Element => {
-  return <sbb-pearl-chain-time {...args} />;
+  return <sbb-pearl-chain-time {...args}></sbb-pearl-chain-time>;
 };
 
 export const minimal: StoryObj = {
@@ -118,7 +118,7 @@ const meta: Meta = {
   decorators: [
     (Story) => (
       <div style={{ 'max-width': '20rem' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
   ],

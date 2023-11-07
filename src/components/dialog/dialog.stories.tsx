@@ -408,7 +408,7 @@ const meta: Meta = {
   decorators: [
     (Story) => (
       <div style={{ padding: '2rem', 'min-height': isChromatic() ? '100vh' : undefined }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
     withActions as Decorator,

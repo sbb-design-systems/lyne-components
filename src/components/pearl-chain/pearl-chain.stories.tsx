@@ -38,7 +38,7 @@ const defaultArgs: Args = {
 };
 
 const Template = (args): JSX.Element => {
-  return <sbb-pearl-chain {...args} />;
+  return <sbb-pearl-chain {...args}></sbb-pearl-chain>;
 };
 
 export const NoStops: StoryObj = {
@@ -151,7 +151,7 @@ const meta: Meta = {
   decorators: [
     (Story) => (
       <div style={{ 'max-width': '80%' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
   ],

@@ -21,7 +21,7 @@ Clicking in the backdrop or pressing the `ESC` key closes the menu.
   <sbb-menu-action icon="link-small" href="https://www.sbb.ch/en">View</sbb-menu-action>
   <sbb-menu-action icon="pen-small">Edit</sbb-menu-action>
   <sbb-menu-action icon="swisspass-small" amount="123">Details</sbb-menu-action>
-  <sbb-divider />
+  <sbb-divider></sbb-divider>
   <sbb-menu-action icon="cross-small">Cancel</sbb-menu-action>
 </sbb-menu>
 ```
@@ -37,11 +37,11 @@ You can also provide custom content inside the `sbb-menu`:
   <div>Christina Müller</div>
   <span>UIS9057</span>
   <sbb-link href="https://www.sbb.ch/en" negative size="xs" variant="block">Profile</sbb-link>
-  <sbb-divider />
+  <sbb-divider></sbb-divider>
   <sbb-menu-action icon="link-small" href="https://www.sbb.ch/en">View</sbb-menu-action>
   <sbb-menu-action icon="pen-small">Edit</sbb-menu-action>
   <sbb-menu-action icon="swisspass-small" amount="123">Details</sbb-menu-action>
-  <sbb-divider />
+  <sbb-divider></sbb-divider>
   <sbb-menu-action icon="cross-small">Cancel</sbb-menu-action>
 </sbb-menu>
 ```

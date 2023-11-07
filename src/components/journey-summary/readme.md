@@ -13,7 +13,7 @@ If this is not the case, the times and the date will not be displayed.
 If the tripBack prop is passed to the component a second journey-summary, without the header, is displayed.
 
 ```html
-<sbb-journey-summary trip="{trip}"><sbb-button /></sbb-journey-summary>
+<sbb-journey-summary trip="{trip}"><sbb-button></sbb-button></sbb-journey-summary>
 ```
 
 <!-- Auto Generated Below -->

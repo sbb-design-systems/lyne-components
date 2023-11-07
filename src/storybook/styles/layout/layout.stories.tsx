@@ -38,20 +38,20 @@ const Warning = (): JSX.Element => (
 const GridTemplate = (): JSX.Element => (
   <Fragment>
     <div class="sbb-grid visualized-grid">
-      <GridContent />
+      <GridContent></GridContent>
     </div>
     <p class="sbb-page-spacing">
-      <Warning />
+      <Warning></Warning>
     </p>
   </Fragment>
 );
 const GridExpandedTemplate = (): JSX.Element => (
   <Fragment>
     <div class="sbb-grid-expanded visualized-grid">
-      <GridContent />
+      <GridContent></GridContent>
     </div>
     <p class="sbb-page-spacing-expanded">
-      <Warning />
+      <Warning></Warning>
     </p>
   </Fragment>
 );
@@ -72,7 +72,7 @@ const meta: Meta = {
   decorators: [
     (Story) => (
       <div style={{ 'padding-block': '2rem' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
   ],

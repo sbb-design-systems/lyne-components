@@ -7,7 +7,11 @@ const config = JSON.stringify(sampleData[0]);
 
 describe('sbb-timetable-transportation-time', () => {
   it('renders', async () => {
-    const root = await fixture(html`<sbb-timetable-transportation-time config="${config}" />`);
+    const root = await fixture(
+      html`<sbb-timetable-transportation-time
+        config="${config}"
+      ></sbb-timetable-transportation-time>`,
+    );
 
     expect(root).dom.to.be.equal(
       `

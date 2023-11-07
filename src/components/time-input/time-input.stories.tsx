@@ -213,13 +213,13 @@ const TemplateSbbTimeInput = ({
       negative={negative}
       width="collapse"
     >
-      {iconStart && <sbb-icon slot="prefix" name={iconStart} />}
+      {iconStart && <sbb-icon slot="prefix" name={iconStart}></sbb-icon>}
       <sbb-time-input
         onChange={(event) => changeEventHandler(event)}
         onValidationChange={(event) => updateFormError(event.detail.valid)}
       ></sbb-time-input>
       <input id="input-id" {...args} />
-      {iconEnd && <sbb-icon slot="suffix" name={iconEnd} />}
+      {iconEnd && <sbb-icon slot="suffix" name={iconEnd}></sbb-icon>}
     </sbb-form-field>
     <div style={{ display: 'flex', gap: '1em', 'margin-block-start': '2rem' }}>
       <sbb-button variant="secondary" size="m" onClick={() => setValueAsDate()}>
@@ -340,7 +340,7 @@ const meta: Meta = {
   decorators: [
     (Story, context) => (
       <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
     withActions as Decorator,

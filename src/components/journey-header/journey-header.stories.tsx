@@ -67,7 +67,7 @@ const defaultArgs: Args = {
   negative: false,
 };
 
-const Template = (args): JSX.Element => <sbb-journey-header {...args} />;
+const Template = (args): JSX.Element => <sbb-journey-header {...args}></sbb-journey-header>;
 
 export const SizeM: StoryObj = {
   render: Template,
@@ -120,7 +120,7 @@ const meta: Meta = {
   decorators: [
     (Story, context) => (
       <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
   ],

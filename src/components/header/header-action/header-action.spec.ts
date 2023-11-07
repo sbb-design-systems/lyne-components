@@ -76,7 +76,7 @@ describe('sbb-header-action', () => {
           <a class="sbb-header-action" href="https://github.com/lyne-design-system/lyne-components" rel="external noopener nofollow" role="presentation" tabindex="-1" target="_blank">
             <span class="sbb-header-action__wrapper">
               <span class="sbb-header-action__icon">
-                <slot name="icon"/>
+                <slot name="icon"></slot>
               </span>
               <span class="sbb-header-action__text">
                 <slot></slot>

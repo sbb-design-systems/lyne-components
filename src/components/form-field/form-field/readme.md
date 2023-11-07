@@ -70,9 +70,9 @@ Please refer to their documentation for more details.
 
 ```html
 <sbb-form-field label="Example">
-  <sbb-icon slot="prefix" name="pie-small" />
+  <sbb-icon slot="prefix" name="pie-small"></sbb-icon>
   <input />
-  <sbb-icon slot="suffix" name="circle-information-small" />
+  <sbb-icon slot="suffix" name="circle-information-small"></sbb-icon>
 </sbb-form-field>
 ```
 

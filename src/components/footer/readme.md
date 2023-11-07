@@ -43,7 +43,7 @@ class (`class="sbb-link-list-button-group"`) to be displayed correctly.
     <sbb-link href="#">Company</sbb-link>
   </sbb-link-list>
   ...
-  <sbb-divider />
+  <sbb-divider></sbb-divider>
   <sbb-link-list size="xs" horizontal-from="large">
     <sbb-link href="#">Refunds</sbb-link>
     <sbb-link href="#">Lost property office</sbb-link>

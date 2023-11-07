@@ -13,7 +13,7 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
 
 const Template = (args): JSX.Element => (
   <div style={{ height: '340px', padding: '20px' }}>
-    <sbb-divider {...args} />
+    <sbb-divider {...args}></sbb-divider>
   </div>
 );
 
@@ -71,7 +71,7 @@ const meta: Meta = {
   decorators: [
     (Story, context) => (
       <div style={wrapperStyle(context)}>
-        <Story />
+        <Story></Story>
       </div>
     ),
   ],

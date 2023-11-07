@@ -148,7 +148,7 @@ const TemplateInputWithErrorSpace = (args): JSX.Element => {
 
 const TemplateInputWithIcons = (args): JSX.Element => (
   <sbb-form-field {...args}>
-    <sbb-icon slot="prefix" name="pie-small" />
+    <sbb-icon slot="prefix" name="pie-small"></sbb-icon>
     {TemplateBasicInput(args)}
     {TooltipTrigger()}
   </sbb-form-field>
@@ -163,14 +163,14 @@ const TemplateInputWithButton = ({ disabled, readonly, active, ...args }): JSX.E
       disabled={disabled || readonly}
       aria-label="Input button"
       data-active={active}
-    />
+    ></sbb-button>
   </sbb-form-field>
 );
 
 const TemplateInputWithClearButton = ({ disabled, readonly, active, ...args }): JSX.Element => (
   <sbb-form-field {...args}>
     {TemplateBasicInput({ ...args, disabled, readonly })}
-    <sbb-form-field-clear data-active={active} />
+    <sbb-form-field-clear data-active={active}></sbb-form-field-clear>
   </sbb-form-field>
 );
 
@@ -240,7 +240,7 @@ const TemplateSelectWithErrorSpace = (args): JSX.Element => {
 const TemplateSelectWithIcons = (args): JSX.Element => (
   <sbb-form-field {...args}>
     <span slot="prefix">
-      <sbb-icon name="pie-small" />
+      <sbb-icon name="pie-small"></sbb-icon>
     </span>
     {TemplateBasicSelect(args)}
     <span slot="suffix">{TooltipTrigger()}</span>
@@ -756,7 +756,7 @@ const meta: Meta = {
   decorators: [
     (Story, context) => (
       <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
   ],

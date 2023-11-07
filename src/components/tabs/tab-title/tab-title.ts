@@ -70,7 +70,7 @@ export class SbbTabTitle extends LitElement {
             this.iconName || this._namedSlots['icon']
               ? html`<span class="sbb-tab-title__icon">
                   <slot name="icon">
-                    ${this.iconName ? html`<sbb-icon name=${this.iconName} />` : nothing}
+                    ${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}
                   </slot>
                 </span>`
               : nothing

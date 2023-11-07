@@ -74,7 +74,7 @@ const meta: Meta = {
           overflow: 'hidden',
         }}
       >
-        <Story />
+        <Story></Story>
       </div>
     ),
   ],

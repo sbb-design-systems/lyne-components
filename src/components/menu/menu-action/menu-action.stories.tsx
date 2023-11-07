@@ -10,7 +10,7 @@ import '../../icon';
 const getBasicTemplate = ({ text, ...args }, id, iconSlot = false): JSX.Element => (
   <sbb-menu-action {...args}>
     {text} {id}
-    {iconSlot && <sbb-icon slot="icon" name="pie-small" />}
+    {iconSlot && <sbb-icon slot="icon" name="pie-small"></sbb-icon>}
   </sbb-menu-action>
 );
 
@@ -234,7 +234,7 @@ const meta: Meta = {
   decorators: [
     (Story) => (
       <div style={{ 'background-color': 'var(--sbb-color-black-default)', width: '320px' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
     withActions as Decorator,

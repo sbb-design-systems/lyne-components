@@ -105,7 +105,7 @@ const defaultArgs: Args = {
 
 const borderDecorator: Decorator = (Story) => (
   <div style={{ border: '3px solid red' }}>
-    <Story />
+    <Story></Story>
   </div>
 );
 
@@ -181,7 +181,7 @@ const meta: Meta = {
   decorators: [
     (Story, context) => (
       <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
   ],

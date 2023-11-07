@@ -9,7 +9,7 @@ import '../../form-field';
 
 describe('sbb-datepicker-toggle', () => {
   it('renders', async () => {
-    const page = await fixture(html`<sbb-datepicker-toggle />`);
+    const page = await fixture(html`<sbb-datepicker-toggle></sbb-datepicker-toggle>`);
 
     expect(page).dom.to.equal(`<sbb-datepicker-toggle slot="prefix"></sbb-datepicker-toggle>`);
     expect(page).shadowDom.to.equal(`

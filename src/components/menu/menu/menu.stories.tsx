@@ -109,7 +109,7 @@ const DefaultTemplate = (args): JSX.Element => (
       <sbb-menu-action icon-name="swisspass-small" amount={args.amount}>
         Details
       </sbb-menu-action>
-      <sbb-divider />
+      <sbb-divider></sbb-divider>
       <sbb-menu-action icon-name="cross-small">Cancel</sbb-menu-action>
     </sbb-menu>
   </Fragment>
@@ -150,7 +150,7 @@ const CustomContentTemplate = (args): JSX.Element => (
       <sbb-link href="https://www.sbb.ch/en" negative size="xs" variant="block">
         Profile
       </sbb-link>
-      <sbb-divider />
+      <sbb-divider></sbb-divider>
       <sbb-menu-action icon-name={args['icon-name']} href="https://www.sbb.ch/en">
         View
       </sbb-menu-action>
@@ -160,7 +160,7 @@ const CustomContentTemplate = (args): JSX.Element => (
       <sbb-menu-action icon-name="shopping-cart-small" amount={args.amount}>
         Cart
       </sbb-menu-action>
-      <sbb-divider />
+      <sbb-divider></sbb-divider>
       <sbb-menu-action icon-name="exit-small">Log Out</sbb-menu-action>
     </sbb-menu>
   </Fragment>
@@ -199,7 +199,7 @@ const LongContentTemplate = (args): JSX.Element => (
       <sbb-menu-action>Dansk</sbb-menu-action>
       <sbb-menu-action>Nederlands</sbb-menu-action>
       <sbb-menu-action>Suomi</sbb-menu-action>
-      <sbb-divider />
+      <sbb-divider></sbb-divider>
       <sbb-menu-action icon-name="cross-small">Cancel</sbb-menu-action>
     </sbb-menu>
   </Fragment>
@@ -218,7 +218,7 @@ const EllipsisTemplate = (args): JSX.Element => (
       <sbb-link href="https://www.sbb.ch/en" negative size="xs" variant="block">
         Profile
       </sbb-link>
-      <sbb-divider />
+      <sbb-divider></sbb-divider>
       <sbb-menu-action icon-name={args['icon-name']} href="https://www.sbb.ch/en">
         View
       </sbb-menu-action>
@@ -229,7 +229,7 @@ const EllipsisTemplate = (args): JSX.Element => (
         Very long label that exceeds the maximum width of the menu, very long label that exceeds the
         maximum width of the menu, very long label that exceeds the maximum width of the menu
       </sbb-menu-action>
-      <sbb-divider />
+      <sbb-divider></sbb-divider>
       <sbb-menu-action icon-name="cross-small">Cancel</sbb-menu-action>
     </sbb-menu>
   </Fragment>
@@ -274,7 +274,7 @@ const meta: Meta = {
   decorators: [
     (Story) => (
       <div style={{ padding: '2rem', 'min-height': isChromatic() ? '100vh' : undefined }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
     withActions as Decorator,

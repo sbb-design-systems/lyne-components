@@ -115,7 +115,7 @@ export const TramSecondLevel: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(Story) => <Story />],
+  decorators: [(Story) => <Story></Story>],
   parameters: {
     backgrounds: {
       disable: true,

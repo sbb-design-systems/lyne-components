@@ -122,7 +122,7 @@ const meta: Meta = {
           ...(isChromatic() ? { 'min-height': '100vh', 'min-width': '100vw' } : undefined),
         }}
       >
-        <Story />
+        <Story></Story>
       </div>
     ),
     withActions as Decorator,

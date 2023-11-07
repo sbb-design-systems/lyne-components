@@ -151,7 +151,7 @@ export const WithEllipsis: StoryObj = {
   decorators: [
     (Story) => (
       <div style={{ 'max-width': '400px' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
   ],
@@ -161,7 +161,7 @@ const meta: Meta = {
   decorators: [
     (Story) => (
       <div style={{ padding: '2rem' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
   ],

@@ -65,7 +65,7 @@ Always provide an accessible label via `aria-label` for checkboxes without descr
 If you don't want the label to appear next to the checkbox, you can use `aria-label` to specify an appropriate label.
 
 ```html
-<sbb-checkbox aria-label="Subscribed to email message" />
+<sbb-checkbox aria-label="Subscribed to email message"></sbb-checkbox>
 ```
 
 <!-- Auto Generated Below -->

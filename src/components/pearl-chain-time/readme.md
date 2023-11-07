@@ -42,7 +42,7 @@ The `legs` property is mandatory.
   arrival-time="21:30"
   departure-walk="5"
   arrival-walk="3"
-/>
+></sbb-pearl-chain-time>
 ```
 
 ## Testing

@@ -37,7 +37,7 @@ describe('sbb-skiplink-list', () => {
               </li>
             </ul>
             <span hidden>
-              <slot />
+              <slot></slot>
             </span>
           </div>
         `,
@@ -82,7 +82,7 @@ describe('sbb-skiplink-list', () => {
               </li>
             </ul>
             <span hidden>
-              <slot />
+              <slot></slot>
             </span>
           </div>
         `,

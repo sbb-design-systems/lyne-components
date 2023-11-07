@@ -79,7 +79,7 @@ const Template = ({ label, ...args }): JSX.Element => <sbb-tag {...args}>{label}
 
 const TemplateSlottedIconAndAmount = ({ label, ...args }): JSX.Element => (
   <sbb-tag {...args}>
-    <sbb-icon slot="icon" name="pie-small" />
+    <sbb-icon slot="icon" name="pie-small"></sbb-icon>
     {label}
     <span slot="amount">999</span>
   </sbb-tag>
@@ -159,7 +159,7 @@ const meta: Meta = {
   decorators: [
     (Story) => (
       <div style={{ padding: '2rem' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
     withActions as Decorator,

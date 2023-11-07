@@ -139,7 +139,7 @@ const meta: Meta = {
   decorators: [
     (Story) => (
       <div style={{ padding: '2rem' }}>
-        <Story />
+        <Story></Story>
         <h2>Use TAB to see the skiplink box</h2>
       </div>
     ),

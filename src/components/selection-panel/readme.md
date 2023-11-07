@@ -22,7 +22,7 @@ or a [sbb-checkbox-group](/docs/components-sbb-checkbox-sbb-checkbox-group--docs
       Value
       <span slot="subtext">Subtext</span>
       <span slot="suffix">
-        <sbb-icon />
+        <sbb-icon></sbb-icon>
         <span class="sbb-text-xs sbb-text--bold">CHF</span>
         <span class="sbb-text-m sbb-text--bold">40.00</span>
       </span>
@@ -46,7 +46,7 @@ or a [sbb-checkbox-group](/docs/components-sbb-checkbox-sbb-checkbox-group--docs
       Value
       <span slot="subtext">Subtext</span>
       <span slot="suffix">
-        <sbb-icon />
+        <sbb-icon name="cross-small"></sbb-icon>
         <span class="sbb-text-xs sbb-text--bold">CHF</span>
         <span class="sbb-text-m sbb-text--bold">40.00</span>
       </span>

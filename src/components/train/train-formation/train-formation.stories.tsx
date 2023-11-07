@@ -24,7 +24,7 @@ const MountedFormationTemplate = (args): JSX.Element => (
         sector="A"
       ></sbb-train-wagon>
       <sbb-train-wagon type="closed" sector="A"></sbb-train-wagon>
-      <sbb-train-blocked-passage />
+      <sbb-train-blocked-passage></sbb-train-blocked-passage>
       <sbb-train-wagon
         type="wagon"
         label="38"
@@ -70,7 +70,7 @@ const MountedFormationTemplate = (args): JSX.Element => (
       >
         <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
       </sbb-train-wagon>
-      <sbb-train-blocked-passage />
+      <sbb-train-blocked-passage></sbb-train-blocked-passage>
       <sbb-train-wagon
         type="wagon"
         label="43"
@@ -86,7 +86,7 @@ const MountedFormationTemplate = (args): JSX.Element => (
         ></sbb-icon>
         <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
       </sbb-train-wagon>
-      <sbb-train-blocked-passage />
+      <sbb-train-blocked-passage></sbb-train-blocked-passage>
       <sbb-train-wagon
         blocked-passage="previous"
         type="wagon"
@@ -135,7 +135,7 @@ const MountedFormationTemplate = (args): JSX.Element => (
         sector="E"
       ></sbb-train-wagon>
       <sbb-train-wagon type="closed" label="49" sector="E"></sbb-train-wagon>
-      <sbb-train-blocked-passage />
+      <sbb-train-blocked-passage></sbb-train-blocked-passage>
       <sbb-train-wagon
         type="wagon"
         label="50"
@@ -226,7 +226,7 @@ const SingleFormationTemplate = (args): JSX.Element => (
         additional-accessibility-text="Top of the train"
       ></sbb-train-wagon>
       <sbb-train-wagon sector="A" type="closed"></sbb-train-wagon>
-      <sbb-train-blocked-passage />
+      <sbb-train-blocked-passage></sbb-train-blocked-passage>
       <sbb-train-wagon
         sector="A"
         type="wagon"
@@ -272,7 +272,7 @@ const SingleFormationTemplate = (args): JSX.Element => (
       >
         <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
       </sbb-train-wagon>
-      <sbb-train-blocked-passage />
+      <sbb-train-blocked-passage></sbb-train-blocked-passage>
       <sbb-train-wagon
         sector="C"
         type="wagon"
@@ -288,7 +288,7 @@ const SingleFormationTemplate = (args): JSX.Element => (
         ></sbb-icon>
         <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
       </sbb-train-wagon>
-      <sbb-train-blocked-passage />
+      <sbb-train-blocked-passage></sbb-train-blocked-passage>
       <sbb-train-wagon
         sector="C"
         blocked-passage="previous"
@@ -369,7 +369,7 @@ const meta: Meta = {
   decorators: [
     (Story) => (
       <div style={{ padding: '2rem' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
   ],

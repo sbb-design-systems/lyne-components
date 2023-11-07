@@ -60,7 +60,7 @@ const meta: Meta = {
   decorators: [
     (Story) => (
       <div style={style}>
-        <Story />
+        <Story></Story>
       </div>
     ),
   ],

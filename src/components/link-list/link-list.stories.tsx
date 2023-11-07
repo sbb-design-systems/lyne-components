@@ -25,7 +25,7 @@ const TemplateSlottedTitle = ({ 'title-content': titleContent, ...args }): JSX.E
   <sbb-link-list {...args}>
     <span slot="title">{titleContent}</span>
     {links.map((linkTitle) => (
-      <LinkTemplate {...{ linkTitle }} />
+      <LinkTemplate {...{ linkTitle }}></LinkTemplate>
     ))}
   </sbb-link-list>
 );
@@ -34,7 +34,7 @@ const TemplateSlottedTitle = ({ 'title-content': titleContent, ...args }): JSX.E
 const Template = ({ ...args }): JSX.Element => (
   <sbb-link-list {...args}>
     {links.map((linkTitle) => (
-      <LinkTemplate {...{ linkTitle }} />
+      <LinkTemplate {...{ linkTitle }}></LinkTemplate>
     ))}
   </sbb-link-list>
 );
@@ -160,7 +160,7 @@ const meta: Meta = {
   decorators: [
     (Story, context) => (
       <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
   ],

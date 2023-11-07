@@ -14,7 +14,7 @@ or, alternatively, for a collection of [sbb-selection-panel](/docs/components-sb
     <sbb-checkbox>
       Value
       <span slot="suffix">
-        <sbb-icon />
+        <sbb-icon></sbb-icon>
         <span class="sbb-text-xs sbb-text--bold">CHF</span>
         <span class="sbb-text-m sbb-text--bold">40.00</span>
       </span>

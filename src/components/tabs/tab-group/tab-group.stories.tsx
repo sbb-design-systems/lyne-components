@@ -167,7 +167,7 @@ const basicArgs: Args = {
 const templateRes = [
   (Story) => (
     <div style={{ padding: '2rem' }}>
-      <Story />
+      <Story></Story>
     </div>
   ),
   withActions as Decorator,
@@ -215,7 +215,7 @@ export const tintedBackground: StoryObj = {
   decorators: [
     (Story) => (
       <div style={{ background: 'var(--sbb-color-milk-default)', padding: '2rem' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
     withActions as Decorator,

@@ -13,7 +13,9 @@ describe('sbb-divider', () => {
   });
 
   it('should render with orientation horizontal', async () => {
-    const element: Element = await fixture(html`<sbb-divider orientation="horizontal" />`);
+    const element: Element = await fixture(
+      html`<sbb-divider orientation="horizontal"></sbb-divider>`,
+    );
     expect(element).dom.to.be.equal(
       `<sbb-divider orientation='horizontal' aria-orientation='horizontal' role='separator'></sbb-divider>`,
     );
@@ -21,7 +23,9 @@ describe('sbb-divider', () => {
   });
 
   it('should render with orientation vertical', async () => {
-    const element: Element = await fixture(html`<sbb-divider orientation="vertical" />`);
+    const element: Element = await fixture(
+      html`<sbb-divider orientation="vertical"></sbb-divider>`,
+    );
     expect(element).dom.to.be.equal(
       `<sbb-divider orientation='vertical' aria-orientation='vertical' role='separator'></sbb-divider>`,
     );

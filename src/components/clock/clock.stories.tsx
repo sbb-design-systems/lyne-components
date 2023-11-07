@@ -12,7 +12,7 @@ const dataNow: InputType = {
   },
 };
 
-const Template = (args): JSX.Element => <sbb-clock {...args} />;
+const Template = (args): JSX.Element => <sbb-clock {...args}></sbb-clock>;
 
 export const Default: StoryObj = {
   render: Template,
@@ -40,7 +40,7 @@ const meta: Meta = {
   decorators: [
     (Story) => (
       <div style={{ 'max-width': '600px' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
   ],

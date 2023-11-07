@@ -166,7 +166,11 @@ describe('sbb-timetable-row', () => {
   describe('sbb-timetable-row loading state', () => {
     it('renders loading state', async () => {
       element = await fixture(
-        html`<sbb-timetable-row loading-trip="true" loading-price="true" data-now="${now}" />`,
+        html`<sbb-timetable-row
+          loading-trip="true"
+          loading-price="true"
+          data-now="${now}"
+        ></sbb-timetable-row>`,
       );
 
       element.loadingTrip = true;
@@ -179,7 +183,7 @@ describe('sbb-timetable-row', () => {
 
       expect(element).shadowDom.to.be.equal(`
         <sbb-card color="white" data-has-card-badge class="sbb-loading" size="l">
-          <sbb-card-badge 
+          <sbb-card-badge
             class="sbb-loading__badge"
             color="charcoal"
             dir="ltr"

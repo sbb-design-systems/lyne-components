@@ -82,7 +82,7 @@ const meta: Meta = {
             Menu
           </sbb-header-action>
         </sbb-header>
-        <Story />
+        <Story></Story>
       </div>
     ),
   ],

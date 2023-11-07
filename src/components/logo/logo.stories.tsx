@@ -11,7 +11,7 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
     : 'var(--sbb-color-white-default)',
 });
 
-const Template = (args): JSX.Element => <sbb-logo {...args} />;
+const Template = (args): JSX.Element => <sbb-logo {...args}></sbb-logo>;
 
 const negative: InputType = {
   control: {
@@ -76,7 +76,7 @@ const meta: Meta = {
   decorators: [
     (Story, context) => (
       <div style={{ ...wrapperStyle(context), 'max-width': '300px' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
   ],

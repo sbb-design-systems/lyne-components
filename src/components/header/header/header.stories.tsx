@@ -32,7 +32,7 @@ const HeaderBasicTemplate = ({ children, attributes, ...args }): JSX.Element[] =
     <sbb-header-action icon-name="hamburger-menu-small" expand-from="small">
       Menu
     </sbb-header-action>
-    <div class="sbb-header-spacer" />
+    <div class="sbb-header-spacer"></div>
     <sbb-header-action icon-name="magnifying-glass-small">Search</sbb-header-action>
     {children}
     <sbb-header-action icon-name="globe-small" id="language-menu-trigger" class="last-element">
@@ -74,7 +74,7 @@ const TemplateWithUserMenu = (args): JSX.Element => (
       <sbb-menu-action icon-name="shopping-cart-small" amount="1">
         Shopping cart
       </sbb-menu-action>
-      <sbb-divider />
+      <sbb-divider></sbb-divider>
       <sbb-menu-action icon-name="exit-small">Sign out</sbb-menu-action>
     </sbb-menu>
   </HeaderBasicTemplate>
@@ -193,7 +193,7 @@ const meta: Meta = {
   decorators: [
     (Story) => (
       <div>
-        <Story style={isChromatic() ? { 'min-height': '100vh' } : undefined} />
+        <Story style={isChromatic() ? { 'min-height': '100vh' } : undefined}></Story>
       </div>
     ),
     withActions as Decorator,

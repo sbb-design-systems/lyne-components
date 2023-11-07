@@ -125,7 +125,7 @@ const meta: Meta = {
   decorators: [
     (Story) => (
       <div style={{ padding: '1rem', 'max-width': '45rem', margin: 'auto' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
     withActions as Decorator,

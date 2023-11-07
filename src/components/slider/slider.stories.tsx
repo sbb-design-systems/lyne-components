@@ -26,8 +26,8 @@ const TemplateSbbSliderChangeEvent = (args): JSX.Element => (
 
 const TemplateSlottedIcons = (args): JSX.Element => (
   <sbb-slider {...args}>
-    <sbb-icon slot="prefix" name="battery-level-empty-small" />
-    <sbb-icon slot="suffix" name="battery-level-high-small" />
+    <sbb-icon slot="prefix" name="battery-level-empty-small"></sbb-icon>
+    <sbb-icon slot="suffix" name="battery-level-high-small"></sbb-icon>
   </sbb-slider>
 );
 
@@ -234,7 +234,7 @@ const meta: Meta = {
   decorators: [
     (Story) => (
       <div style={{ padding: '2rem' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
     withActions as Decorator,

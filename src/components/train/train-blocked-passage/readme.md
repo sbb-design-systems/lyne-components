@@ -4,7 +4,7 @@ A `sbb-train-blocked-passage` is a visual representation of a blocked passage be
 It is used inside the [sbb-train](/docs/timetable-sbb-train--docs) element.
 
 ```html
-<sbb-train-blocked-passage />
+<sbb-train-blocked-passage></sbb-train-blocked-passage>
 ```
 
 <!-- Auto Generated Below -->

@@ -99,7 +99,7 @@ export class SbbMenuAction extends LitElement implements LinkButtonProperties {
         <span class="sbb-menu-action__content">
           <span class="sbb-menu-action__icon">
             <slot name="icon"
-              >${this.iconName ? html`<sbb-icon name=${this.iconName} />` : nothing}</slot
+              >${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}</slot
             >
           </span>
           <span class="sbb-menu-action__label">

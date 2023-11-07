@@ -126,7 +126,7 @@ const meta: Meta = {
   decorators: [
     (Story, context) => (
       <div style={{ ...wrapperStyle(context), padding: '2rem', 'font-size': '0' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
   ],

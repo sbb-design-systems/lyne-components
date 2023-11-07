@@ -227,7 +227,7 @@ const meta: Meta = {
   decorators: [
     (Story) => (
       <div style={{ padding: '2rem', position: 'relative', 'min-height': 'calc(100vh - 2rem)' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
     withActions as Decorator,

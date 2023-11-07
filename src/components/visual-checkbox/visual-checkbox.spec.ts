@@ -5,7 +5,7 @@ import { html } from 'lit/static-html.js';
 
 describe('sbb-visual-checkbox', () => {
   it('renders unchecked', async () => {
-    expect(await fixture(html`<sbb-visual-checkbox />`)).shadowDom.to.be.equal(`
+    expect(await fixture(html`<sbb-visual-checkbox></sbb-visual-checkbox>`)).shadowDom.to.be.equal(`
         <span class="sbb-visual-checkbox">
           <span class="sbb-visual-checkbox__icon">
           </span>
@@ -14,7 +14,8 @@ describe('sbb-visual-checkbox', () => {
   });
 
   it('renders checked', async () => {
-    expect(await fixture(html`<sbb-visual-checkbox checked="" />`)).shadowDom.to.be.equal(`
+    expect(await fixture(html`<sbb-visual-checkbox checked=""></sbb-visual-checkbox>`)).shadowDom.to
+      .be.equal(`
         <span class="sbb-visual-checkbox">
           <span class="sbb-visual-checkbox__icon">
             <svg
@@ -37,7 +38,8 @@ describe('sbb-visual-checkbox', () => {
   });
 
   it('renders indeterminate', async () => {
-    expect(await fixture(html`<sbb-visual-checkbox indeterminate="" />`)).shadowDom.to.be.equal(`
+    expect(await fixture(html`<sbb-visual-checkbox indeterminate=""></sbb-visual-checkbox>`))
+      .shadowDom.to.be.equal(`
         <span class="sbb-visual-checkbox">
           <span class="sbb-visual-checkbox__icon">
             <svg

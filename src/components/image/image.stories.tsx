@@ -7,7 +7,7 @@ import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 import './image';
 
-const Template = (args): JSX.Element => <sbb-image {...args} />;
+const Template = (args): JSX.Element => <sbb-image {...args}></sbb-image>;
 
 const imageSrc: InputType = {
   control: {
@@ -185,7 +185,7 @@ const meta: Meta = {
   decorators: [
     (Story) => (
       <div style={{ 'max-width': '1000px' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
   ],

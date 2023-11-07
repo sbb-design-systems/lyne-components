@@ -4,7 +4,7 @@ import './navigation-section';
 
 describe('sbb-navigation-section', () => {
   it('renders', async () => {
-    const root = await fixture(html`<sbb-navigation-section />`);
+    const root = await fixture(html`<sbb-navigation-section></sbb-navigation-section>`);
 
     expect(root).dom.to.be.equal(
       `

@@ -116,7 +116,7 @@ const TemplateSlottedIcon = ({ headerText, iconName, contentText, ...args }): JS
   <sbb-expansion-panel {...args}>
     <sbb-expansion-panel-header>
       {headerText}
-      <sbb-icon slot="icon" name={iconName} />
+      <sbb-icon slot="icon" name={iconName}></sbb-icon>
     </sbb-expansion-panel-header>
     <sbb-expansion-panel-content>{contentText}</sbb-expansion-panel-content>
   </sbb-expansion-panel>
@@ -199,7 +199,7 @@ const meta: Meta = {
   decorators: [
     (Story, context) => (
       <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
     withActions as Decorator,

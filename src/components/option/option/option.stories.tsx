@@ -124,7 +124,7 @@ const SelectTemplate = (args): JSX.Element => (
 
 const borderDecorator: Decorator = (Story) => (
   <div style={{ border: '3px solid red' }}>
-    <Story />
+    <Story></Story>
   </div>
 );
 
@@ -179,7 +179,7 @@ const meta: Meta = {
   decorators: [
     (Story, context) => (
       <div style={{ ...wrapperStyle(context), padding: '2rem', width: '350px' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
   ],

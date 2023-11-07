@@ -4,7 +4,7 @@ import './card-badge';
 
 describe('sbb-card-badge', () => {
   it('renders', async () => {
-    const root = await fixture(html`<sbb-card-badge />`);
+    const root = await fixture(html`<sbb-card-badge></sbb-card-badge>`);
 
     expect(root).dom.to.be.equal(
       `
@@ -18,7 +18,7 @@ describe('sbb-card-badge', () => {
           <span class="sbb-card-badge">
             <span class="sbb-card-badge-background" aria-hidden="true"></span>
             <span class="sbb-card-badge-content">
-              <slot />
+              <slot></slot>
             </span>
           </span>
         </span>

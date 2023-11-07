@@ -85,7 +85,10 @@ const suffixAndSubtext = (): JSX.Element[] => [
   <span slot="subtext">Subtext</span>,
   <span slot="suffix" style={{ 'margin-inline-start': 'auto' }}>
     <span style={suffixStyle}>
-      <sbb-icon name="diamond-small" style={{ 'margin-inline': 'var(--sbb-spacing-fixed-2x)' }} />
+      <sbb-icon
+        name="diamond-small"
+        style={{ 'margin-inline': 'var(--sbb-spacing-fixed-2x)' }}
+      ></sbb-icon>
       <span class="sbb-text-m sbb-text--bold">
         <span class="sbb-text-xs sbb-text--bold">CHF</span> 40.00
       </span>
@@ -239,13 +242,16 @@ const TicketsOptionsExampleTemplate = ({ checkedInput, disabledInput, ...args })
             </span>
           </sbb-radio-button>
         </sbb-radio-button-group>
-        <sbb-divider style={{ 'margin-block': 'var(--sbb-spacing-responsive-xxs)' }} />
+        <sbb-divider style={{ 'margin-block': 'var(--sbb-spacing-responsive-xxs)' }}></sbb-divider>
         <span style={{ color: 'var(--sbb-color-granite-default)' }}>
           <div
             style={{ display: 'flex', 'align-items': 'center', gap: 'var(--sbb-spacing-fixed-1x)' }}
           >
             1 x 0 x Supersaver ticket, Half-Fare Card{' '}
-            <sbb-tooltip-trigger id="tooltip-trigger-1" icon-name="circle-information-small" />
+            <sbb-tooltip-trigger
+              id="tooltip-trigger-1"
+              icon-name="circle-information-small"
+            ></sbb-tooltip-trigger>
           </div>
           <div>Valid: Thu., 03.11.2022 until Fri., 04.11.2022 05:00</div>
         </span>
@@ -292,13 +298,16 @@ const TicketsOptionsExampleTemplate = ({ checkedInput, disabledInput, ...args })
             </span>
           </sbb-checkbox>
         </sbb-checkbox-group>
-        <sbb-divider style={{ 'margin-block': 'var(--sbb-spacing-responsive-xxs)' }} />
+        <sbb-divider style={{ 'margin-block': 'var(--sbb-spacing-responsive-xxs)' }}></sbb-divider>
         <span style={{ color: 'var(--sbb-color-granite-default)' }}>
           <div
             style={{ display: 'flex', 'align-items': 'center', gap: 'var(--sbb-spacing-fixed-1x)' }}
           >
             1 x 0 x City Ticket incl. City Supplement City, Half-Fare Card{' '}
-            <sbb-tooltip-trigger id="tooltip-trigger-2" icon-name="circle-information-small" />
+            <sbb-tooltip-trigger
+              id="tooltip-trigger-2"
+              icon-name="circle-information-small"
+            ></sbb-tooltip-trigger>
           </div>
           <div>Valid: Thu., 03.11.2022 until Fri., 04.11.2022 05:00</div>
         </span>
@@ -693,7 +702,7 @@ const meta: Meta = {
   decorators: [
     (Story) => (
       <div style={{ padding: '2rem' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
     withActions as Decorator,

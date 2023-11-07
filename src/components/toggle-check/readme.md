@@ -44,7 +44,7 @@ If you don't want the label to appear next to the `sbb-toggle-check` component,
 you can not provide it and then use `aria-label` to specify an appropriate label for screen-readers.
 
 ```html
-<sbb-toggle-check aria-label="Subscribed to email message" />
+<sbb-toggle-check aria-label="Subscribed to email message"></sbb-toggle-check>
 ```
 
 <!-- Auto Generated Below -->

@@ -16,7 +16,7 @@ describe('sbb-toggle', () => {
   `;
 
   it('renders', async () => {
-    const root = await fixture(html`<sbb-toggle />`);
+    const root = await fixture(html`<sbb-toggle></sbb-toggle>`);
 
     expect(root).dom.to.be.equal(`<sbb-toggle role="radiogroup" size="m"></sbb-toggle>`);
     expect(root).shadowDom.to.be.equal(`

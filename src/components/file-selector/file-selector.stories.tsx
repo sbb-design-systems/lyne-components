@@ -170,7 +170,7 @@ const meta: Meta = {
   decorators: [
     (Story) => (
       <div>
-        <Story />
+        <Story></Story>
       </div>
     ),
     withActions as Decorator,

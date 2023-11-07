@@ -168,7 +168,7 @@ const meta: Meta = {
           height: 'calc(100vh - 2rem)',
         }}
       >
-        <Story />
+        <Story></Story>
       </div>
     ),
     withActions as Decorator,

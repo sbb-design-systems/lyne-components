@@ -7,7 +7,9 @@ const config = JSON.stringify(sampleData[3]);
 
 describe('sbb-timetable-occupancy', () => {
   it('renders', async () => {
-    const root = await fixture(html`<sbb-timetable-occupancy config="${config}" />`);
+    const root = await fixture(
+      html`<sbb-timetable-occupancy config="${config}"></sbb-timetable-occupancy>`,
+    );
 
     expect(root).dom.to.be.equal(
       `

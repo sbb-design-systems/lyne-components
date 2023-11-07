@@ -117,7 +117,7 @@ const TemplateTeaserList = (args): JSX.Element => (
   >
     {[...Array(6)].map(() => (
       <li>
-        <TemplateDefaultTeaser {...args} style="" />
+        <TemplateDefaultTeaser {...args} style=""></TemplateDefaultTeaser>
       </li>
     ))}
   </ul>
@@ -134,7 +134,7 @@ const TemplateTeaserListIsStacked = (args): JSX.Element => (
   >
     {[...Array(4)].map(() => (
       <li>
-        <TemplateDefaultTeaser {...args} style="" />
+        <TemplateDefaultTeaser {...args} style=""></TemplateDefaultTeaser>
       </li>
     ))}
   </ul>
@@ -187,7 +187,7 @@ const meta: Meta = {
   decorators: [
     (Story) => (
       <div style={{ padding: '2rem', 'max-width': '760px' }}>
-        <Story />
+        <Story></Story>
       </div>
     ),
     withActions as Decorator,

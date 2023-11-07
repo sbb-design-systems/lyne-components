@@ -30,8 +30,8 @@ or can provide their own using the two slots named `prefix` and `suffix`.
 <sbb-slider start-icon="circle-minus-small" end-icon="circle-plus-small"></sbb-slider>
 
 <sbb-slider>
-  <sbb-icon slot="prefix" name="battery-level-empty-small" />
-  <sbb-icon slot="suffix" name="battery-level-high-small" />
+  <sbb-icon slot="prefix" name="battery-level-empty-small"></sbb-icon>
+  <sbb-icon slot="suffix" name="battery-level-high-small"></sbb-icon>
 </sbb-slider>
 ```
 
