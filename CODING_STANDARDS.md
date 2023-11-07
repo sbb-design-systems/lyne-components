@@ -372,6 +372,30 @@ on it.
 Element ids are relevant for both connecting elements for specific functionality and to provide a
 better experience for accessibility.
 
+##### Host id
+
+In certain scenarios a component should have a default id (e.g. when the usage of the id is
+expected).
+
+There are various ways to assign an id to the host. One option is to use the `assignId` function:
+
+```ts
+let nextId = 0;
+
+@customElement('sbb-example')
+export class SbbExample extends LitElement {
+  ...
+  protected override render(): TemplateResult {
+    assignId(() => `sbb-example-${++nextId}`)(this);
+
+    return html`
+      ...
+    `;
+  }
+}
+
+```
+
 #### Context detection
 
 For various use cases, a component might need to behave or render in a specific way when placed
