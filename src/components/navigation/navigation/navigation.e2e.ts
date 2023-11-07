@@ -239,6 +239,7 @@ describe('sbb-navigation', () => {
     await nextFrame();
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await waitForCondition(() => section.getAttribute('data-state') === 'opened');
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -248,6 +249,7 @@ describe('sbb-navigation', () => {
     closeButton.click();
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    await waitForCondition(() => section.getAttribute('data-state') === 'closed');
     expect(didCloseEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
