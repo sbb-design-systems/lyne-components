@@ -71,27 +71,4 @@ describe('sbb-notification', () => {
     element = document.querySelector('sbb-notification');
     expect(element).to.be.null;
   });
-
-  it('closes the notification and removes it from the DOM on close button click by keyboard', async () => {
-    const willCloseEventSpy = new EventSpy(SbbNotification.events.willClose);
-    const didCloseEventSpy = new EventSpy(SbbNotification.events.didClose);
-    const closeButton = element.shadowRoot.querySelector('.sbb-notification__close') as SbbButton;
-
-    expect(element).not.to.be.null;
-    expect(element).to.have.attribute('data-state', 'opened');
-
-    closeButton.click();
-
-    await waitForCondition(() => willCloseEventSpy.events.length === 1);
-    expect(willCloseEventSpy.count).to.be.equal(1);
-
-    await waitForCondition(() => didCloseEventSpy.events.length === 1);
-    expect(didCloseEventSpy.count).to.be.equal(1);
-    await waitForLitRender(element);
-
-    expect(element).to.have.attribute('data-state', 'closed');
-
-    element = document.querySelector('sbb-notification');
-    expect(element).to.be.null;
-  });
 });
