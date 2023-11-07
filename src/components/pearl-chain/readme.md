@@ -3,42 +3,42 @@ Also, it is possible to render the current position.
 
 The `legs` property is mandatory.
 
-```json5
+```json
 [
   {
-    __typename: 'PTRideLeg',
-    arrival: {
-      time: '2022-12-11T12:13:00+01:00',
+    "__typename": "PTRideLeg",
+    "arrival": {
+      "time": "2022-12-11T12:13:00+01:00"
     },
-    departure: {
-      time: '2022-12-07T12:11:00+01:00',
+    "departure": {
+      "time": "2022-12-07T12:11:00+01:00"
     },
-    serviceJourney: {
-      serviceAlteration: {
-        cancelled: false,
-        delayText: 'string',
-        reachable: true,
-        unplannedStopPointsText: '',
-      },
-    },
+    "serviceJourney": {
+      "serviceAlteration": {
+        "cancelled": false,
+        "delayText": "string",
+        "reachable": true,
+        "unplannedStopPointsText": ""
+      }
+    }
   },
   {
-    __typename: 'PTRideLeg',
-    arrival: {
-      time: '2022-12-11T12:13:00+01:00',
+    "__typename": "PTRideLeg",
+    "arrival": {
+      "time": "2022-12-11T12:13:00+01:00"
     },
-    departure: {
-      time: '2022-12-07T12:11:00+01:00',
+    "departure": {
+      "time": "2022-12-07T12:11:00+01:00"
     },
-    serviceJourney: {
-      serviceAlteration: {
-        cancelled: false,
-        delayText: 'string',
-        reachable: true,
-        unplannedStopPointsText: '',
-      },
-    },
-  },
+    "serviceJourney": {
+      "serviceAlteration": {
+        "cancelled": false,
+        "delayText": "string",
+        "reachable": true,
+        "unplannedStopPointsText": ""
+      }
+    }
+  }
 ]
 ```
 

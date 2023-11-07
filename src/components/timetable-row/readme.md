@@ -9,27 +9,29 @@ The whole component is clickable and therefore emits a click-event.
 
 ## Usage with props
 
-```json5
-// `priceProp` property
-{ price: '12', text: 'CHF', isDiscount: true }
+_`priceProp` property_
+
+```json
+{ "price": "12", "text": "CHF", "isDiscount": true }
 ```
 
-```json5
-// `tripProp` property
+_`tripProp` property_
+
+```json
 {
-  legs: [
+  "legs": [
     {
-      duration: 360,
-      id: 'test',
-      arrival: { time: '2022-08-40T15:00:00+02:00' },
-      departure: { time: '2022-04-30T15:00:00+02:00' },
-      serviceJourney: {
-        serviceAlteration: {
-          cancelled: false,
-        },
-      },
-    },
-  ],
+      "duration": 360,
+      "id": "test",
+      "arrival": { "time": "2022-08-40T15:00:00+02:00" },
+      "departure": { "time": "2022-04-30T15:00:00+02:00" },
+      "serviceJourney": {
+        "serviceAlteration": {
+          "cancelled": false
+        }
+      }
+    }
+  ]
 }
 ```
 

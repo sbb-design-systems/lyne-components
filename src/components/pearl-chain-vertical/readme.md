@@ -3,14 +3,14 @@ The `sbb-pearl-chain-vertical` is a wrapper component for a
 which is projected within an unnamed slot.
 Please refer to its documentation for more details.
 
-```json5
+```json
 {
-  lineType: 'standard',
-  lineColor: 'charcoal',
-  minHeight: '89',
-  hideLine: false,
-  bulletType: 'thick-bullet',
-  bulletSize: 'small',
+  "lineType": "standard",
+  "lineColor": "charcoal",
+  "minHeight": "89",
+  "hideLine": false,
+  "bulletType": "thick-bullet",
+  "bulletSize": "small"
 }
 ```
 

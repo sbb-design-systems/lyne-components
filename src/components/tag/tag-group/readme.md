@@ -53,10 +53,10 @@ const uncheckTags = () => {
 
 ```html
 <sbb-tag-group aria-label="Select your desired device to filter it" multiple>
-  <sbb-tag id="all" onChange="{()" =""> uncheckTags()} value="All" checked> All </sbb-tag>
-  <sbb-tag value="phones" onChange="{()" =""> uncheckAllTag()}>Phones</sbb-tag>
-  <sbb-tag value="computer" onChange="{()" =""> uncheckAllTag()}>Computer</sbb-tag>
-  <sbb-tag value="laptop" onChange="{()" =""> uncheckAllTag()}>Laptop</sbb-tag>
+  <sbb-tag id="all" onchange="uncheckTags()" value="All" checked> All </sbb-tag>
+  <sbb-tag value="phones" onchange="uncheckAllTag()">Phones</sbb-tag>
+  <sbb-tag value="computer" onchange="uncheckAllTag()">Computer</sbb-tag>
+  <sbb-tag value="laptop" onchange="uncheckAllTag()">Laptop</sbb-tag>
 </sbb-tag-group>
 ```
 

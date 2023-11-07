@@ -6,14 +6,14 @@ There are two slots named `left` and `right` which make it possible to display c
 
 The `pearlChainVerticalItemAttributes` property is mandatory.
 
-```json5
+```json
 {
-  lineType: 'standard',
-  lineColor: 'charcoal',
-  minHeight: '89',
-  hideLine: false,
-  bulletType: 'thick-bullet',
-  bulletSize: 'small',
+  "lineType": "standard",
+  "lineColor": "charcoal",
+  "minHeight": "89",
+  "hideLine": false,
+  "bulletType": "thick-bullet",
+  "bulletSize": "small"
 }
 ```
 
@@ -23,8 +23,8 @@ The `pearlChainVerticalItemAttributes` property is mandatory.
 >
   <div slot="right">content</div>
   <div slot="left">content</div>
-  <sbb-pearl-chain-vertical-item></sbb-pearl-chain-vertical-item
-></sbb-pearl-chain-vertical-item>
+  ></sbb-pearl-chain-vertical-item
+>
 ```
 
 ## Style

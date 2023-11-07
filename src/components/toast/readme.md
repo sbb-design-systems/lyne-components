@@ -5,11 +5,8 @@ Only one toast can ever be opened at one time:
 if a new `sbb-toast` is opened while a previous message is still showing, the older message will be automatically dismissed.
 
 ```html
-<sbb-button onClick="{()" ="">
-  document.querySelector('sbb-toast').open() } />
-
-  <sbb-toast>Toast content</sbb-toast></sbb-button
->
+<sbb-button onclick="document.querySelector('sbb-toast').open()">Open toast</sbb-button>
+<sbb-toast>Toast content</sbb-toast>
 ```
 
 ## Important note
@@ -29,27 +26,21 @@ It is possible to provide a text via an unnamed slot; the component can optional
 at the component start using the `iconName` property or via custom content using the `icon` slot.
 
 ```html
-<sbb-button onClick="{()" ="">
-  document.querySelector('sbb-toast').open() } />
-
-  <sbb-toast icon-name="dog-small"> Toast content </sbb-toast></sbb-button
->
+<sbb-button onclick="document.querySelector('sbb-toast').open()">Open toast</sbb-button>
+<sbb-toast icon-name="dog-small">Toast content</sbb-toast>
 ```
 
 A `sbb-toast` can also be given a custom action that, if marked with the `sbb-toast-close` attribute, will also dismiss it.
 
 ```html
-<sbb-button onClick="{()" ="">
-  document.querySelector('sbb-toast').open() } />
-
-  <sbb-toast position="bottom-left">
-    Toast content
-    <!-- Toast action can be a button -->
-    <sbb-button slot="action" icon-name="clock-small" sbb-toast-close></sbb-button>
-    <!-- Or a link -->
-    <sbb-link slot="action">Link action</sbb-link>
-  </sbb-toast></sbb-button
->
+<sbb-button onclick="document.querySelector('sbb-toast').open()">Open toast</sbb-button>
+<sbb-toast position="bottom-left">
+  Toast content
+  <!-- Toast action can be a button -->
+  <sbb-button slot="action" icon-name="clock-small" sbb-toast-close></sbb-button>
+  <!-- Or a link -->
+  <sbb-link slot="action">Link action</sbb-link>
+</sbb-toast>
 ```
 
 ## Style
@@ -62,13 +53,13 @@ which accepts all the combinations of the vertical positions `top` and `bottom`
 with the horizontal positions `left`, `start`, `center`, `right` and `end` (default: `bottom-center`).
 
 ```html
-<sbb-button onClick="{()" ="">
-  document.querySelector('sbb-toast').open() } />
+<sbb-button onclick="document.querySelector('sbb-toast').open()">Open toast bottom left</sbb-button>
+<sbb-toast position="bottom-left" dismissible="true">Toast content</sbb-toast>
 
-  <sbb-toast position="bottom-left" dismissible="true"> Toast content </sbb-toast>
-
-  <sbb-toast position="top-center" timeout="5000"> Toast content </sbb-toast></sbb-button
+<sbb-button onclick="document.querySelector('sbb-toast#top-center').open()"
+  >Open toast top center</sbb-button
 >
+<sbb-toast position="top-center" timeout="5000" id="top-center">Toast content</sbb-toast>
 ```
 
 ## Accessibility
@@ -98,7 +89,7 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 </sbb-toast>
 
 <sbb-toast position="bottom-left">
-  <span> Toast content </span>
+  <span>Toast content</span>
   <!-- This is OK! -->
 </sbb-toast>
 ```
