@@ -91,7 +91,8 @@ and the `aria-hidden` attribute on the content.
 
 ## Slots
 
-| Name      | Description                                         |
-| --------- | --------------------------------------------------- |
-| `header`  | Use this to render the sbb-expansion-panel-header.  |
-| `content` | Use this to render the sbb-expansion-panel-content. |
+| Name      | Description                                                                                      |
+| --------- | ------------------------------------------------------------------------------------------------ |
+|           | Use this slot to add a `sbb-expansion-panel-header` and a `sbb-expansion-panel-content` element. |
+| `header`  | Use this to render the sbb-expansion-panel-header.                                               |
+| `content` | Use this to render the sbb-expansion-panel-content.                                              |
