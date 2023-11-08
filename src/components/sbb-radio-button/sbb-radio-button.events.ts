@@ -3,5 +3,6 @@
  * See stencil.config.ts in the root directory.
  */
 export default {
+  sbbRadioButtonLoaded: 'sbb-radio-button-loaded',
   stateChange: 'state-change',
 };

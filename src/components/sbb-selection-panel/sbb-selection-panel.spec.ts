@@ -25,7 +25,7 @@ describe('sbb-selection-panel', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-selection-panel data-has-content data-state="closed">
+      <sbb-selection-panel data-has-content>
         <mock:shadow-root>
           <div class="sbb-selection-panel">
             <div class="sbb-selection-panel__badge">

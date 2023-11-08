@@ -120,6 +120,15 @@ export class SbbRadioButton implements ComponentInterface {
   })
   public stateChange: EventEmitter<RadioButtonStateChange>;
 
+  /**
+   * Internal event that emits when the input element is loaded.
+   */
+  @Event({
+    bubbles: true,
+    eventName: 'sbb-radio-button-loaded',
+  })
+  public sbbRadioButtonLoaded: EventEmitter<void>;
+
   @Watch('checked')
   public handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
     if (currentValue !== previousValue) {
@@ -169,6 +178,7 @@ export class SbbRadioButton implements ComponentInterface {
       !!this._selectionPanelElement &&
       !this._element.closest('sbb-selection-panel [slot="content"]');
     this._setupInitialStateAndAttributeObserver();
+    this._isSelectionPanelInput && this.sbbRadioButtonLoaded.emit();
   }
 
   public componentDidLoad(): void {

@@ -85,9 +85,10 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 
 ## Events
 
-| Event       | Description                                                                                                                         | Type               |
-| ----------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| `didChange` | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/> | `CustomEvent<any>` |
+| Event                 | Description                                                                                                                         | Type                |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
+| `didChange`           | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/> | `CustomEvent<any>`  |
+| `sbb-checkbox-loaded` | Internal event that emits when the input element is loaded.                                                                         | `CustomEvent<void>` |
 
 
 ## Slots

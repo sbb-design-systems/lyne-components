@@ -78,6 +78,7 @@ export class SbbRadioButtonGroup implements ComponentInterface {
   @Element() private _element!: HTMLElement;
 
   private _hasSelectionPanel: boolean;
+  private _componentLoaded = false;
 
   @Watch('value')
   public valueChanged(value: any | undefined): void {
@@ -155,6 +156,11 @@ export class SbbRadioButtonGroup implements ComponentInterface {
     this._hasSelectionPanel = !!this._element.querySelector('sbb-selection-panel');
     toggleDatasetEntry(this._element, 'hasSelectionPanel', this._hasSelectionPanel);
     this._handlerRepository.connect();
+    this._updateRadios(this.value);
+  }
+
+  public componentDidLoad(): void {
+    this._componentLoaded = true;
   }
 
   public disconnectedCallback(): void {
@@ -164,7 +170,7 @@ export class SbbRadioButtonGroup implements ComponentInterface {
   @Listen('state-change', { passive: true })
   public onRadioButtonSelect(event: CustomEvent<RadioButtonStateChange>): void {
     event.stopPropagation();
-    if (event.detail.type !== 'checked') {
+    if (event.detail.type !== 'checked' || !this._componentLoaded) {
       return;
     }
 
@@ -185,11 +191,11 @@ export class SbbRadioButtonGroup implements ComponentInterface {
     this.didChange.emit({ value });
   }
 
-  private _updateRadios(): void {
-    const value = this.value ?? this._radioButtons.find((radio) => radio.checked)?.value;
+  private _updateRadios(initValue?: string): void {
+    this.value = initValue ?? this._radioButtons.find((radio) => radio.checked)?.value;
 
     for (const radio of this._radioButtons) {
-      radio.checked = radio.value === value;
+      radio.checked = radio.value === this.value;
       radio.size = this.size;
       radio.allowEmptySelection = this.allowEmptySelection;
 
