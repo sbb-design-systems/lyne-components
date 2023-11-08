@@ -17,11 +17,11 @@ function convertKebabCaseToPascalCase(componentName: string): string {
 }
 
 async function getBoilerplateFiles(
-  _sourceFiles: string,
-  _foundFiles: Array<string>,
-): Array<string> {
+  _sourceFiles?: string,
+  _foundFiles?: Array<string>,
+): Promise<Array<string>> {
   try {
-    const sourceFiles: Promise<Array<string>> = await promises.readdir(
+    const sourceFiles: Array<string> = await promises.readdir(
       _sourceFiles || config.boilerplateDirectory,
     );
     const foundFiles: Array<string> = _foundFiles || [];
@@ -82,7 +82,7 @@ function copyFiles(
   });
 }
 
-async function createComponent(componentName): void {
+async function createComponent(componentName): Promise<void> {
   if (!componentName) {
     console.log(`
       Please pass a component name like so: yarn generate my-component-name
