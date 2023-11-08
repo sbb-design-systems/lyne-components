@@ -164,9 +164,9 @@ export const datepickerControlRegisteredEvent = new CustomEvent('datepicker-cont
 });
 
 /**
- * TODO: Document me
+ * Combined with a native input, it displays the input's value as a formatted date.
  * @event {CustomEvent<void>} did-change - Deprecated. used for React. Will probably be removed once React 19 is available.
- * @event {CustomEvent<void>} change - TODO: Document this event
+ * @event {CustomEvent<void>} change - Notifies that the connected input has changes.
  * @event {CustomEvent<InputUpdateEvent>} input-updated - Notifies that the attributes of the input connected to the datepicker have changes.
  * @event {CustomEvent<void>} date-picker-updated - Notifies that the attributes of the datepicker have changes.
  * @event {CustomEvent<ValidationChangeEvent>} validation-change - Emits whenever the internal validation state changes.
@@ -206,6 +206,7 @@ export class SbbDatepicker extends LitElement {
     cancelable: true,
   });
 
+  /** Notifies that the connected input has changes. */
   private _change: EventEmitter = new EventEmitter(this, SbbDatepicker.events.change, {
     bubbles: true,
   });

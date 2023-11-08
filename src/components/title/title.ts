@@ -7,7 +7,7 @@ import style from './title.scss?lit&inline';
 export type TitleLevel = '1' | '2' | '3' | '4' | '5' | '6';
 
 /**
- * TODO: Document me
+ * @slot - Use the unnamed slot to display the title.
  */
 @customElement('sbb-title')
 export class SbbTitle extends LitElement {

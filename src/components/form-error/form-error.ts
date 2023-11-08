@@ -7,7 +7,9 @@ import style from './form-error.scss?lit&inline';
 let nextId = 0;
 
 /**
- * TODO: Document me
+ * It displays an error message in the `sbb-form-field`.
+ * @slot - Use this slot to display the error message.
+ * @slot icon - Use this slot to override the default error icon.
  */
 @customElement('sbb-form-error')
 export class SbbFormError extends LitElement {

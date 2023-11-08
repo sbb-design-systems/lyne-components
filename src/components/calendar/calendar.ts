@@ -78,7 +78,7 @@ export interface Weekday {
 export type CalendarView = 'day' | 'month' | 'year';
 
 /**
- * TODO: Document me
+ * It displays a calendar which allows to choose a date.
  * @event {CustomEvent<Date>} date-selected - Event emitted on date selection.
  */
 @customElement('sbb-calendar')

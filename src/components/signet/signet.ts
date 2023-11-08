@@ -4,7 +4,7 @@ import style from './signet.scss?lit&inline';
 import { SbbProtectiveRoom } from '../core/interfaces';
 
 /**
- * TODO: Document me
+ * It dsplays the SBB signet.
  */
 @customElement('sbb-signet')
 export class SbbSignet extends LitElement {

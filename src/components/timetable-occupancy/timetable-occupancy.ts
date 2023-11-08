@@ -6,7 +6,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import style from './timetable-occupancy.scss?lit&inline';
 
 /**
- * TODO: Document me
+ * Used in `sbb-timetable-row`, it displays information about wagon occupancy.
  */
 @customElement('sbb-timetable-occupancy')
 export class SbbTimetableOccupancy extends LitElement {

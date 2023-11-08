@@ -28,7 +28,8 @@ export interface InterfaceSbbJourneySummaryAttributes {
 }
 
 /**
- * TODO: Document me
+ * It displays journey's informations.
+ * @slot content - use this slot to add `sbb-button`s or other interactive elements.
  */
 @customElement('sbb-journey-summary')
 export class SbbJourneySummary extends LitElement {

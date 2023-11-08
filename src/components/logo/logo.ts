@@ -4,7 +4,7 @@ import style from './logo.scss?lit&inline';
 import { SbbProtectiveRoom } from '../core/interfaces';
 
 /**
- * TODO: Document me
+ * It displays the SBB logo.
  */
 @customElement('sbb-logo')
 export class SbbLogo extends LitElement {

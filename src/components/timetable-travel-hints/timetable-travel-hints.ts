@@ -7,7 +7,7 @@ import { setAttribute } from '../core/dom';
 import style from './timetable-travel-hints.scss?lit&inline';
 
 /**
- * TODO: Document me
+ * Used in `sbb-timetable-row`, it displays hints icon.
  */
 @customElement('sbb-timetable-travel-hints')
 export class SbbTimetableTravelHints extends LitElement {

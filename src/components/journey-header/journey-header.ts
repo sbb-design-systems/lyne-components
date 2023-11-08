@@ -11,7 +11,7 @@ import '../icon';
 export type JourneyHeaderSize = 'm' | 'l';
 
 /**
- * TODO: Document me
+ * Combined with the `sbb-journey-summary`, it displays the journey's detail.
  */
 @customElement('sbb-journey-header')
 export class SbbJourneyHeader extends LitElement {

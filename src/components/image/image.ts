@@ -17,7 +17,7 @@ const eventListenerOptions = {
 };
 
 /**
- * TODO: Document me
+ * It displays an image.
  */
 @customElement('sbb-image')
 export class SbbImage extends LitElement {

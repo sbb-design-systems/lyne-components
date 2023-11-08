@@ -271,8 +271,8 @@ export const handleNotices = (notices: Notice[]): Notice[] => {
 };
 
 /**
- * TODO: Document me
- */
+ * It displays information about the trip, acting as a container for all the `sbb-timetable-` components.
+ * */
 @customElement('sbb-timetable-row')
 export class SbbTimetableRow extends LitElement {
   public static override styles: CSSResult = style;

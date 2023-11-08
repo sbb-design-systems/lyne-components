@@ -10,7 +10,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import style from './timetable-park-and-rail.scss?lit&inline';
 
 /**
- * TODO: Document me
+ * Used in `sbb-timetable-row`, it displays information about parking.
  */
 @customElement('sbb-timetable-park-and-rail')
 export class SbbTimetableParkAndRail extends LitElement {

@@ -4,7 +4,7 @@ import { setAttribute } from '../core/dom';
 import style from './loading-indicator.scss?lit&inline';
 
 /**
- * TODO: Document me
+ * It displays a loading indicator.
  */
 @customElement('sbb-loading-indicator')
 export class SbbLoadingIndicator extends LitElement {

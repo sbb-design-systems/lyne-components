@@ -5,7 +5,7 @@ import style from './divider.scss?lit&inline';
 import { SbbOrientation } from '../core/interfaces';
 
 /**
- * TODO: Document me
+ * It displays a divider between sections.
  */
 @customElement('sbb-divider')
 export class SbbDivider extends LitElement {

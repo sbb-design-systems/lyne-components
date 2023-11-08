@@ -6,7 +6,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import style from './timetable-barrier-free.scss?lit&inline';
 
 /**
- * TODO: Document me
+ * Used in `sbb-timetable-row`, it displays information abuot barriers for screen-readers.
  */
 @customElement('sbb-timetable-barrier-free')
 export class SbbTimetableBarrierFree extends LitElement {

@@ -6,7 +6,7 @@ import style from './timetable-transportation-time.scss?lit&inline';
 import { SbbTimetableAppearance } from '../core/interfaces';
 
 /**
- * TODO: Document me
+ * Used in `sbb-timetable-row`, it displays departure/arrival time.
  */
 @customElement('sbb-timetable-transportation-time')
 export class SbbTimetableTransportationTime extends LitElement {

@@ -5,7 +5,8 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import { TitleLevel } from '../title';
 
 /**
- * TODO: Document me
+ * It displays a footer section for the page.
+ * @slot - Use the unnamed slot to add elements like `sbb-link`, `sbb-link-list`, `sbb-divider` and so on.
  */
 @customElement('sbb-footer')
 export class SbbFooter extends LitElement {

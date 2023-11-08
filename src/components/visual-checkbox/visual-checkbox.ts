@@ -3,7 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 import style from './visual-checkbox.scss?lit&inline';
 
 /**
- * TODO: Document me
+ * It displays a checkbox.
  */
 @customElement('sbb-visual-checkbox')
 export class SbbVisualCheckbox extends LitElement {

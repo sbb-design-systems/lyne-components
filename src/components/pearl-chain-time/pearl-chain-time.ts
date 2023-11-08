@@ -9,7 +9,7 @@ import style from './pearl-chain-time.scss?lit&inline';
 import '../pearl-chain';
 
 /**
- * TODO: Document me
+ * Combined with `sbb-pearl-chain`, it displays walk time informations.
  */
 @customElement('sbb-pearl-chain-time')
 export class SbbPearlChainTime extends LitElement {

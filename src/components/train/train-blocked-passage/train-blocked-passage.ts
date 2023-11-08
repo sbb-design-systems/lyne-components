@@ -3,7 +3,7 @@ import { customElement } from 'lit/decorators.js';
 import style from './train-blocked-passage.scss?lit&inline';
 
 /**
- * TODO: Document me
+ * It visually displays a blocked passage between wagons.
  */
 @customElement('sbb-train-blocked-passage')
 export class SbbTrainBlockedPassage extends LitElement {
