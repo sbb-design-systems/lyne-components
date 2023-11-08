@@ -190,7 +190,7 @@ const meta: Meta = {
     ),
   ],
   parameters: {
-    chromatic: { diffThreshold: 0.11, delay: 5000 },
+    chromatic: { diffThreshold: 0.11, delay: 8000 },
     docs: {
       extractComponentDescription: () => readme,
     },
