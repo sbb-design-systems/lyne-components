@@ -1,15 +1,13 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import { readdirSync, readFileSync, writeFileSync } from 'fs';
 import { basename, dirname, join, relative } from 'path';
 import { fileURLToPath } from 'url';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 import ts from 'typescript';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const chromaticFile = join(__dirname, '../src/storybook/testing/chromatic.tsx');
+const chromaticFile = join(
+  dirname(fileURLToPath(import.meta.url)),
+  '../src/storybook/testing/chromatic.tsx',
+);
 
 function walk(root: string, filter: RegExp): string[] {
   return readdirSync(root, { withFileTypes: true }).reduce((current, next) => {
@@ -24,38 +22,35 @@ function walk(root: string, filter: RegExp): string[] {
   }, [] as string[]);
 }
 
-function extractParameters(sourceFile: ts.SourceFile): Record<string, any> | undefined {
-  return ts.forEachChild(sourceFile, (node) => {
-    if (ts.isVariableStatement(node)) {
-      return ts.forEachChild(node.declarationList, (node2) => {
-        if (node2?.name?.getText() === 'meta') {
-          return ts.forEachChild(node2.initializer, (node3) => {
-            if (node3?.name?.getText() === 'parameters') {
-              return Function(
-                `return ${node3.initializer.getText().replace(/\w*\.events\.\w*/gm, '"dummy"')}`,
-              )() as Record<string, any>;
-            }
-          });
-        }
-      });
-    }
-  });
-}
+function extractParameters(sourceFile: ts.SourceFile): {
+  parameters: Record<string, any> | undefined;
+  title: string;
+} {
+  return (
+    ts.forEachChild(sourceFile, (node) => {
+      if (
+        ts.isVariableStatement(node) &&
+        ts.isVariableDeclarationList(node.declarationList) &&
+        node.declarationList.declarations.some((d) => d.name.getText() === 'meta')
+      ) {
+        const meta = node.declarationList.declarations.find((d) => d.name.getText() === 'meta')!;
+        const parameters = (meta.initializer as ts.ObjectLiteralExpression).properties.find(
+          (p): p is ts.PropertyAssignment => p.name?.getText() === 'parameters',
+        )!;
 
-function extractTitle(sourceFile: ts.SourceFile): string | undefined {
-  return ts.forEachChild(sourceFile, (node) => {
-    if (ts.isVariableStatement(node)) {
-      return ts.forEachChild(node.declarationList, (node2) => {
-        if (node2?.name?.getText() === 'meta') {
-          return ts.forEachChild(node2.initializer, (node3) => {
-            if (node3?.name?.getText() === 'title') {
-              return node3.initializer.getText().replaceAll("'", '') as string;
-            }
-          });
-        }
-      });
-    }
-  });
+        const title = (meta.initializer as ts.ObjectLiteralExpression).properties.find(
+          (p): p is ts.PropertyAssignment => p.name?.getText() === 'title',
+        )!;
+
+        return {
+          parameters: Function(
+            `return ${parameters.initializer.getText().replace(/\w*\.events\.\w*/gm, '"dummy"')}`,
+          )() as Record<string, any>,
+          title: title.initializer.getText().replaceAll("'", ''),
+        };
+      }
+    }) ?? { parameters: undefined, title: '' }
+  );
 }
 
 async function generateChromaticStory(
@@ -63,7 +58,7 @@ async function generateChromaticStory(
 ): Promise<'no params found' | 'disabledSnapshot configured' | undefined> {
   const content = readFileSync(storyFile, 'utf8');
   const sourceFile = ts.createSourceFile(storyFile, content, ts.ScriptTarget.ES2020, true);
-  const parameters = extractParameters(sourceFile);
+  const { parameters, title } = extractParameters(sourceFile);
   if (!parameters) {
     return 'no params found';
   }
@@ -94,7 +89,7 @@ const meta: Meta = {
     },
     chromatic: { ${chromaticConfig}disableSnapshot: false },
   },
-  title: 'chromatic-only/${extractTitle(sourceFile)}',
+  title: 'chromatic-only/${title}',
 };
 
 export default meta;
@@ -109,7 +104,10 @@ export const chromaticStories: StoryObj = {
 
 async function generateChromaticStories(): Promise<void> {
   console.log(`Generating chromatic story files:`);
-  for (const storyFile of walk(join(__dirname, '../src'), /.stories.(jsx|tsx)$/)) {
+  for (const storyFile of walk(
+    join(dirname(fileURLToPath(import.meta.url)), '../src'),
+    /.stories.(jsx|tsx)$/,
+  )) {
     if (storyFile.includes('chromatic')) {
       continue;
     }
