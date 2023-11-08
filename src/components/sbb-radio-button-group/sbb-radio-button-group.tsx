@@ -78,6 +78,7 @@ export class SbbRadioButtonGroup implements ComponentInterface {
   @Element() private _element!: HTMLElement;
 
   private _hasSelectionPanel: boolean;
+  private _componentLoaded = false;
 
   @Watch('value')
   public valueChanged(value: any | undefined): void {
@@ -158,6 +159,10 @@ export class SbbRadioButtonGroup implements ComponentInterface {
     this._updateRadios(this.value);
   }
 
+  public componentDidLoad(): void {
+    this._componentLoaded = true;
+  }
+
   public disconnectedCallback(): void {
     this._handlerRepository.disconnect();
   }
@@ -165,7 +170,7 @@ export class SbbRadioButtonGroup implements ComponentInterface {
   @Listen('state-change', { passive: true })
   public onRadioButtonSelect(event: CustomEvent<RadioButtonStateChange>): void {
     event.stopPropagation();
-    if (event.detail.type !== 'checked') {
+    if (event.detail.type !== 'checked' || !this._componentLoaded) {
       return;
     }
 

@@ -119,6 +119,7 @@ export class SbbSelectionPanel implements ComponentInterface {
   );
 
   private _contentElement: HTMLElement;
+  private _componentLoaded = false;
 
   private get _input(): HTMLSbbCheckboxElement | HTMLSbbRadioButtonElement {
     return this._element.querySelector('sbb-checkbox, sbb-radio-button') as
@@ -128,6 +129,10 @@ export class SbbSelectionPanel implements ComponentInterface {
 
   @Listen('state-change', { passive: true })
   public onInputChange(event: CustomEvent<RadioButtonStateChange | CheckboxStateChange>): void {
+    if (!this._state || !this._componentLoaded) {
+      return;
+    }
+
     if (event.detail.type === 'disabled') {
       this._disabled = event.detail.disabled;
       return;
@@ -154,6 +159,10 @@ export class SbbSelectionPanel implements ComponentInterface {
 
   public connectedCallback(): void {
     this._handlerRepository.connect();
+  }
+
+  public componentDidLoad(): void {
+    this._componentLoaded = true;
   }
 
   public disconnectedCallback(): void {
