@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
+    "paths": {
+      "@/*": ["./src/*"],
+      "#root/*": ["./*"]
+    },
     "outDir": "./dist/out-tsc",
     "target": "es2021",
     "module": "esnext",
