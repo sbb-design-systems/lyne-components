@@ -11,6 +11,7 @@
   line-height: 0;
 }
 
+// ":is([variant='circle'], ... )" is redundant but needed to enforce the specificity
 :host([disable-animation]:is([variant='circle'], [variant='window'])) {
   --sbb-loading-indicator-duration: 0;
 }
