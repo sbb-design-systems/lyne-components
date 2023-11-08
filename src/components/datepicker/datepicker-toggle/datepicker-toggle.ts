@@ -22,7 +22,6 @@ import style from './datepicker-toggle.scss?lit&inline';
 
 import '../../calendar';
 import '../../tooltip';
-import '../../tooltip';
 
 /**
  * TODO: Document me

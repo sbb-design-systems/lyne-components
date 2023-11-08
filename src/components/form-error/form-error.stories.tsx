@@ -4,6 +4,7 @@ import readme from './readme.md?raw';
 import type { Meta, StoryContext, StoryObj } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 import { Args, ArgTypes } from '@storybook/web-components';
+import '../icon';
 import './form-error';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
