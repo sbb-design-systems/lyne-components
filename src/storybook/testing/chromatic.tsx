@@ -5,8 +5,6 @@ import { h, JSX } from 'jsx-dom';
 
 type StoryParameter = Record<string, StoryObj> & { __namedExportsOrder?: string[] };
 
-import '#root/src/components/title';
-
 export function combineStories(config: Meta, stories: StoryParameter): StoryObj['render'] {
   const unCamelCase = (string: string): string =>
     string.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1 $2$3');

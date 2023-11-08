@@ -2,7 +2,7 @@ import { ConfigEnv, defineConfig } from 'vite';
 import postcssLit from 'rollup-plugin-postcss-lit';
 import dts from 'vite-plugin-dts';
 import * as glob from 'glob';
-import { dirname, join, relative, resolve } from 'path';
+import { dirname, join, relative } from 'path';
 import { fileURLToPath } from 'url';
 
 const componentsRoot = fileURLToPath(new URL('./src/components', import.meta.url));
@@ -17,12 +17,6 @@ const isProdBuild = ({ command, mode }: ConfigEnv): boolean =>
   command === 'build' && mode !== 'development';
 
 export default defineConfig((config) => ({
-  resolve: {
-    alias: {
-      '@': resolve(dirname(fileURLToPath(import.meta.url)), 'src'),
-      '#root': resolve(dirname(fileURLToPath(import.meta.url))),
-    },
-  },
   plugins: [
     postcssLit(),
     ...(isProdBuild(config)
