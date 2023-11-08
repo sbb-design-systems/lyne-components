@@ -1,4 +1,4 @@
-import { dotReporter } from '@web/test-runner';
+import { defaultReporter, dotReporter, summaryReporter } from '@web/test-runner';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { puppeteerLauncher } from '@web/test-runner-puppeteer';
 import { existsSync } from 'fs';
@@ -12,9 +12,10 @@ const globalCss = sass.compile('./src/components/core/styles/global.scss', { loa
 
 const browsers = isCIEnvironment
   ? [
-      playwrightLauncher({ product: 'chromium' }),
-      playwrightLauncher({ product: 'firefox' }),
-      playwrightLauncher({ product: 'webkit' }),
+      // Parallelism has problems, we need force concurrency to 1
+      playwrightLauncher({ product: 'chromium', concurrency: 1 }),
+      playwrightLauncher({ product: 'firefox', concurrency: 1 }),
+      playwrightLauncher({ product: 'webkit', concurrency: 1 }),
     ]
   : isDebugMode
   ? [puppeteerLauncher({ concurrency: 1, launchOptions: { headless: false, devtools: true } })]
@@ -24,11 +25,11 @@ const browsers = isCIEnvironment
 export default {
   files: ['src/**/*.{e2e,spec}.ts'],
   groups: [
-    { name: 'spec', files: '**/*.spec.ts' },
-    { name: 'e2e', files: '**/*.e2e.ts' },
+    { name: 'spec', files: 'src/**/*.spec.ts' },
+    { name: 'e2e', files: 'src/**/*.e2e.ts' },
   ],
   nodeResolve: true,
-  reporters: [minimalReporter()],
+  reporters: isDebugMode ? [defaultReporter(), summaryReporter()] : [minimalReporter()],
   browsers: browsers,
   plugins: [vitePlugin()],
   testFramework: {
