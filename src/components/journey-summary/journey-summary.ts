@@ -138,7 +138,7 @@ export class SbbJourneySummary extends LitElement {
           .departureWalk=${departureWalk}
           .arrivalWalk=${arrivalWalk}
           .legs=${legs}
-          ?disable-animation=${this.disableAnimation}
+          .disableAnimation=${this.disableAnimation}
           data-now=${this._now()}
         ></sbb-pearl-chain-time>
       </div>
@@ -152,10 +152,10 @@ export class SbbJourneySummary extends LitElement {
         ${origin
           ? html`<sbb-journey-header
               size="l"
-              level=${this.headerLevel ?? nothing}
-              origin=${origin}
-              destination=${destination}
-              roundTrip=${this.roundTrip ?? nothing}
+              .level=${this.headerLevel ?? nothing}
+              .origin=${origin}
+              .destination=${destination}
+              .roundTrip=${this.roundTrip ?? nothing}
             ></sbb-journey-header>`
           : nothing}
         ${this._renderJourneyInformation(this.trip)}

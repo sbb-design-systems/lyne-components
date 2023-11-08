@@ -100,12 +100,11 @@ const ErrorMessageTemplate = (args): JSX.Element => {
   return (
     <sbb-radio-button-group
       {...args}
-      id="sbb-radio-group"
-      onChange={(event) => {
+      onChange={(event: CustomEvent) => {
         if (event.detail.value) {
           sbbFormError.remove();
         } else if (args.required) {
-          document.getElementById('sbb-radio-group').append(sbbFormError);
+          (event.target as HTMLElement).closest('sbb-radio-button-group').append(sbbFormError);
         }
       }}
     >
