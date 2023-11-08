@@ -489,15 +489,6 @@ export class SbbImage extends LitElement {
   }
 
   protected override updated(): void {
-    this._imageElement.addEventListener(
-      'load',
-      () => {
-        this._logPerformanceMarks();
-        this._loaded = true;
-      },
-      eventListenerOptions,
-    );
-
     if (!this._captionElement) {
       return;
     }
@@ -509,6 +500,17 @@ export class SbbImage extends LitElement {
     }
 
     this._addFocusAbilityToLinksInCaption();
+  }
+
+  protected override firstUpdated(): void {
+    this._imageElement.addEventListener(
+      'load',
+      () => {
+        this._logPerformanceMarks();
+        this._loaded = true;
+      },
+      eventListenerOptions,
+    );
   }
 }
 

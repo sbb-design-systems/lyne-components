@@ -221,8 +221,7 @@ describe('sbb-navigation', () => {
     expect(secondSection).to.have.attribute('data-state', 'opened');
   });
 
-  // TODO: find out cause
-  it.skip('closes the navigation and the section on close button click', async () => {
+  it('closes the navigation and the section on close button click', async () => {
     const didOpenEventSpy = new EventSpy(SbbNavigation.events.didOpen);
     const didCloseEventSpy = new EventSpy(SbbNavigation.events.didClose);
     const section: SbbNavigationSection = element.querySelector('#first-section');
@@ -240,6 +239,7 @@ describe('sbb-navigation', () => {
     await nextFrame();
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await waitForCondition(() => section.getAttribute('data-state') === 'opened');
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
@@ -247,9 +247,9 @@ describe('sbb-navigation', () => {
     expect(section).to.have.attribute('data-state', 'opened');
 
     closeButton.click();
-    await waitForLitRender(element);
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    await waitForCondition(() => section.getAttribute('data-state') === 'closed');
     expect(didCloseEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 

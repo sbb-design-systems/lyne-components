@@ -1,24 +1,24 @@
 import { aTimeout, assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { waitForLitRender } from '../core/testing';
+import { waitForCondition, waitForLitRender } from '../core/testing';
 import { SbbImage } from './image';
 import images from '../core/images';
 
 describe('sbb-image', () => {
   let element: SbbImage;
 
-  // TODO: Fix test
-  it.skip('renders', async function () {
+  it('renders', async function () {
     this.timeout(8000);
     const url = images[0];
     element = await fixture(html`<sbb-image image-src="${url}"></sbb-image>`);
 
     assert.instanceOf(element, SbbImage);
     await waitForLitRender(element);
-    // Wait five seconds in hope the image will successfully be loaded
-    // TODO: Find more reliable solution
-    await aTimeout(5000);
-    await waitForLitRender(element);
+
+    // Wait until the image is successfully be loaded
+    const img: HTMLImageElement = element.shadowRoot.querySelector('img.image__img');
+    await waitForCondition(() => img.complete, 30, 6000);
+    await aTimeout(1000);
 
     expect(element).dom.to.be.equal(`
       <sbb-image image-src="${url}"></sbb-image>

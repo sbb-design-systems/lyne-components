@@ -104,7 +104,8 @@ describe('sbb-time-input', () => {
     expect(input).not.to.have.attribute('data-sbb-invalid');
   });
 
-  it('should interpret valid values', async () => {
+  it('should interpret valid values', async function () {
+    this.timeout(5000);
     const testCases = [
       { value: '0', interpretedAs: '00:00' },
       { value: '1', interpretedAs: '01:00' },
@@ -136,6 +137,7 @@ describe('sbb-time-input', () => {
       input.focus();
       await sendKeys({ type: testCase.value });
       input.blur();
+      await waitForLitRender(element);
       expect(input.value).to.be.equal(testCase.interpretedAs);
 
       const paragraphElement = element.shadowRoot.querySelector('p');
@@ -161,6 +163,7 @@ describe('sbb-time-input', () => {
       input.focus();
       await sendKeys({ type: testCase.value });
       input.blur();
+      await waitForLitRender(element);
       expect(input.value).to.be.equal(testCase.interpretedAs);
 
       const paragraphElement = element.shadowRoot.querySelector('p');
