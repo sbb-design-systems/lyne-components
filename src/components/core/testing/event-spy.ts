@@ -1,8 +1,8 @@
 /**
- * This class exists to facilitate the E2E tests from stencil to lit.
+ * This class exists to facilitate the E2E test migration from stencil to lit.
  * It mimics the API that stencil provided to test events.
  *
- * TODO: Properly implement and document this class
+ * TODO: Document me
  */
 export class EventSpy<T extends Event> {
   private _count: number = 0;

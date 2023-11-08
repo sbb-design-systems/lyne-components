@@ -21,10 +21,10 @@ Run `yarn lint --fix` to fix any automatically fixable lint issues and report th
 
 ## Outputs
 
-| Folder             | Explanation                               |
-| ------------------ | ----------------------------------------- |
-| ./dist             | main output target for stencil components |
-| ./storybook-static | rendered static storybook site            |
+| Folder             | Explanation                           |
+| ------------------ | ------------------------------------- |
+| ./dist             | main output target for web-components |
+| ./storybook-static | rendered static storybook site        |
 
 ## Running tests
 

@@ -1,7 +1,7 @@
 # Todos
 
 - [git(hub)](#github)
-- [Local dev setup / Stencil setup](#local-dev-setup--stencil-setup)
+- [Local dev setup](#local-dev-setup)
 - [Storybook](#storybook)
 - [CI / CD pipeline](#ci--cd-pipeline)
 - [Documentation](#documentation)
@@ -56,22 +56,16 @@
 
 ✅ Nothing to verify
 
-## Local dev setup / Stencil setup
+## Local dev setup
 
 - [ ] Rename npm package name to `lyne-components`
-- [x] npm script `start` runs Stencil and Storybook in parallel. We need sequential. The problem is that `start:stencil` has no exit code since it is serving and watching, so the second sequential command `start:storybook` is not run. Quick fix is to run them parallel. Possible workaround: `"build:stencil:dev": "stencil build --ci --dev --docs", "build:dev": "npm-run-all --sequential build:stencil:dev build:storybook", "develop": "npm-run-all --sequential build:dev start"`
-- [ ] We have 2 servers running, 1 for stencil and 1 for storybook. If you run `npm start`, and then press `ctrl&c` only 1 server is stopped, the other is still running (you can verify by pressing to up arrow key)
 - [ ] For storybook v6, `addon-docs` had to be removed since it is deprecated. Switch to mdx docs.
 
 - [ ] Decide if we should fix dependencies/devDependencies in `package.json` to patch versions only (~1.0.0) or minor versions (^1.0.0) or to exact version (1.0.0). If so, which ones? Why? Probably fix to minor version? Or Major?
 - [x] ESLint: currently, we ignore `*.spec.ts` and `*.e2e.ts` files. Include them in linting and add corresponding rules
-- [ ] Stencil has a set of typescript-rules. It would make sense that we adhere to these:
-  - [ ] https://stenciljs.com/docs/style-guide
-  - [ ] https://www.npmjs.com/package/tslint-stencil (TSLint is deprecated. We might/must write our own portation to ESLint: https://github.com/natemoo-re/tslint-stencil/issues/9)
-- [ ] Add React output target https://github.com/ionic-team/stencil-ds-plugins. We need to discuss if we really want that. It means, we would have to publish a separate package on npm.
-- [ ] Add Angular output target https://github.com/ionic-team/stencil-ds-plugins. Note: angular output target is hard to implement since `ValueAccessorConfig` needs to be manually generated and kept up to date during development. This is the config that duet uses: [https://gist.github.com/viljamis/4ef368862b1ac1a914ac77ddf8b0a3aa](https://gist.github.com/viljamis/4ef368862b1ac1a914ac77ddf8b0a3aa)
+- [ ] Add React output target https://lit.dev/docs/frameworks/react/. We need to discuss if we really want that. It means, we would have to publish a separate package on npm.
+- [ ] Verify Angular integration
 - [ ] alongside unit and e2e tests, we might start using muation tests. We could possibly use https://stryker-mutator.io/ for that
-- [ ] optimize start script. Preferred solution: wait for the stencil node-event `build-finished`. After the event is received, run `start:storybook`. Stencil node-event `build-finished` doesn't exist yet, a pull-request at stencil is needed.
 - [x] Typescript: string literal types -> documentation. Example: in lyne-heading, we limit the values for the level property with string literal types. Find away to automatically include those type definitions in documenation.
 - [ ] Local npm dependencies vs. dependencies installed by travis: a developer installs a dependency, version 1.0.0. A month later, that dependency got several updates and is now on version 1.2.5. In a build, travis will install 1.2.5, while the developers are still on older version, as long as they don't run `npm up` or similar. We need to find a way to force developers to update dependencies, or make it easy for them.
 - [ ] To be consequent, we should write our stories in typescript as well
@@ -82,7 +76,7 @@
 
 #### Check
 
-- [ ] Stencil ESLint / TSLint in https://github.com/ionic-team/stencil-eslint
+✅ Nothing to check
 
 #### Verify
 
@@ -100,8 +94,7 @@
 
 #### Check
 
-- [ ] Storybook [Web Components](https://github.com/storybookjs/storybook/tree/next/app/web-components) integration in next major release. Replace current with upcoming if promising
-- [ ] Also have a look here https://github.com/ionic-team/stencil-sass/issues/15#issuecomment-603496922
+- [x] Storybook [Web Components](https://github.com/storybookjs/storybook/tree/next/app/web-components) integration in next major release. Replace current with upcoming if promising
 
 #### Verify
 
