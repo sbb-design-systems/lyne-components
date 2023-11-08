@@ -281,9 +281,9 @@ export class SbbDatepicker extends LitElement {
 
       this._inputElement.addEventListener(
         'change',
-        async (event: Event) => {
+        (event: Event) => {
           if (!(event instanceof CustomEvent)) {
-            await this._valueChanged(event);
+            this._valueChanged(event);
           }
         },
         {
@@ -330,11 +330,11 @@ export class SbbDatepicker extends LitElement {
 
   private _handlerRepository = new HandlerRepository(
     this as HTMLElement,
-    languageChangeHandlerAspect(async (l) => {
+    languageChangeHandlerAspect((l) => {
       this._currentLanguage = l;
       if (this._inputElement) {
         this._inputElement.placeholder = i18nDatePickerPlaceholder[this._currentLanguage];
-        const valueAsDate = await this.getValueAsDate();
+        const valueAsDate = this.getValueAsDate();
         this._inputElement.value = this._format(valueAsDate);
       }
     }),
