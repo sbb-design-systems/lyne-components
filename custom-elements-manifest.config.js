@@ -3,8 +3,8 @@
  */
 export default {
   litelement: true,
-  globs: ['src/**/sbb-*.(ts|tsx)'],
-  exclude: ['src/**/*.spec.ts', 'src/**/*.e2e.ts', 'src/**/*.stories.tsx'],
+  globs: ['src/**/*.(ts|tsx)'],
+  exclude: ['**/*.spec.ts', '**/*.e2e.ts', '**/*.stories.tsx', '**/index.ts'],
   outdir: 'dist',
   dependencies: false,
 };

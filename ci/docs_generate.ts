@@ -2,14 +2,16 @@
  * Docs: https://github.com/open-wc/custom-elements-manifest/tree/master/packages/to-markdown
  */
 import fs from 'fs';
+import * as glob from 'glob';
 import { customElementsManifestToMarkdown } from '@custom-elements-manifest/to-markdown';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 import MagicString from 'magic-string';
+import { dirname } from 'path';
 import { format, resolveConfig } from 'prettier';
 
 const manifestFilePath = './dist/custom-elements.json';
 const tempFolderPath = './dist/docs';
-const componentsFolder = './src/components';
+const componentsFolder = 'src/components';
 const inheritedFromColumnIndex = 6;
 const propertyColumnIndex = 1;
 const attributeColumnIndex = 2;
@@ -53,9 +55,15 @@ function updateFieldsTable(newDocs: MagicString, sections: RegExpMatchArray[]): 
   );
 }
 
+function findComponentFolder(componentTag: string): string {
+  const sourceFileName = componentTag.replace('sbb-', '');
+  const pathToFile = glob.sync(`${componentsFolder}/**/${sourceFileName}.ts`)[0];
+  return dirname(pathToFile);
+}
+
 async function updateComponentReadme(name: string, tag: string, docs: string): Promise<void> {
-  const compFolder = tag;
-  const path = `${componentsFolder}/${compFolder}/readme.md`;
+  const compFolder = findComponentFolder(tag);
+  const path = `${compFolder}/readme.md`;
   if (!fs.existsSync(path)) {
     console.error(`Component ${name} has no readme file, please create it following the template`);
     return;
