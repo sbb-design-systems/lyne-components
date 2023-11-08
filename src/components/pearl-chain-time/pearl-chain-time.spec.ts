@@ -69,7 +69,12 @@ describe('sbb-pearl-chain-time', () => {
     expect(element).shadowDom.to.be.equal(`
       <div class="sbb-pearl-chain__time">
         <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--left">
-          <sbb-icon name="walk-small"></sbb-icon>
+          <sbb-icon
+            aria-hidden="true"
+            data-namespace="default"
+            name="walk-small"
+            role="img"
+          ></sbb-icon>
           <time datetime="10M">
             <span class="sbb-screenreaderonly">
               minutes of walking time before departure:
@@ -133,7 +138,12 @@ describe('sbb-pearl-chain-time', () => {
           15:00
         </time>
         <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--right">
-          <sbb-icon name="walk-small"></sbb-icon>
+          <sbb-icon
+            aria-hidden="true"
+            data-namespace="default"
+            name="walk-small"
+            role="img"
+          ></sbb-icon>
           <time datetime="10M">
             <span class="sbb-screenreaderonly">
               minutes of walking time after arrival:
@@ -172,7 +182,12 @@ describe('sbb-pearl-chain-time', () => {
     expect(element).shadowDom.to.be.equal(`
       <div class="sbb-pearl-chain__time">
         <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--left">
-          <sbb-icon name="walk-small"></sbb-icon>
+          <sbb-icon
+            aria-hidden="true"
+            data-namespace="default"
+            name="walk-small"
+            role="img"
+          ></sbb-icon>
           <time datetime="20M">
             <span class="sbb-screenreaderonly">
               minutes of walking time before departure:
@@ -197,7 +212,12 @@ describe('sbb-pearl-chain-time', () => {
           15:00
         </time>
         <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--right">
-          <sbb-icon name="walk-small"></sbb-icon>
+          <sbb-icon
+            aria-hidden="true"
+            data-namespace="default"
+            name="walk-small"
+            role="img"
+          ></sbb-icon>
           <time datetime="10M">
             <span class="sbb-screenreaderonly">
               minutes of walking time after arrival:
