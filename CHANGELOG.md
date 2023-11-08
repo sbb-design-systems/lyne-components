@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.42.4](https://github.com/lyne-design-system/lyne-components/compare/v0.42.3...v0.42.4) (2023-11-08)
+
+### Bug Fixes
+
+- **sbb-radio-button-group:** radio group state update ([#2138](https://github.com/lyne-design-system/lyne-components/issues/2138)) ([3ae0902](https://github.com/lyne-design-system/lyne-components/commit/3ae0902bb4372482c2dfd308c60847f8acc15704))
+
 ### [0.42.3](https://github.com/lyne-design-system/lyne-components/compare/v0.42.2...v0.42.3) (2023-11-07)
 
 ### Bug Fixes
