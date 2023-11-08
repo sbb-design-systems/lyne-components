@@ -15,7 +15,6 @@ import '../icon';
 import '../link';
 import '../radio-button';
 import '../tooltip';
-import '../tooltip-trigger';
 
 const color: InputType = {
   control: {
