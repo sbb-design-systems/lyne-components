@@ -107,7 +107,7 @@ export class SbbDatepickerToggle extends LitElement {
     this._handlerRepository.disconnect();
   }
 
-  private async _init(datePicker?: string | SbbDatepicker): Promise<void> {
+  private _init(datePicker?: string | SbbDatepicker): void {
     this._datePickerController?.abort();
     this._datePickerController = new AbortController();
     this._datePickerElement = getDatePicker(this, datePicker);
@@ -149,6 +149,9 @@ export class SbbDatepickerToggle extends LitElement {
   }
 
   private _configureCalendar(calendar: SbbCalendar, datepicker: SbbDatepicker): void {
+    if (!calendar || !datepicker) {
+      return;
+    }
     calendar.wide = datepicker?.wide;
     calendar.dateFilter = datepicker?.dateFilter;
   }
@@ -225,7 +228,7 @@ export class SbbDatepickerToggle extends LitElement {
           .max=${this._max}
           ?wide=${this._datePickerElement?.wide}
           .dateFilter=${this._datePickerElement?.dateFilter}
-          @date-selected=${async (d: CustomEvent<Date>) => {
+          @date-selected=${(d: CustomEvent<Date>) => {
             const newDate = new Date(d.detail);
             this._calendarElement.selectedDate = newDate;
             this._datePickerElement.setValueAsDate(newDate);

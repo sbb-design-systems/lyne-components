@@ -207,7 +207,7 @@ export class SbbDatepickerPreviousDay extends LitElement {
   private _setAriaLabel(): void {
     const currentDate = this._datePickerElement.getValueAsDate();
 
-    if (!currentDate) {
+    if (!currentDate || !this._dateAdapter.isValid(currentDate)) {
       this.setAttribute('aria-label', i18nPreviousDay[this._currentLanguage]);
       return;
     }
