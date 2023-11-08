@@ -3,6 +3,8 @@
 import type { Args, Meta, StoryContext, StoryObj } from '@storybook/web-components';
 import { h, JSX } from 'jsx-dom';
 
+import '../../components/title';
+
 type StoryParameter = Record<string, StoryObj> & { __namedExportsOrder?: string[] };
 
 export function combineStories(config: Meta, stories: StoryParameter): StoryObj['render'] {
