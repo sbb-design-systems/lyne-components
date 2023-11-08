@@ -83,6 +83,7 @@
 
 :host(:is([data-readonly], [data-disabled])[negative]) {
   --sbb-form-field-background-color: var(--sbb-color-charcoal-default);
+  --sbb-form-field-border-color: var(--sbb-color-smoke-default);
   --sbb-form-field-arrow-color: var(--sbb-color-smoke-default);
 }
 
@@ -101,6 +102,8 @@
 
 :host([data-disabled][negative]) {
   --sbb-form-field-text-color: var(--sbb-color-smoke-default);
+  --sbb-form-field-label-color: var(--sbb-color-smoke-default);
+  --sbb-form-field-prefix-color: var(--sbb-color-smoke-default);
 }
 
 :host([data-readonly]:not([negative])) {

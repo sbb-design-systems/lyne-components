@@ -10,6 +10,7 @@ import type { InputType } from '@storybook/types';
 import '../navigation-section';
 import '../navigation-list';
 import '../navigation-action';
+import '../navigation-marker';
 import '../navigation';
 import '../../button';
 import { SbbNavigationMarker } from '../navigation-marker';

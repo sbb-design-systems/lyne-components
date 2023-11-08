@@ -5,6 +5,8 @@ import isChromatic from 'chromatic';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 import './pearl-chain-vertical';
+import '../pearl-chain-vertical-item';
+import '../icon';
 
 const lineType: InputType = {
   options: ['dotted', 'standard', 'thin'],

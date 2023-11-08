@@ -201,11 +201,11 @@ export class SbbRadioButtonGroup extends LitElement {
     if (event.detail.checked) {
       this.value = (event.target as HTMLInputElement).value;
       this._emitChange(this.value);
-      return;
-    }
-
-    if (this.allowEmptySelection) {
-      this._emitChange();
+    } else if (this.allowEmptySelection) {
+      this.value = this._radioButtons.find((radio) => radio.checked)?.value;
+      if (!this.value) {
+        this._emitChange();
+      }
     }
   }
 

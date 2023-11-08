@@ -10,7 +10,7 @@ import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-c
 import type { InputType } from '@storybook/types';
 import './header';
 import '../header-action';
-import '../../menu';
+import '../../divider';
 import '../../menu';
 
 const LoremIpsumTemplate = (): JSX.Element[] => [

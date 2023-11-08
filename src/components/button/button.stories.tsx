@@ -6,6 +6,7 @@ import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-c
 import type { InputType, StoryContext } from '@storybook/types';
 import isChromatic from 'chromatic';
 import './button';
+import '../loading-indicator';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? '#484040' : 'var(--sbb-color-white-default)',
