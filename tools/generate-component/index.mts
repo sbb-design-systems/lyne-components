@@ -17,11 +17,11 @@ function convertKebabCaseToPascalCase(componentName: string): string {
 }
 
 async function getBoilerplateFiles(
-  _sourceFiles: string,
-  _foundFiles: Array<string>,
-): Array<string> {
+  _sourceFiles?: string,
+  _foundFiles?: Array<string>,
+): Promise<Array<string>> {
   try {
-    const sourceFiles: Promise<Array<string>> = await promises.readdir(
+    const sourceFiles: Array<string> = await promises.readdir(
       _sourceFiles || config.boilerplateDirectory,
     );
     const foundFiles: Array<string> = _foundFiles || [];
@@ -54,19 +54,21 @@ function copyFiles(
   componentName: string,
   targetDirectory: string,
 ): void {
+  const componentFileName: string = componentName.replace('sbb-', '');
   foundFiles.forEach((file) => {
     try {
       const fileData: string = readFileSync(file, 'utf8');
 
       const fileDataWithCorrectName: string = fileData
         .replace(/__name__/gu, componentName)
+        .replace(/__noPrefixName__/gu, componentFileName)
         .replace(/__nameUpperCase__/gu, convertKebabCaseToPascalCase(componentName));
 
       try {
         const relativePath: string = relative(config.boilerplateDirectory, file);
         const fileName: string = relativePath.replace(
           `${config.boilerplateComponentName}.`,
-          `${componentName}.`,
+          `${componentFileName}.`,
         );
         const targetPath: string = `${targetDirectory}/${fileName}`;
 
@@ -80,7 +82,7 @@ function copyFiles(
   });
 }
 
-async function createComponent(componentName): void {
+async function createComponent(componentName): Promise<void> {
   if (!componentName) {
     console.log(`
       Please pass a component name like so: yarn generate my-component-name
@@ -96,7 +98,8 @@ async function createComponent(componentName): void {
     return;
   }
 
-  const targetDirectory: string = `${config.sourceDirectory}/${componentName}`;
+  const directoryName: string = componentName.replace('sbb-', '');
+  const targetDirectory: string = `${config.sourceDirectory}/${directoryName}`;
 
   // check if a component with the passed name does not already exist
   if (existsSync(targetDirectory)) {

@@ -4,8 +4,8 @@ import readme from './readme.md?raw';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import { __nameUpperCase__ } from './__name__';
-import './__name__';
+import { __nameUpperCase__ } from './__noPrefixName__';
+import './__noPrefixName__';
 
 const myProp: InputType = {
   control: {
