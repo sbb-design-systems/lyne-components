@@ -11,7 +11,7 @@
   line-height: 0;
 }
 
-:host([disable-animation]) {
+:host([disable-animation]:is([variant='circle'], [variant='window'])) {
   --sbb-loading-indicator-duration: 0;
 }
 
