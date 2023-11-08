@@ -90,11 +90,6 @@ export class SbbDatepickerPreviousDay extends LitElement {
     this._syncUpstreamProperties();
     if (!this.datePicker) {
       this._init();
-      // If the component is attached to the DOM before the datepicker, it has to listen for the datepicker init,
-      // assuming that the two components share the same parent element.
-      if (!this._datePickerElement) {
-        this.parentElement.addEventListener('input-updated', () => this._init(), { once: true });
-      }
     }
   }
 
@@ -131,6 +126,13 @@ export class SbbDatepickerPreviousDay extends LitElement {
     this._datePickerController = new AbortController();
     this._datePickerElement = getDatePicker(this, picker);
     if (!this._datePickerElement) {
+      // If the component is attached to the DOM before the datepicker, it has to listen for the datepicker init,
+      // assuming that the two components share the same parent element.
+      this.parentElement.addEventListener(
+        'input-updated',
+        (e: Event) => this._init(e.target as SbbDatepicker),
+        { once: true, signal: this._abort.signal },
+      );
       return;
     }
     this._setDisabledState(this._datePickerElement);
