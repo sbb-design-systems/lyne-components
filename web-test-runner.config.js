@@ -12,6 +12,7 @@ const globalCss = sass.compile('./src/components/core/styles/global.scss', { loa
 
 const browsers = isCIEnvironment
   ? [
+      // Parallelism has problems, we need force concurrency to 1
       playwrightLauncher({ product: 'chromium', concurrency: 1 }),
       playwrightLauncher({ product: 'firefox', concurrency: 1 }),
       playwrightLauncher({ product: 'webkit', concurrency: 1 }),
