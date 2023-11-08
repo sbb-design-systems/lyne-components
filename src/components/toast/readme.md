@@ -11,8 +11,8 @@ if a new `sbb-toast` is opened while a previous message is still showing, the ol
 
 ## Important note
 
-You should carefully consider every use of the `sbb-toast` component since it can be a source of stress for people with visual impairments
-(see the ["Accessibility"](#accessibility) section for more info).
+You should carefully consider every use of the `sbb-toast` component since it can be a source of
+stress for people with visual impairments (see the ["Accessibility"](#accessibility) section for more info).
 
 Here are a few tips for correct usage:
 

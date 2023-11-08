@@ -18,9 +18,7 @@ const isProdBuild = ({ command, mode }: ConfigEnv): boolean =>
 
 export default defineConfig((config) => ({
   plugins: [
-    postcssLit({
-      include: '**/*.scss?lit&inline',
-    }),
+    postcssLit(),
     ...(isProdBuild(config)
       ? [
           dts({

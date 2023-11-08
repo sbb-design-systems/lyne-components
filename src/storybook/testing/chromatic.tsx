@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /** @jsx h */
-import type { Args, Meta, StoryContext, StoryObj } from '@storybook/html';
+import type { Args, Meta, StoryContext, StoryObj } from '@storybook/web-components';
 import { h, JSX } from 'jsx-dom';
 
 type StoryParameter = Record<string, StoryObj> & { __namedExportsOrder?: string[] };
