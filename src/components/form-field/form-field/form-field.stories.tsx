@@ -6,6 +6,7 @@ import type { InputType } from '@storybook/types';
 import { StoryContext } from '@storybook/web-components';
 import './form-field';
 import '../../button';
+import '../../form-error';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative

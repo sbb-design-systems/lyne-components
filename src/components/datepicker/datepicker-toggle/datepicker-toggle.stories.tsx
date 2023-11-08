@@ -17,6 +17,8 @@ import type {
 import type { InputType } from '@storybook/types';
 import { SbbTooltipTrigger } from '../../tooltip';
 
+import '../../form-field';
+import '../datepicker';
 import './datepicker-toggle';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({

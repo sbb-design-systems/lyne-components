@@ -57,17 +57,16 @@ describe('sbb-journey-summary', () => {
             </ul>
           </div>
           <div class="sbb-journey-summary__date">
-            <span>
-              <time datetime="29 8">
-                Mo. 29.08.2022
-              </time>
-            </span>
+            <time datetime="29 8">
+              Mo. 29.08.2022
+            </time>
+            ,
             <time>
               <span class="sbb-screenreaderonly">
                 Travel time 1 Hour
               </span>
               <span aria-hidden="true">
-                , 1 h
+                1 h
               </span>
             </time>
           </div>
@@ -92,17 +91,16 @@ describe('sbb-journey-summary', () => {
       <div class="sbb-journey-summary">
         <div>
           <div class="sbb-journey-summary__date">
-            <span>
-              <time datetime="29 8">
-                Mo. 29.08.2022
-              </time>
-            </span>
+            <time datetime="29 8">
+              Mo. 29.08.2022
+            </time>
+            ,
             <time>
               <span class="sbb-screenreaderonly">
                 Travel time 1 Hour 40 Minutes
               </span>
               <span aria-hidden="true">
-                , 1 h 40 min
+                1 h 40 min
               </span>
             </time>
           </div>
@@ -129,17 +127,16 @@ describe('sbb-journey-summary', () => {
       <div class="sbb-journey-summary">
         <div>
           <div class="sbb-journey-summary__date">
-            <span>
-              <time datetime="29 8">
-                Mo. 29.08.2022
-              </time>
-            </span>
+            <time datetime="29 8">
+              Mo. 29.08.2022
+            </time>
+            ,
             <time>
               <span class="sbb-screenreaderonly">
                 Travel time 1 Hour 40 Minutes
               </span>
               <span aria-hidden="true">
-                , 1 h 40 min
+                1 h 40 min
               </span>
             </time>
           </div>
@@ -159,17 +156,16 @@ describe('sbb-journey-summary', () => {
               </ul>
             </div>
             <div class="sbb-journey-summary__date">
-              <span>
-                <time datetime="29 8">
-                  Mo. 29.08.2022
-                </time>
-              </span>
+              <time datetime="29 8">
+                Mo. 29.08.2022
+              </time>
+              ,
               <time>
                 <span class="sbb-screenreaderonly">
                   Travel time 1 Hour
                 </span>
                 <span aria-hidden="true">
-                  , 1 h
+                  1 h
                 </span>
               </time>
             </div>

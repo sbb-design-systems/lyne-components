@@ -81,16 +81,22 @@ export class SbbJourneySummary extends LitElement {
   }
 
   /**  renders the date of the journey or if it is the current or next day */
-  private _renderJourneyStart(departureTime: Date): TemplateResult {
+  private _renderJourneyStart(departureTime: Date, duration: number): TemplateResult {
     const dateAdapter = new NativeDateAdapter();
+    const durationObj = durationToTime(duration, this._currentLanguage);
 
     if (isValid(departureTime))
       return html`
-        <span>
-          <time datetime=${format(departureTime, 'd') + ' ' + format(departureTime, 'M')}>
-            ${dateAdapter.format(departureTime).replace(',', '.')}
-          </time>
-        </span>
+        <time datetime=${format(departureTime, 'd') + ' ' + format(departureTime, 'M')}>
+          ${dateAdapter.format(departureTime).replace(',', '.')}</time
+        >${duration > 0
+          ? html`,<time>
+                <span class="sbb-screenreaderonly">
+                  ${i18nTripDuration[this._currentLanguage]} ${durationObj.long}
+                </span>
+                <span aria-hidden="true">${durationObj.short}</span>
+              </time>`
+          : nothing}
       `;
   }
 
@@ -116,21 +122,11 @@ export class SbbJourneySummary extends LitElement {
   private _renderJourneyInformation(trip: InterfaceSbbJourneySummaryAttributes): TemplateResult {
     const { vias, duration, departureWalk, departure, arrivalWalk, arrival, legs } = trip || {};
 
-    const durationObj = durationToTime(duration, this._currentLanguage);
-
     return html`
       <div>
         ${vias?.length > 0 ? this._renderJourneyVias(vias) : nothing}
         <div class="sbb-journey-summary__date">
-          ${this._renderJourneyStart(removeTimezoneFromISOTimeString(departure))}
-          ${duration > 0
-            ? html` <time>
-                <span class="sbb-screenreaderonly">
-                  ${i18nTripDuration[this._currentLanguage]} ${durationObj.long}
-                </span>
-                <span aria-hidden="true">, ${durationObj.short}</span>
-              </time>`
-            : nothing}
+          ${this._renderJourneyStart(removeTimezoneFromISOTimeString(departure), duration)}
         </div>
         <sbb-pearl-chain-time
           .arrivalTime=${arrival}
@@ -138,7 +134,7 @@ export class SbbJourneySummary extends LitElement {
           .departureWalk=${departureWalk}
           .arrivalWalk=${arrivalWalk}
           .legs=${legs}
-          ?disable-animation=${this.disableAnimation}
+          .disableAnimation=${this.disableAnimation}
           data-now=${this._now()}
         ></sbb-pearl-chain-time>
       </div>
@@ -152,10 +148,10 @@ export class SbbJourneySummary extends LitElement {
         ${origin
           ? html`<sbb-journey-header
               size="l"
-              level=${this.headerLevel ?? nothing}
-              origin=${origin}
-              destination=${destination}
-              roundTrip=${this.roundTrip ?? nothing}
+              .level=${this.headerLevel ?? nothing}
+              .origin=${origin}
+              .destination=${destination}
+              .roundTrip=${this.roundTrip ?? nothing}
             ></sbb-journey-header>`
           : nothing}
         ${this._renderJourneyInformation(this.trip)}

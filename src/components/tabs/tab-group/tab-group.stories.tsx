@@ -6,6 +6,9 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 
+import './tab-group';
+import '../tab-title';
+
 const firstTabTitle = (label, args): JSX.Element => (
   <sbb-tab-title {...args}>{label}</sbb-tab-title>
 );

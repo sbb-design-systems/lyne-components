@@ -9,9 +9,12 @@ import { SbbSelectionPanel } from './selection-panel';
 import './selection-panel';
 import '../card';
 import '../checkbox';
+import '../divider';
 import '../form-error';
+import '../icon';
 import '../link';
 import '../radio-button';
+import '../tooltip';
 
 const color: InputType = {
   control: {

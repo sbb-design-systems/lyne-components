@@ -4,6 +4,7 @@ import { i18nWalkingDistanceArrival, i18nWalkingDistanceDeparture } from '../i18
 import { extractTimeAndStringFromNoticeText, isConnectionLeg, isRideLeg } from './timetable-helper';
 import { Leg, PtConnectionLeg, PtRideLeg } from './timetable-properties';
 import { TemplateResult, html, nothing } from 'lit';
+import '../../../components/icon';
 
 interface IAccessAttribute {
   duration: number;
