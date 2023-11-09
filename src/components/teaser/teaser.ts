@@ -1,41 +1,42 @@
 import { spread } from '@open-wc/lit-helpers';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { LanguageController } from '../core/common-behaviors';
 import { setAttributes } from '../core/dom';
-import { HandlerRepository, linkHandlerAspect } from '../core/eventing';
+import {
+  HandlerRepository,
+  linkHandlerAspect,
+  createNamedSlotState,
+  namedSlotChangeHandlerAspect,
+} from '../core/eventing';
 import { i18nTargetOpensInNewWindow } from '../core/i18n';
 import type { LinkProperties, LinkTargetType } from '../core/interfaces';
 import { resolveLinkOrStaticRenderVariables, targetsNewWindow } from '../core/interfaces';
 import type { TitleLevel } from '../title';
 import '../title';
+import '../chip';
 
 import style from './teaser.scss?lit&inline';
 
 /**
  * It displays an interactive image with caption.
  *
- * @slot image - Slot used to render the image
- * @slot title - Slot used to render the title
- * @slot description - Slot used to render the description
+ * @slot image - Slot used to render the image.
+ * @slot chip - Slot used to render the sbb-chip label.
+ * @slot title - Slot used to render the title.
+ * @slot description - Slot used to render the description.
  */
 @customElement('sbb-teaser')
 export class SbbTeaserElement extends LitElement implements LinkProperties {
   public static override styles: CSSResultGroup = style;
 
-  /**
-   * Teaser variant -
-   * when this is true the text-content will be under the image
-   * otherwise it will be displayed next to the image.
-   */
-  @property({ attribute: 'is-stacked', reflect: true, type: Boolean }) public isStacked: boolean;
+  /** Teaser variant - define the position and the alignment of the text block. */
+  @property({ reflect: true }) public alignment: 'after-centered' | 'after' | 'below';
 
-  /**
-   * Heading level of the sbb-title element (e.g. h1-h6).
-   */
+  /** Heading level of the sbb-title element (e.g. h1-h6). */
   @property({ attribute: 'title-level' }) public titleLevel: TitleLevel = '5';
 
   /** The href value you want to link to. */
@@ -48,8 +49,15 @@ export class SbbTeaserElement extends LitElement implements LinkProperties {
   @property() public rel?: string | undefined;
 
   private _language = new LanguageController(this);
-  private _handlerRepository = new HandlerRepository(this, linkHandlerAspect);
 
+  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
+  @state() private _namedSlots = createNamedSlotState('chip');
+
+  private _handlerRepository = new HandlerRepository(
+    this,
+    linkHandlerAspect,
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
+  );
   public override connectedCallback(): void {
     super.connectedCallback();
     this._handlerRepository.connect();
@@ -77,6 +85,15 @@ export class SbbTeaserElement extends LitElement implements LinkProperties {
             <slot name="image"></slot>
           </span>
           <span class="sbb-teaser__text">
+            ${
+              this._namedSlots.chip
+                ? html`<span class="sbb-teaser__chip-container">
+                    <sbb-chip size="xxs" color="charcoal" class="sbb-teaser__chip">
+                      <slot name="chip"></slot>
+                    </sbb-chip>
+                  </span>`
+                : nothing
+            }
             <sbb-title level=${this.titleLevel} visual-level="5" class="sbb-teaser__lead">
               <slot name="title"></slot>
             </sbb-title>
