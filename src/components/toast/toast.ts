@@ -29,13 +29,15 @@ export type SbbToastPosition = `${SbbToastPositionVertical}-${SbbToastPositionHo
 const toastRefs = new Set<SbbToast>();
 
 /**
- * @slot - Use the unnamed slot to add content to the toast.
+ * It displays a toast notification.
+ *
+ * @slot - Use the unnamed slot to add content to the `sbb-toast`.
  * @slot icon - Assign a custom icon via slot.
  * @slot action - Provide a custom action for this toast.
- * @event {CustomEvent<void>} will-open - Emits whenever the autocomplete starts the opening transition.
- * @event {CustomEvent<void>} did-open - Emits whenever the autocomplete is opened.
- * @event {CustomEvent<void>} will-close - Emits whenever the autocomplete begins the closing transition.
- * @event {CustomEvent<void>} did-close - Emits whenever the autocomplete is closed.
+ * @event {CustomEvent<void>} will-open - Emits whenever the `sbb-toast` starts the opening transition.
+ * @event {CustomEvent<void>} did-open - Emits whenever the `sbb-toast` is opened.
+ * @event {CustomEvent<void>} will-close - Emits whenever the `sbb-toast` begins the closing transition.
+ * @event {CustomEvent<void>} did-close - Emits whenever the `sbb-toast` is closed.
  */
 @customElement('sbb-toast')
 export class SbbToast extends LitElement {
@@ -83,29 +85,25 @@ export class SbbToast extends LitElement {
 
   @state() private _currentLanguage = documentLanguage();
 
-  /** Emits whenever the autocomplete starts the opening transition. */
-
+  /** Emits whenever the `sbb-toast` starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbToast.events.willOpen, {
     bubbles: true,
     composed: true,
   });
 
-  /** Emits whenever the autocomplete is opened. */
-
+  /** Emits whenever the `sbb-toast` is opened. */
   private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbToast.events.didOpen, {
     bubbles: true,
     composed: true,
   });
 
-  /** Emits whenever the autocomplete begins the closing transition. */
-
+  /** Emits whenever the `sbb-toast` begins the closing transition. */
   private _willClose: EventEmitter<void> = new EventEmitter(this, SbbToast.events.willClose, {
     bubbles: true,
     composed: true,
   });
 
-  /** Emits whenever the autocomplete is closed. */
-
+  /** Emits whenever the `sbb-toast` is closed. */
   private _didClose: EventEmitter<void> = new EventEmitter(this, SbbToast.events.didClose, {
     bubbles: true,
     composed: true,

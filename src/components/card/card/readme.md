@@ -90,8 +90,8 @@ To improve coloring, it's needed to manually define styles for Window high contr
 
 ## Slots
 
-| Name     | Description                                      |
-| -------- | ------------------------------------------------ |
-|          | Use the unnamed slot to add content to the card. |
-| `badge`  | Slot to render `<sbb-card-badge>`.               |
-| `action` | Slot to render `<sbb-card-action>`.              |
+| Name     | Description                                            |
+| -------- | ------------------------------------------------------ |
+|          | Use the unnamed slot to add content to the card.       |
+| `badge`  | Use this slot to render a `sbb-card-badge` component.  |
+| `action` | Use this slot to render a `sbb-card-action` component. |

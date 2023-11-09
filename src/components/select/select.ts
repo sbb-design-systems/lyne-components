@@ -29,14 +29,16 @@ export interface SelectChange {
 }
 
 /**
+ * It displays a panel with selectable options.
+ *
  * @slot - Use the unnamed slot to add options.
  * @event {CustomEvent<void>} did-change - Deprecated. used for React. Will probably be removed once React 19 is available.
- * @event {CustomEvent<void>} change - TODO: Document this event
- * @event {CustomEvent<void>} input - TODO: Document this event
- * @event {CustomEvent<void>} will-open - Emits whenever the select starts the opening transition.
- * @event {CustomEvent<void>} did-open - Emits whenever the select is opened.
- * @event {CustomEvent<void>} will-close - Emits whenever the select begins the closing transition.
- * @event {CustomEvent<void>} did-close - Emits whenever the select is closed.
+ * @event {CustomEvent<void>} change - Notifies that the component's value has changed.
+ * @event {CustomEvent<void>} input - Notifies that an option value has been selected.
+ * @event {CustomEvent<void>} will-open - Emits whenever the `sbb-select` starts the opening transition.
+ * @event {CustomEvent<void>} did-open - Emits whenever the `sbb-select` is opened.
+ * @event {CustomEvent<void>} will-close - Emits whenever the `sbb-select` begins the closing transition.
+ * @event {CustomEvent<void>} did-close - Emits whenever the `sbb-select` is closed.
  */
 @customElement('sbb-select')
 export class SbbSelect extends LitElement {
@@ -88,8 +90,10 @@ export class SbbSelect extends LitElement {
    */
   private _didChange: EventEmitter = new EventEmitter(this, SbbSelect.events.didChange);
 
+  /** Notifies that the component's value has changed. */
   private _change: EventEmitter = new EventEmitter(this, SbbSelect.events.change);
 
+  /** Notifies that an option value has been selected. */
   private _input: EventEmitter = new EventEmitter(this, SbbSelect.events.input);
 
   /** @internal */
@@ -101,16 +105,16 @@ export class SbbSelect extends LitElement {
     },
   );
 
-  /** Emits whenever the select starts the opening transition. */
+  /** Emits whenever the `sbb-select` starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbSelect.events.willOpen);
 
-  /** Emits whenever the select is opened. */
+  /** Emits whenever the `sbb-select` is opened. */
   private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbSelect.events.didOpen);
 
-  /** Emits whenever the select begins the closing transition. */
+  /** Emits whenever the `sbb-select` begins the closing transition. */
   private _willClose: EventEmitter<void> = new EventEmitter(this, SbbSelect.events.willClose);
 
-  /** Emits whenever the select is closed. */
+  /** Emits whenever the `sbb-select` is closed. */
   private _didClose: EventEmitter<void> = new EventEmitter(this, SbbSelect.events.didClose);
 
   private _overlay: HTMLElement;

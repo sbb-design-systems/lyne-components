@@ -60,6 +60,6 @@ as CSS variable (`--sbb-train-direction-width`) initially and on resize.
 
 ## Slots
 
-| Name | Description                                                               |
-| ---- | ------------------------------------------------------------------------- |
-|      | Use the unnamed slot to add 'sbb-train' elements to this train formation. |
+| Name | Description                                                                    |
+| ---- | ------------------------------------------------------------------------------ |
+|      | Use the unnamed slot to add 'sbb-train' elements to the `sbb-train-formation`. |

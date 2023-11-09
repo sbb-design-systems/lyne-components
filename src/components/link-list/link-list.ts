@@ -16,7 +16,10 @@ import style from './link-list.scss?lit&inline';
 import '../title';
 
 /**
- * TODO: Document me
+ * It displays a list of `sbb-link`.
+ *
+ * @slot - Use the unnamed slot to add one or more `sbb-link`.
+ * @slot title - Use this slot to provide a title.
  */
 @customElement('sbb-link-list')
 export class SbbLinkList extends LitElement {

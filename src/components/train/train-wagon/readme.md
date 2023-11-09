@@ -55,6 +55,6 @@ They will be applied internally into a list (using `<ul>` and `<li>`) and requir
 
 ## Slots
 
-| Name | Description                                                                                |
-| ---- | ------------------------------------------------------------------------------------------ |
-|      | Use the unnamed slot to add one or more icons for meta information of the sbb-train-wagon. |
+| Name | Description                                                                                       |
+| ---- | ------------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add one or more `sbb-icon` for meta-information of the `sbb-train-wagon`. |

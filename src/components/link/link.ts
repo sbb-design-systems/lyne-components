@@ -31,8 +31,10 @@ import '../icon';
 export type SbbLinkSize = 'xs' | 's' | 'm';
 
 /**
- * @slot - Use the unnamed slot to add content to the link.
- * @slot icon - Slot used to display the icon, if one is set
+ * It displays a link enhanced with the SBB Design.
+ *
+ * @slot - Use the unnamed slot to add content to the `sbb-link`.
+ * @slot icon - Slot used to display the icon, if one is set.
  */
 @customElement('sbb-link')
 export class SbbLink extends LitElement implements LinkButtonProperties, IsStaticProperty {

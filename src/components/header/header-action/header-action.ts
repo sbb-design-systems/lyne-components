@@ -26,8 +26,10 @@ import style from './header-action.scss?lit&inline';
 import '../../icon';
 
 /**
+ * It displays an action element that can be used in the `sbb-header` component.
+ *
  * @slot icon - Slot used to render the action icon.
- * @slot - Use the unnamed slot to add content to the header action.
+ * @slot - Use the unnamed slot to add content to the `sbb-header-action`.
  */
 @customElement('sbb-header-action')
 export class SbbHeaderAction extends LitElement implements LinkButtonProperties {

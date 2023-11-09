@@ -81,15 +81,15 @@ In order to ensure readability for screen-readers, please provide an `aria-label
 
 ## Events
 
-| Name         | Type                | Description                                   | Inherited From |
-| ------------ | ------------------- | --------------------------------------------- | -------------- |
-| `did-change` | `CustomEvent<void>` | Emits whenever the radio group value changes. |                |
-| `change`     | `CustomEvent<void>` | Emits whenever the radio group value changes. |                |
-| `input`      | `CustomEvent<void>` | Emits whenever the radio group value changes. |                |
+| Name         | Type                | Description                                         | Inherited From |
+| ------------ | ------------------- | --------------------------------------------------- | -------------- |
+| `did-change` | `CustomEvent<void>` | Emits whenever the `sbb-radio-group` value changes. |                |
+| `change`     | `CustomEvent<void>` | Emits whenever the `sbb-radio-group` value changes. |                |
+| `input`      | `CustomEvent<void>` | Emits whenever the `sbb-radio-group` value changes. |                |
 
 ## Slots
 
-| Name    | Description                                                                         |
-| ------- | ----------------------------------------------------------------------------------- |
-|         | Use the unnamed slot to add `sbb-radio-button` elements to this radio button group. |
-| `error` | Use this to provide a `sbb-form-error` to show an error message.                    |
+| Name    | Description                                                                              |
+| ------- | ---------------------------------------------------------------------------------------- |
+|         | Use the unnamed slot to add `sbb-radio-button` elements to the `sbb-radio-button-group`. |
+| `error` | Use this to provide a `sbb-form-error` to show an error message.                         |

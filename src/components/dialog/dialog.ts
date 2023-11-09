@@ -31,13 +31,15 @@ const dialogRefs: SbbDialog[] = [];
 let nextId = 0;
 
 /**
- * @slot - Use the unnamed slot to add content to the dialog.
+ * It displays an interactive overlay element.
+ *
+ * @slot - Use the unnamed slot to add content to the `sbb-dialog`.
  * @slot title - Use this slot to provide a title.
- * @slot action-group - Use this slot to display an action group in the footer.
- * @event {CustomEvent<void>} will-open - Emits whenever the dialog starts the opening transition.
- * @event {CustomEvent<void>} did-open - Emits whenever the dialog is opened.
- * @event {CustomEvent<void>} will-close - Emits whenever the dialog begins the closing transition.
- * @event {CustomEvent<void>} did-close - Emits whenever the dialog is closed.
+ * @slot action-group - Use this slot to display a `sbb-action-group` in the footer.
+ * @event {CustomEvent<void>} will-open - Emits whenever the `sbb-dialog` starts the opening transition.
+ * @event {CustomEvent<void>} did-open - Emits whenever the `sbb-dialog` is opened.
+ * @event {CustomEvent<void>} will-close - Emits whenever the `sbb-dialog` begins the closing transition.
+ * @event {CustomEvent<void>} did-close - Emits whenever the `sbb-dialog` is closed.
  * @event {CustomEvent<void>} request-back-action - Emits whenever the back button is clicked.
  */
 @customElement('sbb-dialog')
@@ -125,29 +127,19 @@ export class SbbDialog extends LitElement {
   private _ariaLiveRef: HTMLElement;
   private _ariaLiveRefToggle = false;
 
-  /**
-   * Emits whenever the dialog starts the opening transition.
-   */
+  /** Emits whenever the `sbb-dialog` starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbDialog.events.willOpen);
 
-  /**
-   * Emits whenever the dialog is opened.
-   */
+  /** Emits whenever the `sbb-dialog` is opened. */
   private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbDialog.events.didOpen);
 
-  /**
-   * Emits whenever the dialog begins the closing transition.
-   */
+  /** Emits whenever the `sbb-dialog` begins the closing transition. */
   private _willClose: EventEmitter = new EventEmitter(this, SbbDialog.events.willClose);
 
-  /**
-   * Emits whenever the dialog is closed.
-   */
+  /** Emits whenever the `sbb-dialog` is closed. */
   private _didClose: EventEmitter = new EventEmitter(this, SbbDialog.events.didClose);
 
-  /**
-   * Emits whenever the back button is clicked.
-   */
+  /** Emits whenever the back button is clicked. */
   private _backClick: EventEmitter<void> = new EventEmitter(this, SbbDialog.events.backClick);
 
   private _dialog: HTMLDivElement;

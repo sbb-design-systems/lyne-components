@@ -46,7 +46,7 @@ const ADD_EVENT_LISTENER_OPTIONS: AddEventListenerOptions = {
 };
 
 /**
- * TODO: Document me
+ * It displays an analog clock with the classic SBB face.
  */
 @customElement('sbb-clock')
 export class SbbClock extends LitElement {
@@ -54,8 +54,6 @@ export class SbbClock extends LitElement {
 
   /** If it's false, the clock's hands are hidden; it's set to true when calculations are ready. */
   @state() private _isInitialized = false;
-
-  /** Reference to the host element. */
 
   /** Reference to the hour hand. */
   private _clockHandHours: HTMLElement;

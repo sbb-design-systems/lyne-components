@@ -112,15 +112,15 @@ using `aria-activedescendant` to support navigation though the autocomplete opti
 
 ## Events
 
-| Name         | Type                | Description                                                    | Inherited From |
-| ------------ | ------------------- | -------------------------------------------------------------- | -------------- |
-| `will-open`  | `CustomEvent<void>` | Emits whenever the autocomplete starts the opening transition. |                |
-| `did-open`   | `CustomEvent<void>` | Emits whenever the autocomplete is opened.                     |                |
-| `will-close` | `CustomEvent<void>` | Emits whenever the autocomplete begins the closing transition. |                |
-| `did-close`  | `CustomEvent<void>` | Emits whenever the autocomplete is closed.                     |                |
+| Name         | Type                | Description                                                          | Inherited From |
+| ------------ | ------------------- | -------------------------------------------------------------------- | -------------- |
+| `will-open`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` starts the opening transition. |                |
+| `did-open`   | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` is opened.                     |                |
+| `will-close` | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` begins the closing transition. |                |
+| `did-close`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` is closed.                     |                |
 
 ## Slots
 
-| Name | Description                                                                              |
-| ---- | ---------------------------------------------------------------------------------------- |
-|      | Use the unnamed slot to add `sbb-option` or `sbb-optgroup` elements to this alert group. |
+| Name | Description                                                                                    |
+| ---- | ---------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add `sbb-option` or `sbb-optgroup` elements to the `sbb-autocomplete`. |

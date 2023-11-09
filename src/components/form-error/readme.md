@@ -24,3 +24,10 @@ the component displays an icon by default, that can be changed using the `icon` 
 | Name       | Attribute  | Privacy | Type      | Default | Description                     |
 | ---------- | ---------- | ------- | --------- | ------- | ------------------------------- |
 | `negative` | `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |
+
+## Slots
+
+| Name   | Description                                       |
+| ------ | ------------------------------------------------- |
+|        | Use this slot to display the error message.       |
+| `icon` | Use this slot to override the default error icon. |

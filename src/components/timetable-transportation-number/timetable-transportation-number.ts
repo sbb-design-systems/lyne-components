@@ -7,7 +7,7 @@ import icons from '../core/timetable/icons.json';
 import style from './timetable-transportation-number.scss?lit&inline';
 
 /**
- * TODO: Document me
+ * Used in `sbb-timetable-row`, it displays information about the transport.
  */
 @customElement('sbb-timetable-transportation-number')
 export class SbbTimetableTransportationNumber extends LitElement {

@@ -1,5 +1,5 @@
 The `sbb-toggle` component is a wrapper for a couple of [sbb-toggle-option](/docs/components-sbb-toggle-sbb-toggle-option--docs)s
-that can be selected by the user; it is useful for switching between views within the content
+that can be selected by the user; it is useful for switching between views within the content.
 
 Their behavior is similar to [sbb-tab-group](/docs/components-sbb-tab-sbb-tab-group--docs)
 or [sbb-radio-button-group](/docs/components-sbb-radio-button-sbb-radio-button-group--docs),
@@ -44,10 +44,10 @@ The component has two different sizes, `s` and `m` (default), which can be set u
 
 ## Events
 
-| Name         | Type                | Description                                   | Inherited From |
-| ------------ | ------------------- | --------------------------------------------- | -------------- |
-| `did-change` | `CustomEvent<void>` | Emits whenever the radio group value changes. |                |
-| `change`     | `CustomEvent<void>` | Emits whenever the radio group value changes. |                |
+| Name         | Type                | Description                              | Inherited From |
+| ------------ | ------------------- | ---------------------------------------- | -------------- |
+| `did-change` | `CustomEvent<void>` | Emits whenever the toggle value changes. |                |
+| `change`     | `CustomEvent<void>` | Emits whenever the toggle value changes. |                |
 
 ## Slots
 

@@ -6,6 +6,8 @@ import { TitleLevel } from '../title';
 import style from './message.scss?lit&inline';
 
 /**
+ * It displays a complex message combining a title, an image, an action and some content.
+ *
  * @slot image - Use this slot to provide a sbb-image component.
  * @slot title - Use this slot to provide title text for the component.
  * @slot subtitle - Use this slot to provide a subtitle, must be a paragraph.

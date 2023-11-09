@@ -138,10 +138,10 @@ technology will announce errors when they appear.
 
 ## Slots
 
-| Name     | Description                                            |
-| -------- | ------------------------------------------------------ |
-| `label`  | Slot to render a label.                                |
-| `prefix` | Slot to render an icon on the left side of the input.  |
-|          | Slot to render an input/select.                        |
-| `suffix` | Slot to render an icon on the right side of the input. |
-| `error`  | Slot to render an error.                               |
+| Name     | Description                                                                |
+| -------- | -------------------------------------------------------------------------- |
+|          | Use this slot to render an input/select or a supported non-native element. |
+| `label`  | Use this slot to render a label.                                           |
+| `prefix` | Use this slot to render an icon on the left side of the input.             |
+| `suffix` | Use this slot to render an icon on the right side of the input.            |
+| `error`  | Use this slot to render an error.                                          |

@@ -36,12 +36,14 @@ const SUPPORTED_CONTENT_WRAPPERS = ['ARTICLE', 'DIV', 'SECTION', 'SBB-TAB-GROUP'
 let nextId = 0;
 
 /**
- * @slot tab-bar - When you provide the `sbb-tab-title` tag through the unnamed slot,
- * it will be automatically moved to this slot. You do not need to use it directly.
- * @slot - Use the unnamed slot to add html-content to this tab group.
+ * It displays one or more tab, each one with a title and a content.
+ *
+ * @slot - Use the unnamed slot to add html-content to the `sbb-tab-group`.
  * Wrap the content in a `div`, a `section`, an `article` or provide a nested `sbb-tab-group`:
  * This is correct: `<div>Some text <p>Some other text</p></div>`
  * This is not correct: `<span>Some text</span><p>Some other text</p>`
+ * @slot tab-bar - When you provide the `sbb-tab-title` tag through the unnamed slot,
+ * it will be automatically moved to this slot. You do not need to use it directly.
  * @event {CustomEvent<void>} did-change - Emits an event on selected tab change
  */
 @customElement('sbb-tab-group')

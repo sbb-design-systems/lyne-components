@@ -9,7 +9,9 @@ import style from './optgroup.scss?lit&inline';
 import '../../divider';
 
 /**
- * @slot - Use the unnamed slot to add `sbb-option` elements to this optgroup.
+ * It can be used as a container for one or more `sbb-option`.
+ *
+ * @slot - Use the unnamed slot to add `sbb-option` elements to the `sbb-optgroup`.
  */
 @customElement('sbb-optgroup')
 export class SbbOptGroup extends LitElement {

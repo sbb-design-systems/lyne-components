@@ -7,7 +7,7 @@ import { i18nDurationHour, i18nDurationMinute } from '../core/i18n';
 import style from './timetable-duration.scss?lit&inline';
 
 /**
- * TODO: Document me
+ * Used in `sbb-timetable-row`, it displays information about the trip duration.
  */
 @customElement('sbb-timetable-duration')
 export class SbbTimetableDuration extends LitElement {

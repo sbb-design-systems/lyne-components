@@ -24,7 +24,9 @@ import { type SbbNavigationMarker } from '../navigation-marker';
 import style from './navigation-action.scss?lit&inline';
 
 /**
- * @slot - Use the unnamed slot to add content to the navigation action.
+ * It displays an action element that can be used in the `sbb-navigation` component.
+ *
+ * @slot - Use the unnamed slot to add content to the `sbb-navigation-action`.
  */
 @customElement('sbb-navigation-action')
 export class SbbNavigationAction extends LitElement {

@@ -4,7 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 import style from './timetable-row-header.scss?lit&inline';
 
 /**
- * TODO: Document me
+ * Used in `sbb-timetable-row`, it displays information for screen-readers.
  */
 @customElement('sbb-timetable-row-header')
 export class SbbTimetableRowHeader extends LitElement {

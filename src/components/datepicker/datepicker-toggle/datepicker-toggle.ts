@@ -24,7 +24,7 @@ import '../../tooltip';
 import style from './datepicker-toggle.scss?lit&inline';
 
 /**
- * TODO: Document me
+ * Combined with a `sbb-datepicker`, it can be used to select a date from a `sbb-calendar`.
  */
 @customElement('sbb-datepicker-toggle')
 export class SbbDatepickerToggle extends LitElement {

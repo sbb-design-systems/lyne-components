@@ -128,12 +128,12 @@ that have an ARIA `role`.
 
 ## Events
 
-| Name         | Type                                        | Description                                               | Inherited From |
-| ------------ | ------------------------------------------- | --------------------------------------------------------- | -------------- |
-| `will-open`  | `CustomEvent<void>`                         | Emits whenever the tooltip starts the opening transition. |                |
-| `did-open`   | `CustomEvent<void>`                         | Emits whenever the tooltip is opened.                     |                |
-| `will-close` | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the tooltip begins the closing transition. |                |
-| `did-close`  | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the tooltip is closed.                     |                |
+| Name         | Type                                        | Description                                                     | Inherited From |
+| ------------ | ------------------------------------------- | --------------------------------------------------------------- | -------------- |
+| `will-open`  | `CustomEvent<void>`                         | Emits whenever the `sbb-tooltip` starts the opening transition. |                |
+| `did-open`   | `CustomEvent<void>`                         | Emits whenever the `sbb-tooltip` is opened.                     |                |
+| `will-close` | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the `sbb-tooltip` begins the closing transition. |                |
+| `did-close`  | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the `sbb-tooltip` is closed.                     |                |
 
 ## Slots
 

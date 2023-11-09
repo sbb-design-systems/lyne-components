@@ -26,6 +26,8 @@ import { SbbCard } from '../card';
 import style from './card-action.scss?lit&inline';
 
 /**
+ * It turns the `sbb-card` into an action element.
+ *
  * @slot - Use the unnamed slot to add a descriptive label / title of the action (important!).
  *   This is relevant for SEO and screen readers.
  */

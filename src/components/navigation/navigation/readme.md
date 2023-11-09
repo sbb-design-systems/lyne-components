@@ -77,12 +77,12 @@ Similarly, if a navigation action is marked to indicate a selected option (e.g.,
 
 ## Events
 
-| Name         | Type                | Description                                                  | Inherited From |
-| ------------ | ------------------- | ------------------------------------------------------------ | -------------- |
-| `will-open`  | `CustomEvent<void>` | Emits whenever the navigation begins the opening transition. |                |
-| `did-open`   | `CustomEvent<void>` | Emits whenever the navigation is opened.                     |                |
-| `will-close` | `CustomEvent<void>` | Emits whenever the navigation begins the closing transition. |                |
-| `did-close`  | `CustomEvent<void>` | Emits whenever the navigation is closed.                     |                |
+| Name         | Type                | Description                                                        | Inherited From |
+| ------------ | ------------------- | ------------------------------------------------------------------ | -------------- |
+| `will-open`  | `CustomEvent<void>` | Emits whenever the `sbb-navigation` begins the opening transition. |                |
+| `did-open`   | `CustomEvent<void>` | Emits whenever the `sbb-navigation` is opened.                     |                |
+| `will-close` | `CustomEvent<void>` | Emits whenever the `sbb-navigation` begins the closing transition. |                |
+| `did-close`  | `CustomEvent<void>` | Emits whenever the `sbb-navigation` is closed.                     |                |
 
 ## Slots
 

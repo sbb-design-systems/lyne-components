@@ -9,6 +9,8 @@ import { TitleLevel } from '../title';
 import style from './accordion.scss?lit&inline';
 
 /**
+ * It can be used as a container for one or more `sbb-expansion-panel` component.
+ *
  * @slot - Use the unnamed slot to add `sbb-expansion-panel` elements.
  */
 @customElement('sbb-accordion')

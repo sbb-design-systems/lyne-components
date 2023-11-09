@@ -20,11 +20,13 @@ import {
 import style from './radio-button-group.scss?lit&inline';
 
 /**
- * @slot - Use the unnamed slot to add `sbb-radio-button` elements to this radio button group.
+ * It can be used as a container for one or more `sbb-radio-button`.
+ *
+ * @slot - Use the unnamed slot to add `sbb-radio-button` elements to the `sbb-radio-button-group`.
  * @slot error - Use this to provide a `sbb-form-error` to show an error message.
- * @event {CustomEvent<void>} did-change - Emits whenever the radio group value changes.
- * @event {CustomEvent<void>} change - Emits whenever the radio group value changes.
- * @event {CustomEvent<void>} input - Emits whenever the radio group value changes.
+ * @event {CustomEvent<void>} did-change - Emits whenever the `sbb-radio-group` value changes.
+ * @event {CustomEvent<void>} change - Emits whenever the `sbb-radio-group` value changes.
+ * @event {CustomEvent<void>} input - Emits whenever the `sbb-radio-group` value changes.
  */
 @customElement('sbb-radio-button-group')
 export class SbbRadioButtonGroup extends LitElement {
@@ -155,18 +157,18 @@ export class SbbRadioButtonGroup extends LitElement {
   }
 
   /**
-   * Emits whenever the radio group value changes.
+   * Emits whenever the `sbb-radio-group` value changes.
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
   private _didChange: EventEmitter = new EventEmitter(this, SbbRadioButtonGroup.events.didChange);
 
   /**
-   * Emits whenever the radio group value changes.
+   * Emits whenever the `sbb-radio-group` value changes.
    */
   private _change: EventEmitter = new EventEmitter(this, SbbRadioButtonGroup.events.change);
 
   /**
-   * Emits whenever the radio group value changes.
+   * Emits whenever the `sbb-radio-group` value changes.
    */
   private _input: EventEmitter = new EventEmitter(this, SbbRadioButtonGroup.events.input);
 

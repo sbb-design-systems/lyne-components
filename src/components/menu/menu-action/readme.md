@@ -55,7 +55,7 @@ you can set the css variable `--sbb-menu-action-outer-horizontal-padding` to you
 
 ## Slots
 
-| Name   | Description                                                                       |
-| ------ | --------------------------------------------------------------------------------- |
-|        | Use the unnamed slot to add content to the menu action.                           |
-| `icon` | Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used. |
+| Name   | Description                                                                         |
+| ------ | ----------------------------------------------------------------------------------- |
+|        | Use the unnamed slot to add content to the `sbb-menu-action`.                       |
+| `icon` | Use this slot to provide an icon. If `icon-name` is set, a `sbb-icon` will be used. |

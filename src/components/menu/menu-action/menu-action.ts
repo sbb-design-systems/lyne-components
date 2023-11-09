@@ -24,8 +24,10 @@ import style from './menu-action.scss?lit&inline';
 import '../../icon';
 
 /**
- * @slot - Use the unnamed slot to add content to the menu action.
- * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
+ * It displays an action element that can be used in the `sbb-menu` component.
+ *
+ * @slot - Use the unnamed slot to add content to the `sbb-menu-action`.
+ * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a `sbb-icon` will be used.
  */
 @customElement('sbb-menu-action')
 export class SbbMenuAction extends LitElement implements LinkButtonProperties {

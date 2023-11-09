@@ -11,7 +11,7 @@ import style from './pearl-chain.scss?lit&inline';
 type Status = 'progress' | 'future' | 'past';
 
 /**
- * TODO: Document me
+ * It visually displays journey information.
  */
 @customElement('sbb-pearl-chain')
 export class SbbPearlChain extends LitElement {

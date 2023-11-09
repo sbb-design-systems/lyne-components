@@ -124,7 +124,7 @@ This is helpful if you need a specific state of the component.
 | Name                  | Type                                 | Description                                                                         | Inherited From |
 | --------------------- | ------------------------------------ | ----------------------------------------------------------------------------------- | -------------- |
 | `did-change`          | `CustomEvent<void>`                  | Deprecated. used for React. Will probably be removed once React 19 is available.    |                |
-| `change`              | `CustomEvent<void>`                  | TODO: Document this event                                                           |                |
+| `change`              | `CustomEvent<void>`                  | Notifies that the connected input has changes.                                      |                |
 | `input-updated`       | `CustomEvent<InputUpdateEvent>`      | Notifies that the attributes of the input connected to the datepicker have changes. |                |
 | `date-picker-updated` | `CustomEvent<void>`                  | Notifies that the attributes of the datepicker have changes.                        |                |
 | `validation-change`   | `CustomEvent<ValidationChangeEvent>` | Emits whenever the internal validation state changes.                               |                |

@@ -1,5 +1,5 @@
 The `sbb-navigation-section` is a container for both [sbb-navigation-list](/docs/components-sbb-navigation-sbb-navigation-list--docs) and [sbb-button](/docs/components-sbb-button--docs).
-It's intended use is inside a [sbb-navigation](/docs/components-sbb-navigation-sbb-navigation--docs) component, in which it can be seen as a 'second-level' panel.
+Its intended use is inside a [sbb-navigation](/docs/components-sbb-navigation-sbb-navigation--docs) component, in which it can be seen as a 'second-level' panel.
 
 ## Trigger
 
@@ -43,6 +43,6 @@ Similarly, if a navigation action is marked to indicate a selected option (e.g.,
 
 ## Slots
 
-| Name | Description                                                      |
-| ---- | ---------------------------------------------------------------- |
-|      | Use the unnamed slot to add content into the navigation section. |
+| Name | Description                                                            |
+| ---- | ---------------------------------------------------------------------- |
+|      | Use the unnamed slot to add content into the `sbb-navigation-section`. |

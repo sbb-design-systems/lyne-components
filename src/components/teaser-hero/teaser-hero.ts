@@ -24,6 +24,8 @@ import '../icon';
 import '../image';
 
 /**
+ * It displays an image and an action call within a panel.
+ *
  * @slot - Use the unnamed slot to add text content to the panel
  * @slot link-content - Link content of the panel
  * @slot image - The background image that can be a `sbb-image`

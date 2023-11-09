@@ -42,13 +42,13 @@ When the element is clicked, the `toggle-expanded` event is emitted.
 
 ## Events
 
-| Name              | Type                | Description               | Inherited From |
-| ----------------- | ------------------- | ------------------------- | -------------- |
-| `toggle-expanded` | `CustomEvent<void>` | TODO: Document this event |                |
+| Name              | Type                | Description                                            | Inherited From |
+| ----------------- | ------------------- | ------------------------------------------------------ | -------------- |
+| `toggle-expanded` | `CustomEvent<void>` | Notifies that the `sbb-expansion-panel` has to expand. |                |
 
 ## Slots
 
-| Name   | Description                                                        |
-| ------ | ------------------------------------------------------------------ |
-| `icon` | Slot used to render the panel header icon.                         |
-|        | Use the unnamed slot to add content to the expansion panel header. |
+| Name   | Description                                                              |
+| ------ | ------------------------------------------------------------------------ |
+|        | Use the unnamed slot to add content to the `sbb-expansion-panel-header`. |
+| `icon` | Slot used to render the `sbb-expansion-panel-header` icon.               |

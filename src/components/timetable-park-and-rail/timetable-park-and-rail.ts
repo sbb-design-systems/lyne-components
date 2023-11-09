@@ -12,16 +12,13 @@ import icons from '../core/timetable/icons.json';
 import style from './timetable-park-and-rail.scss?lit&inline';
 
 /**
- * TODO: Document me
+ * Used in `sbb-timetable-row`, it displays information about parking.
  */
 @customElement('sbb-timetable-park-and-rail')
 export class SbbTimetableParkAndRail extends LitElement {
   public static override styles: CSSResult = style;
 
-  /**
-   * Set the desired appearance of
-   * the component.
-   */
+  /** Set the desired appearance of the component. */
   @property()
   public appearance? = 'first-level' as const;
 

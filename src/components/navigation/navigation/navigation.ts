@@ -39,11 +39,13 @@ const navigationObserverConfig: MutationObserverInit = {
 let nextId = 0;
 
 /**
+ * It displays a navigation menu, wrapping one or more `sbb-navigation-*` components.
+ *
  * @slot - Use the unnamed slot to add `sbb-navigation-action` elements into the sbb-navigation menu.
- * @event {CustomEvent<void>} will-open - Emits whenever the navigation begins the opening transition.
- * @event {CustomEvent<void>} did-open - Emits whenever the navigation is opened.
- * @event {CustomEvent<void>} will-close - Emits whenever the navigation begins the closing transition.
- * @event {CustomEvent<void>} did-close - Emits whenever the navigation is closed.
+ * @event {CustomEvent<void>} will-open - Emits whenever the `sbb-navigation` begins the opening transition.
+ * @event {CustomEvent<void>} did-open - Emits whenever the `sbb-navigation` is opened.
+ * @event {CustomEvent<void>} will-close - Emits whenever the `sbb-navigation` begins the closing transition.
+ * @event {CustomEvent<void>} did-close - Emits whenever the `sbb-navigation` is closed.
  */
 @customElement('sbb-navigation')
 export class SbbNavigation extends LitElement {
@@ -95,24 +97,16 @@ export class SbbNavigation extends LitElement {
 
   @state() private _currentLanguage = documentLanguage();
 
-  /**
-   * Emits whenever the navigation begins the opening transition.
-   */
+  /** Emits whenever the `sbb-navigation` begins the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbNavigation.events.willOpen);
 
-  /**
-   * Emits whenever the navigation is opened.
-   */
+  /** Emits whenever the `sbb-navigation` is opened. */
   private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbNavigation.events.didOpen);
 
-  /**
-   * Emits whenever the navigation begins the closing transition.
-   */
+  /** Emits whenever the `sbb-navigation` begins the closing transition. */
   private _willClose: EventEmitter<void> = new EventEmitter(this, SbbNavigation.events.willClose);
 
-  /**
-   * Emits whenever the navigation is closed.
-   */
+  /** Emits whenever the `sbb-navigation` is closed. */
   private _didClose: EventEmitter<void> = new EventEmitter(this, SbbNavigation.events.didClose);
 
   private _navigation: HTMLDivElement;

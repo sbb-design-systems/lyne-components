@@ -13,7 +13,7 @@ import '../icon';
 import '../pearl-chain';
 
 /**
- * TODO: Document me
+ * Combined with `sbb-pearl-chain`, it displays walk time information.
  */
 @customElement('sbb-pearl-chain-time')
 export class SbbPearlChainTime extends LitElement {

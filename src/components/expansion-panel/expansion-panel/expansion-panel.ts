@@ -14,13 +14,14 @@ import style from './expansion-panel.scss?lit&inline';
 let nextId = 0;
 
 /**
- * @slot - Use this slot to add a `sbb-expansion-panel-header` and a `sbb-expansion-panel-content` element.
- * @slot header - Use this to render the sbb-expansion-panel-header.
- * @slot content - Use this to render the sbb-expansion-panel-content.
- * @event {CustomEvent<void>} will-open - Emits whenever the sbb-expansion-panel starts the opening transition.
- * @event {CustomEvent<void>} did-open - Emits whenever the sbb-expansion-panel is opened.
- * @event {CustomEvent<void>} will-close - Emits whenever the sbb-expansion-panel begins the closing transition.
- * @event {CustomEvent<void>} did-close - Emits whenever the sbb-expansion-panel is closed.
+ * It displays an expandable summary-details widget.
+ *
+ * @slot header - Use this to add the `sbb-expansion-panel-header`.
+ * @slot content - Use this to add the `sbb-expansion-panel-content`.
+ * @event {CustomEvent<void>} will-open - Emits whenever the `sbb-expansion-panel` starts the opening transition.
+ * @event {CustomEvent<void>} did-open - Emits whenever the `sbb-expansion-panel` is opened.
+ * @event {CustomEvent<void>} will-close - Emits whenever the `sbb-expansion-panel` begins the closing transition.
+ * @event {CustomEvent<void>} did-close - Emits whenever the `sbb-expansion-panel` is closed.
  */
 @customElement('sbb-expansion-panel')
 export class SbbExpansionPanel extends LitElement {
@@ -67,19 +68,19 @@ export class SbbExpansionPanel extends LitElement {
   @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
   public disableAnimation = false;
 
-  /** Emits whenever the sbb-expansion-panel starts the opening transition. */
+  /** Emits whenever the `sbb-expansion-panel` starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbExpansionPanel.events.willOpen);
 
-  /** Emits whenever the sbb-expansion-panel is opened. */
+  /** Emits whenever the `sbb-expansion-panel` is opened. */
   private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbExpansionPanel.events.didOpen);
 
-  /** Emits whenever the sbb-expansion-panel begins the closing transition. */
+  /** Emits whenever the `sbb-expansion-panel` begins the closing transition. */
   private _willClose: EventEmitter<void> = new EventEmitter(
     this,
     SbbExpansionPanel.events.willClose,
   );
 
-  /** Emits whenever the sbb-expansion-panel is closed. */
+  /** Emits whenever the `sbb-expansion-panel` is closed. */
   private _didClose: EventEmitter<void> = new EventEmitter(this, SbbExpansionPanel.events.didClose);
 
   private _abort = new ConnectedAbortController(this);

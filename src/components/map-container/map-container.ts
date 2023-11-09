@@ -11,6 +11,8 @@ import style from './map-container.scss?lit&inline';
 import '../button';
 
 /**
+ * It can be used as a container for maps.
+ *
  * @slot - Use the unnamed slot to add content to the sidebar.
  * @slot map - Used for slotting the map.
  */

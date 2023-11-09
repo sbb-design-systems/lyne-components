@@ -17,7 +17,9 @@ import style from './selection-panel.scss?lit&inline';
 import '../divider';
 
 /**
- * @slot - Use the unnamed slot to add `sbb-checkbox` or `sbb-radio-button` elements to this selection panel.
+ * It displays an expandable panel connected to a `sbb-checkbox` or to a `sbb-radio-button`.
+ *
+ * @slot - Use the unnamed slot to add `sbb-checkbox` or `sbb-radio-button` elements to the `sbb-selection-panel`.
  * @slot badge - Use this slot to provide a `sbb-card-badge` (optional).
  * @slot content - Use this slot to provide custom content for the panel (optional).
  * @event {CustomEvent<void>} will-open - Emits whenever the content section starts the opening transition.

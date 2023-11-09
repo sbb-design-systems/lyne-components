@@ -22,6 +22,8 @@ import { TitleLevel } from '../title';
 import style from './teaser.scss?lit&inline';
 
 /**
+ * It displays an interactive image with caption.
+ *
  * @slot image - Slot used to render the image
  * @slot title - Slot used to render the title
  * @slot description - Slot used to render the description

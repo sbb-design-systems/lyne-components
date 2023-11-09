@@ -16,7 +16,9 @@ import style from './skiplink-list.scss?lit&inline';
 import '../title';
 
 /**
- * @slot - Use the unnamed slot to add `sbb-link` elements to this skiplink list.
+ * It displays a list of `sbb-link` which are visible only when focused.
+ *
+ * @slot - Use the unnamed slot to add `sbb-link` elements to the `sbb-skiplink-list`.
  */
 @customElement('sbb-skiplink-list')
 export class SbbSkiplinkList extends LitElement {

@@ -24,7 +24,7 @@ It's also possible to display buttons in the component's footer using the `actio
 - The component will automatically set size `m` on slotted `sbb-action-group`;
 - If the title is not present, the footer will not be displayed even if provided;
 - If the title is not present, the dialog will be displayed in fullscreen mode with the close button in the content section along with the back button
-  (if visible, see [next paragraph](#interaction)).
+  (if visible, see [next paragraph](#interactions)).
 
 ```html
 <sbb-dialog title-content="Title"> Dialog content. </sbb-dialog>
@@ -102,18 +102,18 @@ The default `z-index` of the component is set to `1000`; to specify a custom sta
 
 ## Events
 
-| Name                  | Type                | Description                                              | Inherited From |
-| --------------------- | ------------------- | -------------------------------------------------------- | -------------- |
-| `will-open`           | `CustomEvent<void>` | Emits whenever the dialog starts the opening transition. |                |
-| `did-open`            | `CustomEvent<void>` | Emits whenever the dialog is opened.                     |                |
-| `will-close`          | `CustomEvent<void>` | Emits whenever the dialog begins the closing transition. |                |
-| `did-close`           | `CustomEvent<void>` | Emits whenever the dialog is closed.                     |                |
-| `request-back-action` | `CustomEvent<void>` | Emits whenever the back button is clicked.               |                |
+| Name                  | Type                | Description                                                    | Inherited From |
+| --------------------- | ------------------- | -------------------------------------------------------------- | -------------- |
+| `will-open`           | `CustomEvent<void>` | Emits whenever the `sbb-dialog` starts the opening transition. |                |
+| `did-open`            | `CustomEvent<void>` | Emits whenever the `sbb-dialog` is opened.                     |                |
+| `will-close`          | `CustomEvent<void>` | Emits whenever the `sbb-dialog` begins the closing transition. |                |
+| `did-close`           | `CustomEvent<void>` | Emits whenever the `sbb-dialog` is closed.                     |                |
+| `request-back-action` | `CustomEvent<void>` | Emits whenever the back button is clicked.                     |                |
 
 ## Slots
 
-| Name           | Description                                             |
-| -------------- | ------------------------------------------------------- |
-|                | Use the unnamed slot to add content to the dialog.      |
-| `title`        | Use this slot to provide a title.                       |
-| `action-group` | Use this slot to display an action group in the footer. |
+| Name           | Description                                                  |
+| -------------- | ------------------------------------------------------------ |
+|                | Use the unnamed slot to add content to the `sbb-dialog`.     |
+| `title`        | Use this slot to provide a title.                            |
+| `action-group` | Use this slot to display a `sbb-action-group` in the footer. |

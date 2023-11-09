@@ -130,6 +130,6 @@ The values for `align-group` and `align-self` for the various allocations are as
 
 ## Slots
 
-| Name | Description                                                                           |
-| ---- | ------------------------------------------------------------------------------------- |
-|      | Use the unnamed slot to add `sbb-link` or `sbb-button` elements to this action group. |
+| Name | Description                                                                                |
+| ---- | ------------------------------------------------------------------------------------------ |
+|      | Use the unnamed slot to add `sbb-link` or `sbb-button` elements to the `sbb-action-group`. |

@@ -4,9 +4,11 @@ import { customElement, property } from 'lit/decorators.js';
 import style from './card.scss?lit&inline';
 
 /**
+ * It displays content related to a single subject.
+ *
  * @slot - Use the unnamed slot to add content to the card.
- * @slot badge - Slot to render `<sbb-card-badge>`.
- * @slot action - Slot to render `<sbb-card-action>`.
+ * @slot badge - Use this slot to render a `sbb-card-badge` component.
+ * @slot action - Use this slot to render a `sbb-card-action` component.
  */
 @customElement('sbb-card')
 export class SbbCard extends LitElement {

@@ -17,7 +17,7 @@ import style from './form-field-clear.scss?lit&inline';
 import '../../icon';
 
 /**
- * TODO: Document me
+ * Combined with `sbb-form-field`, it displays a button which clears the input value.
  */
 @customElement('sbb-form-field-clear')
 export class SbbFormFieldClear extends LitElement {

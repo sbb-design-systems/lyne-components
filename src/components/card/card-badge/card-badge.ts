@@ -6,6 +6,8 @@ import { toggleDatasetEntry, getDocumentWritingMode, setAttribute } from '../../
 import style from './card-badge.scss?lit&inline';
 
 /**
+ * It displays content within a badge.
+ *
  * @slot - Use the unnamed slot to add content to the badge.
  *   Content parts should be wrapped in `<span>` tags to achieve correct spacings.
  */

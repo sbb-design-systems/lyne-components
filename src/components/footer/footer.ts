@@ -7,7 +7,9 @@ import { TitleLevel } from '../title';
 import style from './footer.scss?lit&inline';
 
 /**
- * TODO: Document me
+ * It displays a footer section for the page.
+ *
+ * @slot - Use the unnamed slot to add elements like `sbb-link`, `sbb-link-list`, `sbb-divider` and so on.
  */
 @customElement('sbb-footer')
 export class SbbFooter extends LitElement {

@@ -13,8 +13,10 @@ import { SbbNavigationAction } from '../navigation-action';
 import style from './navigation-list.scss?lit&inline';
 
 /**
+ * It can be used as a container for one or more `sbb-navigation-action` within a `sbb-navigation-section`.
+ *
+ * @slot - Use the unnamed slot to add content to the `sbb-navigation-list`.
  * @slot label - Use this to provide a label element.
- * @slot - Use the unnamed slot to add content to this sbb-navigation-list
  */
 @customElement('sbb-navigation-list')
 export class SbbNavigationList extends LitElement {

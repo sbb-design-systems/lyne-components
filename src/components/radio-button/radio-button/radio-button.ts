@@ -36,9 +36,11 @@ const radioButtonObserverConfig: MutationObserverInit = {
 };
 
 /**
+ * It displays a radio button enhanced with the SBB Design.
+ *
  * @slot - Use the unnamed slot to add content to the radio label.
- * @slot subtext - Slot used to render a subtext under the label (only visible within a selection panel).
- * @slot suffix - Slot used to render additional content after the label (only visible within a selection panel).
+ * @slot subtext - Slot used to render a subtext under the label (only visible within a `sbb-selection-panel`).
+ * @slot suffix - Slot used to render additional content after the label (only visible within a `sbb-selection-panel`).
  */
 @customElement('sbb-radio-button')
 export class SbbRadioButton extends LitElement {

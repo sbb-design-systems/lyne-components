@@ -38,11 +38,13 @@ let nextId = 0;
 const tooltipsRef = new Set<SbbTooltip>();
 
 /**
+ * It displays contextual information within a tooltip.
+ *
  * @slot - Use the unnamed slot to add content into the tooltip.
- * @event {CustomEvent<void>} will-open - Emits whenever the tooltip starts the opening transition.
- * @event {CustomEvent<void>} did-open - Emits whenever the tooltip is opened.
- * @event {CustomEvent<{ closeTarget: HTMLElement }>} will-close - Emits whenever the tooltip begins the closing transition.
- * @event {CustomEvent<{ closeTarget: HTMLElement }>} did-close - Emits whenever the tooltip is closed.
+ * @event {CustomEvent<void>} will-open - Emits whenever the `sbb-tooltip` starts the opening transition.
+ * @event {CustomEvent<void>} did-open - Emits whenever the `sbb-tooltip` is opened.
+ * @event {CustomEvent<{ closeTarget: HTMLElement }>} will-close - Emits whenever the `sbb-tooltip` begins the closing transition.
+ * @event {CustomEvent<{ closeTarget: HTMLElement }>} did-close - Emits whenever the `sbb-tooltip` is closed.
  */
 @customElement('sbb-tooltip')
 export class SbbTooltip extends LitElement {
@@ -111,27 +113,19 @@ export class SbbTooltip extends LitElement {
 
   @state() private _currentLanguage = documentLanguage();
 
-  /**
-   * Emits whenever the tooltip starts the opening transition.
-   */
+  /** Emits whenever the `sbb-tooltip` starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbTooltip.events.willOpen);
 
-  /**
-   * Emits whenever the tooltip is opened.
-   */
+  /** Emits whenever the `sbb-tooltip` is opened. */
   private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbTooltip.events.didOpen);
 
-  /**
-   * Emits whenever the tooltip begins the closing transition.
-   */
+  /** Emits whenever the `sbb-tooltip` begins the closing transition. */
   private _willClose: EventEmitter<{ closeTarget: HTMLElement }> = new EventEmitter(
     this,
     SbbTooltip.events.willClose,
   );
 
-  /**
-   * Emits whenever the tooltip is closed.
-   */
+  /** Emits whenever the `sbb-tooltip` is closed. */
   private _didClose: EventEmitter<{ closeTarget: HTMLElement }> = new EventEmitter(
     this,
     SbbTooltip.events.didClose,

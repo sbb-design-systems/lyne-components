@@ -79,12 +79,12 @@ to identify which actions are active and which are not.
 
 ## Events
 
-| Name         | Type                | Description                                            | Inherited From |
-| ------------ | ------------------- | ------------------------------------------------------ | -------------- |
-| `will-open`  | `CustomEvent<void>` | Emits whenever the menu starts the opening transition. |                |
-| `did-open`   | `CustomEvent<void>` | Emits whenever the menu is opened.                     |                |
-| `will-close` | `CustomEvent<void>` | Emits whenever the menu begins the closing transition. |                |
-| `did-close`  | `CustomEvent<void>` | Emits whenever the menu is closed.                     |                |
+| Name         | Type                | Description                                                  | Inherited From |
+| ------------ | ------------------- | ------------------------------------------------------------ | -------------- |
+| `will-open`  | `CustomEvent<void>` | Emits whenever the `sbb-menu` starts the opening transition. |                |
+| `did-open`   | `CustomEvent<void>` | Emits whenever the `sbb-menu` is opened.                     |                |
+| `will-close` | `CustomEvent<void>` | Emits whenever the `sbb-menu` begins the closing transition. |                |
+| `did-close`  | `CustomEvent<void>` | Emits whenever the `sbb-menu` is closed.                     |                |
 
 ## Slots
 

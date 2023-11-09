@@ -43,6 +43,6 @@ The component has three different sizes, which can be changed using the `size` p
 
 ## Slots
 
-| Name | Description                                                   |
-| ---- | ------------------------------------------------------------- |
-|      | Use the unnamed slot to add content to the navigation action. |
+| Name | Description                                                         |
+| ---- | ------------------------------------------------------------------- |
+|      | Use the unnamed slot to add content to the `sbb-navigation-action`. |

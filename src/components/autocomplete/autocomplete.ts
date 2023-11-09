@@ -27,11 +27,13 @@ import style from './autocomplete.scss?lit&inline';
 let nextId = 0;
 
 /**
- * @slot - Use the unnamed slot to add `sbb-option` or `sbb-optgroup` elements to this alert group.
- * @event {CustomEvent<void>} will-open - Emits whenever the autocomplete starts the opening transition.
- * @event {CustomEvent<void>} did-open - Emits whenever the autocomplete is opened.
- * @event {CustomEvent<void>} will-close - Emits whenever the autocomplete begins the closing transition.
- * @event {CustomEvent<void>} did-close - Emits whenever the autocomplete is closed.
+ * Combined with a native input, it displays a panel with a list of available options.
+ *
+ * @slot - Use the unnamed slot to add `sbb-option` or `sbb-optgroup` elements to the `sbb-autocomplete`.
+ * @event {CustomEvent<void>} will-open - Emits whenever the `sbb-autocomplete` starts the opening transition.
+ * @event {CustomEvent<void>} did-open - Emits whenever the `sbb-autocomplete` is opened.
+ * @event {CustomEvent<void>} will-close - Emits whenever the `sbb-autocomplete` begins the closing transition.
+ * @event {CustomEvent<void>} did-close - Emits whenever the `sbb-autocomplete` is closed.
  */
 @customElement('sbb-autocomplete')
 export class SbbAutocomplete extends LitElement {
@@ -70,16 +72,16 @@ export class SbbAutocomplete extends LitElement {
   /** The state of the autocomplete. */
   @state() private _state: SbbOverlayState = 'closed';
 
-  /** Emits whenever the autocomplete starts the opening transition. */
+  /** Emits whenever the `sbb-autocomplete` starts the opening transition. */
   private _willOpen: EventEmitter = new EventEmitter(this, SbbAutocomplete.events.willOpen);
 
-  /** Emits whenever the autocomplete is opened. */
+  /** Emits whenever the `sbb-autocomplete` is opened. */
   private _didOpen: EventEmitter = new EventEmitter(this, SbbAutocomplete.events.didOpen);
 
-  /** Emits whenever the autocomplete begins the closing transition. */
+  /** Emits whenever the `sbb-autocomplete` begins the closing transition. */
   private _willClose: EventEmitter = new EventEmitter(this, SbbAutocomplete.events.willClose);
 
-  /** Emits whenever the autocomplete is closed. */
+  /** Emits whenever the `sbb-autocomplete` is closed. */
   private _didClose: EventEmitter = new EventEmitter(this, SbbAutocomplete.events.didClose);
 
   private _overlay: HTMLElement;

@@ -50,7 +50,7 @@ depending on the value of the `href` property, so the associated properties are 
 
 ## Slots
 
-| Name   | Description                                               |
-| ------ | --------------------------------------------------------- |
-| `icon` | Slot used to render the action icon.                      |
-|        | Use the unnamed slot to add content to the header action. |
+| Name   | Description                                                     |
+| ------ | --------------------------------------------------------------- |
+| `icon` | Slot used to render the action icon.                            |
+|        | Use the unnamed slot to add content to the `sbb-header-action`. |

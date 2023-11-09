@@ -7,7 +7,7 @@ import { getSvgContent } from './icon-request';
 import style from './icon.scss?lit&inline';
 
 /**
- * TODO: Document me
+ * It displays an icon loaded from a registered namespace.
  */
 @customElement('sbb-icon')
 export class SbbIcon extends LitElement {

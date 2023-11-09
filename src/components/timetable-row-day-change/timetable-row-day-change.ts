@@ -7,7 +7,7 @@ import { i18nAttention, i18nConnectionsDepartOn, i18nDayChange } from '../core/i
 import style from './timetable-row-day-change.scss?lit&inline';
 
 /**
- * TODO: Document me
+ * Used in `sbb-timetable-row`, it displays information about day change for screen-readers.
  */
 @customElement('sbb-timetable-row-day-change')
 export class SbbTimetableRowDayChange extends LitElement {
