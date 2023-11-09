@@ -5,8 +5,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 import { StoryContext } from '@storybook/web-components';
-// TODO: remove alias and rename Story with conflicting name
-import { SbbTimeInput as SbbTimeInputClass } from './time-input';
+import { SbbTimeInput } from './time-input';
 
 import '../form-field';
 import '../button';
@@ -239,7 +238,7 @@ const TemplateSbbTimeInput = ({
   </Fragment>
 );
 
-export const SbbTimeInput: StoryObj = {
+export const SbbTimeInputBase: StoryObj = {
   render: TemplateSbbTimeInput,
   argTypes: { ...formFieldBasicArgsTypes },
   args: { ...formFieldBasicArgs },
@@ -350,7 +349,7 @@ const meta: Meta = {
   ],
   parameters: {
     actions: {
-      handles: ['change', 'input', SbbTimeInputClass.events.validationChange],
+      handles: ['change', 'input', SbbTimeInput.events.validationChange],
     },
     backgrounds: {
       disable: true,
