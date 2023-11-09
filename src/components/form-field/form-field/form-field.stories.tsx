@@ -5,6 +5,7 @@ import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 import { StoryContext } from '@storybook/web-components';
 import './form-field';
+import '../form-field-clear';
 import '../../button';
 import '../../form-error';
 import '../../tooltip';
