@@ -5,7 +5,7 @@ import {
 import imageHelperGetBreakpoints from './image.helper';
 import { hostContext } from '../core/dom';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, eventOptions, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';
 import { classMap } from 'lit/directives/class-map.js';
 import { ref } from 'lit/directives/ref.js';
@@ -24,7 +24,6 @@ export class SbbImage extends LitElement {
   public static override styles: CSSResult = style;
 
   private _captionElement?: HTMLElement;
-  private _imageElement!: HTMLElement;
   private _linksInCaption;
   private _config = {
     nonRetinaQuality: '45',
@@ -459,6 +458,7 @@ export class SbbImage extends LitElement {
             })}
             <img
               alt=${this.alt || nothing}
+              @load=${this._imageLoaded}
               class="image__img"
               src=${this.imageSrc!}
               width="1000"
@@ -466,9 +466,6 @@ export class SbbImage extends LitElement {
               loading=${this.loading ?? nothing}
               decoding=${this.decoding ?? nothing}
               importance=${this.importance ?? nothing}
-              ${ref((el): void => {
-                this._imageElement = el as HTMLElement;
-              })}
             />
           </picture>
         </div>
@@ -502,15 +499,10 @@ export class SbbImage extends LitElement {
     this._addFocusAbilityToLinksInCaption();
   }
 
-  protected override firstUpdated(): void {
-    this._imageElement.addEventListener(
-      'load',
-      () => {
-        this._logPerformanceMarks();
-        this._loaded = true;
-      },
-      eventListenerOptions,
-    );
+  @eventOptions(eventListenerOptions)
+  private _imageLoaded(): void {
+    this._logPerformanceMarks();
+    this._loaded = true;
   }
 }
 
