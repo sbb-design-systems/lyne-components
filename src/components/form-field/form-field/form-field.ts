@@ -491,7 +491,7 @@ export class SbbFormField extends LitElement {
                       <slot name="label" @slotchange=${this._onSlotLabelChange}></slot>
                       ${this.optional
                         ? html` <span aria-hidden="true">
-                            &nbsp;${i18nOptional[this._currentLanguage]}
+                            ${i18nOptional[this._currentLanguage]}
                           </span>`
                         : nothing}
                     </span>
