@@ -1,6 +1,8 @@
-import { findReferencedElement, toggleDatasetEntry } from '../../core/dom';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
+
+import { findReferencedElement, toggleDatasetEntry } from '../../core/dom';
+
 import style from './header.scss?lit&inline';
 import '../../logo';
 

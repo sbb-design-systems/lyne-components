@@ -1,5 +1,14 @@
+import { LitElement, CSSResult, TemplateResult, html } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
+
 import { FocusTrap, assignId, setModalityOnNextFocus } from '../../core/a11y';
-import { ScrollHandler, isValidAttribute, findReferencedElement } from '../../core/dom';
+import {
+  ScrollHandler,
+  isValidAttribute,
+  findReferencedElement,
+  setAttribute,
+} from '../../core/dom';
 import {
   documentLanguage,
   HandlerRepository,
@@ -17,12 +26,9 @@ import {
   applyInertMechanism,
   removeInertMechanism,
 } from '../../core/overlay';
-import { CSSResult, html, LitElement, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { setAttribute } from '../../core/dom';
-import { ref } from 'lit/directives/ref.js';
-import style from './navigation.scss?lit&inline';
 import '../../button';
+
+import style from './navigation.scss?lit&inline';
 
 /** Configuration for the attribute to look at if a navigation section is displayed */
 const navigationObserverConfig: MutationObserverInit = {

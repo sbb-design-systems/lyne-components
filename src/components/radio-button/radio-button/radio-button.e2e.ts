@@ -1,6 +1,8 @@
-import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
+
 import { SbbRadioButton } from './radio-button';
 
 describe('sbb-radio-button', () => {

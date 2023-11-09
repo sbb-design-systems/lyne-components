@@ -1,10 +1,12 @@
 /** @jsx h */
-import { h, JSX } from 'jsx-dom';
-import images from '../core/images';
-import readme from './readme.md?raw';
-import isChromatic from 'chromatic';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
+import isChromatic from 'chromatic';
+import { h, type JSX } from 'jsx-dom';
+
+import images from '../core/images';
+
+import readme from './readme.md?raw';
 import './image';
 
 const Template = (args): JSX.Element => <sbb-image {...args}></sbb-image>;

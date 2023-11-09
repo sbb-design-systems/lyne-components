@@ -1,9 +1,10 @@
 /** @jsx h */
-import { h, JSX } from 'jsx-dom';
-import readme from './readme.md?raw';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
+import { h, type JSX } from 'jsx-dom';
+
+import readme from './readme.md?raw';
 import './action-group';
 import '../link';
 import '../button';

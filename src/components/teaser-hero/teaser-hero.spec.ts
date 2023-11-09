@@ -1,6 +1,7 @@
-import sampleImages from '../core/images';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import sampleImages from '../core/images';
 import './teaser-hero';
 import '../link';
 import '../image';

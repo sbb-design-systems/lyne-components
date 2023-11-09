@@ -1,10 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /** @jsx h */
-import { Fragment, h, JSX } from 'jsx-dom';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { Fragment, h, type JSX } from 'jsx-dom';
+
+import '../../../components/title';
+
 import readme from './readme.md?raw';
 import './typo-internal.scss';
-import type { Meta, StoryObj } from '@storybook/web-components';
-import '../../../components/title';
 
 const text = `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.`;
 

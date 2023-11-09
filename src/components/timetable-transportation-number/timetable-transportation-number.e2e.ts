@@ -1,7 +1,8 @@
-import sampleData from './timetable-transportation-number.sample-data';
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
 import { SbbTimetableTransportationNumber } from './timetable-transportation-number';
+import sampleData from './timetable-transportation-number.sample-data';
 
 const config = JSON.stringify(sampleData.bus);
 

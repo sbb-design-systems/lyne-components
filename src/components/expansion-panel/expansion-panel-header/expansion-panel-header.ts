@@ -1,3 +1,7 @@
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+
+import { setAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
 import {
   actionElementHandlerAspect,
   createNamedSlotState,
@@ -7,10 +11,8 @@ import {
   ConnectedAbortController,
 } from '../../core/eventing';
 import { resolveButtonRenderVariables } from '../../core/interfaces';
-import { setAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { SbbExpansionPanel } from '../expansion-panel';
+import { type SbbExpansionPanel } from '../expansion-panel';
+
 import style from './expansion-panel-header.scss?lit&inline';
 import '../../icon';
 

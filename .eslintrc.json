@@ -31,6 +31,8 @@
       "files": ["*.ts", "*.tsx"],
       "extends": [
         "plugin:@typescript-eslint/recommended",
+        "plugin:import/recommended",
+        "plugin:import/typescript",
         "plugin:lit/recommended",
         "plugin:lyne/all",
         "prettier"
@@ -86,7 +88,31 @@
         // TODO: Remove this after fixing issues
         "@typescript-eslint/no-var-requires": "off",
         // TODO: Evaluate this rule
-        "@typescript-eslint/semi": ["error"],
+        "@typescript-eslint/semi": "error",
+        "import/first": "error",
+        "import/no-absolute-path": "error",
+        "import/no-cycle": "error",
+        "import/no-self-import": "error",
+        "import/no-unresolved": [
+          "error",
+          {
+            "ignore": [
+              "\\.md\\?raw$",
+              "\\.svg\\?raw$",
+              "\\.scss\\?lit\\&inline",
+              // Broken. Maybe due to commonjs?
+              "@storybook/addon-actions/decorator"
+            ]
+          }
+        ],
+        "import/no-useless-path-segments": "error",
+        "import/order": [
+          "error",
+          {
+            "alphabetize": { "order": "asc", "caseInsensitive": true },
+            "newlines-between": "always"
+          }
+        ],
         // TODO Discuss this with the team
         "lit/no-invalid-html": "off",
         "camelcase": "off"

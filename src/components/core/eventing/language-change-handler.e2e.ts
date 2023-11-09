@@ -1,7 +1,9 @@
-import { documentLanguage, sbbLanguageChangeEventName } from './language-change-handler';
-import { EventSpy } from '../testing';
 import { expect, fixture, nextFrame } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { EventSpy } from '../testing';
+
+import { documentLanguage, sbbLanguageChangeEventName } from './language-change-handler';
 
 import '../../button';
 

@@ -1,12 +1,7 @@
 /** @jsx h */
-import { h, JSX } from 'jsx-dom';
-import { SbbAutocomplete } from './autocomplete';
-import { SbbOption } from '../option';
-import readme from './readme.md?raw';
+import { withActions } from '@storybook/addon-actions/decorator';
 import { userEvent, within } from '@storybook/testing-library';
-import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
-import isChromatic from 'chromatic';
-import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
+import type { InputType } from '@storybook/types';
 import type {
   Meta,
   StoryObj,
@@ -15,8 +10,16 @@ import type {
   Decorator,
   StoryContext,
 } from '@storybook/web-components';
-import type { InputType } from '@storybook/types';
-import { withActions } from '@storybook/addon-actions/decorator';
+import isChromatic from 'chromatic';
+import { h, type JSX } from 'jsx-dom';
+
+import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
+import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
+import { SbbOption } from '../option';
+
+import { SbbAutocomplete } from './autocomplete';
+import readme from './readme.md?raw';
+
 import '../form-error';
 import '../form-field';
 

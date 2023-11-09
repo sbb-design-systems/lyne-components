@@ -1,7 +1,10 @@
-import { LineColor, SbbPearlChainVerticalItem } from './pearl-chain-vertical-item';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
 import { waitForLitRender } from '../core/testing';
+
+import type { LineColor, SbbPearlChainVerticalItem } from './pearl-chain-vertical-item';
+
 import './pearl-chain-vertical-item';
 
 describe('sbb-pearl-chain-vertical-item', () => {

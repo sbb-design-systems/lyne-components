@@ -1,14 +1,13 @@
 import { assert, expect, fixture } from '@open-wc/testing';
-import { html, unsafeStatic } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
 import { TemplateResult } from 'lit';
-import { SbbSelectionPanel } from './selection-panel';
-import { SbbRadioButton, SbbRadioButtonGroup } from '../radio-button';
+import { html, unsafeStatic } from 'lit/static-html.js';
+
 import { SbbCheckbox, SbbCheckboxGroup } from '../checkbox';
-import './selection-panel';
-import '../radio-button';
-import '../checkbox';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
+import { SbbRadioButton, SbbRadioButtonGroup } from '../radio-button';
+
+import { SbbSelectionPanel } from './selection-panel';
 import '../link';
 
 describe('sbb-selection-panel', () => {

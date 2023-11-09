@@ -1,7 +1,9 @@
 import { assert, expect, fixture } from '@open-wc/testing';
-import { html } from 'lit/static-html.js';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
+import { html } from 'lit/static-html.js';
+
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
+
 import { SbbMenu } from './menu';
 import '../../button';
 import '../menu-action';

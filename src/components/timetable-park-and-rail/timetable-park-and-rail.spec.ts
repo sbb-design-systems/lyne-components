@@ -1,6 +1,7 @@
-import sampleData from './timetable-park-and-rail.sample-data';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import sampleData from './timetable-park-and-rail.sample-data';
 import './timetable-park-and-rail';
 
 const config = JSON.stringify(sampleData[0]);

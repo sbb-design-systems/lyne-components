@@ -1,8 +1,10 @@
-import { AgnosticResizeObserver } from '../../core/observers';
 import { CSSResult, html, LitElement, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { SbbNavigationAction } from '../navigation-action';
+
 import { setAttribute } from '../../core/dom';
+import { AgnosticResizeObserver } from '../../core/observers';
+import { type SbbNavigationAction } from '../navigation-action';
+
 import style from './navigation-marker.scss?lit&inline';
 
 /**

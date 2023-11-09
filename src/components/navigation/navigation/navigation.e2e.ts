@@ -1,15 +1,16 @@
-import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
 import { assert, expect, fixture, nextFrame } from '@open-wc/testing';
-import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { SbbNavigation } from './navigation';
-import '../navigation';
+import { html } from 'lit/static-html.js';
+
 import '../navigation-marker';
-import '../navigation-action';
-import '../navigation-section';
-import { SbbNavigationSection } from '../navigation-section';
-import { SbbNavigationAction } from '../navigation-action';
 import { SbbButton } from '../../button';
+import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
+import type { SbbNavigationAction } from '../navigation-action';
+import '../navigation-action';
+import type { SbbNavigationSection } from '../navigation-section';
+import '../navigation-section';
+
+import { SbbNavigation } from './navigation';
 
 describe('sbb-navigation', () => {
   let element: SbbNavigation;

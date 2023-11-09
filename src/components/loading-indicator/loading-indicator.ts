@@ -1,6 +1,8 @@
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+
 import { setAttribute } from '../core/dom';
+
 import style from './loading-indicator.scss?lit&inline';
 
 /**

@@ -1,11 +1,15 @@
-import { i18nDeparture, i18nArrival, i18nTransferProcedures } from '../core/i18n';
 import { format } from 'date-fns';
-import { removeTimezoneFromISOTimeString } from '../core/datetime';
-import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
-import { getDepartureArrivalTimeAttribute, isRideLeg, Leg, PtRideLeg } from '../core/timetable';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
+
+import { removeTimezoneFromISOTimeString } from '../core/datetime';
+import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
+import { i18nDeparture, i18nArrival, i18nTransferProcedures } from '../core/i18n';
+import { getDepartureArrivalTimeAttribute, isRideLeg, Leg, PtRideLeg } from '../core/timetable';
+
 import style from './pearl-chain-time.scss?lit&inline';
+
+import '../icon';
 import '../pearl-chain';
 
 /**

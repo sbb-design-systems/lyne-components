@@ -1,15 +1,14 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import { SbbDatepickerToggle } from './datepicker-toggle';
-import { SbbTooltipTrigger } from '../../tooltip';
-import { SbbTooltip } from '../../tooltip';
-import { SbbFormField } from '../../form-field';
+
 import { SbbCalendar } from '../../calendar';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
+import { SbbFormField } from '../../form-field';
+import { SbbTooltipTrigger, SbbTooltip } from '../../tooltip';
+
+import { SbbDatepickerToggle } from './datepicker-toggle';
 
 import '../datepicker';
-import '../../form-field';
-import './datepicker-toggle';
 
 describe('sbb-datepicker-toggle', () => {
   it('renders standalone', async () => {

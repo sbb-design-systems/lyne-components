@@ -1,10 +1,12 @@
-import { i18nTimeInputChange } from '../core/i18n';
 import { assert, expect, fixture } from '@open-wc/testing';
-import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { EventSpy, waitForLitRender } from '../core/testing';
-import { SbbTimeInput } from './time-input';
+import { html } from 'lit/static-html.js';
+
+import { i18nTimeInputChange } from '../core/i18n';
 import { ValidationChangeEvent } from '../core/interfaces';
+import { EventSpy, waitForLitRender } from '../core/testing';
+
+import { SbbTimeInput } from './time-input';
 
 describe('sbb-time-input', () => {
   let element: SbbTimeInput, input: HTMLInputElement;

@@ -1,11 +1,13 @@
+import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { customElement, state } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
+
+import { setAttributes } from '../core/dom';
+
 import clockFaceSVG from './assets/sbb_clock_face.svg?raw';
 import clockHandleHoursSVG from './assets/sbb_clock_hours.svg?raw';
 import clockHandleMinutesSVG from './assets/sbb_clock_minutes.svg?raw';
 import clockHandleSecondsSVG from './assets/sbb_clock_seconds.svg?raw';
-import { CSSResult, html, LitElement, TemplateResult } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
-import { setAttributes } from '../core/dom';
-import { ref } from 'lit/directives/ref.js';
 import style from './clock.scss?lit&inline';
 
 /** Number of hours on the clock face. */

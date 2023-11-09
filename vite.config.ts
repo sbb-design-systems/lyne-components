@@ -1,8 +1,9 @@
-import { PluginOption, ResolvedConfig, defineConfig } from 'vite';
-import postcssLit from 'rollup-plugin-postcss-lit';
 import { readFileSync } from 'fs';
-import * as glob from 'glob';
 import { join } from 'path';
+
+import * as glob from 'glob';
+import postcssLit from 'rollup-plugin-postcss-lit';
+import { PluginOption, ResolvedConfig, defineConfig } from 'vite';
 
 export const root = new URL('.', import.meta.url);
 

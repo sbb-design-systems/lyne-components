@@ -1,15 +1,17 @@
 /** @jsx h */
-import { SbbDialog } from './dialog';
-import { Fragment, h, JSX } from 'jsx-dom';
-import readme from './readme.md?raw';
-import sampleImages from '../core/images';
-import isChromatic from 'chromatic';
+import { withActions } from '@storybook/addon-actions/decorator';
 import { userEvent, within } from '@storybook/testing-library';
+import type { InputType } from '@storybook/types';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
+import isChromatic from 'chromatic';
+import { Fragment, h, type JSX } from 'jsx-dom';
+
 import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import type { InputType } from '@storybook/types';
+import sampleImages from '../core/images';
+
+import { SbbDialog } from './dialog';
+import readme from './readme.md?raw';
 
 import '../button';
 import '../link';

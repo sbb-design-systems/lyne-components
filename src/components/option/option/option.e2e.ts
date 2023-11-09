@@ -1,11 +1,13 @@
 import { assert, expect, fixture } from '@open-wc/testing';
-import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { waitForLitRender, EventSpy } from '../../core/testing';
-import { SbbOption } from './option';
-import { SbbFormField } from '../../form-field';
+import { html } from 'lit/static-html.js';
+
 import '../../autocomplete';
+import { waitForLitRender, EventSpy } from '../../core/testing';
+import type { SbbFormField } from '../../form-field';
 import '../../form-field';
+
+import { SbbOption } from './option';
 
 describe('sbb-option', () => {
   describe('autocomplete', () => {

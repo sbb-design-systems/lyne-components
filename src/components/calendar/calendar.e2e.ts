@@ -1,10 +1,11 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+
 import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
+
 import '../button';
 import '../icon';
-import './calendar';
 import { SbbCalendar } from './calendar';
 
 describe('sbb-calendar', () => {

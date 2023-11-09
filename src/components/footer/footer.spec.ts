@@ -1,8 +1,9 @@
-import { SbbFooter } from './footer';
-import './footer';
-
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import type { SbbFooter } from './footer';
+
+import './footer';
 
 describe('sbb-footer', () => {
   it('renders', async () => {

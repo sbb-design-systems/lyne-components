@@ -1,12 +1,15 @@
 /** @jsx h */
-import { h, JSX } from 'jsx-dom';
-import readme from './readme.md?raw';
 import { userEvent, within } from '@storybook/testing-library';
+import type { InputType } from '@storybook/types';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
+import isChromatic from 'chromatic';
+import { h, type JSX } from 'jsx-dom';
+
 import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
-import isChromatic from 'chromatic';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import type { InputType } from '@storybook/types';
+
+import readme from './readme.md?raw';
+
 import './skiplink-list';
 import '../link';
 

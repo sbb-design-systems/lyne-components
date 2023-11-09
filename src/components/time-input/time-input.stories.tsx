@@ -1,16 +1,17 @@
 /** @jsx h */
-import { h, JSX } from 'jsx-dom';
-import readme from './readme.md?raw';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import { StoryContext } from '@storybook/web-components';
-import { SbbTimeInput } from './time-input';
+import { h, type JSX } from 'jsx-dom';
+
 import { SbbFormError } from '../form-error';
+
+import readme from './readme.md?raw';
+import { SbbTimeInput } from './time-input';
 
 import '../form-field';
 import '../button';
-import './time-input';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative

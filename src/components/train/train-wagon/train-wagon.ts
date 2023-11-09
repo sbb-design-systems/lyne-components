@@ -1,3 +1,14 @@
+import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { html, unsafeStatic } from 'lit/static-html.js';
+
+import { setAttribute } from '../../core/dom';
+import {
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+  EventEmitter,
+} from '../../core/eventing';
 import {
   i18nAdditionalWagonInformationHeading,
   i18nBlockedPassage,
@@ -9,20 +20,10 @@ import {
   i18nWagonLabel,
   i18nWagonLabelNumber,
 } from '../../core/i18n';
-import {
-  documentLanguage,
-  HandlerRepository,
-  languageChangeHandlerAspect,
-  EventEmitter,
-} from '../../core/eventing';
-import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
-import { html, unsafeStatic } from 'lit/static-html.js';
-import { customElement, property, state } from 'lit/decorators.js';
-import { SbbIcon } from '../../icon';
-import { setAttribute } from '../../core/dom';
 import { SbbOccupancy } from '../../core/interfaces';
+import { SbbIcon } from '../../icon';
+
 import style from './train-wagon.scss?lit&inline';
-import '../../icon';
 
 /**
  * @slot - Use the unnamed slot to add one or more icons for meta information of the sbb-train-wagon.

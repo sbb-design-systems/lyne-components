@@ -1,12 +1,7 @@
-import {
-  applyInertMechanism,
-  getElementPosition,
-  isEventOnElement,
-  removeAriaOverlayTriggerAttributes,
-  removeInertMechanism,
-  SbbOverlayState,
-  setAriaOverlayTriggerAttributes,
-} from '../../core/overlay';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
+
 import {
   assignId,
   FocusTrap,
@@ -23,11 +18,18 @@ import {
   ScrollHandler,
   setAttribute,
 } from '../../core/dom';
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
+import {
+  applyInertMechanism,
+  getElementPosition,
+  isEventOnElement,
+  removeAriaOverlayTriggerAttributes,
+  removeInertMechanism,
+  SbbOverlayState,
+  setAriaOverlayTriggerAttributes,
+} from '../../core/overlay';
 import { SbbMenuAction } from '../menu-action';
-import { ref } from 'lit/directives/ref.js';
+
 import style from './menu.scss?lit&inline';
 
 const MENU_OFFSET = 8;

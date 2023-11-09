@@ -1,7 +1,9 @@
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import style from './logo.scss?lit&inline';
+
 import { SbbProtectiveRoom } from '../core/interfaces';
+
+import style from './logo.scss?lit&inline';
 
 /**
  * TODO: Document me

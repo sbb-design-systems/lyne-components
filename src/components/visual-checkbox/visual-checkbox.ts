@@ -1,5 +1,6 @@
 import { CSSResult, html, LitElement, TemplateResult, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+
 import style from './visual-checkbox.scss?lit&inline';
 
 /**

@@ -1,7 +1,10 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
 import { isFirefox } from '../core/dom';
-import { SbbToast } from './toast';
+
+import type { SbbToast } from './toast';
+
 import './toast';
 
 describe('sbb-toast', () => {

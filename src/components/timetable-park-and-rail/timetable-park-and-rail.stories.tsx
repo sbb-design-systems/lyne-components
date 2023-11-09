@@ -1,9 +1,10 @@
 /** @jsx h */
-import { h, JSX } from 'jsx-dom';
+import type { InputType } from '@storybook/types';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
+import { h, type JSX } from 'jsx-dom';
+
 import readme from './readme.md?raw';
 import sampleData from './timetable-park-and-rail.sample-data';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import type { InputType } from '@storybook/types';
 import './timetable-park-and-rail';
 
 const Template = (args): JSX.Element => (

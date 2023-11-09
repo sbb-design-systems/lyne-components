@@ -1,10 +1,11 @@
 // This implementation is inspired by https://github.com/angular/components/blob/main/src/cdk/a11y/input-modality/input-modality-detector.ts
 
+import { getEventTarget } from '../eventing';
+
 import {
   isFakeMousedownFromScreenReader,
   isFakeTouchstartFromScreenReader,
 } from './fake-event-detection';
-import { getEventTarget } from '../eventing';
 
 export type SbbInputModality = 'touch' | 'mouse' | 'keyboard' | 'program' | null;
 

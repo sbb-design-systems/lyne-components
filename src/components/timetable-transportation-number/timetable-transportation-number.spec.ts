@@ -1,6 +1,7 @@
-import sampleData from './timetable-transportation-number.sample-data';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import sampleData from './timetable-transportation-number.sample-data';
 import './timetable-transportation-number';
 
 const config = JSON.stringify(sampleData.bus);

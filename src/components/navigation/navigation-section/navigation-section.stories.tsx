@@ -1,19 +1,20 @@
 /** @jsx h */
-import { Fragment, h, JSX } from 'jsx-dom';
-import readme from './readme.md?raw';
-import isChromatic from 'chromatic';
-import { userEvent, waitFor, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
+import { userEvent, waitFor, within } from '@storybook/testing-library';
 import type { InputType } from '@storybook/types';
-import '../navigation-section';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
+import isChromatic from 'chromatic';
+import { Fragment, h, type JSX } from 'jsx-dom';
+
+import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
 import '../navigation-list';
 import '../navigation-action';
-import '../navigation-marker';
+import { SbbNavigationMarker } from '../navigation-marker';
 import '../navigation';
 import '../../button';
-import { SbbNavigationMarker } from '../navigation-marker';
+
+import '.';
+import readme from './readme.md?raw';
 
 // Story interaction executed after the story renders
 const playStory = async (trigger, canvasElement): Promise<void> => {

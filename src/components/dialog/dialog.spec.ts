@@ -1,7 +1,8 @@
-import { i18nCloseDialog } from '../core/i18n';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import '../dialog';
+
+import { i18nCloseDialog } from '../core/i18n';
+import '.';
 
 describe('sbb-dialog', () => {
   it('renders', async () => {

@@ -2,8 +2,9 @@
  * Docs: https://github.com/open-wc/custom-elements-manifest/tree/master/packages/to-markdown
  */
 import fs from 'fs';
+
 import { customElementsManifestToMarkdown } from '@custom-elements-manifest/to-markdown';
-import { Package } from 'custom-elements-manifest/schema';
+import type { Package } from 'custom-elements-manifest/schema';
 import * as glob from 'glob';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 import MagicString from 'magic-string';

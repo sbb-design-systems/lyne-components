@@ -1,4 +1,5 @@
 import { expect } from '@open-wc/testing';
+
 import { extractTimeAndStringFromNoticeText } from './timetable-helper';
 import { Notice } from './timetable-properties';
 

@@ -1,8 +1,10 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SbbTrainWagon } from './train-wagon';
+
 import { waitForLitRender } from '../../core/testing';
-import '../train-wagon';
+
+import { SbbTrainWagon } from './train-wagon';
+import '.';
 import '../../icon';
 
 async function extractAriaLabels(

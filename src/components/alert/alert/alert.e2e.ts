@@ -1,7 +1,8 @@
-import { waitForCondition } from '../../core/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { EventSpy } from '../../core/testing';
+
+import { waitForCondition, EventSpy } from '../../core/testing';
+
 import { SbbAlert } from './alert';
 
 describe('sbb-alert', () => {

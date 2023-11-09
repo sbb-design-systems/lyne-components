@@ -1,3 +1,7 @@
+import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
+
 import { findInput, isValidAttribute, toggleDatasetEntry } from '../core/dom';
 import {
   documentLanguage,
@@ -6,12 +10,9 @@ import {
   languageChangeHandlerAspect,
   EventEmitter,
 } from '../core/eventing';
-import { ValidationChangeEvent } from '../core/interfaces';
 import { i18nTimeInputChange } from '../core/i18n';
-import { CSSResult, html, LitElement, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
-import { SbbDateLike } from '../core/interfaces';
+import { ValidationChangeEvent, SbbDateLike } from '../core/interfaces';
+
 import style from './time-input.scss?lit&inline';
 
 const REGEX_ALLOWED_CHARACTERS = /[0-9.:,\-;_hH]/;

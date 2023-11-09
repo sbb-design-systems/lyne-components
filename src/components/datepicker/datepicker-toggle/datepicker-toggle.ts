@@ -1,6 +1,8 @@
 import { CSSResult, html, LitElement, nothing, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
+
+import type { SbbCalendar } from '../../calendar';
 import { sbbInputModalityDetector } from '../../core/a11y';
 import { isValidAttribute, setAttribute } from '../../core/dom';
 import {
@@ -9,19 +11,17 @@ import {
   languageChangeHandlerAspect,
 } from '../../core/eventing';
 import { i18nShowCalendar } from '../../core/i18n';
-import { SbbCalendar } from '../../calendar';
+import type { SbbTooltip, SbbTooltipTrigger } from '../../tooltip';
 import {
   datepickerControlRegisteredEvent,
   getDatePicker,
   InputUpdateEvent,
   type SbbDatepicker,
 } from '../datepicker';
-import { SbbTooltip } from '../../tooltip';
-import { SbbTooltipTrigger } from '../../tooltip';
-import style from './datepicker-toggle.scss?lit&inline';
-
 import '../../calendar';
 import '../../tooltip';
+
+import style from './datepicker-toggle.scss?lit&inline';
 
 /**
  * TODO: Document me

@@ -1,5 +1,6 @@
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+
 import style from './chip.scss?lit&inline';
 
 /**

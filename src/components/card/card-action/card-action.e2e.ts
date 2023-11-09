@@ -1,9 +1,13 @@
 import { expect, fixture } from '@open-wc/testing';
-import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { SbbCard } from '../card';
-import { SbbCardAction } from './card-action';
+import { html } from 'lit/static-html.js';
+
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
+import type { SbbCard } from '../card';
+
+import type { SbbCardAction } from './card-action';
+
+import '../card';
 import './card-action';
 
 describe('sbb-card-action', () => {

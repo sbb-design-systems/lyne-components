@@ -1,3 +1,5 @@
+import { join } from 'path';
+
 import { cli } from '@custom-elements-manifest/analyzer/cli';
 import * as sass from 'sass';
 import {
@@ -9,8 +11,8 @@ import {
   mergeConfig,
 } from 'vite';
 import dts from 'vite-plugin-dts';
+
 import rootConfig, { copyAssets, globIndexMap, packageJsonTemplate, root } from '../../vite.config';
-import { join } from 'path';
 
 const packageRoot = new URL('.', import.meta.url);
 const outDir = new URL('./dist/components/', root);

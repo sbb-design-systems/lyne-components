@@ -1,8 +1,11 @@
 /** @jsx h */
-import { h, JSX } from 'jsx-dom';
-import readme from './readme.md?raw';
+import type { InputType } from '@storybook/types';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import isChromatic from 'chromatic';
+import { h, type JSX } from 'jsx-dom';
+
 import { futureLeg, pastLeg } from '../../../components/pearl-chain/pearl-chain.sample-data';
+
 import './home.scss';
 import {
   BikeProduct,
@@ -15,9 +18,7 @@ import {
   TimetableInput,
   wrapperStyle,
 } from './home.common';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import type { InputType } from '@storybook/types';
-import './home.common';
+import readme from './readme.md?raw';
 
 import '../../../components/dialog';
 import '../../../components/journey-header';

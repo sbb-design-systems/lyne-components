@@ -1,9 +1,11 @@
-import { SbbIcon } from './icon';
-
-import { SbbIconConfig, readConfig } from '../core/config';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { SbbIconConfig, readConfig } from '../core/config';
 import { waitForLitRender } from '../core/testing';
+
+import type { SbbIcon } from './icon';
+
 import './icon';
 
 describe('sbb-icon', () => {

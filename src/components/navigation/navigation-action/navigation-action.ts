@@ -1,12 +1,9 @@
-import {
-  ButtonType,
-  LinkButtonRenderVariables,
-  LinkTargetType,
-  resolveRenderVariables,
-  targetsNewWindow,
-} from '../../core/interfaces';
-import { i18nTargetOpensInNewWindow } from '../../core/i18n';
-import { hostContext } from '../../core/dom';
+import { spread } from '@open-wc/lit-helpers';
+import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { html, unsafeStatic } from 'lit/static-html.js';
+
+import { hostContext, setAttributes } from '../../core/dom';
 import {
   documentLanguage,
   HandlerRepository,
@@ -14,12 +11,16 @@ import {
   languageChangeHandlerAspect,
   ConnectedAbortController,
 } from '../../core/eventing';
-import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
-import { html, unsafeStatic } from 'lit/static-html.js';
-import { customElement, property, state } from 'lit/decorators.js';
-import { spread } from '@open-wc/lit-helpers';
-import { SbbNavigationMarker } from '../navigation-marker';
-import { setAttributes } from '../../core/dom';
+import { i18nTargetOpensInNewWindow } from '../../core/i18n';
+import {
+  ButtonType,
+  LinkButtonRenderVariables,
+  LinkTargetType,
+  resolveRenderVariables,
+  targetsNewWindow,
+} from '../../core/interfaces';
+import { type SbbNavigationMarker } from '../navigation-marker';
+
 import style from './navigation-action.scss?lit&inline';
 
 /**

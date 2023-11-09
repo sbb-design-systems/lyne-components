@@ -1,7 +1,9 @@
-import { getSvgContent } from './icon-request';
 import { html, LitElement, TemplateResult, PropertyValues, CSSResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
+
 import { setAttribute } from '../core/dom';
+
+import { getSvgContent } from './icon-request';
 import style from './icon.scss?lit&inline';
 
 /**

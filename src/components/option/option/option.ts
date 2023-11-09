@@ -1,5 +1,15 @@
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
+
 import { assignId } from '../../core/a11y';
-import { isSafari, isValidAttribute, isAndroid, toggleDatasetEntry } from '../../core/dom';
+import {
+  isSafari,
+  isValidAttribute,
+  isAndroid,
+  toggleDatasetEntry,
+  setAttribute,
+} from '../../core/dom';
 import {
   createNamedSlotState,
   HandlerRepository,
@@ -8,10 +18,7 @@ import {
   ConnectedAbortController,
 } from '../../core/eventing';
 import { AgnosticMutationObserver } from '../../core/observers';
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { setAttribute } from '../../core/dom';
-import { classMap } from 'lit/directives/class-map.js';
+
 import style from './option.scss?lit&inline';
 import '../../visual-checkbox';
 import '../../icon';

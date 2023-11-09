@@ -1,4 +1,7 @@
-import { findShadowInput } from '../core/dom';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+
+import { findShadowInput, setAttributes } from '../core/dom';
 import {
   HandlerRepository,
   formElementHandlerAspect,
@@ -7,9 +10,7 @@ import {
   EventEmitter,
   ConnectedAbortController,
 } from '../core/eventing';
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { setAttributes } from '../core/dom';
+
 import style from './toggle-check.scss?lit&inline';
 import '../icon';
 

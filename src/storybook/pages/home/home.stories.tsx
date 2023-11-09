@@ -1,6 +1,10 @@
 /** @jsx h */
-import { h, JSX } from 'jsx-dom';
-import readme from './readme.md?raw';
+import type { InputType } from '@storybook/types';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
+import { h, type JSX } from 'jsx-dom';
+
+import '../../../components/alert';
+
 import {
   BikeProduct,
   DailyTicketProduct,
@@ -12,13 +16,8 @@ import {
   TimetableInput,
   wrapperStyle,
 } from './home.common';
+import readme from './readme.md?raw';
 import './home.scss';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import type { InputType } from '@storybook/types';
-
-import './home.common';
-import '../../../components/alert';
-import '../../../components/action-group';
 
 /* ************************************************* */
 /* Storybook controls                                */

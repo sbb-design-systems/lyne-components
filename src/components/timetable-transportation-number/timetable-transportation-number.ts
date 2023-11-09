@@ -1,8 +1,10 @@
-import icons from '../core/timetable/icons.json';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import style from './timetable-transportation-number.scss?lit&inline';
+
 import { SbbTimetableAppearance } from '../core/interfaces';
+import icons from '../core/timetable/icons.json';
+
+import style from './timetable-transportation-number.scss?lit&inline';
 
 /**
  * TODO: Document me

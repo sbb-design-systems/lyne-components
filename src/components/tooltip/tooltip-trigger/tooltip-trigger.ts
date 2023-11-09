@@ -1,8 +1,10 @@
 import { CSSResult, LitElement, TemplateResult, html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+
 import { hostContext, isValidAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
 import { HandlerRepository, actionElementHandlerAspect } from '../../core/eventing';
 import { resolveButtonRenderVariables } from '../../core/interfaces';
+
 import style from './tooltip-trigger.scss?lit&inline';
 import '../../icon';
 

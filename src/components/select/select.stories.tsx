@@ -1,12 +1,7 @@
 /** @jsx h */
-import { Fragment, h, JSX } from 'jsx-dom';
-import { SbbSelect } from './select';
-import { SbbOption } from '../option';
-import readme from './readme.md?raw';
+import { withActions } from '@storybook/addon-actions/decorator';
 import { userEvent, within } from '@storybook/testing-library';
-import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
-import isChromatic from 'chromatic/isChromatic';
-import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
+import type { InputType } from '@storybook/types';
 import type {
   Meta,
   StoryObj,
@@ -15,11 +10,18 @@ import type {
   Decorator,
   StoryContext,
 } from '@storybook/web-components';
-import type { InputType } from '@storybook/types';
-import { withActions } from '@storybook/addon-actions/decorator';
-import '../form-field';
+import isChromatic from 'chromatic/isChromatic';
+import { Fragment, h, type JSX } from 'jsx-dom';
+
+import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
+import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
+import { SbbOption } from '../option';
+
+import readme from './readme.md?raw';
+import { SbbSelect } from './select';
+
 import '../form-error';
-import '../option';
+import '../form-field';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative

@@ -1,8 +1,10 @@
 import { assert, expect, fixture } from '@open-wc/testing';
-import { html } from 'lit/static-html.js';
-import { waitForLitRender } from '../../core/testing';
-import { SbbTrainFormation } from './train-formation';
 import { TemplateResult } from 'lit';
+import { html } from 'lit/static-html.js';
+
+import { waitForLitRender } from '../../core/testing';
+
+import { SbbTrainFormation } from './train-formation';
 import '../../icon';
 import '../train';
 import '../train-wagon';

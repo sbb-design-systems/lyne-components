@@ -1,6 +1,8 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
 import { EventSpy, waitForCondition } from '../../core/testing';
+
 import { SbbTrain } from './train';
 import '../../icon';
 

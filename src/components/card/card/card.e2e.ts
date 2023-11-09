@@ -1,5 +1,6 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
 import { SbbCard } from './card';
 import '../card-badge';
 

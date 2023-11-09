@@ -1,6 +1,8 @@
-import { EventSpy, waitForCondition } from '../core/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { EventSpy, waitForCondition } from '../core/testing';
+
 import { SbbTimetableRow } from './timetable-row';
 
 describe('sbb-timetable-row', () => {

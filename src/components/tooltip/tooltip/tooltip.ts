@@ -1,6 +1,7 @@
 import { CSSResult, LitElement, PropertyValues, TemplateResult, html, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
+
 import {
   FocusTrap,
   IS_FOCUSABLE_QUERY,
@@ -25,6 +26,7 @@ import {
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay';
+
 import '../../button';
 import style from './tooltip.scss?lit&inline';
 

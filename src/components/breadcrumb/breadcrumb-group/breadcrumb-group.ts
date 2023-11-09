@@ -1,16 +1,18 @@
-import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, state } from 'lit/decorators.js';
+
+import { getNextElementIndex, isArrowKeyPressed, sbbInputModalityDetector } from '../../core/a11y';
+import { setAttribute } from '../../core/dom';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
   ConnectedAbortController,
 } from '../../core/eventing';
-import { getNextElementIndex, isArrowKeyPressed, sbbInputModalityDetector } from '../../core/a11y';
+import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n';
 import { AgnosticResizeObserver } from '../../core/observers';
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
 import { SbbBreadcrumb } from '../breadcrumb';
-import { setAttribute } from '../../core/dom';
+
 import style from './breadcrumb-group.scss?lit&inline';
 
 /**

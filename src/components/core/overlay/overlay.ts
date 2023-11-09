@@ -1,4 +1,5 @@
 import { TemplateResult, html } from 'lit';
+
 import { toggleDatasetEntry } from '../dom';
 
 export type SbbOverlayState = 'closed' | 'opening' | 'opened' | 'closing';

@@ -1,10 +1,12 @@
-import { i18nMapContainerButtonLabel } from '../core/i18n';
-import { toggleDatasetEntry } from '../core/dom';
-import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
-import { AgnosticIntersectionObserver } from '../core/observers';
 import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
+
+import { toggleDatasetEntry } from '../core/dom';
+import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
+import { i18nMapContainerButtonLabel } from '../core/i18n';
+import { AgnosticIntersectionObserver } from '../core/observers';
+
 import style from './map-container.scss?lit&inline';
 import '../button';
 
