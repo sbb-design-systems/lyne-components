@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": ".",
     "outDir": "./dist/out-tsc",
     "target": "es2021",
     "module": "esnext",
@@ -13,10 +13,14 @@
     "moduleResolution": "node",
     "skipLibCheck": true,
     "experimentalDecorators": true,
-    "jsx": "react",
-    "jsxFactory": "h",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "paths": {
+      "@sbb-esta/lyne-components": ["src/components"],
+      "@sbb-esta/lyne-components/*": ["src/components/*"],
+      "@sbb-esta/lyne-components-react": ["src/react"],
+      "@sbb-esta/lyne-components-react/*": ["src/react/*"]
+    },
 
     /** linting **/
     "allowSyntheticDefaultImports": true,
@@ -43,5 +47,6 @@
       }
     ]
   },
-  "include": ["./src/**/*.ts", "./src/**/*.tsx", "node_modules/lit-scss-loader/types.d.ts"]
+  "include": ["src/**/*.ts", "tools/**/*.ts", "ci/**/*.ts"],
+  "exclude": ["node_modules/"]
 }

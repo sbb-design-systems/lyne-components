@@ -3,11 +3,13 @@
  */
 import fs from 'fs';
 import { customElementsManifestToMarkdown } from '@custom-elements-manifest/to-markdown';
+import { Package } from 'custom-elements-manifest/schema';
+import * as glob from 'glob';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 import MagicString from 'magic-string';
 import { format, resolveConfig } from 'prettier';
 
-const manifestFilePath = './dist/custom-elements.json';
+const manifestFilePath = './dist/components/custom-elements.json';
 const tempFolderPath = './dist/docs';
 const componentsFolder = './src/components';
 const inheritedFromColumnIndex = 6;
@@ -54,8 +56,7 @@ function updateFieldsTable(newDocs: MagicString, sections: RegExpMatchArray[]): 
 }
 
 async function updateComponentReadme(name: string, tag: string, docs: string): Promise<void> {
-  const compFolder = tag;
-  const path = `${componentsFolder}/${compFolder}/readme.md`;
+  const path = glob.sync(`${componentsFolder}/**/${tag.replace(/^sbb-/, '')}/readme.md`)[0];
   if (!fs.existsSync(path)) {
     console.error(`Component ${name} has no readme file, please create it following the template`);
     return;
@@ -99,7 +100,7 @@ async function updateComponentReadme(name: string, tag: string, docs: string): P
   fs.writeFileSync(path, await format(newReadme.toString(), { ...options, filepath: path }));
 }
 
-const manifest = JSON.parse(fs.readFileSync(manifestFilePath, 'utf-8'));
+const manifest: Package = JSON.parse(fs.readFileSync(manifestFilePath, 'utf-8'));
 const markdown: string = customElementsManifestToMarkdown(manifest, {
   headingOffset: -1, // Default heading is '###'
   private: 'details', // We use 'details' because it's the only way to remove 'protected' members from the tables. We remove details section later.
