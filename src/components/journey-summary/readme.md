@@ -32,4 +32,4 @@ If the tripBack prop is passed to the component a second journey-summary, withou
 
 | Name      | Description                                                       |
 | --------- | ----------------------------------------------------------------- |
-| `content` | use this slot to add `sbb-button`s or other interactive elements. |
+| `content` | Use this slot to add `sbb-button`s or other interactive elements. |
