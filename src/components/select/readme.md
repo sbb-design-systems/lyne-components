@@ -125,8 +125,8 @@ Opened panel:
 | Name         | Type                | Description                                                                      | Inherited From |
 | ------------ | ------------------- | -------------------------------------------------------------------------------- | -------------- |
 | `did-change` | `CustomEvent<void>` | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
-| `change`     | `CustomEvent<void>` | TODO: Document this event                                                        |                |
-| `input`      | `CustomEvent<void>` | TODO: Document this event                                                        |                |
+| `change`     | `CustomEvent<void>` | Notifies that the component's value has changed.                                 |                |
+| `input`      | `CustomEvent<void>` | Notifies that an option value has been selected.                                 |                |
 | `will-open`  | `CustomEvent<void>` | Emits whenever the select starts the opening transition.                         |                |
 | `did-open`   | `CustomEvent<void>` | Emits whenever the select is opened.                                             |                |
 | `will-close` | `CustomEvent<void>` | Emits whenever the select begins the closing transition.                         |                |

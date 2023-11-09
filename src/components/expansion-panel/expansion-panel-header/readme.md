@@ -42,9 +42,9 @@ When the element is clicked, the `toggle-expanded` event is emitted.
 
 ## Events
 
-| Name              | Type                | Description               | Inherited From |
-| ----------------- | ------------------- | ------------------------- | -------------- |
-| `toggle-expanded` | `CustomEvent<void>` | TODO: Document this event |                |
+| Name              | Type                | Description                            | Inherited From |
+| ----------------- | ------------------- | -------------------------------------- | -------------- |
+| `toggle-expanded` | `CustomEvent<void>` | Notifies that the panel has to expand. |                |
 
 ## Slots
 

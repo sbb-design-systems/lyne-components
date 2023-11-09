@@ -79,3 +79,10 @@ If the label slot contains only a **text node**, it is possible to search for te
 | ------------------------- | ------------------- | ----------------------------------------------- | -------------- |
 | `option-selection-change` | `CustomEvent<void>` | Emits when the option selection status changes. |                |
 | `option-selected`         | `CustomEvent<void>` | Emits when an option was selected by user.      |                |
+
+## Slots
+
+| Name   | Description                                                                       |
+| ------ | --------------------------------------------------------------------------------- |
+|        | Use the unnamed slot to add content to the option label.                          |
+| `icon` | Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used. |

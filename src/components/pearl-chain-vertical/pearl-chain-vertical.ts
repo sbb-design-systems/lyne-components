@@ -3,7 +3,7 @@ import { customElement } from 'lit/decorators.js';
 import style from './pearl-chain-vertical.scss?lit&inline';
 
 /**
- * @slot - for <sbb-pearl-chain-vertical-item></sbb-pearl-chain-vertical-item> component
+ * @slot - The unnamed slot is used for the `sbb-pearl-chain-vertical-item` component.
  */
 @customElement('sbb-pearl-chain-vertical')
 export class SbbPearlChainVertical extends LitElement {
