@@ -1,11 +1,12 @@
 /** @jsx h */
-import { Fragment, h, JSX } from 'jsx-dom';
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 import { StoryContext } from '@storybook/web-components';
 import { SbbTimeInput } from './time-input';
+import { SbbFormError } from '../form-error';
 
 import '../form-field';
 import '../button';
@@ -17,35 +18,46 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
     : 'var(--sbb-color-white-default)',
 });
 
-const formError = document.createElement('sbb-form-error');
-formError.innerText = 'Time value is invalid';
+const updateFormError = (event: CustomEvent): void => {
+  const valid = event.detail.valid;
+  const target = event.target as SbbTimeInput;
+  const formField = target.closest('sbb-form-field');
 
-const updateFormError = (valid: boolean): void => {
-  if (!valid && !formError.isConnected) {
-    document.getElementsByTagName('sbb-form-field')[0].append(formError);
+  const formError: SbbFormError = document.createElement('sbb-form-error');
+  formError.innerText = 'Time value is invalid';
+
+  if (!valid) {
+    formField.append(formError);
   } else if (valid) {
-    formError.remove();
+    formField.querySelectorAll('sbb-form-error').forEach((el) => el.remove());
   }
 };
 
-const changeEventHandler = async (event): Promise<void> => {
+const changeEventHandler = async (event: CustomEvent): Promise<void> => {
+  const target = event.target as SbbTimeInput;
+  const exampleParent = target.closest('div#example-parent');
   const div = document.createElement('div');
   div.innerText = `value is: ${
-    (document.getElementById('input-id') as HTMLInputElement).value
-  }; valueAsDate is: ${await event.target.getValueAsDate()}.`;
-  document.getElementById('container-value').append(div);
+    (exampleParent.querySelector('#input-id') as HTMLInputElement).value
+  }; valueAsDate is: ${await target.getValueAsDate()}.`;
+  exampleParent.querySelector('#container-value').append(div);
 };
 
-const setValueAsDate = async (): Promise<void> => {
-  const timeInput = document.getElementsByTagName('sbb-time-input')[0];
+const setValueAsDate = async (event: Event): Promise<void> => {
+  const target = event.target as HTMLElement;
+  const exampleParent = target.closest('div#example-parent');
+
+  const timeInput = exampleParent.querySelector('sbb-time-input');
   await timeInput.setValueAsDate(new Date());
 
-  const input = document.getElementById('input-id');
+  const input = exampleParent.querySelector('#input-id') as HTMLInputElement;
   input.dispatchEvent(new Event('change')); // Trigger change to update invalid state
 };
 
-const setValue = (): void => {
-  const input = document.getElementById('input-id') as HTMLInputElement;
+const setValue = (event): void => {
+  const target = event.target as HTMLElement;
+
+  const input = target.closest('div#example-parent').querySelector('#input-id') as HTMLInputElement;
   input.value = '00:00';
   input.dispatchEvent(new Event('change')); // Trigger change to update invalid state
 };
@@ -206,7 +218,7 @@ const TemplateSbbTimeInput = ({
   size,
   ...args
 }): JSX.Element => (
-  <Fragment>
+  <div id="example-parent">
     <sbb-form-field
       size={size}
       label={label}
@@ -217,17 +229,21 @@ const TemplateSbbTimeInput = ({
     >
       {iconStart && <sbb-icon slot="prefix" name={iconStart}></sbb-icon>}
       <sbb-time-input
-        onChange={(event) => changeEventHandler(event)}
-        onValidationChange={(event) => updateFormError(event.detail.valid)}
+        onChange={(event: CustomEvent) => changeEventHandler(event)}
+        onValidationChange={(event: CustomEvent) => updateFormError(event)}
       ></sbb-time-input>
       <input id="input-id" {...args} />
       {iconEnd && <sbb-icon slot="suffix" name={iconEnd}></sbb-icon>}
     </sbb-form-field>
     <div style={{ display: 'flex', gap: '1em', 'margin-block-start': '2rem' }}>
-      <sbb-button variant="secondary" size="m" onClick={() => setValueAsDate()}>
+      <sbb-button
+        variant="secondary"
+        size="m"
+        onClick={(event: PointerEvent) => setValueAsDate(event)}
+      >
         Set valueAsDate to current datetime
       </sbb-button>
-      <sbb-button variant="secondary" size="m" onClick={() => setValue()}>
+      <sbb-button variant="secondary" size="m" onClick={(event: PointerEvent) => setValue(event)}>
         Set value to 00:00
       </sbb-button>
     </div>
@@ -235,7 +251,7 @@ const TemplateSbbTimeInput = ({
       <div style={{ 'margin-block-start': '1rem' }}>Change time in input:</div>
       <div id="container-value"></div>
     </div>
-  </Fragment>
+  </div>
 );
 
 export const SbbTimeInputBase: StoryObj = {
