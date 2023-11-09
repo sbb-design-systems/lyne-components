@@ -23,7 +23,7 @@ const arrivalNotServiced = {
   stopPoints: [{ stopStatus: 'PLANNED' }, { stopStatus: 'NOT_SERVICED' }],
 };
 
-export const futureLeg = {
+export const futureLeg: any = {
   __typename: 'PTRideLeg',
   arrival: { time: future2 },
   departure: { time: future },
@@ -47,21 +47,21 @@ export const longFutureLeg = {
   serviceJourney: defaultService,
 };
 
-export const cancelledLeg = {
+export const cancelledLeg: any = {
   __typename: 'PTRideLeg',
   arrival: { time: future2 },
   departure: { time: future },
   serviceJourney: cancelledService,
 };
 
-export const progressLeg = {
+export const progressLeg: any = {
   __typename: 'PTRideLeg',
   arrival: { time: future },
   departure: { time: past },
   serviceJourney: defaultService,
 };
 
-export const pastLeg = {
+export const pastLeg: any = {
   __typename: 'PTRideLeg',
   arrival: { time: past },
   departure: { time: past2 },

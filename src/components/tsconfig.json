@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "../..",
+    "baseUrl": ".",
+    "paths": {
+      "@sbb-esta/lyne-components/*": ["./*"],
+      "@sbb-esta/lyne-components-react": ["../react"],
+      "@sbb-esta/lyne-components-react/*": ["../react/*"]
+    }
+  },
+  "include": ["./**/*.ts", "../vite-env.d.ts"]
+}
