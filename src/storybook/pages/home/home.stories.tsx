@@ -18,6 +18,7 @@ import type { InputType } from '@storybook/types';
 
 import './home.common';
 import '../../../components/alert';
+import '../../../components/action-group';
 
 /* ************************************************* */
 /* Storybook controls                                */
