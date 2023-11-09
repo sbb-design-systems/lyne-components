@@ -18,6 +18,7 @@ import type {
 import type { InputType } from '@storybook/types';
 import { withActions } from '@storybook/addon-actions/decorator';
 import '../form-field';
+import '../form-error';
 import '../option';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
