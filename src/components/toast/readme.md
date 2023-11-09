@@ -116,17 +116,17 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 
 ## Events
 
-| Name         | Type                | Description                                                    | Inherited From |
-| ------------ | ------------------- | -------------------------------------------------------------- | -------------- |
-| `will-open`  | `CustomEvent<void>` | Emits whenever the autocomplete starts the opening transition. |                |
-| `did-open`   | `CustomEvent<void>` | Emits whenever the autocomplete is opened.                     |                |
-| `will-close` | `CustomEvent<void>` | Emits whenever the autocomplete begins the closing transition. |                |
-| `did-close`  | `CustomEvent<void>` | Emits whenever the autocomplete is closed.                     |                |
+| Name         | Type                | Description                                                   | Inherited From |
+| ------------ | ------------------- | ------------------------------------------------------------- | -------------- |
+| `will-open`  | `CustomEvent<void>` | Emits whenever the `sbb-toast` starts the opening transition. |                |
+| `did-open`   | `CustomEvent<void>` | Emits whenever the `sbb-toast` is opened.                     |                |
+| `will-close` | `CustomEvent<void>` | Emits whenever the `sbb-toast` begins the closing transition. |                |
+| `did-close`  | `CustomEvent<void>` | Emits whenever the `sbb-toast` is closed.                     |                |
 
 ## Slots
 
-| Name     | Description                                       |
-| -------- | ------------------------------------------------- |
-|          | Use the unnamed slot to add content to the toast. |
-| `icon`   | Assign a custom icon via slot.                    |
-| `action` | Provide a custom action for this toast.           |
+| Name     | Description                                             |
+| -------- | ------------------------------------------------------- |
+|          | Use the unnamed slot to add content to the `sbb-toast`. |
+| `icon`   | Assign a custom icon via slot.                          |
+| `action` | Provide a custom action for this toast.                 |

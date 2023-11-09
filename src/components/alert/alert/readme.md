@@ -105,8 +105,8 @@ Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and
 
 ## Slots
 
-| Name    | Description                                                                                                |
-| ------- | ---------------------------------------------------------------------------------------------------------- |
-| `icon`  | Should be a sbb-icon which is displayed next to the title. Styling is optimized for icons of type HIM-CUS. |
-| `title` | Title content.                                                                                             |
-|         | Use the unnamed slot to add content to the alert.                                                          |
+| Name    | Description                                                                                                  |
+| ------- | ------------------------------------------------------------------------------------------------------------ |
+|         | Use the unnamed slot to add content to the `sbb-alert`.                                                      |
+| `icon`  | Should be a `sbb-icon` which is displayed next to the title. Styling is optimized for icons of type HIM-CUS. |
+| `title` | Title content.                                                                                               |

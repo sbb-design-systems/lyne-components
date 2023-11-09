@@ -5,7 +5,7 @@ import { setAttribute } from '../core/dom';
 import style from './icon.scss?lit&inline';
 
 /**
- * It displays an icon.
+ * It displays an icon loaded from a registered namespace.
  */
 @customElement('sbb-icon')
 export class SbbIcon extends LitElement {

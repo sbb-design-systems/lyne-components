@@ -6,6 +6,7 @@ import { TitleLevel } from '../title';
 
 /**
  * It displays a footer section for the page.
+ *
  * @slot - Use the unnamed slot to add elements like `sbb-link`, `sbb-link-list`, `sbb-divider` and so on.
  */
 @customElement('sbb-footer')

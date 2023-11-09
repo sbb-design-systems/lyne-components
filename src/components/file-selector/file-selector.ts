@@ -25,6 +25,8 @@ import '../icon';
 export type DOMEvent = globalThis.Event;
 
 /**
+ * It allows to select one or more file from storage devices and display them.
+ *
  * @slot error - Use this to provide a `sbb-form-error` to show an error message.
  * @event {CustomEvent<File[]>} file-changed - An event which is emitted each time the file list changes.
  */

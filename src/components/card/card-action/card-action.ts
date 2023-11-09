@@ -25,6 +25,8 @@ import { spread } from '@open-wc/lit-helpers';
 import { i18nTargetOpensInNewWindow } from '../../core/i18n';
 
 /**
+ * It turns the `sbb-card` into an action element.
+ *
  * @slot - Use the unnamed slot to add a descriptive label / title of the action (important!).
  *   This is relevant for SEO and screen readers.
  */

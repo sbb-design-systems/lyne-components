@@ -9,8 +9,10 @@ import { styleMap } from 'lit/directives/style-map.js';
 import '../icon';
 
 /**
- * @slot prefix - Slot to render an icon on the left side of the input.
- * @slot suffix - Slot to render an icon on the right side of the input.
+ * It displays an input knob that can be moved in a range.
+ *
+ * @slot prefix - Use this slot to render an icon on the left side of the input.
+ * @slot suffix - Use this slot to render an icon on the right side of the input.
  * @event {CustomEvent<void>} did-change - Deprecated. used for React. Will probably be removed once React 19 is available.
  */
 @customElement('sbb-slider')

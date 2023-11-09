@@ -7,6 +7,8 @@ import style from './title.scss?lit&inline';
 export type TitleLevel = '1' | '2' | '3' | '4' | '5' | '6';
 
 /**
+ * It displays a title wrapped into a heading tag.
+ *
  * @slot - Use the unnamed slot to display the title.
  */
 @customElement('sbb-title')

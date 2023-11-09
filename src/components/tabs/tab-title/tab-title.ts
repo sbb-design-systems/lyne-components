@@ -11,6 +11,8 @@ import style from './tab-title.scss?lit&inline';
 import '../../icon';
 
 /**
+ * Combined with a `sbb-rab-group`, it displays a tab's title.
+ *
  * @slot - Use the unnamed slot to add content to the tab title.
  * @slot icon - Use this slot to display an icon to the left of the title, by providing the `sbb-icon` component.
  * @slot amount - Provide a number to show an amount to the right of the title.

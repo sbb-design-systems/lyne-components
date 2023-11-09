@@ -4,7 +4,9 @@ import { setAttribute } from '../../core/dom';
 import style from './expansion-panel-content.scss?lit&inline';
 
 /**
- * @slot - Use the unnamed slot to add content to the expansion panel.
+ * It can be used as a container for the content of the `sbb-expansion-panel` component.
+ *
+ * @slot - Use the unnamed slot to add content to the `sbb-expansion-panel`.
  */
 @customElement('sbb-expansion-panel-content')
 export class SbbExpansionPanelContent extends LitElement {

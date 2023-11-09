@@ -13,8 +13,10 @@ import { type SbbToggle, type SbbToggleStateChange } from '../toggle';
 import style from './toggle-option.scss?lit&inline';
 
 /**
+ * It displays a toggle option within a `sbb-toggle`.
+ *
  * @slot - Use the unnamed slot to add content to the label of the toggle option.
- * @slot icon - Slot used to render the `<sbb-icon>`.
+ * @slot icon - Slot used to render the `sbb-icon`.
  */
 @customElement('sbb-toggle-option')
 export class SbbToggleOption extends LitElement {

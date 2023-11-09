@@ -20,7 +20,7 @@ Optionally, a label can be provided via slot via the self-named property or the 
 
 ## Slots
 
-| Name    | Description                                                     |
-| ------- | --------------------------------------------------------------- |
-| `label` | Use this to provide a label element.                            |
-|         | Use the unnamed slot to add content to this sbb-navigation-list |
+| Name    | Description                                                       |
+| ------- | ----------------------------------------------------------------- |
+|         | Use the unnamed slot to add content to the `sbb-navigation-list`. |
+| `label` | Use this to provide a label element.                              |

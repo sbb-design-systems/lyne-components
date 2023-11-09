@@ -83,7 +83,7 @@ Two values are available, `s` and `m`, which is the default
 
 ## Slots
 
-| Name    | Description                                                                |
-| ------- | -------------------------------------------------------------------------- |
-|         | Use the unnamed slot to add `sbb-checkbox` elements to the checkbox group. |
-| `error` | Slot used to render the <sbb-form-error> inside the <sbb-checkbox-group>.  |
+| Name    | Description                                                                      |
+| ------- | -------------------------------------------------------------------------------- |
+|         | Use the unnamed slot to add `sbb-checkbox` elements to the `sbb-checkbox-group`. |
+| `error` | Slot used to render a `sbb-form-error` inside the `sbb-checkbox-group`.          |

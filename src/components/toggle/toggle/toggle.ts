@@ -16,9 +16,11 @@ export type SbbToggleStateChange = Extract<
 >;
 
 /**
+ * It can be used as a container for two `sbb-toggle-option`, acting as a toggle button.
+ *
  * @slot - Use the unnamed slot to add `<sbb-toggle-option>` elements to the toggle.
- * @event {CustomEvent<void>} did-change - Emits whenever the radio group value changes.
- * @event {CustomEvent<void>} change - Emits whenever the radio group value changes.
+ * @event {CustomEvent<void>} did-change - Emits whenever the toggle value changes.
+ * @event {CustomEvent<void>} change - Emits whenever the toggle value changes.
  */
 @customElement('sbb-toggle')
 export class SbbToggle extends LitElement {
@@ -94,19 +96,15 @@ export class SbbToggle extends LitElement {
   }
 
   /**
-   * Emits whenever the radio group value changes.
+   * Emits whenever the toggle value changes.
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
-
   private _didChange: EventEmitter = new EventEmitter(this, SbbToggle.events.didChange, {
     bubbles: true,
     composed: true,
   });
 
-  /**
-   * Emits whenever the radio group value changes.
-   */
-
+  /** Emits whenever the toggle value changes. */
   private _change: EventEmitter = new EventEmitter(this, SbbToggle.events.change, {
     bubbles: true,
     composed: true,

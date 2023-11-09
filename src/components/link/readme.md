@@ -79,7 +79,7 @@ and it has also three sizes (`xs`, `s`, which is the default, and `m`) that are 
 
 ## Slots
 
-| Name   | Description                                      |
-| ------ | ------------------------------------------------ |
-|        | Use the unnamed slot to add content to the link. |
-| `icon` | Slot used to display the icon, if one is set     |
+| Name   | Description                                            |
+| ------ | ------------------------------------------------------ |
+|        | Use the unnamed slot to add content to the `sbb-link`. |
+| `icon` | Slot used to display the icon, if one is set.          |

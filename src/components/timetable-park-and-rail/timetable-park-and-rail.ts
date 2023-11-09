@@ -16,10 +16,7 @@ import style from './timetable-park-and-rail.scss?lit&inline';
 export class SbbTimetableParkAndRail extends LitElement {
   public static override styles: CSSResult = style;
 
-  /**
-   * Set the desired appearance of
-   * the component.
-   */
+  /** Set the desired appearance of the component. */
   @property()
   public appearance? = 'first-level' as const;
 

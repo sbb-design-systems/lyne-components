@@ -15,9 +15,11 @@ import style from './expansion-panel-header.scss?lit&inline';
 import '../../icon';
 
 /**
- * @slot icon - Slot used to render the panel header icon.
- * @slot - Use the unnamed slot to add content to the expansion panel header.
- * @event {CustomEvent<void>} toggle-expanded - Notifies that the panel has to expand.
+ * It acts as a native `summary` tag for the `sbb-expansion-panel` component.
+ *
+ * @slot - Use the unnamed slot to add content to the `sbb-expansion-panel-header`.
+ * @slot icon - Slot used to render the `sbb-expansion-panel-header` icon.
+ * @event {CustomEvent<void>} toggle-expanded - Notifies that the `sbb-expansion-panel` has to expand.
  */
 @customElement('sbb-expansion-panel-header')
 export class SbbExpansionPanelHeader extends LitElement {
@@ -39,7 +41,7 @@ export class SbbExpansionPanelHeader extends LitElement {
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @state() private _namedSlots = createNamedSlotState('icon');
 
-  /** Notifies that the panel has to expand. */
+  /** Notifies that the `sbb-expansion-panel` has to expand. */
   private _toggleExpanded: EventEmitter = new EventEmitter(
     this,
     SbbExpansionPanelHeader.events.toggleExpanded,

@@ -44,7 +44,7 @@ const ADD_EVENT_LISTENER_OPTIONS: AddEventListenerOptions = {
 };
 
 /**
- * It displays an analogic clock with the classic SBB face.
+ * It displays an analog clock with the classic SBB face.
  */
 @customElement('sbb-clock')
 export class SbbClock extends LitElement {

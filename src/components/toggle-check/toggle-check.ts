@@ -14,6 +14,8 @@ import style from './toggle-check.scss?lit&inline';
 import '../icon';
 
 /**
+ * It displays a toggle checkbox.
+ *
  * @slot - Use the unnamed slot to add content to the toggle label.
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
  * @event {CustomEvent<void>} did-change - Deprecated. used for React. Will probably be removed once React 19 is available.

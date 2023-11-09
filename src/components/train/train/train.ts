@@ -15,7 +15,9 @@ import style from './train.scss?lit&inline';
 import '../../icon';
 
 /**
- * @slot - Use the unnamed slot to add 'sbb-train-wagon' elements to this train.
+ * It can be used as a container for `sbb-train-wagon` or `sbb-train-blocked-passage` components.
+ *
+ * @slot - Use the unnamed slot to add 'sbb-train-wagon' elements to the `sbb-train`.
  */
 @customElement('sbb-train')
 export class SbbTrain extends LitElement {

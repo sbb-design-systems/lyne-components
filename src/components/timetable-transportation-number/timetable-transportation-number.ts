@@ -5,7 +5,7 @@ import style from './timetable-transportation-number.scss?lit&inline';
 import { SbbTimetableAppearance } from '../core/interfaces';
 
 /**
- * Used in `sbb-timetable-row`, it displays information about the transportation.
+ * Used in `sbb-timetable-row`, it displays information about the transport.
  */
 @customElement('sbb-timetable-transportation-number')
 export class SbbTimetableTransportationNumber extends LitElement {

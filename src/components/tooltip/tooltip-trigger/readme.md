@@ -77,6 +77,6 @@ associate the tooltip trigger with the tooltip via `aria-describedby` and an `id
 
 ## Slots
 
-| Name | Description                                                 |
-| ---- | ----------------------------------------------------------- |
-|      | Use the unnamed slot to add content to the tooltip trigger. |
+| Name | Description                                                       |
+| ---- | ----------------------------------------------------------------- |
+|      | Use the unnamed slot to add content to the `sbb-tooltip-trigger`. |

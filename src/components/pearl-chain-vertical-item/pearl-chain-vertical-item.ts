@@ -21,8 +21,10 @@ export interface PearlChainVerticalItemAttributes {
 }
 
 /**
- * @slot left - content of the left side of the item
- * @slot right - content of the right side of the item
+ * It displays details about connection between stations.
+ *
+ * @slot left - Content of the left side of the item
+ * @slot right - Content of the right side of the item
  */
 @customElement('sbb-pearl-chain-vertical-item')
 export class SbbPearlChainVerticalItem extends LitElement {

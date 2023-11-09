@@ -8,8 +8,10 @@ import { setAttribute } from '../../core/dom';
 import style from './alert-group.scss?lit&inline';
 
 /**
- * @slot - Use the unnamed slot to add `sbb-alert` elements to this alert group.
- * @slot accessibility-title - title for this sbb-alert-group which is only visible for screen reader users.
+ * It can be used as a container for one or more `sbb-alert` component.
+ *
+ * @slot - Use the unnamed slot to add `sbb-alert` elements to the `sbb-alert-group`.
+ * @slot accessibility-title - title for this `sbb-alert-group` which is only visible for screen reader users.
  * @event {CustomEvent<SbbAlert>} did-dismiss-alert - Emits when an alert was removed from DOM.
  * @event {CustomEvent<void>} empty - Emits when `sbb-alert-group` becomes empty.
  */

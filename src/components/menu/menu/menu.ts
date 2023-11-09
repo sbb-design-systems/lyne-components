@@ -36,11 +36,13 @@ const INTERACTIVE_ELEMENTS = ['A', 'BUTTON', 'SBB-BUTTON', 'SBB-LINK'];
 let nextId = 0;
 
 /**
+ * It displays a contextual menu with one or more action element.
+ *
  * @slot - Use the unnamed slot to add `sbb-menu-action` or other elements to the menu.
- * @event {CustomEvent<void>} will-open - Emits whenever the menu starts the opening transition.
- * @event {CustomEvent<void>} did-open - Emits whenever the menu is opened.
- * @event {CustomEvent<void>} will-close - Emits whenever the menu begins the closing transition.
- * @event {CustomEvent<void>} did-close - Emits whenever the menu is closed.
+ * @event {CustomEvent<void>} will-open - Emits whenever the `sbb-menu` starts the opening transition.
+ * @event {CustomEvent<void>} did-open - Emits whenever the `sbb-menu` is opened.
+ * @event {CustomEvent<void>} will-close - Emits whenever the `sbb-menu` begins the closing transition.
+ * @event {CustomEvent<void>} did-close - Emits whenever the `sbb-menu` is closed.
  */
 @customElement('sbb-menu')
 export class SbbMenu extends LitElement {
@@ -87,33 +89,25 @@ export class SbbMenu extends LitElement {
   /** Sbb-Link elements */
   @state() private _actions: SbbMenuAction[];
 
-  /**
-   * Emits whenever the menu starts the opening transition.
-   */
+  /** Emits whenever the `sbb-menu` starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbMenu.events.willOpen, {
     bubbles: true,
     composed: true,
   });
 
-  /**
-   * Emits whenever the menu is opened.
-   */
+  /** Emits whenever the `sbb-menu` is opened. */
   private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbMenu.events.didOpen, {
     bubbles: true,
     composed: true,
   });
 
-  /**
-   * Emits whenever the menu begins the closing transition.
-   */
+  /** Emits whenever the `sbb-menu` begins the closing transition. */
   private _willClose: EventEmitter<void> = new EventEmitter(this, SbbMenu.events.willClose, {
     bubbles: true,
     composed: true,
   });
 
-  /**
-   * Emits whenever the menu is closed.
-   */
+  /** Emits whenever the `sbb-menu` is closed. */
   private _didClose: EventEmitter<void> = new EventEmitter(this, SbbMenu.events.didClose, {
     bubbles: true,
     composed: true,
@@ -178,7 +172,7 @@ export class SbbMenu extends LitElement {
     }
     evt.preventDefault();
 
-    const enabledActions: Element[] = Array.from(this.querySelectorAll('SBB-MENU-ACTION')).filter(
+    const enabledActions: Element[] = Array.from(this.querySelectorAll('sbb-menu-action')).filter(
       (el: HTMLElement) => el.tabIndex === 0 && interactivityChecker.isVisible(el),
     );
 

@@ -28,12 +28,14 @@ const notificationTypes = new Map([
 ]);
 
 /**
- * @slot title - Use this to provide a notification title (optional).
+ * It displays messages which require a user's attention without interrupting its tasks.
+ *
  * @slot - Use the unnamed slot to add content to the notification message.
- * @event {CustomEvent<void>} will-open - Emits whenever the notification starts the opening transition.
- * @event {CustomEvent<void>} did-open - Emits whenever the notification is opened.
- * @event {CustomEvent<void>} will-close - Emits whenever the notification begins the closing transition.
- * @event {CustomEvent<void>} did-close - Emits whenever the notification is closed.
+ * @slot title - Use this to provide a notification title (optional).
+ * @event {CustomEvent<void>} will-open - Emits whenever the `sbb-notification` starts the opening transition.
+ * @event {CustomEvent<void>} did-open - Emits whenever the `sbb-notification` is opened.
+ * @event {CustomEvent<void>} will-close - Emits whenever the `sbb-notification` begins the closing transition.
+ * @event {CustomEvent<void>} did-close - Emits whenever the `sbb-notification` is closed.
  */
 @customElement('sbb-notification')
 export class SbbNotification extends LitElement {
@@ -90,24 +92,16 @@ export class SbbNotification extends LitElement {
     this._onNotificationResize(),
   );
 
-  /**
-   * Emits whenever the notification starts the opening transition.
-   */
+  /** Emits whenever the `sbb-notification` starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbNotification.events.willOpen);
 
-  /**
-   * Emits whenever the notification is opened.
-   */
+  /** Emits whenever the `sbb-notification` is opened. */
   private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbNotification.events.didOpen);
 
-  /**
-   * Emits whenever the notification begins the closing transition.
-   */
+  /** Emits whenever the `sbb-notification` begins the closing transition. */
   private _willClose: EventEmitter<void> = new EventEmitter(this, SbbNotification.events.willClose);
 
-  /**
-   * Emits whenever the notification is closed.
-   */
+  /** Emits whenever the `sbb-notification` is closed. */
   private _didClose: EventEmitter<void> = new EventEmitter(this, SbbNotification.events.didClose);
 
   public close(): void {

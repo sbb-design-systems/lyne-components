@@ -21,6 +21,8 @@ export type SbbTagStateChange = Extract<
 >;
 
 /**
+ * It displays a selectable element which can be used as a filter.
+ *
  * @slot - Use the unnamed slot to add content to the tag label.
  * @slot icon - Use this slot to display an icon at the component start, by providing a `sbb-icon` component.
  * @slot amount - Provide an amount to show it at the component end.

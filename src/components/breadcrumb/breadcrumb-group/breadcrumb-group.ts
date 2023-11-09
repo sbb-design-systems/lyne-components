@@ -14,6 +14,8 @@ import { setAttribute } from '../../core/dom';
 import style from './breadcrumb-group.scss?lit&inline';
 
 /**
+ * It can be used as a container for one or more `sbb-breadcrumb` component.
+ *
  * @slot - Use the unnamed slot to add `sbb-breadcrumb` elements.
  */
 @customElement('sbb-breadcrumb-group')

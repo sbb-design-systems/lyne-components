@@ -40,6 +40,6 @@ The component has a `disabled` property which sets all the `sbb-option` in the g
 
 ## Slots
 
-| Name | Description                                                         |
-| ---- | ------------------------------------------------------------------- |
-|      | Use the unnamed slot to add `sbb-option` elements to this optgroup. |
+| Name | Description                                                              |
+| ---- | ------------------------------------------------------------------------ |
+|      | Use the unnamed slot to add `sbb-option` elements to the `sbb-optgroup`. |

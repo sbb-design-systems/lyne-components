@@ -28,7 +28,8 @@ export interface InterfaceSbbJourneySummaryAttributes {
 }
 
 /**
- * It displays journey's informations.
+ * It displays journey's information.
+ *
  * @slot content - Use this slot to add `sbb-button`s or other interactive elements.
  */
 @customElement('sbb-journey-summary')

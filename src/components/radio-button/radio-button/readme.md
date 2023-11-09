@@ -59,8 +59,8 @@ The component has two different sizes, which can be changed using the `size` pro
 
 ## Slots
 
-| Name      | Description                                                                                     |
-| --------- | ----------------------------------------------------------------------------------------------- |
-|           | Use the unnamed slot to add content to the radio label.                                         |
-| `subtext` | Slot used to render a subtext under the label (only visible within a selection panel).          |
-| `suffix`  | Slot used to render additional content after the label (only visible within a selection panel). |
+| Name      | Description                                                                                           |
+| --------- | ----------------------------------------------------------------------------------------------------- |
+|           | Use the unnamed slot to add content to the radio label.                                               |
+| `subtext` | Slot used to render a subtext under the label (only visible within a `sbb-selection-panel`).          |
+| `suffix`  | Slot used to render additional content after the label (only visible within a `sbb-selection-panel`). |

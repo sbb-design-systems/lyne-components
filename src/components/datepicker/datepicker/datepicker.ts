@@ -165,6 +165,7 @@ export const datepickerControlRegisteredEvent = new CustomEvent('datepicker-cont
 
 /**
  * Combined with a native input, it displays the input's value as a formatted date.
+ *
  * @event {CustomEvent<void>} did-change - Deprecated. used for React. Will probably be removed once React 19 is available.
  * @event {CustomEvent<void>} change - Notifies that the connected input has changes.
  * @event {CustomEvent<InputUpdateEvent>} input-updated - Notifies that the attributes of the input connected to the datepicker have changes.

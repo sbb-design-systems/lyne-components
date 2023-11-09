@@ -32,7 +32,9 @@ import '../../button';
 let nextId = 0;
 
 /**
- * @slot - Use the unnamed slot to add content into the navigation section.
+ * It can be used as a container for `sbb-navigation-list` within a `sbb-navigation`.
+ *
+ * @slot - Use the unnamed slot to add content into the `sbb-navigation-section`.
  */
 @customElement('sbb-navigation-section')
 export class SbbNavigationSection extends LitElement {

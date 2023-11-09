@@ -91,7 +91,7 @@ The `sbb-slider` has the following behaviour on keypress when focused:
 
 ## Slots
 
-| Name     | Description                                            |
-| -------- | ------------------------------------------------------ |
-| `prefix` | Slot to render an icon on the left side of the input.  |
-| `suffix` | Slot to render an icon on the right side of the input. |
+| Name     | Description                                                     |
+| -------- | --------------------------------------------------------------- |
+| `prefix` | Use this slot to render an icon on the left side of the input.  |
+| `suffix` | Use this slot to render an icon on the right side of the input. |

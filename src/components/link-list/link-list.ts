@@ -14,6 +14,7 @@ import { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
 
 /**
  * It displays a list of `sbb-link`.
+ *
  * @slot - Use the unnamed slot to add one or more `sbb-link`.
  * @slot title - Use this slot to provide a title.
  */

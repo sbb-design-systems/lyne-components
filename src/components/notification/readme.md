@@ -1,5 +1,6 @@
 The `sbb-notification` is a component which purpose is to inform users of updates.
-A notification is an element that displays a brief, important message in a way that attracts the user's attention without interrupting the user's task.
+A notification is an element that displays a brief, important message
+in a way that attracts the user's attention without interrupting the user's task.
 
 Inline notifications show up in task flows, to notify users of an action status or other information.
 They usually appear at the top of the primary content area or close to the item needing attention.
@@ -77,16 +78,16 @@ For example, use `--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0` 
 
 ## Events
 
-| Name         | Type                | Description                                                    | Inherited From |
-| ------------ | ------------------- | -------------------------------------------------------------- | -------------- |
-| `will-open`  | `CustomEvent<void>` | Emits whenever the notification starts the opening transition. |                |
-| `did-open`   | `CustomEvent<void>` | Emits whenever the notification is opened.                     |                |
-| `will-close` | `CustomEvent<void>` | Emits whenever the notification begins the closing transition. |                |
-| `did-close`  | `CustomEvent<void>` | Emits whenever the notification is closed.                     |                |
+| Name         | Type                | Description                                                          | Inherited From |
+| ------------ | ------------------- | -------------------------------------------------------------------- | -------------- |
+| `will-open`  | `CustomEvent<void>` | Emits whenever the `sbb-notification` starts the opening transition. |                |
+| `did-open`   | `CustomEvent<void>` | Emits whenever the `sbb-notification` is opened.                     |                |
+| `will-close` | `CustomEvent<void>` | Emits whenever the `sbb-notification` begins the closing transition. |                |
+| `did-close`  | `CustomEvent<void>` | Emits whenever the `sbb-notification` is closed.                     |                |
 
 ## Slots
 
 | Name    | Description                                                      |
 | ------- | ---------------------------------------------------------------- |
-| `title` | Use this to provide a notification title (optional).             |
 |         | Use the unnamed slot to add content to the notification message. |
+| `title` | Use this to provide a notification title (optional).             |

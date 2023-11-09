@@ -13,10 +13,7 @@ import style from './timetable-travel-hints.scss?lit&inline';
 export class SbbTimetableTravelHints extends LitElement {
   public static override styles: CSSResult = style;
 
-  /**
-   * Set the desired appearance of
-   * the component.
-   */
+  /** Set the desired appearance of the component. */
   @property()
   public appearance?: 'first-level-list' | 'second-level-list' = 'first-level-list'; // FIXME refactor with SbbTimetableAppearance ?
 

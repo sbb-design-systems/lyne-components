@@ -22,11 +22,13 @@ let nextFormFieldErrorId = 0;
 const supportedPopupTagNames = ['SBB-AUTOCOMPLETE', 'SBB-SELECT'];
 
 /**
- * @slot label - Slot to render a label.
- * @slot prefix - Slot to render an icon on the left side of the input.
- * @slot - Slot to render an input/select.
- * @slot suffix - Slot to render an icon on the right side of the input.
- * @slot error - Slot to render an error.
+ * It wraps an input element adding label, errors, icon, etc.
+ *
+ * @slot - Use this slot to render an input/select or a supported non-native element.
+ * @slot label - Use this slot to render a label.
+ * @slot prefix - Use this slot to render an icon on the left side of the input.
+ * @slot suffix - Use this slot to render an icon on the right side of the input.
+ * @slot error - Use this slot to render an error.
  */
 @customElement('sbb-form-field')
 export class SbbFormField extends LitElement {

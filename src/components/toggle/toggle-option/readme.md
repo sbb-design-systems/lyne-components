@@ -43,4 +43,4 @@ The component can be displayed in `checked` or `disabled` states using the self-
 | Name   | Description                                                            |
 | ------ | ---------------------------------------------------------------------- |
 |        | Use the unnamed slot to add content to the label of the toggle option. |
-| `icon` | Slot used to render the `<sbb-icon>`.                                  |
+| `icon` | Slot used to render the `sbb-icon`.                                    |

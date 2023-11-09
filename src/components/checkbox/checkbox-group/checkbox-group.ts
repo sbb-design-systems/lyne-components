@@ -13,8 +13,10 @@ import style from './checkbox-group.scss?lit&inline';
 import { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces';
 
 /**
- * @slot - Use the unnamed slot to add `sbb-checkbox` elements to the checkbox group.
- * @slot error - Slot used to render the <sbb-form-error> inside the <sbb-checkbox-group>.
+ * It can be used as a container for one or more `sbb-checkbox`.
+ *
+ * @slot - Use the unnamed slot to add `sbb-checkbox` elements to the `sbb-checkbox-group`.
+ * @slot error - Slot used to render a `sbb-form-error` inside the `sbb-checkbox-group`.
  */
 @customElement('sbb-checkbox-group')
 export class SbbCheckboxGroup extends LitElement {

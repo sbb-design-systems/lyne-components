@@ -4,6 +4,8 @@ import { ConnectedAbortController, EventEmitter } from '../core/eventing';
 import style from './__noPrefixName__.scss?lit&inline';
 
 /**
+ * Describe the purpose of the component with a single short sentence.
+ *
  * @slot - Use the unnamed slot to add `sbb-TODO` elements.
  * @event {CustomEvent<any>} my-event-name - TODO: Document this event
  */

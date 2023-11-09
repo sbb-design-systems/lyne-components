@@ -39,6 +39,6 @@ It should refer to the section where the locomotive is placed.
 
 ## Slots
 
-| Name | Description                                                           |
-| ---- | --------------------------------------------------------------------- |
-|      | Use the unnamed slot to add 'sbb-train-wagon' elements to this train. |
+| Name | Description                                                                |
+| ---- | -------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add 'sbb-train-wagon' elements to the `sbb-train`. |

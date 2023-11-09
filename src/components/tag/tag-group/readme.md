@@ -2,7 +2,7 @@ The `sbb-tag-group` component is used as a container for one or multiple `sbb-ta
 which are projected inside the unnamed slot.
 
 To work properly, it's mandatory to provide a value to each `sbb-tag`.
-See [its documentation](<(/docs/components-sbb-tag-sbb-tag--docs)>) for more details.
+See [its documentation](/docs/components-sbb-tag-sbb-tag--docs) for more details.
 
 ```html
 <sbb-tag-group>
@@ -92,6 +92,6 @@ that communicates the collective meaning of all `sbb-tag`s.
 
 ## Slots
 
-| Name | Description                                                                   |
-| ---- | ----------------------------------------------------------------------------- |
-|      | Use the unnamed slot to add one or more 'sbb-tag' elements to this tag group. |
+| Name | Description                                                                        |
+| ---- | ---------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add one or more 'sbb-tag' elements to the `sbb-tag-group`. |

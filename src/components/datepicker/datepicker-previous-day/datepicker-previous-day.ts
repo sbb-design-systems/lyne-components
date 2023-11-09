@@ -23,7 +23,7 @@ import style from './datepicker-previous-day.scss?lit&inline';
 import '../../icon';
 
 /**
- * Combined with a `sbb-datepicker`, it can be used to move the date ahead.
+ * Combined with a `sbb-datepicker`, it can be used to move the date back.
  */
 @customElement('sbb-datepicker-previous-day')
 export class SbbDatepickerPreviousDay extends LitElement {

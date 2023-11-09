@@ -79,6 +79,7 @@ export type CalendarView = 'day' | 'month' | 'year';
 
 /**
  * It displays a calendar which allows to choose a date.
+ *
  * @event {CustomEvent<Date>} date-selected - Event emitted on date selection.
  */
 @customElement('sbb-calendar')
