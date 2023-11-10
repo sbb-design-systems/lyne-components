@@ -12,7 +12,7 @@ import style from './timetable-occupancy-icon.scss?lit&inline';
 import '../icon';
 
 /**
- * Icon for wagon's occupancy.
+ * It displays a wagon's occupancy icon.
  */
 @customElement('sbb-timetable-occupancy-icon')
 export class SbbTimetableOccupancyIcon extends SbbIcon {
