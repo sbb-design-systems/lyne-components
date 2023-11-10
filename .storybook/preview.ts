@@ -33,7 +33,7 @@ const storybookViewports = breakpoints.reduce(
 export const parameters = {
   // Set the viewports in Chromatic globally.
   chromatic: {
-    delay: 2000,
+    delay: 5000,
     viewports,
     disableSnapshot: true,
   },
