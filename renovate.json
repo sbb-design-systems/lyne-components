@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base"],
+  "extends": ["config:recommended"],
   "includePaths": ["package.json"],
   "nodenv": {
     "enabled": false
@@ -28,14 +28,6 @@
       "groupName": "esta",
       "matchPackagePrefixes": ["@sbb-esta/"],
       "prPriority": 10
-    },
-    {
-      "groupName": "storybook",
-      "matchPackagePrefixes": ["@storybook/"]
-    },
-    {
-      "groupName": "react",
-      "matchPackageNames": ["@types/react", "@types/react-dom", "react", "react-dom"]
     },
     {
       "groupName": "eslint",
