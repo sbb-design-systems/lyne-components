@@ -19,5 +19,5 @@ function clean(dir) {
 }
 
 if (module === require.main) {
-  clean(path.resolve('storybook-static'));
+  clean(path.resolve('dist/storybook'));
 }

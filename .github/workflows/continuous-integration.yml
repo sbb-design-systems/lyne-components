@@ -84,17 +84,11 @@ jobs:
         run: yarn build
         env:
           STORYBOOK_COMPONENTS_VERSION: ${{ github.event.pull_request.head.sha || github.sha }}
-      - name: Store build artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: build
-          path: |
-            dist/
       - name: Store storybook artifacts
         uses: actions/upload-artifact@v3
         with:
           name: storybook
-          path: storybook-static/
+          path: dist/storybook/
 
   chromatic:
     runs-on: ubuntu-latest
@@ -109,20 +103,17 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'yarn'
       - run: yarn install --frozen-lockfile --non-interactive
-      - name: Restore build artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: build
-          path: .
       - name: Run build
         run: yarn generate:chromatic-stories && yarn build:storybook
         env:
           CHROMATIC: true
+      - run: find dist/storybook -type f | grep -e ".html$" -e ".css$" -e ".xml$" -e ".js$" | xargs brotli -9
       - name: Publish to Chromatic
         id: chromatic-publish
         uses: chromaui/action@v1
         with:
           projectToken: ${{ secrets.CHROMATIC_TOKEN }}
-          storybookBuildDir: storybook-static
+          storybookBuildDir: dist/storybook
           exitOnceUploaded: true
           exitZeroOnChanges: true
+          zip: true

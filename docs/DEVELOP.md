@@ -112,10 +112,11 @@ You can find a list of all branches along with their Netlify deployment URL here
 
 ## Outputs
 
-| Folder             | Explanation                           |
-| ------------------ | ------------------------------------- |
-| ./dist             | main output target for web-components |
-| ./storybook-static | rendered static storybook site        |
+| Folder            | Explanation                           |
+| ----------------- | ------------------------------------- |
+| ./dist/components | main output target for web-components |
+| ./dist/react      | output target for the react library   |
+| ./dist/storybook  | rendered static storybook site        |
 
 ## Checks & monitoring
 

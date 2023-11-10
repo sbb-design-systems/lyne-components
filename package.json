@@ -23,7 +23,7 @@
     "postinstall": "yarn playwright install",
     "build:components": "vite build --config src/components/vite.config.ts",
     "build:react": "vite build --config src/react/vite.config.ts",
-    "build:storybook": "storybook build --quiet",
+    "build:storybook": "storybook build --quiet --output-dir dist/storybook",
     "build": "npm-run-all --sequential build:components build:react build:storybook",
     "docs": "npm-run-all --sequential docs:manifest docs:to-md",
     "docs:manifest": "custom-elements-manifest analyze --config config/custom-elements-manifest.config.js",
