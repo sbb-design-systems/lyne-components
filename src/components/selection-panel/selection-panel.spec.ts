@@ -23,7 +23,7 @@ describe('sbb-selection-panel', () => {
     );
 
     expect(root).dom.to.be.equal(`
-      <sbb-selection-panel data-has-content data-state="closed">
+      <sbb-selection-panel data-has-content>
         <sbb-card-badge slot="badge">
           <span>%</span>
           <span>from CHF</span>

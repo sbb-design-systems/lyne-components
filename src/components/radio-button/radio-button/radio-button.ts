@@ -47,6 +47,7 @@ export class SbbRadioButton extends LitElement {
   public static override styles: CSSResult = style;
   public static readonly events = {
     stateChange: 'state-change',
+    radioButtonLoaded: 'radio-button-loaded',
   } as const;
 
   /**
@@ -124,6 +125,16 @@ export class SbbRadioButton extends LitElement {
     { bubbles: true },
   );
 
+  /**
+   * @internal
+   * Internal event that emits when the radio button is loaded.
+   */
+  private _radioButtonLoaded: EventEmitter<void> = new EventEmitter(
+    this,
+    SbbRadioButton.events.radioButtonLoaded,
+    { bubbles: true },
+  );
+
   private _handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
     if (currentValue !== previousValue) {
       this._stateChange.emit({ type: 'checked', checked: currentValue });
@@ -172,6 +183,7 @@ export class SbbRadioButton extends LitElement {
     this._isSelectionPanelInput =
       !!this._selectionPanelElement && !this.closest('sbb-selection-panel [slot="content"]');
     this._setupInitialStateAndAttributeObserver();
+    this._isSelectionPanelInput && this._radioButtonLoaded.emit();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

@@ -120,9 +120,14 @@ export class SbbRadioButtonGroup extends LitElement {
   @state() private _namedSlots = createNamedSlotState('error');
 
   private _hasSelectionPanel: boolean;
+  private _didLoad = false;
   private _abort = new ConnectedAbortController(this);
 
   private _valueChanged(value: any | undefined): void {
+    if (!this._didLoad) {
+      return;
+    }
+
     for (const radio of this._radioButtons) {
       radio.checked = radio.value === value;
       radio.tabIndex = this._getRadioTabIndex(radio);
@@ -192,6 +197,11 @@ export class SbbRadioButtonGroup extends LitElement {
     this._hasSelectionPanel = !!this.querySelector('sbb-selection-panel');
     toggleDatasetEntry(this, 'hasSelectionPanel', this._hasSelectionPanel);
     this._handlerRepository.connect();
+    this._updateRadios(this.value);
+  }
+
+  protected override firstUpdated(): void {
+    this._didLoad = true;
   }
 
   public override disconnectedCallback(): void {
@@ -201,7 +211,7 @@ export class SbbRadioButtonGroup extends LitElement {
 
   private _onRadioButtonSelect(event: CustomEvent<SbbRadioButtonStateChange>): void {
     event.stopPropagation();
-    if (event.detail.type !== 'checked') {
+    if (event.detail.type !== 'checked' || !this._didLoad) {
       return;
     }
 
@@ -222,11 +232,11 @@ export class SbbRadioButtonGroup extends LitElement {
     this._didChange.emit({ value });
   }
 
-  private _updateRadios(): void {
-    const value = this.value ?? this._radioButtons.find((radio) => radio.checked)?.value;
+  private _updateRadios(initValue?: string): void {
+    this.value = initValue ?? this._radioButtons.find((radio) => radio.checked)?.value;
 
     for (const radio of this._radioButtons) {
-      radio.checked = radio.value === value;
+      radio.checked = radio.value === this.value;
       radio.size = this.size;
       radio.allowEmptySelection = this.allowEmptySelection;
 
