@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResult, html, LitElement, nothing, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../core/a11y';
@@ -79,15 +79,7 @@ export class SbbRadioButtonGroup extends LitElement {
   /**
    * The value of the radio group.
    */
-  @property()
-  public set value(value: any | null) {
-    this._value = value;
-    this._valueChanged(this._value);
-  }
-  public get value(): any | null {
-    return this._value;
-  }
-  private _value: any | null = null;
+  @property() public value?: any | null;
 
   /**
    * Size variant, either m or s.
@@ -124,10 +116,6 @@ export class SbbRadioButtonGroup extends LitElement {
   private _abort = new ConnectedAbortController(this);
 
   private _valueChanged(value: any | undefined): void {
-    if (!this._didLoad) {
-      return;
-    }
-
     for (const radio of this._radioButtons) {
       radio.checked = radio.value === value;
       radio.tabIndex = this._getRadioTabIndex(radio);
@@ -198,6 +186,12 @@ export class SbbRadioButtonGroup extends LitElement {
     toggleDatasetEntry(this, 'hasSelectionPanel', this._hasSelectionPanel);
     this._handlerRepository.connect();
     this._updateRadios(this.value);
+  }
+
+  public override willUpdate(changedProperties: PropertyValues<this>): void {
+    if (changedProperties.has('value')) {
+      this._valueChanged(this.value);
+    }
   }
 
   protected override firstUpdated(): void {
