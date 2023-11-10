@@ -1,7 +1,4 @@
-import { withoutVitePlugins } from '@storybook/builder-vite';
 import type { StorybookConfig } from '@storybook/web-components-vite';
-
-const isCIEnvironment = !!process.env.CI;
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(ts|tsx)'],
@@ -16,13 +13,7 @@ const config: StorybookConfig = {
   async viteFinal(config) {
     return {
       ...config,
-      build: {
-        ...config.build,
-        // Disable sourcemap generation for production build.
-        sourcemap: !isCIEnvironment,
-      },
       assetsInclude: ['src/**/*.md'],
-      plugins: await withoutVitePlugins(config.plugins, ['vite:dts']),
     };
   },
 };
