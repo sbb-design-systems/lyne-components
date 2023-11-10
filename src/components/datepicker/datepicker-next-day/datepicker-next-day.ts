@@ -128,6 +128,13 @@ export class SbbDatepickerNextDay extends LitElement {
     this._datePickerController = new AbortController();
     this._datePickerElement = getDatePicker(this, picker);
     if (!this._datePickerElement) {
+      // If the component is attached to the DOM before the datepicker, it has to listen for the datepicker init,
+      // assuming that the two components share the same parent element.
+      this.parentElement.addEventListener(
+        'input-updated',
+        (e: Event) => this._init(e.target as SbbDatepicker),
+        { once: true, signal: this._abort.signal },
+      );
       return;
     }
     this._setDisabledState(this._datePickerElement);
@@ -202,7 +209,7 @@ export class SbbDatepickerNextDay extends LitElement {
   private _setAriaLabel(): void {
     const currentDate = this._datePickerElement.getValueAsDate();
 
-    if (!currentDate) {
+    if (!currentDate || !this._dateAdapter.isValid(currentDate)) {
       this.setAttribute('aria-label', i18nNextDay[this._currentLanguage]);
       return;
     }

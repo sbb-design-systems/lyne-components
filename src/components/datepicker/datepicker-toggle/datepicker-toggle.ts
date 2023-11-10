@@ -96,7 +96,7 @@ export class SbbDatepickerToggle extends LitElement {
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('datePicker')) {
-      this._findDatePicker(this.datePicker, changedProperties.get('datePicker'));
+      this._init(this.datePicker);
     }
   }
 
@@ -106,11 +106,18 @@ export class SbbDatepickerToggle extends LitElement {
     this._handlerRepository.disconnect();
   }
 
-  private async _init(datePicker?: string | SbbDatepicker): Promise<void> {
+  private _init(datePicker?: string | SbbDatepicker): void {
     this._datePickerController?.abort();
     this._datePickerController = new AbortController();
     this._datePickerElement = getDatePicker(this, datePicker);
     if (!this._datePickerElement) {
+      // If the component is attached to the DOM before the datepicker, it has to listen for the datepicker init,
+      // assuming that the two components share the same parent element.
+      this.parentElement.addEventListener(
+        'input-updated',
+        (e: Event) => this._init(e.target as SbbDatepicker),
+        { once: true, signal: this._datePickerController.signal },
+      );
       return;
     }
 
@@ -141,6 +148,9 @@ export class SbbDatepickerToggle extends LitElement {
   }
 
   private _configureCalendar(calendar: SbbCalendar, datepicker: SbbDatepicker): void {
+    if (!calendar || !datepicker) {
+      return;
+    }
     calendar.wide = datepicker?.wide;
     calendar.dateFilter = datepicker?.dateFilter;
   }
@@ -217,7 +227,7 @@ export class SbbDatepickerToggle extends LitElement {
           .max=${this._max}
           ?wide=${this._datePickerElement?.wide}
           .dateFilter=${this._datePickerElement?.dateFilter}
-          @date-selected=${async (d: CustomEvent<Date>) => {
+          @date-selected=${(d: CustomEvent<Date>) => {
             const newDate = new Date(d.detail);
             this._calendarElement.selectedDate = newDate;
             this._datePickerElement.setValueAsDate(newDate);

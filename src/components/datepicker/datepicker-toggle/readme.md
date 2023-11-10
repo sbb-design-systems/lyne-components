@@ -29,6 +29,9 @@ otherwise, they can be connected using the `datePicker` property as described ab
 </sbb-form-field>
 ```
 
+NOTE: Since the component needs the `sbb-datepicker` to work properly,
+both standalone or within the `sbb-form-field`, they must have the same parent element to be correctly connected.
+
 <!-- Auto Generated Below -->
 
 ## Properties
