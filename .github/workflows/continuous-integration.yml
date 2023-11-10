@@ -116,6 +116,8 @@ jobs:
           path: .
       - name: Run build
         run: yarn generate:chromatic-stories && yarn build:storybook
+        env:
+          CHROMATIC: true
       - name: Publish to Chromatic
         id: chromatic-publish
         uses: chromaui/action@v1

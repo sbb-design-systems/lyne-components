@@ -1,4 +1,5 @@
 import type { StorybookConfig } from '@storybook/web-components-vite';
+import { BuildOptions, UserConfig, mergeConfig } from 'vite';
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(ts|tsx)'],
@@ -11,10 +12,31 @@ const config: StorybookConfig = {
     autodocs: true,
   },
   async viteFinal(config) {
-    return {
-      ...config,
+    let build: BuildOptions = {};
+    if (process.env.CHROMATIC) {
+      build = {
+        rollupOptions: {
+          output: {
+            manualChunks(id) {
+              if (id.endsWith('stories.tsx')) {
+                return 'stories';
+              } else if (id.includes('/src/components/core/')) {
+                return 'core';
+              } else if (id.includes('/src/components/')) {
+                return 'components';
+              } else if (id.includes('/node_modules/')) {
+                return 'vendor';
+              }
+            },
+          },
+        },
+      };
+    }
+
+    return mergeConfig(config, <UserConfig>{
       assetsInclude: ['src/**/*.md'],
-    };
+      build,
+    });
   },
 };
 export default config;
