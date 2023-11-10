@@ -112,11 +112,10 @@ You can find a list of all branches along with their Netlify deployment URL here
 
 ## Outputs
 
-| Folder             | Explanation                               |
-| ------------------ | ----------------------------------------- |
-| ./dist             | main output target for stencil components |
-| ./www              | build target for stencil dev server       |
-| ./storybook-static | rendered static storybook site            |
+| Folder             | Explanation                           |
+| ------------------ | ------------------------------------- |
+| ./dist             | main output target for web-components |
+| ./storybook-static | rendered static storybook site        |
 
 ## Checks & monitoring
 

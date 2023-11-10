@@ -4,7 +4,7 @@
 
 > _Lyne Components_ are the building blocks of the [Lyne Design System](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#lyne)
 > and are based on standard compliant [Web Components](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#web-components)
-> compiled by [StencilJS](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#stenciljs) and
+> created using [Lit](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#lit) and
 > browsable through [Storybook](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#storybook)
 
 <br>
