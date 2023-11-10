@@ -4,7 +4,10 @@ import { html } from 'lit/static-html.js';
 import { waitForLitRender } from '../core/testing';
 
 import type { SbbTimetableOccupancy } from './timetable-occupancy';
-import { occupancySampleData, occupancySampleDataSingleWagon } from './timetable-occupancy.sample-data';
+import {
+  occupancySampleData,
+  occupancySampleDataSingleWagon,
+} from './timetable-occupancy.sample-data';
 import './timetable-occupancy';
 
 describe('sbb-timetable-occupancy', () => {

@@ -4,9 +4,11 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import { i18nOccupancy } from '../core/i18n';
 import { OccupancyEnum } from '../core/timetable';
-import type { SbbIcon } from '../icon';
+// eslint-disable-next-line import/no-duplicates
+import { SbbIcon } from '../icon';
 
 import style from './timetable-occupancy-icon.scss?lit&inline';
+// eslint-disable-next-line import/no-duplicates
 import '../icon';
 
 /**
