@@ -24,8 +24,6 @@ const config: StorybookConfig = {
                 return 'core';
               } else if (id.includes('/src/components/')) {
                 return 'components';
-              } else if (id.includes('/node_modules/')) {
-                return 'vendor';
               }
             },
           },
