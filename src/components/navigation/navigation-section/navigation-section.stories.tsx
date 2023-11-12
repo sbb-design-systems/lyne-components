@@ -9,11 +9,12 @@ import { Fragment, h, type JSX } from 'jsx-dom';
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
 import '../navigation-list';
 import '../navigation-action';
-import { SbbNavigationMarker } from '../navigation-marker';
+import { type SbbNavigationMarker } from '../navigation-marker';
+import '../navigation-marker';
+import ".";
 import '../navigation';
 import '../../button';
 
-import '.';
 import readme from './readme.md?raw';
 
 // Story interaction executed after the story renders

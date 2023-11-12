@@ -21,7 +21,8 @@ import {
   i18nWagonLabelNumber,
 } from '../../core/i18n';
 import { SbbOccupancy } from '../../core/interfaces';
-import { SbbIcon } from '../../icon';
+import { type SbbIcon } from '../../icon';
+import '../../icon';
 
 import style from './train-wagon.scss?lit&inline';
 
