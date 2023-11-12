@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.42.5](https://github.com/lyne-design-system/lyne-components/compare/v0.42.4...v0.42.5) (2023-11-12)
+
+### Documentation
+
+- **sbb-time-input:** re-activate chromatic and cleanup stories ([#2173](https://github.com/lyne-design-system/lyne-components/issues/2173)) ([9798be2](https://github.com/lyne-design-system/lyne-components/commit/9798be206a73144085cbf2e93360b4e9988c64ee))
+
 ### [0.42.4](https://github.com/lyne-design-system/lyne-components/compare/v0.42.3...v0.42.4) (2023-11-08)
 
 ### Bug Fixes
