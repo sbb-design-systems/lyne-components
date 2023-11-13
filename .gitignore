@@ -1,10 +1,5 @@
 /dist
-/www
-/loader
-/hydrate
-/storybook-static
 /coverage
-/react-library/dist
 
 *~
 *.sw[mnpcod]
@@ -18,7 +13,6 @@ log.txt
 **/*.chromatic.stories.tsx
 package-lock.json
 
-.stencil/
 .idea/
 .vscode/
 .sass-cache/

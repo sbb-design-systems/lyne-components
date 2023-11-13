@@ -32,8 +32,8 @@ jobs:
         uses: ./.github/actions/download-artifacts-from-workflow
         with:
           artifacts: 'storybook'
-      - run: mkdir storybook-static
-      - run: unzip storybook.zip -d storybook-static
+      - run: mkdir -p dist/storybook
+      - run: unzip storybook.zip -d dist/storybook
       - name: Remove files with forbidden extensions
         run: node ./ci/clean-storybook-files.cjs
 

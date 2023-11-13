@@ -1,7 +1,5 @@
-import { withoutVitePlugins } from '@storybook/builder-vite';
 import type { StorybookConfig } from '@storybook/web-components-vite';
-
-const isCIEnvironment = !!process.env.CI;
+import { BuildOptions, UserConfig, mergeConfig } from 'vite';
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(ts|tsx)'],
@@ -14,16 +12,24 @@ const config: StorybookConfig = {
     autodocs: true,
   },
   async viteFinal(config) {
-    return {
-      ...config,
-      build: {
-        ...config.build,
-        // Disable sourcemap generation for production build.
-        sourcemap: !isCIEnvironment,
-      },
+    let build: BuildOptions = {};
+    if (process.env.CHROMATIC) {
+      build = {
+        sourcemap: false,
+        rollupOptions: {
+          output: {
+            manualChunks(id) {
+              return 'main';
+            },
+          },
+        },
+      };
+    }
+
+    return mergeConfig(config, <UserConfig>{
       assetsInclude: ['src/**/*.md'],
-      plugins: await withoutVitePlugins(config.plugins, ['vite:dts']),
-    };
+      build,
+    });
   },
 };
 export default config;

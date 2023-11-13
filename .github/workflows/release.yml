@@ -97,6 +97,7 @@ jobs:
         uses: chromaui/action@v1
         with:
           projectToken: ${{ secrets.CHROMATIC_TOKEN }}
-          storybookBuildDir: storybook-static
+          storybookBuildDir: dist/storybook
           autoAcceptChanges: true
           exitZeroOnChanges: true
+          zip: true
