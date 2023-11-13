@@ -177,7 +177,7 @@ export class SbbCheckbox implements ComponentInterface {
       !this._element.closest('sbb-selection-panel [slot="content"]');
     this._handlerRepository.connect();
     this._setupInitialStateAndAttributeObserver();
-    this._isSelectionPanelInput && this.sbbCheckboxLoaded.emit();
+    this.sbbCheckboxLoaded.emit();
   }
 
   public componentDidLoad(): void {
