@@ -4,7 +4,8 @@ import '../src/components/core/styles/global.scss';
 const getViewportName = (key: string) => key.replace(/(^SbbBreakpoint|Min$)/g, '').toLowerCase();
 const breakpoints = Object.entries(tokens)
   .filter(([key]) => key.startsWith('SbbBreakpoint') && key.endsWith('Min'))
-  .map(([key, value]) => ({ key: getViewportName(key), value: value as number }));
+  .map(([key, value]) => ({ key: getViewportName(key), value: value as number }))
+  .sort((a, b) => a.value - b.value);
 /**
  * https://www.chromatic.com/docs/viewports/
  * CHROMATIC RESTRICTIONS:
@@ -22,7 +23,7 @@ const storybookViewports = breakpoints.reduce(
       [next.key]: {
         name: `Breakpoint ${next.key}`,
         styles: {
-          width: `${next.value}px`,
+          width: `${next.value || 320}px`,
           height: '',
         },
       },
