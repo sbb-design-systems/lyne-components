@@ -10,7 +10,7 @@ import {
 import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import { i18nTripDuration } from '../core/i18n';
 import { Leg } from '../core/timetable';
-import { TitleLevel } from '../title';
+import { type TitleLevel } from '../title';
 
 import style from './journey-summary.scss?lit&inline';
 import '../pearl-chain-time';

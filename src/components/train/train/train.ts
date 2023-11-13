@@ -9,7 +9,7 @@ import {
   EventEmitter,
 } from '../../core/eventing';
 import { i18nTrain, i18nWagonsLabel } from '../../core/i18n';
-import { TitleLevel } from '../../title';
+import { type TitleLevel } from '../../title';
 import { SbbTrainBlockedPassage } from '../train-blocked-passage';
 import { SbbTrainWagon } from '../train-wagon';
 

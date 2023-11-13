@@ -2,7 +2,7 @@ import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { TitleLevel } from '../title';
+import { type TitleLevel } from '../title';
 
 import style from './footer.scss?lit&inline';
 
