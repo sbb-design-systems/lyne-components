@@ -16,7 +16,7 @@ describe('sbb-message', () => {
     expect(root).dom.to.be.equal(
       `
         <sbb-message title-content="Title.">
-          
+
           <sbb-image slot="image"></sbb-image>
           <p slot="subtitle">
             Subtitle.
@@ -32,7 +32,7 @@ describe('sbb-message', () => {
       `
         <div class="sbb-message__container">
           <slot name="image"></slot>
-          <sbb-title level="3" visual-level="5" class="sbb-message__title">
+          <sbb-title level="3" visual-level="5" class="sbb-message__title" aria-level="3" role="heading">
             <slot name="title">
               Title.
             </slot>
@@ -55,7 +55,7 @@ describe('sbb-message', () => {
     expect(root).dom.to.be.equal(
       `
         <sbb-message title-content="Title.">
-          
+
           <p slot="subtitle">
             Subtitle.
           </p>
@@ -66,7 +66,7 @@ describe('sbb-message', () => {
       `
         <div class="sbb-message__container">
           <slot name="image"></slot>
-          <sbb-title level="3" visual-level="5" class="sbb-message__title">
+          <sbb-title level="3" visual-level="5" class="sbb-message__title" aria-level="3" role="heading">
             <slot name="title">
               Title.
             </slot>

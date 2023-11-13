@@ -10,9 +10,9 @@ import {
 } from '../../core/eventing';
 import { i18nSector, i18nSectorShort, i18nTrains } from '../../core/i18n';
 import { AgnosticResizeObserver } from '../../core/observers';
-import { SbbTrain } from '../train';
-import { SbbTrainBlockedPassage } from '../train-blocked-passage';
-import { SbbTrainWagon } from '../train-wagon';
+import type { SbbTrain } from '../train';
+import type { SbbTrainBlockedPassage } from '../train-blocked-passage';
+import type { SbbTrainWagon } from '../train-wagon';
 
 import style from './train-formation.scss?lit&inline';
 

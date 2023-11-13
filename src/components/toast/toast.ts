@@ -15,11 +15,12 @@ import {
 } from '../core/eventing';
 import { i18nCloseAlert } from '../core/i18n';
 import { SbbOverlayState } from '../core/overlay';
-import { SbbLink } from '../link';
+import type { SbbLink } from '../link';
 
 import style from './toast.scss?lit&inline';
 
 import '../button';
+import '../icon';
 
 type SbbToastPositionVertical = 'top' | 'bottom';
 type SbbToastPositionHorizontal = 'left' | 'start' | 'center' | 'right' | 'end';

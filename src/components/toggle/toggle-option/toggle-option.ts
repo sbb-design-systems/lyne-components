@@ -10,7 +10,7 @@ import {
   namedSlotChangeHandlerAspect,
 } from '../../core/eventing';
 import '../../icon';
-import { type SbbToggle, type SbbToggleStateChange } from '../toggle';
+import type { SbbToggle, SbbToggleStateChange } from '../toggle';
 
 import style from './toggle-option.scss?lit&inline';
 

@@ -21,7 +21,8 @@ import {
 import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n';
 import { AgnosticResizeObserver } from '../core/observers';
 import { applyInertMechanism, removeInertMechanism, SbbOverlayState } from '../core/overlay';
-import { TitleLevel } from '../title';
+import type { TitleLevel } from '../title';
+import '../title';
 
 import style from './dialog.scss?lit&inline';
 import '../button';

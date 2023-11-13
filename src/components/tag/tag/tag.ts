@@ -17,7 +17,7 @@ import {
   SbbStateChange,
   SbbValueStateChange,
 } from '../../core/interfaces';
-import { type SbbTagGroup } from '../tag-group';
+import type { SbbTagGroup } from '../tag-group';
 
 import style from './tag.scss?lit&inline';
 

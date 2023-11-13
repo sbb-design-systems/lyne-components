@@ -20,7 +20,7 @@ import {
   setAriaComboBoxAttributes,
   setOverlayPosition,
 } from '../core/overlay';
-import { SbbOption } from '../option';
+import type { SbbOption } from '../option';
 
 import style from './autocomplete.scss?lit&inline';
 

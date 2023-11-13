@@ -11,7 +11,7 @@ import {
   ConnectedAbortController,
 } from '../../core/eventing';
 import { resolveButtonRenderVariables } from '../../core/interfaces';
-import { type SbbExpansionPanel } from '../expansion-panel';
+import type { SbbExpansionPanel } from '../expansion-panel';
 
 import style from './expansion-panel-header.scss?lit&inline';
 import '../../icon';

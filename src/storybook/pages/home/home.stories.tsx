@@ -4,6 +4,7 @@ import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import { h, type JSX } from 'jsx-dom';
 
 import '../../../components/alert';
+import '../../../components/action-group';
 
 import {
   BikeProduct,

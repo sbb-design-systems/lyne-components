@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
 import { SbbExpansionPanel } from '../expansion-panel';
-import { type SbbExpansionPanelHeader } from '../expansion-panel';
+import type { SbbExpansionPanelHeader } from '../expansion-panel';
 
 import { SbbAccordion } from './accordion';
 

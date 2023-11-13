@@ -28,7 +28,7 @@ import {
   SbbOverlayState,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay';
-import { SbbMenuAction } from '../menu-action';
+import type { SbbMenuAction } from '../menu-action';
 
 import style from './menu.scss?lit&inline';
 

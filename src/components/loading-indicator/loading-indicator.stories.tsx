@@ -5,10 +5,11 @@ import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import { Fragment, h, type JSX } from 'jsx-dom';
 
-import { SbbLoadingIndicator } from './loading-indicator';
+import type { SbbLoadingIndicator } from './loading-indicator';
 import readme from './readme.md?raw';
 
 import '../button';
+import './loading-indicator';
 
 const textBlockStyle: Args = {
   marginBlock: '1rem',

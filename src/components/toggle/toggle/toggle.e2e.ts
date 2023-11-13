@@ -3,7 +3,7 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import { type SbbToggleOption } from '../toggle-option';
+import type { SbbToggleOption } from '../toggle-option';
 import '../toggle-option';
 
 import { SbbToggle } from './toggle';

@@ -9,6 +9,7 @@ import { Fragment, h, type JSX } from 'jsx-dom';
 import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
 
 import readme from './readme.md?raw';
+import '../link';
 import { SbbToast } from './toast';
 
 // Story interaction executed after the story renders

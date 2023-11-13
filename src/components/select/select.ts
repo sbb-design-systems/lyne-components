@@ -17,7 +17,7 @@ import {
   overlayGapFixCorners,
   SbbOverlayState,
 } from '../core/overlay';
-import { SbbOption, SbbOptGroup } from '../option';
+import type { SbbOption, SbbOptGroup } from '../option';
 
 import style from './select.scss?lit&inline';
 

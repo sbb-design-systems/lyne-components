@@ -5,9 +5,9 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import { toggleDatasetEntry } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import { SbbOverlayState } from '../../core/overlay';
-import { TitleLevel } from '../../title';
-import { type SbbExpansionPanelContent } from '../expansion-panel-content';
-import { type SbbExpansionPanelHeader } from '../expansion-panel-header';
+import type { TitleLevel } from '../../title';
+import type { SbbExpansionPanelContent } from '../expansion-panel-content';
+import type { SbbExpansionPanelHeader } from '../expansion-panel-header';
 
 import style from './expansion-panel.scss?lit&inline';
 

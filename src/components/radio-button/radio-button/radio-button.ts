@@ -19,7 +19,7 @@ import {
   SbbStateChange,
 } from '../../core/interfaces';
 import { AgnosticMutationObserver } from '../../core/observers';
-import { type SbbRadioButtonGroup } from '../radio-button-group';
+import type { SbbRadioButtonGroup } from '../radio-button-group';
 
 import style from './radio-button.scss?lit&inline';
 

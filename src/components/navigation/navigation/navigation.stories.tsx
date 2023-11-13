@@ -8,12 +8,13 @@ import isChromatic from 'chromatic';
 import { Fragment, h, type JSX } from 'jsx-dom';
 
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
-import { SbbNavigationMarker } from '../navigation-marker';
+import type { SbbNavigationMarker } from '../navigation-marker';
 
 import { SbbNavigation } from './navigation';
 import readme from './readme.md?raw';
 
 import '../navigation-section';
+import '../navigation-marker';
 import '../navigation-list';
 import '../navigation-action';
 import '../../button';

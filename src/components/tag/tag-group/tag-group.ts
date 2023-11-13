@@ -3,7 +3,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import { setAttribute } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
-import { type SbbTag, SbbTagStateChange } from '../tag';
+import type { SbbTag, SbbTagStateChange } from '../tag';
 
 import style from './tag-group.scss?lit&inline';
 

@@ -19,7 +19,7 @@ import {
   resolveRenderVariables,
   targetsNewWindow,
 } from '../../core/interfaces';
-import { type SbbNavigationMarker } from '../navigation-marker';
+import type { SbbNavigationMarker } from '../navigation-marker';
 
 import style from './navigation-action.scss?lit&inline';
 

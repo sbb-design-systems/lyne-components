@@ -4,8 +4,8 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { setAttribute } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
-import { TitleLevel } from '../../title';
-import { SbbAlert } from '../alert';
+import type { TitleLevel } from '../../title';
+import type { SbbAlert } from '../alert';
 
 import style from './alert-group.scss?lit&inline';
 
