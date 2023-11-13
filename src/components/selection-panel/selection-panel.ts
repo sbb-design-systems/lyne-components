@@ -98,6 +98,7 @@ export class SbbSelectionPanel extends LitElement {
   );
 
   private _contentElement: HTMLElement;
+  private _didLoad = false;
   private _abort = new ConnectedAbortController(this);
 
   private get _input(): SbbCheckbox | SbbRadioButton {
@@ -107,7 +108,7 @@ export class SbbSelectionPanel extends LitElement {
   private _onInputChange(
     event: CustomEvent<SbbRadioButtonStateChange | SbbCheckboxStateChange>,
   ): void {
-    if (!this._state) {
+    if (!this._state || !this._didLoad) {
       return;
     }
 
@@ -144,8 +145,13 @@ export class SbbSelectionPanel extends LitElement {
         this._onInputChange(e),
       { signal, passive: true },
     );
-    this._updateSelectionPanel();
+    this.addEventListener('checkbox-loaded', () => this._updateSelectionPanel(), { signal });
+    this.addEventListener('radio-button-loaded', () => this._updateSelectionPanel(), { signal });
     this._handlerRepository.connect();
+  }
+
+  protected override firstUpdated(): void {
+    this._didLoad = true;
   }
 
   public override disconnectedCallback(): void {

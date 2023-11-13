@@ -55,6 +55,7 @@ export class SbbCheckbox extends LitElement {
   public static readonly events = {
     didChange: 'did-change',
     stateChange: 'state-change',
+    checkboxLoaded: 'checkbox-loaded',
   } as const;
 
   /** Value of checkbox. */
@@ -130,6 +131,16 @@ export class SbbCheckbox extends LitElement {
     { bubbles: true },
   );
 
+  /**
+   * @internal
+   * Internal event that emits when the checkbox is loaded.
+   */
+  private _checkboxLoaded: EventEmitter<void> = new EventEmitter(
+    this,
+    SbbCheckbox.events.checkboxLoaded,
+    { bubbles: true },
+  );
+
   private _handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
     if (this._isSelectionPanelInput && currentValue !== previousValue) {
       this._stateChange.emit({ type: 'checked', checked: currentValue });
@@ -184,6 +195,7 @@ export class SbbCheckbox extends LitElement {
       !!this._selectionPanelElement && !this.closest('sbb-selection-panel [slot="content"]');
     this._handlerRepository.connect();
     this._setupInitialStateAndAttributeObserver();
+    this._isSelectionPanelInput && this._checkboxLoaded.emit();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
