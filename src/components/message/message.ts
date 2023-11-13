@@ -1,7 +1,7 @@
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { type TitleLevel } from '../title';
+import type { TitleLevel } from '../title';
 import '../title';
 
 import style from './message.scss?lit&inline';

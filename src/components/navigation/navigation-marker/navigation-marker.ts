@@ -3,7 +3,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import { setAttribute } from '../../core/dom';
 import { AgnosticResizeObserver } from '../../core/observers';
-import { type SbbNavigationAction } from '../navigation-action';
+import type { SbbNavigationAction } from '../navigation-action';
 
 import style from './navigation-marker.scss?lit&inline';
 

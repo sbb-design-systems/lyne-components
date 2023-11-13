@@ -20,9 +20,9 @@ import {
 import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n';
 import { ValidationChangeEvent, SbbDateLike } from '../../core/interfaces';
 import { AgnosticMutationObserver } from '../../core/observers';
-import { type SbbDatepickerNextDay } from '../datepicker-next-day';
-import { type SbbDatepickerPreviousDay } from '../datepicker-previous-day';
-import { type SbbDatepickerToggle } from '../datepicker-toggle';
+import type { SbbDatepickerNextDay } from '../datepicker-next-day';
+import type { SbbDatepickerPreviousDay } from '../datepicker-previous-day';
+import type { SbbDatepickerToggle } from '../datepicker-toggle';
 
 import style from './datepicker.scss?lit&inline';
 

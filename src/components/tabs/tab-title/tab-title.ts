@@ -7,7 +7,7 @@ import {
   HandlerRepository,
   namedSlotChangeHandlerAspect,
 } from '../../core/eventing';
-import { type TitleLevel } from '../../title';
+import type { TitleLevel } from '../../title';
 
 import style from './tab-title.scss?lit&inline';
 import '../../icon';

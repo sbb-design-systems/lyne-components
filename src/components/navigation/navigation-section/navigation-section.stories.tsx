@@ -9,7 +9,7 @@ import { Fragment, h, type JSX } from 'jsx-dom';
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
 import '../navigation-list';
 import '../navigation-action';
-import { type SbbNavigationMarker } from '../navigation-marker';
+import type { SbbNavigationMarker } from '../navigation-marker';
 import '../navigation-marker';
 import '.';
 import '../navigation';

@@ -17,7 +17,7 @@ import {
   resolveLinkOrStaticRenderVariables,
   targetsNewWindow,
 } from '../core/interfaces';
-import { type TitleLevel } from '../title';
+import type { TitleLevel } from '../title';
 import '../title';
 
 import style from './teaser.scss?lit&inline';

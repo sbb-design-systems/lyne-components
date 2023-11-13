@@ -4,7 +4,7 @@ import { StoryContext } from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import { JSX, h } from 'jsx-dom';
 
-import { type SbbNavigationMarker } from '../../../components/navigation';
+import type { SbbNavigationMarker } from '../../../components/navigation';
 import '../../../components/button';
 import '../../../components/card';
 import '../../../components/clock';

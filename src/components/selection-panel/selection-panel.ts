@@ -2,7 +2,7 @@ import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { type SbbCheckbox, SbbCheckboxStateChange } from '../checkbox';
+import type { SbbCheckbox, SbbCheckboxStateChange } from '../checkbox';
 import { setAttribute } from '../core/dom';
 import {
   createNamedSlotState,
