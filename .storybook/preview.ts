@@ -8,10 +8,10 @@ const breakpoints = Object.entries(tokens)
 /**
  * https://www.chromatic.com/docs/viewports/
  * CHROMATIC RESTRICTIONS:
- * - min allowed value = 350
+ * - min allowed value = 320
  * - max allowed value = 1800
  */
-const viewports = breakpoints.map(({ value }) => (value < 350 ? 350 : value > 1800 ? 1800 : value));
+const viewports = breakpoints.map(({ value }) => (value < 320 ? 320 : value > 1800 ? 1800 : value));
 const breakpointNames: Record<string, number> = breakpoints.reduce(
   (current, next) => Object.assign(current, { [next.key]: next.value }),
   {} as Record<string, number>,
