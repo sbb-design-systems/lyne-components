@@ -15,7 +15,7 @@ import {
 } from '../core/eventing';
 import { i18nCloseAlert } from '../core/i18n';
 import { SbbOverlayState } from '../core/overlay';
-import { type SbbLink } from '../link';
+import type { SbbLink } from '../link';
 
 import style from './toast.scss?lit&inline';
 

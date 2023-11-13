@@ -3,7 +3,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import { isSafari, isValidAttribute, toggleDatasetEntry, setAttribute } from '../../core/dom';
 import { AgnosticMutationObserver } from '../../core/observers';
-import { SbbOption, SbbOptionVariant } from '../option';
+import type { SbbOption, SbbOptionVariant } from '../option';
 
 import style from './optgroup.scss?lit&inline';
 import '../../divider';

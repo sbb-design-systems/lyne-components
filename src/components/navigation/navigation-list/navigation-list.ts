@@ -8,7 +8,7 @@ import {
   HandlerRepository,
   namedSlotChangeHandlerAspect,
 } from '../../core/eventing';
-import { SbbNavigationAction } from '../navigation-action';
+import type { SbbNavigationAction } from '../navigation-action';
 
 import style from './navigation-list.scss?lit&inline';
 

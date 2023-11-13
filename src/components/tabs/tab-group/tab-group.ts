@@ -6,7 +6,7 @@ import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '..
 import { isValidAttribute, hostContext, toggleDatasetEntry, setAttribute } from '../../core/dom';
 import { throttle, EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers';
-import { SbbTabTitle } from '../tab-title';
+import type { SbbTabTitle } from '../tab-title';
 
 import style from './tab-group.scss?lit&inline';
 

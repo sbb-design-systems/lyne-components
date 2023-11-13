@@ -8,7 +8,7 @@ import {
   HandlerRepository,
   namedSlotChangeHandlerAspect,
 } from '../core/eventing';
-import { SbbLink } from '../link';
+import type { SbbLink } from '../link';
 import type { TitleLevel } from '../title';
 
 import style from './skiplink-list.scss?lit&inline';

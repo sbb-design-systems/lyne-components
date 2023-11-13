@@ -20,7 +20,6 @@ import {
 
 import style from './teaser-hero.scss?lit&inline';
 import '../link';
-import '../icon';
 import '../image';
 
 /**

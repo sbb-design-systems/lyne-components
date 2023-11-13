@@ -11,7 +11,7 @@ import {
 } from '../../core/eventing';
 import { i18nClearInput } from '../../core/i18n';
 import { ButtonProperties, resolveButtonRenderVariables } from '../../core/interfaces';
-import { SbbFormField } from '../form-field';
+import type { SbbFormField } from '../form-field';
 
 import style from './form-field-clear.scss?lit&inline';
 import '../../icon';

@@ -7,7 +7,7 @@ import { toggleDatasetEntry, setAttribute } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import { SbbCheckedStateChange, SbbStateChange, SbbValueStateChange } from '../../core/interfaces';
 import { AgnosticResizeObserver } from '../../core/observers';
-import { type SbbToggleOption } from '../toggle-option';
+import type { SbbToggleOption } from '../toggle-option';
 
 import style from './toggle.scss?lit&inline';
 

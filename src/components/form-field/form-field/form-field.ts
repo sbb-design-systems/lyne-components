@@ -13,7 +13,7 @@ import {
 } from '../../core/eventing';
 import { i18nOptional } from '../../core/i18n';
 import { AgnosticMutationObserver } from '../../core/observers';
-import { SbbSelect } from '../../select';
+import type { SbbSelect } from '../../select';
 
 import style from './form-field.scss?lit&inline';
 import '../../icon';

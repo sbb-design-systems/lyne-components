@@ -9,7 +9,6 @@ import { getDepartureArrivalTimeAttribute, isRideLeg, Leg, PtRideLeg } from '../
 
 import style from './pearl-chain-time.scss?lit&inline';
 
-import '../icon';
 import '../pearl-chain';
 
 /**

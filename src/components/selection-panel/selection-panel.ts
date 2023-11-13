@@ -11,7 +11,7 @@ import {
   EventEmitter,
   ConnectedAbortController,
 } from '../core/eventing';
-import { type SbbRadioButton, SbbRadioButtonStateChange } from '../radio-button';
+import type { SbbRadioButton, SbbRadioButtonStateChange } from '../radio-button';
 
 import style from './selection-panel.scss?lit&inline';
 import '../divider';

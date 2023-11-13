@@ -11,7 +11,7 @@ import {
 } from '../../core/eventing';
 import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n';
 import { AgnosticResizeObserver } from '../../core/observers';
-import { SbbBreadcrumb } from '../breadcrumb';
+import type { SbbBreadcrumb } from '../breadcrumb';
 
 import style from './breadcrumb-group.scss?lit&inline';
 

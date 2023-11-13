@@ -10,7 +10,7 @@ import {
   ConnectedAbortController,
 } from '../../core/eventing';
 import { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces';
-import { SbbCheckbox, SbbCheckboxSize } from '../checkbox';
+import type { SbbCheckbox, SbbCheckboxSize } from '../checkbox';
 
 import style from './checkbox-group.scss?lit&inline';
 

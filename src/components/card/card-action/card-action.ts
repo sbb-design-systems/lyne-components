@@ -21,7 +21,7 @@ import {
   targetsNewWindow,
 } from '../../core/interfaces';
 import { AgnosticMutationObserver } from '../../core/observers';
-import { SbbCard } from '../card';
+import type { SbbCard } from '../card';
 
 import style from './card-action.scss?lit&inline';
 

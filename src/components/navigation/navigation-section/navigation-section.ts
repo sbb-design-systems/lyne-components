@@ -28,8 +28,8 @@ import {
   SbbOverlayState,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay';
-import { SbbNavigation } from '../navigation';
-import { SbbNavigationMarker } from '../navigation-marker';
+import type { SbbNavigation } from '../navigation';
+import type { SbbNavigationMarker } from '../navigation-marker';
 
 import style from './navigation-section.scss?lit&inline';
 import '../../divider';

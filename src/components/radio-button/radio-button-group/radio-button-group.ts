@@ -11,8 +11,8 @@ import {
   ConnectedAbortController,
 } from '../../core/eventing';
 import { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces';
-import {
-  type SbbRadioButton,
+import type {
+  SbbRadioButton,
   SbbRadioButtonSize,
   SbbRadioButtonStateChange,
 } from '../radio-button';
