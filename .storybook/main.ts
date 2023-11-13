@@ -15,16 +15,11 @@ const config: StorybookConfig = {
     let build: BuildOptions = {};
     if (process.env.CHROMATIC) {
       build = {
+        sourcemap: false,
         rollupOptions: {
           output: {
             manualChunks(id) {
-              if (id.endsWith('stories.tsx')) {
-                return 'stories';
-              } else if (id.includes('/src/components/core/')) {
-                return 'core';
-              } else if (id.includes('/src/components/')) {
-                return 'components';
-              }
+              return 'main';
             },
           },
         },
