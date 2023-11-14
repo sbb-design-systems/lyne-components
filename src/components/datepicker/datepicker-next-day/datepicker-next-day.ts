@@ -127,6 +127,7 @@ export class SbbDatepickerNextDay extends LitElement {
     this._datePickerController?.abort();
     this._datePickerController = new AbortController();
     this._datePickerElement = getDatePicker(this, picker);
+    this._setDisabledState(this._datePickerElement);
     if (!this._datePickerElement) {
       // If the component is attached to the DOM before the datepicker, it has to listen for the datepicker init,
       // assuming that the two components share the same parent element.
@@ -137,7 +138,6 @@ export class SbbDatepickerNextDay extends LitElement {
       );
       return;
     }
-    this._setDisabledState(this._datePickerElement);
     this._setAriaLabel();
 
     this._datePickerElement.addEventListener(
@@ -173,7 +173,7 @@ export class SbbDatepickerNextDay extends LitElement {
   }
 
   private _setDisabledState(datepicker: SbbDatepicker): void {
-    const pickerValueAsDate: Date = datepicker.getValueAsDate();
+    const pickerValueAsDate: Date = datepicker?.getValueAsDate();
 
     if (!pickerValueAsDate) {
       this._disabled = true;
