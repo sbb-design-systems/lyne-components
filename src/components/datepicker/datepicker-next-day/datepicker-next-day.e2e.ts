@@ -3,6 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
 import { SbbFormField } from '../../form-field';
+import type { SbbDatepicker } from '../datepicker';
 
 import { SbbDatepickerNextDay } from './datepicker-next-day';
 
@@ -45,6 +46,69 @@ describe('sbb-datepicker-next-day', () => {
       expect(changeSpy.count).to.be.equal(1);
       expect(blurSpy.count).to.be.equal(1);
       expect(input.value).to.be.equal('Su, 01.01.2023');
+    });
+
+    it('datepicker is created after the component', async () => {
+      const doc = await fixture(html`
+        <div id="parent">
+          <input id="datepicker-input" value="01-01-2023" />
+          <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
+        </div>
+      `);
+      await waitForLitRender(doc);
+
+      const nextButton: SbbDatepickerNextDay = doc.querySelector('sbb-datepicker-next-day');
+      const inputUpdated: EventSpy<Event> = new EventSpy(
+        'input-updated',
+        document.querySelector('#parent'),
+      );
+      // there's no datepicker, so no event and the button is disabled due _datePickerElement not set
+      expect(nextButton).not.to.be.null;
+      expect(inputUpdated.count).to.be.equal(0);
+      expect(nextButton.dataset.disabled).to.be.equal('');
+
+      const picker: SbbDatepicker = document.createElement('sbb-datepicker');
+      picker.setAttribute('input', 'datepicker-input');
+      picker.setAttribute('id', 'datepicker');
+      picker.setAttribute('value', '01-01-2023');
+      doc.appendChild(picker);
+      await waitForLitRender(doc);
+
+      // the datepicker is connected, which triggers a 1st inputUpdated event which calls _init and a 2nd one which sets max/min/disabled
+      expect(inputUpdated.count).to.be.equal(2);
+      expect(nextButton.dataset.disabled).to.be.undefined;
+    });
+
+    it('datepicker is created after the component with different parent', async () => {
+      const doc = await fixture(html`
+        <div id="parent">
+          <input id="datepicker-input" value="01-01-2023" />
+          <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
+        </div>
+        <div id="other"></div>
+      `);
+      await waitForLitRender(doc);
+
+      const nextButton: SbbDatepickerNextDay = doc.querySelector('sbb-datepicker-next-day');
+      const inputUpdated: EventSpy<Event> = new EventSpy(
+        'input-updated',
+        document.querySelector('#parent'),
+      );
+      // there's no datepicker, so no event and the button is disabled due _datePickerElement not set
+      expect(nextButton).not.to.be.null;
+      expect(inputUpdated.count).to.be.equal(0);
+      expect(nextButton.dataset.disabled).to.be.equal('');
+
+      const picker: SbbDatepicker = document.createElement('sbb-datepicker');
+      picker.setAttribute('input', 'datepicker-input');
+      picker.setAttribute('id', 'datepicker');
+      picker.setAttribute('value', '01-01-2023');
+      document.querySelector('#other').appendChild(picker);
+      await waitForLitRender(doc);
+
+      // the datepicker is connected on a different parent, so no changes are triggered
+      expect(inputUpdated.count).to.be.equal(0);
+      expect(nextButton.dataset.disabled).to.be.equal('');
     });
   });
 
