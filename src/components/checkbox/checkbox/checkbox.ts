@@ -195,7 +195,7 @@ export class SbbCheckbox extends LitElement {
       !!this._selectionPanelElement && !this.closest('sbb-selection-panel [slot="content"]');
     this._handlerRepository.connect();
     this._setupInitialStateAndAttributeObserver();
-    this._isSelectionPanelInput && this._checkboxLoaded.emit();
+    this._checkboxLoaded.emit();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

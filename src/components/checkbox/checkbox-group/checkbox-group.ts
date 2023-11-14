@@ -49,6 +49,7 @@ export class SbbCheckboxGroup extends LitElement {
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
+  private _didLoad = false;
   private _abort: ConnectedAbortController = new ConnectedAbortController(this);
 
   private _updateDisabled(): void {
@@ -75,6 +76,7 @@ export class SbbCheckboxGroup extends LitElement {
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
     toggleDatasetEntry(this, 'hasSelectionPanel', !!this.querySelector('sbb-selection-panel'));
     this._handlerRepository.connect();
+    this._updateCheckboxes();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -87,6 +89,11 @@ export class SbbCheckboxGroup extends LitElement {
     if (changedProperties.has('size')) {
       this._updateSize();
     }
+  }
+
+  protected override firstUpdated(): void {
+    this._didLoad = true;
+    this._updateCheckboxes();
   }
 
   public override disconnectedCallback(): void {
@@ -118,6 +125,10 @@ export class SbbCheckboxGroup extends LitElement {
   }
 
   private _updateCheckboxes(): void {
+    if (!this._didLoad) {
+      return;
+    }
+
     const checkboxes = this._checkboxes;
 
     for (const checkbox of checkboxes) {

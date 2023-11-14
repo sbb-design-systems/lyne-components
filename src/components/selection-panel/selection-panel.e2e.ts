@@ -322,6 +322,52 @@ describe('sbb-selection-panel', () => {
     });
   });
 
+  describe('with template tag manipulation', () => {
+    it('should initialize the group correctly after append', async () => {
+      await fixture(html`
+        <template>
+          <sbb-selection-panel disable-animation>
+            <sbb-radio-button value="main1" checked="true"> Main Option 1 </sbb-radio-button>
+            <sbb-radio-button-group orientation="vertical" slot="content">
+              <sbb-radio-button value="sub1" checked>Suboption 1</sbb-radio-button>
+              <sbb-radio-button value="sub2">Suboption 2</sbb-radio-button>
+            </sbb-radio-button-group>
+          </sbb-selection-panel>
+
+          <sbb-selection-panel disable-animation>
+            <sbb-radio-button value="main2"> Main Option 2 </sbb-radio-button>
+            <sbb-radio-button-group orientation="vertical" slot="content">
+              <sbb-radio-button value="sub3">Suboption 3</sbb-radio-button>
+              <sbb-radio-button value="sub4">Suboption 4</sbb-radio-button>
+            </sbb-radio-button-group>
+          </sbb-selection-panel>
+        </template>
+
+        <sbb-radio-button-group value="main1"></sbb-radio-button-group>
+      `);
+
+      const radioGroup = document.querySelector('sbb-radio-button-group');
+      const selectionPanels = Array.from(
+        document.querySelector('template').content.querySelectorAll('sbb-selection-panel'),
+      );
+
+      selectionPanels.forEach((el) => radioGroup.appendChild(el as HTMLElement));
+      await waitForLitRender(radioGroup);
+
+      const sub1 = document.querySelector("sbb-radio-button[value='sub1']") as HTMLElement;
+      const sub2 = document.querySelector("sbb-radio-button[value='sub2']") as HTMLElement;
+
+      expect(sub1).to.have.attribute('checked');
+      expect(sub2).not.to.have.attribute('checked');
+
+      sub2.click();
+      await waitForLitRender(radioGroup);
+
+      expect(sub1).not.to.have.attribute('checked');
+      expect(sub2).to.have.attribute('checked');
+    });
+  });
+
   describe('with checkboxes', () => {
     let wrapper: SbbCheckboxGroup;
     let firstPanel: SbbSelectionPanel;

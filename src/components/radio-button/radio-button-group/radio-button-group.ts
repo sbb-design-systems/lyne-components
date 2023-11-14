@@ -196,6 +196,7 @@ export class SbbRadioButtonGroup extends LitElement {
 
   protected override firstUpdated(): void {
     this._didLoad = true;
+    this._updateRadios(this.value);
   }
 
   public override disconnectedCallback(): void {
@@ -227,6 +228,10 @@ export class SbbRadioButtonGroup extends LitElement {
   }
 
   private _updateRadios(initValue?: string): void {
+    if (!this._didLoad) {
+      return;
+    }
+
     this.value = initValue ?? this._radioButtons.find((radio) => radio.checked)?.value;
 
     for (const radio of this._radioButtons) {
