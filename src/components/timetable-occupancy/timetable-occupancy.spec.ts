@@ -19,7 +19,7 @@ describe('sbb-timetable-occupancy', () => {
     expect(element).shadowDom.to.be.equal(`
       <ul class="sbb-timetable-occupancy__list">
         <li class="sbb-timetable-occupancy__list-item">
-          <span aria-hidden="true" class="sbb-timetable-occupancy__list-item-wagon">
+          <span aria-hidden="true" class="sbb-timetable-occupancy__list-item-class">
             1.
           </span>
           <span class="sbb-timetable-occupancy__visually-hidden">
@@ -27,7 +27,7 @@ describe('sbb-timetable-occupancy', () => {
           </span>
           <sbb-timetable-occupancy-icon
             aria-hidden="false"
-            aria-label="Very high occupancy expected."
+            aria-label="Very high occupancy expected"
             class="sbb-timetable-occupancy__list-item-icon"
             data-namespace='default'
             name='utilization-high'
@@ -36,7 +36,7 @@ describe('sbb-timetable-occupancy', () => {
           </sbb-timetable-occupancy-icon>
         </li>
         <li class="sbb-timetable-occupancy__list-item">
-          <span aria-hidden="true" class="sbb-timetable-occupancy__list-item-wagon">
+          <span aria-hidden="true" class="sbb-timetable-occupancy__list-item-class">
             2.
           </span>
           <span class="sbb-timetable-occupancy__visually-hidden">
@@ -44,7 +44,7 @@ describe('sbb-timetable-occupancy', () => {
           </span>
           <sbb-timetable-occupancy-icon
             aria-hidden="false"
-            aria-label="Very high occupancy expected."
+            aria-label="Very high occupancy expected"
             class="sbb-timetable-occupancy__list-item-icon"
             data-namespace='default'
             name='utilization-high'
@@ -71,7 +71,7 @@ describe('sbb-timetable-occupancy', () => {
     expect(element).shadowDom.to.be.equal(`
       <ul class="sbb-timetable-occupancy__list">
         <li class="sbb-timetable-occupancy__list-item">
-          <span aria-hidden="true" class="sbb-timetable-occupancy__list-item-wagon">
+          <span aria-hidden="true" class="sbb-timetable-occupancy__list-item-class">
             1.
           </span>
           <span class="sbb-timetable-occupancy__visually-hidden">
@@ -79,7 +79,7 @@ describe('sbb-timetable-occupancy', () => {
           </span>
           <sbb-timetable-occupancy-icon
             aria-hidden="false"
-            aria-label="Low to medium occupancy expected."
+            aria-label="Low to medium occupancy expected"
             class="sbb-timetable-occupancy__list-item-icon"
             data-namespace='default'
             name='utilization-low-negative'
@@ -89,7 +89,7 @@ describe('sbb-timetable-occupancy', () => {
           </sbb-timetable-occupancy-icon>
         </li>
         <li class="sbb-timetable-occupancy__list-item">
-          <span aria-hidden="true" class="sbb-timetable-occupancy__list-item-wagon">
+          <span aria-hidden="true" class="sbb-timetable-occupancy__list-item-class">
             2.
           </span>
           <span class="sbb-timetable-occupancy__visually-hidden">
@@ -97,7 +97,7 @@ describe('sbb-timetable-occupancy', () => {
           </span>
           <sbb-timetable-occupancy-icon
             aria-hidden="false"
-            aria-label="High occupancy expected."
+            aria-label="High occupancy expected"
             class="sbb-timetable-occupancy__list-item-icon"
             data-namespace='default'
             name='utilization-medium-negative'
@@ -121,7 +121,7 @@ describe('sbb-timetable-occupancy', () => {
     expect(element).shadowDom.to.be.equal(`
       <ul class="sbb-timetable-occupancy__list" role="presentation">
         <li class="sbb-timetable-occupancy__list-item">
-          <span aria-hidden="true" class="sbb-timetable-occupancy__list-item-wagon">
+          <span aria-hidden="true" class="sbb-timetable-occupancy__list-item-class">
             1.
           </span>
           <span class="sbb-timetable-occupancy__visually-hidden">
@@ -129,7 +129,7 @@ describe('sbb-timetable-occupancy', () => {
           </span>
           <sbb-timetable-occupancy-icon
             aria-hidden="false"
-            aria-label="Low to medium occupancy expected."
+            aria-label="Low to medium occupancy expected"
             class="sbb-timetable-occupancy__list-item-icon"
             data-namespace='default'
             name='utilization-low'
@@ -152,7 +152,7 @@ describe('sbb-timetable-occupancy', () => {
     expect(element).shadowDom.to.be.equal(`
       <ul class="sbb-timetable-occupancy__list" role="presentation">
         <li class="sbb-timetable-occupancy__list-item">
-          <span aria-hidden="true" class="sbb-timetable-occupancy__list-item-wagon">
+          <span aria-hidden="true" class="sbb-timetable-occupancy__list-item-class">
             2.
           </span>
           <span class="sbb-timetable-occupancy__visually-hidden">
@@ -160,7 +160,7 @@ describe('sbb-timetable-occupancy', () => {
           </span>
           <sbb-timetable-occupancy-icon
             aria-hidden="false"
-            aria-label="High occupancy expected."
+            aria-label="High occupancy expected"
             class="sbb-timetable-occupancy__list-item-icon"
             data-namespace='default'
             name='utilization-medium'

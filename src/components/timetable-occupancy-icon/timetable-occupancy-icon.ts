@@ -63,7 +63,7 @@ export class SbbTimetableOccupancyIcon extends SbbIcon {
 
   private _setAriaLabel(): void {
     this.ariaLabel = i18nOccupancy[this.occupancy]
-      ? `${i18nOccupancy[this.occupancy][this._currentLanguage]}.`
+      ? i18nOccupancy[this.occupancy][this._currentLanguage]
       : null;
   }
 

@@ -53,7 +53,7 @@ export class SbbTimetableOccupancy extends LitElement {
             occupancy &&
             html`
               <li class="sbb-timetable-occupancy__list-item">
-                <span class="sbb-timetable-occupancy__list-item-wagon" aria-hidden="true">
+                <span class="sbb-timetable-occupancy__list-item-class" aria-hidden="true">
                   ${this.firstClassOccupancy && index === 0 ? '1' : '2'}.
                 </span>
                 <span class="sbb-timetable-occupancy__visually-hidden">

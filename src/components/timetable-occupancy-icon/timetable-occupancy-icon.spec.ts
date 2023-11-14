@@ -11,7 +11,7 @@ describe('sbb-timetable-occupancy-icon', () => {
     expect(root).dom.to.be.equal(`
       <sbb-timetable-occupancy-icon
         aria-hidden="false"
-        aria-label="Very high occupancy expected."
+        aria-label="Very high occupancy expected"
         data-namespace="default"
         name="utilization-high"
         occupancy="high"
@@ -30,7 +30,7 @@ describe('sbb-timetable-occupancy-icon', () => {
     expect(root).dom.to.be.equal(`
       <sbb-timetable-occupancy-icon
         aria-hidden="false"
-        aria-label="No occupancy forecast available."
+        aria-label="No occupancy forecast available"
         data-namespace="default"
         name="utilization-none-negative"
         occupancy="none"

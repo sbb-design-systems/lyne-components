@@ -6,6 +6,15 @@
 
 :host {
   --sbb-timetable-occupancy-color: var(--sbb-color-black-default);
+  --sbb-icon-svg-width: #{sbb.px-to-rem-build(14.25)};
+  --sbb-icon-svg-height: v#{sbb.px-to-rem-build(12)};
+
+  @include sbb.mq($from: medium) {
+    --sbb-icon-svg-width: #{sbb.px-to-rem-build(19)};
+    --sbb-icon-svg-height: v#{sbb.px-to-rem-build(16)};
+  }
+
+  display: inline-block;
 }
 
 :host([negative]) {
@@ -28,7 +37,7 @@
   gap: var(--sbb-spacing-fixed-1x);
 }
 
-.sbb-timetable-occupancy__list-item-wagon {
+.sbb-timetable-occupancy__list-item-class {
   @include sbb.text-s--regular;
 
   line-height: 1;

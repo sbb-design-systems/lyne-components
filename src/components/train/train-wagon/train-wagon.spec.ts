@@ -94,7 +94,7 @@ describe('sbb-train-wagon', () => {
                 role="listitem"
                 name="utilization-none"
                 aria-hidden="false"
-                aria-label="No occupancy forecast available."
+                aria-label="No occupancy forecast available"
               ></sbb-timetable-occupancy-icon>
               <li class="sbb-screenreaderonly">No passage to the previous train coach</li>
             </ul>
@@ -133,7 +133,7 @@ describe('sbb-train-wagon', () => {
               <li aria-hidden="true" class="sbb-train-wagon__label"></li>
               <sbb-timetable-occupancy-icon
                 aria-hidden="false"
-                aria-label="No occupancy forecast available."
+                aria-label="No occupancy forecast available"
                 class="sbb-train-wagon__occupancy"
                 name="utilization-none"
                 data-namespace="default"
@@ -187,7 +187,7 @@ describe('sbb-train-wagon', () => {
               <li aria-hidden="true" class="sbb-train-wagon__label"></li>
               <sbb-timetable-occupancy-icon
                 aria-hidden="false"
-                aria-label="No occupancy forecast available."
+                aria-label="No occupancy forecast available"
                 class="sbb-train-wagon__occupancy"
                 name="utilization-none"
                 data-namespace="default"
@@ -302,7 +302,7 @@ describe('sbb-train-wagon', () => {
       'Sector, A',
       'Number, 38',
       'First Class',
-      'No occupancy forecast available.',
+      'No occupancy forecast available',
       'No passage to the previous train coach',
     ]);
 
@@ -313,15 +313,15 @@ describe('sbb-train-wagon', () => {
 
     expect(await extractAriaLabels({ type: 'wagon', occupancy: 'low' })).to.be.eql([
       'Train coach',
-      'Low to medium occupancy expected.',
+      'Low to medium occupancy expected',
     ]);
     expect(await extractAriaLabels({ type: 'wagon', occupancy: 'medium' })).to.be.eql([
       'Train coach',
-      'High occupancy expected.',
+      'High occupancy expected',
     ]);
     expect(await extractAriaLabels({ type: 'wagon', occupancy: 'high' })).to.be.eql([
       'Train coach',
-      'Very high occupancy expected.',
+      'Very high occupancy expected',
     ]);
 
     expect(await extractAriaLabels({ type: 'wagon', blockedPassage: 'next' })).to.be.eql([
