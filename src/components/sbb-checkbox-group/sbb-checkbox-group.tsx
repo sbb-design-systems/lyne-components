@@ -64,6 +64,7 @@ export class SbbCheckboxGroup implements ComponentInterface {
 
   @Element() private _element!: HTMLElement;
 
+  private _componentLoaded = false;
   private _handlerRepository = new HandlerRepository(
     this._element,
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
@@ -97,6 +98,12 @@ export class SbbCheckboxGroup implements ComponentInterface {
       !!this._element.querySelector('sbb-selection-panel'),
     );
     this._handlerRepository.connect();
+    this._updateCheckboxes();
+  }
+
+  public componentDidLoad(): void {
+    this._componentLoaded = true;
+    this._updateCheckboxes();
   }
 
   public disconnectedCallback(): void {
@@ -130,6 +137,10 @@ export class SbbCheckboxGroup implements ComponentInterface {
   }
 
   private _updateCheckboxes(): void {
+    if (!this._componentLoaded) {
+      return;
+    }
+
     const checkboxes = this._checkboxes;
 
     for (const checkbox of checkboxes) {

@@ -178,7 +178,7 @@ export class SbbRadioButton implements ComponentInterface {
       !!this._selectionPanelElement &&
       !this._element.closest('sbb-selection-panel [slot="content"]');
     this._setupInitialStateAndAttributeObserver();
-    this._isSelectionPanelInput && this.sbbRadioButtonLoaded.emit();
+    this.sbbRadioButtonLoaded.emit();
   }
 
   public componentDidLoad(): void {

@@ -161,6 +161,7 @@ export class SbbRadioButtonGroup implements ComponentInterface {
 
   public componentDidLoad(): void {
     this._componentLoaded = true;
+    this._updateRadios(this.value);
   }
 
   public disconnectedCallback(): void {
@@ -192,6 +193,10 @@ export class SbbRadioButtonGroup implements ComponentInterface {
   }
 
   private _updateRadios(initValue?: string): void {
+    if (!this._componentLoaded) {
+      return;
+    }
+
     this.value = initValue ?? this._radioButtons.find((radio) => radio.checked)?.value;
 
     for (const radio of this._radioButtons) {

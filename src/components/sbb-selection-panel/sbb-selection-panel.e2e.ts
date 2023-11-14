@@ -263,28 +263,28 @@ describe('sbb-selection-panel', () => {
     beforeEach(async () => {
       page = await newE2EPage();
       await page.setContent(`
-  <sbb-radio-button-group orientation="vertical" horizontal-from="large">
-    <sbb-selection-panel disable-animation>
-      <sbb-radio-button value="main1" checked="true">
-        Main Option 1
-      </sbb-radio-button>
-      <sbb-radio-button-group orientation="vertical" slot="content">
-        <sbb-radio-button value="sub1" checked>Suboption 1</sbb-radio-button>
-        <sbb-radio-button value="sub2">Suboption 2</sbb-radio-button>
-      </sbb-radio-button-group>
-    </sbb-selection-panel>
+        <sbb-radio-button-group orientation="vertical" horizontal-from="large">
+          <sbb-selection-panel disable-animation>
+            <sbb-radio-button value="main1" checked="true">
+              Main Option 1
+            </sbb-radio-button>
+            <sbb-radio-button-group orientation="vertical" slot="content">
+              <sbb-radio-button value="sub1" checked>Suboption 1</sbb-radio-button>
+              <sbb-radio-button value="sub2">Suboption 2</sbb-radio-button>
+            </sbb-radio-button-group>
+          </sbb-selection-panel>
 
-    <sbb-selection-panel disable-animation>
-      <sbb-radio-button value="main2">
-        Main Option 2
-      </sbb-radio-button>
-      <sbb-radio-button-group orientation="vertical" slot="content">
-        <sbb-radio-button value="sub3">Suboption 3</sbb-radio-button>
-        <sbb-radio-button value="sub4">Suboption 4</sbb-radio-button>
-      </sbb-radio-button-group>
-    </sbb-selection-panel>
-  </sbb-radio-button-group>
-`);
+          <sbb-selection-panel disable-animation>
+            <sbb-radio-button value="main2">
+              Main Option 2
+            </sbb-radio-button>
+            <sbb-radio-button-group orientation="vertical" slot="content">
+              <sbb-radio-button value="sub3">Suboption 3</sbb-radio-button>
+              <sbb-radio-button value="sub4">Suboption 4</sbb-radio-button>
+            </sbb-radio-button-group>
+          </sbb-selection-panel>
+        </sbb-radio-button-group>
+      `);
       element = await page.find('sbb-radio-button-group');
 
       await page.waitForChanges();
@@ -348,6 +348,62 @@ describe('sbb-selection-panel', () => {
       expect(main1).not.toHaveAttribute('checked');
       expect(main2).toHaveAttribute('checked');
       expect(sub1).toHaveAttribute('checked');
+    });
+  });
+
+  describe('with template tag manipulation', () => {
+    beforeEach(async () => {
+      page = await newE2EPage();
+      await page.setContent(`
+        <template>
+          <sbb-selection-panel disable-animation>
+            <sbb-radio-button value="main1" checked="true">
+              Main Option 1
+            </sbb-radio-button>
+            <sbb-radio-button-group orientation="vertical" slot="content">
+              <sbb-radio-button value="sub1" checked>Suboption 1</sbb-radio-button>
+              <sbb-radio-button value="sub2">Suboption 2</sbb-radio-button>
+            </sbb-radio-button-group>
+          </sbb-selection-panel>
+
+          <sbb-selection-panel disable-animation>
+            <sbb-radio-button value="main2">
+              Main Option 2
+            </sbb-radio-button>
+            <sbb-radio-button-group orientation="vertical" slot="content">
+              <sbb-radio-button value="sub3">Suboption 3</sbb-radio-button>
+              <sbb-radio-button value="sub4">Suboption 4</sbb-radio-button>
+            </sbb-radio-button-group>
+          </sbb-selection-panel>
+        </template>
+
+        <sbb-radio-button-group value="main1"></sbb-radio-button-group>
+      `);
+      element = await page.find('sbb-radio-button-group');
+      await page.waitForChanges();
+    });
+
+    it('should initialize the group correctly after append', async () => {
+      await page.evaluate(() => {
+        const radioGroup = document.querySelector('sbb-radio-button-group');
+        const selectionPanels = Array.from(
+          document.querySelector('template').content.querySelectorAll('sbb-selection-panel'),
+        );
+
+        selectionPanels.forEach((el) => radioGroup.appendChild(el as HTMLElement));
+      });
+
+      const sub1 = await page.find("sbb-radio-button[value='sub1']");
+      const sub2 = await page.find("sbb-radio-button[value='sub2']");
+
+      expect(sub1).toHaveAttribute('checked');
+      expect(sub2).not.toHaveAttribute('checked');
+
+      await sub2.click();
+      await page.waitForChanges();
+
+      expect(sub1).not.toHaveAttribute('checked');
+      expect(sub2).toHaveAttribute('checked');
     });
   });
 
