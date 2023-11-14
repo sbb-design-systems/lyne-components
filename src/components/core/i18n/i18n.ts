@@ -384,7 +384,7 @@ export const i18nNone: Record<string, string> = {
 };
 
 export const i18nOccupancy: Record<string, Record<string, string>> = {
-  unknown: {
+  none: {
     de: 'Keine Belegungsprognose verfügbar',
     en: 'No occupancy forecast available',
     fr: "Aucune prévision d'occupation disponible",

@@ -37,7 +37,7 @@ describe('sbb-timetable-occupancy-icon', () => {
       media: '(prefer-color-scheme: dark)',
     });
     const element: SbbTimetableOccupancyIcon = await fixture(
-      html` <sbb-timetable-occupancy-icon occupancy="LOW"></sbb-timetable-occupancy-icon>`,
+      html` <sbb-timetable-occupancy-icon occupancy="low"></sbb-timetable-occupancy-icon>`,
     );
     assert.instanceOf(element, SbbTimetableOccupancyIcon);
     expect(element.name).to.equal('utilization-low');
@@ -55,7 +55,7 @@ describe('sbb-timetable-occupancy-icon', () => {
       media: '(prefer-color-scheme: dark)',
     });
     const element: SbbTimetableOccupancyIcon = await fixture(
-      html` <sbb-timetable-occupancy-icon occupancy="MEDIUM"></sbb-timetable-occupancy-icon>`,
+      html` <sbb-timetable-occupancy-icon occupancy="medium"></sbb-timetable-occupancy-icon>`,
     );
     assert.instanceOf(element, SbbTimetableOccupancyIcon);
     expect(element.name).to.equal(`utilization-medium-high-contrast`);
@@ -73,7 +73,7 @@ describe('sbb-timetable-occupancy-icon', () => {
       media: '(prefer-color-scheme: dark)',
     });
     const element: SbbTimetableOccupancyIcon = await fixture(
-      html` <sbb-timetable-occupancy-icon occupancy="MEDIUM"></sbb-timetable-occupancy-icon>`,
+      html` <sbb-timetable-occupancy-icon occupancy="medium"></sbb-timetable-occupancy-icon>`,
     );
     assert.instanceOf(element, SbbTimetableOccupancyIcon);
     expect(element.name).to.equal(`utilization-medium-negative`);

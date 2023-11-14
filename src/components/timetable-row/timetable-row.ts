@@ -641,7 +641,10 @@ export class SbbTimetableRow extends LitElement {
               : nothing}
             ${(occupancy?.firstClass && occupancy?.firstClass !== 'UNKNOWN') ||
             (occupancy?.secondClass && occupancy.secondClass !== 'UNKNOWN')
-              ? html`<sbb-timetable-occupancy .occupancy="${occupancy}"></sbb-timetable-occupancy>`
+              ? html`<sbb-timetable-occupancy
+                  .firstClassOccupancy=${occupancy?.firstClass?.toLowerCase()}
+                  .secondClassOccupancy=${occupancy?.secondClass?.toLowerCase()}
+                ></sbb-timetable-occupancy>`
               : nothing}
             ${(noticeAttributes && noticeAttributes.length) || this.boarding
               ? html`<ul class="sbb-timetable__row-hints" role="list">

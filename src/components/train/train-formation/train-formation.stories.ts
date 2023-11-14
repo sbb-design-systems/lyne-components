@@ -48,7 +48,7 @@ const MountedFormationTemplate = (args: Args): TemplateResult => html`
           name="sa-bz"
         ></sbb-icon>
       </sbb-train-wagon>
-      <sbb-train-wagon type="wagon" label="39" occupancy="unknown" wagon-class="1" sector="B">
+      <sbb-train-wagon type="wagon" label="39" occupancy="none" wagon-class="1" sector="B">
         <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
       </sbb-train-wagon>
       <sbb-train-wagon type="wagon" label="40" occupancy="high" wagon-class="2" sector="B">
@@ -250,7 +250,7 @@ const SingleFormationTemplate = (args: Args): TemplateResult => html`
           name="sa-bz"
         ></sbb-icon>
       </sbb-train-wagon>
-      <sbb-train-wagon sector="B" type="wagon" label="39" occupancy="unknown" wagon-class="1">
+      <sbb-train-wagon sector="B" type="wagon" label="39" occupancy="none" wagon-class="1">
         <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
       </sbb-train-wagon>
       <sbb-train-wagon sector="B" type="wagon" label="40" occupancy="high" wagon-class="2">

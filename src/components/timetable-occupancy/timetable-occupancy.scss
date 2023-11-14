@@ -1,5 +1,9 @@
 @use '../core/styles' as sbb;
 
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
 :host {
   --sbb-timetable-occupancy-color: var(--sbb-color-black-default);
 }
@@ -27,8 +31,8 @@
 .sbb-timetable-occupancy__list-item-wagon {
   @include sbb.text-s--regular;
 
+  line-height: 1;
   color: var(--sbb-timetable-occupancy-color);
-  line-height: 1rem;
 }
 
 .sbb-timetable-occupancy__list-item-icon {

@@ -1,32 +1,39 @@
 import { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
+import {
+  ConnectedAbortController,
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+} from '../core/eventing';
 import { i18nOccupancy } from '../core/i18n';
-import { OccupancyEnum } from '../core/timetable';
-// eslint-disable-next-line import/no-duplicates
+import { SbbOccupancy } from '../core/interfaces';
 import { SbbIcon } from '../icon';
 
 import style from './timetable-occupancy-icon.scss?lit&inline';
-// eslint-disable-next-line import/no-duplicates
-import '../icon';
 
 /**
  * It displays a wagon's occupancy icon.
  */
 @customElement('sbb-timetable-occupancy-icon')
 export class SbbTimetableOccupancyIcon extends SbbIcon {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [SbbIcon.styles, style];
 
   /** Wagon occupancy. */
-  @property() public occupancy!: OccupancyEnum;
+  @property() public occupancy!: SbbOccupancy;
 
   /** Negative coloring variant flag. */
   @property({ type: Boolean }) public negative: boolean = false;
 
-  @property({ attribute: 'aria-hidden', reflect: true }) public override ariaHidden = 'false';
+  public constructor() {
+    super();
+    this.ariaHidden = 'false';
+  }
 
   @state() private _currentLanguage = documentLanguage();
+
+  private _abort = new ConnectedAbortController(this);
 
   private _handlerRepository = new HandlerRepository(
     this,
@@ -43,37 +50,36 @@ export class SbbTimetableOccupancyIcon extends SbbIcon {
 
     if (window.matchMedia('(forced-colors: active)').matches) {
       // high contrast
-      this.name = `utilization-${this._transformOccupancy()}-high-contrast`;
-    } else if (
-      this.hasAttribute('negative') ||
-      window.matchMedia('(prefer-color-scheme: dark)').matches
-    ) {
+      this.name = `utilization-${this.occupancy}-high-contrast`;
+    } else if (this.negative || window.matchMedia('(prefer-color-scheme: dark)').matches) {
       // dark
-      this.name = `utilization-${this._transformOccupancy()}-negative`;
+      this.name = `utilization-${this.occupancy}-negative`;
     } else {
-      this.name = `utilization-${this._transformOccupancy()}`;
+      this.name = `utilization-${this.occupancy}`;
     }
 
     this._setAriaLabel();
   }
 
   private _setAriaLabel(): void {
-    this.ariaLabel = i18nOccupancy[this.occupancy?.toLowerCase()]
-      ? `${i18nOccupancy[this.occupancy.toLowerCase()][this._currentLanguage]}.`
+    this.ariaLabel = i18nOccupancy[this.occupancy]
+      ? `${i18nOccupancy[this.occupancy][this._currentLanguage]}.`
       : null;
-  }
-
-  private _transformOccupancy(): string {
-    return !this.occupancy || this.occupancy.toLowerCase() === 'unknown'
-      ? 'none'
-      : this.occupancy.toLowerCase();
   }
 
   public override connectedCallback(): void {
     super.connectedCallback();
     this._setNameAndAriaLabel();
-    window.matchMedia('(forced-colors: active)').onchange = () => this._setNameAndAriaLabel();
-    window.matchMedia('(prefer-color-scheme: dark)').onchange = () => this._setNameAndAriaLabel();
+    window
+      .matchMedia('(forced-colors: active)')
+      .addEventListener('change', () => this._setNameAndAriaLabel(), {
+        signal: this._abort.signal,
+      });
+    window
+      .matchMedia('(prefer-color-scheme: dark)')
+      .addEventListener('change', () => this._setNameAndAriaLabel(), {
+        signal: this._abort.signal,
+      });
     this._handlerRepository.connect();
   }
 
@@ -86,8 +92,6 @@ export class SbbTimetableOccupancyIcon extends SbbIcon {
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    window.matchMedia('(forced-colors: active)').onchange = null;
-    window.matchMedia('(prefer-color-scheme: dark)').onchange = null;
     this._handlerRepository.disconnect();
   }
 

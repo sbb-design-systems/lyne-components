@@ -1,26 +1,21 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../core/testing';
-
 import type { SbbTimetableOccupancy } from './timetable-occupancy';
-import {
-  occupancySampleData,
-  occupancySampleDataSingleWagon,
-} from './timetable-occupancy.sample-data';
 import './timetable-occupancy';
 
 describe('sbb-timetable-occupancy', () => {
   it('renders', async () => {
     const element: SbbTimetableOccupancy = await fixture(html`
-      <sbb-timetable-occupancy></sbb-timetable-occupancy>
+      <sbb-timetable-occupancy
+        first-class-occupancy="high"
+        second-class-occupancy="high"
+      ></sbb-timetable-occupancy>
     `);
 
-    await waitForLitRender(element);
-    element.occupancy = occupancySampleData[9];
-    await waitForLitRender(element);
-
-    expect(element).dom.to.be.equal(`<sbb-timetable-occupancy></sbb-timetable-occupancy>`);
+    expect(element).dom.to.be.equal(
+      `<sbb-timetable-occupancy first-class-occupancy="high" second-class-occupancy="high"></sbb-timetable-occupancy>`,
+    );
     expect(element).shadowDom.to.be.equal(`
       <ul class="sbb-timetable-occupancy__list">
         <li class="sbb-timetable-occupancy__list-item">
@@ -36,7 +31,6 @@ describe('sbb-timetable-occupancy', () => {
             class="sbb-timetable-occupancy__list-item-icon"
             data-namespace='default'
             name='utilization-high'
-            occupancy="HIGH"
             role='img'
           >
           </sbb-timetable-occupancy-icon>
@@ -54,7 +48,6 @@ describe('sbb-timetable-occupancy', () => {
             class="sbb-timetable-occupancy__list-item-icon"
             data-namespace='default'
             name='utilization-high'
-            occupancy="HIGH"
             role='img'
           >
           </sbb-timetable-occupancy-icon>
@@ -65,14 +58,16 @@ describe('sbb-timetable-occupancy', () => {
 
   it('renders negative', async () => {
     const element: SbbTimetableOccupancy = await fixture(html`
-      <sbb-timetable-occupancy negative></sbb-timetable-occupancy>
+      <sbb-timetable-occupancy
+        negative
+        first-class-occupancy="low"
+        second-class-occupancy="medium"
+      ></sbb-timetable-occupancy>
     `);
 
-    await waitForLitRender(element);
-    element.occupancy = occupancySampleData[5];
-    await waitForLitRender(element);
-
-    expect(element).dom.to.be.equal(`<sbb-timetable-occupancy negative></sbb-timetable-occupancy>`);
+    expect(element).dom.to.be.equal(
+      `<sbb-timetable-occupancy negative first-class-occupancy="low" second-class-occupancy="medium"></sbb-timetable-occupancy>`,
+    );
     expect(element).shadowDom.to.be.equal(`
       <ul class="sbb-timetable-occupancy__list">
         <li class="sbb-timetable-occupancy__list-item">
@@ -89,7 +84,6 @@ describe('sbb-timetable-occupancy', () => {
             data-namespace='default'
             name='utilization-low-negative'
             negative=''
-            occupancy="LOW"
             role='img'
           >
           </sbb-timetable-occupancy-icon>
@@ -108,7 +102,6 @@ describe('sbb-timetable-occupancy', () => {
             data-namespace='default'
             name='utilization-medium-negative'
             negative=''
-            occupancy="MEDIUM"
             role='img'
           >
           </sbb-timetable-occupancy-icon>
@@ -119,16 +112,14 @@ describe('sbb-timetable-occupancy', () => {
 
   it('renders only first class wagon', async () => {
     const element: SbbTimetableOccupancy = await fixture(html`
-      <sbb-timetable-occupancy></sbb-timetable-occupancy>
+      <sbb-timetable-occupancy first-class-occupancy="low"></sbb-timetable-occupancy>
     `);
 
-    await waitForLitRender(element);
-    element.occupancy = occupancySampleDataSingleWagon[0];
-    await waitForLitRender(element);
-
-    expect(element).dom.to.be.equal(`<sbb-timetable-occupancy></sbb-timetable-occupancy>`);
+    expect(element).dom.to.be.equal(
+      `<sbb-timetable-occupancy first-class-occupancy="low"></sbb-timetable-occupancy>`,
+    );
     expect(element).shadowDom.to.be.equal(`
-      <ul class="sbb-timetable-occupancy__list">
+      <ul class="sbb-timetable-occupancy__list" role="presentation">
         <li class="sbb-timetable-occupancy__list-item">
           <span aria-hidden="true" class="sbb-timetable-occupancy__list-item-wagon">
             1.
@@ -142,7 +133,6 @@ describe('sbb-timetable-occupancy', () => {
             class="sbb-timetable-occupancy__list-item-icon"
             data-namespace='default'
             name='utilization-low'
-            occupancy="LOW"
             role='img'
           >
           </sbb-timetable-occupancy-icon>
@@ -153,16 +143,14 @@ describe('sbb-timetable-occupancy', () => {
 
   it('renders only second class wagon', async () => {
     const element: SbbTimetableOccupancy = await fixture(html`
-      <sbb-timetable-occupancy></sbb-timetable-occupancy>
+      <sbb-timetable-occupancy second-class-occupancy="medium"></sbb-timetable-occupancy>
     `);
 
-    await waitForLitRender(element);
-    element.occupancy = occupancySampleDataSingleWagon[1];
-    await waitForLitRender(element);
-
-    expect(element).dom.to.be.equal(`<sbb-timetable-occupancy></sbb-timetable-occupancy>`);
+    expect(element).dom.to.be.equal(
+      `<sbb-timetable-occupancy second-class-occupancy="medium"></sbb-timetable-occupancy>`,
+    );
     expect(element).shadowDom.to.be.equal(`
-      <ul class="sbb-timetable-occupancy__list">
+      <ul class="sbb-timetable-occupancy__list" role="presentation">
         <li class="sbb-timetable-occupancy__list-item">
           <span aria-hidden="true" class="sbb-timetable-occupancy__list-item-wagon">
             2.
@@ -176,7 +164,6 @@ describe('sbb-timetable-occupancy', () => {
             class="sbb-timetable-occupancy__list-item-icon"
             data-namespace='default'
             name='utilization-medium'
-            occupancy="MEDIUM"
             role='img'
           >
           </sbb-timetable-occupancy-icon>

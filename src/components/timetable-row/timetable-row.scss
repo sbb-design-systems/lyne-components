@@ -27,15 +27,6 @@
   --sbb-icon-svg-height: #{sbb.px-to-rem-build(14)};
 }
 
-// Design spec: icon should have specific size
-.sbb-occupancy__item {
-  --sbb-icon-svg-height: #{sbb.px-to-rem-build(12)};
-
-  @include sbb.mq($from: medium) {
-    --sbb-icon-svg-height: #{sbb.px-to-rem-build(16)};
-  }
-}
-
 .sbb-screenreaderonly {
   @include sbb.screen-reader-only;
 }
@@ -113,6 +104,7 @@ li {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
   gap: var(--sbb-spacing-fixed-2x);
   line-height: var(--sbb-timetable-row-height-footer);
 
@@ -123,16 +115,6 @@ li {
   :only-child {
     margin-inline-start: auto;
   }
-}
-
-.sbb-timetable__row-occupancy {
-  gap: var(--sbb-spacing-fixed-2x);
-}
-
-.sbb-timetable__row-occupancy li {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sbb-spacing-fixed-1x);
 }
 
 .sbb-timetable__row-quay--changed {

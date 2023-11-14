@@ -25,7 +25,7 @@ const occupancy: InputType = {
   control: {
     type: 'select',
   },
-  options: ['HIGH', 'MEDIUM', 'LOW', 'UNKNOWN'],
+  options: ['high', 'medium', 'low', 'none'],
 };
 
 const defaultArgTypes: ArgTypes = {
@@ -60,7 +60,7 @@ export const LowOccupancy: StoryObj = {
   args: { ...defaultArgs, occupancy: occupancy.options[2] },
 };
 
-export const UnknownOccupancy: StoryObj = {
+export const NoneOccupancy: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, occupancy: occupancy.options[3] },
@@ -84,7 +84,7 @@ export const LowOccupancyNegative: StoryObj = {
   args: { ...defaultArgs, negative: true, occupancy: occupancy.options[2] },
 };
 
-export const UnknownOccupancyNegative: StoryObj = {
+export const NoneOccupancyNegative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, negative: true, occupancy: occupancy.options[3] },
@@ -105,7 +105,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'internals/sbb-timetable-occupancy-icon',
+  title: 'timetable/sbb-timetable-occupancy-icon',
 };
 
 export default meta;

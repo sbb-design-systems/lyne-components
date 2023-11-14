@@ -48,7 +48,7 @@ const occupancy: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['high', 'medium', 'low', 'unknown'],
+  options: ['high', 'medium', 'low', 'none'],
 };
 
 const type: InputType = {
@@ -105,7 +105,7 @@ export const wagonHighOccupancy: StoryObj = {
   },
 };
 
-export const wagonUnknownOccupancy: StoryObj = {
+export const wagonNoneOccupancy: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {

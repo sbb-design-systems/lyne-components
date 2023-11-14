@@ -42,7 +42,7 @@ export class SbbTrainWagon extends SlotChildObserver(LitElement) {
   @property({ reflect: true }) public type: 'locomotive' | 'closed' | 'wagon' = 'wagon';
 
   /** Occupancy of a wagon. */
-  @property() public occupancy?: SbbOccupancy = 'unknown'; // FIXME: verify this type
+  @property() public occupancy?: SbbOccupancy = 'none';
 
   /** Sector in which to wagon stops. */
   @property({ reflect: true })
@@ -171,7 +171,7 @@ export class SbbTrainWagon extends SlotChildObserver(LitElement) {
                 ? html`<sbb-timetable-occupancy-icon
                     class="sbb-train-wagon__occupancy"
                     role="listitem"
-                    occupancy="${this.occupancy.toUpperCase()}"
+                    .occupancy=${this.occupancy}
                   ></sbb-timetable-occupancy-icon>`
                 : nothing}
               ${this.blockedPassage && this.blockedPassage !== 'none'

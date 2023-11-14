@@ -62,7 +62,7 @@ describe('sbb-train-wagon', () => {
     it('should render as type wagon', async () => {
       const root = await fixture(
         html`<sbb-train-wagon
-          occupancy="unknown"
+          occupancy="none"
           wagon-class="1"
           type="wagon"
           label="38"
@@ -72,7 +72,7 @@ describe('sbb-train-wagon', () => {
 
       expect(root).dom.to.be.equal(
         `
-        <sbb-train-wagon data-has-visible-wagon-content blocked-passage="previous" label="38" occupancy="unknown" type="wagon" wagon-class="1">
+        <sbb-train-wagon data-has-visible-wagon-content blocked-passage="previous" label="38" occupancy="none" type="wagon" wagon-class="1">
         </sbb-train-wagon>
       `,
       );
@@ -95,7 +95,6 @@ describe('sbb-train-wagon', () => {
                 name="utilization-none"
                 aria-hidden="false"
                 aria-label="No occupancy forecast available."
-                occupancy='UNKNOWN'
               ></sbb-timetable-occupancy-icon>
               <li class="sbb-screenreaderonly">No passage to the previous train coach</li>
             </ul>
@@ -139,7 +138,7 @@ describe('sbb-train-wagon', () => {
                 name="utilization-none"
                 data-namespace="default"
                 role="listitem"
-                occupancy='UNKNOWN'>
+              >
               </sbb-timetable-occupancy-icon>
             </ul>
             <span class="sbb-train-wagon__icons">
@@ -193,7 +192,7 @@ describe('sbb-train-wagon', () => {
                 name="utilization-none"
                 data-namespace="default"
                 role="listitem"
-                occupancy='UNKNOWN'>
+              >
               </sbb-timetable-occupancy-icon>
             </ul>
             <span class="sbb-train-wagon__icons">
@@ -295,7 +294,7 @@ describe('sbb-train-wagon', () => {
         type: 'wagon',
         label: '38',
         wagonClass: '1',
-        occupancy: 'unknown',
+        occupancy: 'none',
         blockedPassage: 'previous',
       }),
     ).to.be.eql([

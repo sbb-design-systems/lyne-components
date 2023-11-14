@@ -5,7 +5,7 @@ import './timetable-occupancy-icon';
 describe('sbb-timetable-occupancy-icon', () => {
   it('renders with high occupancy', async () => {
     const root = await fixture(
-      html`<sbb-timetable-occupancy-icon occupancy="HIGH"></sbb-timetable-occupancy-icon>`,
+      html`<sbb-timetable-occupancy-icon occupancy="high"></sbb-timetable-occupancy-icon>`,
     );
 
     expect(root).dom.to.be.equal(`
@@ -14,7 +14,7 @@ describe('sbb-timetable-occupancy-icon', () => {
         aria-label="Very high occupancy expected."
         data-namespace="default"
         name="utilization-high"
-        occupancy="HIGH"
+        occupancy="high"
         role="img">
       </sbb-timetable-occupancy-icon>
       `);
@@ -22,12 +22,9 @@ describe('sbb-timetable-occupancy-icon', () => {
     expect(root).shadowDom.to.be.equal(`<span class="sbb-icon-inner"></span>`);
   });
 
-  it('renders with unknown occupancy in negative mode', async () => {
+  it('renders with none occupancy in negative mode', async () => {
     const root = await fixture(
-      html`<sbb-timetable-occupancy-icon
-        occupancy="UNKNOWN"
-        negative=""
-      ></sbb-timetable-occupancy-icon>`,
+      html`<sbb-timetable-occupancy-icon occupancy="none" negative></sbb-timetable-occupancy-icon>`,
     );
 
     expect(root).dom.to.be.equal(`
@@ -36,8 +33,8 @@ describe('sbb-timetable-occupancy-icon', () => {
         aria-label="No occupancy forecast available."
         data-namespace="default"
         name="utilization-none-negative"
-        occupancy="UNKNOWN"
-        negative=''
+        occupancy="none"
+        negative
         role="img">
       </sbb-timetable-occupancy-icon>`);
 

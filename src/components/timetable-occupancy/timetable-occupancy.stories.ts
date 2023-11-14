@@ -5,10 +5,9 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../core/dom';
 
-import readme from './readme.md?raw';
-import { occupancySampleData } from './timetable-occupancy.sample-data';
 import './timetable-occupancy';
-import '../timetable-occupancy-icon';
+
+import readme from './readme.md?raw';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative
@@ -22,7 +21,13 @@ const negative: InputType = {
   },
 };
 
-const occupancy: Args = {
+const firstClassOccupancy: Args = {
+  table: {
+    disable: false,
+  },
+};
+
+const secondClassOccupancy: Args = {
   table: {
     disable: false,
   },
@@ -30,7 +35,8 @@ const occupancy: Args = {
 
 const defaultArgTypes: ArgTypes = {
   negative,
-  occupancy,
+  'first-class-occupancy': firstClassOccupancy,
+  'second-class-occupancy': secondClassOccupancy,
 };
 
 const defaultArgs: Args = {
@@ -41,124 +47,174 @@ const Template = ({ ...args }: Args): TemplateResult => html`
   <sbb-timetable-occupancy ${sbbSpread(args)}></sbb-timetable-occupancy>
 `;
 
-export const UnknownUnknownOccupancy: StoryObj = {
+export const NoneNoneOccupancy: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, occupancy: occupancySampleData[0] },
+  args: { ...defaultArgs, 'first-class-occupancy': 'none', 'second-class-occupancy': 'none' },
 };
 
-export const UnknownLowOccupancy: StoryObj = {
+export const NoneLowOccupancy: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, occupancy: occupancySampleData[1] },
+  args: { ...defaultArgs, 'first-class-occupancy': 'none', 'second-class-occupancy': 'low' },
 };
 
-export const UnknownMediumOccupancy: StoryObj = {
+export const NoneMediumOccupancy: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, occupancy: occupancySampleData[2] },
+  args: { ...defaultArgs, 'first-class-occupancy': 'none', 'second-class-occupancy': 'medium' },
 };
 
-export const UnknownHighOccupancy: StoryObj = {
+export const NoneHighOccupancy: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, occupancy: occupancySampleData[3] },
+  args: { ...defaultArgs, 'first-class-occupancy': 'none', 'second-class-occupancy': 'high' },
 };
 
 export const LowLowOccupancy: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, occupancy: occupancySampleData[4] },
+  args: { ...defaultArgs, 'first-class-occupancy': 'low', 'second-class-occupancy': 'low' },
 };
 
 export const LowMediumOccupancy: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, occupancy: occupancySampleData[5] },
+  args: { ...defaultArgs, 'first-class-occupancy': 'low', 'second-class-occupancy': 'medium' },
 };
 
 export const LowHighOccupancy: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, occupancy: occupancySampleData[6] },
+  args: { ...defaultArgs, 'first-class-occupancy': 'low', 'second-class-occupancy': 'high' },
 };
 
 export const MediumMediumOccupancy: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, occupancy: occupancySampleData[7] },
+  args: { ...defaultArgs, 'first-class-occupancy': 'medium', 'second-class-occupancy': 'medium' },
 };
 
 export const MediumHighOccupancy: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, occupancy: occupancySampleData[8] },
+  args: { ...defaultArgs, 'first-class-occupancy': 'medium', 'second-class-occupancy': 'high' },
 };
 
 export const HighHighOccupancy: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, occupancy: occupancySampleData[9] },
+  args: { ...defaultArgs, 'first-class-occupancy': 'high', 'second-class-occupancy': 'high' },
 };
 
-export const UnknownUnknownOccupancyNegative: StoryObj = {
+export const NoneNoneOccupancyNegative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, occupancy: occupancySampleData[0], negative: true },
+  args: {
+    ...defaultArgs,
+    'first-class-occupancy': 'none',
+    'second-class-occupancy': 'none',
+    negative: true,
+  },
 };
 
-export const UnknownLowOccupancyNegative: StoryObj = {
+export const NoneLowOccupancyNegative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, occupancy: occupancySampleData[1], negative: true },
+  args: {
+    ...defaultArgs,
+    'first-class-occupancy': 'none',
+    'second-class-occupancy': 'low',
+    negative: true,
+  },
 };
 
-export const UnknownMediumOccupancyNegative: StoryObj = {
+export const NoneMediumOccupancyNegative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, occupancy: occupancySampleData[2], negative: true },
+  args: {
+    ...defaultArgs,
+    'first-class-occupancy': 'none',
+    'second-class-occupancy': 'medium',
+    negative: true,
+  },
 };
 
-export const UnknownHighOccupancyNegative: StoryObj = {
+export const NoneHighOccupancyNegative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, occupancy: occupancySampleData[3], negative: true },
+  args: {
+    ...defaultArgs,
+    'first-class-occupancy': 'none',
+    'second-class-occupancy': 'high',
+    negative: true,
+  },
 };
 
 export const LowLowOccupancyNegative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, occupancy: occupancySampleData[4], negative: true },
+  args: {
+    ...defaultArgs,
+    'first-class-occupancy': 'low',
+    'second-class-occupancy': 'low',
+    negative: true,
+  },
 };
 
 export const LowMediumOccupancyNegative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, occupancy: occupancySampleData[5], negative: true },
+  args: {
+    ...defaultArgs,
+    'first-class-occupancy': 'low',
+    'second-class-occupancy': 'medium',
+    negative: true,
+  },
 };
 
 export const LowHighOccupancyNegative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, occupancy: occupancySampleData[6], negative: true },
+  args: {
+    ...defaultArgs,
+    'first-class-occupancy': 'low',
+    'second-class-occupancy': 'high',
+    negative: true,
+  },
 };
 
 export const MediumMediumOccupancyNegative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, occupancy: occupancySampleData[7], negative: true },
+  args: {
+    ...defaultArgs,
+    'first-class-occupancy': 'medium',
+    'second-class-occupancy': 'medium',
+    negative: true,
+  },
 };
 
 export const MediumHighOccupancyNegative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, occupancy: occupancySampleData[8], negative: true },
+  args: {
+    ...defaultArgs,
+    'first-class-occupancy': 'medium',
+    'second-class-occupancy': 'high',
+    negative: true,
+  },
 };
 
 export const HighHighOccupancyNegative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, occupancy: occupancySampleData[9], negative: true },
+  args: {
+    ...defaultArgs,
+    'first-class-occupancy': 'high',
+    'second-class-occupancy': 'high',
+    negative: true,
+  },
 };
 
 const meta: Meta = {
@@ -176,7 +232,7 @@ const meta: Meta = {
     },
     chromatic: { disableSnapshot: true },
   },
-  title: 'internals/sbb-timetable-occupancy',
+  title: 'timetable/sbb-timetable-occupancy',
 };
 
 export default meta;
