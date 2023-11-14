@@ -183,7 +183,7 @@ export class SbbRadioButton extends LitElement {
     this._isSelectionPanelInput =
       !!this._selectionPanelElement && !this.closest('sbb-selection-panel [slot="content"]');
     this._setupInitialStateAndAttributeObserver();
-    this._isSelectionPanelInput && this._radioButtonLoaded.emit();
+    this._radioButtonLoaded.emit();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
