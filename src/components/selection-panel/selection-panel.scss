@@ -32,7 +32,7 @@
   --sbb-selection-panel-background: var(--sbb-color-milk-default);
 }
 
-:host([data-checked]) {
+:host([data-checked]:not([data-disabled])) {
   --sbb-selection-panel-border-color: var(--sbb-color-charcoal-default);
 }
 
