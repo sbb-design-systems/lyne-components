@@ -25,6 +25,10 @@
       "enabled": false
     },
     {
+      "matchPackageNames": ["jackspeak"],
+      "enabled": false
+    },
+    {
       "groupName": "esta",
       "matchPackagePrefixes": ["@sbb-esta/"],
       "prPriority": 10
