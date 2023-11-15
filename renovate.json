@@ -1,7 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "enabled": false,
-  "extends": ["config:base"],
+  "extends": ["config:recommended"],
   "includePaths": ["package.json"],
   "nodenv": {
     "enabled": false
@@ -21,16 +20,7 @@
       "automergeStrategy": "squash"
     },
     {
-      "matchPackageNames": [
-        "@types/node",
-        "@types/jest",
-        "@types/react",
-        "@types/react-dom",
-        "jest",
-        "jest-cli",
-        "react",
-        "react-dom"
-      ],
+      "matchPackageNames": ["@types/node"],
       "matchUpdateTypes": ["major"],
       "enabled": false
     },
@@ -50,7 +40,6 @@
     {
       "groupName": "stylelint",
       "matchPackagePrefixes": [
-        "@namics/stylelint-bem",
         "postcss",
         "stylelint",
         "stylelint-config-prettier-scss",

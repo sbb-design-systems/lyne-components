@@ -32,10 +32,10 @@ jobs:
         uses: ./.github/actions/download-artifacts-from-workflow
         with:
           artifacts: 'storybook'
-      - run: mkdir storybook-static
-      - run: unzip storybook.zip -d storybook-static
+      - run: mkdir -p dist/storybook
+      - run: unzip storybook.zip -d dist/storybook
       - name: Remove files with forbidden extensions
-        run: node ./ci/clean-storybook-files.js
+        run: node ./ci/clean-storybook-files.cjs
 
       - name: Create GitHub Deployment
         id: tag-name
@@ -100,6 +100,6 @@ jobs:
           directory: coverage
           override_branch: ${{ github.event.workflow_run.head_branch }}
           override_commit: ${{ github.event.workflow_run.head_commit.id }}
-          override_pr: ${{ steps.yarn-cache-dir-path.outputs.pr }}
+          override_pr: ${{ steps.pr-number.outputs.pr }}
           fail_ci_if_error: true
           verbose: true

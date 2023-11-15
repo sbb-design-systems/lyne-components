@@ -2,9 +2,8 @@ dist/
 loader/
 hydrate/
 src/components.d.ts
-storybook-static/
 www/
-convenience/generate-component/boilerplate/
+tools/generate-component/boilerplate/
 
 # not ignored folders/files
 !.github/

@@ -16,74 +16,92 @@ You can find a list of all branches along with their Netlify deployment URL here
 
 ### npm scripts
 
-| Script             | Purpose                                                                                                                                                                                                                                                                                              |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `build:stencil`    | Create a production build of Stencil components                                                                                                                                                                                                                                                      |
-| `build:storybook`  | Build Storybook [Component Browser](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#component-browser) based on our [Storybook Stories](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#storybook-story)                                       |
-| `build`            | Run `build:stencil` and `build:storybook` sequential                                                                                                                                                                                                                                                 |
-| `chromatic`        | Make [Visual Regression Tests](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#visual-regression-test) based on [Storybook Stories](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#storybook-story) and send them to Chromatic to be reviewed |
-| `chromatic:master` | Make [Visual Regression Tests](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#visual-regression-test) based on [Storybook Stories](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#storybook-story) and send them to Chromatic to be reviewed |
-| `generate`         | Start the interactive component generator                                                                                                                                                                                                                                                            |
-| `lint`             | Run TypeScript-ESLint                                                                                                                                                                                                                                                                                |
-| `semantic-release` | Start a semantic release                                                                                                                                                                                                                                                                             |
-| `start:stencil`    | Start the development server for Stencil                                                                                                                                                                                                                                                             |
-| `start:storybook`  | Start the development server for Storybook                                                                                                                                                                                                                                                           |
-| `start`            | Run `build:stencil:dev`, then run `start:stencil` and `start:storybook` in parallel                                                                                                                                                                                                                  |
-| `test:dev`         | Run all unit and e2e tests for development environment                                                                                                                                                                                                                                               |
-| `test:prod`        | Run all unit and e2e tests for production environment                                                                                                                                                                                                                                                |
-| `test.watch`       | Run all unit and e2e tests in watch mode                                                                                                                                                                                                                                                             |
+| Script             | Purpose                                                                                                                                                                                                                                                        |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `build:components` | Create a production build of Lit components                                                                                                                                                                                                                    |
+| `build:storybook`  | Build Storybook [Component Browser](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#component-browser) based on our [Storybook Stories](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#storybook-story) |
+| `build`            | Run `build:components` and `build:storybook` sequentially                                                                                                                                                                                                      |
+| `docs`             | Run `docs:manifest` and `docs:to-md` sequentially to regen docs files                                                                                                                                                                                          |
+| `format`           | Run `prettier` to format every supported file                                                                                                                                                                                                                  |
+| `generate`         | Start the interactive component generator                                                                                                                                                                                                                      |
+| `integrity`        | Run `format` and `docs`                                                                                                                                                                                                                                        |
+| `lint`             | Run TypeScript-ESLint                                                                                                                                                                                                                                          |
+| `start`            | Run `storybook` local development and open it on browser                                                                                                                                                                                                       |
+| `test`             | Run all unit and e2e tests                                                                                                                                                                                                                                     |
+| `test:spec`        | Run all spec tests                                                                                                                                                                                                                                             |
+| `test:e2e`         | Run all e2e tests                                                                                                                                                                                                                                              |
+| `prepare`          | Install Husky                                                                                                                                                                                                                                                  |
 
 ### devDependencies
 
-| Dependency                        | Purpose                                                                          | Docs                                                                                 |
-| --------------------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| @babel/core                       | core babel library                                                               | https://github.com/babel/babel/tree/master/packages/babel-core                       |
-| @babel/plugin-syntax-jsx          | Used to support jsx in storybook stories files                                   | https://github.com/babel/babel/tree/master/packages/babel-plugin-syntax-jsx          |
-| @babel/plugin-transform-react-jsx | Used to support jsx in storybook stories files                                   | https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-jsx |
-| @commitlint/cli                   | cli utility for semantic-release                                                 | https://github.com/conventional-changelog/commitlint                                 |
-| @commitlint/config-conventional   | stadard semantic-release convention rules                                        | https://github.com/conventional-changelog/commitlint                                 |
-| @semantic-release/changelog       | generate a changelog file with all release notes.                                | https://github.com/semantic-release/changelog                                        |
-| @semantic-release/exec            | plugin to execute custom shell commands.                                         | https://github.com/semantic-release/exec                                             |
-| @semantic-release/git             | allow semantic release to push back into the source github repo.                 | https://github.com/semantic-release/git                                              |
-| @stencil/core                     | StencilJS core library                                                           | https://stenciljs.com/                                                               |
-| @storybook/addon-a11y             | a11y addons for storybook                                                        | https://www.npmjs.com/package/@storybook/addon-a11y                                  |
-| @storybook/addon-actions          | Add actions to storybook stories                                                 | https://github.com/storybookjs/storybook/tree/master/addons/actions                  |
-| @storybook/addon-knobs            | Add knobs to storybook stories                                                   | https://github.com/storybookjs/storybook/tree/next/addons/knobs                      |
-| @storybook/addon-notes            | allow for writing notes for stories. Used for storybook integration              | https://github.com/storybookjs/storybook                                             |
-| @storybook/html                   | storybook for plain HTML snippets                                                | https://github.com/storybookjs/storybook                                             |
-| @types/jest                       | TypeScript definitions for jest                                                  | https://github.com/DefinitelyTyped/DefinitelyTyped#readme                            |
-| @types/puppeteer                  | TypeScript definitions for Puppeteer                                             | https://github.com/DefinitelyTyped/DefinitelyTyped#readme                            |
-| @typescript-eslint/eslint-plugin  | TypeScript support for ESLint                                                    | https://github.com/typescript-eslint/typescript-eslint                               |
-| @typescript-eslint/parser         | TypeScript support for ESLint                                                    | https://github.com/typescript-eslint/typescript-eslint                               |
-| axios                             | Promise based HTTP client for the browser and node.js                            | https://www.npmjs.com/package/axios                                                  |
-| babel-loader                      | webpack loader to transpile js files using babel. Used for Storybook integration | https://www.npmjs.com/package/babel-loader                                           |
-| eslint                            | Linter for JavaScript                                                            | https://github.com/eslint/eslint                                                     |
-| husky                             | easily add git hooks                                                             | https://github.com/typicode/husky                                                    |
-| jest                              | used for unit tests                                                              | https://jestjs.io/                                                                   |
-| jest-cli                          | cli utility for jest                                                             | https://jestjs.io/                                                                   |
-| jsx-dom                           | Used to support jsx in storybook stories files                                   | https://github.com/proteriax/jsx-dom                                                 |
-| npm-run-all                       | run npm-scripts in parallel or sequential                                        | https://github.com/mysticatea/npm-run-all                                            |
-| puppeteer                         | used for e2e tests                                                               | https://github.com/puppeteer/puppeteer#readme                                        |
-| semantic-release                  | Used to start semantic release                                                   | https://github.com/semantic-release/semantic-release                                 |
-| shelljs                           | used to support unix exit commands in node                                       | https://www.npmjs.com/package/shelljs                                                |
-| yargs                             | Easy parsing arguments from the command line                                     | https://www.npmjs.com/package/yargs                                                  |
+| Dependency                            | Purpose                                                                                       | Docs                                                                                   |
+| ------------------------------------- | --------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| @commitlint/cli                       | cli utility for semantic-release                                                              | https://github.com/conventional-changelog/commitlint                                   |
+| @commitlint/config-conventional       | standard semantic-release convention rules                                                    | https://github.com/conventional-changelog/commitlint                                   |
+| @custom-elements-manifest/analyzer    | file format that describes custom elements                                                    | https://github.com/open-wc/custom-elements-manifest                                    |
+| @custom-elements-manifest/to-markdown | file format that describes custom elements                                                    | https://github.com/open-wc/custom-elements-manifest                                    |
+| @open-wc/lit-helpers                  | library with helpers functions for lit                                                        | https://github.com/open-wc/open-wc/tree/master/packages/lit-helpers                    |
+| @open-wc/testing                      | package of testing libraries                                                                  | https://github.com/open-wc/open-wc/tree/master/packages/testing                        |
+| @storybook/addon-a11y                 | a11y addons for storybook                                                                     | https://www.npmjs.com/package/@storybook/addon-a11y                                    |
+| @storybook/addon-actions              | add actions to storybook stories                                                              | https://github.com/storybookjs/storybook/tree/master/addons/actions                    |
+| @storybook/addon-essentials           | curated addons to bring out the best of storybook                                             | https://github.com/storybookjs/storybook/tree/next/code/addons/essentials              |
+| @storybook/addon-interactions         | automate, test and debug user interactions                                                    | https://github.com/storybookjs/storybook/tree/next/code/addons/interactions            |
+| @storybook/addon-links                | link stories together to build demos and prototypes with your UI components                   | https://github.com/storybookjs/storybook/tree/master/addons/actions                    |
+| @storybook/blocks                     | storybook doc blocks                                                                          | https://github.com/storybookjs/storybook/tree/next/code/addons/links                   |
+| @storybook/builder-vite               | plugin to run and build storybooks with vite                                                  | https://github.com/storybookjs/storybook/tree/next/code/builders/builder-vite/#readme  |
+| @storybook/testing-library            | instrumented version of testing library for storybook interactions                            | https://github.com/storybookjs/testing-library#readme                                  |
+| @storybook/web-components             | storybook web-components renderer                                                             | https://github.com/storybookjs/storybook/tree/next/code/renderers/web-components       |
+| @storybook/web-components-vite        | storybook for web-components and vite: develop web components in isolation with hot reloading | https://github.com/storybookjs/storybook/tree/next/code/frameworks/web-components-vite |
+| @types/glob                           | TypeScript definitions for glob                                                               | https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/glob              |
+| @types/node                           | TypeScript definitions for node                                                               | https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/node              |
+| @types/react                          | TypeScript definitions for react                                                              | https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react             |
+| @types/react-dom                      | TypeScript definitions for react-dom                                                          | https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react-dom         |
+| @typescript-eslint/eslint-plugin      | TypeScript support for ESLint                                                                 | https://github.com/typescript-eslint/typescript-eslint                                 |
+| @typescript-eslint/parser             | TypeScript support for ESLint                                                                 | https://github.com/typescript-eslint/typescript-eslint                                 |
+| @web/test-runner                      | test runner for web applications                                                              | https://github.com/modernweb-dev/web/tree/master/packages/test-runner                  |
+| @web/test-runner-commands             | web test runner commands                                                                      | https://github.com/modernweb-dev/web/tree/master/packages/test-runner-commands         |
+| @web/test-runner-playwright           | playwright browser launcher for Web Test Runner                                               | https://github.com/modernweb-dev/web/tree/master/packages/test-runner-playwright       |
+| @web/test-runner-puppeteer            | puppeteer browser launcher for Web Test Runner                                                | https://github.com/modernweb-dev/web/tree/master/packages/test-runner-puppeteer        |
+| chromatic                             | automate visual testing across browsers and gather UI feedback                                | https://www.chromatic.com/                                                             |
+| date-fns                              | modern JavaScript date utility library                                                        | https://github.com/date-fns/date-fns#readme                                            |
+| eslint                                | linter for JavaScript                                                                         | https://github.com/eslint/eslint                                                       |
+| glob                                  | match files using the patterns the shell uses                                                 | https://github.com/isaacs/node-glob#readme                                             |
+| husky                                 | easily add git hooks                                                                          | https://github.com/typicode/husky                                                      |
+| jsx-dom                               | used to support jsx in storybook stories files                                                | https://github.com/proteriax/jsx-dom                                                   |
+| lint-staged                           | lint files staged by git                                                                      | https://github.com/okonet/lint-staged#readme                                           |
+| madge                                 | create graphs from module dependencies                                                        | https://github.com/pahen/madge                                                         |
+| npm-run-all                           | run npm-scripts in parallel or sequential                                                     | https://github.com/mysticatea/npm-run-all                                              |
+| playwright                            | a high-level API to automate web browsers                                                     | https://playwright.dev                                                                 |
+| postcss                               | tool for transforming styles with JS plugins                                                  | https://postcss.org/                                                                   |
+| prettier                              | an opinionated code formatter                                                                 | https://prettier.io/                                                                   |
+| react                                 | JavaScript library for building user interfaces                                               | https://reactjs.org/                                                                   |
+| react-dom                             | React package for working with the DOM                                                        | https://reactjs.org/                                                                   |
+| sass                                  | pure JavaScript implementation of Sass                                                        | https://github.com/sass/dart-sass                                                      |
+| storybook                             | Storybook CLI                                                                                 | https://github.com/storybookjs/storybook/tree/next/code/lib/cli                        |
+| stylelint                             | CSS linter that helps you avoid errors and enforce conventions                                | https://stylelint.io/                                                                  |
+| ts-lit-plugin                         | Typescript plugin that adds type checking and code completion to lit-html                     | https://github.com/runem/lit-analyzer#readme                                           |
+| tsx                                   | TypeScript Execute (tsx): Node.js enhanced with esbuild to run TypeScript & ESM files         | https://github.com/esbuild-kit/tsx#readme                                              |
+| typescript                            | language for application scale JavaScript development                                         | https://www.typescriptlang.org/                                                        |
+| vite                                  | Native-ESM powered web dev build tool                                                         | https://github.com/vitejs/vite/tree/main/#readme                                       |
+| vite-plugin-dts                       | plugin that generates declaration files                                                       | https://github.com/qmhc/vite-plugin-dts#readme                                         |
 
 ## Config files
 
-| File                 | Purpose                            | Docs                                                                                                       |
-| -------------------- | ---------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| .babelrc             | base config for babel              | https://babeljs.io/docs/en/config-files                                                                    |
-| .editorconfig        | coding style definitions           | https://editorconfig.org/                                                                                  |
-| .eslintignore        | Files to ignore for ESLint         | https://eslint.org/docs/user-guide/configuring                                                             |
-| .eslintrc            | Config for ESLint                  | https://eslint.org/docs/user-guide/configuring                                                             |
-| .gitignore           | files git should ignore            | https://git-scm.com/docs/gitignore                                                                         |
-| .huskyrc.js          | configurations for husky           | https://github.com/typicode/husky                                                                          |
-| .jest.config.js      | configuration for jest             | https://jestjs.io/docs/en/configuration.html                                                               |
-| .nvmrc               | node version to use by nvm or asdf | https://github.com/nvm-sh/nvm                                                                              |
-| .releaserc           | configuration for semantic-release | https://github.com/semantic-release/semantic-release/blob/master/docs/usage/configuration.md#configuration |
-| commitlint.config.js | configuration for commitlint       | https://github.com/conventional-changelog/commitlint                                                       |
-| stencil.config.json  | stencilJS configuration            | https://stenciljs.com/docs/config                                                                          |
-| tsconfig.json        | configurations for typeScript      | https://www.typescriptlang.org/docs/handbook/tsconfig-json.html                                            |
+| File                               | Purpose                                | Docs                                                            |
+| ---------------------------------- | -------------------------------------- | --------------------------------------------------------------- |
+| .babelrc                           | base config for babel                  | https://babeljs.io/docs/en/config-files                         |
+| .editorconfig                      | coding style definitions               | https://editorconfig.org/                                       |
+| .eslintignore                      | files to ignore for ESLint             | https://eslint.org/docs/user-guide/configuring                  |
+| .eslintrc.json                     | config for ESLint                      | https://eslint.org/docs/user-guide/configuring                  |
+| .gitignore                         | files git should ignore                | https://git-scm.com/docs/gitignore                              |
+| .nvmrc                             | node version to use by nvm or asdf     | https://github.com/nvm-sh/nvm                                   |
+| .prettierignore                    | files to ignore for Prettier           | https://prettier.io/docs/en/ignore.html                         |
+| commitlint.config.js               | configuration for commitlint           | https://github.com/conventional-changelog/commitlint            |
+| custom-elements-manifest.config.js | custom config for codegen              | https://custom-elements-manifest.open-wc.org/analyzer/config/   |
+| renovate.json                      | configuration options for Renovate     | https://docs.renovatebot.com/configuration-options/             |
+| tsconfig.json                      | configurations for typeScript          | https://www.typescriptlang.org/docs/handbook/tsconfig-json.html |
+| vite.config.ts                     | configuration file for Vite            | https://vitejs.dev/config/                                      |
+| web-test-runner.config.js          | configuration file for Web test runner | https://modern-web.dev/docs/test-runner/cli-and-configuration/  |
 
 ## Special Folders
 
@@ -94,11 +112,11 @@ You can find a list of all branches along with their Netlify deployment URL here
 
 ## Outputs
 
-| Folder             | Explanation                               |
-| ------------------ | ----------------------------------------- |
-| ./dist             | main output target for stencil components |
-| ./www              | build target for stencil dev server       |
-| ./storybook-static | rendered static storybook site            |
+| Folder            | Explanation                           |
+| ----------------- | ------------------------------------- |
+| ./dist/components | main output target for web-components |
+| ./dist/react      | output target for the react library   |
+| ./dist/storybook  | rendered static storybook site        |
 
 ## Checks & monitoring
 

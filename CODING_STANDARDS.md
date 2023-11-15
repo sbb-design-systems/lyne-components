@@ -92,7 +92,7 @@ This has been implemented to the best of our know-how in the form of the
 This can be used as follows:
 
 ```ts
-import { actionElementHandlerAspect, HandlerRepository } from '../../global/eventing';
+import { actionElementHandlerAspect, HandlerRepository } from '../core/eventing';
 
 class ActionElement implements LinkButtonProperties {
   private _handlerRepository = new HandlerRepository(this._element, actionElementHandlerAspect);
@@ -177,7 +177,7 @@ class ConfigBuilder {
 
 #### Access modifiers
 
-- Use `public` keyword as it is the recommendation by Stencil.js.
+- Use `public` keyword as it is the recommendation by TypeScript.
 - Use `private` when appropriate and possible, prefixing the name with an underscore.
 - Use `protected` when appropriate and possible with no prefix.
 
@@ -274,10 +274,6 @@ openDialog() {
 }
 ```
 
-#### Inheritance
-
-Inheritance cannot be used for components, as Stencil.js does not allow it.
-
 #### Prefer for-of instead of forEach
 
 Prefer usage of `for (... of ...)` instead of forEach, as it is slightly more performant.
@@ -331,8 +327,6 @@ if (data) {
 return data ?? data2 ?? data3;
 ```
 
-### Stencil.js
-
 #### Event naming
 
 Use the wording `will` to name events happening before an action and `did` to name events happening
@@ -383,28 +377,23 @@ better experience for accessibility.
 In certain scenarios a component should have a default id (e.g. when the usage of the id is
 expected).
 
-Since Stencil.js warns from creating properties of existing/native properties (e.g. id), we should
-not create id properties.
-
 There are various ways to assign an id to the host. One option is to use the `assignId` function:
 
 ```ts
 let nextId = 0;
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-title.scss',
-  tag: 'sbb-title',
-})
-export class SbbTitle {
-  public render(): JSX.Element {
-    ...
-    return (
-      <Host
-        ref={assignId(() => `sbb-title-${++nextId}`)}
+@customElement('sbb-example')
+export class SbbExample extends LitElement {
+  ...
+  protected override render(): TemplateResult {
+    assignId(() => `sbb-example-${++nextId}`)(this);
+
+    return html`
       ...
+    `;
   }
 }
+
 ```
 
 #### Context detection
@@ -422,7 +411,7 @@ For this purpose we provide the `hostContext(selector: string, base: Element): E
 function, which returns the closest match or null, if no match is found.
 
 This can be used in the `connectedCallback()` (see
-[Stencil.js Lifecycles](https://stenciljs.com/docs/component-lifecycle)) method of a component,
+[Lit Lifecycle](https://lit.dev/docs/components/lifecycle/)) method of a component,
 which should minimize the performance impact of this detection.
 
 **Usages of this functionality should be carefully considered. If a component has too many variants
@@ -461,7 +450,7 @@ Also define CSS variables in :host.
 // Variables are for example purposes only and do not actually exist.
 // For sizes you would usually use pre-defined sizes variables, which already
 // automatically scale with viewport size.
-@use '../../global/styles' as sbb;
+@use '../core/styles' as sbb;
 
 :host {
   --sbb-component-color: var(--sbb-color-standard);
@@ -472,7 +461,7 @@ Also define CSS variables in :host.
   }
 }
 
-:host([disabled]:not([disabled='false'])) {
+:host([disabled]) {
   --sbb-component-color: var(--sbb-color-disabled);
 }
 
@@ -488,7 +477,7 @@ Also define CSS variables in :host.
 #### Use/Check existing CSS variables and SCSS mixins/functions
 
 The `@sbb-esta/lyne-design-tokens` package provides global design tokens/CSS variables,
-which are used/configured in our code base (see `src/global/core/shared/variables.scss`).
+which are used/configured in our code base (see `src/components/core/styles/core/variables.scss`).
 
 Use these variables instead of the original ones and only define new variables for components.
 If a global variable is missing, create an issue or pull request in
@@ -596,7 +585,7 @@ you can write
 This is a low-effort task that makes a big difference for low-vision users. Example:
 
 ```scss
-@use '../../global/styles' as sbb;
+@use '../core/styles' as sbb;
 
 @include sbb.if-forced-colors {
   .unicorn-motorcycle {
@@ -618,27 +607,6 @@ When it is not super obvious, include a brief description of what a class repres
 
 // Portion of the floating panel that sits, invisibly, on top of the input.
 .sbb-datepicker-input-mask { }
-```
-
-#### Boolean properties
-
-When using a CSS attribute selector of a boolean property, it is necessary to exclude the case of value `false`.
-
-In TypeScript, when checking if an attribute value is truthy,
-you can use the `isValidAttribute()` function which checks both possible cases.
-
-```scss
-// AVOID
-:host([negative]) {
-  ...;
-}
-```
-
-```scss
-// PREFER
-:host([negative]:not([negative='false'])) {
-  ...;
-}
 ```
 
 ### Storybook

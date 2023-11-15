@@ -39,11 +39,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      # Attempt to prevent "The operation was canceled" error
-      - name: Set Swap Space
-        uses: pierotofy/set-swap-space@master
-        with:
-          swap-size-gb: 5
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
@@ -51,11 +46,12 @@ jobs:
           cache: 'yarn'
       - run: yarn install --frozen-lockfile --non-interactive
 
+      - name: Install browser dependencies
+        run: yarn playwright install-deps
       - name: Run tests
-        # Try yarn test:prod up to three times, if it fails and exit with the exit code from the last execution
-        run: for i in $(seq 1 3); do [ $i -gt 1 ] && sleep 5; yarn test:prod && s=0 && break || s=$?; done; (exit $s)
+        run: yarn test
         env:
-          NODE_OPTIONS: '--max-old-space-size=6144'
+          NODE_ENV: production
       - name: Store coverage
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v3
@@ -85,21 +81,14 @@ jobs:
       - run: yarn install --frozen-lockfile --non-interactive
 
       - name: Run build
-        run: STORYBOOK_COMPONENTS_VERSION=$GITHUB_SHA yarn build
-      - name: Store stencil artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: stencil
-          path: |
-            dist/
-            hydrate/
-            loader/
-            react-library/dist/
+        run: yarn build
+        env:
+          STORYBOOK_COMPONENTS_VERSION: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Store storybook artifacts
         uses: actions/upload-artifact@v3
         with:
           name: storybook
-          path: storybook-static/
+          path: dist/storybook/
 
   chromatic:
     runs-on: ubuntu-latest
@@ -114,18 +103,25 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'yarn'
       - run: yarn install --frozen-lockfile --non-interactive
-      - name: Restore stencil artifacts
-        uses: actions/download-artifact@v3
+      - name: Generate chromatic stories
+        run: yarn generate:chromatic-stories
+      - uses: actions/github-script@v6
+        id: version
         with:
-          name: stencil
-          path: .
-      - name: Run build
-        run: yarn build:chromatic-stories && yarn build:storybook
+          script: |
+            const sha = context.payload.pull_request?.head.sha ?? context.sha;
+            return `${require('./package.json').version}-rev.${sha.substring(0, 10)}`;
+          result-encoding: string
+      - name: Create versioned storybook for chromatic
+        run: STORYBOOK_COMPONENTS_VERSION=${{ steps.version.outputs.result }} yarn build:storybook
+        env:
+          CHROMATIC: true
       - name: Publish to Chromatic
         id: chromatic-publish
         uses: chromaui/action@v1
         with:
           projectToken: ${{ secrets.CHROMATIC_TOKEN }}
-          storybookBuildDir: storybook-static
+          storybookBuildDir: dist/storybook
           exitOnceUploaded: true
           exitZeroOnChanges: true
+          zip: true
