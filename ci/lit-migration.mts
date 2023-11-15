@@ -1,14 +1,17 @@
-import { relative } from 'path';
+import { basename, dirname, parse } from 'path';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { createInterface } from 'readline/promises';
 import ts from 'typescript';
 import MagicString from 'magic-string';
 import * as prettier from 'prettier';
+import * as glob from 'glob';
 
 const readline = createInterface({
   input: process.stdin,
   output: process.stdout,
 });
+
+const voidHtmlElements = ['input', 'br', 'img'];
 
 const join = (base: URL, path: string) => new URL(path, base);
 
@@ -70,21 +73,22 @@ class MyMagicString extends MagicString {
   }
 }
 
-async function migrate(component: string, debug = false) {
+async function migrate(component: string, debug = false, storiesOnly = false) {
+  if (!component) {
+    console.error('Please add a component to the command');
+    return;
+  }
+
   // Enable the use of vs code to launch the script
   if (component.startsWith('src/components/')) {
     component = component.replace('src/components/', '');
   }
 
   const projectRoot = new URL('..', import.meta.url);
-  const source = join(projectRoot, `./src/components/${component}/`);
-  const target = join(projectRoot, `./src/${debug ? 'migrated' : 'components'}/${component}/`);
-  if (!component) {
-    console.error('Please add a component to the command');
-    return;
-  }
+  const source = parse(glob.sync(`./**/${component}.ts`)[0]).dir;
+  const target = debug ? source.replace('components', 'migrated') : source;
 
-  console.log(`Migrating ${relative(projectRoot.pathname, source.pathname)}`);
+  console.log(`Migrating ${source}`);
 
   if (!existsSync(target)) {
     mkdirSync(target, { recursive: true });
@@ -95,14 +99,18 @@ async function migrate(component: string, debug = false) {
     string,
     // eslint-disable-next-line no-unused-vars
     (_sourceFile: ts.SourceFile, _mutator: MyMagicString, args: any) => MigrationResult
-  >()
-    .set(`./${component}.tsx`, migrateComponent)
-    .set(`./${component}.stories.tsx`, migrateStories)
-    .set(`./${component}.spec.ts`, migrateSpec)
-    .set(`./${component}.e2e.ts`, migrateE2E);
+  >();
+
+  migrations.set(`/${component}.stories.tsx`, migrateStories);
+  if (!storiesOnly) {
+    migrations
+      .set(`/${component}.tsx`, migrateComponent)
+      .set(`/${component}.spec.ts`, migrateSpec)
+      .set(`/${component}.e2e.ts`, migrateE2E);
+  }
 
   for (const [file, migration] of Array.from(migrations)) {
-    const path = join(source, file);
+    const path = join(projectRoot, `${source}${file}`);
 
     if (!existsSync(path)) {
       console.warn(`WARN: file ${file} not found`);
@@ -134,7 +142,7 @@ async function migrate(component: string, debug = false) {
       // Do nothing
     }
 
-    writeFileSync(join(target, file), result, 'utf8');
+    writeFileSync(join(projectRoot, `${target}${file}`), result, 'utf8');
     console.log(`Migrated ${file}`);
   }
 
@@ -588,7 +596,7 @@ async function migrate(component: string, debug = false) {
     }
 
     for (const template of jsxTemplates) {
-      migrateJsxTemplate(template);
+      migrateJsxTemplate(template, mutator, newImports);
     }
 
     const newImport: string[] = [];
@@ -644,161 +652,206 @@ declare global {
       const eventArguments: { tag: string } = Function(`return ${args.getText()}`)();
       return eventArguments.tag;
     }
+  }
 
-    function migrateJsxTemplate(root: ts.JsxElement) {
-      // Surround the template with html``
-      mutator.appendRight(root.parent.getStart() + 1, `html\``);
-      mutator.appendLeft(root.parent.getEnd() - 1, `\``);
+  function migrateJsxTemplate(
+    root: ts.JsxElement,
+    mutator: MyMagicString,
+    newImports: Map<string, string[]>,
+  ) {
+    // Surround the template with html``
+    mutator.appendRight(root.parent.getStart() + 1, `html\``);
+    mutator.appendLeft(root.parent.getEnd() - 1, `\``);
 
-      iterate(root, (n) => {
-        if (ts.isJsxOpeningElement(n) || ts.isJsxSelfClosingElement(n)) {
-          if (n.getText().startsWith('<Host')) {
-            migrateJsxHost(n as ts.JsxOpeningElement);
-          } else {
-            migrateJsxAttributes(n);
-          }
-        }
-
-        if (ts.isJsxElement(n) || ts.isJsxSelfClosingElement(n)) {
-          // Migrate {{ condition ?? templateA }}
-          if (
-            ts.isBinaryExpression(n.parent) ||
-            (ts.isParenthesizedExpression(n.parent) && ts.isBinaryExpression(n.parent?.parent))
-          ) {
-            const jsxExp = ts.findAncestor(n, (m) => ts.isJsxExpression(m))!;
-            const binaryExp = ts.isBinaryExpression(n.parent)
-              ? n.parent
-              : (n.parent.parent as ts.BinaryExpression);
-            const template = ts.isParenthesizedExpression(binaryExp.right)
-              ? binaryExp.right.expression
-              : binaryExp.right;
-
-            mutator.insertAt(jsxExp, '$');
-            mutator.replace(
-              binaryExp,
-              `${binaryExp.left.getText()} ? html\`${template.getText()}\` : nothing`,
-            );
-          }
-
-          // Migrate {{ condition ? templateA : templateB}}
-          if (
-            ts.isConditionalExpression(n.parent) ||
-            (ts.isParenthesizedExpression(n.parent) && ts.isConditionalExpression(n.parent?.parent))
-          ) {
-            const jsxExp = ts.findAncestor(n, (m) => ts.isJsxExpression(m))!;
-            const conditionalExp = ts.isConditionalExpression(n.parent)
-              ? n.parent
-              : (n.parent.parent as ts.ConditionalExpression);
-            const trueTemplate = ts.isParenthesizedExpression(conditionalExp.whenTrue)
-              ? conditionalExp.whenTrue.expression
-              : conditionalExp.whenTrue;
-            const falseTemplate = ts.isParenthesizedExpression(conditionalExp.whenFalse)
-              ? conditionalExp.whenFalse.expression
-              : conditionalExp.whenFalse;
-
-            // If this is the false template, the migration has already been done (skip this)
-            if (n === falseTemplate) {
-              return;
-            }
-
-            mutator.insertAt(jsxExp, '$');
-
-            mutator.appendRight(trueTemplate.getStart(), `html\``);
-            mutator.appendLeft(trueTemplate.getEnd(), `\``);
-
-            mutator.appendRight(falseTemplate.getStart(), `html\``);
-            mutator.appendLeft(falseTemplate.getEnd(), `\``);
-          }
-        }
-      });
+    if (ts.isParenthesizedExpression(root.parent)) {
+      mutator.remove(root.parent.getStart(), root.parent.getStart() + 1);
+      mutator.remove(root.parent.getEnd() - 1, root.parent.getEnd());
     }
 
-    function migrateJsxAttributes(node: ts.JsxOpeningElement | ts.JsxSelfClosingElement) {
-      iterate(node, (n) => {
-        if (ts.isJsxAttribute(n)) {
-          // migrate 'ref={...}'
-          if (n.getText().startsWith('ref=')) {
-            let refContent = n.initializer!.getText();
-            refContent = refContent.substring(1, refContent.length - 1); // Strip the parenthesis
-            mutator.replace(n, `\${ref( ${refContent} )}`);
-
-            newImports.set('lit/directives/ref.js', ['ref']);
-          }
-          // migrate events
-          else if (n.getText().match(/on[A-Z]\w+/)) {
-            const eventName = n.name.getText().substring(2).toLowerCase();
-            mutator.replace(n.name, `@${eventName}`);
-            mutator.insertAt(n.initializer!, '$');
-          }
-          // attribute migration
-          else if (n.initializer && ts.isJsxExpression(n.initializer)) {
-            // TODO we could enhance attribute migrations? Check the 'Attributes' section of the migration issue for more info
-            mutator.replace(n.initializer, `$${n.initializer.getText()}`);
-          }
-        }
-      });
-    }
-
-    function migrateJsxHost(host: ts.JsxOpeningElement) {
-      const codeToAdd: string[] = [];
-      newImports.set('../core/dom', ['setAttribute, setAttributes']);
-
-      // Remove the <Host> tag
-      mutator.remove(host);
-      mutator.remove(host.parent.closingElement);
-
-      for (let attr of host.attributes.properties) {
-        if (ts.isJsxAttribute(attr)) {
-          // static boolean attributes
-          if (!attr.initializer) {
-            codeToAdd.push(`setAttribute(this, '${attr.name.getText()}', true);`);
-            continue;
-          }
-
-          // 'ref={expression}' => 'expression(this)'
-          if (attr.name.getText() === 'ref') {
-            codeToAdd.push(
-              `${(attr.initializer as ts.JsxExpression).expression?.getText()}(this);`,
-            );
-            continue;
-          }
-
-          // it's an event
-          if (attr.name.getText().match(/on[A-Z]\w+/)) {
-            codeToAdd.push(
-              `// NOTE: Cannot automatically migrate "<Host ${attr.getText()}" >. \n// Add a 'this.addEventListener' in the constructor to preserve the same behavior`,
-            );
-            continue;
-          }
-
-          // Strip the parenthesis
-          let attrValue = attr.initializer?.getText();
-          if (attrValue.startsWith('{')) {
-            attrValue = attrValue.substring(1, attrValue.length - 1);
-          }
-          codeToAdd.push(`setAttribute(this, '${attr.name.getText()}', ${attrValue});`);
-        }
-
-        if (ts.isJsxSpreadAttribute(attr)) {
-          codeToAdd.push(`setAttributes(this, ${attr.expression.getText()});`);
+    iterate(root, (n) => {
+      if (ts.isJsxOpeningElement(n) || ts.isJsxSelfClosingElement(n)) {
+        if (n.getText().startsWith('<Host')) {
+          migrateJsxHost(n as ts.JsxOpeningElement, mutator, newImports);
+        } else {
+          migrateJsxAttributes(n, mutator, newImports);
         }
       }
 
-      const node = ts.findAncestor(
-        host,
-        (n) => ts.isReturnStatement(n) || ts.isVariableStatement(n),
-      )!;
-      if (codeToAdd.length > 0) {
-        codeToAdd.unshift('// ## Migr: Host attributes ##');
-        codeToAdd.push('// ####');
+      if (ts.isJsxElement(n) || ts.isJsxSelfClosingElement(n)) {
+        // Migrate {{ condition ?? templateA }}
+        if (
+          ts.isBinaryExpression(n.parent) ||
+          (ts.isParenthesizedExpression(n.parent) && ts.isBinaryExpression(n.parent?.parent))
+        ) {
+          const jsxExp = ts.findAncestor(n, (m) => ts.isJsxExpression(m))!;
+          const binaryExp = ts.isBinaryExpression(n.parent)
+            ? n.parent
+            : (n.parent.parent as ts.BinaryExpression);
+          const template = ts.isParenthesizedExpression(binaryExp.right)
+            ? binaryExp.right.expression
+            : binaryExp.right;
+
+          mutator.insertAt(jsxExp, '$');
+          mutator.replace(
+            binaryExp,
+            `${binaryExp.left.getText()} ? html\`${template.getText()}\` : nothing`,
+          );
+        }
+
+        // Migrate {{ condition ? templateA : templateB}}
+        if (
+          ts.isConditionalExpression(n.parent) ||
+          (ts.isParenthesizedExpression(n.parent) && ts.isConditionalExpression(n.parent?.parent))
+        ) {
+          const jsxExp = ts.findAncestor(n, (m) => ts.isJsxExpression(m))!;
+          const conditionalExp = ts.isConditionalExpression(n.parent)
+            ? n.parent
+            : (n.parent.parent as ts.ConditionalExpression);
+          const trueTemplate = ts.isParenthesizedExpression(conditionalExp.whenTrue)
+            ? conditionalExp.whenTrue.expression
+            : conditionalExp.whenTrue;
+          const falseTemplate = ts.isParenthesizedExpression(conditionalExp.whenFalse)
+            ? conditionalExp.whenFalse.expression
+            : conditionalExp.whenFalse;
+
+          // If this is the false template, the migration has already been done (skip this)
+          if (n === falseTemplate) {
+            return;
+          }
+
+          mutator.insertAt(jsxExp, '$');
+
+          mutator.appendRight(trueTemplate.getStart(), `html\``);
+          mutator.appendLeft(trueTemplate.getEnd(), `\``);
+
+          mutator.appendRight(falseTemplate.getStart(), `html\``);
+          mutator.appendLeft(falseTemplate.getEnd(), `\``);
+        }
       }
-      mutator.insertAt(node, codeToAdd.join('\n') + '\n\n');
+
+      // Convert self-closing elements
+      if (
+        ts.isJsxSelfClosingElement(n) &&
+        !voidHtmlElements.some((e) => e === n.tagName.getText())
+      ) {
+        mutator.remove(n.getEnd() - 2, n.getEnd() - 1);
+        mutator.appendRight(n.getEnd(), `</${n.tagName.getText()}>`);
+      }
+
+      if (ts.isJsxExpression(n) && !ts.isJsxAttribute(n.parent)) {
+        mutator.replace(n, `$${n.getText()}`);
+      }
+    });
+  }
+
+  function migrateJsxAttributes(
+    node: ts.JsxOpeningElement | ts.JsxSelfClosingElement,
+    mutator: MyMagicString,
+    newImports: Map<string, string[]>,
+  ) {
+    iterate(node, (n) => {
+      if (ts.isJsxAttribute(n)) {
+        // migrate 'ref={...}'
+        if (n.getText().startsWith('ref=')) {
+          let refContent = n.initializer!.getText();
+          refContent = refContent.substring(1, refContent.length - 1); // Strip the parenthesis
+          mutator.replace(n, `\${ref( ${refContent} )}`);
+
+          newImports.set('lit/directives/ref.js', ['ref']);
+        }
+        // migrate 'style={...}'
+        else if (n.getText().startsWith('style={')) {
+          let refContent = n.initializer!.getText();
+          refContent = refContent.substring(1, refContent.length - 1); // Strip the parenthesis
+          mutator.replace(n.initializer!, `\${styleMap( ${refContent} )}`);
+
+          newImports.set('lit/directives/style-map.js', ['styleMap']);
+        }
+        // migrate events
+        else if (n.getText().match(/^on[A-Z]\w+/)) {
+          const eventName = n.name.getText().substring(2).toLowerCase();
+          mutator.replace(n.name, `@${eventName}`);
+          mutator.insertAt(n.initializer!, '$');
+        }
+        // attribute migration
+        else if (n.initializer && ts.isJsxExpression(n.initializer)) {
+          mutator.replace(n.initializer, `$${n.initializer.getText()}`);
+        }
+      }
+      // migrate spread attributes
+      else if (ts.isJsxSpreadAttribute(n)) {
+        let spreadContent = n.getText();
+        mutator.replace(n, `\${spread(${spreadContent})}`);
+        newImports.set('../core/dom/spread', ['spread']);
+      }
+    });
+  }
+
+  function migrateJsxHost(
+    host: ts.JsxOpeningElement,
+    mutator: MyMagicString,
+    newImports: Map<string, string[]>,
+  ) {
+    const codeToAdd: string[] = [];
+    newImports.set('../core/dom', ['setAttribute, setAttributes']);
+
+    // Remove the <Host> tag
+    mutator.remove(host);
+    mutator.remove(host.parent.closingElement);
+
+    for (let attr of host.attributes.properties) {
+      if (ts.isJsxAttribute(attr)) {
+        // static boolean attributes
+        if (!attr.initializer) {
+          codeToAdd.push(`setAttribute(this, '${attr.name.getText()}', true);`);
+          continue;
+        }
+
+        // 'ref={expression}' => 'expression(this)'
+        if (attr.name.getText() === 'ref') {
+          codeToAdd.push(`${(attr.initializer as ts.JsxExpression).expression?.getText()}(this);`);
+          continue;
+        }
+
+        // it's an event
+        if (attr.name.getText().match(/on[A-Z]\w+/)) {
+          codeToAdd.push(
+            `// NOTE: Cannot automatically migrate "<Host ${attr.getText()}" >. \n// Add a 'this.addEventListener' in the constructor to preserve the same behavior`,
+          );
+          continue;
+        }
+
+        // Strip the parenthesis
+        let attrValue = attr.initializer?.getText();
+        if (attrValue.startsWith('{')) {
+          attrValue = attrValue.substring(1, attrValue.length - 1);
+        }
+        codeToAdd.push(`setAttribute(this, '${attr.name.getText()}', ${attrValue});`);
+      }
+
+      if (ts.isJsxSpreadAttribute(attr)) {
+        codeToAdd.push(`setAttributes(this, ${attr.expression.getText()});`);
+      }
     }
+
+    const node = ts.findAncestor(
+      host,
+      (n) => ts.isReturnStatement(n) || ts.isVariableStatement(n),
+    )!;
+    if (codeToAdd.length > 0) {
+      codeToAdd.unshift('// ## Migr: Host attributes ##');
+      codeToAdd.push('// ####');
+    }
+    mutator.insertAt(node, codeToAdd.join('\n') + '\n\n');
   }
 
   function migrateStories(sourceFile: ts.SourceFile, mutator: MyMagicString, args: any) {
     let lastImport: ts.ImportDeclaration | undefined = undefined;
     const componentName = toPascalCase(args.component);
+    const jsxTemplates: ts.JsxElement[] = [];
+    const newImports = new Map<string, string[]>()
+      .set('lit', ['html', 'TemplateResult'])
+      .set('lit/directives/style-map.js', ['styleMap']);
 
     iterate(sourceFile, (node) => {
       if (ts.isImportDeclaration(node)) {
@@ -808,13 +861,38 @@ declare global {
         if (node.moduleSpecifier.getText().match('@storybook/html')) {
           mutator.replace(node.moduleSpecifier, "'@storybook/web-components'");
         }
+
+        // Remove 'jsx-dom' imports
+        if (node.moduleSpecifier.getText().match('jsx-dom')) {
+          mutator.remove(node);
+        }
+      } else if (
+        ts.isJsxElement(node) &&
+        (ts.isParenthesizedExpression(node.parent) || ts.isArrayLiteralExpression(node.parent)) &&
+        !ts.findAncestor(node.parent, (n) => ts.isJsxElement(n))
+      ) {
+        jsxTemplates.push(node);
       }
     });
 
-    // Create an instance of the component
-    const newImports: String[] = [];
-    newImports.push(`import './${args.component}';`);
-    mutator.insertAtEnd(lastImport!, `\n${newImports.join('\n')}`);
+    for (const template of jsxTemplates) {
+      migrateJsxTemplate(template, mutator, newImports);
+    }
+
+    mutator.replaceAll('JSX.Element', 'TemplateResult');
+    mutator.replaceAll('<Story></Story>', '${story()}');
+    mutator.replaceAll('(Story', '(story');
+    mutator.replace('/** @jsx h */', '');
+
+    const newImport: string[] = [];
+    newImports.forEach((symbols, importName) => {
+      newImport.push(
+        `import { ${symbols
+          .filter((v, i, a) => a.indexOf(v) === i)
+          .join(', ')} } from '${importName}';`,
+      );
+    });
+    mutator.insertAtEnd(lastImport!, `\n${newImport.join('\n')}`);
   }
 
   // prettier-ignore
@@ -1167,7 +1245,7 @@ declare global {
             const awaitNode = deepFind(node, (n) => ts.isAwaitExpression(n)) as ts.CallExpression;
             const call = deepFind(node, (n) => ts.isCallExpression(n)) as ts.CallExpression;
             const element = (call.expression as ts.PropertyAccessExpression).expression;
-            const methodName = call.arguments[0].getText().replace(/\'/g, '');
+            const methodName = call.arguments[0].getText().replace(/'/g, '');
             const parameters = call.arguments.slice(1);
 
             mutator.replace(awaitNode, `${element.getText()}.${methodName}(${parameters.map(p => p.getText()).join(', ')})`)
@@ -1225,4 +1303,14 @@ declare global {
   }
 }
 
-migrate(process.argv[2], process.argv[3] === '--debug');
+if (!process.argv.includes('--all')) {
+  migrate(process.argv[2], process.argv.includes('--debug'), process.argv.includes('--stories'));
+} else {
+  const allComponents = glob
+    .sync(`./src/components/**/readme.md`)
+    .map((p) => basename(dirname(p)))
+    .sort();
+  for (let comp of allComponents) {
+    await migrate(comp, process.argv.includes('--debug'), process.argv.includes('--stories'));
+  }
+}

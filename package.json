@@ -37,7 +37,7 @@
     "lint:js": "eslint \"**/*.js\"",
     "lint:yml": "eslint \"**/*.{yml,yaml}\"",
     "lint:styles": "stylelint \"**/*.scss\"",
-    "lint:lit": "yarn lit-analyzer \"src/components/**/*.ts\"",
+    "lint:lit": "yarn lit-analyzer \"src/components/**/*.(ts|tsx)\"",
     "lint:circular-imports": "madge --circular --extensions ts,tsx ./",
     "lint:tsc": "npm-run-all --sequential lint:tsc:*",
     "lint:tsc:components": "tsc --noEmit --project src/components/tsconfig.json",
