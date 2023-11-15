@@ -683,6 +683,12 @@ export const WithNoContent: StoryObj = {
   args: { ...basicArgs, checkedInput: true },
 };
 
+export const WithNoContentCheckedDisabled: StoryObj = {
+  render: WithNoContentTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, checkedInput: true, disabledInput: true },
+};
+
 export const TicketsOptionsExample: StoryObj = {
   render: TicketsOptionsExampleTemplate,
   argTypes: basicArgTypes,
