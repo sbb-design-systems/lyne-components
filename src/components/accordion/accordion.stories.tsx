@@ -1,6 +1,12 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import { InputType, StoryContext } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
+import type {
+  Meta,
+  StoryObj,
+  ArgTypes,
+  Args,
+  WebComponentsRenderer,
+} from '@storybook/web-components';
 import { Decorator } from '@storybook/web-components';
 import { html, TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -248,7 +254,9 @@ export const NoAnimation: StoryObj = {
   args: { ...defaultArgs, 'disable-animation': true },
 };
 
-const wrapperStyle = (context: StoryContext<W>): Record<string, string> => ({
+const wrapperStyle = (
+  context: StoryContext<WebComponentsRenderer, { [x: string]: any }>,
+): Record<string, string> => ({
   'background-color': context.args.borderless ? '#bdbdbd' : 'var(--sbb-color-white-default)',
 });
 
