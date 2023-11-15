@@ -103,8 +103,17 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'yarn'
       - run: yarn install --frozen-lockfile --non-interactive
-      - name: Run build
-        run: yarn generate:chromatic-stories && yarn build:storybook
+      - name: Generate chromatic stories
+        run: yarn generate:chromatic-stories
+      - uses: actions/github-script@v6
+        id: version
+        with:
+          script: |
+            const sha = context.payload.pull_request?.head.sha ?? context.sha;
+            return `${require('./package.json').version}-rev.${sha.substring(0, 10)}`;
+          result-encoding: string
+      - name: Create versioned storybook for chromatic
+        run: STORYBOOK_COMPONENTS_VERSION=${{ steps.version.outputs.result }} yarn build:storybook
         env:
           CHROMATIC: true
       - name: Publish to Chromatic

@@ -1,0 +1,140 @@
+name: Release Please
+on:
+  push:
+    branches:
+      - master
+
+# Documentation:
+# https://github.com/googleapis/release-please
+# https://github.com/google-github-actions/release-please-action
+# https://github.com/googleapis/release-please/blob/main/docs/customizing.md
+
+permissions:
+  contents: write
+  packages: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      releases_created: ${{ steps.release.outputs.releases_created }}
+      version: ${{ steps.release.outputs.version }}
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        id: release
+        with:
+          release-type: node
+          bump-minor-pre-major: true
+          bump-patch-for-minor-pre-major: true
+          # Un/comment to enable/disable
+          prerelease: true
+      - name: Release Info
+        run: echo "${{ steps.release.outputs }}"
+
+  release:
+    needs: release-please
+    if: needs.release-please.outputs.releases_created
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_REPO: ghcr.io/${{ github.repository_owner }}/server
+      VERSION: ${{ needs.release-please.outputs.version }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+          registry-url: 'https://registry.npmjs.org'
+          scope: sbb-esta
+      - run: yarn install --frozen-lockfile --non-interactive
+
+      - name: Run build
+        run: STORYBOOK_COMPONENTS_VERSION=$VERSION yarn build
+      - name: 'Release: Determine npm tag'
+        id: npm_tag
+        run: echo "npm_tag=$([[ "$VERSION" == *"-"* ]] && echo "next" || echo "latest")" >> $GITHUB_OUTPUT
+      - name: 'Release: Publish @sbb-esta/lyne-components'
+        run: yarn publish dist/components --tag ${{ steps.npm_tag.outputs.npm_tag }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: 'Release: Publish @sbb-esta/lyne-components-react'
+        run: yarn publish dist/react --tag ${{ steps.npm_tag.outputs.npm_tag }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Remove files with forbidden extensions
+        run: node ./ci/clean-storybook-files.cjs
+      - name: 'Container: Login to GitHub Container Repository'
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
+      - name: 'Container: Build image'
+        run: docker build -t $IMAGE_REPO:$VERSION -t $IMAGE_REPO:latest .
+        env:
+          DOCKER_BUILDKIT: 1
+      - name: 'Container: Publish image'
+        run: docker push $IMAGE_REPO:$VERSION
+      - name: 'Container: Publish image as latest'
+        run: docker push $IMAGE_REPO:latest
+
+      - name: Generate chromatic stories
+        run: yarn generate:chromatic-stories
+      - name: Create versioned storybook for chromatic
+        run: STORYBOOK_COMPONENTS_VERSION=$VERSION yarn build:storybook
+        env:
+          CHROMATIC: true
+        # Send storybook to chromatic. These snapshots should be accepted as new
+        # baseline in storybook.
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_TOKEN }}
+          storybookBuildDir: dist/storybook
+          autoAcceptChanges: true
+          exitZeroOnChanges: true
+          zip: true
+
+  non-release:
+    needs: release-please
+    if: needs.release-please.outputs.releases_created != true
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_REPO: ghcr.io/${{ github.repository_owner }}/server
+      VERSION: ${{ needs.release-please.outputs.version }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile --non-interactive
+
+      - name: Run build
+        run: STORYBOOK_COMPONENTS_VERSION="rev-$GITHUB_SHA" yarn build
+
+      - name: Remove files with forbidden extensions
+        run: node ./ci/clean-storybook-files.cjs
+      - name: 'Container: Login to GitHub Container Repository'
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
+      - name: 'Container: Build image'
+        run: docker build -t $IMAGE_REPO:dev .
+        env:
+          DOCKER_BUILDKIT: 1
+      - name: 'Container: Publish image'
+        run: docker push $IMAGE_REPO:dev
+
+      - name: Generate chromatic stories
+        run: yarn generate:chromatic-stories
+      - name: Create versioned storybook for chromatic
+        run: STORYBOOK_COMPONENTS_VERSION="rev-$GITHUB_SHA" yarn build:storybook
+        env:
+          CHROMATIC: true
+        # Send storybook to chromatic. These snapshots should be accepted as new
+        # baseline in storybook.
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_TOKEN }}
+          storybookBuildDir: dist/storybook
+          autoAcceptChanges: true
+          exitZeroOnChanges: true
+          zip: true
