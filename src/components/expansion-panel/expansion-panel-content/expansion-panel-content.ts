@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { setAttribute } from '../../core/dom';
@@ -12,7 +12,7 @@ import style from './expansion-panel-content.scss?lit&inline';
  */
 @customElement('sbb-expansion-panel-content')
 export class SbbExpansionPanelContent extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   protected override render(): TemplateResult {
     setAttribute(this, 'slot', 'content');

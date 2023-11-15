@@ -1,4 +1,4 @@
-import { LitElement, CSSResult, TemplateResult, html } from 'lit';
+import { LitElement, CSSResultGroup, TemplateResult, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -49,7 +49,7 @@ let nextId = 0;
  */
 @customElement('sbb-navigation')
 export class SbbNavigation extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'will-open',
     didOpen: 'did-open',

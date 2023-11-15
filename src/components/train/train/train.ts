@@ -1,4 +1,4 @@
-import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
@@ -23,7 +23,7 @@ import '../../icon';
  */
 @customElement('sbb-train')
 export class SbbTrain extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
   public static readonly events = {
     trainSlotChange: 'train-slot-change',
   } as const;

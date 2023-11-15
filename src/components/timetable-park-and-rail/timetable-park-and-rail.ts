@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
@@ -16,7 +16,7 @@ import style from './timetable-park-and-rail.scss?lit&inline';
  */
 @customElement('sbb-timetable-park-and-rail')
 export class SbbTimetableParkAndRail extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /** Set the desired appearance of the component. */
   @property()

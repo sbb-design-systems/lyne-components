@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { setAttribute } from '../core/dom';
@@ -11,7 +11,7 @@ import style from './divider.scss?lit&inline';
  */
 @customElement('sbb-divider')
 export class SbbDivider extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /** Negative coloring variant flag */
   @property({ reflect: true, type: Boolean }) public negative?: boolean = false;

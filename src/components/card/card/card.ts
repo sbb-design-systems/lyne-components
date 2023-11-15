@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import style from './card.scss?lit&inline';
@@ -12,7 +12,7 @@ import style from './card.scss?lit&inline';
  */
 @customElement('sbb-card')
 export class SbbCard extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /** Size variant, either xs, s, m, l, xl, xxl or xxxl. */
   @property({ reflect: true }) public size?: 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl' | 'xxxl' = 'm';

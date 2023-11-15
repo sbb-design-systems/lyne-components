@@ -168,7 +168,7 @@ async function migrate(component: string, debug = false) {
     let renderMethod: ts.MethodDeclaration = undefined!;
     let jsxTemplates: ts.JsxElement[] = [];
     const newImports = new Map<string, string[]>()
-      .set('lit', ['CSSResult', 'html', 'LitElement', 'nothing', 'TemplateResult'])
+      .set('lit', ['CSSResultGroup', 'html', 'LitElement', 'nothing', 'TemplateResult'])
       .set('lit/decorators.js', ['customElement']);
 
     iterate(sourceFile, (node) => {
@@ -537,7 +537,7 @@ async function migrate(component: string, debug = false) {
       mutator.insertAtEnd(classDeclaration.name!, ` extends LitElement`);
       mutator.insertAt(
         classDeclaration.members[0].getFullStart(),
-        `\n  public static override styles: CSSResult = style;\n`,
+        `\n  public static override styles: CSSResultGroup = style;\n`,
       );
     }
 

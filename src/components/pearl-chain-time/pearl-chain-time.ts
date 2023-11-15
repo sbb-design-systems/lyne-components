@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { removeTimezoneFromISOTimeString } from '../core/datetime';
@@ -16,7 +16,7 @@ import '../pearl-chain';
  */
 @customElement('sbb-pearl-chain-time')
 export class SbbPearlChainTime extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /**
    * define the legs of the pearl-chain.

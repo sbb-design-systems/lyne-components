@@ -1,4 +1,4 @@
-import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
@@ -21,7 +21,7 @@ import '../../icon';
  */
 @customElement('sbb-tab-title')
 export class SbbTabTitle extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /**
    * The level will correspond to the heading tag generated in the title.

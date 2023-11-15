@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { setAttribute } from '../core/dom';
@@ -13,7 +13,7 @@ import style from './timetable-travel-hints.scss?lit&inline';
  */
 @customElement('sbb-timetable-travel-hints')
 export class SbbTimetableTravelHints extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /** Set the desired appearance of the component. */
   @property()

@@ -1,5 +1,5 @@
 import { isValid, format } from 'date-fns';
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import {
@@ -36,7 +36,7 @@ export interface InterfaceSbbJourneySummaryAttributes {
  */
 @customElement('sbb-journey-summary')
 export class SbbJourneySummary extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /**  The trip prop */
   @property({ type: Object }) public trip!: InterfaceSbbJourneySummaryAttributes;

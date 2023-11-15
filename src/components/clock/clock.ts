@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -50,7 +50,7 @@ const ADD_EVENT_LISTENER_OPTIONS: AddEventListenerOptions = {
  */
 @customElement('sbb-clock')
 export class SbbClock extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /** If it's false, the clock's hands are hidden; it's set to true when calculations are ready. */
   @state() private _isInitialized = false;

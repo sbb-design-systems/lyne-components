@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
@@ -11,7 +11,7 @@ import style from './timetable-row-day-change.scss?lit&inline';
  */
 @customElement('sbb-timetable-row-day-change')
 export class SbbTimetableRowDayChange extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /**
    * Stringified JSON which defines most of the

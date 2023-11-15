@@ -1,4 +1,4 @@
-import { CSSResult, LitElement, TemplateResult, html, nothing } from 'lit';
+import { CSSResultGroup, LitElement, TemplateResult, html, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { setAttribute } from '../../core/dom';
@@ -22,7 +22,7 @@ import style from './toggle-option.scss?lit&inline';
  */
 @customElement('sbb-toggle-option')
 export class SbbToggleOption extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
   public static readonly events = {
     stateChange: 'state-change',
   } as const;

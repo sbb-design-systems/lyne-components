@@ -1,4 +1,4 @@
-import { CSSResult, LitElement, TemplateResult, html, nothing } from 'lit';
+import { CSSResultGroup, LitElement, TemplateResult, html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { hostContext, isValidAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
@@ -15,7 +15,7 @@ import '../../icon';
  */
 @customElement('sbb-tooltip-trigger')
 export class SbbTooltipTrigger extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /** The name attribute to use for the button. */
   @property({ reflect: true }) public name: string | undefined;

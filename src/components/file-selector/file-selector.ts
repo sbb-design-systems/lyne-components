@@ -1,4 +1,4 @@
-import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
@@ -34,7 +34,7 @@ export type DOMEvent = globalThis.Event;
  */
 @customElement('sbb-file-selector')
 export class SbbFileSelector extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
   public static readonly events = {
     fileChangedEvent: 'file-changed',
   } as const;

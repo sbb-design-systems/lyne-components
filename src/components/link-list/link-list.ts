@@ -1,5 +1,5 @@
 import { spread } from '@open-wc/lit-helpers';
-import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import {
@@ -23,7 +23,7 @@ import '../title';
  */
 @customElement('sbb-link-list')
 export class SbbLinkList extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /** The title text we want to show before the list. */
   @property({ attribute: 'title-content' }) public titleContent?: string;

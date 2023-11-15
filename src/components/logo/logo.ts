@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbProtectiveRoom } from '../core/interfaces';
@@ -10,7 +10,7 @@ import style from './logo.scss?lit&inline';
  */
 @customElement('sbb-logo')
 export class SbbLogo extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /** Variants of the logo. */
   @property({ reflect: true, type: Boolean }) public negative = false;

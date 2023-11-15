@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, TemplateResult, nothing } from 'lit';
+import { CSSResultGroup, html, LitElement, TemplateResult, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import style from './visual-checkbox.scss?lit&inline';
@@ -8,7 +8,7 @@ import style from './visual-checkbox.scss?lit&inline';
  */
 @customElement('sbb-visual-checkbox')
 export class SbbVisualCheckbox extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /** Checked state. */
   @property({ reflect: true, type: Boolean }) public checked: boolean;

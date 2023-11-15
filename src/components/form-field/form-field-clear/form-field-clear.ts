@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { hostContext, isValidAttribute, setAttribute, setAttributes } from '../../core/dom';
@@ -21,7 +21,7 @@ import '../../icon';
  */
 @customElement('sbb-form-field-clear')
 export class SbbFormFieldClear extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /** Negative coloring variant flag. */
   @property({ reflect: true, type: Boolean }) public negative = false;

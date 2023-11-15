@@ -1,4 +1,4 @@
-import { CSSResult, LitElement, PropertyValues, TemplateResult, html } from 'lit';
+import { CSSResultGroup, LitElement, PropertyValues, TemplateResult, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { DateAdapter, NativeDateAdapter } from '../../core/datetime';
@@ -29,7 +29,7 @@ import '../../icon';
  */
 @customElement('sbb-datepicker-next-day')
 export class SbbDatepickerNextDay extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /** The name attribute to use for the button. */
   @property({ reflect: true }) public name: string | undefined;

@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { SbbInputModality, sbbInputModalityDetector } from '../../core/a11y';
@@ -34,7 +34,7 @@ const supportedPopupTagNames = ['SBB-AUTOCOMPLETE', 'SBB-SELECT'];
  */
 @customElement('sbb-form-field')
 export class SbbFormField extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   private readonly _supportedNativeInputElements = ['INPUT', 'SELECT'];
   // List of supported element selectors in unnamed slot

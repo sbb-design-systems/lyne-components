@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed, sbbInputModalityDetector } from '../../core/a11y';
@@ -22,7 +22,7 @@ import style from './breadcrumb-group.scss?lit&inline';
  */
 @customElement('sbb-breadcrumb-group')
 export class SbbBreadcrumbGroup extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /** Local instance of slotted sbb-breadcrumb elements */
   @state() private _breadcrumbs: SbbBreadcrumb[];

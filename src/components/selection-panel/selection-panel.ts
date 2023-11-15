@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -29,7 +29,7 @@ import '../divider';
  */
 @customElement('sbb-selection-panel')
 export class SbbSelectionPanel extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
     willOpen: 'will-open',
     didOpen: 'did-open',

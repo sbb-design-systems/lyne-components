@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
@@ -85,7 +85,7 @@ export type CalendarView = 'day' | 'month' | 'year';
  */
 @customElement('sbb-calendar')
 export class SbbCalendar extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
   public static readonly events = {
     dateSelected: 'date-selected',
   } as const;

@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import type { TitleLevel } from '../title';
@@ -17,7 +17,7 @@ import style from './message.scss?lit&inline';
  */
 @customElement('sbb-message')
 export class SbbMessage extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /** Content of title. */
   @property({ attribute: 'title-content' }) public titleContent?: string;

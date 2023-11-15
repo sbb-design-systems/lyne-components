@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { toggleDatasetEntry, getDocumentWritingMode, setAttribute } from '../../core/dom';
@@ -13,7 +13,7 @@ import style from './card-badge.scss?lit&inline';
  */
 @customElement('sbb-card-badge')
 export class SbbCardBadge extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /** Color of the card badge. */
   @property({ reflect: true }) public color: 'charcoal' | 'white' = 'charcoal';

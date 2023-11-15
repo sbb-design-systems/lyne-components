@@ -1,4 +1,4 @@
-import { CSSResult, LitElement, PropertyValues, TemplateResult, html } from 'lit';
+import { CSSResultGroup, LitElement, PropertyValues, TemplateResult, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -175,7 +175,7 @@ export const datepickerControlRegisteredEvent = new CustomEvent('datepicker-cont
  */
 @customElement('sbb-datepicker')
 export class SbbDatepicker extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'did-change',
     change: 'change',
