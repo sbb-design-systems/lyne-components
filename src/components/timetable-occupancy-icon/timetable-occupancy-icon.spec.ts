@@ -10,16 +10,14 @@ describe('sbb-timetable-occupancy-icon', () => {
 
     expect(root).dom.to.be.equal(`
       <sbb-timetable-occupancy-icon
-        aria-hidden="false"
         aria-label="Very high occupancy expected"
         data-namespace="default"
-        name="utilization-high"
         occupancy="high"
         role="img">
       </sbb-timetable-occupancy-icon>
       `);
 
-    expect(root).shadowDom.to.be.equal(`<span class="sbb-icon-inner"></span>`);
+    await expect(root).shadowDom.to.equalSnapshot();
   });
 
   it('renders with none occupancy in negative mode', async () => {
@@ -29,15 +27,13 @@ describe('sbb-timetable-occupancy-icon', () => {
 
     expect(root).dom.to.be.equal(`
       <sbb-timetable-occupancy-icon
-        aria-hidden="false"
         aria-label="No occupancy forecast available"
         data-namespace="default"
-        name="utilization-none-negative"
         occupancy="none"
         negative
         role="img">
       </sbb-timetable-occupancy-icon>`);
 
-    expect(root).shadowDom.to.be.equal(`<span class="sbb-icon-inner"></span>`);
+    await expect(root).shadowDom.to.equalSnapshot();
   });
 });

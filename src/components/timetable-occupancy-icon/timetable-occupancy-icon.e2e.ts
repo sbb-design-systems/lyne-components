@@ -2,6 +2,8 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { SinonStub, stub } from 'sinon';
 
+import { i18nOccupancy } from '../core/i18n';
+
 import { SbbTimetableOccupancyIcon } from './timetable-occupancy-icon';
 
 describe('sbb-timetable-occupancy-icon', () => {
@@ -40,7 +42,8 @@ describe('sbb-timetable-occupancy-icon', () => {
       html` <sbb-timetable-occupancy-icon occupancy="low"></sbb-timetable-occupancy-icon>`,
     );
     assert.instanceOf(element, SbbTimetableOccupancyIcon);
-    expect(element.name).to.equal('utilization-low');
+    expect(element.ariaLabel).to.equal(i18nOccupancy.low.en);
+    await expect(element).shadowDom.to.equalSnapshot();
   });
 
   it('renders high contrast mode', async () => {
@@ -58,7 +61,8 @@ describe('sbb-timetable-occupancy-icon', () => {
       html` <sbb-timetable-occupancy-icon occupancy="medium"></sbb-timetable-occupancy-icon>`,
     );
     assert.instanceOf(element, SbbTimetableOccupancyIcon);
-    expect(element.name).to.equal(`utilization-medium-high-contrast`);
+    expect(element.ariaLabel).to.equal(i18nOccupancy.medium.en);
+    await expect(element).shadowDom.to.equalSnapshot();
   });
 
   it('renders negative', async () => {
@@ -76,6 +80,7 @@ describe('sbb-timetable-occupancy-icon', () => {
       html` <sbb-timetable-occupancy-icon occupancy="medium"></sbb-timetable-occupancy-icon>`,
     );
     assert.instanceOf(element, SbbTimetableOccupancyIcon);
-    expect(element.name).to.equal(`utilization-medium-negative`);
+    expect(element.ariaLabel).to.equal(i18nOccupancy.medium.en);
+    await expect(element).shadowDom.to.equalSnapshot();
   });
 });

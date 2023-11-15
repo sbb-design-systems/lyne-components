@@ -26,11 +26,9 @@ describe('sbb-timetable-occupancy', () => {
             First Class.
           </span>
           <sbb-timetable-occupancy-icon
-            aria-hidden="false"
             aria-label="Very high occupancy expected"
             class="sbb-timetable-occupancy__list-item-icon"
             data-namespace='default'
-            name='utilization-high'
             role='img'
           >
           </sbb-timetable-occupancy-icon>
@@ -43,11 +41,9 @@ describe('sbb-timetable-occupancy', () => {
             Second Class.
           </span>
           <sbb-timetable-occupancy-icon
-            aria-hidden="false"
             aria-label="Very high occupancy expected"
             class="sbb-timetable-occupancy__list-item-icon"
             data-namespace='default'
-            name='utilization-high'
             role='img'
           >
           </sbb-timetable-occupancy-icon>
@@ -78,11 +74,9 @@ describe('sbb-timetable-occupancy', () => {
             First Class.
           </span>
           <sbb-timetable-occupancy-icon
-            aria-hidden="false"
             aria-label="Low to medium occupancy expected"
             class="sbb-timetable-occupancy__list-item-icon"
             data-namespace='default'
-            name='utilization-low-negative'
             negative=''
             role='img'
           >
@@ -96,11 +90,9 @@ describe('sbb-timetable-occupancy', () => {
             Second Class.
           </span>
           <sbb-timetable-occupancy-icon
-            aria-hidden="false"
             aria-label="High occupancy expected"
             class="sbb-timetable-occupancy__list-item-icon"
             data-namespace='default'
-            name='utilization-medium-negative'
             negative=''
             role='img'
           >
@@ -128,11 +120,9 @@ describe('sbb-timetable-occupancy', () => {
             First Class.
           </span>
           <sbb-timetable-occupancy-icon
-            aria-hidden="false"
             aria-label="Low to medium occupancy expected"
             class="sbb-timetable-occupancy__list-item-icon"
             data-namespace='default'
-            name='utilization-low'
             role='img'
           >
           </sbb-timetable-occupancy-icon>
@@ -159,11 +149,9 @@ describe('sbb-timetable-occupancy', () => {
             Second Class.
           </span>
           <sbb-timetable-occupancy-icon
-            aria-hidden="false"
             aria-label="High occupancy expected"
             class="sbb-timetable-occupancy__list-item-icon"
             data-namespace='default'
-            name='utilization-medium'
             role='img'
           >
           </sbb-timetable-occupancy-icon>

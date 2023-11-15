@@ -1,3 +1,5 @@
+import type { SbbLanguage, SbbOccupancy } from '../interfaces';
+
 export const i18nDirection: Record<string, string> = {
   de: 'Richtung',
   en: 'Direction',
@@ -383,7 +385,7 @@ export const i18nNone: Record<string, string> = {
   it: 'nessuno',
 };
 
-export const i18nOccupancy: Record<string, Record<string, string>> = {
+export const i18nOccupancy: Record<SbbOccupancy, Record<SbbLanguage, string>> = {
   none: {
     de: 'Keine Belegungsprognose verfügbar',
     en: 'No occupancy forecast available',

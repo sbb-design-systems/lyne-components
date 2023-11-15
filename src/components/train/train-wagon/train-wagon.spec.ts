@@ -92,8 +92,6 @@ describe('sbb-train-wagon', () => {
                 data-namespace="default"
                 class="sbb-train-wagon__occupancy"
                 role="listitem"
-                name="utilization-none"
-                aria-hidden="false"
                 aria-label="No occupancy forecast available"
               ></sbb-timetable-occupancy-icon>
               <li class="sbb-screenreaderonly">No passage to the previous train coach</li>
@@ -132,10 +130,8 @@ describe('sbb-train-wagon', () => {
             >
               <li aria-hidden="true" class="sbb-train-wagon__label"></li>
               <sbb-timetable-occupancy-icon
-                aria-hidden="false"
                 aria-label="No occupancy forecast available"
                 class="sbb-train-wagon__occupancy"
-                name="utilization-none"
                 data-namespace="default"
                 role="listitem"
               >
@@ -186,10 +182,8 @@ describe('sbb-train-wagon', () => {
             >
               <li aria-hidden="true" class="sbb-train-wagon__label"></li>
               <sbb-timetable-occupancy-icon
-                aria-hidden="false"
                 aria-label="No occupancy forecast available"
                 class="sbb-train-wagon__occupancy"
-                name="utilization-none"
                 data-namespace="default"
                 role="listitem"
               >

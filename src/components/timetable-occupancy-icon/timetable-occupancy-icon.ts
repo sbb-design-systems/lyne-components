@@ -1,4 +1,4 @@
-import { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { CSSResultGroup, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import {
@@ -9,7 +9,7 @@ import {
 } from '../core/eventing';
 import { i18nOccupancy } from '../core/i18n';
 import { SbbOccupancy } from '../core/interfaces';
-import { SbbIcon } from '../icon';
+import { SbbIconBase } from '../icon';
 
 import style from './timetable-occupancy-icon.scss?lit&inline';
 
@@ -17,19 +17,14 @@ import style from './timetable-occupancy-icon.scss?lit&inline';
  * It displays a wagon's occupancy icon.
  */
 @customElement('sbb-timetable-occupancy-icon')
-export class SbbTimetableOccupancyIcon extends SbbIcon {
-  public static override styles: CSSResultGroup = [SbbIcon.styles, style];
+export class SbbTimetableOccupancyIcon extends SbbIconBase {
+  public static override styles: CSSResultGroup = [SbbIconBase.styles, style];
 
   /** Wagon occupancy. */
   @property() public occupancy!: SbbOccupancy;
 
   /** Negative coloring variant flag. */
   @property({ type: Boolean }) public negative: boolean = false;
-
-  public constructor() {
-    super();
-    this.ariaHidden = 'false';
-  }
 
   @state() private _currentLanguage = documentLanguage();
 
@@ -43,22 +38,26 @@ export class SbbTimetableOccupancyIcon extends SbbIcon {
     }),
   );
 
-  private _setNameAndAriaLabel(): void {
+  private async _setNameAndAriaLabel(): Promise<void> {
     if (!this.occupancy) {
       return;
     }
 
+    let icon = `utilization-${this.occupancy}`;
     if (window.matchMedia('(forced-colors: active)').matches) {
       // high contrast
-      this.name = `utilization-${this.occupancy}-high-contrast`;
+      icon += '-high-contrast';
     } else if (this.negative || window.matchMedia('(prefer-color-scheme: dark)').matches) {
       // dark
-      this.name = `utilization-${this.occupancy}-negative`;
-    } else {
-      this.name = `utilization-${this.occupancy}`;
+      icon += '-negative';
     }
 
+    await this.loadSvgIcon(icon);
+  }
+
+  protected override async fetchSvgIcon(namespace: string, name: string): Promise<string> {
     this._setAriaLabel();
+    return super.fetchSvgIcon(namespace, name);
   }
 
   private _setAriaLabel(): void {
@@ -69,7 +68,6 @@ export class SbbTimetableOccupancyIcon extends SbbIcon {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._setNameAndAriaLabel();
     window
       .matchMedia('(forced-colors: active)')
       .addEventListener('change', () => this._setNameAndAriaLabel(), {
@@ -81,6 +79,7 @@ export class SbbTimetableOccupancyIcon extends SbbIcon {
         signal: this._abort.signal,
       });
     this._handlerRepository.connect();
+    this._setNameAndAriaLabel();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -93,10 +92,6 @@ export class SbbTimetableOccupancyIcon extends SbbIcon {
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._handlerRepository.disconnect();
-  }
-
-  protected override render(): TemplateResult {
-    return super.render();
   }
 }
 
