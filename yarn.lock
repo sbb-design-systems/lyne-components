@@ -7917,10 +7917,10 @@ jsonparse@^1.2.0:
     object.assign "^4.1.4"
     object.values "^1.1.6"
 
-jsx-dom@8.0.7:
-  version "8.0.7"
-  resolved "https://registry.yarnpkg.com/jsx-dom/-/jsx-dom-8.0.7.tgz#29ccdc568e505a7595af0ce335ec03e8822148b9"
-  integrity sha512-0qBdkjBq7xQpZtgNroKwvv0wUX4zItd1br6Mzay0FBfSoicmGAhavJTg+2bS0RW/CgctfnQTmFwycG5XxQ0FPw==
+jsx-dom@8.1.1:
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/jsx-dom/-/jsx-dom-8.1.1.tgz#543c4ea0046e16f7e8903e62438621e5a37ad2c3"
+  integrity sha512-E8KNiE30jHJlejkEsiUzhmHxjOeJU2q427Q8A6zogJHxJznBK+x/R/43R7oJcYHgrLbzIZLc+zV1AfH2lmLctw==
   dependencies:
     csstype "^3.1.2"
 

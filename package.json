@@ -98,7 +98,7 @@
     "eslint-plugin-yaml": "0.5.0",
     "glob": "10.3.10",
     "husky": "8.0.3",
-    "jsx-dom": "8.0.7",
+    "jsx-dom": "8.1.1",
     "lint-staged": "15.0.2",
     "lit-analyzer": "2.0.1",
     "madge": "6.1.0",
