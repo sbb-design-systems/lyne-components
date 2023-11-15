@@ -781,8 +781,8 @@ declare global {
       // migrate spread attributes
       else if (ts.isJsxSpreadAttribute(n)) {
         let spreadContent = n.getText();
-        mutator.replace(n, `\${spread(${spreadContent})}`);
-        newImports.set('../core/dom/spread', ['spread']);
+        mutator.replace(n, `\${sbbSpread(${spreadContent})}`);
+        newImports.set('../core/dom', ['sbbSpread']);
       }
     });
   }
