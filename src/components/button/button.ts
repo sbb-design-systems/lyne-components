@@ -1,5 +1,5 @@
 import { spread } from '@open-wc/lit-helpers';
-import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
@@ -42,7 +42,7 @@ export type SbbButtonSize = 'l' | 'm';
  */
 @customElement('sbb-button')
 export class SbbButton extends LitElement implements LinkButtonProperties, IsStaticProperty {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /** Variant of the button, like primary, secondary etc. */
   @property({ reflect: true }) public variant:

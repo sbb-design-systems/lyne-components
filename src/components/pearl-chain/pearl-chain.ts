@@ -1,5 +1,5 @@
 import { differenceInMinutes, isAfter, isBefore } from 'date-fns';
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
@@ -15,7 +15,7 @@ type Status = 'progress' | 'future' | 'past';
  */
 @customElement('sbb-pearl-chain')
 export class SbbPearlChain extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /**
    * Define the legs of the pearl-chain.

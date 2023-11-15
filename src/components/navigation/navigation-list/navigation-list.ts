@@ -1,5 +1,5 @@
 import { spread } from '@open-wc/lit-helpers';
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { setAttribute } from '../../core/dom';
@@ -20,7 +20,7 @@ import style from './navigation-list.scss?lit&inline';
  */
 @customElement('sbb-navigation-list')
 export class SbbNavigationList extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /*
    * The label to be shown before the action list.

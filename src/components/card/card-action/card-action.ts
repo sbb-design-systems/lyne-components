@@ -1,5 +1,5 @@
 import { spread } from '@open-wc/lit-helpers';
-import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
@@ -33,7 +33,7 @@ import style from './card-action.scss?lit&inline';
  */
 @customElement('sbb-card-action')
 export class SbbCardAction extends LitElement implements LinkButtonProperties {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /** Whether the card is active. */
   @property({ reflect: true, type: Boolean })

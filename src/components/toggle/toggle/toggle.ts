@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, PropertyValues, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -25,7 +25,7 @@ export type SbbToggleStateChange = Extract<
  */
 @customElement('sbb-toggle')
 export class SbbToggle extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'did-change',
     change: 'change',

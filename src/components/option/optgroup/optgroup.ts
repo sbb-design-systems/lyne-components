@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, TemplateResult, PropertyValues } from 'lit';
+import { CSSResultGroup, html, LitElement, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { isSafari, isValidAttribute, toggleDatasetEntry, setAttribute } from '../../core/dom';
@@ -15,7 +15,7 @@ import '../../divider';
  */
 @customElement('sbb-optgroup')
 export class SbbOptGroup extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /** Option group label. */
   @property() public label: string;

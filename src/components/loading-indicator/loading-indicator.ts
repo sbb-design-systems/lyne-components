@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { setAttribute } from '../core/dom';
@@ -10,7 +10,7 @@ import style from './loading-indicator.scss?lit&inline';
  */
 @customElement('sbb-loading-indicator')
 export class SbbLoadingIndicator extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /** Variant of the loading indicator; `circle` is meant to be used inline, while `window` as overlay. */
   @property({ reflect: true }) public variant?: 'window' | 'circle';

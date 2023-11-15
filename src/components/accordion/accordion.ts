@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { toggleDatasetEntry } from '../core/dom';
@@ -15,7 +15,7 @@ import style from './accordion.scss?lit&inline';
  */
 @customElement('sbb-accordion')
 export class SbbAccordion extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /** The heading level for the sbb-expansion-panel-headers within the component. */
   @property({ attribute: 'title-level' })

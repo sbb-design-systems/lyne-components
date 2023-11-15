@@ -1,4 +1,4 @@
-import { CSSResult, LitElement, TemplateResult } from 'lit';
+import { CSSResultGroup, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
@@ -25,7 +25,7 @@ let nextId = 0;
  */
 @customElement('sbb-expansion-panel')
 export class SbbExpansionPanel extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'will-open',
     didOpen: 'did-open',

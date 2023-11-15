@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, TemplateResult, PropertyValues } from 'lit';
+import { CSSResultGroup, html, LitElement, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbButtonSize } from '../button';
@@ -14,7 +14,7 @@ import style from './action-group.scss?lit&inline';
  */
 @customElement('sbb-action-group')
 export class SbbActionGroup extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /**
    * Set the slotted `<sbb-action-group>` children's alignment.

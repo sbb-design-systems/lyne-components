@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, TemplateResult, nothing } from 'lit';
+import { CSSResultGroup, html, LitElement, TemplateResult, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { setAttribute } from '../../core/dom';
@@ -14,7 +14,7 @@ import style from './tag-group.scss?lit&inline';
  */
 @customElement('sbb-tag-group')
 export class SbbTagGroup extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /**
    * This will be forwarded as aria-label to the inner list.

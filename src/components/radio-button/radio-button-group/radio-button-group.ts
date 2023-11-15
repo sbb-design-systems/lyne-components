@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, nothing, PropertyValues, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, nothing, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../core/a11y';
@@ -30,7 +30,7 @@ import style from './radio-button-group.scss?lit&inline';
  */
 @customElement('sbb-radio-button-group')
 export class SbbRadioButtonGroup extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'did-change',
     change: 'change',

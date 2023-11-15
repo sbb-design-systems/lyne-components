@@ -1,5 +1,5 @@
 import { spread } from '@open-wc/lit-helpers';
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -32,7 +32,7 @@ import '../../title';
  */
 @customElement('sbb-alert')
 export class SbbAlert extends LitElement implements LinkProperties {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willPresent: 'will-present',
     didPresent: 'did-present',

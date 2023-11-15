@@ -1,4 +1,4 @@
-import { CSSResult, LitElement, TemplateResult } from 'lit';
+import { CSSResultGroup, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
@@ -15,7 +15,7 @@ export type TitleLevel = '1' | '2' | '3' | '4' | '5' | '6';
  */
 @customElement('sbb-title')
 export class SbbTitle extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /** Title level */
   @property({ reflect: true }) public level?: TitleLevel = '1';

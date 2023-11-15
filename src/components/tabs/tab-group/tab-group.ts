@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -48,7 +48,7 @@ let nextId = 0;
  */
 @customElement('sbb-tab-group')
 export class SbbTabGroup extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
   public static readonly events = {
     selectedTabChanged: 'did-change',
   } as const;

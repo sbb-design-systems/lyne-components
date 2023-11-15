@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { findReferencedElement, toggleDatasetEntry } from '../../core/dom';
@@ -16,7 +16,7 @@ const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
  */
 @customElement('sbb-header')
 export class SbbHeader extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /**
    * Whether to allow the header content to stretch to full width.

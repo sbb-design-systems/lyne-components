@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { removeTimezoneFromISOTimeString, durationToTime } from '../core/datetime';
@@ -277,7 +277,7 @@ export const handleNotices = (notices: Notice[]): Notice[] => {
  * */
 @customElement('sbb-timetable-row')
 export class SbbTimetableRow extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /** The trip Prop. */
   @property({ type: Object }) public trip: ITripItem;

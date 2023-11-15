@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../core/a11y';
@@ -22,7 +22,7 @@ import style from './checkbox-group.scss?lit&inline';
  */
 @customElement('sbb-checkbox-group')
 export class SbbCheckboxGroup extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /** Whether the checkbox group is disabled. */
   @property({ type: Boolean }) public disabled = false;

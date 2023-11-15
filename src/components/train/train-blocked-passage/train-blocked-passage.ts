@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import style from './train-blocked-passage.scss?lit&inline';
@@ -8,7 +8,7 @@ import style from './train-blocked-passage.scss?lit&inline';
  */
 @customElement('sbb-train-blocked-passage')
 export class SbbTrainBlockedPassage extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   protected override render(): TemplateResult {
     return html`

@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { getDocumentWritingMode } from '../core/dom';
@@ -18,7 +18,7 @@ export type JourneyHeaderSize = 'm' | 'l';
  */
 @customElement('sbb-journey-header')
 export class SbbJourneyHeader extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /** Origin location for the journey header. */
   @property() public origin!: string;

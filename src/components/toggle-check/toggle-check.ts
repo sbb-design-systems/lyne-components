@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { findShadowInput, setAttributes } from '../core/dom';
@@ -23,7 +23,7 @@ import '../icon';
  */
 @customElement('sbb-toggle-check')
 export class SbbToggleCheck extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'did-change',
   } as const;

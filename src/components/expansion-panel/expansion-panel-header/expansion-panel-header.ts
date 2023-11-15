@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { setAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
@@ -25,7 +25,7 @@ import '../../icon';
  */
 @customElement('sbb-expansion-panel-header')
 export class SbbExpansionPanelHeader extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
   public static readonly events = {
     toggleExpanded: 'toggle-expanded',
   } as const;

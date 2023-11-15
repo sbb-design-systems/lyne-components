@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ConnectedAbortController, EventEmitter } from '../core/eventing';
 import style from './__noPrefixName__.scss?lit&inline';
@@ -11,7 +11,7 @@ import style from './__noPrefixName__.scss?lit&inline';
  */
 @customElement('__name__')
 export class __nameUpperCase__ extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
     myEventName: 'my-event-name',
   } as const;

@@ -1,5 +1,5 @@
 import { spread } from '@open-wc/lit-helpers';
-import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -19,7 +19,7 @@ import '../icon';
  */
 @customElement('sbb-slider')
 export class SbbSlider extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'did-change',
   } as const;

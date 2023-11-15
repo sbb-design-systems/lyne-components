@@ -1,5 +1,5 @@
 import { spread } from '@open-wc/lit-helpers';
-import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
@@ -31,7 +31,7 @@ import style from './teaser.scss?lit&inline';
  */
 @customElement('sbb-teaser')
 export class SbbTeaser extends LitElement implements LinkProperties {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /**
    * Teaser variant -

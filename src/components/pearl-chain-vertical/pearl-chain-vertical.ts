@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import style from './pearl-chain-vertical.scss?lit&inline';
@@ -10,7 +10,7 @@ import style from './pearl-chain-vertical.scss?lit&inline';
  */
 @customElement('sbb-pearl-chain-vertical')
 export class SbbPearlChainVertical extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   protected override render(): TemplateResult {
     return html`

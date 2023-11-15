@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import style from './timetable-row-column-headers.scss?lit&inline';
@@ -8,7 +8,7 @@ import style from './timetable-row-column-headers.scss?lit&inline';
  */
 @customElement('sbb-timetable-row-column-headers')
 export class SbbTimetableRowColumnHeaders extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /**
    * Stringified JSON which defines most of the

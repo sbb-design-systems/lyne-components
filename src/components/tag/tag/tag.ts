@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, nothing, PropertyValues, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, nothing, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { setAttributes } from '../../core/dom';
@@ -40,7 +40,7 @@ export type SbbTagStateChange = Extract<
  */
 @customElement('sbb-tag')
 export class SbbTag extends LitElement implements ButtonProperties {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
   public static readonly events = {
     stateChange: 'state-change',
     input: 'input',

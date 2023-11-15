@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { isValidAttribute, setAttributes } from '../../core/dom';
@@ -44,7 +44,7 @@ const radioButtonObserverConfig: MutationObserverInit = {
  */
 @customElement('sbb-radio-button')
 export class SbbRadioButton extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
   public static readonly events = {
     stateChange: 'state-change',
     radioButtonLoaded: 'radio-button-loaded',

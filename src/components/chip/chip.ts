@@ -1,4 +1,4 @@
-import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import style from './chip.scss?lit&inline';
@@ -10,7 +10,7 @@ import style from './chip.scss?lit&inline';
  */
 @customElement('sbb-chip')
 export class SbbChip extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /** Size of the chip. */
   @property({ reflect: true })

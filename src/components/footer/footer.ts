@@ -1,4 +1,4 @@
-import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
@@ -13,7 +13,7 @@ import style from './footer.scss?lit&inline';
  */
 @customElement('sbb-footer')
 export class SbbFooter extends LitElement {
-  public static override styles: CSSResult = style;
+  public static override styles: CSSResultGroup = style;
 
   /**
    * Variants to display the footer. The default, displays the content in regular block element
