@@ -1,42 +1,44 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, nothing, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../../core/dom';
 
 import { SbbAlert } from './alert';
 import readme from './readme.md?raw';
 
-const Default = ({ 'content-slot-text': contentSlotText, ...args }): JSX.Element => (
-  <sbb-alert {...args}>{contentSlotText}</sbb-alert>
-);
+const Default = ({ 'content-slot-text': contentSlotText, ...args }: Args): TemplateResult => html`
+  <sbb-alert ${sbbSpread({ ...args })}>${contentSlotText}</sbb-alert>
+`;
 
-const DefaultWithOtherContent = (args): JSX.Element => {
-  return (
+const DefaultWithOtherContent = (args): TemplateResult => {
+  return html`
     <div>
-      <Default {...args}></Default>
+      ${Default(args)}
       <p>Other Content on the page.</p>
-      {!args.readonly && (
-        <p>
-          Dismissal event of the alert has to be caught by the consumer and the alert has to be
-          manually removed from DOM. See `sbb-alert-group` for demonstration.
-        </p>
-      )}
+      ${!args.readonly
+        ? html`<p>
+            Dismissal event of the alert has to be caught by the consumer and the alert has to be
+            manually removed from DOM. See \`sbb-alert-group\` for demonstration.
+          </p>`
+        : nothing}
     </div>
-  );
+  `;
 };
 
 const CustomSlots = ({
   'title-content': titleContent,
   'content-slot-text': contentSlotText,
   ...args
-}): JSX.Element => (
-  <sbb-alert {...args}>
+}: Args): TemplateResult => html`
+  <sbb-alert ${sbbSpread({ ...args })}>
     <sbb-icon name="disruption" slot="icon"></sbb-icon>
-    <span slot="title">{titleContent}</span>
-    {contentSlotText}
+    <span slot="title">${titleContent}</span>
+    ${contentSlotText}
   </sbb-alert>
-);
+`;
 
 const titleContent: InputType = {
   control: {
@@ -203,23 +205,13 @@ export const withCustomLinkText: StoryObj = {
 
 export const iconAndTitleAsSlot: StoryObj = {
   render: CustomSlots,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
+  argTypes: { defaultArgTypes, 'icon-name': undefined },
+  args: { ...defaultArgs, 'icon-name': undefined },
 };
-
-// Remove icon name as it has no purpose in slotted variant
-delete iconAndTitleAsSlot.argTypes['icon-name'];
-
-// Remove icon name as it has no purpose in slotted variant
-delete iconAndTitleAsSlot.args['icon-name'];
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story) => html` <div style=${styleMap({ padding: '2rem' })}>${story()}</div> `,
     withActions as Decorator,
   ],
   parameters: {

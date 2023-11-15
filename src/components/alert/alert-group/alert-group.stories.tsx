@@ -1,16 +1,18 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../../core/dom';
 
 import { SbbAlertGroup } from './alert-group';
 import readme from './readme.md?raw';
 
 import '../alert';
 
-const Template = (args): JSX.Element => (
-  <sbb-alert-group {...args}>
+const Template = (args): TemplateResult => html`
+  <sbb-alert-group ${sbbSpread({ ...args })}>
     <sbb-alert
       title-content="Interruption between Genève and Lausanne"
       href="https://www.sbb.ch"
@@ -24,7 +26,7 @@ const Template = (args): JSX.Element => (
       connections.
     </sbb-alert>
   </sbb-alert-group>
-);
+`;
 
 const accessibilityTitle: InputType = {
   control: {
@@ -74,11 +76,7 @@ export const multipleAlerts: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story) => html` <div style=${styleMap({ padding: '2rem' })}>${story()}</div> `,
     withActions as Decorator,
   ],
   parameters: {

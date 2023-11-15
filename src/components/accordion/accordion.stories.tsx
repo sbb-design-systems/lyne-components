@@ -1,14 +1,14 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import { InputType, StoryContext } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import { Decorator } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 
+import { sbbSpread } from '../core/dom';
 import { SbbExpansionPanel } from '../expansion-panel';
 
 import readme from './readme.md?raw';
-
 import './accordion';
 import '../icon';
 
@@ -147,23 +147,26 @@ const createExpansionPanelTemplate = (
   headerText,
   iconName,
   contentText,
-): JSX.Element[] => {
-  return new Array(numberOfPanels).fill(null).map((_, index) => (
-    <sbb-expansion-panel
-      color={color}
-      expanded={expanded}
-      borderless={borderless}
-      disabled={disabled && index === 0}
-    >
-      <sbb-expansion-panel-header icon-name={iconName}>
-        {headerText} {index + 1}
-      </sbb-expansion-panel-header>
-      <sbb-expansion-panel-content>
-        <p>Content {index + 1}</p>
-        {contentText}
-      </sbb-expansion-panel-content>
-    </sbb-expansion-panel>
-  ));
+): TemplateResult[] => {
+  // TODO: check if this works
+  return new Array(numberOfPanels).fill(null).map(
+    (_, index) => html`
+      <sbb-expansion-panel
+        color=${color}
+        ?expanded=${expanded}
+        ?borderless=${borderless}
+        ?disabled=${disabled && index === 0}
+      >
+        <sbb-expansion-panel-header icon-name=${iconName}>
+          ${headerText} ${index + 1}
+        </sbb-expansion-panel-header>
+        <sbb-expansion-panel-content>
+          <p>Content ${index + 1}</p>
+          ${contentText}
+        </sbb-expansion-panel-content>
+      </sbb-expansion-panel>
+    `,
+  );
 };
 
 const Template = ({
@@ -176,9 +179,9 @@ const Template = ({
   iconName,
   contentText,
   ...args
-}): JSX.Element => (
-  <sbb-accordion {...args}>
-    {createExpansionPanelTemplate(
+}: Args): TemplateResult => html`
+  <sbb-accordion ${sbbSpread({ ...args })}>
+    ${createExpansionPanelTemplate(
       numberOfPanels,
       color,
       expanded,
@@ -189,7 +192,7 @@ const Template = ({
       contentText,
     )}
   </sbb-accordion>
-);
+`;
 
 export const Default: StoryObj = {
   render: Template,
@@ -245,17 +248,15 @@ export const NoAnimation: StoryObj = {
   args: { ...defaultArgs, 'disable-animation': true },
 };
 
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
+const wrapperStyle = (context: StoryContext<W>): Record<string, string> => ({
   'background-color': context.args.borderless ? '#bdbdbd' : 'var(--sbb-color-white-default)',
 });
 
 const meta: Meta = {
   decorators: [
-    (Story, context) => (
-      <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story, context) => html`
+      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
+    `,
     withActions as Decorator,
   ],
   parameters: {
