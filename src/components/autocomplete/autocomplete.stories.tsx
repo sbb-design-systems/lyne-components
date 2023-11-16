@@ -15,12 +15,12 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
+import { SbbFormError } from '../form-error';
 import { SbbOption } from '../option';
 
 import { SbbAutocomplete } from './autocomplete';
 import readme from './readme.md?raw';
 
-import '../form-error';
 import '../form-field';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
@@ -342,6 +342,10 @@ const MixedTemplate = (args): TemplateResult => html`
 `;
 
 const RequiredTemplate = (args): TemplateResult => {
+  const sbbFormError: SbbFormError = document.createElement('sbb-form-error');
+  sbbFormError.setAttribute('slot', 'error');
+  sbbFormError.textContent = 'This is a required field.';
+
   return html`
     <div>
       <sbb-form-field
@@ -361,11 +365,11 @@ const RequiredTemplate = (args): TemplateResult => {
           ?readonly=${args.readonly}
           @change=${(event) => {
             if ((event.currentTarget as HTMLInputElement).value !== '') {
-              document.querySelector('sbb-form-error')!.style.display = 'none';
-              document.getElementById('sbb-autocomplete')?.classList.remove('sbb-invalid');
+              sbbFormError.remove();
+              document.getElementById('sbb-autocomplete').classList.remove('sbb-invalid');
             } else {
-              document.querySelector('sbb-form-error')!.style.display = '';
-              document.getElementById('sbb-autocomplete')?.classList.add('sbb-invalid');
+              document.getElementById('sbb-form-field').append(sbbFormError);
+              document.getElementById('sbb-autocomplete').classList.add('sbb-invalid');
             }
           }}
         />
@@ -379,7 +383,7 @@ const RequiredTemplate = (args): TemplateResult => {
           </sbb-optgroup>
           <sbb-optgroup label="Group 2">${createOptionGroup2()}</sbb-optgroup>
         </sbb-autocomplete>
-        <sbb-form-error>This is a required field.</sbb-form-error>
+        ${sbbFormError}
       </sbb-form-field>
       ${textBlock()}
     </div>

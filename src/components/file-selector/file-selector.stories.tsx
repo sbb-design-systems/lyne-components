@@ -4,6 +4,7 @@ import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-c
 import { html, TemplateResult } from 'lit';
 
 import { sbbSpread } from '../core/dom';
+import type { SbbFormError } from '../form-error';
 
 import { SbbFileSelector } from './file-selector';
 import readme from './readme.md?raw';
@@ -84,19 +85,22 @@ const Template = (args): TemplateResult =>
   html`<sbb-file-selector ${sbbSpread(args)}></sbb-file-selector>`;
 
 const TemplateWithError = (args): TemplateResult => {
+  const sbbFormError: SbbFormError = document.createElement('sbb-form-error');
+  sbbFormError.setAttribute('slot', 'error');
+  sbbFormError.textContent = 'There has been an error.';
+
   return html`
     <sbb-file-selector
       ${sbbSpread(args)}
       id="sbb-file-selector"
       @file-changed=${(event) => {
         if (event.detail && event.detail.length > 0) {
-          document.querySelector('sbb-form-error')!.style.display = 'none';
+          document.getElementById('sbb-file-selector').append(sbbFormError);
         } else {
-          document.querySelector('sbb-form-error')!.style.display = '';
+          sbbFormError.remove();
         }
       }}
     ></sbb-file-selector>
-    <sbb-form-error slot="error">There has been an error.</sbb-form-error>
   `;
 };
 

@@ -5,6 +5,7 @@ import { html, TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../core/dom';
+import type { SbbFormError } from '../../form-error';
 
 import readme from './readme.md?raw';
 import './form-field';
@@ -110,6 +111,10 @@ const TemplateInputWithSlottedLabel = ({
 `;
 
 const TemplateInputWithErrorSpace = (args): TemplateResult => {
+  const sbbFormError: SbbFormError = document.createElement('sbb-form-error');
+  sbbFormError.setAttribute('slot', 'error');
+  sbbFormError.textContent = args.errortext;
+
   return html`
     <form>
       <div>
@@ -128,11 +133,11 @@ const TemplateInputWithErrorSpace = (args): TemplateResult => {
             id="sbb-form-field-input"
             @keyup=${(event) => {
               if ((event.currentTarget as HTMLInputElement).value !== '') {
-                document.querySelector('sbb-form-error')!.style.display = 'none';
-                document.getElementById('sbb-form-field-input')!.classList.remove(args.class);
+                sbbFormError.remove();
+                document.getElementById('sbb-form-field-input').classList.remove(args.class);
               } else {
-                document.querySelector('sbb-form-error')!.style.display = '';
-                document.getElementById('sbb-form-field-input')!.classList.add(args.class);
+                document.getElementById('sbb-form-field').append(sbbFormError);
+                document.getElementById('sbb-form-field-input').classList.add(args.class);
               }
             }}
             class=${args.class}
@@ -140,7 +145,7 @@ const TemplateInputWithErrorSpace = (args): TemplateResult => {
             ?disabled=${args.disabled}
             ?readonly=${args.readonly}
           />
-          <sbb-form-error>${args.errortext}</sbb-form-error>
+          ${sbbFormError}
         </sbb-form-field>
       </div>
       <div style=${styleMap({ color: 'var(--sbb-color-smoke-default)' })}>
@@ -203,6 +208,10 @@ const TemplateSelect = (args): TemplateResult => html`
 `;
 
 const TemplateSelectWithErrorSpace = (args): TemplateResult => {
+  const sbbFormError: SbbFormError = document.createElement('sbb-form-error');
+  sbbFormError.setAttribute('slot', 'error');
+  sbbFormError.textContent = args.errortext;
+
   return html`
     <form>
       <div>
@@ -221,11 +230,11 @@ const TemplateSelectWithErrorSpace = (args): TemplateResult => {
             id="sbb-form-field-input"
             @change=${(event) => {
               if ((event.currentTarget as HTMLSelectElement).value !== '') {
-                document.querySelector('sbb-form-error')!.style.display = 'none';
-                document.getElementById('sbb-form-field-input')!.classList.remove(args.class);
+                sbbFormError.remove();
+                document.getElementById('sbb-form-field-input').classList.remove(args.class);
               } else {
-                document.querySelector('sbb-form-error')!.style.display = '';
-                document.getElementById('sbb-form-field-input')!.classList.add(args.class);
+                document.getElementById('sbb-form-field').append(sbbFormError);
+                document.getElementById('sbb-form-field-input').classList.add(args.class);
               }
             }}
             class=${args.class}
@@ -236,7 +245,7 @@ const TemplateSelectWithErrorSpace = (args): TemplateResult => {
             <option value="2">Value 2</option>
             <option value="3">Value 3</option>
           </select>
-          <sbb-form-error>${args.errortext}</sbb-form-error>;
+          ${sbbFormError}
         </sbb-form-field>
       </div>
       <div>
