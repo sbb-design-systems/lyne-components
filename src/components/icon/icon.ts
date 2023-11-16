@@ -19,16 +19,16 @@ export class SbbIcon extends SbbIconBase {
 
   protected override async fetchSvgIcon(namespace: string, name: string): Promise<string> {
     // If the icon is changing, and we were using the defaultAriaLabel, reset it
-    if (this.ariaLabel === this._defaultAriaLabel) {
-      this.ariaLabel = null;
+    if (this.getAttribute('aria-label') === this._defaultAriaLabel) {
+      this.removeAttribute('aria-label');
     }
 
     this._defaultAriaLabel = `Icon ${name.replace(/-/g, ' ')}`;
 
     // generate a default label in case user does not provide their own
     // and aria-hidden is set to "false"
-    if (this.ariaHidden === 'false' && !this.ariaLabel && name) {
-      this.ariaLabel = this._defaultAriaLabel;
+    if (this.getAttribute('aria-hidden') === 'false' && !this.hasAttribute('aria-label') && name) {
+      this.setAttribute('aria-label', this._defaultAriaLabel);
     }
 
     return super.fetchSvgIcon(namespace, name);
@@ -43,7 +43,7 @@ export class SbbIcon extends SbbIconBase {
   protected override firstUpdated(_changedProperties: PropertyValues): void {
     super.firstUpdated(_changedProperties);
     if (!this.hasAttribute('aria-hidden')) {
-      this.ariaHidden = 'true';
+      this.setAttribute('aria-hidden', 'true');
     }
   }
 }

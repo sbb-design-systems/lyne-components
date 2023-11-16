@@ -61,9 +61,12 @@ export class SbbTimetableOccupancyIcon extends SbbIconBase {
   }
 
   private _setAriaLabel(): void {
-    this.ariaLabel = i18nOccupancy[this.occupancy]
-      ? i18nOccupancy[this.occupancy][this._currentLanguage]
-      : null;
+    const label = i18nOccupancy[this.occupancy]?.[this._currentLanguage];
+    if (label) {
+      this.setAttribute('aria-label', label);
+    } else {
+      this.removeAttribute('aria-label');
+    }
   }
 
   public override connectedCallback(): void {

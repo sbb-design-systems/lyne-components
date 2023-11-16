@@ -42,7 +42,7 @@ describe('sbb-timetable-occupancy-icon', () => {
       html` <sbb-timetable-occupancy-icon occupancy="low"></sbb-timetable-occupancy-icon>`,
     );
     assert.instanceOf(element, SbbTimetableOccupancyIcon);
-    expect(element.ariaLabel).to.equal(i18nOccupancy.low.en);
+    expect(element.getAttribute('aria-label')).to.equal(i18nOccupancy.low.en);
     await expect(element).shadowDom.to.equalSnapshot();
   });
 
@@ -61,7 +61,7 @@ describe('sbb-timetable-occupancy-icon', () => {
       html` <sbb-timetable-occupancy-icon occupancy="medium"></sbb-timetable-occupancy-icon>`,
     );
     assert.instanceOf(element, SbbTimetableOccupancyIcon);
-    expect(element.ariaLabel).to.equal(i18nOccupancy.medium.en);
+    expect(element.getAttribute('aria-label')).to.equal(i18nOccupancy.medium.en);
     await expect(element).shadowDom.to.equalSnapshot();
   });
 
@@ -80,7 +80,7 @@ describe('sbb-timetable-occupancy-icon', () => {
       html` <sbb-timetable-occupancy-icon occupancy="medium"></sbb-timetable-occupancy-icon>`,
     );
     assert.instanceOf(element, SbbTimetableOccupancyIcon);
-    expect(element.ariaLabel).to.equal(i18nOccupancy.medium.en);
+    expect(element.getAttribute('aria-label')).to.equal(i18nOccupancy.medium.en);
     await expect(element).shadowDom.to.equalSnapshot();
   });
 });
