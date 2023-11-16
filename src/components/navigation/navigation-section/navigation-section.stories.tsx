@@ -21,8 +21,8 @@ import '../navigation';
 const playStory = async (trigger: string, canvasElement: HTMLElement): Promise<void> => {
   const canvas = within(canvasElement);
 
-  await waitForComponentsReady(() =>
-    canvas.getByTestId('navigation').shadowRoot.querySelector('.sbb-navigation'),
+  await waitForComponentsReady(
+    () => canvas.getByTestId('navigation').shadowRoot?.querySelector('.sbb-navigation'),
   );
 
   const button = canvas.getByTestId('navigation-trigger');
@@ -32,7 +32,7 @@ const playStory = async (trigger: string, canvasElement: HTMLElement): Promise<v
   );
   await waitFor(() =>
     expect(
-      canvas.getByTestId('navigation-section').shadowRoot.querySelector('.sbb-navigation-section'),
+      canvas.getByTestId('navigation-section').shadowRoot?.querySelector('.sbb-navigation-section'),
     ).toBeTruthy(),
   );
   const action = canvas.getByTestId(trigger);
@@ -93,7 +93,7 @@ const navigationList = (label: string): TemplateResult => html`
 `;
 
 const onNavigationClose = (dialog: SbbNavigation): void => {
-  dialog.addEventListener('did-close', () => {
+  dialog?.addEventListener('did-close', () => {
     (document.getElementById('nav-marker') as SbbNavigationMarker).reset();
   });
 };
@@ -105,7 +105,7 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
     id="navigation"
     trigger="navigation-trigger-1"
     ?disable-animation=${args['disable-animation']}
-    ${ref((dialog: SbbNavigation) => onNavigationClose(dialog))}
+    ${ref((dialog?: Element) => onNavigationClose(dialog as SbbNavigation))}
   >
     <sbb-navigation-marker id="nav-marker">${navigationActionsL()}</sbb-navigation-marker>
 

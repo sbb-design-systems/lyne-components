@@ -23,8 +23,8 @@ import '../../button';
 const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
 
-  await waitForComponentsReady(() =>
-    canvas.getByTestId('navigation').shadowRoot.querySelector('.sbb-navigation'),
+  await waitForComponentsReady(
+    () => canvas.getByTestId('navigation').shadowRoot?.querySelector('.sbb-navigation'),
   );
 
   const button = canvas.getByTestId('navigation-trigger');
@@ -41,7 +41,7 @@ const playStoryWithSection = async ({ canvasElement }): Promise<void> => {
 
   await waitFor(() =>
     expect(
-      canvas.getByTestId('navigation-section').shadowRoot.querySelector('.sbb-navigation-section'),
+      canvas.getByTestId('navigation-section').shadowRoot?.querySelector('.sbb-navigation-section'),
     ).toBeTruthy(),
   );
   const actionL = canvas.getByTestId('navigation-section-trigger-1');
@@ -148,7 +148,7 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
     data-testid="navigation"
     id="navigation"
     trigger="navigation-trigger-1"
-    ${ref((dialog: SbbNavigation) => onNavigationClose(dialog))}
+    ${ref((dialog?: Element) => onNavigationClose(dialog as SbbNavigation))}
     ${sbbSpread(args)}
   >
     <sbb-navigation-marker id="nav-marker">${navigationActionsL()}</sbb-navigation-marker>
@@ -175,7 +175,7 @@ const WithNavigationSectionTemplate = (args: Args): TemplateResult => html`
     data-testid="navigation"
     id="navigation"
     trigger="navigation-trigger-1"
-    ${ref((dialog: SbbNavigation) => onNavigationClose(dialog))}
+    ${ref((dialog?: Element) => onNavigationClose(dialog as SbbNavigation))}
     ${sbbSpread(args)}
   >
     <sbb-navigation-marker id="nav-marker">${navigationActionsL()}</sbb-navigation-marker>

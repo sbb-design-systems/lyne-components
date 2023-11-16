@@ -131,7 +131,7 @@ const openDialog = (_event, id): void => {
 };
 
 const onFormDialogClose = (dialog): void => {
-  dialog.addEventListener('will-close', (event) => {
+  dialog?.addEventListener('will-close', (event) => {
     if (event.detail) {
       document.getElementById('returned-value-message')!.innerHTML =
         `${event.detail.returnValue.message?.value}`;

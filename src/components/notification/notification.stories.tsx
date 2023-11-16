@@ -63,7 +63,7 @@ const appendNotification = (args: Args): void => {
   newNotification.disableAnimation = args['disable-animation'];
   newNotification.innerHTML =
     'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.';
-  document.querySelector('.notification-container').append(newNotification);
+  document.querySelector('.notification-container')?.append(newNotification);
 };
 
 const trigger = (args: Args): TemplateResult => html`
@@ -83,10 +83,10 @@ const notification = (args: Args): TemplateResult => html`
     ${sbbSpread(args)}
     disable-animation
     style="margin-block-end: var(--sbb-spacing-fixed-4x);"
-    ${ref((notification: SbbNotification) =>
-      notification.addEventListener(
+    ${ref((notification?: Element) =>
+      (notification as SbbNotification).addEventListener(
         'did-open',
-        () => (notification.disableAnimation = args['disable-animation']),
+        () => ((notification as SbbNotification).disableAnimation = args['disable-animation']),
         { once: true },
       ),
     )}
@@ -122,10 +122,10 @@ const SlottedTitleTemplate = (args: Args): TemplateResult => html`
       ${sbbSpread(args)}
       disable-animation
       style="margin-block-end: var(--sbb-spacing-fixed-4x);"
-      ${ref((notification: SbbNotification) =>
-        notification.addEventListener(
+      ${ref((notification?: Element) =>
+        (notification as SbbNotification).addEventListener(
           'did-open',
-          () => (notification.disableAnimation = args['disable-animation']),
+          () => ((notification as SbbNotification).disableAnimation = args['disable-animation']),
           { once: true },
         ),
       )}
