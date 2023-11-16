@@ -18,8 +18,8 @@ const browsers = isCIEnvironment
       playwrightLauncher({ product: 'webkit', concurrency: 1 }),
     ]
   : isDebugMode
-  ? [puppeteerLauncher({ concurrency: 1, launchOptions: { headless: false, devtools: true } })]
-  : [playwrightLauncher({ product: 'chromium' })];
+    ? [puppeteerLauncher({ concurrency: 1, launchOptions: { headless: false, devtools: true } })]
+    : [playwrightLauncher({ product: 'chromium' })];
 
 /** @type {import('@web/test-runner').TestRunnerConfig} */
 export default {

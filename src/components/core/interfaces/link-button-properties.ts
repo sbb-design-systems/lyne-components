@@ -105,8 +105,8 @@ function getLinkAttributeList(linkProperties: LinkProperties): Record<string, st
         rel: linkProperties.rel
           ? linkProperties.rel
           : linkProperties.target === '_blank'
-          ? 'external noopener nofollow'
-          : undefined,
+            ? 'external noopener nofollow'
+            : undefined,
       });
 }
 

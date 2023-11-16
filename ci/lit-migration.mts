@@ -322,8 +322,8 @@ async function migrate(component: string, debug = false) {
         !pw.argAmount
           ? ''
           : pw.argAmount === 1
-          ? `this.${pw.props[0]}`
-          : `this.${pw.props[0]}, changedProperties.get('${pw.props[0]}')`
+            ? `this.${pw.props[0]}`
+            : `this.${pw.props[0]}, changedProperties.get('${pw.props[0]}')`
       });
     }`,
       )
