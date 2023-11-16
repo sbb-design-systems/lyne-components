@@ -33,6 +33,7 @@ export default defineConfig((config) =>
               entryRoot: '.',
               include: `**/*.ts`,
               exclude: ['**/*.{stories,spec,e2e}.{ts,tsx}', 'vite.config.ts'],
+              pathsToAliases: false,
             }),
             packageJsonTemplate(),
           ]
