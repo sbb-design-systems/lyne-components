@@ -9,8 +9,7 @@ import style from './icon.scss?lit&inline';
 export abstract class SbbIconBase extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  private _svgName: string;
-  private _svgFetchInProgress: boolean;
+  @state() private _svgFetchInProgress: boolean;
 
   @state() private _svgNamespace = 'default';
 
@@ -38,12 +37,8 @@ export abstract class SbbIconBase extends LitElement {
       this._svgNamespace = namespace;
     }
 
-    if (name) {
-      this._svgName = name;
-    }
-
     this._svgFetchInProgress = true;
-    this._svgIcon = await this.fetchSvgIcon(this._svgNamespace, this._svgName);
+    this._svgIcon = await this.fetchSvgIcon(this._svgNamespace, name);
     this._svgFetchInProgress = false;
   }
 
