@@ -1,16 +1,15 @@
-/** @jsx h */
 import type { Meta, StoryObj, Args } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
 
 import readme from './readme.md?raw';
 import sampleData from './timetable-row-column-headers.sample-data';
 import './timetable-row-column-headers';
 
-const Template = (args): JSX.Element => (
+const Template = ({ config }: Args): TemplateResult => html`
   <sbb-timetable-row-column-headers
-    config={JSON.stringify(args.config)}
+    config=${JSON.stringify(config)}
   ></sbb-timetable-row-column-headers>
-);
+`;
 
 const config: Args = {
   table: {
@@ -22,9 +21,6 @@ const defaultArgTypes = {
   config,
 };
 
-/* ************************************************* */
-/* The Stories                                       */
-/* ************************************************* */
 export const SbbTimetableRowColumnHeaders: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -34,7 +30,7 @@ export const SbbTimetableRowColumnHeaders: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(Story) => <Story></Story>],
+  decorators: [(story) => html`${story()}`],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

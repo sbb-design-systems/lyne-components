@@ -1,12 +1,13 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+
+import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import './train';
 
-const Template = (args): JSX.Element => <sbb-train {...args}></sbb-train>;
+const Template = (args: Args): TemplateResult => html`<sbb-train ${sbbSpread(args)}></sbb-train>`;
 
 const directionLabel: InputType = {
   control: {
@@ -85,13 +86,7 @@ export const trainWithoutStation: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
-  ],
+  decorators: [(story) => html` <div style="padding: 2rem;">${story()}</div> `],
   parameters: {
     backgrounds: {
       disable: true,

@@ -1,18 +1,17 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
 
 import readme from './readme.md?raw';
 import sampleData from './timetable-transportation-number.sample-data';
 import './timetable-transportation-number';
 
-const Template = (args): JSX.Element => (
+const Template = (args: Args): TemplateResult => html`
   <sbb-timetable-transportation-number
-    appearance={args.appearance}
-    config={JSON.stringify(args.config)}
+    appearance=${args.appearance}
+    config=${JSON.stringify(args.config)}
   ></sbb-timetable-transportation-number>
-);
+`;
 
 const appearance: InputType = {
   control: {
@@ -36,9 +35,6 @@ const defaultArgs: Args = {
   appearance: appearance.options[0],
 };
 
-/* ************************************************* */
-/* The Stories                                       */
-/* ************************************************* */
 export const BusFirstLevel: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -116,7 +112,7 @@ export const TramSecondLevel: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(Story) => <Story></Story>],
+  decorators: [(story) => html`${story()}`],
   parameters: {
     backgrounds: {
       disable: true,

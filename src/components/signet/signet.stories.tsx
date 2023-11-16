@@ -1,12 +1,13 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+
+import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
 import './signet';
 
-const Template = (args): JSX.Element => <sbb-signet {...args}></sbb-signet>;
+const Template = (args: Args): TemplateResult => html`<sbb-signet ${sbbSpread(args)}></sbb-signet>`;
 
 const protectiveRoom: InputType = {
   control: {
@@ -50,13 +51,7 @@ export const IdealProtectiveRoom: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (Story) => (
-      <div style={{ 'max-width': '300px' }}>
-        <Story></Story>
-      </div>
-    ),
-  ],
+  decorators: [(story) => html` <div style="max-width: 300px;">${story()}</div> `],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

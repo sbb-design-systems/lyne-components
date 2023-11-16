@@ -1,7 +1,9 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { StyleInfo, styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import './navigation-action';
@@ -19,7 +21,10 @@ const ariaLabel: InputType = {
   },
 };
 
-const hrefs = ['https://www.sbb.ch', 'https://github.com/lyne-design-system/lyne-components'];
+const hrefs: string[] = [
+  'https://www.sbb.ch',
+  'https://github.com/lyne-design-system/lyne-components',
+];
 const href: InputType = {
   options: Object.keys(hrefs),
   mapping: hrefs,
@@ -47,11 +52,11 @@ const defaultArgs: Args = {
   'aria-label': undefined,
 };
 
-const Template = (args): JSX.Element => (
-  <sbb-navigation-action {...args}>Label</sbb-navigation-action>
-);
+const Template = (args: Args): TemplateResult => html`
+  <sbb-navigation-action ${sbbSpread(args)}>Label</sbb-navigation-action>
+`;
 
-const style = {
+const style: Readonly<StyleInfo> = {
   'background-color': 'var(--sbb-color-midnight-default)',
   width: 'max-content',
   padding: '1rem 2rem',
@@ -82,13 +87,7 @@ export const Link: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (Story) => (
-      <div style={style}>
-        <Story></Story>
-      </div>
-    ),
-  ],
+  decorators: [(story) => html`<div style=${styleMap(style)}>${story()}</div>`],
   parameters: {
     backgrounds: {
       disable: true,

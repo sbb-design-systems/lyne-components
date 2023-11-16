@@ -1,9 +1,10 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+
+import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import './toggle';
@@ -99,7 +100,7 @@ const defaultArgTypes: ArgTypes = {
   value,
   label,
   labelTwo,
-  iconName: iconName,
+  iconName,
   'disable-animation': disableAnimation,
   ariaLabel,
 };
@@ -116,30 +117,42 @@ const defaultArgs: Args = {
   ariaLabel: undefined,
 };
 
-const DefaultTemplate = ({ label, labelTwo, iconName, ariaLabel, ...args }): JSX.Element => (
-  <sbb-toggle {...args}>
-    <sbb-toggle-option icon-name={iconName} aria-label={ariaLabel} value="Value 1">
-      {label}
+const DefaultTemplate = ({
+  label,
+  labelTwo,
+  iconName,
+  ariaLabel,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-toggle ${sbbSpread(args)}>
+    <sbb-toggle-option icon-name=${iconName} aria-label=${ariaLabel} value="Value 1">
+      ${label}
     </sbb-toggle-option>
-    <sbb-toggle-option icon-name={iconName && 'arrows-right-left-small'} value="Value 2">
-      {labelTwo}
+    <sbb-toggle-option icon-name=${iconName && 'arrows-right-left-small'} value="Value 2">
+      ${labelTwo}
     </sbb-toggle-option>
   </sbb-toggle>
-);
+`;
 
-const SlottedIconTemplate = ({ label, labelTwo, iconName, ariaLabel, ...args }): JSX.Element => (
-  <sbb-toggle {...args}>
-    <sbb-toggle-option value="Value 1" aria-label={ariaLabel}>
-      <sbb-icon slot="icon" name={iconName}></sbb-icon>
-      {label}
+const SlottedIconTemplate = ({
+  label,
+  labelTwo,
+  iconName,
+  ariaLabel,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-toggle ${sbbSpread(args)}>
+    <sbb-toggle-option value="Value 1" aria-label=${ariaLabel}>
+      <sbb-icon slot="icon" name=${iconName}></sbb-icon>
+      ${label}
     </sbb-toggle-option>
 
     <sbb-toggle-option value="Value 2">
-      <sbb-icon slot="icon" name={iconName && 'arrows-right-left-small'}></sbb-icon>
-      {labelTwo}
+      <sbb-icon slot="icon" name=${iconName && 'arrows-right-left-small'}></sbb-icon>
+      ${labelTwo}
     </sbb-toggle-option>
   </sbb-toggle>
-);
+`;
 
 export const SizeM: StoryObj = {
   render: DefaultTemplate,
@@ -254,11 +267,7 @@ export const DynamicWidthSizeS: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story) => html` <div style="padding: 2rem;">${story()}</div> `,
     withActions as Decorator,
   ],
   parameters: {

@@ -1,14 +1,13 @@
-/** @jsx h */
 import type { Meta, StoryObj, Args } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
 
 import readme from './readme.md?raw';
 import sampleData from './timetable-occupancy.sample-data';
 import './timetable-occupancy';
 
-const Template = (args): JSX.Element => (
-  <sbb-timetable-occupancy config={JSON.stringify(args.config)}></sbb-timetable-occupancy>
-);
+const Template = ({ config }: Args): TemplateResult => html`
+  <sbb-timetable-occupancy config=${JSON.stringify(config)}></sbb-timetable-occupancy>
+`;
 
 const config: Args = {
   table: {
@@ -20,9 +19,6 @@ const defaultArgTypes = {
   config,
 };
 
-/* ************************************************* */
-/* The Stories                                       */
-/* ************************************************* */
 export const NoneNoneOccupancy: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -88,7 +84,7 @@ export const HighHighOccupancy: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(Story) => <Story></Story>],
+  decorators: [(story) => html`${story()}`],
   parameters: {
     backgrounds: {
       disable: true,

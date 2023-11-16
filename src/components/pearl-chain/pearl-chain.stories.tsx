@@ -1,8 +1,9 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+
+import { sbbSpread } from '../core/dom';
 
 import {
   cancelledLeg,
@@ -38,8 +39,8 @@ const defaultArgs: Args = {
   'data-now': new Date('2022-12-01T12:11:00').valueOf(),
 };
 
-const Template = (args): JSX.Element => {
-  return <sbb-pearl-chain {...args}></sbb-pearl-chain>;
+const Template = (args: Args): TemplateResult => {
+  return html`<sbb-pearl-chain ${sbbSpread(args)}></sbb-pearl-chain>`;
 };
 
 export const NoStops: StoryObj = {
@@ -149,13 +150,7 @@ export const Mixed: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (Story) => (
-      <div style={{ 'max-width': '80%' }}>
-        <Story></Story>
-      </div>
-    ),
-  ],
+  decorators: [(story) => html`<div style="max-width: 80%;">${story()}</div>`],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

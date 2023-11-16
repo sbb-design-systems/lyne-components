@@ -1,16 +1,16 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import { within } from '@storybook/testing-library';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { Fragment, h, type JSX } from 'jsx-dom';
+import { html, nothing, TemplateResult } from 'lit';
 
 import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
+import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
-import '../link';
 import { SbbToast } from './toast';
+import '../link';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }): Promise<void> => {
@@ -93,87 +93,72 @@ const defaultArgs: Args = {
   'disable-animation': isChromatic(),
 };
 
-const toastTemplate = (args, action, contentLength = 's'): JSX.Element => (
-  <Fragment>
-    <sbb-button onClick={() => document.querySelector('sbb-toast').open()}>Show toast</sbb-button>
-    <sbb-toast {...args} data-testid="sbb-toast">
-      {contentLength === 's'
-        ? 'Lorem ipsum dolor'
-        : 'Lorem ipsum dolor sit amet, ipsum consectetur adipiscing elit.'}
-
-      {action === 'button' && (
-        <sbb-button
+const toastTemplate = (args, action, contentLength = 's'): TemplateResult => html`
+  <sbb-button @click=${() => document.querySelector('sbb-toast').open()}>Show toast</sbb-button>
+  <sbb-toast ${sbbSpread(args)} data-testid="sbb-toast">
+    ${contentLength === 's'
+      ? 'Lorem ipsum dolor'
+      : 'Lorem ipsum dolor sit amet, ipsum consectetur adipiscing elit.'}
+    ${action === 'button'
+      ? html`<sbb-button
           slot="action"
           icon-name="clock-small"
           aria-label="Remind me later"
           sbb-toast-close
-        ></sbb-button>
-      )}
+        ></sbb-button>`
+      : nothing}
+    ${action === 'link'
+      ? html`<sbb-link slot="action" sbb-toast-close> Link action </sbb-link>`
+      : nothing}
+  </sbb-toast>
+`;
 
-      {action === 'link' && (
-        <sbb-link slot="action" sbb-toast-close>
-          Link action
-        </sbb-link>
-      )}
-    </sbb-toast>
-  </Fragment>
-);
+const Template = (args: Args): TemplateResult => toastTemplate(args, null, 's');
 
-const Template = (args): JSX.Element => toastTemplate(args, null, 's');
+const LongContentTemplate = (args: Args): TemplateResult => toastTemplate(args, 'button', 'l');
 
-const LongContentTemplate = (args): JSX.Element => toastTemplate(args, 'button', 'l');
+const ActionButtonTemplate = (args: Args): TemplateResult => toastTemplate(args, 'button', 's');
 
-const ActionButtonTemplate = (args): JSX.Element => toastTemplate(args, 'button', 's');
-
-const ActionLinkTemplate = (args): JSX.Element => toastTemplate(args, 'link', 's');
+const ActionLinkTemplate = (args: Args): TemplateResult => toastTemplate(args, 'link', 's');
 
 export const Basic: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const Dismissible: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, dismissible: true },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const LongContent: StoryObj = {
   render: LongContentTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const WithActionButton: StoryObj = {
   render: ActionButtonTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const WithActionLink: StoryObj = {
   render: ActionLinkTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div
-        style={{
-          padding: '2rem',
-          height: 'calc(100vh - 2rem)',
-        }}
-      >
-        <Story></Story>
-      </div>
-    ),
+    (story) => html` <div style="padding: 2rem; height: calc(100vh - 2rem);">${story()}</div> `,
     withActions as Decorator,
   ],
   parameters: {

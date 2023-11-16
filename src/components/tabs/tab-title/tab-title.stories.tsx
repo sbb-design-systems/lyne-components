@@ -1,19 +1,19 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, nothing, TemplateResult } from 'lit';
+
+import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import '../../icon';
 import './tab-title';
 
-const Template = ({ iconSlot, label, amountSlot, ...args }): JSX.Element => (
-  <sbb-tab-title {...args}>
-    {iconSlot && <sbb-icon slot="icon" name={iconSlot}></sbb-icon>}
-    {label}
-    {amountSlot && <span slot="amount">{amountSlot}</span>}
+const Template = ({ iconSlot, label, amountSlot, ...args }: Args): TemplateResult => html`
+  <sbb-tab-title ${sbbSpread(args)}>
+    ${iconSlot ? html`<sbb-icon slot="icon" name=${iconSlot}></sbb-icon>` : nothing} ${label}
+    ${amountSlot ? html`<span slot="amount">{amountSlot}</span>` : nothing}
   </sbb-tab-title>
-);
+`;
 
 const label: InputType = {
   control: {
@@ -149,23 +149,11 @@ export const WithEllipsis: StoryObj = {
     ...basicArgs,
     label: `A very long label which gets ellipsis when there is no more space to display it`,
   },
-  decorators: [
-    (Story) => (
-      <div style={{ 'max-width': '400px' }}>
-        <Story></Story>
-      </div>
-    ),
-  ],
+  decorators: [(story) => html` <div style="max-width: 400px;">${story()}</div> `],
 };
 
 const meta: Meta = {
-  decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
-  ],
+  decorators: [(story) => html` <div style="padding: 2rem;">${story()}</div> `],
   parameters: {
     backgrounds: {
       disable: true,

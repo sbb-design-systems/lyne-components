@@ -1,18 +1,17 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
 
 import readme from './readme.md?raw';
 import sampleData from './timetable-park-and-rail.sample-data';
 import './timetable-park-and-rail';
 
-const Template = (args): JSX.Element => (
+const Template = (args: Args): TemplateResult => html`
   <sbb-timetable-park-and-rail
-    appearance={args.appearance}
-    config={JSON.stringify(args.config)}
+    appearance=${args.appearance}
+    config=${JSON.stringify(args.config)}
   ></sbb-timetable-park-and-rail>
-);
+`;
 
 const appearance: InputType = {
   control: {
@@ -36,9 +35,6 @@ const defaultArgs: Args = {
   appearance: appearance.options[0],
 };
 
-/* ************************************************* */
-/* The Stories                                       */
-/* ************************************************* */
 export const ParkAndRail: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -49,7 +45,7 @@ export const ParkAndRail: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(Story) => <Story></Story>],
+  decorators: [(story) => html`${story()}`],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

@@ -1,9 +1,12 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { Fragment, h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap, StyleInfo } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../core/dom';
+import type { SbbFormError } from '../form-error';
 
 import readme from './readme.md?raw';
 import { SbbSelectionPanel } from './selection-panel';
@@ -77,29 +80,26 @@ const basicArgs: Args = {
   disabledInput: false,
 };
 
-const suffixStyle: Args = {
+const suffixStyle: Readonly<StyleInfo> = {
   display: 'flex',
   alignItems: 'center',
 };
 
-const cardbadge = (): JSX.Element => <sbb-card-badge>%</sbb-card-badge>;
+const cardBadge = (): TemplateResult => html`<sbb-card-badge>%</sbb-card-badge>`;
 
-const suffixAndSubtext = (): JSX.Element[] => [
-  <span slot="subtext">Subtext</span>,
-  <span slot="suffix" style={{ 'margin-inline-start': 'auto' }}>
-    <span style={suffixStyle}>
-      <sbb-icon
-        name="diamond-small"
-        style={{ 'margin-inline': 'var(--sbb-spacing-fixed-2x)' }}
-      ></sbb-icon>
+const suffixAndSubtext = (): TemplateResult => html`
+  <span slot="subtext">Subtext</span>
+  <span slot="suffix" style="margin-inline-start: auto;">
+    <span style=${styleMap(suffixStyle)}>
+      <sbb-icon name="diamond-small" style="margin-inline: var(--sbb-spacing-fixed-2x);"></sbb-icon>
       <span class="sbb-text-m sbb-text--bold">
         <span class="sbb-text-xs sbb-text--bold">CHF</span> 40.00
       </span>
     </span>
-  </span>,
-];
+  </span>
+`;
 
-const innerContent = (): JSX.Element => (
+const innerContent = (): TemplateResult => html`
   <div slot="content">
     Inner Content
     <sbb-link
@@ -111,146 +111,137 @@ const innerContent = (): JSX.Element => (
       Link
     </sbb-link>
   </div>
-);
+`;
 
-const WithCheckboxTemplate = ({ checkedInput, disabledInput, ...args }): JSX.Element => (
-  <sbb-selection-panel {...args}>
-    {cardbadge()}
-    <sbb-checkbox checked={checkedInput} disabled={disabledInput}>
-      Value one
-      {suffixAndSubtext()}
+const WithCheckboxTemplate = ({
+  checkedInput,
+  disabledInput,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-selection-panel ${sbbSpread(args)}>
+    ${cardBadge()}
+    <sbb-checkbox ?checked=${checkedInput} ?disabled=${disabledInput}>
+      Value one ${suffixAndSubtext()}
     </sbb-checkbox>
-    {innerContent()}
+    ${innerContent()}
   </sbb-selection-panel>
-);
+`;
 
-const WithRadioButtonTemplate = ({ checkedInput, disabledInput, ...args }): JSX.Element => (
-  <sbb-selection-panel {...args}>
-    {cardbadge()}
-    <sbb-radio-button value="Value one" checked={checkedInput} disabled={disabledInput}>
-      Value one
-      {suffixAndSubtext()}
+const WithRadioButtonTemplate = ({
+  checkedInput,
+  disabledInput,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-selection-panel ${sbbSpread(args)}>
+    ${cardBadge()}
+    <sbb-radio-button value="Value one" ?checked=${checkedInput} ?disabled=${disabledInput}>
+      Value one ${suffixAndSubtext()}
     </sbb-radio-button>
-    {innerContent()}
+    ${innerContent()}
   </sbb-selection-panel>
-);
+`;
 
-const WithCheckboxGroupTemplate = ({ checkedInput, disabledInput, ...args }): JSX.Element => (
+const WithCheckboxGroupTemplate = ({
+  checkedInput,
+  disabledInput,
+  ...args
+}: Args): TemplateResult => html`
   <sbb-checkbox-group orientation="vertical" horizontal-from="large">
-    <sbb-selection-panel {...args}>
-      {cardbadge()}
-      <sbb-checkbox checked={checkedInput}>
-        Value one
-        {suffixAndSubtext()}
-      </sbb-checkbox>
-      {innerContent()}
+    <sbb-selection-panel ${sbbSpread(args)}>
+      ${cardBadge()}
+      <sbb-checkbox ?checked=${checkedInput}> Value one ${suffixAndSubtext()} </sbb-checkbox>
+      ${innerContent()}
     </sbb-selection-panel>
 
-    <sbb-selection-panel {...args}>
-      {cardbadge()}
-      <sbb-checkbox disabled={disabledInput}>
-        Value two
-        {suffixAndSubtext()}
-      </sbb-checkbox>
-      {innerContent()}
+    <sbb-selection-panel ${sbbSpread(args)}>
+      ${cardBadge()}
+      <sbb-checkbox ?disabled=${disabledInput}> Value two ${suffixAndSubtext()} </sbb-checkbox>
+      ${innerContent()}
     </sbb-selection-panel>
 
-    <sbb-selection-panel {...args}>
-      {cardbadge()}
-      <sbb-checkbox>
-        Value three
-        {suffixAndSubtext()}
-      </sbb-checkbox>
-      {innerContent()}
+    <sbb-selection-panel ${sbbSpread(args)}>
+      ${cardBadge()}
+      <sbb-checkbox> Value three ${suffixAndSubtext()} </sbb-checkbox>
+      ${innerContent()}
     </sbb-selection-panel>
   </sbb-checkbox-group>
-);
+`;
 
 const WithRadioButtonGroupTemplate = ({
   checkedInput,
   disabledInput,
   allowEmptySelection,
   ...args
-}): JSX.Element => (
+}: Args): TemplateResult => html`
   <sbb-radio-button-group
     orientation="vertical"
     horizontal-from="large"
-    allow-empty-selection={allowEmptySelection}
+    ?allow-empty-selection=${allowEmptySelection}
   >
-    <sbb-selection-panel {...args}>
-      {cardbadge()}
-      <sbb-radio-button value="Value one" checked={checkedInput}>
-        Value one
-        {suffixAndSubtext()}
+    <sbb-selection-panel ${sbbSpread(args)}>
+      ${cardBadge()}
+      <sbb-radio-button value="Value one" ?checked=${checkedInput}>
+        Value one ${suffixAndSubtext()}
       </sbb-radio-button>
-      {innerContent()}
+      ${innerContent()}
     </sbb-selection-panel>
 
-    <sbb-selection-panel {...args}>
-      {cardbadge()}
-      <sbb-radio-button value="Value two" disabled={disabledInput}>
-        Value two
-        {suffixAndSubtext()}
+    <sbb-selection-panel ${sbbSpread(args)}>
+      ${cardBadge()}
+      <sbb-radio-button value="Value two" ?disabled=${disabledInput}>
+        Value two ${suffixAndSubtext()}
       </sbb-radio-button>
-      {innerContent()}
+      ${innerContent()}
     </sbb-selection-panel>
 
-    <sbb-selection-panel {...args}>
-      {cardbadge()}
-      <sbb-radio-button value="Value three">
-        Value three
-        {suffixAndSubtext()}
-      </sbb-radio-button>
-      {innerContent()}
+    <sbb-selection-panel ${sbbSpread(args)}>
+      ${cardBadge()}
+      <sbb-radio-button value="Value three"> Value three ${suffixAndSubtext()} </sbb-radio-button>
+      ${innerContent()}
     </sbb-selection-panel>
   </sbb-radio-button-group>
-);
+`;
 
-const TicketsOptionsExampleTemplate = ({ checkedInput, disabledInput, ...args }): JSX.Element => (
+const TicketsOptionsExampleTemplate = ({
+  checkedInput,
+  disabledInput,
+  ...args
+}: Args): TemplateResult => html`
   <sbb-checkbox-group orientation="vertical" horizontal-from="large">
-    <sbb-selection-panel {...args}>
-      {cardbadge()}
-      <sbb-checkbox checked={checkedInput}>
-        Saving
-        {suffixAndSubtext()}
-      </sbb-checkbox>
+    <sbb-selection-panel ${sbbSpread(args)}>
+      ${cardBadge()}
+      <sbb-checkbox ?checked=${checkedInput}> Saving ${suffixAndSubtext()} </sbb-checkbox>
       <div slot="content">
         <sbb-radio-button-group orientation="vertical" value="non-flex">
-          <sbb-radio-button value="non-flex" style={{ width: '100%' }}>
+          <sbb-radio-button value="non-flex" style="width: 100%;">
             Non-Flex
             <span slot="subtext">No refund possible</span>
             <span
               slot="suffix"
-              style={{ 'margin-inline-start': 'auto', color: 'var(--sbb-color-granite-default)' }}
+              style="margin-inline-start: auto; color: var(--sbb-color-granite-default);"
             >
-              <span style={suffixStyle}>
-                <span class="sbb-text-m">
-                  <span class="sbb-text-xxs">CHF</span> 0.00
-                </span>
+              <span style=${styleMap(suffixStyle)}>
+                <span class="sbb-text-m"> <span class="sbb-text-xxs">CHF</span> 0.00 </span>
               </span>
             </span>
           </sbb-radio-button>
-          <sbb-radio-button value="semi-flex" style={{ width: '100%' }}>
+          <sbb-radio-button value="semi-flex" style="width: 100%;">
             Semi-Flex
             <span slot="subtext">Partial refund possible</span>
             <span
               slot="suffix"
-              style={{ 'margin-inline-start': 'auto', color: 'var(--sbb-color-granite-default)' }}
+              style="margin-inline-start: auto; color: var(--sbb-color-granite-default);"
             >
-              <span style={suffixStyle}>
-                <span class="sbb-text-m">
-                  <span class="sbb-text-xxs">+ CHF</span> 5.00
-                </span>
+              <span style=${styleMap(suffixStyle)}>
+                <span class="sbb-text-m"> <span class="sbb-text-xxs">+ CHF</span> 5.00 </span>
               </span>
             </span>
           </sbb-radio-button>
         </sbb-radio-button-group>
-        <sbb-divider style={{ 'margin-block': 'var(--sbb-spacing-responsive-xxs)' }}></sbb-divider>
-        <span style={{ color: 'var(--sbb-color-granite-default)' }}>
-          <div
-            style={{ display: 'flex', 'align-items': 'center', gap: 'var(--sbb-spacing-fixed-1x)' }}
-          >
-            1 x 0 x Supersaver ticket, Half-Fare Card{' '}
+        <sbb-divider style="margin-block: var(--sbb-spacing-responsive-xxs);"></sbb-divider>
+        <span style="color: var(--sbb-color-granite-default);">
+          <div style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x);">
+            1 x 0 x Supersaver ticket, Half-Fare Card${' '}
             <sbb-tooltip-trigger
               id="tooltip-trigger-1"
               icon-name="circle-information-small"
@@ -259,54 +250,43 @@ const TicketsOptionsExampleTemplate = ({ checkedInput, disabledInput, ...args })
           <div>Valid: Thu., 03.11.2022 until Fri., 04.11.2022 05:00</div>
         </span>
         <sbb-tooltip trigger="tooltip-trigger-1" hover-trigger>
-          <span id="tooltip-content" class="sbb-text-s">
-            Simple info tooltip.
-          </span>
+          <span id="tooltip-content" class="sbb-text-s"> Simple info tooltip. </span>
         </sbb-tooltip>
       </div>
     </sbb-selection-panel>
 
-    <sbb-selection-panel {...args}>
-      {cardbadge()}
-      <sbb-checkbox disabled={disabledInput}>
-        City offer
-        {suffixAndSubtext()}
-      </sbb-checkbox>
+    <sbb-selection-panel ${sbbSpread(args)}>
+      ${cardBadge()}
+      <sbb-checkbox ?disabled=${disabledInput}> City offer ${suffixAndSubtext()} </sbb-checkbox>
       <div slot="content">
         <sbb-checkbox-group orientation="vertical">
-          <sbb-checkbox value="option-1" style={{ width: '100%' }}>
+          <sbb-checkbox value="option-1" style="width: 100%;">
             Option one
             <span
               slot="suffix"
-              style={{ 'margin-inline-start': 'auto', color: 'var(--sbb-color-granite-default)' }}
+              style="margin-inline-start: auto; color: var(--sbb-color-granite-default);"
             >
-              <span style={suffixStyle}>
-                <span class="sbb-text-m">
-                  <span class="sbb-text-xxs">CHF</span> 0.00
-                </span>
+              <span style=${styleMap(suffixStyle)}>
+                <span class="sbb-text-m"> <span class="sbb-text-xxs">CHF</span> 0.00 </span>
               </span>
             </span>
           </sbb-checkbox>
-          <sbb-checkbox value="option-2" style={{ width: '100%' }}>
+          <sbb-checkbox value="option-2" style="width: 100%;">
             Option two
             <span
               slot="suffix"
-              style={{ 'margin-inline-start': 'auto', color: 'var(--sbb-color-granite-default)' }}
+              style="margin-inline-start: auto; color: var(--sbb-color-granite-default);"
             >
-              <span style={suffixStyle}>
-                <span class="sbb-text-m">
-                  <span class="sbb-text-xxs">+ CHF</span> 5.00
-                </span>
+              <span style=${styleMap(suffixStyle)}>
+                <span class="sbb-text-m"> <span class="sbb-text-xxs">+ CHF</span> 5.00 </span>
               </span>
             </span>
           </sbb-checkbox>
         </sbb-checkbox-group>
-        <sbb-divider style={{ 'margin-block': 'var(--sbb-spacing-responsive-xxs)' }}></sbb-divider>
-        <span style={{ color: 'var(--sbb-color-granite-default)' }}>
-          <div
-            style={{ display: 'flex', 'align-items': 'center', gap: 'var(--sbb-spacing-fixed-1x)' }}
-          >
-            1 x 0 x City Ticket incl. City Supplement City, Half-Fare Card{' '}
+        <sbb-divider style="margin-block: var(--sbb-spacing-responsive-xxs);"></sbb-divider>
+        <span style="color: var(--sbb-color-granite-default);">
+          <div style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x);">
+            1 x 0 x City Ticket incl. City Supplement City, Half-Fare Card${' '}
             <sbb-tooltip-trigger
               id="tooltip-trigger-2"
               icon-name="circle-information-small"
@@ -315,19 +295,21 @@ const TicketsOptionsExampleTemplate = ({ checkedInput, disabledInput, ...args })
           <div>Valid: Thu., 03.11.2022 until Fri., 04.11.2022 05:00</div>
         </span>
         <sbb-tooltip trigger="tooltip-trigger-2" hover-trigger>
-          <span id="tooltip-content" class="sbb-text-s">
-            Simple info tooltip.
-          </span>
+          <span id="tooltip-content" class="sbb-text-s"> Simple info tooltip. </span>
         </sbb-tooltip>
       </div>
     </sbb-selection-panel>
   </sbb-checkbox-group>
-);
+`;
 
-const NestedRadioTemplate = ({ checkedInput, disabledInput, ...args }): JSX.Element => (
+const NestedRadioTemplate = ({
+  checkedInput,
+  disabledInput,
+  ...args
+}: Args): TemplateResult => html`
   <sbb-radio-button-group orientation="vertical" horizontal-from="large">
-    <sbb-selection-panel {...args}>
-      <sbb-radio-button value="mainoption1" checked={checkedInput}>
+    <sbb-selection-panel ${sbbSpread(args)}>
+      <sbb-radio-button value="mainoption1" ?checked=${checkedInput}>
         Main Option 1
       </sbb-radio-button>
       <sbb-radio-button-group orientation="vertical" value="suboption1" slot="content">
@@ -336,8 +318,8 @@ const NestedRadioTemplate = ({ checkedInput, disabledInput, ...args }): JSX.Elem
       </sbb-radio-button-group>
     </sbb-selection-panel>
 
-    <sbb-selection-panel {...args}>
-      <sbb-radio-button value="mainoption2" disabled={disabledInput}>
+    <sbb-selection-panel ${sbbSpread(args)}>
+      <sbb-radio-button value="mainoption2" ?disabled=${disabledInput}>
         Main Option 2
       </sbb-radio-button>
       <sbb-radio-button-group orientation="vertical" value="suboption2" slot="content">
@@ -346,45 +328,47 @@ const NestedRadioTemplate = ({ checkedInput, disabledInput, ...args }): JSX.Elem
       </sbb-radio-button-group>
     </sbb-selection-panel>
   </sbb-radio-button-group>
-);
+`;
 
-const NestedCheckboxTemplate = ({ checkedInput, disabledInput, ...args }): JSX.Element => (
+const NestedCheckboxTemplate = ({
+  checkedInput,
+  disabledInput,
+  ...args
+}: Args): TemplateResult => html`
   <sbb-checkbox-group orientation="vertical" horizontal-from="large">
-    <sbb-selection-panel {...args}>
-      <sbb-checkbox value="mainoption1" checked={checkedInput}>
-        Main Option 1
-      </sbb-checkbox>
+    <sbb-selection-panel ${sbbSpread(args)}>
+      <sbb-checkbox value="mainoption1" ?checked=${checkedInput}> Main Option 1 </sbb-checkbox>
       <sbb-checkbox-group orientation="vertical" slot="content">
         <sbb-checkbox value="suboption1">Suboption 1</sbb-checkbox>
         <sbb-checkbox value="suboption2">Suboption 2</sbb-checkbox>
       </sbb-checkbox-group>
     </sbb-selection-panel>
 
-    <sbb-selection-panel {...args}>
-      <sbb-checkbox value="mainoption2" disabled={disabledInput}>
-        Main Option 2
-      </sbb-checkbox>
+    <sbb-selection-panel ${sbbSpread(args)}>
+      <sbb-checkbox value="mainoption2" ?disabled=${disabledInput}> Main Option 2 </sbb-checkbox>
       <sbb-checkbox-group orientation="vertical" slot="content">
         <sbb-checkbox value="suboption1">Suboption 1</sbb-checkbox>
         <sbb-checkbox value="suboption2">Suboption 2</sbb-checkbox>
       </sbb-checkbox-group>
     </sbb-selection-panel>
   </sbb-checkbox-group>
-);
+`;
 
 const WithCheckboxesErrorMessageTemplate = ({
   checkedInput,
   disabledInput,
   ...args
-}): JSX.Element => {
-  const sbbFormError = <sbb-form-error slot="error">This is a required field.</sbb-form-error>;
+}: Args): TemplateResult => {
+  const sbbFormError: SbbFormError = document.createElement('sbb-form-error');
+  sbbFormError.setAttribute('slot', 'error');
+  sbbFormError.textContent = 'This is a required field.';
 
-  return (
+  return html`
     <sbb-checkbox-group
       orientation="vertical"
       horizontal-from="large"
       id="sbb-checkbox-group"
-      onChange={() => {
+      @change=${() => {
         const hasChecked = Array.from(
           document.getElementById('sbb-checkbox-group').querySelectorAll('sbb-checkbox'),
         ).some((el) => el.checked);
@@ -395,47 +379,44 @@ const WithCheckboxesErrorMessageTemplate = ({
         }
       }}
     >
-      <sbb-selection-panel {...args}>
-        {cardbadge()}
-        <sbb-checkbox checked={checkedInput}>
-          Value one
-          {suffixAndSubtext()}
-        </sbb-checkbox>
-        {innerContent()}
+      <sbb-selection-panel ${sbbSpread(args)}>
+        ${cardBadge()}
+        <sbb-checkbox ?checked=${checkedInput}> Value one ${suffixAndSubtext()} </sbb-checkbox>
+        ${innerContent()}
       </sbb-selection-panel>
 
-      <sbb-selection-panel {...args}>
-        {cardbadge()}
-        <sbb-checkbox disabled={disabledInput}>
-          Value two
-          {suffixAndSubtext()}
-        </sbb-checkbox>
-        {innerContent()}
+      <sbb-selection-panel ${sbbSpread(args)}>
+        ${cardBadge()}
+        <sbb-checkbox ?disabled=${disabledInput}> Value two ${suffixAndSubtext()} </sbb-checkbox>
+        ${innerContent()}
       </sbb-selection-panel>
 
-      <sbb-selection-panel {...args}>
-        {cardbadge()}
-        <sbb-checkbox>
-          Value three
-          {suffixAndSubtext()}
-        </sbb-checkbox>
-        {innerContent()}
+      <sbb-selection-panel ${sbbSpread(args)}>
+        ${cardBadge()}
+        <sbb-checkbox> Value three ${suffixAndSubtext()} </sbb-checkbox>
+        ${innerContent()}
       </sbb-selection-panel>
-      {sbbFormError}
+      ${sbbFormError}
     </sbb-checkbox-group>
-  );
+  `;
 };
 
-const WithRadiosErrorMessageTemplate = ({ checkedInput, disabledInput, ...args }): JSX.Element => {
-  const sbbFormError = <sbb-form-error slot="error">This is a required field.</sbb-form-error>;
+const WithRadiosErrorMessageTemplate = ({
+  checkedInput,
+  disabledInput,
+  ...args
+}: Args): TemplateResult => {
+  const sbbFormError: SbbFormError = document.createElement('sbb-form-error');
+  sbbFormError.setAttribute('slot', 'error');
+  sbbFormError.textContent = 'This is a required field.';
 
-  return (
+  return html`
     <sbb-radio-button-group
       orientation="vertical"
       horizontal-from="large"
       allow-empty-selection
       id="sbb-radio-group"
-      onChange={(event) => {
+      @change=${(event) => {
         if (event.detail.value) {
           sbbFormError.remove();
         } else {
@@ -443,58 +424,53 @@ const WithRadiosErrorMessageTemplate = ({ checkedInput, disabledInput, ...args }
         }
       }}
     >
-      <sbb-selection-panel {...args}>
-        {cardbadge()}
-        <sbb-radio-button value="Value one" checked={checkedInput}>
-          Value one
-          {suffixAndSubtext()}
+      <sbb-selection-panel ${sbbSpread(args)}>
+        ${cardBadge()}
+        <sbb-radio-button value="Value one" ?checked=${checkedInput}>
+          Value one ${suffixAndSubtext()}
         </sbb-radio-button>
-        {innerContent()}
+        ${innerContent()}
       </sbb-selection-panel>
 
-      <sbb-selection-panel {...args}>
-        {cardbadge()}
-        <sbb-radio-button value="Value two" disabled={disabledInput}>
-          Value two
-          {suffixAndSubtext()}
+      <sbb-selection-panel ${sbbSpread(args)}>
+        ${cardBadge()}
+        <sbb-radio-button value="Value two" ?disabled=${disabledInput}>
+          Value two ${suffixAndSubtext()}
         </sbb-radio-button>
-        {innerContent()}
+        ${innerContent()}
       </sbb-selection-panel>
 
-      <sbb-selection-panel {...args}>
-        {cardbadge()}
-        <sbb-radio-button value="Value three">
-          Value three
-          {suffixAndSubtext()}
-        </sbb-radio-button>
-        {innerContent()}
+      <sbb-selection-panel ${sbbSpread(args)}>
+        ${cardBadge()}
+        <sbb-radio-button value="Value three"> Value three ${suffixAndSubtext()} </sbb-radio-button>
+        ${innerContent()}
       </sbb-selection-panel>
-      {sbbFormError}
+      ${sbbFormError}
     </sbb-radio-button-group>
-  );
+  `;
 };
 
-const WithNoContentTemplate = ({ checkedInput, disabledInput, ...args }): JSX.Element => (
-  <Fragment>
-    <sbb-selection-panel
-      {...args}
-      style={{ display: 'block', 'margin-block-end': 'var(--sbb-spacing-fixed-4x)' }}
-    >
-      {cardbadge()}
-      <sbb-checkbox checked={checkedInput} disabled={disabledInput}>
-        Value one
-        {suffixAndSubtext()}
-      </sbb-checkbox>
-    </sbb-selection-panel>
-    <sbb-selection-panel {...args}>
-      {cardbadge()}
-      <sbb-radio-button value="Value one" disabled={disabledInput}>
-        Value one
-        {suffixAndSubtext()}
-      </sbb-radio-button>
-    </sbb-selection-panel>
-  </Fragment>
-);
+const WithNoContentTemplate = ({
+  checkedInput,
+  disabledInput,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-selection-panel
+    ${sbbSpread(args)}
+    style="display: block; margin-block-end: var(--sbb-spacing-fixed-4x);"
+  >
+    ${cardBadge()}
+    <sbb-checkbox ?checked=${checkedInput} ?disabled=${disabledInput}>
+      Value one ${suffixAndSubtext()}
+    </sbb-checkbox>
+  </sbb-selection-panel>
+  <sbb-selection-panel ${sbbSpread(args)}>
+    ${cardBadge()}
+    <sbb-radio-button value="Value one" ?disabled=${disabledInput}>
+      Value one ${suffixAndSubtext()}
+    </sbb-radio-button>
+  </sbb-selection-panel>
+`;
 
 export const WithCheckbox: StoryObj = {
   render: WithCheckboxTemplate,
@@ -709,11 +685,7 @@ export const NestedCheckboxes: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story) => html` <div style="padding: 2rem;">${story()}</div> `,
     withActions as Decorator,
   ],
   parameters: {

@@ -1,14 +1,13 @@
-/** @jsx h */
 import type { Meta, StoryObj, Args } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
 
 import readme from './readme.md?raw';
 import sampleData from './timetable-row-day-change.sample-data';
 import './timetable-row-day-change';
 
-const Template = (args): JSX.Element => (
-  <sbb-timetable-row-day-change config={JSON.stringify(args.config)}></sbb-timetable-row-day-change>
-);
+const Template = ({ config }: Args): TemplateResult => html`
+  <sbb-timetable-row-day-change config=${JSON.stringify(config)}></sbb-timetable-row-day-change>
+`;
 
 const config: Args = {
   table: {
@@ -20,9 +19,6 @@ const defaultArgTypes = {
   config,
 };
 
-/* ************************************************* */
-/* The Stories                                       */
-/* ************************************************* */
 export const currentDayHidden: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -48,7 +44,7 @@ export const dayChange: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(Story) => <Story></Story>],
+  decorators: [(story) => html`${story()}`],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

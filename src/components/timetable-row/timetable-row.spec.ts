@@ -168,18 +168,14 @@ describe('sbb-timetable-row', () => {
   describe('sbb-timetable-row loading state', () => {
     it('renders loading state', async () => {
       element = await fixture(
-        html`<sbb-timetable-row
-          loading-trip="true"
-          loading-price="true"
-          data-now="${now}"
-        ></sbb-timetable-row>`,
+        html`<sbb-timetable-row loading-trip loading-price data-now="${now}"></sbb-timetable-row>`,
       );
 
       element.loadingTrip = true;
       await waitForLitRender(element);
 
       expect(element).dom.to.be.equal(`
-        <sbb-timetable-row loading-trip="true" loading-price="true" data-now="1660662000000">
+        <sbb-timetable-row loading-trip="" loading-price="" data-now="1660662000000">
         </sbb-timetable-row>
       `);
 

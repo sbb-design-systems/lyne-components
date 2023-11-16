@@ -1,17 +1,18 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+
+import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
-import './train-formation';
 import '../../icon';
 import '../train';
 import '../train-wagon';
 import '../train-blocked-passage';
+import './train-formation';
 
-const MountedFormationTemplate = (args): JSX.Element => (
-  <sbb-train-formation {...args}>
+const MountedFormationTemplate = (args: Args): TemplateResult => html`
+  <sbb-train-formation ${sbbSpread(args)}>
     <sbb-train
       directionLabel="This attribute seems to be necessary due to a bug"
       direction-label="Direction of travel"
@@ -210,10 +211,10 @@ const MountedFormationTemplate = (args): JSX.Element => (
       ></sbb-train-wagon>
     </sbb-train>
   </sbb-train-formation>
-);
+`;
 
-const SingleFormationTemplate = (args): JSX.Element => (
-  <sbb-train-formation {...args}>
+const SingleFormationTemplate = (args: Args): TemplateResult => html`
+  <sbb-train-formation ${sbbSpread(args)}>
     <sbb-train
       directionLabel="This attribute seems to be necessary due to a bug"
       direction-label="Direction of travel"
@@ -325,7 +326,7 @@ const SingleFormationTemplate = (args): JSX.Element => (
       ></sbb-train-wagon>
     </sbb-train>
   </sbb-train-formation>
-);
+`;
 
 const hideWagonLabel: InputType = {
   control: {
@@ -367,13 +368,7 @@ export const TrainFormationHideWagonLabel: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
-  ],
+  decorators: [(story) => html` <div style="padding: 2rem;">${story()}</div> `],
   parameters: {
     backgrounds: {
       disable: true,

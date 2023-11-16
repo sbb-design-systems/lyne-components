@@ -1,8 +1,7 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
 
 import readme from './readme.md?raw';
 import './pearl-chain-vertical';
@@ -71,26 +70,16 @@ const defaultArgs: Args = {
   disableAnimation: isChromatic(),
 };
 
-// We need to lie to the compiler in order for the CSS variables to work.
-// Remove once https://github.com/alex-kinokon/jsx-dom/pull/90 is merged and released.
-const styleHack = (args: Record<string, string>): Record<string, string> =>
-  Object.entries(args)
-    .map(([k, v]) => `${k}: ${v}`)
-    .join(';') as unknown as Record<string, string>;
-
-const Template = ({ disableAnimation, ...args }): JSX.Element => {
-  return (
+const Template = ({ disableAnimation, ...args }: Args): TemplateResult => {
+  return html`
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-vertical-item
-        pearlChainVerticalItemAttributes={args as any}
-        disable-animation={disableAnimation}
+        .pearlChainVerticalItemAttributes=${args}
+        ?disable-animation=${disableAnimation}
       >
         <div
           slot="right"
-          style={styleHack({
-            '--sbb-pearl-chain-vertical-right-item-block-start': '-10px',
-            '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
-          })}
+          style="--sbb-pearl-chain-vertical-right-item-block-start: -10px; --sbb-pearl-chain-vertical-right-item-inline-start: 10px;"
         >
           slot for content
           <div>more</div>
@@ -101,51 +90,45 @@ const Template = ({ disableAnimation, ...args }): JSX.Element => {
         </div>
       </sbb-pearl-chain-vertical-item>
     </sbb-pearl-chain-vertical>
-  );
+  `;
 };
 
-const TemplateWithoutContent = ({ disableAnimation, ...args }): JSX.Element => {
-  return (
+const TemplateWithoutContent = ({ disableAnimation, ...args }: Args): TemplateResult => {
+  return html`
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-vertical-item
-        pearlChainVerticalItemAttributes={args as any}
-        disable-animation={disableAnimation}
+        .pearlChainVerticalItemAttributes=${args}
+        ?disable-animation=${disableAnimation}
       ></sbb-pearl-chain-vertical-item>
     </sbb-pearl-chain-vertical>
-  );
+  `;
 };
 
-const TemplateLeftSlot = ({ disableAnimation, ...args }): JSX.Element => {
-  return (
+const TemplateLeftSlot = ({ disableAnimation, ...args }: Args): TemplateResult => {
+  return html`
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-vertical-item
-        pearlChainVerticalItemAttributes={args as any}
-        disable-animation={disableAnimation}
+        .pearlChainVerticalItemAttributes=${args}
+        ?disable-animation=${disableAnimation}
       >
-        <div
-          slot="left"
-          style={styleHack({ '--sbb-pearl-chain-vertical-left-item-inline-end': '10px' })}
-        >
+        <div slot="left" style="--sbb-pearl-chain-vertical-left-item-inline-end: 10px;">
           slot for content
         </div>
       </sbb-pearl-chain-vertical-item>
     </sbb-pearl-chain-vertical>
-  );
+  `;
 };
 
-const TemplateTwoDots = ({ disableAnimation, ...args }): JSX.Element => {
-  return (
+const TemplateTwoDots = ({ disableAnimation, ...args }: Args): TemplateResult => {
+  return html`
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-vertical-item
-        pearlChainVerticalItemAttributes={args as any}
-        disable-animation={disableAnimation}
+        .pearlChainVerticalItemAttributes=${args}
+        ?disable-animation=${disableAnimation}
       >
         <div
           slot="right"
-          style={styleHack({
-            '--sbb-pearl-chain-vertical-right-item-block-start': '-10px',
-            '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
-          })}
+          style="--sbb-pearl-chain-vertical-right-item-block-start: -10px; --sbb-pearl-chain-vertical-right-item-inline-start: 10px;"
         >
           slot for content
           <div>more</div>
@@ -156,8 +139,8 @@ const TemplateTwoDots = ({ disableAnimation, ...args }): JSX.Element => {
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
-        disable-animation={disableAnimation}
-        pearlChainVerticalItemAttributes={{
+        ?disable-animation=${disableAnimation}
+        .pearlChainVerticalItemAttributes=${{
           lineType: 'standard',
           lineColor: 'disruption',
           bulletType: 'disruption',
@@ -169,22 +152,19 @@ const TemplateTwoDots = ({ disableAnimation, ...args }): JSX.Element => {
         }}
       ></sbb-pearl-chain-vertical-item>
     </sbb-pearl-chain-vertical>
-  );
+  `;
 };
 
-const TemplateLeftSecondSlot = ({ disableAnimation, ...args }): JSX.Element => {
-  return (
+const TemplateLeftSecondSlot = ({ disableAnimation, ...args }: Args): TemplateResult => {
+  return html`
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-vertical-item
-        pearlChainVerticalItemAttributes={args as any}
-        disable-animation={disableAnimation}
+        .pearlChainVerticalItemAttributes=${args as any}
+        ?disable-animation=${disableAnimation}
       >
         <div
           slot="right"
-          style={styleHack({
-            '--sbb-pearl-chain-vertical-right-item-block-start': '-8px',
-            '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
-          })}
+          style="--sbb-pearl-chain-vertical-right-item-block-start: -8px; --sbb-pearl-chain-vertical-right-item-inline-start: 10px;"
         >
           slot for content
           <div>more</div>
@@ -195,17 +175,14 @@ const TemplateLeftSecondSlot = ({ disableAnimation, ...args }): JSX.Element => {
         </div>
         <div
           slot="left"
-          style={styleHack({
-            '--sbb-pearl-chain-vertical-left-item-block-start': '-8px',
-            '--sbb-pearl-chain-vertical-left-item-inline-end': '10px',
-          })}
+          style="--sbb-pearl-chain-vertical-left-item-block-start: -8px; --sbb-pearl-chain-vertical-left-item-inline-end: 10px;"
         >
           19:00
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
-        disable-animation={disableAnimation}
-        pearlChainVerticalItemAttributes={{
+        ?disable-animation=${disableAnimation}
+        .pearlChainVerticalItemAttributes=${{
           lineType: 'standard',
           lineColor: 'disruption',
           bulletType: 'disruption',
@@ -218,49 +195,31 @@ const TemplateLeftSecondSlot = ({ disableAnimation, ...args }): JSX.Element => {
       >
         <div
           slot="left"
-          style={styleHack({
-            '--sbb-pearl-chain-vertical-left-item-block-start': '-8px',
-            '--sbb-pearl-chain-vertical-left-item-inline-end': '10px',
-          })}
+          style="--sbb-pearl-chain-vertical-left-item-block-start: -8px; --sbb-pearl-chain-vertical-left-item-inline-end': 10px;"
         >
           20:00
         </div>
       </sbb-pearl-chain-vertical-item>
     </sbb-pearl-chain-vertical>
-  );
+  `;
 };
 
-const connectionDetailTemplate = ({ disableAnimation, ...args }): JSX.Element => {
-  return (
+const connectionDetailTemplate = ({ disableAnimation, ...args }: Args): TemplateResult => {
+  return html`
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-vertical-item
-        pearlChainVerticalItemAttributes={args as any}
-        disable-animation={disableAnimation}
+        .pearlChainVerticalItemAttributes=${args}
+        ?disable-animation=${disableAnimation}
       >
         <div
           slot="right"
-          style={styleHack({
-            '--sbb-pearl-chain-vertical-right-item-block-start': '-8px',
-            '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
-          })}
+          style="--sbb-pearl-chain-vertical-right-item-block-start: -8px; --sbb-pearl-chain-vertical-right-item-inline-start: 10px;"
         >
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-          >
+          <div style="display: flex; flex-direction: row; justify-content: space-between;">
             <div>Station</div>
-            <div> Pl. 12</div>
+            <div>Pl. 12</div>
           </div>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-          >
+          <div style="display: flex; flex-direction: row; justify-content: space-between;">
             <div>
               <sbb-icon
                 role="img"
@@ -273,24 +232,22 @@ const connectionDetailTemplate = ({ disableAnimation, ...args }): JSX.Element =>
               <div>Direction Station</div>
             </div>
             <span>
-              1.<sbb-icon name="utilization-high"></sbb-icon> 2.
-              <sbb-icon name="utilization-high"></sbb-icon>
+              1.<sbb-icon name="utilization-high"></sbb-icon> 2.<sbb-icon
+                name="utilization-high"
+              ></sbb-icon>
             </span>
           </div>
         </div>
         <div
           slot="left"
-          style={styleHack({
-            '--sbb-pearl-chain-vertical-left-item-block-start': '-8px',
-            '--sbb-pearl-chain-vertical-left-item-inline-end': '10px',
-          })}
+          style="--sbb-pearl-chain-vertical-left-item-block-start: -8px; --sbb-pearl-chain-vertical-left-item-inline-end: 10px;"
         >
           19:00
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
-        disable-animation={disableAnimation}
-        pearlChainVerticalItemAttributes={{
+        ?disable-animation=${disableAnimation}
+        .pearlChainVerticalItemAttributes=${{
           lineType: 'standard',
           lineColor: 'disruption',
           // TODO: Check if bug?
@@ -302,37 +259,34 @@ const connectionDetailTemplate = ({ disableAnimation, ...args }): JSX.Element =>
       >
         <div
           slot="right"
-          style={styleHack({
-            '--sbb-pearl-chain-vertical-right-item-block-start': '-20px',
-            '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
-            display: 'flex',
-            'flex-direction': 'row',
-            'justify-content': 'space-between',
-          })}
+          style="
+            --sbb-pearl-chain-vertical-right-item-block-start: -20px;
+            --sbb-pearl-chain-vertical-right-item-inline-start: 10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+          "
         >
-          <div> Station</div>
-          <div> Pl. 12</div>
+          <div>Station</div>
+          <div>Pl. 12</div>
         </div>
         <div
           slot="left"
-          style={styleHack({
-            '--sbb-pearl-chain-vertical-left-item-block-start': '-20px',
-            '--sbb-pearl-chain-vertical-left-item-inline-end': '10px',
-          })}
+          style="--sbb-pearl-chain-vertical-left-item-block-start: -20px; --sbb-pearl-chain-vertical-left-item-inline-end: 10px;"
         >
           20:00
         </div>
       </sbb-pearl-chain-vertical-item>
     </sbb-pearl-chain-vertical>
-  );
+  `;
 };
 
-const thirdLevelTemplate = ({ disableAnimation, ...args }): JSX.Element => {
-  return (
+const thirdLevelTemplate = ({ disableAnimation, ...args }: Args): TemplateResult => {
+  return html`
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-vertical-item
-        disable-animation={disableAnimation}
-        pearlChainVerticalItemAttributes={{
+        ?disable-animation=${disableAnimation}
+        .pearlChainVerticalItemAttributes=${{
           lineType: 'thin',
           lineColor: 'past',
           minHeight: 39,
@@ -342,56 +296,42 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }): JSX.Element => {
       >
         <div
           slot="left"
-          style={styleHack({
-            '--sbb-pearl-chain-vertical-left-item-block-start': '15px',
-            '--sbb-pearl-chain-vertical-left-item-inline-end': '10px',
-          })}
+          style="--sbb-pearl-chain-vertical-left-item-block-start: 15px; --sbb-pearl-chain-vertical-left-item-inline-end: 10px;"
         >
           10:31
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
-        pearlChainVerticalItemAttributes={args as any}
-        disable-animation={disableAnimation}
+        .pearlChainVerticalItemAttributes=${args}
+        ?disable-animation=${disableAnimation}
       >
         <div
           slot="right"
-          style={styleHack({
-            '--sbb-pearl-chain-vertical-right-item-block-start': '-10px',
-            '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
-          })}
+          style="--sbb-pearl-chain-vertical-right-item-block-start: -10px; --sbb-pearl-chain-vertical-right-item-inline-start: 10px;"
         >
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              gap: '100px',
-            }}
-          >
-            <div> Station</div>
-            <div> Pl. 12</div>
+          <div style="display: flex; flex-direction: row; gap: 100px;">
+            <div>Station</div>
+            <div>Pl. 12</div>
           </div>
-          <div style={{ paddingBottom: '5px', paddingTop: '5px' }}>
+          <div style="padding-bottom: 5px; padding-top: 5px;">
             <span>
-              1.<sbb-icon name="utilization-high"></sbb-icon> 2.
-              <sbb-icon name="utilization-high"></sbb-icon>
+              1.<sbb-icon name="utilization-high"></sbb-icon> 2.<sbb-icon
+                name="utilization-high"
+              ></sbb-icon>
             </span>
           </div>
         </div>
         <div
           slot="left"
-          style={styleHack({
-            '--sbb-pearl-chain-vertical-left-item-block-start': '-10px',
-            '--sbb-pearl-chain-vertical-left-item-inline-end': '10px',
-          })}
+          style="--sbb-pearl-chain-vertical-left-item-block-start: -10px; --sbb-pearl-chain-vertical-left-item-inline-end: 10px;"
         >
-          <div style={{ fontWeight: 'bold' }}>19:00</div>
-          <div style={{ marginTop: '40px' }}>10:31</div>
+          <div style="font-weight: bold;">19:00</div>
+          <div style="margin-top: 40px;">10:31</div>
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
-        disable-animation={disableAnimation}
-        pearlChainVerticalItemAttributes={{
+        ?disable-animation=${disableAnimation}
+        .pearlChainVerticalItemAttributes=${{
           lineType: 'standard',
           lineColor: 'default',
           minHeight: 89,
@@ -402,43 +342,32 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }): JSX.Element => {
       >
         <div
           slot="right"
-          style={styleHack({
-            '--sbb-pearl-chain-vertical-right-item-block-start': '-10px',
-            '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
-          })}
+          style="--sbb-pearl-chain-vertical-right-item-block-start: -10px; --sbb-pearl-chain-vertical-right-item-inline-start: 10px;"
         >
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              gap: '100px',
-            }}
-          >
-            <div> Station</div>
-            <div> Pl. 12</div>
+          <div style="display: flex; flex-direction: row; gap: 100px;">
+            <div>Station</div>
+            <div>Pl. 12</div>
           </div>
-          <div style={{ paddingBottom: '5px', paddingTop: '5px' }}>
+          <div style="padding-bottom: 5px; padding-top: 5px;">
             <span>
-              1.<sbb-icon name="utilization-high"></sbb-icon> 2.
-              <sbb-icon name="utilization-high"></sbb-icon>
+              1.<sbb-icon name="utilization-high"></sbb-icon> 2.<sbb-icon
+                name="utilization-high"
+              ></sbb-icon>
             </span>
           </div>
         </div>
 
         <div
           slot="left"
-          style={styleHack({
-            '--sbb-pearl-chain-vertical-left-item-block-start': '-10px',
-            '--sbb-pearl-chain-vertical-left-item-inline-end': '10px',
-          })}
+          style="--sbb-pearl-chain-vertical-left-item-block-start: -10px; --sbb-pearl-chain-vertical-left-item-inline-end: 10px;"
         >
-          <div style={{ fontWeight: 'bold' }}>19:00</div>
-          <div style={{ marginTop: '40px' }}>10:31</div>
+          <div style="font-weight: bold;">19:00</div>
+          <div style="margin-top: 40px;">10:31</div>
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
-        disable-animation={disableAnimation}
-        pearlChainVerticalItemAttributes={{
+        ?disable-animation=${disableAnimation}
+        .pearlChainVerticalItemAttributes=${{
           lineType: 'thin',
           lineColor: 'past',
           minHeight: 89,
@@ -449,37 +378,25 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }): JSX.Element => {
       >
         <div
           slot="right"
-          style={styleHack({
-            '--sbb-pearl-chain-vertical-right-item-block-start': '-10px',
-            '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
-          })}
+          style="--sbb-pearl-chain-vertical-right-item-block-start: -10px; --sbb-pearl-chain-vertical-right-item-inline-start: 10px;"
         >
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              gap: '100px',
-            }}
-          >
-            <div> Station</div>
-            <div> Pl. 12</div>
+          <div style="display: flex; flex-direction: row; gap: 100px;">
+            <div>Station</div>
+            <div>Pl. 12</div>
           </div>
         </div>
 
         <div
           slot="left"
-          style={styleHack({
-            '--sbb-pearl-chain-vertical-left-item-block-start': '-10px',
-            '--sbb-pearl-chain-vertical-left-item-inline-end': '10px',
-          })}
+          style="--sbb-pearl-chain-vertical-left-item-block-start: -10px; --sbb-pearl-chain-vertical-left-item-inline-end: 10px;"
         >
-          <div style={{ fontWeight: 'bold' }}>19:00</div>
-          <div style={{ marginTop: '40px' }}>10:31</div>
+          <div style="font-weight: bold;">19:00</div>
+          <div style="margin-top: 40px;">10:31</div>
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
-        disable-animation={disableAnimation}
-        pearlChainVerticalItemAttributes={{
+        ?disable-animation=${disableAnimation}
+        .pearlChainVerticalItemAttributes=${{
           lineType: 'thin',
           lineColor: 'past',
           minHeight: 39,
@@ -490,42 +407,30 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }): JSX.Element => {
       >
         <div
           slot="right"
-          style={styleHack({
-            '--sbb-pearl-chain-vertical-right-item-block-start': '-10px',
-            '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
-          })}
+          style="--sbb-pearl-chain-vertical-right-item-block-start: -10px; --sbb-pearl-chain-vertical-right-item-inline-start: 10px;"
         >
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              gap: '100px',
-            }}
-          >
-            <div> Station</div>
-            <div> Pl. 12</div>
+          <div style="display: flex; flex-direction: row; gap: 100px;">
+            <div>Station</div>
+            <div>Pl. 12</div>
           </div>
         </div>
         <div
           slot="left"
-          style={styleHack({
-            '--sbb-pearl-chain-vertical-left-item-block-start': '-10px',
-            '--sbb-pearl-chain-vertical-left-item-inline-end': '10px',
-          })}
+          style="--sbb-pearl-chain-vertical-left-item-block-start: -10px; --sbb-pearl-chain-vertical-left-item-inline-end: 10px;"
         >
-          <div style={{ fontWeight: 'bold' }}>19:00</div>
+          <div style="font-weight: bold;">19:00</div>
         </div>
       </sbb-pearl-chain-vertical-item>
     </sbb-pearl-chain-vertical>
-  );
+  `;
 };
 
-const TimetableChange = (): JSX.Element => {
-  return (
+const TimetableChange = (): TemplateResult => {
+  return html`
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-vertical-item
-        disable-animation={disableAnimation}
-        pearlChainVerticalItemAttributes={{
+        ?disable-animation=${disableAnimation}
+        .pearlChainVerticalItemAttributes=${{
           lineType: 'dotted',
           lineColor: 'walk',
           // TODO: Check if bug?
@@ -538,55 +443,34 @@ const TimetableChange = (): JSX.Element => {
       >
         <div
           slot="right"
-          style={styleHack({
-            '--sbb-pearl-chain-vertical-right-item-block-start': '-10px',
-            '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
-          })}
+          style="--sbb-pearl-chain-vertical-right-item-block-start: -10px; --sbb-pearl-chain-vertical-right-item-inline-start: 10px;"
         >
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              gap: '100px',
-            }}
-          >
+          <div style="display: flex; flex-direction: row; gap: 100px;">
             <div>09:45</div>
-            <div> Pl. 12</div>
+            <div>Pl. 12</div>
           </div>
-          <div style={{ paddingBottom: '5px' }}>
-            <span style={{ fontSize: '12px' }}>Footpath</span>
+          <div style="padding-bottom: 5px;">
+            <span style="font-size: 12px;">Footpath</span>
           </div>
           <div>
             <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: '130px',
-                fontSize: '12px',
-              }}
+              style="display: flex; flex-direction: row; align-items: center; gap: 130px; font-size: 12px;"
             >
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}
-              >
+              <div style="display: flex; flex-direction: row; align-items: center;">
                 <div>
                   <sbb-icon role="img" name="walk-small" aria-hidden="true"></sbb-icon>
                 </div>
-                <div> 5'</div>
+                <div>5'</div>
               </div>
-              <div style={{ fontSize: '12px' }}>150 m</div>
+              <div style="font-size: 12px;">150 m</div>
             </div>
           </div>
-          <span style={{ fontSize: '12px' }}>Departure</span>
+          <span style="font-size: 12px;">Departure</span>
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
-        disable-animation={disableAnimation}
-        pearlChainVerticalItemAttributes={{
+        ?disable-animation=${disableAnimation}
+        .pearlChainVerticalItemAttributes=${{
           lineType: 'dotted',
           lineColor: 'walk',
           // TODO: Check if bug?
@@ -600,26 +484,16 @@ const TimetableChange = (): JSX.Element => {
       >
         <div
           slot="right"
-          style={styleHack({
-            '--sbb-pearl-chain-vertical-right-item-block-start': '-10px',
-            '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
-          })}
+          style="--sbb-pearl-chain-vertical-right-item-block-start: -10px; --sbb-pearl-chain-vertical-right-item-inline-start: 10px;"
         >
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              gap: '100px',
-              fontWeight: 'bold',
-            }}
-          >
+          <div style="display: flex; flex-direction: row; gap: 100px; font-weight: bold;">
             <div>09:45</div>
             <div>Pl. 12</div>
           </div>
         </div>
       </sbb-pearl-chain-vertical-item>
     </sbb-pearl-chain-vertical>
-  );
+  `;
 };
 
 export const defaultPearlChainRightSlot: StoryObj = {
@@ -751,16 +625,8 @@ export const timetableChange: StoryObj = {
   render: TimetableChange,
 };
 
-/** All kinds oft possible slot and bullet combinations */
-
-/** additional bullet types */
-
-/** additional dot types */
-
-/** position */
-
 const meta: Meta = {
-  decorators: [(Story) => <Story></Story>],
+  decorators: [(story) => html`${story()}`],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

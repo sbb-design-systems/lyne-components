@@ -1,4 +1,3 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import { userEvent, within } from '@storybook/testing-library';
 import type { InputType } from '@storybook/types';
@@ -11,15 +10,17 @@ import type {
   StoryContext,
 } from '@storybook/web-components';
 import isChromatic from 'chromatic/isChromatic';
-import { Fragment, h, type JSX } from 'jsx-dom';
+import { html, nothing, TemplateResult } from 'lit';
+import { styleMap, StyleInfo } from 'lit/directives/style-map.js';
 
 import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
+import { sbbSpread } from '../core/dom';
+import type { SbbFormError } from '../form-error';
 import { SbbOption } from '../option';
 
 import readme from './readme.md?raw';
 import { SbbSelect } from './select';
-
 import '../form-error';
 import '../form-field';
 
@@ -210,7 +211,7 @@ const changeEventHandler = (event): void => {
   document.getElementById('container-value').append(div);
 };
 
-const textBlockStyle: Args = {
+const textBlockStyle: Readonly<StyleInfo> = {
   position: 'relative',
   marginBlockStart: '1rem',
   padding: '1rem',
@@ -220,49 +221,35 @@ const textBlockStyle: Args = {
   zIndex: '100',
 };
 
-const codeStyle: Args = {
+const codeStyle: Readonly<StyleInfo> = {
   padding: 'var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x)',
   borderRadius: 'var(--sbb-border-radius-4x)',
   backgroundColor: 'var(--sbb-color-smoke-alpha-20)',
 };
 
-const aboveDecorator: Decorator = (Story) => (
-  <div
-    style={{
-      height: '100%',
-      display: 'flex',
-      'align-items': 'end',
-    }}
-  >
-    <Story></Story>
-  </div>
-);
+const aboveDecorator: Decorator = (story) => html`
+  <div style="height: 100%; display: flex; align-items: end;">${story()}</div>
+`;
 
-const scrollDecorator: Decorator = (Story) => (
-  <div
-    style={{
-      height: '175%',
-      display: 'flex',
-      'align-items': 'center',
-    }}
-  >
-    <Story></Story>
-  </div>
-);
+const scrollDecorator: Decorator = (story) => html`
+  <div style="height: 175%; display: flex; align-items: center;">${story()}</div>
+`;
 
-const valueEllipsis = 'This label name is so long that it needs ellipsis to fit.';
+const valueEllipsis: string = 'This label name is so long that it needs ellipsis to fit.';
 
-const textBlock = (text = null): JSX.Element => {
-  return (
-    <div style={textBlockStyle}>
-      {text ?? (
-        <span>
-          This text block has a <code style={codeStyle}>z-index</code> greater than the form field,
-          but it must always be covered by the select overlay.
-        </span>
-      )}
+const textBlock = (text = null): TemplateResult => {
+  return html`
+    <div style=${styleMap(textBlockStyle)}>
+      ${text
+        ? html`
+            <span>
+              This text block has a <code style=${styleMap(codeStyle)}>z-index</code> greater than
+              the form field, but it must always be covered by the select overlay.
+            </span>
+          `
+        : nothing}
     </div>
-  );
+  `;
 };
 
 const createOptions = (
@@ -270,30 +257,28 @@ const createOptions = (
   disableOption: boolean,
   group: string | boolean,
   selectValue = null,
-): JSX.Element[] => {
+): TemplateResult[] => {
   return new Array(numberOfOptions).fill(null).map((_, i) => {
     const value = group ? `Option ${i + 1} ${' - ' + group}` : `Option ${i + 1}`;
     const selected = Array.isArray(selectValue)
       ? selectValue.includes(value)
       : selectValue === value;
-    return (
-      <sbb-option value={value} disabled={disableOption && i < 2} selected={selected}>
-        {value}
+    return html`
+      <sbb-option value=${value} ?disabled=${disableOption && i < 2} ?selected=${selected}>
+        ${value}
       </sbb-option>
-    );
+    `;
   });
 };
 
-const createOptionsGroup = (numberOfOptions, disableOption, disableGroup): JSX.Element[] => {
-  return [
-    <sbb-optgroup label="Group 1" disabled={disableGroup}>
-      {createOptions(numberOfOptions, disableOption, '1')}
-    </sbb-optgroup>,
-    <sbb-optgroup label="Group 2">
-      {createOptions(numberOfOptions, disableOption, '2')}
-    </sbb-optgroup>,
-  ];
-};
+const createOptionsGroup = (numberOfOptions, disableOption, disableGroup): TemplateResult => html`
+  <sbb-optgroup label="Group 1" ?disabled=${disableGroup}>
+    ${createOptions(numberOfOptions, disableOption, '1')}
+  </sbb-optgroup>
+  <sbb-optgroup label="Group 2">
+    ${createOptions(numberOfOptions, disableOption, '2')}
+  </sbb-optgroup>
+`;
 
 const FormFieldTemplate = ({
   borderless,
@@ -304,30 +289,32 @@ const FormFieldTemplate = ({
   withOptionGroup,
   disableGroup,
   ...args
-}): JSX.Element => (
-  <Fragment>
-    <div>
-      <sbb-form-field
-        borderless={borderless}
-        negative={negative}
-        floating-label={floatingLabel}
-        label="Select"
-        data-testid="form-field"
+}: Args): TemplateResult => html`
+  <div>
+    <sbb-form-field
+      ?borderless=${borderless}
+      ?negative=${negative}
+      ?floating-label=${floatingLabel}
+      label="Select"
+      data-testid="form-field"
+    >
+      <sbb-select
+        ${sbbSpread(args)}
+        @change=${(event) => changeEventHandler(event)}
+        data-testid="select"
       >
-        <sbb-select {...args} onChange={(event) => changeEventHandler(event)} data-testid="select">
-          {withOptionGroup
-            ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
-            : createOptions(numberOfOptions, disableOption, false, args.value)}
-        </sbb-select>
-      </sbb-form-field>
-      {textBlock()}
-    </div>
-    <div
-      id="container-value"
-      style={{ 'margin-block-start': '2rem', color: 'var(--sbb-color-smoke-default)' }}
-    ></div>
-  </Fragment>
-);
+        ${withOptionGroup
+          ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
+          : createOptions(numberOfOptions, disableOption, false, args.value)}
+      </sbb-select>
+    </sbb-form-field>
+    ${textBlock()}
+  </div>
+  <div
+    id="container-value"
+    style="margin-block-start: 2rem; color: var(--sbb-color-smoke-default);"
+  ></div>
+`;
 
 const SelectEllipsisTemplate = ({
   borderless,
@@ -338,43 +325,41 @@ const SelectEllipsisTemplate = ({
   withOptionGroup,
   disableGroup,
   ...args
-}): JSX.Element => {
+}: Args): TemplateResult => {
   const ellipsisSelected = valueEllipsis === args.value;
   if (args.multiple && args.value) {
     args.value = [args.value];
   }
 
-  return (
-    <Fragment>
-      <div>
-        <sbb-form-field
-          borderless={borderless}
-          negative={negative}
-          floating-label={floatingLabel}
-          label="Select"
-          data-testid="form-field"
+  return html`
+    <div>
+      <sbb-form-field
+        ?borderless=${borderless}
+        ?negative=${negative}
+        ?floating-label=${floatingLabel}
+        label="Select"
+        data-testid="form-field"
+      >
+        <sbb-select
+          ${sbbSpread(args)}
+          @change=${(event) => changeEventHandler(event)}
+          data-testid="select"
         >
-          <sbb-select
-            {...args}
-            onChange={(event) => changeEventHandler(event)}
-            data-testid="select"
-          >
-            <sbb-option value={valueEllipsis} selected={ellipsisSelected}>
-              {valueEllipsis}
-            </sbb-option>
-            {withOptionGroup
-              ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
-              : createOptions(numberOfOptions, disableOption, false, args.value)}
-          </sbb-select>
-        </sbb-form-field>
-        {textBlock()}
-      </div>
-      <div
-        id="container-value"
-        style={{ 'margin-block-start': '2rem', color: 'var(--sbb-color-smoke-default)' }}
-      ></div>
-    </Fragment>
-  );
+          <sbb-option value=${valueEllipsis} ?selected=${ellipsisSelected}>
+            ${valueEllipsis}
+          </sbb-option>
+          ${withOptionGroup
+            ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
+            : createOptions(numberOfOptions, disableOption, false, args.value)}
+        </sbb-select>
+      </sbb-form-field>
+      ${textBlock()}
+    </div>
+    <div
+      id="container-value"
+      style="margin-block-start: 2rem; color: var(--sbb-color-smoke-default);"
+    ></div>
+  `;
 };
 
 const FormFieldTemplateWithError = ({
@@ -386,27 +371,29 @@ const FormFieldTemplateWithError = ({
   withOptionGroup,
   disableGroup,
   ...args
-}): JSX.Element => {
+}: Args): TemplateResult => {
   if (args.multiple && args.value) {
     args.value = [args.value];
   }
-  const sbbFormError = <sbb-form-error>Error</sbb-form-error>;
-  return (
+  const sbbFormError: SbbFormError = document.createElement('sbb-form-error');
+  sbbFormError.textContent = 'Error';
+
+  return html`
     <div>
       <sbb-form-field
-        borderless={borderless}
-        negative={negative}
-        floating-label={floatingLabel}
+        ?borderless=${borderless}
+        ?negative=${negative}
+        ?floating-label=${floatingLabel}
         id="sbb-form-field"
         label="Select"
         data-testid="form-field"
       >
         <sbb-select
-          {...args}
+          ${sbbSpread(args)}
           id="sbb-select"
           class="sbb-invalid"
           data-testid="select"
-          onChange={(event) => {
+          @change=${(event) => {
             if (event.target.value !== '') {
               sbbFormError.remove();
               document.getElementById('sbb-select').classList.remove('sbb-invalid');
@@ -416,15 +403,15 @@ const FormFieldTemplateWithError = ({
             }
           }}
         >
-          {withOptionGroup
+          ${withOptionGroup
             ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
             : createOptions(numberOfOptions, disableOption, false, args.value)}
         </sbb-select>
-        {sbbFormError}
+        ${sbbFormError}
       </sbb-form-field>
-      {textBlock()}
+      ${textBlock()}
     </div>
-  );
+  `;
 };
 
 const KeyboardInteractionTemplate = ({
@@ -432,79 +419,77 @@ const KeyboardInteractionTemplate = ({
   negative,
   floatingLabel,
   ...args
-}): JSX.Element => (
-  <Fragment>
-    <sbb-form-field
-      borderless={borderless}
-      negative={negative}
-      floating-label={floatingLabel}
-      label="Select"
-      data-testid="form-field"
+}: Args): TemplateResult => html`
+  <sbb-form-field
+    ?borderless=${borderless}
+    ?negative=${negative}
+    ?floating-label=${floatingLabel}
+    label="Select"
+    data-testid="form-field"
+  >
+    <sbb-select
+      ?multiple=${args.multiple}
+      placeholder=${args.placeholder}
+      data-testid="select"
+      @change=${(event) => changeEventHandler(event)}
     >
-      <sbb-select
-        multiple={args.multiple}
-        placeholder={args.placeholder}
-        data-testid="select"
-        onChange={(event) => changeEventHandler(event)}
-      >
-        <sbb-option value="TI - Bellinzona">Bellinzona</sbb-option>
-        <sbb-option value="BE - Bern">Bern</sbb-option>
-        <sbb-option value="GR - Chur">Chur</sbb-option>
-        <sbb-option value="GL - Glarus">Glarus</sbb-option>
-        <sbb-option value="TI - Lugano">Lugano</sbb-option>
-        <sbb-option value="ZH - Winterthur">Winterthur</sbb-option>
-        <sbb-option value="VS - Zermatt">Zermatt</sbb-option>
-        <sbb-option value="ZH - Zürich">Zürich</sbb-option>
-      </sbb-select>
-    </sbb-form-field>
-    {textBlock('Focus the select and type letters with closed or open panel.')}
-    <div
-      id="container-value"
-      style={{ 'margin-block-start': '2rem', color: 'var(--sbb-color-smoke-default)' }}
-    ></div>
-  </Fragment>
-);
+      <sbb-option value="TI - Bellinzona">Bellinzona</sbb-option>
+      <sbb-option value="BE - Bern">Bern</sbb-option>
+      <sbb-option value="GR - Chur">Chur</sbb-option>
+      <sbb-option value="GL - Glarus">Glarus</sbb-option>
+      <sbb-option value="TI - Lugano">Lugano</sbb-option>
+      <sbb-option value="ZH - Winterthur">Winterthur</sbb-option>
+      <sbb-option value="VS - Zermatt">Zermatt</sbb-option>
+      <sbb-option value="ZH - Zürich">Zürich</sbb-option>
+    </sbb-select>
+  </sbb-form-field>
+  ${textBlock('Focus the select and type letters with closed or open panel.')}
+  <div
+    id="container-value"
+    style="margin-block-start: 2rem; color: var(--sbb-color-smoke-default);"
+  ></div>
+`;
 
 export const SingleSelect: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const SingleSelectNegative: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, negative: true },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const MultipleSelect: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, multiple: true },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const MultipleSelectNegative: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, multiple: true, negative: true },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const SingleSelectWithGrouping: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, withOptionGroup: true },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const MultipleSelectWithGrouping: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, multiple: true, withOptionGroup: true },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const SingleSelectEllipsis: StoryObj = {
@@ -514,7 +499,7 @@ export const SingleSelectEllipsis: StoryObj = {
     value: { ...value, options: [...value.options, valueEllipsis] },
   },
   args: { ...defaultArgs, value: valueEllipsis },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const MultipleSelectEllipsis: StoryObj = {
@@ -524,42 +509,42 @@ export const MultipleSelectEllipsis: StoryObj = {
     value: { ...value, options: [...value.options, valueEllipsis] },
   },
   args: { ...defaultArgs, multiple: true, value: valueEllipsis },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const Required: StoryObj = {
   render: FormFieldTemplateWithError,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, required: true },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const Disabled: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, disabled: true },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const Readonly: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, readonly: true },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const Borderless: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, borderless: true },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const BorderlessNegative: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, borderless: true, negative: true },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const BorderlessOpenAbove: StoryObj = {
@@ -567,7 +552,7 @@ export const BorderlessOpenAbove: StoryObj = {
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, borderless: true },
   decorators: [aboveDecorator],
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const InScrollableContainer: StoryObj = {
@@ -584,21 +569,21 @@ export const DisableOption: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, disableOption: true },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const DisableOptionGroup: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, withOptionGroup: true, disableGroup: true },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const DisableOptionGroupNegative: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, withOptionGroup: true, disableGroup: true, negative: true },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const DisableMultipleOption: StoryObj = {
@@ -610,7 +595,7 @@ export const DisableMultipleOption: StoryObj = {
     withOptionGroup: true,
     disableOption: true,
   },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const DisableMultipleOptionNegative: StoryObj = {
@@ -623,7 +608,7 @@ export const DisableMultipleOptionNegative: StoryObj = {
     disableOption: true,
     negative: true,
   },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const KeyboardInteraction: StoryObj = {
@@ -637,11 +622,17 @@ export const KeyboardInteraction: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story, context) => (
-      <div style={{ ...wrapperStyle(context), padding: '2rem', height: 'calc(100vh - 2rem)' }}>
-        <Story></Story>
+    (story, context) => html`
+      <div
+        style=${styleMap({
+          ...wrapperStyle(context),
+          padding: '2rem',
+          height: 'calc(100vh - 2rem)',
+        })}
+      >
+        ${story()}
       </div>
-    ),
+    `,
     withActions as Decorator,
   ],
   parameters: {

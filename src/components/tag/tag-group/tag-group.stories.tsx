@@ -1,8 +1,10 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import { Fragment, h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { repeat } from 'lit/directives/repeat.js';
+
+import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import './tag-group';
@@ -66,57 +68,52 @@ const defaultArgs: Args = {
   numberOfTagsInGroup: 8,
 };
 
-const tagTemplate = (label, checked = false): JSX.Element => (
-  <sbb-tag checked={checked} value={label} amount="123" icon-name="pie-small">
-    {label}
+const tagTemplate = (label: string, checked = false): TemplateResult => html`
+  <sbb-tag ?checked=${checked} value=${label} amount="123" icon-name="pie-small">
+    ${label}
   </sbb-tag>
-);
+`;
 
-const TagGroupTemplate = ({ numberOfTagsInGroup, ...args }): JSX.Element => (
-  <sbb-tag-group {...args}>
-    {new Array(numberOfTagsInGroup).fill(0).map((_e, i) => tagTemplate(`Label ${i + 1}`, i === 0))}
+const TagGroupTemplate = ({ numberOfTagsInGroup, ...args }: Args): TemplateResult => html`
+  <sbb-tag-group ${sbbSpread(args)}>
+    ${repeat(new Array(numberOfTagsInGroup), (_e, i) => tagTemplate(`Label ${i + 1}`, i === 0))}
   </sbb-tag-group>
-);
+`;
 
-const TagGroupTemplateEllipsis = ({ numberOfTagsInGroup, ...args }): JSX.Element => (
-  <sbb-tag-group {...args}>
-    {tagTemplate(longLabelText, true)}
-    {new Array(numberOfTagsInGroup - 1).fill(0).map((_e, i) => tagTemplate(`Label ${i + 1}`))}
+const TagGroupTemplateEllipsis = ({ numberOfTagsInGroup, ...args }): TemplateResult => html`
+  <sbb-tag-group ${sbbSpread(args)}>
+    ${tagTemplate(longLabelText, true)}
+    ${repeat(new Array(numberOfTagsInGroup - 1), (_e, i) => tagTemplate(`Label ${i + 1}`))}
   </sbb-tag-group>
-);
+`;
 
-const ExclusiveTagGroupTemplate = ({ numberOfTagsInGroup, ...args }): JSX.Element => (
-  <Fragment>
-    <sbb-tag-group {...args}>
-      {new Array(numberOfTagsInGroup).fill(0).map((_e, i) => tagTemplate(`Label ${i + 1}`))}
-    </sbb-tag-group>
-    <div style={{ 'margin-block-start': '1rem' }}>
-      This sbb-tag-group behaves like a radio or a tab; when a tag is checked, the other become
-      unchecked.
-    </div>
-  </Fragment>
-);
+const ExclusiveTagGroupTemplate = ({ numberOfTagsInGroup, ...args }): TemplateResult => html`
+  <sbb-tag-group ${sbbSpread(args)}>
+    ${repeat(new Array(numberOfTagsInGroup), (_e, i) => tagTemplate(`Label ${i + 1}`))}
+  </sbb-tag-group>
+  <div style="margin-block-start: 1rem;">
+    This sbb-tag-group behaves like a radio or a tab; when a tag is checked, the other become
+    unchecked.
+  </div>
+`;
 
-const AllChoiceTagGroupTemplate = ({ numberOfTagsInGroup, ...args }): JSX.Element => (
-  <Fragment>
-    <sbb-tag-group {...args}>
-      <sbb-tag id="all" onChange={() => uncheckTags()} value="All" checked>
-        All
-      </sbb-tag>
-      {new Array(numberOfTagsInGroup).fill(0).map((_e, i) => {
-        return (
-          <sbb-tag onChange={() => uncheckAllTag()} amount="123" value={`Label ${i + 1}`}>
-            Label {i + 1}
-          </sbb-tag>
-        );
-      })}
-    </sbb-tag-group>
-    <div style={{ 'margin-block-start': '1rem' }}>
-      This sbb-tag-group permits to select the 'All' option, or to select multiple values removing
-      the 'All' selection.
-    </div>
-  </Fragment>
-);
+const AllChoiceTagGroupTemplate = ({ numberOfTagsInGroup, ...args }): TemplateResult => html`
+  <sbb-tag-group ${sbbSpread(args)}>
+    <sbb-tag id="all" @change=${() => uncheckTags()} value="All" checked> All </sbb-tag>
+    ${repeat(
+      new Array(numberOfTagsInGroup),
+      (_e, i) => html`
+        <sbb-tag @change=${() => uncheckAllTag()} amount="123" value=${`Label ${i + 1}`}>
+          Label ${i + 1}
+        </sbb-tag>
+      `,
+    )}
+  </sbb-tag-group>
+  <div style="margin-block-start: 1rem;">
+    This sbb-tag-group permits to select the 'All' option, or to select multiple values removing the
+    'All' selection.
+  </div>
+`;
 
 export const tagGroup: StoryObj = {
   render: TagGroupTemplate,
@@ -147,11 +144,7 @@ export const allChoiceTagGroup: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story) => html` <div style="padding: 2rem">${story()}</div> `,
     withActions as Decorator,
   ],
   parameters: {

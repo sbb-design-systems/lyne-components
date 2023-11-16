@@ -1,8 +1,9 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+
+import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import './tag';
@@ -70,21 +71,22 @@ const defaultArgs: Args = {
   'aria-label': undefined,
 };
 
-const defaultArgsIconAndAmount = {
+const defaultArgsIconAndAmount: Args = {
   ...defaultArgs,
   amount: 123,
   'icon-name': 'dog-small',
 };
 
-const Template = ({ label, ...args }): JSX.Element => <sbb-tag {...args}>{label}</sbb-tag>;
+const Template = ({ label, ...args }: Args): TemplateResult =>
+  html`<sbb-tag ${sbbSpread(args)}>${label}</sbb-tag>`;
 
-const TemplateSlottedIconAndAmount = ({ label, ...args }): JSX.Element => (
-  <sbb-tag {...args}>
+const TemplateSlottedIconAndAmount = ({ label, ...args }: Args): TemplateResult => html`
+  <sbb-tag ${sbbSpread(args)}>
     <sbb-icon slot="icon" name="pie-small"></sbb-icon>
-    {label}
+    ${label}
     <span slot="amount">999</span>
   </sbb-tag>
-);
+`;
 
 export const basicTag: StoryObj = {
   render: Template,
@@ -158,11 +160,7 @@ export const withAmountAndIconCheckedAndDisabled: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story) => html` <div style="padding: 2rem;">${story()}</div> `,
     withActions as Decorator,
   ],
   parameters: {

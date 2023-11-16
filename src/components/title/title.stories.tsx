@@ -1,7 +1,9 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
 import './title';
@@ -13,7 +15,8 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
 });
 
 // we don't need to pass the args.text to the <sbb-title> tag, but Storybook wants all in it.
-const Template = ({ text, ...args }): JSX.Element => <sbb-title {...args}>{text}</sbb-title>;
+const Template = ({ text, ...args }): TemplateResult =>
+  html`<sbb-title ${sbbSpread(args)}>${text}</sbb-title>`;
 
 const level: InputType = {
   control: {
@@ -95,11 +98,9 @@ export const h6VisualLevel: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story, context) => (
-      <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story, context) => html`
+      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
+    `,
   ],
   parameters: {
     docs: {

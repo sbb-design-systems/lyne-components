@@ -1,7 +1,8 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+
+import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import './radio-button';
@@ -53,14 +54,15 @@ const defaultArgs: Args = {
   'aria-label': undefined,
 };
 
-const DefaultTemplate = (args): JSX.Element => <sbb-radio-button {...args}>Value</sbb-radio-button>;
+const DefaultTemplate = (args: Args): TemplateResult =>
+  html`<sbb-radio-button ${sbbSpread(args)}>Value</sbb-radio-button>`;
 
-const MultilineLabelTemplate = (args): JSX.Element => (
-  <sbb-radio-button {...args}>
+const MultilineLabelTemplate = (args: Args): TemplateResult => html`
+  <sbb-radio-button ${sbbSpread(args)}>
     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
     the industry's standard dummy text ever since the 1500s.
   </sbb-radio-button>
-);
+`;
 
 export const Default: StoryObj = {
   render: DefaultTemplate,
@@ -99,13 +101,7 @@ export const MultilineLabel: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem', 'max-width': '1050px' }}>
-        <Story></Story>
-      </div>
-    ),
-  ],
+  decorators: [(story) => html` <div style="padding: 2rem; max-width: 1050px;">${story()}</div> `],
   parameters: {
     backgrounds: {
       disable: true,

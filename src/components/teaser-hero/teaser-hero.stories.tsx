@@ -1,9 +1,9 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
 
+import { sbbSpread } from '../core/dom';
 import sampleImages from '../core/images';
 
 import readme from './readme.md?raw';
@@ -18,7 +18,10 @@ const ariaLabel: InputType = {
   },
 };
 
-const hrefs = ['https://www.sbb.ch', 'https://github.com/lyne-design-system/lyne-components'];
+const hrefs: string[] = [
+  'https://www.sbb.ch',
+  'https://github.com/lyne-design-system/lyne-components',
+];
 const href: InputType = {
   options: Object.keys(hrefs),
   mapping: hrefs,
@@ -98,9 +101,9 @@ const defaultArgs: Args = {
   'image-alt': 'SBB CFF FFS Employee',
 };
 
-const TemplateSbbTeaserHeroDefault = ({ content, ...args }): JSX.Element => (
-  <sbb-teaser-hero {...args}>{content}</sbb-teaser-hero>
-);
+const TemplateSbbTeaserHeroDefault = ({ content, ...args }: Args): TemplateResult => html`
+  <sbb-teaser-hero ${sbbSpread(args)}>${content}</sbb-teaser-hero>
+`;
 
 const TemplateSbbTeaserWithSlots = ({
   content,
@@ -108,17 +111,13 @@ const TemplateSbbTeaserWithSlots = ({
   'image-src': imageSrc,
   'image-alt': imageAlt,
   ...args
-}): JSX.Element => (
-  <sbb-teaser-hero {...args}>
-    {content}
-    <span slot="link-content">{linkContent}</span>
-    <sbb-image slot="image" image-src={imageSrc} alt={imageAlt}></sbb-image>
+}): TemplateResult => html`
+  <sbb-teaser-hero ${sbbSpread(args)}>
+    ${content}
+    <span slot="link-content">${linkContent}</span>
+    <sbb-image slot="image" image-src=${imageSrc} alt=${imageAlt}></sbb-image>
   </sbb-teaser-hero>
-);
-
-/* ************************************************* */
-/* The Stories                                       */
-/* ************************************************* */
+`;
 
 export const defaultTeaser: StoryObj = {
   render: TemplateSbbTeaserHeroDefault,
@@ -147,11 +146,7 @@ export const withSlots: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '1em' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story) => html` <div style="padding: 1em;">${story()}</div> `,
     withActions as Decorator,
   ],
   parameters: {

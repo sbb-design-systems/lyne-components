@@ -1,24 +1,24 @@
-/** @jsx h */
 import { expect } from '@storybook/jest';
 import { userEvent, waitFor, within } from '@storybook/testing-library';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { Fragment, h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { ref } from 'lit/directives/ref.js';
 
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
-import type { SbbNavigationMarker } from '../navigation-marker';
+import { sbbSpread } from '../../core/dom';
+import type { SbbNavigationMarker, SbbNavigation } from '../index';
+
+import readme from './readme.md?raw';
+import '../../button';
 import '../navigation-list';
 import '../navigation-action';
 import '../navigation-marker';
 import '../navigation';
-import '../../button';
-import '.';
-
-import readme from './readme.md?raw';
 
 // Story interaction executed after the story renders
-const playStory = async (trigger, canvasElement): Promise<void> => {
+const playStory = async (trigger: string, canvasElement: HTMLElement): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
@@ -64,124 +64,100 @@ const basicArgs: Args = {
   'disable-animation': isChromatic(),
 };
 
-const triggerButton = (id): JSX.Element => (
+const triggerButton = (id: string): TemplateResult => html`
   <sbb-button
     data-testid="navigation-trigger"
-    id={id}
+    id=${id}
     variant="secondary"
     size="l"
     icon-name="hamburger-menu-small"
   ></sbb-button>
-);
+`;
 
-const navigationActionsL = (): JSX.Element[] => [
+const navigationActionsL = (): TemplateResult => html`
   <sbb-navigation-action id="nav-1" data-testid="navigation-section-trigger-1">
     Label
-  </sbb-navigation-action>,
+  </sbb-navigation-action>
   <sbb-navigation-action id="nav-2" data-testid="navigation-section-trigger-2">
     Label
-  </sbb-navigation-action>,
-  <sbb-navigation-action id="nav-3">Label</sbb-navigation-action>,
-];
+  </sbb-navigation-action>
+  <sbb-navigation-action id="nav-3">Label</sbb-navigation-action>
+`;
 
-const navigationList = (label): JSX.Element[] => [
-  <sbb-navigation-list label={label}>
+const navigationList = (label: string): TemplateResult => html`
+  <sbb-navigation-list label=${label}>
     <sbb-navigation-action size="m">Label</sbb-navigation-action>
     <sbb-navigation-action size="m">Label</sbb-navigation-action>
-    <sbb-navigation-action size="m" href="https://www.sbb.ch/en/">
-      Label
-    </sbb-navigation-action>
-  </sbb-navigation-list>,
-];
+    <sbb-navigation-action size="m" href="https://www.sbb.ch/en/"> Label </sbb-navigation-action>
+  </sbb-navigation-list>
+`;
 
-const onNavigationClose = (dialog): void => {
-  dialog.addEventListener('didClose', () => {
+const onNavigationClose = (dialog: SbbNavigation): void => {
+  dialog.addEventListener('did-close', () => {
     (document.getElementById('nav-marker') as SbbNavigationMarker).reset();
   });
 };
 
-const DefaultTemplate = (args): JSX.Element => (
-  <Fragment>
-    {triggerButton('navigation-trigger-1')}
-    <sbb-navigation
-      data-testid="navigation"
-      id="navigation"
-      trigger="navigation-trigger-1"
-      disable-animation={args['disable-animation']}
-      ref={(dialog) => onNavigationClose(dialog)}
+const DefaultTemplate = (args: Args): TemplateResult => html`
+  ${triggerButton('navigation-trigger-1')}
+  <sbb-navigation
+    data-testid="navigation"
+    id="navigation"
+    trigger="navigation-trigger-1"
+    ?disable-animation=${args['disable-animation']}
+    ${ref((dialog: SbbNavigation) => onNavigationClose(dialog))}
+  >
+    <sbb-navigation-marker id="nav-marker">${navigationActionsL()}</sbb-navigation-marker>
+
+    <sbb-navigation-section
+      title-content="Title one"
+      data-testid="navigation-section"
+      id="navigation-section"
+      trigger="nav-1"
+      ${sbbSpread(args)}
     >
-      <sbb-navigation-marker id="nav-marker">{navigationActionsL()}</sbb-navigation-marker>
+      ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
 
-      <sbb-navigation-section
-        title-content="Title one"
-        data-testid="navigation-section"
-        id="navigation-section"
-        trigger="nav-1"
-        {...args}
-      >
-        {navigationList('Label')}
-        {navigationList('Label')}
-        {navigationList('Label')}
+      <sbb-button size="m" style="width: fit-content;"> Button </sbb-button>
+    </sbb-navigation-section>
 
-        <sbb-button size="m" style={{ width: 'fit-content' }}>
-          Button
-        </sbb-button>
-      </sbb-navigation-section>
+    <sbb-navigation-section
+      title-content="Title two"
+      id="navigation-section"
+      trigger="nav-2"
+      ${sbbSpread(args)}
+    >
+      ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
+      ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
+      ${navigationList('Label')} ${navigationList('Label')}
 
-      <sbb-navigation-section
-        title-content="Title two"
-        id="navigation-section"
-        trigger="nav-2"
-        {...args}
-      >
-        {navigationList('Label')}
-        {navigationList('Label')}
-        {navigationList('Label')}
-
-        {navigationList('Label')}
-        {navigationList('Label')}
-        {navigationList('Label')}
-
-        {navigationList('Label')}
-        {navigationList('Label')}
-
-        <sbb-button
-          size="m"
-          variant="secondary"
-          style={{ width: 'fit-content' }}
-          sbb-navigation-close
-        >
-          Close navigation
-        </sbb-button>
-      </sbb-navigation-section>
-    </sbb-navigation>
-  </Fragment>
-);
+      <sbb-button size="m" variant="secondary" style="width: fit-content;" sbb-navigation-close>
+        Close navigation
+      </sbb-button>
+    </sbb-navigation-section>
+  </sbb-navigation>
+`;
 
 export const Default: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
-  play: ({ canvasElement }) =>
-    isChromatic() && playStory('navigation-section-trigger-1', canvasElement),
+  play: isChromatic()
+    ? ({ canvasElement }) => playStory('navigation-section-trigger-1', canvasElement)
+    : undefined,
 };
 
 export const LongContent: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
-  play: ({ canvasElement }) =>
-    isChromatic() && playStory('navigation-section-trigger-2', canvasElement),
+  play: isChromatic()
+    ? ({ canvasElement }) => playStory('navigation-section-trigger-2', canvasElement)
+    : undefined,
 };
 
 const meta: Meta = {
-  decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem', height: '100vh' }}>
-        <Story></Story>
-      </div>
-    ),
-  ],
+  decorators: [(story) => html` <div style="padding: 2rem; height: 100vh;">${story()}</div> `],
   parameters: {
     chromatic: { disableSnapshot: false },
     backgrounds: {

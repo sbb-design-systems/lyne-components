@@ -1,12 +1,12 @@
-/** @jsx h */
 import { userEvent, within } from '@storybook/testing-library';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
 
 import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
+import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
 
@@ -26,7 +26,7 @@ const titleLevel: InputType = {
   options: [2, 3, 4, 5, 6],
 };
 
-const hrefs = [
+const hrefs: string[] = [
   'https://www.sbb.ch',
   'https://www.sbb.ch/en/help-and-contact.html',
   'https://github.com/lyne-design-system/lyne-components',
@@ -113,18 +113,18 @@ const Template = ({
   labelSecondLink,
   hrefSecondLink,
   ...args
-}): JSX.Element => (
-  <sbb-skiplink-list {...args} data-testid="skiplink">
-    <sbb-link href={hrefFirstLink}>{labelFirstLink}</sbb-link>
-    <sbb-link href={hrefSecondLink}>{labelSecondLink}</sbb-link>
+}: Args): TemplateResult => html`
+  <sbb-skiplink-list ${sbbSpread(args)} data-testid="skiplink">
+    <sbb-link href=${hrefFirstLink}>${labelFirstLink}</sbb-link>
+    <sbb-link href=${hrefSecondLink}>${labelSecondLink}</sbb-link>
   </sbb-skiplink-list>
-);
+`;
 
 export const SkiplinkList: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const SkiplinkListWithTitle: StoryObj = {
@@ -135,17 +135,17 @@ export const SkiplinkListWithTitle: StoryObj = {
     'title-level': titleLevel.options[0],
     'title-content': 'Skip',
   },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
-        <Story></Story>
+    (story) => html`
+      <div style="padding: 2rem;">
+        ${story()}
         <h2>Use TAB to see the skiplink box</h2>
       </div>
-    ),
+    `,
   ],
   parameters: {
     chromatic: { disableSnapshot: false },

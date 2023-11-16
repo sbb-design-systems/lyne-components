@@ -1,13 +1,14 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import isChromatic from 'chromatic/isChromatic';
-import { Fragment, h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { ref } from 'lit/directives/ref.js';
+
+import { sbbSpread } from '../core/dom';
 
 import { SbbNotification } from './notification';
 import readme from './readme.md?raw';
-
 import '../button';
 import '../link';
 
@@ -50,7 +51,7 @@ const basicArgs: Args = {
   'disable-animation': isChromatic(),
 };
 
-const appendNotification = (args): void => {
+const appendNotification = (args: Args): void => {
   const newNotification = document.createElement('sbb-notification');
   newNotification.style.setProperty(
     '--sbb-notification-margin',
@@ -65,106 +66,80 @@ const appendNotification = (args): void => {
   document.querySelector('.notification-container').append(newNotification);
 };
 
-const trigger = (args): JSX.Element => (
+const trigger = (args: Args): TemplateResult => html`
   <sbb-button
     size="m"
     variant="secondary"
-    style={{ 'margin-block-end': 'var(--sbb-spacing-fixed-4x)' }}
-    onClick={() => appendNotification(args)}
+    style="margin-block-end: var(--sbb-spacing-fixed-4x);"
+    @click=${() => appendNotification(args)}
     icon-name="circle-plus-small"
   >
     Add notification
   </sbb-button>
-);
+`;
 
-const notification = (args): JSX.Element => (
+const notification = (args: Args): TemplateResult => html`
   <sbb-notification
-    {...args}
+    ${sbbSpread(args)}
     disable-animation
-    style={{ 'margin-block-end': 'var(--sbb-spacing-fixed-4x)' }}
-    ref={(notification) =>
+    style="margin-block-end: var(--sbb-spacing-fixed-4x);"
+    ${ref((notification: SbbNotification) =>
       notification.addEventListener(
         'did-open',
         () => (notification.disableAnimation = args['disable-animation']),
-        {
-          once: true,
-        },
-      )
-    }
+        { once: true },
+      ),
+    )}
   >
     The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.&nbsp;
-    <sbb-link href="/" variant="block">
-      Link one
-    </sbb-link>
-    &nbsp;
-    <sbb-link href="/" variant="inline">
-      Link two
-    </sbb-link>
-    &nbsp;
-    <sbb-link href="/" variant="inline">
-      Link three
-    </sbb-link>
+    <sbb-link href="/" variant="block"> Link one </sbb-link>
+    <sbb-link href="/" variant="inline"> Link two </sbb-link>
+    <sbb-link href="/" variant="inline"> Link three </sbb-link>
   </sbb-notification>
-);
+`;
 
-const pageContent = (): JSX.Element => (
-  <p style={{ margin: '0' }}>
+const pageContent = (): TemplateResult => html`
+  <p style="margin: 0;">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-    labore et dolore magna aliqua. Ut enim ad minim veniam, quis{' '}
-    <sbb-link href="/" variant="inline">
-      link
-    </sbb-link>{' '}
-    nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    labore et dolore magna aliqua. Ut enim ad minim veniam, quis ${' '}
+    <sbb-link href="/" variant="inline"> link </sbb-link>
+    ${' '}nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
   </p>
-);
+`;
 
-const DefaultTemplate = (args): JSX.Element => (
-  <Fragment>
-    {trigger(args)}
-    <div class="notification-container" style={{ display: 'flex', 'flex-direction': 'column' }}>
-      {notification(args)}
-    </div>
-    {pageContent()}
-  </Fragment>
-);
+const DefaultTemplate = (args: Args): TemplateResult => html`
+  ${trigger(args)}
+  <div class="notification-container" style="display: flex; flex-direction: column;">
+    ${notification(args)}
+  </div>
+  ${pageContent()}
+`;
 
-const SlottedTitleTemplate = (args): JSX.Element => (
-  <Fragment>
-    {trigger(args)}
-    <div class="notification-container" style={{ display: 'flex', 'flex-direction': 'column' }}>
-      <sbb-notification
-        {...args}
-        disable-animation
-        style={{ 'margin-block-end': 'var(--sbb-spacing-fixed-4x)' }}
-        ref={(notification) =>
-          notification.addEventListener(
-            'did-open',
-            () => (notification.disableAnimation = args['disable-animation']),
-            {
-              once: true,
-            },
-          )
-        }
-      >
-        <span slot="title">Slotted title</span>
-        The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
-        dog.&nbsp;
-        <sbb-link href="/" variant="block">
-          Link one
-        </sbb-link>
-        &nbsp;
-        <sbb-link href="/" variant="inline">
-          Link two
-        </sbb-link>
-        &nbsp;
-        <sbb-link href="/" variant="inline">
-          Link three
-        </sbb-link>
-      </sbb-notification>
-    </div>
-    {pageContent()}
-  </Fragment>
-);
+const SlottedTitleTemplate = (args: Args): TemplateResult => html`
+  ${trigger(args)}
+  <div class="notification-container" style="display: flex; flex-direction: column;">
+    <sbb-notification
+      ${sbbSpread(args)}
+      disable-animation
+      style="margin-block-end: var(--sbb-spacing-fixed-4x);"
+      ${ref((notification: SbbNotification) =>
+        notification.addEventListener(
+          'did-open',
+          () => (notification.disableAnimation = args['disable-animation']),
+          { once: true },
+        ),
+      )}
+    >
+      <span slot="title">Slotted title</span>
+      The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
+      dog.&nbsp;
+      <sbb-link href="/" variant="block"> Link one </sbb-link>
+      <sbb-link href="/" variant="inline"> Link two </sbb-link>
+      <sbb-link href="/" variant="inline"> Link three </sbb-link>
+    </sbb-notification>
+  </div>
+  ${pageContent()}
+`;
 
 export const Info: StoryObj = {
   render: DefaultTemplate,
@@ -216,11 +191,7 @@ export const SlottedTitle: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story) => html`<div style="padding: 2rem;">${story()}</div>`,
     withActions as Decorator,
   ],
   parameters: {

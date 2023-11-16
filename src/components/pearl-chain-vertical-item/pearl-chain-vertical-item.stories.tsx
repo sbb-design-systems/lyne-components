@@ -1,28 +1,17 @@
-/** @jsx h */
-import type { Meta, StoryObj } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import type { Args, Meta, StoryObj } from '@storybook/web-components';
+import { html, TemplateResult } from 'lit';
 
 import readme from './readme.md?raw';
 import '../pearl-chain-vertical';
 import './pearl-chain-vertical-item';
 
-// We need to lie to the compiler in order for the CSS variables to work.
-// Remove once https://github.com/alex-kinokon/jsx-dom/pull/90 is merged and released.
-const styleHack = (args: Record<string, string>): Record<string, string> =>
-  Object.entries(args)
-    .map(([k, v]) => `${k}: ${v}`)
-    .join(';') as unknown as Record<string, string>;
-
-const Template = (args): JSX.Element => {
-  return (
+const Template = (args: Args): TemplateResult => {
+  return html`
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes={args}>
+      <sbb-pearl-chain-vertical-item .pearlChainVerticalItemAttributes=${args}>
         <div
           slot="right"
-          style={styleHack({
-            '--sbb-pearl-chain-vertical-right-item-block-start': '-10px',
-            '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
-          })}
+          style="--sbb-pearl-chain-vertical-right-item-block-start: -10px; --sbb-pearl-chain-vertical-right-item-inline-start: 10px;"
         >
           slot for content
           <div>more</div>
@@ -33,7 +22,7 @@ const Template = (args): JSX.Element => {
         </div>
       </sbb-pearl-chain-vertical-item>
     </sbb-pearl-chain-vertical>
-  );
+  `;
 };
 
 export const pearlChainItem: StoryObj = {
@@ -49,7 +38,7 @@ export const pearlChainItem: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(Story) => <Story></Story>],
+  decorators: [(story) => html`${story()}`],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

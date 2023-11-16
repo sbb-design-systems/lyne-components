@@ -1,14 +1,17 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+
+import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import './train-wagon';
 
-const Template = (args): JSX.Element => <sbb-train-wagon {...args}></sbb-train-wagon>;
-const WagonIconsTemplate = (args): JSX.Element => (
-  <sbb-train-wagon {...args}>
+const Template = (args: Args): TemplateResult =>
+  html`<sbb-train-wagon ${sbbSpread(args)}></sbb-train-wagon>`;
+
+const WagonIconsTemplate = (args: Args): TemplateResult => html`
+  <sbb-train-wagon ${sbbSpread(args)}>
     <sbb-icon aria-hidden="false" aria-label="wheelchair space" name="sa-rs"></sbb-icon>
     <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
     <sbb-icon
@@ -17,17 +20,17 @@ const WagonIconsTemplate = (args): JSX.Element => (
       name="sa-bz"
     ></sbb-icon>
   </sbb-train-wagon>
-);
+`;
 
-const WagonOneIconTemplate = (args): JSX.Element => (
-  <sbb-train-wagon {...args}>
+const WagonOneIconTemplate = (args: Args): TemplateResult => html`
+  <sbb-train-wagon ${sbbSpread(args)}>
     <sbb-icon
       aria-hidden="false"
       aria-label="Business zone in 1st class: Reservation possible"
       name="sa-bz"
     ></sbb-icon>
   </sbb-train-wagon>
-);
+`;
 
 const label: InputType = {
   control: {
@@ -169,13 +172,7 @@ export const closed: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
-  ],
+  decorators: [(story) => html`<div style="padding: 2rem;">${story()}</div>`],
   parameters: {
     backgrounds: {
       disable: true,

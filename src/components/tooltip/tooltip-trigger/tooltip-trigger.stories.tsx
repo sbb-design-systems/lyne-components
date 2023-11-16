@@ -1,12 +1,14 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
-import { Fragment, h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
-import './tooltip-trigger';
-import '../tooltip';
 import '../../link';
+import '../tooltip';
+import './tooltip-trigger';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative
@@ -55,7 +57,7 @@ const defaultArgs: Args = {
   disabled: false,
 };
 
-const tooltip = (): JSX.Element => (
+const tooltip = (): TemplateResult => html`
   <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger">
     <span id="tooltip-content" class="sbb-text-s">
       Simple information tooltip with link.
@@ -70,35 +72,29 @@ const tooltip = (): JSX.Element => (
       </sbb-link>
     </span>
   </sbb-tooltip>
-);
+`;
 
-const Template = ({ active, ...args }): JSX.Element => (
-  <Fragment>
-    <span class="sbb-text-s" style={{ display: 'flex', 'align-items': 'center' }}>
-      <span style={{ 'margin-inline-end': 'var(--sbb-spacing-fixed-1x)' }}>
-        This is a demo text.
-      </span>
-      <sbb-tooltip-trigger
-        id="tooltip-trigger"
-        data-active={active}
-        {...args}
-      ></sbb-tooltip-trigger>
-    </span>
-    {tooltip()}
-  </Fragment>
-);
+const Template = ({ active, ...args }: Args): TemplateResult => html`
+  <span class="sbb-text-s" style="display: flex; align-items: center;">
+    <span style="margin-inline-end: var(--sbb-spacing-fixed-1x);"> This is a demo text. </span>
+    <sbb-tooltip-trigger
+      id="tooltip-trigger"
+      data-active=${active}
+      ${sbbSpread(args)}
+    ></sbb-tooltip-trigger>
+  </span>
+  ${tooltip()}
+`;
 
-const TemplateWithCustomContent = (args): JSX.Element => (
-  <Fragment>
-    <div class="sbb-text-xl" style={{ color: 'var(--sbb-color-sky-default)' }}>
-      <sbb-tooltip-trigger id="tooltip-trigger" {...args}>
-        This is a long tooltip trigger text which should wrap at a certain viewport. It inherits all
-        the font styles from the parent element.
-      </sbb-tooltip-trigger>
-    </div>
-    {tooltip()}
-  </Fragment>
-);
+const TemplateWithCustomContent = (args: Args): TemplateResult => html`
+  <div class="sbb-text-xl" style="color: var(--sbb-color-sky-default);">
+    <sbb-tooltip-trigger id="tooltip-trigger" ${sbbSpread(args)}>
+      This is a long tooltip trigger text which should wrap at a certain viewport. It inherits all
+      the font styles from the parent element.
+    </sbb-tooltip-trigger>
+  </div>
+  ${tooltip()}
+`;
 
 export const IconSizeS: StoryObj = {
   render: Template,
@@ -163,11 +159,9 @@ export const IconSizeSNegativeActive: StoryObj = {
 const meta: Meta = {
   excludeStories: /.*Active$/,
   decorators: [
-    (Story, context) => (
-      <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story, context) => html`
+      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
+    `,
   ],
   parameters: {
     backgrounds: {

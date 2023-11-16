@@ -1,8 +1,9 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+
+import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import './toggle-option';
@@ -65,20 +66,24 @@ const defaultArgs: Args = {
   'aria-label': undefined,
 };
 
-const DefaultTemplate = ({ label, ...args }): JSX.Element => (
-  <sbb-toggle-option {...args}>{label}</sbb-toggle-option>
-);
+const DefaultTemplate = ({ label, ...args }: Args): TemplateResult => html`
+  <sbb-toggle-option ${sbbSpread(args)}>${label}</sbb-toggle-option>
+`;
 
-const SlottedIconTemplate = ({ label, 'icon-name': iconName, ...args }): JSX.Element => (
-  <sbb-toggle-option {...args}>
-    <sbb-icon slot="icon" name={iconName}></sbb-icon>
-    {label}
+const SlottedIconTemplate = ({
+  label,
+  'icon-name': iconName,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-toggle-option ${sbbSpread(args)}>
+    <sbb-icon slot="icon" name=${iconName}></sbb-icon>
+    ${label}
   </sbb-toggle-option>
-);
+`;
 
 export const Default: StoryObj = {
   render: DefaultTemplate,
-  argTypes: { ...defaultArgTypes, value },
+  argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs },
 };
 
@@ -90,7 +95,7 @@ export const IconOnly: StoryObj = {
 
 export const LabelAndIcon: StoryObj = {
   render: DefaultTemplate,
-  argTypes: { ...defaultArgTypes, 'icon-name': iconName, value },
+  argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs, 'icon-name': iconName.options[1] },
 };
 
@@ -102,17 +107,13 @@ export const IconOnlySlotted: StoryObj = {
 
 export const LabelAndIconSlotted: StoryObj = {
   render: SlottedIconTemplate,
-  argTypes: { ...defaultArgTypes, 'icon-name': iconName, value },
+  argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs, 'icon-name': iconName.options[1] },
 };
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story) => html` <div style="padding: 2rem;">${story()}</div> `,
     withActions as Decorator,
   ],
   parameters: {

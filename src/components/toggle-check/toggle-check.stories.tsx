@@ -1,18 +1,18 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+
+import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
 import './toggle-check';
 
-/* ************************************************* */
-/* Storybook controls                                */
-/* ************************************************* */
-
-const longLabel =
-  'For this example we need a very long label, like lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec dolor eget leo porttitor ultrices. Mauris sed erat nec justo posuere elementum. In pharetra ante vel fringilla tincidunt. Fusce congue accumsan arcu dictum porttitor. Pellentesque urna justo, lacinia at velit eu, sagittis tempus nibh. Quisque vitae massa et turpis fermentum tristique.';
+const longLabel = `For this example we need a very long label, like lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  Cras nec dolor eget leo porttitor ultrices. Mauris sed erat nec justo posuere elementum.
+  In pharetra ante vel fringilla tincidunt. Fusce congue accumsan arcu dictum porttitor.
+  Pellentesque urna justo, lacinia at velit eu, sagittis tempus nibh.
+  Quisque vitae massa et turpis fermentum tristique.`;
 
 const checked: InputType = {
   control: {
@@ -78,32 +78,26 @@ const defaultArgs: Args = {
   'aria-label': undefined,
 };
 
-/* ************************************************* */
-/* Storybook templates                               */
-/* ************************************************* */
+const ToggleCheckDefaultTemplate = ({ label, ...args }: Args): TemplateResult => html`
+  <sbb-toggle-check ${sbbSpread(args)}>${label}</sbb-toggle-check>
+`;
 
-const ToggleCheckDefaultTemplate = ({ label, ...args }): JSX.Element => (
-  <sbb-toggle-check {...args}>{label}</sbb-toggle-check>
-);
+const ToggleCheckWithoutLabelTemplate = (args: Args): TemplateResult => html`
+  <sbb-toggle-check ${sbbSpread(args)}></sbb-toggle-check>
+`;
 
-const ToggleCheckWithoutLabelTemplate = (args): JSX.Element => (
-  <sbb-toggle-check {...args}></sbb-toggle-check>
-);
-
-const ToggleCheckCustomIconTemplate = ({ label, ...args }): JSX.Element => (
-  <sbb-toggle-check {...args}>
+const ToggleCheckCustomIconTemplate = ({ label, ...args }: Args): TemplateResult => html`
+  <sbb-toggle-check ${sbbSpread(args)}>
     <sbb-icon slot="icon" name="eye-small"></sbb-icon>
-    {label}
+    ${label}
   </sbb-toggle-check>
-);
+`;
 
-const ToggleCheckBlockVariantTemplate = (args): JSX.Element => (
+const ToggleCheckBlockVariantTemplate = (args: Args): TemplateResult => html`
   <div>
-    <sbb-toggle-check {...args} style={{ display: 'block' }}>
-      <sbb-title level="5" style={{ margin: '0' }}>
-        Accessible Connection.
-      </sbb-title>
-      <span class="sbb-text-s" style={{ color: 'var(--sbb-color-iron-default)' }}>
+    <sbb-toggle-check ${sbbSpread(args)} style="display: block;">
+      <sbb-title level="5" style="margin: 0;"> Accessible Connection. </sbb-title>
+      <span class="sbb-text-s" style="color: var(--sbb-color-iron-default);">
         Show connections for accessible journeys.
       </span>
     </sbb-toggle-check>
@@ -112,7 +106,7 @@ const ToggleCheckBlockVariantTemplate = (args): JSX.Element => (
       setting <code>display: block</code>.
     </p>
   </div>
-);
+`;
 
 export const SbbToggleCheckDefault: StoryObj = {
   render: ToggleCheckDefaultTemplate,

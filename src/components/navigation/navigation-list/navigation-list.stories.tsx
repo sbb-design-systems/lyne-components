@@ -1,7 +1,9 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap, StyleInfo } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import './navigation-list';
@@ -21,29 +23,29 @@ const defaultArgs: Args = {
   label: 'Label',
 };
 
-const navigationActions = (): JSX.Element[] => [
-  <sbb-navigation-action>Tickets & Offers</sbb-navigation-action>,
-  <sbb-navigation-action>Vacations & Recreation</sbb-navigation-action>,
-  <sbb-navigation-action>Travel information</sbb-navigation-action>,
-  <sbb-navigation-action>Help & Contact</sbb-navigation-action>,
-];
+const navigationActions = (): TemplateResult => html`
+  <sbb-navigation-action>Tickets & Offers</sbb-navigation-action>
+  <sbb-navigation-action>Vacations & Recreation</sbb-navigation-action>
+  <sbb-navigation-action>Travel information</sbb-navigation-action>
+  <sbb-navigation-action>Help & Contact</sbb-navigation-action>
+`;
 
-const style = {
+const style: Readonly<StyleInfo> = {
   'background-color': 'var(--sbb-color-midnight-default)',
   width: 'max-content',
   padding: '2rem',
 };
 
-const DefaultTemplate = (args): JSX.Element => (
-  <sbb-navigation-list {...args}>{navigationActions()}</sbb-navigation-list>
-);
+const DefaultTemplate = (args: Args): TemplateResult => html`
+  <sbb-navigation-list ${sbbSpread(args)}>${navigationActions()}</sbb-navigation-list>
+`;
 
-const SlottedLabelTemplate = (args): JSX.Element => (
-  <sbb-navigation-list {...args}>
+const SlottedLabelTemplate = (args: Args): TemplateResult => html`
+  <sbb-navigation-list ${sbbSpread(args)}>
     <span slot="label">Slotted label</span>
-    {navigationActions()}
+    ${navigationActions()}
   </sbb-navigation-list>
-);
+`;
 
 export const Default: StoryObj = {
   render: DefaultTemplate,
@@ -58,13 +60,7 @@ export const SlottedLabel: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (Story) => (
-      <div style={style}>
-        <Story></Story>
-      </div>
-    ),
-  ],
+  decorators: [(story) => html` <div style=${styleMap(style)}>${story()}</div> `],
   parameters: {
     backgrounds: {
       disable: true,

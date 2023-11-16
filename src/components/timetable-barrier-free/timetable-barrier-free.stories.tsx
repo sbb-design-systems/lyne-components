@@ -1,14 +1,13 @@
-/** @jsx h */
 import type { Meta, StoryObj, Args } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
 
 import readme from './readme.md?raw';
 import sampleData from './timetable-barrier-free.sample-data';
 import './timetable-barrier-free';
 
-const Template = (args): JSX.Element => (
-  <sbb-timetable-barrier-free config={JSON.stringify(args.config)}></sbb-timetable-barrier-free>
-);
+const Template = ({ config }: Args): TemplateResult => html`
+  <sbb-timetable-barrier-free config=${JSON.stringify(config)}></sbb-timetable-barrier-free>
+`;
 
 const config: Args = {
   table: {
@@ -20,9 +19,6 @@ const defaultArgTypes = {
   config,
 };
 
-/* ************************************************* */
-/* The Stories                                       */
-/* ************************************************* */
 export const BarrierFree: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -64,7 +60,7 @@ export const BarrierFreeUnknown: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(Story) => <Story></Story>],
+  decorators: [(story) => html`${story()}`],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

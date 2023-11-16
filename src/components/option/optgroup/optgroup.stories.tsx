@@ -1,8 +1,8 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import { StoryContext } from '@storybook/web-components';
-import { Fragment, h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 
 import readme from './readme.md?raw';
 import '../../form-field';
@@ -104,53 +104,43 @@ const defaultArgs: Args = {
   numberOfOptions: 3,
 };
 
-const borderDecorator: Decorator = (Story) => (
-  <div style={{ border: '3px solid red' }}>
-    <Story></Story>
-  </div>
-);
+const borderDecorator: Decorator = (story) => html`
+  <div style="border: 3px solid red;">${story()}</div>
+`;
 
-const createOptions = (args): JSX.Element[] =>
+const createOptions = (args: Args): TemplateResult[] =>
   new Array(args.numberOfOptions).fill(null).map((_, i) => {
-    return (
+    return html`
       <sbb-option
-        value={`${args.value} ${i + 1}`}
-        disabled={args.disabledSingle && i === 0}
-        icon-name={args['icon-name']}
+        value=${`${args.value} ${i + 1}`}
+        ?disabled=${args.disabledSingle && i === 0}
+        icon-name=${args['icon-name']}
       >
-        {`${args.value} ${i + 1}`}
+        ${`${args.value} ${i + 1}`}
       </sbb-option>
-    );
+    `;
   });
 
-const Template = ({ label, disabled, ...args }): JSX.Element => (
-  <Fragment>
-    <sbb-optgroup label={label + ' 1'} disabled={disabled}>
-      {createOptions(args)}
-    </sbb-optgroup>
-    <sbb-optgroup label={label + ' 2'} disabled={disabled}>
-      {createOptions(args)}
-    </sbb-optgroup>
-  </Fragment>
-);
+const Template = ({ label, disabled, ...args }: Args): TemplateResult => html`
+  <sbb-optgroup label=${label + ' 1'} ?disabled=${disabled}> ${createOptions(args)} </sbb-optgroup>
+  <sbb-optgroup label=${label + ' 2'} ?disabled=${disabled}> ${createOptions(args)} </sbb-optgroup>
+`;
 
-const TemplateAutocomplete = (args): JSX.Element => {
-  return (
-    <sbb-form-field label="Autocomplete" negative={args.negative}>
+const TemplateAutocomplete = (args: Args): TemplateResult => {
+  return html`
+    <sbb-form-field label="Autocomplete" ?negative=${args.negative}>
       <input placeholder="Placeholder" />
-      <sbb-autocomplete>{Template(args)}</sbb-autocomplete>
+      <sbb-autocomplete>${Template(args)}</sbb-autocomplete>
     </sbb-form-field>
-  );
+  `;
 };
 
-const TemplateSelect = (args): JSX.Element => {
-  return (
-    <sbb-form-field label="Select" negative={args.negative}>
-      <sbb-select multiple={args.multiple} placeholder="Select">
-        {Template(args)}
-      </sbb-select>
+const TemplateSelect = (args: Args): TemplateResult => {
+  return html`
+    <sbb-form-field label="Select" ?negative=${args.negative}>
+      <sbb-select ?multiple=${args.multiple} placeholder="Select"> ${Template(args)} </sbb-select>
     </sbb-form-field>
-  );
+  `;
 };
 
 export const Standalone: StoryObj = {
@@ -180,11 +170,9 @@ export const MultipleSelect: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story, context) => (
-      <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story, context) => html`
+      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
+    `,
   ],
   parameters: {
     actions: {

@@ -1,19 +1,19 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+
+import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import { SbbTabGroup } from './tab-group';
-
 import '../tab-title';
 
-const firstTabTitle = (label, args): JSX.Element => (
-  <sbb-tab-title {...args}>{label}</sbb-tab-title>
-);
+const firstTabTitle = (label: string, args: Args): TemplateResult => html`
+  <sbb-tab-title ${sbbSpread(args)}>${label}</sbb-tab-title>
+`;
 
-const tabPanelOne = (): JSX.Element => (
+const tabPanelOne = (): TemplateResult => html`
   <div>
     Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
     elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
@@ -24,67 +24,61 @@ const tabPanelOne = (): JSX.Element => (
     elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
     urna neque viverra justo nec.
   </div>
-);
+`;
 
-const tabPanelTwo = (): JSX.Element => (
+const tabPanelTwo = (): TemplateResult => html`
   <section>
     Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
     elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
     urna neque viverra justo nec.
   </section>
-);
+`;
 
-const tabPanelFour = (): JSX.Element => (
+const tabPanelFour = (): TemplateResult => html`
   <article>
     Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
     elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
     urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus
     turpis in eu mi bibendum neque egestas congue.
   </article>
-);
+`;
 
-const DefaultTemplate = ({ size, label, ...args }): JSX.Element => (
-  <sbb-tab-group size={size} initial-selected-index="0">
-    {firstTabTitle(label, args)}
-    {tabPanelOne()}
+const DefaultTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
+  <sbb-tab-group size=${size} initial-selected-index="0">
+    ${firstTabTitle(label, args)} ${tabPanelOne()}
 
     <sbb-tab-title>Tab title two</sbb-tab-title>
-    {tabPanelTwo()}
+    ${tabPanelTwo()}
 
-    <sbb-tab-title disabled={true}>Tab title three</sbb-tab-title>
+    <sbb-tab-title ?disabled=${true}>Tab title three</sbb-tab-title>
     <div>I was disabled.</div>
 
     <sbb-tab-title>Tab title four</sbb-tab-title>
-    {tabPanelFour()}
+    ${tabPanelFour()}
   </sbb-tab-group>
-);
+`;
 
-const IconsAndNumbersTemplate = ({ size, label, ...args }): JSX.Element => (
-  <sbb-tab-group size={size} initial-selected-index="0">
-    {firstTabTitle(label, args)}
-    {tabPanelOne()}
+const IconsAndNumbersTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
+  <sbb-tab-group size=${size} initial-selected-index="0">
+    ${firstTabTitle(label, args)} ${tabPanelOne()}
 
-    <sbb-tab-title amount={args.amount} icon-name="swisspass-small">
-      Tab title two
-    </sbb-tab-title>
-    {tabPanelTwo()}
+    <sbb-tab-title amount=${args.amount} icon-name="swisspass-small"> Tab title two </sbb-tab-title>
+    ${tabPanelTwo()}
 
-    <sbb-tab-title disabled={true} amount={args.amount} icon-name="train-small">
+    <sbb-tab-title ?disabled=${true} amount=${args.amount} icon-name="train-small">
       Tab title three
     </sbb-tab-title>
     <div>I was disabled.</div>
 
-    <sbb-tab-title amount={args.amount} icon-name="pie-small">
-      Tab title four
-    </sbb-tab-title>
-    {tabPanelFour()}
+    <sbb-tab-title amount=${args.amount} icon-name="pie-small"> Tab title four </sbb-tab-title>
+    ${tabPanelFour()}
   </sbb-tab-group>
-);
+`;
 
-const NestedTemplate = ({ size, label, ...args }): JSX.Element => (
-  <sbb-tab-group size={size} initial-selected-index="0">
-    {firstTabTitle(label, args)}
-    <sbb-tab-group size={size} initial-selected-index="1">
+const NestedTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
+  <sbb-tab-group size=${size} initial-selected-index="0">
+    ${firstTabTitle(label, args)}
+    <sbb-tab-group size=${size} initial-selected-index="1">
       <sbb-tab-title level="2">Nested tab</sbb-tab-title>
       <div>
         Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
@@ -101,22 +95,18 @@ const NestedTemplate = ({ size, label, ...args }): JSX.Element => (
       </section>
     </sbb-tab-group>
 
-    <sbb-tab-title amount={args.amount} icon-name="swisspass-small">
-      Tab title two
-    </sbb-tab-title>
-    {tabPanelTwo()}
+    <sbb-tab-title amount=${args.amount} icon-name="swisspass-small"> Tab title two </sbb-tab-title>
+    ${tabPanelTwo()}
 
-    <sbb-tab-title disabled={true} amount={args.amount} icon-name="train-small">
+    <sbb-tab-title ?disabled=${true} amount=${args.amount} icon-name="train-small">
       Tab title three
     </sbb-tab-title>
     <div>I was disabled.</div>
 
-    <sbb-tab-title amount={args.amount} icon-name="pie-small">
-      Tab title four
-    </sbb-tab-title>
-    {tabPanelFour()}
+    <sbb-tab-title amount=${args.amount} icon-name="pie-small"> Tab title four </sbb-tab-title>
+    ${tabPanelFour()}
   </sbb-tab-group>
-);
+`;
 
 const label: InputType = {
   control: {
@@ -167,48 +157,34 @@ const basicArgs: Args = {
   size: size.options[0],
 };
 
-const templateRes = [
-  (Story) => (
-    <div style={{ padding: '2rem' }}>
-      <Story></Story>
-    </div>
-  ),
-  withActions as Decorator,
-];
-
 export const defaultTabsSizeL: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
-  decorators: templateRes,
 };
 
 export const numbersAndIconsSizeL: StoryObj = {
   render: IconsAndNumbersTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, amount: 16, 'icon-name': iconName.options[0] },
-  decorators: templateRes,
 };
 
 export const defaultTabsSizeXL: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, size: size.options[1] },
-  decorators: templateRes,
 };
 
 export const numbersAndIconsSizeXL: StoryObj = {
   render: IconsAndNumbersTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, amount: 16, 'icon-name': iconName.options[0], size: size.options[1] },
-  decorators: templateRes,
 };
 
 export const nestedTabGroups: StoryObj = {
   render: NestedTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, amount: 16, 'icon-name': iconName.options[0] },
-  decorators: templateRes,
 };
 
 export const tintedBackground: StoryObj = {
@@ -216,16 +192,18 @@ export const tintedBackground: StoryObj = {
   argTypes: basicArgTypes,
   args: { ...basicArgs, amount: 16, 'icon-name': iconName.options[0] },
   decorators: [
-    (Story) => (
-      <div style={{ background: 'var(--sbb-color-milk-default)', padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story) => html`
+      <div style="background: var(--sbb-color-milk-default); padding: 2rem;">${story()}</div>
+    `,
     withActions as Decorator,
   ],
 };
 
 const meta: Meta = {
+  decorators: [
+    (story) => html` <div style="padding: 2rem;">${story()}</div> `,
+    withActions as Decorator,
+  ],
   parameters: {
     actions: {
       handles: [SbbTabGroup.events.selectedTabChanged],

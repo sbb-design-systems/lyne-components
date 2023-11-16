@@ -1,9 +1,10 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+
+import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
 import {
@@ -97,12 +98,9 @@ const defaultArgs: Args = {
   trip: defaultTrip,
 };
 
-// TEMPLATES
-const Template = (args): JSX.Element => <sbb-timetable-row {...args}></sbb-timetable-row>;
+const Template = (args: Args): TemplateResult =>
+  html`<sbb-timetable-row ${sbbSpread(args)}></sbb-timetable-row>`;
 
-/* ************************************************* */
-/* The Stories                                       */
-/* ************************************************* */
 export const Basic: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -352,11 +350,7 @@ export const Notices: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ background: '#f6f6f6', padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story) => html` <div style="background: #f6f6f6; padding: 2rem;">${story()}</div> `,
     withActions as Decorator,
   ],
   parameters: {

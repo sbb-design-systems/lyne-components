@@ -1,15 +1,15 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import { StoryContext } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, nothing, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 
+import { sbbSpread } from '../core/dom';
 import { SbbFormError } from '../form-error';
 
 import readme from './readme.md?raw';
 import { SbbTimeInput } from './time-input';
-
 import '../form-field';
 import '../button';
 
@@ -55,7 +55,7 @@ const setValueAsDate = async (event: Event): Promise<void> => {
   input.dispatchEvent(new Event('change')); // Trigger change to update invalid state
 };
 
-const setValue = (event): void => {
+const setValue = (event: Event): void => {
   const target = event.target as HTMLElement;
 
   const input = target.closest('div#example-parent').querySelector('#input-id') as HTMLInputElement;
@@ -218,42 +218,42 @@ const TemplateSbbTimeInput = ({
   iconEnd,
   size,
   ...args
-}): JSX.Element => (
+}: Args): TemplateResult => html`
   <div id="example-parent">
     <sbb-form-field
-      size={size}
-      label={label}
-      optional={optional}
-      borderless={borderless}
-      negative={negative}
+      size=${size}
+      label=${label}
+      ?optional=${optional}
+      ?borderless=${borderless}
+      ?negative=${negative}
       width="collapse"
     >
-      {iconStart && <sbb-icon slot="prefix" name={iconStart}></sbb-icon>}
+      ${iconStart ? html`<sbb-icon slot="prefix" name=${iconStart}></sbb-icon>` : nothing}
       <sbb-time-input
-        onChange={(event: CustomEvent) => changeEventHandler(event)}
-        onValidationChange={(event: CustomEvent) => updateFormError(event)}
+        @change=${(event: CustomEvent) => changeEventHandler(event)}
+        @validationchange=${(event: CustomEvent) => updateFormError(event)}
       ></sbb-time-input>
-      <input id="input-id" {...args} />
-      {iconEnd && <sbb-icon slot="suffix" name={iconEnd}></sbb-icon>}
+      <input id="input-id" ${sbbSpread(args)} />
+      ${iconEnd ? html`<sbb-icon slot="suffix" name=${iconEnd}></sbb-icon>` : nothing}
     </sbb-form-field>
-    <div style={{ display: 'flex', gap: '1em', 'margin-block-start': '2rem' }}>
+    <div style="display: flex, gap: 1em; margin-block-start: 2rem;">
       <sbb-button
         variant="secondary"
         size="m"
-        onClick={(event: PointerEvent) => setValueAsDate(event)}
+        @click=${(event: PointerEvent) => setValueAsDate(event)}
       >
         Set valueAsDate to current datetime
       </sbb-button>
-      <sbb-button variant="secondary" size="m" onClick={(event: PointerEvent) => setValue(event)}>
+      <sbb-button variant="secondary" size="m" @click=${(event: PointerEvent) => setValue(event)}>
         Set value to 00:00
       </sbb-button>
     </div>
-    <div style={{ color: 'var(--sbb-color-smoke-default)' }}>
-      <div style={{ 'margin-block-start': '1rem' }}>Change time in input:</div>
+    <div style="color: var(--sbb-color-smoke-default);">
+      <div style="margin-block-start: 1rem;">Change time in input:</div>
       <div id="container-value"></div>
     </div>
   </div>
-);
+`;
 
 export const SbbTimeInputBase: StoryObj = {
   render: TemplateSbbTimeInput,
@@ -357,11 +357,9 @@ export const SbbTimeInputWithErrorNegative: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story, context) => (
-      <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story, context) => html`
+      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
+    `,
     withActions as Decorator,
   ],
   parameters: {

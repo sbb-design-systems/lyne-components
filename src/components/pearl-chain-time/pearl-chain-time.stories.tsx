@@ -1,13 +1,12 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
 
+import { sbbSpread } from '../core/dom';
 import { extendedLeg, progressLeg } from '../pearl-chain/pearl-chain.sample-data';
 
 import readme from './readme.md?raw';
-
 import './pearl-chain-time';
 
 const departureWalk: InputType = {
@@ -63,9 +62,8 @@ const defaultArgs: Args = {
   'data-now': new Date('2022-12-01T12:11:00').valueOf(),
 };
 
-const Template = (args): JSX.Element => {
-  return <sbb-pearl-chain-time {...args}></sbb-pearl-chain-time>;
-};
+const Template = (args: Args): TemplateResult =>
+  html`<sbb-pearl-chain-time ${sbbSpread(args)}></sbb-pearl-chain-time>`;
 
 export const minimal: StoryObj = {
   render: Template,
@@ -118,13 +116,7 @@ export const extendedEnter: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (Story) => (
-      <div style={{ 'max-width': '20rem' }}>
-        <Story></Story>
-      </div>
-    ),
-  ],
+  decorators: [(story) => html` <div style="max-width: 20rem;">${story()}</div> `],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

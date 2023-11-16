@@ -1,18 +1,17 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
 
 import readme from './readme.md?raw';
 import sampleData from './timetable-travel-hints.sample-data';
 import './timetable-travel-hints';
 
-const Template = (args): JSX.Element => (
+const Template = (args: Args): TemplateResult => html`
   <sbb-timetable-travel-hints
-    appearance={args.appearance}
-    config={JSON.stringify(args.config)}
+    appearance=${args.appearance}
+    config=${JSON.stringify(args.config)}
   ></sbb-timetable-travel-hints>
-);
+`;
 
 const appearance: InputType = {
   control: {
@@ -43,9 +42,6 @@ const defaultArgs: Args = {
   appearance: appearance.options[0],
 };
 
-/* ************************************************* */
-/* The Stories                                       */
-/* ************************************************* */
 export const TravelHintsList: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -56,13 +52,7 @@ export const TravelHintsList: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
-  ],
+  decorators: [(story) => html` <div style="padding: 2rem;">${story()}</div> `],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

@@ -1,8 +1,9 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import { Fragment, h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+
+import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
 import './slider';
@@ -15,28 +16,25 @@ const changeEventHandler = (event): void => {
   document.getElementById('container-value').prepend(div);
 };
 
-const TemplateSbbSlider = (args): JSX.Element => <sbb-slider {...args}></sbb-slider>;
+const TemplateSbbSlider = (args: Args): TemplateResult =>
+  html`<sbb-slider ${sbbSpread(args)}></sbb-slider>`;
 
-const TemplateSbbSliderChangeEvent = (args): JSX.Element => (
-  <Fragment>
-    <sbb-slider {...args} onChange={(event) => changeEventHandler(event)}></sbb-slider>
-    <div style={{ 'margin-block-start': '2rem' }}>Change slider position:</div>
-    <div id="container-value"></div>
-  </Fragment>
-);
+const TemplateSbbSliderChangeEvent = (args: Args): TemplateResult => html`
+  <sbb-slider ${sbbSpread(args)} @change=${(event) => changeEventHandler(event)}></sbb-slider>
+  <div style="margin-block-start: 2rem;">Change slider position:</div>
+  <div id="container-value"></div>
+`;
 
-const TemplateSlottedIcons = (args): JSX.Element => (
-  <sbb-slider {...args}>
+const TemplateSlottedIcons = (args: Args): TemplateResult => html`
+  <sbb-slider ${sbbSpread(args)}>
     <sbb-icon slot="prefix" name="battery-level-empty-small"></sbb-icon>
     <sbb-icon slot="suffix" name="battery-level-high-small"></sbb-icon>
   </sbb-slider>
-);
+`;
 
-const TemplateSbbSliderInFormField = ({ label, optional, ...args }): JSX.Element => (
-  <sbb-form-field label={label} optional={optional}>
-    {TemplateSbbSlider(args)}
-  </sbb-form-field>
-);
+const TemplateSbbSliderInFormField = ({ label, optional, ...args }: Args): TemplateResult => html`
+  <sbb-form-field label=${label} ?optional=${optional}> ${TemplateSbbSlider(args)} </sbb-form-field>
+`;
 
 const valueArg: InputType = {
   control: {
@@ -233,11 +231,7 @@ export const sbbSliderInFormFieldDisabled: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story) => html` <div style="padding: 2rem;">${story()}</div> `,
     withActions as Decorator,
   ],
   parameters: {

@@ -1,8 +1,10 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+
+import { sbbSpread } from '../../core/dom';
+import type { SbbFormError } from '../../form-error';
 
 import readme from './readme.md?raw';
 import './radio-button-group';
@@ -82,26 +84,26 @@ const defaultArgs: Args = {
   'aria-label': undefined,
 };
 
-const radioButtons = (): JSX.Element[] => [
-  <sbb-radio-button value="Value one">Value one</sbb-radio-button>,
-  <sbb-radio-button value="Value two">Value two</sbb-radio-button>,
-  <sbb-radio-button value="Value three" disabled>
-    Value three
-  </sbb-radio-button>,
-  <sbb-radio-button value="Value four">Value four</sbb-radio-button>,
-];
+const radioButtons = (): TemplateResult => html`
+  <sbb-radio-button value="Value one">Value one</sbb-radio-button>
+  <sbb-radio-button value="Value two">Value two</sbb-radio-button>
+  <sbb-radio-button value="Value three" disabled> Value three </sbb-radio-button>
+  <sbb-radio-button value="Value four">Value four</sbb-radio-button>
+`;
 
-const DefaultTemplate = (args): JSX.Element => (
-  <sbb-radio-button-group {...args}>{radioButtons()}</sbb-radio-button-group>
-);
+const DefaultTemplate = (args: Args): TemplateResult => html`
+  <sbb-radio-button-group ${sbbSpread(args)}>${radioButtons()}</sbb-radio-button-group>
+`;
 
-const ErrorMessageTemplate = (args): JSX.Element => {
-  const sbbFormError = <sbb-form-error slot="error">This is a required field.</sbb-form-error>;
+const ErrorMessageTemplate = (args: Args): TemplateResult => {
+  const sbbFormError: SbbFormError = document.createElement('sbb-form-error');
+  sbbFormError.setAttribute('slot', 'error');
+  sbbFormError.textContent = 'This is a required field.';
 
-  return (
+  return html`
     <sbb-radio-button-group
-      {...args}
-      onChange={(event: CustomEvent) => {
+      ${sbbSpread(args)}
+      @change=${(event: CustomEvent) => {
         if (event.detail.value) {
           sbbFormError.remove();
         } else if (args.required) {
@@ -109,10 +111,9 @@ const ErrorMessageTemplate = (args): JSX.Element => {
         }
       }}
     >
-      {radioButtons()}
-      {args.required && sbbFormError}
+      ${radioButtons()} ${args.required && sbbFormError}
     </sbb-radio-button-group>
-  );
+  `;
 };
 
 export const Horizontal: StoryObj = {
@@ -186,11 +187,7 @@ export const ErrorMessageVertical: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story) => html` <div style="padding: 2rem;">${story()}</div> `,
     withActions as Decorator,
   ],
   parameters: {
