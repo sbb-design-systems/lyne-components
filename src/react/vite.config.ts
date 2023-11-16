@@ -47,7 +47,7 @@ export default defineConfig((config) =>
       outDir: outDir.pathname,
       emptyOutDir: true,
       rollupOptions: {
-        external: [/^@sbb-esta\/lyne-components\/?/, /^react/],
+        external: [/^@sbb-esta\/lyne-components\/?/, /^@lit\/react\/?/, /^react/],
       },
     },
   }),
