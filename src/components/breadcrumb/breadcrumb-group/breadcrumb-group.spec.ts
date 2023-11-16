@@ -28,11 +28,11 @@ describe('sbb-breadcrumb-group', () => {
       <ol class="sbb-breadcrumb-group">
         <li class="sbb-breadcrumb-group__item">
           <slot name="breadcrumb-0"></slot>
-          <sbb-icon name="chevron-small-right-small" class="sbb-breadcrumb-group__divider-icon"></sbb-icon>
+          <sbb-icon aria-hidden="true" data-namespace="default" role="img" name="chevron-small-right-small" class="sbb-breadcrumb-group__divider-icon"></sbb-icon>
         </li>
         <li class="sbb-breadcrumb-group__item">
           <slot name="breadcrumb-1"></slot>
-          <sbb-icon name="chevron-small-right-small" class="sbb-breadcrumb-group__divider-icon"></sbb-icon>
+          <sbb-icon aria-hidden="true" data-namespace="default" role="img" name="chevron-small-right-small" class="sbb-breadcrumb-group__divider-icon"></sbb-icon>
         </li>
         <li class="sbb-breadcrumb-group__item">
           <slot name="breadcrumb-2"></slot>
