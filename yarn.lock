@@ -1622,14 +1622,14 @@
   integrity sha512-jnOD+/+dSrfTWYfSXBXlo5l5f0q1UuJo3tkbMDCYA2lKUYq79jaxqtGEvnRoh049nt1vdo1+45RinipU6FGY2g==
 
 "@lit/react@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@lit/react/-/react-1.0.1.tgz#00dc227c60947abd3cbdaa03bb9cca7f5b815451"
-  integrity sha512-io4yIAl9ZFY5coI2ix+nSly4rmEKLFyZM66mxOr9xvxDqwtjdVU/g6Tchb7bo+A23+5Uu/1RZpLCpvHLCGi0rw==
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@lit/react/-/react-1.0.2.tgz#4951ff1590d69aad912d0a950b3518d19eb7e220"
+  integrity sha512-UJ5TQ46DPcJDIzyjbwbj6Iye0XcpCxL2yb03zcWq1BpWchpXS3Z0BPVhg7zDfZLF6JemPml8u/gt/+KwJ/23sg==
 
 "@lit/reactive-element@^2.0.0":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@lit/reactive-element/-/reactive-element-2.0.1.tgz#b17d8818d9c72ccc489f44e35d87cfa18a9c8c93"
-  integrity sha512-eu50SQXHRthFwWJMp0oAFg95Rvm6MTPjxSXWuvAu7It90WVFLFpNBoIno7XOXSDvVgTrtKnUV4OLJqys2Svn4g==
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@lit/reactive-element/-/reactive-element-2.0.2.tgz#779ae9d265407daaf7737cb892df5ec2a86e22a0"
+  integrity sha512-SVOwLAWUQg3Ji1egtOt1UiFe4zdDpnWHyc5qctSceJ5XIu0Uc76YmGpIjZgx9YJ0XtdW0Jm507sDvjOu+HnB8w==
   dependencies:
     "@lit-labs/ssr-dom-shim" "^1.1.2"
 
