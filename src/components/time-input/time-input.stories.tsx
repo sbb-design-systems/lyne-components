@@ -23,7 +23,7 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
 const updateFormError = (event: CustomEvent): void => {
   const valid = event.detail.valid;
   const target = event.target as SbbTimeInput;
-  const formField = target.closest('sbb-form-field');
+  const formField = target.closest('sbb-form-field')!;
 
   const formError: SbbFormError = document.createElement('sbb-form-error');
   formError.innerText = 'Time value is invalid';
@@ -37,19 +37,19 @@ const updateFormError = (event: CustomEvent): void => {
 
 const changeEventHandler = async (event: CustomEvent): Promise<void> => {
   const target = event.target as SbbTimeInput;
-  const exampleParent = target.closest('div#example-parent');
+  const exampleParent = target.closest('div#example-parent')!;
   const div = document.createElement('div');
   div.innerText = `value is: ${
     (exampleParent.querySelector('#input-id') as HTMLInputElement).value
   }; valueAsDate is: ${await target.getValueAsDate()}.`;
-  exampleParent.querySelector('#container-value').append(div);
+  exampleParent.querySelector('#container-value')!.append(div);
 };
 
 const setValueAsDate = async (event: Event): Promise<void> => {
   const target = event.target as HTMLElement;
-  const exampleParent = target.closest('div#example-parent');
+  const exampleParent = target.closest('div#example-parent')!;
 
-  const timeInput = exampleParent.querySelector('sbb-time-input');
+  const timeInput = exampleParent.querySelector('sbb-time-input')!;
   await timeInput.setValueAsDate(new Date());
 
   const input = exampleParent.querySelector('#input-id') as HTMLInputElement;
@@ -59,7 +59,9 @@ const setValueAsDate = async (event: Event): Promise<void> => {
 const setValue = (event: Event): void => {
   const target = event.target as HTMLElement;
 
-  const input = target.closest('div#example-parent').querySelector('#input-id') as HTMLInputElement;
+  const input = target
+    .closest('div#example-parent')!
+    .querySelector('#input-id') as HTMLInputElement;
   input.value = '00:00';
   input.dispatchEvent(new Event('change')); // Trigger change to update invalid state
 };
