@@ -47,11 +47,41 @@ describe('sbb-link-list', () => {
         <sbb-link-list title-level="2" orientation="vertical" size="s">
 
           <span slot="title">Help &amp; Contact</span>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-0">Rückerstattungen</sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-1">Fundbüro</sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-2">Beschwerden</sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-3">Lob aussprechen</sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-4">Sachbeschädigung melden</sbb-link>
+          <sbb-link 
+            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-0" 
+            tabindex="0"
+            variant="block"
+            size="s"
+            role="link"
+            dir="ltr">Rückerstattungen</sbb-link>
+          <sbb-link 
+            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-1" 
+            tabindex="0"
+            variant="block"
+            size="s"
+            role="link"
+            dir="ltr">Fundbüro</sbb-link>
+          <sbb-link 
+            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-2" 
+            tabindex="0"
+            variant="block"
+            size="s"
+            role="link"
+            dir="ltr">Beschwerden</sbb-link>
+          <sbb-link 
+            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-3" 
+            tabindex="0"
+            variant="block"
+            size="s"
+            role="link"
+            dir="ltr">Lob aussprechen</sbb-link>
+          <sbb-link 
+            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-4" 
+            tabindex="0"
+            variant="block"
+            size="s"
+            role="link"
+            dir="ltr">Sachbeschädigung melden</sbb-link>
         </sbb-link-list>
       `,
     );
@@ -92,11 +122,46 @@ describe('sbb-link-list', () => {
             size="s"
           >
 
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-0">Rückerstattungen</sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-1">Fundbüro</sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-2">Beschwerden</sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-3">Lob aussprechen</sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-4">Sachbeschädigung melden</sbb-link>
+          <sbb-link 
+            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" 
+            slot="link-0"
+            tabindex="0"
+            variant="block"
+            size="s"
+            role="link"
+            dir="ltr">Rückerstattungen</sbb-link>
+          <sbb-link 
+            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" 
+            slot="link-1"
+            tabindex="0"
+            variant="block"
+            size="s"
+            role="link"
+            dir="ltr">Fundbüro</sbb-link>
+          <sbb-link 
+            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" 
+            slot="link-2"
+            tabindex="0"
+            variant="block"
+            size="s"
+            role="link"
+            dir="ltr">Beschwerden</sbb-link>
+          <sbb-link 
+            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" 
+            slot="link-3" 
+            tabindex="0"
+            variant="block"
+            size="s"
+            role="link"
+            dir="ltr">Lob aussprechen</sbb-link>
+          <sbb-link 
+            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" 
+            slot="link-4"
+            tabindex="0"
+            variant="block"
+            size="s"
+            role="link"
+            dir="ltr">Sachbeschädigung melden</sbb-link>
         </sbb-link-list>
       `,
     );
@@ -129,11 +194,46 @@ describe('sbb-link-list', () => {
       `
         <sbb-link-list orientation="vertical" size="s">
 
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-0">Rückerstattungen</sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-1">Fundbüro</sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-2">Beschwerden</sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-3">Lob aussprechen</sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-4">Sachbeschädigung melden</sbb-link>
+          <sbb-link 
+            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" 
+            slot="link-0"
+            tabindex="0"
+            variant="block"
+            size="s"
+            role="link"
+            dir="ltr">Rückerstattungen</sbb-link>
+          <sbb-link 
+            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" 
+            slot="link-1"
+            tabindex="0"
+            variant="block"
+            size="s"
+            role="link"
+            dir="ltr">Fundbüro</sbb-link>
+          <sbb-link 
+            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" 
+            slot="link-2"
+            tabindex="0"
+            variant="block"
+            size="s"
+            role="link"
+            dir="ltr">Beschwerden</sbb-link>
+          <sbb-link 
+            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" 
+            slot="link-3"
+            tabindex="0"
+            variant="block"
+            size="s"
+            role="link"
+            dir="ltr">Lob aussprechen</sbb-link>
+          <sbb-link 
+            href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" 
+            slot="link-4"
+            tabindex="0"
+            variant="block"
+            size="s"
+            role="link"
+            dir="ltr">Sachbeschädigung melden</sbb-link>
         </sbb-link-list>
       `,
     );
