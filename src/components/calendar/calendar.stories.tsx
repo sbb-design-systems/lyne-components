@@ -1,9 +1,11 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../core/dom';
 
 import { SbbCalendar } from './calendar';
 import readme from './readme.md?raw';
@@ -19,37 +21,34 @@ const getCalendarAttr = (min, max): Record<string, Date> => {
   return attr;
 };
 
-const Template = ({ min, max, selectedDate, dateFilter, ...args }): JSX.Element => (
+const Template = ({ min, max, selectedDate, dateFilter, ...args }: Args): TemplateResult => html`
   <sbb-calendar
-    selectedDate={new Date(selectedDate)}
-    {...getCalendarAttr(min, max)}
-    {...args}
-    ref={(calendarRef) => {
-      calendarRef.dateFilter = dateFilter;
-    }}
+    .selectedDate=${new Date(selectedDate)}
+    .dateFilter=${dateFilter}
+    ${sbbSpread(getCalendarAttr(min, max))}
+    ${sbbSpread(args)}
   ></sbb-calendar>
-);
+`;
 
-const TemplateDynamicWidth = ({ min, max, selectedDate, dateFilter, ...args }): JSX.Element => (
+const TemplateDynamicWidth = ({
+  min,
+  max,
+  selectedDate,
+  dateFilter,
+  ...args
+}: Args): TemplateResult => html`
   <sbb-calendar
-    style={{ width: '900px' }}
-    selectedDate={new Date(selectedDate)}
-    {...getCalendarAttr(min, max)}
-    {...args}
-    ref={(calendarRef) => {
-      calendarRef.dateFilter = dateFilter;
-    }}
+    style=${styleMap({ width: '900px' })}
+    .selectedDate=${new Date(selectedDate)}
+    .dateFilter=${dateFilter}
+    ${sbbSpread(getCalendarAttr(min, max))}
+    ${sbbSpread(args)}
   ></sbb-calendar>
-);
+`;
 
-const TemplateFilterFunction = ({ dateFilter, ...args }): JSX.Element => (
-  <sbb-calendar
-    ref={(calendarRef) => {
-      calendarRef.dateFilter = dateFilter;
-    }}
-    {...args}
-  ></sbb-calendar>
-);
+const TemplateFilterFunction = ({ dateFilter, ...args }: Args): TemplateResult => html`
+  <sbb-calendar .dateFilter=${dateFilter} ${sbbSpread(args)}></sbb-calendar>
+`;
 
 const wide: InputType = {
   control: {

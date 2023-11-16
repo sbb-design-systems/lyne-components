@@ -1,9 +1,10 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 
+import { sbbSpread } from '../core/dom';
 import {
   futureLeg,
   longFutureLeg,
@@ -12,6 +13,7 @@ import {
 } from '../pearl-chain/pearl-chain.sample-data';
 
 import readme from './readme.md?raw';
+
 import './journey-summary';
 import '../button';
 
@@ -56,23 +58,24 @@ const defaultArgs: Args = {
   'header-level': headerLevel.options[2],
 };
 
-const Template = (args): JSX.Element => (
-  <sbb-journey-summary {...args}>
+const Template = (args): TemplateResult => html`
+  <sbb-journey-summary ${sbbSpread(args)}>
     <div
-      style={{
+      style=${styleMap({
         display: 'flex',
         paddingTop: '24px',
         justifyContent: 'space-between',
-      }}
+      })}
       slot="content"
     >
       <sbb-button variant="secondary" icon-name="context-menu-small"></sbb-button>
       <sbb-button>Button label</sbb-button>
     </div>
   </sbb-journey-summary>
-);
+`;
 
-const TemplateNoSlot = (args): JSX.Element => <sbb-journey-summary {...args}></sbb-journey-summary>;
+const TemplateNoSlot = (args): TemplateResult =>
+  html`<sbb-journey-summary ${sbbSpread(args)}></sbb-journey-summary>`;
 
 export const summaryNoSlot: StoryObj = {
   render: TemplateNoSlot,
@@ -222,7 +225,7 @@ export const summaryHeaderLevel: StoryObj = {
 /* ************************************************* */
 
 const meta: Meta = {
-  decorators: [(Story) => <Story></Story>],
+  decorators: [(story) => html`${story()}`],
   parameters: {
     backgrounds: {
       disable: true,

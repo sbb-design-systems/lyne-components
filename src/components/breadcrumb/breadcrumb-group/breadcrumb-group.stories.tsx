@@ -1,14 +1,17 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import { Fragment, h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
+
 import './breadcrumb-group';
 import '../breadcrumb';
 
 const addBreadcrumb = (): void => {
-  const container = document.getElementById('container');
+  const container = document.getElementById('container')!;
   const breadcrumb = document.createElement('sbb-breadcrumb');
   breadcrumb.setAttribute('href', '/');
   breadcrumb.textContent = 'Breadcrumb ' + container.children.length;
@@ -16,9 +19,9 @@ const addBreadcrumb = (): void => {
 };
 
 const removeBreadcrumb = (): void => {
-  const container = document.getElementById('container');
+  const container = document.getElementById('container')!;
   if (container.children.length > 1) {
-    container.removeChild(container.lastElementChild);
+    container.removeChild(container.lastElementChild!);
   }
 };
 
@@ -109,30 +112,26 @@ const defaultArgs: Args = {
   'icon-name': undefined,
 };
 
-const breadcrumbTemplate = (args, text: string, i: number): JSX.Element => (
-  <sbb-breadcrumb {...args}>
-    {text} {i}
-  </sbb-breadcrumb>
-);
+const breadcrumbTemplate = (args, text: string, i: number): TemplateResult => html`
+  <sbb-breadcrumb ${sbbSpread(args)}> ${text} ${i} </sbb-breadcrumb>
+`;
 
-const createBreadcrumbs = ({ numberOfBreadcrumbs, text, ...args }): JSX.Element[] => [
-  <sbb-breadcrumb href="/" icon-name="house-small"></sbb-breadcrumb>,
-  new Array(numberOfBreadcrumbs - 1)
+const createBreadcrumbs = ({ numberOfBreadcrumbs, text, ...args }): TemplateResult => html`
+  <sbb-breadcrumb href="/" icon-name="house-small"></sbb-breadcrumb>
+  ${new Array(numberOfBreadcrumbs - 1)
     .fill(undefined)
-    .map((_, i) => breadcrumbTemplate(args, text, i + 1)),
-];
+    .map((_, i) => breadcrumbTemplate(args, text, i + 1))}
+`;
 
-const Template = (args): JSX.Element => (
-  <Fragment>
-    <sbb-breadcrumb-group aria-label="You are here:" id="container">
-      {createBreadcrumbs(args)}
-    </sbb-breadcrumb-group>
-    <div style={{ 'margin-block': '2rem', gap: '1rem', display: 'flex' }}>
-      <button onClick={() => addBreadcrumb()}>Add</button>
-      <button onClick={() => removeBreadcrumb()}>Remove</button>
-    </div>
-  </Fragment>
-);
+const Template = (args): TemplateResult => html`
+  <sbb-breadcrumb-group aria-label="You are here:" id="container">
+    ${createBreadcrumbs(args)}
+  </sbb-breadcrumb-group>
+  <div style=${styleMap({ 'margin-block': '2rem', gap: '1rem', display: 'flex' })}>
+    <button @click=${() => addBreadcrumb()}>Add</button>
+    <button @click=${() => removeBreadcrumb()}>Remove</button>
+  </div>
+`;
 
 export const Default: StoryObj = {
   render: Template,
@@ -148,12 +147,12 @@ export const CollapsedState: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
-        <Story></Story>
+    (story) => html`
+      <div style=${styleMap({ padding: '2rem' })}>
+        ${story()}
         <div>Page content</div>
       </div>
-    ),
+    `,
   ],
   parameters: {
     backgrounds: {

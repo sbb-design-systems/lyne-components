@@ -1,20 +1,21 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 
+import { sbbSpread } from '../core/dom';
 import images from '../core/images';
-
-import readme from './readme.md?raw';
 import '../image';
 import '../title';
 import '../button';
 import './message';
 
-const DefaultTemplate = (args): JSX.Element => (
-  <sbb-message {...args}>
-    <sbb-image slot="image" image-src={images[images.length - 1]}></sbb-image>
+import readme from './readme.md?raw';
+
+const DefaultTemplate = (args): TemplateResult => html`
+  <sbb-message ${sbbSpread(args)}>
+    <sbb-image slot="image" image-src=${images[images.length - 1]}></sbb-image>
     <p slot="subtitle">Please reload the page or try your search again later.</p>
     <p slot="legend">Error code: 0001</p>
     <sbb-button
@@ -24,10 +25,10 @@ const DefaultTemplate = (args): JSX.Element => (
       size="m"
     ></sbb-button>
   </sbb-message>
-);
+`;
 
-const NoImageTemplate = (args): JSX.Element => (
-  <sbb-message {...args}>
+const NoImageTemplate = (args): TemplateResult => html`
+  <sbb-message ${sbbSpread(args)}>
     <p slot="subtitle">Please reload the page or try your search again later.</p>
     <p slot="legend">Error code: 0001</p>
     <sbb-button
@@ -37,11 +38,11 @@ const NoImageTemplate = (args): JSX.Element => (
       size="m"
     ></sbb-button>
   </sbb-message>
-);
+`;
 
-const NoErrorCodeTemplate = (args): JSX.Element => (
-  <sbb-message {...args}>
-    <sbb-image slot="image" image-src={images[images.length - 1]}></sbb-image>
+const NoErrorCodeTemplate = (args): TemplateResult => html`
+  <sbb-message ${sbbSpread(args)}>
+    <sbb-image slot="image" image-src=${images[images.length - 1]}></sbb-image>
     <p slot="subtitle">Please reload the page or try your search again later.</p>
     <sbb-button
       slot="action"
@@ -50,25 +51,25 @@ const NoErrorCodeTemplate = (args): JSX.Element => (
       size="m"
     ></sbb-button>
   </sbb-message>
-);
+`;
 
-const NoActionTemplate = (args): JSX.Element => (
-  <sbb-message {...args}>
-    <sbb-image slot="image" image-src={images[images.length - 1]}></sbb-image>
+const NoActionTemplate = (args): TemplateResult => html`
+  <sbb-message ${sbbSpread(args)}>
+    <sbb-image slot="image" image-src=${images[images.length - 1]}></sbb-image>
     <p slot="subtitle">Please reload the page or try your search again later.</p>
     <p slot="legend">Error code: 0001</p>
   </sbb-message>
-);
+`;
 
-const SlottedTitleTemplate = (): JSX.Element => (
+const SlottedTitleTemplate = (): TemplateResult => html`
   <sbb-message>
-    <sbb-image slot="image" image-src={images[images.length - 1]}></sbb-image>
+    <sbb-image slot="image" image-src=${images[images.length - 1]}></sbb-image>
     <p slot="title">Unfortunately, an error has occurred.</p>
     <p slot="subtitle">Please reload the page or try your search again later.</p>
     <p slot="legend">Error code: 0001</p>
     <sbb-button slot="action" icon-name="arrows-circle-small" variant="secondary"></sbb-button>
   </sbb-message>
-);
+`;
 
 const titleContent: InputType = {
   control: {
@@ -125,11 +126,11 @@ export const SlottedTitle: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '1rem', 'max-width': '45rem', margin: 'auto' }}>
-        <Story></Story>
+    (story) => html`
+      <div style=${styleMap({ padding: '1rem', 'max-width': '45rem', margin: 'auto' })}>
+        ${story()}
       </div>
-    ),
+    `,
     withActions as Decorator,
   ],
   parameters: {

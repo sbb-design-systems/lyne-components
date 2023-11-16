@@ -1,9 +1,12 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
+
 import './breadcrumb';
 
 const text: InputType = {
@@ -70,16 +73,20 @@ const defaultArgs: Args = {
   'icon-name': undefined,
 };
 
-const Template = ({ text, ...args }): JSX.Element => (
-  <sbb-breadcrumb {...args}>{text}</sbb-breadcrumb>
-);
+const Template = ({ text, ...args }: Args): TemplateResult => html`
+  <sbb-breadcrumb ${sbbSpread(args)}>${text}</sbb-breadcrumb>
+`;
 
-const SlottedIconTemplate = ({ text, 'icon-name': iconName, ...args }): JSX.Element => (
-  <sbb-breadcrumb {...args}>
-    {text}
-    <sbb-icon slot="icon" name={iconName}></sbb-icon>
+const SlottedIconTemplate = ({
+  text,
+  'icon-name': iconName,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-breadcrumb ${sbbSpread(args)}>
+    ${text}
+    <sbb-icon slot="icon" name=${iconName}></sbb-icon>
   </sbb-breadcrumb>
-);
+`;
 
 export const Default: StoryObj = {
   render: Template,
@@ -125,11 +132,7 @@ export const LongContent: StoryObj = {
     text: 'This label name is so long that it needs ellipsis to fit.',
   },
   decorators: [
-    (Story) => (
-      <div style={{ 'max-width': '200px' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story) => html` <div style=${styleMap({ 'max-width': '200px' })}>${story()}</div> `,
   ],
 };
 
@@ -140,13 +143,7 @@ export const NoLink: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
-  ],
+  decorators: [(story) => html` <div style=${styleMap({ padding: '2rem' })}>${story()}</div> `],
   parameters: {
     backgrounds: {
       disable: true,

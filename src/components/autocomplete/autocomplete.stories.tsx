@@ -1,4 +1,3 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import { userEvent, within } from '@storybook/testing-library';
 import type { InputType } from '@storybook/types';
@@ -11,7 +10,8 @@ import type {
   StoryContext,
 } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 
 import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
@@ -167,36 +167,36 @@ const withGroupsDefaultArgs: Args = {
   disableGroup: false,
 };
 
-const aboveDecorator: Decorator = (Story) => (
+const aboveDecorator: Decorator = (story) => html`
   <div
-    style={{
+    style=${styleMap({
       height: '100%',
       display: 'flex',
       'align-items': 'end',
-    }}
+    })}
   >
-    <Story></Story>
+    ${story()}
   </div>
-);
+`;
 
-const scrollDecorator: Decorator = (Story) => (
+const scrollDecorator: Decorator = (story) => html`
   <div
-    style={{
+    style=${styleMap({
       height: '175%',
       display: 'flex',
       'align-items': 'center',
-    }}
+    })}
   >
-    <Story></Story>
+    ${story()}
   </div>
-);
+`;
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
-    canvas.getByTestId('form-field').shadowRoot.querySelector('div.sbb-form-field__space-wrapper'),
+    canvas.getByTestId('form-field').shadowRoot!.querySelector('div.sbb-form-field__space-wrapper'),
   );
 
   await waitForStablePosition(() => canvas.getByTestId('autocomplete-input'));
@@ -204,25 +204,23 @@ const playStory = async ({ canvasElement }): Promise<void> => {
   await new Promise((resolve) => setTimeout(resolve, 2000));
 };
 
-const createOptionGroup1 = (iconName, disableOption): JSX.Element[] => {
-  return [
-    <sbb-option icon-name={iconName} value="Option 1">
-      Option 1
-    </sbb-option>,
-    <sbb-option icon-name={iconName} disabled={disableOption} value="Option 2">
+const createOptionGroup1 = (iconName: string, disableOption: boolean): TemplateResult => {
+  return html`
+    <sbb-option icon-name=${iconName} value="Option 1"> Option 1 </sbb-option>
+    <sbb-option icon-name=${iconName} ?disabled=${disableOption} value="Option 2">
       Option 2
-    </sbb-option>,
+    </sbb-option>
     <sbb-option value="Option 3">
-      <sbb-icon slot="icon" name={iconName}></sbb-icon>
+      <sbb-icon slot="icon" name=${iconName}></sbb-icon>
       Option 3
-    </sbb-option>,
-  ];
+    </sbb-option>
+  `;
 };
-const createOptionGroup2 = (): JSX.Element[] => {
-  return [
-    <sbb-option value="Option 4">Option 4</sbb-option>,
-    <sbb-option value="Option 5">Option 5</sbb-option>,
-  ];
+const createOptionGroup2 = (): TemplateResult => {
+  return html`
+    <sbb-option value="Option 4">Option 4</sbb-option>
+    <sbb-option value="Option 5">Option 5</sbb-option>
+  `;
 };
 
 const textBlockStyle: Args = {
@@ -241,118 +239,115 @@ const codeStyle: Args = {
   backgroundColor: 'var(--sbb-color-smoke-alpha-20)',
 };
 
-const textBlock = (): JSX.Element => (
-  <div style={textBlockStyle}>
-    This text block has a <code style={codeStyle}>z-index</code> greater than the form field, but it
-    must always be covered by the autocomplete overlay.
+const textBlock = (): TemplateResult => html`
+  <div style=${styleMap(textBlockStyle)}>
+    This text block has a <code style=${styleMap(codeStyle)}>z-index</code> greater than the form
+    field, but it must always be covered by the autocomplete overlay.
   </div>
-);
+`;
 
-const Template = (args): JSX.Element => (
+const Template = (args): TemplateResult => html`
   <div>
     <sbb-form-field
-      negative={args.negative}
-      borderless={args.borderless}
-      floating-label={args.floatingLabel}
+      ?negative=${args.negative}
+      ?borderless=${args.borderless}
+      ?floating-label=${args.floatingLabel}
       label="Label"
       data-testid="form-field"
     >
       <input
         placeholder="Placeholder"
         data-testid="autocomplete-input"
-        disabled={args.disabled}
-        readonly={args.readonly}
+        ?disabled=${args.disabled}
+        ?readonly=${args.readonly}
       />
 
       <sbb-autocomplete
-        disable-animation={args.disableAnimation}
-        preserve-icon-space={args.preserveIconSpace}
+        ?disable-animation=${args.disableAnimation}
+        ?preserve-icon-space=${args.preserveIconSpace}
       >
-        {createOptionGroup1(args.iconName, args.disableOption)}
-        {createOptionGroup2()}
+        ${createOptionGroup1(args.iconName, args.disableOption)} ${createOptionGroup2()}
       </sbb-autocomplete>
     </sbb-form-field>
-    {textBlock()}
+    ${textBlock()}
   </div>
-);
+`;
 
-const OptionGroupTemplate = (args): JSX.Element => (
+const OptionGroupTemplate = (args): TemplateResult => html`
   <div>
     <sbb-form-field
-      negative={args.negative}
-      borderless={args.borderless}
-      floating-label={args.floatingLabel}
+      ?negative=${args.negative}
+      ?borderless=${args.borderless}
+      ?floating-label=${args.floatingLabel}
       label="Label"
       data-testid="form-field"
     >
       <input
         placeholder="Placeholder"
         data-testid="autocomplete-input"
-        disabled={args.disabled}
-        readonly={args.readonly}
+        ?disabled=${args.disabled}
+        ?readonly=${args.readonly}
       />
 
       <sbb-autocomplete
-        disable-animation={args.disableAnimation}
-        preserve-icon-space={args.preserveIconSpace}
+        ?disable-animation=${args.disableAnimation}
+        ?preserve-icon-space=${args.preserveIconSpace}
       >
-        <sbb-optgroup label="Group 1" disabled={args.disableGroup}>
-          {createOptionGroup1(args.iconName, args.disableOption)}
+        <sbb-optgroup label="Group 1" ?disabled=${args.disableGroup}>
+          ${createOptionGroup1(args.iconName, args.disableOption)}
         </sbb-optgroup>
-        <sbb-optgroup label="Group 2">{createOptionGroup2()}</sbb-optgroup>
+        <sbb-optgroup label="Group 2">${createOptionGroup2()}</sbb-optgroup>
       </sbb-autocomplete>
     </sbb-form-field>
-    {textBlock()}
+    ${textBlock()}
   </div>
-);
+`;
 
-const MixedTemplate = (args): JSX.Element => (
+const MixedTemplate = (args): TemplateResult => html`
   <div>
     <sbb-form-field
-      negative={args.negative}
-      borderless={args.borderless}
-      floating-label={args.floatingLabel}
+      ?negative=${args.negative}
+      ?borderless=${args.borderless}
+      ?floating-label=${args.floatingLabel}
       label="Label"
       data-testid="form-field"
     >
       <input
         placeholder="Placeholder"
         data-testid="autocomplete-input"
-        disabled={args.disabled}
-        readonly={args.readonly}
+        ?disabled=${args.disabled}
+        ?readonly=${args.readonly}
       />
 
       <sbb-autocomplete
-        disable-animation={args.disableAnimation}
-        preserve-icon-space={args.preserveIconSpace}
+        ?disable-animation=${args.disableAnimation}
+        ?preserve-icon-space=${args.preserveIconSpace}
       >
         <sbb-option value="Option 1">
           <sbb-icon
             slot="icon"
-            name={args.iconName}
-            style={{ color: 'var(--sbb-color-sky-default)' }}
-          />
+            name=${args.iconName}
+            style=${styleMap({ color: 'var(--sbb-color-sky-default)' })}
+          ></sbb-icon>
           Option Value
         </sbb-option>
-        <sbb-optgroup label="Group 1" disabled={args.disableGroup}>
-          {createOptionGroup1(args.iconName, args.disableOption)}
+        <sbb-optgroup label="Group 1" ?disabled=${args.disableGroup}>
+          ${createOptionGroup1(args.iconName, args.disableOption)}
         </sbb-optgroup>
-        <sbb-optgroup label="Group 2">{createOptionGroup2()}</sbb-optgroup>
+        <sbb-optgroup label="Group 2">${createOptionGroup2()}</sbb-optgroup>
       </sbb-autocomplete>
     </sbb-form-field>
-    {textBlock()}
+    ${textBlock()}
   </div>
-);
+`;
 
-const RequiredTemplate = (args): JSX.Element => {
-  const sbbFormError = <sbb-form-error>This is a required field.</sbb-form-error>;
-
-  return (
+const RequiredTemplate = (args): TemplateResult => {
+  return html`
     <div>
       <sbb-form-field
-        negative={args.negative}
-        borderless={args.borderless}
-        floating-label={args.floatingLabel}
+        ?negative=${args.negative}
+        ?borderless=${args.borderless}
+        ?floating-label=${args.floatingLabel}
         label="Label"
         data-testid="form-field"
         id="sbb-form-field"
@@ -362,47 +357,47 @@ const RequiredTemplate = (args): JSX.Element => {
           data-testid="autocomplete-input"
           class="sbb-invalid"
           placeholder="Placeholder"
-          disabled={args.disabled}
-          readonly={args.readonly}
-          onChange={(event) => {
+          ?disabled=${args.disabled}
+          ?readonly=${args.readonly}
+          @change=${(event) => {
             if ((event.currentTarget as HTMLInputElement).value !== '') {
-              sbbFormError.remove();
-              document.getElementById('sbb-autocomplete').classList.remove('sbb-invalid');
+              document.querySelector('sbb-form-error')!.style.display = 'none';
+              document.getElementById('sbb-autocomplete')?.classList.remove('sbb-invalid');
             } else {
-              document.getElementById('sbb-form-field').append(sbbFormError);
-              document.getElementById('sbb-autocomplete').classList.add('sbb-invalid');
+              document.querySelector('sbb-form-error')!.style.display = '';
+              document.getElementById('sbb-autocomplete')?.classList.add('sbb-invalid');
             }
           }}
         />
 
         <sbb-autocomplete
-          disable-animation={args.disableAnimation}
-          preserve-icon-space={args.preserveIconSpace}
+          ?disable-animation=${args.disableAnimation}
+          ?preserve-icon-space=${args.preserveIconSpace}
         >
-          <sbb-optgroup label="Group 1" disabled={args.disableGroup}>
-            {createOptionGroup1(args.iconName, args.disableOption)}
+          <sbb-optgroup label="Group 1" ?disabled=${args.disableGroup}>
+            ${createOptionGroup1(args.iconName, args.disableOption)}
           </sbb-optgroup>
-          <sbb-optgroup label="Group 2">{createOptionGroup2()}</sbb-optgroup>
+          <sbb-optgroup label="Group 2">${createOptionGroup2()}</sbb-optgroup>
         </sbb-autocomplete>
-        {sbbFormError}
+        <sbb-form-error>This is a required field.</sbb-form-error>
       </sbb-form-field>
-      {textBlock()}
+      ${textBlock()}
     </div>
-  );
+  `;
 };
 
 export const Basic: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const BasicNegative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, negative: true },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const BasicOpenAbove: StoryObj = {
@@ -410,56 +405,56 @@ export const BasicOpenAbove: StoryObj = {
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
   decorators: [aboveDecorator],
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const Borderless: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, borderless: true },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const BorderlessNegative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, borderless: true, negative: true },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const FloatingLabel: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, floatingLabel: true },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const WithError: StoryObj = {
   render: RequiredTemplate,
   argTypes: withGroupsArgTypes,
   args: { ...withGroupsDefaultArgs },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const WithErrorNegative: StoryObj = {
   render: RequiredTemplate,
   argTypes: withGroupsArgTypes,
   args: { ...withGroupsDefaultArgs, negative: true },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const Disabled: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, disabled: true },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const Readonly: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, readonly: true },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const BorderlessOpenAbove: StoryObj = {
@@ -467,14 +462,14 @@ export const BorderlessOpenAbove: StoryObj = {
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, borderless: true },
   decorators: [aboveDecorator],
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const NoIconSpace: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, preserveIconSpace: false },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const Scroll: StoryObj = {
@@ -491,30 +486,36 @@ export const WithOptionGroup: StoryObj = {
   render: OptionGroupTemplate,
   argTypes: withGroupsArgTypes,
   args: { ...withGroupsDefaultArgs },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const MixedSingleOptionWithOptionGroup: StoryObj = {
   render: MixedTemplate,
   argTypes: withGroupsArgTypes,
   args: { ...withGroupsDefaultArgs },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const MixedSingleOptionWithOptionGroupNegative: StoryObj = {
   render: MixedTemplate,
   argTypes: withGroupsArgTypes,
   args: { ...withGroupsDefaultArgs, negative: true },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 const meta: Meta = {
   decorators: [
-    (Story, context) => (
-      <div style={{ ...wrapperStyle(context), padding: '2rem', height: 'calc(100vh - 2rem)' }}>
-        <Story></Story>
+    (story, context) => html`
+      <div
+        style=${styleMap({
+          ...wrapperStyle(context),
+          padding: '2rem',
+          height: 'calc(100vh - 2rem)',
+        })}
+      >
+        ${story()}
       </div>
-    ),
+    `,
     withActions as Decorator,
   ],
   parameters: {

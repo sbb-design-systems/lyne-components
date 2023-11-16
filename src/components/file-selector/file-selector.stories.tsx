@@ -1,8 +1,9 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+
+import { sbbSpread } from '../core/dom';
 
 import { SbbFileSelector } from './file-selector';
 import readme from './readme.md?raw';
@@ -79,23 +80,24 @@ const multipleDefaultArgs: Args = {
   'accessibility-label': 'Select from hard disk - multiple files allowed',
 };
 
-const Template = (args): JSX.Element => <sbb-file-selector {...args}></sbb-file-selector>;
+const Template = (args): TemplateResult =>
+  html`<sbb-file-selector ${sbbSpread(args)}></sbb-file-selector>`;
 
-const TemplateWithError = (args): JSX.Element => {
-  const sbbFormError = <sbb-form-error slot="error">There has been an error.</sbb-form-error>;
-  return (
+const TemplateWithError = (args): TemplateResult => {
+  return html`
     <sbb-file-selector
-      {...args}
+      ${sbbSpread(args)}
       id="sbb-file-selector"
-      onFile-changed={(event) => {
+      @file-changed=${(event) => {
         if (event.detail && event.detail.length > 0) {
-          document.getElementById('sbb-file-selector').append(sbbFormError);
+          document.getElementById('sbb-form-error')!.style.display = 'none';
         } else {
-          sbbFormError.remove();
+          document.getElementById('sbb-form-error')!.style.display = '';
         }
       }}
     ></sbb-file-selector>
-  );
+    <sbb-form-error slot="error">There has been an error.</sbb-form-error>
+  `;
 };
 
 export const Default: StoryObj = {
@@ -169,14 +171,7 @@ export const DefaultOnlyPDF: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (Story) => (
-      <div>
-        <Story></Story>
-      </div>
-    ),
-    withActions as Decorator,
-  ],
+  decorators: [(story) => html` <div>${story()}</div> `, withActions as Decorator],
   parameters: {
     actions: {
       handles: [SbbFileSelector.events.fileChangedEvent],

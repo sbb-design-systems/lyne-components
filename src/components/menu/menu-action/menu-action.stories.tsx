@@ -1,35 +1,31 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, nothing, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import './menu-action';
 import '../../icon';
 
-const getBasicTemplate = ({ text, ...args }, id, iconSlot = false): JSX.Element => (
-  <sbb-menu-action {...args}>
-    {text} {id}
-    {iconSlot && <sbb-icon slot="icon" name="pie-small"></sbb-icon>}
+const getBasicTemplate = ({ text, ...args }: Args, id, iconSlot = false): TemplateResult => html`
+  <sbb-menu-action ${sbbSpread(args)}>
+    ${text} ${id} ${iconSlot ? html`<sbb-icon slot="icon" name="pie-small"></sbb-icon>` : nothing}
   </sbb-menu-action>
-);
+`;
 
-const TemplateMenuAction = (args): JSX.Element => (
-  <div>
-    {getBasicTemplate(args, 1)}
-    {getBasicTemplate(args, 2)}
-    {getBasicTemplate(args, 3)}
-  </div>
-);
+const TemplateMenuAction = (args): TemplateResult => html`
+  <div>${getBasicTemplate(args, 1)} ${getBasicTemplate(args, 2)} ${getBasicTemplate(args, 3)}</div>
+`;
 
-const TemplateMenuActionCustomIcon = (args): JSX.Element => (
+const TemplateMenuActionCustomIcon = (args): TemplateResult => html`
   <div>
-    {getBasicTemplate(args, 1, true)}
-    {getBasicTemplate(args, 2, false)}
-    {getBasicTemplate(args, 3, true)}
+    ${getBasicTemplate(args, 1, true)} ${getBasicTemplate(args, 2, false)}
+    ${getBasicTemplate(args, 3, true)}
   </div>
-);
+`;
 
 const text: InputType = {
   control: {
@@ -233,11 +229,13 @@ export const menuActionButtonEllipsis: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ 'background-color': 'var(--sbb-color-black-default)', width: '320px' }}>
-        <Story></Story>
+    (story) => html`
+      <div
+        style=${styleMap({ 'background-color': 'var(--sbb-color-black-default)', width: '320px' })}
+      >
+        ${story()}
       </div>
-    ),
+    `,
     withActions as Decorator,
   ],
   parameters: {

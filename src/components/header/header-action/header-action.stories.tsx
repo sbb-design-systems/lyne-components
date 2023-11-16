@@ -1,23 +1,25 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import './header-action';
 
-const TemplateSingle = (args): JSX.Element => (
-  <sbb-header-action {...args}>{args.text}</sbb-header-action>
-);
+const TemplateSingle = (args): TemplateResult => html`
+  <sbb-header-action ${sbbSpread(args)}>${args.text}</sbb-header-action>
+`;
 
-const TemplateMultiple = (args): JSX.Element => (
-  <div style={{ display: 'flex', gap: '2rem' }}>
-    <sbb-header-action {...args}>{args.text} 1</sbb-header-action>
-    <sbb-header-action {...args}>{args.text} 2</sbb-header-action>
-    <sbb-header-action {...args}>{args.text} 3</sbb-header-action>
+const TemplateMultiple = (args): TemplateResult => html`
+  <div style=${styleMap({ display: 'flex', gap: '2rem' })}>
+    <sbb-header-action ${sbbSpread(args)}>${args.text} 1</sbb-header-action>
+    <sbb-header-action ${sbbSpread(args)}>${args.text} 2</sbb-header-action>
+    <sbb-header-action ${sbbSpread(args)}>${args.text} 3</sbb-header-action>
   </div>
-);
+`;
 
 const text: InputType = {
   control: {
@@ -189,11 +191,7 @@ export const sbbHeaderActionButtonMultiple: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story) => html` <div style=${styleMap({ padding: '2rem' })}>${story()}</div> `,
     withActions as Decorator,
   ],
   parameters: {

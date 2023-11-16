@@ -1,7 +1,9 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
 import './logo';
@@ -12,7 +14,7 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
     : 'var(--sbb-color-white-default)',
 });
 
-const Template = (args): JSX.Element => <sbb-logo {...args}></sbb-logo>;
+const Template = (args): TemplateResult => html`<sbb-logo ${sbbSpread(args)}></sbb-logo>`;
 
 const negative: InputType = {
   control: {
@@ -75,11 +77,9 @@ export const Negative: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story, context) => (
-      <div style={{ ...wrapperStyle(context), 'max-width': '300px' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story, context) => html`
+      <div style=${styleMap({ ...wrapperStyle(context), 'max-width': '300px' })}>${story()}</div>
+    `,
   ],
   parameters: {
     docs: {

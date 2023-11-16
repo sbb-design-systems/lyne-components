@@ -1,7 +1,9 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
 import './divider';
@@ -12,11 +14,11 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
     : 'var(--sbb-color-white-default)',
 });
 
-const Template = (args): JSX.Element => (
-  <div style={{ height: '340px', padding: '20px' }}>
-    <sbb-divider {...args}></sbb-divider>
+const Template = (args): TemplateResult => html`
+  <div style=${styleMap({ height: '340px', padding: '20px' })}>
+    <sbb-divider ${sbbSpread(args)}></sbb-divider>
   </div>
-);
+`;
 
 const orientation: InputType = {
   control: {
@@ -70,11 +72,7 @@ export const dividerNegative: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story, context) => (
-      <div style={wrapperStyle(context)}>
-        <Story></Story>
-      </div>
-    ),
+    (story, context) => html` <div style=${styleMap(wrapperStyle(context))}>${story()}</div> `,
   ],
   parameters: {
     backgrounds: {

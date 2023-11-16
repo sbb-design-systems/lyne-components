@@ -1,13 +1,14 @@
-/** @jsx h */
 import { userEvent, within } from '@storybook/testing-library';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { Fragment, h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../core/dom';
 
 import type { SbbLoadingIndicator } from './loading-indicator';
 import readme from './readme.md?raw';
-
 import '../button';
 import './loading-indicator';
 
@@ -30,11 +31,11 @@ const createLoadingIndicator = (args): void => {
   loader.setAttribute('aria-label', 'Loading, please wait');
   loader.size = args['size'];
   loader.variant = args['variant'];
-  document.querySelector('.loader-container').append(loader);
+  document.querySelector('.loader-container')!.append(loader);
   setTimeout(() => {
     const p = document.createElement('p');
     p.textContent = "Loading complete. Here's your data: . . . ";
-    document.querySelector('.loader-container').append(p);
+    document.querySelector('.loader-container')!.append(p);
     loader.remove();
   }, 5000);
 };
@@ -45,47 +46,47 @@ const playStory = async ({ canvasElement }): Promise<void> => {
   await new Promise((resolve) => setTimeout(resolve, 2000));
 };
 
-const TemplateAccessibility = (args): JSX.Element => (
-  <Fragment>
-    <div style={textBlockStyle}>
-      Turn on your screen-reader and click the button to make the loading indicator appear.
-    </div>
-    <sbb-button data-testid="trigger" onClick={() => createLoadingIndicator(args)}>
-      Show loader
-    </sbb-button>
-    <div class="loader-container" aria-live="polite"></div>
-  </Fragment>
-);
-
-const Template = (args): JSX.Element => <sbb-loading-indicator {...args}></sbb-loading-indicator>;
-
-const NegativeTemplate = (args): JSX.Element => (
-  <div style={negativeBlockStyle}>
-    <sbb-loading-indicator {...args}></sbb-loading-indicator>
+const TemplateAccessibility = (args): TemplateResult => html`
+  <div style=${styleMap(textBlockStyle)}>
+    Turn on your screen-reader and click the button to make the loading indicator appear.
   </div>
-);
+  <sbb-button data-testid="trigger" @click=${() => createLoadingIndicator(args)}>
+    Show loader
+  </sbb-button>
+  <div class="loader-container" aria-live="polite"></div>
+`;
 
-const InlineTemplate = (args): JSX.Element => (
+const Template = (args): TemplateResult => html`
+  <sbb-loading-indicator ${sbbSpread(args)}></sbb-loading-indicator>
+`;
+
+const NegativeTemplate = (args): TemplateResult => html`
+  <div style=${styleMap(negativeBlockStyle)}>
+    <sbb-loading-indicator ${sbbSpread(args)}></sbb-loading-indicator>
+  </div>
+`;
+
+const InlineTemplate = (args): TemplateResult => html`
   <div>
     <p>
-      <sbb-loading-indicator {...args}></sbb-loading-indicator> Inline loading indicator
+      <sbb-loading-indicator ${sbbSpread(args)}></sbb-loading-indicator> Inline loading indicator
     </p>
     <h2>
-      <sbb-loading-indicator {...args}></sbb-loading-indicator> Adaptive to font size
+      <sbb-loading-indicator ${sbbSpread(args)}></sbb-loading-indicator> Adaptive to font size
     </h2>
   </div>
-);
+`;
 
-const NegativeInlineTemplate = (args): JSX.Element => (
-  <div style={negativeBlockStyle}>
+const NegativeInlineTemplate = (args): TemplateResult => html`
+  <div style=${styleMap(negativeBlockStyle)}>
     <p>
-      <sbb-loading-indicator {...args}></sbb-loading-indicator> Inline loading indicator
+      <sbb-loading-indicator ${sbbSpread(args)}></sbb-loading-indicator> Inline loading indicator
     </p>
     <h2>
-      <sbb-loading-indicator {...args}></sbb-loading-indicator> Adaptive to font size
+      <sbb-loading-indicator ${sbbSpread(args)}></sbb-loading-indicator> Adaptive to font size
     </h2>
   </div>
-);
+`;
 
 const variant: InputType = {
   control: {
@@ -186,7 +187,7 @@ export const Accessibility: StoryObj = {
   render: TemplateAccessibility,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options[1] },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const NoAnimation: StoryObj = {
@@ -196,13 +197,7 @@ export const NoAnimation: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
-  ],
+  decorators: [(story) => html` <div style=${styleMap({ padding: '2rem' })}>${story()}</div> `],
   parameters: {
     backgrounds: {
       disable: true,

@@ -1,10 +1,13 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import { Fragment, h, type JSX } from 'jsx-dom';
+import { html, nothing, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
+
 import './checkbox-group';
 import '../checkbox';
 import '../../form-error';
@@ -15,27 +18,33 @@ lacus sollicitudin, quis malesuada lorem vehicula. Suspendisse at augue quis tel
 velit, varius nec est ac, mollis efficitur lorem. Quisque non nisl eget massa interdum tempus. Praesent vel feugiat
 metus.`;
 
-const checkboxes = (checked, disabledSingle, iconName, iconPlacement, label): JSX.Element[] => [
+const checkboxes = (
+  checked,
+  disabledSingle,
+  iconName,
+  iconPlacement,
+  label,
+): TemplateResult => html`
   <sbb-checkbox
     value="checkbox-1"
-    checked={checked}
-    icon-name={iconName}
-    icon-placement={iconPlacement}
+    ?checked=${checked}
+    icon-name=${iconName}
+    icon-placement=${iconPlacement}
   >
-    {label} 1
-  </sbb-checkbox>,
+    ${label} 1
+  </sbb-checkbox>
   <sbb-checkbox
     value="checkbox-2"
-    disabled={disabledSingle}
-    icon-name={iconName}
-    icon-placement={iconPlacement}
+    ?disabled=${disabledSingle}
+    icon-name=${iconName}
+    icon-placement=${iconPlacement}
   >
-    {label} 2
-  </sbb-checkbox>,
-  <sbb-checkbox value="checkbox-3" icon-name={iconName} icon-placement={iconPlacement}>
-    {label} 3
-  </sbb-checkbox>,
-];
+    ${label} 2
+  </sbb-checkbox>
+  <sbb-checkbox value="checkbox-3" icon-name=${iconName} icon-placement=${iconPlacement}>
+    ${label} 3
+  </sbb-checkbox>
+`;
 
 const DefaultTemplate = ({
   checked,
@@ -44,11 +53,11 @@ const DefaultTemplate = ({
   iconPlacement,
   label,
   ...args
-}): JSX.Element => (
-  <sbb-checkbox-group {...args}>
-    {checkboxes(checked, disabledSingle, iconName, iconPlacement, label)}
+}: Args): TemplateResult => html`
+  <sbb-checkbox-group ${sbbSpread(args)}>
+    ${checkboxes(checked, disabledSingle, iconName, iconPlacement, label)}
   </sbb-checkbox-group>
-);
+`;
 
 const ErrorMessageTemplate = ({
   checked,
@@ -57,12 +66,14 @@ const ErrorMessageTemplate = ({
   iconPlacement,
   label,
   ...args
-}): JSX.Element => (
-  <sbb-checkbox-group {...args} id="sbb-checkbox-group">
-    {checkboxes(checked, disabledSingle, iconName, iconPlacement, label)}
-    {args.required && <sbb-form-error slot="error">This is a required field.</sbb-form-error>}
+}: Args): TemplateResult => html`
+  <sbb-checkbox-group ${sbbSpread(args)} id="sbb-checkbox-group">
+    ${checkboxes(checked, disabledSingle, iconName, iconPlacement, label)}
+    ${args.required
+      ? html`<sbb-form-error slot="error">This is a required field.</sbb-form-error>`
+      : nothing}
   </sbb-checkbox-group>
-);
+`;
 
 let selectedCheckboxes = ['checkbox-1'];
 
@@ -74,10 +85,10 @@ const childCheck = (event): void => {
   }
   document
     .getElementById('parent')
-    .setAttribute('indeterminate', String(selectedCheckboxes.length === 1));
+    ?.setAttribute('indeterminate', String(selectedCheckboxes.length === 1));
   document
     .getElementById('parent')
-    .setAttribute('checked', String(selectedCheckboxes.length === 2));
+    ?.setAttribute('checked', String(selectedCheckboxes.length === 2));
 };
 
 const parentCheck = (event): void => {
@@ -86,8 +97,8 @@ const parentCheck = (event): void => {
   } else {
     selectedCheckboxes = [];
   }
-  document.getElementById('checkbox-1').setAttribute('checked', event.target.checked);
-  document.getElementById('checkbox-2').setAttribute('checked', event.target.checked);
+  document.getElementById('checkbox-1')?.setAttribute('checked', event.target.checked);
+  document.getElementById('checkbox-2')?.setAttribute('checked', event.target.checked);
 };
 
 const IndeterminateGroupTemplate = ({
@@ -96,50 +107,48 @@ const IndeterminateGroupTemplate = ({
   iconPlacement,
   label,
   ...args
-}): JSX.Element => (
-  <Fragment>
-    <div style={{ 'margin-block-end': '1rem' }}>
-      <div>Check/uncheck all the children checkboxes and the parent will be checked/unchecked.</div>
-      <div>Check a single child and the parent will be indeterminate.</div>
-    </div>
-    <sbb-checkbox-group {...args} id="sbb-checkbox-group">
-      <sbb-checkbox
-        id="parent"
-        value="parent"
-        checked={false}
-        indeterminate={true}
-        onChange={(event) => parentCheck(event)}
-        icon-name={iconName}
-        icon-placement={iconPlacement}
-      >
-        Parent checkbox
-      </sbb-checkbox>
-      <sbb-checkbox
-        id="checkbox-1"
-        value="checkbox-1"
-        checked={true}
-        onChange={(event) => childCheck(event)}
-        icon-name={iconName}
-        icon-placement={iconPlacement}
-        disabled={disabledSingle}
-        style={{ 'margin-inline-start': '2rem' }}
-      >
-        {label} option 1
-      </sbb-checkbox>
-      <sbb-checkbox
-        id="checkbox-2"
-        value="checkbox-2"
-        checked={false}
-        onChange={(event) => childCheck(event)}
-        icon-name={iconName}
-        icon-placement={iconPlacement}
-        style={{ 'margin-inline-start': '2rem' }}
-      >
-        {label} option 2
-      </sbb-checkbox>
-    </sbb-checkbox-group>
-  </Fragment>
-);
+}: Args): TemplateResult => html`
+  <div style=${styleMap({ 'margin-block-end': '1rem' })}>
+    <div>Check/uncheck all the children checkboxes and the parent will be checked/unchecked.</div>
+    <div>Check a single child and the parent will be indeterminate.</div>
+  </div>
+  <sbb-checkbox-group ${sbbSpread(args)} id="sbb-checkbox-group">
+    <sbb-checkbox
+      id="parent"
+      value="parent"
+      ?checked=${false}
+      ?indeterminate=${true}
+      @change=${(event) => parentCheck(event)}
+      icon-name=${iconName}
+      icon-placement=${iconPlacement}
+    >
+      Parent checkbox
+    </sbb-checkbox>
+    <sbb-checkbox
+      id="checkbox-1"
+      value="checkbox-1"
+      ?checked=${true}
+      @change=${(event) => childCheck(event)}
+      icon-name=${iconName}
+      icon-placement=${iconPlacement}
+      ?disabled=${disabledSingle}
+      style=${styleMap({ 'margin-inline-start': '2rem' })}
+    >
+      ${label} option 1
+    </sbb-checkbox>
+    <sbb-checkbox
+      id="checkbox-2"
+      value="checkbox-2"
+      ?checked=${false}
+      @change=${(event) => childCheck(event)}
+      icon-name=${iconName}
+      icon-placement=${iconPlacement}
+      style=${styleMap({ 'margin-inline-start': '2rem' })}
+    >
+      ${label} option 2
+    </sbb-checkbox>
+  </sbb-checkbox-group>
+`;
 
 const disabled: InputType = {
   control: {
@@ -356,20 +365,13 @@ export const verticalWithSbbFormError: StoryObj = {
 
 export const indeterminateGroup: StoryObj = {
   render: IndeterminateGroupTemplate,
-  argTypes: { ...basicArgTypes },
-  args: { ...basicArgsVertical },
+  argTypes: { ...basicArgTypes, checked: undefined },
+  args: { ...basicArgsVertical, checked: undefined },
 };
-
-delete indeterminateGroup.args.checked;
-delete indeterminateGroup.argTypes.checked;
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story) => html` <div style=${styleMap({ padding: '2rem' })}>${story()}</div> `,
     withActions as Decorator,
   ],
   parameters: {

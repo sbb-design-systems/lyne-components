@@ -1,7 +1,9 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
 import './map-container';
@@ -24,47 +26,49 @@ const defaultArgs: Args = {
   'hide-scroll-up-button': false,
 };
 
-const Template = (args): JSX.Element => (
-  <sbb-map-container {...args}>
-    <div style={{ padding: 'var(--sbb-spacing-fixed-4x)' }}>
-      <sbb-form-field style={{ width: '100%' }}>
+const Template = (args): TemplateResult => html`
+  <sbb-map-container ${sbbSpread(args)}>
+    <div style=${styleMap({ padding: 'var(--sbb-spacing-fixed-4x)' })}>
+      <sbb-form-field style=${styleMap({ width: '100%' })}>
         <sbb-icon slot="prefix" name="magnifying-glass-small"></sbb-icon>
-        <input minLength={2} name="keyword" autocomplete="off" placeholder="Search" />
+        <input minlength=${2} name="keyword" autocomplete="off" placeholder="Search" />
         <sbb-icon slot="suffix" name="cross-medium"></sbb-icon>
       </sbb-form-field>
       <sbb-title level="4">Operations & Disruptions</sbb-title>
-      {[...Array(10).keys()].map((value) => (
-        <div
-          style={{
-            'background-color': 'var(--sbb-color-milk-default)',
-            height: '116px',
-            display: 'flex',
-            'align-items': 'center',
-            'justify-content': 'center',
-            'border-radius': 'var(--sbb-border-radius-4x)',
-            'margin-block-end': 'var(--sbb-spacing-fixed-4x)',
-          }}
-        >
-          <p>Situation {value}</p>
-        </div>
-      ))}
+      ${[...Array(10).keys()].map(
+        (value) => html`
+          <div
+            style=${styleMap({
+              'background-color': 'var(--sbb-color-milk-default)',
+              height: '116px',
+              display: 'flex',
+              'align-items': 'center',
+              'justify-content': 'center',
+              'border-radius': 'var(--sbb-border-radius-4x)',
+              'margin-block-end': 'var(--sbb-spacing-fixed-4x)',
+            })}
+          >
+            <p>Situation ${value}</p>
+          </div>
+        `,
+      )}
     </div>
 
-    <div slot="map" style={{ height: '100%' }}>
+    <div slot="map" style=${styleMap({ height: '100%' })}>
       <div
-        style={{
+        style=${styleMap({
           'background-color': 'grey',
           height: '100%',
           display: 'flex',
           'align-items': 'center',
           'justify-content': 'center',
-        }}
+        })}
       >
         map
       </div>
     </div>
   </sbb-map-container>
-);
+`;
 
 export const MapContainer: StoryObj = {
   render: Template,
@@ -76,16 +80,16 @@ export const MapContainer: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
+    (story) => html`
       <div>
         <sbb-header expanded hide-on-scroll>
           <sbb-header-action icon-name="hamburger-menu-small" expand-from="small">
             Menu
           </sbb-header-action>
         </sbb-header>
-        <Story></Story>
+        ${story()}
       </div>
-    ),
+    `,
   ],
   parameters: {
     chromatic: { disableSnapshot: false },

@@ -1,7 +1,9 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
 import './journey-header';
@@ -68,7 +70,8 @@ const defaultArgs: Args = {
   negative: false,
 };
 
-const Template = (args): JSX.Element => <sbb-journey-header {...args}></sbb-journey-header>;
+const Template = (args): TemplateResult =>
+  html`<sbb-journey-header ${sbbSpread(args)}></sbb-journey-header>`;
 
 export const SizeM: StoryObj = {
   render: Template,
@@ -119,11 +122,9 @@ export const SizeLRoundTripShortText: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story, context) => (
-      <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story, context) => html`
+      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
+    `,
   ],
   parameters: {
     docs: {

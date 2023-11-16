@@ -1,4 +1,3 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type {
@@ -9,7 +8,10 @@ import type {
   Args,
   StoryContext,
 } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import './form-field-clear';
@@ -57,13 +59,13 @@ const basicArgs: Args = {
   readonly: false,
 };
 
-const DefaultTemplate = ({ negative, ...args }): JSX.Element => (
-  <sbb-form-field label="Label" negative={negative}>
+const DefaultTemplate = ({ negative, ...args }: Args): TemplateResult => html`
+  <sbb-form-field label="Label" ?negative=${negative}>
     <sbb-icon slot="prefix" name="pie-small"></sbb-icon>
-    <input type="text" placeholder="Input placeholder" value="Input value" {...args} />
+    <input type="text" placeholder="Input placeholder" value="Input value" ${sbbSpread(args)} />
     <sbb-form-field-clear></sbb-form-field-clear>
   </sbb-form-field>
-);
+`;
 
 export const Default: StoryObj = {
   render: DefaultTemplate,
@@ -103,11 +105,9 @@ export const ReadonlyNegative: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story, context) => (
-      <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story, context) => html`
+      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
+    `,
     withActions as Decorator,
   ],
   parameters: {

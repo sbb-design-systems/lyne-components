@@ -845,9 +845,8 @@ declare global {
     mutator.insertAt(node, codeToAdd.join('\n') + '\n\n');
   }
 
-  function migrateStories(sourceFile: ts.SourceFile, mutator: MyMagicString, args: any) {
+  function migrateStories(sourceFile: ts.SourceFile, mutator: MyMagicString) {
     let lastImport: ts.ImportDeclaration | undefined = undefined;
-    const componentName = toPascalCase(args.component);
     const jsxTemplates: ts.JsxElement[] = [];
     const newImports = new Map<string, string[]>()
       .set('lit', ['html', 'TemplateResult'])
@@ -896,9 +895,8 @@ declare global {
   }
 
   // prettier-ignore
-  function migrateSpec(sourceFile: ts.SourceFile, mutator: MyMagicString, args: any) {
+  function migrateSpec(sourceFile: ts.SourceFile, mutator: MyMagicString) {
     let lastImport: ts.ImportDeclaration | undefined = undefined;
-    const componentName = toPascalCase(args.component);
     const unitTests: ts.CallExpression[] = [];
 
     iterate(sourceFile, (node) => {

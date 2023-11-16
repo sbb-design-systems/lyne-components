@@ -1,8 +1,10 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
 
@@ -14,7 +16,7 @@ const dataNow: InputType = {
   },
 };
 
-const Template = (args): JSX.Element => <sbb-clock {...args}></sbb-clock>;
+const Template = (args): TemplateResult => html`<sbb-clock ${sbbSpread(args)}></sbb-clock>`;
 
 export const Default: StoryObj = {
   render: Template,
@@ -40,11 +42,7 @@ if (isChromatic()) {
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ 'max-width': '600px' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story) => html` <div style=${styleMap({ 'max-width': '600px' })}>${story()}</div> `,
   ],
   parameters: {
     docs: {

@@ -1,12 +1,14 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
 import './icon';
 
-const Template = (args): JSX.Element => <sbb-icon {...args}></sbb-icon>;
+const Template = (args): TemplateResult => html`<sbb-icon ${sbbSpread(args)}></sbb-icon>`;
 
 const iconName: InputType = {
   control: {
@@ -34,13 +36,7 @@ export const Default: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
-  ],
+  decorators: [(story) => html` <div style=${styleMap({ padding: '2rem' })}>${story()}</div> `],
   parameters: {
     backgrounds: {
       disable: true,

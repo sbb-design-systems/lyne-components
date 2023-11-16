@@ -12,7 +12,7 @@ import readme from './readme.md?raw';
 import '../alert';
 
 const Template = (args): TemplateResult => html`
-  <sbb-alert-group ${sbbSpread({ ...args })}>
+  <sbb-alert-group ${sbbSpread(args)}>
     <sbb-alert
       title-content="Interruption between Genève and Lausanne"
       href="https://www.sbb.ch"

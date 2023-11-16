@@ -1,8 +1,10 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import { StoryContext } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import './form-field';
@@ -17,12 +19,12 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
     : 'var(--sbb-color-white-default)',
 });
 
-const TooltipTrigger = (): JSX.Element[] => [
+const TooltipTrigger = (): TemplateResult => html`
   <sbb-tooltip-trigger
     slot="suffix"
     id="tooltip-trigger"
     icon-name="circle-information-small"
-  ></sbb-tooltip-trigger>,
+  ></sbb-tooltip-trigger>
   <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger">
     <span id="tooltip-content" class="sbb-text-s">
       Simple info tooltip.
@@ -36,26 +38,26 @@ const TooltipTrigger = (): JSX.Element[] => [
         Learn More
       </sbb-link>
     </span>
-  </sbb-tooltip>,
-];
+  </sbb-tooltip>
+`;
 
-const TemplateBasicInput = (args): JSX.Element => (
+const TemplateBasicInput = (args): TemplateResult => html`
   <input
-    class={args.class}
-    placeholder={args.placeholder}
-    disabled={args.disabled}
-    readonly={args.readonly}
-    value={args.value}
+    class=${args.class}
+    placeholder=${args.placeholder}
+    ?disabled=${args.disabled}
+    ?readonly=${args.readonly}
+    value=${args.value}
   />
-);
+`;
 
-const TemplateBasicSelect = (args): JSX.Element => (
-  <select class={args.class} disabled={args.disabled}>
+const TemplateBasicSelect = (args): TemplateResult => html`
+  <select class=${args.class} ?disabled=${args.disabled}>
     <option value="1">Value 1</option>
     <option value="2">Value 2</option>
     <option value="3">Value 3</option>
   </select>
-);
+`;
 
 const TemplateInput = ({
   'error-space': errorSpace,
@@ -67,20 +69,20 @@ const TemplateInput = ({
   negative,
   'floating-label': floatingLabel,
   ...args
-}): JSX.Element => (
+}: Args): TemplateResult => html`
   <sbb-form-field
-    error-space={errorSpace}
-    label={label}
-    optional={optional}
-    size={size}
-    borderless={borderless}
-    width={width}
-    floating-label={floatingLabel}
-    negative={negative}
+    error-space=${errorSpace}
+    label=${label}
+    ?optional=${optional}
+    size=${size}
+    ?borderless=${borderless}
+    width=${width}
+    ?floating-label=${floatingLabel}
+    ?negative=${negative}
   >
-    {TemplateBasicInput(args)}
+    ${TemplateBasicInput(args)}
   </sbb-form-field>
-);
+`;
 
 const TemplateInputWithSlottedLabel = ({
   'error-space': errorSpace,
@@ -92,164 +94,169 @@ const TemplateInputWithSlottedLabel = ({
   negative,
   'floating-label': floatingLabel,
   ...args
-}): JSX.Element => (
+}: Args): TemplateResult => html`
   <sbb-form-field
-    error-space={errorSpace}
-    optional={optional}
-    size={size}
-    borderless={borderless}
-    width={width}
-    floating-label={floatingLabel}
-    negative={negative}
+    error-space=${errorSpace}
+    ?optional=${optional}
+    size=${size}
+    ?borderless=${borderless}
+    width=${width}
+    ?floating-label=${floatingLabel}
+    ?negative=${negative}
   >
-    <span slot="label">{label}</span>
-    {TemplateBasicInput(args)}
+    <span slot="label">${label}</span>
+    ${TemplateBasicInput(args)}
   </sbb-form-field>
-);
+`;
 
-const TemplateInputWithErrorSpace = (args): JSX.Element => {
-  const sbbFormError = <sbb-form-error>{args.errortext}</sbb-form-error>;
-
-  return (
+const TemplateInputWithErrorSpace = (args): TemplateResult => {
+  return html`
     <form>
       <div>
         <sbb-form-field
           id="sbb-form-field"
-          error-space={args['error-space']}
-          label={args.label}
-          optional={args.optional}
-          size={args.size}
-          borderless={args.borderless}
-          width={args.width}
-          floating-label={args['floating-label']}
-          negative={args.negative}
+          error-space=${args['error-space']}
+          label=${args.label}
+          ?optional=${args.optional}
+          size=${args.size}
+          ?borderless=${args.borderless}
+          width=${args.width}
+          ?floating-label=${args['floating-label']}
+          ?negative=${args.negative}
         >
           <input
             id="sbb-form-field-input"
-            onKeyUp={(event) => {
+            @keyup=${(event) => {
               if ((event.currentTarget as HTMLInputElement).value !== '') {
-                sbbFormError.remove();
-                document.getElementById('sbb-form-field-input').classList.remove(args.class);
+                document.getElementById('sbb-form-error')!.style.display = 'none';
+                document.getElementById('sbb-form-field-input')!.classList.remove(args.class);
               } else {
-                document.getElementById('sbb-form-field').append(sbbFormError);
-                document.getElementById('sbb-form-field-input').classList.add(args.class);
+                document.getElementById('sbb-form-error')!.style.display = '';
+                document.getElementById('sbb-form-field-input')!.classList.add(args.class);
               }
             }}
-            class={args.class}
-            placeholder={args.placeholder}
-            disabled={args.disabled}
-            readonly={args.readonly}
+            class=${args.class}
+            placeholder=${args.placeholder}
+            ?disabled=${args.disabled}
+            ?readonly=${args.readonly}
           />
-          {sbbFormError}
+          <sbb-form-error>${args.errortext}</sbb-form-error>
         </sbb-form-field>
       </div>
-      <div style={{ color: 'var(--sbb-color-smoke-default)' }}>
+      <div style=${styleMap({ color: 'var(--sbb-color-smoke-default)' })}>
         Some text, right below the form-field, inside a div.
       </div>
     </form>
-  );
+  `;
 };
 
-const TemplateInputWithIcons = (args): JSX.Element => (
-  <sbb-form-field {...args}>
+const TemplateInputWithIcons = (args): TemplateResult => html`
+  <sbb-form-field ${sbbSpread(args)}>
     <sbb-icon slot="prefix" name="pie-small"></sbb-icon>
-    {TemplateBasicInput(args)}
-    {TooltipTrigger()}
+    ${TemplateBasicInput(args)} ${TooltipTrigger()}
   </sbb-form-field>
-);
+`;
 
-const TemplateInputWithButton = ({ disabled, readonly, active, ...args }): JSX.Element => (
-  <sbb-form-field {...args}>
-    {TemplateBasicInput({ ...args, disabled, readonly })}
+const TemplateInputWithButton = ({
+  disabled,
+  readonly,
+  active,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-form-field ${sbbSpread(args)}>
+    ${TemplateBasicInput({ ...args, disabled, readonly })}
     <sbb-button
       slot="suffix"
       icon-name="pie-small"
-      disabled={disabled || readonly}
+      ?disabled=${disabled || readonly}
       aria-label="Input button"
-      data-active={active}
+      data-active=${active}
     ></sbb-button>
   </sbb-form-field>
-);
+`;
 
-const TemplateInputWithClearButton = ({ disabled, readonly, active, ...args }): JSX.Element => (
-  <sbb-form-field {...args}>
-    {TemplateBasicInput({ ...args, disabled, readonly })}
-    <sbb-form-field-clear data-active={active}></sbb-form-field-clear>
+const TemplateInputWithClearButton = ({
+  disabled,
+  readonly,
+  active,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-form-field ${sbbSpread(args)}>
+    ${TemplateBasicInput({ ...args, disabled, readonly })}
+    <sbb-form-field-clear data-active=${active}></sbb-form-field-clear>
   </sbb-form-field>
-);
+`;
 
-const TemplateSelect = (args): JSX.Element => (
+const TemplateSelect = (args): TemplateResult => html`
   <sbb-form-field
-    error-space={args['error-space']}
-    label={args.label}
-    optional={args.optional}
-    size={args.size}
-    borderless={args.borderless}
-    width={args.width}
-    floating-label={args['floating-label']}
-    negative={args.negative}
+    error-space=${args['error-space']}
+    label=${args.label}
+    ?optional=${args.optional}
+    size=${args.size}
+    ?borderless=${args.borderless}
+    width=${args.width}
+    ?floating-label=${args['floating-label']}
+    ?negative=${args.negative}
   >
-    {TemplateBasicSelect(args)}
+    ${TemplateBasicSelect(args)}
   </sbb-form-field>
-);
+`;
 
-const TemplateSelectWithErrorSpace = (args): JSX.Element => {
-  const sbbFormError = <sbb-form-error>{args.errortext}</sbb-form-error>;
-
-  return (
+const TemplateSelectWithErrorSpace = (args): TemplateResult => {
+  return html`
     <form>
       <div>
         <sbb-form-field
           id="sbb-form-field"
-          error-space={args['error-space']}
-          label={args.label}
-          optional={args.optional}
-          size={args.size}
-          borderless={args.borderless}
-          width={args.width}
-          floating-label={args['floating-label']}
-          negative={args.negative}
+          error-space=${args['error-space']}
+          label=${args.label}
+          ?optional=${args.optional}
+          size=${args.size}
+          ?borderless=${args.borderless}
+          width=${args.width}
+          ?floating-label=${args['floating-label']}
+          ?negative=${args.negative}
         >
           <select
             id="sbb-form-field-input"
-            onChange={(event) => {
+            @change=${(event) => {
               if ((event.currentTarget as HTMLSelectElement).value !== '') {
-                sbbFormError.remove();
-                document.getElementById('sbb-form-field-input').classList.remove(args.class);
+                document.getElementById('sbb-form-error')!.style.display = 'none';
+                document.getElementById('sbb-form-field-input')!.classList.remove(args.class);
               } else {
-                document.getElementById('sbb-form-field').append(sbbFormError);
-                document.getElementById('sbb-form-field-input').classList.add(args.class);
+                document.getElementById('sbb-form-error')!.style.display = '';
+                document.getElementById('sbb-form-field-input')!.classList.add(args.class);
               }
             }}
-            class={args.class}
-            disabled={args.disabled}
+            class=${args.class}
+            ?disabled=${args.disabled}
           >
             <option value="0"></option>
             <option value="1">Value 1</option>
             <option value="2">Value 2</option>
             <option value="3">Value 3</option>
           </select>
-          {sbbFormError}
+          <sbb-form-error>${args.errortext}</sbb-form-error>;
         </sbb-form-field>
       </div>
       <div>
-        <div style={{ color: 'var(--sbb-color-smoke-default)' }}>
+        <div style=${styleMap({ color: 'var(--sbb-color-smoke-default)' })}>
           Some text, right below the form-field, inside a div.
         </div>
       </div>
     </form>
-  );
+  `;
 };
 
-const TemplateSelectWithIcons = (args): JSX.Element => (
-  <sbb-form-field {...args}>
+const TemplateSelectWithIcons = (args): TemplateResult => html`
+  <sbb-form-field ${sbbSpread(args)}>
     <span slot="prefix">
       <sbb-icon name="pie-small"></sbb-icon>
     </span>
-    {TemplateBasicSelect(args)}
-    <span slot="suffix">{TooltipTrigger()}</span>
+    ${TemplateBasicSelect(args)}
+    <span slot="suffix">${TooltipTrigger()}</span>
   </sbb-form-field>
-);
+`;
 
 const placeholderArg: InputType = {
   control: {
@@ -758,11 +765,9 @@ export const InputWithIconsDisabledNegative: StoryObj = {
 const meta: Meta = {
   excludeStories: /.*(Active|ActiveNegative)$/,
   decorators: [
-    (Story, context) => (
-      <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story, context) => html`
+      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
+    `,
   ],
   parameters: {
     backgrounds: {

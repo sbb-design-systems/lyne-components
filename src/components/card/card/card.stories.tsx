@@ -1,9 +1,17 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import { StoryContext } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import type {
+  Meta,
+  StoryObj,
+  ArgTypes,
+  Args,
+  Decorator,
+  StoryContext,
+} from '@storybook/web-components';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import './card';
@@ -20,66 +28,72 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
         : '--sbb-color-platinum-default',
 });
 
-const ContentText = (): JSX.Element => (
+const ContentText = (): TemplateResult => html`
   <span class="sbb-text-m">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor blandit odio, ut
     blandit libero cursus vel. Nunc eu congue mauris. Quisque sed facilisis leo. Curabitur
     malesuada, nibh ac blandit vehicula, urna sem scelerisque magna, sed tincidunt neque arcu ac
     justo.
   </span>
-);
+`;
 
-const Content = (): JSX.Element[] => [<sbb-title level="4">Example text</sbb-title>, ContentText()];
+const Content = (): TemplateResult => html`
+  <sbb-title level="4">Example text</sbb-title>
+  ${ContentText()}
+`;
 
-const Template = ({ size, color }): JSX.Element => (
-  <sbb-card {...{ size, color }}>{Content()}</sbb-card>
-);
+const Template = ({ size, color }: Args): TemplateResult => html`
+  <sbb-card ${sbbSpread({ size, color })}> ${Content()} </sbb-card>
+`;
 
-const TemplateWithBadge = ({ size, color }): JSX.Element => (
-  <sbb-card {...{ size, color }}>
+const TemplateWithBadge = ({ size, color }: Args): TemplateResult => html`
+  <sbb-card ${sbbSpread({ size, color })}>
     <sbb-card-badge>
       <span>%</span>
       <span>from CHF</span>
       <span>19.99</span>
     </sbb-card-badge>
-    {Content()}
+    ${Content()}
   </sbb-card>
-);
+`;
 
-const TemplateCardAction = ({ size, color, label, ...args }): JSX.Element => (
-  <sbb-card {...{ size, color }}>
-    <sbb-card-action {...args}>{label}</sbb-card-action>
-    {Content()}
+const TemplateCardAction = ({ size, color, label, ...args }: Args): TemplateResult => html`
+  <sbb-card ${sbbSpread({ size, color })}>
+    <sbb-card-action ${sbbSpread(args)}>${label}</sbb-card-action>
+    ${Content()}
   </sbb-card>
-);
+`;
 
-const TemplateCardActionFixedHeight = ({ size, color, label, ...args }): JSX.Element => (
-  <sbb-card {...{ size, color }} style={{ height: '250px' }}>
-    <sbb-card-action {...args}>{label}</sbb-card-action>
-    {Content()}
+const TemplateCardActionFixedHeight = ({
+  size,
+  color,
+  label,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-card ${sbbSpread({ size, color })} style=${styleMap({ height: '250px' })}>
+    <sbb-card-action ${sbbSpread(args)}>${label}</sbb-card-action>
+    ${Content()}
   </sbb-card>
-);
+`;
 
-const TemplateCardActionWithBadge = ({ size, color, label, ...args }): JSX.Element => (
-  <sbb-card {...{ size, color }}>
-    <sbb-card-action {...args}>{label}</sbb-card-action>
+const TemplateCardActionWithBadge = ({ size, color, label, ...args }: Args): TemplateResult => html`
+  <sbb-card ${sbbSpread({ size, color })}>
+    <sbb-card-action ${sbbSpread(args)}>${label}</sbb-card-action>
     <sbb-card-badge>
       <span>%</span>
       <span>from CHF</span>
       <span>19.99</span>
     </sbb-card-badge>
-    {Content()}
+    ${Content()}
   </sbb-card>
-);
+`;
 
-const TemplateCardActionMultipleCards = (args): JSX.Element => (
-  <div style={{ display: 'flex', gap: '1rem' }}>
-    {TemplateCardActionWithBadge(args)}
-    {TemplateCardActionWithBadge({ ...args, active: true })}
-    {TemplateCardActionWithBadge(args)}
-    {TemplateCardActionWithBadge(args)}
+const TemplateCardActionMultipleCards = (args): TemplateResult => html`
+  <div style=${styleMap({ display: 'flex', gap: '1rem' })}>
+    ${TemplateCardActionWithBadge(args)} ${TemplateCardActionWithBadge({ ...args, active: true })}
+    ${TemplateCardActionWithBadge(args)} ${TemplateCardActionWithBadge(args)}
   </div>
-);
+`;
 
 const size: InputType = {
   control: {
@@ -465,11 +479,9 @@ export const Multiple: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story, context) => (
-      <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story, context) => html`
+      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
+    `,
     withActions as Decorator,
   ],
   parameters: {

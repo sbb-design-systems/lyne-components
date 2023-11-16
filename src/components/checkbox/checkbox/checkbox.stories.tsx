@@ -1,8 +1,10 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import './checkbox';
@@ -102,9 +104,9 @@ const defaultArgs: Args = {
 /* Storybook templates                               */
 /* ************************************************* */
 
-const Template = ({ label, ...args }): JSX.Element => (
-  <sbb-checkbox {...args}>{label}</sbb-checkbox>
-);
+const Template = ({ label, ...args }: Args): TemplateResult => html`
+  <sbb-checkbox ${sbbSpread(args)}>${label}</sbb-checkbox>
+`;
 
 export const defaultUnchecked: StoryObj = {
   render: Template,
@@ -192,11 +194,7 @@ export const disabledIndeterminate: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story) => html` <div style=${styleMap({ padding: '2rem' })}>${story()}</div> `,
     withActions as Decorator,
   ],
   parameters: {

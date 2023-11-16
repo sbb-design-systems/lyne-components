@@ -1,15 +1,17 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 
+import { sbbSpread } from '../core/dom';
 import images from '../core/images';
 
 import readme from './readme.md?raw';
+
 import './image';
 
-const Template = (args): JSX.Element => <sbb-image {...args}></sbb-image>;
+const Template = (args): TemplateResult => html`<sbb-image ${sbbSpread(args)}></sbb-image>`;
 
 const imageSrc: InputType = {
   control: {
@@ -185,11 +187,7 @@ export const NoCaptionNoRadius: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ 'max-width': '1000px' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story) => html` <div style=${styleMap({ 'max-width': '1000px' })}>${story()}</div> `,
   ],
   parameters: {
     chromatic: { diffThreshold: 0.11, delay: 8000 },

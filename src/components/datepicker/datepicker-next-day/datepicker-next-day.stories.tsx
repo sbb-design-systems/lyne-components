@@ -1,9 +1,11 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import { InputType } from '@storybook/types';
 import type { Meta, StoryObj, Decorator, StoryContext } from '@storybook/web-components';
 import { Args, ArgTypes } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import './datepicker-next-day';
@@ -30,37 +32,39 @@ const defaultArgs: Args = {
   negative: false,
 };
 
-const StandaloneTemplate = (args, picker = null): JSX.Element => (
-  <sbb-datepicker-next-day {...args} date-picker={picker}></sbb-datepicker-next-day>
-);
+const BaseTemplate = (args, picker: string | undefined = undefined): TemplateResult => html`
+  <sbb-datepicker-next-day ${sbbSpread(args)} .datePicker=${picker}></sbb-datepicker-next-day>
+`;
 
-const PickerAndButtonTemplate = (args): JSX.Element => (
-  <div style={{ display: 'flex', gap: '1em' }}>
+const StandaloneTemplate = (args): TemplateResult => html` ${BaseTemplate(args)} `;
+
+const PickerAndButtonTemplate = (args): TemplateResult => html`
+  <div style=${styleMap({ display: 'flex', gap: '1em' })}>
     <sbb-datepicker
       id="datepicker"
       input="datepicker-input"
-      data-now={new Date(2023, 0, 12, 0, 0, 0).valueOf()}
+      data-now=${new Date(2023, 0, 12, 0, 0, 0).valueOf()}
     ></sbb-datepicker>
     <input value="15.02.2023" id="datepicker-input" />
-    {StandaloneTemplate(args, 'datepicker')}
+    ${BaseTemplate(args, 'datepicker')}
   </div>
-);
+`;
 
-const FormFieldTemplate = (args): JSX.Element => (
-  <sbb-form-field {...args}>
+const FormFieldTemplate = (args): TemplateResult => html`
+  <sbb-form-field ${sbbSpread(args)}>
     <input value="15.02.2023" />
     <sbb-datepicker></sbb-datepicker>
-    {StandaloneTemplate(args)}
+    ${BaseTemplate(args)}
   </sbb-form-field>
-);
+`;
 
-const EmptyFormFieldTemplate = (args): JSX.Element => (
-  <sbb-form-field {...args}>
+const EmptyFormFieldTemplate = (args): TemplateResult => html`
+  <sbb-form-field ${sbbSpread(args)}>
     <input />
     <sbb-datepicker></sbb-datepicker>
-    {StandaloneTemplate(args)}
+    ${BaseTemplate(args)}
   </sbb-form-field>
-);
+`;
 
 export const Standalone: StoryObj = {
   render: StandaloneTemplate,
@@ -94,11 +98,9 @@ export const EmptyFormField: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story, context) => (
-      <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story, context) => html`
+      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
+    `,
     withActions as Decorator,
   ],
   parameters: {

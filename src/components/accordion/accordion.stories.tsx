@@ -1,12 +1,6 @@
 import { withActions } from '@storybook/addon-actions/decorator';
-import { InputType, StoryContext } from '@storybook/types';
-import type {
-  Meta,
-  StoryObj,
-  ArgTypes,
-  Args,
-  WebComponentsRenderer,
-} from '@storybook/web-components';
+import { InputType } from '@storybook/types';
+import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
 import { Decorator } from '@storybook/web-components';
 import { html, TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -186,7 +180,7 @@ const Template = ({
   contentText,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-accordion ${sbbSpread({ ...args })}>
+  <sbb-accordion ${sbbSpread(args)}>
     ${createExpansionPanelTemplate(
       numberOfPanels,
       color,
@@ -254,9 +248,7 @@ export const NoAnimation: StoryObj = {
   args: { ...defaultArgs, 'disable-animation': true },
 };
 
-const wrapperStyle = (
-  context: StoryContext<WebComponentsRenderer, { [x: string]: any }>,
-): Record<string, string> => ({
+const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.borderless ? '#bdbdbd' : 'var(--sbb-color-white-default)',
 });
 

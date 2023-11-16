@@ -1,10 +1,6 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { h, type JSX } from 'jsx-dom';
-
-import readme from './readme.md?raw';
 import '../clock';
 import '../button';
 import '../divider';
@@ -12,6 +8,12 @@ import '../link';
 import '../link-list';
 import '../title';
 import './footer';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../core/dom';
+
+import readme from './readme.md?raw';
 
 const variant: InputType = {
   control: {
@@ -52,74 +54,74 @@ const defaultArgs: Args = {
   'accessibility-title': 'Footer',
 };
 
-const TemplateDefault = (args): JSX.Element => (
-  <sbb-footer {...args}>
-    <sbb-link-list horizontal-from="large" negative={args.negative}>
+const TemplateDefault = (args): TemplateResult => html`
+  <sbb-footer ${sbbSpread(args)}>
+    <sbb-link-list horizontal-from="large" ?negative=${args.negative}>
       <sbb-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        negative={args.negative}
+        ?negative=${args.negative}
       >
         Refunds
       </sbb-link>
       <sbb-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        negative={args.negative}
+        ?negative=${args.negative}
       >
         Lost property office
       </sbb-link>
       <sbb-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        negative={args.negative}
+        ?negative=${args.negative}
       >
         Complaints
       </sbb-link>
       <sbb-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        negative={args.negative}
+        ?negative=${args.negative}
       >
         Praise
       </sbb-link>
       <sbb-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        negative={args.negative}
+        ?negative=${args.negative}
       >
         Report property damage
       </sbb-link>
     </sbb-link-list>
   </sbb-footer>
-);
+`;
 
-const TemplateClockColumns = ({ ...args }): JSX.Element => (
-  <sbb-footer {...args}>
+const TemplateClockColumns = ({ ...args }): TemplateResult => html`
+  <sbb-footer ${sbbSpread(args)}>
     <div class="sbb-link-list-button-group">
-      <sbb-link-list title-level="2" title-content="Help &amp; Contact." negative={args.negative}>
+      <sbb-link-list title-level="2" title-content="Help &amp; Contact." ?negative=${args.negative}>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-          negative={args.negative}
+          ?negative=${args.negative}
         >
           Refunds
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-          negative={args.negative}
+          ?negative=${args.negative}
         >
           Lost property office
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-          negative={args.negative}
+          ?negative=${args.negative}
         >
           Complaints
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-          negative={args.negative}
+          ?negative=${args.negative}
         >
           Praise
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-          negative={args.negative}
+          ?negative=${args.negative}
         >
           Report property damage
         </sbb-link>
@@ -132,34 +134,34 @@ const TemplateClockColumns = ({ ...args }): JSX.Element => (
         All help topics
       </sbb-button>
     </div>
-    <sbb-link-list title-level="2" title-content="More SBB." negative={args.negative}>
+    <sbb-link-list title-level="2" title-content="More SBB." ?negative=${args.negative}>
       <sbb-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        negative={args.negative}
+        ?negative=${args.negative}
       >
         Jobs & careers
       </sbb-link>
       <sbb-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        negative={args.negative}
+        ?negative=${args.negative}
       >
         Rail traffic information
       </sbb-link>
       <sbb-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        negative={args.negative}
+        ?negative=${args.negative}
       >
         SBB News
       </sbb-link>
       <sbb-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        negative={args.negative}
+        ?negative=${args.negative}
       >
         SBB Community
       </sbb-link>
       <sbb-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        negative={args.negative}
+        ?negative=${args.negative}
       >
         Company
       </sbb-link>
@@ -169,12 +171,12 @@ const TemplateClockColumns = ({ ...args }): JSX.Element => (
         <sbb-title
           level="2"
           visual-level="5"
-          negative={args.negative}
-          style={{ margin: '0 0 var(--sbb-spacing-fixed-3x)' }}
+          ?negative=${args.negative}
+          style=${styleMap({ margin: '0 0 var(--sbb-spacing-fixed-3x)' })}
         >
           Newsletter.
         </sbb-title>
-        <p style={{ margin: '0' }}>
+        <p style=${styleMap({ margin: '0' })}>
           Our newsletter regularly informs you of attractive offers from SBB via e-mail.
         </p>
       </span>
@@ -187,43 +189,45 @@ const TemplateClockColumns = ({ ...args }): JSX.Element => (
       </sbb-button>
     </div>
     <sbb-clock
-      {...(isChromatic() ? { 'data-now': new Date('2023-01-24T02:59:27+01:00').valueOf() } : {})}
+      ${sbbSpread({
+        ...(isChromatic() ? { 'data-now': new Date('2023-01-24T02:59:27+01:00').valueOf() } : {}),
+      })}
     ></sbb-clock>
-    <sbb-divider negative={args.negative}></sbb-divider>
-    <sbb-link-list horizontal-from="large" negative={args.negative}>
+    <sbb-divider ?negative=${args.negative}></sbb-divider>
+    <sbb-link-list horizontal-from="large" ?negative=${args.negative}>
       <sbb-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        negative={args.negative}
+        ?negative=${args.negative}
       >
         Refunds
       </sbb-link>
       <sbb-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        negative={args.negative}
+        ?negative=${args.negative}
       >
         Lost property office
       </sbb-link>
       <sbb-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        negative={args.negative}
+        ?negative=${args.negative}
       >
         Complaints
       </sbb-link>
       <sbb-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        negative={args.negative}
+        ?negative=${args.negative}
       >
         Praise
       </sbb-link>
       <sbb-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        negative={args.negative}
+        ?negative=${args.negative}
       >
         Report property damage
       </sbb-link>
     </sbb-link-list>
   </sbb-footer>
-);
+`;
 
 /* ************************************************* */
 /* The Stories                                       */

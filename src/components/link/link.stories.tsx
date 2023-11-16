@@ -1,4 +1,3 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type {
@@ -9,7 +8,10 @@ import type {
   Decorator,
   StoryContext,
 } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
 import './link';
@@ -24,29 +26,28 @@ const paragraphStyle = (negative): Record<string, string> => ({
   color: negative ? 'var(--sbb-color-aluminium-default)' : 'var(--sbb-color-iron-default)',
 });
 
-const Template = ({ text, ...args }): JSX.Element => <sbb-link {...args}>{text}</sbb-link>;
+const Template = ({ text, ...args }: Args): TemplateResult =>
+  html`<sbb-link ${sbbSpread(args)}>${text}</sbb-link>`;
 
-const FixedWidthTemplate = ({ text, ...args }): JSX.Element => (
-  <sbb-link {...args} style={{ width: '200px' }}>
-    {text}
+const FixedWidthTemplate = ({ text, ...args }: Args): TemplateResult => html`
+  <sbb-link ${sbbSpread(args)} style=${styleMap({ width: '200px' })}> ${text} </sbb-link>
+`;
+
+const IconSlotTemplate = ({ text, 'icon-name': iconName, ...args }: Args): TemplateResult => html`
+  <sbb-link ${sbbSpread(args)}>
+    ${text}
+    <sbb-icon slot="icon" name=${iconName}></sbb-icon>
   </sbb-link>
-);
+`;
 
-const IconSlotTemplate = ({ text, 'icon-name': iconName, ...args }): JSX.Element => (
-  <sbb-link {...args}>
-    {text}
-    <sbb-icon slot="icon" name={iconName}></sbb-icon>
-  </sbb-link>
-);
-
-const InlineTemplate = ({ text, ...args }): JSX.Element => (
-  <p style={paragraphStyle(args.negative)} class="sbb-text-m">
+const InlineTemplate = ({ text, ...args }: Args): TemplateResult => html`
+  <p style=${styleMap(paragraphStyle(args.negative))} class="sbb-text-m">
     Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
     ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
     dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor
-    sit amet. <sbb-link {...args}>{text}</sbb-link>
+    sit amet. <sbb-link ${sbbSpread(args)}>${text}</sbb-link>
   </p>
-);
+`;
 
 const text: InputType = {
   control: {
@@ -426,11 +427,9 @@ export const InlineButtonNegative: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story, context) => (
-      <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story, context) => html`
+      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
+    `,
     withActions as Decorator,
   ],
   parameters: {

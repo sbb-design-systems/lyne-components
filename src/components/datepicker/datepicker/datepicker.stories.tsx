@@ -1,14 +1,15 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import { userEvent, within } from '@storybook/testing-library';
 import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import { StoryContext } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { Fragment, h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
+import { sbbSpread } from '../../core/dom';
 
 import { SbbDatepicker } from './datepicker';
 import readme from './readme.md?raw';
@@ -298,21 +299,23 @@ const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
-    canvas.getByTestId('toggle').shadowRoot.querySelector('sbb-tooltip-trigger'),
+    canvas.getByTestId('toggle').shadowRoot!.querySelector('sbb-tooltip-trigger'),
   );
 
-  await waitForStablePosition(() =>
-    canvas.getByTestId('toggle').shadowRoot.querySelector('sbb-tooltip-trigger'),
+  await waitForStablePosition(
+    () => canvas.getByTestId('toggle').shadowRoot!.querySelector('sbb-tooltip-trigger')!,
   );
 
-  const toggle = await canvas.getByTestId('toggle').shadowRoot.querySelector('sbb-tooltip-trigger');
+  const toggle = await canvas
+    .getByTestId('toggle')
+    .shadowRoot!.querySelector('sbb-tooltip-trigger')!;
   userEvent.click(toggle);
 };
 
 const changeEventHandler = async (event): Promise<void> => {
   const div = document.createElement('div');
   div.innerText = `valueAsDate is: ${await event.target.getValueAsDate()}.`;
-  document.getElementById('container-value').append(div);
+  document.getElementById('container-value')?.append(div);
 };
 
 const Template = ({
@@ -323,37 +326,33 @@ const Template = ({
   'data-now': dataNow,
   disableAnimation,
   ...args
-}): JSX.Element => {
-  return (
-    <Fragment>
-      <div style={{ display: 'flex', gap: '0.25rem' }}>
-        <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-previous-day>
-        <sbb-datepicker-toggle
-          date-picker="datepicker"
-          data-testid="toggle"
-          disable-animation={disableAnimation}
-        ></sbb-datepicker-toggle>
-        <input {...args} id="datepicker-input" {...getInputAttributes(min, max)} />
-        <sbb-datepicker
-          id="datepicker"
-          input="datepicker-input"
-          ref={(calendarRef) => {
-            calendarRef.dateFilter = dateFilter;
-          }}
-          wide={wide}
-          onChange={(event) => changeEventHandler(event)}
-          data-now={dataNow}
-        ></sbb-datepicker>
-        <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
-      </div>
-      <div
-        id="container-value"
-        style={{ 'margin-block-start': '1rem', color: 'var(--sbb-color-smoke-default)' }}
-      >
-        Change date to get the latest value:
-      </div>
-    </Fragment>
-  );
+}: Args): TemplateResult => {
+  return html`
+    <div style=${styleMap({ display: 'flex', gap: '0.25rem' })}>
+      <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-previous-day>
+      <sbb-datepicker-toggle
+        date-picker="datepicker"
+        data-testid="toggle"
+        ?disable-animation=${disableAnimation}
+      ></sbb-datepicker-toggle>
+      <input ${sbbSpread(args)} id="datepicker-input" ${sbbSpread(getInputAttributes(min, max))} />
+      <sbb-datepicker
+        id="datepicker"
+        input="datepicker-input"
+        .dateFilter=${dateFilter}
+        ?wide=${wide}
+        @change=${(event) => changeEventHandler(event)}
+        data-now=${dataNow}
+      ></sbb-datepicker>
+      <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
+    </div>
+    <div
+      id="container-value"
+      style=${styleMap({ 'margin-block-start': '1rem', color: 'var(--sbb-color-smoke-default)' })}
+    >
+      Change date to get the latest value:
+    </div>
+  `;
 };
 
 const TemplateFormField = ({
@@ -370,50 +369,46 @@ const TemplateFormField = ({
   'data-now': dataNow,
   disableAnimation,
   ...args
-}): JSX.Element => {
-  return (
-    <Fragment>
-      <sbb-form-field
-        size={size}
-        negative={negative}
-        label={label}
-        optional={optional}
-        borderless={borderless}
-        width="collapse"
-      >
-        <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
-        <sbb-datepicker-next-day></sbb-datepicker-next-day>
-        <sbb-datepicker-toggle
-          data-testid="toggle"
-          disable-animation={disableAnimation}
-        ></sbb-datepicker-toggle>
-        <input {...args} {...getInputAttributes(min, max)} />
-        <sbb-datepicker
-          ref={(calendarRef) => {
-            calendarRef.dateFilter = dateFilter;
-            calendarRef.dateParser = dateHandling.dateParser;
-            calendarRef.format = dateHandling.format;
-          }}
-          wide={wide}
-          onChange={(event) => changeEventHandler(event)}
-          data-now={dataNow}
-        ></sbb-datepicker>
-      </sbb-form-field>
-      <div
-        id="container-value"
-        style={{ 'margin-block-start': '1rem', color: 'var(--sbb-color-smoke-default)' }}
-      >
-        Change date to get the latest value:
-      </div>
-    </Fragment>
-  );
+}: Args): TemplateResult => {
+  return html`
+    <sbb-form-field
+      size=${size}
+      ?negative=${negative}
+      label=${label}
+      ?optional=${optional}
+      ?borderless=${borderless}
+      width="collapse"
+    >
+      <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
+      <sbb-datepicker-next-day></sbb-datepicker-next-day>
+      <sbb-datepicker-toggle
+        data-testid="toggle"
+        ?disable-animation=${disableAnimation}
+      ></sbb-datepicker-toggle>
+      <input ${sbbSpread(args)} ${sbbSpread(getInputAttributes(min, max))} />
+      <sbb-datepicker
+        .dateFilter=${dateFilter}
+        .dateParser=${dateHandling.dateParser}
+        .format=${dateHandling.format}
+        ?wide=${wide}
+        @change=${(event) => changeEventHandler(event)}
+        data-now=${dataNow}
+      ></sbb-datepicker>
+    </sbb-form-field>
+    <div
+      id="container-value"
+      style=${styleMap({ 'margin-block-start': '1rem', color: 'var(--sbb-color-smoke-default)' })}
+    >
+      Change date to get the latest value:
+    </div>
+  `;
 };
 
 export const InFormField: StoryObj = {
   render: TemplateFormField,
   argTypes: { ...formFieldBasicArgsTypes },
   args: { ...formFieldBasicArgs },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const InFormFieldDisabled: StoryObj = {
@@ -500,17 +495,17 @@ export const WithoutFormField: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story, context) => (
+    (story, context) => html`
       <div
-        style={{
+        style=${styleMap({
           ...wrapperStyle(context),
           padding: '2rem',
           'min-height': isChromatic() ? '100vh' : undefined,
-        }}
+        })}
       >
-        <Story></Story>
+        ${story()}
       </div>
-    ),
+    `,
     withActions as Decorator,
   ],
   parameters: {

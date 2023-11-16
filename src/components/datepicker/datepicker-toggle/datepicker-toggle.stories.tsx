@@ -1,4 +1,3 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import { userEvent, within } from '@storybook/testing-library';
 import type { InputType } from '@storybook/types';
@@ -11,10 +10,12 @@ import type {
   StoryContext,
 } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { h, type JSX } from 'jsx-dom';
+import { html, nothing, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
+import { sbbSpread } from '../../core/dom';
 import { SbbTooltipTrigger } from '../../tooltip';
 
 import '../../form-field';
@@ -55,7 +56,7 @@ const defaultArgs: Args = {
 const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
   const queryTrigger = (): SbbTooltipTrigger =>
-    canvas.getByTestId('toggle').shadowRoot.querySelector('sbb-tooltip-trigger');
+    canvas.getByTestId('toggle').shadowRoot!.querySelector('sbb-tooltip-trigger')!;
 
   await waitForComponentsReady(queryTrigger);
 
@@ -65,70 +66,70 @@ const playStory = async ({ canvasElement }): Promise<void> => {
   userEvent.click(toggle);
 };
 
-const StandaloneTemplate = (picker, args): JSX.Element => (
+const StandaloneTemplate = (picker, args): TemplateResult => html`
   <sbb-datepicker-toggle
-    {...args}
-    date-picker={picker}
+    ${sbbSpread(args)}
+    date-picker=${picker}
     data-testid="toggle"
   ></sbb-datepicker-toggle>
-);
+`;
 
-const PickerAndButtonTemplate = (args): JSX.Element => (
-  <div style={{ display: 'flex', gap: '1em' }}>
-    {StandaloneTemplate('datepicker', args)}
+const PickerAndButtonTemplate = (args): TemplateResult => html`
+  <div style=${styleMap({ display: 'flex', gap: '1em' })}>
+    ${StandaloneTemplate('datepicker', args)}
     <sbb-datepicker
       id="datepicker"
       input="datepicker-input"
-      data-now={isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : undefined}
+      data-now=${isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : nothing}
     ></sbb-datepicker>
     <input id="datepicker-input" />
   </div>
-);
+`;
 
-const FormFieldTemplate = ({ negative, ...args }): JSX.Element => (
-  <sbb-form-field negative={negative}>
+const FormFieldTemplate = ({ negative, ...args }: Args): TemplateResult => html`
+  <sbb-form-field ?negative=${negative}>
     <input />
     <sbb-datepicker
-      data-now={isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : undefined}
+      data-now=${isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : nothing}
     ></sbb-datepicker>
-    {StandaloneTemplate(null, args)}
+    ${StandaloneTemplate(null, args)}
   </sbb-form-field>
-);
+`;
 
 export const WithPicker: StoryObj = {
   render: PickerAndButtonTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const InFormField: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const InFormFieldNegative: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, negative: true },
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 const meta: Meta = {
   decorators: [
-    (Story, context) => (
+    (story, context) => html`
       <div
-        style={{
+        style=${styleMap({
           ...wrapperStyle(context),
           padding: '2rem',
           ...(isChromatic() ? { 'min-height': '100vh', 'min-width': '100vw' } : undefined),
-        }}
+        })}
       >
-        <Story></Story>
+        ${story()}
       </div>
-    ),
+    `,
     withActions as Decorator,
   ],
   parameters: {

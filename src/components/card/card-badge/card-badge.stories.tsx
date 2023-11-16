@@ -1,9 +1,12 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
+
 import './card-badge';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
@@ -36,16 +39,14 @@ const defaultArgs: Args = {
   color: color.options[0],
 };
 
-const Template = (args): JSX.Element => (
-  <sbb-card-badge {...args}>
+const Template = (args): TemplateResult => html`
+  <sbb-card-badge ${sbbSpread(args)}>
     <span>%</span>
     <span>from CHF</span>
     <span>92.50</span>
-    <span>
-      <time dateTime="2021-11-25">Black Friday</time> Special
-    </span>
+    <span> <time datetime="2021-11-25">Black Friday</time> Special </span>
   </sbb-card-badge>
-);
+`;
 
 export const Charcoal: StoryObj = {
   render: Template,
@@ -66,18 +67,18 @@ export const White: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story, context) => (
+    (story, context) => html`
       <div
-        style={{
+        style=${styleMap({
           ...wrapperStyle(context),
           padding: '0 0 2rem 2rem',
           position: 'relative',
           overflow: 'hidden',
-        }}
+        })}
       >
-        <Story></Story>
+        ${story()}
       </div>
-    ),
+    `,
   ],
   parameters: {
     backgrounds: {

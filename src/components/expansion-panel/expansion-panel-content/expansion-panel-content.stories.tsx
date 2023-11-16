@@ -1,16 +1,16 @@
-/** @jsx h */
 import type { Meta, StoryObj } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
 
 import readme from './readme.md?raw';
+
 import '../../card';
 
-const Template = (): JSX.Element => (
+const Template = (): TemplateResult => html`
   <sbb-card color="milk">
-    `sbb-expansion-panel-content` is an element to be only used together with `sbb-expansion-panel`.
-    See `sbb-expansion-panel` examples to see it in action.
+    'sbb-expansion-panel-content' is an element to be only used together with 'sbb-expansion-panel'.
+    See 'sbb-expansion-panel' examples to see it in action.
   </sbb-card>
-);
+`;
 
 export const ExpansionPanelContent: StoryObj = {
   render: Template,

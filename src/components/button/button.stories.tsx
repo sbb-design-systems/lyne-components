@@ -1,11 +1,21 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType, StoryContext } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
+import type { InputType } from '@storybook/types';
+import type {
+  Meta,
+  StoryObj,
+  ArgTypes,
+  Args,
+  Decorator,
+  StoryContext,
+} from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
+
 import './button';
 import '../loading-indicator';
 
@@ -20,75 +30,73 @@ const focusStyle = (context: StoryContext): Record<string, string> =>
 
 // --- Component
 
-const RequestSubmitTemplate = ({ text }): JSX.Element => (
-  <form id="my-fake-form" action="/submit" method="POST" target="_blank">
+const RequestSubmitTemplate = ({ text }: Args): TemplateResult => html`
+  <form id="my-fake-form" action="/submit" method="post" target="_blank">
     <label
       htmlFor="input"
-      style={{
+      style=${styleMap({
         display: 'flex',
         'flex-direction': 'column',
         'align-items': 'flex-start',
         'padding-block-end': '2rem',
-      }}
+      })}
     >
-      Input required; submit with empty value is impossible due to `requestSubmit` API validation.
+      Input required; submit with empty value is impossible due to 'requestSubmit' API validation.
       <input required id="input" />
     </label>
-    <sbb-button type="submit" form="my-fake-form" name="input" value="input">
-      {text}
-    </sbb-button>
+    <sbb-button type="submit" form="my-fake-form" name="input" value="input"> ${text} </sbb-button>
   </form>
-);
+`;
 
-const Template = ({ text, active, focusVisible, ...args }): JSX.Element => (
-  <sbb-button {...args} data-active={active} data-focus-visible={focusVisible}>
-    {text}
+const Template = ({ text, active, focusVisible, ...args }: Args): TemplateResult => html`
+  <sbb-button ${sbbSpread(args)} data-active=${active} data-focus-visible=${focusVisible}>
+    ${text}
   </sbb-button>
-);
+`;
 
-const IconSlotTemplate = ({ text, 'icon-name': iconName, ...args }): JSX.Element => (
-  <sbb-button {...args}>
-    {text}
-    <sbb-icon slot="icon" name={iconName}></sbb-icon>
+const IconSlotTemplate = ({ text, 'icon-name': iconName, ...args }: Args): TemplateResult => html`
+  <sbb-button ${sbbSpread(args)}>
+    ${text}
+    <sbb-icon slot="icon" name=${iconName}></sbb-icon>
   </sbb-button>
-);
+`;
 
-const LoadingIndicatorTemplate = ({ text, ...args }): JSX.Element => (
-  <sbb-button {...args}>
+const LoadingIndicatorTemplate = ({ text, ...args }: Args): TemplateResult => html`
+  <sbb-button ${sbbSpread(args)}>
     <sbb-loading-indicator
-      disable-animation={isChromatic()}
+      ?disable-animation=${isChromatic()}
       slot="icon"
       variant="circle"
     ></sbb-loading-indicator>
-    {text}
+    ${text}
   </sbb-button>
-);
+`;
 
-const FixedWidthTemplate = ({ text, ...args }): JSX.Element => (
+const FixedWidthTemplate = ({ text, ...args }: Args): TemplateResult => html`
   <div>
     <p>
       <sbb-button
-        {...args}
-        style={{
+        ${sbbSpread(args)}
+        style=${styleMap({
           width: '200px',
-        }}
+        })}
       >
-        {text}
+        ${text}
       </sbb-button>
     </p>
     <p>
       <sbb-button
-        {...args}
-        style={{
+        ${sbbSpread(args)}
+        style=${styleMap({
           maxWidth: '100%',
           width: '600px',
-        }}
+        })}
       >
         Wide Button
       </sbb-button>
     </p>
   </div>
-);
+`;
 
 // --- Arg types
 
@@ -608,11 +616,11 @@ export const LoadingIndicator: StoryObj = {
 const meta: Meta = {
   excludeStories: /.*(Active|FocusVisible)$/,
   decorators: [
-    (Story, context) => (
-      <div style={{ ...wrapperStyle(context), ...focusStyle(context), padding: '2rem' }}>
-        <Story></Story>
+    (story, context) => html`
+      <div style=${styleMap({ ...wrapperStyle(context), ...focusStyle(context), padding: '2rem' })}>
+        ${story()}
       </div>
-    ),
+    `,
     withActions as Decorator,
   ],
   parameters: {

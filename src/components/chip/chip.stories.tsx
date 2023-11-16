@@ -1,9 +1,12 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
+
 import './chip';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
@@ -45,13 +48,13 @@ const defaultArgs: Args = {
   label: 'Label',
 };
 
-const Template = ({ label, ...args }): JSX.Element => <sbb-chip {...args}>{label}</sbb-chip>;
+const Template = ({ label, ...args }: Args): TemplateResult => html`
+  <sbb-chip ${sbbSpread(args)}>${label}</sbb-chip>
+`;
 
-const TemplateFixedWidth = ({ label, ...args }): JSX.Element => (
-  <sbb-chip {...args} style={{ width: '10rem' }}>
-    {label}
-  </sbb-chip>
-);
+const TemplateFixedWidth = ({ label, ...args }: Args): TemplateResult => html`
+  <sbb-chip ${sbbSpread(args)} style=${styleMap({ width: '10rem' })}> ${label} </sbb-chip>
+`;
 
 export const MilkXXS: StoryObj = {
   render: Template,
@@ -125,11 +128,11 @@ export const FixedWidthLongLabel: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story, context) => (
-      <div style={{ ...wrapperStyle(context), padding: '2rem', 'font-size': '0' }}>
-        <Story></Story>
+    (story, context) => html`
+      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem', 'font-size': '0' })}>
+        ${story()}
       </div>
-    ),
+    `,
   ],
   parameters: {
     backgrounds: {

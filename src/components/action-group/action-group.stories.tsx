@@ -42,47 +42,45 @@ const TemplateThreeElements = (
 `;
 
 const CommonTemplateThreeElementsAllocation = ({ ...args }): TemplateResult => html`
-  <sbb-action-group ${sbbSpread({ ...args })}>${TemplateThreeElements()}</sbb-action-group>
+  <sbb-action-group ${sbbSpread(args)}>${TemplateThreeElements()}</sbb-action-group>
 `;
 
 const CommonTemplateTwoElementsAllocation = ({ ...args }): TemplateResult => html`
-  <sbb-action-group ${sbbSpread({ ...args })}>${TemplateTwoElements()}</sbb-action-group>
+  <sbb-action-group ${sbbSpread(args)}>${TemplateTwoElements()}</sbb-action-group>
 `;
 
 const TemplateHorizontalAllocation111 = ({ ...args }): TemplateResult => html`
-  <sbb-action-group ${sbbSpread({ ...args })}
-    >${TemplateThreeElements(null, 'center')}</sbb-action-group
-  >
+  <sbb-action-group ${sbbSpread(args)}>${TemplateThreeElements(null, 'center')}</sbb-action-group>
 `;
 
 const TemplateHorizontalAllocation201 = ({ ...args }): TemplateResult => html`
-  <sbb-action-group ${sbbSpread({ ...args })}
+  <sbb-action-group ${sbbSpread(args)}
     >${TemplateThreeElements(null, null, 'end')}</sbb-action-group
   >
 `;
 
 const TemplateHorizontalAllocation102 = ({ ...args }): TemplateResult => html`
-  <sbb-action-group ${sbbSpread({ ...args })}>${TemplateThreeElements('start')}</sbb-action-group>
+  <sbb-action-group ${sbbSpread(args)}>${TemplateThreeElements('start')}</sbb-action-group>
 `;
 
 const TemplateHorizontalAllocation101 = ({ ...args }): TemplateResult => html`
-  <sbb-action-group ${sbbSpread({ ...args })}>${TemplateTwoElements(null, 'end')}</sbb-action-group>
+  <sbb-action-group ${sbbSpread(args)}>${TemplateTwoElements(null, 'end')}</sbb-action-group>
 `;
 
 const TemplateVerticalAllocation300FullWidth = ({ ...args }): TemplateResult => html`
-  <sbb-action-group ${sbbSpread({ ...args })}
+  <sbb-action-group ${sbbSpread(args)}
     >${TemplateThreeElements(null, null, 'start')}</sbb-action-group
   >
 `;
 
 const TemplateVerticalAllocation030FullWidth = ({ ...args }): TemplateResult => html`
-  <sbb-action-group ${sbbSpread({ ...args })}
+  <sbb-action-group ${sbbSpread(args)}
     >${TemplateThreeElements(null, null, 'center')}</sbb-action-group
   >
 `;
 
 const TemplateVerticalAllocation003FullWidth = ({ ...args }): TemplateResult => html`
-  <sbb-action-group ${sbbSpread({ ...args })}
+  <sbb-action-group ${sbbSpread(args)}
     >${TemplateThreeElements(null, null, 'end')}</sbb-action-group
   >
 `;

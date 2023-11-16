@@ -1,13 +1,14 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import { userEvent, within } from '@storybook/testing-library';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
+import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 
@@ -16,7 +17,7 @@ import '../header-action';
 import '../../divider';
 import '../../menu';
 
-const LoremIpsumTemplate = (): JSX.Element[] => [
+const LoremIpsumTemplate = (): TemplateResult => html`
   <div>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet malesuada augue. Morbi
     eget tristique nisl, sit amet dapibus erat. Donec tempor, metus et aliquam ultrices, nulla mi
@@ -26,69 +27,81 @@ const LoremIpsumTemplate = (): JSX.Element[] => [
     non turpis. Nunc interdum et justo sed faucibus. Vestibulum interdum commodo mi, sed eleifend
     odio posuere in. Nunc non dui venenatis, eleifend est ut, varius odio. Quisque augue ante,
     mollis eu lorem id, commodo cursus risus.
-  </div>,
-  <br />,
-];
+  </div>
+  <br />
+`;
 
-const HeaderBasicTemplate = ({ children, attributes, ...args }): JSX.Element[] => [
-  <sbb-header {...args}>
+const HeaderBasicTemplate = (
+  { children, attributes, ...args }: Args,
+  template: TemplateResult,
+): TemplateResult => html`
+  <sbb-header ${sbbSpread(args)}>
     <sbb-header-action icon-name="hamburger-menu-small" expand-from="small">
       Menu
     </sbb-header-action>
     <div class="sbb-header-spacer"></div>
     <sbb-header-action icon-name="magnifying-glass-small">Search</sbb-header-action>
-    {children}
+    ${children}
     <sbb-header-action icon-name="globe-small" id="language-menu-trigger" class="last-element">
       English
     </sbb-header-action>
-    <sbb-menu trigger="language-menu-trigger" disable-animation={isChromatic()}>
+    <sbb-menu trigger="language-menu-trigger" ?disable-animation=${isChromatic()}>
       <sbb-menu-action>Deutsch</sbb-menu-action>
       <sbb-menu-action>Français</sbb-menu-action>
       <sbb-menu-action>Italiano</sbb-menu-action>
       <sbb-menu-action icon-name="tick-small">English</sbb-menu-action>
     </sbb-menu>
-  </sbb-header>,
-  <div {...attributes}>{new Array(12).fill(null).map(LoremIpsumTemplate)}</div>,
-];
+    ${template}
+  </sbb-header>
+  <div ${sbbSpread({ attributes })}>${new Array(12).fill(null).map(LoremIpsumTemplate)}</div>
+`;
 
-const Template = (args): JSX.Element => (
-  <HeaderBasicTemplate {...args}>
-    <sbb-header-action icon-name="user-small" class="sbb-header-shrinkable">
-      Sign in
-    </sbb-header-action>
-  </HeaderBasicTemplate>
-);
+const Template = (args): TemplateResult => html`
+  ${HeaderBasicTemplate(
+    args,
+    html`
+      <sbb-header-action icon-name="user-small" class="sbb-header-shrinkable">
+        Sign in
+      </sbb-header-action>
+    `,
+  )}
+`;
 
-const TemplateWithUserMenu = (args): JSX.Element => (
-  <HeaderBasicTemplate {...args}>
-    <sbb-header-action
-      icon-name="user-small"
-      id="user-menu-trigger"
-      data-testid="user-menu-trigger"
-      class="sbb-header-shrinkable"
-    >
-      Christina Müller
-    </sbb-header-action>
-    <sbb-menu trigger="user-menu-trigger" disable-animation={isChromatic()} data-testid="user-menu">
-      <sbb-menu-action icon-name="user-small" href="/">
-        Account
-      </sbb-menu-action>
-      <sbb-menu-action icon-name="tickets-class-small">Tickets</sbb-menu-action>
-      <sbb-menu-action icon-name="shopping-cart-small" amount="1">
-        Shopping cart
-      </sbb-menu-action>
-      <sbb-divider></sbb-divider>
-      <sbb-menu-action icon-name="exit-small">Sign out</sbb-menu-action>
-    </sbb-menu>
-  </HeaderBasicTemplate>
-);
+const TemplateWithUserMenu = (args): TemplateResult => html`
+  ${HeaderBasicTemplate(
+    args,
+    html`
+      <sbb-header-action
+        icon-name="user-small"
+        id="user-menu-trigger"
+        data-testid="user-menu-trigger"
+        class="sbb-header-shrinkable"
+      >
+        Christina Müller
+      </sbb-header-action>
+      <sbb-menu
+        trigger="user-menu-trigger"
+        ?disable-animation=${isChromatic()}
+        data-testid="user-menu"
+      >
+        <sbb-menu-action icon-name="user-small" href="/"> Account </sbb-menu-action>
+        <sbb-menu-action icon-name="tickets-class-small">Tickets</sbb-menu-action>
+        <sbb-menu-action icon-name="shopping-cart-small" amount="1">
+          Shopping cart
+        </sbb-menu-action>
+        <sbb-divider></sbb-divider>
+        <sbb-menu-action icon-name="exit-small">Sign out</sbb-menu-action>
+      </sbb-menu>
+    `,
+  )}
+`;
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
-    canvas.getByTestId('user-menu').shadowRoot.querySelector('.sbb-menu'),
+    canvas.getByTestId('user-menu').shadowRoot!.querySelector('.sbb-menu'),
   );
 
   await waitForStablePosition(() => canvas.getByTestId('user-menu-trigger'));
@@ -157,7 +170,7 @@ export const WithUserMenu: StoryObj = {
   render: TemplateWithUserMenu,
   argTypes,
   args: basicArgs,
-  play: isChromatic() && playStory,
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const BasicScrollHide: StoryObj = {
@@ -194,11 +207,9 @@ export const ContainerScrollOriginScrollHide: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div>
-        <Story style={isChromatic() ? { 'min-height': '100vh' } : undefined}></Story>
-      </div>
-    ),
+    (story) => html`
+      <div style=${styleMap(isChromatic() ? { 'min-height': '100vh' } : {})}>${story()}</div>
+    `,
     withActions as Decorator,
   ],
   parameters: {

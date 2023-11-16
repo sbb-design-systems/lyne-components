@@ -1,12 +1,13 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryContext, StoryObj } from '@storybook/web-components';
 import { Args, ArgTypes } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 
-import '../icon';
+import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
+import '../icon';
 import './form-error';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
@@ -22,16 +23,16 @@ velit, varius nec est ac, mollis efficitur lorem. Quisque non nisl eget massa in
 metus. Donec pharetra odio at turpis bibendum, vel commodo dui vulputate. Aenean congue nec nisl vel bibendum.
 Praesent sit amet lorem augue. Suspendisse ornare a justo sagittis fermentum.`;
 
-const TemplateError = ({ errorText, ...args }): JSX.Element => (
-  <sbb-form-error {...args}>{errorText}</sbb-form-error>
-);
+const TemplateError = ({ errorText, ...args }: Args): TemplateResult => html`
+  <sbb-form-error ${sbbSpread(args)}>${errorText}</sbb-form-error>
+`;
 
-const TemplateErrorWithIcon = ({ errorText, iconName, ...args }): JSX.Element => (
-  <sbb-form-error {...args}>
-    <sbb-icon name={iconName} slot="icon"></sbb-icon>
-    {errorText}
+const TemplateErrorWithIcon = ({ errorText, iconName, ...args }: Args): TemplateResult => html`
+  <sbb-form-error ${sbbSpread(args)}>
+    <sbb-icon name=${iconName} slot="icon"></sbb-icon>
+    ${errorText}
   </sbb-form-error>
-);
+`;
 
 const iconNameArg: InputType = {
   control: {
@@ -86,11 +87,9 @@ export const ErrorWithCustomIconAndLongMessage: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story, context) => (
-      <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story, context) => html`
+      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
+    `,
   ],
   parameters: {
     backgrounds: {

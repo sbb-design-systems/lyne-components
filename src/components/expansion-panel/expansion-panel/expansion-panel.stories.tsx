@@ -1,9 +1,17 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
-import { InputType, StoryContext } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { InputType } from '@storybook/types';
+import type {
+  Meta,
+  StoryObj,
+  ArgTypes,
+  Args,
+  Decorator,
+  StoryContext,
+} from '@storybook/web-components';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 
+import { sbbSpread } from '../../core/dom';
 import { SbbExpansionPanelHeader } from '../expansion-panel-header';
 
 import { SbbExpansionPanel } from './expansion-panel';
@@ -107,22 +115,27 @@ const defaultArgs: Args = {
   'disable-animation': false,
 };
 
-const Template = ({ headerText, iconName, contentText, ...args }): JSX.Element => (
-  <sbb-expansion-panel {...args}>
-    <sbb-expansion-panel-header icon-name={iconName}>{headerText}</sbb-expansion-panel-header>
-    <sbb-expansion-panel-content>{contentText}</sbb-expansion-panel-content>
+const Template = ({ headerText, iconName, contentText, ...args }: Args): TemplateResult => html`
+  <sbb-expansion-panel ${sbbSpread(args)}>
+    <sbb-expansion-panel-header icon-name=${iconName}>${headerText}</sbb-expansion-panel-header>
+    <sbb-expansion-panel-content>${contentText}</sbb-expansion-panel-content>
   </sbb-expansion-panel>
-);
+`;
 
-const TemplateSlottedIcon = ({ headerText, iconName, contentText, ...args }): JSX.Element => (
-  <sbb-expansion-panel {...args}>
+const TemplateSlottedIcon = ({
+  headerText,
+  iconName,
+  contentText,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-expansion-panel ${sbbSpread(args)}>
     <sbb-expansion-panel-header>
-      {headerText}
-      <sbb-icon slot="icon" name={iconName}></sbb-icon>
+      ${headerText}
+      <sbb-icon slot="icon" name=${iconName}></sbb-icon>
     </sbb-expansion-panel-header>
-    <sbb-expansion-panel-content>{contentText}</sbb-expansion-panel-content>
+    <sbb-expansion-panel-content>${contentText}</sbb-expansion-panel-content>
   </sbb-expansion-panel>
-);
+`;
 
 export const Default: StoryObj = {
   render: Template,
@@ -199,11 +212,9 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
 
 const meta: Meta = {
   decorators: [
-    (Story, context) => (
-      <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story, context) => html`
+      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
+    `,
     withActions as Decorator,
   ],
   parameters: {

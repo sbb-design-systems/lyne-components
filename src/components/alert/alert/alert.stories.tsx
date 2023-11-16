@@ -10,7 +10,7 @@ import { SbbAlert } from './alert';
 import readme from './readme.md?raw';
 
 const Default = ({ 'content-slot-text': contentSlotText, ...args }: Args): TemplateResult => html`
-  <sbb-alert ${sbbSpread({ ...args })}>${contentSlotText}</sbb-alert>
+  <sbb-alert ${sbbSpread(args)}>${contentSlotText}</sbb-alert>
 `;
 
 const DefaultWithOtherContent = (args): TemplateResult => {
@@ -21,7 +21,7 @@ const DefaultWithOtherContent = (args): TemplateResult => {
       ${!args.readonly
         ? html`<p>
             Dismissal event of the alert has to be caught by the consumer and the alert has to be
-            manually removed from DOM. See \`sbb-alert-group\` for demonstration.
+            manually removed from DOM. See 'sbb-alert-group' for demonstration.
           </p>`
         : nothing}
     </div>
@@ -33,7 +33,7 @@ const CustomSlots = ({
   'content-slot-text': contentSlotText,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-alert ${sbbSpread({ ...args })}>
+  <sbb-alert ${sbbSpread(args)}>
     <sbb-icon name="disruption" slot="icon"></sbb-icon>
     <span slot="title">${titleContent}</span>
     ${contentSlotText}
@@ -205,7 +205,7 @@ export const withCustomLinkText: StoryObj = {
 
 export const iconAndTitleAsSlot: StoryObj = {
   render: CustomSlots,
-  argTypes: { defaultArgTypes, 'icon-name': undefined },
+  argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs, 'icon-name': undefined },
 };
 

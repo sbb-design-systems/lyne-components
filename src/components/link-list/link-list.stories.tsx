@@ -1,7 +1,9 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
+
+import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
 import '../link';
@@ -13,32 +15,33 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
     : 'var(--sbb-color-white-default)',
 });
 
-const LinkTemplate = (args): JSX.Element => (
-  <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html">
-    {args.linkTitle}
+const LinkTemplate = (args): TemplateResult => html`
+  <sbb-link
+    href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+  >
+    ${args.linkTitle}
   </sbb-link>
-);
+`;
 
 const links = ['Refunds', 'Lost property office', 'Complaints', 'Praise', 'Report property damage'];
 
 // SlottedTitle
-const TemplateSlottedTitle = ({ 'title-content': titleContent, ...args }): JSX.Element => (
-  <sbb-link-list {...args}>
-    <span slot="title">{titleContent}</span>
-    {links.map((linkTitle) => (
-      <LinkTemplate {...{ linkTitle }}></LinkTemplate>
-    ))}
+const TemplateSlottedTitle = ({
+  'title-content': titleContent,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-link-list ${sbbSpread(args)}>
+    <span slot="title">${titleContent}</span>
+    ${links.map((linkTitle) => html` ${LinkTemplate({ linkTitle })} `)}
   </sbb-link-list>
-);
+`;
 
 // TitleAsProperty
-const Template = ({ ...args }): JSX.Element => (
-  <sbb-link-list {...args}>
-    {links.map((linkTitle) => (
-      <LinkTemplate {...{ linkTitle }}></LinkTemplate>
-    ))}
+const Template = (args): TemplateResult => html`
+  <sbb-link-list ${sbbSpread(args)}>
+    ${links.map((linkTitle) => html` ${LinkTemplate({ linkTitle })} `)}
   </sbb-link-list>
-);
+`;
 
 const orientation: InputType = {
   control: {
@@ -159,11 +162,9 @@ export const LinkListWithSlottedTitle: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story, context) => (
-      <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story, context) => html`
+      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
+    `,
   ],
   parameters: {
     docs: {
