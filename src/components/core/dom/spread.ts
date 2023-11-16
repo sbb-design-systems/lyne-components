@@ -1,6 +1,5 @@
-import { ElementPart, Part } from 'lit';
 import { Directive, directive, DirectiveResult } from 'lit/directive.js';
-import { nothing } from 'lit/html.js';
+import { ElementPart, nothing, Part } from 'lit/html.js';
 
 import { setAttributes } from './is-valid-attribute';
 
