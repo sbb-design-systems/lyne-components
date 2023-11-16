@@ -95,7 +95,7 @@ const TemplateWithError = (args): TemplateResult => {
       id="sbb-file-selector"
       @file-changed=${(event) => {
         if (event.detail && event.detail.length > 0) {
-          document.getElementById('sbb-file-selector').append(sbbFormError);
+          document.getElementById('sbb-file-selector')!.append(sbbFormError);
         } else {
           sbbFormError.remove();
         }

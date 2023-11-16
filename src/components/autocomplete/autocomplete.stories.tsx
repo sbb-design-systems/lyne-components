@@ -15,13 +15,14 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
-import { SbbFormError } from '../form-error';
+import type { SbbFormError } from '../form-error';
 import { SbbOption } from '../option';
 
 import { SbbAutocomplete } from './autocomplete';
 import readme from './readme.md?raw';
 
 import '../form-field';
+import '../form-error';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative
@@ -366,10 +367,10 @@ const RequiredTemplate = (args): TemplateResult => {
           @change=${(event) => {
             if ((event.currentTarget as HTMLInputElement).value !== '') {
               sbbFormError.remove();
-              document.getElementById('sbb-autocomplete').classList.remove('sbb-invalid');
+              document.getElementById('sbb-autocomplete')!.classList.remove('sbb-invalid');
             } else {
-              document.getElementById('sbb-form-field').append(sbbFormError);
-              document.getElementById('sbb-autocomplete').classList.add('sbb-invalid');
+              document.getElementById('sbb-form-field')!.append(sbbFormError);
+              document.getElementById('sbb-autocomplete')!.classList.add('sbb-invalid');
             }
           }}
         />

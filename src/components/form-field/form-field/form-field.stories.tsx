@@ -134,10 +134,10 @@ const TemplateInputWithErrorSpace = (args): TemplateResult => {
             @keyup=${(event) => {
               if ((event.currentTarget as HTMLInputElement).value !== '') {
                 sbbFormError.remove();
-                document.getElementById('sbb-form-field-input').classList.remove(args.class);
+                document.getElementById('sbb-form-field-input')!.classList.remove(args.class);
               } else {
-                document.getElementById('sbb-form-field').append(sbbFormError);
-                document.getElementById('sbb-form-field-input').classList.add(args.class);
+                document.getElementById('sbb-form-field')!.append(sbbFormError);
+                document.getElementById('sbb-form-field-input')!.classList.add(args.class);
               }
             }}
             class=${args.class}

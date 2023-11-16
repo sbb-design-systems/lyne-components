@@ -6,12 +6,13 @@ import { html, nothing, TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../core/dom';
-import { SbbFormError } from '../form-error';
+import type { SbbFormError } from '../form-error';
 
 import readme from './readme.md?raw';
 import { SbbTimeInput } from './time-input';
-import '../form-field';
 import '../button';
+import '../form-field';
+import '../form-error';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative
