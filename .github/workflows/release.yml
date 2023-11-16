@@ -1,0 +1,72 @@
+name: Release Please
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+      - '[0-9]+.[0-9]+.[0-9]+-*'
+
+permissions:
+  contents: write
+  packages: write
+  pull-requests: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_REPO: ghcr.io/${{ github.repository_owner }}/server
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+          registry-url: 'https://registry.npmjs.org'
+          scope: sbb-esta
+      - run: yarn install --frozen-lockfile --non-interactive
+
+      - name: Run build
+        run: STORYBOOK_COMPONENTS_VERSION=${GITHUB_REF/refs\/tags\//} yarn build
+      - name: 'Release: Determine npm tag'
+        id: npm_tag
+        run: echo "npm_tag=$([[ "${GITHUB_REF/refs\/tags\//}" == *"-"* ]] && echo "next" || echo "latest")" >> $GITHUB_OUTPUT
+      - name: 'Release: Publish @sbb-esta/lyne-components'
+        run: yarn publish dist/components --tag ${{ steps.npm_tag.outputs.npm_tag }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: 'Release: Publish @sbb-esta/lyne-components-react'
+        run: yarn publish dist/react --tag ${{ steps.npm_tag.outputs.npm_tag }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Remove files with forbidden extensions
+        run: node ./ci/clean-storybook-files.cjs
+      - name: 'Container: Login to GitHub Container Repository'
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
+      - name: 'Container: Build image'
+        run: docker build -t $IMAGE_REPO:${GITHUB_REF/refs\/tags\//} -t $IMAGE_REPO:latest .
+        env:
+          DOCKER_BUILDKIT: 1
+      - name: 'Container: Publish image'
+        run: docker push $IMAGE_REPO:${GITHUB_REF/refs\/tags\//}
+      - name: 'Container: Publish image as latest'
+        run: docker push $IMAGE_REPO:latest
+
+      - name: Generate chromatic stories
+        run: yarn generate:chromatic-stories
+      - name: Create versioned storybook for chromatic
+        run: STORYBOOK_COMPONENTS_VERSION=${GITHUB_REF/refs\/tags\//} yarn build:storybook
+        env:
+          CHROMATIC: true
+        # Send storybook to chromatic. These snapshots should be accepted as new
+        # baseline in storybook.
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_TOKEN }}
+          storybookBuildDir: dist/storybook
+          autoAcceptChanges: true
+          exitZeroOnChanges: true
+          zip: true

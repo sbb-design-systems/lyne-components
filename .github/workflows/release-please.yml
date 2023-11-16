@@ -27,10 +27,6 @@ jobs:
           release-type: node
           bump-minor-pre-major: true
           bump-patch-for-minor-pre-major: true
-          # Un/comment to enable/disable
-          prerelease: true
-          versioning-strategy: 'prerelease'
-          last-release-sha: 'd1b8b62232904e353055c1cd2ac18bb9fea30b6f'
       - name: Release Info
         run: echo "${{ steps.release.outputs }}"
 
