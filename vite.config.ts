@@ -24,11 +24,13 @@ export function packageJsonTemplate(
       const rootPackageJson = JSON.parse(readFileSync(new URL(packageJsonPath, root), 'utf8'));
       const litMajorVersion = +rootPackageJson.dependencies.lit.match(/\d+/);
       const reactMajorVersion = +rootPackageJson.devDependencies.react.match(/\d+/);
+      const litReactMajorVersion = +rootPackageJson.devDependencies['@lit/react'].match(/\d+/);
       const packageJsonTemplate = readFileSync(join(viteConfig.root, packageJsonPath), 'utf8');
       const packageJsonContent = packageJsonTemplate
         .replaceAll('0.0.0-PLACEHOLDER', rootPackageJson.version)
-        .replaceAll('0.0.0-LIT', `^${litMajorVersion}.0.0`)
-        .replaceAll('0.0.0-REACT', `^${reactMajorVersion}.0.0`);
+        .replaceAll('0.0.0-LITREACT', `^${litReactMajorVersion}.0.0`)
+        .replaceAll('0.0.0-REACT', `^${reactMajorVersion}.0.0`)
+        .replaceAll('0.0.0-LIT', `^${litMajorVersion}.0.0`);
       const packageJson = JSON.parse(packageJsonContent);
       for (const key of ['author', 'license', 'repository', 'bugs']) {
         packageJson[key] = rootPackageJson[key];
