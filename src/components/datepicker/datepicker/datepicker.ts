@@ -28,6 +28,7 @@ import style from './datepicker.scss?lit&inline';
 
 const FORMAT_DATE =
   /(^0?[1-9]?|[12]?[0-9]?|3?[01]?)[.,\\/\-\s](0?[1-9]?|1?[0-2]?)?[.,\\/\-\s](\d{1,4}$)?/;
+const dateAdapter: DateAdapter = (readConfig().datetime as SbbDatetimeConfig).dateAdapter;
 
 export interface InputUpdateEvent {
   disabled: boolean;
@@ -383,7 +384,7 @@ export class SbbDatepicker extends LitElement {
 
   private _parseAndFormatValue(value: string): string {
     const d = this._parse(value);
-    return !this._dateAdapter.isValid(d) ? value : this._format(d);
+    return !dateAdapter.isValid(d) ? value : this._format(d);
   }
 
   private _createAndComposeDate(value: SbbDateLike): string {
@@ -398,7 +399,7 @@ export class SbbDatepicker extends LitElement {
   /** Applies the correct format to values and triggers event dispatch. */
   private _formatAndUpdateValue(value: string, valueAsDate: Date): void {
     if (this._inputElement) {
-      this._inputElement.value = !this._dateAdapter.isValid(valueAsDate)
+      this._inputElement.value = !dateAdapter.isValid(valueAsDate)
         ? value
         : this._format(valueAsDate);
 
@@ -446,7 +447,7 @@ export class SbbDatepicker extends LitElement {
       return this._parseAndFormatValue(value);
     } else if (Number.isInteger(+value)) {
       return this._createAndComposeDate(+value);
-    } else if (this._dateAdapter.isValid(new Date(value))) {
+    } else if (dateAdapter.isValid(new Date(value))) {
       return this._createAndComposeDate(value);
     }
 
@@ -454,11 +455,11 @@ export class SbbDatepicker extends LitElement {
   }
 
   private _parse(value: string): Date | undefined {
-    return this.dateParser ? this.dateParser(value) : this._dateAdapter.parseDate(value);
+    return this.dateParser ? this.dateParser(value) : dateAdapter.parseDate(value);
   }
 
   private _format(date: Date): string {
-    return this.format ? this.format(date) : this._dateAdapter.format(date);
+    return this.format ? this.format(date) : dateAdapter.format(date);
   }
 
   private _setAriaLiveMessage(date: Date): void {
