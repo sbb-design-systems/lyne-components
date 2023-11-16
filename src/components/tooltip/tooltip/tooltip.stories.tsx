@@ -11,15 +11,15 @@ import { waitForStablePosition } from '../../../storybook/testing/wait-for-stabl
 import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
+import { SbbTooltip } from './tooltip';
 import '../../link';
 import '../tooltip-trigger';
-import { SbbTooltip } from './tooltip';
 
 async function commonPlayStory(canvasElement: HTMLElement): Promise<Element> {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
-    canvas.getByTestId('tooltip').shadowRoot.querySelector('.sbb-tooltip'),
+    canvas.getByTestId('tooltip').shadowRoot!.querySelector('.sbb-tooltip'),
   );
 
   await waitForStablePosition(() => canvas.getByTestId('tooltip-trigger'));
@@ -211,7 +211,7 @@ export const HoverTrigger: StoryObj = {
 const meta: Meta = {
   decorators: [
     (story) => html`
-      <div style="padding: 2rem; position: relative; min-height: calc(100vh - 2rem);>
+      <div style="padding: 2rem; position: relative; min-height: calc(100vh - 2rem);">
         ${story()}
       </div>
     `,
