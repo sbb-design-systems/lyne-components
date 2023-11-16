@@ -141,8 +141,8 @@ function convert() {
                 ts.isShorthandPropertyAssignment(p)
                   ? (p.name.escapedText as string)
                   : ts.isPropertyAssignment(p) && ts.isIdentifier(p.initializer)
-                  ? (p.initializer.escapedText as string)
-                  : '',
+                    ? (p.initializer.escapedText as string)
+                    : '',
               ),
             ),
           )
@@ -154,8 +154,8 @@ function convert() {
                 ts.isShorthandPropertyAssignment(p)
                   ? (p.name.escapedText as string)
                   : ts.isPropertyAssignment(p) && ts.isStringLiteralLike(p.name)
-                  ? p.name.text
-                  : '',
+                    ? p.name.text
+                    : '',
               )
               .filter((v) => !!v),
           );

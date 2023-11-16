@@ -16,8 +16,8 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
     context.args.color === 'white' || context.args.color === 'transparent-bordered-dashed'
       ? 'var(--sbb-color-milk-default)'
       : context.args.color === 'milk'
-      ? 'var(--sbb-color-white-default)'
-      : '--sbb-color-platinum-default',
+        ? 'var(--sbb-color-white-default)'
+        : '--sbb-color-platinum-default',
 });
 
 const ContentText = (): JSX.Element => (
