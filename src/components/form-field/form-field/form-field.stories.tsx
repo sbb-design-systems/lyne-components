@@ -128,10 +128,10 @@ const TemplateInputWithErrorSpace = (args): TemplateResult => {
             id="sbb-form-field-input"
             @keyup=${(event) => {
               if ((event.currentTarget as HTMLInputElement).value !== '') {
-                document.getElementById('sbb-form-error')!.style.display = 'none';
+                document.querySelector('sbb-form-error')!.style.display = 'none';
                 document.getElementById('sbb-form-field-input')!.classList.remove(args.class);
               } else {
-                document.getElementById('sbb-form-error')!.style.display = '';
+                document.querySelector('sbb-form-error')!.style.display = '';
                 document.getElementById('sbb-form-field-input')!.classList.add(args.class);
               }
             }}
@@ -221,10 +221,10 @@ const TemplateSelectWithErrorSpace = (args): TemplateResult => {
             id="sbb-form-field-input"
             @change=${(event) => {
               if ((event.currentTarget as HTMLSelectElement).value !== '') {
-                document.getElementById('sbb-form-error')!.style.display = 'none';
+                document.querySelector('sbb-form-error')!.style.display = 'none';
                 document.getElementById('sbb-form-field-input')!.classList.remove(args.class);
               } else {
-                document.getElementById('sbb-form-error')!.style.display = '';
+                document.querySelector('sbb-form-error')!.style.display = '';
                 document.getElementById('sbb-form-field-input')!.classList.add(args.class);
               }
             }}

@@ -90,9 +90,9 @@ const TemplateWithError = (args): TemplateResult => {
       id="sbb-file-selector"
       @file-changed=${(event) => {
         if (event.detail && event.detail.length > 0) {
-          document.getElementById('sbb-form-error')!.style.display = 'none';
+          document.querySelector('sbb-form-error')!.style.display = 'none';
         } else {
-          document.getElementById('sbb-form-error')!.style.display = '';
+          document.querySelector('sbb-form-error')!.style.display = '';
         }
       }}
     ></sbb-file-selector>
