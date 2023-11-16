@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.42.7](https://github.com/lyne-design-system/lyne-components/compare/v0.42.6...v0.42.7) (2023-11-16)
+
+
+### Bug Fixes
+
+* **sbb-datepicker:** add missing tests on related components, minor fixes ([#2185](https://github.com/lyne-design-system/lyne-components/issues/2185)) ([c5e14d9](https://github.com/lyne-design-system/lyne-components/commit/c5e14d937d23fc9c3efd83996310eedb9b9eb278))
+* **sbb-radio-button-group, sbb-checkbox-group:** radio and checkbox group state update ([#2186](https://github.com/lyne-design-system/lyne-components/issues/2186)) ([f6b5194](https://github.com/lyne-design-system/lyne-components/commit/f6b51941d341d50411af1f7d06c918bf37ec0155))
+* **sbb-selection-panel:** disabled border color when checked ([#2189](https://github.com/lyne-design-system/lyne-components/issues/2189)) ([3ccf91a](https://github.com/lyne-design-system/lyne-components/commit/3ccf91aff4bc53f050d3213f10d90a37c4e48a67))
+
 ### [0.42.6](https://github.com/lyne-design-system/lyne-components/compare/v0.42.5...v0.42.6) (2023-11-14)
 
 ### Bug Fixes
