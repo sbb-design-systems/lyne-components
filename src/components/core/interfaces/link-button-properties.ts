@@ -65,7 +65,6 @@ export interface LinkButtonRenderVariables {
  * The interface contains the possible attributes of both the <a> and the <button> tags.
  * It is intended to be used in all cases where a component needs to render a tag that can be an <a> or a <button>,
  * for instance depending on whether the value of the href attribute is present or not.
- * TODO: a class could not be created with StencilJS. Check if a refactor is needed.
  */
 export interface LinkButtonProperties extends LinkProperties, ButtonProperties {}
 

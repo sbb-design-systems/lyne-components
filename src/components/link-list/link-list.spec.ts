@@ -5,7 +5,7 @@ import type { SbbLink } from '../link';
 
 import type { SbbLinkList } from './link-list';
 
-// TODO: Add import '../link';
+import '../link';
 import './link-list';
 
 describe('sbb-link-list', () => {
