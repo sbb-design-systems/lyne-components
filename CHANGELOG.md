@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.43.0-next.4](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0-next.3...v0.43.0-next.4) (2023-11-16)
+
+### Bug Fixes
+
+- add @lit/react as dependency of the react wrapper ([00853f9](https://github.com/lyne-design-system/lyne-components/commit/00853f9246b4bf2764f93902173f5b19f29fd928))
+
 ## [0.43.0-next.3](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0-next.2...v0.43.0-next.3) (2023-11-16)
 
 ## [0.43.0-next.2](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0-next.1...v0.43.0-next.2) (2023-11-16)
