@@ -2,6 +2,114 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.43.0-next.0](https://github.com/lyne-design-system/lyne-components/compare/v0.42.6...v0.43.0-next.0) (2023-11-16)
+
+### ⚠ BREAKING CHANGES
+
+- Distribution and import paths changed:
+  Previously with Stencil.js we had various distribution bundles, which served nontransparent purposes. With Lit we now have one distribution format, which is modern JavaScript as EcmaScript Modules (ESM). This significantly reduces bundle size and reduces confusion with building and debugging.
+  Additionally, we have separated components into their own modules, with secondary entry points (available via e.g. @sbb-esta/lyne-components/button). Even with modern tooling, this improves bundler and IDE performance and creates logical boundaries for related functionality.
+- Boolean attributes are now considered as true as long as they are present, even when manually set to false (e.g. `disabled='false'` is still disabled). See https://developer.mozilla.org/en-US/docs/Glossary/Boolean/HTML
+- `hydration` CSS class is not set anymore. Use `:defined` selector if you like to know whenever a component is defined.
+- `sbb-image`: properties `lqip` renamed to `skipLqip` and `borderRadius` to `noBorderRadius`. The logic is inverted now.
+- **sbb-header:** The spacing between the logo and the `sbb-header-action`s is now in responsibility of Lyne. Therefore consumers need to remove any manually added spacing. Lyne examples are updated. (cherry picked from commit 07cbf3080f834171a9b6580398711138aea7558e)
+
+### Features
+
+- implement React wrapper ([#2171](https://github.com/lyne-design-system/lyne-components/issues/2171)) ([b2c6548](https://github.com/lyne-design-system/lyne-components/commit/b2c65487c58c6f3f71c7387d1291bf7f80dace88))
+
+### Bug Fixes
+
+- add CSSResult import and type ([#2006](https://github.com/lyne-design-system/lyne-components/issues/2006)) ([c22164f](https://github.com/lyne-design-system/lyne-components/commit/c22164f0a34cb7302cbed759eb30daa92aeb7d96))
+- connect sbb-datepicker with related components when initialized ([#2160](https://github.com/lyne-design-system/lyne-components/issues/2160)) ([901896e](https://github.com/lyne-design-system/lyne-components/commit/901896e6baca6c4c26f1176625e7627d7760ab7e))
+- **form-field:** fix optional spacing ([fbf6c0e](https://github.com/lyne-design-system/lyne-components/commit/fbf6c0efee4c38906204f3c6409255bd1446bf8d))
+- **lit-migration:** change public methods to private where possible ([#2125](https://github.com/lyne-design-system/lyne-components/issues/2125)) ([046544b](https://github.com/lyne-design-system/lyne-components/commit/046544b0a9ed3f56799c668c06fbb2918c159483))
+- resolve attributes function not handling states correctly ([#2064](https://github.com/lyne-design-system/lyne-components/issues/2064)) ([dc981b5](https://github.com/lyne-design-system/lyne-components/commit/dc981b560cf1ad51987e6a58f82d6b4e85e2e00e))
+- **sbb-datepicker:** add missing tests on related components, minor fixes ([#2185](https://github.com/lyne-design-system/lyne-components/issues/2185)) ([c5e14d9](https://github.com/lyne-design-system/lyne-components/commit/c5e14d937d23fc9c3efd83996310eedb9b9eb278))
+- **sbb-navigation, sbb-menu, sbb-dialog, sbb-tooltip:** new overlay mechanism ([#2133](https://github.com/lyne-design-system/lyne-components/issues/2133)) ([f6885e6](https://github.com/lyne-design-system/lyne-components/commit/f6885e604eec9f068ef4fe868b743ca7238be9b2))
+- **sbb-radio-button-group, sbb-checkbox-group:** radio and checkbox group state update ([#2186](https://github.com/lyne-design-system/lyne-components/issues/2186)) ([f6b5194](https://github.com/lyne-design-system/lyne-components/commit/f6b51941d341d50411af1f7d06c918bf37ec0155))
+- **sbb-selection-panel:** disabled border color when checked ([#2189](https://github.com/lyne-design-system/lyne-components/issues/2189)) ([3ccf91a](https://github.com/lyne-design-system/lyne-components/commit/3ccf91aff4bc53f050d3213f10d90a37c4e48a67))
+- **sbb-selection-panel:** state and value initialization ([#2178](https://github.com/lyne-design-system/lyne-components/issues/2178)) ([6d1ad9a](https://github.com/lyne-design-system/lyne-components/commit/6d1ad9ac737cac2b18fdf0e9c92274e489207cb3))
+- **sbb-toggle-check:** await Promise of setTimeout ([#2058](https://github.com/lyne-design-system/lyne-components/issues/2058)) ([fbf67ee](https://github.com/lyne-design-system/lyne-components/commit/fbf67eed7beaba1222c2782c249e910c687c31d9))
+
+### Documentation
+
+- coding standards update ([19ede73](https://github.com/lyne-design-system/lyne-components/commit/19ede731bb09be0af3cafe52ea6a68f9214950f6))
+- develop documentation update ([218b34e](https://github.com/lyne-design-system/lyne-components/commit/218b34eb83d663f3cc9c2dedcf6e6ec24a4e7022))
+- develop documentation update ([d1bb87d](https://github.com/lyne-design-system/lyne-components/commit/d1bb87d5308d1ba19ed123845978fa3112ea3373))
+- **generate:** adapt to manifest changes and general fixes ([#2135](https://github.com/lyne-design-system/lyne-components/issues/2135)) ([941ac68](https://github.com/lyne-design-system/lyne-components/commit/941ac68cfd526c413f3d194c58642a4b769d5300))
+- readme refactoring ([#1996](https://github.com/lyne-design-system/lyne-components/issues/1996)) ([40a06ee](https://github.com/lyne-design-system/lyne-components/commit/40a06ee42a1f659e2665c937779bcefb302b9f43))
+- **readme:** restored readme auto-generation ([#2109](https://github.com/lyne-design-system/lyne-components/issues/2109)) ([bb15b2e](https://github.com/lyne-design-system/lyne-components/commit/bb15b2e28eb93a0621f181b6146db350792e4d3c))
+- remove todo and update components docs ([#2176](https://github.com/lyne-design-system/lyne-components/issues/2176)) ([13fb68f](https://github.com/lyne-design-system/lyne-components/commit/13fb68f3f069f7703c93b1b9c4583a75898458a1))
+- update coding standards ([#2158](https://github.com/lyne-design-system/lyne-components/issues/2158)) ([d7f3635](https://github.com/lyne-design-system/lyne-components/commit/d7f3635a539b27978319d6dec122c7446f5d8008))
+
+### Refactorings
+
+- adapt imports ([a668cff](https://github.com/lyne-design-system/lyne-components/commit/a668cff92eb72577a97972dd9b6595f5a3140ccc))
+- add eslint-plugin-import and apply rules ([#2162](https://github.com/lyne-design-system/lyne-components/issues/2162)) ([8185e3d](https://github.com/lyne-design-system/lyne-components/commit/8185e3def118bf605c4f7f03328d6f315c5d3342))
+- **css:** migrate '.hydrated' css rules ([bae27d4](https://github.com/lyne-design-system/lyne-components/commit/bae27d42502216cfab95573c1f9472caac03d33f))
+- **EventEmitter:** set default options to true ([2c07a95](https://github.com/lyne-design-system/lyne-components/commit/2c07a958f7a21e76d1246eb1d44626acffd3774d))
+- **home, styles:** lit migration ([#2086](https://github.com/lyne-design-system/lyne-components/issues/2086)) ([d978b16](https://github.com/lyne-design-system/lyne-components/commit/d978b16fd99b7ba4efe2f8cae5f6d797c691ff68))
+- improve linting ([#2122](https://github.com/lyne-design-system/lyne-components/issues/2122)) ([e79d0b7](https://github.com/lyne-design-system/lyne-components/commit/e79d0b79958df76b14baef1996520c5ced1664a0))
+- inline event name map in components ([#2104](https://github.com/lyne-design-system/lyne-components/issues/2104)) ([dcadb36](https://github.com/lyne-design-system/lyne-components/commit/dcadb36f0982d8814e125e59f01c675345732149))
+- migrate library to Lit ([d1b8b62](https://github.com/lyne-design-system/lyne-components/commit/d1b8b62232904e353055c1cd2ac18bb9fea30b6f))
+- migrate readme imports ([9cae032](https://github.com/lyne-design-system/lyne-components/commit/9cae032957f1cfcc6e19f471b4996f78a8839ccc))
+- migrate toggle and toggle-option ([#2021](https://github.com/lyne-design-system/lyne-components/issues/2021)) ([00be8b2](https://github.com/lyne-design-system/lyne-components/commit/00be8b249c5214165a57086929825e081209eaee))
+- migrate toggle-check ([#2022](https://github.com/lyne-design-system/lyne-components/issues/2022)) ([2c215a6](https://github.com/lyne-design-system/lyne-components/commit/2c215a6437533e2cb7df8376b5e7f4cfdae694e5))
+- move src/global to src/components/core ([#2140](https://github.com/lyne-design-system/lyne-components/issues/2140)) ([947f858](https://github.com/lyne-design-system/lyne-components/commit/947f85850eac399c260d1230eac371a76632b4ed))
+- refactor timetable base components ([#2060](https://github.com/lyne-design-system/lyne-components/issues/2060)) ([871bd8e](https://github.com/lyne-design-system/lyne-components/commit/871bd8e5399522122abc21c3493cda6e8ff52ddd))
+- remove \*.d.ts files ([#2110](https://github.com/lyne-design-system/lyne-components/issues/2110)) ([199b21a](https://github.com/lyne-design-system/lyne-components/commit/199b21a492c580bbe06547251bd0edd6c1ed8f51))
+- remove CSS selectors for boolean attributes ([#2145](https://github.com/lyne-design-system/lyne-components/issues/2145)) ([9d1dd59](https://github.com/lyne-design-system/lyne-components/commit/9d1dd59438282b329bc4b51b310ee7c8e6038504))
+- rename and restructure components ([bf7dd40](https://github.com/lyne-design-system/lyne-components/commit/bf7dd40e409cc8e0185179d0e47ec3b66cf2b655))
+- **sbb-accordion:** lit migration ([#2069](https://github.com/lyne-design-system/lyne-components/issues/2069)) ([055aceb](https://github.com/lyne-design-system/lyne-components/commit/055aceb69b345aa7d3186a1db0018ebf5c94f8b4))
+- **sbb-alert:** lit migration ([#2073](https://github.com/lyne-design-system/lyne-components/issues/2073)) ([4298825](https://github.com/lyne-design-system/lyne-components/commit/4298825981e0513b897ea8e253101d1877b525a7))
+- **sbb-breadcrumb, sbb-breadcrumb-group:** lit migration ([#2071](https://github.com/lyne-design-system/lyne-components/issues/2071)) ([0ad2547](https://github.com/lyne-design-system/lyne-components/commit/0ad25474a6754693da7ea8b226e00492e2fb3dfa))
+- **sbb-button:** lit migration ([#1997](https://github.com/lyne-design-system/lyne-components/issues/1997)) ([a0e02cb](https://github.com/lyne-design-system/lyne-components/commit/a0e02cbf37e9bbe46606e5b7c877a9010bff8a5f))
+- **sbb-calendar:** migrate component to lit ([#2045](https://github.com/lyne-design-system/lyne-components/issues/2045)) ([c475ded](https://github.com/lyne-design-system/lyne-components/commit/c475ded0686a6e5fa7648060658cb1309c389a87))
+- **sbb-card:** lit migration ([#2056](https://github.com/lyne-design-system/lyne-components/issues/2056)) ([5a3424d](https://github.com/lyne-design-system/lyne-components/commit/5a3424d6a6a5d4109a28158ab157e3282fc49da5))
+- **sbb-checkbox, sbb-checkbox-group:** migration to Lit ([#2065](https://github.com/lyne-design-system/lyne-components/issues/2065)) ([1160c84](https://github.com/lyne-design-system/lyne-components/commit/1160c84bfe99bebbece64370ffc9aa1cfcc8d7ea))
+- sbb-chip migration ([#2008](https://github.com/lyne-design-system/lyne-components/issues/2008)) ([8205fc8](https://github.com/lyne-design-system/lyne-components/commit/8205fc8060572b542cc1e00e9f7fdc4a7c8f1c91))
+- **sbb-clock, sbb-link-list, sbb-footer:** migrate to lit ([#2059](https://github.com/lyne-design-system/lyne-components/issues/2059)) ([73ab56a](https://github.com/lyne-design-system/lyne-components/commit/73ab56a01a5a53d358e174f2bbc47df615858f1c))
+- **sbb-datepicker:** lit migration ([#2102](https://github.com/lyne-design-system/lyne-components/issues/2102)) ([1e6f506](https://github.com/lyne-design-system/lyne-components/commit/1e6f506e864c4b0fe18e3296176a9b6e7f025beb))
+- **sbb-datepicker:** remove unnecessary code to stabilize tests ([#2165](https://github.com/lyne-design-system/lyne-components/issues/2165)) ([11fc6c0](https://github.com/lyne-design-system/lyne-components/commit/11fc6c07b4c546d2d3465aec38b28d6dc8bea4ee))
+- **sbb-dialog:** lit migration ([#2041](https://github.com/lyne-design-system/lyne-components/issues/2041)) ([2461067](https://github.com/lyne-design-system/lyne-components/commit/24610670bd11d2059c5285de30269edf696b5ffb))
+- sbb-divider migration ([#2009](https://github.com/lyne-design-system/lyne-components/issues/2009)) ([8d8d067](https://github.com/lyne-design-system/lyne-components/commit/8d8d067c4cae5f6c9f4e96453855da49635e2bdb))
+- **sbb-expansion-panel:** improve expansion animation ([#2043](https://github.com/lyne-design-system/lyne-components/issues/2043)) ([10ec53b](https://github.com/lyne-design-system/lyne-components/commit/10ec53b06eeda0a73abdd49ee26cd7fcda1015be))
+- **sbb-file-selector:** lit migration ([#2091](https://github.com/lyne-design-system/lyne-components/issues/2091)) ([e48d5d2](https://github.com/lyne-design-system/lyne-components/commit/e48d5d2432688ed8ba6eaae1dc17da20110146b9))
+- **sbb-form-field:** lit migration ([#2012](https://github.com/lyne-design-system/lyne-components/issues/2012)) ([9508817](https://github.com/lyne-design-system/lyne-components/commit/9508817749e0e187aebac9534d1975b6729ae69d))
+- **sbb-header, sbb-header-action, sbb-logo, sbb-signet:** migrate lit ([#2049](https://github.com/lyne-design-system/lyne-components/issues/2049)) ([4f3be22](https://github.com/lyne-design-system/lyne-components/commit/4f3be2285744ff0e96294e55d5e6674cae4e6270))
+- **sbb-icon:** lit migration ([#1994](https://github.com/lyne-design-system/lyne-components/issues/1994)) ([0b4cbf0](https://github.com/lyne-design-system/lyne-components/commit/0b4cbf0ba17a9ed32acc69fbc4705b9afc996b17))
+- **sbb-image:** lit migration ([#2029](https://github.com/lyne-design-system/lyne-components/issues/2029)) ([8d915b8](https://github.com/lyne-design-system/lyne-components/commit/8d915b8aecd24da71d709e32b45a4037dc0b83f3))
+- **sbb-journey-header, sbb-journey-summary:** lit migration ([#2074](https://github.com/lyne-design-system/lyne-components/issues/2074)) ([9b02b89](https://github.com/lyne-design-system/lyne-components/commit/9b02b89cde90afd9e34a1c8dfca4169760f5d914))
+- **sbb-link:** lit migration ([#2004](https://github.com/lyne-design-system/lyne-components/issues/2004)) ([2cd9a2c](https://github.com/lyne-design-system/lyne-components/commit/2cd9a2ca13d629cefdb688a73a6dbc186d1ade34))
+- **sbb-loading-indicator:** lit migration ([#2089](https://github.com/lyne-design-system/lyne-components/issues/2089)) ([b6b7d34](https://github.com/lyne-design-system/lyne-components/commit/b6b7d34b44f9e3b65fea6830df91325f79192eed))
+- **sbb-map-container:** lit migration ([#2084](https://github.com/lyne-design-system/lyne-components/issues/2084)) ([ceb2d33](https://github.com/lyne-design-system/lyne-components/commit/ceb2d33009ba50f77ec9c8bd8ec6485ac8228797))
+- **sbb-menu:** lit migration ([#2024](https://github.com/lyne-design-system/lyne-components/issues/2024)) ([e316987](https://github.com/lyne-design-system/lyne-components/commit/e316987604f472ea05239b8fa0192a0d2d6331be))
+- **sbb-message:** lit migration ([#2032](https://github.com/lyne-design-system/lyne-components/issues/2032)) ([143596f](https://github.com/lyne-design-system/lyne-components/commit/143596f702ee7a1c0c6743ad7be11b53cb52aeca))
+- **sbb-navigation:** lit migration ([#2050](https://github.com/lyne-design-system/lyne-components/issues/2050)) ([1a29131](https://github.com/lyne-design-system/lyne-components/commit/1a29131c1db8cecaa4a069692f64f96300ddeb1d))
+- **sbb-notification:** lit migration ([#2075](https://github.com/lyne-design-system/lyne-components/issues/2075)) ([b923b3b](https://github.com/lyne-design-system/lyne-components/commit/b923b3b478d8c5209334a3c690dc3b245118722f))
+- **sbb-option, sbb-optgroup, sbb-autocomplete, sbb-select:** lit migration ([#2062](https://github.com/lyne-design-system/lyne-components/issues/2062)) ([fcb5eac](https://github.com/lyne-design-system/lyne-components/commit/fcb5eacd82a314cee4032ff2baf58c1f734b4842))
+- **sbb-pearl-chain:** lit migration ([#2030](https://github.com/lyne-design-system/lyne-components/issues/2030)) ([7a57aef](https://github.com/lyne-design-system/lyne-components/commit/7a57aef1874b430e0b380450d6d69f0febd62330))
+- **sbb-radio-button-group:** lit migration ([#2054](https://github.com/lyne-design-system/lyne-components/issues/2054)) ([7b596ef](https://github.com/lyne-design-system/lyne-components/commit/7b596eff8cdbdedc8ddf4cb9202825df14b049cb))
+- **sbb-selection-panel:** lit migration ([#2101](https://github.com/lyne-design-system/lyne-components/issues/2101)) ([6fe9b82](https://github.com/lyne-design-system/lyne-components/commit/6fe9b82ac23063feabd09aef62bbc19bcc91e0ee))
+- **sbb-skiplink-list:** lit migration ([#2130](https://github.com/lyne-design-system/lyne-components/issues/2130)) ([12a1a71](https://github.com/lyne-design-system/lyne-components/commit/12a1a71adcd64f0751043fe09f21c01612511482))
+- **sbb-slider:** lit migration ([#2082](https://github.com/lyne-design-system/lyne-components/issues/2082)) ([7c0098d](https://github.com/lyne-design-system/lyne-components/commit/7c0098d1349c1281e1adfb4ec177b0d6b8fa49ed))
+- **sbb-tab-group:** lit migration ([#2031](https://github.com/lyne-design-system/lyne-components/issues/2031)) ([1b59e50](https://github.com/lyne-design-system/lyne-components/commit/1b59e5038e9d537662faabdcd50d7b93808d3b9e))
+- **sbb-tag-group:** lit migration ([#2055](https://github.com/lyne-design-system/lyne-components/issues/2055)) ([b12dc6e](https://github.com/lyne-design-system/lyne-components/commit/b12dc6e638555658efb7c8a3afe36266a7a4c4ac))
+- **sbb-teaser-hero:** lit migration ([#2077](https://github.com/lyne-design-system/lyne-components/issues/2077)) ([8a65f43](https://github.com/lyne-design-system/lyne-components/commit/8a65f43789cedac3e8a72ba54291bf67d84bfe79))
+- **sbb-teaser:** lit migration ([#2076](https://github.com/lyne-design-system/lyne-components/issues/2076)) ([a0b5546](https://github.com/lyne-design-system/lyne-components/commit/a0b5546487790224205b749dbcbcb7bd26021752))
+- **sbb-time-input:** lit migration ([#2036](https://github.com/lyne-design-system/lyne-components/issues/2036)) ([2267a2b](https://github.com/lyne-design-system/lyne-components/commit/2267a2b82a925b88a1cffcadc46cb635674b68c6))
+- **sbb-timetable-row:** lit migration ([#2078](https://github.com/lyne-design-system/lyne-components/issues/2078)) ([6cb07c7](https://github.com/lyne-design-system/lyne-components/commit/6cb07c7eeb9446fa96a2b8a5d5326e57ab136740))
+- **sbb-title:** finalize migration ([6216cec](https://github.com/lyne-design-system/lyne-components/commit/6216cec584aa69628596fbf11148f83bca8a73bd))
+- **sbb-title:** migrate to Lit ([72ed19e](https://github.com/lyne-design-system/lyne-components/commit/72ed19ef0244011bf78de037bd40d6a72b380d11))
+- **sbb-title:** use 'unsafeStatic' directive ([1e52246](https://github.com/lyne-design-system/lyne-components/commit/1e52246bb41c605113e5095de03fd829a947f56d))
+- **sbb-toast:** lit migration ([#2007](https://github.com/lyne-design-system/lyne-components/issues/2007)) ([6083d1f](https://github.com/lyne-design-system/lyne-components/commit/6083d1fd91abb62297ee55b73d5f0b89ae426e72))
+- **sbb-tooltip:** migrate sbb-tooltip and sbb-tooltip-trigger ([#2066](https://github.com/lyne-design-system/lyne-components/issues/2066)) ([5df8f59](https://github.com/lyne-design-system/lyne-components/commit/5df8f59cc97387f02b9a37d30c62e18834fe0d8e))
+- **sbb-train-formation:** lit migration ([#2087](https://github.com/lyne-design-system/lyne-components/issues/2087)) ([06fdb52](https://github.com/lyne-design-system/lyne-components/commit/06fdb526edfb133de74892c068b5c8b32ed65c2a))
+- sbb-visual-checkbox migration ([#2010](https://github.com/lyne-design-system/lyne-components/issues/2010)) ([8cc96eb](https://github.com/lyne-design-system/lyne-components/commit/8cc96eb61a9bb1a08e1696055bf02287686ffeca))
+- use CSSResultGroup to better support style inheritance ([#2187](https://github.com/lyne-design-system/lyne-components/issues/2187)) ([5bfe947](https://github.com/lyne-design-system/lyne-components/commit/5bfe947185287d0d98655260c9665f6416021b3d))
+- wait for all child components to be updated in tests ([#2063](https://github.com/lyne-design-system/lyne-components/issues/2063)) ([993002a](https://github.com/lyne-design-system/lyne-components/commit/993002add07251f45de3afe1baf1ee90b78716dc))
+
 ### [0.42.6](https://github.com/lyne-design-system/lyne-components/compare/v0.42.5...v0.42.6) (2023-11-14)
 
 ### Bug Fixes
