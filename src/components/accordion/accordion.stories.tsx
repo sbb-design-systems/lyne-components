@@ -3,6 +3,7 @@ import { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
 import { Decorator } from '@storybook/web-components';
 import { html, TemplateResult } from 'lit';
+import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../core/dom';
@@ -138,37 +139,6 @@ const defaultArgs: Args = {
   contentText: 'This is the content: "Lorem ipsum dolor sit amet".',
 };
 
-const createExpansionPanelTemplate = (
-  numberOfPanels,
-  color,
-  expanded,
-  borderless,
-  disabled,
-  headerText,
-  iconName,
-  contentText,
-): TemplateResult[] => {
-  // TODO: check if this works
-  return new Array(numberOfPanels).fill(null).map(
-    (_, index) => html`
-      <sbb-expansion-panel
-        color=${color}
-        ?expanded=${expanded}
-        ?borderless=${borderless}
-        ?disabled=${disabled && index === 0}
-      >
-        <sbb-expansion-panel-header icon-name=${iconName}>
-          ${headerText} ${index + 1}
-        </sbb-expansion-panel-header>
-        <sbb-expansion-panel-content>
-          <p>Content ${index + 1}</p>
-          ${contentText}
-        </sbb-expansion-panel-content>
-      </sbb-expansion-panel>
-    `,
-  );
-};
-
 const Template = ({
   numberOfPanels,
   color,
@@ -181,15 +151,24 @@ const Template = ({
   ...args
 }: Args): TemplateResult => html`
   <sbb-accordion ${sbbSpread(args)}>
-    ${createExpansionPanelTemplate(
-      numberOfPanels,
-      color,
-      expanded,
-      borderless,
-      disabled,
-      headerText,
-      iconName,
-      contentText,
+    ${repeat(
+      new Array(numberOfPanels),
+      (_, index: number) => html`
+        <sbb-expansion-panel
+          color=${color}
+          ?expanded=${expanded}
+          ?borderless=${borderless}
+          ?disabled=${disabled && index === 0}
+        >
+          <sbb-expansion-panel-header icon-name=${iconName}>
+            ${headerText} ${index + 1}
+          </sbb-expansion-panel-header>
+          <sbb-expansion-panel-content>
+            <p>Content ${index + 1}</p>
+            ${contentText}
+          </sbb-expansion-panel-content>
+        </sbb-expansion-panel>
+      `,
     )}
   </sbb-accordion>
 `;

@@ -90,8 +90,8 @@ export class SbbExpansionPanel extends LitElement {
   }
 
   private _onExpandedChange(): void {
-    this._headerRef.setAttribute('aria-expanded', String(this.expanded));
-    this._contentRef.setAttribute('aria-hidden', String(!this.expanded));
+    this._headerRef?.setAttribute('aria-expanded', String(this.expanded));
+    this._contentRef?.setAttribute('aria-hidden', String(!this.expanded));
 
     if (this.expanded) {
       this._willOpen.emit();
@@ -111,7 +111,9 @@ export class SbbExpansionPanel extends LitElement {
   }
 
   private _updateDisabledOnHeader(newDisabledValue: boolean): void {
-    this._headerRef.disabled = newDisabledValue;
+    if (this._headerRef) {
+      this._headerRef.disabled = newDisabledValue;
+    }
   }
 
   private _transitionEventController: AbortController;
