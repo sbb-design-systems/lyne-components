@@ -1,28 +1,23 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 
 import '../../../components/alert';
 import '../../../components/action-group';
-
 import {
-  BikeProduct,
-  DailyTicketProduct,
-  Footer,
-  LiberoProduct,
-  Navigation,
-  SkiplinkList,
-  TeaserHero,
-  TimetableInput,
+  bikeProduct,
+  dailyTicketProduct,
+  footer,
+  liberoProduct,
+  navigation,
+  skiplinkList,
+  teaserHero,
+  timetableInput,
   wrapperStyle,
 } from './home.common';
 import readme from './readme.md?raw';
 import './home.scss';
-
-/* ************************************************* */
-/* Storybook controls                                */
-/* ************************************************* */
 
 const negative: InputType = {
   control: {
@@ -38,25 +33,17 @@ const defaultArgs: Args = {
   negative: false,
 };
 
-/* ************************************************* */
-/* Storybook template                                */
-/* ************************************************* */
-
-const Template = (args): JSX.Element => (
+const Template = (args: Args): TemplateResult => html`
   <div>
-    <SkiplinkList></SkiplinkList>
+    ${skiplinkList()}
 
-    {/* *************************************************
-    Header section
-    ************************************************* */}
-    <sbb-header hide-on-scroll="true">
+    <!-- Header section -->
+    <sbb-header hide-on-scroll>
       <sbb-header-action id="hamburger-menu" icon-name="hamburger-menu-small" expand-from="small">
         Menu
       </sbb-header-action>
       <div class="sbb-header-spacer"></div>
-      <sbb-header-action icon-name="magnifying-glass-small" href="/">
-        Search
-      </sbb-header-action>
+      <sbb-header-action icon-name="magnifying-glass-small" href="/"> Search </sbb-header-action>
       <sbb-header-action icon-name="user-small" class="sbb-header-shrinkable">
         Sign in
       </sbb-header-action>
@@ -67,25 +54,19 @@ const Template = (args): JSX.Element => (
         <sbb-menu-action aria-pressed="false">Deutsch</sbb-menu-action>
         <sbb-menu-action aria-pressed="false">Français</sbb-menu-action>
         <sbb-menu-action aria-pressed="false">Italiano</sbb-menu-action>
-        <sbb-menu-action icon-name="tick-small" aria-pressed="true">
-          English
-        </sbb-menu-action>
+        <sbb-menu-action icon-name="tick-small" aria-pressed="true"> English </sbb-menu-action>
       </sbb-menu>
       <a href="https://www.sbb.ch" slot="logo">
         <sbb-logo protective-room="none"></sbb-logo>
       </a>
     </sbb-header>
 
-    <Navigation></Navigation>
+    ${navigation()}
 
-    {/* *************************************************
-    Timetable input section
-    ************************************************* */}
-    <TimetableInput></TimetableInput>
+    <!-- Timetable input section -->
+    ${timetableInput()}
 
-    {/* *************************************************
-    Alerts section
-    ************************************************* */}
+    <!-- Alerts section-->
     <section class="alert-section sbb-grid">
       <div class="grid-reduced-width">
         <sbb-alert-group accessibility-title="Disruptions">
@@ -105,18 +86,12 @@ const Template = (args): JSX.Element => (
       </div>
     </section>
 
-    {/* *************************************************
-    Top products section
-    ************************************************* */}
+    <!-- Top products section -->
     <section class="sbb-page-spacing">
       <div class="top-products-container">
-        <sbb-title level="2" negative={args.negative}>
-          Top Products.
-        </sbb-title>
+        <sbb-title level="2" ?negative=${args.negative}> Top Products. </sbb-title>
         <div class="top-products-grid">
-          <DailyTicketProduct></DailyTicketProduct>
-          <BikeProduct></BikeProduct>
-          <LiberoProduct></LiberoProduct>
+          ${dailyTicketProduct()} ${bikeProduct()} ${liberoProduct()}
           <sbb-card color="milk" size="s">
             <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
               Buy daily ticket
@@ -124,14 +99,10 @@ const Template = (args): JSX.Element => (
             <span class="card-product">
               <sbb-icon name="ticket-route-medium"></sbb-icon>
               <span class="content">
-                <sbb-title level="2" visual-level="6">
-                  Route map
-                </sbb-title>
+                <sbb-title level="2" visual-level="6"> Route map </sbb-title>
                 <span class="sbb-text-s card-description">For regular trips</span>
               </span>
-              <sbb-button size="m" variant="secondary" is-static>
-                Buy
-              </sbb-button>
+              <sbb-button size="m" variant="secondary" is-static> Buy </sbb-button>
             </span>
           </sbb-card>
 
@@ -141,16 +112,12 @@ const Template = (args): JSX.Element => (
             </sbb-card-action>
             <span class="card-product-big">
               <span class="content">
-                <sbb-title level="2" visual-level="1">
-                  GA
-                </sbb-title>
+                <sbb-title level="2" visual-level="1"> GA </sbb-title>
                 <sbb-title level="3" visual-level="6">
                   Enjoy unlimited travel with the GA travel card.
                 </sbb-title>
               </span>
-              <sbb-button variant="secondary" is-static>
-                All GAs at a glance
-              </sbb-button>
+              <sbb-button variant="secondary" is-static> All GAs at a glance </sbb-button>
             </span>
           </sbb-card>
 
@@ -161,16 +128,12 @@ const Template = (args): JSX.Element => (
 
             <span class="card-product-big">
               <span class="content">
-                <sbb-title level="2" visual-level="1">
-                  1/2
-                </sbb-title>
+                <sbb-title level="2" visual-level="1"> 1/2 </sbb-title>
                 <sbb-title level="3" visual-level="6">
                   Travel at half price with the half-fare travel card.
                 </sbb-title>
               </span>
-              <sbb-button variant="secondary" is-static>
-                Ride at half price
-              </sbb-button>
+              <sbb-button variant="secondary" is-static> Ride at half price </sbb-button>
             </span>
           </sbb-card>
         </div>
@@ -192,40 +155,23 @@ const Template = (args): JSX.Element => (
       </div>
     </section>
 
-    {/* *************************************************
-    Hero Teaser section
-    ************************************************* */}
-    <TeaserHero></TeaserHero>
+    <!-- Hero Teaser section-->
+    ${teaserHero()}
 
-    {/* *************************************************
-    Footer section
-    ************************************************* */}
-    <Footer {...args}></Footer>
+    <!-- Footer section -->
+    ${footer(args)}
   </div>
-);
+`;
 
-/* ************************************************* */
-/* The Stories                                       */
-/* ************************************************* */
-
-/* --- Home ------------------------ */
 export const home: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };
 
-/* ************************************************* */
-/* Render storybook section and stories              */
-/* ************************************************* */
-
 const meta: Meta = {
   decorators: [
-    (Story, context) => (
-      <div style={wrapperStyle(context)}>
-        <Story></Story>
-      </div>
-    ),
+    (story, context) => html` <div style=${styleMap(wrapperStyle(context))}>${story()}</div> `,
   ],
   parameters: {
     chromatic: { disableSnapshot: false },

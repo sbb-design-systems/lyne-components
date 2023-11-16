@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-/** @jsx h */
 import { StoryContext } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { JSX, h } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
+import { ref } from 'lit/directives/ref.js';
 
-import type { SbbNavigationMarker } from '../../../components/navigation';
+import { sbbSpread } from '../../../components/core/dom';
+import type { SbbNavigation, SbbNavigationMarker } from '../../../components/navigation';
 import '../../../components/button';
 import '../../../components/card';
 import '../../../components/clock';
@@ -21,30 +21,33 @@ import '../../../components/skiplink-list';
 import '../../../components/teaser-hero';
 import '../../../components/title';
 
-export const SkiplinkList = (): JSX.Element => (
+export const skiplinkList = (): TemplateResult => html`
   <sbb-skiplink-list title-level="2" title-content="Skip to">
     <sbb-link href="#">Skip to content</sbb-link>
     <sbb-link href="#">Go to help page</sbb-link>
   </sbb-skiplink-list>
-);
+`;
 
-export const TimetableInput = (): JSX.Element => (
+export const timetableInput = (): TemplateResult => html`
   <section class="timetable-section sbb-grid">
     <div class="grid-reduced-width">
       <div class="timetable-placeholder"></div>
     </div>
   </section>
-);
+`;
 
-const onNavigationClose = (dialog): void => {
-  dialog.addEventListener('didClose', () => {
+const onNavigationClose = (dialog: SbbNavigation): void => {
+  dialog?.addEventListener('did-close', () => {
     (document.getElementById('nav-marker') as SbbNavigationMarker).reset();
     document.getElementById('nav-1').setAttribute('active', '');
   });
 };
 
-export const Navigation = (): JSX.Element => (
-  <sbb-navigation trigger="hamburger-menu" ref={(dialog) => onNavigationClose(dialog)}>
+export const navigation = (): TemplateResult => html`
+  <sbb-navigation
+    trigger="hamburger-menu"
+    ${ref((dialog: SbbNavigation) => onNavigationClose(dialog))}
+  >
     <sbb-navigation-marker id="nav-marker">
       <sbb-navigation-action aria-current="page" id="nav-1" active>
         Tickets & Offers
@@ -57,18 +60,10 @@ export const Navigation = (): JSX.Element => (
     </sbb-navigation-marker>
 
     <sbb-navigation-marker size="s">
-      <sbb-navigation-action aria-pressed="false" id="nav-5">
-        Deutsch
-      </sbb-navigation-action>
-      <sbb-navigation-action aria-pressed="false" id="nav-6">
-        Français
-      </sbb-navigation-action>
-      <sbb-navigation-action aria-pressed="false" id="nav-7">
-        Italiano
-      </sbb-navigation-action>
-      <sbb-navigation-action aria-pressed="true" id="nav-8" active>
-        English
-      </sbb-navigation-action>
+      <sbb-navigation-action aria-pressed="false" id="nav-5"> Deutsch </sbb-navigation-action>
+      <sbb-navigation-action aria-pressed="false" id="nav-6"> Français </sbb-navigation-action>
+      <sbb-navigation-action aria-pressed="false" id="nav-7"> Italiano </sbb-navigation-action>
+      <sbb-navigation-action aria-pressed="true" id="nav-8" active> English </sbb-navigation-action>
     </sbb-navigation-marker>
 
     <sbb-navigation-section title-content="Title one" trigger="nav-1">
@@ -108,9 +103,7 @@ export const Navigation = (): JSX.Element => (
         <sbb-navigation-action>Label</sbb-navigation-action>
       </sbb-navigation-list>
 
-      <sbb-button size="m" class="navigation-button">
-        All Tickets & Offers
-      </sbb-button>
+      <sbb-button size="m" class="navigation-button"> All Tickets & Offers </sbb-button>
     </sbb-navigation-section>
 
     <sbb-navigation-section title-content="Title two" trigger="nav-2">
@@ -174,9 +167,9 @@ export const Navigation = (): JSX.Element => (
       </sbb-button>
     </sbb-navigation-section>
   </sbb-navigation>
-);
+`;
 
-export const DailyTicketProduct = (): JSX.Element => (
+export const dailyTicketProduct = (): TemplateResult => html`
   <sbb-card color="milk" size="s">
     <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
       Buy Daily Ticket
@@ -185,19 +178,15 @@ export const DailyTicketProduct = (): JSX.Element => (
     <span class="card-product">
       <sbb-icon name="ticket-route-medium"></sbb-icon>
       <span class="content">
-        <sbb-title level="2" visual-level="6">
-          Daily ticket
-        </sbb-title>
+        <sbb-title level="2" visual-level="6"> Daily ticket </sbb-title>
         <span class="sbb-text-s card-description">Valid today</span>
       </span>
-      <sbb-button size="m" variant="secondary" is-static>
-        Buy
-      </sbb-button>
+      <sbb-button size="m" variant="secondary" is-static> Buy </sbb-button>
     </span>
   </sbb-card>
-);
+`;
 
-export const BikeProduct = (): JSX.Element => (
+export const bikeProduct = (): TemplateResult => html`
   <sbb-card color="milk" size="s">
     <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
       Buy Bike daily pass
@@ -206,19 +195,15 @@ export const BikeProduct = (): JSX.Element => (
     <span class="card-product">
       <sbb-icon name="bicycle-medium"></sbb-icon>
       <span class="content">
-        <sbb-title level="2" visual-level="6">
-          Bike day pass
-        </sbb-title>
+        <sbb-title level="2" visual-level="6"> Bike day pass </sbb-title>
         <span class="sbb-text-s card-description">Valid today</span>
       </span>
-      <sbb-button size="m" variant="secondary" is-static>
-        Buy
-      </sbb-button>
+      <sbb-button size="m" variant="secondary" is-static> Buy </sbb-button>
     </span>
   </sbb-card>
-);
+`;
 
-export const LiberoProduct = (): JSX.Element => (
+export const liberoProduct = (): TemplateResult => html`
   <sbb-card color="milk" size="s">
     <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
       Buy Libero short distance ticket
@@ -227,19 +212,15 @@ export const LiberoProduct = (): JSX.Element => (
     <span class="card-product">
       <sbb-icon name="ticket-route-medium"></sbb-icon>
       <span class="content">
-        <sbb-title level="2" visual-level="6">
-          Libero short distance ticket
-        </sbb-title>
+        <sbb-title level="2" visual-level="6"> Libero short distance ticket </sbb-title>
         <span class="sbb-text-s card-description">Valid today</span>
       </span>
-      <sbb-button size="m" variant="secondary" is-static>
-        Buy
-      </sbb-button>
+      <sbb-button size="m" variant="secondary" is-static> Buy </sbb-button>
     </span>
   </sbb-card>
-);
+`;
 
-export const TeaserHero = (): JSX.Element => (
+export const teaserHero = (): TemplateResult => html`
   <section class="sbb-page-spacing">
     <sbb-teaser-hero
       data-chromatic="ignore"
@@ -251,39 +232,39 @@ export const TeaserHero = (): JSX.Element => (
       Considerate with SBB Green Class.
     </sbb-teaser-hero>
   </section>
-);
+`;
 
-export const Footer = (args): JSX.Element => (
-  <sbb-footer accessibility-title="Footer" variant="clock-columns" negative={args.negative}>
+export const footer = (args): TemplateResult => html`
+  <sbb-footer accessibility-title="Footer" variant="clock-columns" ?negative=${args.negative}>
     <div class="sbb-link-list-button-group">
-      <sbb-link-list title-level="2" title-content="Help &amp; Contact." negative={args.negative}>
+      <sbb-link-list title-level="2" title-content="Help &amp; Contact." ?negative=${args.negative}>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-          negative={args.negative}
+          ?negative=${args.negative}
         >
           Refunds
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-          negative={args.negative}
+          ?negative=${args.negative}
         >
           Lost property office
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-          negative={args.negative}
+          ?negative=${args.negative}
         >
           Complaints
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-          negative={args.negative}
+          ?negative=${args.negative}
         >
           Praise
         </sbb-link>
         <sbb-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-          negative={args.negative}
+          ?negative=${args.negative}
         >
           Report property damage
         </sbb-link>
@@ -296,41 +277,41 @@ export const Footer = (args): JSX.Element => (
         All help topics
       </sbb-button>
     </div>
-    <sbb-link-list title-level="2" title-content="More SBB." negative={args.negative}>
+    <sbb-link-list title-level="2" title-content="More SBB." ?negative=${args.negative}>
       <sbb-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        negative={args.negative}
+        ?negative=${args.negative}
       >
         Jobs & careers
       </sbb-link>
       <sbb-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        negative={args.negative}
+        ?negative=${args.negative}
       >
         Rail traffic information
       </sbb-link>
       <sbb-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        negative={args.negative}
+        ?negative=${args.negative}
       >
         SBB News
       </sbb-link>
       <sbb-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        negative={args.negative}
+        ?negative=${args.negative}
       >
         SBB Community
       </sbb-link>
       <sbb-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        negative={args.negative}
+        ?negative=${args.negative}
       >
         Company
       </sbb-link>
     </sbb-link-list>
     <div class="sbb-link-list-button-group">
       <span>
-        <sbb-title level="2" visual-level="5" negative={args.negative} class="footer-title">
+        <sbb-title level="2" visual-level="5" ?negative=${args.negative} class="footer-title">
           Newsletter.
         </sbb-title>
         <p class="footer-text">
@@ -346,43 +327,45 @@ export const Footer = (args): JSX.Element => (
       </sbb-button>
     </div>
     <sbb-clock
-      {...(isChromatic() ? { 'data-now': new Date('2023-01-24T02:59:27+01:00').valueOf() } : {})}
+      ${sbbSpread(
+        isChromatic() ? { 'data-now': new Date('2023-01-24T02:59:27+01:00').valueOf() } : {},
+      )}
     ></sbb-clock>
-    <sbb-divider negative={args.negative}></sbb-divider>
-    <sbb-link-list horizontal-from="large" negative={args.negative}>
+    <sbb-divider ?negative=${args.negative}></sbb-divider>
+    <sbb-link-list horizontal-from="large" ?negative=${args.negative}>
       <sbb-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        negative={args.negative}
+        ?negative=${args.negative}
       >
         Refunds
       </sbb-link>
       <sbb-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        negative={args.negative}
+        ?negative=${args.negative}
       >
         Lost property office
       </sbb-link>
       <sbb-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        negative={args.negative}
+        ?negative=${args.negative}
       >
         Complaints
       </sbb-link>
       <sbb-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        negative={args.negative}
+        ?negative=${args.negative}
       >
         Praise
       </sbb-link>
       <sbb-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        negative={args.negative}
+        ?negative=${args.negative}
       >
         Report property damage
       </sbb-link>
     </sbb-link-list>
   </sbb-footer>
-);
+`;
 
 export const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative

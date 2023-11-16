@@ -1,70 +1,69 @@
-/** @jsx h */
 import type { Meta, StoryObj } from '@storybook/web-components';
-import { Fragment, h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
 
 import readme from './readme.md?raw';
 
-const ListContent = (): JSX.Element[] => [
-  <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor</li>,
+const ListContent = (): TemplateResult => html`
+  <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor</li>
   <li>
     <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor</p>
     <p>Other paragraph.</p>
-  </li>,
-  <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor</li>,
-];
+  </li>
+  <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor</li>
+`;
 
-const UnorderedListTemplate = (): JSX.Element => (
-  <Fragment>
-    {['xs', 's', 'm', 'l', 'xl'].map((textSize) => [
-      <h3>Text size {textSize}</h3>,
-      <ul class={`sbb-list sbb-text-${textSize}`}>
-        <ListContent></ListContent>
+const UnorderedListTemplate = (): TemplateResult => html`
+  ${['xs', 's', 'm', 'l', 'xl'].map(
+    (textSize) => html`
+      <h3>Text size {textSize}</h3>
+      <ul class=${`sbb-list sbb-text-${textSize}`}>
+        ${ListContent()}
         <li>
           Nested list
           <ul>
-            <ListContent></ListContent>
+            ${ListContent()}
           </ul>
         </li>
-      </ul>,
-    ])}
-  </Fragment>
-);
+      </ul>
+    `,
+  )}
+`;
 
-const OrderedListTemplate = (): JSX.Element => (
-  <Fragment>
-    {['xs', 's', 'm', 'l', 'xl'].map((textSize) => [
-      <h3>Text size {textSize}</h3>,
-      <ol class={`sbb-list sbb-text-${textSize}`}>
-        <ListContent></ListContent>
+const OrderedListTemplate = (): TemplateResult => html`
+  ${['xs', 's', 'm', 'l', 'xl'].map(
+    (textSize) => html`
+      <h3>Text size {textSize}</h3>
+      <ol class=${`sbb-list sbb-text-${textSize}`}>
+        ${ListContent()}
         <li>
           Nested list
           <ol>
-            <ListContent></ListContent>
+            ${ListContent()}
           </ol>
         </li>
-      </ol>,
-    ])}
-  </Fragment>
-);
+      </ol>
+    `,
+  )}
+`;
 
-const StepsTemplate = (): JSX.Element => (
-  <Fragment>
-    {['xs', 's', 'm', 'l', 'xl'].map((textSize) => [
-      <h3>Text size {textSize}</h3>,
-      <ol class={`sbb-step-list sbb-text-${textSize}`}>
-        <ListContent></ListContent>
+const StepsTemplate = (): TemplateResult => html`
+  ${['xs', 's', 'm', 'l', 'xl'].map(
+    (textSize) => html`
+      <h3>Text size {textSize}</h3>
+      <ol class=${`sbb-step-list sbb-text-${textSize}`}>
+        ${ListContent()}
         <li>
           Nested list
           <ol class="sbb-list">
-            <ListContent></ListContent>
+            ${ListContent()}
           </ol>
         </li>
-      </ol>,
-    ])}
-  </Fragment>
-);
+      </ol>
+    `,
+  )}
+`;
 
-const DescriptionListTemplate = (): JSX.Element => (
+const DescriptionListTemplate = (): TemplateResult => html`
   <dl class="sbb-list">
     <dt>Label:</dt>
     <dd>Description of the label.</dd>
@@ -80,29 +79,26 @@ const DescriptionListTemplate = (): JSX.Element => (
       ipsum dolor sit amet.
     </dd>
   </dl>
-);
+`;
 
 export const UnorderedList: StoryObj = {
   render: UnorderedListTemplate,
 };
+
 export const OrderedList: StoryObj = {
   render: OrderedListTemplate,
 };
+
 export const StepList: StoryObj = {
   render: StepsTemplate,
 };
+
 export const DescriptionList: StoryObj = {
   render: DescriptionListTemplate,
 };
 
 const meta: Meta = {
-  decorators: [
-    (Story) => (
-      <div style={{ margin: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
-  ],
+  decorators: [(story) => html` <div style="margin: 2rem;">${story()}</div> `],
   parameters: {
     chromatic: { disableSnapshot: false },
     docs: {

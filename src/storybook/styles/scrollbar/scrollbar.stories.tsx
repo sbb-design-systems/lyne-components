@@ -1,14 +1,18 @@
-/** @jsx h */
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import { html, TemplateResult } from 'lit';
 
 import readme from './readme.md?raw';
 import './scrollbar-internal.scss';
 
-const text = `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.`;
+const text: string = `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
+  ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+  Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
+  consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+  sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+  no sea takimata sanctus est Lorem ipsum dolor sit amet.`;
 
-const Template = (args): JSX.Element => {
+const Template = (args: Args): TemplateResult => {
   let scrollbarClass = 'scrollbar';
   if (args.size === 'thick') {
     scrollbarClass += '-thick';
@@ -20,11 +24,11 @@ const Template = (args): JSX.Element => {
     scrollbarClass += '-track-visible';
   }
 
-  return (
-    <div class={`overflow-container ${scrollbarClass}${args.negative ? ' negative' : ''}`}>
-      <div class="inner-box">{text}</div>
+  return html`
+    <div class=${`overflow-container ${scrollbarClass}${args.negative ? ' negative' : ''}`}>
+      <div class="inner-box">${text}</div>
     </div>
-  );
+  `;
 };
 
 const size: InputType = {
