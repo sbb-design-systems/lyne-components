@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.43.0-next.6](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0-next.5...v0.43.0-next.6) (2023-11-17)
+
+### Bug Fixes
+
+- **sbb-log,sbb-signet:** fix svg templating ([1ec9eca](https://github.com/lyne-design-system/lyne-components/commit/1ec9ecae27c44a63d37d5d041ae322c9b6cb57a2))
+- **sbb-skiplink-list:** initialize links variable to avoid undefined reference ([30d8bac](https://github.com/lyne-design-system/lyne-components/commit/30d8bacce68aa584a32001ce3e5195140ccca028))
+
 ## [0.43.0-next.5](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0-next.4...v0.43.0-next.5) (2023-11-17)
 
 ### Bug Fixes
