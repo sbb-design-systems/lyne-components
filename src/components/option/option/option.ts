@@ -218,14 +218,17 @@ export class SbbOption extends LitElement {
     }
 
     const slotNodes = (event.target as HTMLSlotElement).assignedNodes();
-    const labelNode = slotNodes.filter((el) => el.nodeType === Node.TEXT_NODE)[0] as Text;
+    const labelNodes = slotNodes.filter((el) => el.nodeType === Node.TEXT_NODE) as Text[];
 
-    // Disable the highlight if the slot does not contain just a text node
-    if (!labelNode || slotNodes.length !== 1) {
+    // Disable the highlight if the slot contain more than just text nodes
+    if (labelNodes.length === 0 || slotNodes.length !== labelNodes.length) {
       this._disableLabelHighlight = true;
       return;
     }
-    this._label = labelNode.wholeText;
+    this._label = labelNodes
+      .map((l) => l.wholeText)
+      .filter((l) => l.trim())
+      .join();
   }
 
   private _getHighlightedLabel(): TemplateResult {
