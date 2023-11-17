@@ -175,7 +175,6 @@ const actionGroup = (negative): TemplateResult => html`
 
 const codeStyle: Args = {
   padding: 'var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x)',
-  marginInline: 'var(--sbb-spacing-fixed-2x)',
   borderRadius: 'var(--sbb-border-radius-4x)',
   backgroundColor: 'var(--sbb-color-smoke-alpha-20)',
 };
@@ -206,10 +205,7 @@ const SlottedTitleTemplate = (args): TemplateResult => html`
   ${triggerButton('my-dialog-2')}
   <sbb-dialog data-testid="dialog" id="my-dialog-2" ${sbbSpread(args)}>
     <span slot="title">
-      <sbb-icon
-        name="book-medium"
-        style=${styleMap({ 'vertical-align': 'sub', 'margin-inline-end': '0.5rem' })}
-      ></sbb-icon>
+      <sbb-icon name="book-medium" style=${styleMap({ 'vertical-align': 'sub' })}></sbb-icon>
       The Catcher in the Rye
     </span>
     <p id="dialog-content-2" style=${styleMap({ margin: '0' })}>
