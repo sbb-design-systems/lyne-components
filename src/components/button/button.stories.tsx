@@ -49,7 +49,7 @@ const RequestSubmitTemplate = ({ text }: Args): TemplateResult => html`
 `;
 
 const Template = ({ text, active, focusVisible, ...args }: Args): TemplateResult => html`
-  <sbb-button ${sbbSpread(args)} data-active=${active} data-focus-visible=${focusVisible}>
+  <sbb-button ${sbbSpread(args)} data-active=${active} ?data-focus-visible=${focusVisible}>
     ${text}
   </sbb-button>
 `;

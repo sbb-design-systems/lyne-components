@@ -35,7 +35,7 @@ const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
-    canvas.getByTestId('form-field').shadowRoot.querySelector('div.sbb-form-field__space-wrapper'),
+    canvas.getByTestId('form-field').shadowRoot!.querySelector('div.sbb-form-field__space-wrapper'),
   );
 
   await waitForStablePosition(() => canvas.getByTestId('select'));
@@ -208,7 +208,7 @@ const defaultArgs: Args = {
 const changeEventHandler = (event): void => {
   const div = document.createElement('div');
   div.innerText = `current value is: ${event.target.value}`;
-  document.getElementById('container-value').append(div);
+  document.getElementById('container-value')!.append(div);
 };
 
 const textBlockStyle: Readonly<StyleInfo> = {
@@ -240,7 +240,7 @@ const valueEllipsis: string = 'This label name is so long that it needs ellipsis
 const textBlock = (text = null): TemplateResult => {
   return html`
     <div style=${styleMap(textBlockStyle)}>
-      ${text
+      ${!text
         ? html`
             <span>
               This text block has a <code style=${styleMap(codeStyle)}>z-index</code> greater than
@@ -256,7 +256,7 @@ const createOptions = (
   numberOfOptions: number,
   disableOption: boolean,
   group: string | boolean,
-  selectValue = null,
+  selectValue: string | undefined = undefined,
 ): TemplateResult[] => {
   return new Array(numberOfOptions).fill(null).map((_, i) => {
     const value = group ? `Option ${i + 1} ${' - ' + group}` : `Option ${i + 1}`;
@@ -396,10 +396,10 @@ const FormFieldTemplateWithError = ({
           @change=${(event) => {
             if (event.target.value !== '') {
               sbbFormError.remove();
-              document.getElementById('sbb-select').classList.remove('sbb-invalid');
+              document.getElementById('sbb-select')!.classList.remove('sbb-invalid');
             } else {
-              document.getElementById('sbb-form-field').append(sbbFormError);
-              document.getElementById('sbb-select').classList.add('sbb-invalid');
+              document.getElementById('sbb-form-field')!.append(sbbFormError);
+              document.getElementById('sbb-select')!.classList.add('sbb-invalid');
             }
           }}
         >

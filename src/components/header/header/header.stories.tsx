@@ -32,7 +32,7 @@ const LoremIpsumTemplate = (): TemplateResult => html`
 `;
 
 const HeaderBasicTemplate = (
-  { children, attributes, ...args }: Args,
+  { attributes, ...args }: Args,
   template: TemplateResult,
 ): TemplateResult => html`
   <sbb-header ${sbbSpread(args)}>
@@ -41,7 +41,7 @@ const HeaderBasicTemplate = (
     </sbb-header-action>
     <div class="sbb-header-spacer"></div>
     <sbb-header-action icon-name="magnifying-glass-small">Search</sbb-header-action>
-    ${children}
+    ${template}
     <sbb-header-action icon-name="globe-small" id="language-menu-trigger" class="last-element">
       English
     </sbb-header-action>
@@ -51,9 +51,8 @@ const HeaderBasicTemplate = (
       <sbb-menu-action>Italiano</sbb-menu-action>
       <sbb-menu-action icon-name="tick-small">English</sbb-menu-action>
     </sbb-menu>
-    ${template}
   </sbb-header>
-  <div ${sbbSpread({ attributes })}>${new Array(12).fill(null).map(LoremIpsumTemplate)}</div>
+  <div ${sbbSpread(attributes)}>${new Array(12).fill(null).map(LoremIpsumTemplate)}</div>
 `;
 
 const Template = (args): TemplateResult => html`
