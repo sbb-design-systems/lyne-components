@@ -365,7 +365,7 @@ export const verticalWithSbbFormError: StoryObj = {
 
 export const indeterminateGroup: StoryObj = {
   render: IndeterminateGroupTemplate,
-  argTypes: { ...basicArgTypes, checked: undefined },
+  argTypes: { ...basicArgTypes },
   args: { ...basicArgsVertical, checked: undefined },
 };
 
