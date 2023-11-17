@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.43.0-next.5](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0-next.4...v0.43.0-next.5) (2023-11-17)
+
+### Bug Fixes
+
+- fix issues with server side rendering for consumers ([636163e](https://github.com/lyne-design-system/lyne-components/commit/636163eadc1742ab8ea1ccae55033828554ae8fd))
+
 ## [0.43.0-next.4](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0-next.3...v0.43.0-next.4) (2023-11-16)
 
 ### Bug Fixes
