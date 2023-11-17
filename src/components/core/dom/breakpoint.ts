@@ -1,3 +1,5 @@
+import { isBrowser } from './platform';
+
 export type Breakpoint = 'zero' | 'micro' | 'small' | 'medium' | 'wide' | 'large' | 'ultra';
 
 /**
@@ -9,8 +11,12 @@ export type Breakpoint = 'zero' | 'micro' | 'small' | 'medium' | 'wide' | 'large
  * @returns A boolean indicating whether the window matches the breakpoint.
  */
 export function isBreakpoint(from?: Breakpoint, to?: Breakpoint): boolean {
-  const computedStyle = getComputedStyle(document.documentElement);
+  if (!isBrowser()) {
+    // TODO: Maybe find better default solution for SSR?
+    return false;
+  }
 
+  const computedStyle = getComputedStyle(document.documentElement);
   const breakpointMin = from ? computedStyle.getPropertyValue(`--sbb-breakpoint-${from}-min`) : '';
   const breakpointMax = to
     ? `${parseFloat(computedStyle.getPropertyValue(`--sbb-breakpoint-${to}-min`)) - 0.0625}rem`
