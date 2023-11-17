@@ -82,7 +82,7 @@ const defaultArgs: Args = {
 };
 
 const Template = ({ trip, tripBack, ...args }): TemplateResult => html`
-  <sbb-journey-summary .trip=${trip} .trip-back=${tripBack} ${sbbSpread(args)}>
+  <sbb-journey-summary .trip=${trip} .tripBack=${tripBack} ${sbbSpread(args)}>
     <div
       style=${styleMap({
         display: 'flex',
@@ -100,7 +100,7 @@ const Template = ({ trip, tripBack, ...args }): TemplateResult => html`
 const TemplateNoSlot = ({ trip, tripBack, ...args }): TemplateResult =>
   html`<sbb-journey-summary
     .trip=${trip}
-    .trip-back=${tripBack}
+    .tripBack=${tripBack}
     ${sbbSpread(args)}
   ></sbb-journey-summary>`;
 
