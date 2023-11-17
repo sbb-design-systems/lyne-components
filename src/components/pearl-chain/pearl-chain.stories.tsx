@@ -39,8 +39,8 @@ const defaultArgs: Args = {
   'data-now': new Date('2022-12-01T12:11:00').valueOf(),
 };
 
-const Template = (args: Args): TemplateResult => {
-  return html`<sbb-pearl-chain ${sbbSpread(args)}></sbb-pearl-chain>`;
+const Template = ({ legs, ...args }: Args): TemplateResult => {
+  return html`<sbb-pearl-chain .legs=${legs} ${sbbSpread(args)}></sbb-pearl-chain>`;
 };
 
 export const NoStops: StoryObj = {

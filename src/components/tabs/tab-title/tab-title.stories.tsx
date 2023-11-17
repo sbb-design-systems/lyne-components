@@ -11,7 +11,7 @@ import './tab-title';
 const Template = ({ iconSlot, label, amountSlot, ...args }: Args): TemplateResult => html`
   <sbb-tab-title ${sbbSpread(args)}>
     ${iconSlot ? html`<sbb-icon slot="icon" name=${iconSlot}></sbb-icon>` : nothing} ${label}
-    ${amountSlot ? html`<span slot="amount">{amountSlot}</span>` : nothing}
+    ${amountSlot ? html`<span slot="amount">${amountSlot}</span>` : nothing}
   </sbb-tab-title>
 `;
 

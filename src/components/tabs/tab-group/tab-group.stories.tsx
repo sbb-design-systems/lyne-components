@@ -1,13 +1,21 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
+import { StoryContext } from '@storybook/web-components';
 import { html, TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import { SbbTabGroup } from './tab-group';
 import '../tab-title';
+
+const wrapperStyle = (context: StoryContext): Record<string, string> => ({
+  'background-color': context.args.negative
+    ? 'var(--sbb-color-milk-default)'
+    : 'var(--sbb-color-white-default)',
+});
 
 const firstTabTitle = (label: string, args: Args): TemplateResult => html`
   <sbb-tab-title ${sbbSpread(args)}>${label}</sbb-tab-title>
@@ -143,11 +151,21 @@ const size: InputType = {
   options: ['l', 'xl'],
 };
 
+const negative: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    disable: true,
+  },
+};
+
 const basicArgTypes: ArgTypes = {
   label,
   'icon-name': iconName,
   amount: amount,
   size: size,
+  negative,
 };
 
 const basicArgs: Args = {
@@ -155,6 +173,7 @@ const basicArgs: Args = {
   'icon-name': undefined,
   amount: undefined,
   size: size.options[0],
+  negative: false,
 };
 
 export const defaultTabsSizeL: StoryObj = {
@@ -190,18 +209,14 @@ export const nestedTabGroups: StoryObj = {
 export const tintedBackground: StoryObj = {
   render: IconsAndNumbersTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options[0] },
-  decorators: [
-    (story) => html`
-      <div style="background: var(--sbb-color-milk-default); padding: 2rem;">${story()}</div>
-    `,
-    withActions as Decorator,
-  ],
+  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options[0], negative: true },
 };
 
 const meta: Meta = {
   decorators: [
-    (story) => html` <div style="padding: 2rem;">${story()}</div> `,
+    (story, context) => html`
+      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
+    `,
     withActions as Decorator,
   ],
   parameters: {

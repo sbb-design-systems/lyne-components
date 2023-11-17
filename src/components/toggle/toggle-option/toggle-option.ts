@@ -145,6 +145,9 @@ export class SbbToggleOption extends LitElement {
       signal,
     });
     this._handlerRepository.connect();
+    this._hasLabel = Array.from(this.childNodes).some(
+      (n) => !(n as Element).slot && n.textContent?.trim(),
+    );
     // We can use closest here, as we expect the parent sbb-toggle to be in light DOM.
     this._toggle = this.closest?.('sbb-toggle');
     this._verifyTabindex();
@@ -189,7 +192,9 @@ export class SbbToggleOption extends LitElement {
         <span class="sbb-toggle-option__label">
           <slot
             @slotchange=${(event) =>
-              (this._hasLabel = (event.target as HTMLSlotElement).assignedNodes().length > 0)}
+              (this._hasLabel = (event.target as HTMLSlotElement)
+                .assignedNodes()
+                .some((n) => !!n.textContent?.trim()))}
           ></slot>
         </span>
       </label>

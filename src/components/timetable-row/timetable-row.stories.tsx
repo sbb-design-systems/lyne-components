@@ -98,8 +98,8 @@ const defaultArgs: Args = {
   trip: defaultTrip,
 };
 
-const Template = (args: Args): TemplateResult =>
-  html`<sbb-timetable-row ${sbbSpread(args)}></sbb-timetable-row>`;
+const Template = ({ trip, ...args }: Args): TemplateResult =>
+  html`<sbb-timetable-row .trip=${trip} ${sbbSpread(args)}></sbb-timetable-row>`;
 
 export const Basic: StoryObj = {
   render: Template,

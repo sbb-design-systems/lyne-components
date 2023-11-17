@@ -29,9 +29,8 @@ const Warning = (): TemplateResult => html`
       variant="inline"
       href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout"
     >
-      See docs on css grid
-    </sbb-link>
-    .
+      See docs on css grid </sbb-link
+    >.
   </span>
 `;
 

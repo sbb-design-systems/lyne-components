@@ -239,7 +239,7 @@ const TemplateSbbTimeInput = ({
       <input id="input-id" ${sbbSpread(args)} />
       ${iconEnd ? html`<sbb-icon slot="suffix" name=${iconEnd}></sbb-icon>` : nothing}
     </sbb-form-field>
-    <div style="display: flex, gap: 1em; margin-block-start: 2rem;">
+    <div style="display: flex; gap: 1em; margin-block-start: 2rem;">
       <sbb-button
         variant="secondary"
         size="m"
