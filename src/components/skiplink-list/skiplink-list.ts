@@ -31,7 +31,7 @@ export class SbbSkiplinkList extends LitElement {
   @property({ attribute: 'title-level' }) public titleLevel?: TitleLevel = '2';
 
   /** sbb-link elements */
-  @state() private _links: SbbLink[];
+  @state() private _links: SbbLink[] = [];
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @state() private _namedSlots = createNamedSlotState('title');
