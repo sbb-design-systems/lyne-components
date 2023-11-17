@@ -77,8 +77,7 @@ async function generateChromaticStory(
   const chromaticConfig = Object.entries(chromaticParameters)
     .map(([key, value]) => `${key}: ${JSON.stringify(value)}, `)
     .join('');
-  const storyFileContent = `/** @jsx h */
-import type { Meta, StoryObj } from '@storybook/web-components';
+  const storyFileContent = `import type { Meta, StoryObj } from '@storybook/web-components';
 import config, * as stories from './${relativeImport}';
 import { combineStories } from '${chromaticImport}';
 

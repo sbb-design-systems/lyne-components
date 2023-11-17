@@ -76,6 +76,15 @@ const boarding: InputType = {
   },
 };
 
+const price: InputType = {
+  control: {
+    type: 'object',
+  },
+  table: {
+    disable: false,
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   'card-action-label': cardActionLabel,
   'disable-animation': disableAnimation,
@@ -85,6 +94,7 @@ const defaultArgTypes: ArgTypes = {
   active,
   'data-now': now,
   boarding,
+  price,
 };
 
 const defaultArgs: Args = {
@@ -96,10 +106,11 @@ const defaultArgs: Args = {
   active: false,
   'data-now': new Date('2022-12-01T12:11:00').valueOf(),
   trip: defaultTrip,
+  price: undefined,
 };
 
-const Template = ({ trip, ...args }: Args): TemplateResult =>
-  html`<sbb-timetable-row .trip=${trip} ${sbbSpread(args)}></sbb-timetable-row>`;
+const Template = ({ trip, price, ...args }: Args): TemplateResult =>
+  html`<sbb-timetable-row .trip=${trip} .price=${price} ${sbbSpread(args)}></sbb-timetable-row>`;
 
 export const Basic: StoryObj = {
   render: Template,
