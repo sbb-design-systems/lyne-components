@@ -44,11 +44,32 @@ const now: InputType = {
     type: 'date',
   },
 };
+
+const trip: InputType = {
+  control: {
+    type: 'object',
+  },
+  table: {
+    disable: true,
+  },
+};
+
+const tripBack: InputType = {
+  control: {
+    type: 'object',
+  },
+  table: {
+    disable: true,
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   'disable-animation': disableAnimation,
   'data-now': now,
   'round-trip': roundTrip,
   'header-level': headerLevel,
+  trip,
+  tripBack,
 };
 
 const defaultArgs: Args = {
@@ -56,10 +77,12 @@ const defaultArgs: Args = {
   'data-now': new Date('2022-12-05T12:11:00').valueOf(),
   'round-trip': false,
   'header-level': headerLevel.options[2],
+  trip: undefined,
+  tripBack: undefined,
 };
 
-const Template = (args): TemplateResult => html`
-  <sbb-journey-summary ${sbbSpread(args)}>
+const Template = ({ trip, tripBack, ...args }): TemplateResult => html`
+  <sbb-journey-summary .trip=${trip} .trip-back=${tripBack} ${sbbSpread(args)}>
     <div
       style=${styleMap({
         display: 'flex',
@@ -74,8 +97,12 @@ const Template = (args): TemplateResult => html`
   </sbb-journey-summary>
 `;
 
-const TemplateNoSlot = (args): TemplateResult =>
-  html`<sbb-journey-summary ${sbbSpread(args)}></sbb-journey-summary>`;
+const TemplateNoSlot = ({ trip, tripBack, ...args }): TemplateResult =>
+  html`<sbb-journey-summary
+    .trip=${trip}
+    .trip-back=${tripBack}
+    ${sbbSpread(args)}
+  ></sbb-journey-summary>`;
 
 export const summaryNoSlot: StoryObj = {
   render: TemplateNoSlot,
@@ -93,6 +120,7 @@ export const summaryNoSlot: StoryObj = {
     },
   },
 };
+
 export const summary: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -109,6 +137,7 @@ export const summary: StoryObj = {
     },
   },
 };
+
 export const summaryNoVias: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -126,6 +155,7 @@ export const summaryNoVias: StoryObj = {
     },
   },
 };
+
 export const summaryNoArrivalWalk: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -142,6 +172,7 @@ export const summaryNoArrivalWalk: StoryObj = {
     },
   },
 };
+
 export const summaryPosition: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -158,6 +189,7 @@ export const summaryPosition: StoryObj = {
     },
   },
 };
+
 export const summaryRoundtrip: StoryObj = {
   render: TemplateNoSlot,
   argTypes: defaultArgTypes,
@@ -184,6 +216,7 @@ export const summaryRoundtrip: StoryObj = {
     'round-trip': true,
   },
 };
+
 export const summaryRoundtripOneJourney: StoryObj = {
   render: TemplateNoSlot,
   argTypes: defaultArgTypes,
@@ -219,10 +252,6 @@ export const summaryHeaderLevel: StoryObj = {
     'round-trip': true,
   },
 };
-
-/* ************************************************* */
-/* Render storybook section and stories              */
-/* ************************************************* */
 
 const meta: Meta = {
   decorators: [(story) => html`${story()}`],
