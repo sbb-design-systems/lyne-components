@@ -1,3 +1,5 @@
+import { readConfig } from '../config';
+import { isBrowser } from '../dom';
 import { AgnosticMutationObserver } from '../observers';
 
 import { HandlerAspect } from './handler-repository';
@@ -15,15 +17,19 @@ declare global {
 }
 
 /**
- * Extracts `lang` attribute from `<html>` tag. If language is not supported, fall back to English.
+ * Extracts language from the configuration or from the `lang` attribute from `<html>` tag.
+ * If language is not supported, fall back to English.
  * If lang attribute contains the country, it will be stripped away.
  */
 export const documentLanguage = (): string => {
   const fallbackLanguage = 'en';
-  const langAttribute = document.documentElement.getAttribute('lang') || fallbackLanguage;
+  const language =
+    (readConfig().language ??
+      (isBrowser() ? document.documentElement.getAttribute('lang') : fallbackLanguage)) ||
+    fallbackLanguage;
 
   // Support e.g. cases like `de-ch`.
-  const langAttributeNormalized = langAttribute.split('-')[0];
+  const langAttributeNormalized = language.split('-')[0];
 
   if (!['en', 'de', 'fr', 'it'].includes(langAttributeNormalized)) {
     return fallbackLanguage;

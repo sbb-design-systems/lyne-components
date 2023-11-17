@@ -319,3 +319,5 @@ export class NativeDateAdapter implements DateAdapter<Date> {
     return result;
   }
 }
+
+export const defaultDateAdapter = new NativeDateAdapter();

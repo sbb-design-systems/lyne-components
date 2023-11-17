@@ -3,8 +3,8 @@ import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import {
+  defaultDateAdapter,
   durationToTime,
-  NativeDateAdapter,
   removeTimezoneFromISOTimeString,
 } from '../core/datetime';
 import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
@@ -86,7 +86,7 @@ export class SbbJourneySummary extends LitElement {
 
   /**  renders the date of the journey or if it is the current or next day */
   private _renderJourneyStart(departureTime: Date, duration: number): TemplateResult {
-    const dateAdapter = new NativeDateAdapter();
+    const dateAdapter = defaultDateAdapter;
     const durationObj = durationToTime(duration, this._currentLanguage);
 
     if (isValid(departureTime))

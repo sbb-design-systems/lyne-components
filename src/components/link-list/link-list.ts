@@ -51,7 +51,7 @@ export class SbbLinkList extends LitElement {
   @property({ reflect: true }) public orientation: SbbOrientation = 'vertical';
 
   /** Sbb-Link elements */
-  @state() private _links: SbbLink[];
+  @state() private _links: SbbLink[] = [];
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @state() private _namedSlots = createNamedSlotState('title');

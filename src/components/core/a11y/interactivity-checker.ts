@@ -35,6 +35,7 @@ class InteractivityCheckerMock implements InterfaceInteractivityChecker {
 // For unit tests we need to pretend that an element is always visible.
 // This can be done by checking if visibility property is set to empty.
 export const interactivityChecker: InterfaceInteractivityChecker =
+  typeof getComputedStyle === 'undefined' ||
   getComputedStyle(document.documentElement).visibility === ''
     ? new InteractivityCheckerMock()
     : new InteractivityChecker();

@@ -1,5 +1,6 @@
 // This implementation is inspired by https://github.com/angular/components/blob/main/src/cdk/a11y/input-modality/input-modality-detector.ts
 
+import { isBrowser } from '../dom';
 import { getEventTarget } from '../eventing';
 
 import {
@@ -165,9 +166,11 @@ class SbbInputModalityDetector {
   };
 
   public constructor() {
-    document.addEventListener('keydown', this._onKeydown, modalityEventListenerOptions);
-    document.addEventListener('mousedown', this._onMousedown, modalityEventListenerOptions);
-    document.addEventListener('touchstart', this._onTouchstart, modalityEventListenerOptions);
+    if (isBrowser()) {
+      document.addEventListener('keydown', this._onKeydown, modalityEventListenerOptions);
+      document.addEventListener('mousedown', this._onMousedown, modalityEventListenerOptions);
+      document.addEventListener('touchstart', this._onTouchstart, modalityEventListenerOptions);
+    }
   }
 }
 

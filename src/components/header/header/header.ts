@@ -1,7 +1,7 @@
 import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { findReferencedElement, toggleDatasetEntry } from '../../core/dom';
+import { findReferencedElement, isBrowser, toggleDatasetEntry } from '../../core/dom';
 
 import style from './header.scss?lit&inline';
 import '../../logo';
@@ -34,7 +34,7 @@ export class SbbHeader extends LitElement {
   public get scrollOrigin(): string | HTMLElement | Document {
     return this._scrollOrigin;
   }
-  private _scrollOrigin: string | HTMLElement | Document = document;
+  private _scrollOrigin: string | HTMLElement | Document = isBrowser() ? document : null!;
 
   /** Whether the header should hide and show on scroll. */
   @property({ attribute: 'hide-on-scroll', reflect: true, type: Boolean }) public hideOnScroll =
@@ -75,7 +75,9 @@ export class SbbHeader extends LitElement {
   /** Sets the value of `_scrollElement` and `_scrollFunction` and possibly adds the function on the correct element. */
   private _setListenerOnScrollElement(scrollOrigin: string | HTMLElement | Document): void {
     this._scrollEventsController = new AbortController();
-    this._scrollElement = findReferencedElement(scrollOrigin as string | HTMLElement) || document;
+    this._scrollElement =
+      findReferencedElement(scrollOrigin as string | HTMLElement) ||
+      (isBrowser() ? document : null);
     this._scrollFunction = this._getScrollFunction.bind(this);
     this._scrollElement?.addEventListener('scroll', this._scrollFunction, {
       passive: true,

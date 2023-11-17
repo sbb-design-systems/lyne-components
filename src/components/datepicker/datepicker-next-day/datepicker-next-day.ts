@@ -1,7 +1,7 @@
 import { CSSResultGroup, LitElement, PropertyValues, TemplateResult, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { DateAdapter, NativeDateAdapter } from '../../core/datetime';
+import { DateAdapter, defaultDateAdapter } from '../../core/datetime';
 import { isValidAttribute, setAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
 import {
   ConnectedAbortController,
@@ -14,7 +14,7 @@ import { i18nNextDay, i18nSelectNextDay, i18nToday } from '../../core/i18n';
 import { resolveButtonRenderVariables } from '../../core/interfaces';
 import {
   InputUpdateEvent,
-  datepickerControlRegisteredEvent,
+  datepickerControlRegisteredEventFactory,
   findNextAvailableDate,
   getDatePicker,
   type SbbDatepicker,
@@ -62,7 +62,7 @@ export class SbbDatepickerNextDay extends LitElement {
 
   private _datePickerElement: SbbDatepicker;
 
-  private _dateAdapter: DateAdapter<Date> = new NativeDateAdapter();
+  private _dateAdapter: DateAdapter<Date> = defaultDateAdapter;
 
   private _datePickerController: AbortController;
 
@@ -169,7 +169,7 @@ export class SbbDatepickerNextDay extends LitElement {
       { signal: this._datePickerController.signal },
     );
 
-    this._datePickerElement.dispatchEvent(datepickerControlRegisteredEvent);
+    this._datePickerElement.dispatchEvent(datepickerControlRegisteredEventFactory());
   }
 
   private _setDisabledState(datepicker: SbbDatepicker): void {

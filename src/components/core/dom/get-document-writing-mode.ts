@@ -1,2 +1,4 @@
+import { isBrowser } from './platform';
+
 export const getDocumentWritingMode = (): string =>
-  document.querySelector('html').getAttribute('dir') || 'ltr';
+  (isBrowser() && document.documentElement.getAttribute('dir')) || 'ltr';

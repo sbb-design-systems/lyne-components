@@ -3,7 +3,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { readConfig } from '../../core/config';
-import { DateAdapter, NativeDateAdapter } from '../../core/datetime';
+import { DateAdapter, defaultDateAdapter } from '../../core/datetime';
 import {
   findInput,
   findReferencedElement,
@@ -145,7 +145,7 @@ export function isDateAvailable(
   max: string | number,
 ): boolean {
   // TODO: Get date adapter from config
-  const dateAdapter: DateAdapter<Date> = new NativeDateAdapter();
+  const dateAdapter: DateAdapter<Date> = defaultDateAdapter;
   const dateMin: Date = dateAdapter.deserializeDate(min);
   const dateMax: Date = dateAdapter.deserializeDate(max);
 
@@ -159,10 +159,11 @@ export function isDateAvailable(
   return dateFilter ? dateFilter(date) : true;
 }
 
-export const datepickerControlRegisteredEvent = new CustomEvent('datepicker-control-registered', {
-  bubbles: false,
-  composed: true,
-});
+export const datepickerControlRegisteredEventFactory = (): CustomEvent =>
+  new CustomEvent('datepicker-control-registered', {
+    bubbles: false,
+    composed: true,
+  });
 
 /**
  * Combined with a native input, it displays the input's value as a formatted date.
@@ -327,7 +328,8 @@ export class SbbDatepicker extends LitElement {
 
   private _inputObserver = new AgnosticMutationObserver(this._onInputPropertiesChange.bind(this));
 
-  private _dateAdapter: DateAdapter<Date> = readConfig().datetime.dateAdapter;
+  private _dateAdapter: DateAdapter<Date> =
+    readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
   private _statusContainer: HTMLParagraphElement | null;
 

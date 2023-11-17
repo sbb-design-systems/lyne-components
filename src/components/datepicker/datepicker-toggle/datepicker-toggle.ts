@@ -13,7 +13,7 @@ import {
 import { i18nShowCalendar } from '../../core/i18n';
 import type { SbbTooltip, SbbTooltipTrigger } from '../../tooltip';
 import {
-  datepickerControlRegisteredEvent,
+  datepickerControlRegisteredEventFactory,
   getDatePicker,
   InputUpdateEvent,
   type SbbDatepicker,
@@ -144,7 +144,7 @@ export class SbbDatepickerToggle extends LitElement {
         this._configureCalendar(this._calendarElement, event.target as SbbDatepicker),
       { signal: this._datePickerController.signal },
     );
-    this._datePickerElement.dispatchEvent(datepickerControlRegisteredEvent);
+    this._datePickerElement.dispatchEvent(datepickerControlRegisteredEventFactory());
   }
 
   private _configureCalendar(calendar: SbbCalendar, datepicker: SbbDatepicker): void {

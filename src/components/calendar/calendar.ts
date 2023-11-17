@@ -6,8 +6,8 @@ import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../core/a
 import {
   DateAdapter,
   DAYS_PER_ROW,
+  defaultDateAdapter,
   MONTHS_PER_ROW,
-  NativeDateAdapter,
   YEARS_PER_PAGE,
   YEARS_PER_ROW,
 } from '../core/datetime';
@@ -132,7 +132,7 @@ export class SbbCalendar extends LitElement {
 
   private _nextCalendarView: CalendarView = 'day';
 
-  private _dateAdapter: DateAdapter<Date> = new NativeDateAdapter();
+  private _dateAdapter: DateAdapter<Date> = defaultDateAdapter;
 
   /** A list of days, in two formats (long and single char). */
   private _weekdays: Weekday[];
