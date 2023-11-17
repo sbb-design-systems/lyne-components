@@ -1,3 +1,5 @@
+import { isBrowser } from './platform';
+
 /**
  *  Check whether it's a string or an HTMLElement, if it's a string queries the element with the
  *  corresponding id.
@@ -6,7 +8,9 @@
 export function findReferencedElement<T extends HTMLElement = HTMLElement>(
   reference: string | HTMLElement,
 ): T | null {
-  if (typeof reference === 'string') {
+  if (!isBrowser()) {
+    return null;
+  } else if (typeof reference === 'string') {
     return document.getElementById(reference) as T;
   } else if (reference instanceof window.Element) {
     return reference as T;

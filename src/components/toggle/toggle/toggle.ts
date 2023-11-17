@@ -112,7 +112,7 @@ export class SbbToggle extends LitElement {
   });
 
   private get _options(): SbbToggleOption[] {
-    return Array.from(this.querySelectorAll('sbb-toggle-option')) as SbbToggleOption[];
+    return Array.from(this.querySelectorAll?.('sbb-toggle-option') ?? []) as SbbToggleOption[];
   }
 
   private _handleInput(): void {

@@ -14,7 +14,7 @@ export class EventEmitter<T = any> {
   public emit(data?: T): CustomEvent<T> {
     const options = this._options ?? defaultOptions;
     const event = new CustomEvent(this._eventName, Object.assign({}, options, { detail: data }));
-    this._element.dispatchEvent(event);
+    this._element.dispatchEvent?.(event);
     return event;
   }
 }

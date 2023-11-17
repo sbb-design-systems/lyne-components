@@ -72,7 +72,7 @@ export class SbbAccordion extends LitElement {
   }
 
   private get _expansionPanels(): SbbExpansionPanel[] {
-    return Array.from(this.querySelectorAll('sbb-expansion-panel'));
+    return Array.from(this.querySelectorAll?.('sbb-expansion-panel') ?? []);
   }
 
   private _setChildrenParameters(): void {

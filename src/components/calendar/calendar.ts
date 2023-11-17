@@ -100,7 +100,8 @@ export class SbbCalendar extends LitElement {
   @property() public max: SbbDateLike;
 
   /** A function used to filter out dates. */
-  @property({ attribute: 'date-filter' }) public dateFilter: (date: Date | null) => boolean;
+  @property({ attribute: 'date-filter' }) public dateFilter: (date: Date | null) => boolean = () =>
+    true;
 
   /** The selected date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
   @property({ attribute: 'selected-date' }) public selectedDate: SbbDateLike;

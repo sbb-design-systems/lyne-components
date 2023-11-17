@@ -6,7 +6,10 @@
  * @param condition Condition whether attribute should be set or removed.
  */
 export function toggleDatasetEntry(element: HTMLElement, name: string, condition: boolean): void {
-  if (condition) {
+  if (!element.dataset) {
+    // In Next.js, dataset is not defined.
+    return;
+  } else if (condition) {
     element.dataset[name] = '';
   } else {
     delete element.dataset[name];

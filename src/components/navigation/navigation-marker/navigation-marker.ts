@@ -29,7 +29,7 @@ export class SbbNavigationMarker extends LitElement {
   /**
    * Navigation action elements.
    */
-  @state() private _actions: SbbNavigationAction[];
+  @state() private _actions: SbbNavigationAction[] = [];
 
   private _currentActiveAction: SbbNavigationAction;
   private _navigationMarkerResizeObserver = new AgnosticResizeObserver(() =>
@@ -80,7 +80,7 @@ export class SbbNavigationMarker extends LitElement {
   }
 
   private get _navigationActions(): SbbNavigationAction[] {
-    return Array.from(this.querySelectorAll('sbb-navigation-action'));
+    return Array.from(this.querySelectorAll?.('sbb-navigation-action') ?? []);
   }
 
   private get _activeNavigationAction(): SbbNavigationAction {
