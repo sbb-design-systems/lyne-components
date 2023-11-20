@@ -1,0 +1,17 @@
+import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import './container';
+
+describe('sbb-container', () => {
+  it('renders', async () => {
+    const root = await fixture(html`<sbb-container my-prop="Label"></sbb-container>`);
+
+    expect(root).dom.to.be.equal(`<sbb-container my-prop="Label"></sbb-container>`);
+
+    expect(root).shadowDom.to.be.equal(`
+      <div class="sbb-container">
+        Label
+      </div>
+    `);
+  });
+});
