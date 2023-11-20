@@ -6,6 +6,7 @@ snapshots["sbb-icon renders aria-hidden and no aria-label"] =
   <svg-fake
     data-name="app-icon-medium"
     height="36"
+    style="width:36px;height:36px"
     width="36"
   >
   </svg-fake>
@@ -18,6 +19,7 @@ snapshots["sbb-icon renders default aria-label"] =
   <svg-fake
     data-name="app-icon-medium"
     height="36"
+    style="width:36px;height:36px"
     width="36"
   >
   </svg-fake>
@@ -30,6 +32,7 @@ snapshots["sbb-icon renders custom aria-label"] =
   <svg-fake
     data-name="app-icon-medium"
     height="36"
+    style="width:36px;height:36px"
     width="36"
   >
   </svg-fake>

@@ -6,6 +6,7 @@ snapshots["sbb-timetable-occupancy-icon renders negative"] =
   <svg-fake
     data-name="utilization-medium-negative"
     height="24"
+    style="width:24px;height:24px"
     width="24"
   >
   </svg-fake>
@@ -18,6 +19,7 @@ snapshots["sbb-timetable-occupancy-icon renders"] =
   <svg-fake
     data-name="utilization-low"
     height="24"
+    style="width:24px;height:24px"
     width="24"
   >
   </svg-fake>
@@ -30,6 +32,7 @@ snapshots["sbb-timetable-occupancy-icon renders high contrast mode"] =
   <svg-fake
     data-name="utilization-medium-high-contrast"
     height="24"
+    style="width:24px;height:24px"
     width="24"
   >
   </svg-fake>

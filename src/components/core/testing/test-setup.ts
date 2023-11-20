@@ -7,7 +7,7 @@ function setupIconConfig(): void {
       if (namespace === 'default') {
         const dimension = name.endsWith('-large') ? 48 : name.endsWith('-medium') ? 36 : 24;
         return Promise.resolve(
-          `<svg-fake data-name='${name}' width='${dimension}' height='${dimension}' style="width:${dimension};height:${dimension}"></svg-fake>`,
+          `<svg-fake data-name='${name}' width='${dimension}' height='${dimension}' style="width:${dimension}px;height:${dimension}px"></svg-fake>`,
         );
       }
       return request();

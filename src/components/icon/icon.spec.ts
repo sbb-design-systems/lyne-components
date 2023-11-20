@@ -67,7 +67,7 @@ describe('sbb-icon', () => {
       </sbb-icon>
     `);
     expect(icon).shadowDom.to.be.equal(`
-      <span class="sbb-icon-inner"><svg-fake data-name="app-icon-medium" height="36" width="36"></svg-fake></span>
+      <span class="sbb-icon-inner"><svg-fake data-name="app-icon-medium" height="36" width="36" style="width:36px;height:36px"></svg-fake></span>
     `);
 
     icon.setAttribute('name', 'pie-medium');
@@ -83,7 +83,7 @@ describe('sbb-icon', () => {
       </sbb-icon>
     `);
     expect(icon).shadowDom.to.be.equal(`
-      <span class="sbb-icon-inner"><svg-fake data-name="pie-medium" height="36" width="36"></svg-fake></span>
+      <span class="sbb-icon-inner"><svg-fake data-name="pie-medium" height="36" width="36" style="width:36px;height:36px"></svg-fake></span>
     `);
   });
 
