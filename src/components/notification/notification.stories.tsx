@@ -102,9 +102,9 @@ const notification = (args: Args): TemplateResult => html`
 const pageContent = (): TemplateResult => html`
   <p style="margin: 0;">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-    labore et dolore magna aliqua. Ut enim ad minim veniam, quis ${' '}
+    labore et dolore magna aliqua. Ut enim ad minim veniam, quis
     <sbb-link href="/" variant="inline"> link </sbb-link>
-    ${' '}nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
   </p>
 `;
 
