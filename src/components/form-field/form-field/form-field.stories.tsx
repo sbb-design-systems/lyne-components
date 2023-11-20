@@ -42,18 +42,24 @@ const TooltipTrigger = (): TemplateResult => html`
   </sbb-tooltip>
 `;
 
-const TemplateBasicInput = (args): TemplateResult => html`
+const TemplateBasicInput = ({
+  cssClass,
+  placeholder,
+  disabled,
+  readonly,
+  value,
+}: Args): TemplateResult => html`
   <input
-    class=${args.class}
-    placeholder=${args.placeholder}
-    ?disabled=${args.disabled}
-    ?readonly=${args.readonly}
-    value=${args.value}
+    class=${cssClass}
+    placeholder=${placeholder}
+    ?disabled=${disabled}
+    ?readonly=${readonly}
+    value=${value}
   />
 `;
 
-const TemplateBasicSelect = (args): TemplateResult => html`
-  <select class=${args.class} ?disabled=${args.disabled}>
+const TemplateBasicSelect = ({ cssClass, disabled }: Args): TemplateResult => html`
+  <select class=${cssClass} ?disabled=${disabled}>
     <option value="1">Value 1</option>
     <option value="2">Value 2</option>
     <option value="3">Value 3</option>
@@ -110,10 +116,10 @@ const TemplateInputWithSlottedLabel = ({
   </sbb-form-field>
 `;
 
-const TemplateInputWithErrorSpace = (args): TemplateResult => {
+const TemplateInputWithErrorSpace = (args: Args): TemplateResult => {
   const sbbFormError: SbbFormError = document.createElement('sbb-form-error');
   sbbFormError.setAttribute('slot', 'error');
-  sbbFormError.textContent = args.errortext;
+  sbbFormError.textContent = args.errorText;
 
   return html`
     <form>
@@ -134,13 +140,13 @@ const TemplateInputWithErrorSpace = (args): TemplateResult => {
             @keyup=${(event) => {
               if ((event.currentTarget as HTMLInputElement).value !== '') {
                 sbbFormError.remove();
-                document.getElementById('sbb-form-field-input')!.classList.remove(args.class);
+                document.getElementById('sbb-form-field-input')!.classList.remove(args.cssClass);
               } else {
                 document.getElementById('sbb-form-field')!.append(sbbFormError);
-                document.getElementById('sbb-form-field-input')!.classList.add(args.class);
+                document.getElementById('sbb-form-field-input')!.classList.add(args.cssClass);
               }
             }}
-            class=${args.class}
+            class=${args.cssClass}
             placeholder=${args.placeholder}
             ?disabled=${args.disabled}
             ?readonly=${args.readonly}
@@ -148,14 +154,14 @@ const TemplateInputWithErrorSpace = (args): TemplateResult => {
           ${sbbFormError}
         </sbb-form-field>
       </div>
-      <div style=${styleMap({ color: 'var(--sbb-color-smoke-default)' })}>
+      <div style="color: var(--sbb-color-smoke-default);">
         Some text, right below the form-field, inside a div.
       </div>
     </form>
   `;
 };
 
-const TemplateInputWithIcons = (args): TemplateResult => html`
+const TemplateInputWithIcons = (args: Args): TemplateResult => html`
   <sbb-form-field ${sbbSpread(args)}>
     <sbb-icon slot="prefix" name="pie-small"></sbb-icon>
     ${TemplateBasicInput(args)} ${TooltipTrigger()}
@@ -169,13 +175,13 @@ const TemplateInputWithButton = ({
   ...args
 }: Args): TemplateResult => html`
   <sbb-form-field ${sbbSpread(args)}>
-    ${TemplateBasicInput({ ...args, disabled, readonly })}
+    ${TemplateBasicInput({ disabled, readonly, ...args })}
     <sbb-button
       slot="suffix"
       icon-name="pie-small"
       ?disabled=${disabled || readonly}
       aria-label="Input button"
-      data-active=${active}
+      ?data-active=${active}
     ></sbb-button>
   </sbb-form-field>
 `;
@@ -187,12 +193,12 @@ const TemplateInputWithClearButton = ({
   ...args
 }: Args): TemplateResult => html`
   <sbb-form-field ${sbbSpread(args)}>
-    ${TemplateBasicInput({ ...args, disabled, readonly })}
-    <sbb-form-field-clear data-active=${active}></sbb-form-field-clear>
+    ${TemplateBasicInput({ disabled, readonly, ...args })}
+    <sbb-form-field-clear ?data-active=${active}></sbb-form-field-clear>
   </sbb-form-field>
 `;
 
-const TemplateSelect = (args): TemplateResult => html`
+const TemplateSelect = (args: Args): TemplateResult => html`
   <sbb-form-field
     error-space=${args['error-space']}
     label=${args.label}
@@ -207,10 +213,10 @@ const TemplateSelect = (args): TemplateResult => html`
   </sbb-form-field>
 `;
 
-const TemplateSelectWithErrorSpace = (args): TemplateResult => {
+const TemplateSelectWithErrorSpace = (args: Args): TemplateResult => {
   const sbbFormError: SbbFormError = document.createElement('sbb-form-error');
   sbbFormError.setAttribute('slot', 'error');
-  sbbFormError.textContent = args.errortext;
+  sbbFormError.textContent = args.errorText;
 
   return html`
     <form>
@@ -231,13 +237,13 @@ const TemplateSelectWithErrorSpace = (args): TemplateResult => {
             @change=${(event) => {
               if ((event.currentTarget as HTMLSelectElement).value !== '') {
                 sbbFormError.remove();
-                document.getElementById('sbb-form-field-input').classList.remove(args.class);
+                document.getElementById('sbb-form-field-input').classList.remove(args.cssClass);
               } else {
                 document.getElementById('sbb-form-field').append(sbbFormError);
-                document.getElementById('sbb-form-field-input').classList.add(args.class);
+                document.getElementById('sbb-form-field-input').classList.add(args.cssClass);
               }
             }}
-            class=${args.class}
+            class=${args.cssClass}
             ?disabled=${args.disabled}
           >
             <option value="0"></option>
@@ -257,7 +263,7 @@ const TemplateSelectWithErrorSpace = (args): TemplateResult => {
   `;
 };
 
-const TemplateSelectWithIcons = (args): TemplateResult => html`
+const TemplateSelectWithIcons = (args: Args): TemplateResult => html`
   <sbb-form-field ${sbbSpread(args)}>
     <span slot="prefix">
       <sbb-icon name="pie-small"></sbb-icon>
@@ -267,7 +273,7 @@ const TemplateSelectWithIcons = (args): TemplateResult => html`
   </sbb-form-field>
 `;
 
-const placeholderArg: InputType = {
+const placeholder: InputType = {
   control: {
     type: 'text',
   },
@@ -276,7 +282,7 @@ const placeholderArg: InputType = {
   },
 };
 
-const classArg: InputType = {
+const cssClass: InputType = {
   control: {
     type: 'text',
   },
@@ -285,7 +291,7 @@ const classArg: InputType = {
   },
 };
 
-const disabledArg: InputType = {
+const disabled: InputType = {
   control: {
     type: 'boolean',
   },
@@ -294,7 +300,7 @@ const disabledArg: InputType = {
   },
 };
 
-const readonlyArg: InputType = {
+const readonly: InputType = {
   control: {
     type: 'boolean',
   },
@@ -303,7 +309,7 @@ const readonlyArg: InputType = {
   },
 };
 
-const valueArg: InputType = {
+const value: InputType = {
   control: {
     type: 'text',
   },
@@ -312,7 +318,7 @@ const valueArg: InputType = {
   },
 };
 
-const errortextArg: InputType = {
+const errorText: InputType = {
   control: {
     type: 'text',
   },
@@ -321,7 +327,7 @@ const errortextArg: InputType = {
   },
 };
 
-const errorSpaceArg: InputType = {
+const errorSpace: InputType = {
   control: {
     type: 'select',
   },
@@ -331,7 +337,7 @@ const errorSpaceArg: InputType = {
   },
 };
 
-const widthArg: InputType = {
+const width: InputType = {
   control: {
     type: 'select',
   },
@@ -341,7 +347,7 @@ const widthArg: InputType = {
   },
 };
 
-const labelArg: InputType = {
+const label: InputType = {
   control: {
     type: 'text',
   },
@@ -350,7 +356,7 @@ const labelArg: InputType = {
   },
 };
 
-const floatingLabelArg: InputType = {
+const floatingLabel: InputType = {
   control: {
     type: 'boolean',
   },
@@ -359,7 +365,7 @@ const floatingLabelArg: InputType = {
   },
 };
 
-const optionalArg: InputType = {
+const optional: InputType = {
   control: {
     type: 'boolean',
   },
@@ -368,7 +374,7 @@ const optionalArg: InputType = {
   },
 };
 
-const borderlessArg: InputType = {
+const borderless: InputType = {
   control: {
     type: 'boolean',
   },
@@ -377,7 +383,7 @@ const borderlessArg: InputType = {
   },
 };
 
-const sizeArg: InputType = {
+const size: InputType = {
   control: {
     type: 'inline-radio',
   },
@@ -387,7 +393,7 @@ const sizeArg: InputType = {
   },
 };
 
-const negativeArg: InputType = {
+const negative: InputType = {
   control: {
     type: 'boolean',
   },
@@ -396,21 +402,31 @@ const negativeArg: InputType = {
   },
 };
 
+const active: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    disable: true,
+  },
+};
+
 const basicArgTypes: ArgTypes = {
-  'error-space': errorSpaceArg,
-  label: labelArg,
-  'floating-label': floatingLabelArg,
-  optional: optionalArg,
-  borderless: borderlessArg,
-  size: sizeArg,
-  negative: negativeArg,
-  class: classArg,
-  placeholder: placeholderArg,
-  disabled: disabledArg,
-  readonly: readonlyArg,
-  value: valueArg,
-  errortext: errortextArg,
-  width: widthArg,
+  'error-space': errorSpace,
+  label,
+  'floating-label': floatingLabel,
+  optional,
+  borderless,
+  size,
+  negative,
+  cssClass,
+  placeholder,
+  disabled,
+  readonly,
+  value,
+  errorText,
+  width,
+  active,
 };
 
 const basicArgs: Args = {
@@ -419,15 +435,16 @@ const basicArgs: Args = {
   'floating-label': false,
   optional: false,
   borderless: false,
-  size: sizeArg.options[0],
+  size: size.options[0],
   negative: false,
-  class: '',
+  cssClass: '',
   placeholder: 'Input placeholder',
   value: 'Input value',
   disabled: false,
   readonly: false,
-  errortext: 'This is a required field.',
-  width: widthArg.options[0],
+  errorText: 'This is a required field.',
+  width: width.options[0],
+  active: false,
 };
 
 export const Input: StoryObj = {
@@ -449,7 +466,7 @@ export const InputSizeL: StoryObj = {
 export const InputNoLabel: StoryObj = {
   render: TemplateInput,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, label: '' },
+  args: { ...basicArgs, label: undefined },
 };
 
 export const InputWithSlottedLabel: StoryObj = {
@@ -520,11 +537,11 @@ export const InputWithClearButtonActive: StoryObj = {
 
 export const InputLongLabelAndErrorSpace: StoryObj = {
   render: TemplateInputWithErrorSpace,
-  argTypes: { ...basicArgTypes, 'error-space': errorSpaceArg },
+  argTypes: basicArgTypes,
   args: {
     ...basicArgs,
     'error-space': 'reserve',
-    class: 'sbb-invalid',
+    cssClass: 'sbb-invalid',
     label: 'This label name is so long that it needs ellipsis to fit.',
     value: 'This input value is so long that it needs ellipsis to fit.',
   },
@@ -578,7 +595,7 @@ export const SelectDisabled: StoryObj = {
 export const SelectErrorSpace: StoryObj = {
   render: TemplateSelectWithErrorSpace,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, 'error-space': 'reserve', class: 'sbb-invalid' },
+  args: { ...basicArgs, 'error-space': 'reserve', cssClass: 'sbb-invalid' },
 };
 
 export const SelectFloatingLabel: StoryObj = {
@@ -596,7 +613,7 @@ export const SelectOptionalAndIcons: StoryObj = {
 export const InputCollapsedWidth: StoryObj = {
   render: TemplateInput,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, width: widthArg.options[1] },
+  args: { ...basicArgs, width: width.options[1] },
 };
 
 export const InputWithIconsDisabled: StoryObj = {
@@ -683,11 +700,11 @@ export const InputWithClearButtonActiveNegative: StoryObj = {
 
 export const InputLongLabelAndErrorSpaceNegative: StoryObj = {
   render: TemplateInputWithErrorSpace,
-  argTypes: { ...basicArgTypes, 'error-space': errorSpaceArg },
+  argTypes: basicArgTypes,
   args: {
     ...basicArgs,
     'error-space': 'reserve',
-    class: 'sbb-invalid',
+    cssClass: 'sbb-invalid',
     label: 'This label name is so long that it needs ellipsis to fit.',
     value: 'This input value is so long that it needs ellipsis to fit.',
     negative: true,
@@ -744,7 +761,7 @@ export const SelectDisabledNegative: StoryObj = {
 export const SelectErrorSpaceNegative: StoryObj = {
   render: TemplateSelectWithErrorSpace,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, 'error-space': 'reserve', class: 'sbb-invalid', negative: true },
+  args: { ...basicArgs, 'error-space': 'reserve', cssClass: 'sbb-invalid', negative: true },
 };
 
 export const SelectFloatingLabelNegative: StoryObj = {
@@ -762,7 +779,7 @@ export const SelectOptionalAndIconsNegative: StoryObj = {
 export const InputCollapsedWidthNegative: StoryObj = {
   render: TemplateInput,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, width: widthArg.options[1], negative: true },
+  args: { ...basicArgs, width: width.options[1], negative: true },
 };
 
 export const InputWithIconsDisabledNegative: StoryObj = {

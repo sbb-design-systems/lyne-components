@@ -92,8 +92,8 @@ const notification = (args: Args): TemplateResult => html`
         ),
     )}
   >
-    The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.&nbsp;
-    <sbb-link href="/" variant="block"> Link one </sbb-link>
+    The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
+    dog.&nbsp;<sbb-link href="/" variant="block"> Link one </sbb-link>
     <sbb-link href="/" variant="inline"> Link two </sbb-link>
     <sbb-link href="/" variant="inline"> Link three </sbb-link>
   </sbb-notification>

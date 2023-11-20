@@ -90,7 +90,7 @@ const Template = ({ active, ...args }: Args): TemplateResult => html`
     <span style="margin-inline-end: var(--sbb-spacing-fixed-1x);"> This is a demo text. </span>
     <sbb-tooltip-trigger
       id="tooltip-trigger"
-      data-active=${active}
+      ?data-active=${active}
       ${sbbSpread(args)}
     ></sbb-tooltip-trigger>
   </span>
