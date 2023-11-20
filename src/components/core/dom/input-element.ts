@@ -20,7 +20,7 @@ export function findInput(
   trigger?: string | HTMLElement,
 ): HTMLInputElement | null {
   if (!trigger) {
-    const parent = element.closest('sbb-form-field');
+    const parent = element.closest?.('sbb-form-field');
     return parent?.querySelector('input') as HTMLInputElement | null;
   }
 

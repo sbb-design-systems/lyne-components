@@ -30,7 +30,7 @@ export class SbbNavigationList extends LitElement {
   /*
    * Navigation action elements.
    */
-  @state() private _actions: SbbNavigationAction[];
+  @state() private _actions: SbbNavigationAction[] = [];
 
   /**
    * State of listed named slots, by indicating whether any element for a named slot is defined.
@@ -46,7 +46,7 @@ export class SbbNavigationList extends LitElement {
    * Create an array with only the sbb-navigation-action children.
    */
   private _readActions(): void {
-    this._actions = Array.from(this.children).filter(
+    this._actions = Array.from(this.children ?? []).filter(
       (e): e is SbbNavigationAction => e.tagName === 'SBB-NAVIGATION-ACTION',
     );
   }

@@ -41,13 +41,15 @@ export class SbbOptGroup extends LitElement {
   }
 
   private get _options(): SbbOption[] {
-    return Array.from(this.querySelectorAll('sbb-option')) as SbbOption[];
+    return Array.from(this.querySelectorAll?.('sbb-option') ?? []) as SbbOption[];
   }
 
   public override connectedCallback(): void {
     super.connectedCallback();
     this._negativeObserver?.disconnect();
-    this._negative = !!this.closest(`:is(sbb-autocomplete, sbb-select, sbb-form-field)[negative]`);
+    this._negative = !!this.closest?.(
+      `:is(sbb-autocomplete, sbb-select, sbb-form-field)[negative]`,
+    );
     toggleDatasetEntry(this, 'negative', this._negative);
 
     this._negativeObserver.observe(this, {
@@ -74,9 +76,9 @@ export class SbbOptGroup extends LitElement {
   }
 
   private _setVariantByContext(): void {
-    if (this.closest('sbb-autocomplete')) {
+    if (this.closest?.('sbb-autocomplete')) {
       this._variant = 'autocomplete';
-    } else if (this.closest('sbb-select')) {
+    } else if (this.closest?.('sbb-select')) {
       this._variant = 'select';
     }
   }

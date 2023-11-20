@@ -68,7 +68,7 @@ export class SbbBreadcrumb extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._hasText = Array.from(this.childNodes).some(
+    this._hasText = Array.from(this.childNodes ?? []).some(
       (n) => !(n as Element).slot && n.textContent?.trim(),
     );
     this._handlerRepository.connect();

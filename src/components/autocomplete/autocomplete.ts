@@ -108,7 +108,7 @@ export class SbbAutocomplete extends LitElement {
   }
 
   private get _options(): SbbOption[] {
-    return Array.from(this.querySelectorAll('sbb-option'));
+    return Array.from(this.querySelectorAll?.('sbb-option') ?? []);
   }
 
   /** Opens the autocomplete. */
@@ -190,7 +190,7 @@ export class SbbAutocomplete extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
-    const formField = this.closest('sbb-form-field') ?? this.closest('[data-form-field]');
+    const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
 
     if (formField) {
       this.negative = isValidAttribute(formField, 'negative');
@@ -227,11 +227,11 @@ export class SbbAutocomplete extends LitElement {
   }
 
   private _syncNegative(): void {
-    this.querySelectorAll('sbb-divider').forEach((element) =>
+    this.querySelectorAll?.('sbb-divider')?.forEach((element) =>
       setAttribute(element, 'negative', this.negative),
     );
 
-    this.querySelectorAll('sbb-option, sbb-optgroup').forEach((element: HTMLElement) =>
+    this.querySelectorAll?.('sbb-option, sbb-optgroup')?.forEach((element: HTMLElement) =>
       toggleDatasetEntry(element, 'negative', this.negative),
     );
   }
@@ -258,7 +258,7 @@ export class SbbAutocomplete extends LitElement {
     let result: HTMLElement;
 
     if (!this.origin) {
-      result = this.closest('sbb-form-field')?.shadowRoot.querySelector('#overlay-anchor');
+      result = this.closest?.('sbb-form-field')?.shadowRoot.querySelector('#overlay-anchor');
     } else {
       result = findReferencedElement(this.origin);
     }
@@ -278,7 +278,7 @@ export class SbbAutocomplete extends LitElement {
    */
   private _getTriggerElement(): HTMLInputElement {
     if (!this.trigger) {
-      return this.closest('sbb-form-field')?.querySelector('input') as HTMLInputElement;
+      return this.closest?.('sbb-form-field')?.querySelector('input') as HTMLInputElement;
     }
 
     const result = findReferencedElement<HTMLInputElement>(this.trigger);

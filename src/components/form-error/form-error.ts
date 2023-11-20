@@ -23,7 +23,7 @@ export class SbbFormError extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    const formField = this.closest('sbb-form-field') ?? this.closest('[data-form-field]');
+    const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
     if (formField) {
       this.negative = isValidAttribute(formField, 'negative');
     }

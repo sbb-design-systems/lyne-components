@@ -138,7 +138,7 @@ export class SbbNotification extends LitElement {
   }
 
   private _setInlineLinks(): void {
-    this.querySelectorAll('sbb-link')?.forEach((link) => (link.variant = 'inline'));
+    this.querySelectorAll?.('sbb-link')?.forEach((link) => (link.variant = 'inline'));
   }
 
   private _setNotificationHeight(): void {

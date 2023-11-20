@@ -57,7 +57,7 @@ export class SbbLinkList extends LitElement {
   @state() private _namedSlots = createNamedSlotState('title');
 
   private _syncLinks(): void {
-    this.querySelectorAll?.('sbb-link').forEach((link) => {
+    this.querySelectorAll?.('sbb-link')?.forEach((link) => {
       link.negative = this.negative;
       link.size = this.size;
       link.variant = 'block';
@@ -73,7 +73,9 @@ export class SbbLinkList extends LitElement {
    * Create an array with only the sbb-link children
    */
   private _readLinks(): void {
-    const links = Array.from(this.children).filter((e): e is SbbLink => e.tagName === 'SBB-LINK');
+    const links = Array.from(this.children ?? []).filter(
+      (e): e is SbbLink => e.tagName === 'SBB-LINK',
+    );
     // If the slotted sbb-link instances have not changed, we can skip syncing and updating
     // the link reference list.
     if (

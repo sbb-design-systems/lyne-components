@@ -74,7 +74,7 @@ export class SbbCheckboxGroup extends LitElement {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
-    toggleDatasetEntry(this, 'hasSelectionPanel', !!this.querySelector('sbb-selection-panel'));
+    toggleDatasetEntry(this, 'hasSelectionPanel', !!this.querySelector?.('sbb-selection-panel'));
     this._handlerRepository.connect();
     this._updateCheckboxes();
   }
@@ -139,7 +139,7 @@ export class SbbCheckboxGroup extends LitElement {
   }
 
   private get _checkboxes(): SbbCheckbox[] {
-    return Array.from(this.querySelectorAll('sbb-checkbox')).filter(
+    return Array.from(this.querySelectorAll?.('sbb-checkbox') ?? []).filter(
       (el: SbbCheckbox) => el.closest('sbb-checkbox-group') === this,
     );
   }

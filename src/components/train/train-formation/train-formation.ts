@@ -79,7 +79,7 @@ export class SbbTrainFormation extends LitElement {
     event?.stopPropagation();
 
     this._sectors = Array.from(
-      this.querySelectorAll('sbb-train-wagon,sbb-train-blocked-passage'),
+      this.querySelectorAll?.('sbb-train-wagon,sbb-train-blocked-passage') ?? [],
     ).reduce(
       (aggregatedSectors: AggregatedSector[], item: SbbTrainWagon | SbbTrainBlockedPassage) => {
         const currentAggregatedSector = aggregatedSectors[aggregatedSectors.length - 1];
@@ -111,7 +111,7 @@ export class SbbTrainFormation extends LitElement {
   }
   private _handleSlotChange(): void {
     this._readSectors();
-    this._trains = Array.from(this.children).filter(
+    this._trains = Array.from(this.children ?? []).filter(
       (e): e is SbbTrain => e.tagName === 'SBB-TRAIN',
     );
   }

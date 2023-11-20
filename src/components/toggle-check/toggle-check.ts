@@ -72,7 +72,7 @@ export class SbbToggleCheck extends LitElement {
     this.addEventListener('click', (e) => this._handleClick(e), { signal });
     this.addEventListener('keyup', (e) => this._handleKeyup(e), { signal });
     this._handlerRepository.connect();
-    this._hasLabelText = Array.from(this.childNodes).some(
+    this._hasLabelText = Array.from(this.childNodes ?? []).some(
       (n: ChildNode) => !(n as Element).slot && n.textContent,
     );
   }

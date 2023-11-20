@@ -107,7 +107,9 @@ export class SbbTrainWagon extends LitElement {
    * Create an array with only the sbb-icon children.
    */
   private _readSlottedIcons(): void {
-    this._icons = Array.from(this.children).filter((e): e is SbbIcon => e.tagName === 'SBB-ICON');
+    this._icons = Array.from(this.children ?? []).filter(
+      (e): e is SbbIcon => e.tagName === 'SBB-ICON',
+    );
   }
 
   protected override render(): TemplateResult {

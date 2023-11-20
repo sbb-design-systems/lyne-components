@@ -115,12 +115,12 @@ export class SbbButton extends LitElement implements LinkButtonProperties, IsSta
     super.connectedCallback();
     // Check if the current element is nested in an action element.
     this.isStatic = this.isStatic || !!hostContext(ACTION_ELEMENTS, this);
-    this._hasText = Array.from(this.childNodes).some(
+    this._hasText = Array.from(this.childNodes ?? []).some(
       (n) => !(n as Element).slot && n.textContent?.trim(),
     );
     this._handlerRepository.connect();
 
-    const formField = this.closest('sbb-form-field') ?? this.closest('[data-form-field]');
+    const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
     if (formField) {
       toggleDatasetEntry(this, 'iconSmall', true);
       this.negative = isValidAttribute(formField, 'negative');

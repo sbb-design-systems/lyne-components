@@ -1,3 +1,5 @@
+import { isBrowser } from './platform';
+
 /**
  * Looks for the closest element matching the given selector starting from the given element.
  * Returns null, if none of the ancestor match.
@@ -7,6 +9,9 @@
  * @returns The closest element matching the selector or null if none is found.
  */
 export function hostContext(selector: string, element: Element): Element | null {
+  if (!isBrowser()) {
+    return null;
+  }
   // Start with parent element in order to avoid finding element itself
   element = element.parentElement ?? (element.getRootNode() as ShadowRoot).host;
   while (element && (element as any) !== document && (element as any) !== window) {

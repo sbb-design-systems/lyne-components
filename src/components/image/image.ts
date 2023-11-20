@@ -4,7 +4,7 @@ import { customElement, eventOptions, property, state } from 'lit/decorators.js'
 import { classMap } from 'lit/directives/class-map.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { hostContext } from '../core/dom';
+import { hostContext, isBrowser } from '../core/dom';
 
 import imageHelperGetBreakpoints, {
   InterfaceImageAttributes,
@@ -260,11 +260,11 @@ export class SbbImage extends LitElement {
   }
 
   private _prepareImageUrl(baseUrl: string, lquip = false): string {
-    if (!baseUrl || baseUrl === '') {
+    if (!baseUrl || baseUrl === '' || !isBrowser()) {
       return '';
     }
 
-    const imageUrlObj = new URL(baseUrl);
+    const imageUrlObj = typeof URL !== 'undefined' && new URL(baseUrl);
 
     if (lquip) {
       // blur and size: ?blur=100&w=100&h=56

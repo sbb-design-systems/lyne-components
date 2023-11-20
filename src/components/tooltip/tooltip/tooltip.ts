@@ -100,6 +100,9 @@ export class SbbTooltip extends LitElement {
    * The state of the tooltip.
    */
   private set _state(state: SbbOverlayState) {
+    if (!this.dataset) {
+      return;
+    }
     this.dataset.state = state;
   }
   private get _state(): SbbOverlayState {
@@ -269,6 +272,7 @@ export class SbbTooltip extends LitElement {
     // all non-touchscreen devices.
     this._hoverTrigger = this.hoverTrigger && !window.matchMedia('(pointer: coarse)').matches;
 
+    this._tooltipController?.abort();
     this._tooltipController = new AbortController();
     if (this._hoverTrigger) {
       this._triggerElement.addEventListener('mouseenter', this._onTriggerMouseEnter, {

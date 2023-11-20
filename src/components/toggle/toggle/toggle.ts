@@ -73,10 +73,9 @@ export class SbbToggle extends LitElement {
   );
 
   private _valueChanged(value: any | undefined): void {
+    const options = this._options;
     const selectedOption =
-      this._options.find((o) => o.value === value) ??
-      this._options.find((o) => o.checked) ??
-      this._options[0];
+      options.find((o) => o.value === value) ?? options.find((o) => o.checked) ?? options[0];
     if (!selectedOption) {
       console.warn(`sbb-toggle: No available options! (${this.id || 'No id'})`);
       return;
@@ -84,9 +83,7 @@ export class SbbToggle extends LitElement {
     if (!selectedOption.checked) {
       selectedOption.checked = true;
     }
-    this._options
-      .filter((o) => o !== selectedOption && o.checked)
-      .forEach((o) => (o.checked = false));
+    options.filter((o) => o !== selectedOption && o.checked).forEach((o) => (o.checked = false));
     this._setCheckedPillPosition(false);
   }
 

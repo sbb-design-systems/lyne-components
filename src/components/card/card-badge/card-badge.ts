@@ -23,7 +23,9 @@ export class SbbCardBadge extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     this._parentElement = this.parentElement;
-    toggleDatasetEntry(this._parentElement, 'hasCardBadge', true);
+    if (this._parentElement) {
+      toggleDatasetEntry(this._parentElement, 'hasCardBadge', true);
+    }
   }
 
   public override disconnectedCallback(): void {

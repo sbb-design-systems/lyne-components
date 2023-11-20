@@ -70,7 +70,7 @@ export class SbbJourneySummary extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._hasContentSlot = Boolean(this.querySelector('[slot="content"]'));
+    this._hasContentSlot = Boolean(this.querySelector?.('[slot="content"]'));
     this._handlerRepository.connect();
   }
 

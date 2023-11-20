@@ -137,11 +137,11 @@ export class SbbTagGroup extends LitElement {
   }
 
   private get _tags(): SbbTag[] {
-    return Array.from(this.querySelectorAll('sbb-tag')) as SbbTag[];
+    return Array.from(this.querySelectorAll?.('sbb-tag') ?? []) as SbbTag[];
   }
 
   private _readSlottedElements(): void {
-    this._slottedElements = Array.from(this.children).filter(
+    this._slottedElements = Array.from(this.children ?? []).filter(
       (e): e is HTMLElement => e instanceof window.HTMLElement,
     );
   }

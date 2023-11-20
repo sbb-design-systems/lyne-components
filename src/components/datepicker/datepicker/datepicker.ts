@@ -47,7 +47,7 @@ export function getDatePicker(
   trigger?: string | HTMLElement,
 ): SbbDatepicker {
   if (!trigger) {
-    const parent = element.closest('sbb-form-field');
+    const parent = element.closest?.('sbb-form-field');
     return parent?.querySelector('sbb-datepicker');
   }
 

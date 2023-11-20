@@ -89,16 +89,16 @@ export class SbbNavigationMarker extends LitElement {
 
   // Create an array with only the sbb-navigation-action children.
   private _readActions(): void {
-    this._actions = Array.from(this.children).filter(
+    this._actions = Array.from(this.children ?? []).filter(
       (e): e is SbbNavigationAction => e.tagName === 'SBB-NAVIGATION-ACTION',
     );
   }
 
   private _setMarkerPosition(): void {
     if (this._hasActiveAction) {
-      this?.style.setProperty(
+      this.style.setProperty(
         '--sbb-navigation-marker-position-y',
-        `${(this.shadowRoot.querySelector('[data-active]') as HTMLElement)?.offsetTop}px`,
+        `${(this.shadowRoot?.querySelector?.('[data-active]') as HTMLElement)?.offsetTop}px`,
       );
     }
   }

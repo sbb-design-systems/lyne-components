@@ -52,7 +52,6 @@ export class SbbHeader extends LitElement {
     oldValue: string | HTMLElement | Document,
   ): void {
     if (newValue !== oldValue) {
-      this._scrollEventsController?.abort();
       this._setListenerOnScrollElement(newValue);
       const currentScroll = this._getCurrentScrollProperty('scrollTop');
       // `currentScroll` can be negative, e.g. on mobile; this is not allowed.
@@ -74,6 +73,7 @@ export class SbbHeader extends LitElement {
 
   /** Sets the value of `_scrollElement` and `_scrollFunction` and possibly adds the function on the correct element. */
   private _setListenerOnScrollElement(scrollOrigin: string | HTMLElement | Document): void {
+    this._scrollEventsController?.abort();
     this._scrollEventsController = new AbortController();
     this._scrollElement =
       findReferencedElement(scrollOrigin as string | HTMLElement) ||

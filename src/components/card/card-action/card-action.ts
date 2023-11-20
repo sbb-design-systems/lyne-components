@@ -92,9 +92,10 @@ export class SbbCardAction extends LitElement implements LinkButtonProperties {
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this._abortController?.abort();
     this._abortController = new AbortController();
 
-    this._card = this.closest('sbb-card');
+    this._card = this.closest?.('sbb-card');
     if (this._card) {
       toggleDatasetEntry(this._card, 'hasAction', true);
       toggleDatasetEntry(this._card, 'hasActiveAction', this.active);
@@ -128,15 +129,16 @@ export class SbbCardAction extends LitElement implements LinkButtonProperties {
   private _checkForSlottedActions(): void {
     const cardFocusableAttributeName = 'data-card-focusable';
 
-    this._card
-      .querySelectorAll(`[${cardFocusableAttributeName}]:not(${IS_FOCUSABLE_QUERY})`)
-      .forEach((el) => el.removeAttribute(cardFocusableAttributeName));
+    (
+      this._card.querySelectorAll?.(`[${cardFocusableAttributeName}]:not(${IS_FOCUSABLE_QUERY})`) ??
+      []
+    ).forEach((el: HTMLElement) => el.removeAttribute(cardFocusableAttributeName));
 
-    this._card
-      .querySelectorAll(
+    (
+      this._card.querySelectorAll?.(
         `${IS_FOCUSABLE_QUERY}:not([${cardFocusableAttributeName}], sbb-card-action)`,
-      )
-      .forEach((el) => el.setAttribute(cardFocusableAttributeName, ''));
+      ) ?? []
+    ).forEach((el: HTMLElement) => el.setAttribute(cardFocusableAttributeName, ''));
   }
 
   protected override render(): TemplateResult {
