@@ -227,11 +227,11 @@ export class SbbAutocomplete extends LitElement {
   }
 
   private _syncNegative(): void {
-    this.querySelectorAll?.('sbb-divider')?.forEach((element) =>
+    this.querySelectorAll?.('sbb-divider').forEach((element) =>
       setAttribute(element, 'negative', this.negative),
     );
 
-    this.querySelectorAll?.('sbb-option, sbb-optgroup')?.forEach((element: HTMLElement) =>
+    this.querySelectorAll?.('sbb-option, sbb-optgroup').forEach((element: HTMLElement) =>
       toggleDatasetEntry(element, 'negative', this.negative),
     );
   }

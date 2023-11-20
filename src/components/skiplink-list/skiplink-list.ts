@@ -37,7 +37,7 @@ export class SbbSkiplinkList extends LitElement {
   @state() private _namedSlots = createNamedSlotState('title');
 
   private _syncLinks(): void {
-    (this.querySelectorAll?.('sbb-link') ?? []).forEach((link: SbbLink) => {
+    this.querySelectorAll?.('sbb-link').forEach((link: SbbLink) => {
       link.size = 'm';
       link.negative = true;
     });

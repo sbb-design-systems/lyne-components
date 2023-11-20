@@ -49,7 +49,7 @@ export class SbbActionGroup extends LitElement {
   public linkSize?: SbbLinkSize = 'm';
 
   private _syncButtons(): void {
-    this.querySelectorAll?.('sbb-button')?.forEach((b) => (b.size = this.buttonSize));
+    this.querySelectorAll?.('sbb-button').forEach((b) => (b.size = this.buttonSize));
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -62,7 +62,7 @@ export class SbbActionGroup extends LitElement {
   }
 
   private _syncLinks(): void {
-    this.querySelectorAll?.('sbb-link')?.forEach((link) => {
+    this.querySelectorAll?.('sbb-link').forEach((link) => {
       link.variant = 'block';
       link.size = this.linkSize;
     });

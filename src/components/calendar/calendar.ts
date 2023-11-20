@@ -226,7 +226,7 @@ export class SbbCalendar extends LitElement {
     this._handlerRepository.connect();
     this._calendarController?.abort();
     this._calendarController = new AbortController();
-    window?.addEventListener('resize', () => this._init(), {
+    globalThis.window?.addEventListener('resize', () => this._init(), {
       passive: true,
       signal: this._calendarController.signal,
     });

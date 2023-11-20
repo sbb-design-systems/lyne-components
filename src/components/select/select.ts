@@ -270,11 +270,9 @@ export class SbbSelect extends LitElement {
   }
 
   private _syncNegative(): void {
-    (this.querySelectorAll?.('sbb-divider') ?? []).forEach(
-      (element) => (element.negative = this.negative),
-    );
+    this.querySelectorAll?.('sbb-divider').forEach((element) => (element.negative = this.negative));
 
-    (this.querySelectorAll?.('sbb-option, sbb-optgroup') ?? []).forEach(
+    this.querySelectorAll?.('sbb-option, sbb-optgroup').forEach(
       (element: SbbOption | SbbOptGroup) => toggleDatasetEntry(element, 'negative', this.negative),
     );
   }
