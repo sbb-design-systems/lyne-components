@@ -221,9 +221,8 @@ const connectionDetailTemplate = ({ disableAnimation, ...args }: Args): Template
           </div>
           <div style="display: flex; flex-direction: row; justify-content: space-between;">
             <div>
-              <sbb-icon role="img" name="train-small" aria-hidden="true"></sbb-icon>
-
-              <sbb-icon role="img" name="ir-27" aria-hidden="true"></sbb-icon>
+              <sbb-icon role="img" name="train-small" aria-hidden="true"></sbb-icon
+              ><sbb-icon role="img" name="ir-27" aria-hidden="true"></sbb-icon>
               <div>Direction Station</div>
             </div>
             <span>

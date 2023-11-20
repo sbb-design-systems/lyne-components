@@ -19,7 +19,7 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
     : 'var(--sbb-color-black-default)',
 });
 
-const negativeArg: InputType = {
+const negative: InputType = {
   control: {
     type: 'boolean',
   },
@@ -43,11 +43,21 @@ const disabled: InputType = {
   },
 };
 
+const active: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    disable: true,
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
-  negative: negativeArg,
+  negative,
   'aria-label': ariaLabel,
   'icon-name': iconName,
-  disabled: disabled,
+  disabled,
+  active,
 };
 
 const defaultArgs: Args = {
@@ -55,6 +65,7 @@ const defaultArgs: Args = {
   'aria-label': 'Click to open the tooltip',
   'icon-name': 'circle-information-small',
   disabled: false,
+  active: false,
 };
 
 const tooltip = (): TemplateResult => html`
@@ -117,7 +128,7 @@ export const IconSizeL: StoryObj = {
 export const CustomContent: StoryObj = {
   render: TemplateWithCustomContent,
   argTypes: defaultArgTypes,
-  args: defaultArgs,
+  args: { ...defaultArgs },
 };
 
 export const Disabled: StoryObj = {
