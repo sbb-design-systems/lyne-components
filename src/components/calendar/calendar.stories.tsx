@@ -46,10 +46,6 @@ const TemplateDynamicWidth = ({
   ></sbb-calendar>
 `;
 
-const TemplateFilterFunction = ({ dateFilter, ...args }: Args): TemplateResult => html`
-  <sbb-calendar .dateFilter=${dateFilter} ${sbbSpread(args)}></sbb-calendar>
-`;
-
 const wide: InputType = {
   control: {
     type: 'boolean',
@@ -163,7 +159,7 @@ export const CalendarWide: StoryObj = {
 };
 
 export const CalendarFilterFunction: StoryObj = {
-  render: TemplateFilterFunction,
+  render: Template,
   argTypes: { ...defaultArgTypes, dateFilter },
   args: {
     ...defaultArgs,
