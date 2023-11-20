@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.43.0-next.8](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0-next.7...v0.43.0-next.8) (2023-11-20)
+
+### Bug Fixes
+
+- **sbb-logo,sbb-signet:** fix SSR issue with svg title elements ([5b5e8a1](https://github.com/lyne-design-system/lyne-components/commit/5b5e8a10a8c4cd60d52631fb222eeb572c929423))
+
 ## [0.43.0-next.7](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0-next.6...v0.43.0-next.7) (2023-11-17)
 
 ### Bug Fixes
