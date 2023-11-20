@@ -106,11 +106,17 @@ const defaultArgs: Args = {
   active: false,
   'data-now': new Date('2022-12-01T12:11:00').valueOf(),
   trip: defaultTrip,
+  boarding: undefined,
   price: undefined,
 };
 
-const Template = ({ trip, price, ...args }: Args): TemplateResult =>
-  html`<sbb-timetable-row .trip=${trip} .price=${price} ${sbbSpread(args)}></sbb-timetable-row>`;
+const Template = ({ trip, price, boarding, ...args }: Args): TemplateResult =>
+  html`<sbb-timetable-row
+    .trip=${trip}
+    .price=${price}
+    .boarding=${boarding}
+    ${sbbSpread(args)}
+  ></sbb-timetable-row>`;
 
 export const Basic: StoryObj = {
   render: Template,
