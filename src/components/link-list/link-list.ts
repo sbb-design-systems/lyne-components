@@ -2,6 +2,7 @@ import { spread } from '@open-wc/lit-helpers';
 import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
+import { SlotChildObserver } from '../core/common-behaviors';
 import {
   createNamedSlotState,
   HandlerRepository,
@@ -22,7 +23,7 @@ import '../title';
  * @slot title - Use this slot to provide a title.
  */
 @customElement('sbb-link-list')
-export class SbbLinkList extends LitElement {
+export class SbbLinkList extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** The title text we want to show before the list. */
@@ -69,13 +70,9 @@ export class SbbLinkList extends LitElement {
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
-  /**
-   * Create an array with only the sbb-link children
-   */
-  private _readLinks(): void {
-    const links = Array.from(this.children ?? []).filter(
-      (e): e is SbbLink => e.tagName === 'SBB-LINK',
-    );
+  /** Create an array with only the sbb-link children. */
+  protected override checkChildren(): void {
+    const links = Array.from(this.children).filter((e): e is SbbLink => e.tagName === 'SBB-LINK');
     // If the slotted sbb-link instances have not changed, we can skip syncing and updating
     // the link reference list.
     if (
@@ -93,7 +90,6 @@ export class SbbLinkList extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     this._handlerRepository.connect();
-    this._readLinks();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -134,12 +130,12 @@ export class SbbLinkList extends LitElement {
           ${this._links.map(
             (_, index) =>
               html`<li>
-                <slot name=${`link-${index}`} @slotchange=${(): void => this._readLinks()}></slot>
+                <slot name=${`link-${index}`}></slot>
               </li>`,
           )}
         </ul>
         <span hidden>
-          <slot @slotchange=${(): void => this._readLinks()}></slot>
+          <slot></slot>
         </span>
       </div>
     `;

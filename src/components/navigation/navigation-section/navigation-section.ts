@@ -104,7 +104,6 @@ export class SbbNavigationSection extends LitElement {
   private _triggerElement: HTMLElement;
   private _navigationSectionController: AbortController;
   private _windowEventsController: AbortController;
-  private _timeoutController: ReturnType<typeof setTimeout>;
   private _navigationSectionId = `sbb-navigation-section-${++nextId}`;
 
   private _handlerRepository = new HandlerRepository(
@@ -339,7 +338,6 @@ export class SbbNavigationSection extends LitElement {
     this._handlerRepository.disconnect();
     this._navigationSectionController?.abort();
     this._windowEventsController?.abort();
-    clearTimeout(this._timeoutController);
   }
 
   protected override render(): TemplateResult {

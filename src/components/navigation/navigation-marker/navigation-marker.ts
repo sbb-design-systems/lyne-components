@@ -1,6 +1,7 @@
 import { CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
+import { SlotChildObserver } from '../../core/common-behaviors';
 import { setAttribute } from '../../core/dom';
 import { AgnosticResizeObserver } from '../../core/observers';
 import type { SbbNavigationAction } from '../navigation-action';
@@ -13,7 +14,7 @@ import style from './navigation-marker.scss?lit&inline';
  * @slot - Use the unnamed slot to add `sbb-navigation-action` elements into the `sbb-navigation-marker`.
  */
 @customElement('sbb-navigation-marker')
-export class SbbNavigationMarker extends LitElement {
+export class SbbNavigationMarker extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -55,7 +56,6 @@ export class SbbNavigationMarker extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     this._navigationMarkerResizeObserver.observe(this);
-    this._readActions();
   }
 
   public override disconnectedCallback(): void {
@@ -88,8 +88,8 @@ export class SbbNavigationMarker extends LitElement {
   }
 
   // Create an array with only the sbb-navigation-action children.
-  private _readActions(): void {
-    this._actions = Array.from(this.children ?? []).filter(
+  protected override checkChildren(): void {
+    this._actions = Array.from(this.children).filter(
       (e): e is SbbNavigationAction => e.tagName === 'SBB-NAVIGATION-ACTION',
     );
   }
@@ -112,13 +112,13 @@ export class SbbNavigationMarker extends LitElement {
         ${this._actions.map(
           (action, index) => html`
             <li class="sbb-navigation-marker__action" ?data-active=${action.active}>
-              <slot name=${`action-${index}`} @slotchange=${(): void => this._readActions()}></slot>
+              <slot name=${`action-${index}`}></slot>
             </li>
           `,
         )}
       </ul>
       <span hidden>
-        <slot @slotchange=${(): void => this._readActions()}></slot>
+        <slot></slot>
       </span>
     `;
   }
