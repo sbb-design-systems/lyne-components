@@ -264,7 +264,7 @@ export class SbbImage extends LitElement {
       return '';
     }
 
-    const imageUrlObj = typeof URL !== 'undefined' && new URL(baseUrl);
+    const imageUrlObj = new URL(baseUrl);
 
     if (lquip) {
       // blur and size: ?blur=100&w=100&h=56

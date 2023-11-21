@@ -96,9 +96,9 @@ export class SbbNavigationMarker extends LitElement {
 
   private _setMarkerPosition(): void {
     if (this._hasActiveAction) {
-      this.style.setProperty(
+      this.style?.setProperty(
         '--sbb-navigation-marker-position-y',
-        `${(this.shadowRoot?.querySelector?.('[data-active]') as HTMLElement)?.offsetTop}px`,
+        `${(this.shadowRoot.querySelector('[data-active]') as HTMLElement)?.offsetTop}px`,
       );
     }
   }

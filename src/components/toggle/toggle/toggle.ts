@@ -158,8 +158,8 @@ export class SbbToggle extends LitElement {
       ? `${this._toggleElement.clientWidth - firstOption.clientWidth}px`
       : '0px';
 
-    this.style.setProperty('--sbb-toggle-option-left', pillLeft);
-    this.style.setProperty('--sbb-toggle-option-right', pillRight);
+    this.style?.setProperty('--sbb-toggle-option-left', pillLeft);
+    this.style?.setProperty('--sbb-toggle-option-right', pillRight);
   }
 
   public override connectedCallback(): void {
