@@ -11980,10 +11980,10 @@ tsutils@^3.21.0:
   dependencies:
     tslib "^1.8.1"
 
-tsx@4.1.4:
-  version "4.1.4"
-  resolved "https://registry.yarnpkg.com/tsx/-/tsx-4.1.4.tgz#e8c18cb5e890b410915d3cfa92b94d5e3147f465"
-  integrity sha512-9X7uBCIyUsvMzIH+o8m+5o/5eL461cChCF+XUtOZsPr1a4pZx2lTQx0Muu5G5VwJWZwAGKBe3sJHLk82BENAVw==
+tsx@4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/tsx/-/tsx-4.2.0.tgz#cc7d62bbea50b98ea37341b55d86cd4872500a27"
+  integrity sha512-hvAXAz4KUYNyjXOjJJgyjT7YOGFUNLC8jnODI6Omc/wGKaZ7z0FvW5d2haqg1GLfX49H3nZOpLYRlHMYGI8Wbw==
   dependencies:
     esbuild "~0.18.20"
     get-tsconfig "^4.7.2"
