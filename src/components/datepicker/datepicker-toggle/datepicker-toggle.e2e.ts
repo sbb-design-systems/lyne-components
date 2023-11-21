@@ -32,7 +32,7 @@ describe('sbb-datepicker-toggle', () => {
     const element: SbbDatepickerToggle = document.querySelector('sbb-datepicker-toggle');
     assert.instanceOf(element, SbbDatepickerToggle);
 
-    const didOpenEventSpy = new EventSpy('did-open', element);
+    const didOpenEventSpy = new EventSpy(SbbTooltip.events.didOpen, element);
     const tooltipTrigger: SbbTooltipTrigger =
       element.shadowRoot.querySelector('sbb-tooltip-trigger');
     const tooltip: SbbTooltip = element.shadowRoot.querySelector('sbb-tooltip');
@@ -54,7 +54,7 @@ describe('sbb-datepicker-toggle', () => {
       <input id="datepicker-input" />
     `);
     const element: SbbDatepickerToggle = document.querySelector('sbb-datepicker-toggle');
-    const didOpenEventSpy = new EventSpy('did-open', element);
+    const didOpenEventSpy = new EventSpy(SbbTooltip.events.didOpen, element);
     const tooltipTrigger: SbbTooltipTrigger =
       element.shadowRoot.querySelector('sbb-tooltip-trigger');
     const tooltip: SbbTooltip = element.shadowRoot.querySelector('sbb-tooltip');
@@ -147,7 +147,7 @@ describe('sbb-datepicker-toggle', () => {
     const input: HTMLInputElement = form.querySelector('input');
     const tooltip: SbbTooltip = element.shadowRoot.querySelector('sbb-tooltip');
     expect(tooltip).to.have.attribute('data-state', 'closed');
-    const didOpenEventSpy = new EventSpy('did-open', element);
+    const didOpenEventSpy = new EventSpy(SbbTooltip.events.didOpen, element);
     const changeSpy = new EventSpy('change', input);
     const blurSpy = new EventSpy('blur', input);
     assert.instanceOf(element, SbbDatepickerToggle);

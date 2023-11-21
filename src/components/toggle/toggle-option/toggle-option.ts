@@ -24,7 +24,7 @@ import style from './toggle-option.scss?lit&inline';
 export class SbbToggleOption extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    stateChange: 'state-change',
+    stateChange: 'stateChange',
   } as const;
 
   /**

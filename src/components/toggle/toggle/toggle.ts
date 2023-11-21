@@ -167,7 +167,7 @@ export class SbbToggle extends LitElement {
     const signal = this._abort.signal;
     this.addEventListener('input', () => this._handleInput(), { signal, passive: true });
     this.addEventListener(
-      'state-change',
+      'stateChange',
       (e) => this._handleStateChange(e as CustomEvent<SbbToggleStateChange>),
       {
         signal,

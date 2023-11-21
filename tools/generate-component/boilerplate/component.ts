@@ -13,7 +13,7 @@ import style from './__noPrefixName__.scss?lit&inline';
 export class __nameUpperCase__ extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
-    myEventName: 'my-event-name',
+    myEventName: 'myEventName',
   } as const;
 
   /** myProp documentation */

@@ -36,7 +36,7 @@ import style from './train-wagon.scss?lit&inline';
 export class SbbTrainWagon extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    sectorChange: 'sector-change',
+    sectorChange: 'sectorChange',
   } as const;
 
   /** Wagon type. */
