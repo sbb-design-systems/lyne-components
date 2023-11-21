@@ -51,10 +51,10 @@ and therefore interrupts screen reader flow, to immediately read out the alert c
 
 ## Events
 
-| Name                | Type                    | Description                                 | Inherited From |
-| ------------------- | ----------------------- | ------------------------------------------- | -------------- |
-| `did-dismiss-alert` | `CustomEvent<SbbAlert>` | Emits when an alert was removed from DOM.   |                |
-| `empty`             | `CustomEvent<void>`     | Emits when `sbb-alert-group` becomes empty. |                |
+| Name              | Type                    | Description                                 | Inherited From |
+| ----------------- | ----------------------- | ------------------------------------------- | -------------- |
+| `didDismissAlert` | `CustomEvent<SbbAlert>` | Emits when an alert was removed from DOM.   |                |
+| `empty`           | `CustomEvent<void>`     | Emits when `sbb-alert-group` becomes empty. |                |
 
 ## Slots
 
