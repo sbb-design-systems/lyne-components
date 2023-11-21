@@ -32,12 +32,12 @@ export class SbbIcon extends LitElement {
   @property({ reflect: true }) public name: string;
 
   /**
-   * When set to `false`, SVG content that is HTTP fetched will not be checked
+   * When set to `true`, SVG content that is HTTP fetched will not be checked
    * if the response SVG content has any `<script>` elements, or any attributes
    * that start with `on`, such as `onclick`.
-   * @default true
+   * @default false
    */
-  @property({ type: Boolean }) public sanitize = true;
+  @property({ attribute: 'no-sanitize', type: Boolean }) public noSanitize = false;
 
   /**
    * The aria-hidden property is set to "true" by default, since an icon alone
@@ -92,7 +92,7 @@ export class SbbIcon extends LitElement {
     }
 
     this._svgFetchInProgress = true;
-    this._svgIcon = await getSvgContent(this._svgNamespace, this._svgName, this.sanitize);
+    this._svgIcon = await getSvgContent(this._svgNamespace, this._svgName, !this.noSanitize);
     this._svgFetchInProgress = false;
   }
 
