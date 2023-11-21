@@ -120,7 +120,7 @@ export class SbbOption extends LitElement {
     return this._variant === 'select';
   }
   private get _isMultiple(): boolean {
-    return this.closest('sbb-select')?.hasAttribute('multiple');
+    return this.closest?.('sbb-select')?.hasAttribute('multiple');
   }
 
   /**
@@ -169,13 +169,13 @@ export class SbbOption extends LitElement {
     super.connectedCallback();
     const signal = this._abort.signal;
     this._handlerRepository.connect();
-    const parentGroup = this.closest('sbb-optgroup');
+    const parentGroup = this.closest?.('sbb-optgroup');
     if (parentGroup) {
       this._disabledFromGroup = isValidAttribute(parentGroup, 'disabled');
     }
     this._optionAttributeObserver.observe(this, optionObserverConfig);
 
-    this._negative = !!this.closest(
+    this._negative = !!this.closest?.(
       // :is() selector not possible due to test environment
       `sbb-autocomplete[negative],sbb-select[negative],sbb-form-field[negative]`,
     );
@@ -193,12 +193,9 @@ export class SbbOption extends LitElement {
   }
 
   private _setVariantByContext(): void {
-    if (this.closest('sbb-autocomplete')) {
+    if (this.closest?.('sbb-autocomplete')) {
       this._variant = 'autocomplete';
-      return;
-    }
-
-    if (this.closest('sbb-select')) {
+    } else if (this.closest?.('sbb-select')) {
       this._variant = 'select';
     }
   }

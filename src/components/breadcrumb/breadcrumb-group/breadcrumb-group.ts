@@ -92,7 +92,7 @@ export class SbbBreadcrumbGroup extends LitElement {
   private _readBreadcrumb(): void {
     this._evaluateCollapsedState();
 
-    const breadcrumbs = Array.from(this.children).filter(
+    const breadcrumbs = Array.from(this.children ?? []).filter(
       (e): e is SbbBreadcrumb => e.tagName === 'SBB-BREADCRUMB',
     );
     // If the slotted sbb-breadcrumb instances have not changed,

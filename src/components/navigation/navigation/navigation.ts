@@ -189,6 +189,7 @@ export class SbbNavigation extends LitElement {
       this.id || this._navigationId,
       this._state,
     );
+    this._navigationController?.abort();
     this._navigationController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._navigationController.signal,

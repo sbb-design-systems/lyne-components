@@ -163,7 +163,7 @@ export class SbbCheckbox extends LitElement {
 
   // Set up the initial disabled/required values and start observe attributes changes.
   private _setupInitialStateAndAttributeObserver(): void {
-    const parentGroup = this.closest('sbb-checkbox-group');
+    const parentGroup = this.closest?.('sbb-checkbox-group');
     if (parentGroup) {
       this._requiredFromGroup = isValidAttribute(parentGroup, 'required');
       this._disabledFromGroup = isValidAttribute(parentGroup, 'disabled');
@@ -190,9 +190,9 @@ export class SbbCheckbox extends LitElement {
     this.addEventListener('click', (e) => this._handleClick(e), { signal });
     this.addEventListener('keyup', (e) => this._handleKeyup(e), { signal });
     // We can use closest here, as we expect the parent sbb-selection-panel to be in light DOM.
-    this._selectionPanelElement = this.closest('sbb-selection-panel');
+    this._selectionPanelElement = this.closest?.('sbb-selection-panel');
     this._isSelectionPanelInput =
-      !!this._selectionPanelElement && !this.closest('sbb-selection-panel [slot="content"]');
+      !!this._selectionPanelElement && !this.closest?.('sbb-selection-panel [slot="content"]');
     this._handlerRepository.connect();
     this._setupInitialStateAndAttributeObserver();
     this._checkboxLoaded.emit();

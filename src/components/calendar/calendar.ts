@@ -159,7 +159,7 @@ export class SbbCalendar extends LitElement {
   /** A list of buttons corresponding to days, months or years depending on the view. */
   private get _cells(): HTMLButtonElement[] {
     return Array.from(
-      this.shadowRoot.querySelectorAll('.sbb-calendar__cell'),
+      this.shadowRoot.querySelectorAll?.('.sbb-calendar__cell') ?? [],
     ) as HTMLButtonElement[];
   }
 
@@ -224,8 +224,9 @@ export class SbbCalendar extends LitElement {
       this._focusCell();
     };
     this._handlerRepository.connect();
+    this._calendarController?.abort();
     this._calendarController = new AbortController();
-    window.addEventListener('resize', () => this._init(), {
+    globalThis.window?.addEventListener('resize', () => this._init(), {
       passive: true,
       signal: this._calendarController.signal,
     });
@@ -568,7 +569,7 @@ export class SbbCalendar extends LitElement {
   }
 
   private _setTabIndex(): void {
-    Array.from(this.shadowRoot.querySelectorAll('.sbb-calendar__cell[tabindex="0"]')).forEach(
+    Array.from(this.shadowRoot.querySelectorAll('.sbb-calendar__cell[tabindex="0"]') ?? []).forEach(
       (day) => ((day as HTMLElement).tabIndex = -1),
     );
     const firstFocusable = this._getFirstFocusable();

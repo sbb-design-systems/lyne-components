@@ -37,7 +37,7 @@ export class SbbSkiplinkList extends LitElement {
   @state() private _namedSlots = createNamedSlotState('title');
 
   private _syncLinks(): void {
-    this.querySelectorAll('sbb-link').forEach((link: SbbLink) => {
+    this.querySelectorAll?.('sbb-link').forEach((link: SbbLink) => {
       link.size = 'm';
       link.negative = true;
     });
@@ -50,7 +50,9 @@ export class SbbSkiplinkList extends LitElement {
 
   /** Create an array with only the sbb-link children. */
   private _readLinks(): void {
-    const links = Array.from(this.children).filter((e): e is SbbLink => e.tagName === 'SBB-LINK');
+    const links = Array.from(this.children ?? []).filter(
+      (e): e is SbbLink => e.tagName === 'SBB-LINK',
+    );
     // Update links list
     if (
       this._links &&

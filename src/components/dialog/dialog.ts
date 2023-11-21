@@ -118,7 +118,7 @@ export class SbbDialog extends LitElement {
     this.dataset.state = state;
   }
   private get _state(): SbbOverlayState {
-    return this.dataset.state as SbbOverlayState;
+    return this.dataset?.state as SbbOverlayState;
   }
 
   private _dialogContentResizeObserver = new AgnosticResizeObserver(() =>
@@ -213,6 +213,7 @@ export class SbbDialog extends LitElement {
     super.connectedCallback();
     this._handlerRepository.connect();
     this._state = this._state || 'closed';
+    this._dialogController?.abort();
     this._dialogController = new AbortController();
 
     // Close dialog on backdrop click

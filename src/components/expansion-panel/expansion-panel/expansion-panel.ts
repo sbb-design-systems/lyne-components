@@ -125,7 +125,7 @@ export class SbbExpansionPanel extends LitElement {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener('toggle-expanded', () => this._toggleExpanded(), { signal });
-    const accordion = this.closest('sbb-accordion');
+    const accordion = this.closest?.('sbb-accordion');
     toggleDatasetEntry(this, 'accordion', !!accordion);
   }
 

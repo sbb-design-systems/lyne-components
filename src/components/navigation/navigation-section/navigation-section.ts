@@ -173,6 +173,7 @@ export class SbbNavigationSection extends LitElement {
       this.id || this._navigationSectionId,
       this._state,
     );
+    this._navigationSectionController?.abort();
     this._navigationSectionController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._navigationSectionController.signal,
@@ -330,7 +331,7 @@ export class SbbNavigationSection extends LitElement {
     this._handlerRepository.connect();
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
-    this._firstLevelNavigation = this._triggerElement?.closest('sbb-navigation');
+    this._firstLevelNavigation = this._triggerElement?.closest?.('sbb-navigation');
   }
 
   public override disconnectedCallback(): void {

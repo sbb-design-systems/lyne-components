@@ -73,7 +73,9 @@ export class SbbLinkList extends LitElement {
    * Create an array with only the sbb-link children
    */
   private _readLinks(): void {
-    const links = Array.from(this.children).filter((e): e is SbbLink => e.tagName === 'SBB-LINK');
+    const links = Array.from(this.children ?? []).filter(
+      (e): e is SbbLink => e.tagName === 'SBB-LINK',
+    );
     // If the slotted sbb-link instances have not changed, we can skip syncing and updating
     // the link reference list.
     if (

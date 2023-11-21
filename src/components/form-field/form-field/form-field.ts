@@ -170,7 +170,7 @@ export class SbbFormField extends LitElement {
   }
 
   private _renderLabel(newValue: string): void {
-    let labelElement: HTMLLabelElement | undefined = Array.from(this.children).find(
+    let labelElement: HTMLLabelElement | undefined = Array.from(this.children)?.find(
       (element) => element.tagName === 'LABEL',
     ) as HTMLLabelElement | undefined;
     if (!newValue && labelElement?.dataset.creator === this.tagName) {
@@ -473,7 +473,7 @@ export class SbbFormField extends LitElement {
   }
 
   private _syncNegative(): void {
-    this.querySelectorAll(
+    this.querySelectorAll?.(
       'sbb-form-error,sbb-button,sbb-tooltip-trigger,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete',
     ).forEach((element) =>
       this.negative ? element.setAttribute('negative', '') : element.removeAttribute('negative'),

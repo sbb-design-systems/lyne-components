@@ -182,7 +182,7 @@ export class SbbRadioButtonGroup extends LitElement {
       },
     );
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
-    this._hasSelectionPanel = !!this.querySelector('sbb-selection-panel');
+    this._hasSelectionPanel = !!this.querySelector?.('sbb-selection-panel');
     toggleDatasetEntry(this, 'hasSelectionPanel', this._hasSelectionPanel);
     this._handlerRepository.connect();
     this._updateRadios(this.value);
@@ -232,9 +232,11 @@ export class SbbRadioButtonGroup extends LitElement {
       return;
     }
 
-    this.value = initValue ?? this._radioButtons.find((radio) => radio.checked)?.value;
+    const radioButtons = this._radioButtons;
 
-    for (const radio of this._radioButtons) {
+    this.value = initValue ?? radioButtons.find((radio) => radio.checked)?.value;
+
+    for (const radio of radioButtons) {
       radio.checked = radio.value === this.value;
       radio.size = this.size;
       radio.allowEmptySelection = this.allowEmptySelection;
@@ -249,9 +251,9 @@ export class SbbRadioButtonGroup extends LitElement {
   }
 
   private get _radioButtons(): SbbRadioButton[] {
-    return (Array.from(this.querySelectorAll('sbb-radio-button')) as SbbRadioButton[]).filter(
-      (el) => el.closest('sbb-radio-button-group') === this,
-    );
+    return (
+      Array.from(this.querySelectorAll?.('sbb-radio-button') ?? []) as SbbRadioButton[]
+    ).filter((el) => el.closest?.('sbb-radio-button-group') === this);
   }
 
   private get _enabledRadios(): SbbRadioButton[] | undefined {

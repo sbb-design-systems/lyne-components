@@ -250,6 +250,7 @@ export class SbbMenu extends LitElement {
       this.id || this._menuId,
       this._state,
     );
+    this._menuController?.abort();
     this._menuController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._menuController.signal,
@@ -362,7 +363,7 @@ export class SbbMenu extends LitElement {
    * Create an array with only the sbb-menu-action children
    */
   private _readActions(): void {
-    const actions = Array.from(this.children);
+    const actions = Array.from(this.children ?? []);
     // If the slotted actions have not changed, we can skip syncing and updating the actions.
     if (
       this._actions &&

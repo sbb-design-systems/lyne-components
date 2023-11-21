@@ -102,7 +102,7 @@ export class SbbDatepickerPreviousDay extends LitElement {
   }
 
   private _syncUpstreamProperties(): void {
-    const formField = this.closest('sbb-form-field') ?? this.closest('[data-form-field]');
+    const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
     if (formField) {
       this.negative = isValidAttribute(formField, 'negative');
 

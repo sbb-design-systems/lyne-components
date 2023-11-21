@@ -127,7 +127,7 @@ export class SbbTabGroup extends LitElement {
   }
 
   private _getTabs(): InterfaceSbbTabGroupTab[] {
-    return Array.from(this.children).filter((child) =>
+    return Array.from(this.children ?? []).filter((child) =>
       /^SBB-TAB-TITLE$/u.test(child.tagName),
     ) as InterfaceSbbTabGroupTab[];
   }

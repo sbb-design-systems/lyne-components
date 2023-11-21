@@ -106,7 +106,7 @@ export class SbbAlert extends LitElement implements LinkProperties {
     super.connectedCallback();
     this._handlerRepository.connect();
     // Skip very first render where the animation elements are not yet ready.
-    // Presentation is postponed to componentDidRender().
+    // Presentation is postponed.
     if (this._transitionWrapperElement) {
       this._initFadeInTransitionStyles();
       this._present();
@@ -119,7 +119,7 @@ export class SbbAlert extends LitElement implements LinkProperties {
   }
 
   protected override updated(): void {
-    // During the very first rendering, the animation elements are only present in componentDidRender.
+    // During the very first rendering, the animation elements are only present in updated.
     // So we need to fire the fade in animation later than at connectedCallback().
     if (!this._firstRenderingDone) {
       this._present();

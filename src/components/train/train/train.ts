@@ -43,7 +43,7 @@ export class SbbTrain extends LitElement {
   /** Controls the direction indicator to show the arrow left or right. Default is left.  */
   @property({ reflect: true }) public direction: 'left' | 'right' = 'left';
 
-  @state() private _wagons: (SbbTrainBlockedPassage | SbbTrainWagon)[];
+  @state() private _wagons: (SbbTrainBlockedPassage | SbbTrainWagon)[] = [];
 
   @state() private _currentLanguage = documentLanguage();
 
@@ -90,7 +90,7 @@ export class SbbTrain extends LitElement {
   }
 
   private _readWagons(): void {
-    const wagons = Array.from(this.children).filter(
+    const wagons = Array.from(this.children ?? []).filter(
       (e): e is SbbTrainBlockedPassage | SbbTrainWagon =>
         e.tagName === 'SBB-TRAIN-WAGON' || e.tagName === 'SBB-TRAIN-BLOCKED-PASSAGE',
     );

@@ -146,7 +146,7 @@ export class SbbToggleOption extends LitElement {
     });
     this._handlerRepository.connect();
     // We can use closest here, as we expect the parent sbb-toggle to be in light DOM.
-    this._toggle = this.closest('sbb-toggle');
+    this._toggle = this.closest?.('sbb-toggle');
     this._verifyTabindex();
   }
 

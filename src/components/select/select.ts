@@ -138,7 +138,7 @@ export class SbbSelect extends LitElement {
 
   /** Gets all the SbbOption projected in the select. */
   private get _options(): SbbOption[] {
-    return Array.from(this.querySelectorAll('sbb-option'));
+    return Array.from(this.querySelectorAll?.('sbb-option') ?? []);
   }
 
   private get _filteredOptions(): SbbOption[] {
@@ -197,22 +197,19 @@ export class SbbSelect extends LitElement {
 
   /** Sets the _displayValue by checking the internal sbb-options and setting the correct `selected` value on them. */
   private _onValueChanged(newValue: string | string[]): void {
+    const options = this._filteredOptions;
     if (!Array.isArray(newValue)) {
-      const optionElement = this._filteredOptions.find((e) => e.value === newValue);
+      const optionElement = options.find((e) => e.value === newValue);
       if (optionElement) {
         optionElement.selected = true;
       }
-      this._filteredOptions
+      options
         .filter((option) => option.value !== newValue)
         .forEach((option) => (option.selected = false));
       this._displayValue = optionElement?.textContent || null;
     } else {
-      this._filteredOptions
-        .filter((opt) => !newValue.includes(opt.value))
-        .forEach((e) => (e.selected = false));
-      const selectedOptionElements = this._filteredOptions.filter((opt) =>
-        newValue.includes(opt.value),
-      );
+      options.filter((opt) => !newValue.includes(opt.value)).forEach((e) => (e.selected = false));
+      const selectedOptionElements = options.filter((opt) => newValue.includes(opt.value));
       selectedOptionElements.forEach((e) => (e.selected = true));
       this._displayValue = selectedOptionElements.map((e) => e.textContent).join(', ') || null;
     }
@@ -231,7 +228,7 @@ export class SbbSelect extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
-    const formField = this.closest('sbb-form-field') ?? this.closest('[data-form-field]');
+    const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
 
     if (formField) {
       this.negative = isValidAttribute(formField, 'negative');
@@ -247,8 +244,14 @@ export class SbbSelect extends LitElement {
     }
 
     this.addEventListener('option-selection-change', (e) => this._onOptionChanged(e), { signal });
-    this.addEventListener('click', (e) => this._onOptionClick(e), { signal });
-    this.addEventListener('click', () => this._toggleOpening(), { signal });
+    this.addEventListener(
+      'click',
+      (e) => {
+        this._onOptionClick(e);
+        this._toggleOpening();
+      },
+      { signal },
+    );
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -267,23 +270,23 @@ export class SbbSelect extends LitElement {
   }
 
   private _syncNegative(): void {
-    this.querySelectorAll('sbb-divider').forEach((element) => (element.negative = this.negative));
+    this.querySelectorAll?.('sbb-divider').forEach((element) => (element.negative = this.negative));
 
-    this.querySelectorAll('sbb-option, sbb-optgroup').forEach((element: SbbOption | SbbOptGroup) =>
-      toggleDatasetEntry(element, 'negative', this.negative),
+    this.querySelectorAll?.('sbb-option, sbb-optgroup').forEach(
+      (element: SbbOption | SbbOptGroup) => toggleDatasetEntry(element, 'negative', this.negative),
     );
   }
 
   /** Sets the originElement; if the component is used in a sbb-form-field uses it, otherwise uses the parentElement. */
   private _setupOrigin(): void {
-    const formField = this.closest('sbb-form-field');
+    const formField = this.closest?.('sbb-form-field');
     this._originElement =
-      formField?.shadowRoot.querySelector('#overlay-anchor') || this.parentElement;
+      formField?.shadowRoot.querySelector?.('#overlay-anchor') ?? this.parentElement;
     if (this._originElement) {
       toggleDatasetEntry(
         this,
         'optionPanelOriginBorderless',
-        formField?.hasAttribute('borderless'),
+        formField?.hasAttribute?.('borderless'),
       );
     }
   }
@@ -294,10 +297,10 @@ export class SbbSelect extends LitElement {
    */
   private _setupTrigger(): void {
     // Move the trigger before the sbb-select
-    this.parentElement.insertBefore(this._triggerElement, this);
+    this.parentElement.insertBefore?.(this._triggerElement, this);
 
     // Set the invisible trigger element dimension to match the parent (needed for screen readers)
-    const containerElement = this.closest('sbb-form-field') ?? this;
+    const containerElement = this.closest?.('sbb-form-field') ?? this;
     this._triggerElement.style.top = '0px';
     this._triggerElement.style.height = `${containerElement.offsetHeight}px`;
     this._triggerElement.style.width = `${containerElement.offsetWidth}px`;
@@ -610,7 +613,7 @@ export class SbbSelect extends LitElement {
     }
   }
 
-  private async _toggleOpening(): Promise<void> {
+  private _toggleOpening(): void {
     if (this.disabled || this.readonly) {
       return;
     }
