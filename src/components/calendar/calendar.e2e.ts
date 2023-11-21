@@ -92,7 +92,7 @@ describe('sbb-calendar', () => {
   });
 
   it('selects a different date', async () => {
-    const selectedSpy = new EventSpy('date-selected');
+    const selectedSpy = new EventSpy(SbbCalendar.events.dateSelected);
     const selectedDate = element.shadowRoot.querySelector('button[data-day="15 1 2023"]');
 
     expect(selectedDate).to.have.class('sbb-calendar__selected');
@@ -110,7 +110,7 @@ describe('sbb-calendar', () => {
   });
 
   it("clicks on disabled day and doesn't change selection", async () => {
-    const selectedSpy = new EventSpy('date-selected');
+    const selectedSpy = new EventSpy(SbbCalendar.events.dateSelected);
 
     element.max = 1674946800;
     await waitForLitRender(element);

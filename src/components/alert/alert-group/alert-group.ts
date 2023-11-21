@@ -5,7 +5,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import { setAttribute } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import type { TitleLevel } from '../../title';
-import type { SbbAlert } from '../alert';
+import { SbbAlert } from '../alert';
 
 import style from './alert-group.scss?lit&inline';
 
@@ -14,14 +14,14 @@ import style from './alert-group.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add `sbb-alert` elements to the `sbb-alert-group`.
  * @slot accessibility-title - title for this `sbb-alert-group` which is only visible for screen reader users.
- * @event {CustomEvent<SbbAlert>} did-dismiss-alert - Emits when an alert was removed from DOM.
+ * @event {CustomEvent<SbbAlert>} didDismissAlert - Emits when an alert was removed from DOM.
  * @event {CustomEvent<void>} empty - Emits when `sbb-alert-group` becomes empty.
  */
 @customElement('sbb-alert-group')
 export class SbbAlertGroup extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    didDismissAlert: 'did-dismiss-alert',
+    didDismissAlert: 'didDismissAlert',
     empty: 'empty',
   } as const;
 
@@ -78,7 +78,7 @@ export class SbbAlertGroup extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
-    this.addEventListener('dismissal-requested', (e) => this._removeAlert(e), { signal });
+    this.addEventListener('dismissalRequested', (e) => this._removeAlert(e), { signal });
   }
 
   private _slotChanged(event: Event): void {

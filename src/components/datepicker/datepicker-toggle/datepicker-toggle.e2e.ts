@@ -160,7 +160,7 @@ describe('sbb-datepicker-toggle', () => {
 
     const calendar: SbbCalendar = element.shadowRoot.querySelector('sbb-calendar');
     calendar.dispatchEvent(
-      new CustomEvent('date-selected', {
+      new CustomEvent('dateSelected', {
         detail: new Date('2022-01-01'),
       }),
     );

@@ -218,7 +218,7 @@ export class SbbDatepickerToggle extends LitElement {
           .max=${this._max}
           ?wide=${this._datePickerElement?.wide}
           .dateFilter=${this._datePickerElement?.dateFilter}
-          @date-selected=${(d: CustomEvent<Date>) => {
+          @dateSelected=${(d: CustomEvent<Date>) => {
             const newDate = new Date(d.detail);
             this._calendarElement.selectedDate = newDate;
             this._datePickerElement.setValueAsDate(newDate);

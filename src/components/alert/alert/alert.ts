@@ -26,17 +26,17 @@ import '../../title';
  * @slot - Use the unnamed slot to add content to the `sbb-alert`.
  * @slot icon - Should be a `sbb-icon` which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.
  * @slot title - Title content.
- * @event {CustomEvent<void>} will-present - Emits when the fade in animation starts.
- * @event {CustomEvent<void>} did-present - Emits when the fade in animation ends and the button is displayed.
- * @event {CustomEvent<void>} dismissal-requested - Emits when dismissal of an alert was requested.
+ * @event {CustomEvent<void>} willPresent - Emits when the fade in animation starts.
+ * @event {CustomEvent<void>} didPresent - Emits when the fade in animation ends and the button is displayed.
+ * @event {CustomEvent<void>} dismissalRequested - Emits when dismissal of an alert was requested.
  */
 @customElement('sbb-alert')
 export class SbbAlert extends LitElement implements LinkProperties {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    willPresent: 'will-present',
-    didPresent: 'did-present',
-    dismissalRequested: 'dismissal-requested',
+    willPresent: 'willPresent',
+    didPresent: 'didPresent',
+    dismissalRequested: 'dismissalRequested',
   } as const;
 
   /**
