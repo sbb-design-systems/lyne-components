@@ -194,7 +194,7 @@
 .sbb-pearl-chain__leg--progress::after {
   background-color: var(--sbb-pearl-chain-color-past);
 
-  // --sbb-pearl-chain-leg-status: defined in .tsx file
+  // --sbb-pearl-chain-leg-status: defined in .ts file
   width: var(--sbb-pearl-chain-leg-status);
 }
 
@@ -205,7 +205,7 @@
   inset-block-start: -200%;
   z-index: 4;
 
-  // --sbb-pearl-chain-status-position: defined in .tsx file
+  // --sbb-pearl-chain-status-position: defined in .ts file
   inset-inline-start: var(--sbb-pearl-chain-status-position);
 }
 

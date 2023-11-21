@@ -6,7 +6,7 @@ import ts from 'typescript';
 
 const chromaticFile = join(
   dirname(fileURLToPath(import.meta.url)),
-  '../src/storybook/testing/chromatic.tsx',
+  '../src/storybook/testing/chromatic.ts',
 );
 
 function walk(root: string, filter: RegExp): string[] {
@@ -72,7 +72,10 @@ async function generateChromaticStory(
 
   const targetStoryFile = storyFile.replace(/(\.stories\.[^.]+)$/, (_m, m) => `.chromatic${m}`);
   const relativeImport = basename(storyFile).replace(/\.(jsx|tsx|ts)$/, '');
-  const chromaticImport = relative(dirname(targetStoryFile), chromaticFile).replace(/\.tsx$/, '');
+  const chromaticImport = relative(dirname(targetStoryFile), chromaticFile).replace(
+    /\.(tsx|ts)$/,
+    '',
+  );
 
   const chromaticConfig = Object.entries(chromaticParameters)
     .map(([key, value]) => `${key}: ${JSON.stringify(value)}, `)

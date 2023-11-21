@@ -7,7 +7,7 @@ const IS_OPEN_OVERLAY_QUERY = `:is(sbb-dialog, sbb-navigation, sbb-menu)[data-st
 
 /**
  * Used to create the "wrapping" effect around the anchor for overlays (es. autocomplete)
- * Works in conjunction with the 'overlayGapFixCorners()' function in 'overlay.tsx'
+ * Works in conjunction with the 'overlayGapFixCorners()' function in 'overlay.ts'
  */
 export function overlayGapFixCorners(): TemplateResult {
   return html`
