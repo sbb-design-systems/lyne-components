@@ -140,12 +140,12 @@ export class SbbSelectionPanel extends LitElement {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener(
-      'state-change',
+      'stateChange',
       (e: CustomEvent<SbbRadioButtonStateChange | SbbCheckboxStateChange>) =>
         this._onInputChange(e),
       { signal, passive: true },
     );
-    this.addEventListener('checkbox-loaded', () => this._updateSelectionPanel(), { signal });
+    this.addEventListener('checkboxLoaded', () => this._updateSelectionPanel(), { signal });
     this.addEventListener('radio-button-loaded', () => this._updateSelectionPanel(), { signal });
     this._handlerRepository.connect();
   }
