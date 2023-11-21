@@ -3,6 +3,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { FocusTrap, assignId, setModalityOnNextFocus } from '../../core/a11y';
+import { UpdateScheduler } from '../../core/common-behaviors';
 import {
   ScrollHandler,
   isValidAttribute,
@@ -48,7 +49,7 @@ let nextId = 0;
  * @event {CustomEvent<void>} did-close - Emits whenever the `sbb-navigation` is closed.
  */
 @customElement('sbb-navigation')
-export class SbbNavigation extends LitElement {
+export class SbbNavigation extends UpdateScheduler(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'will-open',
@@ -138,6 +139,7 @@ export class SbbNavigation extends LitElement {
 
     this._willOpen.emit();
     this._state = 'opening';
+    this.startUpdate();
 
     // Disable scrolling for content below the navigation
     this._scrollHandler.disableScroll();
@@ -154,6 +156,7 @@ export class SbbNavigation extends LitElement {
 
     this._willClose.emit();
     this._state = 'closing';
+    this.startUpdate();
     this._triggerElement?.setAttribute('aria-expanded', 'false');
   }
 
@@ -224,6 +227,7 @@ export class SbbNavigation extends LitElement {
       // Enable scrolling for content below the navigation
       this._scrollHandler.enableScroll();
     }
+    this.completeUpdate();
   }
 
   private _attachWindowEvents(): void {

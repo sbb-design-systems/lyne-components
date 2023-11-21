@@ -9,6 +9,7 @@ import {
   getFocusableElements,
   setModalityOnNextFocus,
 } from '../../core/a11y';
+import { UpdateScheduler } from '../../core/common-behaviors';
 import {
   findReferencedElement,
   isBreakpoint,
@@ -43,7 +44,7 @@ let nextId = 0;
  * @slot - Use the unnamed slot to add content into the `sbb-navigation-section`.
  */
 @customElement('sbb-navigation-section')
-export class SbbNavigationSection extends LitElement {
+export class SbbNavigationSection extends UpdateScheduler(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /*
@@ -121,6 +122,7 @@ export class SbbNavigationSection extends LitElement {
     }
 
     this._state = 'opening';
+    this.startUpdate();
     this.inert = true;
     this._renderBackButton = this._isZeroToLargeBreakpoint();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
@@ -136,6 +138,7 @@ export class SbbNavigationSection extends LitElement {
 
     this._resetMarker();
     this._state = 'closing';
+    this.startUpdate();
     this.inert = true;
     this._triggerElement?.setAttribute('aria-expanded', 'false');
   }
@@ -210,6 +213,7 @@ export class SbbNavigationSection extends LitElement {
         this._triggerElement.focus();
       }
     }
+    this.completeUpdate();
   }
 
   private _attachWindowEvents(): void {
