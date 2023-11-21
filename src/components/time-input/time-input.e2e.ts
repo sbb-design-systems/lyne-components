@@ -48,7 +48,7 @@ describe('sbb-time-input', () => {
 
   it('should emit validation change event', async () => {
     const validationChangeSpy = new EventSpy<CustomEvent<ValidationChangeEvent>>(
-      'validation-change',
+      SbbTimeInput.events.validationChange,
       element,
     );
 
@@ -91,7 +91,7 @@ describe('sbb-time-input', () => {
     await waitForLitRender(element);
 
     const validationChangeSpy = new EventSpy<CustomEvent<ValidationChangeEvent>>(
-      'validation-change',
+      SbbTimeInput.events.validationChange,
       element,
     );
 

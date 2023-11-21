@@ -27,15 +27,15 @@ interface Time {
 /**
  * * Combined with a native input, it displays the input's value as a formatted time.
  *
- * @event {CustomEvent<void>} did-change - Deprecated. used for React. Will probably be removed once React 19 is available.
- * @event {CustomEvent<ValidationChangeEvent>} validation-change - Emits whenever the internal validation state changes.
+ * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
+ * @event {CustomEvent<ValidationChangeEvent>} validationChange - Emits whenever the internal validation state changes.
  */
 @customElement('sbb-time-input')
 export class SbbTimeInput extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    didChange: 'did-change',
-    validationChange: 'validation-change',
+    didChange: 'didChange',
+    validationChange: 'validationChange',
   } as const;
 
   /** Reference of the native input connected to the datepicker. */

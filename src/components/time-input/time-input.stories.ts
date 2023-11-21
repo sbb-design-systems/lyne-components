@@ -234,7 +234,7 @@ const TemplateSbbTimeInput = ({
       ${iconStart ? html`<sbb-icon slot="prefix" name=${iconStart}></sbb-icon>` : nothing}
       <sbb-time-input
         @change=${(event: CustomEvent) => changeEventHandler(event)}
-        @validation-change=${(event: CustomEvent) => updateFormError(event)}
+        @validationChange=${(event: CustomEvent) => updateFormError(event)}
       ></sbb-time-input>
       <input id="input-id" ${sbbSpread(args)} />
       ${iconEnd ? html`<sbb-icon slot="suffix" name=${iconEnd}></sbb-icon>` : nothing}
