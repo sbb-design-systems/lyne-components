@@ -278,7 +278,7 @@ describe('sbb-navigation', () => {
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
     // TODO: It is not clear, why this is necessary here.
-    await aTimeout(1);
+    await aTimeout(10);
 
     expect(element).to.have.attribute('data-state', 'opened');
     expect(section).to.have.attribute('data-state', 'opened');

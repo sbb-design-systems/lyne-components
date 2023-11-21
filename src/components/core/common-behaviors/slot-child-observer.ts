@@ -9,6 +9,13 @@ export declare class SlotChildObserverType {
   protected checkChildren(): void;
 }
 
+/**
+ * This mixin extends a base class with the slot child observer functionality.
+ * It ensures that the method to check for slotted children/elements is only called
+ * when necessary.
+ * @param base The class to extend.
+ * @returns A class extended with the slot child observer functionality.
+ */
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SlotChildObserver = <T extends Constructor<LitElement>>(
   base: T,
@@ -25,17 +32,18 @@ export const SlotChildObserver = <T extends Constructor<LitElement>>(
      */
     private _hydrated = new Promise<void>((r) => (this._hydratedResolve = r));
     private _hydratedResolve: () => void;
+    private _hydratedResolved = false;
     private _slotchangeAbortController = new ConnectedAbortController(this);
 
     public override connectedCallback(): void {
       super.connectedCallback();
-      if (this._hydrated) {
+      if (this._hydratedResolved) {
         this.checkChildren();
       }
       this.shadowRoot.addEventListener(
         'slotchange',
         () => {
-          if (!this._hydrated) {
+          if (!this._hydratedResolved) {
             return;
           }
           this.checkChildren();
@@ -51,6 +59,7 @@ export const SlotChildObserver = <T extends Constructor<LitElement>>(
     protected override firstUpdated(changedProperties: PropertyValues): void {
       super.firstUpdated(changedProperties);
       setTimeout(() => {
+        this._hydratedResolved = true;
         this._hydratedResolve();
         this.checkChildren();
       }, 0);

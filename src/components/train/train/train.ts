@@ -2,6 +2,7 @@ import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
+import { SlotChildObserver } from '../../core/common-behaviors';
 import {
   documentLanguage,
   HandlerRepository,
@@ -14,6 +15,7 @@ import type { SbbTrainBlockedPassage } from '../train-blocked-passage';
 import type { SbbTrainWagon } from '../train-wagon';
 
 import style from './train.scss?lit&inline';
+
 import '../../icon';
 
 /**
@@ -22,7 +24,7 @@ import '../../icon';
  * @slot - Use the unnamed slot to add 'sbb-train-wagon' elements to the `sbb-train`.
  */
 @customElement('sbb-train')
-export class SbbTrain extends LitElement {
+export class SbbTrain extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     trainSlotChange: 'train-slot-change',
@@ -64,7 +66,6 @@ export class SbbTrain extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     this._handlerRepository.connect();
-    this._readWagons();
   }
 
   public override disconnectedCallback(): void {
@@ -89,7 +90,7 @@ export class SbbTrain extends LitElement {
     return `${textParts.join(', ')}.`;
   }
 
-  private _readWagons(): void {
+  protected override checkChildren(): void {
     const wagons = Array.from(this.children ?? []).filter(
       (e): e is SbbTrainBlockedPassage | SbbTrainWagon =>
         e.tagName === 'SBB-TRAIN-WAGON' || e.tagName === 'SBB-TRAIN-BLOCKED-PASSAGE',
@@ -104,12 +105,8 @@ export class SbbTrain extends LitElement {
       return;
     }
 
-    this._wagons = wagons;
-  }
-
-  private _handleSlotChange(): void {
     this._trainSlotChange.emit();
-    this._readWagons();
+    this._wagons = wagons;
   }
 
   protected override render(): TemplateResult {
@@ -126,15 +123,12 @@ export class SbbTrain extends LitElement {
           ${this._wagons.map(
             (_, index) =>
               html`<li>
-                <slot
-                  name=${`wagon-${index}`}
-                  @slotchange=${(): void => this._handleSlotChange()}
-                ></slot>
+                <slot name=${`wagon-${index}`}></slot>
               </li>`,
           )}
         </ul>
         <span hidden>
-          <slot @slotchange=${() => this._handleSlotChange()}></slot>
+          <slot></slot>
         </span>
 
         ${

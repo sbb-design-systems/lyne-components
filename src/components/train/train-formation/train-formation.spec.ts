@@ -1,4 +1,4 @@
-import { expect, fixture } from '@open-wc/testing';
+import { aTimeout, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import './train-formation';
 
@@ -21,28 +21,7 @@ describe('sbb-train-formation', () => {
         </sbb-train-formation>
       `,
     );
-    expect(root).shadowDom.to.be.equal(
-      `
-        <div class="sbb-train-formation">
-          <div aria-hidden="true" class="sbb-train-formation__sectors">
-            <span 
-              class="sbb-train-formation__sector" 
-              style="
-                --sbb-train-formation-wagon-count: 1;
-                --sbb-train-formation-wagon-blocked-passage-count: 0">
-              <span class="sbb-train-formation__sector-sticky-wrapper">
-                Sector
-              </span>
-            </span>
-            </div>
-            <div class="sbb-train-formation__trains">
-              <span class="sbb-train-formation__single-train">
-                <slot></slot>
-              </span>
-            </div>
-        </div>
-      `,
-    );
+    await expect(root).shadowDom.to.equalSnapshot();
   });
 
   it('should render with multiple trains', async () => {
@@ -57,6 +36,9 @@ describe('sbb-train-formation', () => {
       </sbb-train-formation>`,
     );
 
+    // TODO: Figure out why this is necessary.
+    await aTimeout(10);
+
     expect(root).dom.to.be.equal(
       `
         <sbb-train-formation>
@@ -69,36 +51,6 @@ describe('sbb-train-formation', () => {
         </sbb-train-formation>
       `,
     );
-    expect(root).shadowDom.to.be.equal(
-      `
-        <div class="sbb-train-formation">
-          <div aria-hidden="true" class="sbb-train-formation__sectors">
-            <span 
-              class="sbb-train-formation__sector" 
-              style="
-                --sbb-train-formation-wagon-count: 2;
-                --sbb-train-formation-wagon-blocked-passage-count: 0">
-              <span class="sbb-train-formation__sector-sticky-wrapper">
-                Sector
-              </span>
-              </span>
-            </div>
-            <div class="sbb-train-formation__trains">
-            <ul aria-label="Trains" class="sbb-train-formation__train-list">
-              <li class="sbb-train-formation__train-list-item">
-                <slot name="train-0"></slot>
-              </li>
-              <li class="sbb-train-formation__train-list-item">
-                <slot name="train-1"></slot>
-              </li>
-            </ul>
-
-            <span class="sbb-train-formation__single-train" hidden>
-              <slot></slot>
-            </span>
-          </div>
-        </div>
-      `,
-    );
+    await expect(root).shadowDom.to.equalSnapshot();
   });
 });

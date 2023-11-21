@@ -11,6 +11,7 @@ import {
   isArrowKeyPressed,
   setModalityOnNextFocus,
 } from '../../core/a11y';
+import { SlotChildObserver } from '../../core/common-behaviors';
 import {
   findReferencedElement,
   isBreakpoint,
@@ -47,7 +48,7 @@ let nextId = 0;
  * @event {CustomEvent<void>} did-close - Emits whenever the `sbb-menu` is closed.
  */
 @customElement('sbb-menu')
-export class SbbMenu extends LitElement {
+export class SbbMenu extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'will-open',
@@ -215,7 +216,6 @@ export class SbbMenu extends LitElement {
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
-    this._readActions();
 
     if (this._state === 'opened') {
       applyInertMechanism(this);
@@ -362,7 +362,7 @@ export class SbbMenu extends LitElement {
   /**
    * Create an array with only the sbb-menu-action children
    */
-  private _readActions(): void {
+  protected override checkChildren(): void {
     const actions = Array.from(this.children ?? []);
     // If the slotted actions have not changed, we can skip syncing and updating the actions.
     if (
@@ -406,17 +406,14 @@ export class SbbMenu extends LitElement {
                     ${this._actions.map(
                       (_, index) =>
                         html`<li>
-                          <slot
-                            name=${`action-${index}`}
-                            @slotchange=${(): void => this._readActions()}
-                          ></slot>
+                          <slot name=${`action-${index}`}></slot>
                         </li>`,
                     )}
                   </ul>
                   <span hidden>
-                    <slot @slotchange=${(): void => this._readActions()}></slot>
+                    <slot></slot>
                   </span>`
-              : html`<slot @slotchange=${(): void => this._readActions()}></slot>`}
+              : html`<slot></slot>`}
           </div>
         </div>
       </div>

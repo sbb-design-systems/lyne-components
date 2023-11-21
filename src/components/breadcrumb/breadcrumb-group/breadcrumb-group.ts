@@ -1,7 +1,8 @@
-import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, nothing, PropertyValues, TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed, sbbInputModalityDetector } from '../../core/a11y';
+import { SlotChildObserver } from '../../core/common-behaviors';
 import { setAttribute } from '../../core/dom';
 import {
   documentLanguage,
@@ -21,11 +22,11 @@ import style from './breadcrumb-group.scss?lit&inline';
  * @slot - Use the unnamed slot to add `sbb-breadcrumb` elements.
  */
 @customElement('sbb-breadcrumb-group')
-export class SbbBreadcrumbGroup extends LitElement {
+export class SbbBreadcrumbGroup extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** Local instance of slotted sbb-breadcrumb elements */
-  @state() private _breadcrumbs: SbbBreadcrumb[];
+  @state() private _breadcrumbs: SbbBreadcrumb[] = [];
 
   @state() private _state?: 'collapsed' | 'manually-expanded';
 
@@ -64,11 +65,11 @@ export class SbbBreadcrumbGroup extends LitElement {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
-    this._readBreadcrumb();
     this._handlerRepository.connect();
   }
 
-  protected override firstUpdated(): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
     this._resizeObserver.observe(this);
     this._loaded = true;
   }
@@ -89,7 +90,7 @@ export class SbbBreadcrumbGroup extends LitElement {
   }
 
   /** Creates and sets an array with only the sbb-breadcrumb children. */
-  private _readBreadcrumb(): void {
+  protected override checkChildren(): void {
     this._evaluateCollapsedState();
 
     const breadcrumbs = Array.from(this.children ?? []).filter(
@@ -173,7 +174,7 @@ export class SbbBreadcrumbGroup extends LitElement {
 
     return html`
       <li class="sbb-breadcrumb-group__item">
-        <slot name="breadcrumb-0" @slotchange=${(): void => this._readBreadcrumb()}></slot>
+        <slot name="breadcrumb-0"></slot>
       </li>
       <li class="sbb-breadcrumb-group__item" id="sbb-breadcrumb-group-ellipsis">
         <sbb-icon
@@ -195,10 +196,7 @@ export class SbbBreadcrumbGroup extends LitElement {
           name="chevron-small-right-small"
           class="sbb-breadcrumb-group__divider-icon"
         ></sbb-icon>
-        <slot
-          name=${`breadcrumb-${this._breadcrumbs.length - 1}`}
-          @slotchange=${(): void => this._readBreadcrumb()}
-        ></slot>
+        <slot name=${`breadcrumb-${this._breadcrumbs.length - 1}`}></slot>
       </li>
     `;
   }
@@ -211,7 +209,7 @@ export class SbbBreadcrumbGroup extends LitElement {
 
       return html`
         <li class="sbb-breadcrumb-group__item">
-          <slot name="${slotName(index)}" @slotchange=${(): void => this._readBreadcrumb()}></slot>
+          <slot name="${slotName(index)}"></slot>
           ${index !== this._breadcrumbs.length - 1
             ? html`<sbb-icon
                 name="chevron-small-right-small"
@@ -233,7 +231,7 @@ export class SbbBreadcrumbGroup extends LitElement {
         ${this._state === 'collapsed' ? this._renderCollapsed() : this._renderExpanded()}
       </ol>
       <span hidden>
-        <slot @slotchange=${(): void => this._readBreadcrumb()}></slot>
+        <slot></slot>
       </span>
     `;
   }
