@@ -1,4 +1,4 @@
-import { aTimeout, expect, fixture } from '@open-wc/testing';
+import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import './train-formation';
 
@@ -35,9 +35,6 @@ describe('sbb-train-formation', () => {
         </sbb-train>
       </sbb-train-formation>`,
     );
-
-    // TODO: Figure out why this is necessary.
-    await aTimeout(10);
 
     expect(root).dom.to.be.equal(
       `

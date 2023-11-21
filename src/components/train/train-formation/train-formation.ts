@@ -124,6 +124,10 @@ export class SbbTrainFormation extends SlotChildObserver(LitElement) {
     this._contentResizeObserver.disconnect();
     this._formationDiv = el;
     this._contentResizeObserver.observe(this._formationDiv as Element);
+    // There seems to be a slight difference between browser, in how the
+    // observer is called. In order to be consistent across browsers
+    // we set the width manually with a tick delay.
+    setTimeout(() => this._applyCssWidth());
   }
 
   protected override render(): TemplateResult {
