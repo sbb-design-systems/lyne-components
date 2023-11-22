@@ -9,6 +9,7 @@ import {
   getFocusableElements,
   setModalityOnNextFocus,
 } from '../../core/a11y';
+import { UpdateScheduler } from '../../core/common-behaviors';
 import {
   findReferencedElement,
   isBreakpoint,
@@ -43,7 +44,7 @@ let nextId = 0;
  * @slot - Use the unnamed slot to add content into the `sbb-navigation-section`.
  */
 @customElement('sbb-navigation-section')
-export class SbbNavigationSection extends LitElement {
+export class SbbNavigationSection extends UpdateScheduler(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /*
@@ -104,7 +105,6 @@ export class SbbNavigationSection extends LitElement {
   private _triggerElement: HTMLElement;
   private _navigationSectionController: AbortController;
   private _windowEventsController: AbortController;
-  private _timeoutController: ReturnType<typeof setTimeout>;
   private _navigationSectionId = `sbb-navigation-section-${++nextId}`;
 
   private _handlerRepository = new HandlerRepository(
@@ -122,6 +122,7 @@ export class SbbNavigationSection extends LitElement {
     }
 
     this._state = 'opening';
+    this.startUpdate();
     this.inert = true;
     this._renderBackButton = this._isZeroToLargeBreakpoint();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
@@ -137,6 +138,7 @@ export class SbbNavigationSection extends LitElement {
 
     this._resetMarker();
     this._state = 'closing';
+    this.startUpdate();
     this.inert = true;
     this._triggerElement?.setAttribute('aria-expanded', 'false');
   }
@@ -211,6 +213,7 @@ export class SbbNavigationSection extends LitElement {
         this._triggerElement.focus();
       }
     }
+    this.completeUpdate();
   }
 
   private _attachWindowEvents(): void {
@@ -339,7 +342,6 @@ export class SbbNavigationSection extends LitElement {
     this._handlerRepository.disconnect();
     this._navigationSectionController?.abort();
     this._windowEventsController?.abort();
-    clearTimeout(this._timeoutController);
   }
 
   protected override render(): TemplateResult {

@@ -16,8 +16,7 @@ let nextId = 0;
 /**
  * It displays an expandable summary-details widget.
  *
- * @slot header - Use this to add the `sbb-expansion-panel-header`.
- * @slot content - Use this to add the `sbb-expansion-panel-content`.
+ * @slot - Use the unnamed slot to add a `sbb-expansion-panel-header` and a `sbb-expansion-panel-content` element.
  * @event {CustomEvent<void>} will-open - Emits whenever the `sbb-expansion-panel` starts the opening transition.
  * @event {CustomEvent<void>} did-open - Emits whenever the `sbb-expansion-panel` is opened.
  * @event {CustomEvent<void>} will-close - Emits whenever the `sbb-expansion-panel` begins the closing transition.

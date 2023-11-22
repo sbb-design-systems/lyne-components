@@ -2,6 +2,7 @@ import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
+import { SlotChildObserver } from '../../core/common-behaviors';
 import {
   documentLanguage,
   HandlerRepository,
@@ -28,7 +29,7 @@ interface AggregatedSector {
  * @slot - Use the unnamed slot to add 'sbb-train' elements to the `sbb-train-formation`.
  */
 @customElement('sbb-train-formation')
-export class SbbTrainFormation extends LitElement {
+export class SbbTrainFormation extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** Option to hide all wagon labels. */
@@ -56,7 +57,6 @@ export class SbbTrainFormation extends LitElement {
     this.addEventListener('train-slot-change', (e) => this._readSectors(e), { signal });
     this.addEventListener('sector-change', (e) => this._readSectors(e), { signal });
     this._handlerRepository.connect();
-    this._handleSlotChange();
   }
 
   public override disconnectedCallback(): void {
@@ -109,20 +109,26 @@ export class SbbTrainFormation extends LitElement {
       [{ wagonCount: 0, blockedPassageCount: 0 } as AggregatedSector],
     );
   }
-  private _handleSlotChange(): void {
+
+  protected override checkChildren(): void {
     this._readSectors();
     this._trains = Array.from(this.children ?? []).filter(
       (e): e is SbbTrain => e.tagName === 'SBB-TRAIN',
     );
   }
 
-  private _updateFormationDiv(el: HTMLDivElement): void {
+  private async _updateFormationDiv(el: HTMLDivElement): Promise<void> {
     if (!el) {
       return;
     }
     this._contentResizeObserver.disconnect();
     this._formationDiv = el;
     this._contentResizeObserver.observe(this._formationDiv as Element);
+    // There seems to be a slight difference between browser, in how the
+    // observer is called. In order to be consistent across browsers
+    // we set the width manually once the component update is complete.
+    await this.updateComplete;
+    this._applyCssWidth();
   }
 
   protected override render(): TemplateResult {
@@ -164,17 +170,14 @@ export class SbbTrainFormation extends LitElement {
                 ${this._trains.map(
                   (_, index) =>
                     html`<li class="sbb-train-formation__train-list-item">
-                      <slot
-                        name=${`train-${index}`}
-                        @slotchange=${() => this._handleSlotChange()}
-                      ></slot>
+                      <slot name=${`train-${index}`}></slot>
                     </li>`,
                 )}
               </ul>`
             : nothing}
 
           <span class="sbb-train-formation__single-train" ?hidden=${this._trains?.length !== 1}>
-            <slot @slotchange=${() => () => this._handleSlotChange()}></slot>
+            <slot></slot>
           </span>
         </div>
       </div>

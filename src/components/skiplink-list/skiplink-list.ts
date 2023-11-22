@@ -3,6 +3,7 @@ import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
+import { SlotChildObserver } from '../core/common-behaviors';
 import {
   createNamedSlotState,
   HandlerRepository,
@@ -21,7 +22,7 @@ import '../title';
  * @slot - Use the unnamed slot to add `sbb-link` elements to the `sbb-skiplink-list`.
  */
 @customElement('sbb-skiplink-list')
-export class SbbSkiplinkList extends LitElement {
+export class SbbSkiplinkList extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** The title text we want to place before the list. */
@@ -49,10 +50,8 @@ export class SbbSkiplinkList extends LitElement {
   );
 
   /** Create an array with only the sbb-link children. */
-  private _readLinks(): void {
-    const links = Array.from(this.children ?? []).filter(
-      (e): e is SbbLink => e.tagName === 'SBB-LINK',
-    );
+  protected override checkChildren(): void {
+    const links = Array.from(this.children).filter((e): e is SbbLink => e.tagName === 'SBB-LINK');
     // Update links list
     if (
       this._links &&
@@ -69,7 +68,6 @@ export class SbbSkiplinkList extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     this._handlerRepository.connect();
-    this._readLinks();
   }
 
   public override disconnectedCallback(): void {
@@ -105,12 +103,12 @@ export class SbbSkiplinkList extends LitElement {
           ${this._links.map(
             (_, index) =>
               html` <li>
-                <slot name=${`link-${index}`} @slotchange=${(): void => this._readLinks()}></slot>
+                <slot name=${`link-${index}`}></slot>
               </li>`,
           )}
         </ul>
         <span hidden>
-          <slot @slotchange=${() => this._readLinks()}></slot>
+          <slot></slot>
         </span>
       </div>
     `;

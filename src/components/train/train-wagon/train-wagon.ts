@@ -2,6 +2,7 @@ import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
+import { SlotChildObserver } from '../../core/common-behaviors';
 import { setAttribute } from '../../core/dom';
 import {
   documentLanguage,
@@ -32,7 +33,7 @@ import style from './train-wagon.scss?lit&inline';
  * @slot - Use the unnamed slot to add one or more `sbb-icon` for meta-information of the `sbb-train-wagon`.
  */
 @customElement('sbb-train-wagon')
-export class SbbTrainWagon extends LitElement {
+export class SbbTrainWagon extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     sectorChange: 'sector-change',
@@ -82,7 +83,6 @@ export class SbbTrainWagon extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     this._handlerRepository.connect();
-    this._readSlottedIcons();
   }
 
   public override disconnectedCallback(): void {
@@ -106,7 +106,7 @@ export class SbbTrainWagon extends LitElement {
   /**
    * Create an array with only the sbb-icon children.
    */
-  private _readSlottedIcons(): void {
+  protected override checkChildren(): void {
     this._icons = Array.from(this.children ?? []).filter(
       (e): e is SbbIcon => e.tagName === 'SBB-ICON',
     );
@@ -232,10 +232,7 @@ export class SbbTrainWagon extends LitElement {
                     ${this._icons.map(
                       (_, index) =>
                         html`<li class="sbb-train-wagon__icons-item">
-                          <slot
-                            name=${`sbb-train-wagon-icon-${index}`}
-                            @slotchange=${(): void => this._readSlottedIcons()}
-                          ></slot>
+                          <slot name=${`sbb-train-wagon-icon-${index}`}></slot>
                         </li>`,
                     )}
                   </ul>`
@@ -246,7 +243,7 @@ export class SbbTrainWagon extends LitElement {
                       ${i18nAdditionalWagonInformationHeading[this._currentLanguage]}
                     </span>`
                   : nothing}
-                <slot @slotchange=${(): void => this._readSlottedIcons()}></slot>
+                <slot></slot>
               </span>
             </span>`
           : nothing}

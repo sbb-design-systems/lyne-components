@@ -165,9 +165,20 @@ export class SbbDialog extends LitElement {
   );
 
   /**
+   * We have a problem with SSR, in that we don't have a reference to children.
+   * Due to this, the SSR/hydration will fail, as the internal dialog footer
+   * will not be rendered server side, but will be immediately rendered client side,
+   * if necessary.
+   * Due to this, we add this initialized property, which will prevent footer slot detection
+   * until it has been initialized/hydrated.
+   *
+   * https://github.com/lit/lit/discussions/4407
+   */
+  @state() private _initialized = false;
+
+  /**
    * Opens the dialog element.
    */
-
   public open(): void {
     if (this._state !== 'closed' || !this._dialog) {
       return;
@@ -238,6 +249,11 @@ export class SbbDialog extends LitElement {
     this._dialogContentResizeObserver.disconnect();
     this._removeInstanceFromGlobalCollection();
     removeInertMechanism();
+  }
+
+  protected override async firstUpdated(): Promise<void> {
+    await new Promise((r) => setTimeout(r, 0));
+    this._initialized = true;
   }
 
   private _removeInstanceFromGlobalCollection(): void {
@@ -451,7 +467,7 @@ export class SbbDialog extends LitElement {
             >
               <slot></slot>
             </div>
-            ${hasActionGroup ? dialogFooter : nothing}
+            ${this._initialized && hasActionGroup ? dialogFooter : nothing}
           </div>
         </div>
       </div>

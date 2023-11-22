@@ -1,7 +1,7 @@
 import { ReactiveController, ReactiveControllerHost } from 'lit';
 
 export class ConnectedAbortController implements ReactiveController {
-  private _abortController?: AbortController;
+  private _abortController = new AbortController();
 
   public get signal(): AbortSignal {
     return this._abortController.signal;
@@ -12,6 +12,9 @@ export class ConnectedAbortController implements ReactiveController {
   }
 
   public hostConnected(): void {
+    if (!this._abortController.signal.aborted) {
+      this._abortController.abort();
+    }
     this._abortController = new AbortController();
   }
 

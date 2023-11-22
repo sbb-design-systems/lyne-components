@@ -2,6 +2,7 @@ import { spread } from '@open-wc/lit-helpers';
 import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
+import { SlotChildObserver } from '../../core/common-behaviors';
 import { setAttribute } from '../../core/dom';
 import {
   createNamedSlotState,
@@ -19,7 +20,7 @@ import style from './navigation-list.scss?lit&inline';
  * @slot label - Use this to provide a label element.
  */
 @customElement('sbb-navigation-list')
-export class SbbNavigationList extends LitElement {
+export class SbbNavigationList extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /*
@@ -45,7 +46,7 @@ export class SbbNavigationList extends LitElement {
   /**
    * Create an array with only the sbb-navigation-action children.
    */
-  private _readActions(): void {
+  protected override checkChildren(): void {
     this._actions = Array.from(this.children ?? []).filter(
       (e): e is SbbNavigationAction => e.tagName === 'SBB-NAVIGATION-ACTION',
     );
@@ -54,7 +55,6 @@ export class SbbNavigationList extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     this._handlerRepository.connect();
-    this._readActions();
   }
 
   public override disconnectedCallback(): void {
@@ -84,13 +84,13 @@ export class SbbNavigationList extends LitElement {
         ${this._actions.map(
           (_, index) => html`
             <li class="sbb-navigation-list__action">
-              <slot name=${`action-${index}`} @slotchange=${(): void => this._readActions()}></slot>
+              <slot name=${`action-${index}`}></slot>
             </li>
           `,
         )}
       </ul>
       <span hidden>
-        <slot @slotchange=${(): void => this._readActions()}></slot>
+        <slot></slot>
       </span>
     `;
   }

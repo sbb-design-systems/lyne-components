@@ -1,6 +1,7 @@
 import { CSSResultGroup, html, LitElement, TemplateResult, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
+import { SlotChildObserver } from '../../core/common-behaviors';
 import { setAttribute } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
 import type { SbbTag, SbbTagStateChange } from '../tag';
@@ -13,7 +14,7 @@ import style from './tag-group.scss?lit&inline';
  * @slot - Use the unnamed slot to add one or more 'sbb-tag' elements to the `sbb-tag-group`.
  */
 @customElement('sbb-tag-group')
-export class SbbTagGroup extends LitElement {
+export class SbbTagGroup extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -50,7 +51,7 @@ export class SbbTagGroup extends LitElement {
    * We hold the slotted elements in a separate state than the tags itself.
    * In rare usages, consumers need to slot other elements than tags into the tag group.
    */
-  @state() private _slottedElements: HTMLElement[];
+  @state() private _slottedElements: HTMLElement[] = [];
 
   private _valueChanged(value: string | string[] | null): void {
     if (this._tags.some((tag) => !tag.value)) {
@@ -121,7 +122,6 @@ export class SbbTagGroup extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._readSlottedElements();
     const signal = this._abort.signal;
     this.addEventListener(
       'state-change',
@@ -140,10 +140,12 @@ export class SbbTagGroup extends LitElement {
     return Array.from(this.querySelectorAll?.('sbb-tag') ?? []) as SbbTag[];
   }
 
-  private _readSlottedElements(): void {
+  protected override checkChildren(): void {
     this._slottedElements = Array.from(this.children ?? []).filter(
       (e): e is HTMLElement => e instanceof window.HTMLElement,
     );
+    this._ensureOnlyOneTagSelected();
+    this._updateValueByReadingTags();
   }
 
   protected override render(): TemplateResult {
@@ -157,25 +159,12 @@ export class SbbTagGroup extends LitElement {
           ${this._slottedElements.map(
             (_, index) =>
               html`<li class="sbb-tag-group__list-item">
-                <slot
-                  name=${`tag-${index}`}
-                  @slotchange=${(): void => {
-                    this._readSlottedElements();
-                    this._ensureOnlyOneTagSelected();
-                    this._updateValueByReadingTags();
-                  }}
-                ></slot>
+                <slot name=${`tag-${index}`}></slot>
               </li>`,
           )}
         </ul>
         <span hidden>
-          <slot
-            @slotchange=${() => {
-              this._readSlottedElements();
-              this._ensureOnlyOneTagSelected();
-              this._updateValueByReadingTags();
-            }}
-          ></slot>
+          <slot></slot>
         </span>
       </div>
     `;

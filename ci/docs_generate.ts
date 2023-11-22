@@ -113,6 +113,7 @@ const markdown: string = customElementsManifestToMarkdown(manifest, {
     'main-heading',
     'static-fields',
     'attributes',
+    'mixins',
   ],
 });
 
