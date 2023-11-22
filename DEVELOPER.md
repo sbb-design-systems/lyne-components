@@ -34,3 +34,11 @@ To run unit tests, run `yarn test:watch`.
 ## Starting showcase
 
 To start the showcase, run `yarn start`. This will run the devserver in watch mode.
+
+## Well Known Issues
+
+### `playwright`: `browserType.launch: Executable doesn't exist at ...`
+
+Most likely two versions of playwright are installed. Try running
+`yarn remove playwright @web/test-runner-playwright`, followed by
+`yarn add -ED playwright @web/test-runner-playwright` and check if the problem is resolved.
