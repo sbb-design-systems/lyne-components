@@ -117,7 +117,7 @@ export class SbbTrainFormation extends SlotChildObserver(LitElement) {
     );
   }
 
-  private _updateFormationDiv(el: HTMLDivElement): void {
+  private async _updateFormationDiv(el: HTMLDivElement): Promise<void> {
     if (!el) {
       return;
     }
@@ -126,8 +126,9 @@ export class SbbTrainFormation extends SlotChildObserver(LitElement) {
     this._contentResizeObserver.observe(this._formationDiv as Element);
     // There seems to be a slight difference between browser, in how the
     // observer is called. In order to be consistent across browsers
-    // we set the width manually with a tick delay.
-    setTimeout(() => this._applyCssWidth());
+    // we set the width manually once the component update is complete.
+    await this.updateComplete;
+    this._applyCssWidth();
   }
 
   protected override render(): TemplateResult {

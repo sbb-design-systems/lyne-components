@@ -1,4 +1,4 @@
-import { aTimeout, assert, expect, fixture, nextFrame } from '@open-wc/testing';
+import { assert, expect, fixture, nextFrame } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
@@ -275,8 +275,6 @@ describe('sbb-navigation', () => {
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
-    // TODO: It is not clear, why this is necessary here.
-    await aTimeout(10);
 
     expect(element).to.have.attribute('data-state', 'opened');
     expect(section).to.have.attribute('data-state', 'opened');

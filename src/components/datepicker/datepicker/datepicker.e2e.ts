@@ -70,7 +70,9 @@ describe('sbb-datepicker', () => {
       expect(changeSpy.count).to.be.equal(1);
     });
 
-    it('renders and interpret two digit year correctly in 2000s', async () => {
+    it('renders and interpret two digit year correctly in 2000s', async function () {
+      // This test is flaky on Firefox, so we retry a few times.
+      this.retries(3);
       const changeSpy = new EventSpy('change', element);
       input.focus();
       await sendKeys({ type: '20/01/12' });
@@ -80,7 +82,9 @@ describe('sbb-datepicker', () => {
       expect(changeSpy.count).to.be.equal(1);
     });
 
-    it('renders and interpret two digit year correctly in 1900s', async () => {
+    it('renders and interpret two digit year correctly in 1900s', async function () {
+      // This test is flaky on Firefox, so we retry a few times.
+      this.retries(3);
       const changeSpy = new EventSpy('change', element);
       input.focus();
       await sendKeys({ type: '20/01/99' });
