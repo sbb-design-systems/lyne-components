@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.43.0-next.9](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0-next.8...v0.43.0-next.9) (2023-11-22)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-icon:** sbb-icon: Invert property default behavior from sanitize = true to noSanitize = false.
+
+### Bug Fixes
+
+- address various issues with SSR ([#2213](https://github.com/lyne-design-system/lyne-components/issues/2213)) ([7107bbf](https://github.com/lyne-design-system/lyne-components/commit/7107bbf7d909edd3023523a6e14c56148159ef4d))
+- fix method and value accessors for SSR ([#2207](https://github.com/lyne-design-system/lyne-components/issues/2207)) ([d590c17](https://github.com/lyne-design-system/lyne-components/commit/d590c1700d653363a177ae3a91e3b237d84df105))
+- **sbb-icon:** change sanitize prop to no-sanitize ([#2197](https://github.com/lyne-design-system/lyne-components/issues/2197)) ([6e8c660](https://github.com/lyne-design-system/lyne-components/commit/6e8c660e496e714d7326e25c38122767c13517e2))
+- **sbb-logo,sbb-signet:** solve SSR issue with text assignment ([#2208](https://github.com/lyne-design-system/lyne-components/issues/2208)) ([548d45d](https://github.com/lyne-design-system/lyne-components/commit/548d45dec7553aa3a7d2dd80f55fe4f5df35a69c))
+
 ## [0.43.0-next.8](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0-next.7...v0.43.0-next.8) (2023-11-20)
 
 ### Bug Fixes
