@@ -49,6 +49,7 @@ export default defineConfig((config) =>
         : []),
     ],
     build: {
+      cssMinify: isProdBuild(config),
       lib: {
         // Include all directories containing an index.ts
         entry: globIndexMap(packageRoot),
