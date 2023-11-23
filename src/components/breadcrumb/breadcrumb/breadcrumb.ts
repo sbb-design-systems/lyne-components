@@ -74,7 +74,7 @@ export class SbbBreadcrumb extends SlotChildObserver(LitElement) {
     this._handlerRepository.disconnect();
   }
 
-  protected override checkChildren() {
+  protected override checkChildren(): void {
     this._hasText = this.shadowRoot
       .querySelector<HTMLSlotElement>('slot:not([name])')
       .assignedNodes()
