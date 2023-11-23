@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.43.0-next.10](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0-next.9...v0.43.0-next.10) (2023-11-23)
+
+### Refactorings
+
+- change EventEmitter.emit to return the result of dispatchEvent ([#2218](https://github.com/lyne-design-system/lyne-components/issues/2218)) ([91c6801](https://github.com/lyne-design-system/lyne-components/commit/91c680102657a28481d3153b8f8388abdb103808))
+
 ## [0.43.0-next.9](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0-next.8...v0.43.0-next.9) (2023-11-22)
 
 ### ⚠ BREAKING CHANGES
