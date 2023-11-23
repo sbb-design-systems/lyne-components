@@ -18,6 +18,7 @@
   @include sbb.options-panel-overlay-negative-variables;
 }
 
+:host(:not([data-state])),
 :host([data-state='closed']) {
   --sbb-options-panel-visibility: hidden;
 }

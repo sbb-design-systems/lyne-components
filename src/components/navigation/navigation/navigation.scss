@@ -149,7 +149,7 @@
     background: var(--sbb-color-midnight-default);
   }
 
-  :host(:not([data-state='closed'])) & {
+  :host([data-state]:not([data-state='closed'])) & {
     display: block;
     pointer-events: all;
 
@@ -160,7 +160,7 @@
     }
   }
 
-  :host([data-state='closing']) & {
+  :host([data-state][data-state='closing']) & {
     pointer-events: none;
     animation-name: close;
   }

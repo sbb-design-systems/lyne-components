@@ -80,7 +80,7 @@
   --sbb-navigation-section-pointer-events: none;
 }
 
-:host(:not([data-state='closed'])) {
+:host([data-state]:not([data-state='closed'])) {
   --sbb-navigation-section-display: block;
 }
 
@@ -113,7 +113,7 @@
   padding: 0;
   overflow: hidden;
 
-  :host(:not([data-state='closed'])) & {
+  :host([data-state]:not([data-state='closed'])) & {
     display: block;
 
     animation: {
@@ -123,7 +123,7 @@
     }
   }
 
-  :host([data-state='closing']) & {
+  :host([data-state][data-state='closing']) & {
     animation-name: close;
   }
 

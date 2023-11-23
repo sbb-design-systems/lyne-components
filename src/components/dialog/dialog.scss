@@ -132,7 +132,11 @@
   color: var(--sbb-dialog-color);
   background-color: var(--sbb-dialog-background-color);
 
-  :host(:not([data-state='closed'])) & {
+  :host([data-fullscreen]) & {
+    border-radius: 0;
+  }
+
+  :host([data-state]:not([data-state='closed'])) & {
     display: block;
 
     animation: {
@@ -142,11 +146,7 @@
     }
   }
 
-  :host([data-fullscreen]) & {
-    border-radius: 0;
-  }
-
-  :host([data-state='closing']) & {
+  :host([data-state][data-state='closing']) & {
     pointer-events: none;
     animation-name: close;
   }

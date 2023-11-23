@@ -111,7 +111,7 @@
   padding: 0;
   overflow: hidden;
 
-  :host(:not([data-state='closed'])) & {
+  :host([data-state]:not([data-state='closed'])) & {
     display: block;
     opacity: 1;
     pointer-events: all;
@@ -122,7 +122,7 @@
     }
   }
 
-  :host([data-state='closing']) & {
+  :host([data-state][data-state='closing']) & {
     pointer-events: none;
     animation-name: close;
   }

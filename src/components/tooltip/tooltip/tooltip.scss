@@ -80,11 +80,20 @@
   width: max-content;
   background-color: var(--sbb-tooltip-background);
 
-  :host(:not([data-state='closed'])) & {
+  :host([data-state]:not([data-state='closed'])) & {
     display: block;
 
     animation: {
       name: open;
+      duration: var(--sbb-tooltip-animation-duration);
+      timing-function: var(--sbb-tooltip-animation-easing);
+    }
+  }
+
+  :host([data-state][data-state='closing']) & {
+    pointer-events: none;
+    animation: {
+      name: close;
       duration: var(--sbb-tooltip-animation-duration);
       timing-function: var(--sbb-tooltip-animation-easing);
     }
@@ -102,15 +111,6 @@
 
     :host([data-position='above']) & {
       top: calc(100% - calc(var(--sbb-tooltip-arrow-size) / 2));
-    }
-  }
-
-  :host([data-state='closing']) & {
-    pointer-events: none;
-    animation: {
-      name: close;
-      duration: var(--sbb-tooltip-animation-duration);
-      timing-function: var(--sbb-tooltip-animation-easing);
     }
   }
 
