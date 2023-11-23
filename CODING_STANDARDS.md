@@ -234,7 +234,7 @@ disabled: boolean = false;
 
 #### Properties initialization
 
-Boolean properties with a default value can be initialized with `false` but not with `true`. This is due to how Lit handles boolean attributes in the DOM: it evaluates, for example, `sanitize="false"` as `true` and not `false` as we would expect. Therefore the property shold be converted in something like `noSanitize = false`:
+Boolean properties with a default value can be initialized with `false` but not with `true`. This is due to how Lit handles boolean attributes in the DOM: it evaluates, for example, `sanitize="false"` as `true` and not `false` as we would expect. Therefore the property should be converted in something like `noSanitize = false`:
 
 ```ts
 // AVOID
