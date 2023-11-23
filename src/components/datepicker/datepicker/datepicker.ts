@@ -160,7 +160,7 @@ export function isDateAvailable(
 }
 
 export const datepickerControlRegisteredEventFactory = (): CustomEvent =>
-  new CustomEvent('datepicker-control-registered', {
+  new CustomEvent('datepickerControlRegistered', {
     bubbles: false,
     composed: true,
   });
@@ -168,21 +168,21 @@ export const datepickerControlRegisteredEventFactory = (): CustomEvent =>
 /**
  * Combined with a native input, it displays the input's value as a formatted date.
  *
- * @event {CustomEvent<void>} did-change - Deprecated. used for React. Will probably be removed once React 19 is available.
+ * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  * @event {CustomEvent<void>} change - Notifies that the connected input has changes.
- * @event {CustomEvent<InputUpdateEvent>} input-updated - Notifies that the attributes of the input connected to the datepicker have changes.
- * @event {CustomEvent<void>} date-picker-updated - Notifies that the attributes of the datepicker have changes.
- * @event {CustomEvent<ValidationChangeEvent>} validation-change - Emits whenever the internal validation state changes.
+ * @event {CustomEvent<InputUpdateEvent>} inputUpdated - Notifies that the attributes of the input connected to the datepicker have changes.
+ * @event {CustomEvent<void>} datePickerUpdated - Notifies that the attributes of the datepicker have changes.
+ * @event {CustomEvent<ValidationChangeEvent>} validationChange - Emits whenever the internal validation state changes.
  */
 @customElement('sbb-datepicker')
 export class SbbDatepicker extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    didChange: 'did-change',
+    didChange: 'didChange',
     change: 'change',
-    inputUpdated: 'input-updated',
-    datePickerUpdated: 'date-picker-updated',
-    validationChange: 'validation-change',
+    inputUpdated: 'inputUpdated',
+    datePickerUpdated: 'datePickerUpdated',
+    validationChange: 'validationChange',
   } as const;
 
   /** If set to true, two months are displayed. */
@@ -348,7 +348,7 @@ export class SbbDatepicker extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
-    this.addEventListener('datepicker-control-registered', () => this._onInputPropertiesChange(), {
+    this.addEventListener('datepickerControlRegistered', () => this._onInputPropertiesChange(), {
       signal,
     });
     this._handlerRepository.connect();

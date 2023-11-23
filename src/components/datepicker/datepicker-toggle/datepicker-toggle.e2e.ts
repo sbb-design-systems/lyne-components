@@ -81,7 +81,7 @@ describe('sbb-datepicker-toggle', () => {
 
     const toggle: SbbDatepickerToggle = document.querySelector('sbb-datepicker-toggle');
     const inputUpdated: EventSpy<Event> = new EventSpy(
-      'input-updated',
+      'inputUpdated',
       document.querySelector('#parent'),
     );
     const trigger: SbbTooltipTrigger = toggle.shadowRoot.querySelector('sbb-tooltip-trigger');
@@ -114,7 +114,7 @@ describe('sbb-datepicker-toggle', () => {
 
     const toggle: SbbDatepickerToggle = document.querySelector('sbb-datepicker-toggle');
     const inputUpdated: EventSpy<Event> = new EventSpy(
-      'input-updated',
+      'inputUpdated',
       document.querySelector('#parent'),
     );
     const trigger: SbbTooltipTrigger = toggle.shadowRoot.querySelector('sbb-tooltip-trigger');

@@ -17,7 +17,7 @@ describe('sbb-expansion-panel-header', () => {
   });
 
   it('should emit event on click', async () => {
-    const spy = new EventSpy('toggle-expanded');
+    const spy = new EventSpy('toggleExpanded');
     element.click();
     expect(spy.count).to.be.greaterThan(0);
   });
@@ -26,7 +26,7 @@ describe('sbb-expansion-panel-header', () => {
     element = await fixture(
       html`<sbb-expansion-panel-header disabled>Header</sbb-expansion-panel-header>`,
     );
-    const spy = new EventSpy('toggle-expanded');
+    const spy = new EventSpy('toggleExpanded');
     element.click();
     expect(spy.count).not.to.be.greaterThan(0);
   });

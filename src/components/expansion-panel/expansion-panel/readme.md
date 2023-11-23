@@ -82,12 +82,12 @@ and the `aria-hidden` attribute on the content.
 
 ## Events
 
-| Name         | Type                | Description                                                             | Inherited From |
-| ------------ | ------------------- | ----------------------------------------------------------------------- | -------------- |
-| `will-open`  | `CustomEvent<void>` | Emits whenever the `sbb-expansion-panel` starts the opening transition. |                |
-| `did-open`   | `CustomEvent<void>` | Emits whenever the `sbb-expansion-panel` is opened.                     |                |
-| `will-close` | `CustomEvent<void>` | Emits whenever the `sbb-expansion-panel` begins the closing transition. |                |
-| `did-close`  | `CustomEvent<void>` | Emits whenever the `sbb-expansion-panel` is closed.                     |                |
+| Name        | Type                | Description                                                             | Inherited From |
+| ----------- | ------------------- | ----------------------------------------------------------------------- | -------------- |
+| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-expansion-panel` starts the opening transition. |                |
+| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-expansion-panel` is opened.                     |                |
+| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-expansion-panel` begins the closing transition. |                |
+| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-expansion-panel` is closed.                     |                |
 
 ## Slots
 

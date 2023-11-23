@@ -100,7 +100,7 @@ export class SbbAccordion extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
-    this.addEventListener('will-open', (e: CustomEvent) => this._closePanels(e), { signal });
+    this.addEventListener('willOpen', (e: CustomEvent) => this._closePanels(e), { signal });
   }
 
   protected override render(): TemplateResult {

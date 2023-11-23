@@ -101,9 +101,9 @@ It's suggested to have a different value for each variant, e.g.:
 
 ## Events
 
-| Name           | Type                  | Description                                                | Inherited From |
-| -------------- | --------------------- | ---------------------------------------------------------- | -------------- |
-| `file-changed` | `CustomEvent<File[]>` | An event which is emitted each time the file list changes. |                |
+| Name          | Type                  | Description                                                | Inherited From |
+| ------------- | --------------------- | ---------------------------------------------------------- | -------------- |
+| `fileChanged` | `CustomEvent<File[]>` | An event which is emitted each time the file list changes. |                |
 
 ## Slots
 

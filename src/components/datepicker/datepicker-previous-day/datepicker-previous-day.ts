@@ -132,7 +132,7 @@ export class SbbDatepickerPreviousDay extends LitElement {
       // If the component is attached to the DOM before the datepicker, it has to listen for the datepicker init,
       // assuming that the two components share the same parent element.
       this.parentElement?.addEventListener(
-        'input-updated',
+        'inputUpdated',
         (e: Event) => this._init(e.target as SbbDatepicker),
         { once: true, signal: this._abort.signal },
       );
@@ -157,7 +157,7 @@ export class SbbDatepickerPreviousDay extends LitElement {
       { signal: this._datePickerController.signal },
     );
     this._datePickerElement.addEventListener(
-      'input-updated',
+      'inputUpdated',
       (event: CustomEvent<InputUpdateEvent>) => {
         this._inputDisabled = event.detail.disabled || event.detail.readonly;
         if (this._min !== event.detail.min) {
