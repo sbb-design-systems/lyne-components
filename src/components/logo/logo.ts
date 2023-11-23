@@ -1,4 +1,4 @@
-import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbProtectiveRoom } from '../core/interfaces';
