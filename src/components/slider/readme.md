@@ -84,10 +84,10 @@ The `sbb-slider` has the following behaviour on keypress when focused:
 
 ## Events
 
-| Name         | Type                | Description                                                                      | Inherited From |
-| ------------ | ------------------- | -------------------------------------------------------------------------------- | -------------- |
-| `input`      | `InputEvent`        |                                                                                  |                |
-| `did-change` | `CustomEvent<void>` | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
+| Name        | Type                | Description                                                                      | Inherited From |
+| ----------- | ------------------- | -------------------------------------------------------------------------------- | -------------- |
+| `input`     | `InputEvent`        |                                                                                  |                |
+| `didChange` | `CustomEvent<void>` | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
 
 ## Slots
 

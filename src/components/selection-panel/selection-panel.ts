@@ -22,19 +22,19 @@ import '../divider';
  * @slot - Use the unnamed slot to add `sbb-checkbox` or `sbb-radio-button` elements to the `sbb-selection-panel`.
  * @slot badge - Use this slot to provide a `sbb-card-badge` (optional).
  * @slot content - Use this slot to provide custom content for the panel (optional).
- * @event {CustomEvent<void>} will-open - Emits whenever the content section starts the opening transition.
- * @event {CustomEvent<void>} did-open - Emits whenever the content section is opened.
- * @event {CustomEvent<{ closeTarget: HTMLElement }>} will-close - Emits whenever the content section begins the closing transition.
- * @event {CustomEvent<{ closeTarget: HTMLElement }>} did-close - Emits whenever the content section is closed.
+ * @event {CustomEvent<void>} willOpen - Emits whenever the content section starts the opening transition.
+ * @event {CustomEvent<void>} didOpen - Emits whenever the content section is opened.
+ * @event {CustomEvent<{ closeTarget: HTMLElement }>} willClose - Emits whenever the content section begins the closing transition.
+ * @event {CustomEvent<{ closeTarget: HTMLElement }>} didClose - Emits whenever the content section is closed.
  */
 @customElement('sbb-selection-panel')
 export class SbbSelectionPanel extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
-    willOpen: 'will-open',
-    didOpen: 'did-open',
-    willClose: 'will-close',
-    didClose: 'did-close',
+    willOpen: 'willOpen',
+    didOpen: 'didOpen',
+    willClose: 'willClose',
+    didClose: 'didClose',
   } as const;
 
   /** The background color of the panel. */
@@ -146,7 +146,7 @@ export class SbbSelectionPanel extends LitElement {
       { signal, passive: true },
     );
     this.addEventListener('checkboxLoaded', () => this._updateSelectionPanel(), { signal });
-    this.addEventListener('radio-button-loaded', () => this._updateSelectionPanel(), { signal });
+    this.addEventListener('radioButtonLoaded', () => this._updateSelectionPanel(), { signal });
     this._handlerRepository.connect();
   }
 

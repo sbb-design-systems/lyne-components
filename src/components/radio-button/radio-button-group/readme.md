@@ -81,11 +81,11 @@ In order to ensure readability for screen-readers, please provide an `aria-label
 
 ## Events
 
-| Name         | Type                | Description                                         | Inherited From |
-| ------------ | ------------------- | --------------------------------------------------- | -------------- |
-| `did-change` | `CustomEvent<void>` | Emits whenever the `sbb-radio-group` value changes. |                |
-| `change`     | `CustomEvent<void>` | Emits whenever the `sbb-radio-group` value changes. |                |
-| `input`      | `CustomEvent<void>` | Emits whenever the `sbb-radio-group` value changes. |                |
+| Name        | Type                | Description                                         | Inherited From |
+| ----------- | ------------------- | --------------------------------------------------- | -------------- |
+| `didChange` | `CustomEvent<void>` | Emits whenever the `sbb-radio-group` value changes. |                |
+| `change`    | `CustomEvent<void>` | Emits whenever the `sbb-radio-group` value changes. |                |
+| `input`     | `CustomEvent<void>` | Emits whenever the `sbb-radio-group` value changes. |                |
 
 ## Slots
 
