@@ -130,8 +130,10 @@ export class SbbSlider extends LitElement {
   }
 
   private async _handleKeydown(event: KeyboardEvent): Promise<void> {
-    // FIXME the third condition in the if doesn't prevent from scrolling
-    event.preventDefault();
+    if (event.key !== 'Tab') {
+      event.preventDefault();
+    }
+
     if (this.disabled || this.readonly) {
       return;
     }
