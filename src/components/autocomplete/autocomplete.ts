@@ -10,6 +10,7 @@ import {
   isSafari,
   isValidAttribute,
   toggleDatasetEntry,
+  isBrowser,
 } from '../core/dom';
 import { ConnectedAbortController, EventEmitter } from '../core/eventing';
 import {
@@ -210,6 +211,9 @@ export class SbbAutocomplete extends LitElement {
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    if (!isBrowser()) {
+      return;
+    }
     if (changedProperties.has('origin')) {
       this._resetOriginClickListener(this.origin, changedProperties.get('origin'));
     }
