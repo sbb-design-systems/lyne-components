@@ -1,4 +1,21 @@
 import { spread } from '@open-wc/lit-helpers';
+import {
+  SbbBreakpointZeroMin,
+  SbbBreakpointZeroMax,
+  SbbBreakpointMicroMin,
+  SbbBreakpointMicroMax,
+  SbbBreakpointSmallMin,
+  SbbBreakpointSmallMax,
+  SbbBreakpointMediumMin,
+  SbbBreakpointMediumMax,
+  SbbBreakpointLargeMin,
+  SbbBreakpointLargeMax,
+  SbbBreakpointWideMin,
+  SbbBreakpointWideMax,
+  SbbBreakpointUltraMin,
+  SbbBreakpointUltraMax,
+  SbbTypoScaleDefault,
+} from '@sbb-esta/lyne-design-tokens';
 import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, eventOptions, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -17,6 +34,27 @@ const eventListenerOptions = {
   passive: true,
 };
 
+const pxToRem = (px: number): number => {
+  return px / SbbTypoScaleDefault;
+};
+
+const breakpointMap: Record<string, number> = {
+  'sbb-breakpoint-zero-min': pxToRem(SbbBreakpointZeroMin),
+  'sbb-breakpoint-zero-max': pxToRem(SbbBreakpointZeroMax),
+  'sbb-breakpoint-micro-min': pxToRem(SbbBreakpointMicroMin),
+  'sbb-breakpoint-micro-max': pxToRem(SbbBreakpointMicroMax),
+  'sbb-breakpoint-small-min': pxToRem(SbbBreakpointSmallMin),
+  'sbb-breakpoint-small-max': pxToRem(SbbBreakpointSmallMax),
+  'sbb-breakpoint-medium-min': pxToRem(SbbBreakpointMediumMin),
+  'sbb-breakpoint-medium-max': pxToRem(SbbBreakpointMediumMax),
+  'sbb-breakpoint-large-min': pxToRem(SbbBreakpointLargeMin),
+  'sbb-breakpoint-large-max': pxToRem(SbbBreakpointLargeMax),
+  'sbb-breakpoint-wide-min': pxToRem(SbbBreakpointWideMin),
+  'sbb-breakpoint-wide-max': pxToRem(SbbBreakpointWideMax),
+  'sbb-breakpoint-ultra-min': pxToRem(SbbBreakpointUltraMin),
+  'sbb-breakpoint-ultra-max': pxToRem(SbbBreakpointUltraMax),
+};
+
 /**
  * It displays an image.
  */
@@ -25,7 +63,7 @@ export class SbbImage extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   private _captionElement?: HTMLElement;
-  private _linksInCaption;
+  private _linksInCaption: NodeListOf<HTMLLinkElement>;
   private _config = {
     nonRetinaQuality: '45',
     retinaQuality: '20',
@@ -249,8 +287,9 @@ export class SbbImage extends LitElement {
     }
   }
 
-  private _matchMediaQueryDesignToken(breakpointSizeName): string {
-    return getComputedStyle(this).getPropertyValue(`--${breakpointSizeName}`)?.trim();
+  private _matchMediaQueryDesignToken(breakpointSizeName: string): string {
+    const value = breakpointMap[breakpointSizeName];
+    return value ? `${value}rem` : '';
   }
 
   private _addFocusAbilityToLinksInCaption(): void {
@@ -491,7 +530,7 @@ export class SbbImage extends LitElement {
       return;
     }
 
-    this._linksInCaption = this._captionElement.querySelectorAll('a');
+    this._linksInCaption = this._captionElement.querySelectorAll<HTMLLinkElement>('a');
 
     if (!this._linksInCaption) {
       return;
