@@ -94,7 +94,11 @@ export class SbbBreadcrumb extends SlotChildObserver(LitElement) {
     return html`
       <${unsafeStatic(TAG_NAME)} class="sbb-breadcrumb" ${spread(attributes)}>
         <slot name="icon">
-          ${this.iconName ? html`<sbb-icon name="${this.iconName}"></sbb-icon>` : nothing}
+          ${
+            this.iconName
+              ? html`<sbb-icon name="${this.iconName}" class="sbb-breadcrumb__icon"></sbb-icon>`
+              : nothing
+          }
         </slot>
         <span class="sbb-breadcrumb__label" ?hidden=${!this._hasText}>
           <slot></slot>

@@ -1,7 +1,8 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots['sbb-breadcrumb renders with text'] = `<a
+snapshots["sbb-breadcrumb renders with text"] = 
+`<a
   class="sbb-breadcrumb"
   download=""
   href="/test"
@@ -23,7 +24,8 @@ snapshots['sbb-breadcrumb renders with text'] = `<a
 `;
 /* end snapshot sbb-breadcrumb renders with text */
 
-snapshots['sbb-breadcrumb renders with icon'] = `<a
+snapshots["sbb-breadcrumb renders with icon"] = 
+`<a
   class="sbb-breadcrumb"
   href="/"
   role="presentation"
@@ -32,6 +34,7 @@ snapshots['sbb-breadcrumb renders with icon'] = `<a
   <slot name="icon">
     <sbb-icon
       aria-hidden="true"
+      class="sbb-breadcrumb__icon"
       data-namespace="default"
       name="house-small"
       role="img"
@@ -49,7 +52,8 @@ snapshots['sbb-breadcrumb renders with icon'] = `<a
 `;
 /* end snapshot sbb-breadcrumb renders with icon */
 
-snapshots['sbb-breadcrumb renders with icon and text'] = `<a
+snapshots["sbb-breadcrumb renders with icon and text"] = 
+`<a
   class="sbb-breadcrumb"
   href="/"
   role="presentation"
@@ -58,6 +62,7 @@ snapshots['sbb-breadcrumb renders with icon and text'] = `<a
   <slot name="icon">
     <sbb-icon
       aria-hidden="true"
+      class="sbb-breadcrumb__icon"
       data-namespace="default"
       name="house-small"
       role="img"
@@ -72,7 +77,8 @@ snapshots['sbb-breadcrumb renders with icon and text'] = `<a
 `;
 /* end snapshot sbb-breadcrumb renders with icon and text */
 
-snapshots['sbb-breadcrumb renders as span if no href is provided'] = `<span class="sbb-breadcrumb">
+snapshots["sbb-breadcrumb renders as span if no href is provided"] = 
+`<span class="sbb-breadcrumb">
   <slot name="icon">
   </slot>
   <span class="sbb-breadcrumb__label">
@@ -82,3 +88,4 @@ snapshots['sbb-breadcrumb renders as span if no href is provided'] = `<span clas
 </span>
 `;
 /* end snapshot sbb-breadcrumb renders as span if no href is provided */
+
