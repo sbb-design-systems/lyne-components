@@ -61,7 +61,7 @@ The `error` named slot can be used to display an error message using the `sbb-fo
 
 ### Events
 
-Whenever the selection changes, a `file-changed` event is fired, whose `event.detail` property contains the list
+Whenever the selection changes, a `fileChanged` event is fired, whose `event.detail` property contains the list
 of currently selected files. The list can also be retrieved using the `getFiles()` method.
 
 ## Accessibility
