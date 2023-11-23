@@ -15,6 +15,7 @@
     "experimentalDecorators": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "noUnusedLocals": true,
     "paths": {
       "@sbb-esta/lyne-components": ["src/components"],
       "@sbb-esta/lyne-components/*": ["src/components/*"],
