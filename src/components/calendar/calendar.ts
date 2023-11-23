@@ -100,8 +100,7 @@ export class SbbCalendar extends LitElement {
   @property() public max: SbbDateLike;
 
   /** A function used to filter out dates. */
-  @property({ attribute: 'date-filter' }) public dateFilter: (date: Date | null) => boolean = () =>
-    true;
+  @property({ attribute: 'date-filter' }) public dateFilter?: (date: Date | null) => boolean;
 
   /** The selected date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
   @property({ attribute: 'selected-date' }) public selectedDate: SbbDateLike;
@@ -194,14 +193,19 @@ export class SbbCalendar extends LitElement {
   /** Sets the selected date. */
   private _setSelectedDate(selectedDate: SbbDateLike): void {
     const value = this._dateAdapter.deserializeDate(selectedDate);
+    const dateFilter = this._getDateFilter();
     if (
       !!value &&
-      (!this._isDayInRange(this._dateAdapter.getISOString(value)) || this.dateFilter(value))
+      (!this._isDayInRange(this._dateAdapter.getISOString(value)) || dateFilter(value))
     ) {
       this._selected = this._dateAdapter.getISOString(value);
     } else {
       this._selected = undefined;
     }
+  }
+
+  private _getDateFilter(): (date: Date) => boolean {
+    return this.dateFilter ?? (() => true);
   }
 
   /** Resets the active month according to the new state of the calendar. */
@@ -215,10 +219,6 @@ export class SbbCalendar extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-
-    if (!this.dateFilter) {
-      this.dateFilter = () => true;
-    }
     this.focus = () => {
       this._resetFocus = true;
       this._focusCell();
@@ -915,9 +915,10 @@ export class SbbCalendar extends LitElement {
 
   /** Creates the cells for the daily view. */
   private _createDayCells(week: Day[], today: string): TemplateResult[] {
+    const dateFilter = this._getDateFilter();
     return week.map((day: Day) => {
       const isOutOfRange = !this._isDayInRange(day.value);
-      const isFilteredOut = !this.dateFilter(this._dateAdapter.createDateFromISOString(day.value));
+      const isFilteredOut = !dateFilter(this._dateAdapter.createDateFromISOString(day.value));
       const selected: boolean = !!this._selected && day.value === this._selected;
       const dayValue = `${day.dayValue} ${day.monthValue} ${day.yearValue}`;
       const isToday = day.value === today;

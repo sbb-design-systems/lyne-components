@@ -97,7 +97,7 @@ const dataNow: InputType = {
 };
 
 const filterFunctions = [
-  () => true,
+  undefined,
   (d) => d.getDay() !== 6 && d.getDay() !== 0,
   (d) => d.getDate() % 2 === 1,
   (d) => d.getFullYear() % 2 === 0,
