@@ -161,8 +161,7 @@ describe('sbb-form-field', () => {
       await waitForLitRender(element);
       expect(element).to.have.attribute('data-input-focused');
 
-      // TODO The select should also handle the 'blur' function
-      (document.querySelector('.sbb-select-invisible-trigger') as HTMLDivElement).blur();
+      select.blur();
       await waitForLitRender(element);
       expect(element).not.to.have.attribute('data-input-focused');
     });

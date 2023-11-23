@@ -222,6 +222,7 @@ export class SbbSelect extends LitElement {
 
     // Override the default focus behavior
     this.focus = () => this._triggerElement.focus();
+    this.blur = () => this._triggerElement.blur();
     this._didLoad = true;
   }
 

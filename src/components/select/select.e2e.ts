@@ -354,4 +354,14 @@ describe('sbb-select', () => {
     expect(secondOption).to.have.attribute('selected');
     expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
   });
+
+  it('correctly forward focus and blur', async () => {
+    element.focus();
+    await waitForLitRender(element);
+    expect(document.activeElement).to.have.attribute('role', 'combobox');
+
+    element.blur();
+    await waitForLitRender(element);
+    expect(document.activeElement).not.to.have.attribute('role', 'combobox');
+  });
 });

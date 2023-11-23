@@ -5,7 +5,7 @@ import type { SbbLink } from '../link';
 
 import type { SbbLinkList } from './link-list';
 
-// TODO: Add import '../link';
+import '../link';
 import './link-list';
 
 describe('sbb-link-list', () => {
@@ -42,19 +42,7 @@ describe('sbb-link-list', () => {
       </sbb-link-list>`,
     );
 
-    expect(element).dom.to.be.equal(
-      `
-        <sbb-link-list title-level="2" orientation="vertical" size="s">
-
-          <span slot="title">Help &amp; Contact</span>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-0">Rückerstattungen</sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-1">Fundbüro</sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-2">Beschwerden</sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-3">Lob aussprechen</sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-4">Sachbeschädigung melden</sbb-link>
-        </sbb-link-list>
-      `,
-    );
+    await expect(element).dom.to.equalSnapshot();
     expect(element).shadowDom.to.be.equal(
       `
             <div class="sbb-link-list-wrapper">
@@ -83,23 +71,7 @@ describe('sbb-link-list', () => {
       </sbb-link-list>`,
     );
 
-    expect(element).dom.to.be.equal(
-      `
-        <sbb-link-list
-            title-level="2"
-            title-content="Help &amp; Contact"
-            orientation="vertical"
-            size="s"
-          >
-
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-0">Rückerstattungen</sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-1">Fundbüro</sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-2">Beschwerden</sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-3">Lob aussprechen</sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-4">Sachbeschädigung melden</sbb-link>
-        </sbb-link-list>
-      `,
-    );
+    await expect(element).dom.to.equalSnapshot();
     expect(element).shadowDom.to.be.equal(
       `
             <div class="sbb-link-list-wrapper">
@@ -125,18 +97,7 @@ describe('sbb-link-list', () => {
   it('rendered without a title', async () => {
     element = await fixture(html` <sbb-link-list> ${sbbLinkSnippet} </sbb-link-list>`);
 
-    expect(element).dom.to.be.equal(
-      `
-        <sbb-link-list orientation="vertical" size="s">
-
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-0">Rückerstattungen</sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-1">Fundbüro</sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-2">Beschwerden</sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-3">Lob aussprechen</sbb-link>
-          <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html" slot="link-4">Sachbeschädigung melden</sbb-link>
-        </sbb-link-list>
-      `,
-    );
+    await expect(element).dom.to.equalSnapshot();
     expect(element).shadowDom.to.be.equal(
       `
             <div class="sbb-link-list-wrapper">

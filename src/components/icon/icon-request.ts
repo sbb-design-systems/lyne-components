@@ -4,10 +4,8 @@ import { validateContent } from './icon-validate';
 
 const iconCdn = 'https://icons.app.sbb.ch/';
 
-// TODO: remove picto-legacy namespace
 const iconNamespaces = new Map<string, string>()
   .set('default', `${iconCdn}icons/`)
-  .set('picto-legacy', `${iconCdn}pictograms/`)
   .set('picto', `${iconCdn}picto/`);
 const requests = new Map<string, Promise<any>>();
 
