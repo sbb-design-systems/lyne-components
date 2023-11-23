@@ -37,15 +37,15 @@ export type SbbOptionVariant = 'autocomplete' | 'select';
  *
  * @slot - Use the unnamed slot to add content to the option label.
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
- * @event {CustomEvent<void>} option-selection-change - Emits when the option selection status changes.
- * @event {CustomEvent<void>} option-selected - Emits when an option was selected by user.
+ * @event {CustomEvent<void>} optionSelectionChange - Emits when the option selection status changes.
+ * @event {CustomEvent<void>} optionSelected - Emits when an option was selected by user.
  */
 @customElement('sbb-option')
 export class SbbOption extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    selectionChange: 'option-selection-change',
-    optionSelected: 'option-selected',
+    selectionChange: 'optionSelectionChange',
+    optionSelected: 'optionSelected',
   } as const;
 
   /** Value of the option. */
