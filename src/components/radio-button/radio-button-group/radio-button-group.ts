@@ -24,7 +24,7 @@ import style from './radio-button-group.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add `sbb-radio-button` elements to the `sbb-radio-button-group`.
  * @slot error - Use this to provide a `sbb-form-error` to show an error message.
- * @event {CustomEvent<void>} didChange - Emits whenever the `sbb-radio-group` value changes.
+ * @event {CustomEvent<void>} didChange - Deprecated. Only used for React. Will probably be removed once React 19 is available. Emits whenever the `sbb-radio-group` value changes.
  * @event {CustomEvent<void>} change - Emits whenever the `sbb-radio-group` value changes.
  * @event {CustomEvent<void>} input - Emits whenever the `sbb-radio-group` value changes.
  */
