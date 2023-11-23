@@ -64,9 +64,9 @@ you can not provide it and then use `aria-label` to specify an appropriate label
 
 ## Events
 
-| Name         | Type                | Description                                                                      | Inherited From |
-| ------------ | ------------------- | -------------------------------------------------------------------------------- | -------------- |
-| `did-change` | `CustomEvent<void>` | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
+| Name        | Type                | Description                                                                      | Inherited From |
+| ----------- | ------------------- | -------------------------------------------------------------------------------- | -------------- |
+| `didChange` | `CustomEvent<void>` | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
 
 ## Slots
 

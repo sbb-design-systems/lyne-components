@@ -35,16 +35,16 @@ export type SbbTagStateChange = Extract<
  * @slot icon - Use this slot to display an icon at the component start, by providing a `sbb-icon` component.
  * @slot amount - Provide an amount to show it at the component end.
  * @event {CustomEvent<void>} input - Input event emitter
- * @event {CustomEvent<void>} did-change - Deprecated. used for React. Will probably be removed once React 19 is available.
+ * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  * @event {CustomEvent<void>} change - Change event emitter
  */
 @customElement('sbb-tag')
 export class SbbTag extends LitElement implements ButtonProperties {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    stateChange: 'state-change',
+    stateChange: 'stateChange',
     input: 'input',
-    didChange: 'did-change',
+    didChange: 'didChange',
     change: 'change',
   } as const;
 

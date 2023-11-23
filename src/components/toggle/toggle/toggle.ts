@@ -20,14 +20,14 @@ export type SbbToggleStateChange = Extract<
  * It can be used as a container for two `sbb-toggle-option`, acting as a toggle button.
  *
  * @slot - Use the unnamed slot to add `<sbb-toggle-option>` elements to the toggle.
- * @event {CustomEvent<void>} did-change - Emits whenever the toggle value changes.
+ * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  * @event {CustomEvent<void>} change - Emits whenever the toggle value changes.
  */
 @customElement('sbb-toggle')
 export class SbbToggle extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    didChange: 'did-change',
+    didChange: 'didChange',
     change: 'change',
   } as const;
 
@@ -94,8 +94,9 @@ export class SbbToggle extends LitElement {
   }
 
   /**
-   * Emits whenever the toggle value changes.
-   * @deprecated only used for React. Will probably be removed once React 19 is available.
+   *
+   * @deprecated
+   * only used for React. Will probably be removed once React 19 is available.
    */
   private _didChange: EventEmitter = new EventEmitter(this, SbbToggle.events.didChange, {
     bubbles: true,

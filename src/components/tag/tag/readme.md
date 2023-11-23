@@ -59,11 +59,11 @@ The state is reflected via `aria-pressed` attribute.
 
 ## Events
 
-| Name         | Type                | Description                                                                      | Inherited From |
-| ------------ | ------------------- | -------------------------------------------------------------------------------- | -------------- |
-| `input`      | `CustomEvent<void>` | Input event emitter                                                              |                |
-| `did-change` | `CustomEvent<void>` | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
-| `change`     | `CustomEvent<void>` | Change event emitter                                                             |                |
+| Name        | Type                | Description                                                                      | Inherited From |
+| ----------- | ------------------- | -------------------------------------------------------------------------------- | -------------- |
+| `input`     | `CustomEvent<void>` | Input event emitter                                                              |                |
+| `didChange` | `CustomEvent<void>` | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
+| `change`    | `CustomEvent<void>` | Change event emitter                                                             |                |
 
 ## Slots
 
