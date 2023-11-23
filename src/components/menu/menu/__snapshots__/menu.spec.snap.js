@@ -1,38 +1,8 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots['sbb-menu renders with list'] = `<div class="sbb-menu__container">
-  <div class="sbb-menu">
-    <div class="sbb-menu__content">
-      <ul class="sbb-menu-list">
-        <li>
-          <slot name="action-0">
-          </slot>
-        </li>
-        <li>
-          <slot name="action-1">
-          </slot>
-        </li>
-        <li>
-          <slot name="action-2">
-          </slot>
-        </li>
-        <li>
-          <slot name="action-3">
-          </slot>
-        </li>
-      </ul>
-      <span hidden="">
-        <slot>
-        </slot>
-      </span>
-    </div>
-  </div>
-</div>
-`;
-/* end snapshot sbb-menu renders with list */
-
-snapshots['sbb-menu renders'] = `<sbb-menu
+snapshots["sbb-menu renders"] = 
+`<sbb-menu
   data-state="closed"
   id="sbb-menu-1"
   trigger="menu-trigger"
@@ -83,3 +53,36 @@ snapshots['sbb-menu renders'] = `<sbb-menu
 </sbb-menu>
 `;
 /* end snapshot sbb-menu renders */
+
+snapshots["sbb-menu renders with list"] = 
+`<div class="sbb-menu__container">
+  <div class="sbb-menu">
+    <div class="sbb-menu__content">
+      <ul class="sbb-menu-list">
+        <li>
+          <slot name="action-0">
+          </slot>
+        </li>
+        <li>
+          <slot name="action-1">
+          </slot>
+        </li>
+        <li>
+          <slot name="action-2">
+          </slot>
+        </li>
+        <li>
+          <slot name="action-3">
+          </slot>
+        </li>
+      </ul>
+      <span hidden="">
+        <slot>
+        </slot>
+      </span>
+    </div>
+  </div>
+</div>
+`;
+/* end snapshot sbb-menu renders with list */
+

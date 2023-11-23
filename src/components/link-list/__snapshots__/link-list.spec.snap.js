@@ -1,7 +1,8 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots['sbb-link-list rendered with a slotted title'] = `<sbb-link-list
+snapshots["sbb-link-list rendered with a slotted title"] = 
+`<sbb-link-list
   orientation="vertical"
   size="s"
   title-level="2"
@@ -68,7 +69,8 @@ snapshots['sbb-link-list rendered with a slotted title'] = `<sbb-link-list
 `;
 /* end snapshot sbb-link-list rendered with a slotted title */
 
-snapshots['sbb-link-list rendered with a title from properties'] = `<sbb-link-list
+snapshots["sbb-link-list rendered with a title from properties"] = 
+`<sbb-link-list
   orientation="vertical"
   size="s"
   title-content="Help &amp; Contact"
@@ -133,7 +135,8 @@ snapshots['sbb-link-list rendered with a title from properties'] = `<sbb-link-li
 `;
 /* end snapshot sbb-link-list rendered with a title from properties */
 
-snapshots['sbb-link-list rendered without a title'] = `<sbb-link-list
+snapshots["sbb-link-list rendered without a title"] = 
+`<sbb-link-list
   orientation="vertical"
   size="s"
 >
@@ -195,3 +198,4 @@ snapshots['sbb-link-list rendered without a title'] = `<sbb-link-list
 </sbb-link-list>
 `;
 /* end snapshot sbb-link-list rendered without a title */
+
