@@ -3,7 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../core/a11y';
-import { toggleDatasetEntry, setAttribute } from '../../core/dom';
+import { toggleDatasetEntry, setAttribute, isBrowser } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import { SbbCheckedStateChange, SbbStateChange, SbbValueStateChange } from '../../core/interfaces';
 import { AgnosticResizeObserver } from '../../core/observers';
@@ -76,7 +76,7 @@ export class SbbToggle extends LitElement {
     const options = this._options;
     const selectedOption =
       options.find((o) => o.value === value) ?? options.find((o) => o.checked) ?? options[0];
-    if (!selectedOption) {
+    if (!selectedOption && isBrowser()) {
       console.warn(`sbb-toggle: No available options! (${this.id || 'No id'})`);
       return;
     }
