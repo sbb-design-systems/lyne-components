@@ -113,10 +113,6 @@
   padding: 0;
   overflow: hidden;
 
-  :host([data-state='closing']) & {
-    animation-name: close;
-  }
-
   :host([data-state]:not([data-state='closed'])) & {
     display: block;
 
@@ -125,6 +121,10 @@
       duration: var(--sbb-navigation-section-animation-duration);
       timing-function: var(--sbb-navigation-section-animation-easing);
     }
+  }
+
+  :host([data-state][data-state='closing']) & {
+    animation-name: close;
   }
 
   @include sbb.if-forced-colors {

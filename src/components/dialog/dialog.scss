@@ -136,11 +136,6 @@
     border-radius: 0;
   }
 
-  :host([data-state='closing']) & {
-    pointer-events: none;
-    animation-name: close;
-  }
-
   :host([data-state]:not([data-state='closed'])) & {
     display: block;
 
@@ -149,6 +144,11 @@
       duration: var(--sbb-dialog-animation-duration);
       timing-function: ease;
     }
+  }
+
+  :host([data-state][data-state='closing']) & {
+    pointer-events: none;
+    animation-name: close;
   }
 
   @include sbb.if-forced-colors {
