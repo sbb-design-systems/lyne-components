@@ -201,8 +201,8 @@ export class SbbDatepickerToggle extends LitElement {
         ${ref((el: SbbTooltipTrigger) => (this._triggerElement = el))}
       ></sbb-tooltip-trigger>
       <sbb-tooltip
-        @will-open=${() => this._calendarElement.resetPosition()}
-        @did-open=${() => {
+        @willOpen=${() => this._calendarElement.resetPosition()}
+        @didOpen=${() => {
           sbbInputModalityDetector.mostRecentModality === 'keyboard' &&
             this._calendarElement.focus();
         }}

@@ -244,7 +244,7 @@ export class SbbSelect extends LitElement {
       this._onValueChanged(this.value);
     }
 
-    this.addEventListener('option-selection-change', (e) => this._onOptionChanged(e), { signal });
+    this.addEventListener('optionSelectionChange', (e) => this._onOptionChanged(e), { signal });
     this.addEventListener(
       'click',
       (e) => {

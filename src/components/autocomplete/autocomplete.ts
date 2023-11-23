@@ -202,11 +202,9 @@ export class SbbAutocomplete extends LitElement {
     }
     this._syncNegative();
 
-    this.addEventListener(
-      'option-selection-change',
-      (e: CustomEvent) => this._onOptionSelected(e),
-      { signal },
-    );
+    this.addEventListener('optionSelectionChange', (e: CustomEvent) => this._onOptionSelected(e), {
+      signal,
+    });
     this.addEventListener('click', (e) => this._onOptionClick(e), { signal });
   }
 

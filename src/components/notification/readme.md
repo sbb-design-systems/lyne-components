@@ -78,12 +78,12 @@ For example, use `--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0` 
 
 ## Events
 
-| Name         | Type                | Description                                                          | Inherited From |
-| ------------ | ------------------- | -------------------------------------------------------------------- | -------------- |
-| `will-open`  | `CustomEvent<void>` | Emits whenever the `sbb-notification` starts the opening transition. |                |
-| `did-open`   | `CustomEvent<void>` | Emits whenever the `sbb-notification` is opened.                     |                |
-| `will-close` | `CustomEvent<void>` | Emits whenever the `sbb-notification` begins the closing transition. |                |
-| `did-close`  | `CustomEvent<void>` | Emits whenever the `sbb-notification` is closed.                     |                |
+| Name        | Type                | Description                                                          | Inherited From |
+| ----------- | ------------------- | -------------------------------------------------------------------- | -------------- |
+| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-notification` starts the opening transition. |                |
+| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-notification` is opened.                     |                |
+| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-notification` begins the closing transition. |                |
+| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-notification` is closed.                     |                |
 
 ## Slots
 
