@@ -97,11 +97,13 @@ import { actionElementHandlerAspect, HandlerRepository } from '../core/eventing'
 class ActionElement implements LinkButtonProperties {
   private _handlerRepository = new HandlerRepository(this._element, actionElementHandlerAspect);
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
     this._handlerRepository.connect();
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
   }
 }
@@ -114,15 +116,27 @@ existing components (e.g. `<sbb-button>`) to what needs to be done additionally.
 
 If using texts in components they have to be provided in English, French, German and Italian.
 As the language can be changed dynamically, you have to listen to the `sbbLanguageChange`
-event and re-render the view. This can be done by marking the field with `@State` (see code below).
+event and re-render the view. This can be done by marking the field with `@state` and using the language change handler (see code below).
 
 ```ts
-export class Component {
-  @State() private _currentLanguage = documentLanguage();
+import { languageChangeHandlerAspect } from '../core/eventing';
 
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
+export class Component {
+  @state() private _currentLanguage = documentLanguage();
+
+  private _handlerRepository = new HandlerRepository(
+    this,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
+  );
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this._handlerRepository.connect();
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this._handlerRepository.disconnect();
   }
 }
 ```
@@ -184,11 +198,6 @@ class ConfigBuilder {
 Additionally, the `@internal` JsDoc annotation can be used to hide any symbol from the public
 API docs.
 
-#### Getters and Setters
-
-- Getter/Setter cannot be used for `@Prop`.
-- Generally avoid getter/setter and prefer methods.
-
 #### JsDoc comments
 
 All public APIs must have user-facing comments. These are extracted and shown in the documentation.
@@ -201,7 +210,7 @@ Properties should have a concise description of what the property means:
 
 ```ts
   /** The label position relative to the checkbox. Defaults to 'after' */
-  @Prop() public labelPosition: 'before' | 'after' = 'after';
+  @property() public labelPosition: 'before' | 'after' = 'after';
 ```
 
 Methods blocks should describe what the function does and provide a description for each parameter
@@ -213,7 +222,6 @@ and the return value:
    * @param config Dialog configuration options.
    * @returns Reference to the newly-opened dialog.
    */
-  @Method()
   public open(config?: SbbDialogConfig): SbbDialogRef { ... }
 ```
 
@@ -222,6 +230,28 @@ Boolean properties and return values should use "Whether..." as opposed to "True
 ```ts
 /** Whether the button is disabled. */
 disabled: boolean = false;
+```
+
+#### Properties initialization
+
+Boolean properties with a default value can be initialized with `false` but not with `true`. This is due to how Lit handles boolean attributes in the DOM: it evaluates, for example, `sanitize="false"` as `true` and not `false` as we would expect. Therefore the property shold be converted in something like `noSanitize = false`:
+
+```ts
+// AVOID
+/**
+ * ...
+ * @default true
+ */
+@property({ type: Boolean }) public sanitize = true;
+```
+
+```ts
+// PREFER
+/**
+ * ...
+ * @default false
+ */
+@property({ attribute: 'no-sanitize', type: Boolean }) public noSanitize = false;
 ```
 
 #### Try-Catch
@@ -237,7 +267,7 @@ specific error being caught and why it cannot be prevented.
 - Prefer to write out words instead of using abbreviations.
 - Prefer _exact_ names to short names (within reason). E.g., `labelPosition` is better than
   `align` because the former much more exactly communicates what the property means.
-- Except for `@Prop` properties, use `is` and `has` prefixes for boolean properties / methods.
+- Except for `@property` properties, use `is` and `has` prefixes for boolean properties / methods.
 
 ##### Classes
 
@@ -330,7 +360,7 @@ return data ?? data2 ?? data3;
 #### Event naming
 
 Use the wording `will` to name events happening before an action and `did` to name events happening
-after an action (e.g. `will-open` and `did-open`).
+after an action (e.g. `willOpen` and `didOpen`).
 
 #### Prefer properties/attributes to CSS classes
 
@@ -351,11 +381,11 @@ Instead of forwarding properties/content, use a `<slot>` (and/or a named slot
 
 #### Use `variant` property, if a component has more than one variant
 
-Use `@Prop() variant: 'default' | 'etc'` to provide different design variants for a component.
+Use `@property() variant: 'default' | 'etc'` to provide different design variants for a component.
 
 #### Use `negative` property, if a component has a color negative specification
 
-Use `@Prop() negative: boolean` to provide a color negative design for a component.
+Use `@property() negative: boolean` to provide a color negative design for a component.
 
 #### Handling aria attributes
 
@@ -619,7 +649,7 @@ e.g. for a label that receives ellipsis, if it is too long to fit in a container
 
 #### Controls
 
-Basically, all `@Props()` decorated properties should be included as a control in a story.
+Basically, all `@property()` decorated properties should be included as a control in a story.
 To be consistent, provide every control in every story. In some cases this can be relaxed,
 or some stories should have some special controls.
 
