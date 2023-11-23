@@ -111,7 +111,12 @@
   padding: 0;
   overflow: hidden;
 
-  :host(:not([data-state='closed'])) & {
+  :host([data-state='closing']) & {
+    pointer-events: none;
+    animation-name: close;
+  }
+
+  :host([data-state]:not([data-state='closed'])) & {
     display: block;
     opacity: 1;
     pointer-events: all;
@@ -120,11 +125,6 @@
       duration: var(--sbb-menu-animation-duration);
       timing-function: var(--sbb-menu-animation-easing);
     }
-  }
-
-  :host([data-state='closing']) & {
-    pointer-events: none;
-    animation-name: close;
   }
 
   @include sbb.if-forced-colors {

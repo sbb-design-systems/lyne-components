@@ -132,16 +132,6 @@
   color: var(--sbb-dialog-color);
   background-color: var(--sbb-dialog-background-color);
 
-  :host(:not([data-state='closed'])) & {
-    display: block;
-
-    animation: {
-      name: open;
-      duration: var(--sbb-dialog-animation-duration);
-      timing-function: ease;
-    }
-  }
-
   :host([data-fullscreen]) & {
     border-radius: 0;
   }
@@ -149,6 +139,16 @@
   :host([data-state='closing']) & {
     pointer-events: none;
     animation-name: close;
+  }
+
+  :host([data-state]:not([data-state='closed'])) & {
+    display: block;
+
+    animation: {
+      name: open;
+      duration: var(--sbb-dialog-animation-duration);
+      timing-function: ease;
+    }
   }
 
   @include sbb.if-forced-colors {

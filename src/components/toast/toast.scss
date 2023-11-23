@@ -25,6 +25,7 @@
   --sbb-toast-animation-duration: 0.1ms;
 }
 
+:host(:not([data-state])),
 :host([data-state='closed']) {
   --sbb-toast-container-display: none;
 }

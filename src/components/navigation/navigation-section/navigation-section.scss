@@ -80,7 +80,7 @@
   --sbb-navigation-section-pointer-events: none;
 }
 
-:host(:not([data-state='closed'])) {
+:host([data-state]:not([data-state='closed'])) {
   --sbb-navigation-section-display: block;
 }
 
@@ -113,7 +113,11 @@
   padding: 0;
   overflow: hidden;
 
-  :host(:not([data-state='closed'])) & {
+  :host([data-state='closing']) & {
+    animation-name: close;
+  }
+
+  :host([data-state]:not([data-state='closed'])) & {
     display: block;
 
     animation: {
@@ -121,10 +125,6 @@
       duration: var(--sbb-navigation-section-animation-duration);
       timing-function: var(--sbb-navigation-section-animation-easing);
     }
-  }
-
-  :host([data-state='closing']) & {
-    animation-name: close;
   }
 
   @include sbb.if-forced-colors {
