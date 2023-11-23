@@ -62,15 +62,6 @@ export class SbbDatepickerToggle extends LitElement {
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
-  private _findDatePicker(
-    newValue: string | SbbDatepicker,
-    oldValue: string | SbbDatepicker,
-  ): void {
-    if (newValue !== oldValue) {
-      this._init(this.datePicker);
-    }
-  }
-
   /**
    * Opens the calendar.
    */
