@@ -3,14 +3,13 @@ import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
+import { SlotChildObserver } from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
 import {
   actionElementHandlerAspect,
-  createNamedSlotState,
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
-  namedSlotChangeHandlerAspect,
 } from '../../core/eventing';
 import { i18nTargetOpensInNewWindow } from '../../core/i18n';
 import {
@@ -30,7 +29,7 @@ import '../../icon';
  * @slot icon - Use this to display an icon as breadcrumb.
  */
 @customElement('sbb-breadcrumb')
-export class SbbBreadcrumb extends LitElement {
+export class SbbBreadcrumb extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** The href value you want to link to. */
@@ -52,9 +51,6 @@ export class SbbBreadcrumb extends LitElement {
    */
   @property({ attribute: 'icon-name' }) public iconName?: string;
 
-  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @state() private _namedSlots = createNamedSlotState('icon');
-
   @state() private _currentLanguage = documentLanguage();
 
   @state() private _hasText = false;
@@ -63,7 +59,6 @@ export class SbbBreadcrumb extends LitElement {
     this,
     actionElementHandlerAspect,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
   public override connectedCallback(): void {
@@ -79,8 +74,9 @@ export class SbbBreadcrumb extends LitElement {
     this._handlerRepository.disconnect();
   }
 
-  private _onLabelSlotChange(event: Event): void {
-    this._hasText = (event.target as HTMLSlotElement)
+  protected override checkChildren(): void {
+    this._hasText = this.shadowRoot
+      .querySelector<HTMLSlotElement>('slot:not([name])')
       .assignedNodes()
       .some((n) => !!n.textContent?.trim());
   }
@@ -96,36 +92,21 @@ export class SbbBreadcrumb extends LitElement {
 
     /* eslint-disable lit/binding-positions */
     return html`
-      <${unsafeStatic(TAG_NAME)} class='sbb-breadcrumb' ${spread(attributes)}>
+      <${unsafeStatic(TAG_NAME)} class="sbb-breadcrumb" ${spread(attributes)}>
+        <slot name="icon">
+          ${
+            this.iconName
+              ? html`<sbb-icon name="${this.iconName}" class="sbb-breadcrumb__icon"></sbb-icon>`
+              : nothing
+          }
+        </slot>
+        <span class="sbb-breadcrumb__label" ?hidden=${!this._hasText}>
+          <slot></slot>
+        </span>
         ${
-          this.iconName || this._namedSlots.icon
-            ? html` <span class="sbb-breadcrumb__icon">
-                <slot name="icon">
-                  ${this.iconName ? html` <sbb-icon name="${this.iconName}"></sbb-icon>` : nothing}
-                </slot>
-              </span>`
-            : nothing
-        }
-        ${
-          this._hasText
-            ? html` <span class="sbb-breadcrumb__label">
-                <slot
-                  @slotchange="${(event: Event): void => this._onLabelSlotChange(event)}"
-                ></slot>
-                ${targetsNewWindow(this)
-                  ? html` <span class="sbb-breadcrumb__label--opens-in-new-window">
-                      . ${i18nTargetOpensInNewWindow[this._currentLanguage]}
-                    </span>`
-                  : nothing}
-              </span>`
-            : nothing
-        }
-        ${
-          !this._hasText
-            ? html` <span hidden>
-                <slot
-                  @slotchange="${(event: Event): void => this._onLabelSlotChange(event)}"
-                ></slot>
+          targetsNewWindow(this)
+            ? html` <span class="sbb-breadcrumb__label--opens-in-new-window">
+                . ${i18nTargetOpensInNewWindow[this._currentLanguage]}
               </span>`
             : nothing
         }

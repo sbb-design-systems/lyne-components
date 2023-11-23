@@ -1,9 +1,6 @@
 dist/
-loader/
-hydrate/
-src/components.d.ts
-www/
 tools/generate-component/boilerplate/
+**/__snapshots__/
 
 # not ignored folders/files
 !.github/

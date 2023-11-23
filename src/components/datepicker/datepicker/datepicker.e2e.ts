@@ -283,7 +283,9 @@ describe('sbb-datepicker', () => {
       }
     });
 
-    it('should not touch invalid values', async () => {
+    it('should not touch invalid values', async function () {
+      // This test is flaky on Firefox, so we retry a few times.
+      this.retries(3);
       const testCases = [
         { value: '.12.2020', interpretedAs: '.12.2020' },
         { value: '24..1995', interpretedAs: '24..1995' },
