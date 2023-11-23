@@ -66,7 +66,7 @@ The displayed `sbb-option` can be collected into groups using `sbb-optgroup` ele
 
 ## Events
 
-The `sbb-option` emits the `option-selected` event when selected via user interaction.
+The `sbb-option` emits the `optionSelected` event when selected via user interaction.
 
 ## Keyboard interaction
 

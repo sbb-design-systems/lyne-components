@@ -94,9 +94,8 @@ export class SbbToggle extends LitElement {
   }
 
   /**
-   *
-   * @deprecated
-   * only used for React. Will probably be removed once React 19 is available.
+   * @deprecated only used for React. Will probably be removed once React 19 is available.
+   * Emits whenever the toggle value changes.
    */
   private _didChange: EventEmitter = new EventEmitter(this, SbbToggle.events.didChange, {
     bubbles: true,

@@ -149,7 +149,7 @@ export class SbbDatepickerNextDay extends LitElement {
       { signal: this._datePickerController.signal },
     );
     this._datePickerElement.addEventListener(
-      'date-picker-updated',
+      'datePickerUpdated',
       (event: Event) => {
         this._setDisabledState(event.target as SbbDatepicker);
         this._setAriaLabel();

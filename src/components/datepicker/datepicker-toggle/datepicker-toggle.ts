@@ -130,7 +130,7 @@ export class SbbDatepickerToggle extends LitElement {
       },
     );
     this._datePickerElement?.addEventListener(
-      'date-picker-updated',
+      'datePickerUpdated',
       (event: Event) =>
         this._configureCalendar(this._calendarElement, event.target as SbbDatepicker),
       { signal: this._datePickerController.signal },

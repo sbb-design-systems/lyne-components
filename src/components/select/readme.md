@@ -71,7 +71,7 @@ the selected values will be displayed in selection order, separated by a comma.
 
 Consumers can listen to the native `change`/`input` event on the `sbb-select` component to intercept the selection's change;
 the current value can be read from `event.target.value`.
-Additionally `sbb-option` will emit `option-selected` when selected via user interaction.
+Additionally `sbb-option` will emit `optionSelected` when selected via user interaction.
 
 ## Keyboard interaction
 
