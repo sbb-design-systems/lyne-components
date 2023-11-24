@@ -4,7 +4,12 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbFocusHandler, IS_FOCUSABLE_QUERY, setModalityOnNextFocus } from '../core/a11y';
+import {
+  SbbFocusHandler,
+  IS_FOCUSABLE_QUERY,
+  setModalityOnNextFocus,
+  sbbInputModalityDetector,
+} from '../core/a11y';
 import { SbbLanguageController, SbbSlotStateController } from '../core/controllers';
 import { hostContext, isValidAttribute, SbbScrollHandler, setAttribute } from '../core/dom';
 import { EventEmitter } from '../core/eventing';
@@ -137,15 +142,17 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   );
 
   private _dialog!: HTMLDivElement;
-  private _dialogWrapperElement!: HTMLElement;
+  private _dialogHeaderElement!: HTMLElement;
   private _dialogContentElement!: HTMLElement;
   private _dialogCloseElement?: HTMLElement;
   private _dialogController!: AbortController;
-  private _windowEventsController!: AbortController;
+  private _openDialogController!: AbortController;
   private _focusHandler = new SbbFocusHandler();
   private _scrollHandler = new SbbScrollHandler();
   private _returnValue: any;
   private _isPointerDownEventOnDialog: boolean = false;
+  private _overflows: boolean;
+  private _lastScroll = 0;
   private _dialogId = `sbb-dialog-${nextId++}`;
 
   // Last element which had focus before the dialog was opened.
@@ -212,6 +219,42 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
     }
   }
 
+  private _onContentScroll(): void {
+    const hasVisibleHeader = this.dataset.hideHeader === undefined;
+    const dialogHeaderHeight = this._dialogHeaderElement.clientHeight;
+
+    // Check whether hiding the header would make the scrollbar disappear
+    // and prevent the hiding animation if so.
+    if (
+      hasVisibleHeader &&
+      this._dialogContentElement.clientHeight + dialogHeaderHeight >=
+        this._dialogContentElement.scrollHeight
+    ) {
+      return;
+    }
+
+    const currentScroll = this._dialogContentElement.scrollTop;
+    if (
+      Math.round(currentScroll + this._dialogContentElement.clientHeight) >=
+      this._dialogContentElement.scrollHeight
+    ) {
+      return;
+    }
+    // Check whether is scrolling down or up.
+    if (currentScroll > 0 && this._lastScroll < currentScroll) {
+      // Scrolling down
+      if (hasVisibleHeader) {
+        this.style.setProperty('--sbb-dialog-header-height', `${dialogHeaderHeight}px`);
+      }
+      toggleDatasetEntry(this, 'hideHeader', true);
+    } else {
+      // Scrolling up
+      toggleDatasetEntry(this, 'hideHeader', false);
+    }
+    // `currentScroll` can be negative, e.g. on mobile; this is not allowed.
+    this._lastScroll = currentScroll <= 0 ? 0 : currentScroll;
+  }
+
   public override connectedCallback(): void {
     super.connectedCallback();
     this._state = this._state || 'closed';
@@ -234,7 +277,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._dialogController?.abort();
-    this._windowEventsController?.abort();
+    this._openDialogController?.abort();
     this._focusHandler.disconnect();
     this._dialogContentResizeObserver.disconnect();
     this._removeInstanceFromGlobalCollection();
@@ -245,8 +288,8 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
     dialogRefs.splice(dialogRefs.indexOf(this as SbbDialogElement), 1);
   }
 
-  private _attachWindowEvents(): void {
-    this._windowEventsController = new AbortController();
+  private _attachOpenDialogEvents(): void {
+    this._openDialogController = new AbortController();
     // Remove dialog label as soon as it is not needed anymore to prevent accessing it with browse mode.
     window.addEventListener(
       'keydown',
@@ -255,12 +298,39 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
         await this._onKeydownEvent(event);
       },
       {
-        signal: this._windowEventsController.signal,
+        signal: this._openDialogController.signal,
       },
     );
     window.addEventListener('click', () => this._removeAriaLiveRefContent(), {
-      signal: this._windowEventsController.signal,
+      signal: this._openDialogController.signal,
     });
+    // If the content overflows, apply the header animation on scroll.
+    if (this._overflows) {
+      this._dialogContentElement?.addEventListener('scroll', () => this._onContentScroll(), {
+        passive: true,
+        signal: this._openDialogController.signal,
+      });
+      Array.from(this._dialogHeaderElement.querySelectorAll('sbb-button'))?.forEach((el) => {
+        el.addEventListener(
+          'focusin',
+          () => {
+            toggleDatasetEntry(
+              this._dialogHeaderElement,
+              'hasVisibleFocus',
+              sbbInputModalityDetector.mostRecentModality === 'keyboard',
+            );
+          },
+          { signal: this._openDialogController.signal },
+        );
+        el.addEventListener(
+          'blur',
+          () => {
+            toggleDatasetEntry(this._dialogHeaderElement, 'hasVisibleFocus', false);
+          },
+          { signal: this._openDialogController.signal },
+        );
+      });
+    }
   }
 
   // Check if the pointerdown event target is triggered on the dialog.
@@ -319,10 +389,11 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
       setTimeout(() => this._setAriaLiveRefContent());
       this._focusHandler.trap(this);
       this._dialogContentResizeObserver.observe(this._dialogContentElement);
-      this._attachWindowEvents();
+      this._attachOpenDialogEvents();
     } else if (event.animationName === 'close' && this._state === 'closing') {
+      toggleDatasetEntry(this, 'hideHeader', false);
+      this._dialogContentElement.scrollTo(0, 0);
       this._state = 'closed';
-      this._dialogWrapperElement.querySelector('.sbb-dialog__content')?.scrollTo(0, 0);
       removeInertMechanism();
       setModalityOnNextFocus(this._lastFocusedElement);
       // Manually focus last focused element
@@ -331,7 +402,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
         returnValue: this._returnValue,
         closeTarget: this._dialogCloseElement,
       });
-      this._windowEventsController?.abort();
+      this._openDialogController?.abort();
       this._focusHandler.disconnect();
       this._dialogContentResizeObserver.disconnect();
       this._removeInstanceFromGlobalCollection();
@@ -367,10 +438,12 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   }
 
   private _setOverflowAttribute(): void {
-    this.toggleAttribute(
-      'data-overflows',
-      this._dialogContentElement.scrollHeight > this._dialogContentElement.clientHeight,
-    );
+    this._overflows =
+      this._dialogContentElement.scrollHeight > this._dialogContentElement.clientHeight;
+    if (!this._overflows && this.dataset.hideHeader === '') {
+      this.toggleAttribute('data-hide-header', false);
+    }
+    this.toggleAttribute('data-overflows', this._overflows);
   }
 
   protected override render(): TemplateResult {
@@ -403,7 +476,10 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
     /* eslint-enable lit/binding-positions */
 
     const dialogHeader = html`
-      <div class="sbb-dialog__header">
+      <div
+        class="sbb-dialog__header"
+        ${ref((dialogHeaderrRef) => (this._dialogHeaderElement = dialogHeaderrRef as HTMLElement))}
+      >
         ${this.titleBackButton ? backButton : nothing}
         <sbb-title
           class="sbb-dialog__title"
@@ -431,10 +507,6 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
           <div
             @click=${(event: Event) => this._closeOnSbbDialogCloseClick(event)}
             class="sbb-dialog__wrapper"
-            ${ref(
-              (dialogWrapperRef?: Element) =>
-                (this._dialogWrapperElement = dialogWrapperRef as HTMLElement),
-            )}
           >
             ${dialogHeader}
             <div
