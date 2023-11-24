@@ -57,6 +57,7 @@
     "@commitlint/config-conventional": "18.4.3",
     "@custom-elements-manifest/analyzer": "0.9.0",
     "@custom-elements-manifest/to-markdown": "0.1.0",
+    "@lit-labs/testing": "0.2.3",
     "@lit/react": "^1.0.1",
     "@open-wc/lit-helpers": "0.6.0",
     "@open-wc/testing": "4.0.0",

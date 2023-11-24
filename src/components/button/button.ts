@@ -3,6 +3,7 @@ import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
+import { SlotChildObserver } from '../core/common-behaviors';
 import {
   ACTION_ELEMENTS,
   hostContext,
@@ -13,11 +14,9 @@ import {
 } from '../core/dom';
 import {
   actionElementHandlerAspect,
-  createNamedSlotState,
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
-  namedSlotChangeHandlerAspect,
 } from '../core/eventing';
 import { i18nTargetOpensInNewWindow } from '../core/i18n';
 import {
@@ -41,7 +40,10 @@ export type SbbButtonSize = 'l' | 'm';
  * @slot icon - Slot used to display the icon, if one is set
  */
 @customElement('sbb-button')
-export class SbbButton extends LitElement implements LinkButtonProperties, IsStaticProperty {
+export class SbbButton
+  extends SlotChildObserver(LitElement)
+  implements LinkButtonProperties, IsStaticProperty
+{
   public static override styles: CSSResultGroup = style;
 
   /** Variant of the button, like primary, secondary etc. */
@@ -97,10 +99,9 @@ export class SbbButton extends LitElement implements LinkButtonProperties, IsSta
   /** The <form> element to associate the button with. */
   @property() public form?: string;
 
-  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @state() private _namedSlots = createNamedSlotState('icon');
-
   @state() private _hasText = false;
+
+  @state() private _hasSlottedIcon = false;
 
   @state() private _currentLanguage = documentLanguage();
 
@@ -108,16 +109,13 @@ export class SbbButton extends LitElement implements LinkButtonProperties, IsSta
     this,
     actionElementHandlerAspect,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
   public override connectedCallback(): void {
     super.connectedCallback();
     // Check if the current element is nested in an action element.
     this.isStatic = this.isStatic || !!hostContext(ACTION_ELEMENTS, this);
-    this._hasText = Array.from(this.childNodes ?? []).some(
-      (n) => !(n as Element).slot && n.textContent?.trim(),
-    );
+    this._hasText = this.slotHasContent();
     this._handlerRepository.connect();
 
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
@@ -132,10 +130,9 @@ export class SbbButton extends LitElement implements LinkButtonProperties, IsSta
     this._handlerRepository.disconnect();
   }
 
-  private _onLabelSlotChange(event: Event): void {
-    this._hasText = (event.target as HTMLSlotElement)
-      .assignedNodes()
-      .some((n) => !!n.textContent?.trim());
+  protected override checkChildren(): void {
+    this._hasText = this.slotHasContent();
+    this._hasSlottedIcon = this.slotHasContent('icon');
   }
 
   protected override render(): TemplateResult {
@@ -148,7 +145,7 @@ export class SbbButton extends LitElement implements LinkButtonProperties, IsSta
     return html`
       <${unsafeStatic(TAG_NAME)} class="sbb-button" ${spread(attributes)}>
         ${
-          this.iconName || this._namedSlots.icon
+          this.iconName || this._hasSlottedIcon
             ? html`<span class="sbb-button__icon">
                 <slot name="icon">
                   ${this.iconName ? html`<sbb-icon name="${this.iconName}"></sbb-icon>` : nothing}
@@ -158,7 +155,7 @@ export class SbbButton extends LitElement implements LinkButtonProperties, IsSta
         }
 
         <span class="sbb-button__label">
-          <slot @slotchange=${this._onLabelSlotChange}></slot>
+          <slot></slot>
           ${
             targetsNewWindow(this)
               ? html`<span class="sbb-button__opens-in-new-window">

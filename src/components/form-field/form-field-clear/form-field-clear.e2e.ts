@@ -1,4 +1,5 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { csrFixture, ssrHydratedFixture, cleanupFixtures } from '@lit-labs/testing/fixtures.js';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
@@ -6,51 +7,59 @@ import { SbbFormField } from '../form-field';
 
 import { SbbFormFieldClear } from './form-field-clear';
 
-describe('sbb-form-field-clear', () => {
-  let element: SbbFormFieldClear;
-  let formField: SbbFormField;
-  let input: HTMLInputElement;
+const ssrModules = ['./form-field-clear.ts'];
+for (const fixture of [csrFixture, ssrHydratedFixture]) {
+  describe(`sbb-form-field-clear rendered with ${fixture.name}`, () => {
+    let element: SbbFormFieldClear;
+    let formField: SbbFormField;
+    let input: HTMLInputElement;
 
-  beforeEach(async () => {
-    formField = await fixture(
-      html` <sbb-form-field label="Label">
-        <input id="input" type="text" placeholder="Input placeholder" value="Input value" />
-        <sbb-form-field-clear></sbb-form-field-clear>
-      </sbb-form-field>`,
-    );
-    element = formField.querySelector('sbb-form-field-clear');
-    input = formField.querySelector('input');
+    beforeEach(async () => {
+      formField = await fixture(
+        html` <sbb-form-field label="Label">
+          <input id="input" type="text" placeholder="Input placeholder" value="Input value" />
+          <sbb-form-field-clear></sbb-form-field-clear>
+        </sbb-form-field>`,
+        { modules: ssrModules },
+      );
+      element = formField.querySelector('sbb-form-field-clear');
+      input = formField.querySelector('input');
+    });
+
+    afterEach(() => {
+      cleanupFixtures();
+    });
+
+    it('renders', async () => {
+      assert.instanceOf(element, SbbFormFieldClear);
+      assert.instanceOf(formField, SbbFormField);
+    });
+
+    it('clears the value and sets the focus on the input', async () => {
+      expect(input.value).to.be.equal('Input value');
+
+      await element.click();
+      await waitForLitRender(element);
+
+      expect(input.value).not.to.be.ok; // to be falsy
+      expect(document.activeElement.id).to.be.equal('input');
+      expect(element).to.have.style('display', 'none');
+    });
+
+    it('is hidden if the form field is disabled', async () => {
+      input.setAttribute('disabled', '');
+
+      await waitForLitRender(element);
+
+      expect(element).to.have.style('display', 'none');
+    });
+
+    it('is hidden if the form field is readonly', async () => {
+      input.setAttribute('readonly', '');
+
+      await waitForLitRender(element);
+
+      expect(element).to.have.style('display', 'none');
+    });
   });
-
-  it('renders', async () => {
-    assert.instanceOf(element, SbbFormFieldClear);
-    assert.instanceOf(formField, SbbFormField);
-  });
-
-  it('clears the value and sets the focus on the input', async () => {
-    expect(input.value).to.be.equal('Input value');
-
-    await element.click();
-    await waitForLitRender(element);
-
-    expect(input.value).not.to.be.ok; // to be falsy
-    expect(document.activeElement.id).to.be.equal('input');
-    expect(element).to.have.style('display', 'none');
-  });
-
-  it('is hidden if the form field is disabled', async () => {
-    input.setAttribute('disabled', '');
-
-    await waitForLitRender(element);
-
-    expect(element).to.have.style('display', 'none');
-  });
-
-  it('is hidden if the form field is readonly', async () => {
-    input.setAttribute('readonly', '');
-
-    await waitForLitRender(element);
-
-    expect(element).to.have.style('display', 'none');
-  });
-});
+}

@@ -1,4 +1,5 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { csrFixture, ssrHydratedFixture, cleanupFixtures } from '@lit-labs/testing/fixtures.js';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../core/testing';
@@ -8,54 +9,66 @@ import { SbbSkiplinkList } from './skiplink-list';
 
 import '../link';
 
-describe('sbb-skiplink-list', () => {
-  let element: SbbSkiplinkList;
+const ssrModules = ['./skiplink-list.ts'];
+for (const fixture of [csrFixture, ssrHydratedFixture]) {
+  describe(`sbb-skiplink-list rendered with ${fixture.name}`, () => {
+    let element: SbbSkiplinkList;
 
-  beforeEach(async () => {
-    element = await fixture(html`
-      <sbb-skiplink-list>
-        <sbb-link href="#" id="link-1">Link 1</sbb-link>
-        <sbb-link href="#" id="link-2">Link 2</sbb-link>
-        <sbb-link href="#" id="link-3">Link 3</sbb-link>
-      </sbb-skiplink-list>
-      <button id="button">Focus me</button>
-    `);
-  });
+    beforeEach(async () => {
+      element = await fixture(
+        html`
+          <sbb-skiplink-list>
+            <sbb-link href="#" id="link-1">Link 1</sbb-link>
+            <sbb-link href="#" id="link-2">Link 2</sbb-link>
+            <sbb-link href="#" id="link-3">Link 3</sbb-link>
+          </sbb-skiplink-list>
+          <button id="button">Focus me</button>
+        `,
+        { modules: ssrModules },
+      );
+    });
 
-  it('renders', async () => {
-    assert.instanceOf(element, SbbSkiplinkList);
-  });
+    afterEach(() => {
+      cleanupFixtures();
+    });
 
-  it('should be visible on focus', async () => {
-    const listItemLinks = element.shadowRoot.querySelectorAll('li');
-    expect(listItemLinks.length).to.be.equal(3);
+    it('renders', async () => {
+      assert.instanceOf(element, SbbSkiplinkList);
+    });
 
-    expect(listItemLinks[0]).to.have.style('height', '0px');
-    expect(listItemLinks[0]).to.have.style('overflow', 'hidden');
+    it('should be visible on focus', async () => {
+      const listItemLinks = element.shadowRoot.querySelectorAll('li');
+      expect(listItemLinks.length).to.be.equal(3);
 
-    const firstLink: SbbLink = element.querySelector('#sbb-skiplink-list-link-0');
-    firstLink.focus();
-    expect(listItemLinks[0]).not.to.have.style('height', '0px');
-    expect(listItemLinks[0]).to.have.style('overflow', 'visible');
+      expect(listItemLinks[0]).to.have.style('height', '0px');
+      expect(listItemLinks[0]).to.have.style('overflow', 'hidden');
 
-    const secondLink: SbbLink = element.querySelector('#sbb-skiplink-list-link-1');
-    secondLink.focus();
-    expect(listItemLinks[0]).to.have.style('height', '0px');
-    expect(listItemLinks[0]).to.have.style('overflow', 'hidden');
-    expect(listItemLinks[1]).not.to.have.style('height', '0px');
-    expect(listItemLinks[1]).to.have.style('overflow', 'visible');
-  });
+      const firstLink: SbbLink = element.querySelector('#sbb-skiplink-list-link-0');
+      firstLink.focus();
+      expect(listItemLinks[0]).not.to.have.style('height', '0px');
+      expect(listItemLinks[0]).to.have.style('overflow', 'visible');
 
-  it('should detected later added links', async () => {
-    element = await fixture(html`<sbb-skiplink-list></sbb-skiplink-list>`);
+      const secondLink: SbbLink = element.querySelector('#sbb-skiplink-list-link-1');
+      secondLink.focus();
+      expect(listItemLinks[0]).to.have.style('height', '0px');
+      expect(listItemLinks[0]).to.have.style('overflow', 'hidden');
+      expect(listItemLinks[1]).not.to.have.style('height', '0px');
+      expect(listItemLinks[1]).to.have.style('overflow', 'visible');
+    });
 
-    element.innerHTML = `
+    it('should detected later added links', async () => {
+      element = await fixture(html`<sbb-skiplink-list></sbb-skiplink-list>`, {
+        modules: ssrModules,
+      });
+
+      element.innerHTML = `
         <sbb-link href='1'>Link 1</sbb-link>
         <sbb-link href='2'>Link 2</sbb-link>`;
 
-    await waitForLitRender(element);
+      await waitForLitRender(element);
 
-    expect(element.querySelector('sbb-link')).to.have.attribute('id');
-    expect(element.querySelector('sbb-link')).to.have.attribute('slot');
+      expect(element.querySelector('sbb-link')).to.have.attribute('id');
+      expect(element.querySelector('sbb-link')).to.have.attribute('slot');
+    });
   });
-});
+}

@@ -1,10 +1,13 @@
+import { Worker } from 'worker_threads';
 import { defaultReporter, dotReporter, summaryReporter } from '@web/test-runner';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { puppeteerLauncher } from '@web/test-runner-puppeteer';
 import { existsSync } from 'fs';
+import * as glob from 'glob';
 import * as sass from 'sass';
-import { createServer } from 'vite';
+import { build, createServer } from 'vite';
 
+const root = new URL('.', import.meta.url);
 const isCIEnvironment = !!process.env.CI || process.argv.includes('--ci');
 const isDebugMode = process.argv.includes('--debug');
 
@@ -123,6 +126,9 @@ function minimalReporter() {
 // Reference: https://github.com/remcovaes/web-test-runner-vite-plugin
 function vitePlugin() {
   let viteServer;
+  let viteBuilder;
+  const litSsrPluginCommand = 'lit-ssr-render';
+  const dist = new URL('./dist/testout/', root);
 
   return {
     name: 'vite-plugin',
@@ -135,6 +141,27 @@ function vitePlugin() {
         '/__web-dev-server__web-socket.js',
       ];
 
+      const buildRoot = new URL('./src/components/', root);
+      // This is necessary until https://github.com/privatenumber/tsx/issues/354 is fixed
+      viteBuilder = await build({
+        mode: 'development',
+        logLevel: 'error',
+        root: buildRoot.pathname,
+        build: {
+          lib: {
+            entry: glob
+              .sync('*/**/*.ts', { cwd: buildRoot })
+              .filter((p) => ['e2e', 'spec', 'stories'].every((e) => !p.includes(`.${e}.`)))
+              .reduce(
+                (current, next) => Object.assign(current, { [next.replace(/.ts$/, '')]: next }),
+                {},
+              ),
+          },
+          outDir: dist.pathname,
+          sourcemap: 'inline',
+          watch: true,
+        },
+      });
       viteServer = await createServer({
         clearScreen: false,
         plugins: [
@@ -176,7 +203,42 @@ function vitePlugin() {
       });
     },
     async serverStop() {
+      //rmSync(dist, { recursive: true, force: true });
+      await viteBuilder.close();
       return await viteServer.close();
+    },
+    // Reference: https://github.com/lit/lit/blob/main/packages/labs/testing/src/lib/lit-ssr-plugin.ts
+    // This is necessary until https://github.com/privatenumber/tsx/issues/354 is fixed
+    async executeCommand({ command, payload }) {
+      if (command !== litSsrPluginCommand) {
+        return undefined;
+      }
+      if (!payload) {
+        throw new Error(`Missing payload for ${litSsrPluginCommand} command`);
+      }
+      const { template, modules } = payload;
+      const resolvedModules = modules.map((module) =>
+        new URL(`.${module.replace(/.ts$/, '.js')}`, import.meta.url).pathname.replace(
+          '/src/components/',
+          '/dist/testout/',
+        ),
+      );
+      let resolve;
+      let reject;
+      const promise = new Promise((res, rej) => {
+        resolve = res;
+        reject = rej;
+      });
+      const worker = new Worker(new URL('./config/lit-ssr-worker.js', import.meta.url), {
+        workerData: { template, modules: resolvedModules },
+      });
+      worker.on('error', (err) => {
+        reject(err);
+      });
+      worker.on('message', (message) => {
+        resolve(message);
+      });
+      return promise;
     },
   };
 }

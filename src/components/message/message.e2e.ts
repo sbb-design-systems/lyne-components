@@ -1,13 +1,21 @@
-import { assert, fixture } from '@open-wc/testing';
+import { csrFixture, ssrHydratedFixture, cleanupFixtures } from '@lit-labs/testing/fixtures.js';
+import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { SbbMessage } from './message';
 
-describe('sbb-message', () => {
-  let element: SbbMessage;
+const ssrModules = ['./message.ts'];
+for (const fixture of [csrFixture, ssrHydratedFixture]) {
+  describe(`sbb-message rendered with ${fixture.name}`, () => {
+    let element: SbbMessage;
 
-  it('renders', async () => {
-    element = await fixture(html`<sbb-message></sbb-message>`);
-    assert.instanceOf(element, SbbMessage);
+    afterEach(() => {
+      cleanupFixtures();
+    });
+
+    it('renders', async () => {
+      element = await fixture(html`<sbb-message></sbb-message>`, { modules: ssrModules });
+      assert.instanceOf(element, SbbMessage);
+    });
   });
-});
+}

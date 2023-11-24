@@ -1,13 +1,21 @@
-import { assert, fixture } from '@open-wc/testing';
+import { csrFixture, ssrHydratedFixture, cleanupFixtures } from '@lit-labs/testing/fixtures.js';
+import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { SbbFooter } from './footer';
 
-describe('sbb-footer', () => {
-  let element: SbbFooter;
+const ssrModules = ['./footer.ts'];
+for (const fixture of [csrFixture, ssrHydratedFixture]) {
+  describe(`sbb-footer rendered with ${fixture.name}`, () => {
+    let element: SbbFooter;
 
-  it('renders', async () => {
-    element = await fixture(html`<sbb-footer></sbb-footer>`);
-    assert.instanceOf(element, SbbFooter);
+    afterEach(() => {
+      cleanupFixtures();
+    });
+
+    it('renders', async () => {
+      element = await fixture(html`<sbb-footer></sbb-footer>`, { modules: ssrModules });
+      assert.instanceOf(element, SbbFooter);
+    });
   });
-});
+}

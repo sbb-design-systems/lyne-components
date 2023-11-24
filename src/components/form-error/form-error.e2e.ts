@@ -1,15 +1,23 @@
-import { assert, fixture } from '@open-wc/testing';
+import { csrFixture, ssrHydratedFixture, cleanupFixtures } from '@lit-labs/testing/fixtures.js';
+import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { SbbFormError } from './form-error';
 
-describe('sbb-form-error', () => {
-  let element: SbbFormError;
+const ssrModules = ['./form-error.ts'];
+for (const fixture of [csrFixture, ssrHydratedFixture]) {
+  describe(`sbb-form-error rendered with ${fixture.name}`, () => {
+    let element: SbbFormError;
 
-  it('renders', async () => {
-    await fixture(html`<sbb-form-error></sbb-form-error>`);
+    afterEach(() => {
+      cleanupFixtures();
+    });
 
-    element = document.querySelector('sbb-form-error');
-    assert.instanceOf(element, SbbFormError);
+    it('renders', async () => {
+      await fixture(html`<sbb-form-error></sbb-form-error>`, { modules: ssrModules });
+
+      element = document.querySelector('sbb-form-error');
+      assert.instanceOf(element, SbbFormError);
+    });
   });
-});
+}

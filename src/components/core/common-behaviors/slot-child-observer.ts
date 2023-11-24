@@ -5,8 +5,14 @@ import { ConnectedAbortController } from '../eventing';
 import { Constructor } from './constructor';
 
 // Define the interface for the mixin
-export declare class SlotChildObserverType {
-  protected checkChildren(): void;
+export declare abstract class SlotChildObserverType {
+  /**
+   * Checks if the given slot has text content or elements assigned to it.
+   * @param name The name of the slot or unnamed slot, if omitted.
+   * @returns True, if the given slot has content.
+   */
+  protected slotHasContent(name?: string): boolean;
+  protected abstract checkChildren(): void;
 }
 
 /**
@@ -54,6 +60,16 @@ export const SlotChildObserver = <T extends Constructor<LitElement>>(
 
     protected checkChildren(): void {
       // Needs to be implemented by inherited classes
+    }
+
+    protected slotHasContent(name?: string): boolean {
+      if (!name) {
+        return Array.from(this.childNodes ?? []).some(
+          (n) => !(n as Element).slot && n.textContent?.trim(),
+        );
+      } else {
+        return Array.from(this.children ?? []).some((e) => e.slot === name);
+      }
     }
 
     protected override firstUpdated(changedProperties: PropertyValues): void {
