@@ -86,7 +86,7 @@ const notification = (args: Args): TemplateResult => html`
     ${ref(
       (notification?: Element) =>
         (notification as SbbNotification)?.addEventListener(
-          'didOpen',
+          SbbNotification.events.didOpen,
           () => ((notification as SbbNotification).disableAnimation = args['disable-animation']),
           { once: true },
         ),
@@ -126,7 +126,7 @@ const SlottedTitleTemplate = (args: Args): TemplateResult => html`
       ${ref(
         (notification?: Element) =>
           (notification as SbbNotification)?.addEventListener(
-            'didOpen',
+            SbbNotification.events.didOpen,
             () => ((notification as SbbNotification).disableAnimation = args['disable-animation']),
             { once: true },
           ),
