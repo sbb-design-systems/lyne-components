@@ -5,9 +5,15 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-container-some-color-var: var(--color-black-default);
+  --sbb-sticky-bar-bg-color: var(--sbb-color-white-default);
 }
 
 .sbb-container {
-  color: var(--sbb-container-some-color-var);
+  :host(:not([expanded])) & {
+    @include sbb.page-spacing;
+  }
+
+  :host([expanded]) & {
+    @include sbb.page-spacing-expanded;
+  }
 }

@@ -1,47 +1,19 @@
-import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-
-import { ConnectedAbortController, EventEmitter } from '../core/eventing';
+import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
+import { customElement } from 'lit/decorators.js';
 
 import style from './sticky-bar.scss?lit&inline';
 
 /**
- * Describe the purpose of the component with a single short sentence.
+ * A container that sticks to the bottom of the page if slotted into `sbb-container`.
  *
- * @slot - Use the unnamed slot to add `sbb-TODO` elements.
- * @event {CustomEvent<any>} my-event-name - TODO: Document this event
+ * @slot - Use the unnamed slot to add content to the sticky bar.
  */
 @customElement('sbb-sticky-bar')
 export class SbbStickyBar extends LitElement {
   public static override styles: CSSResultGroup = style;
-  public static readonly events: Record<string, string> = {
-    myEventName: 'my-event-name',
-  } as const;
-
-  /** myProp documentation */
-  @property({ attribute: 'my-prop', reflect: true }) public myProp: string;
-
-  /** _myState documentation */
-  @state() private _myState = false;
-
-  private _abort = new ConnectedAbortController(this);
-  private _myEvent: EventEmitter<any> = new EventEmitter(this, SbbStickyBar.events.myEventName);
-
-  private _onClickFn(): void {
-    this._myEvent.emit();
-  }
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener('click', () => this._onClickFn(), { signal });
-    // do stuff
-  }
-
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    if (changedProperties.has('myProp')) {
-      // do stuff
-    }
   }
 
   public override disconnectedCallback(): void {
@@ -52,7 +24,7 @@ export class SbbStickyBar extends LitElement {
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-sticky-bar">
-        ${this._myState ? html`<slot></slot>` : nothing} ${this.myProp}
+        <slot></slot>
       </div>
     `;
   }

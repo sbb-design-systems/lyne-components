@@ -5,9 +5,28 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-sticky-bar-some-color-var: var(--color-black-default);
+  display: contents;
 }
 
 .sbb-sticky-bar {
-  color: var(--sbb-sticky-bar-some-color-var);
+  position: sticky;
+  display: flex;
+  width: 100%;
+  bottom: 0;
+  background-color: var(--sbb-sticky-bar-bg-color);
+  padding-block: var(--sbb-spacing-responsive-xxxs);
+}
+
+.sbb-sticky-bar::before {
+  @include sbb.shadow-level-5-hard;
+
+  position: absolute;
+  display: inline-block;
+  content: '';
+  height: 100%;
+  width: 100vw;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--sbb-color-white-default);
 }
