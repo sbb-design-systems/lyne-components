@@ -5,7 +5,6 @@ import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import { html, TemplateResult } from 'lit';
-import { ref } from 'lit/directives/ref.js';
 
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
 import { sbbSpread } from '../../core/dom';
@@ -136,10 +135,10 @@ const actionLabels = (num: number): TemplateResult[] => {
   return labels;
 };
 
-const onNavigationClose = (dialog: SbbNavigation): void => {
-  dialog?.addEventListener('did-close', () => {
-    (document.getElementById('nav-marker') as SbbNavigationMarker).reset();
-  });
+const onNavigationClose = (event: CustomEvent): void => {
+  (
+    (event.currentTarget as SbbNavigation).querySelector('#nav-marker') as SbbNavigationMarker
+  ).reset();
 };
 
 const DefaultTemplate = (args: Args): TemplateResult => html`
@@ -148,7 +147,7 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
     data-testid="navigation"
     id="navigation"
     trigger="navigation-trigger-1"
-    ${ref((dialog?: Element) => onNavigationClose(dialog as SbbNavigation))}
+    @didClose=${onNavigationClose}
     ${sbbSpread(args)}
   >
     <sbb-navigation-marker id="nav-marker">${navigationActionsL()}</sbb-navigation-marker>
@@ -175,7 +174,7 @@ const WithNavigationSectionTemplate = (args: Args): TemplateResult => html`
     data-testid="navigation"
     id="navigation"
     trigger="navigation-trigger-1"
-    ${ref((dialog?: Element) => onNavigationClose(dialog as SbbNavigation))}
+    @didClose=${onNavigationClose}
     ${sbbSpread(args)}
   >
     <sbb-navigation-marker id="nav-marker">${navigationActionsL()}</sbb-navigation-marker>

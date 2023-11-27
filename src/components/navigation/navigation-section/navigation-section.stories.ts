@@ -4,7 +4,6 @@ import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import { html, TemplateResult } from 'lit';
-import { ref } from 'lit/directives/ref.js';
 
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
 import { sbbSpread } from '../../core/dom';
@@ -92,12 +91,6 @@ const navigationList = (label: string): TemplateResult => html`
   </sbb-navigation-list>
 `;
 
-const onNavigationClose = (dialog: SbbNavigation): void => {
-  dialog?.addEventListener('did-close', () => {
-    (document.getElementById('nav-marker') as SbbNavigationMarker).reset();
-  });
-};
-
 const DefaultTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('navigation-trigger-1')}
   <sbb-navigation
@@ -105,7 +98,10 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
     id="navigation"
     trigger="navigation-trigger-1"
     ?disable-animation=${args['disable-animation']}
-    ${ref((dialog?: Element) => onNavigationClose(dialog as SbbNavigation))}
+    @didClose=${(event: CustomEvent) =>
+      (
+        (event.currentTarget as SbbNavigation).querySelector('#nav-marker') as SbbNavigationMarker
+      ).reset()}
   >
     <sbb-navigation-marker id="nav-marker">${navigationActionsL()}</sbb-navigation-marker>
 
