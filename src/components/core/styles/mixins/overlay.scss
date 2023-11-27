@@ -109,7 +109,7 @@
 }
 
 // Used to create the "wrapping" effect around the anchor for overlays (es. autocomplete/select)
-// Works in conjunction with the 'overlayGapFixCorners()' function in 'overlay.tsx'
+// Works in conjunction with the 'overlayGapFixCorners()' function in 'overlay.ts'
 @mixin overlay-gap-fix(
   $radius: var(--sbb-options-panel-border-radius),
   $color: var(--sbb-options-panel-background-color)

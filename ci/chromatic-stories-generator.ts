@@ -6,7 +6,7 @@ import ts from 'typescript';
 
 const chromaticFile = join(
   dirname(fileURLToPath(import.meta.url)),
-  '../src/storybook/testing/chromatic.tsx',
+  '../src/storybook/testing/chromatic.ts',
 );
 
 function walk(root: string, filter: RegExp): string[] {
@@ -71,14 +71,16 @@ async function generateChromaticStory(
   }
 
   const targetStoryFile = storyFile.replace(/(\.stories\.[^.]+)$/, (_m, m) => `.chromatic${m}`);
-  const relativeImport = basename(storyFile).replace(/\.(jsx|tsx)$/, '');
-  const chromaticImport = relative(dirname(targetStoryFile), chromaticFile).replace(/\.tsx$/, '');
+  const relativeImport = basename(storyFile).replace(/\.(jsx|tsx|ts)$/, '');
+  const chromaticImport = relative(dirname(targetStoryFile), chromaticFile).replace(
+    /\.(tsx|ts)$/,
+    '',
+  );
 
   const chromaticConfig = Object.entries(chromaticParameters)
     .map(([key, value]) => `${key}: ${JSON.stringify(value)}, `)
     .join('');
-  const storyFileContent = `/** @jsx h */
-import type { Meta, StoryObj } from '@storybook/web-components';
+  const storyFileContent = `import type { Meta, StoryObj } from '@storybook/web-components';
 import config, * as stories from './${relativeImport}';
 import { combineStories } from '${chromaticImport}';
 
@@ -106,7 +108,7 @@ async function generateChromaticStories(): Promise<void> {
   console.log(`Generating chromatic story files:`);
   for (const storyFile of walk(
     join(dirname(fileURLToPath(import.meta.url)), '../src'),
-    /.stories.(jsx|tsx)$/,
+    /.stories.(jsx|tsx|ts)$/,
   )) {
     if (storyFile.includes('chromatic')) {
       continue;
