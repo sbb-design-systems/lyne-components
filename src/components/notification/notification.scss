@@ -96,7 +96,6 @@
   );
   visibility: var(--sbb-notification-visibility);
   opacity: var(--sbb-notification-opacity);
-  max-height: var(--sbb-notification-max-height);
   transition: var(--sbb-notification-transition);
   border: var(--sbb-notification-border);
   border-radius: var(--sbb-notification-border-radius);
@@ -206,12 +205,10 @@
   from {
     visibility: hidden;
     opacity: 0;
-    max-height: 0;
   }
 
   to {
     visibility: visible;
     opacity: 1;
-    max-height: var(--sbb-notification-max-height);
   }
 }
