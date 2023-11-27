@@ -128,7 +128,6 @@
   padding-inline: var(--sbb-notification-padding-inline);
   color: var(--sbb-notification-color);
   border-radius: var(--sbb-notification-border-radius);
-  overflow: hidden;
 
   // We apply SASS calculated background color as default/fallback for older browsers.
   background-color: var(--sbb-notification-type-color-sass);
