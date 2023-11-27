@@ -134,9 +134,6 @@ const meta: Meta = {
     withActions as Decorator,
   ],
   parameters: {
-    actions: {
-      handles: [],
-    },
     backgrounds: {
       disable: true,
     },
