@@ -1,11 +1,13 @@
-/** @jsx h */
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import { h, type JSX } from 'jsx-dom';
+import type { ArgTypes, Args, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import { TemplateResult, html } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 
-import { SbbContainer } from './container';
+import { sbbSpread } from '../core/dom';
+
 import readme from './readme.md?raw';
+import './sticky-bar';
 
 const myProp: InputType = {
   control: {
@@ -21,7 +23,8 @@ const defaultArgs: Args = {
   'my-prop': 'Label',
 };
 
-const Template = ({ ...args }): JSX.Element => <sbb-container {...args}></sbb-container>;
+const Template = ({ ...args }): TemplateResult =>
+  html`<sbb-sticky-bar ${sbbSpread({ ...args })}></sbb-sticky-bar>`;
 
 export const Default: StoryObj = {
   render: Template,
@@ -31,17 +34,11 @@ export const Default: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
-        <Story></Story>
-      </div>
-    ),
+    (story) => html` <div style=${styleMap({ padding: '2rem' })}>${story()}</div> `,
     withActions as Decorator,
   ],
   parameters: {
-    actions: {
-      handles: [SbbContainer.events.myEventName],
-    },
+    actions: {},
     backgrounds: {
       disable: true,
     },
@@ -49,7 +46,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-container',
+  title: 'components/sbb-sticky-bar',
 };
 
 export default meta;
