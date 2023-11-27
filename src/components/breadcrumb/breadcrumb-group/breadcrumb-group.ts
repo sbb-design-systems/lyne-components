@@ -157,7 +157,7 @@ export class SbbBreadcrumbGroup extends SlotChildObserver(LitElement) {
 
   /** Evaluate if the expanded breadcrumb element fits in page width, otherwise it needs ellipsis */
   private _evaluateCollapsedState(): void {
-    if (this && !this._state && this.scrollWidth > this.offsetWidth) {
+    if (!this._state && this.scrollWidth > this.offsetWidth) {
       this._state = 'collapsed';
       this._resizeObserver.disconnect();
     }

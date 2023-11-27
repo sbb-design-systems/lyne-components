@@ -7,21 +7,26 @@ import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 
+import '../../button';
 import './breadcrumb-group';
 import '../breadcrumb';
 
-const addBreadcrumb = (): void => {
-  const container = document.getElementById('container')!;
+const addBreadcrumb = (event: Event): void => {
+  const breadcrumbGroup = (event.target as HTMLElement)
+    .closest('.container')
+    .querySelector('sbb-breadcrumb-group');
   const breadcrumb = document.createElement('sbb-breadcrumb');
   breadcrumb.setAttribute('href', '/');
-  breadcrumb.textContent = 'Breadcrumb ' + container.children.length;
-  container.append(breadcrumb);
+  breadcrumb.textContent = 'Breadcrumb ' + breadcrumbGroup.children.length;
+  breadcrumbGroup.append(breadcrumb);
 };
 
-const removeBreadcrumb = (): void => {
-  const container = document.getElementById('container')!;
-  if (container.children.length > 1) {
-    container.removeChild(container.lastElementChild!);
+const removeBreadcrumb = (event: Event): void => {
+  const breadcrumbGroup = (event.target as HTMLElement)
+    .closest('.container')
+    .querySelector('sbb-breadcrumb-group');
+  if (breadcrumbGroup.children.length > 1) {
+    breadcrumbGroup.removeChild(breadcrumbGroup.lastElementChild!);
   }
 };
 
@@ -124,12 +129,18 @@ const createBreadcrumbs = ({ numberOfBreadcrumbs, text, ...args }): TemplateResu
 `;
 
 const Template = (args): TemplateResult => html`
-  <sbb-breadcrumb-group aria-label="You are here:" id="container">
-    ${createBreadcrumbs(args)}
-  </sbb-breadcrumb-group>
-  <div style=${styleMap({ 'margin-block': '2rem', gap: '1rem', display: 'flex' })}>
-    <button @click=${() => addBreadcrumb()}>Add</button>
-    <button @click=${() => removeBreadcrumb()}>Remove</button>
+  <div class="container">
+    <sbb-breadcrumb-group aria-label="You are here:">
+      ${createBreadcrumbs(args)}
+    </sbb-breadcrumb-group>
+    <div style=${styleMap({ 'margin-block': '2rem', gap: '1rem', display: 'flex' })}>
+      <sbb-button variant="secondary" @click=${(event: Event) => addBreadcrumb(event)}
+        >Add</sbb-button
+      >
+      <sbb-button variant="secondary" @click=${(event: Event) => removeBreadcrumb(event)}
+        >Remove</sbb-button
+      >
+    </div>
   </div>
 `;
 
