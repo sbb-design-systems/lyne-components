@@ -77,21 +77,15 @@ export class SbbAccordion extends LitElement {
 
   private _setChildrenParameters(): void {
     const expansionPanels = this._expansionPanels;
-    if (!expansionPanels) {
+    if (!expansionPanels || !(expansionPanels.length > 0)) {
       return;
     }
 
     expansionPanels.forEach((panel: SbbExpansionPanel) => {
       panel.titleLevel = this.titleLevel;
-
+      panel.disableAnimation = this.disableAnimation;
       toggleDatasetEntry(panel, 'accordionFirst', false);
       toggleDatasetEntry(panel, 'accordionLast', false);
-
-      if (this.disableAnimation) {
-        panel.setAttribute('disable-animation', 'true');
-      } else {
-        panel.removeAttribute('disable-animation');
-      }
     });
     toggleDatasetEntry(expansionPanels[0], 'accordionFirst', true);
     toggleDatasetEntry(expansionPanels[expansionPanels.length - 1], 'accordionLast', true);
@@ -100,7 +94,11 @@ export class SbbAccordion extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
-    this.addEventListener('willOpen', (e: CustomEvent) => this._closePanels(e), { signal });
+    this.addEventListener(
+      SbbExpansionPanel.events.willOpen,
+      (e: CustomEvent) => this._closePanels(e),
+      { signal },
+    );
   }
 
   protected override render(): TemplateResult {

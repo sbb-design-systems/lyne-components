@@ -78,7 +78,9 @@ export class SbbAlertGroup extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
-    this.addEventListener('dismissalRequested', (e) => this._removeAlert(e), { signal });
+    this.addEventListener(SbbAlert.events.dismissalRequested, (e) => this._removeAlert(e), {
+      signal,
+    });
   }
 
   private _slotChanged(event: Event): void {

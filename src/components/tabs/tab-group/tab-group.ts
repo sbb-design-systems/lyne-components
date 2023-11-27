@@ -50,7 +50,7 @@ let nextId = 0;
 export class SbbTabGroup extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    selectedTabChanged: 'didChange',
+    didChange: 'didChange',
   } as const;
 
   private _tabs: InterfaceSbbTabGroupTab[] = [];
@@ -99,7 +99,7 @@ export class SbbTabGroup extends LitElement {
    */
   private _selectedTabChanged: EventEmitter<void> = new EventEmitter(
     this,
-    SbbTabGroup.events.selectedTabChanged,
+    SbbTabGroup.events.didChange,
   );
 
   /**
