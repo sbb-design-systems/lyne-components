@@ -97,11 +97,11 @@ Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and
 
 ## Events
 
-| Name                  | Type                | Description                                                        | Inherited From |
-| --------------------- | ------------------- | ------------------------------------------------------------------ | -------------- |
-| `will-present`        | `CustomEvent<void>` | Emits when the fade in animation starts.                           |                |
-| `did-present`         | `CustomEvent<void>` | Emits when the fade in animation ends and the button is displayed. |                |
-| `dismissal-requested` | `CustomEvent<void>` | Emits when dismissal of an alert was requested.                    |                |
+| Name                 | Type                | Description                                                        | Inherited From |
+| -------------------- | ------------------- | ------------------------------------------------------------------ | -------------- |
+| `willPresent`        | `CustomEvent<void>` | Emits when the fade in animation starts.                           |                |
+| `didPresent`         | `CustomEvent<void>` | Emits when the fade in animation ends and the button is displayed. |                |
+| `dismissalRequested` | `CustomEvent<void>` | Emits when dismissal of an alert was requested.                    |                |
 
 ## Slots
 

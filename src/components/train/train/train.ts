@@ -27,7 +27,7 @@ import '../../icon';
 export class SbbTrain extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    trainSlotChange: 'train-slot-change',
+    trainSlotChange: 'trainSlotChange',
   } as const;
 
   /** General label for "driving direction". */

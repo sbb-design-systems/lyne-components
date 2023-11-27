@@ -86,12 +86,12 @@ It's also possible to display the `sbb-selection-panel` without border by settin
 
 ## Events
 
-| Name         | Type                                        | Description                                                       | Inherited From |
-| ------------ | ------------------------------------------- | ----------------------------------------------------------------- | -------------- |
-| `will-open`  | `CustomEvent<void>`                         | Emits whenever the content section starts the opening transition. |                |
-| `did-open`   | `CustomEvent<void>`                         | Emits whenever the content section is opened.                     |                |
-| `will-close` | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the content section begins the closing transition. |                |
-| `did-close`  | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the content section is closed.                     |                |
+| Name        | Type                                        | Description                                                       | Inherited From |
+| ----------- | ------------------------------------------- | ----------------------------------------------------------------- | -------------- |
+| `willOpen`  | `CustomEvent<void>`                         | Emits whenever the content section starts the opening transition. |                |
+| `didOpen`   | `CustomEvent<void>`                         | Emits whenever the content section is opened.                     |                |
+| `willClose` | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the content section begins the closing transition. |                |
+| `didClose`  | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the content section is closed.                     |                |
 
 ## Slots
 

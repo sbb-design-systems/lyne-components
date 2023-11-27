@@ -59,7 +59,7 @@ describe('sbb-datepicker-next-day', () => {
 
       const nextButton: SbbDatepickerNextDay = doc.querySelector('sbb-datepicker-next-day');
       const inputUpdated: EventSpy<Event> = new EventSpy(
-        'input-updated',
+        'inputUpdated',
         document.querySelector('#parent'),
       );
       // there's no datepicker, so no event and the button is disabled due _datePickerElement not set
@@ -91,7 +91,7 @@ describe('sbb-datepicker-next-day', () => {
 
       const nextButton: SbbDatepickerNextDay = doc.querySelector('sbb-datepicker-next-day');
       const inputUpdated: EventSpy<Event> = new EventSpy(
-        'input-updated',
+        'inputUpdated',
         document.querySelector('#parent'),
       );
       // there's no datepicker, so no event and the button is disabled due _datePickerElement not set

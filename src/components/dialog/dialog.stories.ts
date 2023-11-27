@@ -4,7 +4,6 @@ import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import { html, TemplateResult } from 'lit';
-import { ref } from 'lit/directives/ref.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
@@ -130,17 +129,6 @@ const openDialog = (_event, id): void => {
   dialog.open();
 };
 
-const onFormDialogClose = (dialog): void => {
-  dialog?.addEventListener('will-close', (event) => {
-    if (event.detail) {
-      document.getElementById('returned-value-message')!.innerHTML =
-        `${event.detail.returnValue.message?.value}`;
-      document.getElementById('returned-value-animal')!.innerHTML =
-        `${event.detail.returnValue.animal?.value}`;
-    }
-  });
-};
-
 const triggerButton = (dialogId): TemplateResult => html`
   <sbb-button
     data-testid="dialog-trigger"
@@ -251,8 +239,15 @@ const FormTemplate = (args): TemplateResult => html`
   <sbb-dialog
     data-testid="dialog"
     id="my-dialog-4"
+    @willClose=${(event: CustomEvent) => {
+      if (event.detail) {
+        document.getElementById('returned-value-message')!.innerHTML =
+          `${event.detail.returnValue.message?.value}`;
+        document.getElementById('returned-value-animal')!.innerHTML =
+          `${event.detail.returnValue.animal?.value}`;
+      }
+    }}
     ${sbbSpread(args)}
-    ${ref((dialog) => onFormDialogClose(dialog))}
   >
     <div style=${styleMap({ 'margin-block-end': 'var(--sbb-spacing-fixed-4x)' })}>
       Submit the form below to close the dialog box using the

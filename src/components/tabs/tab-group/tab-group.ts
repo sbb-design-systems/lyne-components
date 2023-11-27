@@ -44,13 +44,13 @@ let nextId = 0;
  * This is not correct: `<span>Some text</span><p>Some other text</p>`
  * @slot tab-bar - When you provide the `sbb-tab-title` tag through the unnamed slot,
  * it will be automatically moved to this slot. You do not need to use it directly.
- * @event {CustomEvent<void>} did-change - Emits an event on selected tab change
+ * @event {CustomEvent<void>} didChange - Emits an event on selected tab change
  */
 @customElement('sbb-tab-group')
 export class SbbTabGroup extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    selectedTabChanged: 'did-change',
+    didChange: 'didChange',
   } as const;
 
   private _tabs: InterfaceSbbTabGroupTab[] = [];
@@ -99,7 +99,7 @@ export class SbbTabGroup extends LitElement {
    */
   private _selectedTabChanged: EventEmitter<void> = new EventEmitter(
     this,
-    SbbTabGroup.events.selectedTabChanged,
+    SbbTabGroup.events.didChange,
   );
 
   /**

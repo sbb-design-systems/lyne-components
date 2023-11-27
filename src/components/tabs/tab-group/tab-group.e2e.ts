@@ -56,7 +56,7 @@ describe('sbb-tab-group', () => {
 
     it('dispatches event on tab change', async () => {
       const tab = document.querySelector('sbb-tab-group > sbb-tab-title#sbb-tab-1') as SbbTabTitle;
-      const changeSpy = new EventSpy('did-change');
+      const changeSpy = new EventSpy(SbbTabGroup.events.didChange);
 
       tab.click();
       await waitForCondition(() => changeSpy.events.length === 1);

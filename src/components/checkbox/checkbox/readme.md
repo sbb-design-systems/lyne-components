@@ -85,9 +85,9 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 
 ## Events
 
-| Name         | Type                | Description                                                                      | Inherited From |
-| ------------ | ------------------- | -------------------------------------------------------------------------------- | -------------- |
-| `did-change` | `CustomEvent<void>` | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
+| Name        | Type                | Description                                                                      | Inherited From |
+| ----------- | ------------------- | -------------------------------------------------------------------------------- | -------------- |
+| `didChange` | `CustomEvent<void>` | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
 
 ## Slots
 

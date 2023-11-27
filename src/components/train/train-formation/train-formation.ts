@@ -54,8 +54,8 @@ export class SbbTrainFormation extends SlotChildObserver(LitElement) {
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
-    this.addEventListener('train-slot-change', (e) => this._readSectors(e), { signal });
-    this.addEventListener('sector-change', (e) => this._readSectors(e), { signal });
+    this.addEventListener('trainSlotChange', (e) => this._readSectors(e), { signal });
+    this.addEventListener('sectorChange', (e) => this._readSectors(e), { signal });
     this._handlerRepository.connect();
   }
 

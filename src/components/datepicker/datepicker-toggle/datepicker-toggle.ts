@@ -105,7 +105,7 @@ export class SbbDatepickerToggle extends LitElement {
       // If the component is attached to the DOM before the datepicker, it has to listen for the datepicker init,
       // assuming that the two components share the same parent element.
       this.parentElement.addEventListener(
-        'input-updated',
+        'inputUpdated',
         (e: Event) => this._init(e.target as SbbDatepicker),
         { once: true, signal: this._datePickerController.signal },
       );
@@ -113,7 +113,7 @@ export class SbbDatepickerToggle extends LitElement {
     }
 
     this._datePickerElement?.addEventListener(
-      'input-updated',
+      'inputUpdated',
       (event: CustomEvent<InputUpdateEvent>) => {
         this._datePickerElement = event.target as SbbDatepicker;
         this._disabled = event.detail.disabled || event.detail.readonly;
@@ -130,7 +130,7 @@ export class SbbDatepickerToggle extends LitElement {
       },
     );
     this._datePickerElement?.addEventListener(
-      'date-picker-updated',
+      'datePickerUpdated',
       (event: Event) =>
         this._configureCalendar(this._calendarElement, event.target as SbbDatepicker),
       { signal: this._datePickerController.signal },
@@ -201,8 +201,8 @@ export class SbbDatepickerToggle extends LitElement {
         ${ref((el: SbbTooltipTrigger) => (this._triggerElement = el))}
       ></sbb-tooltip-trigger>
       <sbb-tooltip
-        @will-open=${() => this._calendarElement.resetPosition()}
-        @did-open=${() => {
+        @willOpen=${() => this._calendarElement.resetPosition()}
+        @didOpen=${() => {
           sbbInputModalityDetector.mostRecentModality === 'keyboard' &&
             this._calendarElement.focus();
         }}
@@ -218,7 +218,7 @@ export class SbbDatepickerToggle extends LitElement {
           .max=${this._max}
           ?wide=${this._datePickerElement?.wide}
           .dateFilter=${this._datePickerElement?.dateFilter}
-          @date-selected=${(d: CustomEvent<Date>) => {
+          @dateSelected=${(d: CustomEvent<Date>) => {
             const newDate = new Date(d.detail);
             this._calendarElement.selectedDate = newDate;
             this._datePickerElement.setValueAsDate(newDate);

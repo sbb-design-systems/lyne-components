@@ -71,7 +71,7 @@ the selected values will be displayed in selection order, separated by a comma.
 
 Consumers can listen to the native `change`/`input` event on the `sbb-select` component to intercept the selection's change;
 the current value can be read from `event.target.value`.
-Additionally `sbb-option` will emit `option-selected` when selected via user interaction.
+Additionally `sbb-option` will emit `optionSelected` when selected via user interaction.
 
 ## Keyboard interaction
 
@@ -122,15 +122,15 @@ Opened panel:
 
 ## Events
 
-| Name         | Type                | Description                                                                      | Inherited From |
-| ------------ | ------------------- | -------------------------------------------------------------------------------- | -------------- |
-| `did-change` | `CustomEvent<void>` | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
-| `change`     | `CustomEvent<void>` | Notifies that the component's value has changed.                                 |                |
-| `input`      | `CustomEvent<void>` | Notifies that an option value has been selected.                                 |                |
-| `will-open`  | `CustomEvent<void>` | Emits whenever the `sbb-select` starts the opening transition.                   |                |
-| `did-open`   | `CustomEvent<void>` | Emits whenever the `sbb-select` is opened.                                       |                |
-| `will-close` | `CustomEvent<void>` | Emits whenever the `sbb-select` begins the closing transition.                   |                |
-| `did-close`  | `CustomEvent<void>` | Emits whenever the `sbb-select` is closed.                                       |                |
+| Name        | Type                | Description                                                                      | Inherited From |
+| ----------- | ------------------- | -------------------------------------------------------------------------------- | -------------- |
+| `didChange` | `CustomEvent<void>` | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
+| `change`    | `CustomEvent<void>` | Notifies that the component's value has changed.                                 |                |
+| `input`     | `CustomEvent<void>` | Notifies that an option value has been selected.                                 |                |
+| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-select` starts the opening transition.                   |                |
+| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-select` is opened.                                       |                |
+| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-select` begins the closing transition.                   |                |
+| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-select` is closed.                                       |                |
 
 ## Slots
 

@@ -32,26 +32,26 @@ export interface SelectChange {
  * It displays a panel with selectable options.
  *
  * @slot - Use the unnamed slot to add options.
- * @event {CustomEvent<void>} did-change - Deprecated. used for React. Will probably be removed once React 19 is available.
+ * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  * @event {CustomEvent<void>} change - Notifies that the component's value has changed.
  * @event {CustomEvent<void>} input - Notifies that an option value has been selected.
- * @event {CustomEvent<void>} will-open - Emits whenever the `sbb-select` starts the opening transition.
- * @event {CustomEvent<void>} did-open - Emits whenever the `sbb-select` is opened.
- * @event {CustomEvent<void>} will-close - Emits whenever the `sbb-select` begins the closing transition.
- * @event {CustomEvent<void>} did-close - Emits whenever the `sbb-select` is closed.
+ * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-select` starts the opening transition.
+ * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-select` is opened.
+ * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-select` begins the closing transition.
+ * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-select` is closed.
  */
 @customElement('sbb-select')
 export class SbbSelect extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    didChange: 'did-change',
+    didChange: 'didChange',
     change: 'change',
     input: 'input',
-    stateChange: 'state-change',
-    willOpen: 'will-open',
-    didOpen: 'did-open',
-    willClose: 'will-close',
-    didClose: 'did-close',
+    stateChange: 'stateChange',
+    willOpen: 'willOpen',
+    didOpen: 'didOpen',
+    willClose: 'willClose',
+    didClose: 'didClose',
   } as const;
 
   /** The value of the select component. If `multiple` is true, it's an array. */
@@ -244,7 +244,7 @@ export class SbbSelect extends LitElement {
       this._onValueChanged(this.value);
     }
 
-    this.addEventListener('option-selection-change', (e) => this._onOptionChanged(e), { signal });
+    this.addEventListener('optionSelectionChange', (e) => this._onOptionChanged(e), { signal });
     this.addEventListener(
       'click',
       (e) => {

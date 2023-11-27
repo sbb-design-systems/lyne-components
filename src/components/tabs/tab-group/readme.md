@@ -55,9 +55,9 @@ It's possible to set the first selected tab using the `initialSelectedIndex` pro
 
 ## Events
 
-| Name         | Type                | Description                           | Inherited From |
-| ------------ | ------------------- | ------------------------------------- | -------------- |
-| `did-change` | `CustomEvent<void>` | Emits an event on selected tab change |                |
+| Name        | Type                | Description                           | Inherited From |
+| ----------- | ------------------- | ------------------------------------- | -------------- |
+| `didChange` | `CustomEvent<void>` | Emits an event on selected tab change |                |
 
 ## Slots
 

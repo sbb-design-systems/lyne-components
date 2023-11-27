@@ -41,19 +41,19 @@ const tooltipsRef = new Set<SbbTooltip>();
  * It displays contextual information within a tooltip.
  *
  * @slot - Use the unnamed slot to add content into the tooltip.
- * @event {CustomEvent<void>} will-open - Emits whenever the `sbb-tooltip` starts the opening transition.
- * @event {CustomEvent<void>} did-open - Emits whenever the `sbb-tooltip` is opened.
- * @event {CustomEvent<{ closeTarget: HTMLElement }>} will-close - Emits whenever the `sbb-tooltip` begins the closing transition.
- * @event {CustomEvent<{ closeTarget: HTMLElement }>} did-close - Emits whenever the `sbb-tooltip` is closed.
+ * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-tooltip` starts the opening transition.
+ * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-tooltip` is opened.
+ * @event {CustomEvent<{ closeTarget: HTMLElement }>} willClose - Emits whenever the `sbb-tooltip` begins the closing transition.
+ * @event {CustomEvent<{ closeTarget: HTMLElement }>} didClose - Emits whenever the `sbb-tooltip` is closed.
  */
 @customElement('sbb-tooltip')
 export class SbbTooltip extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    willOpen: 'will-open',
-    didOpen: 'did-open',
-    willClose: 'will-close',
-    didClose: 'did-close',
+    willOpen: 'willOpen',
+    didOpen: 'didOpen',
+    willClose: 'willClose',
+    didClose: 'didClose',
   } as const;
 
   /**

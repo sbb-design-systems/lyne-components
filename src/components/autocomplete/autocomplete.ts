@@ -31,19 +31,19 @@ let nextId = 0;
  * Combined with a native input, it displays a panel with a list of available options.
  *
  * @slot - Use the unnamed slot to add `sbb-option` or `sbb-optgroup` elements to the `sbb-autocomplete`.
- * @event {CustomEvent<void>} will-open - Emits whenever the `sbb-autocomplete` starts the opening transition.
- * @event {CustomEvent<void>} did-open - Emits whenever the `sbb-autocomplete` is opened.
- * @event {CustomEvent<void>} will-close - Emits whenever the `sbb-autocomplete` begins the closing transition.
- * @event {CustomEvent<void>} did-close - Emits whenever the `sbb-autocomplete` is closed.
+ * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-autocomplete` starts the opening transition.
+ * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-autocomplete` is opened.
+ * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-autocomplete` begins the closing transition.
+ * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-autocomplete` is closed.
  */
 @customElement('sbb-autocomplete')
 export class SbbAutocomplete extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    willOpen: 'will-open',
-    didOpen: 'did-open',
-    willClose: 'will-close',
-    didClose: 'did-close',
+    willOpen: 'willOpen',
+    didOpen: 'didOpen',
+    willClose: 'willClose',
+    didClose: 'didClose',
   } as const;
 
   /**
@@ -202,11 +202,9 @@ export class SbbAutocomplete extends LitElement {
     }
     this._syncNegative();
 
-    this.addEventListener(
-      'option-selection-change',
-      (e: CustomEvent) => this._onOptionSelected(e),
-      { signal },
-    );
+    this.addEventListener('optionSelectionChange', (e: CustomEvent) => this._onOptionSelected(e), {
+      signal,
+    });
     this.addEventListener('click', (e) => this._onOptionClick(e), { signal });
   }
 

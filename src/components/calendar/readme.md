@@ -80,6 +80,6 @@ This is helpful if you need a specific state of the component.
 
 ## Events
 
-| Name            | Type                | Description                      | Inherited From |
-| --------------- | ------------------- | -------------------------------- | -------------- |
-| `date-selected` | `CustomEvent<Date>` | Event emitted on date selection. |                |
+| Name           | Type                | Description                      | Inherited From |
+| -------------- | ------------------- | -------------------------------- | -------------- |
+| `dateSelected` | `CustomEvent<Date>` | Event emitted on date selection. |                |

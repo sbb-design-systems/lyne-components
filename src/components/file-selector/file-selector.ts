@@ -30,13 +30,13 @@ export type DOMEvent = globalThis.Event;
  * It allows to select one or more file from storage devices and display them.
  *
  * @slot error - Use this to provide a `sbb-form-error` to show an error message.
- * @event {CustomEvent<File[]>} file-changed - An event which is emitted each time the file list changes.
+ * @event {CustomEvent<File[]>} fileChanged - An event which is emitted each time the file list changes.
  */
 @customElement('sbb-file-selector')
 export class SbbFileSelector extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    fileChangedEvent: 'file-changed',
+    fileChangedEvent: 'fileChanged',
   } as const;
 
   /** Whether the component has a dropzone area or not. */

@@ -21,13 +21,13 @@ import '../../icon';
  *
  * @slot - Use the unnamed slot to add content to the `sbb-expansion-panel-header`.
  * @slot icon - Slot used to render the `sbb-expansion-panel-header` icon.
- * @event {CustomEvent<void>} toggle-expanded - Notifies that the `sbb-expansion-panel` has to expand.
+ * @event {CustomEvent<void>} toggleExpanded - Notifies that the `sbb-expansion-panel` has to expand.
  */
 @customElement('sbb-expansion-panel-header')
 export class SbbExpansionPanelHeader extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    toggleExpanded: 'toggle-expanded',
+    toggleExpanded: 'toggleExpanded',
   } as const;
 
   /**

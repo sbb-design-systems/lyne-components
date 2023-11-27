@@ -46,8 +46,8 @@ const radioButtonObserverConfig: MutationObserverInit = {
 export class SbbRadioButton extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    stateChange: 'state-change',
-    radioButtonLoaded: 'radio-button-loaded',
+    stateChange: 'stateChange',
+    radioButtonLoaded: 'radioButtonLoaded',
   } as const;
 
   /**

@@ -146,8 +146,8 @@ export class SbbFormField extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
-    this.addEventListener('will-open', (e) => this._onPopupOpen(e), { signal });
-    this.addEventListener('did-close', (e) => this._onPopupClose(e), { signal });
+    this.addEventListener('willOpen', (e) => this._onPopupOpen(e), { signal });
+    this.addEventListener('didClose', (e) => this._onPopupClose(e), { signal });
     this._handlerRepository.connect();
     this._registerInputListener();
     this._syncNegative();
@@ -319,7 +319,7 @@ export class SbbFormField extends LitElement {
     let inputFocusElement = this._input;
 
     if (this._input.tagName === 'SBB-SELECT') {
-      this._input.addEventListener('state-change', () => this._checkAndUpdateInputEmpty(), {
+      this._input.addEventListener('stateChange', () => this._checkAndUpdateInputEmpty(), {
         signal: this._inputAbortController.signal,
       });
 

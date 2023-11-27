@@ -124,7 +124,7 @@ export class SbbTagGroup extends SlotChildObserver(LitElement) {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener(
-      'state-change',
+      'stateChange',
       (e: CustomEvent<SbbTagStateChange>) => this._handleStateChange(e),
       {
         signal,

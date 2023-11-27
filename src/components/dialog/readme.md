@@ -68,7 +68,7 @@ The component can also be dismissed by clicking on the close button, clicking on
 or, if an element within the `sbb-dialog` has the `sbb-dialog-close` attribute, by clicking on it.
 
 You can also set the property `titleBackButton` to display the back button in the title section
-(or content section, if title is omitted) which will emit the event `request-back-action` when clicked.
+(or content section, if title is omitted) which will emit the event `requestBackAction` when clicked.
 
 ## Style
 
@@ -102,13 +102,13 @@ The default `z-index` of the component is set to `1000`; to specify a custom sta
 
 ## Events
 
-| Name                  | Type                | Description                                                    | Inherited From |
-| --------------------- | ------------------- | -------------------------------------------------------------- | -------------- |
-| `will-open`           | `CustomEvent<void>` | Emits whenever the `sbb-dialog` starts the opening transition. |                |
-| `did-open`            | `CustomEvent<void>` | Emits whenever the `sbb-dialog` is opened.                     |                |
-| `will-close`          | `CustomEvent<void>` | Emits whenever the `sbb-dialog` begins the closing transition. |                |
-| `did-close`           | `CustomEvent<void>` | Emits whenever the `sbb-dialog` is closed.                     |                |
-| `request-back-action` | `CustomEvent<void>` | Emits whenever the back button is clicked.                     |                |
+| Name                | Type                | Description                                                    | Inherited From |
+| ------------------- | ------------------- | -------------------------------------------------------------- | -------------- |
+| `willOpen`          | `CustomEvent<void>` | Emits whenever the `sbb-dialog` starts the opening transition. |                |
+| `didOpen`           | `CustomEvent<void>` | Emits whenever the `sbb-dialog` is opened.                     |                |
+| `willClose`         | `CustomEvent<void>` | Emits whenever the `sbb-dialog` begins the closing transition. |                |
+| `didClose`          | `CustomEvent<void>` | Emits whenever the `sbb-dialog` is closed.                     |                |
+| `requestBackAction` | `CustomEvent<void>` | Emits whenever the back button is clicked.                     |                |
 
 ## Slots
 

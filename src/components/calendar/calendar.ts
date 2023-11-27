@@ -81,13 +81,13 @@ export type CalendarView = 'day' | 'month' | 'year';
 /**
  * It displays a calendar which allows to choose a date.
  *
- * @event {CustomEvent<Date>} date-selected - Event emitted on date selection.
+ * @event {CustomEvent<Date>} dateSelected - Event emitted on date selection.
  */
 @customElement('sbb-calendar')
 export class SbbCalendar extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    dateSelected: 'date-selected',
+    dateSelected: 'dateSelected',
   } as const;
 
   /** If set to true, two months are displayed */

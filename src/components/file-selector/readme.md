@@ -61,7 +61,7 @@ The `error` named slot can be used to display an error message using the `sbb-fo
 
 ### Events
 
-Whenever the selection changes, a `file-changed` event is fired, whose `event.detail` property contains the list
+Whenever the selection changes, a `fileChanged` event is fired, whose `event.detail` property contains the list
 of currently selected files. The list can also be retrieved using the `getFiles()` method.
 
 ## Accessibility
@@ -101,9 +101,9 @@ It's suggested to have a different value for each variant, e.g.:
 
 ## Events
 
-| Name           | Type                  | Description                                                | Inherited From |
-| -------------- | --------------------- | ---------------------------------------------------------- | -------------- |
-| `file-changed` | `CustomEvent<File[]>` | An event which is emitted each time the file list changes. |                |
+| Name          | Type                  | Description                                                | Inherited From |
+| ------------- | --------------------- | ---------------------------------------------------------- | -------------- |
+| `fileChanged` | `CustomEvent<File[]>` | An event which is emitted each time the file list changes. |                |
 
 ## Slots
 

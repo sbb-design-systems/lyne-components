@@ -44,10 +44,10 @@ The component has two different sizes, `s` and `m` (default), which can be set u
 
 ## Events
 
-| Name         | Type                | Description                              | Inherited From |
-| ------------ | ------------------- | ---------------------------------------- | -------------- |
-| `did-change` | `CustomEvent<void>` | Emits whenever the toggle value changes. |                |
-| `change`     | `CustomEvent<void>` | Emits whenever the toggle value changes. |                |
+| Name        | Type                | Description                                                                      | Inherited From |
+| ----------- | ------------------- | -------------------------------------------------------------------------------- | -------------- |
+| `didChange` | `CustomEvent<void>` | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
+| `change`    | `CustomEvent<void>` | Emits whenever the toggle value changes.                                         |                |
 
 ## Slots
 

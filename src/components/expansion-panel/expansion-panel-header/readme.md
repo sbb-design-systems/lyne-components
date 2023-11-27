@@ -29,7 +29,7 @@ The component can be displayed in `disabled` state using the self-named property
 
 ## Events
 
-When the element is clicked, the `toggle-expanded` event is emitted.
+When the element is clicked, the `toggleExpanded` event is emitted.
 
 <!-- Auto Generated Below -->
 
@@ -42,9 +42,9 @@ When the element is clicked, the `toggle-expanded` event is emitted.
 
 ## Events
 
-| Name              | Type                | Description                                            | Inherited From |
-| ----------------- | ------------------- | ------------------------------------------------------ | -------------- |
-| `toggle-expanded` | `CustomEvent<void>` | Notifies that the `sbb-expansion-panel` has to expand. |                |
+| Name             | Type                | Description                                            | Inherited From |
+| ---------------- | ------------------- | ------------------------------------------------------ | -------------- |
+| `toggleExpanded` | `CustomEvent<void>` | Notifies that the `sbb-expansion-panel` has to expand. |                |
 
 ## Slots
 

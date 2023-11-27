@@ -19,13 +19,13 @@ import '../icon';
  *
  * @slot - Use the unnamed slot to add content to the toggle label.
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
- * @event {CustomEvent<void>} did-change - Deprecated. used for React. Will probably be removed once React 19 is available.
+ * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  */
 @customElement('sbb-toggle-check')
 export class SbbToggleCheck extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    didChange: 'did-change',
+    didChange: 'didChange',
   } as const;
 
   /** Whether the toggle-check is checked. */

@@ -66,7 +66,7 @@ The displayed `sbb-option` can be collected into groups using `sbb-optgroup` ele
 
 ## Events
 
-The `sbb-option` emits the `option-selected` event when selected via user interaction.
+The `sbb-option` emits the `optionSelected` event when selected via user interaction.
 
 ## Keyboard interaction
 
@@ -112,12 +112,12 @@ using `aria-activedescendant` to support navigation though the autocomplete opti
 
 ## Events
 
-| Name         | Type                | Description                                                          | Inherited From |
-| ------------ | ------------------- | -------------------------------------------------------------------- | -------------- |
-| `will-open`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` starts the opening transition. |                |
-| `did-open`   | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` is opened.                     |                |
-| `will-close` | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` begins the closing transition. |                |
-| `did-close`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` is closed.                     |                |
+| Name        | Type                | Description                                                          | Inherited From |
+| ----------- | ------------------- | -------------------------------------------------------------------- | -------------- |
+| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` starts the opening transition. |                |
+| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` is opened.                     |                |
+| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` begins the closing transition. |                |
+| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` is closed.                     |                |
 
 ## Slots
 

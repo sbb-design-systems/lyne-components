@@ -145,7 +145,7 @@ describe('sbb-datepicker', () => {
     });
 
     it('renders and emits event when input parameter changes', async () => {
-      const datePickerUpdatedSpy = new EventSpy('date-picker-updated');
+      const datePickerUpdatedSpy = new EventSpy('datePickerUpdated');
       element.wide = true;
       await waitForCondition(() => datePickerUpdatedSpy.events.length === 1);
       expect(datePickerUpdatedSpy.count).to.be.equal(1);
@@ -184,7 +184,7 @@ describe('sbb-datepicker', () => {
     });
 
     it('should emit validation change event', async () => {
-      let validationChangeSpy = new EventSpy('validation-change', element);
+      let validationChangeSpy = new EventSpy('validationChange', element);
 
       // When entering 99
       input.focus();
@@ -207,7 +207,7 @@ describe('sbb-datepicker', () => {
       expect(input).to.have.attribute('data-sbb-invalid');
 
       // Reset event spy
-      validationChangeSpy = new EventSpy('validation-change', element);
+      validationChangeSpy = new EventSpy('validationChange', element);
 
       // When adding missing parts of a valid date
       input.focus();

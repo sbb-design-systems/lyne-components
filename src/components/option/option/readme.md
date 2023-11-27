@@ -75,10 +75,10 @@ If the label slot contains only a **text node**, it is possible to search for te
 
 ## Events
 
-| Name                      | Type                | Description                                     | Inherited From |
-| ------------------------- | ------------------- | ----------------------------------------------- | -------------- |
-| `option-selection-change` | `CustomEvent<void>` | Emits when the option selection status changes. |                |
-| `option-selected`         | `CustomEvent<void>` | Emits when an option was selected by user.      |                |
+| Name                    | Type                | Description                                     | Inherited From |
+| ----------------------- | ------------------- | ----------------------------------------------- | -------------- |
+| `optionSelectionChange` | `CustomEvent<void>` | Emits when the option selection status changes. |                |
+| `optionSelected`        | `CustomEvent<void>` | Emits when an option was selected by user.      |                |
 
 ## Slots
 

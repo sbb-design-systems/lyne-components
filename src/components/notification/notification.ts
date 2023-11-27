@@ -34,19 +34,19 @@ const notificationTypes = new Map([
  *
  * @slot - Use the unnamed slot to add content to the notification message.
  * @slot title - Use this to provide a notification title (optional).
- * @event {CustomEvent<void>} will-open - Emits whenever the `sbb-notification` starts the opening transition.
- * @event {CustomEvent<void>} did-open - Emits whenever the `sbb-notification` is opened.
- * @event {CustomEvent<void>} will-close - Emits whenever the `sbb-notification` begins the closing transition.
- * @event {CustomEvent<void>} did-close - Emits whenever the `sbb-notification` is closed.
+ * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-notification` starts the opening transition.
+ * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-notification` is opened.
+ * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-notification` begins the closing transition.
+ * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-notification` is closed.
  */
 @customElement('sbb-notification')
 export class SbbNotification extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    willOpen: 'will-open',
-    didOpen: 'did-open',
-    willClose: 'will-close',
-    didClose: 'did-close',
+    willOpen: 'willOpen',
+    didOpen: 'didOpen',
+    willClose: 'willClose',
+    didClose: 'didClose',
   } as const;
 
   /**

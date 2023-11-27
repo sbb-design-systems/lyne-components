@@ -43,19 +43,19 @@ let nextId = 0;
  * It displays a navigation menu, wrapping one or more `sbb-navigation-*` components.
  *
  * @slot - Use the unnamed slot to add `sbb-navigation-action` elements into the sbb-navigation menu.
- * @event {CustomEvent<void>} will-open - Emits whenever the `sbb-navigation` begins the opening transition.
- * @event {CustomEvent<void>} did-open - Emits whenever the `sbb-navigation` is opened.
- * @event {CustomEvent<void>} will-close - Emits whenever the `sbb-navigation` begins the closing transition.
- * @event {CustomEvent<void>} did-close - Emits whenever the `sbb-navigation` is closed.
+ * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-navigation` begins the opening transition.
+ * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-navigation` is opened.
+ * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-navigation` begins the closing transition.
+ * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-navigation` is closed.
  */
 @customElement('sbb-navigation')
 export class SbbNavigation extends UpdateScheduler(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    willOpen: 'will-open',
-    didOpen: 'did-open',
-    willClose: 'will-close',
-    didClose: 'did-close',
+    willOpen: 'willOpen',
+    didOpen: 'didOpen',
+    willClose: 'willClose',
+    didClose: 'didClose',
   } as const;
 
   /**

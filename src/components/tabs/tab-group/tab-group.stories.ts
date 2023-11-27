@@ -221,7 +221,7 @@ const meta: Meta = {
   ],
   parameters: {
     actions: {
-      handles: [SbbTabGroup.events.selectedTabChanged],
+      handles: [SbbTabGroup.events.didChange],
     },
     backgrounds: {
       disable: true,

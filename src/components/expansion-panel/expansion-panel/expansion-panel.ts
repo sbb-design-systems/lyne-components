@@ -17,19 +17,19 @@ let nextId = 0;
  * It displays an expandable summary-details widget.
  *
  * @slot - Use the unnamed slot to add a `sbb-expansion-panel-header` and a `sbb-expansion-panel-content` element.
- * @event {CustomEvent<void>} will-open - Emits whenever the `sbb-expansion-panel` starts the opening transition.
- * @event {CustomEvent<void>} did-open - Emits whenever the `sbb-expansion-panel` is opened.
- * @event {CustomEvent<void>} will-close - Emits whenever the `sbb-expansion-panel` begins the closing transition.
- * @event {CustomEvent<void>} did-close - Emits whenever the `sbb-expansion-panel` is closed.
+ * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-expansion-panel` starts the opening transition.
+ * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-expansion-panel` is opened.
+ * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-expansion-panel` begins the closing transition.
+ * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-expansion-panel` is closed.
  */
 @customElement('sbb-expansion-panel')
 export class SbbExpansionPanel extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    willOpen: 'will-open',
-    didOpen: 'did-open',
-    willClose: 'will-close',
-    didClose: 'did-close',
+    willOpen: 'willOpen',
+    didOpen: 'didOpen',
+    willClose: 'willClose',
+    didClose: 'didClose',
   } as const;
 
   /** Heading level; if unset, a `div` will be rendered. */
@@ -125,7 +125,7 @@ export class SbbExpansionPanel extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
-    this.addEventListener('toggle-expanded', () => this._toggleExpanded(), { signal });
+    this.addEventListener('toggleExpanded', () => this._toggleExpanded(), { signal });
     const accordion = this.closest?.('sbb-accordion');
     toggleDatasetEntry(this, 'accordion', !!accordion);
   }
