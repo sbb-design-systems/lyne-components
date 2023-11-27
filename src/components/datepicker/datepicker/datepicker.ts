@@ -238,7 +238,7 @@ export class SbbDatepickerElement extends LitElement {
     return this._inputElementState;
   }
 
-  private set _inputElement(value) {
+  private set _inputElement(value: HTMLInputElement) {
     const oldValue = this._inputElementState;
     this._inputElementState = value;
     this._registerInputElement(this._inputElementState, oldValue);
@@ -293,12 +293,12 @@ export class SbbDatepickerElement extends LitElement {
   }
 
   /** Gets the input value with the correct date format. */
-  public getValueAsDate(): Date {
+  public get valueAsDate(): Date | undefined {
     return this._parse(this._inputElement?.value);
   }
 
   /** Set the input value to the correctly formatted value. */
-  public setValueAsDate(date: SbbDateLike): void {
+  public set valueAsDate(date: SbbDateLike) {
     const parsedDate = date instanceof Date ? date : new Date(date);
     this._formatAndUpdateValue(this._inputElement.value, parsedDate);
     /* Emit blur event when value is changed programmatically to notify
@@ -330,8 +330,7 @@ export class SbbDatepickerElement extends LitElement {
   private _language = new LanguageController(this).withHandler(() => {
     if (this._inputElement) {
       this._inputElement.placeholder = i18nDatePickerPlaceholder[this._language.current];
-      const valueAsDate = this.getValueAsDate();
-      this._inputElement.value = this._format(valueAsDate);
+      this._inputElement.value = this._format(this.valueAsDate);
     }
   });
 

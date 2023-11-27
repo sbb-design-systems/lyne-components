@@ -81,15 +81,11 @@ export class SbbTimeInputElement extends LitElement {
     super.disconnectedCallback();
     this._abortController?.abort();
   }
-
-  /** Gets the input value with the correct date format. */
-  // TODO: refactor this to be a get/set
-  public getValueAsDate(): Date | null {
+  public get valueAsDate(): Date | null {
     return this._formatValueAsDate(this._parseInput(this._inputElement?.value));
   }
 
-  /** Set the input value to the correctly formatted value. */
-  public setValueAsDate(date: SbbDateLike): void {
+  public set valueAsDate(date: SbbDateLike) {
     if (!date || !this._inputElement) {
       return;
     }
