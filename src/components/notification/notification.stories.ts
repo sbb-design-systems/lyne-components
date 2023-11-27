@@ -181,11 +181,14 @@ export const SlottedTitle: StoryObj = {
   args: { ...basicArgs, 'title-content': undefined },
 };
 
+// We set the height of the div in Chromatic to avoid cropped snapshots
 const meta: Meta = {
   decorators: [
     (story, context) =>
       html`<div
-        style="padding: 2rem;display: flex;gap: var(--sbb-spacing-fixed-4x);flex-direction: column;"
+        style="padding: 2rem;display: flex;gap: var(--sbb-spacing-fixed-4x);flex-direction: column;${isChromatic()
+          ? 'height: 4000px'
+          : ''}"
       >
         ${trigger(context.args)}
         <div class="notification-container" style="display: flex; flex-direction: column;">
