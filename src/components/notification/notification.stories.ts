@@ -187,7 +187,7 @@ const meta: Meta = {
     (story, context) =>
       html`<div
         style="padding: 2rem;display: flex;gap: var(--sbb-spacing-fixed-4x);flex-direction: column;${isChromatic()
-          ? 'height: 4000px'
+          ? 'min-height: 1000px;'
           : ''}"
       >
         ${trigger(context.args)}
