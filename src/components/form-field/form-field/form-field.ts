@@ -2,7 +2,7 @@ import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValu
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { SbbInputModality, sbbInputModalityDetector } from '../../core/a11y';
-import { isFirefox, isValidAttribute, toggleDatasetEntry } from '../../core/dom';
+import { isBrowser, isFirefox, isValidAttribute, toggleDatasetEntry } from '../../core/dom';
 import {
   createNamedSlotState,
   documentLanguage,
@@ -154,7 +154,7 @@ export class SbbFormField extends LitElement {
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    if (changedProperties.has('label')) {
+    if (changedProperties.has('label') && isBrowser()) {
       this._renderLabel(this.label);
     }
     if (changedProperties.has('negative')) {
@@ -170,9 +170,9 @@ export class SbbFormField extends LitElement {
   }
 
   private _renderLabel(newValue: string): void {
-    let labelElement: HTMLLabelElement | undefined = Array.from(this.children)?.find(
-      (element) => element.tagName === 'LABEL',
-    ) as HTMLLabelElement | undefined;
+    let labelElement = Array.from(this.children).find((element) => element.tagName === 'LABEL') as
+      | HTMLLabelElement
+      | undefined;
     if (!newValue && labelElement?.dataset.creator === this.tagName) {
       labelElement.remove();
     } else if (

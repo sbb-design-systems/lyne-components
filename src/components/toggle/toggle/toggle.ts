@@ -76,8 +76,8 @@ export class SbbToggle extends LitElement {
     const options = this._options;
     const selectedOption =
       options.find((o) => o.value === value) ?? options.find((o) => o.checked) ?? options[0];
-    if (!selectedOption && isBrowser()) {
-      console.warn(`sbb-toggle: No available options! (${this.id || 'No id'})`);
+    if (!selectedOption) {
+      isBrowser() && console.warn(`sbb-toggle: No available options! (${this.id || 'No id'})`);
       return;
     }
     if (!selectedOption.checked) {
