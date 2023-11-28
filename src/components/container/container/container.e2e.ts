@@ -1,7 +1,7 @@
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbContainer } from './container';
+import { SbbContainer } from '.';
 
 describe('sbb-container', () => {
   let element: SbbContainer;
