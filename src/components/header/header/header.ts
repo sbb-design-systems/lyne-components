@@ -1,7 +1,7 @@
 import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { sbbInputModalityDetector, getFocusableElements } from '../../core/a11y';
+import { FocusHandler } from '../../core/a11y';
 import { findReferencedElement, isBrowser, toggleDatasetEntry } from '../../core/dom';
 
 import style from './header.scss?lit&inline';
@@ -47,6 +47,7 @@ export class SbbHeaderElement extends LitElement {
   private _scrollEventsController: AbortController;
   private _scrollFunction: () => void;
   private _lastScroll = 0;
+  private _focusHandler = new FocusHandler();
 
   private _updateScrollOrigin(
     newValue: string | HTMLElement | Document,
@@ -70,6 +71,7 @@ export class SbbHeaderElement extends LitElement {
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._scrollEventsController?.abort();
+    this._focusHandler.disconnect();
   }
 
   /** Sets the value of `_scrollElement` and `_scrollFunction` and possibly adds the function on the correct element. */
@@ -172,27 +174,8 @@ export class SbbHeaderElement extends LitElement {
   }
 
   private _addFocusableElementsListeners(): void {
-    // Determine whether the header has a visible focus within.
-    getFocusableElements(Array.from(this.children) as HTMLElement[])?.forEach((el) => {
-      el.addEventListener(
-        'focusin',
-        () => {
-          toggleDatasetEntry(
-            this,
-            'hasVisibleFocus',
-            sbbInputModalityDetector.mostRecentModality === 'keyboard',
-          );
-        },
-        // { signal: this._headerController.signal },
-      );
-      el.addEventListener(
-        'blur',
-        () => {
-          toggleDatasetEntry(this, 'hasVisibleFocus', false);
-        },
-        // { signal: this._headerController.signal },
-      );
-    });
+    this._focusHandler.disconnect();
+    this._focusHandler.setDataHasVisibleFocusWithin(this);
   }
 
   protected override render(): TemplateResult {

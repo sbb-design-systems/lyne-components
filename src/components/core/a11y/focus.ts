@@ -1,3 +1,6 @@
+import { toggleDatasetEntry } from '../dom';
+
+import { sbbInputModalityDetector } from './input-modality-detector';
 import { interactivityChecker } from './interactivity-checker';
 
 export const IS_FOCUSABLE_QUERY = [
@@ -64,7 +67,7 @@ export function getFirstFocusableElement(
   return focusableElements.length ? focusableElements[0] : null;
 }
 
-export class FocusTrap {
+export class FocusHandler {
   private _controller = new AbortController();
 
   public trap(element: HTMLElement, filterFunc?: (el: HTMLElement) => boolean): void {
@@ -97,6 +100,30 @@ export class FocusTrap {
       },
       { signal: this._controller.signal },
     );
+  }
+
+  public setDataHasVisibleFocusWithin(element: HTMLElement): void {
+    // Determine whether the element has a visible focus within.
+    getFocusableElements(Array.from(element.children) as HTMLElement[])?.forEach((el) => {
+      el.addEventListener(
+        'focusin',
+        () => {
+          toggleDatasetEntry(
+            element,
+            'hasVisibleFocusWithin',
+            sbbInputModalityDetector.mostRecentModality === 'keyboard',
+          );
+        },
+        { signal: this._controller.signal },
+      );
+      el.addEventListener(
+        'blur',
+        () => {
+          toggleDatasetEntry(element, 'hasVisibleFocusWithin', false);
+        },
+        { signal: this._controller.signal },
+      );
+    });
   }
 
   public disconnect(): void {

@@ -4,7 +4,7 @@ import { ref } from 'lit/directives/ref.js';
 
 import {
   assignId,
-  FocusTrap,
+  FocusHandler,
   getNextElementIndex,
   interactivityChecker,
   IS_FOCUSABLE_QUERY,
@@ -110,7 +110,7 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
   private _menuController: AbortController;
   private _windowEventsController: AbortController;
   private _abort = new ConnectedAbortController(this);
-  private _focusTrap = new FocusTrap();
+  private _focusHandler = new FocusHandler();
   private _scrollHandler = new ScrollHandler();
   private _menuId = `sbb-menu-${++nextId}`;
 
@@ -219,7 +219,7 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
     super.disconnectedCallback();
     this._menuController?.abort();
     this._windowEventsController?.abort();
-    this._focusTrap.disconnect();
+    this._focusHandler.disconnect();
     removeInertMechanism();
   }
 
@@ -303,7 +303,7 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
       this._didOpen.emit();
       applyInertMechanism(this);
       this._setMenuFocus();
-      this._focusTrap.trap(this);
+      this._focusHandler.trap(this);
       this._attachWindowEvents();
     } else if (event.animationName === 'close' && this._state === 'closing') {
       this._state = 'closed';
@@ -317,7 +317,7 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
       });
       this._didClose.emit();
       this._windowEventsController?.abort();
-      this._focusTrap.disconnect();
+      this._focusHandler.disconnect();
 
       // Starting from breakpoint medium, enable scroll
       this._scrollHandler.enableScroll();

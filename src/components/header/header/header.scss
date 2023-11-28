@@ -43,8 +43,7 @@
   --sbb-header-transition-timing: cubic-bezier(0, 0, 0.2, 1);
 }
 
-:host([hide-on-scroll][data-has-visible-focus]) {
-  --sbb-header-position: fixed;
+:host([hide-on-scroll][data-fixed][data-has-visible-focus-within]) {
   --sbb-header-transition-duration: 0;
   --sbb-header-transform: translate3d(0, 0, 0);
 }
@@ -66,7 +65,7 @@
     timing-function: var(--sbb-header-transition-timing);
   }
 
-  :host(:is([data-shadow], [data-has-visible-focus])) & {
+  :host(:is([data-shadow], [data-has-visible-focus-within])) & {
     @include sbb.shadow-level-9-soft;
   }
 
