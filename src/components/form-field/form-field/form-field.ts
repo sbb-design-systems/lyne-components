@@ -173,9 +173,9 @@ export class SbbFormField extends LitElement {
     if (!isBrowser()) {
       return;
     }
-    let labelElement = Array.from(this.children).find(
-      (element) => element.tagName === 'LABEL',
-    ) as HTMLLabelElement;
+    let labelElement = Array.from(this.children).find((element) => element.tagName === 'LABEL') as
+      | HTMLLabelElement
+      | undefined;
 
     if (!newValue && labelElement?.dataset.creator === this.tagName) {
       labelElement.remove();
