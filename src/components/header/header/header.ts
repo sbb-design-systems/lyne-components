@@ -1,6 +1,7 @@
 import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
+import { sbbInputModalityDetector, getFocusableElements } from '../../core/a11y';
 import { findReferencedElement, isBrowser, toggleDatasetEntry } from '../../core/dom';
 
 import style from './header.scss?lit&inline';
@@ -170,11 +171,35 @@ export class SbbHeaderElement extends LitElement {
     }
   }
 
+  private _addFocusableElementsListeners(): void {
+    // Determine whether the header has a visible focus within.
+    getFocusableElements(Array.from(this.children) as HTMLElement[])?.forEach((el) => {
+      el.addEventListener(
+        'focusin',
+        () => {
+          toggleDatasetEntry(
+            this,
+            'hasVisibleFocus',
+            sbbInputModalityDetector.mostRecentModality === 'keyboard',
+          );
+        },
+        // { signal: this._headerController.signal },
+      );
+      el.addEventListener(
+        'blur',
+        () => {
+          toggleDatasetEntry(this, 'hasVisibleFocus', false);
+        },
+        // { signal: this._headerController.signal },
+      );
+    });
+  }
+
   protected override render(): TemplateResult {
     return html`
       <header class="sbb-header">
         <div class="sbb-header__wrapper">
-          <slot></slot>
+          <slot @slotchange=${() => this._addFocusableElementsListeners()}></slot>
           <div class="sbb-header__logo">
             <slot name="logo">
               <sbb-logo protective-room="none"></sbb-logo>

@@ -43,6 +43,12 @@
   --sbb-header-transition-timing: cubic-bezier(0, 0, 0.2, 1);
 }
 
+:host([hide-on-scroll][data-has-visible-focus]) {
+  --sbb-header-position: fixed;
+  --sbb-header-transition-duration: 0;
+  --sbb-header-transform: translate3d(0, 0, 0);
+}
+
 .sbb-header {
   position: var(--sbb-header-position);
   inset: 0 var(--sbb-header-inset-inline-end) auto 0;
@@ -60,7 +66,7 @@
     timing-function: var(--sbb-header-transition-timing);
   }
 
-  :host([data-shadow]) & {
+  :host(:is([data-shadow], [data-has-visible-focus])) & {
     @include sbb.shadow-level-9-soft;
   }
 
