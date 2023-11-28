@@ -154,7 +154,7 @@ export class SbbFormField extends LitElement {
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    if (changedProperties.has('label') && isBrowser()) {
+    if (changedProperties.has('label')) {
       this._renderLabel(this.label);
     }
     if (changedProperties.has('negative')) {
@@ -170,9 +170,13 @@ export class SbbFormField extends LitElement {
   }
 
   private _renderLabel(newValue: string): void {
-    let labelElement = Array.from(this.children).find((element) => element.tagName === 'LABEL') as
-      | HTMLLabelElement
-      | undefined;
+    if (!isBrowser()) {
+      return;
+    }
+    let labelElement = Array.from(this.children).find(
+      (element) => element.tagName === 'LABEL',
+    ) as HTMLLabelElement;
+
     if (!newValue && labelElement?.dataset.creator === this.tagName) {
       labelElement.remove();
     } else if (
