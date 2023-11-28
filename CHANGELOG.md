@@ -2,6 +2,80 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.43.0-next.11](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0-next.10...v0.43.0-next.11) (2023-11-28)
+
+### ⚠ BREAKING CHANGES
+
+- - sbb-alert: Event `will-present` was renamed to `willPresent`.
+
+* sbb-alert: Event `did-present` was renamed to `didPresent`.
+* sbb-alert: Event `dismissal-requested` was renamed to `dismissalRequested`.
+* sbb-alert-group: Event `did-dismiss-alert` was renamed to `didDismissAlert`.
+* sbb-autocomplete: Event `will-open` was renamed to `willOpen`.
+* sbb-autocomplete: Event `did-open` was renamed to `didOpen`.
+* sbb-autocomplete: Event `will-close` was renamed to `willClose`.
+* sbb-autocomplete: Event `did-close` was renamed to `didClose`.
+* sbb-calendar: Event `date-selected` was renamed to `dateSelected`.
+* sbb-checkbox: Event `did-change` was renamed to `didChange`.
+* sbb-dialog: Event `will-open` was renamed to `willOpen`.
+* sbb-dialog: Event `did-open` was renamed to `didOpen`.
+* sbb-dialog: Event `will-close` was renamed to `willClose`.
+* sbb-dialog: Event `did-close` was renamed to `didClose`.
+* sbb-dialog: Event `request-back-action` was renamed to `requestBackAction`.
+* sbb-expansion-panel: Event `will-open` was renamed to `willOpen`.
+* sbb-expansion-panel: Event `did-open` was renamed to `didOpen`.
+* sbb-expansion-panel: Event `will-close` was renamed to `willClose`.
+* sbb-expansion-panel: Event `did-close` was renamed to `didClose`.
+* sbb-expansion-panel-header: Event `toggle-expanded` was renamed to `toggleExpanded`.
+* sbb-file-selector: Event `file-changed` was renamed to `fileChanged`.
+* sbb-menu: Event `will-open` was renamed to `willOpen`.
+* sbb-menu: Event `did-open` was renamed to `didOpen`.
+* sbb-menu: Event `will-close` was renamed to `willClose`.
+* sbb-menu: Event `did-close` was renamed to `didClose`.
+* sbb-notification: Event `will-open` was renamed to `willOpen`.
+* sbb-notification: Event `did-open` was renamed to `didOpen`.
+* sbb-notification: Event `will-close` was renamed to `willClose`.
+* sbb-notification: Event `did-close` was renamed to `didClose`.
+* sbb-option: Event `option-selection-change` was renamed to `optionSelectionChange`.
+* sbb-option: Event `option-selected` was renamed to `optionSelected`.
+* sbb-select: Event `will-open` was renamed to `willOpen`.
+* sbb-select: Event `did-open` was renamed to `didOpen`.
+* sbb-select: Event `will-close` was renamed to `willClose`.
+* sbb-select: Event `did-close` was renamed to `didClose`.
+* sbb-tab-group: Event `did-change` was renamed to `didChange`.
+* sbb-tag: Event `state-change` was renamed to `stateChange` and was changed to an internal event.
+* sbb-toast: Event `will-open` was renamed to `willOpen`.
+* sbb-toast: Event `did-open` was renamed to `didOpen`.
+* sbb-toast: Event `will-close` was renamed to `willClose`.
+* sbb-toast: Event `did-close` was renamed to `didClose`.
+* sbb-tooltip: Event `will-open` was renamed to `willOpen`.
+* sbb-tooltip: Event `did-open` was renamed to `didOpen`.
+* sbb-tooltip: Event `will-close` was renamed to `willClose`.
+* sbb-tooltip: Event `did-close` was renamed to `didClose`.
+
+### Features
+
+- **sbb-toast:** introduce css var for container position ([#2229](https://github.com/lyne-design-system/lyne-components/issues/2229)) ([150724f](https://github.com/lyne-design-system/lyne-components/commit/150724fc12d50abe0f6474de28d30f5e4479d35f))
+
+### Bug Fixes
+
+- **overlays:** hide overlays before hydration ([#2226](https://github.com/lyne-design-system/lyne-components/issues/2226)) ([42ea83b](https://github.com/lyne-design-system/lyne-components/commit/42ea83bb1abf7e41e5c41d4d1a1c1706f85c7778))
+- **sbb-autocomplete:** fix SSR ([#2225](https://github.com/lyne-design-system/lyne-components/issues/2225)) ([d6b0143](https://github.com/lyne-design-system/lyne-components/commit/d6b01430313dd511aba2d75b333b179cdf79cf47))
+- **sbb-calendar:** ensure dateFilter works with SSR ([#2220](https://github.com/lyne-design-system/lyne-components/issues/2220)) ([4c127f9](https://github.com/lyne-design-system/lyne-components/commit/4c127f95043bab2461e417484419e185a99be5a6))
+- **sbb-image:** support SSR ([#2227](https://github.com/lyne-design-system/lyne-components/issues/2227)) ([b00e2d3](https://github.com/lyne-design-system/lyne-components/commit/b00e2d33718b55c217a84981340ff2430373b197))
+- **sbb-signet:** export sbb-signet correctly ([b2f304f](https://github.com/lyne-design-system/lyne-components/commit/b2f304f17def879ce938252536c67b2814357aed))
+- **sbb-slider:** fix trapped focus on the knob ([#2222](https://github.com/lyne-design-system/lyne-components/issues/2222)) ([cbe33ad](https://github.com/lyne-design-system/lyne-components/commit/cbe33adedbd56e6cefd1188bdf74bdce59032e4b))
+- **sbb-toggle:** supress warnings on SSR ([#2228](https://github.com/lyne-design-system/lyne-components/issues/2228)) ([9ac2eef](https://github.com/lyne-design-system/lyne-components/commit/9ac2eefe7f4a35ff64054b9c50c9d696065bf1f4))
+
+### Refactorings
+
+- rename event names to camelCase ([#2215](https://github.com/lyne-design-system/lyne-components/issues/2215)) ([9b657e8](https://github.com/lyne-design-system/lyne-components/commit/9b657e82390b81f081115b0666eabefdc56a2b82))
+- resolve todos ([#2200](https://github.com/lyne-design-system/lyne-components/issues/2200)) ([83af539](https://github.com/lyne-design-system/lyne-components/commit/83af53966fef791fc0ce49364dd25e4deae5090b))
+- **sbb-breadcrumb:** fix storybook functionality in docs ([35928e3](https://github.com/lyne-design-system/lyne-components/commit/35928e350b4d3730ef96279f957f80ed64805eba))
+- **sbb-breadcrumb:** support SSR and hydration ([#2224](https://github.com/lyne-design-system/lyne-components/issues/2224)) ([e38ee8a](https://github.com/lyne-design-system/lyne-components/commit/e38ee8a183ca078b0ee1998674084e5026f660d8))
+- **stories:** migrate jsx to lit template ([#2198](https://github.com/lyne-design-system/lyne-components/issues/2198)) ([581be19](https://github.com/lyne-design-system/lyne-components/commit/581be19ad42a691620656d018a46a66d8c9c7642))
+- update coding standards ([#2219](https://github.com/lyne-design-system/lyne-components/issues/2219)) ([c832459](https://github.com/lyne-design-system/lyne-components/commit/c8324598bb9c2f1911aad7803771e37d44297c26))
+
 ## [0.43.0-next.10](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0-next.9...v0.43.0-next.10) (2023-11-23)
 
 ### Refactorings
