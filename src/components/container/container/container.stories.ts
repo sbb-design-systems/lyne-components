@@ -3,13 +3,13 @@ import type { InputType } from '@storybook/types';
 import type { ArgTypes, Args, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import { TemplateResult, html } from 'lit';
 
-import { sbbSpread } from '../core/dom';
-import placeholderImage from '../teaser/stories/placeholder.png';
+import { sbbSpread } from '../../core/dom';
+import placeholderImage from '../../teaser/stories/placeholder.png';
 
-import '../button';
+import '../../button';
+import '../../teaser';
+import '../../title';
 import '../sticky-bar';
-import '../teaser';
-import '../title';
 import './container';
 
 import readme from './readme.md?raw';
@@ -81,7 +81,7 @@ export const WithStickyBar: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (story) => html` <div style="margin: -1rem">${story()}</div> `,
+    (story) => html` <div style=${styleMap({ margin: '-1rem' })}>${story()}</div> `,
     withActions as Decorator,
   ],
   parameters: {
@@ -93,7 +93,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-container',
+  title: 'components/sbb-container/sbb-container',
 };
 
 export default meta;

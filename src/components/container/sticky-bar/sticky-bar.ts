@@ -12,15 +12,6 @@ import style from './sticky-bar.scss?lit&inline';
 export class SbbStickyBar extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    // do stuff
-  }
-
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-sticky-bar">
