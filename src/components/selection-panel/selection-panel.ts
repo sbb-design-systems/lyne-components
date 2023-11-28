@@ -121,7 +121,7 @@ export class SbbSelectionPanel extends LitElement {
 
     this._checked = event.detail.checked;
 
-    if (this.forceOpen) {
+    if (!this._namedSlots['content'] || this.forceOpen) {
       return;
     }
 
@@ -161,7 +161,8 @@ export class SbbSelectionPanel extends LitElement {
 
   private _updateSelectionPanel(): void {
     this._checked = this._input?.checked;
-    this._state = this._checked || this.forceOpen ? 'opened' : 'closed';
+    this._state =
+      this._checked || this.forceOpen || !this._namedSlots['content'] ? 'opened' : 'closed';
     this._disabled = this._input?.disabled;
   }
 
