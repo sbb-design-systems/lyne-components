@@ -1,0 +1,30 @@
+@use '../core/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+:host {
+  --sbb-status-text-color: var(--sbb-color-iron-default);
+}
+
+:host([type='error']) {
+  --sbb-status-text-color: var(--sbb-color-red125-default);
+}
+
+:host([type='success']) {
+  --sbb-status-text-color: var(--sbb-color-green-default);
+}
+
+.sbb-status {
+  display: flex;
+  gap: var(--sbb-spacing-responsive-xxxs);
+}
+
+.sbb-status__title {
+  margin-block: 0;
+}
+
+.sbb-status__text {
+  color: var(--sbb-status-text-color);
+}
