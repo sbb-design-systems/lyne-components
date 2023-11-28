@@ -19,14 +19,16 @@ import type {
 
 import style from './radio-button-group.scss?lit&inline';
 
+export type SbbRadioButtonGroupEventDetail = { value: any | null };
+
 /**
  * It can be used as a container for one or more `sbb-radio-button`.
  *
  * @slot - Use the unnamed slot to add `sbb-radio-button` elements to the `sbb-radio-button-group`.
  * @slot error - Use this to provide a `sbb-form-error` to show an error message.
- * @event {CustomEvent<any | null>} didChange - Deprecated. Only used for React. Will probably be removed once React 19 is available. Emits whenever the `sbb-radio-group` value changes.
- * @event {CustomEvent<any | null>} change - Emits whenever the `sbb-radio-group` value changes.
- * @event {CustomEvent<any | null>} input - Emits whenever the `sbb-radio-group` value changes.
+ * @event {CustomEvent<SbbRadioButtonGroupEventDetail>} didChange - Deprecated. Only used for React. Will probably be removed once React 19 is available. Emits whenever the `sbb-radio-group` value changes.
+ * @event {CustomEvent<SbbRadioButtonGroupEventDetail>} change - Emits whenever the `sbb-radio-group` value changes.
+ * @event {CustomEvent<SbbRadioButtonGroupEventDetail>} input - Emits whenever the `sbb-radio-group` value changes.
  */
 @customElement('sbb-radio-button-group')
 export class SbbRadioButtonGroup extends LitElement {
@@ -153,7 +155,7 @@ export class SbbRadioButtonGroup extends LitElement {
    * Emits whenever the `sbb-radio-group` value changes.
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
-  private _didChange: EventEmitter = new EventEmitter<any | null>(
+  private _didChange: EventEmitter = new EventEmitter<SbbRadioButtonGroupEventDetail>(
     this,
     SbbRadioButtonGroup.events.didChange,
   );
@@ -161,7 +163,7 @@ export class SbbRadioButtonGroup extends LitElement {
   /**
    * Emits whenever the `sbb-radio-group` value changes.
    */
-  private _change: EventEmitter = new EventEmitter<any | null>(
+  private _change: EventEmitter = new EventEmitter<SbbRadioButtonGroupEventDetail>(
     this,
     SbbRadioButtonGroup.events.change,
   );
@@ -169,7 +171,7 @@ export class SbbRadioButtonGroup extends LitElement {
   /**
    * Emits whenever the `sbb-radio-group` value changes.
    */
-  private _input: EventEmitter = new EventEmitter<any | null>(
+  private _input: EventEmitter = new EventEmitter<SbbRadioButtonGroupEventDetail>(
     this,
     SbbRadioButtonGroup.events.input,
   );
