@@ -39,8 +39,8 @@
 }
 
 // Make inactive nested tab groups non-focusable, to ensure accessibility
-:host(.tab-group--nested:not([active])) *,
-:host(.tab-group--nested:not([active])) ::slotted(*) {
+:host([data-nested]:not([active])) *,
+:host([data-nested]:not([active])) ::slotted(*) {
   visibility: hidden;
   opacity: 0;
   height: 0;
