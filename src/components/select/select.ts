@@ -137,6 +137,14 @@ export class SbbSelect extends UpdateScheduler(LitElement) {
    */
   private _ariaRoleOnHost = isSafari();
 
+  /**
+   * The 'combobox' input element
+   * @internal
+   */
+  public get inputElement(): HTMLElement {
+    return this._triggerElement;
+  }
+
   /** Gets all the SbbOption projected in the select. */
   private get _options(): SbbOption[] {
     return Array.from(this.querySelectorAll?.('sbb-option') ?? []);

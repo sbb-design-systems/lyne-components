@@ -26,8 +26,9 @@ describe('sbb-select', () => {
         </sbb-select>
       </div>
     `);
-
     element = document.querySelector('sbb-select');
+    await waitForLitRender(element);
+
     comboBoxElement = document.querySelector('[role="combobox"]');
     focusableElement = comboBoxElement;
     firstOption = element.querySelector('#option-1');

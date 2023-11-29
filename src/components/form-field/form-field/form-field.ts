@@ -327,7 +327,7 @@ export class SbbFormField extends LitElement {
         signal: this._inputAbortController.signal,
       });
 
-      inputFocusElement = this.querySelector('.sbb-select-invisible-trigger');
+      inputFocusElement = (this._input as SbbSelect).inputElement;
     }
 
     inputFocusElement.addEventListener(
