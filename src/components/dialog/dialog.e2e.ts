@@ -118,6 +118,50 @@ describe('sbb-dialog', () => {
     expect(element).to.have.attribute('data-state', 'opened');
   });
 
+  it('does not close the dialog on backdrop click if pointerdown is on dialog', async () => {
+    const willClose = new EventSpy(SbbDialog.events.willClose);
+    const didClose = new EventSpy(SbbDialog.events.didClose);
+
+    await openDialog(element);
+
+    // Simulate backdrop click
+    element.shadowRoot
+      .querySelector('.sbb-dialog')
+      .dispatchEvent(new CustomEvent('pointerdown', { bubbles: true, composed: true }));
+    element.dispatchEvent(new CustomEvent('pointerup'));
+    await waitForLitRender(element);
+
+    expect(willClose.count).to.be.equal(0);
+    await waitForLitRender(element);
+
+    expect(didClose.count).to.be.equal(0);
+    await waitForLitRender(element);
+
+    expect(element).to.have.attribute('data-state', 'opened');
+  });
+
+  it('does not close the dialog on backdrop click if pointerup is on dialog', async () => {
+    const willClose = new EventSpy(SbbDialog.events.willClose);
+    const didClose = new EventSpy(SbbDialog.events.didClose);
+
+    await openDialog(element);
+
+    // Simulate backdrop click
+    element.dispatchEvent(new CustomEvent('pointerdown'));
+    element.shadowRoot
+      .querySelector('.sbb-dialog')
+      .dispatchEvent(new CustomEvent('pointerup', { bubbles: true, composed: true }));
+    await waitForLitRender(element);
+
+    expect(willClose.count).to.be.equal(0);
+    await waitForLitRender(element);
+
+    expect(didClose.count).to.be.equal(0);
+    await waitForLitRender(element);
+
+    expect(element).to.have.attribute('data-state', 'opened');
+  });
+
   it('closes the dialog on close button click', async () => {
     const closeButton = element.shadowRoot.querySelector('[sbb-dialog-close]') as HTMLElement;
     const willClose = new EventSpy(SbbDialog.events.willClose);
