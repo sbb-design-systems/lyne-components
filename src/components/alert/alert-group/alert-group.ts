@@ -94,7 +94,7 @@ export class SbbAlertGroup extends LitElement {
   protected override render(): TemplateResult {
     const TITLE_TAG_NAME = `h${this.accessibilityTitleLevel}`;
 
-    setAttribute(this, 'class', !this._hasAlerts ? 'sbb-alert-group-empty' : null);
+    setAttribute(this, 'data-empty', !this._hasAlerts);
 
     /* eslint-disable lit/binding-positions */
     return html`

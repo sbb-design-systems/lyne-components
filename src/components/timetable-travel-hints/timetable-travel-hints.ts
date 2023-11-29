@@ -50,9 +50,7 @@ export class SbbTimetableTravelHints extends LitElement {
     const a11yLabel = i18nNone[this._currentLanguage];
     const appearanceClass = ` travel-hints--${this.appearance}`;
 
-    const hostClass = travelHintsItems.length === 0 ? 'visually-empty' : '';
-
-    setAttribute(this, 'class', hostClass);
+    setAttribute(this, 'data-visually-empty', travelHintsItems.length === 0);
 
     return html`
       <div class=${`travel-hints${appearanceClass}`}>

@@ -15,7 +15,7 @@
   gap: var(--sbb-alert-group-gap);
 }
 
-:host(:focus-visible:not(.sbb-alert-group-empty)) {
+:host(:focus-visible:not([data-empty])) {
   @include sbb.focus-outline;
 
   border-radius: var(--sbb-alert-group-border-radius);

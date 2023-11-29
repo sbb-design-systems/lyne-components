@@ -15,7 +15,7 @@ describe('sbb-navigation-list', () => {
 
     expect(root).dom.to.be.equal(
       `
-        <sbb-navigation-list class="sbb-navigation-list">
+        <sbb-navigation-list>
           <sbb-navigation-action slot="action-0">
             Tickets &amp; Offers
           </sbb-navigation-action>

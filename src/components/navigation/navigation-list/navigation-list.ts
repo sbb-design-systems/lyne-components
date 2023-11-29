@@ -3,7 +3,6 @@ import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { SlotChildObserver } from '../../core/common-behaviors';
-import { setAttribute } from '../../core/dom';
 import {
   createNamedSlotState,
   HandlerRepository,
@@ -71,8 +70,6 @@ export class SbbNavigationList extends SlotChildObserver(LitElement) {
     const ariaLabelledByAttribute = hasLabel
       ? { 'aria-labelledby': 'sbb-navigation-link-label-id' }
       : {};
-
-    setAttribute(this, 'class', 'sbb-navigation-list');
 
     return html`
       ${hasLabel
