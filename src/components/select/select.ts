@@ -3,6 +3,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { getNextElementIndex, assignId } from '../core/a11y';
+import { UpdateScheduler } from '../core/common-behaviors';
 import {
   isSafari,
   isValidAttribute,
@@ -41,7 +42,7 @@ export interface SelectChange {
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-select` is closed.
  */
 @customElement('sbb-select')
-export class SbbSelect extends LitElement {
+export class SbbSelect extends UpdateScheduler(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -217,13 +218,18 @@ export class SbbSelect extends LitElement {
   }
 
   protected override firstUpdated(): void {
-    this._setupOrigin();
-    this._setupTrigger();
-
     // Override the default focus behavior
     this.focus = () => this._triggerElement.focus();
     this.blur = () => this._triggerElement.blur();
-    this._didLoad = true;
+
+    // Wait for ssr hydration
+    this.startUpdate();
+    setTimeout(() => {
+      this._setupOrigin();
+      this._setupTrigger();
+      this._didLoad = true;
+      this.completeUpdate();
+    });
   }
 
   public override connectedCallback(): void {
