@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.43.0-next.12](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0-next.11...v0.43.0-next.12) (2023-11-29)
+
+### Bug Fixes
+
+- convert classes on host in data attributes ([#2242](https://github.com/lyne-design-system/lyne-components/issues/2242)) ([03310ab](https://github.com/lyne-design-system/lyne-components/commit/03310ab9530dd2db6682dc4195549bd5c01a9313))
+- fix connected abort controller ([7b40581](https://github.com/lyne-design-system/lyne-components/commit/7b4058151ffa8764bfec84b2499bf734ee6a6971))
+- minor ssr fixes ([#2235](https://github.com/lyne-design-system/lyne-components/issues/2235)) ([03978bd](https://github.com/lyne-design-system/lyne-components/commit/03978bd186ee476860878c57d824df25141bf61b))
+- **radio-button-group:** fix event type ([#2238](https://github.com/lyne-design-system/lyne-components/issues/2238)) ([159f518](https://github.com/lyne-design-system/lyne-components/commit/159f518f0f34eb11fb15a9be7932029a79d9384e))
+- **sbb-selection-panel:** fix data-state on selection panels with no content ([#2236](https://github.com/lyne-design-system/lyne-components/issues/2236)) ([2b67f4b](https://github.com/lyne-design-system/lyne-components/commit/2b67f4babeb48fcb24343ddd2940a67db236ab6d))
+
 ## [0.43.0-next.11](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0-next.10...v0.43.0-next.11) (2023-11-28)
 
 ### ⚠ BREAKING CHANGES
