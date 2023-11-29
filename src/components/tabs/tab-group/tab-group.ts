@@ -361,8 +361,6 @@ export class SbbTabGroup extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    console.log(this._isNested);
-
     setAttribute(this, 'data-nested', this._isNested);
 
     return html`
