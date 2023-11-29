@@ -12,13 +12,13 @@ export class ConnectedAbortController implements ReactiveController {
   }
 
   public hostConnected(): void {
-    if (!this._abortController.signal.aborted) {
-      this._abortController.abort();
+    if (!this._abortController) {
+      this._abortController = new AbortController();
     }
-    this._abortController = new AbortController();
   }
 
   public hostDisconnected(): void {
     this._abortController.abort();
+    this._abortController = undefined;
   }
 }
