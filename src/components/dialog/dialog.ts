@@ -287,7 +287,7 @@ export class SbbDialog extends LitElement {
     this._isPointerDownEventOnDialog = event
       .composedPath()
       .filter((e): e is HTMLElement => e instanceof window.HTMLElement)
-      .some((target) => target.tagName === this._dialogId);
+      .some((target) => target.id === this._dialogId);
   };
 
   // Close dialog on backdrop click.
