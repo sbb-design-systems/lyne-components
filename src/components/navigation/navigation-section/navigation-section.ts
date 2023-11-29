@@ -385,13 +385,13 @@ export class SbbNavigationSection extends UpdateScheduler(LitElement) {
         ${ref((el) => (this._navigationSectionContainerElement = el as HTMLElement))}
       >
         <nav
+          @animationend=${(event: AnimationEvent) => this._onAnimationEnd(event)}
+          class="sbb-navigation-section"
+          ${spread(accessibilityAttributes)}
           ${ref(
             (navigationSectionRef) =>
               (this._navigationSection = navigationSectionRef as HTMLElement),
           )}
-          @animationend=${(event: AnimationEvent) => this._onAnimationEnd(event)}
-          class="sbb-navigation-section"
-          ${spread(accessibilityAttributes)}
         >
           <div class="sbb-navigation-section__wrapper">
             <div class="sbb-navigation-section__content">

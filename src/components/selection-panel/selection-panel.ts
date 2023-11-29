@@ -208,13 +208,13 @@ export class SbbSelectionPanel extends LitElement {
           ? html` <div
               class="sbb-selection-panel__content--wrapper"
               ?data-expanded=${this._checked || this.forceOpen}
+              @transitionend=${(event: TransitionEvent) => this._onTransitionEnd(event)}
               ${ref((el: HTMLElement) => {
                 this._contentElement = el;
                 if (this._contentElement) {
                   this._contentElement.inert = !this._checked && !this.forceOpen;
                 }
               })}
-              @transitionend=${(event: TransitionEvent) => this._onTransitionEnd(event)}
             >
               <div class="sbb-selection-panel__content">
                 <sbb-divider></sbb-divider>

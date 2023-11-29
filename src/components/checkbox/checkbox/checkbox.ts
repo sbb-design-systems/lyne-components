@@ -277,13 +277,6 @@ export class SbbCheckbox extends LitElement {
       <span class="sbb-checkbox-wrapper">
         <label class="sbb-checkbox">
           <input
-            ${ref((checkbox: HTMLInputElement) => {
-              if (checkbox) {
-                this._checkbox = checkbox;
-                // Forward indeterminate state to native input. As it is only a property, we have to set it programmatically.
-                this._checkbox.indeterminate = this.indeterminate;
-              }
-            })}
             type="checkbox"
             aria-hidden="true"
             tabindex=${-1}
@@ -294,6 +287,13 @@ export class SbbCheckbox extends LitElement {
             @input=${() => this._handleInputEvent()}
             @change=${(event) => this._handleChangeEvent(event)}
             @focus=${() => this.focus()}
+            ${ref((checkbox: HTMLInputElement) => {
+              if (checkbox) {
+                this._checkbox = checkbox;
+                // Forward indeterminate state to native input. As it is only a property, we have to set it programmatically.
+                this._checkbox.indeterminate = this.indeterminate;
+              }
+            })}
           />
           <span class="sbb-checkbox__inner">
             <span class="sbb-checkbox__aligner">

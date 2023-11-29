@@ -472,8 +472,8 @@ export class SbbTooltip extends LitElement {
       <div class="sbb-tooltip__container">
         <div
           @animationend=${(event: AnimationEvent) => this._onTooltipAnimationEnd(event)}
-          ${ref((el) => (this._overlay = el as HTMLDivElement))}
           class="sbb-tooltip"
+          ${ref((el) => (this._overlay = el as HTMLDivElement))}
         >
           <div
             @click=${(event: Event) => this._closeOnSbbTooltipCloseClick(event)}
