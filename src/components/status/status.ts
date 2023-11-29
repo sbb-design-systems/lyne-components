@@ -32,35 +32,35 @@ export class SbbStatus extends LitElement {
   @property({ reflect: true }) public type?: 'info' | 'success' | 'warning' | 'error' = 'info';
 
   /**
+   * The version of the status.
+   */
+  @property({ reflect: true, attribute: 'extended', type: Boolean }) public hasTitle;
+
+  /**
    * Content of title.
    */
-  @property({ reflect: true, attribute: 'title-label' }) public titleLabel?: string;
+  @property({ reflect: true, attribute: 'title-content' }) public titleContent?: string;
 
   /**
    * Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3.
    */
   @property({ attribute: 'title-level' }) public titleLevel: TitleLevel = '3';
 
-  /**
-   * Content of text.
-   */
-  @property({ reflect: true, attribute: 'text-label' }) public textLabel?: string;
-
   protected override render(): TemplateResult {
-    const hasTitle = !!this.titleLabel;
+    const statusTitle = !!this.titleContent && this.hasTitle;
 
-    setAttribute(this, 'data-has-title', hasTitle);
+    setAttribute(this, 'data-has-title', statusTitle);
 
     return html`
       <div class="sbb-status" type="${this.type}">
         <sbb-icon class="sbb-status__icon" name=${statusTypes.get(this.type)!}></sbb-icon>
         <span class="sbb-status__content">
-          ${hasTitle
-            ? html`<sbb-title class="sbb-status__title" level=${this.titleLevel} visual-level="5">
-                <slot name="title">${this.titleLabel}</slot>
+          ${statusTitle
+            ? html` <sbb-title class="sbb-status__title" level=${this.titleLevel} visual-level="5">
+                <slot name="title">${this.titleContent}</slot>
               </sbb-title>`
             : nothing}
-          <span class="sbb-status__text">${this.textLabel}</span>
+          <slot></slot>
         </span>
       </div>
     `;

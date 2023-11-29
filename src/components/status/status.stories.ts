@@ -16,31 +16,40 @@ const type: InputType = {
   options: ['info', 'success', 'warning', 'error'],
 };
 
-const titleLabel: InputType = {
+const extended: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const titleContent: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const textLabel: InputType = {
+const text: InputType = {
   control: {
     type: 'text',
   },
 };
 
 const defaultArgTypes: ArgTypes = {
-  type: type,
-  'title-label': titleLabel,
-  'text-label': textLabel,
+  type,
+  extended,
+  'title-content': titleContent,
+  text,
 };
 
 const defaultArgs: Args = {
   type: 'info',
-  'text-label': 'Text label',
+  extended: 'false',
+  'title-content': 'Status title',
+  text: 'Status info text',
 };
 
-const Template = (args: Args): TemplateResult => html`
-  <sbb-status ${sbbSpread(args)}> </sbb-status>
+const Template = ({ text, ...args }: Args): TemplateResult => html`
+  <sbb-status ${sbbSpread(args)}> ${text} </sbb-status>
 `;
 
 export const infoShort: StoryObj = {
@@ -52,7 +61,7 @@ export const infoShort: StoryObj = {
 export const infoTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'title-label': 'Title' },
+  args: { ...defaultArgs, 'title-content': 'Title' },
 };
 
 const meta: Meta = {

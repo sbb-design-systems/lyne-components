@@ -45,12 +45,12 @@ The `sbb-status` is a component . . .
 
 ## Properties
 
-| Name         | Attribute     | Privacy | Type                                                       | Default  | Description                                                                        |
-| ------------ | ------------- | ------- | ---------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------- |
-| `type`       | `type`        | public  | `'info' \| 'success' \| 'warning' \| 'error' \| undefined` | `'info'` | The type of the status.                                                            |
-| `titleLabel` | `title-label` | public  | `string \| undefined`                                      |          | Content of title.                                                                  |
-| `titleLevel` | `title-level` | public  | `TitleLevel`                                               | `'3'`    | Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3. |
-| `textLabel`  | `text-label`  | public  | `string \| undefined`                                      |          | Content of text.                                                                   |
+| Name           | Attribute       | Privacy | Type                                                       | Default  | Description                                                                        |
+| -------------- | --------------- | ------- | ---------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------- |
+| `type`         | `type`          | public  | `'info' \| 'success' \| 'warning' \| 'error' \| undefined` | `'info'` | The type of the status.                                                            |
+| `hasTitle`     | `has-title`     | public  |                                                            |          | The version of the status.                                                         |
+| `titleContent` | `title-content` | public  | `string \| undefined`                                      |          | Content of title.                                                                  |
+| `titleLevel`   | `title-level`   | public  | `TitleLevel`                                               | `'3'`    | Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3. |
 
 ## Slots
 
