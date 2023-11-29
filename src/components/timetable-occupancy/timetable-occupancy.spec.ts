@@ -1,162 +1,85 @@
 import { expect, fixture } from '@open-wc/testing';
+import { Args } from '@storybook/web-components';
+import { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
+
+import { sbbSpread } from '../core/dom';
 
 import type { SbbTimetableOccupancy } from './timetable-occupancy';
 import './timetable-occupancy';
 
 describe('sbb-timetable-occupancy', () => {
-  it('renders', async () => {
-    const element: SbbTimetableOccupancy = await fixture(html`
-      <sbb-timetable-occupancy
-        first-class-occupancy="high"
-        second-class-occupancy="high"
-      ></sbb-timetable-occupancy>
-    `);
+  const renderComponent: (args: Args) => TemplateResult = (args: Args) => {
+    return html`<sbb-timetable-occupancy ${sbbSpread(args)}></sbb-timetable-occupancy>`;
+  };
 
-    expect(element).dom.to.be.equal(
-      `<sbb-timetable-occupancy first-class-occupancy="high" second-class-occupancy="high"></sbb-timetable-occupancy>`,
+  it('renders - DOM', async () => {
+    const element: SbbTimetableOccupancy = await fixture(
+      renderComponent({
+        'first-class-occupancy': 'high',
+        'second-class-occupancy': 'high',
+      }),
     );
-    expect(element).shadowDom.to.be.equal(`
-      <ul class="sbb-timetable-occupancy__list">
-        <li class="sbb-timetable-occupancy__list-item">
-          <span aria-hidden="true" class="sbb-timetable-occupancy__list-item-class">
-            1.
-          </span>
-          <span class="sbb-timetable-occupancy__visually-hidden">
-            First Class.
-          </span>
-          <sbb-timetable-occupancy-icon
-            aria-label="Very high occupancy expected"
-            class="sbb-timetable-occupancy__list-item-icon"
-            data-namespace='default'
-            role='img'
-          >
-          </sbb-timetable-occupancy-icon>
-        </li>
-        <li class="sbb-timetable-occupancy__list-item">
-          <span aria-hidden="true" class="sbb-timetable-occupancy__list-item-class">
-            2.
-          </span>
-          <span class="sbb-timetable-occupancy__visually-hidden">
-            Second Class.
-          </span>
-          <sbb-timetable-occupancy-icon
-            aria-label="Very high occupancy expected"
-            class="sbb-timetable-occupancy__list-item-icon"
-            data-namespace='default'
-            role='img'
-          >
-          </sbb-timetable-occupancy-icon>
-        </li>
-      </ul>
-    `);
+    expect(element).dom.to.be.equalSnapshot();
   });
 
-  it('renders negative', async () => {
-    const element: SbbTimetableOccupancy = await fixture(html`
-      <sbb-timetable-occupancy
-        negative
-        first-class-occupancy="low"
-        second-class-occupancy="medium"
-      ></sbb-timetable-occupancy>
-    `);
-
-    expect(element).dom.to.be.equal(
-      `<sbb-timetable-occupancy negative first-class-occupancy="low" second-class-occupancy="medium"></sbb-timetable-occupancy>`,
+  it('renders - ShadowDOM', async () => {
+    const element: SbbTimetableOccupancy = await fixture(
+      renderComponent({
+        'first-class-occupancy': 'high',
+        'second-class-occupancy': 'high',
+      }),
     );
-    expect(element).shadowDom.to.be.equal(`
-      <ul class="sbb-timetable-occupancy__list">
-        <li class="sbb-timetable-occupancy__list-item">
-          <span aria-hidden="true" class="sbb-timetable-occupancy__list-item-class">
-            1.
-          </span>
-          <span class="sbb-timetable-occupancy__visually-hidden">
-            First Class.
-          </span>
-          <sbb-timetable-occupancy-icon
-            aria-label="Low to medium occupancy expected"
-            class="sbb-timetable-occupancy__list-item-icon"
-            data-namespace='default'
-            negative=''
-            role='img'
-          >
-          </sbb-timetable-occupancy-icon>
-        </li>
-        <li class="sbb-timetable-occupancy__list-item">
-          <span aria-hidden="true" class="sbb-timetable-occupancy__list-item-class">
-            2.
-          </span>
-          <span class="sbb-timetable-occupancy__visually-hidden">
-            Second Class.
-          </span>
-          <sbb-timetable-occupancy-icon
-            aria-label="High occupancy expected"
-            class="sbb-timetable-occupancy__list-item-icon"
-            data-namespace='default'
-            negative=''
-            role='img'
-          >
-          </sbb-timetable-occupancy-icon>
-        </li>
-      </ul>
-    `);
+    expect(element).shadowDom.to.be.equalSnapshot();
   });
 
-  it('renders only first class wagon', async () => {
-    const element: SbbTimetableOccupancy = await fixture(html`
-      <sbb-timetable-occupancy first-class-occupancy="low"></sbb-timetable-occupancy>
-    `);
-
-    expect(element).dom.to.be.equal(
-      `<sbb-timetable-occupancy first-class-occupancy="low"></sbb-timetable-occupancy>`,
+  it('renders negative - DOM', async () => {
+    const element: SbbTimetableOccupancy = await fixture(
+      renderComponent({
+        'first-class-occupancy': 'low',
+        'second-class-occupancy': 'medium',
+        negative: true,
+      }),
     );
-    expect(element).shadowDom.to.be.equal(`
-      <ul class="sbb-timetable-occupancy__list" role="presentation">
-        <li class="sbb-timetable-occupancy__list-item">
-          <span aria-hidden="true" class="sbb-timetable-occupancy__list-item-class">
-            1.
-          </span>
-          <span class="sbb-timetable-occupancy__visually-hidden">
-            First Class.
-          </span>
-          <sbb-timetable-occupancy-icon
-            aria-label="Low to medium occupancy expected"
-            class="sbb-timetable-occupancy__list-item-icon"
-            data-namespace='default'
-            role='img'
-          >
-          </sbb-timetable-occupancy-icon>
-        </li>
-      </ul>
-    `);
+    expect(element).dom.to.be.equalSnapshot();
   });
 
-  it('renders only second class wagon', async () => {
-    const element: SbbTimetableOccupancy = await fixture(html`
-      <sbb-timetable-occupancy second-class-occupancy="medium"></sbb-timetable-occupancy>
-    `);
-
-    expect(element).dom.to.be.equal(
-      `<sbb-timetable-occupancy second-class-occupancy="medium"></sbb-timetable-occupancy>`,
+  it('renders negative - ShadowDOM', async () => {
+    const element: SbbTimetableOccupancy = await fixture(
+      renderComponent({
+        'first-class-occupancy': 'low',
+        'second-class-occupancy': 'medium',
+        negative: true,
+      }),
     );
-    expect(element).shadowDom.to.be.equal(`
-      <ul class="sbb-timetable-occupancy__list" role="presentation">
-        <li class="sbb-timetable-occupancy__list-item">
-          <span aria-hidden="true" class="sbb-timetable-occupancy__list-item-class">
-            2.
-          </span>
-          <span class="sbb-timetable-occupancy__visually-hidden">
-            Second Class.
-          </span>
-          <sbb-timetable-occupancy-icon
-            aria-label="High occupancy expected"
-            class="sbb-timetable-occupancy__list-item-icon"
-            data-namespace='default'
-            role='img'
-          >
-          </sbb-timetable-occupancy-icon>
-        </li>
-      </ul>
-    `);
+    expect(element).shadowDom.to.be.equalSnapshot();
+  });
+
+  it('renders only first class wagon - DOM', async () => {
+    const element: SbbTimetableOccupancy = await fixture(
+      renderComponent({ 'first-class-occupancy': 'low' }),
+    );
+    expect(element).dom.to.be.equalSnapshot();
+  });
+
+  it('renders only first class wagon - ShadowDOM', async () => {
+    const element: SbbTimetableOccupancy = await fixture(
+      renderComponent({ 'first-class-occupancy': 'low' }),
+    );
+    expect(element).shadowDom.to.be.equalSnapshot();
+  });
+
+  it('renders only second class wagon - DOM', async () => {
+    const element: SbbTimetableOccupancy = await fixture(
+      renderComponent({ 'second-class-occupancy': 'none' }),
+    );
+    expect(element).dom.to.be.equalSnapshot();
+  });
+
+  it('renders only second class wagon - ShadowDOM', async () => {
+    const element: SbbTimetableOccupancy = await fixture(
+      renderComponent({ 'second-class-occupancy': 'none' }),
+    );
+    expect(element).shadowDom.to.be.equalSnapshot();
   });
 });
