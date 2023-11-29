@@ -209,9 +209,6 @@ export class SbbAutocomplete extends LitElement {
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    if (!isBrowser()) {
-      return;
-    }
     if (changedProperties.has('origin')) {
       this._resetOriginClickListener(this.origin, changedProperties.get('origin'));
     }
@@ -245,6 +242,9 @@ export class SbbAutocomplete extends LitElement {
   }
 
   private _componentSetup(): void {
+    if (!isBrowser()) {
+      return;
+    }
     this._triggerEventsController?.abort();
     this._openPanelEventsController?.abort();
 

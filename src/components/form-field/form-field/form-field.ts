@@ -2,7 +2,7 @@ import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValu
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { SbbInputModality, sbbInputModalityDetector } from '../../core/a11y';
-import { isFirefox, isValidAttribute, toggleDatasetEntry } from '../../core/dom';
+import { isBrowser, isFirefox, isValidAttribute, toggleDatasetEntry } from '../../core/dom';
 import {
   createNamedSlotState,
   documentLanguage,
@@ -170,9 +170,13 @@ export class SbbFormField extends LitElement {
   }
 
   private _renderLabel(newValue: string): void {
-    let labelElement: HTMLLabelElement | undefined = Array.from(this.children)?.find(
-      (element) => element.tagName === 'LABEL',
-    ) as HTMLLabelElement | undefined;
+    if (!isBrowser()) {
+      return;
+    }
+    let labelElement = Array.from(this.children).find((element) => element.tagName === 'LABEL') as
+      | HTMLLabelElement
+      | undefined;
+
     if (!newValue && labelElement?.dataset.creator === this.tagName) {
       labelElement.remove();
     } else if (

@@ -1218,9 +1218,9 @@ export class SbbCalendar extends LitElement {
   }
 
   private _removeTable(): void {
-    const table = this.shadowRoot.querySelectorAll('table');
-    table.forEach((e) => e.classList.toggle('sbb-calendar__table-hide'));
-    return;
+    this.shadowRoot
+      .querySelectorAll?.('table')
+      .forEach((e) => e.classList.toggle('sbb-calendar__table-hide'));
   }
 
   protected override render(): TemplateResult {
