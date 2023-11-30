@@ -349,10 +349,10 @@ export class SbbNavigation extends UpdateScheduler(LitElement) {
     return html`
       <div class="sbb-navigation__container">
         <div
-          ${ref((navigationRef) => (this._navigation = navigationRef as HTMLDivElement))}
           id="sbb-navigation-overlay"
           @animationend=${(event: AnimationEvent) => this._onAnimationEnd(event)}
           class="sbb-navigation"
+          ${ref((navigationRef) => (this._navigation = navigationRef as HTMLDivElement))}
         >
           <div class="sbb-navigation__header">${closeButton}</div>
           <div class="sbb-navigation__wrapper">

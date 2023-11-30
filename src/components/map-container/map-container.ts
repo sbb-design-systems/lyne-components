@@ -99,16 +99,16 @@ export class SbbMapContainer extends LitElement {
           ${!this.hideScrollUpButton
             ? html`<sbb-button
                 class="sbb-map-container__sidebar-button"
-                ${ref((ref: HTMLElement) => {
-                  if (ref) {
-                    ref.inert = !this._scrollUpButtonVisible;
-                  }
-                })}
                 variant="tertiary"
                 size="l"
                 icon-name="location-pin-map-small"
                 type="button"
                 @click=${() => this._onScrollButtonClick()}
+                ${ref((ref: HTMLElement) => {
+                  if (ref) {
+                    ref.inert = !this._scrollUpButtonVisible;
+                  }
+                })}
               >
                 ${i18nMapContainerButtonLabel[this._currentLanguage]}
               </sbb-button>`

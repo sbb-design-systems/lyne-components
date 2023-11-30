@@ -200,9 +200,9 @@ export class SbbNotification extends LitElement {
     return html`
       <div
         class="sbb-notification__wrapper"
-        ${ref((el) => (this._notificationElement = el as HTMLElement))}
         @transitionend=${(event: TransitionEvent) => this._onNotificationTransitionEnd(event)}
         @animationend=${(event: AnimationEvent) => this._onNotificationAnimationEnd(event)}
+        ${ref((el) => (this._notificationElement = el as HTMLElement))}
       >
         <div class="sbb-notification">
           <sbb-icon

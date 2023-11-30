@@ -653,9 +653,9 @@ export class SbbSelect extends LitElement {
         aria-required=${this.required.toString()}
         aria-controls=${this._overlayId}
         aria-owns=${this._overlayId}
-        ${ref((ref) => (this._triggerElement = ref as HTMLElement))}
         @keydown=${this._onKeyDown}
         @click=${this._toggleOpening}
+        ${ref((ref) => (this._triggerElement = ref as HTMLElement))}
       >
         ${this._displayValue ? html`${this._displayValue}` : html`<span>${this.placeholder}</span>`}
       </div>

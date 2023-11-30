@@ -213,7 +213,6 @@ export class SbbDatepickerToggle extends LitElement {
       >
         <sbb-calendar
           data-now=${this._now()?.valueOf() || nothing}
-          ${ref((calendar: SbbCalendar) => this._assignCalendar(calendar))}
           .min=${this._min}
           .max=${this._max}
           ?wide=${this._datePickerElement?.wide}
@@ -223,6 +222,7 @@ export class SbbDatepickerToggle extends LitElement {
             this._calendarElement.selectedDate = newDate;
             this._datePickerElement.setValueAsDate(newDate);
           }}
+          ${ref((calendar: SbbCalendar) => this._assignCalendar(calendar))}
         ></sbb-calendar>
       </sbb-tooltip>
     `;

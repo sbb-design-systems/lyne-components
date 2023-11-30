@@ -393,13 +393,13 @@ export class SbbMenu extends SlotChildObserver(LitElement) {
       <div class="sbb-menu__container">
         <div
           @animationend=${(event: AnimationEvent) => this._onMenuAnimationEnd(event)}
-          ${ref((el) => (this._menu = el as HTMLDivElement))}
           class="sbb-menu"
+          ${ref((el) => (this._menu = el as HTMLDivElement))}
         >
           <div
             @click=${(event: Event) => this._closeOnInteractiveElementClick(event)}
-            ${ref((menuContentRef) => (this._menuContentElement = menuContentRef as HTMLElement))}
             class="sbb-menu__content"
+            ${ref((menuContentRef) => (this._menuContentElement = menuContentRef as HTMLElement))}
           >
             ${this._actions
               ? html`<ul class="sbb-menu-list" aria-label=${this.listAccessibilityLabel ?? nothing}>

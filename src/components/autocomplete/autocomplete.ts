@@ -533,9 +533,9 @@ export class SbbAutocomplete extends LitElement {
           <div class="sbb-autocomplete__wrapper">
             <div
               class="sbb-autocomplete__options"
-              ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
               role=${!this._ariaRoleOnHost ? 'listbox' : nothing}
               id=${!this._ariaRoleOnHost ? this._overlayId : nothing}
+              ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
             >
               <slot></slot>
             </div>
