@@ -34,7 +34,7 @@ export class SbbStatus extends LitElement {
   /**
    * The version of the status.
    */
-  @property({ reflect: true, attribute: 'extended', type: Boolean }) public hasTitle;
+  @property({ reflect: true, attribute: 'extended', type: Boolean }) public hasTitle: boolean;
 
   /**
    * Content of title.

@@ -43,8 +43,8 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   type: 'info',
-  extended: 'false',
-  'title-content': 'Status title',
+  extended: false,
+  'title-content': undefined,
   text: 'Status info text',
 };
 
@@ -61,7 +61,7 @@ export const infoShort: StoryObj = {
 export const infoTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'title-content': 'Title' },
+  args: { ...defaultArgs, 'title-content': 'Title', extended: true },
 };
 
 const meta: Meta = {
