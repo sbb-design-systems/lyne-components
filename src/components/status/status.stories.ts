@@ -58,10 +58,46 @@ export const infoShort: StoryObj = {
   args: { ...defaultArgs },
 };
 
-export const infoTitle: StoryObj = {
+export const successShort: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, type: 'success' },
+};
+
+export const warningShort: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, type: 'warning' },
+};
+
+export const errorShort: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, type: 'error' },
+};
+
+export const infoExtended: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, 'title-content': 'Title', extended: true },
+};
+
+export const successExtended: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, type: 'success', 'title-content': 'Success!', extended: true },
+};
+
+export const warningExtended: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, type: 'warning', 'title-content': 'Warning!', extended: true },
+};
+
+export const errorExtended: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, type: 'error', 'title-content': 'Error!', extended: true },
 };
 
 const meta: Meta = {
