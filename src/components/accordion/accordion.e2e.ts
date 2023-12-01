@@ -8,7 +8,7 @@ import type { SbbExpansionPanelHeader } from '../expansion-panel';
 
 import { SbbAccordion } from './accordion';
 
-const ssrModules = ['./accordion.ts'];
+const ssrModules = ['../expansion-panel/index.ts', './accordion.ts'];
 for (const fixture of [csrFixture, ssrHydratedFixture]) {
   describe(`sbb-accordion rendered with ${fixture.name}`, () => {
     let element: SbbAccordion;
@@ -83,15 +83,11 @@ for (const fixture of [csrFixture, ssrHydratedFixture]) {
     it('should inherit titleLevel prop by panels', async () => {
       const panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
       expect(panels.length).to.be.equal(3);
-      expect(
-        panels[0].shadowRoot.querySelector('.sbb-expansion-panel').firstElementChild.tagName,
-      ).to.be.equal('H4');
-      expect(
-        panels[1].shadowRoot.querySelector('.sbb-expansion-panel').firstElementChild.tagName,
-      ).to.be.equal('H4');
-      expect(
-        panels[2].shadowRoot.querySelector('.sbb-expansion-panel').firstElementChild.tagName,
-      ).to.be.equal('H4');
+      panels.every((panel) => {
+        expect(
+          panel.shadowRoot.querySelector('.sbb-expansion-panel').firstElementChild.tagName,
+        ).to.be.equal('H4');
+      });
     });
 
     it('should dynamically update titleLevel prop', async () => {

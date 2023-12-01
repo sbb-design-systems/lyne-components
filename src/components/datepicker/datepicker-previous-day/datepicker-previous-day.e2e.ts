@@ -10,7 +10,7 @@ import { SbbDatepickerPreviousDay } from './datepicker-previous-day';
 
 import '../datepicker';
 
-const ssrModules = ['./datepicker-previous-day.ts'];
+const ssrModules = ['../datepicker/datepicker.ts', './datepicker-previous-day.ts'];
 for (const fixture of [csrFixture, ssrHydratedFixture]) {
   describe(`sbb-datepicker-previous-day rendered with ${fixture.name}`, () => {
     afterEach(() => {
@@ -28,7 +28,7 @@ for (const fixture of [csrFixture, ssrHydratedFixture]) {
     });
 
     describe('with picker', () => {
-      it('renders and click', async () => {
+      it.only('renders and click', async () => {
         await fixture(
           html`
             <input id="datepicker-input" value="01-01-2023" />

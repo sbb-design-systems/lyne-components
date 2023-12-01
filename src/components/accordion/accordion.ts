@@ -2,7 +2,7 @@ import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { toggleDatasetEntry } from '../core/dom';
-import { ConnectedAbortController } from '../core/eventing';
+import { ConnectedAbortController, SlotObserverController } from '../core/eventing';
 import { SbbExpansionPanel } from '../expansion-panel';
 import type { TitleLevel } from '../title';
 
@@ -46,6 +46,15 @@ export class SbbAccordion extends LitElement {
 
   private _abort = new ConnectedAbortController(this);
 
+  private get _expansionPanels(): SbbExpansionPanel[] {
+    return Array.from(this.querySelectorAll?.('sbb-expansion-panel') ?? []);
+  }
+
+  public constructor() {
+    super();
+    new SlotObserverController(this, () => this._setChildrenParameters());
+  }
+
   private _closePanels(e: CustomEvent): void {
     if ((e.target as HTMLElement)?.tagName !== 'SBB-EXPANSION-PANEL' || this.multi) {
       return;
@@ -69,10 +78,6 @@ export class SbbAccordion extends LitElement {
 
   private _setTitleLevelOnChildren(): void {
     this._expansionPanels.forEach((panel) => (panel.titleLevel = this.titleLevel));
-  }
-
-  private get _expansionPanels(): SbbExpansionPanel[] {
-    return Array.from(this.querySelectorAll?.('sbb-expansion-panel') ?? []);
   }
 
   private _setChildrenParameters(): void {
@@ -104,7 +109,7 @@ export class SbbAccordion extends LitElement {
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-accordion">
-        <slot @slotchange=${() => this._setChildrenParameters()}></slot>
+        <slot></slot>
       </div>
     `;
   }

@@ -10,7 +10,7 @@ import { SbbDatepickerNextDay } from './datepicker-next-day';
 
 import '../datepicker';
 
-const ssrModules = ['./datepicker-next-day.ts'];
+const ssrModules = ['../datepicker/datepicker.ts', './datepicker-next-day.ts'];
 for (const fixture of [csrFixture, ssrHydratedFixture]) {
   describe(`sbb-datepicker-next-day rendered with ${fixture.name}`, () => {
     afterEach(() => {

@@ -60,7 +60,7 @@ for (const fixture of [csrFixture, ssrHydratedFixture]) {
         expect(element.indeterminate).to.be.false;
       });
 
-      it.only('should update indeterminate state of input', async () => {
+      it('should update indeterminate state of input', async () => {
         expect(element.indeterminate).to.be.false;
 
         element.indeterminate = true;

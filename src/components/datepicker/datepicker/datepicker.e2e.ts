@@ -11,7 +11,7 @@ import { SbbDatepicker } from './datepicker';
 
 import '../../form-field';
 
-const ssrModules = ['./datepicker.ts'];
+const ssrModules = ['../../form-field/index.ts', './datepicker.ts'];
 for (const fixture of [csrFixture, ssrHydratedFixture]) {
   describe(`sbb-datepicker rendered with ${fixture.name}`, () => {
     afterEach(() => {

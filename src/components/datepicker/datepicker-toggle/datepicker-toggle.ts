@@ -4,7 +4,7 @@ import { ref } from 'lit/directives/ref.js';
 
 import type { SbbCalendar } from '../../calendar';
 import { sbbInputModalityDetector } from '../../core/a11y';
-import { isValidAttribute, setAttribute } from '../../core/dom';
+import { isBrowser, isValidAttribute, setAttribute } from '../../core/dom';
 import {
   documentLanguage,
   HandlerRepository,
@@ -86,7 +86,7 @@ export class SbbDatepickerToggle extends LitElement {
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
-    if (changedProperties.has('datePicker')) {
+    if (changedProperties.has('datePicker') && isBrowser()) {
       this._init(this.datePicker);
     }
   }

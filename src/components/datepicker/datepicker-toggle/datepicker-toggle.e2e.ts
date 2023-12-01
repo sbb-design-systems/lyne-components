@@ -12,7 +12,7 @@ import { SbbDatepickerToggle } from './datepicker-toggle';
 
 import '../datepicker';
 
-const ssrModules = ['./datepicker-toggle.ts'];
+const ssrModules = ['../datepicker/datepicker.ts', './datepicker-toggle.ts'];
 for (const fixture of [csrFixture, ssrHydratedFixture]) {
   describe(`sbb-datepicker-toggle rendered with ${fixture.name}`, () => {
     afterEach(() => {

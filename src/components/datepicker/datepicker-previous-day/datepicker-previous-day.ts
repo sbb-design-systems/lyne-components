@@ -2,7 +2,13 @@ import { CSSResultGroup, LitElement, PropertyValues, TemplateResult, html } from
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { DateAdapter, defaultDateAdapter } from '../../core/datetime';
-import { isValidAttribute, setAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
+import {
+  isBrowser,
+  isValidAttribute,
+  setAttribute,
+  setAttributes,
+  toggleDatasetEntry,
+} from '../../core/dom';
 import {
   ConnectedAbortController,
   HandlerRepository,
@@ -96,7 +102,7 @@ export class SbbDatepickerPreviousDay extends LitElement {
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
-    if (changedProperties.has('datePicker')) {
+    if (changedProperties.has('datePicker') && isBrowser()) {
       this._init(this.datePicker);
     }
   }
@@ -173,7 +179,9 @@ export class SbbDatepickerPreviousDay extends LitElement {
   }
 
   private _setDisabledState(datepicker: SbbDatepicker): void {
-    const pickerValueAsDate: Date = datepicker?.getValueAsDate();
+    // It is possible that the sbb-datepicker is already available as an element, but not
+    // as an instance of SbbDatepicker.
+    const pickerValueAsDate: Date = datepicker?.getValueAsDate?.();
 
     if (!pickerValueAsDate) {
       this._disabled = true;
@@ -207,7 +215,9 @@ export class SbbDatepickerPreviousDay extends LitElement {
   }
 
   private _setAriaLabel(): void {
-    const currentDate = this._datePickerElement.getValueAsDate();
+    // It is possible that the sbb-datepicker is already available as an element, but not
+    // as an instance of SbbDatepicker.
+    const currentDate = this._datePickerElement.getValueAsDate?.();
 
     if (!currentDate || !this._dateAdapter.isValid(currentDate)) {
       this.setAttribute('aria-label', i18nPreviousDay[this._currentLanguage]);

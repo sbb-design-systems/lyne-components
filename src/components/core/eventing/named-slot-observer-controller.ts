@@ -1,26 +1,18 @@
 import { ReactiveController, ReactiveControllerHost } from 'lit';
 
-export class NamedSlotObserverController implements ReactiveController {
-  private _abortController: AbortController;
+import { SlotObserverController } from './slot-observer-controller';
+
+export class NamedSlotObserverController
+  extends SlotObserverController
+  implements ReactiveController
+{
   private _detectedSlotNames: string[] = [];
 
   public constructor(
-    private _host: ReactiveControllerHost & Partial<HTMLElement>,
+    host: ReactiveControllerHost & Partial<HTMLElement>,
     private _observableSlots: string[],
   ) {
-    this._host.addController(this);
-  }
-
-  public hostConnected(): void {
-    this._abortController = new AbortController();
-    this._detectSlotNames();
-    this._host.shadowRoot?.addEventListener('slotchange', () => this._detectSlotNames(), {
-      signal: this._abortController.signal,
-    });
-  }
-
-  public hostDisconnected(): void {
-    this._abortController?.abort();
+    super(host, () => this._detectSlotNames());
   }
 
   public has(name: string): boolean {
@@ -34,7 +26,7 @@ export class NamedSlotObserverController implements ReactiveController {
   }
 
   private _detectSlotNames(): void {
-    const detectedSlotNames = Array.from(this._host.children ?? [])
+    const detectedSlotNames = Array.from(this.host.children ?? [])
       .map((e) => e.slot)
       .filter((v, i, a) => !!v && a.indexOf(v) === i);
     if (!this._detectedSlotNames.length && !detectedSlotNames.length) {
@@ -49,7 +41,7 @@ export class NamedSlotObserverController implements ReactiveController {
 
     this._detectedSlotNames = detectedSlotNames;
     if (this._observableSlots.some((n) => this._detectedSlotNames.includes(n))) {
-      this._host.requestUpdate();
+      this.host.requestUpdate();
     }
   }
 }
