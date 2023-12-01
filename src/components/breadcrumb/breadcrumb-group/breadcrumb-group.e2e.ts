@@ -20,6 +20,7 @@ describe('sbb-breadcrumb-group', () => {
           <sbb-breadcrumb href="#" id="breadcrumb-2">Two</sbb-breadcrumb>
         </sbb-breadcrumb-group>
       `);
+      await waitForLitRender(element);
     });
 
     it('renders', async () => {
@@ -57,6 +58,8 @@ describe('sbb-breadcrumb-group', () => {
           <sbb-breadcrumb href="#" id="breadcrumb-6">Sixth</sbb-breadcrumb>
         </sbb-breadcrumb-group>
       `);
+      await waitForLitRender(breadcrumbGroup);
+
       ellipsisListItemElement = breadcrumbGroup.shadowRoot.querySelector(
         '#sbb-breadcrumb-group-ellipsis',
       );

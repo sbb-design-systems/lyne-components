@@ -56,14 +56,14 @@
 }
 
 .sbb-train-formation__sector {
-  --_waggon-sum: var(--sbb-train-formation-wagon-count) * var(--sbb-train-formation-wagon-width);
+  --_wagon-sum: var(--sbb-train-formation-wagon-count) * var(--sbb-train-formation-wagon-width);
   --_blocked-passage-sum: var(--sbb-train-formation-wagon-blocked-passage-count) *
     var(--sbb-train-formation-blocked-passage-width);
   --_total-count: calc(
     var(--sbb-train-formation-wagon-count) + var(--sbb-train-formation-wagon-blocked-passage-count)
   );
   --_gap-sum: calc((var(--_total-count) - 1) * var(--sbb-train-formation-wagon-gap));
-  --_sector-width: calc(var(--_waggon-sum) + var(--_blocked-passage-sum) + var(--_gap-sum));
+  --_sector-width: calc(var(--_wagon-sum) + var(--_blocked-passage-sum) + var(--_gap-sum));
 
   @include sbb.text-s--regular;
 

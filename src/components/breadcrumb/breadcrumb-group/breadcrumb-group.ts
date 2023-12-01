@@ -16,6 +16,8 @@ import type { SbbBreadcrumb } from '../breadcrumb';
 
 import style from './breadcrumb-group.scss?lit&inline';
 
+import '../../icon';
+
 /**
  * It can be used as a container for one or more `sbb-breadcrumb` component.
  *

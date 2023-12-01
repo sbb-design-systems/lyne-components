@@ -1,0 +1,9 @@
+@use '../core/styles' as sbb;
+
+:host {
+  @include sbb.if-forced-colors-light {
+    svg {
+      filter: invert(1);
+    }
+  }
+}

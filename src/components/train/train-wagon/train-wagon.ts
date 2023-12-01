@@ -16,14 +16,13 @@ import {
   i18nClass,
   i18nClosedCompartmentLabel,
   i18nLocomotiveLabel,
-  i18nOccupancy,
   i18nSector,
   i18nWagonLabel,
   i18nWagonLabelNumber,
 } from '../../core/i18n';
 import { SbbOccupancy } from '../../core/interfaces';
 import type { SbbIcon } from '../../icon';
-import '../../icon';
+import '../../timetable-occupancy-icon';
 
 import style from './train-wagon.scss?lit&inline';
 
@@ -43,7 +42,7 @@ export class SbbTrainWagon extends SlotChildObserver(LitElement) {
   @property({ reflect: true }) public type: 'locomotive' | 'closed' | 'wagon' = 'wagon';
 
   /** Occupancy of a wagon. */
-  @property() public occupancy?: SbbOccupancy = 'unknown';
+  @property() public occupancy?: SbbOccupancy = 'none';
 
   /** Sector in which to wagon stops. */
   @property({ reflect: true })
@@ -169,13 +168,11 @@ export class SbbTrainWagon extends SlotChildObserver(LitElement) {
                   </li>`
                 : nothing}
               ${this.occupancy
-                ? html`<sbb-icon
+                ? html`<sbb-timetable-occupancy-icon
                     class="sbb-train-wagon__occupancy"
                     role="listitem"
-                    name=${`utilization-${this.occupancy === 'unknown' ? 'none' : this.occupancy}`}
-                    aria-hidden="false"
-                    aria-label=${i18nOccupancy[this.occupancy][this._currentLanguage]}
-                  ></sbb-icon>`
+                    .occupancy=${this.occupancy}
+                  ></sbb-timetable-occupancy-icon>`
                 : nothing}
               ${this.blockedPassage && this.blockedPassage !== 'none'
                 ? html`<li class="sbb-screenreaderonly">

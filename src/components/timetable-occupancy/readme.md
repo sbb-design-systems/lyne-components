@@ -1,10 +1,13 @@
-!! Please note that this component is not intended for direct use. It will get used within sbb-timetable. It is listed
-here to show the various configuration options to component developers. !!
+This component can be used wherever there should an occupancy be displayed, related to first and/or second class.
+
+The accessibility strings are automatically generated.
 
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name     | Attribute | Privacy | Type     | Default | Description                                                                                                                               |
-| -------- | --------- | ------- | -------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `config` | `config`  | public  | `string` |         | Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure. |
+| Name                   | Attribute                | Privacy | Type           | Default | Description                        |
+| ---------------------- | ------------------------ | ------- | -------------- | ------- | ---------------------------------- |
+| `firstClassOccupancy`  | `first-class-occupancy`  | public  | `SbbOccupancy` |         | Occupancy for first class wagons.  |
+| `secondClassOccupancy` | `second-class-occupancy` | public  | `SbbOccupancy` |         | Occupancy for second class wagons. |
+| `negative`             | `negative`               | public  | `boolean`      | `false` | Negative coloring variant flag.    |

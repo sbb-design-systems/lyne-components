@@ -1,4 +1,4 @@
-import { expect, fixture } from '@open-wc/testing';
+import { aTimeout, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { SbbIconConfig, readConfig } from '../core/config';
@@ -16,9 +16,7 @@ describe('sbb-icon', () => {
       <sbb-icon aria-hidden="true" role="img" data-empty data-namespace="default">
       </sbb-icon>
     `);
-    expect(root).shadowDom.to.be.equal(`
-      <span class="sbb-icon-inner"><svg height="0" width="0"></svg></span>
-    `);
+    await expect(root).shadowDom.to.equalSnapshot();
   });
 
   it('renders aria-hidden and no aria-label', async () => {
@@ -28,9 +26,7 @@ describe('sbb-icon', () => {
       <sbb-icon name="app-icon-medium" aria-hidden="true" role="img" data-namespace="default">
       </sbb-icon>
     `);
-    expect(root).shadowDom.to.be.equal(`
-      <span class="sbb-icon-inner"><svg height="36" width="36"></svg></span>
-    `);
+    await expect(root).shadowDom.to.equalSnapshot();
   });
 
   it('renders default aria-label', async () => {
@@ -42,9 +38,7 @@ describe('sbb-icon', () => {
       <sbb-icon name="app-icon-medium" aria-hidden="false" aria-label="Icon app icon medium" role="img" data-namespace="default">
       </sbb-icon>
     `);
-    expect(root).shadowDom.to.be.equal(`
-      <span class="sbb-icon-inner"><svg height="36" width="36"></svg></span>
-    `);
+    await expect(root).shadowDom.to.equalSnapshot();
   });
 
   it('renders custom aria-label', async () => {
@@ -60,9 +54,7 @@ describe('sbb-icon', () => {
       <sbb-icon name="app-icon-medium" aria-hidden="false" aria-label="Custom label" role="img" data-namespace="default">
       </sbb-icon>
     `);
-    expect(root).shadowDom.to.be.equal(`
-      <span class="sbb-icon-inner"><svg height="36" width="36"></svg></span>
-    `);
+    await expect(root).shadowDom.to.equalSnapshot();
   });
 
   it('renders default label after changing source', async () => {
@@ -75,10 +67,15 @@ describe('sbb-icon', () => {
       </sbb-icon>
     `);
     expect(icon).shadowDom.to.be.equal(`
-      <span class="sbb-icon-inner"><svg height="36" width="36"></svg></span>
+      <span class="sbb-icon-inner"><svg-fake data-name="app-icon-medium" height="36" width="36" style="width:36px;height:36px"></svg-fake></span>
     `);
 
     icon.setAttribute('name', 'pie-medium');
+    // TODO: Optimize with https://lit.dev/docs/components/lifecycle/#getUpdateComplete
+    // The update of the internal state happens a tick after the updateComplete down below completes.
+    // We could change this by implementing a getUpdateComplete which starts with a name change
+    // and completes with the new icon loaded.
+    await aTimeout(0);
     await waitForLitRender(icon);
 
     expect(icon).dom.to.be.equal(`
@@ -86,7 +83,7 @@ describe('sbb-icon', () => {
       </sbb-icon>
     `);
     expect(icon).shadowDom.to.be.equal(`
-      <span class="sbb-icon-inner"><svg height="36" width="36"></svg></span>
+      <span class="sbb-icon-inner"><svg-fake data-name="pie-medium" height="36" width="36" style="width:36px;height:36px"></svg-fake></span>
     `);
   });
 
@@ -113,9 +110,7 @@ describe('sbb-icon', () => {
       <sbb-icon name="kom:heart-medium" aria-hidden="true" role="img" data-namespace="kom">
       </sbb-icon>
     `);
-    expect(root).shadowDom.to.be.equal(`
-      <span class="sbb-icon-inner"><svg height="0" width="0"></svg></span>
-    `);
+    await expect(root).shadowDom.to.equalSnapshot();
 
     expect(interceptorCalled).to.be.true;
 
