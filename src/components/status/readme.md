@@ -36,7 +36,7 @@ The `sbb-status` use default message colors, based on the type host chosen,
 | Name           | Attribute       | Privacy | Type                                                       | Default  | Description                                                                        |
 | -------------- | --------------- | ------- | ---------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------- |
 | `type`         | `type`          | public  | `'info' \| 'success' \| 'warning' \| 'error' \| undefined` | `'info'` | The type of the status.                                                            |
-| `hasTitle`     | `has-title`     | public  | `boolean`                                                  |          | The version of the status.                                                         |
+| `hasTitle`     | `extended`      | public  | `boolean`                                                  |          | The version of the status.                                                         |
 | `titleContent` | `title-content` | public  | `string \| undefined`                                      |          | Content of title.                                                                  |
 | `titleLevel`   | `title-level`   | public  | `TitleLevel`                                               | `'3'`    | Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3. |
 
