@@ -59,10 +59,10 @@ Whenever the validation state changes (e.g., a valid value becomes invalid or vi
 
 ## Properties
 
-| Name          | Attribute       | Privacy | Type                    | Default | Description                                                                                                                                            |
-| ------------- | --------------- | ------- | ----------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `input`       | `input`         | public  | `string \| HTMLElement` |         | Reference of the native input connected to the datepicker.                                                                                             |
-| `valueAsDate` | `value-as-date` | public  | `Date \| null`          |         | Formats the current input's value as date. TODO: in the readme.md, the `attribute: false` options is not evaluated. This will be fixed in issue #2246. |
+| Name          | Attribute | Privacy | Type                    | Default | Description                                                |
+| ------------- | --------- | ------- | ----------------------- | ------- | ---------------------------------------------------------- |
+| `input`       | `input`   | public  | `string \| HTMLElement` |         | Reference of the native input connected to the datepicker. |
+| `valueAsDate` | -         | public  | `Date \| null`          |         | Formats the current input's value as date.                 |
 
 ## Events
 

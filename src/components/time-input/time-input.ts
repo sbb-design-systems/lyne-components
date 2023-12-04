@@ -44,11 +44,7 @@ export class SbbTimeInputElement extends LitElement {
   }
   private _input: string | HTMLElement;
 
-  /**
-   * Formats the current input's value as date.
-   * TODO: in the readme.md, the `attribute: false` options is not evaluated.
-   *  This will be fixed in issue #2246.
-   */
+  /** Formats the current input's value as date. */
   @property({ attribute: false })
   public set valueAsDate(date: SbbDateLike) {
     if (!date || !this._inputElement) {

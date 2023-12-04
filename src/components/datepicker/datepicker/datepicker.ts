@@ -198,11 +198,7 @@ export class SbbDatepickerElement extends LitElement {
   /** Reference of the native input connected to the datepicker. */
   @property() public input?: string | HTMLElement;
 
-  /**
-   * Formats the current input's value as date.
-   * TODO: in the readme.md, the `attribute: false` options is not evaluated.
-   *  This will be fixed in issue #2246.
-   */
+  /** Formats the current input's value as date. */
   @property({ attribute: false })
   public set valueAsDate(date: SbbDateLike) {
     const parsedDate = date instanceof Date ? date : new Date(date);
