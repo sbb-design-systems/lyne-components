@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.43.0-next.14](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0-next.13...v0.43.0-next.14) (2023-12-04)
+
+### Bug Fixes
+
+- add CommonJS distribution for jest consumers ([#2261](https://github.com/lyne-design-system/lyne-components/issues/2261)) ([7fddd42](https://github.com/lyne-design-system/lyne-components/commit/7fddd42f08c0ad15c2a16a0b778bcde10fede58b))
+- **sbb-timetable-occupancy-icon:** enable SSR rendering ([#2260](https://github.com/lyne-design-system/lyne-components/issues/2260)) ([cc5e0f9](https://github.com/lyne-design-system/lyne-components/commit/cc5e0f96f35d77786ec9377b626648fe7ff2c6cf))
+
 ## [0.43.0-next.13](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0-next.12...v0.43.0-next.13) (2023-12-04)
 
 ### Bug Fixes
