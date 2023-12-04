@@ -196,7 +196,7 @@ describe('sbb-selection-panel', () => {
       await preservesDisabled(wrapper, disabledInput, secondInput);
     });
 
-    it('focuses input on left arrow key pressed and selects it on space key pressed', async () => {
+    it('focuses and select input on left/top arrow key pressed', async () => {
       const fourthInput: SbbRadioButtonElement = document.querySelector('#sbb-input-4');
 
       firstInput.click();
@@ -204,26 +204,32 @@ describe('sbb-selection-panel', () => {
       await sendKeys({ down: 'ArrowLeft' });
       await waitForLitRender(wrapper);
       expect(document.activeElement.id).to.be.equal(fourthInput.id);
-      expect(firstInput).to.have.attribute('checked');
-      expect(fourthInput).not.to.have.attribute('checked');
-
-      await sendKeys({ press: ' ' });
-      expect(fourthInput).to.have.attribute('checked');
       expect(firstInput).not.to.have.attribute('checked');
+      expect(fourthInput).to.have.attribute('checked');
+
+      await sendKeys({ down: 'ArrowLeft' });
+      await waitForLitRender(wrapper);
+      expect(document.activeElement.id).to.be.equal(secondInput.id);
+      expect(fourthInput).not.to.have.attribute('checked');
+      expect(secondInput).to.have.attribute('checked');
     });
 
-    it('focuses input on right arrow key pressed and selects it on space key pressed', async () => {
+    it('focuses and select input on right/down arrow key pressed', async () => {
+      const fourthInput: SbbRadioButton = document.querySelector('#sbb-input-4');
+
       firstInput.click();
       firstInput.focus();
       await sendKeys({ down: 'ArrowRight' });
       await waitForLitRender(wrapper);
       expect(document.activeElement.id).to.be.equal(secondInput.id);
-      expect(firstInput).to.have.attribute('checked');
-      expect(secondInput).not.to.have.attribute('checked');
-
-      await sendKeys({ press: ' ' });
       expect(secondInput).to.have.attribute('checked');
       expect(firstInput).not.to.have.attribute('checked');
+
+      await sendKeys({ down: 'ArrowRight' });
+      await waitForLitRender(wrapper);
+      expect(document.activeElement.id).to.be.equal(fourthInput.id);
+      expect(fourthInput).to.have.attribute('checked');
+      expect(secondInput).not.to.have.attribute('checked');
     });
 
     it('wraps around on arrow key navigation', async () => {

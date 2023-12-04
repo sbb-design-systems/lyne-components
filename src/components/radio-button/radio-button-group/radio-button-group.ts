@@ -262,20 +262,9 @@ export class SbbRadioButtonGroupElement extends LitElement {
       return;
     }
 
-    let current: number;
-    let nextIndex: number;
-
-    if (this._hasSelectionPanel) {
-      current = enabledRadios.findIndex((e: SbbRadioButtonElement) => e === evt.target);
-      nextIndex = getNextElementIndex(evt, current, enabledRadios.length);
-    } else {
-      const checked: number = enabledRadios.findIndex(
-        (radio: SbbRadioButtonElement) => radio.checked,
-      );
-      nextIndex = getNextElementIndex(evt, checked, enabledRadios.length);
-      enabledRadios[nextIndex].select();
-    }
-
+    const current = enabledRadios.findIndex((e: SbbRadioButtonElement) => e === evt.target);
+    const nextIndex: number = getNextElementIndex(evt, current, enabledRadios.length);
+    enabledRadios[nextIndex].select();
     enabledRadios[nextIndex].focus();
     evt.preventDefault();
   }
