@@ -185,6 +185,11 @@ export class SbbToggle extends LitElement {
     }
   }
 
+  protected override firstUpdated(changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+    this._setCheckedPillPosition(false);
+  }
+
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._toggleResizeObserver.disconnect();
@@ -232,13 +237,7 @@ export class SbbToggle extends LitElement {
   protected override render(): TemplateResult {
     setAttribute(this, 'role', 'radiogroup');
     return html`
-      <div
-        class="sbb-toggle"
-        ${ref((toggle) => {
-          this._toggleElement = toggle as HTMLElement;
-          this._setCheckedPillPosition(false);
-        })}
-      >
+      <div class="sbb-toggle" ${ref((toggle) => (this._toggleElement = toggle as HTMLElement))}>
         <slot @slotchange=${() => this._updateToggle()}></slot>
       </div>
     `;
