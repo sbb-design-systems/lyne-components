@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.43.0-next.13](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0-next.12...v0.43.0-next.13) (2023-12-04)
+
+### Bug Fixes
+
+- move ref to the back of declarations ([9a56187](https://github.com/lyne-design-system/lyne-components/commit/9a56187178de7ac80e160ab143fc8a559e0e739f))
+- move ref to the back of declarations ([#2243](https://github.com/lyne-design-system/lyne-components/issues/2243)) ([a6ddbc4](https://github.com/lyne-design-system/lyne-components/commit/a6ddbc406868987773e3c2ea46341a600c03f221))
+- **sbb-dialog:** correctly check whether pointer down event is on dialog ([#2245](https://github.com/lyne-design-system/lyne-components/issues/2245)) ([fcada63](https://github.com/lyne-design-system/lyne-components/commit/fcada63f44fd2d5d5827f1f46c2519d6e4839d5d))
+- sbb-occupancy bug in high contrast mode ([#2143](https://github.com/lyne-design-system/lyne-components/issues/2143)) ([9e757b6](https://github.com/lyne-design-system/lyne-components/commit/9e757b66ffd5ba82d00d9e85eb5982261d4b90f6))
+- **sbb-select:** fix template mismatch on hydration ([#2241](https://github.com/lyne-design-system/lyne-components/issues/2241)) ([6608466](https://github.com/lyne-design-system/lyne-components/commit/66084663ba3423b81f3bb5d8665df099418f2cc8))
+- **select:** enhance test robustness ([#2256](https://github.com/lyne-design-system/lyne-components/issues/2256)) ([a8c4d21](https://github.com/lyne-design-system/lyne-components/commit/a8c4d212585ceef74a943a09e8f75b5fd49c48e7))
+
+### Refactorings
+
+- **sbb-notification:** set fixed story height to work around chromatic issues ([#2233](https://github.com/lyne-design-system/lyne-components/issues/2233)) ([f18da8f](https://github.com/lyne-design-system/lyne-components/commit/f18da8f68c690642f2aeadd844f96014bd7e8eae))
+
+### Documentation
+
+- **readme:** fix attribute name composition ([#2254](https://github.com/lyne-design-system/lyne-components/issues/2254)) ([0713997](https://github.com/lyne-design-system/lyne-components/commit/0713997b2677b57f137b13dc3aed9be9e2d87835))
+
 ## [0.43.0-next.12](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0-next.11...v0.43.0-next.12) (2023-11-29)
 
 ### Bug Fixes
