@@ -125,6 +125,7 @@ describe('sbb-select', () => {
       </div>
     `);
     element = root.querySelector('sbb-select');
+    await waitForLitRender(element);
 
     const displayValue = element.shadowRoot.querySelector('.sbb-select__trigger');
     const firstOption = element.querySelector('#option-1');
