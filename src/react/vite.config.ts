@@ -41,7 +41,7 @@ export default defineConfig((config) =>
     ],
     build: {
       lib: {
-        formats: ['es', 'cjs'],
+        formats: ['es'],
       },
       minify: false,
       outDir: outDir.pathname,
