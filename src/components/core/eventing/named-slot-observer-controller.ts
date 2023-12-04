@@ -7,12 +7,13 @@ export class NamedSlotObserverController
   implements ReactiveController
 {
   private _detectedSlotNames: string[] = [];
+  private _hasUnnamedSlotContent = false;
 
   public constructor(
     host: ReactiveControllerHost & Partial<HTMLElement>,
     private _observableSlots: string[],
   ) {
-    super(host, () => this._detectSlotNames());
+    super(host, () => this._detectChanges());
   }
 
   public has(name: string): boolean {
@@ -25,23 +26,46 @@ export class NamedSlotObserverController
     return this._detectedSlotNames.includes(name);
   }
 
-  private _detectSlotNames(): void {
+  public hasUnnamed(): boolean {
+    return this._hasUnnamedSlotContent;
+  }
+
+  private _detectChanges(): void {
+    if (this._detectUnnamedSlotContent() || this._detectSlotNames()) {
+      this.host.requestUpdate();
+    }
+  }
+
+  private _detectUnnamedSlotContent(): boolean {
+    const hasUnnamedSlotContent = Array.from(this.host.childNodes ?? []).some(
+      (n) =>
+        (n.nodeType === Node.TEXT_NODE ||
+          (n.nodeType === Node.ELEMENT_NODE && !(n as Element).slot)) &&
+        !!n.textContent,
+    );
+    if (this._hasUnnamedSlotContent === hasUnnamedSlotContent) {
+      return false;
+    }
+
+    this._hasUnnamedSlotContent = hasUnnamedSlotContent;
+    return true;
+  }
+
+  private _detectSlotNames(): boolean {
     const detectedSlotNames = Array.from(this.host.children ?? [])
       .map((e) => e.slot)
       .filter((v, i, a) => !!v && a.indexOf(v) === i);
     if (!this._detectedSlotNames.length && !detectedSlotNames.length) {
-      return;
+      return false;
     }
     const changedSlotNames = this._detectedSlotNames
       .filter((n) => !detectedSlotNames.includes(n))
       .concat(detectedSlotNames.filter((n) => !this._detectedSlotNames.includes(n)));
     if (!changedSlotNames.length) {
-      return;
+      return false;
     }
 
     this._detectedSlotNames = detectedSlotNames;
-    if (this._observableSlots.some((n) => this._detectedSlotNames.includes(n))) {
-      this.host.requestUpdate();
-    }
+    return this._observableSlots.some((n) => this._detectedSlotNames.includes(n));
   }
 }

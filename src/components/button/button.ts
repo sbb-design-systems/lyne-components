@@ -3,7 +3,6 @@ import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SlotChildObserver } from '../core/common-behaviors';
 import {
   ACTION_ELEMENTS,
   hostContext,
@@ -17,6 +16,7 @@ import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
+  NamedSlotObserverController,
 } from '../core/eventing';
 import { i18nTargetOpensInNewWindow } from '../core/i18n';
 import {
@@ -40,10 +40,7 @@ export type SbbButtonSize = 'l' | 'm';
  * @slot icon - Slot used to display the icon, if one is set
  */
 @customElement('sbb-button')
-export class SbbButton
-  extends SlotChildObserver(LitElement)
-  implements LinkButtonProperties, IsStaticProperty
-{
+export class SbbButton extends LitElement implements LinkButtonProperties, IsStaticProperty {
   public static override styles: CSSResultGroup = style;
 
   /** Variant of the button, like primary, secondary etc. */
@@ -99,12 +96,9 @@ export class SbbButton
   /** The <form> element to associate the button with. */
   @property() public form?: string;
 
-  @state() private _hasText = false;
-
-  @state() private _hasSlottedIcon = false;
-
   @state() private _currentLanguage = documentLanguage();
 
+  private _namedSlotObserver = new NamedSlotObserverController(this, ['icon']);
   private _handlerRepository = new HandlerRepository(
     this,
     actionElementHandlerAspect,
@@ -115,7 +109,6 @@ export class SbbButton
     super.connectedCallback();
     // Check if the current element is nested in an action element.
     this.isStatic = this.isStatic || !!hostContext(ACTION_ELEMENTS, this);
-    this._hasText = this.slotHasContent();
     this._handlerRepository.connect();
 
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
@@ -130,22 +123,17 @@ export class SbbButton
     this._handlerRepository.disconnect();
   }
 
-  protected override checkChildren(): void {
-    this._hasText = this.slotHasContent();
-    this._hasSlottedIcon = this.slotHasContent('icon');
-  }
-
   protected override render(): TemplateResult {
     const { tagName: TAG_NAME, attributes, hostAttributes } = resolveRenderVariables(this);
 
     setAttributes(this, hostAttributes);
-    setAttribute(this, 'data-icon-only', !this._hasText);
+    setAttribute(this, 'data-icon-only', !this._namedSlotObserver.hasUnnamed());
 
     /* eslint-disable lit/binding-positions */
     return html`
       <${unsafeStatic(TAG_NAME)} class="sbb-button" ${spread(attributes)}>
         ${
-          this.iconName || this._hasSlottedIcon
+          this.iconName || this._namedSlotObserver.has('icon')
             ? html`<span class="sbb-button__icon">
                 <slot name="icon">
                   ${this.iconName ? html`<sbb-icon name="${this.iconName}"></sbb-icon>` : nothing}

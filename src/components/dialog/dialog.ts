@@ -11,12 +11,11 @@ import {
   setAttribute,
 } from '../core/dom';
 import {
-  createNamedSlotState,
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
-  namedSlotChangeHandlerAspect,
   EventEmitter,
+  NamedSlotObserverController,
 } from '../core/eventing';
 import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n';
 import { AgnosticResizeObserver } from '../core/observers';
@@ -104,11 +103,6 @@ export class SbbDialog extends LitElement {
   @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
   public disableAnimation = false;
 
-  /**
-   * State of listed named slots, by indicating whether any element for a named slot is defined.
-   */
-  @state() private _namedSlots = createNamedSlotState('title', 'action-group');
-
   @state() private _currentLanguage = documentLanguage();
 
   /*
@@ -158,10 +152,10 @@ export class SbbDialog extends LitElement {
   // Last element which had focus before the dialog was opened.
   private _lastFocusedElement?: HTMLElement;
 
+  private _namedSlotObserver = new NamedSlotObserverController(this, ['title', 'action-group']);
   private _handlerRepository = new HandlerRepository(
     this,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
   /**
@@ -390,8 +384,8 @@ export class SbbDialog extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    const hasTitle = !!this.titleContent || this._namedSlots['title'];
-    const hasActionGroup = this._namedSlots['action-group'] && hasTitle;
+    const hasTitle = !!this.titleContent || this._namedSlotObserver.has('title');
+    const hasActionGroup = this._namedSlotObserver.has('action-group') && hasTitle;
 
     const closeButton = html`
       <sbb-button
