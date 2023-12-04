@@ -1,5 +1,6 @@
 import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 import { setAttribute } from '../core/dom';
 import type { TitleLevel } from '../title';
@@ -52,7 +53,7 @@ export class SbbStatus extends LitElement {
     setAttribute(this, 'data-has-title', statusTitle);
 
     return html`
-      <div class="sbb-status" type="${this.type}">
+      <div class="sbb-status" type="${ifDefined(this.type)}">
         <sbb-icon class="sbb-status__icon" name=${statusTypes.get(this.type)!}></sbb-icon>
         <span class="sbb-status__content">
           ${statusTitle
