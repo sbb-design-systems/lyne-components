@@ -44,6 +44,31 @@ export class SbbTimeInputElement extends LitElement {
   }
   private _input: string | HTMLElement;
 
+  /**
+   * Formats the current input's value as date.
+   * TODO: in the readme.md, the `attribute: false` options is not evaluated.
+   *  This will be fixed in issue #2246.
+   */
+  @property({ attribute: false })
+  public set valueAsDate(date: SbbDateLike) {
+    if (!date || !this._inputElement) {
+      return;
+    }
+    const dateObj = date instanceof Date ? date : new Date(date);
+
+    this._inputElement.value = this._formatValue({
+      hours: dateObj.getHours(),
+      minutes: dateObj.getMinutes(),
+    });
+
+    // Emit blur event when value is changed programmatically to notify
+    // frameworks that rely on that event to update form status.
+    this._inputElement.dispatchEvent(new FocusEvent('blur', { composed: true }));
+  }
+  public get valueAsDate(): Date | null {
+    return this._formatValueAsDate(this._parseInput(this._inputElement?.value));
+  }
+
   @state() private _inputElement: HTMLInputElement | null;
 
   /**
@@ -80,25 +105,6 @@ export class SbbTimeInputElement extends LitElement {
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._abortController?.abort();
-  }
-  public get valueAsDate(): Date | null {
-    return this._formatValueAsDate(this._parseInput(this._inputElement?.value));
-  }
-
-  public set valueAsDate(date: SbbDateLike) {
-    if (!date || !this._inputElement) {
-      return;
-    }
-    const dateObj = date instanceof Date ? date : new Date(date);
-
-    this._inputElement.value = this._formatValue({
-      hours: dateObj.getHours(),
-      minutes: dateObj.getMinutes(),
-    });
-
-    // Emit blur event when value is changed programmatically to notify
-    // frameworks that rely on that event to update form status.
-    this._inputElement.dispatchEvent(new FocusEvent('blur', { composed: true }));
   }
 
   private _findInputElement(): void {
@@ -213,7 +219,7 @@ export class SbbTimeInputElement extends LitElement {
 
   /** Validate input against the defined RegExps. */
   private _parseInput(value: string): Time {
-    const trimmedValue = value.trim();
+    const trimmedValue = value?.trim();
     if (!trimmedValue) {
       return null;
     }

@@ -199,6 +199,23 @@ export class SbbDatepickerElement extends LitElement {
   @property() public input?: string | HTMLElement;
 
   /**
+   * Formats the current input's value as date.
+   * TODO: in the readme.md, the `attribute: false` options is not evaluated.
+   *  This will be fixed in issue #2246.
+   */
+  @property({ attribute: false })
+  public set valueAsDate(date: SbbDateLike) {
+    const parsedDate = date instanceof Date ? date : new Date(date);
+    this._formatAndUpdateValue(this._inputElement.value, parsedDate);
+    /* Emit blur event when value is changed programmatically to notify
+    frameworks that rely on that event to update form status. */
+    this._inputElement.dispatchEvent(new Event('blur', { composed: true }));
+  }
+  public get valueAsDate(): Date | undefined {
+    return this._parse(this._inputElement?.value);
+  }
+
+  /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
   private _didChange: EventEmitter = new EventEmitter(this, SbbDatepickerElement.events.didChange, {
@@ -290,20 +307,6 @@ export class SbbDatepickerElement extends LitElement {
         },
       );
     }
-  }
-
-  /** Gets the input value with the correct date format. */
-  public get valueAsDate(): Date | undefined {
-    return this._parse(this._inputElement?.value);
-  }
-
-  /** Set the input value to the correctly formatted value. */
-  public set valueAsDate(date: SbbDateLike) {
-    const parsedDate = date instanceof Date ? date : new Date(date);
-    this._formatAndUpdateValue(this._inputElement.value, parsedDate);
-    /* Emit blur event when value is changed programmatically to notify
-    frameworks that rely on that event to update form status. */
-    this._inputElement.dispatchEvent(new Event('blur', { composed: true }));
   }
 
   private _onInputPropertiesChange(mutationsList?: MutationRecord[]): void {
