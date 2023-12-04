@@ -1,45 +1,33 @@
-> Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
-> If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
-> For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
-> The following list of paragraphs is only suggested; remove, create and adapt as needed.
+The `sbb-status` is a component that has the purpose to show the user short messages, in order to update the current status.
+The status element displays a brief text message preceeded by the status icon.
 
-The `sbb-status` is a component . . .
+The `sbb-status` is structured in the following way:
+
+- Icon: informs user about the current status type
+- Title (optional): gives user an overview of the message
+- Message: provide the information to the user
 
 ```html
-<sbb-status></sbb-status>
+<sbb-status> Status info text </sbb-status>
 ```
 
-## Slots
+## Variants
 
-> Describe slot naming and usage and provide an example of slotted content.
+The `sbb-status` supports four types: `info` (default), `success`, `warn` and `error`, based on the type of the information displayed.
 
-## States
+```html
+<sbb-status type="info">...</sbb-status>
 
-> Describe the component states (`disabled`, `readonly`, etc.) and provide examples.
+<sbb-status type="success">...</sbb-status>
+
+<sbb-status type="warn">...</sbb-status>
+
+<sbb-status type="error">...</sbb-status>
+```
 
 ## Style
 
-> Describe the properties which change the component visualization (`size`, `negative`, etc.) and provide examples.
-
-## Interactions
-
-> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
-
-## Events
-
-> Describe events triggered by the component and possibly how to get information from the payload.
-
-## Keyboard interaction
-
-> If the component has logic for keyboard navigation (as the `sbb-calendar` or the `sbb-select`) describe it.
-
-| Keyboard       | Action        |
-| -------------- | ------------- |
-| <kbd>Key</kbd> | What it does. |
-
-## Accessibility
-
-> Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
+The `sbb-status` use default message colors, based on the type host chosen,
 
 <!-- Auto Generated Below -->
 
@@ -48,7 +36,7 @@ The `sbb-status` is a component . . .
 | Name           | Attribute       | Privacy | Type                                                       | Default  | Description                                                                        |
 | -------------- | --------------- | ------- | ---------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------- |
 | `type`         | `type`          | public  | `'info' \| 'success' \| 'warning' \| 'error' \| undefined` | `'info'` | The type of the status.                                                            |
-| `hasTitle`     | `has-title`     | public  |                                                            |          | The version of the status.                                                         |
+| `hasTitle`     | `has-title`     | public  | `boolean`                                                  |          | The version of the status.                                                         |
 | `titleContent` | `title-content` | public  | `string \| undefined`                                      |          | Content of title.                                                                  |
 | `titleLevel`   | `title-level`   | public  | `TitleLevel`                                               | `'3'`    | Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3. |
 
