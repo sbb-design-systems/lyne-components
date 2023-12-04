@@ -4,21 +4,25 @@
 import fs from 'fs';
 
 import { customElementsManifestToMarkdown } from '@custom-elements-manifest/to-markdown';
-import type { Package } from 'custom-elements-manifest/schema';
+import type { Attribute, CustomElement, Package } from 'custom-elements-manifest/schema';
 import * as glob from 'glob';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 import MagicString from 'magic-string';
 import { format, resolveConfig } from 'prettier';
 
-const manifestFilePath = './dist/components/custom-elements.json';
+import componentAnalyzerConfig from '../config/custom-elements-manifest.config';
+
+const manifestFilePath = `${componentAnalyzerConfig.outdir}/custom-elements.json`;
 const tempFolderPath = './dist/docs';
 const componentsFolder = './src/components';
 const inheritedFromColumnIndex = 6;
 const propertyColumnIndex = 1;
 const attributeColumnIndex = 2;
 
-function toKebabCase(value: string): string {
-  return value.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+function getAttributeName(propertyName: string, attributes: Attribute[]): string {
+  const name = propertyName.replace(/'|`/g, '').trim();
+  const attr = attributes.find((a) => a.fieldName === name)?.name;
+  return attr ? `\`${attr}\`` : '-';
 }
 
 /**
@@ -26,7 +30,11 @@ function toKebabCase(value: string): string {
  * Removes the 'Inherited from' column.
  * Replace 'Fields' title with 'Properties'
  */
-function updateFieldsTable(newDocs: MagicString, sections: RegExpMatchArray[]): void {
+function updateFieldsTable(
+  newDocs: MagicString,
+  sections: RegExpMatchArray[],
+  attributes: Attribute[],
+): void {
   const fieldsSectionIndex = sections.findIndex((sect) => sect.groups!.name === 'Fields');
   const startIndex = sections[fieldsSectionIndex]?.index;
   const endIndex = sections[fieldsSectionIndex + 1]?.index;
@@ -44,9 +52,16 @@ function updateFieldsTable(newDocs: MagicString, sections: RegExpMatchArray[]): 
   tableRows.forEach((row) => row.splice(inheritedFromColumnIndex, 1));
 
   // Generate the 'attribute' column by copying the property column and transform string to kebab case
-  [tableRows[0][propertyColumnIndex].replace('Name', 'Attribute').trim()]
-    .concat(tableRows.slice(1).map((entry) => toKebabCase(entry[propertyColumnIndex]).trim()))
-    .forEach((attributeColumn, i) => tableRows[i].splice(attributeColumnIndex, 0, attributeColumn));
+  const attributeColumn = [
+    tableRows[0][propertyColumnIndex].replace('Name', 'Attribute').trim(),
+    tableRows[1][propertyColumnIndex],
+    ...tableRows.slice(2).map((entry) => getAttributeName(entry[propertyColumnIndex], attributes)),
+  ];
+
+  // Insert the attribute column in the table
+  attributeColumn.forEach((attributeColumn, i) =>
+    tableRows[i].splice(attributeColumnIndex, 0, attributeColumn),
+  );
 
   const fieldsTable = tableRows.map((cols) => cols.join('|')).join('\n');
   newDocs.update(
@@ -56,7 +71,12 @@ function updateFieldsTable(newDocs: MagicString, sections: RegExpMatchArray[]): 
   );
 }
 
-async function updateComponentReadme(name: string, tag: string, docs: string): Promise<void> {
+async function updateComponentReadme(
+  name: string,
+  tag: string,
+  docs: string,
+  manifest: CustomElement,
+): Promise<void> {
   const path = glob.sync(`${componentsFolder}/**/${tag.replace(/^sbb-/, '')}/readme.md`)[0];
   if (!fs.existsSync(path)) {
     console.error(`Component ${name} has no readme file, please create it following the template`);
@@ -75,7 +95,7 @@ async function updateComponentReadme(name: string, tag: string, docs: string): P
   // Remove the title
   newDocs.replace(/^# class: `.*`\n/m, '');
 
-  updateFieldsTable(newDocs, sections);
+  updateFieldsTable(newDocs, sections, manifest.attributes!);
   newDocs = new MagicString(newDocs.toString());
 
   // Unescape `
@@ -116,6 +136,7 @@ const markdown: string = customElementsManifestToMarkdown(manifest, {
     'mixins',
   ],
 });
+const manifestDeclarations = manifest.modules.flatMap((m) => m.declarations);
 
 if (!fs.existsSync(tempFolderPath)) {
   fs.mkdirSync(tempFolderPath, { recursive: true });
@@ -136,6 +157,11 @@ for (let i = 0; i < matches.length; i++) {
   // If there is a `<hr/>` it indicates corrupted data respect. mixed data over different components.
   // If we just stop before occurrence of `<hr/>` we are not including the corrupted data.
   const hrIndex = componentMarkdown.indexOf('<hr/>');
-  await updateComponentReadme(compName, compTag, componentMarkdown.substring(0, hrIndex));
+  const markdownDoc = componentMarkdown.substring(0, hrIndex);
+  const compManifest = manifestDeclarations.find(
+    (c) => c?.kind === 'class' && c.name === compName,
+  ) as CustomElement;
+
+  await updateComponentReadme(compName, compTag, markdownDoc, compManifest);
 }
 console.log('Docs generated successfully');
