@@ -91,7 +91,7 @@ It's suggested to have a different value for each variant, e.g.:
 | `titleContent`       | `title-content`       | public  | `string \| undefined`       |             | The title displayed in `dropzone` variant.                               |
 | `disabled`           | `disabled`            | public  | `boolean`                   |             | Whether the component is disabled.                                       |
 | `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`       |             | This will be forwarded as aria-label to the native input element.        |
-| `files`              | `files`               | public  | `File[]`                    |             | Gets the currently selected files.                                       |
+| `files`              | -                     | public  | `File[]`                    |             | Gets the currently selected files.                                       |
 
 ## Methods
 
