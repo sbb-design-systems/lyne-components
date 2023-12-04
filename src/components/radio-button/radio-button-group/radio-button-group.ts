@@ -2,7 +2,7 @@ import { CSSResultGroup, html, LitElement, nothing, PropertyValues, TemplateResu
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../core/a11y';
-import { toggleDatasetEntry, setAttribute } from '../../core/dom';
+import { toggleDatasetEntry, setAttribute, isValidAttribute } from '../../core/dom';
 import {
   createNamedSlotState,
   HandlerRepository,
@@ -262,9 +262,17 @@ export class SbbRadioButtonGroupElement extends LitElement {
       return;
     }
 
-    const current = enabledRadios.findIndex((e: SbbRadioButtonElement) => e === evt.target);
+    const current: number = enabledRadios.findIndex((e: SbbRadioButtonElement) => e === evt.target);
     const nextIndex: number = getNextElementIndex(evt, current, enabledRadios.length);
-    enabledRadios[nextIndex].select();
+
+    // Selection on arrow keypress is allowed only if all the selection-panel has no content.
+    const allPanelHasNoContent: boolean = (
+      Array.from(this.querySelectorAll?.('sbb-selection-panel')) || []
+    ).every((e) => !isValidAttribute(e, 'data-has-content'));
+    if (!this._hasSelectionPanel || (this._hasSelectionPanel && allPanelHasNoContent)) {
+      enabledRadios[nextIndex].select();
+    }
+
     enabledRadios[nextIndex].focus();
     evt.preventDefault();
   }

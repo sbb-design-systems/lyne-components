@@ -196,7 +196,7 @@ describe('sbb-selection-panel', () => {
       await preservesDisabled(wrapper, disabledInput, secondInput);
     });
 
-    it('focuses and select input on left/top arrow key pressed', async () => {
+    it('focuses input on left arrow key pressed and selects it on space key pressed', async () => {
       const fourthInput: SbbRadioButtonElement = document.querySelector('#sbb-input-4');
 
       firstInput.click();
@@ -204,36 +204,83 @@ describe('sbb-selection-panel', () => {
       await sendKeys({ down: 'ArrowLeft' });
       await waitForLitRender(wrapper);
       expect(document.activeElement.id).to.be.equal(fourthInput.id);
-      expect(firstInput).not.to.have.attribute('checked');
-      expect(fourthInput).to.have.attribute('checked');
-
-      await sendKeys({ down: 'ArrowLeft' });
-      await waitForLitRender(wrapper);
-      expect(document.activeElement.id).to.be.equal(secondInput.id);
+      expect(firstInput).to.have.attribute('checked');
       expect(fourthInput).not.to.have.attribute('checked');
-      expect(secondInput).to.have.attribute('checked');
+
+      await sendKeys({ press: ' ' });
+      expect(fourthInput).to.have.attribute('checked');
+      expect(firstInput).not.to.have.attribute('checked');
     });
 
-    it('focuses and select input on right/down arrow key pressed', async () => {
-      const fourthInput: SbbRadioButton = document.querySelector('#sbb-input-4');
-
+    it('focuses input on right arrow key pressed and selects it on space key pressed', async () => {
       firstInput.click();
       firstInput.focus();
       await sendKeys({ down: 'ArrowRight' });
       await waitForLitRender(wrapper);
       expect(document.activeElement.id).to.be.equal(secondInput.id);
+      expect(firstInput).to.have.attribute('checked');
+      expect(secondInput).not.to.have.attribute('checked');
+
+      await sendKeys({ press: ' ' });
       expect(secondInput).to.have.attribute('checked');
       expect(firstInput).not.to.have.attribute('checked');
-
-      await sendKeys({ down: 'ArrowRight' });
-      await waitForLitRender(wrapper);
-      expect(document.activeElement.id).to.be.equal(fourthInput.id);
-      expect(fourthInput).to.have.attribute('checked');
-      expect(secondInput).not.to.have.attribute('checked');
     });
 
     it('wraps around on arrow key navigation', async () => {
       await wrapsAround(wrapper, firstInput, secondInput);
+    });
+
+    it('focus and select radio-button if there is no slotted content', async () => {
+      await fixture(html`
+        <sbb-radio-button-group id="group-no-content" name="input-group-name" value="Value one">
+          <sbb-selection-panel disable-animation id="no-content-1">
+            <sbb-radio-button id="input-no-content-1" value="Value one">Value one</sbb-radio-button>
+          </sbb-selection-panel>
+          <sbb-selection-panel disable-animation id="no-content-2">
+            <sbb-radio-button id="input-no-content-2" value="Value two">Value two</sbb-radio-button>
+          </sbb-selection-panel>
+          <sbb-selection-panel disable-animation id="no-content-3">
+            <sbb-radio-button id="input-no-content-3" value="Value three" disabled
+              >Value three</sbb-radio-button
+            >
+          </sbb-selection-panel>
+          <sbb-selection-panel disable-animation id="no-content-4">
+            <sbb-radio-button id="input-no-content-4" value="Value four"
+              >Value four</sbb-radio-button
+            >
+          </sbb-selection-panel>
+        </sbb-radio-button-group>
+      `);
+      const wrapperNoContent = document.querySelector('#group-no-content');
+      const firstInputNoContent: SbbRadioButton = document.querySelector('#input-no-content-1');
+      const secondInputNoContent: SbbRadioButton = document.querySelector('#input-no-content-2');
+      const fourthInputNoContent: SbbRadioButton = document.querySelector('#input-no-content-4');
+      firstInputNoContent.click();
+      firstInputNoContent.focus();
+
+      await sendKeys({ down: 'ArrowRight' });
+      await waitForLitRender(wrapperNoContent);
+      expect(document.activeElement.id).to.be.equal(secondInputNoContent.id);
+      expect(firstInputNoContent).not.to.have.attribute('checked');
+      expect(secondInputNoContent).to.have.attribute('checked');
+
+      await sendKeys({ down: 'ArrowDown' });
+      await waitForLitRender(wrapperNoContent);
+      expect(document.activeElement.id).to.be.equal(fourthInputNoContent.id);
+      expect(secondInputNoContent).not.to.have.attribute('checked');
+      expect(fourthInputNoContent).to.have.attribute('checked');
+
+      await sendKeys({ down: 'ArrowLeft' });
+      await waitForLitRender(wrapperNoContent);
+      expect(document.activeElement.id).to.be.equal(secondInputNoContent.id);
+      expect(fourthInputNoContent).not.to.have.attribute('checked');
+      expect(secondInputNoContent).to.have.attribute('checked');
+
+      await sendKeys({ down: 'ArrowUp' });
+      await waitForLitRender(wrapperNoContent);
+      expect(document.activeElement.id).to.be.equal(firstInputNoContent.id);
+      expect(secondInputNoContent).not.to.have.attribute('checked');
+      expect(firstInputNoContent).to.have.attribute('checked');
     });
   });
 
