@@ -146,6 +146,7 @@ describe('sbb-form-field', () => {
         </sbb-form-field>
       `);
       select = document.querySelector('sbb-select');
+      await waitForLitRender(element);
     });
 
     it('renders', async () => {
