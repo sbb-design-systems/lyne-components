@@ -44,10 +44,13 @@ export class SbbTimetableOccupancyIcon extends SbbIconBase {
     }
 
     let icon = `utilization-${this.occupancy}`;
-    if (window.matchMedia('(forced-colors: active)').matches) {
+    if (globalThis.window?.matchMedia('(forced-colors: active)').matches) {
       // high contrast
       icon += '-high-contrast';
-    } else if (this.negative || window.matchMedia('(prefer-color-scheme: dark)').matches) {
+    } else if (
+      this.negative ||
+      globalThis.window?.matchMedia('(prefer-color-scheme: dark)').matches
+    ) {
       // dark
       icon += '-negative';
     }
