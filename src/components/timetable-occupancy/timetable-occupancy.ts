@@ -22,7 +22,7 @@ export class SbbTimetableOccupancy extends LitElement {
   @property({ attribute: 'second-class-occupancy' }) public secondClassOccupancy: SbbOccupancy;
 
   /** Negative coloring variant flag. */
-  @property({ type: Boolean }) public negative = false;
+  @property({ reflect: true, type: Boolean }) public negative = false;
 
   @state() private _currentLanguage = documentLanguage();
 

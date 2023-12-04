@@ -24,7 +24,7 @@ export class SbbTimetableOccupancyIcon extends SbbIconBase {
   @property() public occupancy!: SbbOccupancy;
 
   /** Negative coloring variant flag. */
-  @property({ type: Boolean }) public negative: boolean = false;
+  @property({ reflect: true, type: Boolean }) public negative: boolean = false;
 
   @state() private _currentLanguage = documentLanguage();
 

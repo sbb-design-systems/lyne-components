@@ -2,7 +2,7 @@ import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValu
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../core/a11y';
-import { toggleDatasetEntry, isValidAttribute } from '../../core/dom';
+import { toggleDatasetEntry } from '../../core/dom';
 import {
   createNamedSlotState,
   HandlerRepository,
@@ -25,10 +25,10 @@ export class SbbCheckboxGroup extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Whether the checkbox group is disabled. */
-  @property({ type: Boolean }) public disabled = false;
+  @property({ reflect: true, type: Boolean }) public disabled = false;
 
   /** Whether the checkbox group is required. */
-  @property({ type: Boolean }) public required = false;
+  @property({ reflect: true, type: Boolean }) public required = false;
 
   /** Size variant, either m or s. */
   @property() public size: SbbCheckboxSize = 'm';
@@ -103,8 +103,7 @@ export class SbbCheckboxGroup extends LitElement {
 
   private _handleKeyDown(evt: KeyboardEvent): void {
     const enabledCheckboxes: SbbCheckbox[] = this._checkboxes.filter(
-      (checkbox: SbbCheckbox) =>
-        !isValidAttribute(checkbox, 'disabled') && interactivityChecker.isVisible(checkbox),
+      (checkbox: SbbCheckbox) => !checkbox.disabled && interactivityChecker.isVisible(checkbox),
     );
 
     if (

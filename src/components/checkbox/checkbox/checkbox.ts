@@ -65,7 +65,7 @@ export class SbbCheckbox extends LitElement {
   @property({ reflect: true, type: Boolean }) public disabled = false;
 
   /** Whether the checkbox is required. */
-  @property({ type: Boolean }) public required = false;
+  @property({ reflect: true, type: Boolean }) public required = false;
 
   /** Whether the checkbox is indeterminate. */
   @property({ reflect: true, type: Boolean }) public indeterminate = false;
@@ -165,8 +165,8 @@ export class SbbCheckbox extends LitElement {
   private _setupInitialStateAndAttributeObserver(): void {
     const parentGroup = this.closest?.('sbb-checkbox-group');
     if (parentGroup) {
-      this._requiredFromGroup = isValidAttribute(parentGroup, 'required');
-      this._disabledFromGroup = isValidAttribute(parentGroup, 'disabled');
+      this._requiredFromGroup = parentGroup.required;
+      this._disabledFromGroup = parentGroup.disabled;
       this.size = parentGroup.size;
     }
     this._checkboxAttributeObserver.observe(this, checkboxObserverConfig);

@@ -65,7 +65,7 @@ export class SbbOption extends LitElement {
   @property({ reflect: true, type: Boolean }) public selected = false;
 
   /** Whether the option is disabled. */
-  @property({ type: Boolean }) public disabled?: boolean;
+  @property({ reflect: true, type: Boolean }) public disabled?: boolean;
 
   /** Emits when the option selection status changes. */
   private _selectionChange: EventEmitter = new EventEmitter(this, SbbOption.events.selectionChange);
@@ -171,7 +171,7 @@ export class SbbOption extends LitElement {
     this._handlerRepository.connect();
     const parentGroup = this.closest?.('sbb-optgroup');
     if (parentGroup) {
-      this._disabledFromGroup = isValidAttribute(parentGroup, 'disabled');
+      this._disabledFromGroup = parentGroup.disabled;
     }
     this._optionAttributeObserver.observe(this, optionObserverConfig);
 

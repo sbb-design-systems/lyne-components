@@ -65,10 +65,10 @@ export class SbbSelect extends UpdateScheduler(LitElement) {
   @property({ type: Boolean }) public multiple = false;
 
   /** Whether the select is required. */
-  @property({ type: Boolean }) public required = false;
+  @property({ reflect: true, type: Boolean }) public required = false;
 
   /** Whether the select is disabled. */
-  @property({ type: Boolean }) public disabled = false;
+  @property({ reflect: true, type: Boolean }) public disabled = false;
 
   /** Whether the select is readonly. */
   @property({ type: Boolean }) public readonly = false;
@@ -152,8 +152,7 @@ export class SbbSelect extends UpdateScheduler(LitElement) {
 
   private get _filteredOptions(): SbbOption[] {
     return this._options.filter(
-      (opt: SbbOption) =>
-        !isValidAttribute(opt, 'disabled') && !isValidAttribute(opt, 'data-group-disabled'),
+      (opt: SbbOption) => !opt.disabled && !isValidAttribute(opt, 'data-group-disabled'),
     );
   }
 

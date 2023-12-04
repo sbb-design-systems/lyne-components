@@ -69,7 +69,7 @@ export class SbbRadioButton extends LitElement {
   /**
    * Whether the radio button is required.
    */
-  @property({ type: Boolean }) public required = false;
+  @property({ reflect: true, type: Boolean }) public required = false;
 
   /**
    * Whether the radio button is checked.
@@ -215,8 +215,8 @@ export class SbbRadioButton extends LitElement {
   private _setupInitialStateAndAttributeObserver(): void {
     const parentGroup = this.closest('sbb-radio-button-group') as SbbRadioButtonGroup;
     if (parentGroup) {
-      this._requiredFromGroup = isValidAttribute(parentGroup, 'required');
-      this._disabledFromGroup = isValidAttribute(parentGroup, 'disabled');
+      this._requiredFromGroup = parentGroup.required;
+      this._disabledFromGroup = parentGroup.disabled;
       this.size = parentGroup.size;
     }
     this._radioButtonAttributeObserver.observe(this, radioButtonObserverConfig);

@@ -226,9 +226,7 @@ export class SbbAutocomplete extends LitElement {
   }
 
   private _syncNegative(): void {
-    this.querySelectorAll?.('sbb-divider').forEach((element) =>
-      setAttribute(element, 'negative', this.negative),
-    );
+    this.querySelectorAll?.('sbb-divider').forEach((divider) => (divider.negative = this.negative));
 
     this.querySelectorAll?.('sbb-option, sbb-optgroup').forEach((element: HTMLElement) =>
       toggleDatasetEntry(element, 'negative', this.negative),
@@ -472,7 +470,7 @@ export class SbbAutocomplete extends LitElement {
 
   private _setNextActiveOption(event: KeyboardEvent): void {
     const filteredOptions = this._options.filter(
-      (opt) => !isValidAttribute(opt, 'disabled') && !isValidAttribute(opt, 'data-group-disabled'),
+      (opt) => !opt.disabled && !isValidAttribute(opt, 'data-group-disabled'),
     );
 
     // Get and activate the next active option
