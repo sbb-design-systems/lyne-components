@@ -232,7 +232,13 @@ export class SbbToggle extends LitElement {
   protected override render(): TemplateResult {
     setAttribute(this, 'role', 'radiogroup');
     return html`
-      <div class="sbb-toggle" ${ref((toggle) => (this._toggleElement = toggle as HTMLElement))}>
+      <div
+        class="sbb-toggle"
+        ${ref((toggle) => {
+          this._toggleElement = toggle as HTMLElement;
+          this._setCheckedPillPosition(false);
+        })}
+      >
         <slot @slotchange=${() => this._updateToggle()}></slot>
       </div>
     `;
