@@ -126,7 +126,7 @@ technology will announce errors when they appear.
 | `width`         | `width`          | public  | `'default' \| 'collapse'`                              | `'default'` | Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content. |
 | `floatingLabel` | `floating-label` | public  | `boolean`                                              | `false`     | Whether the label should float. If activated, the placeholder of the input is hidden.                                                                                 |
 | `negative`      | `negative`       | public  | `boolean`                                              | `false`     | Negative coloring variant flag.                                                                                                                                       |
-| `inputElement`  | `input-element`  | public  | `HTMLInputElement \| HTMLSelectElement \| HTMLElement` |             | Returns the input element.                                                                                                                                            |
+| `inputElement`  | -                | public  | `HTMLInputElement \| HTMLSelectElement \| HTMLElement` |             | Returns the input element.                                                                                                                                            |
 
 ## Methods
 
