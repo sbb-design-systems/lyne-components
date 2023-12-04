@@ -45,7 +45,8 @@ export function packageJsonTemplate(
               Object.assign(current, {
                 [`./${next[0].replace(/\/index$/, '')}`]: {
                   types: `./${next[0]}.d.ts`,
-                  esm: `./${next[0]}.js`,
+                  import: `./${next[0]}.js`,
+                  require: `./${next[0]}.cjs`,
                   default: `./${next[0]}.js`,
                 },
               }),

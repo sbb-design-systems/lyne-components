@@ -53,7 +53,7 @@ export default defineConfig((config) =>
       lib: {
         // Include all directories containing an index.ts
         entry: globIndexMap(packageRoot),
-        formats: ['es'],
+        formats: ['es', 'cjs'],
       },
       minify: false,
       outDir: outDir.pathname,
