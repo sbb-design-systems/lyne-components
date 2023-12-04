@@ -448,17 +448,17 @@ export class SbbDialog extends LitElement {
     return html`
       <div class="sbb-dialog__container">
         <div
-          ${ref((dialogRef) => (this._dialog = dialogRef as HTMLDivElement))}
           @animationend=${(event: AnimationEvent) => this._onDialogAnimationEnd(event)}
           class="sbb-dialog"
           id=${this._dialogId}
+          ${ref((dialogRef) => (this._dialog = dialogRef as HTMLDivElement))}
         >
           <div
             @click=${(event: Event) => this._closeOnSbbDialogCloseClick(event)}
+            class="sbb-dialog__wrapper"
             ${ref(
               (dialogWrapperRef) => (this._dialogWrapperElement = dialogWrapperRef as HTMLElement),
             )}
-            class="sbb-dialog__wrapper"
           >
             ${dialogHeader}
             <div
