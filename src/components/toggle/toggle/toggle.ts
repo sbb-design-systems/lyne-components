@@ -185,6 +185,11 @@ export class SbbToggle extends LitElement {
     }
   }
 
+  protected override firstUpdated(changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+    this._setCheckedPillPosition(false);
+  }
+
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._toggleResizeObserver.disconnect();
