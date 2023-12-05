@@ -21,7 +21,7 @@ export class SbbOptGroup extends LitElement {
   @property() public label: string;
 
   /** Whether the group is disabled. */
-  @property({ type: Boolean }) public disabled = false;
+  @property({ reflect: true, type: Boolean }) public disabled = false;
 
   @state() private _negative = false;
 

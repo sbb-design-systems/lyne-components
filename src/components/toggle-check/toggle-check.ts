@@ -47,7 +47,7 @@ export class SbbToggleCheck extends LitElement {
   @property({ reflect: true, type: Boolean }) public disabled = false;
 
   /** The required prop for the required state. */
-  @property({ type: Boolean }) public required = false;
+  @property({ reflect: true, type: Boolean }) public required = false;
 
   /** The label position relative to the toggle. Defaults to 'after' */
   @property({ attribute: 'label-position', reflect: true })

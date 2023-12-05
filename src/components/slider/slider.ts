@@ -49,7 +49,7 @@ export class SbbSlider extends LitElement {
   @property({ type: Boolean }) public readonly?: boolean = false;
 
   /** Disabled state for the inner HTMLInputElement. */
-  @property({ type: Boolean }) public disabled?: boolean = false;
+  @property({ reflect: true, type: Boolean }) public disabled?: boolean = false;
 
   /** Name of the icon at component's start, which will be forward to the nested `sbb-icon`. */
   @property({ attribute: 'start-icon' }) public startIcon?: string;
