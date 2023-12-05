@@ -1,6 +1,7 @@
 import { defaultReporter, dotReporter, summaryReporter } from '@web/test-runner';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { puppeteerLauncher } from '@web/test-runner-puppeteer';
+import { a11ySnapshotPlugin } from '@web/test-runner-commands/plugins';
 import { existsSync } from 'fs';
 import * as sass from 'sass';
 import { createServer } from 'vite';
@@ -33,7 +34,7 @@ export default {
   nodeResolve: true,
   reporters: isDebugMode ? [defaultReporter(), summaryReporter()] : [minimalReporter()],
   browsers: browsers,
-  plugins: [vitePlugin()],
+  plugins: [vitePlugin(), a11ySnapshotPlugin()],
   testFramework: {
     config: {
       timeout: '3000',
