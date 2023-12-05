@@ -477,16 +477,16 @@ const WithNoContentGroupTemplate = ({
   disabledInput,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-radio-button-group>
+  <sbb-radio-button-group orientation="vertical" horizontal-from="large">
     <sbb-selection-panel ${sbbSpread(args)}>
       ${cardBadge()}
-      <sbb-radio-button value="Value one" ?checked=${checkedInput}>
+      <sbb-radio-button value="Value one" ?disabled=${disabledInput}>
         Value one ${suffixAndSubtext()}
       </sbb-radio-button>
     </sbb-selection-panel>
     <sbb-selection-panel ${sbbSpread(args)}>
       ${cardBadge()}
-      <sbb-radio-button value="Value two" ?disabled=${disabledInput}>
+      <sbb-radio-button value="Value two" ?checked=${checkedInput}>
         Value two ${suffixAndSubtext()}
       </sbb-radio-button>
     </sbb-selection-panel>

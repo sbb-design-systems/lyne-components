@@ -229,25 +229,25 @@ describe('sbb-selection-panel', () => {
     it('wraps around on arrow key navigation', async () => {
       await wrapsAround(wrapper, firstInput, secondInput);
     });
+  });
 
-    it('focus and select radio-button if there is no slotted content', async () => {
+  describe('with radio group with no slotted content', () => {
+    it('focus selected, the focus and select on keyboard navigation', async () => {
       await fixture(html`
-        <sbb-radio-button-group id="group-no-content" name="input-group-name" value="Value one">
+        <sbb-radio-button-group id="group-no-content" name="input-group-name" value="Value 2">
           <sbb-selection-panel disable-animation id="no-content-1">
-            <sbb-radio-button id="input-no-content-1" value="Value one">Value one</sbb-radio-button>
+            <sbb-radio-button id="input-no-content-1" value="Value 1">Value one</sbb-radio-button>
           </sbb-selection-panel>
           <sbb-selection-panel disable-animation id="no-content-2">
-            <sbb-radio-button id="input-no-content-2" value="Value two">Value two</sbb-radio-button>
+            <sbb-radio-button id="input-no-content-2" value="Value 2">Value two</sbb-radio-button>
           </sbb-selection-panel>
           <sbb-selection-panel disable-animation id="no-content-3">
-            <sbb-radio-button id="input-no-content-3" value="Value three" disabled
+            <sbb-radio-button id="input-no-content-3" value="Value 3" disabled
               >Value three</sbb-radio-button
             >
           </sbb-selection-panel>
           <sbb-selection-panel disable-animation id="no-content-4">
-            <sbb-radio-button id="input-no-content-4" value="Value four"
-              >Value four</sbb-radio-button
-            >
+            <sbb-radio-button id="input-no-content-4" value="Value 4">Value four</sbb-radio-button>
           </sbb-selection-panel>
         </sbb-radio-button-group>
       `);
@@ -255,8 +255,16 @@ describe('sbb-selection-panel', () => {
       const firstInputNoContent: SbbRadioButton = document.querySelector('#input-no-content-1');
       const secondInputNoContent: SbbRadioButton = document.querySelector('#input-no-content-2');
       const fourthInputNoContent: SbbRadioButton = document.querySelector('#input-no-content-4');
-      firstInputNoContent.click();
-      firstInputNoContent.focus();
+
+      await sendKeys({ down: 'Tab' });
+      await waitForLitRender(wrapperNoContent);
+      expect(document.activeElement.id).to.be.equal(secondInputNoContent.id);
+
+      await sendKeys({ down: 'ArrowUp' });
+      await waitForLitRender(wrapperNoContent);
+      expect(document.activeElement.id).to.be.equal(firstInputNoContent.id);
+      expect(secondInputNoContent).not.to.have.attribute('checked');
+      expect(firstInputNoContent).to.have.attribute('checked');
 
       await sendKeys({ down: 'ArrowRight' });
       await waitForLitRender(wrapperNoContent);
@@ -275,12 +283,6 @@ describe('sbb-selection-panel', () => {
       expect(document.activeElement.id).to.be.equal(secondInputNoContent.id);
       expect(fourthInputNoContent).not.to.have.attribute('checked');
       expect(secondInputNoContent).to.have.attribute('checked');
-
-      await sendKeys({ down: 'ArrowUp' });
-      await waitForLitRender(wrapperNoContent);
-      expect(document.activeElement.id).to.be.equal(firstInputNoContent.id);
-      expect(secondInputNoContent).not.to.have.attribute('checked');
-      expect(firstInputNoContent).to.have.attribute('checked');
     });
   });
 

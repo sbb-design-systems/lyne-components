@@ -241,7 +241,16 @@ export class SbbRadioButtonGroupElement extends LitElement {
   }
 
   private _getRadioTabIndex(radio: SbbRadioButtonElement): number {
-    return (radio.checked || this._hasSelectionPanel) && !radio.disabled && !this.disabled ? 0 : -1;
+    if (this._hasSelectionPanel) {
+      const isParentPanelWithContent =
+        radio.parentElement.nodeName === 'SBB-SELECTION-PANEL' &&
+        isValidAttribute(radio.parentElement, 'data-has-content');
+
+      return (radio.checked || isParentPanelWithContent) && !radio.disabled && !this.disabled
+        ? 0
+        : -1;
+    }
+    return radio.checked && !radio.disabled && !this.disabled ? 0 : -1;
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {
