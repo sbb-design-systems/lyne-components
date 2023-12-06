@@ -87,7 +87,15 @@ export class SbbAutocomplete extends LitElement {
 
   private _overlay: HTMLElement;
   private _optionContainer: HTMLElement;
-  private _originElement: HTMLElement;
+
+  private get _originElement(): HTMLElement {
+    if (!this._originElementRef) {
+      this._originElementRef = this._getOriginElement();
+    }
+    return this._originElementRef;
+  }
+  private _originElementRef: HTMLElement;
+
   private _triggerElement: HTMLInputElement;
   private _triggerEventsController: AbortController;
   private _openPanelEventsController: AbortController;
@@ -246,7 +254,13 @@ export class SbbAutocomplete extends LitElement {
     this._triggerEventsController?.abort();
     this._openPanelEventsController?.abort();
 
-    this._attachTo(this._getOriginElement());
+    this._originElementRef = undefined;
+    toggleDatasetEntry(
+      this,
+      'optionPanelOriginBorderless',
+      this.closest('sbb-form-field')?.hasAttribute('borderless'),
+    );
+
     this._bindTo(this._getTriggerElement());
   }
 
@@ -290,20 +304,6 @@ export class SbbAutocomplete extends LitElement {
     }
 
     return result;
-  }
-
-  private _attachTo(anchorElem: HTMLElement): void {
-    if (!anchorElem) {
-      return;
-    }
-
-    this._originElement = anchorElem;
-
-    toggleDatasetEntry(
-      this,
-      'optionPanelOriginBorderless',
-      this.closest('sbb-form-field')?.hasAttribute('borderless'),
-    );
   }
 
   private _bindTo(triggerElem: HTMLInputElement): void {
