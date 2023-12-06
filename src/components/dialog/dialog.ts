@@ -188,16 +188,17 @@ export class SbbDialogElement extends LitElement {
     }
     this._lastFocusedElement = document.activeElement as HTMLElement;
 
-    if (this._willOpen.emit()) {
-      this._state = 'opening';
-
-      // Add this dialog to the global collection
-      dialogRefs.push(this as SbbDialogElement);
-      this._setOverflowAttribute();
-
-      // Disable scrolling for content below the dialog
-      this._scrollHandler.disableScroll();
+    if (!this._willOpen.emit()) {
+      return;
     }
+    this._state = 'opening';
+
+    // Add this dialog to the global collection
+    dialogRefs.push(this as SbbDialogElement);
+    this._setOverflowAttribute();
+
+    // Disable scrolling for content below the dialog
+    this._scrollHandler.disableScroll();
   }
 
   /**
@@ -210,15 +211,16 @@ export class SbbDialogElement extends LitElement {
 
     this._returnValue = result;
     this._dialogCloseElement = target;
-    if (
-      this._willClose.emit({
-        returnValue: this._returnValue,
-        closeTarget: this._dialogCloseElement,
-      })
-    ) {
-      this._state = 'closing';
-      this._removeAriaLiveRefContent();
+    const eventData = {
+      returnValue: this._returnValue,
+      closeTarget: this._dialogCloseElement,
+    };
+
+    if (!this._willClose.emit(eventData)) {
+      return;
     }
+    this._state = 'closing';
+    this._removeAriaLiveRefContent();
   }
 
   // Closes the dialog on "Esc" key pressed.

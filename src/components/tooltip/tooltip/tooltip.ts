@@ -161,21 +161,23 @@ export class SbbTooltipElement extends LitElement {
       return;
     }
 
-    if (this._willOpen.emit()) {
-      // Close the other tooltips
-      for (const tooltip of Array.from(tooltipsRef)) {
-        const state = tooltip.getAttribute('data-state') as SbbOverlayState;
-        if (state && (state === 'opened' || state === 'opening')) {
-          tooltip.close();
-        }
-      }
-
-      this._state = 'opening';
-      this.inert = true;
-      this._setTooltipPosition();
-      this._triggerElement?.setAttribute('aria-expanded', 'true');
-      this._nextFocusedElement = undefined;
+    if (!this._willOpen.emit()) {
+      return;
     }
+
+    // Close the other tooltips
+    for (const tooltip of Array.from(tooltipsRef)) {
+      const state = tooltip.getAttribute('data-state') as SbbOverlayState;
+      if (state && (state === 'opened' || state === 'opening')) {
+        tooltip.close();
+      }
+    }
+
+    this._state = 'opening';
+    this.inert = true;
+    this._setTooltipPosition();
+    this._triggerElement?.setAttribute('aria-expanded', 'true');
+    this._nextFocusedElement = undefined;
   }
 
   /**
@@ -187,11 +189,13 @@ export class SbbTooltipElement extends LitElement {
     }
 
     this._tooltipCloseElement = target;
-    if (this._willClose.emit({ closeTarget: this._tooltipCloseElement })) {
-      this._state = 'closing';
-      this.inert = true;
-      this._triggerElement?.setAttribute('aria-expanded', 'false');
+    if (!this._willClose.emit({ closeTarget: target })) {
+      return;
     }
+
+    this._state = 'closing';
+    this.inert = true;
+    this._triggerElement?.setAttribute('aria-expanded', 'false');
   }
 
   // Closes the tooltip on "Esc" key pressed and traps focus within the tooltip.

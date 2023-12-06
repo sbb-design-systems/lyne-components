@@ -132,10 +132,11 @@ export class SbbToastElement extends LitElement {
       return;
     }
 
-    if (this._willOpen.emit()) {
-      this._state = 'opening';
-      this._closeOtherToasts();
+    if (!this._willOpen.emit()) {
+      return;
     }
+    this._state = 'opening';
+    this._closeOtherToasts();
   }
 
   /**
@@ -146,10 +147,11 @@ export class SbbToastElement extends LitElement {
       return;
     }
 
-    if (this._willClose.emit()) {
-      clearTimeout(this._closeTimeout);
-      this._state = 'closing';
+    if (!this._willClose.emit()) {
+      return;
     }
+    clearTimeout(this._closeTimeout);
+    this._state = 'closing';
   }
 
   // Close the tooltip on click of any element that has the 'sbb-toast-close' attribute.

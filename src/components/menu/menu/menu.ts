@@ -123,15 +123,17 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
       return;
     }
 
-    if (this._willOpen.emit()) {
-      this._state = 'opening';
-      this._setMenuPosition();
-      this._triggerElement?.setAttribute('aria-expanded', 'true');
+    if (!this._willOpen.emit()) {
+      return;
+    }
 
-      // Starting from breakpoint medium, disable scroll
-      if (!isBreakpoint('medium')) {
-        this._scrollHandler.disableScroll();
-      }
+    this._state = 'opening';
+    this._setMenuPosition();
+    this._triggerElement?.setAttribute('aria-expanded', 'true');
+
+    // Starting from breakpoint medium, disable scroll
+    if (!isBreakpoint('medium')) {
+      this._scrollHandler.disableScroll();
     }
   }
 
@@ -143,10 +145,12 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
       return;
     }
 
-    if (this._willClose.emit()) {
-      this._state = 'closing';
-      this._triggerElement?.setAttribute('aria-expanded', 'false');
+    if (!this._willClose.emit()) {
+      return;
     }
+
+    this._state = 'closing';
+    this._triggerElement?.setAttribute('aria-expanded', 'false');
   }
 
   /**

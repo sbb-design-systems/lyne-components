@@ -149,14 +149,15 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
       return;
     }
 
-    if (this._willOpen.emit()) {
-      this._state = 'opening';
-      this.startUpdate();
-
-      // Disable scrolling for content below the navigation
-      this._scrollHandler.disableScroll();
-      this._triggerElement?.setAttribute('aria-expanded', 'true');
+    if (!this._willOpen.emit()) {
+      return;
     }
+    this._state = 'opening';
+    this.startUpdate();
+
+    // Disable scrolling for content below the navigation
+    this._scrollHandler.disableScroll();
+    this._triggerElement?.setAttribute('aria-expanded', 'true');
   }
 
   /**
@@ -167,11 +168,12 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
       return;
     }
 
-    if (this._willClose.emit()) {
-      this._state = 'closing';
-      this.startUpdate();
-      this._triggerElement?.setAttribute('aria-expanded', 'false');
+    if (!this._willClose.emit()) {
+      return;
     }
+    this._state = 'closing';
+    this.startUpdate();
+    this._triggerElement?.setAttribute('aria-expanded', 'false');
   }
 
   // Removes trigger click listener on trigger change.

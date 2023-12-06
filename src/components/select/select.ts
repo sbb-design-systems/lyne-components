@@ -166,10 +166,11 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
       return;
     }
 
-    if (this._willOpen.emit()) {
-      this._state = 'opening';
-      this._setOverlayPosition();
+    if (!this._willOpen.emit()) {
+      return;
     }
+    this._state = 'opening';
+    this._setOverlayPosition();
   }
 
   /** Closes the selection panel. */
@@ -178,10 +179,11 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
       return;
     }
 
-    if (this._willClose.emit()) {
-      this._state = 'closing';
-      this._openPanelEventsController.abort();
+    if (!this._willClose.emit()) {
+      return;
     }
+    this._state = 'closing';
+    this._openPanelEventsController.abort();
   }
 
   /** Gets the current displayed value. */

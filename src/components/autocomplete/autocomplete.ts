@@ -139,11 +139,12 @@ export class SbbAutocompleteElement extends LitElement {
     ) {
       return;
     }
-
-    if (this._willOpen.emit()) {
-      this._state = 'opening';
-      this._setOverlayPosition();
+    if (!this._willOpen.emit()) {
+      return;
     }
+
+    this._state = 'opening';
+    this._setOverlayPosition();
   }
 
   /** Closes the autocomplete. */
@@ -151,11 +152,12 @@ export class SbbAutocompleteElement extends LitElement {
     if (this._state !== 'opened') {
       return;
     }
-
-    if (this._willClose.emit()) {
-      this._state = 'closing';
-      this._openPanelEventsController.abort();
+    if (!this._willClose.emit()) {
+      return;
     }
+
+    this._state = 'closing';
+    this._openPanelEventsController.abort();
   }
 
   /** Removes trigger click listener on trigger change. */
