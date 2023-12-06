@@ -42,9 +42,9 @@ let nextId = 0;
  * It displays a contextual menu with one or more action element.
  *
  * @slot - Use the unnamed slot to add `sbb-menu-action` or other elements to the menu.
- * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-menu` starts the opening transition.
+ * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-menu` starts the opening transition. Can be canceled.
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-menu` is opened.
- * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-menu` begins the closing transition.
+ * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-menu` begins the closing transition. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-menu` is closed.
  */
 @customElement('sbb-menu')
@@ -93,28 +93,16 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
   @state() private _actions: SbbMenuActionElement[];
 
   /** Emits whenever the `sbb-menu` starts the opening transition. */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbMenuElement.events.willOpen, {
-    bubbles: true,
-    composed: true,
-  });
+  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbMenuElement.events.willOpen);
 
   /** Emits whenever the `sbb-menu` is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbMenuElement.events.didOpen, {
-    bubbles: true,
-    composed: true,
-  });
+  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbMenuElement.events.didOpen);
 
   /** Emits whenever the `sbb-menu` begins the closing transition. */
-  private _willClose: EventEmitter<void> = new EventEmitter(this, SbbMenuElement.events.willClose, {
-    bubbles: true,
-    composed: true,
-  });
+  private _willClose: EventEmitter<void> = new EventEmitter(this, SbbMenuElement.events.willClose);
 
   /** Emits whenever the `sbb-menu` is closed. */
-  private _didClose: EventEmitter<void> = new EventEmitter(this, SbbMenuElement.events.didClose, {
-    bubbles: true,
-    composed: true,
-  });
+  private _didClose: EventEmitter<void> = new EventEmitter(this, SbbMenuElement.events.didClose);
 
   private _menu: HTMLDivElement;
   private _triggerElement: HTMLElement;
@@ -135,14 +123,15 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
       return;
     }
 
-    this._willOpen.emit();
-    this._state = 'opening';
-    this._setMenuPosition();
-    this._triggerElement?.setAttribute('aria-expanded', 'true');
+    if (this._willOpen.emit()) {
+      this._state = 'opening';
+      this._setMenuPosition();
+      this._triggerElement?.setAttribute('aria-expanded', 'true');
 
-    // Starting from breakpoint medium, disable scroll
-    if (!isBreakpoint('medium')) {
-      this._scrollHandler.disableScroll();
+      // Starting from breakpoint medium, disable scroll
+      if (!isBreakpoint('medium')) {
+        this._scrollHandler.disableScroll();
+      }
     }
   }
 
@@ -154,9 +143,10 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
       return;
     }
 
-    this._willClose.emit();
-    this._state = 'closing';
-    this._triggerElement?.setAttribute('aria-expanded', 'false');
+    if (this._willClose.emit()) {
+      this._state = 'closing';
+      this._triggerElement?.setAttribute('aria-expanded', 'false');
+    }
   }
 
   /**

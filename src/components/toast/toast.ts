@@ -35,9 +35,9 @@ const toastRefs = new Set<SbbToastElement>();
  * @slot - Use the unnamed slot to add content to the `sbb-toast`.
  * @slot icon - Assign a custom icon via slot.
  * @slot action - Provide a custom action for this toast.
- * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-toast` starts the opening transition.
+ * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-toast` starts the opening transition. Can be canceled.
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-toast` is opened.
- * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-toast` begins the closing transition.
+ * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-toast` begins the closing transition. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-toast` is closed.
  */
 @customElement('sbb-toast')
@@ -87,32 +87,16 @@ export class SbbToastElement extends LitElement {
   @state() private _currentLanguage = documentLanguage();
 
   /** Emits whenever the `sbb-toast` starts the opening transition. */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbToastElement.events.willOpen, {
-    bubbles: true,
-    composed: true,
-  });
+  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbToastElement.events.willOpen);
 
   /** Emits whenever the `sbb-toast` is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbToastElement.events.didOpen, {
-    bubbles: true,
-    composed: true,
-  });
+  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbToastElement.events.didOpen);
 
   /** Emits whenever the `sbb-toast` begins the closing transition. */
-  private _willClose: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbToastElement.events.willClose,
-    {
-      bubbles: true,
-      composed: true,
-    },
-  );
+  private _willClose: EventEmitter<void> = new EventEmitter(this, SbbToastElement.events.willClose);
 
   /** Emits whenever the `sbb-toast` is closed. */
-  private _didClose: EventEmitter<void> = new EventEmitter(this, SbbToastElement.events.didClose, {
-    bubbles: true,
-    composed: true,
-  });
+  private _didClose: EventEmitter<void> = new EventEmitter(this, SbbToastElement.events.didClose);
 
   private _handlerRepository = new HandlerRepository(
     this,
@@ -148,10 +132,10 @@ export class SbbToastElement extends LitElement {
       return;
     }
 
-    this._closeOtherToasts();
-
-    this._state = 'opening';
-    this._willOpen.emit();
+    if (this._willOpen.emit()) {
+      this._state = 'opening';
+      this._closeOtherToasts();
+    }
   }
 
   /**
@@ -162,10 +146,10 @@ export class SbbToastElement extends LitElement {
       return;
     }
 
-    clearTimeout(this._closeTimeout);
-
-    this._state = 'closing';
-    this._willClose.emit();
+    if (this._willClose.emit()) {
+      clearTimeout(this._closeTimeout);
+      this._state = 'closing';
+    }
   }
 
   // Close the tooltip on click of any element that has the 'sbb-toast-close' attribute.

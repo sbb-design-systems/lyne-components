@@ -50,6 +50,23 @@ describe('sbb-dialog', () => {
     await openDialog(element);
   });
 
+  it('does not open the dialog if prevented', async () => {
+    const willOpen = new EventSpy(SbbDialog.events.willOpen);
+    const didOpen = new EventSpy(SbbDialog.events.didOpen);
+
+    element.addEventListener(SbbDialog.events.willOpen, (ev) => ev.preventDefault());
+
+    element.open();
+    await waitForLitRender(element);
+
+    await waitForCondition(() => willOpen.events.length === 1);
+    expect(willOpen.count).to.be.equal(1);
+    await waitForLitRender(element);
+
+    expect(didOpen.count).to.be.equal(0);
+    expect(element).to.have.attribute('data-state', 'closed');
+  });
+
   it('closes the dialog', async () => {
     const willClose = new EventSpy(SbbDialogElement.events.willClose);
     const didClose = new EventSpy(SbbDialogElement.events.didClose);
@@ -71,6 +88,25 @@ describe('sbb-dialog', () => {
 
     expect(element).to.have.attribute('data-state', 'closed');
     expect(ariaLiveRef.textContent).to.be.equal('');
+  });
+
+  it('does not close the dialog if prevented', async () => {
+    const willClose = new EventSpy(SbbDialog.events.willClose);
+    const didClose = new EventSpy(SbbDialog.events.didClose);
+
+    await openDialog(element);
+
+    element.addEventListener(SbbDialog.events.willClose, (ev) => ev.preventDefault());
+
+    element.close();
+    await waitForLitRender(element);
+
+    await waitForCondition(() => willClose.events.length === 1);
+    expect(willClose.count).to.be.equal(1);
+    await waitForLitRender(element);
+
+    expect(didClose.count).to.be.equal(0);
+    expect(element).to.have.attribute('data-state', 'opened');
   });
 
   it('closes the dialog on backdrop click', async () => {
