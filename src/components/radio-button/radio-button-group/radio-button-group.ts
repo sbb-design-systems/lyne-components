@@ -19,7 +19,7 @@ import type {
 
 import style from './radio-button-group.scss?lit&inline';
 
-export type SbbRadioButtonGroupEventDetail = { value: any | null };
+export type SbbRadioButtonGroupEventDetail = { value: any | null; radioButton: SbbRadioButton };
 
 /**
  * It can be used as a container for one or more `sbb-radio-button`.
@@ -221,21 +221,23 @@ export class SbbRadioButtonGroup extends LitElement {
       return;
     }
 
+    const radioButton = event.target as SbbRadioButton;
+
     if (event.detail.checked) {
-      this.value = (event.target as HTMLInputElement).value;
-      this._emitChange(this.value);
+      this.value = radioButton.value;
+      this._emitChange(radioButton, this.value);
     } else if (this.allowEmptySelection) {
       this.value = this._radioButtons.find((radio) => radio.checked)?.value;
       if (!this.value) {
-        this._emitChange();
+        this._emitChange(radioButton);
       }
     }
   }
 
-  private _emitChange(value?: string): void {
-    this._change.emit({ value });
-    this._input.emit({ value });
-    this._didChange.emit({ value });
+  private _emitChange(radioButton: SbbRadioButton, value?: string): void {
+    this._change.emit({ value, radioButton });
+    this._input.emit({ value, radioButton });
+    this._didChange.emit({ value, radioButton });
   }
 
   private _updateRadios(initValue?: string): void {
