@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.43.0-next.15](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0-next.14...v0.43.0-next.15) (2023-12-06)
+
+### Features
+
+- **sbb-radio-button-group:** emit radio button in change event ([#2267](https://github.com/lyne-design-system/lyne-components/issues/2267)) ([e0ce718](https://github.com/lyne-design-system/lyne-components/commit/e0ce7181131f659573befb4d2238ec6c48d67fd7))
+
+### Bug Fixes
+
+- fix datepicker initialization ([#2266](https://github.com/lyne-design-system/lyne-components/issues/2266)) ([cc23aff](https://github.com/lyne-design-system/lyne-components/commit/cc23aff86e723d48129b4d7ff6199439e58b6615))
+- make querySelector JSDOM compatible ([#2265](https://github.com/lyne-design-system/lyne-components/issues/2265)) ([a9b4ad6](https://github.com/lyne-design-system/lyne-components/commit/a9b4ad66a90c089989e9a03b93324950a142bc57))
+- replace attribute access with property where possible ([#2258](https://github.com/lyne-design-system/lyne-components/issues/2258)) ([8babd50](https://github.com/lyne-design-system/lyne-components/commit/8babd50b67d4c8533b8c928d0010e82bda26461f))
+- **sbb-autocomplete:** delay origin look up ([#2268](https://github.com/lyne-design-system/lyne-components/issues/2268)) ([e060531](https://github.com/lyne-design-system/lyne-components/commit/e060531f0ed39ec6c89eea482b489fcae413209b))
+- **sbb-toggle:** calc pill position on hydration ([#2259](https://github.com/lyne-design-system/lyne-components/issues/2259)) ([5260579](https://github.com/lyne-design-system/lyne-components/commit/5260579d9721814f5d8d61580036625c3c804ca0))
+
 ## [0.43.0-next.14](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0-next.13...v0.43.0-next.14) (2023-12-04)
 
 ### Bug Fixes
