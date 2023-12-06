@@ -88,15 +88,21 @@ export class SbbAutocomplete extends LitElement {
   private _overlay: HTMLElement;
   private _optionContainer: HTMLElement;
 
-  private get _originElement(): HTMLElement {
-    if (!this._originElementRef) {
-      this._originElementRef = this._getOriginElement();
+  /** Returns the element where autocomplete overlay is attached to. */
+  public get originElement(): HTMLElement {
+    if (!this._originElement) {
+      this._originElement = this._findOriginElement();
     }
-    return this._originElementRef;
+    return this._originElement;
   }
-  private _originElementRef: HTMLElement;
+  private _originElement: HTMLElement;
 
+  /** Returns the trigger element. */
+  public get triggerElement(): HTMLInputElement {
+    return this._triggerElement;
+  }
   private _triggerElement: HTMLInputElement;
+
   private _triggerEventsController: AbortController;
   private _openPanelEventsController: AbortController;
   private _overlayId = `sbb-autocomplete-${++nextId}`;
@@ -113,7 +119,7 @@ export class SbbAutocomplete extends LitElement {
 
   /** The autocomplete should inherit 'readonly' state from the trigger. */
   private get _readonly(): boolean {
-    return this._triggerElement && isValidAttribute(this._triggerElement, 'readonly');
+    return this.triggerElement && isValidAttribute(this.triggerElement, 'readonly');
   }
 
   private get _options(): SbbOption[] {
@@ -180,11 +186,11 @@ export class SbbAutocomplete extends LitElement {
       .forEach((option) => (option.selected = false));
 
     // Set the option value
-    this._triggerElement.value = target.value;
+    this.triggerElement.value = target.value;
 
     // Manually trigger the change events
-    this._triggerElement.dispatchEvent(new Event('change', { bubbles: true }));
-    this._triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+    this.triggerElement.dispatchEvent(new Event('change', { bubbles: true }));
+    this.triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
 
     this.close();
   }
@@ -254,7 +260,7 @@ export class SbbAutocomplete extends LitElement {
     this._triggerEventsController?.abort();
     this._openPanelEventsController?.abort();
 
-    this._originElementRef = undefined;
+    this._originElement = undefined;
     toggleDatasetEntry(
       this,
       'optionPanelOriginBorderless',
@@ -268,7 +274,7 @@ export class SbbAutocomplete extends LitElement {
    * Retrieve the element where the autocomplete will be attached.
    * @returns 'origin' or the first 'sbb-form-field' ancestor.
    */
-  private _getOriginElement(): HTMLElement {
+  private _findOriginElement(): HTMLElement {
     let result: HTMLElement;
 
     if (!this.origin) {
@@ -312,7 +318,7 @@ export class SbbAutocomplete extends LitElement {
     }
 
     // Reset attributes to the old trigger and add them to the new one
-    this._removeTriggerAttributes(this._triggerElement);
+    this._removeTriggerAttributes(this.triggerElement);
     this._setTriggerAttributes(triggerElem);
 
     this._triggerElement = triggerElem;
@@ -324,13 +330,13 @@ export class SbbAutocomplete extends LitElement {
     this._triggerEventsController = new AbortController();
 
     // Open the overlay on focus, click, input and `ArrowDown` event
-    this._triggerElement.addEventListener('focus', () => this.open(), {
+    this.triggerElement.addEventListener('focus', () => this.open(), {
       signal: this._triggerEventsController.signal,
     });
-    this._triggerElement.addEventListener('click', () => this.open(), {
+    this.triggerElement.addEventListener('click', () => this.open(), {
       signal: this._triggerEventsController.signal,
     });
-    this._triggerElement.addEventListener(
+    this.triggerElement.addEventListener(
       'input',
       (event) => {
         this.open();
@@ -338,7 +344,7 @@ export class SbbAutocomplete extends LitElement {
       },
       { signal: this._triggerEventsController.signal },
     );
-    this._triggerElement.addEventListener(
+    this.triggerElement.addEventListener(
       'keydown',
       (event: KeyboardEvent) => this._closedPanelKeyboardInteraction(event),
       { signal: this._triggerEventsController.signal },
@@ -347,7 +353,7 @@ export class SbbAutocomplete extends LitElement {
 
   // Set overlay position, width and max height
   private _setOverlayPosition(): void {
-    setOverlayPosition(this._overlay, this._originElement, this._optionContainer, this);
+    setOverlayPosition(this._overlay, this.originElement, this._optionContainer, this);
   }
 
   /** On open/close animation end.
@@ -365,13 +371,13 @@ export class SbbAutocomplete extends LitElement {
   private _onOpenAnimationEnd(): void {
     this._state = 'opened';
     this._attachOpenPanelEvents();
-    this._triggerElement?.setAttribute('aria-expanded', 'true');
+    this.triggerElement?.setAttribute('aria-expanded', 'true');
     this._didOpen.emit();
   }
 
   private _onCloseAnimationEnd(): void {
     this._state = 'closed';
-    this._triggerElement?.setAttribute('aria-expanded', 'false');
+    this.triggerElement?.setAttribute('aria-expanded', 'false');
     this._resetActiveElement();
     this._optionContainer.scrollTop = 0;
     this._didClose.emit();
@@ -399,7 +405,7 @@ export class SbbAutocomplete extends LitElement {
     });
 
     // Keyboard interactions
-    this._triggerElement.addEventListener(
+    this.triggerElement.addEventListener(
       'keydown',
       (event: KeyboardEvent) => this._openedPanelKeyboardInteraction(event),
       {
@@ -418,7 +424,7 @@ export class SbbAutocomplete extends LitElement {
     if (
       !this._isPointerDownEventOnMenu &&
       !isEventOnElement(this._overlay, event) &&
-      !isEventOnElement(this._originElement, event)
+      !isEventOnElement(this.originElement, event)
     ) {
       this.close();
     }
@@ -477,7 +483,7 @@ export class SbbAutocomplete extends LitElement {
     const next = getNextElementIndex(event, this._activeItemIndex, filteredOptions.length);
     const nextActiveOption = filteredOptions[next];
     nextActiveOption.active = true;
-    this._triggerElement.setAttribute('aria-activedescendant', nextActiveOption.id);
+    this.triggerElement.setAttribute('aria-activedescendant', nextActiveOption.id);
     nextActiveOption.scrollIntoView({ block: 'nearest' });
 
     // Reset the previous active option
@@ -496,7 +502,7 @@ export class SbbAutocomplete extends LitElement {
       activeElement.active = false;
     }
     this._activeItemIndex = -1;
-    this._triggerElement.removeAttribute('aria-activedescendant');
+    this.triggerElement.removeAttribute('aria-activedescendant');
   }
 
   /** Highlight the searched text on the options. */
