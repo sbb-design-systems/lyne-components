@@ -11,7 +11,7 @@ import {
   languageChangeHandlerAspect,
 } from '../../core/eventing';
 import { i18nNextDay, i18nSelectNextDay, i18nToday } from '../../core/i18n';
-import { resolveButtonRenderVariables } from '../../core/interfaces';
+import { ButtonProperties, resolveButtonRenderVariables } from '../../core/interfaces';
 import {
   InputUpdateEvent,
   datepickerControlRegisteredEventFactory,
@@ -28,7 +28,7 @@ import '../../icon';
  * Combined with a `sbb-datepicker`, it can be used to move the date ahead.
  */
 @customElement('sbb-datepicker-next-day')
-export class SbbDatepickerNextDay extends LitElement {
+export class SbbDatepickerNextDay extends LitElement implements ButtonProperties {
   public static override styles: CSSResultGroup = style;
 
   /** The name attribute to use for the button. */
@@ -86,8 +86,7 @@ export class SbbDatepickerNextDay extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener('click', () => this._handleClick(), { signal });
+    this.addEventListener('click', () => this._handleClick(), { signal: this._abort.signal });
     this._handlerRepository.connect();
     this._syncUpstreamProperties();
     if (!this.datePicker) {
@@ -134,7 +133,7 @@ export class SbbDatepickerNextDay extends LitElement {
       this.parentElement?.addEventListener(
         'inputUpdated',
         (e: Event) => this._init(e.target as SbbDatepicker),
-        { once: true, signal: this._abort.signal },
+        { once: true, signal: this._datePickerController.signal },
       );
       return;
     }

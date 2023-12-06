@@ -19,7 +19,7 @@ describe('sbb-datepicker', () => {
     const root = await fixture(html`<sbb-datepicker></sbb-datepicker>`);
 
     expect(root).dom.to.be.equal(`<sbb-datepicker></sbb-datepicker>`);
-    expect(root).shadowDom.to.be.equal(`<p role="status"></p>`);
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 });
 
