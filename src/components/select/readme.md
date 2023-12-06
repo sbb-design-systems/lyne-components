@@ -127,9 +127,9 @@ Opened panel:
 | `didChange` | `CustomEvent<void>` | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
 | `change`    | `CustomEvent<void>` | Notifies that the component's value has changed.                                 |                |
 | `input`     | `CustomEvent<void>` | Notifies that an option value has been selected.                                 |                |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-select` starts the opening transition.                   |                |
+| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-select` starts the opening transition. Can be canceled.  |                |
 | `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-select` is opened.                                       |                |
-| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-select` begins the closing transition.                   |                |
+| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-select` begins the closing transition. Can be canceled.  |                |
 | `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-select` is closed.                                       |                |
 
 ## Slots
