@@ -1,6 +1,5 @@
 import { CSSResultGroup, LitElement, PropertyValues, TemplateResult, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
 
 import { readConfig } from '../../core/config';
 import { DateAdapter, defaultDateAdapter } from '../../core/datetime';
@@ -331,8 +330,6 @@ export class SbbDatepicker extends LitElement {
   private _dateAdapter: DateAdapter<Date> =
     readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
-  private _statusContainer: HTMLParagraphElement | null;
-
   private _handlerRepository = new HandlerRepository(
     this as HTMLElement,
     languageChangeHandlerAspect((l) => {
@@ -379,6 +376,11 @@ export class SbbDatepicker extends LitElement {
     this._inputObserver?.disconnect();
     this._datePickerController?.abort();
     this._handlerRepository.disconnect();
+  }
+
+  protected override firstUpdated(_changedProperties: PropertyValues): void {
+    super.firstUpdated(_changedProperties);
+    this._setAriaLiveMessage(this.getValueAsDate());
   }
 
   private _parseAndFormatValue(value: string): string {
@@ -472,20 +474,20 @@ export class SbbDatepicker extends LitElement {
       year: 'numeric',
     });
 
-    this._statusContainer.innerText = date
-      ? `${i18nDateChangedTo[this._currentLanguage]} ${ariaLiveFormatter.format(
-          date,
-        )}, ${dateFormatter.format(date)}`
-      : '';
+    const containerElement: HTMLParagraphElement | undefined =
+      this.shadowRoot.querySelector?.('#status-container');
+
+    if (containerElement) {
+      containerElement.innerText = date
+        ? `${i18nDateChangedTo[this._currentLanguage]} ${ariaLiveFormatter.format(
+            date,
+          )}, ${dateFormatter.format(date)}`
+        : '';
+    }
   }
 
   protected override render(): TemplateResult {
-    return html`<p
-      role="status"
-      ${ref((ref: HTMLParagraphElement): void => {
-        this._statusContainer = ref;
-      })}
-    ></p>`;
+    return html`<p id="status-container" role="status"></p>`;
   }
 }
 
