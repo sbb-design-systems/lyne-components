@@ -2,14 +2,14 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../core/testing';
-import type { SbbLink } from '../link';
+import type { SbbLinkElement } from '../link';
 
-import { SbbSkiplinkList } from './skiplink-list';
+import { SbbSkiplinkListElement } from './skiplink-list';
 
 import '../link';
 
 describe('sbb-skiplink-list', () => {
-  let element: SbbSkiplinkList;
+  let element: SbbSkiplinkListElement;
 
   beforeEach(async () => {
     element = await fixture(html`
@@ -23,7 +23,7 @@ describe('sbb-skiplink-list', () => {
   });
 
   it('renders', async () => {
-    assert.instanceOf(element, SbbSkiplinkList);
+    assert.instanceOf(element, SbbSkiplinkListElement);
   });
 
   it('should be visible on focus', async () => {
@@ -33,12 +33,12 @@ describe('sbb-skiplink-list', () => {
     expect(listItemLinks[0]).to.have.style('height', '0px');
     expect(listItemLinks[0]).to.have.style('overflow', 'hidden');
 
-    const firstLink: SbbLink = element.querySelector('#sbb-skiplink-list-link-0');
+    const firstLink: SbbLinkElement = element.querySelector('#sbb-skiplink-list-link-0');
     firstLink.focus();
     expect(listItemLinks[0]).not.to.have.style('height', '0px');
     expect(listItemLinks[0]).to.have.style('overflow', 'visible');
 
-    const secondLink: SbbLink = element.querySelector('#sbb-skiplink-list-link-1');
+    const secondLink: SbbLinkElement = element.querySelector('#sbb-skiplink-list-link-1');
     secondLink.focus();
     expect(listItemLinks[0]).to.have.style('height', '0px');
     expect(listItemLinks[0]).to.have.style('overflow', 'hidden');

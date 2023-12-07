@@ -12,7 +12,7 @@ import style from './footer.scss?lit&inline';
  * @slot - Use the unnamed slot to add elements like `sbb-link`, `sbb-link-list`, `sbb-divider` and so on.
  */
 @customElement('sbb-footer')
-export class SbbFooter extends LitElement {
+export class SbbFooterElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -60,6 +60,6 @@ export class SbbFooter extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-footer': SbbFooter;
+    'sbb-footer': SbbFooterElement;
   }
 }

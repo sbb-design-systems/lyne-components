@@ -35,8 +35,8 @@ both standalone or within the `sbb-form-field`, they must have the same parent e
 
 ## Properties
 
-| Name         | Attribute     | Privacy | Type                                   | Default | Description                               |
-| ------------ | ------------- | ------- | -------------------------------------- | ------- | ----------------------------------------- |
-| `name`       | `name`        | public  | `string \| undefined`                  |         | The name attribute to use for the button. |
-| `negative`   | `negative`    | public  | `boolean`                              | `false` | Negative coloring variant flag.           |
-| `datePicker` | `date-picker` | public  | `string \| SbbDatepicker \| undefined` |         | Datepicker reference.                     |
+| Name         | Attribute     | Privacy | Type                                          | Default | Description                               |
+| ------------ | ------------- | ------- | --------------------------------------------- | ------- | ----------------------------------------- |
+| `name`       | `name`        | public  | `string \| undefined`                         |         | The name attribute to use for the button. |
+| `negative`   | `negative`    | public  | `boolean`                                     | `false` | Negative coloring variant flag.           |
+| `datePicker` | `date-picker` | public  | `string \| SbbDatepickerElement \| undefined` |         | Datepicker reference.                     |

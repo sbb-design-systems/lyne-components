@@ -15,7 +15,7 @@ import style from './timetable-park-and-rail.scss?lit&inline';
  * Used in `sbb-timetable-row`, it displays information about parking.
  */
 @customElement('sbb-timetable-park-and-rail')
-export class SbbTimetableParkAndRail extends LitElement {
+export class SbbTimetableParkAndRailElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Set the desired appearance of the component. */
@@ -84,6 +84,6 @@ export class SbbTimetableParkAndRail extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-timetable-park-and-rail': SbbTimetableParkAndRail;
+    'sbb-timetable-park-and-rail': SbbTimetableParkAndRailElement;
   }
 }

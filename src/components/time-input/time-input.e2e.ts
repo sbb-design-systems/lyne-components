@@ -6,10 +6,10 @@ import { i18nTimeInputChange } from '../core/i18n';
 import { ValidationChangeEvent } from '../core/interfaces';
 import { EventSpy, waitForLitRender } from '../core/testing';
 
-import { SbbTimeInput } from './time-input';
+import { SbbTimeInputElement } from './time-input';
 
 describe('sbb-time-input', () => {
-  let element: SbbTimeInput, input: HTMLInputElement;
+  let element: SbbTimeInputElement, input: HTMLInputElement;
 
   beforeEach(async () => {
     await fixture(html`
@@ -22,7 +22,7 @@ describe('sbb-time-input', () => {
   });
 
   it('renders', async () => {
-    assert.instanceOf(element, SbbTimeInput);
+    assert.instanceOf(element, SbbTimeInputElement);
   });
 
   it('should configure native input', async () => {
@@ -48,7 +48,7 @@ describe('sbb-time-input', () => {
 
   it('should emit validation change event', async () => {
     const validationChangeSpy = new EventSpy<CustomEvent<ValidationChangeEvent>>(
-      SbbTimeInput.events.validationChange,
+      SbbTimeInputElement.events.validationChange,
       element,
     );
 
@@ -91,7 +91,7 @@ describe('sbb-time-input', () => {
     await waitForLitRender(element);
 
     const validationChangeSpy = new EventSpy<CustomEvent<ValidationChangeEvent>>(
-      SbbTimeInput.events.validationChange,
+      SbbTimeInputElement.events.validationChange,
       element,
     );
 

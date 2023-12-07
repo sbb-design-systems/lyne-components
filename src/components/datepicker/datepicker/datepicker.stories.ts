@@ -11,7 +11,7 @@ import { waitForComponentsReady } from '../../../storybook/testing/wait-for-comp
 import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
 import { sbbSpread } from '../../core/dom';
 
-import { SbbDatepicker } from './datepicker';
+import { SbbDatepickerElement } from './datepicker';
 import readme from './readme.md?raw';
 
 import '../datepicker-next-day';
@@ -511,7 +511,7 @@ const meta: Meta = {
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {
-      handles: ['input', 'change', SbbDatepicker.events.validationChange],
+      handles: ['input', 'change', SbbDatepickerElement.events.validationChange],
     },
     backgrounds: {
       disable: true,

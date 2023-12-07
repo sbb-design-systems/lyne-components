@@ -1,13 +1,13 @@
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbMessage } from './message';
+import { SbbMessageElement } from './message';
 
 describe('sbb-message', () => {
-  let element: SbbMessage;
+  let element: SbbMessageElement;
 
   it('renders', async () => {
     element = await fixture(html`<sbb-message></sbb-message>`);
-    assert.instanceOf(element, SbbMessage);
+    assert.instanceOf(element, SbbMessageElement);
   });
 });

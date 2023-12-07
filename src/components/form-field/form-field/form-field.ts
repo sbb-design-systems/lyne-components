@@ -13,7 +13,7 @@ import {
 } from '../../core/eventing';
 import { i18nOptional } from '../../core/i18n';
 import { AgnosticMutationObserver } from '../../core/observers';
-import type { SbbSelect } from '../../select';
+import type { SbbSelectElement } from '../../select';
 
 import style from './form-field.scss?lit&inline';
 import '../../icon';
@@ -33,7 +33,7 @@ const supportedPopupTagNames = ['SBB-AUTOCOMPLETE', 'SBB-SELECT'];
  * @slot error - Use this slot to render an error.
  */
 @customElement('sbb-form-field')
-export class SbbFormField extends LitElement {
+export class SbbFormFieldElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   private readonly _supportedNativeInputElements = ['INPUT', 'SELECT'];
@@ -327,7 +327,7 @@ export class SbbFormField extends LitElement {
         signal: this._inputAbortController.signal,
       });
 
-      inputFocusElement = (this._input as SbbSelect).inputElement;
+      inputFocusElement = (this._input as SbbSelectElement).inputElement;
     }
 
     inputFocusElement.addEventListener(
@@ -379,7 +379,7 @@ export class SbbFormField extends LitElement {
     } else if (this._input instanceof HTMLSelectElement) {
       return this._input.selectedOptions?.item(0)?.label?.trim() === '';
     } else if (this._input.tagName === 'SBB-SELECT') {
-      return (this._input as SbbSelect).getDisplayValue()?.trim() === '';
+      return (this._input as SbbSelectElement).getDisplayValue()?.trim() === '';
     } else {
       return this._isInputValueEmpty();
     }
@@ -530,6 +530,6 @@ export class SbbFormField extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-form-field': SbbFormField;
+    'sbb-form-field': SbbFormFieldElement;
   }
 }

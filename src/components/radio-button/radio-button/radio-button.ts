@@ -19,7 +19,7 @@ import {
   SbbStateChange,
 } from '../../core/interfaces';
 import { AgnosticMutationObserver } from '../../core/observers';
-import type { SbbRadioButtonGroup } from '../radio-button-group';
+import type { SbbRadioButtonGroupElement } from '../radio-button-group';
 
 import style from './radio-button.scss?lit&inline';
 
@@ -43,7 +43,7 @@ const radioButtonObserverConfig: MutationObserverInit = {
  * @slot suffix - Slot used to render additional content after the label (only visible within a `sbb-selection-panel`).
  */
 @customElement('sbb-radio-button')
-export class SbbRadioButton extends LitElement {
+export class SbbRadioButtonElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     stateChange: 'stateChange',
@@ -121,7 +121,7 @@ export class SbbRadioButton extends LitElement {
    */
   private _stateChange: EventEmitter<SbbRadioButtonStateChange> = new EventEmitter(
     this,
-    SbbRadioButton.events.stateChange,
+    SbbRadioButtonElement.events.stateChange,
     { bubbles: true },
   );
 
@@ -131,7 +131,7 @@ export class SbbRadioButton extends LitElement {
    */
   private _radioButtonLoaded: EventEmitter<void> = new EventEmitter(
     this,
-    SbbRadioButton.events.radioButtonLoaded,
+    SbbRadioButtonElement.events.radioButtonLoaded,
     { bubbles: true },
   );
 
@@ -213,7 +213,7 @@ export class SbbRadioButton extends LitElement {
 
   // Set up the initial disabled/required values and start observe attributes changes.
   private _setupInitialStateAndAttributeObserver(): void {
-    const parentGroup = this.closest('sbb-radio-button-group') as SbbRadioButtonGroup;
+    const parentGroup = this.closest('sbb-radio-button-group') as SbbRadioButtonGroupElement;
     if (parentGroup) {
       this._requiredFromGroup = parentGroup.required;
       this._disabledFromGroup = parentGroup.disabled;
@@ -289,6 +289,6 @@ export class SbbRadioButton extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-radio-button': SbbRadioButton;
+    'sbb-radio-button': SbbRadioButtonElement;
   }
 }

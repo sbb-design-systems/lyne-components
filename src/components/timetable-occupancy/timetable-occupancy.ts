@@ -12,7 +12,7 @@ import style from './timetable-occupancy.scss?lit&inline';
  * Used in `sbb-timetable-row`, it displays information about wagon occupancy.
  */
 @customElement('sbb-timetable-occupancy')
-export class SbbTimetableOccupancy extends LitElement {
+export class SbbTimetableOccupancyElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Occupancy for first class wagons. */
@@ -80,6 +80,6 @@ export class SbbTimetableOccupancy extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-timetable-occupancy': SbbTimetableOccupancy;
+    'sbb-timetable-occupancy': SbbTimetableOccupancyElement;
   }
 }

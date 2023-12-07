@@ -4,7 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { SlotChildObserver } from '../../core/common-behaviors';
 import { setAttribute } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
-import type { SbbTag, SbbTagStateChange } from '../tag';
+import type { SbbTagElement, SbbTagStateChange } from '../tag';
 
 import style from './tag-group.scss?lit&inline';
 
@@ -14,7 +14,7 @@ import style from './tag-group.scss?lit&inline';
  * @slot - Use the unnamed slot to add one or more 'sbb-tag' elements to the `sbb-tag-group`.
  */
 @customElement('sbb-tag-group')
-export class SbbTagGroup extends SlotChildObserver(LitElement) {
+export class SbbTagGroupElement extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -77,7 +77,7 @@ export class SbbTagGroup extends SlotChildObserver(LitElement) {
       return;
     }
 
-    const isChecked: (tag: SbbTag) => boolean = this.multiple
+    const isChecked: (tag: SbbTagElement) => boolean = this.multiple
       ? (t) => value.includes(t.value)
       : (t) => t.value === value;
 
@@ -97,7 +97,7 @@ export class SbbTagGroup extends SlotChildObserver(LitElement) {
   }
 
   private _handleStateChange(event: CustomEvent<SbbTagStateChange>): void {
-    const target = event.target as SbbTag;
+    const target = event.target as SbbTagElement;
     event.stopPropagation();
 
     if (this.multiple || (event.detail.type === 'checked' && !event.detail.checked)) {
@@ -136,8 +136,8 @@ export class SbbTagGroup extends SlotChildObserver(LitElement) {
     }
   }
 
-  private get _tags(): SbbTag[] {
-    return Array.from(this.querySelectorAll?.('sbb-tag') ?? []) as SbbTag[];
+  private get _tags(): SbbTagElement[] {
+    return Array.from(this.querySelectorAll?.('sbb-tag') ?? []) as SbbTagElement[];
   }
 
   protected override checkChildren(): void {
@@ -174,6 +174,6 @@ export class SbbTagGroup extends SlotChildObserver(LitElement) {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-tag-group': SbbTagGroup;
+    'sbb-tag-group': SbbTagGroupElement;
   }
 }

@@ -4,10 +4,10 @@ import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
 
-import { SbbCheckbox } from './checkbox';
+import { SbbCheckboxElement } from './checkbox';
 
 describe('sbb-checkbox', () => {
-  let element: SbbCheckbox;
+  let element: SbbCheckboxElement;
 
   beforeEach(async () => {
     await fixture(html`<sbb-checkbox></sbb-checkbox>`);
@@ -15,7 +15,7 @@ describe('sbb-checkbox', () => {
   });
 
   it('should render', async () => {
-    assert.instanceOf(element, SbbCheckbox);
+    assert.instanceOf(element, SbbCheckboxElement);
   });
 
   it('should not render accessibility label containing expanded state', async () => {

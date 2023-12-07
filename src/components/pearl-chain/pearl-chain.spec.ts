@@ -4,14 +4,16 @@ import { html } from 'lit/static-html.js';
 import { waitForLitRender } from '../core/testing';
 import { PtRideLeg } from '../core/timetable';
 
-import type { SbbPearlChain } from './pearl-chain';
+import type { SbbPearlChainElement } from './pearl-chain';
 
 import './pearl-chain';
 
 describe('sbb-pearl-chain', () => {
   describe('sbb-pearl-chain with one leg', () => {
     it('renders component with config', async () => {
-      const element = await fixture<SbbPearlChain>(html`<sbb-pearl-chain></sbb-pearl-chain>`);
+      const element = await fixture<SbbPearlChainElement>(
+        html`<sbb-pearl-chain></sbb-pearl-chain>`,
+      );
       element.legs = [
         {
           __typename: 'PTRideLeg',
@@ -33,7 +35,9 @@ describe('sbb-pearl-chain', () => {
 
   describe('sbb-pearl-chain with two legs', () => {
     it('renders component with config', async () => {
-      const element = await fixture<SbbPearlChain>(html`<sbb-pearl-chain></sbb-pearl-chain>`);
+      const element = await fixture<SbbPearlChainElement>(
+        html`<sbb-pearl-chain></sbb-pearl-chain>`,
+      );
       element.legs = [
         {
           __typename: 'PTRideLeg',
@@ -73,7 +77,9 @@ describe('sbb-pearl-chain', () => {
 
   describe('sbb-pearl-chain with skipped stops', () => {
     it('renders component with departure skipped', async () => {
-      const element = await fixture<SbbPearlChain>(html`<sbb-pearl-chain></sbb-pearl-chain>`);
+      const element = await fixture<SbbPearlChainElement>(
+        html`<sbb-pearl-chain></sbb-pearl-chain>`,
+      );
       element.legs = [
         {
           __typename: 'PTRideLeg',
@@ -119,7 +125,9 @@ describe('sbb-pearl-chain', () => {
     });
 
     it('renders component with arrival skipped', async () => {
-      const element = await fixture<SbbPearlChain>(html`<sbb-pearl-chain></sbb-pearl-chain>`);
+      const element = await fixture<SbbPearlChainElement>(
+        html`<sbb-pearl-chain></sbb-pearl-chain>`,
+      );
       element.legs = [
         {
           __typename: 'PTRideLeg',

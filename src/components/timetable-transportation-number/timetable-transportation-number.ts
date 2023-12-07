@@ -10,7 +10,7 @@ import style from './timetable-transportation-number.scss?lit&inline';
  * Used in `sbb-timetable-row`, it displays information about the transport.
  */
 @customElement('sbb-timetable-transportation-number')
-export class SbbTimetableTransportationNumber extends LitElement {
+export class SbbTimetableTransportationNumberElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -72,6 +72,6 @@ export class SbbTimetableTransportationNumber extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-timetable-transportation-number': SbbTimetableTransportationNumber;
+    'sbb-timetable-transportation-number': SbbTimetableTransportationNumberElement;
   }
 }

@@ -1,24 +1,24 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbCalendar } from '../../calendar';
+import { SbbCalendarElement } from '../../calendar';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import { SbbFormField } from '../../form-field';
-import { SbbTooltipTrigger, SbbTooltip } from '../../tooltip';
-import type { SbbDatepicker } from '../datepicker';
+import { SbbFormFieldElement } from '../../form-field';
+import { SbbTooltipTriggerElement, SbbTooltipElement } from '../../tooltip';
+import type { SbbDatepickerElement } from '../datepicker';
 
-import { SbbDatepickerToggle } from './datepicker-toggle';
+import { SbbDatepickerToggleElement } from './datepicker-toggle';
 
 import '../datepicker';
 
 describe('sbb-datepicker-toggle', () => {
   it('renders standalone', async () => {
-    const element: SbbDatepickerToggle = await fixture(
+    const element: SbbDatepickerToggleElement = await fixture(
       html`<sbb-datepicker-toggle></sbb-datepicker-toggle>`,
     );
-    assert.instanceOf(element, SbbDatepickerToggle);
+    assert.instanceOf(element, SbbDatepickerToggleElement);
 
-    const tooltipTrigger: SbbTooltipTrigger =
+    const tooltipTrigger: SbbTooltipTriggerElement =
       element.shadowRoot.querySelector('sbb-tooltip-trigger');
     expect(tooltipTrigger).to.have.attribute('disabled');
   });
@@ -29,13 +29,13 @@ describe('sbb-datepicker-toggle', () => {
       <sbb-datepicker input="datepicker-input" id="datepicker" value="01-01-2023"></sbb-datepicker>
       <input id="datepicker-input" />
     `);
-    const element: SbbDatepickerToggle = document.querySelector('sbb-datepicker-toggle');
-    assert.instanceOf(element, SbbDatepickerToggle);
+    const element: SbbDatepickerToggleElement = document.querySelector('sbb-datepicker-toggle');
+    assert.instanceOf(element, SbbDatepickerToggleElement);
 
-    const didOpenEventSpy = new EventSpy(SbbTooltip.events.didOpen, element);
-    const tooltipTrigger: SbbTooltipTrigger =
+    const didOpenEventSpy = new EventSpy(SbbTooltipElement.events.didOpen, element);
+    const tooltipTrigger: SbbTooltipTriggerElement =
       element.shadowRoot.querySelector('sbb-tooltip-trigger');
-    const tooltip: SbbTooltip = element.shadowRoot.querySelector('sbb-tooltip');
+    const tooltip: SbbTooltipElement = element.shadowRoot.querySelector('sbb-tooltip');
 
     await waitForLitRender(element);
     expect(tooltipTrigger).not.to.have.attribute('disabled');
@@ -53,17 +53,17 @@ describe('sbb-datepicker-toggle', () => {
       <sbb-datepicker input="datepicker-input" id="datepicker" value="01-01-2023"></sbb-datepicker>
       <input id="datepicker-input" />
     `);
-    const element: SbbDatepickerToggle = document.querySelector('sbb-datepicker-toggle');
-    const didOpenEventSpy = new EventSpy(SbbTooltip.events.didOpen, element);
-    const tooltipTrigger: SbbTooltipTrigger =
+    const element: SbbDatepickerToggleElement = document.querySelector('sbb-datepicker-toggle');
+    const didOpenEventSpy = new EventSpy(SbbTooltipElement.events.didOpen, element);
+    const tooltipTrigger: SbbTooltipTriggerElement =
       element.shadowRoot.querySelector('sbb-tooltip-trigger');
-    const tooltip: SbbTooltip = element.shadowRoot.querySelector('sbb-tooltip');
+    const tooltip: SbbTooltipElement = element.shadowRoot.querySelector('sbb-tooltip');
     await waitForLitRender(element);
-    assert.instanceOf(element, SbbDatepickerToggle);
+    assert.instanceOf(element, SbbDatepickerToggleElement);
     expect(tooltipTrigger).not.to.have.attribute('disabled');
     expect(tooltip).to.have.attribute('data-state', 'closed');
 
-    (document.querySelector('sbb-datepicker-toggle') as SbbDatepickerToggle).open();
+    (document.querySelector('sbb-datepicker-toggle') as SbbDatepickerToggleElement).open();
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
 
@@ -79,18 +79,19 @@ describe('sbb-datepicker-toggle', () => {
     `);
     await waitForLitRender(doc);
 
-    const toggle: SbbDatepickerToggle = document.querySelector('sbb-datepicker-toggle');
+    const toggle: SbbDatepickerToggleElement = document.querySelector('sbb-datepicker-toggle');
     const inputUpdated: EventSpy<Event> = new EventSpy(
       'inputUpdated',
       document.querySelector('#parent'),
     );
-    const trigger: SbbTooltipTrigger = toggle.shadowRoot.querySelector('sbb-tooltip-trigger');
+    const trigger: SbbTooltipTriggerElement =
+      toggle.shadowRoot.querySelector('sbb-tooltip-trigger');
     // there's no datepicker, so no event and the tooltipTrigger is disabled due _datePickerElement not set
     expect(toggle).not.to.be.null;
     expect(inputUpdated.count).to.be.equal(0);
     expect(trigger.getAttribute('disabled')).to.be.equal('');
 
-    const picker: SbbDatepicker = document.createElement('sbb-datepicker');
+    const picker: SbbDatepickerElement = document.createElement('sbb-datepicker');
     picker.setAttribute('input', 'datepicker-input');
     picker.setAttribute('id', 'datepicker');
     picker.setAttribute('value', '01-01-2023');
@@ -112,18 +113,19 @@ describe('sbb-datepicker-toggle', () => {
     `);
     await waitForLitRender(doc);
 
-    const toggle: SbbDatepickerToggle = document.querySelector('sbb-datepicker-toggle');
+    const toggle: SbbDatepickerToggleElement = document.querySelector('sbb-datepicker-toggle');
     const inputUpdated: EventSpy<Event> = new EventSpy(
       'inputUpdated',
       document.querySelector('#parent'),
     );
-    const trigger: SbbTooltipTrigger = toggle.shadowRoot.querySelector('sbb-tooltip-trigger');
+    const trigger: SbbTooltipTriggerElement =
+      toggle.shadowRoot.querySelector('sbb-tooltip-trigger');
     // there's no datepicker, so no event and the tooltipTrigger is disabled due _datePickerElement not set
     expect(toggle).not.to.be.null;
     expect(inputUpdated.count).to.be.equal(0);
     expect(trigger.getAttribute('disabled')).to.be.equal('');
 
-    const picker: SbbDatepicker = document.createElement('sbb-datepicker');
+    const picker: SbbDatepickerElement = document.createElement('sbb-datepicker');
     picker.setAttribute('input', 'datepicker-input');
     picker.setAttribute('id', 'datepicker');
     picker.setAttribute('value', '01-01-2023');
@@ -136,29 +138,29 @@ describe('sbb-datepicker-toggle', () => {
   });
 
   it('renders in form field, open calendar and change date', async () => {
-    const form: SbbFormField = await fixture(html`
+    const form: SbbFormFieldElement = await fixture(html`
       <sbb-form-field>
         <sbb-datepicker-toggle></sbb-datepicker-toggle>
         <sbb-datepicker></sbb-datepicker>
         <input />
       </sbb-form-field>
     `);
-    const element: SbbDatepickerToggle = form.querySelector('sbb-datepicker-toggle');
+    const element: SbbDatepickerToggleElement = form.querySelector('sbb-datepicker-toggle');
     const input: HTMLInputElement = form.querySelector('input');
-    const tooltip: SbbTooltip = element.shadowRoot.querySelector('sbb-tooltip');
+    const tooltip: SbbTooltipElement = element.shadowRoot.querySelector('sbb-tooltip');
     expect(tooltip).to.have.attribute('data-state', 'closed');
-    const didOpenEventSpy = new EventSpy(SbbTooltip.events.didOpen, element);
+    const didOpenEventSpy = new EventSpy(SbbTooltipElement.events.didOpen, element);
     const changeSpy = new EventSpy('change', input);
     const blurSpy = new EventSpy('blur', input);
-    assert.instanceOf(element, SbbDatepickerToggle);
+    assert.instanceOf(element, SbbDatepickerToggleElement);
 
-    const tooltipTrigger: SbbTooltipTrigger =
+    const tooltipTrigger: SbbTooltipTriggerElement =
       element.shadowRoot.querySelector('sbb-tooltip-trigger');
     tooltipTrigger.click();
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(tooltip).to.have.attribute('data-state', 'opened');
 
-    const calendar: SbbCalendar = element.shadowRoot.querySelector('sbb-calendar');
+    const calendar: SbbCalendarElement = element.shadowRoot.querySelector('sbb-calendar');
     calendar.dispatchEvent(
       new CustomEvent('dateSelected', {
         detail: new Date('2022-01-01'),

@@ -2,7 +2,7 @@ import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import type { SbbCheckbox, SbbCheckboxStateChange } from '../checkbox';
+import type { SbbCheckboxElement, SbbCheckboxStateChange } from '../checkbox';
 import { setAttribute } from '../core/dom';
 import {
   createNamedSlotState,
@@ -11,7 +11,7 @@ import {
   EventEmitter,
   ConnectedAbortController,
 } from '../core/eventing';
-import type { SbbRadioButton, SbbRadioButtonStateChange } from '../radio-button';
+import type { SbbRadioButtonElement, SbbRadioButtonStateChange } from '../radio-button';
 
 import style from './selection-panel.scss?lit&inline';
 import '../divider';
@@ -28,7 +28,7 @@ import '../divider';
  * @event {CustomEvent<{ closeTarget: HTMLElement }>} didClose - Emits whenever the content section is closed.
  */
 @customElement('sbb-selection-panel')
-export class SbbSelectionPanel extends LitElement {
+export class SbbSelectionPanelElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
     willOpen: 'willOpen',
@@ -65,7 +65,7 @@ export class SbbSelectionPanel extends LitElement {
   /** Emits whenever the content section starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(
     this,
-    SbbSelectionPanel.events.willOpen,
+    SbbSelectionPanelElement.events.willOpen,
     {
       bubbles: true,
       composed: true,
@@ -73,22 +73,26 @@ export class SbbSelectionPanel extends LitElement {
   );
 
   /** Emits whenever the content section is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbSelectionPanel.events.didOpen, {
-    bubbles: true,
-    composed: true,
-  });
+  private _didOpen: EventEmitter<void> = new EventEmitter(
+    this,
+    SbbSelectionPanelElement.events.didOpen,
+    {
+      bubbles: true,
+      composed: true,
+    },
+  );
 
   /** Emits whenever the content section begins the closing transition. */
   private _willClose: EventEmitter<{ closeTarget: HTMLElement }> = new EventEmitter(
     this,
-    SbbSelectionPanel.events.willClose,
+    SbbSelectionPanelElement.events.willClose,
     { bubbles: true, composed: true },
   );
 
   /** Emits whenever the content section is closed. */
   private _didClose: EventEmitter<{ closeTarget: HTMLElement }> = new EventEmitter(
     this,
-    SbbSelectionPanel.events.didClose,
+    SbbSelectionPanelElement.events.didClose,
     { bubbles: true, composed: true },
   );
 
@@ -101,8 +105,10 @@ export class SbbSelectionPanel extends LitElement {
   private _didLoad = false;
   private _abort = new ConnectedAbortController(this);
 
-  private get _input(): SbbCheckbox | SbbRadioButton {
-    return this.querySelector('sbb-checkbox, sbb-radio-button') as SbbCheckbox | SbbRadioButton;
+  private get _input(): SbbCheckboxElement | SbbRadioButtonElement {
+    return this.querySelector('sbb-checkbox, sbb-radio-button') as
+      | SbbCheckboxElement
+      | SbbRadioButtonElement;
   }
 
   private _onInputChange(
@@ -230,6 +236,6 @@ export class SbbSelectionPanel extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-selection-panel': SbbSelectionPanel;
+    'sbb-selection-panel': SbbSelectionPanelElement;
   }
 }

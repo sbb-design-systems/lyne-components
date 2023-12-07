@@ -5,7 +5,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import { setAttribute } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import type { TitleLevel } from '../../title';
-import { SbbAlert } from '../alert';
+import { SbbAlertElement } from '../alert';
 
 import style from './alert-group.scss?lit&inline';
 
@@ -14,11 +14,11 @@ import style from './alert-group.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add `sbb-alert` elements to the `sbb-alert-group`.
  * @slot accessibility-title - title for this `sbb-alert-group` which is only visible for screen reader users.
- * @event {CustomEvent<SbbAlert>} didDismissAlert - Emits when an alert was removed from DOM.
+ * @event {CustomEvent<SbbAlertElement>} didDismissAlert - Emits when an alert was removed from DOM.
  * @event {CustomEvent<void>} empty - Emits when `sbb-alert-group` becomes empty.
  */
 @customElement('sbb-alert-group')
-export class SbbAlertGroup extends LitElement {
+export class SbbAlertGroupElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didDismissAlert: 'didDismissAlert',
@@ -45,18 +45,18 @@ export class SbbAlertGroup extends LitElement {
   @state() private _hasAlerts: boolean;
 
   /** Emits when an alert was removed from DOM. */
-  private _didDismissAlert: EventEmitter<SbbAlert> = new EventEmitter(
+  private _didDismissAlert: EventEmitter<SbbAlertElement> = new EventEmitter(
     this,
-    SbbAlertGroup.events.didDismissAlert,
+    SbbAlertGroupElement.events.didDismissAlert,
   );
 
   /** Emits when `sbb-alert-group` becomes empty. */
-  private _empty: EventEmitter<void> = new EventEmitter(this, SbbAlertGroup.events.empty);
+  private _empty: EventEmitter<void> = new EventEmitter(this, SbbAlertGroupElement.events.empty);
 
   private _abort = new ConnectedAbortController(this);
 
   private _removeAlert(event: Event): void {
-    const target = event.target as SbbAlert;
+    const target = event.target as SbbAlertElement;
     const hasFocusInsideAlertGroup = document.activeElement === target;
 
     target.parentNode.removeChild(target);
@@ -78,7 +78,7 @@ export class SbbAlertGroup extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
-    this.addEventListener(SbbAlert.events.dismissalRequested, (e) => this._removeAlert(e), {
+    this.addEventListener(SbbAlertElement.events.dismissalRequested, (e) => this._removeAlert(e), {
       signal,
     });
   }
@@ -114,6 +114,6 @@ export class SbbAlertGroup extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-alert-group': SbbAlertGroup;
+    'sbb-alert-group': SbbAlertGroupElement;
   }
 }

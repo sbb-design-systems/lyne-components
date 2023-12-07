@@ -15,10 +15,10 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
-import type { SbbFormError } from '../form-error';
-import { SbbOption } from '../option';
+import type { SbbFormErrorElement } from '../form-error';
+import { SbbOptionElement } from '../option';
 
-import { SbbAutocomplete } from './autocomplete';
+import { SbbAutocompleteElement } from './autocomplete';
 import readme from './readme.md?raw';
 
 import '../form-field';
@@ -343,7 +343,7 @@ const MixedTemplate = (args): TemplateResult => html`
 `;
 
 const RequiredTemplate = (args): TemplateResult => {
-  const sbbFormError: SbbFormError = document.createElement('sbb-form-error');
+  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
   sbbFormError.setAttribute('slot', 'error');
   sbbFormError.textContent = 'This is a required field.';
 
@@ -527,12 +527,12 @@ const meta: Meta = {
     chromatic: { disableSnapshot: false },
     actions: {
       handles: [
-        SbbAutocomplete.events.willOpen,
-        SbbAutocomplete.events.didOpen,
-        SbbAutocomplete.events.didClose,
-        SbbAutocomplete.events.willClose,
+        SbbAutocompleteElement.events.willOpen,
+        SbbAutocompleteElement.events.didOpen,
+        SbbAutocompleteElement.events.didClose,
+        SbbAutocompleteElement.events.willClose,
         'change',
-        SbbOption.events.optionSelected,
+        SbbOptionElement.events.optionSelected,
       ],
     },
     backgrounds: {

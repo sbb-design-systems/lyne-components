@@ -17,7 +17,7 @@ import '../button';
  * @slot map - Used for slotting the map.
  */
 @customElement('sbb-map-container')
-export class SbbMapContainer extends LitElement {
+export class SbbMapContainerElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Flag to show/hide the scroll up button inside the sidebar on mobile. */
@@ -125,6 +125,6 @@ export class SbbMapContainer extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-map-container': SbbMapContainer;
+    'sbb-map-container': SbbMapContainerElement;
   }
 }

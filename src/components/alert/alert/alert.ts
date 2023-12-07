@@ -31,7 +31,7 @@ import '../../title';
  * @event {CustomEvent<void>} dismissalRequested - Emits when dismissal of an alert was requested.
  */
 @customElement('sbb-alert')
-export class SbbAlert extends LitElement implements LinkProperties {
+export class SbbAlertElement extends LitElement implements LinkProperties {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willPresent: 'willPresent',
@@ -80,15 +80,21 @@ export class SbbAlert extends LitElement implements LinkProperties {
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
 
   /** Emits when the fade in animation starts. */
-  private _willPresent: EventEmitter<void> = new EventEmitter(this, SbbAlert.events.willPresent);
+  private _willPresent: EventEmitter<void> = new EventEmitter(
+    this,
+    SbbAlertElement.events.willPresent,
+  );
 
   /** Emits when the fade in animation ends and the button is displayed. */
-  private _didPresent: EventEmitter<void> = new EventEmitter(this, SbbAlert.events.didPresent);
+  private _didPresent: EventEmitter<void> = new EventEmitter(
+    this,
+    SbbAlertElement.events.didPresent,
+  );
 
   /** Emits when dismissal of an alert was requested. */
   private _dismissalRequested: EventEmitter<void> = new EventEmitter(
     this,
-    SbbAlert.events.dismissalRequested,
+    SbbAlertElement.events.dismissalRequested,
   );
 
   @state() private _currentLanguage = documentLanguage();
@@ -255,6 +261,6 @@ export class SbbAlert extends LitElement implements LinkProperties {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-alert': SbbAlert;
+    'sbb-alert': SbbAlertElement;
   }
 }

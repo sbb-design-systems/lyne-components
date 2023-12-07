@@ -18,7 +18,7 @@ import '../icon';
  * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  */
 @customElement('sbb-slider')
-export class SbbSlider extends LitElement {
+export class SbbSliderElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -66,7 +66,7 @@ export class SbbSlider extends LitElement {
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
-  private _didChange: EventEmitter = new EventEmitter(this, SbbSlider.events.didChange, {
+  private _didChange: EventEmitter = new EventEmitter(this, SbbSliderElement.events.didChange, {
     bubbles: true,
     cancelable: true,
   });
@@ -224,6 +224,6 @@ export class SbbSlider extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-slider': SbbSlider;
+    'sbb-slider': SbbSliderElement;
   }
 }

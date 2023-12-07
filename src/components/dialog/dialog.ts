@@ -28,7 +28,7 @@ import style from './dialog.scss?lit&inline';
 import '../button';
 
 // A global collection of existing dialogs
-const dialogRefs: SbbDialog[] = [];
+const dialogRefs: SbbDialogElement[] = [];
 let nextId = 0;
 
 /**
@@ -44,7 +44,7 @@ let nextId = 0;
  * @event {CustomEvent<void>} requestBackAction - Emits whenever the back button is clicked.
  */
 @customElement('sbb-dialog')
-export class SbbDialog extends LitElement {
+export class SbbDialogElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -129,19 +129,22 @@ export class SbbDialog extends LitElement {
   private _ariaLiveRefToggle = false;
 
   /** Emits whenever the `sbb-dialog` starts the opening transition. */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbDialog.events.willOpen);
+  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbDialogElement.events.willOpen);
 
   /** Emits whenever the `sbb-dialog` is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbDialog.events.didOpen);
+  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbDialogElement.events.didOpen);
 
   /** Emits whenever the `sbb-dialog` begins the closing transition. */
-  private _willClose: EventEmitter = new EventEmitter(this, SbbDialog.events.willClose);
+  private _willClose: EventEmitter = new EventEmitter(this, SbbDialogElement.events.willClose);
 
   /** Emits whenever the `sbb-dialog` is closed. */
-  private _didClose: EventEmitter = new EventEmitter(this, SbbDialog.events.didClose);
+  private _didClose: EventEmitter = new EventEmitter(this, SbbDialogElement.events.didClose);
 
   /** Emits whenever the back button is clicked. */
-  private _backClick: EventEmitter<void> = new EventEmitter(this, SbbDialog.events.backClick);
+  private _backClick: EventEmitter<void> = new EventEmitter(
+    this,
+    SbbDialogElement.events.backClick,
+  );
 
   private _dialog: HTMLDivElement;
   private _dialogWrapperElement: HTMLElement;
@@ -187,7 +190,7 @@ export class SbbDialog extends LitElement {
     this._willOpen.emit();
     this._state = 'opening';
     // Add this dialog to the global collection
-    dialogRefs.push(this as SbbDialog);
+    dialogRefs.push(this as SbbDialogElement);
     this._setOverflowAttribute();
     // Disable scrolling for content below the dialog
     this._scrollHandler.disableScroll();
@@ -257,7 +260,7 @@ export class SbbDialog extends LitElement {
   }
 
   private _removeInstanceFromGlobalCollection(): void {
-    dialogRefs.splice(dialogRefs.indexOf(this as SbbDialog), 1);
+    dialogRefs.splice(dialogRefs.indexOf(this as SbbDialogElement), 1);
   }
 
   private _attachWindowEvents(): void {
@@ -483,6 +486,6 @@ export class SbbDialog extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-dialog': SbbDialog;
+    'sbb-dialog': SbbDialogElement;
   }
 }

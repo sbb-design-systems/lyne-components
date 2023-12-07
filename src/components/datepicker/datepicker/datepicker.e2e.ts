@@ -6,14 +6,14 @@ import { html } from 'lit/static-html.js';
 import { i18nDateChangedTo } from '../../core/i18n';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
 
-import { SbbDatepicker } from './datepicker';
+import { SbbDatepickerElement } from './datepicker';
 
 import '../../form-field';
 
 describe('sbb-datepicker', () => {
   it('renders', async () => {
     const element = await fixture(html`<sbb-datepicker></sbb-datepicker>`);
-    assert.instanceOf(element, SbbDatepicker);
+    assert.instanceOf(element, SbbDatepickerElement);
   });
 
   it('renders and formats date', async () => {
@@ -50,7 +50,7 @@ describe('sbb-datepicker', () => {
   });
 
   const commonBehaviorTest: (template: TemplateResult) => void = (template: TemplateResult) => {
-    let element: SbbDatepicker, input: HTMLInputElement, button: HTMLButtonElement;
+    let element: SbbDatepickerElement, input: HTMLInputElement, button: HTMLButtonElement;
 
     beforeEach(async () => {
       await fixture(template);
@@ -324,7 +324,7 @@ describe('sbb-datepicker', () => {
 
     it('renders', async () => {
       const page = await fixture(template);
-      assert.instanceOf(page.querySelector('sbb-datepicker'), SbbDatepicker);
+      assert.instanceOf(page.querySelector('sbb-datepicker'), SbbDatepickerElement);
       expect(document.querySelector('input')).dom.to.be.equal(
         '<input id="datepicker-input" type="text" placeholder="DD.MM.YYYY">',
       );
@@ -344,7 +344,7 @@ describe('sbb-datepicker', () => {
 
     it('renders', async () => {
       const page = await fixture(template);
-      assert.instanceOf(page.querySelector('sbb-datepicker'), SbbDatepicker);
+      assert.instanceOf(page.querySelector('sbb-datepicker'), SbbDatepickerElement);
       expect(document.querySelector('input')).dom.to.be.equal(
         '<input id="datepicker-input" placeholder="DD.MM.YYYY" type="text">',
       );

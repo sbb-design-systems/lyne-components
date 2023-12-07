@@ -13,7 +13,7 @@ import style from './action-group.scss?lit&inline';
  * @slot - Use the unnamed slot to add `sbb-link` or `sbb-button` elements to the `sbb-action-group`.
  */
 @customElement('sbb-action-group')
-export class SbbActionGroup extends LitElement {
+export class SbbActionGroupElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -80,6 +80,6 @@ export class SbbActionGroup extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-action-group': SbbActionGroup;
+    'sbb-action-group': SbbActionGroupElement;
   }
 }

@@ -5,7 +5,7 @@ import { waitForLitRender } from '../core/testing';
 import { ITripItem, Notice, PtSituation } from '../core/timetable';
 
 import {
-  SbbTimetableRow,
+  SbbTimetableRowElement,
   filterNotices,
   getCus,
   getHimIcon,
@@ -25,7 +25,7 @@ import '../timetable-occupancy';
 const now = new Date('2022-08-16T15:00:00Z').valueOf();
 
 describe('sbb-timetable-row', () => {
-  let element: SbbTimetableRow;
+  let element: SbbTimetableRowElement;
 
   describe('sbb-timetable-row with defaultTrip', () => {
     it('renders component with config', async () => {

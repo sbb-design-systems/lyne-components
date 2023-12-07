@@ -3,17 +3,17 @@ import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
 
-import { SbbToggleOption } from './toggle-option';
+import { SbbToggleOptionElement } from './toggle-option';
 
 describe('sbb-toggle-option', () => {
-  let element: SbbToggleOption;
+  let element: SbbToggleOptionElement;
 
   beforeEach(async () => {
     element = await fixture(html`<sbb-toggle-option value="Value">Value label</sbb-toggle-option>`);
   });
 
   it('renders', async () => {
-    assert.instanceOf(element, SbbToggleOption);
+    assert.instanceOf(element, SbbToggleOptionElement);
   });
 
   it('selects the sbb-toggle-option on click', async () => {

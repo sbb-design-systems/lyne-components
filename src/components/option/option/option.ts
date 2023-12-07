@@ -41,7 +41,7 @@ export type SbbOptionVariant = 'autocomplete' | 'select';
  * @event {CustomEvent<void>} optionSelected - Emits when an option was selected by user.
  */
 @customElement('sbb-option')
-export class SbbOption extends LitElement {
+export class SbbOptionElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     selectionChange: 'optionSelectionChange',
@@ -68,10 +68,16 @@ export class SbbOption extends LitElement {
   @property({ reflect: true, type: Boolean }) public disabled?: boolean;
 
   /** Emits when the option selection status changes. */
-  private _selectionChange: EventEmitter = new EventEmitter(this, SbbOption.events.selectionChange);
+  private _selectionChange: EventEmitter = new EventEmitter(
+    this,
+    SbbOptionElement.events.selectionChange,
+  );
 
   /** Emits when an option was selected by user. */
-  private _optionSelected: EventEmitter = new EventEmitter(this, SbbOption.events.optionSelected);
+  private _optionSelected: EventEmitter = new EventEmitter(
+    this,
+    SbbOptionElement.events.optionSelected,
+  );
 
   /** Wheter to apply the negative styling */
   @state() private _negative = false;
@@ -320,6 +326,6 @@ export class SbbOption extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-option': SbbOption;
+    'sbb-option': SbbOptionElement;
   }
 }

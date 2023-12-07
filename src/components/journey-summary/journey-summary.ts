@@ -35,7 +35,7 @@ export interface InterfaceSbbJourneySummaryAttributes {
  * @slot content - Use this slot to add `sbb-button`s or other interactive elements.
  */
 @customElement('sbb-journey-summary')
-export class SbbJourneySummary extends LitElement {
+export class SbbJourneySummaryElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /**  The trip prop */
@@ -178,6 +178,6 @@ export class SbbJourneySummary extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-journey-summary': SbbJourneySummary;
+    'sbb-journey-summary': SbbJourneySummaryElement;
   }
 }

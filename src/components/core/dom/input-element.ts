@@ -12,7 +12,7 @@ export function findShadowInput(element: HTMLElement): HTMLInputElement | null {
  * 1. Input field in `sbb-form-field` (if trigger is undefiend)
  * 2. Input referenced by id (trigger is string)
  * 3. Input referenced directly (trigger is HTMLElement)
- * @param element The starting SbbDatepicker element.
+ * @param element The starting SbbDatepickerElement element.
  * @param trigger The id or the reference of the input.
  */
 export function findInput(

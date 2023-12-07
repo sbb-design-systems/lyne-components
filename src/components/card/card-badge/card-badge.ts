@@ -12,7 +12,7 @@ import style from './card-badge.scss?lit&inline';
  *   Content parts should be wrapped in `<span>` tags to achieve correct spacings.
  */
 @customElement('sbb-card-badge')
-export class SbbCardBadge extends LitElement {
+export class SbbCardBadgeElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Color of the card badge. */
@@ -55,6 +55,6 @@ export class SbbCardBadge extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-card-badge': SbbCardBadge;
+    'sbb-card-badge': SbbCardBadgeElement;
   }
 }

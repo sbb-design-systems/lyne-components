@@ -1,15 +1,15 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbButton } from '../button';
+import { SbbButtonElement } from '../button';
 import { waitForCondition, EventSpy, waitForLitRender } from '../core/testing';
 
-import { SbbNotification } from './notification';
+import { SbbNotificationElement } from './notification';
 
 import '../link';
 
 describe('sbb-notification', () => {
-  let element: SbbNotification;
+  let element: SbbNotificationElement;
 
   beforeEach(async () => {
     element = await fixture(html`
@@ -21,12 +21,12 @@ describe('sbb-notification', () => {
   });
 
   it('renders', async () => {
-    assert.instanceOf(element, SbbNotification);
+    assert.instanceOf(element, SbbNotificationElement);
   });
 
   it('closes the notification and removes it from the DOM', async () => {
-    const willCloseEventSpy = new EventSpy(SbbNotification.events.willClose);
-    const didCloseEventSpy = new EventSpy(SbbNotification.events.didClose);
+    const willCloseEventSpy = new EventSpy(SbbNotificationElement.events.willClose);
+    const didCloseEventSpy = new EventSpy(SbbNotificationElement.events.didClose);
 
     expect(element).not.to.be.null;
     expect(element).to.have.attribute('data-state', 'opened');
@@ -49,9 +49,11 @@ describe('sbb-notification', () => {
   });
 
   it('closes the notification and removes it from the DOM on close button click', async () => {
-    const willCloseEventSpy = new EventSpy(SbbNotification.events.willClose);
-    const didCloseEventSpy = new EventSpy(SbbNotification.events.didClose);
-    const closeButton = element.shadowRoot.querySelector('.sbb-notification__close') as SbbButton;
+    const willCloseEventSpy = new EventSpy(SbbNotificationElement.events.willClose);
+    const didCloseEventSpy = new EventSpy(SbbNotificationElement.events.didClose);
+    const closeButton = element.shadowRoot.querySelector(
+      '.sbb-notification__close',
+    ) as SbbButtonElement;
 
     expect(element).not.to.be.null;
     expect(element).to.have.attribute('data-state', 'opened');

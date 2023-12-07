@@ -10,7 +10,7 @@ import style from './timetable-row-day-change.scss?lit&inline';
  * Used in `sbb-timetable-row`, it displays information about day change for screen-readers.
  */
 @customElement('sbb-timetable-row-day-change')
-export class SbbTimetableRowDayChange extends LitElement {
+export class SbbTimetableRowDayChangeElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -77,6 +77,6 @@ export class SbbTimetableRowDayChange extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-timetable-row-day-change': SbbTimetableRowDayChange;
+    'sbb-timetable-row-day-change': SbbTimetableRowDayChangeElement;
   }
 }

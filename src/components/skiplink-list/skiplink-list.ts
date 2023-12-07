@@ -9,7 +9,7 @@ import {
   HandlerRepository,
   namedSlotChangeHandlerAspect,
 } from '../core/eventing';
-import type { SbbLink } from '../link';
+import type { SbbLinkElement } from '../link';
 import type { TitleLevel } from '../title';
 
 import style from './skiplink-list.scss?lit&inline';
@@ -22,7 +22,7 @@ import '../title';
  * @slot - Use the unnamed slot to add `sbb-link` elements to the `sbb-skiplink-list`.
  */
 @customElement('sbb-skiplink-list')
-export class SbbSkiplinkList extends SlotChildObserver(LitElement) {
+export class SbbSkiplinkListElement extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** The title text we want to place before the list. */
@@ -32,13 +32,13 @@ export class SbbSkiplinkList extends SlotChildObserver(LitElement) {
   @property({ attribute: 'title-level' }) public titleLevel?: TitleLevel = '2';
 
   /** sbb-link elements */
-  @state() private _links: SbbLink[] = [];
+  @state() private _links: SbbLinkElement[] = [];
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @state() private _namedSlots = createNamedSlotState('title');
 
   private _syncLinks(): void {
-    this.querySelectorAll?.('sbb-link').forEach((link: SbbLink) => {
+    this.querySelectorAll?.('sbb-link').forEach((link: SbbLinkElement) => {
       link.size = 'm';
       link.negative = true;
     });
@@ -51,7 +51,9 @@ export class SbbSkiplinkList extends SlotChildObserver(LitElement) {
 
   /** Create an array with only the sbb-link children. */
   protected override checkChildren(): void {
-    const links = Array.from(this.children).filter((e): e is SbbLink => e.tagName === 'SBB-LINK');
+    const links = Array.from(this.children).filter(
+      (e): e is SbbLinkElement => e.tagName === 'SBB-LINK',
+    );
     // Update links list
     if (
       this._links &&
@@ -118,6 +120,6 @@ export class SbbSkiplinkList extends SlotChildObserver(LitElement) {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-skiplink-list': SbbSkiplinkList;
+    'sbb-skiplink-list': SbbSkiplinkListElement;
   }
 }

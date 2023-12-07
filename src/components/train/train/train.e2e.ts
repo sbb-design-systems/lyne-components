@@ -3,15 +3,15 @@ import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForLitRender } from '../../core/testing';
 
-import { SbbTrain } from './train';
+import { SbbTrainElement } from './train';
 import '../../icon';
 
 describe('sbb-train', () => {
-  let element: SbbTrain;
+  let element: SbbTrainElement;
 
   it('should render', async () => {
     element = await fixture(html`<sbb-train></sbb-train>`);
-    assert.instanceOf(element, SbbTrain);
+    assert.instanceOf(element, SbbTrainElement);
   });
 
   it('should emit trainSlotChange', async () => {
@@ -22,7 +22,7 @@ describe('sbb-train', () => {
         <sbb-train-wagon></sbb-train-wagon>
       </sbb-train>
     `);
-    const trainSlotChangeSpy = new EventSpy(SbbTrain.events.trainSlotChange);
+    const trainSlotChangeSpy = new EventSpy(SbbTrainElement.events.trainSlotChange);
 
     element.querySelector('sbb-train-wagon').remove();
     await waitForLitRender(element);

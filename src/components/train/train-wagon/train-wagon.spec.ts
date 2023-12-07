@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
 
-import { SbbTrainWagon } from './train-wagon';
+import { SbbTrainWagonElement } from './train-wagon';
 import '.';
 import '../../icon';
 import '../../timetable-occupancy-icon';
@@ -11,7 +11,7 @@ import '../../timetable-occupancy-icon';
 async function extractAriaLabels(
   properties: Partial<
     Pick<
-      SbbTrainWagon,
+      SbbTrainWagonElement,
       | 'type'
       | 'occupancy'
       | 'sector'

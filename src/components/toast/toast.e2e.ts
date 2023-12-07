@@ -3,29 +3,29 @@ import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
 
-import { SbbToast } from './toast';
+import { SbbToastElement } from './toast';
 
 import '../link';
 
 describe('sbb-toast', () => {
-  let element: SbbToast;
+  let element: SbbToastElement;
 
   beforeEach(async () => {
     element = await fixture(html` <sbb-toast></sbb-toast> `);
   });
 
   it('renders and sets the correct attributes', async () => {
-    assert.instanceOf(element, SbbToast);
+    assert.instanceOf(element, SbbToastElement);
     expect(element).not.to.have.attribute('data-has-action');
     expect(element).not.to.have.attribute('data-has-icon');
     expect(element).to.have.attribute('data-state', 'closed');
   });
 
   it('opens and closes after timeout', async () => {
-    const willOpenEventSpy = new EventSpy(SbbToast.events.willOpen);
-    const didOpenEventSpy = new EventSpy(SbbToast.events.didOpen);
-    const willCloseEventSpy = new EventSpy(SbbToast.events.willClose);
-    const didCloseEventSpy = new EventSpy(SbbToast.events.didClose);
+    const willOpenEventSpy = new EventSpy(SbbToastElement.events.willOpen);
+    const didOpenEventSpy = new EventSpy(SbbToastElement.events.didOpen);
+    const willCloseEventSpy = new EventSpy(SbbToastElement.events.willClose);
+    const didCloseEventSpy = new EventSpy(SbbToastElement.events.didClose);
 
     element.setAttribute('timeout', '50');
     await waitForLitRender(element);
@@ -56,9 +56,9 @@ describe('sbb-toast', () => {
   });
 
   it('closes by dismiss button click', async () => {
-    const didOpenEventSpy = new EventSpy(SbbToast.events.didOpen);
-    const willCloseEventSpy = new EventSpy(SbbToast.events.willClose);
-    const didCloseEventSpy = new EventSpy(SbbToast.events.didClose);
+    const didOpenEventSpy = new EventSpy(SbbToastElement.events.didOpen);
+    const willCloseEventSpy = new EventSpy(SbbToastElement.events.willClose);
+    const didCloseEventSpy = new EventSpy(SbbToastElement.events.didClose);
 
     element.setAttribute('dismissible', '');
     await waitForLitRender(element);
@@ -90,9 +90,9 @@ describe('sbb-toast', () => {
     `);
     const actionBtn = element.querySelector('sbb-button') as HTMLElement;
 
-    const didOpenEventSpy = new EventSpy(SbbToast.events.didOpen);
-    const willCloseEventSpy = new EventSpy(SbbToast.events.willClose);
-    const didCloseEventSpy = new EventSpy(SbbToast.events.didClose);
+    const didOpenEventSpy = new EventSpy(SbbToastElement.events.didOpen);
+    const willCloseEventSpy = new EventSpy(SbbToastElement.events.willClose);
+    const didCloseEventSpy = new EventSpy(SbbToastElement.events.didClose);
 
     element.open();
     await waitForLitRender(element);
@@ -144,8 +144,8 @@ describe('sbb-toast', () => {
       <sbb-toast id="toast2" disable-animation></sbb-toast>
     `);
 
-    const toast1: SbbToast = document.querySelector('#toast1');
-    const toast2: SbbToast = document.querySelector('#toast2');
+    const toast1: SbbToastElement = document.querySelector('#toast1');
+    const toast2: SbbToastElement = document.querySelector('#toast2');
 
     // Open the first toast
     toast1.open();

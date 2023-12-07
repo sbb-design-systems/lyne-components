@@ -2,13 +2,13 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
-import type { SbbOption } from '../option';
+import type { SbbOptionElement } from '../option';
 import '../option';
 
-import { SbbOptGroup } from './optgroup';
+import { SbbOptGroupElement } from './optgroup';
 
 describe('sbb-optgroup', () => {
-  let element: SbbOptGroup;
+  let element: SbbOptGroupElement;
 
   beforeEach(async () => {
     element = await fixture(html`
@@ -21,7 +21,7 @@ describe('sbb-optgroup', () => {
   });
 
   it('renders', async () => {
-    assert.instanceOf(element, SbbOptGroup);
+    assert.instanceOf(element, SbbOptGroupElement);
   });
 
   it('disabled status is inherited', async () => {
@@ -44,9 +44,15 @@ describe('sbb-optgroup', () => {
   });
 
   it('disabled status prevents changes', async () => {
-    const optionOne: SbbOption = document.querySelector('sbb-optgroup > sbb-option#option-1');
-    const optionTwo: SbbOption = document.querySelector('sbb-optgroup > sbb-option#option-2');
-    const optionThree: SbbOption = document.querySelector('sbb-optgroup > sbb-option#option-3');
+    const optionOne: SbbOptionElement = document.querySelector(
+      'sbb-optgroup > sbb-option#option-1',
+    );
+    const optionTwo: SbbOptionElement = document.querySelector(
+      'sbb-optgroup > sbb-option#option-2',
+    );
+    const optionThree: SbbOptionElement = document.querySelector(
+      'sbb-optgroup > sbb-option#option-3',
+    );
     const options = [optionOne, optionTwo, optionThree];
 
     options.forEach((opt) => expect(opt).not.to.have.attribute('selected'));

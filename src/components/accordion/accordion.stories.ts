@@ -7,7 +7,7 @@ import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../core/dom';
-import { SbbExpansionPanel } from '../expansion-panel';
+import { SbbExpansionPanelElement } from '../expansion-panel';
 
 import readme from './readme.md?raw';
 import './accordion';
@@ -244,10 +244,10 @@ const meta: Meta = {
     },
     actions: {
       handles: [
-        SbbExpansionPanel.events.willOpen,
-        SbbExpansionPanel.events.didOpen,
-        SbbExpansionPanel.events.willClose,
-        SbbExpansionPanel.events.didClose,
+        SbbExpansionPanelElement.events.willOpen,
+        SbbExpansionPanelElement.events.didOpen,
+        SbbExpansionPanelElement.events.willClose,
+        SbbExpansionPanelElement.events.didClose,
       ],
     },
     docs: {

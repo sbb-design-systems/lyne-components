@@ -4,7 +4,10 @@ import { html, TemplateResult } from 'lit';
 import { ref } from 'lit/directives/ref.js';
 
 import { sbbSpread } from '../../../components/core/dom';
-import type { SbbNavigation, SbbNavigationMarker } from '../../../components/navigation';
+import type {
+  SbbNavigationElement,
+  SbbNavigationMarkerElement,
+} from '../../../components/navigation';
 import '../../../components/button';
 import '../../../components/card';
 import '../../../components/clock';
@@ -36,9 +39,9 @@ export const timetableInput = (): TemplateResult => html`
   </section>
 `;
 
-const onNavigationClose = (dialog: SbbNavigation): void => {
+const onNavigationClose = (dialog: SbbNavigationElement): void => {
   dialog?.addEventListener('did-close', () => {
-    (document.getElementById('nav-marker') as SbbNavigationMarker).reset();
+    (document.getElementById('nav-marker') as SbbNavigationMarkerElement).reset();
     document.getElementById('nav-1').setAttribute('active', '');
   });
 };
@@ -46,7 +49,7 @@ const onNavigationClose = (dialog: SbbNavigation): void => {
 export const navigation = (): TemplateResult => html`
   <sbb-navigation
     trigger="hamburger-menu"
-    ${ref((dialog: SbbNavigation) => onNavigationClose(dialog))}
+    ${ref((dialog: SbbNavigationElement) => onNavigationClose(dialog))}
   >
     <sbb-navigation-marker id="nav-marker">
       <sbb-navigation-action aria-current="page" id="nav-1" active>

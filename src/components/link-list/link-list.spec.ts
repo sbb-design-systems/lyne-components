@@ -1,15 +1,15 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbLink } from '../link';
+import type { SbbLinkElement } from '../link';
 
-import type { SbbLinkList } from './link-list';
+import type { SbbLinkListElement } from './link-list';
 
 import '../link';
 import './link-list';
 
 describe('sbb-link-list', () => {
-  let element: SbbLinkList;
+  let element: SbbLinkListElement;
 
   const sbbLinkSnippet = html`
     <sbb-link
@@ -117,7 +117,7 @@ describe('sbb-link-list', () => {
   });
 
   describe('property sync', () => {
-    const assertLinks = (root: Element, assertion: (link: SbbLink) => boolean): boolean =>
+    const assertLinks = (root: Element, assertion: (link: SbbLinkElement) => boolean): boolean =>
       Array.from(root.querySelectorAll('sbb-link')).every(assertion);
 
     it('should render all sbb-link instances with defaults (variant="block", size="s", no negative)', async () => {

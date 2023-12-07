@@ -32,7 +32,7 @@ import '../../icon';
  * @slot - Use the unnamed slot to add content to the `sbb-header-action`.
  */
 @customElement('sbb-header-action')
-export class SbbHeaderAction extends LitElement implements LinkButtonProperties {
+export class SbbHeaderActionElement extends LitElement implements LinkButtonProperties {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -143,6 +143,6 @@ export class SbbHeaderAction extends LitElement implements LinkButtonProperties 
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-header-action': SbbHeaderAction;
+    'sbb-header-action': SbbHeaderActionElement;
   }
 }

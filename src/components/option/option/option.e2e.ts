@@ -4,14 +4,14 @@ import { html } from 'lit/static-html.js';
 
 import '../../autocomplete';
 import { waitForLitRender, EventSpy } from '../../core/testing';
-import type { SbbFormField } from '../../form-field';
+import type { SbbFormFieldElement } from '../../form-field';
 import '../../form-field';
 
-import { SbbOption } from './option';
+import { SbbOptionElement } from './option';
 
 describe('sbb-option', () => {
   describe('autocomplete', () => {
-    let element: SbbFormField;
+    let element: SbbFormFieldElement;
 
     beforeEach(async () => {
       element = await fixture(html`
@@ -28,11 +28,11 @@ describe('sbb-option', () => {
 
     it('renders', async () => {
       const option = element.querySelector('sbb-option');
-      assert.instanceOf(option, SbbOption);
+      assert.instanceOf(option, SbbOptionElement);
     });
 
     it('set selected and emits on click', async () => {
-      const selectionChangeSpy = new EventSpy(SbbOption.events.selectionChange);
+      const selectionChangeSpy = new EventSpy(SbbOptionElement.events.selectionChange);
       const optionOne = element.querySelector('sbb-option');
 
       optionOne.dispatchEvent(new CustomEvent('click'));

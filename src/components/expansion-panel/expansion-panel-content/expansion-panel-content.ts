@@ -11,7 +11,7 @@ import style from './expansion-panel-content.scss?lit&inline';
  * @slot - Use the unnamed slot to add content to the `sbb-expansion-panel`.
  */
 @customElement('sbb-expansion-panel-content')
-export class SbbExpansionPanelContent extends LitElement {
+export class SbbExpansionPanelContentElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   protected override render(): TemplateResult {
@@ -29,6 +29,6 @@ export class SbbExpansionPanelContent extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-expansion-panel-content': SbbExpansionPanelContent;
+    'sbb-expansion-panel-content': SbbExpansionPanelContentElement;
   }
 }

@@ -5,7 +5,7 @@ import { html } from 'lit/static-html.js';
 
 import { sbbSpread } from '../core/dom';
 
-import type { SbbTimetableOccupancy } from './timetable-occupancy';
+import type { SbbTimetableOccupancyElement } from './timetable-occupancy';
 import './timetable-occupancy';
 
 describe('sbb-timetable-occupancy', () => {
@@ -14,7 +14,7 @@ describe('sbb-timetable-occupancy', () => {
   };
 
   it('renders - DOM', async () => {
-    const element: SbbTimetableOccupancy = await fixture(
+    const element: SbbTimetableOccupancyElement = await fixture(
       renderComponent({
         'first-class-occupancy': 'high',
         'second-class-occupancy': 'high',
@@ -24,7 +24,7 @@ describe('sbb-timetable-occupancy', () => {
   });
 
   it('renders - ShadowDOM', async () => {
-    const element: SbbTimetableOccupancy = await fixture(
+    const element: SbbTimetableOccupancyElement = await fixture(
       renderComponent({
         'first-class-occupancy': 'high',
         'second-class-occupancy': 'high',
@@ -34,7 +34,7 @@ describe('sbb-timetable-occupancy', () => {
   });
 
   it('renders negative - DOM', async () => {
-    const element: SbbTimetableOccupancy = await fixture(
+    const element: SbbTimetableOccupancyElement = await fixture(
       renderComponent({
         'first-class-occupancy': 'low',
         'second-class-occupancy': 'medium',
@@ -45,7 +45,7 @@ describe('sbb-timetable-occupancy', () => {
   });
 
   it('renders negative - ShadowDOM', async () => {
-    const element: SbbTimetableOccupancy = await fixture(
+    const element: SbbTimetableOccupancyElement = await fixture(
       renderComponent({
         'first-class-occupancy': 'low',
         'second-class-occupancy': 'medium',
@@ -56,28 +56,28 @@ describe('sbb-timetable-occupancy', () => {
   });
 
   it('renders only first class wagon - DOM', async () => {
-    const element: SbbTimetableOccupancy = await fixture(
+    const element: SbbTimetableOccupancyElement = await fixture(
       renderComponent({ 'first-class-occupancy': 'low' }),
     );
     expect(element).dom.to.be.equalSnapshot();
   });
 
   it('renders only first class wagon - ShadowDOM', async () => {
-    const element: SbbTimetableOccupancy = await fixture(
+    const element: SbbTimetableOccupancyElement = await fixture(
       renderComponent({ 'first-class-occupancy': 'low' }),
     );
     expect(element).shadowDom.to.be.equalSnapshot();
   });
 
   it('renders only second class wagon - DOM', async () => {
-    const element: SbbTimetableOccupancy = await fixture(
+    const element: SbbTimetableOccupancyElement = await fixture(
       renderComponent({ 'second-class-occupancy': 'none' }),
     );
     expect(element).dom.to.be.equalSnapshot();
   });
 
   it('renders only second class wagon - ShadowDOM', async () => {
-    const element: SbbTimetableOccupancy = await fixture(
+    const element: SbbTimetableOccupancyElement = await fixture(
       renderComponent({ 'second-class-occupancy': 'none' }),
     );
     expect(element).shadowDom.to.be.equalSnapshot();

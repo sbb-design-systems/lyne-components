@@ -21,7 +21,7 @@ import {
   i18nWagonLabelNumber,
 } from '../../core/i18n';
 import { SbbOccupancy } from '../../core/interfaces';
-import type { SbbIcon } from '../../icon';
+import type { SbbIconElement } from '../../icon';
 import '../../timetable-occupancy-icon';
 
 import style from './train-wagon.scss?lit&inline';
@@ -32,7 +32,7 @@ import style from './train-wagon.scss?lit&inline';
  * @slot - Use the unnamed slot to add one or more `sbb-icon` for meta-information of the `sbb-train-wagon`.
  */
 @customElement('sbb-train-wagon')
-export class SbbTrainWagon extends SlotChildObserver(LitElement) {
+export class SbbTrainWagonElement extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     sectorChange: 'sectorChange',
@@ -70,7 +70,7 @@ export class SbbTrainWagon extends SlotChildObserver(LitElement) {
   public additionalAccessibilityText?: string;
 
   /** Slotted Sbb-icons. */
-  @state() private _icons: SbbIcon[];
+  @state() private _icons: SbbIconElement[];
 
   @state() private _currentLanguage = documentLanguage();
 
@@ -93,10 +93,14 @@ export class SbbTrainWagon extends SlotChildObserver(LitElement) {
    * @internal
    * Emits whenever the sector value changes.
    */
-  private _sectorChange: EventEmitter = new EventEmitter(this, SbbTrainWagon.events.sectorChange, {
-    bubbles: true,
-    cancelable: true,
-  });
+  private _sectorChange: EventEmitter = new EventEmitter(
+    this,
+    SbbTrainWagonElement.events.sectorChange,
+    {
+      bubbles: true,
+      cancelable: true,
+    },
+  );
 
   private _sectorChanged(): void {
     this._sectorChange.emit();
@@ -107,7 +111,7 @@ export class SbbTrainWagon extends SlotChildObserver(LitElement) {
    */
   protected override checkChildren(): void {
     this._icons = Array.from(this.children ?? []).filter(
-      (e): e is SbbIcon => e.tagName === 'SBB-ICON',
+      (e): e is SbbIconElement => e.tagName === 'SBB-ICON',
     );
   }
 
@@ -252,6 +256,6 @@ export class SbbTrainWagon extends SlotChildObserver(LitElement) {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-train-wagon': SbbTrainWagon;
+    'sbb-train-wagon': SbbTrainWagonElement;
   }
 }

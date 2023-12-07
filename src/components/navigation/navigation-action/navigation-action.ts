@@ -19,7 +19,7 @@ import {
   resolveRenderVariables,
   targetsNewWindow,
 } from '../../core/interfaces';
-import type { SbbNavigationMarker } from '../navigation-marker';
+import type { SbbNavigationMarkerElement } from '../navigation-marker';
 
 import style from './navigation-action.scss?lit&inline';
 
@@ -29,7 +29,7 @@ import style from './navigation-action.scss?lit&inline';
  * @slot - Use the unnamed slot to add content to the `sbb-navigation-action`.
  */
 @customElement('sbb-navigation-action')
-export class SbbNavigationAction extends LitElement {
+export class SbbNavigationActionElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -90,7 +90,7 @@ export class SbbNavigationAction extends LitElement {
 
   @state() private _currentLanguage = documentLanguage();
 
-  private _navigationMarker: SbbNavigationMarker;
+  private _navigationMarker: SbbNavigationMarkerElement;
   private _abort = new ConnectedAbortController(this);
 
   private _handlerRepository = new HandlerRepository(
@@ -114,7 +114,10 @@ export class SbbNavigationAction extends LitElement {
     this._handlerRepository.connect();
 
     // Check if the current element is nested inside a navigation marker.
-    this._navigationMarker = hostContext('sbb-navigation-marker', this) as SbbNavigationMarker;
+    this._navigationMarker = hostContext(
+      'sbb-navigation-marker',
+      this,
+    ) as SbbNavigationMarkerElement;
   }
 
   public override disconnectedCallback(): void {
@@ -161,6 +164,6 @@ export class SbbNavigationAction extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-navigation-action': SbbNavigationAction;
+    'sbb-navigation-action': SbbNavigationActionElement;
   }
 }

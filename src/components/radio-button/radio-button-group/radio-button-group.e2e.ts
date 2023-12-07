@@ -3,13 +3,13 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
-import type { SbbRadioButton } from '../radio-button';
+import type { SbbRadioButtonElement } from '../radio-button';
 import '../radio-button';
 
-import { SbbRadioButtonGroup } from './radio-button-group';
+import { SbbRadioButtonGroupElement } from './radio-button-group';
 
 describe('sbb-radio-button-group', () => {
-  let element: SbbRadioButtonGroup;
+  let element: SbbRadioButtonGroupElement;
 
   beforeEach(async () => {
     element = await fixture(html`
@@ -25,13 +25,13 @@ describe('sbb-radio-button-group', () => {
   });
 
   it('renders', () => {
-    assert.instanceOf(element, SbbRadioButtonGroup);
+    assert.instanceOf(element, SbbRadioButtonGroupElement);
   });
 
   describe('events', () => {
     it('selects radio on click', async () => {
-      const firstRadio = element.querySelector('#sbb-radio-1') as SbbRadioButton;
-      const radio = element.querySelector('#sbb-radio-2') as SbbRadioButton;
+      const firstRadio = element.querySelector('#sbb-radio-1') as SbbRadioButtonElement;
+      const radio = element.querySelector('#sbb-radio-2') as SbbRadioButtonElement;
 
       expect(firstRadio).to.have.attribute('checked');
 
@@ -43,8 +43,8 @@ describe('sbb-radio-button-group', () => {
     });
 
     it('dispatches event on radio change', async () => {
-      const firstRadio = element.querySelector('#sbb-radio-1') as SbbRadioButton;
-      const checkedRadio = element.querySelector('#sbb-radio-2') as SbbRadioButton;
+      const firstRadio = element.querySelector('#sbb-radio-1') as SbbRadioButtonElement;
+      const checkedRadio = element.querySelector('#sbb-radio-2') as SbbRadioButtonElement;
       const changeSpy = new EventSpy('change');
       const inputSpy = new EventSpy('input');
 
@@ -60,8 +60,8 @@ describe('sbb-radio-button-group', () => {
     });
 
     it('does not select disabled radio on click', async () => {
-      const firstRadio = element.querySelector('#sbb-radio-1') as SbbRadioButton;
-      const disabledRadio = element.querySelector('#sbb-radio-3') as SbbRadioButton;
+      const firstRadio = element.querySelector('#sbb-radio-1') as SbbRadioButtonElement;
+      const disabledRadio = element.querySelector('#sbb-radio-3') as SbbRadioButtonElement;
 
       disabledRadio.click();
       await waitForLitRender(element);
@@ -71,9 +71,9 @@ describe('sbb-radio-button-group', () => {
     });
 
     it('preserves radio button disabled state after being disabled from group', async () => {
-      const firstRadio = element.querySelector('#sbb-radio-1') as SbbRadioButton;
-      const secondRadio = element.querySelector('#sbb-radio-2') as SbbRadioButton;
-      const disabledRadio = element.querySelector('#sbb-radio-3') as SbbRadioButton;
+      const firstRadio = element.querySelector('#sbb-radio-1') as SbbRadioButtonElement;
+      const secondRadio = element.querySelector('#sbb-radio-2') as SbbRadioButtonElement;
+      const disabledRadio = element.querySelector('#sbb-radio-3') as SbbRadioButtonElement;
 
       element.disabled = true;
       await waitForLitRender(element);
@@ -97,7 +97,7 @@ describe('sbb-radio-button-group', () => {
     });
 
     it('selects radio on left arrow key pressed', async () => {
-      const firstRadio = element.querySelector('#sbb-radio-1') as SbbRadioButton;
+      const firstRadio = element.querySelector('#sbb-radio-1') as SbbRadioButtonElement;
 
       firstRadio.focus();
       await waitForLitRender(element);
@@ -115,7 +115,7 @@ describe('sbb-radio-button-group', () => {
     });
 
     it('selects radio on right arrow key pressed', async () => {
-      const firstRadio = element.querySelector('#sbb-radio-1') as SbbRadioButton;
+      const firstRadio = element.querySelector('#sbb-radio-1') as SbbRadioButtonElement;
 
       firstRadio.focus();
       await sendKeys({ down: 'ArrowRight' });
@@ -132,8 +132,8 @@ describe('sbb-radio-button-group', () => {
     });
 
     it('wraps around on arrow key navigation', async () => {
-      const firstRadio = element.querySelector('#sbb-radio-1') as SbbRadioButton;
-      const secondRadio = element.querySelector('#sbb-radio-2') as SbbRadioButton;
+      const firstRadio = element.querySelector('#sbb-radio-1') as SbbRadioButtonElement;
+      const secondRadio = element.querySelector('#sbb-radio-2') as SbbRadioButtonElement;
 
       secondRadio.click();
       await waitForLitRender(element);

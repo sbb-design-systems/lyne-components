@@ -3,13 +3,13 @@ import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../core/testing';
 
-import type { LineColor, SbbPearlChainVerticalItem } from './pearl-chain-vertical-item';
+import type { LineColor, SbbPearlChainVerticalItemElement } from './pearl-chain-vertical-item';
 
 import './pearl-chain-vertical-item';
 
 describe('sbb-pearl-chain-vertical-item', () => {
   it('renders component with charcoal standard line and bullet', async () => {
-    const element = await fixture<SbbPearlChainVerticalItem>(html`
+    const element = await fixture<SbbPearlChainVerticalItemElement>(html`
       <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
       </sbb-pearl-chain-vertical-item>
     `);
@@ -41,7 +41,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
   });
 
   it('renders component with red line and bullet', async () => {
-    const element = await fixture<SbbPearlChainVerticalItem>(html`
+    const element = await fixture<SbbPearlChainVerticalItemElement>(html`
       <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
       </sbb-pearl-chain-vertical-item>
     `);
@@ -73,7 +73,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
   });
 
   it('renders component with left slot', async () => {
-    const element = await fixture<SbbPearlChainVerticalItem>(html`
+    const element = await fixture<SbbPearlChainVerticalItemElement>(html`
       <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
         <div slot="left">content</div>
       </sbb-pearl-chain-vertical-item>
@@ -105,7 +105,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
   });
 
   it('renders component with right slot', async () => {
-    const element = await fixture<SbbPearlChainVerticalItem>(html`
+    const element = await fixture<SbbPearlChainVerticalItemElement>(html`
       <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
         <div slot="right">right content</div>
       </sbb-pearl-chain-vertical-item>
@@ -137,7 +137,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
   });
 
   it('renders component with both slots', async () => {
-    const element = await fixture<SbbPearlChainVerticalItem>(html`
+    const element = await fixture<SbbPearlChainVerticalItemElement>(html`
       <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
         <div slot="right">right content</div>
         <div slot="left">left content</div>
@@ -171,7 +171,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
   });
 
   it('renders a position', async () => {
-    const element = await fixture<SbbPearlChainVerticalItem>(html`
+    const element = await fixture<SbbPearlChainVerticalItemElement>(html`
       <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
         <div slot="right">right content</div>
         <div slot="left">left content</div>
@@ -207,7 +207,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
   });
 
   it('renders a crossed-bullet', async () => {
-    const element = await fixture<SbbPearlChainVerticalItem>(html`
+    const element = await fixture<SbbPearlChainVerticalItemElement>(html`
       <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
         <div slot="right">right content</div>
         <div slot="left">left content</div>

@@ -21,7 +21,7 @@ import {
   setAriaComboBoxAttributes,
   setOverlayPosition,
 } from '../core/overlay';
-import type { SbbOption } from '../option';
+import type { SbbOptionElement } from '../option';
 
 import style from './autocomplete.scss?lit&inline';
 
@@ -37,7 +37,7 @@ let nextId = 0;
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-autocomplete` is closed.
  */
 @customElement('sbb-autocomplete')
-export class SbbAutocomplete extends LitElement {
+export class SbbAutocompleteElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -74,16 +74,19 @@ export class SbbAutocomplete extends LitElement {
   @state() private _state: SbbOverlayState = 'closed';
 
   /** Emits whenever the `sbb-autocomplete` starts the opening transition. */
-  private _willOpen: EventEmitter = new EventEmitter(this, SbbAutocomplete.events.willOpen);
+  private _willOpen: EventEmitter = new EventEmitter(this, SbbAutocompleteElement.events.willOpen);
 
   /** Emits whenever the `sbb-autocomplete` is opened. */
-  private _didOpen: EventEmitter = new EventEmitter(this, SbbAutocomplete.events.didOpen);
+  private _didOpen: EventEmitter = new EventEmitter(this, SbbAutocompleteElement.events.didOpen);
 
   /** Emits whenever the `sbb-autocomplete` begins the closing transition. */
-  private _willClose: EventEmitter = new EventEmitter(this, SbbAutocomplete.events.willClose);
+  private _willClose: EventEmitter = new EventEmitter(
+    this,
+    SbbAutocompleteElement.events.willClose,
+  );
 
   /** Emits whenever the `sbb-autocomplete` is closed. */
-  private _didClose: EventEmitter = new EventEmitter(this, SbbAutocomplete.events.didClose);
+  private _didClose: EventEmitter = new EventEmitter(this, SbbAutocompleteElement.events.didClose);
 
   private _overlay: HTMLElement;
   private _optionContainer: HTMLElement;
@@ -122,7 +125,7 @@ export class SbbAutocomplete extends LitElement {
     return this.triggerElement && isValidAttribute(this.triggerElement, 'readonly');
   }
 
-  private get _options(): SbbOption[] {
+  private get _options(): SbbOptionElement[] {
     return Array.from(this.querySelectorAll?.('sbb-option') ?? []);
   }
 
@@ -175,7 +178,7 @@ export class SbbAutocomplete extends LitElement {
 
   /** When an option is selected, update the input value and close the autocomplete. */
   private _onOptionSelected(event: CustomEvent): void {
-    const target = event.target as SbbOption;
+    const target = event.target as SbbOptionElement;
     if (!target.selected) {
       return;
     }
@@ -553,6 +556,6 @@ export class SbbAutocomplete extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-autocomplete': SbbAutocomplete;
+    'sbb-autocomplete': SbbAutocompleteElement;
   }
 }

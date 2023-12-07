@@ -3,17 +3,17 @@ import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForCondition } from '../core/testing';
 
-import { SbbTimetableRow } from './timetable-row';
+import { SbbTimetableRowElement } from './timetable-row';
 
 describe('sbb-timetable-row', () => {
-  let element: SbbTimetableRow;
+  let element: SbbTimetableRowElement;
 
   beforeEach(async () => {
     element = await fixture(html`<sbb-timetable-row></sbb-timetable-row>`);
   });
 
   it('renders', () => {
-    assert.instanceOf(element, SbbTimetableRow);
+    assert.instanceOf(element, SbbTimetableRowElement);
   });
 
   describe('events', () => {

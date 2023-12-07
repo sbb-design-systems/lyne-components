@@ -9,7 +9,7 @@ import { waitForComponentsReady } from '../../storybook/testing/wait-for-compone
 import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
-import { SbbToast } from './toast';
+import { SbbToastElement } from './toast';
 import '../link';
 
 // Story interaction executed after the story renders
@@ -20,7 +20,7 @@ const playStory = async ({ canvasElement }): Promise<void> => {
     canvas.getByTestId('sbb-toast').shadowRoot!.querySelector('.sbb-toast'),
   );
 
-  const toast = canvas.getByTestId('sbb-toast') as SbbToast;
+  const toast = canvas.getByTestId('sbb-toast') as SbbToastElement;
   toast.open();
   await new Promise((resolve) => setTimeout(resolve, 2000));
 };
@@ -165,10 +165,10 @@ const meta: Meta = {
     chromatic: { disableSnapshot: false },
     actions: {
       handles: [
-        SbbToast.events.willOpen,
-        SbbToast.events.didOpen,
-        SbbToast.events.willClose,
-        SbbToast.events.didClose,
+        SbbToastElement.events.willOpen,
+        SbbToastElement.events.didOpen,
+        SbbToastElement.events.willClose,
+        SbbToastElement.events.didClose,
       ],
     },
     backgrounds: {

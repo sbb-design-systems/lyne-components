@@ -3,11 +3,11 @@ import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../core/testing';
 
-import { SbbTeaser } from './teaser';
+import { SbbTeaserElement } from './teaser';
 import '.';
 
 describe('sbb-teaser', () => {
-  let element: SbbTeaser;
+  let element: SbbTeaserElement;
 
   it('should receive focus', async () => {
     element = await fixture(html`<sbb-teaser href="link" id="focus-id">Hero content</sbb-teaser>`);

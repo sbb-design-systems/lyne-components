@@ -277,7 +277,7 @@ export const handleNotices = (notices: Notice[]): Notice[] => {
  * It displays information about the trip, acting as a container for all the `sbb-timetable-*` components.
  * */
 @customElement('sbb-timetable-row')
-export class SbbTimetableRow extends LitElement {
+export class SbbTimetableRowElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** The trip Prop. */
@@ -695,6 +695,6 @@ export class SbbTimetableRow extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-timetable-row': SbbTimetableRow;
+    'sbb-timetable-row': SbbTimetableRowElement;
   }
 }

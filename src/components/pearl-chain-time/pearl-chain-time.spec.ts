@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { waitForLitRender } from '../core/testing';
 import { PtRideLeg } from '../core/timetable';
 
-import type { SbbPearlChainTime } from './pearl-chain-time';
+import type { SbbPearlChainTimeElement } from './pearl-chain-time';
 
 import './pearl-chain-time';
 
@@ -12,7 +12,7 @@ const now = new Date('2022-08-16T15:00:00Z').valueOf();
 
 describe('sbb-pearl-chain-time', () => {
   it('should render component with time', async () => {
-    const element = await fixture<SbbPearlChainTime>(html`
+    const element = await fixture<SbbPearlChainTimeElement>(html`
       <sbb-pearl-chain-time
         departure-time="2022-08-16T12:00:00"
         arrival-time="2022-08-16T15:00:00"
@@ -50,7 +50,7 @@ describe('sbb-pearl-chain-time', () => {
   });
 
   it('should render component with departure walk', async () => {
-    const element = await fixture<SbbPearlChainTime>(html`
+    const element = await fixture<SbbPearlChainTimeElement>(html`
       <sbb-pearl-chain-time
         departure-time="2022-08-16T12:00:00"
         arrival-time="2022-08-16T15:00:00"
@@ -106,7 +106,7 @@ describe('sbb-pearl-chain-time', () => {
   });
 
   it('should render component with arrival walk', async () => {
-    const element = await fixture<SbbPearlChainTime>(html`
+    const element = await fixture<SbbPearlChainTimeElement>(html`
       <sbb-pearl-chain-time
         departure-time="2022-08-16T12:00:00"
         arrival-time="2022-08-16T15:00:00"
@@ -162,7 +162,7 @@ describe('sbb-pearl-chain-time', () => {
   });
 
   it('should render component with departure and arrival walk', async () => {
-    const element = await fixture<SbbPearlChainTime>(html`
+    const element = await fixture<SbbPearlChainTimeElement>(html`
       <sbb-pearl-chain-time
         departure-time="2022-08-16T12:00:00"
         arrival-time="2022-08-16T15:00:00"

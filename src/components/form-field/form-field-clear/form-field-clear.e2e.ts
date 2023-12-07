@@ -2,13 +2,13 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
-import { SbbFormField } from '../form-field';
+import { SbbFormFieldElement } from '../form-field';
 
-import { SbbFormFieldClear } from './form-field-clear';
+import { SbbFormFieldClearElement } from './form-field-clear';
 
 describe('sbb-form-field-clear', () => {
-  let element: SbbFormFieldClear;
-  let formField: SbbFormField;
+  let element: SbbFormFieldClearElement;
+  let formField: SbbFormFieldElement;
   let input: HTMLInputElement;
 
   beforeEach(async () => {
@@ -23,8 +23,8 @@ describe('sbb-form-field-clear', () => {
   });
 
   it('renders', async () => {
-    assert.instanceOf(element, SbbFormFieldClear);
-    assert.instanceOf(formField, SbbFormField);
+    assert.instanceOf(element, SbbFormFieldClearElement);
+    assert.instanceOf(formField, SbbFormFieldElement);
   });
 
   it('clears the value and sets the focus on the input', async () => {

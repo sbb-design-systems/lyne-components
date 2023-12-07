@@ -4,17 +4,17 @@ import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
 
-import { SbbToggleCheck } from './toggle-check';
+import { SbbToggleCheckElement } from './toggle-check';
 
 describe('sbb-toggle-check', () => {
-  let element: SbbToggleCheck;
+  let element: SbbToggleCheckElement;
 
   beforeEach(async () => {
     element = await fixture(html`<sbb-toggle-check id="focus-id"></sbb-toggle-check>`);
   });
 
   it('renders', async () => {
-    assert.instanceOf(element, SbbToggleCheck);
+    assert.instanceOf(element, SbbToggleCheckElement);
   });
 
   describe('events', () => {

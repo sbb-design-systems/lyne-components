@@ -4,11 +4,11 @@ import { html } from 'lit/static-html.js';
 import '../navigation-action';
 import { waitForLitRender } from '../../core/testing';
 
-import { SbbNavigationMarker } from './navigation-marker';
+import { SbbNavigationMarkerElement } from './navigation-marker';
 import '.';
 
 describe('sbb-navigation-marker', () => {
-  let element: SbbNavigationMarker;
+  let element: SbbNavigationMarkerElement;
 
   beforeEach(async () => {
     element = await fixture(
@@ -22,7 +22,7 @@ describe('sbb-navigation-marker', () => {
   });
 
   it('renders', async () => {
-    assert.instanceOf(element, SbbNavigationMarker);
+    assert.instanceOf(element, SbbNavigationMarkerElement);
   });
 
   it('selects action on click', async () => {

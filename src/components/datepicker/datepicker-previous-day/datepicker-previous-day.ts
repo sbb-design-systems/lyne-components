@@ -17,7 +17,7 @@ import {
   datepickerControlRegisteredEventFactory,
   findPreviousAvailableDate,
   getDatePicker,
-  type SbbDatepicker,
+  type SbbDatepickerElement,
 } from '../datepicker';
 
 import style from './datepicker-previous-day.scss?lit&inline';
@@ -28,7 +28,7 @@ import '../../icon';
  * Combined with a `sbb-datepicker`, it can be used to move the date back.
  */
 @customElement('sbb-datepicker-previous-day')
-export class SbbDatepickerPreviousDay extends LitElement implements ButtonProperties {
+export class SbbDatepickerPreviousDayElement extends LitElement implements ButtonProperties {
   public static override styles: CSSResultGroup = style;
 
   /** The name attribute to use for the button. */
@@ -38,7 +38,7 @@ export class SbbDatepickerPreviousDay extends LitElement implements ButtonProper
   @property({ reflect: true, type: Boolean }) public negative = false;
 
   /** Datepicker reference. */
-  @property({ attribute: 'date-picker' }) public datePicker?: string | SbbDatepicker;
+  @property({ attribute: 'date-picker' }) public datePicker?: string | SbbDatepickerElement;
 
   /** Whether the component is disabled due date equals to min date. */
   @state() private _disabled = false;
@@ -60,7 +60,7 @@ export class SbbDatepickerPreviousDay extends LitElement implements ButtonProper
     }),
   );
 
-  private _datePickerElement: SbbDatepicker;
+  private _datePickerElement: SbbDatepickerElement;
 
   private _dateAdapter: DateAdapter<Date> = defaultDateAdapter;
 
@@ -105,7 +105,7 @@ export class SbbDatepickerPreviousDay extends LitElement implements ButtonProper
     if (formField) {
       this.negative = isValidAttribute(formField, 'negative');
 
-      // We can't use getInputElement of SbbFormField as async awaiting is not supported in connectedCallback.
+      // We can't use getInputElement of SbbFormFieldElement as async awaiting is not supported in connectedCallback.
       // We here only have to look for input.
       const inputElement = formField.querySelector('input');
 
@@ -122,7 +122,7 @@ export class SbbDatepickerPreviousDay extends LitElement implements ButtonProper
     this._datePickerController?.abort();
   }
 
-  private _init(picker?: string | SbbDatepicker): void {
+  private _init(picker?: string | SbbDatepickerElement): void {
     this._datePickerController?.abort();
     this._datePickerController = new AbortController();
     this._datePickerElement = getDatePicker(this, picker);
@@ -132,7 +132,7 @@ export class SbbDatepickerPreviousDay extends LitElement implements ButtonProper
       // assuming that the two components share the same parent element.
       this.parentElement?.addEventListener(
         'inputUpdated',
-        (e: Event) => this._init(e.target as SbbDatepicker),
+        (e: Event) => this._init(e.target as SbbDatepickerElement),
         { once: true, signal: this._datePickerController.signal },
       );
       return;
@@ -142,7 +142,7 @@ export class SbbDatepickerPreviousDay extends LitElement implements ButtonProper
     this._datePickerElement.addEventListener(
       'change',
       (event: Event) => {
-        this._setDisabledState(event.target as SbbDatepicker);
+        this._setDisabledState(event.target as SbbDatepickerElement);
         this._setAriaLabel();
       },
       { signal: this._datePickerController.signal },
@@ -150,7 +150,7 @@ export class SbbDatepickerPreviousDay extends LitElement implements ButtonProper
     this._datePickerElement.addEventListener(
       'datePickerUpdated',
       (event: Event) => {
-        this._setDisabledState(event.target as SbbDatepicker);
+        this._setDisabledState(event.target as SbbDatepickerElement);
         this._setAriaLabel();
       },
       { signal: this._datePickerController.signal },
@@ -171,7 +171,7 @@ export class SbbDatepickerPreviousDay extends LitElement implements ButtonProper
     this._datePickerElement.dispatchEvent(datepickerControlRegisteredEventFactory());
   }
 
-  private _setDisabledState(datepicker: SbbDatepicker): void {
+  private _setDisabledState(datepicker: SbbDatepickerElement): void {
     const pickerValueAsDate: Date = datepicker?.getValueAsDate();
 
     if (!pickerValueAsDate) {
@@ -244,6 +244,6 @@ export class SbbDatepickerPreviousDay extends LitElement implements ButtonProper
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-datepicker-previous-day': SbbDatepickerPreviousDay;
+    'sbb-datepicker-previous-day': SbbDatepickerPreviousDayElement;
   }
 }

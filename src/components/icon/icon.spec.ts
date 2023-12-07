@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { SbbIconConfig, readConfig } from '../core/config';
 import { waitForLitRender } from '../core/testing';
 
-import type { SbbIcon } from './icon';
+import type { SbbIconElement } from './icon';
 
 import './icon';
 
@@ -20,7 +20,7 @@ describe('sbb-icon', () => {
   });
 
   it('renders aria-hidden and no aria-label', async () => {
-    const root: SbbIcon = await fixture(html`<sbb-icon name="app-icon-medium"></sbb-icon>`);
+    const root: SbbIconElement = await fixture(html`<sbb-icon name="app-icon-medium"></sbb-icon>`);
 
     expect(root).dom.to.be.equal(`
       <sbb-icon name="app-icon-medium" aria-hidden="true" role="img" data-namespace="default">
@@ -58,7 +58,7 @@ describe('sbb-icon', () => {
   });
 
   it('renders default label after changing source', async () => {
-    const icon: SbbIcon = await fixture(
+    const icon: SbbIconElement = await fixture(
       html`<sbb-icon name="app-icon-medium" aria-hidden="false"></sbb-icon>`,
     );
 

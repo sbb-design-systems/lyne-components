@@ -3,15 +3,15 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import type { SbbCard } from '../card';
+import type { SbbCardElement } from '../card';
 
-import type { SbbCardAction } from './card-action';
+import type { SbbCardActionElement } from './card-action';
 
 import '../card';
 import './card-action';
 
 describe('sbb-card-action', () => {
-  let element: SbbCard;
+  let element: SbbCardElement;
 
   it('should render an sbb-card-action as a link opening in a new window', async () => {
     element = await fixture(
@@ -167,7 +167,7 @@ describe('sbb-card-action', () => {
   });
 
   describe('events', () => {
-    let action: SbbCardAction;
+    let action: SbbCardActionElement;
 
     beforeEach(async () => {
       element = await fixture(

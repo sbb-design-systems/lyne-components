@@ -1,11 +1,11 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbNavigationList } from './navigation-list';
+import { SbbNavigationListElement } from './navigation-list';
 import '../navigation-action';
 
 describe('sbb-navigation-list', () => {
-  let element: SbbNavigationList;
+  let element: SbbNavigationListElement;
 
   beforeEach(async () => {
     element = await fixture(html`
@@ -16,7 +16,7 @@ describe('sbb-navigation-list', () => {
   });
 
   it('renders', () => {
-    assert.instanceOf(element, SbbNavigationList);
+    assert.instanceOf(element, SbbNavigationListElement);
   });
 
   it('automatic list generation', () => {

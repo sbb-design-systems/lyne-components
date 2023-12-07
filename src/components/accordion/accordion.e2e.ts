@@ -2,13 +2,13 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
-import { SbbExpansionPanel } from '../expansion-panel';
-import type { SbbExpansionPanelHeader } from '../expansion-panel';
+import { SbbExpansionPanelElement } from '../expansion-panel';
+import type { SbbExpansionPanelHeaderElement } from '../expansion-panel';
 
-import { SbbAccordion } from './accordion';
+import { SbbAccordionElement } from './accordion';
 
 describe('sbb-accordion', () => {
-  let element: SbbAccordion;
+  let element: SbbAccordionElement;
 
   beforeEach(async () => {
     element = await fixture(html`
@@ -30,7 +30,7 @@ describe('sbb-accordion', () => {
   });
 
   it('renders', async () => {
-    assert.instanceOf(element, SbbAccordion);
+    assert.instanceOf(element, SbbAccordionElement);
   });
 
   it('should set accordion context on expansion panel', async () => {
@@ -44,7 +44,7 @@ describe('sbb-accordion', () => {
   });
 
   it('should set accordion context on expansion panel when removing and adding expansion-panels', async () => {
-    let panels: SbbExpansionPanel[];
+    let panels: SbbExpansionPanelElement[];
 
     element.querySelector('sbb-expansion-panel').remove();
     await waitForLitRender(element);
@@ -101,13 +101,13 @@ describe('sbb-accordion', () => {
   });
 
   it('should close others when expanding and multi = false', async () => {
-    const willOpenEventSpy = new EventSpy(SbbExpansionPanel.events.willOpen);
-    const panelOne: SbbExpansionPanel = element.querySelector('#panel-1');
-    const headerOne: SbbExpansionPanelHeader = element.querySelector('#header-1');
-    const panelTwo: SbbExpansionPanel = element.querySelector('#panel-2');
-    const headerTwo: SbbExpansionPanelHeader = element.querySelector('#header-2');
-    const panelThree: SbbExpansionPanel = element.querySelector('#panel-3');
-    const headerThree: SbbExpansionPanelHeader = element.querySelector('#header-3');
+    const willOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.willOpen);
+    const panelOne: SbbExpansionPanelElement = element.querySelector('#panel-1');
+    const headerOne: SbbExpansionPanelHeaderElement = element.querySelector('#header-1');
+    const panelTwo: SbbExpansionPanelElement = element.querySelector('#panel-2');
+    const headerTwo: SbbExpansionPanelHeaderElement = element.querySelector('#header-2');
+    const panelThree: SbbExpansionPanelElement = element.querySelector('#panel-3');
+    const headerThree: SbbExpansionPanelHeaderElement = element.querySelector('#header-3');
 
     for (const panel of [panelOne, panelTwo, panelThree]) {
       expect(panel.expanded).to.be.equal(false);
@@ -138,13 +138,13 @@ describe('sbb-accordion', () => {
   it('should not change others when expanding and multi = false', async () => {
     element.multi = true;
     await waitForLitRender(element);
-    const willOpenEventSpy = new EventSpy(SbbExpansionPanel.events.willOpen);
-    const panelOne: SbbExpansionPanel = element.querySelector('#panel-1');
-    const headerOne: SbbExpansionPanelHeader = element.querySelector('#header-1');
-    const panelTwo: SbbExpansionPanel = element.querySelector('#panel-2');
-    const headerTwo: SbbExpansionPanelHeader = element.querySelector('#header-2');
-    const panelThree: SbbExpansionPanel = element.querySelector('#panel-3');
-    const headerThree: SbbExpansionPanelHeader = element.querySelector('#header-3');
+    const willOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.willOpen);
+    const panelOne: SbbExpansionPanelElement = element.querySelector('#panel-1');
+    const headerOne: SbbExpansionPanelHeaderElement = element.querySelector('#header-1');
+    const panelTwo: SbbExpansionPanelElement = element.querySelector('#panel-2');
+    const headerTwo: SbbExpansionPanelHeaderElement = element.querySelector('#header-2');
+    const panelThree: SbbExpansionPanelElement = element.querySelector('#panel-3');
+    const headerThree: SbbExpansionPanelHeaderElement = element.querySelector('#header-3');
 
     for (const panel of [panelOne, panelTwo, panelThree]) {
       expect(panel.expanded).to.be.equal(false);
@@ -175,17 +175,17 @@ describe('sbb-accordion', () => {
   it('should close all panels except the first when multi changes from true to false', async () => {
     element.multi = true;
     await waitForLitRender(element);
-    const panelOne: SbbExpansionPanel = element.querySelector('#panel-1');
-    const panelTwo: SbbExpansionPanel = element.querySelector('#panel-2');
-    const headerTwo: SbbExpansionPanelHeader = element.querySelector('#header-2');
-    const panelThree: SbbExpansionPanel = element.querySelector('#panel-3');
-    const headerThree: SbbExpansionPanelHeader = element.querySelector('#header-3');
+    const panelOne: SbbExpansionPanelElement = element.querySelector('#panel-1');
+    const panelTwo: SbbExpansionPanelElement = element.querySelector('#panel-2');
+    const headerTwo: SbbExpansionPanelHeaderElement = element.querySelector('#header-2');
+    const panelThree: SbbExpansionPanelElement = element.querySelector('#panel-3');
+    const headerThree: SbbExpansionPanelHeaderElement = element.querySelector('#header-3');
 
     for (const panel of [panelOne, panelTwo, panelThree]) {
       expect(panel.expanded).to.be.equal(false);
     }
 
-    const willOpenEventSpy = new EventSpy(SbbExpansionPanel.events.willOpen);
+    const willOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.willOpen);
 
     headerTwo.click();
     await waitForCondition(() => willOpenEventSpy.events.length === 1);

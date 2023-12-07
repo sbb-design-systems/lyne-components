@@ -5,7 +5,7 @@ import { html, TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../core/dom';
-import type { SbbFormError } from '../../form-error';
+import type { SbbFormErrorElement } from '../../form-error';
 
 import readme from './readme.md?raw';
 import './form-field';
@@ -117,7 +117,7 @@ const TemplateInputWithSlottedLabel = ({
 `;
 
 const TemplateInputWithErrorSpace = (args: Args): TemplateResult => {
-  const sbbFormError: SbbFormError = document.createElement('sbb-form-error');
+  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
   sbbFormError.setAttribute('slot', 'error');
   sbbFormError.textContent = args.errorText;
 
@@ -214,7 +214,7 @@ const TemplateSelect = (args: Args): TemplateResult => html`
 `;
 
 const TemplateSelectWithErrorSpace = (args: Args): TemplateResult => {
-  const sbbFormError: SbbFormError = document.createElement('sbb-form-error');
+  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
   sbbFormError.setAttribute('slot', 'error');
   sbbFormError.textContent = args.errorText;
 

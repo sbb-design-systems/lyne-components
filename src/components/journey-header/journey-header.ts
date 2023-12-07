@@ -17,7 +17,7 @@ export type JourneyHeaderSize = 'm' | 'l';
  * Combined with the `sbb-journey-summary`, it displays the journey's detail.
  */
 @customElement('sbb-journey-header')
-export class SbbJourneyHeader extends LitElement {
+export class SbbJourneyHeaderElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Origin location for the journey header. */
@@ -92,6 +92,6 @@ export class SbbJourneyHeader extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-journey-header': SbbJourneyHeader;
+    'sbb-journey-header': SbbJourneyHeaderElement;
   }
 }

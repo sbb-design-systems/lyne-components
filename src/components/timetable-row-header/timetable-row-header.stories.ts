@@ -19,7 +19,7 @@ const defaultArgTypes = {
   config,
 };
 
-export const SbbTimetableRowHeader: StoryObj = {
+export const SbbTimetableRowHeaderElement: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {

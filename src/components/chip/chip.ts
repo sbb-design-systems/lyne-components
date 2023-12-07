@@ -9,7 +9,7 @@ import style from './chip.scss?lit&inline';
  * @slot - Use the unnamed slot to add content to the `sbb-chip`.
  */
 @customElement('sbb-chip')
-export class SbbChip extends LitElement {
+export class SbbChipElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Size of the chip. */
@@ -34,6 +34,6 @@ export class SbbChip extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-chip': SbbChip;
+    'sbb-chip': SbbChipElement;
   }
 }

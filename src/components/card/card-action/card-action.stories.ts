@@ -11,7 +11,7 @@ const Template = (): TemplateResult => html`
   </sbb-card>
 `;
 
-export const SbbCardAction: StoryObj = {
+export const SbbCardActionElement: StoryObj = {
   render: Template,
 };
 

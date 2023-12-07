@@ -11,9 +11,9 @@ import {
 } from '../../core/eventing';
 import { i18nSector, i18nSectorShort, i18nTrains } from '../../core/i18n';
 import { AgnosticResizeObserver } from '../../core/observers';
-import type { SbbTrain } from '../train';
-import type { SbbTrainBlockedPassage } from '../train-blocked-passage';
-import type { SbbTrainWagon } from '../train-wagon';
+import type { SbbTrainElement } from '../train';
+import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage';
+import type { SbbTrainWagonElement } from '../train-wagon';
 
 import style from './train-formation.scss?lit&inline';
 
@@ -29,7 +29,7 @@ interface AggregatedSector {
  * @slot - Use the unnamed slot to add 'sbb-train' elements to the `sbb-train-formation`.
  */
 @customElement('sbb-train-formation')
-export class SbbTrainFormation extends SlotChildObserver(LitElement) {
+export class SbbTrainFormationElement extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** Option to hide all wagon labels. */
@@ -38,7 +38,7 @@ export class SbbTrainFormation extends SlotChildObserver(LitElement) {
 
   @state() private _sectors: AggregatedSector[] = [];
 
-  @state() private _trains: SbbTrain[];
+  @state() private _trains: SbbTrainElement[];
 
   @state() private _currentLanguage = documentLanguage();
 
@@ -81,11 +81,14 @@ export class SbbTrainFormation extends SlotChildObserver(LitElement) {
     this._sectors = Array.from(
       this.querySelectorAll?.('sbb-train-wagon,sbb-train-blocked-passage') ?? [],
     ).reduce(
-      (aggregatedSectors: AggregatedSector[], item: SbbTrainWagon | SbbTrainBlockedPassage) => {
+      (
+        aggregatedSectors: AggregatedSector[],
+        item: SbbTrainWagonElement | SbbTrainBlockedPassageElement,
+      ) => {
         const currentAggregatedSector = aggregatedSectors[aggregatedSectors.length - 1];
 
         if (item.tagName === 'SBB-TRAIN-WAGON') {
-          const sectorAttribute = (item as SbbTrainWagon).sector;
+          const sectorAttribute = (item as SbbTrainWagonElement).sector;
 
           if (!currentAggregatedSector.label && sectorAttribute) {
             currentAggregatedSector.label = sectorAttribute;
@@ -113,7 +116,7 @@ export class SbbTrainFormation extends SlotChildObserver(LitElement) {
   protected override checkChildren(): void {
     this._readSectors();
     this._trains = Array.from(this.children ?? []).filter(
-      (e): e is SbbTrain => e.tagName === 'SBB-TRAIN',
+      (e): e is SbbTrainElement => e.tagName === 'SBB-TRAIN',
     );
   }
 
@@ -188,6 +191,6 @@ export class SbbTrainFormation extends SlotChildObserver(LitElement) {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-train-formation': SbbTrainFormation;
+    'sbb-train-formation': SbbTrainFormationElement;
   }
 }

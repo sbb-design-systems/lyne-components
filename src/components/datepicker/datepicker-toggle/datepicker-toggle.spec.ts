@@ -1,9 +1,9 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbFormField } from '../../form-field';
+import { SbbFormFieldElement } from '../../form-field';
 
-import type { SbbDatepickerToggle } from './datepicker-toggle';
+import type { SbbDatepickerToggleElement } from './datepicker-toggle';
 
 import '../datepicker';
 import './datepicker-toggle';
@@ -40,14 +40,14 @@ describe('sbb-datepicker-toggle', () => {
 
   describe('renders in form-field', () => {
     it('renders in form-field', async () => {
-      const page: SbbFormField = await fixture(html`
+      const page: SbbFormFieldElement = await fixture(html`
         <sbb-form-field>
           <sbb-datepicker-toggle></sbb-datepicker-toggle>
           <sbb-datepicker></sbb-datepicker>
           <input />
         </sbb-form-field>
       `);
-      const element: SbbDatepickerToggle = page.querySelector('sbb-datepicker-toggle');
+      const element: SbbDatepickerToggleElement = page.querySelector('sbb-datepicker-toggle');
       expect(element).dom.to.be.equal(
         `<sbb-datepicker-toggle slot="prefix"></sbb-datepicker-toggle>`,
       );
@@ -77,14 +77,14 @@ describe('sbb-datepicker-toggle', () => {
     });
 
     it('renders in disabled form-field', async () => {
-      const page: SbbFormField = await fixture(html`
+      const page: SbbFormFieldElement = await fixture(html`
         <sbb-form-field>
           <sbb-datepicker-toggle></sbb-datepicker-toggle>
           <sbb-datepicker></sbb-datepicker>
           <input disabled />
         </sbb-form-field>
       `);
-      const element: SbbDatepickerToggle = page.querySelector('sbb-datepicker-toggle');
+      const element: SbbDatepickerToggleElement = page.querySelector('sbb-datepicker-toggle');
       expect(element).dom.to.be.equal(
         `<sbb-datepicker-toggle slot="prefix"></sbb-datepicker-toggle>`,
       );
@@ -122,7 +122,7 @@ describe('sbb-datepicker-toggle', () => {
           <input min="1600000000" max="1700000000" />
         </sbb-form-field>
       `);
-      const element: SbbDatepickerToggle = page.querySelector('sbb-datepicker-toggle');
+      const element: SbbDatepickerToggleElement = page.querySelector('sbb-datepicker-toggle');
       expect(element).dom.to.be.equal(
         `<sbb-datepicker-toggle slot="prefix"></sbb-datepicker-toggle>`,
       );

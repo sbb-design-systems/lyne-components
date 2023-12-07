@@ -3,12 +3,12 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForCondition } from '../../core/testing';
-import { SbbTabTitle } from '../tab-title';
+import { SbbTabTitleElement } from '../tab-title';
 
-import { SbbTabGroup } from './tab-group';
+import { SbbTabGroupElement } from './tab-group';
 
 describe('sbb-tab-group', () => {
-  let element: SbbTabGroup;
+  let element: SbbTabGroupElement;
 
   beforeEach(async () => {
     element = await fixture(
@@ -25,7 +25,7 @@ describe('sbb-tab-group', () => {
   });
 
   it('renders', () => {
-    assert.instanceOf(element, SbbTabGroup);
+    assert.instanceOf(element, SbbTabGroupElement);
   });
 
   it('renders tab content', async () => {
@@ -48,15 +48,19 @@ describe('sbb-tab-group', () => {
 
   describe('events', () => {
     it('selects tab on click', async () => {
-      const tab = document.querySelector('sbb-tab-group > sbb-tab-title#sbb-tab-1') as SbbTabTitle;
+      const tab = document.querySelector(
+        'sbb-tab-group > sbb-tab-title#sbb-tab-1',
+      ) as SbbTabTitleElement;
 
       tab.click();
       expect(tab).to.have.attribute('active');
     });
 
     it('dispatches event on tab change', async () => {
-      const tab = document.querySelector('sbb-tab-group > sbb-tab-title#sbb-tab-1') as SbbTabTitle;
-      const changeSpy = new EventSpy(SbbTabGroup.events.didChange);
+      const tab = document.querySelector(
+        'sbb-tab-group > sbb-tab-title#sbb-tab-1',
+      ) as SbbTabTitleElement;
+      const changeSpy = new EventSpy(SbbTabGroupElement.events.didChange);
 
       tab.click();
       await waitForCondition(() => changeSpy.events.length === 1);

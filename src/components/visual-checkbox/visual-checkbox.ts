@@ -7,7 +7,7 @@ import style from './visual-checkbox.scss?lit&inline';
  * It visually displays a non-interactive checkbox.
  */
 @customElement('sbb-visual-checkbox')
-export class SbbVisualCheckbox extends LitElement {
+export class SbbVisualCheckboxElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Checked state. */
@@ -51,6 +51,6 @@ export class SbbVisualCheckbox extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-visual-checkbox': SbbVisualCheckbox;
+    'sbb-visual-checkbox': SbbVisualCheckboxElement;
   }
 }

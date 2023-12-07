@@ -3,17 +3,17 @@ import { html } from 'lit/static-html.js';
 
 import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
 
-import { SbbRadioButton } from './radio-button';
+import { SbbRadioButtonElement } from './radio-button';
 
 describe('sbb-radio-button', () => {
-  let element: SbbRadioButton;
+  let element: SbbRadioButtonElement;
 
   beforeEach(async () => {
     element = await fixture(html`<sbb-radio-button value="Value">Value label</sbb-radio-button>`);
   });
 
   it('renders', async () => {
-    assert.instanceOf(element, SbbRadioButton);
+    assert.instanceOf(element, SbbRadioButtonElement);
   });
 
   it('should not render accessibility label about containing state', async () => {
@@ -22,7 +22,7 @@ describe('sbb-radio-button', () => {
   });
 
   it('selects radio on click', async () => {
-    const stateChange = new EventSpy(SbbRadioButton.events.stateChange);
+    const stateChange = new EventSpy(SbbRadioButtonElement.events.stateChange);
 
     element.click();
     await waitForLitRender(element);
@@ -33,7 +33,7 @@ describe('sbb-radio-button', () => {
   });
 
   it('does not deselect radio if already checked', async () => {
-    const stateChange = new EventSpy(SbbRadioButton.events.stateChange);
+    const stateChange = new EventSpy(SbbRadioButtonElement.events.stateChange);
 
     element.click();
     await waitForLitRender(element);
@@ -49,7 +49,7 @@ describe('sbb-radio-button', () => {
   });
 
   it('allows empty selection', async () => {
-    const stateChange = new EventSpy(SbbRadioButton.events.stateChange);
+    const stateChange = new EventSpy(SbbRadioButtonElement.events.stateChange);
 
     element.allowEmptySelection = true;
     element.click();

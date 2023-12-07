@@ -1,13 +1,13 @@
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbTimetableTransportationTime } from './timetable-transportation-time';
+import { SbbTimetableTransportationTimeElement } from './timetable-transportation-time';
 import sampleData from './timetable-transportation-time.sample-data';
 
 const config = JSON.stringify(sampleData[0]);
 
 describe('sbb-timetable-transportation-time', () => {
-  let element: SbbTimetableTransportationTime;
+  let element: SbbTimetableTransportationTimeElement;
 
   it('renders', async () => {
     element = await fixture(
@@ -15,6 +15,6 @@ describe('sbb-timetable-transportation-time', () => {
         config="${config}"
       ></sbb-timetable-transportation-time>`,
     );
-    assert.instanceOf(element, SbbTimetableTransportationTime);
+    assert.instanceOf(element, SbbTimetableTransportationTimeElement);
   });
 });

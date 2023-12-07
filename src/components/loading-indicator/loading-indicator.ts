@@ -9,7 +9,7 @@ import style from './loading-indicator.scss?lit&inline';
  * It displays a loading indicator.
  */
 @customElement('sbb-loading-indicator')
-export class SbbLoadingIndicator extends LitElement {
+export class SbbLoadingIndicatorElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Variant of the loading indicator; `circle` is meant to be used inline, while `window` as overlay. */
@@ -52,6 +52,6 @@ export class SbbLoadingIndicator extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-loading-indicator': SbbLoadingIndicator;
+    'sbb-loading-indicator': SbbLoadingIndicatorElement;
   }
 }

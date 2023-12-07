@@ -1,11 +1,11 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbAlert } from './alert';
+import type { SbbAlertElement } from './alert';
 import './alert';
 
 describe('sbb-alert', () => {
-  let element: SbbAlert;
+  let element: SbbAlertElement;
 
   it('should render default properties', async () => {
     element = await fixture(

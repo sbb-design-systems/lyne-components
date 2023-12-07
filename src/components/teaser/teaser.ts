@@ -30,7 +30,7 @@ import style from './teaser.scss?lit&inline';
  * @slot description - Slot used to render the description
  */
 @customElement('sbb-teaser')
-export class SbbTeaser extends LitElement implements LinkProperties {
+export class SbbTeaserElement extends LitElement implements LinkProperties {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -113,6 +113,6 @@ export class SbbTeaser extends LitElement implements LinkProperties {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-teaser': SbbTeaser;
+    'sbb-teaser': SbbTeaserElement;
   }
 }

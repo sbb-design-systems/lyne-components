@@ -9,7 +9,7 @@ import {
   namedSlotChangeHandlerAspect,
 } from '../core/eventing';
 import { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
-import type { SbbLink, SbbLinkSize } from '../link';
+import type { SbbLinkElement, SbbLinkSize } from '../link';
 import type { TitleLevel } from '../title';
 
 import style from './link-list.scss?lit&inline';
@@ -23,7 +23,7 @@ import '../title';
  * @slot title - Use this slot to provide a title.
  */
 @customElement('sbb-link-list')
-export class SbbLinkList extends SlotChildObserver(LitElement) {
+export class SbbLinkListElement extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** The title text we want to show before the list. */
@@ -52,7 +52,7 @@ export class SbbLinkList extends SlotChildObserver(LitElement) {
   @property({ reflect: true }) public orientation: SbbOrientation = 'vertical';
 
   /** Sbb-Link elements */
-  @state() private _links: SbbLink[] = [];
+  @state() private _links: SbbLinkElement[] = [];
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @state() private _namedSlots = createNamedSlotState('title');
@@ -72,7 +72,9 @@ export class SbbLinkList extends SlotChildObserver(LitElement) {
 
   /** Create an array with only the sbb-link children. */
   protected override checkChildren(): void {
-    const links = Array.from(this.children).filter((e): e is SbbLink => e.tagName === 'SBB-LINK');
+    const links = Array.from(this.children).filter(
+      (e): e is SbbLinkElement => e.tagName === 'SBB-LINK',
+    );
     // If the slotted sbb-link instances have not changed, we can skip syncing and updating
     // the link reference list.
     if (
@@ -145,6 +147,6 @@ export class SbbLinkList extends SlotChildObserver(LitElement) {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-link-list': SbbLinkList;
+    'sbb-link-list': SbbLinkListElement;
   }
 }

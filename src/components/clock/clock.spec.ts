@@ -1,14 +1,14 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbClock } from './clock';
+import { SbbClockElement } from './clock';
 
 describe('sbb-clock', () => {
-  let element: SbbClock;
+  let element: SbbClockElement;
 
   it('renders', async () => {
     element = await fixture(html`<sbb-clock></sbb-clock>`);
-    assert.instanceOf(element, SbbClock);
+    assert.instanceOf(element, SbbClockElement);
 
     expect(element).dom.to.be.equal(`<sbb-clock></sbb-clock>`);
 
@@ -26,7 +26,7 @@ describe('sbb-clock', () => {
 
   it('renders with a fixed time', async () => {
     element = await fixture(html`<sbb-clock data-now="1674732600000"></sbb-clock>`);
-    assert.instanceOf(element, SbbClock);
+    assert.instanceOf(element, SbbClockElement);
 
     expect(element).to.have.attribute('data-initialized');
 

@@ -14,7 +14,7 @@ export type TitleLevel = '1' | '2' | '3' | '4' | '5' | '6';
  * @slot - Use the unnamed slot to display the title.
  */
 @customElement('sbb-title')
-export class SbbTitle extends LitElement {
+export class SbbTitleElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Title level */
@@ -53,6 +53,6 @@ export class SbbTitle extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-title': SbbTitle;
+    'sbb-title': SbbTitleElement;
   }
 }

@@ -41,7 +41,7 @@ export type SbbButtonSize = 'l' | 'm';
  * @slot icon - Slot used to display the icon, if one is set
  */
 @customElement('sbb-button')
-export class SbbButton extends LitElement implements LinkButtonProperties, IsStaticProperty {
+export class SbbButtonElement extends LitElement implements LinkButtonProperties, IsStaticProperty {
   public static override styles: CSSResultGroup = style;
 
   /** Variant of the button, like primary, secondary etc. */
@@ -176,6 +176,6 @@ export class SbbButton extends LitElement implements LinkButtonProperties, IsSta
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-button': SbbButton;
+    'sbb-button': SbbButtonElement;
   }
 }

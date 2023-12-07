@@ -1,11 +1,11 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbMapContainer } from './map-container';
+import { SbbMapContainerElement } from './map-container';
 import '.';
 
 describe('sbb-map-container', () => {
-  let element: SbbMapContainer;
+  let element: SbbMapContainerElement;
 
   it('renders the container with button', async () => {
     element = await fixture(html`<sbb-map-container></sbb-map-container>`);

@@ -10,7 +10,7 @@ import style from './divider.scss?lit&inline';
  * It displays a divider between sections.
  */
 @customElement('sbb-divider')
-export class SbbDivider extends LitElement {
+export class SbbDividerElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Negative coloring variant flag */
@@ -30,6 +30,6 @@ export class SbbDivider extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-divider': SbbDivider;
+    'sbb-divider': SbbDividerElement;
   }
 }

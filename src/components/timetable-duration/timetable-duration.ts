@@ -10,7 +10,7 @@ import style from './timetable-duration.scss?lit&inline';
  * Used in `sbb-timetable-row`, it displays information about the trip duration.
  */
 @customElement('sbb-timetable-duration')
-export class SbbTimetableDuration extends LitElement {
+export class SbbTimetableDurationElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -80,6 +80,6 @@ export class SbbTimetableDuration extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-timetable-duration': SbbTimetableDuration;
+    'sbb-timetable-duration': SbbTimetableDurationElement;
   }
 }

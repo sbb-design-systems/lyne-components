@@ -6,7 +6,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../core/dom';
 
-import { SbbAlert } from './alert';
+import { SbbAlertElement } from './alert';
 import readme from './readme.md?raw';
 
 const Default = ({ 'content-slot-text': contentSlotText, ...args }: Args): TemplateResult => html`
@@ -217,9 +217,9 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbAlert.events.willPresent,
-        SbbAlert.events.didPresent,
-        SbbAlert.events.dismissalRequested,
+        SbbAlertElement.events.willPresent,
+        SbbAlertElement.events.didPresent,
+        SbbAlertElement.events.dismissalRequested,
       ],
     },
     backgrounds: {

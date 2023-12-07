@@ -1,15 +1,15 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbCard } from './card';
+import { SbbCardElement } from './card';
 import '../card-badge';
 
 describe('sbb-card', () => {
-  let element: SbbCard;
+  let element: SbbCardElement;
 
   it('renders', async () => {
     element = await fixture(html`<sbb-card size="l" color="transparent-bordered"></sbb-card>`);
-    assert.instanceOf(element, SbbCard);
+    assert.instanceOf(element, SbbCardElement);
   });
 
   it('should render with sbb-card-badge', async () => {

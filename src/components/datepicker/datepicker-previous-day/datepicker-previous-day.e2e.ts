@@ -2,20 +2,20 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import { SbbFormField } from '../../form-field';
-import type { SbbDatepicker } from '../datepicker';
+import { SbbFormFieldElement } from '../../form-field';
+import type { SbbDatepickerElement } from '../datepicker';
 
-import { SbbDatepickerPreviousDay } from './datepicker-previous-day';
+import { SbbDatepickerPreviousDayElement } from './datepicker-previous-day';
 
 import '../datepicker';
 
 describe('sbb-datepicker-previous-day', () => {
   describe('standalone', () => {
     it('renders', async () => {
-      const element: SbbDatepickerPreviousDay = await fixture(
+      const element: SbbDatepickerPreviousDayElement = await fixture(
         html`<sbb-datepicker-previous-day></sbb-datepicker-previous-day>`,
       );
-      assert.instanceOf(element, SbbDatepickerPreviousDay);
+      assert.instanceOf(element, SbbDatepickerPreviousDayElement);
     });
   });
 
@@ -26,12 +26,12 @@ describe('sbb-datepicker-previous-day', () => {
         <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-previous-day>
         <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
       `);
-      const element: SbbDatepickerPreviousDay = document.querySelector(
+      const element: SbbDatepickerPreviousDayElement = document.querySelector(
         'sbb-datepicker-previous-day',
       );
       const input: HTMLInputElement = document.querySelector('input');
       await waitForLitRender(element);
-      assert.instanceOf(element, SbbDatepickerPreviousDay);
+      assert.instanceOf(element, SbbDatepickerPreviousDayElement);
       expect(input.value).to.be.equal('Su, 01.01.2023');
 
       const changeSpy = new EventSpy('change', input);
@@ -53,7 +53,9 @@ describe('sbb-datepicker-previous-day', () => {
       `);
       await waitForLitRender(doc);
 
-      const prevButton: SbbDatepickerPreviousDay = doc.querySelector('sbb-datepicker-previous-day');
+      const prevButton: SbbDatepickerPreviousDayElement = doc.querySelector(
+        'sbb-datepicker-previous-day',
+      );
       const inputUpdated: EventSpy<Event> = new EventSpy(
         'inputUpdated',
         document.querySelector('#parent'),
@@ -63,7 +65,7 @@ describe('sbb-datepicker-previous-day', () => {
       expect(inputUpdated.count).to.be.equal(0);
       expect(prevButton.dataset.disabled).to.be.equal('');
 
-      const picker: SbbDatepicker = document.createElement('sbb-datepicker');
+      const picker: SbbDatepickerElement = document.createElement('sbb-datepicker');
       picker.setAttribute('input', 'datepicker-input');
       picker.setAttribute('id', 'datepicker');
       picker.setAttribute('value', '01-01-2023');
@@ -85,7 +87,9 @@ describe('sbb-datepicker-previous-day', () => {
       `);
       await waitForLitRender(doc);
 
-      const prevButton: SbbDatepickerPreviousDay = doc.querySelector('sbb-datepicker-previous-day');
+      const prevButton: SbbDatepickerPreviousDayElement = doc.querySelector(
+        'sbb-datepicker-previous-day',
+      );
       const inputUpdated: EventSpy<Event> = new EventSpy(
         'inputUpdated',
         document.querySelector('#parent'),
@@ -95,7 +99,7 @@ describe('sbb-datepicker-previous-day', () => {
       expect(inputUpdated.count).to.be.equal(0);
       expect(prevButton.dataset.disabled).to.be.equal('');
 
-      const picker: SbbDatepicker = document.createElement('sbb-datepicker');
+      const picker: SbbDatepickerElement = document.createElement('sbb-datepicker');
       picker.setAttribute('input', 'datepicker-input');
       picker.setAttribute('id', 'datepicker');
       picker.setAttribute('value', '01-01-2023');
@@ -109,10 +113,10 @@ describe('sbb-datepicker-previous-day', () => {
   });
 
   describe('in form field', () => {
-    let element: SbbDatepickerPreviousDay, input: HTMLInputElement;
+    let element: SbbDatepickerPreviousDayElement, input: HTMLInputElement;
 
     beforeEach(async () => {
-      const form: SbbFormField = await fixture(html`
+      const form: SbbFormFieldElement = await fixture(html`
         <sbb-form-field>
           <input value="20-01-2023" />
           <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
@@ -125,7 +129,7 @@ describe('sbb-datepicker-previous-day', () => {
     });
 
     it('renders', async () => {
-      assert.instanceOf(element, SbbDatepickerPreviousDay);
+      assert.instanceOf(element, SbbDatepickerPreviousDayElement);
     });
 
     it('click', async () => {
@@ -140,7 +144,7 @@ describe('sbb-datepicker-previous-day', () => {
     });
 
     it('disabled due min equals to value', async () => {
-      const form: SbbFormField = await fixture(html`
+      const form: SbbFormFieldElement = await fixture(html`
         <sbb-form-field>
           <input value="20-01-2023" min="1674172800" />
           <sbb-datepicker-previous-day></sbb-datepicker-previous-day>

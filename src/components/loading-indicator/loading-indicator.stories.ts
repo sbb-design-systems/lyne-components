@@ -7,7 +7,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../core/dom';
 
-import type { SbbLoadingIndicator } from './loading-indicator';
+import type { SbbLoadingIndicatorElement } from './loading-indicator';
 import readme from './readme.md?raw';
 import '../button';
 import './loading-indicator';
@@ -27,7 +27,7 @@ const negativeBlockStyle: Args = {
 };
 
 const createLoadingIndicator = (args): void => {
-  const loader: SbbLoadingIndicator = document.createElement('sbb-loading-indicator');
+  const loader: SbbLoadingIndicatorElement = document.createElement('sbb-loading-indicator');
   loader.setAttribute('aria-label', 'Loading, please wait');
   loader.size = args['size'];
   loader.variant = args['variant'];

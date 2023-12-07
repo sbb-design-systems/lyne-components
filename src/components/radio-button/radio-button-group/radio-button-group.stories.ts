@@ -4,7 +4,7 @@ import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-c
 import { html, TemplateResult } from 'lit';
 
 import { sbbSpread } from '../../core/dom';
-import type { SbbFormError } from '../../form-error';
+import type { SbbFormErrorElement } from '../../form-error';
 
 import readme from './readme.md?raw';
 import './radio-button-group';
@@ -96,7 +96,7 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
 `;
 
 const ErrorMessageTemplate = (args: Args): TemplateResult => {
-  const sbbFormError: SbbFormError = document.createElement('sbb-form-error');
+  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
   sbbFormError.setAttribute('slot', 'error');
   sbbFormError.textContent = 'This is a required field.';
 

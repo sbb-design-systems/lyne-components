@@ -9,7 +9,7 @@ import style from './logo.scss?lit&inline';
  * It displays the SBB logo.
  */
 @customElement('sbb-logo')
-export class SbbLogo extends LitElement {
+export class SbbLogoElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Variants of the logo. */
@@ -47,6 +47,6 @@ export class SbbLogo extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-logo': SbbLogo;
+    'sbb-logo': SbbLogoElement;
   }
 }

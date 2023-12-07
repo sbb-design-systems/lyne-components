@@ -1,13 +1,13 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbFooter } from './footer';
+import type { SbbFooterElement } from './footer';
 
 import './footer';
 
 describe('sbb-footer', () => {
   it('renders', async () => {
-    const element: SbbFooter = await fixture(
+    const element: SbbFooterElement = await fixture(
       html`<sbb-footer accessibility-title="Footer"></sbb-footer>`,
     );
 

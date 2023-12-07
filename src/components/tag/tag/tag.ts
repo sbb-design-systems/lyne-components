@@ -17,7 +17,7 @@ import {
   SbbStateChange,
   SbbValueStateChange,
 } from '../../core/interfaces';
-import type { SbbTagGroup } from '../tag-group';
+import type { SbbTagGroupElement } from '../tag-group';
 
 import style from './tag.scss?lit&inline';
 
@@ -39,7 +39,7 @@ export type SbbTagStateChange = Extract<
  * @event {CustomEvent<void>} change - Change event emitter
  */
 @customElement('sbb-tag')
-export class SbbTag extends LitElement implements ButtonProperties {
+export class SbbTagElement extends LitElement implements ButtonProperties {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     stateChange: 'stateChange',
@@ -94,25 +94,27 @@ export class SbbTag extends LitElement implements ButtonProperties {
    */
   private _stateChange: EventEmitter<SbbTagStateChange> = new EventEmitter(
     this,
-    SbbTag.events.stateChange,
+    SbbTagElement.events.stateChange,
     {
       bubbles: true,
     },
   );
 
   /** Input event emitter */
-  private _input: EventEmitter = new EventEmitter(this, SbbTag.events.input, {
+  private _input: EventEmitter = new EventEmitter(this, SbbTagElement.events.input, {
     bubbles: true,
     composed: true,
   });
 
   /** @deprecated only used for React. Will probably be removed once React 19 is available. */
-  private _didChange: EventEmitter = new EventEmitter(this, SbbTag.events.didChange, {
+  private _didChange: EventEmitter = new EventEmitter(this, SbbTagElement.events.didChange, {
     bubbles: true,
   });
 
   /** Change event emitter */
-  private _change: EventEmitter = new EventEmitter(this, SbbTag.events.change, { bubbles: true });
+  private _change: EventEmitter = new EventEmitter(this, SbbTagElement.events.change, {
+    bubbles: true,
+  });
 
   private _abort = new ConnectedAbortController(this);
   private _handlerRepository = new HandlerRepository(
@@ -148,7 +150,7 @@ export class SbbTag extends LitElement implements ButtonProperties {
       return;
     }
 
-    const tagGroup = this.closest('sbb-tag-group') as SbbTagGroup;
+    const tagGroup = this.closest('sbb-tag-group') as SbbTagGroupElement;
 
     // Prevent deactivating on exclusive / radio mode
     if (tagGroup && !tagGroup.multiple && this.checked) {
@@ -192,6 +194,6 @@ export class SbbTag extends LitElement implements ButtonProperties {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-tag': SbbTag;
+    'sbb-tag': SbbTagElement;
   }
 }

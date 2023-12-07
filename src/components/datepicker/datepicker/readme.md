@@ -64,7 +64,7 @@ In particular, `dateParser` is the function that the component uses internally t
 while the `format` function is the one that the component uses internally to display a given `Date` object as a string.
 
 ```ts
-// datePicker is a SbbDatepicker element
+// datePicker is a SbbDatepickerElement element
 datePicker.dateParser = (value: string) => {
   // You should implement some kind of input validation
   if (!value || !isValid(value)) {

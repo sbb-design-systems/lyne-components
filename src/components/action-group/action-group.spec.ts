@@ -1,9 +1,9 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbButton } from '../button';
+import { SbbButtonElement } from '../button';
 
-import { SbbActionGroup } from './action-group';
+import { SbbActionGroupElement } from './action-group';
 import '.';
 
 describe('sbb-action-group', () => {
@@ -43,8 +43,8 @@ describe('sbb-action-group', () => {
 
   describe('property sync', () => {
     const assertButtons = (
-      root: SbbActionGroup,
-      assertion: (link: SbbButton) => boolean,
+      root: SbbActionGroupElement,
+      assertion: (link: SbbButtonElement) => boolean,
     ): boolean => Array.from(root.querySelectorAll('sbb-button')).every(assertion);
 
     it('should sync default button-size property with sbb-button', async () => {
@@ -58,7 +58,7 @@ describe('sbb-action-group', () => {
             Link
           </sbb-link>
         </sbb-action-group>
-      `)) as SbbActionGroup;
+      `)) as SbbActionGroupElement;
       expect(assertButtons(root, (b) => b.size === 'l')).to.be.ok;
     });
 
@@ -73,7 +73,7 @@ describe('sbb-action-group', () => {
             Link
           </sbb-link>
         </sbb-action-group>
-      `)) as SbbActionGroup;
+      `)) as SbbActionGroupElement;
       expect(assertButtons(root, (b) => b.size === 'm')).to.be.ok;
     });
 
@@ -88,7 +88,7 @@ describe('sbb-action-group', () => {
             Link
           </sbb-link>
         </sbb-action-group>
-      `)) as SbbActionGroup;
+      `)) as SbbActionGroupElement;
       expect(Array.from(root.querySelectorAll('sbb-link')).every((l) => l.variant === 'block')).to
         .be.ok;
     });
@@ -104,7 +104,7 @@ describe('sbb-action-group', () => {
             Link
           </sbb-link>
         </sbb-action-group>
-      `)) as SbbActionGroup;
+      `)) as SbbActionGroupElement;
       expect(Array.from(root.querySelectorAll('sbb-link')).every((l) => l.size === 's')).to.be.ok;
     });
   });

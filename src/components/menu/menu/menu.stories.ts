@@ -9,7 +9,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
 
-import { SbbMenu } from './menu';
+import { SbbMenuElement } from './menu';
 import readme from './readme.md?raw';
 
 import '../../button';
@@ -267,10 +267,10 @@ const meta: Meta = {
     chromatic: { disableSnapshot: false },
     actions: {
       handles: [
-        SbbMenu.events.willOpen,
-        SbbMenu.events.didOpen,
-        SbbMenu.events.didClose,
-        SbbMenu.events.willClose,
+        SbbMenuElement.events.willOpen,
+        SbbMenuElement.events.didOpen,
+        SbbMenuElement.events.didClose,
+        SbbMenuElement.events.willClose,
       ],
     },
     backgrounds: {

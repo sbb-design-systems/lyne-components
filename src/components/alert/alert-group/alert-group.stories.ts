@@ -6,7 +6,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../core/dom';
 
-import { SbbAlertGroup } from './alert-group';
+import { SbbAlertGroupElement } from './alert-group';
 import readme from './readme.md?raw';
 
 import '../alert';
@@ -81,7 +81,7 @@ const meta: Meta = {
   ],
   parameters: {
     actions: {
-      handles: [SbbAlertGroup.events.didDismissAlert, SbbAlertGroup.events.empty],
+      handles: [SbbAlertGroupElement.events.didDismissAlert, SbbAlertGroupElement.events.empty],
     },
     backgrounds: {
       disable: true,

@@ -11,7 +11,7 @@ import { waitForStablePosition } from '../../../storybook/testing/wait-for-stabl
 import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
-import { SbbTooltip } from './tooltip';
+import { SbbTooltipElement } from './tooltip';
 import '../../link';
 import '../tooltip-trigger';
 
@@ -221,10 +221,10 @@ const meta: Meta = {
     chromatic: { disableSnapshot: false },
     actions: {
       handles: [
-        SbbTooltip.events.willOpen,
-        SbbTooltip.events.didOpen,
-        SbbTooltip.events.didClose,
-        SbbTooltip.events.willClose,
+        SbbTooltipElement.events.willOpen,
+        SbbTooltipElement.events.didOpen,
+        SbbTooltipElement.events.didClose,
+        SbbTooltipElement.events.willClose,
       ],
     },
     backgrounds: {

@@ -14,7 +14,7 @@ type Status = 'progress' | 'future' | 'past';
  * It visually displays journey information.
  */
 @customElement('sbb-pearl-chain')
-export class SbbPearlChain extends LitElement {
+export class SbbPearlChainElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -230,6 +230,6 @@ export class SbbPearlChain extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-pearl-chain': SbbPearlChain;
+    'sbb-pearl-chain': SbbPearlChainElement;
   }
 }

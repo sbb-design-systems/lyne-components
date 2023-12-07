@@ -19,9 +19,9 @@ import {
 import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n';
 import { ValidationChangeEvent, SbbDateLike } from '../../core/interfaces';
 import { AgnosticMutationObserver } from '../../core/observers';
-import type { SbbDatepickerNextDay } from '../datepicker-next-day';
-import type { SbbDatepickerPreviousDay } from '../datepicker-previous-day';
-import type { SbbDatepickerToggle } from '../datepicker-toggle';
+import type { SbbDatepickerNextDayElement } from '../datepicker-next-day';
+import type { SbbDatepickerPreviousDayElement } from '../datepicker-previous-day';
+import type { SbbDatepickerToggleElement } from '../datepicker-toggle';
 
 import style from './datepicker.scss?lit&inline';
 
@@ -36,28 +36,31 @@ export interface InputUpdateEvent {
 }
 
 /**
- * Given a SbbDatepickerPreviousDay, a SbbDatepickerNextDay or a SbbDatepickerToggle component,
- * it returns the related SbbDatepicker reference, if exists.
- * @param element The element potentially connected to the SbbDatepicker.
+ * Given a SbbDatepickerPreviousDayElement, a SbbDatepickerNextDayElement or a SbbDatepickerToggleElement component,
+ * it returns the related SbbDatepickerElement reference, if exists.
+ * @param element The element potentially connected to the SbbDatepickerElement.
  * @param trigger The id or the reference of the SbbDatePicker.
  */
 export function getDatePicker(
-  element: SbbDatepickerPreviousDay | SbbDatepickerNextDay | SbbDatepickerToggle,
+  element:
+    | SbbDatepickerPreviousDayElement
+    | SbbDatepickerNextDayElement
+    | SbbDatepickerToggleElement,
   trigger?: string | HTMLElement,
-): SbbDatepicker {
+): SbbDatepickerElement {
   if (!trigger) {
     const parent = element.closest?.('sbb-form-field');
     return parent?.querySelector('sbb-datepicker');
   }
 
-  return findReferencedElement<SbbDatepicker>(trigger);
+  return findReferencedElement<SbbDatepickerElement>(trigger);
 }
 
 /**
- * Returns the first available date before or after a given one, considering the SbbDatepicker `dateFilter` property.
+ * Returns the first available date before or after a given one, considering the SbbDatepickerElement `dateFilter` property.
  * @param date The starting date for calculations.
  * @param delta The number of days to add/subtract from the starting one.
- * @param dateFilter The dateFilter function from the SbbDatepicker.
+ * @param dateFilter The dateFilter function from the SbbDatepickerElement.
  * @param dateAdapter The adapter class.
  */
 export function getAvailableDate(
@@ -79,9 +82,9 @@ export function getAvailableDate(
 
 /**
  * Calculates the first available date before the given one,
- * considering the SbbDatepicker `dateFilter` property and `min` parameter (e.g. from the self-named input's attribute).
+ * considering the SbbDatepickerElement `dateFilter` property and `min` parameter (e.g. from the self-named input's attribute).
  * @param date The starting date for calculations.
- * @param dateFilter The dateFilter function from the SbbDatepicker.
+ * @param dateFilter The dateFilter function from the SbbDatepickerElement.
  * @param dateAdapter The adapter class.
  * @param min The minimum value to consider in calculations.
  */
@@ -105,9 +108,9 @@ export function findPreviousAvailableDate(
 
 /**
  * Calculates the first available date after the given one,
- * considering the SbbDatepicker `dateFilter` property and `max` parameter (e.g. from the self-named input's attribute).
+ * considering the SbbDatepickerElement `dateFilter` property and `max` parameter (e.g. from the self-named input's attribute).
  * @param date The starting date for calculations.
- * @param dateFilter The dateFilter function from the SbbDatepicker.
+ * @param dateFilter The dateFilter function from the SbbDatepickerElement.
  * @param dateAdapter The adapter class.
  * @param max The maximum value to consider in calculations.
  */
@@ -130,10 +133,10 @@ export function findNextAvailableDate(
 }
 
 /**
- * Checks if the provided date is a valid one, considering the SbbDatepicker `dateFilter` property
+ * Checks if the provided date is a valid one, considering the SbbDatepickerElement `dateFilter` property
  * and `min` and `max` parameters (e.g. from the self-named input's attributes).
  * @param date The starting date for calculations.
- * @param dateFilter The dateFilter function from the SbbDatepicker.
+ * @param dateFilter The dateFilter function from the SbbDatepickerElement.
  * @param min The minimum value to consider in calculations.
  * @param max The maximum value to consider in calculations.
  */
@@ -174,7 +177,7 @@ export const datepickerControlRegisteredEventFactory = (): CustomEvent =>
  * @event {CustomEvent<ValidationChangeEvent>} validationChange - Emits whenever the internal validation state changes.
  */
 @customElement('sbb-datepicker')
-export class SbbDatepicker extends LitElement {
+export class SbbDatepickerElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -203,27 +206,27 @@ export class SbbDatepicker extends LitElement {
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
-  private _didChange: EventEmitter = new EventEmitter(this, SbbDatepicker.events.didChange, {
+  private _didChange: EventEmitter = new EventEmitter(this, SbbDatepickerElement.events.didChange, {
     bubbles: true,
     cancelable: true,
   });
 
   /** Notifies that the connected input has changes. */
-  private _change: EventEmitter = new EventEmitter(this, SbbDatepicker.events.change, {
+  private _change: EventEmitter = new EventEmitter(this, SbbDatepickerElement.events.change, {
     bubbles: true,
   });
 
   /** Notifies that the attributes of the input connected to the datepicker have changes. */
   private _inputUpdated: EventEmitter<InputUpdateEvent> = new EventEmitter(
     this,
-    SbbDatepicker.events.inputUpdated,
+    SbbDatepickerElement.events.inputUpdated,
     { bubbles: true, cancelable: true },
   );
 
   /** Notifies that the attributes of the datepicker have changes. */
   private _datePickerUpdated: EventEmitter = new EventEmitter(
     this,
-    SbbDatepicker.events.datePickerUpdated,
+    SbbDatepickerElement.events.datePickerUpdated,
     {
       bubbles: true,
       cancelable: true,
@@ -233,7 +236,7 @@ export class SbbDatepicker extends LitElement {
   /** Emits whenever the internal validation state changes. */
   private _validationChange: EventEmitter<ValidationChangeEvent> = new EventEmitter(
     this,
-    SbbDatepicker.events.validationChange,
+    SbbDatepickerElement.events.validationChange,
   );
 
   @state() private get _inputElement(): HTMLInputElement | null {
@@ -494,6 +497,6 @@ export class SbbDatepicker extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-datepicker': SbbDatepicker;
+    'sbb-datepicker': SbbDatepickerElement;
   }
 }

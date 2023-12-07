@@ -9,7 +9,7 @@ import style from './pearl-chain-vertical.scss?lit&inline';
  * @slot - The unnamed slot is used for the `sbb-pearl-chain-vertical-item` component.
  */
 @customElement('sbb-pearl-chain-vertical')
-export class SbbPearlChainVertical extends LitElement {
+export class SbbPearlChainVerticalElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   protected override render(): TemplateResult {
@@ -24,6 +24,6 @@ export class SbbPearlChainVertical extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-pearl-chain-vertical': SbbPearlChainVertical;
+    'sbb-pearl-chain-vertical': SbbPearlChainVerticalElement;
   }
 }

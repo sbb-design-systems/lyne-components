@@ -3,13 +3,15 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
-import { SbbCheckbox } from '../checkbox';
+import { SbbCheckboxElement } from '../checkbox';
 
-import { SbbCheckboxGroup } from './checkbox-group';
+import { SbbCheckboxGroupElement } from './checkbox-group';
 
 describe('sbb-checkbox-group', () => {
-  let element: SbbCheckboxGroup;
-  let checkboxOne: SbbCheckbox, checkboxTwo: SbbCheckbox, checkboxThree: SbbCheckbox;
+  let element: SbbCheckboxGroupElement;
+  let checkboxOne: SbbCheckboxElement,
+    checkboxTwo: SbbCheckboxElement,
+    checkboxThree: SbbCheckboxElement;
 
   beforeEach(async () => {
     element = await fixture(html`
@@ -25,10 +27,10 @@ describe('sbb-checkbox-group', () => {
   });
 
   it('renders', async () => {
-    assert.instanceOf(element, SbbCheckboxGroup);
-    assert.instanceOf(checkboxOne, SbbCheckbox);
-    assert.instanceOf(checkboxTwo, SbbCheckbox);
-    assert.instanceOf(checkboxThree, SbbCheckbox);
+    assert.instanceOf(element, SbbCheckboxGroupElement);
+    assert.instanceOf(checkboxOne, SbbCheckboxElement);
+    assert.instanceOf(checkboxTwo, SbbCheckboxElement);
+    assert.instanceOf(checkboxThree, SbbCheckboxElement);
   });
 
   it('disabled status is inherited', async () => {
@@ -48,8 +50,10 @@ describe('sbb-checkbox-group', () => {
   });
 
   it('disabled status prevents changes', async () => {
-    const checkboxes: SbbCheckbox[] = [checkboxOne, checkboxTwo, checkboxThree];
-    checkboxes.forEach((check: SbbCheckbox) => expect(check).not.to.have.attribute('checked'));
+    const checkboxes: SbbCheckboxElement[] = [checkboxOne, checkboxTwo, checkboxThree];
+    checkboxes.forEach((check: SbbCheckboxElement) =>
+      expect(check).not.to.have.attribute('checked'),
+    );
 
     element.setAttribute('disabled', 'true');
     await waitForLitRender(element);
@@ -58,7 +62,9 @@ describe('sbb-checkbox-group', () => {
       check.click();
     }
     await waitForLitRender(element);
-    checkboxes.forEach((check: SbbCheckbox) => expect(check).not.to.have.attribute('checked'));
+    checkboxes.forEach((check: SbbCheckboxElement) =>
+      expect(check).not.to.have.attribute('checked'),
+    );
 
     element.removeAttribute('disabled');
     await waitForLitRender(element);

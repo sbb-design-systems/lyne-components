@@ -19,7 +19,7 @@ import {
   overlayGapFixCorners,
   SbbOverlayState,
 } from '../core/overlay';
-import type { SbbOption, SbbOptGroup } from '../option';
+import type { SbbOptionElement, SbbOptGroupElement } from '../option';
 
 import style from './select.scss?lit&inline';
 
@@ -43,7 +43,7 @@ export interface SelectChange {
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-select` is closed.
  */
 @customElement('sbb-select')
-export class SbbSelect extends UpdateScheduler(LitElement) {
+export class SbbSelectElement extends UpdateScheduler(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -90,34 +90,37 @@ export class SbbSelect extends UpdateScheduler(LitElement) {
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
-  private _didChange: EventEmitter = new EventEmitter(this, SbbSelect.events.didChange);
+  private _didChange: EventEmitter = new EventEmitter(this, SbbSelectElement.events.didChange);
 
   /** Notifies that the component's value has changed. */
-  private _change: EventEmitter = new EventEmitter(this, SbbSelect.events.change);
+  private _change: EventEmitter = new EventEmitter(this, SbbSelectElement.events.change);
 
   /** Notifies that an option value has been selected. */
-  private _input: EventEmitter = new EventEmitter(this, SbbSelect.events.input);
+  private _input: EventEmitter = new EventEmitter(this, SbbSelectElement.events.input);
 
   /** @internal */
   private _stateChange: EventEmitter<SelectChange> = new EventEmitter(
     this,
-    SbbSelect.events.stateChange,
+    SbbSelectElement.events.stateChange,
     {
       composed: false,
     },
   );
 
   /** Emits whenever the `sbb-select` starts the opening transition. */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbSelect.events.willOpen);
+  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbSelectElement.events.willOpen);
 
   /** Emits whenever the `sbb-select` is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbSelect.events.didOpen);
+  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbSelectElement.events.didOpen);
 
   /** Emits whenever the `sbb-select` begins the closing transition. */
-  private _willClose: EventEmitter<void> = new EventEmitter(this, SbbSelect.events.willClose);
+  private _willClose: EventEmitter<void> = new EventEmitter(
+    this,
+    SbbSelectElement.events.willClose,
+  );
 
   /** Emits whenever the `sbb-select` is closed. */
-  private _didClose: EventEmitter<void> = new EventEmitter(this, SbbSelect.events.didClose);
+  private _didClose: EventEmitter<void> = new EventEmitter(this, SbbSelectElement.events.didClose);
 
   private _overlay: HTMLElement;
   private _optionContainer: HTMLElement;
@@ -146,14 +149,14 @@ export class SbbSelect extends UpdateScheduler(LitElement) {
     return this._triggerElement;
   }
 
-  /** Gets all the SbbOption projected in the select. */
-  private get _options(): SbbOption[] {
+  /** Gets all the SbbOptionElement projected in the select. */
+  private get _options(): SbbOptionElement[] {
     return Array.from(this.querySelectorAll?.('sbb-option') ?? []);
   }
 
-  private get _filteredOptions(): SbbOption[] {
+  private get _filteredOptions(): SbbOptionElement[] {
     return this._options.filter(
-      (opt: SbbOption) => !opt.disabled && !isValidAttribute(opt, 'data-group-disabled'),
+      (opt: SbbOptionElement) => !opt.disabled && !isValidAttribute(opt, 'data-group-disabled'),
     );
   }
 
@@ -186,7 +189,7 @@ export class SbbSelect extends UpdateScheduler(LitElement) {
 
   /** Listens to option changes. */
   private _onOptionChanged(event: Event): void {
-    const target = event.target as SbbOption;
+    const target = event.target as SbbOptionElement;
     if (target.selected) {
       this._onOptionSelected(target);
     } else {
@@ -303,7 +306,8 @@ export class SbbSelect extends UpdateScheduler(LitElement) {
     this.querySelectorAll?.('sbb-divider').forEach((element) => (element.negative = this.negative));
 
     this.querySelectorAll?.('sbb-option, sbb-optgroup').forEach(
-      (element: SbbOption | SbbOptGroup) => toggleDatasetEntry(element, 'negative', this.negative),
+      (element: SbbOptionElement | SbbOptGroupElement) =>
+        toggleDatasetEntry(element, 'negative', this.negative),
     );
   }
 
@@ -374,7 +378,7 @@ export class SbbSelect extends UpdateScheduler(LitElement) {
   }
 
   /** When an option is selected, updates the displayValue; it also closes the select if not `multiple`. */
-  private _onOptionSelected(optionSelectionChange: SbbOption): void {
+  private _onOptionSelected(optionSelectionChange: SbbOptionElement): void {
     if (!this.multiple) {
       this._filteredOptions
         .filter((option) => option.id !== optionSelectionChange.id)
@@ -394,7 +398,7 @@ export class SbbSelect extends UpdateScheduler(LitElement) {
   }
 
   /** When an option is unselected in `multiple`, removes it from value and updates displayValue. */
-  private _onOptionDeselected(optionSelectionChange: SbbOption): void {
+  private _onOptionDeselected(optionSelectionChange: SbbOptionElement): void {
     if (this.multiple) {
       this.value = (this.value as string[]).filter(
         (el: string) => el !== optionSelectionChange.value,
@@ -520,13 +524,13 @@ export class SbbSelect extends UpdateScheduler(LitElement) {
 
     // Reorder the _filteredOption array to have the last selected element at the bottom.
     const indexForSlice: number = this._activeItemIndex + 1;
-    const filteredOptionsSorted: SbbOption[] = [
+    const filteredOptionsSorted: SbbOptionElement[] = [
       ...this._filteredOptions.slice(indexForSlice),
       ...this._filteredOptions.slice(0, indexForSlice),
     ];
 
-    const match: SbbOption = filteredOptionsSorted.find(
-      (option: SbbOption) =>
+    const match: SbbOptionElement = filteredOptionsSorted.find(
+      (option: SbbOptionElement) =>
         option.textContent.toLowerCase().indexOf(this._searchString.toLowerCase()) === 0,
     );
     if (match) {
@@ -538,8 +542,8 @@ export class SbbSelect extends UpdateScheduler(LitElement) {
     ) {
       // If no exact match has been found but the string to search is made by the same repeated letter,
       // go to the first element, if exists, that matches the letter.
-      const firstMatch: SbbOption = filteredOptionsSorted.find(
-        (option: SbbOption) =>
+      const firstMatch: SbbOptionElement = filteredOptionsSorted.find(
+        (option: SbbOptionElement) =>
           option.textContent.toLowerCase().indexOf(this._searchString[0].toLowerCase()) === 0,
       );
       if (firstMatch) {
@@ -553,7 +557,7 @@ export class SbbSelect extends UpdateScheduler(LitElement) {
   }
 
   private async _selectByKeyboard(): Promise<void> {
-    const activeOption: SbbOption = this._filteredOptions[this._activeItemIndex];
+    const activeOption: SbbOptionElement = this._filteredOptions[this._activeItemIndex];
 
     if (this.multiple) {
       await activeOption.setSelectedViaUserInteraction(!activeOption.selected);
@@ -579,8 +583,8 @@ export class SbbSelect extends UpdateScheduler(LitElement) {
   }
 
   private _setActiveElement(
-    nextActiveOption: SbbOption,
-    lastActiveOption: SbbOption = null,
+    nextActiveOption: SbbOptionElement,
+    lastActiveOption: SbbOptionElement = null,
     setActiveDescendant = true,
   ): void {
     nextActiveOption.active = true;
@@ -597,8 +601,8 @@ export class SbbSelect extends UpdateScheduler(LitElement) {
   }
 
   private async _setSelectedElement(
-    nextActiveOption: SbbOption,
-    lastActiveOption: SbbOption,
+    nextActiveOption: SbbOptionElement,
+    lastActiveOption: SbbOptionElement,
   ): Promise<void> {
     await nextActiveOption.setSelectedViaUserInteraction(true);
 
@@ -732,6 +736,6 @@ export class SbbSelect extends UpdateScheduler(LitElement) {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-select': SbbSelect;
+    'sbb-select': SbbSelectElement;
   }
 }
