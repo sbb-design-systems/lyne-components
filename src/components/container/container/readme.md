@@ -1,10 +1,8 @@
-The `sbb-container` is a component that
+The `sbb-container` is a component that displays its content with the default page spacing. It also supports the slotting of a `sbb-sticky-bar`
 
 ```html
 <sbb-container>
   <!-- Any other kind of content. -->
-  <sbb-title>...</sbb-title>
-  <p class="sbb-text-s">...</p>
   ...
 
   <!-- Sticky bar should go last. -->
@@ -22,6 +20,21 @@ The component has two spacing variants, that can be set using the `expanded` pro
 
 ## Accessibility
 
+Since the element's order in the DOM is also used to determine the keyboard navigation order it's crucial to put the `sbb-sticky-bar` last in the slotted content.
+
 > Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
 
 <!-- Auto Generated Below -->
+
+## Properties
+
+| Name       | Attribute  | Privacy | Type                                               | Default         | Description                                            |
+| ---------- | ---------- | ------- | -------------------------------------------------- | --------------- | ------------------------------------------------------ |
+| `expanded` | `expanded` | public  | `boolean`                                          | `false`         | Whether the container is expanded.                     |
+| `variant`  | `variant`  | public  | `'transparent' \| 'white' \| 'milk' \| 'midnight'` | `'transparent'` | Variant of the container, like transparent, white etc. |
+
+## Slots
+
+| Name | Description                                            |
+| ---- | ------------------------------------------------------ |
+|      | Use the unnamed slot to add anything to the container. |
