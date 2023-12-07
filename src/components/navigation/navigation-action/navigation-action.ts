@@ -1,14 +1,13 @@
 import { spread } from '@open-wc/lit-helpers';
 import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
+import { LanguageController } from '../../core/common-behaviors';
 import { hostContext, setAttributes } from '../../core/dom';
 import {
-  documentLanguage,
   HandlerRepository,
   actionElementHandlerAspect,
-  languageChangeHandlerAspect,
   ConnectedAbortController,
 } from '../../core/eventing';
 import { i18nTargetOpensInNewWindow } from '../../core/i18n';
@@ -88,16 +87,11 @@ export class SbbNavigationActionElement extends LitElement {
    */
   @property() public value?: string;
 
-  @state() private _currentLanguage = documentLanguage();
-
   private _navigationMarker: SbbNavigationMarkerElement;
   private _abort = new ConnectedAbortController(this);
+  private _language = new LanguageController(this, this._abort);
 
-  private _handlerRepository = new HandlerRepository(
-    this,
-    actionElementHandlerAspect,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-  );
+  private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -151,7 +145,7 @@ export class SbbNavigationActionElement extends LitElement {
         ${
           targetsNewWindow(this)
             ? html`<span class="sbb-navigation-action__opens-in-new-window">
-                . ${i18nTargetOpensInNewWindow[this._currentLanguage]}
+                . ${i18nTargetOpensInNewWindow[this._language.current]}
               </span>`
             : nothing
         }

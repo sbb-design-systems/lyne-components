@@ -3,13 +3,12 @@ import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
+import { LanguageController } from '../core/common-behaviors';
 import { hostContext, ACTION_ELEMENTS, setAttributes } from '../core/dom';
 import {
   createNamedSlotState,
-  documentLanguage,
   HandlerRepository,
   actionElementHandlerAspect,
-  languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
 } from '../core/eventing';
 import { i18nTargetOpensInNewWindow } from '../core/i18n';
@@ -23,10 +22,9 @@ import {
   targetsNewWindow,
   SbbIconPlacement,
 } from '../core/interfaces';
+import '../icon';
 
 import style from './link.scss?lit&inline';
-
-import '../icon';
 
 export type SbbLinkSize = 'xs' | 's' | 'm';
 
@@ -100,12 +98,10 @@ export class SbbLinkElement extends LitElement implements LinkButtonProperties, 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @state() private _namedSlots = createNamedSlotState('icon');
 
-  @state() private _currentLanguage = documentLanguage();
-
+  private _language = new LanguageController(this);
   private _handlerRepository = new HandlerRepository(
     this,
     actionElementHandlerAspect,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
@@ -148,7 +144,7 @@ export class SbbLinkElement extends LitElement implements LinkButtonProperties, 
         ${
           targetsNewWindow(this)
             ? html`<span class="sbb-link__opens-in-new-window">
-                . ${i18nTargetOpensInNewWindow[this._currentLanguage]}
+                . ${i18nTargetOpensInNewWindow[this._language.current]}
               </span>`
             : nothing
         }

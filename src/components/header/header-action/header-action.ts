@@ -1,15 +1,11 @@
 import { spread } from '@open-wc/lit-helpers';
 import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
+import { LanguageController } from '../../core/common-behaviors';
 import { toggleDatasetEntry, isBreakpoint, setAttributes } from '../../core/dom';
-import {
-  documentLanguage,
-  HandlerRepository,
-  actionElementHandlerAspect,
-  languageChangeHandlerAspect,
-} from '../../core/eventing';
+import { HandlerRepository, actionElementHandlerAspect } from '../../core/eventing';
 import { i18nTargetOpensInNewWindow } from '../../core/i18n';
 import {
   ButtonType,
@@ -20,10 +16,9 @@ import {
   SbbHorizontalFrom,
 } from '../../core/interfaces';
 import { AgnosticResizeObserver } from '../../core/observers';
+import '../../icon';
 
 import style from './header-action.scss?lit&inline';
-
-import '../../icon';
 
 /**
  * It displays an action element that can be used in the `sbb-header` component.
@@ -81,15 +76,10 @@ export class SbbHeaderActionElement extends LitElement implements LinkButtonProp
   /** Form attribute if component is displayed as a button. */
   @property() public form?: string;
 
-  @state() private _currentLanguage = documentLanguage();
-
   private _documentResizeObserver = new AgnosticResizeObserver(() => this._updateExpanded());
 
-  private _handlerRepository = new HandlerRepository(
-    this,
-    actionElementHandlerAspect,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-  );
+  private _language = new LanguageController(this);
+  private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -128,7 +118,7 @@ export class SbbHeaderActionElement extends LitElement implements LinkButtonProp
             ${
               targetsNewWindow(this)
                 ? html`<span class="sbb-header-action__opens-in-new-window">
-                    . ${i18nTargetOpensInNewWindow[this._currentLanguage]}
+                    . ${i18nTargetOpensInNewWindow[this._language.current]}
                   </span>`
                 : nothing
             }

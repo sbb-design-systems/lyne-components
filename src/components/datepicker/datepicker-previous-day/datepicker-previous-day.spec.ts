@@ -14,9 +14,7 @@ describe('sbb-datepicker-previous-day', () => {
       html`<sbb-datepicker-previous-day></sbb-datepicker-previous-day>`,
     );
 
-    expect(page).dom.to.equal(`
-      <sbb-datepicker-previous-day slot="prefix" dir="ltr" role="button" slot="prefix" aria-disabled="true" data-disabled=""></sbb-datepicker-previous-day>
-    `);
+    await expect(page).dom.to.equalSnapshot();
 
     expect(page).shadowDom.to.equal(`
       <span class="sbb-datepicker-previous-day">

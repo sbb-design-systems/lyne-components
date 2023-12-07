@@ -2,21 +2,20 @@ import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValu
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { SbbInputModality, sbbInputModalityDetector } from '../../core/a11y';
+import { LanguageController } from '../../core/common-behaviors';
 import { isBrowser, isFirefox, isValidAttribute, toggleDatasetEntry } from '../../core/dom';
 import {
   createNamedSlotState,
-  documentLanguage,
   HandlerRepository,
-  languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
   ConnectedAbortController,
 } from '../../core/eventing';
 import { i18nOptional } from '../../core/i18n';
 import { AgnosticMutationObserver } from '../../core/observers';
 import type { SbbSelectElement } from '../../select';
+import '../../icon';
 
 import style from './form-field.scss?lit&inline';
-import '../../icon';
 
 let nextId = 0;
 let nextFormFieldErrorId = 0;
@@ -107,11 +106,6 @@ export class SbbFormFieldElement extends LitElement {
   /** Original aria-describedby value of the slotted input element. */
   private _originalInputAriaDescribedby?: string;
 
-  /**
-   * Get the document language; used for translations.
-   */
-  @state() private _currentLanguage = documentLanguage();
-
   /** Reference to the slotted input element. */
   @state() private _input?: HTMLInputElement | HTMLSelectElement | HTMLElement;
 
@@ -124,9 +118,9 @@ export class SbbFormFieldElement extends LitElement {
   }
 
   private _abort = new ConnectedAbortController(this);
+  private _language = new LanguageController(this, this._abort);
   private _handlerRepository = new HandlerRepository(
     this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
@@ -499,7 +493,7 @@ export class SbbFormFieldElement extends LitElement {
                       <slot name="label" @slotchange=${this._onSlotLabelChange}></slot>
                       ${this.optional
                         ? html` <span aria-hidden="true">
-                            ${i18nOptional[this._currentLanguage]}
+                            ${i18nOptional[this._language.current]}
                           </span>`
                         : nothing}
                     </span>

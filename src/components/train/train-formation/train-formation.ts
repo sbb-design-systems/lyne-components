@@ -2,13 +2,8 @@ import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { SlotChildObserver } from '../../core/common-behaviors';
-import {
-  documentLanguage,
-  HandlerRepository,
-  languageChangeHandlerAspect,
-  ConnectedAbortController,
-} from '../../core/eventing';
+import { LanguageController, SlotChildObserver } from '../../core/common-behaviors';
+import { ConnectedAbortController } from '../../core/eventing';
 import { i18nSector, i18nSectorShort, i18nTrains } from '../../core/i18n';
 import { AgnosticResizeObserver } from '../../core/observers';
 import type { SbbTrainElement } from '../train';
@@ -40,29 +35,22 @@ export class SbbTrainFormationElement extends SlotChildObserver(LitElement) {
 
   @state() private _trains: SbbTrainElement[];
 
-  @state() private _currentLanguage = documentLanguage();
-
   /** Element that defines the visible content width. */
   private _formationDiv: HTMLDivElement;
   private _contentResizeObserver = new AgnosticResizeObserver(() => this._applyCssWidth());
   private _abort = new ConnectedAbortController(this);
-  private _handlerRepository = new HandlerRepository(
-    this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-  );
+  private _language = new LanguageController(this, this._abort);
 
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener('trainSlotChange', (e) => this._readSectors(e), { signal });
     this.addEventListener('sectorChange', (e) => this._readSectors(e), { signal });
-    this._handlerRepository.connect();
   }
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._contentResizeObserver.disconnect();
-    this._handlerRepository.disconnect();
   }
 
   /**
@@ -156,8 +144,8 @@ export class SbbTrainFormationElement extends SlotChildObserver(LitElement) {
                 <span class="sbb-train-formation__sector-sticky-wrapper">
                   ${`${
                     aggregatedSector.wagonCount === 1 && aggregatedSector.label
-                      ? i18nSectorShort[this._currentLanguage]
-                      : i18nSector[this._currentLanguage]
+                      ? i18nSectorShort[this._language.current]
+                      : i18nSector[this._language.current]
                   } ${aggregatedSector.label ? aggregatedSector.label : ''}`}
                 </span>
               </span>`,
@@ -168,7 +156,7 @@ export class SbbTrainFormationElement extends SlotChildObserver(LitElement) {
           ${this._trains?.length > 1
             ? html`<ul
                 class="sbb-train-formation__train-list"
-                aria-label=${i18nTrains[this._currentLanguage]}
+                aria-label=${i18nTrains[this._language.current]}
               >
                 ${this._trains.map(
                   (_, index) =>

@@ -2,14 +2,9 @@ import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SlotChildObserver } from '../../core/common-behaviors';
+import { LanguageController, SlotChildObserver } from '../../core/common-behaviors';
 import { setAttribute } from '../../core/dom';
-import {
-  documentLanguage,
-  HandlerRepository,
-  languageChangeHandlerAspect,
-  EventEmitter,
-} from '../../core/eventing';
+import { EventEmitter } from '../../core/eventing';
 import {
   i18nAdditionalWagonInformationHeading,
   i18nBlockedPassage,
@@ -72,22 +67,7 @@ export class SbbTrainWagonElement extends SlotChildObserver(LitElement) {
   /** Slotted Sbb-icons. */
   @state() private _icons: SbbIconElement[];
 
-  @state() private _currentLanguage = documentLanguage();
-
-  private _handlerRepository = new HandlerRepository(
-    this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-  );
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._handlerRepository.connect();
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
-  }
+  private _language = new LanguageController(this);
 
   /**
    * @internal
@@ -134,7 +114,7 @@ export class SbbTrainWagonElement extends SlotChildObserver(LitElement) {
           ${
             this.label
               ? html` <span class="sbb-screenreaderonly">
-                    ${`${i18nWagonLabelNumber[this._currentLanguage]},`}&nbsp;
+                    ${`${i18nWagonLabelNumber[this._language.current]},`}&nbsp;
                   </span>
                   ${this.label}`
               : nothing
@@ -144,7 +124,7 @@ export class SbbTrainWagonElement extends SlotChildObserver(LitElement) {
       /* eslint-disable lit/binding-positions */
     };
 
-    const sectorString = `${i18nSector[this._currentLanguage]}, ${this.sector}`;
+    const sectorString = `${i18nSector[this._language.current]}, ${this.sector}`;
 
     setAttribute(
       this,
@@ -156,7 +136,7 @@ export class SbbTrainWagonElement extends SlotChildObserver(LitElement) {
       <div class="sbb-train-wagon">
         ${this.type === 'wagon'
           ? html`<ul
-              aria-label=${i18nWagonLabel[this._currentLanguage]}
+              aria-label=${i18nWagonLabel[this._language.current]}
               class="sbb-train-wagon__compartment"
             >
               ${this.sector ? html`<li class="sbb-screenreaderonly">${sectorString}</li>` : nothing}
@@ -165,8 +145,8 @@ export class SbbTrainWagonElement extends SlotChildObserver(LitElement) {
                 ? html`<li class="sbb-train-wagon__class">
                     <span class="sbb-screenreaderonly">
                       ${this.wagonClass === '1'
-                        ? i18nClass['first'][this._currentLanguage]
-                        : i18nClass['second'][this._currentLanguage]}
+                        ? i18nClass['first'][this._language.current]
+                        : i18nClass['second'][this._language.current]}
                     </span>
                     <span aria-hidden="true">${this.wagonClass}</span>
                   </li>`
@@ -180,7 +160,7 @@ export class SbbTrainWagonElement extends SlotChildObserver(LitElement) {
                 : nothing}
               ${this.blockedPassage && this.blockedPassage !== 'none'
                 ? html`<li class="sbb-screenreaderonly">
-                    ${i18nBlockedPassage[this.blockedPassage][this._currentLanguage]}
+                    ${i18nBlockedPassage[this.blockedPassage][this._language.current]}
                   </li>`
                 : nothing}
             </ul>`
@@ -188,7 +168,7 @@ export class SbbTrainWagonElement extends SlotChildObserver(LitElement) {
         ${this.type === 'closed'
           ? html`<span class="sbb-train-wagon__compartment">
               <span class="sbb-screenreaderonly">
-                ${i18nClosedCompartmentLabel(parseInt(this.label))[this._currentLanguage]}
+                ${i18nClosedCompartmentLabel(parseInt(this.label))[this._language.current]}
                 ${this.sector ? `, ${sectorString}` : nothing}
               </span>
               ${label('span')}
@@ -197,7 +177,7 @@ export class SbbTrainWagonElement extends SlotChildObserver(LitElement) {
         ${this.type === 'locomotive'
           ? html`<span class="sbb-train-wagon__compartment">
               <span class="sbb-screenreaderonly">
-                ${i18nLocomotiveLabel[this._currentLanguage]}
+                ${i18nLocomotiveLabel[this._language.current]}
                 ${this.sector ? `, ${sectorString}` : nothing}
               </span>
               ${label('span')}
@@ -228,7 +208,7 @@ export class SbbTrainWagonElement extends SlotChildObserver(LitElement) {
               ${this._icons?.length > 1
                 ? html`<ul
                     class="sbb-train-wagon__icons-list"
-                    aria-label=${i18nAdditionalWagonInformationHeading[this._currentLanguage]}
+                    aria-label=${i18nAdditionalWagonInformationHeading[this._language.current]}
                   >
                     ${this._icons.map(
                       (_, index) =>
@@ -241,7 +221,7 @@ export class SbbTrainWagonElement extends SlotChildObserver(LitElement) {
               <span class="sbb-train-wagon__icons-item" ?hidden=${this._icons?.length !== 1}>
                 ${this._icons?.length === 1
                   ? html`<span class="sbb-screenreaderonly">
-                      ${i18nAdditionalWagonInformationHeading[this._currentLanguage]}
+                      ${i18nAdditionalWagonInformationHeading[this._language.current]}
                     </span>`
                   : nothing}
                 <slot></slot>

@@ -2,25 +2,23 @@ import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
+import { LanguageController } from '../core/common-behaviors';
 import { setAttribute, toggleDatasetEntry } from '../core/dom';
 import {
   createNamedSlotState,
-  documentLanguage,
   HandlerRepository,
-  languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
   EventEmitter,
 } from '../core/eventing';
 import { i18nCloseNotification } from '../core/i18n';
 import { AgnosticResizeObserver } from '../core/observers';
 import type { TitleLevel } from '../title';
-
-import style from './notification.scss?lit&inline';
-
 import '../button';
 import '../divider';
 import '../icon';
 import '../title';
+
+import style from './notification.scss?lit&inline';
 
 const notificationTypes = new Map([
   ['info', 'circle-information-small'],
@@ -86,10 +84,9 @@ export class SbbNotificationElement extends LitElement {
    */
   @state() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'opened';
 
-  @state() private _currentLanguage = documentLanguage();
-
   private _notificationElement: HTMLElement;
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
+  private _language = new LanguageController(this);
   private _notificationResizeObserver = new AgnosticResizeObserver(() =>
     this._onNotificationResize(),
   );
@@ -128,7 +125,6 @@ export class SbbNotificationElement extends LitElement {
 
   private _handlerRepository = new HandlerRepository(
     this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
@@ -243,7 +239,7 @@ export class SbbNotificationElement extends LitElement {
                   size="m"
                   icon-name="cross-small"
                   @click=${() => this.close()}
-                  aria-label=${i18nCloseNotification[this._currentLanguage]}
+                  aria-label=${i18nCloseNotification[this._language.current]}
                   class="sbb-notification__close"
                 ></sbb-button>
               </span>`

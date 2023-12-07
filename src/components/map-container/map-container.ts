@@ -2,13 +2,13 @@ import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
+import { LanguageController } from '../core/common-behaviors';
 import { toggleDatasetEntry } from '../core/dom';
-import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import { i18nMapContainerButtonLabel } from '../core/i18n';
 import { AgnosticIntersectionObserver } from '../core/observers';
+import '../button';
 
 import style from './map-container.scss?lit&inline';
-import '../button';
 
 /**
  * It can be used as a container for maps.
@@ -26,15 +26,8 @@ export class SbbMapContainerElement extends LitElement {
 
   @state() private _scrollUpButtonVisible = false;
 
-  /** Current document language used for translation of the button label. */
-  @state() private _currentLanguage = documentLanguage();
-
-  private _handlerRepository = new HandlerRepository(
-    this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-  );
-
   private _intersector: HTMLSpanElement;
+  private _language = new LanguageController(this);
   private _observer = new AgnosticIntersectionObserver((entries) =>
     this._toggleButtonVisibilityOnIntersect(entries),
   );
@@ -61,7 +54,6 @@ export class SbbMapContainerElement extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._handlerRepository.connect();
     this._updateIntersectionObserver();
   }
 
@@ -74,7 +66,6 @@ export class SbbMapContainerElement extends LitElement {
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._handlerRepository.connect();
     this._observer.disconnect();
   }
 
@@ -110,7 +101,7 @@ export class SbbMapContainerElement extends LitElement {
                   }
                 })}
               >
-                ${i18nMapContainerButtonLabel[this._currentLanguage]}
+                ${i18nMapContainerButtonLabel[this._language.current]}
               </sbb-button>`
             : nothing}
         </div>

@@ -7,6 +7,5 @@ export * from './form-element-handlers';
 export * from './forward-event';
 export * from './handler-repository';
 export * from './is-event-prevented';
-export * from './language-change-handler';
 export * from './named-slot-change-handler';
 export * from './throttle';

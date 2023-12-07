@@ -119,24 +119,13 @@ As the language can be changed dynamically, you have to listen to the `sbbLangua
 event and re-render the view. This can be done by marking the field with `@state` and using the language change handler (see code below).
 
 ```ts
-import { languageChangeHandlerAspect } from '../core/eventing';
+import { LanguageController } from '../core/common-behaviors';
 
-export class Component {
-  @state() private _currentLanguage = documentLanguage();
+export class Component extends LitElement {
+  private _language = new LanguageController(this /*, this._abort */);
 
-  private _handlerRepository = new HandlerRepository(
-    this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-  );
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._handlerRepository.connect();
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
+  protected override render(): TemplateResult {
+    return html` ... ${i18nExample[this._language.value]} ... `;
   }
 }
 ```

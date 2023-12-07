@@ -3,6 +3,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { FocusTrap, IS_FOCUSABLE_QUERY, setModalityOnNextFocus } from '../core/a11y';
+import { LanguageController } from '../core/common-behaviors';
 import {
   ScrollHandler,
   toggleDatasetEntry,
@@ -12,9 +13,7 @@ import {
 } from '../core/dom';
 import {
   createNamedSlotState,
-  documentLanguage,
   HandlerRepository,
-  languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
   EventEmitter,
 } from '../core/eventing';
@@ -22,10 +21,10 @@ import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n';
 import { AgnosticResizeObserver } from '../core/observers';
 import { applyInertMechanism, removeInertMechanism, SbbOverlayState } from '../core/overlay';
 import type { TitleLevel } from '../title';
+import '../button';
 import '../title';
 
 import style from './dialog.scss?lit&inline';
-import '../button';
 
 // A global collection of existing dialogs
 const dialogRefs: SbbDialogElement[] = [];
@@ -109,8 +108,6 @@ export class SbbDialogElement extends LitElement {
    */
   @state() private _namedSlots = createNamedSlotState('title', 'action-group');
 
-  @state() private _currentLanguage = documentLanguage();
-
   /*
    * The state of the dialog.
    */
@@ -161,9 +158,9 @@ export class SbbDialogElement extends LitElement {
   // Last element which had focus before the dialog was opened.
   private _lastFocusedElement?: HTMLElement;
 
+  private _language = new LanguageController(this);
   private _handlerRepository = new HandlerRepository(
     this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
@@ -368,7 +365,7 @@ export class SbbDialogElement extends LitElement {
 
     // If the text content remains the same, on VoiceOver the aria-live region is not announced a second time.
     // In order to support reading on every opening, we toggle an invisible space.
-    this._ariaLiveRef.textContent = `${i18nDialog[this._currentLanguage]}${
+    this._ariaLiveRef.textContent = `${i18nDialog[this._language.current]}${
       label ? `, ${label}` : ''
     }${this._ariaLiveRefToggle ? ' ' : ''}`;
   }
@@ -399,7 +396,7 @@ export class SbbDialogElement extends LitElement {
     const closeButton = html`
       <sbb-button
         class="sbb-dialog__close"
-        aria-label=${this.accessibilityCloseLabel || i18nCloseDialog[this._currentLanguage]}
+        aria-label=${this.accessibilityCloseLabel || i18nCloseDialog[this._language.current]}
         variant=${this.negative ? 'transparent' : 'secondary'}
         ?negative=${this.negative}
         size="m"
@@ -412,7 +409,7 @@ export class SbbDialogElement extends LitElement {
     const backButton = html`
       <sbb-button
         class="sbb-dialog__back"
-        aria-label=${this.accessibilityBackLabel || i18nGoBack[this._currentLanguage]}
+        aria-label=${this.accessibilityBackLabel || i18nGoBack[this._language.current]}
         variant=${this.negative ? 'transparent' : 'secondary'}
         ?negative=${this.negative}
         size="m"

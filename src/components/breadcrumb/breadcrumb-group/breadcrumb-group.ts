@@ -2,14 +2,9 @@ import { CSSResultGroup, html, LitElement, nothing, PropertyValues, TemplateResu
 import { customElement, state } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed, sbbInputModalityDetector } from '../../core/a11y';
-import { SlotChildObserver } from '../../core/common-behaviors';
+import { LanguageController, SlotChildObserver } from '../../core/common-behaviors';
 import { setAttribute } from '../../core/dom';
-import {
-  documentLanguage,
-  HandlerRepository,
-  languageChangeHandlerAspect,
-  ConnectedAbortController,
-} from '../../core/eventing';
+import { ConnectedAbortController } from '../../core/eventing';
 import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n';
 import { AgnosticResizeObserver } from '../../core/observers';
 import type { SbbBreadcrumbElement } from '../breadcrumb';
@@ -34,16 +29,9 @@ export class SbbBreadcrumbGroupElement extends SlotChildObserver(LitElement) {
 
   @state() private _loaded = false;
 
-  /** Current document language used for translation of the button label. */
-  @state() private _currentLanguage = documentLanguage();
-
-  private _handlerRepository = new HandlerRepository(
-    this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-  );
-
   private _resizeObserver = new AgnosticResizeObserver(() => this._evaluateCollapsedState());
   private _abort = new ConnectedAbortController(this);
+  private _language = new LanguageController(this, this._abort);
   private _markForFocus = false;
 
   private _handleKeyDown(evt: KeyboardEvent): void {
@@ -67,7 +55,6 @@ export class SbbBreadcrumbGroupElement extends SlotChildObserver(LitElement) {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
-    this._handlerRepository.connect();
   }
 
   protected override firstUpdated(changedProperties: PropertyValues): void {
@@ -88,7 +75,6 @@ export class SbbBreadcrumbGroupElement extends SlotChildObserver(LitElement) {
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._resizeObserver.disconnect();
-    this._handlerRepository.disconnect();
   }
 
   /** Creates and sets an array with only the sbb-breadcrumb children. */
@@ -189,7 +175,7 @@ export class SbbBreadcrumbGroupElement extends SlotChildObserver(LitElement) {
         <button
           type="button"
           id="sbb-breadcrumb-ellipsis"
-          aria-label=${i18nBreadcrumbEllipsisButtonLabel[this._currentLanguage]}
+          aria-label=${i18nBreadcrumbEllipsisButtonLabel[this._language.current]}
           aria-expanded="false"
           @click=${() => this._expandBreadcrumbs()}
         >

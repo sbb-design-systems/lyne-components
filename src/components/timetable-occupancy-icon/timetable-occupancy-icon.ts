@@ -1,12 +1,8 @@
 import { CSSResultGroup, PropertyValues } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
-import {
-  ConnectedAbortController,
-  documentLanguage,
-  HandlerRepository,
-  languageChangeHandlerAspect,
-} from '../core/eventing';
+import { LanguageController } from '../core/common-behaviors';
+import { ConnectedAbortController } from '../core/eventing';
 import { i18nOccupancy } from '../core/i18n';
 import { SbbOccupancy } from '../core/interfaces';
 import { SbbIconBase } from '../icon';
@@ -26,16 +22,9 @@ export class SbbTimetableOccupancyIconElement extends SbbIconBase {
   /** Negative coloring variant flag. */
   @property({ reflect: true, type: Boolean }) public negative: boolean = false;
 
-  @state() private _currentLanguage = documentLanguage();
-
   private _abort = new ConnectedAbortController(this);
-
-  private _handlerRepository = new HandlerRepository(
-    this,
-    languageChangeHandlerAspect((l) => {
-      this._currentLanguage = l;
-      this._setAriaLabel();
-    }),
+  private _language = new LanguageController(this, this._abort).withHandler(() =>
+    this._setAriaLabel(),
   );
 
   private async _setNameAndAriaLabel(): Promise<void> {
@@ -64,7 +53,7 @@ export class SbbTimetableOccupancyIconElement extends SbbIconBase {
   }
 
   private _setAriaLabel(): void {
-    const label = i18nOccupancy[this.occupancy]?.[this._currentLanguage];
+    const label = i18nOccupancy[this.occupancy]?.[this._language.current];
     if (label) {
       this.setAttribute('aria-label', label);
     } else {
@@ -84,7 +73,6 @@ export class SbbTimetableOccupancyIconElement extends SbbIconBase {
       .addEventListener('change', () => this._setNameAndAriaLabel(), {
         signal: this._abort.signal,
       });
-    this._handlerRepository.connect();
     this._setNameAndAriaLabel();
   }
 
@@ -93,11 +81,6 @@ export class SbbTimetableOccupancyIconElement extends SbbIconBase {
     if (changedProperties.has('occupancy') || changedProperties.has('negative')) {
       this._setNameAndAriaLabel();
     }
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
   }
 }
 

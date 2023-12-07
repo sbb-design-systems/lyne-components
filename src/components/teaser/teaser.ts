@@ -1,15 +1,11 @@
 import { spread } from '@open-wc/lit-helpers';
 import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
+import { LanguageController } from '../core/common-behaviors';
 import { setAttributes } from '../core/dom';
-import {
-  documentLanguage,
-  HandlerRepository,
-  linkHandlerAspect,
-  languageChangeHandlerAspect,
-} from '../core/eventing';
+import { HandlerRepository, linkHandlerAspect } from '../core/eventing';
 import { i18nTargetOpensInNewWindow } from '../core/i18n';
 import {
   LinkProperties,
@@ -54,13 +50,8 @@ export class SbbTeaserElement extends LitElement implements LinkProperties {
   /** The relationship of the linked URL as space-separated link types. */
   @property() public rel?: string | undefined;
 
-  @state() private _currentLanguage = documentLanguage();
-
-  private _handlerRepository = new HandlerRepository(
-    this,
-    linkHandlerAspect,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-  );
+  private _language = new LanguageController(this);
+  private _handlerRepository = new HandlerRepository(this, linkHandlerAspect);
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -98,7 +89,7 @@ export class SbbTeaserElement extends LitElement implements LinkProperties {
             ${
               targetsNewWindow(this)
                 ? html`<span class="sbb-teaser__opens-in-new-window">
-                    . ${i18nTargetOpensInNewWindow[this._currentLanguage]}
+                    . ${i18nTargetOpensInNewWindow[this._language.current]}
                   </span>`
                 : nothing
             }

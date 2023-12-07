@@ -3,14 +3,9 @@ import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SlotChildObserver } from '../../core/common-behaviors';
+import { LanguageController, SlotChildObserver } from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
-import {
-  actionElementHandlerAspect,
-  documentLanguage,
-  HandlerRepository,
-  languageChangeHandlerAspect,
-} from '../../core/eventing';
+import { actionElementHandlerAspect, HandlerRepository } from '../../core/eventing';
 import { i18nTargetOpensInNewWindow } from '../../core/i18n';
 import {
   LinkTargetType,
@@ -51,15 +46,10 @@ export class SbbBreadcrumbElement extends SlotChildObserver(LitElement) {
    */
   @property({ attribute: 'icon-name' }) public iconName?: string;
 
-  @state() private _currentLanguage = documentLanguage();
-
   @state() private _hasText = false;
 
-  private _handlerRepository = new HandlerRepository(
-    this,
-    actionElementHandlerAspect,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-  );
+  private _language = new LanguageController(this);
+  private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -106,7 +96,7 @@ export class SbbBreadcrumbElement extends SlotChildObserver(LitElement) {
         ${
           targetsNewWindow(this)
             ? html` <span class="sbb-breadcrumb__label--opens-in-new-window">
-                . ${i18nTargetOpensInNewWindow[this._currentLanguage]}
+                . ${i18nTargetOpensInNewWindow[this._language.current]}
               </span>`
             : nothing
         }

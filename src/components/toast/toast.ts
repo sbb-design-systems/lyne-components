@@ -2,12 +2,11 @@ import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import type { SbbButtonElement } from '../button';
+import { LanguageController } from '../core/common-behaviors';
 import { isFirefox, isValidAttribute, setAttribute } from '../core/dom';
 import {
   createNamedSlotState,
-  documentLanguage,
   HandlerRepository,
-  languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
   composedPathHasAttribute,
   EventEmitter,
@@ -16,11 +15,10 @@ import {
 import { i18nCloseAlert } from '../core/i18n';
 import { SbbOverlayState } from '../core/overlay';
 import type { SbbLinkElement } from '../link';
-
-import style from './toast.scss?lit&inline';
-
 import '../button';
 import '../icon';
+
+import style from './toast.scss?lit&inline';
 
 type SbbToastPositionVertical = 'top' | 'bottom';
 type SbbToastPositionHorizontal = 'left' | 'start' | 'center' | 'right' | 'end';
@@ -84,8 +82,6 @@ export class SbbToastElement extends LitElement {
 
   @state() private _namedSlots = createNamedSlotState('icon', 'action');
 
-  @state() private _currentLanguage = documentLanguage();
-
   /** Emits whenever the `sbb-toast` starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbToastElement.events.willOpen, {
     bubbles: true,
@@ -116,12 +112,12 @@ export class SbbToastElement extends LitElement {
 
   private _handlerRepository = new HandlerRepository(
     this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
   private _closeTimeout: ReturnType<typeof setTimeout>;
   private _abort = new ConnectedAbortController(this);
+  private _language = new LanguageController(this, this._abort);
 
   /**
    * Role of the live region. This is only for Firefox as there is a known issue where Firefox +
@@ -298,7 +294,7 @@ export class SbbToastElement extends LitElement {
                     variant="transparent"
                     negative
                     size="m"
-                    aria-label=${i18nCloseAlert[this._currentLanguage]}
+                    aria-label=${i18nCloseAlert[this._language.current]}
                     sbb-toast-close
                   ></sbb-button>`
                 : nothing}

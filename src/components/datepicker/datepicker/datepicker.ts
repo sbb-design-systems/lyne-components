@@ -1,6 +1,7 @@
 import { CSSResultGroup, LitElement, PropertyValues, TemplateResult, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
+import { LanguageController } from '../../core/common-behaviors';
 import { readConfig } from '../../core/config';
 import { DateAdapter, defaultDateAdapter } from '../../core/datetime';
 import {
@@ -9,13 +10,7 @@ import {
   isValidAttribute,
   toggleDatasetEntry,
 } from '../../core/dom';
-import {
-  ConnectedAbortController,
-  EventEmitter,
-  HandlerRepository,
-  documentLanguage,
-  languageChangeHandlerAspect,
-} from '../../core/eventing';
+import { ConnectedAbortController, EventEmitter } from '../../core/eventing';
 import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n';
 import { ValidationChangeEvent, SbbDateLike } from '../../core/interfaces';
 import { AgnosticMutationObserver } from '../../core/observers';
@@ -251,8 +246,6 @@ export class SbbDatepickerElement extends LitElement {
 
   private _inputElementState: HTMLInputElement | null;
 
-  @state() private _currentLanguage = documentLanguage();
-
   private _findInput(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
     if (newValue !== oldValue) {
       this._inputElement = findInput(this, this.input);
@@ -282,7 +275,7 @@ export class SbbDatepickerElement extends LitElement {
       this._inputElement.type = 'text';
 
       if (!this._inputElement.placeholder) {
-        this._inputElement.placeholder = i18nDatePickerPlaceholder[this._currentLanguage];
+        this._inputElement.placeholder = i18nDatePickerPlaceholder[this._language.current];
       }
 
       this._inputElement.addEventListener(
@@ -333,17 +326,14 @@ export class SbbDatepickerElement extends LitElement {
   private _dateAdapter: DateAdapter<Date> =
     readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
-  private _handlerRepository = new HandlerRepository(
-    this as HTMLElement,
-    languageChangeHandlerAspect((l) => {
-      this._currentLanguage = l;
-      if (this._inputElement) {
-        this._inputElement.placeholder = i18nDatePickerPlaceholder[this._currentLanguage];
-        const valueAsDate = this.getValueAsDate();
-        this._inputElement.value = this._format(valueAsDate);
-      }
-    }),
-  );
+  private _abort = new ConnectedAbortController(this);
+  private _language = new LanguageController(this, this._abort).withHandler(() => {
+    if (this._inputElement) {
+      this._inputElement.placeholder = i18nDatePickerPlaceholder[this._language.current];
+      const valueAsDate = this.getValueAsDate();
+      this._inputElement.value = this._format(valueAsDate);
+    }
+  });
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -351,7 +341,6 @@ export class SbbDatepickerElement extends LitElement {
     this.addEventListener('datepickerControlRegistered', () => this._onInputPropertiesChange(), {
       signal,
     });
-    this._handlerRepository.connect();
     this._inputElement = findInput(this, this.input);
     if (this._inputElement) {
       this._inputElement.value = this._getValidValue(this._inputElement.value);
@@ -372,13 +361,11 @@ export class SbbDatepickerElement extends LitElement {
       this._datepickerPropChanged(this.wide, changedProperties.get('wide'));
     }
   }
-  private _abort = new ConnectedAbortController(this);
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._inputObserver?.disconnect();
     this._datePickerController?.abort();
-    this._handlerRepository.disconnect();
   }
 
   protected override firstUpdated(_changedProperties: PropertyValues): void {
@@ -467,7 +454,7 @@ export class SbbDatepickerElement extends LitElement {
   }
 
   private _setAriaLiveMessage(date: Date): void {
-    const ariaLiveFormatter = new Intl.DateTimeFormat(`${this._currentLanguage}-CH`, {
+    const ariaLiveFormatter = new Intl.DateTimeFormat(`${this._language.current}-CH`, {
       weekday: 'long',
     });
 
@@ -482,7 +469,7 @@ export class SbbDatepickerElement extends LitElement {
 
     if (containerElement) {
       containerElement.innerText = date
-        ? `${i18nDateChangedTo[this._currentLanguage]} ${ariaLiveFormatter.format(
+        ? `${i18nDateChangedTo[this._language.current]} ${ariaLiveFormatter.format(
             date,
           )}, ${dateFormatter.format(date)}`
         : '';

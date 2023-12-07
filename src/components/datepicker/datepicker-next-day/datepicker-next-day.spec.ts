@@ -14,9 +14,7 @@ describe('sbb-datepicker-next-day', () => {
       html`<sbb-datepicker-next-day></sbb-datepicker-next-day>`,
     );
 
-    expect(page).dom.to.be.equal(`
-      <sbb-datepicker-next-day dir="ltr" role="button" slot="suffix" aria-disabled="true" data-disabled=""></sbb-datepicker-next-day>
-    `);
+    await expect(page).dom.to.be.equalSnapshot();
 
     expect(page).shadowDom.to.be.equal(`
       <span class="sbb-datepicker-next-day">
