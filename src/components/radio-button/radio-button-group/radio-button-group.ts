@@ -46,40 +46,17 @@ export class SbbRadioButtonGroupElement extends LitElement {
    * Whether the radios can be deselected.
    */
   @property({ attribute: 'allow-empty-selection', type: Boolean })
-  public set allowEmptySelection(value: boolean) {
-    this._allowEmptySelection = value;
-    this._updateAllowEmptySelection();
-  }
-  public get allowEmptySelection(): boolean {
-    return this._allowEmptySelection;
-  }
-  private _allowEmptySelection: boolean = false;
+  public allowEmptySelection: boolean = false;
 
   /**
    * Whether the radio group is disabled.
    */
-  @property({ type: Boolean })
-  public set disabled(value: boolean) {
-    this._disabled = value;
-    this._updateDisabled();
-  }
-  public get disabled(): boolean {
-    return this._disabled;
-  }
-  private _disabled: boolean = false;
+  @property({ type: Boolean }) public disabled: boolean = false;
 
   /**
    * Whether the radio group is required.
    */
-  @property({ type: Boolean })
-  public set required(value: boolean) {
-    this._required = value;
-    this._updateRequired();
-  }
-  public get required(): boolean {
-    return this._required;
-  }
-  private _required: boolean = false;
+  @property({ type: Boolean }) public required: boolean = false;
 
   /**
    * The value of the radio group.
@@ -89,15 +66,7 @@ export class SbbRadioButtonGroupElement extends LitElement {
   /**
    * Size variant, either m or s.
    */
-  @property()
-  public set size(value: SbbRadioButtonSize) {
-    this._size = value;
-    this._updateSize();
-  }
-  public get size(): SbbRadioButtonSize {
-    return this._size;
-  }
-  private _size: SbbRadioButtonSize = 'm';
+  @property() public size: SbbRadioButtonSize = 'm';
 
   /**
    * Overrides the behaviour of `orientation` property.
@@ -112,6 +81,21 @@ export class SbbRadioButtonGroupElement extends LitElement {
   public orientation: SbbOrientation = 'horizontal';
 
   /**
+   * List of contained radio button groups
+   */
+  public get radioButtons(): SbbRadioButtonElement[] {
+    return (
+      Array.from(this.querySelectorAll?.('sbb-radio-button') ?? []) as SbbRadioButtonElement[]
+    ).filter((el) => el.closest?.('sbb-radio-button-group') === this);
+  }
+
+  private get _enabledRadios(): SbbRadioButtonElement[] | undefined {
+    if (!this.disabled) {
+      return this.radioButtons.filter((r) => !r.disabled && interactivityChecker.isVisible(r));
+    }
+  }
+
+  /**
    * State of listed named slots, by indicating whether any element for a named slot is defined.
    */
   @state() private _namedSlots = createNamedSlotState('error');
@@ -121,37 +105,11 @@ export class SbbRadioButtonGroupElement extends LitElement {
   private _abort = new ConnectedAbortController(this);
 
   private _valueChanged(value: any | undefined): void {
-    for (const radio of this._radioButtons) {
+    for (const radio of this.radioButtons) {
       radio.checked = radio.value === value;
       radio.tabIndex = this._getRadioTabIndex(radio);
     }
     this._setFocusableRadio();
-  }
-
-  private _updateDisabled(): void {
-    for (const radio of this._radioButtons) {
-      toggleDatasetEntry(radio, 'groupDisabled', this.disabled);
-      radio.tabIndex = this._getRadioTabIndex(radio);
-    }
-    this._setFocusableRadio();
-  }
-
-  private _updateRequired(): void {
-    for (const radio of this._radioButtons) {
-      toggleDatasetEntry(radio, 'groupRequired', this.required);
-    }
-  }
-
-  private _updateSize(): void {
-    for (const radio of this._radioButtons) {
-      radio.size = this.size;
-    }
-  }
-
-  private _updateAllowEmptySelection(): void {
-    for (const radio of this._radioButtons) {
-      radio.allowEmptySelection = this.allowEmptySelection;
-    }
   }
 
   /**
@@ -206,6 +164,22 @@ export class SbbRadioButtonGroupElement extends LitElement {
     if (changedProperties.has('value')) {
       this._valueChanged(this.value);
     }
+    if (changedProperties.has('disabled')) {
+      for (const radio of this.radioButtons) {
+        radio.tabIndex = this._getRadioTabIndex(radio);
+        radio.requestUpdate('disabled');
+      }
+      this._setFocusableRadio();
+    }
+    if (changedProperties.has('required')) {
+      this.radioButtons.forEach((r) => r.requestUpdate('required'));
+    }
+    if (changedProperties.has('size')) {
+      this.radioButtons.forEach((r) => (r.size = this.size));
+    }
+    if (changedProperties.has('allowEmptySelection')) {
+      this.radioButtons.forEach((r) => (r.allowEmptySelection = this.allowEmptySelection));
+    }
   }
 
   protected override firstUpdated(): void {
@@ -230,7 +204,7 @@ export class SbbRadioButtonGroupElement extends LitElement {
       this.value = radioButton.value;
       this._emitChange(radioButton, this.value);
     } else if (this.allowEmptySelection) {
-      this.value = this._radioButtons.find((radio) => radio.checked)?.value;
+      this.value = this.radioButtons.find((radio) => radio.checked)?.value;
       if (!this.value) {
         this._emitChange(radioButton);
       }
@@ -248,7 +222,7 @@ export class SbbRadioButtonGroupElement extends LitElement {
       return;
     }
 
-    const radioButtons = this._radioButtons;
+    const radioButtons = this.radioButtons;
 
     this.value = initValue ?? radioButtons.find((radio) => radio.checked)?.value;
 
@@ -256,30 +230,14 @@ export class SbbRadioButtonGroupElement extends LitElement {
       radio.checked = radio.value === this.value;
       radio.size = this.size;
       radio.allowEmptySelection = this.allowEmptySelection;
-
-      toggleDatasetEntry(radio, 'groupDisabled', this.disabled);
-      toggleDatasetEntry(radio, 'groupRequired', this.required);
-
       radio.tabIndex = this._getRadioTabIndex(radio);
     }
 
     this._setFocusableRadio();
   }
 
-  private get _radioButtons(): SbbRadioButtonElement[] {
-    return (
-      Array.from(this.querySelectorAll?.('sbb-radio-button') ?? []) as SbbRadioButtonElement[]
-    ).filter((el) => el.closest?.('sbb-radio-button-group') === this);
-  }
-
-  private get _enabledRadios(): SbbRadioButtonElement[] | undefined {
-    if (!this.disabled) {
-      return this._radioButtons.filter((r) => !r.disabled && interactivityChecker.isVisible(r));
-    }
-  }
-
   private _setFocusableRadio(): void {
-    const checked = this._radioButtons.find((radio) => radio.checked && !radio.disabled);
+    const checked = this.radioButtons.find((radio) => radio.checked && !radio.disabled);
 
     const enabledRadios = this._enabledRadios;
     if (!checked && enabledRadios?.length) {

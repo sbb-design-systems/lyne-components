@@ -1,7 +1,7 @@
 import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { isValidAttribute, setAttributes } from '../../core/dom';
+import { setAttributes } from '../../core/dom';
 import {
   createNamedSlotState,
   documentLanguage,
@@ -18,7 +18,6 @@ import {
   SbbDisabledStateChange,
   SbbStateChange,
 } from '../../core/interfaces';
-import { AgnosticMutationObserver } from '../../core/observers';
 import type { SbbRadioButtonGroupElement } from '../radio-button-group';
 
 import style from './radio-button.scss?lit&inline';
@@ -29,11 +28,6 @@ export type SbbRadioButtonStateChange = Extract<
 >;
 
 export type SbbRadioButtonSize = 's' | 'm';
-
-/** Configuration for the attribute to look at if component is nested in a sbb-radio-button-group */
-const radioButtonObserverConfig: MutationObserverInit = {
-  attributeFilter: ['data-group-required', 'data-group-disabled'],
-};
 
 /**
  * It displays a radio button enhanced with the SBB Design.
@@ -64,7 +58,19 @@ export class SbbRadioButtonElement extends LitElement {
   /**
    * Whether the radio button is disabled.
    */
-  @property({ reflect: true, type: Boolean }) public disabled = false;
+  @property({ reflect: true, type: Boolean })
+  public set disabled(value: boolean) {
+    this._disabled = value;
+  }
+  public get disabled(): boolean {
+    return this._disabled || (this.group?.disabled ?? false);
+  }
+  private _disabled = false;
+
+  public get group(): SbbRadioButtonGroupElement | null {
+    return this._group;
+  }
+  private _group: SbbRadioButtonGroupElement | null;
 
   /**
    * Whether the radio button is required.
@@ -80,11 +86,6 @@ export class SbbRadioButtonElement extends LitElement {
    * Label size variant, either m or s.
    */
   @property({ reflect: true }) public size: SbbRadioButtonSize = 'm';
-
-  /**
-   * Whether the component must be set disabled due disabled attribute on sbb-radio-button-group.
-   */
-  @state() private _disabledFromGroup = false;
 
   /**
    * Whether the component must be set required due required attribute on sbb-radio-button-group.
@@ -110,9 +111,6 @@ export class SbbRadioButtonElement extends LitElement {
 
   private _selectionPanelElement: HTMLElement;
   private _abort = new ConnectedAbortController(this);
-  private _radioButtonAttributeObserver = new AgnosticMutationObserver(
-    this._onRadioButtonAttributesChange.bind(this),
-  );
 
   /**
    * @internal
@@ -142,19 +140,13 @@ export class SbbRadioButtonElement extends LitElement {
     }
   }
 
-  private _handleDisabledChange(currentValue: boolean, previousValue: boolean): void {
-    if (currentValue !== previousValue) {
-      this._stateChange.emit({ type: 'disabled', disabled: currentValue });
-    }
-  }
-
   private _handleClick(event: Event): void {
     event.preventDefault();
     this.select();
   }
 
   public select(): void {
-    if (this.disabled || this._disabledFromGroup) {
+    if (this.disabled) {
       return;
     }
 
@@ -174,14 +166,16 @@ export class SbbRadioButtonElement extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener('click', (e) => this._handleClick(e), { signal });
-    this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
-    this._handlerRepository.connect();
+    this._group = this.closest('sbb-radio-button-group') as SbbRadioButtonGroupElement;
     // We can use closest here, as we expect the parent sbb-selection-panel to be in light DOM.
     this._selectionPanelElement = this.closest('sbb-selection-panel');
     this._isSelectionPanelInput =
       !!this._selectionPanelElement && !this.closest('sbb-selection-panel [slot="content"]');
+
+    const signal = this._abort.signal;
+    this.addEventListener('click', (e) => this._handleClick(e), { signal });
+    this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
+    this._handlerRepository.connect();
     this._setupInitialStateAndAttributeObserver();
     this._radioButtonLoaded.emit();
   }
@@ -189,9 +183,6 @@ export class SbbRadioButtonElement extends LitElement {
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('checked')) {
       this._handleCheckedChange(this.checked, changedProperties.get('checked'));
-    }
-    if (changedProperties.has('disabled')) {
-      this._handleDisabledChange(this.disabled, changedProperties.get('disabled'));
     }
   }
 
@@ -202,7 +193,6 @@ export class SbbRadioButtonElement extends LitElement {
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._handlerRepository.disconnect();
-    this._radioButtonAttributeObserver.disconnect();
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {
@@ -216,21 +206,7 @@ export class SbbRadioButtonElement extends LitElement {
     const parentGroup = this.closest('sbb-radio-button-group') as SbbRadioButtonGroupElement;
     if (parentGroup) {
       this._requiredFromGroup = parentGroup.required;
-      this._disabledFromGroup = parentGroup.disabled;
       this.size = parentGroup.size;
-    }
-    this._radioButtonAttributeObserver.observe(this, radioButtonObserverConfig);
-  }
-
-  /** Observe changes on data attributes and set the appropriate values. */
-  private _onRadioButtonAttributesChange(mutationsList: MutationRecord[]): void {
-    for (const mutation of mutationsList) {
-      if (mutation.attributeName === 'data-group-disabled') {
-        this._disabledFromGroup = !!isValidAttribute(this, 'data-group-disabled');
-      }
-      if (mutation.attributeName === 'data-group-required') {
-        this._requiredFromGroup = !!isValidAttribute(this, 'data-group-required');
-      }
     }
   }
 
@@ -250,7 +226,7 @@ export class SbbRadioButtonElement extends LitElement {
       role: 'radio',
       'aria-checked': this.checked?.toString() ?? 'false',
       'aria-required': (this.required || this._requiredFromGroup).toString(),
-      'aria-disabled': (this.disabled || this._disabledFromGroup).toString(),
+      'aria-disabled': this.disabled.toString(),
       'data-is-selection-panel-input': this._isSelectionPanelInput,
     };
     setAttributes(this, attributes);
@@ -261,7 +237,7 @@ export class SbbRadioButtonElement extends LitElement {
           type="radio"
           aria-hidden="true"
           tabindex="-1"
-          ?disabled=${this.disabled || this._disabledFromGroup}
+          ?disabled=${this.disabled}
           ?required=${this.required || this._requiredFromGroup}
           ?checked=${this.checked}
           value=${this.value}
