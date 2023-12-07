@@ -81,7 +81,7 @@ export class SbbRadioButtonGroupElement extends LitElement {
   public orientation: SbbOrientation = 'horizontal';
 
   /**
-   * List of contained radio button groups
+   * List of contained radio buttons.
    */
   public get radioButtons(): SbbRadioButtonElement[] {
     return (
