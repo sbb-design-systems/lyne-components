@@ -4,9 +4,13 @@ import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForLitRender } from '../core/testing';
 
-import { SbbSlider } from './slider';
+import { SbbSliderElement } from './slider';
 
-const keyboardPressTimes = async (slider: SbbSlider, key: string, times = 1): Promise<void> => {
+const keyboardPressTimes = async (
+  slider: SbbSliderElement,
+  key: string,
+  times = 1,
+): Promise<void> => {
   slider.focus();
   for (let i = 0; i < times; i++) {
     await sendKeys({ press: key });
@@ -15,7 +19,7 @@ const keyboardPressTimes = async (slider: SbbSlider, key: string, times = 1): Pr
 };
 
 describe('sbb-slider', () => {
-  let element: SbbSlider;
+  let element: SbbSliderElement;
 
   beforeEach(async () => {
     element = await fixture(html`
@@ -30,7 +34,7 @@ describe('sbb-slider', () => {
   });
 
   it('renders', async () => {
-    assert.instanceOf(element, SbbSlider);
+    assert.instanceOf(element, SbbSliderElement);
   });
 
   it('should decrease value by two on left arrow keypress', async () => {

@@ -4,11 +4,11 @@ import { html } from 'lit/static-html.js';
 
 import { waitForCondition } from '../core/testing';
 
-import { SbbMapContainer } from './map-container';
+import { SbbMapContainerElement } from './map-container';
 import '.';
 
 describe('sbb-map-container', () => {
-  let element: SbbMapContainer;
+  let element: SbbMapContainerElement;
 
   it('should react to scrolling', async () => {
     await setViewport({ width: 320, height: 600 });
@@ -30,7 +30,7 @@ describe('sbb-map-container', () => {
       </sbb-map-container>`,
     );
     element = document.querySelector('sbb-map-container');
-    assert.instanceOf(element, SbbMapContainer);
+    assert.instanceOf(element, SbbMapContainerElement);
 
     function getInert(): boolean {
       return element.shadowRoot.querySelector('sbb-button').hasAttribute('inert');

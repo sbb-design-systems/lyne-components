@@ -17,7 +17,7 @@ import style from './timetable-occupancy-icon.scss?lit&inline';
  * It displays a wagon's occupancy icon.
  */
 @customElement('sbb-timetable-occupancy-icon')
-export class SbbTimetableOccupancyIcon extends SbbIconBase {
+export class SbbTimetableOccupancyIconElement extends SbbIconBase {
   public static override styles: CSSResultGroup = [SbbIconBase.styles, style];
 
   /** Wagon occupancy. */
@@ -104,6 +104,6 @@ export class SbbTimetableOccupancyIcon extends SbbIconBase {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-timetable-occupancy-icon': SbbTimetableOccupancyIcon;
+    'sbb-timetable-occupancy-icon': SbbTimetableOccupancyIconElement;
   }
 }

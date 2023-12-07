@@ -9,7 +9,7 @@ import style from './signet.scss?lit&inline';
  * It displays the SBB signet.
  */
 @customElement('sbb-signet')
-export class SbbSignet extends LitElement {
+export class SbbSignetElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Visual protective room around signet. */
@@ -39,6 +39,6 @@ export class SbbSignet extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-signet': SbbSignet;
+    'sbb-signet': SbbSignetElement;
   }
 }

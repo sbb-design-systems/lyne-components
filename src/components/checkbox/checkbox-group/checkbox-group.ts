@@ -10,7 +10,7 @@ import {
   ConnectedAbortController,
 } from '../../core/eventing';
 import { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces';
-import type { SbbCheckbox, SbbCheckboxSize } from '../checkbox';
+import type { SbbCheckboxElement, SbbCheckboxSize } from '../checkbox';
 
 import style from './checkbox-group.scss?lit&inline';
 
@@ -21,7 +21,7 @@ import style from './checkbox-group.scss?lit&inline';
  * @slot error - Slot used to render a `sbb-form-error` inside the `sbb-checkbox-group`.
  */
 @customElement('sbb-checkbox-group')
-export class SbbCheckboxGroup extends LitElement {
+export class SbbCheckboxGroupElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Whether the checkbox group is disabled. */
@@ -102,8 +102,9 @@ export class SbbCheckboxGroup extends LitElement {
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {
-    const enabledCheckboxes: SbbCheckbox[] = this._checkboxes.filter(
-      (checkbox: SbbCheckbox) => !checkbox.disabled && interactivityChecker.isVisible(checkbox),
+    const enabledCheckboxes: SbbCheckboxElement[] = this._checkboxes.filter(
+      (checkbox: SbbCheckboxElement) =>
+        !checkbox.disabled && interactivityChecker.isVisible(checkbox),
     );
 
     if (
@@ -117,7 +118,9 @@ export class SbbCheckboxGroup extends LitElement {
     }
 
     if (isArrowKeyPressed(evt)) {
-      const current: number = enabledCheckboxes.findIndex((e: SbbCheckbox) => e === evt.target);
+      const current: number = enabledCheckboxes.findIndex(
+        (e: SbbCheckboxElement) => e === evt.target,
+      );
       const nextIndex: number = getNextElementIndex(evt, current, enabledCheckboxes.length);
       enabledCheckboxes[nextIndex]?.focus();
     }
@@ -137,9 +140,9 @@ export class SbbCheckboxGroup extends LitElement {
     }
   }
 
-  private get _checkboxes(): SbbCheckbox[] {
+  private get _checkboxes(): SbbCheckboxElement[] {
     return Array.from(this.querySelectorAll?.('sbb-checkbox') ?? []).filter(
-      (el: SbbCheckbox) => el.closest('sbb-checkbox-group') === this,
+      (el: SbbCheckboxElement) => el.closest('sbb-checkbox-group') === this,
     );
   }
 
@@ -160,6 +163,6 @@ export class SbbCheckboxGroup extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-checkbox-group': SbbCheckboxGroup;
+    'sbb-checkbox-group': SbbCheckboxGroupElement;
   }
 }

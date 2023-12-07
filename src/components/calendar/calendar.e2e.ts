@@ -6,11 +6,11 @@ import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
 
 import '../button';
 import '../icon';
-import { SbbCalendar } from './calendar';
+import { SbbCalendarElement } from './calendar';
 
 describe('sbb-calendar', () => {
   const selected = new Date(2023, 0, 15).getTime() / 1000;
-  let element: SbbCalendar;
+  let element: SbbCalendarElement;
 
   beforeEach(async () => {
     element = await fixture(
@@ -19,7 +19,7 @@ describe('sbb-calendar', () => {
   });
 
   it('renders', async () => {
-    assert.instanceOf(element, SbbCalendar);
+    assert.instanceOf(element, SbbCalendarElement);
   });
 
   it('highlights current day', async () => {
@@ -92,7 +92,7 @@ describe('sbb-calendar', () => {
   });
 
   it('selects a different date', async () => {
-    const selectedSpy = new EventSpy(SbbCalendar.events.dateSelected);
+    const selectedSpy = new EventSpy(SbbCalendarElement.events.dateSelected);
     const selectedDate = element.shadowRoot.querySelector('button[data-day="15 1 2023"]');
 
     expect(selectedDate).to.have.class('sbb-calendar__selected');
@@ -110,7 +110,7 @@ describe('sbb-calendar', () => {
   });
 
   it("clicks on disabled day and doesn't change selection", async () => {
-    const selectedSpy = new EventSpy(SbbCalendar.events.dateSelected);
+    const selectedSpy = new EventSpy(SbbCalendarElement.events.dateSelected);
 
     element.max = 1674946800;
     await waitForLitRender(element);

@@ -1,16 +1,16 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbFormField } from '../../form-field';
+import { SbbFormFieldElement } from '../../form-field';
 
-import type { SbbDatepickerNextDay } from './datepicker-next-day';
+import type { SbbDatepickerNextDayElement } from './datepicker-next-day';
 
 import '../datepicker';
 import './datepicker-next-day';
 
 describe('sbb-datepicker-next-day', () => {
   it('renders', async () => {
-    const page: SbbDatepickerNextDay = await fixture(
+    const page: SbbDatepickerNextDayElement = await fixture(
       html`<sbb-datepicker-next-day></sbb-datepicker-next-day>`,
     );
 
@@ -34,7 +34,7 @@ describe('sbb-datepicker-next-day', () => {
       </div>
     `);
 
-    const element: SbbDatepickerNextDay = page.querySelector('sbb-datepicker-next-day');
+    const element: SbbDatepickerNextDayElement = page.querySelector('sbb-datepicker-next-day');
     expect(element).dom.to.be.equal(`
       <sbb-datepicker-next-day
         date-picker="datepicker"
@@ -54,7 +54,7 @@ describe('sbb-datepicker-next-day', () => {
   });
 
   it('renders with datepicker and input disabled', async () => {
-    const page: SbbFormField = await fixture(html`
+    const page: SbbFormFieldElement = await fixture(html`
       <sbb-form-field>
         <input disabled="" />
         <sbb-datepicker></sbb-datepicker>
@@ -62,12 +62,12 @@ describe('sbb-datepicker-next-day', () => {
       </sbb-form-field>
     `);
 
-    const element: SbbDatepickerNextDay = page.querySelector('sbb-datepicker-next-day');
+    const element: SbbDatepickerNextDayElement = page.querySelector('sbb-datepicker-next-day');
     expect(element).to.have.attribute('data-disabled');
   });
 
   it('renders with datepicker and input readonly', async () => {
-    const page: SbbFormField = await fixture(html`
+    const page: SbbFormFieldElement = await fixture(html`
       <sbb-form-field>
         <input readonly="" />
         <sbb-datepicker></sbb-datepicker>
@@ -75,7 +75,7 @@ describe('sbb-datepicker-next-day', () => {
       </sbb-form-field>
     `);
 
-    const element: SbbDatepickerNextDay = page.querySelector('sbb-datepicker-next-day');
+    const element: SbbDatepickerNextDayElement = page.querySelector('sbb-datepicker-next-day');
     expect(element).to.have.attribute('data-disabled');
   });
 });

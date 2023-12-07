@@ -6,10 +6,10 @@ import { html, nothing, TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../core/dom';
-import type { SbbFormError } from '../form-error';
+import type { SbbFormErrorElement } from '../form-error';
 
 import readme from './readme.md?raw';
-import { SbbTimeInput } from './time-input';
+import { SbbTimeInputElement } from './time-input';
 import '../button';
 import '../form-field';
 import '../form-error';
@@ -22,10 +22,10 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
 
 const updateFormError = (event: CustomEvent): void => {
   const valid = event.detail.valid;
-  const target = event.target as SbbTimeInput;
+  const target = event.target as SbbTimeInputElement;
   const formField = target.closest('sbb-form-field')!;
 
-  const formError: SbbFormError = document.createElement('sbb-form-error');
+  const formError: SbbFormErrorElement = document.createElement('sbb-form-error');
   formError.innerText = 'Time value is invalid';
 
   if (!valid) {
@@ -36,7 +36,7 @@ const updateFormError = (event: CustomEvent): void => {
 };
 
 const changeEventHandler = async (event: CustomEvent): Promise<void> => {
-  const target = event.target as SbbTimeInput;
+  const target = event.target as SbbTimeInputElement;
   const exampleParent = target.closest('div#example-parent')!;
   const div = document.createElement('div');
   div.innerText = `value is: ${
@@ -367,7 +367,7 @@ const meta: Meta = {
   ],
   parameters: {
     actions: {
-      handles: ['change', 'input', SbbTimeInput.events.validationChange],
+      handles: ['change', 'input', SbbTimeInputElement.events.validationChange],
     },
     backgrounds: {
       disable: true,

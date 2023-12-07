@@ -3,14 +3,14 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { waitForCondition, waitForLitRender } from '../../core/testing';
-import { SbbOption } from '../../option';
-import { SbbSelect } from '../../select';
+import { SbbOptionElement } from '../../option';
+import { SbbSelectElement } from '../../select';
 
-import { SbbFormField } from './form-field';
+import { SbbFormFieldElement } from './form-field';
 
 describe('sbb-form-field', () => {
   describe('with input', () => {
-    let element: SbbFormField;
+    let element: SbbFormFieldElement;
     let input: HTMLInputElement;
 
     beforeEach(async () => {
@@ -19,7 +19,7 @@ describe('sbb-form-field', () => {
     });
 
     it('renders', async () => {
-      assert.instanceOf(element, SbbFormField);
+      assert.instanceOf(element, SbbFormFieldElement);
     });
 
     it('should remove the label element if no label is configured', async () => {
@@ -136,8 +136,8 @@ describe('sbb-form-field', () => {
   });
 
   describe('with sbb-select', () => {
-    let element: SbbFormField;
-    let select: SbbSelect;
+    let element: SbbFormFieldElement;
+    let select: SbbSelectElement;
 
     beforeEach(async () => {
       element = await fixture(html`
@@ -151,8 +151,8 @@ describe('sbb-form-field', () => {
 
     it('renders', async () => {
       const option = select.querySelector('sbb-option');
-      assert.instanceOf(select, SbbSelect);
-      assert.instanceOf(option, SbbOption);
+      assert.instanceOf(select, SbbSelectElement);
+      assert.instanceOf(option, SbbOptionElement);
     });
 
     it('should react to focus state', async () => {
@@ -227,7 +227,7 @@ describe('sbb-form-field', () => {
     });
 
     it('should never be empty if input type is date', async () => {
-      const element: SbbFormField = await fixture(
+      const element: SbbFormFieldElement = await fixture(
         html`<sbb-form-field floating-label><input type="date" /></sbb-form-field>`,
       );
 
@@ -235,7 +235,7 @@ describe('sbb-form-field', () => {
     });
 
     it('should read sbb-select empty state', async () => {
-      const element: SbbFormField = await fixture(html`
+      const element: SbbFormFieldElement = await fixture(html`
         <sbb-form-field floating-label>
           <sbb-select value="0">
             <sbb-option value="0"></sbb-option>
@@ -261,7 +261,7 @@ describe('sbb-form-field', () => {
     });
 
     it('should update floating label after clearing', async () => {
-      const element: SbbFormField = await fixture(
+      const element: SbbFormFieldElement = await fixture(
         html` <sbb-form-field floating-label>
           <sbb-select>
             <sbb-option value="1" selected>Displayed Value</sbb-option>
@@ -297,7 +297,7 @@ describe('sbb-form-field', () => {
     });
 
     it('should reset floating label when calling reset of sbb-form-field', async () => {
-      const element: SbbFormField = await fixture(html`
+      const element: SbbFormFieldElement = await fixture(html`
         <sbb-form-field floating-label>
           <input />
         </sbb-form-field>

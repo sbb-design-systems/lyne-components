@@ -3,7 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { toggleDatasetEntry } from '../core/dom';
 import { ConnectedAbortController } from '../core/eventing';
-import { SbbExpansionPanel } from '../expansion-panel';
+import { SbbExpansionPanelElement } from '../expansion-panel';
 import type { TitleLevel } from '../title';
 
 import style from './accordion.scss?lit&inline';
@@ -14,7 +14,7 @@ import style from './accordion.scss?lit&inline';
  * @slot - Use the unnamed slot to add `sbb-expansion-panel` elements.
  */
 @customElement('sbb-accordion')
-export class SbbAccordion extends LitElement {
+export class SbbAccordionElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** The heading level for the sbb-expansion-panel-headers within the component. */
@@ -71,7 +71,7 @@ export class SbbAccordion extends LitElement {
     this._expansionPanels.forEach((panel) => (panel.titleLevel = this.titleLevel));
   }
 
-  private get _expansionPanels(): SbbExpansionPanel[] {
+  private get _expansionPanels(): SbbExpansionPanelElement[] {
     return Array.from(this.querySelectorAll?.('sbb-expansion-panel') ?? []);
   }
 
@@ -81,7 +81,7 @@ export class SbbAccordion extends LitElement {
       return;
     }
 
-    expansionPanels.forEach((panel: SbbExpansionPanel) => {
+    expansionPanels.forEach((panel: SbbExpansionPanelElement) => {
       panel.titleLevel = this.titleLevel;
       panel.disableAnimation = this.disableAnimation;
       toggleDatasetEntry(panel, 'accordionFirst', false);
@@ -95,7 +95,7 @@ export class SbbAccordion extends LitElement {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener(
-      SbbExpansionPanel.events.willOpen,
+      SbbExpansionPanelElement.events.willOpen,
       (e: CustomEvent) => this._closePanels(e),
       { signal },
     );
@@ -113,6 +113,6 @@ export class SbbAccordion extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-accordion': SbbAccordion;
+    'sbb-accordion': SbbAccordionElement;
   }
 }

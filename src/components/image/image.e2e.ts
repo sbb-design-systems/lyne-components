@@ -4,17 +4,17 @@ import { html } from 'lit/static-html.js';
 import images from '../core/images';
 import { waitForCondition, waitForLitRender } from '../core/testing';
 
-import { SbbImage } from './image';
+import { SbbImageElement } from './image';
 
 describe('sbb-image', () => {
-  let element: SbbImage;
+  let element: SbbImageElement;
 
   it('renders', async function () {
     this.timeout(8000);
     const url = images[0];
     element = await fixture(html`<sbb-image image-src="${url}"></sbb-image>`);
 
-    assert.instanceOf(element, SbbImage);
+    assert.instanceOf(element, SbbImageElement);
     await waitForLitRender(element);
 
     // Wait until the image is successfully be loaded

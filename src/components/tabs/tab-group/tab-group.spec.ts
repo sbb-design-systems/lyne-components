@@ -3,12 +3,12 @@ import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
 
-import { SbbTabGroup } from './tab-group';
+import { SbbTabGroupElement } from './tab-group';
 import '.';
 import '../tab-title';
 
 describe('sbb-tab-group', () => {
-  let element: SbbTabGroup;
+  let element: SbbTabGroupElement;
 
   beforeEach(async () => {
     element = await fixture(html`

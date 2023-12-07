@@ -3,13 +3,13 @@ import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForLitRender, mockScrollTo, waitForCondition } from '../../core/testing';
-import { SbbMenu } from '../../menu';
+import { SbbMenuElement } from '../../menu';
 
-import { SbbHeader } from './header';
+import { SbbHeaderElement } from './header';
 import '../header-action';
 
 describe('sbb-header', () => {
-  let element: SbbHeader;
+  let element: SbbHeaderElement;
 
   beforeEach(async () => {
     await setViewport({ width: 1200, height: 600 });
@@ -17,7 +17,7 @@ describe('sbb-header', () => {
 
   it('renders', async () => {
     element = await fixture(html`<sbb-header></sbb-header>`);
-    assert.instanceOf(element, SbbHeader);
+    assert.instanceOf(element, SbbHeaderElement);
   });
 
   it('should be fixed on scroll', async () => {
@@ -92,8 +92,8 @@ describe('sbb-header', () => {
     expect(element).to.have.attribute('data-visible');
 
     // Open menu
-    const willOpenEventSpy = new EventSpy(SbbMenu.events.willOpen);
-    const didOpenEventSpy = new EventSpy(SbbMenu.events.didOpen);
+    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen);
+    const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen);
     const menuTrigger = document.querySelector('sbb-header-action');
     menuTrigger.click();
     await waitForLitRender(element);

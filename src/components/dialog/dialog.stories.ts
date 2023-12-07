@@ -11,7 +11,7 @@ import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-p
 import { sbbSpread } from '../core/dom';
 import sampleImages from '../core/images';
 
-import { SbbDialog } from './dialog';
+import { SbbDialogElement } from './dialog';
 import readme from './readme.md?raw';
 
 import '../button';
@@ -125,7 +125,7 @@ const basicArgs: Args = {
 };
 
 const openDialog = (_event, id): void => {
-  const dialog = document.getElementById(id) as SbbDialog;
+  const dialog = document.getElementById(id) as SbbDialogElement;
   dialog.open();
 };
 
@@ -390,11 +390,11 @@ const meta: Meta = {
     chromatic: { disableSnapshot: false },
     actions: {
       handles: [
-        SbbDialog.events.willOpen,
-        SbbDialog.events.didOpen,
-        SbbDialog.events.willClose,
-        SbbDialog.events.didClose,
-        SbbDialog.events.backClick,
+        SbbDialogElement.events.willOpen,
+        SbbDialogElement.events.didOpen,
+        SbbDialogElement.events.willClose,
+        SbbDialogElement.events.didClose,
+        SbbDialogElement.events.backClick,
       ],
     },
     backgrounds: {

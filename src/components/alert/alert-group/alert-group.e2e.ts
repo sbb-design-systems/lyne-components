@@ -1,16 +1,16 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbButton } from '../../button';
+import { SbbButtonElement } from '../../button';
 import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing';
 
-import { SbbAlertGroup } from './alert-group';
+import { SbbAlertGroupElement } from './alert-group';
 
 import '.';
 import '../alert';
 
 describe('sbb-alert-group', () => {
-  let element: SbbAlertGroup;
+  let element: SbbAlertGroupElement;
 
   it('should handle events ond states on interacting with alerts', async () => {
     const alertGroupId = 'alertgroup';
@@ -28,8 +28,8 @@ describe('sbb-alert-group', () => {
         <sbb-alert title-content="Interruption" href="www.sbb.ch">Second</sbb-alert>
       </sbb-alert-group>
     `);
-    const didDismissAlertSpy = new EventSpy(SbbAlertGroup.events.didDismissAlert);
-    const emptySpy = new EventSpy(SbbAlertGroup.events.empty);
+    const didDismissAlertSpy = new EventSpy(SbbAlertGroupElement.events.didDismissAlert);
+    const emptySpy = new EventSpy(SbbAlertGroupElement.events.empty);
 
     // When rendering initially
     await waitForLitRender(element);
@@ -43,7 +43,7 @@ describe('sbb-alert-group', () => {
     // When clicking on close button of the first alert
     const closeButton = element
       .querySelector('sbb-alert')
-      .shadowRoot.querySelector('.sbb-alert__close-button-wrapper sbb-button') as SbbButton;
+      .shadowRoot.querySelector('.sbb-alert__close-button-wrapper sbb-button') as SbbButtonElement;
 
     closeButton.focus();
     closeButton.click();
@@ -66,7 +66,7 @@ describe('sbb-alert-group', () => {
     (
       element
         .querySelector('sbb-alert')
-        .shadowRoot.querySelector('.sbb-alert__close-button-wrapper sbb-button') as SbbButton
+        .shadowRoot.querySelector('.sbb-alert__close-button-wrapper sbb-button') as SbbButtonElement
     ).click();
     await waitForLitRender(element);
 
@@ -95,7 +95,7 @@ describe('sbb-alert-group', () => {
     element = await fixture(
       html`<sbb-alert-group accessibility-title="Disruptions"></sbb-alert-group>`,
     );
-    const emptySpy = new EventSpy(SbbAlertGroup.events.empty);
+    const emptySpy = new EventSpy(SbbAlertGroupElement.events.empty);
 
     // Then no title should be rendered and no empty event fired
     expect(element.shadowRoot.querySelector('.sbb-alert-group__title')).to.be.null;

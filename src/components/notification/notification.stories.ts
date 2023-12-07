@@ -5,10 +5,10 @@ import isChromatic from 'chromatic/isChromatic';
 import { html, TemplateResult } from 'lit';
 import { ref } from 'lit/directives/ref.js';
 
-import type { SbbButton } from '../button';
+import type { SbbButtonElement } from '../button';
 import { sbbSpread } from '../core/dom';
 
-import { SbbNotification } from './notification';
+import { SbbNotificationElement } from './notification';
 import readme from './readme.md?raw';
 import '../button';
 import '../link';
@@ -64,7 +64,7 @@ const appendNotification = (event: Event, args: Args): void => {
   newNotification.disableAnimation = args['disable-animation'];
   newNotification.innerHTML =
     'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.';
-  (event.target as SbbButton).parentElement
+  (event.target as SbbButtonElement).parentElement
     .querySelector('.notification-container')
     ?.append(newNotification);
 };
@@ -97,9 +97,10 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
     style="margin-block-end: var(--sbb-spacing-fixed-4x);"
     ${ref(
       (notification?: Element) =>
-        (notification as SbbNotification)?.addEventListener(
-          SbbNotification.events.didOpen,
-          () => ((notification as SbbNotification).disableAnimation = args['disable-animation']),
+        (notification as SbbNotificationElement)?.addEventListener(
+          SbbNotificationElement.events.didOpen,
+          () =>
+            ((notification as SbbNotificationElement).disableAnimation = args['disable-animation']),
           { once: true },
         ),
     )}
@@ -118,9 +119,10 @@ const SlottedTitleTemplate = (args: Args): TemplateResult => html`
     style="margin-block-end: var(--sbb-spacing-fixed-4x);"
     ${ref(
       (notification?: Element) =>
-        (notification as SbbNotification)?.addEventListener(
-          SbbNotification.events.didOpen,
-          () => ((notification as SbbNotification).disableAnimation = args['disable-animation']),
+        (notification as SbbNotificationElement)?.addEventListener(
+          SbbNotificationElement.events.didOpen,
+          () =>
+            ((notification as SbbNotificationElement).disableAnimation = args['disable-animation']),
           { once: true },
         ),
     )}
@@ -201,10 +203,10 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbNotification.events.didOpen,
-        SbbNotification.events.didClose,
-        SbbNotification.events.willOpen,
-        SbbNotification.events.willClose,
+        SbbNotificationElement.events.didOpen,
+        SbbNotificationElement.events.didClose,
+        SbbNotificationElement.events.willOpen,
+        SbbNotificationElement.events.willClose,
       ],
     },
     backgrounds: {

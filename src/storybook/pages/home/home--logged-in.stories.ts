@@ -4,7 +4,7 @@ import isChromatic from 'chromatic';
 import { html, TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import type { SbbDialog } from '../../../components/dialog';
+import type { SbbDialogElement } from '../../../components/dialog';
 import { futureLeg, pastLeg } from '../../../components/pearl-chain/pearl-chain.sample-data';
 
 import {
@@ -184,7 +184,7 @@ const Template = (args: Args): TemplateResult => html`
           <sbb-button
             variant="secondary"
             class="all-purchased-tickets-button"
-            @click=${() => (document.getElementById('my-dialog') as SbbDialog).open()}
+            @click=${() => (document.getElementById('my-dialog') as SbbDialogElement).open()}
           >
             All purchased tickets
           </sbb-button>
@@ -200,7 +200,8 @@ const Template = (args: Args): TemplateResult => html`
             <sbb-button
               variant="secondary"
               size="m"
-              @click=${() => (document.getElementById('my-stacked-dialog') as SbbDialog).open()}
+              @click=${() =>
+                (document.getElementById('my-stacked-dialog') as SbbDialogElement).open()}
             >
               Open stacked dialog
             </sbb-button>

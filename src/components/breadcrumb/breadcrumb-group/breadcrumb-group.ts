@@ -12,7 +12,7 @@ import {
 } from '../../core/eventing';
 import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n';
 import { AgnosticResizeObserver } from '../../core/observers';
-import type { SbbBreadcrumb } from '../breadcrumb';
+import type { SbbBreadcrumbElement } from '../breadcrumb';
 
 import style from './breadcrumb-group.scss?lit&inline';
 
@@ -24,11 +24,11 @@ import '../../icon';
  * @slot - Use the unnamed slot to add `sbb-breadcrumb` elements.
  */
 @customElement('sbb-breadcrumb-group')
-export class SbbBreadcrumbGroup extends SlotChildObserver(LitElement) {
+export class SbbBreadcrumbGroupElement extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** Local instance of slotted sbb-breadcrumb elements */
-  @state() private _breadcrumbs: SbbBreadcrumb[] = [];
+  @state() private _breadcrumbs: SbbBreadcrumbElement[] = [];
 
   @state() private _state?: 'collapsed' | 'manually-expanded';
 
@@ -96,7 +96,7 @@ export class SbbBreadcrumbGroup extends SlotChildObserver(LitElement) {
     this._evaluateCollapsedState();
 
     const breadcrumbs = Array.from(this.children ?? []).filter(
-      (e): e is SbbBreadcrumb => e.tagName === 'SBB-BREADCRUMB',
+      (e): e is SbbBreadcrumbElement => e.tagName === 'SBB-BREADCRUMB',
     );
     // If the slotted sbb-breadcrumb instances have not changed,
     // we can skip syncing and updating the breadcrumb reference list.
@@ -131,15 +131,18 @@ export class SbbBreadcrumbGroup extends SlotChildObserver(LitElement) {
    * Sets the focus on the correct element when the ellipsis breadcrumb is displayed and the user is navigating with keyboard's arrows.
    */
   private _focusNextCollapsed(evt: KeyboardEvent): void {
-    const arrayCollapsed: SbbBreadcrumb[] = [
+    const arrayCollapsed: SbbBreadcrumbElement[] = [
       this._breadcrumbs[0],
-      this.shadowRoot.querySelector('#sbb-breadcrumb-ellipsis') as SbbBreadcrumb,
+      this.shadowRoot.querySelector('#sbb-breadcrumb-ellipsis') as SbbBreadcrumbElement,
       this._breadcrumbs[this._breadcrumbs.length - 1],
     ];
     this._focusNext(evt, arrayCollapsed);
   }
 
-  private _focusNext(evt: KeyboardEvent, breadcrumbs: SbbBreadcrumb[] = this._breadcrumbs): void {
+  private _focusNext(
+    evt: KeyboardEvent,
+    breadcrumbs: SbbBreadcrumbElement[] = this._breadcrumbs,
+  ): void {
     const current: number = breadcrumbs.findIndex(
       (e) => e === document.activeElement || e === this.shadowRoot.activeElement,
     );
@@ -206,7 +209,7 @@ export class SbbBreadcrumbGroup extends SlotChildObserver(LitElement) {
   private _renderExpanded(): TemplateResult[] {
     const slotName = (index: number): string => `breadcrumb-${index}`;
 
-    return this._breadcrumbs.map((element: SbbBreadcrumb, index: number) => {
+    return this._breadcrumbs.map((element: SbbBreadcrumbElement, index: number) => {
       element.setAttribute('slot', slotName(index));
 
       return html`
@@ -242,6 +245,6 @@ export class SbbBreadcrumbGroup extends SlotChildObserver(LitElement) {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-breadcrumb-group': SbbBreadcrumbGroup;
+    'sbb-breadcrumb-group': SbbBreadcrumbGroupElement;
   }
 }

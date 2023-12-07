@@ -3,13 +3,13 @@ import { html } from 'lit/static-html.js';
 
 import { waitForCondition, waitForLitRender } from '../../core/testing';
 
-import { SbbNavigationSection } from './navigation-section';
+import { SbbNavigationSectionElement } from './navigation-section';
 import '../navigation';
 import '../navigation-list';
 import '../navigation-action';
 
 describe('sbb-navigation-section', () => {
-  let element: SbbNavigationSection;
+  let element: SbbNavigationSectionElement;
 
   beforeEach(async () => {
     await fixture(html`
@@ -28,7 +28,7 @@ describe('sbb-navigation-section', () => {
   });
 
   it('renders', async () => {
-    assert.instanceOf(element, SbbNavigationSection);
+    assert.instanceOf(element, SbbNavigationSectionElement);
   });
 
   it('opens the section', async () => {

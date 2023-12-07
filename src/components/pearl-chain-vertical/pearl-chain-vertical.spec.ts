@@ -3,13 +3,13 @@ import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../core/testing';
 
-import type { SbbPearlChainVertical } from './pearl-chain-vertical';
+import type { SbbPearlChainVerticalElement } from './pearl-chain-vertical';
 
 import './pearl-chain-vertical';
 
 describe('sbb-pearl-chain-vertical', () => {
   it('renders', async () => {
-    const element = await fixture<SbbPearlChainVertical>(
+    const element = await fixture<SbbPearlChainVerticalElement>(
       html`<sbb-pearl-chain-vertical></sbb-pearl-chain-vertical>`,
     );
     await waitForLitRender(element);

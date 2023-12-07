@@ -15,7 +15,7 @@ const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
  * @slot logo - Slot used to render the logo on the right side (sbb-logo as default).
  */
 @customElement('sbb-header')
-export class SbbHeader extends LitElement {
+export class SbbHeaderElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -189,6 +189,6 @@ export class SbbHeader extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-header': SbbHeader;
+    'sbb-header': SbbHeaderElement;
   }
 }

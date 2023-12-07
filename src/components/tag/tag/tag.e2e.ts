@@ -4,17 +4,17 @@ import { html } from 'lit/static-html.js';
 
 import { waitForLitRender, EventSpy } from '../../core/testing';
 
-import { SbbTag } from './tag';
+import { SbbTagElement } from './tag';
 
 describe('sbb-tag', () => {
-  let element: SbbTag;
+  let element: SbbTagElement;
 
   beforeEach(async () => {
     element = await fixture(html`<sbb-tag value="tag">Tag</sbb-tag>`);
   });
 
   it('renders', async () => {
-    assert.instanceOf(element, SbbTag);
+    assert.instanceOf(element, SbbTagElement);
   });
 
   it('should be checked after click', async () => {

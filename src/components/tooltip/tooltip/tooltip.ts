@@ -35,7 +35,7 @@ const HORIZONTAL_OFFSET = 32;
 
 let nextId = 0;
 
-const tooltipsRef = new Set<SbbTooltip>();
+const tooltipsRef = new Set<SbbTooltipElement>();
 
 /**
  * It displays contextual information within a tooltip.
@@ -47,7 +47,7 @@ const tooltipsRef = new Set<SbbTooltip>();
  * @event {CustomEvent<{ closeTarget: HTMLElement }>} didClose - Emits whenever the `sbb-tooltip` is closed.
  */
 @customElement('sbb-tooltip')
-export class SbbTooltip extends LitElement {
+export class SbbTooltipElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -117,21 +117,21 @@ export class SbbTooltip extends LitElement {
   @state() private _currentLanguage = documentLanguage();
 
   /** Emits whenever the `sbb-tooltip` starts the opening transition. */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbTooltip.events.willOpen);
+  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbTooltipElement.events.willOpen);
 
   /** Emits whenever the `sbb-tooltip` is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbTooltip.events.didOpen);
+  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbTooltipElement.events.didOpen);
 
   /** Emits whenever the `sbb-tooltip` begins the closing transition. */
   private _willClose: EventEmitter<{ closeTarget: HTMLElement }> = new EventEmitter(
     this,
-    SbbTooltip.events.willClose,
+    SbbTooltipElement.events.willClose,
   );
 
   /** Emits whenever the `sbb-tooltip` is closed. */
   private _didClose: EventEmitter<{ closeTarget: HTMLElement }> = new EventEmitter(
     this,
-    SbbTooltip.events.didClose,
+    SbbTooltipElement.events.didClose,
   );
 
   private _overlay: HTMLDivElement;
@@ -221,7 +221,7 @@ export class SbbTooltip extends LitElement {
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
     this._state = 'closed';
-    tooltipsRef.add(this as SbbTooltip);
+    tooltipsRef.add(this as SbbTooltipElement);
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -243,7 +243,7 @@ export class SbbTooltip extends LitElement {
     this._tooltipController?.abort();
     this._windowEventsController?.abort();
     this._focusTrap.disconnect();
-    tooltipsRef.delete(this as SbbTooltip);
+    tooltipsRef.delete(this as SbbTooltipElement);
   }
 
   // Check if the trigger is valid and attach click event listeners.
@@ -493,6 +493,6 @@ export class SbbTooltip extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-tooltip': SbbTooltip;
+    'sbb-tooltip': SbbTooltipElement;
   }
 }

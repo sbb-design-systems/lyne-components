@@ -6,7 +6,7 @@ import { styleMap, StyleInfo } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../core/dom';
 
-import { SbbOption } from './option';
+import { SbbOptionElement } from './option';
 import readme from './readme.md?raw';
 import '../../form-field';
 import '../../select';
@@ -190,7 +190,7 @@ const meta: Meta = {
   ],
   parameters: {
     actions: {
-      handles: [SbbOption.events.selectionChange, SbbOption.events.optionSelected],
+      handles: [SbbOptionElement.events.selectionChange, SbbOptionElement.events.optionSelected],
     },
     backgrounds: {
       disable: true,

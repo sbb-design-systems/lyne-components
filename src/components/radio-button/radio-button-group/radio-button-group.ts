@@ -12,14 +12,17 @@ import {
 } from '../../core/eventing';
 import { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces';
 import type {
-  SbbRadioButton,
+  SbbRadioButtonElement,
   SbbRadioButtonSize,
   SbbRadioButtonStateChange,
 } from '../radio-button';
 
 import style from './radio-button-group.scss?lit&inline';
 
-export type SbbRadioButtonGroupEventDetail = { value: any | null; radioButton: SbbRadioButton };
+export type SbbRadioButtonGroupEventDetail = {
+  value: any | null;
+  radioButton: SbbRadioButtonElement;
+};
 
 /**
  * It can be used as a container for one or more `sbb-radio-button`.
@@ -31,7 +34,7 @@ export type SbbRadioButtonGroupEventDetail = { value: any | null; radioButton: S
  * @event {CustomEvent<SbbRadioButtonGroupEventDetail>} input - Emits whenever the `sbb-radio-group` value changes.
  */
 @customElement('sbb-radio-button-group')
-export class SbbRadioButtonGroup extends LitElement {
+export class SbbRadioButtonGroupElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -157,7 +160,7 @@ export class SbbRadioButtonGroup extends LitElement {
    */
   private _didChange: EventEmitter = new EventEmitter<SbbRadioButtonGroupEventDetail>(
     this,
-    SbbRadioButtonGroup.events.didChange,
+    SbbRadioButtonGroupElement.events.didChange,
   );
 
   /**
@@ -165,7 +168,7 @@ export class SbbRadioButtonGroup extends LitElement {
    */
   private _change: EventEmitter = new EventEmitter<SbbRadioButtonGroupEventDetail>(
     this,
-    SbbRadioButtonGroup.events.change,
+    SbbRadioButtonGroupElement.events.change,
   );
 
   /**
@@ -173,7 +176,7 @@ export class SbbRadioButtonGroup extends LitElement {
    */
   private _input: EventEmitter = new EventEmitter<SbbRadioButtonGroupEventDetail>(
     this,
-    SbbRadioButtonGroup.events.input,
+    SbbRadioButtonGroupElement.events.input,
   );
 
   private _handlerRepository = new HandlerRepository(
@@ -221,7 +224,7 @@ export class SbbRadioButtonGroup extends LitElement {
       return;
     }
 
-    const radioButton = event.target as SbbRadioButton;
+    const radioButton = event.target as SbbRadioButtonElement;
 
     if (event.detail.checked) {
       this.value = radioButton.value;
@@ -234,7 +237,7 @@ export class SbbRadioButtonGroup extends LitElement {
     }
   }
 
-  private _emitChange(radioButton: SbbRadioButton, value?: string): void {
+  private _emitChange(radioButton: SbbRadioButtonElement, value?: string): void {
     this._change.emit({ value, radioButton });
     this._input.emit({ value, radioButton });
     this._didChange.emit({ value, radioButton });
@@ -263,13 +266,13 @@ export class SbbRadioButtonGroup extends LitElement {
     this._setFocusableRadio();
   }
 
-  private get _radioButtons(): SbbRadioButton[] {
+  private get _radioButtons(): SbbRadioButtonElement[] {
     return (
-      Array.from(this.querySelectorAll?.('sbb-radio-button') ?? []) as SbbRadioButton[]
+      Array.from(this.querySelectorAll?.('sbb-radio-button') ?? []) as SbbRadioButtonElement[]
     ).filter((el) => el.closest?.('sbb-radio-button-group') === this);
   }
 
-  private get _enabledRadios(): SbbRadioButton[] | undefined {
+  private get _enabledRadios(): SbbRadioButtonElement[] | undefined {
     if (!this.disabled) {
       return this._radioButtons.filter((r) => !r.disabled && interactivityChecker.isVisible(r));
     }
@@ -284,12 +287,12 @@ export class SbbRadioButtonGroup extends LitElement {
     }
   }
 
-  private _getRadioTabIndex(radio: SbbRadioButton): number {
+  private _getRadioTabIndex(radio: SbbRadioButtonElement): number {
     return (radio.checked || this._hasSelectionPanel) && !radio.disabled && !this.disabled ? 0 : -1;
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {
-    const enabledRadios: SbbRadioButton[] = this._enabledRadios;
+    const enabledRadios: SbbRadioButtonElement[] = this._enabledRadios;
 
     if (
       !enabledRadios ||
@@ -310,10 +313,12 @@ export class SbbRadioButtonGroup extends LitElement {
     let nextIndex: number;
 
     if (this._hasSelectionPanel) {
-      current = enabledRadios.findIndex((e: SbbRadioButton) => e === evt.target);
+      current = enabledRadios.findIndex((e: SbbRadioButtonElement) => e === evt.target);
       nextIndex = getNextElementIndex(evt, current, enabledRadios.length);
     } else {
-      const checked: number = enabledRadios.findIndex((radio: SbbRadioButton) => radio.checked);
+      const checked: number = enabledRadios.findIndex(
+        (radio: SbbRadioButtonElement) => radio.checked,
+      );
       nextIndex = getNextElementIndex(evt, checked, enabledRadios.length);
       enabledRadios[nextIndex].select();
     }
@@ -341,6 +346,6 @@ export class SbbRadioButtonGroup extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-radio-button-group': SbbRadioButtonGroup;
+    'sbb-radio-button-group': SbbRadioButtonGroupElement;
   }
 }

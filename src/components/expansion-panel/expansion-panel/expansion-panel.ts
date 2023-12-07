@@ -6,8 +6,8 @@ import { toggleDatasetEntry } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import { SbbOverlayState } from '../../core/overlay';
 import type { TitleLevel } from '../../title';
-import type { SbbExpansionPanelContent } from '../expansion-panel-content';
-import type { SbbExpansionPanelHeader } from '../expansion-panel-header';
+import type { SbbExpansionPanelContentElement } from '../expansion-panel-content';
+import type { SbbExpansionPanelHeaderElement } from '../expansion-panel-header';
 
 import style from './expansion-panel.scss?lit&inline';
 
@@ -23,7 +23,7 @@ let nextId = 0;
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-expansion-panel` is closed.
  */
 @customElement('sbb-expansion-panel')
-export class SbbExpansionPanel extends LitElement {
+export class SbbExpansionPanelElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -68,19 +68,28 @@ export class SbbExpansionPanel extends LitElement {
   public disableAnimation = false;
 
   /** Emits whenever the `sbb-expansion-panel` starts the opening transition. */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbExpansionPanel.events.willOpen);
+  private _willOpen: EventEmitter<void> = new EventEmitter(
+    this,
+    SbbExpansionPanelElement.events.willOpen,
+  );
 
   /** Emits whenever the `sbb-expansion-panel` is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbExpansionPanel.events.didOpen);
+  private _didOpen: EventEmitter<void> = new EventEmitter(
+    this,
+    SbbExpansionPanelElement.events.didOpen,
+  );
 
   /** Emits whenever the `sbb-expansion-panel` begins the closing transition. */
   private _willClose: EventEmitter<void> = new EventEmitter(
     this,
-    SbbExpansionPanel.events.willClose,
+    SbbExpansionPanelElement.events.willClose,
   );
 
   /** Emits whenever the `sbb-expansion-panel` is closed. */
-  private _didClose: EventEmitter<void> = new EventEmitter(this, SbbExpansionPanel.events.didClose);
+  private _didClose: EventEmitter<void> = new EventEmitter(
+    this,
+    SbbExpansionPanelElement.events.didClose,
+  );
 
   private _abort = new ConnectedAbortController(this);
   private _state: SbbOverlayState = 'closed';
@@ -118,8 +127,8 @@ export class SbbExpansionPanel extends LitElement {
 
   private _transitionEventController: AbortController;
   private _progressiveId = `-${++nextId}`;
-  private _headerRef: SbbExpansionPanelHeader;
-  private _contentRef: SbbExpansionPanelContent;
+  private _headerRef: SbbExpansionPanelHeaderElement;
+  private _contentRef: SbbExpansionPanelContentElement;
   private _contentWrapperRef: HTMLElement;
 
   public override connectedCallback(): void {
@@ -155,7 +164,7 @@ export class SbbExpansionPanel extends LitElement {
     }
 
     this._headerRef = elements.find(
-      (e): e is SbbExpansionPanelHeader => e.tagName === 'SBB-EXPANSION-PANEL-HEADER',
+      (e): e is SbbExpansionPanelHeaderElement => e.tagName === 'SBB-EXPANSION-PANEL-HEADER',
     );
 
     if (!this._headerRef) {
@@ -180,7 +189,9 @@ export class SbbExpansionPanel extends LitElement {
 
     this._contentRef = (event.target as HTMLSlotElement)
       .assignedElements()
-      .find((e): e is SbbExpansionPanelContent => e.tagName === 'SBB-EXPANSION-PANEL-CONTENT');
+      .find(
+        (e): e is SbbExpansionPanelContentElement => e.tagName === 'SBB-EXPANSION-PANEL-CONTENT',
+      );
 
     this._contentWrapperRef = this.shadowRoot.querySelector(
       '.sbb-expansion-panel__content-wrapper',
@@ -263,6 +274,6 @@ export class SbbExpansionPanel extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-expansion-panel': SbbExpansionPanel;
+    'sbb-expansion-panel': SbbExpansionPanelElement;
   }
 }

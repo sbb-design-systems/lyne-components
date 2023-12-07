@@ -2,14 +2,14 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
-import type { SbbToggleOption } from '../toggle-option';
+import type { SbbToggleOptionElement } from '../toggle-option';
 
-import type { SbbToggle } from './toggle';
+import type { SbbToggleElement } from './toggle';
 import './toggle';
 import '../toggle-option';
 
 describe('sbb-toggle', () => {
-  let option: SbbToggleOption, page: SbbToggle;
+  let option: SbbToggleOptionElement, page: SbbToggleElement;
   const simpleToggleTemplate = html`
     <sbb-toggle>
       <sbb-toggle-option value="Value one">Value one</sbb-toggle-option>

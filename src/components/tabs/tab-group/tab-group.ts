@@ -6,7 +6,7 @@ import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '..
 import { isValidAttribute, hostContext, toggleDatasetEntry, setAttribute } from '../../core/dom';
 import { throttle, EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers';
-import type { SbbTabTitle } from '../tab-title';
+import type { SbbTabTitleElement } from '../tab-title';
 
 import style from './tab-group.scss?lit&inline';
 
@@ -47,7 +47,7 @@ let nextId = 0;
  * @event {CustomEvent<void>} didChange - Emits an event on selected tab change
  */
 @customElement('sbb-tab-group')
-export class SbbTabGroup extends LitElement {
+export class SbbTabGroupElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -99,7 +99,7 @@ export class SbbTabGroup extends LitElement {
    */
   private _selectedTabChanged: EventEmitter<void> = new EventEmitter(
     this,
-    SbbTabGroup.events.didChange,
+    SbbTabGroupElement.events.didChange,
   );
 
   /**
@@ -229,7 +229,7 @@ export class SbbTabGroup extends LitElement {
     for (const entry of entries) {
       const tabTitles = (
         entry.target.firstElementChild as HTMLSlotElement
-      ).assignedElements() as SbbTabTitle[];
+      ).assignedElements() as SbbTabTitleElement[];
 
       for (const tab of tabTitles) {
         toggleDatasetEntry(
@@ -382,6 +382,6 @@ export class SbbTabGroup extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-tab-group': SbbTabGroup;
+    'sbb-tab-group': SbbTabGroupElement;
   }
 }

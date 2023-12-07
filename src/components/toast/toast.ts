@@ -1,7 +1,7 @@
 import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import type { SbbButton } from '../button';
+import type { SbbButtonElement } from '../button';
 import { isFirefox, isValidAttribute, setAttribute } from '../core/dom';
 import {
   createNamedSlotState,
@@ -15,7 +15,7 @@ import {
 } from '../core/eventing';
 import { i18nCloseAlert } from '../core/i18n';
 import { SbbOverlayState } from '../core/overlay';
-import type { SbbLink } from '../link';
+import type { SbbLinkElement } from '../link';
 
 import style from './toast.scss?lit&inline';
 
@@ -27,7 +27,7 @@ type SbbToastPositionHorizontal = 'left' | 'start' | 'center' | 'right' | 'end';
 export type SbbToastPosition = `${SbbToastPositionVertical}-${SbbToastPositionHorizontal}`;
 
 // A global collection of existing toasts
-const toastRefs = new Set<SbbToast>();
+const toastRefs = new Set<SbbToastElement>();
 
 /**
  * It displays a toast notification.
@@ -41,7 +41,7 @@ const toastRefs = new Set<SbbToast>();
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-toast` is closed.
  */
 @customElement('sbb-toast')
-export class SbbToast extends LitElement {
+export class SbbToastElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -87,25 +87,29 @@ export class SbbToast extends LitElement {
   @state() private _currentLanguage = documentLanguage();
 
   /** Emits whenever the `sbb-toast` starts the opening transition. */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbToast.events.willOpen, {
+  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbToastElement.events.willOpen, {
     bubbles: true,
     composed: true,
   });
 
   /** Emits whenever the `sbb-toast` is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbToast.events.didOpen, {
+  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbToastElement.events.didOpen, {
     bubbles: true,
     composed: true,
   });
 
   /** Emits whenever the `sbb-toast` begins the closing transition. */
-  private _willClose: EventEmitter<void> = new EventEmitter(this, SbbToast.events.willClose, {
-    bubbles: true,
-    composed: true,
-  });
+  private _willClose: EventEmitter<void> = new EventEmitter(
+    this,
+    SbbToastElement.events.willClose,
+    {
+      bubbles: true,
+      composed: true,
+    },
+  );
 
   /** Emits whenever the `sbb-toast` is closed. */
-  private _didClose: EventEmitter<void> = new EventEmitter(this, SbbToast.events.didClose, {
+  private _didClose: EventEmitter<void> = new EventEmitter(this, SbbToastElement.events.didClose, {
     bubbles: true,
     composed: true,
   });
@@ -213,7 +217,7 @@ export class SbbToast extends LitElement {
     // Force the visual state on slotted buttons
     slotNodes
       .filter((el) => el.nodeName === 'SBB-BUTTON')
-      .forEach((btn: SbbButton) => {
+      .forEach((btn: SbbButtonElement) => {
         btn.variant = 'transparent';
         btn.negative = true;
         btn.size = 'm';
@@ -222,7 +226,7 @@ export class SbbToast extends LitElement {
     // Force the visual state on slotted links
     slotNodes
       .filter((el) => el.nodeName === 'SBB-LINK')
-      .forEach((link: SbbLink) => {
+      .forEach((link: SbbLinkElement) => {
         link.variant = 'inline';
         link.negative = true;
       });
@@ -309,6 +313,6 @@ export class SbbToast extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-toast': SbbToast;
+    'sbb-toast': SbbToastElement;
   }
 }

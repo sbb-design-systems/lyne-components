@@ -12,7 +12,7 @@ import style from './timetable-travel-hints.scss?lit&inline';
  * Used in `sbb-timetable-row`, it displays hints icon.
  */
 @customElement('sbb-timetable-travel-hints')
-export class SbbTimetableTravelHints extends LitElement {
+export class SbbTimetableTravelHintsElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Set the desired appearance of the component. */
@@ -79,6 +79,6 @@ export class SbbTimetableTravelHints extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-timetable-travel-hints': SbbTimetableTravelHints;
+    'sbb-timetable-travel-hints': SbbTimetableTravelHintsElement;
   }
 }

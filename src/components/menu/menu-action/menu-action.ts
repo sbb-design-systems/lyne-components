@@ -30,7 +30,7 @@ import '../../icon';
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a `sbb-icon` will be used.
  */
 @customElement('sbb-menu-action')
-export class SbbMenuAction extends LitElement implements LinkButtonProperties {
+export class SbbMenuActionElement extends LitElement implements LinkButtonProperties {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -131,6 +131,6 @@ export class SbbMenuAction extends LitElement implements LinkButtonProperties {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-menu-action': SbbMenuAction;
+    'sbb-menu-action': SbbMenuActionElement;
   }
 }

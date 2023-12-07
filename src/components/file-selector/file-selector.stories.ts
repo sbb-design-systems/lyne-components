@@ -4,9 +4,9 @@ import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-c
 import { html, TemplateResult } from 'lit';
 
 import { sbbSpread } from '../core/dom';
-import type { SbbFormError } from '../form-error';
+import type { SbbFormErrorElement } from '../form-error';
 
-import { SbbFileSelector } from './file-selector';
+import { SbbFileSelectorElement } from './file-selector';
 import readme from './readme.md?raw';
 
 import '../form-error';
@@ -85,7 +85,7 @@ const Template = (args): TemplateResult =>
   html`<sbb-file-selector ${sbbSpread(args)}></sbb-file-selector>`;
 
 const TemplateWithError = (args): TemplateResult => {
-  const sbbFormError: SbbFormError = document.createElement('sbb-form-error');
+  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
   sbbFormError.setAttribute('slot', 'error');
   sbbFormError.textContent = 'There has been an error.';
 
@@ -178,7 +178,7 @@ const meta: Meta = {
   decorators: [(story) => html` <div>${story()}</div> `, withActions as Decorator],
   parameters: {
     actions: {
-      handles: [SbbFileSelector.events.fileChangedEvent],
+      handles: [SbbFileSelectorElement.events.fileChangedEvent],
     },
     backgrounds: {
       disable: true,

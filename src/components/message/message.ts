@@ -16,7 +16,7 @@ import style from './message.scss?lit&inline';
  * @slot action - Use this slot to provide a sbb-button.
  */
 @customElement('sbb-message')
-export class SbbMessage extends LitElement {
+export class SbbMessageElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Content of title. */
@@ -43,6 +43,6 @@ export class SbbMessage extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-message': SbbMessage;
+    'sbb-message': SbbMessageElement;
   }
 }

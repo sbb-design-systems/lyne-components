@@ -7,7 +7,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../core/dom';
 
-import { SbbCalendar } from './calendar';
+import { SbbCalendarElement } from './calendar';
 import readme from './readme.md?raw';
 
 const getCalendarAttr = (min, max): Record<string, Date> => {
@@ -186,7 +186,7 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: [SbbCalendar.events.dateSelected],
+      handles: [SbbCalendarElement.events.dateSelected],
     },
     backgrounds: {
       disable: true,

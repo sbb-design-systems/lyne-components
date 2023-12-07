@@ -59,7 +59,7 @@ const breakpointMap: Record<string, number> = {
  * It displays an image.
  */
 @customElement('sbb-image')
-export class SbbImage extends LitElement {
+export class SbbImageElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   private _captionElement?: HTMLElement;
@@ -549,6 +549,6 @@ export class SbbImage extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-image': SbbImage;
+    'sbb-image': SbbImageElement;
   }
 }

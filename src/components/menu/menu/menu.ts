@@ -29,7 +29,7 @@ import {
   SbbOverlayState,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay';
-import type { SbbMenuAction } from '../menu-action';
+import type { SbbMenuActionElement } from '../menu-action';
 
 import style from './menu.scss?lit&inline';
 
@@ -48,7 +48,7 @@ let nextId = 0;
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-menu` is closed.
  */
 @customElement('sbb-menu')
-export class SbbMenu extends SlotChildObserver(LitElement) {
+export class SbbMenuElement extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -90,28 +90,28 @@ export class SbbMenu extends SlotChildObserver(LitElement) {
   @state() private _state: SbbOverlayState = 'closed';
 
   /** Sbb-Link elements */
-  @state() private _actions: SbbMenuAction[];
+  @state() private _actions: SbbMenuActionElement[];
 
   /** Emits whenever the `sbb-menu` starts the opening transition. */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbMenu.events.willOpen, {
+  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbMenuElement.events.willOpen, {
     bubbles: true,
     composed: true,
   });
 
   /** Emits whenever the `sbb-menu` is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbMenu.events.didOpen, {
+  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbMenuElement.events.didOpen, {
     bubbles: true,
     composed: true,
   });
 
   /** Emits whenever the `sbb-menu` begins the closing transition. */
-  private _willClose: EventEmitter<void> = new EventEmitter(this, SbbMenu.events.willClose, {
+  private _willClose: EventEmitter<void> = new EventEmitter(this, SbbMenuElement.events.willClose, {
     bubbles: true,
     composed: true,
   });
 
   /** Emits whenever the `sbb-menu` is closed. */
-  private _didClose: EventEmitter<void> = new EventEmitter(this, SbbMenu.events.didClose, {
+  private _didClose: EventEmitter<void> = new EventEmitter(this, SbbMenuElement.events.didClose, {
     bubbles: true,
     composed: true,
   });
@@ -374,7 +374,7 @@ export class SbbMenu extends SlotChildObserver(LitElement) {
     }
 
     if (actions.every((e) => e.tagName === 'SBB-MENU-ACTION')) {
-      this._actions = actions as SbbMenuAction[];
+      this._actions = actions as SbbMenuActionElement[];
     } else {
       this._actions?.forEach((a) => a.removeAttribute('slot'));
       this._actions = undefined;
@@ -424,6 +424,6 @@ export class SbbMenu extends SlotChildObserver(LitElement) {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-menu': SbbMenu;
+    'sbb-menu': SbbMenuElement;
   }
 }

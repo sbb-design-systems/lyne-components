@@ -15,7 +15,7 @@ import '../pearl-chain';
  * Combined with `sbb-pearl-chain`, it displays walk time information.
  */
 @customElement('sbb-pearl-chain-time')
-export class SbbPearlChainTime extends LitElement {
+export class SbbPearlChainTimeElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -122,6 +122,6 @@ export class SbbPearlChainTime extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-pearl-chain-time': SbbPearlChainTime;
+    'sbb-pearl-chain-time': SbbPearlChainTimeElement;
   }
 }

@@ -11,8 +11,8 @@ import {
 } from '../../core/eventing';
 import { i18nTrain, i18nWagonsLabel } from '../../core/i18n';
 import type { TitleLevel } from '../../title';
-import type { SbbTrainBlockedPassage } from '../train-blocked-passage';
-import type { SbbTrainWagon } from '../train-wagon';
+import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage';
+import type { SbbTrainWagonElement } from '../train-wagon';
 
 import style from './train.scss?lit&inline';
 
@@ -24,7 +24,7 @@ import '../../icon';
  * @slot - Use the unnamed slot to add 'sbb-train-wagon' elements to the `sbb-train`.
  */
 @customElement('sbb-train')
-export class SbbTrain extends SlotChildObserver(LitElement) {
+export class SbbTrainElement extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     trainSlotChange: 'trainSlotChange',
@@ -45,7 +45,7 @@ export class SbbTrain extends SlotChildObserver(LitElement) {
   /** Controls the direction indicator to show the arrow left or right. Default is left.  */
   @property({ reflect: true }) public direction: 'left' | 'right' = 'left';
 
-  @state() private _wagons: (SbbTrainBlockedPassage | SbbTrainWagon)[] = [];
+  @state() private _wagons: (SbbTrainBlockedPassageElement | SbbTrainWagonElement)[] = [];
 
   @state() private _currentLanguage = documentLanguage();
 
@@ -53,10 +53,14 @@ export class SbbTrain extends SlotChildObserver(LitElement) {
    * @internal
    * Emits whenever the train slot changes.
    */
-  private _trainSlotChange: EventEmitter = new EventEmitter(this, SbbTrain.events.trainSlotChange, {
-    bubbles: true,
-    cancelable: true,
-  });
+  private _trainSlotChange: EventEmitter = new EventEmitter(
+    this,
+    SbbTrainElement.events.trainSlotChange,
+    {
+      bubbles: true,
+      cancelable: true,
+    },
+  );
 
   private _handlerRepository = new HandlerRepository(
     this,
@@ -92,7 +96,7 @@ export class SbbTrain extends SlotChildObserver(LitElement) {
 
   protected override checkChildren(): void {
     const wagons = Array.from(this.children ?? []).filter(
-      (e): e is SbbTrainBlockedPassage | SbbTrainWagon =>
+      (e): e is SbbTrainBlockedPassageElement | SbbTrainWagonElement =>
         e.tagName === 'SBB-TRAIN-WAGON' || e.tagName === 'SBB-TRAIN-BLOCKED-PASSAGE',
     );
     // If the slotted sbb-train-wagon and sbb-train-blocked-passage instances have not changed, we can skip syncing and updating
@@ -162,6 +166,6 @@ export class SbbTrain extends SlotChildObserver(LitElement) {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-train': SbbTrain;
+    'sbb-train': SbbTrainElement;
   }
 }

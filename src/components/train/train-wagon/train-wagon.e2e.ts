@@ -3,19 +3,19 @@ import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
 
-import { SbbTrainWagon } from './train-wagon';
+import { SbbTrainWagonElement } from './train-wagon';
 
 describe('sbb-train-wagon', () => {
-  let element: SbbTrainWagon;
+  let element: SbbTrainWagonElement;
 
   it('renders', async () => {
     element = await fixture(html`<sbb-train-wagon></sbb-train-wagon>`);
-    assert.instanceOf(element, SbbTrainWagon);
+    assert.instanceOf(element, SbbTrainWagonElement);
   });
 
   it('should emit sectorChange', async () => {
     element = await fixture(html`<sbb-train-wagon sector="A"></sbb-train-wagon>`);
-    const sectorChangeSpy = new EventSpy(SbbTrainWagon.events.sectorChange);
+    const sectorChangeSpy = new EventSpy(SbbTrainWagonElement.events.sectorChange);
     element.sector = 'B';
 
     await waitForCondition(() => sectorChangeSpy.events.length === 1);

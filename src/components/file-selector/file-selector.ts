@@ -33,7 +33,7 @@ export type DOMEvent = globalThis.Event;
  * @event {CustomEvent<File[]>} fileChanged - An event which is emitted each time the file list changes.
  */
 @customElement('sbb-file-selector')
-export class SbbFileSelector extends LitElement {
+export class SbbFileSelectorElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     fileChangedEvent: 'fileChanged',
@@ -73,7 +73,7 @@ export class SbbFileSelector extends LitElement {
   /** An event which is emitted each time the file list changes. */
   private _fileChangedEvent: EventEmitter<File[]> = new EventEmitter(
     this,
-    SbbFileSelector.events.fileChangedEvent,
+    SbbFileSelectorElement.events.fileChangedEvent,
   );
 
   /**
@@ -344,6 +344,6 @@ export class SbbFileSelector extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-file-selector': SbbFileSelector;
+    'sbb-file-selector': SbbFileSelectorElement;
   }
 }

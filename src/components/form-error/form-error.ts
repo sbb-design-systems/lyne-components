@@ -15,7 +15,7 @@ let nextId = 0;
  * @slot icon - Use this slot to override the default error icon.
  */
 @customElement('sbb-form-error')
-export class SbbFormError extends LitElement {
+export class SbbFormErrorElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Negative coloring variant flag. */
@@ -60,6 +60,6 @@ export class SbbFormError extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-form-error': SbbFormError;
+    'sbb-form-error': SbbFormErrorElement;
   }
 }

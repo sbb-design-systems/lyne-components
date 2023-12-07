@@ -8,7 +8,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
-import { SbbTabGroup } from './tab-group';
+import { SbbTabGroupElement } from './tab-group';
 import '../tab-title';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
@@ -221,7 +221,7 @@ const meta: Meta = {
   ],
   parameters: {
     actions: {
-      handles: [SbbTabGroup.events.didChange],
+      handles: [SbbTabGroupElement.events.didChange],
     },
     backgrounds: {
       disable: true,

@@ -1,13 +1,13 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbButton } from '../button';
+import { SbbButtonElement } from '../button';
 import { EventSpy, waitForLitRender } from '../core/testing';
 
-import { SbbFileSelector } from './file-selector';
+import { SbbFileSelectorElement } from './file-selector';
 
 function addFilesToComponentInput(
-  elem: SbbFileSelector,
+  elem: SbbFileSelectorElement,
   numberOfFiles: number,
   filesContent: string | string[] = 'Hello world',
 ): void {
@@ -27,18 +27,18 @@ function addFilesToComponentInput(
 }
 
 describe('sbb-file-selector', () => {
-  let element: SbbFileSelector;
+  let element: SbbFileSelectorElement;
 
   beforeEach(async () => {
     element = await fixture(html`<sbb-file-selector></sbb-file-selector>`);
   });
 
   it('renders', () => {
-    assert.instanceOf(element, SbbFileSelector);
+    assert.instanceOf(element, SbbFileSelectorElement);
   });
 
   it('loads a file, then deletes it', async () => {
-    const fileChangedSpy = new EventSpy(SbbFileSelector.events.fileChangedEvent);
+    const fileChangedSpy = new EventSpy(SbbFileSelectorElement.events.fileChangedEvent);
     addFilesToComponentInput(element, 1);
     await waitForLitRender(element);
 
@@ -60,7 +60,7 @@ describe('sbb-file-selector', () => {
       </div>
     `);
 
-    const button: SbbButton = element.shadowRoot.querySelector(
+    const button: SbbButtonElement = element.shadowRoot.querySelector(
       'sbb-button[icon-name="trash-small"]',
     );
     expect(button).not.to.be.null;
@@ -73,7 +73,7 @@ describe('sbb-file-selector', () => {
   });
 
   it('loads more than one file in multiple mode', async () => {
-    const fileChangedSpy = new EventSpy(SbbFileSelector.events.fileChangedEvent);
+    const fileChangedSpy = new EventSpy(SbbFileSelectorElement.events.fileChangedEvent);
     element.multiple = true;
     await waitForLitRender(element);
     addFilesToComponentInput(element, 2);
@@ -94,7 +94,7 @@ describe('sbb-file-selector', () => {
   });
 
   it('loads files in multiple persistent mode', async () => {
-    const fileChangedSpy = new EventSpy(SbbFileSelector.events.fileChangedEvent);
+    const fileChangedSpy = new EventSpy(SbbFileSelectorElement.events.fileChangedEvent);
     element.multiple = true;
     element.multipleMode = 'persistent';
     await waitForLitRender(element);

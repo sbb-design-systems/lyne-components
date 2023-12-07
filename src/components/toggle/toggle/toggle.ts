@@ -7,7 +7,7 @@ import { toggleDatasetEntry, setAttribute, isBrowser } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import { SbbCheckedStateChange, SbbStateChange, SbbValueStateChange } from '../../core/interfaces';
 import { AgnosticResizeObserver } from '../../core/observers';
-import type { SbbToggleOption } from '../toggle-option';
+import type { SbbToggleOptionElement } from '../toggle-option';
 
 import style from './toggle.scss?lit&inline';
 
@@ -24,7 +24,7 @@ export type SbbToggleStateChange = Extract<
  * @event {CustomEvent<void>} change - Emits whenever the toggle value changes.
  */
 @customElement('sbb-toggle')
-export class SbbToggle extends LitElement {
+export class SbbToggleElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -97,19 +97,21 @@ export class SbbToggle extends LitElement {
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    * Emits whenever the toggle value changes.
    */
-  private _didChange: EventEmitter = new EventEmitter(this, SbbToggle.events.didChange, {
+  private _didChange: EventEmitter = new EventEmitter(this, SbbToggleElement.events.didChange, {
     bubbles: true,
     composed: true,
   });
 
   /** Emits whenever the toggle value changes. */
-  private _change: EventEmitter = new EventEmitter(this, SbbToggle.events.change, {
+  private _change: EventEmitter = new EventEmitter(this, SbbToggleElement.events.change, {
     bubbles: true,
     composed: true,
   });
 
-  private get _options(): SbbToggleOption[] {
-    return Array.from(this.querySelectorAll?.('sbb-toggle-option') ?? []) as SbbToggleOption[];
+  private get _options(): SbbToggleOptionElement[] {
+    return Array.from(
+      this.querySelectorAll?.('sbb-toggle-option') ?? [],
+    ) as SbbToggleOptionElement[];
   }
 
   private _handleInput(): void {
@@ -118,7 +120,7 @@ export class SbbToggle extends LitElement {
   private _abort = new ConnectedAbortController(this);
 
   private _handleStateChange(event: CustomEvent<SbbToggleStateChange>): void {
-    const target: SbbToggleOption = event.target as SbbToggleOption;
+    const target: SbbToggleOptionElement = event.target as SbbToggleOptionElement;
     event.stopPropagation();
     if (event.detail.type === 'value') {
       this.value = event.detail.value;
@@ -220,7 +222,7 @@ export class SbbToggle extends LitElement {
 
     if (isArrowKeyPressed(evt)) {
       const checked: number = enabledToggleOptions.findIndex(
-        (toggleOption: SbbToggleOption) => toggleOption.checked,
+        (toggleOption: SbbToggleOptionElement) => toggleOption.checked,
       );
       const nextIndex: number = getNextElementIndex(evt, checked, enabledToggleOptions.length);
       if (!enabledToggleOptions[nextIndex].checked) {
@@ -247,6 +249,6 @@ export class SbbToggle extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-toggle': SbbToggle;
+    'sbb-toggle': SbbToggleElement;
   }
 }

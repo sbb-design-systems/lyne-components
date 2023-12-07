@@ -3,13 +3,13 @@ import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
-import { SbbFormField } from '../form-field';
-import { SbbOption } from '../option';
+import { SbbFormFieldElement } from '../form-field';
+import { SbbOptionElement } from '../option';
 
-import { SbbAutocomplete } from './autocomplete';
+import { SbbAutocompleteElement } from './autocomplete';
 
 describe('sbb-autocomplete', () => {
-  let element: SbbAutocomplete, formField: SbbFormField, input: HTMLInputElement;
+  let element: SbbAutocompleteElement, formField: SbbFormFieldElement, input: HTMLInputElement;
 
   beforeEach(async () => {
     formField = await fixture(html`
@@ -28,8 +28,8 @@ describe('sbb-autocomplete', () => {
   });
 
   it('renders and sets the correct attributes', () => {
-    assert.instanceOf(formField, SbbFormField);
-    assert.instanceOf(element, SbbAutocomplete);
+    assert.instanceOf(formField, SbbFormFieldElement);
+    assert.instanceOf(element, SbbAutocompleteElement);
 
     expect(element).not.to.have.attribute('autocomplete-origin-borderless');
 
@@ -43,10 +43,10 @@ describe('sbb-autocomplete', () => {
   });
 
   it('opens and closes with mouse and keyboard', async () => {
-    const willOpenEventSpy = new EventSpy(SbbAutocomplete.events.willOpen);
-    const didOpenEventSpy = new EventSpy(SbbAutocomplete.events.didOpen);
-    const willCloseEventSpy = new EventSpy(SbbAutocomplete.events.willClose);
-    const didCloseEventSpy = new EventSpy(SbbAutocomplete.events.didClose);
+    const willOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.willOpen);
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen);
+    const willCloseEventSpy = new EventSpy(SbbAutocompleteElement.events.willClose);
+    const didCloseEventSpy = new EventSpy(SbbAutocompleteElement.events.didClose);
 
     input.click();
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
@@ -95,9 +95,9 @@ describe('sbb-autocomplete', () => {
   });
 
   it('select by mouse', async () => {
-    const willOpenEventSpy = new EventSpy(SbbAutocomplete.events.willOpen);
-    const didOpenEventSpy = new EventSpy(SbbAutocomplete.events.didOpen);
-    const optionSelectedEventSpy = new EventSpy(SbbOption.events.optionSelected);
+    const willOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.willOpen);
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen);
+    const optionSelectedEventSpy = new EventSpy(SbbOptionElement.events.optionSelected);
 
     input.focus();
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
@@ -115,9 +115,9 @@ describe('sbb-autocomplete', () => {
   });
 
   it('opens and select with keyboard', async () => {
-    const didOpenEventSpy = new EventSpy(SbbAutocomplete.events.didOpen);
-    const didCloseEventSpy = new EventSpy(SbbAutocomplete.events.didClose);
-    const optionSelectedEventSpy = new EventSpy(SbbOption.events.optionSelected);
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen);
+    const didCloseEventSpy = new EventSpy(SbbAutocompleteElement.events.didClose);
+    const optionSelectedEventSpy = new EventSpy(SbbOptionElement.events.optionSelected);
     const optOne = element.querySelector('#option-1');
     const optTwo = element.querySelector('#option-2');
     input.focus();

@@ -3,11 +3,11 @@ import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../core/testing';
 
-import { SbbLinkList } from './link-list';
+import { SbbLinkListElement } from './link-list';
 import '../link';
 
 describe('sbb-link-list', () => {
-  let element: SbbLinkList;
+  let element: SbbLinkListElement;
 
   beforeEach(async () => {
     element = await fixture(html`
@@ -38,7 +38,7 @@ describe('sbb-link-list', () => {
   });
 
   it('renders', async () => {
-    assert.instanceOf(element, SbbLinkList);
+    assert.instanceOf(element, SbbLinkListElement);
   });
 
   describe('property sync', () => {

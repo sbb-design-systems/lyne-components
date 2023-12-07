@@ -4,17 +4,17 @@ import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
 
-import { SbbLink } from './link';
+import { SbbLinkElement } from './link';
 
 describe('sbb-link', () => {
-  let element: SbbLink;
+  let element: SbbLinkElement;
 
   beforeEach(async () => {
     element = await fixture(html`<sbb-link id="focus-id">Link as Button</sbb-link>`);
   });
 
   it('renders', async () => {
-    assert.instanceOf(element, SbbLink);
+    assert.instanceOf(element, SbbLinkElement);
   });
 
   describe('events', () => {

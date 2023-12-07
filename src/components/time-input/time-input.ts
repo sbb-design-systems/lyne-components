@@ -31,7 +31,7 @@ interface Time {
  * @event {CustomEvent<ValidationChangeEvent>} validationChange - Emits whenever the internal validation state changes.
  */
 @customElement('sbb-time-input')
-export class SbbTimeInput extends LitElement {
+export class SbbTimeInputElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -54,7 +54,7 @@ export class SbbTimeInput extends LitElement {
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
-  private _didChange: EventEmitter = new EventEmitter(this, SbbTimeInput.events.didChange, {
+  private _didChange: EventEmitter = new EventEmitter(this, SbbTimeInputElement.events.didChange, {
     bubbles: true,
     cancelable: true,
   });
@@ -62,7 +62,7 @@ export class SbbTimeInput extends LitElement {
   /** Emits whenever the internal validation state changes. */
   private _validationChange: EventEmitter<ValidationChangeEvent> = new EventEmitter(
     this,
-    SbbTimeInput.events.validationChange,
+    SbbTimeInputElement.events.validationChange,
     {
       bubbles: true,
       composed: false,
@@ -298,6 +298,6 @@ export class SbbTimeInput extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-time-input': SbbTimeInput;
+    'sbb-time-input': SbbTimeInputElement;
   }
 }

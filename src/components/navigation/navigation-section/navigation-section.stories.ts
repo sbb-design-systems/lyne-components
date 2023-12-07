@@ -7,7 +7,7 @@ import { html, TemplateResult } from 'lit';
 
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
 import { sbbSpread } from '../../core/dom';
-import type { SbbNavigationMarker, SbbNavigation } from '../index';
+import type { SbbNavigationMarkerElement, SbbNavigationElement } from '../index';
 
 import readme from './readme.md?raw';
 import '../../button';
@@ -100,7 +100,9 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
     ?disable-animation=${args['disable-animation']}
     @didClose=${(event: CustomEvent) =>
       (
-        (event.currentTarget as SbbNavigation).querySelector('#nav-marker') as SbbNavigationMarker
+        (event.currentTarget as SbbNavigationElement).querySelector(
+          '#nav-marker',
+        ) as SbbNavigationMarkerElement
       ).reset()}
   >
     <sbb-navigation-marker id="nav-marker">${navigationActionsL()}</sbb-navigation-marker>

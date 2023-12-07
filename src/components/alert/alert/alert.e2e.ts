@@ -3,19 +3,19 @@ import { html } from 'lit/static-html.js';
 
 import { waitForCondition, EventSpy } from '../../core/testing';
 
-import { SbbAlert } from './alert';
+import { SbbAlertElement } from './alert';
 
 describe('sbb-alert', () => {
-  let alert: SbbAlert;
+  let alert: SbbAlertElement;
 
   it('renders', async () => {
     alert = await fixture(html`<sbb-alert></sbb-alert>`);
-    assert.instanceOf(alert, SbbAlert);
+    assert.instanceOf(alert, SbbAlertElement);
   });
 
   it('should fire animation events', async () => {
-    const willPresentSpy = new EventSpy(SbbAlert.events.willPresent);
-    const didPresentSpy = new EventSpy(SbbAlert.events.didPresent);
+    const willPresentSpy = new EventSpy(SbbAlertElement.events.willPresent);
+    const didPresentSpy = new EventSpy(SbbAlertElement.events.didPresent);
 
     await fixture(html`<sbb-alert title-content="disruption">Interruption</sbb-alert>`);
 

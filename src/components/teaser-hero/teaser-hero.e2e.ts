@@ -4,19 +4,19 @@ import { html } from 'lit/static-html.js';
 import images from '../core/images';
 import { waitForLitRender } from '../core/testing';
 
-import { SbbTeaserHero } from './teaser-hero';
+import { SbbTeaserHeroElement } from './teaser-hero';
 import '.';
 import '../link';
 import '../image';
 
 describe('sbb-teaser-hero', () => {
-  let element: SbbTeaserHero;
+  let element: SbbTeaserHeroElement;
 
   it('renders', async () => {
     element = await fixture(
       html`<sbb-teaser-hero href="https://www.sbb.ch" image-src="${images[0]}"></sbb-teaser-hero>`,
     );
-    assert.instanceOf(element, SbbTeaserHero);
+    assert.instanceOf(element, SbbTeaserHeroElement);
   });
 
   it('should receive focus', async () => {

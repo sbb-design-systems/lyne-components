@@ -3,13 +3,13 @@ import { html } from 'lit/static-html.js';
 
 import { isFirefox } from '../core/dom';
 
-import type { SbbToast } from './toast';
+import type { SbbToastElement } from './toast';
 
 import './toast';
 
 describe('sbb-toast', () => {
   it('renders', async () => {
-    const root: SbbToast = await fixture(html`
+    const root: SbbToastElement = await fixture(html`
       <sbb-toast icon-name="circle-tick-small" dismissible> 'Lorem ipsum dolor' </sbb-toast>
     `);
 

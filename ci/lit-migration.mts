@@ -1064,7 +1064,7 @@ declare global {
       if (ts.isVariableStatement(node) && node.getText().match(/(element: E2EElement|page: E2EPage)/)) {
         mutator.insertAt(node, '/** NOTE: These are too hard to migrate and are prone to errors :/ \n'
         + '  * consider that the E2EPage is now the \'document\' (you should just delete it) \n'
-        + '  * and that the E2EElement equivalent is directly the SbbComponent (e.g. SbbTimeInput) */ \n');
+        + '  * and that the E2EElement equivalent is directly the SbbComponent (e.g. SbbTimeInputElement) */ \n');
       }
 
       if (ts.isCallExpression(node) && (node.expression.getText() === 'it' || node.expression.getText() === 'beforeEach')) {

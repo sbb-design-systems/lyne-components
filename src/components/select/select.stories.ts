@@ -16,11 +16,11 @@ import { styleMap, StyleInfo } from 'lit/directives/style-map.js';
 import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
 import { sbbSpread } from '../core/dom';
-import type { SbbFormError } from '../form-error';
-import { SbbOption } from '../option';
+import type { SbbFormErrorElement } from '../form-error';
+import { SbbOptionElement } from '../option';
 
 import readme from './readme.md?raw';
-import { SbbSelect } from './select';
+import { SbbSelectElement } from './select';
 import '../form-error';
 import '../form-field';
 
@@ -375,7 +375,7 @@ const FormFieldTemplateWithError = ({
   if (args.multiple && args.value) {
     args.value = [args.value];
   }
-  const sbbFormError: SbbFormError = document.createElement('sbb-form-error');
+  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
   sbbFormError.textContent = 'Error';
 
   return html`
@@ -639,12 +639,12 @@ const meta: Meta = {
     chromatic: { disableSnapshot: false },
     actions: {
       handles: [
-        SbbSelect.events.change,
-        SbbSelect.events.didClose,
-        SbbSelect.events.didOpen,
-        SbbSelect.events.willClose,
-        SbbSelect.events.willOpen,
-        SbbOption.events.optionSelected,
+        SbbSelectElement.events.change,
+        SbbSelectElement.events.didClose,
+        SbbSelectElement.events.didOpen,
+        SbbSelectElement.events.willClose,
+        SbbSelectElement.events.willOpen,
+        SbbOptionElement.events.optionSelected,
       ],
     },
     backgrounds: {

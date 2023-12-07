@@ -1,13 +1,13 @@
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbFooter } from './footer';
+import { SbbFooterElement } from './footer';
 
 describe('sbb-footer', () => {
-  let element: SbbFooter;
+  let element: SbbFooterElement;
 
   it('renders', async () => {
     element = await fixture(html`<sbb-footer></sbb-footer>`);
-    assert.instanceOf(element, SbbFooter);
+    assert.instanceOf(element, SbbFooterElement);
   });
 });

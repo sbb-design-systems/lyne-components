@@ -21,7 +21,7 @@ const defaultArgTypes = {
   config,
 };
 
-export const SbbTimetableRowColumnHeaders: StoryObj = {
+export const SbbTimetableRowColumnHeadersElement: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {

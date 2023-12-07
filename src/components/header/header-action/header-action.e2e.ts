@@ -4,17 +4,17 @@ import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
 
-import { SbbHeaderAction } from './header-action';
+import { SbbHeaderActionElement } from './header-action';
 
 describe('sbb-header-action', () => {
-  let element: SbbHeaderAction;
+  let element: SbbHeaderActionElement;
 
   beforeEach(async () => {
     element = await fixture(html`<sbb-header-action id="focus-id">Action</sbb-header-action>`);
   });
 
   it('renders', async () => {
-    assert.instanceOf(element, SbbHeaderAction);
+    assert.instanceOf(element, SbbHeaderActionElement);
   });
 
   describe('events', () => {

@@ -21,7 +21,7 @@ import {
   targetsNewWindow,
 } from '../../core/interfaces';
 import { AgnosticMutationObserver } from '../../core/observers';
-import type { SbbCard } from '../card';
+import type { SbbCardElement } from '../card';
 
 import style from './card-action.scss?lit&inline';
 
@@ -32,7 +32,7 @@ import style from './card-action.scss?lit&inline';
  *   This is relevant for SEO and screen readers.
  */
 @customElement('sbb-card-action')
-export class SbbCardAction extends LitElement implements LinkButtonProperties {
+export class SbbCardActionElement extends LitElement implements LinkButtonProperties {
   public static override styles: CSSResultGroup = style;
 
   /** Whether the card is active. */
@@ -79,7 +79,7 @@ export class SbbCardAction extends LitElement implements LinkButtonProperties {
   }
 
   private _abortController = new AbortController();
-  private _card: SbbCard | null = null;
+  private _card: SbbCardElement | null = null;
   private _cardMutationObserver = new AgnosticMutationObserver(() =>
     this._checkForSlottedActions(),
   );
@@ -170,6 +170,6 @@ export class SbbCardAction extends LitElement implements LinkButtonProperties {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-card-action': SbbCardAction;
+    'sbb-card-action': SbbCardActionElement;
   }
 }

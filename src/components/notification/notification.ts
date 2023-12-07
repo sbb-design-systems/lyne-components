@@ -40,7 +40,7 @@ const notificationTypes = new Map([
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-notification` is closed.
  */
 @customElement('sbb-notification')
-export class SbbNotification extends LitElement {
+export class SbbNotificationElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -95,16 +95,28 @@ export class SbbNotification extends LitElement {
   );
 
   /** Emits whenever the `sbb-notification` starts the opening transition. */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbNotification.events.willOpen);
+  private _willOpen: EventEmitter<void> = new EventEmitter(
+    this,
+    SbbNotificationElement.events.willOpen,
+  );
 
   /** Emits whenever the `sbb-notification` is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbNotification.events.didOpen);
+  private _didOpen: EventEmitter<void> = new EventEmitter(
+    this,
+    SbbNotificationElement.events.didOpen,
+  );
 
   /** Emits whenever the `sbb-notification` begins the closing transition. */
-  private _willClose: EventEmitter<void> = new EventEmitter(this, SbbNotification.events.willClose);
+  private _willClose: EventEmitter<void> = new EventEmitter(
+    this,
+    SbbNotificationElement.events.willClose,
+  );
 
   /** Emits whenever the `sbb-notification` is closed. */
-  private _didClose: EventEmitter<void> = new EventEmitter(this, SbbNotification.events.didClose);
+  private _didClose: EventEmitter<void> = new EventEmitter(
+    this,
+    SbbNotificationElement.events.didClose,
+  );
 
   public close(): void {
     if (this._state === 'opened') {
@@ -245,6 +257,6 @@ export class SbbNotification extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-notification': SbbNotification;
+    'sbb-notification': SbbNotificationElement;
   }
 }

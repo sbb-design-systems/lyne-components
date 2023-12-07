@@ -11,7 +11,7 @@ import style from './card.scss?lit&inline';
  * @slot action - Use this slot to render a `sbb-card-action` component.
  */
 @customElement('sbb-card')
-export class SbbCard extends LitElement {
+export class SbbCardElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Size variant, either xs, s, m, l, xl, xxl or xxxl. */
@@ -53,6 +53,6 @@ export class SbbCard extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-card': SbbCard;
+    'sbb-card': SbbCardElement;
   }
 }

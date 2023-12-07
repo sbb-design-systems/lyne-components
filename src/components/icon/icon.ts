@@ -7,7 +7,7 @@ import { SbbIconBase } from './icon-base';
  * It displays an icon loaded from a registered namespace.
  */
 @customElement('sbb-icon')
-export class SbbIcon extends SbbIconBase {
+export class SbbIconElement extends SbbIconBase {
   /**
    * The provided name consisting of the namespace and the name of the icon.
    * If the namespace is missing, the default namespace "sbb" will be used.
@@ -51,6 +51,6 @@ export class SbbIcon extends SbbIconBase {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-icon': SbbIcon;
+    'sbb-icon': SbbIconElement;
   }
 }

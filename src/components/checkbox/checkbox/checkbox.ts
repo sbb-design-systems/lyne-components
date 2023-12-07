@@ -50,7 +50,7 @@ const checkboxObserverConfig: MutationObserverInit = {
  * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  */
 @customElement('sbb-checkbox')
-export class SbbCheckbox extends LitElement {
+export class SbbCheckboxElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -115,7 +115,7 @@ export class SbbCheckbox extends LitElement {
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
-  private _didChange: EventEmitter = new EventEmitter(this, SbbCheckbox.events.didChange, {
+  private _didChange: EventEmitter = new EventEmitter(this, SbbCheckboxElement.events.didChange, {
     bubbles: true,
     cancelable: true,
   });
@@ -127,7 +127,7 @@ export class SbbCheckbox extends LitElement {
    */
   private _stateChange: EventEmitter<SbbCheckboxStateChange> = new EventEmitter(
     this,
-    SbbCheckbox.events.stateChange,
+    SbbCheckboxElement.events.stateChange,
     { bubbles: true },
   );
 
@@ -137,7 +137,7 @@ export class SbbCheckbox extends LitElement {
    */
   private _checkboxLoaded: EventEmitter<void> = new EventEmitter(
     this,
-    SbbCheckbox.events.checkboxLoaded,
+    SbbCheckboxElement.events.checkboxLoaded,
     { bubbles: true },
   );
 
@@ -336,6 +336,6 @@ export class SbbCheckbox extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-checkbox': SbbCheckbox;
+    'sbb-checkbox': SbbCheckboxElement;
   }
 }

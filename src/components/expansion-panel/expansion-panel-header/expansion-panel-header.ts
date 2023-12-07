@@ -11,7 +11,7 @@ import {
   ConnectedAbortController,
 } from '../../core/eventing';
 import { resolveButtonRenderVariables } from '../../core/interfaces';
-import type { SbbExpansionPanel } from '../expansion-panel';
+import type { SbbExpansionPanelElement } from '../expansion-panel';
 
 import style from './expansion-panel-header.scss?lit&inline';
 import '../../icon';
@@ -24,7 +24,7 @@ import '../../icon';
  * @event {CustomEvent<void>} toggleExpanded - Notifies that the `sbb-expansion-panel` has to expand.
  */
 @customElement('sbb-expansion-panel-header')
-export class SbbExpansionPanelHeader extends LitElement {
+export class SbbExpansionPanelHeaderElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     toggleExpanded: 'toggleExpanded',
@@ -46,7 +46,7 @@ export class SbbExpansionPanelHeader extends LitElement {
   /** Notifies that the `sbb-expansion-panel` has to expand. */
   private _toggleExpanded: EventEmitter = new EventEmitter(
     this,
-    SbbExpansionPanelHeader.events.toggleExpanded,
+    SbbExpansionPanelHeaderElement.events.toggleExpanded,
     {
       bubbles: true,
     },
@@ -80,7 +80,7 @@ export class SbbExpansionPanelHeader extends LitElement {
   }
 
   private _onMouseMovement(toggleDataAttribute: boolean): void {
-    const parent: SbbExpansionPanel = this.closest('sbb-expansion-panel');
+    const parent: SbbExpansionPanelElement = this.closest('sbb-expansion-panel');
     // The `sbb.hover-mq` logic has been removed from scss, but it must be replicated to have the correct behavior on mobile.
     if (!toggleDataAttribute || (parent && window.matchMedia('(any-hover: hover)').matches)) {
       toggleDatasetEntry(parent, 'toggleHover', toggleDataAttribute);
@@ -123,6 +123,6 @@ export class SbbExpansionPanelHeader extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-expansion-panel-header': SbbExpansionPanelHeader;
+    'sbb-expansion-panel-header': SbbExpansionPanelHeaderElement;
   }
 }

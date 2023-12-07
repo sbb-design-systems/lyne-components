@@ -3,15 +3,15 @@ import { sendKeys } from '@web/test-runner-commands';
 import { TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbCheckbox, SbbCheckboxGroup } from '../checkbox';
+import { SbbCheckboxElement, SbbCheckboxGroupElement } from '../checkbox';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
-import { SbbRadioButton, SbbRadioButtonGroup } from '../radio-button';
+import { SbbRadioButtonElement, SbbRadioButtonGroupElement } from '../radio-button';
 
-import { SbbSelectionPanel } from './selection-panel';
+import { SbbSelectionPanelElement } from './selection-panel';
 import '../link';
 
 describe('sbb-selection-panel', () => {
-  let elements: SbbSelectionPanel[];
+  let elements: SbbSelectionPanelElement[];
 
   const getPageContent = (inputType: string): TemplateResult => {
     const tagGroupElement = unsafeStatic(`sbb-${inputType}-group`);
@@ -110,14 +110,14 @@ describe('sbb-selection-panel', () => {
   };
 
   describe('with radio buttons', () => {
-    let wrapper: SbbRadioButtonGroup;
-    let firstPanel: SbbSelectionPanel;
-    let firstInput: SbbRadioButton;
+    let wrapper: SbbRadioButtonGroupElement;
+    let firstPanel: SbbSelectionPanelElement;
+    let firstInput: SbbRadioButtonElement;
     let firstContent: HTMLDivElement;
-    let secondPanel: SbbSelectionPanel;
-    let secondInput: SbbRadioButton;
+    let secondPanel: SbbSelectionPanelElement;
+    let secondInput: SbbRadioButtonElement;
     let secondContent: HTMLDivElement;
-    let disabledInput: SbbRadioButton;
+    let disabledInput: SbbRadioButtonElement;
 
     beforeEach(async () => {
       await fixture(getPageContent('radio-button'));
@@ -135,17 +135,17 @@ describe('sbb-selection-panel', () => {
     });
 
     it('renders', () => {
-      elements.forEach((e) => assert.instanceOf(e, SbbSelectionPanel));
+      elements.forEach((e) => assert.instanceOf(e, SbbSelectionPanelElement));
     });
 
     it('selects input on click and shows related content', async () => {
-      assert.instanceOf(firstPanel, SbbSelectionPanel);
-      assert.instanceOf(firstInput, SbbRadioButton);
+      assert.instanceOf(firstPanel, SbbSelectionPanelElement);
+      assert.instanceOf(firstInput, SbbRadioButtonElement);
       expect(firstInput).not.to.have.attribute('checked');
       expect(firstContent).not.to.have.attribute('data-expanded');
 
-      assert.instanceOf(secondPanel, SbbSelectionPanel);
-      assert.instanceOf(secondInput, SbbRadioButton);
+      assert.instanceOf(secondPanel, SbbSelectionPanelElement);
+      assert.instanceOf(secondInput, SbbRadioButtonElement);
       expect(secondInput).not.to.have.attribute('checked');
       expect(secondContent).not.to.have.attribute('data-expanded');
 
@@ -197,7 +197,7 @@ describe('sbb-selection-panel', () => {
     });
 
     it('focuses input on left arrow key pressed and selects it on space key pressed', async () => {
-      const fourthInput: SbbRadioButton = document.querySelector('#sbb-input-4');
+      const fourthInput: SbbRadioButtonElement = document.querySelector('#sbb-input-4');
 
       firstInput.click();
       firstInput.focus();
@@ -232,7 +232,7 @@ describe('sbb-selection-panel', () => {
   });
 
   describe('with nested radio buttons', () => {
-    let nestedElement: SbbRadioButtonGroup;
+    let nestedElement: SbbRadioButtonGroupElement;
 
     beforeEach(async () => {
       nestedElement = await fixture(html`
@@ -257,13 +257,13 @@ describe('sbb-selection-panel', () => {
     });
 
     it('should display expanded label correctly', async () => {
-      const mainRadioButton1: SbbRadioButton = document.querySelector(
+      const mainRadioButton1: SbbRadioButtonElement = document.querySelector(
         "sbb-radio-button[value='main1']",
       );
       const mainRadioButton1Label = mainRadioButton1.shadowRoot.querySelector(
         '.sbb-radio-button__expanded-label',
       );
-      const mainRadioButton2: SbbRadioButton = document.querySelector(
+      const mainRadioButton2: SbbRadioButtonElement = document.querySelector(
         "sbb-radio-button[value='main2']",
       );
       const mainRadioButton2Label = mainRadioButton2.shadowRoot.querySelector(
@@ -291,7 +291,7 @@ describe('sbb-selection-panel', () => {
       nestedElement.setAttribute('disabled', '');
       await waitForLitRender(nestedElement);
 
-      const radioButtons: SbbRadioButton[] = Array.from(
+      const radioButtons: SbbRadioButtonElement[] = Array.from(
         document.querySelectorAll('sbb-radio-button'),
       );
 
@@ -305,9 +305,13 @@ describe('sbb-selection-panel', () => {
     });
 
     it('should not with interfere content on selection', async () => {
-      const main1: SbbRadioButton = document.querySelector('sbb-radio-button[value="main1"]');
-      const main2: SbbRadioButton = document.querySelector('sbb-radio-button[value="main2"]');
-      const sub1: SbbRadioButton = document.querySelector('sbb-radio-button[value="sub1"]');
+      const main1: SbbRadioButtonElement = document.querySelector(
+        'sbb-radio-button[value="main1"]',
+      );
+      const main2: SbbRadioButtonElement = document.querySelector(
+        'sbb-radio-button[value="main2"]',
+      );
+      const sub1: SbbRadioButtonElement = document.querySelector('sbb-radio-button[value="sub1"]');
 
       expect(main1).to.have.attribute('checked');
       expect(main2).not.to.have.attribute('checked');
@@ -369,14 +373,14 @@ describe('sbb-selection-panel', () => {
   });
 
   describe('with checkboxes', () => {
-    let wrapper: SbbCheckboxGroup;
-    let firstPanel: SbbSelectionPanel;
-    let firstInput: SbbCheckbox;
+    let wrapper: SbbCheckboxGroupElement;
+    let firstPanel: SbbSelectionPanelElement;
+    let firstInput: SbbCheckboxElement;
     let firstContent: HTMLDivElement;
-    let secondPanel: SbbSelectionPanel;
-    let secondInput: SbbCheckbox;
+    let secondPanel: SbbSelectionPanelElement;
+    let secondInput: SbbCheckboxElement;
     let secondContent: HTMLDivElement;
-    let disabledInput: SbbCheckbox;
+    let disabledInput: SbbCheckboxElement;
 
     beforeEach(async () => {
       await fixture(getPageContent('checkbox'));
@@ -394,17 +398,17 @@ describe('sbb-selection-panel', () => {
     });
 
     it('renders', () => {
-      elements.forEach((e) => assert.instanceOf(e, SbbSelectionPanel));
+      elements.forEach((e) => assert.instanceOf(e, SbbSelectionPanelElement));
     });
 
     it('selects input on click and shows related content', async () => {
-      assert.instanceOf(firstPanel, SbbSelectionPanel);
-      assert.instanceOf(firstInput, SbbCheckbox);
+      assert.instanceOf(firstPanel, SbbSelectionPanelElement);
+      assert.instanceOf(firstInput, SbbCheckboxElement);
       expect(firstInput).to.have.attribute('checked');
       expect(firstContent).to.have.attribute('data-expanded', '');
 
-      assert.instanceOf(secondPanel, SbbSelectionPanel);
-      assert.instanceOf(secondInput, SbbCheckbox);
+      assert.instanceOf(secondPanel, SbbSelectionPanelElement);
+      assert.instanceOf(secondInput, SbbCheckboxElement);
       expect(secondInput).not.to.have.attribute('checked');
       expect(secondContent).not.to.have.attribute('data-expanded');
 
@@ -461,7 +465,7 @@ describe('sbb-selection-panel', () => {
     });
 
     it('focuses input on left arrow key pressed and selects it on space key pressed', async () => {
-      const fourthInput: SbbRadioButton = document.querySelector('#sbb-input-4');
+      const fourthInput: SbbRadioButtonElement = document.querySelector('#sbb-input-4');
 
       firstInput.click();
       firstInput.focus();
@@ -500,7 +504,7 @@ describe('sbb-selection-panel', () => {
   });
 
   describe('with nested checkboxes', () => {
-    let nestedElement: SbbCheckboxGroup;
+    let nestedElement: SbbCheckboxGroupElement;
 
     beforeEach(async () => {
       nestedElement = await fixture(html`
@@ -525,11 +529,15 @@ describe('sbb-selection-panel', () => {
     });
 
     it('should display expanded label correctly', async () => {
-      const mainCheckbox1: SbbCheckbox = document.querySelector("sbb-checkbox[value='main1']");
+      const mainCheckbox1: SbbCheckboxElement = document.querySelector(
+        "sbb-checkbox[value='main1']",
+      );
       const mainCheckbox1Label = mainCheckbox1.shadowRoot.querySelector(
         '.sbb-checkbox__expanded-label',
       );
-      const mainCheckbox2: SbbCheckbox = document.querySelector("sbb-checkbox[value='main2']");
+      const mainCheckbox2: SbbCheckboxElement = document.querySelector(
+        "sbb-checkbox[value='main2']",
+      );
       const mainCheckbox2Label = mainCheckbox2.shadowRoot.querySelector(
         '.sbb-checkbox__expanded-label',
       );
@@ -558,7 +566,9 @@ describe('sbb-selection-panel', () => {
       nestedElement.setAttribute('disabled', '');
       await waitForLitRender(nestedElement);
 
-      const checkboxes: SbbCheckbox[] = Array.from(document.querySelectorAll('sbb-checkbox'));
+      const checkboxes: SbbCheckboxElement[] = Array.from(
+        document.querySelectorAll('sbb-checkbox'),
+      );
 
       expect(checkboxes.length).to.be.equal(6);
       expect(checkboxes[0]).to.have.attribute('data-group-disabled');

@@ -84,7 +84,7 @@ export type CalendarView = 'day' | 'month' | 'year';
  * @event {CustomEvent<Date>} dateSelected - Event emitted on date selection.
  */
 @customElement('sbb-calendar')
-export class SbbCalendar extends LitElement {
+export class SbbCalendarElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     dateSelected: 'dateSelected',
@@ -108,7 +108,7 @@ export class SbbCalendar extends LitElement {
   /** Event emitted on date selection. */
   private _dateSelected: EventEmitter<Date> = new EventEmitter(
     this,
-    SbbCalendar.events.dateSelected,
+    SbbCalendarElement.events.dateSelected,
   );
 
   /** The currently active date. */
@@ -1232,6 +1232,6 @@ export class SbbCalendar extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-calendar': SbbCalendar;
+    'sbb-calendar': SbbCalendarElement;
   }
 }

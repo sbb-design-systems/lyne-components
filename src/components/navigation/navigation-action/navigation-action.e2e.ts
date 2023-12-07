@@ -4,11 +4,11 @@ import { html } from 'lit/static-html.js';
 
 import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
 
-import { SbbNavigationAction } from './navigation-action';
+import { SbbNavigationActionElement } from './navigation-action';
 import '.';
 
 describe('sbb-navigation-action', () => {
-  let element: SbbNavigationAction;
+  let element: SbbNavigationActionElement;
 
   beforeEach(async () => {
     element = await fixture(
@@ -67,7 +67,7 @@ describe('sbb-navigation-action', () => {
 
   it('renders as a button and triggers click event', async () => {
     element = await fixture(html`<sbb-navigation-action>Label</sbb-navigation-action>`);
-    assert.instanceOf(element, SbbNavigationAction);
+    assert.instanceOf(element, SbbNavigationActionElement);
 
     const clickedSpy = new EventSpy('click');
     element.click();

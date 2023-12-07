@@ -4,7 +4,7 @@ import { SinonStub, stub } from 'sinon';
 
 import { i18nOccupancy } from '../core/i18n';
 
-import { SbbTimetableOccupancyIcon } from './timetable-occupancy-icon';
+import { SbbTimetableOccupancyIconElement } from './timetable-occupancy-icon';
 
 describe('sbb-timetable-occupancy-icon', () => {
   let matchMediaStub: SinonStub<[query: string], MediaQueryList>;
@@ -38,10 +38,10 @@ describe('sbb-timetable-occupancy-icon', () => {
       matches: false,
       media: '(prefer-color-scheme: dark)',
     });
-    const element: SbbTimetableOccupancyIcon = await fixture(
+    const element: SbbTimetableOccupancyIconElement = await fixture(
       html` <sbb-timetable-occupancy-icon occupancy="low"></sbb-timetable-occupancy-icon>`,
     );
-    assert.instanceOf(element, SbbTimetableOccupancyIcon);
+    assert.instanceOf(element, SbbTimetableOccupancyIconElement);
     expect(element.getAttribute('aria-label')).to.equal(i18nOccupancy.low.en);
     await expect(element).shadowDom.to.equalSnapshot();
   });
@@ -57,10 +57,10 @@ describe('sbb-timetable-occupancy-icon', () => {
       matches: false,
       media: '(prefer-color-scheme: dark)',
     });
-    const element: SbbTimetableOccupancyIcon = await fixture(
+    const element: SbbTimetableOccupancyIconElement = await fixture(
       html` <sbb-timetable-occupancy-icon occupancy="medium"></sbb-timetable-occupancy-icon>`,
     );
-    assert.instanceOf(element, SbbTimetableOccupancyIcon);
+    assert.instanceOf(element, SbbTimetableOccupancyIconElement);
     expect(element.getAttribute('aria-label')).to.equal(i18nOccupancy.medium.en);
     await expect(element).shadowDom.to.equalSnapshot();
   });
@@ -76,10 +76,10 @@ describe('sbb-timetable-occupancy-icon', () => {
       matches: true,
       media: '(prefer-color-scheme: dark)',
     });
-    const element: SbbTimetableOccupancyIcon = await fixture(
+    const element: SbbTimetableOccupancyIconElement = await fixture(
       html` <sbb-timetable-occupancy-icon occupancy="medium"></sbb-timetable-occupancy-icon>`,
     );
-    assert.instanceOf(element, SbbTimetableOccupancyIcon);
+    assert.instanceOf(element, SbbTimetableOccupancyIconElement);
     expect(element.getAttribute('aria-label')).to.equal(i18nOccupancy.medium.en);
     await expect(element).shadowDom.to.equalSnapshot();
   });

@@ -30,7 +30,7 @@ import '../image';
  * @slot image - The background image that can be a `sbb-image`
  */
 @customElement('sbb-teaser-hero')
-export class SbbTeaserHero extends LitElement implements LinkProperties {
+export class SbbTeaserHeroElement extends LitElement implements LinkProperties {
   public static override styles: CSSResultGroup = style;
 
   /** The href value you want to link to. */
@@ -125,6 +125,6 @@ export class SbbTeaserHero extends LitElement implements LinkProperties {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-teaser-hero': SbbTeaserHero;
+    'sbb-teaser-hero': SbbTeaserHeroElement;
   }
 }

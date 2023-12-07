@@ -10,7 +10,7 @@ import {
   namedSlotChangeHandlerAspect,
 } from '../../core/eventing';
 import '../../icon';
-import type { SbbToggle, SbbToggleStateChange } from '../toggle';
+import type { SbbToggleElement, SbbToggleStateChange } from '../toggle';
 
 import style from './toggle-option.scss?lit&inline';
 
@@ -21,7 +21,7 @@ import style from './toggle-option.scss?lit&inline';
  * @slot icon - Slot used to render the `sbb-icon`.
  */
 @customElement('sbb-toggle-option')
-export class SbbToggleOption extends LitElement {
+export class SbbToggleOptionElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     stateChange: 'stateChange',
@@ -85,7 +85,7 @@ export class SbbToggleOption extends LitElement {
    */
   @state() private _namedSlots = createNamedSlotState('icon');
 
-  private _toggle?: SbbToggle;
+  private _toggle?: SbbToggleElement;
 
   private _handlerRepository = new HandlerRepository(
     this,
@@ -99,7 +99,7 @@ export class SbbToggleOption extends LitElement {
    */
   private _stateChange: EventEmitter<SbbToggleStateChange> = new EventEmitter(
     this,
-    SbbToggleOption.events.stateChange,
+    SbbToggleOptionElement.events.stateChange,
     { bubbles: true },
   );
 
@@ -205,6 +205,6 @@ export class SbbToggleOption extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-toggle-option': SbbToggleOption;
+    'sbb-toggle-option': SbbToggleOptionElement;
   }
 }

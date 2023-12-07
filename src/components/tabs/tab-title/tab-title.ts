@@ -20,7 +20,7 @@ import '../../icon';
  * @slot amount - Provide a number to show an amount to the right of the title.
  */
 @customElement('sbb-tab-title')
-export class SbbTabTitle extends LitElement {
+export class SbbTabTitleElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -99,6 +99,6 @@ export class SbbTabTitle extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-tab-title': SbbTabTitle;
+    'sbb-tab-title': SbbTabTitleElement;
   }
 }

@@ -3,13 +3,13 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import type { SbbToggleOption } from '../toggle-option';
+import type { SbbToggleOptionElement } from '../toggle-option';
 import '../toggle-option';
 
-import { SbbToggle } from './toggle';
+import { SbbToggleElement } from './toggle';
 
 describe('sbb-toggle', () => {
-  let element: SbbToggle;
+  let element: SbbToggleElement;
 
   beforeEach(async () => {
     element = await fixture(html`
@@ -21,7 +21,7 @@ describe('sbb-toggle', () => {
   });
 
   it('renders', () => {
-    assert.instanceOf(element, SbbToggle);
+    assert.instanceOf(element, SbbToggleElement);
   });
 
   describe('events', () => {
@@ -31,7 +31,7 @@ describe('sbb-toggle', () => {
       );
       const secondOption = document.querySelector(
         'sbb-toggle > sbb-toggle-option#sbb-toggle-option-2',
-      ) as SbbToggleOption;
+      ) as SbbToggleOptionElement;
 
       expect(firstOption).to.have.attribute('checked');
 
@@ -63,10 +63,10 @@ describe('sbb-toggle', () => {
     it('dispatches event on option change', async () => {
       const firstOption = document.querySelector(
         'sbb-toggle > sbb-toggle-option#sbb-toggle-option-1',
-      ) as SbbToggleOption;
+      ) as SbbToggleOptionElement;
       const secondOption = document.querySelector(
         'sbb-toggle > sbb-toggle-option#sbb-toggle-option-2',
-      ) as SbbToggleOption;
+      ) as SbbToggleOptionElement;
       const changeSpy = new EventSpy('change');
       const inputSpy = new EventSpy('input');
 
@@ -84,10 +84,10 @@ describe('sbb-toggle', () => {
     it('prevents selection with disabled state', async () => {
       const firstOption = document.querySelector(
         'sbb-toggle > sbb-toggle-option#sbb-toggle-option-1',
-      ) as SbbToggleOption;
+      ) as SbbToggleOptionElement;
       const secondOption = document.querySelector(
         'sbb-toggle > sbb-toggle-option#sbb-toggle-option-2',
-      ) as SbbToggleOption;
+      ) as SbbToggleOptionElement;
 
       element.disabled = true;
       await waitForLitRender(element);
@@ -111,10 +111,10 @@ describe('sbb-toggle', () => {
       const inputSpy = new EventSpy('input');
       const firstOption = document.querySelector(
         'sbb-toggle > sbb-toggle-option#sbb-toggle-option-1',
-      ) as SbbToggleOption;
+      ) as SbbToggleOptionElement;
       const secondOption = document.querySelector(
         'sbb-toggle > sbb-toggle-option#sbb-toggle-option-2',
-      ) as SbbToggleOption;
+      ) as SbbToggleOptionElement;
 
       firstOption.focus();
       await sendKeys({ down: 'ArrowLeft' });
@@ -137,10 +137,10 @@ describe('sbb-toggle', () => {
       const inputSpy = new EventSpy('input');
       const firstOption = document.querySelector(
         'sbb-toggle > sbb-toggle-option#sbb-toggle-option-1',
-      ) as SbbToggleOption;
+      ) as SbbToggleOptionElement;
       const secondOption = document.querySelector(
         'sbb-toggle > sbb-toggle-option#sbb-toggle-option-2',
-      ) as SbbToggleOption;
+      ) as SbbToggleOptionElement;
 
       firstOption.focus();
       await waitForLitRender(firstOption);

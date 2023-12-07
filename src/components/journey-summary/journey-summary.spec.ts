@@ -3,7 +3,10 @@ import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../core/testing';
 
-import type { SbbJourneySummary, InterfaceSbbJourneySummaryAttributes } from './journey-summary';
+import type {
+  SbbJourneySummaryElement,
+  InterfaceSbbJourneySummaryAttributes,
+} from './journey-summary';
 
 import './journey-summary';
 
@@ -37,7 +40,7 @@ describe('sbb-journey-summary', () => {
   it('renders', async () => {
     const root = (await fixture(
       html` <sbb-journey-summary data-now="${now}"></sbb-journey-summary>`,
-    )) as SbbJourneySummary;
+    )) as SbbJourneySummaryElement;
     root.trip = data;
 
     await waitForLitRender(root);
@@ -81,7 +84,7 @@ describe('sbb-journey-summary', () => {
   it('renders without vias', async () => {
     const root = (await fixture(
       html` <sbb-journey-summary data-now="${now}"></sbb-journey-summary>`,
-    )) as SbbJourneySummary;
+    )) as SbbJourneySummaryElement;
     root.trip = dataWithoutVia;
 
     await waitForLitRender(root);
@@ -115,7 +118,7 @@ describe('sbb-journey-summary', () => {
   it('renders with second journey', async () => {
     const root = (await fixture(
       html` <sbb-journey-summary data-now="${now}"></sbb-journey-summary>`,
-    )) as SbbJourneySummary;
+    )) as SbbJourneySummaryElement;
     root.trip = dataWithoutVia;
     root.tripBack = data;
     root.roundTrip = true;

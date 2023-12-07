@@ -11,7 +11,7 @@ import style from './timetable-barrier-free.scss?lit&inline';
  * Used in `sbb-timetable-row`, it displays information about barriers for screen-readers.
  */
 @customElement('sbb-timetable-barrier-free')
-export class SbbTimetableBarrierFree extends LitElement {
+export class SbbTimetableBarrierFreeElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -60,6 +60,6 @@ export class SbbTimetableBarrierFree extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-timetable-barrier-free': SbbTimetableBarrierFree;
+    'sbb-timetable-barrier-free': SbbTimetableBarrierFreeElement;
   }
 }

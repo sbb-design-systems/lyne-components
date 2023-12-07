@@ -29,7 +29,7 @@ import '../../icon';
  * @slot icon - Use this to display an icon as breadcrumb.
  */
 @customElement('sbb-breadcrumb')
-export class SbbBreadcrumb extends SlotChildObserver(LitElement) {
+export class SbbBreadcrumbElement extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** The href value you want to link to. */
@@ -119,6 +119,6 @@ export class SbbBreadcrumb extends SlotChildObserver(LitElement) {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-breadcrumb': SbbBreadcrumb;
+    'sbb-breadcrumb': SbbBreadcrumbElement;
   }
 }

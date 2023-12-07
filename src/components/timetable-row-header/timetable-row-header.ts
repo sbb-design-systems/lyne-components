@@ -7,7 +7,7 @@ import style from './timetable-row-header.scss?lit&inline';
  * Used in `sbb-timetable-row`, it displays information for screen-readers.
  */
 @customElement('sbb-timetable-row-header')
-export class SbbTimetableRowHeader extends LitElement {
+export class SbbTimetableRowHeaderElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   @property() public config!: string;
@@ -29,6 +29,6 @@ export class SbbTimetableRowHeader extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-timetable-row-header': SbbTimetableRowHeader;
+    'sbb-timetable-row-header': SbbTimetableRowHeaderElement;
   }
 }

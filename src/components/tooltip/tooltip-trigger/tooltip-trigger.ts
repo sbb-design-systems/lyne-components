@@ -14,7 +14,7 @@ import '../../icon';
  * @slot - Use the unnamed slot to add content to the `sbb-tooltip-trigger`.
  */
 @customElement('sbb-tooltip-trigger')
-export class SbbTooltipTrigger extends LitElement {
+export class SbbTooltipTriggerElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** The name attribute to use for the button. */
@@ -67,6 +67,6 @@ export class SbbTooltipTrigger extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-tooltip-trigger': SbbTooltipTrigger;
+    'sbb-tooltip-trigger': SbbTooltipTriggerElement;
   }
 }

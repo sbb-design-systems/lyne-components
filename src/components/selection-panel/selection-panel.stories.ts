@@ -6,10 +6,10 @@ import { html, TemplateResult } from 'lit';
 import { styleMap, StyleInfo } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../core/dom';
-import type { SbbFormError } from '../form-error';
+import type { SbbFormErrorElement } from '../form-error';
 
 import readme from './readme.md?raw';
-import { SbbSelectionPanel } from './selection-panel';
+import { SbbSelectionPanelElement } from './selection-panel';
 import '../card';
 import '../checkbox';
 import '../divider';
@@ -359,7 +359,7 @@ const WithCheckboxesErrorMessageTemplate = ({
   disabledInput,
   ...args
 }: Args): TemplateResult => {
-  const sbbFormError: SbbFormError = document.createElement('sbb-form-error');
+  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
   sbbFormError.setAttribute('slot', 'error');
   sbbFormError.textContent = 'This is a required field.';
 
@@ -406,7 +406,7 @@ const WithRadiosErrorMessageTemplate = ({
   disabledInput,
   ...args
 }: Args): TemplateResult => {
-  const sbbFormError: SbbFormError = document.createElement('sbb-form-error');
+  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
   sbbFormError.setAttribute('slot', 'error');
   sbbFormError.textContent = 'This is a required field.';
 
@@ -692,10 +692,10 @@ const meta: Meta = {
     chromatic: { delay: 3000 },
     actions: {
       handles: [
-        SbbSelectionPanel.events.didOpen,
-        SbbSelectionPanel.events.didClose,
-        SbbSelectionPanel.events.willOpen,
-        SbbSelectionPanel.events.willClose,
+        SbbSelectionPanelElement.events.didOpen,
+        SbbSelectionPanelElement.events.didClose,
+        SbbSelectionPanelElement.events.willOpen,
+        SbbSelectionPanelElement.events.willClose,
       ],
     },
     backgrounds: {

@@ -12,9 +12,9 @@ import { html, TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../core/dom';
-import { SbbExpansionPanelHeader } from '../expansion-panel-header';
+import { SbbExpansionPanelHeaderElement } from '../expansion-panel-header';
 
-import { SbbExpansionPanel } from './expansion-panel';
+import { SbbExpansionPanelElement } from './expansion-panel';
 import readme from './readme.md?raw';
 
 import '../expansion-panel-content';
@@ -220,11 +220,11 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbExpansionPanel.events.willOpen,
-        SbbExpansionPanel.events.didOpen,
-        SbbExpansionPanel.events.willClose,
-        SbbExpansionPanel.events.didClose,
-        SbbExpansionPanelHeader.events.toggleExpanded,
+        SbbExpansionPanelElement.events.willOpen,
+        SbbExpansionPanelElement.events.didOpen,
+        SbbExpansionPanelElement.events.willClose,
+        SbbExpansionPanelElement.events.didClose,
+        SbbExpansionPanelHeaderElement.events.toggleExpanded,
       ],
     },
     backgrounds: {

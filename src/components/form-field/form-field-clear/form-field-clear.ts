@@ -11,7 +11,7 @@ import {
 } from '../../core/eventing';
 import { i18nClearInput } from '../../core/i18n';
 import { ButtonProperties, resolveButtonRenderVariables } from '../../core/interfaces';
-import type { SbbFormField } from '../form-field';
+import type { SbbFormFieldElement } from '../form-field';
 
 import style from './form-field-clear.scss?lit&inline';
 import '../../icon';
@@ -20,7 +20,7 @@ import '../../icon';
  * Combined with `sbb-form-field`, it displays a button which clears the input value.
  */
 @customElement('sbb-form-field-clear')
-export class SbbFormFieldClear extends LitElement {
+export class SbbFormFieldClearElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Negative coloring variant flag. */
@@ -33,7 +33,7 @@ export class SbbFormFieldClear extends LitElement {
     actionElementHandlerAspect,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
-  private _formField: SbbFormField;
+  private _formField: SbbFormFieldElement;
   private _abort = new ConnectedAbortController(this);
 
   public override connectedCallback(): void {
@@ -42,8 +42,8 @@ export class SbbFormFieldClear extends LitElement {
     this.addEventListener('click', () => this._handleClick(), { signal });
     this._handlerRepository.connect();
     this._formField =
-      (hostContext('sbb-form-field', this) as SbbFormField) ??
-      (hostContext('[data-form-field]', this) as SbbFormField);
+      (hostContext('sbb-form-field', this) as SbbFormFieldElement) ??
+      (hostContext('[data-form-field]', this) as SbbFormFieldElement);
 
     if (this._formField) {
       this.negative = isValidAttribute(this._formField, 'negative');
@@ -84,6 +84,6 @@ export class SbbFormFieldClear extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-form-field-clear': SbbFormFieldClear;
+    'sbb-form-field-clear': SbbFormFieldClearElement;
   }
 }

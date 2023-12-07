@@ -3,12 +3,12 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing';
-import { SbbTooltip } from '../tooltip';
+import { SbbTooltipElement } from '../tooltip';
 
-import { SbbTooltipTrigger } from './tooltip-trigger';
+import { SbbTooltipTriggerElement } from './tooltip-trigger';
 
 describe('sbb-tooltip-trigger', () => {
-  let element: SbbTooltipTrigger, tooltip: SbbTooltip;
+  let element: SbbTooltipTriggerElement, tooltip: SbbTooltipElement;
 
   beforeEach(async () => {
     await fixture(html`
@@ -23,12 +23,12 @@ describe('sbb-tooltip-trigger', () => {
   });
 
   it('renders', () => {
-    assert.instanceOf(element, SbbTooltipTrigger);
+    assert.instanceOf(element, SbbTooltipTriggerElement);
   });
 
   it('shows tooltip on tooltip-trigger click', async () => {
-    const willOpenEventSpy = new EventSpy(SbbTooltip.events.willOpen);
-    const didOpenEventSpy = new EventSpy(SbbTooltip.events.didOpen);
+    const willOpenEventSpy = new EventSpy(SbbTooltipElement.events.willOpen);
+    const didOpenEventSpy = new EventSpy(SbbTooltipElement.events.didOpen);
 
     element.click();
 
@@ -41,7 +41,7 @@ describe('sbb-tooltip-trigger', () => {
   });
 
   it("doesn't show tooltip on disabled tooltip-trigger click", async () => {
-    const willOpenEventSpy = new EventSpy(SbbTooltip.events.willOpen);
+    const willOpenEventSpy = new EventSpy(SbbTooltipElement.events.willOpen);
     element.disabled = true;
     await waitForLitRender(element);
 

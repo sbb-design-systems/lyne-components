@@ -8,7 +8,7 @@ import {
   HandlerRepository,
   namedSlotChangeHandlerAspect,
 } from '../../core/eventing';
-import type { SbbNavigationAction } from '../navigation-action';
+import type { SbbNavigationActionElement } from '../navigation-action';
 
 import style from './navigation-list.scss?lit&inline';
 
@@ -19,7 +19,7 @@ import style from './navigation-list.scss?lit&inline';
  * @slot label - Use this to provide a label element.
  */
 @customElement('sbb-navigation-list')
-export class SbbNavigationList extends SlotChildObserver(LitElement) {
+export class SbbNavigationListElement extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /*
@@ -30,7 +30,7 @@ export class SbbNavigationList extends SlotChildObserver(LitElement) {
   /*
    * Navigation action elements.
    */
-  @state() private _actions: SbbNavigationAction[] = [];
+  @state() private _actions: SbbNavigationActionElement[] = [];
 
   /**
    * State of listed named slots, by indicating whether any element for a named slot is defined.
@@ -47,7 +47,7 @@ export class SbbNavigationList extends SlotChildObserver(LitElement) {
    */
   protected override checkChildren(): void {
     this._actions = Array.from(this.children ?? []).filter(
-      (e): e is SbbNavigationAction => e.tagName === 'SBB-NAVIGATION-ACTION',
+      (e): e is SbbNavigationActionElement => e.tagName === 'SBB-NAVIGATION-ACTION',
     );
   }
 
@@ -96,6 +96,6 @@ export class SbbNavigationList extends SlotChildObserver(LitElement) {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-navigation-list': SbbNavigationList;
+    'sbb-navigation-list': SbbNavigationListElement;
   }
 }

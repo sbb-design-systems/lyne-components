@@ -4,10 +4,10 @@ import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
 
-import { SbbMenuAction } from './menu-action';
+import { SbbMenuActionElement } from './menu-action';
 
 describe('sbb-menu-action', () => {
-  let element: SbbMenuAction;
+  let element: SbbMenuActionElement;
 
   beforeEach(async () => {
     element = await fixture(html`<sbb-menu-action id="focus-id">Menu Action</sbb-menu-action>`);
@@ -80,7 +80,7 @@ describe('sbb-menu-action', () => {
   it('renders as a button and triggers click event', async () => {
     element = await fixture(html`<sbb-menu-action></sbb-menu-action>`);
 
-    assert.instanceOf(element, SbbMenuAction);
+    assert.instanceOf(element, SbbMenuActionElement);
 
     const clickedSpy = new EventSpy('click');
     element.click();

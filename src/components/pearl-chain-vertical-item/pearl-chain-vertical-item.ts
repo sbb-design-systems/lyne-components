@@ -28,7 +28,7 @@ export interface PearlChainVerticalItemAttributes {
  * @slot right - Content of the right side of the item
  */
 @customElement('sbb-pearl-chain-vertical-item')
-export class SbbPearlChainVerticalItem extends LitElement {
+export class SbbPearlChainVerticalItemElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** The pearlChainVerticalItemAttributes Prop for styling the bullets and line.*/
@@ -82,6 +82,6 @@ export class SbbPearlChainVerticalItem extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-pearl-chain-vertical-item': SbbPearlChainVerticalItem;
+    'sbb-pearl-chain-vertical-item': SbbPearlChainVerticalItemElement;
   }
 }

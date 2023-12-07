@@ -29,8 +29,8 @@ import {
   SbbOverlayState,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay';
-import type { SbbNavigation } from '../navigation';
-import type { SbbNavigationMarker } from '../navigation-marker';
+import type { SbbNavigationElement } from '../navigation';
+import type { SbbNavigationMarkerElement } from '../navigation-marker';
 
 import style from './navigation-section.scss?lit&inline';
 import '../../divider';
@@ -44,7 +44,7 @@ let nextId = 0;
  * @slot - Use the unnamed slot to add content into the `sbb-navigation-section`.
  */
 @customElement('sbb-navigation-section')
-export class SbbNavigationSection extends UpdateScheduler(LitElement) {
+export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /*
@@ -99,7 +99,7 @@ export class SbbNavigationSection extends UpdateScheduler(LitElement) {
 
   @state() private _renderBackButton = this._isZeroToLargeBreakpoint();
 
-  private _firstLevelNavigation: SbbNavigation;
+  private _firstLevelNavigation: SbbNavigationElement;
   private _navigationSection: HTMLElement;
   private _navigationSectionContainerElement: HTMLElement;
   private _triggerElement: HTMLElement;
@@ -268,7 +268,7 @@ export class SbbNavigationSection extends UpdateScheduler(LitElement) {
 
   private _resetMarker(): void {
     if (this._isZeroToLargeBreakpoint()) {
-      (this._triggerElement?.parentElement as SbbNavigationMarker)?.reset();
+      (this._triggerElement?.parentElement as SbbNavigationMarkerElement)?.reset();
     }
   }
 
@@ -413,6 +413,6 @@ export class SbbNavigationSection extends UpdateScheduler(LitElement) {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-navigation-section': SbbNavigationSection;
+    'sbb-navigation-section': SbbNavigationSectionElement;
   }
 }

@@ -1,10 +1,10 @@
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbTimetableOccupancy } from './timetable-occupancy';
+import { SbbTimetableOccupancyElement } from './timetable-occupancy';
 
 describe('sbb-timetable-occupancy', () => {
-  let element: SbbTimetableOccupancy;
+  let element: SbbTimetableOccupancyElement;
 
   beforeEach(async () => {
     element = await fixture(html`
@@ -13,6 +13,6 @@ describe('sbb-timetable-occupancy', () => {
   });
 
   it('renders', async () => {
-    assert.instanceOf(element, SbbTimetableOccupancy);
+    assert.instanceOf(element, SbbTimetableOccupancyElement);
   });
 });

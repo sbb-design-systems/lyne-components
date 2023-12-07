@@ -1,13 +1,13 @@
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbCardBadge } from './card-badge';
+import { SbbCardBadgeElement } from './card-badge';
 
 describe('sbb-card-badge', () => {
-  let element: SbbCardBadge;
+  let element: SbbCardBadgeElement;
 
   it('renders', async () => {
     element = await fixture(html`<sbb-card-badge></sbb-card-badge>`);
-    assert.instanceOf(element, SbbCardBadge);
+    assert.instanceOf(element, SbbCardBadgeElement);
   });
 });

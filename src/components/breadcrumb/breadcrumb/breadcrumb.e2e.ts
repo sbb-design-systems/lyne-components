@@ -3,17 +3,17 @@ import { html } from 'lit/static-html.js';
 
 import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing';
 
-import { SbbBreadcrumb } from './breadcrumb';
+import { SbbBreadcrumbElement } from './breadcrumb';
 
 describe('sbb-breadcrumb', () => {
-  let element: SbbBreadcrumb;
+  let element: SbbBreadcrumbElement;
 
   beforeEach(async () => {
     element = await fixture(html`<sbb-breadcrumb id="focus-id" href="#">Test</sbb-breadcrumb>`);
   });
 
   it('renders', async () => {
-    assert.instanceOf(element, SbbBreadcrumb);
+    assert.instanceOf(element, SbbBreadcrumbElement);
   });
 
   it('dispatches event on click', async () => {

@@ -11,7 +11,7 @@ import style from './timetable-transportation-time.scss?lit&inline';
  * Used in `sbb-timetable-row`, it displays departure/arrival time.
  */
 @customElement('sbb-timetable-transportation-time')
-export class SbbTimetableTransportationTime extends LitElement {
+export class SbbTimetableTransportationTimeElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -69,6 +69,6 @@ export class SbbTimetableTransportationTime extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-timetable-transportation-time': SbbTimetableTransportationTime;
+    'sbb-timetable-transportation-time': SbbTimetableTransportationTimeElement;
   }
 }

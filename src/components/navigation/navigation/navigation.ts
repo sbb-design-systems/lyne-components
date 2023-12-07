@@ -49,7 +49,7 @@ let nextId = 0;
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-navigation` is closed.
  */
 @customElement('sbb-navigation')
-export class SbbNavigation extends UpdateScheduler(LitElement) {
+export class SbbNavigationElement extends UpdateScheduler(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -99,16 +99,28 @@ export class SbbNavigation extends UpdateScheduler(LitElement) {
   @state() private _currentLanguage = documentLanguage();
 
   /** Emits whenever the `sbb-navigation` begins the opening transition. */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbNavigation.events.willOpen);
+  private _willOpen: EventEmitter<void> = new EventEmitter(
+    this,
+    SbbNavigationElement.events.willOpen,
+  );
 
   /** Emits whenever the `sbb-navigation` is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbNavigation.events.didOpen);
+  private _didOpen: EventEmitter<void> = new EventEmitter(
+    this,
+    SbbNavigationElement.events.didOpen,
+  );
 
   /** Emits whenever the `sbb-navigation` begins the closing transition. */
-  private _willClose: EventEmitter<void> = new EventEmitter(this, SbbNavigation.events.willClose);
+  private _willClose: EventEmitter<void> = new EventEmitter(
+    this,
+    SbbNavigationElement.events.willClose,
+  );
 
   /** Emits whenever the `sbb-navigation` is closed. */
-  private _didClose: EventEmitter<void> = new EventEmitter(this, SbbNavigation.events.didClose);
+  private _didClose: EventEmitter<void> = new EventEmitter(
+    this,
+    SbbNavigationElement.events.didClose,
+  );
 
   private _navigation: HTMLDivElement;
   private _navigationContentElement: HTMLElement;
@@ -373,6 +385,6 @@ export class SbbNavigation extends UpdateScheduler(LitElement) {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-navigation': SbbNavigation;
+    'sbb-navigation': SbbNavigationElement;
   }
 }

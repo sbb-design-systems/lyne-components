@@ -22,7 +22,7 @@ import '../icon';
  * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  */
 @customElement('sbb-toggle-check')
-export class SbbToggleCheck extends LitElement {
+export class SbbToggleCheckElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -56,10 +56,14 @@ export class SbbToggleCheck extends LitElement {
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
-  private _didChange: EventEmitter = new EventEmitter(this, SbbToggleCheck.events.didChange, {
-    bubbles: true,
-    cancelable: true,
-  });
+  private _didChange: EventEmitter = new EventEmitter(
+    this,
+    SbbToggleCheckElement.events.didChange,
+    {
+      bubbles: true,
+      cancelable: true,
+    },
+  );
 
   @state() private _hasLabelText = false;
 
@@ -163,6 +167,6 @@ export class SbbToggleCheck extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-toggle-check': SbbToggleCheck;
+    'sbb-toggle-check': SbbToggleCheckElement;
   }
 }

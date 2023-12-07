@@ -4,7 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { SlotChildObserver } from '../../core/common-behaviors';
 import { setAttribute } from '../../core/dom';
 import { AgnosticResizeObserver } from '../../core/observers';
-import type { SbbNavigationAction } from '../navigation-action';
+import type { SbbNavigationActionElement } from '../navigation-action';
 
 import style from './navigation-marker.scss?lit&inline';
 
@@ -14,7 +14,7 @@ import style from './navigation-marker.scss?lit&inline';
  * @slot - Use the unnamed slot to add `sbb-navigation-action` elements into the `sbb-navigation-marker`.
  */
 @customElement('sbb-navigation-marker')
-export class SbbNavigationMarker extends SlotChildObserver(LitElement) {
+export class SbbNavigationMarkerElement extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -30,9 +30,9 @@ export class SbbNavigationMarker extends SlotChildObserver(LitElement) {
   /**
    * Navigation action elements.
    */
-  @state() private _actions: SbbNavigationAction[] = [];
+  @state() private _actions: SbbNavigationActionElement[] = [];
 
-  private _currentActiveAction: SbbNavigationAction;
+  private _currentActiveAction: SbbNavigationActionElement;
   private _navigationMarkerResizeObserver = new AgnosticResizeObserver(() =>
     this._setMarkerPosition(),
   );
@@ -63,7 +63,7 @@ export class SbbNavigationMarker extends SlotChildObserver(LitElement) {
     this._navigationMarkerResizeObserver.disconnect();
   }
 
-  public select(action: SbbNavigationAction): void {
+  public select(action: SbbNavigationActionElement): void {
     this.reset();
     action.active = true;
     this._currentActiveAction = action;
@@ -79,18 +79,18 @@ export class SbbNavigationMarker extends SlotChildObserver(LitElement) {
     this._hasActiveAction = false;
   }
 
-  private get _navigationActions(): SbbNavigationAction[] {
+  private get _navigationActions(): SbbNavigationActionElement[] {
     return Array.from(this.querySelectorAll?.('sbb-navigation-action') ?? []);
   }
 
-  private get _activeNavigationAction(): SbbNavigationAction {
+  private get _activeNavigationAction(): SbbNavigationActionElement {
     return this._navigationActions.find((action) => action.active);
   }
 
   // Create an array with only the sbb-navigation-action children.
   protected override checkChildren(): void {
     this._actions = Array.from(this.children).filter(
-      (e): e is SbbNavigationAction => e.tagName === 'SBB-NAVIGATION-ACTION',
+      (e): e is SbbNavigationActionElement => e.tagName === 'SBB-NAVIGATION-ACTION',
     );
   }
 
@@ -127,6 +127,6 @@ export class SbbNavigationMarker extends SlotChildObserver(LitElement) {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-navigation-marker': SbbNavigationMarker;
+    'sbb-navigation-marker': SbbNavigationMarkerElement;
   }
 }

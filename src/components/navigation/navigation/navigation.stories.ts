@@ -8,9 +8,9 @@ import { html, TemplateResult } from 'lit';
 
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
 import { sbbSpread } from '../../core/dom';
-import type { SbbNavigationMarker } from '../navigation-marker';
+import type { SbbNavigationMarkerElement } from '../navigation-marker';
 
-import { SbbNavigation } from './navigation';
+import { SbbNavigationElement } from './navigation';
 import readme from './readme.md?raw';
 import '../navigation-section';
 import '../navigation-marker';
@@ -137,7 +137,9 @@ const actionLabels = (num: number): TemplateResult[] => {
 
 const onNavigationClose = (event: CustomEvent): void => {
   (
-    (event.currentTarget as SbbNavigation).querySelector('#nav-marker') as SbbNavigationMarker
+    (event.currentTarget as SbbNavigationElement).querySelector(
+      '#nav-marker',
+    ) as SbbNavigationMarkerElement
   ).reset();
 };
 
@@ -248,10 +250,10 @@ const meta: Meta = {
     chromatic: { disableSnapshot: false },
     actions: {
       handles: [
-        SbbNavigation.events.willOpen,
-        SbbNavigation.events.didOpen,
-        SbbNavigation.events.didClose,
-        SbbNavigation.events.willClose,
+        SbbNavigationElement.events.willOpen,
+        SbbNavigationElement.events.didOpen,
+        SbbNavigationElement.events.didClose,
+        SbbNavigationElement.events.willClose,
       ],
     },
     backgrounds: {

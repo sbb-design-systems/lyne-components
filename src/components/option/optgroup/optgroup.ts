@@ -3,7 +3,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import { isSafari, isValidAttribute, toggleDatasetEntry, setAttribute } from '../../core/dom';
 import { AgnosticMutationObserver } from '../../core/observers';
-import type { SbbOption, SbbOptionVariant } from '../option';
+import type { SbbOptionElement, SbbOptionVariant } from '../option';
 
 import style from './optgroup.scss?lit&inline';
 import '../../divider';
@@ -14,7 +14,7 @@ import '../../divider';
  * @slot - Use the unnamed slot to add `sbb-option` elements to the `sbb-optgroup`.
  */
 @customElement('sbb-optgroup')
-export class SbbOptGroup extends LitElement {
+export class SbbOptGroupElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Option group label. */
@@ -40,8 +40,8 @@ export class SbbOptGroup extends LitElement {
     return this._variant === 'select' && this.closest('sbb-select')?.hasAttribute('multiple');
   }
 
-  private get _options(): SbbOption[] {
-    return Array.from(this.querySelectorAll?.('sbb-option') ?? []) as SbbOption[];
+  private get _options(): SbbOptionElement[] {
+    return Array.from(this.querySelectorAll?.('sbb-option') ?? []) as SbbOptionElement[];
   }
 
   public override connectedCallback(): void {
@@ -124,6 +124,6 @@ export class SbbOptGroup extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-optgroup': SbbOptGroup;
+    'sbb-optgroup': SbbOptGroupElement;
   }
 }

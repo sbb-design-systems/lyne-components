@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
 
-import { SbbTrainFormation } from './train-formation';
+import { SbbTrainFormationElement } from './train-formation';
 import '../../icon';
 import '../train';
 import '../train-wagon';
@@ -41,11 +41,11 @@ async function createAndExtractAggregatedSectors(
 }
 
 describe('sbb-train-formation', () => {
-  let element: SbbTrainFormation;
+  let element: SbbTrainFormationElement;
 
   it('should render', async () => {
     element = await fixture(html`<sbb-train-formation></sbb-train-formation>`);
-    assert.instanceOf(element, SbbTrainFormation);
+    assert.instanceOf(element, SbbTrainFormationElement);
   });
 
   describe('sectors building', () => {

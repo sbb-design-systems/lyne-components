@@ -3,14 +3,14 @@ import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing';
-import type { SbbBreadcrumb } from '../breadcrumb';
+import type { SbbBreadcrumbElement } from '../breadcrumb';
 import '../breadcrumb';
 
-import { SbbBreadcrumbGroup } from './breadcrumb-group';
+import { SbbBreadcrumbGroupElement } from './breadcrumb-group';
 
 describe('sbb-breadcrumb-group', () => {
   describe('without ellipsis', () => {
-    let element: SbbBreadcrumbGroup;
+    let element: SbbBreadcrumbGroupElement;
 
     beforeEach(async () => {
       element = await fixture(html`
@@ -24,13 +24,13 @@ describe('sbb-breadcrumb-group', () => {
     });
 
     it('renders', async () => {
-      assert.instanceOf(element, SbbBreadcrumbGroup);
+      assert.instanceOf(element, SbbBreadcrumbGroupElement);
     });
 
     it('keyboard navigation', async () => {
-      const first: SbbBreadcrumb = document.querySelector('#breadcrumb-0');
-      const second: SbbBreadcrumb = document.querySelector('#breadcrumb-1');
-      const third: SbbBreadcrumb = document.querySelector('#breadcrumb-2');
+      const first: SbbBreadcrumbElement = document.querySelector('#breadcrumb-0');
+      const second: SbbBreadcrumbElement = document.querySelector('#breadcrumb-1');
+      const third: SbbBreadcrumbElement = document.querySelector('#breadcrumb-2');
 
       first.focus();
       await sendKeys({ down: 'ArrowRight' });
@@ -41,7 +41,7 @@ describe('sbb-breadcrumb-group', () => {
   });
 
   describe('with ellipsis', () => {
-    let breadcrumbGroup: SbbBreadcrumbGroup;
+    let breadcrumbGroup: SbbBreadcrumbGroupElement;
     let ellipsisListItemElement: HTMLLIElement;
     let ellipsisButton: HTMLButtonElement;
 
@@ -93,8 +93,8 @@ describe('sbb-breadcrumb-group', () => {
     it('keyboard navigation with ellipsis', async () => {
       expect(ellipsisListItemElement).not.to.be.null;
       expect(ellipsisButton).not.to.be.null;
-      const first: SbbBreadcrumb = document.querySelector('#breadcrumb-0');
-      const last: SbbBreadcrumb = document.querySelector('#breadcrumb-6');
+      const first: SbbBreadcrumbElement = document.querySelector('#breadcrumb-0');
+      const last: SbbBreadcrumbElement = document.querySelector('#breadcrumb-6');
 
       first.focus();
       expect(document.activeElement.id).to.be.equal(first.id);

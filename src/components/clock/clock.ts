@@ -49,7 +49,7 @@ const ADD_EVENT_LISTENER_OPTIONS: AddEventListenerOptions = {
  * It displays an analog clock with the classic SBB face.
  */
 @customElement('sbb-clock')
-export class SbbClock extends LitElement {
+export class SbbClockElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** If it's false, the clock's hands are hidden; it's set to true when calculations are ready. */
@@ -318,6 +318,6 @@ export class SbbClock extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-clock': SbbClock;
+    'sbb-clock': SbbClockElement;
   }
 }
