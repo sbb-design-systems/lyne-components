@@ -71,11 +71,8 @@ async function generateChromaticStory(
   }
 
   const targetStoryFile = storyFile.replace(/(\.stories\.[^.]+)$/, (_m, m) => `.chromatic${m}`);
-  const relativeImport = basename(storyFile).replace(/\.(jsx|tsx|ts)$/, '');
-  const chromaticImport = relative(dirname(targetStoryFile), chromaticFile).replace(
-    /\.(tsx|ts)$/,
-    '',
-  );
+  const relativeImport = basename(storyFile).replace(/\.ts$/, '');
+  const chromaticImport = relative(dirname(targetStoryFile), chromaticFile).replace(/\.ts$/, '');
 
   const chromaticConfig = Object.entries(chromaticParameters)
     .map(([key, value]) => `${key}: ${JSON.stringify(value)}, `)
@@ -108,7 +105,7 @@ async function generateChromaticStories(): Promise<void> {
   console.log(`Generating chromatic story files:`);
   for (const storyFile of walk(
     join(dirname(fileURLToPath(import.meta.url)), '../src'),
-    /.stories.(jsx|tsx|ts)$/,
+    /.stories.ts$/,
   )) {
     if (storyFile.includes('chromatic')) {
       continue;

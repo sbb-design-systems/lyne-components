@@ -35,7 +35,7 @@ jobs:
       - run: mkdir -p dist/storybook
       - run: unzip storybook.zip -d dist/storybook
       - name: Remove files with forbidden extensions
-        run: node ./ci/clean-storybook-files.cjs
+        run: node ./scripts/clean-storybook-files.cjs
 
       - name: Create GitHub Deployment
         id: tag-name

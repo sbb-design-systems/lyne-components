@@ -64,7 +64,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Remove files with forbidden extensions
-        run: node ./ci/clean-storybook-files.cjs
+        run: node ./scripts/clean-storybook-files.cjs
       - name: 'Container: Login to GitHub Container Repository'
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
       - name: 'Container: Build image'
@@ -114,7 +114,7 @@ jobs:
         run: STORYBOOK_COMPONENTS_VERSION="rev-$GITHUB_SHA" yarn build
 
       - name: Remove files with forbidden extensions
-        run: node ./ci/clean-storybook-files.cjs
+        run: node ./scripts/clean-storybook-files.cjs
       - name: 'Container: Login to GitHub Container Repository'
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
       - name: 'Container: Build image'
