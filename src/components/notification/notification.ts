@@ -1,6 +1,5 @@
 import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
 
 import { LanguageController } from '../core/common-behaviors';
 import { setAttribute, toggleDatasetEntry } from '../core/dom';
@@ -142,7 +141,12 @@ export class SbbNotificationElement extends LitElement {
     this._setInlineLinks();
   }
 
-  protected override firstUpdated(): void {
+  protected override async firstUpdated(): Promise<void> {
+    this._notificationElement = this.shadowRoot.querySelector(
+      '.sbb-notification__wrapper',
+    ) as HTMLElement;
+    await this.updateComplete;
+    this._setNotificationHeight();
     this._open();
   }
 
@@ -217,13 +221,6 @@ export class SbbNotificationElement extends LitElement {
         class="sbb-notification__wrapper"
         @transitionend=${(event: TransitionEvent) => this._onNotificationTransitionEnd(event)}
         @animationend=${(event: AnimationEvent) => this._onNotificationAnimationEnd(event)}
-        ${ref(async (el) => {
-          this._notificationElement = el as HTMLElement;
-          if (this._notificationElement) {
-            await this.updateComplete;
-            this._setNotificationHeight();
-          }
-        })}
       >
         <div class="sbb-notification">
           <sbb-icon
