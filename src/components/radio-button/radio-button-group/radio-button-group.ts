@@ -175,10 +175,7 @@ export class SbbRadioButtonGroupElement extends LitElement {
       this.radioButtons.forEach((r) => r.requestUpdate('required'));
     }
     if (changedProperties.has('size')) {
-      this.radioButtons.forEach((r) => (r.size = this.size));
-    }
-    if (changedProperties.has('allowEmptySelection')) {
-      this.radioButtons.forEach((r) => (r.allowEmptySelection = this.allowEmptySelection));
+      this.radioButtons.forEach((r) => r.requestUpdate('size'));
     }
   }
 
@@ -228,8 +225,6 @@ export class SbbRadioButtonGroupElement extends LitElement {
 
     for (const radio of radioButtons) {
       radio.checked = radio.value === this.value;
-      radio.size = this.size;
-      radio.allowEmptySelection = this.allowEmptySelection;
       radio.tabIndex = this._getRadioTabIndex(radio);
     }
 
