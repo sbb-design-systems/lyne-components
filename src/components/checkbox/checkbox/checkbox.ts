@@ -24,7 +24,7 @@ import {
 } from '../../core/interfaces';
 import '../../visual-checkbox';
 import '../../icon';
-import type { SbbCheckboxGroup } from '../checkbox-group';
+import type { SbbCheckboxGroupElement } from '../checkbox-group';
 
 import style from './checkbox.scss?lit&inline';
 
@@ -77,10 +77,10 @@ export class SbbCheckboxElement extends LitElement {
   private _required = false;
 
   /** Reference to the connected checkbox group. */
-  public get group(): SbbCheckboxGroup | null {
+  public get group(): SbbCheckboxGroupElement | null {
     return this._group;
   }
-  private _group: SbbCheckboxGroup | null;
+  private _group: SbbCheckboxGroupElement | null;
 
   /** Whether the checkbox is indeterminate. */
   @property({ reflect: true, type: Boolean }) public indeterminate = false;
@@ -174,7 +174,7 @@ export class SbbCheckboxElement extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._group = this.closest('sbb-checkbox-group') as SbbCheckboxGroup;
+    this._group = this.closest('sbb-checkbox-group') as SbbCheckboxGroupElement;
     // We can use closest here, as we expect the parent sbb-selection-panel to be in light DOM.
     this._selectionPanelElement = this.closest?.('sbb-selection-panel');
     this._isSelectionPanelInput =
