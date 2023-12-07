@@ -82,7 +82,7 @@ export class SbbNotificationElement extends LitElement {
   /**
    * The state of the notification.
    */
-  @state() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'opened';
+  @state() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'opening';
 
   private _notificationElement: HTMLElement;
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -136,7 +136,6 @@ export class SbbNotificationElement extends LitElement {
 
   protected override firstUpdated(): void {
     this._willOpen.emit();
-    this._setNotificationHeight();
   }
 
   public override disconnectedCallback(): void {
@@ -181,7 +180,7 @@ export class SbbNotificationElement extends LitElement {
   }
 
   private _onNotificationAnimationEnd(event: AnimationEvent): void {
-    if (this._state === 'opened' && event.animationName === 'open') {
+    if (this._state === 'opening' && event.animationName === 'open') {
       this._handleOpening();
     }
   }
@@ -210,7 +209,13 @@ export class SbbNotificationElement extends LitElement {
         class="sbb-notification__wrapper"
         @transitionend=${(event: TransitionEvent) => this._onNotificationTransitionEnd(event)}
         @animationend=${(event: AnimationEvent) => this._onNotificationAnimationEnd(event)}
-        ${ref((el) => (this._notificationElement = el as HTMLElement))}
+        ${ref(async (el) => {
+          this._notificationElement = el as HTMLElement;
+          if (this._notificationElement) {
+            await this.updateComplete;
+            this._setNotificationHeight();
+          }
+        })}
       >
         <div class="sbb-notification">
           <sbb-icon

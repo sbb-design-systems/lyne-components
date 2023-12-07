@@ -40,6 +40,11 @@
   margin: 0;
   transition: margin var(--sbb-notification-animation-duration)
     var(--sbb-notification-timing-function);
+  animation: {
+    name: animate-margin;
+    duration: var(--sbb-notification-animation-duration);
+    timing-function: var(--sbb-notification-timing-function);
+  }
 }
 
 :host(:is([data-state='opened'], [data-state='opening'])) {
@@ -52,6 +57,8 @@
       var(--sbb-notification-timing-function),
     padding var(--sbb-notification-animation-duration) var(--sbb-notification-timing-function),
     border var(--sbb-notification-animation-duration) var(--sbb-notification-timing-function),
+    visibility var(--sbb-notification-animation-duration) var(--sbb-notification-animation-duration)
+      var(--sbb-notification-timing-function),
     opacity var(--sbb-notification-animation-duration) var(--sbb-notification-animation-duration)
       var(--sbb-notification-timing-function);
 
@@ -208,11 +215,23 @@
     visibility: hidden;
     opacity: 0;
     max-height: 0;
+    border-block: none;
   }
 
   to {
     visibility: visible;
     opacity: 1;
     max-height: var(--sbb-notification-max-height);
+    border-block: var(--sbb-notification-border);
+  }
+}
+
+@keyframes animate-margin {
+  from {
+    margin: 0;
+  }
+
+  to {
+    margin: var(--sbb-notification-margin);
   }
 }

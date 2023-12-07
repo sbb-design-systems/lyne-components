@@ -92,8 +92,7 @@ const pageContent = (): TemplateResult => html`
 
 const DefaultTemplate = (args: Args): TemplateResult => html`
   <sbb-notification
-    ${sbbSpread(args)}
-    disable-animation
+    ${sbbSpread({ ...args, ['disable-animation']: true })}
     style="margin-block-end: var(--sbb-spacing-fixed-4x);"
     ${ref((notification?: Element) =>
       (notification as SbbNotificationElement)?.addEventListener(
@@ -113,8 +112,7 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
 
 const SlottedTitleTemplate = (args: Args): TemplateResult => html`
   <sbb-notification
-    ${sbbSpread(args)}
-    disable-animation
+    ${sbbSpread({ ...args, ['disable-animation']: true })}
     style="margin-block-end: var(--sbb-spacing-fixed-4x);"
     ${ref((notification?: Element) =>
       (notification as SbbNotificationElement)?.addEventListener(

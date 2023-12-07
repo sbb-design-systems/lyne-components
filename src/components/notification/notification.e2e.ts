@@ -29,6 +29,9 @@ describe('sbb-notification', () => {
     const didCloseEventSpy = new EventSpy(SbbNotificationElement.events.didClose);
 
     expect(element).not.to.be.null;
+    expect(element).to.have.attribute('data-state', 'opening');
+
+    await waitForCondition(() => element.getAttribute('data-state') === 'opened');
     expect(element).to.have.attribute('data-state', 'opened');
 
     element.close();
@@ -56,6 +59,9 @@ describe('sbb-notification', () => {
     ) as SbbButtonElement;
 
     expect(element).not.to.be.null;
+    expect(element).to.have.attribute('data-state', 'opening');
+
+    await waitForCondition(() => element.getAttribute('data-state') === 'opened');
     expect(element).to.have.attribute('data-state', 'opened');
 
     closeButton.click();
