@@ -2,6 +2,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { ArgTypes, Args, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import { TemplateResult, html } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../core/dom';
 import placeholderImage from '../../teaser/stories/placeholder.png';
@@ -22,9 +23,9 @@ const teaser = (): TemplateResult => html`
   </sbb-teaser>
 `;
 
-const containerContent = (title: string): TemplateResult => html`
-  <span>
-    <sbb-title level="4">${title}</sbb-title>
+const containerContent = (title: string, negative = false): TemplateResult => html`
+  <div style=${styleMap({ overflow: 'auto' })}>
+    <sbb-title level="4" ?negative=${negative}>${title}</sbb-title>
     <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
     <p class="sbb-text-s">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
@@ -32,8 +33,8 @@ const containerContent = (title: string): TemplateResult => html`
       laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
       voluptate velit esse cillum dolore eu fugiat nulla pariatur.
     </p>
-    <sbb-button variant="secondary">See more</sbb-button>
-  </span>
+  </div>
+  <sbb-button variant="secondary" ?negative=${negative}>See more</sbb-button>
 `;
 
 const expanded: InputType = {
@@ -42,27 +43,39 @@ const expanded: InputType = {
   },
 };
 
+const variant: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: ['transparent', 'white', 'milk', 'midnight'],
+};
+
 const defaultArgTypes: ArgTypes = {
   expanded,
+  variant,
 };
 
 const defaultArgs: Args = {
   expanded: false,
+  variant: 'transparent',
 };
 
 const DefaultTemplate = ({ ...args }): TemplateResult => html`
   <sbb-container ${sbbSpread({ ...args })}>${containerContent('Example title')}</sbb-container>
 `;
 
-const WithStickybarTemplate = ({ ...args }): TemplateResult => html`
-  <sbb-container ${sbbSpread({ ...args })}>
-    ${containerContent('Example title')} ${containerContent('Another one')}
-    ${containerContent('And another one')}
+const WithStickybarTemplate = ({ variant, ...args }): TemplateResult => html`
+  <sbb-container ${sbbSpread({ ...args })} variant=${variant}>
+    ${containerContent('Example title', variant === 'midnight')}
+    ${containerContent('Another one', variant === 'midnight')}
+    ${containerContent('And another one', variant === 'midnight')}
     <div style="display: flex; gap: 1rem; padding-block: 3rem">
       ${teaser()} ${teaser()} ${teaser()}
     </div>
     <sbb-sticky-bar>
-      <sbb-button style="margin-inline-start: auto;">Continue</sbb-button>
+      <sbb-button ?negative=${variant === 'midnight'} style="margin-inline-start: auto;"
+        >Continue</sbb-button
+      >
     </sbb-sticky-bar>
   </sbb-container>
 `;

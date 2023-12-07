@@ -28,5 +28,29 @@
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  background-color: var(--sbb-color-white-default);
+  background-color: var(--sbb-sticky-bar-bg-color);
+  animation: fade 1s linear 1 normal both paused;
+  animation-delay: calc(var(--sbb-sticky-bar-scroll, 0) * -1s);
+}
+
+.sbb-sticky-bar__settled {
+  background-color: transparent;
+}
+
+.sbb-sticky-bar__settled::before {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+@keyframes fade {
+  from {
+    @include sbb.shadow-level-5-hard;
+
+    background-color: var(--sbb-sticky-bar-bg-color);
+  }
+
+  to {
+    background-color: transparent;
+    box-shadow: none;
+  }
 }

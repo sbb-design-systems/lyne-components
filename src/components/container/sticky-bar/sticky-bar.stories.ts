@@ -28,13 +28,13 @@ const Template = (): TemplateResult =>
 const WithStickybarTemplate = (): TemplateResult => html`
   <sbb-container>
     ${containerContent('Example title')} ${containerContent('Another one')}
-    ${containerContent('And another one')}
+    ${containerContent('And another one')} ${containerContent('And a last one')}
 
     <sbb-sticky-bar>
-      <sbb-button style="margin-inline-start: auto;">Continue</sbb-button>
+      <sbb-button style=${styleMap({ marginInlineStart: 'auto' })}>Continue</sbb-button>
     </sbb-sticky-bar>
   </sbb-container>
-  <sbb-container>
+  <sbb-container variant="milk" style=${styleMap({ paddingBlock: '5rem' })}>
     ${containerContent('Content after first container')} ${containerContent('Another one')}
   </sbb-container>
 `;
