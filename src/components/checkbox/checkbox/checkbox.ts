@@ -185,6 +185,9 @@ export class SbbCheckboxElement extends LitElement {
     this.addEventListener('keyup', (e) => this._handleKeyup(e), { signal });
     this._handlerRepository.connect();
     this._checkboxLoaded.emit();
+
+    // We need to call requestUpdate to update the reflected attributes
+    ['disabled', 'required', 'size'].forEach((p) => this.requestUpdate(p));
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

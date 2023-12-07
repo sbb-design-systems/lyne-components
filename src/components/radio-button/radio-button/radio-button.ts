@@ -201,6 +201,9 @@ export class SbbRadioButtonElement extends LitElement {
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
     this._handlerRepository.connect();
     this._radioButtonLoaded.emit();
+
+    // We need to call requestUpdate to update the reflected attributes
+    ['disabled', 'required', 'size'].forEach((p) => this.requestUpdate(p));
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
