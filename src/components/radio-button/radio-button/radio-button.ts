@@ -158,6 +158,12 @@ export class SbbRadioButtonElement extends LitElement {
     }
   }
 
+  private _handleDisabledChange(currentValue: boolean, previousValue: boolean): void {
+    if (currentValue !== previousValue) {
+      this._stateChange.emit({ type: 'disabled', disabled: currentValue });
+    }
+  }
+
   private _handleClick(event: Event): void {
     event.preventDefault();
     this.select();
@@ -200,6 +206,9 @@ export class SbbRadioButtonElement extends LitElement {
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('checked')) {
       this._handleCheckedChange(this.checked, changedProperties.get('checked'));
+    }
+    if (changedProperties.has('disabled')) {
+      this._handleDisabledChange(this.disabled, changedProperties.get('disabled'));
     }
   }
 
