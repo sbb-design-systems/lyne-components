@@ -11,7 +11,7 @@ import style from './container.scss?lit&inline';
  * @slot - Use the unnamed slot to add anything to the container.
  */
 @customElement('sbb-container')
-export class SbbContainer extends LitElement {
+export class SbbContainerElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Whether the container is expanded. */
@@ -103,6 +103,6 @@ export class SbbContainer extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-container': SbbContainer;
+    'sbb-container': SbbContainerElement;
   }
 }
