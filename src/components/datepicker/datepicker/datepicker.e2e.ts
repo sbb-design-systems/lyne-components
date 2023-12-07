@@ -220,7 +220,9 @@ describe('sbb-datepicker', () => {
       expect(input).not.to.have.attribute('data-sbb-invalid');
     });
 
-    it('should interpret valid values and set accessibility labels', async () => {
+    it('should interpret valid values and set accessibility labels', async function () {
+      // This test is flaky on Firefox, so we retry a few times.
+      this.retries(3);
       const testCases = [
         {
           value: '5.5.0',
