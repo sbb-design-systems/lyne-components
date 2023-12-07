@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.43.0-next.16](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0-next.15...v0.43.0-next.16) (2023-12-07)
+
+### Bug Fixes
+
+- **sbb-radio-button-group, sbb-checkbox-group:** fix disabled and required state exchange ([#2273](https://github.com/lyne-design-system/lyne-components/issues/2273)) ([8608c99](https://github.com/lyne-design-system/lyne-components/commit/8608c994fb9f6d75f621c1df93bb68271e4c93da))
+- **sbb-select:** adapt setup to work with Next.js hydration ([#2270](https://github.com/lyne-design-system/lyne-components/issues/2270)) ([be8a5c5](https://github.com/lyne-design-system/lyne-components/commit/be8a5c525eb2f219a0973de88582a802b2e3d89c))
+
+### Refactorings
+
+- rename components with Element suffix ([#2275](https://github.com/lyne-design-system/lyne-components/issues/2275)) ([2c4cf25](https://github.com/lyne-design-system/lyne-components/commit/2c4cf25f87b5c25c601c8844d2703edcd38ea56a))
+
 ## [0.43.0-next.15](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0-next.14...v0.43.0-next.15) (2023-12-06)
 
 ### Features
