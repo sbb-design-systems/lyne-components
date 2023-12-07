@@ -8,7 +8,7 @@ import { PluginOption, ResolvedConfig, defineConfig } from 'vite';
 export const root = new URL('.', import.meta.url);
 
 export function packageJsonTemplate(
-  options: { exports?: Record<string, Record<string, unknown>> } = {},
+  options: { exports?: Record<string, Record<string, unknown>>; sideEffects?: string[] } = {},
 ): PluginOption {
   let viteConfig: ResolvedConfig;
   return {
@@ -57,6 +57,10 @@ export function packageJsonTemplate(
         packageJson.exports = exports;
       } else if (options.exports) {
         packageJson.exports = options.exports;
+      }
+
+      if (options.sideEffects) {
+        packageJson.sideEffects = options.sideEffects;
       }
 
       this.emitFile({
