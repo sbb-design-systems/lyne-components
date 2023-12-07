@@ -37,7 +37,7 @@ The component has three different sizes, which can be changed using the `size` p
 | `rel`      | `rel`      | public  | `string \| undefined \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                              |
 | `download` | `download` | public  | `boolean \| undefined`                               |         | Whether the browser will show the download dialog on click.                                    |
 | `type`     | `type`     | public  | `ButtonType \| undefined`                            |         | The type attribute to use for the button.                                                      |
-| `active`   | `active`   | public  | `boolean`                                            |         | Whether the action is active.                                                                  |
+| `active`   | `active`   | public  | `boolean`                                            | `false` | Whether the action is active.                                                                  |
 | `name`     | `name`     | public  | `string \| undefined`                                |         | The name attribute to use for the button.                                                      |
 | `value`    | `value`    | public  | `string \| undefined`                                |         | The value attribute to use for the button.                                                     |
 

@@ -38,14 +38,12 @@ describe('sbb-checkbox-group', () => {
     await waitForLitRender(element);
     expect(element).to.have.attribute('disabled');
 
-    expect(checkboxOne).to.have.attribute('data-group-disabled');
-    expect(checkboxTwo).to.have.attribute('data-group-disabled');
+    expect(checkboxOne).to.have.attribute('disabled');
     expect(checkboxTwo).to.have.attribute('disabled');
-    expect(checkboxThree).to.have.attribute('data-group-disabled');
+    expect(checkboxThree).to.have.attribute('disabled');
 
     element.removeAttribute('disabled');
     await waitForLitRender(element);
-    expect(checkboxTwo).not.to.have.attribute('data-group-disabled');
     expect(checkboxTwo).to.have.attribute('disabled');
   });
 
@@ -82,9 +80,9 @@ describe('sbb-checkbox-group', () => {
     element.setAttribute('required', 'true');
     await waitForLitRender(element);
     expect(element).to.have.attribute('required');
-    expect(checkboxOne).to.have.attribute('data-group-required');
-    expect(checkboxTwo).to.have.attribute('data-group-required');
-    expect(checkboxThree).to.have.attribute('data-group-required');
+    expect(checkboxOne).to.have.attribute('required');
+    expect(checkboxTwo).to.have.attribute('required');
+    expect(checkboxThree).to.have.attribute('required');
   });
 
   it('arrow navigation', async () => {

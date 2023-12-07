@@ -73,7 +73,7 @@
 }
 
 // Disabled definitions have to be after checked definitions
-:host(:is([data-group-disabled], [disabled])) {
+:host([disabled]) {
   --sbb-radio-button-background-color: var(--sbb-color-milk-default);
   --sbb-radio-button-subtext-color: var(--sbb-color-smoke-default);
   --sbb-radio-button-border-style: dashed;

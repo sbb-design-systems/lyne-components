@@ -296,12 +296,12 @@ describe('sbb-selection-panel', () => {
       );
 
       expect(radioButtons.length).to.be.equal(6);
-      expect(radioButtons[0]).to.have.attribute('data-group-disabled');
-      expect(radioButtons[1]).not.to.have.attribute('data-group-disabled');
-      expect(radioButtons[2]).not.to.have.attribute('data-group-disabled');
-      expect(radioButtons[3]).to.have.attribute('data-group-disabled');
-      expect(radioButtons[4]).not.to.have.attribute('data-group-disabled');
-      expect(radioButtons[5]).not.to.have.attribute('data-group-disabled');
+      expect(radioButtons[0]).to.have.attribute('disabled');
+      expect(radioButtons[1]).not.to.have.attribute('disabled');
+      expect(radioButtons[2]).not.to.have.attribute('disabled');
+      expect(radioButtons[3]).to.have.attribute('disabled');
+      expect(radioButtons[4]).not.to.have.attribute('disabled');
+      expect(radioButtons[5]).not.to.have.attribute('disabled');
     });
 
     it('should not with interfere content on selection', async () => {
@@ -571,12 +571,12 @@ describe('sbb-selection-panel', () => {
       );
 
       expect(checkboxes.length).to.be.equal(6);
-      expect(checkboxes[0]).to.have.attribute('data-group-disabled');
-      expect(checkboxes[1]).not.to.have.attribute('data-group-disabled');
-      expect(checkboxes[2]).not.to.have.attribute('data-group-disabled');
-      expect(checkboxes[3]).to.have.attribute('data-group-disabled');
-      expect(checkboxes[4]).not.to.have.attribute('data-group-disabled');
-      expect(checkboxes[5]).not.to.have.attribute('data-group-disabled');
+      expect(checkboxes[0]).to.have.attribute('disabled');
+      expect(checkboxes[1]).not.to.have.attribute('disabled');
+      expect(checkboxes[2]).not.to.have.attribute('disabled');
+      expect(checkboxes[3]).to.have.attribute('disabled');
+      expect(checkboxes[4]).not.to.have.attribute('disabled');
+      expect(checkboxes[5]).not.to.have.attribute('disabled');
     });
   });
 });

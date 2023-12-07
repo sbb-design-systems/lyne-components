@@ -64,7 +64,7 @@ Similarly, if a navigation action is marked to indicate a selected option (e.g.,
 
 | Name                      | Attribute                   | Privacy | Type                         | Default | Description                                                                                                |
 | ------------------------- | --------------------------- | ------- | ---------------------------- | ------- | ---------------------------------------------------------------------------------------------------------- |
-| `trigger`                 | `trigger`                   | public  | `string \| HTMLElement`      |         | The element that will trigger the navigation. Accepts both a string (id of an element) or an HTML element. |
+| `trigger`                 | `trigger`                   | public  | `string \| HTMLElement`      | `null`  | The element that will trigger the navigation. Accepts both a string (id of an element) or an HTML element. |
 | `accessibilityCloseLabel` | `accessibility-close-label` | public  | `\| string     \| undefined` |         | This will be forwarded as aria-label to the close button element.                                          |
 | `disableAnimation`        | `disable-animation`         | public  | `boolean`                    | `false` | Whether the animation is enabled.                                                                          |
 

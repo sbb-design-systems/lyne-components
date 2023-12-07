@@ -45,9 +45,9 @@ In the following example, all the `sbb-expansion-panel-header` would be wrapped 
 
 | Name               | Attribute           | Privacy | Type                 | Default | Description                                                                 |
 | ------------------ | ------------------- | ------- | -------------------- | ------- | --------------------------------------------------------------------------- |
-| `titleLevel`       | `title-level`       | public  | `TitleLevel \| null` |         | The heading level for the sbb-expansion-panel-headers within the component. |
+| `titleLevel`       | `title-level`       | public  | `TitleLevel \| null` | `null`  | The heading level for the sbb-expansion-panel-headers within the component. |
 | `disableAnimation` | `disable-animation` | public  | `boolean`            | `false` | Whether the animation should be disabled.                                   |
-| `multi`            | `multi`             | public  | `boolean`            |         | Whether more than one sbb-expansion-panel can be open at the same time.     |
+| `multi`            | `multi`             | public  | `boolean`            | `false` | Whether more than one sbb-expansion-panel can be open at the same time.     |
 
 ## Slots
 

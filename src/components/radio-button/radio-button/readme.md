@@ -42,14 +42,15 @@ The component has two different sizes, which can be changed using the `size` pro
 
 ## Properties
 
-| Name                  | Attribute               | Privacy | Type                 | Default | Description                           |
-| --------------------- | ----------------------- | ------- | -------------------- | ------- | ------------------------------------- |
-| `allowEmptySelection` | `allow-empty-selection` | public  | `boolean`            | `false` | Whether the radio can be deselected.  |
-| `value`               | `value`                 | public  | `string`             |         | Value of radio button.                |
-| `disabled`            | `disabled`              | public  | `boolean`            | `false` | Whether the radio button is disabled. |
-| `required`            | `required`              | public  | `boolean`            | `false` | Whether the radio button is required. |
-| `checked`             | `checked`               | public  | `boolean`            | `false` | Whether the radio button is checked.  |
-| `size`                | `size`                  | public  | `SbbRadioButtonSize` | `'m'`   | Label size variant, either m or s.    |
+| Name                  | Attribute               | Privacy | Type                                 | Default | Description                                    |
+| --------------------- | ----------------------- | ------- | ------------------------------------ | ------- | ---------------------------------------------- |
+| `allowEmptySelection` | `allow-empty-selection` | public  | `boolean`                            | `false` | Whether the radio can be deselected.           |
+| `value`               | `value`                 | public  | `string`                             |         | Value of radio button.                         |
+| `disabled`            | `disabled`              | public  | `boolean`                            | `false` | Whether the radio button is disabled.          |
+| `required`            | `required`              | public  | `boolean`                            | `false` | Whether the radio button is required.          |
+| `group`               | -                       | public  | `SbbRadioButtonGroupElement \| null` |         | Reference to the connected radio button group. |
+| `checked`             | `checked`               | public  | `boolean`                            | `false` | Whether the radio button is checked.           |
+| `size`                | `size`                  | public  | `SbbRadioButtonSize`                 | `'m'`   | Label size variant, either m or s.             |
 
 ## Methods
 

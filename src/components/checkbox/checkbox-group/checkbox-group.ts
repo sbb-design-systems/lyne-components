@@ -1,13 +1,13 @@
-import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import { CSSResultGroup, html, LitElement, nothing, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../core/a11y';
+import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y';
 import { toggleDatasetEntry } from '../../core/dom';
 import {
+  ConnectedAbortController,
   createNamedSlotState,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
-  ConnectedAbortController,
 } from '../../core/eventing';
 import { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces';
 import type { SbbCheckboxElement, SbbCheckboxSize } from '../checkbox';
@@ -41,6 +41,13 @@ export class SbbCheckboxGroupElement extends LitElement {
   @property({ reflect: true })
   public orientation: SbbOrientation = 'horizontal';
 
+  /** List of contained checkbox elements. */
+  public get checkboxes(): SbbCheckboxElement[] {
+    return Array.from(this.querySelectorAll?.('sbb-checkbox') ?? []).filter(
+      (el: SbbCheckboxElement) => el.closest('sbb-checkbox-group') === this,
+    );
+  }
+
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @state() private _namedSlots = createNamedSlotState('error');
 
@@ -49,26 +56,7 @@ export class SbbCheckboxGroupElement extends LitElement {
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
-  private _didLoad = false;
   private _abort: ConnectedAbortController = new ConnectedAbortController(this);
-
-  private _updateDisabled(): void {
-    for (const checkbox of this._checkboxes) {
-      toggleDatasetEntry(checkbox, 'groupDisabled', this.disabled);
-    }
-  }
-
-  private _updateRequired(): void {
-    for (const checkbox of this._checkboxes) {
-      toggleDatasetEntry(checkbox, 'groupRequired', this.required);
-    }
-  }
-
-  private _updateSize(): void {
-    for (const checkbox of this._checkboxes) {
-      checkbox.size = this.size;
-    }
-  }
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -76,24 +64,18 @@ export class SbbCheckboxGroupElement extends LitElement {
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
     toggleDatasetEntry(this, 'hasSelectionPanel', !!this.querySelector?.('sbb-selection-panel'));
     this._handlerRepository.connect();
-    this._updateCheckboxes();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('disabled')) {
-      this._updateDisabled();
+      this.checkboxes.forEach((c) => c.requestUpdate?.('disabled'));
     }
     if (changedProperties.has('required')) {
-      this._updateRequired();
+      this.checkboxes.forEach((c) => c.requestUpdate?.('required'));
     }
     if (changedProperties.has('size')) {
-      this._updateSize();
+      this.checkboxes.forEach((c) => c.requestUpdate?.('size'));
     }
-  }
-
-  protected override firstUpdated(): void {
-    this._didLoad = true;
-    this._updateCheckboxes();
   }
 
   public override disconnectedCallback(): void {
@@ -102,7 +84,7 @@ export class SbbCheckboxGroupElement extends LitElement {
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {
-    const enabledCheckboxes: SbbCheckboxElement[] = this._checkboxes.filter(
+    const enabledCheckboxes: SbbCheckboxElement[] = this.checkboxes.filter(
       (checkbox: SbbCheckboxElement) =>
         !checkbox.disabled && interactivityChecker.isVisible(checkbox),
     );
@@ -126,30 +108,10 @@ export class SbbCheckboxGroupElement extends LitElement {
     }
   }
 
-  private _updateCheckboxes(): void {
-    if (!this._didLoad) {
-      return;
-    }
-
-    const checkboxes = this._checkboxes;
-
-    for (const checkbox of checkboxes) {
-      checkbox.size = this.size;
-      toggleDatasetEntry(checkbox, 'groupDisabled', this.disabled);
-      toggleDatasetEntry(checkbox, 'groupRequired', this.required);
-    }
-  }
-
-  private get _checkboxes(): SbbCheckboxElement[] {
-    return Array.from(this.querySelectorAll?.('sbb-checkbox') ?? []).filter(
-      (el: SbbCheckboxElement) => el.closest('sbb-checkbox-group') === this,
-    );
-  }
-
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-checkbox-group">
-        <slot @slotchange=${() => this._updateCheckboxes()}></slot>
+        <slot></slot>
       </div>
       ${this._namedSlots.error
         ? html`<div class="sbb-checkbox-group__error">
