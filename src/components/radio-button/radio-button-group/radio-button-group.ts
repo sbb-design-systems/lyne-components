@@ -167,15 +167,15 @@ export class SbbRadioButtonGroupElement extends LitElement {
     if (changedProperties.has('disabled')) {
       for (const radio of this.radioButtons) {
         radio.tabIndex = this._getRadioTabIndex(radio);
-        radio.requestUpdate('disabled');
+        radio.requestUpdate?.('disabled');
       }
       this._setFocusableRadio();
     }
     if (changedProperties.has('required')) {
-      this.radioButtons.forEach((r) => r.requestUpdate('required'));
+      this.radioButtons.forEach((r) => r.requestUpdate?.('required'));
     }
     if (changedProperties.has('size')) {
-      this.radioButtons.forEach((r) => r.requestUpdate('size'));
+      this.radioButtons.forEach((r) => r.requestUpdate?.('size'));
     }
   }
 

@@ -2,7 +2,7 @@ import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValu
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { setAttributes, isValidAttribute } from '../../core/dom';
+import { setAttributes } from '../../core/dom';
 import {
   createNamedSlotState,
   documentLanguage,
@@ -22,9 +22,9 @@ import {
   SbbCheckedStateChange,
   SbbDisabledStateChange,
 } from '../../core/interfaces';
-import { AgnosticMutationObserver } from '../../core/observers';
 import '../../visual-checkbox';
 import '../../icon';
+import type { SbbCheckboxGroup } from '../checkbox-group';
 
 import style from './checkbox.scss?lit&inline';
 
@@ -34,11 +34,6 @@ export type SbbCheckboxStateChange = Extract<
 >;
 
 export type SbbCheckboxSize = 's' | 'm';
-
-/** Configuration for the attribute to look at if component is nested in a sbb-checkbox-group */
-const checkboxObserverConfig: MutationObserverInit = {
-  attributeFilter: ['data-group-required', 'data-group-disabled'],
-};
 
 /**
  * It displays a checkbox enhanced with the SBB Design.
@@ -62,10 +57,30 @@ export class SbbCheckboxElement extends LitElement {
   @property() public value?: string;
 
   /** Whether the checkbox is disabled. */
-  @property({ reflect: true, type: Boolean }) public disabled = false;
+  @property({ reflect: true, type: Boolean })
+  public set disabled(value: boolean) {
+    this._disabled = value;
+  }
+  public get disabled(): boolean {
+    return this._disabled || (this.group?.disabled ?? false);
+  }
+  private _disabled = false;
 
   /** Whether the checkbox is required. */
-  @property({ reflect: true, type: Boolean }) public required = false;
+  @property({ reflect: true, type: Boolean })
+  public set required(value: boolean) {
+    this._required = value;
+  }
+  public get required(): boolean {
+    return this._required || (this.group?.required ?? false);
+  }
+  private _required = false;
+
+  /** Reference to the connected checkbox group. */
+  public get group(): SbbCheckboxGroup | null {
+    return this._group;
+  }
+  private _group: SbbCheckboxGroup | null;
 
   /** Whether the checkbox is indeterminate. */
   @property({ reflect: true, type: Boolean }) public indeterminate = false;
@@ -84,13 +99,14 @@ export class SbbCheckboxElement extends LitElement {
   @property({ reflect: true, type: Boolean }) public checked = false;
 
   /** Label size variant, either m or s. */
-  @property({ reflect: true }) public size: SbbCheckboxSize = 'm';
-
-  /** Whether the component must be set disabled due disabled attribute on sbb-checkbox-group. */
-  @state() private _disabledFromGroup = false;
-
-  /** Whether the component must be set required due required attribute on sbb-checkbox-group. */
-  @state() private _requiredFromGroup = false;
+  @property({ reflect: true })
+  public set size(value: SbbCheckboxSize) {
+    this._size = value;
+  }
+  public get size(): SbbCheckboxSize {
+    return this.group?.size ?? this._size;
+  }
+  private _size: SbbCheckboxSize = 'm';
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @state() private _namedSlots = createNamedSlotState('icon', 'subtext', 'suffix');
@@ -106,11 +122,6 @@ export class SbbCheckboxElement extends LitElement {
   private _checkbox: HTMLInputElement;
   private _selectionPanelElement: HTMLElement;
   private _abort: ConnectedAbortController = new ConnectedAbortController(this);
-
-  /** MutationObserver on data attributes. */
-  private _checkboxAttributeObserver = new AgnosticMutationObserver(
-    this._onCheckboxAttributesChange.bind(this),
-  );
 
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
@@ -161,40 +172,18 @@ export class SbbCheckboxElement extends LitElement {
     formElementHandlerAspect,
   );
 
-  // Set up the initial disabled/required values and start observe attributes changes.
-  private _setupInitialStateAndAttributeObserver(): void {
-    const parentGroup = this.closest?.('sbb-checkbox-group');
-    if (parentGroup) {
-      this._requiredFromGroup = parentGroup.required;
-      this._disabledFromGroup = parentGroup.disabled;
-      this.size = parentGroup.size;
-    }
-    this._checkboxAttributeObserver.observe(this, checkboxObserverConfig);
-  }
-
-  /** Observe changes on data attributes and set the appropriate values. */
-  private _onCheckboxAttributesChange(mutationsList: MutationRecord[]): void {
-    for (const mutation of mutationsList) {
-      if (mutation.attributeName === 'data-group-disabled') {
-        this._disabledFromGroup = !!isValidAttribute(this, 'data-group-disabled');
-      }
-      if (mutation.attributeName === 'data-group-required') {
-        this._requiredFromGroup = !!isValidAttribute(this, 'data-group-required');
-      }
-    }
-  }
-
   public override connectedCallback(): void {
     super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener('click', (e) => this._handleClick(e), { signal });
-    this.addEventListener('keyup', (e) => this._handleKeyup(e), { signal });
+    this._group = this.closest('sbb-checkbox-group') as SbbCheckboxGroup;
     // We can use closest here, as we expect the parent sbb-selection-panel to be in light DOM.
     this._selectionPanelElement = this.closest?.('sbb-selection-panel');
     this._isSelectionPanelInput =
       !!this._selectionPanelElement && !this.closest?.('sbb-selection-panel [slot="content"]');
+
+    const signal = this._abort.signal;
+    this.addEventListener('click', (e) => this._handleClick(e), { signal });
+    this.addEventListener('keyup', (e) => this._handleKeyup(e), { signal });
     this._handlerRepository.connect();
-    this._setupInitialStateAndAttributeObserver();
     this._checkboxLoaded.emit();
   }
 
@@ -214,19 +203,18 @@ export class SbbCheckboxElement extends LitElement {
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._handlerRepository.disconnect();
-    this._checkboxAttributeObserver.disconnect();
   }
 
   // Forward the click on the inner label.
   private _handleClick(event: MouseEvent): void {
-    if (!this.disabled && !this._disabledFromGroup && getEventTarget(event) === this) {
+    if (!this.disabled && getEventTarget(event) === this) {
       this.shadowRoot.querySelector('label').click();
     }
   }
 
   private _handleKeyup(event: KeyboardEvent): void {
     // The native checkbox input toggles state on keyup with space.
-    if (!this.disabled && !this._disabledFromGroup && event.key === ' ') {
+    if (!this.disabled && event.key === ' ') {
       // The toggle needs to happen after the keyup event finishes, so we schedule
       // it to be triggered after the current event loop.
       setTimeout(() => this._checkbox.click());
@@ -266,10 +254,10 @@ export class SbbCheckboxElement extends LitElement {
     const attributes: Record<string, string | boolean> = {
       role: 'checkbox',
       'aria-checked': this.indeterminate ? 'mixed' : this.checked?.toString() ?? 'false',
-      'aria-required': (this.required || this._requiredFromGroup).toString(),
-      'aria-disabled': (this.disabled || this._disabledFromGroup).toString(),
+      'aria-required': this.required.toString(),
+      'aria-disabled': this.disabled.toString(),
       'data-is-selection-panel-input': this._isSelectionPanelInput,
-      ...(this.disabled || this._disabledFromGroup ? undefined : { tabIndex: '0' }),
+      ...(this.disabled ? undefined : { tabIndex: '0' }),
     };
     setAttributes(this, attributes);
 
@@ -280,8 +268,8 @@ export class SbbCheckboxElement extends LitElement {
             type="checkbox"
             aria-hidden="true"
             tabindex=${-1}
-            ?disabled=${this.disabled || this._disabledFromGroup}
-            ?required=${this.required || this._requiredFromGroup}
+            ?disabled=${this.disabled}
+            ?required=${this.required}
             ?checked=${this.checked}
             .value=${this.value || nothing}
             @input=${() => this._handleInputEvent()}
@@ -300,7 +288,7 @@ export class SbbCheckboxElement extends LitElement {
               <sbb-visual-checkbox
                 ?checked=${this.checked}
                 ?indeterminate=${this.indeterminate}
-                ?disabled=${this.disabled || this._disabledFromGroup}
+                ?disabled=${this.disabled}
               ></sbb-visual-checkbox>
             </span>
             <span class="sbb-checkbox__label">
