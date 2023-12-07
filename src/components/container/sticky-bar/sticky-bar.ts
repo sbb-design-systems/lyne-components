@@ -9,7 +9,7 @@ import style from './sticky-bar.scss?lit&inline';
  * @slot - Use the unnamed slot to add content to the sticky bar.
  */
 @customElement('sbb-sticky-bar')
-export class SbbStickyBar extends LitElement {
+export class SbbStickyBarElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   protected override render(): TemplateResult {
@@ -24,6 +24,6 @@ export class SbbStickyBar extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-sticky-bar': SbbStickyBar;
+    'sbb-sticky-bar': SbbStickyBarElement;
   }
 }
