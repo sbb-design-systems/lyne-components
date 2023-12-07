@@ -10,6 +10,7 @@ import {
   toggleDatasetEntry,
   getDocumentWritingMode,
   setAttribute,
+  isNextjs,
 } from '../core/dom';
 import { ConnectedAbortController, EventEmitter } from '../core/eventing';
 import {
@@ -231,12 +232,27 @@ export class SbbSelect extends UpdateScheduler(LitElement) {
 
     // Wait for ssr hydration
     this.startUpdate();
-    setTimeout(() => {
-      this._setupOrigin();
-      this._setupTrigger();
-      this._didLoad = true;
-      this.completeUpdate();
-    });
+    if (!isNextjs()) {
+      this._setupSelect();
+    }
+  }
+
+  /**
+   * Removes element's first attribute whose qualified name is qualifiedName.
+   *
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/removeAttribute)
+   * @internal We need to override this due to a hydration issue with Next.js.
+   */
+  public override removeAttribute(qualifiedName: string): void {
+    // In Next.js the hydration needs to finish before we can manipulate the light DOM.
+    // @lit/react calls removeAttribute('defer-hydration') in a useLayoutEffect,
+    // which is done after hydration is finished. Due to this we intercept this call
+    // in overriding removeAttribute to finish initialization of the sbb-select.
+    // https://github.com/lit/lit/blob/main/packages/react/src/create-component.ts#L293-L296
+    if (isNextjs() && qualifiedName === 'defer-hydration') {
+      this._setupSelect();
+    }
+    super.removeAttribute(qualifiedName);
   }
 
   public override connectedCallback(): void {
@@ -289,6 +305,13 @@ export class SbbSelect extends UpdateScheduler(LitElement) {
     this.querySelectorAll?.('sbb-option, sbb-optgroup').forEach(
       (element: SbbOption | SbbOptGroup) => toggleDatasetEntry(element, 'negative', this.negative),
     );
+  }
+
+  private _setupSelect(): void {
+    this._setupOrigin();
+    this._setupTrigger();
+    this._didLoad = true;
+    this.completeUpdate();
   }
 
   /** Sets the originElement; if the component is used in a sbb-form-field uses it, otherwise uses the parentElement. */
