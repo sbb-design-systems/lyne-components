@@ -85,7 +85,8 @@ export class SbbCheckboxGroupElement extends LitElement {
 
   private _handleKeyDown(evt: KeyboardEvent): void {
     const enabledCheckboxes: SbbCheckboxElement[] = this.checkboxes.filter(
-      (checkbox: SbbCheckboxElement) => !checkbox.disabled && interactivityChecker.isVisible(checkbox),
+      (checkbox: SbbCheckboxElement) =>
+        !checkbox.disabled && interactivityChecker.isVisible(checkbox),
     );
 
     if (

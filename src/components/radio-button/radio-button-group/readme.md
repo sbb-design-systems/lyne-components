@@ -78,7 +78,7 @@ In order to ensure readability for screen-readers, please provide an `aria-label
 | `size`                | `size`                  | public  | `SbbRadioButtonSize`             | `'m'`          | Size variant, either m or s.                              |
 | `horizontalFrom`      | `horizontal-from`       | public  | `SbbHorizontalFrom \| undefined` |                | Overrides the behaviour of `orientation` property.        |
 | `orientation`         | `orientation`           | public  | `SbbOrientation`                 | `'horizontal'` | Radio group's orientation, either horizontal or vertical. |
-| `radioButtons`        | -                       | public  | `SbbRadioButton[]`               |                | List of contained radio buttons.                          |
+| `radioButtons`        | -                       | public  | `SbbRadioButtonElement[]`        |                | List of contained radio buttons.                          |
 
 ## Events
 

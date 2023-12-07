@@ -80,7 +80,7 @@ Two values are available, `s` and `m`, which is the default
 | `size`           | `size`            | public  | `SbbCheckboxSize`                | `'m'`          | Size variant, either m or s.                                                   |
 | `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| undefined` |                | Overrides the behaviour of `orientation` property.                             |
 | `orientation`    | `orientation`     | public  | `SbbOrientation`                 | `'horizontal'` | Indicates the orientation of the checkboxes inside the `<sbb-checkbox-group>`. |
-| `checkboxes`     | -                 | public  | `SbbCheckbox[]`                  |                | List of contained checkbox elements.                                           |
+| `checkboxes`     | -                 | public  | `SbbCheckboxElement[]`           |                | List of contained checkbox elements.                                           |
 
 ## Slots
 
