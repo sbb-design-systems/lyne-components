@@ -21,7 +21,7 @@ describe('sbb-notification', () => {
 
     expect(root).dom.to.be.equal(
       `
-      <sbb-notification disable-animation data-state="opening" type="info" style="--sbb-notification-height: auto;">
+      <sbb-notification disable-animation data-state="opened" type="info" style="--sbb-notification-height: auto;">
         The quick brown fox jumps over the lazy dog.
       </sbb-notification>`,
     );
@@ -54,7 +54,7 @@ describe('sbb-notification', () => {
 
     expect(root).dom.to.be.equal(
       `
-      <sbb-notification disable-animation data-has-title data-state="opening" title-content="Title" type="info" style="--sbb-notification-height: auto;">
+      <sbb-notification disable-animation data-has-title data-state="opened" title-content="Title" type="info" style="--sbb-notification-height: auto;">
         The quick brown fox jumps over the lazy dog.
       </sbb-notification>`,
     );
@@ -93,7 +93,7 @@ describe('sbb-notification', () => {
 
     expect(root).dom.to.be.equal(
       `
-      <sbb-notification disable-animation data-has-title data-state="opening" type="info" style="--sbb-notification-height: auto;">
+      <sbb-notification disable-animation data-has-title data-state="opened" type="info" style="--sbb-notification-height: auto;">
         <span slot="title">
           Slotted title
         </span>
@@ -132,7 +132,7 @@ describe('sbb-notification', () => {
 
     expect(root).dom.to.be.equal(
       `
-      <sbb-notification disable-animation data-has-title readonly data-state="opening" title-content="Title" type="info" style="--sbb-notification-height: auto;">
+      <sbb-notification disable-animation data-has-title readonly data-state="opened" title-content="Title" type="info" style="--sbb-notification-height: auto;">
         The quick brown fox jumps over the lazy dog.
       </sbb-notification>`,
     );

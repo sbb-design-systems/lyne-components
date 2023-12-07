@@ -82,7 +82,7 @@ export class SbbNotificationElement extends LitElement {
   /**
    * The state of the notification.
    */
-  @state() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'opening';
+  @state() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'closed';
 
   private _notificationElement: HTMLElement;
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -115,6 +115,14 @@ export class SbbNotificationElement extends LitElement {
     SbbNotificationElement.events.didClose,
   );
 
+  private _open(): void {
+    if (this._state === 'closed') {
+      this._state = 'opening';
+      this._willOpen.emit();
+      this.disableAnimation && this._handleOpening();
+    }
+  }
+
   public close(): void {
     if (this._state === 'opened') {
       this._state = 'closing';
@@ -135,7 +143,7 @@ export class SbbNotificationElement extends LitElement {
   }
 
   protected override firstUpdated(): void {
-    this._willOpen.emit();
+    this._open();
   }
 
   public override disconnectedCallback(): void {
