@@ -44,13 +44,13 @@ The component has two different sizes, which can be changed using the `size` pro
 
 | Name                  | Attribute               | Privacy | Type                          | Default | Description                                    |
 | --------------------- | ----------------------- | ------- | ----------------------------- | ------- | ---------------------------------------------- |
-| `allowEmptySelection` | `allow-empty-selection` | public  | `boolean`                     |         | Whether the radio can be deselected.           |
+| `allowEmptySelection` | `allow-empty-selection` | public  | `boolean`                     | `false` | Whether the radio can be deselected.           |
 | `value`               | `value`                 | public  | `string`                      |         | Value of radio button.                         |
-| `disabled`            | `disabled`              | public  | `boolean`                     |         | Whether the radio button is disabled.          |
-| `required`            | `required`              | public  | `boolean`                     |         | Whether the radio button is required.          |
+| `disabled`            | `disabled`              | public  | `boolean`                     | `false` | Whether the radio button is disabled.          |
+| `required`            | `required`              | public  | `boolean`                     | `false` | Whether the radio button is required.          |
 | `group`               | -                       | public  | `SbbRadioButtonGroup \| null` |         | Reference to the connected radio button group. |
 | `checked`             | `checked`               | public  | `boolean`                     | `false` | Whether the radio button is checked.           |
-| `size`                | `size`                  | public  | `SbbRadioButtonSize`          |         | Label size variant, either m or s.             |
+| `size`                | `size`                  | public  | `SbbRadioButtonSize`          | `'m'`   | Label size variant, either m or s.             |
 
 ## Methods
 

@@ -28,7 +28,7 @@ as it is used for search engines and screen-reader users.
 
 | Name       | Attribute  | Privacy | Type                                                 | Default | Description                                                                     |
 | ---------- | ---------- | ------- | ---------------------------------------------------- | ------- | ------------------------------------------------------------------------------- |
-| `active`   | `active`   | public  | `boolean`                                            |         | Whether the card is active.                                                     |
+| `active`   | `active`   | public  | `boolean`                                            | `false` | Whether the card is active.                                                     |
 | `href`     | `href`     | public  | `string \| undefined`                                |         | The href value you want to link to.                                             |
 | `target`   | `target`   | public  | `LinkTargetType \| string \| undefined \| undefined` |         | Where to display the linked URL.                                                |
 | `rel`      | `rel`      | public  | `string \| undefined \| undefined`                   |         | The relationship of the linked URL as space-separated link types.               |
