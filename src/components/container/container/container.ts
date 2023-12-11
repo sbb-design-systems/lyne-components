@@ -48,7 +48,9 @@ export class SbbContainerElement extends LitElement {
     }
 
     const stickyBarPosition = stickyBar.getBoundingClientRect();
-    const containerPosition = this.getBoundingClientRect();
+    const containerPosition = this.shadowRoot
+      .querySelector('.sbb-container')
+      .getBoundingClientRect();
 
     if (!stickyBarPosition || !containerPosition) {
       return;
