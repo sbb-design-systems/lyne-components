@@ -23,17 +23,13 @@
       "@sbb-esta/lyne-components-react/*": ["src/react/*"]
     },
 
-    /** JSX **/
-    "jsx": "react",
-    "jsxFactory": "h",
-
     /** linting **/
     "allowSyntheticDefaultImports": true,
     "useDefineForClassFields": false,
     "forceConsistentCasingInFileNames": true,
     "noImplicitOverride": true,
 
-    "types": ["jsx-dom", "mocha"],
+    "types": ["mocha"],
 
     "plugins": [
       {
@@ -53,6 +49,6 @@
       }
     ]
   },
-  "include": [".storybook/**/*.ts", "src/**/*.ts", "src/**/*.tsx", "tools/**/*.ts", "ci/**/*.ts"],
+  "include": [".storybook/**/*.ts", "src/**/*.ts", "tools/**/*.ts", "scripts/**/*.ts"],
   "exclude": ["node_modules/"]
 }

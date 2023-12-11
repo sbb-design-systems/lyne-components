@@ -27,18 +27,18 @@
     "build": "npm-run-all --sequential build:components build:react build:storybook",
     "docs": "npm-run-all --sequential docs:manifest docs:to-md",
     "docs:manifest": "custom-elements-manifest analyze --config config/custom-elements-manifest.config.js",
-    "docs:to-md": "tsx ci/docs_generate.ts",
+    "docs:to-md": "tsx scripts/docs_generate.ts",
     "format": "prettier \"**/*\" --write --ignore-unknown",
     "generate": "tsx tools/generate-component/index.mts",
-    "generate:chromatic-stories": "tsx ci/chromatic-stories-generator.ts",
+    "generate:chromatic-stories": "tsx scripts/chromatic-stories-generator.ts",
     "integrity": "npm-run-all format docs",
     "lint": "npm-run-all --sequential lint:*",
-    "lint:ts": "eslint \"**/*.{ts,tsx}\"",
+    "lint:ts": "eslint \"**/*.ts\"",
     "lint:js": "eslint \"**/*.js\"",
     "lint:yml": "eslint \"**/*.{yml,yaml}\"",
     "lint:styles": "stylelint \"**/*.scss\"",
-    "lint:lit": "yarn lit-analyzer \"src/components/**/*.(ts|tsx)\"",
-    "lint:circular-imports": "madge --circular --extensions ts,tsx ./",
+    "lint:lit": "yarn lit-analyzer \"src/components/**/*.ts\"",
+    "lint:circular-imports": "madge --circular --extensions ts ./",
     "lint:tsc": "npm-run-all --sequential lint:tsc:*",
     "lint:tsc:components": "tsc --noEmit --project src/components/tsconfig.json",
     "lint:tsc:components-spec": "tsc --noEmit --project src/components/tsconfig.spec.json",
@@ -90,7 +90,6 @@
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "npm:eslint-plugin-i@latest",
     "eslint-plugin-jest": "27.6.0",
-    "eslint-plugin-jsx-a11y": "6.8.0",
     "eslint-plugin-lit": "1.10.1",
     "eslint-plugin-lyne": "file:tools/eslint/link/",
     "eslint-plugin-react": "7.33.2",
@@ -98,7 +97,6 @@
     "eslint-plugin-yaml": "0.5.0",
     "glob": "10.3.10",
     "husky": "8.0.3",
-    "jsx-dom": "8.1.1",
     "lint-staged": "15.2.0",
     "lit-analyzer": "2.0.1",
     "madge": "6.1.0",
@@ -169,13 +167,13 @@
     "printWidth": 100
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,yaml,yml}": [
+    "*.{js,ts,yaml,yml}": [
       "eslint --fix"
     ],
     "*.scss": [
       "stylelint --fix"
     ],
-    "*.{js,jsx,ts,tsx,css,scss,json,md,html,yaml,yml}": [
+    "*.{js,ts,css,scss,json,md,html,yaml,yml}": [
       "prettier --write"
     ]
   }

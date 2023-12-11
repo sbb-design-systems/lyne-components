@@ -34,7 +34,7 @@ export default defineConfig((config) =>
             dts({
               entryRoot: '.',
               include: `**/*.ts`,
-              exclude: ['**/*.{stories,spec,e2e}.{ts,tsx}', 'vite.config.ts'],
+              exclude: ['**/*.{stories,spec,e2e}.ts', 'vite.config.ts'],
             }),
             customElementsManifest(),
             packageJsonTemplate({
