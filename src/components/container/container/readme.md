@@ -10,12 +10,17 @@ The `sbb-container` is a component that displays its content with the default pa
 </sbb-container>
 ```
 
+## Slots
+
+The `sbb-container` content is provided via an unnamed slot.
+
 ## Style
 
-The component has two spacing variants, that can be set using the `expanded` property (default: `false`). This spacing is applied to all of its content, including the `sbb-sticky-bar`.
+The component has two spacing options, that can be set using the `expanded` property (default: `false`). This spacing is applied to all of its content, including the `sbb-sticky-bar`.
+The component has also four color variants that can be set using the `variant` property (default: `transparent`).
 
 ```html
-<sbb-container expanded> ... </sbb-container>
+<sbb-container expanded variant="milk"> ... </sbb-container>
 ```
 
 ## Accessibility
