@@ -114,12 +114,12 @@ using `aria-activedescendant` to support navigation though the autocomplete opti
 
 ## Events
 
-| Name        | Type                | Description                                                          | Inherited From |
-| ----------- | ------------------- | -------------------------------------------------------------------- | -------------- |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` starts the opening transition. |                |
-| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` is opened.                     |                |
-| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` begins the closing transition. |                |
-| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` is closed.                     |                |
+| Name        | Type                | Description                                                                           | Inherited From |
+| ----------- | ------------------- | ------------------------------------------------------------------------------------- | -------------- |
+| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` starts the opening transition. Can be canceled. |                |
+| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` is opened.                                      |                |
+| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` begins the closing transition. Can be canceled. |                |
+| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-autocomplete` is closed.                                      |                |
 
 ## Slots
 

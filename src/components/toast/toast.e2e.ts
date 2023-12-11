@@ -162,4 +162,34 @@ describe('sbb-toast', () => {
     expect(toast1).to.have.attribute('data-state', 'closed');
     expect(toast2).to.have.attribute('data-state', 'opened');
   });
+
+  it('does not open if prevented', async () => {
+    const willOpenEventSpy = new EventSpy(SbbToastElement.events.willOpen);
+
+    element.addEventListener(SbbToastElement.events.willOpen, (ev) => ev.preventDefault());
+    element.open();
+
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    expect(willOpenEventSpy.count).to.be.equal(1);
+    await waitForLitRender(element);
+
+    expect(element).to.have.attribute('data-state', 'closed');
+  });
+
+  it('does not close if prevented', async () => {
+    const didOpenEventSpy = new EventSpy(SbbToastElement.events.didOpen);
+    const willCloseEventSpy = new EventSpy(SbbToastElement.events.willClose);
+
+    element.open();
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await waitForLitRender(element);
+
+    element.addEventListener(SbbToastElement.events.willClose, (ev) => ev.preventDefault());
+    element.close();
+
+    await waitForCondition(() => willCloseEventSpy.events.length === 1);
+    await waitForLitRender(element);
+
+    expect(element).to.have.attribute('data-state', 'opened');
+  });
 });

@@ -37,9 +37,9 @@ let nextId = 0;
  * @slot - Use the unnamed slot to add content to the `sbb-dialog`.
  * @slot title - Use this slot to provide a title.
  * @slot action-group - Use this slot to display a `sbb-action-group` in the footer.
- * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-dialog` starts the opening transition.
+ * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-dialog` starts the opening transition. Can be canceled.
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-dialog` is opened.
- * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-dialog` begins the closing transition.
+ * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-dialog` is closed.
  * @event {CustomEvent<void>} requestBackAction - Emits whenever the back button is clicked.
  */
@@ -187,11 +187,16 @@ export class SbbDialogElement extends LitElement {
       return;
     }
     this._lastFocusedElement = document.activeElement as HTMLElement;
-    this._willOpen.emit();
+
+    if (!this._willOpen.emit()) {
+      return;
+    }
     this._state = 'opening';
+
     // Add this dialog to the global collection
     dialogRefs.push(this as SbbDialogElement);
     this._setOverflowAttribute();
+
     // Disable scrolling for content below the dialog
     this._scrollHandler.disableScroll();
   }
@@ -206,7 +211,14 @@ export class SbbDialogElement extends LitElement {
 
     this._returnValue = result;
     this._dialogCloseElement = target;
-    this._willClose.emit({ returnValue: this._returnValue, closeTarget: this._dialogCloseElement });
+    const eventData = {
+      returnValue: this._returnValue,
+      closeTarget: this._dialogCloseElement,
+    };
+
+    if (!this._willClose.emit(eventData)) {
+      return;
+    }
     this._state = 'closing';
     this._removeAriaLiveRefContent();
   }

@@ -41,9 +41,9 @@ const tooltipsRef = new Set<SbbTooltipElement>();
  * It displays contextual information within a tooltip.
  *
  * @slot - Use the unnamed slot to add content into the tooltip.
- * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-tooltip` starts the opening transition.
+ * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-tooltip` starts the opening transition. Can be canceled.
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-tooltip` is opened.
- * @event {CustomEvent<{ closeTarget: HTMLElement }>} willClose - Emits whenever the `sbb-tooltip` begins the closing transition.
+ * @event {CustomEvent<{ closeTarget: HTMLElement }>} willClose - Emits whenever the `sbb-tooltip` begins the closing transition. Can be canceled.
  * @event {CustomEvent<{ closeTarget: HTMLElement }>} didClose - Emits whenever the `sbb-tooltip` is closed.
  */
 @customElement('sbb-tooltip')
@@ -161,6 +161,11 @@ export class SbbTooltipElement extends LitElement {
       return;
     }
 
+    if (!this._willOpen.emit()) {
+      return;
+    }
+
+    // Close the other tooltips
     for (const tooltip of Array.from(tooltipsRef)) {
       const state = tooltip.getAttribute('data-state') as SbbOverlayState;
       if (state && (state === 'opened' || state === 'opening')) {
@@ -168,7 +173,6 @@ export class SbbTooltipElement extends LitElement {
       }
     }
 
-    this._willOpen.emit();
     this._state = 'opening';
     this.inert = true;
     this._setTooltipPosition();
@@ -185,7 +189,10 @@ export class SbbTooltipElement extends LitElement {
     }
 
     this._tooltipCloseElement = target;
-    this._willClose.emit({ closeTarget: this._tooltipCloseElement });
+    if (!this._willClose.emit({ closeTarget: target })) {
+      return;
+    }
+
     this._state = 'closing';
     this.inert = true;
     this._triggerElement?.setAttribute('aria-expanded', 'false');

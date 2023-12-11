@@ -116,12 +116,12 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 
 ## Events
 
-| Name        | Type                | Description                                                   | Inherited From |
-| ----------- | ------------------- | ------------------------------------------------------------- | -------------- |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-toast` starts the opening transition. |                |
-| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-toast` is opened.                     |                |
-| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-toast` begins the closing transition. |                |
-| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-toast` is closed.                     |                |
+| Name        | Type                | Description                                                                    | Inherited From |
+| ----------- | ------------------- | ------------------------------------------------------------------------------ | -------------- |
+| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-toast` starts the opening transition. Can be canceled. |                |
+| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-toast` is opened.                                      |                |
+| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-toast` begins the closing transition. Can be canceled. |                |
+| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-toast` is closed.                                      |                |
 
 ## Slots
 

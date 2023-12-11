@@ -37,9 +37,9 @@ export interface SelectChange {
  * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  * @event {CustomEvent<void>} change - Notifies that the component's value has changed.
  * @event {CustomEvent<void>} input - Notifies that an option value has been selected.
- * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-select` starts the opening transition.
+ * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-select` starts the opening transition. Can be canceled.
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-select` is opened.
- * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-select` begins the closing transition.
+ * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-select` begins the closing transition. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-select` is closed.
  */
 @customElement('sbb-select')
@@ -166,8 +166,10 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
       return;
     }
 
+    if (!this._willOpen.emit()) {
+      return;
+    }
     this._state = 'opening';
-    this._willOpen.emit();
     this._setOverlayPosition();
   }
 
@@ -177,8 +179,10 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
       return;
     }
 
+    if (!this._willClose.emit()) {
+      return;
+    }
     this._state = 'closing';
-    this._willClose.emit();
     this._openPanelEventsController.abort();
   }
 

@@ -31,9 +31,9 @@ let nextId = 0;
  * Combined with a native input, it displays a panel with a list of available options.
  *
  * @slot - Use the unnamed slot to add `sbb-option` or `sbb-optgroup` elements to the `sbb-autocomplete`.
- * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-autocomplete` starts the opening transition.
+ * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-autocomplete` starts the opening transition. Can be canceled.
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-autocomplete` is opened.
- * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-autocomplete` begins the closing transition.
+ * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-autocomplete` begins the closing transition. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-autocomplete` is closed.
  */
 @customElement('sbb-autocomplete')
@@ -139,9 +139,11 @@ export class SbbAutocompleteElement extends LitElement {
     ) {
       return;
     }
+    if (!this._willOpen.emit()) {
+      return;
+    }
 
     this._state = 'opening';
-    this._willOpen.emit();
     this._setOverlayPosition();
   }
 
@@ -150,9 +152,11 @@ export class SbbAutocompleteElement extends LitElement {
     if (this._state !== 'opened') {
       return;
     }
+    if (!this._willClose.emit()) {
+      return;
+    }
 
     this._state = 'closing';
-    this._willClose.emit();
     this._openPanelEventsController.abort();
   }
 

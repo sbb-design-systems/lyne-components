@@ -176,4 +176,34 @@ describe('sbb-autocomplete', () => {
     await waitForLitRender(element);
     expect(input).to.have.attribute('aria-expanded', 'false');
   });
+
+  it('does not open if prevented', async () => {
+    const willOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.willOpen);
+
+    element.addEventListener(SbbAutocompleteElement.events.willOpen, (ev) => ev.preventDefault());
+    element.open();
+
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    expect(willOpenEventSpy.count).to.be.equal(1);
+    await waitForLitRender(element);
+
+    expect(element).to.have.attribute('data-state', 'closed');
+  });
+
+  it('does not close if prevented', async () => {
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen);
+    const willCloseEventSpy = new EventSpy(SbbAutocompleteElement.events.willClose);
+
+    element.open();
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await waitForLitRender(element);
+
+    element.addEventListener(SbbAutocompleteElement.events.willClose, (ev) => ev.preventDefault());
+    element.close();
+
+    await waitForCondition(() => willCloseEventSpy.events.length === 1);
+    await waitForLitRender(element);
+
+    expect(element).to.have.attribute('data-state', 'opened');
+  });
 });

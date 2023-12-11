@@ -373,4 +373,34 @@ describe('sbb-tooltip', () => {
     expect(didOpenEventSpy.count).to.be.equal(2);
     expect(secondElement).to.have.attribute('data-state', 'opened');
   });
+
+  it('does not open if prevented', async () => {
+    const willOpenEventSpy = new EventSpy(SbbTooltipElement.events.willOpen);
+
+    element.addEventListener(SbbTooltipElement.events.willOpen, (ev) => ev.preventDefault());
+    element.open();
+
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    expect(willOpenEventSpy.count).to.be.equal(1);
+    await waitForLitRender(element);
+
+    expect(element).to.have.attribute('data-state', 'closed');
+  });
+
+  it('does not close if prevented', async () => {
+    const didOpenEventSpy = new EventSpy(SbbTooltipElement.events.didOpen);
+    const willCloseEventSpy = new EventSpy(SbbTooltipElement.events.willClose);
+
+    element.open();
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await waitForLitRender(element);
+
+    element.addEventListener(SbbTooltipElement.events.willClose, (ev) => ev.preventDefault());
+    element.close();
+
+    await waitForCondition(() => willCloseEventSpy.events.length === 1);
+    await waitForLitRender(element);
+
+    expect(element).to.have.attribute('data-state', 'opened');
+  });
 });

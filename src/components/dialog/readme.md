@@ -102,13 +102,13 @@ The default `z-index` of the component is set to `1000`; to specify a custom sta
 
 ## Events
 
-| Name                | Type                | Description                                                    | Inherited From |
-| ------------------- | ------------------- | -------------------------------------------------------------- | -------------- |
-| `willOpen`          | `CustomEvent<void>` | Emits whenever the `sbb-dialog` starts the opening transition. |                |
-| `didOpen`           | `CustomEvent<void>` | Emits whenever the `sbb-dialog` is opened.                     |                |
-| `willClose`         | `CustomEvent<void>` | Emits whenever the `sbb-dialog` begins the closing transition. |                |
-| `didClose`          | `CustomEvent<void>` | Emits whenever the `sbb-dialog` is closed.                     |                |
-| `requestBackAction` | `CustomEvent<void>` | Emits whenever the back button is clicked.                     |                |
+| Name                | Type                | Description                                                                     | Inherited From |
+| ------------------- | ------------------- | ------------------------------------------------------------------------------- | -------------- |
+| `willOpen`          | `CustomEvent<void>` | Emits whenever the `sbb-dialog` starts the opening transition. Can be canceled. |                |
+| `didOpen`           | `CustomEvent<void>` | Emits whenever the `sbb-dialog` is opened.                                      |                |
+| `willClose`         | `CustomEvent<void>` | Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled. |                |
+| `didClose`          | `CustomEvent<void>` | Emits whenever the `sbb-dialog` is closed.                                      |                |
+| `requestBackAction` | `CustomEvent<void>` | Emits whenever the back button is clicked.                                      |                |
 
 ## Slots
 

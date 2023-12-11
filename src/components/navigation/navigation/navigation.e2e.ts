@@ -325,4 +325,34 @@ describe('sbb-navigation', () => {
     expect(element).to.have.attribute('data-state', 'opened');
     expect(section).to.have.attribute('data-state', 'closed');
   });
+
+  it('does not open if prevented', async () => {
+    const willOpenEventSpy = new EventSpy(SbbNavigationElement.events.willOpen);
+
+    element.addEventListener(SbbNavigationElement.events.willOpen, (ev) => ev.preventDefault());
+    element.open();
+
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    expect(willOpenEventSpy.count).to.be.equal(1);
+    await waitForLitRender(element);
+
+    expect(element).to.have.attribute('data-state', 'closed');
+  });
+
+  it('does not close if prevented', async () => {
+    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
+    const willCloseEventSpy = new EventSpy(SbbNavigationElement.events.willClose);
+
+    element.open();
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await waitForLitRender(element);
+
+    element.addEventListener(SbbNavigationElement.events.willClose, (ev) => ev.preventDefault());
+    element.close();
+
+    await waitForCondition(() => willCloseEventSpy.events.length === 1);
+    await waitForLitRender(element);
+
+    expect(element).to.have.attribute('data-state', 'opened');
+  });
 });
