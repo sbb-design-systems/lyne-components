@@ -6,7 +6,7 @@ describe('sbb-container', () => {
   it('renders', async () => {
     const root = await fixture(html`<sbb-container></sbb-container>`);
 
-    expect(root).dom.to.be.equal(`<sbb-container></sbb-container>`);
+    expect(root).dom.to.be.equal(`<sbb-container variant="transparent"></sbb-container>`);
 
     await expect(root).shadowDom.to.equalSnapshot();
   });
