@@ -18,7 +18,7 @@ import '../breadcrumb';
 const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
   await waitForComponentsReady(() =>
-    canvas.getByTestId('breadcrumb-group').shadowRoot.querySelectorAll('sbb-breadcrumb'),
+    canvas.getByTestId('breadcrumb-group').shadowRoot.querySelectorAll('li'),
   );
   await waitForStablePosition(() => canvas.getByTestId('breadcrumb-group'));
 };

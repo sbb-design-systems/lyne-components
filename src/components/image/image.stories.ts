@@ -1,9 +1,11 @@
+import { within } from '@storybook/testing-library';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import { html, TemplateResult } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
+import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
+import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
 import { sbbSpread } from '../core/dom';
 import images from '../core/images';
 
@@ -11,7 +13,17 @@ import readme from './readme.md?raw';
 
 import './image';
 
-const Template = (args): TemplateResult => html`<sbb-image ${sbbSpread(args)}></sbb-image>`;
+// Story interaction executed after the story renders
+const playStory = async ({ canvasElement }): Promise<void> => {
+  const canvas = within(canvasElement);
+  await waitForComponentsReady(() =>
+    canvas.getByTestId('image').shadowRoot.querySelectorAll('.image__img'),
+  );
+  await waitForStablePosition(() => canvas.getByTestId('image'));
+};
+
+const Template = (args): TemplateResult =>
+  html`<sbb-image data-testid="image" ${sbbSpread(args)}></sbb-image>`;
 
 const imageSrc: InputType = {
   control: {
@@ -174,6 +186,7 @@ export const TransparentImage: StoryObj = {
     ...defaultArgs,
     'image-src': imageSrc.options[9],
   },
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const NoCaptionNoRadius: StoryObj = {
@@ -183,14 +196,13 @@ export const NoCaptionNoRadius: StoryObj = {
     ...defaultArgs,
     'no-border-radius': true,
   },
+  play: isChromatic() ? playStory : undefined,
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style=${styleMap({ 'max-width': '1000px' })}>${story()}</div> `,
-  ],
+  decorators: [(story) => html` <div style="max-width: 1000px;">${story()}</div> `],
   parameters: {
-    chromatic: { diffThreshold: 0.11, delay: 8000 },
+    // chromatic: { diffThreshold: 0.11, delay: 8000 }, // test playStory for chromatic
     docs: {
       extractComponentDescription: () => readme,
     },
