@@ -1,7 +1,6 @@
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import { html, TemplateResult } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../core/dom';
 
@@ -131,9 +130,7 @@ export const LongContent: StoryObj = {
     'icon-name': 'house-small',
     text: 'This label name is so long that it needs ellipsis to fit.',
   },
-  decorators: [
-    (story) => html` <div style=${styleMap({ 'max-width': '200px' })}>${story()}</div> `,
-  ],
+  decorators: [(story) => html` <div style="max-width: 200px;">${story()}</div> `],
 };
 
 export const NoLink: StoryObj = {
@@ -143,7 +140,7 @@ export const NoLink: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style=${styleMap({ padding: '2rem' })}>${story()}</div> `],
+  decorators: [(story) => html` <div style="padding: 2rem;">${story()}</div> `],
   parameters: {
     backgrounds: {
       disable: true,

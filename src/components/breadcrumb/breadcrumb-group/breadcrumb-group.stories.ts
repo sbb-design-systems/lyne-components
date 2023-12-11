@@ -1,8 +1,11 @@
+import { within } from '@storybook/testing-library';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
+import isChromatic from 'chromatic';
 import { html, TemplateResult } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
+import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
+import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
 import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
@@ -10,6 +13,15 @@ import readme from './readme.md?raw';
 import '../../button';
 import './breadcrumb-group';
 import '../breadcrumb';
+
+// Story interaction executed after the story renders
+const playStory = async ({ canvasElement }): Promise<void> => {
+  const canvas = within(canvasElement);
+  await waitForComponentsReady(() =>
+    canvas.getByTestId('breadcrumb-group').shadowRoot.querySelectorAll('sbb-breadcrumb'),
+  );
+  await waitForStablePosition(() => canvas.getByTestId('breadcrumb-group'));
+};
 
 const addBreadcrumb = (event: Event): void => {
   const breadcrumbGroup = (event.target as HTMLElement)
@@ -130,10 +142,10 @@ const createBreadcrumbs = ({ numberOfBreadcrumbs, text, ...args }): TemplateResu
 
 const Template = (args): TemplateResult => html`
   <div class="container">
-    <sbb-breadcrumb-group aria-label="You are here:">
+    <sbb-breadcrumb-group aria-label="You are here:" data-testid="breadcrumb-group">
       ${createBreadcrumbs(args)}
     </sbb-breadcrumb-group>
-    <div style=${styleMap({ 'margin-block': '2rem', gap: '1rem', display: 'flex' })}>
+    <div style="margin-block: 2rem; gap: 1rem; display: flex;">
       <sbb-button variant="secondary" @click=${(event: Event) => addBreadcrumb(event)}
         >Add</sbb-button
       >
@@ -148,18 +160,20 @@ export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
+  play: isChromatic() ? playStory : undefined,
 };
 
 export const CollapsedState: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, numberOfBreadcrumbs: 25 },
+  play: isChromatic() ? playStory : undefined,
 };
 
 const meta: Meta = {
   decorators: [
     (story) => html`
-      <div style=${styleMap({ padding: '2rem' })}>
+      <div style="padding: 2rem;">
         ${story()}
         <div>Page content</div>
       </div>
