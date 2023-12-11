@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.43.1](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0...v0.43.1) (2023-12-11)
+
+
+### Features
+
+* **overlays:** provide option to cancel 'willClose' and 'willOpen' events ([#2264](https://github.com/lyne-design-system/lyne-components/issues/2264)) ([1bc5596](https://github.com/lyne-design-system/lyne-components/commit/1bc5596eab0dcd2dbb95dc928a6e7014d5b3d52b))
+
 ## [0.43.0](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0-next.16...v0.43.0) (2023-12-07)
 
 ## [0.43.0-next.16](https://github.com/lyne-design-system/lyne-components/compare/v0.43.0-next.15...v0.43.0-next.16) (2023-12-07)
