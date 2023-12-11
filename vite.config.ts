@@ -84,9 +84,11 @@ export function copyAssets(includes: string[]): PluginOption {
         return;
       }
       for (const file of glob.sync(includes, { cwd: viteConfig.root })) {
+        // Remove relative file path if file is on a more upper layer than cwd.
+        const fileName = file.replace(/^(\.\.\/)*/, '');
         this.emitFile({
           type: 'asset',
-          fileName: file,
+          fileName: fileName,
           source: readFileSync(join(viteConfig.root, file), 'utf8'),
         });
       }

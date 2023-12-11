@@ -55,7 +55,7 @@ export default defineConfig((config) =>
                 .filter((v, i, a) => a.indexOf(v) === i)
                 .sort(),
             }),
-            copyAssets(['_index.scss', 'core/styles/**/*.scss']),
+            copyAssets(['_index.scss', 'core/styles/**/*.scss', '../../README.md']),
             typography(),
           ]
         : []),
@@ -71,7 +71,7 @@ export default defineConfig((config) =>
       outDir: outDir.pathname,
       emptyOutDir: true,
     },
-    assetsInclude: ['_index.scss', 'core/styles/**/*.scss'],
+    assetsInclude: ['_index.scss', 'core/styles/**/*.scss', 'README.md'],
   }),
 );
 

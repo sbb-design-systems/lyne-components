@@ -38,17 +38,15 @@ The latest still **🧪 experimental** version of the Storybook component browse
 
 The current **🧪 experimental** build of Lyne Components can be found on [npm](https://www.npmjs.com/package/@sbb-esta/lyne-components).
 
-## 🚀 Getting started
-
-To see how to use `lyne-components` in React, Angular, Vue, Svelte or Plain Javascript, please refer to [this](https://github.com/lyne-design-system/lyne-getting-started) repo to see example implementations.
-
 ## 📚 Documentation
 
 Check the [docs](docs/README.md) directory for our documentation which we will continuously enhance.
+Component specific docs are available on our [storybook](https://lyne-storybook.app.sbb.ch).
+General docs can be read on [digital.sbb.ch](https://digital.sbb.ch).
 
 ## 🙌 Contributing
 
-See our [contributing guide](/.github/CONTRIBUTING.md) and check also our [code of conduct](/.github/CODE_OF_CONDUCT.md) 👀.
+See our [contributing guide](CONTRIBUTING.md) and check also our [code of conduct](CODE_OF_CONDUCT.md) 👀.
 
 ## 📝 License
 

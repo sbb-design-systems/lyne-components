@@ -29,7 +29,7 @@ Run `yarn lint --fix` to fix any automatically fixable lint issues and report th
 
 ## Running tests
 
-To run unit tests, run `yarn test:watch`.
+To run unit tests, run `yarn test`.
 
 ## Starting showcase
 

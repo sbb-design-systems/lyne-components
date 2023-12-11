@@ -62,7 +62,7 @@ function copyFiles(
       const fileDataWithCorrectName: string = fileData
         .replace(/__name__/gu, componentName)
         .replace(/__noPrefixName__/gu, componentFileName)
-        .replace(/__nameUpperCase__/gu, convertKebabCaseToPascalCase(componentName));
+        .replace(/__nameUpperCase__/gu, `${convertKebabCaseToPascalCase(componentName)}Element`);
 
       try {
         const relativePath: string = relative(config.boilerplateDirectory, file);
