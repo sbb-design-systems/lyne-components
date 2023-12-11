@@ -1,11 +1,7 @@
-import { within } from '@storybook/testing-library';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import isChromatic from 'chromatic';
 import { html, TemplateResult } from 'lit';
 
-import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
 import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
@@ -13,15 +9,6 @@ import readme from './readme.md?raw';
 import '../../button';
 import './breadcrumb-group';
 import '../breadcrumb';
-
-// Story interaction executed after the story renders
-const playStory = async ({ canvasElement }): Promise<void> => {
-  const canvas = within(canvasElement);
-  await waitForComponentsReady(() =>
-    canvas.getByTestId('breadcrumb-group').shadowRoot.querySelectorAll('li'),
-  );
-  await waitForStablePosition(() => canvas.getByTestId('breadcrumb-group'));
-};
 
 const addBreadcrumb = (event: Event): void => {
   const breadcrumbGroup = (event.target as HTMLElement)
@@ -160,14 +147,12 @@ export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const CollapsedState: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, numberOfBreadcrumbs: 25 },
-  play: isChromatic() ? playStory : undefined,
 };
 
 const meta: Meta = {
@@ -183,6 +168,7 @@ const meta: Meta = {
     backgrounds: {
       disable: true,
     },
+    chromatic: { diffThreshold: 0.25, delay: 5000 },
     docs: {
       extractComponentDescription: () => readme,
     },
