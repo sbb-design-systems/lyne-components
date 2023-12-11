@@ -4,6 +4,7 @@ import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import { html, TemplateResult } from 'lit';
 
+import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
 import { sbbSpread } from '../core/dom';
 import images from '../core/images';
 
@@ -14,9 +15,15 @@ import './image';
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
-  const innerImg = canvas.getByTestId('image').shadowRoot.querySelector('.image__img');
+  await waitForComponentsReady(() =>
+    canvas.getByTestId('image').shadowRoot.querySelector('.image__img'),
+  );
+
   await new Promise<void>((resolve: () => void) => {
-    innerImg.addEventListener('load', resolve, { once: true });
+    canvas
+      .getByTestId('image')
+      .shadowRoot.querySelector('.image__img')
+      .addEventListener('load', resolve, { once: true });
   });
 };
 
