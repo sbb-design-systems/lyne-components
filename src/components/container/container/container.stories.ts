@@ -2,7 +2,6 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { ArgTypes, Args, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import { TemplateResult, html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../core/dom';
 import placeholderImage from '../../teaser/stories/placeholder.png';
@@ -24,7 +23,7 @@ const teaser = (): TemplateResult => html`
 `;
 
 const containerContent = (title: string, negative = false): TemplateResult => html`
-  <div style=${styleMap({ overflow: 'auto' })}>
+  <div style="overflow: auto">
     <sbb-title level="4" ?negative=${negative}>${title}</sbb-title>
     <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
     <p class="sbb-text-s">
@@ -57,15 +56,15 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   expanded: false,
-  variant: 'transparent',
+  variant: variant.options[0],
 };
 
 const DefaultTemplate = ({ ...args }): TemplateResult => html`
-  <sbb-container ${sbbSpread({ ...args })}>${containerContent('Example title')}</sbb-container>
+  <sbb-container ${sbbSpread(args)}>${containerContent('Example title')}</sbb-container>
 `;
 
 const WithStickybarTemplate = ({ variant, ...args }): TemplateResult => html`
-  <sbb-container ${sbbSpread({ ...args })} variant=${variant}>
+  <sbb-container ${sbbSpread(args)} variant=${variant}>
     ${containerContent('Example title', variant === 'midnight')}
     ${containerContent('Another one', variant === 'midnight')}
     ${containerContent('And another one', variant === 'midnight')}
@@ -94,7 +93,7 @@ export const WithStickyBar: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (story) => html` <div style=${styleMap({ margin: '-1rem' })}>${story()}</div> `,
+    (story) => html` <div style="margin: -1rem">${story()}</div> `,
     withActions as Decorator,
   ],
   parameters: {
