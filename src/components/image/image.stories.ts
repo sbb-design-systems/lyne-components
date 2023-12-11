@@ -15,15 +15,11 @@ import './image';
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
-  await waitForComponentsReady(() =>
-    canvas.getByTestId('image').shadowRoot.querySelector('.image__img'),
-  );
-
-  await new Promise<void>((resolve: () => void) => {
-    canvas
-      .getByTestId('image')
-      .shadowRoot.querySelector('.image__img')
-      .addEventListener('load', resolve, { once: true });
+  await waitForComponentsReady(async () => {
+    const img = canvas.getByTestId('image').shadowRoot.querySelector('.image__img');
+    await new Promise<void>((resolve: () => void) => {
+      img.addEventListener('load', resolve, { once: true });
+    });
   });
 };
 
@@ -208,7 +204,7 @@ export const NoCaptionNoRadius: StoryObj = {
 const meta: Meta = {
   decorators: [(story) => html` <div style="max-width: 1000px;">${story()}</div> `],
   parameters: {
-    chromatic: { diffThreshold: 1, delay: 10000 },
+    // chromatic: { diffThreshold: 1, delay: 10000 },
     docs: {
       extractComponentDescription: () => readme,
     },
