@@ -164,9 +164,9 @@ describe('sbb-toast', () => {
   });
 
   it('does not open if prevented', async () => {
-    const willOpenEventSpy = new EventSpy(SbbToast.events.willOpen);
+    const willOpenEventSpy = new EventSpy(SbbToastElement.events.willOpen);
 
-    element.addEventListener(SbbToast.events.willOpen, (ev) => ev.preventDefault());
+    element.addEventListener(SbbToastElement.events.willOpen, (ev) => ev.preventDefault());
     element.open();
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
@@ -177,14 +177,14 @@ describe('sbb-toast', () => {
   });
 
   it('does not close if prevented', async () => {
-    const didOpenEventSpy = new EventSpy(SbbToast.events.didOpen);
-    const willCloseEventSpy = new EventSpy(SbbToast.events.willClose);
+    const didOpenEventSpy = new EventSpy(SbbToastElement.events.didOpen);
+    const willCloseEventSpy = new EventSpy(SbbToastElement.events.willClose);
 
     element.open();
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     await waitForLitRender(element);
 
-    element.addEventListener(SbbToast.events.willClose, (ev) => ev.preventDefault());
+    element.addEventListener(SbbToastElement.events.willClose, (ev) => ev.preventDefault());
     element.close();
 
     await waitForCondition(() => willCloseEventSpy.events.length === 1);

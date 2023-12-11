@@ -368,9 +368,9 @@ describe('sbb-select', () => {
   });
 
   it('does not open if prevented', async () => {
-    const willOpenEventSpy = new EventSpy(SbbSelect.events.willOpen);
+    const willOpenEventSpy = new EventSpy(SbbSelectElement.events.willOpen);
 
-    element.addEventListener(SbbSelect.events.willOpen, (ev) => ev.preventDefault());
+    element.addEventListener(SbbSelectElement.events.willOpen, (ev) => ev.preventDefault());
     element.open();
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
@@ -381,14 +381,14 @@ describe('sbb-select', () => {
   });
 
   it('does not close if prevented', async () => {
-    const didOpenEventSpy = new EventSpy(SbbSelect.events.didOpen);
-    const willCloseEventSpy = new EventSpy(SbbSelect.events.willClose);
+    const didOpenEventSpy = new EventSpy(SbbSelectElement.events.didOpen);
+    const willCloseEventSpy = new EventSpy(SbbSelectElement.events.willClose);
 
     element.open();
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     await waitForLitRender(element);
 
-    element.addEventListener(SbbSelect.events.willClose, (ev) => ev.preventDefault());
+    element.addEventListener(SbbSelectElement.events.willClose, (ev) => ev.preventDefault());
     element.close();
 
     await waitForCondition(() => willCloseEventSpy.events.length === 1);

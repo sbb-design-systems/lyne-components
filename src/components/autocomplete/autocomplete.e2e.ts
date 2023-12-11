@@ -178,9 +178,9 @@ describe('sbb-autocomplete', () => {
   });
 
   it('does not open if prevented', async () => {
-    const willOpenEventSpy = new EventSpy(SbbAutocomplete.events.willOpen);
+    const willOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.willOpen);
 
-    element.addEventListener(SbbAutocomplete.events.willOpen, (ev) => ev.preventDefault());
+    element.addEventListener(SbbAutocompleteElement.events.willOpen, (ev) => ev.preventDefault());
     element.open();
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
@@ -191,14 +191,14 @@ describe('sbb-autocomplete', () => {
   });
 
   it('does not close if prevented', async () => {
-    const didOpenEventSpy = new EventSpy(SbbAutocomplete.events.didOpen);
-    const willCloseEventSpy = new EventSpy(SbbAutocomplete.events.willClose);
+    const didOpenEventSpy = new EventSpy(SbbAutocompleteElement.events.didOpen);
+    const willCloseEventSpy = new EventSpy(SbbAutocompleteElement.events.willClose);
 
     element.open();
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     await waitForLitRender(element);
 
-    element.addEventListener(SbbAutocomplete.events.willClose, (ev) => ev.preventDefault());
+    element.addEventListener(SbbAutocompleteElement.events.willClose, (ev) => ev.preventDefault());
     element.close();
 
     await waitForCondition(() => willCloseEventSpy.events.length === 1);

@@ -375,9 +375,9 @@ describe('sbb-tooltip', () => {
   });
 
   it('does not open if prevented', async () => {
-    const willOpenEventSpy = new EventSpy(SbbTooltip.events.willOpen);
+    const willOpenEventSpy = new EventSpy(SbbTooltipElement.events.willOpen);
 
-    element.addEventListener(SbbTooltip.events.willOpen, (ev) => ev.preventDefault());
+    element.addEventListener(SbbTooltipElement.events.willOpen, (ev) => ev.preventDefault());
     element.open();
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
@@ -388,14 +388,14 @@ describe('sbb-tooltip', () => {
   });
 
   it('does not close if prevented', async () => {
-    const didOpenEventSpy = new EventSpy(SbbTooltip.events.didOpen);
-    const willCloseEventSpy = new EventSpy(SbbTooltip.events.willClose);
+    const didOpenEventSpy = new EventSpy(SbbTooltipElement.events.didOpen);
+    const willCloseEventSpy = new EventSpy(SbbTooltipElement.events.willClose);
 
     element.open();
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     await waitForLitRender(element);
 
-    element.addEventListener(SbbTooltip.events.willClose, (ev) => ev.preventDefault());
+    element.addEventListener(SbbTooltipElement.events.willClose, (ev) => ev.preventDefault());
     element.close();
 
     await waitForCondition(() => willCloseEventSpy.events.length === 1);

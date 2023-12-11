@@ -51,10 +51,10 @@ describe('sbb-dialog', () => {
   });
 
   it('does not open the dialog if prevented', async () => {
-    const willOpen = new EventSpy(SbbDialog.events.willOpen);
-    const didOpen = new EventSpy(SbbDialog.events.didOpen);
+    const willOpen = new EventSpy(SbbDialogElement.events.willOpen);
+    const didOpen = new EventSpy(SbbDialogElement.events.didOpen);
 
-    element.addEventListener(SbbDialog.events.willOpen, (ev) => ev.preventDefault());
+    element.addEventListener(SbbDialogElement.events.willOpen, (ev) => ev.preventDefault());
 
     element.open();
     await waitForLitRender(element);
@@ -91,12 +91,12 @@ describe('sbb-dialog', () => {
   });
 
   it('does not close the dialog if prevented', async () => {
-    const willClose = new EventSpy(SbbDialog.events.willClose);
-    const didClose = new EventSpy(SbbDialog.events.didClose);
+    const willClose = new EventSpy(SbbDialogElement.events.willClose);
+    const didClose = new EventSpy(SbbDialogElement.events.didClose);
 
     await openDialog(element);
 
-    element.addEventListener(SbbDialog.events.willClose, (ev) => ev.preventDefault());
+    element.addEventListener(SbbDialogElement.events.willClose, (ev) => ev.preventDefault());
 
     element.close();
     await waitForLitRender(element);

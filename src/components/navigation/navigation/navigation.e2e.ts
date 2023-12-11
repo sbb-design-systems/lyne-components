@@ -327,9 +327,9 @@ describe('sbb-navigation', () => {
   });
 
   it('does not open if prevented', async () => {
-    const willOpenEventSpy = new EventSpy(SbbNavigation.events.willOpen);
+    const willOpenEventSpy = new EventSpy(SbbNavigationElement.events.willOpen);
 
-    element.addEventListener(SbbNavigation.events.willOpen, (ev) => ev.preventDefault());
+    element.addEventListener(SbbNavigationElement.events.willOpen, (ev) => ev.preventDefault());
     element.open();
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
@@ -340,14 +340,14 @@ describe('sbb-navigation', () => {
   });
 
   it('does not close if prevented', async () => {
-    const didOpenEventSpy = new EventSpy(SbbNavigation.events.didOpen);
-    const willCloseEventSpy = new EventSpy(SbbNavigation.events.willClose);
+    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
+    const willCloseEventSpy = new EventSpy(SbbNavigationElement.events.willClose);
 
     element.open();
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     await waitForLitRender(element);
 
-    element.addEventListener(SbbNavigation.events.willClose, (ev) => ev.preventDefault());
+    element.addEventListener(SbbNavigationElement.events.willClose, (ev) => ev.preventDefault());
     element.close();
 
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
