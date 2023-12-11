@@ -252,9 +252,12 @@ describe('sbb-selection-panel', () => {
         </sbb-radio-button-group>
       `);
       const wrapperNoContent = document.querySelector('#group-no-content');
-      const firstInputNoContent: SbbRadioButton = document.querySelector('#input-no-content-1');
-      const secondInputNoContent: SbbRadioButton = document.querySelector('#input-no-content-2');
-      const fourthInputNoContent: SbbRadioButton = document.querySelector('#input-no-content-4');
+      const firstInputNoContent: SbbRadioButtonElement =
+        document.querySelector('#input-no-content-1');
+      const secondInputNoContent: SbbRadioButtonElement =
+        document.querySelector('#input-no-content-2');
+      const fourthInputNoContent: SbbRadioButtonElement =
+        document.querySelector('#input-no-content-4');
 
       await sendKeys({ down: 'Tab' });
       await waitForLitRender(wrapperNoContent);
