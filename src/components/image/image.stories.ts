@@ -204,7 +204,7 @@ export const NoCaptionNoRadius: StoryObj = {
 const meta: Meta = {
   decorators: [(story) => html` <div style="max-width: 1000px;">${story()}</div> `],
   parameters: {
-    // chromatic: { diffThreshold: 1, delay: 10000 },
+    chromatic: { disableSnapshot: false },
     docs: {
       extractComponentDescription: () => readme,
     },
