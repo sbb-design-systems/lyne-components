@@ -1,7 +1,6 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Decorator, Meta, StoryObj } from '@storybook/web-components';
 import { TemplateResult, html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import '../../button';
 import '../../title';
@@ -31,10 +30,10 @@ const WithStickybarTemplate = (): TemplateResult => html`
     ${containerContent('And another one')} ${containerContent('And a last one')}
 
     <sbb-sticky-bar>
-      <sbb-button style=${styleMap({ marginInlineStart: 'auto' })}>Continue</sbb-button>
+      <sbb-button style="margin-inline-start: auto">Continue</sbb-button>
     </sbb-sticky-bar>
   </sbb-container>
-  <sbb-container variant="milk" style=${styleMap({ paddingBlock: '5rem' })}>
+  <sbb-container variant="milk" style="padding-block: 5rem">
     ${containerContent('Content after first container')} ${containerContent('Another one')}
   </sbb-container>
 `;
@@ -49,7 +48,7 @@ export const WithContentAfter: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (story) => html` <div style=${styleMap({ margin: '-1rem' })}>${story()}</div> `,
+    (story) => html` <div style="margin: -1rem">${story()}</div> `,
     withActions as Decorator,
   ],
   parameters: {
