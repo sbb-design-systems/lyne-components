@@ -270,11 +270,11 @@ export class SbbRadioButtonGroupElement extends LitElement {
     const current: number = enabledRadios.findIndex((e: SbbRadioButtonElement) => e === evt.target);
     const nextIndex: number = getNextElementIndex(evt, current, enabledRadios.length);
 
-    // Selection on arrow keypress is allowed only if all the selection-panel has no content.
-    const allPanelHasNoContent: boolean = (
+    // Selection on arrow keypress is allowed only if all the selection-panels have no content.
+    const allPanelsHaveNoContent: boolean = (
       Array.from(this.querySelectorAll?.('sbb-selection-panel')) || []
     ).every((e) => !isValidAttribute(e, 'data-has-content'));
-    if (!this._hasSelectionPanel || (this._hasSelectionPanel && allPanelHasNoContent)) {
+    if (!this._hasSelectionPanel || (this._hasSelectionPanel && allPanelsHaveNoContent)) {
       enabledRadios[nextIndex].select();
     }
 
