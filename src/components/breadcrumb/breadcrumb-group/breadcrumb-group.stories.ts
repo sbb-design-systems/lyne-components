@@ -168,7 +168,7 @@ const meta: Meta = {
     backgrounds: {
       disable: true,
     },
-    chromatic: { diffThreshold: 0.25, delay: 5000 },
+    chromatic: { delay: 5000 },
     docs: {
       extractComponentDescription: () => readme,
     },

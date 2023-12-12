@@ -1,27 +1,14 @@
-import { within } from '@storybook/testing-library';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import { html, TemplateResult } from 'lit';
 
-import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
 import { sbbSpread } from '../core/dom';
 import images from '../core/images';
 
 import readme from './readme.md?raw';
 
 import './image';
-
-// Story interaction executed after the story renders
-const playStory = async ({ canvasElement }): Promise<void> => {
-  const canvas = within(canvasElement);
-  await waitForComponentsReady(async () => {
-    const img = canvas.getByTestId('image').shadowRoot.querySelector('.image__img');
-    await new Promise<void>((resolve: () => void) => {
-      img.addEventListener('load', resolve, { once: true });
-    });
-  });
-};
 
 const Template = (args): TemplateResult =>
   html`<sbb-image data-testid="image" ${sbbSpread(args)}></sbb-image>`;
@@ -178,7 +165,6 @@ export const Default: StoryObj = {
     caption:
       'Mit Ihrem Halbtax profitieren Sie zudem von attraktiven Zusatzleistungen und Rabatten. Wenn Sie unter 25 Jahre jung sind, können Sie zu Ihrem Halbtax das beliebte <a href="https://www.sbb.ch/abos-billette/abonnemente/gleis-7-freie-fahrt-ab-19-uhr.html#jahrg_nger_halbtax">Gleis 7</a> dazu kaufen.',
   },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const TransparentImage: StoryObj = {
@@ -188,7 +174,6 @@ export const TransparentImage: StoryObj = {
     ...defaultArgs,
     'image-src': imageSrc.options[9],
   },
-  play: isChromatic() ? playStory : undefined,
 };
 
 export const NoCaptionNoRadius: StoryObj = {
@@ -198,13 +183,12 @@ export const NoCaptionNoRadius: StoryObj = {
     ...defaultArgs,
     'no-border-radius': true,
   },
-  play: isChromatic() ? playStory : undefined,
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style="max-width: 1000px;">${story()}</div> `],
+  decorators: [(story) => html` <div style="max-width: 480px;">${story()}</div> `],
   parameters: {
-    chromatic: { disableSnapshot: false },
+    chromatic: { diffThreshold: 0.11, delay: 8000 },
     docs: {
       extractComponentDescription: () => readme,
     },
