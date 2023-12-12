@@ -327,7 +327,7 @@ export class SbbDatepickerElement extends LitElement {
     readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
   private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this, this._abort).withHandler(() => {
+  private _language = new LanguageController(this).withHandler(() => {
     if (this._inputElement) {
       this._inputElement.placeholder = i18nDatePickerPlaceholder[this._language.current];
       const valueAsDate = this.getValueAsDate();

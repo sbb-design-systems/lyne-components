@@ -39,7 +39,7 @@ export class SbbTrainFormationElement extends SlotChildObserver(LitElement) {
   private _formationDiv: HTMLDivElement;
   private _contentResizeObserver = new AgnosticResizeObserver(() => this._applyCssWidth());
   private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this, this._abort);
+  private _language = new LanguageController(this);
 
   public override connectedCallback(): void {
     super.connectedCallback();

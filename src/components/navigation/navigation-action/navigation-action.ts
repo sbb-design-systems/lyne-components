@@ -89,7 +89,7 @@ export class SbbNavigationActionElement extends LitElement {
 
   private _navigationMarker: SbbNavigationMarkerElement;
   private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this, this._abort);
+  private _language = new LanguageController(this);
 
   private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
 

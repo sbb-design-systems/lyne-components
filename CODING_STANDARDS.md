@@ -122,7 +122,7 @@ event and re-render the view. This can be done by marking the field with `@state
 import { LanguageController } from '../core/common-behaviors';
 
 export class Component extends LitElement {
-  private _language = new LanguageController(this /*, this._abort */);
+  private _language = new LanguageController(this);
 
   protected override render(): TemplateResult {
     return html` ... ${i18nExample[this._language.current]} ... `;

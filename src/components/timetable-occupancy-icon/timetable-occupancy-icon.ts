@@ -23,9 +23,7 @@ export class SbbTimetableOccupancyIconElement extends SbbIconBase {
   @property({ reflect: true, type: Boolean }) public negative: boolean = false;
 
   private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this, this._abort).withHandler(() =>
-    this._setAriaLabel(),
-  );
+  private _language = new LanguageController(this).withHandler(() => this._setAriaLabel());
 
   private async _setNameAndAriaLabel(): Promise<void> {
     if (!this.occupancy) {

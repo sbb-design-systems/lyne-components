@@ -31,7 +31,7 @@ export class SbbBreadcrumbGroupElement extends SlotChildObserver(LitElement) {
 
   private _resizeObserver = new AgnosticResizeObserver(() => this._evaluateCollapsedState());
   private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this, this._abort);
+  private _language = new LanguageController(this);
   private _markForFocus = false;
 
   private _handleKeyDown(evt: KeyboardEvent): void {

@@ -119,7 +119,7 @@ export class SbbCheckboxElement extends LitElement {
   private _checkbox: HTMLInputElement;
   private _selectionPanelElement: HTMLElement;
   private _abort: ConnectedAbortController = new ConnectedAbortController(this);
-  private _language = new LanguageController(this, this._abort);
+  private _language = new LanguageController(this);
 
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.

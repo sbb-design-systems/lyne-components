@@ -120,7 +120,7 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
   private _navigationController: AbortController;
   private _windowEventsController: AbortController;
   private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this, this._abort);
+  private _language = new LanguageController(this);
   private _focusTrap = new FocusTrap();
   private _scrollHandler = new ScrollHandler();
   private _isPointerDownEventOnNavigation: boolean;

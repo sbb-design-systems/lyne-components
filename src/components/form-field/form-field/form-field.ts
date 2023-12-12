@@ -118,7 +118,7 @@ export class SbbFormFieldElement extends LitElement {
   }
 
   private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this, this._abort);
+  private _language = new LanguageController(this);
   private _handlerRepository = new HandlerRepository(
     this,
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),

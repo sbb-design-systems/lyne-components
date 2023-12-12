@@ -56,9 +56,7 @@ export class SbbDatepickerNextDayElement extends LitElement implements ButtonPro
   private _datePickerController: AbortController;
 
   private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this, this._abort).withHandler(() =>
-    this._setAriaLabel(),
-  );
+  private _language = new LanguageController(this).withHandler(() => this._setAriaLabel());
 
   private _handleClick(): void {
     if (!this._datePickerElement || isValidAttribute(this, 'data-disabled')) {

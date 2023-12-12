@@ -2,7 +2,6 @@ import { ReactiveController, ReactiveControllerHost } from 'lit';
 
 import { readConfig } from '../config';
 import { isBrowser } from '../dom';
-import { ConnectedAbortController } from '../eventing';
 import { AgnosticMutationObserver } from '../observers';
 
 /**
@@ -55,13 +54,7 @@ export class LanguageController implements ReactiveController {
   private _previousLanguage: string;
   private _handlers: (() => void)[] = [];
 
-  public constructor(
-    private _host: ReactiveControllerHost,
-    private _abortController?: ConnectedAbortController,
-  ) {
-    if (!this._abortController) {
-      this._abortController = new ConnectedAbortController(this._host);
-    }
+  public constructor(private _host: ReactiveControllerHost) {
     this._host.addController(this);
   }
 

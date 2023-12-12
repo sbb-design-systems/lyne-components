@@ -28,7 +28,7 @@ export class SbbFormFieldClearElement extends LitElement {
   private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
   private _formField: SbbFormFieldElement;
   private _abort = new ConnectedAbortController(this);
-  private _language = new LanguageController(this, this._abort);
+  private _language = new LanguageController(this);
 
   public override connectedCallback(): void {
     super.connectedCallback();
