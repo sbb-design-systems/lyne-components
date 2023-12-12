@@ -52,7 +52,7 @@ Consumers can listen to the native `change` and `input` events on the `sbb-datep
 The `valueAsDate` property on the `sbb-datepicker` can be used to read the current value
 (e.g. from `event.target.valueAsDate`) or to set the value programmatically.
 
-Each time the user changes the date by using the calendar, or the next and previous day arrow, or by using the `setValueAsDate()` method,
+Each time the user changes the date by using the calendar, or the next and previous day arrow, or by using the `valueAsDate` setter,
 a `blur` event is fired on the input to ensure compatibility with any framework that relies on that event to update the current state.
 
 ## Custom date formats

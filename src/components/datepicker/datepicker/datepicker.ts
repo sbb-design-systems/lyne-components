@@ -368,7 +368,7 @@ export class SbbDatepickerElement extends LitElement {
 
   protected override firstUpdated(_changedProperties: PropertyValues): void {
     super.firstUpdated(_changedProperties);
-    this._setAriaLiveMessage(this.getValueAsDate());
+    this._setAriaLiveMessage(this.valueAsDate);
   }
 
   private _parseAndFormatValue(value: string): string {

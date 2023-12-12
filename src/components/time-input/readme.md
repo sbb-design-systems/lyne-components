@@ -21,7 +21,7 @@ If the `sbb-time-input` is used within a `sbb-form-field` with a native input, t
 </sbb-form-field>
 ```
 
-The initial value can be set using the `value` property (string) of the `input`or the `setValueAsDate()` method of the `sbb-time-input`.
+The initial value can be set using the `value` property (string) of the `input`or the `valueAsDate` setter of the `sbb-time-input`.
 
 When the input changes, if it is valid, the component updates the `value` of the `input`.
 
