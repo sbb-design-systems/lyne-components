@@ -1,15 +1,14 @@
 import { format } from 'date-fns';
 import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
+import { LanguageController } from '../core/common-behaviors';
 import { removeTimezoneFromISOTimeString } from '../core/datetime';
-import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import { i18nDeparture, i18nArrival, i18nTransferProcedures } from '../core/i18n';
 import { getDepartureArrivalTimeAttribute, isRideLeg, Leg, PtRideLeg } from '../core/timetable';
+import '../pearl-chain';
 
 import style from './pearl-chain-time.scss?lit&inline';
-
-import '../pearl-chain';
 
 /**
  * Combined with `sbb-pearl-chain`, it displays walk time information.
@@ -46,22 +45,7 @@ export class SbbPearlChainTimeElement extends LitElement {
    */
   @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
 
-  @state() private _currentLanguage = documentLanguage();
-
-  private _handlerRepository = new HandlerRepository(
-    this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-  );
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._handlerRepository.connect();
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
-  }
+  private _language = new LanguageController(this);
 
   private _now(): number {
     const dataNow = +this.dataset?.now;
@@ -81,7 +65,7 @@ export class SbbPearlChainTimeElement extends LitElement {
         this.legs,
         this.departureWalk || 0,
         this.arrivalWalk || 0,
-        this._currentLanguage,
+        this._language.current,
       );
 
     const rideLegs = this.legs?.filter((leg) => isRideLeg(leg));
@@ -91,14 +75,14 @@ export class SbbPearlChainTimeElement extends LitElement {
         ${departure
           ? html`<time class="sbb-pearl-chain__time-time" datetime=${this.departureTime!}>
               <span class="sbb-screenreaderonly"
-                >${i18nDeparture[this._currentLanguage]}:&nbsp;</span
+                >${i18nDeparture[this._language.current]}:&nbsp;</span
               >
               ${format(departure, 'HH:mm')}
             </time>`
           : nothing}
         ${rideLegs?.length > 1
           ? html`<span class="sbb-screenreaderonly">
-              ${rideLegs?.length - 1} ${i18nTransferProcedures[this._currentLanguage]}
+              ${rideLegs?.length - 1} ${i18nTransferProcedures[this._language.current]}
             </span>`
           : nothing}
         <sbb-pearl-chain
@@ -109,7 +93,9 @@ export class SbbPearlChainTimeElement extends LitElement {
         ></sbb-pearl-chain>
         ${arrival
           ? html`<time class="sbb-pearl-chain__time-time" datetime=${this.arrivalTime!}>
-              <span class="sbb-screenreaderonly">${i18nArrival[this._currentLanguage]}:&nbsp;</span>
+              <span class="sbb-screenreaderonly"
+                >${i18nArrival[this._language.current]}:&nbsp;</span
+              >
               ${format(arrival, 'HH:mm')}
             </time>`
           : nothing}

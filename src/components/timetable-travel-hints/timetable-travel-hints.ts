@@ -1,8 +1,8 @@
 import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
+import { LanguageController } from '../core/common-behaviors';
 import { setAttribute } from '../core/dom';
-import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import { i18nNone } from '../core/i18n';
 import icons from '../core/timetable/icons.json';
 
@@ -27,27 +27,12 @@ export class SbbTimetableTravelHintsElement extends LitElement {
    */
   @property() public config!: string;
 
-  @state() private _currentLanguage = documentLanguage();
-
-  private _handlerRepository = new HandlerRepository(
-    this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-  );
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._handlerRepository.connect();
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
-  }
+  private _language = new LanguageController(this);
 
   protected override render(): TemplateResult {
     const { travelHintsItems } = JSON.parse(this.config);
 
-    const a11yLabel = i18nNone[this._currentLanguage];
+    const a11yLabel = i18nNone[this._language.current];
     const appearanceClass = ` travel-hints--${this.appearance}`;
 
     setAttribute(this, 'data-visually-empty', travelHintsItems.length === 0);

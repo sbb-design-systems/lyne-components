@@ -1,15 +1,14 @@
 import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
+import { LanguageController } from '../core/common-behaviors';
 import { getDocumentWritingMode } from '../core/dom';
-import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import { i18nConnectionFrom, i18nConnectionRoundtrip, i18nConnectionTo } from '../core/i18n';
 import type { TitleLevel } from '../title';
-
-import style from './journey-header.scss?lit&inline';
-
 import '../icon';
 import '../title';
+
+import style from './journey-header.scss?lit&inline';
 
 export type JourneyHeaderSize = 'm' | 'l';
 
@@ -38,22 +37,7 @@ export class SbbJourneyHeaderElement extends LitElement {
   /** Journey header size. */
   @property({ reflect: true }) public size?: JourneyHeaderSize = 'm';
 
-  @state() private _currentLanguage = documentLanguage();
-
-  private _handlerRepository = new HandlerRepository(
-    this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-  );
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._handlerRepository.connect();
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
-  }
+  private _language = new LanguageController(this);
 
   protected override render(): TemplateResult {
     const iconName = this.roundTrip ? 'arrows-long-right-left-small' : 'arrow-long-right-small';
@@ -67,19 +51,19 @@ export class SbbJourneyHeaderElement extends LitElement {
         <span class="sbb-journey-header" dir=${getDocumentWritingMode()}>
           <span class="sbb-journey-header__origin">
             <span class="sbb-journey-header__connection--visually-hidden">
-              ${i18nConnectionFrom[this._currentLanguage]}
+              ${i18nConnectionFrom[this._language.current]}
             </span>
             ${this.origin}
           </span>
           <sbb-icon name=${iconName}></sbb-icon>
           <span class="sbb-journey-header__destination">
             <span class="sbb-journey-header__connection--visually-hidden">
-              ${i18nConnectionTo[this._currentLanguage]}
+              ${i18nConnectionTo[this._language.current]}
             </span>
             ${this.destination}
             ${this.roundTrip
               ? html` <span class="sbb-journey-header__connection--visually-hidden">
-                  ${i18nConnectionRoundtrip(this.origin)[this._currentLanguage]}
+                  ${i18nConnectionRoundtrip(this.origin)[this._language.current]}
                 </span>`
               : nothing}
           </span>

@@ -4,12 +4,8 @@ import { ref } from 'lit/directives/ref.js';
 
 import type { SbbCalendarElement } from '../../calendar';
 import { sbbInputModalityDetector } from '../../core/a11y';
+import { LanguageController } from '../../core/common-behaviors';
 import { isValidAttribute, setAttribute } from '../../core/dom';
-import {
-  documentLanguage,
-  HandlerRepository,
-  languageChangeHandlerAspect,
-} from '../../core/eventing';
 import { i18nShowCalendar } from '../../core/i18n';
 import type { SbbTooltipElement, SbbTooltipTriggerElement } from '../../tooltip';
 import {
@@ -45,8 +41,6 @@ export class SbbDatepickerToggleElement extends LitElement {
 
   @state() private _max: string | number;
 
-  @state() private _currentLanguage = documentLanguage();
-
   private _datePickerElement: SbbDatepickerElement;
 
   private _calendarElement: SbbCalendarElement;
@@ -57,10 +51,7 @@ export class SbbDatepickerToggleElement extends LitElement {
 
   private _datePickerController: AbortController;
 
-  private _handlerRepository = new HandlerRepository(
-    this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-  );
+  private _language = new LanguageController(this);
 
   /**
    * Opens the calendar.
@@ -74,7 +65,6 @@ export class SbbDatepickerToggleElement extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._handlerRepository.connect();
     if (!this.datePicker) {
       this._init();
     }
@@ -94,7 +84,6 @@ export class SbbDatepickerToggleElement extends LitElement {
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._datePickerController?.abort();
-    this._handlerRepository.disconnect();
   }
 
   private _init(datePicker?: string | SbbDatepickerElement): void {
@@ -194,7 +183,7 @@ export class SbbDatepickerToggleElement extends LitElement {
     return html`
       <sbb-tooltip-trigger
         icon-name="calendar-small"
-        aria-label=${i18nShowCalendar[this._currentLanguage]}
+        aria-label=${i18nShowCalendar[this._language.current]}
         ?disabled=${!this._datePickerElement || this._disabled}
         ?negative=${this.negative}
         data-icon-small

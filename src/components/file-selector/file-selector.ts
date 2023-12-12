@@ -4,12 +4,11 @@ import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { sbbInputModalityDetector } from '../core/a11y';
+import { LanguageController } from '../core/common-behaviors';
 import { toggleDatasetEntry } from '../core/dom';
 import {
   createNamedSlotState,
-  documentLanguage,
   HandlerRepository,
-  languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
   EventEmitter,
 } from '../core/eventing';
@@ -19,10 +18,10 @@ import {
   i18nFileSelectorDeleteFile,
   i18nFileSelectorSubtitleLabel,
 } from '../core/i18n';
-
-import style from './file-selector.scss?lit&inline';
 import '../button';
 import '../icon';
+
+import style from './file-selector.scss?lit&inline';
 
 export type DOMEvent = globalThis.Event;
 
@@ -64,9 +63,6 @@ export class SbbFileSelectorElement extends LitElement {
   /** The list of selected files. */
   @state() private _files: File[];
 
-  /** Current document language used for translations. */
-  @state() private _currentLanguage = documentLanguage();
-
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @state() private _namedSlots = createNamedSlotState('error');
 
@@ -100,9 +96,9 @@ export class SbbFileSelectorElement extends LitElement {
   private _suffixes: string[] = ['B', 'kB', 'MB', 'GB', 'TB'];
   private _liveRegion: HTMLElement;
 
+  private _language = new LanguageController(this);
   private _handlerRepository = new HandlerRepository(
     this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
@@ -197,7 +193,7 @@ export class SbbFileSelectorElement extends LitElement {
         .concat(this._files);
     }
     this._liveRegion.innerText = i18nFileSelectorCurrentlySelected(this._files.map((e) => e.name))[
-      this._currentLanguage
+      this._language.current
     ];
     this._fileChangedEvent.emit(this._files);
   }
@@ -209,7 +205,7 @@ export class SbbFileSelectorElement extends LitElement {
     this._files.forEach((e: File) => dt.items.add(e));
     this._hiddenInput.files = dt.files;
     this._liveRegion.innerText = i18nFileSelectorCurrentlySelected(this._files.map((e) => e.name))[
-      this._currentLanguage
+      this._language.current
     ];
     this._fileChangedEvent.emit(this._files);
   }
@@ -232,7 +228,7 @@ export class SbbFileSelectorElement extends LitElement {
           this._loadButton = el;
         })}
       >
-        ${i18nFileSelectorButtonLabel[this._currentLanguage]}
+        ${i18nFileSelectorButtonLabel[this._language.current]}
       </sbb-button>
     `;
   }
@@ -245,7 +241,7 @@ export class SbbFileSelectorElement extends LitElement {
         </span>
         <span class="sbb-file-selector__dropzone-area--title">${this.titleContent}</span>
         <span class="sbb-file-selector__dropzone-area--subtitle">
-          ${i18nFileSelectorSubtitleLabel[this._currentLanguage]}
+          ${i18nFileSelectorSubtitleLabel[this._language.current]}
         </span>
         <span class="sbb-file-selector__dropzone-area--button">
           <sbb-button
@@ -257,7 +253,7 @@ export class SbbFileSelectorElement extends LitElement {
               this._loadButton = el;
             })}
           >
-            ${i18nFileSelectorButtonLabel[this._currentLanguage]}
+            ${i18nFileSelectorButtonLabel[this._language.current]}
           </sbb-button>
         </span>
       </span>
@@ -285,7 +281,7 @@ export class SbbFileSelectorElement extends LitElement {
               size="m"
               icon-name="trash-small"
               @click=${() => this._removeFile(file)}
-              aria-label=${`${i18nFileSelectorDeleteFile[this._currentLanguage]} - ${file.name}`}
+              aria-label=${`${i18nFileSelectorDeleteFile[this._language.current]} - ${file.name}`}
             ></sbb-button>
           </${unsafeStatic(TAG_NAME.ELEMENT)}>`,
         )}
@@ -296,7 +292,7 @@ export class SbbFileSelectorElement extends LitElement {
 
   protected override render(): TemplateResult {
     const ariaLabel = this.accessibilityLabel
-      ? `${i18nFileSelectorButtonLabel[this._currentLanguage]} - ${this.accessibilityLabel}`
+      ? `${i18nFileSelectorButtonLabel[this._language.current]} - ${this.accessibilityLabel}`
       : undefined;
     return html`
       <div class="sbb-file-selector">

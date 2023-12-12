@@ -1,7 +1,7 @@
 import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
-import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
+import { LanguageController } from '../core/common-behaviors';
 import { i18nDurationHour, i18nDurationMinute } from '../core/i18n';
 
 import style from './timetable-duration.scss?lit&inline';
@@ -21,41 +21,26 @@ export class SbbTimetableDurationElement extends LitElement {
    */
   @property() public config!: string;
 
-  @state() private _currentLanguage = documentLanguage();
-
-  private _handlerRepository = new HandlerRepository(
-    this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-  );
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._handlerRepository.connect();
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
-  }
+  private _language = new LanguageController(this);
 
   protected override render(): TemplateResult {
     const config = JSON.parse(this.config);
 
-    const hoursLabelShort = i18nDurationHour.multiple.short[this._currentLanguage];
-    const minutesLabelShort = i18nDurationMinute.multiple.short[this._currentLanguage];
+    const hoursLabelShort = i18nDurationHour.multiple.short[this._language.current];
+    const minutesLabelShort = i18nDurationMinute.multiple.short[this._language.current];
 
     let visualText = '';
     let a11yLabel = '';
 
-    let hoursLabelLong = i18nDurationHour.multiple.long[this._currentLanguage];
-    let minutesLabelLong = i18nDurationMinute.multiple.long[this._currentLanguage];
+    let hoursLabelLong = i18nDurationHour.multiple.long[this._language.current];
+    let minutesLabelLong = i18nDurationMinute.multiple.long[this._language.current];
 
     if (config.hours === 1) {
-      hoursLabelLong = i18nDurationHour.single.long[this._currentLanguage];
+      hoursLabelLong = i18nDurationHour.single.long[this._language.current];
     }
 
     if (config.minutes === 1) {
-      minutesLabelLong = i18nDurationMinute.single.long[this._currentLanguage];
+      minutesLabelLong = i18nDurationMinute.single.long[this._language.current];
     }
 
     if (config.hours !== 0) {

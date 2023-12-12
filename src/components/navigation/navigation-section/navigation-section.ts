@@ -9,7 +9,7 @@ import {
   getFocusableElements,
   setModalityOnNextFocus,
 } from '../../core/a11y';
-import { UpdateScheduler } from '../../core/common-behaviors';
+import { LanguageController, UpdateScheduler } from '../../core/common-behaviors';
 import {
   findReferencedElement,
   isBreakpoint,
@@ -18,9 +18,7 @@ import {
 } from '../../core/dom';
 import {
   createNamedSlotState,
-  documentLanguage,
   HandlerRepository,
-  languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
 } from '../../core/eventing';
 import { i18nGoBack } from '../../core/i18n';
@@ -31,10 +29,10 @@ import {
 } from '../../core/overlay';
 import type { SbbNavigationElement } from '../navigation';
 import type { SbbNavigationMarkerElement } from '../navigation-marker';
-
-import style from './navigation-section.scss?lit&inline';
 import '../../divider';
 import '../../button';
+
+import style from './navigation-section.scss?lit&inline';
 
 let nextId = 0;
 
@@ -95,8 +93,6 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
    */
   @state() private _namedSlots = createNamedSlotState('title');
 
-  @state() private _currentLanguage = documentLanguage();
-
   @state() private _renderBackButton = this._isZeroToLargeBreakpoint();
 
   private _firstLevelNavigation: SbbNavigationElement;
@@ -106,10 +102,10 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
   private _navigationSectionController: AbortController;
   private _windowEventsController: AbortController;
   private _navigationSectionId = `sbb-navigation-section-${++nextId}`;
+  private _language = new LanguageController(this);
 
   private _handlerRepository = new HandlerRepository(
     this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
@@ -349,7 +345,7 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
       <sbb-button
         id="sbb-navigation-section-back-button"
         class="sbb-navigation-section__back"
-        aria-label=${this.accessibilityBackLabel || i18nGoBack[this._currentLanguage]}
+        aria-label=${this.accessibilityBackLabel || i18nGoBack[this._language.current]}
         variant="transparent"
         negative
         size="m"

@@ -1,7 +1,7 @@
 import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
-import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
+import { LanguageController } from '../core/common-behaviors';
 import {
   i18nAvailableAtDepartingStation,
   i18nDistanceMeter,
@@ -30,39 +30,24 @@ export class SbbTimetableParkAndRailElement extends LitElement {
    */
   @property() public config!: string;
 
-  @state() private _currentLanguage = documentLanguage();
-
-  private _handlerRepository = new HandlerRepository(
-    this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-  );
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._handlerRepository.connect();
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
-  }
+  private _language = new LanguageController(this);
 
   protected override render(): TemplateResult {
     const config = JSON.parse(this.config);
 
-    let a11yMeters = i18nDistanceMeter.multiple.long[this._currentLanguage];
+    let a11yMeters = i18nDistanceMeter.multiple.long[this._language.current];
 
     if (config.distance === '1') {
-      a11yMeters = i18nDistanceMeter.single.long[this._currentLanguage];
+      a11yMeters = i18nDistanceMeter.single.long[this._language.current];
     }
 
     const a11yDistanceToDepartureText =
-      i18nWalkingDistanceToDepartureStation[this._currentLanguage];
+      i18nWalkingDistanceToDepartureStation[this._language.current];
     const a11yDistance = config.distance;
     const a11yDistanceText = `(${a11yDistance} ${a11yMeters} ${a11yDistanceToDepartureText})`;
 
     const a11yLabel = `${
-      i18nAvailableAtDepartingStation[this._currentLanguage]
+      i18nAvailableAtDepartingStation[this._language.current]
     } ${a11yDistanceText}`;
 
     const appearanceClass = ` park-and-rail--${this.appearance}`;

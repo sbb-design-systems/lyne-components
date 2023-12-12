@@ -1,7 +1,7 @@
 import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
-import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
+import { LanguageController } from '../core/common-behaviors';
 import { i18nAttention, i18nConnectionsDepartOn, i18nDayChange } from '../core/i18n';
 
 import style from './timetable-row-day-change.scss?lit&inline';
@@ -21,22 +21,7 @@ export class SbbTimetableRowDayChangeElement extends LitElement {
    */
   @property() public config!: string;
 
-  @state() private _currentLanguage = documentLanguage();
-
-  private _handlerRepository = new HandlerRepository(
-    this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-  );
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._handlerRepository.connect();
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
-  }
+  private _language = new LanguageController(this);
 
   protected override render(): TemplateResult {
     const config = JSON.parse(this.config);
@@ -46,15 +31,15 @@ export class SbbTimetableRowDayChangeElement extends LitElement {
     let visuallyHiddenClass = '';
 
     if (config.dayChange) {
-      attention = `${i18nAttention[this._currentLanguage]}: `;
-      dayChange = `${i18nDayChange[this._currentLanguage]}, `;
+      attention = `${i18nAttention[this._language.current]}: `;
+      dayChange = `${i18nDayChange[this._language.current]}, `;
     }
 
     if (config.hidden) {
       visuallyHiddenClass = ' day-change--visually-hidden';
     }
 
-    const departsOn = `${i18nConnectionsDepartOn[this._currentLanguage]} `;
+    const departsOn = `${i18nConnectionsDepartOn[this._language.current]} `;
 
     const visualText = `${config.day}, ${config.date}`;
     const a11yLabel = `${dayChange}${attention}${departsOn}${config.day}, ${config.date}`;

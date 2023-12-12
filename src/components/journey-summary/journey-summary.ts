@@ -1,21 +1,21 @@
 import { isValid, format } from 'date-fns';
 import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
+import { LanguageController } from '../core/common-behaviors';
 import {
   defaultDateAdapter,
   durationToTime,
   removeTimezoneFromISOTimeString,
 } from '../core/datetime';
-import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import { i18nTripDuration } from '../core/i18n';
 import { Leg } from '../core/timetable';
 import type { TitleLevel } from '../title';
-
-import style from './journey-summary.scss?lit&inline';
 import '../pearl-chain-time';
 import '../journey-header';
 import '../divider';
+
+import style from './journey-summary.scss?lit&inline';
 
 export interface InterfaceSbbJourneySummaryAttributes {
   legs: Leg[];
@@ -59,24 +59,12 @@ export class SbbJourneySummaryElement extends LitElement {
    */
   @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
 
-  @state() private _currentLanguage = documentLanguage();
-
   private _hasContentSlot: boolean;
-
-  private _handlerRepository = new HandlerRepository(
-    this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-  );
+  private _language = new LanguageController(this);
 
   public override connectedCallback(): void {
     super.connectedCallback();
     this._hasContentSlot = Boolean(this.querySelector?.('[slot="content"]'));
-    this._handlerRepository.connect();
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
   }
 
   private _now(): number {
@@ -87,7 +75,7 @@ export class SbbJourneySummaryElement extends LitElement {
   /**  renders the date of the journey or if it is the current or next day */
   private _renderJourneyStart(departureTime: Date, duration: number): TemplateResult {
     const dateAdapter = defaultDateAdapter;
-    const durationObj = durationToTime(duration, this._currentLanguage);
+    const durationObj = durationToTime(duration, this._language.current);
 
     if (isValid(departureTime))
       return html`
@@ -96,7 +84,7 @@ export class SbbJourneySummaryElement extends LitElement {
         >${duration > 0
           ? html`,<time>
                 <span class="sbb-screenreaderonly">
-                  ${i18nTripDuration[this._currentLanguage]} ${durationObj.long}
+                  ${i18nTripDuration[this._language.current]} ${durationObj.long}
                 </span>
                 <span aria-hidden="true">${durationObj.short}</span>
               </time>`

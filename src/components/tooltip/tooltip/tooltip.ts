@@ -9,14 +9,9 @@ import {
   getFirstFocusableElement,
   setModalityOnNextFocus,
 } from '../../core/a11y';
+import { LanguageController } from '../../core/common-behaviors';
 import { findReferencedElement, isValidAttribute, setAttribute } from '../../core/dom';
-import {
-  EventEmitter,
-  HandlerRepository,
-  composedPathHasAttribute,
-  documentLanguage,
-  languageChangeHandlerAspect,
-} from '../../core/eventing';
+import { EventEmitter, composedPathHasAttribute } from '../../core/eventing';
 import { i18nCloseTooltip } from '../../core/i18n';
 import {
   Alignment,
@@ -26,8 +21,8 @@ import {
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay';
-
 import '../../button';
+
 import style from './tooltip.scss?lit&inline';
 
 const VERTICAL_OFFSET = 16;
@@ -114,8 +109,6 @@ export class SbbTooltipElement extends LitElement {
    */
   @state() private _alignment: Alignment;
 
-  @state() private _currentLanguage = documentLanguage();
-
   /** Emits whenever the `sbb-tooltip` starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbTooltipElement.events.willOpen);
 
@@ -147,11 +140,7 @@ export class SbbTooltipElement extends LitElement {
   private _openTimeout: ReturnType<typeof setTimeout>;
   private _closeTimeout: ReturnType<typeof setTimeout>;
   private _tooltipId = `sbb-tooltip-${++nextId}`;
-
-  private _handlerRepository = new HandlerRepository(
-    this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-  );
+  private _language = new LanguageController(this);
 
   /**
    * Opens the tooltip on trigger click.
@@ -224,7 +213,6 @@ export class SbbTooltipElement extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._handlerRepository.connect();
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
     this._state = 'closed';
@@ -246,7 +234,6 @@ export class SbbTooltipElement extends LitElement {
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._handlerRepository.disconnect();
     this._tooltipController?.abort();
     this._windowEventsController?.abort();
     this._focusTrap.disconnect();
@@ -461,7 +448,7 @@ export class SbbTooltipElement extends LitElement {
     const closeButton = html`
       <span class="sbb-tooltip__close">
         <sbb-button
-          aria-label=${this.accessibilityCloseLabel || i18nCloseTooltip[this._currentLanguage]}
+          aria-label=${this.accessibilityCloseLabel || i18nCloseTooltip[this._language.current]}
           variant="secondary"
           size="m"
           type="button"

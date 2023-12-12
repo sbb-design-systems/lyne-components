@@ -3,6 +3,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
 import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../core/a11y';
+import { LanguageController } from '../core/common-behaviors';
 import {
   DateAdapter,
   DAYS_PER_ROW,
@@ -12,12 +13,7 @@ import {
   YEARS_PER_ROW,
 } from '../core/datetime';
 import { isBreakpoint, toggleDatasetEntry, setAttribute } from '../core/dom';
-import {
-  documentLanguage,
-  HandlerRepository,
-  languageChangeHandlerAspect,
-  EventEmitter,
-} from '../core/eventing';
+import { EventEmitter, ConnectedAbortController } from '../core/eventing';
 import {
   i18nCalendarDateSelection,
   i18nNextMonth,
@@ -29,10 +25,10 @@ import {
   i18nYearMonthSelection,
 } from '../core/i18n';
 import { SbbDateLike } from '../core/interfaces';
-
-import style from './calendar.scss?lit&inline';
 import '../button';
 import '../icon';
+
+import style from './calendar.scss?lit&inline';
 
 /**
  * In keyboard navigation, the cell's index and the element's index in its month / year batch must be distinguished;
@@ -128,8 +124,6 @@ export class SbbCalendarElement extends LitElement {
 
   @state() private _calendarView: CalendarView = 'day';
 
-  @state() private _currentLanguage = documentLanguage();
-
   private _nextCalendarView: CalendarView = 'day';
 
   private _dateAdapter: DateAdapter<Date> = defaultDateAdapter;
@@ -171,16 +165,11 @@ export class SbbCalendarElement extends LitElement {
   /** Whether the focus should be reset on focusCell. */
   private _resetFocus = false;
 
-  private _handlerRepository = new HandlerRepository(
-    this as HTMLElement,
-    languageChangeHandlerAspect((l) => {
-      this._currentLanguage = l;
-      this._monthNames = this._dateAdapter.getMonthNames('long');
-      this._months = this._createMonthRows();
-    }),
-  );
-
-  private _calendarController: AbortController;
+  private _abort = new ConnectedAbortController(this);
+  private _language = new LanguageController(this).withHandler(() => {
+    this._monthNames = this._dateAdapter.getMonthNames('long');
+    this._months = this._createMonthRows();
+  });
 
   private _convertMinDate(newMin: SbbDateLike): void {
     this._min = this._dateAdapter.deserializeDate(newMin);
@@ -223,12 +212,9 @@ export class SbbCalendarElement extends LitElement {
       this._resetFocus = true;
       this._focusCell();
     };
-    this._handlerRepository.connect();
-    this._calendarController?.abort();
-    this._calendarController = new AbortController();
     globalThis.window?.addEventListener('resize', () => this._init(), {
       passive: true,
-      signal: this._calendarController.signal,
+      signal: this._abort.signal,
     });
     this._convertMinDate(this.min);
     this._convertMaxDate(this.max);
@@ -261,12 +247,6 @@ export class SbbCalendarElement extends LitElement {
     if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
       this._focusCell();
     }
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._calendarController.abort();
-    this._handlerRepository.disconnect();
   }
 
   /** Initializes the component. */
@@ -796,7 +776,7 @@ export class SbbCalendarElement extends LitElement {
         ${this._getArrow(
           'left',
           () => this._goToDifferentMonth(-1),
-          i18nPreviousMonth[this._currentLanguage],
+          i18nPreviousMonth[this._language.current],
           this._previousMonthDisabled(),
         )}
         <div class="sbb-calendar__controls-month">
@@ -809,7 +789,7 @@ export class SbbCalendarElement extends LitElement {
         ${this._getArrow(
           'right',
           () => this._goToDifferentMonth(1),
-          i18nNextMonth[this._currentLanguage],
+          i18nNextMonth[this._language.current],
           this._nextMonthDisabled(),
         )}
       </div>
@@ -830,7 +810,7 @@ export class SbbCalendarElement extends LitElement {
         type="button"
         id="sbb-calendar__date-selection"
         class="sbb-calendar__controls-change-date"
-        aria-label="${i18nYearMonthSelection[this._currentLanguage]} ${monthLabel}"
+        aria-label="${i18nYearMonthSelection[this._language.current]} ${monthLabel}"
         @click=${() => {
           this._resetFocus = true;
           this._nextCalendarView = 'year';
@@ -962,14 +942,14 @@ export class SbbCalendarElement extends LitElement {
         ${this._getArrow(
           'left',
           () => this._goToDifferentYear(-1),
-          i18nPreviousYear[this._currentLanguage],
+          i18nPreviousYear[this._language.current],
           this._previousYearDisabled(),
         )}
         <div class="sbb-calendar__controls-month">${this._createLabelForMonthView()}</div>
         ${this._getArrow(
           'right',
           () => this._goToDifferentYear(1),
-          i18nNextYear[this._currentLanguage],
+          i18nNextYear[this._language.current],
           this._nextYearDisabled(),
         )}
       </div>
@@ -986,7 +966,7 @@ export class SbbCalendarElement extends LitElement {
         type="button"
         id="sbb-calendar__month-selection"
         class="sbb-calendar__controls-change-date"
-        aria-label=${`${i18nCalendarDateSelection[this._currentLanguage]} ${this._chosenYear}`}
+        aria-label=${`${i18nCalendarDateSelection[this._language.current]} ${this._chosenYear}`}
         @click=${() => this._resetToDayView()}
       >
         ${this._chosenYear} ${this._wide ? ` - ${this._chosenYear + 1}` : nothing}
@@ -1078,14 +1058,14 @@ export class SbbCalendarElement extends LitElement {
         ${this._getArrow(
           'left',
           () => this._goToDifferentYearRange(-YEARS_PER_PAGE),
-          i18nPreviousYearRange(YEARS_PER_PAGE)[this._currentLanguage],
+          i18nPreviousYearRange(YEARS_PER_PAGE)[this._language.current],
           this._previousYearRangeDisabled(),
         )}
         <div class="sbb-calendar__controls-month">${this._createLabelForYearView()}</div>
         ${this._getArrow(
           'right',
           () => this._goToDifferentYearRange(YEARS_PER_PAGE),
-          i18nNextYearRange(YEARS_PER_PAGE)[this._currentLanguage],
+          i18nNextYearRange(YEARS_PER_PAGE)[this._language.current],
           this._nextYearRangeDisabled(),
         )}
       </div>
@@ -1127,7 +1107,7 @@ export class SbbCalendarElement extends LitElement {
         type="button"
         id="sbb-calendar__year-selection"
         class="sbb-calendar__controls-change-date"
-        aria-label="${i18nCalendarDateSelection[this._currentLanguage]} ${yearLabel}"
+        aria-label="${i18nCalendarDateSelection[this._language.current]} ${yearLabel}"
         @click=${() => this._resetToDayView()}
       >
         ${yearLabel}

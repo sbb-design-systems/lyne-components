@@ -1,7 +1,7 @@
 import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
-import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
+import { LanguageController } from '../core/common-behaviors';
 import { i18nBarrierFreeTravel } from '../core/i18n';
 import icons from '../core/timetable/icons.json';
 
@@ -22,27 +22,12 @@ export class SbbTimetableBarrierFreeElement extends LitElement {
    */
   @property() public config!: string;
 
-  @state() private _currentLanguage = documentLanguage();
-
-  private _handlerRepository = new HandlerRepository(
-    this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-  );
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._handlerRepository.connect();
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
-  }
+  private _language = new LanguageController(this);
 
   protected override render(): TemplateResult {
     const config = JSON.parse(this.config);
 
-    const a11yLabel = `${i18nBarrierFreeTravel[this._currentLanguage]} ${config.text}`;
+    const a11yLabel = `${i18nBarrierFreeTravel[this._language.current]} ${config.text}`;
     const appearanceClass = ' barrier-free--second-level';
 
     return html`

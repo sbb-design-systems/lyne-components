@@ -1,15 +1,11 @@
 import { spread } from '@open-wc/lit-helpers';
 import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
+import { LanguageController } from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
-import {
-  documentLanguage,
-  HandlerRepository,
-  actionElementHandlerAspect,
-  languageChangeHandlerAspect,
-} from '../../core/eventing';
+import { HandlerRepository, actionElementHandlerAspect } from '../../core/eventing';
 import { i18nTargetOpensInNewWindow } from '../../core/i18n';
 import {
   ButtonType,
@@ -19,9 +15,9 @@ import {
   resolveRenderVariables,
   targetsNewWindow,
 } from '../../core/interfaces';
+import '../../icon';
 
 import style from './menu-action.scss?lit&inline';
-import '../../icon';
 
 /**
  * It displays an action element that can be used in the `sbb-menu` component.
@@ -70,13 +66,8 @@ export class SbbMenuActionElement extends LitElement implements LinkButtonProper
   /** The <form> element to associate the button with. */
   @property() public form?: string;
 
-  @state() private _currentLanguage = documentLanguage();
-
-  private _handlerRepository = new HandlerRepository(
-    this,
-    actionElementHandlerAspect,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-  );
+  private _language = new LanguageController(this);
+  private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -118,7 +109,7 @@ export class SbbMenuActionElement extends LitElement implements LinkButtonProper
         ${
           targetsNewWindow(this)
             ? html`<span class="sbb-menu-action__opens-in-new-window">
-                . ${i18nTargetOpensInNewWindow[this._currentLanguage]}
+                . ${i18nTargetOpensInNewWindow[this._language.current]}
               </span>`
             : nothing
         }

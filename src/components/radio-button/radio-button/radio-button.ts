@@ -1,12 +1,11 @@
 import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
+import { LanguageController } from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
 import {
   createNamedSlotState,
-  documentLanguage,
   HandlerRepository,
-  languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
   formElementHandlerAspect,
   EventEmitter,
@@ -125,10 +124,9 @@ export class SbbRadioButtonElement extends LitElement {
    */
   @state() private _selectionPanelExpandedLabel: string;
 
-  @state() private _currentLanguage = documentLanguage();
-
   private _selectionPanelElement: HTMLElement;
   private _abort = new ConnectedAbortController(this);
+  private _language = new LanguageController(this);
 
   /**
    * @internal
@@ -183,7 +181,6 @@ export class SbbRadioButtonElement extends LitElement {
 
   private _handlerRepository = new HandlerRepository(
     this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
     formElementHandlerAspect,
   );
@@ -237,8 +234,8 @@ export class SbbRadioButtonElement extends LitElement {
     }
 
     this._selectionPanelExpandedLabel = this.checked
-      ? ', ' + i18nExpanded[this._currentLanguage]
-      : ', ' + i18nCollapsed[this._currentLanguage];
+      ? ', ' + i18nExpanded[this._language.current]
+      : ', ' + i18nCollapsed[this._language.current];
   }
 
   protected override render(): TemplateResult {

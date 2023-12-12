@@ -2,13 +2,8 @@ import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SlotChildObserver } from '../../core/common-behaviors';
-import {
-  documentLanguage,
-  HandlerRepository,
-  languageChangeHandlerAspect,
-  EventEmitter,
-} from '../../core/eventing';
+import { LanguageController, SlotChildObserver } from '../../core/common-behaviors';
+import { EventEmitter } from '../../core/eventing';
 import { i18nTrain, i18nWagonsLabel } from '../../core/i18n';
 import type { TitleLevel } from '../../title';
 import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage';
@@ -47,7 +42,7 @@ export class SbbTrainElement extends SlotChildObserver(LitElement) {
 
   @state() private _wagons: (SbbTrainBlockedPassageElement | SbbTrainWagonElement)[] = [];
 
-  @state() private _currentLanguage = documentLanguage();
+  private _language = new LanguageController(this);
 
   /**
    * @internal
@@ -62,26 +57,11 @@ export class SbbTrainElement extends SlotChildObserver(LitElement) {
     },
   );
 
-  private _handlerRepository = new HandlerRepository(
-    this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-  );
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._handlerRepository.connect();
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
-  }
-
   /**
    * Create the aria-label text out of the direction label, station and the accessibility label.
    */
   private _getDirectionAriaLabel(): string {
-    const textParts: string[] = [i18nTrain[this._currentLanguage]];
+    const textParts: string[] = [i18nTrain[this._language.current]];
 
     if (this.directionLabel && this.station) {
       textParts.push(`${this.directionLabel} ${this.station}`);
@@ -123,7 +103,7 @@ export class SbbTrainElement extends SlotChildObserver(LitElement) {
         <${unsafeStatic(TITLE_TAG_NAME)} class="sbb-train__direction-label-sr">
           ${this._getDirectionAriaLabel()}
         </${unsafeStatic(TITLE_TAG_NAME)}>
-        <ul class="sbb-train__wagons" aria-label=${i18nWagonsLabel[this._currentLanguage]}>
+        <ul class="sbb-train__wagons" aria-label=${i18nWagonsLabel[this._language.current]}>
           ${this._wagons.map(
             (_, index) =>
               html`<li>

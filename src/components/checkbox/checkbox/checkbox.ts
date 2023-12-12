@@ -2,12 +2,11 @@ import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValu
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
+import { LanguageController } from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
 import {
   createNamedSlotState,
-  documentLanguage,
   HandlerRepository,
-  languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
   formElementHandlerAspect,
   getEventTarget,
@@ -111,8 +110,6 @@ export class SbbCheckboxElement extends LitElement {
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @state() private _namedSlots = createNamedSlotState('icon', 'subtext', 'suffix');
 
-  @state() private _currentLanguage = documentLanguage();
-
   /** Whether the input is the main input of a selection panel. */
   @state() private _isSelectionPanelInput = false;
 
@@ -122,6 +119,7 @@ export class SbbCheckboxElement extends LitElement {
   private _checkbox: HTMLInputElement;
   private _selectionPanelElement: HTMLElement;
   private _abort: ConnectedAbortController = new ConnectedAbortController(this);
+  private _language = new LanguageController(this);
 
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
@@ -167,7 +165,6 @@ export class SbbCheckboxElement extends LitElement {
 
   private _handlerRepository = new HandlerRepository(
     this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
     formElementHandlerAspect,
   );
@@ -249,8 +246,8 @@ export class SbbCheckboxElement extends LitElement {
     }
 
     this._selectionPanelExpandedLabel = this.checked
-      ? ', ' + i18nExpanded[this._currentLanguage]
-      : ', ' + i18nCollapsed[this._currentLanguage];
+      ? ', ' + i18nExpanded[this._language.current]
+      : ', ' + i18nCollapsed[this._language.current];
   }
 
   protected override render(): TemplateResult {

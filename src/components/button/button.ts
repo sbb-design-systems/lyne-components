@@ -3,6 +3,7 @@ import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
+import { LanguageController } from '../core/common-behaviors';
 import {
   ACTION_ELEMENTS,
   hostContext,
@@ -14,9 +15,7 @@ import {
 import {
   actionElementHandlerAspect,
   createNamedSlotState,
-  documentLanguage,
   HandlerRepository,
-  languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
 } from '../core/eventing';
 import { i18nTargetOpensInNewWindow } from '../core/i18n';
@@ -102,12 +101,10 @@ export class SbbButtonElement extends LitElement implements LinkButtonProperties
 
   @state() private _hasText = false;
 
-  @state() private _currentLanguage = documentLanguage();
-
+  private _language = new LanguageController(this);
   private _handlerRepository = new HandlerRepository(
     this,
     actionElementHandlerAspect,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
@@ -162,7 +159,7 @@ export class SbbButtonElement extends LitElement implements LinkButtonProperties
           ${
             targetsNewWindow(this)
               ? html`<span class="sbb-button__opens-in-new-window">
-                  . ${i18nTargetOpensInNewWindow[this._currentLanguage]}
+                  . ${i18nTargetOpensInNewWindow[this._language.current]}
                 </span>`
               : nothing
           }

@@ -1,10 +1,10 @@
 import { format } from 'date-fns';
 import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
+import { LanguageController } from '../core/common-behaviors';
 import { removeTimezoneFromISOTimeString, durationToTime } from '../core/datetime';
 import { setAttribute } from '../core/dom';
-import { documentLanguage, HandlerRepository, languageChangeHandlerAspect } from '../core/eventing';
 import {
   i18nArrival,
   i18nClass,
@@ -32,12 +32,12 @@ import {
   PtSituation,
   VehicleModeEnum,
 } from '../core/timetable';
-
-import style from './timetable-row.scss?lit&inline';
 import '../card';
 import '../icon';
 import '../pearl-chain-time';
 import '../timetable-occupancy';
+
+import style from './timetable-row.scss?lit&inline';
 
 /** HimCus interface for mapped icon name and text */
 export interface HimCus {
@@ -317,22 +317,7 @@ export class SbbTimetableRowElement extends LitElement {
   /** When this prop is true the sbb-card will be in the active state. */
   @property({ type: Boolean }) public active?: boolean;
 
-  @state() private _currentLanguage = documentLanguage();
-
-  private _handlerRepository = new HandlerRepository(
-    this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-  );
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._handlerRepository.connect();
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
-  }
+  private _language = new LanguageController(this);
 
   private _now(): number {
     const dataNow = +this.dataset?.now;
@@ -374,8 +359,8 @@ export class SbbTimetableRowElement extends LitElement {
     if (!this.trip.summary?.product) return null;
     const quayType = this._getQuayType(this.trip.summary.product?.vehicleMode);
     return {
-      long: quayType?.long[this._currentLanguage],
-      short: quayType?.short[this._currentLanguage],
+      long: quayType?.long[this._language.current],
+      short: quayType?.short[this._language.current],
     };
   }
 
@@ -396,7 +381,7 @@ export class SbbTimetableRowElement extends LitElement {
   private _handleHimCus(trip: ITripItem): { cus: HimCus | null; him: HimCus | null } {
     const { situations } = trip || {};
     const sortedSituations = situations && sortSituation(situations);
-    const cus = getCus(trip, this._currentLanguage);
+    const cus = getCus(trip, this._language.current);
 
     return {
       cus: Object.keys(cus)?.length ? cus : null,
@@ -421,7 +406,7 @@ export class SbbTimetableRowElement extends LitElement {
       legs,
       departureWalk || 0,
       arrivalWalk || 0,
-      this._currentLanguage,
+      this._language.current,
     );
 
     const departureTime: Date | undefined = departure?.time
@@ -441,7 +426,7 @@ export class SbbTimetableRowElement extends LitElement {
       : '';
 
     const departureTimeText = departureTime
-      ? `${i18nDeparture[this._currentLanguage]}: ${format(departureTime, 'HH:mm')}, `
+      ? `${i18nDeparture[this._language.current]}: ${format(departureTime, 'HH:mm')}, `
       : '';
 
     const getDepartureQuayText = (): string => {
@@ -450,7 +435,7 @@ export class SbbTimetableRowElement extends LitElement {
       }
 
       // add prefix "new" if quay was changed
-      const changedQuayPrefix = departure?.quayChanged ? `${i18nNew[this._currentLanguage]} ` : '';
+      const changedQuayPrefix = departure?.quayChanged ? `${i18nNew[this._language.current]} ` : '';
       return `${changedQuayPrefix}${this._getQuayTypeStrings()
         ?.long} ${departure?.quayFormatted}, `;
     };
@@ -458,26 +443,26 @@ export class SbbTimetableRowElement extends LitElement {
     const meansOfTransportText =
       product && product.vehicleMode
         ? i18nMeansOfTransport[product.vehicleMode.toLowerCase()] &&
-          `${i18nMeansOfTransport[product.vehicleMode.toLowerCase()][this._currentLanguage]}, `
+          `${i18nMeansOfTransport[product.vehicleMode.toLowerCase()][this._language.current]}, `
         : '';
 
     const vehicleSubModeText = product?.vehicleSubModeShortName
       ? `${product.vehicleSubModeShortName} ${product.line || ''}, `
       : '';
 
-    const directionText = `${i18nDirection[this._currentLanguage]} ${direction}, `;
+    const directionText = `${i18nDirection[this._language.current]} ${direction}, `;
 
     const himCus = this._handleHimCus(trip);
     const cusText = himCus?.cus?.text
-      ? `${i18nRealTimeInfo[this._currentLanguage]}: ${himCus?.cus?.text}, `
+      ? `${i18nRealTimeInfo[this._language.current]}: ${himCus?.cus?.text}, `
       : '';
     const himText = himCus?.him?.text
-      ? `${i18nRealTimeInfo[this._currentLanguage]}: ${himCus?.him?.text}, `
+      ? `${i18nRealTimeInfo[this._language.current]}: ${himCus?.him?.text}, `
       : '';
 
     const boardingText = this.boarding ? `${this.boarding.text}, ` : '';
 
-    const priceText = `${this.price?.isDiscount ? i18nSupersaver[this._currentLanguage] : ''} ${
+    const priceText = `${this.price?.isDiscount ? i18nSupersaver[this._language.current] : ''} ${
       this.price?.text && this.price?.price
         ? (this.price?.text || '') + ' ' + (this.price?.price || '') + ', '
         : ''
@@ -485,20 +470,20 @@ export class SbbTimetableRowElement extends LitElement {
 
     const transferProcedures =
       legs?.length > 1
-        ? `${legs?.length - 1} ${i18nTransferProcedures[this._currentLanguage]}, `
+        ? `${legs?.length - 1} ${i18nTransferProcedures[this._language.current]}, `
         : '';
 
     const arrivalTimeText = arrivalTime
-      ? `${i18nArrival[this._currentLanguage]}: ${format(arrivalTime, 'HH:mm')}, `
+      ? `${i18nArrival[this._language.current]}: ${format(arrivalTime, 'HH:mm')}, `
       : '';
 
     const occupancyText =
       (occupancy?.firstClass && occupancy?.firstClass !== 'UNKNOWN') ||
       (occupancy?.secondClass && occupancy.secondClass !== 'UNKNOWN')
-        ? `${i18nClass.first[this._currentLanguage]} ${
-            i18nOccupancy[occupancy?.firstClass?.toLowerCase()][this._currentLanguage]
-          }. ${i18nClass.second[this._currentLanguage]} ${
-            i18nOccupancy[occupancy?.secondClass?.toLowerCase()][this._currentLanguage]
+        ? `${i18nClass.first[this._language.current]} ${
+            i18nOccupancy[occupancy?.firstClass?.toLowerCase()][this._language.current]
+          }. ${i18nClass.second[this._language.current]} ${
+            i18nOccupancy[occupancy?.secondClass?.toLowerCase()][this._language.current]
           }.`
         : '';
 
@@ -510,13 +495,13 @@ export class SbbTimetableRowElement extends LitElement {
         .join(', ') + ', ';
 
     const attributesText = attributes
-      ? `${i18nTravelhints[this._currentLanguage]}: ${attributes}`
+      ? `${i18nTravelhints[this._language.current]}: ${attributes}`
       : '';
 
     const durationText =
       duration > 0
-        ? `${i18nTripDuration[this._currentLanguage]} ${
-            durationToTime(duration, this._currentLanguage).long
+        ? `${i18nTripDuration[this._language.current]} ${
+            durationToTime(duration, this._language.current).long
           }, `
         : '';
 
@@ -548,7 +533,7 @@ export class SbbTimetableRowElement extends LitElement {
 
     const noticeAttributes = notices && handleNotices(notices);
 
-    const durationObj = durationToTime(duration, this._currentLanguage);
+    const durationObj = durationToTime(duration, this._language.current);
     setAttribute(this, 'role', 'rowgroup');
 
     return html`
@@ -567,7 +552,7 @@ export class SbbTimetableRowElement extends LitElement {
               ${this.price.isDiscount
                 ? html`<span aria-hidden="true">
                     %<span class="sbb-screenreaderonly"
-                      >${i18nSupersaver[this._currentLanguage]}</span
+                      >${i18nSupersaver[this._language.current]}</span
                     >
                   </span>`
                 : nothing}
@@ -582,7 +567,7 @@ export class SbbTimetableRowElement extends LitElement {
               getTransportIcon(
                 product.vehicleMode,
                 product.vehicleSubModeShortName || '',
-                this._currentLanguage,
+                this._language.current,
               )
                 ? html`<span class="sbb-timetable__row-transport-wrapper">
                     <sbb-icon
@@ -591,7 +576,7 @@ export class SbbTimetableRowElement extends LitElement {
                       getTransportIcon(
                         product.vehicleMode,
                         product.vehicleSubModeShortName || '',
-                        this._currentLanguage,
+                        this._language.current,
                       )}
                     ></sbb-icon>
                     <span class="sbb-screenreaderonly">
@@ -599,7 +584,7 @@ export class SbbTimetableRowElement extends LitElement {
                       product.vehicleMode &&
                       i18nMeansOfTransport[product.vehicleMode.toLowerCase()] &&
                       i18nMeansOfTransport[product.vehicleMode.toLowerCase()][
-                        this._currentLanguage
+                        this._language.current
                       ]}
                       &nbsp;
                     </span>
@@ -612,7 +597,7 @@ export class SbbTimetableRowElement extends LitElement {
                 : renderStringProduct(product.vehicleSubModeShortName, product?.line))}
             </div>
             ${direction
-              ? html`<p>${`${i18nDirection[this._currentLanguage]} ${direction}`}</p>`
+              ? html`<p>${`${i18nDirection[this._language.current]} ${direction}`}</p>`
               : nothing}
           </div>
           <sbb-pearl-chain-time
@@ -631,8 +616,8 @@ export class SbbTimetableRowElement extends LitElement {
                   class=${departure?.quayChanged ? `sbb-timetable__row-quay--changed` : nothing}
                 >
                   <span class="sbb-screenreaderonly">
-                    ${`${i18nDeparture[this._currentLanguage]} ${
-                      departure?.quayChanged ? i18nNew[this._currentLanguage] : ''
+                    ${`${i18nDeparture[this._language.current]} ${
+                      departure?.quayChanged ? i18nNew[this._language.current] : ''
                     }`}
                     &nbsp;
                   </span>
@@ -674,7 +659,7 @@ export class SbbTimetableRowElement extends LitElement {
             ${duration > 0
               ? html`<time>
                   <span class="sbb-screenreaderonly">
-                    ${`${i18nTripDuration[this._currentLanguage]} ${durationObj.long}`}
+                    ${`${i18nTripDuration[this._language.current]} ${durationObj.long}`}
                   </span>
                   <span aria-hidden="true">${durationObj.short}</span>
                 </time>`

@@ -1,14 +1,13 @@
 import { CSSResultGroup, LitElement, PropertyValues, TemplateResult, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
+import { LanguageController } from '../../core/common-behaviors';
 import { DateAdapter, defaultDateAdapter } from '../../core/datetime';
 import { isValidAttribute, setAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
 import {
   ConnectedAbortController,
   HandlerRepository,
   actionElementHandlerAspect,
-  documentLanguage,
-  languageChangeHandlerAspect,
 } from '../../core/eventing';
 import { i18nNextDay, i18nSelectNextDay, i18nToday } from '../../core/i18n';
 import { ButtonProperties, resolveButtonRenderVariables } from '../../core/interfaces';
@@ -19,10 +18,9 @@ import {
   getDatePicker,
   type SbbDatepickerElement,
 } from '../datepicker';
+import '../../icon';
 
 import style from './datepicker-next-day.scss?lit&inline';
-
-import '../../icon';
 
 /**
  * Combined with a `sbb-datepicker`, it can be used to move the date ahead.
@@ -49,16 +47,7 @@ export class SbbDatepickerNextDayElement extends LitElement implements ButtonPro
   /** The maximum date as set in the date-picker's input. */
   @state() private _max: string | number;
 
-  @state() private _currentLanguage = documentLanguage();
-
-  private _handlerRepository = new HandlerRepository(
-    this as HTMLElement,
-    actionElementHandlerAspect,
-    languageChangeHandlerAspect((l) => {
-      this._currentLanguage = l;
-      this._setAriaLabel();
-    }),
-  );
+  private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
 
   private _datePickerElement: SbbDatepickerElement;
 
@@ -67,6 +56,7 @@ export class SbbDatepickerNextDayElement extends LitElement implements ButtonPro
   private _datePickerController: AbortController;
 
   private _abort = new ConnectedAbortController(this);
+  private _language = new LanguageController(this).withHandler(() => this._setAriaLabel());
 
   private _handleClick(): void {
     if (!this._datePickerElement || isValidAttribute(this, 'data-disabled')) {
@@ -206,19 +196,19 @@ export class SbbDatepickerNextDayElement extends LitElement implements ButtonPro
   }
 
   private _setAriaLabel(): void {
-    const currentDate = this._datePickerElement.getValueAsDate();
+    const currentDate = this._datePickerElement?.getValueAsDate?.();
 
     if (!currentDate || !this._dateAdapter.isValid(currentDate)) {
-      this.setAttribute('aria-label', i18nNextDay[this._currentLanguage]);
+      this.setAttribute('aria-label', i18nNextDay[this._language.current]);
       return;
     }
 
     const currentDateString =
       this._dateAdapter.today().toDateString() === currentDate.toDateString()
-        ? i18nToday[this._currentLanguage].toLowerCase()
+        ? i18nToday[this._language.current].toLowerCase()
         : this._dateAdapter.getAccessibilityFormatDate(currentDate);
 
-    this.setAttribute('aria-label', i18nSelectNextDay(currentDateString)[this._currentLanguage]);
+    this.setAttribute('aria-label', i18nSelectNextDay(currentDateString)[this._language.current]);
   }
 
   protected override render(): TemplateResult {

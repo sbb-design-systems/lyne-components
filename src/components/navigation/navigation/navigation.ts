@@ -3,20 +3,14 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { FocusTrap, assignId, setModalityOnNextFocus } from '../../core/a11y';
-import { UpdateScheduler } from '../../core/common-behaviors';
+import { LanguageController, UpdateScheduler } from '../../core/common-behaviors';
 import {
   ScrollHandler,
   isValidAttribute,
   findReferencedElement,
   setAttribute,
 } from '../../core/dom';
-import {
-  documentLanguage,
-  HandlerRepository,
-  languageChangeHandlerAspect,
-  EventEmitter,
-  ConnectedAbortController,
-} from '../../core/eventing';
+import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import { i18nCloseNavigation } from '../../core/i18n';
 import { AgnosticMutationObserver } from '../../core/observers';
 import {
@@ -96,8 +90,6 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
    */
   @state() private _activeNavigationSection: HTMLElement;
 
-  @state() private _currentLanguage = documentLanguage();
-
   /** Emits whenever the `sbb-navigation` begins the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(
     this,
@@ -128,6 +120,7 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
   private _navigationController: AbortController;
   private _windowEventsController: AbortController;
   private _abort = new ConnectedAbortController(this);
+  private _language = new LanguageController(this);
   private _focusTrap = new FocusTrap();
   private _scrollHandler = new ScrollHandler();
   private _isPointerDownEventOnNavigation: boolean;
@@ -135,11 +128,6 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
     this._onNavigationSectionChange(mutationsList),
   );
   private _navigationId = `sbb-navigation-${++nextId}`;
-
-  private _handlerRepository = new HandlerRepository(
-    this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-  );
 
   /**
    * Opens the navigation.
@@ -319,7 +307,6 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener('click', (e) => this._handleNavigationClose(e), { signal });
-    this._handlerRepository.connect();
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
     this._navigationObserver.observe(this, navigationObserverConfig);
@@ -333,7 +320,6 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._handlerRepository.disconnect();
     this._navigationController?.abort();
     this._windowEventsController?.abort();
     this._focusTrap.disconnect();
@@ -346,7 +332,7 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
       <sbb-button
         id="sbb-navigation-close-button"
         class="sbb-navigation__close"
-        aria-label=${this.accessibilityCloseLabel || i18nCloseNavigation[this._currentLanguage]}
+        aria-label=${this.accessibilityCloseLabel || i18nCloseNavigation[this._language.current]}
         aria-controls="sbb-navigation-overlay"
         variant="transparent"
         negative

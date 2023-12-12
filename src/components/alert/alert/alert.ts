@@ -1,14 +1,10 @@
 import { spread } from '@open-wc/lit-helpers';
 import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import {
-  documentLanguage,
-  HandlerRepository,
-  languageChangeHandlerAspect,
-  EventEmitter,
-} from '../../core/eventing';
+import { LanguageController } from '../../core/common-behaviors';
+import { EventEmitter } from '../../core/eventing';
 import { i18nCloseAlert, i18nFindOutMore } from '../../core/i18n';
 import { LinkProperties, LinkTargetType } from '../../core/interfaces';
 import type { TitleLevel } from '../../title';
@@ -97,31 +93,21 @@ export class SbbAlertElement extends LitElement implements LinkProperties {
     SbbAlertElement.events.dismissalRequested,
   );
 
-  @state() private _currentLanguage = documentLanguage();
-  private _handlerRepository = new HandlerRepository(
-    this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-  );
-
   private _transitionWrapperElement!: HTMLElement;
   private _alertElement!: HTMLElement;
 
   private _firstRenderingDone = false;
 
+  private _language = new LanguageController(this);
+
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._handlerRepository.connect();
     // Skip very first render where the animation elements are not yet ready.
     // Presentation is postponed.
     if (this._transitionWrapperElement) {
       this._initFadeInTransitionStyles();
       this._present();
     }
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
   }
 
   protected override updated(): void {
@@ -230,7 +216,7 @@ export class SbbAlertElement extends LitElement implements LinkProperties {
             </p>
             ${this.href
               ? html` <sbb-link ${spread(this._linkProperties())} variant="inline" negative>
-                  ${this.linkContent ? this.linkContent : i18nFindOutMore[this._currentLanguage]}
+                  ${this.linkContent ? this.linkContent : i18nFindOutMore[this._language.current]}
                 </sbb-link>`
               : nothing}
           </span>
@@ -247,7 +233,7 @@ export class SbbAlertElement extends LitElement implements LinkProperties {
                   size="m"
                   icon-name="cross-small"
                   @click=${() => this.requestDismissal()}
-                  aria-label=${i18nCloseAlert[this._currentLanguage]}
+                  aria-label=${i18nCloseAlert[this._language.current]}
                   class="sbb-alert__close-button"
                 ></sbb-button>
               </span>`

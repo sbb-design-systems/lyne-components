@@ -1,16 +1,12 @@
 import { spread } from '@open-wc/lit-helpers';
 import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { IS_FOCUSABLE_QUERY } from '../../core/a11y';
+import { LanguageController } from '../../core/common-behaviors';
 import { toggleDatasetEntry, setAttribute, setAttributes } from '../../core/dom';
-import {
-  documentLanguage,
-  HandlerRepository,
-  actionElementHandlerAspect,
-  languageChangeHandlerAspect,
-} from '../../core/eventing';
+import { HandlerRepository, actionElementHandlerAspect } from '../../core/eventing';
 import { i18nTargetOpensInNewWindow } from '../../core/i18n';
 import {
   ButtonType,
@@ -70,31 +66,22 @@ export class SbbCardActionElement extends LitElement implements LinkButtonProper
   /** The value associated with button `name` when it's submitted with the form data. */
   @property() public value?: string | undefined;
 
-  @state() private _currentLanguage = documentLanguage();
-
   private _onActiveChange(): void {
     if (this._card) {
       toggleDatasetEntry(this._card, 'hasActiveAction', this.active);
     }
   }
 
-  private _abortController = new AbortController();
+  private _language = new LanguageController(this);
   private _card: SbbCardElement | null = null;
   private _cardMutationObserver = new AgnosticMutationObserver(() =>
     this._checkForSlottedActions(),
   );
 
-  private _handlerRepository = new HandlerRepository(
-    this,
-    actionElementHandlerAspect,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-  );
+  private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._abortController?.abort();
-    this._abortController = new AbortController();
-
     this._card = this.closest?.('sbb-card');
     if (this._card) {
       toggleDatasetEntry(this._card, 'hasAction', true);
@@ -123,7 +110,6 @@ export class SbbCardActionElement extends LitElement implements LinkButtonProper
     }
     this._handlerRepository.disconnect();
     this._cardMutationObserver.disconnect();
-    this._abortController.abort();
   }
 
   private _checkForSlottedActions(): void {
@@ -157,7 +143,7 @@ export class SbbCardActionElement extends LitElement implements LinkButtonProper
           <slot></slot>
           ${
             targetsNewWindow(this)
-              ? html`. ${i18nTargetOpensInNewWindow[this._currentLanguage]}`
+              ? html`. ${i18nTargetOpensInNewWindow[this._language.current]}`
               : nothing
           }
         </span>

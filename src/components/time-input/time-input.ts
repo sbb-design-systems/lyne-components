@@ -2,14 +2,9 @@ import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
+import { LanguageController } from '../core/common-behaviors';
 import { findInput, isValidAttribute, toggleDatasetEntry } from '../core/dom';
-import {
-  documentLanguage,
-  forwardEventToHost,
-  HandlerRepository,
-  languageChangeHandlerAspect,
-  EventEmitter,
-} from '../core/eventing';
+import { forwardEventToHost, EventEmitter } from '../core/eventing';
 import { i18nTimeInputChange } from '../core/i18n';
 import { ValidationChangeEvent, SbbDateLike } from '../core/interfaces';
 
@@ -71,15 +66,10 @@ export class SbbTimeInputElement extends LitElement {
 
   private _statusContainer: HTMLParagraphElement | null;
   private _abortController = new AbortController();
-  private _currentLanguage = documentLanguage();
-  private _handlerRepository = new HandlerRepository(
-    this,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-  );
+  private _language = new LanguageController(this);
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._handlerRepository.connect();
 
     this._findInputElement();
     if (this._inputElement) {
@@ -90,7 +80,6 @@ export class SbbTimeInputElement extends LitElement {
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._abortController?.abort();
-    this._handlerRepository.disconnect();
   }
 
   /** Gets the input value with the correct date format. */
@@ -283,7 +272,7 @@ export class SbbTimeInputElement extends LitElement {
       return;
     }
 
-    this._statusContainer.innerText = `${i18nTimeInputChange[this._currentLanguage]} ${
+    this._statusContainer.innerText = `${i18nTimeInputChange[this._language.current]} ${
       this._inputElement.value
     }.`;
   }
