@@ -32,7 +32,7 @@ const Template = (args): TemplateResult => html`
       <sbb-form-field style=${styleMap({ width: '100%' })}>
         <sbb-icon slot="prefix" name="magnifying-glass-small"></sbb-icon>
         <input minlength=${2} name="keyword" autocomplete="off" placeholder="Search" />
-        <sbb-icon slot="suffix" name="cross-medium"></sbb-icon>
+        <sbb-form-field-clear></sbb-form-field-clear>
       </sbb-form-field>
       <sbb-title level="4">Operations & Disruptions</sbb-title>
       ${[...Array(10).keys()].map(
