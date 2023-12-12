@@ -10,8 +10,7 @@ import readme from './readme.md?raw';
 
 import './image';
 
-const Template = (args): TemplateResult =>
-  html`<sbb-image data-testid="image" ${sbbSpread(args)}></sbb-image>`;
+const Template = (args): TemplateResult => html`<sbb-image ${sbbSpread(args)}></sbb-image>`;
 
 const imageSrc: InputType = {
   control: {

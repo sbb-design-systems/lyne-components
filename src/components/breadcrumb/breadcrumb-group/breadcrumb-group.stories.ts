@@ -16,7 +16,7 @@ const addBreadcrumb = (event: Event): void => {
     .querySelector('sbb-breadcrumb-group');
   const breadcrumb = document.createElement('sbb-breadcrumb');
   breadcrumb.setAttribute('href', '/');
-  breadcrumb.textContent = 'Breadcrumb ' + breadcrumbGroup.children.length;
+  breadcrumb.textContent = 'Link ' + breadcrumbGroup.children.length;
   breadcrumbGroup.append(breadcrumb);
 };
 
@@ -108,7 +108,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   numberOfBreadcrumbs: 3,
-  text: 'Breadcrumb',
+  text: 'Link',
   href: 'https://github.com/lyne-design-system/lyne-components',
   target: '_blank',
   rel: undefined,
@@ -129,7 +129,7 @@ const createBreadcrumbs = ({ numberOfBreadcrumbs, text, ...args }): TemplateResu
 
 const Template = (args): TemplateResult => html`
   <div class="container">
-    <sbb-breadcrumb-group aria-label="You are here:" data-testid="breadcrumb-group">
+    <sbb-breadcrumb-group aria-label="You are here:">
       ${createBreadcrumbs(args)}
     </sbb-breadcrumb-group>
     <div style="margin-block: 2rem; gap: 1rem; display: flex;">
