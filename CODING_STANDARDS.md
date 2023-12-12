@@ -125,7 +125,7 @@ export class Component extends LitElement {
   private _language = new LanguageController(this /*, this._abort */);
 
   protected override render(): TemplateResult {
-    return html` ... ${i18nExample[this._language.value]} ... `;
+    return html` ... ${i18nExample[this._language.current]} ... `;
   }
 }
 ```
