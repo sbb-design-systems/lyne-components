@@ -720,7 +720,7 @@ const meta: Meta = {
     withActions as Decorator,
   ],
   parameters: {
-    chromatic: { delay: 8000 },
+    chromatic: { delay: 3000 },
     actions: {
       handles: [
         SbbSelectionPanelElement.events.didOpen,
