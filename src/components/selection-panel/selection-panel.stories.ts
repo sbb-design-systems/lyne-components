@@ -472,6 +472,31 @@ const WithNoContentTemplate = ({
   </sbb-selection-panel>
 `;
 
+const WithNoContentGroupTemplate = ({
+  checkedInput,
+  disabledInput,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-radio-button-group orientation="vertical" horizontal-from="large">
+    <sbb-selection-panel ${sbbSpread(args)}>
+      ${cardBadge()}
+      <sbb-radio-button value="Value one" ?disabled=${disabledInput}>
+        Value one ${suffixAndSubtext()}
+      </sbb-radio-button>
+    </sbb-selection-panel>
+    <sbb-selection-panel ${sbbSpread(args)}>
+      ${cardBadge()}
+      <sbb-radio-button value="Value two" ?checked=${checkedInput}>
+        Value two ${suffixAndSubtext()}
+      </sbb-radio-button>
+    </sbb-selection-panel>
+    <sbb-selection-panel ${sbbSpread(args)}>
+      ${cardBadge()}
+      <sbb-radio-button value="Value three"> Value three ${suffixAndSubtext()} </sbb-radio-button>
+    </sbb-selection-panel>
+  </sbb-radio-button-group>
+`;
+
 export const WithCheckbox: StoryObj = {
   render: WithCheckboxTemplate,
   argTypes: basicArgTypes,
@@ -663,6 +688,12 @@ export const WithNoContentCheckedDisabled: StoryObj = {
   render: WithNoContentTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, checkedInput: true, disabledInput: true },
+};
+
+export const WithNoContentGroup: StoryObj = {
+  render: WithNoContentGroupTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, checkedInput: true },
 };
 
 export const TicketsOptionsExample: StoryObj = {

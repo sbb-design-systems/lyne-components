@@ -231,6 +231,64 @@ describe('sbb-selection-panel', () => {
     });
   });
 
+  describe('with radio group with no slotted content', () => {
+    it('focus selected, the focus and select on keyboard navigation', async () => {
+      await fixture(html`
+        <sbb-radio-button-group id="group-no-content" name="input-group-name" value="Value 2">
+          <sbb-selection-panel disable-animation id="no-content-1">
+            <sbb-radio-button id="input-no-content-1" value="Value 1">Value one</sbb-radio-button>
+          </sbb-selection-panel>
+          <sbb-selection-panel disable-animation id="no-content-2">
+            <sbb-radio-button id="input-no-content-2" value="Value 2">Value two</sbb-radio-button>
+          </sbb-selection-panel>
+          <sbb-selection-panel disable-animation id="no-content-3">
+            <sbb-radio-button id="input-no-content-3" value="Value 3" disabled
+              >Value three</sbb-radio-button
+            >
+          </sbb-selection-panel>
+          <sbb-selection-panel disable-animation id="no-content-4">
+            <sbb-radio-button id="input-no-content-4" value="Value 4">Value four</sbb-radio-button>
+          </sbb-selection-panel>
+        </sbb-radio-button-group>
+      `);
+      const wrapperNoContent = document.querySelector('#group-no-content');
+      const firstInputNoContent: SbbRadioButtonElement =
+        document.querySelector('#input-no-content-1');
+      const secondInputNoContent: SbbRadioButtonElement =
+        document.querySelector('#input-no-content-2');
+      const fourthInputNoContent: SbbRadioButtonElement =
+        document.querySelector('#input-no-content-4');
+
+      await sendKeys({ down: 'Tab' });
+      await waitForLitRender(wrapperNoContent);
+      expect(document.activeElement.id).to.be.equal(secondInputNoContent.id);
+
+      await sendKeys({ down: 'ArrowUp' });
+      await waitForLitRender(wrapperNoContent);
+      expect(document.activeElement.id).to.be.equal(firstInputNoContent.id);
+      expect(secondInputNoContent).not.to.have.attribute('checked');
+      expect(firstInputNoContent).to.have.attribute('checked');
+
+      await sendKeys({ down: 'ArrowRight' });
+      await waitForLitRender(wrapperNoContent);
+      expect(document.activeElement.id).to.be.equal(secondInputNoContent.id);
+      expect(firstInputNoContent).not.to.have.attribute('checked');
+      expect(secondInputNoContent).to.have.attribute('checked');
+
+      await sendKeys({ down: 'ArrowDown' });
+      await waitForLitRender(wrapperNoContent);
+      expect(document.activeElement.id).to.be.equal(fourthInputNoContent.id);
+      expect(secondInputNoContent).not.to.have.attribute('checked');
+      expect(fourthInputNoContent).to.have.attribute('checked');
+
+      await sendKeys({ down: 'ArrowLeft' });
+      await waitForLitRender(wrapperNoContent);
+      expect(document.activeElement.id).to.be.equal(secondInputNoContent.id);
+      expect(fourthInputNoContent).not.to.have.attribute('checked');
+      expect(secondInputNoContent).to.have.attribute('checked');
+    });
+  });
+
   describe('with nested radio buttons', () => {
     let nestedElement: SbbRadioButtonGroupElement;
 
