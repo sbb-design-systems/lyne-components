@@ -82,7 +82,7 @@ You can file new issues by providing the above information [here](https://github
   git push my-fork my-fix-branch
   ```
 
-- In GitHub, send a pull request to `lyne-components:master`.
+- In GitHub, send a pull request to `lyne-components:main`.
   The PR title and message should as well conform to the [commit message conventions](#commit).
 
 - If we suggest changes then:
@@ -93,7 +93,7 @@ You can file new issues by providing the above information [here](https://github
     Request):
 
     ```shell
-    git rebase upstream/master -i
+    git rebase upstream/main -i
     git push -f
     ```
 

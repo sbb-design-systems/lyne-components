@@ -2,7 +2,7 @@
 
 ## SemVer
 
-We adhere to the semantic versioning standard. With each merge into master, the potential next version is automatically determined by the `sematic-release` package.
+We adhere to the semantic versioning standard. With each merge into main, the potential next version is automatically determined by the `sematic-release` package.
 
 Only commits that adhere to the `Conventional Commits` standard ([https://www.conventionalcommits.org/](https://www.conventionalcommits.org/)) will trigger semantic releases accordingly.
 

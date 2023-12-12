@@ -8,7 +8,7 @@ npm run lint
 
 ## Branch Deployments
 
-If you `commit` and `push` your changes on a branch, a [Preview Deployment](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#preview-deployment) is created on Netlify.
+If you `commit` and `push` your changes on a branch, a [Preview Deployment](https://github.com/lyne-design-system/lyne/blob/main/docs/TERMINOLOGY.md#preview-deployment) is created on Netlify.
 
 You can find a list of all branches along with their Netlify deployment URL here: [https://lyne-documentation.netlify.app/en/deployments](https://lyne-documentation.netlify.app/en/deployments).
 
@@ -16,21 +16,21 @@ You can find a list of all branches along with their Netlify deployment URL here
 
 ### npm scripts
 
-| Script             | Purpose                                                                                                                                                                                                                                                        |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `build:components` | Create a production build of Lit components                                                                                                                                                                                                                    |
-| `build:storybook`  | Build Storybook [Component Browser](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#component-browser) based on our [Storybook Stories](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#storybook-story) |
-| `build`            | Run `build:components` and `build:storybook` sequentially                                                                                                                                                                                                      |
-| `docs`             | Run `docs:manifest` and `docs:to-md` sequentially to regen docs files                                                                                                                                                                                          |
-| `format`           | Run `prettier` to format every supported file                                                                                                                                                                                                                  |
-| `generate`         | Start the interactive component generator                                                                                                                                                                                                                      |
-| `integrity`        | Run `format` and `docs`                                                                                                                                                                                                                                        |
-| `lint`             | Run TypeScript-ESLint                                                                                                                                                                                                                                          |
-| `start`            | Run `storybook` local development and open it on browser                                                                                                                                                                                                       |
-| `test`             | Run all unit and e2e tests                                                                                                                                                                                                                                     |
-| `test:spec`        | Run all spec tests                                                                                                                                                                                                                                             |
-| `test:e2e`         | Run all e2e tests                                                                                                                                                                                                                                              |
-| `prepare`          | Install Husky                                                                                                                                                                                                                                                  |
+| Script             | Purpose                                                                                                                                                                                                                                                    |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `build:components` | Create a production build of Lit components                                                                                                                                                                                                                |
+| `build:storybook`  | Build Storybook [Component Browser](https://github.com/lyne-design-system/lyne/blob/main/docs/TERMINOLOGY.md#component-browser) based on our [Storybook Stories](https://github.com/lyne-design-system/lyne/blob/main/docs/TERMINOLOGY.md#storybook-story) |
+| `build`            | Run `build:components` and `build:storybook` sequentially                                                                                                                                                                                                  |
+| `docs`             | Run `docs:manifest` and `docs:to-md` sequentially to regen docs files                                                                                                                                                                                      |
+| `format`           | Run `prettier` to format every supported file                                                                                                                                                                                                              |
+| `generate`         | Start the interactive component generator                                                                                                                                                                                                                  |
+| `integrity`        | Run `format` and `docs`                                                                                                                                                                                                                                    |
+| `lint`             | Run TypeScript-ESLint                                                                                                                                                                                                                                      |
+| `start`            | Run `storybook` local development and open it on browser                                                                                                                                                                                                   |
+| `test`             | Run all unit and e2e tests                                                                                                                                                                                                                                 |
+| `test:spec`        | Run all spec tests                                                                                                                                                                                                                                         |
+| `test:e2e`         | Run all e2e tests                                                                                                                                                                                                                                          |
+| `prepare`          | Install Husky                                                                                                                                                                                                                                              |
 
 ### devDependencies
 

@@ -2,10 +2,10 @@
   Lyne Components
 </h1>
 
-> _Lyne Components_ are the building blocks of the [Lyne Design System](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#lyne)
-> and are based on standard compliant [Web Components](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#web-components)
-> created using [Lit](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#lit) and
-> browsable through [Storybook](https://github.com/lyne-design-system/lyne/blob/master/docs/TERMINOLOGY.md#storybook)
+> _Lyne Components_ are the building blocks of the [Lyne Design System](https://github.com/lyne-design-system/lyne/blob/main/docs/TERMINOLOGY.md#lyne)
+> and are based on standard compliant [Web Components](https://github.com/lyne-design-system/lyne/blob/main/docs/TERMINOLOGY.md#web-components)
+> created using [Lit](https://github.com/lyne-design-system/lyne/blob/main/docs/TERMINOLOGY.md#lit) and
+> browsable through [Storybook](https://github.com/lyne-design-system/lyne/blob/main/docs/TERMINOLOGY.md#storybook)
 
 <br>
 

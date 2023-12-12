@@ -9,8 +9,8 @@
 
 ## git(hub)
 
-- [ ] Prevent push to master
-  - [ ] Re-add `Require status checks to pass before merging` to [master](https://github.com/lyne-design-system/lyne-components/settings/branch_protection_rules/15040780) which prevents also push to master
+- [ ] Prevent push to main
+  - [ ] Re-add `Require status checks to pass before merging` to [main](https://github.com/lyne-design-system/lyne-components/settings/branch_protection_rules/15040780) which prevents also push to main
 - [ ] The repo with the examples contains references to the lyne-test npm packages. As soon as we publish the npm package lyne-components and delete the lyne-test package, we need to update those dependencies.
 - [x] Snyk only offers 200 tests a month. Snyk runs on every pr that we make, so we might run out of tests very quickly. -> search for alternative or use paid plan. Possible alternatives:
   - Renovate: only updates, no security pr's. obviously free
@@ -46,11 +46,11 @@
 
 #### Verify
 
-- [x] First create PR A with fix, then create PR B with fix. Merge PR B. Now Master is ahead of PR A. Check if new version is released after PR A ist merged.
+- [x] First create PR A with fix, then create PR B with fix. Merge PR B. Now Main is ahead of PR A. Check if new version is released after PR A ist merged.
 - [x] Create PRs with a fix (new version). Merge one after another, before the CI for the first merged PR is finished -> 2 new releases should be created
-- [ ] Releasing of merged pr's which are behind and ahead of master. If master is ahead of a pr at merge time, semantic-release will be skipped. A potential release will be made, as soon as a new pr is merged on a up-to-date master basis. No problems so far, behavior is ok. Is this the behavior we want? Example:
-  - This build should have triggered a release. But since master was ahead of the merged branch, release was skipped: https://travis-ci.org/github/lyne-design-system/lyne-components/builds/689137974
-  - The release was triggered later on, as soon as a branch got merged which itself has a merged state from the master, including the changes from the PR before: https://travis-ci.org/github/lyne-design-system/lyne-components/builds/689139711
+- [ ] Releasing of merged pr's which are behind and ahead of main. If main is ahead of a pr at merge time, semantic-release will be skipped. A potential release will be made, as soon as a new pr is merged on a up-to-date main basis. No problems so far, behavior is ok. Is this the behavior we want? Example:
+  - This build should have triggered a release. But since main was ahead of the merged branch, release was skipped: https://travis-ci.org/github/lyne-design-system/lyne-components/builds/689137974
+  - The release was triggered later on, as soon as a branch got merged which itself has a merged state from the main, including the changes from the PR before: https://travis-ci.org/github/lyne-design-system/lyne-components/builds/689139711
 
 #### Issues
 
@@ -131,14 +131,14 @@
 - [x] add Webhook to netlify for Git PR: if a pr is created, add a link to the deployment preview from netlify
 - [x] we have some dependencies that we always want to install in the latest version, like line-design-tokens. We could add `npm up lyne-design-token` to the travis config. But it would be better if latest line-design-tokens would be installed after `npm install`. Find a way to do so.
 - [x] In Travis, build logs are cluttered. Lower log level for semantic-release/npm publish and npm install -g netlify-cli
-- [x] When pushing to master, PREVIEWS.md is not created.
+- [x] When pushing to main, PREVIEWS.md is not created.
 - [x] Assumption: we delete branches after merging. In that case, we should just write branch-names on the deployments page instead of links, since we're not sure how long those links will be valid.
 - [x] npm package size is huge!
 - [x] enhance for all stages `- npm run test:prod` with `|| travis_terminate 1` in `.travis.yml` so tests are run before release gets made (can be done in late alpha or beta phase).
 - [x] If tests are run, a coverage report is generated in the `coverage` folder. Should we make it available to the public somewhere?
 - [ ] chromatic sometimes takes a snapshot before a component has loaded in the dom. we currently add a delay of 1000ms to chromatic inside the stories files to prevent that. Probably chromatic will improve so that we can remove the delay.
 - Upload to codecov.io runs always into a timeout: `curl: (7) Failed to connect to codecov.io port 443: Connection timed out`
-- [ ] travis.yml, for master builds -> designTokensUpdate -> this might install newer versions of design-tokens and icons. after that, if no new version is released by semantic release, we must manually commit package.json and lock file and push it back to the repo.
+- [ ] travis.yml, for main builds -> designTokensUpdate -> this might install newer versions of design-tokens and icons. after that, if no new version is released by semantic release, we must manually commit package.json and lock file and push it back to the repo.
 
 #### Check
 
