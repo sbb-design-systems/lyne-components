@@ -53,7 +53,7 @@ describe('sbb-file-selector', () => {
             <span class="sbb-file-selector__file-name">hello0.txt</span>
             <span class="sbb-file-selector__file-size">15 B</span>
           </span>
-          <sbb-button aria-label="Remove file - hello0.txt" data-icon-only dir="ltr" icon-name="trash-small"
+          <sbb-button aria-label="Remove file - hello0.txt" dir="ltr" icon-name="trash-small"
                       role="button" size="m" tabindex="0" variant="secondary">
           </sbb-button>
         </span>

@@ -1,23 +1,17 @@
 import { spread } from '@open-wc/lit-helpers';
 import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { LanguageController } from '../core/common-behaviors';
+import { LanguageController, NamedSlotStateController } from '../core/common-behaviors';
 import {
   ACTION_ELEMENTS,
   hostContext,
   isValidAttribute,
   toggleDatasetEntry,
-  setAttribute,
   setAttributes,
 } from '../core/dom';
-import {
-  actionElementHandlerAspect,
-  createNamedSlotState,
-  HandlerRepository,
-  namedSlotChangeHandlerAspect,
-} from '../core/eventing';
+import { actionElementHandlerAspect, HandlerRepository } from '../core/eventing';
 import { i18nTargetOpensInNewWindow } from '../core/i18n';
 import {
   ButtonType,
@@ -67,7 +61,7 @@ export class SbbButtonElement extends LitElement implements LinkButtonProperties
    * from the ui-icons category from here
    * https://icons.app.sbb.ch.
    */
-  @property({ attribute: 'icon-name' }) public iconName?: string;
+  @property({ attribute: 'icon-name', reflect: true }) public iconName?: string;
 
   /** The href value you want to link to (if it is present, button becomes a link). */
   @property() public href: string | undefined;
@@ -96,25 +90,18 @@ export class SbbButtonElement extends LitElement implements LinkButtonProperties
   /** The <form> element to associate the button with. */
   @property() public form?: string;
 
-  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @state() private _namedSlots = createNamedSlotState('icon');
-
-  @state() private _hasText = false;
-
   private _language = new LanguageController(this);
-  private _handlerRepository = new HandlerRepository(
-    this,
-    actionElementHandlerAspect,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
-  );
+  private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
+
+  public constructor() {
+    super();
+    new NamedSlotStateController(this);
+  }
 
   public override connectedCallback(): void {
     super.connectedCallback();
     // Check if the current element is nested in an action element.
     this.isStatic = this.isStatic || !!hostContext(ACTION_ELEMENTS, this);
-    this._hasText = Array.from(this.childNodes ?? []).some(
-      (n) => !(n as Element).slot && n.textContent?.trim(),
-    );
     this._handlerRepository.connect();
 
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
@@ -129,33 +116,22 @@ export class SbbButtonElement extends LitElement implements LinkButtonProperties
     this._handlerRepository.disconnect();
   }
 
-  private _onLabelSlotChange(event: Event): void {
-    this._hasText = (event.target as HTMLSlotElement)
-      .assignedNodes()
-      .some((n) => !!n.textContent?.trim());
-  }
-
   protected override render(): TemplateResult {
     const { tagName: TAG_NAME, attributes, hostAttributes } = resolveRenderVariables(this);
 
     setAttributes(this, hostAttributes);
-    setAttribute(this, 'data-icon-only', !this._hasText);
 
     /* eslint-disable lit/binding-positions */
     return html`
       <${unsafeStatic(TAG_NAME)} class="sbb-button" ${spread(attributes)}>
-        ${
-          this.iconName || this._namedSlots.icon
-            ? html`<span class="sbb-button__icon">
-                <slot name="icon">
-                  ${this.iconName ? html`<sbb-icon name="${this.iconName}"></sbb-icon>` : nothing}
-                </slot>
-              </span>`
-            : nothing
-        }
+        <span class="sbb-button__icon">
+          <slot name="icon">
+            ${this.iconName ? html`<sbb-icon name="${this.iconName}"></sbb-icon>` : nothing}
+          </slot>
+        </span>
 
         <span class="sbb-button__label">
-          <slot @slotchange=${this._onLabelSlotChange}></slot>
+          <slot></slot>
           ${
             targetsNewWindow(this)
               ? html`<span class="sbb-button__opens-in-new-window">

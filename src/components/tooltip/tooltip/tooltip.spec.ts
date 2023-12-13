@@ -27,7 +27,6 @@ describe('sbb-tooltip', () => {
               </span>
               <span class="sbb-tooltip__close">
                 <sbb-button
-                  data-icon-only=""
                   dir="ltr"
                   aria-label="${i18nCloseTooltip.en}"
                   icon-name="cross-small"

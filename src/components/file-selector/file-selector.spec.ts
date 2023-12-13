@@ -17,7 +17,7 @@ describe('sbb-file-selector', () => {
       <div class='sbb-file-selector'>
         <div class='sbb-file-selector__input-container'>
           <label>
-            <sbb-button icon-name='folder-open-small' is-static='' size='m' variant='secondary' dir='ltr'>
+            <sbb-button icon-name='folder-open-small' is-static='' size='m' variant='secondary' dir='ltr' data-slot-names="unnamed">
               Choose a file
             </sbb-button>
             <input class='sbb-file-selector__visually-hidden' type='file'>
@@ -50,7 +50,7 @@ describe('sbb-file-selector', () => {
                 Drag &amp; Drop your files here
               </span>
               <span class='sbb-file-selector__dropzone-area--button'>
-                <sbb-button size='m' variant='secondary' is-static='' dir='ltr'>
+                <sbb-button size='m' variant='secondary' is-static='' dir='ltr' data-slot-names="unnamed">
                   Choose a file
                 </sbb-button>
               </span>

@@ -40,7 +40,6 @@ describe('sbb-navigation', () => {
                 aria-label="Close navigation"
                 aria-controls="sbb-navigation-overlay"
                 class="sbb-navigation__close"
-                data-icon-only=""
                 dir="ltr"
                 icon-name="cross-small"
                 negative=""

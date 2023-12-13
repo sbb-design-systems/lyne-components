@@ -4,6 +4,8 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
+$icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=unnamed])';
+
 :host {
   display: inline-block;
 
@@ -145,7 +147,7 @@
   }
 }
 
-:host([data-icon-only]) {
+:host(#{$icon-only}) {
   --sbb-button-padding-inline: 0;
   --icon-margin-inline-end: 0;
 }
@@ -290,7 +292,7 @@
     }
   }
 
-  :host([data-icon-only]) & {
+  :host(#{$icon-only}) & {
     width: var(--sbb-button-min-height);
     justify-content: center;
   }
@@ -321,13 +323,17 @@
 
   display: block;
 
-  :host([data-icon-only]) & {
+  :host(#{$icon-only}) & {
     display: none;
   }
 }
 
 .sbb-button__icon {
-  display: flex;
+  display: none;
+
+  :host(:where([data-slot-names~='icon'], [icon-name])) & {
+    display: flex;
+  }
 }
 
 .sbb-button__opens-in-new-window {

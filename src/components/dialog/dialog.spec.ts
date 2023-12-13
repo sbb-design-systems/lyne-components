@@ -18,7 +18,6 @@ describe('sbb-dialog', () => {
                 <sbb-button
                   aria-label="${i18nCloseDialog.en}"
                   class="sbb-dialog__close"
-                  data-icon-only=""
                   dir="ltr"
                   icon-name="cross-small"
                   sbb-dialog-close=""

@@ -35,7 +35,7 @@ describe('sbb-notification', () => {
             </span>
             <span class="sbb-notification__close-wrapper">
               <sbb-divider aria-orientation="vertical" role="separator" class="sbb-notification__divider" orientation="vertical"></sbb-divider>
-              <sbb-button data-icon-only dir="ltr" role="button" tabindex="0" aria-label="Close message" class="sbb-notification__close" icon-name="cross-small" size="m" variant="secondary"></sbb-button>
+              <sbb-button dir="ltr" role="button" tabindex="0" aria-label="Close message" class="sbb-notification__close" icon-name="cross-small" size="m" variant="secondary"></sbb-button>
             </span>
           </div>
         </div>
@@ -73,7 +73,7 @@ describe('sbb-notification', () => {
             </span>
             <span class="sbb-notification__close-wrapper">
               <sbb-divider aria-orientation="vertical" role="separator" class="sbb-notification__divider" orientation="vertical"></sbb-divider>
-              <sbb-button data-icon-only dir="ltr" role="button" tabindex="0" aria-label="Close message" class="sbb-notification__close" icon-name="cross-small" size="m" variant="secondary"></sbb-button>
+              <sbb-button dir="ltr" role="button" tabindex="0" aria-label="Close message" class="sbb-notification__close" icon-name="cross-small" size="m" variant="secondary"></sbb-button>
             </span>
           </div>
         </div>
@@ -113,7 +113,7 @@ describe('sbb-notification', () => {
             </span>
             <span class="sbb-notification__close-wrapper">
               <sbb-divider aria-orientation="vertical" role="separator" class="sbb-notification__divider" orientation="vertical"></sbb-divider>
-              <sbb-button data-icon-only dir="ltr" role="button" tabindex="0" aria-label="Close message" class="sbb-notification__close" icon-name="cross-small" size="m" variant="secondary"></sbb-button>
+              <sbb-button dir="ltr" role="button" tabindex="0" aria-label="Close message" class="sbb-notification__close" icon-name="cross-small" size="m" variant="secondary"></sbb-button>
             </span>
           </div>
         </div>
