@@ -49,7 +49,6 @@ input[type='radio'] {
   border-radius: var(--sbb-toggle-option-border-radius);
   color: var(--sbb-toggle-option-color);
 
-  // if ![icon-only]
   :host([data-slot-names~='unnamed']:where([data-slot-names~='icon'], [icon-name])) & {
     gap: var(--sbb-spacing-fixed-1x);
   }

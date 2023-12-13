@@ -36,7 +36,6 @@ describe('sbb-button', () => {
         form="formid"
         role="button"
         dir="ltr"
-        data-slot-names="unnamed"
       >
 
         Label Text
@@ -44,10 +43,6 @@ describe('sbb-button', () => {
     `);
     expect(root).shadowDom.to.be.equal(`
       <span class="sbb-button">
-        <span class="sbb-button__icon">
-          <slot name="icon">
-          </slot>
-        </span>
         <span class="sbb-button__label"><slot></slot></span>
       </span>
     `);
@@ -64,7 +59,7 @@ describe('sbb-button', () => {
     await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(`
-      <sbb-button size="l" variant="primary" role="button" tabindex="0" dir="ltr" data-slot-names="icon unnamed">
+      <sbb-button size="l" variant="primary" role="button" tabindex="0" dir="ltr">
         <sbb-icon slot="icon" name="chevron-small-left-small" role="img" aria-hidden="true" data-namespace="default"></sbb-icon>
         Label Text
       </sbb-button>
@@ -97,7 +92,6 @@ describe('sbb-button', () => {
         role="link"
         tabindex="0"
         dir="ltr"
-        data-slot-names="unnamed"
       >
 
         Label Text
@@ -113,9 +107,6 @@ describe('sbb-button', () => {
         role="presentation"
         tabindex="-1"
         >
-        <span class="sbb-button__icon">
-          <slot name="icon"></slot>
-        </span>
         <span class='sbb-button__label'>
           <slot></slot>
           <span class="sbb-button__opens-in-new-window">
@@ -136,15 +127,12 @@ describe('sbb-button', () => {
     ).querySelector('sbb-button');
 
     expect(root).dom.to.be.equal(`
-      <sbb-button variant='secondary' negative size='l' is-static dir="ltr" data-slot-names="unnamed">
+      <sbb-button variant='secondary' negative size='l' is-static dir="ltr">
         this is a button
       </sbb-button>
     `);
     expect(root).shadowDom.to.be.equal(`
       <span class='sbb-button'>
-        <span class="sbb-button__icon">
-          <slot name="icon"></slot>
-        </span>
         <span class='sbb-button__label'><slot></slot></span>
       </span>
     `);
@@ -156,15 +144,12 @@ describe('sbb-button', () => {
     );
 
     expect(root).dom.to.be.equal(`
-      <sbb-button variant='secondary' size='l' is-static dir="ltr" data-slot-names="unnamed">
+      <sbb-button variant='secondary' size='l' is-static dir="ltr">
         this is a static button
       </sbb-button>
     `);
     expect(root).shadowDom.to.be.equal(`
       <span class='sbb-button'>
-        <span class="sbb-button__icon">
-          <slot name="icon"></slot>
-        </span>
         <span class='sbb-button__label'><slot></slot></span>
       </span>
     `);
@@ -172,7 +157,7 @@ describe('sbb-button', () => {
 
   it('should detect icon button', async () => {
     const root = await fixture(
-      html`<sbb-button><sbb-icon slot="icon" name="app-icon-medium"></sbb-icon></sbb-button>`,
+      html`<sbb-button><sbb-icon name="app-icon-medium"></sbb-icon></sbb-button>`,
     );
 
     expect(root).to.have.attribute('data-icon-only');
@@ -180,7 +165,7 @@ describe('sbb-button', () => {
 
   it('should detect icon button when there is space around icon', async () => {
     const root = await fixture(
-      html`<sbb-button> <sbb-icon slot="icon" name="app-icon-medium"></sbb-icon> </sbb-button>`,
+      html`<sbb-button> <sbb-icon name="app-icon-medium"></sbb-icon> </sbb-button>`,
     );
 
     expect(root).to.have.attribute('data-icon-only');

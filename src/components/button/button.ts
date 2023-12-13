@@ -3,7 +3,7 @@ import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { LanguageController, NamedSlotStateController } from '../core/common-behaviors';
+import { LanguageController } from '../core/common-behaviors';
 import {
   ACTION_ELEMENTS,
   hostContext,
@@ -12,7 +12,12 @@ import {
   setAttribute,
   setAttributes,
 } from '../core/dom';
-import { actionElementHandlerAspect, HandlerRepository } from '../core/eventing';
+import {
+  actionElementHandlerAspect,
+  createNamedSlotState,
+  HandlerRepository,
+  namedSlotChangeHandlerAspect,
+} from '../core/eventing';
 import { i18nTargetOpensInNewWindow } from '../core/i18n';
 import {
   ButtonType,
@@ -62,7 +67,7 @@ export class SbbButtonElement extends LitElement implements LinkButtonProperties
    * from the ui-icons category from here
    * https://icons.app.sbb.ch.
    */
-  @property({ attribute: 'icon-name', reflect: true }) public iconName?: string;
+  @property({ attribute: 'icon-name' }) public iconName?: string;
 
   /** The href value you want to link to (if it is present, button becomes a link). */
   @property() public href: string | undefined;
@@ -91,11 +96,17 @@ export class SbbButtonElement extends LitElement implements LinkButtonProperties
   /** The <form> element to associate the button with. */
   @property() public form?: string;
 
+  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
+  @state() private _namedSlots = createNamedSlotState('icon');
+
   @state() private _hasText = false;
 
   private _language = new LanguageController(this);
-  private _namedSlots = new NamedSlotStateController(this, () => this._onLabelSlotChange());
-  private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
+  private _handlerRepository = new HandlerRepository(
+    this,
+    actionElementHandlerAspect,
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
+  );
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -118,8 +129,10 @@ export class SbbButtonElement extends LitElement implements LinkButtonProperties
     this._handlerRepository.disconnect();
   }
 
-  private _onLabelSlotChange(): void {
-    this._hasText = this._namedSlots.slots.has('unnamed');
+  private _onLabelSlotChange(event: Event): void {
+    this._hasText = (event.target as HTMLSlotElement)
+      .assignedNodes()
+      .some((n) => !!n.textContent?.trim());
   }
 
   protected override render(): TemplateResult {
@@ -131,14 +144,18 @@ export class SbbButtonElement extends LitElement implements LinkButtonProperties
     /* eslint-disable lit/binding-positions */
     return html`
       <${unsafeStatic(TAG_NAME)} class="sbb-button" ${spread(attributes)}>
-        <span class="sbb-button__icon">
-          <slot name="icon">
-            ${this.iconName ? html`<sbb-icon name="${this.iconName}"></sbb-icon>` : nothing}
-          </slot>
-        </span>
+        ${
+          this.iconName || this._namedSlots.icon
+            ? html`<span class="sbb-button__icon">
+                <slot name="icon">
+                  ${this.iconName ? html`<sbb-icon name="${this.iconName}"></sbb-icon>` : nothing}
+                </slot>
+              </span>`
+            : nothing
+        }
 
         <span class="sbb-button__label">
-          <slot></slot>
+          <slot @slotchange=${this._onLabelSlotChange}></slot>
           ${
             targetsNewWindow(this)
               ? html`<span class="sbb-button__opens-in-new-window">
