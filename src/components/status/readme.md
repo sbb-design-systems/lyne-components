@@ -33,11 +33,11 @@ The `sbb-status` use default message colors, based on the chosen `type`.
 
 ## Properties
 
-| Name           | Attribute       | Privacy | Type                                                       | Default  | Description                                                                        |
-| -------------- | --------------- | ------- | ---------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------- |
-| `type`         | `type`          | public  | `'info' \| 'success' \| 'warning' \| 'error' \| undefined` | `'info'` | The type of the status.                                                            |
-| `titleContent` | `title-content` | public  | `string \| undefined`                                      |          | Content of title.                                                                  |
-| `titleLevel`   | `title-level`   | public  | `TitleLevel`                                               | `'3'`    | Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3. |
+| Name           | Attribute       | Privacy | Type                                          | Default  | Description                                                                        |
+| -------------- | --------------- | ------- | --------------------------------------------- | -------- | ---------------------------------------------------------------------------------- |
+| `type`         | `type`          | public  | `'info' \| 'success' \| 'warning' \| 'error'` | `'info'` | The type of the status.                                                            |
+| `titleContent` | `title-content` | public  | `string \| undefined`                         |          | Content of title.                                                                  |
+| `titleLevel`   | `title-level`   | public  | `TitleLevel`                                  | `'3'`    | Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3. |
 
 ## Slots
 
