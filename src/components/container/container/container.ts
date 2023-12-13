@@ -32,6 +32,7 @@ export class SbbContainerElement extends LitElement {
     super.getUpdateComplete().then(() => {
       this._handlePageScroll();
       this._firstScrollableParent.addEventListener('scroll', () => this._handlePageScroll(), {
+        passive: true,
         signal,
       });
     });

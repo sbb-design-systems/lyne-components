@@ -8,6 +8,12 @@ describe('sbb-container', () => {
 
     expect(root).dom.to.be.equal(`<sbb-container variant="transparent"></sbb-container>`);
 
-    await expect(root).shadowDom.to.equalSnapshot();
+    expect(root).shadowDom.to.equal(
+      `<div class="sbb-container">
+        <slot>
+        </slot>
+      </div>
+      `,
+    );
   });
 });
