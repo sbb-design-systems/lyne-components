@@ -1,5 +1,5 @@
-The `sbb-status` is a component that has the purpose to show the user short messages, in order to update the current status.
-The status element displays a brief text message preceeded by the status icon.
+The `sbb-status` is a component that has the purpose to show the user short messages to update the current status.
+The status element displays a brief text message preceded by the status icon.
 
 The `sbb-status` is structured in the following way:
 
@@ -27,7 +27,7 @@ The `sbb-status` supports four types: `info` (default), `success`, `warn` and `e
 
 ## Style
 
-The `sbb-status` use default message colors, based on the type host chosen,
+The `sbb-status` use default message colors, based on the chosen `type`.
 
 <!-- Auto Generated Below -->
 
@@ -36,7 +36,6 @@ The `sbb-status` use default message colors, based on the type host chosen,
 | Name           | Attribute       | Privacy | Type                                                       | Default  | Description                                                                        |
 | -------------- | --------------- | ------- | ---------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------- |
 | `type`         | `type`          | public  | `'info' \| 'success' \| 'warning' \| 'error' \| undefined` | `'info'` | The type of the status.                                                            |
-| `hasTitle`     | `extended`      | public  | `boolean`                                                  |          | The version of the status.                                                         |
 | `titleContent` | `title-content` | public  | `string \| undefined`                                      |          | Content of title.                                                                  |
 | `titleLevel`   | `title-level`   | public  | `TitleLevel`                                               | `'3'`    | Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3. |
 

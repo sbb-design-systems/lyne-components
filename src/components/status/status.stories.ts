@@ -16,12 +16,6 @@ const type: InputType = {
   options: ['info', 'success', 'warning', 'error'],
 };
 
-const extended: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const titleContent: InputType = {
   control: {
     type: 'text',
@@ -36,14 +30,12 @@ const text: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   type,
-  extended,
   'title-content': titleContent,
   text,
 };
 
 const defaultArgs: Args = {
   type: 'info',
-  extended: false,
   'title-content': undefined,
   text: 'Status info text',
 };
@@ -52,52 +44,52 @@ const Template = ({ text, ...args }: Args): TemplateResult => html`
   <sbb-status ${sbbSpread(args)}> ${text} </sbb-status>
 `;
 
-export const infoShort: StoryObj = {
+export const info: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };
 
-export const successShort: StoryObj = {
+export const success: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, type: 'success' },
 };
 
-export const warningShort: StoryObj = {
+export const warning: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, type: 'warning' },
 };
 
-export const errorShort: StoryObj = {
+export const error: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, type: 'error' },
 };
 
-export const infoExtended: StoryObj = {
+export const infoWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'title-content': 'Title', extended: true },
+  args: { ...defaultArgs, 'title-content': 'Title' },
 };
 
-export const successExtended: StoryObj = {
+export const successWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, type: 'success', 'title-content': 'Success!', extended: true },
+  args: { ...defaultArgs, type: 'success', 'title-content': 'Success!' },
 };
 
-export const warningExtended: StoryObj = {
+export const warningWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, type: 'warning', 'title-content': 'Warning!', extended: true },
+  args: { ...defaultArgs, type: 'warning', 'title-content': 'Warning!' },
 };
 
-export const errorExtended: StoryObj = {
+export const errorWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, type: 'error', 'title-content': 'Error!', extended: true },
+  args: { ...defaultArgs, type: 'error', 'title-content': 'Error!' },
 };
 
 const meta: Meta = {

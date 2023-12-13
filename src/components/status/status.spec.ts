@@ -9,40 +9,33 @@ describe('sbb-status', () => {
       html` <sbb-status my-prop="Label" type="info"> Status info text </sbb-status>`,
     );
 
-    expect(root).dom.to.be.equal(
-      `
+    expect(root).dom.to.be.equal(`
       <sbb-status my-prop="Label" type="info">
         Status info text
-      </sbb-status>`,
-    );
+      </sbb-status>
+    `);
 
-    expect(root).shadowDom.to.be.equal(
-      `
+    expect(root).shadowDom.to.be.equal(`
       <div class="sbb-status" type="info">
         <sbb-icon class="sbb-status__icon" name="circle-information-small" role="img" data-namespace="default" aria-hidden="true"></sbb-icon>
         <span class="sbb-status__content">
           <slot></slot>
         </span>
       </div>
-    `,
-    );
+    `);
   });
 
   it('renders with the status title', async () => {
     const root = await fixture(
-      html` <sbb-status type="info" extended="" title-content="Title" data-has-title="">
-        Status info text
-      </sbb-status>`,
+      html` <sbb-status type="info" title-content="Title"> Status info text </sbb-status>`,
     );
 
-    expect(root).dom.to.be.equal(
-      `
-      <sbb-status type="info" extended="" title-content="Title" data-has-title="">
+    expect(root).dom.to.be.equal(`
+      <sbb-status type="info" title-content="Title" data-has-title="">
         Status info text
-      </sbb-status>`,
-    );
-    expect(root).shadowDom.to.be.equal(
-      `
+      </sbb-status>
+    `);
+    expect(root).shadowDom.to.be.equal(`
       <div class="sbb-status" type="info">
         <sbb-icon class="sbb-status__icon" name="circle-information-small" role="img" data-namespace="default" aria-hidden="true"></sbb-icon>
         <span class="sbb-status__content">
@@ -52,7 +45,6 @@ describe('sbb-status', () => {
           <slot></slot>
         </span>
       </div>
-      `,
-    );
+    `);
   });
 });
