@@ -716,11 +716,11 @@ export const NestedCheckboxes: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (story) => html` <div style="padding: 2rem; max-width: 1440px;">${story()}</div> `,
+    (story) => html` <div style="padding: 2rem;">${story()}</div> `,
     withActions as Decorator,
   ],
   parameters: {
-    chromatic: { delay: 3000 },
+    chromatic: { delay: 9000 },
     actions: {
       handles: [
         SbbSelectionPanelElement.events.didOpen,
