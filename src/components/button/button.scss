@@ -327,7 +327,11 @@
 }
 
 .sbb-button__icon {
-  display: flex;
+  display: none;
+
+  :host(:where([data-slot-names~='icon'], [icon-name])) & {
+    display: flex;
+  }
 }
 
 .sbb-button__opens-in-new-window {
