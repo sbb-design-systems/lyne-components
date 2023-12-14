@@ -489,11 +489,13 @@ export class SbbImageElement extends LitElement {
                 html` <source
                   media=${`${mediaQuery}`}
                   sizes=${`${imageWidth}px`}
-                  srcset=${`${imageUrlWithParams}&w=${imageWidth}&h=${imageHeight}&q=${this._config.nonRetinaQuality} ${imageWidth}w, ` +
-                  `${imageUrlWithParams}&w=${imageWidth * 2}&h=${imageHeight * 2}&q=${
-                    this._config.retinaQuality
-                  } ${imageWidth * 2}w`}
-                />`,
+                  srcset=${
+                    `${imageUrlWithParams}&w=${imageWidth}&h=${imageHeight}&q=${this._config.nonRetinaQuality} ${imageWidth}w, ` +
+                    `${imageUrlWithParams}&w=${imageWidth * 2}&h=${imageHeight * 2}&q=${
+                      this._config.retinaQuality
+                    } ${imageWidth * 2}w`
+                  }
+                ></source>`,
               ];
             })}
             <img

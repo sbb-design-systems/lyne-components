@@ -1,7 +1,6 @@
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import { html, TemplateResult } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../core/dom';
 
@@ -17,7 +16,7 @@ const addBreadcrumb = (event: Event): void => {
     .querySelector('sbb-breadcrumb-group');
   const breadcrumb = document.createElement('sbb-breadcrumb');
   breadcrumb.setAttribute('href', '/');
-  breadcrumb.textContent = 'Breadcrumb ' + breadcrumbGroup.children.length;
+  breadcrumb.textContent = 'Link ' + breadcrumbGroup.children.length;
   breadcrumbGroup.append(breadcrumb);
 };
 
@@ -109,7 +108,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   numberOfBreadcrumbs: 3,
-  text: 'Breadcrumb',
+  text: 'Link',
   href: 'https://github.com/lyne-design-system/lyne-components',
   target: '_blank',
   rel: undefined,
@@ -133,7 +132,7 @@ const Template = (args): TemplateResult => html`
     <sbb-breadcrumb-group aria-label="You are here:">
       ${createBreadcrumbs(args)}
     </sbb-breadcrumb-group>
-    <div style=${styleMap({ 'margin-block': '2rem', gap: '1rem', display: 'flex' })}>
+    <div style="margin-block: 2rem; gap: 1rem; display: flex;">
       <sbb-button variant="secondary" @click=${(event: Event) => addBreadcrumb(event)}
         >Add</sbb-button
       >
@@ -159,7 +158,7 @@ export const CollapsedState: StoryObj = {
 const meta: Meta = {
   decorators: [
     (story) => html`
-      <div style=${styleMap({ padding: '2rem' })}>
+      <div style="padding: 2rem; max-width: 1000px;">
         ${story()}
         <div>Page content</div>
       </div>

@@ -2,7 +2,6 @@ import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import { html, TemplateResult } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../core/dom';
 import images from '../core/images';
@@ -186,9 +185,7 @@ export const NoCaptionNoRadius: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style=${styleMap({ 'max-width': '1000px' })}>${story()}</div> `,
-  ],
+  decorators: [(story) => html` <div style="max-width: 480px;">${story()}</div> `],
   parameters: {
     chromatic: { diffThreshold: 0.11, delay: 8000 },
     docs: {

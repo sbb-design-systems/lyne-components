@@ -134,11 +134,9 @@ export class SbbSelectionPanelElement extends LitElement {
     if (this._checked) {
       this._state = 'opening';
       this._willOpen.emit();
-      this.disableAnimation && this._handleOpening();
     } else {
       this._state = 'closing';
       this._willClose.emit();
-      this.disableAnimation && this._handleClosing();
     }
   }
 
