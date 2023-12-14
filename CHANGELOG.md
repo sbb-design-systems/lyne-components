@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.43.3](https://github.com/lyne-design-system/lyne-components/compare/v0.43.2...v0.43.3) (2023-12-13)
+
+
+### Bug Fixes
+
+* fix fake event detection ([#2291](https://github.com/lyne-design-system/lyne-components/issues/2291)) ([26e7803](https://github.com/lyne-design-system/lyne-components/commit/26e78033545ef90722d975b45167ddc36484f5f9))
+* **sbb-selection-panel:** arrow navigation with radio-button-group with no content should select the radio-button ([#2255](https://github.com/lyne-design-system/lyne-components/issues/2255)) ([a3d5891](https://github.com/lyne-design-system/lyne-components/commit/a3d589113399d7fd012037291a7daed20f213ce8))
+
 ## [0.43.2](https://github.com/lyne-design-system/lyne-components/compare/v0.43.1...v0.43.2) (2023-12-11)
 
 
