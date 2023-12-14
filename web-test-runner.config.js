@@ -39,6 +39,9 @@ export default {
       failZero: true,
     },
   },
+  coverageConfig: {
+    exclude: ['**/node_modules/**/*', '**/assets/*.svg', '**/*.scss'],
+  },
   filterBrowserLogs: (log) =>
     log.args[0] !==
     'Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.',

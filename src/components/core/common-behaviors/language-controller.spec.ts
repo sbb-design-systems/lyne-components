@@ -77,21 +77,24 @@ describe('LanguageController', () => {
 
   // This test can only be run in isolation, as LanguageController has global state.
   // It is possible to verify this test by switching it to it.only.
-  it.skip('should only update language if connected', async () => {
-    document.documentElement.setAttribute('lang', 'fr');
-    await aTimeout(0);
-    expect(controller.current).to.equal('fr', 'Language should be detected when connected');
-    controller.hostDisconnected();
+  // eslint-disable-next-line no-constant-condition
+  if (!'must be run in isolation') {
+    it('should only update language if connected', async () => {
+      document.documentElement.setAttribute('lang', 'fr');
+      await aTimeout(0);
+      expect(controller.current).to.equal('fr', 'Language should be detected when connected');
+      controller.hostDisconnected();
 
-    document.documentElement.setAttribute('lang', 'en');
-    await aTimeout(0);
+      document.documentElement.setAttribute('lang', 'en');
+      await aTimeout(0);
 
-    expect(controller.current).to.equal('fr', 'Language should not be update when disconnected');
+      expect(controller.current).to.equal('fr', 'Language should not be update when disconnected');
 
-    controller.hostConnected();
-    expect(controller.current).to.equal(
-      'en',
-      'Language should immediately be update when connected',
-    );
-  });
+      controller.hostConnected();
+      expect(controller.current).to.equal(
+        'en',
+        'Language should immediately be update when connected',
+      );
+    });
+  }
 });
