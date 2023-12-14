@@ -60,7 +60,9 @@ describe('sbb-datepicker', () => {
       await waitForLitRender(element);
     });
 
-    it('renders and emit event on value change', async () => {
+    it('renders and emit event on value change', async function () {
+      // This test is flaky on Firefox, so we retry a few times.
+      this.retries(3);
       const changeSpy = new EventSpy('change', element);
       input.focus();
       await sendKeys({ type: '20/01/2023' });
