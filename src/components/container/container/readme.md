@@ -19,6 +19,8 @@ The `sbb-container` content is provided via an unnamed slot.
 The component has two spacing options, that can be set using the `expanded` property (default: `false`). This spacing is applied to all of its content, including the `sbb-sticky-bar`.
 The component has also four color variants that can be set using the `variant` property (default: `transparent`).
 
+A css variable `--sbb-container-width` (default: `100vw`) can be set to change the container width.
+
 ```html
 <sbb-container expanded variant="milk"> ... </sbb-container>
 ```
