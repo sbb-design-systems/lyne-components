@@ -24,7 +24,7 @@
   display: inline-block;
   content: '';
   height: 100%;
-  width: 100vw;
+  width: var(--sbb-sticky-bar-width);
   top: 0;
   left: 50%;
   transform: translateX(-50%);

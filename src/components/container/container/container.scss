@@ -5,10 +5,13 @@
 @include sbb.host-component-properties;
 
 :host {
+  --sbb-container-width: 100vw;
   --sbb-container-bg-color: var(--sbb-color-black-alpha-0);
+  --sbb-sticky-bar-width: var(--sbb-container-width);
   --sbb-sticky-bar-bg-color: var(--sbb-color-white-default);
 
   background-color: var(--sbb-container-bg-color);
+  width: var(--sbb-container-width);
 }
 
 :host([variant='white']) {
