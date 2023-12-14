@@ -107,7 +107,7 @@ export function globIndexMap(cwd: URL): Record<string, string> {
 }
 
 export default defineConfig({
-  plugins: [postcssLit()],
+  plugins: [postcssLit({ exclude: ['**/core/styles/**/*', '**/storybook/**/*'] })],
   build: {
     rollupOptions: {
       external: [/^lit\/?/],
