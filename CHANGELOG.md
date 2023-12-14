@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.43.4](https://github.com/lyne-design-system/lyne-components/compare/v0.43.3...v0.43.4) (2023-12-14)
+
+
+### Bug Fixes
+
+* chromatic instability ([#2280](https://github.com/lyne-design-system/lyne-components/issues/2280)) ([b955328](https://github.com/lyne-design-system/lyne-components/commit/b955328f0de803038ab5bd3a034938f39b7706a8))
+* fix overlay positioning when virtual keyboard is present ([#2296](https://github.com/lyne-design-system/lyne-components/issues/2296)) ([59ca8cd](https://github.com/lyne-design-system/lyne-components/commit/59ca8cdc26045350571ed9916d6692f25cd1df5a))
+* **sbb-calendar:** always display header centered ([#2293](https://github.com/lyne-design-system/lyne-components/issues/2293)) ([85e4eb7](https://github.com/lyne-design-system/lyne-components/commit/85e4eb7c84b7f6378ec179f270f516968715dcee))
+
 ## [0.43.3](https://github.com/lyne-design-system/lyne-components/compare/v0.43.2...v0.43.3) (2023-12-13)
 
 
