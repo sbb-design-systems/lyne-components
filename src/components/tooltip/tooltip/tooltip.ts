@@ -424,12 +424,17 @@ export class SbbTooltipElement extends LitElement {
       return;
     }
 
-    const tooltipPosition = getElementPosition(this._overlay, this._triggerElement, {
-      verticalOffset: VERTICAL_OFFSET,
-      horizontalOffset: HORIZONTAL_OFFSET,
-      centered: true,
-      responsiveHeight: true,
-    });
+    const tooltipPosition = getElementPosition(
+      this._overlay,
+      this._triggerElement,
+      this.shadowRoot.querySelector('.sbb-tooltip__container'),
+      {
+        verticalOffset: VERTICAL_OFFSET,
+        horizontalOffset: HORIZONTAL_OFFSET,
+        centered: true,
+        responsiveHeight: true,
+      },
+    );
 
     this._alignment = tooltipPosition.alignment;
 

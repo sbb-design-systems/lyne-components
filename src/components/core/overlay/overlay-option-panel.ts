@@ -5,12 +5,14 @@ import { getElementPosition } from './position';
  * @param dialog The reference to the dialog element.
  * @param originElement The reference to the element the dialog is attached to.
  * @param optionContainer The reference to the option panel.
+ * @param container The element which has the position:fixed applied.
  * @param element The reference to the component.
  */
 export function setOverlayPosition(
   dialog: HTMLElement,
   originElement: HTMLElement,
   optionContainer: HTMLElement,
+  container: HTMLElement,
   element: HTMLElement,
 ): void {
   if (!dialog || !originElement) {
@@ -24,7 +26,7 @@ export function setOverlayPosition(
   element.style.setProperty('--sbb-options-panel-origin-height', `${originElement.offsetHeight}px`);
 
   // Calculate and set the position
-  const panelPosition = getElementPosition(optionContainer, originElement);
+  const panelPosition = getElementPosition(optionContainer, originElement, container);
 
   element.style.setProperty('--sbb-options-panel-position-x', `${panelPosition.left}px`);
   element.style.setProperty('--sbb-options-panel-position-y', `${panelPosition.top}px`);

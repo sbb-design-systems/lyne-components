@@ -79,6 +79,7 @@ export function isEventOnElement(element: HTMLElement, event: MouseEvent | Point
  *
  * @param element The element of which to calculate the position.
  * @param trigger The element relative to which to calculate the position.
+ * @param container The element which has the position:fixed applied.
  * @param properties Properties to take into account in calculations (optional).
  * @param properties.verticalOffset The distance to be added between the element and the trigger (optional).
  * @param properties.horizontalOffset The horizontal offset to be applied to the element (optional).
@@ -90,6 +91,7 @@ export function isEventOnElement(element: HTMLElement, event: MouseEvent | Point
 export function getElementPosition(
   element: HTMLElement,
   trigger: HTMLElement,
+  container: HTMLElement,
   properties?: {
     verticalOffset?: number;
     horizontalOffset?: number;
@@ -172,6 +174,23 @@ export function getElementPosition(
 
     elementMaxHeight = `${availableSpaceAbove - verticalOffset}px`;
     alignment.vertical = 'above';
+  }
+
+  const containerRect = container.getBoundingClientRect();
+
+  // When zooming in Safari the container rectangle contains negative values for the position
+  // and we need to re-add them to the calculated coordinates.
+  if (containerRect.left < 0) {
+    elementXPosition -= containerRect.left;
+  }
+
+  // Normally the containerRect's top value would be zero, however when the overlay is attached to an input
+  // (e.g. in an autocomplete), mobile browsers will shift everything in order to put the input in the middle
+  // of the screen and to make space for the virtual keyboard. We need to account for this offset,
+  // otherwise our positioning will be thrown off.
+  // Additionally, when zooming in Safari this fixes the vertical position.
+  if (containerRect.top < 0) {
+    elementYPosition -= containerRect.top;
   }
 
   return {

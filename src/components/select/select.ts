@@ -352,7 +352,13 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
   }
 
   private _setOverlayPosition(): void {
-    setOverlayPosition(this._overlay, this._originElement, this._optionContainer, this);
+    setOverlayPosition(
+      this._overlay,
+      this._originElement,
+      this._optionContainer,
+      this.shadowRoot.querySelector('.sbb-select__container'),
+      this,
+    );
   }
 
   // In rare cases it can be that the animationEnd event is triggered twice.
