@@ -1,13 +1,15 @@
 import { expect } from '@open-wc/testing';
-import { stub } from 'sinon';
+import { createStubInstance, SinonStubbedInstance } from 'sinon';
 
 import { getElementPosition } from './position';
 
 describe('getElementPosition', () => {
-  let trigger: HTMLElement, element: HTMLElement;
+  let trigger: SinonStubbedInstance<HTMLElement>,
+    element: HTMLElement,
+    container: SinonStubbedInstance<HTMLElement>;
 
   beforeEach(() => {
-    trigger = document.createElement('span');
+    trigger = createStubInstance(HTMLElement);
     element = document.createElement('span');
 
     // Mock element size
@@ -18,10 +20,23 @@ describe('getElementPosition', () => {
     // Set window dimension
     Object.defineProperty(document.documentElement, 'clientWidth', { value: 1080 });
     Object.defineProperty(document.documentElement, 'clientHeight', { value: 720 });
+
+    container = createStubInstance(HTMLElement);
+    container.getBoundingClientRect.returns({
+      x: 0,
+      y: 0,
+      width: 1080,
+      height: 720,
+      top: 0,
+      right: 1080,
+      bottom: 720,
+      left: 0,
+      toJSON: () => {},
+    });
   });
 
   it('returns the correct element coordinates', () => {
-    stub(trigger, 'getBoundingClientRect').returns({
+    trigger.getBoundingClientRect.returns({
       x: 48,
       y: 48,
       width: 80,
@@ -33,7 +48,7 @@ describe('getElementPosition', () => {
       toJSON: () => {},
     });
 
-    const elementPosition = getElementPosition(element, trigger);
+    const elementPosition = getElementPosition(element, trigger, container);
 
     expect(elementPosition).to.be.deep.equal({
       top: 96,
@@ -44,7 +59,7 @@ describe('getElementPosition', () => {
   });
 
   it('changes the horizontal alignment to end', () => {
-    stub(trigger, 'getBoundingClientRect').returns({
+    trigger.getBoundingClientRect.returns({
       x: 952,
       y: 48,
       width: 80,
@@ -56,7 +71,7 @@ describe('getElementPosition', () => {
       toJSON: () => {},
     });
 
-    const elementPosition = getElementPosition(element, trigger);
+    const elementPosition = getElementPosition(element, trigger, container);
 
     expect(elementPosition).to.be.deep.equal({
       top: 96,
@@ -67,7 +82,7 @@ describe('getElementPosition', () => {
   });
 
   it('changes the vertical alignment to above', () => {
-    stub(trigger, 'getBoundingClientRect').returns({
+    trigger.getBoundingClientRect.returns({
       x: 48,
       y: 624,
       width: 80,
@@ -79,7 +94,7 @@ describe('getElementPosition', () => {
       toJSON: () => {},
     });
 
-    const elementPosition = getElementPosition(element, trigger);
+    const elementPosition = getElementPosition(element, trigger, container);
 
     expect(elementPosition).to.be.deep.equal({
       top: 544,
@@ -90,7 +105,7 @@ describe('getElementPosition', () => {
   });
 
   it('changes the vertical alignment if there is more space above and the element overflows', () => {
-    stub(trigger, 'getBoundingClientRect').returns({
+    trigger.getBoundingClientRect.returns({
       x: 48,
       y: 600,
       width: 80,
@@ -102,7 +117,7 @@ describe('getElementPosition', () => {
       toJSON: () => {},
     });
 
-    const elementPosition = getElementPosition(element, trigger);
+    const elementPosition = getElementPosition(element, trigger, container);
 
     expect(elementPosition).to.be.deep.equal({
       top: 520,
@@ -113,7 +128,7 @@ describe('getElementPosition', () => {
   });
 
   it('does not changes the vertical alignment if there is more space above and the element does not overflow', () => {
-    stub(trigger, 'getBoundingClientRect').returns({
+    trigger.getBoundingClientRect.returns({
       x: 48,
       y: 592,
       width: 80,
@@ -125,7 +140,7 @@ describe('getElementPosition', () => {
       toJSON: () => {},
     });
 
-    const elementPosition = getElementPosition(element, trigger);
+    const elementPosition = getElementPosition(element, trigger, container);
 
     expect(elementPosition).to.be.deep.equal({
       top: 640,
@@ -136,7 +151,7 @@ describe('getElementPosition', () => {
   });
 
   it('changes the alignment to end/above', () => {
-    stub(trigger, 'getBoundingClientRect').returns({
+    trigger.getBoundingClientRect.returns({
       x: 952,
       y: 624,
       width: 80,
@@ -148,7 +163,7 @@ describe('getElementPosition', () => {
       toJSON: () => {},
     });
 
-    const elementPosition = getElementPosition(element, trigger);
+    const elementPosition = getElementPosition(element, trigger, container);
 
     expect(elementPosition).to.be.deep.equal({
       top: 544,
@@ -159,7 +174,7 @@ describe('getElementPosition', () => {
   });
 
   it('changes horizontal alignment to center', () => {
-    stub(trigger, 'getBoundingClientRect').returns({
+    trigger.getBoundingClientRect.returns({
       x: 64,
       y: 48,
       width: 80,
@@ -171,7 +186,7 @@ describe('getElementPosition', () => {
       toJSON: () => {},
     });
 
-    const elementPosition = getElementPosition(element, trigger, { centered: true });
+    const elementPosition = getElementPosition(element, trigger, container, { centered: true });
 
     expect(elementPosition).to.be.deep.equal({
       top: 96,
@@ -182,7 +197,7 @@ describe('getElementPosition', () => {
   });
 
   it('applies vertical offset', () => {
-    stub(trigger, 'getBoundingClientRect').returns({
+    trigger.getBoundingClientRect.returns({
       x: 48,
       y: 48,
       width: 80,
@@ -194,7 +209,7 @@ describe('getElementPosition', () => {
       toJSON: () => {},
     });
 
-    const elementPosition = getElementPosition(element, trigger, { verticalOffset: 8 });
+    const elementPosition = getElementPosition(element, trigger, container, { verticalOffset: 8 });
 
     expect(elementPosition).to.be.deep.equal({
       top: 104,
@@ -205,7 +220,7 @@ describe('getElementPosition', () => {
   });
 
   it('applies horizontal offset', () => {
-    stub(trigger, 'getBoundingClientRect').returns({
+    trigger.getBoundingClientRect.returns({
       x: 48,
       y: 48,
       width: 24,
@@ -217,12 +232,49 @@ describe('getElementPosition', () => {
       toJSON: () => {},
     });
 
-    const elementPosition = getElementPosition(element, trigger, { horizontalOffset: 32 });
+    const elementPosition = getElementPosition(element, trigger, container, {
+      horizontalOffset: 32,
+    });
 
     expect(elementPosition).to.be.deep.equal({
       top: 96,
       left: 16,
       maxHeight: '624px',
+      alignment: { horizontal: 'start', vertical: 'below' },
+    });
+  });
+
+  it('fixes virtual keyboard offset', () => {
+    container.getBoundingClientRect.returns({
+      x: -50,
+      y: -50,
+      width: 200,
+      height: 200,
+      top: -50,
+      right: 200,
+      bottom: 200,
+      left: -50,
+      toJSON: () => {},
+    });
+
+    trigger.getBoundingClientRect.returns({
+      x: 50,
+      y: 50,
+      width: 50,
+      height: 50,
+      top: 50,
+      right: 100,
+      bottom: 100,
+      left: 50,
+      toJSON: () => {},
+    });
+
+    const elementPosition = getElementPosition(element, trigger, container);
+
+    expect(elementPosition).to.be.deep.equal({
+      top: 150,
+      left: 100,
+      maxHeight: '620px',
       alignment: { horizontal: 'start', vertical: 'below' },
     });
   });

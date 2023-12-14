@@ -360,7 +360,13 @@ export class SbbAutocompleteElement extends LitElement {
 
   // Set overlay position, width and max height
   private _setOverlayPosition(): void {
-    setOverlayPosition(this._overlay, this.originElement, this._optionContainer, this);
+    setOverlayPosition(
+      this._overlay,
+      this.originElement,
+      this._optionContainer,
+      this.shadowRoot.querySelector('.sbb-autocomplete__container'),
+      this,
+    );
   }
 
   /** On open/close animation end.

@@ -106,7 +106,6 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
 
   private _menu: HTMLDivElement;
   private _triggerElement: HTMLElement;
-  private _menuContentElement: HTMLElement;
   private _isPointerDownEventOnMenu: boolean;
   private _menuController: AbortController;
   private _windowEventsController: AbortController;
@@ -344,9 +343,14 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
       return;
     }
 
-    const menuPosition = getElementPosition(this._menuContentElement, this._triggerElement, {
-      verticalOffset: MENU_OFFSET,
-    });
+    const menuPosition = getElementPosition(
+      this.shadowRoot.querySelector('.sbb-menu__content'),
+      this._triggerElement,
+      this.shadowRoot.querySelector('.sbb-menu__container'),
+      {
+        verticalOffset: MENU_OFFSET,
+      },
+    );
 
     this.style.setProperty('--sbb-menu-position-x', `${menuPosition.left}px`);
     this.style.setProperty('--sbb-menu-position-y', `${menuPosition.top}px`);
@@ -393,7 +397,6 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
           <div
             @click=${(event: Event) => this._closeOnInteractiveElementClick(event)}
             class="sbb-menu__content"
-            ${ref((menuContentRef) => (this._menuContentElement = menuContentRef as HTMLElement))}
           >
             ${this._actions
               ? html`<ul class="sbb-menu-list" aria-label=${this.listAccessibilityLabel ?? nothing}>
