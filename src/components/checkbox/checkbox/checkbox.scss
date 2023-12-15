@@ -28,10 +28,20 @@
   --sbb-checkbox-label-gap: 0;
 }
 
+slot[name='suffix'] {
+  :host(:not([data-slot-names~='suffix'])) & {
+    display: none;
+  }
+}
+
 slot[name='subtext'] {
   display: block;
   color: var(--sbb-checkbox-subtext-color);
   padding-inline-start: var(--sbb-spacing-fixed-8x);
+
+  :host(:not([data-slot-names~='subtext'])) & {
+    display: none;
+  }
 }
 
 .sbb-checkbox-wrapper {
@@ -114,6 +124,11 @@ input[type='checkbox'] {
 }
 
 .sbb-checkbox__label--icon {
+  :host(:not(:where([icon-name], [data-slot-names~='icon']))) &,
+  :host([data-is-selection-panel-input]) & {
+    display: none;
+  }
+
   :host([icon-placement='end']) & {
     margin-left: auto;
   }
