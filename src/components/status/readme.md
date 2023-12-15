@@ -29,6 +29,17 @@ The `sbb-status` supports four types: `info` (default), `success`, `warn` and `e
 
 The `sbb-status` use default message colors, based on the chosen `type`.
 
+## Accessibility
+
+The message text is wrapped into a `<p>` element to guarantee the semantic meaning.
+Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and can have negative effects on screen-readers.
+
+If needed, the `role="status"` attribute can be added on the component's tag.
+
+```html
+<sbb-status role="status" type="error"> An error occurred. </sbb-status>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties

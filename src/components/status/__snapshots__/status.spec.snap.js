@@ -12,8 +12,10 @@ snapshots["sbb-status renders"] =
   >
   </sbb-icon>
   <span class="sbb-status__content">
-    <slot>
-    </slot>
+    <p class="sbb-status__content-slot">
+      <slot>
+      </slot>
+    </p>
   </span>
 </div>
 `;
@@ -41,8 +43,10 @@ snapshots["sbb-status renders with the status title"] =
         Title
       </slot>
     </sbb-title>
-    <slot>
-    </slot>
+    <p class="sbb-status__content-slot">
+      <slot>
+      </slot>
+    </p>
   </span>
 </div>
 `;

@@ -59,3 +59,10 @@
 .sbb-status__title {
   margin-block: 0;
 }
+
+.sbb-status__content-slot {
+  // Reset paragraph styles
+  display: inline;
+  margin: 0;
+  padding: 0;
+}

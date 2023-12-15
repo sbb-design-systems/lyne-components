@@ -71,7 +71,9 @@ export class SbbStatusElement extends LitElement {
                 <slot name="title">${this.titleContent}</slot>
               </sbb-title>`
             : nothing}
-          <slot></slot>
+          <p class="sbb-status__content-slot">
+            <slot></slot>
+          </p>
         </span>
       </div>
     `;
