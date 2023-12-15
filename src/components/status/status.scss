@@ -40,8 +40,7 @@
   --sbb-status-text-color: var(--sbb-color-green-default);
 }
 
-:host([data-has-title][type='error']),
-:host([data-has-title][type='success']) {
+:host([data-has-title]:where([type='error'], [type='success'])) {
   --sbb-status-text-color: var(--sbb-color-iron-default);
 }
 

@@ -13,6 +13,8 @@ import style from './status.scss?lit&inline';
 import '../icon';
 import '../title';
 
+export type SbbStatusType = 'info' | 'success' | 'warning' | 'error';
+
 /**
  * Displays a message to the user's attention.
  *
@@ -31,7 +33,7 @@ export class SbbStatusElement extends LitElement {
   ]);
 
   /** The type of the status. */
-  @property({ reflect: true }) public type: 'info' | 'success' | 'warning' | 'error' = 'info';
+  @property({ reflect: true }) public type: SbbStatusType = 'info';
 
   /** Content of title. */
   @property({ reflect: true, attribute: 'title-content' }) public titleContent?: string;
@@ -61,7 +63,7 @@ export class SbbStatusElement extends LitElement {
     setAttribute(this, 'data-has-title', this._namedSlots.title || !!this.titleContent);
 
     return html`
-      <div class="sbb-status" type="${this.type}">
+      <div class="sbb-status">
         <sbb-icon class="sbb-status__icon" name=${this._statusTypes.get(this.type)!}></sbb-icon>
         <span class="sbb-status__content">
           ${this._namedSlots.title || this.titleContent
