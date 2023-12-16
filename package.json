@@ -86,7 +86,7 @@
     "chromatic": "10.1.0",
     "custom-elements-manifest": "^2.0.0",
     "date-fns": "2.30.0",
-    "eslint": "8.55.0",
+    "eslint": "8.56.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "npm:eslint-plugin-i@latest",
     "eslint-plugin-jest": "27.6.0",
