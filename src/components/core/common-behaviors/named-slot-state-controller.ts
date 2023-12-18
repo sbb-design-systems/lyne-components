@@ -20,7 +20,7 @@ import { ReactiveController, ReactiveControllerHost } from 'lit';
  * https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors
  */
 export class NamedSlotStateController implements ReactiveController {
-  private _slots = new Set<string>();
+  public readonly slots = new Set<string>();
 
   // We avoid using AbortController here, as it would mean creating
   // a new instance for every NamedSlotStateController instance.
@@ -47,13 +47,13 @@ export class NamedSlotStateController implements ReactiveController {
       const slotName = slot.name || 'unnamed';
       // We want to check, whether an element is slotted or a text node with actual content.
       if (slot.assignedNodes().some((n) => 'tagName' in n || n.textContent?.trim())) {
-        this._slots.add(slotName);
+        this.slots.add(slotName);
       } else {
-        this._slots.delete(slotName);
+        this.slots.delete(slotName);
       }
     }
 
-    const joinedSlotNames = [...this._slots].sort().join(' ');
+    const joinedSlotNames = [...this.slots].sort().join(' ');
     if (!joinedSlotNames) {
       this._host.removeAttribute('data-slot-names');
     } else if (this._host.getAttribute('data-slot-names') !== joinedSlotNames) {
