@@ -3,7 +3,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { FocusHandler, IS_FOCUSABLE_QUERY, setModalityOnNextFocus } from '../core/a11y';
-import { LanguageController } from '../core/common-behaviors';
+import { LanguageController, NamedSlotStateController } from '../core/common-behaviors';
 import {
   ScrollHandler,
   toggleDatasetEntry,
@@ -11,12 +11,7 @@ import {
   hostContext,
   setAttribute,
 } from '../core/dom';
-import {
-  createNamedSlotState,
-  HandlerRepository,
-  namedSlotChangeHandlerAspect,
-  EventEmitter,
-} from '../core/eventing';
+import { EventEmitter } from '../core/eventing';
 import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n';
 import { AgnosticResizeObserver } from '../core/observers';
 import { applyInertMechanism, removeInertMechanism, SbbOverlayState } from '../core/overlay';
@@ -56,7 +51,7 @@ export class SbbDialogElement extends LitElement {
   /**
    * Dialog title.
    */
-  @property({ attribute: 'title-content' }) public titleContent: string;
+  @property({ attribute: 'title-content', reflect: true }) public titleContent: string;
 
   /**
    * Level of title, will be rendered as heading tag (e.g. h1). Defaults to level 1.
@@ -102,11 +97,6 @@ export class SbbDialogElement extends LitElement {
    */
   @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
   public disableAnimation = false;
-
-  /**
-   * State of listed named slots, by indicating whether any element for a named slot is defined.
-   */
-  @state() private _namedSlots = createNamedSlotState('title', 'action-group');
 
   /*
    * The state of the dialog.
@@ -159,10 +149,7 @@ export class SbbDialogElement extends LitElement {
   private _lastFocusedElement?: HTMLElement;
 
   private _language = new LanguageController(this);
-  private _handlerRepository = new HandlerRepository(
-    this,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
-  );
+  private _namedSlots = new NamedSlotStateController(this);
 
   /**
    * We have a problem with SSR, in that we don't have a reference to children.
@@ -234,7 +221,6 @@ export class SbbDialogElement extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._handlerRepository.connect();
     this._state = this._state || 'closed';
     this._dialogController?.abort();
     this._dialogController = new AbortController();
@@ -254,7 +240,6 @@ export class SbbDialogElement extends LitElement {
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._handlerRepository.disconnect();
     this._dialogController?.abort();
     this._windowEventsController?.abort();
     this._focusHandler.disconnect();
@@ -373,7 +358,7 @@ export class SbbDialogElement extends LitElement {
     // Take accessibility label or current string in title section
     const label =
       this.accessibilityLabel ||
-      (this.shadowRoot.querySelector('.sbb-dialog__title') as HTMLElement)?.innerText;
+      (this.shadowRoot.querySelector('.sbb-dialog__title') as HTMLElement)?.innerText.trim();
 
     // If the text content remains the same, on VoiceOver the aria-live region is not announced a second time.
     // In order to support reading on every opening, we toggle an invisible space.
@@ -402,8 +387,8 @@ export class SbbDialogElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    const hasTitle = !!this.titleContent || this._namedSlots['title'];
-    const hasActionGroup = this._namedSlots['action-group'] && hasTitle;
+    const hasTitle = !!this.titleContent || this._namedSlots.slots.has('title');
+    const hasActionGroup = this._namedSlots.slots.has('action-group') && hasTitle;
 
     const closeButton = html`
       <sbb-button
@@ -434,17 +419,15 @@ export class SbbDialogElement extends LitElement {
     const dialogHeader = html`
       <div class="sbb-dialog__header">
         ${this.titleBackButton ? backButton : nothing}
-        ${hasTitle
-          ? html`<sbb-title
-              class="sbb-dialog__title"
-              level=${this.titleLevel}
-              visual-level="3"
-              ?negative=${this.negative}
-              id="title"
-            >
-              <slot name="title">${this.titleContent}</slot>
-            </sbb-title>`
-          : nothing}
+        <sbb-title
+          class="sbb-dialog__title"
+          level=${this.titleLevel}
+          visual-level="3"
+          ?negative=${this.negative}
+          id="title"
+        >
+          <slot name="title">${this.titleContent}</slot>
+        </sbb-title>
         ${closeButton}
       </div>
     `;
