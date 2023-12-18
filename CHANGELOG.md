@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.43.6](https://github.com/lyne-design-system/lyne-components/compare/v0.43.5...v0.43.6) (2023-12-18)
+
+
+### Bug Fixes
+
+* **sbb-select:** fix hydration timing issue ([#2301](https://github.com/lyne-design-system/lyne-components/issues/2301)) ([7c52c9a](https://github.com/lyne-design-system/lyne-components/commit/7c52c9abee9962fd5973e63e06caf2d809bda317))
+
 ## [0.43.5](https://github.com/lyne-design-system/lyne-components/compare/v0.43.4...v0.43.5) (2023-12-18)
 
 
