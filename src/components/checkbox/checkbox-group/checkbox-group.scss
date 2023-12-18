@@ -58,6 +58,10 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 .sbb-checkbox-group__error {
   display: inline-block;
   margin-block-start: var(--sbb-spacing-fixed-1x);
+
+  :host(:not([data-slot-names~='error'])) & {
+    display: none;
+  }
 }
 
 ::slotted(sbb-checkbox) {
