@@ -90,7 +90,7 @@
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "npm:eslint-plugin-i@latest",
     "eslint-plugin-jest": "27.6.0",
-    "eslint-plugin-lit": "1.10.1",
+    "eslint-plugin-lit": "1.11.0",
     "eslint-plugin-lyne": "file:tools/eslint/link/",
     "eslint-plugin-react": "7.33.2",
     "eslint-plugin-storybook": "0.6.15",
