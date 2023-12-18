@@ -13,20 +13,12 @@ describe('sbb-tag', () => {
 
     expect(root).dom.to.be.equal(
       `
-        <sbb-tag aria-label="Check to remove filters" aria-pressed="false" role="button" tabindex="0" value="all" dir="ltr">
+        <sbb-tag aria-label="Check to remove filters" aria-pressed="false" role="button" tabindex="0" value="all" dir="ltr" data-slot-names="unnamed">
           All
         </sbb-tag>
       `,
     );
-    expect(root).shadowDom.to.be.equal(
-      `
-        <span class="sbb-tag">
-          <span class="sbb-tag__text sbb-tag--shift">
-            <slot></slot>
-          </span>
-        </span>
-      `,
-    );
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
   it('renders checked', async () => {
@@ -34,20 +26,12 @@ describe('sbb-tag', () => {
 
     expect(root).dom.to.be.equal(
       `
-      <sbb-tag aria-pressed="true" checked role="button" tabindex="0" value="info" dir="ltr">
+      <sbb-tag aria-pressed="true" checked role="button" tabindex="0" value="info" dir="ltr" data-slot-names="unnamed">
         Info
       </sbb-tag>
     `,
     );
-    expect(root).shadowDom.to.be.equal(
-      `
-        <span class="sbb-tag">
-          <span class="sbb-tag__text sbb-tag--shift">
-            <slot></slot>
-          </span>
-        </span>
-      `,
-    );
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
   it('renders disabled with icon and amount', async () => {
@@ -61,36 +45,12 @@ describe('sbb-tag', () => {
 
     expect(root).dom.to.be.equal(
       `
-        <sbb-tag amount="123" aria-disabled="true" aria-pressed="false" disabled icon-name="circle-information-small" role="button" value="information" dir="ltr">
+        <sbb-tag amount="123" aria-disabled="true" aria-pressed="false" disabled icon-name="circle-information-small" role="button" value="information" dir="ltr" data-slot-names="unnamed">
           Info
         </sbb-tag>
       `,
     );
-    expect(root).shadowDom.to.be.equal(
-      `
-        <span class="sbb-tag">
-          <span class="sbb-tag__icon sbb-tag--shift">
-            <slot name="icon">
-              <sbb-icon
-                aria-hidden="true"
-                data-namespace="default"
-                name="circle-information-small"
-                role="img"
-              >
-              </sbb-icon>
-            </slot>
-          </span>
-          <span class="sbb-tag__text sbb-tag--shift">
-            <slot></slot>
-          </span>
-          <span class="sbb-tag__amount sbb-tag--shift">
-              <slot name="amount">
-                123
-              </slot>
-          </span>
-        </span>
-      `,
-    );
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
   it('renders slotted icon and amount', async () => {
@@ -106,7 +66,7 @@ describe('sbb-tag', () => {
 
     expect(root).dom.to.be.equal(
       `
-        <sbb-tag value="foo" aria-pressed="false" role="button" tabindex="0" dir="ltr">
+        <sbb-tag value="foo" aria-pressed="false" role="button" tabindex="0" dir="ltr" data-slot-names="amount icon unnamed">
           <sbb-icon slot="icon" name="cross-small" aria-hidden="true" data-namespace="default" role="img">
           </sbb-icon>
           Info
@@ -114,20 +74,6 @@ describe('sbb-tag', () => {
         </sbb-tag>
       `,
     );
-    expect(root).shadowDom.to.be.equal(
-      `
-        <span class="sbb-tag" >
-          <span class="sbb-tag__icon sbb-tag--shift">
-            <slot name="icon"></slot>
-          </span>
-          <span class="sbb-tag__text sbb-tag--shift">
-            <slot></slot>
-          </span>
-          <span class="sbb-tag__amount sbb-tag--shift">
-            <slot name="amount"></slot>
-          </span>
-        </span>
-      `,
-    );
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 });

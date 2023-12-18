@@ -1,12 +1,11 @@
 import { CSSResultGroup, html, LitElement, nothing, PropertyValues, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
+import { NamedSlotStateController } from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
 import {
-  createNamedSlotState,
   HandlerRepository,
   actionElementHandlerAspect,
-  namedSlotChangeHandlerAspect,
   EventEmitter,
   ConnectedAbortController,
 } from '../../core/eventing';
@@ -58,7 +57,7 @@ export class SbbTagElement extends LitElement implements ButtonProperties {
   @property() public form?: string;
 
   /** Amount displayed inside the tag. */
-  @property() public amount?: string;
+  @property({ reflect: true }) public amount?: string;
 
   /** Whether the tag is checked. */
   @property({ reflect: true, type: Boolean }) public checked = false;
@@ -66,14 +65,11 @@ export class SbbTagElement extends LitElement implements ButtonProperties {
   /** Whether the tag is disabled. */
   @property({ reflect: true, type: Boolean }) public disabled = false;
 
-  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @state() private _namedSlots = createNamedSlotState('icon', 'amount');
-
   /**
    * The icon name we want to use, choose from the small icon variants from the ui-icons category
    * from https://icons.app.sbb.ch (optional).
    */
-  @property({ attribute: 'icon-name' }) public iconName?: string;
+  @property({ attribute: 'icon-name', reflect: true }) public iconName?: string;
 
   private _handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
     if (currentValue !== previousValue) {
@@ -117,11 +113,12 @@ export class SbbTagElement extends LitElement implements ButtonProperties {
   });
 
   private _abort = new ConnectedAbortController(this);
-  private _handlerRepository = new HandlerRepository(
-    this,
-    actionElementHandlerAspect,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
-  );
+  private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
+
+  public constructor() {
+    super();
+    new NamedSlotStateController(this);
+  }
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -171,21 +168,17 @@ export class SbbTagElement extends LitElement implements ButtonProperties {
 
     return html`
       <span class="sbb-tag">
-        ${this.iconName || this._namedSlots['icon']
-          ? html`<span class="sbb-tag__icon sbb-tag--shift">
-              <slot name="icon">
-                ${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}
-              </slot>
-            </span>`
-          : nothing}
+        <span class="sbb-tag__icon sbb-tag--shift">
+          <slot name="icon">
+            ${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}
+          </slot>
+        </span>
         <span class="sbb-tag__text sbb-tag--shift">
           <slot></slot>
         </span>
-        ${this.amount || this._namedSlots['amount']
-          ? html`<span class="sbb-tag__amount sbb-tag--shift">
-              <slot name="amount">${this.amount}</slot>
-            </span>`
-          : nothing}
+        <span class="sbb-tag__amount sbb-tag--shift">
+          <slot name="amount">${this.amount}</slot>
+        </span>
       </span>
     `;
   }
