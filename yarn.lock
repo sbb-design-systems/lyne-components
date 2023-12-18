@@ -6218,19 +6218,18 @@ eslint-module-utils@^2.8.0:
     debug "^3.2.7"
 
 "eslint-plugin-import@npm:eslint-plugin-i@latest":
-  version "2.29.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-i/-/eslint-plugin-i-2.29.0.tgz#6b7d407e7a9a23d84c5c330b69aeea198f2f3d10"
-  integrity sha512-slGeTS3GQzx9267wLJnNYNO8X9EHGsc75AKIAFvnvMYEcTJKotPKL1Ru5PIGVHIVet+2DsugePWp8Oxpx8G22w==
+  version "2.29.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-i/-/eslint-plugin-i-2.29.1.tgz#97e4a055b6b2040cec0842700dd1d2066773b5a4"
+  integrity sha512-ORizX37MelIWLbMyqI7hi8VJMf7A0CskMmYkB+lkCX3aF4pkGV7kwx5bSEb4qx7Yce2rAf9s34HqDRPjGRZPNQ==
   dependencies:
-    debug "^3.2.7"
-    doctrine "^2.1.0"
+    debug "^4.3.4"
+    doctrine "^3.0.0"
     eslint-import-resolver-node "^0.3.9"
     eslint-module-utils "^2.8.0"
-    get-tsconfig "^4.6.2"
+    get-tsconfig "^4.7.2"
     is-glob "^4.0.3"
     minimatch "^3.1.2"
-    resolve "^1.22.3"
-    semver "^7.5.3"
+    semver "^7.5.4"
 
 eslint-plugin-jest@27.6.0:
   version "27.6.0"
@@ -6951,7 +6950,7 @@ get-symbol-description@^1.0.0:
     call-bind "^1.0.2"
     get-intrinsic "^1.1.1"
 
-get-tsconfig@^4.6.2, get-tsconfig@^4.7.2:
+get-tsconfig@^4.7.2:
   version "4.7.2"
   resolved "https://registry.yarnpkg.com/get-tsconfig/-/get-tsconfig-4.7.2.tgz#0dcd6fb330391d46332f4c6c1bf89a6514c2ddce"
   integrity sha512-wuMsz4leaj5hbGgg4IvDU0bqJagpftG5l5cXIAvo8uZrqn0NJqwtfupTN00VnkQJPcIRrxYrm1Ue24btpCha2A==
@@ -10720,7 +10719,7 @@ resolve-pkg-maps@^1.0.0:
   resolved "https://registry.yarnpkg.com/resolve-pkg-maps/-/resolve-pkg-maps-1.0.0.tgz#616b3dc2c57056b5588c31cdf4b3d64db133720f"
   integrity sha512-seS2Tj26TBVOC2NIc2rOe2y2ZO7efxITtLZcGSOnHHNOQ7CkiUBfw0Iw2ck6xkIhPwLhKNLS8BO+hEpngQlqzw==
 
-resolve@^1.10.0, resolve@^1.14.2, resolve@^1.21.0, resolve@^1.22.1, resolve@^1.22.3, resolve@^1.22.4, resolve@~1.22.1:
+resolve@^1.10.0, resolve@^1.14.2, resolve@^1.21.0, resolve@^1.22.1, resolve@^1.22.4, resolve@~1.22.1:
   version "1.22.8"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.22.8.tgz#b6c87a9f2aa06dfab52e3d70ac8cde321fa5a48d"
   integrity sha512-oKWePCxqpd6FlLvGV1VU0x7bkPmmCNolxzjMf4NczoDnQcIWrAF+cPtZn5i6n+RfD2d9i0tzpKnG6Yk168yIyw==
