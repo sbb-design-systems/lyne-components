@@ -239,7 +239,7 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
 
     // Wait for ssr hydration
     this.startUpdate();
-    if (!isNextjs()) {
+    if (!isNextjs() || !this.hasAttribute('defer-hydration')) {
       this._setupSelect();
     }
   }
@@ -256,7 +256,7 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
     // which is done after hydration is finished. Due to this we intercept this call
     // in overriding removeAttribute to finish initialization of the sbb-select.
     // https://github.com/lit/lit/blob/main/packages/react/src/create-component.ts#L293-L296
-    if (isNextjs() && qualifiedName === 'defer-hydration') {
+    if (isNextjs() && qualifiedName === 'defer-hydration' && this.hasUpdated) {
       this._setupSelect();
     }
     super.removeAttribute(qualifiedName);
