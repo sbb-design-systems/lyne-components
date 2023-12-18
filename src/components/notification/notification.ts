@@ -145,6 +145,8 @@ export class SbbNotificationElement extends LitElement {
     this._notificationElement = this.shadowRoot.querySelector(
       '.sbb-notification__wrapper',
     ) as HTMLElement;
+    // We need to wait for the component's `updateComplete` in order to set the correct
+    // height to the notification element.
     await this.updateComplete;
     this._setNotificationHeight();
     this._open();
