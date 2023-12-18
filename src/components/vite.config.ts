@@ -1,8 +1,6 @@
-import { readFileSync } from 'fs';
 import { join } from 'path';
 
 import { cli } from '@custom-elements-manifest/analyzer/cli';
-import * as glob from 'glob';
 import * as sass from 'sass';
 import {
   ConfigEnv,
@@ -21,8 +19,6 @@ const outDir = new URL('./dist/components/', root);
 
 const isProdBuild = ({ command, mode }: ConfigEnv): boolean =>
   command === 'build' && mode !== 'development';
-
-// create css file
 
 /* eslint-disable @typescript-eslint/no-use-before-define */
 export default defineConfig((config) =>
@@ -44,16 +40,6 @@ export default defineConfig((config) =>
                   style: './typography.css',
                 },
               },
-              sideEffects: glob
-                .sync('**/*.ts', { cwd: packageRoot, dotRelative: true })
-                .map((file) => ({
-                  file,
-                  content: readFileSync(new URL(file, packageRoot), 'utf8'),
-                }))
-                .filter((f) => f.content.includes(`@customElement('sbb-`))
-                .map((f) => f.file.replace(/[\w-]+\.ts$/, 'index.js'))
-                .filter((v, i, a) => a.indexOf(v) === i)
-                .sort(),
             }),
             copyAssets(['_index.scss', 'core/styles/**/*.scss', '../../README.md']),
             typography(),

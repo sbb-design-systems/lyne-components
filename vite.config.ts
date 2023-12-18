@@ -8,7 +8,7 @@ import { PluginOption, ResolvedConfig, defineConfig } from 'vite';
 export const root = new URL('.', import.meta.url);
 
 export function packageJsonTemplate(
-  options: { exports?: Record<string, Record<string, unknown>>; sideEffects?: string[] } = {},
+  options: { exports?: Record<string, Record<string, unknown>> } = {},
 ): PluginOption {
   let viteConfig: ResolvedConfig;
   return {
@@ -45,7 +45,7 @@ export function packageJsonTemplate(
               Object.assign(current, {
                 [`./${next[0].replace(/\/index$/, '')}`]: {
                   types: `./${next[0]}.d.ts`,
-                  esm: `./${next[0]}.js`,
+                  import: `./${next[0]}.js`,
                   default: `./${next[0]}.js`,
                 },
               }),
@@ -57,10 +57,6 @@ export function packageJsonTemplate(
         packageJson.exports = exports;
       } else if (options.exports) {
         packageJson.exports = options.exports;
-      }
-
-      if (options.sideEffects) {
-        packageJson.sideEffects = options.sideEffects;
       }
 
       this.emitFile({
