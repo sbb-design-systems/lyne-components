@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.43.5](https://github.com/lyne-design-system/lyne-components/compare/v0.43.4...v0.43.5) (2023-12-18)
+
+
+### Bug Fixes
+
+* remove side effects entries from package.json ([d45c2cb](https://github.com/lyne-design-system/lyne-components/commit/d45c2cbe729bd24017b67ba6ec4c5b59a8bcdc7f))
+
 ## [0.43.4](https://github.com/lyne-design-system/lyne-components/compare/v0.43.3...v0.43.4) (2023-12-14)
 
 
