@@ -4,14 +4,9 @@ import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { sbbInputModalityDetector } from '../core/a11y';
-import { LanguageController } from '../core/common-behaviors';
+import { LanguageController, NamedSlotStateController } from '../core/common-behaviors';
 import { toggleDatasetEntry } from '../core/dom';
-import {
-  createNamedSlotState,
-  HandlerRepository,
-  namedSlotChangeHandlerAspect,
-  EventEmitter,
-} from '../core/eventing';
+import { EventEmitter } from '../core/eventing';
 import {
   i18nFileSelectorButtonLabel,
   i18nFileSelectorCurrentlySelected,
@@ -63,9 +58,6 @@ export class SbbFileSelectorElement extends LitElement {
   /** The list of selected files. */
   @state() private _files: File[];
 
-  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @state() private _namedSlots = createNamedSlotState('error');
-
   /** An event which is emitted each time the file list changes. */
   private _fileChangedEvent: EventEmitter<File[]> = new EventEmitter(
     this,
@@ -97,19 +89,10 @@ export class SbbFileSelectorElement extends LitElement {
   private _liveRegion: HTMLElement;
 
   private _language = new LanguageController(this);
-  private _handlerRepository = new HandlerRepository(
-    this,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
-  );
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._handlerRepository.connect();
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
+  public constructor() {
+    super();
+    new NamedSlotStateController(this);
   }
 
   private _blockEvent(event: DragEvent): void {
@@ -327,11 +310,9 @@ export class SbbFileSelectorElement extends LitElement {
           ${ref((p: HTMLElement) => (this._liveRegion = p))}
         ></p>
         ${this._files && this._files.length > 0 ? this._renderFileList() : nothing}
-        ${this._namedSlots.error
-          ? html`<div class="sbb-file-selector__error">
-              <slot name="error"></slot>
-            </div>`
-          : nothing}
+        <div class="sbb-file-selector__error">
+          <slot name="error"></slot>
+        </div>
       </div>
     `;
   }
