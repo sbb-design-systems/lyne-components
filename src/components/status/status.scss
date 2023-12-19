@@ -7,14 +7,14 @@
 :host {
   --sbb-status-gap: var(--sbb-spacing-fixed-1x);
   --sbb-status-icon-color: var(--sbb-color-iron-default);
-  --sbb-status-icon-line-height: var(--sbb-font-size-text-s);
+  --_sbb-status-icon-font-size: var(--sbb-font-size-text-s);
   --sbb-status-text-color: var(--sbb-color-iron-default);
   --sbb-status-text-size: var(--sbb-font-size-text-s);
 }
 
 :host([data-has-title]) {
   --sbb-status-gap: var(--sbb-spacing-responsive-xxxs);
-  --sbb-status-icon-line-height: var(--sbb-font-size-title-5);
+  --_sbb-status-icon-font-size: var(--sbb-font-size-title-5);
   --sbb-status-text-size: var(--sbb-typo-scale-0-875x);
 }
 
@@ -43,7 +43,7 @@
   color: var(--sbb-status-icon-color);
   margin-block-start: calc(
     (
-        (var(--sbb-status-icon-line-height) * var(--sbb-typo-line-height-body-text)) - var(
+        (var(--_sbb-status-icon-font-size) * var(--sbb-typo-line-height-body-text)) - var(
             --sbb-size-icon-ui-small
           )
       ) / 2
