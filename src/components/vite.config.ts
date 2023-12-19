@@ -1,4 +1,4 @@
-import { join } from 'path';
+import { dirname, join } from 'path';
 
 import { cli } from '@custom-elements-manifest/analyzer/cli';
 import * as sass from 'sass';
@@ -16,6 +16,14 @@ import rootConfig, { copyAssets, globIndexMap, packageJsonTemplate, root } from 
 
 const packageRoot = new URL('.', import.meta.url);
 const outDir = new URL('./dist/components/', root);
+// Include all directories containing an index.ts
+const entryPoints = globIndexMap(packageRoot);
+const entryPointRoots = Object.keys(entryPoints)
+  .map((e) => join(packageRoot.pathname, dirname(e)))
+  .sort();
+const barrelExports = entryPointRoots
+  .filter((v) => entryPointRoots.some((e) => e.startsWith(`${v}/`)))
+  .map((e) => `${e}/index.ts`);
 
 const isProdBuild = ({ command, mode }: ConfigEnv): boolean =>
   command === 'build' && mode !== 'development';
@@ -49,13 +57,23 @@ export default defineConfig((config) =>
     build: {
       cssMinify: isProdBuild(config),
       lib: {
-        // Include all directories containing an index.ts
-        entry: globIndexMap(packageRoot),
+        entry: entryPoints,
         formats: ['es'],
       },
       minify: false,
       outDir: outDir.pathname,
       emptyOutDir: true,
+      rollupOptions: {
+        external: (source: string, importer: string | undefined) => {
+          if (
+            source.match(/(^lit$|^lit\/|^@lit\/)/) ||
+            (source.startsWith('../') && !importer.includes('/node_modules/')) ||
+            (!!importer && barrelExports.includes(importer) && source.match(/\.\/[a-z-]+/))
+          ) {
+            return true;
+          }
+        },
+      },
     },
     assetsInclude: ['_index.scss', 'core/styles/**/*.scss', 'README.md'],
   }),
