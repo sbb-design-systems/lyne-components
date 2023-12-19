@@ -51,14 +51,14 @@ export class SbbJourneyHeaderElement extends LitElement {
         <span class="sbb-journey-header" dir=${getDocumentWritingMode()}>
           <span class="sbb-journey-header__origin">
             <span class="sbb-journey-header__connection--visually-hidden">
-              ${i18nConnectionFrom[this._language.current]}
+              ${i18nConnectionFrom[this._language.current]}&nbsp;
             </span>
             ${this.origin}
           </span>
           <sbb-icon name=${iconName}></sbb-icon>
           <span class="sbb-journey-header__destination">
             <span class="sbb-journey-header__connection--visually-hidden">
-              ${i18nConnectionTo[this._language.current]}
+              &nbsp;${i18nConnectionTo[this._language.current]}&nbsp;
             </span>
             ${this.destination}
             ${this.roundTrip
