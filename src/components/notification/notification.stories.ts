@@ -90,7 +90,7 @@ const simpleNotification = (
     type="${type}"
     title-content="${title}"
     disable-animation
-    style="margin-block-end: var(--sbb-spacing-fixed-4x);"
+    style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
     ${ref(
       (notification?: Element) =>
         (notification as SbbNotificationElement)?.addEventListener(
@@ -116,7 +116,7 @@ const pageContent = (): TemplateResult => html`
 const DefaultTemplate = (args: Args): TemplateResult => html`
   <sbb-notification
     ${sbbSpread({ ...args, ['disable-animation']: true })}
-    style="margin-block-end: var(--sbb-spacing-fixed-4x);"
+    style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
     ${ref((notification?: Element) =>
       (notification as SbbNotificationElement)?.addEventListener(
         SbbNotificationElement.events.didOpen,
@@ -136,7 +136,7 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
 const MultipleNotificationsTemplate = (args: Args): TemplateResult => html`
   <sbb-notification
     ${sbbSpread({ ...args, ['disable-animation']: true })}
-    style="margin-block-end: var(--sbb-spacing-fixed-4x);"
+    style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
     ${ref(
       (notification?: Element) =>
         (notification as SbbNotificationElement)?.addEventListener(
@@ -161,7 +161,7 @@ const MultipleNotificationsTemplate = (args: Args): TemplateResult => html`
 const SlottedTitleTemplate = (args: Args): TemplateResult => html`
   <sbb-notification
     ${sbbSpread({ ...args, ['disable-animation']: true })}
-    style="margin-block-end: var(--sbb-spacing-fixed-4x);"
+    style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
     ${ref((notification?: Element) =>
       (notification as SbbNotificationElement)?.addEventListener(
         SbbNotificationElement.events.didOpen,
