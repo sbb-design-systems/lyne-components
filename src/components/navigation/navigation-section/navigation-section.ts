@@ -45,7 +45,7 @@ let nextId = 0;
 export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
   public static override styles: CSSResultGroup = style;
 
-  /*
+  /**
    * The label to be shown before the action list.
    */
   @property({ attribute: 'title-content' }) public titleContent?: string;

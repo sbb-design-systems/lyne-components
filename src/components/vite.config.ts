@@ -2,17 +2,16 @@ import { dirname, join } from 'path';
 
 import { cli } from '@custom-elements-manifest/analyzer/cli';
 import * as sass from 'sass';
-import {
-  ConfigEnv,
-  PluginOption,
-  ResolvedConfig,
-  UserConfig,
-  defineConfig,
-  mergeConfig,
-} from 'vite';
+import { PluginOption, ResolvedConfig, UserConfig, defineConfig, mergeConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 
-import rootConfig, { copyAssets, globIndexMap, packageJsonTemplate, root } from '../../vite.config';
+import rootConfig, {
+  copyAssets,
+  globIndexMap,
+  isProdBuild,
+  packageJsonTemplate,
+  root,
+} from '../../vite.config';
 
 const packageRoot = new URL('.', import.meta.url);
 const outDir = new URL('./dist/components/', root);
@@ -24,9 +23,6 @@ const entryPointRoots = Object.keys(entryPoints)
 const barrelExports = entryPointRoots
   .filter((v) => entryPointRoots.some((e) => e.startsWith(`${v}/`)))
   .map((e) => `${e}/index.ts`);
-
-const isProdBuild = ({ command, mode }: ConfigEnv): boolean =>
-  command === 'build' && mode !== 'development';
 
 /* eslint-disable @typescript-eslint/no-use-before-define */
 export default defineConfig((config) =>

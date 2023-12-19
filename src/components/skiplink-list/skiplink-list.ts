@@ -31,7 +31,10 @@ export class SbbSkiplinkListElement extends SlotChildObserver(LitElement) {
   /** The semantic level of the title, e.g. 2 = h2. */
   @property({ attribute: 'title-level' }) public titleLevel?: TitleLevel = '2';
 
-  /** sbb-link elements */
+  /**
+   * sbb-link elements.
+   * @ssrchildcounter
+   */
   @state() private _links: SbbLinkElement[] = [];
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
@@ -86,6 +89,9 @@ export class SbbSkiplinkListElement extends SlotChildObserver(LitElement) {
       link.setAttribute('slot', `link-${index}`);
       link.setAttribute('id', `sbb-skiplink-list-link-${index}`);
     });
+    const links = this._links.length
+      ? this._links
+      : Array.from({ length: +this.getAttribute('data-ssr-child-count') });
 
     return html`
       <div class="sbb-skiplink-list__wrapper">
@@ -102,7 +108,7 @@ export class SbbSkiplinkListElement extends SlotChildObserver(LitElement) {
             </sbb-title>`
           : nothing}
         <ul ${spread(ariaLabelledByAttribute)} class="sbb-skiplink-list">
-          ${this._links.map(
+          ${links.map(
             (_, index) =>
               html` <li>
                 <slot name=${`link-${index}`}></slot>

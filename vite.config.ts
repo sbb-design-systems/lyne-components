@@ -3,9 +3,12 @@ import { join } from 'path';
 
 import * as glob from 'glob';
 import postcssLit from 'rollup-plugin-postcss-lit';
-import { PluginOption, ResolvedConfig, defineConfig } from 'vite';
+import { ConfigEnv, PluginOption, ResolvedConfig, defineConfig } from 'vite';
 
 export const root = new URL('.', import.meta.url);
+
+export const isProdBuild = ({ command, mode }: ConfigEnv): boolean =>
+  command === 'build' && mode !== 'development';
 
 export function packageJsonTemplate(
   options: { exports?: Record<string, Record<string, unknown>> } = {},
