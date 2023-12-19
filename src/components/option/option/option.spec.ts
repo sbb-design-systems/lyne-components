@@ -23,7 +23,7 @@ describe('sbb-option', () => {
       expect(root).shadowDom.to.be.equal(`
         <div class="sbb-option__container">
           <div class="sbb-option">
-            <span class="sbb-option__icon sbb-option__icon--empty">
+            <span class="sbb-option__icon">
               <slot name="icon"></slot>
             </span>
             <span class="sbb-option__label">
@@ -53,7 +53,7 @@ describe('sbb-option', () => {
       expect(root).shadowDom.to.be.equal(`
         <div class="sbb-option__container">
           <div class="sbb-option">
-            <span class="sbb-option__icon sbb-option__icon--empty">
+            <span class="sbb-option__icon">
               <slot name="icon"></slot>
             </span>
             <span class="sbb-option__label">

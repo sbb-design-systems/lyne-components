@@ -130,11 +130,11 @@
   min-width: var(--sbb-size-icon-ui-small);
   min-height: var(--sbb-size-icon-ui-small);
   color: var(--sbb-option-icon-color);
-}
 
-.sbb-option__icon--empty {
-  // Can be overridden by the 'preserve-icon-space' on the autocomplete
-  display: var(--sbb-option-icon-container-display, none);
+  :host(:not(:where([data-slot-names~='icon'], [icon-name]))) & {
+    // Can be overridden by the 'preserve-icon-space' on the autocomplete
+    display: var(--sbb-option-icon-container-display, none);
+  }
 }
 
 .sbb-option__label {
