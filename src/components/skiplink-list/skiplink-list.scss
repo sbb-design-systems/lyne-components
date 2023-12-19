@@ -40,6 +40,12 @@
   }
 }
 
+.sbb-link-list-title {
+  :host(:not(:where([data-slot-names~='title'], [title-content]))) {
+    display: none;
+  }
+}
+
 ::slotted(sbb-link) {
   --sbb-focus-outline-color: transparent;
   --sbb-link-padding: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-responsive-xxs);
