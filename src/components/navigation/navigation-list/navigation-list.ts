@@ -1,5 +1,5 @@
 import { spread } from '@open-wc/lit-helpers';
-import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { NamedSlotStateController, SlotChildObserver } from '../../core/common-behaviors';
