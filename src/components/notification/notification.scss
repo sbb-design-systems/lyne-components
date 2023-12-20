@@ -151,7 +151,7 @@
       ((1em * var(--sbb-typo-line-height-body-text)) - var(--sbb-size-icon-ui-small)) / 2
     );
 
-    :host([data-has-title]) & {
+    :host(:where([data-slot-names~='title'], [title-content])) & {
       margin-block-start: calc(
         (
             (var(--sbb-font-size-title-5) * var(--sbb-typo-line-height-body-text)) - var(
@@ -166,6 +166,10 @@
 .sbb-notification__title {
   // Overwrite sbb-title default margin
   margin: 0;
+
+  :host(:not(:where([data-slot-names~='title'], [title-content]))) & {
+    display: none;
+  }
 }
 
 .sbb-notification__content {

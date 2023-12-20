@@ -1,14 +1,9 @@
 import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { LanguageController } from '../core/common-behaviors';
+import { LanguageController, NamedSlotStateController } from '../core/common-behaviors';
 import { setAttribute, toggleDatasetEntry } from '../core/dom';
-import {
-  createNamedSlotState,
-  HandlerRepository,
-  namedSlotChangeHandlerAspect,
-  EventEmitter,
-} from '../core/eventing';
+import { EventEmitter } from '../core/eventing';
 import { i18nCloseNotification } from '../core/i18n';
 import { AgnosticResizeObserver } from '../core/observers';
 import type { TitleLevel } from '../title';
@@ -54,7 +49,7 @@ export class SbbNotificationElement extends LitElement {
   /**
    * Content of title.
    */
-  @property({ attribute: 'title-content' }) public titleContent?: string;
+  @property({ attribute: 'title-content', reflect: true }) public titleContent?: string;
 
   /**
    * Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3.
@@ -72,11 +67,6 @@ export class SbbNotificationElement extends LitElement {
    */
   @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
   public disableAnimation = false;
-
-  /**
-   * State of listed named slots, by indicating whether any element for a named slot is defined.
-   */
-  @state() private _namedSlots = createNamedSlotState('title');
 
   /**
    * The state of the notification.
@@ -114,6 +104,11 @@ export class SbbNotificationElement extends LitElement {
     SbbNotificationElement.events.didClose,
   );
 
+  public constructor() {
+    super();
+    new NamedSlotStateController(this);
+  }
+
   private _open(): void {
     if (this._state === 'closed') {
       this._state = 'opening';
@@ -131,14 +126,8 @@ export class SbbNotificationElement extends LitElement {
     }
   }
 
-  private _handlerRepository = new HandlerRepository(
-    this,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
-  );
-
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._handlerRepository.connect();
     this._setInlineLinks();
   }
 
@@ -155,7 +144,6 @@ export class SbbNotificationElement extends LitElement {
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._handlerRepository.disconnect();
     this._notificationResizeObserver.disconnect();
   }
 
@@ -214,10 +202,7 @@ export class SbbNotificationElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    const hasTitle = !!this.titleContent || this._namedSlots['title'];
-
     setAttribute(this, 'data-state', this._state);
-    setAttribute(this, 'data-has-title', hasTitle);
 
     return html`
       <div
@@ -232,15 +217,9 @@ export class SbbNotificationElement extends LitElement {
           ></sbb-icon>
 
           <span class="sbb-notification__content">
-            ${hasTitle
-              ? html`<sbb-title
-                  class="sbb-notification__title"
-                  level=${this.titleLevel}
-                  visual-level="5"
-                >
-                  <slot name="title">${this.titleContent}</slot>
-                </sbb-title>`
-              : nothing}
+            <sbb-title class="sbb-notification__title" level=${this.titleLevel} visual-level="5">
+              <slot name="title">${this.titleContent}</slot>
+            </sbb-title>
             <slot @slotchange=${() => this._setInlineLinks()}></slot>
           </span>
 
