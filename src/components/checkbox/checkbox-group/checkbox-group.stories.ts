@@ -28,7 +28,7 @@ const checkboxes = (
   <sbb-checkbox
     value="checkbox-1"
     ?checked=${checked}
-    icon-name=${iconName}
+    icon-name=${iconName || nothing}
     icon-placement=${iconPlacement}
   >
     ${label} 1
@@ -36,12 +36,12 @@ const checkboxes = (
   <sbb-checkbox
     value="checkbox-2"
     ?disabled=${disabledSingle}
-    icon-name=${iconName}
+    icon-name=${iconName || nothing}
     icon-placement=${iconPlacement}
   >
     ${label} 2
   </sbb-checkbox>
-  <sbb-checkbox value="checkbox-3" icon-name=${iconName} icon-placement=${iconPlacement}>
+  <sbb-checkbox value="checkbox-3" icon-name=${iconName || nothing} icon-placement=${iconPlacement}>
     ${label} 3
   </sbb-checkbox>
 `;
