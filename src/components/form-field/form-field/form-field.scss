@@ -246,6 +246,10 @@
 
   // Moves label down and input up to meet positioning requirements
   margin-block-end: var(--sbb-form-field-label-to-input-gap);
+
+  :host(:not(:where([data-slot-names~='label'], [label]))) & {
+    display: none;
+  }
 }
 
 .sbb-form-field__label {
@@ -257,6 +261,10 @@
   position: absolute;
   inset-block-start: 0;
   color: var(--sbb-form-field-label-color);
+
+  :host(:not(:where([data-slot-names~='label'], [label]))) & {
+    display: none;
+  }
 
   :host([data-input-type='select']) &,
   :host([data-input-type='sbb-select']) & {

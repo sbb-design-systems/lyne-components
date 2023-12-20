@@ -62,7 +62,7 @@ describe('sbb-autocomplete', () => {
     const listboxAttr = 'id="sbb-autocomplete-4" role="listbox"';
 
     expect(root).dom.to.be.equal(`
-      <sbb-form-field error-space="none" size="m" width="default" data-input-empty data-input-type="input">
+      <sbb-form-field error-space="none" size="m" width="default" data-input-empty data-input-type="input" data-slot-names="unnamed">
         <input
           aria-autocomplete="list" aria-controls="sbb-autocomplete-4" aria-expanded="false" aria-haspopup="listbox"
           aria-owns="sbb-autocomplete-4" autocomplete="off" role="combobox">
@@ -71,22 +71,6 @@ describe('sbb-autocomplete', () => {
           <sbb-option value="2" aria-disabled="false" aria-selected="false" data-variant="autocomplete" id="sbb-option-8" role="option">2</sbb-option>
         </sbb-autocomplete>
       </sbb-form-field>
-    `);
-    expect(root).shadowDom.to.equal(`
-      <div class="sbb-form-field__space-wrapper">
-        <div class="sbb-form-field__wrapper" id="overlay-anchor">
-          <slot name="prefix"></slot>
-          <div class="sbb-form-field__input-container">
-            <div class="sbb-form-field__input">
-              <slot></slot>
-            </div>
-          </div>
-          <slot name="suffix"></slot>
-        </div>
-        <div class="sbb-form-field__error">
-          <slot name="error"></slot>
-        </div>
-      </div>
     `);
     expect(elem).shadowDom.to.equal(`
       <div class="sbb-autocomplete__gap-fix"></div>
