@@ -125,6 +125,7 @@ export class SbbNotificationElement extends LitElement {
   public close(): void {
     if (this._state === 'opened') {
       this._state = 'closing';
+      this.style.setProperty('--sbb-notification-margin', '0');
       this._willClose.emit();
       this.disableAnimation && this._handleClosing();
     }
