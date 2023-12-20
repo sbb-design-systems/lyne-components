@@ -124,7 +124,7 @@ input[type='checkbox'] {
 }
 
 .sbb-checkbox__label--icon {
-  :host(:not(:where([icon-name], [data-slot-names~='icon']))) &,
+  :host(:not([icon-name], [data-slot-names~='icon'])) &,
   :host([data-is-selection-panel-input]) & {
     display: none;
   }

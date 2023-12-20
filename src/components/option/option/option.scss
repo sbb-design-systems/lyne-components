@@ -131,7 +131,7 @@
   min-height: var(--sbb-size-icon-ui-small);
   color: var(--sbb-option-icon-color);
 
-  :host(:not(:where([data-slot-names~='icon'], [icon-name]))) & {
+  :host(:not([data-slot-names~='icon'], [icon-name])) & {
     // Can be overridden by the 'preserve-icon-space' on the autocomplete
     display: var(--sbb-option-icon-container-display, none);
   }

@@ -32,7 +32,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   // Overwrite sbb-title default margin
   margin: 0;
 
-  :host(:not(:where([data-slot-names~='title'], [title-content]))) & {
+  :host(:not([data-slot-names~='title'], [title-content])) & {
     display: none;
   }
 }

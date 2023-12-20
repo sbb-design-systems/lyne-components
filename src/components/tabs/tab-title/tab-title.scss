@@ -152,7 +152,7 @@
   color: var(--sbb-tab-title-color);
   transition: color var(--sbb-tab-title-animation-duration) var(--sbb-tab-title-animation-easing);
 
-  :host(:not(:where([data-slot-names~='icon'], [icon-name]))) & {
+  :host(:not([data-slot-names~='icon'], [icon-name])) & {
     display: none;
   }
 }
@@ -174,7 +174,7 @@
   @include sbb.text-m--regular;
   @include sbb.font-smoothing;
 
-  :host(:not(:where([data-slot-names~='amount'], [amount]))) & {
+  :host(:not([data-slot-names~='amount'], [amount])) & {
     display: none;
   }
 

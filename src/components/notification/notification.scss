@@ -167,7 +167,7 @@
   // Overwrite sbb-title default margin
   margin: 0;
 
-  :host(:not(:where([data-slot-names~='title'], [title-content]))) & {
+  :host(:not([data-slot-names~='title'], [title-content])) & {
     display: none;
   }
 }

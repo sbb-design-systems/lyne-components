@@ -101,7 +101,7 @@
   flex: 0 0 auto;
   align-self: start;
 
-  :host(:not(:where([data-slot-names~='icon'], [icon-name]))) & {
+  :host(:not([data-slot-names~='icon'], [icon-name])) & {
     display: none;
   }
 

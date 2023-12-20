@@ -329,10 +329,10 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
 }
 
 .sbb-button__icon {
-  display: none;
+  display: flex;
 
-  :host(:where([data-slot-names~='icon'], [icon-name])) & {
-    display: flex;
+  :host(:not([data-slot-names~='icon'], [icon-name])) & {
+    display: none;
   }
 }
 
