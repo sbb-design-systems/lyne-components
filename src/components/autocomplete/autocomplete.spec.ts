@@ -22,8 +22,8 @@ describe('sbb-autocomplete', () => {
     expect(elem).dom.to.be.equal(`
       <sbb-autocomplete data-state="closed" origin="origin" trigger="trigger" 
         dir="ltr" ${isSafari() ? listboxAttr : ''}>
-        <sbb-option value="1" aria-disabled="false" aria-selected="false" data-variant="autocomplete" id="sbb-option-1" role="option">1</sbb-option>
-        <sbb-option value="2" aria-disabled="false" aria-selected="false" data-variant="autocomplete" id="sbb-option-2" role="option">2</sbb-option>
+        <sbb-option value="1" aria-disabled="false" aria-selected="false" data-variant="autocomplete" id="sbb-option-1" role="option" data-slot-names="unnamed">1</sbb-option>
+        <sbb-option value="2" aria-disabled="false" aria-selected="false" data-variant="autocomplete" id="sbb-option-2" role="option" data-slot-names="unnamed">2</sbb-option>
       </sbb-autocomplete>
     `);
     expect(elem).shadowDom.to.be.equal(`
@@ -67,8 +67,8 @@ describe('sbb-autocomplete', () => {
           aria-autocomplete="list" aria-controls="sbb-autocomplete-4" aria-expanded="false" aria-haspopup="listbox"
           aria-owns="sbb-autocomplete-4" autocomplete="off" role="combobox">
         <sbb-autocomplete data-state="closed" dir="ltr" ${isSafari() ? listboxAttr : ''}>
-          <sbb-option value="1" aria-disabled="false" aria-selected="false" data-variant="autocomplete" id="sbb-option-7" role="option">1</sbb-option>
-          <sbb-option value="2" aria-disabled="false" aria-selected="false" data-variant="autocomplete" id="sbb-option-8" role="option">2</sbb-option>
+          <sbb-option value="1" aria-disabled="false" aria-selected="false" data-variant="autocomplete" id="sbb-option-7" role="option" data-slot-names="unnamed">1</sbb-option>
+          <sbb-option value="2" aria-disabled="false" aria-selected="false" data-variant="autocomplete" id="sbb-option-8" role="option" data-slot-names="unnamed">2</sbb-option>
         </sbb-autocomplete>
       </sbb-form-field>
     `);

@@ -24,8 +24,8 @@ describe('sbb-optgroup', () => {
 
       expect(root).dom.to.be.equal(`
         <sbb-optgroup data-variant="autocomplete" label="Label" ${!isSafari() ? groupRoleAttr : ''}>
-          <sbb-option value="1" aria-disabled="false" aria-selected="false" data-variant="autocomplete" id="sbb-option-1" role="option">1</sbb-option>
-          <sbb-option value="2" aria-disabled="false" aria-selected="false" data-variant="autocomplete" id="sbb-option-2" role="option">2</sbb-option>
+          <sbb-option value="1" aria-disabled="false" aria-selected="false" data-variant="autocomplete" id="sbb-option-1" role="option" data-slot-names="unnamed">1</sbb-option>
+          <sbb-option value="2" aria-disabled="false" aria-selected="false" data-variant="autocomplete" id="sbb-option-2" role="option" data-slot-names="unnamed">2</sbb-option>
         </sbb-optgroup>
       `);
       expect(root).shadowDom.to.be.equal(`
@@ -58,8 +58,8 @@ describe('sbb-optgroup', () => {
         <sbb-optgroup disabled data-variant="autocomplete" label="Label" ${
           !isSafari() ? groupRoleAttr : ''
         }>
-          <sbb-option value="1" data-group-disabled aria-disabled="true" aria-selected="false" data-variant="autocomplete" id="sbb-option-7" role="option">1</sbb-option>
-          <sbb-option value="2" data-group-disabled aria-disabled="true" aria-selected="false" data-variant="autocomplete" id="sbb-option-8" role="option">2</sbb-option>
+          <sbb-option value="1" data-group-disabled aria-disabled="true" aria-selected="false" data-variant="autocomplete" id="sbb-option-7" role="option" data-slot-names="unnamed">1</sbb-option>
+          <sbb-option value="2" data-group-disabled aria-disabled="true" aria-selected="false" data-variant="autocomplete" id="sbb-option-8" role="option" data-slot-names="unnamed">2</sbb-option>
         </sbb-optgroup>
       `);
 
