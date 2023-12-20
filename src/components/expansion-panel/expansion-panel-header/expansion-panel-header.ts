@@ -1,12 +1,11 @@
 import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
+import { NamedSlotStateController } from '../../core/common-behaviors';
 import { setAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
 import {
   actionElementHandlerAspect,
-  createNamedSlotState,
   HandlerRepository,
-  namedSlotChangeHandlerAspect,
   EventEmitter,
   ConnectedAbortController,
 } from '../../core/eventing';
@@ -35,13 +34,10 @@ export class SbbExpansionPanelHeaderElement extends LitElement {
    * from the ui-icons category from here
    * https://icons.app.sbb.ch.
    */
-  @property({ attribute: 'icon-name' }) public iconName?: string;
+  @property({ attribute: 'icon-name', reflect: true }) public iconName?: string;
 
   /** Whether the button is disabled. */
   @property({ reflect: true, type: Boolean }) public disabled: boolean;
-
-  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @state() private _namedSlots = createNamedSlotState('icon');
 
   /** Notifies that the `sbb-expansion-panel` has to expand. */
   private _toggleExpanded: EventEmitter = new EventEmitter(
@@ -52,12 +48,9 @@ export class SbbExpansionPanelHeaderElement extends LitElement {
     },
   );
   private _abort = new ConnectedAbortController(this);
+  private _namedSlots = new NamedSlotStateController(this, () => this._setDataIconAttribute());
 
-  private _handlerRepository = new HandlerRepository(
-    this,
-    actionElementHandlerAspect,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
-  );
+  private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -87,23 +80,30 @@ export class SbbExpansionPanelHeaderElement extends LitElement {
     }
   }
 
+  /**
+   * The 'data-icon' is used by the 'sbb-expansion-panel'.
+   * It needs to be set before the @slotchange event bubbles to the 'expansion-panel'
+   * but after the 'NamedSlotStateController' has run.
+   */
+  private _setDataIconAttribute(): void {
+    setAttribute(this, 'data-icon', !!(this.iconName || this._namedSlots.slots.has('icon')));
+  }
+
   protected override render(): TemplateResult {
     const { hostAttributes } = resolveButtonRenderVariables(this);
 
     setAttributes(this, hostAttributes);
     setAttribute(this, 'slot', 'header');
-    setAttribute(this, 'data-icon', !!(this.iconName || this._namedSlots.icon));
+    this._setDataIconAttribute();
 
     return html`
       <span class="sbb-expansion-panel-header">
         <span class="sbb-expansion-panel-header__title">
-          ${this.iconName || this._namedSlots.icon
-            ? html`<span class="sbb-expansion-panel-header__icon">
-                <slot name="icon"
-                  >${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}
-                </slot>
-              </span>`
-            : nothing}
+          <span class="sbb-expansion-panel-header__icon">
+            <slot name="icon"
+              >${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}
+            </slot>
+          </span>
           <slot></slot>
         </span>
         ${!this.disabled
