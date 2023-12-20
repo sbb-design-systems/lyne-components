@@ -1,7 +1,7 @@
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import { StoryContext } from '@storybook/web-components';
-import { html, TemplateResult } from 'lit';
+import { html, nothing, TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import readme from './readme.md?raw';
@@ -114,7 +114,7 @@ const createOptions = (args: Args): TemplateResult[] =>
       <sbb-option
         value=${`${args.value} ${i + 1}`}
         ?disabled=${args.disabledSingle && i === 0}
-        icon-name=${args['icon-name']}
+        icon-name=${args['icon-name'] || nothing}
       >
         ${`${args.value} ${i + 1}`}
       </sbb-option>

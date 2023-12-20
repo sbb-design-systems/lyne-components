@@ -119,7 +119,7 @@ const IndeterminateGroupTemplate = ({
       ?checked=${false}
       ?indeterminate=${true}
       @change=${(event) => parentCheck(event)}
-      icon-name=${iconName}
+      icon-name=${iconName || nothing}
       icon-placement=${iconPlacement}
     >
       Parent checkbox
@@ -129,7 +129,7 @@ const IndeterminateGroupTemplate = ({
       value="checkbox-1"
       ?checked=${true}
       @change=${(event) => childCheck(event)}
-      icon-name=${iconName}
+      icon-name=${iconName || nothing}
       icon-placement=${iconPlacement}
       ?disabled=${disabledSingle}
       style=${styleMap({ 'margin-inline-start': '2rem' })}
@@ -141,7 +141,7 @@ const IndeterminateGroupTemplate = ({
       value="checkbox-2"
       ?checked=${false}
       @change=${(event) => childCheck(event)}
-      icon-name=${iconName}
+      icon-name=${iconName || nothing}
       icon-placement=${iconPlacement}
       style=${styleMap({ 'margin-inline-start': '2rem' })}
     >
