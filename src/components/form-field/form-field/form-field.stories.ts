@@ -1,7 +1,7 @@
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import { StoryContext } from '@storybook/web-components';
-import { html, TemplateResult } from 'lit';
+import { html, nothing, TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../core/dom';
@@ -79,7 +79,7 @@ const TemplateInput = ({
 }: Args): TemplateResult => html`
   <sbb-form-field
     error-space=${errorSpace}
-    label=${label}
+    label=${label || nothing}
     ?optional=${optional}
     size=${size}
     ?borderless=${borderless}
