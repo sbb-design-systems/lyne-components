@@ -12,19 +12,6 @@ describe('sbb-navigation-section', () => {
         </sbb-navigation-section>
       `,
     );
-    expect(root).shadowDom.to.be.equal(
-      `
-        <div class="sbb-navigation-section__container">
-          <nav class="sbb-navigation-section" aria-labelledby="title">
-            <div class="sbb-navigation-section__wrapper">
-              <div class="sbb-navigation-section__content">
-                <sbb-divider aria-orientation="vertical" class="sbb-navigation-section__divider" negative orientation="vertical" role="separator"></sbb-divider>
-                <slot></slot>
-              </div>
-            </div>
-          </nav>
-        </div>
-      `,
-    );
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 });

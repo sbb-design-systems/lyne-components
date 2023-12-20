@@ -163,6 +163,10 @@
   @include sbb.mq($from: wide) {
     grid-column: 1 / 4;
   }
+
+  :host(:not(:where([data-slot-names~='title'], [title-content]))) & {
+    display: none;
+  }
 }
 
 .sbb-navigation-section__back {
