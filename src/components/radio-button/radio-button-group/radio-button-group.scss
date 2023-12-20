@@ -56,4 +56,8 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 .sbb-radio-group__error {
   display: inline-block;
   margin-block-start: var(--sbb-spacing-fixed-1x);
+
+  :host(:not([data-slot-names~='error'])) & {
+    display: none;
+  }
 }

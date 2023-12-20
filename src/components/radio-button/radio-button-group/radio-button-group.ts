@@ -1,15 +1,10 @@
-import { CSSResultGroup, html, LitElement, nothing, PropertyValues, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 
 import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../core/a11y';
+import { NamedSlotStateController } from '../../core/common-behaviors';
 import { toggleDatasetEntry, setAttribute, isValidAttribute } from '../../core/dom';
-import {
-  createNamedSlotState,
-  HandlerRepository,
-  namedSlotChangeHandlerAspect,
-  EventEmitter,
-  ConnectedAbortController,
-} from '../../core/eventing';
+import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces';
 import type {
   SbbRadioButtonElement,
@@ -95,11 +90,6 @@ export class SbbRadioButtonGroupElement extends LitElement {
     }
   }
 
-  /**
-   * State of listed named slots, by indicating whether any element for a named slot is defined.
-   */
-  @state() private _namedSlots = createNamedSlotState('error');
-
   private _hasSelectionPanel: boolean;
   private _didLoad = false;
   private _abort = new ConnectedAbortController(this);
@@ -137,10 +127,10 @@ export class SbbRadioButtonGroupElement extends LitElement {
     SbbRadioButtonGroupElement.events.input,
   );
 
-  private _handlerRepository = new HandlerRepository(
-    this,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
-  );
+  public constructor() {
+    super();
+    new NamedSlotStateController(this);
+  }
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -156,7 +146,6 @@ export class SbbRadioButtonGroupElement extends LitElement {
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
     this._hasSelectionPanel = !!this.querySelector?.('sbb-selection-panel');
     toggleDatasetEntry(this, 'hasSelectionPanel', this._hasSelectionPanel);
-    this._handlerRepository.connect();
     this._updateRadios(this.value);
   }
 
@@ -186,7 +175,6 @@ export class SbbRadioButtonGroupElement extends LitElement {
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._handlerRepository.disconnect();
   }
 
   private _onRadioButtonSelect(event: CustomEvent<SbbRadioButtonStateChange>): void {
@@ -289,11 +277,9 @@ export class SbbRadioButtonGroupElement extends LitElement {
       <div class="sbb-radio-group">
         <slot @slotchange=${() => this._updateRadios()}></slot>
       </div>
-      ${this._namedSlots.error
-        ? html`<div class="sbb-radio-group__error">
-            <slot name="error"></slot>
-          </div>`
-        : nothing}
+      <div class="sbb-radio-group__error">
+        <slot name="error"></slot>
+      </div>
     `;
   }
 }
