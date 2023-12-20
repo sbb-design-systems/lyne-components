@@ -248,6 +248,11 @@
   margin-block-start: auto;
   background-color: var(--sbb-dialog-background-color);
   border-block-start: var(--sbb-dialog-footer-border);
+
+  :host(:not([data-slot-names~='action-group']:where([data-slot-names~='title'], [title-content])))
+    & {
+    display: none;
+  }
 }
 
 // stylelint-disable selector-not-notation

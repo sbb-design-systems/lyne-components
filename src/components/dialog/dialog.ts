@@ -388,7 +388,6 @@ export class SbbDialogElement extends LitElement {
 
   protected override render(): TemplateResult {
     const hasTitle = !!this.titleContent || this._namedSlots.slots.has('title');
-    const hasActionGroup = this._namedSlots.slots.has('action-group') && hasTitle;
 
     const closeButton = html`
       <sbb-button
@@ -462,7 +461,7 @@ export class SbbDialogElement extends LitElement {
             >
               <slot></slot>
             </div>
-            ${this._initialized && hasActionGroup ? dialogFooter : nothing}
+            ${this._initialized ? dialogFooter : nothing}
           </div>
         </div>
       </div>
