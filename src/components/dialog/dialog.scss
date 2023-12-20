@@ -249,10 +249,8 @@
   background-color: var(--sbb-dialog-background-color);
   border-block-start: var(--sbb-dialog-footer-border);
 
-  :host(
-      :not([data-slot-names~='action-group'], :where([data-slot-names~='title'], [title-content]))
-    )
-    & {
+  :host(:not(:where([data-slot-names~='title'], [title-content]))) &,
+  :host(:not([data-slot-names~='action-group'])) & {
     display: none;
   }
 }
