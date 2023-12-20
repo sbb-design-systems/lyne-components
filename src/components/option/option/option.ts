@@ -2,6 +2,7 @@ import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { assignId } from '../../core/a11y';
+import { NamedSlotStateController } from '../../core/common-behaviors';
 import {
   isSafari,
   isValidAttribute,
@@ -112,6 +113,11 @@ export class SbbOptionElement extends LitElement {
   }
   private get _isMultiple(): boolean {
     return this.closest?.('sbb-select')?.hasAttribute('multiple');
+  }
+
+  public constructor() {
+    super();
+    new NamedSlotStateController(this);
   }
 
   /**
