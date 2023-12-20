@@ -28,7 +28,10 @@ export class NamedSlotStateController implements ReactiveController {
     this._syncSlots(event.target as HTMLSlotElement);
   };
 
-  public constructor(private _host: ReactiveControllerHost & Partial<HTMLElement>) {
+  public constructor(
+    private _host: ReactiveControllerHost & Partial<HTMLElement>,
+    private _onChangeCallback = () => null,
+  ) {
     this._host.addController(this);
   }
 
@@ -53,11 +56,16 @@ export class NamedSlotStateController implements ReactiveController {
       }
     }
 
+    const oldValue = this._host.getAttribute('data-slot-names');
     const joinedSlotNames = [...this.slots].sort().join(' ');
     if (!joinedSlotNames) {
       this._host.removeAttribute('data-slot-names');
     } else if (this._host.getAttribute('data-slot-names') !== joinedSlotNames) {
       this._host.setAttribute('data-slot-names', joinedSlotNames);
+    }
+
+    if (joinedSlotNames !== oldValue) {
+      this._onChangeCallback();
     }
   }
 }
