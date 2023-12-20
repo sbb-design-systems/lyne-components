@@ -62,6 +62,7 @@ describe('sbb-teaser-hero', () => {
               icon-placement="end"
               size="m"
               negative
+              data-slot-names="unnamed"
             >
               <slot name="link-content">Find out more</slot>
             </sbb-link>
@@ -153,6 +154,7 @@ describe('sbb-teaser-hero', () => {
               icon-placement="end"
               size="m"
               negative
+              data-slot-names="link-content unnamed"
             >
               <slot name="link-content"></slot>
             </sbb-link>

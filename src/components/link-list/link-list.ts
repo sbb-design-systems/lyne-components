@@ -2,12 +2,7 @@ import { spread } from '@open-wc/lit-helpers';
 import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { SlotChildObserver } from '../core/common-behaviors';
-import {
-  createNamedSlotState,
-  HandlerRepository,
-  namedSlotChangeHandlerAspect,
-} from '../core/eventing';
+import { NamedSlotStateController, SlotChildObserver } from '../core/common-behaviors';
 import { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
 import type { SbbLinkElement, SbbLinkSize } from '../link';
 import type { TitleLevel } from '../title';
@@ -27,7 +22,7 @@ export class SbbLinkListElement extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** The title text we want to show before the list. */
-  @property({ attribute: 'title-content' }) public titleContent?: string;
+  @property({ attribute: 'title-content', reflect: true }) public titleContent?: string;
 
   /** The semantic level of the title, e.g. 2 = h2. */
   @property({ attribute: 'title-level' }) public titleLevel?: TitleLevel = '2';
@@ -57,8 +52,7 @@ export class SbbLinkListElement extends SlotChildObserver(LitElement) {
    */
   @state() private _links: SbbLinkElement[] = [];
 
-  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @state() private _namedSlots = createNamedSlotState('title');
+  private _namedSlots = new NamedSlotStateController(this);
 
   private _syncLinks(): void {
     this.querySelectorAll?.('sbb-link').forEach((link) => {
@@ -67,11 +61,6 @@ export class SbbLinkListElement extends SlotChildObserver(LitElement) {
       link.variant = 'block';
     });
   }
-
-  private _handlerRepository = new HandlerRepository(
-    this,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
-  );
 
   /** Create an array with only the sbb-link children. */
   protected override checkChildren(): void {
@@ -92,26 +81,16 @@ export class SbbLinkListElement extends SlotChildObserver(LitElement) {
     this._links = links;
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._handlerRepository.connect();
-  }
-
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('size') || changedProperties.has('negative')) {
       this._syncLinks();
     }
   }
 
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
-  }
-
   protected override render(): TemplateResult {
     let ariaLabelledByAttribute: Record<string, string> = {};
 
-    if (this._namedSlots.title || this.titleContent) {
+    if (this._namedSlots.slots.has('title') || this.titleContent) {
       ariaLabelledByAttribute = {
         'aria-labelledby': 'sbb-link-list-title-id',
       };
@@ -123,17 +102,15 @@ export class SbbLinkListElement extends SlotChildObserver(LitElement) {
 
     return html`
       <div class="sbb-link-list-wrapper">
-        ${this._namedSlots.title || this.titleContent
-          ? html`<sbb-title
-              class="sbb-link-list-title"
-              level=${this.titleLevel ?? nothing}
-              visual-level="5"
-              ?negative=${this.negative}
-              id="sbb-link-list-title-id"
-            >
-              <slot name="title">${this.titleContent}</slot>
-            </sbb-title>`
-          : nothing}
+        <sbb-title
+          class="sbb-link-list-title"
+          level=${this.titleLevel ?? nothing}
+          visual-level="5"
+          ?negative=${this.negative}
+          id="sbb-link-list-title-id"
+        >
+          <slot name="title" @slotchange=${() => this.requestUpdate()}>${this.titleContent}</slot>
+        </sbb-title>
         <ul ${spread(ariaLabelledByAttribute)} class="sbb-link-list">
           ${links.map(
             (_, index) =>

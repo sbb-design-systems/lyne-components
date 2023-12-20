@@ -3,6 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-link-list rendered with a slotted title"] = 
 `<sbb-link-list
+  data-slot-names="link-0 link-1 link-2 link-3 link-4 title"
   orientation="vertical"
   size="s"
   title-level="2"
@@ -11,6 +12,7 @@ snapshots["sbb-link-list rendered with a slotted title"] =
     Help & Contact
   </span>
   <sbb-link
+    data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
@@ -22,6 +24,7 @@ snapshots["sbb-link-list rendered with a slotted title"] =
     Rückerstattungen
   </sbb-link>
   <sbb-link
+    data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
@@ -33,6 +36,7 @@ snapshots["sbb-link-list rendered with a slotted title"] =
     Fundbüro
   </sbb-link>
   <sbb-link
+    data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
@@ -44,6 +48,7 @@ snapshots["sbb-link-list rendered with a slotted title"] =
     Beschwerden
   </sbb-link>
   <sbb-link
+    data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
@@ -55,6 +60,7 @@ snapshots["sbb-link-list rendered with a slotted title"] =
     Lob aussprechen
   </sbb-link>
   <sbb-link
+    data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
@@ -71,12 +77,14 @@ snapshots["sbb-link-list rendered with a slotted title"] =
 
 snapshots["sbb-link-list rendered with a title from properties"] = 
 `<sbb-link-list
+  data-slot-names="link-0 link-1 link-2 link-3 link-4"
   orientation="vertical"
   size="s"
   title-content="Help &amp; Contact"
   title-level="2"
 >
   <sbb-link
+    data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
@@ -88,6 +96,7 @@ snapshots["sbb-link-list rendered with a title from properties"] =
     Rückerstattungen
   </sbb-link>
   <sbb-link
+    data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
@@ -99,6 +108,7 @@ snapshots["sbb-link-list rendered with a title from properties"] =
     Fundbüro
   </sbb-link>
   <sbb-link
+    data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
@@ -110,6 +120,7 @@ snapshots["sbb-link-list rendered with a title from properties"] =
     Beschwerden
   </sbb-link>
   <sbb-link
+    data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
@@ -121,6 +132,7 @@ snapshots["sbb-link-list rendered with a title from properties"] =
     Lob aussprechen
   </sbb-link>
   <sbb-link
+    data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
@@ -137,10 +149,12 @@ snapshots["sbb-link-list rendered with a title from properties"] =
 
 snapshots["sbb-link-list rendered without a title"] = 
 `<sbb-link-list
+  data-slot-names="link-0 link-1 link-2 link-3 link-4"
   orientation="vertical"
   size="s"
 >
   <sbb-link
+    data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
@@ -152,6 +166,7 @@ snapshots["sbb-link-list rendered without a title"] =
     Rückerstattungen
   </sbb-link>
   <sbb-link
+    data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
@@ -163,6 +178,7 @@ snapshots["sbb-link-list rendered without a title"] =
     Fundbüro
   </sbb-link>
   <sbb-link
+    data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
@@ -174,6 +190,7 @@ snapshots["sbb-link-list rendered without a title"] =
     Beschwerden
   </sbb-link>
   <sbb-link
+    data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
@@ -185,6 +202,7 @@ snapshots["sbb-link-list rendered without a title"] =
     Lob aussprechen
   </sbb-link>
   <sbb-link
+    data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"

@@ -101,6 +101,17 @@ describe('sbb-link-list', () => {
     expect(element).shadowDom.to.be.equal(
       `
             <div class="sbb-link-list-wrapper">
+              <sbb-title
+                aria-level="2"
+                class="sbb-link-list-title"
+                id="sbb-link-list-title-id"
+                level="2"
+                role="heading"
+                visual-level="5"
+              >
+                <slot name="title">
+                </slot>
+              </sbb-title>
               <ul class="sbb-link-list">
                 <li><slot name="link-0"></slot></li>
                 <li><slot name="link-1"></slot></li>

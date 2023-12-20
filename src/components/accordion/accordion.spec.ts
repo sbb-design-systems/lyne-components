@@ -30,6 +30,7 @@ describe('sbb-accordion', () => {
               role="button"
               slot="header"
               tabindex="0"
+              data-slot-names="unnamed"
             >Header 1</sbb-expansion-panel-header>
             <sbb-expansion-panel-content
               aria-hidden="true"
@@ -47,7 +48,8 @@ describe('sbb-accordion', () => {
               id="sbb-expansion-panel-header-2"
               role="button"
               slot="header"
-              tabindex="0">Header 2</sbb-expansion-panel-header>
+              tabindex="0"
+              data-slot-names="unnamed">Header 2</sbb-expansion-panel-header>
             <sbb-expansion-panel-content
               aria-hidden="true"
               aria-labelledby="sbb-expansion-panel-header-2"

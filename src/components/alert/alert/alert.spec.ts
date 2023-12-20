@@ -103,7 +103,7 @@ describe('sbb-alert', () => {
               <p class="sbb-alert__content-slot">
                 <slot></slot>
               </p>
-              <sbb-link negative variant="inline" aria-label="label" dir="ltr" role="link" size="s" tabindex="0" href="https://www.sbb.ch" rel="noopener" target="_blank">
+              <sbb-link negative variant="inline" aria-label="label" dir="ltr" role="link" size="s" tabindex="0" href="https://www.sbb.ch" rel="noopener" target="_blank" data-slot-names="unnamed">
                 Show much more
               </sbb-link>
             </span>
