@@ -26,7 +26,7 @@ import { i18nDurationHour, i18nDurationMinute, i18nDurationDay } from '../i18n';
  * @returns a new date with the local timezone with the local offset
  */
 export function removeTimezoneFromISOTimeString(isoTime: string): Date | undefined {
-  const parsedDate = parseISO(isoTime);
+  const parsedDate = isoTime && parseISO(isoTime);
 
   if (!isValid(parsedDate)) {
     return undefined;
