@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.43.7](https://github.com/lyne-design-system/lyne-components/compare/v0.43.6...v0.43.7) (2023-12-20)
+
+
+### Bug Fixes
+
+* **sbb-journey-header:** add non breaking space for screen readers ([#2304](https://github.com/lyne-design-system/lyne-components/issues/2304)) ([81a2c0a](https://github.com/lyne-design-system/lyne-components/commit/81a2c0aa2e5e0a538c0d0dc7f2efcccee9ee0804))
+
 ## [0.43.6](https://github.com/lyne-design-system/lyne-components/compare/v0.43.5...v0.43.6) (2023-12-18)
 
 
