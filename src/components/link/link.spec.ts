@@ -28,6 +28,7 @@ describe('sbb-link', () => {
         role="link"
         tabindex="0"
         dir="ltr"
+        data-slot-names="unnamed"
       >
         Travelcards &amp; tickets.
       </sbb-link>
@@ -40,6 +41,10 @@ describe('sbb-link', () => {
         role="presentation"
         tabindex="-1"
       >
+        <span class="sbb-link__icon">
+          <slot name="icon">
+          </slot>
+        </span>
         <slot></slot>
       </a>
     `);
@@ -76,6 +81,7 @@ describe('sbb-link', () => {
         disabled
         aria-disabled="true"
         dir="ltr"
+        data-slot-names="icon unnamed"
       >
         <sbb-icon name="chevron-small-right-small" slot="icon" role="img" aria-hidden="true" data-namespace="default"></sbb-icon>
         Travelcards &amp; tickets.
@@ -110,6 +116,7 @@ describe('sbb-link', () => {
           variant="block"
           is-static
           dir="ltr"
+          data-slot-names="unnamed"
           >
 
         Travelcards &amp; tickets.
@@ -131,12 +138,16 @@ describe('sbb-link', () => {
     const root = await fixture(html` <sbb-link is-static> Travelcards &amp; tickets. </sbb-link> `);
 
     expect(root).dom.to.be.equal(`
-      <sbb-link dir="ltr" variant="block" is-static size="s">
+      <sbb-link dir="ltr" variant="block" is-static size="s" data-slot-names="unnamed">
         Travelcards &amp; tickets.
       </sbb-link>
     `);
     expect(root).shadowDom.to.be.equal(`
       <span class="sbb-link">
+        <span class="sbb-link__icon">
+          <slot name="icon">
+          </slot>
+        </span>
         <slot></slot>
       </span>
     `);
@@ -158,6 +169,7 @@ describe('sbb-link', () => {
         tabindex="0"
         target="_blank"
         dir="ltr"
+        data-slot-names="unnamed"
       >
 
         Travelcards &amp; tickets.

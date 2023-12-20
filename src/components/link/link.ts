@@ -1,16 +1,11 @@
 import { spread } from '@open-wc/lit-helpers';
 import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { LanguageController } from '../core/common-behaviors';
+import { LanguageController, NamedSlotStateController } from '../core/common-behaviors';
 import { hostContext, ACTION_ELEMENTS, setAttributes } from '../core/dom';
-import {
-  createNamedSlotState,
-  HandlerRepository,
-  actionElementHandlerAspect,
-  namedSlotChangeHandlerAspect,
-} from '../core/eventing';
+import { HandlerRepository, actionElementHandlerAspect } from '../core/eventing';
 import { i18nTargetOpensInNewWindow } from '../core/i18n';
 import {
   ButtonType,
@@ -62,7 +57,7 @@ export class SbbLinkElement extends LitElement implements LinkButtonProperties, 
    * https://icons.app.sbb.ch.
    * Inline variant doesn't support icons.
    */
-  @property({ attribute: 'icon-name' }) public iconName?: string;
+  @property({ attribute: 'icon-name', reflect: true }) public iconName?: string;
 
   /** Moves the icon to the end of the component if set to true. */
   @property({ attribute: 'icon-placement' })
@@ -95,15 +90,13 @@ export class SbbLinkElement extends LitElement implements LinkButtonProperties, 
   /** The <form> element to associate the button with. */
   @property() public form?: string;
 
-  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @state() private _namedSlots = createNamedSlotState('icon');
-
   private _language = new LanguageController(this);
-  private _handlerRepository = new HandlerRepository(
-    this,
-    actionElementHandlerAspect,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
-  );
+  private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
+
+  public constructor() {
+    super();
+    new NamedSlotStateController(this);
+  }
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -132,7 +125,7 @@ export class SbbLinkElement extends LitElement implements LinkButtonProperties, 
     return html`
       <${unsafeStatic(TAG_NAME)} class="sbb-link" ${spread(attributes)}>
         ${
-          this.variant !== 'inline' && (this.iconName || this._namedSlots.icon)
+          this.variant !== 'inline'
             ? html`<span class="sbb-link__icon">
                 <slot name="icon">
                   ${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}
