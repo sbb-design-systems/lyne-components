@@ -1,12 +1,10 @@
 import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { LanguageController } from '../../core/common-behaviors';
+import { LanguageController, NamedSlotStateController } from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
 import {
-  createNamedSlotState,
   HandlerRepository,
-  namedSlotChangeHandlerAspect,
   formElementHandlerAspect,
   EventEmitter,
   ConnectedAbortController,
@@ -110,11 +108,6 @@ export class SbbRadioButtonElement extends LitElement {
   private _size: SbbRadioButtonSize = 'm';
 
   /**
-   * State of listed named slots, by indicating whether any element for a named slot is defined.
-   */
-  @state() private _namedSlots = createNamedSlotState('subtext', 'suffix');
-
-  /**
    * Whether the input is the main input of a selection panel.
    */
   @state() private _isSelectionPanelInput = false;
@@ -179,11 +172,12 @@ export class SbbRadioButtonElement extends LitElement {
     }
   }
 
-  private _handlerRepository = new HandlerRepository(
-    this,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
-    formElementHandlerAspect,
-  );
+  private _handlerRepository = new HandlerRepository(this, formElementHandlerAspect);
+
+  public constructor() {
+    super();
+    new NamedSlotStateController(this);
+  }
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -262,13 +256,9 @@ export class SbbRadioButtonElement extends LitElement {
         />
         <span class="sbb-radio-button__label-slot">
           <slot></slot>
-          ${!!this._selectionPanelElement && this._namedSlots['suffix']
-            ? html`<slot name="suffix"></slot>`
-            : nothing}
+          ${this._selectionPanelElement ? html`<slot name="suffix"></slot>` : nothing}
         </span>
-        ${!!this._selectionPanelElement && this._namedSlots['subtext']
-          ? html`<slot name="subtext"></slot>`
-          : nothing}
+        ${this._selectionPanelElement ? html`<slot name="subtext"></slot>` : nothing}
         ${this._isSelectionPanelInput && this._selectionPanelExpandedLabel
           ? html`<span class="sbb-radio-button__expanded-label">
               ${this._selectionPanelExpandedLabel}
