@@ -28,6 +28,11 @@
   --sbb-status-text-color: var(--sbb-color-green-default);
 }
 
+:host([type='warning']) {
+  --sbb-status-icon-color: var(--sbb-color-charcoal-default);
+  --sbb-status-text-color: var(--sbb-color-charcoal-default);
+}
+
 :host([data-has-title]:where([type='error'], [type='success'])) {
   --sbb-status-text-color: var(--sbb-color-iron-default);
 }
