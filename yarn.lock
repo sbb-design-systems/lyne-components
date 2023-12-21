@@ -5496,10 +5496,10 @@ data-uri-to-buffer@^6.0.0:
   resolved "https://registry.yarnpkg.com/data-uri-to-buffer/-/data-uri-to-buffer-6.0.1.tgz#540bd4c8753a25ee129035aebdedf63b078703c7"
   integrity sha512-MZd3VlchQkp8rdend6vrx7MmVDJzSNTBvghvKjirLkD+WTChA3KUf0jkE68Q4UyctNqI11zZO9/x2Yx+ub5Cvg==
 
-date-fns@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-3.0.1.tgz#a95b3e8296e72cf57c99819f37679aa27ca65ec4"
-  integrity sha512-cr9igCUa0QSqgAMj7JOrYTY6Nh1rmyGrFDko7ADqfmaQqP/I2N4rlfrLl7AWuzDaoIpz6MNjoEcTPzgZYIrhnA==
+date-fns@3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-3.0.4.tgz#56eb7916d8d4666bf9be168ef84bed0deef1077c"
+  integrity sha512-+daptVi95nJ/D4TPS7/gbUqneVMA0Izr4qYAsL2ZZwtcDtEP8Zge765mbXhTqWYdTSG79/VtbBigQTluiE9DBQ==
 
 date-now@^0.1.4:
   version "0.1.4"
