@@ -13,6 +13,7 @@
 }
 
 :host([data-has-title]) {
+  --sbb-status-text-color: var(--sbb-color-granite-default);
   --sbb-status-gap: var(--sbb-spacing-responsive-xxxs);
   --_sbb-status-icon-font-size: var(--sbb-font-size-title-5);
   --sbb-status-text-size: var(--sbb-typo-scale-0-875x);
@@ -31,10 +32,6 @@
 :host([type='warning']) {
   --sbb-status-icon-color: var(--sbb-color-charcoal-default);
   --sbb-status-text-color: var(--sbb-color-charcoal-default);
-}
-
-:host([data-has-title]:where([type='error'], [type='success'])) {
-  --sbb-status-text-color: var(--sbb-color-iron-default);
 }
 
 .sbb-status {
