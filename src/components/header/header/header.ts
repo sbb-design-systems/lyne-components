@@ -161,6 +161,9 @@ export class SbbHeaderElement extends LitElement {
   }
 
   private _closeOpenOverlays(): void {
+    if (this.hasAttribute('data-has-visible-focus-within')) {
+      return;
+    }
     const overlayTriggers: HTMLElement[] = Array.from(
       this.querySelectorAll(IS_MENU_OPENED_QUERY) as NodeListOf<HTMLElement>,
     );

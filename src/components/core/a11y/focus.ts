@@ -19,8 +19,11 @@ export const IS_FOCUSABLE_QUERY = [
 // Note: the use of this function for more complex scenarios (with many nested elements) may be expensive.
 export function getFocusableElements(
   elements: HTMLElement[],
-  filterFunc?: (el: HTMLElement) => boolean,
-  findFirstFocusable?: boolean,
+  properties?: {
+    filterFunc?: (el: HTMLElement) => boolean;
+    findFirstFocusable?: boolean;
+    includeNotVisibleElements?: boolean;
+  },
 ): HTMLElement[] {
   const focusableEls = new Set<HTMLElement>();
 
@@ -38,11 +41,14 @@ export function getFocusableElements(
         continue;
       }
 
-      if (el.matches(IS_FOCUSABLE_QUERY) && interactivityChecker.isVisible(el)) {
+      if (
+        el.matches(IS_FOCUSABLE_QUERY) &&
+        (properties.includeNotVisibleElements ?? interactivityChecker.isVisible(el))
+      ) {
         focusableEls.add(el);
       }
 
-      if (findFirstFocusable && focusableEls.size > 0) {
+      if (properties.findFirstFocusable && focusableEls.size > 0) {
         break;
       }
 
@@ -54,7 +60,7 @@ export function getFocusableElements(
       }
     }
   }
-  getFocusables(elements, filterFunc);
+  getFocusables(elements, properties.filterFunc);
 
   return [...focusableEls];
 }
@@ -63,7 +69,10 @@ export function getFirstFocusableElement(
   elements: HTMLElement[],
   filterFunc?: (el: HTMLElement) => boolean,
 ): HTMLElement | null {
-  const focusableElements = getFocusableElements(elements, filterFunc, true);
+  const focusableElements = getFocusableElements(elements, {
+    filterFunc: filterFunc,
+    findFirstFocusable: true,
+  });
   return focusableElements.length ? focusableElements[0] : null;
 }
 
@@ -82,7 +91,7 @@ export class FocusHandler {
         const elementChildren: HTMLElement[] = Array.from(
           element.shadowRoot.children,
         ) as HTMLElement[];
-        const focusableElements = getFocusableElements(elementChildren, filterFunc);
+        const focusableElements = getFocusableElements(elementChildren, { filterFunc: filterFunc });
         const firstFocusable = focusableElements[0] as HTMLElement;
         const lastFocusable = focusableElements[focusableElements.length - 1] as HTMLElement;
 
@@ -104,7 +113,9 @@ export class FocusHandler {
 
   public setDataHasVisibleFocusWithin(element: HTMLElement): void {
     // Determine whether the element has a visible focus within.
-    getFocusableElements(Array.from(element.children) as HTMLElement[])?.forEach((el) => {
+    getFocusableElements(Array.from(element.children) as HTMLElement[], {
+      includeNotVisibleElements: true,
+    })?.forEach((el) => {
       el.addEventListener(
         'focusin',
         () => {
