@@ -1,7 +1,9 @@
-import './toggle-check';
-
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { waitForLitRender } from '../core/testing';
+
+import './toggle-check';
 
 describe('sbb-toggle-check', () => {
   it('renders sbb-toggle-check', async () => {
@@ -11,6 +13,8 @@ describe('sbb-toggle-check', () => {
         <sbb-toggle-check size="s" aria-checked="false" aria-disabled="false" aria-required="false" label-position="after" role="checkbox" tabindex="0">
         </sbb-toggle-check>
     `);
+
+    await waitForLitRender(root);
 
     expect(root).shadowDom.to.be.equal(`
       <label class="sbb-toggle-check">
@@ -43,6 +47,8 @@ describe('sbb-toggle-check', () => {
       const root = await fixture(html`
         <sbb-toggle-check label-position="before">Check it</sbb-toggle-check>
       `);
+
+      await waitForLitRender(root);
 
       expect(root).dom.to.be.equal(`
         <sbb-toggle-check size="s" aria-checked="false" aria-disabled="false" aria-required="false" label-position="before" role="checkbox" tabindex="0">
@@ -79,6 +85,8 @@ describe('sbb-toggle-check', () => {
     describe('checked state', () => {
       it('renders toggle in checked state', async () => {
         const root = await fixture(html`<sbb-toggle-check checked></sbb-toggle-check>`);
+
+        await waitForLitRender(root);
 
         expect(root).dom.to.be.equal(
           `
@@ -117,6 +125,8 @@ describe('sbb-toggle-check', () => {
       it('renders toggle in disabled state', async () => {
         const root = await fixture(html`<sbb-toggle-check disabled></sbb-toggle-check>`);
 
+        await waitForLitRender(root);
+
         expect(root).dom.to.be.equal(`
           <sbb-toggle-check size="s" aria-checked="false" aria-disabled="true" aria-required="false" disabled label-position="after" role="checkbox">
           </sbb-toggle-check>
@@ -152,10 +162,12 @@ describe('sbb-toggle-check', () => {
       it('renders toggle in disabled and checked state', async () => {
         const root = await fixture(html`<sbb-toggle-check checked disabled></sbb-toggle-check>`);
 
+        await waitForLitRender(root);
+
         expect(root).dom.to.be.equal(
           `
           <sbb-toggle-check checked disabled size="s" label-position="after" aria-checked="true" aria-disabled="true" aria-required="false" role="checkbox">
-            
+
           </sbb-toggle-check>
         `,
         );

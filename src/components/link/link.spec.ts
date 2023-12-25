@@ -1,5 +1,8 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { waitForLitRender } from '../core/testing';
+
 import './link';
 
 describe('sbb-link', () => {
@@ -58,6 +61,8 @@ describe('sbb-link', () => {
       </sbb-link>`,
     );
 
+    await waitForLitRender(root);
+
     expect(root).dom.to.be.equal(`
       <sbb-link
         role="button"
@@ -106,7 +111,7 @@ describe('sbb-link', () => {
           is-static
           dir="ltr"
           >
-        
+
         Travelcards &amp; tickets.
       </sbb-link>
     `);
@@ -154,7 +159,7 @@ describe('sbb-link', () => {
         target="_blank"
         dir="ltr"
       >
-        
+
         Travelcards &amp; tickets.
       </sbb-link>
     `);

@@ -20,7 +20,6 @@ import {
   walkTimeTrip,
 } from './timetable-row.sample-data';
 import '.';
-import '../timetable-occupancy';
 
 const now = new Date('2022-08-16T15:00:00Z').valueOf();
 

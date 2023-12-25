@@ -1,5 +1,8 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { waitForLitRender } from '../../core/testing';
+
 import './tag';
 
 describe('sbb-tag', () => {
@@ -54,6 +57,8 @@ describe('sbb-tag', () => {
       </sbb-tag>
     `);
 
+    await waitForLitRender(root);
+
     expect(root).dom.to.be.equal(
       `
         <sbb-tag amount="123" aria-disabled="true" aria-pressed="false" disabled icon-name="circle-information-small" role="button" value="information" dir="ltr">
@@ -96,6 +101,8 @@ describe('sbb-tag', () => {
         <span slot="amount">123</span>
       </sbb-tag>
     `);
+
+    await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(
       `

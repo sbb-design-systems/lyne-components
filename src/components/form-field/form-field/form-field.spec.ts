@@ -1,5 +1,8 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { waitForLitRender } from '../../core/testing';
+
 import './form-field';
 
 describe('sbb-form-field', () => {
@@ -197,6 +200,8 @@ describe('sbb-form-field', () => {
       </sbb-form-field>
     `);
 
+    await waitForLitRender(root);
+
     expect(root).dom.to.be.equal(`
       <sbb-form-field error-space="none" size="m" width="default" data-input-type="select">
         <select>
@@ -237,6 +242,8 @@ describe('sbb-form-field', () => {
         </select>
       </sbb-form-field>
     `);
+
+    await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(`
       <sbb-form-field error-space="none" size="m" label="Select option:" optional borderless width="default" data-input-type="select">

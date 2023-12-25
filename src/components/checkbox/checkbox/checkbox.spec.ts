@@ -1,6 +1,9 @@
-import './checkbox';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { waitForLitRender } from '../../core/testing';
+
+import './checkbox';
 
 describe('sbb-checkbox', () => {
   it('renders', async () => {
@@ -11,6 +14,8 @@ describe('sbb-checkbox', () => {
         Label
       </sbb-checkbox>
     `);
+
+    await waitForLitRender(root);
 
     expect(root).shadowDom.to.be.equal(`
       <span class="sbb-checkbox-wrapper">
@@ -36,6 +41,8 @@ describe('sbb-checkbox', () => {
           >Label</sbb-checkbox
         >`,
       );
+
+      await waitForLitRender(root);
 
       expect(root).dom.to.be.equal(`
         <sbb-checkbox aria-checked="false" aria-disabled="false" aria-required="false" icon-name="tickets-class-small" icon-placement="start" role="checkbox" size="s" tabindex="0">

@@ -1,7 +1,10 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
+import { waitForLitRender } from '../../core/testing';
+
 import type { SbbAlertElement } from './alert';
+
 import './alert';
 
 describe('sbb-alert', () => {
@@ -11,6 +14,8 @@ describe('sbb-alert', () => {
     element = await fixture(
       html`<sbb-alert disable-animation title-content="Interruption">Alert content</sbb-alert>`,
     );
+
+    await waitForLitRender(element);
 
     expect(element).dom.to.be.equal(
       `
@@ -67,6 +72,8 @@ describe('sbb-alert', () => {
         >Alert content</sbb-alert
       >`,
     );
+
+    await waitForLitRender(element);
 
     expect(element).dom.to.be.equal(
       `

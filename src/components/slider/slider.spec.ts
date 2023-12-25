@@ -1,5 +1,8 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { waitForLitRender } from '../core/testing';
+
 import './slider';
 
 describe('sbb-slider', () => {
@@ -12,6 +15,8 @@ describe('sbb-slider', () => {
         value="100"
       ></sbb-slider>`,
     );
+
+    await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(`
       <sbb-slider

@@ -1,5 +1,8 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { waitForLitRender } from '../core/testing';
+
 import './notification';
 import '../link';
 import '../button';
@@ -14,6 +17,8 @@ describe('sbb-notification', () => {
       >`,
     );
 
+    await waitForLitRender(root);
+
     expect(root).dom.to.be.equal(
       `
       <sbb-notification disable-animation data-state="opened" type="info" style="--sbb-notification-height: auto;">
@@ -22,7 +27,7 @@ describe('sbb-notification', () => {
     );
     expect(root).shadowDom.to.be.equal(
       `
-        <div class="sbb-notification__wrapper">  
+        <div class="sbb-notification__wrapper">
           <div class="sbb-notification">
             <sbb-icon aria-hidden="true" data-namespace="default" role="img" class="sbb-notification__icon" name="circle-information-small"></sbb-icon>
             <span class="sbb-notification__content">
@@ -45,6 +50,8 @@ describe('sbb-notification', () => {
       >`,
     );
 
+    await waitForLitRender(root);
+
     expect(root).dom.to.be.equal(
       `
       <sbb-notification disable-animation data-has-title data-state="opened" title-content="Title" type="info" style="--sbb-notification-height: auto;">
@@ -53,7 +60,7 @@ describe('sbb-notification', () => {
     );
     expect(root).shadowDom.to.be.equal(
       `
-        <div class="sbb-notification__wrapper">  
+        <div class="sbb-notification__wrapper">
           <div class="sbb-notification">
             <sbb-icon aria-hidden="true" data-namespace="default" role="img" class="sbb-notification__icon" name="circle-information-small"></sbb-icon>
             <span class="sbb-notification__content">
@@ -82,6 +89,8 @@ describe('sbb-notification', () => {
       </sbb-notification>`,
     );
 
+    await waitForLitRender(root);
+
     expect(root).dom.to.be.equal(
       `
       <sbb-notification disable-animation data-has-title data-state="opened" type="info" style="--sbb-notification-height: auto;">
@@ -93,7 +102,7 @@ describe('sbb-notification', () => {
     );
     expect(root).shadowDom.to.be.equal(
       `
-        <div class="sbb-notification__wrapper">  
+        <div class="sbb-notification__wrapper">
           <div class="sbb-notification">
             <sbb-icon aria-hidden="true" data-namespace="default" role="img" class="sbb-notification__icon" name="circle-information-small"></sbb-icon>
             <span class="sbb-notification__content">
@@ -119,6 +128,8 @@ describe('sbb-notification', () => {
       >`,
     );
 
+    await waitForLitRender(root);
+
     expect(root).dom.to.be.equal(
       `
       <sbb-notification disable-animation data-has-title readonly data-state="opened" title-content="Title" type="info" style="--sbb-notification-height: auto;">
@@ -127,7 +138,7 @@ describe('sbb-notification', () => {
     );
     expect(root).shadowDom.to.be.equal(
       `
-        <div class="sbb-notification__wrapper">  
+        <div class="sbb-notification__wrapper">
           <div class="sbb-notification">
             <sbb-icon aria-hidden="true" data-namespace="default" role="img" class="sbb-notification__icon" name="circle-information-small"></sbb-icon>
             <span class="sbb-notification__content">

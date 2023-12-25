@@ -1,5 +1,8 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { waitForLitRender } from '../../core/testing';
+
 import './menu-action';
 
 describe('sbb-menu-action', () => {
@@ -44,6 +47,8 @@ describe('sbb-menu-action', () => {
         <span>Action</span>
       </sbb-menu-action>
     `);
+
+    await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(
       `

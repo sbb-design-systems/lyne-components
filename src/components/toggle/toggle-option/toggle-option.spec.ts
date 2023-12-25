@@ -1,8 +1,10 @@
-import './toggle-option';
-import '../../icon';
-
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { waitForLitRender } from '../../core/testing';
+
+import './toggle-option';
+import '../../icon';
 
 describe('sbb-toggle-option', () => {
   it('renders', async () => {
@@ -33,6 +35,8 @@ describe('sbb-toggle-option', () => {
     const root = await fixture(
       html`<sbb-toggle-option checked icon-name="arrow-right-small"></sbb-toggle-option>`,
     );
+
+    await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(
       `

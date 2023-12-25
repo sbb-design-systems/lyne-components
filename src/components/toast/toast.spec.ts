@@ -2,6 +2,7 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { isFirefox } from '../core/dom';
+import { waitForLitRender } from '../core/testing';
 
 import type { SbbToastElement } from './toast';
 
@@ -13,8 +14,10 @@ describe('sbb-toast', () => {
       <sbb-toast icon-name="circle-tick-small" dismissible> 'Lorem ipsum dolor' </sbb-toast>
     `);
 
+    await waitForLitRender(root);
+
     expect(root).dom.to.be.equal(`
-      <sbb-toast position="bottom-center" icon-name="circle-tick-small" dismissible="" data-state="closed" 
+      <sbb-toast position="bottom-center" icon-name="circle-tick-small" dismissible="" data-state="closed"
         data-has-icon data-has-action
       >
         <span>'Lorem ipsum dolor'</span>
@@ -34,9 +37,9 @@ describe('sbb-toast', () => {
           </div>
           <div class="sbb-toast__action">
             <slot name="action">
-              <sbb-button class="sbb-toast__action-button" aria-label="Close message" 
-                variant="transparent" negative size="m" icon-name="cross-small" 
-                dir="ltr" role="button" tabindex="0" data-icon-only sbb-toast-close 
+              <sbb-button class="sbb-toast__action-button" aria-label="Close message"
+                variant="transparent" negative size="m" icon-name="cross-small"
+                dir="ltr" role="button" tabindex="0" data-icon-only sbb-toast-close
               >
               </sbb-button>
             </slot>

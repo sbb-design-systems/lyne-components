@@ -9,8 +9,6 @@ import style from './icon.scss?lit&inline';
 export abstract class SbbIconBase extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  @state() private _svgFetchInProgress: boolean;
-
   @state() private _svgNamespace = 'default';
 
   /**
@@ -37,9 +35,7 @@ export abstract class SbbIconBase extends LitElement {
       this._svgNamespace = namespace;
     }
 
-    this._svgFetchInProgress = true;
     this._svgIcon = await this.fetchSvgIcon(this._svgNamespace, name);
-    this._svgFetchInProgress = false;
   }
 
   protected async fetchSvgIcon(namespace: string, name: string): Promise<string> {
@@ -64,7 +60,7 @@ export abstract class SbbIconBase extends LitElement {
   protected override render(): TemplateResult {
     setAttribute(this, 'role', this.getAttribute('role') ?? 'img');
     setAttribute(this, 'data-namespace', this._svgNamespace);
-    setAttribute(this, 'data-empty', !this._svgIcon && !this._svgFetchInProgress);
+    setAttribute(this, 'data-empty', !this._svgIcon);
 
     return html`
       ${this._svgIcon
