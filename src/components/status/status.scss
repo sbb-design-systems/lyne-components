@@ -1,0 +1,71 @@
+@use '../core/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+:host {
+  --sbb-status-gap: var(--sbb-spacing-fixed-1x);
+  --sbb-status-icon-color: var(--sbb-color-iron-default);
+  --_sbb-status-icon-font-size: var(--sbb-font-size-text-s);
+  --sbb-status-text-color: var(--sbb-color-iron-default);
+  --sbb-status-text-size: var(--sbb-font-size-text-s);
+}
+
+:host([type='error']) {
+  --sbb-status-text-color: var(--sbb-color-red125-default);
+}
+
+:host(:is([type='error'], [type='error'][data-has-title])) {
+  --sbb-status-icon-color: var(--sbb-color-red125-default);
+}
+
+:host([type='success']) {
+  --sbb-status-text-color: var(--sbb-color-green-default);
+}
+
+:host(:is([type='success'], [type='success'][data-has-title])) {
+  --sbb-status-icon-color: var(--sbb-color-green-default);
+}
+
+:host([type='warning']) {
+  --sbb-status-icon-color: var(--sbb-color-charcoal-default);
+  --sbb-status-text-color: var(--sbb-color-charcoal-default);
+}
+
+:host([data-has-title]) {
+  --sbb-status-text-color: var(--sbb-color-granite-default);
+  --sbb-status-icon-color: var(--sbb-color-charcoal-default);
+  --sbb-status-gap: var(--sbb-spacing-responsive-xxxs);
+  --_sbb-status-icon-font-size: var(--sbb-font-size-title-5);
+  --sbb-status-text-size: var(--sbb-typo-scale-0-875x);
+}
+
+.sbb-status {
+  display: flex;
+  gap: var(--sbb-status-gap);
+  color: var(--sbb-status-text-color);
+  font-size: var(--sbb-status-text-size);
+}
+
+.sbb-status__icon {
+  color: var(--sbb-status-icon-color);
+  margin-block-start: calc(
+    (
+        (var(--_sbb-status-icon-font-size) * var(--sbb-typo-line-height-body-text)) - var(
+            --sbb-size-icon-ui-small
+          )
+      ) / 2
+  );
+}
+
+.sbb-status__title {
+  margin-block: 0;
+}
+
+.sbb-status__content-slot {
+  // Reset paragraph styles
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
