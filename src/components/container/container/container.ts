@@ -1,6 +1,8 @@
 import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { AgnosticResizeObserver } from '../../core/observers';
+
 import style from './container.scss?lit&inline';
 
 /**
@@ -15,9 +17,25 @@ export class SbbContainerElement extends LitElement {
   /** Whether the container is expanded. */
   @property({ type: Boolean, reflect: true }) public expanded = false;
 
-  /** Variant of the container, like transparent, white etc. */
-  @property({ reflect: true }) public variant: 'transparent' | 'white' | 'milk' | 'midnight' =
+  /** Color of the container, like transparent, white etc. */
+  @property({ reflect: true }) public color: 'transparent' | 'white' | 'milk' | 'midnight' =
     'transparent';
+
+  private _containerResizeObserver = new AgnosticResizeObserver(() => this._setContainerWidth());
+
+  private _setContainerWidth(): void {
+    this.style.setProperty('--sbb-sticky-bar-width', `${this.clientWidth}px`);
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this._containerResizeObserver.observe(this);
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this._containerResizeObserver.disconnect();
+  }
 
   /**
    * @internal

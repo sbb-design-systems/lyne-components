@@ -5,26 +5,23 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-container-width: 100vw;
   --sbb-container-bg-color: var(--sbb-color-black-alpha-0);
-  --sbb-sticky-bar-width: var(--sbb-container-width);
   --sbb-sticky-bar-bg-color: var(--sbb-color-white-default);
 
   background-color: var(--sbb-container-bg-color);
-  width: var(--sbb-container-width);
 }
 
-:host([variant='white']) {
+:host([color='white']) {
   --sbb-container-bg-color: var(--sbb-color-white-default);
   --sbb-sticky-bar-bg-color: var(--sbb-color-white-default);
 }
 
-:host([variant='milk']) {
+:host([color='milk']) {
   --sbb-container-bg-color: var(--sbb-color-milk-default);
   --sbb-sticky-bar-bg-color: var(--sbb-color-milk-default);
 }
 
-:host([variant='midnight']) {
+:host([color='midnight']) {
   --sbb-container-bg-color: var(--sbb-color-midnight-default);
   --sbb-sticky-bar-bg-color: var(--sbb-color-midnight-default);
 
