@@ -5,6 +5,7 @@ import { ConnectedAbortController } from '../../core/eventing';
 
 import style from './sticky-bar.scss?lit&inline';
 
+import '../container';
 /**
  * A container that sticks to the bottom of the page if slotted into `sbb-container`.
  *
@@ -39,7 +40,7 @@ export class SbbStickyBarElement extends LitElement {
 
     const stickyBarPosition = stickyBar.getBoundingClientRect();
     const containerPosition =
-      this.closest('sbb-container').containerInnerElement.getBoundingClientRect();
+      this.closest('sbb-container').containerInnerElement?.getBoundingClientRect();
 
     if (!stickyBarPosition || !containerPosition) {
       return;
