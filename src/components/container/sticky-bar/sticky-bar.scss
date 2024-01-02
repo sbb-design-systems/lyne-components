@@ -1,9 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
-
 :host {
   display: contents;
 }
@@ -12,7 +8,7 @@
   position: sticky;
   display: flex;
   width: 100%;
-  bottom: 0;
+  inset-block-end: 0;
   background-color: var(--sbb-sticky-bar-bg-color);
   padding-block: var(--sbb-spacing-responsive-xxxs);
 }
@@ -25,19 +21,19 @@
   content: '';
   height: 100%;
   width: var(--sbb-sticky-bar-width);
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  @include sbb.absolute-center-x;
+
+  inset-block: 0;
   background-color: var(--sbb-sticky-bar-bg-color);
   animation: fade 1s linear 1 normal both paused;
   animation-delay: calc(var(--sbb-sticky-bar-scroll, 0) * -1s);
 }
 
-.sbb-sticky-bar__settled {
+[data-settled] {
   background-color: transparent;
 }
 
-.sbb-sticky-bar__settled::before {
+[data-settled]::before {
   background-color: transparent;
   box-shadow: none;
 }

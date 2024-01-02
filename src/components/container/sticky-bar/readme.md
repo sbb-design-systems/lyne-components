@@ -1,9 +1,12 @@
 The `sbb-sticky-bar` is a component meant to be slotted inside a `sbb-container` component.
+It is displayed with sticky positioning at the bottom of the container that contains it.
 
 ```html
-<sbb-sticky-bar>
-  <!-- Sticky bar content. -->
-</sbb-sticky-bar>
+<sbb-container>
+  <sbb-sticky-bar>
+    <!-- Sticky bar content. -->
+  </sbb-sticky-bar>
+</sbb-container>
 ```
 
 ## Slots

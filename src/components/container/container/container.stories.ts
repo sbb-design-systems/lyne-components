@@ -1,6 +1,5 @@
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
-import type { ArgTypes, Args, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { ArgTypes, Args, Meta, StoryObj } from '@storybook/web-components';
 import { TemplateResult, html } from 'lit';
 
 import { sbbSpread } from '../../core/dom';
@@ -82,8 +81,13 @@ export const Midnight: StoryObj = {
   args: { ...defaultArgs, color: color.options[3] },
 };
 
+export const Expanded: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, expanded: true },
+};
+
 const meta: Meta = {
-  decorators: [(story) => html` <div>${story()}</div> `, withActions as Decorator],
   parameters: {
     actions: {},
     backgrounds: {

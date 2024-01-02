@@ -1,6 +1,7 @@
 import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { toggleDatasetEntry } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
 
 import style from './sticky-bar.scss?lit&inline';
@@ -23,13 +24,19 @@ export class SbbStickyBarElement extends LitElement {
 
     // Once the component is done rendering the container should find the first scrollable element
     // This is necessary in case the container itself, or any parent element has a fixed height
-    super.getUpdateComplete().then(() => {
+    this.getUpdateComplete().then(() => {
       this._handlePageScroll();
       this._firstScrollableParent.addEventListener('scroll', () => this._handlePageScroll(), {
         passive: true,
         signal,
       });
     });
+  }
+
+  public override async getUpdateComplete(): Promise<boolean> {
+    await super.getUpdateComplete();
+    await this.closest('sbb-container').updateComplete;
+    return true;
   }
 
   private _handlePageScroll(): void {
@@ -46,14 +53,14 @@ export class SbbStickyBarElement extends LitElement {
       return;
     }
 
-    const animationSpan = stickyBarPosition.height * 2;
+    const animationSpan = stickyBarPosition.height;
     const animationStart = containerPosition.bottom - animationSpan;
 
-    if (stickyBarPosition.bottom === containerPosition.bottom) {
-      stickyBar.classList.add('sbb-sticky-bar__settled');
-    } else {
-      stickyBar.classList.remove('sbb-sticky-bar__settled');
-    }
+    toggleDatasetEntry(
+      stickyBar as HTMLElement,
+      'settled',
+      stickyBarPosition.bottom === containerPosition.bottom,
+    );
 
     if (stickyBarPosition.bottom >= animationStart) {
       const animationProgress = (stickyBarPosition.bottom - animationStart) / animationSpan;
