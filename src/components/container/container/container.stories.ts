@@ -4,7 +4,6 @@ import type { ArgTypes, Args, Decorator, Meta, StoryObj } from '@storybook/web-c
 import { TemplateResult, html } from 'lit';
 
 import { sbbSpread } from '../../core/dom';
-import placeholderImage from '../../teaser/stories/placeholder.png';
 
 import '../../button';
 import '../../teaser';
@@ -13,14 +12,6 @@ import '../sticky-bar';
 import './container';
 
 import readme from './readme.md?raw';
-
-const teaser = (): TemplateResult => html`
-  <sbb-teaser is-stacked>
-    <img slot="image" src=${placeholderImage} alt="400x300" />
-    <span slot="title">Example teaser</span>
-    <p slot="description">With a description.</p>
-  </sbb-teaser>
-`;
 
 const containerContent = (title: string, negative = false): TemplateResult => html`
   <div style="overflow: auto">
@@ -42,7 +33,7 @@ const expanded: InputType = {
   },
 };
 
-const variant: InputType = {
+const color: InputType = {
   control: {
     type: 'select',
   },
@@ -51,31 +42,19 @@ const variant: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   expanded,
-  variant,
+  color,
 };
 
 const defaultArgs: Args = {
   expanded: false,
-  variant: variant.options[0],
+  color: color.options[0],
 };
 
-const DefaultTemplate = ({ ...args }): TemplateResult => html`
-  <sbb-container ${sbbSpread(args)}>${containerContent('Example title')}</sbb-container>
-`;
-
-const WithStickybarTemplate = ({ variant, ...args }): TemplateResult => html`
-  <sbb-container ${sbbSpread(args)} variant=${variant}>
-    ${containerContent('Example title', variant === 'midnight')}
-    ${containerContent('Another one', variant === 'midnight')}
-    ${containerContent('And another one', variant === 'midnight')}
-    <div style="display: flex; gap: 1rem; padding-block: 3rem">
-      ${teaser()} ${teaser()} ${teaser()}
-    </div>
-    <sbb-sticky-bar>
-      <sbb-button ?negative=${variant === 'midnight'} style="margin-inline-start: auto;"
-        >Continue</sbb-button
-      >
-    </sbb-sticky-bar>
+const DefaultTemplate = ({ color, ...args }): TemplateResult => html`
+  <sbb-container ${sbbSpread(args)} color=${color} style="padding-block-end: 3rem;">
+    ${containerContent('Example title', color === 'midnight')}
+    ${containerContent('Another one', color === 'midnight')}
+    ${containerContent('And another one', color === 'midnight')}
   </sbb-container>
 `;
 
@@ -85,17 +64,26 @@ export const Default: StoryObj = {
   args: { ...defaultArgs },
 };
 
-export const WithStickyBar: StoryObj = {
-  render: WithStickybarTemplate,
+export const White: StoryObj = {
+  render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
+  args: { ...defaultArgs, color: color.options[1] },
+};
+
+export const Milk: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options[2] },
+};
+
+export const Midnight: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options[3] },
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html` <div style="margin: -1rem">${story()}</div> `,
-    withActions as Decorator,
-  ],
+  decorators: [(story) => html` <div>${story()}</div> `, withActions as Decorator],
   parameters: {
     actions: {},
     backgrounds: {
@@ -104,6 +92,7 @@ const meta: Meta = {
     docs: {
       extractComponentDescription: () => readme,
     },
+    layout: 'fullscreen',
   },
   title: 'components/sbb-container/sbb-container',
 };
