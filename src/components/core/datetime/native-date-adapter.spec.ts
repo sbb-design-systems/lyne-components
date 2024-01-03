@@ -95,7 +95,9 @@ describe('NativeDateAdapter', () => {
   });
 
   it('hasSameMonthAndYear should return the correct value', () => {
-    expect(nativeDateAdapter.hasSameMonthAndYear(new Date(), new Date(0))).to.be.equal(false);
+    expect(
+      nativeDateAdapter.hasSameMonthAndYear(new Date(2023, 8, 15, 0, 0, 0, 0), new Date(0)),
+    ).to.be.equal(false);
     expect(
       nativeDateAdapter.hasSameMonthAndYear(new Date(2023, 0, 1), new Date(2023, 1, 4)),
     ).to.be.equal(false);
@@ -166,7 +168,7 @@ describe('NativeDateAdapter', () => {
   it('compareDate should return the correct value', () => {
     const dateZero: Date = new Date(0);
     const dateMillennium: Date = new Date(946684800000);
-    const dateNow: Date = new Date();
+    const dateNow: Date = new Date(2023, 8, 15, 0, 0, 0, 0);
     expect(nativeDateAdapter.compareDate(dateZero, dateZero)).to.be.equal(0);
     expect(nativeDateAdapter.compareDate(dateZero, dateMillennium)).to.be.lessThan(0);
     expect(nativeDateAdapter.compareDate(dateMillennium, dateNow)).to.be.lessThan(0);
