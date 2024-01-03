@@ -83,6 +83,12 @@ export class SbbOptGroupElement extends LitElement {
     }
   }
 
+  private _onSlotChange(): void {
+    this._proxyDisabledToOptions();
+    this._proxyGroupLabelToOptions();
+    this._highlightOptions();
+  }
+
   private _proxyGroupLabelToOptions(): void {
     if (!this._inertAriaGroups) {
       return;
@@ -95,6 +101,18 @@ export class SbbOptGroupElement extends LitElement {
     for (const option of this._options) {
       toggleDatasetEntry(option, 'groupDisabled', this.disabled);
     }
+  }
+
+  private _highlightOptions(): void {
+    const autocomplete = this.closest('sbb-autocomplete');
+    if (!autocomplete) {
+      return;
+    }
+    const value = autocomplete.triggerElement?.value;
+    if (!value) {
+      return;
+    }
+    this._options.forEach((opt) => opt.highlight(value));
   }
 
   private _onNegativeChange(): void {
@@ -116,7 +134,7 @@ export class SbbOptGroupElement extends LitElement {
         <div class="sbb-optgroup__icon-space"></div>
         <span>${this.label}</span>
       </div>
-      <slot @slotchange=${this._proxyDisabledToOptions}></slot>
+      <slot @slotchange=${this._onSlotChange}></slot>
     `;
   }
 }

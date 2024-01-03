@@ -554,7 +554,7 @@ export class SbbAutocompleteElement extends LitElement {
               id=${!this._ariaRoleOnHost ? this._overlayId : nothing}
               ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
             >
-              <slot></slot>
+              <slot @slotchange=${() => this._highlightOptions(this.triggerElement?.value)}></slot>
             </div>
           </div>
         </div>
