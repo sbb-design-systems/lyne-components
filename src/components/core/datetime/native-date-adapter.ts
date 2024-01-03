@@ -242,7 +242,7 @@ export class NativeDateAdapter implements DateAdapter<Date> {
   }
 
   /** Returns the right format for the `valueAsDate` property. */
-  public parseDate(value: string): Date {
+  public parseDate(value: string, now: Date): Date {
     if (!value) {
       return undefined;
     }
@@ -263,7 +263,7 @@ export class NativeDateAdapter implements DateAdapter<Date> {
     let year = +match[3];
 
     if (typeof year === 'number' && year < 100 && year >= 0) {
-      const shift = new Date().getFullYear() - 2000 + this._cutoffYearOffset;
+      const shift = now.getFullYear() - 2000 + this._cutoffYearOffset;
       year = year <= shift ? 2000 + year : 1900 + year;
     }
 

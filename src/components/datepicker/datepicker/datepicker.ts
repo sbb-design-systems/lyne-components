@@ -445,8 +445,28 @@ export class SbbDatepickerElement extends LitElement {
     return value;
   }
 
+  /**
+   * @internal
+   * Returns current date or configured date.
+   */
+  public now(): Date {
+    if (this._hasDataNow()) {
+      const today = new Date(+this.dataset?.now);
+      today.setHours(0, 0, 0, 0);
+      return today;
+    }
+    return this._dateAdapter.today();
+  }
+
+  private _hasDataNow(): boolean {
+    const dataNow = +this.dataset?.now;
+    return !isNaN(dataNow);
+  }
+
   private _parse(value: string): Date | undefined {
-    return this.dateParser ? this.dateParser(value) : this._dateAdapter.parseDate(value);
+    return this.dateParser
+      ? this.dateParser(value)
+      : this._dateAdapter.parseDate(value, this.now());
   }
 
   private _format(date: Date): string {
