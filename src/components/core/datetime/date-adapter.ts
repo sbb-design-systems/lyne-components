@@ -144,6 +144,7 @@ export interface DateAdapter<T = any> {
 
   /** Get the given string as Date.
    * @param value The date in the format DD.MM.YYYY.
+   * @param now The current date as Date.
    */
   parseDate: (value: string, now: Date) => T;
 
