@@ -1,6 +1,7 @@
 import { CSSResultGroup, html, LitElement, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
+import { SlotChildObserver } from '../../core/common-behaviors';
 import { isSafari, isValidAttribute, toggleDatasetEntry, setAttribute } from '../../core/dom';
 import { AgnosticMutationObserver } from '../../core/observers';
 import type { SbbOptionElement, SbbOptionVariant } from '../option';
@@ -14,7 +15,7 @@ import '../../divider';
  * @slot - Use the unnamed slot to add `sbb-option` elements to the `sbb-optgroup`.
  */
 @customElement('sbb-optgroup')
-export class SbbOptGroupElement extends LitElement {
+export class SbbOptGroupElement extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** Option group label. */
@@ -83,7 +84,7 @@ export class SbbOptGroupElement extends LitElement {
     }
   }
 
-  private _onSlotChange(): void {
+  protected override checkChildren(): void {
     this._proxyDisabledToOptions();
     this._proxyGroupLabelToOptions();
     this._highlightOptions();
@@ -134,7 +135,7 @@ export class SbbOptGroupElement extends LitElement {
         <div class="sbb-optgroup__icon-space"></div>
         <span>${this.label}</span>
       </div>
-      <slot @slotchange=${this._onSlotChange}></slot>
+      <slot></slot>
     `;
   }
 }
