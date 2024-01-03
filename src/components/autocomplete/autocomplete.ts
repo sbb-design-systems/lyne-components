@@ -3,6 +3,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { assignId, getNextElementIndex } from '../core/a11y';
+import { SlotChildObserver } from '../core/common-behaviors';
 import {
   setAttribute,
   getDocumentWritingMode,
@@ -37,7 +38,7 @@ let nextId = 0;
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-autocomplete` is closed.
  */
 @customElement('sbb-autocomplete')
-export class SbbAutocompleteElement extends LitElement {
+export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -241,9 +242,14 @@ export class SbbAutocompleteElement extends LitElement {
     }
   }
 
-  protected override firstUpdated(): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
     this._componentSetup();
     this._didLoad = true;
+  }
+
+  public override checkChildren(): void {
+    this._highlightOptions(this.triggerElement?.value);
   }
 
   private _syncNegative(): void {
@@ -554,7 +560,7 @@ export class SbbAutocompleteElement extends LitElement {
               id=${!this._ariaRoleOnHost ? this._overlayId : nothing}
               ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
             >
-              <slot @slotchange=${() => this._highlightOptions(this.triggerElement?.value)}></slot>
+              <slot></slot>
             </div>
           </div>
         </div>
