@@ -33,10 +33,10 @@ Since the element's order in the DOM is also used to determine the keyboard navi
 
 ## Properties
 
-| Name       | Attribute  | Privacy | Type                                               | Default         | Description                                            |
-| ---------- | ---------- | ------- | -------------------------------------------------- | --------------- | ------------------------------------------------------ |
-| `expanded` | `expanded` | public  | `boolean`                                          | `false`         | Whether the container is expanded.                     |
-| `variant`  | `variant`  | public  | `'transparent' \| 'white' \| 'milk' \| 'midnight'` | `'transparent'` | Variant of the container, like transparent, white etc. |
+| Name       | Attribute  | Privacy | Type                                               | Default         | Description                                          |
+| ---------- | ---------- | ------- | -------------------------------------------------- | --------------- | ---------------------------------------------------- |
+| `expanded` | `expanded` | public  | `boolean`                                          | `false`         | Whether the container is expanded.                   |
+| `color`    | `color`    | public  | `'transparent' \| 'white' \| 'milk' \| 'midnight'` | `'transparent'` | Color of the container, like transparent, white etc. |
 
 ## Slots
 
