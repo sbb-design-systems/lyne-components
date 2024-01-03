@@ -33,6 +33,11 @@ export class SbbStickyBarElement extends LitElement {
     });
   }
 
+  /**
+   * @internal
+   * Method used to override the updateComplete getter
+   * in order to wait for the outer sbb-container
+   */
   public override async getUpdateComplete(): Promise<boolean> {
     await super.getUpdateComplete();
     await this.closest('sbb-container')?.updateComplete;
