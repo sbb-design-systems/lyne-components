@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.43.8](https://github.com/lyne-design-system/lyne-components/compare/v0.43.7...v0.43.8) (2024-01-03)
+
+
+### Features
+
+* **sbb-status:** component implementation ([#2262](https://github.com/lyne-design-system/lyne-components/issues/2262)) ([8e1da55](https://github.com/lyne-design-system/lyne-components/commit/8e1da55cb08aaa56ede9083ba5820f6e30d7038d))
+
+
+### Bug Fixes
+
+* fix using of new Date() ([#2315](https://github.com/lyne-design-system/lyne-components/issues/2315)) ([9f69606](https://github.com/lyne-design-system/lyne-components/commit/9f696061a32aae09f6d944697d4facaf339eb361))
+
 ## [0.43.7](https://github.com/lyne-design-system/lyne-components/compare/v0.43.6...v0.43.7) (2023-12-20)
 
 
