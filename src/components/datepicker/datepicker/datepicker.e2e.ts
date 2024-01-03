@@ -163,7 +163,8 @@ describe('sbb-datepicker', () => {
       element.dateParser = (s) => {
         s = s.replace(/\D/g, ' ').trim();
         const date = s.split(' ');
-        return new Date(new Date().getFullYear(), +date[1] - 1, +date[0]);
+        const now = new Date(2023, 8, 15, 0, 0, 0, 0);
+        return new Date(now.getFullYear(), +date[1] - 1, +date[0]);
       };
       element.format = (d) => {
         //Intl.DateTimeFormat API is not available in test environment.

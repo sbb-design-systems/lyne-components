@@ -62,7 +62,8 @@ export class SbbDatepickerNextDayElement extends LitElement implements ButtonPro
     if (!this._datePickerElement || isValidAttribute(this, 'data-disabled')) {
       return;
     }
-    const startingDate: Date = this._datePickerElement.getValueAsDate() ?? this._now();
+    const startingDate: Date =
+      this._datePickerElement.getValueAsDate() ?? this._datePickerElement.now();
     const date: Date = findNextAvailableDate(
       startingDate,
       this._datePickerElement.dateFilter,
@@ -178,23 +179,6 @@ export class SbbDatepickerNextDayElement extends LitElement implements ButtonPro
     this._disabled = this._dateAdapter.compareDate(nextDate, pickerValueAsDate) === 0;
   }
 
-  private _hasDataNow(): boolean {
-    if (!this._datePickerElement) {
-      return false;
-    }
-    const dataNow = +this._datePickerElement.dataset?.now;
-    return !isNaN(dataNow);
-  }
-
-  private _now(): Date {
-    if (this._hasDataNow()) {
-      const today = new Date(+this._datePickerElement.dataset?.now);
-      today.setHours(0, 0, 0, 0);
-      return today;
-    }
-    return this._dateAdapter.today();
-  }
-
   private _setAriaLabel(): void {
     const currentDate = this._datePickerElement?.getValueAsDate?.();
 
@@ -204,7 +188,7 @@ export class SbbDatepickerNextDayElement extends LitElement implements ButtonPro
     }
 
     const currentDateString =
-      this._dateAdapter.today().toDateString() === currentDate.toDateString()
+      this._datePickerElement.now().toDateString() === currentDate.toDateString()
         ? i18nToday[this._language.current].toLowerCase()
         : this._dateAdapter.getAccessibilityFormatDate(currentDate);
 
