@@ -35,7 +35,7 @@ export class SbbStickyBarElement extends LitElement {
 
   public override async getUpdateComplete(): Promise<boolean> {
     await super.getUpdateComplete();
-    await this.closest('sbb-container').updateComplete;
+    await this.closest('sbb-container')?.updateComplete;
     return true;
   }
 
