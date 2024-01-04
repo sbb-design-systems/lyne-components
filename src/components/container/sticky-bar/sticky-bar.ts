@@ -1,8 +1,9 @@
 import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
 
 import { toggleDatasetEntry } from '../../core/dom';
-import { ConnectedAbortController } from '../../core/eventing';
+import { AgnosticIntersectionObserver } from '../../core/observers';
 
 import style from './sticky-bar.scss?lit&inline';
 
@@ -16,79 +17,37 @@ import '../container';
 export class SbbStickyBarElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  private _abort = new ConnectedAbortController(this);
+  private _intersector: HTMLSpanElement;
+  private _observer = new AgnosticIntersectionObserver((entries) =>
+    this._toggleShadowVisibility(entries),
+  );
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    const signal = this._abort.signal;
+    this._updateIntersectionObserver();
+  }
 
-    // Once the component is done rendering the container should find the first scrollable element
-    // This is necessary in case the container itself, or any parent element has a fixed height
-    this.getUpdateComplete().then(() => {
-      this._handlePageScroll();
-      this._firstScrollableParent.addEventListener('scroll', () => this._handlePageScroll(), {
-        passive: true,
-        signal,
-      });
+  private _toggleShadowVisibility(entries: IntersectionObserverEntry[]): void {
+    const stickyBar = this.shadowRoot.querySelector('.sbb-sticky-bar') as HTMLElement;
+    entries.forEach((entry) => {
+      toggleDatasetEntry(
+        stickyBar,
+        'settled',
+        entry.isIntersecting || entry.boundingClientRect.top < 0,
+      );
     });
   }
 
-  /**
-   * @internal
-   * Method used to override the updateComplete getter
-   * in order to wait for the outer sbb-container
-   */
-  public override async getUpdateComplete(): Promise<boolean> {
-    await super.getUpdateComplete();
-    await this.closest('sbb-container')?.updateComplete;
-    return true;
-  }
-
-  private _handlePageScroll(): void {
-    const stickyBar = this.shadowRoot.querySelector('.sbb-sticky-bar');
-    if (!stickyBar) {
-      return;
-    }
-
-    const stickyBarPosition = stickyBar.getBoundingClientRect();
-    const containerPosition =
-      this.closest('sbb-container').containerInnerElement?.getBoundingClientRect();
-
-    if (!stickyBarPosition || !containerPosition) {
-      return;
-    }
-
-    const animationSpan = stickyBarPosition.height;
-    const animationStart = containerPosition.bottom - animationSpan;
-
-    toggleDatasetEntry(
-      stickyBar as HTMLElement,
-      'settled',
-      stickyBarPosition.bottom === containerPosition.bottom,
-    );
-
-    if (stickyBarPosition.bottom >= animationStart) {
-      const animationProgress = (stickyBarPosition.bottom - animationStart) / animationSpan;
-      this.style.setProperty('--sbb-sticky-bar-scroll', `${animationProgress}`);
-    } else {
-      this.style.setProperty('--sbb-sticky-bar-scroll', '0');
+  private _updateIntersectionObserver(): void {
+    this._observer.disconnect();
+    if (this._intersector) {
+      this._observer.observe(this._intersector);
     }
   }
 
-  private get _firstScrollableParent(): HTMLElement | typeof document {
-    return this._getScrollParent(this.closest('sbb-container'));
-  }
-
-  private _getScrollParent(node): HTMLElement | typeof document {
-    if (node == null || node.tagName === 'HTML') {
-      return document;
-    }
-
-    if (node.scrollHeight > node.clientHeight) {
-      return node;
-    } else {
-      return this._getScrollParent(node.parentNode);
-    }
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this._observer.disconnect();
   }
 
   protected override render(): TemplateResult {
@@ -96,6 +55,15 @@ export class SbbStickyBarElement extends LitElement {
       <div class="sbb-sticky-bar">
         <slot></slot>
       </div>
+      <span
+        ${ref((el: HTMLElement): void => {
+          if (this._intersector === el) {
+            return;
+          }
+          this._intersector = el;
+          this._updateIntersectionObserver();
+        })}
+      ></span>
     `;
   }
 }
