@@ -2,6 +2,7 @@ import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { FocusHandler } from '../../core/a11y';
+import { SlotChildObserver } from '../../core/common-behaviors';
 import { findReferencedElement, isBrowser, toggleDatasetEntry } from '../../core/dom';
 
 import style from './header.scss?lit&inline';
@@ -16,7 +17,7 @@ const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
  * @slot logo - Slot used to render the logo on the right side (sbb-logo as default).
  */
 @customElement('sbb-header')
-export class SbbHeaderElement extends LitElement {
+export class SbbHeaderElement extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -176,16 +177,16 @@ export class SbbHeaderElement extends LitElement {
     }
   }
 
-  private _addFocusableElementsListeners(): void {
+  protected override checkChildren(): void {
     this._focusHandler.disconnect();
-    this._focusHandler.setDataHasVisibleFocusWithin(this);
+    this._focusHandler.setDataHasVisibleFocusWithinListener(this);
   }
 
   protected override render(): TemplateResult {
     return html`
       <header class="sbb-header">
         <div class="sbb-header__wrapper">
-          <slot @slotchange=${() => this._addFocusableElementsListeners()}></slot>
+          <slot></slot>
           <div class="sbb-header__logo">
             <slot name="logo">
               <sbb-logo protective-room="none"></sbb-logo>

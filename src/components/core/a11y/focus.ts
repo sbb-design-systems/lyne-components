@@ -22,7 +22,7 @@ export function getFocusableElements(
   properties?: {
     filterFunc?: (el: HTMLElement) => boolean;
     findFirstFocusable?: boolean;
-    includeNotVisibleElements?: boolean;
+    includeInvisibleElements?: boolean;
   },
 ): HTMLElement[] {
   const focusableEls = new Set<HTMLElement>();
@@ -43,7 +43,7 @@ export function getFocusableElements(
 
       if (
         el.matches(IS_FOCUSABLE_QUERY) &&
-        (properties.includeNotVisibleElements ?? interactivityChecker.isVisible(el))
+        (properties.includeInvisibleElements ?? interactivityChecker.isVisible(el))
       ) {
         focusableEls.add(el);
       }
@@ -91,7 +91,7 @@ export class FocusHandler {
         const elementChildren: HTMLElement[] = Array.from(
           element.shadowRoot.children,
         ) as HTMLElement[];
-        const focusableElements = getFocusableElements(elementChildren, { filterFunc: filterFunc });
+        const focusableElements = getFocusableElements(elementChildren, { filterFunc });
         const firstFocusable = focusableElements[0] as HTMLElement;
         const lastFocusable = focusableElements[focusableElements.length - 1] as HTMLElement;
 
@@ -111,10 +111,10 @@ export class FocusHandler {
     );
   }
 
-  public setDataHasVisibleFocusWithin(element: HTMLElement): void {
+  public setDataHasVisibleFocusWithinListener(element: HTMLElement): void {
     // Determine whether the element has a visible focus within.
     getFocusableElements(Array.from(element.children) as HTMLElement[], {
-      includeNotVisibleElements: true,
+      includeInvisibleElements: true,
     })?.forEach((el) => {
       el.addEventListener(
         'focusin',
