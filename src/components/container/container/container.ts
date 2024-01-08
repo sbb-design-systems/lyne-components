@@ -1,7 +1,7 @@
-import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, PropertyValueMap, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { AgnosticResizeObserver } from '../../core/observers';
+import { toggleDatasetEntry } from '../../core/dom';
 
 import style from './container.scss?lit&inline';
 
@@ -21,28 +21,23 @@ export class SbbContainerElement extends LitElement {
   @property({ reflect: true }) public color: 'transparent' | 'white' | 'milk' | 'midnight' =
     'transparent';
 
-  private _containerResizeObserver = new AgnosticResizeObserver(() => this._setContainerWidth());
-
-  private _setContainerWidth(): void {
-    this.style.setProperty('--sbb-sticky-bar-width', `${this.clientWidth}px`);
+  protected override firstUpdated(): void {
+    this._updateStickyBar();
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._containerResizeObserver.observe(this);
+  private _updateStickyBar(): void {
+    const stickyBar = this.querySelector('sbb-sticky-bar');
+    if (stickyBar) {
+      toggleDatasetEntry(stickyBar, 'expanded', this.expanded);
+    }
   }
 
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._containerResizeObserver.disconnect();
-  }
-
-  /**
-   * @internal
-   * Internal getter that returns the container's inner div.
-   */
-  public get containerInnerElement(): HTMLDivElement {
-    return this.shadowRoot.querySelector('.sbb-container');
+  protected override willUpdate(
+    _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>,
+  ): void {
+    if (_changedProperties.has('expanded')) {
+      this._updateStickyBar();
+    }
   }
 
   protected override render(): TemplateResult {
@@ -50,6 +45,7 @@ export class SbbContainerElement extends LitElement {
       <div class="sbb-container">
         <slot></slot>
       </div>
+      <slot name="sticky-bar"></slot>
     `;
   }
 }

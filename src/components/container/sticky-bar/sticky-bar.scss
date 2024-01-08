@@ -1,53 +1,39 @@
 @use '../../core/styles' as sbb;
 
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
 :host {
   display: contents;
 }
 
-.sbb-sticky-bar {
+.sbb-sticky-bar__wrapper {
+  @include sbb.shadow-level-5-hard;
+
   position: sticky;
-  display: flex;
+  display: inline-block;
   width: 100%;
   inset-block-end: 0;
   background-color: var(--sbb-sticky-bar-bg-color);
-  padding-block: var(--sbb-spacing-responsive-xxxs);
-}
-
-.sbb-sticky-bar::before {
-  @include sbb.shadow-level-5-hard;
-
-  position: absolute;
-  display: inline-block;
-  content: '';
-  height: 100%;
-  width: var(--sbb-sticky-bar-width);
-  @include sbb.absolute-center-x;
-
-  inset-block: 0;
-  background-color: var(--sbb-sticky-bar-bg-color);
   transition-property: box-shadow;
   transition-duration: var(--sbb-animation-duration-5x);
-}
 
-[data-settled] {
-  background-color: transparent;
-}
-
-[data-settled]::before {
-  background-color: transparent;
-  box-shadow: none;
-  transition-duration: var(--sbb-animation-duration-5x);
-}
-
-@keyframes fade {
-  from {
-    @include sbb.shadow-level-5-hard;
-
-    background-color: var(--sbb-sticky-bar-bg-color);
-  }
-
-  to {
+  :host([data-settled]) & {
     background-color: transparent;
     box-shadow: none;
+  }
+}
+
+.sbb-sticky-bar {
+  display: flex;
+  padding-block: var(--sbb-spacing-responsive-xxxs);
+
+  :host(:not([data-expanded])) & {
+    @include sbb.page-spacing;
+  }
+
+  :host([data-expanded]) & {
+    @include sbb.page-spacing-expanded;
   }
 }

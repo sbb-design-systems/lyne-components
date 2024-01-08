@@ -11,7 +11,7 @@ describe('sbb-sticky-bar', () => {
   let container: SbbContainerElement;
   let stickyBar: SbbStickyBarElement;
   const getSettled = (): boolean => {
-    return stickyBar.shadowRoot.querySelector('.sbb-sticky-bar').hasAttribute('data-settled');
+    return stickyBar.hasAttribute('data-settled');
   };
 
   beforeEach(async () => {
