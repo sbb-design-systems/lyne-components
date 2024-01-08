@@ -64,6 +64,16 @@ const DefaultTemplate = ({ color, ...args }): TemplateResult => html`
   </sbb-container>
 `;
 
+const ShortTemplate = ({ color, ...args }): TemplateResult => html`
+  <sbb-container ${sbbSpread(args)} color=${color}>
+    ${containerContent('Example title', color === 'midnight')}
+
+    <sbb-sticky-bar>
+      <sbb-button style="margin-inline-start: auto">Continue</sbb-button>
+    </sbb-sticky-bar>
+  </sbb-container>
+`;
+
 const WithStickybarTemplate = ({ color, ...args }): TemplateResult => html`
   <sbb-container ${sbbSpread(args)} color=${color}>
     ${containerContent('Example title', color === 'midnight')}
@@ -86,6 +96,18 @@ export const Standalone: StoryObj = {
 
 export const Default: StoryObj = {
   render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: defaultArgs,
+};
+
+export const Expanded: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, expanded: true },
+};
+
+export const ShortContent: StoryObj = {
+  render: ShortTemplate,
   argTypes: defaultArgTypes,
   args: defaultArgs,
 };
