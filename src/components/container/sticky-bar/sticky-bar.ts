@@ -1,8 +1,7 @@
 import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
 
-import { toggleDatasetEntry } from '../../core/dom';
+import { setAttribute, toggleDatasetEntry } from '../../core/dom';
 import { AgnosticIntersectionObserver } from '../../core/observers';
 
 import style from './sticky-bar.scss?lit&inline';
@@ -22,24 +21,21 @@ export class SbbStickyBarElement extends LitElement {
     this._toggleShadowVisibility(entries),
   );
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
+  protected override firstUpdated(): void {
     this._updateIntersectionObserver();
   }
 
   private _toggleShadowVisibility(entries: IntersectionObserverEntry[]): void {
-    const stickyBar = this.shadowRoot.querySelector('.sbb-sticky-bar') as HTMLElement;
     entries.forEach((entry) => {
-      toggleDatasetEntry(
-        stickyBar,
-        'settled',
-        entry.isIntersecting || entry.boundingClientRect.top < 0,
-      );
+      toggleDatasetEntry(this, 'settled', entry.isIntersecting || entry.boundingClientRect.top < 0);
     });
   }
 
   private _updateIntersectionObserver(): void {
     this._observer.disconnect();
+    if (!this._intersector) {
+      this._intersector = this.shadowRoot.querySelector('span');
+    }
     if (this._intersector) {
       this._observer.observe(this._intersector);
     }
@@ -51,19 +47,14 @@ export class SbbStickyBarElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
+    setAttribute(this, 'slot', 'sticky-bar');
     return html`
-      <div class="sbb-sticky-bar">
-        <slot></slot>
+      <div class="sbb-sticky-bar__wrapper">
+        <div class="sbb-sticky-bar">
+          <slot></slot>
+        </div>
       </div>
-      <span
-        ${ref((el: HTMLElement): void => {
-          if (this._intersector === el) {
-            return;
-          }
-          this._intersector = el;
-          this._updateIntersectionObserver();
-        })}
-      ></span>
+      <span></span>
     `;
   }
 }

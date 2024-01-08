@@ -13,6 +13,7 @@ describe('sbb-container', () => {
         <slot>
         </slot>
       </div>
+      <slot name="sticky-bar"></slot>
       `,
     );
   });
