@@ -1,5 +1,8 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { waitForLitRender } from '../core/testing';
+
 import '../form-field';
 import './button';
 
@@ -52,6 +55,8 @@ describe('sbb-button', () => {
         Label Text
       </sbb-button> `,
     );
+
+    await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(`
       <sbb-button size="l" variant="primary" role="button" tabindex="0" dir="ltr">

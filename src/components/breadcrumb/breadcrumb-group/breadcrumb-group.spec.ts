@@ -3,6 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import '../breadcrumb';
 import './breadcrumb-group';
+import { waitForLitRender } from '../../core/testing';
 
 describe('sbb-breadcrumb-group', () => {
   it('renders', async () => {
@@ -13,6 +14,8 @@ describe('sbb-breadcrumb-group', () => {
         <sbb-breadcrumb href="/one">Two</sbb-breadcrumb>
       </sbb-breadcrumb-group>
     `);
+
+    await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(`
       <sbb-breadcrumb-group role='navigation' data-loaded>

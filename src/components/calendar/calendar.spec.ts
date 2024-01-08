@@ -1,8 +1,10 @@
-import './calendar';
-import '../button';
-
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { waitForLitRender } from '../core/testing';
+
+import './calendar';
+import '../button';
 
 describe('sbb-calendar', () => {
   it('renders', async () => {
@@ -12,6 +14,8 @@ describe('sbb-calendar', () => {
         data-now="1672790400000"
       ></sbb-calendar>`,
     );
+
+    await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(
       `<sbb-calendar data-now="1672790400000" selected-date="2023-01-20T00:00:00"></sbb-calendar>`,

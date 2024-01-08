@@ -1,5 +1,8 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { waitForLitRender } from '../../core/testing';
+
 import './form-field-clear';
 import '../form-field';
 
@@ -11,6 +14,8 @@ describe('sbb-form-field-clear', () => {
         <sbb-form-field-clear></sbb-form-field-clear>
       </sbb-form-field>
     `);
+    await waitForLitRender(formField);
+
     const formFieldClear = formField.querySelector('sbb-form-field-clear');
 
     expect(formField).dom.to.be.equal(`
