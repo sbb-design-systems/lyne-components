@@ -12,6 +12,8 @@ describe('sbb-sticky-bar', () => {
       <div class="sbb-sticky-bar">
         <slot></slot>
       </div>
+      <span>
+      </span>
     `);
   });
 });
