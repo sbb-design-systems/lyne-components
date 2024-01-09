@@ -2,7 +2,7 @@ import { assert, fixture, expect } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition } from '../../core/testing';
+import { waitForCondition, waitForLitRender } from '../../core/testing';
 import { SbbContainerElement } from '../container';
 
 import { SbbStickyBarElement } from './sticky-bar';
@@ -60,5 +60,27 @@ describe('sbb-sticky-bar', () => {
     await waitForCondition(async () => getSettled());
 
     expect(getSettled()).to.equal(true);
+  });
+
+  it('renders with expanded layout', async () => {
+    container = await fixture(html`
+      <sbb-container expanded>
+        <button>Container button</button>
+        <sbb-sticky-bar>
+          <button>Sticky bar button</button>
+        </sbb-sticky-bar>
+      </sbb-container>
+    `);
+    stickyBar = container.querySelector('sbb-sticky-bar');
+
+    expect(stickyBar).to.have.attribute('data-expanded');
+  });
+
+  it('expands the sticky-bar when container is expanded', async () => {
+    container.expanded = true;
+
+    await waitForLitRender(container);
+
+    expect(stickyBar).to.have.attribute('data-expanded');
   });
 });
