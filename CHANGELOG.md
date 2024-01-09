@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.43.10](https://github.com/lyne-design-system/lyne-components/compare/v0.43.9...v0.43.10) (2024-01-09)
+
+
+### Bug Fixes
+
+* use renderAttributesOnCreate for react ([#2323](https://github.com/lyne-design-system/lyne-components/issues/2323)) ([1de1379](https://github.com/lyne-design-system/lyne-components/commit/1de1379f249efbc75778c5819dd1ffde0097926d))
+
 ## [0.43.9](https://github.com/lyne-design-system/lyne-components/compare/v0.43.8...v0.43.9) (2024-01-09)
 
 
