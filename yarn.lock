@@ -8373,7 +8373,22 @@ listr2@8.0.0:
     rfdc "^1.3.0"
     wrap-ansi "^9.0.0"
 
-lit-analyzer@2.0.2, lit-analyzer@^2.0.1:
+lit-analyzer@2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/lit-analyzer/-/lit-analyzer-2.0.3.tgz#15560ccfb0e1b66fc5521330fc73502b1678621e"
+  integrity sha512-XiAjnwVipNrKav7r3CSEZpWt+mwYxrhPRVC7h8knDmn/HWTzzWJvPe+mwBcL2brn4xhItAMzZhFC8tzzqHKmiQ==
+  dependencies:
+    "@vscode/web-custom-data" "^0.4.2"
+    chalk "^2.4.2"
+    didyoumean2 "4.1.0"
+    fast-glob "^3.2.11"
+    parse5 "5.1.0"
+    ts-simple-type "~2.0.0-next.0"
+    vscode-css-languageservice "4.3.0"
+    vscode-html-languageservice "3.1.0"
+    web-component-analyzer "^2.0.0"
+
+lit-analyzer@^2.0.1:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/lit-analyzer/-/lit-analyzer-2.0.2.tgz#4dad66c3d2c2f617bb5531a7b877a4ba076a3fda"
   integrity sha512-Is3cx8ypCVq5uNl8EKkPdlLuV3HDVntDVUeLNQlzTM2Je3uG5wHcn+06NB+yhCoa4rhwwXCjprU/7g21CSFqOA==
