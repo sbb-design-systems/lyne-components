@@ -39,7 +39,7 @@ describe('sbb-toast', () => {
             <slot name="action">
               <sbb-button class="sbb-toast__action-button" aria-label="Close message"
                 variant="transparent" negative size="m" icon-name="cross-small"
-                dir="ltr" role="button" tabindex="0" data-icon-only sbb-toast-close
+                dir="ltr" role="button" tabindex="0" sbb-toast-close
               >
               </sbb-button>
             </slot>

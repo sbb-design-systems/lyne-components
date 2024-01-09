@@ -46,6 +46,8 @@ describe('sbb-toggle-option', () => {
       </sbb-toggle-option>`,
     );
 
+    await waitForLitRender(root);
+
     expect(root).dom.to.be.equal(`
       <sbb-toggle-option
         aria-checked="false"
