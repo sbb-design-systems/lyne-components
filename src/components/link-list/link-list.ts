@@ -51,7 +51,10 @@ export class SbbLinkListElement extends SlotChildObserver(LitElement) {
   /** The orientation in which the list will be shown vertical or horizontal. */
   @property({ reflect: true }) public orientation: SbbOrientation = 'vertical';
 
-  /** Sbb-Link elements */
+  /**
+   * sbb-link elements.
+   * @ssrchildcounter
+   */
   @state() private _links: SbbLinkElement[] = [];
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
@@ -114,6 +117,9 @@ export class SbbLinkListElement extends SlotChildObserver(LitElement) {
       };
     }
     this._links.forEach((link, index) => link.setAttribute('slot', `link-${index}`));
+    const links = this._links.length
+      ? this._links
+      : Array.from({ length: +this.getAttribute('data-ssr-child-count') });
 
     return html`
       <div class="sbb-link-list-wrapper">
@@ -129,7 +135,7 @@ export class SbbLinkListElement extends SlotChildObserver(LitElement) {
             </sbb-title>`
           : nothing}
         <ul ${spread(ariaLabelledByAttribute)} class="sbb-link-list">
-          ${this._links.map(
+          ${links.map(
             (_, index) =>
               html`<li>
                 <slot name=${`link-${index}`}></slot>

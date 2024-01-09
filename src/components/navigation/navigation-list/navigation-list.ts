@@ -22,13 +22,14 @@ import style from './navigation-list.scss?lit&inline';
 export class SbbNavigationListElement extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
 
-  /*
+  /**
    * The label to be shown before the action list.
    */
   @property() public label?: string;
 
-  /*
+  /**
    * Navigation action elements.
+   * @ssrchildcounter
    */
   @state() private _actions: SbbNavigationActionElement[] = [];
 
@@ -67,6 +68,9 @@ export class SbbNavigationListElement extends SlotChildObserver(LitElement) {
       action.setAttribute('slot', `action-${index}`);
       action.size = 'm';
     });
+    const actions = this._actions.length
+      ? this._actions
+      : Array.from({ length: +this.getAttribute('data-ssr-child-count') });
     const ariaLabelledByAttribute = hasLabel
       ? { 'aria-labelledby': 'sbb-navigation-link-label-id' }
       : {};
@@ -78,7 +82,7 @@ export class SbbNavigationListElement extends SlotChildObserver(LitElement) {
           </span>`
         : nothing}
       <ul class="sbb-navigation-list__content" ${spread(ariaLabelledByAttribute)}>
-        ${this._actions.map(
+        ${actions.map(
           (_, index) => html`
             <li class="sbb-navigation-list__action">
               <slot name=${`action-${index}`}></slot>

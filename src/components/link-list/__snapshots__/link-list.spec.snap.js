@@ -199,3 +199,27 @@ snapshots["sbb-link-list rendered without a title"] =
 `;
 /* end snapshot sbb-link-list rendered without a title */
 
+snapshots["sbb-link-list should render named slots if data-ssr-child-count attribute is set"] = 
+`<div class="sbb-link-list-wrapper">
+  <ul class="sbb-link-list">
+    <li>
+      <slot name="link-0">
+      </slot>
+    </li>
+    <li>
+      <slot name="link-1">
+      </slot>
+    </li>
+    <li>
+      <slot name="link-2">
+      </slot>
+    </li>
+  </ul>
+  <span hidden="">
+    <slot>
+    </slot>
+  </span>
+</div>
+`;
+/* end snapshot sbb-link-list should render named slots if data-ssr-child-count attribute is set */
+

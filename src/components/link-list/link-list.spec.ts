@@ -116,6 +116,11 @@ describe('sbb-link-list', () => {
     );
   });
 
+  it('should render named slots if data-ssr-child-count attribute is set', async () => {
+    element = await fixture(html`<sbb-link-list data-ssr-child-count="3"></sbb-link-list>`);
+    await expect(element).shadowDom.to.equalSnapshot();
+  });
+
   describe('property sync', () => {
     const assertLinks = (root: Element, assertion: (link: SbbLinkElement) => boolean): boolean =>
       Array.from(root.querySelectorAll('sbb-link')).every(assertion);

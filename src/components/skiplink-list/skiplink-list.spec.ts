@@ -89,4 +89,11 @@ describe('sbb-skiplink-list', () => {
         `,
     );
   });
+
+  it('should render named slots if data-ssr-child-count attribute is set', async () => {
+    const root = await fixture(
+      html`<sbb-skiplink-list data-ssr-child-count="3"></sbb-skiplink-list>`,
+    );
+    await expect(root).shadowDom.to.equalSnapshot();
+  });
 });
