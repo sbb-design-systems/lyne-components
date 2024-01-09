@@ -7,7 +7,6 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-notification-visibility: hidden;
   --sbb-notification-opacity: 0;
   --sbb-notification-max-height: 0;
   --sbb-notification-margin: 0;
@@ -31,7 +30,6 @@
       var(--sbb-notification-timing-function),
     border var(--sbb-notification-animation-duration) var(--sbb-animation-duration-2x)
       var(--sbb-notification-timing-function),
-    visibility var(--sbb-notification-animation-duration) var(--sbb-notification-timing-function),
     opacity var(--sbb-notification-animation-duration) var(--sbb-notification-timing-function);
 
   // As the notification has always a light background, we have to fix the focus outline color
@@ -40,7 +38,6 @@
 }
 
 :host(:is([data-state='opened'], [data-state='opening'])) {
-  --sbb-notification-visibility: visible;
   --sbb-notification-opacity: 1;
   --sbb-notification-max-height: calc(
     var(--sbb-notification-height) + (var(--sbb-notification-border-width) * 2)
@@ -93,7 +90,6 @@
   width: calc(
     100% - calc(var(--sbb-notification-base-radius) - var(--sbb-notification-border-width))
   );
-  visibility: var(--sbb-notification-visibility);
   opacity: var(--sbb-notification-opacity);
   max-height: var(--sbb-notification-max-height);
   transition: var(--sbb-notification-transition);
@@ -208,7 +204,6 @@
 
 @keyframes open {
   from {
-    visibility: hidden;
     opacity: 0;
     max-height: 0;
     border-block: none;
@@ -216,7 +211,6 @@
   }
 
   to {
-    visibility: visible;
     opacity: 1;
     max-height: var(--sbb-notification-max-height);
     border-block: var(--sbb-notification-border);

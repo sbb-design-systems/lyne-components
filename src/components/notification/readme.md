@@ -58,6 +58,10 @@ If the `sbb-notification` host needs a margin, in order to properly animate it o
 we suggest using the `--sbb-notification-margin` variable to set it.
 For example, use `--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0` to apply a bottom margin.
 
+## Accessibility
+
+The `sbb-notification` component uses the accessibility `role="status"` to indicate its purpose to assistive technology users. This role signifies that the notification provides information about the current state of a task or system. Additionally, the notification component leverages the implicit `aria-live` attribute with the `polite` value to announce the notification's content to screen readers as it becomes visible. This ensures that users who rely on screen readers are promptly informed of any relevant updates or changes.
+
 <!-- Auto Generated Below -->
 
 ## Properties

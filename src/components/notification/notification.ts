@@ -205,6 +205,7 @@ export class SbbNotificationElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
+    setAttribute(this, 'role', 'status');
     setAttribute(this, 'data-state', this._state);
 
     return html`
