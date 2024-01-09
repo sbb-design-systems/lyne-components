@@ -220,7 +220,6 @@ export const createComponent = <I extends HTMLElement, E extends EventNames = {}
   elementClass,
   events,
   displayName,
-  renderAttributesOnCreate,
 }: Options<I, E>): ReactWebComponent<I, E> => {
   const eventProps = new Set(Object.keys(events ?? {}));
 
@@ -265,10 +264,6 @@ export const createComponent = <I extends HTMLElement, E extends EventNames = {}
 
       if (eventProps.has(k) || k in elementClass.prototype) {
         elementProps[k] = v;
-
-        if (!renderAttributesOnCreate) {
-          continue;
-        }
 
         const elementProperty = elementProperties?.get(k);
         const toAttribute = (elementProperty?.converter as ComplexAttributeConverter)?.toAttribute;
