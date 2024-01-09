@@ -11892,10 +11892,10 @@ ts-graphviz@^1.5.0:
   resolved "https://registry.yarnpkg.com/ts-graphviz/-/ts-graphviz-1.8.1.tgz#5d95e58120be8b571847331516327d4840cc44f7"
   integrity sha512-54/fe5iu0Jb6X0pmDmzsA2UHLfyHjUEUwfHtZcEOR0fZ6Myf+dFoO6eNsyL8CBDMJ9u7WWEewduVaiaXlvjSVw==
 
-ts-lit-plugin@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/ts-lit-plugin/-/ts-lit-plugin-2.0.1.tgz#ef923baa5c8a62db932db3819ddbe403d35ee8c2"
-  integrity sha512-Y5G03aDiMYHMLzoZ50kdeVkzgVig2mBw6PVY2oI9PcWl3ONTcDyYq6rJ0QzhlACYWP8sT0dmaPMsHMObgNNvvg==
+ts-lit-plugin@2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/ts-lit-plugin/-/ts-lit-plugin-2.0.2.tgz#dbf28cf9c81cad626a7b1d9d880db6df4ce66259"
+  integrity sha512-DPXlVxhjWHxg8AyBLcfSYt2JXgpANV1ssxxwjY98o26gD8MzeiM68HFW9c2VeDd1CjoR3w7B/6/uKxwBQe+ioA==
   dependencies:
     lit-analyzer "^2.0.1"
     web-component-analyzer "^2.0.0"
