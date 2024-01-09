@@ -312,6 +312,7 @@ describe('sbb-selection-panel', () => {
           </sbb-selection-panel>
         </sbb-radio-button-group>
       `);
+      await waitForLitRender(nestedElement);
     });
 
     it('should display expanded label correctly', async () => {
@@ -584,6 +585,7 @@ describe('sbb-selection-panel', () => {
           </sbb-selection-panel>
         </sbb-checkbox-group>
       `);
+      await waitForLitRender(nestedElement);
     });
 
     it('should display expanded label correctly', async () => {

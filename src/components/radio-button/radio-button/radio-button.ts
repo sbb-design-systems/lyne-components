@@ -1,7 +1,11 @@
 import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { LanguageController, NamedSlotStateController } from '../../core/common-behaviors';
+import {
+  LanguageController,
+  NamedSlotStateController,
+  UpdateScheduler,
+} from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
 import {
   HandlerRepository,
@@ -15,6 +19,7 @@ import {
   SbbDisabledStateChange,
   SbbStateChange,
 } from '../../core/interfaces';
+import type { SbbSelectionPanelElement } from '../../selection-panel';
 import type { SbbRadioButtonGroupElement } from '../radio-button-group';
 
 import style from './radio-button.scss?lit&inline';
@@ -34,7 +39,7 @@ export type SbbRadioButtonSize = 's' | 'm';
  * @slot suffix - Slot used to render additional content after the label (only visible within a `sbb-selection-panel`).
  */
 @customElement('sbb-radio-button')
-export class SbbRadioButtonElement extends LitElement {
+export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     stateChange: 'stateChange',
@@ -117,7 +122,7 @@ export class SbbRadioButtonElement extends LitElement {
    */
   @state() private _selectionPanelExpandedLabel: string;
 
-  private _selectionPanelElement: HTMLElement;
+  private _selectionPanelElement: SbbSelectionPanelElement;
   private _abort = new ConnectedAbortController(this);
   private _language = new LanguageController(this);
 
@@ -207,7 +212,12 @@ export class SbbRadioButtonElement extends LitElement {
   }
 
   protected override firstUpdated(): void {
-    this._isSelectionPanelInput && this._updateExpandedLabel();
+    // We need to wait for the selection-panel to be fully initialized
+    this.startUpdate();
+    setTimeout(() => {
+      this._isSelectionPanelInput && this._updateExpandedLabel();
+      this.completeUpdate();
+    });
   }
 
   public override disconnectedCallback(): void {
@@ -222,7 +232,7 @@ export class SbbRadioButtonElement extends LitElement {
   }
 
   private _updateExpandedLabel(): void {
-    if (!this._selectionPanelElement.hasAttribute('data-has-content')) {
+    if (!this._selectionPanelElement.hasContent) {
       this._selectionPanelExpandedLabel = '';
       return;
     }

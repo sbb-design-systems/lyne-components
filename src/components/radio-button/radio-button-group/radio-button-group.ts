@@ -3,9 +3,10 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../core/a11y';
 import { NamedSlotStateController } from '../../core/common-behaviors';
-import { toggleDatasetEntry, setAttribute, isValidAttribute } from '../../core/dom';
+import { toggleDatasetEntry, setAttribute } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces';
+import type { SbbSelectionPanelElement } from '../../selection-panel';
 import type {
   SbbRadioButtonElement,
   SbbRadioButtonSize,
@@ -232,7 +233,7 @@ export class SbbRadioButtonGroupElement extends LitElement {
     const isSelected: boolean = radio.checked && !radio.disabled && !this.disabled;
     const isParentPanelWithContent: boolean =
       radio.parentElement.nodeName === 'SBB-SELECTION-PANEL' &&
-      isValidAttribute(radio.parentElement, 'data-has-content');
+      (radio.parentElement as SbbSelectionPanelElement).hasContent;
 
     return isSelected || (this._hasSelectionPanel && isParentPanelWithContent) ? 0 : -1;
   }
@@ -261,7 +262,7 @@ export class SbbRadioButtonGroupElement extends LitElement {
     // Selection on arrow keypress is allowed only if all the selection-panels have no content.
     const allPanelsHaveNoContent: boolean = (
       Array.from(this.querySelectorAll?.('sbb-selection-panel')) || []
-    ).every((e) => !isValidAttribute(e, 'data-has-content'));
+    ).every((e: SbbSelectionPanelElement) => !e.hasContent);
     if (!this._hasSelectionPanel || (this._hasSelectionPanel && allPanelsHaveNoContent)) {
       enabledRadios[nextIndex].select();
     }

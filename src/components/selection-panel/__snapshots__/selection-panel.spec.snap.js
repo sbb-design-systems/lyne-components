@@ -3,8 +3,8 @@ export const snapshots = {};
 
 snapshots["sbb-selection-panel renders - Dom"] = 
 `<sbb-selection-panel
-  data-has-content=""
-  data-state="closing"
+  data-slot-names="badge content unnamed"
+  data-state="closed"
   disable-animation=""
 >
   <sbb-card-badge slot="badge">

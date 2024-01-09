@@ -2,7 +2,11 @@ import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValu
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { LanguageController, NamedSlotStateController } from '../../core/common-behaviors';
+import {
+  LanguageController,
+  NamedSlotStateController,
+  UpdateScheduler,
+} from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
 import {
   HandlerRepository,
@@ -21,6 +25,7 @@ import {
 } from '../../core/interfaces';
 import '../../visual-checkbox';
 import '../../icon';
+import type { SbbSelectionPanelElement } from '../../selection-panel';
 import type { SbbCheckboxGroupElement } from '../checkbox-group';
 
 import style from './checkbox.scss?lit&inline';
@@ -42,7 +47,7 @@ export type SbbCheckboxSize = 's' | 'm';
  * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  */
 @customElement('sbb-checkbox')
-export class SbbCheckboxElement extends LitElement {
+export class SbbCheckboxElement extends UpdateScheduler(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -112,7 +117,7 @@ export class SbbCheckboxElement extends LitElement {
   @state() private _selectionPanelExpandedLabel: string;
 
   private _checkbox: HTMLInputElement;
-  private _selectionPanelElement: HTMLElement;
+  private _selectionPanelElement: SbbSelectionPanelElement;
   private _abort: ConnectedAbortController = new ConnectedAbortController(this);
   private _language = new LanguageController(this);
 
@@ -193,7 +198,12 @@ export class SbbCheckboxElement extends LitElement {
   }
 
   protected override firstUpdated(): void {
-    this._isSelectionPanelInput && this._updateExpandedLabel();
+    // We need to wait for the selection-panel to be fully initialized
+    this.startUpdate();
+    setTimeout(() => {
+      this._isSelectionPanelInput && this._updateExpandedLabel();
+      this.completeUpdate();
+    });
   }
 
   public override disconnectedCallback(): void {
@@ -236,7 +246,7 @@ export class SbbCheckboxElement extends LitElement {
   }
 
   private _updateExpandedLabel(): void {
-    if (!this._selectionPanelElement.hasAttribute('data-has-content')) {
+    if (!this._selectionPanelElement.hasContent) {
       this._selectionPanelExpandedLabel = '';
       return;
     }
