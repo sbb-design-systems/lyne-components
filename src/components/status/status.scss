@@ -4,7 +4,7 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
-$has-title: ':where([data-slot-names~=title], [title-content])';
+$has-title: ':is([data-slot-names~=title], [title-content])';
 
 :host {
   --sbb-status-gap: var(--sbb-spacing-fixed-1x);
