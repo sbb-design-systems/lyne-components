@@ -5,6 +5,9 @@
 @include sbb.host-component-properties;
 
 :host {
+  --sbb-sticky-bar-padding-block: var(--sbb-spacing-responsive-xxxs);
+  --sbb-sticky-bar-animation-duration: var(--sbb-animation-duration-5x);
+
   display: contents;
 }
 
@@ -12,12 +15,12 @@
   @include sbb.shadow-level-5-hard;
 
   position: sticky;
+  inset-block-end: 0;
   display: inline-block;
   width: 100%;
-  inset-block-end: 0;
   background-color: var(--sbb-sticky-bar-bg-color);
   transition-property: box-shadow;
-  transition-duration: var(--sbb-animation-duration-5x);
+  transition-duration: var(--sbb-sticky-bar-animation-duration);
 
   :host([data-settled]) & {
     background-color: transparent;
@@ -27,7 +30,7 @@
 
 .sbb-sticky-bar {
   display: flex;
-  padding-block: var(--sbb-spacing-responsive-xxxs);
+  padding-block: var(--sbb-sticky-bar-padding-block);
 
   :host(:not([data-expanded])) & {
     @include sbb.page-spacing;
@@ -36,4 +39,8 @@
   :host([data-expanded]) & {
     @include sbb.page-spacing-expanded;
   }
+}
+
+span {
+  display: block;
 }
