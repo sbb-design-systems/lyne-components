@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.43.9](https://github.com/lyne-design-system/lyne-components/compare/v0.43.8...v0.43.9) (2024-01-09)
+
+
+### Bug Fixes
+
+* improve SSR handling of React components with children ([#2306](https://github.com/lyne-design-system/lyne-components/issues/2306)) ([da0c1c5](https://github.com/lyne-design-system/lyne-components/commit/da0c1c5deaf7c970da7c532df665f32322bcbe28))
+* **sbb-autocomplete:** highlight option when options change ([#2317](https://github.com/lyne-design-system/lyne-components/issues/2317)) ([76affb1](https://github.com/lyne-design-system/lyne-components/commit/76affb1e07a288b2f02eda7bc2656d06291e53e0))
+* **sbb-icon:** fix preserving space during loading ([#2308](https://github.com/lyne-design-system/lyne-components/issues/2308)) ([2a01652](https://github.com/lyne-design-system/lyne-components/commit/2a01652bfa5d206583e5e411b97bc0aed55818a5))
+* **sbb-map-container:** add scrollbar background and divider line ([#2316](https://github.com/lyne-design-system/lyne-components/issues/2316)) ([4b0f765](https://github.com/lyne-design-system/lyne-components/commit/4b0f7653341d131731da24824c7081bfcf02c3ad))
+
 ## [0.43.8](https://github.com/lyne-design-system/lyne-components/compare/v0.43.7...v0.43.8) (2024-01-03)
 
 
