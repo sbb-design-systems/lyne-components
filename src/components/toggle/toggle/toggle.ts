@@ -67,6 +67,7 @@ export class SbbToggleElement extends LitElement {
   @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
   public disableAnimation = false;
 
+  private _loaded = false;
   private _toggleElement: HTMLElement;
   private _toggleResizeObserver = new AgnosticResizeObserver(() =>
     this._setCheckedPillPosition(true),
@@ -145,6 +146,10 @@ export class SbbToggleElement extends LitElement {
   }
 
   private _setCheckedPillPosition(resizing: boolean): void {
+    if (!this._loaded) {
+      return;
+    }
+
     const options = this._options;
 
     if (options.every((o) => !o.checked) || !this._toggleElement) {
@@ -187,9 +192,10 @@ export class SbbToggleElement extends LitElement {
     }
   }
 
-  protected override firstUpdated(changedProperties: PropertyValues): void {
+  protected override async firstUpdated(changedProperties: PropertyValues): Promise<void> {
     super.firstUpdated(changedProperties);
-    this._setCheckedPillPosition(false);
+    await this.updateComplete;
+    this._loaded = true;
   }
 
   public override disconnectedCallback(): void {
