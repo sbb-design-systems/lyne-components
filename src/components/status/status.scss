@@ -4,6 +4,8 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
+$has-title: ':where([data-slot-names~=title], [title-content])';
+
 :host {
   --sbb-status-gap: var(--sbb-spacing-fixed-1x);
   --sbb-status-icon-color: var(--sbb-color-iron-default);
@@ -16,7 +18,7 @@
   --sbb-status-text-color: var(--sbb-color-red125-default);
 }
 
-:host(:is([type='error'], [type='error'][data-has-title])) {
+:host(:is([type='error'], [type='error']#{$has-title})) {
   --sbb-status-icon-color: var(--sbb-color-red125-default);
 }
 
@@ -24,7 +26,7 @@
   --sbb-status-text-color: var(--sbb-color-green-default);
 }
 
-:host(:is([type='success'], [type='success'][data-has-title])) {
+:host(:is([type='success'], [type='success']#{$has-title})) {
   --sbb-status-icon-color: var(--sbb-color-green-default);
 }
 
@@ -33,7 +35,7 @@
   --sbb-status-text-color: var(--sbb-color-charcoal-default);
 }
 
-:host([data-has-title]) {
+:host(#{$has-title}) {
   --sbb-status-text-color: var(--sbb-color-granite-default);
   --sbb-status-icon-color: var(--sbb-color-charcoal-default);
   --sbb-status-gap: var(--sbb-spacing-responsive-xxxs);
@@ -61,6 +63,10 @@
 
 .sbb-status__title {
   margin-block: 0;
+
+  :host(:not([data-slot-names~='title'], [title-content])) & {
+    display: none;
+  }
 }
 
 .sbb-status__content-slot {

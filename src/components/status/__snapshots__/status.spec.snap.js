@@ -12,6 +12,16 @@ snapshots["sbb-status renders"] =
   >
   </sbb-icon>
   <span class="sbb-status__content">
+    <sbb-title
+      aria-level="3"
+      class="sbb-status__title"
+      level="3"
+      role="heading"
+      visual-level="5"
+    >
+      <slot name="title">
+      </slot>
+    </sbb-title>
     <p class="sbb-status__content-slot">
       <slot>
       </slot>

@@ -12,7 +12,9 @@ describe('sbb-status', () => {
 
     await waitForLitRender(root);
 
-    expect(root).dom.to.be.equal(`<sbb-status type="info">Status info text</sbb-status>`);
+    expect(root).dom.to.be.equal(
+      `<sbb-status type="info" data-slot-names="unnamed">Status info text</sbb-status>`,
+    );
 
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
@@ -25,7 +27,7 @@ describe('sbb-status', () => {
     await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(`
-      <sbb-status type="info" title-content="Title" data-has-title="">
+      <sbb-status type="info" title-content="Title" data-slot-names="unnamed">
         Status info text
       </sbb-status>
     `);

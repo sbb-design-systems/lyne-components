@@ -73,8 +73,6 @@ export class SbbToastElement extends LitElement {
   /** The state of the autocomplete. */
   @state() private _state: SbbOverlayState = 'closed';
 
-  // @state() private _namedSlots = createNamedSlotState('icon', 'action');
-
   /** Emits whenever the `sbb-toast` starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbToastElement.events.willOpen);
 
