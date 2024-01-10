@@ -1,7 +1,7 @@
 import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { FocusHandler } from '../../core/a11y';
+import { FocusHandler, FocusVisibleWithinController } from '../../core/a11y';
 import { SlotChildObserver } from '../../core/common-behaviors';
 import { findReferencedElement, isBrowser, toggleDatasetEntry } from '../../core/dom';
 
@@ -66,6 +66,7 @@ export class SbbHeaderElement extends SlotChildObserver(LitElement) {
   public override connectedCallback(): void {
     super.connectedCallback();
     this._setListenerOnScrollElement(this.scrollOrigin);
+    new FocusVisibleWithinController(this);
   }
 
   /** Removes the scroll listener, if previously attached. */
@@ -179,7 +180,6 @@ export class SbbHeaderElement extends SlotChildObserver(LitElement) {
 
   protected override checkChildren(): void {
     this._focusHandler.disconnect();
-    this._focusHandler.trackFocusVisibleWithin(this);
   }
 
   protected override render(): TemplateResult {

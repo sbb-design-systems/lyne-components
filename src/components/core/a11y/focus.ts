@@ -1,6 +1,3 @@
-import { toggleDatasetEntry } from '../dom';
-
-import { sbbInputModalityDetector } from './input-modality-detector';
 import { interactivityChecker } from './interactivity-checker';
 
 export const IS_FOCUSABLE_QUERY = [
@@ -106,28 +103,6 @@ export class FocusHandler {
           next.focus();
           event.preventDefault();
         }
-      },
-      { signal: this._controller.signal },
-    );
-  }
-
-  // Determine whether the element has a visible focus within.
-  public trackFocusVisibleWithin(element: HTMLElement): void {
-    element.addEventListener(
-      'focusin',
-      () => {
-        toggleDatasetEntry(
-          element,
-          'hasVisibleFocusWithin',
-          sbbInputModalityDetector.mostRecentModality === 'keyboard',
-        );
-      },
-      { signal: this._controller.signal },
-    );
-    element.addEventListener(
-      'focusout',
-      () => {
-        toggleDatasetEntry(element, 'hasVisibleFocusWithin', false);
       },
       { signal: this._controller.signal },
     );
