@@ -8,7 +8,7 @@ describe('sbb-title', () => {
 
   it('renders', async () => {
     await fixture(html`<sbb-title></sbb-title>`);
-    element = document.querySelector('sbb-title');
+    element = document.querySelector<SbbTitleElement>('sbb-title')!;
     assert.instanceOf(element, SbbTitleElement);
   });
 });

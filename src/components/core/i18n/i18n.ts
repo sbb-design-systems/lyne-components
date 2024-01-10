@@ -78,7 +78,7 @@ export const i18nWagonLabelNumber: Record<string, string> = {
   it: `Numero`,
 };
 
-export const i18nClosedCompartmentLabel = (wagonNumber: number): Record<string, string> => {
+export const i18nClosedCompartmentLabel = (wagonNumber?: number): Record<string, string> => {
   if (wagonNumber) {
     return {
       de: `Geschlossener Wagen mit der Nummer ${wagonNumber}`,

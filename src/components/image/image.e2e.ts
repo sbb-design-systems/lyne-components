@@ -9,7 +9,8 @@ import { SbbImageElement } from './image';
 describe('sbb-image', () => {
   let element: SbbImageElement;
 
-  it('renders', async function () {
+  // FIXME any type
+  it('renders', async function (this: any) {
     this.timeout(8000);
     const url = images[0];
     element = await fixture(html`<sbb-image image-src="${url}"></sbb-image>`);
@@ -18,7 +19,8 @@ describe('sbb-image', () => {
     await waitForLitRender(element);
 
     // Wait until the image is successfully be loaded
-    const img: HTMLImageElement = element.shadowRoot.querySelector('img.image__img');
+    const img: HTMLImageElement =
+      element.shadowRoot!.querySelector<HTMLImageElement>('img.image__img')!;
     await waitForCondition(() => img.complete, 30, 6000);
     await aTimeout(1000);
 

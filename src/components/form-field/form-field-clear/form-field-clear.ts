@@ -28,7 +28,7 @@ export class SbbFormFieldClearElement extends LitElement {
   @property({ reflect: true, type: Boolean }) public negative = false;
 
   private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
-  private _formField: SbbFormFieldElement;
+  private _formField?: SbbFormFieldElement;
   private _abort = new ConnectedAbortController(this);
   private _language = new LanguageController(this);
 
@@ -52,11 +52,11 @@ export class SbbFormFieldClearElement extends LitElement {
   }
 
   private async _handleClick(): Promise<void> {
-    const input = await this._formField.getInputElement();
+    const input = await this._formField?.getInputElement();
     if (!input || input.tagName !== 'INPUT') {
       return;
     }
-    await this._formField.clear();
+    await this._formField?.clear();
     input.focus();
     input.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
     input.dispatchEvent(new Event('change', { bubbles: true }));

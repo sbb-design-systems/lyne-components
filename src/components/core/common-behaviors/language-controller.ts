@@ -51,7 +51,7 @@ export class LanguageController implements ReactiveController {
     return LanguageController.current;
   }
 
-  private _previousLanguage: string;
+  private _previousLanguage?: string;
   private _handlers: (() => void)[] = [];
 
   public constructor(private _host: ReactiveControllerHost) {

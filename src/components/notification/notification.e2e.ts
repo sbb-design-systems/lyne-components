@@ -45,14 +45,14 @@ describe('sbb-notification', () => {
     expect(element).to.have.attribute('data-state', 'closed');
 
     await aTimeout(0);
-    element = document.querySelector('sbb-notification');
+    element = document.querySelector<SbbNotificationElement>('sbb-notification')!;
     expect(element).to.be.null;
   });
 
   it('closes the notification and removes it from the DOM on close button click', async () => {
     const willCloseEventSpy = new EventSpy(SbbNotificationElement.events.willClose);
     const didCloseEventSpy = new EventSpy(SbbNotificationElement.events.didClose);
-    const closeButton = element.shadowRoot.querySelector(
+    const closeButton = element.shadowRoot!.querySelector(
       '.sbb-notification__close',
     ) as SbbButtonElement;
 
@@ -73,7 +73,7 @@ describe('sbb-notification', () => {
     expect(element).to.have.attribute('data-state', 'closed');
 
     await aTimeout(0);
-    element = document.querySelector('sbb-notification');
+    element = document.querySelector<SbbNotificationElement>('sbb-notification')!;
     expect(element).to.be.null;
   });
 });

@@ -16,7 +16,7 @@ export class SbbCardElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Size variant, either xs, s, m, l, xl, xxl or xxxl. */
-  @property({ reflect: true }) public size?: 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl' | 'xxxl' = 'm';
+  @property({ reflect: true }) public size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl' | 'xxxl' = 'm';
 
   /** Option to set the component's background color. */
   @property({ reflect: true }) public color:

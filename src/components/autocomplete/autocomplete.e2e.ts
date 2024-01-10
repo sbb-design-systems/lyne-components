@@ -23,8 +23,8 @@ describe('sbb-autocomplete', () => {
       </sbb-form-field>
       <button>Use this for backdrop click</button>
     `);
-    input = formField.querySelector('input');
-    element = formField.querySelector('sbb-autocomplete');
+    input = formField.querySelector<HTMLInputElement>('input')!;
+    element = formField.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
   });
 
   it('renders and sets the correct attributes', () => {
@@ -111,7 +111,7 @@ describe('sbb-autocomplete', () => {
     await waitForLitRender(element);
 
     expect(optionSelectedEventSpy.count).to.be.equal(1);
-    expect(optionSelectedEventSpy.firstEvent.target).to.have.property('id', 'option-2');
+    expect(optionSelectedEventSpy.firstEvent?.target).to.have.property('id', 'option-2');
   });
 
   it('opens and select with keyboard', async () => {

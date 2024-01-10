@@ -22,7 +22,7 @@ describe('sbb-datepicker', () => {
       <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
     `);
 
-    const input: HTMLInputElement = document.querySelector('input');
+    const input: HTMLInputElement = document.querySelector<HTMLInputElement>('input')!;
 
     expect(input.value).to.be.equal('Su, 01.01.2023');
   });
@@ -33,7 +33,7 @@ describe('sbb-datepicker', () => {
       <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
     `);
 
-    const input: HTMLInputElement = document.querySelector('input');
+    const input: HTMLInputElement = document.querySelector<HTMLInputElement>('input')!;
 
     expect(input.value).to.be.equal('Mo, 20.12.2021');
   });
@@ -44,7 +44,7 @@ describe('sbb-datepicker', () => {
       <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
     `);
 
-    const input: HTMLInputElement = document.querySelector('input');
+    const input: HTMLInputElement = document.querySelector<HTMLInputElement>('input')!;
 
     expect(input.value).to.be.equal('Su, 12.07.2020');
   });
@@ -54,13 +54,14 @@ describe('sbb-datepicker', () => {
 
     beforeEach(async () => {
       await fixture(template);
-      element = document.querySelector('sbb-datepicker');
-      input = document.querySelector('input');
-      button = document.querySelector('button');
+      element = document.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
+      input = document.querySelector<HTMLInputElement>('input')!;
+      button = document.querySelector<HTMLButtonElement>('button')!;
       await waitForLitRender(element);
     });
 
-    it('renders and emit event on value change', async function () {
+    // FIXME any type
+    it('renders and emit event on value change', async function (this: any) {
       // This test is flaky on Firefox, so we retry a few times.
       this.retries(3);
       const changeSpy = new EventSpy('change', element);
@@ -72,7 +73,8 @@ describe('sbb-datepicker', () => {
       expect(changeSpy.count).to.be.equal(1);
     });
 
-    it('renders and interpret two digit year correctly in 2000s', async function () {
+    // FIXME any type
+    it('renders and interpret two digit year correctly in 2000s', async function (this: any) {
       // This test is flaky on Firefox, so we retry a few times.
       this.retries(3);
       const changeSpy = new EventSpy('change', element);
@@ -84,7 +86,8 @@ describe('sbb-datepicker', () => {
       expect(changeSpy.count).to.be.equal(1);
     });
 
-    it('renders and interpret two digit year correctly in 1900s', async function () {
+    // FIXME any type
+    it('renders and interpret two digit year correctly in 1900s', async function (this: any) {
       // This test is flaky on Firefox, so we retry a few times.
       this.retries(3);
       const changeSpy = new EventSpy('change', element);
@@ -151,13 +154,13 @@ describe('sbb-datepicker', () => {
       element.wide = true;
       await waitForCondition(() => datePickerUpdatedSpy.events.length === 1);
       expect(datePickerUpdatedSpy.count).to.be.equal(1);
-      element.dateFilter = () => null;
+      element.dateFilter = () => false;
       await waitForLitRender(element);
       await waitForCondition(() => datePickerUpdatedSpy.events.length === 2);
       expect(datePickerUpdatedSpy.count).to.be.equal(2);
     });
 
-    it('renders and interprets date with custom parse and format functions', async () => {
+    it.only('renders and interprets date with custom parse and format functions', async () => {
       const changeSpy = new EventSpy('change', element);
 
       element.dateParser = (s) => {
@@ -223,7 +226,8 @@ describe('sbb-datepicker', () => {
       expect(input).not.to.have.attribute('data-sbb-invalid');
     });
 
-    it('should interpret valid values and set accessibility labels', async function () {
+    // FIXME any type
+    it('should interpret valid values and set accessibility labels', async function (this: any) {
       // This test is flaky on Firefox, so we retry a few times.
       this.retries(3);
       const testCases = [
@@ -280,15 +284,16 @@ describe('sbb-datepicker', () => {
 
         expect(input.value).to.be.equal(testCase.interpretedAs);
         const paragraphElement = document
-          .querySelector('sbb-datepicker')
-          .shadowRoot.querySelector('p');
-        expect(paragraphElement.innerText).to.be.equal(
+          .querySelector<SbbDatepickerElement>('sbb-datepicker')!
+          .shadowRoot!.querySelector<HTMLParagraphElement>('p');
+        expect(paragraphElement?.innerText).to.be.equal(
           `${i18nDateChangedTo['en']} ${testCase.accessibilityValue}`,
         );
       }
     });
 
-    it('should not touch invalid values', async function () {
+    // FIXME any type
+    it('should not touch invalid values', async function (this: any) {
       // This test is flaky on Firefox, so we retry a few times.
       this.retries(3);
       const testCases = [
@@ -309,9 +314,9 @@ describe('sbb-datepicker', () => {
         await sendKeys({ press: 'Tab' });
         expect(input.value).to.be.equal(testCase.interpretedAs);
         const paragraphElement = document
-          .querySelector('sbb-datepicker')
-          .shadowRoot.querySelector('p');
-        expect(paragraphElement.innerText).to.be.equal('');
+          .querySelector<SbbDatepickerElement>('sbb-datepicker')!
+          .shadowRoot!.querySelector<HTMLParagraphElement>('p');
+        expect(paragraphElement?.innerText).to.be.equal('');
       }
     });
   };

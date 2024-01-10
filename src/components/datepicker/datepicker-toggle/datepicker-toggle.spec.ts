@@ -47,7 +47,8 @@ describe('sbb-datepicker-toggle', () => {
           <input />
         </sbb-form-field>
       `);
-      const element: SbbDatepickerToggleElement = page.querySelector('sbb-datepicker-toggle');
+      const element: SbbDatepickerToggleElement =
+        page.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
       expect(element).dom.to.be.equal(
         `<sbb-datepicker-toggle slot="prefix"></sbb-datepicker-toggle>`,
       );
@@ -84,7 +85,8 @@ describe('sbb-datepicker-toggle', () => {
           <input disabled />
         </sbb-form-field>
       `);
-      const element: SbbDatepickerToggleElement = page.querySelector('sbb-datepicker-toggle');
+      const element: SbbDatepickerToggleElement =
+        page.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
       expect(element).dom.to.be.equal(
         `<sbb-datepicker-toggle slot="prefix"></sbb-datepicker-toggle>`,
       );
@@ -122,7 +124,8 @@ describe('sbb-datepicker-toggle', () => {
           <input min="1600000000" max="1700000000" />
         </sbb-form-field>
       `);
-      const element: SbbDatepickerToggleElement = page.querySelector('sbb-datepicker-toggle');
+      const element: SbbDatepickerToggleElement =
+        page.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
       expect(element).dom.to.be.equal(
         `<sbb-datepicker-toggle slot="prefix"></sbb-datepicker-toggle>`,
       );

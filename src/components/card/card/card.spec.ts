@@ -21,6 +21,6 @@ describe('sbb-card', () => {
       </sbb-card>`,
     );
 
-    expect(root.shadowRoot.querySelector(cardBadgeWrapperSelector)).not.to.be.ok;
+    expect(root.shadowRoot!.querySelector(cardBadgeWrapperSelector)).not.to.be.ok;
   });
 });

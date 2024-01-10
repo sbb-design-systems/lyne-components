@@ -52,7 +52,7 @@ export class SbbToggleElement extends LitElement {
   /**
    * If true, set the width of the component fixed; if false, the width is dynamic based on the label of the sbb-toggle-option.
    */
-  @property({ reflect: true, type: Boolean }) public even: boolean;
+  @property({ reflect: true, type: Boolean }) public even: boolean = false;
 
   /**
    * Size variant, either m or s.
@@ -72,8 +72,8 @@ export class SbbToggleElement extends LitElement {
   @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
   public disableAnimation = false;
 
-  private _loaded = false;
-  private _toggleElement: HTMLElement;
+  private _loaded: boolean = false;
+  private _toggleElement!: HTMLElement;
   private _toggleResizeObserver = new AgnosticResizeObserver(() =>
     this._setCheckedPillPosition(true),
   );
@@ -191,7 +191,8 @@ export class SbbToggleElement extends LitElement {
     this.addEventListener('input', () => this._handleInput(), { signal, passive: true });
     this.addEventListener(
       'stateChange',
-      (e) => this._handleStateChange(e as CustomEvent<SbbToggleStateChange>),
+      (e: CustomEvent<SbbStateChange>) =>
+        this._handleStateChange(e as CustomEvent<SbbToggleStateChange>),
       {
         signal,
         passive: true,

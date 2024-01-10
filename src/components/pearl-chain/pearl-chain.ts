@@ -27,7 +27,7 @@ export class SbbPearlChainElement extends LitElement {
    * to the total travel time. Example: departure 16:30, change at 16:40,
    * arrival at 17:00. So the change should have a duration of 33.33%.
    */
-  @property({ type: Array }) public legs: (Leg | PtRideLeg)[];
+  @property({ type: Array }) public legs?: (Leg | PtRideLeg)[];
 
   /**
    * Per default, the current location has a pulsating animation. You can
@@ -36,20 +36,25 @@ export class SbbPearlChainElement extends LitElement {
   @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
 
   private _now(): number {
-    const dataNow = +this.dataset?.now;
+    const dataNow = +(this.dataset?.now as string);
     return isNaN(dataNow) ? Date.now() : dataNow;
   }
 
   private _getAllDuration(legs: PtRideLeg[]): number {
-    return legs?.reduce(
-      (sum: number, leg) =>
-        sum +
-        differenceInMinutes(
-          removeTimezoneFromISOTimeString(leg.arrival?.time),
-          removeTimezoneFromISOTimeString(leg.departure?.time),
-        ),
-      0,
-    );
+    return legs?.reduce((sum: number, leg) => {
+      const arrivalNoTz = removeTimezoneFromISOTimeString(leg.arrival?.time);
+      const departureNoTz = removeTimezoneFromISOTimeString(leg.departure?.time);
+      if (arrivalNoTz && departureNoTz) {
+        return (
+          sum +
+          differenceInMinutes(
+            removeTimezoneFromISOTimeString(leg.arrival.time)!,
+            removeTimezoneFromISOTimeString(leg.departure.time)!,
+          )
+        );
+      }
+      return sum;
+    }, 0);
   }
 
   private _isAllCancelled(legs: PtRideLeg[]): boolean {
@@ -57,34 +62,42 @@ export class SbbPearlChainElement extends LitElement {
   }
 
   private _getRelativeDuration(legs: PtRideLeg[], leg: PtRideLeg): number {
-    const duration = differenceInMinutes(
-      removeTimezoneFromISOTimeString(leg.arrival?.time),
-      removeTimezoneFromISOTimeString(leg.departure?.time),
-    );
-    const allDurations = this._getAllDuration(legs);
+    const arrivalNoTz = removeTimezoneFromISOTimeString(leg.arrival?.time);
+    const departureNoTz = removeTimezoneFromISOTimeString(leg.departure?.time);
+    if (arrivalNoTz && departureNoTz) {
+      const duration = differenceInMinutes(
+        removeTimezoneFromISOTimeString(leg.arrival.time)!,
+        removeTimezoneFromISOTimeString(leg.departure.time)!,
+      );
+      const allDurations = this._getAllDuration(legs);
 
-    if (allDurations === 0) return 100;
+      if (allDurations === 0) return 100;
 
-    return (duration / allDurations) * 100;
+      return (duration / allDurations) * 100;
+    }
+    return 0;
   }
 
-  private _getProgress(start: Date, end: Date): number {
+  private _getProgress(start?: Date, end?: Date): number {
+    if (!start || !end) {
+      return 0;
+    }
     const total = differenceInMinutes(end, start);
     const progress = differenceInMinutes(this._now(), start);
 
     return total && (progress / total) * 100;
   }
 
-  private _getStatus(end: Date, start?: Date): Status {
-    if (start && isBefore(start, this._now()) && isAfter(end, this._now())) {
+  private _getStatus(end?: Date, start?: Date): Status {
+    if (start && end && isBefore(start, this._now()) && isAfter(end, this._now())) {
       return 'progress';
-    } else if (isBefore(end, this._now())) {
+    } else if (end && isBefore(end, this._now())) {
       return 'past';
     }
     return 'future';
   }
 
-  private _renderPosition(start: Date, end: Date): TemplateResult | undefined {
+  private _renderPosition(start?: Date, end?: Date): TemplateResult | undefined {
     const currentPosition = this._getProgress(start, end);
     if (currentPosition < 0 && currentPosition > 100) return undefined;
 

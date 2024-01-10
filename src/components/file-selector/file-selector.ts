@@ -4,6 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
+import type { SbbButtonElement } from '../button';
 import { sbbInputModalityDetector } from '../core/a11y';
 import { LanguageController, NamedSlotStateController } from '../core/common-behaviors';
 import { toggleDatasetEntry } from '../core/dom';
@@ -38,26 +39,26 @@ export class SbbFileSelectorElement extends LitElement {
   @property() public variant: 'default' | 'dropzone' = 'default';
 
   /** Whether more than one file can be selected. */
-  @property({ type: Boolean }) public multiple: boolean;
+  @property({ type: Boolean }) public multiple: boolean = false;
 
   /** Whether the newly added files should override the previously added ones. */
   @property({ attribute: 'multiple-mode' })
-  public multipleMode: 'default' | 'persistent';
+  public multipleMode: 'default' | 'persistent' = 'default';
 
   /** A comma-separated list of allowed unique file type specifiers. */
-  @property() public accept: string;
+  @property() public accept?: string;
 
   /** The title displayed in `dropzone` variant. */
   @property({ attribute: 'title-content' }) public titleContent?: string;
 
   /** Whether the component is disabled. */
-  @property({ reflect: true, type: Boolean }) public disabled: boolean;
+  @property({ reflect: true, type: Boolean }) public disabled: boolean = false;
 
   /** This will be forwarded as aria-label to the native input element. */
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
 
   /** The list of selected files. */
-  @state() private _files: File[];
+  @state() private _files?: File[];
 
   /** An event which is emitted each time the file list changes. */
   private _fileChangedEvent: EventEmitter<File[]> = new EventEmitter(
@@ -83,11 +84,11 @@ export class SbbFileSelectorElement extends LitElement {
   // this will require a counter to correctly handle the dragEnter/dragLeave.
   private _counter: number = 0;
 
-  private _loadButton: HTMLElement;
-  private _dragTarget: HTMLElement;
-  private _hiddenInput: HTMLInputElement;
+  private _loadButton!: SbbButtonElement;
+  private _dragTarget?: HTMLElement;
+  private _hiddenInput!: HTMLInputElement;
   private _suffixes: string[] = ['B', 'kB', 'MB', 'GB', 'TB'];
-  private _liveRegion: HTMLElement;
+  private _liveRegion!: HTMLParagraphElement;
 
   private _language = new LanguageController(this);
 
@@ -130,7 +131,7 @@ export class SbbFileSelectorElement extends LitElement {
     if (!this.disabled) {
       this._setDragState();
       this._blockEvent(event);
-      this._createFileList(event.dataTransfer.files);
+      this._createFileList(event.dataTransfer!.files);
     }
   }
 
@@ -146,7 +147,10 @@ export class SbbFileSelectorElement extends LitElement {
     }
   }
 
-  private _setDragState(dragTarget: HTMLElement = undefined, isDragEnter: boolean = false): void {
+  private _setDragState(
+    dragTarget: HTMLElement | undefined = undefined,
+    isDragEnter: boolean = false,
+  ): void {
     this._dragTarget = dragTarget;
     toggleDatasetEntry(this, 'active', isDragEnter);
     toggleDatasetEntry(this._loadButton, 'active', isDragEnter);
@@ -171,7 +175,7 @@ export class SbbFileSelectorElement extends LitElement {
       this._files = Array.from(files)
         .filter(
           (newFile: File): boolean =>
-            this._files.findIndex((oldFile: File) => this._checkFileEquality(newFile, oldFile)) ===
+            this._files!.findIndex((oldFile: File) => this._checkFileEquality(newFile, oldFile)) ===
             -1,
         )
         .concat(this._files);
@@ -183,7 +187,7 @@ export class SbbFileSelectorElement extends LitElement {
   }
 
   private _removeFile(file: File): void {
-    this._files = this._files.filter((f: File) => !this._checkFileEquality(file, f));
+    this._files = this._files!.filter((f: File) => !this._checkFileEquality(file, f));
     // The item must be removed from the hidden file input too; the FileList API is flawed, so the DataTransfer object is used.
     const dt: DataTransfer = new DataTransfer();
     this._files.forEach((e: File) => dt.items.add(e));
@@ -208,8 +212,8 @@ export class SbbFileSelectorElement extends LitElement {
         is-static
         icon-name="folder-open-small"
         ?disabled=${this.disabled}
-        ${ref((el: HTMLElement): void => {
-          this._loadButton = el;
+        ${ref((el?: Element): void => {
+          this._loadButton = el as SbbButtonElement;
         })}
       >
         ${i18nFileSelectorButtonLabel[this._language.current]}
@@ -233,8 +237,8 @@ export class SbbFileSelectorElement extends LitElement {
             size="m"
             ?disabled=${this.disabled}
             is-static
-            ${ref((el: HTMLElement): void => {
-              this._loadButton = el;
+            ${ref((el?: Element): void => {
+              this._loadButton = el as SbbButtonElement;
             })}
           >
             ${i18nFileSelectorButtonLabel[this._language.current]}
@@ -246,14 +250,14 @@ export class SbbFileSelectorElement extends LitElement {
 
   private _renderFileList(): TemplateResult {
     const TAG_NAME: Record<string, string> =
-      this._files.length > 1
+      this._files!.length > 1
         ? { WRAPPER: 'ul', ELEMENT: 'li' }
         : { WRAPPER: 'div', ELEMENT: 'span' };
 
     /* eslint-disable lit/binding-positions */
     return html`
       <${unsafeStatic(TAG_NAME.WRAPPER)} class="sbb-file-selector__file-list">
-        ${this._files.map(
+        ${this._files!.map(
           (file: File) => html`
           <${unsafeStatic(TAG_NAME.ELEMENT)} class="sbb-file-selector__file">
             <span class="sbb-file-selector__file-details">
@@ -299,8 +303,8 @@ export class SbbFileSelectorElement extends LitElement {
               @change=${this._readFiles}
               @focus=${this._onFocus}
               @blur=${this._onBlur}
-              ${ref((el: HTMLInputElement): void => {
-                this._hiddenInput = el;
+              ${ref((el?: Element): void => {
+                this._hiddenInput = el as HTMLInputElement;
               })}
             />
           </label>
@@ -308,7 +312,7 @@ export class SbbFileSelectorElement extends LitElement {
         <p
           role="status"
           class="sbb-file-selector__visually-hidden"
-          ${ref((p: HTMLElement) => (this._liveRegion = p))}
+          ${ref((p?: Element) => (this._liveRegion = p as HTMLParagraphElement))}
         ></p>
         ${this._files && this._files.length > 0 ? this._renderFileList() : nothing}
         <div class="sbb-file-selector__error">

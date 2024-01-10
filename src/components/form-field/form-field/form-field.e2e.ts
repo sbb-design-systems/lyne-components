@@ -15,7 +15,7 @@ describe('sbb-form-field', () => {
 
     beforeEach(async () => {
       element = await fixture(html`<sbb-form-field><input /></sbb-form-field>`);
-      input = element.querySelector('input');
+      input = element.querySelector<HTMLInputElement>('input')!;
     });
 
     it('renders', async () => {
@@ -63,7 +63,7 @@ describe('sbb-form-field', () => {
         <sbb-form-field><input /></sbb-form-field>
         <button></button>
       `);
-      input = element.querySelector('input');
+      input = element.querySelector<HTMLInputElement>('input')!;
 
       expect(element).not.to.have.attribute('data-input-focused');
 
@@ -145,7 +145,7 @@ describe('sbb-form-field', () => {
           <sbb-select><sbb-option>Test</sbb-option></sbb-select>
         </sbb-form-field>
       `);
-      select = document.querySelector('sbb-select');
+      select = document.querySelector<SbbSelectElement>('sbb-select')!;
       await waitForLitRender(element);
     });
 
@@ -171,7 +171,7 @@ describe('sbb-form-field', () => {
       expect(element).not.to.have.attribute('data-input-focused');
 
       const label = document.querySelector('label');
-      label.click();
+      label?.click();
       await waitForLitRender(element);
 
       expect(select).to.have.attribute('data-state', 'opening');
@@ -184,7 +184,7 @@ describe('sbb-form-field', () => {
       expect(element).not.to.have.attribute('data-input-focused');
 
       const label = document.querySelector('label');
-      label.click();
+      label?.click();
       await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-input-focused');
@@ -195,8 +195,8 @@ describe('sbb-form-field', () => {
       await waitForLitRender(element);
       const label = document.querySelector('label');
 
-      expect(label.id).to.match(/^sbb-form-field-label-/);
-      expect(select).to.have.attribute('aria-labelledby', label.id);
+      expect(label?.id).to.match(/^sbb-form-field-label-/);
+      expect(select).to.have.attribute('aria-labelledby', label?.id);
     });
   });
 
@@ -269,7 +269,7 @@ describe('sbb-form-field', () => {
         </sbb-form-field>`,
       );
 
-      document.querySelector('sbb-select').value = '';
+      document.querySelector<SbbSelectElement>('sbb-select')!.value = '';
       await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-input-empty');
@@ -283,8 +283,8 @@ describe('sbb-form-field', () => {
           </sbb-form-field>
         </form>
       `)) as HTMLFormElement;
-      const element = form.querySelector('sbb-form-field');
-      form.querySelector('input').focus();
+      const element = form.querySelector<SbbFormFieldElement>('sbb-form-field')!;
+      form.querySelector('input')?.focus();
       await sendKeys({ type: 'test' });
       await waitForLitRender(element);
       expect(element).not.to.have.attribute('data-input-empty');
@@ -303,7 +303,7 @@ describe('sbb-form-field', () => {
         </sbb-form-field>
       `);
 
-      const input = document.querySelector('input');
+      const input = document.querySelector<HTMLInputElement>('input')!;
 
       input.focus();
       await sendKeys({ type: 'test' });

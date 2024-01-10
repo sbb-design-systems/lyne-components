@@ -2,9 +2,9 @@ import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import type { SbbButtonSize } from '../button';
+import type { SbbButtonElement, SbbButtonSize } from '../button';
 import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
-import type { SbbLinkSize } from '../link';
+import type { SbbLinkElement, SbbLinkSize } from '../link';
 
 import style from './action-group.scss?lit&inline';
 
@@ -27,7 +27,7 @@ export class SbbActionGroupElement extends LitElement {
    * Overrides the behaviour of `orientation` property.
    */
   @property({ attribute: 'horizontal-from', reflect: true })
-  public horizontalFrom?: SbbHorizontalFrom = 'medium';
+  public horizontalFrom: SbbHorizontalFrom = 'medium';
 
   /**
    * Indicates the orientation of the components inside the `<sbb-action-group>`.
@@ -40,17 +40,19 @@ export class SbbActionGroupElement extends LitElement {
    * sbb-button instances.
    */
   @property({ attribute: 'button-size', reflect: true })
-  public buttonSize?: SbbButtonSize = 'l';
+  public buttonSize: SbbButtonSize = 'l';
 
   /**
    * Size of the nested sbb-link instances. This will overwrite the size attribute of nested
    * sbb-link instances.
    */
   @property({ attribute: 'link-size', reflect: true })
-  public linkSize?: SbbLinkSize = 'm';
+  public linkSize: SbbLinkSize = 'm';
 
   private _syncButtons(): void {
-    this.querySelectorAll?.('sbb-button').forEach((b) => (b.size = this.buttonSize));
+    this.querySelectorAll?.('sbb-button').forEach(
+      (b: SbbButtonElement) => (b.size = this.buttonSize),
+    );
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -63,7 +65,7 @@ export class SbbActionGroupElement extends LitElement {
   }
 
   private _syncLinks(): void {
-    this.querySelectorAll?.('sbb-link').forEach((link) => {
+    this.querySelectorAll?.('sbb-link').forEach((link: SbbLinkElement) => {
       link.variant = 'block';
       link.size = this.linkSize;
     });

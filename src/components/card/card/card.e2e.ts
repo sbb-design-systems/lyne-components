@@ -27,7 +27,7 @@ describe('sbb-card', () => {
 
     expect(
       getComputedStyle(
-        element.shadowRoot.querySelector('.sbb-card__badge-wrapper'),
+        element.shadowRoot!.querySelector<HTMLSpanElement>('.sbb-card__badge-wrapper')!,
       ).getPropertyValue('display'),
     ).not.to.be.equal('none');
     expect(element).to.have.attribute('data-has-card-badge');
@@ -65,7 +65,7 @@ describe('sbb-card', () => {
 
     expect(
       getComputedStyle(
-        element.shadowRoot.querySelector('.sbb-card__badge-wrapper'),
+        element.shadowRoot!.querySelector<HTMLSpanElement>('.sbb-card__badge-wrapper')!,
       ).getPropertyValue('display'),
     ).to.be.equal('none');
     expect(element).not.to.have.attribute('data-has-card-badge');

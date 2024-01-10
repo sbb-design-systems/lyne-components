@@ -1,10 +1,10 @@
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 
 export class ConnectedAbortController implements ReactiveController {
-  private _abortController = new AbortController();
+  private _abortController?: AbortController = new AbortController();
 
-  public get signal(): AbortSignal {
-    return this._abortController.signal;
+  public get signal(): AbortSignal | undefined {
+    return this._abortController?.signal;
   }
 
   public constructor(private _host: ReactiveControllerHost) {
@@ -18,7 +18,7 @@ export class ConnectedAbortController implements ReactiveController {
   }
 
   public hostDisconnected(): void {
-    this._abortController.abort();
+    this._abortController?.abort();
     this._abortController = undefined;
   }
 }

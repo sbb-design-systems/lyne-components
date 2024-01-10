@@ -28,15 +28,18 @@ describe('sbb-breadcrumb-group', () => {
     });
 
     it('keyboard navigation', async () => {
-      const first: SbbBreadcrumbElement = document.querySelector('#breadcrumb-0');
-      const second: SbbBreadcrumbElement = document.querySelector('#breadcrumb-1');
-      const third: SbbBreadcrumbElement = document.querySelector('#breadcrumb-2');
+      const first: SbbBreadcrumbElement =
+        document.querySelector<SbbBreadcrumbElement>('#breadcrumb-0')!;
+      const second: SbbBreadcrumbElement =
+        document.querySelector<SbbBreadcrumbElement>('#breadcrumb-1')!;
+      const third: SbbBreadcrumbElement =
+        document.querySelector<SbbBreadcrumbElement>('#breadcrumb-2')!;
 
       first.focus();
       await sendKeys({ down: 'ArrowRight' });
-      expect(document.activeElement.id).to.be.equal(second.id);
+      expect(document.activeElement?.id).to.be.equal(second.id);
       await sendKeys({ down: 'ArrowRight' });
-      expect(document.activeElement.id).to.be.equal(third.id);
+      expect(document.activeElement?.id).to.be.equal(third.id);
     });
   });
 
@@ -60,10 +63,12 @@ describe('sbb-breadcrumb-group', () => {
       `);
       await waitForLitRender(breadcrumbGroup);
 
-      ellipsisListItemElement = breadcrumbGroup.shadowRoot.querySelector(
+      ellipsisListItemElement = breadcrumbGroup.shadowRoot!.querySelector<HTMLLIElement>(
         '#sbb-breadcrumb-group-ellipsis',
-      );
-      ellipsisButton = breadcrumbGroup.shadowRoot.querySelector('#sbb-breadcrumb-ellipsis');
+      )!;
+      ellipsisButton = breadcrumbGroup.shadowRoot!.querySelector<HTMLButtonElement>(
+        '#sbb-breadcrumb-ellipsis',
+      )!;
     });
 
     it('renders', async () => {
@@ -71,7 +76,7 @@ describe('sbb-breadcrumb-group', () => {
       expect(ellipsisButton).not.to.be.null;
 
       // only three list items are displayed, and the middle one is the ellipsis button
-      const li = breadcrumbGroup.shadowRoot.querySelectorAll('li');
+      const li = breadcrumbGroup.shadowRoot!.querySelectorAll('li');
       expect(li).not.to.be.null;
       expect(li.length).to.be.equal(3);
       expect(li[1]).dom.to.be.equal(`
@@ -84,7 +89,7 @@ describe('sbb-breadcrumb-group', () => {
       `);
 
       // only two slots are displayed, and the second is the last one
-      const slots = breadcrumbGroup.shadowRoot.querySelectorAll('li > slot');
+      const slots = breadcrumbGroup.shadowRoot!.querySelectorAll('li > slot');
       expect(slots.length).to.be.equal(2);
       expect(slots[0]).to.have.attribute('name', 'breadcrumb-0');
       expect(slots[1]).to.have.attribute('name', 'breadcrumb-6');
@@ -93,21 +98,23 @@ describe('sbb-breadcrumb-group', () => {
     it('keyboard navigation with ellipsis', async () => {
       expect(ellipsisListItemElement).not.to.be.null;
       expect(ellipsisButton).not.to.be.null;
-      const first: SbbBreadcrumbElement = document.querySelector('#breadcrumb-0');
-      const last: SbbBreadcrumbElement = document.querySelector('#breadcrumb-6');
+      const first: SbbBreadcrumbElement =
+        document.querySelector<SbbBreadcrumbElement>('#breadcrumb-0')!;
+      const last: SbbBreadcrumbElement =
+        document.querySelector<SbbBreadcrumbElement>('#breadcrumb-6')!;
 
       first.focus();
-      expect(document.activeElement.id).to.be.equal(first.id);
+      expect(document.activeElement?.id).to.be.equal(first.id);
 
       await sendKeys({ down: 'ArrowRight' });
-      expect(document.activeElement.id).to.be.equal(breadcrumbGroup.id);
-      expect(breadcrumbGroup.shadowRoot.activeElement.id).to.be.equal(ellipsisButton.id);
+      expect(document.activeElement?.id).to.be.equal(breadcrumbGroup.id);
+      expect(breadcrumbGroup.shadowRoot?.activeElement?.id).to.be.equal(ellipsisButton.id);
 
       await sendKeys({ down: 'ArrowRight' });
-      expect(document.activeElement.id).to.be.equal(last.id);
+      expect(document.activeElement?.id).to.be.equal(last.id);
 
       await sendKeys({ down: 'ArrowRight' });
-      expect(document.activeElement.id).to.be.equal(first.id);
+      expect(document.activeElement?.id).to.be.equal(first.id);
     });
 
     it('expand breadcrumbs with ellipsis', async () => {
@@ -118,10 +125,10 @@ describe('sbb-breadcrumb-group', () => {
       await waitForLitRender(ellipsisListItemElement);
       await waitForCondition(() => changeSpy.events.length === 1);
 
-      ellipsisListItemElement = breadcrumbGroup.shadowRoot.querySelector(
+      ellipsisListItemElement = breadcrumbGroup.shadowRoot!.querySelector(
         '#sbb-breadcrumb-group-ellipsis',
-      );
-      ellipsisButton = breadcrumbGroup.shadowRoot.querySelector('#sbb-breadcrumb-ellipsis');
+      )!;
+      ellipsisButton = breadcrumbGroup.shadowRoot!.querySelector('#sbb-breadcrumb-ellipsis')!;
       expect(ellipsisListItemElement).to.be.null;
       expect(ellipsisButton).to.be.null;
     });
@@ -135,20 +142,20 @@ describe('sbb-breadcrumb-group', () => {
       await waitForLitRender(breadcrumbGroup);
 
       // Then focus should be on first breadcrumb
-      expect(document.activeElement.id).to.be.equal('breadcrumb-1');
+      expect(document.activeElement?.id).to.be.equal('breadcrumb-1');
 
       // When blurring the focus
       (document.activeElement as HTMLElement).blur();
 
       // Then the body should be focused
-      expect(document.activeElement.tagName).to.be.equal('BODY');
+      expect(document.activeElement?.tagName).to.be.equal('BODY');
 
       // When triggering a slotChange by removing a breadcrumb
-      document.getElementById('breadcrumb-6').remove();
+      document.getElementById('breadcrumb-6')?.remove();
       await waitForLitRender(breadcrumbGroup);
 
       // Then the body should still be focused
-      expect(document.activeElement.tagName).to.be.equal('BODY');
+      expect(document.activeElement?.tagName).to.be.equal('BODY');
     });
 
     it('should remove expand button when too less breadcrumbs available', async () => {
@@ -162,10 +169,10 @@ describe('sbb-breadcrumb-group', () => {
 
       await waitForLitRender(breadcrumbGroup);
 
-      ellipsisListItemElement = breadcrumbGroup.shadowRoot.querySelector(
+      ellipsisListItemElement = breadcrumbGroup.shadowRoot!.querySelector(
         '#sbb-breadcrumb-group-ellipsis',
-      );
-      ellipsisButton = breadcrumbGroup.shadowRoot.querySelector('#sbb-breadcrumb-ellipsis');
+      )!;
+      ellipsisButton = breadcrumbGroup.shadowRoot!.querySelector('#sbb-breadcrumb-ellipsis')!;
       expect(ellipsisListItemElement).to.be.null;
       expect(ellipsisButton).to.be.null;
     });

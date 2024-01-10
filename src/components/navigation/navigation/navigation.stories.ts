@@ -2,7 +2,14 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import { expect } from '@storybook/jest';
 import { userEvent, waitFor, within } from '@storybook/testing-library';
 import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
+import type {
+  Meta,
+  StoryObj,
+  ArgTypes,
+  Args,
+  Decorator,
+  StoryContext,
+} from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
@@ -20,7 +27,7 @@ import '../navigation-action';
 import '../../button';
 
 // Story interaction executed after the story renders
-const playStory = async ({ canvasElement }): Promise<void> => {
+const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
@@ -35,8 +42,8 @@ const playStory = async ({ canvasElement }): Promise<void> => {
   );
 };
 
-const playStoryWithSection = async ({ canvasElement }): Promise<void> => {
-  await playStory({ canvasElement });
+const playStoryWithSection = async ({ canvasElement }: StoryContext): Promise<void> => {
+  await playStory({ canvasElement } as StoryContext);
   const canvas = within(canvasElement);
 
   await waitFor(() =>

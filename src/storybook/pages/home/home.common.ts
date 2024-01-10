@@ -1,4 +1,4 @@
-import type { StoryContext } from '@storybook/web-components';
+import type { Args, StoryContext } from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
@@ -8,6 +8,7 @@ import { sbbSpread } from '../../../components/core/dom';
 import type {
   SbbNavigationElement,
   SbbNavigationMarkerElement,
+  SbbNavigationActionElement,
 } from '../../../components/navigation';
 import '../../../components/button';
 import '../../../components/card';
@@ -43,14 +44,14 @@ export const timetableInput = (): TemplateResult => html`
 const onNavigationClose = (dialog: SbbNavigationElement): void => {
   dialog?.addEventListener('did-close', () => {
     (document.getElementById('nav-marker') as SbbNavigationMarkerElement).reset();
-    document.getElementById('nav-1').setAttribute('active', '');
+    (document.getElementById('nav-1') as SbbNavigationActionElement).setAttribute('active', '');
   });
 };
 
 export const navigation = (): TemplateResult => html`
   <sbb-navigation
     trigger="hamburger-menu"
-    ${ref((dialog: SbbNavigationElement) => onNavigationClose(dialog))}
+    ${ref((dialog?: Element) => onNavigationClose(dialog as SbbNavigationElement))}
   >
     <sbb-navigation-marker id="nav-marker">
       <sbb-navigation-action aria-current="page" id="nav-1" active>
@@ -238,7 +239,7 @@ export const teaserHero = (): TemplateResult => html`
   </section>
 `;
 
-export const footer = (args): TemplateResult => html`
+export const footer = (args: Args): TemplateResult => html`
   <sbb-footer accessibility-title="Footer" variant="clock-columns" ?negative=${args.negative}>
     <div class="sbb-link-list-button-group">
       <sbb-link-list title-level="2" title-content="Help &amp; Contact." ?negative=${args.negative}>

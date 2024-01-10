@@ -1,7 +1,7 @@
 export class NodeIntersectionObserver implements IntersectionObserver {
-  public root;
-  public rootMargin;
-  public thresholds;
+  public root!: Element | Document | null;
+  public rootMargin!: string;
+  public thresholds!: number[];
 
   public disconnect(): void {
     // noop

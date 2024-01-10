@@ -62,7 +62,7 @@ export interface DateAdapter<T = any> {
    * Checks whether a given `date` is valid.
    * @param date
    * */
-  isValid: (date: T) => boolean;
+  isValid: (date: T | null | undefined) => boolean;
 
   /** Creates a new date by cloning the given one.
    * @param date
@@ -75,7 +75,7 @@ export interface DateAdapter<T = any> {
    * @param month
    * @param date
    * */
-  createDate: (year: number, month: number, date: number) => T;
+  createDate: (year: number, month: number, date: number) => T | undefined;
 
   /**
    * Creates a new date given a ISO String.
@@ -88,7 +88,7 @@ export interface DateAdapter<T = any> {
    * @param date Either Date, ISOString, Unix Timestamp (number of seconds since Jan 1, 1970).
    * @returns The date if the input is valid, `null` otherwise.
    * */
-  deserializeDate: (date: T | string | number) => T | null;
+  deserializeDate: (date: T | string | number | null | undefined) => T | null;
 
   /**
    * Checks whether the two dates are non-null and are in the same month of the same year.
@@ -134,7 +134,7 @@ export interface DateAdapter<T = any> {
    * @param minDate The minimum date, if set.
    * @param maxDate The maximum date, if set.
    */
-  getStartValueYearView: (activeDate: T, minDate: T | null, maxDate: T | null) => number;
+  getStartValueYearView: (activeDate: T, minDate?: T | null, maxDate?: T | null) => number;
 
   /** Get the date in the local format.
    * @param date The date to format
@@ -146,12 +146,12 @@ export interface DateAdapter<T = any> {
    * @param value The date in the format DD.MM.YYYY.
    * @param now The current date as Date.
    */
-  parseDate: (value: string, now: Date) => T;
+  parseDate: (value: string | null | undefined, now: Date) => T | undefined;
 
   /** Format the given Date as string.
    * @param value The date to format.
    */
-  format: (date: T) => string;
+  format: (date: T | null | undefined) => string;
 
   /** Checks whether the given `obj` is a Date.
    * @param obj The object to check.

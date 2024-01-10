@@ -83,7 +83,7 @@ export class SbbCheckboxElement extends UpdateScheduler(LitElement) {
   public get group(): SbbCheckboxGroupElement | null {
     return this._group;
   }
-  private _group: SbbCheckboxGroupElement | null;
+  private _group: SbbCheckboxGroupElement | null = null;
 
   /** Whether the checkbox is indeterminate. */
   @property({ reflect: true, type: Boolean }) public indeterminate = false;
@@ -115,10 +115,10 @@ export class SbbCheckboxElement extends UpdateScheduler(LitElement) {
   @state() private _isSelectionPanelInput = false;
 
   /** The label describing whether the selection panel is expanded (for screen readers only). */
-  @state() private _selectionPanelExpandedLabel: string;
+  @state() private _selectionPanelExpandedLabel!: string;
 
-  private _checkbox: HTMLInputElement;
-  private _selectionPanelElement: SbbSelectionPanelElement;
+  private _checkbox: HTMLInputElement | null = null;
+  private _selectionPanelElement: SbbSelectionPanelElement | null = null;
   private _abort: ConnectedAbortController = new ConnectedAbortController(this);
   private _language = new LanguageController(this);
 
@@ -191,10 +191,10 @@ export class SbbCheckboxElement extends UpdateScheduler(LitElement) {
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('checked')) {
-      this._handleCheckedChange(this.checked, changedProperties.get('checked'));
+      this._handleCheckedChange(this.checked, changedProperties.get('checked')!);
     }
     if (changedProperties.has('disabled')) {
-      this._handleDisabledChange(this.disabled, changedProperties.get('disabled'));
+      this._handleDisabledChange(this.disabled, changedProperties.get('disabled')!);
     }
   }
 
@@ -215,7 +215,7 @@ export class SbbCheckboxElement extends UpdateScheduler(LitElement) {
   // Forward the click on the inner label.
   private _handleClick(event: MouseEvent): void {
     if (!this.disabled && getEventTarget(event) === this) {
-      this.shadowRoot.querySelector('label').click();
+      this.shadowRoot!.querySelector('label')?.click();
     }
   }
 
@@ -224,7 +224,7 @@ export class SbbCheckboxElement extends UpdateScheduler(LitElement) {
     if (!this.disabled && event.key === ' ') {
       // The toggle needs to happen after the keyup event finishes, so we schedule
       // it to be triggered after the current event loop.
-      setTimeout(() => this._checkbox.click());
+      setTimeout(() => this._checkbox?.click());
     }
   }
 
@@ -247,7 +247,7 @@ export class SbbCheckboxElement extends UpdateScheduler(LitElement) {
   }
 
   private _updateExpandedLabel(): void {
-    if (!this._selectionPanelElement.hasContent) {
+    if (!this._selectionPanelElement?.hasContent) {
       this._selectionPanelExpandedLabel = '';
       return;
     }
@@ -280,11 +280,11 @@ export class SbbCheckboxElement extends UpdateScheduler(LitElement) {
             ?checked=${this.checked}
             .value=${this.value || nothing}
             @input=${() => this._handleInputEvent()}
-            @change=${(event) => this._handleChangeEvent(event)}
+            @change=${(event: Event) => this._handleChangeEvent(event)}
             @focus=${() => this.focus()}
-            ${ref((checkbox: HTMLInputElement) => {
+            ${ref((checkbox?: Element) => {
               if (checkbox) {
-                this._checkbox = checkbox;
+                this._checkbox = checkbox as HTMLInputElement;
                 // Forward indeterminate state to native input. As it is only a property, we have to set it programmatically.
                 this._checkbox.indeterminate = this.indeterminate;
               }

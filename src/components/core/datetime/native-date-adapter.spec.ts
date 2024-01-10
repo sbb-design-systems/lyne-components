@@ -82,12 +82,12 @@ describe('NativeDateAdapter', () => {
     expect(nativeDateAdapter.createDate(2023, 3, -11)).to.be.undefined;
     expect(nativeDateAdapter.createDate(2023, -5, 1)).to.be.undefined;
     expect(nativeDateAdapter.createDate(2023, 3, 99)).to.be.undefined;
-    const firstDate: Date = nativeDateAdapter.createDate(2023, 0, 1);
+    const firstDate: Date = nativeDateAdapter.createDate(2023, 0, 1)!;
     expect(firstDate instanceof Date).to.be.equal(true);
     expect(
       `${firstDate.getDate()}.${firstDate.getMonth() + 1}.${firstDate.getFullYear()}`,
     ).to.be.equal('1.1.2023');
-    const secondDate: Date = nativeDateAdapter.createDate(18, 0, 1);
+    const secondDate: Date = nativeDateAdapter.createDate(18, 0, 1)!;
     expect(secondDate instanceof Date).to.be.equal(true);
     expect(
       `${secondDate.getDate()}.${secondDate.getMonth() + 1}.${secondDate.getFullYear()}`,
@@ -179,31 +179,31 @@ describe('NativeDateAdapter', () => {
   it('deserializeDate should return the correct value', () => {
     expect(nativeDateAdapter.deserializeDate(null)).to.be.null;
 
-    const date: Date = nativeDateAdapter.deserializeDate(new Date(0));
+    const date: Date = nativeDateAdapter.deserializeDate(new Date(0))!;
     expect(date instanceof Date).to.be.equal(true);
     expect(`${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`).to.be.equal(
       '1.1.1970',
     );
 
-    const dateNumber: Date = nativeDateAdapter.deserializeDate(946684800);
+    const dateNumber: Date = nativeDateAdapter.deserializeDate(946684800)!;
     expect(dateNumber instanceof Date).to.be.equal(true);
     expect(
       `${dateNumber.getDate()}.${dateNumber.getMonth() + 1}.${dateNumber.getFullYear()}`,
     ).to.be.equal('1.1.2000');
 
-    const dateNumAsStr: Date = nativeDateAdapter.deserializeDate('946684800');
+    const dateNumAsStr: Date = nativeDateAdapter.deserializeDate('946684800')!;
     expect(dateNumAsStr instanceof Date).to.be.equal(true);
     expect(
       `${dateNumAsStr.getDate()}.${dateNumAsStr.getMonth() + 1}.${dateNumAsStr.getFullYear()}`,
     ).to.be.equal('1.1.2000');
 
-    const dateString: Date = nativeDateAdapter.deserializeDate('2024-01-01');
+    const dateString: Date = nativeDateAdapter.deserializeDate('2024-01-01')!;
     expect(dateString instanceof Date).to.be.equal(true);
     expect(
       `${dateString.getDate()}.${dateString.getMonth() + 1}.${dateString.getFullYear()}`,
     ).to.be.equal('1.1.2024');
 
-    const fakeDate: Date = nativeDateAdapter.deserializeDate({} as string);
+    const fakeDate: Date = nativeDateAdapter.deserializeDate({} as string)!;
     expect(fakeDate instanceof Date).to.be.equal(false);
     expect(fakeDate).to.be.null;
   });
@@ -213,15 +213,15 @@ describe('NativeDateAdapter', () => {
     expect(nativeDateAdapter.parseDate(null, now)).to.be.undefined;
     expect(nativeDateAdapter.parseDate('Test', now)).to.be.undefined;
     expect(nativeDateAdapter.parseDate('1.1', now)).to.be.undefined;
-    let formattedDate: Date = nativeDateAdapter.parseDate('1/1/2000', now);
-    expect(formattedDate.getFullYear()).to.be.equal(2000);
-    expect(formattedDate.getMonth()).to.be.equal(0);
-    expect(formattedDate.getDate()).to.be.equal(1);
+    let formattedDate = nativeDateAdapter.parseDate('1/1/2000', now);
+    expect(formattedDate?.getFullYear()).to.be.equal(2000);
+    expect(formattedDate?.getMonth()).to.be.equal(0);
+    expect(formattedDate?.getDate()).to.be.equal(1);
 
     formattedDate = nativeDateAdapter.parseDate('1.1.2000', now);
-    expect(formattedDate.getFullYear()).to.be.equal(2000);
-    expect(formattedDate.getMonth()).to.be.equal(0);
-    expect(formattedDate.getDate()).to.be.equal(1);
+    expect(formattedDate?.getFullYear()).to.be.equal(2000);
+    expect(formattedDate?.getMonth()).to.be.equal(0);
+    expect(formattedDate?.getDate()).to.be.equal(1);
   });
 
   it('format should return the correct string', function () {

@@ -48,7 +48,7 @@ export class SbbButtonElement extends LitElement implements LinkButtonProperties
   @property({ reflect: true, type: Boolean }) public negative = false;
 
   /** Size variant, either l or m. */
-  @property({ reflect: true }) public size?: SbbButtonSize = 'l';
+  @property({ reflect: true }) public size: SbbButtonSize = 'l';
 
   /**
    * Set this property to true if you want only a visual representation of a
@@ -64,25 +64,25 @@ export class SbbButtonElement extends LitElement implements LinkButtonProperties
   @property({ attribute: 'icon-name', reflect: true }) public iconName?: string;
 
   /** The href value you want to link to (if it is present, button becomes a link). */
-  @property() public href: string | undefined;
+  @property() public href?: string;
 
   /** Where to display the linked URL. */
-  @property() public target?: LinkTargetType | string | undefined;
+  @property() public target?: LinkTargetType | string;
 
   /** The relationship of the linked URL as space-separated link types. */
-  @property() public rel?: string | undefined;
+  @property() public rel?: string;
 
   /** Whether the browser will show the download dialog on click. */
   @property({ type: Boolean }) public download?: boolean;
 
   /** The type attribute to use for the button. */
-  @property() public type: ButtonType | undefined;
+  @property() public type?: ButtonType;
 
   /** Whether the button is disabled. */
   @property({ reflect: true, type: Boolean }) public disabled = false;
 
   /** The name attribute to use for the button. */
-  @property({ reflect: true }) public name: string | undefined;
+  @property({ reflect: true }) public name?: string;
 
   /** The value attribute to use for the button. */
   @property() public value?: string;

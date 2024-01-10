@@ -40,12 +40,12 @@ export class SbbTimeInputElement extends LitElement {
     this._input = value;
     this._findInputElement();
   }
-  public get input(): string | HTMLElement {
+  public get input(): string | HTMLElement | null {
     return this._input;
   }
-  private _input: string | HTMLElement;
+  private _input: string | HTMLElement | null = null;
 
-  @state() private _inputElement: HTMLInputElement | null;
+  @state() private _inputElement: HTMLInputElement | null = null;
 
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
@@ -65,7 +65,7 @@ export class SbbTimeInputElement extends LitElement {
     },
   );
 
-  private _statusContainer: HTMLParagraphElement | null;
+  private _statusContainer!: HTMLParagraphElement;
   private _abortController = new AbortController();
   private _language = new LanguageController(this);
 
@@ -135,7 +135,7 @@ export class SbbTimeInputElement extends LitElement {
 
     this._inputElement.addEventListener(
       'input',
-      (event: InputEvent) => forwardEventToHost(event, this),
+      (event: Event) => forwardEventToHost(event, this),
       { signal: this._abortController.signal },
     );
     this._inputElement.addEventListener(
@@ -173,7 +173,7 @@ export class SbbTimeInputElement extends LitElement {
     }
 
     const time = this._parseInput(value);
-    const isTimeValid = time && this._isTimeValid(time);
+    const isTimeValid = !!time && this._isTimeValid(time);
     const isEmptyOrValid = !value || value.trim() === '' || isTimeValid;
     if (isEmptyOrValid && time) {
       this._inputElement.value = this._formatValue(time);
@@ -192,8 +192,8 @@ export class SbbTimeInputElement extends LitElement {
     this._didChange.emit();
   }
 
-  /** Returns the right format for the `value` property . */
-  private _formatValue(time?: Time): string {
+  /** Returns the right format for the `value` property. */
+  private _formatValue(time: Time): string {
     const hours = String(time.hours).padStart(2, '0');
     const minutes = String(time.minutes).padStart(2, '0');
     return `${hours}:${minutes}`;
@@ -203,7 +203,7 @@ export class SbbTimeInputElement extends LitElement {
    * Returns the right format for the `valueAsDate` property:
    * sets the start date at 01.01.1970, then adds the typed hours/minutes.
    */
-  private _formatValueAsDate(time?: Time): Date {
+  private _formatValueAsDate(time: Time | null | undefined): Date | null {
     if (!time || !this._isTimeValid(time)) {
       return null;
     }
@@ -217,8 +217,8 @@ export class SbbTimeInputElement extends LitElement {
   }
 
   /** Validate input against the defined RegExps. */
-  private _parseInput(value: string): Time {
-    const trimmedValue = value.trim();
+  private _parseInput(value: string | undefined): Time | null {
+    const trimmedValue = value?.trim();
     if (!trimmedValue) {
       return null;
     }
@@ -268,19 +268,22 @@ export class SbbTimeInputElement extends LitElement {
   // We use a programmatic approach to avoid initial setting the message
   // and to not immediately change output if language should change (no reason to read out message).
   private _updateAccessibilityMessage(): void {
-    const valid = !isValidAttribute(this._inputElement, 'data-sbb-invalid');
+    const valid = !isValidAttribute(this._inputElement!, 'data-sbb-invalid');
     if (!valid) {
       return;
     }
 
     this._statusContainer.innerText = `${i18nTimeInputChange[this._language.current]} ${
-      this._inputElement.value
+      this._inputElement?.value
     }.`;
   }
 
   protected override render(): TemplateResult {
     return html`
-      <p role="status" ${ref((el) => (this._statusContainer = el as HTMLParagraphElement))}></p>
+      <p
+        role="status"
+        ${ref((el?: Element) => (this._statusContainer = el as HTMLParagraphElement))}
+      ></p>
     `;
   }
 }

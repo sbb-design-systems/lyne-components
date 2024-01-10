@@ -17,7 +17,7 @@ describe('sbb-radio-button', () => {
   });
 
   it('should not render accessibility label about containing state', async () => {
-    element = element.shadowRoot.querySelector('.sbb-radio-button__expanded-label');
+    element = element.shadowRoot!.querySelector('.sbb-radio-button__expanded-label')!;
     expect(element).not.to.be.ok;
   });
 

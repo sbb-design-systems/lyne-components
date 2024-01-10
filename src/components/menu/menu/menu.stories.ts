@@ -1,7 +1,14 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import { userEvent, within } from '@storybook/testing-library';
 import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
+import type {
+  Meta,
+  StoryObj,
+  ArgTypes,
+  Args,
+  Decorator,
+  StoryContext,
+} from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
@@ -19,7 +26,7 @@ import '../../link';
 import '../menu-action';
 
 // Story interaction executed after the story renders
-const playStory = async ({ canvasElement }): Promise<void> => {
+const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
@@ -89,11 +96,11 @@ const userInfoStyle: Args = {
   fontSize: 'var(--sbb-font-size-text-xxs)',
 };
 
-const triggerButton = (id): TemplateResult => html`
+const triggerButton = (id: string): TemplateResult => html`
   <sbb-button data-testid="menu-trigger" id=${id} size="m"> Menu trigger </sbb-button>
 `;
 
-const DefaultTemplate = (args): TemplateResult => html`
+const DefaultTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('menu-trigger-1')}
   <sbb-menu
     trigger="menu-trigger-1"
@@ -112,7 +119,7 @@ const DefaultTemplate = (args): TemplateResult => html`
   </sbb-menu>
 `;
 
-const ListTemplate = (args): TemplateResult => html`
+const ListTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('menu-trigger-1')}
   <sbb-menu
     trigger="menu-trigger-1"
@@ -130,7 +137,7 @@ const ListTemplate = (args): TemplateResult => html`
   </sbb-menu>
 `;
 
-const CustomContentTemplate = (args): TemplateResult => html`
+const CustomContentTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('menu-trigger-2')}
   <sbb-menu
     trigger="menu-trigger-2"
@@ -153,7 +160,7 @@ const CustomContentTemplate = (args): TemplateResult => html`
   </sbb-menu>
 `;
 
-const LongContentTemplate = (args): TemplateResult => html`
+const LongContentTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('menu-trigger-3')}
   <sbb-menu
     trigger="menu-trigger-3"
@@ -194,7 +201,7 @@ const LongContentTemplate = (args): TemplateResult => html`
   </sbb-menu>
 `;
 
-const EllipsisTemplate = (args): TemplateResult => html`
+const EllipsisTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('menu-trigger-4')}
   <sbb-menu
     trigger="menu-trigger-4"

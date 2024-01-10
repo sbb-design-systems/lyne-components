@@ -108,7 +108,7 @@ const ErrorMessageTemplate = (args: Args): TemplateResult => {
         if (event.detail.value) {
           sbbFormError.remove();
         } else if (args.required) {
-          (event.target as HTMLElement).closest('sbb-radio-button-group').append(sbbFormError);
+          (event.target as HTMLElement).closest('sbb-radio-button-group')?.append(sbbFormError);
         }
       }}
     >

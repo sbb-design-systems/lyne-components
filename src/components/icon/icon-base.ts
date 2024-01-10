@@ -15,7 +15,7 @@ export abstract class SbbIconBase extends LitElement {
   /**
    * The icon svg content rendered on the page: <svg>...</svg>.
    */
-  @state() private _svgIcon: string;
+  @state() private _svgIcon?: string;
 
   /**
    * When set to `true`, SVG content that is HTTP fetched will not be checked

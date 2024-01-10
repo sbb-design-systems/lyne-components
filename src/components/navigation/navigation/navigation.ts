@@ -58,15 +58,15 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
    * Accepts both a string (id of an element) or an HTML element.
    */
   @property()
-  public set trigger(value: string | HTMLElement) {
+  public set trigger(value: string | HTMLElement | null) {
     const oldValue = this._trigger;
     this._trigger = value;
     this._removeTriggerClickListener(this._trigger, oldValue);
   }
-  public get trigger(): string | HTMLElement {
+  public get trigger(): string | HTMLElement | null {
     return this._trigger;
   }
-  private _trigger: string | HTMLElement = null;
+  private _trigger: string | HTMLElement | null = null;
 
   /**
    * This will be forwarded as aria-label to the close button element.
@@ -89,7 +89,7 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
   /**
    * Whether a navigation section is displayed.
    */
-  @state() private _activeNavigationSection: HTMLElement;
+  @state() private _activeNavigationSection: HTMLElement | null = null;
 
   /** Emits whenever the `sbb-navigation` begins the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(
@@ -115,16 +115,16 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
     SbbNavigationElement.events.didClose,
   );
 
-  private _navigation: HTMLDivElement;
-  private _navigationContentElement: HTMLElement;
-  private _triggerElement: HTMLElement;
-  private _navigationController: AbortController;
-  private _windowEventsController: AbortController;
+  private _navigation!: HTMLDivElement;
+  private _navigationContentElement!: HTMLElement;
+  private _triggerElement: HTMLElement | null = null;
+  private _navigationController!: AbortController;
+  private _windowEventsController!: AbortController;
   private _abort = new ConnectedAbortController(this);
   private _language = new LanguageController(this);
   private _focusHandler = new FocusHandler();
   private _scrollHandler = new ScrollHandler();
-  private _isPointerDownEventOnNavigation: boolean;
+  private _isPointerDownEventOnNavigation: boolean = false;
   private _navigationObserver = new AgnosticMutationObserver((mutationsList: MutationRecord[]) =>
     this._onNavigationSectionChange(mutationsList),
   );
@@ -167,8 +167,8 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
 
   // Removes trigger click listener on trigger change.
   private _removeTriggerClickListener(
-    newValue: string | HTMLElement,
-    oldValue: string | HTMLElement,
+    newValue: string | HTMLElement | null,
+    oldValue: string | HTMLElement | null,
   ): void {
     if (newValue !== oldValue) {
       this._navigationController?.abort();
@@ -178,7 +178,7 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
   }
 
   // Check if the trigger is valid and attach click event listeners.
-  private _configure(trigger: string | HTMLElement): void {
+  private _configure(trigger: string | HTMLElement | null): void {
     removeAriaOverlayTriggerAttributes(this._triggerElement);
 
     if (!trigger) {
@@ -267,7 +267,7 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
 
   // Set focus on the first focusable element.
   private _setNavigationFocus(): void {
-    const closeButton = this.shadowRoot.querySelector(
+    const closeButton = this.shadowRoot!.querySelector(
       '#sbb-navigation-close-button',
     ) as HTMLElement;
     setModalityOnNextFocus(closeButton);
@@ -279,9 +279,9 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
     this._isPointerDownEventOnNavigation =
       isEventOnElement(this._navigation, event) ||
       isEventOnElement(
-        this.querySelector('sbb-navigation-section[data-state="opened"]')?.shadowRoot.querySelector(
-          'nav.sbb-navigation-section',
-        ) as HTMLElement,
+        this.querySelector(
+          'sbb-navigation-section[data-state="opened"]',
+        )?.shadowRoot?.querySelector('nav.sbb-navigation-section') as HTMLElement,
         event,
       );
   };
@@ -355,13 +355,13 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
           id="sbb-navigation-overlay"
           @animationend=${(event: AnimationEvent) => this._onAnimationEnd(event)}
           class="sbb-navigation"
-          ${ref((navigationRef) => (this._navigation = navigationRef as HTMLDivElement))}
+          ${ref((navigationRef?: Element) => (this._navigation = navigationRef as HTMLDivElement))}
         >
           <div class="sbb-navigation__header">${closeButton}</div>
           <div class="sbb-navigation__wrapper">
             <div
               class="sbb-navigation__content"
-              ${ref((el) => (this._navigationContentElement = el as HTMLElement))}
+              ${ref((el?: Element) => (this._navigationContentElement = el as HTMLElement))}
             >
               <slot></slot>
             </div>

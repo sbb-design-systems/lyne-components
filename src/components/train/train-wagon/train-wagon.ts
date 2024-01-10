@@ -46,10 +46,10 @@ export class SbbTrainWagonElement extends SlotChildObserver(LitElement) {
     this._sector = value;
     this._sectorChanged();
   }
-  public get sector(): string {
+  public get sector(): string | null {
     return this._sector;
   }
-  private _sector: string = null;
+  private _sector: string | null = null;
 
   /** Accessibility text for blocked passages of the wagon. */
   @property({ attribute: 'blocked-passage' })
@@ -66,7 +66,7 @@ export class SbbTrainWagonElement extends SlotChildObserver(LitElement) {
   public additionalAccessibilityText?: string;
 
   /** Slotted Sbb-icons. */
-  @state() private _icons: SbbIconElement[];
+  @state() private _icons: SbbIconElement[] = [];
 
   private _language = new LanguageController(this);
 
@@ -169,7 +169,9 @@ export class SbbTrainWagonElement extends SlotChildObserver(LitElement) {
         ${this.type === 'closed'
           ? html`<span class="sbb-train-wagon__compartment">
               <span class="sbb-screenreaderonly">
-                ${i18nClosedCompartmentLabel(parseInt(this.label))[this._language.current]}
+                ${i18nClosedCompartmentLabel(this.label ? parseInt(this.label) : undefined)[
+                  this._language.current
+                ]}
                 ${this.sector ? `, ${sectorString}` : nothing}
               </span>
               ${label('span')}

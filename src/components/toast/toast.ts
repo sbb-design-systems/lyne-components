@@ -86,7 +86,7 @@ export class SbbToastElement extends LitElement {
   /** Emits whenever the `sbb-toast` is closed. */
   private _didClose: EventEmitter<void> = new EventEmitter(this, SbbToastElement.events.didClose);
 
-  private _closeTimeout: ReturnType<typeof setTimeout>;
+  private _closeTimeout?: ReturnType<typeof setTimeout>;
   private _abort = new ConnectedAbortController(this);
   private _language = new LanguageController(this);
 
@@ -94,7 +94,7 @@ export class SbbToastElement extends LitElement {
    * Role of the live region. This is only for Firefox as there is a known issue where Firefox +
    * JAWS does not read out aria-live message.
    */
-  private get _role(): 'status' | 'alert' {
+  private get _role(): 'status' | 'alert' | undefined {
     if (!isFirefox()) {
       return;
     }
@@ -187,21 +187,19 @@ export class SbbToastElement extends LitElement {
     const slotNodes = (event.target as HTMLSlotElement).assignedNodes();
 
     // Force the visual state on slotted buttons
-    slotNodes
-      .filter((el) => el.nodeName === 'SBB-BUTTON')
-      .forEach((btn: SbbButtonElement) => {
-        btn.variant = 'transparent';
-        btn.negative = true;
-        btn.size = 'm';
-      });
+    const buttons = slotNodes.filter((el) => el.nodeName === 'SBB-BUTTON') as SbbButtonElement[];
+    buttons.forEach((btn: SbbButtonElement) => {
+      btn.variant = 'transparent';
+      btn.negative = true;
+      btn.size = 'm';
+    });
 
     // Force the visual state on slotted links
-    slotNodes
-      .filter((el) => el.nodeName === 'SBB-LINK')
-      .forEach((link: SbbLinkElement) => {
-        link.variant = 'inline';
-        link.negative = true;
-      });
+    const links = slotNodes.filter((el) => el.nodeName === 'SBB-LINK') as SbbLinkElement[];
+    links.forEach((link: SbbLinkElement) => {
+      link.variant = 'inline';
+      link.negative = true;
+    });
   }
 
   // In rare cases it can be that the animationEnd event is triggered twice.

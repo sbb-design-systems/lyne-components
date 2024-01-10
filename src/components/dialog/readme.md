@@ -83,7 +83,7 @@ The default `z-index` of the component is set to `1000`; to specify a custom sta
 
 | Name                      | Attribute                   | Privacy | Type                         | Default   | Description                                                                     |
 | ------------------------- | --------------------------- | ------- | ---------------------------- | --------- | ------------------------------------------------------------------------------- |
-| `titleContent`            | `title-content`             | public  | `string`                     |           | Dialog title.                                                                   |
+| `titleContent`            | `title-content`             | public  | `string \| undefined`        |           | Dialog title.                                                                   |
 | `titleLevel`              | `title-level`               | public  | `TitleLevel`                 | `'1'`     | Level of title, will be rendered as heading tag (e.g. h1). Defaults to level 1. |
 | `titleBackButton`         | `title-back-button`         | public  | `boolean`                    | `false`   | Whether a back button is displayed next to the title.                           |
 | `backdropAction`          | `backdrop-action`           | public  | `'close' \| 'none'`          | `'close'` | Backdrop click action.                                                          |

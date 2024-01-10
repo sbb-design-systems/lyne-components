@@ -1,7 +1,14 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import { within } from '@storybook/testing-library';
 import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
+import type {
+  Meta,
+  StoryObj,
+  ArgTypes,
+  Args,
+  Decorator,
+  StoryContext,
+} from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
@@ -12,9 +19,10 @@ import { sbbSpread } from '../core/dom';
 import readme from './readme.md?raw';
 import { SbbToastElement } from './toast';
 import '../link';
+import { SbbButtonElement } from '@sbb-esta/lyne-components/button';
 
 // Story interaction executed after the story renders
-const playStory = async ({ canvasElement }): Promise<void> => {
+const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
@@ -94,9 +102,14 @@ const defaultArgs: Args = {
   'disable-animation': isChromatic(),
 };
 
-const toastTemplate = (args, action, contentLength = 's'): TemplateResult => html`
+const toastTemplate = (
+  args: Args,
+  action: string | null,
+  contentLength = 's',
+): TemplateResult => html`
   <sbb-button
-    @click=${(event) => event.currentTarget.parentElement.querySelector('sbb-toast').open()}
+    @click=${(event: Event) =>
+      (event.currentTarget as SbbButtonElement).parentElement!.querySelector('sbb-toast')!.open()}
     >Show toast</sbb-button
   >
   <sbb-toast ${sbbSpread(args)} data-testid="sbb-toast">

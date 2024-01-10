@@ -10,11 +10,11 @@ import { sbbSpread } from '../../core/dom';
 import readme from './readme.md?raw';
 import './header-action';
 
-const TemplateSingle = (args): TemplateResult => html`
+const TemplateSingle = (args: Args): TemplateResult => html`
   <sbb-header-action ${sbbSpread(args)}>${args.text}</sbb-header-action>
 `;
 
-const TemplateMultiple = (args): TemplateResult => html`
+const TemplateMultiple = (args: Args): TemplateResult => html`
   <div style=${styleMap({ display: 'flex', gap: '2rem' })}>
     <sbb-header-action ${sbbSpread(args)}>${args.text} 1</sbb-header-action>
     <sbb-header-action ${sbbSpread(args)}>${args.text} 2</sbb-header-action>

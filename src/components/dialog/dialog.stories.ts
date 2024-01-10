@@ -1,7 +1,14 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import { userEvent, within } from '@storybook/testing-library';
 import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
+import type {
+  Meta,
+  StoryObj,
+  ArgTypes,
+  Args,
+  Decorator,
+  StoryContext,
+} from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
@@ -23,7 +30,7 @@ import '../image';
 import '../action-group';
 
 // Story interaction executed after the story renders
-const playStory = async ({ canvasElement }): Promise<void> => {
+const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
@@ -125,23 +132,23 @@ const basicArgs: Args = {
   'backdrop-action': backdropAction.options[0],
 };
 
-const openDialog = (_event, id): void => {
+const openDialog = (_event: PointerEvent, id: string): void => {
   const dialog = document.getElementById(id) as SbbDialogElement;
   dialog.open();
 };
 
-const triggerButton = (dialogId): TemplateResult => html`
+const triggerButton = (dialogId: string): TemplateResult => html`
   <sbb-button
     data-testid="dialog-trigger"
     size="m"
     type="button"
-    @click=${(event) => openDialog(event, dialogId)}
+    @click=${(event: PointerEvent) => openDialog(event, dialogId)}
   >
     Open dialog
   </sbb-button>
 `;
 
-const actionGroup = (negative): TemplateResult => html`
+const actionGroup = (negative: boolean): TemplateResult => html`
   <sbb-action-group
     slot="action-group"
     align-group="stretch"
@@ -182,7 +189,7 @@ const formStyle: Args = {
   gap: 'var(--sbb-spacing-fixed-4x)',
 };
 
-const DefaultTemplate = (args): TemplateResult => html`
+const DefaultTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('my-dialog-1')}
   <sbb-dialog data-testid="dialog" id="my-dialog-1" ${sbbSpread(args)}>
     <p id="dialog-content-1" style=${styleMap({ margin: '0' })}>Dialog content</p>
@@ -190,7 +197,7 @@ const DefaultTemplate = (args): TemplateResult => html`
   </sbb-dialog>
 `;
 
-const SlottedTitleTemplate = (args): TemplateResult => html`
+const SlottedTitleTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('my-dialog-2')}
   <sbb-dialog data-testid="dialog" id="my-dialog-2" ${sbbSpread(args)}>
     <span slot="title">
@@ -207,7 +214,7 @@ const SlottedTitleTemplate = (args): TemplateResult => html`
   </sbb-dialog>
 `;
 
-const LongContentTemplate = (args): TemplateResult => html`
+const LongContentTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('my-dialog-3')}
   <sbb-dialog data-testid="dialog" id="my-dialog-3" ${sbbSpread(args)}>
     Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his face
@@ -229,7 +236,7 @@ const LongContentTemplate = (args): TemplateResult => html`
   </sbb-dialog>
 `;
 
-const FormTemplate = (args): TemplateResult => html`
+const FormTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('my-dialog-4')}
   <div id="returned-value">
     <div style=${styleMap(formDetailsStyle)}>
@@ -255,7 +262,7 @@ const FormTemplate = (args): TemplateResult => html`
       <code style=${styleMap(codeStyle)}>close(result?: any, target?: HTMLElement)</code>
       method and returning the form values to update the details.
     </div>
-    <form style=${styleMap(formStyle)} @submit=${(e) => e.preventDefault()}>
+    <form style=${styleMap(formStyle)} @submit=${(e: SubmitEvent) => e.preventDefault()}>
       <sbb-form-field error-space="none" label="Message" size="m">
         <input placeholder="Your custom massage" value="Hello 👋" name="message" />
       </sbb-form-field>
@@ -272,7 +279,7 @@ const FormTemplate = (args): TemplateResult => html`
   </sbb-dialog>
 `;
 
-const NoFooterTemplate = (args): TemplateResult => html`
+const NoFooterTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('my-dialog-5')}
   <sbb-dialog data-testid="dialog" id="my-dialog-5" ${sbbSpread(args)}>
     <p id="dialog-content-5" style=${styleMap({ margin: '0' })}>
@@ -284,7 +291,7 @@ const NoFooterTemplate = (args): TemplateResult => html`
   </sbb-dialog>
 `;
 
-const FullScreenTemplate = (args): TemplateResult => html`
+const FullScreenTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('my-dialog-6')}
   <sbb-dialog data-testid="dialog" id="my-dialog-6" ${sbbSpread(args)}>
     <sbb-title

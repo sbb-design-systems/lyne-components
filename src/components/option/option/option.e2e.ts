@@ -3,6 +3,7 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import '../../autocomplete';
+import type { SbbAutocompleteElement } from '../../autocomplete';
 import { waitForLitRender, EventSpy } from '../../core/testing';
 import type { SbbFormFieldElement } from '../../form-field';
 import '../../form-field';
@@ -34,7 +35,7 @@ describe('sbb-option', () => {
 
     it('set selected and emits on click', async () => {
       const selectionChangeSpy = new EventSpy(SbbOptionElement.events.selectionChange);
-      const optionOne = element.querySelector('sbb-option');
+      const optionOne = element.querySelector<SbbOptionElement>('sbb-option')!;
 
       optionOne.dispatchEvent(new CustomEvent('click'));
       await waitForLitRender(element);
@@ -44,12 +45,12 @@ describe('sbb-option', () => {
     });
 
     it('highlight on input', async () => {
-      const input = element.querySelector('input');
-      const autocomplete = element.querySelector('sbb-autocomplete');
+      const input = element.querySelector<HTMLInputElement>('input')!;
+      const autocomplete = element.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
       const options = element.querySelectorAll('sbb-option');
-      const optionOneLabel = options[0].shadowRoot.querySelector('.sbb-option__label');
-      const optionTwoLabel = options[1].shadowRoot.querySelector('.sbb-option__label');
-      const optionThreeLabel = options[2].shadowRoot.querySelector('.sbb-option__label');
+      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label');
+      const optionTwoLabel = options[1].shadowRoot!.querySelector('.sbb-option__label');
+      const optionThreeLabel = options[2].shadowRoot!.querySelector('.sbb-option__label');
 
       input.focus();
       await sendKeys({ press: '1' });

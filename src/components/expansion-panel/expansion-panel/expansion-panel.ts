@@ -34,7 +34,7 @@ export class SbbExpansionPanelElement extends LitElement {
   } as const;
 
   /** Heading level; if unset, a `div` will be rendered. */
-  @property({ attribute: 'title-level' }) public titleLevel?: TitleLevel;
+  @property({ attribute: 'title-level' }) public titleLevel?: TitleLevel | null;
 
   /** The background color of the panel. */
   @property() public color: 'white' | 'milk' = 'white';
@@ -126,11 +126,11 @@ export class SbbExpansionPanelElement extends LitElement {
     }
   }
 
-  private _transitionEventController: AbortController;
+  private _transitionEventController!: AbortController;
   private _progressiveId = `-${++nextId}`;
-  private _headerRef: SbbExpansionPanelHeaderElement;
-  private _contentRef: SbbExpansionPanelContentElement;
-  private _contentWrapperRef: HTMLElement;
+  private _headerRef?: SbbExpansionPanelHeaderElement;
+  private _contentRef?: SbbExpansionPanelContentElement;
+  private _contentWrapperRef?: HTMLElement | null;
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -156,7 +156,7 @@ export class SbbExpansionPanelElement extends LitElement {
     this._state = 'closed';
   }
 
-  private _onHeaderSlotChange(event): void {
+  private _onHeaderSlotChange(event: Event): void {
     const elements = (event.target as HTMLSlotElement).assignedElements();
 
     // Changing titleLevel sometimes triggers a slot change with no assigned elements.
@@ -194,7 +194,7 @@ export class SbbExpansionPanelElement extends LitElement {
         (e): e is SbbExpansionPanelContentElement => e.tagName === 'SBB-EXPANSION-PANEL-CONTENT',
       );
 
-    this._contentWrapperRef = this.shadowRoot.querySelector(
+    this._contentWrapperRef = this.shadowRoot!.querySelector(
       '.sbb-expansion-panel__content-wrapper',
     );
 

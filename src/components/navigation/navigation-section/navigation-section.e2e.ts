@@ -24,7 +24,7 @@ describe('sbb-navigation-section', () => {
         </sbb-navigation-section>
       </sbb-navigation>
     `);
-    element = document.querySelector('sbb-navigation-section');
+    element = document.querySelector<SbbNavigationSectionElement>('sbb-navigation-section')!;
   });
 
   it('renders', async () => {

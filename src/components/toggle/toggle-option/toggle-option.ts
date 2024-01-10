@@ -98,7 +98,7 @@ export class SbbToggleOptionElement extends LitElement {
     }
   }
 
-  private _handleValueChange(currentValue: string, previousValue: string): void {
+  private _handleValueChange(currentValue: string | null, previousValue: string | null): void {
     if (this.checked && currentValue !== previousValue) {
       this._stateChange.emit({ type: 'value', value: currentValue });
     }
@@ -128,11 +128,13 @@ export class SbbToggleOptionElement extends LitElement {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener('input', () => this._handleInput(), { signal });
-    this.addEventListener('click', () => this.shadowRoot.querySelector('label').click(), {
+    this.addEventListener('click', () => this.shadowRoot!.querySelector('label')?.click(), {
       signal,
     });
     // We can use closest here, as we expect the parent sbb-toggle to be in light DOM.
-    this._toggle = this.closest?.('sbb-toggle');
+    if (this.closest?.('sbb-toggle')) {
+      this._toggle = this.closest('sbb-toggle')!;
+    }
     this._verifyTabindex();
   }
 
@@ -154,7 +156,7 @@ export class SbbToggleOptionElement extends LitElement {
         ?disabled=${this.disabled}
         .checked=${this.checked || nothing}
         .value=${this.value || nothing}
-        @click=${(event) => event.stopPropagation()}
+        @click=${(event: PointerEvent) => event.stopPropagation()}
       />
       <label class="sbb-toggle-option" for="sbb-toggle-option-id">
         <slot name="icon"

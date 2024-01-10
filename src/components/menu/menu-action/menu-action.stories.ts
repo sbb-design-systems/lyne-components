@@ -11,17 +11,21 @@ import readme from './readme.md?raw';
 import './menu-action';
 import '../../icon';
 
-const getBasicTemplate = ({ text, ...args }: Args, id, iconSlot = false): TemplateResult => html`
+const getBasicTemplate = (
+  { text, ...args }: Args,
+  id: number,
+  iconSlot = false,
+): TemplateResult => html`
   <sbb-menu-action ${sbbSpread(args)}>
     ${text} ${id} ${iconSlot ? html`<sbb-icon slot="icon" name="pie-small"></sbb-icon>` : nothing}
   </sbb-menu-action>
 `;
 
-const TemplateMenuAction = (args): TemplateResult => html`
+const TemplateMenuAction = (args: Args): TemplateResult => html`
   <div>${getBasicTemplate(args, 1)} ${getBasicTemplate(args, 2)} ${getBasicTemplate(args, 3)}</div>
 `;
 
-const TemplateMenuActionCustomIcon = (args): TemplateResult => html`
+const TemplateMenuActionCustomIcon = (args: Args): TemplateResult => html`
   <div>
     ${getBasicTemplate(args, 1, true)} ${getBasicTemplate(args, 2, false)}
     ${getBasicTemplate(args, 3, true)}

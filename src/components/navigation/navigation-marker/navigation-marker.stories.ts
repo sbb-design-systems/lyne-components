@@ -41,7 +41,7 @@ const navigationActionsL = (active: boolean): TemplateResult => html`
   <sbb-navigation-action id="nav-4">Help & Contact</sbb-navigation-action>
 `;
 
-const navigationActionsS = (active): TemplateResult => html`
+const navigationActionsS = (active: boolean): TemplateResult => html`
   <sbb-navigation-action id="nav-5">Deutsch</sbb-navigation-action>
   <sbb-navigation-action id="nav-6">Français</sbb-navigation-action>
   <sbb-navigation-action id="nav-7" ?active=${active}> Italiano </sbb-navigation-action>

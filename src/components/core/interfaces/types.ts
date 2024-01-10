@@ -28,5 +28,5 @@ export interface SbbDisabledStateChange {
 
 export interface SbbValueStateChange {
   type: 'value';
-  value: string;
+  value: string | null;
 }

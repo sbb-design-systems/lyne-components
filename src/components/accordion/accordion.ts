@@ -69,7 +69,9 @@ export class SbbAccordionElement extends LitElement {
   }
 
   private _setTitleLevelOnChildren(): void {
-    this._expansionPanels.forEach((panel) => (panel.titleLevel = this.titleLevel));
+    this._expansionPanels.forEach(
+      (panel: SbbExpansionPanelElement) => (panel.titleLevel = this.titleLevel),
+    );
   }
 
   private get _expansionPanels(): SbbExpansionPanelElement[] {

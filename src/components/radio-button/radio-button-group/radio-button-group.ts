@@ -6,7 +6,7 @@ import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '..
 import { NamedSlotStateController } from '../../core/common-behaviors';
 import { toggleDatasetEntry, setAttribute } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
-import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces';
+import type { SbbHorizontalFrom, SbbOrientation, SbbStateChange } from '../../core/interfaces';
 import type { SbbSelectionPanelElement } from '../../selection-panel';
 import type {
   SbbRadioButtonElement,
@@ -92,7 +92,7 @@ export class SbbRadioButtonGroupElement extends LitElement {
     }
   }
 
-  private _hasSelectionPanel: boolean;
+  private _hasSelectionPanel: boolean = false;
   private _didLoad = false;
   private _abort = new ConnectedAbortController(this);
 
@@ -139,7 +139,8 @@ export class SbbRadioButtonGroupElement extends LitElement {
     const signal = this._abort.signal;
     this.addEventListener(
       'stateChange',
-      (e: CustomEvent<SbbRadioButtonStateChange>) => this._onRadioButtonSelect(e),
+      (e: CustomEvent<SbbStateChange>) =>
+        this._onRadioButtonSelect(e as CustomEvent<SbbRadioButtonStateChange>),
       {
         signal,
         passive: true,
@@ -233,14 +234,14 @@ export class SbbRadioButtonGroupElement extends LitElement {
   private _getRadioTabIndex(radio: SbbRadioButtonElement): number {
     const isSelected: boolean = radio.checked && !radio.disabled && !this.disabled;
     const isParentPanelWithContent: boolean =
-      radio.parentElement.nodeName === 'SBB-SELECTION-PANEL' &&
+      radio.parentElement?.nodeName === 'SBB-SELECTION-PANEL' &&
       (radio.parentElement as SbbSelectionPanelElement).hasContent;
 
     return isSelected || (this._hasSelectionPanel && isParentPanelWithContent) ? 0 : -1;
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {
-    const enabledRadios: SbbRadioButtonElement[] = this._enabledRadios;
+    const enabledRadios = this._enabledRadios;
 
     if (
       !enabledRadios ||
@@ -248,7 +249,7 @@ export class SbbRadioButtonGroupElement extends LitElement {
       // don't trap nested handling
       ((evt.target as HTMLElement) !== this &&
         (evt.target as HTMLElement).parentElement !== this &&
-        (evt.target as HTMLElement).parentElement.nodeName !== 'SBB-SELECTION-PANEL')
+        (evt.target as HTMLElement).parentElement?.nodeName !== 'SBB-SELECTION-PANEL')
     ) {
       return;
     }

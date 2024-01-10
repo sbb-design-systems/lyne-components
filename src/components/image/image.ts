@@ -27,6 +27,7 @@ import { hostContext, isBrowser } from '../core/dom';
 import type {
   InterfaceImageAttributes,
   InterfaceImageAttributesSizesConfigBreakpoint,
+  InterfaceImageAttributesSizesConfigMediaQuery,
 } from './image.helper';
 import imageHelperGetBreakpoints from './image.helper';
 import style from './image.scss?lit&inline';
@@ -65,7 +66,7 @@ export class SbbImageElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   private _captionElement?: HTMLElement;
-  private _linksInCaption: NodeListOf<HTMLLinkElement>;
+  private _linksInCaption?: NodeListOf<HTMLLinkElement>;
   private _config = {
     nonRetinaQuality: '45',
     retinaQuality: '20',
@@ -283,7 +284,7 @@ export class SbbImageElement extends LitElement {
   public disableAnimation = false;
 
   private _logPerformanceMarks(): void {
-    if (window.performance.mark && this.performanceMark) {
+    if (this.performanceMark) {
       performance.clearMarks(this.performanceMark);
       performance.mark(this.performanceMark);
     }
@@ -295,12 +296,12 @@ export class SbbImageElement extends LitElement {
   }
 
   private _addFocusAbilityToLinksInCaption(): void {
-    this._linksInCaption.forEach((link) => {
+    this._linksInCaption?.forEach((link) => {
       link.removeAttribute('tabindex');
     });
   }
 
-  private _prepareImageUrl(baseUrl: string, lquip = false): string {
+  private _prepareImageUrl(baseUrl: string | undefined, lquip = false): string {
     if (!baseUrl || baseUrl === '' || !isBrowser()) {
       return '';
     }
@@ -399,7 +400,9 @@ export class SbbImageElement extends LitElement {
     return imageHelperGetBreakpoints(pictureSizesConfig);
   }
 
-  private _createMediaQueryString(mediaQueries): string {
+  private _createMediaQueryString(
+    mediaQueries: InterfaceImageAttributesSizesConfigMediaQuery[],
+  ): string {
     let mediaQuery = '';
 
     mediaQueries.forEach((mq) => {

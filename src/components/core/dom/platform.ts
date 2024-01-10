@@ -69,4 +69,4 @@ export const isSafari = (): boolean =>
   isBrowser() && /safari/i.test(navigator.userAgent) && isWebkit();
 
 /** Whether the application is being rendered in a Next.js environment. */
-export const isNextjs = (): boolean => !!globalThis.next;
+export const isNextjs = (): boolean => !!(globalThis as any).next; // FIXME any type

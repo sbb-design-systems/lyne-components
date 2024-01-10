@@ -72,7 +72,8 @@ describe('sbbSpread', () => {
     };
     render(binding(attributes), element);
 
-    const spreadElement: SpreadDirectiveTestOnlyElement = element.querySelector('#content');
+    const spreadElement: SpreadDirectiveTestOnlyElement =
+      element.querySelector<SpreadDirectiveTestOnlyElement>('#content')!;
     expect(spreadElement).not.to.have.attribute('is-truthy');
     expect(spreadElement).to.have.attribute('words', 'This value is a string');
     expect(spreadElement).to.have.attribute('numeric', '1');
@@ -108,7 +109,8 @@ describe('sbbSpread', () => {
 
       render(binding(attributes), element);
 
-      const spreadTestElement: SpreadDirectiveTestOnlyElement = element.querySelector('#content');
+      const spreadTestElement: SpreadDirectiveTestOnlyElement =
+        element.querySelector<SpreadDirectiveTestOnlyElement>('#content')!;
       expect(spreadTestElement).not.to.have.attribute('is-truthy');
       expect(spreadTestElement).not.to.have.attribute('words');
       expect(spreadTestElement).to.have.attribute('numeric', '1');
@@ -132,7 +134,8 @@ describe('sbbSpread', () => {
 
       render(binding(attributes), element);
 
-      const spreadTestElement: SpreadDirectiveTestOnlyElement = element.querySelector('#content');
+      const spreadTestElement: SpreadDirectiveTestOnlyElement =
+        element.querySelector<SpreadDirectiveTestOnlyElement>('#content')!;
       expect(spreadTestElement).not.to.have.attribute('is-truthy');
       expect(spreadTestElement).to.have.attribute('words', 'This value is a string');
       expect(spreadTestElement).to.have.attribute('numeric', '99');

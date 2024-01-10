@@ -93,7 +93,7 @@ describe('sbb-icon', () => {
     let interceptorCalled = false;
     globalConfig.icon = {};
 
-    const sbbIconConfig: SbbIconConfig = globalThis.sbbConfig.icon;
+    const sbbIconConfig: SbbIconConfig = (globalThis as any).sbbConfig.icon; // FIXME any type
     sbbIconConfig.namespaces = new Map<string, string>().set(
       'kom',
       'https://icons.app.sbb.ch/kom/',
@@ -118,6 +118,6 @@ describe('sbb-icon', () => {
     expect(interceptorCalled).to.be.true;
 
     // Reset icon config
-    delete globalThis.sbbConfig.icon;
+    delete (globalThis as any).sbbConfig.icon; // FIXME any type
   });
 });

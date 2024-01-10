@@ -53,7 +53,7 @@ export class SbbDialogElement extends LitElement {
   /**
    * Dialog title.
    */
-  @property({ attribute: 'title-content', reflect: true }) public titleContent: string;
+  @property({ attribute: 'title-content', reflect: true }) public titleContent?: string;
 
   /**
    * Level of title, will be rendered as heading tag (e.g. h1). Defaults to level 1.
@@ -118,7 +118,7 @@ export class SbbDialogElement extends LitElement {
     this._setOverflowAttribute(),
   );
 
-  private _ariaLiveRef: HTMLElement;
+  private _ariaLiveRef!: HTMLElement;
   private _ariaLiveRefToggle = false;
 
   /** Emits whenever the `sbb-dialog` starts the opening transition. */
@@ -139,16 +139,16 @@ export class SbbDialogElement extends LitElement {
     SbbDialogElement.events.backClick,
   );
 
-  private _dialog: HTMLDivElement;
-  private _dialogWrapperElement: HTMLElement;
-  private _dialogContentElement: HTMLElement;
-  private _dialogCloseElement: HTMLElement;
-  private _dialogController: AbortController;
-  private _windowEventsController: AbortController;
+  private _dialog!: HTMLDivElement;
+  private _dialogWrapperElement!: HTMLElement;
+  private _dialogContentElement!: HTMLElement;
+  private _dialogCloseElement?: HTMLElement;
+  private _dialogController!: AbortController;
+  private _windowEventsController!: AbortController;
   private _focusHandler = new FocusHandler();
   private _scrollHandler = new ScrollHandler();
   private _returnValue: any;
-  private _isPointerDownEventOnDialog: boolean;
+  private _isPointerDownEventOnDialog: boolean = false;
   private _dialogId = `sbb-dialog-${nextId++}`;
 
   // Last element which had focus before the dialog was opened.
@@ -204,7 +204,7 @@ export class SbbDialogElement extends LitElement {
   }
 
   // Closes the dialog on "Esc" key pressed.
-  private _onKeydownEvent(event: KeyboardEvent): Promise<void> {
+  private _onKeydownEvent(event: KeyboardEvent): void {
     if (this._state !== 'opened') {
       return;
     }
@@ -279,7 +279,7 @@ export class SbbDialogElement extends LitElement {
   };
 
   // Close dialog on backdrop click.
-  private _closeOnBackdropClick = (event: PointerEvent): Promise<void> => {
+  private _closeOnBackdropClick = (event: PointerEvent): void => {
     if (this.backdropAction !== 'close') {
       return;
     }
@@ -325,7 +325,7 @@ export class SbbDialogElement extends LitElement {
       this._attachWindowEvents();
     } else if (event.animationName === 'close' && this._state === 'closing') {
       this._state = 'closed';
-      this._dialogWrapperElement.querySelector('.sbb-dialog__content').scrollTo(0, 0);
+      this._dialogWrapperElement.querySelector('.sbb-dialog__content')?.scrollTo(0, 0);
       removeInertMechanism();
       setModalityOnNextFocus(this._lastFocusedElement);
       // Manually focus last focused element
@@ -349,7 +349,7 @@ export class SbbDialogElement extends LitElement {
     // Take accessibility label or current string in title section
     const label =
       this.accessibilityLabel ||
-      (this.shadowRoot.querySelector('.sbb-dialog__title') as HTMLElement)?.innerText.trim();
+      (this.shadowRoot!.querySelector('.sbb-dialog__title') as HTMLElement)?.innerText.trim();
 
     // If the text content remains the same, on VoiceOver the aria-live region is not announced a second time.
     // In order to support reading on every opening, we toggle an invisible space.
@@ -364,7 +364,7 @@ export class SbbDialogElement extends LitElement {
 
   // Set focus on the first focusable element.
   private _setDialogFocus(): void {
-    const firstFocusable = this.shadowRoot.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement;
+    const firstFocusable = this.shadowRoot!.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement;
     setModalityOnNextFocus(firstFocusable);
     firstFocusable.focus();
   }
@@ -428,19 +428,23 @@ export class SbbDialogElement extends LitElement {
           @animationend=${(event: AnimationEvent) => this._onDialogAnimationEnd(event)}
           class="sbb-dialog"
           id=${this._dialogId}
-          ${ref((dialogRef) => (this._dialog = dialogRef as HTMLDivElement))}
+          ${ref((dialogRef?: Element) => (this._dialog = dialogRef as HTMLDivElement))}
         >
           <div
             @click=${(event: Event) => this._closeOnSbbDialogCloseClick(event)}
             class="sbb-dialog__wrapper"
             ${ref(
-              (dialogWrapperRef) => (this._dialogWrapperElement = dialogWrapperRef as HTMLElement),
+              (dialogWrapperRef?: Element) =>
+                (this._dialogWrapperElement = dialogWrapperRef as HTMLElement),
             )}
           >
             ${dialogHeader}
             <div
               class="sbb-dialog__content"
-              ${ref((dialogContent) => (this._dialogContentElement = dialogContent as HTMLElement))}
+              ${ref(
+                (dialogContent?: Element) =>
+                  (this._dialogContentElement = dialogContent as HTMLElement),
+              )}
             >
               <slot></slot>
             </div>
@@ -453,7 +457,7 @@ export class SbbDialogElement extends LitElement {
       <span
         aria-live="polite"
         class="sbb-screen-reader-only"
-        ${ref((el) => (this._ariaLiveRef = el as HTMLElement))}
+        ${ref((el?: Element) => (this._ariaLiveRef = el as HTMLElement))}
       ></span>
     `;
   }

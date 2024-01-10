@@ -23,6 +23,7 @@
       "@sbb-esta/lyne-components-react/*": ["src/react/*"],
     },
     "verbatimModuleSyntax": true,
+    "strict": true,
 
     /** linting **/
     "allowSyntheticDefaultImports": true,

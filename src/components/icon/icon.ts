@@ -13,7 +13,7 @@ export class SbbIconElement extends SbbIconBase {
    * If the namespace is missing, the default namespace "sbb" will be used.
    * E.g. `name` (will use "sbb" as namespace) or `namespace:name`.
    */
-  @property({ reflect: true }) public name: string;
+  @property({ reflect: true }) public name!: string;
 
   private _defaultAriaLabel = '';
 

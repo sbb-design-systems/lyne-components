@@ -10,6 +10,7 @@ import {
   ConnectedAbortController,
   HandlerRepository,
   actionElementHandlerAspect,
+  InputUpdateEvent,
 } from '../../core/eventing';
 import { i18nPreviousDay, i18nSelectPreviousDay, i18nToday } from '../../core/i18n';
 import type { ButtonProperties } from '../../core/interfaces';
@@ -47,15 +48,15 @@ export class SbbDatepickerPreviousDayElement extends LitElement implements Butto
   @state() private _inputDisabled = false;
 
   /** The minimum date as set in the date-picker's input. */
-  @state() private _min: string | number;
+  @state() private _min: string | number | null = null;
 
   private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
 
-  private _datePickerElement: SbbDatepickerElement;
+  private _datePickerElement?: SbbDatepickerElement | null = null;
 
   private _dateAdapter: DateAdapter<Date> = defaultDateAdapter;
 
-  private _datePickerController: AbortController;
+  private _datePickerController!: AbortController;
 
   private _abort = new ConnectedAbortController(this);
   private _language = new LanguageController(this).withHandler(() => this._setAriaLabel());
@@ -125,7 +126,7 @@ export class SbbDatepickerPreviousDayElement extends LitElement implements Butto
       // assuming that the two components share the same parent element.
       this.parentElement?.addEventListener(
         'inputUpdated',
-        (e: Event) => this._init(e.target as SbbDatepickerElement),
+        (e: CustomEvent<InputUpdateEvent>) => this._init(e.target as SbbDatepickerElement),
         { once: true, signal: this._datePickerController.signal },
       );
       return;
@@ -151,10 +152,10 @@ export class SbbDatepickerPreviousDayElement extends LitElement implements Butto
     this._datePickerElement.addEventListener(
       'inputUpdated',
       (event: CustomEvent<InputUpdateEvent>) => {
-        this._inputDisabled = event.detail.disabled || event.detail.readonly;
+        this._inputDisabled = !!(event.detail.disabled || event.detail.readonly);
         if (this._min !== event.detail.min) {
-          this._min = event.detail.min;
-          this._setDisabledState(this._datePickerElement);
+          this._min = event.detail.min!;
+          this._setDisabledState(this._datePickerElement!);
         }
         this._setAriaLabel();
       },
@@ -164,8 +165,8 @@ export class SbbDatepickerPreviousDayElement extends LitElement implements Butto
     this._datePickerElement.dispatchEvent(datepickerControlRegisteredEventFactory());
   }
 
-  private _setDisabledState(datepicker: SbbDatepickerElement): void {
-    const pickerValueAsDate: Date = datepicker?.getValueAsDate();
+  private _setDisabledState(datepicker: SbbDatepickerElement | null | undefined): void {
+    const pickerValueAsDate = datepicker?.getValueAsDate();
 
     if (!pickerValueAsDate) {
       this._disabled = true;
@@ -174,7 +175,7 @@ export class SbbDatepickerPreviousDayElement extends LitElement implements Butto
 
     const previousDate: Date = findPreviousAvailableDate(
       pickerValueAsDate,
-      datepicker.dateFilter,
+      datepicker?.dateFilter || null,
       this._dateAdapter,
       this._min,
     );
@@ -190,7 +191,7 @@ export class SbbDatepickerPreviousDayElement extends LitElement implements Butto
     }
 
     const currentDateString =
-      this._datePickerElement.now().toDateString() === currentDate.toDateString()
+      this._datePickerElement?.now().toDateString() === currentDate.toDateString()
         ? i18nToday[this._language.current].toLowerCase()
         : this._dateAdapter.getAccessibilityFormatDate(currentDate);
 

@@ -51,12 +51,10 @@ describe('sbb-expansion-panel', () => {
   });
 
   it('click the header expands the panel, click again collapses it', async () => {
-    const header: SbbExpansionPanelHeaderElement = element.querySelector(
-      'sbb-expansion-panel-header',
-    );
-    const content: SbbExpansionPanelContentElement = element.querySelector(
-      'sbb-expansion-panel-content',
-    );
+    const header: SbbExpansionPanelHeaderElement =
+      element.querySelector<SbbExpansionPanelHeaderElement>('sbb-expansion-panel-header')!;
+    const content: SbbExpansionPanelContentElement =
+      element.querySelector<SbbExpansionPanelContentElement>('sbb-expansion-panel-content')!;
     expect(element.expanded).to.be.equal(false);
     expect(header.getAttribute('aria-expanded')).to.be.equal('false');
     expect(content.getAttribute('aria-hidden')).to.be.equal('true');
@@ -95,10 +93,9 @@ describe('sbb-expansion-panel', () => {
   });
 
   it('disabled property is proxied to header', async () => {
-    const header: SbbExpansionPanelHeaderElement = element.querySelector(
-      'sbb-expansion-panel-header',
-    );
-    expect(header.disabled).to.be.undefined;
+    const header: SbbExpansionPanelHeaderElement =
+      element.querySelector<SbbExpansionPanelHeaderElement>('sbb-expansion-panel-header')!;
+    expect(header.disabled).to.be.equal(false);
     expect(header).not.to.have.attribute('aria-disabled');
 
     element.disabled = true;

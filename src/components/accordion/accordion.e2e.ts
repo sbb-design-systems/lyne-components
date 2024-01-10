@@ -46,14 +46,14 @@ describe('sbb-accordion', () => {
   it('should set accordion context on expansion panel when removing and adding expansion-panels', async () => {
     let panels: SbbExpansionPanelElement[];
 
-    element.querySelector('sbb-expansion-panel').remove();
+    element.querySelector('sbb-expansion-panel')?.remove();
     await waitForLitRender(element);
 
     panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
     expect(panels[0]).to.have.attribute('data-accordion-first');
     expect(panels[1]).to.have.attribute('data-accordion-last');
 
-    element.querySelector('sbb-expansion-panel').remove();
+    element.querySelector('sbb-expansion-panel')?.remove();
     await waitForLitRender(element);
 
     const lastRemainingPanel = element.querySelector('sbb-expansion-panel');
@@ -74,13 +74,13 @@ describe('sbb-accordion', () => {
     const panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
     expect(panels.length).to.be.equal(3);
     expect(
-      panels[0].shadowRoot.querySelector('.sbb-expansion-panel').firstElementChild.tagName,
+      panels[0].shadowRoot?.querySelector('.sbb-expansion-panel')?.firstElementChild?.tagName,
     ).to.be.equal('H4');
     expect(
-      panels[1].shadowRoot.querySelector('.sbb-expansion-panel').firstElementChild.tagName,
+      panels[1].shadowRoot?.querySelector('.sbb-expansion-panel')?.firstElementChild?.tagName,
     ).to.be.equal('H4');
     expect(
-      panels[2].shadowRoot.querySelector('.sbb-expansion-panel').firstElementChild.tagName,
+      panels[2].shadowRoot?.querySelector('.sbb-expansion-panel')?.firstElementChild?.tagName,
     ).to.be.equal('H4');
   });
 
@@ -90,24 +90,30 @@ describe('sbb-accordion', () => {
     const panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
     expect(panels.length).to.be.equal(3);
     expect(
-      panels[0].shadowRoot.querySelector('.sbb-expansion-panel').firstElementChild.tagName,
+      panels[0].shadowRoot?.querySelector('.sbb-expansion-panel')?.firstElementChild?.tagName,
     ).to.be.equal('H6');
     expect(
-      panels[1].shadowRoot.querySelector('.sbb-expansion-panel').firstElementChild.tagName,
+      panels[1].shadowRoot?.querySelector('.sbb-expansion-panel')?.firstElementChild?.tagName,
     ).to.be.equal('H6');
     expect(
-      panels[2].shadowRoot.querySelector('.sbb-expansion-panel').firstElementChild.tagName,
+      panels[2].shadowRoot?.querySelector('.sbb-expansion-panel')?.firstElementChild?.tagName,
     ).to.be.equal('H6');
   });
 
   it('should close others when expanding and multi = false', async () => {
     const willOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.willOpen);
-    const panelOne: SbbExpansionPanelElement = element.querySelector('#panel-1');
-    const headerOne: SbbExpansionPanelHeaderElement = element.querySelector('#header-1');
-    const panelTwo: SbbExpansionPanelElement = element.querySelector('#panel-2');
-    const headerTwo: SbbExpansionPanelHeaderElement = element.querySelector('#header-2');
-    const panelThree: SbbExpansionPanelElement = element.querySelector('#panel-3');
-    const headerThree: SbbExpansionPanelHeaderElement = element.querySelector('#header-3');
+    const panelOne: SbbExpansionPanelElement =
+      element.querySelector<SbbExpansionPanelElement>('#panel-1')!;
+    const headerOne: SbbExpansionPanelHeaderElement =
+      element.querySelector<SbbExpansionPanelHeaderElement>('#header-1')!;
+    const panelTwo: SbbExpansionPanelElement =
+      element.querySelector<SbbExpansionPanelElement>('#panel-2')!;
+    const headerTwo: SbbExpansionPanelHeaderElement =
+      element.querySelector<SbbExpansionPanelHeaderElement>('#header-2')!;
+    const panelThree: SbbExpansionPanelElement =
+      element.querySelector<SbbExpansionPanelElement>('#panel-3')!;
+    const headerThree: SbbExpansionPanelHeaderElement =
+      element.querySelector<SbbExpansionPanelHeaderElement>('#header-3')!;
 
     for (const panel of [panelOne, panelTwo, panelThree]) {
       expect(panel.expanded).to.be.equal(false);
@@ -139,12 +145,18 @@ describe('sbb-accordion', () => {
     element.multi = true;
     await waitForLitRender(element);
     const willOpenEventSpy = new EventSpy(SbbExpansionPanelElement.events.willOpen);
-    const panelOne: SbbExpansionPanelElement = element.querySelector('#panel-1');
-    const headerOne: SbbExpansionPanelHeaderElement = element.querySelector('#header-1');
-    const panelTwo: SbbExpansionPanelElement = element.querySelector('#panel-2');
-    const headerTwo: SbbExpansionPanelHeaderElement = element.querySelector('#header-2');
-    const panelThree: SbbExpansionPanelElement = element.querySelector('#panel-3');
-    const headerThree: SbbExpansionPanelHeaderElement = element.querySelector('#header-3');
+    const panelOne: SbbExpansionPanelElement =
+      element.querySelector<SbbExpansionPanelElement>('#panel-1')!;
+    const headerOne: SbbExpansionPanelHeaderElement =
+      element.querySelector<SbbExpansionPanelHeaderElement>('#header-1')!;
+    const panelTwo: SbbExpansionPanelElement =
+      element.querySelector<SbbExpansionPanelElement>('#panel-2')!;
+    const headerTwo: SbbExpansionPanelHeaderElement =
+      element.querySelector<SbbExpansionPanelHeaderElement>('#header-2')!;
+    const panelThree: SbbExpansionPanelElement =
+      element.querySelector<SbbExpansionPanelElement>('#panel-3')!;
+    const headerThree: SbbExpansionPanelHeaderElement =
+      element.querySelector<SbbExpansionPanelHeaderElement>('#header-3')!;
 
     for (const panel of [panelOne, panelTwo, panelThree]) {
       expect(panel.expanded).to.be.equal(false);
@@ -175,11 +187,16 @@ describe('sbb-accordion', () => {
   it('should close all panels except the first when multi changes from true to false', async () => {
     element.multi = true;
     await waitForLitRender(element);
-    const panelOne: SbbExpansionPanelElement = element.querySelector('#panel-1');
-    const panelTwo: SbbExpansionPanelElement = element.querySelector('#panel-2');
-    const headerTwo: SbbExpansionPanelHeaderElement = element.querySelector('#header-2');
-    const panelThree: SbbExpansionPanelElement = element.querySelector('#panel-3');
-    const headerThree: SbbExpansionPanelHeaderElement = element.querySelector('#header-3');
+    const panelOne: SbbExpansionPanelElement =
+      element.querySelector<SbbExpansionPanelElement>('#panel-1')!;
+    const panelTwo: SbbExpansionPanelElement =
+      element.querySelector<SbbExpansionPanelElement>('#panel-2')!;
+    const headerTwo: SbbExpansionPanelHeaderElement =
+      element.querySelector<SbbExpansionPanelHeaderElement>('#header-2')!;
+    const panelThree: SbbExpansionPanelElement =
+      element.querySelector<SbbExpansionPanelElement>('#panel-3')!;
+    const headerThree: SbbExpansionPanelHeaderElement =
+      element.querySelector<SbbExpansionPanelHeaderElement>('#header-3')!;
 
     for (const panel of [panelOne, panelTwo, panelThree]) {
       expect(panel.expanded).to.be.equal(false);

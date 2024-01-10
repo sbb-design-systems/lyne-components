@@ -7,8 +7,10 @@ import { html } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
+import type { SbbCheckboxGroupElement } from '../checkbox';
 import { sbbSpread } from '../core/dom';
 import type { SbbFormErrorElement } from '../form-error';
+import type { SbbRadioButtonGroupElement, SbbRadioButtonGroupEventDetail } from '../radio-button';
 
 import readme from './readme.md?raw';
 import { SbbSelectionPanelElement } from './selection-panel';
@@ -418,11 +420,11 @@ const WithRadiosErrorMessageTemplate = ({
       horizontal-from="large"
       allow-empty-selection
       id="sbb-radio-group"
-      @change=${(event) => {
+      @change=${(event: CustomEvent<SbbRadioButtonGroupEventDetail>) => {
         if (event.detail.value) {
           sbbFormError.remove();
         } else {
-          event.currentTarget.append(sbbFormError);
+          (event.currentTarget as SbbRadioButtonGroupElement).append(sbbFormError);
         }
       }}
     >

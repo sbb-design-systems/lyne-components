@@ -11,21 +11,21 @@ export class EventSpy<T extends Event> {
   }
 
   private _events: T[] = [];
-  public get events(): { length: number } {
+  public get events(): T[] {
     return this._events;
   }
 
-  public get firstEvent(): T {
+  public get firstEvent(): T | null {
     return this.events.length ? this.events[0] : null;
   }
 
-  public get lastEvent(): T {
+  public get lastEvent(): T | null {
     return this.events.length ? this.events[this.events.length - 1] : null;
   }
 
   public constructor(
     private _event: string,
-    private readonly _target: Node = null,
+    private readonly _target: Node | null = null,
   ) {
     if (!this._target) {
       this._target = document;
@@ -34,7 +34,7 @@ export class EventSpy<T extends Event> {
   }
 
   private _listenForEvent(): void {
-    this._target.addEventListener(this._event, (ev) => {
+    this._target?.addEventListener(this._event, (ev) => {
       this._events.push(ev as T);
       this._count++;
     });

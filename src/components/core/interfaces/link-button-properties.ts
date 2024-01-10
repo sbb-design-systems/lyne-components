@@ -15,7 +15,7 @@ export type LinkTargetType = '_blank' | '_self' | '_parent' | '_top';
  */
 export interface LinkProperties {
   /** The href value you want to link to. */
-  href: string | undefined;
+  href?: string | undefined;
 
   /** Where to display the linked URL. */
   target?: LinkTargetType | string | undefined;
@@ -58,7 +58,7 @@ export interface LinkButtonRenderVariables {
   attributes: Record<string, string>;
 
   /** The host's attributes. */
-  hostAttributes?: Record<string, string>;
+  hostAttributes: Record<string, string | undefined>;
 }
 
 /**
@@ -73,7 +73,7 @@ export interface IsStaticProperty {
   isStatic: boolean;
 }
 
-function filterUndefined(...objects: Record<string, string>[]): Record<string, string> {
+function filterUndefined(...objects: Record<string, string | undefined>[]): Record<string, string> {
   const result: Record<string, string> = {};
   for (const object of objects) {
     for (const [key, value] of Object.entries(object)) {
@@ -109,12 +109,12 @@ function getLinkAttributeList(linkProperties: LinkProperties): Record<string, st
       });
 }
 
-function hostProperties(role: string, disabled: boolean): Record<string, string> {
+function hostProperties(role: string, disabled?: boolean): Record<string, string | undefined> {
   return Object.assign(
     { role, dir: getDocumentWritingMode() },
     disabled
-      ? { 'aria-disabled': 'true', tabIndex: null }
-      : { 'aria-disabled': null, tabIndex: '0' },
+      ? { 'aria-disabled': 'true', tabIndex: undefined }
+      : { 'aria-disabled': undefined, tabIndex: '0' },
   );
 }
 
@@ -178,5 +178,5 @@ export function resolveLinkOrStaticRenderVariables(
 
 /** Returns true, if href is set and target is _blank. */
 export function targetsNewWindow(properties: LinkProperties): boolean {
-  return properties.href && properties.target === '_blank';
+  return !!properties.href && properties.target === '_blank';
 }

@@ -6,6 +6,7 @@ import { html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../core/dom';
+import type { SbbCheckboxElement } from '../checkbox';
 
 import readme from './readme.md?raw';
 
@@ -20,11 +21,11 @@ velit, varius nec est ac, mollis efficitur lorem. Quisque non nisl eget massa in
 metus.`;
 
 const checkboxes = (
-  checked,
-  disabledSingle,
-  iconName,
-  iconPlacement,
-  label,
+  checked: boolean,
+  disabledSingle: boolean,
+  iconName: string,
+  iconPlacement: string,
+  label: string,
 ): TemplateResult => html`
   <sbb-checkbox
     value="checkbox-1"
@@ -78,11 +79,12 @@ const ErrorMessageTemplate = ({
 
 let selectedCheckboxes = ['checkbox-1'];
 
-const childCheck = (event): void => {
-  if (event.target.checked) {
-    selectedCheckboxes.push(event.target.value);
+const childCheck = (event: Event): void => {
+  const target: SbbCheckboxElement = event.target as SbbCheckboxElement;
+  if (target.checked) {
+    selectedCheckboxes.push(target.value as string);
   } else {
-    selectedCheckboxes.splice(selectedCheckboxes.indexOf(event.target.value), 1);
+    selectedCheckboxes.splice(selectedCheckboxes.indexOf(target.value as string), 1);
   }
   document
     .getElementById('invariant-parent')
@@ -92,14 +94,15 @@ const childCheck = (event): void => {
     ?.setAttribute('checked', String(selectedCheckboxes.length === 2));
 };
 
-const parentCheck = (event): void => {
-  if (event.target.checked) {
+const parentCheck = (event: Event): void => {
+  const target: SbbCheckboxElement = event.target as SbbCheckboxElement;
+  if (target.checked) {
     selectedCheckboxes = ['checkbox-1', 'checkbox-2'];
   } else {
     selectedCheckboxes = [];
   }
-  document.getElementById('invariant-checkbox-1')?.setAttribute('checked', event.target.checked);
-  document.getElementById('invariant-checkbox-2')?.setAttribute('checked', event.target.checked);
+  document.getElementById('invariant-checkbox-1')?.setAttribute('checked', String(target.checked));
+  document.getElementById('invariant-checkbox-2')?.setAttribute('checked', String(target.checked));
 };
 
 const IndeterminateGroupTemplate = ({
@@ -119,7 +122,7 @@ const IndeterminateGroupTemplate = ({
       value="parent"
       ?checked=${false}
       ?indeterminate=${true}
-      @change=${(event) => parentCheck(event)}
+      @change=${(event: Event) => parentCheck(event)}
       icon-name=${iconName || nothing}
       icon-placement=${iconPlacement}
     >
@@ -129,7 +132,7 @@ const IndeterminateGroupTemplate = ({
       id="invariant-checkbox-1"
       value="checkbox-1"
       ?checked=${true}
-      @change=${(event) => childCheck(event)}
+      @change=${(event: Event) => childCheck(event)}
       icon-name=${iconName || nothing}
       icon-placement=${iconPlacement}
       ?disabled=${disabledSingle}
@@ -141,7 +144,7 @@ const IndeterminateGroupTemplate = ({
       id="invariant-checkbox-2"
       value="checkbox-2"
       ?checked=${false}
-      @change=${(event) => childCheck(event)}
+      @change=${(event: Event) => childCheck(event)}
       icon-name=${iconName || nothing}
       icon-placement=${iconPlacement}
       style=${styleMap({ 'margin-inline-start': '2rem' })}

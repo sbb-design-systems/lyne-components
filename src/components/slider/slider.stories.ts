@@ -7,21 +7,28 @@ import { html } from 'lit';
 import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
+import type { SbbSliderElement } from './slider';
 import './slider';
 import '../form-field';
 import '../icon';
 
-const changeEventHandler = (event): void => {
-  const div = document.createElement('div');
-  div.innerText = `current value is: ${event.target.value}. Min is: ${event.target.min}. Max is ${event.target.max}.`;
-  (event.currentTarget as HTMLElement).parentElement.querySelector('#container-value').prepend(div);
+const changeEventHandler = (event: Event): void => {
+  const div: HTMLDivElement = document.createElement('div');
+  const target: SbbSliderElement = event.target as SbbSliderElement;
+  div.innerText = `current value is: ${target.value}. Min is: ${target.min}. Max is ${target.max}.`;
+  (event.currentTarget as HTMLElement)
+    .parentElement!.querySelector('#container-value')!
+    .prepend(div);
 };
 
 const TemplateSbbSlider = (args: Args): TemplateResult =>
   html`<sbb-slider ${sbbSpread(args)}></sbb-slider>`;
 
 const TemplateSbbSliderChangeEvent = (args: Args): TemplateResult => html`
-  <sbb-slider ${sbbSpread(args)} @change=${(event) => changeEventHandler(event)}></sbb-slider>
+  <sbb-slider
+    ${sbbSpread(args)}
+    @change=${(event: Event) => changeEventHandler(event)}
+  ></sbb-slider>
   <div style="margin-block-start: 2rem;">Change slider position:</div>
   <div id="container-value"></div>
 `;

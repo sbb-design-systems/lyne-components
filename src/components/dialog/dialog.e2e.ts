@@ -39,7 +39,7 @@ describe('sbb-dialog', () => {
         <div slot="action-group">Action group</div>
       </sbb-dialog>
     `);
-    ariaLiveRef = element.shadowRoot.querySelector('span.sbb-screen-reader-only');
+    ariaLiveRef = element.shadowRoot!.querySelector('span.sbb-screen-reader-only')!;
   });
 
   it('renders', () => {
@@ -73,7 +73,7 @@ describe('sbb-dialog', () => {
 
     await openDialog(element);
 
-    await waitForCondition(() => ariaLiveRef.textContent.trim() === `${i18nDialog.en}, Title`);
+    await waitForCondition(() => ariaLiveRef.textContent?.trim() === `${i18nDialog.en}, Title`);
 
     element.close();
     await waitForLitRender(element);
@@ -161,8 +161,8 @@ describe('sbb-dialog', () => {
     await openDialog(element);
 
     // Simulate backdrop click
-    element.shadowRoot
-      .querySelector('.sbb-dialog')
+    element
+      .shadowRoot!.querySelector('.sbb-dialog')!
       .dispatchEvent(new CustomEvent('pointerdown', { bubbles: true, composed: true }));
     element.dispatchEvent(new CustomEvent('pointerup'));
     await waitForLitRender(element);
@@ -184,8 +184,8 @@ describe('sbb-dialog', () => {
 
     // Simulate backdrop click
     element.dispatchEvent(new CustomEvent('pointerdown'));
-    element.shadowRoot
-      .querySelector('.sbb-dialog')
+    element
+      .shadowRoot!.querySelector('.sbb-dialog')!
       .dispatchEvent(new CustomEvent('pointerup', { bubbles: true, composed: true }));
     await waitForLitRender(element);
 
@@ -199,7 +199,7 @@ describe('sbb-dialog', () => {
   });
 
   it('closes the dialog on close button click', async () => {
-    const closeButton = element.shadowRoot.querySelector('[sbb-dialog-close]') as HTMLElement;
+    const closeButton = element.shadowRoot!.querySelector('[sbb-dialog-close]') as HTMLElement;
     const willClose = new EventSpy(SbbDialogElement.events.willClose);
     const didClose = new EventSpy(SbbDialogElement.events.didClose);
 
@@ -255,11 +255,11 @@ describe('sbb-dialog', () => {
         <div slot="action-group">Action group</div>
       </sbb-dialog>
     `);
-    ariaLiveRef = element.shadowRoot.querySelector('span.sbb-screen-reader-only');
+    ariaLiveRef = element.shadowRoot!.querySelector('span.sbb-screen-reader-only')!;
 
     await openDialog(element);
 
-    await waitForCondition(() => ariaLiveRef.textContent.trim() === `${i18nDialog.en}`);
+    await waitForCondition(() => ariaLiveRef.textContent?.trim() === `${i18nDialog.en}`);
 
     expect(element).to.have.attribute('data-fullscreen');
   });
@@ -386,18 +386,18 @@ describe('sbb-dialog', () => {
   it('should remove ariaLiveRef content on any keyboard interaction', async () => {
     await openDialog(element);
 
-    await waitForCondition(() => ariaLiveRef.textContent.trim() === `${i18nDialog.en}, Title`);
+    await waitForCondition(() => ariaLiveRef.textContent?.trim() === `${i18nDialog.en}, Title`);
 
     await sendKeys({ down: 'Tab' });
     await waitForLitRender(element);
 
-    expect(ariaLiveRef.textContent.trim()).to.be.equal('');
+    expect(ariaLiveRef.textContent?.trim()).to.be.equal('');
   });
 
   it('should remove ariaLiveRef content on any click interaction', async () => {
     await openDialog(element);
 
-    await waitForCondition(() => ariaLiveRef.textContent.trim() === `${i18nDialog.en}, Title`);
+    await waitForCondition(() => ariaLiveRef.textContent?.trim() === `${i18nDialog.en}, Title`);
 
     element.click();
     await waitForLitRender(element);
@@ -411,9 +411,9 @@ describe('sbb-dialog', () => {
     await openDialog(element);
 
     await waitForCondition(
-      () => ariaLiveRef.textContent.trim() === `${i18nDialog.en}, Special Dialog`,
+      () => ariaLiveRef.textContent?.trim() === `${i18nDialog.en}, Special Dialog`,
     );
 
-    expect(ariaLiveRef.textContent.trim()).to.be.equal(`${i18nDialog.en}, Special Dialog`);
+    expect(ariaLiveRef.textContent?.trim()).to.be.equal(`${i18nDialog.en}, Special Dialog`);
   });
 });

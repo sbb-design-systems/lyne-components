@@ -55,10 +55,10 @@ export class SbbTabGroupElement extends LitElement {
   } as const;
 
   private _tabs: InterfaceSbbTabGroupTab[] = [];
-  private _selectedTab: InterfaceSbbTabGroupTab;
-  private _isNested: boolean;
-  private _tabGroupElement: HTMLElement;
-  private _tabContentElement: HTMLElement;
+  private _selectedTab?: InterfaceSbbTabGroupTab;
+  private _isNested: boolean = false;
+  private _tabGroupElement!: HTMLElement;
+  private _tabContentElement!: HTMLElement;
   private _abort = new ConnectedAbortController(this);
   private _tabAttributeObserver = new AgnosticMutationObserver((mutationsList) =>
     this._onTabAttributesChange(mutationsList),
@@ -108,7 +108,7 @@ export class SbbTabGroupElement extends LitElement {
    * @param tabIndex The index of the tab you want to disable.
    */
   public disableTab(tabIndex: number): void {
-    this._tabs[tabIndex]?.tabGroupActions.disable();
+    this._tabs[tabIndex]?.tabGroupActions?.disable();
   }
 
   /**
@@ -116,7 +116,7 @@ export class SbbTabGroupElement extends LitElement {
    * @param tabIndex The index of the tab you want to enable.
    */
   public enableTab(tabIndex: number): void {
-    this._tabs[tabIndex]?.tabGroupActions.enable();
+    this._tabs[tabIndex]?.tabGroupActions?.enable();
   }
 
   /**
@@ -124,7 +124,7 @@ export class SbbTabGroupElement extends LitElement {
    * @param tabIndex The index of the tab you want to activate.
    */
   public activateTab(tabIndex: number): void {
-    this._tabs[tabIndex]?.tabGroupActions.select();
+    this._tabs[tabIndex]?.tabGroupActions?.select();
   }
 
   private _getTabs(): InterfaceSbbTabGroupTab[] {
@@ -161,7 +161,7 @@ export class SbbTabGroupElement extends LitElement {
   }
 
   private _onContentSlotChange = (): void => {
-    this._tabContentElement = this.shadowRoot.querySelector('div.tab-content');
+    this._tabContentElement = this.shadowRoot!.querySelector('div.tab-content')!;
     const loadedTabs = this._getTabs().filter((tab) => !this._tabs.includes(tab));
 
     // if a new tab/content is added to the tab group
@@ -196,9 +196,9 @@ export class SbbTabGroupElement extends LitElement {
       this.initialSelectedIndex < this._tabs.length &&
       !this._tabs[this.initialSelectedIndex].disabled
     ) {
-      this._tabs[this.initialSelectedIndex].tabGroupActions.select();
+      this._tabs[this.initialSelectedIndex].tabGroupActions?.select();
     } else {
-      this._enabledTabs[0]?.tabGroupActions.select();
+      this._enabledTabs[0]?.tabGroupActions?.select();
     }
   }
 
@@ -211,14 +211,14 @@ export class SbbTabGroupElement extends LitElement {
 
       if (mutation.attributeName === 'disabled') {
         if (isValidAttribute(tab, 'disabled') && tab !== this._selectedTab) {
-          tab.tabGroupActions.disable();
+          tab.tabGroupActions?.disable();
         } else if (tab.disabled) {
-          tab.tabGroupActions.enable();
+          tab.tabGroupActions?.enable();
         }
       }
       if (mutation.attributeName === 'active') {
         if (isValidAttribute(tab, 'active') && !tab.disabled) {
-          tab.tabGroupActions.select();
+          tab.tabGroupActions?.select();
         } else if (tab === this._selectedTab) {
           tab.setAttribute('active', '');
         }
@@ -281,7 +281,7 @@ export class SbbTabGroupElement extends LitElement {
         if (tab.active) {
           tab.removeAttribute('active');
           tab.active = false;
-          this._enabledTabs[0]?.tabGroupActions.select();
+          this._enabledTabs[0]?.tabGroupActions?.select();
         }
       },
       enable: (): void => {
@@ -295,21 +295,24 @@ export class SbbTabGroupElement extends LitElement {
           const prevTab = this._selectedTab;
 
           if (prevTab) {
-            prevTab.tabGroupActions.deactivate();
-            this._tabContentResizeObserver.unobserve(prevTab.relatedContent);
+            prevTab.tabGroupActions?.deactivate();
+            this._tabContentResizeObserver.unobserve(prevTab.relatedContent!);
           }
 
-          tab.tabGroupActions.activate();
+          tab.tabGroupActions?.activate();
           this._selectedTab = tab;
 
-          this._tabContentResizeObserver.observe(tab.relatedContent);
+          this._tabContentResizeObserver.observe(tab.relatedContent!);
           this._selectedTabChanged.emit();
         } else if (tab.disabled) {
           console.warn('You cannot activate a disabled tab');
         }
       },
     };
-    if (SUPPORTED_CONTENT_WRAPPERS.includes(tab.nextElementSibling?.tagName)) {
+    if (
+      tab.nextElementSibling?.tagName &&
+      SUPPORTED_CONTENT_WRAPPERS.includes(tab.nextElementSibling?.tagName)
+    ) {
       tab.relatedContent = tab.nextElementSibling as HTMLElement;
       tab.relatedContent.id = this._assignId();
       if (tab.relatedContent.nodeName !== 'SBB-TAB-GROUP') {
@@ -334,7 +337,7 @@ export class SbbTabGroupElement extends LitElement {
       tab.relatedContent.setAttribute('active', '');
     }
     tab.addEventListener('click', () => {
-      tab.tabGroupActions.select();
+      tab.tabGroupActions?.select();
     });
 
     this._tabAttributeObserver.observe(tab, tabObserverConfig);
@@ -355,7 +358,7 @@ export class SbbTabGroupElement extends LitElement {
     if (isArrowKeyPressed(evt)) {
       const current: number = enabledTabs.findIndex((t: InterfaceSbbTabGroupTab) => t.active);
       const nextIndex: number = getNextElementIndex(evt, current, enabledTabs.length);
-      enabledTabs[nextIndex]?.tabGroupActions.select();
+      enabledTabs[nextIndex]?.tabGroupActions?.select();
       enabledTabs[nextIndex]?.focus();
       evt.preventDefault();
     }
@@ -368,7 +371,7 @@ export class SbbTabGroupElement extends LitElement {
       <div
         class="tab-group"
         role="tablist"
-        ${ref((el) => (this._tabGroupElement = el as HTMLElement))}
+        ${ref((el?: Element) => (this._tabGroupElement = el as HTMLElement))}
       >
         <slot name="tab-bar" @slotchange=${this._onTabsSlotChange}></slot>
       </div>

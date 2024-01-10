@@ -23,7 +23,7 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
     : 'var(--sbb-color-white-default)',
 });
 
-const paragraphStyle = (negative): Record<string, string> => ({
+const paragraphStyle = (negative: boolean): Record<string, string> => ({
   color: negative ? 'var(--sbb-color-aluminium-default)' : 'var(--sbb-color-iron-default)',
 });
 

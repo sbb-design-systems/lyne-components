@@ -60,7 +60,7 @@ export class SbbJourneySummaryElement extends LitElement {
    */
   @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
 
-  private _hasContentSlot: boolean;
+  private _hasContentSlot: boolean = false;
   private _language = new LanguageController(this);
 
   public override connectedCallback(): void {
@@ -69,28 +69,33 @@ export class SbbJourneySummaryElement extends LitElement {
   }
 
   private _now(): number {
-    const dataNow = +this.dataset?.now;
+    const dataNow = +(this.dataset?.now as string);
     return isNaN(dataNow) ? Date.now() : dataNow;
   }
 
   /**  renders the date of the journey or if it is the current or next day */
-  private _renderJourneyStart(departureTime: Date, duration: number): TemplateResult {
+  private _renderJourneyStart(
+    departureTime: Date | undefined,
+    duration: number | undefined,
+  ): TemplateResult | undefined {
     const dateAdapter = defaultDateAdapter;
-    const durationObj = durationToTime(duration, this._language.current);
+    const durationObj = duration ? durationToTime(duration, this._language.current) : null;
 
-    if (isValid(departureTime))
+    if (isValid(departureTime)) {
       return html`
-        <time datetime=${format(departureTime, 'd') + ' ' + format(departureTime, 'M')}>
+        <time datetime=${format(departureTime!, 'd') + ' ' + format(departureTime!, 'M')}>
           ${dateAdapter.format(departureTime).replace(',', '.')}</time
-        >${duration > 0
+        >${duration && duration > 0
           ? html`,<time>
                 <span class="sbb-screenreaderonly">
-                  ${i18nTripDuration[this._language.current]} ${durationObj.long}
+                  ${i18nTripDuration[this._language.current]} ${durationObj!.long}
                 </span>
-                <span aria-hidden="true">${durationObj.short}</span>
+                <span aria-hidden="true">${durationObj!.short}</span>
               </time>`
           : nothing}
       `;
+    }
+    return;
   }
 
   private _renderJourneyVias(vias: string[]): TemplateResult {
@@ -117,7 +122,7 @@ export class SbbJourneySummaryElement extends LitElement {
 
     return html`
       <div>
-        ${vias?.length > 0 ? this._renderJourneyVias(vias) : nothing}
+        ${vias && vias.length > 0 ? this._renderJourneyVias(vias) : nothing}
         <div class="sbb-journey-summary__date">
           ${this._renderJourneyStart(removeTimezoneFromISOTimeString(departure), duration)}
         </div>

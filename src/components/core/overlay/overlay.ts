@@ -29,7 +29,11 @@ const getAncestors = (overlay: HTMLElement, root: HTMLElement): HTMLElement[] =>
   const ancestors: HTMLElement[] = [];
   while (el) {
     ancestors.push(el);
-    el = el !== root && el.parentElement;
+    if (el !== root) {
+      el = el.parentElement;
+    } else {
+      break;
+    }
   }
   return ancestors;
 };
@@ -41,7 +45,7 @@ const setSbbInert = (el: HTMLElement): void => {
   if (!el.inert) {
     el.inert = true;
     if (el.matches(IS_OPEN_OVERLAY_QUERY)) {
-      el.dataset.sbbInert = `${+el.dataset.sbbInert + 1 || 0}`;
+      el.dataset.sbbInert = `${+el.dataset.sbbInert! + 1 || 0}`;
     } else {
       toggleDatasetEntry(el, 'sbbInert', true);
     }
@@ -87,11 +91,11 @@ export function applyInertMechanism(overlay: HTMLElement): void {
   for (const el of ancestors) {
     children = children.concat(
       Array.from(el.children).filter(
-        (el: HTMLElement) => el !== overlay && !ancestors.includes(el),
+        (el: Element) => el !== overlay && !ancestors.includes(el as HTMLElement),
       ) as HTMLElement[],
     );
     if (el.matches(IS_OPEN_OVERLAY_QUERY)) {
-      el.dataset.sbbInert = `${+el.dataset.sbbInert + 1 || 0}`;
+      el.dataset.sbbInert = `${+el.dataset.sbbInert! + 1 || 0}`;
     }
   }
 
@@ -105,16 +109,16 @@ export function removeInertMechanism(): void {
 
   if (openOverlays.length) {
     openOverlays.forEach((el) => {
-      el.dataset.sbbInert = `${+el.dataset.sbbInert - 1}`;
+      el.dataset.sbbInert = `${+el.dataset.sbbInert! - 1}`;
       if (el.dataset.sbbInert && +el.dataset.sbbInert < 0) {
         removeSbbInert(el);
-        Array.from(el.children).forEach((el: HTMLElement) => removeSbbInert(el));
+        Array.from(el.children).forEach((el: Element) => removeSbbInert(el as HTMLElement));
       }
     });
     return;
   }
 
-  Array.from(document.documentElement.querySelectorAll('[data-sbb-inert]')).forEach(
-    (el: HTMLElement) => removeSbbInert(el),
+  Array.from(document.documentElement.querySelectorAll('[data-sbb-inert]')).forEach((el: Element) =>
+    removeSbbInert(el as HTMLElement),
   );
 }

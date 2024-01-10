@@ -194,7 +194,7 @@ const scrollDecorator: Decorator = (story) => html`
 `;
 
 // Story interaction executed after the story renders
-const playStory = async ({ canvasElement }): Promise<void> => {
+const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
@@ -248,7 +248,7 @@ const textBlock = (): TemplateResult => html`
   </div>
 `;
 
-const Template = (args): TemplateResult => html`
+const Template = (args: Args): TemplateResult => html`
   <div>
     <sbb-form-field
       ?negative=${args.negative}
@@ -275,7 +275,7 @@ const Template = (args): TemplateResult => html`
   </div>
 `;
 
-const OptionGroupTemplate = (args): TemplateResult => html`
+const OptionGroupTemplate = (args: Args): TemplateResult => html`
   <div>
     <sbb-form-field
       ?negative=${args.negative}
@@ -305,7 +305,7 @@ const OptionGroupTemplate = (args): TemplateResult => html`
   </div>
 `;
 
-const MixedTemplate = (args): TemplateResult => html`
+const MixedTemplate = (args: Args): TemplateResult => html`
   <div>
     <sbb-form-field
       ?negative=${args.negative}
@@ -343,7 +343,7 @@ const MixedTemplate = (args): TemplateResult => html`
   </div>
 `;
 
-const RequiredTemplate = (args): TemplateResult => {
+const RequiredTemplate = (args: Args): TemplateResult => {
   const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
   sbbFormError.setAttribute('slot', 'error');
   sbbFormError.textContent = 'This is a required field.';
@@ -365,7 +365,7 @@ const RequiredTemplate = (args): TemplateResult => {
           placeholder="Placeholder"
           ?disabled=${args.disabled}
           ?readonly=${args.readonly}
-          @change=${(event) => {
+          @change=${(event: Event) => {
             if ((event.currentTarget as HTMLInputElement).value !== '') {
               sbbFormError.remove();
               document.getElementById('sbb-autocomplete')!.classList.remove('sbb-invalid');

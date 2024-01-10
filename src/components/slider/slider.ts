@@ -115,14 +115,14 @@ export class SbbSliderElement extends LitElement {
       min = +this._rangeInput.min;
       max = +this._rangeInput.max;
     } else {
-      min = +this.min;
-      max = +this.max;
+      min = +(this.min as string);
+      max = +(this.max as string);
       value =
         this.value && this.value !== ''
           ? +this.value
           : this.valueAsNumber
             ? this.valueAsNumber
-            : +this.min + (+this.max - +this.min) / 2;
+            : +(this.min as string) + (+(this.max as string) - +(this.min as string)) / 2;
     }
     const mathFraction: number = (value - min) / (max - min);
     this._valueFraction =
@@ -206,7 +206,7 @@ export class SbbSliderElement extends LitElement {
               type="range"
               @change=${(event: Event) => this._emitChange(event)}
               @input=${() => this._handleChange()}
-              ${ref((input: HTMLInputElement) => (this._rangeInput = input))}
+              ${ref((input?: Element) => (this._rangeInput = input as HTMLInputElement))}
             />
             <div class="sbb-slider__line">
               <div class="sbb-slider__selected-line"></div>

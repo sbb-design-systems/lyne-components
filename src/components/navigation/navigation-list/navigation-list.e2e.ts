@@ -20,10 +20,10 @@ describe('sbb-navigation-list', () => {
   });
 
   it('automatic list generation', () => {
-    const list = element.shadowRoot.querySelector('ul');
-    expect(list.className).to.be.equal('sbb-navigation-list__content');
+    const list = element.shadowRoot!.querySelector('ul');
+    expect(list?.className).to.be.equal('sbb-navigation-list__content');
 
-    const listItem = list.querySelector('li');
+    const listItem = list?.querySelector('li');
     expect(listItem).to.have.class('sbb-navigation-list__action');
   });
 

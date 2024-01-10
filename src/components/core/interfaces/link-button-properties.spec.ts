@@ -117,7 +117,7 @@ describe('getLinkRenderVariables', () => {
         'aria-disabled': 'true',
         role: 'link',
         dir: 'ltr',
-        tabIndex: null,
+        tabIndex: undefined,
       },
     };
     expect(resolveRenderVariables(linkButtonProperties)).to.be.deep.equal(expectedObj);
@@ -135,7 +135,7 @@ describe('getButtonRenderVariables', () => {
       tagName: 'span',
       attributes: {},
       hostAttributes: {
-        'aria-disabled': null,
+        'aria-disabled': undefined,
         role: 'button',
         tabIndex: '0',
         dir: 'ltr',
@@ -181,7 +181,7 @@ describe('resolveRenderVariables', () => {
     };
 
     expect(
-      resolveRenderVariables({ isStatic: true, href: null, name: null, type: null }),
+      resolveRenderVariables({ isStatic: true, href: undefined, name: undefined, type: undefined }),
     ).to.be.deep.equal(expectedObj);
   });
 });

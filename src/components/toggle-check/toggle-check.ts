@@ -89,7 +89,7 @@ export class SbbToggleCheckElement extends LitElement {
 
   private _handleClick(event: Event): void {
     if (!this.disabled && getEventTarget(event) === this) {
-      findShadowInput(this).click();
+      findShadowInput(this)?.click();
     }
   }
 
@@ -98,7 +98,7 @@ export class SbbToggleCheckElement extends LitElement {
     if (!this.disabled && event.key === ' ') {
       // The toggle needs to happen after the keyup event finishes, so we schedule
       // it to be triggered after the current event loop.
-      setTimeout(() => findShadowInput(this).click());
+      setTimeout(() => findShadowInput(this)?.click());
     }
   }
 
@@ -118,7 +118,7 @@ export class SbbToggleCheckElement extends LitElement {
   private _onLabelSlotChange(event: Event): void {
     this._hasLabelText = (event.target as HTMLSlotElement)
       .assignedNodes()
-      .some((n: Node) => !!n.textContent.trim());
+      .some((n: Node) => !!n.textContent?.trim());
   }
 
   protected override render(): TemplateResult {
@@ -148,7 +148,7 @@ export class SbbToggleCheckElement extends LitElement {
         />
         <span class="sbb-toggle-check__container">
           <span class="sbb-toggle-check__label" ?hidden=${!this._hasLabelText}>
-            <slot @slotchange=${(event): void => this._onLabelSlotChange(event)}></slot>
+            <slot @slotchange=${(event: Event): void => this._onLabelSlotChange(event)}></slot>
           </span>
           <span class="sbb-toggle-check__track">
             <span class="sbb-toggle-check__circle">

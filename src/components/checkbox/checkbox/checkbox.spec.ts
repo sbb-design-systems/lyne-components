@@ -73,7 +73,7 @@ describe('sbb-checkbox', () => {
     it('indeterminate', async () => {
       const root = await fixture(html`<sbb-checkbox indeterminate>Label</sbb-checkbox>`);
 
-      const input = root.shadowRoot.querySelector('input');
+      const input = root.shadowRoot!.querySelector<HTMLInputElement>('input')!;
       expect(input.indeterminate).to.be.equal(true);
 
       expect(root).dom.to.be.equal(`

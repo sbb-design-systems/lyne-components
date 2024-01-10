@@ -50,7 +50,7 @@ export class SbbPearlChainTimeElement extends LitElement {
   private _language = new LanguageController(this);
 
   private _now(): number {
-    const dataNow = +this.dataset?.now;
+    const dataNow = +(this.dataset?.now as string);
     return isNaN(dataNow) ? Date.now() : dataNow;
   }
 

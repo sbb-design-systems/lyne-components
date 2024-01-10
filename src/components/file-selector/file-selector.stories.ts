@@ -82,10 +82,10 @@ const multipleDefaultArgs: Args = {
   'accessibility-label': 'Select from hard disk - multiple files allowed',
 };
 
-const Template = (args): TemplateResult =>
+const Template = (args: Args): TemplateResult =>
   html`<sbb-file-selector ${sbbSpread(args)}></sbb-file-selector>`;
 
-const TemplateWithError = (args): TemplateResult => {
+const TemplateWithError = (args: Args): TemplateResult => {
   const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
   sbbFormError.setAttribute('slot', 'error');
   sbbFormError.textContent = 'There has been an error.';
@@ -94,7 +94,7 @@ const TemplateWithError = (args): TemplateResult => {
     <sbb-file-selector
       ${sbbSpread(args)}
       id="sbb-file-selector"
-      @fileChanged=${(event) => {
+      @fileChanged=${(event: CustomEvent<File[]>) => {
         if (event.detail && event.detail.length > 0) {
           event.target!.append(sbbFormError);
         } else {

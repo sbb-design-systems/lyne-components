@@ -48,6 +48,8 @@ export const getSvgContent = (
                   return svgContent;
                 });
               }
+              // FIXME check this returned value
+              return new Promise<string>(() => '');
             })
             .catch((error) => {
               throw Error(error);

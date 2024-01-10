@@ -47,7 +47,7 @@ describe('sbb-toggle-check', () => {
       await waitForCondition(() => focusSpy.events.length === 1);
       expect(focusSpy.count).to.be.equal(1);
 
-      expect(document.activeElement.id).to.be.equal('focus-id');
+      expect(document.activeElement?.id).to.be.equal('focus-id');
     });
   });
 
@@ -59,16 +59,16 @@ describe('sbb-toggle-check', () => {
         </div>
       </div>`,
     );
-    const toggle = element.querySelector('sbb-toggle-check');
+    const toggle = element.querySelector<SbbToggleCheckElement>('sbb-toggle-check')!;
 
     expect(toggle).not.to.have.attribute('checked');
-    expect(document.querySelector('#scroll-context').scrollTop).to.be.equal(0);
+    expect(document.querySelector<HTMLDivElement>('#scroll-context')?.scrollTop).to.be.equal(0);
 
     toggle.focus();
     await sendKeys({ press: ' ' });
 
     await waitForCondition(() => toggle.hasAttribute('checked'));
     expect(toggle).to.have.attribute('checked');
-    expect(document.querySelector('#scroll-context').scrollTop).to.be.equal(0);
+    expect(document.querySelector<HTMLDivElement>('#scroll-context')?.scrollTop).to.be.equal(0);
   });
 });

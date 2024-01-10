@@ -20,7 +20,7 @@ export function setAriaOverlayTriggerAttributes(
 /**
  * Remove aria attributes from trigger elements.
  */
-export function removeAriaOverlayTriggerAttributes(trigger: HTMLElement): void {
+export function removeAriaOverlayTriggerAttributes(trigger: HTMLElement | null | undefined): void {
   if (!trigger) {
     return;
   }

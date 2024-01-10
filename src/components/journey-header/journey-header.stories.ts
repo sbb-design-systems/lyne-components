@@ -71,7 +71,7 @@ const defaultArgs: Args = {
   negative: false,
 };
 
-const Template = (args): TemplateResult =>
+const Template = (args: Args): TemplateResult =>
   html`<sbb-journey-header ${sbbSpread(args)}></sbb-journey-header>`;
 
 export const SizeM: StoryObj = {

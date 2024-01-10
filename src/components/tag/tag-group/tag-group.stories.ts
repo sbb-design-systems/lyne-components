@@ -6,19 +6,24 @@ import { html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
 import { sbbSpread } from '../../core/dom';
+import type { SbbTagElement } from '../tag';
 
 import readme from './readme.md?raw';
 import './tag-group';
 import '../tag';
 import type { SbbTagGroupElement } from './tag-group';
 
-const uncheckAllTag = (event): void => {
-  const tagGroup = event.currentTarget.closest('sbb-tag-group') as SbbTagGroupElement;
-  tagGroup.querySelector('.all').removeAttribute('checked');
+const uncheckAllTag = (event: Event): void => {
+  const tagGroup = (event.currentTarget as SbbTagElement).closest(
+    'sbb-tag-group',
+  ) as SbbTagGroupElement;
+  tagGroup.querySelector('.all')!.removeAttribute('checked');
 };
 
-const uncheckTags = (event): void => {
-  const tagGroup = event.currentTarget.closest('sbb-tag-group') as SbbTagGroupElement;
+const uncheckTags = (event: Event): void => {
+  const tagGroup = (event.currentTarget as SbbTagElement).closest(
+    'sbb-tag-group',
+  ) as SbbTagGroupElement;
   Array.from(tagGroup.querySelectorAll('sbb-tag'))
     .filter((e) => !e.classList.contains('all') && !e.getAttribute('disabled'))
     .forEach((e) => e.removeAttribute('checked'));
@@ -84,14 +89,14 @@ const TagGroupTemplate = ({ numberOfTagsInGroup, ...args }: Args): TemplateResul
   </sbb-tag-group>
 `;
 
-const TagGroupTemplateEllipsis = ({ numberOfTagsInGroup, ...args }): TemplateResult => html`
+const TagGroupTemplateEllipsis = ({ numberOfTagsInGroup, ...args }: Args): TemplateResult => html`
   <sbb-tag-group ${sbbSpread(args)}>
     ${tagTemplate(longLabelText, true)}
     ${repeat(new Array(numberOfTagsInGroup - 1), (_e, i) => tagTemplate(`Label ${i + 1}`))}
   </sbb-tag-group>
 `;
 
-const ExclusiveTagGroupTemplate = ({ numberOfTagsInGroup, ...args }): TemplateResult => html`
+const ExclusiveTagGroupTemplate = ({ numberOfTagsInGroup, ...args }: Args): TemplateResult => html`
   <sbb-tag-group ${sbbSpread(args)}>
     ${repeat(new Array(numberOfTagsInGroup), (_e, i) => tagTemplate(`Label ${i + 1}`))}
   </sbb-tag-group>
@@ -101,13 +106,15 @@ const ExclusiveTagGroupTemplate = ({ numberOfTagsInGroup, ...args }): TemplateRe
   </div>
 `;
 
-const AllChoiceTagGroupTemplate = ({ numberOfTagsInGroup, ...args }): TemplateResult => html`
+const AllChoiceTagGroupTemplate = ({ numberOfTagsInGroup, ...args }: Args): TemplateResult => html`
   <sbb-tag-group ${sbbSpread(args)}>
-    <sbb-tag class="all" @change=${(ev) => uncheckTags(ev)} value="All" checked> All </sbb-tag>
+    <sbb-tag class="all" @change=${(ev: Event) => uncheckTags(ev)} value="All" checked>
+      All
+    </sbb-tag>
     ${repeat(
       new Array(numberOfTagsInGroup),
       (_e, i) => html`
-        <sbb-tag @change=${(ev) => uncheckAllTag(ev)} amount="123" value=${`Label ${i + 1}`}>
+        <sbb-tag @change=${(ev: Event) => uncheckAllTag(ev)} amount="123" value=${`Label ${i + 1}`}>
           Label ${i + 1}
         </sbb-tag>
       `,

@@ -3,6 +3,7 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
+import type { SbbButtonElement } from '../button';
 import { LanguageController } from '../core/common-behaviors';
 import { toggleDatasetEntry } from '../core/dom';
 import { i18nMapContainerButtonLabel } from '../core/i18n';
@@ -27,7 +28,7 @@ export class SbbMapContainerElement extends LitElement {
 
   @state() private _scrollUpButtonVisible = false;
 
-  private _intersector: HTMLSpanElement;
+  private _intersector?: HTMLSpanElement;
   private _language = new LanguageController(this);
   private _observer = new AgnosticIntersectionObserver((entries) =>
     this._toggleButtonVisibilityOnIntersect(entries),
@@ -76,11 +77,11 @@ export class SbbMapContainerElement extends LitElement {
         <div class="sbb-map-container__sidebar">
           ${!this.hideScrollUpButton
             ? html`<span
-                ${ref((el: HTMLElement): void => {
+                ${ref((el?: Element): void => {
                   if (this._intersector === el) {
                     return;
                   }
-                  this._intersector = el;
+                  this._intersector = el as HTMLSpanElement;
                   this._updateIntersectionObserver();
                 })}
               ></span>`
@@ -96,9 +97,9 @@ export class SbbMapContainerElement extends LitElement {
                 icon-name="location-pin-map-small"
                 type="button"
                 @click=${() => this._onScrollButtonClick()}
-                ${ref((ref: HTMLElement) => {
+                ${ref((ref?: Element) => {
                   if (ref) {
-                    ref.inert = !this._scrollUpButtonVisible;
+                    (ref as SbbButtonElement).inert = !this._scrollUpButtonVisible;
                   }
                 })}
               >

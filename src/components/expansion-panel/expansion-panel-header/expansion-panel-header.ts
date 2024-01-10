@@ -38,7 +38,7 @@ export class SbbExpansionPanelHeaderElement extends LitElement {
   @property({ attribute: 'icon-name', reflect: true }) public iconName?: string;
 
   /** Whether the button is disabled. */
-  @property({ reflect: true, type: Boolean }) public disabled: boolean;
+  @property({ reflect: true, type: Boolean }) public disabled: boolean = false;
 
   /** Notifies that the `sbb-expansion-panel` has to expand. */
   private _toggleExpanded: EventEmitter = new EventEmitter(
@@ -74,7 +74,7 @@ export class SbbExpansionPanelHeaderElement extends LitElement {
   }
 
   private _onMouseMovement(toggleDataAttribute: boolean): void {
-    const parent: SbbExpansionPanelElement = this.closest('sbb-expansion-panel');
+    const parent: SbbExpansionPanelElement = this.closest('sbb-expansion-panel')!;
     // The `sbb.hover-mq` logic has been removed from scss, but it must be replicated to have the correct behavior on mobile.
     if (!toggleDataAttribute || (parent && window.matchMedia('(any-hover: hover)').matches)) {
       toggleDatasetEntry(parent, 'toggleHover', toggleDataAttribute);

@@ -55,7 +55,7 @@ export class SbbTooltipElement extends LitElement {
    * The element that will trigger the tooltip overlay.
    * Accepts both a string (id of an element) or an HTML element.
    */
-  @property() public trigger: string | HTMLElement;
+  @property() public trigger?: string | HTMLElement;
 
   /**
    * Whether the close button should be hidden.
@@ -66,7 +66,7 @@ export class SbbTooltipElement extends LitElement {
   /**
    * Whether the tooltip should be triggered on hover.
    */
-  @property({ attribute: 'hover-trigger', type: Boolean }) public hoverTrigger?: boolean = false;
+  @property({ attribute: 'hover-trigger', type: Boolean }) public hoverTrigger: boolean = false;
 
   /**
    * Open the tooltip after a certain delay.
@@ -107,7 +107,7 @@ export class SbbTooltipElement extends LitElement {
   /**
    * The alignment of the tooltip relative to the trigger.
    */
-  @state() private _alignment: Alignment;
+  @state() private _alignment?: Alignment;
 
   /** Emits whenever the `sbb-tooltip` starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbTooltipElement.events.willOpen);
@@ -116,29 +116,29 @@ export class SbbTooltipElement extends LitElement {
   private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbTooltipElement.events.didOpen);
 
   /** Emits whenever the `sbb-tooltip` begins the closing transition. */
-  private _willClose: EventEmitter<{ closeTarget: HTMLElement }> = new EventEmitter(
+  private _willClose: EventEmitter<{ closeTarget?: HTMLElement }> = new EventEmitter(
     this,
     SbbTooltipElement.events.willClose,
   );
 
   /** Emits whenever the `sbb-tooltip` is closed. */
-  private _didClose: EventEmitter<{ closeTarget: HTMLElement }> = new EventEmitter(
+  private _didClose: EventEmitter<{ closeTarget?: HTMLElement }> = new EventEmitter(
     this,
     SbbTooltipElement.events.didClose,
   );
 
-  private _overlay: HTMLDivElement;
-  private _triggerElement: HTMLElement;
+  private _overlay!: HTMLDivElement;
+  private _triggerElement?: HTMLElement | null;
   // The element which should receive focus after closing based on where in the backdrop the user clicks.
   private _nextFocusedElement?: HTMLElement;
-  private _tooltipCloseElement: HTMLElement;
-  private _isPointerDownEventOnTooltip: boolean;
-  private _tooltipController: AbortController;
-  private _windowEventsController: AbortController;
+  private _tooltipCloseElement?: HTMLElement;
+  private _isPointerDownEventOnTooltip?: boolean;
+  private _tooltipController!: AbortController;
+  private _windowEventsController!: AbortController;
   private _focusHandler = new FocusHandler();
   private _hoverTrigger = false;
-  private _openTimeout: ReturnType<typeof setTimeout>;
-  private _closeTimeout: ReturnType<typeof setTimeout>;
+  private _openTimeout?: ReturnType<typeof setTimeout>;
+  private _closeTimeout?: ReturnType<typeof setTimeout>;
   private _tooltipId = `sbb-tooltip-${++nextId}`;
   private _language = new LanguageController(this);
 
@@ -201,8 +201,8 @@ export class SbbTooltipElement extends LitElement {
 
   // Removes trigger click listener on trigger change.
   private _removeTriggerClickListener(
-    newValue: string | HTMLElement,
-    oldValue: string | HTMLElement,
+    newValue?: string | HTMLElement,
+    oldValue?: string | HTMLElement,
   ): void {
     if (newValue !== oldValue) {
       this._tooltipController?.abort();
@@ -241,7 +241,7 @@ export class SbbTooltipElement extends LitElement {
   }
 
   // Check if the trigger is valid and attach click event listeners.
-  private _configure(trigger: string | HTMLElement): void {
+  private _configure(trigger?: string | HTMLElement): void {
     removeAriaOverlayTriggerAttributes(this._triggerElement);
 
     if (!trigger) {
@@ -393,7 +393,7 @@ export class SbbTooltipElement extends LitElement {
       this._attachWindowEvents();
     } else if (event.animationName === 'close' && this._state === 'closing') {
       this._state = 'closed';
-      this._overlay.firstElementChild.scrollTo(0, 0);
+      this._overlay?.firstElementChild?.scrollTo(0, 0);
 
       const elementToFocus = this._nextFocusedElement || this._triggerElement;
 
@@ -409,7 +409,7 @@ export class SbbTooltipElement extends LitElement {
   // Set focus on the first focusable element.
   private _setTooltipFocus(): void {
     const firstFocusable =
-      (this.shadowRoot.querySelector('[sbb-tooltip-close]') as HTMLElement) ||
+      this.shadowRoot!.querySelector<HTMLElement>('[sbb-tooltip-close]') ||
       getFirstFocusableElement(
         Array.from(this.children).filter((e): e is HTMLElement => e instanceof window.HTMLElement),
       );
@@ -427,7 +427,7 @@ export class SbbTooltipElement extends LitElement {
     const tooltipPosition = getElementPosition(
       this._overlay,
       this._triggerElement,
-      this.shadowRoot.querySelector('.sbb-tooltip__container'),
+      this.shadowRoot!.querySelector('.sbb-tooltip__container')!,
       {
         verticalOffset: VERTICAL_OFFSET,
         horizontalOffset: HORIZONTAL_OFFSET,
@@ -472,7 +472,7 @@ export class SbbTooltipElement extends LitElement {
         <div
           @animationend=${(event: AnimationEvent) => this._onTooltipAnimationEnd(event)}
           class="sbb-tooltip"
-          ${ref((el) => (this._overlay = el as HTMLDivElement))}
+          ${ref((el?: Element) => (this._overlay = el as HTMLDivElement))}
         >
           <div
             @click=${(event: Event) => this._closeOnSbbTooltipCloseClick(event)}

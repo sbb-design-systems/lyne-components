@@ -32,9 +32,8 @@ describe('sbb-datepicker-previous-day', () => {
       </div>
     `);
 
-    const element: SbbDatepickerPreviousDayElement = page.querySelector(
-      'sbb-datepicker-previous-day',
-    );
+    const element: SbbDatepickerPreviousDayElement =
+      page.querySelector<SbbDatepickerPreviousDayElement>('sbb-datepicker-previous-day')!;
     expect(element).dom.to.be.equal(`
       <sbb-datepicker-previous-day
         date-picker="datepicker"
@@ -62,9 +61,8 @@ describe('sbb-datepicker-previous-day', () => {
       </sbb-form-field>
     `);
 
-    const element: SbbDatepickerPreviousDayElement = page.querySelector(
-      'sbb-datepicker-previous-day',
-    );
+    const element: SbbDatepickerPreviousDayElement =
+      page.querySelector<SbbDatepickerPreviousDayElement>('sbb-datepicker-previous-day')!;
     expect(element).to.have.attribute('data-disabled');
   });
 
@@ -77,9 +75,8 @@ describe('sbb-datepicker-previous-day', () => {
       </sbb-form-field>
     `);
 
-    const element: SbbDatepickerPreviousDayElement = page.querySelector(
-      'sbb-datepicker-previous-day',
-    );
+    const element: SbbDatepickerPreviousDayElement =
+      page.querySelector<SbbDatepickerPreviousDayElement>('sbb-datepicker-previous-day')!;
     expect(element).to.have.attribute('data-disabled');
   });
 });

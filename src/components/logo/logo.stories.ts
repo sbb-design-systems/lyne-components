@@ -15,7 +15,7 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
     : 'var(--sbb-color-white-default)',
 });
 
-const Template = (args): TemplateResult => html`<sbb-logo ${sbbSpread(args)}></sbb-logo>`;
+const Template = (args: Args): TemplateResult => html`<sbb-logo ${sbbSpread(args)}></sbb-logo>`;
 
 const negative: InputType = {
   control: {

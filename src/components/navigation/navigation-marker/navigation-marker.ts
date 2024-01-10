@@ -33,7 +33,7 @@ export class SbbNavigationMarkerElement extends SlotChildObserver(LitElement) {
    */
   @state() private _actions: SbbNavigationActionElement[] = [];
 
-  private _currentActiveAction: SbbNavigationActionElement;
+  private _currentActiveAction?: SbbNavigationActionElement;
   private _navigationMarkerResizeObserver = new AgnosticResizeObserver(() =>
     this._setMarkerPosition(),
   );
@@ -76,7 +76,9 @@ export class SbbNavigationMarkerElement extends SlotChildObserver(LitElement) {
     if (!this._hasActiveAction) {
       return;
     }
-    this._currentActiveAction.active = false;
+    if (this._currentActiveAction) {
+      this._currentActiveAction.active = false;
+    }
     this._hasActiveAction = false;
   }
 
@@ -84,7 +86,7 @@ export class SbbNavigationMarkerElement extends SlotChildObserver(LitElement) {
     return Array.from(this.querySelectorAll?.('sbb-navigation-action') ?? []);
   }
 
-  private get _activeNavigationAction(): SbbNavigationActionElement {
+  private get _activeNavigationAction(): SbbNavigationActionElement | undefined {
     return this._navigationActions.find((action) => action.active);
   }
 
@@ -99,7 +101,7 @@ export class SbbNavigationMarkerElement extends SlotChildObserver(LitElement) {
     if (this._hasActiveAction) {
       this.style?.setProperty(
         '--sbb-navigation-marker-position-y',
-        `${(this.shadowRoot.querySelector('[data-active]') as HTMLElement)?.offsetTop}px`,
+        `${(this.shadowRoot!.querySelector('[data-active]') as HTMLElement)?.offsetTop}px`,
       );
     }
   }

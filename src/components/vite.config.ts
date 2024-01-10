@@ -1,5 +1,6 @@
 import { dirname, join } from 'path';
 
+// @ts-expect-error FIXME Typescript error
 import { cli } from '@custom-elements-manifest/analyzer/cli';
 import * as sass from 'sass';
 import type { PluginOption, ResolvedConfig, UserConfig } from 'vite';

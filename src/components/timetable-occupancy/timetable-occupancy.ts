@@ -17,10 +17,10 @@ export class SbbTimetableOccupancyElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Occupancy for first class wagons. */
-  @property({ attribute: 'first-class-occupancy' }) public firstClassOccupancy: SbbOccupancy;
+  @property({ attribute: 'first-class-occupancy' }) public firstClassOccupancy?: SbbOccupancy;
 
   /** Occupancy for second class wagons. */
-  @property({ attribute: 'second-class-occupancy' }) public secondClassOccupancy: SbbOccupancy;
+  @property({ attribute: 'second-class-occupancy' }) public secondClassOccupancy?: SbbOccupancy;
 
   /** Negative coloring variant flag. */
   @property({ reflect: true, type: Boolean }) public negative = false;
@@ -35,7 +35,7 @@ export class SbbTimetableOccupancyElement extends LitElement {
         role=${!this.firstClassOccupancy || !this.secondClassOccupancy ? 'presentation' : nothing}
       >
         ${[this.firstClassOccupancy, this.secondClassOccupancy].map(
-          (occupancy: string, index: number) =>
+          (occupancy?: string, index?: number) =>
             occupancy &&
             html`
               <li class="sbb-timetable-occupancy__list-item">

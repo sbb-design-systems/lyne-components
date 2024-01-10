@@ -9,10 +9,10 @@
 export function composedPathHasAttribute(
   event: Event,
   attribute: string,
-  endElement = null,
+  endElement: Element | null = null,
 ): HTMLElement | undefined {
   const composedPath = event.composedPath();
-  let endElementIndex = composedPath.findIndex((elem) => elem === endElement);
+  let endElementIndex: number | undefined = composedPath.findIndex((elem) => elem === endElement);
 
   if (endElementIndex === -1) {
     endElementIndex = undefined;

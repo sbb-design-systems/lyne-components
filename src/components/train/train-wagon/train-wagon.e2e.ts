@@ -2,6 +2,7 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
+import { SbbIconElement } from '../../icon';
 
 import { SbbTrainWagonElement } from './train-wagon';
 
@@ -31,13 +32,13 @@ describe('sbb-train-wagon', () => {
     );
 
     expect(
-      Array.from(element.querySelectorAll('sbb-icon')).every((icon) =>
-        icon.getAttribute('slot').startsWith('sbb-train-wagon-icon-'),
+      Array.from(element.querySelectorAll<SbbIconElement>('sbb-icon')).every((icon) =>
+        icon.getAttribute('slot')?.startsWith('sbb-train-wagon-icon-'),
       ),
     ).to.be.true;
 
     // Remove one icon
-    element.querySelector('sbb-icon').remove();
+    (element.querySelector('sbb-icon') as SbbIconElement).remove();
     await waitForLitRender(element);
 
     expect(

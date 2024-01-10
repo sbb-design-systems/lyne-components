@@ -45,9 +45,9 @@ export class SbbHeaderElement extends SlotChildObserver(LitElement) {
 
   @state() private _headerOnTop = true;
 
-  private _scrollElement: HTMLElement | Document;
-  private _scrollEventsController: AbortController;
-  private _scrollFunction: () => void;
+  private _scrollElement: HTMLElement | Document | null | undefined;
+  private _scrollEventsController!: AbortController;
+  private _scrollFunction: (() => void) | undefined;
   private _lastScroll = 0;
   private _focusHandler = new FocusHandler();
 
@@ -100,7 +100,7 @@ export class SbbHeaderElement extends SlotChildObserver(LitElement) {
     if (this._scrollElement instanceof Document) {
       return this._scrollElement.documentElement[property] || this._scrollElement.body[property];
     }
-    return this._scrollElement[property];
+    return this._scrollElement?.[property] || 0;
   }
 
   /**
@@ -171,7 +171,7 @@ export class SbbHeaderElement extends SlotChildObserver(LitElement) {
       this.querySelectorAll(IS_MENU_OPENED_QUERY) as NodeListOf<HTMLElement>,
     );
     for (const overlayTrigger of overlayTriggers) {
-      const overlayId: string = overlayTrigger.getAttribute('aria-controls');
+      const overlayId: string = overlayTrigger.getAttribute('aria-controls')!;
       const overlay = document.getElementById(overlayId) as HTMLElement & { close: () => void };
       if (typeof overlay?.close === 'function') {
         overlay.close();

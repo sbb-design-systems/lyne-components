@@ -51,7 +51,9 @@ export class SbbTimetableOccupancyIconElement extends SbbIconBase {
   }
 
   private _setAriaLabel(): void {
-    const label = i18nOccupancy[this.occupancy]?.[this._language.current];
+    const label = (i18nOccupancy[this.occupancy] as Record<string, string>)?.[
+      this._language.current
+    ];
     if (label) {
       this.setAttribute('aria-label', label);
     } else {

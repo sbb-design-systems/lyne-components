@@ -33,7 +33,7 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
 });
 
 // Story interaction executed after the story renders
-const playStory = async ({ canvasElement }): Promise<void> => {
+const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
@@ -207,9 +207,9 @@ const defaultArgs: Args = {
   disableGroup: false,
 };
 
-const changeEventHandler = (event): void => {
+const changeEventHandler = (event: Event): void => {
   const div = document.createElement('div');
-  div.innerText = `current value is: ${event.target.value}`;
+  div.innerText = `current value is: ${(event.target as SbbSelectElement).value}`;
   document.getElementById('container-value')!.append(div);
 };
 
@@ -239,7 +239,7 @@ const scrollDecorator: Decorator = (story) => html`
 
 const valueEllipsis: string = 'This label name is so long that it needs ellipsis to fit.';
 
-const textBlock = (text = null): TemplateResult => {
+const textBlock = (text: string | null = null): TemplateResult => {
   return html`
     <div style=${styleMap(textBlockStyle)}>
       ${!text
@@ -273,7 +273,11 @@ const createOptions = (
   });
 };
 
-const createOptionsGroup = (numberOfOptions, disableOption, disableGroup): TemplateResult => html`
+const createOptionsGroup = (
+  numberOfOptions: number,
+  disableOption: boolean,
+  disableGroup: boolean,
+): TemplateResult => html`
   <sbb-optgroup label="Group 1" ?disabled=${disableGroup}>
     ${createOptions(numberOfOptions, disableOption, '1')}
   </sbb-optgroup>
@@ -302,7 +306,7 @@ const FormFieldTemplate = ({
     >
       <sbb-select
         ${sbbSpread(args)}
-        @change=${(event) => changeEventHandler(event)}
+        @change=${(event: Event) => changeEventHandler(event)}
         data-testid="select"
       >
         ${withOptionGroup
@@ -344,7 +348,7 @@ const SelectEllipsisTemplate = ({
       >
         <sbb-select
           ${sbbSpread(args)}
-          @change=${(event) => changeEventHandler(event)}
+          @change=${(event: Event) => changeEventHandler(event)}
           data-testid="select"
         >
           <sbb-option value=${valueEllipsis} ?selected=${ellipsisSelected}>
@@ -395,8 +399,8 @@ const FormFieldTemplateWithError = ({
           id="sbb-select"
           class="sbb-invalid"
           data-testid="select"
-          @change=${(event) => {
-            if (event.target.value !== '') {
+          @change=${(event: Event) => {
+            if ((event.target as SbbSelectElement).value !== '') {
               sbbFormError.remove();
               document.getElementById('sbb-select')!.classList.remove('sbb-invalid');
             } else {
@@ -433,7 +437,7 @@ const KeyboardInteractionTemplate = ({
       ?multiple=${args.multiple}
       placeholder=${args.placeholder}
       data-testid="select"
-      @change=${(event) => changeEventHandler(event)}
+      @change=${(event: Event) => changeEventHandler(event)}
     >
       <sbb-option value="TI - Bellinzona">Bellinzona</sbb-option>
       <sbb-option value="BE - Bern">Bern</sbb-option>

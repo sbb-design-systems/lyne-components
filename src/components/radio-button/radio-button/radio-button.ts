@@ -1,6 +1,7 @@
 import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 import {
   LanguageController,
@@ -62,7 +63,7 @@ export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
   /**
    * Value of radio button.
    */
-  @property() public value: string;
+  @property() public value?: string;
 
   /**
    * Whether the radio button is disabled.
@@ -94,7 +95,7 @@ export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
   public get group(): SbbRadioButtonGroupElement | null {
     return this._group;
   }
-  private _group: SbbRadioButtonGroupElement | null;
+  private _group: SbbRadioButtonGroupElement | null = null;
 
   /**
    * Whether the radio button is checked.
@@ -121,9 +122,9 @@ export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
   /**
    * The label describing whether the selection panel is expanded (for screen readers only).
    */
-  @state() private _selectionPanelExpandedLabel: string;
+  @state() private _selectionPanelExpandedLabel?: string;
 
-  private _selectionPanelElement: SbbSelectionPanelElement;
+  private _selectionPanelElement: SbbSelectionPanelElement | null = null;
   private _abort = new ConnectedAbortController(this);
   private _language = new LanguageController(this);
 
@@ -205,10 +206,10 @@ export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('checked')) {
-      this._handleCheckedChange(this.checked, changedProperties.get('checked'));
+      this._handleCheckedChange(this.checked, changedProperties.get('checked')!);
     }
     if (changedProperties.has('disabled')) {
-      this._handleDisabledChange(this.disabled, changedProperties.get('disabled'));
+      this._handleDisabledChange(this.disabled, changedProperties.get('disabled')!);
     }
   }
 
@@ -233,7 +234,7 @@ export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
   }
 
   private _updateExpandedLabel(): void {
-    if (!this._selectionPanelElement.hasContent) {
+    if (!this._selectionPanelElement?.hasContent) {
       this._selectionPanelExpandedLabel = '';
       return;
     }
@@ -262,7 +263,7 @@ export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
           ?disabled=${this.disabled}
           ?required=${this.required}
           ?checked=${this.checked}
-          value=${this.value}
+          value=${ifDefined(this.value)}
           class="sbb-radio-button__input"
         />
         <span class="sbb-radio-button__label-slot">

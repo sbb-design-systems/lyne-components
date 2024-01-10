@@ -18,8 +18,8 @@ describe('sbb-form-field-clear', () => {
         <sbb-form-field-clear></sbb-form-field-clear>
       </sbb-form-field>`,
     );
-    element = formField.querySelector('sbb-form-field-clear');
-    input = formField.querySelector('input');
+    element = formField.querySelector<SbbFormFieldClearElement>('sbb-form-field-clear')!;
+    input = formField.querySelector<HTMLInputElement>('input')!;
   });
 
   it('renders', async () => {
@@ -34,7 +34,7 @@ describe('sbb-form-field-clear', () => {
     await waitForLitRender(element);
 
     expect(input.value).not.to.be.ok; // to be falsy
-    expect(document.activeElement.id).to.be.equal('input');
+    expect(document.activeElement?.id).to.be.equal('input');
     expect(element).to.have.style('display', 'none');
   });
 

@@ -63,7 +63,7 @@ export class SbbFormFieldElement extends LitElement {
   public errorSpace?: 'none' | 'reserve' = 'none';
 
   /** Label text for the input which is internally rendered as `<label>`. */
-  @property({ reflect: true }) public label: string;
+  @property({ reflect: true }) public label?: string;
 
   /** Indicates whether the input is optional. */
   @property({ type: Boolean }) public optional?: boolean;
@@ -93,7 +93,7 @@ export class SbbFormFieldElement extends LitElement {
   @state() private _errorElements: Element[] = [];
 
   /** Original aria-describedby value of the slotted input element. */
-  private _originalInputAriaDescribedby?: string;
+  private _originalInputAriaDescribedby?: string | null;
 
   /** Reference to the slotted input element. */
   @state() private _input?: HTMLInputElement | HTMLSelectElement | HTMLElement;
@@ -102,7 +102,7 @@ export class SbbFormFieldElement extends LitElement {
   @state() private _label?: HTMLLabelElement;
 
   /** Returns the input element. */
-  public get inputElement(): HTMLInputElement | HTMLSelectElement | HTMLElement {
+  public get inputElement(): HTMLInputElement | HTMLSelectElement | HTMLElement | undefined {
     return this._input;
   }
 
@@ -138,7 +138,7 @@ export class SbbFormFieldElement extends LitElement {
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('label')) {
-      this._renderLabel(this.label);
+      this._renderLabel(this.label!);
     }
     if (changedProperties.has('negative')) {
       this._syncNegative();
@@ -175,13 +175,13 @@ export class SbbFormFieldElement extends LitElement {
     }
   }
 
-  private _onPopupOpen({ target }): void {
+  private _onPopupOpen({ target }: CustomEvent<void>): void {
     if (supportedPopupTagNames.includes((target as HTMLElement).nodeName)) {
       toggleDatasetEntry(this, 'hasPopupOpen', true);
     }
   }
 
-  private _onPopupClose({ target }): void {
+  private _onPopupClose({ target }: CustomEvent<void>): void {
     if (supportedPopupTagNames.includes((target as HTMLElement).nodeName)) {
       toggleDatasetEntry(this, 'hasPopupOpen', false);
     }
@@ -276,7 +276,7 @@ export class SbbFormFieldElement extends LitElement {
         this._input
           .getAttribute('aria-labelledby')
           ?.split(' ')
-          .filter((l) => !!l && l !== this._label.id) ?? [];
+          .filter((l) => !!l && l !== this._label!.id) ?? [];
       this._input.setAttribute('aria-labelledby', [...labelledby, this._label.id].join(' '));
     }
   }
@@ -336,18 +336,18 @@ export class SbbFormFieldElement extends LitElement {
     );
   }
 
-  private _getInputForm(): HTMLFormElement | null {
+  private _getInputForm(): HTMLFormElement | null | undefined {
     if (this._input instanceof HTMLInputElement || this._input instanceof HTMLSelectElement) {
       return this._input.form;
     }
-    return this._input.closest('form');
+    return this._input?.closest('form');
   }
 
   private _checkAndUpdateInputEmpty(): void {
     toggleDatasetEntry(
       this,
       'inputEmpty',
-      this._floatingLabelSupportedInputElements.includes(this._input.tagName) &&
+      this._floatingLabelSupportedInputElements.includes(this._input?.tagName as string) &&
         this._isInputEmpty(),
     );
   }
@@ -360,7 +360,7 @@ export class SbbFormFieldElement extends LitElement {
       );
     } else if (this._input instanceof HTMLSelectElement) {
       return this._input.selectedOptions?.item(0)?.label?.trim() === '';
-    } else if (this._input.tagName === 'SBB-SELECT') {
+    } else if (this._input?.tagName === 'SBB-SELECT') {
       return (this._input as SbbSelectElement).getDisplayValue()?.trim() === '';
     } else {
       return this._isInputValueEmpty();
@@ -368,7 +368,7 @@ export class SbbFormFieldElement extends LitElement {
   }
 
   private _isInputValueEmpty(): boolean {
-    const value = (this._input as { value }).value;
+    const value = (this._input as { value: string }).value;
     return ['', undefined, null].includes(value) || (Array.isArray(value) && value.length === 0);
   }
 
@@ -380,6 +380,9 @@ export class SbbFormFieldElement extends LitElement {
   }
 
   private _readInputState(): void {
+    if (!this._input) {
+      return;
+    }
     toggleDatasetEntry(this, 'readonly', isValidAttribute(this._input, 'readonly'));
     toggleDatasetEntry(this, 'disabled', isValidAttribute(this._input, 'disabled'));
     toggleDatasetEntry(
@@ -443,10 +446,10 @@ export class SbbFormFieldElement extends LitElement {
 
   /** Manually clears the input value. It only works for inputs, selects are not supported. */
   public clear(): void {
-    if (this._input.tagName !== 'INPUT') {
+    if ((this._input?.tagName as string) !== 'INPUT') {
       return;
     }
-    (this._input as { value }).value = '';
+    (this._input as { value: string }).value = '';
     this._checkAndUpdateInputEmpty();
   }
 
@@ -454,7 +457,7 @@ export class SbbFormFieldElement extends LitElement {
    * Returns the input element.
    * @deprecated Use the 'inputElement' property instead
    */
-  public getInputElement(): HTMLInputElement | HTMLSelectElement | HTMLElement {
+  public getInputElement(): HTMLInputElement | HTMLSelectElement | HTMLElement | undefined {
     return this._input;
   }
 
@@ -485,7 +488,7 @@ export class SbbFormFieldElement extends LitElement {
             <div class="sbb-form-field__input">
               <slot @slotchange=${this._onSlotInputChange}></slot>
             </div>
-            ${['SELECT', 'SBB-SELECT'].includes(this._input?.tagName)
+            ${['SELECT', 'SBB-SELECT'].includes(this._input?.tagName as string)
               ? html`<sbb-icon
                   name="chevron-small-down-small"
                   class="sbb-form-field__select-input-icon"

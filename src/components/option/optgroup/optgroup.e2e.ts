@@ -44,15 +44,15 @@ describe('sbb-optgroup', () => {
   });
 
   it('disabled status prevents changes', async () => {
-    const optionOne: SbbOptionElement = document.querySelector(
+    const optionOne: SbbOptionElement = document.querySelector<SbbOptionElement>(
       'sbb-optgroup > sbb-option#option-1',
-    );
-    const optionTwo: SbbOptionElement = document.querySelector(
+    )!;
+    const optionTwo: SbbOptionElement = document.querySelector<SbbOptionElement>(
       'sbb-optgroup > sbb-option#option-2',
-    );
-    const optionThree: SbbOptionElement = document.querySelector(
+    )!;
+    const optionThree: SbbOptionElement = document.querySelector<SbbOptionElement>(
       'sbb-optgroup > sbb-option#option-3',
-    );
+    )!;
     const options = [optionOne, optionTwo, optionThree];
 
     options.forEach((opt) => expect(opt).not.to.have.attribute('selected'));
