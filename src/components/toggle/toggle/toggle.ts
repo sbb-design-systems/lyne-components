@@ -75,8 +75,15 @@ export class SbbToggleElement extends LitElement {
 
   private _valueChanged(value: any | undefined): void {
     const options = this._options;
+    // If options are not yet defined, we can check if attribute is already set as a fallback.
+    // We do this by checking whether value property is available (defined component).
     const selectedOption =
-      options.find((o) => o.value === value) ?? options.find((o) => o.checked) ?? options[0];
+      options.find(
+        (o) => value === ('value' in o ? o.value : (o as HTMLElement).getAttribute('value')),
+      ) ??
+      options.find((o) => o.checked) ??
+      options[0];
+
     if (!selectedOption) {
       isBrowser() && console.warn(`sbb-toggle: No available options! (${this.id || 'No id'})`);
       return;
@@ -152,7 +159,11 @@ export class SbbToggleElement extends LitElement {
 
     const options = this._options;
 
-    if (options.every((o) => !o.checked) || !this._toggleElement) {
+    if (
+      options.every((o) => !o.checked) ||
+      options.every((o) => !o.clientWidth) ||
+      !this._toggleElement
+    ) {
       return;
     }
 
