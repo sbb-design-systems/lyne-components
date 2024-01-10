@@ -111,30 +111,26 @@ export class FocusHandler {
     );
   }
 
-  public setDataHasVisibleFocusWithinListener(element: HTMLElement): void {
-    // Determine whether the element has a visible focus within.
-    getFocusableElements(Array.from(element.children) as HTMLElement[], {
-      includeInvisibleElements: true,
-    })?.forEach((el) => {
-      el.addEventListener(
-        'focusin',
-        () => {
-          toggleDatasetEntry(
-            element,
-            'hasVisibleFocusWithin',
-            sbbInputModalityDetector.mostRecentModality === 'keyboard',
-          );
-        },
-        { signal: this._controller.signal },
-      );
-      el.addEventListener(
-        'blur',
-        () => {
-          toggleDatasetEntry(element, 'hasVisibleFocusWithin', false);
-        },
-        { signal: this._controller.signal },
-      );
-    });
+  // Determine whether the element has a visible focus within.
+  public trackFocusVisibleWithin(element: HTMLElement): void {
+    element.addEventListener(
+      'focusin',
+      () => {
+        toggleDatasetEntry(
+          element,
+          'hasVisibleFocusWithin',
+          sbbInputModalityDetector.mostRecentModality === 'keyboard',
+        );
+      },
+      { signal: this._controller.signal },
+    );
+    element.addEventListener(
+      'focusout',
+      () => {
+        toggleDatasetEntry(element, 'hasVisibleFocusWithin', false);
+      },
+      { signal: this._controller.signal },
+    );
   }
 
   public disconnect(): void {

@@ -179,7 +179,7 @@ export class SbbHeaderElement extends SlotChildObserver(LitElement) {
 
   protected override checkChildren(): void {
     this._focusHandler.disconnect();
-    this._focusHandler.setDataHasVisibleFocusWithinListener(this);
+    this._focusHandler.trackFocusVisibleWithin(this);
   }
 
   protected override render(): TemplateResult {

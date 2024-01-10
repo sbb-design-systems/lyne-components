@@ -68,7 +68,7 @@ describe('sbb-header', () => {
     expect(element).not.to.have.attribute('data-visible');
   });
 
-  it.only('should hide/show on scroll', async () => {
+  it('should hide/show on scroll', async () => {
     await fixture(html`
       <sbb-header hide-on-scroll>
         <sbb-header-action id="action-1">Action 1</sbb-header-action>
