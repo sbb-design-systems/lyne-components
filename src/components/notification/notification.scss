@@ -129,7 +129,6 @@
   color: var(--sbb-notification-color);
   border-radius: var(--sbb-notification-border-radius);
   overflow: hidden;
-  z-index: 1;
 
   // We apply SASS calculated background color as default/fallback for older browsers.
   background-color: var(--sbb-notification-type-color-sass);
