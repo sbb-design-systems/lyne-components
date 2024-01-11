@@ -40,12 +40,12 @@ export function getFocusableElements(
 
       if (
         el.matches(IS_FOCUSABLE_QUERY) &&
-        (properties.includeInvisibleElements ?? interactivityChecker.isVisible(el))
+        (properties?.includeInvisibleElements ?? interactivityChecker.isVisible(el))
       ) {
         focusableEls.add(el);
       }
 
-      if (properties.findFirstFocusable && focusableEls.size > 0) {
+      if (properties?.findFirstFocusable && focusableEls.size > 0) {
         break;
       }
 
@@ -57,7 +57,7 @@ export function getFocusableElements(
       }
     }
   }
-  getFocusables(elements, properties.filterFunc);
+  getFocusables(elements, properties?.filterFunc);
 
   return [...focusableEls];
 }

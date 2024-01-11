@@ -78,7 +78,7 @@ describe('sbb-header', () => {
       <div style="height: 2000px;"></div>
     `);
 
-    element = document.querySelector('sbb-header');
+    element = document.querySelector('sbb-header')!;
     expect(element.scrollOrigin).not.to.be.undefined;
     expect(element.offsetHeight).to.be.equal(96);
     expect(document.documentElement.offsetHeight).to.be.equal(2096);
