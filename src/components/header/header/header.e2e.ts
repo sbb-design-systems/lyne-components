@@ -1,5 +1,5 @@
 import { assert, expect, fixture } from '@open-wc/testing';
-import { setViewport } from '@web/test-runner-commands';
+import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForLitRender, mockScrollTo, waitForCondition } from '../../core/testing';
@@ -56,6 +56,65 @@ describe('sbb-header', () => {
     expect(element).to.have.attribute('data-animated');
     expect(element).to.have.attribute('data-fixed');
     expect(element).to.have.attribute('data-visible');
+
+    // Scroll top (100 to 0px): initial situation.
+    mockScrollTo({ top: 0 });
+
+    await waitForLitRender(element);
+
+    expect(element).not.to.have.attribute('data-shadow');
+    expect(element).not.to.have.attribute('data-animated');
+    expect(element).not.to.have.attribute('data-fixed');
+    expect(element).not.to.have.attribute('data-visible');
+  });
+
+  it('should hide/show on scroll', async () => {
+    await fixture(html`
+      <sbb-header hide-on-scroll>
+        <sbb-header-action id="action-1">Action 1</sbb-header-action>
+        <sbb-header-action id="action-2">Action 2</sbb-header-action>
+      </sbb-header>
+      <div style="height: 2000px;"></div>
+    `);
+
+    element = document.querySelector('sbb-header');
+    expect(element.scrollOrigin).not.to.be.undefined;
+    expect(element.offsetHeight).to.be.equal(96);
+    expect(document.documentElement.offsetHeight).to.be.equal(2096);
+
+    // Scroll bottom (0px to 400px): header fixed.
+    mockScrollTo({ top: 400 });
+    await waitForLitRender(element);
+
+    // Scroll top (400px to 200px): header fixed and visible, with shadow and animated.
+    mockScrollTo({ top: 200 });
+
+    await waitForLitRender(element);
+
+    expect(element).to.have.attribute('data-shadow');
+    expect(element).to.have.attribute('data-animated');
+    expect(element).to.have.attribute('data-fixed');
+    expect(element).to.have.attribute('data-visible');
+
+    // Scroll bottom (0px to 400px): header fixed.
+    mockScrollTo({ top: 400 });
+    await waitForLitRender(element);
+
+    expect(element).to.have.attribute('data-animated');
+    expect(element).to.have.attribute('data-fixed');
+    expect(element).not.to.have.attribute('data-shadow');
+    expect(element).not.to.have.attribute('data-visible');
+    expect(element).not.to.have.attribute('data-has-visible-focus-within');
+    expect(window.getComputedStyle(element).getPropertyValue('--sbb-header-transform')).to.equal(
+      'translate3d(0, -100%, 0)',
+    );
+
+    // Focus an element inside the header
+    await sendKeys({ press: 'Tab' });
+    expect(element).to.have.attribute('data-has-visible-focus-within');
+    expect(window.getComputedStyle(element).getPropertyValue('--sbb-header-transform')).to.equal(
+      'translate3d(0, 0, 0)',
+    );
 
     // Scroll top (100 to 0px): initial situation.
     mockScrollTo({ top: 0 });

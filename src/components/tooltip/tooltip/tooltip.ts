@@ -3,7 +3,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
-  FocusTrap,
+  FocusHandler,
   IS_FOCUSABLE_QUERY,
   assignId,
   getFirstFocusableElement,
@@ -135,7 +135,7 @@ export class SbbTooltipElement extends LitElement {
   private _isPointerDownEventOnTooltip: boolean;
   private _tooltipController: AbortController;
   private _windowEventsController: AbortController;
-  private _focusTrap = new FocusTrap();
+  private _focusHandler = new FocusHandler();
   private _hoverTrigger = false;
   private _openTimeout: ReturnType<typeof setTimeout>;
   private _closeTimeout: ReturnType<typeof setTimeout>;
@@ -236,7 +236,7 @@ export class SbbTooltipElement extends LitElement {
     super.disconnectedCallback();
     this._tooltipController?.abort();
     this._windowEventsController?.abort();
-    this._focusTrap.disconnect();
+    this._focusHandler.disconnect();
     tooltipsRef.delete(this as SbbTooltipElement);
   }
 
@@ -389,7 +389,7 @@ export class SbbTooltipElement extends LitElement {
       this._didOpen.emit();
       this.inert = false;
       this._setTooltipFocus();
-      this._focusTrap.trap(this);
+      this._focusHandler.trap(this);
       this._attachWindowEvents();
     } else if (event.animationName === 'close' && this._state === 'closing') {
       this._state = 'closed';
@@ -402,7 +402,7 @@ export class SbbTooltipElement extends LitElement {
       elementToFocus?.focus();
       this._didClose.emit({ closeTarget: this._tooltipCloseElement });
       this._windowEventsController?.abort();
-      this._focusTrap.disconnect();
+      this._focusHandler.disconnect();
     }
   }
 

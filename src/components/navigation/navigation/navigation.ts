@@ -2,7 +2,7 @@ import { LitElement, CSSResultGroup, TemplateResult, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { FocusTrap, assignId, setModalityOnNextFocus } from '../../core/a11y';
+import { FocusHandler, assignId, setModalityOnNextFocus } from '../../core/a11y';
 import { LanguageController, UpdateScheduler } from '../../core/common-behaviors';
 import {
   ScrollHandler,
@@ -121,7 +121,7 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
   private _windowEventsController: AbortController;
   private _abort = new ConnectedAbortController(this);
   private _language = new LanguageController(this);
-  private _focusTrap = new FocusTrap();
+  private _focusHandler = new FocusHandler();
   private _scrollHandler = new ScrollHandler();
   private _isPointerDownEventOnNavigation: boolean;
   private _navigationObserver = new AgnosticMutationObserver((mutationsList: MutationRecord[]) =>
@@ -214,7 +214,7 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
       this._state = 'opened';
       this._didOpen.emit();
       applyInertMechanism(this);
-      this._focusTrap.trap(this, this._trapFocusFilter);
+      this._focusHandler.trap(this, this._trapFocusFilter);
       this._attachWindowEvents();
       this._setNavigationFocus();
     } else if (event.animationName === 'close' && this._state === 'closing') {
@@ -226,7 +226,7 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
       this._triggerElement?.focus();
       this._didClose.emit();
       this._windowEventsController?.abort();
-      this._focusTrap.disconnect();
+      this._focusHandler.disconnect();
 
       // Enable scrolling for content below the navigation
       this._scrollHandler.enableScroll();
@@ -322,7 +322,7 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
     super.disconnectedCallback();
     this._navigationController?.abort();
     this._windowEventsController?.abort();
-    this._focusTrap.disconnect();
+    this._focusHandler.disconnect();
     this._navigationObserver.disconnect();
     removeInertMechanism();
   }

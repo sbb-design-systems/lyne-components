@@ -1,6 +1,8 @@
 import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
+import { FocusHandler, FocusVisibleWithinController } from '../../core/a11y';
+import { SlotChildObserver } from '../../core/common-behaviors';
 import { findReferencedElement, isBrowser, toggleDatasetEntry } from '../../core/dom';
 
 import style from './header.scss?lit&inline';
@@ -15,7 +17,7 @@ const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
  * @slot logo - Slot used to render the logo on the right side (sbb-logo as default).
  */
 @customElement('sbb-header')
-export class SbbHeaderElement extends LitElement {
+export class SbbHeaderElement extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -46,6 +48,7 @@ export class SbbHeaderElement extends LitElement {
   private _scrollEventsController: AbortController;
   private _scrollFunction: () => void;
   private _lastScroll = 0;
+  private _focusHandler = new FocusHandler();
 
   private _updateScrollOrigin(
     newValue: string | HTMLElement | Document,
@@ -63,12 +66,14 @@ export class SbbHeaderElement extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     this._setListenerOnScrollElement(this.scrollOrigin);
+    new FocusVisibleWithinController(this);
   }
 
   /** Removes the scroll listener, if previously attached. */
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._scrollEventsController?.abort();
+    this._focusHandler.disconnect();
   }
 
   /** Sets the value of `_scrollElement` and `_scrollFunction` and possibly adds the function on the correct element. */
@@ -158,6 +163,9 @@ export class SbbHeaderElement extends LitElement {
   }
 
   private _closeOpenOverlays(): void {
+    if (this.hasAttribute('data-has-visible-focus-within')) {
+      return;
+    }
     const overlayTriggers: HTMLElement[] = Array.from(
       this.querySelectorAll(IS_MENU_OPENED_QUERY) as NodeListOf<HTMLElement>,
     );
@@ -168,6 +176,10 @@ export class SbbHeaderElement extends LitElement {
         overlay.close();
       }
     }
+  }
+
+  protected override checkChildren(): void {
+    this._focusHandler.disconnect();
   }
 
   protected override render(): TemplateResult {

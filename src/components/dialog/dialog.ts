@@ -2,7 +2,7 @@ import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { FocusTrap, IS_FOCUSABLE_QUERY, setModalityOnNextFocus } from '../core/a11y';
+import { FocusHandler, IS_FOCUSABLE_QUERY, setModalityOnNextFocus } from '../core/a11y';
 import { LanguageController } from '../core/common-behaviors';
 import {
   ScrollHandler,
@@ -149,7 +149,7 @@ export class SbbDialogElement extends LitElement {
   private _dialogCloseElement: HTMLElement;
   private _dialogController: AbortController;
   private _windowEventsController: AbortController;
-  private _focusTrap = new FocusTrap();
+  private _focusHandler = new FocusHandler();
   private _scrollHandler = new ScrollHandler();
   private _returnValue: any;
   private _isPointerDownEventOnDialog: boolean;
@@ -257,7 +257,7 @@ export class SbbDialogElement extends LitElement {
     this._handlerRepository.disconnect();
     this._dialogController?.abort();
     this._windowEventsController?.abort();
-    this._focusTrap.disconnect();
+    this._focusHandler.disconnect();
     this._dialogContentResizeObserver.disconnect();
     this._removeInstanceFromGlobalCollection();
     removeInertMechanism();
@@ -344,7 +344,7 @@ export class SbbDialogElement extends LitElement {
       this._setDialogFocus();
       // Use timeout to read label after focused element
       setTimeout(() => this._setAriaLiveRefContent());
-      this._focusTrap.trap(this);
+      this._focusHandler.trap(this);
       this._dialogContentResizeObserver.observe(this._dialogContentElement);
       this._attachWindowEvents();
     } else if (event.animationName === 'close' && this._state === 'closing') {
@@ -359,7 +359,7 @@ export class SbbDialogElement extends LitElement {
         closeTarget: this._dialogCloseElement,
       });
       this._windowEventsController?.abort();
-      this._focusTrap.disconnect();
+      this._focusHandler.disconnect();
       this._dialogContentResizeObserver.disconnect();
       this._removeInstanceFromGlobalCollection();
       // Enable scrolling for content below the dialog if no dialog is open
