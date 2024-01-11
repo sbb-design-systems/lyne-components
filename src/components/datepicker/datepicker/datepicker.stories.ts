@@ -17,7 +17,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
 import { sbbSpread } from '../../core/dom';
-import { SbbTooltipTriggerElement } from '../../tooltip';
+import type { SbbTooltipTriggerElement } from '../../tooltip';
 
 import { SbbDatepickerElement } from './datepicker';
 import readme from './readme.md?raw';

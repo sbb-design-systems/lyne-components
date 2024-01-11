@@ -160,7 +160,7 @@ describe('sbb-datepicker', () => {
       expect(datePickerUpdatedSpy.count).to.be.equal(2);
     });
 
-    it.only('renders and interprets date with custom parse and format functions', async () => {
+    it('renders and interprets date with custom parse and format functions', async () => {
       const changeSpy = new EventSpy('change', element);
 
       element.dateParser = (s) => {

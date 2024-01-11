@@ -192,7 +192,7 @@ describe('sbb-train-formation', () => {
         },
       ]);
 
-      (element.querySelector('sbb-train-wagon') as SbbTrainWagonElement).sector = 'Z';
+      element.querySelector<SbbTrainWagonElement>('sbb-train-wagon')!.sector = 'Z';
       await waitForLitRender(element);
 
       expect(extractAggregatedSectors()).to.be.eql([
@@ -228,10 +228,7 @@ describe('sbb-train-formation', () => {
         },
       ]);
 
-      (element.querySelector('sbb-train-wagon') as SbbTrainWagonElement).setAttribute(
-        'sector',
-        'Z',
-      );
+      element.querySelector<SbbTrainWagonElement>('sbb-train-wagon')!.setAttribute('sector', 'Z');
       await waitForLitRender(element);
 
       expect(extractAggregatedSectors()).to.be.eql([
@@ -259,7 +256,7 @@ describe('sbb-train-formation', () => {
         </sbb-train-formation>
       `);
 
-      (element.querySelector('sbb-train-wagon') as SbbTrainWagonElement).remove();
+      element.querySelector<SbbTrainWagonElement>('sbb-train-wagon')!.remove();
       await waitForLitRender(element);
 
       expect(extractAggregatedSectors()).to.be.eql([
@@ -289,7 +286,7 @@ describe('sbb-train-formation', () => {
       `);
       await waitForLitRender(element);
 
-      (element.querySelector('sbb-train') as SbbTrainElement).remove();
+      element.querySelector<SbbTrainElement>('sbb-train')!.remove();
       await waitForLitRender(element);
 
       expect(extractAggregatedSectors()).to.be.eql([

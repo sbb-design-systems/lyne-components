@@ -2,7 +2,7 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForLitRender } from '../../core/testing';
-import { SbbTrainWagonElement } from '../train-wagon';
+import type { SbbTrainWagonElement } from '../train-wagon';
 
 import { SbbTrainElement } from './train';
 import '../../icon';
