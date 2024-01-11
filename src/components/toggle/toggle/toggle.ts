@@ -75,7 +75,7 @@ export class SbbToggleElement extends LitElement {
 
   private _valueChanged(value: any | undefined): void {
     const options = this._options;
-    // If options are not yet defined, we can check if attribute is already set as a fallback.
+    // If options are not yet defined web components, we can check if attribute is already set as a fallback.
     // We do this by checking whether value property is available (defined component).
     const selectedOption =
       options.find(
