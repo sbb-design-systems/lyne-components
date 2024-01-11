@@ -114,13 +114,13 @@
     background-color: var(--sbb-notification-type-color);
     border: var(--sbb-notification-border);
     border-radius: var(--sbb-notification-base-radius);
-    z-index: -1;
   }
 }
 
 .sbb-notification {
   @include sbb.text-s--regular;
 
+  position: relative;
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
@@ -129,6 +129,7 @@
   color: var(--sbb-notification-color);
   border-radius: var(--sbb-notification-border-radius);
   overflow: hidden;
+  z-index: 1;
 
   // We apply SASS calculated background color as default/fallback for older browsers.
   background-color: var(--sbb-notification-type-color-sass);
