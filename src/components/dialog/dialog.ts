@@ -1,5 +1,5 @@
 import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { FocusHandler, IS_FOCUSABLE_QUERY, setModalityOnNextFocus } from '../core/a11y';
@@ -108,6 +108,10 @@ export class SbbDialogElement extends LitElement {
     return this.dataset?.state as SbbOverlayState;
   }
 
+  private get _hasTitle(): boolean {
+    return !!this.titleContent || this._namedSlots.slots.has('title');
+  }
+
   private _dialogContentResizeObserver = new AgnosticResizeObserver(() =>
     this._setOverflowAttribute(),
   );
@@ -149,19 +153,9 @@ export class SbbDialogElement extends LitElement {
   private _lastFocusedElement?: HTMLElement;
 
   private _language = new LanguageController(this);
-  private _namedSlots = new NamedSlotStateController(this);
-
-  /**
-   * We have a problem with SSR, in that we don't have a reference to children.
-   * Due to this, the SSR/hydration will fail, as the internal dialog footer
-   * will not be rendered server side, but will be immediately rendered client side,
-   * if necessary.
-   * Due to this, we add this initialized property, which will prevent footer slot detection
-   * until it has been initialized/hydrated.
-   *
-   * https://github.com/lit/lit/discussions/4407
-   */
-  @state() private _initialized = false;
+  private _namedSlots = new NamedSlotStateController(this, () =>
+    setAttribute(this, 'data-fullscreen', !this._hasTitle),
+  );
 
   /**
    * Opens the dialog element.
@@ -246,11 +240,6 @@ export class SbbDialogElement extends LitElement {
     this._dialogContentResizeObserver.disconnect();
     this._removeInstanceFromGlobalCollection();
     removeInertMechanism();
-  }
-
-  protected override async firstUpdated(): Promise<void> {
-    await new Promise((r) => setTimeout(r, 0));
-    this._initialized = true;
   }
 
   private _removeInstanceFromGlobalCollection(): void {
@@ -387,8 +376,6 @@ export class SbbDialogElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    const hasTitle = !!this.titleContent || this._namedSlots.slots.has('title');
-
     const closeButton = html`
       <sbb-button
         class="sbb-dialog__close"
@@ -431,13 +418,7 @@ export class SbbDialogElement extends LitElement {
       </div>
     `;
 
-    const dialogFooter = html`
-      <div class="sbb-dialog__footer">
-        <slot name="action-group"></slot>
-      </div>
-    `;
-
-    setAttribute(this, 'data-fullscreen', !hasTitle);
+    setAttribute(this, 'data-fullscreen', !this._hasTitle);
 
     return html`
       <div class="sbb-dialog__container">
@@ -461,7 +442,9 @@ export class SbbDialogElement extends LitElement {
             >
               <slot></slot>
             </div>
-            ${this._initialized ? dialogFooter : nothing}
+            <div class="sbb-dialog__footer">
+              <slot name="action-group"></slot>
+            </div>
           </div>
         </div>
       </div>
