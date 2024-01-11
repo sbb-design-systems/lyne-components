@@ -99,7 +99,7 @@ export class SbbLinkListElement extends SlotChildObserver(LitElement) {
     this._links.forEach((link, index) => link.setAttribute('slot', `link-${index}`));
     const links = this._links.length
       ? this._links
-      : Array.from({ length: +this.getAttribute('data-ssr-child-count') });
+      : Array.from({ length: +(this.getAttribute('data-ssr-child-count') as string) });
 
     return html`
       <div class="sbb-link-list-wrapper">

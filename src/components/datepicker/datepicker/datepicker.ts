@@ -461,7 +461,7 @@ export class SbbDatepickerElement extends LitElement {
    */
   public now(): Date {
     if (this._hasDataNow()) {
-      const today = new Date(+this.dataset?.now);
+      const today = new Date(+(this.dataset?.now as string));
       today.setHours(0, 0, 0, 0);
       return today;
     }
@@ -469,7 +469,7 @@ export class SbbDatepickerElement extends LitElement {
   }
 
   private _hasDataNow(): boolean {
-    const dataNow = +this.dataset?.now;
+    const dataNow = +(this.dataset?.now as string);
     return !isNaN(dataNow);
   }
 

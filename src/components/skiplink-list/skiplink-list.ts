@@ -69,7 +69,7 @@ export class SbbSkiplinkListElement extends SlotChildObserver(LitElement) {
     });
     const links = this._links.length
       ? this._links
-      : Array.from({ length: +this.getAttribute('data-ssr-child-count') });
+      : Array.from({ length: +(this.getAttribute('data-ssr-child-count') as string) });
 
     return html`
       <div class="sbb-skiplink-list__wrapper">

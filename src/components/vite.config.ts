@@ -65,7 +65,7 @@ export default defineConfig((config) =>
         external: (source: string, importer: string | undefined) => {
           if (
             source.match(/(^lit$|^lit\/|^@lit\/)/) ||
-            (source.startsWith('../') && !importer.includes('/node_modules/')) ||
+            (!!importer && source.startsWith('../') && !importer.includes('/node_modules/')) ||
             (!!importer && barrelExports.includes(importer) && source.match(/\.\/[a-z-]+/))
           ) {
             return true;
