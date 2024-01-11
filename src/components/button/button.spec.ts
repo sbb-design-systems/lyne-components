@@ -170,6 +170,28 @@ describe('sbb-button', () => {
     `);
   });
 
+  it('should detect icon button', async () => {
+    const root = await fixture(
+      html`<sbb-button><sbb-icon slot="icon" name="app-icon-medium"></sbb-icon></sbb-button>`,
+    );
+
+    await waitForLitRender(root);
+
+    const dataSlots = root.getAttribute('data-slot-names');
+    expect(dataSlots).to.contain('icon');
+    expect(dataSlots).not.to.contain('unnamed');
+  });
+
+  it('should detect icon button when there is space around icon', async () => {
+    const root = await fixture(
+      html`<sbb-button> <sbb-icon slot="icon" name="app-icon-medium"></sbb-icon> </sbb-button>`,
+    );
+
+    const dataSlots = root.getAttribute('data-slot-names');
+    expect(dataSlots).to.contain('icon');
+    expect(dataSlots).not.to.contain('unnamed');
+  });
+
   it('should render form field button variant when inside of a form field', async () => {
     const root = await fixture(
       html` <sbb-form-field>
