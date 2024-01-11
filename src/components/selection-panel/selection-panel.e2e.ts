@@ -120,7 +120,7 @@ describe('sbb-selection-panel', () => {
     await sendKeys({ down: 'ArrowRight' });
     await waitForLitRender(wrapper);
 
-    expect(document.activeElement?.id).to.be.equal(firstInput.id);
+    expect(document.activeElement!.id).to.be.equal(firstInput.id);
   };
 
   describe('with radio buttons', () => {
@@ -220,7 +220,7 @@ describe('sbb-selection-panel', () => {
       firstInput.focus();
       await sendKeys({ down: 'ArrowLeft' });
       await waitForLitRender(wrapper);
-      expect(document.activeElement?.id).to.be.equal(fourthInput.id);
+      expect(document.activeElement!.id).to.be.equal(fourthInput.id);
       expect(firstInput).to.have.attribute('checked');
       expect(fourthInput).not.to.have.attribute('checked');
 
@@ -234,7 +234,7 @@ describe('sbb-selection-panel', () => {
       firstInput.focus();
       await sendKeys({ down: 'ArrowRight' });
       await waitForLitRender(wrapper);
-      expect(document.activeElement?.id).to.be.equal(secondInput.id);
+      expect(document.activeElement!.id).to.be.equal(secondInput.id);
       expect(firstInput).to.have.attribute('checked');
       expect(secondInput).not.to.have.attribute('checked');
 
@@ -279,29 +279,29 @@ describe('sbb-selection-panel', () => {
 
       await sendKeys({ down: 'Tab' });
       await waitForLitRender(wrapperNoContent);
-      expect(document.activeElement?.id).to.be.equal(secondInputNoContent.id);
+      expect(document.activeElement!.id).to.be.equal(secondInputNoContent.id);
 
       await sendKeys({ down: 'ArrowUp' });
       await waitForLitRender(wrapperNoContent);
-      expect(document.activeElement?.id).to.be.equal(firstInputNoContent.id);
+      expect(document.activeElement!.id).to.be.equal(firstInputNoContent.id);
       expect(secondInputNoContent).not.to.have.attribute('checked');
       expect(firstInputNoContent).to.have.attribute('checked');
 
       await sendKeys({ down: 'ArrowRight' });
       await waitForLitRender(wrapperNoContent);
-      expect(document.activeElement?.id).to.be.equal(secondInputNoContent.id);
+      expect(document.activeElement!.id).to.be.equal(secondInputNoContent.id);
       expect(firstInputNoContent).not.to.have.attribute('checked');
       expect(secondInputNoContent).to.have.attribute('checked');
 
       await sendKeys({ down: 'ArrowDown' });
       await waitForLitRender(wrapperNoContent);
-      expect(document.activeElement?.id).to.be.equal(fourthInputNoContent.id);
+      expect(document.activeElement!.id).to.be.equal(fourthInputNoContent.id);
       expect(secondInputNoContent).not.to.have.attribute('checked');
       expect(fourthInputNoContent).to.have.attribute('checked');
 
       await sendKeys({ down: 'ArrowLeft' });
       await waitForLitRender(wrapperNoContent);
-      expect(document.activeElement?.id).to.be.equal(secondInputNoContent.id);
+      expect(document.activeElement!.id).to.be.equal(secondInputNoContent.id);
       expect(fourthInputNoContent).not.to.have.attribute('checked');
       expect(secondInputNoContent).to.have.attribute('checked');
     });
@@ -350,8 +350,8 @@ describe('sbb-selection-panel', () => {
         .querySelector("sbb-radio-button[value='sub1']")!
         .shadowRoot!.querySelector('.sbb-radio-button__expanded-label');
 
-      expect(mainRadioButton1Label.textContent?.trim()).to.be.equal(', expanded');
-      expect(mainRadioButton2Label.textContent?.trim()).to.be.equal(', collapsed');
+      expect(mainRadioButton1Label.textContent!.trim()).to.be.equal(', expanded');
+      expect(mainRadioButton2Label.textContent!.trim()).to.be.equal(', collapsed');
       expect(subRadioButton1).to.be.null;
 
       // Activate main option 2
@@ -359,8 +359,8 @@ describe('sbb-selection-panel', () => {
 
       await waitForLitRender(nestedElement);
 
-      expect(mainRadioButton1Label.textContent?.trim()).to.be.equal(', collapsed');
-      expect(mainRadioButton2Label.textContent?.trim()).to.be.equal(', expanded');
+      expect(mainRadioButton1Label.textContent!.trim()).to.be.equal(', collapsed');
+      expect(mainRadioButton2Label.textContent!.trim()).to.be.equal(', expanded');
       expect(subRadioButton1).to.be.null;
     });
 
@@ -561,7 +561,7 @@ describe('sbb-selection-panel', () => {
       firstInput.focus();
       await sendKeys({ down: 'ArrowLeft' });
       await waitForLitRender(wrapper);
-      expect(document.activeElement?.id).to.be.equal(fourthInput.id);
+      expect(document.activeElement!.id).to.be.equal(fourthInput.id);
       expect(firstInput).not.to.have.attribute('checked');
       expect(fourthInput).not.to.have.attribute('checked');
 
@@ -577,7 +577,7 @@ describe('sbb-selection-panel', () => {
       firstInput.focus();
       await sendKeys({ down: 'ArrowRight' });
       await waitForLitRender(wrapper);
-      expect(document.activeElement?.id).to.be.equal(secondInput.id);
+      expect(document.activeElement!.id).to.be.equal(secondInput.id);
       expect(firstInput).not.to.have.attribute('checked');
       expect(secondInput).not.to.have.attribute('checked');
 
@@ -636,8 +636,8 @@ describe('sbb-selection-panel', () => {
         .querySelector("sbb-checkbox[value='sub1']")!
         .shadowRoot!.querySelector('.sbb-checkbox__expanded-label');
 
-      expect(mainCheckbox1Label.textContent?.trim()).to.be.equal(', expanded');
-      expect(mainCheckbox2Label.textContent?.trim()).to.be.equal(', collapsed');
+      expect(mainCheckbox1Label.textContent!.trim()).to.be.equal(', expanded');
+      expect(mainCheckbox2Label.textContent!.trim()).to.be.equal(', collapsed');
       expect(subCheckbox1).to.be.null;
 
       // Deactivate main option 1
@@ -648,8 +648,8 @@ describe('sbb-selection-panel', () => {
 
       await waitForLitRender(nestedElement);
 
-      expect(mainCheckbox1Label.textContent?.trim()).to.be.equal(', collapsed');
-      expect(mainCheckbox2Label.textContent?.trim()).to.be.equal(', expanded');
+      expect(mainCheckbox1Label.textContent!.trim()).to.be.equal(', collapsed');
+      expect(mainCheckbox2Label.textContent!.trim()).to.be.equal(', expanded');
       expect(subCheckbox1).to.be.null;
     });
 

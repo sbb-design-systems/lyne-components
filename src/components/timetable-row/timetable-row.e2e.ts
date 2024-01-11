@@ -19,10 +19,10 @@ describe('sbb-timetable-row', () => {
 
   describe('events', () => {
     it('emits an event when clicked', async () => {
-      const card = element.shadowRoot!.querySelector<SbbCardElement>('sbb-card');
+      const card = element.shadowRoot!.querySelector<SbbCardElement>('sbb-card')!;
       const changeSpy = new EventSpy('click');
 
-      card?.click();
+      card.click();
       await waitForCondition(() => changeSpy.events.length === 1);
       expect(changeSpy.count).to.be.equal(1);
     });

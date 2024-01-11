@@ -242,7 +242,7 @@ describe('sbb-menu', () => {
     expect(element).to.have.attribute('data-state', 'opened');
 
     await waitForLitRender(element);
-    expect(document.activeElement?.id).to.be.equal('menu-link');
+    expect(document.activeElement!.id).to.be.equal('menu-link');
   });
 
   it('does not open if prevented', async () => {

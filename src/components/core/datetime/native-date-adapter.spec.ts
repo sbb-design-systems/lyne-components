@@ -213,15 +213,15 @@ describe('NativeDateAdapter', () => {
     expect(nativeDateAdapter.parseDate(null, now)).to.be.undefined;
     expect(nativeDateAdapter.parseDate('Test', now)).to.be.undefined;
     expect(nativeDateAdapter.parseDate('1.1', now)).to.be.undefined;
-    let formattedDate = nativeDateAdapter.parseDate('1/1/2000', now);
-    expect(formattedDate?.getFullYear()).to.be.equal(2000);
-    expect(formattedDate?.getMonth()).to.be.equal(0);
-    expect(formattedDate?.getDate()).to.be.equal(1);
+    let formattedDate = nativeDateAdapter.parseDate('1/1/2000', now)!;
+    expect(formattedDate.getFullYear()).to.be.equal(2000);
+    expect(formattedDate.getMonth()).to.be.equal(0);
+    expect(formattedDate.getDate()).to.be.equal(1);
 
-    formattedDate = nativeDateAdapter.parseDate('1.1.2000', now);
-    expect(formattedDate?.getFullYear()).to.be.equal(2000);
-    expect(formattedDate?.getMonth()).to.be.equal(0);
-    expect(formattedDate?.getDate()).to.be.equal(1);
+    formattedDate = nativeDateAdapter.parseDate('1.1.2000', now)!;
+    expect(formattedDate.getFullYear()).to.be.equal(2000);
+    expect(formattedDate.getMonth()).to.be.equal(0);
+    expect(formattedDate.getDate()).to.be.equal(1);
   });
 
   it('format should return the correct string', function () {

@@ -34,7 +34,7 @@ describe('sbb-form-field-clear', () => {
     await waitForLitRender(element);
 
     expect(input.value).not.to.be.ok; // to be falsy
-    expect(document.activeElement?.id).to.be.equal('input');
+    expect(document.activeElement!.id).to.be.equal('input');
     expect(element).to.have.style('display', 'none');
   });
 

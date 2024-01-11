@@ -154,8 +154,8 @@ describe('sbb-header', () => {
     // Open menu
     const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen);
     const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen);
-    const menuTrigger = document.querySelector<SbbHeaderActionElement>('sbb-header-action');
-    menuTrigger?.click();
+    const menuTrigger = document.querySelector<SbbHeaderActionElement>('sbb-header-action')!;
+    menuTrigger.click();
     await waitForLitRender(element);
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy.count).to.be.equal(1);
@@ -163,7 +163,7 @@ describe('sbb-header', () => {
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy.count).to.be.equal(1);
     await waitForLitRender(element);
-    const menuId = menuTrigger?.getAttribute('aria-controls');
+    const menuId = menuTrigger.getAttribute('aria-controls');
     const menu = document.querySelector(`#${menuId}`);
 
     // Assert menu opened

@@ -46,14 +46,14 @@ describe('sbb-accordion', () => {
   it('should set accordion context on expansion panel when removing and adding expansion-panels', async () => {
     let panels: SbbExpansionPanelElement[];
 
-    element.querySelector('sbb-expansion-panel')?.remove();
+    element.querySelector('sbb-expansion-panel')!.remove();
     await waitForLitRender(element);
 
     panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
     expect(panels[0]).to.have.attribute('data-accordion-first');
     expect(panels[1]).to.have.attribute('data-accordion-last');
 
-    element.querySelector('sbb-expansion-panel')?.remove();
+    element.querySelector('sbb-expansion-panel')!.remove();
     await waitForLitRender(element);
 
     const lastRemainingPanel = element.querySelector('sbb-expansion-panel');
@@ -74,13 +74,13 @@ describe('sbb-accordion', () => {
     const panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
     expect(panels.length).to.be.equal(3);
     expect(
-      panels[0].shadowRoot?.querySelector('.sbb-expansion-panel')?.firstElementChild?.tagName,
+      panels[0].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.tagName,
     ).to.be.equal('H4');
     expect(
-      panels[1].shadowRoot?.querySelector('.sbb-expansion-panel')?.firstElementChild?.tagName,
+      panels[1].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.tagName,
     ).to.be.equal('H4');
     expect(
-      panels[2].shadowRoot?.querySelector('.sbb-expansion-panel')?.firstElementChild?.tagName,
+      panels[2].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.tagName,
     ).to.be.equal('H4');
   });
 
@@ -90,13 +90,13 @@ describe('sbb-accordion', () => {
     const panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
     expect(panels.length).to.be.equal(3);
     expect(
-      panels[0].shadowRoot?.querySelector('.sbb-expansion-panel')?.firstElementChild?.tagName,
+      panels[0].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.tagName,
     ).to.be.equal('H6');
     expect(
-      panels[1].shadowRoot?.querySelector('.sbb-expansion-panel')?.firstElementChild?.tagName,
+      panels[1].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.tagName,
     ).to.be.equal('H6');
     expect(
-      panels[2].shadowRoot?.querySelector('.sbb-expansion-panel')?.firstElementChild?.tagName,
+      panels[2].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.tagName,
     ).to.be.equal('H6');
   });
 

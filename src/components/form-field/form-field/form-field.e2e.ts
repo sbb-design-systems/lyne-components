@@ -170,8 +170,8 @@ describe('sbb-form-field', () => {
     it('should open select on form field click', async () => {
       expect(element).not.to.have.attribute('data-input-focused');
 
-      const label = document.querySelector('label');
-      label?.click();
+      const label = document.querySelector('label')!;
+      label.click();
       await waitForLitRender(element);
 
       expect(select).to.have.attribute('data-state', 'opening');
@@ -183,8 +183,8 @@ describe('sbb-form-field', () => {
 
       expect(element).not.to.have.attribute('data-input-focused');
 
-      const label = document.querySelector('label');
-      label?.click();
+      const label = document.querySelector('label')!;
+      label.click();
       await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-input-focused');
@@ -193,10 +193,10 @@ describe('sbb-form-field', () => {
     it('should assign id to label and reference it in the sbb-select', async () => {
       element.setAttribute('label', 'Example');
       await waitForLitRender(element);
-      const label = document.querySelector('label');
+      const label = document.querySelector('label')!;
 
-      expect(label?.id).to.match(/^sbb-form-field-label-/);
-      expect(select).to.have.attribute('aria-labelledby', label?.id);
+      expect(label.id).to.match(/^sbb-form-field-label-/);
+      expect(select).to.have.attribute('aria-labelledby', label.id);
     });
   });
 
@@ -284,7 +284,7 @@ describe('sbb-form-field', () => {
         </form>
       `)) as HTMLFormElement;
       const element = form.querySelector<SbbFormFieldElement>('sbb-form-field')!;
-      form.querySelector('input')?.focus();
+      form.querySelector('input')!.focus();
       await sendKeys({ type: 'test' });
       await waitForLitRender(element);
       expect(element).not.to.have.attribute('data-input-empty');

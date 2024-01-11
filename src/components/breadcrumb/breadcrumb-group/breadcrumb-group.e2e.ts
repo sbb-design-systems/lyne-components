@@ -37,9 +37,9 @@ describe('sbb-breadcrumb-group', () => {
 
       first.focus();
       await sendKeys({ down: 'ArrowRight' });
-      expect(document.activeElement?.id).to.be.equal(second.id);
+      expect(document.activeElement!.id).to.be.equal(second.id);
       await sendKeys({ down: 'ArrowRight' });
-      expect(document.activeElement?.id).to.be.equal(third.id);
+      expect(document.activeElement!.id).to.be.equal(third.id);
     });
   });
 
@@ -104,17 +104,17 @@ describe('sbb-breadcrumb-group', () => {
         document.querySelector<SbbBreadcrumbElement>('#breadcrumb-6')!;
 
       first.focus();
-      expect(document.activeElement?.id).to.be.equal(first.id);
+      expect(document.activeElement!.id).to.be.equal(first.id);
 
       await sendKeys({ down: 'ArrowRight' });
-      expect(document.activeElement?.id).to.be.equal(breadcrumbGroup.id);
-      expect(breadcrumbGroup.shadowRoot?.activeElement?.id).to.be.equal(ellipsisButton.id);
+      expect(document.activeElement!.id).to.be.equal(breadcrumbGroup.id);
+      expect(breadcrumbGroup.shadowRoot!.activeElement!.id).to.be.equal(ellipsisButton.id);
 
       await sendKeys({ down: 'ArrowRight' });
-      expect(document.activeElement?.id).to.be.equal(last.id);
+      expect(document.activeElement!.id).to.be.equal(last.id);
 
       await sendKeys({ down: 'ArrowRight' });
-      expect(document.activeElement?.id).to.be.equal(first.id);
+      expect(document.activeElement!.id).to.be.equal(first.id);
     });
 
     it('expand breadcrumbs with ellipsis', async () => {
@@ -142,20 +142,20 @@ describe('sbb-breadcrumb-group', () => {
       await waitForLitRender(breadcrumbGroup);
 
       // Then focus should be on first breadcrumb
-      expect(document.activeElement?.id).to.be.equal('breadcrumb-1');
+      expect(document.activeElement!.id).to.be.equal('breadcrumb-1');
 
       // When blurring the focus
       (document.activeElement as HTMLElement).blur();
 
       // Then the body should be focused
-      expect(document.activeElement?.tagName).to.be.equal('BODY');
+      expect(document.activeElement!.tagName).to.be.equal('BODY');
 
       // When triggering a slotChange by removing a breadcrumb
-      document.getElementById('breadcrumb-6')?.remove();
+      document.getElementById('breadcrumb-6')!.remove();
       await waitForLitRender(breadcrumbGroup);
 
       // Then the body should still be focused
-      expect(document.activeElement?.tagName).to.be.equal('BODY');
+      expect(document.activeElement!.tagName).to.be.equal('BODY');
     });
 
     it('should remove expand button when too less breadcrumbs available', async () => {

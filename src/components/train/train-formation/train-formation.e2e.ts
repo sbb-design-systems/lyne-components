@@ -15,16 +15,16 @@ import '../train-blocked-passage';
 function extractAggregatedSectors(): Record<string, string>[] {
   return Array.from(
     document
-      .querySelector<SbbTrainFormationElement>('sbb-train-formation')
-      ?.shadowRoot?.querySelectorAll<HTMLSpanElement>('.sbb-train-formation__sector') || [],
+      .querySelector<SbbTrainFormationElement>('sbb-train-formation')!
+      .shadowRoot!.querySelectorAll<HTMLSpanElement>('.sbb-train-formation__sector') || [],
   ).map((sector) => {
     const computedStyles = getComputedStyle(sector);
 
     return {
       label:
         sector
-          .querySelector<HTMLSpanElement>('.sbb-train-formation__sector-sticky-wrapper')
-          ?.textContent?.trim() || '',
+          .querySelector<HTMLSpanElement>('.sbb-train-formation__sector-sticky-wrapper')!
+          .textContent!.trim() || '',
       wagonCount: computedStyles.getPropertyValue('--sbb-train-formation-wagon-count'),
       blockedPassageCount: computedStyles.getPropertyValue(
         '--sbb-train-formation-wagon-blocked-passage-count',

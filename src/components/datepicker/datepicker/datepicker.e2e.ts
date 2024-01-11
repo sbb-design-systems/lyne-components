@@ -286,7 +286,7 @@ describe('sbb-datepicker', () => {
         const paragraphElement = document
           .querySelector<SbbDatepickerElement>('sbb-datepicker')!
           .shadowRoot!.querySelector<HTMLParagraphElement>('p');
-        expect(paragraphElement?.innerText).to.be.equal(
+        expect(paragraphElement!.innerText).to.be.equal(
           `${i18nDateChangedTo['en']} ${testCase.accessibilityValue}`,
         );
       }
@@ -316,7 +316,7 @@ describe('sbb-datepicker', () => {
         const paragraphElement = document
           .querySelector<SbbDatepickerElement>('sbb-datepicker')!
           .shadowRoot!.querySelector<HTMLParagraphElement>('p');
-        expect(paragraphElement?.innerText).to.be.equal('');
+        expect(paragraphElement!.innerText).to.be.equal('');
       }
     });
   };

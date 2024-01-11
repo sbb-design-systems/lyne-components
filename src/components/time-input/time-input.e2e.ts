@@ -58,7 +58,7 @@ describe('sbb-time-input', () => {
     input.blur();
 
     // Then validation event should emit with false
-    expect(validationChangeSpy.lastEvent?.detail).to.own.include({ valid: false });
+    expect(validationChangeSpy.lastEvent!.detail).to.own.include({ valid: false });
     expect(input).to.have.attribute('data-sbb-invalid');
 
     // When adding another 9 (999)
@@ -79,7 +79,7 @@ describe('sbb-time-input', () => {
 
     // Then validation event should be emitted with true
     expect(validationChangeSpy.count).to.be.equal(2);
-    expect(validationChangeSpy.lastEvent?.detail).to.own.include({ valid: true });
+    expect(validationChangeSpy.lastEvent!.detail).to.own.include({ valid: true });
     expect(input).not.to.have.attribute('data-sbb-invalid');
   });
 
@@ -102,7 +102,7 @@ describe('sbb-time-input', () => {
     input.blur();
 
     // Then validation event should emit with true
-    expect(validationChangeSpy.lastEvent?.detail).to.own.include({ valid: true });
+    expect(validationChangeSpy.lastEvent!.detail).to.own.include({ valid: true });
     expect(input).not.to.have.attribute('data-sbb-invalid');
   });
 
@@ -143,8 +143,8 @@ describe('sbb-time-input', () => {
       await waitForLitRender(element);
       expect(input.value).to.be.equal(testCase.interpretedAs);
 
-      const paragraphElement = element.shadowRoot?.querySelector<HTMLParagraphElement>('p');
-      expect(paragraphElement?.innerText).to.be.equal(
+      const paragraphElement = element.shadowRoot!.querySelector<HTMLParagraphElement>('p')!;
+      expect(paragraphElement.innerText).to.be.equal(
         `${i18nTimeInputChange['en']} ${testCase.interpretedAs}.`,
       );
     }
@@ -169,8 +169,8 @@ describe('sbb-time-input', () => {
       await waitForLitRender(element);
       expect(input.value).to.be.equal(testCase.interpretedAs);
 
-      const paragraphElement = element.shadowRoot?.querySelector<HTMLParagraphElement>('p');
-      expect(paragraphElement?.innerText).to.be.equal('');
+      const paragraphElement = element.shadowRoot!.querySelector<HTMLParagraphElement>('p')!;
+      expect(paragraphElement.innerText).to.be.equal('');
     }
   });
 

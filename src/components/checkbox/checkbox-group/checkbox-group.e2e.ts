@@ -87,12 +87,12 @@ describe('sbb-checkbox-group', () => {
 
   it('arrow navigation', async () => {
     checkboxOne.focus();
-    expect(document.activeElement?.textContent).to.equal('Label 1');
+    expect(document.activeElement!.textContent).to.equal('Label 1');
     await sendKeys({ press: 'ArrowRight' });
-    expect(document.activeElement?.textContent).to.equal('Label 3');
+    expect(document.activeElement!.textContent).to.equal('Label 3');
     checkboxTwo.removeAttribute('disabled');
     await waitForLitRender(element);
     await sendKeys({ press: 'ArrowLeft' });
-    expect(document.activeElement?.textContent).to.equal('Label 2');
+    expect(document.activeElement!.textContent).to.equal('Label 2');
   });
 });

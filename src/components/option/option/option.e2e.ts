@@ -83,7 +83,7 @@ describe('sbb-option', () => {
       const input = element.querySelector<HTMLInputElement>('input')!;
       const autocomplete = element.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
       const options = element.querySelectorAll('sbb-option');
-      const optionOneLabel = options[0].shadowRoot?.querySelector('.sbb-option__label');
+      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label');
 
       input.focus();
       await sendKeys({ type: 'Opt' });
@@ -125,7 +125,7 @@ describe('sbb-option', () => {
       const input = element.querySelector<HTMLInputElement>('input')!;
       const autocomplete = element.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
       const options = element.querySelectorAll('sbb-option');
-      const optionOneLabel = options[0].shadowRoot?.querySelector('.sbb-option__label');
+      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label');
 
       input.focus();
       await sendKeys({ type: 'Opt' });
@@ -145,7 +145,7 @@ describe('sbb-option', () => {
       autocomplete.append(newOption);
       await waitForLitRender(autocomplete);
 
-      const newOptionLabel = newOption.shadowRoot?.querySelector('.sbb-option__label');
+      const newOptionLabel = newOption.shadowRoot!.querySelector('.sbb-option__label');
 
       expect(newOptionLabel).dom.to.be.equal(`
         <span class="sbb-option__label">
@@ -172,7 +172,7 @@ describe('sbb-option', () => {
       const input = element.querySelector<HTMLInputElement>('input')!;
       const optgroup = element.querySelector<SbbOptGroupElement>('sbb-optgroup')!;
       const options = element.querySelectorAll('sbb-option');
-      const optionOneLabel = options[0].shadowRoot?.querySelector('.sbb-option__label');
+      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label');
 
       input.focus();
       await sendKeys({ type: 'Opt' });
@@ -192,7 +192,7 @@ describe('sbb-option', () => {
       optgroup.append(newOption);
       await waitForLitRender(element);
 
-      const newOptionLabel = newOption.shadowRoot?.querySelector('.sbb-option__label');
+      const newOptionLabel = newOption.shadowRoot!.querySelector('.sbb-option__label');
 
       expect(newOptionLabel).dom.to.be.equal(`
         <span class="sbb-option__label">

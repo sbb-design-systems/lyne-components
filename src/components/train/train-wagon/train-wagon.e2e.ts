@@ -33,7 +33,7 @@ describe('sbb-train-wagon', () => {
 
     expect(
       Array.from(element.querySelectorAll<SbbIconElement>('sbb-icon')).every((icon) =>
-        icon.getAttribute('slot')?.startsWith('sbb-train-wagon-icon-'),
+        icon.getAttribute('slot')!.startsWith('sbb-train-wagon-icon-'),
       ),
     ).to.be.true;
 

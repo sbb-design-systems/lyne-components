@@ -111,7 +111,7 @@ describe('sbb-autocomplete', () => {
     await waitForLitRender(element);
 
     expect(optionSelectedEventSpy.count).to.be.equal(1);
-    expect(optionSelectedEventSpy.firstEvent?.target).to.have.property('id', 'option-2');
+    expect(optionSelectedEventSpy.firstEvent!.target).to.have.property('id', 'option-2');
   });
 
   it('opens and select with keyboard', async () => {

@@ -19,9 +19,9 @@ describe('sbb-navigation-action', () => {
   describe('events', () => {
     it('dispatches event on click', async () => {
       const navigationAction =
-        document.querySelector<SbbNavigationActionElement>('sbb-navigation-action');
+        document.querySelector<SbbNavigationActionElement>('sbb-navigation-action')!;
       const changeSpy = new EventSpy('click');
-      navigationAction?.click();
+      navigationAction.click();
       await waitForCondition(() => changeSpy.events.length === 1);
       expect(changeSpy.count).to.be.equal(1);
     });
@@ -62,7 +62,7 @@ describe('sbb-navigation-action', () => {
     it('should receive focus', async () => {
       element.focus();
       await waitForLitRender(element);
-      expect(document.activeElement?.id).to.be.equal('focus-id');
+      expect(document.activeElement!.id).to.be.equal('focus-id');
     });
   });
 

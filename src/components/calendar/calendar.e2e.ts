@@ -205,7 +205,7 @@ describe('sbb-calendar', () => {
       element.shadowRoot!.querySelector('table') as HTMLTableElement,
     );
 
-    monthCells[0].querySelector('button')?.click();
+    monthCells[0].querySelector('button')!.click();
     await waitForLitRender(element);
 
     await waitForCondition(() => animationSpy.events.length >= 1);
@@ -220,7 +220,7 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        document.activeElement?.shadowRoot?.activeElement?.getAttribute('data-day'),
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
       ).to.be.equal('15 1 2023');
 
       element.focus();
@@ -228,7 +228,7 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        document.activeElement?.shadowRoot?.activeElement?.getAttribute('data-day'),
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
       ).to.be.equal('14 1 2023');
     });
 
@@ -237,7 +237,7 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        document.activeElement?.shadowRoot?.activeElement?.getAttribute('data-day'),
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
       ).to.be.equal('15 1 2023');
 
       element.focus();
@@ -245,7 +245,7 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        document.activeElement?.shadowRoot?.activeElement?.getAttribute('data-day'),
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
       ).to.be.equal('16 1 2023');
     });
 
@@ -254,7 +254,7 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        document.activeElement?.shadowRoot?.activeElement?.getAttribute('data-day'),
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
       ).to.be.equal('15 1 2023');
 
       element.focus();
@@ -262,7 +262,7 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        document.activeElement?.shadowRoot?.activeElement?.getAttribute('data-day'),
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
       ).to.be.equal('8 1 2023');
     });
 
@@ -271,7 +271,7 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        document.activeElement?.shadowRoot?.activeElement?.getAttribute('data-day'),
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
       ).to.be.equal('15 1 2023');
 
       element.focus();
@@ -279,7 +279,7 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        document.activeElement?.shadowRoot?.activeElement?.getAttribute('data-day'),
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
       ).to.be.equal('22 1 2023');
     });
 
@@ -288,7 +288,7 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        document.activeElement?.shadowRoot?.activeElement?.getAttribute('data-day'),
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
       ).to.be.equal('15 1 2023');
 
       element.focus();
@@ -296,7 +296,7 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        document.activeElement?.shadowRoot?.activeElement?.getAttribute('data-day'),
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
       ).to.be.equal('1 1 2023');
     });
 
@@ -305,7 +305,7 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        document.activeElement?.shadowRoot?.activeElement?.getAttribute('data-day'),
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
       ).to.be.equal('15 1 2023');
 
       element.focus();
@@ -313,7 +313,7 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        document.activeElement?.shadowRoot?.activeElement?.getAttribute('data-day'),
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
       ).to.be.equal('31 1 2023');
     });
 
@@ -322,7 +322,7 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        document.activeElement?.shadowRoot?.activeElement?.getAttribute('data-day'),
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
       ).to.be.equal('15 1 2023');
 
       element.focus();
@@ -330,7 +330,7 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        document.activeElement?.shadowRoot?.activeElement?.getAttribute('data-day'),
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
       ).to.be.equal('1 1 2023');
     });
 
@@ -339,7 +339,7 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        document.activeElement?.shadowRoot?.activeElement?.getAttribute('data-day'),
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
       ).to.be.equal('15 1 2023');
 
       element.focus();
@@ -347,7 +347,7 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        document.activeElement?.shadowRoot?.activeElement?.getAttribute('data-day'),
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
       ).to.be.equal('29 1 2023');
     });
   });
@@ -371,7 +371,7 @@ describe('sbb-calendar', () => {
 
     it('navigates left via keyboard', async () => {
       expect(
-        (document.activeElement?.shadowRoot?.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2023');
 
       element.focus();
@@ -379,13 +379,13 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        (document.activeElement?.shadowRoot?.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2022');
     });
 
     it('navigates right via keyboard', async () => {
       expect(
-        (document.activeElement?.shadowRoot?.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2023');
 
       element.focus();
@@ -393,13 +393,13 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        (document.activeElement?.shadowRoot?.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2024');
     });
 
     it('navigates up via keyboard', async () => {
       expect(
-        (document.activeElement?.shadowRoot?.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2023');
 
       element.focus();
@@ -407,13 +407,13 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        (document.activeElement?.shadowRoot?.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2019');
     });
 
     it('navigates down via keyboard', async () => {
       expect(
-        (document.activeElement?.shadowRoot?.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2023');
 
       element.focus();
@@ -421,13 +421,13 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        (document.activeElement?.shadowRoot?.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2027');
     });
 
     it('navigates to first day via keyboard', async () => {
       expect(
-        (document.activeElement?.shadowRoot?.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2023');
 
       element.focus();
@@ -435,13 +435,13 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        (document.activeElement?.shadowRoot?.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2016');
     });
 
     it('navigates to last day via keyboard', async () => {
       expect(
-        (document.activeElement?.shadowRoot?.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2023');
 
       element.focus();
@@ -449,13 +449,13 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        (document.activeElement?.shadowRoot?.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2039');
     });
 
     it('navigates to column start via keyboard', async () => {
       expect(
-        (document.activeElement?.shadowRoot?.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2023');
 
       element.focus();
@@ -463,13 +463,13 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        (document.activeElement?.shadowRoot?.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2019');
     });
 
     it('navigates to column end via keyboard', async () => {
       expect(
-        (document.activeElement?.shadowRoot?.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2023');
 
       element.focus();
@@ -477,7 +477,7 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        (document.activeElement?.shadowRoot?.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2039');
     });
   });

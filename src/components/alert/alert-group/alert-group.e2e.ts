@@ -36,17 +36,17 @@ describe('sbb-alert-group', () => {
 
     // Then two alerts should be rendered and accessibility title should be displayed
     expect(element.querySelectorAll('sbb-alert').length).to.be.equal(2);
-    const alertGroupTitle = element.shadowRoot!.querySelector('.sbb-alert-group__title');
-    expect(alertGroupTitle?.textContent?.trim()).to.be.equal(accessibilityTitle);
-    expect(alertGroupTitle?.tagName).to.be.equal(`H${accessibilityTitleLevel}`);
+    const alertGroupTitle = element.shadowRoot!.querySelector('.sbb-alert-group__title')!;
+    expect(alertGroupTitle.textContent!.trim()).to.be.equal(accessibilityTitle);
+    expect(alertGroupTitle.tagName).to.be.equal(`H${accessibilityTitleLevel}`);
 
     // When clicking on close button of the first alert
     const closeButton = element
-      .querySelector<SbbAlertElement>('sbb-alert')
-      ?.shadowRoot!.querySelector<SbbButtonElement>('.sbb-alert__close-button-wrapper sbb-button');
+      .querySelector<SbbAlertElement>('sbb-alert')!
+      .shadowRoot!.querySelector<SbbButtonElement>('.sbb-alert__close-button-wrapper sbb-button')!;
 
-    closeButton?.focus();
-    closeButton?.click();
+    closeButton.focus();
+    closeButton.click();
     await waitForLitRender(element);
 
     // Then one alert should be removed from sbb-alert-group, tabindex should be set to 0,
@@ -56,25 +56,25 @@ describe('sbb-alert-group', () => {
     expect(didDismissAlertSpy.count).to.be.equal(1);
     expect(element.querySelectorAll('sbb-alert').length).to.be.equal(1);
     expect(element.tabIndex).to.be.equal(0);
-    expect(document.activeElement?.id).to.be.equal(alertGroupId);
+    expect(document.activeElement!.id).to.be.equal(alertGroupId);
     expect(
-      element.shadowRoot!.querySelector('.sbb-alert-group__title')?.textContent?.trim(),
+      element.shadowRoot!.querySelector('.sbb-alert-group__title')!.textContent!.trim(),
     ).to.be.equal(accessibilityTitle);
     expect(emptySpy.count).not.to.be.greaterThan(0);
 
     // When clicking on close button of the second alert
     element
-      .querySelector<SbbAlertElement>('sbb-alert')
-      ?.shadowRoot!.querySelector<SbbButtonElement>('.sbb-alert__close-button-wrapper sbb-button')
-      ?.click();
+      .querySelector<SbbAlertElement>('sbb-alert')!
+      .shadowRoot!.querySelector<SbbButtonElement>('.sbb-alert__close-button-wrapper sbb-button')!
+      .click();
     await waitForLitRender(element);
 
     // Then the alert should be removed from sbb-alert-group, tabindex should be set to 0,
     // focus should be on sbb-alert-group, accessibility title should be removed and empty event should be fired.
     expect(element.querySelectorAll('sbb-alert').length).to.be.equal(0);
     expect(element.tabIndex).to.be.equal(0);
-    expect(document.activeElement?.id).to.be.equal(alertGroupId);
-    expect(element.shadowRoot?.querySelector('.sbb-alert-group__title')).to.be.null;
+    expect(document.activeElement!.id).to.be.equal(alertGroupId);
+    expect(element.shadowRoot!.querySelector('.sbb-alert-group__title')).to.be.null;
     await waitForCondition(() => didDismissAlertSpy.events.length === 2);
     expect(didDismissAlertSpy.count).to.be.equal(2);
     expect(emptySpy.count).to.be.greaterThan(0);
@@ -84,8 +84,8 @@ describe('sbb-alert-group', () => {
     await waitForLitRender(element);
 
     // Then the active element id should be unset and tabindex should be removed
-    await waitForCondition(() => document.activeElement?.id === '');
-    expect(document.activeElement?.id).to.be.equal('');
+    await waitForCondition(() => document.activeElement!.id === '');
+    expect(document.activeElement!.id).to.be.equal('');
     expect(element.tabIndex).to.be.equal(-1);
   });
 
@@ -97,7 +97,7 @@ describe('sbb-alert-group', () => {
     const emptySpy = new EventSpy(SbbAlertGroupElement.events.empty);
 
     // Then no title should be rendered and no empty event fired
-    expect(element.shadowRoot?.querySelector('.sbb-alert-group__title')).to.be.null;
+    expect(element.shadowRoot!.querySelector('.sbb-alert-group__title')).to.be.null;
     expect(emptySpy.count).not.to.be.greaterThan(0);
   });
 });

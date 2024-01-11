@@ -73,7 +73,7 @@ describe('sbb-dialog', () => {
 
     await openDialog(element);
 
-    await waitForCondition(() => ariaLiveRef.textContent?.trim() === `${i18nDialog.en}, Title`);
+    await waitForCondition(() => ariaLiveRef.textContent!.trim() === `${i18nDialog.en}, Title`);
 
     element.close();
     await waitForLitRender(element);
@@ -259,7 +259,7 @@ describe('sbb-dialog', () => {
 
     await openDialog(element);
 
-    await waitForCondition(() => ariaLiveRef.textContent?.trim() === `${i18nDialog.en}`);
+    await waitForCondition(() => ariaLiveRef.textContent!.trim() === `${i18nDialog.en}`);
 
     expect(element).to.have.attribute('data-fullscreen');
   });
@@ -386,18 +386,18 @@ describe('sbb-dialog', () => {
   it('should remove ariaLiveRef content on any keyboard interaction', async () => {
     await openDialog(element);
 
-    await waitForCondition(() => ariaLiveRef.textContent?.trim() === `${i18nDialog.en}, Title`);
+    await waitForCondition(() => ariaLiveRef.textContent!.trim() === `${i18nDialog.en}, Title`);
 
     await sendKeys({ down: 'Tab' });
     await waitForLitRender(element);
 
-    expect(ariaLiveRef.textContent?.trim()).to.be.equal('');
+    expect(ariaLiveRef.textContent!.trim()).to.be.equal('');
   });
 
   it('should remove ariaLiveRef content on any click interaction', async () => {
     await openDialog(element);
 
-    await waitForCondition(() => ariaLiveRef.textContent?.trim() === `${i18nDialog.en}, Title`);
+    await waitForCondition(() => ariaLiveRef.textContent!.trim() === `${i18nDialog.en}, Title`);
 
     element.click();
     await waitForLitRender(element);
@@ -411,9 +411,9 @@ describe('sbb-dialog', () => {
     await openDialog(element);
 
     await waitForCondition(
-      () => ariaLiveRef.textContent?.trim() === `${i18nDialog.en}, Special Dialog`,
+      () => ariaLiveRef.textContent!.trim() === `${i18nDialog.en}, Special Dialog`,
     );
 
-    expect(ariaLiveRef.textContent?.trim()).to.be.equal(`${i18nDialog.en}, Special Dialog`);
+    expect(ariaLiveRef.textContent!.trim()).to.be.equal(`${i18nDialog.en}, Special Dialog`);
   });
 });
