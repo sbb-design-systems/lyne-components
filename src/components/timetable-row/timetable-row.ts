@@ -24,6 +24,7 @@ import {
   i18nTripDuration,
   i18nTripQuayChange,
 } from '../core/i18n';
+import type { SbbOccupancy } from '../core/interfaces';
 import type { ITripItem, Notice, PtRideLeg, PtSituation, VehicleModeEnum } from '../core/timetable';
 import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable';
 import '../card';
@@ -36,7 +37,7 @@ import style from './timetable-row.scss?lit&inline';
 /** HimCus interface for mapped icon name and text */
 export interface HimCus {
   name: string;
-  text: string;
+  text?: string | null;
 }
 
 /** Boarding icon interface for mapped icon name and text */
@@ -133,22 +134,22 @@ export const renderStringProduct = (vehicleName: string, line?: string | null): 
   </span>`;
 };
 
-const getReachableText = (legs: PtRideLeg[]): string => {
+const getReachableText = (legs: PtRideLeg[]): string | null | undefined => {
   return legs?.find((leg) => leg.serviceJourney?.serviceAlteration?.reachableText)?.serviceJourney
     ?.serviceAlteration?.reachableText;
 };
 
-const getDelayText = (legs: PtRideLeg[]): string => {
+const getDelayText = (legs: PtRideLeg[]): string | null | undefined => {
   return legs?.find((leg) => leg.serviceJourney?.serviceAlteration?.delayText)?.serviceJourney
     ?.serviceAlteration?.delayText;
 };
 
-const getRedirectedText = (legs: PtRideLeg[]): string => {
+const getRedirectedText = (legs: PtRideLeg[]): string | null | undefined => {
   return legs?.find((leg) => !!leg.serviceJourney?.serviceAlteration?.redirectedText)
     ?.serviceJourney?.serviceAlteration?.redirectedText;
 };
 
-const getUnplannedStop = (legs: PtRideLeg[]): string => {
+const getUnplannedStop = (legs: PtRideLeg[]): string | null | undefined => {
   return legs?.find((leg) => !!leg.serviceJourney?.serviceAlteration?.unplannedStopPointsText)
     ?.serviceJourney?.serviceAlteration?.unplannedStopPointsText;
 };
@@ -164,7 +165,7 @@ export const sortSituation = (situations: PtSituation[]): PtSituation[] => {
   };
 
   return [...situations]?.sort(
-    (a: PtSituation, b: PtSituation) => priorities[a.cause] - priorities[b.cause],
+    (a: PtSituation, b: PtSituation) => priorities[a.cause!] - priorities[b.cause!],
   );
 };
 
@@ -231,7 +232,7 @@ export const getCus = (trip: ITripItem, currentLanguage: string): HimCus => {
 const findAndReplaceNotice = (notices: Notice[]): Notice | undefined => {
   const reservationNotice = ['RR', 'RK', 'RC', 'RL', 'RM', 'RS', 'RU', 'XP', 'XR', 'XT'];
 
-  return notices.reduce((foundNotice, notice) => {
+  return notices.reduce((foundNotice: Notice | undefined, notice: Notice): Notice | undefined => {
     if (foundNotice) return foundNotice;
     if (reservationNotice.includes(notice.name)) {
       return { ...notice, name: 'RR' } as Notice;
@@ -275,7 +276,7 @@ export class SbbTimetableRowElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** The trip Prop. */
-  @property({ type: Object }) public trip: ITripItem;
+  @property({ type: Object }) public trip!: ITripItem;
 
   /** The price Prop, which consists of the data for the badge. */
   @property({ type: Object }) public price?: Price;
@@ -314,7 +315,7 @@ export class SbbTimetableRowElement extends LitElement {
   private _language = new LanguageController(this);
 
   private _now(): number {
-    const dataNow = +this.dataset?.now;
+    const dataNow = +(this.dataset?.now as string);
     return isNaN(dataNow) ? Date.now() : dataNow;
   }
 
@@ -472,15 +473,25 @@ export class SbbTimetableRowElement extends LitElement {
       ? `${i18nArrival[this._language.current]}: ${format(arrivalTime, 'HH:mm')}, `
       : '';
 
-    const occupancyText =
-      (occupancy?.firstClass && occupancy?.firstClass !== 'UNKNOWN') ||
-      (occupancy?.secondClass && occupancy.secondClass !== 'UNKNOWN')
-        ? `${i18nClass.first[this._language.current]} ${
-            i18nOccupancy[occupancy?.firstClass?.toLowerCase()][this._language.current]
-          }. ${i18nClass.second[this._language.current]} ${
-            i18nOccupancy[occupancy?.secondClass?.toLowerCase()][this._language.current]
-          }.`
-        : '';
+    let occupancyText: string = '';
+    if (occupancy) {
+      if (occupancy.firstClass && occupancy.firstClass !== 'UNKNOWN') {
+        occupancyText += `${i18nClass.first[this._language.current]} ${(
+          i18nOccupancy[occupancy.firstClass.toLowerCase() as SbbOccupancy] as Record<
+            string,
+            string
+          >
+        )?.[this._language.current]}.`;
+      }
+      if (occupancy.secondClass && occupancy.secondClass !== 'UNKNOWN') {
+        occupancyText += ` ${i18nClass.second[this._language.current]} ${(
+          i18nOccupancy[occupancy.secondClass.toLowerCase() as SbbOccupancy] as Record<
+            string,
+            string
+          >
+        )?.[this._language.current]}.`;
+      }
+    }
 
     const attributes =
       notices &&
@@ -494,7 +505,7 @@ export class SbbTimetableRowElement extends LitElement {
       : '';
 
     const durationText =
-      duration > 0
+      !!duration && duration > 0
         ? `${i18nTripDuration[this._language.current]} ${
             durationToTime(duration, this._language.current).long
           }, `
@@ -528,7 +539,7 @@ export class SbbTimetableRowElement extends LitElement {
 
     const noticeAttributes = notices && handleNotices(notices);
 
-    const durationObj = durationToTime(duration, this._language.current);
+    const durationObj = duration ? durationToTime(duration, this._language.current) : null;
     setAttribute(this, 'role', 'rowgroup');
 
     return html`
@@ -651,18 +662,18 @@ export class SbbTimetableRowElement extends LitElement {
                     : nothing}
                 </ul>`
               : nothing}
-            ${duration > 0
+            ${duration && duration > 0
               ? html`<time>
                   <span class="sbb-screenreaderonly">
-                    ${`${i18nTripDuration[this._language.current]} ${durationObj.long}`}
+                    ${`${i18nTripDuration[this._language.current]} ${durationObj!.long}`}
                   </span>
-                  <span aria-hidden="true">${durationObj.short}</span>
+                  <span aria-hidden="true">${durationObj!.short}</span>
                 </time>`
               : nothing}
-            ${hasHimCus
+            ${hasHimCus && (himCus.cus || himCus.him)
               ? html`<span class="sbb-timetable__row-warning">
-                  <sbb-icon name=${(himCus.cus || himCus.him).name}></sbb-icon>
-                  <span class="sbb-screenreaderonly">${(himCus.cus || himCus.him).text}</span>
+                  <sbb-icon name=${(himCus.cus || himCus.him)!.name}></sbb-icon>
+                  <span class="sbb-screenreaderonly">${(himCus.cus || himCus.him)!.text}</span>
                 </span>`
               : nothing}
           </div>
