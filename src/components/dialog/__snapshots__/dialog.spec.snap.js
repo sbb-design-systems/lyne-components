@@ -38,6 +38,10 @@ snapshots["sbb-dialog renders"] =
         <slot>
         </slot>
       </div>
+      <div class="sbb-dialog__footer">
+        <slot name="action-group">
+        </slot>
+      </div>
     </div>
   </div>
 </div>
