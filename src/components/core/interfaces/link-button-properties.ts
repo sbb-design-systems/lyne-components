@@ -25,6 +25,9 @@ export interface LinkProperties {
 
   /** Whether the browser will show the download dialog on click. */
   download?: boolean | undefined;
+
+  /** Whether the link is disabled. */
+  disabled?: boolean | undefined;
 }
 
 /**
@@ -179,4 +182,21 @@ export function resolveLinkOrStaticRenderVariables(
 /** Returns true, if href is set and target is _blank. */
 export function targetsNewWindow(properties: LinkProperties): boolean {
   return !!properties.href && properties.target === '_blank';
+}
+
+// FIXME remove new & verify return type
+export function newResolveButtonOrStaticRenderVariables(
+  isStatic: boolean,
+  disabled: boolean,
+): Record<string, string> {
+  return isStatic ? { dir: getDocumentWritingMode() } : hostProperties('button', disabled);
+}
+
+// FIXME remove new & verify return type
+export function newResolveLinkOrStaticRenderVariables(
+  properties: LinkButtonProperties & Partial<IsStaticProperty>,
+): LinkButtonRenderVariables {
+  return properties.isStatic || !properties.href
+    ? resolveStaticRenderVariables()
+    : resolveLinkRenderVariables(properties);
 }

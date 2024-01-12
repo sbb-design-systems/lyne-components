@@ -1,9 +1,9 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../core/testing';
+import { waitForLitRender } from '../../core/testing';
 
-import '../form-field';
+import '../../form-field';
 import './button';
 
 describe('sbb-button', () => {
@@ -76,53 +76,6 @@ describe('sbb-button', () => {
         </span>
         <span class="sbb-button__label"><slot></slot></span>
       </span>
-    `);
-  });
-
-  it('renders a button as a link', async () => {
-    const root = await fixture(
-      html` <sbb-button href="https://www.sbb.ch" target="_blank" rel="noopener" download>
-        Label Text
-      </sbb-button>`,
-    );
-
-    expect(root).dom.to.be.equal(`
-      <sbb-button
-        variant="primary"
-        size="l"
-        href="https://www.sbb.ch"
-        target="_blank"
-        rel="noopener"
-        download
-        role="link"
-        tabindex="0"
-        dir="ltr"
-        data-slot-names="unnamed"
-      >
-
-        Label Text
-      </sbb-button>
-    `);
-    expect(root).shadowDom.to.be.equal(`
-      <a
-        class="sbb-button"
-        href="https://www.sbb.ch"
-        target="_blank"
-        rel="noopener"
-        download
-        role="presentation"
-        tabindex="-1"
-        >
-        <span class="sbb-button__icon">
-          <slot name="icon"></slot>
-        </span>
-        <span class='sbb-button__label'>
-          <slot></slot>
-          <span class="sbb-button__opens-in-new-window">
-            . Link target opens in new window.
-          </span>
-        </span>
-      </a>
     `);
   });
 

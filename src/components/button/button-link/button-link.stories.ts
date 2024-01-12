@@ -9,16 +9,14 @@ import type {
   StoryContext,
 } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../core/dom';
+import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
-
-import './button';
-import '../loading-indicator';
+import '../../loading-indicator';
+import './button-link';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? '#484040' : 'var(--sbb-color-white-default)',
@@ -29,77 +27,42 @@ const focusStyle = (context: StoryContext): Record<string, string> =>
     ? { '--sbb-focus-outline-color': 'var(--sbb-focus-outline-color-dark)' }
     : {};
 
-// --- Component
-
-const RequestSubmitTemplate = ({ text }: Args): TemplateResult => html`
-  <form id="my-fake-form" action="/submit" method="post" target="_blank">
-    <label
-      for="input"
-      style=${styleMap({
-        display: 'flex',
-        'flex-direction': 'column',
-        'align-items': 'flex-start',
-        'padding-block-end': '2rem',
-      })}
-    >
-      Input required; submit with empty value is impossible due to 'requestSubmit' API validation.
-      <input required id="input" />
-    </label>
-    <sbb-button type="submit" form="my-fake-form" name="input" value="input"> ${text} </sbb-button>
-  </form>
-`;
-
 const Template = ({ text, active, focusVisible, ...args }: Args): TemplateResult => html`
-  <sbb-button ${sbbSpread(args)} ?data-active=${active} ?data-focus-visible=${focusVisible}>
+  <sbb-button-link ${sbbSpread(args)} ?data-active=${active} ?data-focus-visible=${focusVisible}>
     ${text}
-  </sbb-button>
+  </sbb-button-link>
 `;
 
 const IconSlotTemplate = ({ text, 'icon-name': iconName, ...args }: Args): TemplateResult => html`
-  <sbb-button ${sbbSpread(args)}>
+  <sbb-button-link ${sbbSpread(args)}>
     ${text}
     <sbb-icon slot="icon" name=${iconName}></sbb-icon>
-  </sbb-button>
+  </sbb-button-link>
 `;
 
 const LoadingIndicatorTemplate = ({ text, ...args }: Args): TemplateResult => html`
-  <sbb-button ${sbbSpread(args)}>
+  <sbb-button-link ${sbbSpread(args)}>
     <sbb-loading-indicator
       ?disable-animation=${isChromatic()}
       slot="icon"
       variant="circle"
     ></sbb-loading-indicator>
     ${text}
-  </sbb-button>
+  </sbb-button-link>
 `;
 
 const FixedWidthTemplate = ({ text, ...args }: Args): TemplateResult => html`
   <div>
     <p>
-      <sbb-button
-        ${sbbSpread(args)}
-        style=${styleMap({
-          width: '200px',
-        })}
-      >
-        ${text}
-      </sbb-button>
+      <sbb-button-link ${sbbSpread(args)} style="width: 200px;"> ${text} </sbb-button-link>
     </p>
     <p>
-      <sbb-button
-        ${sbbSpread(args)}
-        style=${styleMap({
-          maxWidth: '100%',
-          width: '600px',
-        })}
-      >
+      <sbb-button-link ${sbbSpread(args)} style="max-width: 100%; width: 600px;">
         Wide Button
-      </sbb-button>
+      </sbb-button-link>
     </p>
   </div>
 `;
-
-// --- Arg types
 
 const text: InputType = {
   control: {
@@ -183,46 +146,9 @@ const download: InputType = {
   },
 };
 
-const type: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['button', 'reset', 'submit'],
-  table: {
-    category: 'Button',
-  },
-};
-
-const disabledArgType: InputType = {
+const disabled: InputType = {
   control: {
     type: 'boolean',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
-const name: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
-const value: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
-const form: InputType = {
-  control: {
-    type: 'text',
   },
   table: {
     category: 'Button',
@@ -246,11 +172,7 @@ const defaultArgTypes: ArgTypes = {
   target,
   rel,
   download,
-  type,
-  disabled: disabledArgType,
-  name,
-  value,
-  form,
+  disabled,
   'aria-label': ariaLabel,
 };
 
@@ -261,15 +183,11 @@ const defaultArgs: Args = {
   size: size.options[0],
   'is-static': false,
   'icon-name': 'arrow-right-small',
-  href: undefined,
-  target: undefined,
-  rel: undefined,
+  href: href.options[0],
+  target: '_blank',
+  rel: 'noopener',
   download: false,
-  type: type.options[0],
   disabled: false,
-  name: 'Button Name',
-  value: undefined,
-  form: undefined,
   'aria-label': undefined,
 };
 
@@ -594,16 +512,6 @@ export const PrimaryFocusVisible: StoryObj = {
   },
 };
 
-export const RequestSubmit: StoryObj = {
-  render: RequestSubmitTemplate,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    variant: variant.options[0],
-    text: 'Submit form',
-  },
-};
-
 export const LoadingIndicator: StoryObj = {
   render: LoadingIndicatorTemplate,
   argTypes: defaultArgTypes,
@@ -635,7 +543,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-button',
+  title: 'components/sbb-button-link',
 };
 
 export default meta;
