@@ -41,7 +41,7 @@
 }
 
 .sbb-link-list-title {
-  :host(:not([data-slot-names~='title'], [title-content])) {
+  :host(:not([data-slot-names~='title'], [title-content])) & {
     display: none;
   }
 }

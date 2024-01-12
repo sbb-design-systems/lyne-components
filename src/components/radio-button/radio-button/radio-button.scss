@@ -121,12 +121,6 @@
   }
 }
 
-slot[name='suffix'] {
-  :host(:not([data-slot-names~='suffix'])) & {
-    display: none;
-  }
-}
-
 slot[name='subtext'] {
   display: block;
   color: var(--sbb-radio-button-subtext-color);
