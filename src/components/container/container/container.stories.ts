@@ -7,7 +7,6 @@ import { sbbSpread } from '../../core/dom';
 import '../../button';
 import '../../teaser';
 import '../../title';
-import '../sticky-bar';
 import './container';
 
 import readme from './readme.md?raw';
@@ -89,7 +88,6 @@ export const Expanded: StoryObj = {
 
 const meta: Meta = {
   parameters: {
-    actions: {},
     backgrounds: {
       disable: true,
     },

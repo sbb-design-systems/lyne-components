@@ -7,6 +7,7 @@ import { sbbSpread } from '../../core/dom';
 import '../../button';
 import '../../title';
 import readme from './readme.md?raw';
+import '../container';
 import './sticky-bar';
 
 const expanded: InputType = {
@@ -138,7 +139,6 @@ export const WithContentAfter: StoryObj = {
 
 const meta: Meta = {
   parameters: {
-    actions: {},
     backgrounds: {
       disable: true,
     },
