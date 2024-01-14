@@ -24,10 +24,6 @@ The component has also four color variants that can be set using the `variant` p
 <sbb-container expanded variant="milk"> ... </sbb-container>
 ```
 
-## Accessibility
-
-Since the element's order in the DOM is also used to determine the keyboard navigation order, it's crucial to put the `sbb-sticky-bar` last in the slotted content.
-
 <!-- Auto Generated Below -->
 
 ## Properties
