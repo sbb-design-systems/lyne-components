@@ -11,9 +11,9 @@ import './container';
 
 import readme from './readme.md?raw';
 
-const containerContent = (title: string, negative = false): TemplateResult => html`
+const containerContent = (title: string, color: string): TemplateResult => html`
   <div style="overflow: auto">
-    <sbb-title level="4" ?negative=${negative}>${title}</sbb-title>
+    <sbb-title level="4" ?negative=${color}>${title}</sbb-title>
     <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
     <p class="sbb-text-s">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
@@ -22,7 +22,7 @@ const containerContent = (title: string, negative = false): TemplateResult => ht
       voluptate velit esse cillum dolore eu fugiat nulla pariatur.
     </p>
   </div>
-  <sbb-button variant="secondary" ?negative=${negative}>See more</sbb-button>
+  <sbb-button variant="secondary" ?negative=${color}>See more</sbb-button>
 `;
 
 const expanded: InputType = {
@@ -50,9 +50,8 @@ const defaultArgs: Args = {
 
 const DefaultTemplate = ({ color, ...args }): TemplateResult => html`
   <sbb-container ${sbbSpread(args)} color=${color} style="padding-block-end: 3rem;">
-    ${containerContent('Example title', color === 'midnight')}
-    ${containerContent('Another one', color === 'midnight')}
-    ${containerContent('And another one', color === 'midnight')}
+    ${containerContent('Example title', color)} ${containerContent('Another one', color)}
+    ${containerContent('And another one', color)}
   </sbb-container>
 `;
 

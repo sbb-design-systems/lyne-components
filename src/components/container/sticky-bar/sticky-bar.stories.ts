@@ -33,9 +33,9 @@ const defaultArgs: Args = {
   color: color.options[0],
 };
 
-const containerContent = (title: string, negative = false): TemplateResult => html`
+const containerContent = (title: string, color: string): TemplateResult => html`
   <div style="overflow: auto;">
-    <sbb-title level="4" ?negative=${negative}>${title}</sbb-title>
+    <sbb-title level="4" ?negative=${color === 'midnight'}>${title}</sbb-title>
     <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
     <p class="sbb-text-s">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
@@ -44,7 +44,7 @@ const containerContent = (title: string, negative = false): TemplateResult => ht
       voluptate velit esse cillum dolore eu fugiat nulla pariatur.
     </p>
   </div>
-  <sbb-button variant="secondary" ?negative=${negative}>See more</sbb-button>
+  <sbb-button variant="secondary" ?negative=${color === 'midnight'}>See more</sbb-button>
 `;
 
 const Template = (): TemplateResult =>
@@ -54,10 +54,8 @@ const Template = (): TemplateResult =>
 
 const DefaultTemplate = ({ color, ...args }): TemplateResult => html`
   <sbb-container ${sbbSpread(args)} color=${color}>
-    ${containerContent('Example title', color === 'midnight')}
-    ${containerContent('Another one', color === 'midnight')}
-    ${containerContent('And another one', color === 'midnight')}
-    ${containerContent('And a last one', color === 'midnight')}
+    ${containerContent('Example title', color)} ${containerContent('Another one', color)}
+    ${containerContent('And another one', color)} ${containerContent('And a last one', color)}
 
     <sbb-sticky-bar>
       <sbb-button style="margin-inline-start: auto">Continue</sbb-button>
@@ -67,7 +65,7 @@ const DefaultTemplate = ({ color, ...args }): TemplateResult => html`
 
 const ShortTemplate = ({ color, ...args }): TemplateResult => html`
   <sbb-container ${sbbSpread(args)} color=${color}>
-    ${containerContent('Example title', color === 'midnight')}
+    ${containerContent('Example title', color)}
 
     <sbb-sticky-bar>
       <sbb-button style="margin-inline-start: auto">Continue</sbb-button>
@@ -77,17 +75,16 @@ const ShortTemplate = ({ color, ...args }): TemplateResult => html`
 
 const WithStickybarTemplate = ({ color, ...args }): TemplateResult => html`
   <sbb-container ${sbbSpread(args)} color=${color}>
-    ${containerContent('Example title', color === 'midnight')}
-    ${containerContent('Another one', color === 'midnight')}
-    ${containerContent('And another one', color === 'midnight')}
-    ${containerContent('And a last one', color === 'midnight')}
+    ${containerContent('Example title', color)} ${containerContent('Another one', color)}
+    ${containerContent('And another one', color)} ${containerContent('And a last one', color)}
 
     <sbb-sticky-bar>
       <sbb-button style="margin-inline-start: auto">Continue</sbb-button>
     </sbb-sticky-bar>
   </sbb-container>
   <sbb-container color="milk" style="padding-block: 5rem">
-    ${containerContent('Content after first container')} ${containerContent('Another one')}
+    ${containerContent('Content after first container', color)}
+    ${containerContent('Another one', color)}
   </sbb-container>
 `;
 
