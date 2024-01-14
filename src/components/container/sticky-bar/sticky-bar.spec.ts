@@ -14,8 +14,8 @@ describe('sbb-sticky-bar', () => {
           <slot></slot>
         </div>
       </div>
-      <span>
-      </span>
+      <div class="sbb-sticky-bar__intersector">
+      </div>
     `);
   });
 });

@@ -12,8 +12,7 @@
 }
 
 .sbb-sticky-bar__wrapper {
-  @include sbb.shadow-level-5-hard;
-
+  box-shadow: none;
   position: sticky;
   inset-block-end: 0;
   display: inline-block;
@@ -22,9 +21,8 @@
   transition-property: box-shadow;
   transition-duration: var(--sbb-sticky-bar-animation-duration);
 
-  :host([data-settled]) & {
-    background-color: transparent;
-    box-shadow: none;
+  :host([data-sticking]) & {
+    @include sbb.shadow-level-5-hard;
   }
 }
 
@@ -39,8 +37,4 @@
   :host([data-expanded]) & {
     @include sbb.page-spacing-expanded;
   }
-}
-
-span {
-  display: block;
 }

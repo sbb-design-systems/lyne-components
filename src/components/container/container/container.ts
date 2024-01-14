@@ -9,6 +9,7 @@ import style from './container.scss?lit&inline';
  * It displays its content with the default page spacing.
  *
  * @slot - Use the unnamed slot to add anything to the container.
+ * @slot sticky-bar - The slot used by the sbb-sticky-bar component.
  */
 @customElement('sbb-container')
 export class SbbContainerElement extends LitElement {
@@ -21,12 +22,8 @@ export class SbbContainerElement extends LitElement {
   @property({ reflect: true }) public color: 'transparent' | 'white' | 'milk' | 'midnight' =
     'transparent';
 
-  protected override firstUpdated(): void {
-    this._updateStickyBar();
-  }
-
   private _updateStickyBar(): void {
-    const stickyBar = this.querySelector('sbb-sticky-bar');
+    const stickyBar = this.querySelector?.('sbb-sticky-bar');
     if (stickyBar) {
       toggleDatasetEntry(stickyBar, 'expanded', this.expanded);
     }
