@@ -7,7 +7,6 @@ import { SbbContainerElement } from '../container';
 
 import { SbbStickyBarElement } from './sticky-bar';
 
-
 describe('sbb-sticky-bar', () => {
   let container: SbbContainerElement;
   let stickyBar: SbbStickyBarElement;
