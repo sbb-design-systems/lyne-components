@@ -1,4 +1,3 @@
-import { spread } from '@open-wc/lit-helpers';
 import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
@@ -51,13 +50,11 @@ export class SbbNavigationListElement extends SlotChildObserver(LitElement) {
       ? this._actions
       : Array.from({ length: +this.getAttribute('data-ssr-child-count') });
 
-    const ariaLabelledByAttribute = { 'aria-labelledby': 'sbb-navigation-link-label-id' };
-
     return html`
       <span class="sbb-navigation-list__label" id="sbb-navigation-link-label-id">
         <slot name="label">${this.label}</slot>
       </span>
-      <ul class="sbb-navigation-list__content" ${spread(ariaLabelledByAttribute)}>
+      <ul class="sbb-navigation-list__content" aria-labelledby="sbb-navigation-link-label-id">
         ${actions.map(
           (_, index) => html`
             <li class="sbb-navigation-list__action">

@@ -1,4 +1,3 @@
-import { spread } from '@open-wc/lit-helpers';
 import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -63,9 +62,6 @@ export class SbbSkiplinkListElement extends SlotChildObserver(LitElement) {
   }
 
   protected override render(): TemplateResult {
-    let ariaLabelledByAttribute: Record<string, string> = {};
-    ariaLabelledByAttribute = { 'aria-labelledby': 'sbb-skiplink-list-title-id' };
-
     this._links.forEach((link, index) => {
       link.setAttribute('slot', `link-${index}`);
       link.setAttribute('id', `sbb-skiplink-list-link-${index}`);
@@ -86,7 +82,7 @@ export class SbbSkiplinkListElement extends SlotChildObserver(LitElement) {
         >
           <slot name="title">${this.titleContent}</slot>
         </sbb-title>
-        <ul ${spread(ariaLabelledByAttribute)} class="sbb-skiplink-list">
+        <ul class="sbb-skiplink-list" aria-labelledby="sbb-skiplink-list-title-id">
           ${links.map(
             (_, index) =>
               html` <li>
