@@ -1,6 +1,5 @@
 import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
 
 import { LanguageController } from '../core/common-behaviors';
 import { setAttribute, toggleDatasetEntry } from '../core/dom';
@@ -82,7 +81,7 @@ export class SbbNotificationElement extends LitElement {
   /**
    * The state of the notification.
    */
-  @state() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'opened';
+  @state() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'closed';
 
   private _notificationElement: HTMLElement;
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -115,9 +114,18 @@ export class SbbNotificationElement extends LitElement {
     SbbNotificationElement.events.didClose,
   );
 
+  private _open(): void {
+    if (this._state === 'closed') {
+      this._state = 'opening';
+      this._willOpen.emit();
+      this.disableAnimation && this._handleOpening();
+    }
+  }
+
   public close(): void {
     if (this._state === 'opened') {
       this._state = 'closing';
+      this.style.setProperty('--sbb-notification-margin', '0');
       this._willClose.emit();
       this.disableAnimation && this._handleClosing();
     }
@@ -134,9 +142,15 @@ export class SbbNotificationElement extends LitElement {
     this._setInlineLinks();
   }
 
-  protected override firstUpdated(): void {
-    this._willOpen.emit();
+  protected override async firstUpdated(): Promise<void> {
+    this._notificationElement = this.shadowRoot.querySelector(
+      '.sbb-notification__wrapper',
+    ) as HTMLElement;
+    // We need to wait for the component's `updateComplete` in order to set the correct
+    // height to the notification element.
+    await this.updateComplete;
     this._setNotificationHeight();
+    this._open();
   }
 
   public override disconnectedCallback(): void {
@@ -181,7 +195,7 @@ export class SbbNotificationElement extends LitElement {
   }
 
   private _onNotificationAnimationEnd(event: AnimationEvent): void {
-    if (this._state === 'opened' && event.animationName === 'open') {
+    if (this._state === 'opening' && event.animationName === 'open') {
       this._handleOpening();
     }
   }
@@ -210,7 +224,6 @@ export class SbbNotificationElement extends LitElement {
         class="sbb-notification__wrapper"
         @transitionend=${(event: TransitionEvent) => this._onNotificationTransitionEnd(event)}
         @animationend=${(event: AnimationEvent) => this._onNotificationAnimationEnd(event)}
-        ${ref((el) => (this._notificationElement = el as HTMLElement))}
       >
         <div class="sbb-notification">
           <sbb-icon

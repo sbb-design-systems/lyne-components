@@ -26,6 +26,7 @@
   --sbb-notification-timing-function: ease-in;
   --sbb-notification-transition: max-height var(--sbb-notification-animation-duration)
       var(--sbb-animation-duration-2x) var(--sbb-notification-timing-function),
+    margin var(--sbb-notification-animation-duration) var(--sbb-notification-timing-function),
     padding var(--sbb-notification-animation-duration) var(--sbb-animation-duration-2x)
       var(--sbb-notification-timing-function),
     border var(--sbb-notification-animation-duration) var(--sbb-animation-duration-2x)
@@ -36,10 +37,6 @@
   // As the notification has always a light background, we have to fix the focus outline color
   // to default color for cases where the notification is used in a negative context.
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
-
-  margin: 0;
-  transition: margin var(--sbb-notification-animation-duration)
-    var(--sbb-notification-timing-function);
 }
 
 :host(:is([data-state='opened'], [data-state='opening'])) {
@@ -50,12 +47,13 @@
   );
   --sbb-notification-transition: max-height var(--sbb-notification-animation-duration)
       var(--sbb-notification-timing-function),
+    margin var(--sbb-notification-animation-duration) var(--sbb-notification-timing-function),
     padding var(--sbb-notification-animation-duration) var(--sbb-notification-timing-function),
     border var(--sbb-notification-animation-duration) var(--sbb-notification-timing-function),
+    visibility var(--sbb-notification-animation-duration) var(--sbb-notification-animation-duration)
+      var(--sbb-notification-timing-function),
     opacity var(--sbb-notification-animation-duration) var(--sbb-notification-animation-duration)
       var(--sbb-notification-timing-function);
-
-  margin: var(--sbb-notification-margin);
 }
 
 :host(:is([data-resize-disable-animation], [disable-animation])) {
@@ -88,6 +86,7 @@
 
 .sbb-notification__wrapper {
   position: relative;
+  margin: var(--sbb-notification-margin);
   inset-inline-start: calc(
     var(--sbb-notification-base-radius) - var(--sbb-notification-border-width)
   );
@@ -208,11 +207,15 @@
     visibility: hidden;
     opacity: 0;
     max-height: 0;
+    border-block: none;
+    margin: 0;
   }
 
   to {
     visibility: visible;
     opacity: 1;
     max-height: var(--sbb-notification-max-height);
+    border-block: var(--sbb-notification-border);
+    margin: var(--sbb-notification-margin);
   }
 }

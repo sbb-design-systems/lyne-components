@@ -81,6 +81,28 @@ const trigger = (args: Args): TemplateResult => html`
   </sbb-button>
 `;
 
+const simpleNotification = (
+  disabelAnimation: boolean,
+  type: string,
+  title: string,
+): TemplateResult => html`
+  <sbb-notification
+    type="${type}"
+    title-content="${title}"
+    disable-animation
+    style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
+    ${ref((notification?: Element) =>
+      (notification as SbbNotificationElement)?.addEventListener(
+        SbbNotificationElement.events.didOpen,
+        () => ((notification as SbbNotificationElement).disableAnimation = disabelAnimation),
+        { once: true },
+      ),
+    )}
+  >
+    This is a ${type} notification.
+  </sbb-notification>
+`;
+
 const pageContent = (): TemplateResult => html`
   <p style="margin: 0;">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
@@ -92,9 +114,8 @@ const pageContent = (): TemplateResult => html`
 
 const DefaultTemplate = (args: Args): TemplateResult => html`
   <sbb-notification
-    ${sbbSpread(args)}
-    disable-animation
-    style="margin-block-end: var(--sbb-spacing-fixed-4x);"
+    ${sbbSpread({ ...args, ['disable-animation']: true })}
+    style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
     ${ref((notification?: Element) =>
       (notification as SbbNotificationElement)?.addEventListener(
         SbbNotificationElement.events.didOpen,
@@ -111,11 +132,34 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
   </sbb-notification>
 `;
 
+const MultipleNotificationsTemplate = (args: Args): TemplateResult => html`
+  <sbb-notification
+    ${sbbSpread({ ...args, ['disable-animation']: true })}
+    style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
+    ${ref((notification?: Element) =>
+      (notification as SbbNotificationElement)?.addEventListener(
+        SbbNotificationElement.events.didOpen,
+        () =>
+          ((notification as SbbNotificationElement).disableAnimation = args['disable-animation']),
+        { once: true },
+      ),
+    )}
+  >
+    The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
+    dog.&nbsp;<sbb-link href="/" variant="block"> Link one</sbb-link>
+    <sbb-link href="/" variant="inline"> Link two</sbb-link>
+    <sbb-link href="/" variant="inline"> Link three</sbb-link>
+  </sbb-notification>
+
+  ${simpleNotification(args['disable-animation'], 'success', 'Success')}
+  ${simpleNotification(args['disable-animation'], 'warn', 'Warn')}
+  ${simpleNotification(args['disable-animation'], 'error', 'Error')}
+`;
+
 const SlottedTitleTemplate = (args: Args): TemplateResult => html`
   <sbb-notification
-    ${sbbSpread(args)}
-    disable-animation
-    style="margin-block-end: var(--sbb-spacing-fixed-4x);"
+    ${sbbSpread({ ...args, ['disable-animation']: true })}
+    style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
     ${ref((notification?: Element) =>
       (notification as SbbNotificationElement)?.addEventListener(
         SbbNotificationElement.events.didOpen,
@@ -179,6 +223,12 @@ export const SlottedTitle: StoryObj = {
   render: SlottedTitleTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, 'title-content': undefined },
+};
+
+export const MultipleNotifications: StoryObj = {
+  render: MultipleNotificationsTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
 };
 
 // We set the height of the div in Chromatic to avoid cropped snapshots
