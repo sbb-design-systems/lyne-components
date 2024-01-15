@@ -3,9 +3,7 @@ import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { waitForCondition, waitForLitRender } from '../../core/testing';
-import { SbbContainerElement } from '../container';
-
-import { SbbStickyBarElement } from './sticky-bar';
+import { SbbStickyBarElement, SbbContainerElement } from '../index';
 
 describe('sbb-sticky-bar', () => {
   let container: SbbContainerElement;
