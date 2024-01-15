@@ -40,7 +40,6 @@ export class SbbNavigationListElement extends SlotChildObserver(LitElement) {
   }
 
   protected override render(): TemplateResult {
-    const hasLabel = !!this.label || this._namedSlots.slots.has('label');
     this._actions.forEach((action, index) => {
       action.setAttribute('slot', `action-${index}`);
       action.size = 'm';
@@ -48,13 +47,12 @@ export class SbbNavigationListElement extends SlotChildObserver(LitElement) {
     const actions = this._actions.length
       ? this._actions
       : Array.from({ length: +this.getAttribute('data-ssr-child-count') });
-    const ariaLabelledByAttribute = hasLabel
-      ? { 'aria-labelledby': 'sbb-navigation-link-label-id' }
-      : {};
+
+    const ariaLabelledByAttribute = { 'aria-labelledby': 'sbb-navigation-link-label-id' };
 
     return html`
       <span class="sbb-navigation-list__label" id="sbb-navigation-link-label-id">
-        <slot name="label" @slotchange=${() => this.requestUpdate()}>${this.label}</slot>
+        <slot name="label">${this.label}</slot>
       </span>
       <ul class="sbb-navigation-list__content" ${spread(ariaLabelledByAttribute)}>
         ${actions.map(

@@ -9,7 +9,10 @@ snapshots["sbb-navigation-list should render named slots if data-ssr-child-count
   <slot name="label">
   </slot>
 </span>
-<ul class="sbb-navigation-list__content">
+<ul
+  aria-labelledby="sbb-navigation-link-label-id"
+  class="sbb-navigation-list__content"
+>
   <li class="sbb-navigation-list__action">
     <slot name="action-0">
     </slot>
@@ -38,7 +41,10 @@ snapshots["sbb-navigation-list renders"] =
   <slot name="label">
   </slot>
 </span>
-<ul class="sbb-navigation-list__content">
+<ul
+  aria-labelledby="sbb-navigation-link-label-id"
+  class="sbb-navigation-list__content"
+>
   <li class="sbb-navigation-list__action">
     <slot name="action-0">
     </slot>

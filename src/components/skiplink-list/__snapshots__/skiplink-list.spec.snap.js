@@ -16,7 +16,10 @@ snapshots["sbb-skiplink-list should render named slots if data-ssr-child-count a
     <slot name="title">
     </slot>
   </sbb-title>
-  <ul class="sbb-skiplink-list">
+  <ul
+    aria-labelledby="sbb-skiplink-list-title-id"
+    class="sbb-skiplink-list"
+  >
     <li>
       <slot name="link-0">
       </slot>
@@ -53,7 +56,10 @@ snapshots["sbb-skiplink-list renders"] =
     <slot name="title">
     </slot>
   </sbb-title>
-  <ul class="sbb-skiplink-list">
+  <ul
+    aria-labelledby="sbb-skiplink-list-title-id"
+    class="sbb-skiplink-list"
+  >
     <li>
       <slot name="link-0">
       </slot>

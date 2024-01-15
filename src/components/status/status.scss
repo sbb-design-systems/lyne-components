@@ -64,7 +64,7 @@ $has-title: ':is([data-slot-names~=title], [title-content])';
 .sbb-status__title {
   margin-block: 0;
 
-  :host(:not([data-slot-names~='title'], [title-content])) & {
+  :host(:not(#{$has-title})) & {
     display: none;
   }
 }

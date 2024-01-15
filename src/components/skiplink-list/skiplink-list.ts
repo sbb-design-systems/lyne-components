@@ -61,9 +61,8 @@ export class SbbSkiplinkListElement extends SlotChildObserver(LitElement) {
 
   protected override render(): TemplateResult {
     let ariaLabelledByAttribute: Record<string, string> = {};
-    if (this._namedSlots.slots.has('title') || this.titleContent) {
-      ariaLabelledByAttribute = { 'aria-labelledby': 'sbb-skiplink-list-title-id' };
-    }
+    ariaLabelledByAttribute = { 'aria-labelledby': 'sbb-skiplink-list-title-id' };
+
     this._links.forEach((link, index) => {
       link.setAttribute('slot', `link-${index}`);
       link.setAttribute('id', `sbb-skiplink-list-link-${index}`);
