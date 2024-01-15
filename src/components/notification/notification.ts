@@ -210,7 +210,7 @@ export class SbbNotificationElement extends LitElement {
     this._state = 'closed';
     this._didClose.emit();
     this._notificationResizeObserver.unobserve(this._notificationElement);
-    this.remove();
+    setTimeout(() => this.remove());
   }
 
   protected override render(): TemplateResult {
