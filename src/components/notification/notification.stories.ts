@@ -95,14 +95,13 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
     ${sbbSpread(args)}
     disable-animation
     style="margin-block-end: var(--sbb-spacing-fixed-4x);"
-    ${ref(
-      (notification?: Element) =>
-        (notification as SbbNotificationElement)?.addEventListener(
-          SbbNotificationElement.events.didOpen,
-          () =>
-            ((notification as SbbNotificationElement).disableAnimation = args['disable-animation']),
-          { once: true },
-        ),
+    ${ref((notification?: Element) =>
+      (notification as SbbNotificationElement)?.addEventListener(
+        SbbNotificationElement.events.didOpen,
+        () =>
+          ((notification as SbbNotificationElement).disableAnimation = args['disable-animation']),
+        { once: true },
+      ),
     )}
   >
     The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
@@ -117,14 +116,13 @@ const SlottedTitleTemplate = (args: Args): TemplateResult => html`
     ${sbbSpread(args)}
     disable-animation
     style="margin-block-end: var(--sbb-spacing-fixed-4x);"
-    ${ref(
-      (notification?: Element) =>
-        (notification as SbbNotificationElement)?.addEventListener(
-          SbbNotificationElement.events.didOpen,
-          () =>
-            ((notification as SbbNotificationElement).disableAnimation = args['disable-animation']),
-          { once: true },
-        ),
+    ${ref((notification?: Element) =>
+      (notification as SbbNotificationElement)?.addEventListener(
+        SbbNotificationElement.events.didOpen,
+        () =>
+          ((notification as SbbNotificationElement).disableAnimation = args['disable-animation']),
+        { once: true },
+      ),
     )}
   >
     <span slot="title">Slotted title</span>

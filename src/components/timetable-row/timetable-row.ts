@@ -436,8 +436,9 @@ export class SbbTimetableRowElement extends LitElement {
 
       // add prefix "new" if quay was changed
       const changedQuayPrefix = departure?.quayChanged ? `${i18nNew[this._language.current]} ` : '';
-      return `${changedQuayPrefix}${this._getQuayTypeStrings()
-        ?.long} ${departure?.quayFormatted}, `;
+      return `${changedQuayPrefix}${
+        this._getQuayTypeStrings()?.long
+      } ${departure?.quayFormatted}, `;
     };
 
     const meansOfTransportText =
