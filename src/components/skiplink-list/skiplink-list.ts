@@ -32,7 +32,10 @@ export class SbbSkiplinkListElement extends SlotChildObserver(LitElement) {
    */
   @state() private _links: SbbLinkElement[] = [];
 
-  private _namedSlots = new NamedSlotStateController(this);
+  public constructor() {
+    super();
+    new NamedSlotStateController(this);
+  }
 
   private _syncLinks(): void {
     this.querySelectorAll?.('sbb-link').forEach((link: SbbLinkElement) => {

@@ -28,7 +28,10 @@ export class SbbNavigationListElement extends SlotChildObserver(LitElement) {
    */
   @state() private _actions: SbbNavigationActionElement[] = [];
 
-  private _namedSlots = new NamedSlotStateController(this);
+  public constructor() {
+    super();
+    new NamedSlotStateController(this);
+  }
 
   /**
    * Create an array with only the sbb-navigation-action children.
