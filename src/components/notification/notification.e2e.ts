@@ -1,4 +1,4 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { aTimeout, assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { SbbButtonElement } from '../button';
@@ -44,6 +44,7 @@ describe('sbb-notification', () => {
 
     expect(element).to.have.attribute('data-state', 'closed');
 
+    await aTimeout(0);
     element = document.querySelector('sbb-notification');
     expect(element).to.be.null;
   });
@@ -71,6 +72,7 @@ describe('sbb-notification', () => {
 
     expect(element).to.have.attribute('data-state', 'closed');
 
+    await aTimeout(0);
     element = document.querySelector('sbb-notification');
     expect(element).to.be.null;
   });
