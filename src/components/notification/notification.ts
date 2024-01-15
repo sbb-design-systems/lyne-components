@@ -129,6 +129,7 @@ export class SbbNotificationElement extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this.setAttribute('role', this.getAttribute('role') ?? 'status');
     this._setInlineLinks();
   }
 
@@ -205,7 +206,6 @@ export class SbbNotificationElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'role', 'status');
     setAttribute(this, 'data-state', this._state);
 
     return html`
