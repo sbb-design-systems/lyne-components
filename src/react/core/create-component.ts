@@ -121,7 +121,14 @@ export interface Options<I extends HTMLElement, E extends EventNames = {}> {
 
 type Constructor<T> = { new (): T };
 
-const reservedReactProperties = new Set(['children', 'localName', 'ref', 'style', 'className']);
+const reservedReactProperties = new Set([
+  'children',
+  'localName',
+  'ref',
+  'style',
+  'className',
+  'id',
+]);
 
 const listenedEvents = new WeakMap<Element, Map<string, EventListenerObject>>();
 
@@ -259,12 +266,7 @@ export const createComponent = <I extends HTMLElement, E extends EventNames = {}
         // React does *not* handle `className` for custom elements so
         // coerce it to `class` so it's handled correctly.
         reactProps[k === 'className' ? 'class' : k] = v;
-        continue;
-      }
-
-      if (eventProps.has(k) || k in elementClass.prototype) {
-        elementProps[k] = v;
-
+      } else if (eventProps.has(k) || k in elementClass.prototype) {
         const elementProperty = elementProperties?.get(k);
         const toAttribute = (elementProperty?.converter as ComplexAttributeConverter)?.toAttribute;
         if (
@@ -272,6 +274,7 @@ export const createComponent = <I extends HTMLElement, E extends EventNames = {}
           elementProperty.attribute === false ||
           (typeof v === 'object' && !toAttribute)
         ) {
+          elementProps[k] = v;
           continue;
         }
 
@@ -281,6 +284,8 @@ export const createComponent = <I extends HTMLElement, E extends EventNames = {}
           reactProps[attributeName] = toAttribute ? toAttribute(v) : v;
         } else if (v) {
           reactProps[attributeName] = '';
+        } else {
+          elementProps[k] = v;
         }
         continue;
       }
