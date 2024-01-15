@@ -20,8 +20,8 @@ import '../navigation';
 const playStory = async (trigger: string, canvasElement: HTMLElement): Promise<void> => {
   const canvas = within(canvasElement);
 
-  await waitForComponentsReady(
-    () => canvas.getByTestId('navigation').shadowRoot?.querySelector('.sbb-navigation'),
+  await waitForComponentsReady(() =>
+    canvas.getByTestId('navigation').shadowRoot?.querySelector('.sbb-navigation'),
   );
 
   const button = canvas.getByTestId('navigation-trigger');
