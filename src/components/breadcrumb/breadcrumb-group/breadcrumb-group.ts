@@ -27,8 +27,6 @@ export class SbbBreadcrumbGroupElement extends SlotChildObserver(LitElement) {
 
   @state() private _state?: 'collapsed' | 'manually-expanded';
 
-  @state() private _loaded = false;
-
   private _resizeObserver = new AgnosticResizeObserver(() => this._evaluateCollapsedState());
   private _abort = new ConnectedAbortController(this);
   private _language = new LanguageController(this);
@@ -60,7 +58,7 @@ export class SbbBreadcrumbGroupElement extends SlotChildObserver(LitElement) {
   protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this._resizeObserver.observe(this);
-    this._loaded = true;
+    this.toggleAttribute('data-loaded', true);
   }
 
   protected override updated(): void {
@@ -214,7 +212,6 @@ export class SbbBreadcrumbGroupElement extends SlotChildObserver(LitElement) {
 
   protected override render(): TemplateResult {
     setAttribute(this, 'role', 'navigation');
-    setAttribute(this, 'data-loaded', this._loaded);
     setAttribute(this, 'data-state', this._state);
 
     return html`
