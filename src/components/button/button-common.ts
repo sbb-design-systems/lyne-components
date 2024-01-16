@@ -12,20 +12,20 @@ import style from './button.scss?lit&inline';
 
 export type SbbButtonSize = 'l' | 'm';
 
-export declare interface SbbButtonCommonInterface {
-  variant: 'primary' | 'secondary' | 'tertiary' | 'transparent';
-  negative: boolean;
-  size?: SbbButtonSize;
-  iconName?: string;
-  isStatic: boolean;
-  language: LanguageController;
+export declare class SbbButtonCommonInterface {
+  public variant: 'primary' | 'secondary' | 'tertiary' | 'transparent';
+  public negative: boolean;
+  public size?: SbbButtonSize;
+  public isStatic: boolean;
+  public iconName?: string;
+  protected language: LanguageController;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbButtonCommonElementMixin = <T extends Constructor<LitElement>>(
   superClass: T,
 ): Constructor<SbbButtonCommonInterface> & T => {
-  class SbbButtonCommonElement extends superClass implements SbbButtonCommonInterface {
+  class SbbButtonCommonElement extends superClass implements Partial<SbbButtonCommonInterface> {
     public static styles: CSSResultGroup = style;
     /** Variant of the button, like primary, secondary etc. */
     @property({ reflect: true }) public variant:
@@ -53,7 +53,7 @@ export const SbbButtonCommonElementMixin = <T extends Constructor<LitElement>>(
    */
   @property({ attribute: 'icon-name', reflect: true }) public iconName?: string;
 
-  public language = new LanguageController(this);
+    protected language = new LanguageController(this);
   private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
 
   public override connectedCallback(): void {
@@ -74,5 +74,5 @@ export const SbbButtonCommonElementMixin = <T extends Constructor<LitElement>>(
       this._handlerRepository.disconnect();
     }
   }
-  return SbbButtonCommonElement as Constructor<SbbButtonCommonInterface> & T;
+  return SbbButtonCommonElement as unknown as Constructor<SbbButtonCommonInterface> & T;
 };
