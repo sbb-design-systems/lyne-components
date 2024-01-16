@@ -1,7 +1,7 @@
 import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { ButtonProperties, ButtonType } from '../interfaces';
+import { ButtonProperties, ButtonType } from '../../interfaces';
 
 export class SbbButtonBaseElement extends LitElement implements ButtonProperties {
   /** The type attribute to use for the button. */

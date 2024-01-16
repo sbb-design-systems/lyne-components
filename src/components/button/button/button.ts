@@ -2,7 +2,11 @@ import { nothing, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbButtonBaseElement } from '../../core/common-behaviors/button-base-element';
+import {
+  SbbButtonBaseElement,
+  SbbButtonDisabledMixin,
+  SbbButtonIconNameMixin,
+} from '../../core/common-behaviors/button-link';
 import { setAttributes } from '../../core/dom';
 import { newResolveButtonOrStaticRenderVariables } from '../../core/interfaces';
 import { SbbButtonCommonElementMixin } from '../button-common';
@@ -11,7 +15,9 @@ import { SbbButtonCommonElementMixin } from '../button-common';
  * TODO: Document me
  */
 @customElement('sbb-button')
-export class SbbButtonElement extends SbbButtonCommonElementMixin(SbbButtonBaseElement) {
+export class SbbButtonElement extends SbbButtonCommonElementMixin(
+  SbbButtonDisabledMixin(SbbButtonIconNameMixin(SbbButtonBaseElement)),
+) {
   protected override render(): TemplateResult {
     setAttributes(this, newResolveButtonOrStaticRenderVariables(this.isStatic, this.disabled));
 

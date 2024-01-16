@@ -6,7 +6,7 @@ import {
   LanguageController,
   NamedSlotStateController,
 } from '../core/common-behaviors';
-import { ACTION_ELEMENTS, hostContext, isValidAttribute, toggleDatasetEntry } from '../core/dom';
+import { ACTION_ELEMENTS, hostContext, toggleDatasetEntry } from '../core/dom';
 import { actionElementHandlerAspect, HandlerRepository } from '../core/eventing';
 
 import '../icon';
@@ -17,10 +17,8 @@ export type SbbButtonSize = 'l' | 'm';
 
 export declare class SbbButtonCommonInterface {
   public variant: 'primary' | 'secondary' | 'tertiary' | 'transparent';
-  public negative: boolean;
   public size?: SbbButtonSize;
   public isStatic: boolean;
-  public iconName?: string;
   protected language: LanguageController;
 }
 
@@ -37,9 +35,6 @@ export const SbbButtonCommonElementMixin = <T extends Constructor<LitElement>>(
       | 'tertiary'
       | 'transparent' = 'primary';
 
-    /** Negative coloring variant flag. */
-    @property({ reflect: true, type: Boolean }) public negative = false;
-
     /** Size variant, either l or m. */
     @property({ reflect: true }) public size?: SbbButtonSize = 'l';
 
@@ -48,13 +43,6 @@ export const SbbButtonCommonElementMixin = <T extends Constructor<LitElement>>(
      * button, but no interaction (a span instead of a link/button will be rendered).
      */
     @property({ attribute: 'is-static', reflect: true, type: Boolean }) public isStatic = false;
-
-    /**
-     * The icon name we want to use, choose from the small icon variants
-     * from the ui-icons category from here
-     * https://icons.app.sbb.ch.
-     */
-    @property({ attribute: 'icon-name', reflect: true }) public iconName?: string;
 
     protected language = new LanguageController(this);
     private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
@@ -73,7 +61,6 @@ export const SbbButtonCommonElementMixin = <T extends Constructor<LitElement>>(
       const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
       if (formField) {
         toggleDatasetEntry(this, 'iconSmall', true);
-        this.negative = isValidAttribute(formField, 'negative');
       }
     }
 

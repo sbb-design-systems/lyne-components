@@ -3,7 +3,11 @@ import { nothing, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbLinkBaseElement } from '../../core/common-behaviors/link-base-element';
+import {
+  SbbLinkBaseElement,
+  SbbButtonDisabledMixin,
+  SbbButtonIconNameMixin,
+} from '../../core/common-behaviors/button-link';
 import { setAttributes } from '../../core/dom';
 import { i18nTargetOpensInNewWindow } from '../../core/i18n';
 import { newResolveLinkOrStaticRenderVariables, targetsNewWindow } from '../../core/interfaces';
@@ -13,7 +17,9 @@ import { SbbButtonCommonElementMixin } from '../button-common';
  * TODO: Document me
  */
 @customElement('sbb-button-link')
-export class SbbButtonLinkElement extends SbbButtonCommonElementMixin(SbbLinkBaseElement) {
+export class SbbButtonLinkElement extends SbbButtonCommonElementMixin(
+  SbbButtonDisabledMixin(SbbButtonIconNameMixin(SbbLinkBaseElement)),
+) {
   protected override render(): TemplateResult {
     const {
       tagName: TAG_NAME,
