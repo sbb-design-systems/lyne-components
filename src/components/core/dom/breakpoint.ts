@@ -12,7 +12,7 @@ export type Breakpoint = 'zero' | 'micro' | 'small' | 'medium' | 'wide' | 'large
  */
 export function isBreakpoint(from?: Breakpoint, to?: Breakpoint): boolean {
   if (!isBrowser()) {
-    // TODO: Maybe find better default solution for SSR?
+    // TODO: Remove and decide case by case what should be done on consuming end
     return false;
   }
 

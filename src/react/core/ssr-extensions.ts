@@ -32,6 +32,7 @@ export const withSsrDataSlotNames = <P extends object>(
         Children.forEach(props.children, (child) =>
           slots.add(
             (typeof child === 'object' &&
+              !!child &&
               'props' in child &&
               'slot' in child.props &&
               child.props.slot) ||
