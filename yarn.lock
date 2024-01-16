@@ -2278,10 +2278,10 @@
     colors "~1.2.1"
     string-argv "~0.3.1"
 
-"@sbb-esta/lyne-design-tokens@0.3.8":
-  version "0.3.8"
-  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-0.3.8.tgz#fbdfe8a5649db8f53eb86c7d2028e59d48be9f63"
-  integrity sha512-p8S7bBV3OUHDwslE4kwgA/WU9WowfhrwN2mZpqXiByNcHKY7QKEc5vBxu2030QGS5f5vEHVluph3zT+gEMkW0g==
+"@sbb-esta/lyne-design-tokens@0.3.9":
+  version "0.3.9"
+  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-0.3.9.tgz#9532d7785a5800c4141acebe619218713620025c"
+  integrity sha512-6J+zCagZwwxu4nvKaIcp6V0sYCmtNfjch1UXZpmibh/xjWNSFccpP+oTmpOGqt+zIU+w6EnWPjPNAzEQLazncQ==
 
 "@sinclair/typebox@^0.24.1":
   version "0.24.51"
