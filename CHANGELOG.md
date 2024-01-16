@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.43.11](https://github.com/lyne-design-system/lyne-components/compare/v0.43.10...v0.43.11) (2024-01-16)
+
+
+### Bug Fixes
+
+* improve creation of react component ([#2337](https://github.com/lyne-design-system/lyne-components/issues/2337)) ([a64a3eb](https://github.com/lyne-design-system/lyne-components/commit/a64a3eb54ac252f3e668c45d414a14e07a185fac))
+* remove setTimeout from SlotChildObserver ([#2334](https://github.com/lyne-design-system/lyne-components/issues/2334)) ([4905c9b](https://github.com/lyne-design-system/lyne-components/commit/4905c9b71f848cc2f5778d73a60d183a7cf35dda))
+* **sbb-header:** shows the header if it has visible focus within ([#2237](https://github.com/lyne-design-system/lyne-components/issues/2237)) ([37061ad](https://github.com/lyne-design-system/lyne-components/commit/37061ad1703c4d5661c3ab5270124a652012cd58))
+* **sbb-notification:** border left stability ([#2330](https://github.com/lyne-design-system/lyne-components/issues/2330)) ([0cae556](https://github.com/lyne-design-system/lyne-components/commit/0cae55695c75318beb16de122bae5743c6241b45))
+* **sbb-notification:** delay removal of notification after closing ([#2333](https://github.com/lyne-design-system/lyne-components/issues/2333)) ([63ba57c](https://github.com/lyne-design-system/lyne-components/commit/63ba57c5a5f0523044e0d9b4428269aa338118b2))
+* **sbb-notification:** fix notification animation ([#2274](https://github.com/lyne-design-system/lyne-components/issues/2274)) ([5272043](https://github.com/lyne-design-system/lyne-components/commit/52720433b19427b72f3bd1492ac047c2b2bacc5d))
+* **sbb-toggle:** deal with undefined option component ([#2327](https://github.com/lyne-design-system/lyne-components/issues/2327)) ([97a4061](https://github.com/lyne-design-system/lyne-components/commit/97a40610abea58f3d9f85880e4f96e0ad9a075b5))
+
 ## [0.43.10](https://github.com/lyne-design-system/lyne-components/compare/v0.43.9...v0.43.10) (2024-01-09)
 
 
