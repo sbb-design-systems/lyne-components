@@ -107,7 +107,7 @@
   margin-inline-end: var(--sbb-spacing-fixed-2x);
   line-height: initial;
 
-  :host(:not([data-has-icon])) & {
+  :host(:not([data-slot-names~='icon'], [icon-name])) & {
     display: none;
   }
 }
@@ -125,7 +125,7 @@
   // Since the action button has an absolute position, we have to "reserve" space
   min-width: #{sbb.px-to-rem-build(40)};
 
-  :host(:not([data-has-action])) & {
+  :host(:not([data-slot-names~='action'], [dismissible])) & {
     display: none;
   }
 }

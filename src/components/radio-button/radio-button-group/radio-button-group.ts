@@ -1,16 +1,12 @@
-import { CSSResultGroup, html, LitElement, nothing, PropertyValues, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 
 import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../core/a11y';
-import { toggleDatasetEntry, setAttribute, isValidAttribute } from '../../core/dom';
-import {
-  createNamedSlotState,
-  HandlerRepository,
-  namedSlotChangeHandlerAspect,
-  EventEmitter,
-  ConnectedAbortController,
-} from '../../core/eventing';
+import { NamedSlotStateController } from '../../core/common-behaviors';
+import { toggleDatasetEntry, setAttribute } from '../../core/dom';
+import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces';
+import type { SbbSelectionPanelElement } from '../../selection-panel';
 import type {
   SbbRadioButtonElement,
   SbbRadioButtonSize,
@@ -95,11 +91,6 @@ export class SbbRadioButtonGroupElement extends LitElement {
     }
   }
 
-  /**
-   * State of listed named slots, by indicating whether any element for a named slot is defined.
-   */
-  @state() private _namedSlots = createNamedSlotState('error');
-
   private _hasSelectionPanel: boolean;
   private _didLoad = false;
   private _abort = new ConnectedAbortController(this);
@@ -137,10 +128,10 @@ export class SbbRadioButtonGroupElement extends LitElement {
     SbbRadioButtonGroupElement.events.input,
   );
 
-  private _handlerRepository = new HandlerRepository(
-    this,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
-  );
+  public constructor() {
+    super();
+    new NamedSlotStateController(this);
+  }
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -156,7 +147,6 @@ export class SbbRadioButtonGroupElement extends LitElement {
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
     this._hasSelectionPanel = !!this.querySelector?.('sbb-selection-panel');
     toggleDatasetEntry(this, 'hasSelectionPanel', this._hasSelectionPanel);
-    this._handlerRepository.connect();
     this._updateRadios(this.value);
   }
 
@@ -186,7 +176,6 @@ export class SbbRadioButtonGroupElement extends LitElement {
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._handlerRepository.disconnect();
   }
 
   private _onRadioButtonSelect(event: CustomEvent<SbbRadioButtonStateChange>): void {
@@ -244,7 +233,7 @@ export class SbbRadioButtonGroupElement extends LitElement {
     const isSelected: boolean = radio.checked && !radio.disabled && !this.disabled;
     const isParentPanelWithContent: boolean =
       radio.parentElement.nodeName === 'SBB-SELECTION-PANEL' &&
-      isValidAttribute(radio.parentElement, 'data-has-content');
+      (radio.parentElement as SbbSelectionPanelElement).hasContent;
 
     return isSelected || (this._hasSelectionPanel && isParentPanelWithContent) ? 0 : -1;
   }
@@ -273,7 +262,7 @@ export class SbbRadioButtonGroupElement extends LitElement {
     // Selection on arrow keypress is allowed only if all the selection-panels have no content.
     const allPanelsHaveNoContent: boolean = (
       Array.from(this.querySelectorAll?.('sbb-selection-panel')) || []
-    ).every((e) => !isValidAttribute(e, 'data-has-content'));
+    ).every((e: SbbSelectionPanelElement) => !e.hasContent);
     if (!this._hasSelectionPanel || (this._hasSelectionPanel && allPanelsHaveNoContent)) {
       enabledRadios[nextIndex].select();
     }
@@ -289,11 +278,9 @@ export class SbbRadioButtonGroupElement extends LitElement {
       <div class="sbb-radio-group">
         <slot @slotchange=${() => this._updateRadios()}></slot>
       </div>
-      ${this._namedSlots.error
-        ? html`<div class="sbb-radio-group__error">
-            <slot name="error"></slot>
-          </div>`
-        : nothing}
+      <div class="sbb-radio-group__error">
+        <slot name="error"></slot>
+      </div>
     `;
   }
 }

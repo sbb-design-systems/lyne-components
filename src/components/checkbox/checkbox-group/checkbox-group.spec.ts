@@ -15,7 +15,7 @@ describe('sbb-checkbox-group', () => {
 
     expect(root).dom.to.be.equal(
       `
-      <sbb-checkbox-group orientation="horizontal">
+      <sbb-checkbox-group orientation="horizontal" data-slot-names="unnamed">
         <sbb-checkbox value="checkbox-1">Label 1</sbb-checkbox>
         <sbb-checkbox value="checkbox-2">Label 2</sbb-checkbox>
         <sbb-checkbox value="checkbox-3">Label 3</sbb-checkbox>
@@ -25,6 +25,10 @@ describe('sbb-checkbox-group', () => {
     expect(root).shadowDom.to.be.equal(`
       <div class="sbb-checkbox-group">
         <slot></slot>
+      </div>
+      <div class="sbb-checkbox-group__error">
+        <slot name="error">
+        </slot>
       </div>
     `);
   });

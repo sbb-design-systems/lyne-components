@@ -59,6 +59,10 @@
 
   --sbb-icon-svg-width: var(--sbb-expansion-panel-icon-size);
   --sbb-icon-svg-height: var(--sbb-expansion-panel-icon-size);
+
+  :host(:not([data-slot-names~='icon'], [icon-name])) & {
+    display: none;
+  }
 }
 
 .sbb-expansion-panel-header__title {

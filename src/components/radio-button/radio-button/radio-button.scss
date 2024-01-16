@@ -125,6 +125,10 @@ slot[name='subtext'] {
   display: block;
   color: var(--sbb-radio-button-subtext-color);
   padding-inline-start: var(--sbb-spacing-fixed-8x);
+
+  :host(:not([data-slot-names~='subtext'])) & {
+    display: none;
+  }
 }
 
 .sbb-radio-button__label-slot {

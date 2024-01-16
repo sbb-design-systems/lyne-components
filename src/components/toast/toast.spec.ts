@@ -17,8 +17,8 @@ describe('sbb-toast', () => {
     await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(`
-      <sbb-toast position="bottom-center" icon-name="circle-tick-small" dismissible="" data-state="closed"
-        data-has-icon data-has-action
+      <sbb-toast position="bottom-center" icon-name="circle-tick-small" dismissible="" data-state="closed" 
+        data-slot-names="unnamed"
       >
         <span>'Lorem ipsum dolor'</span>
       </sbb-toast>
@@ -39,7 +39,7 @@ describe('sbb-toast', () => {
             <slot name="action">
               <sbb-button class="sbb-toast__action-button" aria-label="Close message"
                 variant="transparent" negative size="m" icon-name="cross-small"
-                dir="ltr" role="button" tabindex="0" data-icon-only sbb-toast-close
+                dir="ltr" role="button" tabindex="0" sbb-toast-close
               >
               </sbb-button>
             </slot>

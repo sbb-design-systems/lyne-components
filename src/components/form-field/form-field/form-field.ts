@@ -2,14 +2,9 @@ import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValu
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { SbbInputModality, sbbInputModalityDetector } from '../../core/a11y';
-import { LanguageController } from '../../core/common-behaviors';
+import { LanguageController, NamedSlotStateController } from '../../core/common-behaviors';
 import { isBrowser, isFirefox, isValidAttribute, toggleDatasetEntry } from '../../core/dom';
-import {
-  createNamedSlotState,
-  HandlerRepository,
-  namedSlotChangeHandlerAspect,
-  ConnectedAbortController,
-} from '../../core/eventing';
+import { ConnectedAbortController } from '../../core/eventing';
 import { i18nOptional } from '../../core/i18n';
 import { AgnosticMutationObserver } from '../../core/observers';
 import type { SbbSelectElement } from '../../select';
@@ -68,7 +63,7 @@ export class SbbFormFieldElement extends LitElement {
   /**
    * Label text for the input which is internally rendered as `<label>`.
    */
-  @property() public label: string;
+  @property({ reflect: true }) public label: string;
 
   /**
    * Indicates whether the input is optional.
@@ -100,9 +95,6 @@ export class SbbFormFieldElement extends LitElement {
   /** It is used internally to get the `error` slot. */
   @state() private _errorElements: Element[] = [];
 
-  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @state() private _namedSlots = createNamedSlotState('label');
-
   /** Original aria-describedby value of the slotted input element. */
   private _originalInputAriaDescribedby?: string;
 
@@ -119,10 +111,6 @@ export class SbbFormFieldElement extends LitElement {
 
   private _abort = new ConnectedAbortController(this);
   private _language = new LanguageController(this);
-  private _handlerRepository = new HandlerRepository(
-    this,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
-  );
 
   /**
    * Listens to the changes on `readonly` and `disabled` attributes of `<input>`.
@@ -137,12 +125,16 @@ export class SbbFormFieldElement extends LitElement {
 
   private _inputAbortController = new AbortController();
 
+  public constructor() {
+    super();
+    new NamedSlotStateController(this);
+  }
+
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener('willOpen', (e) => this._onPopupOpen(e), { signal });
     this.addEventListener('didClose', (e) => this._onPopupClose(e), { signal });
-    this._handlerRepository.connect();
     this._registerInputListener();
     this._syncNegative();
   }
@@ -158,7 +150,6 @@ export class SbbFormFieldElement extends LitElement {
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._handlerRepository.disconnect();
     this._formFieldAttributeObserver.disconnect();
     this._inputAbortController.abort();
   }
@@ -485,21 +476,15 @@ export class SbbFormFieldElement extends LitElement {
         <div @click=${this._handleWrapperClick} class="sbb-form-field__wrapper" id="overlay-anchor">
           <slot name="prefix" @slotchange=${this._syncNegative}></slot>
           <div class="sbb-form-field__input-container">
-            ${this.label || this._namedSlots.label
-              ? html`
-                  <span class="sbb-form-field__label-spacer" aria-hidden="true"></span>
-                  <span class="sbb-form-field__label">
-                    <span class="sbb-form-field__label-ellipsis">
-                      <slot name="label" @slotchange=${this._onSlotLabelChange}></slot>
-                      ${this.optional
-                        ? html` <span aria-hidden="true">
-                            ${i18nOptional[this._language.current]}
-                          </span>`
-                        : nothing}
-                    </span>
-                  </span>
-                `
-              : nothing}
+            <span class="sbb-form-field__label-spacer" aria-hidden="true"></span>
+            <span class="sbb-form-field__label">
+              <span class="sbb-form-field__label-ellipsis">
+                <slot name="label" @slotchange=${this._onSlotLabelChange}></slot>
+                ${this.optional
+                  ? html` <span aria-hidden="true"> ${i18nOptional[this._language.current]} </span>`
+                  : nothing}
+              </span>
+            </span>
             <div class="sbb-form-field__input">
               <slot @slotchange=${this._onSlotInputChange}></slot>
             </div>

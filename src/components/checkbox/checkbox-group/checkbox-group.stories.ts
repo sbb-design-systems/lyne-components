@@ -28,7 +28,7 @@ const checkboxes = (
   <sbb-checkbox
     value="checkbox-1"
     ?checked=${checked}
-    icon-name=${iconName}
+    icon-name=${iconName || nothing}
     icon-placement=${iconPlacement}
   >
     ${label} 1
@@ -36,12 +36,12 @@ const checkboxes = (
   <sbb-checkbox
     value="checkbox-2"
     ?disabled=${disabledSingle}
-    icon-name=${iconName}
+    icon-name=${iconName || nothing}
     icon-placement=${iconPlacement}
   >
     ${label} 2
   </sbb-checkbox>
-  <sbb-checkbox value="checkbox-3" icon-name=${iconName} icon-placement=${iconPlacement}>
+  <sbb-checkbox value="checkbox-3" icon-name=${iconName || nothing} icon-placement=${iconPlacement}>
     ${label} 3
   </sbb-checkbox>
 `;
@@ -119,7 +119,7 @@ const IndeterminateGroupTemplate = ({
       ?checked=${false}
       ?indeterminate=${true}
       @change=${(event) => parentCheck(event)}
-      icon-name=${iconName}
+      icon-name=${iconName || nothing}
       icon-placement=${iconPlacement}
     >
       Parent checkbox
@@ -129,7 +129,7 @@ const IndeterminateGroupTemplate = ({
       value="checkbox-1"
       ?checked=${true}
       @change=${(event) => childCheck(event)}
-      icon-name=${iconName}
+      icon-name=${iconName || nothing}
       icon-placement=${iconPlacement}
       ?disabled=${disabledSingle}
       style=${styleMap({ 'margin-inline-start': '2rem' })}
@@ -141,7 +141,7 @@ const IndeterminateGroupTemplate = ({
       value="checkbox-2"
       ?checked=${false}
       @change=${(event) => childCheck(event)}
-      icon-name=${iconName}
+      icon-name=${iconName || nothing}
       icon-placement=${iconPlacement}
       style=${styleMap({ 'margin-inline-start': '2rem' })}
     >

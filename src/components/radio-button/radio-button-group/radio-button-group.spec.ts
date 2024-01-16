@@ -17,6 +17,9 @@ describe('sbb-radio-button-group', () => {
       <div class="sbb-radio-group">
         <slot></slot>
       </div>
+      <div class="sbb-radio-group__error">
+        <slot name="error"></slot>
+      </div>
       `,
     );
   });

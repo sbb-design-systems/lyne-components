@@ -1,8 +1,8 @@
 import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
 
 import { assignId } from '../../core/a11y';
+import { NamedSlotStateController } from '../../core/common-behaviors';
 import {
   isSafari,
   isValidAttribute,
@@ -10,13 +10,7 @@ import {
   toggleDatasetEntry,
   setAttribute,
 } from '../../core/dom';
-import {
-  createNamedSlotState,
-  HandlerRepository,
-  namedSlotChangeHandlerAspect,
-  EventEmitter,
-  ConnectedAbortController,
-} from '../../core/eventing';
+import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import { AgnosticMutationObserver } from '../../core/observers';
 
 import style from './option.scss?lit&inline';
@@ -56,7 +50,7 @@ export class SbbOptionElement extends LitElement {
    * from the ui-icons category from here
    * https://icons.app.sbb.ch.
    */
-  @property({ attribute: 'icon-name' }) public iconName?: string;
+  @property({ attribute: 'icon-name', reflect: true }) public iconName?: string;
 
   /** Whether the option is currently active. */
   @property({ reflect: true, type: Boolean }) public active?: boolean;
@@ -85,9 +79,6 @@ export class SbbOptionElement extends LitElement {
   /** Whether the component must be set disabled due disabled attribute on sbb-checkbox-group. */
   @state() private _disabledFromGroup = false;
 
-  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @state() private _namedSlots = createNamedSlotState('icon');
-
   @state() private _label: string;
 
   /** The portion of the highlighted label. */
@@ -109,11 +100,6 @@ export class SbbOptionElement extends LitElement {
    */
   private _inertAriaGroups = isSafari();
 
-  private _handlerRepository = new HandlerRepository(
-    this,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
-  );
-
   /** MutationObserver on data attributes. */
   private _optionAttributeObserver = new AgnosticMutationObserver((mutationsList) =>
     this._onOptionAttributesChange(mutationsList),
@@ -127,6 +113,11 @@ export class SbbOptionElement extends LitElement {
   }
   private get _isMultiple(): boolean {
     return this.closest?.('sbb-select')?.hasAttribute('multiple');
+  }
+
+  public constructor() {
+    super();
+    new NamedSlotStateController(this);
   }
 
   /**
@@ -174,7 +165,6 @@ export class SbbOptionElement extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
-    this._handlerRepository.connect();
     const parentGroup = this.closest?.('sbb-optgroup');
     if (parentGroup) {
       this._disabledFromGroup = parentGroup.disabled;
@@ -194,7 +184,6 @@ export class SbbOptionElement extends LitElement {
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._handlerRepository.disconnect();
     this._optionAttributeObserver.disconnect();
   }
 
@@ -277,12 +266,7 @@ export class SbbOptionElement extends LitElement {
         <div class="sbb-option">
           <!-- Icon -->
           ${!isMultiple
-            ? html` <span
-                class=${classMap({
-                  'sbb-option__icon': true,
-                  'sbb-option__icon--empty': !this._namedSlots.icon && !this.iconName,
-                })}
-              >
+            ? html` <span class="sbb-option__icon">
                 <slot name="icon">
                   ${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}
                 </slot>

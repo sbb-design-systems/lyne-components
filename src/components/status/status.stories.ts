@@ -41,7 +41,7 @@ const defaultArgs: Args = {
 };
 
 const Template = ({ text, ...args }: Args): TemplateResult => html`
-  <sbb-status ${sbbSpread(args)}> ${text} </sbb-status>
+  <sbb-status ${sbbSpread(args)}> ${text}</sbb-status>
 `;
 
 export const info: StoryObj = {

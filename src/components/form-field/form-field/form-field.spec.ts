@@ -14,35 +14,14 @@ describe('sbb-form-field', () => {
     );
 
     expect(root).dom.to.be.equal(`
-      <sbb-form-field error-space="none" size="m" label="Fill input" width="default" data-input-empty data-input-type="input">
+      <sbb-form-field error-space="none" size="m" label="Fill input" width="default" data-input-empty data-input-type="input" data-slot-names="label unnamed">
         <label data-creator="SBB-FORM-FIELD" slot="label" for="sbb-form-field-input-0">
           Fill input
         </label>
         <input placeholder="This is an input" id="sbb-form-field-input-0">
       </sbb-form-field>
     `);
-    expect(root).shadowDom.to.be.equal(`
-      <div class="sbb-form-field__space-wrapper">
-        <div class="sbb-form-field__wrapper" id="overlay-anchor">
-          <slot name="prefix"></slot>
-          <div class="sbb-form-field__input-container">
-            <span aria-hidden="true" class="sbb-form-field__label-spacer"></span>
-            <span class="sbb-form-field__label">
-              <span class="sbb-form-field__label-ellipsis">
-                <slot name="label"></slot>
-              </span>
-            </span>
-            <div class="sbb-form-field__input">
-              <slot></slot>
-            </div>
-          </div>
-          <slot name="suffix"></slot>
-        </div>
-        <div class="sbb-form-field__error">
-          <slot name="error"></slot>
-        </div>
-      </div>
-    `);
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
   it('renders slotted label', async () => {
@@ -54,7 +33,7 @@ describe('sbb-form-field', () => {
     `);
 
     expect(root).dom.to.be.equal(`
-      <sbb-form-field error-space="none" size="m" width="default" data-input-empty data-input-type="input">
+      <sbb-form-field error-space="none" size="m" width="default" data-input-empty data-input-type="input" data-slot-names="label unnamed">
         <label for="sbb-form-field-input-1" slot="label">
           Fill input
         </label>
@@ -62,29 +41,7 @@ describe('sbb-form-field', () => {
       </sbb-form-field>
     `);
 
-    expect(root).shadowDom.to.be.equal(`
-      <div class="sbb-form-field__space-wrapper">
-        <div class="sbb-form-field__wrapper" id="overlay-anchor">
-          <slot name="prefix"></slot>
-          <div class="sbb-form-field__input-container">
-            <span aria-hidden="true" class="sbb-form-field__label-spacer"></span>
-            <span class="sbb-form-field__label">
-              <span class="sbb-form-field__label-ellipsis">
-                <slot name="label">
-                </slot>
-              </span>
-            </span>
-            <div class="sbb-form-field__input">
-              <slot></slot>
-            </div>
-          </div>
-          <slot name="suffix"></slot>
-        </div>
-        <div class="sbb-form-field__error">
-          <slot name="error"></slot>
-        </div>
-      </div>
-    `);
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
   it('renders disabled input', async () => {
@@ -102,35 +59,15 @@ describe('sbb-form-field', () => {
         width="default"
         data-disabled
         data-input-empty
-        data-input-type="input">
+        data-input-type="input"
+        data-slot-names="label unnamed">
         <label for="sbb-form-field-input-2" data-creator="SBB-FORM-FIELD" slot="label">
           Fill input
         </label>
         <input class="input" disabled="" placeholder="This is an input" id="sbb-form-field-input-2">
       </sbb-form-field>
     `);
-    expect(root).shadowDom.to.be.equal(`
-      <div class="sbb-form-field__space-wrapper">
-        <div class="sbb-form-field__wrapper" id="overlay-anchor">
-          <slot name="prefix"></slot>
-          <div class="sbb-form-field__input-container">
-            <span aria-hidden="true" class="sbb-form-field__label-spacer"></span>
-            <span class="sbb-form-field__label">
-              <span class="sbb-form-field__label-ellipsis">
-                <slot name="label"></slot>
-              </span>
-            </span>
-            <div class="sbb-form-field__input">
-              <slot></slot>
-            </div>
-          </div>
-          <slot name="suffix"></slot>
-        </div>
-        <div class="sbb-form-field__error">
-          <slot name="error"></slot>
-        </div>
-      </div>
-    `);
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
   it('renders readonly input with error', async () => {
@@ -150,7 +87,8 @@ describe('sbb-form-field', () => {
         data-has-error
         data-input-empty
         data-input-type="input"
-        data-readonly>
+        data-readonly
+        data-slot-names="error label unnamed">
         <label for="sbb-form-field-input-3" data-creator="SBB-FORM-FIELD" slot="label">
           Fill input
         </label>
@@ -165,28 +103,7 @@ describe('sbb-form-field', () => {
         </sbb-form-error>
       </sbb-form-field>
     `);
-    expect(root).shadowDom.to.be.equal(`
-      <div class="sbb-form-field__space-wrapper">
-        <div class="sbb-form-field__wrapper" id="overlay-anchor">
-          <slot name="prefix"></slot>
-          <div class="sbb-form-field__input-container">
-            <span aria-hidden="true" class="sbb-form-field__label-spacer"></span>
-            <span class="sbb-form-field__label">
-              <span class="sbb-form-field__label-ellipsis">
-                <slot name="label"></slot>
-              </span>
-            </span>
-            <div class="sbb-form-field__input">
-              <slot></slot>
-            </div>
-          </div>
-          <slot name="suffix"></slot>
-        </div>
-        <div class="sbb-form-field__error">
-          <slot name="error"></slot>
-        </div>
-      </div>
-    `);
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
   it('should render select without label', async () => {
@@ -203,7 +120,7 @@ describe('sbb-form-field', () => {
     await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(`
-      <sbb-form-field error-space="none" size="m" width="default" data-input-type="select">
+      <sbb-form-field error-space="none" size="m" width="default" data-input-type="select" data-slot-names="unnamed">
         <select>
           <option>Value 1</option>
           <option>Value 2</option>
@@ -211,25 +128,7 @@ describe('sbb-form-field', () => {
         </select>
       </sbb-form-field>
     `);
-    expect(root).shadowDom.to.be.equal(`
-      <div class="sbb-form-field__space-wrapper">
-        <div class="sbb-form-field__wrapper" id="overlay-anchor">
-          <slot name="prefix"></slot>
-          <div class="sbb-form-field__input-container">
-            <div class="sbb-form-field__input">
-              <slot></slot>
-            </div>
-            <sbb-icon aria-hidden="true" class="sbb-form-field__select-input-icon"
-              data-namespace="default" name="chevron-small-down-small" role="img"
-            ></sbb-icon>
-          </div>
-          <slot name="suffix"></slot>
-        </div>
-        <div class="sbb-form-field__error">
-          <slot name="error"></slot>
-        </div>
-      </div>
-    `);
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
   it('renders select with optional flag and borderless', async () => {
@@ -246,7 +145,7 @@ describe('sbb-form-field', () => {
     await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(`
-      <sbb-form-field error-space="none" size="m" label="Select option:" optional borderless width="default" data-input-type="select">
+      <sbb-form-field error-space="none" size="m" label="Select option:" optional borderless width="default" data-input-type="select" data-slot-names="label unnamed">
         <label data-creator="SBB-FORM-FIELD" slot="label" for="sbb-form-field-input-4">
           Select option:
         </label>
@@ -257,31 +156,6 @@ describe('sbb-form-field', () => {
         </select>
       </sbb-form-field>
     `);
-    expect(root).shadowDom.to.be.equal(`
-      <div class="sbb-form-field__space-wrapper">
-        <div class="sbb-form-field__wrapper" id="overlay-anchor">
-          <slot name="prefix"></slot>
-          <div class="sbb-form-field__input-container">
-            <span aria-hidden="true" class="sbb-form-field__label-spacer"></span>
-            <span class="sbb-form-field__label">
-              <span class="sbb-form-field__label-ellipsis">
-                <slot name="label"></slot>
-                <span aria-hidden="true">&nbsp;(optional)</span>
-              </span>
-            </span>
-            <div class="sbb-form-field__input">
-              <slot></slot>
-            </div>
-            <sbb-icon aria-hidden="true" class="sbb-form-field__select-input-icon"
-            data-namespace="default" name="chevron-small-down-small" role="img"
-            ></sbb-icon>
-          </div>
-          <slot name="suffix"></slot>
-        </div>
-        <div class="sbb-form-field__error">
-          <slot name="error"></slot>
-        </div>
-      </div>
-    `);
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 });

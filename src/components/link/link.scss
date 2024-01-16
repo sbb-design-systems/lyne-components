@@ -101,6 +101,10 @@
   flex: 0 0 auto;
   align-self: start;
 
+  :host(:not([data-slot-names~='icon'], [icon-name])) & {
+    display: none;
+  }
+
   :host([icon-placement='end']) & {
     order: 2;
   }

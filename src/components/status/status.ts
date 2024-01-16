@@ -1,12 +1,7 @@
-import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 
-import { setAttribute } from '../core/dom';
-import {
-  createNamedSlotState,
-  HandlerRepository,
-  namedSlotChangeHandlerAspect,
-} from '../core/eventing';
+import { NamedSlotStateController } from '../core/common-behaviors';
 import type { TitleLevel } from '../title';
 
 import style from './status.scss?lit&inline';
@@ -41,36 +36,19 @@ export class SbbStatusElement extends LitElement {
   /** Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3. */
   @property({ attribute: 'title-level' }) public titleLevel: TitleLevel = '3';
 
-  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @state() private _namedSlots = createNamedSlotState('title');
-
-  private _handlerRepository = new HandlerRepository(
-    this,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
-  );
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._handlerRepository.connect();
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
+  public constructor() {
+    super();
+    new NamedSlotStateController(this);
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'data-has-title', this._namedSlots.title || !!this.titleContent);
-
     return html`
       <div class="sbb-status">
         <sbb-icon class="sbb-status__icon" name=${this._statusTypes.get(this.type)!}></sbb-icon>
         <span class="sbb-status__content">
-          ${this._namedSlots.title || this.titleContent
-            ? html` <sbb-title class="sbb-status__title" level=${this.titleLevel} visual-level="5">
-                <slot name="title">${this.titleContent}</slot>
-              </sbb-title>`
-            : nothing}
+          <sbb-title class="sbb-status__title" level=${this.titleLevel} visual-level="5">
+            <slot name="title">${this.titleContent}</slot>
+          </sbb-title>
           <p class="sbb-status__content-slot">
             <slot></slot>
           </p>

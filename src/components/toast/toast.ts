@@ -2,16 +2,9 @@ import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import type { SbbButtonElement } from '../button';
-import { LanguageController } from '../core/common-behaviors';
+import { LanguageController, NamedSlotStateController } from '../core/common-behaviors';
 import { isFirefox, isValidAttribute, setAttribute } from '../core/dom';
-import {
-  createNamedSlotState,
-  HandlerRepository,
-  namedSlotChangeHandlerAspect,
-  composedPathHasAttribute,
-  EventEmitter,
-  ConnectedAbortController,
-} from '../core/eventing';
+import { composedPathHasAttribute, EventEmitter, ConnectedAbortController } from '../core/eventing';
 import { i18nCloseAlert } from '../core/i18n';
 import { SbbOverlayState } from '../core/overlay';
 import type { SbbLinkElement } from '../link';
@@ -59,13 +52,13 @@ export class SbbToastElement extends LitElement {
    * from the ui-icons category from here
    * https://icons.app.sbb.ch.
    */
-  @property({ attribute: 'icon-name' }) public iconName?: string;
+  @property({ attribute: 'icon-name', reflect: true }) public iconName?: string;
 
   /** The position where to place the toast. */
   @property({ reflect: true }) public position: SbbToastPosition = 'bottom-center';
 
   /** Whether the toast has a close button. */
-  @property({ type: Boolean }) public dismissible = false;
+  @property({ type: Boolean, reflect: true }) public dismissible = false;
 
   /**
    * The ARIA politeness level.
@@ -80,8 +73,6 @@ export class SbbToastElement extends LitElement {
   /** The state of the autocomplete. */
   @state() private _state: SbbOverlayState = 'closed';
 
-  @state() private _namedSlots = createNamedSlotState('icon', 'action');
-
   /** Emits whenever the `sbb-toast` starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbToastElement.events.willOpen);
 
@@ -93,11 +84,6 @@ export class SbbToastElement extends LitElement {
 
   /** Emits whenever the `sbb-toast` is closed. */
   private _didClose: EventEmitter<void> = new EventEmitter(this, SbbToastElement.events.didClose);
-
-  private _handlerRepository = new HandlerRepository(
-    this,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
-  );
 
   private _closeTimeout: ReturnType<typeof setTimeout>;
   private _abort = new ConnectedAbortController(this);
@@ -159,11 +145,15 @@ export class SbbToastElement extends LitElement {
     }
   }
 
+  public constructor() {
+    super();
+    new NamedSlotStateController(this);
+  }
+
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener('click', (e) => this._onClick(e), { signal });
-    this._handlerRepository.connect();
 
     // Add this toast to the global collection
     toastRefs.add(this);
@@ -172,7 +162,6 @@ export class SbbToastElement extends LitElement {
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     clearTimeout(this._closeTimeout);
-    this._handlerRepository.disconnect();
 
     // Remove this instance
     toastRefs.delete(this);
@@ -249,8 +238,6 @@ export class SbbToastElement extends LitElement {
   protected override render(): TemplateResult {
     // ## Host attributes ##
     setAttribute(this, 'data-state', this._state);
-    setAttribute(this, 'data-has-icon', this._namedSlots['icon'] || !!this.iconName);
-    setAttribute(this, 'data-has-action', this._namedSlots['action'] || this.dismissible);
     // ####
 
     return html`

@@ -15,28 +15,12 @@ describe('sbb-expansion-panel-header', () => {
 
     expect(root).dom.to.be.equal(
       `
-        <sbb-expansion-panel-header slot='header' dir="ltr" role="button" slot="header" tabindex="0">
+        <sbb-expansion-panel-header slot='header' dir="ltr" role="button" slot="header" tabindex="0" data-slot-names="unnamed">
           Header
         </sbb-expansion-panel-header>
       `,
     );
-    expect(root).shadowDom.to.be.equal(
-      `
-        <span class="sbb-expansion-panel-header">
-          <span class="sbb-expansion-panel-header__title">
-            <slot></slot>
-          </span>
-          <span class="sbb-expansion-panel-header__toggle">
-            <sbb-icon
-            aria-hidden="true"
-            data-namespace="default"
-            role="img"
-            class="sbb-expansion-panel-header__toggle-icon"
-            name="chevron-small-down-medium"></sbb-icon>
-          </span>
-        </span>
-      `,
-    );
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
   it('renders with icon', async () => {
@@ -56,38 +40,13 @@ describe('sbb-expansion-panel-header', () => {
           slot="header"
           tabindex="0"
           data-icon
+          data-slot-names="unnamed"
         >
           Header
         </sbb-expansion-panel-header>
       `,
     );
-    expect(root).shadowDom.to.be.equal(
-      `
-        <span class="sbb-expansion-panel-header">
-          <span class="sbb-expansion-panel-header__title">
-            <span class="sbb-expansion-panel-header__icon">
-              <slot name="icon">
-                <sbb-icon
-                  aria-hidden="true"
-                  data-namespace="default"
-                  name="pie-medium"
-                  role="img"
-                ></sbb-icon>
-              </slot>
-            </span>
-            <slot></slot>
-          </span>
-          <span class="sbb-expansion-panel-header__toggle">
-            <sbb-icon
-            aria-hidden="true"
-            data-namespace="default"
-            role="img"
-            class="sbb-expansion-panel-header__toggle-icon"
-            name="chevron-small-down-medium"></sbb-icon>
-          </span>
-        </span>
-      `,
-    );
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
   it('renders with slotted icon', async () => {
@@ -102,37 +61,17 @@ describe('sbb-expansion-panel-header', () => {
 
     expect(root).dom.to.be.equal(
       `
-        <sbb-expansion-panel-header slot='header' dir="ltr" role="button" slot="header" tabindex="0" data-icon>
-          <sbb-icon
-            aria-hidden="true"
-            data-namespace="default"
-            role="img"
-            slot='icon'
+        <sbb-expansion-panel-header slot='header' dir="ltr" role="button" slot="header" tabindex="0" data-icon data-slot-names="icon unnamed">
+          <sbb-icon 
+            aria-hidden="true" 
+            data-namespace="default" 
+            role="img" 
+            slot='icon' 
             name='pie-medium'></sbb-icon>
           Header
         </sbb-expansion-panel-header>
       `,
     );
-    expect(root).shadowDom.to.be.equal(
-      `
-        <span class="sbb-expansion-panel-header">
-          <span class="sbb-expansion-panel-header__title">
-            <span class="sbb-expansion-panel-header__icon">
-              <slot name="icon">
-              </slot>
-            </span>
-            <slot></slot>
-          </span>
-          <span class="sbb-expansion-panel-header__toggle">
-            <sbb-icon
-              aria-hidden="true"
-              data-namespace="default"
-              role="img"
-              class="sbb-expansion-panel-header__toggle-icon"
-              name="chevron-small-down-medium"></sbb-icon>
-          </span>
-        </span>
-      `,
-    );
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 });

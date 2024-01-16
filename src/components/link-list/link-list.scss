@@ -31,6 +31,10 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 .sbb-link-list-title {
   // Overwrite sbb-title default margin
   margin: 0;
+
+  :host(:not([data-slot-names~='title'], [title-content])) & {
+    display: none;
+  }
 }
 
 .sbb-link-list {

@@ -24,7 +24,7 @@ describe('sbb-calendar', () => {
       `
         <div class="sbb-calendar__wrapper">
           <div class="sbb-calendar__controls">
-            <sbb-button tabindex="0" role="button" dir="ltr" data-icon-only="" aria-label="Change to the previous month" icon-name="chevron-small-left-small" id="sbb-calendar__controls-previous" size="m" variant="secondary"></sbb-button>
+            <sbb-button tabindex="0" role="button" dir="ltr" aria-label="Change to the previous month" icon-name="chevron-small-left-small" id="sbb-calendar__controls-previous" size="m" variant="secondary"></sbb-button>
             <div class="sbb-calendar__controls-month">
               <button type="button" aria-label="Choose year and month January 2023" id="sbb-calendar__date-selection" class="sbb-calendar__controls-change-date">
                 January 2023
@@ -34,7 +34,7 @@ describe('sbb-calendar', () => {
                 January 2023
               </span>
             </div>
-            <sbb-button tabindex="0" role="button" dir="ltr" data-icon-only="" aria-label="Change to the next month" icon-name="chevron-small-right-small" id="sbb-calendar__controls-next" size="m" variant="secondary"></sbb-button>
+            <sbb-button tabindex="0" role="button" dir="ltr" aria-label="Change to the next month" icon-name="chevron-small-right-small" id="sbb-calendar__controls-next" size="m" variant="secondary"></sbb-button>
           </div>
           <div class="sbb-calendar__table-container sbb-calendar__table-day-view">
             <table class="sbb-calendar__table">

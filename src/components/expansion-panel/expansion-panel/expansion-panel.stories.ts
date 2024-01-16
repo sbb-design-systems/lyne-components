@@ -8,7 +8,7 @@ import type {
   Decorator,
   StoryContext,
 } from '@storybook/web-components';
-import { html, TemplateResult } from 'lit';
+import { html, nothing, TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../core/dom';
@@ -117,7 +117,9 @@ const defaultArgs: Args = {
 
 const Template = ({ headerText, iconName, contentText, ...args }: Args): TemplateResult => html`
   <sbb-expansion-panel ${sbbSpread(args)}>
-    <sbb-expansion-panel-header icon-name=${iconName}>${headerText}</sbb-expansion-panel-header>
+    <sbb-expansion-panel-header icon-name=${iconName ?? nothing}
+      >${headerText}</sbb-expansion-panel-header
+    >
     <sbb-expansion-panel-content>${contentText}</sbb-expansion-panel-content>
   </sbb-expansion-panel>
 `;

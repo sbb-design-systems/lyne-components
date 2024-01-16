@@ -2,12 +2,14 @@ import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValu
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { LanguageController } from '../../core/common-behaviors';
+import {
+  LanguageController,
+  NamedSlotStateController,
+  UpdateScheduler,
+} from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
 import {
-  createNamedSlotState,
   HandlerRepository,
-  namedSlotChangeHandlerAspect,
   formElementHandlerAspect,
   getEventTarget,
   forwardEventToHost,
@@ -23,6 +25,7 @@ import {
 } from '../../core/interfaces';
 import '../../visual-checkbox';
 import '../../icon';
+import type { SbbSelectionPanelElement } from '../../selection-panel';
 import type { SbbCheckboxGroupElement } from '../checkbox-group';
 
 import style from './checkbox.scss?lit&inline';
@@ -44,7 +47,7 @@ export type SbbCheckboxSize = 's' | 'm';
  * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  */
 @customElement('sbb-checkbox')
-export class SbbCheckboxElement extends LitElement {
+export class SbbCheckboxElement extends UpdateScheduler(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -88,7 +91,7 @@ export class SbbCheckboxElement extends LitElement {
    * The icon name we want to use, choose from the small icon variants from the ui-icons category
    * from https://icons.app.sbb.ch (optional).
    */
-  @property({ attribute: 'icon-name' }) public iconName?: string;
+  @property({ attribute: 'icon-name', reflect: true }) public iconName?: string;
 
   /** The label position relative to the labelIcon. Defaults to end */
   @property({ attribute: 'icon-placement', reflect: true })
@@ -107,9 +110,6 @@ export class SbbCheckboxElement extends LitElement {
   }
   private _size: SbbCheckboxSize = 'm';
 
-  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @state() private _namedSlots = createNamedSlotState('icon', 'subtext', 'suffix');
-
   /** Whether the input is the main input of a selection panel. */
   @state() private _isSelectionPanelInput = false;
 
@@ -117,7 +117,7 @@ export class SbbCheckboxElement extends LitElement {
   @state() private _selectionPanelExpandedLabel: string;
 
   private _checkbox: HTMLInputElement;
-  private _selectionPanelElement: HTMLElement;
+  private _selectionPanelElement: SbbSelectionPanelElement;
   private _abort: ConnectedAbortController = new ConnectedAbortController(this);
   private _language = new LanguageController(this);
 
@@ -163,11 +163,12 @@ export class SbbCheckboxElement extends LitElement {
     }
   }
 
-  private _handlerRepository = new HandlerRepository(
-    this,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
-    formElementHandlerAspect,
-  );
+  private _handlerRepository = new HandlerRepository(this, formElementHandlerAspect);
+
+  public constructor() {
+    super();
+    new NamedSlotStateController(this);
+  }
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -197,7 +198,12 @@ export class SbbCheckboxElement extends LitElement {
   }
 
   protected override firstUpdated(): void {
-    this._isSelectionPanelInput && this._updateExpandedLabel();
+    // We need to wait for the selection-panel to be fully initialized
+    this.startUpdate();
+    setTimeout(() => {
+      this._isSelectionPanelInput && this._updateExpandedLabel();
+      this.completeUpdate();
+    });
   }
 
   public override disconnectedCallback(): void {
@@ -240,7 +246,7 @@ export class SbbCheckboxElement extends LitElement {
   }
 
   private _updateExpandedLabel(): void {
-    if (!this._selectionPanelElement.hasAttribute('data-has-content')) {
+    if (!this._selectionPanelElement.hasContent) {
       this._selectionPanelExpandedLabel = '';
       return;
     }
@@ -293,23 +299,15 @@ export class SbbCheckboxElement extends LitElement {
             </span>
             <span class="sbb-checkbox__label">
               <slot></slot>
-              ${this.iconName || (this._namedSlots['icon'] && !this._isSelectionPanelInput)
-                ? html`<span class="sbb-checkbox__label--icon">
-                    <slot name="icon">
-                      ${this.iconName
-                        ? html`<sbb-icon name="${this.iconName}"></sbb-icon>`
-                        : nothing}
-                    </slot>
-                  </span>`
-                : nothing}
-              ${!!this._selectionPanelElement && this._namedSlots['suffix']
-                ? html`<slot name="suffix"></slot>`
-                : nothing}
+              <span class="sbb-checkbox__label--icon">
+                <slot name="icon">
+                  ${this.iconName ? html`<sbb-icon name="${this.iconName}"></sbb-icon>` : nothing}
+                </slot>
+              </span>
+              ${this._selectionPanelElement ? html`<slot name="suffix"></slot>` : nothing}
             </span>
           </span>
-          ${!!this._selectionPanelElement && this._namedSlots['subtext']
-            ? html`<slot name="subtext"></slot>`
-            : nothing}
+          ${this._selectionPanelElement ? html`<slot name="subtext"></slot>` : nothing}
           ${this._isSelectionPanelInput && this._selectionPanelExpandedLabel
             ? html`<span class="sbb-checkbox__expanded-label"
                 >${this._selectionPanelExpandedLabel}</span

@@ -9,18 +9,17 @@ import {
   getFocusableElements,
   setModalityOnNextFocus,
 } from '../../core/a11y';
-import { LanguageController, UpdateScheduler } from '../../core/common-behaviors';
+import {
+  LanguageController,
+  NamedSlotStateController,
+  UpdateScheduler,
+} from '../../core/common-behaviors';
 import {
   findReferencedElement,
   isBreakpoint,
   isValidAttribute,
   setAttribute,
 } from '../../core/dom';
-import {
-  createNamedSlotState,
-  HandlerRepository,
-  namedSlotChangeHandlerAspect,
-} from '../../core/eventing';
 import { i18nGoBack } from '../../core/i18n';
 import {
   removeAriaOverlayTriggerAttributes,
@@ -48,7 +47,7 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
   /**
    * The label to be shown before the action list.
    */
-  @property({ attribute: 'title-content' }) public titleContent?: string;
+  @property({ attribute: 'title-content', reflect: true }) public titleContent?: string;
 
   /**
    * The element that will trigger the navigation section.
@@ -88,11 +87,6 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
    */
   @state() private _state: SbbOverlayState = 'closed';
 
-  /**
-   * State of listed named slots, by indicating whether any element for a named slot is defined.
-   */
-  @state() private _namedSlots = createNamedSlotState('title');
-
   @state() private _renderBackButton = this._isZeroToLargeBreakpoint();
 
   private _firstLevelNavigation: SbbNavigationElement;
@@ -104,10 +98,10 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
   private _navigationSectionId = `sbb-navigation-section-${++nextId}`;
   private _language = new LanguageController(this);
 
-  private _handlerRepository = new HandlerRepository(
-    this,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
-  );
+  public constructor() {
+    super();
+    new NamedSlotStateController(this);
+  }
 
   /**
    * Opens the navigation section on trigger click.
@@ -326,7 +320,6 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._handlerRepository.connect();
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
     this._firstLevelNavigation = this._triggerElement?.closest?.('sbb-navigation');
@@ -334,7 +327,6 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._handlerRepository.disconnect();
     this._navigationSectionController?.abort();
     this._windowEventsController?.abort();
   }
@@ -352,15 +344,6 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
         icon-name="chevron-small-left-small"
         sbb-navigation-section-close
       ></sbb-button>
-    `;
-
-    const labelElement = html`
-      <div class="sbb-navigation-section__header">
-        ${this._renderBackButton ? backButton : nothing}
-        <span class="sbb-navigation-section__title" id="title">
-          <slot name="title">${this.titleContent}</slot>
-        </span>
-      </div>
     `;
 
     // Accessibility label should win over aria-labelledby
@@ -395,7 +378,12 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
                 orientation="vertical"
                 negative
               ></sbb-divider>
-              ${!!this.titleContent || this._namedSlots.title ? labelElement : nothing}
+              <div class="sbb-navigation-section__header">
+                ${this._renderBackButton ? backButton : nothing}
+                <span class="sbb-navigation-section__title" id="title">
+                  <slot name="title">${this.titleContent}</slot>
+                </span>
+              </div>
               <slot></slot>
             </div>
           </div>

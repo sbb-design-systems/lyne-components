@@ -19,7 +19,7 @@ describe('sbb-form-field-clear', () => {
     const formFieldClear = formField.querySelector('sbb-form-field-clear');
 
     expect(formField).dom.to.be.equal(`
-      <sbb-form-field error-space="none" label="Label" size="m" width="default" data-input-type="input">
+      <sbb-form-field error-space="none" label="Label" size="m" width="default" data-input-type="input" data-slot-names="label suffix unnamed">
         <label data-creator="SBB-FORM-FIELD" slot="label" for="sbb-form-field-input-0">
           Label
         </label>

@@ -48,7 +48,7 @@ describe('sbb-alert', () => {
             </span>
             <span class="sbb-alert__close-button-wrapper">
             <sbb-divider aria-orientation="vertical" role="separator" class="sbb-alert__close-button-divider" negative="" orientation="vertical" aria-orientation="vertical"></sbb-divider>
-            <sbb-button aria-label="Close message" data-icon-only dir="ltr" class="sbb-alert__close-button" icon-name="cross-small" negative role="button" size="m" tabindex="0" variant="transparent"></sbb-button>
+            <sbb-button aria-label="Close message" dir="ltr" class="sbb-alert__close-button" icon-name="cross-small" negative role="button" size="m" tabindex="0" variant="transparent"></sbb-button>
             </span>
           </div>
         </div>
@@ -103,13 +103,13 @@ describe('sbb-alert', () => {
               <p class="sbb-alert__content-slot">
                 <slot></slot>
               </p>
-              <sbb-link negative variant="inline" aria-label="label" dir="ltr" role="link" size="s" tabindex="0" href="https://www.sbb.ch" rel="noopener" target="_blank">
+              <sbb-link negative variant="inline" aria-label="label" dir="ltr" role="link" size="s" tabindex="0" href="https://www.sbb.ch" rel="noopener" target="_blank" data-slot-names="unnamed">
                 Show much more
               </sbb-link>
             </span>
             <span class="sbb-alert__close-button-wrapper">
             <sbb-divider class="sbb-alert__close-button-divider" negative aria-orientation="vertical" orientation="vertical" role="separator"></sbb-divider>
-            <sbb-button aria-label="Close message" class="sbb-alert__close-button" data-icon-only dir="ltr" icon-name="cross-small" negative size="m" role="button" tabindex="0" variant="transparent"></sbb-button>
+            <sbb-button aria-label="Close message" class="sbb-alert__close-button" dir="ltr" icon-name="cross-small" negative size="m" role="button" tabindex="0" variant="transparent"></sbb-button>
             </span>
           </div>
         </div>

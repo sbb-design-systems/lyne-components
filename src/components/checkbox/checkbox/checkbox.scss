@@ -32,6 +32,10 @@ slot[name='subtext'] {
   display: block;
   color: var(--sbb-checkbox-subtext-color);
   padding-inline-start: var(--sbb-spacing-fixed-8x);
+
+  :host(:not([data-slot-names~='subtext'])) & {
+    display: none;
+  }
 }
 
 .sbb-checkbox-wrapper {
@@ -116,6 +120,17 @@ input[type='checkbox'] {
 .sbb-checkbox__label--icon {
   :host([icon-placement='end']) & {
     margin-left: auto;
+  }
+
+  :host(
+    :is(
+        /** No icon */
+        :not([icon-name], [data-slot-names~="icon"]),
+        /** In selection panel */
+        [data-is-selection-panel-input]
+      )
+    ) & {
+    display: none;
   }
 }
 

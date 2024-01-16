@@ -1,13 +1,7 @@
-import { spread } from '@open-wc/lit-helpers';
-import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { SlotChildObserver } from '../../core/common-behaviors';
-import {
-  createNamedSlotState,
-  HandlerRepository,
-  namedSlotChangeHandlerAspect,
-} from '../../core/eventing';
+import { NamedSlotStateController, SlotChildObserver } from '../../core/common-behaviors';
 import type { SbbNavigationActionElement } from '../navigation-action';
 
 import style from './navigation-list.scss?lit&inline';
@@ -25,7 +19,7 @@ export class SbbNavigationListElement extends SlotChildObserver(LitElement) {
   /**
    * The label to be shown before the action list.
    */
-  @property() public label?: string;
+  @property({ reflect: true }) public label?: string;
 
   /**
    * Navigation action elements.
@@ -33,15 +27,10 @@ export class SbbNavigationListElement extends SlotChildObserver(LitElement) {
    */
   @state() private _actions: SbbNavigationActionElement[] = [];
 
-  /**
-   * State of listed named slots, by indicating whether any element for a named slot is defined.
-   */
-  @state() private _namedSlots = createNamedSlotState('label');
-
-  private _handlerRepository = new HandlerRepository(
-    this,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
-  );
+  public constructor() {
+    super();
+    new NamedSlotStateController(this);
+  }
 
   /**
    * Create an array with only the sbb-navigation-action children.
@@ -52,18 +41,7 @@ export class SbbNavigationListElement extends SlotChildObserver(LitElement) {
     );
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._handlerRepository.connect();
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
-  }
-
   protected override render(): TemplateResult {
-    const hasLabel = !!this.label || this._namedSlots['label'];
     this._actions.forEach((action, index) => {
       action.setAttribute('slot', `action-${index}`);
       action.size = 'm';
@@ -71,17 +49,12 @@ export class SbbNavigationListElement extends SlotChildObserver(LitElement) {
     const actions = this._actions.length
       ? this._actions
       : Array.from({ length: +this.getAttribute('data-ssr-child-count') });
-    const ariaLabelledByAttribute = hasLabel
-      ? { 'aria-labelledby': 'sbb-navigation-link-label-id' }
-      : {};
 
     return html`
-      ${hasLabel
-        ? html`<span class="sbb-navigation-list__label" id="sbb-navigation-link-label-id">
-            <slot name="label">${this.label}</slot>
-          </span>`
-        : nothing}
-      <ul class="sbb-navigation-list__content" ${spread(ariaLabelledByAttribute)}>
+      <span class="sbb-navigation-list__label" id="sbb-navigation-link-label-id">
+        <slot name="label">${this.label}</slot>
+      </span>
+      <ul class="sbb-navigation-list__content" aria-labelledby="sbb-navigation-link-label-id">
         ${actions.map(
           (_, index) => html`
             <li class="sbb-navigation-list__action">

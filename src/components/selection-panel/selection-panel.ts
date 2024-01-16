@@ -1,16 +1,11 @@
-import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import type { SbbCheckboxElement, SbbCheckboxStateChange } from '../checkbox';
+import { NamedSlotStateController } from '../core/common-behaviors';
 import { setAttribute } from '../core/dom';
-import {
-  createNamedSlotState,
-  HandlerRepository,
-  namedSlotChangeHandlerAspect,
-  EventEmitter,
-  ConnectedAbortController,
-} from '../core/eventing';
+import { EventEmitter, ConnectedAbortController } from '../core/eventing';
 import type { SbbRadioButtonElement, SbbRadioButtonStateChange } from '../radio-button';
 
 import style from './selection-panel.scss?lit&inline';
@@ -59,9 +54,6 @@ export class SbbSelectionPanelElement extends LitElement {
   /** Whether the selection panel is disabled. */
   @state() private _disabled = false;
 
-  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @state() private _namedSlots = createNamedSlotState('content');
-
   /** Emits whenever the content section starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(
     this,
@@ -96,14 +88,18 @@ export class SbbSelectionPanelElement extends LitElement {
     { bubbles: true, composed: true },
   );
 
-  private _handlerRepository = new HandlerRepository(
-    this,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
-  );
-
   private _contentElement: HTMLElement;
   private _didLoad = false;
   private _abort = new ConnectedAbortController(this);
+  private _namedSlots = new NamedSlotStateController(this);
+
+  /**
+   * Whether it has an expandable content
+   * @internal
+   */
+  public get hasContent(): boolean {
+    return this._namedSlots.slots.has('content');
+  }
 
   private get _input(): SbbCheckboxElement | SbbRadioButtonElement {
     return this.querySelector('sbb-checkbox, sbb-radio-button') as
@@ -127,7 +123,7 @@ export class SbbSelectionPanelElement extends LitElement {
 
     this._checked = event.detail.checked;
 
-    if (!this._namedSlots['content'] || this.forceOpen) {
+    if (!this._namedSlots.slots.has('content') || this.forceOpen) {
       return;
     }
 
@@ -151,22 +147,18 @@ export class SbbSelectionPanelElement extends LitElement {
     );
     this.addEventListener('checkboxLoaded', () => this._updateSelectionPanel(), { signal });
     this.addEventListener('radioButtonLoaded', () => this._updateSelectionPanel(), { signal });
-    this._handlerRepository.connect();
   }
 
   protected override firstUpdated(): void {
     this._didLoad = true;
   }
 
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
-  }
-
   private _updateSelectionPanel(): void {
     this._checked = this._input?.checked;
     this._state =
-      this._checked || this.forceOpen || !this._namedSlots['content'] ? 'opened' : 'closed';
+      this.forceOpen || (this._namedSlots.slots.has['content'] && this._checked)
+        ? 'opened'
+        : 'closed';
     this._disabled = this._input?.disabled;
   }
 
@@ -193,7 +185,6 @@ export class SbbSelectionPanelElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'data-has-content', this._namedSlots['content']);
     setAttribute(this, 'data-state', this._state);
     setAttribute(this, 'data-checked', this._checked);
     setAttribute(this, 'data-disabled', this._disabled);
@@ -207,25 +198,22 @@ export class SbbSelectionPanelElement extends LitElement {
         <div class="sbb-selection-panel__input">
           <slot></slot>
         </div>
-
-        ${this._namedSlots['content']
-          ? html` <div
-              class="sbb-selection-panel__content--wrapper"
-              ?data-expanded=${this._checked || this.forceOpen}
-              @transitionend=${(event: TransitionEvent) => this._onTransitionEnd(event)}
-              ${ref((el: HTMLElement) => {
-                this._contentElement = el;
-                if (this._contentElement) {
-                  this._contentElement.inert = !this._checked && !this.forceOpen;
-                }
-              })}
-            >
-              <div class="sbb-selection-panel__content">
-                <sbb-divider></sbb-divider>
-                <slot name="content"></slot>
-              </div>
-            </div>`
-          : nothing}
+        <div
+          class="sbb-selection-panel__content--wrapper"
+          ?data-expanded=${this._checked || this.forceOpen}
+          @transitionend=${(event: TransitionEvent) => this._onTransitionEnd(event)}
+          ${ref((el: HTMLElement) => {
+            this._contentElement = el;
+            if (this._contentElement) {
+              this._contentElement.inert = !this._checked && !this.forceOpen;
+            }
+          })}
+        >
+          <div class="sbb-selection-panel__content">
+            <sbb-divider></sbb-divider>
+            <slot name="content"></slot>
+          </div>
+        </div>
       </div>
     `;
   }

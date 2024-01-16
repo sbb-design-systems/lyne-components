@@ -15,7 +15,7 @@ describe('sbb-navigation-list', () => {
 
     expect(root).dom.to.be.equal(
       `
-        <sbb-navigation-list>
+        <sbb-navigation-list data-slot-names="action-0 action-1 action-2 action-3">
           <sbb-navigation-action slot="action-0">
             Tickets &amp; Offers
           </sbb-navigation-action>
@@ -31,27 +31,7 @@ describe('sbb-navigation-list', () => {
         </sbb-navigation-list>
       `,
     );
-    expect(root).shadowDom.to.be.equal(
-      `
-        <ul class="sbb-navigation-list__content">
-          <li class="sbb-navigation-list__action">
-            <slot name="action-0"></slot>
-          </li>
-          <li class="sbb-navigation-list__action">
-            <slot name="action-1"></slot>
-          </li>
-          <li class="sbb-navigation-list__action">
-            <slot name="action-2"></slot>
-          </li>
-          <li class="sbb-navigation-list__action">
-            <slot name="action-3"></slot>
-          </li>
-        </ul>
-        <span hidden="">
-          <slot></slot>
-        </span>
-      `,
-    );
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
   it('should render named slots if data-ssr-child-count attribute is set', async () => {

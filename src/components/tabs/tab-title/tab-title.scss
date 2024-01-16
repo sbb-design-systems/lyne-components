@@ -151,6 +151,10 @@
   flex-shrink: 0;
   color: var(--sbb-tab-title-color);
   transition: color var(--sbb-tab-title-animation-duration) var(--sbb-tab-title-animation-easing);
+
+  :host(:not([data-slot-names~='icon'], [icon-name])) & {
+    display: none;
+  }
 }
 
 .sbb-tab-title__text {
@@ -169,6 +173,10 @@
 .sbb-tab-title__amount {
   @include sbb.text-m--regular;
   @include sbb.font-smoothing;
+
+  :host(:not([data-slot-names~='amount'], [amount])) & {
+    display: none;
+  }
 
   :host([data-size='xl']) & {
     @include sbb.text-xl--regular;

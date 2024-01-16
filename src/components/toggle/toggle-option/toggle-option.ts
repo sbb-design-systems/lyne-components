@@ -1,14 +1,9 @@
 import { CSSResultGroup, LitElement, TemplateResult, html, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
+import { NamedSlotStateController } from '../../core/common-behaviors';
 import { setAttribute } from '../../core/dom';
-import {
-  ConnectedAbortController,
-  EventEmitter,
-  HandlerRepository,
-  createNamedSlotState,
-  namedSlotChangeHandlerAspect,
-} from '../../core/eventing';
+import { ConnectedAbortController, EventEmitter } from '../../core/eventing';
 import '../../icon';
 import type { SbbToggleElement, SbbToggleStateChange } from '../toggle';
 
@@ -59,7 +54,7 @@ export class SbbToggleOptionElement extends LitElement {
   /**
    * Name of the icon for `<sbb-icon>`.
    */
-  @property({ attribute: 'icon-name' }) public iconName?: string;
+  @property({ attribute: 'icon-name', reflect: true }) public iconName?: string;
 
   /**
    * Value of toggle-option.
@@ -75,22 +70,7 @@ export class SbbToggleOptionElement extends LitElement {
   }
   private _value: string | null = null;
 
-  /**
-   * Whether the toggle option has a label.
-   */
-  @state() private _hasLabel = false;
-
-  /**
-   * State of listed named slots, by indicating whether any element for a named slot is defined.
-   */
-  @state() private _namedSlots = createNamedSlotState('icon');
-
   private _toggle?: SbbToggleElement;
-
-  private _handlerRepository = new HandlerRepository(
-    this,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
-  );
 
   /**
    * @internal
@@ -103,13 +83,19 @@ export class SbbToggleOptionElement extends LitElement {
     { bubbles: true },
   );
 
+  private _abort = new ConnectedAbortController(this);
+
+  public constructor() {
+    super();
+    new NamedSlotStateController(this);
+  }
+
   private _handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
     if (currentValue !== previousValue) {
       this._stateChange.emit({ type: 'checked', checked: currentValue });
       this._verifyTabindex();
     }
   }
-  private _abort = new ConnectedAbortController(this);
 
   private _handleValueChange(currentValue: string, previousValue: string): void {
     if (this.checked && currentValue !== previousValue) {
@@ -144,18 +130,9 @@ export class SbbToggleOptionElement extends LitElement {
     this.addEventListener('click', () => this.shadowRoot.querySelector('label').click(), {
       signal,
     });
-    this._handlerRepository.connect();
-    this._hasLabel = Array.from(this.childNodes).some(
-      (n) => !(n as Element).slot && n.textContent?.trim(),
-    );
     // We can use closest here, as we expect the parent sbb-toggle to be in light DOM.
     this._toggle = this.closest?.('sbb-toggle');
     this._verifyTabindex();
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
   }
 
   private _verifyTabindex(): void {
@@ -166,11 +143,6 @@ export class SbbToggleOptionElement extends LitElement {
     setAttribute(this, 'aria-checked', (!!this.checked).toString());
     setAttribute(this, 'aria-disabled', this.disabled);
     setAttribute(this, 'role', 'radio');
-    setAttribute(
-      this,
-      'data-icon-only',
-      !this._hasLabel && !!(this.iconName || this._namedSlots.icon),
-    );
 
     return html`
       <input
@@ -184,18 +156,11 @@ export class SbbToggleOptionElement extends LitElement {
         @click=${(event) => event.stopPropagation()}
       />
       <label class="sbb-toggle-option" for="sbb-toggle-option-id">
-        ${this.iconName || this._namedSlots.icon
-          ? html`<slot name="icon">
-              ${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}
-            </slot>`
-          : nothing}
+        <slot name="icon"
+          >${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}</slot
+        >
         <span class="sbb-toggle-option__label">
-          <slot
-            @slotchange=${(event) =>
-              (this._hasLabel = (event.target as HTMLSlotElement)
-                .assignedNodes()
-                .some((n) => !!n.textContent?.trim()))}
-          ></slot>
+          <slot></slot>
         </span>
       </label>
     `;

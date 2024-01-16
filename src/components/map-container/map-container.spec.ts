@@ -32,6 +32,7 @@ describe('sbb-map-container', () => {
               tabindex="0"
               icon-name="location-pin-map-small"
               type="button"
+              data-slot-names="unnamed"
             >Show map</sbb-button>
           </div>
           <div class="sbb-map-container__map">
