@@ -60,7 +60,7 @@ export const SlotChildObserver = <T extends Constructor<LitElement>>(
       super.firstUpdated(changedProperties);
       this._hydratedResolved = true;
       this._hydratedResolve();
-      this.checkChildren();
+      Promise.resolve().then(() => this.checkChildren());
     }
 
     protected override async getUpdateComplete(): Promise<boolean> {
