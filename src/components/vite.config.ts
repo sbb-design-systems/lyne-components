@@ -101,7 +101,7 @@ function typography(): PluginOption {
     },
     generateBundle() {
       const globalCss = sass.compile(join(viteConfig.root, 'core/styles/global.scss'), {
-        loadPaths: [root.pathname],
+        loadPaths: [root.pathname, join(root.pathname, '/node_modules/')],
       });
       this.emitFile({
         type: 'asset',

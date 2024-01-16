@@ -8,7 +8,9 @@ import { createServer } from 'vite';
 const isCIEnvironment = !!process.env.CI || process.argv.includes('--ci');
 const isDebugMode = process.argv.includes('--debug');
 
-const globalCss = sass.compile('./src/components/core/styles/global.scss', { loadPaths: ['.'] });
+const globalCss = sass.compile('./src/components/core/styles/global.scss', {
+  loadPaths: ['.', './node_modules/'],
+});
 
 const browsers = isCIEnvironment
   ? [
