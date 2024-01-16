@@ -12,7 +12,7 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../core/dom';
+import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import './link';
@@ -142,46 +142,9 @@ const download: InputType = {
   },
 };
 
-const type: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['button', 'reset', 'submit'],
-  table: {
-    category: 'Button',
-  },
-};
-
 const disabled: InputType = {
   control: {
     type: 'boolean',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
-const name: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
-const value: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
-const form: InputType = {
-  control: {
-    type: 'text',
   },
   table: {
     category: 'Button',
@@ -206,11 +169,7 @@ const defaultArgTypes: ArgTypes = {
   target,
   rel,
   download,
-  type,
   disabled,
-  name,
-  value,
-  form,
   'aria-label': ariaLabel,
 };
 
@@ -226,11 +185,7 @@ const defaultArgs: Args = {
   target: undefined,
   rel: undefined,
   download: false,
-  type: type.options[0],
   disabled: false,
-  name: 'Button name',
-  value: undefined,
-  form: undefined,
   'aria-label': undefined,
 };
 

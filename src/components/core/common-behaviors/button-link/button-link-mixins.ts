@@ -4,15 +4,15 @@ import { property } from 'lit/decorators.js';
 import { Constructor } from '..';
 import { isValidAttribute } from '../../dom';
 
-export declare class SbbButtonNegativeInterface {
+export declare class SbbNegativeInterface {
   public negative: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbButtonDisabledMixin = <T extends Constructor<LitElement>>(
+export const SbbNegativeMixin = <T extends Constructor<LitElement>>(
   superClass: T,
-): Constructor<SbbButtonNegativeInterface> & T => {
-  class SbbButtonDisabled extends superClass implements Partial<SbbButtonNegativeInterface> {
+): Constructor<SbbNegativeInterface> & T => {
+  class SbbNegative extends superClass implements Partial<SbbNegativeInterface> {
     /** Negative coloring variant flag. */
     @property({ reflect: true, type: Boolean }) public negative = false;
 
@@ -25,18 +25,18 @@ export const SbbButtonDisabledMixin = <T extends Constructor<LitElement>>(
       }
     }
   }
-  return SbbButtonDisabled as unknown as Constructor<SbbButtonNegativeInterface> & T;
+  return SbbNegative as unknown as Constructor<SbbNegativeInterface> & T;
 };
 
-export declare class SbbButtonIconNameInterface {
+export declare class SbbIconNameInterface {
   public iconName?: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbButtonIconNameMixin = <T extends Constructor<LitElement>>(
+export const SbbIconNameMixin = <T extends Constructor<LitElement>>(
   superClass: T,
-): Constructor<SbbButtonIconNameInterface> & T => {
-  class SbbButtonIconName extends superClass implements Partial<SbbButtonIconNameInterface> {
+): Constructor<SbbIconNameInterface> & T => {
+  class SbbIconName extends superClass implements Partial<SbbIconNameInterface> {
     /**
      * The icon name we want to use, choose from the small icon variants
      * from the ui-icons category from here
@@ -44,5 +44,5 @@ export const SbbButtonIconNameMixin = <T extends Constructor<LitElement>>(
      */
     @property({ attribute: 'icon-name', reflect: true }) public iconName?: string;
   }
-  return SbbButtonIconName as unknown as Constructor<SbbButtonIconNameInterface> & T;
+  return SbbIconName as unknown as Constructor<SbbIconNameInterface> & T;
 };

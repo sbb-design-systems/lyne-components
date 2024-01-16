@@ -5,8 +5,8 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import {
   SbbLinkBaseElement,
-  SbbButtonDisabledMixin,
-  SbbButtonIconNameMixin,
+  SbbNegativeMixin,
+  SbbIconNameMixin,
 } from '../../core/common-behaviors/button-link';
 import { setAttributes } from '../../core/dom';
 import { i18nTargetOpensInNewWindow } from '../../core/i18n';
@@ -18,7 +18,7 @@ import { SbbButtonCommonElementMixin } from '../button-common';
  */
 @customElement('sbb-button-link')
 export class SbbButtonLinkElement extends SbbButtonCommonElementMixin(
-  SbbButtonDisabledMixin(SbbButtonIconNameMixin(SbbLinkBaseElement)),
+  SbbNegativeMixin(SbbIconNameMixin(SbbLinkBaseElement)),
 ) {
   protected override render(): TemplateResult {
     const {
@@ -27,7 +27,9 @@ export class SbbButtonLinkElement extends SbbButtonCommonElementMixin(
       hostAttributes,
     } = newResolveLinkOrStaticRenderVariables(this);
 
+    // ## Migr: Host attributes ##
     setAttributes(this, hostAttributes);
+    // ####
 
     /* eslint-disable lit/binding-positions */
     return html`
