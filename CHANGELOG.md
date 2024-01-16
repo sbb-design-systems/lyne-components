@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.43.12](https://github.com/lyne-design-system/lyne-components/compare/v0.43.11...v0.43.12) (2024-01-16)
+
+
+### Bug Fixes
+
+* adopt sass import guidelines ([#2340](https://github.com/lyne-design-system/lyne-components/issues/2340)) ([f585122](https://github.com/lyne-design-system/lyne-components/commit/f58512235fe1b7990777e5f85520d31392b64539)), closes [#2307](https://github.com/lyne-design-system/lyne-components/issues/2307)
+* fix SSR of sbb-select ([#2341](https://github.com/lyne-design-system/lyne-components/issues/2341)) ([c46e63e](https://github.com/lyne-design-system/lyne-components/commit/c46e63ea8ebcb40696389f1151d5a72aac17967e))
+
 ## [0.43.11](https://github.com/lyne-design-system/lyne-components/compare/v0.43.10...v0.43.11) (2024-01-16)
 
 
