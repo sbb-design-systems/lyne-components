@@ -1,5 +1,0 @@
-@use '../core/styles' as sbb;
-
-.row-header {
-  @include sbb.screen-reader-only;
-}
