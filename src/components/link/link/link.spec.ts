@@ -115,7 +115,7 @@ describe('sbb-link', () => {
       <sbb-link
         size="m"
         variant="inline"
-        href="#link"
+        href="#"
         role="link"
         tabindex="0"
         target="_blank"
