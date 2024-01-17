@@ -6,8 +6,8 @@
     "paths": {
       "@sbb-esta/lyne-components": ["../components"],
       "@sbb-esta/lyne-components/*": ["../components/*"],
-      "@sbb-esta/lyne-components-react/*": ["./*"]
-    }
+      "@sbb-esta/lyne-components-react/*": ["./*"],
+    },
   },
-  "include": ["./**/*.ts", "../vite-env.d.ts"]
+  "include": ["./**/*.ts", "../vite-env.d.ts"],
 }
