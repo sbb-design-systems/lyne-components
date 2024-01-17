@@ -125,7 +125,6 @@ const TemplateInputWithErrorSpace = (args: Args): TemplateResult => {
     <form>
       <div>
         <sbb-form-field
-          id="sbb-form-field"
           error-space=${args['error-space']}
           label=${args.label}
           ?optional=${args.optional}
@@ -136,14 +135,13 @@ const TemplateInputWithErrorSpace = (args: Args): TemplateResult => {
           ?negative=${args.negative}
         >
           <input
-            id="sbb-form-field-input"
             @keyup=${(event: KeyboardEvent) => {
               const input = event.currentTarget as HTMLInputElement;
               if (input.value !== '') {
                 sbbFormError.remove();
                 input.classList.remove(args.cssClass);
               } else {
-                input.closest('#sbb-form-field')!.append(sbbFormError);
+                input.closest('sbb-form-field')!.append(sbbFormError);
                 input.classList.add(args.cssClass);
               }
             }}
@@ -223,7 +221,6 @@ const TemplateSelectWithErrorSpace = (args: Args): TemplateResult => {
     <form>
       <div>
         <sbb-form-field
-          id="sbb-form-field"
           error-space=${args['error-space']}
           label=${args.label}
           ?optional=${args.optional}
@@ -234,14 +231,13 @@ const TemplateSelectWithErrorSpace = (args: Args): TemplateResult => {
           ?negative=${args.negative}
         >
           <select
-            id="sbb-form-field-input"
             @change=${(event) => {
               const select = event.currentTarget as HTMLSelectElement;
               if (select.value !== '0') {
                 sbbFormError.remove();
                 select.classList.remove(args.cssClass);
               } else {
-                select.closest('#sbb-form-field')!.append(sbbFormError);
+                select.closest('sbb-form-field')!.append(sbbFormError);
                 select.classList.add(args.cssClass);
               }
             }}

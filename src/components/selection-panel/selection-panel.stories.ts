@@ -367,7 +367,6 @@ const WithCheckboxesErrorMessageTemplate = ({
     <sbb-checkbox-group
       orientation="vertical"
       horizontal-from="large"
-      id="sbb-checkbox-group"
       @change=${(event: Event) => {
         const checkboxGroup = event.currentTarget as HTMLElement;
         const hasChecked = Array.from(checkboxGroup.querySelectorAll('sbb-checkbox')).some(

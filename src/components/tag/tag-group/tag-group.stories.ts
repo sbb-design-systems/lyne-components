@@ -13,13 +13,13 @@ import type { SbbTagGroupElement } from './tag-group';
 
 const uncheckAllTag = (event): void => {
   const tagGroup = event.currentTarget.closest('sbb-tag-group') as SbbTagGroupElement;
-  tagGroup.querySelector('#all').removeAttribute('checked');
+  tagGroup.querySelector('.all').removeAttribute('checked');
 };
 
 const uncheckTags = (event): void => {
   const tagGroup = event.currentTarget.closest('sbb-tag-group') as SbbTagGroupElement;
   Array.from(tagGroup.querySelectorAll('sbb-tag'))
-    .filter((e) => e.getAttribute('id') !== 'all' && !e.getAttribute('disabled'))
+    .filter((e) => !e.classList.contains('all') && !e.getAttribute('disabled'))
     .forEach((e) => e.removeAttribute('checked'));
 };
 
@@ -102,7 +102,7 @@ const ExclusiveTagGroupTemplate = ({ numberOfTagsInGroup, ...args }): TemplateRe
 
 const AllChoiceTagGroupTemplate = ({ numberOfTagsInGroup, ...args }): TemplateResult => html`
   <sbb-tag-group ${sbbSpread(args)}>
-    <sbb-tag id="all" @change=${(ev) => uncheckTags(ev)} value="All" checked> All </sbb-tag>
+    <sbb-tag class="all" @change=${(ev) => uncheckTags(ev)} value="All" checked> All </sbb-tag>
     ${repeat(
       new Array(numberOfTagsInGroup),
       (_e, i) => html`
