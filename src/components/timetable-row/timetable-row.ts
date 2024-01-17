@@ -431,8 +431,9 @@ export class SbbTimetableRowElement extends LitElement {
 
       // add prefix "new" if quay was changed
       const changedQuayPrefix = departure?.quayChanged ? `${i18nNew[this._language.current]} ` : '';
-      return `${changedQuayPrefix}${this._getQuayTypeStrings()
-        ?.long} ${departure?.quayFormatted}, `;
+      return `${changedQuayPrefix}${
+        this._getQuayTypeStrings()?.long
+      } ${departure?.quayFormatted}, `;
     };
 
     const meansOfTransportText =
@@ -475,20 +476,24 @@ export class SbbTimetableRowElement extends LitElement {
     let occupancyText: string = '';
     if (occupancy) {
       if (occupancy.firstClass && occupancy.firstClass !== 'UNKNOWN') {
-        occupancyText += `${i18nClass.first[this._language.current]} ${(
-          i18nOccupancy[occupancy.firstClass.toLowerCase() as SbbOccupancy] as Record<
-            string,
-            string
-          >
-        )?.[this._language.current]}.`;
+        occupancyText += `${i18nClass.first[this._language.current]} ${
+          (
+            i18nOccupancy[occupancy.firstClass.toLowerCase() as SbbOccupancy] as Record<
+              string,
+              string
+            >
+          )?.[this._language.current]
+        }.`;
       }
       if (occupancy.secondClass && occupancy.secondClass !== 'UNKNOWN') {
-        occupancyText += ` ${i18nClass.second[this._language.current]} ${(
-          i18nOccupancy[occupancy.secondClass.toLowerCase() as SbbOccupancy] as Record<
-            string,
-            string
-          >
-        )?.[this._language.current]}.`;
+        occupancyText += ` ${i18nClass.second[this._language.current]} ${
+          (
+            i18nOccupancy[occupancy.secondClass.toLowerCase() as SbbOccupancy] as Record<
+              string,
+              string
+            >
+          )?.[this._language.current]
+        }.`;
       }
     }
 

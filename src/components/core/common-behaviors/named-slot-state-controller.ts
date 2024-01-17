@@ -30,14 +30,14 @@ export class NamedSlotStateController implements ReactiveController {
 
   public constructor(
     private _host: ReactiveControllerHost & Partial<HTMLElement>,
-    private _onChangeCallback = () => null,
+    private _onChangeCallback: (() => void) | null = null,
   ) {
     this._host.addController(this);
   }
 
   public hostConnected(): void {
     // TODO: Check if this is really needed with SSR.
-    this._syncSlots(...this._host.querySelectorAll('slot'));
+    this._syncSlots(...this._host.querySelectorAll!('slot'));
     this._host.shadowRoot?.addEventListener('slotchange', this._slotchangeHandler);
   }
 
@@ -56,16 +56,16 @@ export class NamedSlotStateController implements ReactiveController {
       }
     }
 
-    const oldValue = this._host.getAttribute('data-slot-names');
+    const oldValue = this._host.getAttribute!('test');
     const joinedSlotNames = [...this.slots].sort().join(' ');
     if (!joinedSlotNames) {
-      this._host.removeAttribute('data-slot-names');
-    } else if (this._host.getAttribute('data-slot-names') !== joinedSlotNames) {
-      this._host.setAttribute('data-slot-names', joinedSlotNames);
+      this._host.removeAttribute!('data-slot-names');
+    } else if (this._host.getAttribute!('data-slot-names') !== joinedSlotNames) {
+      this._host.setAttribute!('data-slot-names', joinedSlotNames);
     }
 
     if (joinedSlotNames !== oldValue) {
-      this._onChangeCallback();
+      this._onChangeCallback?.();
     }
   }
 }
