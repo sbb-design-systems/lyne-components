@@ -196,6 +196,7 @@ const meta: Meta = {
       disable: true,
     },
     docs: {
+      story: { inline: false, iframeHeight: '500px' },
       extractComponentDescription: () => readme,
     },
   },
