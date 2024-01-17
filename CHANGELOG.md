@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.43.14](https://github.com/lyne-design-system/lyne-components/compare/v0.43.13...v0.43.14) (2024-01-17)
+
+
+### Bug Fixes
+
+* **selection-panel:** fix typo ([#2347](https://github.com/lyne-design-system/lyne-components/issues/2347)) ([074b63b](https://github.com/lyne-design-system/lyne-components/commit/074b63b85f32c9dee016e094f8c6e21ff8ffe90c))
+
 ## [0.43.13](https://github.com/lyne-design-system/lyne-components/compare/v0.43.12...v0.43.13) (2024-01-16)
 
 
