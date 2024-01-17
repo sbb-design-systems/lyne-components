@@ -145,13 +145,9 @@
   border-collapse: collapse;
   height: max-content;
 
-  &.sbb-calendar__table-show {
-    --sbb-calendar-cell-transition-duration: 0ms;
-
-    animation: {
-      name: show;
-      duration: var(--sbb-calendar-table-animation-duration);
-    }
+  animation: {
+    name: show;
+    duration: var(--sbb-calendar-table-animation-duration);
   }
 
   &.sbb-calendar__table-hide {
