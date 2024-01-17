@@ -182,16 +182,13 @@ const defaultArgs: Args = {
   'icon-name': undefined,
   'icon-placement': iconPlacement.options[0],
   href: href.options[1],
-  target: undefined,
+  target: '_blank',
   rel: undefined,
   download: false,
   disabled: false,
   'aria-label': undefined,
 };
 
-/* ************************************************* */
-/* The Stories                                       */
-/* ************************************************* */
 export const BlockXS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -282,56 +279,11 @@ export const BlockWithSlottedIcon: StoryObj = {
   },
 };
 
-export const BlockLinkOpensInNewWindow: StoryObj = {
-  render: IconSlotTemplate,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    'icon-name': 'chevron-small-right-small',
-    'icon-placement': iconPlacement.options[1],
-    target: '_blank',
-    'aria-label': undefined,
-  },
-};
-
 export const BlockFixedWidth: StoryObj = {
   render: FixedWidthTemplate,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    text: 'A lot of link text to show what happens if there is not enough space.',
-    'icon-name': 'chevron-small-left-small',
-  },
-};
-
-export const BlockButton: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    href: undefined,
-    'icon-name': 'chevron-small-right-small',
-    'icon-placement': iconPlacement.options[1],
-  },
-};
-
-export const BlockButtonNegative: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    negative: true,
-    href: undefined,
-    'icon-name': 'chevron-small-left-small',
-  },
-};
-
-export const BlockButtonFixedWidth: StoryObj = {
-  render: FixedWidthTemplate,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    href: undefined,
     text: 'A lot of link text to show what happens if there is not enough space.',
     'icon-name': 'chevron-small-left-small',
   },
@@ -354,29 +306,6 @@ export const InlineNegative: StoryObj = {
     ...defaultArgs,
     text: 'Show more',
     variant: variant.options[1],
-    negative: true,
-  },
-};
-
-export const InlineButton: StoryObj = {
-  render: InlineTemplate,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    text: 'Show more',
-    variant: 'inline',
-    href: undefined,
-  },
-};
-
-export const InlineButtonNegative: StoryObj = {
-  render: InlineTemplate,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    text: 'Show more',
-    variant: 'inline',
-    href: undefined,
     negative: true,
   },
 };

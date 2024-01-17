@@ -40,17 +40,17 @@ const Template = (args: Args): TemplateResult => html`
 
     <!-- Header section -->
     <sbb-header hide-on-scroll>
-      <sbb-header-action id="hamburger-menu" icon-name="hamburger-menu-small" expand-from="small">
+      <sbb-header-button id="hamburger-menu" icon-name="hamburger-menu-small" expand-from="small">
         Menu
-      </sbb-header-action>
+      </sbb-header-button>
       <div class="sbb-header-spacer"></div>
-      <sbb-header-action icon-name="magnifying-glass-small" href="/"> Search </sbb-header-action>
-      <sbb-header-action icon-name="user-small" class="sbb-header-shrinkable">
+      <sbb-header-link icon-name="magnifying-glass-small" href="/"> Search </sbb-header-link>
+      <sbb-header-button icon-name="user-small" class="sbb-header-shrinkable">
         Sign in
-      </sbb-header-action>
-      <sbb-header-action icon-name="globe-small" id="language-menu-trigger" class="last-element">
+      </sbb-header-button>
+      <sbb-header-button icon-name="globe-small" id="language-menu-trigger" class="last-element">
         English
-      </sbb-header-action>
+      </sbb-header-button>
       <sbb-menu trigger="language-menu-trigger">
         <sbb-menu-action aria-pressed="false">Deutsch</sbb-menu-action>
         <sbb-menu-action aria-pressed="false">Français</sbb-menu-action>

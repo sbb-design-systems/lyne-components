@@ -4,7 +4,7 @@ The `sbb-card-link` is the component used to turn a `sbb-card` into a link.
 <sbb-card-link href="https://www.sbb.ch">Check all the wonderful trips available.</sbb-card-link>
 ```
 
-## Link / button properties
+## Link properties
 
 The component is internally rendered as a link,
 accepting its associated properties (`href`, `target`, `rel` and `download`).
@@ -22,13 +22,13 @@ as it is used for search engines and screen-reader users.
 
 ## Properties
 
-| Name       | Attribute  | Privacy | Type                                                 | Default | Description                                                                                   |
-| ---------- | ---------- | ------- | ---------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------- |
-| `active`   | `active`   | public  | `boolean`                                            | `false` | Whether the card is active.                                                                   |
-| `href`     | `href`     | public  | `string \| undefined`                                |         | The href value you want to link to (if it is not present sbb-header-action becomes a button). |
-| `target`   | `target`   | public  | `LinkTargetType \| string \| undefined \| undefined` |         | Where to display the linked URL.                                                              |
-| `rel`      | `rel`      | public  | `string \| undefined \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                             |
-| `download` | `download` | public  | `boolean \| undefined`                               |         | Whether the browser will show the download dialog on click.                                   |
+| Name       | Attribute  | Privacy | Type                                                 | Default | Description                                                       |
+| ---------- | ---------- | ------- | ---------------------------------------------------- | ------- | ----------------------------------------------------------------- |
+| `active`   | `active`   | public  | `boolean`                                            | `false` | Whether the card is active.                                       |
+| `href`     | `href`     | public  | `string \| undefined`                                |         | The href value you want to link to.                               |
+| `target`   | `target`   | public  | `LinkTargetType \| string \| undefined \| undefined` |         | Where to display the linked URL.                                  |
+| `rel`      | `rel`      | public  | `string \| undefined \| undefined`                   |         | The relationship of the linked URL as space-separated link types. |
+| `download` | `download` | public  | `boolean \| undefined`                               |         | Whether the browser will show the download dialog on click.       |
 
 ## Slots
 

@@ -246,7 +246,7 @@ const defaultArgs: Args = {
   color: color.options[0],
 };
 
-const defaultArgsAction = {
+const defaultArgsLink = {
   ...defaultArgs,
   active: false,
   label: 'Click this card to follow the action.',
@@ -261,10 +261,11 @@ const defaultArgsAction = {
 };
 
 const defaultArgsButton = {
-  ...defaultArgsAction,
+  ...defaultArgsLink,
   href: undefined,
   download: undefined,
   target: undefined,
+  rel: undefined,
   name: 'Button name',
   type: type.options[0],
   form: 'form-name',
@@ -417,7 +418,7 @@ export const SizeXXXLWithBadge: StoryObj = {
 export const Link: StoryObj = {
   render: TemplateCardAction,
   argTypes: defaultArgTypesAction,
-  args: { ...defaultArgsAction },
+  args: { ...defaultArgsLink },
 };
 
 export const Button: StoryObj = {
@@ -471,13 +472,13 @@ export const ButtonWithSbbBadge: StoryObj = {
 export const LinkWithSbbBadge: StoryObj = {
   render: TemplateCardActionWithBadge,
   argTypes: defaultArgTypesAction,
-  args: { ...defaultArgsAction },
+  args: { ...defaultArgsLink },
 };
 
 export const LinkActiveWithSbbBadge: StoryObj = {
   render: TemplateCardActionWithBadge,
   argTypes: defaultArgTypesAction,
-  args: { ...defaultArgsAction, active: true },
+  args: { ...defaultArgsLink, active: true },
 };
 
 export const FixedHeight: StoryObj = {
@@ -489,7 +490,7 @@ export const FixedHeight: StoryObj = {
 export const Multiple: StoryObj = {
   render: TemplateCardActionMultipleCards,
   argTypes: defaultArgTypesAction,
-  args: { ...defaultArgsAction },
+  args: { ...defaultArgsLink },
 };
 
 const meta: Meta = {

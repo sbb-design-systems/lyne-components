@@ -23,7 +23,7 @@ The component can be displayed in `disabled` state using the self-named property
 <sbb-link-button disabled>Refunds</sbb-link-button>
 ```
 
-## Link / button properties
+## Button properties
 
 The component is internally rendered as a button,
 accepting its associated properties (`type`, `name`, `value` and `form`).

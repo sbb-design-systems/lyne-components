@@ -130,14 +130,14 @@
   }
 }
 
-::slotted(sbb-button),
+::slotted(sbb-button, sbb-button-link),
 .sbb-toast__action-button {
   margin-inline: var(--sbb-spacing-fixed-2x);
   position: absolute;
   top: #{sbb.px-to-rem-build(-10)}; // Center vertically the element
 }
 
-::slotted(sbb-link) {
+::slotted(sbb-link, sbb-link-button) {
   margin-inline-start: var(--sbb-spacing-fixed-4x);
 }
 

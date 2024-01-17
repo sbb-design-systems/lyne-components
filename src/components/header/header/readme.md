@@ -3,17 +3,18 @@ The `sbb-header` component is a container for actions and a logo, and it is disp
 ## Slots
 
 It has two slots:
-the first one can contain one or more [sbb-header-action](/docs/components-sbb-header-sbb-header-action--docs)
+the first one can contain one or more action ([sbb-header-button](/docs/components-sbb-header-sbb-header-button--docs) or
+[sbb-header-link](/docs/components-sbb-header-sbb-header-link--docs))
 or other action items like [sbb-button](/docs/components-sbb-button--docs) or [sbb-link](/docs/components-sbb-link--docs),
 and it is displayed at the left end of the component; the second slot is displayed at the right end,
 and it can contain a logo, which by default is the [sbb-logo](/docs/components-sbb-logo--docs).
 
 ```html
 <sbb-header>
-  <sbb-header-action icon-name="hamburger-menu-small" href="https://sbb.ch/somewhere"
-    >Menu</sbb-header-action
+  <sbb-header-link icon-name="hamburger-menu-small" href="https://sbb.ch/somewhere"
+    >Menu</sbb-header-link
   >
-  <sbb-header-action icon-name="magnifying-glass-small">Search</sbb-header-action>
+  <sbb-header-button icon-name="magnifying-glass-small">Search</sbb-header-button>
 </sbb-header>
 ```
 
@@ -40,7 +41,7 @@ using the `scrollOrigin` property, which accepts an `HTMLElement` or the id of t
 
 ```html
 <sbb-header expanded hideOnScroll>
-  <sbb-header-action icon-name="magnifying-glass-small">Search</sbb-header-action>
+  <sbb-header-button icon-name="magnifying-glass-small">Search</sbb-header-button>
   <a href="https://www.sbb.ch" slot="logo">
     <sbb-logo protective-room="none"></sbb-logo>
   </a>
@@ -50,7 +51,7 @@ using the `scrollOrigin` property, which accepts an `HTMLElement` or the id of t
 ### Customizing
 
 Users can customize position and behaviour of actions inside the `sbb-header` component
-by adding classes to `sbb-header-action` elements and then defining their own style rules.
+by adding classes to `sbb-header-button`/`sbb-header-link` elements and then defining their own style rules.
 
 [All the examples in Storybook](/story/components-sbb-header-sbb-header--basic) have the following requirements:
 
@@ -60,7 +61,7 @@ by adding classes to `sbb-header-action` elements and then defining their own st
 - the last item is not visible in breakpoints zero to small.
 
 To achieve this result, a `div` tag with a CSS class named `sbb-header-spacer` was added between the first
-and the second `sbb-header-action` item, then a class named `last-element` was added to the last one.
+and the second `sbb-header-button` item, then a class named `last-element` was added to the last one.
 Finally, the following custom CSS has been added(\*). The result can be seen in the home and home--logged-in stories.
 
 ```css
@@ -83,21 +84,17 @@ Finally, the following custom CSS has been added(\*). The result can be seen in 
 
 ### Content overflow
 
-If a certain `sbb-header-action` should be shrunken (receive ellipsis) when there is too little space,
-set the CSS class `sbb-header-shrinkable` on the desired `sbb-header-action`.
+If a certain `sbb-header-button`/`sbb-header-link` should be shrunken (receive ellipsis) when there is too little space,
+set the CSS class `sbb-header-shrinkable` on the desired `sbb-header-button`/`sbb-header-link`.
 
 ```html
 <sbb-header shadow="true">
-  <sbb-header-action
-    icon-name="hamburger-menu-small"
-    href="https://sbb.ch/somewhere"
-    target="_blank"
-  >
+  <sbb-header-link icon-name="hamburger-menu-small" href="https://sbb.ch/somewhere" target="_blank">
     Menu
-  </sbb-header-action>
-  <sbb-header-action class="sbb-header-shrinkable"
-    >Christina Müller has a long name</sbb-header-action
-  >
+  </sbb-header-link>
+  <sbb-header-button class="sbb-header-shrinkable">
+    Christina Müller has a long name
+  </sbb-header-button>
 </sbb-header>
 ```
 

@@ -28,7 +28,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   // The variable is assigned to the property in the sbb-header component if it is
   // the first element in the header and needs left offset correction (see sbb-header.scss).
   // To avoid duplicated css definitions, the value itself is assigned here in
-  // sbb-header-action instead of sbb-header.
+  // sbb-header-button/sbb-header-link instead of sbb-header.
   //
   // Move it left by 12px in collapsed width.
   --sbb-header-first-item-margin-inline-start: #{sbb.px-to-rem-build(-12)};

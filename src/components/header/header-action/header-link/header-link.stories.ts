@@ -5,20 +5,20 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../core/dom';
 
 import readme from './readme.md?raw';
-import './header-action';
+import './header-link';
 
 const TemplateSingle = (args: Args): TemplateResult => html`
-  <sbb-header-action ${sbbSpread(args)}>${args.text}</sbb-header-action>
+  <sbb-header-link ${sbbSpread(args)}>${args.text}</sbb-header-link>
 `;
 
 const TemplateMultiple = (args: Args): TemplateResult => html`
   <div style=${styleMap({ display: 'flex', gap: '2rem' })}>
-    <sbb-header-action ${sbbSpread(args)}>${args.text} 1</sbb-header-action>
-    <sbb-header-action ${sbbSpread(args)}>${args.text} 2</sbb-header-action>
-    <sbb-header-action ${sbbSpread(args)}>${args.text} 3</sbb-header-action>
+    <sbb-header-link ${sbbSpread(args)}>${args.text} 1</sbb-header-link>
+    <sbb-header-link ${sbbSpread(args)}>${args.text} 2</sbb-header-link>
+    <sbb-header-link ${sbbSpread(args)}>${args.text} 3</sbb-header-link>
   </div>
 `;
 
@@ -84,43 +84,6 @@ const download: InputType = {
   },
 };
 
-const type: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['button', 'reset', 'submit'],
-  table: {
-    category: 'Button',
-  },
-};
-
-const name: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
-const value: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
-const form: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
 const ariaLabel: InputType = {
   control: { type: 'text' },
 };
@@ -133,10 +96,6 @@ const basicArgTypes: ArgTypes = {
   target,
   rel,
   download,
-  type,
-  name,
-  value,
-  form,
   'aria-label': ariaLabel,
 };
 
@@ -148,22 +107,7 @@ const basicArgs: Args = {
   target: '_blank',
   rel: undefined,
   download: false,
-  type: undefined,
-  name: undefined,
-  value: undefined,
-  form: undefined,
   'aria-label': undefined,
-};
-
-const basicArgsButton = {
-  ...basicArgs,
-  href: undefined,
-  target: undefined,
-  download: undefined,
-  type: type.options[0],
-  name: 'header-button',
-  value: 'value',
-  form: 'form',
 };
 
 export const sbbHeaderActionLink: StoryObj = {
@@ -172,22 +116,10 @@ export const sbbHeaderActionLink: StoryObj = {
   args: { ...basicArgs },
 };
 
-export const sbbHeaderActionButton: StoryObj = {
-  render: TemplateSingle,
-  argTypes: basicArgTypes,
-  args: { ...basicArgsButton },
-};
-
 export const sbbHeaderActionLinkMultiple: StoryObj = {
   render: TemplateMultiple,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
-};
-
-export const sbbHeaderActionButtonMultiple: StoryObj = {
-  render: TemplateMultiple,
-  argTypes: basicArgTypes,
-  args: { ...basicArgsButton },
 };
 
 const meta: Meta = {
@@ -206,7 +138,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-header/sbb-header-action',
+  title: 'components/sbb-header/sbb-header-link',
 };
 
 export default meta;

@@ -26,7 +26,7 @@ At least one is mandatory, so you can have a `sbb-button-link` with icon only, t
 ></sbb-button-link>
 ```
 
-## Link / button properties
+## Button properties
 
 The component is internally rendered as a link,
 accepting its associated properties (`href`, `target`, `rel` and `download`).
@@ -88,7 +88,7 @@ Use the accessibility properties in case of an icon-only button to describe the 
 | `negative` | `negative`  | public  | `boolean`                                                                      | `false`     | Negative coloring variant flag.                                                                                                                        |
 | `disabled` | `disabled`  | public  | `boolean \| undefined`                                                         | `false`     | Whether the button is disabled.                                                                                                                        |
 | `iconName` | `icon-name` | public  | `string \| undefined`                                                          |             | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                       |
-| `href`     | `href`      | public  | `string \| undefined`                                                          |             | The href value you want to link to (if it is not present sbb-header-action becomes a button).                                                          |
+| `href`     | `href`      | public  | `string \| undefined`                                                          |             | The href value you want to link to.                                                                                                                    |
 | `target`   | `target`    | public  | `LinkTargetType \| string \| undefined \| undefined`                           |             | Where to display the linked URL.                                                                                                                       |
 | `rel`      | `rel`       | public  | `string \| undefined \| undefined`                                             |             | The relationship of the linked URL as space-separated link types.                                                                                      |
 | `download` | `download`  | public  | `boolean \| undefined`                                                         |             | Whether the browser will show the download dialog on click.                                                                                            |

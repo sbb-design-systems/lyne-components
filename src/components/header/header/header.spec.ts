@@ -21,10 +21,10 @@ describe('sbb-header', () => {
     beforeEach(async () => {
       element = await fixture(html`
         <sbb-header>
-          <sbb-header-action
+          <sbb-header-link
             icon-name="hamburger-menu-small"
             href="https://github.com/lyne-design-system/lyne-components"
-            >Menu</sbb-header-action
+          >Menu</sbb-header-link
           >
           <div slot="logo">
             <circle cx="25" cy="75" r="20"></circle>

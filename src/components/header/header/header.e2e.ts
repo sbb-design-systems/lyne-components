@@ -72,8 +72,8 @@ describe('sbb-header', () => {
   it('should hide/show on scroll', async () => {
     await fixture(html`
       <sbb-header hide-on-scroll>
-        <sbb-header-action id="action-1">Action 1</sbb-header-action>
-        <sbb-header-action id="action-2">Action 2</sbb-header-action>
+        <sbb-header-button id="action-1">Action 1</sbb-header-button>
+        <sbb-header-button id="action-2">Action 2</sbb-header-button>
       </sbb-header>
       <div style="height: 2000px;"></div>
     `);
@@ -131,7 +131,7 @@ describe('sbb-header', () => {
   it('should close menu on scroll', async () => {
     await fixture(html`
       <sbb-header hide-on-scroll>
-        <sbb-header-action id="language-menu-trigger">English</sbb-header-action>
+        <sbb-header-button id="language-menu-trigger">English</sbb-header-button>
         <sbb-menu trigger="language-menu-trigger" disable-animation>
           <sbb-menu-action>Deutsch</sbb-menu-action>
           <sbb-menu-action>Français</sbb-menu-action>
@@ -154,7 +154,7 @@ describe('sbb-header', () => {
     // Open menu
     const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen);
     const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen);
-    const menuTrigger = document.querySelector<SbbHeaderActionElement>('sbb-header-action')!;
+    const menuTrigger = document.querySelector('sbb-header-button');
     menuTrigger.click();
     await waitForLitRender(element);
     await waitForCondition(() => willOpenEventSpy.events.length === 1);

@@ -4,7 +4,7 @@ import { property } from 'lit/decorators.js';
 import { LinkProperties, LinkTargetType } from '../../interfaces';
 
 export class SbbLinkBaseElement extends LitElement implements LinkProperties {
-  /** The href value you want to link to (if it is not present sbb-header-action becomes a button). */
+  /** The href value you want to link to. */
   @property() public href: string | undefined;
 
   /** Where to display the linked URL. */

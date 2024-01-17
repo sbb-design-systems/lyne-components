@@ -75,6 +75,6 @@ $horizontal-orientations: (
   }
 }
 
-::slotted(sbb-link) {
+::slotted(sbb-link, sbb-link-button) {
   white-space: nowrap;
 }

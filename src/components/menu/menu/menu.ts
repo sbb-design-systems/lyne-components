@@ -319,7 +319,9 @@ export class SbbMenuElement extends NamedSlotListElement<SbbMenuActionElement> {
       // Manually focus last focused element
       this._triggerElement?.focus({
         // When inside the sbb-header, we prevent the scroll to avoid the snapping to the top of the page
-        preventScroll: this._triggerElement.tagName === 'SBB-HEADER-ACTION',
+        preventScroll:
+          this._triggerElement.tagName === 'SBB-HEADER-BUTTON' ||
+          this._triggerElement.tagName === 'SBB-HEADER-LINK',
       });
       this._didClose.emit();
       this._windowEventsController?.abort();

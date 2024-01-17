@@ -406,18 +406,6 @@ export const WithSlottedIcon: StoryObj = {
   },
 };
 
-export const LinkOpensInNewWindow: StoryObj = {
-  render: IconSlotTemplate,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    href: href.options[0],
-    'icon-name': 'chevron-small-right-small',
-    target: '_blank',
-    'aria-label': undefined,
-  },
-};
-
 export const PrimaryActive: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
