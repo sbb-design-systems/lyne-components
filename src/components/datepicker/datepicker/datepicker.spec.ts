@@ -3,10 +3,10 @@ import { html } from 'lit/static-html.js';
 
 import { NativeDateAdapter } from '../../core/datetime';
 import { findInput } from '../../core/dom';
-import { SbbFormFieldElement } from '../../form-field';
+import type { SbbFormFieldElement } from '../../form-field';
 
+import type { SbbDatepickerElement } from './datepicker';
 import {
-  SbbDatepickerElement,
   getDatePicker,
   getAvailableDate,
   findPreviousAvailableDate,

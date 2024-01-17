@@ -1,4 +1,5 @@
-import { CSSResultGroup, html, LitElement, TemplateResult, nothing } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import style from './visual-checkbox.scss?lit&inline';

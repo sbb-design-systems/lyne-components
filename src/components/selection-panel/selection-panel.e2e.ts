@@ -1,11 +1,13 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
-import { TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbCheckboxElement, SbbCheckboxGroupElement } from '../checkbox';
+import type { SbbCheckboxGroupElement } from '../checkbox';
+import { SbbCheckboxElement } from '../checkbox';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
-import { SbbRadioButtonElement, SbbRadioButtonGroupElement } from '../radio-button';
+import type { SbbRadioButtonGroupElement } from '../radio-button';
+import { SbbRadioButtonElement } from '../radio-button';
 
 import { SbbSelectionPanelElement } from './selection-panel';
 import '../link';

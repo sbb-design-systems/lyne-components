@@ -3,7 +3,7 @@ import { expect } from '@open-wc/testing';
 import { defaultTrip, extendedEnterTimeTrip } from '../../timetable-row/timetable-row.sample-data';
 
 import { getDepartureArrivalTimeAttribute } from './access-leg-helper';
-import { Leg } from './timetable-properties';
+import type { Leg } from './timetable-properties';
 
 describe('getDepartureArrivalTimeAttribute', () => {
   it('should returns correct departure time attribute', () => {

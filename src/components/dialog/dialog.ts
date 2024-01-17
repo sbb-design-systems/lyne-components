@@ -1,4 +1,5 @@
-import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -14,7 +15,8 @@ import {
 import { EventEmitter } from '../core/eventing';
 import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n';
 import { AgnosticResizeObserver } from '../core/observers';
-import { applyInertMechanism, removeInertMechanism, SbbOverlayState } from '../core/overlay';
+import type { SbbOverlayState } from '../core/overlay';
+import { applyInertMechanism, removeInertMechanism } from '../core/overlay';
 import type { TitleLevel } from '../title';
 import '../button';
 import '../title';

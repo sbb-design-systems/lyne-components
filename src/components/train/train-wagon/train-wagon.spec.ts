@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
 
-import { SbbTrainWagonElement } from './train-wagon';
+import type { SbbTrainWagonElement } from './train-wagon';
 import '.';
 import '../../icon';
 import '../../timetable-occupancy-icon';

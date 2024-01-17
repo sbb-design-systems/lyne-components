@@ -1,5 +1,6 @@
 import { spread } from '@open-wc/lit-helpers';
-import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
@@ -13,14 +14,13 @@ import {
 } from '../core/dom';
 import { actionElementHandlerAspect, HandlerRepository } from '../core/eventing';
 import { i18nTargetOpensInNewWindow } from '../core/i18n';
-import {
+import type {
   ButtonType,
   IsStaticProperty,
   LinkButtonProperties,
   LinkTargetType,
-  resolveRenderVariables,
-  targetsNewWindow,
 } from '../core/interfaces';
+import { resolveRenderVariables, targetsNewWindow } from '../core/interfaces';
 
 import style from './button.scss?lit&inline';
 import '../icon';

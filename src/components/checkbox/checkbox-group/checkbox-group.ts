@@ -1,11 +1,12 @@
-import { CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y';
 import { NamedSlotStateController } from '../../core/common-behaviors';
 import { toggleDatasetEntry } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
-import { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces';
+import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces';
 import type { SbbCheckboxElement, SbbCheckboxSize } from '../checkbox';
 
 import style from './checkbox-group.scss?lit&inline';

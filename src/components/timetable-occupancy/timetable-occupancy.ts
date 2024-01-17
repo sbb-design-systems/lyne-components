@@ -1,9 +1,10 @@
-import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { LanguageController } from '../core/common-behaviors';
 import { i18nClass } from '../core/i18n';
-import { SbbOccupancy } from '../core/interfaces';
+import type { SbbOccupancy } from '../core/interfaces';
 import '../timetable-occupancy-icon';
 
 import style from './timetable-occupancy.scss?lit&inline';

@@ -8,7 +8,8 @@ import '../link';
 import '../link-list';
 import '../title';
 import './footer';
-import { html, TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
+import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../core/dom';

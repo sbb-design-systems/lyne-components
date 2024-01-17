@@ -1,5 +1,6 @@
 import type { Args, Meta, StoryObj } from '@storybook/web-components';
-import { html, TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
+import { html } from 'lit';
 
 import { sbbSpread } from '../../core/dom';
 

@@ -1,4 +1,5 @@
-import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
@@ -15,7 +16,7 @@ import {
   i18nWagonLabel,
   i18nWagonLabelNumber,
 } from '../../core/i18n';
-import { SbbOccupancy } from '../../core/interfaces';
+import type { SbbOccupancy } from '../../core/interfaces';
 import type { SbbIconElement } from '../../icon';
 import '../../timetable-occupancy-icon';
 

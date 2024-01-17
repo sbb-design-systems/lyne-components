@@ -1,4 +1,5 @@
-import { readConfig, SbbIconConfig } from '../core/config';
+import type { SbbIconConfig } from '../core/config';
+import { readConfig } from '../core/config';
 
 import { validateContent } from './icon-validate';
 

@@ -1,5 +1,5 @@
 import { assert, expect, fixture } from '@open-wc/testing';
-import { TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';

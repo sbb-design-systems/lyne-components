@@ -1,11 +1,16 @@
-import { CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../core/a11y';
 import { toggleDatasetEntry, setAttribute, isBrowser } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
-import { SbbCheckedStateChange, SbbStateChange, SbbValueStateChange } from '../../core/interfaces';
+import type {
+  SbbCheckedStateChange,
+  SbbStateChange,
+  SbbValueStateChange,
+} from '../../core/interfaces';
 import { AgnosticResizeObserver } from '../../core/observers';
 import type { SbbToggleOptionElement } from '../toggle-option';
 

@@ -1,5 +1,6 @@
 import { spread } from '@open-wc/lit-helpers';
-import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
@@ -7,12 +8,8 @@ import { LanguageController } from '../core/common-behaviors';
 import { setAttributes } from '../core/dom';
 import { HandlerRepository, linkHandlerAspect } from '../core/eventing';
 import { i18nTargetOpensInNewWindow } from '../core/i18n';
-import {
-  LinkProperties,
-  LinkTargetType,
-  resolveLinkOrStaticRenderVariables,
-  targetsNewWindow,
-} from '../core/interfaces';
+import type { LinkProperties, LinkTargetType } from '../core/interfaces';
+import { resolveLinkOrStaticRenderVariables, targetsNewWindow } from '../core/interfaces';
 import type { TitleLevel } from '../title';
 import '../title';
 

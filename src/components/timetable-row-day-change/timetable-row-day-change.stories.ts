@@ -1,5 +1,6 @@
 import type { Meta, StoryObj, Args } from '@storybook/web-components';
-import { html, TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
+import { html } from 'lit';
 
 import readme from './readme.md?raw';
 import sampleData from './timetable-row-day-change.sample-data';

@@ -1,6 +1,7 @@
-import { StoryContext } from '@storybook/web-components';
+import type { StoryContext } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { html, TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
+import { html } from 'lit';
 import { ref } from 'lit/directives/ref.js';
 
 import { sbbSpread } from '../../../components/core/dom';

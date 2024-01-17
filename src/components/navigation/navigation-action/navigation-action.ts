@@ -1,5 +1,6 @@
 import { spread } from '@open-wc/lit-helpers';
-import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
@@ -11,13 +12,8 @@ import {
   ConnectedAbortController,
 } from '../../core/eventing';
 import { i18nTargetOpensInNewWindow } from '../../core/i18n';
-import {
-  ButtonType,
-  LinkButtonRenderVariables,
-  LinkTargetType,
-  resolveRenderVariables,
-  targetsNewWindow,
-} from '../../core/interfaces';
+import type { ButtonType, LinkButtonRenderVariables, LinkTargetType } from '../../core/interfaces';
+import { resolveRenderVariables, targetsNewWindow } from '../../core/interfaces';
 import type { SbbNavigationMarkerElement } from '../navigation-marker';
 
 import style from './navigation-action.scss?lit&inline';

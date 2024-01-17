@@ -1,5 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
-import { html, LitElement, render, TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
+import { html, LitElement, render } from 'lit';
 
 import { sbbSpread } from './spread';
 

@@ -1,6 +1,6 @@
-import { IsStaticProperty, LinkButtonProperties } from '../interfaces';
+import type { IsStaticProperty, LinkButtonProperties } from '../interfaces';
 
-import { HandlerAspect } from './handler-repository';
+import type { HandlerAspect } from './handler-repository';
 import { isEventPrevented } from './is-event-prevented';
 
 /**

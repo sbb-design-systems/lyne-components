@@ -1,9 +1,10 @@
-import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { LanguageController } from '../core/common-behaviors';
 import { i18nArrival, i18nDeparture } from '../core/i18n';
-import { SbbTimetableAppearance } from '../core/interfaces';
+import type { SbbTimetableAppearance } from '../core/interfaces';
 
 import style from './timetable-transportation-time.scss?lit&inline';
 

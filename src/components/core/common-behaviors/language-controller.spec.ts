@@ -1,5 +1,5 @@
 import { aTimeout, expect } from '@open-wc/testing';
-import { ReactiveControllerHost } from 'lit';
+import type { ReactiveControllerHost } from 'lit';
 
 import { LanguageController } from './language-controller';
 

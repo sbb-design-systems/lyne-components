@@ -2,7 +2,8 @@ import { dirname, join } from 'path';
 
 import { cli } from '@custom-elements-manifest/analyzer/cli';
 import * as sass from 'sass';
-import { PluginOption, ResolvedConfig, UserConfig, defineConfig, mergeConfig } from 'vite';
+import type { PluginOption, ResolvedConfig, UserConfig } from 'vite';
+import { defineConfig, mergeConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 
 import rootConfig, {

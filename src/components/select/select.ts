@@ -1,4 +1,5 @@
-import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -13,12 +14,8 @@ import {
   isNextjs,
 } from '../core/dom';
 import { ConnectedAbortController, EventEmitter } from '../core/eventing';
-import {
-  setOverlayPosition,
-  isEventOnElement,
-  overlayGapFixCorners,
-  SbbOverlayState,
-} from '../core/overlay';
+import type { SbbOverlayState } from '../core/overlay';
+import { setOverlayPosition, isEventOnElement, overlayGapFixCorners } from '../core/overlay';
 import type { SbbOptionElement, SbbOptGroupElement } from '../option';
 
 import style from './select.scss?lit&inline';

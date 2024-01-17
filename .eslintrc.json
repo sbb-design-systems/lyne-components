@@ -113,7 +113,8 @@
         ],
         // TODO Discuss this with the team
         "lit/no-invalid-html": "off",
-        "camelcase": "off"
+        "camelcase": "off",
+        "@typescript-eslint/consistent-type-imports": "error"
       }
     },
     {

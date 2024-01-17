@@ -1,4 +1,5 @@
-import { CSSResultGroup, html, LitElement, nothing, PropertyValues, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { NamedSlotStateController } from '../../core/common-behaviors';
@@ -9,13 +10,13 @@ import {
   EventEmitter,
   ConnectedAbortController,
 } from '../../core/eventing';
-import {
+import type {
   ButtonProperties,
-  resolveButtonRenderVariables,
   SbbCheckedStateChange,
   SbbStateChange,
   SbbValueStateChange,
 } from '../../core/interfaces';
+import { resolveButtonRenderVariables } from '../../core/interfaces';
 import type { SbbTagGroupElement } from '../tag-group';
 
 import style from './tag.scss?lit&inline';

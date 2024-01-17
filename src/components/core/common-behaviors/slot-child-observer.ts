@@ -1,8 +1,8 @@
-import { LitElement, PropertyValues } from 'lit';
+import type { LitElement, PropertyValues } from 'lit';
 
 import { ConnectedAbortController } from '../eventing';
 
-import { Constructor } from './constructor';
+import type { Constructor } from './constructor';
 
 // Define the interface for the mixin
 export declare class SlotChildObserverType {

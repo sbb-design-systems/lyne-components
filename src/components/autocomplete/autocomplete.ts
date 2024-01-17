@@ -1,4 +1,5 @@
-import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -14,11 +15,11 @@ import {
   isBrowser,
 } from '../core/dom';
 import { ConnectedAbortController, EventEmitter } from '../core/eventing';
+import type { SbbOverlayState } from '../core/overlay';
 import {
   isEventOnElement,
   overlayGapFixCorners,
   removeAriaComboBoxAttributes,
-  SbbOverlayState,
   setAriaComboBoxAttributes,
   setOverlayPosition,
 } from '../core/overlay';

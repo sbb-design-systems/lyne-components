@@ -1,4 +1,5 @@
-import { CSSResultGroup, html, LitElement, nothing, PropertyValues, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -8,12 +9,8 @@ import { LanguageController } from '../../core/common-behaviors';
 import { isValidAttribute, setAttribute } from '../../core/dom';
 import { i18nShowCalendar } from '../../core/i18n';
 import type { SbbTooltipElement, SbbTooltipTriggerElement } from '../../tooltip';
-import {
-  datepickerControlRegisteredEventFactory,
-  getDatePicker,
-  InputUpdateEvent,
-  type SbbDatepickerElement,
-} from '../datepicker';
+import { datepickerControlRegisteredEventFactory, getDatePicker } from '../datepicker';
+import type { InputUpdateEvent, SbbDatepickerElement } from '../datepicker';
 import '../../calendar';
 import '../../tooltip';
 

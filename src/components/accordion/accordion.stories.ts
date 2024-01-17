@@ -1,8 +1,15 @@
 import { withActions } from '@storybook/addon-actions/decorator';
-import { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
-import { Decorator } from '@storybook/web-components';
-import { html, nothing, TemplateResult } from 'lit';
+import type { InputType } from '@storybook/types';
+import type {
+  Meta,
+  StoryObj,
+  ArgTypes,
+  Args,
+  StoryContext,
+  Decorator,
+} from '@storybook/web-components';
+import type { TemplateResult } from 'lit';
+import { html, nothing } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
 

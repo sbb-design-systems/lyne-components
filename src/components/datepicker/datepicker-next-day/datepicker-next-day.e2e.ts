@@ -2,7 +2,7 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import { SbbFormFieldElement } from '../../form-field';
+import type { SbbFormFieldElement } from '../../form-field';
 import type { SbbDatepickerElement } from '../datepicker';
 
 import { SbbDatepickerNextDayElement } from './datepicker-next-day';

@@ -1,5 +1,6 @@
 import type { Args, Meta, StoryContext, StoryObj } from '@storybook/web-components';
-import { html, TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
+import { html } from 'lit';
 import '../../components/title';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention

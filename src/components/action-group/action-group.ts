@@ -1,9 +1,10 @@
-import { CSSResultGroup, html, LitElement, TemplateResult, PropertyValues } from 'lit';
+import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbButtonSize } from '../button';
-import { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
-import { SbbLinkSize } from '../link';
+import type { SbbButtonSize } from '../button';
+import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
+import type { SbbLinkSize } from '../link';
 
 import style from './action-group.scss?lit&inline';
 

@@ -1,11 +1,12 @@
-import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
 import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../core/a11y';
 import { LanguageController } from '../core/common-behaviors';
+import type { DateAdapter } from '../core/datetime';
 import {
-  DateAdapter,
   DAYS_PER_ROW,
   defaultDateAdapter,
   MONTHS_PER_ROW,
@@ -24,7 +25,7 @@ import {
   i18nPreviousYearRange,
   i18nYearMonthSelection,
 } from '../core/i18n';
-import { SbbDateLike } from '../core/interfaces';
+import type { SbbDateLike } from '../core/interfaces';
 import '../button';
 import '../icon';
 

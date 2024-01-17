@@ -47,7 +47,8 @@
           "no-unknown-attribute": "off"
         }
       }
-    ]
+    ],
+    "verbatimModuleSyntax": true
   },
   "include": [".storybook/**/*.ts", "src/**/*.ts", "tools/**/*.ts", "scripts/**/*.ts"],
   "exclude": ["node_modules/"]

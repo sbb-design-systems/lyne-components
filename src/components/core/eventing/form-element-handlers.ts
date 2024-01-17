@@ -1,4 +1,4 @@
-import { HandlerAspect } from './handler-repository';
+import type { HandlerAspect } from './handler-repository';
 
 /**
  * Prevents scrolling from pressing Space

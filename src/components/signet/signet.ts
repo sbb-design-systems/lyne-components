@@ -1,7 +1,8 @@
-import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbProtectiveRoom } from '../core/interfaces';
+import type { SbbProtectiveRoom } from '../core/interfaces';
 
 import style from './signet.scss?lit&inline';
 

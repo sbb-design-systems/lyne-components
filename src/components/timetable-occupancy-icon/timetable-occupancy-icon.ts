@@ -1,10 +1,10 @@
-import { CSSResultGroup, PropertyValues } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { LanguageController } from '../core/common-behaviors';
 import { ConnectedAbortController } from '../core/eventing';
 import { i18nOccupancy } from '../core/i18n';
-import { SbbOccupancy } from '../core/interfaces';
+import type { SbbOccupancy } from '../core/interfaces';
 import { SbbIconBase } from '../icon';
 
 import style from './timetable-occupancy-icon.scss?lit&inline';

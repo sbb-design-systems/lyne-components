@@ -1,7 +1,8 @@
-import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbTimetableAppearance } from '../core/interfaces';
+import type { SbbTimetableAppearance } from '../core/interfaces';
 import icons from '../core/timetable/icons.json';
 
 import style from './timetable-transportation-number.scss?lit&inline';

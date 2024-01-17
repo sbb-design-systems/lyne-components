@@ -3,7 +3,7 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForCondition } from '../../core/testing';
-import { SbbTabTitleElement } from '../tab-title';
+import type { SbbTabTitleElement } from '../tab-title';
 
 import { SbbTabGroupElement } from './tab-group';
 

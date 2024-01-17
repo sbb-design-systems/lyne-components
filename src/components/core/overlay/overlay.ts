@@ -1,4 +1,5 @@
-import { TemplateResult, html } from 'lit';
+import type { TemplateResult } from 'lit';
+import { html } from 'lit';
 
 import { toggleDatasetEntry } from '../dom';
 

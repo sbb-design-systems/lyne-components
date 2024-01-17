@@ -1,8 +1,15 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
-import { StoryContext } from '@storybook/web-components';
-import { html, nothing, TemplateResult } from 'lit';
+import type {
+  Args,
+  ArgTypes,
+  Decorator,
+  Meta,
+  StoryObj,
+  StoryContext,
+} from '@storybook/web-components';
+import type { TemplateResult } from 'lit';
+import { html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../core/dom';

@@ -1,10 +1,12 @@
 import { differenceInMinutes, isAfter, isBefore } from 'date-fns';
-import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { removeTimezoneFromISOTimeString } from '../core/datetime';
-import { isRideLeg, Leg, PtRideLeg } from '../core/timetable';
+import type { Leg, PtRideLeg } from '../core/timetable';
+import { isRideLeg } from '../core/timetable';
 
 import style from './pearl-chain.scss?lit&inline';
 

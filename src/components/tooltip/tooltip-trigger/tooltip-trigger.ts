@@ -1,4 +1,5 @@
-import { CSSResultGroup, LitElement, TemplateResult, html, nothing } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { LitElement, html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { hostContext, isValidAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';

@@ -1,9 +1,10 @@
 import { spread } from '@open-wc/lit-helpers';
-import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { NamedSlotStateController, SlotChildObserver } from '../core/common-behaviors';
-import { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
+import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
 import type { SbbLinkElement, SbbLinkSize } from '../link';
 import type { TitleLevel } from '../title';
 

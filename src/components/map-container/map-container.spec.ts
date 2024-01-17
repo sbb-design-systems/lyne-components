@@ -1,7 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbMapContainerElement } from './map-container';
+import type { SbbMapContainerElement } from './map-container';
 import '.';
 
 describe('sbb-map-container', () => {

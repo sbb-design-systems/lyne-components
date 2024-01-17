@@ -18,7 +18,8 @@ import type {
   Module,
   Package,
 } from 'custom-elements-manifest/schema';
-import { PluginOption, UserConfig, defineConfig, mergeConfig } from 'vite';
+import type { PluginOption, UserConfig } from 'vite';
+import { defineConfig, mergeConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 
 import rootConfig, {

@@ -1,4 +1,5 @@
-import { CSSResultGroup, html, LitElement, TemplateResult, PropertyValues } from 'lit';
+import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { SlotChildObserver } from '../../core/common-behaviors';
