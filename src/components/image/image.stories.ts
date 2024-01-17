@@ -26,6 +26,12 @@ const noBorderRadius: InputType = {
   },
 };
 
+const round: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const aspectRatio: InputType = {
   control: { type: 'select' },
   options: ['free', '1-1', '1-2', '2-1', '2-3', '3-2', '3-4', '4-3', '4-5', '5-4', '9-16', '16-9'],
@@ -124,6 +130,7 @@ const defaultArgTypes: ArgTypes = {
   alt: {},
   caption: {},
   'no-border-radius': noBorderRadius,
+  'round': round,
   'aspect-ratio': aspectRatio,
   copyright,
   'copyright-holder': copyrightHolder,

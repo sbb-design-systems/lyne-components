@@ -271,6 +271,11 @@ export class SbbImageElement extends LitElement {
   @property({ attribute: 'no-border-radius', type: Boolean }) public noBorderRadius = false;
 
   /**
+   * Whether to have a border-radius on the image that makes it fully round
+   */
+  @property({ attribute: 'round', type: Boolean }) public round = false; 
+
+  /**
    * Set an aspect ratio
    * default is '16-9' (16/9)
    * other values: 'free', '1-1', '1-2', '2-1', '2-3', '3-2', '3-4', '4-3', '4-5', '5-4', '9-16'
@@ -463,6 +468,7 @@ export class SbbImageElement extends LitElement {
           image__figure: true,
           [`image__figure--teaser-hero`]: this._variantTeaserHero,
           [`image__figure--no-radius`]: this.noBorderRadius || this._variantTeaserHero,
+          [`image__figure--round`]: this.round,
           [`image__figure--ratio-${this.aspectRatio}`]: true,
           [`image__figure--loaded`]: this._loaded,
         })}
