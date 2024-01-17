@@ -14,27 +14,6 @@ export const i18nArrival: Record<string, string> = {
   it: 'Arrivo',
 };
 
-export const i18nAttention: Record<string, string> = {
-  de: 'Achtung',
-  en: 'Attention',
-  fr: 'Attention',
-  it: 'Attenzione',
-};
-
-export const i18nAvailableAtDepartingStation: Record<string, string> = {
-  de: 'am Abfahrtsbahnhof verfügbar.',
-  en: 'available at departure station.',
-  fr: 'disponible à la gare de départ.',
-  it: 'disponibile alla stazione di partenza.',
-};
-
-export const i18nBarrierFreeTravel: Record<string, string> = {
-  de: 'Barrierefreies Reisen.',
-  en: 'Barrier-free travel.',
-  fr: 'Déplacements sans obstacles.',
-  it: 'Viaggio senza barriere.',
-};
-
 export const i18nSector: Record<string, string> = {
   de: 'Sektor',
   en: 'Sector',
@@ -151,56 +130,11 @@ export const i18nAdditionalWagonInformationHeading: Record<string, string> = {
   it: 'Informazioni aggiuntive sulla carrozza del treno',
 };
 
-export const i18nConnectionsDepartOn: Record<string, string> = {
-  de: 'Abfahrten am',
-  en: 'Departures on',
-  fr: 'Départs le',
-  it: 'Partenze su',
-};
-
-export const i18nDayChange: Record<string, string> = {
-  de: 'Tageswechsel',
-  en: 'Change of day',
-  fr: 'changement de jour',
-  it: 'Cambio giorno',
-};
-
 export const i18nDeparture: Record<string, string> = {
   de: 'Abfahrt',
   en: 'Departure',
   fr: 'Départ',
   it: 'Partenza',
-};
-
-export const i18nDistanceMeter: Record<string, Record<string, Record<string, string>>> = {
-  single: {
-    long: {
-      de: 'Meter',
-      en: 'Meter',
-      fr: 'mètre',
-      it: 'Metro',
-    },
-    short: {
-      de: 'm',
-      en: 'm',
-      fr: 'm',
-      it: 'm',
-    },
-  },
-  multiple: {
-    long: {
-      de: 'Meter',
-      en: 'Meters',
-      fr: 'mètres',
-      it: 'Metri',
-    },
-    short: {
-      de: 'm',
-      en: 'm',
-      fr: 'm',
-      it: 'm',
-    },
-  },
 };
 
 export const i18nDurationMinute: Record<string, Record<string, Record<string, string>>> = {
@@ -378,13 +312,6 @@ export const i18nSupersaver: Record<string, string> = {
   it: 'Biglietti risparmio',
 };
 
-export const i18nNone: Record<string, string> = {
-  de: 'Keine',
-  en: 'None',
-  fr: 'aucun',
-  it: 'nessuno',
-};
-
 export const i18nOccupancy: Record<SbbOccupancy, Record<SbbLanguage, string>> = {
   none: {
     de: 'Keine Belegungsprognose verfügbar',
@@ -509,13 +436,6 @@ export const i18nWalkingDistanceDeparture: Record<string, string> = {
   it: 'minuti a piedi prima della partenza:',
 };
 
-export const i18nWalkingDistanceToDepartureStation: Record<string, string> = {
-  de: 'Fussweg zum Abfahrtsbahnhof.',
-  en: 'of walking distance to departing station.',
-  fr: 'de distance à pied de la gare de départ.',
-  it: 'di distanza a piedi dalla stazione di partenza.',
-};
-
 export const i18nCloseAlert: Record<string, string> = {
   de: 'Meldung schliessen',
   en: 'Close message',
@@ -577,13 +497,6 @@ export const i18nToday: Record<string, string> = {
   en: 'Today',
   fr: 'Aujourd’hui',
   it: 'Oggi',
-};
-
-export const i18nTomorrow: Record<string, string> = {
-  de: 'Morgen',
-  en: 'Tomorrow',
-  fr: 'Demain',
-  it: 'Domani',
 };
 
 export const i18nNextMonth: Record<string, string> = {
