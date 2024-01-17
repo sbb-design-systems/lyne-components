@@ -157,7 +157,7 @@ export class SbbSelectionPanelElement extends LitElement {
   private _updateSelectionPanel(): void {
     this._checked = this._input?.checked;
     this._state =
-      this.forceOpen || (this._namedSlots.slots.has['content'] && this._checked)
+      this.forceOpen || (this._namedSlots.slots.has('content') && this._checked)
         ? 'opened'
         : 'closed';
     this._disabled = this._input?.disabled;
