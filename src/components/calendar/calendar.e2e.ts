@@ -136,8 +136,8 @@ describe('sbb-calendar', () => {
 
     expect(yearSelectionButton).not.to.be.null;
     yearSelectionButton.click();
-    await waitForLitRender(element);
     await waitForCondition(() => animationSpy.events.length >= 1);
+    await waitForLitRender(element);
 
     const yearSelection: HTMLElement = element.shadowRoot!.querySelector(
       '#sbb-calendar__year-selection',
@@ -173,9 +173,9 @@ describe('sbb-calendar', () => {
     expect(yearCells[yearCells.length - 1].innerText).to.be.equal('2039');
 
     yearButton.click();
-    await waitForLitRender(element);
 
     await waitForCondition(() => animationSpy.events.length >= 1);
+    await waitForLitRender(element);
 
     const monthSelection: HTMLElement = element.shadowRoot!.querySelector(
       '#sbb-calendar__month-selection',
@@ -209,6 +209,7 @@ describe('sbb-calendar', () => {
     await waitForLitRender(element);
 
     await waitForCondition(() => animationSpy.events.length >= 1);
+    await waitForLitRender(element);
 
     const dayCells = Array.from(element.shadowRoot!.querySelectorAll('.sbb-calendar__day'));
     expect(dayCells.length).to.be.equal(31);
@@ -363,6 +364,7 @@ describe('sbb-calendar', () => {
 
       yearSelectionButton.click();
       await waitForCondition(() => animationSpy.events.length >= 1);
+      await waitForLitRender(element);
       const selectedYear = Array.from(
         element.shadowRoot!.querySelectorAll('.sbb-calendar__cell'),
       ).find((e) => (e as HTMLElement).innerText === '2023') as HTMLElement;
