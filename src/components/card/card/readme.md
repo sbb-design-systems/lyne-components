@@ -7,7 +7,7 @@ The `sbb-card` component is a generic content container; its task is to contain 
 ## Slots
 
 The content is projected in an unnamed slot.
-It's possible to use the component together with the `sbb-card-badge` and the `sbb-card-action`.
+It's possible to use the component together with the `sbb-card-badge` and the `sbb-card-button`/`sbb-card-link`.
 
 ### With `sbb-card-badge`
 
@@ -26,18 +26,21 @@ For API details, see the [sbb-card-badge](/docs/components-sbb-card-sbb-card-bad
 </sbb-card>
 ```
 
-### With `sbb-card-action`
+### With `sbb-card-button`/`sbb-card-link`
 
-To add an action to a card, add a `sbb-card-action` to the main slot.
-With the `sbb-card-action` all the card area becomes clickable.
-For API details (mainly accessibility), see the [sbb-card-action](/docs/components-sbb-card-sbb-card-action--docs) docs.
+To add an action to a card, add a `sbb-card-button` or a `sbb-card-link` to the main slot.
+With these components, all the card area becomes clickable.
+For API details (mainly accessibility), see the [sbb-card-button](/docs/components-sbb-card-sbb-card-button--docs) or
+the [sbb-card-link](/docs/components-sbb-card-sbb-card-link--docs) docs.
 
 ```html
 <sbb-card>
-  <sbb-card-action href="https://www.sbb.ch"
-    >Check all the wonderful trips available.</sbb-card-action
-  >
+  <sbb-card-link href="https://www.sbb.ch">Check all the wonderful trips available.</sbb-card-link>
   Buy trips
+</sbb-card>
+
+<sbb-card>
+  <sbb-card-button type="submit" form="buy" value="trip">Buy this trip.</sbb-card-button>
 </sbb-card>
 ```
 
@@ -90,8 +93,8 @@ To improve coloring, it's needed to manually define styles for Window high contr
 
 ## Slots
 
-| Name     | Description                                            |
-| -------- | ------------------------------------------------------ |
-|          | Use the unnamed slot to add content to the card.       |
-| `badge`  | Use this slot to render a `sbb-card-badge` component.  |
-| `action` | Use this slot to render a `sbb-card-action` component. |
+| Name     | Description                                                                 |
+| -------- | --------------------------------------------------------------------------- |
+|          | Use the unnamed slot to add content to the card.                            |
+| `badge`  | Use this slot to render a `sbb-card-badge` component.                       |
+| `action` | Use this slot to render a `sbb-card-button` or a `sbb-card-link` component. |

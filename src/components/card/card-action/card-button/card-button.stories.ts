@@ -4,15 +4,15 @@ import { html } from 'lit';
 
 import readme from './readme.md?raw';
 
-import '../card';
+import '../../card';
 
 const Template = (): TemplateResult => html`
   <sbb-card color="milk">
-    'sbb-card-action' is an invisible action element. See 'sbb-card' examples to see it in action.
+    'sbb-card-button' is an invisible action element. See 'sbb-card' examples to see it in action.
   </sbb-card>
 `;
 
-export const SbbCardActionElement: StoryObj = {
+export const SbbCardButtonElement: StoryObj = {
   render: Template,
 };
 
@@ -23,7 +23,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-card/sbb-card-action',
+  title: 'components/sbb-card/sbb-card-button',
 };
 
 export default meta;

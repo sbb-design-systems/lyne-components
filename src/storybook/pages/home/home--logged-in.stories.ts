@@ -104,9 +104,9 @@ const Template = (args: Args): TemplateResult => html`
                   <span> on <time datetime="2021-11-25">Black Friday</time> </span>
                 </sbb-card-badge>
 
-                <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+                <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
                   View Ticket
-                </sbb-card-action>
+                </sbb-card-link>
 
                 <span class="card-product">
                   <sbb-icon name="ticket-route-medium"></sbb-icon>
@@ -137,9 +137,9 @@ const Template = (args: Args): TemplateResult => html`
             </li>
             <li>
               <sbb-card>
-                <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+                <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
                   Buy saver ticket
-                </sbb-card-action>
+                </sbb-card-link>
 
                 <span class="card-product">
                   <sbb-icon name="ticket-route-medium"></sbb-icon>
@@ -156,9 +156,9 @@ const Template = (args: Args): TemplateResult => html`
             </li>
             <li>
               <sbb-card>
-                <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+                <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
                   Check details of the journey
-                </sbb-card-action>
+                </sbb-card-link>
 
                 <span class="card-product">
                   <span class="content">
@@ -251,9 +251,9 @@ const Template = (args: Args): TemplateResult => html`
               Your subscriptions.
             </sbb-title>
             <sbb-card color="milk" size="s">
-              <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+              <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
                 Edit subscription
-              </sbb-card-action>
+              </sbb-card-link>
 
               <span class="card-product-big">
                 <span class="content">

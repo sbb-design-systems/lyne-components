@@ -7,9 +7,6 @@ export class SbbButtonBaseElement extends LitElement implements ButtonProperties
   /** The type attribute to use for the button. */
   @property() public type?: ButtonType;
 
-  /** Whether the button is disabled. */
-  @property({ reflect: true, type: Boolean }) public disabled?: boolean = false;
-
   /** The name attribute to use for the button. */
   @property({ reflect: true }) public name?: string;
 

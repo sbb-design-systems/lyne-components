@@ -4,6 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import {
   SbbButtonBaseElement,
+  SbbDisabledMixin,
   SbbIconNameMixin,
   SbbNegativeMixin,
 } from '../../core/common-behaviors/button-link';
@@ -13,11 +14,14 @@ import '../../icon';
 import { SbbLinkCommonElementMixin } from '../link-common';
 
 /**
- * TODO: Document me
+ * It displays a link enhanced with the SBB Design, which will behave as a button.
+ *
+ * @slot - Use the unnamed slot to add content to the `sbb-link-button`.
+ * @slot icon - Slot used to display the icon, if one is set.
  */
 @customElement('sbb-link-button')
 export class SbbLinkButtonElement extends SbbLinkCommonElementMixin(
-  SbbNegativeMixin(SbbIconNameMixin(SbbButtonBaseElement)),
+  SbbNegativeMixin(SbbDisabledMixin(SbbIconNameMixin(SbbButtonBaseElement))),
 ) {
   protected override render(): TemplateResult {
     // ## Migr: Host attributes ##

@@ -548,12 +548,12 @@ export class SbbTimetableRowElement extends LitElement {
 
     return html`
       <sbb-card size="l" id=${id}>
-        <sbb-card-action
+        <sbb-card-button
           ?active=${this.active}
           aria-expanded=${this.accessibilityExpanded?.toString() ?? nothing}
         >
           ${this.cardActionLabel ? this.cardActionLabel : this._getAccessibilityText(this.trip)}
-        </sbb-card-action>
+        </sbb-card-button>
         ${this.loadingPrice
           ? html`<sbb-card-badge class="sbb-loading__badge"></sbb-card-badge>`
           : nothing}

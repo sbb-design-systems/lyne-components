@@ -27,7 +27,7 @@ export interface LinkProperties {
   download?: boolean | undefined;
 
   /** Whether the link is disabled. */
-  disabled?: boolean | undefined;
+  disabled?: boolean | undefined; // fixme remove from interface
 }
 
 /**
@@ -38,7 +38,7 @@ export interface ButtonProperties {
   type?: ButtonType | undefined;
 
   /** Whether the button is disabled. */
-  disabled?: boolean | undefined;
+  disabled?: boolean | undefined; // fixme remove from interface
 
   /** The name attribute to use for the button. */
   name?: string | undefined;

@@ -94,9 +94,9 @@ const Template = (args: Args): TemplateResult => html`
         <div class="top-products-grid">
           ${dailyTicketProduct()} ${bikeProduct()} ${liberoProduct()}
           <sbb-card color="milk" size="s">
-            <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+            <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
               Buy daily ticket
-            </sbb-card-action>
+            </sbb-card-link>
             <span class="card-product">
               <sbb-icon name="ticket-route-medium"></sbb-icon>
               <span class="content">
@@ -108,9 +108,9 @@ const Template = (args: Args): TemplateResult => html`
           </sbb-card>
 
           <sbb-card color="milk" size="s" class="grid-span-2">
-            <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+            <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
               Show all GAs at a glance
-            </sbb-card-action>
+            </sbb-card-link>
             <span class="card-product-big">
               <span class="content">
                 <sbb-title level="2" visual-level="1"> GA </sbb-title>
@@ -123,9 +123,9 @@ const Template = (args: Args): TemplateResult => html`
           </sbb-card>
 
           <sbb-card class="grid-span-2" color="milk" size="s">
-            <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+            <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
               Buy half price ticket
-            </sbb-card-action>
+            </sbb-card-link>
 
             <span class="card-product-big">
               <span class="content">

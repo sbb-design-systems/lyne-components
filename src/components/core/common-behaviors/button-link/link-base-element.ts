@@ -15,7 +15,4 @@ export class SbbLinkBaseElement extends LitElement implements LinkProperties {
 
   /** Whether the browser will show the download dialog on click. */
   @property({ type: Boolean }) public download?: boolean;
-
-  /** Whether the link is disabled. */
-  @property({ reflect: true, type: Boolean }) public disabled?: boolean = false;
 }

@@ -176,9 +176,9 @@ export const navigation = (): TemplateResult => html`
 
 export const dailyTicketProduct = (): TemplateResult => html`
   <sbb-card color="milk" size="s">
-    <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+    <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
       Buy Daily Ticket
-    </sbb-card-action>
+    </sbb-card-link>
 
     <span class="card-product">
       <sbb-icon name="ticket-route-medium"></sbb-icon>
@@ -193,9 +193,9 @@ export const dailyTicketProduct = (): TemplateResult => html`
 
 export const bikeProduct = (): TemplateResult => html`
   <sbb-card color="milk" size="s">
-    <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+    <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
       Buy Bike daily pass
-    </sbb-card-action>
+    </sbb-card-link>
 
     <span class="card-product">
       <sbb-icon name="bicycle-medium"></sbb-icon>
@@ -210,9 +210,9 @@ export const bikeProduct = (): TemplateResult => html`
 
 export const liberoProduct = (): TemplateResult => html`
   <sbb-card color="milk" size="s">
-    <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+    <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
       Buy Libero short distance ticket
-    </sbb-card-action>
+    </sbb-card-link>
 
     <span class="card-product">
       <sbb-icon name="ticket-route-medium"></sbb-icon>

@@ -2,24 +2,22 @@ import { expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import type { SbbCardElement } from '../card';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../../core/testing';
+import type { SbbCardElement } from '../../card';
 
-import type { SbbCardActionElement } from './card-action';
+import type { SbbCardLinkElement } from './card-link';
 
-import '../card';
-import './card-action';
+import '../../card';
+import './card-link';
 
-describe('sbb-card-action', () => {
+describe('sbb-card-link', () => {
   let element: SbbCardElement;
 
-  it('should render an sbb-card-action as a link opening in a new window', async () => {
+  it('should render an sbb-card-link as a link opening in a new window', async () => {
     element = await fixture(
       html` <sbb-card>
-        <sbb-card-action
-          href="https://github.com/lyne-design-system/lyne-components"
-          target="_blank"
-          >Follow me</sbb-card-action
+        <sbb-card-link href="https://github.com/lyne-design-system/lyne-components" target="_blank"
+          >Follow me</sbb-card-link
         >
         Content text
       </sbb-card>`,
@@ -29,12 +27,12 @@ describe('sbb-card-action', () => {
     expect(element).not.to.have.attribute('data-has-active-action');
     expect(element).to.have.attribute('data-action-role', 'link');
 
-    const cardAction = element.querySelector('sbb-card-action');
+    const cardAction = element.querySelector('sbb-card-link');
 
     expect(cardAction).dom.to.be.equal(`
-      <sbb-card-action href="https://github.com/lyne-design-system/lyne-components" target="_blank" role="link" dir="ltr" tabindex="0" slot="action">
+      <sbb-card-link href="https://github.com/lyne-design-system/lyne-components" target="_blank" role="link" dir="ltr" tabindex="0" slot="action">
         Follow me
-      </sbb-card-action>
+      </sbb-card-link>
     `);
     expect(cardAction).shadowDom.to.be.equal(`
       <a class="sbb-card-action" href="https://github.com/lyne-design-system/lyne-components" target="_blank" rel="external noopener nofollow" role="presentation" tabindex="-1">
@@ -46,38 +44,13 @@ describe('sbb-card-action', () => {
     `);
   });
 
-  it('should render an sbb-card-action as a button which is active', async () => {
-    element = await fixture(
-      html`<sbb-card><sbb-card-action active>Click me</sbb-card-action>Content</sbb-card>`,
-    );
-
-    expect(element).to.have.attribute('data-has-action');
-    expect(element).to.have.attribute('data-has-active-action');
-    expect(element).to.have.attribute('data-action-role', 'button');
-
-    const cardAction = element.querySelector('sbb-card-action');
-
-    expect(cardAction).dom.to.be.equal(`
-      <sbb-card-action role="button" dir="ltr" tabindex="0" slot="action" active>
-        Click me
-      </sbb-card-action>
-    `);
-    expect(cardAction).shadowDom.to.be.equal(`
-      <span class="sbb-card-action">
-        <span class="sbb-card-action__label">
-          <slot></slot>
-        </span>
-      </span>
-    `);
-  });
-
   it('should correctly toggle active state', async () => {
     element = await fixture(
-      html`<sbb-card><sbb-card-action>Click me</sbb-card-action>Content</sbb-card>`,
+      html`<sbb-card><sbb-card-link href="#">Click me</sbb-card-link>Content</sbb-card>`,
     );
     expect(element).not.to.have.attribute('data-has-active-action');
 
-    element.querySelector<SbbCardActionElement>('sbb-card-action')!.setAttribute('active', '');
+    element.querySelector('sbb-card-link').setAttribute('active', '');
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-has-active-action');
@@ -86,17 +59,17 @@ describe('sbb-card-action', () => {
   it('should remove data properties from host', async () => {
     element = await fixture(
       html`<sbb-card
-        ><sbb-card-action active>Click me</sbb-card-action
+        ><sbb-card-link active href="#">Click me</sbb-card-link
         ><span><button>Content</button></span></sbb-card
       >`,
     );
 
     expect(element).to.have.attribute('data-has-action');
     expect(element).to.have.attribute('data-has-active-action');
-    expect(element).to.have.attribute('data-action-role', 'button');
+    expect(element).to.have.attribute('data-action-role', 'link');
 
     // Remove action from DOM
-    element.querySelector<SbbCardActionElement>('sbb-card-action')!.remove();
+    element.querySelector('sbb-card-link').remove();
     await waitForLitRender(element);
 
     expect(element).not.to.have.attribute('data-has-action');
@@ -106,10 +79,12 @@ describe('sbb-card-action', () => {
 
   it('should detect added button in slotted content to update focusable elements', async () => {
     element = await fixture(
-      html`<sbb-card
-        ><sbb-card-action>Click me</sbb-card-action
-        ><span id="content"><button>Content</button></span></sbb-card
-      >`,
+      html` <sbb-card>
+        <sbb-card-link href="#">Click me</sbb-card-link>
+        <span id="content">
+          <button>Content</button>
+        </span>
+      </sbb-card>`,
     );
     expect(document.querySelector('button')).to.have.attribute('data-card-focusable');
 
@@ -136,9 +111,10 @@ describe('sbb-card-action', () => {
 
   it('should detect added second element of slot to update focusable elements', async () => {
     element = await fixture(
-      html`<sbb-card
-        ><sbb-card-action>Click me</sbb-card-action><span id="content"></span
-      ></sbb-card>`,
+      html` <sbb-card>
+        <sbb-card-link href="#">Click me</sbb-card-link>
+        <span id="content"></span>
+      </sbb-card>`,
     );
 
     // Add a button to slot
@@ -153,15 +129,17 @@ describe('sbb-card-action', () => {
 
   it('should detect focusable elements when action was added at later point', async () => {
     element = await fixture(
-      html`<sbb-card
-        ><span id="content"><button></button></span
-      ></sbb-card>`,
+      html` <sbb-card>
+        <span id="content">
+          <button></button>
+        </span>
+      </sbb-card>`,
     );
 
-    // Add a sbb-card-action
-    document
-      .querySelector<SbbCardElement>('sbb-card')!
-      .appendChild(document.createElement('sbb-card-action'));
+    // Add a sbb-card-link
+    const link = document.createElement('sbb-card-link');
+    link.setAttribute('href', '#');
+    document.querySelector('sbb-card').appendChild(link);
     await waitForLitRender(element);
 
     // Button should be marked as focusable
@@ -169,13 +147,16 @@ describe('sbb-card-action', () => {
   });
 
   describe('events', () => {
-    let action: SbbCardActionElement;
+    let action: SbbCardLinkElement;
 
     beforeEach(async () => {
-      element = await fixture(
-        html`<sbb-card><sbb-card-action id="focus-id">Card</sbb-card-action>Content</sbb-card>`,
-      );
-      action = document.querySelector<SbbCardActionElement>('sbb-card-action')!;
+      element = await fixture(html`
+        <sbb-card>
+          <sbb-card-link id="focus-id" href="#">Card</sbb-card-link>
+          Content
+        </sbb-card>
+      `);
+      action = document.querySelector('sbb-card-link');
     });
 
     it('dispatches event on click', async () => {
@@ -196,26 +177,6 @@ describe('sbb-card-action', () => {
     });
 
     it('should dispatch click event on pressing Space', async () => {
-      const clickSpy = new EventSpy('click');
-      action.focus();
-      await sendKeys({ press: ' ' });
-      expect(clickSpy.count).to.be.greaterThan(0);
-    });
-
-    it('should dispatch click event on pressing Enter with href', async () => {
-      element.setAttribute('href', 'test');
-      await waitForLitRender(element);
-
-      const clickSpy = new EventSpy('click');
-      action.focus();
-      await sendKeys({ press: 'Enter' });
-      expect(clickSpy.count).to.be.greaterThan(0);
-    });
-
-    it('should not dispatch click event on pressing Space with href', async () => {
-      action.setAttribute('href', 'test');
-      await waitForLitRender(element);
-
       const clickSpy = new EventSpy('click');
       action.focus();
       await sendKeys({ press: ' ' });

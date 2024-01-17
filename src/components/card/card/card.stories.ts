@@ -58,10 +58,25 @@ const TemplateWithBadge = ({ size, color }: Args): TemplateResult => html`
   </sbb-card>
 `;
 
+const TemplateAction = ({ label, ...args }: Args): TemplateResult => {
+  if (args.href) {
+    delete args.type;
+    delete args.form;
+    delete args.value;
+    delete args.name;
+    return html`<sbb-card-link ${sbbSpread(args)}>${label}</sbb-card-link>`;
+  } else {
+    delete args.href;
+    delete args.target;
+    delete args.rel;
+    delete args.download;
+    return html`<sbb-card-button ${sbbSpread(args)}>${label}</sbb-card-button>`;
+  }
+};
+
 const TemplateCardAction = ({ size, color, label, ...args }: Args): TemplateResult => html`
   <sbb-card ${sbbSpread({ size, color })}>
-    <sbb-card-action ${sbbSpread(args)}>${label}</sbb-card-action>
-    ${Content()}
+    ${TemplateAction({ label, ...args })} ${Content()}
   </sbb-card>
 `;
 
@@ -72,14 +87,13 @@ const TemplateCardActionFixedHeight = ({
   ...args
 }: Args): TemplateResult => html`
   <sbb-card ${sbbSpread({ size, color })} style=${styleMap({ height: '250px' })}>
-    <sbb-card-action ${sbbSpread(args)}>${label}</sbb-card-action>
-    ${Content()}
+    ${TemplateAction({ label, ...args })} ${Content()}
   </sbb-card>
 `;
 
 const TemplateCardActionWithBadge = ({ size, color, label, ...args }: Args): TemplateResult => html`
   <sbb-card ${sbbSpread({ size, color })}>
-    <sbb-card-action ${sbbSpread(args)}>${label}</sbb-card-action>
+    ${TemplateAction({ label, ...args })}
     <sbb-card-badge>
       <span>%</span>
       <span>from CHF</span>

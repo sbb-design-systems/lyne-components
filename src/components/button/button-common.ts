@@ -1,11 +1,7 @@
 import { CSSResultGroup, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import {
-  Constructor,
-  LanguageController,
-  NamedSlotStateController,
-} from '../core/common-behaviors';
+import { Constructor, NamedSlotStateController } from '../core/common-behaviors';
 import { ACTION_ELEMENTS, hostContext, toggleDatasetEntry } from '../core/dom';
 import { actionElementHandlerAspect, HandlerRepository } from '../core/eventing';
 
@@ -19,7 +15,6 @@ export declare class SbbButtonCommonInterface {
   public variant: 'primary' | 'secondary' | 'tertiary' | 'transparent';
   public size?: SbbButtonSize;
   public isStatic: boolean;
-  protected language: LanguageController;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -44,7 +39,6 @@ export const SbbButtonCommonElementMixin = <T extends Constructor<LitElement>>(
      */
     @property({ attribute: 'is-static', reflect: true, type: Boolean }) public isStatic = false;
 
-    protected language = new LanguageController(this);
     private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
 
     public constructor(...args: any[]) {

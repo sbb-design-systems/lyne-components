@@ -4,6 +4,7 @@ import { customElement } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import {
+  SbbDisabledMixin,
   SbbIconNameMixin,
   SbbLinkBaseElement,
   SbbNegativeMixin,
@@ -19,11 +20,14 @@ import '../../icon';
 import { SbbLinkCommonElementMixin } from '../link-common';
 
 /**
- * TODO: Document me
+ * It displays a link enhanced with the SBB Design.
+ *
+ * @slot - Use the unnamed slot to add content to the `sbb-link`.
+ * @slot icon - Slot used to display the icon, if one is set.
  */
 @customElement('sbb-link')
 export class SbbLinkElement extends SbbLinkCommonElementMixin(
-  SbbNegativeMixin(SbbIconNameMixin(SbbLinkBaseElement)),
+  SbbNegativeMixin(SbbDisabledMixin(SbbIconNameMixin(SbbLinkBaseElement))),
 ) {
   protected override render(): TemplateResult {
     const {

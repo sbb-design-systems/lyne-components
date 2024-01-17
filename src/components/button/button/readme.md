@@ -21,23 +21,18 @@ At least one is mandatory, so you can have a `sbb-button` with icon only, text o
 <sbb-button icon-name="info" aria-label="Click for more information."></sbb-button>
 ```
 
-## Link / button properties
+## Button properties
 
-The component can be internally rendered as a button or as a link,
-depending on the value of the `href` property, so the associated properties are available
-(`href`, `target`, `rel` and `download` for link; `type`, `name`, `value` and `form` for button).
+The component is internally rendered as a button,
+accepting its associated properties (`type`, `name`, `value` and `form`).
 
-If `isStatic` is set, the component will be rendered as a button without any user interaction.
+If `isStatic` is set, the component will be rendered as a span without any user interaction.
 The `isStatic` is only considered during initial rendering (connectedCallback), later configuration changes are ignored.
-Please note that if the `sbb-button` is placed inside another anchor or button tag,
+Please note that if the `sbb-button` is placed inside another button tag,
 it is internally rendered as a span in order to not break HTML functionality.
 If the component is placed inside an `sbb-form-field`, it renders with the correct styling.
 
 ```html
-<sbb-button href="https://github.com/lyne-design-system/lyne-components" target="_blank">
-  Go to site
-</sbb-button>
-
 <sbb-button type="button" name="tickets" form="buy" value="tickets"> Buy tickets </sbb-button>
 ```
 
@@ -85,9 +80,16 @@ Use the accessibility properties in case of an icon-only button to describe the 
 | `size`     | `size`      | public  | `SbbButtonSize \| undefined`                                                   | `'l'`       | Size variant, either l or m.                                                                                                                           |
 | `isStatic` | `is-static` | public  | `boolean`                                                                      | `false`     | Set this property to true if you want only a visual representation of a button, but no interaction (a span instead of a link/button will be rendered). |
 | `negative` | `negative`  | public  | `boolean`                                                                      | `false`     | Negative coloring variant flag.                                                                                                                        |
+| `disabled` | `disabled`  | public  | `boolean \| undefined`                                                         | `false`     | Whether the button is disabled.                                                                                                                        |
 | `iconName` | `icon-name` | public  | `string \| undefined`                                                          |             | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                       |
 | `type`     | `type`      | public  | `ButtonType \| undefined`                                                      |             | The type attribute to use for the button.                                                                                                              |
-| `disabled` | `disabled`  | public  | `boolean \| undefined`                                                         | `false`     | Whether the button is disabled.                                                                                                                        |
 | `name`     | `name`      | public  | `string \| undefined`                                                          |             | The name attribute to use for the button.                                                                                                              |
 | `value`    | `value`     | public  | `string \| undefined`                                                          |             | The value attribute to use for the button.                                                                                                             |
 | `form`     | `form`      | public  | `string \| undefined`                                                          |             | The <form> element to associate the button with.                                                                                                       |
+
+## Slots
+
+| Name   | Description                                        |
+| ------ | -------------------------------------------------- |
+|        | Use the unnamed slot to add content to the button. |
+| `icon` | Slot used to display the icon, if one is set       |

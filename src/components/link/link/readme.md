@@ -2,7 +2,7 @@ The `sbb-link` component provides the same functionality as a native `<a>` enhan
 
 ## Slots
 
-The link text is provided via an unnamed slot; the component can optionally display a `sbb-icon` using
+The text is provided via an unnamed slot; the component can optionally display a `sbb-icon` using
 the `iconName` property or via custom content using the `icon` slot.
 By default, the icon is placed at the component's end, but this can be changed using the `iconPlacement` property.
 
@@ -19,14 +19,14 @@ By default, the icon is placed at the component's end, but this can be changed u
 The component can be displayed in `disabled` state using the self-named property.
 
 ```html
-<sbb-link disabled>Refunds</sbb-link>
+<sbb-link href="https://www.sbb.ch" disabled>Refunds</sbb-link>
 ```
 
 ## Link / button properties
 
-The component can be internally rendered as a button or as a link,
-depending on the value of the `href` property, so the associated properties are available
-(`href`, `target`, `rel` and `download` for link; `type`, `name`, `value` and `form` for button).
+The component is internally rendered as a link,
+accepting its associated properties (`href`, `target`, `rel` and `download`).
+
 If `isStatic` is set, the component will be rendered as a link without any user interaction.
 The `isStatic` is only considered during initial rendering (connectedCallback), later configuration changes are ignored.
 Please note that if the `sbb-link` is placed inside another anchor or button tag,
@@ -34,10 +34,6 @@ it is internally rendered as a span in order to not break HTML functionality.
 
 ```html
 <sbb-link href="https://github.com/lyne-design-system/lyne-components" target="_blank">
-  Travel-cards and tickets
-</sbb-link>
-
-<sbb-link type="button" name="tickets" form="buy" value="tickets">
   Travel-cards and tickets
 </sbb-link>
 ```
@@ -48,7 +44,7 @@ The component has two variants (`block`, which is the default, and `inline`), th
 and it has also three sizes (`xs`, `s`, which is the default, and `m`) that are relevant only in `variant='block`'.
 
 ```html
-<sbb-link size="m">Refunds</sbb-link>
+<sbb-link href="https://www.sbb.ch" size="m">Refunds</sbb-link>
 
 <p>
   Some informative text.
@@ -67,9 +63,16 @@ and it has also three sizes (`xs`, `s`, which is the default, and `m`) that are 
 | `isStatic`      | `is-static`      | public  | `boolean`                                            | `false`   | Set this property to true if you want only a visual representation of a link, but no interaction (a span instead of a link/button will be rendered). |
 | `iconPlacement` | `icon-placement` | public  | `SbbIconPlacement \| undefined`                      | `'start'` | Moves the icon to the end of the component if set to true.                                                                                           |
 | `negative`      | `negative`       | public  | `boolean`                                            | `false`   | Negative coloring variant flag.                                                                                                                      |
+| `disabled`      | `disabled`       | public  | `boolean \| undefined`                               | `false`   | Whether the button is disabled.                                                                                                                      |
 | `iconName`      | `icon-name`      | public  | `string \| undefined`                                |           | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                     |
 | `href`          | `href`           | public  | `string \| undefined`                                |           | The href value you want to link to (if it is not present sbb-header-action becomes a button).                                                        |
 | `target`        | `target`         | public  | `LinkTargetType \| string \| undefined \| undefined` |           | Where to display the linked URL.                                                                                                                     |
 | `rel`           | `rel`            | public  | `string \| undefined \| undefined`                   |           | The relationship of the linked URL as space-separated link types.                                                                                    |
 | `download`      | `download`       | public  | `boolean \| undefined`                               |           | Whether the browser will show the download dialog on click.                                                                                          |
-| `disabled`      | `disabled`       | public  | `boolean \| undefined`                               | `false`   | Whether the link is disabled.                                                                                                                        |
+
+## Slots
+
+| Name   | Description                                            |
+| ------ | ------------------------------------------------------ |
+|        | Use the unnamed slot to add content to the `sbb-link`. |
+| `icon` | Slot used to display the icon, if one is set.          |

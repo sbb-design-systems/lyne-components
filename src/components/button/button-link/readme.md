@@ -1,44 +1,44 @@
-The `sbb-button-link` component provides the same functionality as a native `<button>` enhanced with the SBB Design.
+The `sbb-button-link` component provides the same functionality as a native `<a>`,
+despite it appears as a button enhanced with the SBB Design.
 
 ```html
-<sbb-button-link>Button text</sbb-button-link>
+<sbb-button-link href="https://www.sbb.ch">Button text</sbb-button-link>
 ```
 
 ## Slots
 
-The button text is provided via an unnamed slot; the component can optionally display a `sbb-icon`
+The text is provided via an unnamed slot; the component can optionally display a `sbb-icon`
 at the component start using the `iconName` property or via custom content using the `icon` slot.
 At least one is mandatory, so you can have a `sbb-button-link` with icon only, text only, or with both.
 
 ```html
-<sbb-button-link icon-name="info"> Button text </sbb-button-link>
+<sbb-button-link href="https://www.sbb.ch" icon-name="info"> Button text </sbb-button-link>
 
-<sbb-button-link>
+<sbb-button-link href="https://www.sbb.ch">
   <sbb-icon slot="icon" name="info"></sbb-icon>
   Button text
 </sbb-button-link>
 
-<sbb-button-link icon-name="info" aria-label="Click for more information."></sbb-button-link>
+<sbb-button-link
+  href="https://www.sbb.ch"
+  icon-name="info"
+  aria-label="Click for more information."
+></sbb-button-link>
 ```
 
 ## Link / button properties
 
-The component can be internally rendered as a button or as a link,
-depending on the value of the `href` property, so the associated properties are available
-(`href`, `target`, `rel` and `download` for link; `type`, `name`, `value` and `form` for button).
+The component is internally rendered as a link,
+accepting its associated properties (`href`, `target`, `rel` and `download`).
 
-If `isStatic` is set, the component will be rendered as a button without any user interaction.
-Please note that if the `sbb-button-link` is placed inside another anchor or button tag,
+If `isStatic` is set, the component will be rendered as a span without any user interaction.
+Please note that if the `sbb-button-link` is placed inside another anchor tag,
 it is internally rendered as a span in order to not break HTML functionality.
 If the component is placed inside an `sbb-form-field`, it renders with the correct styling.
 
 ```html
 <sbb-button-link href="https://github.com/lyne-design-system/lyne-components" target="_blank">
   Go to site
-</sbb-button-link>
-
-<sbb-button-link type="button" name="tickets" form="buy" value="tickets">
-  Buy tickets
 </sbb-button-link>
 ```
 
@@ -52,13 +52,13 @@ There are two different sizes (`m` and `l`, which is the default) that can be se
 The component can be displayed in `disabled` state using the self-named property.
 
 ```html
-<sbb-button-link variant="secondary">Button</sbb-button-link>
-<sbb-button-link variant="tertiary">Button</sbb-button-link>
-<sbb-button-link variant="transparent">Button</sbb-button-link>
+<sbb-button-link href="https://www.sbb.ch" variant="secondary">Button</sbb-button-link>
+<sbb-button-link href="https://www.sbb.ch" variant="tertiary">Button</sbb-button-link>
+<sbb-button-link href="https://www.sbb.ch" variant="transparent">Button</sbb-button-link>
 
-<sbb-button-link size="m">Button</sbb-button-link>
+<sbb-button-link href="https://www.sbb.ch" size="m">Button</sbb-button-link>
 
-<sbb-button-link disabled>Button</sbb-button-link>
+<sbb-button-link href="https://www.sbb.ch" disabled>Button</sbb-button-link>
 ```
 
 ### Focus outline
@@ -86,9 +86,16 @@ Use the accessibility properties in case of an icon-only button to describe the 
 | `size`     | `size`      | public  | `SbbButtonSize \| undefined`                                                   | `'l'`       | Size variant, either l or m.                                                                                                                           |
 | `isStatic` | `is-static` | public  | `boolean`                                                                      | `false`     | Set this property to true if you want only a visual representation of a button, but no interaction (a span instead of a link/button will be rendered). |
 | `negative` | `negative`  | public  | `boolean`                                                                      | `false`     | Negative coloring variant flag.                                                                                                                        |
+| `disabled` | `disabled`  | public  | `boolean \| undefined`                                                         | `false`     | Whether the button is disabled.                                                                                                                        |
 | `iconName` | `icon-name` | public  | `string \| undefined`                                                          |             | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                       |
 | `href`     | `href`      | public  | `string \| undefined`                                                          |             | The href value you want to link to (if it is not present sbb-header-action becomes a button).                                                          |
 | `target`   | `target`    | public  | `LinkTargetType \| string \| undefined \| undefined`                           |             | Where to display the linked URL.                                                                                                                       |
 | `rel`      | `rel`       | public  | `string \| undefined \| undefined`                                             |             | The relationship of the linked URL as space-separated link types.                                                                                      |
 | `download` | `download`  | public  | `boolean \| undefined`                                                         |             | Whether the browser will show the download dialog on click.                                                                                            |
-| `disabled` | `disabled`  | public  | `boolean \| undefined`                                                         | `false`     | Whether the link is disabled.                                                                                                                          |
+
+## Slots
+
+| Name   | Description                                             |
+| ------ | ------------------------------------------------------- |
+|        | Use the unnamed slot to add content to the button-link. |
+| `icon` | Slot used to display the icon, if one is set            |
