@@ -1,11 +1,12 @@
 // This helper file contains several functions related to accessing attributes for the connections.
 
-import { TemplateResult, html, nothing } from 'lit';
+import type { TemplateResult } from 'lit';
+import { html, nothing } from 'lit';
 
 import { i18nWalkingDistanceArrival, i18nWalkingDistanceDeparture } from '../i18n';
 
 import { extractTimeAndStringFromNoticeText, isConnectionLeg, isRideLeg } from './timetable-helper';
-import { Leg, PtConnectionLeg, PtRideLeg } from './timetable-properties';
+import type { Leg, PtConnectionLeg, PtRideLeg } from './timetable-properties';
 
 import '../../icon';
 

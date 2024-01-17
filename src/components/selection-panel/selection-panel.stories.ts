@@ -2,8 +2,10 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { html, TemplateResult } from 'lit';
-import { styleMap, StyleInfo } from 'lit/directives/style-map.js';
+import type { TemplateResult } from 'lit';
+import { html } from 'lit';
+import type { StyleInfo } from 'lit/directives/style-map.js';
+import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../core/dom';
 import type { SbbFormErrorElement } from '../form-error';

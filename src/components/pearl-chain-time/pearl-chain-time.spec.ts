@@ -2,7 +2,7 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../core/testing';
-import { PtRideLeg } from '../core/timetable';
+import type { PtRideLeg } from '../core/timetable';
 
 import type { SbbPearlChainTimeElement } from './pearl-chain-time';
 

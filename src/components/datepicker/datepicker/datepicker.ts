@@ -1,9 +1,11 @@
-import { CSSResultGroup, LitElement, PropertyValues, TemplateResult, html } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { LitElement, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { LanguageController } from '../../core/common-behaviors';
 import { readConfig } from '../../core/config';
-import { DateAdapter, defaultDateAdapter } from '../../core/datetime';
+import type { DateAdapter } from '../../core/datetime';
+import { defaultDateAdapter } from '../../core/datetime';
 import {
   findInput,
   findReferencedElement,
@@ -12,7 +14,7 @@ import {
 } from '../../core/dom';
 import { ConnectedAbortController, EventEmitter } from '../../core/eventing';
 import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n';
-import { ValidationChangeEvent, SbbDateLike } from '../../core/interfaces';
+import type { ValidationChangeEvent, SbbDateLike } from '../../core/interfaces';
 import { AgnosticMutationObserver } from '../../core/observers';
 import type { SbbDatepickerNextDayElement } from '../datepicker-next-day';
 import type { SbbDatepickerPreviousDayElement } from '../datepicker-previous-day';

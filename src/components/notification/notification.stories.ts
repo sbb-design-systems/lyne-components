@@ -2,7 +2,8 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import isChromatic from 'chromatic/isChromatic';
-import { html, TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
+import { html } from 'lit';
 import { ref } from 'lit/directives/ref.js';
 
 import type { SbbButtonElement } from '../button';

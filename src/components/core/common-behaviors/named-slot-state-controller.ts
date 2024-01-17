@@ -1,4 +1,4 @@
-import { ReactiveController, ReactiveControllerHost } from 'lit';
+import type { ReactiveController, ReactiveControllerHost } from 'lit';
 
 /**
  * This controller checks for slotted children. From these it generates

@@ -1,11 +1,12 @@
-import { CSSResultGroup, html, LitElement, PropertyValues, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../core/a11y';
 import { NamedSlotStateController } from '../../core/common-behaviors';
 import { toggleDatasetEntry, setAttribute } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
-import { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces';
+import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces';
 import type { SbbSelectionPanelElement } from '../../selection-panel';
 import type {
   SbbRadioButtonElement,

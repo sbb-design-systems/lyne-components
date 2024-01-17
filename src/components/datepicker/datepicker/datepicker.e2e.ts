@@ -1,6 +1,6 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
-import { TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
 import { i18nDateChangedTo } from '../../core/i18n';

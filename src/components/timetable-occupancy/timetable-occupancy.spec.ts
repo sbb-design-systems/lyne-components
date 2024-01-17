@@ -1,6 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
-import { Args } from '@storybook/web-components';
-import { TemplateResult } from 'lit';
+import type { Args } from '@storybook/web-components';
+import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
 import { sbbSpread } from '../core/dom';

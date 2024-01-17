@@ -1,9 +1,9 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbButtonElement } from '../button';
+import type { SbbButtonElement } from '../button';
 import { waitForLitRender } from '../core/testing';
-import { SbbLinkElement } from '../link';
+import type { SbbLinkElement } from '../link';
 
 import { SbbActionGroupElement } from './action-group';
 

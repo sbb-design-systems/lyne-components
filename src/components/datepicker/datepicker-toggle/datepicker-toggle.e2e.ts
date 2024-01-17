@@ -1,10 +1,11 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbCalendarElement } from '../../calendar';
+import type { SbbCalendarElement } from '../../calendar';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
-import { SbbFormFieldElement } from '../../form-field';
-import { SbbTooltipTriggerElement, SbbTooltipElement } from '../../tooltip';
+import type { SbbFormFieldElement } from '../../form-field';
+import type { SbbTooltipTriggerElement } from '../../tooltip';
+import { SbbTooltipElement } from '../../tooltip';
 import type { SbbDatepickerElement } from '../datepicker';
 
 import { SbbDatepickerToggleElement } from './datepicker-toggle';

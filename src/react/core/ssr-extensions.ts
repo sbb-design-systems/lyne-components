@@ -1,11 +1,6 @@
 import { isServer } from 'lit';
-import react, {
-  Children,
-  ComponentType,
-  JSXElementConstructor,
-  ReactNode,
-  isValidElement,
-} from 'react';
+import type { ComponentType, JSXElementConstructor, ReactNode } from 'react';
+import react, { Children, isValidElement } from 'react';
 
 type WithChildren<T> = T & { children: ReactNode[] };
 

@@ -1,4 +1,4 @@
-import { ReactiveController, ReactiveControllerHost } from 'lit';
+import type { ReactiveController, ReactiveControllerHost } from 'lit';
 
 import { toggleDatasetEntry } from '../dom';
 

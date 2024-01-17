@@ -1,10 +1,11 @@
-import { CSSResultGroup, LitElement, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { toggleDatasetEntry } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
-import { SbbOverlayState } from '../../core/overlay';
+import type { SbbOverlayState } from '../../core/overlay';
 import type { TitleLevel } from '../../title';
 import type { SbbExpansionPanelContentElement } from '../expansion-panel-content';
 import type { SbbExpansionPanelHeaderElement } from '../expansion-panel-header';

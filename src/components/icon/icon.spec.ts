@@ -1,7 +1,8 @@
 import { aTimeout, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbIconConfig, readConfig } from '../core/config';
+import type { SbbIconConfig } from '../core/config';
+import { readConfig } from '../core/config';
 import { waitForLitRender } from '../core/testing';
 
 import type { SbbIconElement } from './icon';

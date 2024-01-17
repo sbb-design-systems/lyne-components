@@ -1,4 +1,5 @@
-import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { LanguageController } from '../../core/common-behaviors';
@@ -9,7 +10,8 @@ import {
   ConnectedAbortController,
 } from '../../core/eventing';
 import { i18nClearInput } from '../../core/i18n';
-import { ButtonProperties, resolveButtonRenderVariables } from '../../core/interfaces';
+import type { ButtonProperties } from '../../core/interfaces';
+import { resolveButtonRenderVariables } from '../../core/interfaces';
 import type { SbbFormFieldElement } from '../form-field';
 import '../../icon';
 

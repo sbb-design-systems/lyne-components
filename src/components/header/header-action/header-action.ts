@@ -1,5 +1,6 @@
 import { spread } from '@open-wc/lit-helpers';
-import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
@@ -7,14 +8,13 @@ import { LanguageController } from '../../core/common-behaviors';
 import { toggleDatasetEntry, isBreakpoint, setAttributes } from '../../core/dom';
 import { HandlerRepository, actionElementHandlerAspect } from '../../core/eventing';
 import { i18nTargetOpensInNewWindow } from '../../core/i18n';
-import {
+import type {
   ButtonType,
   LinkButtonProperties,
   LinkTargetType,
-  resolveRenderVariables,
-  targetsNewWindow,
   SbbHorizontalFrom,
 } from '../../core/interfaces';
+import { resolveRenderVariables, targetsNewWindow } from '../../core/interfaces';
 import { AgnosticResizeObserver } from '../../core/observers';
 import '../../icon';
 

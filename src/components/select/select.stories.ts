@@ -10,8 +10,10 @@ import type {
   StoryContext,
 } from '@storybook/web-components';
 import isChromatic from 'chromatic/isChromatic';
-import { html, nothing, TemplateResult } from 'lit';
-import { styleMap, StyleInfo } from 'lit/directives/style-map.js';
+import type { TemplateResult } from 'lit';
+import { html, nothing } from 'lit';
+import type { StyleInfo } from 'lit/directives/style-map.js';
+import { styleMap } from 'lit/directives/style-map.js';
 
 import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';

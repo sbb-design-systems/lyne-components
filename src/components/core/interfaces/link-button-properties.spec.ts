@@ -1,9 +1,11 @@
 import { expect } from '@open-wc/testing';
 
-import {
+import type {
   ButtonProperties,
   LinkButtonProperties,
   LinkProperties,
+} from './link-button-properties';
+import {
   resolveLinkOrStaticRenderVariables,
   resolveRenderVariables,
 } from './link-button-properties';

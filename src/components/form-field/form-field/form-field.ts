@@ -1,7 +1,9 @@
-import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { SbbInputModality, sbbInputModalityDetector } from '../../core/a11y';
+import type { SbbInputModality } from '../../core/a11y';
+import { sbbInputModalityDetector } from '../../core/a11y';
 import { LanguageController, NamedSlotStateController } from '../../core/common-behaviors';
 import { isBrowser, isFirefox, isValidAttribute, toggleDatasetEntry } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';

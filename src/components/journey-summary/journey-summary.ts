@@ -1,5 +1,6 @@
 import { isValid, format } from 'date-fns';
-import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { LanguageController } from '../core/common-behaviors';
@@ -9,7 +10,7 @@ import {
   removeTimezoneFromISOTimeString,
 } from '../core/datetime';
 import { i18nTripDuration } from '../core/i18n';
-import { Leg } from '../core/timetable';
+import type { Leg } from '../core/timetable';
 import type { TitleLevel } from '../title';
 import '../pearl-chain-time';
 import '../journey-header';

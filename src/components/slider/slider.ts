@@ -1,5 +1,6 @@
 import { spread } from '@open-wc/lit-helpers';
-import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { styleMap } from 'lit/directives/style-map.js';

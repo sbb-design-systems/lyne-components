@@ -1,4 +1,4 @@
-import { ReactiveElement } from 'lit';
+import type { ReactiveElement } from 'lit';
 
 /**
  * Tests if an element is a Lit `ReactiveElement`.

@@ -1,11 +1,13 @@
 import { format } from 'date-fns';
-import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { LanguageController } from '../core/common-behaviors';
 import { removeTimezoneFromISOTimeString } from '../core/datetime';
 import { i18nDeparture, i18nArrival, i18nTransferProcedures } from '../core/i18n';
-import { getDepartureArrivalTimeAttribute, isRideLeg, Leg, PtRideLeg } from '../core/timetable';
+import type { Leg, PtRideLeg } from '../core/timetable';
+import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable';
 import '../pearl-chain';
 
 import style from './pearl-chain-time.scss?lit&inline';

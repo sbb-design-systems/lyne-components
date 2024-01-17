@@ -1,9 +1,9 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbButtonElement } from '../button';
+import type { SbbButtonElement } from '../button';
 
-import { SbbActionGroupElement } from './action-group';
+import type { SbbActionGroupElement } from './action-group';
 import '.';
 
 describe('sbb-action-group', () => {

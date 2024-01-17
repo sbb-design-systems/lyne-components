@@ -1,4 +1,5 @@
-import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 

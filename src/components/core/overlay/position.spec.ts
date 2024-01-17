@@ -1,5 +1,6 @@
 import { expect } from '@open-wc/testing';
-import { createStubInstance, SinonStubbedInstance } from 'sinon';
+import type { SinonStubbedInstance } from 'sinon';
+import { createStubInstance } from 'sinon';
 
 import { getElementPosition } from './position';
 

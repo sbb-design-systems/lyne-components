@@ -1,8 +1,10 @@
-import { CSSResultGroup, LitElement, PropertyValues, TemplateResult, html } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { LitElement, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { LanguageController } from '../../core/common-behaviors';
-import { DateAdapter, defaultDateAdapter } from '../../core/datetime';
+import type { DateAdapter } from '../../core/datetime';
+import { defaultDateAdapter } from '../../core/datetime';
 import { isValidAttribute, setAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
 import {
   ConnectedAbortController,
@@ -10,14 +12,14 @@ import {
   actionElementHandlerAspect,
 } from '../../core/eventing';
 import { i18nNextDay, i18nSelectNextDay, i18nToday } from '../../core/i18n';
-import { ButtonProperties, resolveButtonRenderVariables } from '../../core/interfaces';
+import type { ButtonProperties } from '../../core/interfaces';
+import { resolveButtonRenderVariables } from '../../core/interfaces';
 import {
-  InputUpdateEvent,
   datepickerControlRegisteredEventFactory,
   findNextAvailableDate,
   getDatePicker,
-  type SbbDatepickerElement,
 } from '../datepicker';
+import type { InputUpdateEvent, SbbDatepickerElement } from '../datepicker';
 import '../../icon';
 
 import style from './datepicker-next-day.scss?lit&inline';

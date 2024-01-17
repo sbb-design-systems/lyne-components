@@ -1,5 +1,6 @@
 import { sbbInputModalityDetector } from '../a11y';
-import { mergeConfig, SbbIconConfig } from '../config';
+import type { SbbIconConfig } from '../config';
+import { mergeConfig } from '../config';
 
 function setupIconConfig(): void {
   const icon: SbbIconConfig = {

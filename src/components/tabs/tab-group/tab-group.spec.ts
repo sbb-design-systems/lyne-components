@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
 
-import { SbbTabGroupElement } from './tab-group';
+import type { SbbTabGroupElement } from './tab-group';
 import '.';
 import '../tab-title';
 

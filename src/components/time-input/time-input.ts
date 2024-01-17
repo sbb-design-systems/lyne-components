@@ -1,4 +1,5 @@
-import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -6,7 +7,7 @@ import { LanguageController } from '../core/common-behaviors';
 import { findInput, isValidAttribute, toggleDatasetEntry } from '../core/dom';
 import { forwardEventToHost, EventEmitter } from '../core/eventing';
 import { i18nTimeInputChange } from '../core/i18n';
-import { ValidationChangeEvent, SbbDateLike } from '../core/interfaces';
+import type { ValidationChangeEvent, SbbDateLike } from '../core/interfaces';
 
 import style from './time-input.scss?lit&inline';
 

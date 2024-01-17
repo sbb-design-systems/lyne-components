@@ -1,4 +1,5 @@
-import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import type { SbbButtonElement } from '../button';
@@ -6,7 +7,7 @@ import { LanguageController, NamedSlotStateController } from '../core/common-beh
 import { isFirefox, isValidAttribute, setAttribute } from '../core/dom';
 import { composedPathHasAttribute, EventEmitter, ConnectedAbortController } from '../core/eventing';
 import { i18nCloseAlert } from '../core/i18n';
-import { SbbOverlayState } from '../core/overlay';
+import type { SbbOverlayState } from '../core/overlay';
 import type { SbbLinkElement } from '../link';
 import '../button';
 import '../icon';

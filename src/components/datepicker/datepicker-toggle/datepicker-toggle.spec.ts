@@ -1,7 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbFormFieldElement } from '../../form-field';
+import type { SbbFormFieldElement } from '../../form-field';
 
 import type { SbbDatepickerToggleElement } from './datepicker-toggle';
 

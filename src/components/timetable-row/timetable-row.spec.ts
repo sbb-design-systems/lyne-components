@@ -2,10 +2,10 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../core/testing';
-import { ITripItem, Notice, PtSituation } from '../core/timetable';
+import type { ITripItem, Notice, PtSituation } from '../core/timetable';
 
+import type { SbbTimetableRowElement } from './timetable-row';
 import {
-  SbbTimetableRowElement,
   filterNotices,
   getCus,
   getHimIcon,

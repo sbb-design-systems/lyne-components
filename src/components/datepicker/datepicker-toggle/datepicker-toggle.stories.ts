@@ -10,13 +10,14 @@ import type {
   StoryContext,
 } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { html, nothing, TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
+import { html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
 import { sbbSpread } from '../../core/dom';
-import { SbbTooltipTriggerElement } from '../../tooltip';
+import type { SbbTooltipTriggerElement } from '../../tooltip';
 
 import '../../form-field';
 import '../datepicker';

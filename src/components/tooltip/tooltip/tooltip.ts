@@ -1,4 +1,5 @@
-import { CSSResultGroup, LitElement, PropertyValues, TemplateResult, html, nothing } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { LitElement, html, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -13,9 +14,8 @@ import { LanguageController } from '../../core/common-behaviors';
 import { findReferencedElement, isValidAttribute, setAttribute } from '../../core/dom';
 import { EventEmitter, composedPathHasAttribute } from '../../core/eventing';
 import { i18nCloseTooltip } from '../../core/i18n';
+import type { Alignment, SbbOverlayState } from '../../core/overlay';
 import {
-  Alignment,
-  SbbOverlayState,
   getElementPosition,
   isEventOnElement,
   removeAriaOverlayTriggerAttributes,

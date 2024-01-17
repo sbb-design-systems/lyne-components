@@ -1,4 +1,5 @@
-import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import {
@@ -14,7 +15,7 @@ import {
   ConnectedAbortController,
 } from '../../core/eventing';
 import { i18nCollapsed, i18nExpanded } from '../../core/i18n';
-import {
+import type {
   SbbCheckedStateChange,
   SbbDisabledStateChange,
   SbbStateChange,

@@ -3,7 +3,7 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { i18nTimeInputChange } from '../core/i18n';
-import { ValidationChangeEvent } from '../core/interfaces';
+import type { ValidationChangeEvent } from '../core/interfaces';
 import { EventSpy, waitForLitRender } from '../core/testing';
 
 import { SbbTimeInputElement } from './time-input';

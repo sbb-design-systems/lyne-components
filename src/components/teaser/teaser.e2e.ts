@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../core/testing';
 
-import { SbbTeaserElement } from './teaser';
+import type { SbbTeaserElement } from './teaser';
 import '.';
 
 describe('sbb-teaser', () => {

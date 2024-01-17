@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
-import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { LanguageController } from '../core/common-behaviors';
@@ -23,15 +24,8 @@ import {
   i18nTripDuration,
   i18nTripQuayChange,
 } from '../core/i18n';
-import {
-  getDepartureArrivalTimeAttribute,
-  isRideLeg,
-  ITripItem,
-  Notice,
-  PtRideLeg,
-  PtSituation,
-  VehicleModeEnum,
-} from '../core/timetable';
+import type { ITripItem, Notice, PtRideLeg, PtSituation, VehicleModeEnum } from '../core/timetable';
+import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable';
 import '../card';
 import '../icon';
 import '../pearl-chain-time';

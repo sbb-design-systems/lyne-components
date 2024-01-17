@@ -1,5 +1,6 @@
 import { spread } from '@open-wc/lit-helpers';
-import { CSSResultGroup, LitElement, nothing, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
@@ -7,11 +8,8 @@ import { LanguageController, SlotChildObserver } from '../../core/common-behavio
 import { setAttributes } from '../../core/dom';
 import { actionElementHandlerAspect, HandlerRepository } from '../../core/eventing';
 import { i18nTargetOpensInNewWindow } from '../../core/i18n';
-import {
-  LinkTargetType,
-  resolveLinkOrStaticRenderVariables,
-  targetsNewWindow,
-} from '../../core/interfaces';
+import type { LinkTargetType } from '../../core/interfaces';
+import { resolveLinkOrStaticRenderVariables, targetsNewWindow } from '../../core/interfaces';
 
 import style from './breadcrumb.scss?lit&inline';
 

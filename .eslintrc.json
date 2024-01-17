@@ -37,6 +37,7 @@
       ],
       "rules": {
         "@typescript-eslint/array-type": "error",
+        "@typescript-eslint/consistent-type-imports": "error",
         "@typescript-eslint/explicit-function-return-type": ["warn", { "allowExpressions": true }],
         "@typescript-eslint/explicit-member-accessibility": "error",
         "@typescript-eslint/naming-convention": [
@@ -87,6 +88,7 @@
         "@typescript-eslint/no-var-requires": "off",
         // TODO: Evaluate this rule
         "@typescript-eslint/semi": "error",
+
         "import/first": "error",
         "import/no-absolute-path": "error",
         "import/no-cycle": "error",

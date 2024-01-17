@@ -1,4 +1,4 @@
-import { ReactiveController, ReactiveControllerHost } from 'lit';
+import type { ReactiveController, ReactiveControllerHost } from 'lit';
 
 export class ConnectedAbortController implements ReactiveController {
   private _abortController = new AbortController();

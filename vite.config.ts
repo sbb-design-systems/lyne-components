@@ -3,7 +3,8 @@ import { join } from 'path';
 
 import * as glob from 'glob';
 import postcssLit from 'rollup-plugin-postcss-lit';
-import { ConfigEnv, PluginOption, ResolvedConfig, defineConfig } from 'vite';
+import type { ConfigEnv, PluginOption, ResolvedConfig } from 'vite';
+import { defineConfig } from 'vite';
 
 export const root = new URL('.', import.meta.url);
 

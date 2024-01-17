@@ -1,4 +1,4 @@
-import { ITripItem } from '../core/timetable';
+import type { ITripItem } from '../core/timetable';
 import {
   cancelledLeg,
   extendedLeg,

@@ -1,4 +1,5 @@
-import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -20,13 +21,13 @@ import {
   setAttribute,
 } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
+import type { SbbOverlayState } from '../../core/overlay';
 import {
   applyInertMechanism,
   getElementPosition,
   isEventOnElement,
   removeAriaOverlayTriggerAttributes,
   removeInertMechanism,
-  SbbOverlayState,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay';
 import type { SbbMenuActionElement } from '../menu-action';

@@ -1,6 +1,7 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { SinonStub, stub } from 'sinon';
+import type { SinonStub } from 'sinon';
+import { stub } from 'sinon';
 
 import { i18nOccupancy } from '../core/i18n';
 

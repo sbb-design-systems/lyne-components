@@ -16,17 +16,19 @@ import {
   SbbBreakpointUltraMax,
   SbbTypoScaleDefault,
 } from '@sbb-esta/lyne-design-tokens';
-import { CSSResultGroup, html, LitElement, nothing, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, eventOptions, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { hostContext, isBrowser } from '../core/dom';
 
-import imageHelperGetBreakpoints, {
+import type {
   InterfaceImageAttributes,
   InterfaceImageAttributesSizesConfigBreakpoint,
 } from './image.helper';
+import imageHelperGetBreakpoints from './image.helper';
 import style from './image.scss?lit&inline';
 
 const eventListenerOptions = {

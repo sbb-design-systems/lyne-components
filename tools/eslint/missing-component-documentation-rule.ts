@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { ESLintUtils, TSESLint, TSESTree } from '@typescript-eslint/utils';
+import type { TSESLint, TSESTree } from '@typescript-eslint/utils';
+import { ESLintUtils } from '@typescript-eslint/utils';
 import { parse, stringify } from 'comment-parser';
 
 const createRule = ESLintUtils.RuleCreator(

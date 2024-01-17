@@ -1,10 +1,17 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import { userEvent, within } from '@storybook/testing-library';
 import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
-import { StoryContext } from '@storybook/web-components';
+import type {
+  Args,
+  ArgTypes,
+  Decorator,
+  Meta,
+  StoryObj,
+  StoryContext,
+} from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { html, TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
+import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
