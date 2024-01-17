@@ -158,8 +158,8 @@ export class SbbDatepickerToggleElement extends LitElement {
     if (!this._datePickerElement) {
       return false;
     }
-    const dataNow = +(this._datePickerElement!.dataset.now as string);
-    return !isNaN(dataNow);
+    const dataNow = +(this._datePickerElement.dataset?.now as string);
+    return !!dataNow;
   }
 
   private _now(): Date | undefined {

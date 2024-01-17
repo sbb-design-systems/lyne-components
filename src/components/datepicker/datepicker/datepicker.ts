@@ -477,7 +477,7 @@ export class SbbDatepickerElement extends LitElement {
 
   private _hasDataNow(): boolean {
     const dataNow = +(this.dataset?.now as string);
-    return !isNaN(dataNow);
+    return !!dataNow;
   }
 
   private _parse(value: string): Date | undefined {
