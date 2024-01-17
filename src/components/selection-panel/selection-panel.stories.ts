@@ -368,14 +368,15 @@ const WithCheckboxesErrorMessageTemplate = ({
       orientation="vertical"
       horizontal-from="large"
       id="sbb-checkbox-group"
-      @change=${() => {
-        const hasChecked = Array.from(
-          document.getElementById('sbb-checkbox-group').querySelectorAll('sbb-checkbox'),
-        ).some((el) => el.checked);
+      @change=${(event: Event) => {
+        const checkboxGroup = event.currentTarget as HTMLElement;
+        const hasChecked = Array.from(checkboxGroup.querySelectorAll('sbb-checkbox')).some(
+          (el) => el.checked,
+        );
         if (hasChecked) {
           sbbFormError.remove();
         } else {
-          document.getElementById('sbb-checkbox-group').append(sbbFormError);
+          checkboxGroup.append(sbbFormError);
         }
       }}
     >
@@ -420,7 +421,7 @@ const WithRadiosErrorMessageTemplate = ({
         if (event.detail.value) {
           sbbFormError.remove();
         } else {
-          document.getElementById('sbb-radio-group').append(sbbFormError);
+          event.currentTarget.append(sbbFormError);
         }
       }}
     >

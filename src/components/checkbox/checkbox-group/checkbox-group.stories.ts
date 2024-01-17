@@ -84,10 +84,10 @@ const childCheck = (event): void => {
     selectedCheckboxes.splice(selectedCheckboxes.indexOf(event.target.value), 1);
   }
   document
-    .getElementById('parent')
+    .getElementById('invariant-parent')
     ?.setAttribute('indeterminate', String(selectedCheckboxes.length === 1));
   document
-    .getElementById('parent')
+    .getElementById('invariant-parent')
     ?.setAttribute('checked', String(selectedCheckboxes.length === 2));
 };
 
@@ -97,8 +97,8 @@ const parentCheck = (event): void => {
   } else {
     selectedCheckboxes = [];
   }
-  document.getElementById('checkbox-1')?.setAttribute('checked', event.target.checked);
-  document.getElementById('checkbox-2')?.setAttribute('checked', event.target.checked);
+  document.getElementById('invariant-checkbox-1')?.setAttribute('checked', event.target.checked);
+  document.getElementById('invariant-checkbox-2')?.setAttribute('checked', event.target.checked);
 };
 
 const IndeterminateGroupTemplate = ({
@@ -114,7 +114,7 @@ const IndeterminateGroupTemplate = ({
   </div>
   <sbb-checkbox-group ${sbbSpread(args)} id="sbb-checkbox-group">
     <sbb-checkbox
-      id="parent"
+      id="invariant-parent"
       value="parent"
       ?checked=${false}
       ?indeterminate=${true}
@@ -125,7 +125,7 @@ const IndeterminateGroupTemplate = ({
       Parent checkbox
     </sbb-checkbox>
     <sbb-checkbox
-      id="checkbox-1"
+      id="invariant-checkbox-1"
       value="checkbox-1"
       ?checked=${true}
       @change=${(event) => childCheck(event)}
@@ -137,7 +137,7 @@ const IndeterminateGroupTemplate = ({
       ${label} option 1
     </sbb-checkbox>
     <sbb-checkbox
-      id="checkbox-2"
+      id="invariant-checkbox-2"
       value="checkbox-2"
       ?checked=${false}
       @change=${(event) => childCheck(event)}

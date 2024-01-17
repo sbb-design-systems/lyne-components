@@ -13,7 +13,7 @@ import '../icon';
 const changeEventHandler = (event): void => {
   const div = document.createElement('div');
   div.innerText = `current value is: ${event.target.value}. Min is: ${event.target.min}. Max is ${event.target.max}.`;
-  document.getElementById('container-value').prepend(div);
+  (event.currentTarget as HTMLElement).parentElement.querySelector('#container-value').prepend(div);
 };
 
 const TemplateSbbSlider = (args: Args): TemplateResult =>
