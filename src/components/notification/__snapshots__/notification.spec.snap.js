@@ -3,7 +3,10 @@ export const snapshots = {};
 
 snapshots["sbb-notification renders"] = 
 `<div class="sbb-notification__wrapper">
-  <div class="sbb-notification">
+  <div
+    class="sbb-notification"
+    role="status"
+  >
     <sbb-icon
       aria-hidden="true"
       class="sbb-notification__icon"
@@ -53,7 +56,10 @@ snapshots["sbb-notification renders"] =
 
 snapshots["sbb-notification renders with a title"] = 
 `<div class="sbb-notification__wrapper">
-  <div class="sbb-notification">
+  <div
+    class="sbb-notification"
+    role="status"
+  >
     <sbb-icon
       aria-hidden="true"
       class="sbb-notification__icon"
@@ -104,7 +110,10 @@ snapshots["sbb-notification renders with a title"] =
 
 snapshots["sbb-notification renders with a slotted title"] = 
 `<div class="sbb-notification__wrapper">
-  <div class="sbb-notification">
+  <div
+    class="sbb-notification"
+    role="status"
+  >
     <sbb-icon
       aria-hidden="true"
       class="sbb-notification__icon"
@@ -154,7 +163,10 @@ snapshots["sbb-notification renders with a slotted title"] =
 
 snapshots["sbb-notification renders without the close button"] = 
 `<div class="sbb-notification__wrapper">
-  <div class="sbb-notification">
+  <div
+    class="sbb-notification"
+    role="status"
+  >
     <sbb-icon
       aria-hidden="true"
       class="sbb-notification__icon"

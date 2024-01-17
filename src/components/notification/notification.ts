@@ -129,7 +129,7 @@ export class SbbNotificationElement extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.setAttribute('role', this.getAttribute('role') ?? 'status');
+    // this.setAttribute('role', this.getAttribute('role') ?? 'status');
     this._setInlineLinks();
   }
 
@@ -142,6 +142,9 @@ export class SbbNotificationElement extends LitElement {
     await this.updateComplete;
     this._setNotificationHeight();
     this._open();
+    this.shadowRoot
+      .querySelector('.sbb-notification')
+      .setAttribute('role', this.getAttribute('role') ?? 'status');
   }
 
   public override disconnectedCallback(): void {
