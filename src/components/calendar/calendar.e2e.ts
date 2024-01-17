@@ -173,9 +173,11 @@ describe('sbb-calendar', () => {
     expect(yearCells[yearCells.length - 1].innerText).to.be.equal('2039');
 
     yearButton.click();
+    await waitForCondition(() => animationSpy.events.length >= 1); //Wait for hide table transition
 
-    await waitForCondition(() => animationSpy.events.length >= 1);
-    await waitForLitRender(element);
+    animationSpy = new EventSpy('animationend', element.shadowRoot.querySelector('table')); // Listen for the event on new table
+
+    await waitForCondition(() => animationSpy.events.length >= 1); //Wait for new table's transition to end
 
     const monthSelection: HTMLElement = element.shadowRoot!.querySelector(
       '#sbb-calendar__month-selection',
