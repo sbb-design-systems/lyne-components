@@ -16,7 +16,7 @@ Simple teaser example:
 
 ## Slots
 
-The default slot is reserved for the description. The component displays the `image` and the `title` the self-named slots.
+The default slot is reserved for the description. The component displays the `image` and the `title` with the self-named slots.
 It's also possible to display a [sbb-chip](/docs/components-sbb-chip--docs) using the `chip` slot.
 
 ```html
