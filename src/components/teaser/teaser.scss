@@ -94,13 +94,14 @@
   }
 }
 
-.sbb-teaser__chip-container {
-  display: block;
-  line-height: initial;
-}
-
 .sbb-teaser__chip {
+  display: block;
+  max-width: fit-content;
   margin-block-end: var(--sbb-spacing-fixed-1x);
+
+  :host(:not([data-slot-names~='chip'], [chip-content])) & {
+    display: none;
+  }
 }
 
 .sbb-teaser__lead {
@@ -117,10 +118,6 @@
   @include sbb.text-s--regular;
 
   color: var(--sbb-teaser-description-color);
-}
-
-::slotted([slot='description']) {
-  margin-block: 0;
 }
 
 .sbb-teaser__opens-in-new-window {

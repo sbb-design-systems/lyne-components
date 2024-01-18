@@ -1,6 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
-import { Args } from '@storybook/web-components';
-import { TemplateResult } from 'lit';
+import type { Args } from '@storybook/web-components';
+import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
 import { sbbSpread } from '../core/dom';
@@ -14,77 +14,77 @@ describe('sbb-teaser', () => {
     return html`<sbb-teaser ${sbbSpread(args)}></sbb-teaser>`;
   };
 
-  const argsEndCentered: Args = {
+  const argsAfterCentered: Args = {
     href: 'https://github.com/lyne-design-system/lyne-components',
-    alignment: 'end-centered',
-    'aria-label': 'Sbb teaser',
+    alignment: 'after-centered',
+    'aria-label': 'SBB teaser',
   };
 
-  const argsEndTop: Args = {
-    ...argsEndCentered,
-    alignment: 'end-top',
+  const argsAfter: Args = {
+    ...argsAfterCentered,
+    alignment: 'after',
     'title-level': '2',
   };
 
-  it('renders end centered - DOM', async () => {
-    const root: SbbTeaserElement = await fixture(createTeaser(argsEndCentered));
-    expect(root).dom.to.equalSnapshot();
+  it('renders after centered - DOM', async () => {
+    const root: SbbTeaserElement = await fixture(createTeaser(argsAfterCentered));
+    await expect(root).dom.to.equalSnapshot();
   });
 
-  it('renders end centered - ShadowDOM', async () => {
-    const root: SbbTeaserElement = await fixture(createTeaser(argsEndCentered));
-    expect(root).shadowDom.to.equalSnapshot();
+  it('renders after centered - ShadowDOM', async () => {
+    const root: SbbTeaserElement = await fixture(createTeaser(argsAfterCentered));
+    await expect(root).shadowDom.to.equalSnapshot();
   });
 
-  it('renders end top with title level set - DOM', async () => {
-    const root: SbbTeaserElement = await fixture(createTeaser(argsEndTop));
-    expect(root).dom.to.equalSnapshot();
+  it('renders after with title level set - DOM', async () => {
+    const root: SbbTeaserElement = await fixture(createTeaser(argsAfter));
+    await expect(root).dom.to.equalSnapshot();
   });
 
-  it('renders end top with title level set - ShadowDOM', async () => {
-    const root: SbbTeaserElement = await fixture(createTeaser(argsEndTop));
-    expect(root).shadowDom.to.equalSnapshot();
+  it('renders after with title level set - ShadowDOM', async () => {
+    const root: SbbTeaserElement = await fixture(createTeaser(argsAfter));
+    await expect(root).shadowDom.to.equalSnapshot();
   });
 
-  it('renders bottom with projected content - DOM', async () => {
+  it('renders below with projected content - DOM', async () => {
     const root: SbbTeaserElement = await fixture(html`
       <sbb-teaser
         href="https://github.com/lyne-design-system/lyne-components"
-        aria-label="Sbb teaser"
-        alignment="bottom"
+        aria-label="SBB teaser"
+        alignment="below"
       >
         <img slot="image" src=${images[0]} alt="400x300" />
         <span slot="chip">Chip</span>
         <span slot="title">TITLE</span>
-        <p slot="description">description</p>
+        description
       </sbb-teaser>
     `);
-    expect(root).dom.to.equalSnapshot();
+    await expect(root).dom.to.equalSnapshot();
   });
 
-  it('renders bottom with projected content - ShadowDOM', async () => {
+  it('renders below with projected content - ShadowDOM', async () => {
     const root: SbbTeaserElement = await fixture(html`
       <sbb-teaser
         href="https://github.com/lyne-design-system/lyne-components"
-        aria-label="Sbb teaser"
-        alignment="bottom"
+        aria-label="SBB teaser"
+        alignment="below"
       >
         <img slot="image" src=${images[0]} alt="400x300" />
         <span slot="chip">Chip</span>
         <span slot="title">TITLE</span>
-        <p slot="description">description</p>
+        description
       </sbb-teaser>
     `);
-    expect(root).shadowDom.to.equalSnapshot();
+    await expect(root).shadowDom.to.equalSnapshot();
   });
 
   it('renders static - DOM', async () => {
-    const root: SbbTeaserElement = await fixture(createTeaser({ alignment: 'end-centered' }));
-    expect(root).dom.to.equalSnapshot();
+    const root: SbbTeaserElement = await fixture(createTeaser({ alignment: 'after-centered' }));
+    await expect(root).dom.to.equalSnapshot();
   });
 
   it('renders static - ShadowDOM', async () => {
-    const root: SbbTeaserElement = await fixture(createTeaser({ alignment: 'end-centered' }));
-    expect(root).shadowDom.to.equalSnapshot();
+    const root: SbbTeaserElement = await fixture(createTeaser({ alignment: 'after-centered' }));
+    await expect(root).shadowDom.to.equalSnapshot();
   });
 });
