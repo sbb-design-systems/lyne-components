@@ -29,7 +29,8 @@ export class SbbTeaserElement extends LitElement implements LinkProperties {
   public static override styles: CSSResultGroup = style;
 
   /** Teaser variant - define the position and the alignment of the text block. */
-  @property({ reflect: true }) public alignment: 'after-centered' | 'after' | 'below';
+  @property({ reflect: true }) public alignment: 'after-centered' | 'after' | 'below' =
+    'after-centered';
 
   /** Heading level of the sbb-title element (e.g. h1-h6). */
   @property({ attribute: 'title-level' }) public titleLevel: TitleLevel = '5';

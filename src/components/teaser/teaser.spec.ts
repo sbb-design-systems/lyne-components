@@ -1,5 +1,4 @@
 import { expect, fixture } from '@open-wc/testing';
-import type { Args } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
@@ -10,17 +9,17 @@ import type { SbbTeaserElement } from './teaser';
 import './teaser';
 
 describe('sbb-teaser', () => {
-  const createTeaser = (args: Args): TemplateResult => {
+  const createTeaser = (args: Record<string, string>): TemplateResult => {
     return html`<sbb-teaser ${sbbSpread(args)}></sbb-teaser>`;
   };
 
-  const argsAfterCentered: Args = {
+  const argsAfterCentered = {
     href: 'https://github.com/lyne-design-system/lyne-components',
     alignment: 'after-centered',
     'aria-label': 'SBB teaser',
   };
 
-  const argsAfter: Args = {
+  const argsAfter = {
     ...argsAfterCentered,
     alignment: 'after',
     'title-level': '2',
