@@ -15,37 +15,23 @@ const loremIpsum: string = `Lorem ipsum dolor sit amet, consetetur sadipscing el
 invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
 rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.`;
 
-const title: InputType = {
+const titleContent: InputType = {
   control: {
     type: 'text',
   },
-  table: {
-    category: 'General',
-  },
 };
 
-const description: InputType = {
+const chipContent: InputType = {
   control: {
     type: 'text',
   },
-  table: {
-    category: 'General',
-  },
 };
 
-const ariaLabel: InputType = {
+const alignment: InputType = {
   control: {
-    type: 'text',
+    type: 'select',
   },
-  table: {
-    category: 'General',
-  },
-};
-
-const isStacked: InputType = {
-  control: {
-    type: 'boolean',
-  },
+  options: ['after-centered', 'after', 'below'],
 };
 
 const hrefs: string[] = [
@@ -67,72 +53,165 @@ const href: InputType = {
   },
 };
 
+const description: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const ariaLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
-  title,
+  'title-content': titleContent,
+  'chip-content': chipContent,
+  alignment,
+  href,
   description,
   'aria-label': ariaLabel,
-  'is-stacked': isStacked,
-  href,
 };
 
 const defaultArgs: Args = {
-  title: 'This is a title',
-  description: 'This is a paragraph',
-  'aria-label': `The text which gets exposed to screen reader users. The text should reflect all the information which gets passed
-    into the components slots and which is visible in the Teaser, either through text or iconography`,
-  'is-stacked': true,
+  'title-content': 'This is a title',
+  'chip-content': undefined,
+  alignment: 'after-centered',
   href: href.options[1],
+  description: 'This is a paragraph',
+  'aria-label':
+    'The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the Teaser, either through text or iconography',
 };
 
-const TemplateDefaultTeaser = ({ title, description, ...remainingArgs }: Args): TemplateResult => {
+const TemplateDefault = ({ description, ...remainingArgs }: Args): TemplateResult => {
   return html`
     <sbb-teaser ${sbbSpread(remainingArgs)}>
       <img slot="image" src=${placeholderImage} alt="400x300" />
-      <span slot="title">${title}</span>
-      <p slot="description">${description}</p>
+      ${description}
     </sbb-teaser>
   `;
 };
 
-const TemplateTeaserList = (args: Args): TemplateResult => html`
-  <ul
-    style="display: grid; list-style: none; grid-template-columns: repeat(auto-fit, 20rem); gap: 2rem;"
-  >
-    ${repeat(new Array(6), () => html`<li>${TemplateDefaultTeaser(args)}</li>`)}
+const TemplateCustom = ({ description, ...remainingArgs }: Args): TemplateResult => {
+  return html`
+    <sbb-teaser ${sbbSpread(remainingArgs)}>
+      <img
+        slot="image"
+        src=${placeholderImage}
+        alt="200x100"
+        style="width: 200px; aspect-ratio: 2/1;"
+      />
+      ${description}
+    </sbb-teaser>
+  `;
+};
+
+const TemplateSlots = ({
+  'title-content': titleContent,
+  'chip-content': chipContent,
+  description,
+  ...remainingArgs
+}: Args): TemplateResult => {
+  return html`
+    <sbb-teaser ${sbbSpread(remainingArgs)}>
+      <img slot="image" src=${placeholderImage} alt="400x300" />
+      <span slot="chip">${chipContent}</span>
+      <span slot="title">${titleContent}</span>
+      ${description}
+    </sbb-teaser>
+  `;
+};
+
+const TemplateList = (args: Args): TemplateResult => html`
+  <ul style="list-style: none;">
+    ${repeat(
+      new Array(6),
+      () => html`<li style="margin-block: 1rem;">${TemplateDefault(args)}</li>`,
+    )}
   </ul>
 `;
 
-const TemplateTeaserListIsStacked = (args: Args): TemplateResult => html`
-  <ul
-    style="display: grid; list-style: none; grid-template-columns: repeat(auto-fit, 20rem); gap: 2rem;"
-  >
-    ${repeat(new Array(4), () => html`<li>${TemplateDefaultTeaser(args)}</li>`)}
-  </ul>
-`;
-
-export const defaultTeaser: StoryObj = {
-  render: TemplateDefaultTeaser,
+export const AfterCentered: StoryObj = {
+  render: TemplateDefault,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };
-export const TeaserWithLongText: StoryObj = {
-  render: TemplateDefaultTeaser,
+
+export const After: StoryObj = {
+  render: TemplateDefault,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, alignment: 'after' },
+};
+
+export const Below: StoryObj = {
+  render: TemplateDefault,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, alignment: 'below' },
+};
+
+export const AfterCenteredChip: StoryObj = {
+  render: TemplateDefault,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, alignment: 'after-centered', 'chip-content': 'This is a chip.' },
+};
+
+export const AfterChip: StoryObj = {
+  render: TemplateDefault,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, alignment: 'after', 'chip-content': 'This is a chip.' },
+};
+
+export const BelowChip: StoryObj = {
+  render: TemplateDefault,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, alignment: 'below', 'chip-content': 'This is a chip.' },
+};
+
+export const WithLongTextCentered: StoryObj = {
+  render: TemplateDefault,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'title-content': loremIpsum, description: loremIpsum },
+};
+
+export const WithLongTextAfter: StoryObj = {
+  render: TemplateDefault,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    title: loremIpsum,
+    'title-content': loremIpsum,
     description: loremIpsum,
+    alignment: 'after',
   },
 };
-export const teaserList: StoryObj = {
-  render: TemplateTeaserList,
+
+export const WithLongTextBelow: StoryObj = {
+  render: TemplateDefault,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'is-stacked': false },
+  args: {
+    ...defaultArgs,
+    'title-content': loremIpsum,
+    description: loremIpsum,
+    alignment: 'below',
+  },
 };
-export const teaserListIsStacked: StoryObj = {
-  render: TemplateTeaserListIsStacked,
+
+export const WithCustomWidthAndAspectRatio: StoryObj = {
+  render: TemplateCustom,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
+};
+
+export const List: StoryObj = {
+  render: TemplateList,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const WithSlots: StoryObj = {
+  render: TemplateSlots,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'chip-content': 'Chip content' },
 };
 
 const meta: Meta = {

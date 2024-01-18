@@ -1,71 +1,89 @@
 import { expect, fixture } from '@open-wc/testing';
+import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
+
+import { sbbSpread } from '../core/dom';
+import images from '../core/images';
+
+import type { SbbTeaserElement } from './teaser';
 import './teaser';
-import '../title';
 
 describe('sbb-teaser', () => {
-  describe('sbb-teaser is stacked', () => {
-    it('renders', async () => {
-      const root = await fixture(
-        html`<sbb-teaser
-          href="https://github.com/lyne-design-system/lyne-components"
-          is-stacked
-          aria-label="Sbb teaser"
-        ></sbb-teaser>`,
-      );
+  const createTeaser = (args: Record<string, string>): TemplateResult => {
+    return html`<sbb-teaser ${sbbSpread(args)}></sbb-teaser>`;
+  };
 
-      expect(root).dom.to.be.equal(
-        `
-        <sbb-teaser aria-label="Sbb teaser" href="https://github.com/lyne-design-system/lyne-components" is-stacked role="link" tabindex="0" dir="ltr">
-        </sbb-teaser>
-        `,
-      );
-      expect(root).shadowDom.to.be.equal(
-        `
-          <a class="sbb-teaser" href="https://github.com/lyne-design-system/lyne-components" role="presentation" tabindex="-1">
-            <span class="sbb-teaser__container">
-              <span class='sbb-teaser__image-wrapper'><slot name='image'></slot></span>
-              <span class='sbb-teaser__text'>
-                <sbb-title aria-level="5" role="heading" class="sbb-teaser__lead" level="5" visual-level="5">
-                  <slot name='title'></slot>
-                </sbb-title>
-              <p class='sbb-teaser__description'><slot name='description'></slot></p>
-            </span>
-          </a>
-        `,
-      );
-    });
+  const argsAfterCentered = {
+    href: 'https://github.com/lyne-design-system/lyne-components',
+    alignment: 'after-centered',
+    'aria-label': 'SBB teaser',
+  };
+
+  const argsAfter = {
+    ...argsAfterCentered,
+    alignment: 'after',
+    'title-level': '2',
+  };
+
+  it('renders after centered - DOM', async () => {
+    const root: SbbTeaserElement = await fixture(createTeaser(argsAfterCentered));
+    await expect(root).dom.to.equalSnapshot();
   });
-  describe('sbb-teaser is not stacked', () => {
-    it('renders', async () => {
-      const root = await fixture(
-        html`<sbb-teaser
-          href="https://github.com/lyne-design-system/lyne-components"
-          aria-label="Sbb teaser"
-        ></sbb-teaser>`,
-      );
 
-      expect(root).dom.to.be.equal(
-        `
-        <sbb-teaser aria-label="Sbb teaser" href="https://github.com/lyne-design-system/lyne-components" role="link" tabindex="0" dir="ltr">
-        </sbb-teaser>
-        `,
-      );
-      expect(root).shadowDom.to.be.equal(
-        `
-          <a class="sbb-teaser" href="https://github.com/lyne-design-system/lyne-components" role="presentation" tabindex="-1">
-            <span class="sbb-teaser__container">
-              <span class='sbb-teaser__image-wrapper'><slot name='image'></slot></span>
-                <span class='sbb-teaser__text'>
-                  <sbb-title aria-level="5" role="heading" class="sbb-teaser__lead" level="5" visual-level="5">
-                    <slot name='title'></slot>
-                  </sbb-title>
-                <p class='sbb-teaser__description'><slot name='description'></slot></p>
-              </span>
-            </span>
-          </a>
-        `,
-      );
-    });
+  it('renders after centered - ShadowDOM', async () => {
+    const root: SbbTeaserElement = await fixture(createTeaser(argsAfterCentered));
+    await expect(root).shadowDom.to.equalSnapshot();
+  });
+
+  it('renders after with title level set - DOM', async () => {
+    const root: SbbTeaserElement = await fixture(createTeaser(argsAfter));
+    await expect(root).dom.to.equalSnapshot();
+  });
+
+  it('renders after with title level set - ShadowDOM', async () => {
+    const root: SbbTeaserElement = await fixture(createTeaser(argsAfter));
+    await expect(root).shadowDom.to.equalSnapshot();
+  });
+
+  it('renders below with projected content - DOM', async () => {
+    const root: SbbTeaserElement = await fixture(html`
+      <sbb-teaser
+        href="https://github.com/lyne-design-system/lyne-components"
+        aria-label="SBB teaser"
+        alignment="below"
+      >
+        <img slot="image" src=${images[0]} alt="400x300" />
+        <span slot="chip">Chip</span>
+        <span slot="title">TITLE</span>
+        description
+      </sbb-teaser>
+    `);
+    await expect(root).dom.to.equalSnapshot();
+  });
+
+  it('renders below with projected content - ShadowDOM', async () => {
+    const root: SbbTeaserElement = await fixture(html`
+      <sbb-teaser
+        href="https://github.com/lyne-design-system/lyne-components"
+        aria-label="SBB teaser"
+        alignment="below"
+      >
+        <img slot="image" src=${images[0]} alt="400x300" />
+        <span slot="chip">Chip</span>
+        <span slot="title">TITLE</span>
+        description
+      </sbb-teaser>
+    `);
+    await expect(root).shadowDom.to.equalSnapshot();
+  });
+
+  it('renders static - DOM', async () => {
+    const root: SbbTeaserElement = await fixture(createTeaser({ alignment: 'after-centered' }));
+    await expect(root).dom.to.equalSnapshot();
+  });
+
+  it('renders static - ShadowDOM', async () => {
+    const root: SbbTeaserElement = await fixture(createTeaser({ alignment: 'after-centered' }));
+    await expect(root).shadowDom.to.equalSnapshot();
   });
 });
