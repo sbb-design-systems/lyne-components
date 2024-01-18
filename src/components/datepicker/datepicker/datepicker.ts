@@ -12,7 +12,7 @@ import {
   isValidAttribute,
   toggleDatasetEntry,
 } from '../../core/dom';
-import { ConnectedAbortController, EventEmitter, InputUpdateEvent } from '../../core/eventing';
+import { ConnectedAbortController, EventEmitter, type InputUpdateEvent } from '../../core/eventing';
 import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n';
 import type { ValidationChangeEvent, SbbDateLike } from '../../core/interfaces';
 import { AgnosticMutationObserver } from '../../core/observers';

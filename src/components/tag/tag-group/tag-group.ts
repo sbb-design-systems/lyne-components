@@ -5,7 +5,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { SlotChildObserver } from '../../core/common-behaviors';
 import { setAttribute } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
-import { SbbStateChange } from '../../core/interfaces';
+import type { SbbStateChange } from '../../core/interfaces';
 import type { SbbTagElement, SbbTagStateChange } from '../tag';
 
 import style from './tag-group.scss?lit&inline';

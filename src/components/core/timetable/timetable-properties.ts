@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import icons from './icons.json';
 
 export interface ScheduledStopPointDetail {
   /** delay at arrival/departure (in minutes) */
@@ -370,20 +369,3 @@ export type ServiceJourney = {
   /** List of stop points */
   stopPoints: ScheduledStopPoint[];
 };
-
-export interface SbbTransportationIcons {
-  icon: keyof typeof icons;
-  text: string;
-}
-
-export interface SbbTransportationPicto {
-  picto: keyof typeof icons;
-  text: string;
-}
-
-export interface SbbTransportationConfig {
-  direction: string;
-  marketingName: string;
-  meansOfTransport: SbbTransportationPicto;
-  product: SbbTransportationIcons;
-}

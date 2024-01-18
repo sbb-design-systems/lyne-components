@@ -7,7 +7,7 @@ import type { SbbCheckboxElement, SbbCheckboxStateChange } from '../checkbox';
 import { NamedSlotStateController } from '../core/common-behaviors';
 import { setAttribute } from '../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../core/eventing';
-import { SbbStateChange } from '../core/interfaces';
+import type { SbbStateChange } from '../core/interfaces';
 import type { SbbRadioButtonElement, SbbRadioButtonStateChange } from '../radio-button';
 
 import style from './selection-panel.scss?lit&inline';

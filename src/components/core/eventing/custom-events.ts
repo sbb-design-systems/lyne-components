@@ -1,5 +1,5 @@
-import { SbbStateChange } from '../interfaces';
-import { ValidationChangeEvent } from '../interfaces/validation-change';
+import type { SbbStateChange } from '../interfaces';
+import type { ValidationChangeEvent } from '../interfaces/validation-change';
 
 export interface InputUpdateEvent {
   disabled?: boolean;

@@ -2,7 +2,7 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { SbbButtonElement } from '../button';
+import type { SbbButtonElement } from '../button';
 import { waitForCondition } from '../core/testing';
 
 import { SbbMapContainerElement } from './map-container';
