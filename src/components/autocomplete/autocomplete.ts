@@ -230,9 +230,11 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
     }
     this._syncNegative();
 
-    this.addEventListener('optionSelectionChange', (e: CustomEvent) => this._onOptionSelected(e), {
-      signal,
-    });
+    this.addEventListener(
+      'optionSelectionChange',
+      (e: CustomEvent<void>) => this._onOptionSelected(e),
+      { signal },
+    );
     this.addEventListener('click', (e: MouseEvent) => this._onOptionClick(e), { signal });
   }
 

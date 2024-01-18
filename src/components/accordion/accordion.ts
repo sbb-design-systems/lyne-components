@@ -99,7 +99,7 @@ export class SbbAccordionElement extends LitElement {
     const signal = this._abort.signal;
     this.addEventListener(
       SbbExpansionPanelElement.events.willOpen,
-      (e: CustomEvent) => this._closePanels(e),
+      (e: CustomEvent<void>) => this._closePanels(e),
       { signal },
     );
   }

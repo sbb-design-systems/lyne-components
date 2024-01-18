@@ -1,7 +1,6 @@
 export * from './action-element-handlers';
 export * from './composed-path-has-attribute';
 export * from './connected-abort-controller';
-export * from './custom-events';
 export * from './event-emitter';
 export * from './event-target';
 export * from './form-element-handlers';

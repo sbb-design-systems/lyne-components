@@ -7,11 +7,10 @@ import type { SbbCalendarElement } from '../../calendar';
 import { sbbInputModalityDetector } from '../../core/a11y';
 import { LanguageController } from '../../core/common-behaviors';
 import { isValidAttribute, setAttribute } from '../../core/dom';
-import type { InputUpdateEvent } from '../../core/eventing';
 import { i18nShowCalendar } from '../../core/i18n';
 import type { SbbTooltipElement, SbbTooltipTriggerElement } from '../../tooltip';
 import { datepickerControlRegisteredEventFactory, getDatePicker } from '../datepicker';
-import type { SbbDatepickerElement } from '../datepicker';
+import type { SbbDatepickerElement, InputUpdateEvent } from '../datepicker';
 import '../../calendar';
 import '../../tooltip';
 

@@ -316,4 +316,8 @@ declare global {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'sbb-option': SbbOptionElement;
   }
+
+  interface GlobalEventHandlersEventMap {
+    optionSelectionChange: CustomEvent<void>;
+  }
 }

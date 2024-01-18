@@ -278,7 +278,11 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
       this._onValueChanged(this.value);
     }
 
-    this.addEventListener('optionSelectionChange', (e) => this._onOptionChanged(e), { signal });
+    this.addEventListener(
+      'optionSelectionChange',
+      (e: CustomEvent<void>) => this._onOptionChanged(e),
+      { signal },
+    );
     this.addEventListener(
       'click',
       (e: MouseEvent) => {

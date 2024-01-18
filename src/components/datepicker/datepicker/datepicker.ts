@@ -1,5 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { LitElement, html } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { LanguageController } from '../../core/common-behaviors';
@@ -12,9 +12,9 @@ import {
   isValidAttribute,
   toggleDatasetEntry,
 } from '../../core/dom';
-import { ConnectedAbortController, EventEmitter, type InputUpdateEvent } from '../../core/eventing';
+import { ConnectedAbortController, EventEmitter } from '../../core/eventing';
 import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n';
-import type { ValidationChangeEvent, SbbDateLike } from '../../core/interfaces';
+import type { SbbDateLike, ValidationChangeEvent } from '../../core/interfaces';
 import { AgnosticMutationObserver } from '../../core/observers';
 import type { SbbDatepickerNextDayElement } from '../datepicker-next-day';
 import type { SbbDatepickerPreviousDayElement } from '../datepicker-previous-day';
@@ -24,6 +24,13 @@ import style from './datepicker.scss?lit&inline';
 
 const FORMAT_DATE =
   /(^0?[1-9]?|[12]?[0-9]?|3?[01]?)[.,\\/\-\s](0?[1-9]?|1?[0-2]?)?[.,\\/\-\s](\d{1,4}$)?/;
+
+export interface InputUpdateEvent {
+  disabled?: boolean;
+  readonly?: boolean;
+  min?: string | number;
+  max?: string | number;
+}
 
 /**
  * Given a SbbDatepickerPreviousDayElement, a SbbDatepickerNextDayElement or a SbbDatepickerToggleElement component,
@@ -515,5 +522,9 @@ declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'sbb-datepicker': SbbDatepickerElement;
+  }
+
+  interface GlobalEventHandlersEventMap {
+    inputUpdated: CustomEvent<InputUpdateEvent>;
   }
 }

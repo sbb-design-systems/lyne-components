@@ -10,7 +10,6 @@ import {
   ConnectedAbortController,
   HandlerRepository,
   actionElementHandlerAspect,
-  type InputUpdateEvent,
 } from '../../core/eventing';
 import { i18nNextDay, i18nSelectNextDay, i18nToday } from '../../core/i18n';
 import type { ButtonProperties } from '../../core/interfaces';
@@ -20,7 +19,7 @@ import {
   findNextAvailableDate,
   getDatePicker,
 } from '../datepicker';
-import type { SbbDatepickerElement } from '../datepicker';
+import type { SbbDatepickerElement, InputUpdateEvent } from '../datepicker';
 import '../../icon';
 
 import style from './datepicker-next-day.scss?lit&inline';

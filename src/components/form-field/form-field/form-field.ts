@@ -130,8 +130,8 @@ export class SbbFormFieldElement extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
-    this.addEventListener('willOpen', (e) => this._onPopupOpen(e), { signal });
-    this.addEventListener('didClose', (e) => this._onPopupClose(e), { signal });
+    this.addEventListener('willOpen', (e: CustomEvent<void>) => this._onPopupOpen(e), { signal });
+    this.addEventListener('didClose', (e: CustomEvent<void>) => this._onPopupClose(e), { signal });
     this._registerInputListener();
     this._syncNegative();
   }
