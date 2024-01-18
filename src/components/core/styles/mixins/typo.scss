@@ -12,6 +12,8 @@
     --sbb-title-margin-block-end: var(--sbb-spacing-responsive-s);
   }
 
+  @include font-smoothing;
+
   margin: 0;
   margin-block: var(--sbb-title-margin-block-start) var(--sbb-title-margin-block-end);
   font-family: var(--sbb-typo-type-face-sbb-bold);

@@ -55,8 +55,6 @@
 }
 
 .sbb-title {
-  @include sbb.font-smoothing;
-
   color: var(--sbb-title-text-color-normal);
 
   :host([visually-hidden]) & {
