@@ -21,10 +21,7 @@ export class NativeDateAdapter implements DateAdapter<Date> {
    * Calculates the day of the week of the first day of the month, and then its offset from the first day of the week.
    */
   public getFirstWeekOffset(year: number, month: number): number {
-    const firstOfMonth = this.createDate(year, month, 1);
-    if (!firstOfMonth) {
-      return 0;
-    }
+    const firstOfMonth = this.createDate(year, month, 1)!;
     return (
       (DAYS_PER_ROW + this.getDayOfWeek(firstOfMonth) - this.getFirstDayOfWeek()) % DAYS_PER_ROW
     );
