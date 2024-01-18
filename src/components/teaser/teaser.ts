@@ -91,9 +91,9 @@ export class SbbTeaserElement extends LitElement implements LinkProperties {
             <sbb-title level=${this.titleLevel} visual-level="5" class="sbb-teaser__lead">
               <slot name="title">${this.titleContent}</slot>
             </sbb-title>
-            <p class="sbb-teaser__description">
+            <span class="sbb-teaser__description">
               <slot></slot>
-            </p>
+            </span>
             ${
               targetsNewWindow(this)
                 ? html`<span class="sbb-teaser__opens-in-new-window">

@@ -45,10 +45,10 @@ snapshots["sbb-teaser renders after centered - ShadowDOM"] =
         <slot name="title">
         </slot>
       </sbb-title>
-      <p class="sbb-teaser__description">
+      <span class="sbb-teaser__description">
         <slot>
         </slot>
-      </p>
+      </span>
     </span>
   </span>
 </a>
@@ -100,10 +100,10 @@ snapshots["sbb-teaser renders after with title level set - ShadowDOM"] =
         <slot name="title">
         </slot>
       </sbb-title>
-      <p class="sbb-teaser__description">
+      <span class="sbb-teaser__description">
         <slot>
         </slot>
-      </p>
+      </span>
     </span>
   </span>
 </a>
@@ -167,10 +167,10 @@ snapshots["sbb-teaser renders below with projected content - ShadowDOM"] =
         <slot name="title">
         </slot>
       </sbb-title>
-      <p class="sbb-teaser__description">
+      <span class="sbb-teaser__description">
         <slot>
         </slot>
-      </p>
+      </span>
     </span>
   </span>
 </a>
@@ -212,10 +212,10 @@ snapshots["sbb-teaser renders static - ShadowDOM"] =
         <slot name="title">
         </slot>
       </sbb-title>
-      <p class="sbb-teaser__description">
+      <span class="sbb-teaser__description">
         <slot>
         </slot>
-      </p>
+      </span>
     </span>
   </span>
 </span>

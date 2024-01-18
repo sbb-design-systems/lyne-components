@@ -110,13 +110,9 @@
 }
 
 .sbb-teaser__description {
-  // Reset paragraph styles
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-
   @include sbb.text-s--regular;
 
+  display: inline-block;
   color: var(--sbb-teaser-description-color);
 }
 
