@@ -56,7 +56,7 @@ export class NamedSlotStateController implements ReactiveController {
       }
     }
 
-    const oldValue = this._host.getAttribute!('test');
+    const oldValue = this._host.getAttribute!('data-slot-names');
     const joinedSlotNames = [...this.slots].sort().join(' ');
     if (!joinedSlotNames) {
       this._host.removeAttribute!('data-slot-names');

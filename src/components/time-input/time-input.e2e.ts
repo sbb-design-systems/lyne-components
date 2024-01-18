@@ -1,6 +1,7 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
 import { i18nTimeInputChange } from '../core/i18n';
 import type { ValidationChangeEvent } from '../core/interfaces';
@@ -106,8 +107,7 @@ describe('sbb-time-input', () => {
     expect(input).not.to.have.attribute('data-sbb-invalid');
   });
 
-  // FIXME any type
-  it('should interpret valid values', async function (this: any) {
+  it('should interpret valid values', async function (this: Context) {
     this.timeout(5000);
     const testCases = [
       { value: '0', interpretedAs: '00:00' },

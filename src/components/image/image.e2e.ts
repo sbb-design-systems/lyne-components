@@ -1,5 +1,6 @@
 import { aTimeout, assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
 import images from '../core/images';
 import { waitForCondition, waitForLitRender } from '../core/testing';
@@ -9,8 +10,7 @@ import { SbbImageElement } from './image';
 describe('sbb-image', () => {
   let element: SbbImageElement;
 
-  // FIXME any type
-  it('renders', async function (this: any) {
+  it('renders', async function (this: Context) {
     this.timeout(8000);
     const url = images[0];
     element = await fixture(html`<sbb-image image-src="${url}"></sbb-image>`);

@@ -48,8 +48,7 @@ export const getSvgContent = (
                   return svgContent;
                 });
               }
-              // FIXME check this returned value
-              return new Promise<string>(() => '');
+              throw new Error('Failed to load icon ' + namespace + ':' + name);
             })
             .catch((error) => {
               throw Error(error);

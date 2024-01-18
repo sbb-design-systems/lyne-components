@@ -132,8 +132,9 @@ export class SbbToggleOptionElement extends LitElement {
       signal,
     });
     // We can use closest here, as we expect the parent sbb-toggle to be in light DOM.
-    if (this.closest?.('sbb-toggle')) {
-      this._toggle = this.closest('sbb-toggle')!;
+    const toggle = this.closest?.('sbb-toggle');
+    if (toggle) {
+      this._toggle = toggle;
     }
     this._verifyTabindex();
   }

@@ -2,6 +2,7 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
 import { i18nDateChangedTo } from '../../core/i18n';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
@@ -60,8 +61,7 @@ describe('sbb-datepicker', () => {
       await waitForLitRender(element);
     });
 
-    // FIXME any type
-    it('renders and emit event on value change', async function (this: any) {
+    it('renders and emit event on value change', async function (this: Context) {
       // This test is flaky on Firefox, so we retry a few times.
       this.retries(3);
       const changeSpy = new EventSpy('change', element);
@@ -73,8 +73,7 @@ describe('sbb-datepicker', () => {
       expect(changeSpy.count).to.be.equal(1);
     });
 
-    // FIXME any type
-    it('renders and interpret two digit year correctly in 2000s', async function (this: any) {
+    it('renders and interpret two digit year correctly in 2000s', async function (this: Context) {
       // This test is flaky on Firefox, so we retry a few times.
       this.retries(3);
       const changeSpy = new EventSpy('change', element);
@@ -86,8 +85,7 @@ describe('sbb-datepicker', () => {
       expect(changeSpy.count).to.be.equal(1);
     });
 
-    // FIXME any type
-    it('renders and interpret two digit year correctly in 1900s', async function (this: any) {
+    it('renders and interpret two digit year correctly in 1900s', async function (this: Context) {
       // This test is flaky on Firefox, so we retry a few times.
       this.retries(3);
       const changeSpy = new EventSpy('change', element);
@@ -226,8 +224,7 @@ describe('sbb-datepicker', () => {
       expect(input).not.to.have.attribute('data-sbb-invalid');
     });
 
-    // FIXME any type
-    it('should interpret valid values and set accessibility labels', async function (this: any) {
+    it('should interpret valid values and set accessibility labels', async function (this: Context) {
       // This test is flaky on Firefox, so we retry a few times.
       this.retries(3);
       const testCases = [
@@ -292,8 +289,7 @@ describe('sbb-datepicker', () => {
       }
     });
 
-    // FIXME any type
-    it('should not touch invalid values', async function (this: any) {
+    it('should not touch invalid values', async function (this: Context) {
       // This test is flaky on Firefox, so we retry a few times.
       this.retries(3);
       const testCases = [
