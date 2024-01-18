@@ -103,10 +103,10 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
   private _originElement?: HTMLElement;
 
   /** Returns the trigger element. */
-  public get triggerElement(): HTMLInputElement {
-    return this._triggerElement as HTMLInputElement;
+  public get triggerElement(): HTMLInputElement | undefined {
+    return this._triggerElement;
   }
-  private _triggerElement?: HTMLInputElement;
+  private _triggerElement: HTMLInputElement | undefined;
 
   private _triggerEventsController!: AbortController;
   private _openPanelEventsController!: AbortController;
@@ -124,7 +124,7 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
 
   /** The autocomplete should inherit 'readonly' state from the trigger. */
   private get _readonly(): boolean {
-    return this.triggerElement && isValidAttribute(this.triggerElement, 'readonly');
+    return !!this.triggerElement && isValidAttribute(this.triggerElement, 'readonly');
   }
 
   private get _options(): SbbOptionElement[] {
@@ -194,12 +194,14 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
       .filter((option) => option.id !== target.id && option.selected)
       .forEach((option) => (option.selected = false));
 
-    // Set the option value
-    this.triggerElement.value = target.value as string;
+    if (this.triggerElement) {
+      // Set the option value
+      this.triggerElement.value = target.value as string;
 
-    // Manually trigger the change events
-    this.triggerElement.dispatchEvent(new Event('change', { bubbles: true }));
-    this.triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+      // Manually trigger the change events
+      this.triggerElement.dispatchEvent(new Event('change', { bubbles: true }));
+      this.triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+    }
 
     this.close();
   }
@@ -347,13 +349,13 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
     this._triggerEventsController = new AbortController();
 
     // Open the overlay on focus, click, input and `ArrowDown` event
-    this.triggerElement.addEventListener('focus', () => this.open(), {
+    this.triggerElement?.addEventListener('focus', () => this.open(), {
       signal: this._triggerEventsController.signal,
     });
-    this.triggerElement.addEventListener('click', () => this.open(), {
+    this.triggerElement?.addEventListener('click', () => this.open(), {
       signal: this._triggerEventsController.signal,
     });
-    this.triggerElement.addEventListener(
+    this.triggerElement?.addEventListener(
       'input',
       (event) => {
         this.open();
@@ -361,7 +363,7 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
       },
       { signal: this._triggerEventsController.signal },
     );
-    this.triggerElement.addEventListener(
+    this.triggerElement?.addEventListener(
       'keydown',
       (event: KeyboardEvent) => this._closedPanelKeyboardInteraction(event),
       { signal: this._triggerEventsController.signal },
@@ -428,7 +430,7 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
     });
 
     // Keyboard interactions
-    this.triggerElement.addEventListener(
+    this.triggerElement?.addEventListener(
       'keydown',
       (event: KeyboardEvent) => this._openedPanelKeyboardInteraction(event),
       {
@@ -506,7 +508,7 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
     const next = getNextElementIndex(event, this._activeItemIndex, filteredOptions.length);
     const nextActiveOption = filteredOptions[next];
     nextActiveOption.active = true;
-    this.triggerElement.setAttribute('aria-activedescendant', nextActiveOption.id);
+    this.triggerElement?.setAttribute('aria-activedescendant', nextActiveOption.id);
     nextActiveOption.scrollIntoView({ block: 'nearest' });
 
     // Reset the previous active option
@@ -525,11 +527,14 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
       activeElement.active = false;
     }
     this._activeItemIndex = -1;
-    this.triggerElement.removeAttribute('aria-activedescendant');
+    this.triggerElement?.removeAttribute('aria-activedescendant');
   }
 
   /** Highlight the searched text on the options. */
-  private _highlightOptions(searchTerm: string): void {
+  private _highlightOptions(searchTerm?: string): void {
+    if (!searchTerm) {
+      return;
+    }
     this._options.forEach((option) => option.highlight(searchTerm));
   }
 
@@ -537,7 +542,7 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
     setAriaComboBoxAttributes(element, this.id || this._overlayId, false);
   }
 
-  private _removeTriggerAttributes(element: HTMLInputElement): void {
+  private _removeTriggerAttributes(element?: HTMLInputElement): void {
     removeAriaComboBoxAttributes(element);
   }
 
