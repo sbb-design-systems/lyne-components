@@ -95,7 +95,10 @@ const defaultArgs: Args = {
 };
 
 const toastTemplate = (args, action, contentLength = 's'): TemplateResult => html`
-  <sbb-button @click=${() => document.querySelector('sbb-toast').open()}>Show toast</sbb-button>
+  <sbb-button
+    @click=${(event) => event.currentTarget.parentElement.querySelector('sbb-toast').open()}
+    >Show toast</sbb-button
+  >
   <sbb-toast ${sbbSpread(args)} data-testid="sbb-toast">
     ${contentLength === 's'
       ? 'Lorem ipsum dolor'

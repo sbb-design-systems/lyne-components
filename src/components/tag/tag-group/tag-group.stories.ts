@@ -10,14 +10,17 @@ import { sbbSpread } from '../../core/dom';
 import readme from './readme.md?raw';
 import './tag-group';
 import '../tag';
+import type { SbbTagGroupElement } from './tag-group';
 
-const uncheckAllTag = (): void => {
-  document.getElementById('all').removeAttribute('checked');
+const uncheckAllTag = (event): void => {
+  const tagGroup = event.currentTarget.closest('sbb-tag-group') as SbbTagGroupElement;
+  tagGroup.querySelector('.all').removeAttribute('checked');
 };
 
-const uncheckTags = (): void => {
-  Array.from(document.querySelectorAll('sbb-tag'))
-    .filter((e) => e.getAttribute('id') !== 'all' && !e.getAttribute('disabled'))
+const uncheckTags = (event): void => {
+  const tagGroup = event.currentTarget.closest('sbb-tag-group') as SbbTagGroupElement;
+  Array.from(tagGroup.querySelectorAll('sbb-tag'))
+    .filter((e) => !e.classList.contains('all') && !e.getAttribute('disabled'))
     .forEach((e) => e.removeAttribute('checked'));
 };
 
@@ -100,11 +103,11 @@ const ExclusiveTagGroupTemplate = ({ numberOfTagsInGroup, ...args }): TemplateRe
 
 const AllChoiceTagGroupTemplate = ({ numberOfTagsInGroup, ...args }): TemplateResult => html`
   <sbb-tag-group ${sbbSpread(args)}>
-    <sbb-tag id="all" @change=${() => uncheckTags()} value="All" checked> All </sbb-tag>
+    <sbb-tag class="all" @change=${(ev) => uncheckTags(ev)} value="All" checked> All </sbb-tag>
     ${repeat(
       new Array(numberOfTagsInGroup),
       (_e, i) => html`
-        <sbb-tag @change=${() => uncheckAllTag()} amount="123" value=${`Label ${i + 1}`}>
+        <sbb-tag @change=${(ev) => uncheckAllTag(ev)} amount="123" value=${`Label ${i + 1}`}>
           Label ${i + 1}
         </sbb-tag>
       `,

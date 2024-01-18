@@ -27,16 +27,19 @@ const negativeBlockStyle: Args = {
   padding: '2rem',
 };
 
-const createLoadingIndicator = (args): void => {
+const createLoadingIndicator = (event, args): void => {
   const loader: SbbLoadingIndicatorElement = document.createElement('sbb-loading-indicator');
+  const container = (event.currentTarget as HTMLElement).parentElement.querySelector(
+    '.loader-container',
+  );
   loader.setAttribute('aria-label', 'Loading, please wait');
   loader.size = args['size'];
   loader.variant = args['variant'];
-  document.querySelector('.loader-container')!.append(loader);
+  container.append(loader);
   setTimeout(() => {
     const p = document.createElement('p');
     p.textContent = "Loading complete. Here's your data: . . . ";
-    document.querySelector('.loader-container')!.append(p);
+    container.append(p);
     loader.remove();
   }, 5000);
 };
@@ -51,7 +54,7 @@ const TemplateAccessibility = (args): TemplateResult => html`
   <div style=${styleMap(textBlockStyle)}>
     Turn on your screen-reader and click the button to make the loading indicator appear.
   </div>
-  <sbb-button data-testid="trigger" @click=${() => createLoadingIndicator(args)}>
+  <sbb-button data-testid="trigger" @click=${(event) => createLoadingIndicator(event, args)}>
     Show loader
   </sbb-button>
   <div class="loader-container" aria-live="polite"></div>

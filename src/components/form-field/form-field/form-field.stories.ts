@@ -125,7 +125,6 @@ const TemplateInputWithErrorSpace = (args: Args): TemplateResult => {
     <form>
       <div>
         <sbb-form-field
-          id="sbb-form-field"
           error-space=${args['error-space']}
           label=${args.label}
           ?optional=${args.optional}
@@ -136,14 +135,14 @@ const TemplateInputWithErrorSpace = (args: Args): TemplateResult => {
           ?negative=${args.negative}
         >
           <input
-            id="sbb-form-field-input"
-            @keyup=${(event) => {
-              if ((event.currentTarget as HTMLInputElement).value !== '') {
+            @keyup=${(event: KeyboardEvent) => {
+              const input = event.currentTarget as HTMLInputElement;
+              if (input.value !== '') {
                 sbbFormError.remove();
-                document.getElementById('sbb-form-field-input')!.classList.remove(args.cssClass);
+                input.classList.remove(args.cssClass);
               } else {
-                document.getElementById('sbb-form-field')!.append(sbbFormError);
-                document.getElementById('sbb-form-field-input')!.classList.add(args.cssClass);
+                input.closest('sbb-form-field')!.append(sbbFormError);
+                input.classList.add(args.cssClass);
               }
             }}
             class=${args.cssClass}
@@ -222,7 +221,6 @@ const TemplateSelectWithErrorSpace = (args: Args): TemplateResult => {
     <form>
       <div>
         <sbb-form-field
-          id="sbb-form-field"
           error-space=${args['error-space']}
           label=${args.label}
           ?optional=${args.optional}
@@ -233,14 +231,14 @@ const TemplateSelectWithErrorSpace = (args: Args): TemplateResult => {
           ?negative=${args.negative}
         >
           <select
-            id="sbb-form-field-input"
             @change=${(event) => {
-              if ((event.currentTarget as HTMLSelectElement).value !== '') {
+              const select = event.currentTarget as HTMLSelectElement;
+              if (select.value !== '0') {
                 sbbFormError.remove();
-                document.getElementById('sbb-form-field-input').classList.remove(args.cssClass);
+                select.classList.remove(args.cssClass);
               } else {
-                document.getElementById('sbb-form-field').append(sbbFormError);
-                document.getElementById('sbb-form-field-input').classList.add(args.cssClass);
+                select.closest('sbb-form-field')!.append(sbbFormError);
+                select.classList.add(args.cssClass);
               }
             }}
             class=${args.cssClass}
