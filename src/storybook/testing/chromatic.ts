@@ -1,4 +1,11 @@
-import type { Args, Meta, StoryContext, StoryObj } from '@storybook/web-components';
+import type {
+  Args,
+  Meta,
+  StoryContext,
+  StoryObj,
+  WebComponentsRenderer,
+  Decorator,
+} from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import '../../components/title';
@@ -10,9 +17,9 @@ export function combineStories(config: Meta, stories: StoryParameter): StoryObj[
   const unCamelCase = (string: string): string =>
     string.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1 $2$3');
 
-  const decorators = (name: string, story: StoryObj): StoryObj['decorators'] =>
+  const decorators = (name: string, story: StoryObj): Decorator[] =>
     (
-      ([
+      [
         (story) => html`
           <div style="margin-block-end: 2rem;">
             <sbb-title
@@ -24,8 +31,8 @@ export function combineStories(config: Meta, stories: StoryParameter): StoryObj[
             <div style="outline: 1px solid #ad00ff;">${story()}</div>
           </div>
         `,
-      ] as StoryObj['decorators'])! as any[]
-    ) // FIXME any type
+      ] as Decorator[]
+    )
       .concat(config.decorators || [])
       .concat(story.decorators || []);
 
@@ -34,9 +41,9 @@ export function combineStories(config: Meta, stories: StoryParameter): StoryObj[
     story: StoryObj,
     context: StoryContext,
   ): StoryObj['render'] =>
-    (decorators(name, story)! as any[]).reduceRight(
-      // FIXME any type
-      (prevStory, decorator) => () => decorator(prevStory as any, context),
+    decorators(name, story).reduceRight(
+      (prevStory: () => WebComponentsRenderer['storyResult'], decorator: Decorator) => () =>
+        decorator(prevStory, context),
       () => story.render!(story.args!, context),
     );
 
