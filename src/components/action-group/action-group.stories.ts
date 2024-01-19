@@ -2,8 +2,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
-import { html } from 'lit';
-import { ifDefined } from 'lit/directives/if-defined.js';
+import { html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../core/dom';
@@ -14,16 +13,16 @@ import '../link';
 import '../button';
 
 const secondaryButtonTemplate = (alignSelf?: string): TemplateResult => html`
-  <sbb-button align-self=${ifDefined(alignSelf)} variant="secondary"> Button 1 </sbb-button>
+  <sbb-button align-self=${alignSelf || nothing} variant="secondary"> Button 1 </sbb-button>
 `;
 
 const buttonTemplate = (alignSelf?: string): TemplateResult => html`
-  <sbb-button align-self=${ifDefined(alignSelf)}>Button 2</sbb-button>
+  <sbb-button align-self=${alignSelf || nothing}>Button 2</sbb-button>
 `;
 
 const linkTemplate = (alignSelf?: string): TemplateResult => html`
   <sbb-link
-    align-self=${ifDefined(alignSelf)}
+    align-self=${alignSelf || nothing}
     icon-name="chevron-small-left-small"
     href="https://github.com/lyne-design-system/lyne-components"
   >

@@ -1,7 +1,6 @@
 import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
 
 import {
   LanguageController,
@@ -263,7 +262,7 @@ export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
           ?disabled=${this.disabled}
           ?required=${this.required}
           ?checked=${this.checked}
-          value=${ifDefined(this.value)}
+          value=${this.value || nothing}
           class="sbb-radio-button__input"
         />
         <span class="sbb-radio-button__label-slot">

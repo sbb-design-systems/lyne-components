@@ -12,7 +12,6 @@ import type {
 import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
@@ -73,7 +72,7 @@ const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
 const StandaloneTemplate = (args: Args, picker?: string): TemplateResult => html`
   <sbb-datepicker-toggle
     ${sbbSpread(args)}
-    date-picker=${ifDefined(picker)}
+    date-picker=${picker || nothing}
     data-testid="toggle"
   ></sbb-datepicker-toggle>
 `;
