@@ -7,7 +7,6 @@ import { html } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import type { SbbCheckboxGroupElement } from '../checkbox';
 import { sbbSpread } from '../core/dom';
 import type { SbbFormErrorElement } from '../form-error';
 import type { SbbRadioButtonGroupElement, SbbRadioButtonGroupEventDetail } from '../radio-button';
