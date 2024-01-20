@@ -4,6 +4,9 @@ import { state } from 'lit/decorators.js';
 
 import { SlotChildObserver } from './slot-child-observer';
 
+const SSR_CHILD_COUNT_ATTRIBUTE = 'data-ssr-child-count';
+const SLOTNAME_PREFIX = 'child';
+
 /**
  * Helper type for willUpdate or similar checks.
  * Allows the usage of the string literal 'listChildren'.
@@ -39,13 +42,12 @@ export abstract class NamedSlotListElement<
   @state() protected listChildren: C[] = [];
 
   protected override checkChildren(): void {
-    const listChildren = Array.from(this.children).filter((e): e is C =>
+    const listChildren = Array.from(this.children ?? []).filter((e): e is C =>
       this.listChildTagNames.includes(e.tagName),
     );
     // If the slotted child instances have not changed, we can skip syncing and updating
     // the link reference list.
     if (
-      this.listChildren &&
       listChildren.length === this.listChildren.length &&
       this.listChildren.every((e, i) => listChildren[i] === e)
     ) {
@@ -57,15 +59,18 @@ export abstract class NamedSlotListElement<
       .forEach((c) => c.removeAttribute('slot'));
     this.listChildren = listChildren;
     this.listChildren.forEach((child, index) => {
-      child.setAttribute('slot', `child-${index}`);
+      child.setAttribute('slot', `${SLOTNAME_PREFIX}-${index}`);
       this.formatChild?.(child);
     });
+
+    // Remove the ssr attribute, once we have actually initialized the children elements.
+    this.removeAttribute(SSR_CHILD_COUNT_ATTRIBUTE);
   }
 
   protected formatChild?(child: C): void;
 
   /**
-   * Renders list slots for slotted children or an amount of list slots
+   * Renders list and list slots for slotted children or an amount of list slots
    * corresponding to the `data-ssr-child-count` attribute value.
    *
    * This is a possible optimization for SSR, as in an SSR Lit environment
@@ -73,8 +78,20 @@ export abstract class NamedSlotListElement<
    * framework wrapper (like e.g. React). This allows to provide the amount of
    * children to be passed via the `data-ssr-child-count` attribute value.
    */
-  protected renderListSlots(): TemplateResult {
-    return html`${this.listSlotNames().map((name) => html`<li><slot name=${name}></slot></li>`)}`;
+  protected renderList(
+    attributes: { class?: string; ariaLabel?: string; ariaLabelledby?: string } = {},
+  ): TemplateResult {
+    return html`
+      <ul
+        class=${attributes.class || this.tagName.toLowerCase()}
+        aria-label=${attributes.ariaLabel || nothing}
+        aria-labelledby=${attributes.ariaLabelledby || nothing}
+        role=${this.roleOverride()}
+      >
+        ${this.listSlotNames().map((name) => html`<li><slot name=${name}></slot></li>`)}
+      </ul>
+      ${this.renderHiddenSlot()}
+    `;
   }
 
   /**
@@ -89,8 +106,19 @@ export abstract class NamedSlotListElement<
   protected listSlotNames(): string[] {
     const listChildren = this.listChildren.length
       ? this.listChildren
-      : Array.from({ length: +this.getAttribute('data-ssr-child-count') });
-    return listChildren.map((_, i) => `child-${i}`);
+      : Array.from({ length: +this.getAttribute(SSR_CHILD_COUNT_ATTRIBUTE) });
+    return listChildren.map((_, i) => `${SLOTNAME_PREFIX}-${i}`);
+  }
+
+  /**
+   * Returns 'presentation' when less than two children are available.
+   * This is an accessibility improvement, as only lists with more than one
+   * children should be marked as lists.
+   */
+  protected roleOverride(): 'presentation' | typeof nothing {
+    return (this.listChildren.length || +this.getAttribute(SSR_CHILD_COUNT_ATTRIBUTE)) >= 2
+      ? nothing
+      : 'presentation';
   }
 
   /**
@@ -100,14 +128,5 @@ export abstract class NamedSlotListElement<
    */
   protected renderHiddenSlot(): TemplateResult {
     return html`<span hidden><slot></slot></span>`;
-  }
-
-  /**
-   * Returns 'presentation' when less than two children are available.
-   * This is an accessibility improvement, as only lists with more than one
-   * children should be marked as lists.
-   */
-  protected roleOverride(): 'presentation' | typeof nothing {
-    return this.listSlotNames().length > 1 ? nothing : 'presentation';
   }
 }

@@ -152,14 +152,10 @@ export class SbbTagGroupElement extends NamedSlotListElement<SbbTagElement> {
 
     return html`
       <div class="sbb-tag-group">
-        <ul
-          class="sbb-tag-group__list"
-          aria-label=${this.listAccessibilityLabel ?? nothing}
-          role=${this.roleOverride()}
-        >
-          ${this.renderListSlots()}
-        </ul>
-        ${this.renderHiddenSlot()}
+        ${this.renderList({
+          class: 'sbb-tag-group__list',
+          ariaLabel: this.listAccessibilityLabel,
+        })}
       </div>
     `;
   }

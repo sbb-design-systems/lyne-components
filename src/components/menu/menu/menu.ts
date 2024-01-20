@@ -229,7 +229,7 @@ export class SbbMenuElement extends NamedSlotListElement<SbbMenuActionElement> {
     // If all children are sbb-menu-action instances, we render them as a list.
     if (
       this.children?.length &&
-      Array.from(this.children).every((c) => c.tagName === 'SBB-MENU-ACTION')
+      Array.from(this.children ?? []).every((c) => c.tagName === 'SBB-MENU-ACTION')
     ) {
       super.checkChildren();
     } else if (this.listChildren.length) {
@@ -383,14 +383,7 @@ export class SbbMenuElement extends NamedSlotListElement<SbbMenuActionElement> {
             class="sbb-menu__content"
           >
             ${this.listChildren.length
-              ? html`<ul
-                    class="sbb-menu-list"
-                    aria-label=${this.listAccessibilityLabel ?? nothing}
-                    role=${this.roleOverride()}
-                  >
-                    ${this.renderListSlots()}
-                  </ul>
-                  ${this.renderHiddenSlot()}`
+              ? this.renderList({ class: 'sbb-menu-list', ariaLabel: this.listAccessibilityLabel })
               : html`<slot></slot>`}
           </div>
         </div>

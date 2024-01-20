@@ -76,16 +76,12 @@ export class SbbLinkListElement extends NamedSlotListElement<SbbLinkElement> {
         >
           <slot name="title" @slotchange=${() => this.requestUpdate()}>${this.titleContent}</slot>
         </sbb-title>
-        <ul
-          aria-labelledby=${this._namedSlots.slots.has('title') || this.titleContent
-            ? 'sbb-link-list-title-id'
-            : nothing}
-          class="sbb-link-list"
-          role=${this.roleOverride()}
-        >
-          ${this.renderListSlots()}
-        </ul>
-        ${this.renderHiddenSlot()}
+        ${this.renderList({
+          ariaLabelledby:
+            this._namedSlots.slots.has('title') || this.titleContent
+              ? 'sbb-link-list-title-id'
+              : undefined,
+        })}
       </div>
     `;
   }

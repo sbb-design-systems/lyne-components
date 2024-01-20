@@ -185,14 +185,10 @@ export class SbbTrainWagonElement extends NamedSlotListElement<SbbIconElement> {
           : nothing}
         ${this.type === 'wagon'
           ? html`<span class="sbb-train-wagon__icons" ?hidden=${this.listChildren.length === 0}>
-              <ul
-                class="sbb-train-wagon__icons-list"
-                aria-label=${i18nAdditionalWagonInformationHeading[this._language.current]}
-                role=${this.roleOverride()}
-              >
-                ${this.renderListSlots()}
-              </ul>
-              ${this.renderHiddenSlot()}
+              ${this.renderList({
+                class: 'sbb-train-wagon__icons-list',
+                ariaLabel: i18nAdditionalWagonInformationHeading[this._language.current],
+              })}
             </span>`
           : nothing}
       </div>

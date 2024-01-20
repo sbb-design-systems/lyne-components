@@ -37,14 +37,10 @@ export class SbbNavigationListElement extends NamedSlotListElement<SbbNavigation
       <span class="sbb-navigation-list__label" id="sbb-navigation-link-label-id">
         <slot name="label">${this.label}</slot>
       </span>
-      <ul
-        class="sbb-navigation-list__content"
-        aria-labelledby="sbb-navigation-link-label-id"
-        role=${this.roleOverride()}
-      >
-        ${this.renderListSlots()}
-      </ul>
-      ${this.renderHiddenSlot()}
+      ${this.renderList({
+        class: 'sbb-navigation-list__content',
+        ariaLabelledby: 'sbb-navigation-link-label-id',
+      })}
     `;
   }
 }

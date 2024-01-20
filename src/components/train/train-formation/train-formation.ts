@@ -148,14 +148,10 @@ export class SbbTrainFormationElement extends NamedSlotListElement<SbbTrainEleme
         </div>
 
         <div class="sbb-train-formation__trains">
-          <ul
-            class="sbb-train-formation__train-list"
-            aria-label=${i18nTrains[this._language.current]}
-            role=${this.roleOverride()}
-          >
-            ${this.renderListSlots()}
-          </ul>
-          ${this.renderHiddenSlot()}
+          ${this.renderList({
+            class: 'sbb-train-formation__train-list',
+            ariaLabel: i18nTrains[this._language.current],
+          })}
         </div>
       </div>
     `;

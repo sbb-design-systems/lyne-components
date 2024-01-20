@@ -98,12 +98,7 @@ export class SbbNavigationMarkerElement extends NamedSlotListElement<SbbNavigati
   protected override render(): TemplateResult {
     setAttribute(this, 'data-has-active-action', this._hasActiveAction);
 
-    return html`
-      <ul class="sbb-navigation-marker" role=${this.roleOverride()}>
-        ${this.renderListSlots()}
-      </ul>
-      ${this.renderHiddenSlot()}
-    `;
+    return this.renderList();
   }
 }
 

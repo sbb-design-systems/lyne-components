@@ -49,14 +49,7 @@ export class SbbSkiplinkListElement extends NamedSlotListElement<SbbLinkElement>
         >
           <slot name="title">${this.titleContent}</slot>
         </sbb-title>
-        <ul
-          class="sbb-skiplink-list"
-          aria-labelledby="sbb-skiplink-list-title-id"
-          role=${this.roleOverride()}
-        >
-          ${this.renderListSlots()}
-        </ul>
-        ${this.renderHiddenSlot()}
+        ${this.renderList({ ariaLabelledby: 'sbb-skiplink-list-title-id' })}
       </div>
     `;
   }

@@ -92,14 +92,10 @@ export class SbbTrainElement extends NamedSlotListElement<
         <${unsafeStatic(TITLE_TAG_NAME)} class="sbb-train__direction-label-sr">
           ${this._getDirectionAriaLabel()}
         </${unsafeStatic(TITLE_TAG_NAME)}>
-        <ul 
-          class="sbb-train__wagons"
-          aria-label=${i18nWagonsLabel[this._language.current]} 
-          role=${this.roleOverride()}
-        >
-          ${this.renderListSlots()}
-        </ul>
-        ${this.renderHiddenSlot()}
+        ${this.renderList({
+          class: 'sbb-train__wagons',
+          ariaLabel: i18nWagonsLabel[this._language.current],
+        })}
 
         ${
           this.directionLabel
