@@ -1,10 +1,9 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import { html, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
-  assignId,
   FocusHandler,
   getNextElementIndex,
   interactivityChecker,
@@ -12,7 +11,7 @@ import {
   isArrowKeyPressed,
   setModalityOnNextFocus,
 } from '../../core/a11y';
-import { SlotChildObserver } from '../../core/common-behaviors';
+import { NamedSlotListElement } from '../../core/common-behaviors';
 import {
   findReferencedElement,
   isBreakpoint,
@@ -49,7 +48,7 @@ let nextId = 0;
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-menu` is closed.
  */
 @customElement('sbb-menu')
-export class SbbMenuElement extends SlotChildObserver(LitElement) {
+export class SbbMenuElement extends NamedSlotListElement<SbbMenuActionElement> {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -57,6 +56,7 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
     willClose: 'willClose',
     didClose: 'didClose',
   } as const;
+  protected override readonly listChildTagNames = ['SBB-MENU-ACTION'];
 
   /**
    * The element that will trigger the menu overlay.
@@ -90,9 +90,6 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
    */
   @state() private _state: SbbOverlayState = 'closed';
 
-  /** Sbb-Link elements */
-  @state() private _actions?: SbbMenuActionElement[];
-
   /** Emits whenever the `sbb-menu` starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbMenuElement.events.willOpen);
 
@@ -113,7 +110,11 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
   private _abort = new ConnectedAbortController(this);
   private _focusHandler = new FocusHandler();
   private _scrollHandler = new ScrollHandler();
-  private _menuId = `sbb-menu-${++nextId}`;
+
+  public constructor() {
+    super();
+    this.id = this.id || `sbb-menu-${nextId++}`;
+  }
 
   /**
    * Opens the menu on trigger click.
@@ -224,6 +225,19 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
     removeInertMechanism();
   }
 
+  protected override checkChildren(): void {
+    // If all children are sbb-menu-action instances, we render them as a list.
+    if (
+      this.children?.length &&
+      Array.from(this.children).every((c) => c.tagName === 'SBB-MENU-ACTION')
+    ) {
+      super.checkChildren();
+    } else if (this.listChildren.length) {
+      this.listChildren.forEach((c) => c.removeAttribute('slot'));
+      this.listChildren = [];
+    }
+  }
+
   // Check if the trigger is valid and attach click event listeners.
   private _configure(trigger: string | HTMLElement | null): void {
     removeAriaOverlayTriggerAttributes(this._triggerElement);
@@ -238,12 +252,7 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
       return;
     }
 
-    setAriaOverlayTriggerAttributes(
-      this._triggerElement,
-      'menu',
-      this.id || this._menuId,
-      this._state,
-    );
+    setAriaOverlayTriggerAttributes(this._triggerElement, 'menu', this.id, this._state);
     this._menuController?.abort();
     this._menuController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
@@ -358,36 +367,10 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
     this.style.setProperty('--sbb-menu-max-height', menuPosition.maxHeight);
   }
 
-  /**
-   * Create an array with only the sbb-menu-action children
-   */
-  protected override checkChildren(): void {
-    const actions = Array.from(this.children ?? []);
-    // If the slotted actions have not changed, we can skip syncing and updating the actions.
-    if (
-      this._actions &&
-      actions.length === this._actions.length &&
-      this._actions.every((e, i) => actions[i] === e)
-    ) {
-      return;
-    }
-
-    if (actions.every((e) => e.tagName === 'SBB-MENU-ACTION')) {
-      this._actions = actions as SbbMenuActionElement[];
-    } else {
-      this._actions?.forEach((a) => a.removeAttribute('slot'));
-      this._actions = undefined;
-    }
-  }
-
   protected override render(): TemplateResult {
-    if (this._actions) {
-      this._actions.forEach((action, index) => action.setAttribute('slot', `action-${index}`));
-    }
-
     setAttribute(this, 'data-state', this._state);
-    assignId(() => this._menuId)(this);
 
+    // TODO: Handle case with other elements than sbb-menu-action.
     return html`
       <div class="sbb-menu__container">
         <div
@@ -399,18 +382,15 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
             @click=${(event: Event) => this._closeOnInteractiveElementClick(event)}
             class="sbb-menu__content"
           >
-            ${this._actions
-              ? html`<ul class="sbb-menu-list" aria-label=${this.listAccessibilityLabel ?? nothing}>
-                    ${this._actions.map(
-                      (_, index) =>
-                        html`<li>
-                          <slot name=${`action-${index}`}></slot>
-                        </li>`,
-                    )}
+            ${this.listChildren.length
+              ? html`<ul
+                    class="sbb-menu-list"
+                    aria-label=${this.listAccessibilityLabel ?? nothing}
+                    role=${this.roleOverride()}
+                  >
+                    ${this.renderListSlots()}
                   </ul>
-                  <span hidden>
-                    <slot></slot>
-                  </span>`
+                  ${this.renderHiddenSlot()}`
               : html`<slot></slot>`}
           </div>
         </div>

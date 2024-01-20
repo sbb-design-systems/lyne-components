@@ -110,7 +110,7 @@ describe('sbb-icon', () => {
     await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(`
-      <sbb-icon name="kom:heart-medium" aria-hidden="true" role="img" data-namespace="kom" data-empty>
+      <sbb-icon name="kom:heart-medium" aria-hidden="true" role="img" data-namespace="kom">
       </sbb-icon>
     `);
     await expect(root).shadowDom.to.equalSnapshot();

@@ -1,9 +1,9 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { nothing } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { LanguageController, SlotChildObserver } from '../../core/common-behaviors';
+import { LanguageController, NamedSlotListElement } from '../../core/common-behaviors';
 import { setAttribute } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import {
@@ -28,11 +28,12 @@ import style from './train-wagon.scss?lit&inline';
  * @slot - Use the unnamed slot to add one or more `sbb-icon` for meta-information of the `sbb-train-wagon`.
  */
 @customElement('sbb-train-wagon')
-export class SbbTrainWagonElement extends SlotChildObserver(LitElement) {
+export class SbbTrainWagonElement extends NamedSlotListElement<SbbIconElement> {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     sectorChange: 'sectorChange',
   } as const;
+  protected override readonly listChildTagNames = ['SBB-ICON'];
 
   /** Wagon type. */
   @property({ reflect: true }) public type: 'locomotive' | 'closed' | 'wagon' = 'wagon';
@@ -65,9 +66,6 @@ export class SbbTrainWagonElement extends SlotChildObserver(LitElement) {
   @property({ attribute: 'additional-accessibility-text' })
   public additionalAccessibilityText?: string;
 
-  /** Slotted Sbb-icons. */
-  @state() private _icons: SbbIconElement[] = [];
-
   private _language = new LanguageController(this);
 
   /**
@@ -87,25 +85,7 @@ export class SbbTrainWagonElement extends SlotChildObserver(LitElement) {
     this._sectorChange.emit();
   }
 
-  /**
-   * Create an array with only the sbb-icon children.
-   */
-  protected override checkChildren(): void {
-    this._icons = Array.from(this.children ?? []).filter(
-      (e): e is SbbIconElement => e.tagName === 'SBB-ICON',
-    );
-  }
-
   protected override render(): TemplateResult {
-    // We should avoid lists with only one entry
-    if (this._icons?.length > 1) {
-      this._icons.forEach((icon, index) =>
-        icon.setAttribute('slot', `sbb-train-wagon-icon-${index}`),
-      );
-    } else {
-      this._icons?.forEach((icon) => icon.removeAttribute('slot'));
-    }
-
     const label = (tagName: string): TemplateResult => {
       const TAG_NAME = tagName;
       /* eslint-disable lit/binding-positions */
@@ -204,31 +184,15 @@ export class SbbTrainWagonElement extends SlotChildObserver(LitElement) {
           ? html`<span class="sbb-screenreaderonly">, ${this.additionalAccessibilityText}</span>`
           : nothing}
         ${this.type === 'wagon'
-          ? html`<span
-              class="sbb-train-wagon__icons"
-              ?hidden=${!this._icons || this._icons?.length === 0}
-            >
-              ${this._icons?.length > 1
-                ? html`<ul
-                    class="sbb-train-wagon__icons-list"
-                    aria-label=${i18nAdditionalWagonInformationHeading[this._language.current]}
-                  >
-                    ${this._icons.map(
-                      (_, index) =>
-                        html`<li class="sbb-train-wagon__icons-item">
-                          <slot name=${`sbb-train-wagon-icon-${index}`}></slot>
-                        </li>`,
-                    )}
-                  </ul>`
-                : nothing}
-              <span class="sbb-train-wagon__icons-item" ?hidden=${this._icons?.length !== 1}>
-                ${this._icons?.length === 1
-                  ? html`<span class="sbb-screenreaderonly">
-                      ${i18nAdditionalWagonInformationHeading[this._language.current]}
-                    </span>`
-                  : nothing}
-                <slot></slot>
-              </span>
+          ? html`<span class="sbb-train-wagon__icons" ?hidden=${this.listChildren.length === 0}>
+              <ul
+                class="sbb-train-wagon__icons-list"
+                aria-label=${i18nAdditionalWagonInformationHeading[this._language.current]}
+                role=${this.roleOverride()}
+              >
+                ${this.renderListSlots()}
+              </ul>
+              ${this.renderHiddenSlot()}
             </span>`
           : nothing}
       </div>

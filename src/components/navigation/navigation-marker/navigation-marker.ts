@@ -1,8 +1,8 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { SlotChildObserver } from '../../core/common-behaviors';
+import { NamedSlotListElement } from '../../core/common-behaviors';
 import { setAttribute } from '../../core/dom';
 import { AgnosticResizeObserver } from '../../core/observers';
 import type { SbbNavigationActionElement } from '../navigation-action';
@@ -15,8 +15,9 @@ import style from './navigation-marker.scss?lit&inline';
  * @slot - Use the unnamed slot to add `sbb-navigation-action` elements into the `sbb-navigation-marker`.
  */
 @customElement('sbb-navigation-marker')
-export class SbbNavigationMarkerElement extends SlotChildObserver(LitElement) {
+export class SbbNavigationMarkerElement extends NamedSlotListElement<SbbNavigationActionElement> {
   public static override styles: CSSResultGroup = style;
+  protected override readonly listChildTagNames = ['SBB-NAVIGATION-ACTION'];
 
   /**
    * Marker size variant.
@@ -27,11 +28,6 @@ export class SbbNavigationMarkerElement extends SlotChildObserver(LitElement) {
    * Whether the list has an active action.
    */
   @state() private _hasActiveAction = false;
-
-  /**
-   * Navigation action elements.
-   */
-  @state() private _actions: SbbNavigationActionElement[] = [];
 
   private _currentActiveAction?: SbbNavigationActionElement;
   private _navigationMarkerResizeObserver = new AgnosticResizeObserver(() =>
@@ -90,13 +86,6 @@ export class SbbNavigationMarkerElement extends SlotChildObserver(LitElement) {
     return this._navigationActions.find((action) => action.active);
   }
 
-  // Create an array with only the sbb-navigation-action children.
-  protected override checkChildren(): void {
-    this._actions = Array.from(this.children).filter(
-      (e): e is SbbNavigationActionElement => e.tagName === 'SBB-NAVIGATION-ACTION',
-    );
-  }
-
   private _setMarkerPosition(): void {
     if (this._hasActiveAction) {
       this.style?.setProperty(
@@ -107,22 +96,13 @@ export class SbbNavigationMarkerElement extends SlotChildObserver(LitElement) {
   }
 
   protected override render(): TemplateResult {
-    this._actions.forEach((action, index) => action.setAttribute('slot', `action-${index}`));
     setAttribute(this, 'data-has-active-action', this._hasActiveAction);
 
     return html`
-      <ul class="sbb-navigation-marker">
-        ${this._actions.map(
-          (action, index) => html`
-            <li class="sbb-navigation-marker__action" ?data-active=${action.active}>
-              <slot name=${`action-${index}`}></slot>
-            </li>
-          `,
-        )}
+      <ul class="sbb-navigation-marker" role=${this.roleOverride()}>
+        ${this.renderListSlots()}
       </ul>
-      <span hidden>
-        <slot></slot>
-      </span>
+      ${this.renderHiddenSlot()}
     `;
   }
 }

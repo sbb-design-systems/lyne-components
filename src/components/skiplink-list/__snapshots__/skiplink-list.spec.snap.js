@@ -21,15 +21,15 @@ snapshots["sbb-skiplink-list should render named slots if data-ssr-child-count a
     class="sbb-skiplink-list"
   >
     <li>
-      <slot name="link-0">
+      <slot name="child-0">
       </slot>
     </li>
     <li>
-      <slot name="link-1">
+      <slot name="child-1">
       </slot>
     </li>
     <li>
-      <slot name="link-2">
+      <slot name="child-2">
       </slot>
     </li>
   </ul>
@@ -61,15 +61,15 @@ snapshots["sbb-skiplink-list renders"] =
     class="sbb-skiplink-list"
   >
     <li>
-      <slot name="link-0">
+      <slot name="child-0">
       </slot>
     </li>
     <li>
-      <slot name="link-1">
+      <slot name="child-1">
       </slot>
     </li>
     <li>
-      <slot name="link-2">
+      <slot name="child-2">
       </slot>
     </li>
   </ul>
@@ -102,15 +102,15 @@ snapshots["sbb-skiplink-list renders with title"] =
     class="sbb-skiplink-list"
   >
     <li>
-      <slot name="link-0">
+      <slot name="child-0">
       </slot>
     </li>
     <li>
-      <slot name="link-1">
+      <slot name="child-1">
       </slot>
     </li>
     <li>
-      <slot name="link-2">
+      <slot name="child-2">
       </slot>
     </li>
   </ul>

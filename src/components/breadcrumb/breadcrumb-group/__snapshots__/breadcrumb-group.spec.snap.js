@@ -4,7 +4,7 @@ export const snapshots = {};
 snapshots["sbb-breadcrumb-group renders"] = 
 `<ol class="sbb-breadcrumb-group">
   <li class="sbb-breadcrumb-group__item">
-    <slot name="breadcrumb-0">
+    <slot name="child-0">
     </slot>
     <sbb-icon
       aria-hidden="true"
@@ -16,7 +16,7 @@ snapshots["sbb-breadcrumb-group renders"] =
     </sbb-icon>
   </li>
   <li class="sbb-breadcrumb-group__item">
-    <slot name="breadcrumb-1">
+    <slot name="child-1">
     </slot>
     <sbb-icon
       aria-hidden="true"
@@ -28,7 +28,7 @@ snapshots["sbb-breadcrumb-group renders"] =
     </sbb-icon>
   </li>
   <li class="sbb-breadcrumb-group__item">
-    <slot name="breadcrumb-2">
+    <slot name="child-2">
     </slot>
   </li>
 </ol>

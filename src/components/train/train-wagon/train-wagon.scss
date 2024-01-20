@@ -122,7 +122,9 @@
   justify-content: center;
 }
 
-.sbb-train-wagon__icons-item {
+// Using ... li selector, because the li generation
+// is handled in the component base class.
+.sbb-train-wagon__icons-list li {
   display: inline-flex;
 }
 

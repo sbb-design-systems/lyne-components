@@ -15,6 +15,8 @@ import style from './breadcrumb.scss?lit&inline';
 
 import '../../icon';
 
+let nextId = 1;
+
 /**
  * It displays a link to a page; used within a `sbb-breadcrumb-group` it can display the path to the current page.
  *
@@ -46,14 +48,16 @@ export class SbbBreadcrumbElement extends SlotChildObserver(LitElement) {
 
   @state() private _hasText = false;
 
+  public constructor() {
+    super();
+    this.id = this.id || `sbb-breadcrumb-${nextId++}`;
+  }
+
   private _language = new LanguageController(this);
   private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._hasText = Array.from(this.childNodes ?? []).some(
-      (n) => !(n as Element).slot && n.textContent?.trim(),
-    );
     this._handlerRepository.connect();
   }
 
@@ -63,9 +67,9 @@ export class SbbBreadcrumbElement extends SlotChildObserver(LitElement) {
   }
 
   protected override checkChildren(): void {
-    this._hasText = !!this.shadowRoot!.querySelector<HTMLSlotElement>('slot:not([name])')
-      ?.assignedNodes()
-      .some((n) => !!n.textContent?.trim());
+    this._hasText = Array.from(this.childNodes ?? []).some(
+      (n) => !(n as Element).slot && n.textContent?.trim(),
+    );
   }
 
   protected override render(): TemplateResult {

@@ -31,20 +31,16 @@ describe('sbb-train-wagon', () => {
       </sbb-train-wagon>`,
     );
 
-    expect(
-      Array.from(element.querySelectorAll<SbbIconElement>('sbb-icon')).every((icon) =>
-        icon.getAttribute('slot')!.startsWith('sbb-train-wagon-icon-'),
-      ),
-    ).to.be.true;
+    Array.from(element.querySelectorAll('sbb-icon')).forEach((icon, index) => {
+      expect(icon.getAttribute('slot')).to.equal(`child-${index}`);
+    });
 
     // Remove one icon
     (element.querySelector('sbb-icon') as SbbIconElement).remove();
     await waitForLitRender(element);
 
-    expect(
-      Array.from(element.querySelectorAll('sbb-icon')).every(
-        (icon) => icon.getAttribute('slot') === null,
-      ),
-    ).to.be.true;
+    Array.from(element.querySelectorAll('sbb-icon')).forEach((icon, index) => {
+      expect(icon.getAttribute('slot')).to.equal(`child-${index}`);
+    });
   });
 });

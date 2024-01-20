@@ -1,8 +1,8 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { html } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 
-import { NamedSlotStateController, SlotChildObserver } from '../../core/common-behaviors';
+import { NamedSlotListElement, NamedSlotStateController } from '../../core/common-behaviors';
 import type { SbbNavigationActionElement } from '../navigation-action';
 
 import style from './navigation-list.scss?lit&inline';
@@ -14,59 +14,37 @@ import style from './navigation-list.scss?lit&inline';
  * @slot label - Use this to provide a label element.
  */
 @customElement('sbb-navigation-list')
-export class SbbNavigationListElement extends SlotChildObserver(LitElement) {
+export class SbbNavigationListElement extends NamedSlotListElement<SbbNavigationActionElement> {
   public static override styles: CSSResultGroup = style;
+  protected override readonly listChildTagNames = ['SBB-NAVIGATION-ACTION'];
 
   /**
    * The label to be shown before the action list.
    */
   @property({ reflect: true }) public label?: string;
 
-  /**
-   * Navigation action elements.
-   * @ssrchildcounter
-   */
-  @state() private _actions: SbbNavigationActionElement[] = [];
-
   public constructor() {
     super();
     new NamedSlotStateController(this);
   }
 
-  /**
-   * Create an array with only the sbb-navigation-action children.
-   */
-  protected override checkChildren(): void {
-    this._actions = Array.from(this.children ?? []).filter(
-      (e): e is SbbNavigationActionElement => e.tagName === 'SBB-NAVIGATION-ACTION',
-    );
+  protected override formatChild(child: SbbNavigationActionElement): void {
+    child.size = 'm';
   }
 
   protected override render(): TemplateResult {
-    this._actions.forEach((action, index) => {
-      action.setAttribute('slot', `action-${index}`);
-      action.size = 'm';
-    });
-    const actions = this._actions.length
-      ? this._actions
-      : Array.from({ length: +(this.getAttribute('data-ssr-child-count') as string) });
-
     return html`
       <span class="sbb-navigation-list__label" id="sbb-navigation-link-label-id">
         <slot name="label">${this.label}</slot>
       </span>
-      <ul class="sbb-navigation-list__content" aria-labelledby="sbb-navigation-link-label-id">
-        ${actions.map(
-          (_, index) => html`
-            <li class="sbb-navigation-list__action">
-              <slot name=${`action-${index}`}></slot>
-            </li>
-          `,
-        )}
+      <ul
+        class="sbb-navigation-list__content"
+        aria-labelledby="sbb-navigation-link-label-id"
+        role=${this.roleOverride()}
+      >
+        ${this.renderListSlots()}
       </ul>
-      <span hidden>
-        <slot></slot>
-      </span>
+      ${this.renderHiddenSlot()}
     `;
   }
 }

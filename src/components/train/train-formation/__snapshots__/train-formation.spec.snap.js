@@ -22,7 +22,17 @@ snapshots["sbb-train-formation should render with one train"] =
     </span>
   </div>
   <div class="sbb-train-formation__trains">
-    <span class="sbb-train-formation__single-train">
+    <ul
+      aria-label="Trains"
+      class="sbb-train-formation__train-list"
+      role="presentation"
+    >
+      <li>
+        <slot name="child-0">
+        </slot>
+      </li>
+    </ul>
+    <span hidden="">
       <slot>
       </slot>
     </span>
@@ -56,19 +66,16 @@ snapshots["sbb-train-formation should render with multiple trains"] =
       aria-label="Trains"
       class="sbb-train-formation__train-list"
     >
-      <li class="sbb-train-formation__train-list-item">
-        <slot name="train-0">
+      <li>
+        <slot name="child-0">
         </slot>
       </li>
-      <li class="sbb-train-formation__train-list-item">
-        <slot name="train-1">
+      <li>
+        <slot name="child-1">
         </slot>
       </li>
     </ul>
-    <span
-      class="sbb-train-formation__single-train"
-      hidden=""
-    >
+    <span hidden="">
       <slot>
       </slot>
     </span>

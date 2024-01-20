@@ -33,12 +33,12 @@ describe('sbb-skiplink-list', () => {
     expect(listItemLinks[0]).to.have.style('height', '0px');
     expect(listItemLinks[0]).to.have.style('overflow', 'hidden');
 
-    const firstLink = element.querySelector<SbbLinkElement>('#sbb-skiplink-list-link-0')!;
+    const firstLink: SbbLinkElement = element.querySelector('sbb-link:nth-child(1)')!;
     firstLink.focus();
     expect(listItemLinks[0]).not.to.have.style('height', '0px');
     expect(listItemLinks[0]).to.have.style('overflow', 'visible');
 
-    const secondLink = element.querySelector<SbbLinkElement>('#sbb-skiplink-list-link-1')!;
+    const secondLink: SbbLinkElement = element.querySelector('sbb-link:nth-child(2)')!;
     secondLink.focus();
     expect(listItemLinks[0]).to.have.style('height', '0px');
     expect(listItemLinks[0]).to.have.style('overflow', 'hidden');
@@ -55,7 +55,6 @@ describe('sbb-skiplink-list', () => {
 
     await waitForLitRender(element);
 
-    expect(element.querySelector('sbb-link')).to.have.attribute('id');
     expect(element.querySelector('sbb-link')).to.have.attribute('slot');
   });
 });
