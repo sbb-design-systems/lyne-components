@@ -115,7 +115,11 @@ export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
 
   /**
    * Whether the input is the main input of a selection panel.
+   * @internal
    */
+  public get isSelectionPanelInput(): boolean {
+    return this._isSelectionPanelInput;
+  }
   @state() private _isSelectionPanelInput = false;
 
   /**
@@ -150,6 +154,7 @@ export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
 
   private _handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
     if (currentValue !== previousValue) {
+      console.log('checked change');
       this._stateChange.emit({ type: 'checked', checked: currentValue });
       this._isSelectionPanelInput && this._updateExpandedLabel();
     }

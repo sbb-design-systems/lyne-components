@@ -147,6 +147,11 @@ export class SbbSelectionPanelElement extends LitElement {
 
   private _initFromInput(event: Event): void {
     const input = event.target as SbbCheckboxElement | SbbRadioButtonElement;
+
+    if (!input.isSelectionPanelInput) {
+      return;
+    }
+
     this._checked = input.checked;
     this._disabled = input.disabled;
     this._updateState();
@@ -155,6 +160,12 @@ export class SbbSelectionPanelElement extends LitElement {
   private _onInputStateChange(
     event: CustomEvent<SbbRadioButtonStateChange | SbbCheckboxStateChange>,
   ): void {
+    const input = event.target as SbbCheckboxElement | SbbRadioButtonElement;
+
+    if (!input.isSelectionPanelInput) {
+      return;
+    }
+
     if (event.detail.type === 'disabled') {
       this._disabled = event.detail.disabled;
       return;
@@ -192,7 +203,7 @@ export class SbbSelectionPanelElement extends LitElement {
         </div>
         <div
           class="sbb-selection-panel__content--wrapper"
-          .inert="${!this._checked && !this.forceOpen};"
+          .inert=${this._state !== 'opened'}
           @animationend=${(event: AnimationEvent) => this._onAnimationEnd(event)}
         >
           <div class="sbb-selection-panel__content">

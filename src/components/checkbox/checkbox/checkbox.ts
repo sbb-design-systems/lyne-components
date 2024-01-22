@@ -111,7 +111,13 @@ export class SbbCheckboxElement extends UpdateScheduler(LitElement) {
   }
   private _size: SbbCheckboxSize = 'm';
 
-  /** Whether the input is the main input of a selection panel. */
+  /**
+   * Whether the input is the main input of a selection panel.
+   * @internal
+   */
+  public get isSelectionPanelInput(): boolean {
+    return this._isSelectionPanelInput;
+  }
   @state() private _isSelectionPanelInput = false;
 
   /** The label describing whether the selection panel is expanded (for screen readers only). */
