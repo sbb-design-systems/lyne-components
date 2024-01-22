@@ -197,7 +197,6 @@ export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
     this.addEventListener('click', (e) => this._handleClick(e), { signal });
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
     this._handlerRepository.connect();
-    this._radioButtonLoaded.emit();
 
     // We need to call requestUpdate to update the reflected attributes
     ['disabled', 'required', 'size'].forEach((p) => this.requestUpdate(p));
@@ -216,6 +215,7 @@ export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
     // We need to wait for the selection-panel to be fully initialized
     this.startUpdate();
     setTimeout(() => {
+      this._radioButtonLoaded.emit();
       this._isSelectionPanelInput && this._updateExpandedLabel();
       this.completeUpdate();
     });

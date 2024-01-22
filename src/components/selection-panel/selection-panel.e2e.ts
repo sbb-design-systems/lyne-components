@@ -57,25 +57,19 @@ describe('sbb-selection-panel', () => {
     /* eslint-enable lit/binding-positions */
   };
 
-  const forceOpenTest = async (
-    wrapper: SbbRadioButtonGroupElement | SbbCheckboxGroupElement,
-    secondInput: SbbRadioButtonElement | SbbCheckboxElement,
-    secondContent: HTMLDivElement,
-  ): Promise<void> => {
+  const forceOpenTest = async (wrapper: SbbRadioButtonGroupElement | SbbCheckboxGroupElement, secondInput: SbbRadioButtonElement | SbbCheckboxElement): Promise<void> => {
     elements.forEach((e) => (e.forceOpen = true));
     await waitForLitRender(wrapper);
 
-    elements.forEach((e) => {
-      const panel = e.shadowRoot!.querySelector('.sbb-selection-panel__content--wrapper');
-      expect(panel).to.have.attribute('data-expanded', '');
-    });
+    for (const el of elements) {
+      await waitForCondition(() => el.getAttribute('data-state') === 'opened');
+      expect(el).to.have.attribute('data-state', 'opened');
+    }
 
     expect(secondInput).not.to.have.attribute('checked');
-    expect(secondContent).to.have.attribute('data-expanded');
     secondInput.click();
     await waitForLitRender(wrapper);
     expect(secondInput).to.have.attribute('checked');
-    expect(secondContent).to.have.attribute('data-expanded');
   };
 
   const preservesDisabled = async (
@@ -127,54 +121,61 @@ describe('sbb-selection-panel', () => {
     let wrapper: SbbRadioButtonGroupElement;
     let firstPanel: SbbSelectionPanelElement;
     let firstInput: SbbRadioButtonElement;
-    let firstContent: HTMLDivElement;
     let secondPanel: SbbSelectionPanelElement;
     let secondInput: SbbRadioButtonElement;
-    let secondContent: HTMLDivElement;
     let disabledInput: SbbRadioButtonElement;
+    let willOpenEventSpy, didOpenEventSpy: EventSpy<Event>;
 
     beforeEach(async () => {
+      willOpenEventSpy = new EventSpy(SbbSelectionPanelElement.events.willOpen);
+      didOpenEventSpy = new EventSpy(SbbSelectionPanelElement.events.didOpen);
+
       await fixture(getPageContent('radio-button'));
       elements = Array.from(document.querySelectorAll('sbb-selection-panel'));
       wrapper = document.querySelector<SbbRadioButtonGroupElement>('sbb-radio-button-group')!;
       firstPanel = document.querySelector<SbbSelectionPanelElement>('#sbb-selection-panel-1')!;
       firstInput = document.querySelector<SbbRadioButtonElement>('#sbb-input-1')!;
-      firstContent = firstPanel.shadowRoot!.querySelector<HTMLDivElement>(
-        '.sbb-selection-panel__content--wrapper',
-      )!;
       secondPanel = document.querySelector<SbbSelectionPanelElement>('#sbb-selection-panel-2')!;
       secondInput = document.querySelector<SbbRadioButtonElement>('#sbb-input-2')!;
-      secondContent = secondPanel.shadowRoot!.querySelector<HTMLDivElement>(
-        '.sbb-selection-panel__content--wrapper',
-      )!;
       disabledInput = document.querySelector<SbbRadioButtonElement>('#sbb-input-3')!;
     });
 
     it('renders', () => {
       elements.forEach((e) => assert.instanceOf(e, SbbSelectionPanelElement));
+      assert.instanceOf(firstPanel, SbbSelectionPanelElement);
+      assert.instanceOf(firstInput, SbbRadioButtonElement);
+      assert.instanceOf(secondPanel, SbbSelectionPanelElement);
+      assert.instanceOf(secondInput, SbbRadioButtonElement);
     });
 
     it('selects input on click and shows related content', async () => {
-      assert.instanceOf(firstPanel, SbbSelectionPanelElement);
-      assert.instanceOf(firstInput, SbbRadioButtonElement);
-      expect(firstInput).not.to.have.attribute('checked');
-      expect(firstContent).not.to.have.attribute('data-expanded');
+      willOpenEventSpy = new EventSpy(SbbSelectionPanelElement.events.willOpen);
+      didOpenEventSpy = new EventSpy(SbbSelectionPanelElement.events.didOpen);
 
-      assert.instanceOf(secondPanel, SbbSelectionPanelElement);
-      assert.instanceOf(secondInput, SbbRadioButtonElement);
+      await waitForLitRender(wrapper);
+
+      expect(firstInput).not.to.have.attribute('checked');
+      expect(firstPanel).to.have.attribute('data-state', 'closed');
+
       expect(secondInput).not.to.have.attribute('checked');
-      expect(secondContent).not.to.have.attribute('data-expanded');
+      expect(secondPanel).to.have.attribute('data-state', 'closed');
 
       secondInput.click();
+
+      await waitForCondition(() => willOpenEventSpy.events.length === 1);
+      await waitForCondition(() => didOpenEventSpy.events.length === 1);
       await waitForLitRender(wrapper);
+
+      expect(willOpenEventSpy.count).to.be.equal(1);
+      expect(didOpenEventSpy.count).to.be.equal(1);
       expect(firstInput).not.to.have.attribute('checked');
-      expect(firstContent).not.to.have.attribute('data-expanded');
+      expect(firstPanel).to.have.attribute('data-state', 'closed');
       expect(secondInput).to.have.attribute('checked');
-      expect(secondContent).to.have.attribute('data-expanded', '');
+      expect(secondPanel).to.have.attribute('data-state', 'opened');
     });
 
     it('always displays related content with forceOpen', async () => {
-      await forceOpenTest(wrapper, secondInput, secondContent);
+      await forceOpenTest(wrapper, secondInput);
     });
 
     it('dispatches event on input change', async () => {
@@ -456,71 +457,75 @@ describe('sbb-selection-panel', () => {
     let wrapper: SbbCheckboxGroupElement;
     let firstPanel: SbbSelectionPanelElement;
     let firstInput: SbbCheckboxElement;
-    let firstContent: HTMLDivElement;
     let secondPanel: SbbSelectionPanelElement;
     let secondInput: SbbCheckboxElement;
-    let secondContent: HTMLDivElement;
     let disabledInput: SbbCheckboxElement;
+    let willOpenEventSpy, didOpenEventSpy, willCloseEventSpy, didCloseEventSpy: EventSpy<Event>;
 
     beforeEach(async () => {
+      willOpenEventSpy = new EventSpy(SbbSelectionPanelElement.events.willOpen);
+      didOpenEventSpy = new EventSpy(SbbSelectionPanelElement.events.didOpen);
+      willCloseEventSpy = new EventSpy(SbbSelectionPanelElement.events.willClose);
+      didCloseEventSpy = new EventSpy(SbbSelectionPanelElement.events.didClose);
+
       await fixture(getPageContent('checkbox'));
       elements = Array.from(document.querySelectorAll('sbb-selection-panel'));
       wrapper = document.querySelector<SbbCheckboxGroupElement>('sbb-checkbox-group')!;
       firstPanel = document.querySelector<SbbSelectionPanelElement>('#sbb-selection-panel-1')!;
       firstInput = document.querySelector<SbbCheckboxElement>('#sbb-input-1')!;
-      firstContent = firstPanel.shadowRoot!.querySelector<HTMLDivElement>(
-        '.sbb-selection-panel__content--wrapper',
-      )!;
       secondPanel = document.querySelector<SbbSelectionPanelElement>('#sbb-selection-panel-2')!;
       secondInput = document.querySelector<SbbCheckboxElement>('#sbb-input-2')!;
-      secondContent = secondPanel.shadowRoot!.querySelector<HTMLDivElement>(
-        '.sbb-selection-panel__content--wrapper',
-      )!;
       disabledInput = document.querySelector<SbbCheckboxElement>('#sbb-input-3')!;
     });
 
     it('renders', () => {
       elements.forEach((e) => assert.instanceOf(e, SbbSelectionPanelElement));
+
+      assert.instanceOf(firstPanel, SbbSelectionPanelElement);
+      assert.instanceOf(firstInput, SbbCheckboxElement);
+      assert.instanceOf(secondPanel, SbbSelectionPanelElement);
+      assert.instanceOf(secondInput, SbbCheckboxElement);
     });
 
     it('selects input on click and shows related content', async () => {
       await waitForLitRender(wrapper);
+      await waitForCondition(() => didOpenEventSpy.events.length === 1);
 
-      assert.instanceOf(firstPanel, SbbSelectionPanelElement);
-      assert.instanceOf(firstInput, SbbCheckboxElement);
-
-      // TODO fix: should be 'opened', actual is 'close'.
-      // we have to rethink the open/close flow to make it work
-      //expect(firstPanel).to.have.attribute('data-state', 'opened');
+      expect(willOpenEventSpy.count).to.be.equal(1);
+      expect(didOpenEventSpy.count).to.be.equal(1);
+      expect(firstPanel).to.have.attribute('data-state', 'opened');
       expect(firstInput).to.have.attribute('checked');
-      expect(firstContent).to.have.attribute('data-expanded', '');
-
-      assert.instanceOf(secondPanel, SbbSelectionPanelElement);
-      assert.instanceOf(secondInput, SbbCheckboxElement);
-      expect(firstPanel).to.have.attribute('data-state', 'closed');
+      expect(secondPanel).to.have.attribute('data-state', 'closed');
       expect(secondInput).not.to.have.attribute('checked');
-      expect(secondContent).not.to.have.attribute('data-expanded');
 
       secondInput.click();
       await waitForLitRender(wrapper);
+      await waitForCondition(() => didOpenEventSpy.events.length === 2);
+
+      expect(willOpenEventSpy.count).to.be.equal(2);
+      expect(didOpenEventSpy.count).to.be.equal(2);
       expect(firstInput).to.have.attribute('checked');
-      expect(firstContent).to.have.attribute('data-expanded', '');
+      expect(firstPanel).to.have.attribute('data-state', 'opened');
       expect(secondInput).to.have.attribute('checked');
-      expect(secondContent).to.have.attribute('data-expanded', '');
+      expect(secondPanel).to.have.attribute('data-state', 'opened');
     });
 
     it('deselects input on click and hides related content', async () => {
+      await waitForCondition(() => firstPanel.getAttribute('data-state') === 'opened');
       expect(firstInput).to.have.attribute('checked');
-      expect(firstContent).to.have.attribute('data-expanded');
+      expect(firstPanel).to.have.attribute('data-state', 'opened');
 
       firstInput.click();
-      await waitForLitRender(wrapper);
+
+      await waitForCondition(() => didCloseEventSpy.events.length === 1);
+      expect(willCloseEventSpy.count).to.be.equal(1);
+      expect(didCloseEventSpy.count).to.be.equal(1);
       expect(firstInput).not.to.have.attribute('checked');
-      expect(firstContent).not.to.have.attribute('data-expanded');
+      expect(firstPanel).to.have.attribute('data-state', 'closed');
     });
 
     it('always displays related content with forceOpen', async () => {
-      await forceOpenTest(wrapper, secondInput, secondContent);
+      await forceOpenTest(wrapper, secondInput);
     });
 
     it('dispatches event on input change', async () => {

@@ -183,7 +183,6 @@ export class SbbCheckboxElement extends UpdateScheduler(LitElement) {
     this.addEventListener('click', (e) => this._handleClick(e), { signal });
     this.addEventListener('keyup', (e) => this._handleKeyup(e), { signal });
     this._handlerRepository.connect();
-    this._checkboxLoaded.emit();
 
     // We need to call requestUpdate to update the reflected attributes
     ['disabled', 'required', 'size'].forEach((p) => this.requestUpdate(p));
@@ -202,6 +201,7 @@ export class SbbCheckboxElement extends UpdateScheduler(LitElement) {
     // We need to wait for the selection-panel to be fully initialized
     this.startUpdate();
     setTimeout(() => {
+      this._checkboxLoaded.emit();
       this._isSelectionPanelInput && this._updateExpandedLabel();
       this.completeUpdate();
     });
