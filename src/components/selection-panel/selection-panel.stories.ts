@@ -733,7 +733,9 @@ export const NestedCheckboxes: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (story) => html` <div style="padding: 2rem;">${story()}</div> `,
+    (story) => html`
+      <div style="padding: 2rem;${isChromatic() ? 'min-height: 550px;' : ''}">${story()}</div>
+    `,
     withActions as Decorator,
   ],
   parameters: {
