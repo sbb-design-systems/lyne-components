@@ -277,6 +277,11 @@ describe('sbb-selection-panel', () => {
         document.querySelector<SbbRadioButtonElement>('#input-no-content-2')!;
       const fourthInputNoContent: SbbRadioButtonElement =
         document.querySelector<SbbRadioButtonElement>('#input-no-content-4')!;
+      const firstPanel = document.querySelector<SbbSelectionPanelElement>('#no-content-1')!;
+      const secondPanel = document.querySelector<SbbSelectionPanelElement>('#no-content-2')!;
+
+      expect(firstPanel).to.have.attribute('data-state', 'closed');
+      expect(secondPanel).to.have.attribute('data-state', 'closed');
 
       await sendKeys({ down: 'Tab' });
       await waitForLitRender(wrapperNoContent);
@@ -310,11 +315,19 @@ describe('sbb-selection-panel', () => {
 
   describe('with nested radio buttons', () => {
     let nestedElement: SbbRadioButtonGroupElement;
+    let panel1: SbbSelectionPanelElement;
+    let panel2: SbbSelectionPanelElement;
+    let willOpenEventSpy, didOpenEventSpy, willCloseEventSpy, didCloseEventSpy: EventSpy<Event>;
 
     beforeEach(async () => {
+      willOpenEventSpy = new EventSpy(SbbSelectionPanelElement.events.willOpen);
+      didOpenEventSpy = new EventSpy(SbbSelectionPanelElement.events.didOpen);
+      willCloseEventSpy = new EventSpy(SbbSelectionPanelElement.events.willClose);
+      didCloseEventSpy = new EventSpy(SbbSelectionPanelElement.events.didClose);
+
       nestedElement = await fixture(html`
         <sbb-radio-button-group orientation="vertical" horizontal-from="large">
-          <sbb-selection-panel disable-animation>
+          <sbb-selection-panel disable-animation id="panel1">
             <sbb-radio-button value="main1" checked> Main Option 1 </sbb-radio-button>
             <sbb-radio-button-group orientation="vertical" slot="content">
               <sbb-radio-button value="sub1" checked>Suboption 1</sbb-radio-button>
@@ -322,7 +335,7 @@ describe('sbb-selection-panel', () => {
             </sbb-radio-button-group>
           </sbb-selection-panel>
 
-          <sbb-selection-panel disable-animation>
+          <sbb-selection-panel disable-animation id="panel2">
             <sbb-radio-button value="main2"> Main Option 2 </sbb-radio-button>
             <sbb-radio-button-group orientation="vertical" slot="content">
               <sbb-radio-button value="sub3">Suboption 3</sbb-radio-button>
@@ -331,6 +344,8 @@ describe('sbb-selection-panel', () => {
           </sbb-selection-panel>
         </sbb-radio-button-group>
       `);
+      panel1 = nestedElement.querySelector<SbbSelectionPanelElement>('#panel1')!;
+      panel2 = nestedElement.querySelector<SbbSelectionPanelElement>('#panel2')!;
       await waitForLitRender(nestedElement);
     });
 
@@ -351,18 +366,30 @@ describe('sbb-selection-panel', () => {
         .querySelector("sbb-radio-button[value='sub1']")!
         .shadowRoot!.querySelector('.sbb-radio-button__expanded-label');
 
+      await waitForCondition(() => didOpenEventSpy.count === 1);
+      expect(willOpenEventSpy.count).to.be.equal(1);
+      expect(didOpenEventSpy.count).to.be.equal(1);
       expect(mainRadioButton1Label.textContent!.trim()).to.be.equal(', expanded');
       expect(mainRadioButton2Label.textContent!.trim()).to.be.equal(', collapsed');
       expect(subRadioButton1).to.be.null;
+      expect(panel1).to.have.attribute('data-state', 'opened');
+      expect(panel2).to.have.attribute('data-state', 'closed');
 
       // Activate main option 2
       mainRadioButton2.click();
 
-      await waitForLitRender(nestedElement);
+      await waitForCondition(() => didOpenEventSpy.count === 2);
+      await waitForCondition(() => didCloseEventSpy.count === 1);
 
+      expect(willOpenEventSpy.count).to.be.equal(2);
+      expect(didOpenEventSpy.count).to.be.equal(2);
+      expect(willCloseEventSpy.count).to.be.equal(1);
+      expect(didCloseEventSpy.count).to.be.equal(1);
       expect(mainRadioButton1Label.textContent!.trim()).to.be.equal(', collapsed');
       expect(mainRadioButton2Label.textContent!.trim()).to.be.equal(', expanded');
       expect(subRadioButton1).to.be.null;
+      expect(panel1).to.have.attribute('data-state', 'closed');
+      expect(panel2).to.have.attribute('data-state', 'opened');
     });
 
     it('should mark only outer group children as disabled', async () => {
@@ -393,13 +420,27 @@ describe('sbb-selection-panel', () => {
         'sbb-radio-button[value="sub1"]',
       )!;
 
+      await waitForCondition(() => didOpenEventSpy.count === 1);
+      expect(willOpenEventSpy.count).to.be.equal(1);
+      expect(didOpenEventSpy.count).to.be.equal(1);
+      expect(panel1).to.have.attribute('data-state', 'opened');
+      expect(panel2).to.have.attribute('data-state', 'closed');
       expect(main1).to.have.attribute('checked');
       expect(main2).not.to.have.attribute('checked');
       expect(sub1).to.have.attribute('checked');
 
       main2.checked = true;
-      await waitForLitRender(nestedElement);
 
+      await waitForCondition(() => didOpenEventSpy.count === 2);
+      await waitForCondition(() => didCloseEventSpy.count === 1);
+
+      expect(willOpenEventSpy.count).to.be.equal(2);
+      expect(didOpenEventSpy.count).to.be.equal(2);
+      expect(willCloseEventSpy.count).to.be.equal(1);
+      expect(didCloseEventSpy.count).to.be.equal(1);
+
+      expect(panel1).to.have.attribute('data-state', 'closed');
+      expect(panel2).to.have.attribute('data-state', 'opened');
       expect(main1).not.to.have.attribute('checked');
       expect(main2).to.have.attribute('checked');
       expect(sub1).to.have.attribute('checked');
