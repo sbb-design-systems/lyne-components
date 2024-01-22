@@ -122,6 +122,6 @@ describe('sbb-alert', () => {
       html`<sbb-alert title-content="Interruption" readonly>Alert content</sbb-alert>`,
     );
 
-    expect(element.shadowRoot.querySelector('.sbb-alert__close-button-wrapper')).to.be.null;
+    expect(element.shadowRoot!.querySelector('.sbb-alert__close-button-wrapper')).to.be.null;
   });
 });

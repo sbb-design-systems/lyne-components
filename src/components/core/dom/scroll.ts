@@ -10,9 +10,9 @@ export function pageScrollDisabled(): boolean {
  * content shift caused by the disappearance/appearance of the scrollbar.
  */
 export class ScrollHandler {
-  private _position: string;
-  private _overflow: string;
-  private _marginInlineEnd: string;
+  private _position!: string;
+  private _overflow!: string;
+  private _marginInlineEnd!: string;
 
   public disableScroll(): void {
     if (pageScrollDisabled()) {
@@ -40,9 +40,9 @@ export class ScrollHandler {
     }
 
     // Revert body inline styles.
-    document.body.style.position = this._position || null;
-    document.body.style.overflow = this._overflow || null;
-    document.body.style.marginInlineEnd = this._marginInlineEnd || null;
+    document.body.style.position = this._position || '';
+    document.body.style.overflow = this._overflow || '';
+    document.body.style.marginInlineEnd = this._marginInlineEnd || '';
     document.body.style.setProperty('--sbb-scrollbar-width', '0');
 
     toggleDatasetEntry(document.body, 'sbbScrollDisabled', false);

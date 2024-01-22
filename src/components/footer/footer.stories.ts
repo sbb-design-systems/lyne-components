@@ -55,7 +55,7 @@ const defaultArgs: Args = {
   'accessibility-title': 'Footer',
 };
 
-const TemplateDefault = (args): TemplateResult => html`
+const TemplateDefault = (args: Args): TemplateResult => html`
   <sbb-footer ${sbbSpread(args)}>
     <sbb-link-list horizontal-from="large" ?negative=${args.negative}>
       <sbb-link

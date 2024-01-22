@@ -55,15 +55,15 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
    * Accepts both a string (id of an element) or an HTML element.
    */
   @property()
-  public set trigger(value: string | HTMLElement) {
+  public set trigger(value: string | HTMLElement | null) {
     const oldValue = this._trigger;
     this._trigger = value;
     this._removeTriggerClickListener(this._trigger, oldValue);
   }
-  public get trigger(): string | HTMLElement {
+  public get trigger(): string | HTMLElement | null {
     return this._trigger;
   }
-  private _trigger: string | HTMLElement = null;
+  private _trigger: string | HTMLElement | null = null;
 
   /**
    * This will be forwarded as aria-label to the nav element and is read as a title of the navigation-section.
@@ -90,12 +90,12 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
 
   @state() private _renderBackButton = this._isZeroToLargeBreakpoint();
 
-  private _firstLevelNavigation: SbbNavigationElement;
-  private _navigationSection: HTMLElement;
-  private _navigationSectionContainerElement: HTMLElement;
-  private _triggerElement: HTMLElement;
-  private _navigationSectionController: AbortController;
-  private _windowEventsController: AbortController;
+  private _firstLevelNavigation?: SbbNavigationElement | null = null;
+  private _navigationSection!: HTMLElement;
+  private _navigationSectionContainerElement!: HTMLElement;
+  private _triggerElement: HTMLElement | null = null;
+  private _navigationSectionController!: AbortController;
+  private _windowEventsController!: AbortController;
   private _navigationSectionId = `sbb-navigation-section-${++nextId}`;
   private _language = new LanguageController(this);
 
@@ -136,8 +136,8 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
 
   // Removes trigger click listener on trigger change.
   private _removeTriggerClickListener(
-    newValue: string | HTMLElement,
-    oldValue: string | HTMLElement,
+    newValue: string | HTMLElement | null,
+    oldValue: string | HTMLElement | null,
   ): void {
     if (newValue !== oldValue) {
       this._navigationSectionController?.abort();
@@ -147,7 +147,7 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
   }
 
   // Check if the trigger is valid and attach click event listeners.
-  private _configure(trigger: string | HTMLElement): void {
+  private _configure(trigger: string | HTMLElement | null): void {
     removeAriaOverlayTriggerAttributes(this._triggerElement);
 
     if (!trigger) {
@@ -181,7 +181,9 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
       return;
     }
     (
-      this._firstLevelNavigation.shadowRoot.querySelector('.sbb-navigation__content') as HTMLElement
+      this._firstLevelNavigation!.shadowRoot!.querySelector(
+        '.sbb-navigation__content',
+      ) as HTMLElement
     ).inert = this._isZeroToLargeBreakpoint() && this._state !== 'closed';
   }
 
@@ -242,7 +244,7 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
     const isActionElement =
       element !== this._triggerElement &&
       element.nodeName === 'SBB-NAVIGATION-ACTION' &&
-      element.parentElement === this._triggerElement.parentElement;
+      element.parentElement === this._triggerElement?.parentElement;
 
     return (
       isActionElement ||
@@ -273,7 +275,7 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
   // Set focus on the first focusable element.
   private _setNavigationSectionFocus(): void {
     const firstFocusableElement = getFirstFocusableElement(
-      [this.shadowRoot.querySelector('#sbb-navigation-section-back-button')]
+      [this.shadowRoot!.querySelector('#sbb-navigation-section-back-button')]
         .concat(Array.from(this.children))
         .filter((e): e is HTMLElement => e instanceof window.HTMLElement),
     );
@@ -290,13 +292,13 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
 
     // Dynamically get first and last focusable element, as this might have changed since opening overlay
     const navigationChildren: HTMLElement[] = Array.from(
-      this.closest('sbb-navigation').shadowRoot.children,
+      this.closest('sbb-navigation')!.shadowRoot!.children,
     ) as HTMLElement[];
     const navigationFocusableElements = getFocusableElements(navigationChildren, {
       filterFunc: (el) => el.nodeName === 'SBB-NAVIGATION-SECTION',
     });
 
-    const sectionChildren: HTMLElement[] = Array.from(this.shadowRoot.children) as HTMLElement[];
+    const sectionChildren: HTMLElement[] = Array.from(this.shadowRoot!.children) as HTMLElement[];
     const sectionFocusableElements = getFocusableElements(sectionChildren);
 
     const firstFocusable = sectionFocusableElements[0] as HTMLElement;
@@ -306,7 +308,7 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
 
     const elementToFocus = event.shiftKey
       ? this._triggerElement
-      : navigationFocusableElements[navigationFocusableElements.indexOf(this._triggerElement) + 1];
+      : navigationFocusableElements[navigationFocusableElements.indexOf(this._triggerElement!) + 1];
     const pivot = event.shiftKey ? firstFocusable : lastFocusable;
 
     if (
@@ -361,14 +363,14 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
     return html`
       <div
         class="sbb-navigation-section__container"
-        ${ref((el) => (this._navigationSectionContainerElement = el as HTMLElement))}
+        ${ref((el?: Element) => (this._navigationSectionContainerElement = el as HTMLElement))}
       >
         <nav
           @animationend=${(event: AnimationEvent) => this._onAnimationEnd(event)}
           class="sbb-navigation-section"
           ${spread(accessibilityAttributes)}
           ${ref(
-            (navigationSectionRef) =>
+            (navigationSectionRef?: Element) =>
               (this._navigationSection = navigationSectionRef as HTMLElement),
           )}
         >

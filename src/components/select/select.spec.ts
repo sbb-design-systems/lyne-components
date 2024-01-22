@@ -16,8 +16,8 @@ describe('sbb-select', () => {
     `);
     const listboxAttr = 'id="sbb-select-1" role="listbox"';
 
-    expect(root.shadowRoot.host).to.have.attribute('dir', 'ltr');
-    expect(root.shadowRoot.host).to.have.attribute('data-state', 'closed');
+    expect(root.shadowRoot!.host).to.have.attribute('dir', 'ltr');
+    expect(root.shadowRoot!.host).to.have.attribute('data-state', 'closed');
     expect(root).shadowDom.to.be.equal(`
       <div class="sbb-select__trigger" aria-hidden="true">
         <span class="sbb-select__trigger--placeholder"></span>
@@ -53,10 +53,10 @@ describe('sbb-select', () => {
     `);
     const listboxAttr = 'id="sbb-select-2" role="listbox"';
 
-    expect(root.shadowRoot.host).to.have.attribute('dir', 'ltr');
-    expect(root.shadowRoot.host).to.have.attribute('data-state', 'closed');
-    expect(root.shadowRoot.host).to.have.attribute('data-multiple');
-    expect(root.shadowRoot.host).to.have.attribute('multiple');
+    expect(root.shadowRoot!.host).to.have.attribute('dir', 'ltr');
+    expect(root.shadowRoot!.host).to.have.attribute('data-state', 'closed');
+    expect(root.shadowRoot!.host).to.have.attribute('data-multiple');
+    expect(root.shadowRoot!.host).to.have.attribute('multiple');
     expect(root).shadowDom.to.be.equal(`
       <div class="sbb-select__trigger" aria-hidden="true">
         <span class="sbb-select__trigger--placeholder"></span>

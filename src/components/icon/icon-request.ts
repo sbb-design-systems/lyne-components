@@ -48,6 +48,7 @@ export const getSvgContent = (
                   return svgContent;
                 });
               }
+              throw new Error('Failed to load icon ' + namespace + ':' + name);
             })
             .catch((error) => {
               throw Error(error);

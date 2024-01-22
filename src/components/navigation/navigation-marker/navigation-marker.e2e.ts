@@ -43,7 +43,7 @@ describe('sbb-navigation-marker', () => {
   });
 
   it('automatic list generation', () => {
-    const list = element.shadowRoot.querySelector('ul');
+    const list = element.shadowRoot!.querySelector('ul')!;
     expect(list.className).to.be.equal('sbb-navigation-marker');
 
     const listItem = list.querySelector('li');

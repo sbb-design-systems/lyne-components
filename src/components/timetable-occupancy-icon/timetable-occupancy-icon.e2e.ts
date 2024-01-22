@@ -11,7 +11,7 @@ describe('sbb-timetable-occupancy-icon', () => {
   let matchMediaStub: SinonStub<[query: string], MediaQueryList>;
   const mediaQueryListArgs: MediaQueryList = {
     matches: false,
-    media: null,
+    media: '',
     onchange: stub(),
     addListener: stub(), // deprecated
     removeListener: stub(), // deprecated

@@ -238,7 +238,7 @@ const TemplateSelectWithErrorSpace = (args: Args): TemplateResult => {
           ?negative=${args.negative}
         >
           <select
-            @change=${(event) => {
+            @change=${(event: Event) => {
               const select = event.currentTarget as HTMLSelectElement;
               if (select.value !== '0') {
                 sbbFormError.remove();

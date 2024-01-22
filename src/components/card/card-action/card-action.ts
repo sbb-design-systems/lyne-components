@@ -115,11 +115,11 @@ export class SbbCardActionElement extends LitElement implements LinkButtonProper
   private _checkForSlottedActions(): void {
     const cardFocusableAttributeName = 'data-card-focusable';
 
-    Array.from(this._card.querySelectorAll?.(IS_FOCUSABLE_QUERY) ?? [])
+    Array.from(this._card?.querySelectorAll?.(IS_FOCUSABLE_QUERY) ?? [])
       .filter(
         (el) => el.tagName !== 'SBB-CARD-ACTION' && !el.hasAttribute(cardFocusableAttributeName),
       )
-      .forEach((el: HTMLElement) => el.setAttribute(cardFocusableAttributeName, ''));
+      .forEach((el: Element) => el.setAttribute(cardFocusableAttributeName, ''));
   }
 
   protected override render(): TemplateResult {

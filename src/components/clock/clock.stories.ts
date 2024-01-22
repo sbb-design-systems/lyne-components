@@ -1,5 +1,5 @@
 import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Args, Meta, StoryObj } from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
@@ -17,7 +17,7 @@ const dataNow: InputType = {
   },
 };
 
-const Template = (args): TemplateResult => html`<sbb-clock ${sbbSpread(args)}></sbb-clock>`;
+const Template = (args: Args): TemplateResult => html`<sbb-clock ${sbbSpread(args)}></sbb-clock>`;
 
 export const Default: StoryObj = {
   render: Template,

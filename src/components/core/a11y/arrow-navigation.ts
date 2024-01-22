@@ -79,4 +79,5 @@ export function getNextElementIndex(event: KeyboardEvent, current: number, size:
   } else if (event.key === nextKey || event.key === 'ArrowDown') {
     return current >= size ? firstIndex : calcNextIndexInRange(current, size, 1);
   }
+  return current;
 }

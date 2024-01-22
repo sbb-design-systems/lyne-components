@@ -17,6 +17,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
 import { sbbSpread } from '../../core/dom';
+import type { SbbTooltipTriggerElement } from '../../tooltip';
 
 import { SbbDatepickerElement } from './datepicker';
 import readme from './readme.md?raw';
@@ -106,10 +107,10 @@ const wide: InputType = {
 
 const filterFunctions = [
   () => true,
-  (d) => d.getDay() !== 6 && d.getDay() !== 0,
-  (d) => d.getDate() % 2 === 1,
-  (d) => d.getFullYear() % 2 === 0,
-  (d) => d.getMonth() > 6,
+  (d: Date) => d.getDay() !== 6 && d.getDay() !== 0,
+  (d: Date) => d.getDate() % 2 === 1,
+  (d: Date) => d.getFullYear() % 2 === 0,
+  (d: Date) => d.getMonth() > 6,
 ];
 const dateFilter: InputType = {
   options: Object.keys(filterFunctions),
@@ -132,16 +133,16 @@ const dateFilter: InputType = {
 const handlingFunctions = [
   { dateParser: undefined, format: undefined },
   {
-    dateParser: (s) => new Date(s),
-    format: (d) =>
+    dateParser: (s: string) => new Date(s),
+    format: (d: Date) =>
       `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(
         d.getDate(),
       ).padStart(2, '0')}`,
   },
   {
-    dateParser: (s) =>
+    dateParser: (s: string) =>
       new Date(+s.substring(4, s.length), +s.substring(2, 4) - 1, +s.substring(0, 2)),
-    format: (d) =>
+    format: (d: Date) =>
       `${String(d.getDate()).padStart(2, '0')}${String(d.getMonth() + 1).padStart(
         2,
         '0',
@@ -290,7 +291,7 @@ const formFieldBasicArgs = {
   borderless: false,
 };
 
-const getInputAttributes = (min, max): Record<string, number> => {
+const getInputAttributes = (min?: Date | string, max?: Date | string): Record<string, number> => {
   const attr: Record<string, number> = {};
   if (min) {
     attr.min = new Date(min).getTime() / 1000;
@@ -302,7 +303,7 @@ const getInputAttributes = (min, max): Record<string, number> => {
 };
 
 // Story interaction executed after the story renders
-const playStory = async ({ canvasElement }): Promise<void> => {
+const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
@@ -313,15 +314,17 @@ const playStory = async ({ canvasElement }): Promise<void> => {
     () => canvas.getByTestId('toggle').shadowRoot!.querySelector('sbb-tooltip-trigger')!,
   );
 
-  const toggle = await canvas
+  const toggle = (await canvas
     .getByTestId('toggle')
-    .shadowRoot!.querySelector('sbb-tooltip-trigger')!;
+    .shadowRoot!.querySelector<SbbTooltipTriggerElement>('sbb-tooltip-trigger'))!;
   userEvent.click(toggle);
 };
 
-const changeEventHandler = async (event): Promise<void> => {
+const changeEventHandler = async (event: Event): Promise<void> => {
   const div = document.createElement('div');
-  div.innerText = `valueAsDate is: ${await event.target.getValueAsDate()}.`;
+  div.innerText = `valueAsDate is: ${await (
+    event.target as SbbDatepickerElement
+  ).getValueAsDate()}.`;
   document.getElementById('container-value')?.append(div);
 };
 
@@ -348,7 +351,7 @@ const Template = ({
         input="datepicker-input"
         .dateFilter=${dateFilter}
         ?wide=${wide}
-        @change=${(event) => changeEventHandler(event)}
+        @change=${(event: Event) => changeEventHandler(event)}
         data-now=${dataNow}
       ></sbb-datepicker>
       <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
@@ -398,7 +401,7 @@ const TemplateFormField = ({
         .dateParser=${dateHandling.dateParser}
         .format=${dateHandling.format}
         ?wide=${wide}
-        @change=${(event) => changeEventHandler(event)}
+        @change=${(event: Event) => changeEventHandler(event)}
         data-now=${dataNow}
       ></sbb-datepicker>
     </sbb-form-field>

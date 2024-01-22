@@ -1,7 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
 
 import { NamedSlotStateController, SlotChildObserver } from '../core/common-behaviors';
 import type { SbbLinkElement } from '../link';
@@ -69,13 +68,13 @@ export class SbbSkiplinkListElement extends SlotChildObserver(LitElement) {
     });
     const links = this._links.length
       ? this._links
-      : Array.from({ length: +this.getAttribute('data-ssr-child-count') });
+      : Array.from({ length: +(this.getAttribute('data-ssr-child-count') as string) });
 
     return html`
       <div class="sbb-skiplink-list__wrapper">
         <sbb-title
           class="sbb-link-list-title"
-          level=${ifDefined(this.titleLevel)}
+          level=${this.titleLevel || nothing}
           visual-level="5"
           visually-hidden
           negative

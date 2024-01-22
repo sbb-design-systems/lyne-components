@@ -4,6 +4,7 @@ import { html } from 'lit/static-html.js';
 import { NativeDateAdapter } from '../../core/datetime';
 import { findInput } from '../../core/dom';
 import type { SbbFormFieldElement } from '../../form-field';
+import type { SbbDatepickerNextDayElement, SbbDatepickerPreviousDayElement } from '../index';
 
 import type { SbbDatepickerElement } from './datepicker';
 import {
@@ -32,8 +33,10 @@ describe('getDatePicker', () => {
         <sbb-datepicker-next-day></sbb-datepicker-next-day>
       </sbb-form-field>
     `);
-    const picker: SbbDatepickerElement = page.querySelector('sbb-datepicker');
-    const elementNext = page.querySelector('sbb-datepicker-next-day');
+    const picker: SbbDatepickerElement =
+      page.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
+    const elementNext: SbbDatepickerNextDayElement =
+      page.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
     expect(getDatePicker(elementNext)).to.equal(picker);
   });
 
@@ -45,8 +48,9 @@ describe('getDatePicker', () => {
         <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
       </div>
     `);
-    const picker: SbbDatepickerElement = page.querySelector('#picker');
-    const elementPrevious = page.querySelector('sbb-datepicker-previous-day');
+    const picker: SbbDatepickerElement = page.querySelector<SbbDatepickerElement>('#picker')!;
+    const elementPrevious: SbbDatepickerPreviousDayElement =
+      page.querySelector<SbbDatepickerPreviousDayElement>('sbb-datepicker-previous-day')!;
     expect(getDatePicker(elementPrevious, 'picker')).to.equal(picker);
   });
 });
@@ -59,8 +63,9 @@ describe('getInput', () => {
         <sbb-datepicker></sbb-datepicker>
       </sbb-form-field>
     `);
-    const element: SbbDatepickerElement = page.querySelector('sbb-datepicker');
-    const input: HTMLInputElement = page.querySelector('input');
+    const element: SbbDatepickerElement =
+      page.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
+    const input: HTMLInputElement = page.querySelector<HTMLInputElement>('input')!;
     expect(findInput(element)).to.equal(input);
   });
 
@@ -72,8 +77,9 @@ describe('getInput', () => {
         <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
       </div>
     `);
-    const picker: SbbDatepickerElement = page.querySelector('sbb-datepicker');
-    const input: HTMLInputElement = page.querySelector('input');
+    const picker: SbbDatepickerElement =
+      page.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
+    const input: HTMLInputElement = page.querySelector<HTMLInputElement>('input')!;
     expect(findInput(picker, 'input')).to.equal(input);
   });
 });

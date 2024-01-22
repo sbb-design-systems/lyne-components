@@ -82,7 +82,7 @@ export class SbbCheckboxGroupElement extends LitElement {
       // don't trap nested handling
       ((evt.target as HTMLElement) !== this &&
         (evt.target as HTMLElement).parentElement !== this &&
-        (evt.target as HTMLElement).parentElement.nodeName !== 'SBB-SELECTION-PANEL')
+        (evt.target as HTMLElement).parentElement!.nodeName !== 'SBB-SELECTION-PANEL')
     ) {
       return;
     }

@@ -11,7 +11,7 @@ describe('sbb-checkbox', () => {
 
   beforeEach(async () => {
     await fixture(html`<sbb-checkbox></sbb-checkbox>`);
-    element = document.querySelector('sbb-checkbox');
+    element = document.querySelector<SbbCheckboxElement>('sbb-checkbox')!;
   });
 
   it('should render', async () => {
@@ -19,7 +19,7 @@ describe('sbb-checkbox', () => {
   });
 
   it('should not render accessibility label containing expanded state', async () => {
-    expect(element.shadowRoot.querySelector('.sbb-checkbox__expanded-label')).to.be.null;
+    expect(element.shadowRoot!.querySelector('.sbb-checkbox__expanded-label')).to.be.null;
   });
 
   describe('events', () => {
@@ -60,7 +60,8 @@ describe('sbb-checkbox', () => {
       element.indeterminate = true;
       await waitForLitRender(element);
 
-      expect(element.shadowRoot.querySelector('input').indeterminate).to.be.true;
+      expect(element.shadowRoot!.querySelector<HTMLInputElement>('input')!.indeterminate).to.be
+        .true;
     });
   });
 
@@ -72,7 +73,7 @@ describe('sbb-checkbox', () => {
         </div>
       </div>`,
     );
-    element = root.querySelector('sbb-checkbox');
+    element = root.querySelector<SbbCheckboxElement>('sbb-checkbox')!;
     expect(element).not.to.have.attribute('checked');
     expect(root.scrollTop).to.be.equal(0);
 

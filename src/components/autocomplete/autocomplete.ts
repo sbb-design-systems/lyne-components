@@ -23,7 +23,7 @@ import {
   setAriaComboBoxAttributes,
   setOverlayPosition,
 } from '../core/overlay';
-import type { SbbOptionElement } from '../option';
+import type { SbbOptionElement, SbbOptGroupElement } from '../option';
 
 import style from './autocomplete.scss?lit&inline';
 
@@ -52,14 +52,14 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
    * The element where the autocomplete will attach; accepts both an element's id or an HTMLElement.
    * If not set, will search for the first 'sbb-form-field' ancestor.
    */
-  @property() public origin: string | HTMLElement;
+  @property() public origin?: string | HTMLElement;
 
   /**
    * The input element that will trigger the autocomplete opening; accepts both an element's id or an HTMLElement.
    * By default, the autocomplete will open on focus, click, input or `ArrowDown` keypress of the 'trigger' element.
    * If not set, will search for the first 'input' child of a 'sbb-form-field' ancestor.
    */
-  @property() public trigger: string | HTMLInputElement;
+  @property() public trigger?: string | HTMLInputElement;
 
   /** Whether the animation is disabled. */
   @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
@@ -67,7 +67,7 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
 
   /** Whether the icon space is preserved when no icon is set. */
   @property({ attribute: 'preserve-icon-space', reflect: true, type: Boolean })
-  public preserveIconSpace: boolean;
+  public preserveIconSpace?: boolean;
 
   /** Negative coloring variant flag. */
   @property({ reflect: true, type: Boolean }) public negative = false;
@@ -90,8 +90,8 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
   /** Emits whenever the `sbb-autocomplete` is closed. */
   private _didClose: EventEmitter = new EventEmitter(this, SbbAutocompleteElement.events.didClose);
 
-  private _overlay: HTMLElement;
-  private _optionContainer: HTMLElement;
+  private _overlay!: HTMLElement;
+  private _optionContainer!: HTMLElement;
 
   /** Returns the element where autocomplete overlay is attached to. */
   public get originElement(): HTMLElement {
@@ -100,20 +100,20 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
     }
     return this._originElement;
   }
-  private _originElement: HTMLElement;
+  private _originElement?: HTMLElement;
 
   /** Returns the trigger element. */
-  public get triggerElement(): HTMLInputElement {
+  public get triggerElement(): HTMLInputElement | undefined {
     return this._triggerElement;
   }
-  private _triggerElement: HTMLInputElement;
+  private _triggerElement: HTMLInputElement | undefined;
 
-  private _triggerEventsController: AbortController;
-  private _openPanelEventsController: AbortController;
+  private _triggerEventsController!: AbortController;
+  private _openPanelEventsController!: AbortController;
   private _overlayId = `sbb-autocomplete-${++nextId}`;
   private _activeItemIndex = -1;
   private _didLoad = false;
-  private _isPointerDownEventOnMenu: boolean;
+  private _isPointerDownEventOnMenu: boolean = false;
   private _abort = new ConnectedAbortController(this);
 
   /**
@@ -124,7 +124,7 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
 
   /** The autocomplete should inherit 'readonly' state from the trigger. */
   private get _readonly(): boolean {
-    return this.triggerElement && isValidAttribute(this.triggerElement, 'readonly');
+    return !!this.triggerElement && isValidAttribute(this.triggerElement, 'readonly');
   }
 
   private get _options(): SbbOptionElement[] {
@@ -164,8 +164,8 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
 
   /** Removes trigger click listener on trigger change. */
   private _resetOriginClickListener(
-    newValue: string | HTMLElement,
-    oldValue: string | HTMLElement,
+    newValue?: string | HTMLElement,
+    oldValue?: string | HTMLElement,
   ): void {
     if (newValue !== oldValue) {
       this._componentSetup();
@@ -174,8 +174,8 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
 
   /** Removes trigger click listener on trigger change. */
   private _resetTriggerClickListener(
-    newValue: string | HTMLElement,
-    oldValue: string | HTMLElement,
+    newValue?: string | HTMLElement,
+    oldValue?: string | HTMLElement,
   ): void {
     if (newValue !== oldValue) {
       this._componentSetup();
@@ -194,18 +194,23 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
       .filter((option) => option.id !== target.id && option.selected)
       .forEach((option) => (option.selected = false));
 
-    // Set the option value
-    this.triggerElement.value = target.value;
+    if (this.triggerElement) {
+      // Set the option value
+      this.triggerElement.value = target.value as string;
 
-    // Manually trigger the change events
-    this.triggerElement.dispatchEvent(new Event('change', { bubbles: true }));
-    this.triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+      // Manually trigger the change events
+      this.triggerElement.dispatchEvent(new Event('change', { bubbles: true }));
+      this.triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+    }
 
     this.close();
   }
 
-  private _onOptionClick(event): void {
-    if (event.target?.tagName !== 'SBB-OPTION' || event.target.disabled) {
+  private _onOptionClick(event: MouseEvent): void {
+    if (
+      (event.target as Element).tagName !== 'SBB-OPTION' ||
+      (event.target as SbbOptionElement).disabled
+    ) {
       return;
     }
     this.close();
@@ -225,10 +230,12 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
     }
     this._syncNegative();
 
-    this.addEventListener('optionSelectionChange', (e: CustomEvent) => this._onOptionSelected(e), {
-      signal,
-    });
-    this.addEventListener('click', (e) => this._onOptionClick(e), { signal });
+    this.addEventListener(
+      'optionSelectionChange',
+      (e: CustomEvent<void>) => this._onOptionSelected(e),
+      { signal },
+    );
+    this.addEventListener('click', (e: MouseEvent) => this._onOptionClick(e), { signal });
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -256,9 +263,9 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
   private _syncNegative(): void {
     this.querySelectorAll?.('sbb-divider').forEach((divider) => (divider.negative = this.negative));
 
-    this.querySelectorAll?.('sbb-option, sbb-optgroup').forEach((element: HTMLElement) =>
-      toggleDatasetEntry(element, 'negative', this.negative),
-    );
+    this.querySelectorAll?.<SbbOptionElement | SbbOptGroupElement>(
+      'sbb-option, sbb-optgroup',
+    ).forEach((element) => toggleDatasetEntry(element, 'negative', this.negative));
   }
 
   public override disconnectedCallback(): void {
@@ -278,7 +285,7 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
     toggleDatasetEntry(
       this,
       'optionPanelOriginBorderless',
-      this.closest('sbb-form-field')?.hasAttribute('borderless'),
+      !!this.closest?.('sbb-form-field')?.hasAttribute('borderless'),
     );
 
     this._bindTo(this._getTriggerElement());
@@ -289,10 +296,10 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
    * @returns 'origin' or the first 'sbb-form-field' ancestor.
    */
   private _findOriginElement(): HTMLElement {
-    let result: HTMLElement;
+    let result: HTMLElement | undefined | null;
 
     if (!this.origin) {
-      result = this.closest?.('sbb-form-field')?.shadowRoot.querySelector('#overlay-anchor');
+      result = this.closest?.('sbb-form-field')?.shadowRoot?.querySelector?.('#overlay-anchor');
     } else {
       result = findReferencedElement(this.origin);
     }
@@ -344,13 +351,13 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
     this._triggerEventsController = new AbortController();
 
     // Open the overlay on focus, click, input and `ArrowDown` event
-    this.triggerElement.addEventListener('focus', () => this.open(), {
+    this.triggerElement?.addEventListener('focus', () => this.open(), {
       signal: this._triggerEventsController.signal,
     });
-    this.triggerElement.addEventListener('click', () => this.open(), {
+    this.triggerElement?.addEventListener('click', () => this.open(), {
       signal: this._triggerEventsController.signal,
     });
-    this.triggerElement.addEventListener(
+    this.triggerElement?.addEventListener(
       'input',
       (event) => {
         this.open();
@@ -358,7 +365,7 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
       },
       { signal: this._triggerEventsController.signal },
     );
-    this.triggerElement.addEventListener(
+    this.triggerElement?.addEventListener(
       'keydown',
       (event: KeyboardEvent) => this._closedPanelKeyboardInteraction(event),
       { signal: this._triggerEventsController.signal },
@@ -371,7 +378,7 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
       this._overlay,
       this.originElement,
       this._optionContainer,
-      this.shadowRoot.querySelector('.sbb-autocomplete__container'),
+      this.shadowRoot!.querySelector('.sbb-autocomplete__container')!,
       this,
     );
   }
@@ -425,7 +432,7 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
     });
 
     // Keyboard interactions
-    this.triggerElement.addEventListener(
+    this.triggerElement?.addEventListener(
       'keydown',
       (event: KeyboardEvent) => this._openedPanelKeyboardInteraction(event),
       {
@@ -503,7 +510,7 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
     const next = getNextElementIndex(event, this._activeItemIndex, filteredOptions.length);
     const nextActiveOption = filteredOptions[next];
     nextActiveOption.active = true;
-    this.triggerElement.setAttribute('aria-activedescendant', nextActiveOption.id);
+    this.triggerElement?.setAttribute('aria-activedescendant', nextActiveOption.id);
     nextActiveOption.scrollIntoView({ block: 'nearest' });
 
     // Reset the previous active option
@@ -522,11 +529,14 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
       activeElement.active = false;
     }
     this._activeItemIndex = -1;
-    this.triggerElement.removeAttribute('aria-activedescendant');
+    this.triggerElement?.removeAttribute('aria-activedescendant');
   }
 
   /** Highlight the searched text on the options. */
-  private _highlightOptions(searchTerm: string): void {
+  private _highlightOptions(searchTerm?: string): void {
+    if (!searchTerm) {
+      return;
+    }
     this._options.forEach((option) => option.highlight(searchTerm));
   }
 
@@ -534,7 +544,7 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
     setAriaComboBoxAttributes(element, this.id || this._overlayId, false);
   }
 
-  private _removeTriggerAttributes(element: HTMLInputElement): void {
+  private _removeTriggerAttributes(element?: HTMLInputElement): void {
     removeAriaComboBoxAttributes(element);
   }
 
@@ -552,7 +562,7 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
           @animationend=${this._onAnimationEnd}
           class="sbb-autocomplete__panel"
           ?data-open=${this._state === 'opened' || this._state === 'opening'}
-          ${ref((overlayRef) => (this._overlay = overlayRef as HTMLElement))}
+          ${ref((overlayRef?: Element) => (this._overlay = overlayRef as HTMLElement))}
         >
           <div class="sbb-autocomplete__wrapper">
             <div

@@ -9,7 +9,7 @@ describe('sbb-form-error', () => {
   it('renders', async () => {
     await fixture(html`<sbb-form-error></sbb-form-error>`);
 
-    element = document.querySelector('sbb-form-error');
+    element = document.querySelector<SbbFormErrorElement>('sbb-form-error')!;
     assert.instanceOf(element, SbbFormErrorElement);
   });
 });

@@ -15,7 +15,7 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
     : 'var(--sbb-color-white-default)',
 });
 
-const Template = (args): TemplateResult => html`
+const Template = (args: Args): TemplateResult => html`
   <div style=${styleMap({ height: '340px', padding: '20px' })}>
     <sbb-divider ${sbbSpread(args)}></sbb-divider>
   </div>

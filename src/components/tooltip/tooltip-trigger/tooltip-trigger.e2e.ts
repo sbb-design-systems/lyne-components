@@ -18,8 +18,8 @@ describe('sbb-tooltip-trigger', () => {
         <sbb-link id="tooltip-link" variant="inline" sbb-tooltip-close>Link</sbb-link>
       </sbb-tooltip>
     `);
-    element = document.querySelector('sbb-tooltip-trigger');
-    tooltip = document.querySelector('sbb-tooltip');
+    element = document.querySelector<SbbTooltipTriggerElement>('sbb-tooltip-trigger')!;
+    tooltip = document.querySelector<SbbTooltipElement>('sbb-tooltip')!;
   });
 
   it('renders', () => {

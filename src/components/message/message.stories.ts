@@ -14,7 +14,7 @@ import './message';
 
 import readme from './readme.md?raw';
 
-const DefaultTemplate = (args): TemplateResult => html`
+const DefaultTemplate = (args: Args): TemplateResult => html`
   <sbb-message ${sbbSpread(args)}>
     <sbb-image slot="image" image-src=${images[images.length - 1]}></sbb-image>
     <p slot="subtitle">Please reload the page or try your search again later.</p>
@@ -28,7 +28,7 @@ const DefaultTemplate = (args): TemplateResult => html`
   </sbb-message>
 `;
 
-const NoImageTemplate = (args): TemplateResult => html`
+const NoImageTemplate = (args: Args): TemplateResult => html`
   <sbb-message ${sbbSpread(args)}>
     <p slot="subtitle">Please reload the page or try your search again later.</p>
     <p slot="legend">Error code: 0001</p>
@@ -41,7 +41,7 @@ const NoImageTemplate = (args): TemplateResult => html`
   </sbb-message>
 `;
 
-const NoErrorCodeTemplate = (args): TemplateResult => html`
+const NoErrorCodeTemplate = (args: Args): TemplateResult => html`
   <sbb-message ${sbbSpread(args)}>
     <sbb-image slot="image" image-src=${images[images.length - 1]}></sbb-image>
     <p slot="subtitle">Please reload the page or try your search again later.</p>
@@ -54,7 +54,7 @@ const NoErrorCodeTemplate = (args): TemplateResult => html`
   </sbb-message>
 `;
 
-const NoActionTemplate = (args): TemplateResult => html`
+const NoActionTemplate = (args: Args): TemplateResult => html`
   <sbb-message ${sbbSpread(args)}>
     <sbb-image slot="image" image-src=${images[images.length - 1]}></sbb-image>
     <p slot="subtitle">Please reload the page or try your search again later.</p>

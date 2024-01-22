@@ -32,7 +32,8 @@ describe('sbb-datepicker-next-day', () => {
       </div>
     `);
 
-    const element: SbbDatepickerNextDayElement = page.querySelector('sbb-datepicker-next-day');
+    const element: SbbDatepickerNextDayElement =
+      page.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
     expect(element).dom.to.be.equal(`
       <sbb-datepicker-next-day
         date-picker="datepicker"
@@ -60,7 +61,8 @@ describe('sbb-datepicker-next-day', () => {
       </sbb-form-field>
     `);
 
-    const element: SbbDatepickerNextDayElement = page.querySelector('sbb-datepicker-next-day');
+    const element: SbbDatepickerNextDayElement =
+      page.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
     expect(element).to.have.attribute('data-disabled');
   });
 
@@ -73,7 +75,8 @@ describe('sbb-datepicker-next-day', () => {
       </sbb-form-field>
     `);
 
-    const element: SbbDatepickerNextDayElement = page.querySelector('sbb-datepicker-next-day');
+    const element: SbbDatepickerNextDayElement =
+      page.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
     expect(element).to.have.attribute('data-disabled');
   });
 });

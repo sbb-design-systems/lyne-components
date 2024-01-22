@@ -112,7 +112,7 @@ const TemplateSbbTeaserWithSlots = ({
   'image-src': imageSrc,
   'image-alt': imageAlt,
   ...args
-}): TemplateResult => html`
+}: Args): TemplateResult => html`
   <sbb-teaser-hero ${sbbSpread(args)}>
     ${content}
     <span slot="link-content">${linkContent}</span>

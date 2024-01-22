@@ -1,5 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { LitElement, html } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { LanguageController } from '../../core/common-behaviors';
@@ -14,7 +14,7 @@ import {
 } from '../../core/dom';
 import { ConnectedAbortController, EventEmitter } from '../../core/eventing';
 import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n';
-import type { ValidationChangeEvent, SbbDateLike } from '../../core/interfaces';
+import type { SbbDateLike, ValidationChangeEvent } from '../../core/interfaces';
 import { AgnosticMutationObserver } from '../../core/observers';
 import type { SbbDatepickerNextDayElement } from '../datepicker-next-day';
 import type { SbbDatepickerPreviousDayElement } from '../datepicker-previous-day';
@@ -26,10 +26,10 @@ const FORMAT_DATE =
   /(^0?[1-9]?|[12]?[0-9]?|3?[01]?)[.,\\/\-\s](0?[1-9]?|1?[0-2]?)?[.,\\/\-\s](\d{1,4}$)?/;
 
 export interface InputUpdateEvent {
-  disabled: boolean;
-  readonly: boolean;
-  min: string | number;
-  max: string | number;
+  disabled?: boolean;
+  readonly?: boolean;
+  min?: string | number;
+  max?: string | number;
 }
 
 /**
@@ -44,7 +44,7 @@ export function getDatePicker(
     | SbbDatepickerNextDayElement
     | SbbDatepickerToggleElement,
   trigger?: string | HTMLElement,
-): SbbDatepickerElement {
+): SbbDatepickerElement | null | undefined {
   if (!trigger) {
     const parent = element.closest?.('sbb-form-field');
     return parent?.querySelector('sbb-datepicker');
@@ -63,7 +63,7 @@ export function getDatePicker(
 export function getAvailableDate(
   date: Date,
   delta: number,
-  dateFilter: (date: Date) => boolean,
+  dateFilter: ((date: Date) => boolean) | null,
   dateAdapter: DateAdapter<Date>,
 ): Date {
   let availableDate = dateAdapter.addCalendarDays(date, delta);
@@ -87,12 +87,12 @@ export function getAvailableDate(
  */
 export function findPreviousAvailableDate(
   date: Date,
-  dateFilter: (date: Date) => boolean,
+  dateFilter: ((date: Date) => boolean) | null,
   dateAdapter: DateAdapter<Date>,
-  min: string | number,
+  min: string | number | null,
 ): Date {
   const previousDate = getAvailableDate(date, -1, dateFilter, dateAdapter);
-  const dateMin: Date = dateAdapter.deserializeDate(min);
+  const dateMin = dateAdapter.deserializeDate(min);
 
   if (
     !dateMin ||
@@ -113,12 +113,12 @@ export function findPreviousAvailableDate(
  */
 export function findNextAvailableDate(
   date: Date,
-  dateFilter: (date: Date) => boolean,
+  dateFilter: ((date: Date) => boolean) | null,
   dateAdapter: DateAdapter<Date>,
-  max: string | number,
+  max: string | number | null,
 ): Date {
   const nextDate = getAvailableDate(date, 1, dateFilter, dateAdapter);
-  const dateMax: Date = dateAdapter.deserializeDate(max);
+  const dateMax = dateAdapter.deserializeDate(max);
 
   if (
     !dateMax ||
@@ -139,18 +139,18 @@ export function findNextAvailableDate(
  */
 export function isDateAvailable(
   date: Date,
-  dateFilter: (date: Date) => boolean,
-  min: string | number,
-  max: string | number,
+  dateFilter: ((date: Date) => boolean) | null,
+  min: string | number | null | undefined,
+  max: string | number | null | undefined,
 ): boolean {
   // TODO: Get date adapter from config
   const dateAdapter: DateAdapter<Date> = defaultDateAdapter;
-  const dateMin: Date = dateAdapter.deserializeDate(min);
-  const dateMax: Date = dateAdapter.deserializeDate(max);
+  const dateMin = dateAdapter.deserializeDate(min);
+  const dateMax = dateAdapter.deserializeDate(max);
 
   if (
-    (dateAdapter.isValid(dateMin) && dateAdapter.compareDate(date, dateMin) < 0) ||
-    (dateAdapter.isValid(dateMax) && dateAdapter.compareDate(date, dateMax) > 0)
+    (dateAdapter.isValid(dateMin) && dateAdapter.compareDate(date, dateMin!) < 0) ||
+    (dateAdapter.isValid(dateMax) && dateAdapter.compareDate(date, dateMax!) > 0)
   ) {
     return false;
   }
@@ -246,7 +246,7 @@ export class SbbDatepickerElement extends LitElement {
     this._registerInputElement(this._inputElementState, oldValue);
   }
 
-  private _inputElementState: HTMLInputElement | null;
+  private _inputElementState: HTMLInputElement | null = null;
 
   private _findInput(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
     if (newValue !== oldValue) {
@@ -260,7 +260,10 @@ export class SbbDatepickerElement extends LitElement {
     }
   }
 
-  private _registerInputElement(newValue: HTMLInputElement, oldValue: HTMLInputElement): void {
+  private _registerInputElement(
+    newValue: HTMLInputElement | null,
+    oldValue: HTMLInputElement | null,
+  ): void {
     if (newValue !== oldValue) {
       this._datePickerController?.abort();
       this._datePickerController = new AbortController();
@@ -295,17 +298,22 @@ export class SbbDatepickerElement extends LitElement {
   }
 
   /** Gets the input value with the correct date format. */
-  public getValueAsDate(): Date {
-    return this._parse(this._inputElement?.value);
+  public getValueAsDate(): Date | undefined {
+    if (this._inputElement && this._inputElement.value) {
+      return this._parse(this._inputElement.value);
+    }
+    return undefined;
   }
 
   /** Set the input value to the correctly formatted value. */
   public setValueAsDate(date: SbbDateLike): void {
     const parsedDate = date instanceof Date ? date : new Date(date);
-    this._formatAndUpdateValue(this._inputElement.value, parsedDate);
-    /* Emit blur event when value is changed programmatically to notify
-    frameworks that rely on that event to update form status. */
-    this._inputElement.dispatchEvent(new Event('blur', { composed: true }));
+    if (this._inputElement) {
+      this._formatAndUpdateValue(this._inputElement.value, parsedDate);
+      /* Emit blur event when value is changed programmatically to notify
+      frameworks that rely on that event to update form status. */
+      this._inputElement.dispatchEvent(new Event('blur', { composed: true }));
+    }
   }
 
   private _onInputPropertiesChange(mutationsList?: MutationRecord[]): void {
@@ -316,12 +324,16 @@ export class SbbDatepickerElement extends LitElement {
       max: this._inputElement?.max,
     });
 
-    if (mutationsList && Array.from(mutationsList).some((e) => e.attributeName === 'value')) {
-      this._inputElement.value = this._getValidValue(this._inputElement?.getAttribute('value'));
+    if (
+      this._inputElement &&
+      mutationsList &&
+      Array.from(mutationsList).some((e) => e.attributeName === 'value')
+    ) {
+      this._inputElement.value = this._getValidValue(this._inputElement.getAttribute('value')!);
     }
   }
 
-  private _datePickerController: AbortController;
+  private _datePickerController!: AbortController;
 
   private _inputObserver = new AgnosticMutationObserver(this._onInputPropertiesChange.bind(this));
 
@@ -333,7 +345,9 @@ export class SbbDatepickerElement extends LitElement {
     if (this._inputElement) {
       this._inputElement.placeholder = i18nDatePickerPlaceholder[this._language.current];
       const valueAsDate = this.getValueAsDate();
-      this._inputElement.value = this._format(valueAsDate);
+      if (valueAsDate) {
+        this._inputElement.value = this._format(valueAsDate);
+      }
     }
   });
 
@@ -347,17 +361,17 @@ export class SbbDatepickerElement extends LitElement {
     if (this._inputElement) {
       this._inputElement.value = this._getValidValue(this._inputElement.value);
       this._inputUpdated.emit({
-        disabled: this._inputElement?.disabled,
-        readonly: this._inputElement?.readOnly,
-        min: this._inputElement?.min,
-        max: this._inputElement?.max,
+        disabled: this._inputElement.disabled,
+        readonly: this._inputElement.readOnly,
+        min: this._inputElement.min,
+        max: this._inputElement.max,
       });
     }
   }
 
   public override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('input')) {
-      this._findInput(this.input, changedProperties.get('input'));
+      this._findInput(this.input!, changedProperties.get('input')!);
     }
     if (changedProperties.has('wide') || changedProperties.has('dateFilter')) {
       this._datepickerPropChanged(this.wide, changedProperties.get('wide'));
@@ -377,7 +391,7 @@ export class SbbDatepickerElement extends LitElement {
 
   private _parseAndFormatValue(value: string): string {
     const d = this._parse(value);
-    return !this._dateAdapter.isValid(d) ? value : this._format(d);
+    return !this._dateAdapter.isValid(d) ? value : this._format(d!);
   }
 
   private _createAndComposeDate(value: SbbDateLike): string {
@@ -385,16 +399,17 @@ export class SbbDatepickerElement extends LitElement {
     return this._format(date);
   }
 
-  private _valueChanged(event): void {
-    this._formatAndUpdateValue(event.target.value, this._parse(event.target.value));
+  private _valueChanged(event: Event): void {
+    const value: string = (event.target as HTMLInputElement).value;
+    this._formatAndUpdateValue(value, this._parse(value));
   }
 
   /** Applies the correct format to values and triggers event dispatch. */
-  private _formatAndUpdateValue(value: string, valueAsDate: Date): void {
+  private _formatAndUpdateValue(value: string, valueAsDate: Date | null | undefined): void {
     if (this._inputElement) {
       this._inputElement.value = !this._dateAdapter.isValid(valueAsDate)
         ? value
-        : this._format(valueAsDate);
+        : this._format(valueAsDate!);
 
       const isEmptyOrValid =
         !value ||
@@ -410,7 +425,7 @@ export class SbbDatepickerElement extends LitElement {
       if (wasValid !== isEmptyOrValid) {
         this._validationChange.emit({ valid: isEmptyOrValid });
       }
-      this._emitChange(valueAsDate);
+      this._emitChange(valueAsDate!);
     }
   }
 
@@ -434,7 +449,7 @@ export class SbbDatepickerElement extends LitElement {
       return '';
     }
 
-    const match: RegExpMatchArray = value.match(FORMAT_DATE);
+    const match: RegExpMatchArray | null = value.match(FORMAT_DATE);
 
     if (match?.index === 0) {
       return this._parseAndFormatValue(value);
@@ -453,7 +468,7 @@ export class SbbDatepickerElement extends LitElement {
    */
   public now(): Date {
     if (this._hasDataNow()) {
-      const today = new Date(+this.dataset?.now);
+      const today = new Date(+(this.dataset?.now as string));
       today.setHours(0, 0, 0, 0);
       return today;
     }
@@ -461,7 +476,7 @@ export class SbbDatepickerElement extends LitElement {
   }
 
   private _hasDataNow(): boolean {
-    const dataNow = +this.dataset?.now;
+    const dataNow = +(this.dataset?.now as string);
     return !isNaN(dataNow);
   }
 
@@ -475,7 +490,7 @@ export class SbbDatepickerElement extends LitElement {
     return this.format ? this.format(date) : this._dateAdapter.format(date);
   }
 
-  private _setAriaLiveMessage(date: Date): void {
+  private _setAriaLiveMessage(date?: Date): void {
     const ariaLiveFormatter = new Intl.DateTimeFormat(`${this._language.current}-CH`, {
       weekday: 'long',
     });
@@ -486,8 +501,8 @@ export class SbbDatepickerElement extends LitElement {
       year: 'numeric',
     });
 
-    const containerElement: HTMLParagraphElement | undefined =
-      this.shadowRoot.querySelector?.('#status-container');
+    const containerElement: HTMLParagraphElement | null | undefined =
+      this.shadowRoot?.querySelector?.<HTMLParagraphElement>('#status-container');
 
     if (containerElement) {
       containerElement.innerText = date
@@ -507,5 +522,9 @@ declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'sbb-datepicker': SbbDatepickerElement;
+  }
+
+  interface GlobalEventHandlersEventMap {
+    inputUpdated: CustomEvent<InputUpdateEvent>;
   }
 }

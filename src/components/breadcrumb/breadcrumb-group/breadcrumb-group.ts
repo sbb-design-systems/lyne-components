@@ -118,7 +118,7 @@ export class SbbBreadcrumbGroupElement extends SlotChildObserver(LitElement) {
   private _focusNextCollapsed(evt: KeyboardEvent): void {
     const arrayCollapsed: SbbBreadcrumbElement[] = [
       this._breadcrumbs[0],
-      this.shadowRoot.querySelector('#sbb-breadcrumb-ellipsis') as SbbBreadcrumbElement,
+      this.shadowRoot!.querySelector('#sbb-breadcrumb-ellipsis') as SbbBreadcrumbElement,
       this._breadcrumbs[this._breadcrumbs.length - 1],
     ];
     this._focusNext(evt, arrayCollapsed);
@@ -129,7 +129,7 @@ export class SbbBreadcrumbGroupElement extends SlotChildObserver(LitElement) {
     breadcrumbs: SbbBreadcrumbElement[] = this._breadcrumbs,
   ): void {
     const current: number = breadcrumbs.findIndex(
-      (e) => e === document.activeElement || e === this.shadowRoot.activeElement,
+      (e) => e === document.activeElement || e === this.shadowRoot!.activeElement,
     );
     const nextIndex: number = getNextElementIndex(evt, current, breadcrumbs.length);
     breadcrumbs[nextIndex]?.focus();

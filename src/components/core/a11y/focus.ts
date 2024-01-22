@@ -40,24 +40,24 @@ export function getFocusableElements(
 
       if (
         el.matches(IS_FOCUSABLE_QUERY) &&
-        (properties.includeInvisibleElements ?? interactivityChecker.isVisible(el))
+        (properties?.includeInvisibleElements ?? interactivityChecker.isVisible(el))
       ) {
         focusableEls.add(el);
       }
 
-      if (properties.findFirstFocusable && focusableEls.size > 0) {
+      if (properties?.findFirstFocusable && focusableEls.size > 0) {
         break;
       }
 
       if (el.children.length || el.shadowRoot?.children.length) {
         const children = Array.from(el.children).length
           ? (Array.from(el.children) as HTMLElement[])
-          : (Array.from(el.shadowRoot.children) as HTMLElement[]);
+          : (Array.from(el.shadowRoot!.children) as HTMLElement[]);
         getFocusables(children, filterFunc);
       }
     }
   }
-  getFocusables(elements, properties.filterFunc);
+  getFocusables(elements, properties?.filterFunc);
 
   return [...focusableEls];
 }
@@ -86,7 +86,7 @@ export class FocusHandler {
 
         // Dynamically get first and last focusable element, as this might have changed since opening overlay
         const elementChildren: HTMLElement[] = Array.from(
-          element.shadowRoot.children,
+          element.shadowRoot!.children || [],
         ) as HTMLElement[];
         const focusableElements = getFocusableElements(elementChildren, { filterFunc });
         const firstFocusable = focusableElements[0] as HTMLElement;

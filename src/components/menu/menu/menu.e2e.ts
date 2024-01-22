@@ -2,6 +2,7 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
+import type { SbbButtonElement } from '../../button';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
 
 import { SbbMenuElement } from './menu';
@@ -11,7 +12,7 @@ import '../../link';
 import '../../divider';
 
 describe('sbb-menu', () => {
-  let element: SbbMenuElement, trigger: HTMLElement;
+  let element: SbbMenuElement, trigger: SbbButtonElement;
 
   beforeEach(async () => {
     await fixture(html`
@@ -29,8 +30,8 @@ describe('sbb-menu', () => {
         <sbb-menu-action id="menu-action-4" icon="cross-small">Cancel</sbb-menu-action>
       </sbb-menu>
     `);
-    trigger = document.querySelector('sbb-button');
-    element = document.querySelector('sbb-menu');
+    trigger = document.querySelector<SbbButtonElement>('sbb-button')!;
+    element = document.querySelector<SbbMenuElement>('sbb-menu')!;
   });
 
   it('renders', () => {
@@ -163,7 +164,7 @@ describe('sbb-menu', () => {
     const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen);
     const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen);
     await setViewport({ width: 1200, height: 800 });
-    const menu: HTMLElement = element.shadowRoot.querySelector('.sbb-menu');
+    const menu: HTMLDivElement = element.shadowRoot!.querySelector<HTMLDivElement>('.sbb-menu')!;
 
     trigger.click();
     await waitForLitRender(element);
@@ -198,7 +199,7 @@ describe('sbb-menu', () => {
     const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen);
 
     await setViewport({ width: 800, height: 600 });
-    const menu: HTMLElement = element.shadowRoot.querySelector('.sbb-menu');
+    const menu: HTMLDivElement = element.shadowRoot!.querySelector<HTMLDivElement>('.sbb-menu')!;
 
     trigger.click();
     await waitForLitRender(element);
@@ -241,7 +242,7 @@ describe('sbb-menu', () => {
     expect(element).to.have.attribute('data-state', 'opened');
 
     await waitForLitRender(element);
-    expect(document.activeElement.id).to.be.equal('menu-link');
+    expect(document.activeElement!.id).to.be.equal('menu-link');
   });
 
   it('does not open if prevented', async () => {

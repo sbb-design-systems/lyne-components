@@ -1,5 +1,6 @@
 import { aTimeout, assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
 import images from '../core/images';
 import { waitForCondition, waitForLitRender } from '../core/testing';
@@ -9,7 +10,7 @@ import { SbbImageElement } from './image';
 describe('sbb-image', () => {
   let element: SbbImageElement;
 
-  it('renders', async function () {
+  it('renders', async function (this: Context) {
     this.timeout(8000);
     const url = images[0];
     element = await fixture(html`<sbb-image image-src="${url}"></sbb-image>`);
@@ -18,7 +19,8 @@ describe('sbb-image', () => {
     await waitForLitRender(element);
 
     // Wait until the image is successfully be loaded
-    const img: HTMLImageElement = element.shadowRoot.querySelector('img.image__img');
+    const img: HTMLImageElement =
+      element.shadowRoot!.querySelector<HTMLImageElement>('img.image__img')!;
     await waitForCondition(() => img.complete, 30, 6000);
     await aTimeout(1000);
 

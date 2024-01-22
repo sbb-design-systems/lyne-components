@@ -10,7 +10,7 @@ import { isValidAttribute, setAttribute } from '../../core/dom';
 import { i18nShowCalendar } from '../../core/i18n';
 import type { SbbTooltipElement, SbbTooltipTriggerElement } from '../../tooltip';
 import { datepickerControlRegisteredEventFactory, getDatePicker } from '../datepicker';
-import type { InputUpdateEvent, SbbDatepickerElement } from '../datepicker';
+import type { SbbDatepickerElement, InputUpdateEvent } from '../datepicker';
 import '../../calendar';
 import '../../tooltip';
 
@@ -34,19 +34,19 @@ export class SbbDatepickerToggleElement extends LitElement {
 
   @state() private _disabled = false;
 
-  @state() private _min: string | number;
+  @state() private _min: string | number | null | undefined = null;
 
-  @state() private _max: string | number;
+  @state() private _max: string | number | null | undefined = null;
 
-  private _datePickerElement: SbbDatepickerElement;
+  private _datePickerElement: SbbDatepickerElement | null | undefined;
 
-  private _calendarElement: SbbCalendarElement;
+  private _calendarElement!: SbbCalendarElement;
 
-  private _triggerElement: SbbTooltipTriggerElement;
+  private _triggerElement!: SbbTooltipTriggerElement;
 
-  private _tooltipElement: SbbTooltipElement;
+  private _tooltipElement!: SbbTooltipElement;
 
-  private _datePickerController: AbortController;
+  private _datePickerController!: AbortController;
 
   private _language = new LanguageController(this);
 
@@ -55,7 +55,7 @@ export class SbbDatepickerToggleElement extends LitElement {
    */
   public open(): void {
     if (!this._triggerElement) {
-      this._triggerElement = this.shadowRoot.querySelector('sbb-tooltip-trigger');
+      this._triggerElement = this.shadowRoot!.querySelector('sbb-tooltip-trigger')!;
     }
     this._triggerElement.click();
   }
@@ -90,7 +90,7 @@ export class SbbDatepickerToggleElement extends LitElement {
     if (!this._datePickerElement) {
       // If the component is attached to the DOM before the datepicker, it has to listen for the datepicker init,
       // assuming that the two components share the same parent element.
-      this.parentElement.addEventListener(
+      this.parentElement?.addEventListener(
         'inputUpdated',
         (e: Event) => this._init(e.target as SbbDatepickerElement),
         { once: true, signal: this._datePickerController.signal },
@@ -102,7 +102,7 @@ export class SbbDatepickerToggleElement extends LitElement {
       'inputUpdated',
       (event: CustomEvent<InputUpdateEvent>) => {
         this._datePickerElement = event.target as SbbDatepickerElement;
-        this._disabled = event.detail.disabled || event.detail.readonly;
+        this._disabled = !!(event.detail.disabled || event.detail.readonly);
         this._min = event.detail.min;
         this._max = event.detail.max;
       },
@@ -158,13 +158,13 @@ export class SbbDatepickerToggleElement extends LitElement {
     if (!this._datePickerElement) {
       return false;
     }
-    const dataNow = +this._datePickerElement.dataset?.now;
+    const dataNow = +(this._datePickerElement!.dataset.now as string);
     return !isNaN(dataNow);
   }
 
-  private _now(): Date {
+  private _now(): Date | undefined {
     if (this._hasDataNow()) {
-      const today = new Date(+this._datePickerElement.dataset?.now);
+      const today = new Date(+(this._datePickerElement!.dataset.now as string));
       today.setHours(0, 0, 0, 0);
       return today;
     }
@@ -184,7 +184,7 @@ export class SbbDatepickerToggleElement extends LitElement {
         ?disabled=${!this._datePickerElement || this._disabled}
         ?negative=${this.negative}
         data-icon-small
-        ${ref((el: SbbTooltipTriggerElement) => (this._triggerElement = el))}
+        ${ref((el?: Element) => (this._triggerElement = el as SbbTooltipTriggerElement))}
       ></sbb-tooltip-trigger>
       <sbb-tooltip
         @willOpen=${() => this._calendarElement.resetPosition()}
@@ -195,7 +195,7 @@ export class SbbDatepickerToggleElement extends LitElement {
         .trigger=${this._triggerElement}
         ?disable-animation=${this.disableAnimation}
         hide-close-button
-        ${ref((el: SbbTooltipElement) => (this._tooltipElement = el))}
+        ${ref((el?: Element) => (this._tooltipElement = el as SbbTooltipElement))}
       >
         <sbb-calendar
           data-now=${this._now()?.valueOf() || nothing}
@@ -206,9 +206,9 @@ export class SbbDatepickerToggleElement extends LitElement {
           @dateSelected=${(d: CustomEvent<Date>) => {
             const newDate = new Date(d.detail);
             this._calendarElement.selectedDate = newDate;
-            this._datePickerElement.setValueAsDate(newDate);
+            this._datePickerElement?.setValueAsDate(newDate);
           }}
-          ${ref((calendar: SbbCalendarElement) => this._assignCalendar(calendar))}
+          ${ref((calendar?: Element) => this._assignCalendar(calendar as SbbCalendarElement))}
         ></sbb-calendar>
       </sbb-tooltip>
     `;

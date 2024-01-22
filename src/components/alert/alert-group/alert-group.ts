@@ -36,14 +36,14 @@ export class SbbAlertGroupElement extends LitElement {
   public override role: 'alert' | 'status' | string = 'status';
 
   /** Title for this alert group which is only visible for screen reader users. */
-  @property({ attribute: 'accessibility-title' }) public accessibilityTitle: string;
+  @property({ attribute: 'accessibility-title' }) public accessibilityTitle?: string;
 
   /** Level of the accessibility title, will be rendered as heading tag (e.g. h2). Defaults to level 2. */
   @property({ attribute: 'accessibility-title-level' })
   public accessibilityTitleLevel: TitleLevel = '2';
 
   /** Whether the group currently has any alerts. */
-  @state() private _hasAlerts: boolean;
+  @state() private _hasAlerts?: boolean;
 
   /** Emits when an alert was removed from DOM. */
   private _didDismissAlert: EventEmitter<SbbAlertElement> = new EventEmitter(
@@ -60,7 +60,7 @@ export class SbbAlertGroupElement extends LitElement {
     const target = event.target as SbbAlertElement;
     const hasFocusInsideAlertGroup = document.activeElement === target;
 
-    target.parentNode.removeChild(target);
+    target.parentNode?.removeChild(target);
     this._didDismissAlert.emit(target);
 
     // Restore focus

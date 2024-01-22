@@ -45,7 +45,7 @@ export class SbbNotificationElement extends LitElement {
   /**
    * The type of the notification.
    */
-  @property({ reflect: true }) public type?: 'info' | 'success' | 'warn' | 'error' = 'info';
+  @property({ reflect: true }) public type: 'info' | 'success' | 'warn' | 'error' = 'info';
 
   /**
    * Content of title.
@@ -74,7 +74,7 @@ export class SbbNotificationElement extends LitElement {
    */
   @state() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'closed';
 
-  private _notificationElement: HTMLElement;
+  private _notificationElement!: HTMLElement;
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
   private _language = new LanguageController(this);
   private _notificationResizeObserver = new AgnosticResizeObserver(() =>
@@ -133,7 +133,7 @@ export class SbbNotificationElement extends LitElement {
   }
 
   protected override async firstUpdated(): Promise<void> {
-    this._notificationElement = this.shadowRoot.querySelector(
+    this._notificationElement = this.shadowRoot?.querySelector(
       '.sbb-notification__wrapper',
     ) as HTMLElement;
     // We need to wait for the component's `updateComplete` in order to set the correct
@@ -165,7 +165,9 @@ export class SbbNotificationElement extends LitElement {
       return;
     }
 
-    clearTimeout(this._resizeObserverTimeout);
+    if (this._resizeObserverTimeout) {
+      clearTimeout(this._resizeObserverTimeout);
+    }
 
     toggleDatasetEntry(this, 'resizeDisableAnimation', true);
     this._setNotificationHeight();

@@ -82,7 +82,7 @@ const defaultArgs: Args = {
   tripBack: undefined,
 };
 
-const Template = ({ trip, tripBack, ...args }): TemplateResult => html`
+const Template = ({ trip, tripBack, ...args }: Args): TemplateResult => html`
   <sbb-journey-summary .trip=${trip} .tripBack=${tripBack} ${sbbSpread(args)}>
     <div
       style=${styleMap({
@@ -98,7 +98,7 @@ const Template = ({ trip, tripBack, ...args }): TemplateResult => html`
   </sbb-journey-summary>
 `;
 
-const TemplateNoSlot = ({ trip, tripBack, ...args }): TemplateResult =>
+const TemplateNoSlot = ({ trip, tripBack, ...args }: Args): TemplateResult =>
   html`<sbb-journey-summary
     .trip=${trip}
     .tripBack=${tripBack}

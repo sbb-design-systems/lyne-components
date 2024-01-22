@@ -7,6 +7,7 @@ import type { SbbCheckboxElement, SbbCheckboxStateChange } from '../checkbox';
 import { NamedSlotStateController } from '../core/common-behaviors';
 import { setAttribute } from '../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../core/eventing';
+import type { SbbStateChange } from '../core/interfaces';
 import type { SbbRadioButtonElement, SbbRadioButtonStateChange } from '../radio-button';
 
 import style from './selection-panel.scss?lit&inline';
@@ -47,7 +48,7 @@ export class SbbSelectionPanelElement extends LitElement {
   public disableAnimation = false;
 
   /** The state of the selection panel. */
-  @state() private _state: 'closed' | 'opening' | 'opened' | 'closing';
+  @state() private _state?: 'closed' | 'opening' | 'opened' | 'closing';
 
   /** Whether the selection panel is checked. */
   @state() private _checked = false;
@@ -89,7 +90,7 @@ export class SbbSelectionPanelElement extends LitElement {
     { bubbles: true, composed: true },
   );
 
-  private _contentElement: HTMLElement;
+  private _contentElement?: HTMLElement;
   private _didLoad = false;
   private _abort = new ConnectedAbortController(this);
   private _namedSlots = new NamedSlotStateController(this);
@@ -142,8 +143,8 @@ export class SbbSelectionPanelElement extends LitElement {
     const signal = this._abort.signal;
     this.addEventListener(
       'stateChange',
-      (e: CustomEvent<SbbRadioButtonStateChange | SbbCheckboxStateChange>) =>
-        this._onInputChange(e),
+      (e: CustomEvent<SbbStateChange>) =>
+        this._onInputChange(e as CustomEvent<SbbRadioButtonStateChange | SbbCheckboxStateChange>),
       { signal, passive: true },
     );
     this.addEventListener('checkboxLoaded', () => this._updateSelectionPanel(), { signal });
@@ -203,8 +204,8 @@ export class SbbSelectionPanelElement extends LitElement {
           class="sbb-selection-panel__content--wrapper"
           ?data-expanded=${this._checked || this.forceOpen}
           @transitionend=${(event: TransitionEvent) => this._onTransitionEnd(event)}
-          ${ref((el: HTMLElement) => {
-            this._contentElement = el;
+          ${ref((el?: Element) => {
+            this._contentElement = el as HTMLElement;
             if (this._contentElement) {
               this._contentElement.inert = !this._checked && !this.forceOpen;
             }

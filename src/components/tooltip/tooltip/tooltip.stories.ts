@@ -1,7 +1,14 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import { userEvent, within } from '@storybook/testing-library';
 import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type {
+  Args,
+  ArgTypes,
+  Decorator,
+  Meta,
+  StoryContext,
+  StoryObj,
+} from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
@@ -29,13 +36,13 @@ async function commonPlayStory(canvasElement: HTMLElement): Promise<Element> {
 }
 
 // Story interaction executed after the story renders
-const playStory = async ({ canvasElement }): Promise<void> => {
+const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
   const button = await commonPlayStory(canvasElement);
   await userEvent.click(button);
 };
 
 // Hover story interaction executed after the story renders
-const playStoryHover = async ({ canvasElement }): Promise<void> => {
+const playStoryHover = async ({ canvasElement }: StoryContext): Promise<void> => {
   const button = await commonPlayStory(canvasElement);
   await userEvent.hover(button);
 };

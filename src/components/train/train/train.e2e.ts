@@ -2,6 +2,7 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForLitRender } from '../../core/testing';
+import type { SbbTrainWagonElement } from '../train-wagon';
 
 import { SbbTrainElement } from './train';
 import '../../icon';
@@ -24,7 +25,7 @@ describe('sbb-train', () => {
     `);
     const trainSlotChangeSpy = new EventSpy(SbbTrainElement.events.trainSlotChange);
 
-    element.querySelector('sbb-train-wagon').remove();
+    element.querySelector<SbbTrainWagonElement>('sbb-train-wagon')!.remove();
     await waitForLitRender(element);
 
     expect(trainSlotChangeSpy.count).to.be.equal(1);

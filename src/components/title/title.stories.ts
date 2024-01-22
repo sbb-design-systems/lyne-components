@@ -16,7 +16,7 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
 });
 
 // we don't need to pass the args.text to the <sbb-title> tag, but Storybook wants all in it.
-const Template = ({ text, ...args }): TemplateResult =>
+const Template = ({ text, ...args }: Args): TemplateResult =>
   html`<sbb-title ${sbbSpread(args)}>${text}</sbb-title>`;
 
 const level: InputType = {

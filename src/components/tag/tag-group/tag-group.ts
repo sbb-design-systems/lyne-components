@@ -5,6 +5,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { SlotChildObserver } from '../../core/common-behaviors';
 import { setAttribute } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
+import type { SbbStateChange } from '../../core/interfaces';
 import type { SbbTagElement, SbbTagStateChange } from '../tag';
 
 import style from './tag-group.scss?lit&inline';
@@ -68,7 +69,7 @@ export class SbbTagGroupElement extends SlotChildObserver(LitElement) {
     } else if (!Array.isArray(value) && this.multiple) {
       try {
         // If possible, try to parse JSON and restart to assign value.
-        this.value = JSON.parse(value);
+        this.value = JSON.parse(value!);
       } catch {
         console.warn(
           'Expected value to be an array because sbb-tag-group multiple mode is activated.',
@@ -79,7 +80,7 @@ export class SbbTagGroupElement extends SlotChildObserver(LitElement) {
     }
 
     const isChecked: (tag: SbbTagElement) => boolean = this.multiple
-      ? (t) => value.includes(t.value)
+      ? (t) => value!.includes(t.value!)
       : (t) => t.value === value;
 
     this._tags.forEach((tag) => (tag.checked = isChecked(tag)));
@@ -109,13 +110,13 @@ export class SbbTagGroupElement extends SlotChildObserver(LitElement) {
       this.value = event.detail.value;
     } else if (event.detail.type === 'checked' && event.detail.checked) {
       // If a value was checked in exclusive mode, assign this value directly.
-      this.value = target.value;
+      this.value = target.value!;
     }
   }
 
   private _updateValueByReadingTags(): void {
     if (this.multiple) {
-      this.value = this._tags.filter((tag) => tag.checked).map((tag) => tag.value);
+      this.value = this._tags.filter((tag) => tag.checked).map((tag) => tag.value!);
     } else {
       this.value = this._tags.find((tag) => tag.checked)?.value || null;
     }
@@ -126,7 +127,8 @@ export class SbbTagGroupElement extends SlotChildObserver(LitElement) {
     const signal = this._abort.signal;
     this.addEventListener(
       'stateChange',
-      (e: CustomEvent<SbbTagStateChange>) => this._handleStateChange(e),
+      (e: CustomEvent<SbbStateChange>) =>
+        this._handleStateChange(e as CustomEvent<SbbTagStateChange>),
       {
         signal,
         passive: true,

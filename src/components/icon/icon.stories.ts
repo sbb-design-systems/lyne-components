@@ -1,5 +1,5 @@
 import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes } from '@storybook/web-components';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -9,7 +9,7 @@ import { sbbSpread } from '../core/dom';
 import readme from './readme.md?raw';
 import './icon';
 
-const Template = (args): TemplateResult => html`<sbb-icon ${sbbSpread(args)}></sbb-icon>`;
+const Template = (args: Args): TemplateResult => html`<sbb-icon ${sbbSpread(args)}></sbb-icon>`;
 
 const iconName: InputType = {
   control: {

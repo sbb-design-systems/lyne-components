@@ -26,13 +26,13 @@ export class SbbBreadcrumbElement extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** The href value you want to link to. */
-  @property() public href: string | undefined;
+  @property() public href?: string;
 
   /** Where to display the linked URL. */
-  @property() public target?: LinkTargetType | string | undefined;
+  @property() public target?: LinkTargetType | string;
 
   /** The relationship of the linked URL as space-separated link types. */
-  @property() public rel?: string | undefined;
+  @property() public rel?: string;
 
   /** Whether the browser will show the download dialog on click. */
   @property({ type: Boolean }) public download?: boolean;
@@ -63,9 +63,8 @@ export class SbbBreadcrumbElement extends SlotChildObserver(LitElement) {
   }
 
   protected override checkChildren(): void {
-    this._hasText = this.shadowRoot
-      .querySelector<HTMLSlotElement>('slot:not([name])')
-      .assignedNodes()
+    this._hasText = !!this.shadowRoot!.querySelector<HTMLSlotElement>('slot:not([name])')
+      ?.assignedNodes()
       .some((n) => !!n.textContent?.trim());
   }
 

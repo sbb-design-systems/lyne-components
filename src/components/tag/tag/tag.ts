@@ -130,10 +130,10 @@ export class SbbTagElement extends LitElement implements ButtonProperties {
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('checked')) {
-      this._handleCheckedChange(this.checked, changedProperties.get('checked'));
+      this._handleCheckedChange(this.checked, changedProperties.get('checked')!);
     }
     if (changedProperties.has('value')) {
-      this._handleValueChange(this.value, changedProperties.get('value'));
+      this._handleValueChange(this.value!, changedProperties.get('value')!);
     }
   }
 

@@ -114,10 +114,10 @@ This is helpful if you need a specific state of the component.
 
 ## Methods
 
-| Name             | Privacy | Description                                           | Parameters          | Return | Inherited From |
-| ---------------- | ------- | ----------------------------------------------------- | ------------------- | ------ | -------------- |
-| `getValueAsDate` | public  | Gets the input value with the correct date format.    |                     | `Date` |                |
-| `setValueAsDate` | public  | Set the input value to the correctly formatted value. | `date: SbbDateLike` | `void` |                |
+| Name             | Privacy | Description                                           | Parameters          | Return              | Inherited From |
+| ---------------- | ------- | ----------------------------------------------------- | ------------------- | ------------------- | -------------- |
+| `getValueAsDate` | public  | Gets the input value with the correct date format.    |                     | `Date \| undefined` |                |
+| `setValueAsDate` | public  | Set the input value to the correctly formatted value. | `date: SbbDateLike` | `void`              |                |
 
 ## Events
 

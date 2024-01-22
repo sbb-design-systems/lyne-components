@@ -12,10 +12,10 @@ export class SbbVisualCheckboxElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Checked state. */
-  @property({ reflect: true, type: Boolean }) public checked: boolean;
+  @property({ reflect: true, type: Boolean }) public checked: boolean = false;
 
   /** Disabled state. */
-  @property({ reflect: true, type: Boolean }) public disabled: boolean;
+  @property({ reflect: true, type: Boolean }) public disabled: boolean = false;
 
   /** Indeterminate state. */
   @property({ reflect: true, type: Boolean }) public indeterminate = false;

@@ -21,7 +21,7 @@ function addFilesToComponentInput(
       }),
     );
   }
-  const input: HTMLInputElement = elem.shadowRoot.querySelector('input');
+  const input: HTMLInputElement = elem.shadowRoot!.querySelector<HTMLInputElement>('input')!;
   input.files = dataTransfer.files;
   input.dispatchEvent(new Event('change'));
 }
@@ -45,7 +45,9 @@ describe('sbb-file-selector', () => {
     expect(fileChangedSpy.count).to.be.equal(1);
     expect(element.files.length).to.be.greaterThan(0);
 
-    const listItems = element.shadowRoot.querySelector('.sbb-file-selector__file-list');
+    const listItems = element.shadowRoot!.querySelector<HTMLElement>(
+      '.sbb-file-selector__file-list',
+    );
     expect(listItems).dom.to.be.equal(`
       <div class="sbb-file-selector__file-list">
         <span class="sbb-file-selector__file">
@@ -60,14 +62,14 @@ describe('sbb-file-selector', () => {
       </div>
     `);
 
-    const button: SbbButtonElement = element.shadowRoot.querySelector(
+    const button: SbbButtonElement = element.shadowRoot!.querySelector<SbbButtonElement>(
       'sbb-button[icon-name="trash-small"]',
-    );
+    )!;
     expect(button).not.to.be.null;
     button.click();
     await waitForLitRender(element);
 
-    const files = element.shadowRoot.querySelectorAll('.sbb-file-selector__file');
+    const files = element.shadowRoot!.querySelectorAll('.sbb-file-selector__file');
     expect(fileChangedSpy.count).to.be.equal(2);
     expect(files.length).to.be.equal(0);
   });
@@ -80,10 +82,10 @@ describe('sbb-file-selector', () => {
     await waitForLitRender(element);
     expect(fileChangedSpy.count).to.be.greaterThan(0);
 
-    const listItems = element.shadowRoot.querySelectorAll('li');
-    const filesDetails = element.shadowRoot.querySelectorAll('.sbb-file-selector__file-details');
-    const filesName = element.shadowRoot.querySelectorAll('.sbb-file-selector__file-name');
-    const filesSize = element.shadowRoot.querySelectorAll('.sbb-file-selector__file-size');
+    const listItems = element.shadowRoot!.querySelectorAll('li');
+    const filesDetails = element.shadowRoot!.querySelectorAll('.sbb-file-selector__file-details');
+    const filesName = element.shadowRoot!.querySelectorAll('.sbb-file-selector__file-name');
+    const filesSize = element.shadowRoot!.querySelectorAll('.sbb-file-selector__file-size');
 
     expect(listItems.length).to.be.equal(2);
     expect(filesDetails.length).to.be.equal(2);
@@ -102,9 +104,9 @@ describe('sbb-file-selector', () => {
     await waitForLitRender(element);
     expect(fileChangedSpy.count).to.be.equal(1);
 
-    const filesDetails = element.shadowRoot.querySelectorAll('.sbb-file-selector__file-details');
-    let filesName = element.shadowRoot.querySelectorAll('.sbb-file-selector__file-name');
-    let filesSize = element.shadowRoot.querySelectorAll('.sbb-file-selector__file-size');
+    const filesDetails = element.shadowRoot!.querySelectorAll('.sbb-file-selector__file-details');
+    let filesName = element.shadowRoot!.querySelectorAll('.sbb-file-selector__file-name');
+    let filesSize = element.shadowRoot!.querySelectorAll('.sbb-file-selector__file-size');
 
     expect(element.files).not.to.be.null;
     expect(filesName.length).to.be.equal(1);
@@ -117,9 +119,9 @@ describe('sbb-file-selector', () => {
 
     await waitForLitRender(element);
 
-    const files = element.shadowRoot.querySelectorAll('li');
-    filesName = element.shadowRoot.querySelectorAll('.sbb-file-selector__file-name');
-    filesSize = element.shadowRoot.querySelectorAll('.sbb-file-selector__file-size');
+    const files = element.shadowRoot!.querySelectorAll('li');
+    filesName = element.shadowRoot!.querySelectorAll('.sbb-file-selector__file-name');
+    filesSize = element.shadowRoot!.querySelectorAll('.sbb-file-selector__file-size');
 
     expect(fileChangedSpy.count).to.be.equal(2);
     expect(files.length).to.be.equal(2);

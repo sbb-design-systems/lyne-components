@@ -2,10 +2,10 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
+import type { SbbButtonElement } from '../button';
 import { waitForCondition } from '../core/testing';
 
 import { SbbMapContainerElement } from './map-container';
-import '.';
 
 describe('sbb-map-container', () => {
   let element: SbbMapContainerElement;
@@ -29,11 +29,13 @@ describe('sbb-map-container', () => {
         </div>
       </sbb-map-container>`,
     );
-    element = document.querySelector('sbb-map-container');
+    element = document.querySelector<SbbMapContainerElement>('sbb-map-container')!;
     assert.instanceOf(element, SbbMapContainerElement);
 
     function getInert(): boolean {
-      return element.shadowRoot.querySelector('sbb-button').hasAttribute('inert');
+      return element
+        .shadowRoot!.querySelector<SbbButtonElement>('sbb-button')!
+        .hasAttribute('inert');
     }
 
     expect(element).not.to.have.attribute('data-scroll-up-button-visible');

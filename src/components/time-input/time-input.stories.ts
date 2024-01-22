@@ -14,6 +14,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../core/dom';
 import type { SbbFormErrorElement } from '../form-error';
+import type { SbbFormFieldElement } from '../form-field';
 
 import readme from './readme.md?raw';
 import { SbbTimeInputElement } from './time-input';
@@ -30,37 +31,37 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
 const updateFormError = (event: CustomEvent): void => {
   const valid = event.detail.valid;
   const target = event.target as SbbTimeInputElement;
-  const formField = target.closest('sbb-form-field')!;
+  const formField = target.closest<SbbFormFieldElement>('sbb-form-field');
 
   const formError: SbbFormErrorElement = document.createElement('sbb-form-error');
   formError.innerText = 'Time value is invalid';
 
   if (!valid) {
-    formField.append(formError);
+    formField?.append(formError);
   } else if (valid) {
-    formField.querySelectorAll('sbb-form-error').forEach((el) => el.remove());
+    formField?.querySelectorAll('sbb-form-error').forEach((el) => el.remove());
   }
 };
 
 const changeEventHandler = async (event: CustomEvent): Promise<void> => {
   const target = event.target as SbbTimeInputElement;
-  const exampleParent = target.closest('div#example-parent')!;
+  const exampleParent = target.closest<HTMLDivElement>('div#example-parent');
   const div = document.createElement('div');
   div.innerText = `value is: ${
-    (exampleParent.querySelector('#input-id') as HTMLInputElement).value
+    (exampleParent?.querySelector('#input-id') as HTMLInputElement).value
   }; valueAsDate is: ${await target.getValueAsDate()}.`;
-  exampleParent.querySelector('#container-value')!.append(div);
+  exampleParent?.querySelector('#container-value')!.append(div);
 };
 
 const setValueAsDate = async (event: Event): Promise<void> => {
   const target = event.target as HTMLElement;
-  const exampleParent = target.closest('div#example-parent')!;
+  const exampleParent = target.closest<HTMLDivElement>('div#example-parent');
 
-  const timeInput = exampleParent.querySelector('sbb-time-input')!;
-  await timeInput.setValueAsDate(new Date());
+  const timeInput = exampleParent?.querySelector<SbbTimeInputElement>('sbb-time-input');
+  await timeInput?.setValueAsDate(new Date());
 
-  const input = exampleParent.querySelector('#input-id') as HTMLInputElement;
-  input.dispatchEvent(new Event('change')); // Trigger change to update invalid state
+  const input = exampleParent?.querySelector<HTMLInputElement>('#input-id');
+  input?.dispatchEvent(new Event('change')); // Trigger change to update invalid state
 };
 
 const setValue = (event: Event): void => {

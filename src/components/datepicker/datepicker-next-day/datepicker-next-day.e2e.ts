@@ -29,9 +29,10 @@ describe('sbb-datepicker-next-day', () => {
         </div>
       `);
 
-      const element: SbbDatepickerNextDayElement = page.querySelector('sbb-datepicker-next-day');
+      const element: SbbDatepickerNextDayElement =
+        page.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
       await waitForLitRender(element);
-      const input: HTMLInputElement = page.querySelector('input');
+      const input: HTMLInputElement = page.querySelector<HTMLInputElement>('input')!;
 
       const changeSpy = new EventSpy('change', input);
       const blurSpy = new EventSpy('blur', input);
@@ -57,7 +58,8 @@ describe('sbb-datepicker-next-day', () => {
       `);
       await waitForLitRender(doc);
 
-      const nextButton: SbbDatepickerNextDayElement = doc.querySelector('sbb-datepicker-next-day');
+      const nextButton: SbbDatepickerNextDayElement =
+        doc.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
       const inputUpdated: EventSpy<Event> = new EventSpy(
         'inputUpdated',
         document.querySelector('#parent'),
@@ -89,7 +91,8 @@ describe('sbb-datepicker-next-day', () => {
       `);
       await waitForLitRender(doc);
 
-      const nextButton: SbbDatepickerNextDayElement = doc.querySelector('sbb-datepicker-next-day');
+      const nextButton: SbbDatepickerNextDayElement =
+        doc.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
       const inputUpdated: EventSpy<Event> = new EventSpy(
         'inputUpdated',
         document.querySelector('#parent'),
@@ -103,7 +106,7 @@ describe('sbb-datepicker-next-day', () => {
       picker.setAttribute('input', 'datepicker-input');
       picker.setAttribute('id', 'datepicker');
       picker.setAttribute('value', '01-01-2023');
-      document.querySelector('#other').appendChild(picker);
+      document.querySelector<HTMLDivElement>('#other')!.appendChild(picker);
       await waitForLitRender(doc);
 
       // the datepicker is connected on a different parent, so no changes are triggered
@@ -123,8 +126,8 @@ describe('sbb-datepicker-next-day', () => {
           <sbb-datepicker-next-day></sbb-datepicker-next-day>
         </sbb-form-field>
       `);
-      element = form.querySelector('sbb-datepicker-next-day');
-      input = form.querySelector('input');
+      element = form.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
+      input = form.querySelector<HTMLInputElement>('input')!;
       await waitForLitRender(element);
     });
 
@@ -151,7 +154,7 @@ describe('sbb-datepicker-next-day', () => {
           <sbb-datepicker></sbb-datepicker>
         </sbb-form-field>
       `);
-      input = form.querySelector('input');
+      input = form.querySelector<HTMLInputElement>('input')!;
       await waitForLitRender(element);
 
       expect(input.value).to.be.equal('Sa, 21.01.2023');
@@ -166,7 +169,7 @@ describe('sbb-datepicker-next-day', () => {
 
     it('disabled due disabled picker', async () => {
       expect(input.value).to.be.equal('Sa, 21.01.2023');
-      document.querySelector('input').setAttribute('disabled', '');
+      document.querySelector<HTMLInputElement>('input')!.setAttribute('disabled', '');
 
       await waitForLitRender(element);
 

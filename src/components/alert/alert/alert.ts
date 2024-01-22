@@ -126,7 +126,7 @@ export class SbbAlertElement extends LitElement implements LinkProperties {
   }
 
   /** Present the alert. */
-  private _present(): Promise<void> {
+  private _present(): void {
     this._willPresent.emit();
 
     if (this.disableAnimation) {
@@ -170,7 +170,7 @@ export class SbbAlertElement extends LitElement implements LinkProperties {
     this._didPresent.emit();
   }
 
-  private _linkProperties(): Record<string, string> {
+  private _linkProperties(): Record<string, string | undefined> {
     return {
       ['aria-label']: this.accessibilityLabel,
       href: this.href,
@@ -183,16 +183,16 @@ export class SbbAlertElement extends LitElement implements LinkProperties {
     return html`
       <div
         class="sbb-alert__transition-wrapper"
-        ${ref((el: HTMLElement): void => {
-          this._transitionWrapperElement = el;
+        ${ref((el?: Element): void => {
+          this._transitionWrapperElement = el as HTMLElement;
         })}
       >
         <div
           class="sbb-alert"
-          ${ref((el: HTMLElement): void => {
+          ${ref((el?: Element): void => {
             const isFirstInitialization = !this._alertElement;
 
-            this._alertElement = el;
+            this._alertElement = el as HTMLElement;
             if (isFirstInitialization) {
               this._initFadeInTransitionStyles();
             }

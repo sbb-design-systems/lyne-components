@@ -1,7 +1,14 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import { userEvent, within } from '@storybook/testing-library';
 import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
+import type {
+  Meta,
+  StoryObj,
+  ArgTypes,
+  Args,
+  Decorator,
+  StoryContext,
+} from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
@@ -56,7 +63,7 @@ const HeaderBasicTemplate = (
   <div ${sbbSpread(attributes)}>${new Array(12).fill(null).map(LoremIpsumTemplate)}</div>
 `;
 
-const Template = (args): TemplateResult => html`
+const Template = (args: Args): TemplateResult => html`
   ${HeaderBasicTemplate(
     args,
     html`
@@ -67,7 +74,7 @@ const Template = (args): TemplateResult => html`
   )}
 `;
 
-const TemplateWithUserMenu = (args): TemplateResult => html`
+const TemplateWithUserMenu = (args: Args): TemplateResult => html`
   ${HeaderBasicTemplate(
     args,
     html`
@@ -97,7 +104,7 @@ const TemplateWithUserMenu = (args): TemplateResult => html`
 `;
 
 // Story interaction executed after the story renders
-const playStory = async ({ canvasElement }): Promise<void> => {
+const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>

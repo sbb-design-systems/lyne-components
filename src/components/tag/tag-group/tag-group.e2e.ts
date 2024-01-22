@@ -34,7 +34,7 @@ describe('sbb-tag-group', () => {
       it('should emit events and update value by checking manually', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag1 = document.querySelector('sbb-tag');
+        const tag1 = document.querySelector<SbbTagElement>('sbb-tag')!;
 
         expect(tag1).not.to.have.attribute('checked');
         expect(tag1.checked).to.be.equal(false);
@@ -54,7 +54,7 @@ describe('sbb-tag-group', () => {
       it('should not emit events by setting checked programmatically [prop]', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag1 = document.querySelector('sbb-tag');
+        const tag1 = document.querySelector<SbbTagElement>('sbb-tag')!;
 
         tag1.checked = true;
         await waitForLitRender(element);
@@ -68,7 +68,7 @@ describe('sbb-tag-group', () => {
       it('should not emit events by setting checked programmatically [attribute]', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag1 = document.querySelector('sbb-tag');
+        const tag1 = document.querySelector<SbbTagElement>('sbb-tag')!;
 
         tag1.setAttribute('checked', 'true');
         await waitForLitRender(element);
@@ -224,7 +224,7 @@ describe('sbb-tag-group', () => {
 
       it('should update group value if single value changes [attribute]', async () => {
         expect(element.value).to.be.eql(['tag1', 'tag2', 'tag3']);
-        const tag1 = element.querySelector('sbb-tag#sbb-tag-1');
+        const tag1 = element.querySelector<SbbTagElement>('sbb-tag#sbb-tag-1')!;
 
         tag1.setAttribute('value', 'new value');
         await waitForLitRender(element);
@@ -258,7 +258,7 @@ describe('sbb-tag-group', () => {
       it('should emit events and update value by checking manually', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag1 = document.querySelector('sbb-tag');
+        const tag1 = document.querySelector<SbbTagElement>('sbb-tag')!;
 
         expect(tag1).not.to.have.attribute('checked');
         expect(tag1.checked).to.be.equal(false);
@@ -278,7 +278,7 @@ describe('sbb-tag-group', () => {
       it('should not emit events by setting checked programmatically [prop]', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag1 = document.querySelector('sbb-tag');
+        const tag1 = document.querySelector<SbbTagElement>('sbb-tag')!;
 
         tag1.checked = true;
         await waitForLitRender(element);
@@ -292,7 +292,7 @@ describe('sbb-tag-group', () => {
       it('should not emit events by setting checked programmatically [attribute]', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag1 = document.querySelector('sbb-tag');
+        const tag1 = document.querySelector<SbbTagElement>('sbb-tag')!;
 
         tag1.setAttribute('checked', 'true');
         await waitForLitRender(element);

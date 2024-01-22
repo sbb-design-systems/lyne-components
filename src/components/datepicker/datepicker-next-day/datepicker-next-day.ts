@@ -19,7 +19,7 @@ import {
   findNextAvailableDate,
   getDatePicker,
 } from '../datepicker';
-import type { InputUpdateEvent, SbbDatepickerElement } from '../datepicker';
+import type { SbbDatepickerElement, InputUpdateEvent } from '../datepicker';
 import '../../icon';
 
 import style from './datepicker-next-day.scss?lit&inline';
@@ -47,15 +47,15 @@ export class SbbDatepickerNextDayElement extends LitElement implements ButtonPro
   @state() private _inputDisabled = false;
 
   /** The maximum date as set in the date-picker's input. */
-  @state() private _max: string | number;
+  @state() private _max: string | number | null = null;
 
   private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
 
-  private _datePickerElement: SbbDatepickerElement;
+  private _datePickerElement?: SbbDatepickerElement | null = null;
 
   private _dateAdapter: DateAdapter<Date> = defaultDateAdapter;
 
-  private _datePickerController: AbortController;
+  private _datePickerController!: AbortController;
 
   private _abort = new ConnectedAbortController(this);
   private _language = new LanguageController(this).withHandler(() => this._setAriaLabel());
@@ -125,7 +125,7 @@ export class SbbDatepickerNextDayElement extends LitElement implements ButtonPro
       // assuming that the two components share the same parent element.
       this.parentElement?.addEventListener(
         'inputUpdated',
-        (e: Event) => this._init(e.target as SbbDatepickerElement),
+        (e: CustomEvent<InputUpdateEvent>) => this._init(e.target as SbbDatepickerElement),
         { once: true, signal: this._datePickerController.signal },
       );
       return;
@@ -151,10 +151,10 @@ export class SbbDatepickerNextDayElement extends LitElement implements ButtonPro
     this._datePickerElement.addEventListener(
       'inputUpdated',
       (event: CustomEvent<InputUpdateEvent>) => {
-        this._inputDisabled = event.detail.disabled || event.detail.readonly;
+        this._inputDisabled = !!(event.detail.disabled || event.detail.readonly);
         if (this._max !== event.detail.max) {
-          this._max = event.detail.max;
-          this._setDisabledState(this._datePickerElement);
+          this._max = event.detail.max!;
+          this._setDisabledState(this._datePickerElement!);
         }
         this._setAriaLabel();
       },
@@ -164,8 +164,8 @@ export class SbbDatepickerNextDayElement extends LitElement implements ButtonPro
     this._datePickerElement.dispatchEvent(datepickerControlRegisteredEventFactory());
   }
 
-  private _setDisabledState(datepicker: SbbDatepickerElement): void {
-    const pickerValueAsDate: Date = datepicker?.getValueAsDate();
+  private _setDisabledState(datepicker: SbbDatepickerElement | null | undefined): void {
+    const pickerValueAsDate = datepicker?.getValueAsDate();
 
     if (!pickerValueAsDate) {
       this._disabled = true;
@@ -174,7 +174,7 @@ export class SbbDatepickerNextDayElement extends LitElement implements ButtonPro
 
     const nextDate: Date = findNextAvailableDate(
       pickerValueAsDate,
-      datepicker.dateFilter,
+      datepicker?.dateFilter || null,
       this._dateAdapter,
       this._max,
     );
@@ -190,7 +190,7 @@ export class SbbDatepickerNextDayElement extends LitElement implements ButtonPro
     }
 
     const currentDateString =
-      this._datePickerElement.now().toDateString() === currentDate.toDateString()
+      this._datePickerElement?.now().toDateString() === currentDate.toDateString()
         ? i18nToday[this._language.current].toLowerCase()
         : this._dateAdapter.getAccessibilityFormatDate(currentDate);
 

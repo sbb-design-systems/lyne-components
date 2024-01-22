@@ -27,6 +27,6 @@ describe('sbb-teaser-hero', () => {
     element.focus();
     await waitForLitRender(element);
 
-    expect(document.activeElement.id).to.be.equal('focus-id');
+    expect(document.activeElement!.id).to.be.equal('focus-id');
   });
 });

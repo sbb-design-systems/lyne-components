@@ -13,7 +13,7 @@ export function isValidAttribute(element: Element, attribute: string): boolean {
  * @param attribute The attribute name
  * @param value The attribute value
  */
-export function setAttribute(element: HTMLElement, attribute: string, value: any): void {
+export function setAttribute(element: HTMLElement, attribute: string, value?: any): void {
   if (!value) {
     element.removeAttribute(attribute);
     return;
@@ -31,7 +31,7 @@ export function setAttribute(element: HTMLElement, attribute: string, value: any
  * @param element The element that will have the attributes
  * @param attributes Attributes object
  */
-export function setAttributes(element: HTMLElement, attributes: Record<string, any>): void {
+export function setAttributes(element: HTMLElement, attributes?: Record<string, any>): void {
   if (!attributes) {
     return;
   }

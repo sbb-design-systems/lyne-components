@@ -54,10 +54,10 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
   } as const;
 
   /** The value of the select component. If `multiple` is true, it's an array. */
-  @property() public value: string | string[];
+  @property() public value?: string | string[];
 
   /** The placeholder used if no value has been selected. */
-  @property() public placeholder: string;
+  @property() public placeholder?: string;
 
   /** Whether the select allows for multiple selection. */
   @property({ type: Boolean }) public multiple = false;
@@ -82,7 +82,7 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
   @state() private _state: SbbOverlayState = 'closed';
 
   /** The value displayed by the component. */
-  @state() private _displayValue: string;
+  @state() private _displayValue: string | null = null;
 
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
@@ -119,17 +119,17 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
   /** Emits whenever the `sbb-select` is closed. */
   private _didClose: EventEmitter<void> = new EventEmitter(this, SbbSelectElement.events.didClose);
 
-  private _overlay: HTMLElement;
-  private _optionContainer: HTMLElement;
-  private _originElement: HTMLElement;
-  private _triggerElement: HTMLElement;
-  private _openPanelEventsController: AbortController;
+  private _overlay!: HTMLElement;
+  private _optionContainer!: HTMLElement;
+  private _originElement!: HTMLElement;
+  private _triggerElement!: HTMLElement;
+  private _openPanelEventsController!: AbortController;
   private _overlayId = `sbb-select-${++nextId}`;
   private _activeItemIndex = -1;
-  private _searchTimeout: ReturnType<typeof setTimeout>;
+  private _searchTimeout?: ReturnType<typeof setTimeout>;
   private _searchString = '';
   private _didLoad = false;
-  private _isPointerDownEventOnMenu: boolean;
+  private _isPointerDownEventOnMenu: boolean = false;
   private _abort = new ConnectedAbortController(this);
 
   /**
@@ -198,8 +198,9 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
     }
   }
 
-  private _onOptionClick(event): void {
-    if (event.target?.tagName !== 'SBB-OPTION' || event.target.disabled) {
+  private _onOptionClick(event: MouseEvent): void {
+    const target = event.target as SbbSelectElement | SbbOptionElement;
+    if (target.tagName !== 'SBB-OPTION' || target.disabled) {
       return;
     }
 
@@ -221,8 +222,8 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
         .forEach((option) => (option.selected = false));
       this._displayValue = optionElement?.textContent || null;
     } else {
-      options.filter((opt) => !newValue.includes(opt.value)).forEach((e) => (e.selected = false));
-      const selectedOptionElements = options.filter((opt) => newValue.includes(opt.value));
+      options.filter((opt) => !newValue.includes(opt.value!)).forEach((e) => (e.selected = false));
+      const selectedOptionElements = options.filter((opt) => newValue.includes(opt.value!));
       selectedOptionElements.forEach((e) => (e.selected = true));
       this._displayValue = selectedOptionElements.map((e) => e.textContent).join(', ') || null;
     }
@@ -277,10 +278,14 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
       this._onValueChanged(this.value);
     }
 
-    this.addEventListener('optionSelectionChange', (e) => this._onOptionChanged(e), { signal });
+    this.addEventListener(
+      'optionSelectionChange',
+      (e: CustomEvent<void>) => this._onOptionChanged(e),
+      { signal },
+    );
     this.addEventListener(
       'click',
-      (e) => {
+      (e: MouseEvent) => {
         this._onOptionClick(e);
         this._toggleOpening();
       },
@@ -290,7 +295,7 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('value')) {
-      this._onValueChanged(this.value);
+      this._onValueChanged(this.value!);
     }
     if (changedProperties.has('negative')) {
       this._syncNegative();
@@ -306,9 +311,10 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
   private _syncNegative(): void {
     this.querySelectorAll?.('sbb-divider').forEach((element) => (element.negative = this.negative));
 
-    this.querySelectorAll?.('sbb-option, sbb-optgroup').forEach(
-      (element: SbbOptionElement | SbbOptGroupElement) =>
-        toggleDatasetEntry(element, 'negative', this.negative),
+    this.querySelectorAll?.<SbbOptionElement | SbbOptGroupElement>(
+      'sbb-option, sbb-optgroup',
+    ).forEach((element: SbbOptionElement | SbbOptGroupElement) =>
+      toggleDatasetEntry(element, 'negative', this.negative),
     );
   }
 
@@ -323,12 +329,12 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
   private _setupOrigin(): void {
     const formField = this.closest?.('sbb-form-field');
     this._originElement =
-      formField?.shadowRoot.querySelector?.('#overlay-anchor') ?? this.parentElement;
+      formField?.shadowRoot?.querySelector?.('#overlay-anchor') ?? this.parentElement!;
     if (this._originElement) {
       toggleDatasetEntry(
         this,
         'optionPanelOriginBorderless',
-        formField?.hasAttribute?.('borderless'),
+        !!formField?.hasAttribute?.('borderless'),
       );
     }
   }
@@ -339,7 +345,7 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
    */
   private _setupTrigger(): void {
     // Move the trigger before the sbb-select
-    this.parentElement.insertBefore?.(this._triggerElement, this);
+    this.parentElement!.insertBefore?.(this._triggerElement, this);
 
     // Set the invisible trigger element dimension to match the parent (needed for screen readers)
     const containerElement = this.closest?.('sbb-form-field') ?? this;
@@ -353,7 +359,7 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
       this._overlay,
       this._originElement,
       this._optionContainer,
-      this.shadowRoot.querySelector('.sbb-select__container'),
+      this.shadowRoot!.querySelector('.sbb-select__container')!,
       this,
     );
   }
@@ -393,9 +399,9 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
       this.value = optionSelectionChange.value;
     } else {
       if (!this.value) {
-        this.value = [optionSelectionChange.value];
-      } else if (!this.value.includes(optionSelectionChange.value)) {
-        this.value = [...this.value, optionSelectionChange.value];
+        this.value = [optionSelectionChange.value!];
+      } else if (!this.value.includes(optionSelectionChange.value!)) {
+        this.value = [...this.value, optionSelectionChange.value!];
       }
     }
 
@@ -509,7 +515,7 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
     }
   }
 
-  private _checkForLetterSelection(event): boolean {
+  private _checkForLetterSelection(event: KeyboardEvent): boolean {
     return (
       event.key === 'Backspace' ||
       event.key === 'Clear' ||
@@ -521,7 +527,7 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
     );
   }
 
-  private async _setNextActiveOptionByText(event): Promise<void> {
+  private async _setNextActiveOptionByText(event: KeyboardEvent): Promise<void> {
     // Set timeout and the string to search.
     if (typeof this._searchTimeout === typeof setTimeout) {
       clearTimeout(this._searchTimeout);
@@ -536,9 +542,9 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
       ...this._filteredOptions.slice(0, indexForSlice),
     ];
 
-    const match: SbbOptionElement = filteredOptionsSorted.find(
+    const match = filteredOptionsSorted.find(
       (option: SbbOptionElement) =>
-        option.textContent.toLowerCase().indexOf(this._searchString.toLowerCase()) === 0,
+        option.textContent?.toLowerCase().indexOf(this._searchString.toLowerCase()) === 0,
     );
     if (match) {
       // If an exact match has been found, go to that option.
@@ -549,9 +555,9 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
     ) {
       // If no exact match has been found but the string to search is made by the same repeated letter,
       // go to the first element, if exists, that matches the letter.
-      const firstMatch: SbbOptionElement = filteredOptionsSorted.find(
+      const firstMatch = filteredOptionsSorted.find(
         (option: SbbOptionElement) =>
-          option.textContent.toLowerCase().indexOf(this._searchString[0].toLowerCase()) === 0,
+          option.textContent?.toLowerCase().indexOf(this._searchString[0].toLowerCase()) === 0,
       );
       if (firstMatch) {
         await this._setNextActiveOption(event, this._filteredOptions.indexOf(firstMatch));
@@ -591,7 +597,7 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
 
   private _setActiveElement(
     nextActiveOption: SbbOptionElement,
-    lastActiveOption: SbbOptionElement = null,
+    lastActiveOption: SbbOptionElement | null = null,
     setActiveDescendant = true,
   ): void {
     nextActiveOption.active = true;
@@ -652,9 +658,9 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
     } else {
       const options = this._filteredOptions.filter((option) => option.selected);
       if (options && options.length > 0) {
-        const value = [];
+        const value: string[] = [];
         for (const option of options) {
-          value.push(option.value);
+          value.push(option.value!);
         }
         this.value = value;
       }

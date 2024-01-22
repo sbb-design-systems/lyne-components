@@ -14,7 +14,7 @@ const Default = ({ 'content-slot-text': contentSlotText, ...args }: Args): Templ
   <sbb-alert ${sbbSpread(args)}>${contentSlotText}</sbb-alert>
 `;
 
-const DefaultWithOtherContent = (args): TemplateResult => {
+const DefaultWithOtherContent = (args: Args): TemplateResult => {
   return html`
     <div>
       ${Default(args)}

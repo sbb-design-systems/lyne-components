@@ -80,18 +80,18 @@ export class SbbOptionElement extends LitElement {
   /** Whether the component must be set disabled due disabled attribute on sbb-checkbox-group. */
   @state() private _disabledFromGroup = false;
 
-  @state() private _label: string;
+  @state() private _label?: string;
 
   /** The portion of the highlighted label. */
-  @state() private _highlightString: string;
+  @state() private _highlightString: string | null = null;
 
   /** Disable the highlight of the label. */
-  @state() private _disableLabelHighlight: boolean;
+  @state() private _disableLabelHighlight: boolean = false;
 
-  @state() private _groupLabel: string;
+  @state() private _groupLabel: string | null = null;
 
   private _optionId = `sbb-option-${++nextId}`;
-  private _variant: SbbOptionVariant;
+  private _variant!: SbbOptionVariant;
   private _abort = new ConnectedAbortController(this);
 
   /**
@@ -113,7 +113,7 @@ export class SbbOptionElement extends LitElement {
     return this._variant === 'select';
   }
   private get _isMultiple(): boolean {
-    return this.closest?.('sbb-select')?.hasAttribute('multiple');
+    return !!this.closest?.('sbb-select')?.hasAttribute('multiple');
   }
 
   public constructor() {
@@ -149,7 +149,7 @@ export class SbbOptionElement extends LitElement {
     }
   }
 
-  private _selectByClick(event): void {
+  private _selectByClick(event: MouseEvent): void {
     if (this.disabled || this._disabledFromGroup) {
       event.stopPropagation();
       return;
@@ -180,7 +180,10 @@ export class SbbOptionElement extends LitElement {
 
     this._setVariantByContext();
 
-    this.addEventListener('click', (e) => this._selectByClick(e), { signal, passive: true });
+    this.addEventListener('click', (e: MouseEvent) => this._selectByClick(e), {
+      signal,
+      passive: true,
+    });
   }
 
   public override disconnectedCallback(): void {
@@ -207,7 +210,7 @@ export class SbbOptionElement extends LitElement {
     }
   }
 
-  private _setupHighlightHandler(event): void {
+  private _setupHighlightHandler(event: Event): void {
     if (!this._isAutocomplete) {
       this._disableLabelHighlight = true;
       return;
@@ -232,18 +235,18 @@ export class SbbOptionElement extends LitElement {
       return html`${this._label}`;
     }
 
-    const matchIndex = this._label.toLowerCase().indexOf(this._highlightString.toLowerCase());
+    const matchIndex = this._label!.toLowerCase().indexOf(this._highlightString.toLowerCase());
 
     if (matchIndex === -1) {
       return html`${this._label}`;
     }
 
-    const prefix = this._label.substring(0, matchIndex);
-    const highlighted = this._label.substring(
+    const prefix = this._label!.substring(0, matchIndex);
+    const highlighted = this._label!.substring(
       matchIndex,
       matchIndex + this._highlightString.length,
     );
-    const postfix = this._label.substring(matchIndex + this._highlightString.length);
+    const postfix = this._label!.substring(matchIndex + this._highlightString.length);
 
     return html`
       <span class="sbb-option__label--highlight">${prefix}</span><span>${highlighted}</span
@@ -312,5 +315,9 @@ declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'sbb-option': SbbOptionElement;
+  }
+
+  interface GlobalEventHandlersEventMap {
+    optionSelectionChange: CustomEvent<void>;
   }
 }

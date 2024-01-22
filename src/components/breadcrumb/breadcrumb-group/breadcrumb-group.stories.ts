@@ -5,6 +5,7 @@ import { html } from 'lit';
 
 import { sbbSpread } from '../../core/dom';
 
+import type { SbbBreadcrumbGroupElement } from './breadcrumb-group';
 import readme from './readme.md?raw';
 
 import '../../button';
@@ -13,8 +14,8 @@ import '../breadcrumb';
 
 const addBreadcrumb = (event: Event): void => {
   const breadcrumbGroup = (event.target as HTMLElement)
-    .closest('.container')
-    .querySelector('sbb-breadcrumb-group');
+    .closest('.container')!
+    .querySelector<SbbBreadcrumbGroupElement>('sbb-breadcrumb-group')!;
   const breadcrumb = document.createElement('sbb-breadcrumb');
   breadcrumb.setAttribute('href', '/');
   breadcrumb.textContent = 'Link ' + breadcrumbGroup.children.length;
@@ -23,8 +24,8 @@ const addBreadcrumb = (event: Event): void => {
 
 const removeBreadcrumb = (event: Event): void => {
   const breadcrumbGroup = (event.target as HTMLElement)
-    .closest('.container')
-    .querySelector('sbb-breadcrumb-group');
+    .closest('.container')!
+    .querySelector<SbbBreadcrumbGroupElement>('sbb-breadcrumb-group')!;
   if (breadcrumbGroup.children.length > 1) {
     breadcrumbGroup.removeChild(breadcrumbGroup.lastElementChild!);
   }
@@ -117,18 +118,18 @@ const defaultArgs: Args = {
   'icon-name': undefined,
 };
 
-const breadcrumbTemplate = (args, text: string, i: number): TemplateResult => html`
+const breadcrumbTemplate = (args: Args, text: string, i: number): TemplateResult => html`
   <sbb-breadcrumb ${sbbSpread(args)}> ${text} ${i} </sbb-breadcrumb>
 `;
 
-const createBreadcrumbs = ({ numberOfBreadcrumbs, text, ...args }): TemplateResult => html`
+const createBreadcrumbs = ({ numberOfBreadcrumbs, text, ...args }: Args): TemplateResult => html`
   <sbb-breadcrumb href="/" icon-name="house-small"></sbb-breadcrumb>
   ${new Array(numberOfBreadcrumbs - 1)
     .fill(undefined)
     .map((_, i) => breadcrumbTemplate(args, text, i + 1))}
 `;
 
-const Template = (args): TemplateResult => html`
+const Template = (args: Args): TemplateResult => html`
   <div class="container">
     <sbb-breadcrumb-group aria-label="You are here:">
       ${createBreadcrumbs(args)}

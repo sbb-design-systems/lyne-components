@@ -261,29 +261,29 @@ describe('sbb-calendar', () => {
       ></sbb-calendar>`,
     );
 
-    const buttonPrevDay = page.shadowRoot.querySelector(
+    const buttonPrevDay = page.shadowRoot!.querySelector(
       "sbb-button[icon-name='chevron-small-left-small']",
     );
     expect(buttonPrevDay).to.have.attribute('disabled');
-    const buttonNextDay = page.shadowRoot.querySelector(
+    const buttonNextDay = page.shadowRoot!.querySelector(
       "sbb-button[icon-name='chevron-small-right-small']",
     );
     expect(buttonNextDay).to.have.attribute('disabled');
 
-    const emptyCells = page.shadowRoot.querySelectorAll("[data-day='0 1 2023']");
+    const emptyCells = page.shadowRoot!.querySelectorAll("[data-day='0 1 2023']");
     expect(emptyCells.length).to.be.equal(6);
 
-    const lastDisabledMinDate = page.shadowRoot.querySelector("[data-day='8 1 2023']");
+    const lastDisabledMinDate = page.shadowRoot!.querySelector("[data-day='8 1 2023']");
     expect(lastDisabledMinDate).to.have.attribute('disabled');
     expect(lastDisabledMinDate).to.have.attribute('aria-disabled', 'true');
-    const firstNotDisabledMinDate = page.shadowRoot.querySelector("[data-day='9 1 2023']");
+    const firstNotDisabledMinDate = page.shadowRoot!.querySelector("[data-day='9 1 2023']");
     expect(firstNotDisabledMinDate).not.to.have.attribute('disabled');
     expect(firstNotDisabledMinDate).to.have.attribute('aria-disabled', 'false');
 
-    const lastNotDisabledMaxDate = page.shadowRoot.querySelector("[data-day='29 1 2023']");
+    const lastNotDisabledMaxDate = page.shadowRoot!.querySelector("[data-day='29 1 2023']");
     expect(lastNotDisabledMaxDate).not.to.have.attribute('disabled');
     expect(lastNotDisabledMaxDate).to.have.attribute('aria-disabled', 'false');
-    const firstDisabledMaxDate = page.shadowRoot.querySelector("[data-day='30 1 2023']");
+    const firstDisabledMaxDate = page.shadowRoot!.querySelector("[data-day='30 1 2023']");
     expect(firstDisabledMaxDate).to.have.attribute('disabled');
     expect(firstDisabledMaxDate).to.have.attribute('aria-disabled', 'true');
   });

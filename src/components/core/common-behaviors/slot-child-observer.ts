@@ -31,7 +31,7 @@ export const SlotChildObserver = <T extends Constructor<LitElement>>(
      * https://github.com/lit/lit/discussions/4407
      */
     private _hydrated = new Promise<void>((r) => (this._hydratedResolve = r));
-    private _hydratedResolve: () => void;
+    private _hydratedResolve?: () => void;
     private _hydratedResolved = false;
     private _slotchangeAbortController = new ConnectedAbortController(this);
 
@@ -40,7 +40,7 @@ export const SlotChildObserver = <T extends Constructor<LitElement>>(
       if (this._hydratedResolved) {
         this.checkChildren();
       }
-      this.shadowRoot.addEventListener(
+      this.shadowRoot?.addEventListener(
         'slotchange',
         () => {
           if (!this._hydratedResolved) {
@@ -59,7 +59,7 @@ export const SlotChildObserver = <T extends Constructor<LitElement>>(
     protected override firstUpdated(changedProperties: PropertyValues): void {
       super.firstUpdated(changedProperties);
       this._hydratedResolved = true;
-      this._hydratedResolve();
+      this._hydratedResolve?.();
       Promise.resolve().then(() => this.checkChildren());
     }
 

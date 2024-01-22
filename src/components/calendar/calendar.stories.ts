@@ -11,7 +11,7 @@ import { sbbSpread } from '../core/dom';
 import { SbbCalendarElement } from './calendar';
 import readme from './readme.md?raw';
 
-const getCalendarAttr = (min, max): Record<string, Date> => {
+const getCalendarAttr = (min: Date | string, max: Date | string): Record<string, Date> => {
   const attr: Record<string, Date> = {};
   if (min) {
     attr.min = new Date(min);
@@ -94,10 +94,10 @@ const dataNow: InputType = {
 
 const filterFunctions = [
   undefined,
-  (d) => d.getDay() !== 6 && d.getDay() !== 0,
-  (d) => d.getDate() % 2 === 1,
-  (d) => d.getFullYear() % 2 === 0,
-  (d) => d.getMonth() > 6,
+  (d: Date): boolean => d.getDay() !== 6 && d.getDay() !== 0,
+  (d: Date): boolean => d.getDate() % 2 === 1,
+  (d: Date): boolean => d.getFullYear() % 2 === 0,
+  (d: Date): boolean => d.getMonth() > 6,
 ];
 const dateFilter: InputType = {
   options: Object.keys(filterFunctions),

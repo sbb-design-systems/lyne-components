@@ -63,15 +63,15 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
    * Accepts both a string (id of an element) or an HTML element.
    */
   @property()
-  public set trigger(value: string | HTMLElement) {
+  public set trigger(value: string | HTMLElement | null) {
     const oldValue = this._trigger;
     this._trigger = value;
     this._removeTriggerClickListener(this._trigger, oldValue);
   }
-  public get trigger(): string | HTMLElement {
+  public get trigger(): string | HTMLElement | null {
     return this._trigger;
   }
-  private _trigger: string | HTMLElement = null;
+  private _trigger: string | HTMLElement | null = null;
 
   /**
    * Whether the animation is enabled.
@@ -91,7 +91,7 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
   @state() private _state: SbbOverlayState = 'closed';
 
   /** Sbb-Link elements */
-  @state() private _actions: SbbMenuActionElement[];
+  @state() private _actions?: SbbMenuActionElement[];
 
   /** Emits whenever the `sbb-menu` starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbMenuElement.events.willOpen);
@@ -105,11 +105,11 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
   /** Emits whenever the `sbb-menu` is closed. */
   private _didClose: EventEmitter<void> = new EventEmitter(this, SbbMenuElement.events.didClose);
 
-  private _menu: HTMLDivElement;
-  private _triggerElement: HTMLElement;
-  private _isPointerDownEventOnMenu: boolean;
-  private _menuController: AbortController;
-  private _windowEventsController: AbortController;
+  private _menu!: HTMLDivElement;
+  private _triggerElement: HTMLElement | null = null;
+  private _isPointerDownEventOnMenu: boolean = false;
+  private _menuController!: AbortController;
+  private _windowEventsController!: AbortController;
   private _abort = new ConnectedAbortController(this);
   private _focusHandler = new FocusHandler();
   private _scrollHandler = new ScrollHandler();
@@ -193,8 +193,8 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
 
   // Removes trigger click listener on trigger change.
   private _removeTriggerClickListener(
-    newValue: string | HTMLElement,
-    oldValue: string | HTMLElement,
+    newValue: string | HTMLElement | null,
+    oldValue: string | HTMLElement | null,
   ): void {
     if (newValue !== oldValue) {
       this._menuController?.abort();
@@ -225,7 +225,7 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
   }
 
   // Check if the trigger is valid and attach click event listeners.
-  private _configure(trigger: string | HTMLElement): void {
+  private _configure(trigger: string | HTMLElement | null): void {
     removeAriaOverlayTriggerAttributes(this._triggerElement);
 
     if (!trigger) {
@@ -308,7 +308,7 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
       this._attachWindowEvents();
     } else if (event.animationName === 'close' && this._state === 'closing') {
       this._state = 'closed';
-      this._menu.firstElementChild.scrollTo(0, 0);
+      this._menu?.firstElementChild?.scrollTo(0, 0);
       removeInertMechanism();
       setModalityOnNextFocus(this._triggerElement);
       // Manually focus last focused element
@@ -345,9 +345,9 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
     }
 
     const menuPosition = getElementPosition(
-      this.shadowRoot.querySelector('.sbb-menu__content'),
+      this.shadowRoot!.querySelector('.sbb-menu__content')!,
       this._triggerElement,
-      this.shadowRoot.querySelector('.sbb-menu__container'),
+      this.shadowRoot!.querySelector('.sbb-menu__container')!,
       {
         verticalOffset: MENU_OFFSET,
       },
@@ -393,7 +393,7 @@ export class SbbMenuElement extends SlotChildObserver(LitElement) {
         <div
           @animationend=${(event: AnimationEvent) => this._onMenuAnimationEnd(event)}
           class="sbb-menu"
-          ${ref((el) => (this._menu = el as HTMLDivElement))}
+          ${ref((el?: Element) => (this._menu = el as HTMLDivElement))}
         >
           <div
             @click=${(event: Event) => this._closeOnInteractiveElementClick(event)}

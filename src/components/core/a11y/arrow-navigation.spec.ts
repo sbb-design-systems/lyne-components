@@ -22,7 +22,7 @@ describe('isArrowKeyPressed', () => {
 describe('isPreviousArrowKeyPressed', () => {
   describe('ltr', () => {
     beforeEach(() => {
-      document.querySelector('html').setAttribute('dir', 'ltr');
+      document.querySelector('html')!.setAttribute('dir', 'ltr');
     });
 
     it('should return false', () => {
@@ -44,7 +44,7 @@ describe('isPreviousArrowKeyPressed', () => {
 
   describe('rtl', () => {
     beforeEach(() => {
-      document.querySelector('html').setAttribute('dir', 'rtl');
+      document.querySelector('html')!.setAttribute('dir', 'rtl');
     });
 
     it('should return false', () => {
@@ -62,7 +62,7 @@ describe('isPreviousArrowKeyPressed', () => {
 describe('isNextArrowKeyPressed', () => {
   describe('ltr', () => {
     beforeEach(() => {
-      document.querySelector('html').setAttribute('dir', 'ltr');
+      document.querySelector('html')!.setAttribute('dir', 'ltr');
     });
 
     it('should return false', () => {
@@ -84,7 +84,7 @@ describe('isNextArrowKeyPressed', () => {
 
   describe('rtl', () => {
     beforeEach(() => {
-      document.querySelector('html').setAttribute('dir', 'rtl');
+      document.querySelector('html')!.setAttribute('dir', 'rtl');
     });
 
     it('should return false', () => {
@@ -102,7 +102,7 @@ describe('isNextArrowKeyPressed', () => {
 describe('getNextElementIndex', () => {
   describe('ltr', () => {
     beforeEach(() => {
-      document.querySelector('html').setAttribute('dir', 'ltr');
+      document.querySelector('html')!.setAttribute('dir', 'ltr');
     });
 
     it('should return the next element', function () {
@@ -136,7 +136,7 @@ describe('getNextElementIndex', () => {
 
   describe('rtl', () => {
     beforeEach(() => {
-      document.querySelector('html').setAttribute('dir', 'rtl');
+      document.querySelector('html')!.setAttribute('dir', 'rtl');
     });
 
     it('should return the next element', function () {

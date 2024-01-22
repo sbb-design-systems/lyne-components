@@ -16,7 +16,7 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
     : 'var(--sbb-color-white-default)',
 });
 
-const LinkTemplate = (args): TemplateResult => html`
+const LinkTemplate = (args: Args): TemplateResult => html`
   <sbb-link
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
   >
@@ -38,7 +38,7 @@ const TemplateSlottedTitle = ({
 `;
 
 // TitleAsProperty
-const Template = (args): TemplateResult => html`
+const Template = (args: Args): TemplateResult => html`
   <sbb-link-list ${sbbSpread(args)}>
     ${links.map((linkTitle) => html` ${LinkTemplate({ linkTitle })} `)}
   </sbb-link-list>

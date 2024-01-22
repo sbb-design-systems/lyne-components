@@ -31,7 +31,10 @@ export class SbbSpreadDirective extends Directive {
       return;
     }
     for (const key of Object.keys(this._prevData)) {
-      if (!data || (!(key in data) && this._element[key] === this._prevData[key])) {
+      if (
+        !data ||
+        (!(key in data) && this._element[key as keyof Element] === this._prevData[key])
+      ) {
         this._element.removeAttribute(key);
       }
     }

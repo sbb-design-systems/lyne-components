@@ -3,10 +3,12 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import '../../autocomplete';
+import type { SbbAutocompleteElement } from '../../autocomplete';
 import { waitForLitRender, EventSpy } from '../../core/testing';
 import type { SbbFormFieldElement } from '../../form-field';
 import '../../form-field';
 import '../optgroup';
+import type { SbbOptGroupElement } from '../optgroup';
 
 import { SbbOptionElement } from './option';
 
@@ -34,7 +36,7 @@ describe('sbb-option', () => {
 
     it('set selected and emits on click', async () => {
       const selectionChangeSpy = new EventSpy(SbbOptionElement.events.selectionChange);
-      const optionOne = element.querySelector('sbb-option');
+      const optionOne = element.querySelector<SbbOptionElement>('sbb-option')!;
 
       optionOne.dispatchEvent(new CustomEvent('click'));
       await waitForLitRender(element);
@@ -44,12 +46,12 @@ describe('sbb-option', () => {
     });
 
     it('highlight on input', async () => {
-      const input = element.querySelector('input');
-      const autocomplete = element.querySelector('sbb-autocomplete');
+      const input = element.querySelector<HTMLInputElement>('input')!;
+      const autocomplete = element.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
       const options = element.querySelectorAll('sbb-option');
-      const optionOneLabel = options[0].shadowRoot.querySelector('.sbb-option__label');
-      const optionTwoLabel = options[1].shadowRoot.querySelector('.sbb-option__label');
-      const optionThreeLabel = options[2].shadowRoot.querySelector('.sbb-option__label');
+      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label');
+      const optionTwoLabel = options[1].shadowRoot!.querySelector('.sbb-option__label');
+      const optionThreeLabel = options[2].shadowRoot!.querySelector('.sbb-option__label');
 
       input.focus();
       await sendKeys({ press: '1' });
@@ -78,10 +80,10 @@ describe('sbb-option', () => {
     });
 
     it('highlight after option label changed', async () => {
-      const input = element.querySelector('input');
-      const autocomplete = element.querySelector('sbb-autocomplete');
+      const input = element.querySelector<HTMLInputElement>('input')!;
+      const autocomplete = element.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
       const options = element.querySelectorAll('sbb-option');
-      const optionOneLabel = options[0].shadowRoot.querySelector('.sbb-option__label');
+      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label');
 
       input.focus();
       await sendKeys({ type: 'Opt' });
@@ -120,10 +122,10 @@ describe('sbb-option', () => {
     });
 
     it('highlight later added options', async () => {
-      const input = element.querySelector('input');
-      const autocomplete = element.querySelector('sbb-autocomplete');
+      const input = element.querySelector<HTMLInputElement>('input')!;
+      const autocomplete = element.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
       const options = element.querySelectorAll('sbb-option');
-      const optionOneLabel = options[0].shadowRoot.querySelector('.sbb-option__label');
+      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label');
 
       input.focus();
       await sendKeys({ type: 'Opt' });
@@ -143,7 +145,7 @@ describe('sbb-option', () => {
       autocomplete.append(newOption);
       await waitForLitRender(autocomplete);
 
-      const newOptionLabel = newOption.shadowRoot.querySelector('.sbb-option__label');
+      const newOptionLabel = newOption.shadowRoot!.querySelector('.sbb-option__label');
 
       expect(newOptionLabel).dom.to.be.equal(`
         <span class="sbb-option__label">
@@ -167,10 +169,10 @@ describe('sbb-option', () => {
         </sbb-form-field>
       `);
 
-      const input = element.querySelector('input');
-      const optgroup = element.querySelector('sbb-optgroup');
+      const input = element.querySelector<HTMLInputElement>('input')!;
+      const optgroup = element.querySelector<SbbOptGroupElement>('sbb-optgroup')!;
       const options = element.querySelectorAll('sbb-option');
-      const optionOneLabel = options[0].shadowRoot.querySelector('.sbb-option__label');
+      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label');
 
       input.focus();
       await sendKeys({ type: 'Opt' });
@@ -190,7 +192,7 @@ describe('sbb-option', () => {
       optgroup.append(newOption);
       await waitForLitRender(element);
 
-      const newOptionLabel = newOption.shadowRoot.querySelector('.sbb-option__label');
+      const newOptionLabel = newOption.shadowRoot!.querySelector('.sbb-option__label');
 
       expect(newOptionLabel).dom.to.be.equal(`
         <span class="sbb-option__label">

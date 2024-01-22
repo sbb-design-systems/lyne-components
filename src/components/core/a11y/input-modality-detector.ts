@@ -177,7 +177,7 @@ class SbbInputModalityDetector {
 export const sbbInputModalityDetector = new SbbInputModalityDetector();
 
 // Set the input modality in order to avoid showing the outline in Safari.
-export function setModalityOnNextFocus(elementToFocus: HTMLElement): void {
+export function setModalityOnNextFocus(elementToFocus: HTMLElement | null | undefined): void {
   if (!elementToFocus) {
     return;
   }

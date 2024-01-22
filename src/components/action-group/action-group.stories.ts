@@ -2,7 +2,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../core/dom';
@@ -12,17 +12,17 @@ import './action-group';
 import '../link';
 import '../button';
 
-const secondaryButtonTemplate = (alignSelf): TemplateResult => html`
-  <sbb-button align-self=${alignSelf} variant="secondary"> Button 1 </sbb-button>
+const secondaryButtonTemplate = (alignSelf?: string): TemplateResult => html`
+  <sbb-button align-self=${alignSelf || nothing} variant="secondary"> Button 1 </sbb-button>
 `;
 
-const buttonTemplate = (alignSelf): TemplateResult => html`
-  <sbb-button align-self=${alignSelf}>Button 2</sbb-button>
+const buttonTemplate = (alignSelf?: string): TemplateResult => html`
+  <sbb-button align-self=${alignSelf || nothing}>Button 2</sbb-button>
 `;
 
-const linkTemplate = (alignSelf): TemplateResult => html`
+const linkTemplate = (alignSelf?: string): TemplateResult => html`
   <sbb-link
-    align-self=${alignSelf}
+    align-self=${alignSelf || nothing}
     icon-name="chevron-small-left-small"
     href="https://github.com/lyne-design-system/lyne-components"
   >
@@ -30,59 +30,64 @@ const linkTemplate = (alignSelf): TemplateResult => html`
   </sbb-link>
 `;
 
-const TemplateTwoElements = (alignSelfFirst?, alignSelfSecond?): TemplateResult => html`
+const TemplateTwoElements = (
+  alignSelfFirst?: string,
+  alignSelfSecond?: string,
+): TemplateResult => html`
   ${secondaryButtonTemplate(alignSelfFirst)} ${buttonTemplate(alignSelfSecond)}
 `;
 
 const TemplateThreeElements = (
-  alignSelfFirst?,
-  alignSelfSecond?,
-  alignSelfThird?,
+  alignSelfFirst?: string,
+  alignSelfSecond?: string,
+  alignSelfThird?: string,
 ): TemplateResult => html`
   ${TemplateTwoElements(alignSelfFirst, alignSelfSecond)} ${linkTemplate(alignSelfThird)}
 `;
 
-const CommonTemplateThreeElementsAllocation = ({ ...args }): TemplateResult => html`
+const CommonTemplateThreeElementsAllocation = (args: Args): TemplateResult => html`
   <sbb-action-group ${sbbSpread(args)}>${TemplateThreeElements()}</sbb-action-group>
 `;
 
-const CommonTemplateTwoElementsAllocation = ({ ...args }): TemplateResult => html`
+const CommonTemplateTwoElementsAllocation = (args: Args): TemplateResult => html`
   <sbb-action-group ${sbbSpread(args)}>${TemplateTwoElements()}</sbb-action-group>
 `;
 
-const TemplateHorizontalAllocation111 = ({ ...args }): TemplateResult => html`
-  <sbb-action-group ${sbbSpread(args)}>${TemplateThreeElements(null, 'center')}</sbb-action-group>
-`;
-
-const TemplateHorizontalAllocation201 = ({ ...args }): TemplateResult => html`
+const TemplateHorizontalAllocation111 = (args: Args): TemplateResult => html`
   <sbb-action-group ${sbbSpread(args)}
-    >${TemplateThreeElements(null, null, 'end')}</sbb-action-group
+    >${TemplateThreeElements(undefined, 'center')}</sbb-action-group
   >
 `;
 
-const TemplateHorizontalAllocation102 = ({ ...args }): TemplateResult => html`
+const TemplateHorizontalAllocation201 = (args: Args): TemplateResult => html`
+  <sbb-action-group ${sbbSpread(args)}
+    >${TemplateThreeElements(undefined, undefined, 'end')}</sbb-action-group
+  >
+`;
+
+const TemplateHorizontalAllocation102 = (args: Args): TemplateResult => html`
   <sbb-action-group ${sbbSpread(args)}>${TemplateThreeElements('start')}</sbb-action-group>
 `;
 
-const TemplateHorizontalAllocation101 = ({ ...args }): TemplateResult => html`
-  <sbb-action-group ${sbbSpread(args)}>${TemplateTwoElements(null, 'end')}</sbb-action-group>
+const TemplateHorizontalAllocation101 = (args: Args): TemplateResult => html`
+  <sbb-action-group ${sbbSpread(args)}>${TemplateTwoElements(undefined, 'end')}</sbb-action-group>
 `;
 
-const TemplateVerticalAllocation300FullWidth = ({ ...args }): TemplateResult => html`
+const TemplateVerticalAllocation300FullWidth = (args: Args): TemplateResult => html`
   <sbb-action-group ${sbbSpread(args)}
-    >${TemplateThreeElements(null, null, 'start')}</sbb-action-group
+    >${TemplateThreeElements(undefined, undefined, 'start')}</sbb-action-group
   >
 `;
 
-const TemplateVerticalAllocation030FullWidth = ({ ...args }): TemplateResult => html`
+const TemplateVerticalAllocation030FullWidth = (args: Args): TemplateResult => html`
   <sbb-action-group ${sbbSpread(args)}
-    >${TemplateThreeElements(null, null, 'center')}</sbb-action-group
+    >${TemplateThreeElements(undefined, undefined, 'center')}</sbb-action-group
   >
 `;
 
-const TemplateVerticalAllocation003FullWidth = ({ ...args }): TemplateResult => html`
+const TemplateVerticalAllocation003FullWidth = (args: Args): TemplateResult => html`
   <sbb-action-group ${sbbSpread(args)}
-    >${TemplateThreeElements(null, null, 'end')}</sbb-action-group
+    >${TemplateThreeElements(undefined, undefined, 'end')}</sbb-action-group
   >
 `;
 

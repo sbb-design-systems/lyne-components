@@ -91,16 +91,16 @@ export class SbbCalendarElement extends LitElement {
   @property({ type: Boolean }) public wide = false;
 
   /** The minimum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
-  @property() public min: SbbDateLike;
+  @property() public min?: SbbDateLike;
 
   /** The maximum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
-  @property() public max: SbbDateLike;
+  @property() public max?: SbbDateLike;
 
   /** A function used to filter out dates. */
   @property({ attribute: 'date-filter' }) public dateFilter?: (date: Date | null) => boolean;
 
   /** The selected date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). */
-  @property({ attribute: 'selected-date' }) public selectedDate: SbbDateLike;
+  @property({ attribute: 'selected-date' }) public selectedDate?: SbbDateLike;
 
   /** Event emitted on date selection. */
   private _dateSelected: EventEmitter<Date> = new EventEmitter(
@@ -109,19 +109,19 @@ export class SbbCalendarElement extends LitElement {
   );
 
   /** The currently active date. */
-  @state() private _activeDate: Date;
+  @state() private _activeDate!: Date;
 
   /** The selected date as ISOString. */
-  @state() private _selected: string;
+  @state() private _selected?: string;
 
   /** The current wide property considering property value and breakpoints. From zero to small `wide` has always to be false. */
-  @state() private _wide: boolean;
+  @state() private _wide: boolean = false;
 
   /** Minimum value converted to date */
-  @state() private _min: Date;
+  @state() private _min?: Date | null;
 
   /** Maximum value converted to date */
-  @state() private _max: Date;
+  @state() private _max?: Date | null;
 
   @state() private _calendarView: CalendarView = 'day';
 
@@ -130,22 +130,22 @@ export class SbbCalendarElement extends LitElement {
   private _dateAdapter: DateAdapter<Date> = defaultDateAdapter;
 
   /** A list of days, in two formats (long and single char). */
-  private _weekdays: Weekday[];
+  private _weekdays!: Weekday[];
 
   /** Grid of calendar cells representing the dates of the month. */
-  private _weeks: Day[][];
+  private _weeks!: Day[][];
 
   /** Grid of calendar cells representing months. */
-  private _months: Month[][];
+  private _months!: Month[][];
 
   /** Grid of calendar cells representing years. */
-  private _years: number[][];
+  private _years!: number[][];
 
   /** Grid of calendar cells representing years for the wide view. */
-  private _nextMonthYears: number[][];
+  private _nextMonthYears!: number[][];
 
   /** Grid of calendar cells representing the dates of the next month. */
-  private _nextMonthWeeks: Day[][];
+  private _nextMonthWeeks!: Day[][];
 
   /** An array containing all the month names in the current language. */
   private _monthNames: string[] = this._dateAdapter.getMonthNames('long');
@@ -153,15 +153,15 @@ export class SbbCalendarElement extends LitElement {
   /** A list of buttons corresponding to days, months or years depending on the view. */
   private get _cells(): HTMLButtonElement[] {
     return Array.from(
-      this.shadowRoot.querySelectorAll?.('.sbb-calendar__cell') ?? [],
+      this.shadowRoot!.querySelectorAll?.('.sbb-calendar__cell') ?? [],
     ) as HTMLButtonElement[];
   }
 
   /** The chosen year in the year selection view. */
-  private _chosenYear: number;
+  private _chosenYear?: number;
 
   /** The chosen month in the year selection view. */
-  private _chosenMonth: number;
+  private _chosenMonth?: number;
 
   /** Whether the focus should be reset on focusCell. */
   private _resetFocus = false;
@@ -172,16 +172,16 @@ export class SbbCalendarElement extends LitElement {
     this._months = this._createMonthRows();
   });
 
-  private _convertMinDate(newMin: SbbDateLike): void {
+  private _convertMinDate(newMin?: SbbDateLike): void {
     this._min = this._dateAdapter.deserializeDate(newMin);
   }
 
-  private _convertMaxDate(newMax: SbbDateLike): void {
+  private _convertMaxDate(newMax?: SbbDateLike): void {
     this._max = this._dateAdapter.deserializeDate(newMax);
   }
 
   /** Sets the selected date. */
-  private _setSelectedDate(selectedDate: SbbDateLike): void {
+  private _setSelectedDate(selectedDate: SbbDateLike | null): void {
     const value = this._dateAdapter.deserializeDate(selectedDate);
     const dateFilter = this._getDateFilter();
     if (
@@ -283,7 +283,7 @@ export class SbbCalendarElement extends LitElement {
 
   /** Sets the date variables. */
   private _setDates(): void {
-    const selectedDate: Date = this._dateAdapter.deserializeDate(this.selectedDate);
+    const selectedDate = this._dateAdapter.deserializeDate(this.selectedDate);
     this._activeDate = selectedDate ?? this._now();
     this._setSelectedDate(selectedDate);
   }
@@ -313,7 +313,7 @@ export class SbbCalendarElement extends LitElement {
         weeks.push([]);
         cell = 0;
       }
-      const date = this._dateAdapter.createDate(year, month, i + 1);
+      const date = this._dateAdapter.createDate(year, month, i + 1)!;
       weeks[weeks.length - 1].push({
         value: this._dateAdapter.getISOString(date),
         dayValue: dateNames[i],
@@ -367,10 +367,12 @@ export class SbbCalendarElement extends LitElement {
     }
     const isBeforeMin: boolean =
       this._dateAdapter.isValid(this._min) &&
-      this._dateAdapter.compareDate(this._min, this._dateAdapter.createDateFromISOString(date)) > 0;
+      this._dateAdapter.compareDate(this._min!, this._dateAdapter.createDateFromISOString(date)!) >
+        0;
     const isAfterMax: boolean =
       this._dateAdapter.isValid(this._max) &&
-      this._dateAdapter.compareDate(this._max, this._dateAdapter.createDateFromISOString(date)) < 0;
+      this._dateAdapter.compareDate(this._max!, this._dateAdapter.createDateFromISOString(date)!) <
+        0;
     return !(isBeforeMin || isAfterMax);
   }
 
@@ -380,12 +382,12 @@ export class SbbCalendarElement extends LitElement {
     }
     const isBeforeMin: boolean =
       this._dateAdapter.isValid(this._min) &&
-      this._dateAdapter.getYear(this._min) >= this._chosenYear &&
-      this._dateAdapter.getMonth(this._min) > month;
+      this._dateAdapter.getYear(this._min!) >= this._chosenYear! &&
+      this._dateAdapter.getMonth(this._min!) > month;
     const isAfterMax: boolean =
       this._dateAdapter.isValid(this._max) &&
-      this._dateAdapter.getYear(this._max) <= this._chosenYear &&
-      this._dateAdapter.getMonth(this._max) < month;
+      this._dateAdapter.getYear(this._max!) <= this._chosenYear! &&
+      this._dateAdapter.getMonth(this._max!) < month;
     return !(isBeforeMin || isAfterMax);
   }
 
@@ -394,9 +396,9 @@ export class SbbCalendarElement extends LitElement {
       return true;
     }
     const isBeforeMin: boolean =
-      this._dateAdapter.isValid(this._min) && this._dateAdapter.getYear(this._min) > year;
+      this._dateAdapter.isValid(this._min) && this._dateAdapter.getYear(this._min!) > year;
     const isAfterMax: boolean =
-      this._dateAdapter.isValid(this._max) && this._dateAdapter.getYear(this._max) < year;
+      this._dateAdapter.isValid(this._max) && this._dateAdapter.getYear(this._max!) < year;
     return !(isBeforeMin || isAfterMax);
   }
 
@@ -406,7 +408,7 @@ export class SbbCalendarElement extends LitElement {
       return true;
     }
 
-    const firstOfMonth = this._dateAdapter.createDate(this._chosenYear, month, 1);
+    const firstOfMonth = this._dateAdapter.createDate(this._chosenYear!, month, 1)!;
     for (
       let date: Date = firstOfMonth;
       this._dateAdapter.getMonth(date) == month;
@@ -426,7 +428,7 @@ export class SbbCalendarElement extends LitElement {
       return true;
     }
 
-    const firstOfYear = this._dateAdapter.createDate(year, 0, 1);
+    const firstOfYear = this._dateAdapter.createDate(year, 0, 1)!;
     for (
       let date: Date = firstOfYear;
       this._dateAdapter.getYear(date) == year;
@@ -446,7 +448,7 @@ export class SbbCalendarElement extends LitElement {
     this._chosenYear = undefined;
     if (this._selected !== day) {
       this._selected = day;
-      this._dateSelected.emit(this._dateAdapter.createDateFromISOString(day));
+      this._dateSelected.emit(this._dateAdapter.createDateFromISOString(day)!);
     }
   }
 
@@ -469,10 +471,10 @@ export class SbbCalendarElement extends LitElement {
   }
 
   private _goToDifferentYear(years: number): void {
-    this._chosenYear += years;
+    this._chosenYear! += years;
     // Can't use `_assignActiveDate(...)` here, because it will set it to min/max value if argument is out of range
     this._activeDate = new Date(
-      this._chosenYear,
+      this._chosenYear!,
       this._dateAdapter.getMonth(this._activeDate),
       this._dateAdapter.getDate(this._activeDate),
     );
@@ -550,9 +552,9 @@ export class SbbCalendarElement extends LitElement {
   }
 
   private _setTabIndex(): void {
-    Array.from(this.shadowRoot.querySelectorAll('.sbb-calendar__cell[tabindex="0"]') ?? []).forEach(
-      (day) => ((day as HTMLElement).tabIndex = -1),
-    );
+    Array.from(
+      this.shadowRoot!.querySelectorAll('.sbb-calendar__cell[tabindex="0"]') ?? [],
+    ).forEach((day) => ((day as HTMLElement).tabIndex = -1));
     const firstFocusable = this._getFirstFocusable();
     if (firstFocusable) {
       firstFocusable.tabIndex = 0;
@@ -562,21 +564,21 @@ export class SbbCalendarElement extends LitElement {
   private _getFirstFocusable(): HTMLButtonElement {
     const active = this._selected ? new Date(this._selected) : this._now();
     let firstFocusable =
-      this.shadowRoot.querySelector('.sbb-calendar__selected') ??
-      this.shadowRoot.querySelector(
+      this.shadowRoot!.querySelector('.sbb-calendar__selected') ??
+      this.shadowRoot!.querySelector(
         `[data-day="${active.getDate()} ${
           this._activeDate.getMonth() + 1
         } ${this._activeDate.getFullYear()}"]`,
       ) ??
-      this.shadowRoot.querySelector(`[data-month="${this._activeDate.getMonth()}"]`) ??
-      this.shadowRoot.querySelector(`[data-year="${this._activeDate.getFullYear()}"]`);
+      this.shadowRoot!.querySelector(`[data-month="${this._activeDate.getMonth()}"]`) ??
+      this.shadowRoot!.querySelector(`[data-year="${this._activeDate.getFullYear()}"]`);
     if (!firstFocusable || (firstFocusable as HTMLButtonElement)?.disabled) {
-      firstFocusable = this.shadowRoot.querySelector('.sbb-calendar__cell:not([disabled])');
+      firstFocusable = this.shadowRoot!.querySelector('.sbb-calendar__cell:not([disabled])');
     }
     return (firstFocusable as HTMLButtonElement) || null;
   }
 
-  private _handleKeyboardEvent(event, day?: Day): void {
+  private _handleKeyboardEvent(event: KeyboardEvent, day?: Day): void {
     if (isArrowKeyOrPageKeysPressed(event)) {
       event.preventDefault();
     }
@@ -586,7 +588,7 @@ export class SbbCalendarElement extends LitElement {
     const cells: HTMLButtonElement[] = this._cells;
     const index: number = cells.findIndex((e: HTMLButtonElement) => e === event.target);
     const nextEl: HTMLButtonElement = this._navigateByKeyboard(event, index, cells, day);
-    const activeEl: HTMLButtonElement = this.shadowRoot.activeElement as HTMLButtonElement;
+    const activeEl: HTMLButtonElement = this.shadowRoot!.activeElement as HTMLButtonElement;
     if (nextEl !== activeEl) {
       (nextEl as HTMLButtonElement).tabIndex = 0;
       nextEl?.focus();
@@ -659,14 +661,14 @@ export class SbbCalendarElement extends LitElement {
   ): CalendarKeyboardNavigationParameters {
     switch (this._calendarView) {
       case 'day': {
-        const indexInView = +day.dayValue - 1;
+        const indexInView = +day!.dayValue - 1;
         return {
           verticalOffset: DAYS_PER_ROW,
           elementIndexForWideMode: indexInView,
           offsetForWideMode: index - indexInView,
           lastElementIndexForWideMode:
             index === indexInView
-              ? this._dateAdapter.getNumDaysInMonth(+day.yearValue, +day.monthValue - 1)
+              ? this._dateAdapter.getNumDaysInMonth(+day!.yearValue, +day!.monthValue - 1)
               : cells.length,
         };
       }
@@ -746,7 +748,7 @@ export class SbbCalendarElement extends LitElement {
 
   private _now(): Date {
     if (this._hasDataNow()) {
-      const today = new Date(+this.dataset?.now);
+      const today: Date = new Date(+(this.dataset.now as string));
       today.setHours(0, 0, 0, 0);
       return today;
     }
@@ -754,7 +756,7 @@ export class SbbCalendarElement extends LitElement {
   }
 
   private _hasDataNow(): boolean {
-    const dataNow = +this.dataset?.now;
+    const dataNow = +(this.dataset?.now as string);
     return !isNaN(dataNow);
   }
 
@@ -782,9 +784,9 @@ export class SbbCalendarElement extends LitElement {
         )}
         <div class="sbb-calendar__controls-month">
           ${this._createLabelForDayView(this._activeDate)}
-          ${this._wide ? this._createLabelForDayView(nextMonthActiveDate) : nothing}
+          ${this._wide ? this._createLabelForDayView(nextMonthActiveDate!) : nothing}
           <span role="status" class="sbb-calendar__visually-hidden">
-            ${this._createAriaLabelForDayView(this._activeDate, nextMonthActiveDate)}
+            ${this._createAriaLabelForDayView(this._activeDate, nextMonthActiveDate!)}
           </span>
         </div>
         ${this._getArrow(
@@ -842,8 +844,9 @@ export class SbbCalendarElement extends LitElement {
     return html`
       <table
         class="sbb-calendar__table"
-        @focusout=${(event) => this._handleTableBlur(event.relatedTarget as HTMLElement)}
-        @animationend=${(e) => this._tableAnimationEnd(e)}
+        @focusout=${(event: FocusEvent) =>
+          this._handleTableBlur(event.relatedTarget as HTMLElement)}
+        @animationend=${(e: AnimationEvent) => this._tableAnimationEnd(e)}
       >
         <thead class="sbb-calendar__table-header">
           <tr class="sbb-calendar__table-header-row">
@@ -899,7 +902,7 @@ export class SbbCalendarElement extends LitElement {
     const dateFilter = this._getDateFilter();
     return week.map((day: Day) => {
       const isOutOfRange = !this._isDayInRange(day.value);
-      const isFilteredOut = !dateFilter(this._dateAdapter.createDateFromISOString(day.value));
+      const isFilteredOut = !dateFilter(this._dateAdapter.createDateFromISOString(day.value)!);
       const selected: boolean = !!this._selected && day.value === this._selected;
       const dayValue = `${day.dayValue} ${day.monthValue} ${day.yearValue}`;
       const isToday = day.value === today;
@@ -955,8 +958,8 @@ export class SbbCalendarElement extends LitElement {
         )}
       </div>
       <div class="sbb-calendar__table-container sbb-calendar__table-month-view">
-        ${this._createMonthTable(this._months, this._chosenYear)}
-        ${this._wide ? this._createMonthTable(this._months, this._chosenYear + 1, true) : nothing}
+        ${this._createMonthTable(this._months, this._chosenYear!)}
+        ${this._wide ? this._createMonthTable(this._months, this._chosenYear! + 1, true) : nothing}
       </div>
     `;
   }
@@ -970,7 +973,7 @@ export class SbbCalendarElement extends LitElement {
         aria-label=${`${i18nCalendarDateSelection[this._language.current]} ${this._chosenYear}`}
         @click=${() => this._resetToDayView()}
       >
-        ${this._chosenYear} ${this._wide ? ` - ${this._chosenYear + 1}` : nothing}
+        ${this._chosenYear} ${this._wide ? ` - ${this._chosenYear! + 1}` : nothing}
         <sbb-icon name="chevron-small-up-small"></sbb-icon>
       </button>
       <span role="status" class="sbb-calendar__visually-hidden"> ${this._chosenYear} </span>`;
@@ -979,7 +982,10 @@ export class SbbCalendarElement extends LitElement {
   /** Creates the table for the month selection view. */
   private _createMonthTable(months: Month[][], year: number, shiftRight = false): TemplateResult {
     return html`
-      <table class="sbb-calendar__table" @animationend=${(e) => this._tableAnimationEnd(e)}>
+      <table
+        class="sbb-calendar__table"
+        @animationend=${(e: AnimationEvent) => this._tableAnimationEnd(e)}
+      >
         ${this._wide
           ? html`<thead class="sbb-calendar__table-header" aria-hidden="true">
               <tr class="sbb-calendar__table-header-row">
@@ -1122,7 +1128,7 @@ export class SbbCalendarElement extends LitElement {
   private _createYearTable(years: number[][], shiftRight = false): TemplateResult {
     return html` <table
       class="sbb-calendar__table"
-      @animationend=${(e) => this._tableAnimationEnd(e)}
+      @animationend=${(e: AnimationEvent) => this._tableAnimationEnd(e)}
     >
       <tbody class="sbb-calendar__table-body">
         ${years.map(
@@ -1199,9 +1205,9 @@ export class SbbCalendarElement extends LitElement {
   }
 
   private _removeTable(): void {
-    this.shadowRoot
-      .querySelectorAll?.('table')
-      .forEach((e) => e.classList.toggle('sbb-calendar__table-hide'));
+    this.shadowRoot!.querySelectorAll?.('table').forEach((e) =>
+      e.classList.toggle('sbb-calendar__table-hide'),
+    );
   }
 
   protected override render(): TemplateResult {

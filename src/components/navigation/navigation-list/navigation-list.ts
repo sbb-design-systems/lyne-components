@@ -49,7 +49,7 @@ export class SbbNavigationListElement extends SlotChildObserver(LitElement) {
     });
     const actions = this._actions.length
       ? this._actions
-      : Array.from({ length: +this.getAttribute('data-ssr-child-count') });
+      : Array.from({ length: +(this.getAttribute('data-ssr-child-count') as string) });
 
     return html`
       <span class="sbb-navigation-list__label" id="sbb-navigation-link-label-id">

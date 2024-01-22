@@ -83,7 +83,7 @@ export class SbbNavigationActionElement extends LitElement {
    */
   @property() public value?: string;
 
-  private _navigationMarker: SbbNavigationMarkerElement;
+  private _navigationMarker: SbbNavigationMarkerElement | null = null;
   private _abort = new ConnectedAbortController(this);
   private _language = new LanguageController(this);
 

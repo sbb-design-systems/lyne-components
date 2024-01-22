@@ -20,7 +20,7 @@ export class SbbOptGroupElement extends SlotChildObserver(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** Option group label. */
-  @property() public label: string;
+  @property() public label!: string;
 
   /** Whether the group is disabled. */
   @property({ reflect: true, type: Boolean }) public disabled = false;
@@ -29,7 +29,7 @@ export class SbbOptGroupElement extends SlotChildObserver(LitElement) {
 
   private _negativeObserver = new AgnosticMutationObserver(() => this._onNegativeChange());
 
-  private _variant: SbbOptionVariant;
+  private _variant!: SbbOptionVariant;
 
   /**
    * On Safari, the groups labels are not read by VoiceOver.
@@ -39,7 +39,7 @@ export class SbbOptGroupElement extends SlotChildObserver(LitElement) {
   private _inertAriaGroups = isSafari();
 
   private get _isMultiple(): boolean {
-    return this._variant === 'select' && this.closest('sbb-select')?.hasAttribute('multiple');
+    return this._variant === 'select' && !!this.closest('sbb-select')?.hasAttribute('multiple');
   }
 
   private get _options(): SbbOptionElement[] {

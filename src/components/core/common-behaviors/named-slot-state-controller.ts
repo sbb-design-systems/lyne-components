@@ -29,15 +29,15 @@ export class NamedSlotStateController implements ReactiveController {
   };
 
   public constructor(
-    private _host: ReactiveControllerHost & Partial<HTMLElement>,
-    private _onChangeCallback = () => null,
+    private _host: ReactiveControllerHost & HTMLElement,
+    private _onChangeCallback: (() => void) | null = null,
   ) {
     this._host.addController(this);
   }
 
   public hostConnected(): void {
     // TODO: Check if this is really needed with SSR.
-    this._syncSlots(...this._host.querySelectorAll('slot'));
+    this._syncSlots(...this._host.querySelectorAll!('slot'));
     this._host.shadowRoot?.addEventListener('slotchange', this._slotchangeHandler);
   }
 
@@ -65,7 +65,7 @@ export class NamedSlotStateController implements ReactiveController {
     }
 
     if (joinedSlotNames !== oldValue) {
-      this._onChangeCallback();
+      this._onChangeCallback?.();
     }
   }
 }

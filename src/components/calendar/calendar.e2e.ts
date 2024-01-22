@@ -23,35 +23,35 @@ describe('sbb-calendar', () => {
   });
 
   it('highlights current day', async () => {
-    const currentDayButton = element.shadowRoot.querySelector('button[data-day="10 1 2023"]');
+    const currentDayButton = element.shadowRoot!.querySelector('button[data-day="10 1 2023"]');
     expect(currentDayButton).to.have.class('sbb-calendar__cell-current');
   });
 
   it('renders and navigates to next month', async () => {
-    let day = element.shadowRoot.querySelector('.sbb-calendar__day');
+    let day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
     expect(await day.getAttribute('data-day')).to.be.equal('1 1 2023');
 
-    const nextMonthButton: HTMLElement = element.shadowRoot.querySelector(
+    const nextMonthButton: HTMLElement = element.shadowRoot!.querySelector(
       '#sbb-calendar__controls-next',
-    );
+    )!;
     nextMonthButton.click();
     await waitForLitRender(element);
 
-    day = element.shadowRoot.querySelector('.sbb-calendar__day');
+    day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
     expect(await day.getAttribute('data-day')).to.be.equal('1 2 2023');
   });
 
   it('renders and navigates to previous month', async () => {
-    let day = element.shadowRoot.querySelector('.sbb-calendar__day');
+    let day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
     expect(await day.getAttribute('data-day')).to.be.equal('1 1 2023');
 
-    const nextMonthButton: HTMLElement = element.shadowRoot.querySelector(
+    const nextMonthButton: HTMLElement = element.shadowRoot!.querySelector(
       '#sbb-calendar__controls-previous',
-    );
+    )!;
     nextMonthButton.click();
     await waitForLitRender(element);
 
-    day = element.shadowRoot.querySelector('.sbb-calendar__day');
+    day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
     expect(await day.getAttribute('data-day')).to.be.equal('1 12 2022');
   });
 
@@ -59,17 +59,17 @@ describe('sbb-calendar', () => {
     element.max = 1674946800;
     await waitForLitRender(element);
 
-    let day = element.shadowRoot.querySelector('.sbb-calendar__day');
+    let day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
     expect(await day.getAttribute('data-day')).to.be.equal('1 1 2023');
 
-    const nextMonthButton: HTMLElement = element.shadowRoot.querySelector(
+    const nextMonthButton: HTMLElement = element.shadowRoot!.querySelector(
       '#sbb-calendar__controls-next',
-    );
+    )!;
     expect(nextMonthButton).to.have.attribute('disabled');
     nextMonthButton.click();
     await waitForLitRender(element);
 
-    day = element.shadowRoot.querySelector('.sbb-calendar__day');
+    day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
     expect(await day.getAttribute('data-day')).to.be.equal('1 1 2023');
   });
 
@@ -77,27 +77,27 @@ describe('sbb-calendar', () => {
     element.min = 1673737200;
     await waitForLitRender(element);
 
-    let day = element.shadowRoot.querySelector('.sbb-calendar__day');
+    let day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
     expect(await day.getAttribute('data-day')).to.be.equal('1 1 2023');
 
-    const nextMonthButton = element.shadowRoot.querySelector(
+    const nextMonthButton = element.shadowRoot!.querySelector(
       '#sbb-calendar__controls-previous',
     ) as HTMLElement;
     expect(nextMonthButton).to.have.attribute('disabled');
     nextMonthButton.click();
     await waitForLitRender(element);
 
-    day = element.shadowRoot.querySelector('.sbb-calendar__day');
+    day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
     expect(await day.getAttribute('data-day')).to.be.equal('1 1 2023');
   });
 
   it('selects a different date', async () => {
     const selectedSpy = new EventSpy(SbbCalendarElement.events.dateSelected);
-    const selectedDate = element.shadowRoot.querySelector('button[data-day="15 1 2023"]');
+    const selectedDate = element.shadowRoot!.querySelector('button[data-day="15 1 2023"]');
 
     expect(selectedDate).to.have.class('sbb-calendar__selected');
 
-    const newSelectedDate = element.shadowRoot.querySelector(
+    const newSelectedDate = element.shadowRoot!.querySelector(
       'button[data-day="18 1 2023"]',
     ) as HTMLElement;
     expect(newSelectedDate).not.to.have.class('sbb-calendar__selected');
@@ -115,7 +115,7 @@ describe('sbb-calendar', () => {
     element.max = 1674946800;
     await waitForLitRender(element);
 
-    const day = element.shadowRoot.querySelector('button[data-day="30 1 2023"]') as HTMLElement;
+    const day = element.shadowRoot!.querySelector('button[data-day="30 1 2023"]') as HTMLElement;
     expect(day).to.have.attribute('disabled');
     expect(day).not.to.have.class('sbb-calendar__selected');
     day.click();
@@ -126,19 +126,22 @@ describe('sbb-calendar', () => {
   });
 
   it('changes to year and month selection views', async () => {
-    const yearSelectionButton: HTMLElement = element.shadowRoot.querySelector(
+    const yearSelectionButton: HTMLElement = element.shadowRoot!.querySelector(
       '#sbb-calendar__date-selection',
+    )!;
+    let animationSpy = new EventSpy(
+      'animationend',
+      element.shadowRoot!.querySelector('table') as HTMLTableElement,
     );
-    let animationSpy = new EventSpy('animationend', element.shadowRoot.querySelector('table'));
 
     expect(yearSelectionButton).not.to.be.null;
     yearSelectionButton.click();
     await waitForLitRender(element);
     await waitForCondition(() => animationSpy.events.length >= 1);
 
-    const yearSelection: HTMLElement = element.shadowRoot.querySelector(
+    const yearSelection: HTMLElement = element.shadowRoot!.querySelector(
       '#sbb-calendar__year-selection',
-    );
+    )!;
     expect(yearSelection).not.to.be.null;
     expect(yearSelection).dom.to.be.equal(`
       <button aria-label="Choose date 2016 - 2039" class="sbb-calendar__controls-change-date" id="sbb-calendar__year-selection" type="button">
@@ -148,7 +151,7 @@ describe('sbb-calendar', () => {
     `);
 
     const yearCells: HTMLElement[] = Array.from(
-      element.shadowRoot.querySelectorAll('.sbb-calendar__table-year'),
+      element.shadowRoot!.querySelectorAll('.sbb-calendar__table-year'),
     );
     expect(yearCells.length).to.be.equal(24);
     expect(yearCells[0]).dom.to.be.equal(`
@@ -159,10 +162,13 @@ describe('sbb-calendar', () => {
       </td>
     `);
 
-    animationSpy = new EventSpy('animationend', element.shadowRoot.querySelector('table'));
+    animationSpy = new EventSpy(
+      'animationend',
+      element.shadowRoot!.querySelector('table') as HTMLTableElement,
+    );
 
-    const selectedYear: HTMLElement = yearCells.find((e) => e.innerText === '2023');
-    const yearButton: HTMLElement = selectedYear.querySelector('button');
+    const selectedYear: HTMLElement = yearCells.find((e) => e.innerText === '2023')!;
+    const yearButton: HTMLElement = selectedYear.querySelector('button')!;
     expect(yearButton).to.have.class('sbb-calendar__selected');
     expect(yearCells[yearCells.length - 1].innerText).to.be.equal('2039');
 
@@ -171,9 +177,9 @@ describe('sbb-calendar', () => {
 
     await waitForCondition(() => animationSpy.events.length >= 1);
 
-    const monthSelection: HTMLElement = element.shadowRoot.querySelector(
+    const monthSelection: HTMLElement = element.shadowRoot!.querySelector(
       '#sbb-calendar__month-selection',
-    );
+    )!;
     expect(monthSelection).not.to.be.null;
     expect(monthSelection).dom.to.be.equal(`
       <button aria-label="Choose date 2023" class="sbb-calendar__controls-change-date" id="sbb-calendar__month-selection" type="button">
@@ -183,7 +189,7 @@ describe('sbb-calendar', () => {
     `);
 
     const monthCells: HTMLElement[] = Array.from(
-      element.shadowRoot.querySelectorAll('.sbb-calendar__table-month'),
+      element.shadowRoot!.querySelectorAll('.sbb-calendar__table-month'),
     );
     expect(monthCells.length).to.be.equal(12);
     expect(monthCells[0]).dom.to.be.equal(`
@@ -194,14 +200,17 @@ describe('sbb-calendar', () => {
       </td>
     `);
 
-    animationSpy = new EventSpy('animationend', element.shadowRoot.querySelector('table'));
+    animationSpy = new EventSpy(
+      'animationend',
+      element.shadowRoot!.querySelector('table') as HTMLTableElement,
+    );
 
-    monthCells[0].querySelector('button').click();
+    monthCells[0].querySelector('button')!.click();
     await waitForLitRender(element);
 
     await waitForCondition(() => animationSpy.events.length >= 1);
 
-    const dayCells = Array.from(element.shadowRoot.querySelectorAll('.sbb-calendar__day'));
+    const dayCells = Array.from(element.shadowRoot!.querySelectorAll('.sbb-calendar__day'));
     expect(dayCells.length).to.be.equal(31);
   });
 
@@ -210,159 +219,159 @@ describe('sbb-calendar', () => {
       element.focus();
       await waitForLitRender(element);
 
-      expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
-        '15 1 2023',
-      );
+      expect(
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
+      ).to.be.equal('15 1 2023');
 
       element.focus();
       await sendKeys({ press: 'ArrowLeft' });
       await waitForLitRender(element);
 
-      expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
-        '14 1 2023',
-      );
+      expect(
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
+      ).to.be.equal('14 1 2023');
     });
 
     it('navigates right via keyboard', async () => {
       element.focus();
       await waitForLitRender(element);
 
-      expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
-        '15 1 2023',
-      );
+      expect(
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
+      ).to.be.equal('15 1 2023');
 
       element.focus();
       await sendKeys({ press: 'ArrowRight' });
       await waitForLitRender(element);
 
-      expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
-        '16 1 2023',
-      );
+      expect(
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
+      ).to.be.equal('16 1 2023');
     });
 
     it('navigates up via keyboard', async () => {
       element.focus();
       await waitForLitRender(element);
 
-      expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
-        '15 1 2023',
-      );
+      expect(
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
+      ).to.be.equal('15 1 2023');
 
       element.focus();
       await sendKeys({ press: 'ArrowUp' });
       await waitForLitRender(element);
 
-      expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
-        '8 1 2023',
-      );
+      expect(
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
+      ).to.be.equal('8 1 2023');
     });
 
     it('navigates down via keyboard', async () => {
       element.focus();
       await waitForLitRender(element);
 
-      expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
-        '15 1 2023',
-      );
+      expect(
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
+      ).to.be.equal('15 1 2023');
 
       element.focus();
       await sendKeys({ press: 'ArrowDown' });
       await waitForLitRender(element);
 
-      expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
-        '22 1 2023',
-      );
+      expect(
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
+      ).to.be.equal('22 1 2023');
     });
 
     it('navigates to first day via keyboard', async () => {
       element.focus();
       await waitForLitRender(element);
 
-      expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
-        '15 1 2023',
-      );
+      expect(
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
+      ).to.be.equal('15 1 2023');
 
       element.focus();
       await sendKeys({ press: 'Home' });
       await waitForLitRender(element);
 
-      expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
-        '1 1 2023',
-      );
+      expect(
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
+      ).to.be.equal('1 1 2023');
     });
 
     it('navigates to last day via keyboard', async () => {
       element.focus();
       await waitForLitRender(element);
 
-      expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
-        '15 1 2023',
-      );
+      expect(
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
+      ).to.be.equal('15 1 2023');
 
       element.focus();
       await sendKeys({ press: 'End' });
       await waitForLitRender(element);
 
-      expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
-        '31 1 2023',
-      );
+      expect(
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
+      ).to.be.equal('31 1 2023');
     });
 
     it('navigates to column start via keyboard', async () => {
       element.focus();
       await waitForLitRender(element);
 
-      expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
-        '15 1 2023',
-      );
+      expect(
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
+      ).to.be.equal('15 1 2023');
 
       element.focus();
       await sendKeys({ press: 'PageUp' });
       await waitForLitRender(element);
 
-      expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
-        '1 1 2023',
-      );
+      expect(
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
+      ).to.be.equal('1 1 2023');
     });
 
     it('navigates to column end via keyboard', async () => {
       element.focus();
       await waitForLitRender(element);
 
-      expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
-        '15 1 2023',
-      );
+      expect(
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
+      ).to.be.equal('15 1 2023');
 
       element.focus();
       await sendKeys({ press: 'PageDown' });
       await waitForLitRender(element);
 
-      expect(document.activeElement.shadowRoot.activeElement.getAttribute('data-day')).to.be.equal(
-        '29 1 2023',
-      );
+      expect(
+        document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
+      ).to.be.equal('29 1 2023');
     });
   });
 
   describe('navigation for year view', () => {
     beforeEach(async () => {
-      const yearSelectionButton: HTMLElement = element.shadowRoot.querySelector(
+      const yearSelectionButton: HTMLElement = element.shadowRoot!.querySelector(
         '#sbb-calendar__date-selection',
-      );
+      )!;
 
-      const table: HTMLElement = element.shadowRoot.querySelector('table');
+      const table: HTMLElement = element.shadowRoot!.querySelector('table') as HTMLTableElement;
       const animationSpy = new EventSpy('animationend', table);
 
       yearSelectionButton.click();
       await waitForCondition(() => animationSpy.events.length >= 1);
       const selectedYear = Array.from(
-        element.shadowRoot.querySelectorAll('.sbb-calendar__cell'),
+        element.shadowRoot!.querySelectorAll('.sbb-calendar__cell'),
       ).find((e) => (e as HTMLElement).innerText === '2023') as HTMLElement;
       selectedYear.focus();
     });
 
     it('navigates left via keyboard', async () => {
       expect(
-        (document.activeElement.shadowRoot.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2023');
 
       element.focus();
@@ -370,13 +379,13 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        (document.activeElement.shadowRoot.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2022');
     });
 
     it('navigates right via keyboard', async () => {
       expect(
-        (document.activeElement.shadowRoot.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2023');
 
       element.focus();
@@ -384,13 +393,13 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        (document.activeElement.shadowRoot.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2024');
     });
 
     it('navigates up via keyboard', async () => {
       expect(
-        (document.activeElement.shadowRoot.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2023');
 
       element.focus();
@@ -398,13 +407,13 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        (document.activeElement.shadowRoot.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2019');
     });
 
     it('navigates down via keyboard', async () => {
       expect(
-        (document.activeElement.shadowRoot.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2023');
 
       element.focus();
@@ -412,13 +421,13 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        (document.activeElement.shadowRoot.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2027');
     });
 
     it('navigates to first day via keyboard', async () => {
       expect(
-        (document.activeElement.shadowRoot.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2023');
 
       element.focus();
@@ -426,13 +435,13 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        (document.activeElement.shadowRoot.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2016');
     });
 
     it('navigates to last day via keyboard', async () => {
       expect(
-        (document.activeElement.shadowRoot.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2023');
 
       element.focus();
@@ -440,13 +449,13 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        (document.activeElement.shadowRoot.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2039');
     });
 
     it('navigates to column start via keyboard', async () => {
       expect(
-        (document.activeElement.shadowRoot.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2023');
 
       element.focus();
@@ -454,13 +463,13 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        (document.activeElement.shadowRoot.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2019');
     });
 
     it('navigates to column end via keyboard', async () => {
       expect(
-        (document.activeElement.shadowRoot.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2023');
 
       element.focus();
@@ -468,7 +477,7 @@ describe('sbb-calendar', () => {
       await waitForLitRender(element);
 
       expect(
-        (document.activeElement.shadowRoot.activeElement as HTMLElement).innerText,
+        (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText,
       ).to.be.equal('2039');
     });
   });

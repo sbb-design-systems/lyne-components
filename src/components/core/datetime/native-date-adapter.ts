@@ -21,7 +21,7 @@ export class NativeDateAdapter implements DateAdapter<Date> {
    * Calculates the day of the week of the first day of the month, and then its offset from the first day of the week.
    */
   public getFirstWeekOffset(year: number, month: number): number {
-    const firstOfMonth = this.createDate(year, month, 1);
+    const firstOfMonth = this.createDate(year, month, 1)!;
     return (
       (DAYS_PER_ROW + this.getDayOfWeek(firstOfMonth) - this.getFirstDayOfWeek()) % DAYS_PER_ROW
     );
@@ -124,7 +124,7 @@ export class NativeDateAdapter implements DateAdapter<Date> {
   }
 
   /** Checks whether the two dates are non-null and are in the same month of the same year. */
-  public hasSameMonthAndYear(first: Date | null, second: Date | null): boolean {
+  public hasSameMonthAndYear(first?: Date | null, second?: Date | null): boolean {
     return !!(
       first &&
       second &&
@@ -139,7 +139,7 @@ export class NativeDateAdapter implements DateAdapter<Date> {
   }
 
   /** Checks whether the given `date` is a valid Date. */
-  public isValid(date: Date): boolean {
+  public isValid(date: Date | null | undefined): boolean {
     return !!date && !isNaN(date.valueOf());
   }
 
@@ -191,8 +191,8 @@ export class NativeDateAdapter implements DateAdapter<Date> {
    */
   public getStartValueYearView(
     activeDate: Date,
-    minDate: Date | null,
-    maxDate: Date | null,
+    minDate?: Date | null,
+    maxDate?: Date | null,
   ): number {
     let startingYear: number = 0;
     if (maxDate) {
@@ -223,7 +223,7 @@ export class NativeDateAdapter implements DateAdapter<Date> {
   }
 
   /** Creates a Date from a valid input (Date, string or number in seconds). */
-  public deserializeDate(date: SbbDateLike): Date | null {
+  public deserializeDate(date?: SbbDateLike | null | undefined): Date | null {
     if (!date) {
       return null;
     }
@@ -242,14 +242,14 @@ export class NativeDateAdapter implements DateAdapter<Date> {
   }
 
   /** Returns the right format for the `valueAsDate` property. */
-  public parseDate(value: string, now: Date): Date {
+  public parseDate(value: string | null | undefined, now: Date): Date | undefined {
     if (!value) {
       return undefined;
     }
 
     const strippedValue = value.replace(/\D/g, ' ').trim();
 
-    const match: RegExpMatchArray = strippedValue?.match(FORMAT_DATE);
+    const match: RegExpMatchArray | null | undefined = strippedValue?.match(FORMAT_DATE);
     if (
       !match ||
       match.index !== 0 ||
@@ -270,7 +270,7 @@ export class NativeDateAdapter implements DateAdapter<Date> {
     return new Date(year, +match[2] - 1, +match[1]);
   }
 
-  public format(value: Date): string {
+  public format(value: Date | null | undefined): string {
     if (!value) {
       return '';
     }

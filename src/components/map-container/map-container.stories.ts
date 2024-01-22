@@ -27,7 +27,7 @@ const defaultArgs: Args = {
   'hide-scroll-up-button': false,
 };
 
-const Template = (args): TemplateResult => html`
+const Template = (args: Args): TemplateResult => html`
   <sbb-map-container ${sbbSpread(args)}>
     <div style=${styleMap({ padding: 'var(--sbb-spacing-fixed-4x)' })}>
       <sbb-form-field style=${styleMap({ width: '100%' })}>

@@ -34,10 +34,10 @@ export class SbbTrainFormationElement extends SlotChildObserver(LitElement) {
 
   @state() private _sectors: AggregatedSector[] = [];
 
-  @state() private _trains: SbbTrainElement[];
+  @state() private _trains: SbbTrainElement[] = [];
 
   /** Element that defines the visible content width. */
-  private _formationDiv: HTMLDivElement;
+  private _formationDiv!: HTMLDivElement;
   private _contentResizeObserver = new AgnosticResizeObserver(() => this._applyCssWidth());
   private _abort = new ConnectedAbortController(this);
   private _language = new LanguageController(this);
@@ -68,7 +68,9 @@ export class SbbTrainFormationElement extends SlotChildObserver(LitElement) {
     event?.stopPropagation();
 
     this._sectors = Array.from(
-      this.querySelectorAll?.('sbb-train-wagon,sbb-train-blocked-passage') ?? [],
+      this.querySelectorAll?.<SbbTrainWagonElement | SbbTrainBlockedPassageElement>(
+        'sbb-train-wagon,sbb-train-blocked-passage',
+      ) ?? [],
     ).reduce(
       (
         aggregatedSectors: AggregatedSector[],
@@ -109,13 +111,13 @@ export class SbbTrainFormationElement extends SlotChildObserver(LitElement) {
     );
   }
 
-  private async _updateFormationDiv(el: HTMLDivElement): Promise<void> {
+  private async _updateFormationDiv(el?: Element): Promise<void> {
     if (!el) {
       return;
     }
     this._contentResizeObserver.disconnect();
-    this._formationDiv = el;
-    this._contentResizeObserver.observe(this._formationDiv as Element);
+    this._formationDiv = el as HTMLDivElement;
+    this._contentResizeObserver.observe(this._formationDiv);
     // There seems to be a slight difference between browser, in how the
     // observer is called. In order to be consistent across browsers
     // we set the width manually once the component update is complete.

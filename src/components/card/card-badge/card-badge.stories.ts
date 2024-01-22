@@ -40,7 +40,7 @@ const defaultArgs: Args = {
   color: color.options[0],
 };
 
-const Template = (args): TemplateResult => html`
+const Template = (args: Args): TemplateResult => html`
   <sbb-card-badge ${sbbSpread(args)}>
     <span>%</span>
     <span>from CHF</span>

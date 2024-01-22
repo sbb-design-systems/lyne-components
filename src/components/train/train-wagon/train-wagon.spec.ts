@@ -25,15 +25,17 @@ async function extractAriaLabels(
   const element = await fixture(html`<sbb-train-wagon></sbb-train-wagon>`);
 
   // attributes
-  [
-    'type',
-    'occupancy',
-    'sector',
-    'blockedPassage',
-    'wagonClass',
-    'label',
-    'additionalAccessibilityText',
-  ].forEach((attr) => {
+  (
+    [
+      'type',
+      'occupancy',
+      'sector',
+      'blockedPassage',
+      'wagonClass',
+      'label',
+      'additionalAccessibilityText',
+    ] as const
+  ).forEach((attr) => {
     const attributeValue = properties[attr];
     // Convert camelCase to kebab-case
     const attributeName = attr.replace(
@@ -47,13 +49,13 @@ async function extractAriaLabels(
 
   // Select all accessibility relevant text parts
   return Array.from(
-    element.shadowRoot.querySelectorAll(
+    element.shadowRoot!.querySelectorAll(
       '[aria-hidden=false], [aria-label]:not(.sbb-train-wagon__icons-list), .sbb-screenreaderonly:not(.sbb-train-wagon__label > span)',
     ),
   ).map((entry) =>
     entry.hasAttribute('aria-label')
-      ? entry.getAttribute('aria-label')
-      : entry.textContent.replace(/\s+/g, ' ').trim(),
+      ? entry.getAttribute('aria-label')!
+      : entry.textContent!.replace(/\s+/g, ' ').trim(),
   );
 }
 

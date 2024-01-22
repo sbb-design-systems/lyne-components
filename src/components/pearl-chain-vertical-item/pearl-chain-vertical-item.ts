@@ -45,7 +45,7 @@ export class SbbPearlChainVerticalItemElement extends LitElement {
       this.pearlChainVerticalItemAttributes || {};
 
     const bulletTypeClass =
-      position > 0 && position <= 100
+      position && position > 0 && position <= 100
         ? 'sbb-pearl-chain-vertical-item__bullet--past'
         : `sbb-pearl-chain-vertical-item__bullet--${bulletType}`;
 
@@ -68,7 +68,7 @@ export class SbbPearlChainVerticalItemElement extends LitElement {
               class="sbb-pearl-chain-vertical-item__bullet  sbb-pearl-chain-vertical-item__bullet--${bulletSize} ${bulletTypeClass}"
             ></div>`
           : nothing}
-        ${position > 0
+        ${position && position > 0
           ? html`<div
               style="--sbb-pearl-chain-vertical-item-position:${position}%;"
               class="sbb-pearl-chain-vertical-item__bullet--position"

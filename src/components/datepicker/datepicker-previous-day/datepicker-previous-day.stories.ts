@@ -39,16 +39,16 @@ const defaultArgs: Args = {
   negative: false,
 };
 
-const BaseTemplate = (args, picker: string | undefined = undefined): TemplateResult => html`
+const BaseTemplate = (args: Args, picker: string | undefined = undefined): TemplateResult => html`
   <sbb-datepicker-previous-day
     ${sbbSpread(args)}
     .datePicker=${picker}
   ></sbb-datepicker-previous-day>
 `;
 
-const StandaloneTemplate = (args): TemplateResult => html` ${BaseTemplate(args)} `;
+const StandaloneTemplate = (args: Args): TemplateResult => html` ${BaseTemplate(args)} `;
 
-const PickerAndButtonTemplate = (args): TemplateResult => html`
+const PickerAndButtonTemplate = (args: Args): TemplateResult => html`
   <div style=${styleMap({ display: 'flex', gap: '1em' })}>
     ${BaseTemplate(args, 'datepicker')}
     <input value="15.02.2023" id="datepicker-input" />
@@ -60,7 +60,7 @@ const PickerAndButtonTemplate = (args): TemplateResult => html`
   </div>
 `;
 
-const FormFieldTemplate = (args): TemplateResult => html`
+const FormFieldTemplate = (args: Args): TemplateResult => html`
   <sbb-form-field ${sbbSpread(args)}>
     <input value="15.02.2023" />
     <sbb-datepicker></sbb-datepicker>
@@ -68,7 +68,7 @@ const FormFieldTemplate = (args): TemplateResult => html`
   </sbb-form-field>
 `;
 
-const EmptyFormFieldTemplate = (args): TemplateResult => html`
+const EmptyFormFieldTemplate = (args: Args): TemplateResult => html`
   <sbb-form-field ${sbbSpread(args)}>
     <input />
     <sbb-datepicker></sbb-datepicker>

@@ -4,6 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForLitRender, mockScrollTo, waitForCondition } from '../../core/testing';
 import { SbbMenuElement } from '../../menu';
+import type { SbbHeaderActionElement } from '../header-action';
 
 import { SbbHeaderElement } from './header';
 import '../header-action';
@@ -25,7 +26,7 @@ describe('sbb-header', () => {
       <sbb-header></sbb-header>
       <div style="height: 2000px;"></div>
     `);
-    element = document.querySelector('sbb-header');
+    element = document.querySelector<SbbHeaderElement>('sbb-header')!;
 
     mockScrollTo({ top: 200 });
     await waitForLitRender(element);
@@ -38,7 +39,7 @@ describe('sbb-header', () => {
       <div style="height: 2000px;"></div>
     `);
 
-    element = document.querySelector('sbb-header');
+    element = document.querySelector<SbbHeaderElement>('sbb-header')!;
     expect(element.scrollOrigin).not.to.be.undefined;
     expect(element.offsetHeight).to.be.equal(96);
     expect(document.documentElement.offsetHeight).to.be.equal(2096);
@@ -77,7 +78,7 @@ describe('sbb-header', () => {
       <div style="height: 2000px;"></div>
     `);
 
-    element = document.querySelector('sbb-header');
+    element = document.querySelector('sbb-header')!;
     expect(element.scrollOrigin).not.to.be.undefined;
     expect(element.offsetHeight).to.be.equal(96);
     expect(document.documentElement.offsetHeight).to.be.equal(2096);
@@ -139,7 +140,7 @@ describe('sbb-header', () => {
       <div style="height: 2000px;"></div>
     `);
 
-    element = document.querySelector('sbb-header');
+    element = document.querySelector<SbbHeaderElement>('sbb-header')!;
 
     // Scroll down a little bit
     mockScrollTo({ top: 250 });
@@ -153,7 +154,7 @@ describe('sbb-header', () => {
     // Open menu
     const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen);
     const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen);
-    const menuTrigger = document.querySelector('sbb-header-action');
+    const menuTrigger = document.querySelector<SbbHeaderActionElement>('sbb-header-action')!;
     menuTrigger.click();
     await waitForLitRender(element);
     await waitForCondition(() => willOpenEventSpy.events.length === 1);

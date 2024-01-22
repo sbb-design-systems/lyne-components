@@ -81,7 +81,7 @@ describe('sbb-navigation', () => {
     const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
     const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose);
     const closeButton: SbbButtonElement =
-      element.shadowRoot.querySelector('.sbb-navigation__close');
+      element.shadowRoot!.querySelector<SbbButtonElement>('.sbb-navigation__close')!;
 
     element.open();
     await waitForLitRender(element);
@@ -131,13 +131,14 @@ describe('sbb-navigation', () => {
   it('closes navigation with sbb-navigation-close', async () => {
     const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
     const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose);
-    const section: SbbNavigationSectionElement = element.querySelector('#first-section');
-    const action: SbbNavigationActionElement = element.querySelector(
+    const section: SbbNavigationSectionElement =
+      element.querySelector<SbbNavigationSectionElement>('#first-section')!;
+    const action: SbbNavigationActionElement = element.querySelector<SbbNavigationActionElement>(
       'sbb-navigation-marker > sbb-navigation-action#action-1',
-    );
-    const closeEl: SbbNavigationActionElement = element.querySelector(
+    )!;
+    const closeEl: SbbNavigationActionElement = element.querySelector<SbbNavigationActionElement>(
       'sbb-navigation-marker > sbb-navigation-action[sbb-navigation-close]',
-    );
+    )!;
 
     element.open();
     await waitForLitRender(element);
@@ -165,10 +166,11 @@ describe('sbb-navigation', () => {
 
   it('opens navigation and opens section', async () => {
     const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
-    const section: SbbNavigationSectionElement = element.querySelector('#first-section');
-    const action: SbbNavigationActionElement = document.querySelector(
+    const section: SbbNavigationSectionElement =
+      element.querySelector<SbbNavigationSectionElement>('#first-section')!;
+    const action: SbbNavigationActionElement = document.querySelector<SbbNavigationActionElement>(
       'sbb-navigation > sbb-navigation-marker > sbb-navigation-action#action-1',
-    );
+    )!;
 
     element.open();
     await waitForLitRender(element);
@@ -190,14 +192,18 @@ describe('sbb-navigation', () => {
 
   it('opens navigation and toggles sections', async () => {
     const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
-    const firstSection: SbbNavigationSectionElement = document.querySelector('#first-section');
-    const secondSection: SbbNavigationSectionElement = document.querySelector('#second-section');
-    const firstAction: SbbNavigationActionElement = document.querySelector(
-      'sbb-navigation-marker > sbb-navigation-action#action-1',
-    );
-    const secondAction: SbbNavigationActionElement = document.querySelector(
-      'sbb-navigation-marker > sbb-navigation-action#action-2',
-    );
+    const firstSection: SbbNavigationSectionElement =
+      document.querySelector<SbbNavigationSectionElement>('#first-section')!;
+    const secondSection: SbbNavigationSectionElement =
+      document.querySelector<SbbNavigationSectionElement>('#second-section')!;
+    const firstAction: SbbNavigationActionElement =
+      document.querySelector<SbbNavigationActionElement>(
+        'sbb-navigation-marker > sbb-navigation-action#action-1',
+      )!;
+    const secondAction: SbbNavigationActionElement =
+      document.querySelector<SbbNavigationActionElement>(
+        'sbb-navigation-marker > sbb-navigation-action#action-2',
+      )!;
 
     element.open();
     await waitForLitRender(element);
@@ -226,12 +232,13 @@ describe('sbb-navigation', () => {
   it('closes the navigation and the section on close button click', async () => {
     const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
     const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose);
-    const section: SbbNavigationSectionElement = element.querySelector('#first-section');
-    const action: SbbNavigationActionElement = document.querySelector(
+    const section: SbbNavigationSectionElement =
+      element.querySelector<SbbNavigationSectionElement>('#first-section')!;
+    const action: SbbNavigationActionElement = document.querySelector<SbbNavigationActionElement>(
       'sbb-navigation > sbb-navigation-marker > sbb-navigation-action#action-1',
-    );
+    )!;
     const closeButton: SbbButtonElement =
-      element.shadowRoot.querySelector('.sbb-navigation__close');
+      element.shadowRoot!.querySelector<SbbButtonElement>('.sbb-navigation__close')!;
 
     element.open();
     await waitForLitRender(element);
@@ -263,10 +270,11 @@ describe('sbb-navigation', () => {
   it('closes the navigation and the section on Esc key press', async () => {
     const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
     const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose);
-    const section: SbbNavigationSectionElement = element.querySelector('#first-section');
-    const action: SbbNavigationActionElement = document.querySelector(
+    const section: SbbNavigationSectionElement =
+      element.querySelector<SbbNavigationSectionElement>('#first-section')!;
+    const action: SbbNavigationActionElement = document.querySelector<SbbNavigationActionElement>(
       'sbb-navigation > sbb-navigation-marker > sbb-navigation-action#action-1',
-    );
+    )!;
 
     element.open();
     await waitForLitRender(element);
@@ -297,13 +305,14 @@ describe('sbb-navigation', () => {
 
   it('closes section with sbb-navigation-section-close', async () => {
     const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
-    const section: SbbNavigationSectionElement = document.querySelector('#first-section');
-    const action: SbbNavigationActionElement = document.querySelector(
+    const section: SbbNavigationSectionElement =
+      document.querySelector<SbbNavigationSectionElement>('#first-section')!;
+    const action: SbbNavigationActionElement = document.querySelector<SbbNavigationActionElement>(
       'sbb-navigation > sbb-navigation-marker > sbb-navigation-action#action-1',
-    );
-    const closeEl: SbbNavigationActionElement = document.querySelector(
+    )!;
+    const closeEl: SbbNavigationActionElement = document.querySelector<SbbNavigationActionElement>(
       'sbb-navigation > sbb-navigation-section > sbb-navigation-action[sbb-navigation-section-close]',
-    );
+    )!;
 
     element.open();
     await waitForLitRender(element);

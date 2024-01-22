@@ -66,7 +66,7 @@ const appendNotification = (event: Event, args: Args): void => {
   newNotification.innerHTML =
     'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.';
   (event.target as SbbButtonElement).parentElement
-    .querySelector('.notification-container')
+    ?.querySelector('.notification-container')
     ?.append(newNotification);
 };
 

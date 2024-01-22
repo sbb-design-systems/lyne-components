@@ -29,13 +29,17 @@ describe('sbb-tab-group', () => {
   });
 
   it('renders tab content', async () => {
-    const content = document.querySelector('sbb-tab-group > sbb-tab-title:first-child + div');
+    const content = document.querySelector<HTMLDivElement>(
+      'sbb-tab-group > sbb-tab-title:first-child + div',
+    )!;
 
     expect(content.textContent).to.be.equal('Test tab content 1');
   });
 
   it('renders no content tab panel', async () => {
-    const content = document.querySelector('sbb-tab-group > sbb-tab-title#sbb-tab-4 + div');
+    const content = document.querySelector<HTMLDivElement>(
+      'sbb-tab-group > sbb-tab-title#sbb-tab-4 + div',
+    )!;
 
     expect(content.textContent).to.be.equal('No content.');
   });

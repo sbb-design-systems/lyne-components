@@ -38,13 +38,13 @@ describe('sbb-train', () => {
   it('should hide direction label element if not present', async () => {
     const root = await fixture(html`<sbb-train></sbb-train>`);
 
-    expect(root.shadowRoot.querySelector('.sbb-train__direction')).to.be.null;
+    expect(root.shadowRoot!.querySelector('.sbb-train__direction')).to.be.null;
   });
 
   it('should hide station element if not present', async () => {
     const root = await fixture(html`<sbb-train direction-label="Driving direction"></sbb-train>`);
 
-    expect(root.shadowRoot.querySelector('.sbb-train__direction-station')).to.be.null;
+    expect(root.shadowRoot!.querySelector('.sbb-train__direction-station')).to.be.null;
   });
 
   it('should display left indicator if direction is left', async () => {
@@ -57,7 +57,7 @@ describe('sbb-train', () => {
     );
 
     expect(
-      root.shadowRoot.querySelector('.sbb-train__direction-arrow').getAttribute('name'),
+      root.shadowRoot!.querySelector('.sbb-train__direction-arrow')!.getAttribute('name'),
     ).to.contain('-left-');
   });
 
@@ -71,7 +71,7 @@ describe('sbb-train', () => {
     );
 
     expect(
-      root.shadowRoot.querySelector('.sbb-train__direction-arrow').getAttribute('name'),
+      root.shadowRoot!.querySelector('.sbb-train__direction-arrow')!.getAttribute('name'),
     ).to.contain('-right-');
   });
 
@@ -80,7 +80,7 @@ describe('sbb-train', () => {
       const root = await fixture(html`<sbb-train></sbb-train>`);
 
       expect(
-        root.shadowRoot.querySelector('.sbb-train__direction-label-sr').textContent.trim(),
+        root.shadowRoot!.querySelector('.sbb-train__direction-label-sr')!.textContent!.trim(),
       ).to.be.equal('Train.');
     });
 
@@ -90,7 +90,7 @@ describe('sbb-train', () => {
       );
 
       expect(
-        root.shadowRoot.querySelector('.sbb-train__direction-label-sr').textContent.trim(),
+        root.shadowRoot!.querySelector('.sbb-train__direction-label-sr')!.textContent!.trim(),
       ).to.be.equal('Train.');
     });
 
@@ -100,7 +100,7 @@ describe('sbb-train', () => {
       );
 
       expect(
-        root.shadowRoot.querySelector('.sbb-train__direction-label-sr').textContent.trim(),
+        root.shadowRoot!.querySelector('.sbb-train__direction-label-sr')!.textContent!.trim(),
       ).to.be.equal('Train, Direction of Travel Bern.');
     });
 
@@ -114,7 +114,7 @@ describe('sbb-train', () => {
       );
 
       expect(
-        root.shadowRoot.querySelector('.sbb-train__direction-label-sr').textContent.trim(),
+        root.shadowRoot!.querySelector('.sbb-train__direction-label-sr')!.textContent!.trim(),
       ).to.be.equal('Train, Direction of Travel Bern, Additional label.');
     });
   });

@@ -38,7 +38,7 @@ export class SbbLinkListElement extends SlotChildObserver(LitElement) {
    * Whether to render the link list and nested sbb-link instances as negative. This will overwrite
    * the negative attribute of nested sbb-link instances.
    */
-  @property({ reflect: true, type: Boolean }) public negative: boolean;
+  @property({ reflect: true, type: Boolean }) public negative: boolean = false;
 
   /** Selected breakpoint from which the list is rendered horizontally. */
   @property({ attribute: 'horizontal-from', reflect: true })
@@ -99,7 +99,7 @@ export class SbbLinkListElement extends SlotChildObserver(LitElement) {
     this._links.forEach((link, index) => link.setAttribute('slot', `link-${index}`));
     const links = this._links.length
       ? this._links
-      : Array.from({ length: +this.getAttribute('data-ssr-child-count') });
+      : Array.from({ length: +(this.getAttribute('data-ssr-child-count') as string) });
 
     return html`
       <div class="sbb-link-list-wrapper">

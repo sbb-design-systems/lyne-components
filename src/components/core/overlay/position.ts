@@ -49,9 +49,9 @@ export function getElementRectangle(el: HTMLElement): ElementRectangle {
     offsetWidth = el.offsetWidth;
 
   // Reverting to the original values
-  el.style.display = null;
-  el.style.position = null;
-  el.style.visibility = null;
+  el.style.display = '';
+  el.style.position = '';
+  el.style.visibility = '';
 
   return { scrollHeight, clientHeight, offsetHeight, scrollWidth, clientWidth, offsetWidth };
 }
@@ -61,7 +61,7 @@ export function getElementRectangle(el: HTMLElement): ElementRectangle {
  */
 export function isEventOnElement(element: HTMLElement, event: MouseEvent | PointerEvent): boolean {
   if (!element || !event) {
-    return;
+    return false;
   }
 
   const rect = element.getBoundingClientRect();

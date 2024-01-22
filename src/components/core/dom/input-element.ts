@@ -3,8 +3,8 @@ import { findReferencedElement } from './find-referenced-element';
 /**
  * Resolves the input element inside the shadow DOM of the given element.
  */
-export function findShadowInput(element: HTMLElement): HTMLInputElement | null {
-  return element.shadowRoot.querySelector('input');
+export function findShadowInput(element: HTMLElement): HTMLInputElement | null | undefined {
+  return element.shadowRoot?.querySelector('input');
 }
 
 /**
@@ -17,7 +17,7 @@ export function findShadowInput(element: HTMLElement): HTMLInputElement | null {
  */
 export function findInput(
   element: HTMLElement,
-  trigger?: string | HTMLElement,
+  trigger?: string | HTMLElement | null,
 ): HTMLInputElement | null {
   if (!trigger) {
     const parent = element.closest?.('sbb-form-field');

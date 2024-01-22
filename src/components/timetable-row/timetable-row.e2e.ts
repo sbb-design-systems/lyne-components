@@ -1,6 +1,7 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
+import type { SbbCardElement } from '../card';
 import { EventSpy, waitForCondition } from '../core/testing';
 
 import { SbbTimetableRowElement } from './timetable-row';
@@ -18,7 +19,7 @@ describe('sbb-timetable-row', () => {
 
   describe('events', () => {
     it('emits an event when clicked', async () => {
-      const card = element.shadowRoot.querySelector('sbb-card');
+      const card = element.shadowRoot!.querySelector<SbbCardElement>('sbb-card')!;
       const changeSpy = new EventSpy('click');
 
       card.click();

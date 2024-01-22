@@ -1,6 +1,7 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
 import { i18nTimeInputChange } from '../core/i18n';
 import type { ValidationChangeEvent } from '../core/interfaces';
@@ -17,8 +18,8 @@ describe('sbb-time-input', () => {
       <input id="input-1" />
     `);
 
-    element = document.querySelector('sbb-time-input');
-    input = document.querySelector('input');
+    element = document.querySelector<SbbTimeInputElement>('sbb-time-input')!;
+    input = document.querySelector<HTMLInputElement>('input')!;
   });
 
   it('renders', async () => {
@@ -58,7 +59,7 @@ describe('sbb-time-input', () => {
     input.blur();
 
     // Then validation event should emit with false
-    expect(validationChangeSpy.lastEvent.detail).to.own.include({ valid: false });
+    expect(validationChangeSpy.lastEvent!.detail).to.own.include({ valid: false });
     expect(input).to.have.attribute('data-sbb-invalid');
 
     // When adding another 9 (999)
@@ -79,7 +80,7 @@ describe('sbb-time-input', () => {
 
     // Then validation event should be emitted with true
     expect(validationChangeSpy.count).to.be.equal(2);
-    expect(validationChangeSpy.lastEvent.detail).to.own.include({ valid: true });
+    expect(validationChangeSpy.lastEvent!.detail).to.own.include({ valid: true });
     expect(input).not.to.have.attribute('data-sbb-invalid');
   });
 
@@ -102,11 +103,11 @@ describe('sbb-time-input', () => {
     input.blur();
 
     // Then validation event should emit with true
-    expect(validationChangeSpy.lastEvent.detail).to.own.include({ valid: true });
+    expect(validationChangeSpy.lastEvent!.detail).to.own.include({ valid: true });
     expect(input).not.to.have.attribute('data-sbb-invalid');
   });
 
-  it('should interpret valid values', async function () {
+  it('should interpret valid values', async function (this: Context) {
     this.timeout(5000);
     const testCases = [
       { value: '0', interpretedAs: '00:00' },
@@ -142,7 +143,7 @@ describe('sbb-time-input', () => {
       await waitForLitRender(element);
       expect(input.value).to.be.equal(testCase.interpretedAs);
 
-      const paragraphElement = element.shadowRoot.querySelector('p');
+      const paragraphElement = element.shadowRoot!.querySelector<HTMLParagraphElement>('p')!;
       expect(paragraphElement.innerText).to.be.equal(
         `${i18nTimeInputChange['en']} ${testCase.interpretedAs}.`,
       );
@@ -168,7 +169,7 @@ describe('sbb-time-input', () => {
       await waitForLitRender(element);
       expect(input.value).to.be.equal(testCase.interpretedAs);
 
-      const paragraphElement = element.shadowRoot.querySelector('p');
+      const paragraphElement = element.shadowRoot!.querySelector<HTMLParagraphElement>('p')!;
       expect(paragraphElement.innerText).to.be.equal('');
     }
   });
@@ -207,7 +208,7 @@ describe('sbb-time-input', () => {
     expect(input.value).to.be.equal('15:00');
     expect(blurSpy.count).to.be.equal(1);
 
-    const dateCalculated = element.getValueAsDate().getTime();
+    const dateCalculated = element.getValueAsDate()!.getTime();
     expect(new Date(dateCalculated).getHours()).to.be.equal(date.getHours());
     expect(new Date(dateCalculated).getMinutes()).to.be.equal(date.getMinutes());
   });
@@ -219,7 +220,7 @@ describe('sbb-time-input', () => {
     await waitForLitRender(element);
     expect(input.value).to.be.equal('15:00');
 
-    const dateCalculated = element.getValueAsDate().getTime();
+    const dateCalculated = element.getValueAsDate()!.getTime();
     expect(new Date(dateCalculated).getHours()).to.be.equal(date.getHours());
     expect(new Date(dateCalculated).getMinutes()).to.be.equal(date.getMinutes());
   });
@@ -231,8 +232,8 @@ describe('sbb-time-input', () => {
         <input />
       </sbb-form-field>
     `);
-    element = root.querySelector('sbb-time-input');
-    input = root.querySelector('input');
+    element = root.querySelector<SbbTimeInputElement>('sbb-time-input')!;
+    input = root.querySelector<HTMLInputElement>('input')!;
 
     element.setValueAsDate('2023-01-01T15:00:00');
     await waitForLitRender(element);
@@ -246,8 +247,8 @@ describe('sbb-time-input', () => {
         <input id="input" />
       </div>
     `);
-    element = root.querySelector('sbb-time-input');
-    input = root.querySelector('input');
+    element = root.querySelector<SbbTimeInputElement>('sbb-time-input')!;
+    input = root.querySelector<HTMLInputElement>('input')!;
     element.input = input;
     element.setValueAsDate('2023-01-01T15:00:00');
     await waitForLitRender(element);
@@ -262,8 +263,8 @@ describe('sbb-time-input', () => {
         <input id="input-2" />
       </div>
     `);
-    element = root.querySelector('sbb-time-input');
-    input = root.querySelector('input');
+    element = root.querySelector<SbbTimeInputElement>('sbb-time-input')!;
+    input = root.querySelector<HTMLInputElement>('input')!;
 
     element.input = 'input-2';
     element.setValueAsDate('2023-01-01T15:00:00');

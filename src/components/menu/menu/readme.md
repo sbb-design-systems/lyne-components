@@ -64,11 +64,11 @@ to identify which actions are active and which are not.
 
 ## Properties
 
-| Name                     | Attribute                  | Privacy | Type                    | Default | Description                                                                                                                       |
-| ------------------------ | -------------------------- | ------- | ----------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `trigger`                | `trigger`                  | public  | `string \| HTMLElement` | `null`  | The element that will trigger the menu overlay. Accepts both a string (id of an element) or an HTML element.                      |
-| `disableAnimation`       | `disable-animation`        | public  | `boolean`               | `false` | Whether the animation is enabled.                                                                                                 |
-| `listAccessibilityLabel` | `list-accessibility-label` | public  | `string \| undefined`   |         | This will be forwarded as aria-label to the inner list. Used only if the menu automatically renders the actions inside as a list. |
+| Name                     | Attribute                  | Privacy | Type                            | Default | Description                                                                                                                       |
+| ------------------------ | -------------------------- | ------- | ------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `trigger`                | `trigger`                  | public  | `string \| HTMLElement \| null` | `null`  | The element that will trigger the menu overlay. Accepts both a string (id of an element) or an HTML element.                      |
+| `disableAnimation`       | `disable-animation`        | public  | `boolean`                       | `false` | Whether the animation is enabled.                                                                                                 |
+| `listAccessibilityLabel` | `list-accessibility-label` | public  | `string \| undefined`           |         | This will be forwarded as aria-label to the inner list. Used only if the menu automatically renders the actions inside as a list. |
 
 ## Methods
 

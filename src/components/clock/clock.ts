@@ -57,22 +57,22 @@ export class SbbClockElement extends LitElement {
   @state() private _isInitialized = false;
 
   /** Reference to the hour hand. */
-  private _clockHandHours: HTMLElement;
+  private _clockHandHours!: HTMLElement;
 
   /** Reference to the minute hand. */
-  private _clockHandMinutes: HTMLElement;
+  private _clockHandMinutes!: HTMLElement;
 
   /** Reference to the second hand. */
-  private _clockHandSeconds: HTMLElement;
+  private _clockHandSeconds!: HTMLElement;
 
   /** Hours value for the current date. */
-  private _hours: number;
+  private _hours!: number;
 
   /** Minutes value for the current date. */
-  private _minutes: number;
+  private _minutes!: number;
 
   /** Seconds value for the current date. */
-  private _seconds: number;
+  private _seconds!: number;
 
   /** Callback function for hours hand. */
   private _moveHoursHandFn = (): void => this._moveHoursHand();
@@ -81,7 +81,7 @@ export class SbbClockElement extends LitElement {
   private _moveMinutesHandFn = (): void => this._moveMinutesHand();
 
   /** Move the minutes hand every minute. */
-  private _handMovement: ReturnType<typeof setInterval>;
+  private _handMovement?: ReturnType<typeof setInterval>;
 
   private async _handlePageVisibilityChange(): Promise<void> {
     if (document.visibilityState === 'hidden') {
@@ -257,13 +257,13 @@ export class SbbClockElement extends LitElement {
   }
 
   private _hasDataNow(): boolean {
-    const dataNow = +this.dataset?.now;
+    const dataNow = +(this.dataset?.now as string);
     return !isNaN(dataNow);
   }
 
   private _now(): Date {
     if (this._hasDataNow()) {
-      return new Date(+this.dataset?.now);
+      return new Date(+(this.dataset.now as string));
     }
     return new Date();
   }
@@ -293,22 +293,22 @@ export class SbbClockElement extends LitElement {
         <span
           class="sbb-clock__hand-hours"
           .innerHTML=${clockHandleHoursSVG}
-          ${ref((e: HTMLSpanElement): void => {
-            this._clockHandHours = e;
+          ${ref((e?: Element): void => {
+            this._clockHandHours = e as HTMLSpanElement;
           })}
         ></span>
         <span
           class="sbb-clock__hand-minutes sbb-clock__hand-minutes--no-transition"
           .innerHTML=${clockHandleMinutesSVG}
-          ${ref((el: HTMLSpanElement): void => {
-            this._clockHandMinutes = el;
+          ${ref((el?: Element): void => {
+            this._clockHandMinutes = el as HTMLSpanElement;
           })}
         ></span>
         <span
           class="sbb-clock__hand-seconds"
           .innerHTML=${clockHandleSecondsSVG}
-          ${ref((el: HTMLSpanElement): void => {
-            this._clockHandSeconds = el;
+          ${ref((el?: Element): void => {
+            this._clockHandSeconds = el as HTMLSpanElement;
           })}
         ></span>
       </div>

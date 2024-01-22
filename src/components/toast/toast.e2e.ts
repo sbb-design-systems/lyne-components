@@ -1,6 +1,7 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
+import type { SbbButtonElement } from '../button';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
 
 import { SbbToastElement } from './toast';
@@ -67,7 +68,7 @@ describe('sbb-toast', () => {
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
 
-    const dismissBtn = element.shadowRoot.querySelector('sbb-button') as HTMLElement;
+    const dismissBtn = element.shadowRoot!.querySelector<SbbButtonElement>('sbb-button')!;
     dismissBtn.click();
 
     await waitForLitRender(element);
@@ -144,8 +145,8 @@ describe('sbb-toast', () => {
       <sbb-toast id="toast2" disable-animation></sbb-toast>
     `);
 
-    const toast1: SbbToastElement = document.querySelector('#toast1');
-    const toast2: SbbToastElement = document.querySelector('#toast2');
+    const toast1: SbbToastElement = document.querySelector<SbbToastElement>('#toast1')!;
+    const toast2: SbbToastElement = document.querySelector<SbbToastElement>('#toast2')!;
 
     // Open the first toast
     toast1.open();

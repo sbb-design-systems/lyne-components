@@ -1,6 +1,6 @@
 import { userEvent, within } from '@storybook/testing-library';
 import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
+import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
@@ -27,11 +27,11 @@ const negativeBlockStyle: Args = {
   padding: '2rem',
 };
 
-const createLoadingIndicator = (event, args): void => {
+const createLoadingIndicator = (event: Event, args: Args): void => {
   const loader: SbbLoadingIndicatorElement = document.createElement('sbb-loading-indicator');
-  const container = (event.currentTarget as HTMLElement).parentElement.querySelector(
+  const container = (event.currentTarget as HTMLElement).parentElement!.querySelector(
     '.loader-container',
-  );
+  )!;
   loader.setAttribute('aria-label', 'Loading, please wait');
   loader.size = args['size'];
   loader.variant = args['variant'];
@@ -45,32 +45,32 @@ const createLoadingIndicator = (event, args): void => {
 };
 
 // Story interaction executed after the story renders
-const playStory = async ({ canvasElement }): Promise<void> => {
+const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
   await userEvent.click(within(canvasElement).getByTestId('trigger'));
   await new Promise((resolve) => setTimeout(resolve, 2000));
 };
 
-const TemplateAccessibility = (args): TemplateResult => html`
+const TemplateAccessibility = (args: Args): TemplateResult => html`
   <div style=${styleMap(textBlockStyle)}>
     Turn on your screen-reader and click the button to make the loading indicator appear.
   </div>
-  <sbb-button data-testid="trigger" @click=${(event) => createLoadingIndicator(event, args)}>
+  <sbb-button data-testid="trigger" @click=${(event: Event) => createLoadingIndicator(event, args)}>
     Show loader
   </sbb-button>
   <div class="loader-container" aria-live="polite"></div>
 `;
 
-const Template = (args): TemplateResult => html`
+const Template = (args: Args): TemplateResult => html`
   <sbb-loading-indicator ${sbbSpread(args)}></sbb-loading-indicator>
 `;
 
-const NegativeTemplate = (args): TemplateResult => html`
+const NegativeTemplate = (args: Args): TemplateResult => html`
   <div style=${styleMap(negativeBlockStyle)}>
     <sbb-loading-indicator ${sbbSpread(args)}></sbb-loading-indicator>
   </div>
 `;
 
-const InlineTemplate = (args): TemplateResult => html`
+const InlineTemplate = (args: Args): TemplateResult => html`
   <div>
     <p>
       <sbb-loading-indicator ${sbbSpread(args)}></sbb-loading-indicator> Inline loading indicator
@@ -81,7 +81,7 @@ const InlineTemplate = (args): TemplateResult => html`
   </div>
 `;
 
-const NegativeInlineTemplate = (args): TemplateResult => html`
+const NegativeInlineTemplate = (args: Args): TemplateResult => html`
   <div style=${styleMap(negativeBlockStyle)}>
     <p>
       <sbb-loading-indicator ${sbbSpread(args)}></sbb-loading-indicator> Inline loading indicator

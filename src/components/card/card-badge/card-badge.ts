@@ -19,7 +19,7 @@ export class SbbCardBadgeElement extends LitElement {
   /** Color of the card badge. */
   @property({ reflect: true }) public color: 'charcoal' | 'white' = 'charcoal';
 
-  private _parentElement?: HTMLElement;
+  private _parentElement?: HTMLElement | null;
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -31,7 +31,9 @@ export class SbbCardBadgeElement extends LitElement {
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    toggleDatasetEntry(this._parentElement, 'hasCardBadge', false);
+    if (this._parentElement) {
+      toggleDatasetEntry(this._parentElement, 'hasCardBadge', false);
+    }
     this._parentElement = undefined;
   }
 

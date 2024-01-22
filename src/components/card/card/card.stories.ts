@@ -89,7 +89,7 @@ const TemplateCardActionWithBadge = ({ size, color, label, ...args }: Args): Tem
   </sbb-card>
 `;
 
-const TemplateCardActionMultipleCards = (args): TemplateResult => html`
+const TemplateCardActionMultipleCards = (args: Args): TemplateResult => html`
   <div style=${styleMap({ display: 'flex', gap: '1rem' })}>
     ${TemplateCardActionWithBadge(args)} ${TemplateCardActionWithBadge({ ...args, active: true })}
     ${TemplateCardActionWithBadge(args)} ${TemplateCardActionWithBadge(args)}

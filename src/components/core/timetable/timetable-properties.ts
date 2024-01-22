@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+
 export interface ScheduledStopPointDetail {
   /** delay at arrival/departure (in minutes) */
   delay?: number;

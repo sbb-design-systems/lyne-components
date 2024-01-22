@@ -54,10 +54,12 @@ const defaultArgs: Args = {
 };
 
 // Story interaction executed after the story renders
-const playStory = async ({ canvasElement }): Promise<void> => {
+const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
   const canvas = within(canvasElement);
   const queryTrigger = (): SbbTooltipTriggerElement =>
-    canvas.getByTestId('toggle').shadowRoot!.querySelector('sbb-tooltip-trigger')!;
+    canvas
+      .getByTestId('toggle')
+      .shadowRoot!.querySelector<SbbTooltipTriggerElement>('sbb-tooltip-trigger')!;
 
   await waitForComponentsReady(queryTrigger);
 
@@ -67,17 +69,17 @@ const playStory = async ({ canvasElement }): Promise<void> => {
   userEvent.click(toggle);
 };
 
-const StandaloneTemplate = (picker, args): TemplateResult => html`
+const StandaloneTemplate = (args: Args, picker?: string): TemplateResult => html`
   <sbb-datepicker-toggle
     ${sbbSpread(args)}
-    date-picker=${picker}
+    date-picker=${picker || nothing}
     data-testid="toggle"
   ></sbb-datepicker-toggle>
 `;
 
-const PickerAndButtonTemplate = (args): TemplateResult => html`
+const PickerAndButtonTemplate = (args: Args): TemplateResult => html`
   <div style=${styleMap({ display: 'flex', gap: '1em' })}>
-    ${StandaloneTemplate('datepicker', args)}
+    ${StandaloneTemplate(args, 'datepicker')}
     <sbb-datepicker
       id="datepicker"
       input="datepicker-input"
@@ -93,7 +95,7 @@ const FormFieldTemplate = ({ negative, ...args }: Args): TemplateResult => html`
     <sbb-datepicker
       data-now=${isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : nothing}
     ></sbb-datepicker>
-    ${StandaloneTemplate(null, args)}
+    ${StandaloneTemplate(args)}
   </sbb-form-field>
 `;
 

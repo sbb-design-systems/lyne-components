@@ -20,7 +20,7 @@ describe('sbb-teaser', () => {
   it('should receive focus', async () => {
     element.focus();
     await waitForLitRender(element);
-    expect(document.activeElement.id).to.be.equal('focus-id');
+    expect(document.activeElement!.id).to.be.equal('focus-id');
   });
 
   it('dispatches event on click', async () => {

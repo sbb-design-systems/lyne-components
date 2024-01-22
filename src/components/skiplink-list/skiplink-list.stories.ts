@@ -1,6 +1,6 @@
 import { userEvent, within } from '@storybook/testing-library';
 import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
+import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
@@ -99,10 +99,10 @@ const defaultArgs: Args = {
 };
 
 // Story interaction executed after the story renders
-const playStory = async ({ canvasElement }): Promise<void> => {
+const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
   const canvas = within(canvasElement);
   await waitForComponentsReady(() =>
-    canvas.getByTestId('skiplink').shadowRoot.querySelectorAll('.sbb-skiplink-list__wrapper'),
+    canvas.getByTestId('skiplink')?.shadowRoot?.querySelectorAll('.sbb-skiplink-list__wrapper'),
   );
   await waitForStablePosition(() => canvas.getByTestId('skiplink'));
   userEvent.tab();

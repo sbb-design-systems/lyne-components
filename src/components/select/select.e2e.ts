@@ -26,15 +26,15 @@ describe('sbb-select', () => {
         </sbb-select>
       </div>
     `);
-    element = document.querySelector('sbb-select');
+    element = document.querySelector<SbbSelectElement>('sbb-select')!;
     await waitForLitRender(element);
 
-    comboBoxElement = document.querySelector('[role="combobox"]');
+    comboBoxElement = document.querySelector('[role="combobox"]')!;
     focusableElement = comboBoxElement;
-    firstOption = element.querySelector('#option-1');
-    secondOption = element.querySelector('#option-2');
-    thirdOption = element.querySelector('#option-3');
-    displayValue = element.shadowRoot.querySelector('.sbb-select__trigger');
+    firstOption = element.querySelector<SbbOptionElement>('#option-1')!;
+    secondOption = element.querySelector<SbbOptionElement>('#option-2')!;
+    thirdOption = element.querySelector<SbbOptionElement>('#option-3')!;
+    displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger')!;
   });
 
   it('renders', async () => {
@@ -72,7 +72,7 @@ describe('sbb-select', () => {
 
   it('displays placeholder if no value is set and there is no selected element', async () => {
     expect(element.value).to.be.undefined;
-    const placeholder = element.shadowRoot.querySelector('.sbb-select__trigger--placeholder');
+    const placeholder = element.shadowRoot!.querySelector('.sbb-select__trigger--placeholder');
     expect(placeholder).not.to.be.null;
     expect(placeholder).to.have.trimmed.text('Placeholder');
   });
@@ -124,10 +124,10 @@ describe('sbb-select', () => {
         </sbb-select>
       </div>
     `);
-    element = root.querySelector('sbb-select');
+    element = root.querySelector<SbbSelectElement>('sbb-select')!;
     await waitForLitRender(element);
 
-    const displayValue = element.shadowRoot.querySelector('.sbb-select__trigger');
+    const displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger');
     const firstOption = element.querySelector('#option-1');
     const secondOption = element.querySelector('#option-2');
     const thirdOption = element.querySelector('#option-3');
@@ -149,12 +149,12 @@ describe('sbb-select', () => {
         </sbb-select>
       </div>
     `);
-    element = root.querySelector('sbb-select');
+    element = root.querySelector<SbbSelectElement>('sbb-select')!;
     await waitForLitRender(element);
-    comboBoxElement = root.querySelector('[role="combobox"]');
+    comboBoxElement = root.querySelector('[role="combobox"]')!;
     focusableElement = comboBoxElement;
 
-    const displayValue = element.shadowRoot.querySelector('.sbb-select__trigger');
+    const displayValue = element.shadowRoot!.querySelector('.sbb-select__trigger');
     expect(displayValue).to.have.trimmed.text('First');
     expect(element.value).to.be.equal('1');
 
@@ -169,10 +169,10 @@ describe('sbb-select', () => {
     expect(didOpen.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    firstOption = element.querySelector('#option-1');
+    firstOption = element.querySelector<SbbOptionElement>('#option-1')!;
     expect(firstOption).not.to.have.attribute('active');
     expect(firstOption).to.have.attribute('selected');
-    secondOption = element.querySelector('#option-2');
+    secondOption = element.querySelector<SbbOptionElement>('#option-2')!;
     expect(secondOption).not.to.have.attribute('active');
     expect(secondOption).not.to.have.attribute('selected');
 
