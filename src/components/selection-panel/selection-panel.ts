@@ -1,7 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
 
 import type { SbbCheckboxElement, SbbCheckboxStateChange } from '../checkbox';
 import { NamedSlotStateController } from '../core/common-behaviors';
@@ -90,7 +89,6 @@ export class SbbSelectionPanelElement extends LitElement {
     { bubbles: true, composed: true },
   );
 
-  private _contentElement?: HTMLElement;
   private _abort = new ConnectedAbortController(this);
 
   /**
@@ -194,13 +192,8 @@ export class SbbSelectionPanelElement extends LitElement {
         </div>
         <div
           class="sbb-selection-panel__content--wrapper"
+          .inert="${!this._checked && !this.forceOpen};"
           @animationend=${(event: AnimationEvent) => this._onAnimationEnd(event)}
-          ${ref((el: HTMLElement) => {
-            this._contentElement = el;
-            if (this._contentElement) {
-              this._contentElement.inert = !this._checked && !this.forceOpen;
-            }
-          })}
         >
           <div class="sbb-selection-panel__content">
             <sbb-divider></sbb-divider>
