@@ -106,6 +106,7 @@ form element with the label, by setting an id on the label and referencing this 
 Please note that only one `<label>` element is supported. Additionally, if you place the `<label>`
 element outside the `sbb-form-field`, the automatic assignment is skipped, and it is up to the
 consumer to use the correct id references.
+If you like to visually hide a label, but still present it with screen readers, use the `hiddenLabel` property.
 
 When you provide informational text via `sbb-form-error`, it automatically adds these elements' IDs
 to the form element's `aria-describedby` attribute.
@@ -124,6 +125,7 @@ technology will announce errors when they appear.
 | `size`          | `size`           | public  | `'l' \| 'm' \| undefined`                              | `'m'`       | Size variant, either l or m.                                                                                                                                          |
 | `borderless`    | `borderless`     | public  | `boolean`                                              | `false`     | Whether to display the form field without a border.                                                                                                                   |
 | `width`         | `width`          | public  | `'default' \| 'collapse'`                              | `'default'` | Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content. |
+| `hiddenLabel`   | `hidden-label`   | public  | `boolean`                                              | `false`     | Whether to visually hide the label. If hidden, screen readers will still read it.                                                                                     |
 | `floatingLabel` | `floating-label` | public  | `boolean`                                              | `false`     | Whether the label should float. If activated, the placeholder of the input is hidden.                                                                                 |
 | `negative`      | `negative`       | public  | `boolean`                                              | `false`     | Negative coloring variant flag.                                                                                                                                       |
 | `inputElement`  | -                | public  | `HTMLInputElement \| HTMLSelectElement \| HTMLElement` |             | Returns the input element.                                                                                                                                            |

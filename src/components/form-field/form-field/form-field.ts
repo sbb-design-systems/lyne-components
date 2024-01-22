@@ -62,30 +62,25 @@ export class SbbFormFieldElement extends LitElement {
   @property({ attribute: 'error-space', reflect: true })
   public errorSpace?: 'none' | 'reserve' = 'none';
 
-  /**
-   * Label text for the input which is internally rendered as `<label>`.
-   */
+  /** Label text for the input which is internally rendered as `<label>`. */
   @property({ reflect: true }) public label: string;
 
-  /**
-   * Indicates whether the input is optional.
-   */
+  /** Indicates whether the input is optional. */
   @property({ type: Boolean }) public optional?: boolean;
 
-  /**
-   * Size variant, either l or m.
-   */
+  /** Size variant, either l or m. */
   @property({ reflect: true }) public size?: 'l' | 'm' = 'm';
 
-  /**
-   * Whether to display the form field without a border.
-   */
+  /** Whether to display the form field without a border. */
   @property({ reflect: true, type: Boolean }) public borderless = false;
 
   /** Defines the width of the component:
    * - `default`: the component has defined width and min-width;
    * - `collapse`: the component adapts itself to its inner input content. */
   @property({ reflect: true }) public width: 'default' | 'collapse' = 'default';
+
+  /** Whether to visually hide the label. If hidden, screen readers will still read it. */
+  @property({ attribute: 'hidden-label', reflect: true, type: Boolean }) public hiddenLabel = false;
 
   /** Whether the label should float. If activated, the placeholder of the input is hidden. */
   @property({ attribute: 'floating-label', reflect: true, type: Boolean }) public floatingLabel =
