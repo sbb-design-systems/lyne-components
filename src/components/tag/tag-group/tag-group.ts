@@ -1,5 +1,5 @@
 import type { CSSResultGroup, TemplateResult, PropertyValueMap } from 'lit';
-import { html, nothing } from 'lit';
+import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import type { WithListChildren } from '../../core/common-behaviors';

@@ -1,5 +1,4 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { NamedSlotListElement } from '../../core/common-behaviors';

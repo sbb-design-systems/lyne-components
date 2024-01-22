@@ -1,5 +1,5 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import { html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
