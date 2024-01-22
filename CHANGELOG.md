@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.44.0](https://github.com/lyne-design-system/lyne-components/compare/v0.43.14...v0.44.0) (2024-01-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* **sbb-teaser:** The property `isStacked` has been removed in favor of `alignment`. Please see the documentation for further info. The `description` is not clamped to two lines anymore (responsibility of consumer). The slotted `image` has now a default width of `300px`. The slot, formerly named `description`, has been replaced by the unnamed slot. Support of nested `p` elements dropped (invalid html).
+* The following components have been removed: `sbb-timetable-barrier-free`, `sbb-timetable-park-and-rail`, `sbb-timetable-row-column-headers`, `sbb-timetable-row-day-change`, `sbb-timetable-row-header`, `sbb-timetable-transportation-number`, `sbb-timetable-transportation-time`, `timetable-travel-hints`.
+
+### Features
+
+* **form-field:** allow label to be visually hidden ([#2361](https://github.com/lyne-design-system/lyne-components/issues/2361)) ([9f618db](https://github.com/lyne-design-system/lyne-components/commit/9f618db1980e83ea1e985c6560b599d6504471ce))
+* **sbb-teaser:** redesign ([#2211](https://github.com/lyne-design-system/lyne-components/issues/2211)) ([ba5f86c](https://github.com/lyne-design-system/lyne-components/commit/ba5f86c44e27b55256f8ff4e064edeb379b226a6))
+
+
+### Bug Fixes
+
+* **sbb-title:** move font-smoothing into scss mixin ([#2355](https://github.com/lyne-design-system/lyne-components/issues/2355)) ([331bac3](https://github.com/lyne-design-system/lyne-components/commit/331bac31a51550ec672d3b3ec4589003cb2b8a56))
+
+
+### Code Refactoring
+
+* remove unused components ([e3b29eb](https://github.com/lyne-design-system/lyne-components/commit/e3b29eb1af4c7bfa49a24b22fa63214a789b0043))
+
 ## [0.43.14](https://github.com/lyne-design-system/lyne-components/compare/v0.43.13...v0.43.14) (2024-01-17)
 
 
