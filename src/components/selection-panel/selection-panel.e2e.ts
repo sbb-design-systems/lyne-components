@@ -57,7 +57,10 @@ describe('sbb-selection-panel', () => {
     /* eslint-enable lit/binding-positions */
   };
 
-  const forceOpenTest = async (wrapper: SbbRadioButtonGroupElement | SbbCheckboxGroupElement, secondInput: SbbRadioButtonElement | SbbCheckboxElement): Promise<void> => {
+  const forceOpenTest = async (
+    wrapper: SbbRadioButtonGroupElement | SbbCheckboxGroupElement,
+    secondInput: SbbRadioButtonElement | SbbCheckboxElement,
+  ): Promise<void> => {
     elements.forEach((e) => (e.forceOpen = true));
     await waitForLitRender(wrapper);
 
@@ -124,7 +127,8 @@ describe('sbb-selection-panel', () => {
     let secondPanel: SbbSelectionPanelElement;
     let secondInput: SbbRadioButtonElement;
     let disabledInput: SbbRadioButtonElement;
-    let willOpenEventSpy, didOpenEventSpy: EventSpy<Event>;
+    let willOpenEventSpy: EventSpy<Event>;
+    let didOpenEventSpy: EventSpy<Event>;
 
     beforeEach(async () => {
       willOpenEventSpy = new EventSpy(SbbSelectionPanelElement.events.willOpen);
@@ -317,7 +321,10 @@ describe('sbb-selection-panel', () => {
     let nestedElement: SbbRadioButtonGroupElement;
     let panel1: SbbSelectionPanelElement;
     let panel2: SbbSelectionPanelElement;
-    let willOpenEventSpy, didOpenEventSpy, willCloseEventSpy, didCloseEventSpy: EventSpy<Event>;
+    let willOpenEventSpy: EventSpy<Event>;
+    let didOpenEventSpy: EventSpy<Event>;
+    let willCloseEventSpy: EventSpy<Event>;
+    let didCloseEventSpy: EventSpy<Event>;
 
     beforeEach(async () => {
       willOpenEventSpy = new EventSpy(SbbSelectionPanelElement.events.willOpen);
@@ -501,7 +508,10 @@ describe('sbb-selection-panel', () => {
     let secondPanel: SbbSelectionPanelElement;
     let secondInput: SbbCheckboxElement;
     let disabledInput: SbbCheckboxElement;
-    let willOpenEventSpy, didOpenEventSpy, willCloseEventSpy, didCloseEventSpy: EventSpy<Event>;
+    let willOpenEventSpy: EventSpy<Event>;
+    let didOpenEventSpy: EventSpy<Event>;
+    let willCloseEventSpy: EventSpy<Event>;
+    let didCloseEventSpy: EventSpy<Event>;
 
     beforeEach(async () => {
       willOpenEventSpy = new EventSpy(SbbSelectionPanelElement.events.willOpen);

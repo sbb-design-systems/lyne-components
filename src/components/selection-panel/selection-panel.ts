@@ -2,12 +2,12 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import type { SbbCheckboxElement, SbbCheckboxStateChange } from '../checkbox';
+import type { SbbCheckboxElement } from '../checkbox';
 import { NamedSlotStateController } from '../core/common-behaviors';
 import { setAttribute } from '../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../core/eventing';
 import type { SbbStateChange } from '../core/interfaces';
-import type { SbbRadioButtonElement, SbbRadioButtonStateChange } from '../radio-button';
+import type { SbbRadioButtonElement } from '../radio-button';
 
 import style from './selection-panel.scss?lit&inline';
 import '../divider';
@@ -157,9 +157,7 @@ export class SbbSelectionPanelElement extends LitElement {
     this._updateState();
   }
 
-  private _onInputStateChange(
-    event: CustomEvent<SbbRadioButtonStateChange | SbbCheckboxStateChange>,
-  ): void {
+  private _onInputStateChange(event: CustomEvent<SbbStateChange>): void {
     const input = event.target as SbbCheckboxElement | SbbRadioButtonElement;
 
     if (!input.isSelectionPanelInput) {
