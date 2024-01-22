@@ -246,9 +246,16 @@
 
   // Moves label down and input up to meet positioning requirements
   margin-block-end: var(--sbb-form-field-label-to-input-gap);
+}
 
+// To avoid doubled payload, we group the rules.
+:is(.sbb-form-field__label, .sbb-form-field__label-spacer) {
   :host(:not([data-slot-names~='label'], [label])) & {
     display: none;
+  }
+
+  :host([hidden-label]) & {
+    @include sbb.screen-reader-only;
   }
 }
 
@@ -261,10 +268,6 @@
   position: absolute;
   inset-block-start: 0;
   color: var(--sbb-form-field-label-color);
-
-  :host(:not([data-slot-names~='label'], [label])) & {
-    display: none;
-  }
 
   :host([data-input-type='select']) &,
   :host([data-input-type='sbb-select']) & {

@@ -74,6 +74,7 @@ const TemplateInput = ({
   borderless,
   width,
   negative,
+  'hidden-label': hiddenLabel,
   'floating-label': floatingLabel,
   ...args
 }: Args): TemplateResult => html`
@@ -84,6 +85,7 @@ const TemplateInput = ({
     size=${size}
     ?borderless=${borderless}
     width=${width}
+    ?hidden-label=${hiddenLabel}
     ?floating-label=${floatingLabel}
     ?negative=${negative}
   >
@@ -99,6 +101,7 @@ const TemplateInputWithSlottedLabel = ({
   borderless,
   width,
   negative,
+  'hidden-label': hiddenLabel,
   'floating-label': floatingLabel,
   ...args
 }: Args): TemplateResult => html`
@@ -108,6 +111,7 @@ const TemplateInputWithSlottedLabel = ({
     size=${size}
     ?borderless=${borderless}
     width=${width}
+    ?hidden-label=${hiddenLabel}
     ?floating-label=${floatingLabel}
     ?negative=${negative}
   >
@@ -131,6 +135,7 @@ const TemplateInputWithErrorSpace = (args: Args): TemplateResult => {
           size=${args.size}
           ?borderless=${args.borderless}
           width=${args.width}
+          ?hidden-label=${args['hidden-label']}
           ?floating-label=${args['floating-label']}
           ?negative=${args.negative}
         >
@@ -205,6 +210,7 @@ const TemplateSelect = (args: Args): TemplateResult => html`
     size=${args.size}
     ?borderless=${args.borderless}
     width=${args.width}
+    ?hidden-label=${args['hidden-label']}
     ?floating-label=${args['floating-label']}
     ?negative=${args.negative}
   >
@@ -227,6 +233,7 @@ const TemplateSelectWithErrorSpace = (args: Args): TemplateResult => {
           size=${args.size}
           ?borderless=${args.borderless}
           width=${args.width}
+          ?hidden-label=${args['hidden-label']}
           ?floating-label=${args['floating-label']}
           ?negative=${args.negative}
         >
@@ -354,6 +361,15 @@ const label: InputType = {
   },
 };
 
+const hiddenLabel: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Form-field attribute',
+  },
+};
+
 const floatingLabel: InputType = {
   control: {
     type: 'boolean',
@@ -412,6 +428,7 @@ const active: InputType = {
 const basicArgTypes: ArgTypes = {
   'error-space': errorSpace,
   label,
+  'hidden-label': hiddenLabel,
   'floating-label': floatingLabel,
   optional,
   borderless,
@@ -430,6 +447,7 @@ const basicArgTypes: ArgTypes = {
 const basicArgs: Args = {
   'error-space': 'none',
   label: 'Input name',
+  'hidden-label': false,
   'floating-label': false,
   optional: false,
   borderless: false,
@@ -465,6 +483,12 @@ export const InputNoLabel: StoryObj = {
   render: TemplateInput,
   argTypes: basicArgTypes,
   args: { ...basicArgs, label: undefined },
+};
+
+export const InputHiddenLabel: StoryObj = {
+  render: TemplateInput,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, 'hidden-label': true },
 };
 
 export const InputWithSlottedLabel: StoryObj = {
