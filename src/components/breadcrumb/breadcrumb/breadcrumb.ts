@@ -50,6 +50,7 @@ export class SbbBreadcrumbElement extends SlotChildObserver(LitElement) {
 
   public constructor() {
     super();
+    /** @ignore id is already a well known property. */
     this.id = this.id || `sbb-breadcrumb-${nextId++}`;
   }
 

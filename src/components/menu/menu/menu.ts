@@ -113,6 +113,7 @@ export class SbbMenuElement extends NamedSlotListElement<SbbMenuActionElement> {
 
   public constructor() {
     super();
+    /** @ignore id is already a well known property. */
     this.id = this.id || `sbb-menu-${nextId++}`;
   }
 
