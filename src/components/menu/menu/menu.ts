@@ -29,7 +29,7 @@ import {
   removeInertMechanism,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay';
-import type { SbbMenuActionElement } from '../menu-action';
+import type { SbbMenuButtonElement, SbbMenuLinkElement } from '../menu-action';
 
 import style from './menu.scss?lit&inline';
 
@@ -41,14 +41,14 @@ let nextId = 0;
 /**
  * It displays a contextual menu with one or more action element.
  *
- * @slot - Use the unnamed slot to add `sbb-menu-action` or other elements to the menu.
+ * @slot - Use the unnamed slot to add `sbb-menu-button`/`sbb-menu-link` or other elements to the menu.
  * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-menu` starts the opening transition. Can be canceled.
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-menu` is opened.
  * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-menu` begins the closing transition. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-menu` is closed.
  */
 @customElement('sbb-menu')
-export class SbbMenuElement extends NamedSlotListElement<SbbMenuActionElement> {
+export class SbbMenuElement extends NamedSlotListElement<SbbMenuButtonElement | SbbMenuLinkElement> {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -150,11 +150,11 @@ export class SbbMenuElement extends NamedSlotListElement<SbbMenuActionElement> {
   }
 
   /**
-   * Handles click and checks if its target is a sbb-menu-action.
+   * Handles click and checks if its target is a sbb-menu-button/sbb-menu-link.
    */
   private _onClick(event: Event): void {
     const target = event.target as HTMLElement | undefined;
-    if (target?.tagName === 'SBB-MENU-ACTION') {
+    if (target?.tagName === 'SBB-MENU-BUTTON' || target?.tagName === 'SBB-MENU-LINK') {
       this.close();
     }
   }
@@ -165,9 +165,9 @@ export class SbbMenuElement extends NamedSlotListElement<SbbMenuActionElement> {
     }
     evt.preventDefault();
 
-    const enabledActions: Element[] = Array.from(this.querySelectorAll('sbb-menu-action')).filter(
-      (el: HTMLElement) => el.tabIndex === 0 && interactivityChecker.isVisible(el),
-    );
+    const enabledActions: Element[] = Array.from(
+      this.querySelectorAll<SbbMenuButtonElement | SbbMenuLinkElement>('sbb-menu-button, sbb-menu-link'),
+    ).filter((el: HTMLElement) => el.tabIndex === 0 && interactivityChecker.isVisible(el));
 
     const current = enabledActions.findIndex((e: Element) => e === evt.target);
     const nextIndex = getNextElementIndex(evt, current, enabledActions.length);
@@ -224,7 +224,7 @@ export class SbbMenuElement extends NamedSlotListElement<SbbMenuActionElement> {
     // If all children are sbb-menu-action instances, we render them as a list.
     if (
       this.children?.length &&
-      Array.from(this.children ?? []).every((c) => c.tagName === 'SBB-MENU-ACTION')
+      Array.from(this.children ?? []).every((c) => c.tagName === 'SBB-MENU-BUTTON' || c.tagName === 'SBB-MENU-LINK')
     ) {
       super.checkChildren();
     } else if (this.listChildren.length) {

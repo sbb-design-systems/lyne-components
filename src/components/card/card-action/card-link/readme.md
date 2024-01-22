@@ -8,6 +8,7 @@ The `sbb-card-link` is the component used to turn a `sbb-card` into a link.
 
 The component is internally rendered as a link,
 accepting its associated properties (`href`, `target`, `rel` and `download`).
+Please note that if the `href` is not provider it is internally rendered as a span in order to not break HTML functionality.
 
 ## Accessibility
 

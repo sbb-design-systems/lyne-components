@@ -56,10 +56,10 @@ const HeaderBasicTemplate = (
       English
     </sbb-header-button>
     <sbb-menu trigger="language-menu-trigger" ?disable-animation=${isChromatic()}>
-      <sbb-menu-action>Deutsch</sbb-menu-action>
-      <sbb-menu-action>Français</sbb-menu-action>
-      <sbb-menu-action>Italiano</sbb-menu-action>
-      <sbb-menu-action icon-name="tick-small">English</sbb-menu-action>
+      <sbb-menu-button>Deutsch</sbb-menu-button>
+      <sbb-menu-button>Français</sbb-menu-button>
+      <sbb-menu-button>Italiano</sbb-menu-button>
+      <sbb-menu-button icon-name="tick-small">English</sbb-menu-button>
     </sbb-menu>
   </sbb-header>
   <div ${sbbSpread(attributes)}>${new Array(12).fill(null).map(LoremIpsumTemplate)}</div>
@@ -93,13 +93,13 @@ const TemplateWithUserMenu = (args: Args): TemplateResult => html`
         ?disable-animation=${isChromatic()}
         data-testid="user-menu"
       >
-        <sbb-menu-action icon-name="user-small" href="/"> Account </sbb-menu-action>
-        <sbb-menu-action icon-name="tickets-class-small">Tickets</sbb-menu-action>
-        <sbb-menu-action icon-name="shopping-cart-small" amount="1">
+        <sbb-menu-link icon-name="user-small" href="/"> Account </sbb-menu-link>
+        <sbb-menu-button icon-name="tickets-class-small">Tickets</sbb-menu-button>
+        <sbb-menu-button icon-name="shopping-cart-small" amount="1">
           Shopping cart
-        </sbb-menu-action>
+        </sbb-menu-button>
         <sbb-divider></sbb-divider>
-        <sbb-menu-action icon-name="exit-small">Sign out</sbb-menu-action>
+        <sbb-menu-button icon-name="exit-small">Sign out</sbb-menu-button>
       </sbb-menu>
     `,
   )}

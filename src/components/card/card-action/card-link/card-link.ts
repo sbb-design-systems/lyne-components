@@ -29,7 +29,7 @@ export class SbbCardLinkElement extends SbbCardActionCommonElementMixin(SbbLinkB
       tagName: TAG_NAME,
       attributes,
       hostAttributes,
-    }: LinkButtonRenderVariables = newResolveLinkOrStaticRenderVariables(this);
+    }: LinkButtonRenderVariables = newResolveLinkOrStaticRenderVariables(this); // fixme no isStatic
 
     if (this.card) {
       this.card.dataset.actionRole = hostAttributes.role;

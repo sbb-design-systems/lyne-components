@@ -19,15 +19,15 @@ describe('sbb-menu', () => {
       <sbb-button id="menu-trigger">Menu trigger</sbb-button>
       <sbb-menu id="menu" trigger="menu-trigger" disable-animation>
         <sbb-link id="menu-link" href="#" size="xs" variant="block">Profile</sbb-link>
-        <sbb-menu-action id="menu-action-1" icon-name="tick-small">View</sbb-menu-action>
-        <sbb-menu-action id="menu-action-2" icon-name="pen-small" amount="1" disabled
-          >Edit</sbb-menu-action
+        <sbb-menu-button id="menu-action-1" icon-name="tick-small">View</sbb-menu-button>
+        <sbb-menu-button id="menu-action-2" icon-name="pen-small" amount="1" disabled
+          >Edit</sbb-menu-button
         >
-        <sbb-menu-action id="menu-action-3" icon-name="swisspass-small" amount="2"
-          >Details</sbb-menu-action
+        <sbb-menu-button id="menu-action-3" icon-name="swisspass-small" amount="2"
+          >Details</sbb-menu-button
         >
         <sbb-divider id="menu-divider"></sbb-divider>
-        <sbb-menu-action id="menu-action-4" icon-name="cross-small">Cancel</sbb-menu-action>
+        <sbb-menu-button id="menu-action-4" icon-name="cross-small">Cancel</sbb-menu-button>
       </sbb-menu>
     `);
     trigger = document.querySelector<SbbButtonElement>('sbb-button')!;
@@ -96,7 +96,7 @@ describe('sbb-menu', () => {
     const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen);
     const willCloseEventSpy = new EventSpy(SbbMenuElement.events.willClose);
     const didCloseEventSpy = new EventSpy(SbbMenuElement.events.didClose);
-    const menuAction = document.querySelector('sbb-menu > sbb-menu-action') as HTMLElement;
+    const menuAction = document.querySelector('sbb-menu > sbb-menu-button') as HTMLElement;
 
     trigger.click();
     await waitForLitRender(element);

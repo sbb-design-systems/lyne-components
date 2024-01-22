@@ -28,7 +28,7 @@ export class SbbHeaderLinkElement extends SbbHeaderActionCommonElementMixin(
       tagName: TAG_NAME,
       attributes,
       hostAttributes,
-    } = newResolveLinkOrStaticRenderVariables(this);
+    } = newResolveLinkOrStaticRenderVariables(this); // fixme no isStatic
     setAttributes(this, hostAttributes);
 
     /* eslint-disable lit/binding-positions */

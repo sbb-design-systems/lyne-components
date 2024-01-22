@@ -1,31 +1,26 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import type { TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import { html, nothing, TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../core/dom';
 
 import readme from './readme.md?raw';
-import './menu-action';
-import '../../icon';
+import './menu-button';
+import '../../../icon';
 
-const getBasicTemplate = (
-  { text, ...args }: Args,
-  id: number,
-  iconSlot = false,
-): TemplateResult => html`
-  <sbb-menu-action ${sbbSpread(args)}>
+const getBasicTemplate = ({ text, ...args }: Args, id, iconSlot = false): TemplateResult => html`
+  <sbb-menu-button ${sbbSpread(args)}>
     ${text} ${id} ${iconSlot ? html`<sbb-icon slot="icon" name="pie-small"></sbb-icon>` : nothing}
-  </sbb-menu-action>
+  </sbb-menu-button>
 `;
 
-const TemplateMenuAction = (args: Args): TemplateResult => html`
+const TemplateMenuAction = (args): TemplateResult => html`
   <div>${getBasicTemplate(args, 1)} ${getBasicTemplate(args, 2)} ${getBasicTemplate(args, 3)}</div>
 `;
 
-const TemplateMenuActionCustomIcon = (args: Args): TemplateResult => html`
+const TemplateMenuActionCustomIcon = (args): TemplateResult => html`
   <div>
     ${getBasicTemplate(args, 1, true)} ${getBasicTemplate(args, 2, false)}
     ${getBasicTemplate(args, 3, true)}
@@ -50,49 +45,6 @@ const iconName: InputType = {
   },
   table: {
     category: 'Icon',
-  },
-};
-
-const hrefs = ['https://www.sbb.ch', 'https://github.com/lyne-design-system/lyne-components'];
-const href: InputType = {
-  options: Object.keys(hrefs),
-  mapping: hrefs,
-  control: {
-    type: 'select',
-    labels: {
-      0: 'sbb.ch',
-      1: 'GitHub Lyne Components',
-    },
-  },
-  table: {
-    category: 'Link',
-  },
-};
-
-const target: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Link',
-  },
-};
-
-const rel: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Link',
-  },
-};
-
-const download: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Link',
   },
 };
 
@@ -152,10 +104,6 @@ const defaultArgTypes: ArgTypes = {
   text,
   amount,
   'icon-name': iconName,
-  href,
-  target,
-  rel,
-  download,
   type,
   disabled,
   name,
@@ -168,40 +116,21 @@ const defaultArgs: Args = {
   text: 'Details',
   amount: '99',
   'icon-name': 'tick-small',
-  href: href.options[0],
-  target: '_blank',
-  rel: undefined,
-  download: false,
-  type: undefined,
   disabled: false,
-  name: undefined,
-  value: undefined,
-  form: undefined,
-  'aria-label': ariaLabel,
-};
-
-const buttonArgs: Args = {
-  ...defaultArgs,
-  href: undefined,
   type: type.options[0],
   name: 'detail',
   value: 'Value',
   form: 'form-name',
+  'aria-label': ariaLabel,
 };
 
-export const menuActionLink: StoryObj = {
+export const menuButton: StoryObj = {
   render: TemplateMenuAction,
   argTypes: defaultArgTypes,
-  args: defaultArgs,
+  args: { ...defaultArgs },
 };
 
-export const menuActionButton: StoryObj = {
-  render: TemplateMenuAction,
-  argTypes: defaultArgTypes,
-  args: buttonArgs,
-};
-
-export const menuActionLinkCustomIconNoAmount: StoryObj = {
+export const menuButtonCustomIconNoAmount: StoryObj = {
   render: TemplateMenuActionCustomIcon,
   argTypes: defaultArgTypes,
   args: {
@@ -211,23 +140,23 @@ export const menuActionLinkCustomIconNoAmount: StoryObj = {
   },
 };
 
-export const menuActionLinkNoIconNoAmount: StoryObj = {
+export const menuButtonNoIconNoAmount: StoryObj = {
   render: TemplateMenuAction,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, 'icon-name': undefined, amount: undefined },
 };
 
-export const menuActionButtonDisabled: StoryObj = {
+export const menuButtonDisabled: StoryObj = {
   render: TemplateMenuAction,
   argTypes: defaultArgTypes,
-  args: { ...buttonArgs, disabled: true },
+  args: { ...defaultArgs, disabled: true },
 };
 
 export const menuActionButtonEllipsis: StoryObj = {
   render: TemplateMenuAction,
   argTypes: defaultArgTypes,
   args: {
-    ...buttonArgs,
+    ...defaultArgs,
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   },
 };
@@ -254,7 +183,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-menu/sbb-menu-action',
+  title: 'components/sbb-menu/sbb-menu-button',
 };
 
 export default meta;

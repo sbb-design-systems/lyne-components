@@ -1,7 +1,7 @@
 import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { Constructor } from '..';
+import { Constructor } from '../constructor';
 
 export declare class SbbNegativeInterface {
   public negative: boolean;

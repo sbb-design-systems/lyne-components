@@ -52,10 +52,10 @@ const Template = (args: Args): TemplateResult => html`
         English
       </sbb-header-button>
       <sbb-menu trigger="language-menu-trigger">
-        <sbb-menu-action aria-pressed="false">Deutsch</sbb-menu-action>
-        <sbb-menu-action aria-pressed="false">Français</sbb-menu-action>
-        <sbb-menu-action aria-pressed="false">Italiano</sbb-menu-action>
-        <sbb-menu-action icon-name="tick-small" aria-pressed="true"> English </sbb-menu-action>
+        <sbb-menu-button aria-pressed="false">Deutsch</sbb-menu-button>
+        <sbb-menu-button aria-pressed="false">Français</sbb-menu-button>
+        <sbb-menu-button aria-pressed="false">Italiano</sbb-menu-button>
+        <sbb-menu-button icon-name="tick-small" aria-pressed="true"> English </sbb-menu-button>
       </sbb-menu>
       <a href="https://www.sbb.ch" slot="logo">
         <sbb-logo protective-room="none"></sbb-logo>

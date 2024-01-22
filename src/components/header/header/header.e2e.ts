@@ -133,8 +133,8 @@ describe('sbb-header', () => {
       <sbb-header hide-on-scroll>
         <sbb-header-button id="language-menu-trigger">English</sbb-header-button>
         <sbb-menu trigger="language-menu-trigger" disable-animation>
-          <sbb-menu-action>Deutsch</sbb-menu-action>
-          <sbb-menu-action>Français</sbb-menu-action>
+          <sbb-menu-button>Deutsch</sbb-menu-button>
+          <sbb-menu-button>Français</sbb-menu-button>
         </sbb-menu>
       </sbb-header>
       <div style="height: 2000px;"></div>

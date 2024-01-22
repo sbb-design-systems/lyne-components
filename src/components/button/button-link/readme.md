@@ -26,7 +26,7 @@ At least one is mandatory, so you can have a `sbb-button-link` with icon only, t
 ></sbb-button-link>
 ```
 
-## Button properties
+## Link properties
 
 The component is internally rendered as a link,
 accepting its associated properties (`href`, `target`, `rel` and `download`).

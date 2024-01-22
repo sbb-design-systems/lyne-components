@@ -58,22 +58,22 @@ const Template = (args: Args): TemplateResult => html`
         Christina Müller
       </sbb-header-button>
       <sbb-menu trigger="user-menu-trigger">
-        <sbb-menu-action icon-name="user-small" href="/"> Account </sbb-menu-action>
-        <sbb-menu-action icon-name="tickets-class-small">Tickets</sbb-menu-action>
-        <sbb-menu-action icon-name="shopping-cart-small" amount="1">
+        <sbb-menu-link icon-name="user-small" href="/"> Account </sbb-menu-link>
+        <sbb-menu-button icon-name="tickets-class-small">Tickets</sbb-menu-button>
+        <sbb-menu-button icon-name="shopping-cart-small" amount="1">
           Shopping cart
-        </sbb-menu-action>
+        </sbb-menu-button>
         <sbb-divider></sbb-divider>
-        <sbb-menu-action icon-name="exit-small">Sign out</sbb-menu-action>
+        <sbb-menu-button icon-name="exit-small">Sign out</sbb-menu-button>
       </sbb-menu>
       <sbb-header-button icon-name="globe-small" id="language-menu-trigger" class="last-element">
         English
       </sbb-header-button>
       <sbb-menu trigger="language-menu-trigger">
-        <sbb-menu-action aria-pressed="false">Deutsch</sbb-menu-action>
-        <sbb-menu-action aria-pressed="false">Français</sbb-menu-action>
-        <sbb-menu-action aria-pressed="false">Italiano</sbb-menu-action>
-        <sbb-menu-action icon-name="tick-small" aria-pressed="true"> English </sbb-menu-action>
+        <sbb-menu-button aria-pressed="false">Deutsch</sbb-menu-button>
+        <sbb-menu-button aria-pressed="false">Français</sbb-menu-button>
+        <sbb-menu-button aria-pressed="false">Italiano</sbb-menu-button>
+        <sbb-menu-button icon-name="tick-small" aria-pressed="true"> English </sbb-menu-button>
       </sbb-menu>
       <a href="https://www.sbb.ch" slot="logo">
         <sbb-logo protective-room="none"></sbb-logo>
