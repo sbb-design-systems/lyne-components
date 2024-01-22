@@ -10,9 +10,10 @@ import '../icon';
 import style from './button.scss?lit&inline';
 
 export type SbbButtonSize = 'l' | 'm';
+export type SbbButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'transparent';
 
 export declare class SbbButtonCommonInterface {
-  public variant: 'primary' | 'secondary' | 'tertiary' | 'transparent';
+  public variant: SbbButtonVariant;
   public size?: SbbButtonSize;
   public isStatic: boolean;
 }
@@ -24,11 +25,7 @@ export const SbbButtonCommonElementMixin = <T extends Constructor<LitElement>>(
   class SbbButtonCommonElement extends superClass implements Partial<SbbButtonCommonInterface> {
     public static styles: CSSResultGroup = style;
     /** Variant of the button, like primary, secondary etc. */
-    @property({ reflect: true }) public variant:
-      | 'primary'
-      | 'secondary'
-      | 'tertiary'
-      | 'transparent' = 'primary';
+    @property({ reflect: true }) public variant: SbbButtonVariant = 'primary';
 
     /** Size variant, either l or m. */
     @property({ reflect: true }) public size?: SbbButtonSize = 'l';

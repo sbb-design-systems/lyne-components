@@ -9,8 +9,8 @@ describe('sbb-navigation', () => {
       <sbb-button id="nav-trigger">Navigation trigger</sbb-button>
       <sbb-navigation trigger="nav-trigger">
         <sbb-navigation-marker>
-          <sbb-navigation-action id="nav-1">Tickets & Offers</sbb-navigation-action>
-          <sbb-navigation-action id="nav-2">Vacations & Recreation</sbb-navigation-action>
+          <sbb-navigation-button id="nav-1">Tickets & Offers</sbb-navigation-button>
+          <sbb-navigation-button id="nav-2">Vacations & Recreation</sbb-navigation-button>
         </sbb-navigation-marker>
       </sbb-navigation>
     `);
@@ -20,12 +20,12 @@ describe('sbb-navigation', () => {
       `
         <sbb-navigation trigger="nav-trigger" role="navigation" data-state="closed" id="sbb-navigation-1">
           <sbb-navigation-marker>
-            <sbb-navigation-action id="nav-1">
+            <sbb-navigation-button id="nav-1">
               Tickets &amp; Offers
-            </sbb-navigation-action>
-            <sbb-navigation-action id="nav-2">
+            </sbb-navigation-button>
+            <sbb-navigation-button id="nav-2">
               Vacations &amp; Recreation
-            </sbb-navigation-action>
+            </sbb-navigation-button>
           </sbb-navigation-marker>
         </sbb-navigation>
       `,

@@ -1,12 +1,13 @@
-The `sbb-navigation-list` component is a collection of [sbb-navigation-action](/docs/components-sbb-navigation-sbb-navigation-action--docs).
+The `sbb-navigation-list` component is a collection of [sbb-navigation-button](/docs/components-sbb-navigation-sbb-navigation-button--docs)
+and [sbb-navigation-link](/docs/components-sbb-navigation-sbb-navigation-link--docs).
 Its intended use is inside a [sbb-navigation-section](/docs/components-sbb-navigation-sbb-navigation-section--docs) component.
 Optionally, a label can be provided via slot via the self-named property or the self-named slot.
 
 ```html
 <sbb-navigation-list label="Label 1.1">
-  <sbb-navigation-action href="...">Label 1.1.1</sbb-navigation-action>
-  <sbb-navigation-action href="...">Label 1.1.2</sbb-navigation-action>
-  <sbb-navigation-action href="...">Label 1.1.3</sbb-navigation-action>
+  <sbb-navigation-link href="...">Label 1.1.1</sbb-navigation-link>
+  <sbb-navigation-link href="...">Label 1.1.2</sbb-navigation-link>
+  <sbb-navigation-button>Label 1.1.3</sbb-navigation-link>
 </sbb-navigation-list>
 ```
 

@@ -37,7 +37,7 @@ let nextId = 0;
 /**
  * It displays a navigation menu, wrapping one or more `sbb-navigation-*` components.
  *
- * @slot - Use the unnamed slot to add `sbb-navigation-action` elements into the sbb-navigation menu.
+ * @slot - Use the unnamed slot to add `sbb-navigation-button`/`sbb-navigation-link` elements into the sbb-navigation menu.
  * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-navigation` begins the opening transition. Can be canceled.
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-navigation` is opened.
  * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-navigation` begins the closing transition. Can be canceled.

@@ -13,10 +13,10 @@ describe('sbb-navigation-marker', () => {
   beforeEach(async () => {
     element = await fixture(
       html`<sbb-navigation-marker size="l">
-        <sbb-navigation-action id="nav-1" size="s">Tickets & Offers</sbb-navigation-action>
-        <sbb-navigation-action id="nav-2">Vacations & Recreation</sbb-navigation-action>
-        <sbb-navigation-action id="nav-3">Travel information</sbb-navigation-action>
-        <sbb-navigation-action id="nav-4">Help & Contact</sbb-navigation-action>
+        <sbb-navigation-button id="nav-1" size="s">Tickets & Offers</sbb-navigation-button>
+        <sbb-navigation-button id="nav-2">Vacations & Recreation</sbb-navigation-button>
+        <sbb-navigation-button id="nav-3">Travel information</sbb-navigation-button>
+        <sbb-navigation-button id="nav-4">Help & Contact</sbb-navigation-button>
       </sbb-navigation-marker>`,
     );
   });
@@ -26,8 +26,8 @@ describe('sbb-navigation-marker', () => {
   });
 
   it('selects action on click', async () => {
-    const firstAction = element.querySelector('sbb-navigation-action#nav-1') as HTMLElement;
-    const secondAction = element.querySelector('sbb-navigation-action#nav-2') as HTMLElement;
+    const firstAction = element.querySelector('sbb-navigation-button#nav-1') as HTMLElement;
+    const secondAction = element.querySelector('sbb-navigation-button#nav-2') as HTMLElement;
 
     secondAction.click();
     await waitForLitRender(element);
@@ -51,7 +51,7 @@ describe('sbb-navigation-marker', () => {
   });
 
   it('force size on children elements', () => {
-    const firstAction = element.querySelector('sbb-navigation-action#nav-1');
+    const firstAction = element.querySelector('sbb-navigation-button#nav-1');
     expect(firstAction).to.have.attribute('size', 'l');
   });
 });

@@ -3,17 +3,17 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import { NamedSlotListElement, type WithListChildren } from '../../core/common-behaviors';
 import { AgnosticResizeObserver } from '../../core/observers';
-import type { SbbNavigationActionElement } from '../navigation-action';
+import type { SbbNavigationButtonElement, SbbNavigationLinkElement } from '../navigation-action';
 
 import style from './navigation-marker.scss?lit&inline';
 
 /**
- * It can be used as a container for one or more `sbb-navigation-action` within a `sbb-navigation`.
+ * It can be used as a container for one or more `sbb-navigation-button`/`sbb-navigation-link` within a `sbb-navigation`.
  *
- * @slot - Use the unnamed slot to add `sbb-navigation-action` elements into the `sbb-navigation-marker`.
+ * @slot - Use the unnamed slot to add `sbb-navigation-button`/`sbb-navigation-link` elements into the `sbb-navigation-marker`.
  */
 @customElement('sbb-navigation-marker')
-export class SbbNavigationMarkerElement extends NamedSlotListElement<SbbNavigationActionElement> {
+export class SbbNavigationMarkerElement extends NamedSlotListElement<SbbNavigationButtonElement | SbbNavigationLinkElement> {
   public static override styles: CSSResultGroup = style;
   protected override readonly listChildTagNames = ['SBB-NAVIGATION-ACTION'];
 
@@ -22,7 +22,7 @@ export class SbbNavigationMarkerElement extends NamedSlotListElement<SbbNavigati
    */
   @property({ reflect: true }) public size?: 'l' | 's' = 'l';
 
-  @state() private _currentActiveAction?: SbbNavigationActionElement;
+  @state() private _currentActiveAction?: SbbNavigationButtonElement | SbbNavigationLinkElement;
 
   private _navigationMarkerResizeObserver = new AgnosticResizeObserver(() =>
     this._setMarkerPosition(),
@@ -57,7 +57,7 @@ export class SbbNavigationMarkerElement extends NamedSlotListElement<SbbNavigati
     this._navigationMarkerResizeObserver.disconnect();
   }
 
-  public select(action: SbbNavigationActionElement): void {
+  public select(action: SbbNavigationButtonElement | SbbNavigationLinkElement): void {
     this.reset();
     action.active = true;
     this._currentActiveAction = action;

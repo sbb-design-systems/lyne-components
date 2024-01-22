@@ -26,10 +26,10 @@ const defaultArgs: Args = {
 };
 
 const navigationActions = (): TemplateResult => html`
-  <sbb-navigation-action>Tickets & Offers</sbb-navigation-action>
-  <sbb-navigation-action>Vacations & Recreation</sbb-navigation-action>
-  <sbb-navigation-action>Travel information</sbb-navigation-action>
-  <sbb-navigation-action>Help & Contact</sbb-navigation-action>
+  <sbb-navigation-button>Tickets & Offers</sbb-navigation-button>
+  <sbb-navigation-button>Vacations & Recreation</sbb-navigation-button>
+  <sbb-navigation-button>Travel information</sbb-navigation-button>
+  <sbb-navigation-button>Help & Contact</sbb-navigation-button>
 `;
 
 const style: Readonly<StyleInfo> = {

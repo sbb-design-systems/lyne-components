@@ -5,10 +5,10 @@ import { html } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../core/dom';
 
 import readme from './readme.md?raw';
-import './navigation-action';
+import './navigation-link';
 
 const size: InputType = {
   control: {
@@ -23,10 +23,7 @@ const ariaLabel: InputType = {
   },
 };
 
-const hrefs: string[] = [
-  'https://www.sbb.ch',
-  'https://github.com/lyne-design-system/lyne-components',
-];
+const hrefs = ['https://www.sbb.ch', 'https://github.com/lyne-design-system/lyne-components'];
 const href: InputType = {
   options: Object.keys(hrefs),
   mapping: hrefs,
@@ -42,20 +39,53 @@ const href: InputType = {
   },
 };
 
+const target: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
+const rel: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
+const download: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   size,
   href,
+  target,
+  rel,
+  download,
   'aria-label': ariaLabel,
 };
 
 const defaultArgs: Args = {
   size: size.options[0],
-  href: undefined,
+  href: href.options[0],
+  target: '_blank',
+  rel: undefined,
+  download: false,
   'aria-label': undefined,
 };
 
 const Template = (args: Args): TemplateResult => html`
-  <sbb-navigation-action ${sbbSpread(args)}>Label</sbb-navigation-action>
+  <sbb-navigation-link ${sbbSpread(args)}>Label</sbb-navigation-link>
 `;
 
 const style: Readonly<StyleInfo> = {
@@ -82,12 +112,6 @@ export const SizeS: StoryObj = {
   args: { ...defaultArgs, size: size.options[2] },
 };
 
-export const Link: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, href: href.options[1] },
-};
-
 const meta: Meta = {
   decorators: [(story) => html`<div style=${styleMap(style)}>${story()}</div>`],
   parameters: {
@@ -98,7 +122,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-navigation/sbb-navigation-action',
+  title: 'components/sbb-navigation/sbb-navigation-link',
 };
 
 export default meta;

@@ -7,18 +7,18 @@ import {
   NamedSlotStateController,
   type WithListChildren,
 } from '../../core/common-behaviors';
-import type { SbbNavigationActionElement } from '../navigation-action';
+import type { SbbNavigationButtonElement, SbbNavigationLinkElement } from '../navigation-action';
 
 import style from './navigation-list.scss?lit&inline';
 
 /**
- * It can be used as a container for one or more `sbb-navigation-action` within a `sbb-navigation-section`.
+ * It can be used as a container for one or more `sbb-navigation-button`/`sbb-navigation-link` within a `sbb-navigation-section`.
  *
  * @slot - Use the unnamed slot to add content to the `sbb-navigation-list`.
  * @slot label - Use this to provide a label element.
  */
 @customElement('sbb-navigation-list')
-export class SbbNavigationListElement extends NamedSlotListElement<SbbNavigationActionElement> {
+export class SbbNavigationListElement extends NamedSlotListElement<SbbNavigationButtonElement | SbbNavigationLinkElement> {
   public static override styles: CSSResultGroup = style;
   protected override readonly listChildTagNames = ['SBB-NAVIGATION-ACTION'];
 
