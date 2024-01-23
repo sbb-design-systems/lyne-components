@@ -121,7 +121,10 @@ const WithCheckboxTemplate = ({
   disabledInput,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-selection-panel ${sbbSpread(args)} style="${isChromatic() ? 'min-height: 250px;' : nothing}">
+  <sbb-selection-panel
+    ${sbbSpread(args)}
+    style="${isChromatic() ? 'min-height: 250px; display: block;' : nothing}"
+  >
     ${cardBadge()}
     <sbb-checkbox ?checked=${checkedInput} ?disabled=${disabledInput}>
       Value one ${suffixAndSubtext()}
@@ -135,7 +138,10 @@ const WithRadioButtonTemplate = ({
   disabledInput,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-selection-panel ${sbbSpread(args)} style="${isChromatic() ? 'min-height: 250px;' : nothing}">
+  <sbb-selection-panel
+    ${sbbSpread(args)}
+    style="${isChromatic() ? 'min-height: 250px; display: block;' : nothing}"
+  >
     ${cardBadge()}
     <sbb-radio-button value="Value one" ?checked=${checkedInput} ?disabled=${disabledInput}>
       Value one ${suffixAndSubtext()}
