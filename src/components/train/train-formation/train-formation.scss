@@ -106,6 +106,8 @@
   gap: var(--sbb-train-formation-wagon-gap);
 }
 
-.sbb-train-formation__train-list-item {
+// Using ... li selector, because the li generation
+// is handled in the component base class.
+.sbb-train-formation__train-list li {
   display: inline-flex;
 }

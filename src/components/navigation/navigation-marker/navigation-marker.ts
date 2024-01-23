@@ -2,7 +2,6 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { NamedSlotListElement, type WithListChildren } from '../../core/common-behaviors';
-import { setAttribute } from '../../core/dom';
 import { AgnosticResizeObserver } from '../../core/observers';
 import type { SbbNavigationActionElement } from '../navigation-action';
 
@@ -31,10 +30,10 @@ export class SbbNavigationMarkerElement extends NamedSlotListElement<SbbNavigati
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
-    setAttribute(this, 'data-has-active-action', !!this._currentActiveAction);
     if (changedProperties.has('size') || changedProperties.has('listChildren')) {
       this._updateMarkerActions();
     }
+    this.toggleAttribute('data-has-active-action', !!this._currentActiveAction);
   }
 
   private _updateMarkerActions(): void {
@@ -63,6 +62,11 @@ export class SbbNavigationMarkerElement extends NamedSlotListElement<SbbNavigati
     setTimeout(() => this._setMarkerPosition());
   }
 
+  protected override firstUpdated(changedProperties: PropertyValues<WithListChildren<this>>): void {
+    super.firstUpdated(changedProperties);
+    setTimeout(() => this._setMarkerPosition());
+  }
+
   public reset(): void {
     if (this._currentActiveAction) {
       this._currentActiveAction.active = false;
@@ -71,14 +75,16 @@ export class SbbNavigationMarkerElement extends NamedSlotListElement<SbbNavigati
   }
 
   private _setMarkerPosition(): void {
-    if (this._currentActiveAction) {
-      const index = this.listChildren.indexOf(this._currentActiveAction)!;
-      this.style?.setProperty(
-        '--sbb-navigation-marker-position-y',
-        `${
-          this.shadowRoot!.querySelector<HTMLLIElement>(`li:nth-child(${index + 1})`)!.offsetTop
-        }px`,
-      );
+    if (!this._currentActiveAction) {
+      return;
+    }
+
+    const index = this.listChildren.indexOf(this._currentActiveAction)!;
+    const value = this.shadowRoot!.querySelector<HTMLLIElement>(
+      `li:nth-child(${index + 1})`,
+    )?.offsetTop;
+    if (value != null) {
+      this.style?.setProperty('--sbb-navigation-marker-position-y', `${value}px`);
     }
   }
 
