@@ -900,7 +900,9 @@ export class SbbCalendarElement extends LitElement {
   private _createDayCells(week: Day[], today: string): TemplateResult[] {
     return week.map((day: Day) => {
       const isOutOfRange = !this._isDayInRange(day.value);
-      const isFilteredOut = !this._dateFilter(this._dateAdapter.createDateFromISOString(day.value)!);
+      const isFilteredOut = !this._dateFilter(
+        this._dateAdapter.createDateFromISOString(day.value)!,
+      );
       const selected: boolean = !!this._selected && day.value === this._selected;
       const dayValue = `${day.dayValue} ${day.monthValue} ${day.yearValue}`;
       const isToday = day.value === today;

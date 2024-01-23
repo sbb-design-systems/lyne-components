@@ -175,7 +175,7 @@ describe('sbb-calendar', () => {
     yearButton.click();
     await waitForCondition(() => animationSpy.events.length >= 1); //Wait for hide table transition
 
-    animationSpy = new EventSpy('animationend', element.shadowRoot.querySelector('table')); // Listen for the event on new table
+    animationSpy = new EventSpy('animationend', element.shadowRoot!.querySelector('table')); // Listen for the event on new table
 
     await waitForCondition(() => animationSpy.events.length >= 1); //Wait for new table's transition to end
 
