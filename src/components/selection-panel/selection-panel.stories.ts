@@ -149,7 +149,11 @@ const WithCheckboxGroupTemplate = ({
   disabledInput,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-checkbox-group orientation="vertical" horizontal-from="large">
+  <sbb-checkbox-group
+    orientation="vertical"
+    horizontal-from="large"
+    style="${isChromatic() ? 'min-height: 750px;' : ''}"
+  >
     <sbb-selection-panel ${sbbSpread(args)}>
       ${cardBadge()}
       <sbb-checkbox ?checked=${checkedInput}> Value one ${suffixAndSubtext()} </sbb-checkbox>
@@ -180,6 +184,7 @@ const WithRadioButtonGroupTemplate = ({
     orientation="vertical"
     horizontal-from="large"
     ?allow-empty-selection=${allowEmptySelection}
+    style="${isChromatic() ? 'min-height: 750px;' : ''}"
   >
     <sbb-selection-panel ${sbbSpread(args)}>
       ${cardBadge()}
@@ -210,7 +215,11 @@ const TicketsOptionsExampleTemplate = ({
   disabledInput,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-checkbox-group orientation="vertical" horizontal-from="large">
+  <sbb-checkbox-group
+    orientation="vertical"
+    horizontal-from="large"
+    style="${isChromatic() ? 'min-height: 750px;' : ''}"
+  >
     <sbb-selection-panel ${sbbSpread(args)}>
       ${cardBadge()}
       <sbb-checkbox ?checked=${checkedInput}> Saving ${suffixAndSubtext()} </sbb-checkbox>
@@ -338,7 +347,11 @@ const NestedCheckboxTemplate = ({
   disabledInput,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-checkbox-group orientation="vertical" horizontal-from="large">
+  <sbb-checkbox-group
+    orientation="vertical"
+    horizontal-from="large"
+    style="${isChromatic() ? 'min-height: 350px;' : ''}"
+  >
     <sbb-selection-panel ${sbbSpread(args)}>
       <sbb-checkbox value="mainoption1" ?checked=${checkedInput}> Main Option 1 </sbb-checkbox>
       <sbb-checkbox-group orientation="vertical" slot="content">
@@ -370,6 +383,7 @@ const WithCheckboxesErrorMessageTemplate = ({
     <sbb-checkbox-group
       orientation="vertical"
       horizontal-from="large"
+      style="${isChromatic() ? 'min-height: 750px;' : ''}"
       @change=${(event: Event) => {
         const checkboxGroup = event.currentTarget as HTMLElement;
         const hasChecked = Array.from(checkboxGroup.querySelectorAll('sbb-checkbox')).some(
@@ -719,7 +733,9 @@ export const NestedCheckboxes: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (story) => html` <div style="padding: 2rem;">${story()}</div> `,
+    (story) => html`
+      <div style="padding: 2rem;${isChromatic() ? 'min-height: 750px;' : ''}">${story()}</div>
+    `,
     withActions as Decorator,
   ],
   parameters: {
