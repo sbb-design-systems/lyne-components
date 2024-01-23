@@ -121,7 +121,7 @@ const WithCheckboxTemplate = ({
   disabledInput,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-selection-panel ${sbbSpread(args)}>
+  <sbb-selection-panel ${sbbSpread(args)} style="${isChromatic() ? 'min-height: 250px;' : nothing}">
     ${cardBadge()}
     <sbb-checkbox ?checked=${checkedInput} ?disabled=${disabledInput}>
       Value one ${suffixAndSubtext()}
@@ -135,7 +135,7 @@ const WithRadioButtonTemplate = ({
   disabledInput,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-selection-panel ${sbbSpread(args)}>
+  <sbb-selection-panel ${sbbSpread(args)} style="${isChromatic() ? 'min-height: 250px;' : nothing}">
     ${cardBadge()}
     <sbb-radio-button value="Value one" ?checked=${checkedInput} ?disabled=${disabledInput}>
       Value one ${suffixAndSubtext()}
@@ -319,7 +319,11 @@ const NestedRadioTemplate = ({
   disabledInput,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-radio-button-group orientation="vertical" horizontal-from="large">
+  <sbb-radio-button-group
+    orientation="vertical"
+    horizontal-from="large"
+    style="${isChromatic() ? 'min-height: 350px;' : nothing}"
+  >
     <sbb-selection-panel ${sbbSpread(args)}>
       <sbb-radio-button value="mainoption1" ?checked=${checkedInput}>
         Main Option 1
