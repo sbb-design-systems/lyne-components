@@ -7,20 +7,20 @@ import {
 
 describe('resolveButtonRenderVariables', () => {
   it('disabled', () => {
-    const retObj: Record<string, string> = {
+    const retObj: Record<string, string | undefined> = {
       role: 'button',
       dir: 'ltr',
       'aria-disabled': 'true',
-      tabIndex: null,
+      tabIndex: undefined,
     };
     expect(resolveButtonRenderVariables(true)).to.be.deep.equal(retObj);
   });
 
   it('not disabled', () => {
-    const retObj: Record<string, string> = {
+    const retObj: Record<string, string | undefined> = {
       role: 'button',
       dir: 'ltr',
-      'aria-disabled': null,
+      'aria-disabled': undefined,
       tabIndex: '0',
     };
     expect(resolveButtonRenderVariables(false)).to.be.deep.equal(retObj);

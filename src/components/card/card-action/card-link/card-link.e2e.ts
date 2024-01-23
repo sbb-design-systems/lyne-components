@@ -50,7 +50,7 @@ describe('sbb-card-link', () => {
     );
     expect(element).not.to.have.attribute('data-has-active-action');
 
-    element.querySelector('sbb-card-link').setAttribute('active', '');
+    element.querySelector<SbbCardLinkElement>('sbb-card-link')!.setAttribute('active', '');
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-has-active-action');
@@ -69,7 +69,7 @@ describe('sbb-card-link', () => {
     expect(element).to.have.attribute('data-action-role', 'link');
 
     // Remove action from DOM
-    element.querySelector('sbb-card-link').remove();
+    element.querySelector<SbbCardLinkElement>('sbb-card-link')!.remove();
     await waitForLitRender(element);
 
     expect(element).not.to.have.attribute('data-has-action');
@@ -139,7 +139,7 @@ describe('sbb-card-link', () => {
     // Add a sbb-card-link
     const link = document.createElement('sbb-card-link');
     link.setAttribute('href', '#');
-    document.querySelector('sbb-card').appendChild(link);
+    document.querySelector<SbbCardElement>('sbb-card')!.appendChild(link);
     await waitForLitRender(element);
 
     // Button should be marked as focusable
@@ -156,7 +156,7 @@ describe('sbb-card-link', () => {
           Content
         </sbb-card>
       `);
-      action = document.querySelector('sbb-card-link');
+      action = document.querySelector<SbbCardLinkElement>('sbb-card-link')!;
     });
 
     it('dispatches event on click', async () => {

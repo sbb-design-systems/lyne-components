@@ -1,7 +1,7 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import { html, TemplateResult } from 'lit';
+import { html, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../core/dom';
@@ -9,11 +9,11 @@ import { sbbSpread } from '../../../core/dom';
 import readme from './readme.md?raw';
 import './header-button';
 
-const TemplateSingle = (args): TemplateResult => html`
+const TemplateSingle = (args: Args): TemplateResult => html`
   <sbb-header-button ${sbbSpread(args)}>${args.text}</sbb-header-button>
 `;
 
-const TemplateMultiple = (args): TemplateResult => html`
+const TemplateMultiple = (args: Args): TemplateResult => html`
   <div style=${styleMap({ display: 'flex', gap: '2rem' })}>
     <sbb-header-button ${sbbSpread(args)}>${args.text} 1</sbb-header-button>
     <sbb-header-button ${sbbSpread(args)}>${args.text} 2</sbb-header-button>

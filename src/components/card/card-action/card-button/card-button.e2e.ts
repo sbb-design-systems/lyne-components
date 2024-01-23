@@ -44,7 +44,7 @@ describe('sbb-card-button', () => {
     );
     expect(element).not.to.have.attribute('data-has-active-action');
 
-    element.querySelector('sbb-card-button').setAttribute('active', '');
+    element.querySelector<SbbCardButtonElement>('sbb-card-button')!.setAttribute('active', '');
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-has-active-action');
@@ -65,7 +65,7 @@ describe('sbb-card-button', () => {
     expect(element).to.have.attribute('data-action-role', 'button');
 
     // Remove action from DOM
-    element.querySelector('sbb-card-button').remove();
+    element.querySelector<SbbCardButtonElement>('sbb-card-button')!.remove();
     await waitForLitRender(element);
 
     expect(element).not.to.have.attribute('data-has-action');
@@ -86,7 +86,7 @@ describe('sbb-card-button', () => {
 
     // Add a second button in content
     document
-      .getElementById('content')
+      .getElementById('content')!
       .insertBefore(document.createElement('button'), document.querySelector('button'));
 
     // Both buttons should be marked as focusable
@@ -115,7 +115,7 @@ describe('sbb-card-button', () => {
 
     // Add a button to slot
     document
-      .querySelector('sbb-card')
+      .querySelector<SbbCardElement>('sbb-card')!
       .insertBefore(document.createElement('button'), document.getElementById('content'));
     await waitForLitRender(element);
 
@@ -131,7 +131,9 @@ describe('sbb-card-button', () => {
     );
 
     // Add a sbb-card-button
-    document.querySelector('sbb-card').appendChild(document.createElement('sbb-card-button'));
+    document
+      .querySelector<SbbCardElement>('sbb-card')!
+      .appendChild(document.createElement('sbb-card-button'));
     await waitForLitRender(element);
 
     // Button should be marked as focusable
@@ -145,7 +147,7 @@ describe('sbb-card-button', () => {
       element = await fixture(
         html`<sbb-card><sbb-card-button id="focus-id">Card</sbb-card-button>Content</sbb-card>`,
       );
-      action = document.querySelector('sbb-card-button');
+      action = document.querySelector<SbbCardButtonElement>('sbb-card-button')!;
     });
 
     it('dispatches event on click', async () => {
@@ -176,7 +178,7 @@ describe('sbb-card-button', () => {
       action.focus();
       await waitForLitRender(element);
 
-      expect(document.activeElement.id).to.be.equal('focus-id');
+      expect(document.activeElement!.id).to.be.equal('focus-id');
     });
   });
 });

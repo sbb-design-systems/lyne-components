@@ -2,7 +2,7 @@ import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { getDocumentWritingMode } from '../dom';
-import { IsStaticProperty } from '../interfaces';
+import type { IsStaticProperty } from '../interfaces';
 
 import { hostProperties } from './host-properties';
 
@@ -11,14 +11,14 @@ export type LinkTargetType = '_blank' | '_self' | '_parent' | '_top';
 
 /** The interface contains attributes that can be set on an <a> tag. */
 export interface LinkProperties {
-  href: string | undefined;
+  href?: string | undefined;
   target?: LinkTargetType | string | undefined;
   rel?: string | undefined;
   download?: boolean | undefined;
   disabled?: boolean | undefined;
 }
 
-function filterUndefined(...objects: Record<string, string>[]): Record<string, string> {
+function filterUndefined(...objects: Record<string, string | undefined>[]): Record<string, string> {
   const result: Record<string, string> = {};
   for (const object of objects) {
     for (const [key, value] of Object.entries(object)) {
@@ -63,7 +63,7 @@ export interface LinkRenderVariables {
   attributes: Record<string, string>;
 
   /** The host's attributes. */
-  hostAttributes?: Record<string, string>;
+  hostAttributes: Record<string, string | undefined>;
 }
 
 /** Set default render variables for anchor-like elements. */
@@ -95,7 +95,7 @@ export function resolveLinkOrStaticRenderVariables(
 
 /** Returns true, if href is set and target is _blank. */
 export function targetsNewWindow(properties: LinkProperties): boolean {
-  return properties.href && properties.target === '_blank';
+  return !!properties.href && properties.target === '_blank';
 }
 
 /** Link base class. */

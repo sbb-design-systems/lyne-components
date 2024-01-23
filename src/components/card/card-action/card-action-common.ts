@@ -1,8 +1,8 @@
-import { CSSResultGroup, LitElement } from 'lit';
+import type { CSSResultGroup, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { IS_FOCUSABLE_QUERY } from '../../core/a11y';
-import { Constructor } from '../../core/common-behaviors';
+import type { Constructor } from '../../core/common-behaviors';
 import { toggleDatasetEntry } from '../../core/dom';
 import { actionElementHandlerAspect, HandlerRepository } from '../../core/eventing';
 import { AgnosticMutationObserver } from '../../core/observers';
@@ -51,14 +51,14 @@ export const SbbCardActionCommonElementMixin = <T extends Constructor<LitElement
     private _checkForSlottedActions(): void {
       const cardFocusableAttributeName = 'data-card-focusable';
 
-      Array.from(this.card.querySelectorAll?.(IS_FOCUSABLE_QUERY) ?? [])
+      Array.from(this.card?.querySelectorAll?.(IS_FOCUSABLE_QUERY) ?? [])
         .filter(
           (el) =>
             el.tagName !== 'SBB-CARD-LINK' &&
             el.tagName !== 'SBB-CARD-BUTTON' &&
             !el.hasAttribute(cardFocusableAttributeName),
         )
-        .forEach((el: HTMLElement) => el.setAttribute(cardFocusableAttributeName, ''));
+        .forEach((el: Element) => el.setAttribute(cardFocusableAttributeName, ''));
     }
 
     public override connectedCallback(): void {

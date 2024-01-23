@@ -6,12 +6,11 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import {
   LanguageController,
-  type LinkRenderVariables,
-  LinkProperties,
-  LinkTargetType,
+  NamedSlotStateController,
   resolveLinkOrStaticRenderVariables,
   targetsNewWindow,
 } from '../core/common-behaviors';
+import type { LinkProperties, LinkTargetType, LinkRenderVariables } from '../core/common-behaviors';
 import { setAttributes } from '../core/dom';
 import { HandlerRepository, linkHandlerAspect } from '../core/eventing';
 import { i18nTargetOpensInNewWindow } from '../core/i18n';

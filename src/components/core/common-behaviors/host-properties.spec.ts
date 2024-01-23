@@ -4,20 +4,20 @@ import { hostProperties } from './host-properties';
 
 describe('hostProperties', () => {
   it('disabled', () => {
-    const retObj: Record<string, string> = {
+    const retObj: Record<string, string | undefined> = {
       role: 'myRole',
       dir: 'ltr',
       'aria-disabled': 'true',
-      tabIndex: null,
+      tabIndex: undefined,
     };
     expect(hostProperties('myRole', true)).to.be.deep.equal(retObj);
   });
 
   it('not disabled', () => {
-    const retObj: Record<string, string> = {
+    const retObj: Record<string, string | undefined> = {
       role: 'myRole',
       dir: 'ltr',
-      'aria-disabled': null,
+      'aria-disabled': undefined,
       tabIndex: '0',
     };
     expect(hostProperties('myRole', false)).to.be.deep.equal(retObj);

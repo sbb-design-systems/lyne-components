@@ -21,7 +21,8 @@ describe('sbb-navigation-button', () => {
 
   describe('events', () => {
     it('dispatches event on click', async () => {
-      const navigationButton = document.querySelector('sbb-navigation-button');
+      const navigationButton =
+        document.querySelector<SbbNavigationButtonElement>('sbb-navigation-button')!;
       const changeSpy = new EventSpy('click');
       navigationButton.click();
       await waitForCondition(() => changeSpy.events.length === 1);
@@ -45,7 +46,7 @@ describe('sbb-navigation-button', () => {
     it('should receive focus', async () => {
       element.focus();
       await waitForLitRender(element);
-      expect(document.activeElement.id).to.be.equal('focus-id');
+      expect(document.activeElement!.id).to.be.equal('focus-id');
     });
   });
 });

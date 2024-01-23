@@ -1,7 +1,7 @@
-import { LitElement } from 'lit';
+import type { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { Constructor } from './constructor';
+import type { Constructor } from './constructor';
 
 export declare class SbbIconNameInterface {
   public iconName: string;

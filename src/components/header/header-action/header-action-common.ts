@@ -1,10 +1,10 @@
 import { property } from 'lit/decorators.js';
-import { CSSResultGroup, LitElement } from 'lit/development';
+import type { CSSResultGroup, LitElement } from 'lit/development';
 
-import { Constructor } from '../../core/common-behaviors';
+import type { Constructor } from '../../core/common-behaviors';
 import { isBreakpoint, toggleDatasetEntry } from '../../core/dom';
 import { actionElementHandlerAspect, HandlerRepository } from '../../core/eventing';
-import { SbbHorizontalFrom } from '../../core/interfaces';
+import type { SbbHorizontalFrom } from '../../core/interfaces';
 import { AgnosticResizeObserver } from '../../core/observers';
 
 import style from './header-action.scss?lit&inline';

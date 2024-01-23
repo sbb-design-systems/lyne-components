@@ -8,7 +8,7 @@ import type {
   Decorator,
   StoryContext,
 } from '@storybook/web-components';
-import { html, TemplateResult } from 'lit';
+import { html, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../core/dom';
@@ -22,7 +22,7 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
     : 'var(--sbb-color-white-default)',
 });
 
-const paragraphStyle = (negative): Record<string, string> => ({
+const paragraphStyle = (negative: boolean): Record<string, string> => ({
   color: negative ? 'var(--sbb-color-aluminium-default)' : 'var(--sbb-color-iron-default)',
 });
 

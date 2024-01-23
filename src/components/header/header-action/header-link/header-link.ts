@@ -1,11 +1,11 @@
 import { spread } from '@open-wc/lit-helpers';
-import { nothing, TemplateResult } from 'lit';
+import { nothing, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
+import type { LinkRenderVariables } from '../../../core/common-behaviors';
 import {
   LanguageController,
-  LinkRenderVariables,
   SbbIconNameMixin,
   resolveLinkOrStaticRenderVariables,
   SbbLinkBaseElement,

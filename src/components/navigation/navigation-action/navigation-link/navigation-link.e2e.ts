@@ -21,7 +21,8 @@ describe('sbb-navigation-link', () => {
 
   describe('events', () => {
     it('dispatches event on click', async () => {
-      const navigationLink = document.querySelector('sbb-navigation-link');
+      const navigationLink =
+        document.querySelector<SbbNavigationLinkElement>('sbb-navigation-link')!;
       const changeSpy = new EventSpy('click');
       navigationLink.click();
       await waitForCondition(() => changeSpy.events.length === 1);
@@ -45,7 +46,7 @@ describe('sbb-navigation-link', () => {
     it('should receive focus', async () => {
       element.focus();
       await waitForLitRender(element);
-      expect(document.activeElement.id).to.be.equal('focus-id');
+      expect(document.activeElement!.id).to.be.equal('focus-id');
     });
   });
 });

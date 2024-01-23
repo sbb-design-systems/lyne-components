@@ -1,7 +1,7 @@
-import { CSSResultGroup, LitElement } from 'lit';
+import type { CSSResultGroup, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { Constructor } from '../../core/common-behaviors';
+import type { Constructor } from '../../core/common-behaviors';
 import { actionElementHandlerAspect, HandlerRepository } from '../../core/eventing';
 
 import style from './menu-action.scss?lit&inline';

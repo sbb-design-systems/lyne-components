@@ -1,12 +1,9 @@
 import { expect } from '@open-wc/testing';
 
-import { IsStaticProperty } from '../interfaces';
+import type { IsStaticProperty } from '../interfaces';
 
-import {
-  type LinkProperties,
-  LinkRenderVariables,
-  resolveLinkOrStaticRenderVariables,
-} from './link-base-element';
+import { resolveLinkOrStaticRenderVariables } from './link-base-element';
+import type { LinkRenderVariables, LinkProperties } from './link-base-element';
 
 describe('resolveLinkRenderVariables', () => {
   const linkProperties: LinkProperties & Partial<IsStaticProperty> = {
@@ -21,8 +18,8 @@ describe('resolveLinkRenderVariables', () => {
       role: 'presentation',
       tabIndex: '-1',
     };
-    const hostAttr: Record<string, string> = {
-      'aria-disabled': null,
+    const hostAttr: Record<string, string | undefined> = {
+      'aria-disabled': undefined,
       dir: 'ltr',
       role: 'link',
       tabIndex: '0',
@@ -47,8 +44,8 @@ describe('resolveLinkRenderVariables', () => {
       role: 'presentation',
       tabIndex: '-1',
     };
-    const hostAttr: Record<string, string> = {
-      'aria-disabled': null,
+    const hostAttr: Record<string, string | undefined> = {
+      'aria-disabled': undefined,
       dir: 'ltr',
       role: 'link',
       tabIndex: '0',
@@ -69,11 +66,11 @@ describe('resolveLinkRenderVariables', () => {
       role: 'presentation',
       tabIndex: '-1',
     };
-    const hostAttr: Record<string, string> = {
+    const hostAttr: Record<string, string | undefined> = {
       'aria-disabled': 'true',
       dir: 'ltr',
       role: 'link',
-      tabIndex: null,
+      tabIndex: undefined,
     };
     expect(retObj.tagName).to.be.equal('a');
     expect(retObj.attributes).to.be.deep.equal(attr);
@@ -93,7 +90,7 @@ describe('resolveLinkRenderVariables', () => {
   it('should return variables for the missing href case', () => {
     const retObj: LinkRenderVariables = resolveLinkOrStaticRenderVariables({
       ...linkProperties,
-      href: null,
+      href: undefined,
     });
     expect(retObj.tagName).to.be.equal('span');
     expect(retObj.attributes).to.be.deep.equal({});

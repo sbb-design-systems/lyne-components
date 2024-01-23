@@ -1,7 +1,7 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import { html, nothing, TemplateResult } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../core/dom';
@@ -10,17 +10,21 @@ import readme from './readme.md?raw';
 import './menu-button';
 import '../../../icon';
 
-const getBasicTemplate = ({ text, ...args }: Args, id, iconSlot = false): TemplateResult => html`
+const getBasicTemplate = (
+  { text, ...args }: Args,
+  id: number,
+  iconSlot = false,
+): TemplateResult => html`
   <sbb-menu-button ${sbbSpread(args)}>
     ${text} ${id} ${iconSlot ? html`<sbb-icon slot="icon" name="pie-small"></sbb-icon>` : nothing}
   </sbb-menu-button>
 `;
 
-const TemplateMenuAction = (args): TemplateResult => html`
+const TemplateMenuAction = (args: Args): TemplateResult => html`
   <div>${getBasicTemplate(args, 1)} ${getBasicTemplate(args, 2)} ${getBasicTemplate(args, 3)}</div>
 `;
 
-const TemplateMenuActionCustomIcon = (args): TemplateResult => html`
+const TemplateMenuActionCustomIcon = (args: Args): TemplateResult => html`
   <div>
     ${getBasicTemplate(args, 1, true)} ${getBasicTemplate(args, 2, false)}
     ${getBasicTemplate(args, 3, true)}

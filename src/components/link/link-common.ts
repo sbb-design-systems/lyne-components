@@ -1,14 +1,11 @@
-import { CSSResultGroup, LitElement } from 'lit';
+import type { CSSResultGroup, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import {
-  Constructor,
-  LanguageController,
-  NamedSlotStateController,
-} from '../core/common-behaviors';
+import type { Constructor } from '../core/common-behaviors';
+import { LanguageController, NamedSlotStateController } from '../core/common-behaviors';
 import { ACTION_ELEMENTS, hostContext } from '../core/dom';
 import { actionElementHandlerAspect, HandlerRepository } from '../core/eventing';
-import { SbbIconPlacement } from '../core/interfaces';
+import type { SbbIconPlacement } from '../core/interfaces';
 
 import '../icon';
 

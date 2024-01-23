@@ -7,7 +7,7 @@ import {
   type ButtonProperties,
   resolveButtonRenderVariables,
 } from '../../core/common-behaviors';
-import { DateAdapter, defaultDateAdapter } from '../../core/datetime';
+import { defaultDateAdapter, type DateAdapter } from '../../core/datetime';
 import { isValidAttribute, setAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
 import {
   ConnectedAbortController,

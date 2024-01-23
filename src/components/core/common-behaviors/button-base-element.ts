@@ -33,7 +33,9 @@ export class SbbButtonBaseElement extends LitElement implements ButtonProperties
 }
 
 /** Sets default render variables for button-like elements. */
-export function resolveButtonRenderVariables(disabled: boolean = false): Record<string, string> {
+export function resolveButtonRenderVariables(
+  disabled: boolean = false,
+): Record<string, string | undefined> {
   return hostProperties('button', disabled);
 }
 
@@ -41,6 +43,6 @@ export function resolveButtonRenderVariables(disabled: boolean = false): Record<
 export function resolveButtonOrStaticRenderVariables(
   isStatic: boolean,
   disabled: boolean,
-): Record<string, string> {
+): Record<string, string | undefined> {
   return isStatic ? { dir: getDocumentWritingMode() } : resolveButtonRenderVariables(disabled);
 }

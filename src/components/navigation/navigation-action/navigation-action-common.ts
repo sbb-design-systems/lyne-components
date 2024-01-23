@@ -1,7 +1,7 @@
-import { CSSResultGroup, LitElement } from 'lit';
+import type { CSSResultGroup, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { Constructor } from '../../core/common-behaviors';
+import type { Constructor } from '../../core/common-behaviors';
 import { hostContext } from '../../core/dom';
 import {
   actionElementHandlerAspect,
@@ -17,7 +17,7 @@ import type { SbbNavigationLinkElement } from './navigation-link';
 export type SbbNavigationActionSize = 's' | 'm' | 'l';
 
 export declare class SbbNavigationActionCommonInterface {
-  public size: SbbNavigationActionSize;
+  public size?: SbbNavigationActionSize;
   public active: boolean;
 }
 
@@ -50,7 +50,7 @@ export const SbbNavigationActionCommonElementMixin = <T extends Constructor<LitE
     }
     private _active = false;
 
-    private _navigationMarker: SbbNavigationMarkerElement;
+    private _navigationMarker: SbbNavigationMarkerElement | null = null;
     private _abort = new ConnectedAbortController(this);
 
     private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);

@@ -14,7 +14,11 @@ import {
   EventEmitter,
   ConnectedAbortController,
 } from '../../core/eventing';
-import { SbbCheckedStateChange, SbbStateChange, SbbValueStateChange } from '../../core/interfaces';
+import type {
+  SbbCheckedStateChange,
+  SbbStateChange,
+  SbbValueStateChange,
+} from '../../core/interfaces';
 import type { SbbTagGroupElement } from '../tag-group';
 
 import style from './tag.scss?lit&inline';

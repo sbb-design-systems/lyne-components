@@ -1,7 +1,7 @@
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import { html, TemplateResult } from 'lit';
-import { StyleInfo, styleMap } from 'lit/directives/style-map.js';
+import { html, type TemplateResult } from 'lit';
+import { styleMap, type StyleInfo } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../../core/dom';
 

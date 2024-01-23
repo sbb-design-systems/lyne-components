@@ -9,7 +9,7 @@ import type {
   StoryContext,
 } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { html, TemplateResult } from 'lit';
+import { html, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../core/dom';

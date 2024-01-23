@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForLitRender, mockScrollTo, waitForCondition } from '../../core/testing';
 import { SbbMenuElement } from '../../menu';
-import type { SbbHeaderActionElement } from '../header-action';
+import type { SbbHeaderButtonElement } from '../header-action';
 
 import { SbbHeaderElement } from './header';
 import '../header-action';
@@ -154,7 +154,7 @@ describe('sbb-header', () => {
     // Open menu
     const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen);
     const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen);
-    const menuTrigger = document.querySelector('sbb-header-button');
+    const menuTrigger = document.querySelector<SbbHeaderButtonElement>('sbb-header-button')!;
     menuTrigger.click();
     await waitForLitRender(element);
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
