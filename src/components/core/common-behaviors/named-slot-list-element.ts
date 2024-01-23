@@ -5,7 +5,7 @@ import { state } from 'lit/decorators.js';
 import { SlotChildObserver } from './slot-child-observer';
 
 const SSR_CHILD_COUNT_ATTRIBUTE = 'data-ssr-child-count';
-const SLOTNAME_PREFIX = 'child';
+const SLOTNAME_PREFIX = 'li';
 
 /**
  * Helper type for willUpdate or similar checks.
@@ -58,16 +58,11 @@ export abstract class NamedSlotListElement<
       .filter((c) => !listChildren.includes(c))
       .forEach((c) => c.removeAttribute('slot'));
     this.listChildren = listChildren;
-    this.listChildren.forEach((child, index) => {
-      child.setAttribute('slot', `${SLOTNAME_PREFIX}-${index}`);
-      this.formatChild?.(child);
-    });
+    this.listChildren.forEach((c, index) => c.setAttribute('slot', `${SLOTNAME_PREFIX}-${index}`));
 
     // Remove the ssr attribute, once we have actually initialized the children elements.
     this.removeAttribute(SSR_CHILD_COUNT_ATTRIBUTE);
   }
-
-  protected formatChild?(child: C): void;
 
   /**
    * Renders list and list slots for slotted children or an amount of list slots

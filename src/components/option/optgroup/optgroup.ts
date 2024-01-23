@@ -64,6 +64,7 @@ export class SbbOptGroupElement extends SlotChildObserver(LitElement) {
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
     if (changedProperties.has('disabled')) {
       this._proxyDisabledToOptions();
     }

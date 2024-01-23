@@ -51,6 +51,7 @@ export class SbbLinkListElement extends NamedSlotListElement<SbbLinkElement> {
   private _namedSlots = new NamedSlotStateController(this);
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
+    super.willUpdate(changedProperties);
     if (
       changedProperties.has('size') ||
       changedProperties.has('negative') ||

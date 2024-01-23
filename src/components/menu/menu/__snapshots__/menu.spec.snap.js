@@ -60,19 +60,19 @@ snapshots["sbb-menu renders with list"] =
     <div class="sbb-menu__content">
       <ul class="sbb-menu-list">
         <li>
-          <slot name="child-0">
+          <slot name="li-0">
           </slot>
         </li>
         <li>
-          <slot name="child-1">
+          <slot name="li-1">
           </slot>
         </li>
         <li>
-          <slot name="child-2">
+          <slot name="li-2">
           </slot>
         </li>
         <li>
-          <slot name="child-3">
+          <slot name="li-3">
           </slot>
         </li>
       </ul>

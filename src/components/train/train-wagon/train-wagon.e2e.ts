@@ -32,7 +32,7 @@ describe('sbb-train-wagon', () => {
     );
 
     Array.from(element.querySelectorAll('sbb-icon')).forEach((icon, index) => {
-      expect(icon.getAttribute('slot')).to.equal(`child-${index}`);
+      expect(icon.getAttribute('slot')).to.equal(`li-${index}`);
     });
 
     // Remove one icon
@@ -40,7 +40,7 @@ describe('sbb-train-wagon', () => {
     await waitForLitRender(element);
 
     Array.from(element.querySelectorAll('sbb-icon')).forEach((icon, index) => {
-      expect(icon.getAttribute('slot')).to.equal(`child-${index}`);
+      expect(icon.getAttribute('slot')).to.equal(`li-${index}`);
     });
   });
 });

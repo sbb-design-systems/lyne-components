@@ -239,6 +239,7 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
     if (changedProperties.has('origin')) {
       this._resetOriginClickListener(this.origin, changedProperties.get('origin'));
     }

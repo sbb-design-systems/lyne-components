@@ -141,6 +141,7 @@ export class SbbTagGroupElement extends NamedSlotListElement<SbbTagElement> {
   }
 
   protected override willUpdate(changedProperties: PropertyValueMap<WithListChildren<this>>): void {
+    super.willUpdate(changedProperties);
     if (changedProperties.has('listChildren')) {
       this._ensureOnlyOneTagSelected();
       this._updateValueByReadingTags();

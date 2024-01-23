@@ -16,15 +16,15 @@ snapshots["sbb-link-list should render named slots if data-ssr-child-count attri
   </sbb-title>
   <ul class="sbb-link-list">
     <li>
-      <slot name="child-0">
+      <slot name="li-0">
       </slot>
     </li>
     <li>
-      <slot name="child-1">
+      <slot name="li-1">
       </slot>
     </li>
     <li>
-      <slot name="child-2">
+      <slot name="li-2">
       </slot>
     </li>
   </ul>
@@ -38,7 +38,7 @@ snapshots["sbb-link-list should render named slots if data-ssr-child-count attri
 
 snapshots["sbb-link-list rendered with a slotted title in light DOM"] = 
 `<sbb-link-list
-  data-slot-names="child-0 child-1 child-2 child-3 child-4 title"
+  data-slot-names="li-0 li-1 li-2 li-3 li-4 title"
   orientation="vertical"
   size="s"
   title-level="2"
@@ -52,7 +52,7 @@ snapshots["sbb-link-list rendered with a slotted title in light DOM"] =
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
     size="s"
-    slot="child-0"
+    slot="li-0"
     tabindex="0"
     variant="block"
   >
@@ -64,7 +64,7 @@ snapshots["sbb-link-list rendered with a slotted title in light DOM"] =
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
     size="s"
-    slot="child-1"
+    slot="li-1"
     tabindex="0"
     variant="block"
   >
@@ -76,7 +76,7 @@ snapshots["sbb-link-list rendered with a slotted title in light DOM"] =
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
     size="s"
-    slot="child-2"
+    slot="li-2"
     tabindex="0"
     variant="block"
   >
@@ -88,7 +88,7 @@ snapshots["sbb-link-list rendered with a slotted title in light DOM"] =
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
     size="s"
-    slot="child-3"
+    slot="li-3"
     tabindex="0"
     variant="block"
   >
@@ -100,7 +100,7 @@ snapshots["sbb-link-list rendered with a slotted title in light DOM"] =
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
     size="s"
-    slot="child-4"
+    slot="li-4"
     tabindex="0"
     variant="block"
   >
@@ -128,23 +128,23 @@ snapshots["sbb-link-list rendered with a slotted title in shadow DOM"] =
     class="sbb-link-list"
   >
     <li>
-      <slot name="child-0">
+      <slot name="li-0">
       </slot>
     </li>
     <li>
-      <slot name="child-1">
+      <slot name="li-1">
       </slot>
     </li>
     <li>
-      <slot name="child-2">
+      <slot name="li-2">
       </slot>
     </li>
     <li>
-      <slot name="child-3">
+      <slot name="li-3">
       </slot>
     </li>
     <li>
-      <slot name="child-4">
+      <slot name="li-4">
       </slot>
     </li>
   </ul>
@@ -158,7 +158,7 @@ snapshots["sbb-link-list rendered with a slotted title in shadow DOM"] =
 
 snapshots["sbb-link-list rendered with a title from properties in light DOM"] = 
 `<sbb-link-list
-  data-slot-names="child-0 child-1 child-2 child-3 child-4"
+  data-slot-names="li-0 li-1 li-2 li-3 li-4"
   orientation="vertical"
   size="s"
   title-content="Help &amp; Contact"
@@ -170,7 +170,7 @@ snapshots["sbb-link-list rendered with a title from properties in light DOM"] =
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
     size="s"
-    slot="child-0"
+    slot="li-0"
     tabindex="0"
     variant="block"
   >
@@ -182,7 +182,7 @@ snapshots["sbb-link-list rendered with a title from properties in light DOM"] =
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
     size="s"
-    slot="child-1"
+    slot="li-1"
     tabindex="0"
     variant="block"
   >
@@ -194,7 +194,7 @@ snapshots["sbb-link-list rendered with a title from properties in light DOM"] =
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
     size="s"
-    slot="child-2"
+    slot="li-2"
     tabindex="0"
     variant="block"
   >
@@ -206,7 +206,7 @@ snapshots["sbb-link-list rendered with a title from properties in light DOM"] =
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
     size="s"
-    slot="child-3"
+    slot="li-3"
     tabindex="0"
     variant="block"
   >
@@ -218,7 +218,7 @@ snapshots["sbb-link-list rendered with a title from properties in light DOM"] =
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
     size="s"
-    slot="child-4"
+    slot="li-4"
     tabindex="0"
     variant="block"
   >
@@ -247,23 +247,23 @@ snapshots["sbb-link-list rendered with a title from properties in shadow DOM"] =
     class="sbb-link-list"
   >
     <li>
-      <slot name="child-0">
+      <slot name="li-0">
       </slot>
     </li>
     <li>
-      <slot name="child-1">
+      <slot name="li-1">
       </slot>
     </li>
     <li>
-      <slot name="child-2">
+      <slot name="li-2">
       </slot>
     </li>
     <li>
-      <slot name="child-3">
+      <slot name="li-3">
       </slot>
     </li>
     <li>
-      <slot name="child-4">
+      <slot name="li-4">
       </slot>
     </li>
   </ul>
@@ -277,7 +277,7 @@ snapshots["sbb-link-list rendered with a title from properties in shadow DOM"] =
 
 snapshots["sbb-link-list rendered without a title in light DOM"] = 
 `<sbb-link-list
-  data-slot-names="child-0 child-1 child-2 child-3 child-4"
+  data-slot-names="li-0 li-1 li-2 li-3 li-4"
   orientation="vertical"
   size="s"
 >
@@ -287,7 +287,7 @@ snapshots["sbb-link-list rendered without a title in light DOM"] =
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
     size="s"
-    slot="child-0"
+    slot="li-0"
     tabindex="0"
     variant="block"
   >
@@ -299,7 +299,7 @@ snapshots["sbb-link-list rendered without a title in light DOM"] =
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
     size="s"
-    slot="child-1"
+    slot="li-1"
     tabindex="0"
     variant="block"
   >
@@ -311,7 +311,7 @@ snapshots["sbb-link-list rendered without a title in light DOM"] =
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
     size="s"
-    slot="child-2"
+    slot="li-2"
     tabindex="0"
     variant="block"
   >
@@ -323,7 +323,7 @@ snapshots["sbb-link-list rendered without a title in light DOM"] =
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
     size="s"
-    slot="child-3"
+    slot="li-3"
     tabindex="0"
     variant="block"
   >
@@ -335,7 +335,7 @@ snapshots["sbb-link-list rendered without a title in light DOM"] =
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
     role="link"
     size="s"
-    slot="child-4"
+    slot="li-4"
     tabindex="0"
     variant="block"
   >
@@ -360,23 +360,23 @@ snapshots["sbb-link-list rendered without a title in shadow DOM"] =
   </sbb-title>
   <ul class="sbb-link-list">
     <li>
-      <slot name="child-0">
+      <slot name="li-0">
       </slot>
     </li>
     <li>
-      <slot name="child-1">
+      <slot name="li-1">
       </slot>
     </li>
     <li>
-      <slot name="child-2">
+      <slot name="li-2">
       </slot>
     </li>
     <li>
-      <slot name="child-3">
+      <slot name="li-3">
       </slot>
     </li>
     <li>
-      <slot name="child-4">
+      <slot name="li-4">
       </slot>
     </li>
   </ul>

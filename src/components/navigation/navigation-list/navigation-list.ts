@@ -1,8 +1,12 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { NamedSlotListElement, NamedSlotStateController } from '../../core/common-behaviors';
+import {
+  NamedSlotListElement,
+  NamedSlotStateController,
+  type WithListChildren,
+} from '../../core/common-behaviors';
 import type { SbbNavigationActionElement } from '../navigation-action';
 
 import style from './navigation-list.scss?lit&inline';
@@ -28,8 +32,11 @@ export class SbbNavigationListElement extends NamedSlotListElement<SbbNavigation
     new NamedSlotStateController(this);
   }
 
-  protected override formatChild(child: SbbNavigationActionElement): void {
-    child.size = 'm';
+  protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
+    super.willUpdate(changedProperties);
+    if (changedProperties.has('listChildren')) {
+      this.listChildren.forEach((c) => (c.size = 'm'));
+    }
   }
 
   protected override render(): TemplateResult {

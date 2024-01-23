@@ -15,17 +15,17 @@ describe('sbb-navigation-list', () => {
 
     expect(root).dom.to.be.equal(
       `
-        <sbb-navigation-list data-slot-names="child-0 child-1 child-2 child-3">
-          <sbb-navigation-action slot="child-0">
+        <sbb-navigation-list data-slot-names="li-0 li-1 li-2 li-3">
+          <sbb-navigation-action slot="li-0">
             Tickets &amp; Offers
           </sbb-navigation-action>
-          <sbb-navigation-action slot="child-1">
+          <sbb-navigation-action slot="li-1">
             Vacations &amp; Recreation
           </sbb-navigation-action>
-          <sbb-navigation-action slot="child-2">
+          <sbb-navigation-action slot="li-2">
             Travel information
           </sbb-navigation-action>
-          <sbb-navigation-action slot="child-3">
+          <sbb-navigation-action slot="li-3">
             Help &amp; Contact
           </sbb-navigation-action>
         </sbb-navigation-list>

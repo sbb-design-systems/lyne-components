@@ -1,8 +1,12 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { NamedSlotListElement, NamedSlotStateController } from '../core/common-behaviors';
+import {
+  NamedSlotListElement,
+  NamedSlotStateController,
+  type WithListChildren,
+} from '../core/common-behaviors';
 import type { SbbLinkElement } from '../link';
 import type { TitleLevel } from '../title';
 
@@ -31,9 +35,14 @@ export class SbbSkiplinkListElement extends NamedSlotListElement<SbbLinkElement>
     new NamedSlotStateController(this);
   }
 
-  protected override formatChild(child: SbbLinkElement): void {
-    child.size = 'm';
-    child.negative = true;
+  protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
+    super.willUpdate(changedProperties);
+    if (changedProperties.has('listChildren')) {
+      for (const child of this.listChildren) {
+        child.size = 'm';
+        child.negative = true;
+      }
+    }
   }
 
   protected override render(): TemplateResult {

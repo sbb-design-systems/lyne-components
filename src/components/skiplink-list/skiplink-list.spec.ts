@@ -16,10 +16,10 @@ describe('sbb-skiplink-list', () => {
 
     expect(root).dom.to.be.equal(
       `
-      <sbb-skiplink-list data-slot-names="child-0 child-1 child-2">
-        <sbb-link dir="ltr" href='#' negative="" role="link" size="m" slot="child-0" tabindex="0" variant="block" data-slot-names="unnamed">Link 1</sbb-link>
-        <sbb-link dir="ltr" href='#' negative="" role="link" size="m" slot="child-1" tabindex="0" variant="block" data-slot-names="unnamed">Link 2</sbb-link>
-        <sbb-link dir="ltr" href='#' negative="" role="link" size="m" slot="child-2" tabindex="0" variant="block" data-slot-names="unnamed">Link 3</sbb-link>
+      <sbb-skiplink-list data-slot-names="li-0 li-1 li-2">
+        <sbb-link dir="ltr" href='#' negative="" role="link" size="m" slot="li-0" tabindex="0" variant="block" data-slot-names="unnamed">Link 1</sbb-link>
+        <sbb-link dir="ltr" href='#' negative="" role="link" size="m" slot="li-1" tabindex="0" variant="block" data-slot-names="unnamed">Link 2</sbb-link>
+        <sbb-link dir="ltr" href='#' negative="" role="link" size="m" slot="li-2" tabindex="0" variant="block" data-slot-names="unnamed">Link 3</sbb-link>
       </sbb-skiplink-list>
     `,
     );
@@ -37,10 +37,10 @@ describe('sbb-skiplink-list', () => {
 
     expect(root).dom.to.be.equal(
       `
-      <sbb-skiplink-list title-content="Skip to" title-level="3" data-slot-names="child-0 child-1 child-2">
-        <sbb-link dir="ltr" href='#' negative="" role="link" size="m" slot="child-0" tabindex="0" variant="block" data-slot-names="unnamed">Link 1</sbb-link>
-        <sbb-link dir="ltr" href='#' negative="" role="link" size="m" slot="child-1" tabindex="0" variant="block" data-slot-names="unnamed">Link 2</sbb-link>
-        <sbb-link dir="ltr" href='#' negative="" role="link" size="m" slot="child-2" tabindex="0" variant="block" data-slot-names="unnamed">Link 3</sbb-link>
+      <sbb-skiplink-list title-content="Skip to" title-level="3" data-slot-names="li-0 li-1 li-2">
+        <sbb-link dir="ltr" href='#' negative="" role="link" size="m" slot="li-0" tabindex="0" variant="block" data-slot-names="unnamed">Link 1</sbb-link>
+        <sbb-link dir="ltr" href='#' negative="" role="link" size="m" slot="li-1" tabindex="0" variant="block" data-slot-names="unnamed">Link 2</sbb-link>
+        <sbb-link dir="ltr" href='#' negative="" role="link" size="m" slot="li-2" tabindex="0" variant="block" data-slot-names="unnamed">Link 3</sbb-link>
       </sbb-skiplink-list>
     `,
     );

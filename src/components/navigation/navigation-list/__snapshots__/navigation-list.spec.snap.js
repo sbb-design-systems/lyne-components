@@ -14,15 +14,15 @@ snapshots["sbb-navigation-list should render named slots if data-ssr-child-count
   class="sbb-navigation-list__content"
 >
   <li>
-    <slot name="child-0">
+    <slot name="li-0">
     </slot>
   </li>
   <li>
-    <slot name="child-1">
+    <slot name="li-1">
     </slot>
   </li>
   <li>
-    <slot name="child-2">
+    <slot name="li-2">
     </slot>
   </li>
 </ul>
@@ -46,19 +46,19 @@ snapshots["sbb-navigation-list renders"] =
   class="sbb-navigation-list__content"
 >
   <li>
-    <slot name="child-0">
+    <slot name="li-0">
     </slot>
   </li>
   <li>
-    <slot name="child-1">
+    <slot name="li-1">
     </slot>
   </li>
   <li>
-    <slot name="child-2">
+    <slot name="li-2">
     </slot>
   </li>
   <li>
-    <slot name="child-3">
+    <slot name="li-3">
     </slot>
   </li>
 </ul>

@@ -41,7 +41,7 @@ export const SlotChildObserver = <T extends Constructor<LitElement>>(
     protected override createRenderRoot(): HTMLElement | DocumentFragment {
       // Check whether hydration is needed by checking whether the shadow root
       // is available before createRenderRoot is called.
-      this._needsHydration = !!this.shadowRoot;
+      this._needsHydration = !!this.shadowRoot && 'litElementHydrateSupport' in globalThis;
       return super.createRenderRoot();
     }
 
@@ -49,7 +49,7 @@ export const SlotChildObserver = <T extends Constructor<LitElement>>(
       super.willUpdate(changedProperties);
       // If hydration is not needed we can immediately check for children
       // in the first update.
-      if (!this._needsHydration && !this.hasUpdated) {
+      if (!this.hasUpdated && !this._needsHydration) {
         this.checkChildren();
       }
     }

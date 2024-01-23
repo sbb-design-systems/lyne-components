@@ -30,6 +30,7 @@ export class SbbNavigationMarkerElement extends NamedSlotListElement<SbbNavigati
   );
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
+    super.willUpdate(changedProperties);
     setAttribute(this, 'data-has-active-action', !!this._currentActiveAction);
     if (changedProperties.has('size') || changedProperties.has('listChildren')) {
       this._updateMarkerActions();

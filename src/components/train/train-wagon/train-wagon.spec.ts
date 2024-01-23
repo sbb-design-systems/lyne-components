@@ -124,7 +124,7 @@ describe('sbb-train-wagon', () => {
               data-namespace="default"
               name="sa-rs"
               role="img"
-              slot="child-0"
+              slot="li-0"
             ></sbb-icon>
           </sbb-train-wagon>
         `,
@@ -152,7 +152,7 @@ describe('sbb-train-wagon', () => {
                 role="presentation"
               >
                 <li>
-                  <slot name="child-0">
+                  <slot name="li-0">
                   </slot>
                 </li>
               </ul>
@@ -181,13 +181,13 @@ describe('sbb-train-wagon', () => {
             data-namespace="default"
             name="sa-rs"
             role="img"
-            slot="child-0"></sbb-icon>
+            slot="li-0"></sbb-icon>
           <sbb-icon
             aria-hidden="true"
             data-namespace="default"
             name="sa-rs"
             role="img"
-            slot="child-1"></sbb-icon>
+            slot="li-1"></sbb-icon>
         </sbb-train-wagon>
       `,
       );
@@ -210,10 +210,10 @@ describe('sbb-train-wagon', () => {
             <span class="sbb-train-wagon__icons">
               <ul aria-label="Additional wagon information" class="sbb-train-wagon__icons-list">
                 <li>
-                  <slot name="child-0"></slot>
+                  <slot name="li-0"></slot>
                 </li>
                 <li>
-                  <slot name="child-1"></slot>
+                  <slot name="li-1"></slot>
                 </li>
               </ul>
               <span hidden>

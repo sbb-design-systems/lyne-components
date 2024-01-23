@@ -78,6 +78,7 @@ export class SbbTrainElement extends NamedSlotListElement<
   }
 
   protected override willUpdate(changedProperties: PropertyValueMap<WithListChildren<this>>): void {
+    super.willUpdate(changedProperties);
     if (changedProperties.has('listChildren')) {
       this._trainSlotChange.emit();
     }

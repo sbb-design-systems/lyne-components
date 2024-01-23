@@ -67,6 +67,7 @@ export class SbbBreadcrumbGroupElement extends NamedSlotListElement<SbbBreadcrum
   }
 
   protected override willUpdate(changedProperties: PropertyValueMap<WithListChildren<this>>): void {
+    super.willUpdate(changedProperties);
     if (changedProperties.has('listChildren')) {
       this._syncBreadcrumbs();
     }
@@ -143,7 +144,7 @@ export class SbbBreadcrumbGroupElement extends NamedSlotListElement<SbbBreadcrum
   private _renderCollapsed(): TemplateResult {
     return html`
       <li class="sbb-breadcrumb-group__item">
-        <slot name="child-0"></slot>
+        <slot name="li-0"></slot>
       </li>
       <li class="sbb-breadcrumb-group__item" id="sbb-breadcrumb-group-ellipsis">
         <sbb-icon
@@ -165,7 +166,7 @@ export class SbbBreadcrumbGroupElement extends NamedSlotListElement<SbbBreadcrum
           name="chevron-small-right-small"
           class="sbb-breadcrumb-group__divider-icon"
         ></sbb-icon>
-        <slot name=${`child-${this.listChildren.length - 1}`}></slot>
+        <slot name=${`li-${this.listChildren.length - 1}`}></slot>
       </li>
     `;
   }

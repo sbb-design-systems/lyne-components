@@ -15,7 +15,7 @@ describe('sbb-train-formation', () => {
     expect(root).dom.to.be.equal(
       `
         <sbb-train-formation>
-          <sbb-train slot="child-0">
+          <sbb-train slot="li-0">
             <sbb-train-wagon></sbb-train-wagon>
           </sbb-train>
         </sbb-train-formation>
@@ -39,10 +39,10 @@ describe('sbb-train-formation', () => {
     expect(root).dom.to.be.equal(
       `
         <sbb-train-formation>
-          <sbb-train slot="child-0">
+          <sbb-train slot="li-0">
             <sbb-train-wagon></sbb-train-wagon>
           </sbb-train>
-          <sbb-train slot="child-1">
+          <sbb-train slot="li-1">
             <sbb-train-wagon></sbb-train-wagon>
           </sbb-train>
         </sbb-train-formation>

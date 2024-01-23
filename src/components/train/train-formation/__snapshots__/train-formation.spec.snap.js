@@ -28,7 +28,7 @@ snapshots["sbb-train-formation should render with one train"] =
       role="presentation"
     >
       <li>
-        <slot name="child-0">
+        <slot name="li-0">
         </slot>
       </li>
     </ul>
@@ -67,11 +67,11 @@ snapshots["sbb-train-formation should render with multiple trains"] =
       class="sbb-train-formation__train-list"
     >
       <li>
-        <slot name="child-0">
+        <slot name="li-0">
         </slot>
       </li>
       <li>
-        <slot name="child-1">
+        <slot name="li-1">
         </slot>
       </li>
     </ul>
