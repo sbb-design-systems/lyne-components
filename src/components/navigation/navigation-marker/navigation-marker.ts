@@ -23,17 +23,14 @@ export class SbbNavigationMarkerElement extends NamedSlotListElement<SbbNavigati
    */
   @property({ reflect: true }) public size?: 'l' | 's' = 'l';
 
-  /**
-   * Whether the list has an active action.
-   */
-  @state() private _hasActiveAction = false;
+  @state() private _currentActiveAction?: SbbNavigationActionElement;
 
-  private _currentActiveAction?: SbbNavigationActionElement;
   private _navigationMarkerResizeObserver = new AgnosticResizeObserver(() =>
     this._setMarkerPosition(),
   );
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
+    setAttribute(this, 'data-has-active-action', !!this._currentActiveAction);
     if (changedProperties.has('size') || changedProperties.has('listChildren')) {
       this._updateMarkerActions();
     }
@@ -45,7 +42,6 @@ export class SbbNavigationMarkerElement extends NamedSlotListElement<SbbNavigati
     }
 
     this._currentActiveAction = this.listChildren.find((action) => action.active);
-    this._hasActiveAction = !!this._currentActiveAction;
     this._setMarkerPosition();
   }
 
@@ -63,33 +59,29 @@ export class SbbNavigationMarkerElement extends NamedSlotListElement<SbbNavigati
     this.reset();
     action.active = true;
     this._currentActiveAction = action;
-    this._hasActiveAction = true;
     setTimeout(() => this._setMarkerPosition());
   }
 
   public reset(): void {
-    if (!this._hasActiveAction) {
-      return;
-    }
     if (this._currentActiveAction) {
       this._currentActiveAction.active = false;
+      this._currentActiveAction = undefined;
     }
-    this._hasActiveAction = false;
   }
 
   private _setMarkerPosition(): void {
-    if (this._hasActiveAction) {
+    if (this._currentActiveAction) {
       const index = this.listChildren.indexOf(this._currentActiveAction)!;
       this.style?.setProperty(
         '--sbb-navigation-marker-position-y',
-        `${this.shadowRoot.querySelector<HTMLLIElement>(`li:nth-child(${index + 1})`).offsetTop}px`,
+        `${
+          this.shadowRoot!.querySelector<HTMLLIElement>(`li:nth-child(${index + 1})`)!.offsetTop
+        }px`,
       );
     }
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'data-has-active-action', this._hasActiveAction);
-
     return this.renderList();
   }
 }

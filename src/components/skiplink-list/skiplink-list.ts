@@ -1,5 +1,5 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { NamedSlotListElement, NamedSlotStateController } from '../core/common-behaviors';

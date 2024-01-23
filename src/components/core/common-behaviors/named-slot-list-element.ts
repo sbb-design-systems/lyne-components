@@ -106,7 +106,7 @@ export abstract class NamedSlotListElement<
   protected listSlotNames(): string[] {
     const listChildren = this.listChildren.length
       ? this.listChildren
-      : Array.from({ length: +this.getAttribute(SSR_CHILD_COUNT_ATTRIBUTE) });
+      : Array.from({ length: +(this.getAttribute(SSR_CHILD_COUNT_ATTRIBUTE) ?? 0) });
     return listChildren.map((_, i) => `${SLOTNAME_PREFIX}-${i}`);
   }
 
@@ -116,7 +116,7 @@ export abstract class NamedSlotListElement<
    * children should be marked as lists.
    */
   protected roleOverride(): 'presentation' | typeof nothing {
-    return (this.listChildren.length || +this.getAttribute(SSR_CHILD_COUNT_ATTRIBUTE)) >= 2
+    return (this.listChildren.length || +(this.getAttribute(SSR_CHILD_COUNT_ATTRIBUTE) ?? 0)) >= 2
       ? nothing
       : 'presentation';
   }

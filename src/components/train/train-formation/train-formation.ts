@@ -104,7 +104,7 @@ export class SbbTrainFormationElement extends NamedSlotListElement<SbbTrainEleme
     );
   }
 
-  private async _updateFormationDiv(el: HTMLDivElement): Promise<void> {
+  private async _updateFormationDiv(el: Element | undefined): Promise<void> {
     if (!el) {
       return;
     }
