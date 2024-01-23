@@ -2,7 +2,11 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { NamedSlotStateController } from '../../core/common-behaviors';
+import {
+  NamedSlotStateController,
+  type ButtonProperties,
+  resolveButtonRenderVariables,
+} from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
 import {
   HandlerRepository,
@@ -10,13 +14,7 @@ import {
   EventEmitter,
   ConnectedAbortController,
 } from '../../core/eventing';
-import type {
-  ButtonProperties,
-  SbbCheckedStateChange,
-  SbbStateChange,
-  SbbValueStateChange,
-} from '../../core/interfaces';
-import { resolveButtonRenderVariables } from '../../core/interfaces';
+import { SbbCheckedStateChange, SbbStateChange, SbbValueStateChange } from '../../core/interfaces';
 import type { SbbTagGroupElement } from '../tag-group';
 
 import style from './tag.scss?lit&inline';
@@ -161,7 +159,7 @@ export class SbbTagElement extends LitElement implements ButtonProperties {
   }
 
   protected override render(): TemplateResult {
-    const { hostAttributes } = resolveButtonRenderVariables(this);
+    const hostAttributes = resolveButtonRenderVariables(this.disabled);
     // We have to ensure that the value is always present
     hostAttributes['aria-pressed'] = this.checked.toString();
 

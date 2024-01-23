@@ -3,15 +3,17 @@ import { nothing, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { LanguageController } from '../../../core/common-behaviors';
 import {
+  LanguageController,
+  type LinkRenderVariables,
   SbbDisabledMixin,
   SbbIconNameMixin,
+  resolveLinkOrStaticRenderVariables,
   SbbLinkBaseElement,
-} from '../../../core/common-behaviors/button-link';
+  targetsNewWindow,
+} from '../../../core/common-behaviors';
 import { setAttributes } from '../../../core/dom';
 import { i18nTargetOpensInNewWindow } from '../../../core/i18n';
-import { newResolveLinkOrStaticRenderVariables, targetsNewWindow } from '../../../core/interfaces';
 import '../../../icon';
 import { SbbMenuActionCommonElementMixin } from '../menu-action-common';
 
@@ -32,7 +34,7 @@ export class SbbMenuLinkElement extends SbbMenuActionCommonElementMixin(
       tagName: TAG_NAME,
       attributes,
       hostAttributes,
-    } = newResolveLinkOrStaticRenderVariables(this);
+    }: LinkRenderVariables = resolveLinkOrStaticRenderVariables(this);
     setAttributes(this, hostAttributes);
 
     /* eslint-disable lit/binding-positions */

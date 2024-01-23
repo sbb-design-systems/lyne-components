@@ -6,16 +6,14 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import {
   SbbDisabledMixin,
   SbbIconNameMixin,
-  SbbLinkBaseElement,
   SbbNegativeMixin,
-} from '../../core/common-behaviors/button-link';
+  LinkRenderVariables,
+  resolveLinkOrStaticRenderVariables,
+  SbbLinkBaseElement,
+  targetsNewWindow,
+} from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
 import { i18nTargetOpensInNewWindow } from '../../core/i18n';
-import {
-  LinkButtonRenderVariables,
-  targetsNewWindow,
-  newResolveLinkOrStaticRenderVariables,
-} from '../../core/interfaces';
 import '../../icon';
 import { SbbLinkCommonElementMixin } from '../link-common';
 
@@ -34,7 +32,7 @@ export class SbbLinkElement extends SbbLinkCommonElementMixin(
       tagName: TAG_NAME,
       attributes,
       hostAttributes,
-    }: LinkButtonRenderVariables = newResolveLinkOrStaticRenderVariables(this);
+    }: LinkRenderVariables = resolveLinkOrStaticRenderVariables(this);
 
     // ## Migr: Host attributes ##
     setAttributes(this, hostAttributes);

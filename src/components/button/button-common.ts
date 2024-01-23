@@ -4,6 +4,7 @@ import { property } from 'lit/decorators.js';
 import { Constructor, NamedSlotStateController } from '../core/common-behaviors';
 import { ACTION_ELEMENTS, hostContext, toggleDatasetEntry } from '../core/dom';
 import { actionElementHandlerAspect, HandlerRepository } from '../core/eventing';
+import type { IsStaticProperty } from '../core/interfaces';
 
 import '../icon';
 
@@ -22,7 +23,10 @@ export declare class SbbButtonCommonInterface {
 export const SbbButtonCommonElementMixin = <T extends Constructor<LitElement>>(
   superClass: T,
 ): Constructor<SbbButtonCommonInterface> & T => {
-  class SbbButtonCommonElement extends superClass implements Partial<SbbButtonCommonInterface> {
+  class SbbButtonCommonElement
+    extends superClass
+    implements Partial<SbbButtonCommonInterface>, IsStaticProperty
+  {
     public static styles: CSSResultGroup = style;
     /** Variant of the button, like primary, secondary etc. */
     @property({ reflect: true }) public variant: SbbButtonVariant = 'primary';

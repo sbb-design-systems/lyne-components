@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { LanguageController } from '../../core/common-behaviors';
+import { LanguageController, resolveButtonRenderVariables } from '../../core/common-behaviors';
 import { hostContext, isValidAttribute, setAttribute, setAttributes } from '../../core/dom';
 import {
   HandlerRepository,
@@ -10,8 +10,6 @@ import {
   ConnectedAbortController,
 } from '../../core/eventing';
 import { i18nClearInput } from '../../core/i18n';
-import type { ButtonProperties } from '../../core/interfaces';
-import { resolveButtonRenderVariables } from '../../core/interfaces';
 import type { SbbFormFieldElement } from '../form-field';
 import '../../icon';
 
@@ -63,9 +61,7 @@ export class SbbFormFieldClearElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    const { hostAttributes } = resolveButtonRenderVariables(this as ButtonProperties);
-
-    setAttributes(this, hostAttributes);
+    setAttributes(this, resolveButtonRenderVariables());
     setAttribute(this, 'slot', 'suffix');
     setAttribute(this, 'aria-label', i18nClearInput[this._language.current]);
 

@@ -3,13 +3,13 @@ import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import {
-  SbbButtonBaseElement,
   SbbDisabledMixin,
   SbbIconNameMixin,
-} from '../../../core/common-behaviors/button-link';
+  resolveButtonRenderVariables,
+  SbbButtonBaseElement,
+} from '../../../core/common-behaviors';
 import { setAttributes } from '../../../core/dom';
 import '../../../icon';
-import { newResolveButtonOrStaticRenderVariables } from '../../../core/interfaces';
 import { SbbMenuActionCommonElementMixin } from '../menu-action-common';
 
 /**
@@ -23,7 +23,7 @@ export class SbbMenuButtonElement extends SbbMenuActionCommonElementMixin(
   SbbIconNameMixin(SbbDisabledMixin(SbbButtonBaseElement)),
 ) {
   protected override render(): TemplateResult {
-    setAttributes(this, newResolveButtonOrStaticRenderVariables(false, this.disabled));
+    setAttributes(this, resolveButtonRenderVariables(this.disabled));
 
     return html`
       <span class="sbb-menu-action">

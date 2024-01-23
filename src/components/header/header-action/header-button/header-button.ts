@@ -2,9 +2,12 @@ import { nothing, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbButtonBaseElement, SbbIconNameMixin } from '../../../core/common-behaviors/button-link';
+import {
+  SbbIconNameMixin,
+  resolveButtonRenderVariables,
+  SbbButtonBaseElement,
+} from '../../../core/common-behaviors';
 import { setAttributes } from '../../../core/dom';
-import { newResolveButtonOrStaticRenderVariables } from '../../../core/interfaces';
 import '../../../icon';
 import { SbbHeaderActionCommonElementMixin } from '../header-action-common';
 
@@ -19,7 +22,7 @@ export class SbbHeaderButtonElement extends SbbHeaderActionCommonElementMixin(
   SbbIconNameMixin(SbbButtonBaseElement),
 ) {
   protected override render(): TemplateResult {
-    setAttributes(this, newResolveButtonOrStaticRenderVariables(false, false));
+    setAttributes(this, resolveButtonRenderVariables());
 
     return html`
       <span class="sbb-header-action">

@@ -3,15 +3,15 @@ import { nothing, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { LanguageController } from '../../../core/common-behaviors';
-import { SbbLinkBaseElement } from '../../../core/common-behaviors/button-link';
+import {
+  LanguageController,
+  type LinkRenderVariables,
+  resolveLinkOrStaticRenderVariables,
+  SbbLinkBaseElement,
+  targetsNewWindow,
+} from '../../../core/common-behaviors';
 import { setAttribute, setAttributes } from '../../../core/dom';
 import { i18nTargetOpensInNewWindow } from '../../../core/i18n';
-import {
-  LinkButtonRenderVariables,
-  newResolveLinkOrStaticRenderVariables,
-  targetsNewWindow,
-} from '../../../core/interfaces';
 import { SbbCardActionCommonElementMixin } from '../card-action-common';
 
 /**
@@ -29,7 +29,7 @@ export class SbbCardLinkElement extends SbbCardActionCommonElementMixin(SbbLinkB
       tagName: TAG_NAME,
       attributes,
       hostAttributes,
-    }: LinkButtonRenderVariables = newResolveLinkOrStaticRenderVariables(this); // fixme no isStatic
+    }: LinkRenderVariables = resolveLinkOrStaticRenderVariables(this);
 
     if (this.card) {
       this.card.dataset.actionRole = hostAttributes.role;

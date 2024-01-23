@@ -2,9 +2,8 @@ import { TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbButtonBaseElement } from '../../../core/common-behaviors/button-link';
+import { resolveButtonRenderVariables, SbbButtonBaseElement } from '../../../core/common-behaviors';
 import { setAttribute, setAttributes } from '../../../core/dom';
-import { newResolveButtonOrStaticRenderVariables } from '../../../core/interfaces';
 import { SbbCardActionCommonElementMixin } from '../card-action-common';
 
 /**
@@ -16,7 +15,7 @@ import { SbbCardActionCommonElementMixin } from '../card-action-common';
 @customElement('sbb-card-button')
 export class SbbCardButtonElement extends SbbCardActionCommonElementMixin(SbbButtonBaseElement) {
   protected override render(): TemplateResult {
-    const hostAttributes = newResolveButtonOrStaticRenderVariables(false, false); // fixme
+    const hostAttributes = resolveButtonRenderVariables();
 
     if (this.card) {
       this.card.dataset.actionRole = hostAttributes.role;

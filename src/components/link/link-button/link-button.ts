@@ -3,13 +3,13 @@ import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import {
-  SbbButtonBaseElement,
   SbbDisabledMixin,
   SbbIconNameMixin,
   SbbNegativeMixin,
-} from '../../core/common-behaviors/button-link';
+  resolveButtonOrStaticRenderVariables,
+  SbbButtonBaseElement,
+} from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
-import { newResolveButtonOrStaticRenderVariables } from '../../core/interfaces';
 import '../../icon';
 import { SbbLinkCommonElementMixin } from '../link-common';
 
@@ -25,7 +25,7 @@ export class SbbLinkButtonElement extends SbbLinkCommonElementMixin(
 ) {
   protected override render(): TemplateResult {
     // ## Migr: Host attributes ##
-    setAttributes(this, newResolveButtonOrStaticRenderVariables(this.isStatic, this.disabled));
+    setAttributes(this, resolveButtonOrStaticRenderVariables(this.isStatic, this.disabled));
     // ####
 
     /* eslint-disable lit/binding-positions */

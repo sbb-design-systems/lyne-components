@@ -3,15 +3,15 @@ import { nothing, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { LanguageController } from '../../../core/common-behaviors';
-import { SbbLinkBaseElement } from '../../../core/common-behaviors/button-link';
+import {
+  LanguageController,
+  type LinkRenderVariables,
+  resolveLinkOrStaticRenderVariables,
+  SbbLinkBaseElement,
+  targetsNewWindow,
+} from '../../../core/common-behaviors';
 import { setAttributes } from '../../../core/dom';
 import { i18nTargetOpensInNewWindow } from '../../../core/i18n';
-import {
-  LinkButtonRenderVariables,
-  newResolveLinkOrStaticRenderVariables,
-  targetsNewWindow,
-} from '../../../core/interfaces';
 import { SbbNavigationActionCommonElementMixin } from '../navigation-action-common';
 
 /**
@@ -30,7 +30,7 @@ export class SbbNavigationLinkElement extends SbbNavigationActionCommonElementMi
       tagName: TAG_NAME,
       attributes,
       hostAttributes,
-    }: LinkButtonRenderVariables = newResolveLinkOrStaticRenderVariables(this); // fixme no static
+    }: LinkRenderVariables = resolveLinkOrStaticRenderVariables(this);
 
     setAttributes(this, hostAttributes);
 

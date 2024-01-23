@@ -2,10 +2,13 @@ import { spread } from '@open-wc/lit-helpers';
 import { type CSSResultGroup, html, LitElement, nothing, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { LanguageController } from '../../core/common-behaviors';
+import {
+  LanguageController,
+  type LinkProperties,
+  type LinkTargetType,
+} from '../../core/common-behaviors';
 import { EventEmitter } from '../../core/eventing';
 import { i18nCloseAlert, i18nFindOutMore } from '../../core/i18n';
-import type { LinkProperties, LinkTargetType } from '../../core/interfaces';
 import type { TitleLevel } from '../../title';
 
 import style from './alert.scss?lit&inline';

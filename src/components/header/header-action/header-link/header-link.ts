@@ -3,11 +3,16 @@ import { nothing, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { LanguageController } from '../../../core/common-behaviors';
-import { SbbIconNameMixin, SbbLinkBaseElement } from '../../../core/common-behaviors/button-link';
+import {
+  LanguageController,
+  LinkRenderVariables,
+  SbbIconNameMixin,
+  resolveLinkOrStaticRenderVariables,
+  SbbLinkBaseElement,
+  targetsNewWindow,
+} from '../../../core/common-behaviors';
 import { setAttributes } from '../../../core/dom';
 import { i18nTargetOpensInNewWindow } from '../../../core/i18n';
-import { newResolveLinkOrStaticRenderVariables, targetsNewWindow } from '../../../core/interfaces';
 import '../../../icon';
 import { SbbHeaderActionCommonElementMixin } from '../header-action-common';
 
@@ -28,7 +33,7 @@ export class SbbHeaderLinkElement extends SbbHeaderActionCommonElementMixin(
       tagName: TAG_NAME,
       attributes,
       hostAttributes,
-    } = newResolveLinkOrStaticRenderVariables(this); // fixme no isStatic
+    }: LinkRenderVariables = resolveLinkOrStaticRenderVariables(this);
     setAttributes(this, hostAttributes);
 
     /* eslint-disable lit/binding-positions */

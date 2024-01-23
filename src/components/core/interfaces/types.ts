@@ -36,3 +36,8 @@ declare global {
     stateChange: CustomEvent<SbbStateChange>;
   }
 }
+
+/** Indicates that a class or object can be static/non-interactive. */
+export interface IsStaticProperty {
+  isStatic: boolean;
+}

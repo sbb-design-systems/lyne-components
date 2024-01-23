@@ -2,9 +2,8 @@ import { TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbButtonBaseElement } from '../../../core/common-behaviors/button-link';
+import { resolveButtonRenderVariables, SbbButtonBaseElement } from '../../../core/common-behaviors';
 import { setAttributes } from '../../../core/dom';
-import { newResolveButtonOrStaticRenderVariables } from '../../../core/interfaces';
 import { SbbNavigationActionCommonElementMixin } from '../navigation-action-common';
 
 /**
@@ -17,7 +16,7 @@ export class SbbNavigationButtonElement extends SbbNavigationActionCommonElement
   SbbButtonBaseElement,
 ) {
   protected override render(): TemplateResult {
-    setAttributes(this, newResolveButtonOrStaticRenderVariables(false, false)); // fixme no static no disabled
+    setAttributes(this, resolveButtonRenderVariables());
 
     return html`
       <span class="sbb-navigation-action">

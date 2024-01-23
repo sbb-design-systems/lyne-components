@@ -2,7 +2,10 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { NamedSlotStateController } from '../../core/common-behaviors';
+import {
+  NamedSlotStateController,
+  resolveButtonRenderVariables,
+} from '../../core/common-behaviors';
 import { setAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
 import {
   actionElementHandlerAspect,
@@ -10,7 +13,6 @@ import {
   EventEmitter,
   ConnectedAbortController,
 } from '../../core/eventing';
-import { resolveButtonRenderVariables } from '../../core/interfaces';
 import type { SbbExpansionPanelElement } from '../expansion-panel';
 
 import style from './expansion-panel-header.scss?lit&inline';
@@ -91,9 +93,7 @@ export class SbbExpansionPanelHeaderElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    const { hostAttributes } = resolveButtonRenderVariables(this);
-
-    setAttributes(this, hostAttributes);
+    setAttributes(this, resolveButtonRenderVariables(this.disabled));
     setAttribute(this, 'slot', 'header');
     this._setDataIconAttribute();
 

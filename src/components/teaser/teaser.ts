@@ -4,12 +4,17 @@ import { LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { LanguageController, NamedSlotStateController } from '../core/common-behaviors';
+import {
+  LanguageController,
+  type LinkRenderVariables,
+  LinkProperties,
+  LinkTargetType,
+  resolveLinkOrStaticRenderVariables,
+  targetsNewWindow,
+} from '../core/common-behaviors';
 import { setAttributes } from '../core/dom';
 import { HandlerRepository, linkHandlerAspect } from '../core/eventing';
 import { i18nTargetOpensInNewWindow } from '../core/i18n';
-import type { LinkProperties, LinkTargetType } from '../core/interfaces';
-import { resolveLinkOrStaticRenderVariables, targetsNewWindow } from '../core/interfaces';
 import type { TitleLevel } from '../title';
 import '../title';
 import '../chip';
@@ -73,7 +78,7 @@ export class SbbTeaserElement extends LitElement implements LinkProperties {
       tagName: TAG_NAME,
       attributes,
       hostAttributes,
-    } = resolveLinkOrStaticRenderVariables(this);
+    }: LinkRenderVariables = resolveLinkOrStaticRenderVariables(this);
 
     setAttributes(this, hostAttributes);
 

@@ -2,9 +2,12 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { LanguageController } from '../../core/common-behaviors';
-import type { DateAdapter } from '../../core/datetime';
-import { defaultDateAdapter } from '../../core/datetime';
+import {
+  LanguageController,
+  type ButtonProperties,
+  resolveButtonRenderVariables,
+} from '../../core/common-behaviors';
+import { DateAdapter, defaultDateAdapter } from '../../core/datetime';
 import { isValidAttribute, setAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
 import {
   ConnectedAbortController,
@@ -12,8 +15,6 @@ import {
   actionElementHandlerAspect,
 } from '../../core/eventing';
 import { i18nNextDay, i18nSelectNextDay, i18nToday } from '../../core/i18n';
-import type { ButtonProperties } from '../../core/interfaces';
-import { resolveButtonRenderVariables } from '../../core/interfaces';
 import {
   datepickerControlRegisteredEventFactory,
   findNextAvailableDate,
@@ -199,10 +200,7 @@ export class SbbDatepickerNextDayElement extends LitElement implements ButtonPro
 
   protected override render(): TemplateResult {
     toggleDatasetEntry(this, 'disabled', this._disabled || this._inputDisabled);
-    const { hostAttributes } = resolveButtonRenderVariables({
-      ...this,
-      disabled: isValidAttribute(this, 'data-disabled'),
-    });
+    const hostAttributes = resolveButtonRenderVariables(isValidAttribute(this, 'data-disabled'));
 
     setAttributes(this, hostAttributes);
     setAttribute(this, 'slot', 'suffix');

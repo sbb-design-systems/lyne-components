@@ -1,4 +1,5 @@
-import type { IsStaticProperty, LinkButtonProperties } from '../interfaces';
+import type { ButtonProperties, LinkProperties } from '../common-behaviors';
+import type { IsStaticProperty } from '../interfaces';
 
 import type { HandlerAspect } from './handler-repository';
 import { isEventPrevented } from './is-event-prevented';
@@ -38,7 +39,7 @@ async function triggerAnchorWhenNecessary(event: MouseEvent): Promise<void> {
 }
 
 function handleLinkClick(event: MouseEvent): void {
-  const element = event.target as HTMLElement & Partial<LinkButtonProperties & IsStaticProperty>;
+  const element = event.target as HTMLElement & Partial<LinkProperties & IsStaticProperty>;
   if (!element.isStatic && element.href) {
     triggerAnchorWhenNecessary(event);
   }
@@ -46,7 +47,8 @@ function handleLinkClick(event: MouseEvent): void {
 
 /** Handle the click logic for an action element. */
 function handleLinkButtonClick(event: MouseEvent): void {
-  const element = event.target as HTMLElement & Partial<LinkButtonProperties & IsStaticProperty>;
+  const element = event.target as HTMLElement &
+    Partial<LinkProperties & ButtonProperties & IsStaticProperty>;
   if (element.isStatic) {
     return;
   } else if (element.disabled) {

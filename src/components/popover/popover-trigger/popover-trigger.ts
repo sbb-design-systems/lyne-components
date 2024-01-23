@@ -2,9 +2,9 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { resolveButtonRenderVariables } from '../../core/common-behaviors';
 import { hostContext, isValidAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
 import { HandlerRepository, actionElementHandlerAspect } from '../../core/eventing';
-import { resolveButtonRenderVariables } from '../../core/interfaces';
 
 import style from './popover-trigger.scss?lit&inline';
 import '../../icon';
@@ -53,9 +53,7 @@ export class SbbPopoverTriggerElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    const { hostAttributes } = resolveButtonRenderVariables(this);
-
-    setAttributes(this, hostAttributes);
+    setAttributes(this, resolveButtonRenderVariables(this.disabled));
 
     return html`
       <span class="sbb-popover-trigger">

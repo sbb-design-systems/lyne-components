@@ -4,12 +4,17 @@ import { LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { LanguageController, SlotChildObserver } from '../../core/common-behaviors';
+import {
+  LanguageController,
+  type LinkRenderVariables,
+  type LinkTargetType,
+  resolveLinkOrStaticRenderVariables,
+  SlotChildObserver,
+  targetsNewWindow,
+} from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
 import { actionElementHandlerAspect, HandlerRepository } from '../../core/eventing';
 import { i18nTargetOpensInNewWindow } from '../../core/i18n';
-import type { LinkTargetType } from '../../core/interfaces';
-import { resolveLinkOrStaticRenderVariables, targetsNewWindow } from '../../core/interfaces';
 
 import style from './breadcrumb.scss?lit&inline';
 
@@ -70,7 +75,7 @@ export class SbbBreadcrumbElement extends SlotChildObserver(LitElement) {
       tagName: TAG_NAME,
       attributes,
       hostAttributes,
-    } = resolveLinkOrStaticRenderVariables(this);
+    }: LinkRenderVariables = resolveLinkOrStaticRenderVariables(this);
 
     setAttributes(this, hostAttributes);
 

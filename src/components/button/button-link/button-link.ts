@@ -3,16 +3,18 @@ import { nothing, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { LanguageController } from '../../core/common-behaviors';
 import {
-  SbbLinkBaseElement,
-  SbbNegativeMixin,
-  SbbIconNameMixin,
+  LanguageController,
+  LinkRenderVariables,
   SbbDisabledMixin,
-} from '../../core/common-behaviors/button-link';
+  SbbIconNameMixin,
+  SbbNegativeMixin,
+  SbbLinkBaseElement,
+  resolveLinkOrStaticRenderVariables,
+  targetsNewWindow,
+} from '../../core/common-behaviors';
 import { isValidAttribute, setAttributes } from '../../core/dom';
 import { i18nTargetOpensInNewWindow } from '../../core/i18n';
-import { newResolveLinkOrStaticRenderVariables, targetsNewWindow } from '../../core/interfaces';
 import { SbbButtonCommonElementMixin } from '../button-common';
 
 /**
@@ -41,7 +43,7 @@ export class SbbButtonLinkElement extends SbbButtonCommonElementMixin(
       tagName: TAG_NAME,
       attributes,
       hostAttributes,
-    } = newResolveLinkOrStaticRenderVariables(this);
+    }: LinkRenderVariables = resolveLinkOrStaticRenderVariables(this);
 
     // ## Migr: Host attributes ##
     setAttributes(this, hostAttributes);
