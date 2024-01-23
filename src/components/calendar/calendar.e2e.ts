@@ -136,8 +136,8 @@ describe('sbb-calendar', () => {
 
     expect(yearSelectionButton).not.to.be.null;
     yearSelectionButton.click();
-    await waitForCondition(() => animationSpy.events.length >= 1);
     await waitForLitRender(element);
+    await waitForCondition(() => animationSpy.events.length == 1);
 
     const yearSelection: HTMLElement = element.shadowRoot!.querySelector(
       '#sbb-calendar__year-selection',
@@ -364,12 +364,18 @@ describe('sbb-calendar', () => {
       const table: HTMLElement = element.shadowRoot!.querySelector('table') as HTMLTableElement;
       const animationSpy = new EventSpy('animationend', table);
 
+      expect(yearSelectionButton).not.to.be.null;
       yearSelectionButton.click();
       await waitForCondition(() => animationSpy.events.length >= 1);
       await waitForLitRender(element);
-      const selectedYear = Array.from(
-        element.shadowRoot!.querySelectorAll('.sbb-calendar__cell'),
-      ).find((e) => (e as HTMLElement).innerText === '2023') as HTMLElement;
+
+      const years = Array.from(element.shadowRoot!.querySelectorAll('.sbb-calendar__cell'));
+      expect(years.length).to.equal(24);
+
+      const selectedYear = years.find(
+        (e) => (e as HTMLElement).innerText === '2023',
+      ) as HTMLElement;
+      await waitForLitRender(element);
       selectedYear.focus();
     });
 
