@@ -3,7 +3,7 @@ import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
@@ -152,7 +152,7 @@ const WithCheckboxGroupTemplate = ({
   <sbb-checkbox-group
     orientation="vertical"
     horizontal-from="large"
-    style="${isChromatic() ? 'min-height: 750px;' : ''}"
+    style="${isChromatic() ? 'min-height: 750px;' : nothing}"
   >
     <sbb-selection-panel ${sbbSpread(args)}>
       ${cardBadge()}
@@ -184,7 +184,7 @@ const WithRadioButtonGroupTemplate = ({
     orientation="vertical"
     horizontal-from="large"
     ?allow-empty-selection=${allowEmptySelection}
-    style="${isChromatic() ? 'min-height: 750px;' : ''}"
+    style="${isChromatic() ? 'min-height: 750px;' : nothing}"
   >
     <sbb-selection-panel ${sbbSpread(args)}>
       ${cardBadge()}
@@ -218,7 +218,7 @@ const TicketsOptionsExampleTemplate = ({
   <sbb-checkbox-group
     orientation="vertical"
     horizontal-from="large"
-    style="${isChromatic() ? 'min-height: 750px;' : ''}"
+    style="${isChromatic() ? 'min-height: 750px;' : nothing}"
   >
     <sbb-selection-panel ${sbbSpread(args)}>
       ${cardBadge()}
@@ -350,7 +350,7 @@ const NestedCheckboxTemplate = ({
   <sbb-checkbox-group
     orientation="vertical"
     horizontal-from="large"
-    style="${isChromatic() ? 'min-height: 350px;' : ''}"
+    style="${isChromatic() ? 'min-height: 350px;' : nothing}"
   >
     <sbb-selection-panel ${sbbSpread(args)}>
       <sbb-checkbox value="mainoption1" ?checked=${checkedInput}> Main Option 1 </sbb-checkbox>
@@ -383,7 +383,7 @@ const WithCheckboxesErrorMessageTemplate = ({
     <sbb-checkbox-group
       orientation="vertical"
       horizontal-from="large"
-      style="${isChromatic() ? 'min-height: 750px;' : ''}"
+      style="${isChromatic() ? 'min-height: 750px;' : nothing}"
       @change=${(event: Event) => {
         const checkboxGroup = event.currentTarget as HTMLElement;
         const hasChecked = Array.from(checkboxGroup.querySelectorAll('sbb-checkbox')).some(
