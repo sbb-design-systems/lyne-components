@@ -237,9 +237,7 @@ const meta: Meta = {
   decorators: [
     (story, context) =>
       html`<div
-        style="padding: 2rem;display: flex;gap: var(--sbb-spacing-fixed-4x);flex-direction: column;${isChromatic()
-          ? 'min-height: 1000px;'
-          : ''}"
+        style="padding: 2rem;display: flex;gap: var(--sbb-spacing-fixed-4x);flex-direction: column;"
       >
         ${trigger(context.args)}
         <div class="notification-container" style="display: flex; flex-direction: column;">
@@ -250,6 +248,7 @@ const meta: Meta = {
     withActions as Decorator,
   ],
   parameters: {
+    chromatic: { fixedHeight: '7500px' },
     actions: {
       handles: [
         SbbNotificationElement.events.didOpen,
