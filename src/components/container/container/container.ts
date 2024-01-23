@@ -1,4 +1,10 @@
-import { CSSResultGroup, html, LitElement, PropertyValueMap, TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  LitElement,
+  type PropertyValueMap,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { toggleDatasetEntry } from '../../core/dom';
