@@ -11,6 +11,10 @@ import { SbbCalendarElement } from './calendar';
 describe('sbb-calendar', () => {
   const selected = new Date(2023, 0, 15).getTime() / 1000;
   let element: SbbCalendarElement;
+  const waitForTransition = async (): Promise<void> => {
+    await waitForCondition(() => element.hasAttribute('data-transition') === true);
+    await waitForCondition(() => element.hasAttribute('data-transition') === false);
+  };
 
   beforeEach(async () => {
     element = await fixture(
@@ -129,15 +133,10 @@ describe('sbb-calendar', () => {
     const yearSelectionButton: HTMLElement = element.shadowRoot!.querySelector(
       '#sbb-calendar__date-selection',
     )!;
-    let animationSpy = new EventSpy(
-      'animationend',
-      element.shadowRoot!.querySelector('table') as HTMLTableElement,
-    );
 
     expect(yearSelectionButton).not.to.be.null;
     yearSelectionButton.click();
-    await waitForLitRender(element);
-    await waitForCondition(() => animationSpy.events.length == 1);
+    await waitForTransition();
 
     const yearSelection: HTMLElement = element.shadowRoot!.querySelector(
       '#sbb-calendar__year-selection',
@@ -162,22 +161,14 @@ describe('sbb-calendar', () => {
       </td>
     `);
 
-    animationSpy = new EventSpy(
-      'animationend',
-      element.shadowRoot!.querySelector('table') as HTMLTableElement,
-    );
-
     const selectedYear: HTMLElement = yearCells.find((e) => e.innerText === '2023')!;
     const yearButton: HTMLElement = selectedYear.querySelector('button')!;
     expect(yearButton).to.have.class('sbb-calendar__selected');
     expect(yearCells[yearCells.length - 1].innerText).to.be.equal('2039');
 
     yearButton.click();
-    await waitForCondition(() => animationSpy.events.length >= 1); //Wait for hide table transition
 
-    animationSpy = new EventSpy('animationend', element.shadowRoot!.querySelector('table')); // Listen for the event on new table
-
-    await waitForCondition(() => animationSpy.events.length >= 1); //Wait for new table's transition to end
+    await waitForTransition();
 
     const monthSelection: HTMLElement = element.shadowRoot!.querySelector(
       '#sbb-calendar__month-selection',
@@ -202,16 +193,10 @@ describe('sbb-calendar', () => {
       </td>
     `);
 
-    animationSpy = new EventSpy(
-      'animationend',
-      element.shadowRoot!.querySelector('table') as HTMLTableElement,
-    );
-
     monthCells[0].querySelector('button')!.click();
     await waitForLitRender(element);
 
-    await waitForCondition(() => animationSpy.events.length >= 1);
-    await waitForLitRender(element);
+    await waitForTransition();
 
     const dayCells = Array.from(element.shadowRoot!.querySelectorAll('.sbb-calendar__day'));
     expect(dayCells.length).to.be.equal(31);
@@ -361,13 +346,9 @@ describe('sbb-calendar', () => {
         '#sbb-calendar__date-selection',
       )!;
 
-      const table: HTMLElement = element.shadowRoot!.querySelector('table') as HTMLTableElement;
-      const animationSpy = new EventSpy('animationend', table);
-
       expect(yearSelectionButton).not.to.be.null;
       yearSelectionButton.click();
-      await waitForCondition(() => animationSpy.events.length >= 1);
-      await waitForLitRender(element);
+      await waitForTransition();
 
       const years = Array.from(element.shadowRoot!.querySelectorAll('.sbb-calendar__cell'));
       expect(years.length).to.equal(24);
