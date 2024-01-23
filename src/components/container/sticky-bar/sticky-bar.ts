@@ -1,4 +1,4 @@
-import { CSSResultGroup, html, LitElement, TemplateResult } from 'lit';
+import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { setAttribute, toggleDatasetEntry } from '../../core/dom';
@@ -14,14 +14,14 @@ import style from './sticky-bar.scss?lit&inline';
 export class SbbStickyBarElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  private _intersector: HTMLSpanElement;
+  private _intersector?: HTMLSpanElement;
   private _observer = new AgnosticIntersectionObserver((entries) =>
     this._toggleShadowVisibility(entries[0]),
   );
 
   protected override firstUpdated(): void {
     if (!this._intersector) {
-      this._intersector = this.shadowRoot.querySelector?.('.sbb-sticky-bar__intersector');
+      this._intersector = this.shadowRoot!.querySelector('.sbb-sticky-bar__intersector')!;
     }
     this._observer.observe(this._intersector);
   }

@@ -1,6 +1,6 @@
 import type { InputType } from '@storybook/types';
 import type { ArgTypes, Args, Meta, StoryObj } from '@storybook/web-components';
-import { TemplateResult, html } from 'lit';
+import { type TemplateResult, html } from 'lit';
 
 import { sbbSpread } from '../../core/dom';
 
@@ -52,7 +52,7 @@ const Template = (): TemplateResult =>
     <sbb-button variant="secondary">Example</sbb-button>
   </sbb-sticky-bar>`;
 
-const DefaultTemplate = ({ color, ...args }): TemplateResult => html`
+const DefaultTemplate = ({ color, ...args }: Args): TemplateResult => html`
   <sbb-container ${sbbSpread(args)} color=${color}>
     ${containerContent('Example title', color)} ${containerContent('Another one', color)}
     ${containerContent('And another one', color)} ${containerContent('And a last one', color)}
@@ -63,7 +63,7 @@ const DefaultTemplate = ({ color, ...args }): TemplateResult => html`
   </sbb-container>
 `;
 
-const ShortTemplate = ({ color, ...args }): TemplateResult => html`
+const ShortTemplate = ({ color, ...args }: Args): TemplateResult => html`
   <sbb-container ${sbbSpread(args)} color=${color}>
     ${containerContent('Example title', color)}
 
@@ -73,7 +73,7 @@ const ShortTemplate = ({ color, ...args }): TemplateResult => html`
   </sbb-container>
 `;
 
-const WithStickybarTemplate = ({ color, ...args }): TemplateResult => html`
+const WithStickybarTemplate = ({ color, ...args }: Args): TemplateResult => html`
   <sbb-container ${sbbSpread(args)} color=${color}>
     ${containerContent('Example title', color)} ${containerContent('Another one', color)}
     ${containerContent('And another one', color)} ${containerContent('And a last one', color)}

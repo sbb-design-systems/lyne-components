@@ -1,6 +1,6 @@
 import type { InputType } from '@storybook/types';
 import type { ArgTypes, Args, Meta, StoryObj } from '@storybook/web-components';
-import { TemplateResult, html } from 'lit';
+import { type TemplateResult, html } from 'lit';
 
 import { sbbSpread } from '../../core/dom';
 
@@ -48,7 +48,7 @@ const defaultArgs: Args = {
   color: color.options[0],
 };
 
-const DefaultTemplate = ({ color, ...args }): TemplateResult => html`
+const DefaultTemplate = ({ color, ...args }: Args): TemplateResult => html`
   <sbb-container ${sbbSpread(args)} color=${color} style="padding-block-end: 3rem;">
     ${containerContent('Example title', color)} ${containerContent('Another one', color)}
     ${containerContent('And another one', color)}

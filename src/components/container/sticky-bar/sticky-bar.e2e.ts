@@ -3,7 +3,7 @@ import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { waitForCondition, waitForLitRender } from '../../core/testing';
-import { SbbStickyBarElement, SbbContainerElement } from '../index';
+import { SbbStickyBarElement, type SbbContainerElement } from '../index';
 
 describe('sbb-sticky-bar', () => {
   let container: SbbContainerElement;
@@ -25,7 +25,7 @@ describe('sbb-sticky-bar', () => {
         <sbb-sticky-bar></sbb-sticky-bar>
       </sbb-container>
     `);
-    stickyBar = container.querySelector('sbb-sticky-bar');
+    stickyBar = container.querySelector('sbb-sticky-bar')!;
   });
 
   it('renders', async () => {
@@ -53,7 +53,7 @@ describe('sbb-sticky-bar', () => {
         </sbb-sticky-bar>
       </sbb-container>
     `);
-    stickyBar = container.querySelector('sbb-sticky-bar');
+    stickyBar = container.querySelector('sbb-sticky-bar')!;
 
     await waitForCondition(async () => !getIsSticking());
 
@@ -69,7 +69,7 @@ describe('sbb-sticky-bar', () => {
         </sbb-sticky-bar>
       </sbb-container>
     `);
-    stickyBar = container.querySelector('sbb-sticky-bar');
+    stickyBar = container.querySelector('sbb-sticky-bar')!;
 
     expect(stickyBar).to.have.attribute('data-expanded');
   });
