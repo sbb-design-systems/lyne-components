@@ -121,10 +121,7 @@ const WithCheckboxTemplate = ({
   disabledInput,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-selection-panel
-    ${sbbSpread(args)}
-    style="${isChromatic() ? 'min-height: 250px; display: block;' : nothing}"
-  >
+  <sbb-selection-panel ${sbbSpread(args)}>
     ${cardBadge()}
     <sbb-checkbox ?checked=${checkedInput} ?disabled=${disabledInput}>
       Value one ${suffixAndSubtext()}
@@ -138,10 +135,7 @@ const WithRadioButtonTemplate = ({
   disabledInput,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-selection-panel
-    ${sbbSpread(args)}
-    style="${isChromatic() ? 'min-height: 250px; display: block;' : nothing}"
-  >
+  <sbb-selection-panel ${sbbSpread(args)}>
     ${cardBadge()}
     <sbb-radio-button value="Value one" ?checked=${checkedInput} ?disabled=${disabledInput}>
       Value one ${suffixAndSubtext()}
@@ -155,11 +149,7 @@ const WithCheckboxGroupTemplate = ({
   disabledInput,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-checkbox-group
-    orientation="vertical"
-    horizontal-from="large"
-    style="${isChromatic() ? 'min-height: 750px;' : nothing}"
-  >
+  <sbb-checkbox-group orientation="vertical" horizontal-from="large">
     <sbb-selection-panel ${sbbSpread(args)}>
       ${cardBadge()}
       <sbb-checkbox ?checked=${checkedInput}> Value one ${suffixAndSubtext()} </sbb-checkbox>
@@ -190,7 +180,6 @@ const WithRadioButtonGroupTemplate = ({
     orientation="vertical"
     horizontal-from="large"
     ?allow-empty-selection=${allowEmptySelection}
-    style="${isChromatic() ? 'min-height: 750px;' : nothing}"
   >
     <sbb-selection-panel ${sbbSpread(args)}>
       ${cardBadge()}
@@ -221,11 +210,7 @@ const TicketsOptionsExampleTemplate = ({
   disabledInput,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-checkbox-group
-    orientation="vertical"
-    horizontal-from="large"
-    style="${isChromatic() ? 'min-height: 750px;' : nothing}"
-  >
+  <sbb-checkbox-group orientation="vertical" horizontal-from="large">
     <sbb-selection-panel ${sbbSpread(args)}>
       ${cardBadge()}
       <sbb-checkbox ?checked=${checkedInput}> Saving ${suffixAndSubtext()} </sbb-checkbox>
@@ -325,11 +310,7 @@ const NestedRadioTemplate = ({
   disabledInput,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-radio-button-group
-    orientation="vertical"
-    horizontal-from="large"
-    style="${isChromatic() ? 'min-height: 350px;' : nothing}"
-  >
+  <sbb-radio-button-group orientation="vertical" horizontal-from="large">
     <sbb-selection-panel ${sbbSpread(args)}>
       <sbb-radio-button value="mainoption1" ?checked=${checkedInput}>
         Main Option 1
@@ -357,11 +338,7 @@ const NestedCheckboxTemplate = ({
   disabledInput,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-checkbox-group
-    orientation="vertical"
-    horizontal-from="large"
-    style="${isChromatic() ? 'min-height: 350px;' : nothing}"
-  >
+  <sbb-checkbox-group orientation="vertical" horizontal-from="large">
     <sbb-selection-panel ${sbbSpread(args)}>
       <sbb-checkbox value="mainoption1" ?checked=${checkedInput}> Main Option 1 </sbb-checkbox>
       <sbb-checkbox-group orientation="vertical" slot="content">
@@ -393,7 +370,6 @@ const WithCheckboxesErrorMessageTemplate = ({
     <sbb-checkbox-group
       orientation="vertical"
       horizontal-from="large"
-      style="${isChromatic() ? 'min-height: 750px;' : nothing}"
       @change=${(event: Event) => {
         const checkboxGroup = event.currentTarget as HTMLElement;
         const hasChecked = Array.from(checkboxGroup.querySelectorAll('sbb-checkbox')).some(
@@ -443,7 +419,6 @@ const WithRadiosErrorMessageTemplate = ({
       horizontal-from="large"
       allow-empty-selection
       id="sbb-radio-group"
-      style="${isChromatic() ? 'min-height: 800px;' : nothing}"
       @change=${(event: CustomEvent<SbbRadioButtonGroupEventDetail>) => {
         if (event.detail.value) {
           sbbFormError.remove();
@@ -505,11 +480,7 @@ const WithNoContentGroupTemplate = ({
   disabledInput,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-radio-button-group
-    orientation="vertical"
-    horizontal-from="large"
-    style="${isChromatic() ? 'min-height: 500px;' : nothing}"
-  >
+  <sbb-radio-button-group orientation="vertical" horizontal-from="large">
     <sbb-selection-panel ${sbbSpread(args)}>
       ${cardBadge()}
       <sbb-radio-button value="Value one" ?disabled=${disabledInput}>
@@ -752,7 +723,7 @@ const meta: Meta = {
     withActions as Decorator,
   ],
   parameters: {
-    chromatic: { delay: 9000 },
+    chromatic: { delay: 9000, fixedHeight: '17000px' },
     actions: {
       handles: [
         SbbSelectionPanelElement.events.didOpen,
