@@ -75,7 +75,19 @@ async function generateChromaticStory(
   const chromaticImport = relative(dirname(targetStoryFile), chromaticFile).replace(/\.ts$/, '');
 
   /**
-   * TODO Document fixedHeight
+   * The `fixedHeight` param forces the height of the snapshot on chromatic.
+   * It might be useful in cases where some content is cut off at the end of a snapshot
+   * The max fixedHeight we can use is 17'000 (17k * 1440 =~ 25kk)
+   * Now, the max snapshot size is 25'000'000px.
+   *
+   * Example:
+   * ```
+   *  ...
+   *  parameters: {
+   *    chromatic: { fixedHeight: '17000px', ... },
+   *    ...
+   *  }
+   * ```
    */
   const fixedHeightStyle = fixedHeight ? `style="min-height: ${fixedHeight}"` : '';
 
