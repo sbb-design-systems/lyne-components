@@ -433,6 +433,7 @@ const WithRadiosErrorMessageTemplate = ({
       horizontal-from="large"
       allow-empty-selection
       id="sbb-radio-group"
+      style="${isChromatic() ? 'min-height: 800px;' : nothing}"
       @change=${(event: CustomEvent<SbbRadioButtonGroupEventDetail>) => {
         if (event.detail.value) {
           sbbFormError.remove();
@@ -494,7 +495,11 @@ const WithNoContentGroupTemplate = ({
   disabledInput,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-radio-button-group orientation="vertical" horizontal-from="large">
+  <sbb-radio-button-group
+    orientation="vertical"
+    horizontal-from="large"
+    style="${isChromatic() ? 'min-height: 500px;' : nothing}"
+  >
     <sbb-selection-panel ${sbbSpread(args)}>
       ${cardBadge()}
       <sbb-radio-button value="Value one" ?disabled=${disabledInput}>

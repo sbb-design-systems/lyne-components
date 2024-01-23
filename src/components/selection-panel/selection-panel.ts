@@ -97,7 +97,7 @@ export class SbbSelectionPanelElement extends LitElement {
    */
   public get hasContent(): boolean {
     // We cannot use the NamedSlots because it's too slow to initialize
-    return this.querySelectorAll?.('[slot="content"').length > 0;
+    return this.querySelectorAll?.('[slot="content"]').length > 0;
   }
 
   public constructor() {
