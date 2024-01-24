@@ -6,6 +6,8 @@ import { sbbSpread } from '../../core/dom';
 
 import '../../button';
 import '../../title';
+import '../../action-group';
+import '../../link';
 import readme from './readme.md?raw';
 import '../container';
 import './sticky-bar';
@@ -32,6 +34,27 @@ const defaultArgs: Args = {
   expanded: false,
   color: color.options[0],
 };
+
+const actionGroup = (negative: boolean): TemplateResult => html`
+  <sbb-action-group
+    align-group="stretch"
+    orientation="vertical"
+    horizontal-from="medium"
+    style="width:100%;"
+  >
+    <sbb-link
+      align-self="start"
+      icon-name="chevron-small-left-small"
+      href="https://www.sbb.ch/en/"
+      ?negative=${negative}
+      sbb-dialog-close
+    >
+      Link
+    </sbb-link>
+    <sbb-button variant="secondary" sbb-dialog-close ?negative=${negative}> Cancel </sbb-button>
+    <sbb-button variant="primary" sbb-dialog-close ?negative=${negative}> Confirm </sbb-button>
+  </sbb-action-group>
+`;
 
 const containerContent = (title: string, color: string): TemplateResult => html`
   <div style="overflow: auto;">
@@ -62,9 +85,7 @@ const DefaultTemplate = ({ color, ...args }: Args): TemplateResult => html`
     ${containerContent('Example title', color)} ${containerContent('Another one', color)}
     ${containerContent('And another one', color)} ${containerContent('And a last one', color)}
 
-    <sbb-sticky-bar>
-      <sbb-button style="margin-inline-start: auto">Continue</sbb-button>
-    </sbb-sticky-bar>
+    <sbb-sticky-bar> ${actionGroup(color === 'midnight')} </sbb-sticky-bar>
   </sbb-container>
 `;
 
@@ -72,9 +93,7 @@ const ShortTemplate = ({ color, ...args }: Args): TemplateResult => html`
   <sbb-container ${sbbSpread(args)} color=${color}>
     ${containerContent('Example title', color)}
 
-    <sbb-sticky-bar>
-      <sbb-button style="margin-inline-start: auto">Continue</sbb-button>
-    </sbb-sticky-bar>
+    <sbb-sticky-bar> ${actionGroup(color === 'midnight')} </sbb-sticky-bar>
   </sbb-container>
 `;
 
@@ -83,9 +102,7 @@ const WithStickybarTemplate = ({ color, ...args }: Args): TemplateResult => html
     ${containerContent('Example title', color)} ${containerContent('Another one', color)}
     ${containerContent('And another one', color)} ${containerContent('And a last one', color)}
 
-    <sbb-sticky-bar>
-      <sbb-button style="margin-inline-start: auto">Continue</sbb-button>
-    </sbb-sticky-bar>
+    <sbb-sticky-bar> ${actionGroup(color === 'midnight')} </sbb-sticky-bar>
   </sbb-container>
   <sbb-container color="milk" style="padding-block: 5rem">
     ${containerContent('Content after first container', color)}

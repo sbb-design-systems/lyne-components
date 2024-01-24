@@ -5,7 +5,6 @@ import { type TemplateResult, html } from 'lit';
 import { sbbSpread } from '../../core/dom';
 
 import '../../button';
-import '../../teaser';
 import '../../title';
 import './container';
 
