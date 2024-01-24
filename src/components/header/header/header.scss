@@ -142,7 +142,7 @@
   outline-offset: var(--sbb-spacing-fixed-3x);
 
   // As if the outline has an offset, the border radius increases, we set it to the smallest possible border-radius.
-  border-radius: 0.1px;
+  border-radius: 1px;
 }
 
 @keyframes show {
