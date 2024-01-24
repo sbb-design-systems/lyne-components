@@ -10,11 +10,11 @@ export type ButtonType = 'button' | 'reset' | 'submit';
 
 /** The interface contains attributes that can be set on a <button> tag.  */
 export interface ButtonProperties {
-  type?: ButtonType | undefined;
-  name?: string | undefined;
-  value?: string | undefined;
-  form?: string | undefined;
-  disabled?: boolean | undefined;
+  type?: ButtonType;
+  name?: string;
+  value?: string;
+  form?: string;
+  disabled?: boolean;
 }
 
 /** Button base class. */

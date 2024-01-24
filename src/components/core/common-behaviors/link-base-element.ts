@@ -11,11 +11,11 @@ export type LinkTargetType = '_blank' | '_self' | '_parent' | '_top';
 
 /** The interface contains attributes that can be set on an <a> tag. */
 export interface LinkProperties {
-  href?: string | undefined;
-  target?: LinkTargetType | string | undefined;
-  rel?: string | undefined;
-  download?: boolean | undefined;
-  disabled?: boolean | undefined;
+  href?: string;
+  target?: LinkTargetType | string;
+  rel?: string;
+  download?: boolean;
+  disabled?: boolean;
 }
 
 function filterUndefined(...objects: Record<string, string | undefined>[]): Record<string, string> {
@@ -101,13 +101,13 @@ export function targetsNewWindow(properties: LinkProperties): boolean {
 /** Link base class. */
 export class SbbLinkBaseElement extends LitElement implements LinkProperties {
   /** The href value you want to link to. */
-  @property() public href: string | undefined;
+  @property() public href?: string;
 
   /** Where to display the linked URL. */
-  @property() public target?: LinkTargetType | string | undefined;
+  @property() public target?: LinkTargetType | string;
 
   /** The relationship of the linked URL as space-separated link types. */
-  @property() public rel?: string | undefined;
+  @property() public rel?: string;
 
   /** Whether the browser will show the download dialog on click. */
   @property({ type: Boolean }) public download?: boolean;

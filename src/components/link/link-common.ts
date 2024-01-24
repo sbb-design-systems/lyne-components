@@ -5,7 +5,7 @@ import type { Constructor } from '../core/common-behaviors';
 import { LanguageController, NamedSlotStateController } from '../core/common-behaviors';
 import { ACTION_ELEMENTS, hostContext } from '../core/dom';
 import { actionElementHandlerAspect, HandlerRepository } from '../core/eventing';
-import type { SbbIconPlacement } from '../core/interfaces';
+import type { IsStaticProperty, SbbIconPlacement } from '../core/interfaces';
 
 import '../icon';
 
@@ -24,7 +24,10 @@ export declare class SbbLinkCommonInterface {
 export const SbbLinkCommonElementMixin = <T extends Constructor<LitElement>>(
   superClass: T,
 ): Constructor<SbbLinkCommonInterface> & T => {
-  class SbbLinkCommonElement extends superClass implements Partial<SbbLinkCommonInterface> {
+  class SbbLinkCommonElement
+    extends superClass
+    implements Partial<SbbLinkCommonInterface>, IsStaticProperty
+  {
     public static styles: CSSResultGroup = style;
 
     /** Variant of the link (block or inline). */

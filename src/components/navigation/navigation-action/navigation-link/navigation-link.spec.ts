@@ -8,12 +8,10 @@ describe('sbb-navigation-link', () => {
       html`<sbb-navigation-link href="#" target="_blank"></sbb-navigation-link>`,
     );
 
-    expect(root).dom.to.be.equal(
-      `
-        <sbb-navigation-link href='#' target='_blank' size="l" role="link" tabindex="0" dir="ltr">
-        </sbb-navigation-link>
-      `,
-    );
+    expect(root).dom.to.be.equal(`
+      <sbb-navigation-link href='#' target='_blank' size="l" role="link" tabindex="0" dir="ltr">
+      </sbb-navigation-link>
+    `);
     expect(root).shadowDom.to.be.equal(`
       <a
         class="sbb-navigation-action"

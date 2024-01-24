@@ -37,15 +37,15 @@ you can set the css variable `--sbb-menu-action-outer-horizontal-padding` to you
 
 ## Properties
 
-| Name       | Attribute   | Privacy | Type                                                 | Default | Description                                                                                                                      |
-| ---------- | ----------- | ------- | ---------------------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `amount`   | `amount`    | public  | `string \| undefined`                                |         | Value shown as badge at component end.                                                                                           |
-| `iconName` | `icon-name` | public  | `string \| undefined`                                |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `disabled` | `disabled`  | public  | `boolean \| undefined`                               | `false` | Whether the button is disabled.                                                                                                  |
-| `href`     | `href`      | public  | `string \| undefined`                                |         | The href value you want to link to.                                                                                              |
-| `target`   | `target`    | public  | `LinkTargetType \| string \| undefined \| undefined` |         | Where to display the linked URL.                                                                                                 |
-| `rel`      | `rel`       | public  | `string \| undefined \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                                                                |
-| `download` | `download`  | public  | `boolean \| undefined`                               |         | Whether the browser will show the download dialog on click.                                                                      |
+| Name       | Attribute   | Privacy | Type                                    | Default | Description                                                                                                                      |
+| ---------- | ----------- | ------- | --------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `amount`   | `amount`    | public  | `string \| undefined`                   |         | Value shown as badge at component end.                                                                                           |
+| `iconName` | `icon-name` | public  | `string \| undefined`                   |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `disabled` | `disabled`  | public  | `boolean \| undefined`                  | `false` | Whether the button is disabled.                                                                                                  |
+| `href`     | `href`      | public  | `string \| undefined`                   |         | The href value you want to link to.                                                                                              |
+| `target`   | `target`    | public  | `LinkTargetType \| string \| undefined` |         | Where to display the linked URL.                                                                                                 |
+| `rel`      | `rel`       | public  | `string \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                                                                |
+| `download` | `download`  | public  | `boolean \| undefined`                  |         | Whether the browser will show the download dialog on click.                                                                      |
 
 ## Slots
 

@@ -19,8 +19,7 @@ describe('sbb-header-link', () => {
 
     await waitForLitRender(root);
 
-    expect(root).dom.to.be.equal(
-      `
+    expect(root).dom.to.be.equal(`
       <sbb-header-link
        data-expanded
        dir="ltr"
@@ -33,26 +32,23 @@ describe('sbb-header-link', () => {
        >
         Action
       </sbb-header-link>
-    `,
-    );
-    expect(root).shadowDom.to.be.equal(
-      `
-          <a class="sbb-header-action" href="https://github.com/lyne-design-system/lyne-components" rel="external noopener nofollow" role="presentation" tabindex="-1" target="_blank">
-            <span class="sbb-header-action__wrapper">
-              <span class="sbb-header-action__icon">
-                <slot name="icon">
-                  <sbb-icon aria-hidden="true" data-namespace="default" name="pie-small" role="img"></sbb-icon>
-                </slot>
-              </span>
-              <span class="sbb-header-action__text">
-                <slot></slot>
-                <span class="sbb-header-action__opens-in-new-window">
-                  . Link target opens in new window.
-                </span>
-              </span>
+    `);
+    expect(root).shadowDom.to.be.equal(`
+      <a class="sbb-header-action" href="https://github.com/lyne-design-system/lyne-components" rel="external noopener nofollow" role="presentation" tabindex="-1" target="_blank">
+        <span class="sbb-header-action__wrapper">
+          <span class="sbb-header-action__icon">
+            <slot name="icon">
+              <sbb-icon aria-hidden="true" data-namespace="default" name="pie-small" role="img"></sbb-icon>
+            </slot>
+          </span>
+          <span class="sbb-header-action__text">
+            <slot></slot>
+            <span class="sbb-header-action__opens-in-new-window">
+              . Link target opens in new window.
             </span>
-          </a>
-        `,
-    );
+          </span>
+        </span>
+      </a>
+    `);
   });
 });
