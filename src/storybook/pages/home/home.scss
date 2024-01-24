@@ -70,7 +70,8 @@ section sbb-title {
     margin-block-start: var(--sbb-spacing-fixed-2x);
   }
 
-  sbb-button {
+  sbb-button,
+  sbb-button-link {
     width: fit-content;
   }
 
@@ -87,7 +88,8 @@ section sbb-title {
   width: 100%;
   column-gap: var(--sbb-spacing-responsive-xxxs);
 
-  sbb-button {
+  sbb-button,
+  sbb-button-link {
     align-self: start;
     margin-block-start: 1rem;
   }
@@ -99,7 +101,8 @@ section sbb-title {
       flex-grow: 1;
     }
 
-    sbb-button {
+    sbb-button,
+    sbb-button-link {
       align-self: end;
     }
   }

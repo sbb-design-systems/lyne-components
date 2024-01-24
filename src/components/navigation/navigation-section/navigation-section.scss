@@ -93,7 +93,7 @@
 }
 
 // Always place the sbb-button on a new row
-::slotted(sbb-button, sbb-button-link) {
+::slotted(:is(sbb-button, sbb-button-link)) {
   grid-column-start: 1;
 }
 
