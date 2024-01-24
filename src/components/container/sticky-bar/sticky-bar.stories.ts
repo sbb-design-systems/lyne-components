@@ -44,7 +44,12 @@ const containerContent = (title: string, color: string): TemplateResult => html`
       voluptate velit esse cillum dolore eu fugiat nulla pariatur.
     </p>
   </div>
-  <sbb-button variant="secondary" ?negative=${color === 'midnight'}>See more</sbb-button>
+  <sbb-button
+    variant="secondary"
+    ?negative=${color === 'midnight'}
+    style="margin-block-end: 0.75rem;"
+    >See more</sbb-button
+  >
 `;
 
 const Template = (): TemplateResult =>
