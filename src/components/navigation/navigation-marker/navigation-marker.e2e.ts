@@ -1,7 +1,7 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import '../navigation-action';
+import '../navigation-button';
 import { waitForLitRender } from '../../core/testing';
 
 import { SbbNavigationMarkerElement } from './navigation-marker';

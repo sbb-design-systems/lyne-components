@@ -2,7 +2,7 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { SbbNavigationListElement } from './navigation-list';
-import '../navigation-action';
+import '../navigation-button';
 
 describe('sbb-navigation-list', () => {
   let element: SbbNavigationListElement;

@@ -4,10 +4,10 @@ import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForLitRender, mockScrollTo, waitForCondition } from '../../core/testing';
 import { SbbMenuElement } from '../../menu';
-import type { SbbHeaderButtonElement } from '../header-action';
+import type { SbbHeaderButtonElement } from '../header-button';
 
 import { SbbHeaderElement } from './header';
-import '../header-action';
+import '../header-button';
 
 describe('sbb-header', () => {
   let element: SbbHeaderElement;

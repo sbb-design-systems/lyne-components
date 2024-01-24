@@ -13,7 +13,8 @@ import type { SbbNavigationMarkerElement, SbbNavigationElement } from '../index'
 import readme from './readme.md?raw';
 import '../../button';
 import '../navigation-list';
-import '../navigation-action';
+import '../navigation-button';
+import '../navigation-link';
 import '../navigation-marker';
 import '../navigation';
 

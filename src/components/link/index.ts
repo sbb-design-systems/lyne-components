@@ -1,3 +1,3 @@
 export * from './link';
 export * from './link-button';
-export * from './link-common';
+export * from './common/link-common';

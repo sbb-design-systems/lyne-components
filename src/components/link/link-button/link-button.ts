@@ -11,7 +11,7 @@ import {
 } from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
 import '../../icon';
-import { SbbLinkCommonElementMixin } from '../link-common';
+import { SbbLinkCommonElementMixin } from '../common/link-common';
 
 /**
  * It displays a link enhanced with the SBB Design, which will behave as a button.

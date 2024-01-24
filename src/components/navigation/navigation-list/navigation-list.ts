@@ -7,7 +7,7 @@ import {
   NamedSlotStateController,
   type WithListChildren,
 } from '../../core/common-behaviors';
-import type { SbbNavigationButtonElement, SbbNavigationLinkElement } from '../navigation-action';
+import type { SbbNavigationButtonElement, SbbNavigationLinkElement } from '../index';
 
 import style from './navigation-list.scss?lit&inline';
 

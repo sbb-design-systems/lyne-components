@@ -15,7 +15,7 @@ import {
 } from '../../core/common-behaviors';
 import { isValidAttribute, setAttributes } from '../../core/dom';
 import { i18nTargetOpensInNewWindow } from '../../core/i18n';
-import { SbbButtonCommonElementMixin } from '../button-common';
+import { SbbButtonCommonElementMixin } from '../common/button-common';
 
 /**
  * It displays a button enhanced with the SBB Design, which will behave as a link.

@@ -23,7 +23,8 @@ import readme from './readme.md?raw';
 import '../../button';
 import '../../divider';
 import '../../link';
-import '../menu-action';
+import '../menu-button';
+import '../menu-link';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {

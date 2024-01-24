@@ -21,7 +21,8 @@ import { sbbSpread } from '../../core/dom';
 import readme from './readme.md?raw';
 
 import './header';
-import '../header-action';
+import '../header-button';
+import '../header-link';
 import '../../divider';
 import '../../menu';
 

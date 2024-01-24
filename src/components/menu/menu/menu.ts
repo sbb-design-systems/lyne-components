@@ -29,7 +29,7 @@ import {
   removeInertMechanism,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay';
-import type { SbbMenuButtonElement, SbbMenuLinkElement } from '../menu-action';
+import type { SbbMenuButtonElement, SbbMenuLinkElement } from '../index';
 
 import style from './menu.scss?lit&inline';
 

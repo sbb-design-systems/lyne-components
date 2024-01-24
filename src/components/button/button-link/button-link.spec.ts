@@ -5,7 +5,7 @@ import { waitForLitRender } from '../../core/testing';
 
 import '../../form-field';
 import './button-link';
-import '../button-common';
+import '../common/button-common';
 
 describe('sbb-button-link', () => {
   it('renders a primary sbb-button-link without icon', async () => {

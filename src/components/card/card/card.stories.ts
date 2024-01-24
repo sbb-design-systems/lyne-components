@@ -17,7 +17,8 @@ import { sbbSpread } from '../../core/dom';
 import readme from './readme.md?raw';
 import './card';
 import '../card-badge';
-import '../card-action';
+import '../card-button';
+import '../card-link';
 import '../../title';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({

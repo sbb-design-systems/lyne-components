@@ -10,7 +10,7 @@ import {
   resolveButtonOrStaticRenderVariables,
 } from '../../core/common-behaviors';
 import { isValidAttribute, setAttributes } from '../../core/dom';
-import { SbbButtonCommonElementMixin } from '../button-common';
+import { SbbButtonCommonElementMixin } from '../common/button-common';
 
 /**
  * It displays a button enhanced with the SBB Design.

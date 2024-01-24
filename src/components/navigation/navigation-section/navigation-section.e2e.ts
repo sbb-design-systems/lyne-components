@@ -6,7 +6,7 @@ import { waitForCondition, waitForLitRender } from '../../core/testing';
 import { SbbNavigationSectionElement } from './navigation-section';
 import '../navigation';
 import '../navigation-list';
-import '../navigation-action';
+import '../navigation-button';
 
 describe('sbb-navigation-section', () => {
   let element: SbbNavigationSectionElement;

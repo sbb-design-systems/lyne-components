@@ -1,7 +1,7 @@
 import { aTimeout, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import './menu';
-import '../menu-action';
+import '../menu-button';
 
 describe('sbb-menu', () => {
   it('renders', async () => {

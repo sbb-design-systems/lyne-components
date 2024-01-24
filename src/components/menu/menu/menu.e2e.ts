@@ -7,7 +7,7 @@ import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing
 
 import { SbbMenuElement } from './menu';
 import '../../button';
-import '../menu-action';
+import '../menu-button';
 import '../../link';
 import '../../divider';
 

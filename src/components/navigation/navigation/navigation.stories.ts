@@ -23,7 +23,8 @@ import readme from './readme.md?raw';
 import '../navigation-section';
 import '../navigation-marker';
 import '../navigation-list';
-import '../navigation-action';
+import '../navigation-button';
+import '../navigation-link';
 import '../../button';
 
 // Story interaction executed after the story renders

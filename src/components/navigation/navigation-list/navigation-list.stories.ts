@@ -9,7 +9,7 @@ import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import './navigation-list';
-import '../navigation-action';
+import '../navigation-button';
 
 const label: InputType = {
   control: {

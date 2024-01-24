@@ -15,7 +15,7 @@ import {
 import { setAttributes } from '../../core/dom';
 import { i18nTargetOpensInNewWindow } from '../../core/i18n';
 import '../../icon';
-import { SbbLinkCommonElementMixin } from '../link-common';
+import { SbbLinkCommonElementMixin } from '../common/link-common';
 
 /**
  * It displays a link enhanced with the SBB Design.

@@ -5,8 +5,8 @@ import { html } from 'lit/static-html.js';
 import '../navigation-marker';
 import type { SbbButtonElement } from '../../button';
 import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
-import type { SbbNavigationButtonElement } from '../navigation-action';
-import '../navigation-action';
+import type { SbbNavigationButtonElement } from '../navigation-button';
+import '../navigation-button';
 import type { SbbNavigationSectionElement } from '../navigation-section';
 import '../navigation-section';
 
