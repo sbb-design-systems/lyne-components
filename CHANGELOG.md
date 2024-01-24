@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.44.1](https://github.com/lyne-design-system/lyne-components/compare/v0.44.0...v0.44.1) (2024-01-24)
+
+
+### Bug Fixes
+
+* **sbb-header:** fix border radius of focus outline in Safari ([#2365](https://github.com/lyne-design-system/lyne-components/issues/2365)) ([aa409e7](https://github.com/lyne-design-system/lyne-components/commit/aa409e743b29e97a54b02eb66a55ca385974e97d))
+* **scrollbar:** fix track color in nested context ([#2363](https://github.com/lyne-design-system/lyne-components/issues/2363)) ([82a4ad8](https://github.com/lyne-design-system/lyne-components/commit/82a4ad8457e7528587af7d974821ff30e190cff6))
+
 ## [0.44.0](https://github.com/lyne-design-system/lyne-components/compare/v0.43.14...v0.44.0) (2024-01-22)
 
 
