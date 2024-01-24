@@ -23,6 +23,9 @@ export class SbbStickyBarElement extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
+
+    setAttribute(this, 'slot', 'sticky-bar');
+
     const container = this.closest('sbb-container');
     if (container) {
       toggleDatasetEntry(this, 'expanded', container.expanded);
@@ -49,7 +52,6 @@ export class SbbStickyBarElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'slot', 'sticky-bar');
     return html`
       <div class="sbb-sticky-bar__wrapper">
         <div class="sbb-sticky-bar">
