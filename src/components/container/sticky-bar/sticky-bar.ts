@@ -4,6 +4,8 @@ import { customElement } from 'lit/decorators.js';
 import { setAttribute, toggleDatasetEntry } from '../../core/dom';
 import { AgnosticIntersectionObserver } from '../../core/observers';
 
+import '../container';
+
 import style from './sticky-bar.scss?lit&inline';
 /**
  * A container that sticks to the bottom of the page if slotted into `sbb-container`.
@@ -19,11 +21,22 @@ export class SbbStickyBarElement extends LitElement {
     this._toggleShadowVisibility(entries[0]),
   );
 
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    const container = this.closest('sbb-container');
+    if (container) {
+      toggleDatasetEntry(this, 'expanded', container.expanded);
+    }
+    if (this._intersector) {
+      this._observer.observe(this._intersector);
+    }
+  }
+
   protected override firstUpdated(): void {
     if (!this._intersector) {
       this._intersector = this.shadowRoot!.querySelector('.sbb-sticky-bar__intersector')!;
+      this._observer.observe(this._intersector);
     }
-    this._observer.observe(this._intersector);
   }
 
   private _toggleShadowVisibility(entry: IntersectionObserverEntry): void {

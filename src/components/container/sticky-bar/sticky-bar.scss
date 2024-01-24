@@ -1,10 +1,8 @@
 @use '../../core/styles' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
-
 :host {
+  @include sbb.box-sizing;
+
   --sbb-sticky-bar-padding-block: var(--sbb-spacing-responsive-xxxs);
   --sbb-sticky-bar-animation-duration: var(--sbb-animation-duration-5x);
 
@@ -17,7 +15,7 @@
   inset-block-end: 0;
   display: inline-block;
   width: 100%;
-  background-color: var(--sbb-sticky-bar-bg-color);
+  background-color: var(--sbb-container-background-color, var(--sbb-color-white-default));
   transition-property: box-shadow;
   transition-duration: var(--sbb-sticky-bar-animation-duration);
 
