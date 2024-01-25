@@ -2,13 +2,13 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import type { SbbButtonElement } from '../button';
+import type { SbbButtonElement, SbbButtonLinkElement } from '../button';
 import { LanguageController, NamedSlotStateController } from '../core/common-behaviors';
 import { isFirefox, isValidAttribute, setAttribute } from '../core/dom';
 import { composedPathHasAttribute, EventEmitter, ConnectedAbortController } from '../core/eventing';
 import { i18nCloseAlert } from '../core/i18n';
 import type { SbbOverlayState } from '../core/overlay';
-import type { SbbLinkElement } from '../link';
+import type { SbbLinkButtonElement, SbbLinkElement } from '../link';
 import '../button';
 import '../icon';
 
@@ -187,16 +187,20 @@ export class SbbToastElement extends LitElement {
     const slotNodes = (event.target as HTMLSlotElement).assignedNodes();
 
     // Force the visual state on slotted buttons
-    const buttons = slotNodes.filter((el) => el.nodeName === 'SBB-BUTTON') as SbbButtonElement[];
-    buttons.forEach((btn: SbbButtonElement) => {
+    const buttons: (SbbButtonElement | SbbButtonLinkElement)[] = slotNodes.filter(
+      (el) => el.nodeName === 'SBB-BUTTON' || el.nodeName === 'SBB-BUTTON-LINK',
+    ) as (SbbButtonElement | SbbButtonLinkElement)[];
+    buttons.forEach((btn: SbbButtonElement | SbbButtonLinkElement) => {
       btn.variant = 'transparent';
       btn.negative = true;
       btn.size = 'm';
     });
 
     // Force the visual state on slotted links
-    const links = slotNodes.filter((el) => el.nodeName === 'SBB-LINK') as SbbLinkElement[];
-    links.forEach((link: SbbLinkElement) => {
+    const links: (SbbLinkElement | SbbLinkButtonElement)[] = slotNodes.filter(
+      (el) => el.nodeName === 'SBB-LINK' || el.nodeName === 'SBB-LINK-BUTTON',
+    ) as (SbbLinkElement | SbbLinkButtonElement)[];
+    links.forEach((link: SbbLinkElement | SbbLinkButtonElement) => {
       link.variant = 'inline';
       link.negative = true;
     });

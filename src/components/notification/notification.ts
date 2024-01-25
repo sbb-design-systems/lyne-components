@@ -7,6 +7,7 @@ import { setAttribute, toggleDatasetEntry } from '../core/dom';
 import { EventEmitter } from '../core/eventing';
 import { i18nCloseNotification } from '../core/i18n';
 import { AgnosticResizeObserver } from '../core/observers';
+import type { SbbLinkButtonElement, SbbLinkElement } from '../link';
 import type { TitleLevel } from '../title';
 import '../button';
 import '../divider';
@@ -149,7 +150,9 @@ export class SbbNotificationElement extends LitElement {
   }
 
   private _setInlineLinks(): void {
-    this.querySelectorAll?.('sbb-link').forEach((link) => (link.variant = 'inline'));
+    this.querySelectorAll?.<SbbLinkElement | SbbLinkButtonElement>(
+      'sbb-link, sbb-link-button',
+    ).forEach((link: SbbLinkElement | SbbLinkButtonElement) => (link.variant = 'inline'));
   }
 
   private _setNotificationHeight(): void {

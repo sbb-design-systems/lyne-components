@@ -34,7 +34,14 @@ import type { SbbMenuButtonElement, SbbMenuLinkElement } from '../index';
 import style from './menu.scss?lit&inline';
 
 const MENU_OFFSET = 8;
-const INTERACTIVE_ELEMENTS = ['A', 'BUTTON', 'SBB-BUTTON', 'SBB-LINK'];
+const INTERACTIVE_ELEMENTS = [
+  'A',
+  'BUTTON',
+  'SBB-BUTTON',
+  'SBB-BUTTON-LINK',
+  'SBB-LINK',
+  'SBB-LINK-BUTTON',
+];
 
 let nextId = 0;
 
