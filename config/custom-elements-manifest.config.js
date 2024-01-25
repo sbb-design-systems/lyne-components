@@ -1,5 +1,3 @@
-import { parse } from 'comment-parser';
-
 /**
  * Docs: https://custom-elements-manifest.open-wc.org/analyzer/getting-started/
  */
@@ -13,26 +11,7 @@ export default {
   plugins: [
     {
       analyzePhase({ ts, node, moduleDoc }) {
-        if (ts.isPropertyDeclaration(node)) {
-          const className = node.parent.name.getText();
-          const classDoc = moduleDoc.declarations.find(
-            (declaration) => declaration.name === className,
-          );
-
-          for (const jsDoc of node.jsDoc ?? []) {
-            for (const parsedJsDoc of parse(jsDoc.getFullText())) {
-              for (const tag of parsedJsDoc.tags) {
-                if (tag.tag === 'ssrchildcounter') {
-                  const member = classDoc.members.find((m) => m.name === node.name.getText());
-                  member['_ssrchildcounter'] = true;
-                }
-              }
-            }
-          }
-        } else if (
-          ts.isNewExpression(node) &&
-          node.expression.getText() === 'NamedSlotStateController'
-        ) {
+        if (ts.isNewExpression(node) && node.expression.getText() === 'NamedSlotStateController') {
           let classNode = node;
           while (classNode) {
             if (ts.isClassDeclaration(classNode)) {
