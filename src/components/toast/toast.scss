@@ -137,7 +137,7 @@
   top: #{sbb.px-to-rem-build(-10)}; // Center vertically the element
 }
 
-::slotted(:is(sbb-button, sbb-button-link)) {
+::slotted(:is(sbb-link, sbb-link-button)) {
   margin-inline-start: var(--sbb-spacing-fixed-4x);
 }
 
