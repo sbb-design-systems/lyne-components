@@ -21,8 +21,7 @@ describe('sbb-breadcrumb', () => {
         href="/test"
         target="_blank"
         download
-        rel="subsection"
-        id="sbb-breadcrumb-1">
+        rel="subsection">
         Breadcrumb
       </sbb-breadcrumb>
     `);
@@ -42,8 +41,7 @@ describe('sbb-breadcrumb', () => {
         role="link"
         tabindex="0"
         href="/"
-        icon-name="house-small"
-        id="sbb-breadcrumb-2"></sbb-breadcrumb>
+        icon-name="house-small"></sbb-breadcrumb>
     `);
 
     await expect(root).shadowDom.to.equalSnapshot();
@@ -61,8 +59,7 @@ describe('sbb-breadcrumb', () => {
         role="link"
         tabindex="0"
         href="/"
-        icon-name="house-small"
-        id="sbb-breadcrumb-3">
+        icon-name="house-small">
         Home
       </sbb-breadcrumb>
     `);
@@ -74,7 +71,7 @@ describe('sbb-breadcrumb', () => {
     const root = await fixture(html`<sbb-breadcrumb>Breadcrumb</sbb-breadcrumb>`);
 
     expect(root).dom.to.be.equal(`
-      <sbb-breadcrumb dir="ltr" id="sbb-breadcrumb-4">
+      <sbb-breadcrumb dir="ltr">
         Breadcrumb
       </sbb-breadcrumb>
     `);

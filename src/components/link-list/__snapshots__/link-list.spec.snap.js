@@ -14,7 +14,10 @@ snapshots["sbb-link-list should render named slots if data-ssr-child-count attri
     <slot name="title">
     </slot>
   </sbb-title>
-  <ul class="sbb-link-list">
+  <ul
+    aria-labelledby="sbb-link-list-title-id"
+    class="sbb-link-list"
+  >
     <li>
       <slot name="li-0">
       </slot>
@@ -358,7 +361,10 @@ snapshots["sbb-link-list rendered without a title in shadow DOM"] =
     <slot name="title">
     </slot>
   </sbb-title>
-  <ul class="sbb-link-list">
+  <ul
+    aria-labelledby="sbb-link-list-title-id"
+    class="sbb-link-list"
+  >
     <li>
       <slot name="li-0">
       </slot>

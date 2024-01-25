@@ -15,8 +15,6 @@ import style from './breadcrumb.scss?lit&inline';
 
 import '../../icon';
 
-let nextId = 1;
-
 /**
  * It displays a link to a page; used within a `sbb-breadcrumb-group` it can display the path to the current page.
  *
@@ -47,12 +45,6 @@ export class SbbBreadcrumbElement extends SlotChildObserver(LitElement) {
   @property({ attribute: 'icon-name' }) public iconName?: string;
 
   @state() private _hasText = false;
-
-  public constructor() {
-    super();
-    /** @ignore id is already a well known property. */
-    this.id = this.id || `sbb-breadcrumb-${nextId++}`;
-  }
 
   private _language = new LanguageController(this);
   private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);

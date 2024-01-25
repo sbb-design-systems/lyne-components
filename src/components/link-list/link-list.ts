@@ -48,7 +48,10 @@ export class SbbLinkListElement extends NamedSlotListElement<SbbLinkElement> {
   /** The orientation in which the list will be shown vertical or horizontal. */
   @property({ reflect: true }) public orientation: SbbOrientation = 'vertical';
 
-  private _namedSlots = new NamedSlotStateController(this);
+  public constructor() {
+    super();
+    new NamedSlotStateController(this);
+  }
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
@@ -75,14 +78,9 @@ export class SbbLinkListElement extends NamedSlotListElement<SbbLinkElement> {
           ?negative=${this.negative}
           id="sbb-link-list-title-id"
         >
-          <slot name="title" @slotchange=${() => this.requestUpdate()}>${this.titleContent}</slot>
+          <slot name="title">${this.titleContent}</slot>
         </sbb-title>
-        ${this.renderList({
-          ariaLabelledby:
-            this._namedSlots.slots.has('title') || this.titleContent
-              ? 'sbb-link-list-title-id'
-              : undefined,
-        })}
+        ${this.renderList({ ariaLabelledby: 'sbb-link-list-title-id' })}
       </div>
     `;
   }

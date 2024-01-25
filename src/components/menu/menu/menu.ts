@@ -111,12 +111,6 @@ export class SbbMenuElement extends NamedSlotListElement<SbbMenuActionElement> {
   private _focusHandler = new FocusHandler();
   private _scrollHandler = new ScrollHandler();
 
-  public constructor() {
-    super();
-    /** @ignore id is already a well known property. */
-    this.id = this.id || `sbb-menu-${nextId++}`;
-  }
-
   /**
    * Opens the menu on trigger click.
    */
@@ -253,6 +247,7 @@ export class SbbMenuElement extends NamedSlotListElement<SbbMenuActionElement> {
       return;
     }
 
+    this.id = this.id || `sbb-menu-${nextId++}`;
     setAriaOverlayTriggerAttributes(this._triggerElement, 'menu', this.id, this._state);
     this._menuController?.abort();
     this._menuController = new AbortController();

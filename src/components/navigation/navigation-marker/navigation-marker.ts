@@ -41,7 +41,9 @@ export class SbbNavigationMarkerElement extends NamedSlotListElement<SbbNavigati
       action.size = this.size;
     }
 
-    this._currentActiveAction = this.listChildren.find((action) => action.active);
+    this._currentActiveAction = this.listChildren.find(
+      (action) => action.active ?? action.getAttribute('active'),
+    );
     this._setMarkerPosition();
   }
 
