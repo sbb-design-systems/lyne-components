@@ -1,6 +1,6 @@
 import type { InputType } from '@storybook/types';
 import type { ArgTypes, Args, Meta, StoryObj } from '@storybook/web-components';
-import { type TemplateResult, html } from 'lit';
+import { type TemplateResult, html, nothing } from 'lit';
 
 import { sbbSpread } from '../../core/dom';
 
@@ -16,26 +16,45 @@ const expanded: InputType = {
   control: {
     type: 'boolean',
   },
+  table: {
+    category: 'Container',
+  },
+};
+
+const containerColor: InputType = {
+  name: 'color',
+  control: {
+    type: 'select',
+  },
+  table: {
+    category: 'Container',
+  },
+  options: ['transparent', 'white', 'milk', 'midnight'],
 };
 
 const color: InputType = {
   control: {
     type: 'select',
   },
-  options: ['transparent', 'white', 'milk', 'midnight'],
+  table: {
+    category: 'Sticky Bar',
+  },
+  options: ['unset', 'white', 'milk', 'midnight'],
 };
 
 const defaultArgTypes: ArgTypes = {
   expanded,
   color,
+  containerColor,
 };
 
 const defaultArgs: Args = {
   expanded: false,
   color: color.options[0],
+  containerColor: containerColor.options[0],
 };
 
-const actionGroup = (negative: boolean): TemplateResult => html`
+const actionGroup = (): TemplateResult => html`
   <sbb-action-group
     align-group="stretch"
     orientation="vertical"
@@ -46,13 +65,12 @@ const actionGroup = (negative: boolean): TemplateResult => html`
       align-self="start"
       icon-name="chevron-small-left-small"
       href="https://www.sbb.ch/en/"
-      ?negative=${negative}
       sbb-dialog-close
     >
       Link
     </sbb-link>
-    <sbb-button variant="secondary" sbb-dialog-close ?negative=${negative}> Cancel </sbb-button>
-    <sbb-button variant="primary" sbb-dialog-close ?negative=${negative}> Confirm </sbb-button>
+    <sbb-button variant="secondary" sbb-dialog-close> Cancel </sbb-button>
+    <sbb-button variant="primary" sbb-dialog-close> Confirm </sbb-button>
   </sbb-action-group>
 `;
 
@@ -80,33 +98,39 @@ const Template = (): TemplateResult =>
     <sbb-button variant="secondary">Example</sbb-button>
   </sbb-sticky-bar>`;
 
-const DefaultTemplate = ({ color, ...args }: Args): TemplateResult => html`
-  <sbb-container ${sbbSpread(args)} color=${color}>
-    ${containerContent('Example title', color)} ${containerContent('Another one', color)}
-    ${containerContent('And another one', color)} ${containerContent('And a last one', color)}
+const DefaultTemplate = ({ color, containerColor, ...args }: Args): TemplateResult => html`
+  <sbb-container ${sbbSpread(args)} color=${containerColor}>
+    ${containerContent('Example title', containerColor)}
+    ${containerContent('Another one', containerColor)}
+    ${containerContent('And another one', containerColor)}
+    ${containerContent('And a last one', containerColor)}
 
-    <sbb-sticky-bar> ${actionGroup(color === 'midnight')} </sbb-sticky-bar>
+    <sbb-sticky-bar color=${color !== 'unset' ? color : nothing}> ${actionGroup()} </sbb-sticky-bar>
   </sbb-container>
 `;
 
-const ShortTemplate = ({ color, ...args }: Args): TemplateResult => html`
-  <sbb-container ${sbbSpread(args)} color=${color}>
-    ${containerContent('Example title', color)}
+const ShortTemplate = ({ color, containerColor, ...args }: Args): TemplateResult => html`
+  <sbb-container ${sbbSpread(args)}>
+    ${containerContent('Example title', containerColor)}
 
-    <sbb-sticky-bar> ${actionGroup(color === 'midnight')} </sbb-sticky-bar>
+    <sbb-sticky-bar color=${color !== 'unset' ? color : nothing}> ${actionGroup()} </sbb-sticky-bar>
   </sbb-container>
 `;
 
-const WithStickybarTemplate = ({ color, ...args }: Args): TemplateResult => html`
-  <sbb-container ${sbbSpread(args)} color=${color}>
-    ${containerContent('Example title', color)} ${containerContent('Another one', color)}
-    ${containerContent('And another one', color)} ${containerContent('And a last one', color)}
+const WithStickybarTemplate = ({ color, containerColor, ...args }: Args): TemplateResult => html`
+  <sbb-container ${sbbSpread(args)}>
+    ${containerContent('Example title', containerColor)}
+    ${containerContent('Another one', containerColor)}
+    ${containerContent('And another one', containerColor)}
+    ${containerContent('And a last one', containerColor)}
 
-    <sbb-sticky-bar> ${actionGroup(color === 'midnight')} </sbb-sticky-bar>
+    <sbb-sticky-bar color=${color !== 'unset' ? color : nothing}> ${actionGroup()} </sbb-sticky-bar>
   </sbb-container>
-  <sbb-container color="milk" style="padding-block: 5rem">
-    ${containerContent('Content after first container', color)}
-    ${containerContent('Another one', color)}
+  <sbb-container color="milk">
+    <div style="padding-block: 4rem;">
+      ${containerContent('Content after first container', 'milk')}
+      ${containerContent('Another one', 'milk')}
+    </div>
   </sbb-container>
 `;
 
