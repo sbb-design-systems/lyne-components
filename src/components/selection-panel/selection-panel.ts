@@ -20,8 +20,8 @@ import '../divider';
  * @slot content - Use this slot to provide custom content for the panel (optional).
  * @event {CustomEvent<void>} willOpen - Emits whenever the content section starts the opening transition.
  * @event {CustomEvent<void>} didOpen - Emits whenever the content section is opened.
- * @event {CustomEvent<{ closeTarget: HTMLElement }>} willClose - Emits whenever the content section begins the closing transition.
- * @event {CustomEvent<{ closeTarget: HTMLElement }>} didClose - Emits whenever the content section is closed.
+ * @event {CustomEvent<void>} willClose - Emits whenever the content section begins the closing transition.
+ * @event {CustomEvent<void>} didClose - Emits whenever the content section is closed.
  */
 @customElement('sbb-selection-panel')
 export class SbbSelectionPanelElement extends LitElement {
@@ -68,13 +68,13 @@ export class SbbSelectionPanelElement extends LitElement {
   );
 
   /** Emits whenever the content section begins the closing transition. */
-  private _willClose: EventEmitter<{ closeTarget: HTMLElement }> = new EventEmitter(
+  private _willClose: EventEmitter<void> = new EventEmitter(
     this,
     SbbSelectionPanelElement.events.willClose,
   );
 
   /** Emits whenever the content section is closed. */
-  private _didClose: EventEmitter<{ closeTarget: HTMLElement }> = new EventEmitter(
+  private _didClose: EventEmitter<void> = new EventEmitter(
     this,
     SbbSelectionPanelElement.events.didClose,
   );
