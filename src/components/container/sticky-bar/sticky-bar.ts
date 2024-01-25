@@ -1,5 +1,5 @@
 import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
 import { setAttribute, toggleDatasetEntry } from '../../core/dom';
 import { AgnosticIntersectionObserver } from '../../core/observers';
@@ -15,6 +15,9 @@ import style from './sticky-bar.scss?lit&inline';
 @customElement('sbb-sticky-bar')
 export class SbbStickyBarElement extends LitElement {
   public static override styles: CSSResultGroup = style;
+
+  /** Color of the container, like transparent, white etc. */
+  @property({ reflect: true }) public color?: 'white' | 'milk' | 'midnight';
 
   private _intersector?: HTMLSpanElement;
   private _observer = new AgnosticIntersectionObserver((entries) =>
@@ -44,6 +47,7 @@ export class SbbStickyBarElement extends LitElement {
 
   private _toggleShadowVisibility(entry: IntersectionObserverEntry): void {
     toggleDatasetEntry(this, 'sticking', !entry.isIntersecting && entry.boundingClientRect.top > 0);
+    toggleDatasetEntry(this, 'settled', entry.isIntersecting);
   }
 
   public override disconnectedCallback(): void {

@@ -6,8 +6,27 @@
   --sbb-sticky-bar-padding-block: var(--sbb-spacing-responsive-xxxs);
   --sbb-sticky-bar-animation-duration: var(--sbb-animation-duration-5x);
   --sbb-sticky-bar-animation-easing: var(--sbb-animation-easing);
+  --sbb-sticky-bar-background-color: var(
+    --sbb-container-background-color,
+    var(--sbb-color-white-default)
+  );
 
   display: contents;
+}
+
+:host([color='white']) {
+  --sbb-sticky-bar-background-color: var(--sbb-color-white-default);
+}
+
+:host([color='milk']) {
+  --sbb-sticky-bar-background-color: var(--sbb-color-milk-default);
+}
+
+:host([color='midnight']:not([data-settled])) {
+  --sbb-sticky-bar-background-color: var(--sbb-color-midnight-default);
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+
+  color: var(--sbb-color-white-default);
 }
 
 .sbb-sticky-bar__wrapper {
@@ -16,13 +35,20 @@
   inset-block-end: 0;
   display: block;
   width: 100%;
-  background-color: var(--sbb-container-background-color, var(--sbb-color-white-default));
-  transition-property: box-shadow;
+  background-color: var(--sbb-sticky-bar-background-color);
+  transition-property: box-shadow, background-color;
   transition-duration: var(--sbb-sticky-bar-animation-duration);
   transition-timing-function: var(--sbb-sticky-bar-animation-easing);
 
   :host([data-sticking]) & {
     @include sbb.shadow-level-5-hard;
+  }
+
+  :host([data-settled]) & {
+    --sbb-sticky-bar-background-color: var(
+      --sbb-container-background-color,
+      var(--sbb-color-white-default)
+    );
   }
 }
 

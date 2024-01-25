@@ -19,6 +19,12 @@ The `sbb-sticky-bar` inherits its variant from the `sbb-container` it's placed i
 
 <!-- Auto Generated Below -->
 
+## Properties
+
+| Name    | Attribute | Privacy | Type                                           | Default | Description                                          |
+| ------- | --------- | ------- | ---------------------------------------------- | ------- | ---------------------------------------------------- |
+| `color` | `color`   | public  | `'white' \| 'milk' \| 'midnight' \| undefined` |         | Color of the container, like transparent, white etc. |
+
 ## Slots
 
 | Name | Description                                            |
