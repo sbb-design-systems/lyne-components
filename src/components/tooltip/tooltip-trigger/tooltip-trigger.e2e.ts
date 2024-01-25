@@ -89,6 +89,8 @@ describe('sbb-tooltip-trigger', () => {
 
     element.focus();
 
+    await waitForLitRender(element);
+
     expect(changeSpy.count).not.to.be.greaterThan(0);
     expect(tooltip).to.have.attribute('data-state', 'closed');
   });

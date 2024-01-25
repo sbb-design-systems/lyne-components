@@ -400,9 +400,7 @@ export class SbbTooltipElement extends LitElement {
     } else if (event.animationName === 'close' && this._state === 'closing') {
       this._state = 'closed';
       this._overlay?.firstElementChild?.scrollTo(0, 0);
-
-      // In case the overlay was closed without a relatedTarget, reset tabindex.
-      this._overlay.removeAttribute('tabindex');
+      this._overlay?.removeAttribute('tabindex');
 
       const elementToFocus = this._nextFocusedElement || this._triggerElement;
 
@@ -428,26 +426,27 @@ export class SbbTooltipElement extends LitElement {
     } else {
       this._overlay.setAttribute('tabindex', '0');
       setModalityOnNextFocus(this._overlay);
-
       this._overlay.focus();
-      this._overlay.addEventListener(
-        'blur',
-        (event) => {
-          // When a blur occurs, we know that the tooltip has to be closed, because there are no interactive elements inside the tooltip.
-          // If related target is not set, it's probably closed by click, or if a tab / window was changed.
-          // The first case is handled by click trigger while we in the second case want to avoid closing the tooltip on window / tab change.
-          if (event.relatedTarget instanceof HTMLElement) {
-            this._overlay.removeAttribute('tabindex');
-            this._nextFocusedElement = event.relatedTarget;
-            this.close();
-          }
-        },
-        {
-          signal: this._tooltipController.signal,
-        },
-      );
+      this._overlay.removeEventListener('blur', this._blurListener);
+      this._overlay.addEventListener('blur', this._blurListener, {
+        signal: this._tooltipController.signal,
+      });
     }
   }
+
+  private _blurListener = (event: FocusEvent): void => {
+    // When a blur occurs, we know that the tooltip has to be closed, because there are no interactive elements inside the tooltip.
+    // We have to ensure that window / tab change doesn't trigger closing. This can be achieved by checking visibilityState, which only works with setTimeout().
+    setTimeout(() => {
+      if (document.visibilityState !== 'hidden') {
+        this._overlay?.removeAttribute('tabindex');
+        if (event.relatedTarget instanceof HTMLElement) {
+          this._nextFocusedElement = event.relatedTarget;
+        }
+        this.close();
+      }
+    });
+  };
 
   private _setTooltipPosition(): void {
     if (!this._overlay || !this._triggerElement) {
