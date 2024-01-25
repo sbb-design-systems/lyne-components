@@ -1,9 +1,10 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import type { CSSResultGroup, PropertyValueMap, TemplateResult } from 'lit';
+import { nothing } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { LanguageController, SlotChildObserver } from '../../core/common-behaviors';
+import type { WithListChildren } from '../../core/common-behaviors';
+import { LanguageController, NamedSlotListElement } from '../../core/common-behaviors';
 import { EventEmitter } from '../../core/eventing';
 import { i18nTrain, i18nWagonsLabel } from '../../core/i18n';
 import type { TitleLevel } from '../../title';
@@ -20,11 +21,14 @@ import '../../icon';
  * @slot - Use the unnamed slot to add 'sbb-train-wagon' elements to the `sbb-train`.
  */
 @customElement('sbb-train')
-export class SbbTrainElement extends SlotChildObserver(LitElement) {
+export class SbbTrainElement extends NamedSlotListElement<
+  SbbTrainWagonElement | SbbTrainBlockedPassageElement
+> {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     trainSlotChange: 'trainSlotChange',
   } as const;
+  protected override readonly listChildTagNames = ['SBB-TRAIN-WAGON', 'SBB-TRAIN-BLOCKED-PASSAGE'];
 
   /** General label for "driving direction". */
   @property({ attribute: 'direction-label' }) public directionLabel!: string;
@@ -40,8 +44,6 @@ export class SbbTrainElement extends SlotChildObserver(LitElement) {
 
   /** Controls the direction indicator to show the arrow left or right. Default is left.  */
   @property({ reflect: true }) public direction: 'left' | 'right' = 'left';
-
-  @state() private _wagons: (SbbTrainBlockedPassageElement | SbbTrainWagonElement)[] = [];
 
   private _language = new LanguageController(this);
 
@@ -75,28 +77,15 @@ export class SbbTrainElement extends SlotChildObserver(LitElement) {
     return `${textParts.join(', ')}.`;
   }
 
-  protected override checkChildren(): void {
-    const wagons = Array.from(this.children ?? []).filter(
-      (e): e is SbbTrainBlockedPassageElement | SbbTrainWagonElement =>
-        e.tagName === 'SBB-TRAIN-WAGON' || e.tagName === 'SBB-TRAIN-BLOCKED-PASSAGE',
-    );
-    // If the slotted sbb-train-wagon and sbb-train-blocked-passage instances have not changed, we can skip syncing and updating
-    // the link reference list.
-    if (
-      this._wagons &&
-      wagons.length === this._wagons.length &&
-      this._wagons.every((e, i) => wagons[i] === e)
-    ) {
-      return;
+  protected override willUpdate(changedProperties: PropertyValueMap<WithListChildren<this>>): void {
+    super.willUpdate(changedProperties);
+    if (changedProperties.has('listChildren')) {
+      this._trainSlotChange.emit();
     }
-
-    this._trainSlotChange.emit();
-    this._wagons = wagons;
   }
 
   protected override render(): TemplateResult {
     const TITLE_TAG_NAME = `h${this.directionLabelLevel}`;
-    this._wagons.forEach((wagon, index) => wagon.setAttribute('slot', `wagon-${index}`));
 
     /* eslint-disable lit/binding-positions */
     return html`
@@ -104,17 +93,10 @@ export class SbbTrainElement extends SlotChildObserver(LitElement) {
         <${unsafeStatic(TITLE_TAG_NAME)} class="sbb-train__direction-label-sr">
           ${this._getDirectionAriaLabel()}
         </${unsafeStatic(TITLE_TAG_NAME)}>
-        <ul class="sbb-train__wagons" aria-label=${i18nWagonsLabel[this._language.current]}>
-          ${this._wagons.map(
-            (_, index) =>
-              html`<li>
-                <slot name=${`wagon-${index}`}></slot>
-              </li>`,
-          )}
-        </ul>
-        <span hidden>
-          <slot></slot>
-        </span>
+        ${this.renderList({
+          class: 'sbb-train__wagons',
+          ariaLabel: i18nWagonsLabel[this._language.current],
+        })}
 
         ${
           this.directionLabel

@@ -46,8 +46,8 @@ describe('sbb-navigation-marker', () => {
     const list = element.shadowRoot!.querySelector('ul')!;
     expect(list.className).to.be.equal('sbb-navigation-marker');
 
-    const listItem = list.querySelector('li');
-    expect(listItem).to.have.class('sbb-navigation-marker__action');
+    const listItems = list.querySelectorAll('li');
+    expect(listItems.length).to.equal(4);
   });
 
   it('force size on children elements', () => {

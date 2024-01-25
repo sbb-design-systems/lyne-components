@@ -4,7 +4,7 @@ export const snapshots = {};
 snapshots["sbb-menu renders"] = 
 `<sbb-menu
   data-state="closed"
-  id="sbb-menu-1"
+  id="sbb-menu-0"
   trigger="menu-trigger"
 >
   <sbb-link
@@ -60,19 +60,19 @@ snapshots["sbb-menu renders with list"] =
     <div class="sbb-menu__content">
       <ul class="sbb-menu-list">
         <li>
-          <slot name="action-0">
+          <slot name="li-0">
           </slot>
         </li>
         <li>
-          <slot name="action-1">
+          <slot name="li-1">
           </slot>
         </li>
         <li>
-          <slot name="action-2">
+          <slot name="li-2">
           </slot>
         </li>
         <li>
-          <slot name="action-3">
+          <slot name="li-3">
           </slot>
         </li>
       </ul>

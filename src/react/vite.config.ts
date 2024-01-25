@@ -89,7 +89,7 @@ function generateReactWrappers(): PluginOption {
         .filter((m) => m.kind === 'javascript-module')
         .reduce((current, next) => current.concat(next.declarations ?? []), [] as Declaration[]);
       for (const module of manifest.modules) {
-        for (const declaration of module.declarations.filter(
+        for (const declaration of module.declarations?.filter(
           (d): d is CustomElementDeclaration => 'customElement' in d && d.customElement,
         ) ?? []) {
           const targetPath = new URL(`./${module.path}/index.ts`, packageRoot);
@@ -115,8 +115,8 @@ function generateReactWrappers(): PluginOption {
         }
       }
 
-      config.build.lib = {
-        ...(config.build.lib ? config.build.lib : {}),
+      config.build!.lib = {
+        ...(config.build!.lib ? config.build!.lib : {}),
         entry: globIndexMap(packageRoot),
       };
     },
@@ -189,7 +189,7 @@ function findExtensionUsage(
   if (usesSsrSlotState(declaration, declarations)) {
     extensions.set('withSsrDataSlotNames', (v) => `withSsrDataSlotNames(${v})`);
   }
-  const childTypes = usesSsrSlotChildCounter(declaration);
+  const childTypes = namedSlotListElements(declaration);
   if (childTypes.length) {
     extensions.set(
       'withSsrDataChildCount',
@@ -199,32 +199,44 @@ function findExtensionUsage(
   return extensions;
 }
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
+type ClassDeclarationSSR = ClassDeclaration & { _ssrslotstate?: boolean };
 const ssrSlotStateKey = '_ssrslotstate';
-function usesSsrSlotState(declaration: ClassDeclaration, declarations: Declaration[]): boolean {
+function usesSsrSlotState(
+  declaration: ClassDeclarationSSR | undefined,
+  declarations: Declaration[],
+): boolean {
   while (declaration) {
     if (
       declaration[ssrSlotStateKey] ||
       declaration.mixins?.some((m) =>
-        declarations.find((d) => d.name === m.name && d[ssrSlotStateKey]),
+        declarations.find((d) => d.name === m.name && (d as ClassDeclarationSSR)[ssrSlotStateKey]),
       )
     ) {
       return true;
     }
 
     declaration = declarations.find(
-      (d): d is ClassDeclaration => d.name === declaration.superclass?.name,
+      (d): d is ClassDeclarationSSR => d.name === declaration!.superclass?.name,
     );
   }
 
   return false;
 }
 
-const ssrSlotChildCountKey = '_ssrchildcounter';
-function usesSsrSlotChildCounter(declaration: ClassDeclaration): string[] {
+function namedSlotListElements(declaration: ClassDeclaration): string[] {
   return (
     declaration.members
-      ?.find((m): m is ClassField => m[ssrSlotChildCountKey])
-      ?.type?.text.replace(/[()[\] ]/g, '')
-      .split('|') ?? []
+      ?.find(
+        (m): m is ClassField =>
+          m.inheritedFrom?.name === 'NamedSlotListElement' && m.name === 'listChildTagNames',
+      )
+      ?.default?.match(/([\w-]+)/g)
+      ?.map((m) =>
+        m
+          .split('-')
+          .map((s) => s[0] + s.substring(1).toLowerCase())
+          .join(''),
+      ) ?? []
   );
 }

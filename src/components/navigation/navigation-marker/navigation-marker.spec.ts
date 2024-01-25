@@ -9,7 +9,7 @@ describe('sbb-navigation-marker', () => {
     expect(root).dom.to.be.equal(`<sbb-navigation-marker size="l"></sbb-navigation-marker>`);
     expect(root).shadowDom.to.be.equal(
       `
-        <ul class="sbb-navigation-marker"></ul>
+        <ul class="sbb-navigation-marker" role="presentation"></ul>
         <span hidden="">
           <slot></slot>
         </span>

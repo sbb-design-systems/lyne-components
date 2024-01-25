@@ -2,12 +2,13 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
+import { UpdateScheduler } from '../core/common-behaviors';
 import { setAttribute } from '../core/dom';
 
 import { getSvgContent } from './icon-request';
 import style from './icon.scss?lit&inline';
 
-export abstract class SbbIconBase extends LitElement {
+export abstract class SbbIconBase extends UpdateScheduler(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   @state() private _svgNamespace = 'default';
@@ -30,13 +31,18 @@ export abstract class SbbIconBase extends LitElement {
       return;
     }
 
+    this.startUpdate();
     const [namespace, name] = this._splitIconName(iconName);
 
     if (namespace) {
       this._svgNamespace = namespace;
     }
 
-    this._svgIcon = await this.fetchSvgIcon(this._svgNamespace, name);
+    try {
+      this._svgIcon = await this.fetchSvgIcon(this._svgNamespace, name);
+    } finally {
+      this.completeUpdate();
+    }
   }
 
   protected async fetchSvgIcon(namespace: string, name: string): Promise<string> {

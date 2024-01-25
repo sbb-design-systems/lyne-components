@@ -1,5 +1,8 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { waitForLitRender } from '../../core/testing';
+
 import './train';
 import '../../icon';
 
@@ -9,6 +12,7 @@ describe('sbb-train', () => {
       html`<sbb-train direction-label="Driving direction" station="Bern"></sbb-train>`,
     );
 
+    await waitForLitRender(root);
     expect(root).dom.to.be.equal(
       `<sbb-train direction-label="Driving direction" station="Bern" direction="left"></sbb-train>`,
     );
@@ -16,7 +20,7 @@ describe('sbb-train', () => {
       `
       <div class="sbb-train">
         <h6 class="sbb-train__direction-label-sr">Train, Driving direction Bern.</h6>
-        <ul class="sbb-train__wagons" aria-label="Coaches of the train"></ul>
+        <ul class="sbb-train__wagons" aria-label="Coaches of the train" role="presentation"></ul>
         <span hidden>
           <slot></slot>
         </span>

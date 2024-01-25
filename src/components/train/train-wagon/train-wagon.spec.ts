@@ -99,7 +99,11 @@ describe('sbb-train-wagon', () => {
               <li class="sbb-screenreaderonly">No passage to the previous train coach</li>
             </ul>
             <span class="sbb-train-wagon__icons" hidden>
-              <span class="sbb-train-wagon__icons-item" hidden><slot></slot></span>
+              <ul
+                aria-label="Additional wagon information"
+                class="sbb-train-wagon__icons-list"
+                role="presentation"></ul>
+              <span hidden><slot></slot></span>
             </span>
           </div>
         `,
@@ -111,6 +115,7 @@ describe('sbb-train-wagon', () => {
         html`<sbb-train-wagon><sbb-icon name="sa-rs"></sbb-icon></sbb-train-wagon>`,
       );
 
+      await waitForLitRender(root);
       expect(root).dom.to.be.equal(
         `
           <sbb-train-wagon data-has-visible-wagon-content type="wagon">
@@ -119,6 +124,7 @@ describe('sbb-train-wagon', () => {
               data-namespace="default"
               name="sa-rs"
               role="img"
+              slot="li-0"
             ></sbb-icon>
           </sbb-train-wagon>
         `,
@@ -140,8 +146,17 @@ describe('sbb-train-wagon', () => {
               </sbb-timetable-occupancy-icon>
             </ul>
             <span class="sbb-train-wagon__icons">
-              <span class="sbb-train-wagon__icons-item">
-                <span class="sbb-screenreaderonly">Additional wagon information</span>
+              <ul
+                aria-label="Additional wagon information"
+                class="sbb-train-wagon__icons-list"
+                role="presentation"
+              >
+                <li>
+                  <slot name="li-0">
+                  </slot>
+                </li>
+              </ul>
+              <span hidden>
                 <slot></slot>
               </span>
             </span>
@@ -157,6 +172,7 @@ describe('sbb-train-wagon', () => {
         ></sbb-train-wagon>`,
       );
 
+      await waitForLitRender(root);
       expect(root).dom.to.be.equal(
         `
         <sbb-train-wagon data-has-visible-wagon-content type="wagon">
@@ -165,13 +181,13 @@ describe('sbb-train-wagon', () => {
             data-namespace="default"
             name="sa-rs"
             role="img"
-            slot="sbb-train-wagon-icon-0"></sbb-icon>
+            slot="li-0"></sbb-icon>
           <sbb-icon
             aria-hidden="true"
             data-namespace="default"
             name="sa-rs"
             role="img"
-            slot="sbb-train-wagon-icon-1"></sbb-icon>
+            slot="li-1"></sbb-icon>
         </sbb-train-wagon>
       `,
       );
@@ -193,14 +209,14 @@ describe('sbb-train-wagon', () => {
             </ul>
             <span class="sbb-train-wagon__icons">
               <ul aria-label="Additional wagon information" class="sbb-train-wagon__icons-list">
-                <li class="sbb-train-wagon__icons-item">
-                  <slot name="sbb-train-wagon-icon-0"></slot>
+                <li>
+                  <slot name="li-0"></slot>
                 </li>
-                <li class="sbb-train-wagon__icons-item">
-                  <slot name="sbb-train-wagon-icon-1"></slot>
+                <li>
+                  <slot name="li-1"></slot>
                 </li>
               </ul>
-              <span class="sbb-train-wagon__icons-item" hidden>
+              <span hidden>
                 <slot></slot>
               </span>
             </span>

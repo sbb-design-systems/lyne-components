@@ -15,7 +15,6 @@ import './train-formation';
 const MountedFormationTemplate = (args: Args): TemplateResult => html`
   <sbb-train-formation ${sbbSpread(args)}>
     <sbb-train
-      directionLabel="This attribute seems to be necessary due to a bug"
       direction-label="Direction of travel"
       station="Bern"
       direction="left"
@@ -125,7 +124,6 @@ const MountedFormationTemplate = (args: Args): TemplateResult => html`
       ></sbb-train-wagon>
     </sbb-train>
     <sbb-train
-      directionLabel="This attribute seems to be necessary due to a bug"
       direction-label="Direction of travel"
       station="Luzern"
       direction="left"
@@ -217,7 +215,6 @@ const MountedFormationTemplate = (args: Args): TemplateResult => html`
 const SingleFormationTemplate = (args: Args): TemplateResult => html`
   <sbb-train-formation ${sbbSpread(args)}>
     <sbb-train
-      directionLabel="This attribute seems to be necessary due to a bug"
       direction-label="Direction of travel"
       station=""
       direction="left"

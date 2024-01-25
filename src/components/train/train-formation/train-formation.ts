@@ -1,9 +1,10 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import type { CSSResultGroup, PropertyValueMap, TemplateResult } from 'lit';
+import { html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { LanguageController, SlotChildObserver } from '../../core/common-behaviors';
+import type { WithListChildren } from '../../core/common-behaviors';
+import { LanguageController, NamedSlotListElement } from '../../core/common-behaviors';
 import { ConnectedAbortController } from '../../core/eventing';
 import { i18nSector, i18nSectorShort, i18nTrains } from '../../core/i18n';
 import { AgnosticResizeObserver } from '../../core/observers';
@@ -25,16 +26,15 @@ interface AggregatedSector {
  * @slot - Use the unnamed slot to add 'sbb-train' elements to the `sbb-train-formation`.
  */
 @customElement('sbb-train-formation')
-export class SbbTrainFormationElement extends SlotChildObserver(LitElement) {
+export class SbbTrainFormationElement extends NamedSlotListElement<SbbTrainElement> {
   public static override styles: CSSResultGroup = style;
+  protected override readonly listChildTagNames = ['SBB-TRAIN'];
 
   /** Option to hide all wagon labels. */
   @property({ attribute: 'hide-wagon-label', reflect: true, type: Boolean }) public hideWagonLabel =
     false;
 
   @state() private _sectors: AggregatedSector[] = [];
-
-  @state() private _trains: SbbTrainElement[] = [];
 
   /** Element that defines the visible content width. */
   private _formationDiv!: HTMLDivElement;
@@ -104,14 +104,7 @@ export class SbbTrainFormationElement extends SlotChildObserver(LitElement) {
     );
   }
 
-  protected override checkChildren(): void {
-    this._readSectors();
-    this._trains = Array.from(this.children ?? []).filter(
-      (e): e is SbbTrainElement => e.tagName === 'SBB-TRAIN',
-    );
-  }
-
-  private async _updateFormationDiv(el?: Element): Promise<void> {
+  private async _updateFormationDiv(el: Element | undefined): Promise<void> {
     if (!el) {
       return;
     }
@@ -125,14 +118,14 @@ export class SbbTrainFormationElement extends SlotChildObserver(LitElement) {
     this._applyCssWidth();
   }
 
-  protected override render(): TemplateResult {
-    // We should avoid lists with only one entry
-    if (this._trains?.length > 1) {
-      this._trains.forEach((train, index) => train.setAttribute('slot', `train-${index}`));
-    } else {
-      this._trains?.forEach((train) => train.removeAttribute('slot'));
+  protected override willUpdate(changedProperties: PropertyValueMap<WithListChildren<this>>): void {
+    super.willUpdate(changedProperties);
+    if (changedProperties.has('listChildren')) {
+      this._readSectors();
     }
+  }
 
+  protected override render(): TemplateResult {
     return html`
       <div class="sbb-train-formation" ${ref(this._updateFormationDiv)}>
         <div class="sbb-train-formation__sectors" aria-hidden="true">
@@ -156,23 +149,10 @@ export class SbbTrainFormationElement extends SlotChildObserver(LitElement) {
         </div>
 
         <div class="sbb-train-formation__trains">
-          ${this._trains?.length > 1
-            ? html`<ul
-                class="sbb-train-formation__train-list"
-                aria-label=${i18nTrains[this._language.current]}
-              >
-                ${this._trains.map(
-                  (_, index) =>
-                    html`<li class="sbb-train-formation__train-list-item">
-                      <slot name=${`train-${index}`}></slot>
-                    </li>`,
-                )}
-              </ul>`
-            : nothing}
-
-          <span class="sbb-train-formation__single-train" ?hidden=${this._trains?.length !== 1}>
-            <slot></slot>
-          </span>
+          ${this.renderList({
+            class: 'sbb-train-formation__train-list',
+            ariaLabel: i18nTrains[this._language.current],
+          })}
         </div>
       </div>
     `;

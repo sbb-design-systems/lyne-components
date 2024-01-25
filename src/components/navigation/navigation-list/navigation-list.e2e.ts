@@ -23,8 +23,8 @@ describe('sbb-navigation-list', () => {
     const list = element.shadowRoot!.querySelector('ul')!;
     expect(list.className).to.be.equal('sbb-navigation-list__content');
 
-    const listItem = list.querySelector('li');
-    expect(listItem).to.have.class('sbb-navigation-list__action');
+    const listItems = list.querySelectorAll('li');
+    expect(listItems.length).to.equal(1);
   });
 
   it('force size on children elements', () => {

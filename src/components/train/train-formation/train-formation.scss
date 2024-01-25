@@ -101,14 +101,13 @@
 
 .sbb-train-formation__train-list {
   @include sbb.list-reset;
-}
 
-.sbb-train-formation__train-list-item {
-  display: inline-flex;
-}
-
-.sbb-train-formation__single-train,
-.sbb-train-formation__train-list {
   display: flex;
   gap: var(--sbb-train-formation-wagon-gap);
+}
+
+// Using ... li selector, because the li generation
+// is handled in the component base class.
+.sbb-train-formation__train-list li {
+  display: inline-flex;
 }

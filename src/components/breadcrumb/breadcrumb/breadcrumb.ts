@@ -51,9 +51,6 @@ export class SbbBreadcrumbElement extends SlotChildObserver(LitElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._hasText = Array.from(this.childNodes ?? []).some(
-      (n) => !(n as Element).slot && n.textContent?.trim(),
-    );
     this._handlerRepository.connect();
   }
 
@@ -63,9 +60,9 @@ export class SbbBreadcrumbElement extends SlotChildObserver(LitElement) {
   }
 
   protected override checkChildren(): void {
-    this._hasText = !!this.shadowRoot!.querySelector<HTMLSlotElement>('slot:not([name])')
-      ?.assignedNodes()
-      .some((n) => !!n.textContent?.trim());
+    this._hasText = Array.from(this.childNodes ?? []).some(
+      (n) => !(n as Element).slot && n.textContent?.trim(),
+    );
   }
 
   protected override render(): TemplateResult {

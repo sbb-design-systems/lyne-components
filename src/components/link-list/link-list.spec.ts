@@ -34,97 +34,55 @@ describe('sbb-link-list', () => {
     >
   `;
 
-  it('rendered with a slotted title', async () => {
-    element = await fixture(
-      html` <sbb-link-list title-level="2">
-        <span slot="title">Help &amp; Contact</span>
-        ${sbbLinkSnippet}
-      </sbb-link-list>`,
-    );
+  describe('rendered with a slotted title', () => {
+    before(async () => {
+      element = await fixture(
+        html` <sbb-link-list title-level="2">
+          <span slot="title">Help &amp; Contact</span>
+          ${sbbLinkSnippet}
+        </sbb-link-list>`,
+      );
+    });
 
-    await expect(element).dom.to.equalSnapshot();
-    expect(element).shadowDom.to.be.equal(
-      `
-            <div class="sbb-link-list-wrapper">
-              <sbb-title id="sbb-link-list-title-id" level="2" visual-level="5" class="sbb-link-list-title" aria-level="2" role="heading">
-                <slot name="title"></slot>
-              </sbb-title>
-              <ul aria-labelledby="sbb-link-list-title-id" class="sbb-link-list">
-                <li><slot name="link-0"></slot></li>
-                <li><slot name="link-1"></slot></li>
-                <li><slot name="link-2"></slot></li>
-                <li><slot name="link-3"></slot></li>
-                <li><slot name="link-4"></slot></li>
-              </ul>
-              <span hidden>
-                <slot></slot>
-              </span>
-            </div>
-          `,
-    );
+    it('in light DOM', async () => {
+      await expect(element).dom.to.equalSnapshot();
+    });
+
+    it('in shadow DOM', async () => {
+      await expect(element).shadowDom.to.equalSnapshot();
+    });
   });
 
-  it('rendered with a title from properties', async () => {
-    element = await fixture(
-      html` <sbb-link-list title-level="2" title-content="Help &amp; Contact">
-        ${sbbLinkSnippet}
-      </sbb-link-list>`,
-    );
+  describe('rendered with a title from properties', () => {
+    before(async () => {
+      element = await fixture(
+        html` <sbb-link-list title-level="2" title-content="Help &amp; Contact">
+          ${sbbLinkSnippet}
+        </sbb-link-list>`,
+      );
+    });
 
-    await expect(element).dom.to.equalSnapshot();
-    expect(element).shadowDom.to.be.equal(
-      `
-            <div class="sbb-link-list-wrapper">
-              <sbb-title id="sbb-link-list-title-id" level="2" visual-level="5" class="sbb-link-list-title" role="heading" aria-level="2">
-                <slot name="title">
-                Help &amp; Contact
-              </sbb-title>
-              <ul aria-labelledby="sbb-link-list-title-id" class="sbb-link-list">
-                <li><slot name="link-0"></slot></li>
-                <li><slot name="link-1"></slot></li>
-                <li><slot name="link-2"></slot></li>
-                <li><slot name="link-3"></slot></li>
-                <li><slot name="link-4"></slot></li>
-              </ul>
-              <span hidden>
-                <slot></slot>
-              </span>
-            </div>
-          `,
-    );
+    it('in light DOM', async () => {
+      await expect(element).dom.to.equalSnapshot();
+    });
+
+    it('in shadow DOM', async () => {
+      await expect(element).shadowDom.to.equalSnapshot();
+    });
   });
 
-  it('rendered without a title', async () => {
-    element = await fixture(html` <sbb-link-list> ${sbbLinkSnippet} </sbb-link-list>`);
+  describe('rendered without a title', () => {
+    before(async () => {
+      element = await fixture(html`<sbb-link-list>${sbbLinkSnippet}</sbb-link-list>`);
+    });
 
-    await expect(element).dom.to.equalSnapshot();
-    expect(element).shadowDom.to.be.equal(
-      `
-            <div class="sbb-link-list-wrapper">
-              <sbb-title
-                aria-level="2"
-                class="sbb-link-list-title"
-                id="sbb-link-list-title-id"
-                level="2"
-                role="heading"
-                visual-level="5"
-              >
-                <slot name="title">
-                </slot>
-              </sbb-title>
-              <ul class="sbb-link-list">
-                <li><slot name="link-0"></slot></li>
-                <li><slot name="link-1"></slot></li>
-                <li><slot name="link-2"></slot></li>
-                <li><slot name="link-3"></slot></li>
-                <li><slot name="link-4"></slot></li>
-              </ul>
-              <span hidden>
-                <slot></slot>
-              </span>
-            </div>
-          `,
-    );
+    it('in light DOM', async () => {
+      await expect(element).dom.to.equalSnapshot();
+    });
+
+    it('in shadow DOM', async () => {
+      await expect(element).shadowDom.to.equalSnapshot();
+    });
   });
 
   it('should render named slots if data-ssr-child-count attribute is set', async () => {

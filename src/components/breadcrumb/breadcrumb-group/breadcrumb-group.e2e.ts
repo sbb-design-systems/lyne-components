@@ -91,8 +91,8 @@ describe('sbb-breadcrumb-group', () => {
       // only two slots are displayed, and the second is the last one
       const slots = breadcrumbGroup.shadowRoot!.querySelectorAll('li > slot');
       expect(slots.length).to.be.equal(2);
-      expect(slots[0]).to.have.attribute('name', 'breadcrumb-0');
-      expect(slots[1]).to.have.attribute('name', 'breadcrumb-6');
+      expect(slots[0]).to.have.attribute('name', 'li-0');
+      expect(slots[1]).to.have.attribute('name', 'li-6');
     });
 
     it('keyboard navigation with ellipsis', async () => {

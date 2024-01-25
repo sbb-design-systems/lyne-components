@@ -1,8 +1,9 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import type { CSSResultGroup, TemplateResult, PropertyValueMap } from 'lit';
+import { html } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 
-import { SlotChildObserver } from '../../core/common-behaviors';
+import type { WithListChildren } from '../../core/common-behaviors';
+import { NamedSlotListElement } from '../../core/common-behaviors';
 import { setAttribute } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
 import type { SbbStateChange } from '../../core/interfaces';
@@ -16,8 +17,10 @@ import style from './tag-group.scss?lit&inline';
  * @slot - Use the unnamed slot to add one or more 'sbb-tag' elements to the `sbb-tag-group`.
  */
 @customElement('sbb-tag-group')
-export class SbbTagGroupElement extends SlotChildObserver(LitElement) {
+export class SbbTagGroupElement extends NamedSlotListElement<SbbTagElement> {
   public static override styles: CSSResultGroup = style;
+  // DIV is added here due to special requirements from sbb.ch.
+  protected override readonly listChildTagNames = ['SBB-TAG', 'DIV'];
 
   /**
    * This will be forwarded as aria-label to the inner list.
@@ -48,12 +51,6 @@ export class SbbTagGroupElement extends SlotChildObserver(LitElement) {
   private _value: string | string[] | null = null;
 
   private _abort = new ConnectedAbortController(this);
-
-  /**
-   * We hold the slotted elements in a separate state than the tags itself.
-   * In rare usages, consumers need to slot other elements than tags into the tag group.
-   */
-  @state() private _slottedElements: HTMLElement[] = [];
 
   private _valueChanged(value: string | string[] | null): void {
     if (this._tags.some((tag) => !tag.value)) {
@@ -143,32 +140,23 @@ export class SbbTagGroupElement extends SlotChildObserver(LitElement) {
     return Array.from(this.querySelectorAll?.('sbb-tag') ?? []) as SbbTagElement[];
   }
 
-  protected override checkChildren(): void {
-    this._slottedElements = Array.from(this.children ?? []).filter(
-      (e): e is HTMLElement => e instanceof window.HTMLElement,
-    );
-    this._ensureOnlyOneTagSelected();
-    this._updateValueByReadingTags();
+  protected override willUpdate(changedProperties: PropertyValueMap<WithListChildren<this>>): void {
+    super.willUpdate(changedProperties);
+    if (changedProperties.has('listChildren')) {
+      this._ensureOnlyOneTagSelected();
+      this._updateValueByReadingTags();
+    }
   }
 
   protected override render(): TemplateResult {
-    this._slottedElements.forEach((tag, index) => tag.setAttribute('slot', `tag-${index}`));
-
     setAttribute(this, 'role', this.listAccessibilityLabel ? '' : 'group');
 
     return html`
       <div class="sbb-tag-group">
-        <ul class="sbb-tag-group__list" aria-label=${this.listAccessibilityLabel ?? nothing}>
-          ${this._slottedElements.map(
-            (_, index) =>
-              html`<li class="sbb-tag-group__list-item">
-                <slot name=${`tag-${index}`}></slot>
-              </li>`,
-          )}
-        </ul>
-        <span hidden>
-          <slot></slot>
-        </span>
+        ${this.renderList({
+          class: 'sbb-tag-group__list',
+          ariaLabel: this.listAccessibilityLabel,
+        })}
       </div>
     `;
   }

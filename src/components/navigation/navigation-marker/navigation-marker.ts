@@ -1,9 +1,7 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { SlotChildObserver } from '../../core/common-behaviors';
-import { setAttribute } from '../../core/dom';
+import { NamedSlotListElement, type WithListChildren } from '../../core/common-behaviors';
 import { AgnosticResizeObserver } from '../../core/observers';
 import type { SbbNavigationActionElement } from '../navigation-action';
 
@@ -15,42 +13,37 @@ import style from './navigation-marker.scss?lit&inline';
  * @slot - Use the unnamed slot to add `sbb-navigation-action` elements into the `sbb-navigation-marker`.
  */
 @customElement('sbb-navigation-marker')
-export class SbbNavigationMarkerElement extends SlotChildObserver(LitElement) {
+export class SbbNavigationMarkerElement extends NamedSlotListElement<SbbNavigationActionElement> {
   public static override styles: CSSResultGroup = style;
+  protected override readonly listChildTagNames = ['SBB-NAVIGATION-ACTION'];
 
   /**
    * Marker size variant.
    */
   @property({ reflect: true }) public size?: 'l' | 's' = 'l';
 
-  /**
-   * Whether the list has an active action.
-   */
-  @state() private _hasActiveAction = false;
+  @state() private _currentActiveAction?: SbbNavigationActionElement;
 
-  /**
-   * Navigation action elements.
-   */
-  @state() private _actions: SbbNavigationActionElement[] = [];
-
-  private _currentActiveAction?: SbbNavigationActionElement;
   private _navigationMarkerResizeObserver = new AgnosticResizeObserver(() =>
     this._setMarkerPosition(),
   );
 
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    if (changedProperties.has('size')) {
+  protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
+    super.willUpdate(changedProperties);
+    if (changedProperties.has('size') || changedProperties.has('listChildren')) {
       this._updateMarkerActions();
     }
+    this.toggleAttribute('data-has-active-action', !!this._currentActiveAction);
   }
 
   private _updateMarkerActions(): void {
-    for (const action of this._navigationActions) {
+    for (const action of this.listChildren) {
       action.size = this.size;
     }
 
-    this._hasActiveAction = !!this._activeNavigationAction;
-    this._currentActiveAction = this._activeNavigationAction;
+    this._currentActiveAction = this.listChildren.find(
+      (action) => action.active ?? action.getAttribute('active'),
+    );
     this._setMarkerPosition();
   }
 
@@ -68,62 +61,37 @@ export class SbbNavigationMarkerElement extends SlotChildObserver(LitElement) {
     this.reset();
     action.active = true;
     this._currentActiveAction = action;
-    this._hasActiveAction = true;
+    setTimeout(() => this._setMarkerPosition());
+  }
+
+  protected override firstUpdated(changedProperties: PropertyValues<WithListChildren<this>>): void {
+    super.firstUpdated(changedProperties);
     setTimeout(() => this._setMarkerPosition());
   }
 
   public reset(): void {
-    if (!this._hasActiveAction) {
-      return;
-    }
     if (this._currentActiveAction) {
       this._currentActiveAction.active = false;
+      this._currentActiveAction = undefined;
     }
-    this._hasActiveAction = false;
-  }
-
-  private get _navigationActions(): SbbNavigationActionElement[] {
-    return Array.from(this.querySelectorAll?.('sbb-navigation-action') ?? []);
-  }
-
-  private get _activeNavigationAction(): SbbNavigationActionElement | undefined {
-    return this._navigationActions.find((action) => action.active);
-  }
-
-  // Create an array with only the sbb-navigation-action children.
-  protected override checkChildren(): void {
-    this._actions = Array.from(this.children).filter(
-      (e): e is SbbNavigationActionElement => e.tagName === 'SBB-NAVIGATION-ACTION',
-    );
   }
 
   private _setMarkerPosition(): void {
-    if (this._hasActiveAction) {
-      this.style?.setProperty(
-        '--sbb-navigation-marker-position-y',
-        `${(this.shadowRoot!.querySelector('[data-active]') as HTMLElement)?.offsetTop}px`,
-      );
+    if (!this._currentActiveAction) {
+      return;
+    }
+
+    const index = this.listChildren.indexOf(this._currentActiveAction)!;
+    const value = this.shadowRoot!.querySelector<HTMLLIElement>(
+      `li:nth-child(${index + 1})`,
+    )?.offsetTop;
+    if (value != null) {
+      this.style?.setProperty('--sbb-navigation-marker-position-y', `${value}px`);
     }
   }
 
   protected override render(): TemplateResult {
-    this._actions.forEach((action, index) => action.setAttribute('slot', `action-${index}`));
-    setAttribute(this, 'data-has-active-action', this._hasActiveAction);
-
-    return html`
-      <ul class="sbb-navigation-marker">
-        ${this._actions.map(
-          (action, index) => html`
-            <li class="sbb-navigation-marker__action" ?data-active=${action.active}>
-              <slot name=${`action-${index}`}></slot>
-            </li>
-          `,
-        )}
-      </ul>
-      <span hidden>
-        <slot></slot>
-      </span>
-    `;
+    return this.renderList();
   }
 }
 

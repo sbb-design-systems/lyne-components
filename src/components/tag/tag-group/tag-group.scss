@@ -12,7 +12,9 @@
   gap: var(--sbb-spacing-fixed-3x);
 }
 
-.sbb-tag-group__list-item {
+// Using ... li selector, because the li generation
+// is handled in the component base class.
+.sbb-tag-group__list li {
   display: flex;
   max-width: 100%;
 }
