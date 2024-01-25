@@ -4,6 +4,12 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
+// Open/Close animation vars
+$open-anim-rows-from: 0fr;
+$open-anim-rows-to: 1fr;
+$open-anim-opacity-from: 0;
+$open-anim-opacity-to: 1;
+
 :host {
   --sbb-selection-panel-cursor: pointer;
   --sbb-selection-panel-background: var(--sbb-color-white-default);
@@ -15,6 +21,9 @@
     var(--sbb-spacing-responsive-xxs);
   --sbb-selection-panel-content-visibility: hidden;
   --sbb-selection-panel-content-padding-inline: var(--sbb-spacing-responsive-xxs);
+
+  // As the selection panel has always a white/milk background, we have to fix the focus outline color
+  // to default color for cases where the selection panel is used in a negative context.
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
 
   display: contents;
@@ -85,10 +94,15 @@
 .sbb-selection-panel__content--wrapper {
   display: grid;
   visibility: var(--sbb-selection-panel-content-visibility);
-  grid-template-rows: 0fr;
-  opacity: 0;
+  grid-template-rows: #{$open-anim-rows-from};
+  opacity: #{$open-anim-opacity-from};
 
-  :host(:where([data-state='opening'], [data-state='opened'])) & {
+  :host([data-state='opened']) & {
+    grid-template-rows: #{$open-anim-rows-to};
+    opacity: #{$open-anim-opacity-to};
+  }
+
+  :host([data-state='opening']) & {
     animation-name: open, open-opacity;
     animation-fill-mode: forwards;
     animation-duration: var(--sbb-selection-panel-animation-duration);
@@ -96,7 +110,7 @@
     animation-delay: 0s, var(--sbb-selection-panel-animation-duration);
   }
 
-  :host(:where([data-state='closing'])) & {
+  :host([data-state='closing']) & {
     animation-name: close;
     animation-duration: var(--sbb-selection-panel-animation-duration);
     animation-timing-function: var(--sbb-animation-easing);
@@ -133,32 +147,32 @@ sbb-divider {
 
 @keyframes open {
   from {
-    grid-template-rows: 0fr;
+    grid-template-rows: #{$open-anim-rows-from};
   }
 
   to {
-    grid-template-rows: 1fr;
+    grid-template-rows: #{$open-anim-rows-to};
   }
 }
 
 @keyframes open-opacity {
   from {
-    opacity: 0;
+    opacity: #{$open-anim-opacity-from};
   }
 
   to {
-    opacity: 1;
+    opacity: #{$open-anim-opacity-to};
   }
 }
 
 @keyframes close {
   from {
-    grid-template-rows: 1fr;
-    opacity: 1;
+    grid-template-rows: #{$open-anim-rows-to};
+    opacity: #{$open-anim-opacity-to};
   }
 
   to {
-    grid-template-rows: 0fr;
-    opacity: 0;
+    grid-template-rows: #{$open-anim-rows-from};
+    opacity: #{$open-anim-opacity-from};
   }
 }

@@ -59,37 +59,28 @@ export class SbbSelectionPanelElement extends LitElement {
   private _willOpen: EventEmitter<void> = new EventEmitter(
     this,
     SbbSelectionPanelElement.events.willOpen,
-    {
-      bubbles: true,
-      composed: true,
-    },
   );
 
   /** Emits whenever the content section is opened. */
   private _didOpen: EventEmitter<void> = new EventEmitter(
     this,
     SbbSelectionPanelElement.events.didOpen,
-    {
-      bubbles: true,
-      composed: true,
-    },
   );
 
   /** Emits whenever the content section begins the closing transition. */
   private _willClose: EventEmitter<{ closeTarget: HTMLElement }> = new EventEmitter(
     this,
     SbbSelectionPanelElement.events.willClose,
-    { bubbles: true, composed: true },
   );
 
   /** Emits whenever the content section is closed. */
   private _didClose: EventEmitter<{ closeTarget: HTMLElement }> = new EventEmitter(
     this,
     SbbSelectionPanelElement.events.didClose,
-    { bubbles: true, composed: true },
   );
 
   private _abort = new ConnectedAbortController(this);
+  private _initialized: boolean = false;
 
   /**
    * Whether it has an expandable content
@@ -119,21 +110,30 @@ export class SbbSelectionPanelElement extends LitElement {
     }
   }
 
+  protected override firstUpdated(): void {
+    this._initialized = true;
+  }
+
   private _updateState(): void {
     if (!this.hasContent) {
       return;
     }
 
-    this.forceOpen || this._checked ? this._open() : this._close();
+    this.forceOpen || this._checked ? this._open(!this._initialized) : this._close();
   }
 
-  private _open(): void {
+  private _open(skipAnimation = false): void {
     if (this._state !== 'closed' && this._state !== 'closing') {
       return;
     }
 
     this._state = 'opening';
     this._willOpen.emit();
+
+    if (skipAnimation) {
+      this._state = 'opened';
+      this._didOpen.emit();
+    }
   }
 
   private _close(): void {
