@@ -125,7 +125,9 @@ const toastTemplate = (
         ></sbb-button>`
       : nothing}
     ${action === 'link'
-      ? html`<sbb-link slot="action" sbb-toast-close> Link action </sbb-link>`
+      ? html`<sbb-link slot="action" sbb-toast-close href="https://www.sbb.ch" target="_blank">
+          Link action
+        </sbb-link>`
       : nothing}
   </sbb-toast>
 `;
