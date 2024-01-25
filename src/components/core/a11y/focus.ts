@@ -26,7 +26,7 @@ export function getFocusableElements(
 
   function getFocusables(elements: HTMLElement[], filterFunc?: (el: HTMLElement) => boolean): void {
     for (const el of elements) {
-      if (filterFunc?.(el)) {
+      if (filterFunc && !filterFunc(el)) {
         continue;
       }
 
@@ -76,7 +76,18 @@ export function getFirstFocusableElement(
 export class FocusHandler {
   private _controller = new AbortController();
 
-  public trap(element: HTMLElement, filterFunc?: (el: HTMLElement) => boolean): void {
+  /**
+   * @param element in which the focus should be trapped.
+   * @param options.filter filter function which is applied during searching for focusable element. If an element is filtered, also child elements are filtered.
+   * @param options.postFilter filter function which is applied after collecting focusable elements.
+   */
+  public trap(
+    element: HTMLElement,
+    options?: {
+      filter?: (el: HTMLElement) => boolean;
+      postFilter?: (el: HTMLElement) => boolean;
+    },
+  ): void {
     element.addEventListener(
       'keydown',
       (event) => {
@@ -88,9 +99,16 @@ export class FocusHandler {
         const elementChildren: HTMLElement[] = Array.from(
           element.shadowRoot!.children || [],
         ) as HTMLElement[];
-        const focusableElements = getFocusableElements(elementChildren, { filterFunc });
-        const firstFocusable = focusableElements[0] as HTMLElement;
-        const lastFocusable = focusableElements[focusableElements.length - 1] as HTMLElement;
+        const focusableElements = getFocusableElements(elementChildren, {
+          filterFunc: options?.filter,
+        });
+        const filteredFocusableElements = focusableElements.filter(
+          options?.postFilter ?? (() => true),
+        );
+        const firstFocusable = filteredFocusableElements[0] as HTMLElement;
+        const lastFocusable = filteredFocusableElements[
+          filteredFocusableElements.length - 1
+        ] as HTMLElement;
 
         const [pivot, next] = event.shiftKey
           ? [firstFocusable, lastFocusable]

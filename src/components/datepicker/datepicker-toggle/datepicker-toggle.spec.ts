@@ -31,7 +31,6 @@ describe('sbb-datepicker-toggle', () => {
         data-state="closed"
         hide-close-button=""
         id="sbb-tooltip-1"
-        role="tooltip"
       >
         <sbb-calendar></sbb-calendar>
       </sbb-tooltip>
@@ -69,7 +68,6 @@ describe('sbb-datepicker-toggle', () => {
               hide-close-button=""
               data-state="closed"
               id="sbb-tooltip-4"
-              role="tooltip"
             >
               <sbb-calendar></sbb-calendar>
             </sbb-tooltip>
@@ -108,7 +106,6 @@ describe('sbb-datepicker-toggle', () => {
             data-state="closed"
             id="sbb-tooltip-7"
             hide-close-button=""
-            role="tooltip"
           >
             <sbb-calendar></sbb-calendar>
           </sbb-tooltip>
@@ -146,7 +143,6 @@ describe('sbb-datepicker-toggle', () => {
             hide-close-button=""
             data-state="closed"
             id="sbb-tooltip-10"
-            role="tooltip"
           >
             <sbb-calendar wide=""></sbb-calendar>
           </sbb-tooltip>

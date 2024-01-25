@@ -207,14 +207,14 @@ export class SbbTooltipElement extends LitElement {
     if (newValue !== oldValue) {
       this._tooltipController?.abort();
       this._windowEventsController?.abort();
-      this._configure(this.trigger);
+      this._configure();
     }
   }
 
   public override connectedCallback(): void {
     super.connectedCallback();
     // Validate trigger element and attach event listeners
-    this._configure(this.trigger);
+    this._configure();
     this._state = 'closed';
     tooltipsRef.add(this as SbbTooltipElement);
   }
@@ -222,6 +222,10 @@ export class SbbTooltipElement extends LitElement {
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('trigger')) {
       this._removeTriggerClickListener(this.trigger, changedProperties.get('trigger'));
+    }
+
+    if (changedProperties.has('hoverTrigger')) {
+      this._configure();
     }
   }
 
@@ -241,14 +245,14 @@ export class SbbTooltipElement extends LitElement {
   }
 
   // Check if the trigger is valid and attach click event listeners.
-  private _configure(trigger?: string | HTMLElement): void {
+  private _configure(): void {
     removeAriaOverlayTriggerAttributes(this._triggerElement);
 
-    if (!trigger) {
+    if (!this.trigger) {
       return;
     }
 
-    this._triggerElement = findReferencedElement(trigger);
+    this._triggerElement = findReferencedElement(this.trigger);
 
     if (!this._triggerElement) {
       return;
@@ -389,11 +393,16 @@ export class SbbTooltipElement extends LitElement {
       this._didOpen.emit();
       this.inert = false;
       this._setTooltipFocus();
-      this._focusHandler.trap(this);
+      this._focusHandler.trap(this, {
+        postFilter: (el) => el !== this._overlay,
+      });
       this._attachWindowEvents();
     } else if (event.animationName === 'close' && this._state === 'closing') {
       this._state = 'closed';
       this._overlay?.firstElementChild?.scrollTo(0, 0);
+
+      // In case the overlay was closed without a relatedTarget, reset tabindex.
+      this._overlay.removeAttribute('tabindex');
 
       const elementToFocus = this._nextFocusedElement || this._triggerElement;
 
@@ -416,6 +425,27 @@ export class SbbTooltipElement extends LitElement {
     if (firstFocusable) {
       setModalityOnNextFocus(firstFocusable);
       firstFocusable.focus();
+    } else {
+      this._overlay.setAttribute('tabindex', '0');
+      setModalityOnNextFocus(this._overlay);
+
+      this._overlay.focus();
+      this._overlay.addEventListener(
+        'blur',
+        (event) => {
+          // When a blur occurs, we know that the tooltip has to be closed, because there are no interactive elements inside the tooltip.
+          // If related target is not set, it's probably closed by click, or if a tab / window was changed.
+          // The first case is handled by click trigger while we in the second case want to avoid closing the tooltip on window / tab change.
+          if (event.relatedTarget instanceof HTMLElement) {
+            this._overlay.removeAttribute('tabindex');
+            this._nextFocusedElement = event.relatedTarget;
+            this.close();
+          }
+        },
+        {
+          signal: this._tooltipController.signal,
+        },
+      );
     }
   }
 
@@ -464,7 +494,6 @@ export class SbbTooltipElement extends LitElement {
     `;
 
     setAttribute(this, 'data-position', this._alignment?.vertical);
-    setAttribute(this, 'role', 'tooltip');
     assignId(() => this._tooltipId)(this);
 
     return html`
@@ -472,6 +501,7 @@ export class SbbTooltipElement extends LitElement {
         <div
           @animationend=${(event: AnimationEvent) => this._onTooltipAnimationEnd(event)}
           class="sbb-tooltip"
+          role="tooltip"
           ${ref((el?: Element) => (this._overlay = el as HTMLDivElement))}
         >
           <div

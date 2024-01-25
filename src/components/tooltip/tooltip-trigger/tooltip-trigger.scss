@@ -27,6 +27,10 @@
   }
 }
 
+:host([negative]) {
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+}
+
 :host(:is(:active, [data-active])) {
   --sbb-tooltip-color: var(--sbb-color-anthracite-default);
 }

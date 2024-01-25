@@ -15,6 +15,7 @@
   --sbb-tooltip-border-radius: var(--sbb-border-radius-8x);
   --sbb-tooltip-padding: var(--sbb-spacing-fixed-4x);
   --sbb-tooltip-background: var(--sbb-color-white-default);
+  --sbb-tooltip-color: var(--sbb-color-charcoal-default);
   --sbb-tooltip-animation-duration: var(--sbb-animation-duration-4x);
   --sbb-tooltip-animation-easing: ease-out;
   --sbb-tooltip-transform: translateY(var(--sbb-spacing-fixed-2x));
@@ -22,11 +23,6 @@
   // As the tooltip has always a white background, we have to fix the focus outline color
   // to default color for cases where the tooltip is used in a negative context.
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
-
-  // We use this rule to make the inner container element to appear as if it were a
-  // direct child of the host's parent element. This is useful because the host
-  // should be ignored when using CSS grid or similar layout techniques.
-  display: contents;
 }
 
 :host([disable-animation]) {
@@ -61,6 +57,7 @@
   inset: var(--sbb-tooltip-inset);
   pointer-events: none;
   z-index: var(--sbb-tooltip-z-index, var(--sbb-overlay-z-index));
+  color: var(--sbb-tooltip-color);
 }
 
 .sbb-tooltip {
@@ -79,6 +76,11 @@
   max-width: var(--sbb-tooltip-max-width);
   width: max-content;
   background-color: var(--sbb-tooltip-background);
+  outline: none;
+
+  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']) {
+    @include sbb.focus-outline;
+  }
 
   :host([data-state]:not([data-state='closed'])) & {
     display: block;

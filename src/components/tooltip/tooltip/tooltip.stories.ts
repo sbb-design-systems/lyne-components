@@ -53,6 +53,10 @@ const hoverTrigger: InputType = {
   },
 };
 
+const hideCloseButton: InputType = {
+  control: { type: 'boolean' },
+};
+
 const openDelay: InputType = {
   control: {
     type: 'number',
@@ -73,6 +77,7 @@ const disableAnimation: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   'hover-trigger': hoverTrigger,
+  'hide-close-button': hideCloseButton,
   'open-delay': openDelay,
   'close-delay': closeDelay,
   'disable-animation': disableAnimation,
@@ -80,6 +85,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   'hover-trigger': false,
+  'hide-close-button': false,
   'open-delay': undefined,
   'close-delay': undefined,
   'disable-animation': isChromatic(),
@@ -112,6 +118,17 @@ const tooltip = (args: Args): TemplateResult => html`
         Learn More
       </sbb-link>
     </p>
+  </sbb-tooltip>
+`;
+
+const simpleTooltip = (args: Args): TemplateResult => html`
+  <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger" ${sbbSpread(args)}>
+    Simple tooltip without any interactive content but a list.
+    <ul aria-label="Colors">
+      <li>Red</li>
+      <li>Green</li>
+      <li>Blue</li>
+    </ul>
   </sbb-tooltip>
 `;
 
@@ -153,6 +170,10 @@ const LongContentTemplate = (args: Args): TemplateResult => html`
 
 const HoverTriggerTemplate = (args: Args): TemplateResult => html`
   ${tooltipTrigger({ 'inset-inline-start': '2rem' })} ${tooltip(args)}
+`;
+
+const WithoutCloseButtonTemplate = (args: Args): TemplateResult => html`
+  ${tooltipTrigger({ 'inset-inline-start': '2rem' })} ${simpleTooltip(args)}
 `;
 
 export const StartBelow: StoryObj = {
@@ -212,6 +233,27 @@ export const HoverTrigger: StoryObj = {
     'hover-trigger': true,
     'open-delay': 0,
     'close-delay': 0,
+  },
+  play: isChromatic() ? playStoryHover : undefined,
+};
+
+export const WithoutCloseButton: StoryObj = {
+  render: WithoutCloseButtonTemplate,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    'hide-close-button': true,
+  },
+  play: isChromatic() ? playStory : undefined,
+};
+
+export const WithoutCloseButtonHover: StoryObj = {
+  render: WithoutCloseButtonTemplate,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    'hide-close-button': true,
+    'hover-trigger': true,
   },
   play: isChromatic() ? playStoryHover : undefined,
 };
