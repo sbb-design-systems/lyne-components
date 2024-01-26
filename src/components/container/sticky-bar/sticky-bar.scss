@@ -43,6 +43,10 @@
 
   :host([data-sticking]) & {
     @include sbb.shadow-level-5-hard;
+
+    @include sbb.if-forced-colors {
+      border-top: var(--sbb-border-width-1x) solid CanvasText;
+    }
   }
 
   :host([data-settled]) & {
