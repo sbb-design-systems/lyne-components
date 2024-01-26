@@ -240,7 +240,11 @@ const meta: Meta = {
         style="padding: 2rem;display: flex;gap: var(--sbb-spacing-fixed-4x);flex-direction: column;"
       >
         ${trigger(context.args)}
-        <div class="notification-container" style="display: flex; flex-direction: column;">
+        <div
+          class="notification-container"
+          style="display: flex; flex-direction: column;"
+          aria-live="polite"
+        >
           ${story()}
         </div>
         ${pageContent()}
