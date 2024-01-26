@@ -143,7 +143,7 @@ export class SbbNotificationElement extends LitElement {
     this._setNotificationHeight();
     this._open();
     this.shadowRoot
-      .querySelector('.sbb-notification')
+      ?.querySelector<SbbNotificationElement>('.sbb-notification')!
       .setAttribute('role', this.getAttribute('role') ?? 'status');
   }
 
