@@ -49,7 +49,7 @@
     }
   }
 
-  :host([data-settled]) & {
+  :host(:not([data-sticking])) & {
     --sbb-sticky-bar-background-color: var(
       --sbb-container-background-color,
       var(--sbb-color-white-default)

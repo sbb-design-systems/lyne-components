@@ -45,10 +45,12 @@ export class SbbContainerElement extends LitElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-container">
-        <slot></slot>
+      <div class="sbb-container__wrapper">
+        <div class="sbb-container">
+          <slot></slot>
+        </div>
+        <slot name="sticky-bar"></slot>
       </div>
-      <slot name="sticky-bar"></slot>
     `;
   }
 }
