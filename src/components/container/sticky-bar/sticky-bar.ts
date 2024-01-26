@@ -47,7 +47,7 @@ export class SbbStickyBarElement extends LitElement {
 
   private _toggleShadowVisibility(entry: IntersectionObserverEntry): void {
     toggleDatasetEntry(this, 'sticking', !entry.isIntersecting && entry.boundingClientRect.top > 0);
-    toggleDatasetEntry(this, 'settled', entry.isIntersecting);
+    toggleDatasetEntry(this, 'settled', entry.isIntersecting || entry.boundingClientRect.top < 0);
   }
 
   public override disconnectedCallback(): void {
