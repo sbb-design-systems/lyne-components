@@ -9,11 +9,13 @@ describe('sbb-container', () => {
     expect(root).dom.to.be.equal(`<sbb-container color="transparent"></sbb-container>`);
 
     expect(root).shadowDom.to.equal(
-      `<div class="sbb-container">
-        <slot>
-        </slot>
+      `<div class="sbb-container__wrapper">
+        <div class="sbb-container">
+          <slot>
+          </slot>
+        </div>
+        <slot name="sticky-bar"></slot>
       </div>
-      <slot name="sticky-bar"></slot>
       `,
     );
   });
