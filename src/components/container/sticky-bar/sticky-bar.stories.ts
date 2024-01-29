@@ -110,7 +110,7 @@ const DefaultTemplate = ({ color, containerColor, ...args }: Args): TemplateResu
 `;
 
 const ShortTemplate = ({ color, containerColor, ...args }: Args): TemplateResult => html`
-  <sbb-container ${sbbSpread(args)}>
+  <sbb-container ${sbbSpread(args)} color=${containerColor}>
     ${containerContent('Example title', containerColor)}
 
     <sbb-sticky-bar color=${color !== 'unset' ? color : nothing}> ${actionGroup()} </sbb-sticky-bar>
@@ -118,7 +118,7 @@ const ShortTemplate = ({ color, containerColor, ...args }: Args): TemplateResult
 `;
 
 const WithStickybarTemplate = ({ color, containerColor, ...args }: Args): TemplateResult => html`
-  <sbb-container ${sbbSpread(args)}>
+  <sbb-container ${sbbSpread(args)} color=${containerColor}>
     ${containerContent('Example title', containerColor)}
     ${containerContent('Another one', containerColor)}
     ${containerContent('And another one', containerColor)}

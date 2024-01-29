@@ -30,6 +30,10 @@
   color: var(--sbb-color-white-default);
 }
 
+:host(:not([data-sticking])) {
+  --sbb-sticky-bar-background-color: transparent;
+}
+
 .sbb-sticky-bar__wrapper {
   box-shadow: none;
   position: sticky;
@@ -37,20 +41,14 @@
   display: block;
   width: 100%;
   background-color: var(--sbb-sticky-bar-background-color);
-  transition-property: box-shadow, background-color;
-  transition-duration: var(--sbb-sticky-bar-animation-duration);
-  transition-timing-function: var(--sbb-sticky-bar-animation-easing);
+  transition: box-shadow var(--sbb-sticky-bar-animation-duration) var(--sbb-sticky-bar-animation-easing) 0, background-color var(--sbb-sticky-bar-animation-duration) var(--sbb-sticky-bar-animation-easing) 0;
 
   :host([data-sticking]) & {
     @include sbb.shadow-level-5-hard;
 
     @include sbb.if-forced-colors {
-      border-top: var(--sbb-border-width-1x) solid CanvasText;
+      border-block-start: var(--sbb-border-width-1x) solid CanvasText;
     }
-  }
-
-  :host(:not([data-sticking])) & {
-    --sbb-sticky-bar-background-color: transparent;
   }
 }
 
