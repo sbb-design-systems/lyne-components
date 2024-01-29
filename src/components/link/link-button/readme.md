@@ -29,6 +29,7 @@ The component is internally rendered as a button,
 accepting its associated properties (`type`, `name`, `value` and `form`).
 
 If `isStatic` is set, the component will be rendered as a button without any user interaction.
+The `isStatic` is only considered during initial rendering (connectedCallback), later configuration changes are ignored.
 Please note that if the `sbb-link-button` is placed inside another button tag,
 it is internally rendered as a span in order to not break HTML functionality.
 

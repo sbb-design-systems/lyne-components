@@ -32,6 +32,7 @@ The component is internally rendered as a link,
 accepting its associated properties (`href`, `target`, `rel` and `download`).
 
 If `isStatic` is set, the component will be rendered as a span without any user interaction.
+The `isStatic` is only considered during initial rendering (connectedCallback), later configuration changes are ignored.
 Please note that if the `sbb-button-link` is placed inside another anchor tag,
 it is internally rendered as a span in order to not break HTML functionality.
 If the component is placed inside an `sbb-form-field`, it renders with the correct styling.
