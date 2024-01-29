@@ -28,6 +28,7 @@ depending on the value of the `href` property, so the associated properties are 
 (`href`, `target`, `rel` and `download` for link; `type`, `name`, `value` and `form` for button).
 
 If `isStatic` is set, the component will be rendered as a button without any user interaction.
+The `isStatic` is only considered during initial rendering (connectedCallback), later configuration changes are ignored.
 Please note that if the `sbb-button` is placed inside another anchor or button tag,
 it is internally rendered as a span in order to not break HTML functionality.
 If the component is placed inside an `sbb-form-field`, it renders with the correct styling.
