@@ -1,6 +1,6 @@
 import type { InputType } from '@storybook/types';
 import type { ArgTypes, Args, Meta, StoryObj } from '@storybook/web-components';
-import { type TemplateResult, html } from 'lit';
+import { type TemplateResult, html, nothing } from 'lit';
 
 import { sbbSpread } from '../../core/dom';
 
@@ -10,18 +10,21 @@ import './container';
 
 import readme from './readme.md?raw';
 
-const containerContent = (title: string, color: string): TemplateResult => html`
-  <div style="overflow: auto">
-    <sbb-title level="4" ?negative=${color === 'midnight'}>${title}</sbb-title>
-    <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
-    <p class="sbb-text-s">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-      laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-      voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-    </p>
-  </div>
-  <sbb-button variant="secondary" ?negative=${color === 'midnight'}>See more</sbb-button>
+const containerContent = (title: string, color: string, last = false): TemplateResult => html`
+  <sbb-title level="4" ?negative=${color === 'midnight'}>${title}</sbb-title>
+  <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
+  <p class="sbb-text-s">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+    laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+    voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  </p>
+  <sbb-button
+    variant="secondary"
+    ?negative=${color === 'midnight'}
+    style=${last ? 'margin-block-end: 3rem;' : nothing}
+    >See more</sbb-button
+  >
 `;
 
 const expanded: InputType = {
@@ -48,9 +51,9 @@ const defaultArgs: Args = {
 };
 
 const DefaultTemplate = ({ color, ...args }: Args): TemplateResult => html`
-  <sbb-container ${sbbSpread(args)} color=${color} style="padding-block-end: 3rem;">
+  <sbb-container ${sbbSpread(args)} color=${color}>
     ${containerContent('Example title', color)} ${containerContent('Another one', color)}
-    ${containerContent('And another one', color)}
+    ${containerContent('And another one', color, true)}
   </sbb-container>
 `;
 

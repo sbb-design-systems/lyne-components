@@ -6,7 +6,6 @@
   --sbb-sticky-bar-padding-block: var(--sbb-spacing-responsive-xxxs);
   --sbb-sticky-bar-animation-duration: var(--sbb-animation-duration-5x);
   --sbb-sticky-bar-animation-easing: var(--sbb-animation-easing);
-  --sbb-sticky-bar-intersector-height: #{sbb.px-to-rem-build(1)};
   --sbb-sticky-bar-background-color: var(
     --sbb-container-background-color,
     var(--sbb-color-white-default)
@@ -35,13 +34,21 @@
 }
 
 .sbb-sticky-bar__wrapper {
-  box-shadow: none;
   position: sticky;
   inset-block-end: 0;
   display: block;
   width: 100%;
+}
+
+.sbb-sticky-bar__wrapper::before {
+  position: absolute;
+  content: '';
   background-color: var(--sbb-sticky-bar-background-color);
-  transition: box-shadow var(--sbb-sticky-bar-animation-duration) var(--sbb-sticky-bar-animation-easing) 0, background-color var(--sbb-sticky-bar-animation-duration) var(--sbb-sticky-bar-animation-easing) 0;
+  z-index: -1;
+  inset: 0;
+  transition-property: background-color, box-shadow;
+  transition-duration: var(--sbb-sticky-bar-animation-duration);
+  transition-timing-function: var(--sbb-sticky-bar-animation-easing);
 
   :host([data-sticking]) & {
     @include sbb.shadow-level-5-hard;
@@ -55,8 +62,10 @@
 .sbb-sticky-bar {
   display: flex;
   padding-block: var(--sbb-sticky-bar-padding-block);
+  background-color: var(--sbb-sticky-bar-background-color);
   transition-property: background-color;
-  transition-delay: var(--sbb-sticky-bar-animation-duration);
+  transition-duration: var(--sbb-sticky-bar-animation-duration);
+  transition-timing-function: var(--sbb-sticky-bar-animation-easing);
 
   :host(:not([data-expanded])) & {
     @include sbb.page-spacing;
@@ -68,13 +77,14 @@
 
   :host(:not([data-sticking])) & {
     background-color: var(--sbb-container-background-color, var(--sbb-color-white-default));
-    transition-delay: 0;
   }
 }
 
 .sbb-sticky-bar__intersector {
   position: absolute;
   width: 100%;
-  height: var(--sbb-sticky-bar-intersector-height);
-  transform: translateY(calc(var(--sbb-sticky-bar-intersector-height) * -1));
+
+  // In order to make the intersection observer work properly on windows the intersector needs to have a defined height
+  height: #{sbb.px-to-rem-build(1)};
+  transform: translateY(calc(#{sbb.px-to-rem-build(1)} * -1));
 }
