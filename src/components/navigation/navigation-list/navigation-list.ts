@@ -18,9 +18,11 @@ import style from './navigation-list.scss?lit&inline';
  * @slot label - Use this to provide a label element.
  */
 @customElement('sbb-navigation-list')
-export class SbbNavigationListElement extends NamedSlotListElement<SbbNavigationButtonElement | SbbNavigationLinkElement> {
+export class SbbNavigationListElement extends NamedSlotListElement<
+  SbbNavigationButtonElement | SbbNavigationLinkElement
+> {
   public static override styles: CSSResultGroup = style;
-  protected override readonly listChildTagNames = ['SBB-NAVIGATION-ACTION'];
+  protected override readonly listChildTagNames = ['SBB-NAVIGATION-BUTTON', 'SBB-NAVIGATION-LINK'];
 
   /**
    * The label to be shown before the action list.

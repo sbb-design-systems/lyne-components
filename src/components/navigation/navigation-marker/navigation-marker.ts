@@ -13,9 +13,11 @@ import style from './navigation-marker.scss?lit&inline';
  * @slot - Use the unnamed slot to add `sbb-navigation-button`/`sbb-navigation-link` elements into the `sbb-navigation-marker`.
  */
 @customElement('sbb-navigation-marker')
-export class SbbNavigationMarkerElement extends NamedSlotListElement<SbbNavigationButtonElement | SbbNavigationLinkElement> {
+export class SbbNavigationMarkerElement extends NamedSlotListElement<
+  SbbNavigationButtonElement | SbbNavigationLinkElement
+> {
   public static override styles: CSSResultGroup = style;
-  protected override readonly listChildTagNames = ['SBB-NAVIGATION-ACTION'];
+  protected override readonly listChildTagNames = ['SBB-NAVIGATION-BUTTON', 'SBB-NAVIGATION-LINK'];
 
   /**
    * Marker size variant.

@@ -55,7 +55,9 @@ let nextId = 0;
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-menu` is closed.
  */
 @customElement('sbb-menu')
-export class SbbMenuElement extends NamedSlotListElement<SbbMenuButtonElement | SbbMenuLinkElement> {
+export class SbbMenuElement extends NamedSlotListElement<
+  SbbMenuButtonElement | SbbMenuLinkElement
+> {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -63,7 +65,7 @@ export class SbbMenuElement extends NamedSlotListElement<SbbMenuButtonElement | 
     willClose: 'willClose',
     didClose: 'didClose',
   } as const;
-  protected override readonly listChildTagNames = ['SBB-MENU-ACTION'];
+  protected override readonly listChildTagNames = ['SBB-MENU-BUTTON', 'SBB-MENU-LINK'];
 
   /**
    * The element that will trigger the menu overlay.
@@ -173,7 +175,9 @@ export class SbbMenuElement extends NamedSlotListElement<SbbMenuButtonElement | 
     evt.preventDefault();
 
     const enabledActions: Element[] = Array.from(
-      this.querySelectorAll<SbbMenuButtonElement | SbbMenuLinkElement>('sbb-menu-button, sbb-menu-link'),
+      this.querySelectorAll<SbbMenuButtonElement | SbbMenuLinkElement>(
+        'sbb-menu-button, sbb-menu-link',
+      ),
     ).filter((el: HTMLElement) => el.tabIndex === 0 && interactivityChecker.isVisible(el));
 
     const current = enabledActions.findIndex((e: Element) => e === evt.target);
@@ -228,10 +232,12 @@ export class SbbMenuElement extends NamedSlotListElement<SbbMenuButtonElement | 
   }
 
   protected override checkChildren(): void {
-    // If all children are sbb-menu-action instances, we render them as a list.
+    // If all children are sbb-menu-button/menu-link instances, we render them as a list.
     if (
       this.children?.length &&
-      Array.from(this.children ?? []).every((c) => c.tagName === 'SBB-MENU-BUTTON' || c.tagName === 'SBB-MENU-LINK')
+      Array.from(this.children ?? []).every(
+        (c) => c.tagName === 'SBB-MENU-BUTTON' || c.tagName === 'SBB-MENU-LINK',
+      )
     ) {
       super.checkChildren();
     } else if (this.listChildren.length) {
@@ -375,7 +381,7 @@ export class SbbMenuElement extends NamedSlotListElement<SbbMenuButtonElement | 
   protected override render(): TemplateResult {
     setAttribute(this, 'data-state', this._state);
 
-    // TODO: Handle case with other elements than sbb-menu-action.
+    // TODO: Handle case with other elements than sbb-menu-button/sbb-menu-link.
     return html`
       <div class="sbb-menu__container">
         <div
