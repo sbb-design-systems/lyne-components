@@ -75,16 +75,14 @@ const actionGroup = (): TemplateResult => html`
 `;
 
 const containerContent = (title: string, color: string): TemplateResult => html`
-  <div style="overflow: auto;">
-    <sbb-title level="4" ?negative=${color === 'midnight'}>${title}</sbb-title>
-    <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
-    <p class="sbb-text-s">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-      laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-      voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-    </p>
-  </div>
+  <sbb-title level="4" ?negative=${color === 'midnight'}>${title}</sbb-title>
+  <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
+  <p class="sbb-text-s">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+    laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+    voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  </p>
   <sbb-button
     variant="secondary"
     ?negative=${color === 'midnight'}
