@@ -4,10 +4,6 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
-.sbb-container__wrapper {
-  background-color: var(--sbb-container-background-color, transparent);
-}
-
 :host([color='white']) {
   --sbb-container-background-color: var(--sbb-color-white-default);
 }
@@ -24,6 +20,8 @@
 }
 
 .sbb-container {
+  background-color: var(--sbb-container-background-color, transparent);
+
   :host(:not([expanded])) & {
     @include sbb.page-spacing;
   }
