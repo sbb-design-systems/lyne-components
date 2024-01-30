@@ -40,6 +40,8 @@ export class SbbStickyBarElement extends LitElement {
     if (this._intersector) {
       this._observer.observe(this._intersector);
     }
+
+    toggleDatasetEntry(this, 'disableAnimation', true);
   }
 
   protected override firstUpdated(): void {
@@ -60,7 +62,13 @@ export class SbbStickyBarElement extends LitElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-sticky-bar__wrapper">
+      <div
+        class="sbb-sticky-bar__wrapper"
+        @transitionend=${{
+          handleEvent: () => toggleDatasetEntry(this, 'disableAnimation', false),
+          once: true,
+        }}
+      >
         <div class="sbb-sticky-bar">
           <slot></slot>
         </div>
