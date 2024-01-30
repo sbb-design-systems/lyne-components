@@ -1,10 +1,5 @@
 import { assert, expect, fixture } from '@open-wc/testing';
-import {
-  a11ySnapshot,
-  findAccessibilityNode,
-  sendKeys,
-  sendMouse,
-} from '@web/test-runner-commands';
+import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
@@ -32,18 +27,16 @@ describe('sbb-autocomplete', () => {
     element = formField.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
   });
 
-  it('renders and sets the correct attributes', async () => {
+  it('renders and sets the correct attributes', () => {
     assert.instanceOf(formField, SbbFormFieldElement);
     assert.instanceOf(element, SbbAutocompleteElement);
 
-    const snapshot = await a11ySnapshot({});
-    const combobox = findAccessibilityNode<any>(snapshot, (node) => node.role === 'combobox');
-    expect(combobox).not.to.be.null;
-    expect(combobox.autocomplete).to.be.equal('list');
-    expect(combobox.haspopup).to.be.equal('listbox');
-
     expect(element).not.to.have.attribute('autocomplete-origin-borderless');
+
     expect(input).to.have.attribute('autocomplete', 'off');
+    expect(input).to.have.attribute('role', 'combobox');
+    expect(input).to.have.attribute('aria-autocomplete', 'list');
+    expect(input).to.have.attribute('aria-haspopup', 'listbox');
     expect(input).to.have.attribute('aria-controls', 'myAutocomplete');
     expect(input).to.have.attribute('aria-owns', 'myAutocomplete');
     expect(input).to.have.attribute('aria-expanded', 'false');
