@@ -7,8 +7,6 @@ or a [sbb-navigation-marker](/docs/components-sbb-navigation-sbb-navigation-mark
 The component is internally rendered as a link,
 accepting its associated properties (`href`, `target`, `rel` and `download`).
 
-Please note that if the `href` is not provider it is internally rendered as a span in order to not break HTML functionality.
-
 ```html
 <sbb-navigation-link href="#info" target="_blank">Link</sbb-navigation-link>
 ```

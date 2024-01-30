@@ -52,39 +52,4 @@ describe('sbb-menu-link', () => {
       </a>
     `);
   });
-
-  it('renders component with no href', async () => {
-    const root = await fixture(html`
-      <sbb-menu-link icon-name="menu-small">
-        <span>Action</span>
-      </sbb-menu-link>
-    `);
-
-    await waitForLitRender(root);
-
-    expect(root).dom.to.be.equal(`
-      <sbb-menu-link icon-name="menu-small" dir="ltr">
-        <span>Action</span>
-      </sbb-menu-link>
-    `);
-    expect(root).shadowDom.to.be.equal(`
-      <span class="sbb-menu-action">
-        <span class="sbb-menu-action__content">
-          <span class="sbb-menu-action__icon">
-            <slot name="icon">
-              <sbb-icon
-                aria-hidden="true"
-                data-namespace="default"
-                name="menu-small"
-                role="img"
-              >
-              </sbb-icon>
-            </slot>
-          </span>
-          <span class="sbb-menu-action__label">
-            <slot></slot>
-          </span>
-      </span>
-    `);
-  });
 });

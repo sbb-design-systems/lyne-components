@@ -1,12 +1,12 @@
 import { spread } from '@open-wc/lit-helpers';
 import { nothing, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { html, unsafeStatic } from 'lit/static-html.js';
+import { html } from 'lit/static-html.js';
 
 import {
   LanguageController,
   type LinkRenderVariables,
-  resolveLinkOrStaticRenderVariables,
+  resolveLinkRenderVariables,
   SbbLinkBaseElement,
   targetsNewWindow,
 } from '../../core/common-behaviors';
@@ -26,28 +26,20 @@ export class SbbNavigationLinkElement extends SbbNavigationActionCommonElementMi
   private _language = new LanguageController(this);
 
   protected override render(): TemplateResult {
-    const {
-      tagName: TAG_NAME,
-      attributes,
-      hostAttributes,
-    }: LinkRenderVariables = resolveLinkOrStaticRenderVariables(this);
+    const { attributes, hostAttributes }: LinkRenderVariables = resolveLinkRenderVariables(this);
 
     setAttributes(this, hostAttributes);
 
-    /* eslint-disable lit/binding-positions */
     return html`
-      <${unsafeStatic(TAG_NAME)} class="sbb-navigation-action" ${spread(attributes)}>
+      <a class="sbb-navigation-action" ${spread(attributes)}>
         <slot></slot>
-        ${
-          targetsNewWindow(this)
-            ? html`<span class="sbb-navigation-action__opens-in-new-window">
-                . ${i18nTargetOpensInNewWindow[this._language.current]}
-              </span>`
-            : nothing
-        }
-      </${unsafeStatic(TAG_NAME)}>
+        ${targetsNewWindow(this)
+          ? html`<span class="sbb-navigation-action__opens-in-new-window">
+              . ${i18nTargetOpensInNewWindow[this._language.current]}
+            </span>`
+          : nothing}
+      </a>
     `;
-    /* eslint-disable lit/binding-positions */
   }
 }
 

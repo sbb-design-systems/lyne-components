@@ -66,21 +66,21 @@ export interface LinkRenderVariables {
   hostAttributes: Record<string, string | undefined>;
 }
 
-/** Set default render variables for anchor-like elements. */
-function resolveLinkRenderVariables(properties: LinkProperties): LinkRenderVariables {
-  return {
-    tagName: 'a',
-    attributes: getLinkAttributeList(properties),
-    hostAttributes: hostProperties('link', properties.disabled),
-  };
-}
-
 /** Set default render variables for anchor-like elements when the element is static. */
 function resolveStaticRenderVariables(): LinkRenderVariables {
   return {
     tagName: 'span',
     attributes: {},
     hostAttributes: { dir: getDocumentWritingMode() },
+  };
+}
+
+/** Set default render variables for anchor-like elements. */
+export function resolveLinkRenderVariables(properties: LinkProperties): LinkRenderVariables {
+  return {
+    tagName: 'a',
+    attributes: getLinkAttributeList(properties),
+    hostAttributes: hostProperties('link', properties.disabled),
   };
 }
 

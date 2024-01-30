@@ -1,12 +1,12 @@
 import { spread } from '@open-wc/lit-helpers';
 import { nothing, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { html, unsafeStatic } from 'lit/static-html.js';
+import { html } from 'lit/static-html.js';
 
 import {
   LanguageController,
   type LinkRenderVariables,
-  resolveLinkOrStaticRenderVariables,
+  resolveLinkRenderVariables,
   SbbLinkBaseElement,
   targetsNewWindow,
 } from '../../core/common-behaviors';
@@ -26,16 +26,11 @@ export class SbbMenuLinkElement extends SbbMenuActionCommonElementMixin(SbbLinkB
   private _language = new LanguageController(this);
 
   protected override render(): TemplateResult {
-    const {
-      tagName: TAG_NAME,
-      attributes,
-      hostAttributes,
-    }: LinkRenderVariables = resolveLinkOrStaticRenderVariables(this);
+    const { attributes, hostAttributes }: LinkRenderVariables = resolveLinkRenderVariables(this);
     setAttributes(this, hostAttributes);
 
-    /* eslint-disable lit/binding-positions */
     return html`
-      <${unsafeStatic(TAG_NAME)} class="sbb-menu-action" ${spread(attributes)}>
+      <a class="sbb-menu-action" ${spread(attributes)}>
         <span class="sbb-menu-action__content">
           <span class="sbb-menu-action__icon">
             <slot name="icon"
@@ -45,22 +40,17 @@ export class SbbMenuLinkElement extends SbbMenuActionCommonElementMixin(SbbLinkB
           <span class="sbb-menu-action__label">
             <slot></slot>
           </span>
-          ${
-            this.amount && !this.disabled
-              ? html`<span class="sbb-menu-action__amount">${this.amount}</span>`
-              : nothing
-          }
+          ${this.amount && !this.disabled
+            ? html`<span class="sbb-menu-action__amount">${this.amount}</span>`
+            : nothing}
         </span>
-        ${
-          targetsNewWindow(this)
-            ? html`<span class="sbb-menu-action__opens-in-new-window">
-                . ${i18nTargetOpensInNewWindow[this._language.current]}
-              </span>`
-            : nothing
-        }
-      </${unsafeStatic(TAG_NAME)}>
+        ${targetsNewWindow(this)
+          ? html`<span class="sbb-menu-action__opens-in-new-window">
+              . ${i18nTargetOpensInNewWindow[this._language.current]}
+            </span>`
+          : nothing}
+      </a>
     `;
-    /* eslint-disable lit/binding-positions */
   }
 }
 

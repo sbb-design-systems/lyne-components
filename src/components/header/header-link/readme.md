@@ -22,7 +22,6 @@ from which the label is displayed; below that, only the icon is visible.
 
 The component is internally rendered as a link,
 accepting its associated properties (`href`, `target`, `rel` and `download`).
-Please note that if the `href` is not provider it is internally rendered as a span in order to not break HTML functionality.
 
 ```html
 <sbb-header-link href="#info" target="_blank">Link</sbb-header-link>

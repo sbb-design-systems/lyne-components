@@ -22,8 +22,6 @@ An amount can be rendered at the end of the action element as white text in a re
 The component is internally rendered as a link,
 accepting its associated properties (`href`, `target`, `rel` and `download`).
 
-Please note that if the `href` is not provider it is internally rendered as a span in order to not break HTML functionality.
-
 ```html
 <sbb-menu-link href="#info" target="_blank">Link</sbb-menu-link>
 ```
