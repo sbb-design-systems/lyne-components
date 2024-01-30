@@ -1,15 +1,16 @@
 import type { InputType } from '@storybook/types';
 import type { ArgTypes, Args, Meta, StoryObj } from '@storybook/web-components';
-import { type TemplateResult, html, nothing } from 'lit';
+import isChromatic from 'chromatic';
+import { html, nothing, type TemplateResult } from 'lit';
 
 import { sbbSpread } from '../../core/dom';
 
-import '../../button';
-import '../../title';
 import '../../action-group';
+import '../../button';
 import '../../link';
-import readme from './readme.md?raw';
+import '../../title';
 import '../container';
+import readme from './readme.md?raw';
 import './sticky-bar';
 
 const expanded: InputType = {
@@ -42,16 +43,27 @@ const color: InputType = {
   options: ['unset', 'white', 'milk', 'midnight'],
 };
 
+const disableAnimation: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Sticky Bar',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   expanded,
   color,
   containerColor,
+  disableAnimation,
 };
 
 const defaultArgs: Args = {
   expanded: false,
   color: color.options[0],
   containerColor: containerColor.options[0],
+  disableAnimation: isChromatic(),
 };
 
 const actionGroup = (): TemplateResult => html`
@@ -96,33 +108,63 @@ const Template = (): TemplateResult =>
     <sbb-button variant="secondary">Example</sbb-button>
   </sbb-sticky-bar>`;
 
-const DefaultTemplate = ({ color, containerColor, ...args }: Args): TemplateResult => html`
+const DefaultTemplate = ({
+  color,
+  containerColor,
+  disableAnimation,
+  ...args
+}: Args): TemplateResult => html`
   <sbb-container ${sbbSpread(args)} color=${containerColor}>
     ${containerContent('Example title', containerColor)}
     ${containerContent('Another one', containerColor)}
     ${containerContent('And another one', containerColor)}
     ${containerContent('And a last one', containerColor)}
 
-    <sbb-sticky-bar color=${color !== 'unset' ? color : nothing}> ${actionGroup()} </sbb-sticky-bar>
+    <sbb-sticky-bar
+      color=${color !== 'unset' ? color : nothing}
+      ?disable-animation=${disableAnimation}
+    >
+      ${actionGroup()}
+    </sbb-sticky-bar>
   </sbb-container>
 `;
 
-const ShortTemplate = ({ color, containerColor, ...args }: Args): TemplateResult => html`
+const ShortTemplate = ({
+  color,
+  containerColor,
+  disableAnimation,
+  ...args
+}: Args): TemplateResult => html`
   <sbb-container ${sbbSpread(args)} color=${containerColor}>
     ${containerContent('Example title', containerColor)}
 
-    <sbb-sticky-bar color=${color !== 'unset' ? color : nothing}> ${actionGroup()} </sbb-sticky-bar>
+    <sbb-sticky-bar
+      color=${color !== 'unset' ? color : nothing}
+      ?disable-animation=${disableAnimation}
+    >
+      ${actionGroup()}
+    </sbb-sticky-bar>
   </sbb-container>
 `;
 
-const WithStickybarTemplate = ({ color, containerColor, ...args }: Args): TemplateResult => html`
+const WithStickybarTemplate = ({
+  color,
+  containerColor,
+  disableAnimation,
+  ...args
+}: Args): TemplateResult => html`
   <sbb-container ${sbbSpread(args)} color=${containerColor}>
     ${containerContent('Example title', containerColor)}
     ${containerContent('Another one', containerColor)}
     ${containerContent('And another one', containerColor)}
     ${containerContent('And a last one', containerColor)}
 
-    <sbb-sticky-bar color=${color !== 'unset' ? color : nothing}> ${actionGroup()} </sbb-sticky-bar>
+    <sbb-sticky-bar
+      color=${color !== 'unset' ? color : nothing}
+      ?disable-animation=${disableAnimation}
+    >
+      ${actionGroup()}
+    </sbb-sticky-bar>
   </sbb-container>
   <sbb-container color="milk">
     <div style="padding-block: 4rem;">
@@ -176,6 +218,18 @@ export const WithContentAfter: StoryObj = {
   render: WithStickybarTemplate,
   argTypes: defaultArgTypes,
   args: defaultArgs,
+};
+
+export const MilkContainer: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, containerColor: color.options[2] },
+};
+
+export const MilkContainerWhiteStickybar: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, containerColor: color.options[2], color: color.options[1] },
 };
 
 const meta: Meta = {
