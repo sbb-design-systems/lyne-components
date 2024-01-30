@@ -147,7 +147,7 @@ const ShortTemplate = ({
   </sbb-container>
 `;
 
-const WithStickybarTemplate = ({
+const WithContentAfterTemplate = ({
   color,
   containerColor,
   disableAnimation,
@@ -215,7 +215,7 @@ export const Midnight: StoryObj = {
 };
 
 export const WithContentAfter: StoryObj = {
-  render: WithStickybarTemplate,
+  render: WithContentAfterTemplate,
   argTypes: defaultArgTypes,
   args: defaultArgs,
 };
@@ -226,7 +226,7 @@ export const MilkContainer: StoryObj = {
   args: { ...defaultArgs, containerColor: color.options[2] },
 };
 
-export const MilkContainerWhiteStickybar: StoryObj = {
+export const MilkContainerWhiteStickyBar: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, containerColor: color.options[2], color: color.options[1] },
