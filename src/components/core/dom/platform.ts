@@ -70,3 +70,25 @@ export const isSafari = (): boolean =>
 
 /** Whether the application is being rendered in a Next.js environment. */
 export const isNextjs = (): boolean => !!(globalThis as { next?: object }).next;
+
+/**
+ * Note: `userAgentData` is still sperimental. If possible, avoid to use it.
+ * https://developer.mozilla.org/en-US/docs/Web/API/Navigator/userAgentData
+ */
+export const isChromium = (): boolean =>
+  (navigator as any).userAgentData?.brands?.some((data: any) => data.brand == 'Chromium');
+
+/**
+ * This is a custom implementation.
+ * In the `web-test-runner.config` we add a meta tag with some useful meta-data
+ */
+export const isTestEnvironment = (): boolean =>
+  !!document.head.querySelector('meta[name="testEnvironment"]');
+
+/**
+ * This is a custom implementation.
+ * True if the `testEnvironment` meta tag has the `debug` attribute
+ */
+export const isDebugEnvironment = (): boolean =>
+  isTestEnvironment() &&
+  !!document.head.querySelector('meta[name="testEnvironment"]')?.hasAttribute('debug');

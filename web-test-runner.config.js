@@ -51,6 +51,7 @@ export default {
   testRunnerHtml: (testFramework) => `
     <html>
       <head>
+        <meta name="testEnvironment" ${isDebugMode ? 'debug' : ''}>
         <style type="text/css">${globalCss.css}</style>
       </head>
       <body>
