@@ -26,13 +26,7 @@ export class SbbLinkButtonElement extends SbbLinkCommonElementMixin(SbbButtonBas
     /* eslint-disable lit/binding-positions */
     return html`
       <span class="sbb-link">
-        ${this.variant !== 'inline'
-          ? html`<span class="sbb-link__icon">
-              <slot name="icon">
-                ${this.iconName ? html` <sbb-icon name="${this.iconName}"></sbb-icon>` : nothing}
-              </slot>
-            </span>`
-          : nothing}
+        ${this.variant !== 'inline' ? this.renderIconSlot() : nothing}
         <slot></slot>
       </span>
     `;

@@ -38,15 +38,7 @@ export class SbbLinkElement extends SbbLinkCommonElementMixin(SbbLinkBaseElement
     /* eslint-disable lit/binding-positions */
     return html`
       <${unsafeStatic(TAG_NAME)} class='sbb-link' ${spread(attributes)}>
-        ${
-          this.variant !== 'inline'
-            ? html`<span class="sbb-link__icon">
-                <slot name="icon">
-                  ${this.iconName ? html` <sbb-icon name="${this.iconName}"></sbb-icon>` : nothing}
-                </slot>
-              </span>`
-            : nothing
-        }
+        ${this.variant !== 'inline' ? this.renderIconSlot() : nothing}
         <slot></slot>
         ${
           targetsNewWindow(this)

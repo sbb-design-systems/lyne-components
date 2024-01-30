@@ -11,9 +11,9 @@ export declare class SbbDisabledMixinType {
 export const SbbDisabledMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
 ): AbstractConstructor<SbbDisabledMixinType> & T => {
-  abstract class SbbDisabled extends superClass implements Partial<SbbDisabledMixinType> {
+  abstract class SbbDisabled extends superClass implements SbbDisabledMixinType {
     /** Whether the button is disabled. */
-    @property({ reflect: true, type: Boolean }) public disabled?: boolean = false;
+    @property({ reflect: true, type: Boolean }) public disabled: boolean = false;
   }
 
   return SbbDisabled as AbstractConstructor<SbbDisabledMixinType> & T;

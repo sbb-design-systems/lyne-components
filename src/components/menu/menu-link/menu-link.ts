@@ -32,11 +32,7 @@ export class SbbMenuLinkElement extends SbbMenuActionCommonElementMixin(SbbLinkB
     return html`
       <a class="sbb-menu-action" ${spread(attributes)}>
         <span class="sbb-menu-action__content">
-          <span class="sbb-menu-action__icon">
-            <slot name="icon"
-              >${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}</slot
-            >
-          </span>
+          ${this.renderIconSlot()}
           <span class="sbb-menu-action__label">
             <slot></slot>
           </span>

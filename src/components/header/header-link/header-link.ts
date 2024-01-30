@@ -32,11 +32,7 @@ export class SbbHeaderLinkElement extends SbbHeaderActionCommonElementMixin(SbbL
     return html`
       <a class="sbb-header-action" ${spread(attributes)}>
         <span class="sbb-header-action__wrapper">
-          <span class="sbb-header-action__icon">
-            <slot name="icon">
-              ${this.iconName ? html`<sbb-icon name="${this.iconName}"></sbb-icon>` : nothing}
-            </slot>
-          </span>
+          ${this.renderIconSlot()}
           <span class="sbb-header-action__text">
             <slot></slot>
             ${targetsNewWindow(this)

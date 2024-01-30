@@ -1,4 +1,4 @@
-import { nothing, type TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
@@ -24,12 +24,7 @@ export class SbbButtonElement extends SbbButtonCommonElementMixin(SbbButtonBaseE
 
     return html`
       <span class="sbb-button">
-        <span class="sbb-button__icon">
-          <slot name="icon">
-            ${this.iconName ? html`<sbb-icon name="${this.iconName}"></sbb-icon>` : nothing}
-          </slot>
-        </span>
-
+        ${this.renderIconSlot()}
         <span class="sbb-button__label">
           <slot></slot>
         </span>

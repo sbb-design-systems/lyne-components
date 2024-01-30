@@ -1,11 +1,11 @@
-import type { CSSResultGroup, LitElement } from 'lit';
+import { type CSSResultGroup, html, type LitElement, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type {
-  AbstractConstructor,
-  SbbDisabledMixinType,
-  SbbIconNameMixinType,
-  SbbNegativeMixinType,
+import {
+  type AbstractConstructor,
+  type SbbDisabledMixinType,
+  type SbbIconNameMixinType,
+  type SbbNegativeMixinType,
 } from '../../core/common-behaviors';
 import {
   NamedSlotStateController,
@@ -33,6 +33,7 @@ export declare class SbbButtonCommonElementMixinType
   public disabled: boolean;
   public iconName: string;
   public negative: boolean;
+  public renderIconSlot: () => TemplateResult;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -79,6 +80,10 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<LitEle
     public override disconnectedCallback(): void {
       super.disconnectedCallback();
       this._handlerRepository.disconnect();
+    }
+
+    public override renderIconSlot(): TemplateResult {
+      return html` <span class="sbb-button__icon"> ${super.renderIconSlot()} </span> `;
     }
   }
   return SbbButtonCommonElement as unknown as AbstractConstructor<SbbButtonCommonElementMixinType> &

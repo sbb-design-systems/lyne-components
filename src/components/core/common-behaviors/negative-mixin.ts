@@ -11,9 +11,9 @@ export declare class SbbNegativeMixinType {
 export const SbbNegativeMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
 ): AbstractConstructor<SbbNegativeMixinType> & T => {
-  abstract class SbbNegative extends superClass implements Partial<SbbNegativeMixinType> {
+  abstract class SbbNegative extends superClass implements SbbNegativeMixinType {
     /** Negative coloring variant flag. */
-    @property({ reflect: true, type: Boolean }) public negative = false;
+    @property({ reflect: true, type: Boolean }) public negative: boolean = false;
   }
 
   return SbbNegative as AbstractConstructor<SbbNegativeMixinType> & T;

@@ -1,4 +1,4 @@
-import type { CSSResultGroup, LitElement } from 'lit';
+import { type CSSResultGroup, html, type LitElement, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import type {
@@ -17,6 +17,7 @@ export declare class SbbMenuActionCommonElementMixinType
   public amount: string;
   public disabled: boolean;
   public iconName: string;
+  public renderIconSlot(): TemplateResult;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -42,6 +43,10 @@ export const SbbMenuActionCommonElementMixin = <T extends AbstractConstructor<Li
     public override disconnectedCallback(): void {
       super.disconnectedCallback();
       this._handlerRepository.disconnect();
+    }
+
+    public override renderIconSlot(): TemplateResult {
+      return html` <span class="sbb-menu-action__icon"> ${super.renderIconSlot()} </span> `;
     }
   }
   return SbbMenuActionCommonElement as unknown as AbstractConstructor<SbbMenuActionCommonElementMixinType> &

@@ -1,3 +1,4 @@
+import { html, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import type { CSSResultGroup, LitElement } from 'lit/development';
 
@@ -13,6 +14,7 @@ import style from './header-action.scss?lit&inline';
 export declare class SbbHeaderActionCommonElementMixinType implements SbbIconNameMixinType {
   public expandFrom: SbbHorizontalFrom;
   public iconName: string;
+  public renderIconSlot(): TemplateResult;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -44,6 +46,10 @@ export const SbbHeaderActionCommonElementMixin = <T extends AbstractConstructor<
 
     private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
 
+    private _updateExpanded(): void {
+      toggleDatasetEntry(this, 'expanded', !isBreakpoint('zero', this.expandFrom));
+    }
+
     public override connectedCallback(): void {
       super.connectedCallback();
       this._documentResizeObserver.observe(document.documentElement);
@@ -57,8 +63,8 @@ export const SbbHeaderActionCommonElementMixin = <T extends AbstractConstructor<
       this._handlerRepository.disconnect();
     }
 
-    private _updateExpanded(): void {
-      toggleDatasetEntry(this, 'expanded', !isBreakpoint('zero', this.expandFrom));
+    public override renderIconSlot(): TemplateResult {
+      return html` <span class="sbb-header-action__icon"> ${super.renderIconSlot()} </span> `;
     }
   }
   return SbbHeaderActionCommonElement as unknown as AbstractConstructor<SbbHeaderActionCommonElementMixinType> &

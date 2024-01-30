@@ -38,11 +38,7 @@ export class SbbButtonLinkElement extends SbbButtonCommonElementMixin(SbbLinkBas
     /* eslint-disable lit/binding-positions */
     return html`
       <${unsafeStatic(TAG_NAME)} class="sbb-button" ${spread(attributes)}>
-        <span class="sbb-button__icon">
-          <slot name="icon">
-            ${this.iconName ? html`<sbb-icon name="${this.iconName}"></sbb-icon>` : nothing}
-          </slot>
-        </span>
+        ${this.renderIconSlot()}
         <span class="sbb-button__label">
           <slot></slot>
           ${
