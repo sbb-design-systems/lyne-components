@@ -1,12 +1,12 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import { html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import {
   NamedSlotStateController,
-  type ButtonProperties,
   resolveButtonRenderVariables,
   SbbDisabledMixin,
+  SbbButtonBaseElement,
 } from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
 import {
@@ -42,7 +42,7 @@ export type SbbTagStateChange = Extract<
  * @event {CustomEvent<void>} change - Change event emitter
  */
 @customElement('sbb-tag')
-export class SbbTagElement extends SbbDisabledMixin(LitElement) implements ButtonProperties {
+export class SbbTagElement extends SbbDisabledMixin(SbbButtonBaseElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     stateChange: 'stateChange',
@@ -50,15 +50,6 @@ export class SbbTagElement extends SbbDisabledMixin(LitElement) implements Butto
     didChange: 'didChange',
     change: 'change',
   } as const;
-
-  /** The name attribute to use for the button. */
-  @property({ reflect: true }) public name: string | undefined;
-
-  /** Value of the tag. */
-  @property() public value?: string;
-
-  /** The <form> element to associate the button with. */
-  @property() public form?: string;
 
   /** Amount displayed inside the tag. */
   @property({ reflect: true }) public amount?: string;

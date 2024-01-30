@@ -1,15 +1,16 @@
 import { spread } from '@open-wc/lit-helpers';
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement, nothing } from 'lit';
+import { nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import {
   LanguageController,
   resolveLinkOrStaticRenderVariables,
+  SbbLinkBaseElement,
   targetsNewWindow,
 } from '../core/common-behaviors';
-import type { LinkRenderVariables, LinkProperties, LinkTargetType } from '../core/common-behaviors';
+import type { LinkRenderVariables } from '../core/common-behaviors';
 import { setAttributes } from '../core/dom';
 import { HandlerRepository, linkHandlerAspect } from '../core/eventing';
 import { i18nTargetOpensInNewWindow } from '../core/i18n';
@@ -26,17 +27,8 @@ import style from './teaser-hero.scss?lit&inline';
  * @slot image - The background image that can be a `sbb-image`
  */
 @customElement('sbb-teaser-hero')
-export class SbbTeaserHeroElement extends LitElement implements LinkProperties {
+export class SbbTeaserHeroElement extends SbbLinkBaseElement {
   public static override styles: CSSResultGroup = style;
-
-  /** The href value you want to link to. */
-  @property() public href: string | undefined;
-
-  /** The relationship of the linked URL as space-separated link types. */
-  @property() public rel?: string | undefined;
-
-  /** Where to display the linked URL. */
-  @property() public target?: LinkTargetType | string | undefined;
 
   /** Panel link text. */
   @property({ attribute: 'link-content' }) public linkContent?: string;

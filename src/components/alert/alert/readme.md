@@ -28,7 +28,7 @@ The component can optionally display a `sbb-icon` at the component start using t
 
 It's possible to place an action, which by clicking navigates somewhere to display more information.
 This can be done using the `linkContent` property combined with the `href` one.
-The `target` and `rel` property are also configurable via the self-named properties.
+The `target`, `rel` and `download` properties are also configurable via the self-named properties.
 
 ```html
 <sbb-alert
@@ -84,10 +84,11 @@ Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and
 | `titleContent`       | `title-content`       | public  | `string \| undefined`                   |         | Content of title.                                                                                                                                                |
 | `titleLevel`         | `title-level`         | public  | `TitleLevel`                            | `'3'`   | Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.                                                                                  |
 | `linkContent`        | `link-content`        | public  | `string \| undefined`                   |         | Content of the link.                                                                                                                                             |
+| `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`                   |         | This will be forwarded as aria-label to the relevant nested element.                                                                                             |
 | `href`               | `href`                | public  | `string \| undefined`                   |         | The href value you want to link to.                                                                                                                              |
 | `target`             | `target`              | public  | `LinkTargetType \| string \| undefined` |         | Where to display the linked URL.                                                                                                                                 |
 | `rel`                | `rel`                 | public  | `string \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                                                                                                |
-| `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`                   |         | This will be forwarded as aria-label to the relevant nested element.                                                                                             |
+| `download`           | `download`            | public  | `boolean \| undefined`                  |         | Whether the browser will show the download dialog on click.                                                                                                      |
 
 ## Methods
 

@@ -1,6 +1,6 @@
 import { spread } from '@open-wc/lit-helpers';
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement, nothing } from 'lit';
+import { nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
@@ -8,9 +8,10 @@ import {
   LanguageController,
   NamedSlotStateController,
   resolveLinkOrStaticRenderVariables,
+  SbbLinkBaseElement,
   targetsNewWindow,
 } from '../core/common-behaviors';
-import type { LinkProperties, LinkTargetType, LinkRenderVariables } from '../core/common-behaviors';
+import type { LinkRenderVariables } from '../core/common-behaviors';
 import { setAttributes } from '../core/dom';
 import { HandlerRepository, linkHandlerAspect } from '../core/eventing';
 import { i18nTargetOpensInNewWindow } from '../core/i18n';
@@ -29,7 +30,7 @@ import style from './teaser.scss?lit&inline';
  * @slot - Use the unnamed slot to render the description.
  */
 @customElement('sbb-teaser')
-export class SbbTeaserElement extends LitElement implements LinkProperties {
+export class SbbTeaserElement extends SbbLinkBaseElement {
   public static override styles: CSSResultGroup = style;
 
   /** Teaser variant - define the position and the alignment of the text block. */
@@ -44,15 +45,6 @@ export class SbbTeaserElement extends LitElement implements LinkProperties {
 
   /** Content of chip. */
   @property({ attribute: 'chip-content', reflect: true }) public chipContent?: string;
-
-  /** The href value you want to link to. */
-  @property() public href: string | undefined;
-
-  /** Where to display the linked URL. */
-  @property() public target?: LinkTargetType | string | undefined;
-
-  /** The relationship of the linked URL as space-separated link types. */
-  @property() public rel?: string | undefined;
 
   private _language = new LanguageController(this);
   private _handlerRepository = new HandlerRepository(this, linkHandlerAspect);

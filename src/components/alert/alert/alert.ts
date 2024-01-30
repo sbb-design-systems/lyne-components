@@ -1,12 +1,9 @@
 import { spread } from '@open-wc/lit-helpers';
-import { type CSSResultGroup, html, LitElement, nothing, type TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
+import { html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import {
-  LanguageController,
-  type LinkProperties,
-  type LinkTargetType,
-} from '../../core/common-behaviors';
+import { LanguageController, SbbLinkBaseElement } from '../../core/common-behaviors';
 import { EventEmitter } from '../../core/eventing';
 import { i18nCloseAlert, i18nFindOutMore } from '../../core/i18n';
 import type { TitleLevel } from '../../title';
@@ -31,7 +28,7 @@ export type SbbAlertState = 'closed' | 'opening' | 'opened';
  * @event {CustomEvent<void>} dismissalRequested - Emits when dismissal of an alert was requested.
  */
 @customElement('sbb-alert')
-export class SbbAlertElement extends LitElement implements LinkProperties {
+export class SbbAlertElement extends SbbLinkBaseElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -66,15 +63,6 @@ export class SbbAlertElement extends LitElement implements LinkProperties {
 
   /** Content of the link. */
   @property({ attribute: 'link-content' }) public linkContent?: string;
-
-  /** The href value you want to link to. */
-  @property() public href: string | undefined;
-
-  /** Where to display the linked URL. */
-  @property() public target: LinkTargetType | string | undefined;
-
-  /** The relationship of the linked URL as space-separated link types. */
-  @property() public rel: string | undefined;
 
   /** This will be forwarded as aria-label to the relevant nested element. */
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;

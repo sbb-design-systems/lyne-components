@@ -35,8 +35,11 @@ both standalone or within the `sbb-form-field`, they must have the same parent e
 
 ## Properties
 
-| Name         | Attribute     | Privacy | Type                                          | Default | Description                               |
-| ------------ | ------------- | ------- | --------------------------------------------- | ------- | ----------------------------------------- |
-| `name`       | `name`        | public  | `string \| undefined`                         |         | The name attribute to use for the button. |
-| `datePicker` | `date-picker` | public  | `string \| SbbDatepickerElement \| undefined` |         | Datepicker reference.                     |
-| `negative`   | `negative`    | public  | `boolean`                                     | `false` | Negative coloring variant flag.           |
+| Name         | Attribute     | Privacy | Type                                          | Default | Description                                      |
+| ------------ | ------------- | ------- | --------------------------------------------- | ------- | ------------------------------------------------ |
+| `datePicker` | `date-picker` | public  | `string \| SbbDatepickerElement \| undefined` |         | Datepicker reference.                            |
+| `negative`   | `negative`    | public  | `boolean`                                     | `false` | Negative coloring variant flag.                  |
+| `type`       | `type`        | public  | `ButtonType \| undefined`                     |         | The type attribute to use for the button.        |
+| `name`       | `name`        | public  | `string \| undefined`                         |         | The name attribute to use for the button.        |
+| `value`      | `value`       | public  | `string \| undefined`                         |         | The value attribute to use for the button.       |
+| `form`       | `form`        | public  | `string \| undefined`                         |         | The <form> element to associate the button with. |

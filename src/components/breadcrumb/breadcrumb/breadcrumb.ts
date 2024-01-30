@@ -1,14 +1,14 @@
 import { spread } from '@open-wc/lit-helpers';
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement, nothing } from 'lit';
+import { nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import {
   LanguageController,
   type LinkRenderVariables,
-  type LinkTargetType,
   resolveLinkOrStaticRenderVariables,
+  SbbLinkBaseElement,
   SlotChildObserver,
   targetsNewWindow,
 } from '../../core/common-behaviors';
@@ -27,20 +27,8 @@ import '../../icon';
  * @slot icon - Use this to display an icon as breadcrumb.
  */
 @customElement('sbb-breadcrumb')
-export class SbbBreadcrumbElement extends SlotChildObserver(LitElement) {
+export class SbbBreadcrumbElement extends SlotChildObserver(SbbLinkBaseElement) {
   public static override styles: CSSResultGroup = style;
-
-  /** The href value you want to link to. */
-  @property() public href?: string;
-
-  /** Where to display the linked URL. */
-  @property() public target?: LinkTargetType | string;
-
-  /** The relationship of the linked URL as space-separated link types. */
-  @property() public rel?: string;
-
-  /** Whether the browser will show the download dialog on click. */
-  @property({ type: Boolean }) public download?: boolean;
 
   /**
    * The icon name we want to use, choose from the small icon variants
