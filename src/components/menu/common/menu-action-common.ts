@@ -6,17 +6,17 @@ import { actionElementHandlerAspect, HandlerRepository } from '../../core/eventi
 
 import style from './menu-action.scss?lit&inline';
 
-export declare class SbbMenuActionCommonInterface {
+export declare class SbbMenuActionCommonElementMixinType {
   public amount: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbMenuActionCommonElementMixin = <T extends Constructor<LitElement>>(
   superClass: T,
-): Constructor<SbbMenuActionCommonInterface> & T => {
+): Constructor<SbbMenuActionCommonElementMixinType> & T => {
   class SbbMenuActionCommonElement
     extends superClass
-    implements Partial<SbbMenuActionCommonInterface>
+    implements Partial<SbbMenuActionCommonElementMixinType>
   {
     public static styles: CSSResultGroup = style;
 
@@ -35,5 +35,6 @@ export const SbbMenuActionCommonElementMixin = <T extends Constructor<LitElement
       this._handlerRepository.disconnect();
     }
   }
-  return SbbMenuActionCommonElement as unknown as Constructor<SbbMenuActionCommonInterface> & T;
+  return SbbMenuActionCommonElement as unknown as Constructor<SbbMenuActionCommonElementMixinType> &
+    T;
 };

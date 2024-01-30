@@ -10,7 +10,7 @@ import type { SbbCardElement } from '../card';
 
 import style from './card-action.scss?lit&inline';
 
-export declare class SbbCardActionCommonInterface {
+export declare class SbbCardActionCommonElementMixinType {
   public active: boolean;
   protected card: SbbCardElement | null;
 }
@@ -18,10 +18,10 @@ export declare class SbbCardActionCommonInterface {
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbCardActionCommonElementMixin = <T extends Constructor<LitElement>>(
   superClass: T,
-): Constructor<SbbCardActionCommonInterface> & T => {
+): Constructor<SbbCardActionCommonElementMixinType> & T => {
   class SbbCardActionCommonElement
     extends superClass
-    implements Partial<SbbCardActionCommonInterface>
+    implements Partial<SbbCardActionCommonElementMixinType>
   {
     public static styles: CSSResultGroup = style;
 
@@ -93,5 +93,6 @@ export const SbbCardActionCommonElementMixin = <T extends Constructor<LitElement
       this._cardMutationObserver.disconnect();
     }
   }
-  return SbbCardActionCommonElement as unknown as Constructor<SbbCardActionCommonInterface> & T;
+  return SbbCardActionCommonElement as unknown as Constructor<SbbCardActionCommonElementMixinType> &
+    T;
 };

@@ -9,17 +9,17 @@ import { AgnosticResizeObserver } from '../../core/observers';
 
 import style from './header-action.scss?lit&inline';
 
-export declare class SbbHeaderActionCommonInterface {
+export declare class SbbHeaderActionCommonElementMixinType {
   public expandFrom: SbbHorizontalFrom;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbHeaderActionCommonElementMixin = <T extends Constructor<LitElement>>(
   superClass: T,
-): Constructor<SbbHeaderActionCommonInterface> & T => {
+): Constructor<SbbHeaderActionCommonElementMixinType> & T => {
   class SbbHeaderActionCommonElement
     extends superClass
-    implements Partial<SbbHeaderActionCommonInterface>
+    implements Partial<SbbHeaderActionCommonElementMixinType>
   {
     public static styles: CSSResultGroup = style;
 
@@ -59,5 +59,6 @@ export const SbbHeaderActionCommonElementMixin = <T extends Constructor<LitEleme
       toggleDatasetEntry(this, 'expanded', !isBreakpoint('zero', this.expandFrom));
     }
   }
-  return SbbHeaderActionCommonElement as unknown as Constructor<SbbHeaderActionCommonInterface> & T;
+  return SbbHeaderActionCommonElement as unknown as Constructor<SbbHeaderActionCommonElementMixinType> &
+    T;
 };

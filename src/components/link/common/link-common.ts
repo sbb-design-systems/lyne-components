@@ -13,7 +13,7 @@ import style from './link.scss?lit&inline';
 
 export type SbbLinkSize = 'xs' | 's' | 'm';
 
-export declare class SbbLinkCommonInterface {
+export declare class SbbLinkCommonElementMixinType {
   public variant: 'block' | 'inline';
   public size?: SbbLinkSize;
   public isStatic: boolean;
@@ -23,10 +23,10 @@ export declare class SbbLinkCommonInterface {
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbLinkCommonElementMixin = <T extends Constructor<LitElement>>(
   superClass: T,
-): Constructor<SbbLinkCommonInterface> & T => {
+): Constructor<SbbLinkCommonElementMixinType> & T => {
   class SbbLinkCommonElement
     extends superClass
-    implements Partial<SbbLinkCommonInterface>, IsStaticProperty
+    implements Partial<SbbLinkCommonElementMixinType>, IsStaticProperty
   {
     public static styles: CSSResultGroup = style;
 
@@ -69,5 +69,5 @@ export const SbbLinkCommonElementMixin = <T extends Constructor<LitElement>>(
       this._handlerRepository.disconnect();
     }
   }
-  return SbbLinkCommonElement as unknown as Constructor<SbbLinkCommonInterface> & T;
+  return SbbLinkCommonElement as unknown as Constructor<SbbLinkCommonElementMixinType> & T;
 };

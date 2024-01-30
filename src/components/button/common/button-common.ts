@@ -13,7 +13,7 @@ import style from './button.scss?lit&inline';
 export type SbbButtonSize = 'l' | 'm';
 export type SbbButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'transparent';
 
-export declare class SbbButtonCommonInterface {
+export declare class SbbButtonCommonElementMixinType {
   public variant: SbbButtonVariant;
   public size?: SbbButtonSize;
   public isStatic: boolean;
@@ -22,10 +22,10 @@ export declare class SbbButtonCommonInterface {
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbButtonCommonElementMixin = <T extends Constructor<LitElement>>(
   superClass: T,
-): Constructor<SbbButtonCommonInterface> & T => {
+): Constructor<SbbButtonCommonElementMixinType> & T => {
   class SbbButtonCommonElement
     extends superClass
-    implements Partial<SbbButtonCommonInterface>, IsStaticProperty
+    implements Partial<SbbButtonCommonElementMixinType>, IsStaticProperty
   {
     public static styles: CSSResultGroup = style;
     /** Variant of the button, like primary, secondary etc. */
@@ -64,5 +64,5 @@ export const SbbButtonCommonElementMixin = <T extends Constructor<LitElement>>(
       this._handlerRepository.disconnect();
     }
   }
-  return SbbButtonCommonElement as unknown as Constructor<SbbButtonCommonInterface> & T;
+  return SbbButtonCommonElement as unknown as Constructor<SbbButtonCommonElementMixinType> & T;
 };

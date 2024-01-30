@@ -16,7 +16,7 @@ import style from './navigation-action.scss?lit&inline';
 
 export type SbbNavigationActionSize = 's' | 'm' | 'l';
 
-export declare class SbbNavigationActionCommonInterface {
+export declare class SbbNavigationActionCommonElementMixinType {
   public size?: SbbNavigationActionSize;
   public active: boolean;
 }
@@ -24,10 +24,10 @@ export declare class SbbNavigationActionCommonInterface {
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbNavigationActionCommonElementMixin = <T extends Constructor<LitElement>>(
   superClass: T,
-): Constructor<SbbNavigationActionCommonInterface> & T => {
+): Constructor<SbbNavigationActionCommonElementMixinType> & T => {
   class SbbNavigationActionCommonElement
     extends superClass
-    implements Partial<SbbNavigationActionCommonInterface>
+    implements Partial<SbbNavigationActionCommonElementMixinType>
   {
     public static styles: CSSResultGroup = style;
 
@@ -93,6 +93,6 @@ export const SbbNavigationActionCommonElementMixin = <T extends Constructor<LitE
       }
     }
   }
-  return SbbNavigationActionCommonElement as unknown as Constructor<SbbNavigationActionCommonInterface> &
+  return SbbNavigationActionCommonElement as unknown as Constructor<SbbNavigationActionCommonElementMixinType> &
     T;
 };
