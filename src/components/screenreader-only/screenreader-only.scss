@@ -1,0 +1,9 @@
+@use '../core/styles' as sbb;
+
+:host {
+  display: contents;
+}
+
+span {
+  @include sbb.screen-reader-only;
+}
