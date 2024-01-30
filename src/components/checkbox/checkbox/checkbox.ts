@@ -6,6 +6,7 @@ import { ref } from 'lit/directives/ref.js';
 import {
   LanguageController,
   NamedSlotStateController,
+  SbbIconNameMixin,
   UpdateScheduler,
 } from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
@@ -48,7 +49,7 @@ export type SbbCheckboxSize = 's' | 'm';
  * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  */
 @customElement('sbb-checkbox')
-export class SbbCheckboxElement extends UpdateScheduler(LitElement) {
+export class SbbCheckboxElement extends UpdateScheduler(SbbIconNameMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -87,12 +88,6 @@ export class SbbCheckboxElement extends UpdateScheduler(LitElement) {
 
   /** Whether the checkbox is indeterminate. */
   @property({ reflect: true, type: Boolean }) public indeterminate = false;
-
-  /**
-   * The icon name we want to use, choose from the small icon variants from the ui-icons category
-   * from https://icons.app.sbb.ch (optional).
-   */
-  @property({ attribute: 'icon-name', reflect: true }) public iconName?: string;
 
   /** The label position relative to the labelIcon. Defaults to end */
   @property({ attribute: 'icon-placement', reflect: true })
@@ -306,11 +301,7 @@ export class SbbCheckboxElement extends UpdateScheduler(LitElement) {
             </span>
             <span class="sbb-checkbox__label">
               <slot></slot>
-              <span class="sbb-checkbox__label--icon">
-                <slot name="icon">
-                  ${this.iconName ? html`<sbb-icon name="${this.iconName}"></sbb-icon>` : nothing}
-                </slot>
-              </span>
+              <span class="sbb-checkbox__label--icon"> ${this.renderIconSlot()} </span>
               ${this._selectionPanelElement ? html`<slot name="suffix"></slot>` : nothing}
             </span>
           </span>

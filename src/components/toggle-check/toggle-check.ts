@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { SbbDisabledMixin } from '../core/common-behaviors';
+import { SbbDisabledMixin, SbbIconNameMixin } from '../core/common-behaviors';
 import { findShadowInput, setAttributes } from '../core/dom';
 import {
   HandlerRepository,
@@ -24,7 +24,7 @@ import '../icon';
  * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  */
 @customElement('sbb-toggle-check')
-export class SbbToggleCheckElement extends SbbDisabledMixin(LitElement) {
+export class SbbToggleCheckElement extends SbbDisabledMixin(SbbIconNameMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -43,7 +43,7 @@ export class SbbToggleCheckElement extends SbbDisabledMixin(LitElement) {
   @property({ reflect: true }) public size: 's' | 'm' = 's';
 
   /** The svg name for the true state - default -> 'tick-small' */
-  @property({ attribute: 'icon-name' }) public iconName = 'tick-small';
+  @property({ attribute: 'icon-name' }) public override iconName = 'tick-small';
 
   /** The required prop for the required state. */
   @property({ reflect: true, type: Boolean }) public required = false;
@@ -150,11 +150,7 @@ export class SbbToggleCheckElement extends SbbDisabledMixin(LitElement) {
           </span>
           <span class="sbb-toggle-check__track">
             <span class="sbb-toggle-check__circle">
-              <span class="sbb-toggle-check__icon">
-                <slot name="icon">
-                  ${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}
-                </slot>
-              </span>
+              <span class="sbb-toggle-check__icon"> ${this.renderIconSlot()} </span>
             </span>
           </span>
         </span>

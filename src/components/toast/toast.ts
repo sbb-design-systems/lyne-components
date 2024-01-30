@@ -3,7 +3,11 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import type { SbbButtonElement, SbbButtonLinkElement } from '../button';
-import { LanguageController, NamedSlotStateController } from '../core/common-behaviors';
+import {
+  LanguageController,
+  NamedSlotStateController,
+  SbbIconNameMixin,
+} from '../core/common-behaviors';
 import { isFirefox, isValidAttribute, setAttribute } from '../core/dom';
 import { composedPathHasAttribute, EventEmitter, ConnectedAbortController } from '../core/eventing';
 import { i18nCloseAlert } from '../core/i18n';
@@ -33,7 +37,7 @@ const toastRefs = new Set<SbbToastElement>();
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-toast` is closed.
  */
 @customElement('sbb-toast')
-export class SbbToastElement extends LitElement {
+export class SbbToastElement extends SbbIconNameMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -47,13 +51,6 @@ export class SbbToastElement extends LitElement {
    * If 0, it stays open indefinitely.
    */
   @property({ type: Number }) public timeout = 6000;
-
-  /**
-   * The name of the icon, choose from the small icon variants
-   * from the ui-icons category from here
-   * https://icons.app.sbb.ch.
-   */
-  @property({ attribute: 'icon-name', reflect: true }) public iconName?: string;
 
   /** The position where to place the toast. */
   @property({ reflect: true }) public position: SbbToastPosition = 'bottom-center';
@@ -251,11 +248,7 @@ export class SbbToastElement extends LitElement {
           role=${this._role ?? nothing}
           @animationend=${this._onToastAnimationEnd}
         >
-          <div class="sbb-toast__icon">
-            <slot name="icon">
-              ${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}
-            </slot>
-          </div>
+          <div class="sbb-toast__icon">${this.renderIconSlot()}</div>
 
           <div class="sbb-toast__content" aria-live=${this.politeness}>
             <slot @slotchange=${this._onContentSlotChange}></slot>

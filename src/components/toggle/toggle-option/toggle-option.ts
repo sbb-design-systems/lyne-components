@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { NamedSlotStateController } from '../../core/common-behaviors';
+import { NamedSlotStateController, SbbIconNameMixin } from '../../core/common-behaviors';
 import { setAttribute } from '../../core/dom';
 import { ConnectedAbortController, EventEmitter } from '../../core/eventing';
 import '../../icon';
@@ -17,7 +17,7 @@ import style from './toggle-option.scss?lit&inline';
  * @slot icon - Slot used to render the `sbb-icon`.
  */
 @customElement('sbb-toggle-option')
-export class SbbToggleOptionElement extends LitElement {
+export class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     stateChange: 'stateChange',
@@ -51,11 +51,6 @@ export class SbbToggleOptionElement extends LitElement {
     return this._disabled;
   }
   private _disabled: boolean = false;
-
-  /**
-   * Name of the icon for `<sbb-icon>`.
-   */
-  @property({ attribute: 'icon-name', reflect: true }) public iconName?: string;
 
   /**
    * Value of toggle-option.
@@ -160,9 +155,7 @@ export class SbbToggleOptionElement extends LitElement {
         @click=${(event: PointerEvent) => event.stopPropagation()}
       />
       <label class="sbb-toggle-option" for="sbb-toggle-option-id">
-        <slot name="icon"
-          >${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}</slot
-        >
+        ${this.renderIconSlot()}
         <span class="sbb-toggle-option__label">
           <slot></slot>
         </span>

@@ -41,9 +41,9 @@ It is possible to display the component in `disabled` state by using the self-na
 | ---------- | ----------- | ------- | ------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `level`    | `level`     | public  | `TitleLevel \| undefined` | `'1'`   | The level will correspond to the heading tag generated in the title. Use this property to generate the appropriate header tag, taking SEO into consideration. |
 | `active`   | `active`    | public  | `boolean \| undefined`    |         | Active tab state                                                                                                                                              |
-| `iconName` | `icon-name` | public  | `string \| undefined`     |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                              |
 | `amount`   | `amount`    | public  | `string \| undefined`     |         | Amount displayed inside the tab.                                                                                                                              |
 | `disabled` | `disabled`  | public  | `boolean`                 | `false` | Whether the component is disabled.                                                                                                                            |
+| `iconName` | `icon-name` | public  | `string \| undefined`     |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                              |
 
 ## Slots
 

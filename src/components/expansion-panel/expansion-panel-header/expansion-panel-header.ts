@@ -1,11 +1,12 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement } from 'lit/decorators.js';
 
 import {
   NamedSlotStateController,
   resolveButtonRenderVariables,
   SbbDisabledMixin,
+  SbbIconNameMixin,
 } from '../../core/common-behaviors';
 import { setAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
 import {
@@ -27,18 +28,11 @@ import '../../icon';
  * @event {CustomEvent<void>} toggleExpanded - Notifies that the `sbb-expansion-panel` has to expand.
  */
 @customElement('sbb-expansion-panel-header')
-export class SbbExpansionPanelHeaderElement extends SbbDisabledMixin(LitElement) {
+export class SbbExpansionPanelHeaderElement extends SbbDisabledMixin(SbbIconNameMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     toggleExpanded: 'toggleExpanded',
   } as const;
-
-  /**
-   * The icon name we want to use, choose from the small icon variants
-   * from the ui-icons category from here
-   * https://icons.app.sbb.ch.
-   */
-  @property({ attribute: 'icon-name', reflect: true }) public iconName?: string;
 
   /** Notifies that the `sbb-expansion-panel` has to expand. */
   private _toggleExpanded: EventEmitter = new EventEmitter(
@@ -98,11 +92,7 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledMixin(LitElement)
     return html`
       <span class="sbb-expansion-panel-header">
         <span class="sbb-expansion-panel-header__title">
-          <span class="sbb-expansion-panel-header__icon">
-            <slot name="icon"
-              >${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}
-            </slot>
-          </span>
+          <span class="sbb-expansion-panel-header__icon"> ${this.renderIconSlot()} </span>
           <slot></slot>
         </span>
         ${!this.disabled

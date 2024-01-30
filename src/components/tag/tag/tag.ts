@@ -1,5 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import {
@@ -7,6 +7,7 @@ import {
   resolveButtonRenderVariables,
   SbbDisabledMixin,
   SbbButtonBaseElement,
+  SbbIconNameMixin,
 } from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
 import {
@@ -42,7 +43,7 @@ export type SbbTagStateChange = Extract<
  * @event {CustomEvent<void>} change - Change event emitter
  */
 @customElement('sbb-tag')
-export class SbbTagElement extends SbbDisabledMixin(SbbButtonBaseElement) {
+export class SbbTagElement extends SbbDisabledMixin(SbbIconNameMixin(SbbButtonBaseElement)) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     stateChange: 'stateChange',
@@ -56,12 +57,6 @@ export class SbbTagElement extends SbbDisabledMixin(SbbButtonBaseElement) {
 
   /** Whether the tag is checked. */
   @property({ reflect: true, type: Boolean }) public checked = false;
-
-  /**
-   * The icon name we want to use, choose from the small icon variants from the ui-icons category
-   * from https://icons.app.sbb.ch (optional).
-   */
-  @property({ attribute: 'icon-name', reflect: true }) public iconName?: string;
 
   private _handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
     if (currentValue !== previousValue) {
@@ -160,11 +155,7 @@ export class SbbTagElement extends SbbDisabledMixin(SbbButtonBaseElement) {
 
     return html`
       <span class="sbb-tag">
-        <span class="sbb-tag__icon sbb-tag--shift">
-          <slot name="icon">
-            ${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}
-          </slot>
-        </span>
+        <span class="sbb-tag__icon sbb-tag--shift"> ${this.renderIconSlot()} </span>
         <span class="sbb-tag__text sbb-tag--shift">
           <slot></slot>
         </span>

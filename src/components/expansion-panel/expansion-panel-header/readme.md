@@ -37,8 +37,8 @@ When the element is clicked, the `toggleExpanded` event is emitted.
 
 | Name       | Attribute   | Privacy | Type                  | Default | Description                                                                                                                      |
 | ---------- | ----------- | ------- | --------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `iconName` | `icon-name` | public  | `string \| undefined` |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
 | `disabled` | `disabled`  | public  | `boolean`             | `false` | Whether the component is disabled.                                                                                               |
+| `iconName` | `icon-name` | public  | `string \| undefined` |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
 
 ## Events
 

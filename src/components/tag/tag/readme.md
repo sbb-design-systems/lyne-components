@@ -47,16 +47,16 @@ The state is reflected via `aria-pressed` attribute.
 
 ## Properties
 
-| Name       | Attribute   | Privacy | Type                      | Default | Description                                                                                                                            |
-| ---------- | ----------- | ------- | ------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| `amount`   | `amount`    | public  | `string \| undefined`     |         | Amount displayed inside the tag.                                                                                                       |
-| `checked`  | `checked`   | public  | `boolean`                 | `false` | Whether the tag is checked.                                                                                                            |
-| `iconName` | `icon-name` | public  | `string \| undefined`     |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from https://icons.app.sbb.ch (optional). |
-| `disabled` | `disabled`  | public  | `boolean`                 | `false` | Whether the component is disabled.                                                                                                     |
-| `type`     | `type`      | public  | `ButtonType \| undefined` |         | The type attribute to use for the button.                                                                                              |
-| `name`     | `name`      | public  | `string \| undefined`     |         | The name attribute to use for the button.                                                                                              |
-| `value`    | `value`     | public  | `string \| undefined`     |         | The value attribute to use for the button.                                                                                             |
-| `form`     | `form`      | public  | `string \| undefined`     |         | The <form> element to associate the button with.                                                                                       |
+| Name       | Attribute   | Privacy | Type                      | Default | Description                                                                                                                      |
+| ---------- | ----------- | ------- | ------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `amount`   | `amount`    | public  | `string \| undefined`     |         | Amount displayed inside the tag.                                                                                                 |
+| `checked`  | `checked`   | public  | `boolean`                 | `false` | Whether the tag is checked.                                                                                                      |
+| `disabled` | `disabled`  | public  | `boolean`                 | `false` | Whether the component is disabled.                                                                                               |
+| `iconName` | `icon-name` | public  | `string \| undefined`     |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `type`     | `type`      | public  | `ButtonType \| undefined` |         | The type attribute to use for the button.                                                                                        |
+| `name`     | `name`      | public  | `string \| undefined`     |         | The name attribute to use for the button.                                                                                        |
+| `value`    | `value`     | public  | `string \| undefined`     |         | The value attribute to use for the button.                                                                                       |
+| `form`     | `form`      | public  | `string \| undefined`     |         | The <form> element to associate the button with.                                                                                 |
 
 ## Events
 
