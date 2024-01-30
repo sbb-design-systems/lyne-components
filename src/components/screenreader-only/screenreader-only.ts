@@ -14,7 +14,7 @@ export class SbbScreenreaderOnlyElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   protected override render(): TemplateResult {
-    return html`<span><slot></slot></span>`;
+    return html`<slot></slot>`;
   }
 }
 

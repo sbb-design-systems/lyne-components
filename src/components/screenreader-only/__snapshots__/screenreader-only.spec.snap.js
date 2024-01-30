@@ -8,10 +8,8 @@ snapshots["with Light DOM"] =
 /* end snapshot with Light DOM */
 
 snapshots["with Shadow DOM"] = 
-`<span>
-  <slot>
-  </slot>
-</span>
+`<slot>
+</slot>
 `;
 /* end snapshot with Shadow DOM */
 

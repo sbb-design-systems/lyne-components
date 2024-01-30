@@ -7,7 +7,7 @@ describe('sbb-screenreader-only', () => {
   let element: SbbScreenreaderOnlyElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-screenreader-only></sbb-screenreader-only>`);
+    element = await fixture(html`<sbb-screenreader-only>Hidden text.</sbb-screenreader-only>`);
   });
 
   it('renders', async () => {
