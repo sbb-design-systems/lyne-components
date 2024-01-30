@@ -18,7 +18,7 @@ export interface ButtonProperties {
 }
 
 /** Button base class. */
-export class SbbButtonBaseElement extends LitElement implements ButtonProperties {
+export abstract class SbbButtonBaseElement extends LitElement implements ButtonProperties {
   /** The type attribute to use for the button. */
   @property() public type?: ButtonType;
 

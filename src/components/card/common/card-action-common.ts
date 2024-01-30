@@ -2,7 +2,7 @@ import type { CSSResultGroup, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { IS_FOCUSABLE_QUERY } from '../../core/a11y';
-import type { Constructor } from '../../core/common-behaviors';
+import type { AbstractConstructor } from '../../core/common-behaviors';
 import { toggleDatasetEntry } from '../../core/dom';
 import { actionElementHandlerAspect, HandlerRepository } from '../../core/eventing';
 import { AgnosticMutationObserver } from '../../core/observers';
@@ -16,10 +16,10 @@ export declare class SbbCardActionCommonElementMixinType {
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbCardActionCommonElementMixin = <T extends Constructor<LitElement>>(
+export const SbbCardActionCommonElementMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
-): Constructor<SbbCardActionCommonElementMixinType> & T => {
-  class SbbCardActionCommonElement
+): AbstractConstructor<SbbCardActionCommonElementMixinType> & T => {
+  abstract class SbbCardActionCommonElement
     extends superClass
     implements Partial<SbbCardActionCommonElementMixinType>
   {
@@ -93,6 +93,6 @@ export const SbbCardActionCommonElementMixin = <T extends Constructor<LitElement
       this._cardMutationObserver.disconnect();
     }
   }
-  return SbbCardActionCommonElement as unknown as Constructor<SbbCardActionCommonElementMixinType> &
+  return SbbCardActionCommonElement as unknown as AbstractConstructor<SbbCardActionCommonElementMixinType> &
     T;
 };

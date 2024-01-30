@@ -1,7 +1,7 @@
 import type { CSSResultGroup, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { Constructor } from '../../core/common-behaviors';
+import type { AbstractConstructor } from '../../core/common-behaviors';
 import { hostContext } from '../../core/dom';
 import {
   actionElementHandlerAspect,
@@ -22,10 +22,10 @@ export declare class SbbNavigationActionCommonElementMixinType {
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbNavigationActionCommonElementMixin = <T extends Constructor<LitElement>>(
+export const SbbNavigationActionCommonElementMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
-): Constructor<SbbNavigationActionCommonElementMixinType> & T => {
-  class SbbNavigationActionCommonElement
+): AbstractConstructor<SbbNavigationActionCommonElementMixinType> & T => {
+  abstract class SbbNavigationActionCommonElement
     extends superClass
     implements Partial<SbbNavigationActionCommonElementMixinType>
   {
@@ -93,6 +93,6 @@ export const SbbNavigationActionCommonElementMixin = <T extends Constructor<LitE
       }
     }
   }
-  return SbbNavigationActionCommonElement as unknown as Constructor<SbbNavigationActionCommonElementMixinType> &
+  return SbbNavigationActionCommonElement as unknown as AbstractConstructor<SbbNavigationActionCommonElementMixinType> &
     T;
 };

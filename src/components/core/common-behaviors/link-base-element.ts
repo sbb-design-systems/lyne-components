@@ -99,7 +99,7 @@ export function targetsNewWindow(properties: LinkProperties): boolean {
 }
 
 /** Link base class. */
-export class SbbLinkBaseElement extends LitElement implements LinkProperties {
+export abstract class SbbLinkBaseElement extends LitElement implements LinkProperties {
   /** The href value you want to link to. */
   @property() public href?: string;
 

@@ -2,7 +2,7 @@ import type { CSSResultGroup, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import type {
-  Constructor,
+  AbstractConstructor,
   SbbDisabledMixinType,
   SbbIconNameMixinType,
 } from '../../core/common-behaviors';
@@ -20,10 +20,10 @@ export declare class SbbMenuActionCommonElementMixinType
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbMenuActionCommonElementMixin = <T extends Constructor<LitElement>>(
+export const SbbMenuActionCommonElementMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
-): Constructor<SbbMenuActionCommonElementMixinType> & T => {
-  class SbbMenuActionCommonElement
+): AbstractConstructor<SbbMenuActionCommonElementMixinType> & T => {
+  abstract class SbbMenuActionCommonElement
     extends SbbIconNameMixin(SbbDisabledMixin(superClass))
     implements Partial<SbbMenuActionCommonElementMixinType>
   {
@@ -44,6 +44,6 @@ export const SbbMenuActionCommonElementMixin = <T extends Constructor<LitElement
       this._handlerRepository.disconnect();
     }
   }
-  return SbbMenuActionCommonElement as unknown as Constructor<SbbMenuActionCommonElementMixinType> &
+  return SbbMenuActionCommonElement as unknown as AbstractConstructor<SbbMenuActionCommonElementMixinType> &
     T;
 };

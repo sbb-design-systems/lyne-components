@@ -2,7 +2,7 @@ import type { CSSResultGroup, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import type {
-  Constructor,
+  AbstractConstructor,
   SbbDisabledMixinType,
   SbbIconNameMixinType,
   SbbNegativeMixinType,
@@ -35,10 +35,10 @@ export declare class SbbLinkCommonElementMixinType
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbLinkCommonElementMixin = <T extends Constructor<LitElement>>(
+export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
-): Constructor<SbbLinkCommonElementMixinType> & T => {
-  class SbbLinkCommonElement
+): AbstractConstructor<SbbLinkCommonElementMixinType> & T => {
+  abstract class SbbLinkCommonElement
     extends SbbNegativeMixin(SbbDisabledMixin(SbbIconNameMixin(superClass)))
     implements Partial<SbbLinkCommonElementMixinType>, IsStaticProperty
   {
@@ -82,5 +82,5 @@ export const SbbLinkCommonElementMixin = <T extends Constructor<LitElement>>(
       this._handlerRepository.disconnect();
     }
   }
-  return SbbLinkCommonElement as unknown as Constructor<SbbLinkCommonElementMixinType> & T;
+  return SbbLinkCommonElement as unknown as AbstractConstructor<SbbLinkCommonElementMixinType> & T;
 };

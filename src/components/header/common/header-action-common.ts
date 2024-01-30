@@ -1,7 +1,7 @@
 import { property } from 'lit/decorators.js';
 import type { CSSResultGroup, LitElement } from 'lit/development';
 
-import type { Constructor, SbbIconNameMixinType } from '../../core/common-behaviors';
+import type { AbstractConstructor, SbbIconNameMixinType } from '../../core/common-behaviors';
 import { SbbIconNameMixin } from '../../core/common-behaviors';
 import { isBreakpoint, toggleDatasetEntry } from '../../core/dom';
 import { actionElementHandlerAspect, HandlerRepository } from '../../core/eventing';
@@ -16,10 +16,10 @@ export declare class SbbHeaderActionCommonElementMixinType implements SbbIconNam
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbHeaderActionCommonElementMixin = <T extends Constructor<LitElement>>(
+export const SbbHeaderActionCommonElementMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
-): Constructor<SbbHeaderActionCommonElementMixinType> & T => {
-  class SbbHeaderActionCommonElement
+): AbstractConstructor<SbbHeaderActionCommonElementMixinType> & T => {
+  abstract class SbbHeaderActionCommonElement
     extends SbbIconNameMixin(superClass)
     implements Partial<SbbHeaderActionCommonElementMixinType>
   {
@@ -61,6 +61,6 @@ export const SbbHeaderActionCommonElementMixin = <T extends Constructor<LitEleme
       toggleDatasetEntry(this, 'expanded', !isBreakpoint('zero', this.expandFrom));
     }
   }
-  return SbbHeaderActionCommonElement as unknown as Constructor<SbbHeaderActionCommonElementMixinType> &
+  return SbbHeaderActionCommonElement as unknown as AbstractConstructor<SbbHeaderActionCommonElementMixinType> &
     T;
 };
