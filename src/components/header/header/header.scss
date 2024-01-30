@@ -97,7 +97,7 @@
 
 // Fix left offset if first element of the header is a sbb-header-button/sbb-header-link.
 // The value of the offset is calculated inside sbb-header-button/sbb-header-link styles.
-::slotted(:is(sbb-header-button:first-child, sbb-header-link:first-child)) {
+::slotted(:is(sbb-header-button, sbb-header-link):first-child) {
   margin-inline-start: var(--sbb-header-first-item-margin-inline-start);
 }
 
