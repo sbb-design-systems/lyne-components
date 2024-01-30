@@ -1,7 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../core/testing';
+import { testA11yTreeSnapshot, waitForLitRender } from '../core/testing';
 import './selection-panel';
 import '../checkbox';
 
@@ -33,4 +33,6 @@ describe('sbb-selection-panel', () => {
     await waitForLitRender(root);
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
+
+  testA11yTreeSnapshot(undefined, template);
 });
