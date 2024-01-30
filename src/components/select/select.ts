@@ -4,7 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { getNextElementIndex, assignId } from '../core/a11y';
-import { SbbDisabledMixin, UpdateScheduler } from '../core/common-behaviors';
+import { SbbDisabledMixin, SbbNegativeMixin, UpdateScheduler } from '../core/common-behaviors';
 import {
   isSafari,
   isValidAttribute,
@@ -40,7 +40,9 @@ export interface SelectChange {
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-select` is closed.
  */
 @customElement('sbb-select')
-export class SbbSelectElement extends UpdateScheduler(SbbDisabledMixin(LitElement)) {
+export class SbbSelectElement extends UpdateScheduler(
+  SbbDisabledMixin(SbbNegativeMixin(LitElement)),
+) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -67,9 +69,6 @@ export class SbbSelectElement extends UpdateScheduler(SbbDisabledMixin(LitElemen
 
   /** Whether the select is readonly. */
   @property({ type: Boolean }) public readonly = false;
-
-  /** Negative coloring variant flag. */
-  @property({ reflect: true, type: Boolean }) public negative = false;
 
   /** Whether the animation is disabled. */
   @property({ attribute: 'disable-animation', reflect: true, type: Boolean })

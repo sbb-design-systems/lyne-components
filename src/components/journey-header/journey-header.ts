@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { LanguageController } from '../core/common-behaviors';
+import { LanguageController, SbbNegativeMixin } from '../core/common-behaviors';
 import { getDocumentWritingMode } from '../core/dom';
 import { i18nConnectionFrom, i18nConnectionRoundtrip, i18nConnectionTo } from '../core/i18n';
 import type { TitleLevel } from '../title';
@@ -17,7 +17,7 @@ export type JourneyHeaderSize = 'm' | 'l';
  * Combined with the `sbb-journey-summary`, it displays the journey's detail.
  */
 @customElement('sbb-journey-header')
-export class SbbJourneyHeaderElement extends LitElement {
+export class SbbJourneyHeaderElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** Origin location for the journey header. */
@@ -31,9 +31,6 @@ export class SbbJourneyHeaderElement extends LitElement {
 
   /** Heading level of the journey header element (e.g. h1-h6). */
   @property() public level?: TitleLevel = '3';
-
-  /** Negative coloring variant flag. */
-  @property({ reflect: true, type: Boolean }) public negative = false;
 
   /** Journey header size. */
   @property({ reflect: true }) public size?: JourneyHeaderSize = 'm';

@@ -3,6 +3,7 @@ import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
+import { SbbNegativeMixin } from '../core/common-behaviors';
 import { setAttribute } from '../core/dom';
 
 import style from './title.scss?lit&inline';
@@ -15,7 +16,7 @@ export type TitleLevel = '1' | '2' | '3' | '4' | '5' | '6';
  * @slot - Use the unnamed slot to display the title.
  */
 @customElement('sbb-title')
-export class SbbTitleElement extends LitElement {
+export class SbbTitleElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** Title level */
@@ -32,9 +33,6 @@ export class SbbTitleElement extends LitElement {
    */
   @property({ attribute: 'visually-hidden', reflect: true, type: Boolean })
   public visuallyHidden?: boolean;
-
-  /** Choose negative variant */
-  @property({ reflect: true, type: Boolean }) public negative?: boolean = false;
 
   protected override render(): TemplateResult {
     const TAGNAME = `h${this.level}`;

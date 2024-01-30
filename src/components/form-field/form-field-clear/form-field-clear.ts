@@ -1,8 +1,12 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement } from 'lit/decorators.js';
 
-import { LanguageController, resolveButtonRenderVariables } from '../../core/common-behaviors';
+import {
+  LanguageController,
+  resolveButtonRenderVariables,
+  SbbNegativeMixin,
+} from '../../core/common-behaviors';
 import { hostContext, isValidAttribute, setAttribute, setAttributes } from '../../core/dom';
 import {
   HandlerRepository,
@@ -19,11 +23,8 @@ import style from './form-field-clear.scss?lit&inline';
  * Combined with `sbb-form-field`, it displays a button which clears the input value.
  */
 @customElement('sbb-form-field-clear')
-export class SbbFormFieldClearElement extends LitElement {
+export class SbbFormFieldClearElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
-
-  /** Negative coloring variant flag. */
-  @property({ reflect: true, type: Boolean }) public negative = false;
 
   private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
   private _formField?: SbbFormFieldElement;

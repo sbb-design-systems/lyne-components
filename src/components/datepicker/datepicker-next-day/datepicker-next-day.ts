@@ -6,6 +6,7 @@ import {
   LanguageController,
   type ButtonProperties,
   resolveButtonRenderVariables,
+  SbbNegativeMixin,
 } from '../../core/common-behaviors';
 import { defaultDateAdapter, type DateAdapter } from '../../core/datetime';
 import { isValidAttribute, setAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
@@ -29,14 +30,14 @@ import style from './datepicker-next-day.scss?lit&inline';
  * Combined with a `sbb-datepicker`, it can be used to move the date ahead.
  */
 @customElement('sbb-datepicker-next-day')
-export class SbbDatepickerNextDayElement extends LitElement implements ButtonProperties {
+export class SbbDatepickerNextDayElement
+  extends SbbNegativeMixin(LitElement)
+  implements ButtonProperties
+{
   public static override styles: CSSResultGroup = style;
 
   /** The name attribute to use for the button. */
   @property({ reflect: true }) public name: string | undefined;
-
-  /** Negative coloring variant flag. */
-  @property({ reflect: true, type: Boolean }) public negative = false;
 
   /** Datepicker reference. */
   @property({ attribute: 'date-picker' }) public datePicker?: string | SbbDatepickerElement;

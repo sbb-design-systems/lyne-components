@@ -4,7 +4,11 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { FocusHandler, IS_FOCUSABLE_QUERY, setModalityOnNextFocus } from '../core/a11y';
-import { LanguageController, NamedSlotStateController } from '../core/common-behaviors';
+import {
+  LanguageController,
+  NamedSlotStateController,
+  SbbNegativeMixin,
+} from '../core/common-behaviors';
 import {
   ScrollHandler,
   toggleDatasetEntry,
@@ -40,7 +44,7 @@ let nextId = 0;
  * @event {CustomEvent<void>} requestBackAction - Emits whenever the back button is clicked.
  */
 @customElement('sbb-dialog')
-export class SbbDialogElement extends LitElement {
+export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -69,11 +73,6 @@ export class SbbDialogElement extends LitElement {
    * Backdrop click action.
    */
   @property({ attribute: 'backdrop-action' }) public backdropAction: 'close' | 'none' = 'close';
-
-  /**
-   * Negative coloring variant flag.
-   */
-  @property({ reflect: true, type: Boolean }) public negative = false;
 
   /**
    * This will be forwarded as aria-label to the relevant nested element.

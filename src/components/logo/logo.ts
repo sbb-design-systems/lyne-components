@@ -2,6 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { SbbNegativeMixin } from '../core/common-behaviors';
 import type { SbbProtectiveRoom } from '../core/interfaces';
 
 import style from './logo.scss?lit&inline';
@@ -10,11 +11,8 @@ import style from './logo.scss?lit&inline';
  * It displays the SBB logo.
  */
 @customElement('sbb-logo')
-export class SbbLogoElement extends LitElement {
+export class SbbLogoElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
-
-  /** Variants of the logo. */
-  @property({ reflect: true, type: Boolean }) public negative = false;
 
   /** Visual protective room around logo. */
   @property({ attribute: 'protective-room', reflect: true })

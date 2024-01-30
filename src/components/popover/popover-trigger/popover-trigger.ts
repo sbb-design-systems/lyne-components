@@ -2,7 +2,11 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { resolveButtonRenderVariables, SbbDisabledMixin } from '../../core/common-behaviors';
+import {
+  resolveButtonRenderVariables,
+  SbbDisabledMixin,
+  SbbNegativeMixin,
+} from '../../core/common-behaviors';
 import { hostContext, isValidAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
 import { HandlerRepository, actionElementHandlerAspect } from '../../core/eventing';
 
@@ -15,14 +19,11 @@ import '../../icon';
  * @slot - Use the unnamed slot to add content to the `sbb-popover-trigger`.
  */
 @customElement('sbb-popover-trigger')
-export class SbbPopoverTriggerElement extends SbbDisabledMixin(LitElement) {
+export class SbbPopoverTriggerElement extends SbbDisabledMixin(SbbNegativeMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
 
   /** The name attribute to use for the button. */
   @property({ reflect: true }) public name: string | undefined;
-
-  /** Negative coloring variant flag. */
-  @property({ reflect: true, type: Boolean }) public negative = false;
 
   /**
    * The icon name we want to use, choose from the small icon variants

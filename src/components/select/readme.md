@@ -108,9 +108,9 @@ Opened panel:
 | `multiple`         | `multiple`          | public  | `boolean`                         | `false` | Whether the select allows for multiple selection.                        |
 | `required`         | `required`          | public  | `boolean`                         | `false` | Whether the select is required.                                          |
 | `readonly`         | `readonly`          | public  | `boolean`                         | `false` | Whether the select is readonly.                                          |
-| `negative`         | `negative`          | public  | `boolean`                         | `false` | Negative coloring variant flag.                                          |
 | `disableAnimation` | `disable-animation` | public  | `boolean`                         | `false` | Whether the animation is disabled.                                       |
 | `disabled`         | `disabled`          | public  | `boolean`                         | `false` | Whether the component is disabled.                                       |
+| `negative`         | `negative`          | public  | `boolean`                         | `false` | Negative coloring variant flag.                                          |
 
 ## Methods
 

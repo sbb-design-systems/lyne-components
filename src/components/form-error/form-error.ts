@@ -1,8 +1,9 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement } from 'lit/decorators.js';
 
 import { assignId } from '../core/a11y';
+import { SbbNegativeMixin } from '../core/common-behaviors';
 import { isValidAttribute } from '../core/dom';
 
 import style from './form-error.scss?lit&inline';
@@ -16,11 +17,8 @@ let nextId = 0;
  * @slot icon - Use this slot to override the default error icon.
  */
 @customElement('sbb-form-error')
-export class SbbFormErrorElement extends LitElement {
+export class SbbFormErrorElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
-
-  /** Negative coloring variant flag. */
-  @property({ reflect: true, type: Boolean }) public negative = false;
 
   public override connectedCallback(): void {
     super.connectedCallback();

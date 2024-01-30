@@ -18,5 +18,5 @@ It's also possible to display the component in `negative` variant using the self
 
 | Name          | Attribute     | Privacy | Type                          | Default        | Description                                                                                   |
 | ------------- | ------------- | ------- | ----------------------------- | -------------- | --------------------------------------------------------------------------------------------- |
-| `negative`    | `negative`    | public  | `boolean \| undefined`        | `false`        | Negative coloring variant flag                                                                |
 | `orientation` | `orientation` | public  | `SbbOrientation \| undefined` | `'horizontal'` | Orientation property with possible values 'horizontal' \| 'vertical'. Defaults to horizontal. |
+| `negative`    | `negative`    | public  | `boolean`                     | `false`        | Negative coloring variant flag.                                                               |

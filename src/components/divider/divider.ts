@@ -2,6 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { SbbNegativeMixin } from '../core/common-behaviors';
 import { setAttribute } from '../core/dom';
 import type { SbbOrientation } from '../core/interfaces';
 
@@ -11,11 +12,8 @@ import style from './divider.scss?lit&inline';
  * It displays a divider between sections.
  */
 @customElement('sbb-divider')
-export class SbbDividerElement extends LitElement {
+export class SbbDividerElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
-
-  /** Negative coloring variant flag */
-  @property({ reflect: true, type: Boolean }) public negative?: boolean = false;
 
   /** Orientation property with possible values 'horizontal' | 'vertical'. Defaults to horizontal. */
   @property({ reflect: true }) public orientation?: SbbOrientation = 'horizontal';
