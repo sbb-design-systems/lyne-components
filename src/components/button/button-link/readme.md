@@ -1,5 +1,5 @@
 The `sbb-button-link` component provides the same functionality as a native `<a>`,
-despite it appears as a button enhanced with the SBB Design.
+despite its appearance as a button enhanced with the SBB Design.
 
 ```html
 <sbb-button-link href="https://www.sbb.ch">Button text</sbb-button-link>

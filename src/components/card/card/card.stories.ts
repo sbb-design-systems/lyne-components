@@ -61,16 +61,10 @@ const TemplateWithBadge = ({ size, color }: Args): TemplateResult => html`
 
 const TemplateAction = ({ label, ...args }: Args): TemplateResult => {
   if (args.href) {
-    delete args.type;
-    delete args.form;
-    delete args.value;
-    delete args.name;
+    ['type', 'form', 'value', 'name'].forEach((k) => delete args[k]);
     return html`<sbb-card-link ${sbbSpread(args)}>${label}</sbb-card-link>`;
   } else {
-    delete args.href;
-    delete args.target;
-    delete args.rel;
-    delete args.download;
+    ['href', 'target', 'rel', 'download'].forEach((k) => delete args[k]);
     return html`<sbb-card-button ${sbbSpread(args)}>${label}</sbb-card-button>`;
   }
 };
@@ -228,7 +222,17 @@ const defaultArgTypes: ArgTypes = {
   color,
 };
 
-const defaultArgTypesAction: ArgTypes = {
+const defaultArgTypesButton: ArgTypes = {
+  ...defaultArgTypes,
+  active,
+  label,
+  name,
+  type,
+  form,
+  value,
+};
+
+const defaultArgTypesLink: ArgTypes = {
   ...defaultArgTypes,
   active,
   label,
@@ -236,10 +240,6 @@ const defaultArgTypesAction: ArgTypes = {
   download,
   target,
   rel,
-  name,
-  type,
-  form,
-  value,
 };
 
 const defaultArgs: Args = {
@@ -418,25 +418,25 @@ export const SizeXXXLWithBadge: StoryObj = {
 
 export const Link: StoryObj = {
   render: TemplateCardAction,
-  argTypes: defaultArgTypesAction,
+  argTypes: defaultArgTypesLink,
   args: { ...defaultArgsLink },
 };
 
 export const Button: StoryObj = {
   render: TemplateCardAction,
-  argTypes: defaultArgTypesAction,
+  argTypes: defaultArgTypesButton,
   args: { ...defaultArgsButton },
 };
 
 export const ButtonActive: StoryObj = {
   render: TemplateCardAction,
-  argTypes: defaultArgTypesAction,
+  argTypes: defaultArgTypesButton,
   args: { ...defaultArgsButton, active: true },
 };
 
 export const ButtonActiveMilk: StoryObj = {
   render: TemplateCardAction,
-  argTypes: defaultArgTypesAction,
+  argTypes: defaultArgTypesButton,
   args: {
     ...defaultArgsButton,
     color: color.options[1],
@@ -446,7 +446,7 @@ export const ButtonActiveMilk: StoryObj = {
 
 export const ButtonActiveTransparentBordered: StoryObj = {
   render: TemplateCardAction,
-  argTypes: defaultArgTypesAction,
+  argTypes: defaultArgTypesButton,
   args: {
     ...defaultArgsButton,
     color: color.options[2],
@@ -456,7 +456,7 @@ export const ButtonActiveTransparentBordered: StoryObj = {
 
 export const ButtonActiveTransparentBorderedDashed: StoryObj = {
   render: TemplateCardAction,
-  argTypes: defaultArgTypesAction,
+  argTypes: defaultArgTypesButton,
   args: {
     ...defaultArgsButton,
     color: color.options[3],
@@ -466,31 +466,31 @@ export const ButtonActiveTransparentBorderedDashed: StoryObj = {
 
 export const ButtonWithSbbBadge: StoryObj = {
   render: TemplateCardActionWithBadge,
-  argTypes: defaultArgTypesAction,
+  argTypes: defaultArgTypesButton,
   args: { ...defaultArgsButton },
 };
 
 export const LinkWithSbbBadge: StoryObj = {
   render: TemplateCardActionWithBadge,
-  argTypes: defaultArgTypesAction,
+  argTypes: defaultArgTypesLink,
   args: { ...defaultArgsLink },
 };
 
 export const LinkActiveWithSbbBadge: StoryObj = {
   render: TemplateCardActionWithBadge,
-  argTypes: defaultArgTypesAction,
+  argTypes: defaultArgTypesLink,
   args: { ...defaultArgsLink, active: true },
 };
 
 export const FixedHeight: StoryObj = {
   render: TemplateCardActionFixedHeight,
-  argTypes: defaultArgTypesAction,
+  argTypes: defaultArgTypesButton,
   args: { ...defaultArgsButton },
 };
 
 export const Multiple: StoryObj = {
   render: TemplateCardActionMultipleCards,
-  argTypes: defaultArgTypesAction,
+  argTypes: defaultArgTypesLink,
   args: { ...defaultArgsLink },
 };
 

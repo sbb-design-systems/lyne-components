@@ -1,5 +1,5 @@
 The `sbb-link-button` component provides the same functionality as a native `<button>`,
-despite it appears as a link enhanced with the SBB Design.
+despite its appearance as a link enhanced with the SBB Design.
 
 ## Slots
 
