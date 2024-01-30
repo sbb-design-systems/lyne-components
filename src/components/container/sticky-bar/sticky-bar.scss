@@ -33,6 +33,10 @@
   color: var(--sbb-color-white-default);
 }
 
+:host([disable-animation]) {
+  --sbb-sticky-bar-animation-duration: 0.1ms;
+}
+
 .sbb-sticky-bar__wrapper {
   position: sticky;
   inset-block-end: 0;

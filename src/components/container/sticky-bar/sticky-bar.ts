@@ -19,6 +19,10 @@ export class SbbStickyBarElement extends LitElement {
   /** Color of the container, like transparent, white etc. */
   @property({ reflect: true }) public color?: 'white' | 'milk' | 'midnight';
 
+  /** Whether the animation is enabled. */
+  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
+  public disableAnimation = false;
+
   private _intersector?: HTMLSpanElement;
   private _observer = new AgnosticIntersectionObserver((entries) =>
     this._toggleShadowVisibility(entries[0]),
