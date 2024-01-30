@@ -3,7 +3,7 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y';
-import { NamedSlotStateController } from '../../core/common-behaviors';
+import { NamedSlotStateController, SbbDisabledMixin } from '../../core/common-behaviors';
 import { toggleDatasetEntry } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces';
@@ -18,11 +18,8 @@ import style from './checkbox-group.scss?lit&inline';
  * @slot error - Slot used to render a `sbb-form-error` inside the `sbb-checkbox-group`.
  */
 @customElement('sbb-checkbox-group')
-export class SbbCheckboxGroupElement extends LitElement {
+export class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
-
-  /** Whether the checkbox group is disabled. */
-  @property({ reflect: true, type: Boolean }) public disabled = false;
 
   /** Whether the checkbox group is required. */
   @property({ reflect: true, type: Boolean }) public required = false;

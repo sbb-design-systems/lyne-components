@@ -3,7 +3,7 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { assignId } from '../../core/a11y';
-import { NamedSlotStateController } from '../../core/common-behaviors';
+import { NamedSlotStateController, SbbDisabledMixin } from '../../core/common-behaviors';
 import {
   isSafari,
   isValidAttribute,
@@ -36,7 +36,7 @@ export type SbbOptionVariant = 'autocomplete' | 'select';
  * @event {CustomEvent<void>} optionSelected - Emits when an option was selected by user.
  */
 @customElement('sbb-option')
-export class SbbOptionElement extends LitElement {
+export class SbbOptionElement extends SbbDisabledMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     selectionChange: 'optionSelectionChange',
@@ -58,9 +58,6 @@ export class SbbOptionElement extends LitElement {
 
   /** Whether the option is selected. */
   @property({ reflect: true, type: Boolean }) public selected = false;
-
-  /** Whether the option is disabled. */
-  @property({ reflect: true, type: Boolean }) public disabled?: boolean;
 
   /** Emits when the option selection status changes. */
   private _selectionChange: EventEmitter = new EventEmitter(

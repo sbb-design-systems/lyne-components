@@ -5,6 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 import {
   NamedSlotStateController,
   resolveButtonRenderVariables,
+  SbbDisabledMixin,
 } from '../../core/common-behaviors';
 import { setAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
 import {
@@ -26,7 +27,7 @@ import '../../icon';
  * @event {CustomEvent<void>} toggleExpanded - Notifies that the `sbb-expansion-panel` has to expand.
  */
 @customElement('sbb-expansion-panel-header')
-export class SbbExpansionPanelHeaderElement extends LitElement {
+export class SbbExpansionPanelHeaderElement extends SbbDisabledMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     toggleExpanded: 'toggleExpanded',
@@ -38,9 +39,6 @@ export class SbbExpansionPanelHeaderElement extends LitElement {
    * https://icons.app.sbb.ch.
    */
   @property({ attribute: 'icon-name', reflect: true }) public iconName?: string;
-
-  /** Whether the button is disabled. */
-  @property({ reflect: true, type: Boolean }) public disabled: boolean = false;
 
   /** Notifies that the `sbb-expansion-panel` has to expand. */
   private _toggleExpanded: EventEmitter = new EventEmitter(

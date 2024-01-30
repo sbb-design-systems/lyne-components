@@ -3,7 +3,7 @@ import { LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { NamedSlotStateController } from '../../core/common-behaviors';
+import { NamedSlotStateController, SbbDisabledMixin } from '../../core/common-behaviors';
 import type { TitleLevel } from '../../title';
 
 import style from './tab-title.scss?lit&inline';
@@ -17,7 +17,7 @@ import '../../icon';
  * @slot amount - Provide a number to show an amount to the right of the title.
  */
 @customElement('sbb-tab-title')
-export class SbbTabTitleElement extends LitElement {
+export class SbbTabTitleElement extends SbbDisabledMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -28,9 +28,6 @@ export class SbbTabTitleElement extends LitElement {
 
   /** Active tab state */
   @property({ reflect: true, type: Boolean }) public active?: boolean;
-
-  /** Disabled tab state */
-  @property({ reflect: true, type: Boolean }) public disabled?: boolean;
 
   /**
    * The icon name we want to use, choose from the small icon variants

@@ -39,7 +39,7 @@ you can set the css variable `--sbb-menu-action-outer-horizontal-padding` to you
 | ---------- | ----------- | ------- | ------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | `amount`   | `amount`    | public  | `string \| undefined`     |         | Value shown as badge at component end.                                                                                           |
 | `iconName` | `icon-name` | public  | `string \| undefined`     |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `disabled` | `disabled`  | public  | `boolean`                 | `false` | Whether the button is disabled.                                                                                                  |
+| `disabled` | `disabled`  | public  | `boolean`                 | `false` | Whether the component is disabled.                                                                                               |
 | `type`     | `type`      | public  | `ButtonType \| undefined` |         | The type attribute to use for the button.                                                                                        |
 | `name`     | `name`      | public  | `string \| undefined`     |         | The name attribute to use for the button.                                                                                        |
 | `value`    | `value`     | public  | `string \| undefined`     |         | The value attribute to use for the button.                                                                                       |

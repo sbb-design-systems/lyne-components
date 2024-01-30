@@ -58,9 +58,9 @@ you can not provide it and then use `aria-label` to specify an appropriate label
 | `name`          | `name`           | public  | `string \| undefined`              |                | Name of the toggle-check.                                      |
 | `size`          | `size`           | public  | `'s' \| 'm'`                       | `'s'`          | Size variant, either m or s.                                   |
 | `iconName`      | `icon-name`      | public  | `string`                           | `'tick-small'` | The svg name for the true state - default -> 'tick-small'      |
-| `disabled`      | `disabled`       | public  | `boolean`                          | `false`        | The disabled prop for the disabled state.                      |
 | `required`      | `required`       | public  | `boolean`                          | `false`        | The required prop for the required state.                      |
 | `labelPosition` | `label-position` | public  | `'before' \| 'after' \| undefined` | `'after'`      | The label position relative to the toggle. Defaults to 'after' |
+| `disabled`      | `disabled`       | public  | `boolean`                          | `false`        | Whether the component is disabled.                             |
 
 ## Events
 

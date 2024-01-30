@@ -2,6 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
+import { SbbDisabledMixin } from '../core/common-behaviors';
 import { findShadowInput, setAttributes } from '../core/dom';
 import {
   HandlerRepository,
@@ -23,7 +24,7 @@ import '../icon';
  * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  */
 @customElement('sbb-toggle-check')
-export class SbbToggleCheckElement extends LitElement {
+export class SbbToggleCheckElement extends SbbDisabledMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -43,9 +44,6 @@ export class SbbToggleCheckElement extends LitElement {
 
   /** The svg name for the true state - default -> 'tick-small' */
   @property({ attribute: 'icon-name' }) public iconName = 'tick-small';
-
-  /** The disabled prop for the disabled state. */
-  @property({ reflect: true, type: Boolean }) public disabled = false;
 
   /** The required prop for the required state. */
   @property({ reflect: true, type: Boolean }) public required = false;

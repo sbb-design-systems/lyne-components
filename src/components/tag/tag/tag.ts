@@ -6,6 +6,7 @@ import {
   NamedSlotStateController,
   type ButtonProperties,
   resolveButtonRenderVariables,
+  SbbDisabledMixin,
 } from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
 import {
@@ -41,7 +42,7 @@ export type SbbTagStateChange = Extract<
  * @event {CustomEvent<void>} change - Change event emitter
  */
 @customElement('sbb-tag')
-export class SbbTagElement extends LitElement implements ButtonProperties {
+export class SbbTagElement extends SbbDisabledMixin(LitElement) implements ButtonProperties {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     stateChange: 'stateChange',
@@ -64,9 +65,6 @@ export class SbbTagElement extends LitElement implements ButtonProperties {
 
   /** Whether the tag is checked. */
   @property({ reflect: true, type: Boolean }) public checked = false;
-
-  /** Whether the tag is disabled. */
-  @property({ reflect: true, type: Boolean }) public disabled = false;
 
   /**
    * The icon name we want to use, choose from the small icon variants from the ui-icons category

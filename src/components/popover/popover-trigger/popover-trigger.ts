@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { resolveButtonRenderVariables } from '../../core/common-behaviors';
+import { resolveButtonRenderVariables, SbbDisabledMixin } from '../../core/common-behaviors';
 import { hostContext, isValidAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
 import { HandlerRepository, actionElementHandlerAspect } from '../../core/eventing';
 
@@ -15,7 +15,7 @@ import '../../icon';
  * @slot - Use the unnamed slot to add content to the `sbb-popover-trigger`.
  */
 @customElement('sbb-popover-trigger')
-export class SbbPopoverTriggerElement extends LitElement {
+export class SbbPopoverTriggerElement extends SbbDisabledMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** The name attribute to use for the button. */
@@ -30,9 +30,6 @@ export class SbbPopoverTriggerElement extends LitElement {
    * https://icons.app.sbb.ch.
    */
   @property({ attribute: 'icon-name' }) public iconName = 'circle-information-small';
-
-  /** Whether the popover-trigger is disabled. */
-  @property({ reflect: true, type: Boolean }) public disabled: boolean = false;
 
   private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
 

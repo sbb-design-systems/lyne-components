@@ -78,7 +78,7 @@ associate the popover trigger with the popover via `aria-describedby` and an `id
 | `name`     | `name`      | public  | `string \| undefined` |                              | The name attribute to use for the button.                                                                                        |
 | `negative` | `negative`  | public  | `boolean`             | `false`                      | Negative coloring variant flag.                                                                                                  |
 | `iconName` | `icon-name` | public  | `string`              | `'circle-information-small'` | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `disabled` | `disabled`  | public  | `boolean`             | `false`                      | Whether the popover-trigger is disabled.                                                                                         |
+| `disabled` | `disabled`  | public  | `boolean`             | `false`                      | Whether the component is disabled.                                                                                               |
 
 ## Slots
 

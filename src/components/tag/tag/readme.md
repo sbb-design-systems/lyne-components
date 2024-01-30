@@ -54,8 +54,8 @@ The state is reflected via `aria-pressed` attribute.
 | `form`     | `form`      | public  | `string \| undefined` |         | The <form> element to associate the button with.                                                                                       |
 | `amount`   | `amount`    | public  | `string \| undefined` |         | Amount displayed inside the tag.                                                                                                       |
 | `checked`  | `checked`   | public  | `boolean`             | `false` | Whether the tag is checked.                                                                                                            |
-| `disabled` | `disabled`  | public  | `boolean`             | `false` | Whether the tag is disabled.                                                                                                           |
 | `iconName` | `icon-name` | public  | `string \| undefined` |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from https://icons.app.sbb.ch (optional). |
+| `disabled` | `disabled`  | public  | `boolean`             | `false` | Whether the component is disabled.                                                                                                     |
 
 ## Events
 
