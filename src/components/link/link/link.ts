@@ -3,11 +3,8 @@ import { nothing, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import type { LinkRenderVariables } from '../../core/common-behaviors';
+import { LanguageController, type LinkRenderVariables } from '../../core/common-behaviors';
 import {
-  SbbDisabledMixin,
-  SbbIconNameMixin,
-  SbbNegativeMixin,
   resolveLinkOrStaticRenderVariables,
   SbbLinkBaseElement,
   targetsNewWindow,
@@ -24,9 +21,9 @@ import { SbbLinkCommonElementMixin } from '../common/link-common';
  * @slot icon - Slot used to display the icon, if one is set.
  */
 @customElement('sbb-link')
-export class SbbLinkElement extends SbbLinkCommonElementMixin(
-  SbbNegativeMixin(SbbDisabledMixin(SbbIconNameMixin(SbbLinkBaseElement))),
-) {
+export class SbbLinkElement extends SbbLinkCommonElementMixin(SbbLinkBaseElement) {
+  protected language = new LanguageController(this);
+
   protected override render(): TemplateResult {
     const {
       tagName: TAG_NAME,

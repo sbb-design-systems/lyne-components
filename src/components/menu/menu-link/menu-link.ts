@@ -6,8 +6,6 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import {
   LanguageController,
   type LinkRenderVariables,
-  SbbDisabledMixin,
-  SbbIconNameMixin,
   resolveLinkOrStaticRenderVariables,
   SbbLinkBaseElement,
   targetsNewWindow,
@@ -24,9 +22,7 @@ import { SbbMenuActionCommonElementMixin } from '../common/menu-action-common';
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a `sbb-icon` will be used.
  */
 @customElement('sbb-menu-link')
-export class SbbMenuLinkElement extends SbbMenuActionCommonElementMixin(
-  SbbIconNameMixin(SbbDisabledMixin(SbbLinkBaseElement)),
-) {
+export class SbbMenuLinkElement extends SbbMenuActionCommonElementMixin(SbbLinkBaseElement) {
   private _language = new LanguageController(this);
 
   protected override render(): TemplateResult {

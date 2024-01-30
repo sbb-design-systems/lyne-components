@@ -2,12 +2,7 @@ import { nothing, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import {
-  SbbDisabledMixin,
-  SbbIconNameMixin,
-  resolveButtonRenderVariables,
-  SbbButtonBaseElement,
-} from '../../core/common-behaviors';
+import { resolveButtonRenderVariables, SbbButtonBaseElement } from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
 import '../../icon';
 import { SbbMenuActionCommonElementMixin } from '../common/menu-action-common';
@@ -19,9 +14,7 @@ import { SbbMenuActionCommonElementMixin } from '../common/menu-action-common';
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a `sbb-icon` will be used.
  */
 @customElement('sbb-menu-button')
-export class SbbMenuButtonElement extends SbbMenuActionCommonElementMixin(
-  SbbIconNameMixin(SbbDisabledMixin(SbbButtonBaseElement)),
-) {
+export class SbbMenuButtonElement extends SbbMenuActionCommonElementMixin(SbbButtonBaseElement) {
   protected override render(): TemplateResult {
     setAttributes(this, resolveButtonRenderVariables(this.disabled));
 

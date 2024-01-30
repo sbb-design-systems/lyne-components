@@ -3,13 +3,10 @@ import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import {
-  SbbDisabledMixin,
-  SbbIconNameMixin,
-  SbbNegativeMixin,
   SbbButtonBaseElement,
   resolveButtonOrStaticRenderVariables,
 } from '../../core/common-behaviors';
-import { isValidAttribute, setAttributes } from '../../core/dom';
+import { setAttributes } from '../../core/dom';
 import { SbbButtonCommonElementMixin } from '../common/button-common';
 
 /**
@@ -19,18 +16,7 @@ import { SbbButtonCommonElementMixin } from '../common/button-common';
  * @slot icon - Slot used to display the icon, if one is set
  */
 @customElement('sbb-button')
-export class SbbButtonElement extends SbbButtonCommonElementMixin(
-  SbbNegativeMixin(SbbDisabledMixin(SbbIconNameMixin(SbbButtonBaseElement))),
-) {
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    // Check if the current element is nested in an action element.
-    const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
-    if (formField) {
-      this.negative = isValidAttribute(formField, 'negative');
-    }
-  }
-
+export class SbbButtonElement extends SbbButtonCommonElementMixin(SbbButtonBaseElement) {
   protected override render(): TemplateResult {
     // ## Migr: Host attributes ##
     setAttributes(this, resolveButtonOrStaticRenderVariables(this.isStatic, this.disabled));

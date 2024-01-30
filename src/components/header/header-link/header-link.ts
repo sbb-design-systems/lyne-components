@@ -6,7 +6,6 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import type { LinkRenderVariables } from '../../core/common-behaviors';
 import {
   LanguageController,
-  SbbIconNameMixin,
   resolveLinkOrStaticRenderVariables,
   SbbLinkBaseElement,
   targetsNewWindow,
@@ -23,9 +22,7 @@ import { SbbHeaderActionCommonElementMixin } from '../common/header-action-commo
  * @slot - Use the unnamed slot to add content to the `sbb-header-link`.
  */
 @customElement('sbb-header-link')
-export class SbbHeaderLinkElement extends SbbHeaderActionCommonElementMixin(
-  SbbIconNameMixin(SbbLinkBaseElement),
-) {
+export class SbbHeaderLinkElement extends SbbHeaderActionCommonElementMixin(SbbLinkBaseElement) {
   private _language = new LanguageController(this);
 
   protected override render(): TemplateResult {

@@ -6,14 +6,11 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import type { LinkRenderVariables } from '../../core/common-behaviors';
 import {
   LanguageController,
-  SbbDisabledMixin,
-  SbbIconNameMixin,
-  SbbNegativeMixin,
   SbbLinkBaseElement,
   resolveLinkOrStaticRenderVariables,
   targetsNewWindow,
 } from '../../core/common-behaviors';
-import { isValidAttribute, setAttributes } from '../../core/dom';
+import { setAttributes } from '../../core/dom';
 import { i18nTargetOpensInNewWindow } from '../../core/i18n';
 import { SbbButtonCommonElementMixin } from '../common/button-common';
 
@@ -24,19 +21,8 @@ import { SbbButtonCommonElementMixin } from '../common/button-common';
  * @slot icon - Slot used to display the icon, if one is set
  */
 @customElement('sbb-button-link')
-export class SbbButtonLinkElement extends SbbButtonCommonElementMixin(
-  SbbNegativeMixin(SbbDisabledMixin(SbbIconNameMixin(SbbLinkBaseElement))),
-) {
+export class SbbButtonLinkElement extends SbbButtonCommonElementMixin(SbbLinkBaseElement) {
   private _language = new LanguageController(this);
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    // Check if the current element is nested in an action element.
-    const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
-    if (formField) {
-      this.negative = isValidAttribute(formField, 'negative');
-    }
-  }
 
   protected override render(): TemplateResult {
     const {

@@ -3,9 +3,6 @@ import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import {
-  SbbDisabledMixin,
-  SbbIconNameMixin,
-  SbbNegativeMixin,
   resolveButtonOrStaticRenderVariables,
   SbbButtonBaseElement,
 } from '../../core/common-behaviors';
@@ -20,9 +17,7 @@ import { SbbLinkCommonElementMixin } from '../common/link-common';
  * @slot icon - Slot used to display the icon, if one is set.
  */
 @customElement('sbb-link-button')
-export class SbbLinkButtonElement extends SbbLinkCommonElementMixin(
-  SbbNegativeMixin(SbbDisabledMixin(SbbIconNameMixin(SbbButtonBaseElement))),
-) {
+export class SbbLinkButtonElement extends SbbLinkCommonElementMixin(SbbButtonBaseElement) {
   protected override render(): TemplateResult {
     // ## Migr: Host attributes ##
     setAttributes(this, resolveButtonOrStaticRenderVariables(this.isStatic, this.disabled));

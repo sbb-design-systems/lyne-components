@@ -1,13 +1,22 @@
 import type { CSSResultGroup, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { Constructor } from '../../core/common-behaviors';
+import type {
+  Constructor,
+  SbbDisabledMixinType,
+  SbbIconNameMixinType,
+} from '../../core/common-behaviors';
+import { SbbDisabledMixin, SbbIconNameMixin } from '../../core/common-behaviors';
 import { actionElementHandlerAspect, HandlerRepository } from '../../core/eventing';
 
 import style from './menu-action.scss?lit&inline';
 
-export declare class SbbMenuActionCommonElementMixinType {
+export declare class SbbMenuActionCommonElementMixinType
+  implements SbbDisabledMixinType, SbbIconNameMixinType
+{
   public amount: string;
+  public disabled: boolean;
+  public iconName: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -15,7 +24,7 @@ export const SbbMenuActionCommonElementMixin = <T extends Constructor<LitElement
   superClass: T,
 ): Constructor<SbbMenuActionCommonElementMixinType> & T => {
   class SbbMenuActionCommonElement
-    extends superClass
+    extends SbbIconNameMixin(SbbDisabledMixin(superClass))
     implements Partial<SbbMenuActionCommonElementMixinType>
   {
     public static styles: CSSResultGroup = style;

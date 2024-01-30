@@ -1,8 +1,19 @@
 import type { CSSResultGroup, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { type Constructor, NamedSlotStateController } from '../../core/common-behaviors';
-import { ACTION_ELEMENTS, hostContext, toggleDatasetEntry } from '../../core/dom';
+import type {
+  Constructor,
+  SbbDisabledMixinType,
+  SbbIconNameMixinType,
+  SbbNegativeMixinType,
+} from '../../core/common-behaviors';
+import {
+  NamedSlotStateController,
+  SbbDisabledMixin,
+  SbbIconNameMixin,
+  SbbNegativeMixin,
+} from '../../core/common-behaviors';
+import { ACTION_ELEMENTS, hostContext, isValidAttribute, toggleDatasetEntry } from '../../core/dom';
 import { actionElementHandlerAspect, HandlerRepository } from '../../core/eventing';
 import type { IsStaticProperty } from '../../core/interfaces';
 
@@ -13,10 +24,15 @@ import style from './button.scss?lit&inline';
 export type SbbButtonSize = 'l' | 'm';
 export type SbbButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'transparent';
 
-export declare class SbbButtonCommonElementMixinType {
+export declare class SbbButtonCommonElementMixinType
+  implements SbbNegativeMixinType, SbbDisabledMixinType, SbbIconNameMixinType
+{
   public variant: SbbButtonVariant;
   public size?: SbbButtonSize;
   public isStatic: boolean;
+  public disabled: boolean;
+  public iconName: string;
+  public negative: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -24,7 +40,7 @@ export const SbbButtonCommonElementMixin = <T extends Constructor<LitElement>>(
   superClass: T,
 ): Constructor<SbbButtonCommonElementMixinType> & T => {
   class SbbButtonCommonElement
-    extends superClass
+    extends SbbNegativeMixin(SbbDisabledMixin(SbbIconNameMixin(superClass)))
     implements Partial<SbbButtonCommonElementMixinType>, IsStaticProperty
   {
     public static styles: CSSResultGroup = style;
@@ -56,6 +72,7 @@ export const SbbButtonCommonElementMixin = <T extends Constructor<LitElement>>(
       const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
       if (formField) {
         toggleDatasetEntry(this, 'iconSmall', true);
+        this.negative = isValidAttribute(formField, 'negative');
       }
     }
 

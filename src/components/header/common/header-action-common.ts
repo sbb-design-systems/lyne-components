@@ -1,7 +1,8 @@
 import { property } from 'lit/decorators.js';
 import type { CSSResultGroup, LitElement } from 'lit/development';
 
-import type { Constructor } from '../../core/common-behaviors';
+import type { Constructor, SbbIconNameMixinType } from '../../core/common-behaviors';
+import { SbbIconNameMixin } from '../../core/common-behaviors';
 import { isBreakpoint, toggleDatasetEntry } from '../../core/dom';
 import { actionElementHandlerAspect, HandlerRepository } from '../../core/eventing';
 import type { SbbHorizontalFrom } from '../../core/interfaces';
@@ -9,8 +10,9 @@ import { AgnosticResizeObserver } from '../../core/observers';
 
 import style from './header-action.scss?lit&inline';
 
-export declare class SbbHeaderActionCommonElementMixinType {
+export declare class SbbHeaderActionCommonElementMixinType implements SbbIconNameMixinType {
   public expandFrom: SbbHorizontalFrom;
+  public iconName: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -18,7 +20,7 @@ export const SbbHeaderActionCommonElementMixin = <T extends Constructor<LitEleme
   superClass: T,
 ): Constructor<SbbHeaderActionCommonElementMixinType> & T => {
   class SbbHeaderActionCommonElement
-    extends superClass
+    extends SbbIconNameMixin(superClass)
     implements Partial<SbbHeaderActionCommonElementMixinType>
   {
     public static styles: CSSResultGroup = style;

@@ -1,8 +1,18 @@
 import type { CSSResultGroup, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { Constructor } from '../../core/common-behaviors';
-import { LanguageController, NamedSlotStateController } from '../../core/common-behaviors';
+import type {
+  Constructor,
+  SbbDisabledMixinType,
+  SbbIconNameMixinType,
+  SbbNegativeMixinType,
+} from '../../core/common-behaviors';
+import {
+  SbbDisabledMixin,
+  SbbIconNameMixin,
+  SbbNegativeMixin,
+  NamedSlotStateController,
+} from '../../core/common-behaviors';
 import { ACTION_ELEMENTS, hostContext } from '../../core/dom';
 import { actionElementHandlerAspect, HandlerRepository } from '../../core/eventing';
 import type { IsStaticProperty, SbbIconPlacement } from '../../core/interfaces';
@@ -13,11 +23,15 @@ import style from './link.scss?lit&inline';
 
 export type SbbLinkSize = 'xs' | 's' | 'm';
 
-export declare class SbbLinkCommonElementMixinType {
+export declare class SbbLinkCommonElementMixinType
+  implements SbbNegativeMixinType, SbbDisabledMixinType, SbbIconNameMixinType
+{
   public variant: 'block' | 'inline';
   public size?: SbbLinkSize;
   public isStatic: boolean;
-  protected language: LanguageController;
+  public disabled: boolean;
+  public iconName: string;
+  public negative: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -25,7 +39,7 @@ export const SbbLinkCommonElementMixin = <T extends Constructor<LitElement>>(
   superClass: T,
 ): Constructor<SbbLinkCommonElementMixinType> & T => {
   class SbbLinkCommonElement
-    extends superClass
+    extends SbbNegativeMixin(SbbDisabledMixin(SbbIconNameMixin(superClass)))
     implements Partial<SbbLinkCommonElementMixinType>, IsStaticProperty
   {
     public static styles: CSSResultGroup = style;
@@ -49,7 +63,6 @@ export const SbbLinkCommonElementMixin = <T extends Constructor<LitElement>>(
     @property({ attribute: 'icon-placement' })
     public iconPlacement?: SbbIconPlacement = 'start';
 
-    protected language = new LanguageController(this);
     private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
 
     public constructor(...args: any[]) {
