@@ -1,6 +1,8 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
+import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
+
 import type { SbbFooterElement } from './footer';
 
 import './footer';
@@ -16,15 +18,8 @@ describe('sbb-footer', () => {
         <sbb-footer accessibility-title="Footer" variant="default"></sbb-footer>
       `,
     );
-    expect(element).shadowDom.to.be.equal(
-      `
-            <footer class="sbb-footer">
-              <div class="sbb-footer-wrapper">
-                <h1 class="sbb-footer__title">Footer</h1>
-                <slot></slot>
-              </div>
-            </footer>
-          `,
-    );
+    await expect(element).shadowDom.to.be.equalSnapshot();
   });
+
+  testA11yTreeSnapshot(undefined, html`<sbb-footer accessibility-title="Footer"></sbb-footer>`);
 });

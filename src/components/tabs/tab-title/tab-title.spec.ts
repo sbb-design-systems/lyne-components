@@ -2,6 +2,7 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
 
 import './tab-title';
 
@@ -30,4 +31,6 @@ describe('sbb-tab-title', () => {
     expect(root).dom.to.be.equal(`<sbb-tab-title level="7" amount="78"></sbb-tab-title>`);
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
+
+  testA11yTreeSnapshot(undefined, html`<sbb-tab-title>Tab title</sbb-tab-title>`);
 });

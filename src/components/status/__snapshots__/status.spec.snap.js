@@ -62,3 +62,65 @@ snapshots["sbb-status renders with the status title"] =
 `;
 /* end snapshot sbb-status renders with the status title */
 
+snapshots["sbb-status A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "heading",
+      "name": "Title",
+      "level": 3
+    },
+    {
+      "role": "text",
+      "name": "Status info text"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-status A11y tree Chrome */
+
+snapshots["sbb-status A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "heading",
+      "name": "Title",
+      "level": 3
+    },
+    {
+      "role": "text leaf",
+      "name": "Status info text "
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-status A11y tree Firefox */
+
+snapshots["sbb-status A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Title"
+    },
+    {
+      "role": "text",
+      "name": "Status info text"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-status A11y tree Safari */
+

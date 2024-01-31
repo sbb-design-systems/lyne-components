@@ -1,42 +1,40 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { waitForLitRender } from '../../core/testing';
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+
+import type { SbbAlertGroupElement } from './alert-group';
 import './alert-group';
 import '../alert';
 
 describe('sbb-alert-group', () => {
-  it('should render', async () => {
-    const root = await fixture(html`
-      <sbb-alert-group accessibility-title="Disruptions" accessibility-level="3">
-        <sbb-alert
-          title-content="Interruption between Genève and Lausanne"
-          href="https://www.sbb.ch"
-        >
-          The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
-        </sbb-alert>
-      </sbb-alert-group>
-    `);
+  describe('should render', () => {
+    let root: SbbAlertGroupElement;
 
-    expect(root).dom.to.be.equal(
-      `
-        <sbb-alert-group accessibility-title='Disruptions' accessibility-level='3' role='status'>
-          <sbb-alert title-content='Interruption between Genève and Lausanne' href='https://www.sbb.ch' size="m" data-state="opening">
+    beforeEach(async () => {
+      root = await fixture(html`
+        <sbb-alert-group accessibility-title="Disruptions" accessibility-level="3">
+          <sbb-alert
+            title-content="Interruption between Genève and Lausanne"
+            href="https://www.sbb.ch"
+          >
             The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
           </sbb-alert>
         </sbb-alert-group>
-      `,
-    );
-    expect(root).shadowDom.to.be.equal(
-      `
-        <div class="sbb-alert-group">
-          <h2 class="sbb-alert-group__title">
-            <slot name="accessibility-title">
-              Disruptions
-            </slot>
-          </h2>
-          <slot></slot>
-        </div>
-      `,
-    );
+      `);
+      await waitForLitRender(root);
+    });
+
+    it('Dom', async () => {
+      await expect(root).dom.to.be.equalSnapshot();
+    });
+
+    it('ShadowDom', async () => {
+      await expect(root).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
   });
 
   it('should render with slots', async () => {

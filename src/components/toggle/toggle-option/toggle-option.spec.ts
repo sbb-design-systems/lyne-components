@@ -2,6 +2,7 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
 
 import './toggle-option';
 import '../../icon';
@@ -67,4 +68,9 @@ describe('sbb-toggle-option', () => {
     `);
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
+
+  testA11yTreeSnapshot(
+    undefined,
+    html`<sbb-toggle-option checked value="Option 1"></sbb-toggle-option>`,
+  );
 });

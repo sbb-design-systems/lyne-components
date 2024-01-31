@@ -1,26 +1,25 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+
+import type { SbbRadioButtonElement } from './radio-button';
 import './radio-button';
 
 describe('sbb-radio-button', () => {
-  it('renders', async () => {
-    const root = await fixture(html`<sbb-radio-button value="radio-value"></sbb-radio-button>`);
+  let element: SbbRadioButtonElement;
 
-    expect(root).dom.to.be.equal(
-      `
-        <sbb-radio-button aria-checked="false" aria-disabled="false" aria-required="false" size="m" value="radio-value" role="radio">
-        </sbb-radio-button>
-      `,
-    );
-    expect(root).shadowDom.to.be.equal(
-      `
-        <label class="sbb-radio-button">
-          <input aria-hidden="true" class="sbb-radio-button__input" tabindex="-1" type="radio" value="radio-value">
-          <span class="sbb-radio-button__label-slot">
-            <slot></slot>
-          </span>
-        </label>
-      `,
-    );
+  beforeEach(async () => {
+    element = await fixture(html`<sbb-radio-button value="radio-value"></sbb-radio-button>`);
   });
+
+  it('renders - Dom', async () => {
+    await expect(element).dom.to.be.equalSnapshot();
+  });
+
+  it('renders - ShadowDom', async () => {
+    await expect(element).shadowDom.to.be.equalSnapshot();
+  });
+
+  testA11yTreeSnapshot();
 });

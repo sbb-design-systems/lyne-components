@@ -89,3 +89,76 @@ snapshots["sbb-breadcrumb renders as span if no href is provided"] =
 `;
 /* end snapshot sbb-breadcrumb renders as span if no href is provided */
 
+snapshots["sbb-breadcrumb A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "Breadcrumb",
+      "children": [
+        {
+          "role": "link",
+          "name": "Breadcrumb"
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-breadcrumb A11y tree Chrome */
+
+snapshots["sbb-breadcrumb A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "Breadcrumb",
+      "children": [
+        {
+          "role": "link",
+          "name": "Breadcrumb",
+          "value": "http://localhost:8000/test"
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-breadcrumb A11y tree Firefox */
+
+snapshots["sbb-breadcrumb A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "",
+      "children": [
+        {
+          "role": "link",
+          "name": "Breadcrumb",
+          "children": [
+            {
+              "role": "text",
+              "name": "Breadcrumb"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-breadcrumb A11y tree Safari */
+

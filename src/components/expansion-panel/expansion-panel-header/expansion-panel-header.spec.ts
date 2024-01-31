@@ -2,6 +2,7 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
 
 import './expansion-panel-header';
 
@@ -74,4 +75,9 @@ describe('sbb-expansion-panel-header', () => {
     );
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
+
+  testA11yTreeSnapshot(
+    undefined,
+    html`<sbb-expansion-panel-header>Header</sbb-expansion-panel-header>`,
+  );
 });

@@ -2,28 +2,20 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import sampleImages from '../core/images';
+import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
+
+import type { SbbTeaserHeroElement } from './teaser-hero';
 import './teaser-hero';
 import '../link';
 import '../image';
 
 describe('sbb-teaser-hero', () => {
-  it('should render all properties', async () => {
-    const root = await fixture(
-      html`<sbb-teaser-hero
-        aria-label="label"
-        href="https://www.sbb.ch"
-        rel="external"
-        target="_blank"
-        link-content="Find out more"
-        image-src="${sampleImages[1]}"
-        image-alt="SBB CFF FFS Employee"
-        >Break out and explore castles and palaces.</sbb-teaser-hero
-      >`,
-    );
+  describe('should render all properties', () => {
+    let element: SbbTeaserHeroElement;
 
-    expect(root).dom.to.be.equal(
-      `
-        <sbb-teaser-hero
+    beforeEach(async () => {
+      element = await fixture(
+        html`<sbb-teaser-hero
           aria-label="label"
           href="https://www.sbb.ch"
           rel="external"
@@ -31,51 +23,20 @@ describe('sbb-teaser-hero', () => {
           link-content="Find out more"
           image-src="${sampleImages[1]}"
           image-alt="SBB CFF FFS Employee"
-          role="link"
-          tabindex="0"
-          dir="ltr"
-        >
-          Break out and explore castles and palaces.
-        </sbb-teaser-hero>
-      `,
-    );
-    expect(root).shadowDom.to.be.equal(
-      `
-        <a
-          class="sbb-teaser-hero"
-          href="https://www.sbb.ch"
-          rel="external"
-          target="_blank"
-          role="presentation"
-          tabindex="-1"
-        >
-          <span class="sbb-teaser-hero__panel">
-            <p class="sbb-teaser-hero__panel-text">
-              <slot></slot>
-            </p>
-            <sbb-link
-              dir="ltr"
-              is-static
-              variant="block"
-              class="sbb-teaser-hero__panel-link"
-              icon-name="chevron-small-right-small"
-              icon-placement="end"
-              size="m"
-              negative
-              data-slot-names="unnamed"
-            >
-              <slot name="link-content">Find out more</slot>
-            </sbb-link>
-          </span>
-          <slot name="image">
-            <sbb-image image-src="${sampleImages[1]}" alt="SBB CFF FFS Employee"></sbb-image>
-          </slot>
-          <span class="sbb-teaser-hero__opens-in-new-window">
-            . Link target opens in new window.
-          </span>
-        </a>
-      `,
-    );
+          >Break out and explore castles and palaces.</sbb-teaser-hero
+        >`,
+      );
+    });
+
+    it('Dom', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('ShadowDom', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
   });
 
   it('should render without link', async () => {
@@ -96,20 +57,7 @@ describe('sbb-teaser-hero', () => {
         </sbb-teaser-hero>
       `,
     );
-    expect(root).shadowDom.to.be.equal(
-      `
-        <span class="sbb-teaser-hero">
-          <span class="sbb-teaser-hero__panel">
-            <p class="sbb-teaser-hero__panel-text">
-              <slot></slot>
-            </p>
-          </span>
-          <slot name="image">
-            <sbb-image image-src="${sampleImages[1]}" alt="SBB CFF FFS Employee"></sbb-image>
-          </slot>
-        </span>
-      `,
-    );
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
   it('should render with slots', async () => {
@@ -133,35 +81,6 @@ describe('sbb-teaser-hero', () => {
         </sbb-teaser-hero>
       `,
     );
-    expect(root).shadowDom.to.be.equal(
-      `
-        <a
-          class="sbb-teaser-hero"
-          href="https://www.sbb.ch"
-          role="presentation"
-          tabindex="-1"
-        >
-          <span class="sbb-teaser-hero__panel">
-            <p class="sbb-teaser-hero__panel-text">
-              <slot></slot>
-            </p>
-            <sbb-link
-              dir="ltr"
-              is-static
-              variant="block"
-              class="sbb-teaser-hero__panel-link"
-              icon-name="chevron-small-right-small"
-              icon-placement="end"
-              size="m"
-              negative
-              data-slot-names="link-content unnamed"
-            >
-              <slot name="link-content"></slot>
-            </sbb-link>
-          </span>
-          <slot name="image"></slot>
-        </a>
-      `,
-    );
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 });

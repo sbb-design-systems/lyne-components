@@ -1,6 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
+import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
 import type { SbbLinkElement } from '../link';
 
 import type { SbbLinkListElement } from './link-list';
@@ -51,6 +52,8 @@ describe('sbb-link-list', () => {
     it('in shadow DOM', async () => {
       await expect(element).shadowDom.to.equalSnapshot();
     });
+
+    testA11yTreeSnapshot();
   });
 
   describe('rendered with a title from properties', () => {

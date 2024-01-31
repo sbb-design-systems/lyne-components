@@ -53,3 +53,33 @@ snapshots["sbb-dialog renders"] =
 `;
 /* end snapshot sbb-dialog renders */
 
+snapshots["sbb-dialog A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-dialog A11y tree Chrome */
+
+snapshots["sbb-dialog A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-dialog A11y tree Firefox */
+
+snapshots["sbb-dialog A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-dialog A11y tree Safari */
+

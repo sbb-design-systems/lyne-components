@@ -4,6 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import { sbbSpread } from '../core/dom';
 import images from '../core/images';
+import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
 
 import type { SbbTeaserElement } from './teaser';
 import './teaser';
@@ -86,4 +87,6 @@ describe('sbb-teaser', () => {
     const root: SbbTeaserElement = await fixture(createTeaser({ alignment: 'after-centered' }));
     await expect(root).shadowDom.to.equalSnapshot();
   });
+
+  testA11yTreeSnapshot(undefined, createTeaser(argsAfterCentered));
 });

@@ -31,28 +31,6 @@ describe('sbb-card', () => {
       ).getPropertyValue('display'),
     ).not.to.be.equal('none');
     expect(element).to.have.attribute('data-has-card-badge');
-    expect(element).dom.to.be.equal(`
-      <sbb-card color="white" data-has-card-badge size="xl">
-        <h2>Title</h2>
-        Content text
-        <sbb-card-badge color="charcoal" dir="ltr" role="text" slot="badge">
-          <span>%</span>
-          <span>from CHF</span>
-          <span>19.99</span>
-        </sbb-card-badge>
-      </sbb-card>
-    `);
-    expect(element).shadowDom.to.be.equal(`
-      <span class="sbb-card">
-        <slot name="action"></slot>
-        <span class="sbb-card__wrapper">
-          <slot></slot>
-        </span>
-        <span class="sbb-card__badge-wrapper">
-          <slot name="badge"></slot>
-        </span>
-      </span>
-    `);
   });
 
   it('should render without sbb-card-badge', async () => {
@@ -69,5 +47,21 @@ describe('sbb-card', () => {
       ).getPropertyValue('display'),
     ).to.be.equal('none');
     expect(element).not.to.have.attribute('data-has-card-badge');
+  });
+
+  it('should not render sbb-card-badge for small sizes', async () => {
+    const root = await fixture(
+      html` <sbb-card size="xs">
+        <h2>Title</h2>
+        Content text
+        <sbb-card-badge>
+          <span>%</span>
+          <span>from CHF</span>
+          <span>19.99</span>
+        </sbb-card-badge>
+      </sbb-card>`,
+    );
+
+    expect(root.shadowRoot!.querySelector('.sbb-card__badge-wrapper')).not.to.be.ok;
   });
 });

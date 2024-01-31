@@ -2,43 +2,42 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import type { SbbButtonElement } from '../button';
+import { waitForLitRender } from '../core/testing';
+import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
 
 import type { SbbActionGroupElement } from './action-group';
-import '.';
+import './action-group';
+import '../button';
+import '../link';
 
 describe('sbb-action-group', () => {
-  it('renders', async () => {
-    const root = await fixture(html`
-      <sbb-action-group align-group="start" orientation="horizontal">
-        <sbb-button variant="secondary">Button</sbb-button>
-        <sbb-link
-          icon-name="chevron-small-left-small"
-          href="https://github.com/lyne-design-system/lyne-components"
-        >
-          Link
-        </sbb-link>
-      </sbb-action-group>
-    `);
+  describe('renders', () => {
+    let element: SbbActionGroupElement;
 
-    expect(root).dom.to.be.equal(
-      `
-        <sbb-action-group align-group="start" orientation="horizontal" align-group="start" horizontal-from="medium" button-size="l" link-size="m">
+    beforeEach(async () => {
+      element = await fixture(html`
+        <sbb-action-group align-group="start" orientation="horizontal">
           <sbb-button variant="secondary">Button</sbb-button>
           <sbb-link
             icon-name="chevron-small-left-small"
-            href="https://github.com/lyne-design-system/lyne-components">
+            href="https://github.com/lyne-design-system/lyne-components"
+          >
             Link
           </sbb-link>
         </sbb-action-group>
-      `,
-    );
-    expect(root).shadowDom.to.be.equal(
-      `
-        <div class="sbb-action-group">
-          <slot></slot>
-        </div>
-      `,
-    );
+      `);
+      await waitForLitRender(element);
+    });
+
+    it('renders - Dom', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('renders - ShadowDom', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
   });
 
   describe('property sync', () => {

@@ -1,7 +1,9 @@
-import './title';
-
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
+
+import './title';
 
 describe('sbb-title', () => {
   it('renders', async () => {
@@ -18,4 +20,9 @@ describe('sbb-title', () => {
       <h1 class="sbb-title" role="presentation"><slot></slot></h1>
     `);
   });
+
+  testA11yTreeSnapshot(
+    undefined,
+    html`<sbb-title level="1" visual-level="2">Sample Title Text</sbb-title>`,
+  );
 });

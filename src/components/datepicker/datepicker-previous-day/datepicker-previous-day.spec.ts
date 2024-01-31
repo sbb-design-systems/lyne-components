@@ -1,6 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
 import type { SbbFormFieldElement } from '../../form-field';
 
 import type { SbbDatepickerPreviousDayElement } from './datepicker-previous-day';
@@ -34,16 +35,8 @@ describe('sbb-datepicker-previous-day', () => {
 
     const element: SbbDatepickerPreviousDayElement =
       page.querySelector<SbbDatepickerPreviousDayElement>('sbb-datepicker-previous-day')!;
-    expect(element).dom.to.be.equal(`
-      <sbb-datepicker-previous-day
-        date-picker="datepicker"
-        dir="ltr"
-        role="button"
-        slot="prefix"
-        tabindex="0"
-        aria-label="Change to the previous day, currently selected December 31, 2022.">
-      </sbb-datepicker-previous-day>
-    `);
+
+    await expect(element).dom.to.be.equalSnapshot();
 
     expect(element).shadowDom.to.be.equal(`
       <span class="sbb-datepicker-previous-day">
@@ -79,4 +72,9 @@ describe('sbb-datepicker-previous-day', () => {
       page.querySelector<SbbDatepickerPreviousDayElement>('sbb-datepicker-previous-day')!;
     expect(element).to.have.attribute('data-disabled');
   });
+
+  testA11yTreeSnapshot(
+    undefined,
+    html`<sbb-datepicker-previous-day></sbb-datepicker-previous-day>`,
+  );
 });

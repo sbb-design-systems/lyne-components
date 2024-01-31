@@ -2,6 +2,7 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../core/testing';
+import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
 
 import './notification';
 import '../link';
@@ -16,7 +17,6 @@ describe('sbb-notification', () => {
         >The quick brown fox jumps over the lazy dog.</sbb-notification
       >`,
     );
-
     await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(
@@ -34,7 +34,6 @@ describe('sbb-notification', () => {
         >The quick brown fox jumps over the lazy dog.</sbb-notification
       >`,
     );
-
     await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(
@@ -53,7 +52,6 @@ describe('sbb-notification', () => {
         The quick brown fox jumps over the lazy dog.
       </sbb-notification>`,
     );
-
     await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(
@@ -74,7 +72,6 @@ describe('sbb-notification', () => {
         >The quick brown fox jumps over the lazy dog.</sbb-notification
       >`,
     );
-
     await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(
@@ -85,4 +82,11 @@ describe('sbb-notification', () => {
     );
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
+
+  testA11yTreeSnapshot(
+    undefined,
+    html`<sbb-notification disable-animation title-content="Test title"
+      >Lorem ipsum ...</sbb-notification
+    >`,
+  );
 });

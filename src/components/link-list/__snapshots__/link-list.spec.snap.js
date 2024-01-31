@@ -394,3 +394,33 @@ snapshots["sbb-link-list rendered without a title in shadow DOM"] =
 `;
 /* end snapshot sbb-link-list rendered without a title in shadow DOM */
 
+snapshots["sbb-link-list rendered with a slotted title A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-link-list rendered with a slotted title A11y tree Chrome */
+
+snapshots["sbb-link-list rendered with a slotted title A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-link-list rendered with a slotted title A11y tree Firefox */
+
+snapshots["sbb-link-list rendered with a slotted title A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-link-list rendered with a slotted title A11y tree Safari */
+

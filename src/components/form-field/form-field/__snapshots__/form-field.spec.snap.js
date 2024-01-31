@@ -236,3 +236,75 @@ snapshots["sbb-form-field renders select with optional flag and borderless"] =
 `;
 /* end snapshot sbb-form-field renders select with optional flag and borderless */
 
+snapshots["sbb-form-field A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "​"
+    },
+    {
+      "role": "text",
+      "name": "Fill input"
+    },
+    {
+      "role": "textbox",
+      "name": "Fill input"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-form-field A11y tree Chrome */
+
+snapshots["sbb-form-field A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "statictext",
+      "name": "​"
+    },
+    {
+      "role": "text leaf",
+      "name": "Fill input"
+    },
+    {
+      "role": "textbox",
+      "name": "Fill input"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-form-field A11y tree Firefox */
+
+snapshots["sbb-form-field A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "​"
+    },
+    {
+      "role": "text",
+      "name": "Fill input"
+    },
+    {
+      "role": "textbox",
+      "name": "Fill input"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-form-field A11y tree Safari */
+

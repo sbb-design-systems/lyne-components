@@ -72,3 +72,54 @@ snapshots["sbb-toggle-option renders with slotted sbb-icon"] =
 `;
 /* end snapshot sbb-toggle-option renders with slotted sbb-icon */
 
+snapshots["sbb-toggle-option A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "radio",
+      "name": "",
+      "checked": true
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-toggle-option A11y tree Chrome */
+
+snapshots["sbb-toggle-option A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "radio",
+      "name": "",
+      "checked": true
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-toggle-option A11y tree Firefox */
+
+snapshots["sbb-toggle-option A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "radio",
+      "name": "",
+      "checked": true
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-toggle-option A11y tree Safari */
+

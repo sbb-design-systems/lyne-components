@@ -1,5 +1,8 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
+
 import './time-input';
 
 describe('sbb-time-input', () => {
@@ -12,15 +15,17 @@ describe('sbb-time-input', () => {
     );
     const elem = root.querySelector('sbb-time-input');
 
-    expect(root).dom.to.be.equal(`
-      <span>
-        <sbb-time-input input="id-1">
-        </sbb-time-input>
-        <input id="id-1" placeholder="HH:MM" type="text" maxlength="5" inputmode="numeric" data-sbb-time-input>
-      </span>
-    `);
+    await expect(root).dom.to.be.equalSnapshot();
     expect(elem).shadowDom.to.be.equal(`
       <p role="status"></p>
     `);
   });
+
+  testA11yTreeSnapshot(
+    undefined,
+    html` <span>
+      <sbb-time-input input="id-1"></sbb-time-input>
+      <input id="id-1" />
+    </span>`,
+  );
 });

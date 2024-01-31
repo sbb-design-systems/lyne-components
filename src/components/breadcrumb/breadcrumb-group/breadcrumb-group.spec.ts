@@ -1,34 +1,34 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
+import { waitForLitRender } from '../../core/testing';
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+
+import type { SbbBreadcrumbGroupElement } from './breadcrumb-group';
 import '../breadcrumb';
 import './breadcrumb-group';
-import { waitForLitRender } from '../../core/testing';
 
 describe('sbb-breadcrumb-group', () => {
-  it('renders', async () => {
-    const root = await fixture(html`
+  let root: SbbBreadcrumbGroupElement;
+
+  beforeEach(async () => {
+    root = await fixture(html`
       <sbb-breadcrumb-group>
         <sbb-breadcrumb href="/" icon-name="pie-small"></sbb-breadcrumb>
         <sbb-breadcrumb href="/one">One</sbb-breadcrumb>
         <sbb-breadcrumb href="/one">Two</sbb-breadcrumb>
       </sbb-breadcrumb-group>
     `);
-
     await waitForLitRender(root);
+  });
 
-    expect(root).dom.to.be.equal(`
-      <sbb-breadcrumb-group role='navigation' data-loaded>
-        <sbb-breadcrumb href="/" icon-name="pie-small" slot="li-0" dir="ltr" role="link" tabindex="0"></sbb-breadcrumb>
-        <sbb-breadcrumb href="/one" slot="li-1" dir="ltr" role="link" tabindex="0">
-          One
-        </sbb-breadcrumb>
-        <sbb-breadcrumb href="/one" slot="li-2" aria-current="page" dir="ltr" role="link" tabindex="0">
-          Two
-        </sbb-breadcrumb>
-      </sbb-breadcrumb-group>
-    `);
+  it('renders - Dom', async () => {
+    await expect(root).dom.to.be.equalSnapshot();
+  });
 
+  it('renders - ShadowDom', async () => {
     await expect(root).shadowDom.to.equalSnapshot();
   });
+
+  testA11yTreeSnapshot();
 });

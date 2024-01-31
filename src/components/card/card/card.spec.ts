@@ -1,16 +1,20 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+
+import type { SbbCardElement } from './card';
 import './card';
 import '../card-badge';
 
-const cardBadgeWrapperSelector = '.sbb-card__badge-wrapper';
-
 describe('sbb-card', () => {
-  it('should not render sbb-card-badge for small sizes', async () => {
+  let element: SbbCardElement;
+
+  beforeEach(async () => {
     // Note: for easier testing, we add the slot="badge"
     // to <sbb-card-badge> which would not be needed in real.
-    const root = await fixture(
-      html` <sbb-card size="xs">
+    element = await fixture(html`
+      <sbb-card size="xl">
         <h2>Title</h2>
         Content text
         <sbb-card-badge slot="badge">
@@ -18,9 +22,17 @@ describe('sbb-card', () => {
           <span>from CHF</span>
           <span>19.99</span>
         </sbb-card-badge>
-      </sbb-card>`,
-    );
-
-    expect(root.shadowRoot!.querySelector(cardBadgeWrapperSelector)).not.to.be.ok;
+      </sbb-card>
+    `);
   });
+
+  it('should render with sbb-card-badge - Dom', async () => {
+    await expect(element).dom.to.be.equalSnapshot();
+  });
+
+  it('should render with sbb-card-badge - ShadowDom', async () => {
+    await expect(element).shadowDom.to.be.equalSnapshot();
+  });
+
+  testA11yTreeSnapshot();
 });

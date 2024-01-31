@@ -183,3 +183,33 @@ snapshots["sbb-notification renders without the close button"] =
 `;
 /* end snapshot sbb-notification renders without the close button */
 
+snapshots["sbb-notification A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-notification A11y tree Chrome */
+
+snapshots["sbb-notification A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-notification A11y tree Firefox */
+
+snapshots["sbb-notification A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-notification A11y tree Safari */
+

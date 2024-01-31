@@ -1,50 +1,60 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
+import { waitForLitRender } from '../core/testing';
+import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
+
+import type { SbbSkiplinkListElement } from './skiplink-list';
 import './skiplink-list';
 import '../link';
 
 describe('sbb-skiplink-list', () => {
-  it('renders', async () => {
-    const root = await fixture(html`
-      <sbb-skiplink-list>
-        <sbb-link href="#">Link 1</sbb-link>
-        <sbb-link href="#">Link 2</sbb-link>
-        <sbb-link href="#">Link 3</sbb-link>
-      </sbb-skiplink-list>
-    `);
+  describe('renders', () => {
+    let element: SbbSkiplinkListElement;
 
-    expect(root).dom.to.be.equal(
-      `
-      <sbb-skiplink-list data-slot-names="li-0 li-1 li-2">
-        <sbb-link dir="ltr" href='#' negative="" role="link" size="m" slot="li-0" tabindex="0" variant="block" data-slot-names="unnamed">Link 1</sbb-link>
-        <sbb-link dir="ltr" href='#' negative="" role="link" size="m" slot="li-1" tabindex="0" variant="block" data-slot-names="unnamed">Link 2</sbb-link>
-        <sbb-link dir="ltr" href='#' negative="" role="link" size="m" slot="li-2" tabindex="0" variant="block" data-slot-names="unnamed">Link 3</sbb-link>
-      </sbb-skiplink-list>
-    `,
-    );
-    await expect(root).shadowDom.to.be.equalSnapshot();
+    beforeEach(async () => {
+      element = await fixture(html`
+        <sbb-skiplink-list>
+          <sbb-link href="#">Link 1</sbb-link>
+          <sbb-link href="#">Link 2</sbb-link>
+          <sbb-link href="#">Link 3</sbb-link>
+        </sbb-skiplink-list>
+      `);
+      await waitForLitRender(element);
+    });
+
+    it('Dom', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('ShadowDom', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
   });
 
-  it('renders with title', async () => {
-    const root = await fixture(html`
-      <sbb-skiplink-list title-content="Skip to" title-level="3">
-        <sbb-link href="#">Link 1</sbb-link>
-        <sbb-link href="#">Link 2</sbb-link>
-        <sbb-link href="#">Link 3</sbb-link>
-      </sbb-skiplink-list>
-    `);
+  describe('renders with title', () => {
+    let element: SbbSkiplinkListElement;
 
-    expect(root).dom.to.be.equal(
-      `
-      <sbb-skiplink-list title-content="Skip to" title-level="3" data-slot-names="li-0 li-1 li-2">
-        <sbb-link dir="ltr" href='#' negative="" role="link" size="m" slot="li-0" tabindex="0" variant="block" data-slot-names="unnamed">Link 1</sbb-link>
-        <sbb-link dir="ltr" href='#' negative="" role="link" size="m" slot="li-1" tabindex="0" variant="block" data-slot-names="unnamed">Link 2</sbb-link>
-        <sbb-link dir="ltr" href='#' negative="" role="link" size="m" slot="li-2" tabindex="0" variant="block" data-slot-names="unnamed">Link 3</sbb-link>
-      </sbb-skiplink-list>
-    `,
-    );
-    await expect(root).shadowDom.to.be.equalSnapshot();
+    beforeEach(async () => {
+      element = await fixture(html`
+        <sbb-skiplink-list title-content="Skip to" title-level="3">
+          <sbb-link href="https://www.sbb.ch">Link 1</sbb-link>
+          <sbb-link href="https://www.sbb.ch">Link 2</sbb-link>
+          <sbb-link href="https://www.sbb.ch">Link 3</sbb-link>
+        </sbb-skiplink-list>
+      `);
+      await waitForLitRender(element);
+    });
+
+    it('Dom', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('ShadowDom', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
   });
 
   it('should render named slots if data-ssr-child-count attribute is set', async () => {

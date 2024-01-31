@@ -2,6 +2,7 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
 
 import './breadcrumb';
 
@@ -33,8 +34,8 @@ describe('sbb-breadcrumb', () => {
     const root = await fixture(html`
       <sbb-breadcrumb href="/" icon-name="house-small"></sbb-breadcrumb>
     `);
-
     await waitForLitRender(root);
+
     expect(root).dom.to.be.equal(`
       <sbb-breadcrumb
         dir="ltr"
@@ -51,8 +52,8 @@ describe('sbb-breadcrumb', () => {
     const root = await fixture(html`
       <sbb-breadcrumb href="/" icon-name="house-small">Home</sbb-breadcrumb>
     `);
-
     await waitForLitRender(root);
+
     expect(root).dom.to.be.equal(`
       <sbb-breadcrumb
         dir="ltr"
@@ -78,4 +79,6 @@ describe('sbb-breadcrumb', () => {
 
     await expect(root).shadowDom.to.equalSnapshot();
   });
+
+  testA11yTreeSnapshot(undefined, html` <sbb-breadcrumb href="/test">Breadcrumb</sbb-breadcrumb> `);
 });
