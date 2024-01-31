@@ -7,6 +7,7 @@ import { AgnosticIntersectionObserver } from '../../core/observers';
 import '../container';
 
 import style from './sticky-bar.scss?lit&inline';
+
 /**
  * A container that sticks to the bottom of the page if slotted into `sbb-container`.
  *
@@ -23,9 +24,9 @@ export class SbbStickyBarElement extends LitElement {
   @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
   public disableAnimation = false;
 
-  private _intersector?: HTMLSpanElement;
-  private _observer = new AgnosticIntersectionObserver((entries) =>
-    this._toggleShadowVisibility(entries[0]),
+  private _observer = new AgnosticIntersectionObserver(
+    (entries) => this._toggleShadowVisibility(entries[0]),
+    { threshold: [1] },
   );
 
   public override connectedCallback(): void {
@@ -37,16 +38,7 @@ export class SbbStickyBarElement extends LitElement {
     if (container) {
       toggleDatasetEntry(this, 'expanded', container.expanded);
     }
-    if (this._intersector) {
-      this._observer.observe(this._intersector);
-    }
-  }
-
-  protected override firstUpdated(): void {
-    if (!this._intersector) {
-      this._intersector = this.shadowRoot!.querySelector('.sbb-sticky-bar__intersector')!;
-      this._observer.observe(this._intersector);
-    }
+    this._observer.observe(this);
   }
 
   private _toggleShadowVisibility(entry: IntersectionObserverEntry): void {
@@ -60,12 +52,9 @@ export class SbbStickyBarElement extends LitElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-sticky-bar__wrapper">
-        <div class="sbb-sticky-bar">
-          <slot></slot>
-        </div>
+      <div class="sbb-sticky-bar">
+        <slot></slot>
       </div>
-      <div class="sbb-sticky-bar__intersector"></div>
     `;
   }
 }

@@ -1,17 +1,23 @@
 @use '../../core/styles' as sbb;
 
-:host {
-  @include sbb.box-sizing;
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
 
+$intersection-offset: 1;
+
+:host {
   --sbb-sticky-bar-padding-block: var(--sbb-spacing-responsive-xxxs);
   --sbb-sticky-bar-animation-duration: var(--sbb-animation-duration-5x);
   --sbb-sticky-bar-animation-easing: var(--sbb-animation-easing);
 
-  // Display contents needed to get the sticky bar sticky.
-  display: contents;
+  position: sticky;
+  inset-block-end: #{sbb.px-to-rem-build(-$intersection-offset)};
 }
 
 :host([data-sticking]) {
+  border-block-end: #{sbb.px-to-rem-build($intersection-offset)} solid transparent;
+
   --sbb-sticky-bar-sticky-background-color: var(
     --sbb-container-background-color,
     var(--sbb-color-white-default)
@@ -37,14 +43,7 @@
   --sbb-sticky-bar-animation-duration: 0.1ms;
 }
 
-.sbb-sticky-bar__wrapper {
-  position: sticky;
-  inset-block-end: 0;
-  display: block;
-  width: 100%;
-}
-
-.sbb-sticky-bar__wrapper::before {
+.sbb-sticky-bar::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -74,9 +73,6 @@
   transition-duration: var(--sbb-sticky-bar-animation-duration);
   transition-timing-function: var(--sbb-sticky-bar-animation-easing);
 
-  // To push the .sbb-sticky-bar__intersector up without using absolute position we need a negative block margin.
-  margin-block-end: #{sbb.px-to-rem-build(-1)};
-
   :host(:not([data-expanded])) & {
     @include sbb.page-spacing;
   }
@@ -84,10 +80,4 @@
   :host([data-expanded]) & {
     @include sbb.page-spacing-expanded;
   }
-}
-
-.sbb-sticky-bar__intersector {
-  // In order to make the intersection observer work properly on windows the intersector needs to have a defined height
-  height: #{sbb.px-to-rem-build(1)};
-  width: 100%;
 }
