@@ -72,7 +72,7 @@ export const isSafari = (): boolean =>
 export const isNextjs = (): boolean => !!(globalThis as { next?: object }).next;
 
 /**
- * Note: `userAgentData` is still sperimental. If possible, avoid to use it.
+ * Note: `userAgentData` is still experimental. If possible, avoid to use it.
  * https://developer.mozilla.org/en-US/docs/Web/API/Navigator/userAgentData
  */
 export const isChromium = (): boolean =>
