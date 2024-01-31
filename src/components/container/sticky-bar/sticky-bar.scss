@@ -16,12 +16,12 @@ $intersection-offset: 1;
 }
 
 :host([data-sticking]) {
-  border-block-end: #{sbb.px-to-rem-build($intersection-offset)} solid transparent;
-
   --sbb-sticky-bar-sticky-background-color: var(
     --sbb-container-background-color,
     var(--sbb-color-white-default)
   );
+
+  border-block-end: #{sbb.px-to-rem-build($intersection-offset)} solid transparent;
 }
 
 :host([data-sticking][color='white']) {
