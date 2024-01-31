@@ -114,11 +114,7 @@ const DefaultTemplate = ({
   disableAnimation,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-container
-    ${sbbSpread(args)}
-    color=${containerColor}
-    style=${isChromatic() ? 'max-height: 400px; overflow-y: scroll;' : nothing}
-  >
+  <sbb-container ${sbbSpread(args)} color=${containerColor}>
     ${containerContent('Example title', containerColor)}
     ${containerContent('Another one', containerColor)}
     ${containerContent('And another one', containerColor)}
