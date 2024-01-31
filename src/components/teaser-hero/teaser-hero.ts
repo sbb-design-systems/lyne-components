@@ -2,11 +2,11 @@ import { spread } from '@open-wc/lit-helpers';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { html, unsafeStatic } from 'lit/static-html.js';
+import { html } from 'lit/static-html.js';
 
 import {
   LanguageController,
-  resolveLinkOrStaticRenderVariables,
+  resolveLinkRenderVariables,
   SbbLinkBaseElement,
   targetsNewWindow,
 } from '../core/common-behaviors';
@@ -53,55 +53,43 @@ export class SbbTeaserHeroElement extends SbbLinkBaseElement {
   }
 
   protected override render(): TemplateResult {
-    const {
-      tagName: TAG_NAME,
-      attributes,
-      hostAttributes,
-    }: LinkRenderVariables = resolveLinkOrStaticRenderVariables(this);
+    const { attributes, hostAttributes }: LinkRenderVariables = resolveLinkRenderVariables(this);
 
     setAttributes(this, hostAttributes);
 
-    /* eslint-disable lit/binding-positions */
     return html`
-        <${unsafeStatic(TAG_NAME)} class="sbb-teaser-hero" ${spread(attributes)}>
-          <span class="sbb-teaser-hero__panel">
-            <p class="sbb-teaser-hero__panel-text">
-              <slot></slot>
-            </p>
-            ${
-              this.href
-                ? html`<sbb-link-static
-                    class="sbb-teaser-hero__panel-link"
-                    icon-name="chevron-small-right-small"
-                    icon-placement="end"
-                    size="m"
-                    negative
-                  >
-                    <slot name="link-content">${this.linkContent}</slot>
-                  </sbb-link-static>`
-                : nothing
-            }
-          </span>
-          <slot name="image">
-            ${
-              this.imageSrc
-                ? html`<sbb-image
-                    image-src=${this.imageSrc}
-                    alt=${this.imageAlt ?? nothing}
-                  ></sbb-image>`
-                : nothing
-            }
-          </slot>
-          ${
-            targetsNewWindow(this)
-              ? html`<span class="sbb-teaser-hero__opens-in-new-window">
-                  . ${i18nTargetOpensInNewWindow[this._language.current]}
-                </span>`
-              : nothing
-          }
-        </${unsafeStatic(TAG_NAME)}>
-      `;
-    /* eslint-disable lit/binding-positions */
+      <a class="sbb-teaser-hero" ${spread(attributes)}>
+        <span class="sbb-teaser-hero__panel">
+          <p class="sbb-teaser-hero__panel-text">
+            <slot></slot>
+          </p>
+          ${this.href
+            ? html`<sbb-link-static
+                class="sbb-teaser-hero__panel-link"
+                icon-name="chevron-small-right-small"
+                icon-placement="end"
+                size="m"
+                negative
+              >
+                <slot name="link-content">${this.linkContent}</slot>
+              </sbb-link-static>`
+            : nothing}
+        </span>
+        <slot name="image">
+          ${this.imageSrc
+            ? html`<sbb-image
+                image-src=${this.imageSrc}
+                alt=${this.imageAlt ?? nothing}
+              ></sbb-image>`
+            : nothing}
+        </slot>
+        ${targetsNewWindow(this)
+          ? html`<span class="sbb-teaser-hero__opens-in-new-window">
+              . ${i18nTargetOpensInNewWindow[this._language.current]}
+            </span>`
+          : nothing}
+      </a>
+    `;
   }
 }
 

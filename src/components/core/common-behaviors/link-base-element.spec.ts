@@ -1,18 +1,18 @@
 import { expect } from '@open-wc/testing';
 
-import type { IsStaticProperty } from '../interfaces';
-
-import { resolveLinkOrStaticRenderVariables } from './link-base-element';
-import type { LinkRenderVariables, LinkProperties } from './link-base-element';
+import {
+  type LinkRenderVariables,
+  type LinkProperties,
+  resolveLinkRenderVariables,
+} from './link-base-element';
 
 describe('resolveLinkRenderVariables', () => {
-  const linkProperties: LinkProperties & Partial<IsStaticProperty> = {
-    isStatic: false,
+  const linkProperties: LinkProperties = {
     href: 'link',
   };
 
   it('should return variables for the basic link case', () => {
-    const retObj: LinkRenderVariables = resolveLinkOrStaticRenderVariables(linkProperties);
+    const retObj: LinkRenderVariables = resolveLinkRenderVariables(linkProperties);
     const attr: Record<string, string> = {
       href: 'link',
       role: 'presentation',
@@ -24,18 +24,17 @@ describe('resolveLinkRenderVariables', () => {
       role: 'link',
       tabIndex: '0',
     };
-    expect(retObj.tagName).to.be.equal('a');
     expect(retObj.attributes).to.be.deep.equal(attr);
     expect(retObj.hostAttributes).to.be.deep.equal(hostAttr);
   });
 
   it('should return variables for the full link case', () => {
-    const linkProp: LinkProperties & Partial<IsStaticProperty> = {
+    const linkProp: LinkProperties = {
       ...linkProperties,
       download: true,
       target: '_blank',
     };
-    const retObj: LinkRenderVariables = resolveLinkOrStaticRenderVariables(linkProp);
+    const retObj: LinkRenderVariables = resolveLinkRenderVariables(linkProp);
     const attr: Record<string, string> = {
       href: 'link',
       target: '_blank',
@@ -50,17 +49,16 @@ describe('resolveLinkRenderVariables', () => {
       role: 'link',
       tabIndex: '0',
     };
-    expect(retObj.tagName).to.be.equal('a');
     expect(retObj.attributes).to.be.deep.equal(attr);
     expect(retObj.hostAttributes).to.be.deep.equal(hostAttr);
   });
 
   it('should return variables for the disabled link case', () => {
-    const linkProp: LinkProperties & Partial<IsStaticProperty> = {
+    const linkProp: LinkProperties = {
       ...linkProperties,
       disabled: true,
     };
-    const retObj: LinkRenderVariables = resolveLinkOrStaticRenderVariables(linkProp);
+    const retObj: LinkRenderVariables = resolveLinkRenderVariables(linkProp);
     const attr: Record<string, string> = {
       href: 'link',
       role: 'presentation',
@@ -72,28 +70,7 @@ describe('resolveLinkRenderVariables', () => {
       role: 'link',
       tabIndex: undefined,
     };
-    expect(retObj.tagName).to.be.equal('a');
     expect(retObj.attributes).to.be.deep.equal(attr);
     expect(retObj.hostAttributes).to.be.deep.equal(hostAttr);
-  });
-
-  it('should return variables for the static case', () => {
-    const retObj: LinkRenderVariables = resolveLinkOrStaticRenderVariables({
-      ...linkProperties,
-      isStatic: true,
-    });
-    expect(retObj.tagName).to.be.equal('span');
-    expect(retObj.attributes).to.be.deep.equal({});
-    expect(retObj.hostAttributes).to.be.deep.equal({ dir: 'ltr' });
-  });
-
-  it('should return variables for the missing href case', () => {
-    const retObj: LinkRenderVariables = resolveLinkOrStaticRenderVariables({
-      ...linkProperties,
-      href: undefined,
-    });
-    expect(retObj.tagName).to.be.equal('span');
-    expect(retObj.attributes).to.be.deep.equal({});
-    expect(retObj.hostAttributes).to.be.deep.equal({ dir: 'ltr' });
   });
 });

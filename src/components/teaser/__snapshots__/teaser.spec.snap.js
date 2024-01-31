@@ -181,13 +181,19 @@ snapshots["sbb-teaser renders static - DOM"] =
 `<sbb-teaser
   alignment="after-centered"
   dir="ltr"
+  role="link"
+  tabindex="0"
 >
 </sbb-teaser>
 `;
 /* end snapshot sbb-teaser renders static - DOM */
 
 snapshots["sbb-teaser renders static - ShadowDOM"] = 
-`<span class="sbb-teaser">
+`<a
+  class="sbb-teaser"
+  role="presentation"
+  tabindex="-1"
+>
   <span class="sbb-teaser__container">
     <span class="sbb-teaser__image-wrapper">
       <slot name="image">
@@ -218,7 +224,7 @@ snapshots["sbb-teaser renders static - ShadowDOM"] =
       </span>
     </span>
   </span>
-</span>
+</a>
 `;
 /* end snapshot sbb-teaser renders static - ShadowDOM */
 

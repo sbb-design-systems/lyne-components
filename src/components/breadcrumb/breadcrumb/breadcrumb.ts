@@ -2,12 +2,12 @@ import { spread } from '@open-wc/lit-helpers';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { html, unsafeStatic } from 'lit/static-html.js';
+import { html } from 'lit/static-html.js';
 
 import {
   LanguageController,
   type LinkRenderVariables,
-  resolveLinkOrStaticRenderVariables,
+  resolveLinkRenderVariables,
   SbbLinkBaseElement,
   SlotChildObserver,
   targetsNewWindow,
@@ -59,37 +59,27 @@ export class SbbBreadcrumbElement extends SlotChildObserver(SbbLinkBaseElement) 
   }
 
   protected override render(): TemplateResult {
-    const {
-      tagName: TAG_NAME,
-      attributes,
-      hostAttributes,
-    }: LinkRenderVariables = resolveLinkOrStaticRenderVariables(this);
+    const { attributes, hostAttributes }: LinkRenderVariables = resolveLinkRenderVariables(this);
 
     setAttributes(this, hostAttributes);
 
-    /* eslint-disable lit/binding-positions */
     return html`
-      <${unsafeStatic(TAG_NAME)} class="sbb-breadcrumb" ${spread(attributes)}>
+      <a class="sbb-breadcrumb" ${spread(attributes)}>
         <slot name="icon">
-          ${
-            this.iconName
-              ? html`<sbb-icon name="${this.iconName}" class="sbb-breadcrumb__icon"></sbb-icon>`
-              : nothing
-          }
+          ${this.iconName
+            ? html`<sbb-icon name="${this.iconName}" class="sbb-breadcrumb__icon"></sbb-icon>`
+            : nothing}
         </slot>
         <span class="sbb-breadcrumb__label" ?hidden=${!this._hasText}>
           <slot></slot>
         </span>
-        ${
-          targetsNewWindow(this)
-            ? html` <span class="sbb-breadcrumb__label--opens-in-new-window">
-                . ${i18nTargetOpensInNewWindow[this._language.current]}
-              </span>`
-            : nothing
-        }
-      </${unsafeStatic(TAG_NAME)}>
+        ${targetsNewWindow(this)
+          ? html` <span class="sbb-breadcrumb__label--opens-in-new-window">
+              . ${i18nTargetOpensInNewWindow[this._language.current]}
+            </span>`
+          : nothing}
+      </a>
     `;
-    /* eslint-disable lit/binding-positions */
   }
 }
 

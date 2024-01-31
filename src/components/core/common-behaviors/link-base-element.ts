@@ -1,9 +1,6 @@
 import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { getDocumentWritingMode } from '../dom';
-import type { IsStaticProperty } from '../interfaces';
-
 import { hostProperties } from './host-properties';
 
 /** Enumeration for 'target' attribute in <a> HTML tag. */
@@ -56,9 +53,6 @@ function getLinkAttributeList(linkProperties: LinkProperties): Record<string, st
 
 /** A component that implements LinkProperties should use this interface to set useful variables for render function. */
 export interface LinkRenderVariables {
-  /** The tag's name rendered by the component. */
-  tagName: 'a' | 'span';
-
   /** The tag's attributes. */
   attributes: Record<string, string>;
 
@@ -66,34 +60,12 @@ export interface LinkRenderVariables {
   hostAttributes: Record<string, string | undefined>;
 }
 
-/** Set default render variables for anchor-like elements when the element is static. */
-function resolveStaticRenderVariables(): LinkRenderVariables {
-  return {
-    tagName: 'span',
-    attributes: {},
-    hostAttributes: { dir: getDocumentWritingMode() },
-  };
-}
-
 /** Set default render variables for anchor-like elements. */
 export function resolveLinkRenderVariables(properties: LinkProperties): LinkRenderVariables {
   return {
-    tagName: 'a',
     attributes: getLinkAttributeList(properties),
     hostAttributes: hostProperties('link', properties.disabled),
   };
-}
-
-/**
- * Sets default render variables for anchor-like elements.
- * @deprecated
- */
-export function resolveLinkOrStaticRenderVariables(
-  properties: LinkProperties & Partial<IsStaticProperty>,
-): LinkRenderVariables {
-  return properties.isStatic || !properties.href
-    ? resolveStaticRenderVariables()
-    : resolveLinkRenderVariables(properties);
 }
 
 /** Returns true, if href is set and target is _blank. */

@@ -2,12 +2,12 @@ import { spread } from '@open-wc/lit-helpers';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { html, unsafeStatic } from 'lit/static-html.js';
+import { html } from 'lit/static-html.js';
 
 import {
   LanguageController,
   NamedSlotStateController,
-  resolveLinkOrStaticRenderVariables,
+  resolveLinkRenderVariables,
   SbbLinkBaseElement,
   targetsNewWindow,
 } from '../core/common-behaviors';
@@ -65,17 +65,12 @@ export class SbbTeaserElement extends SbbLinkBaseElement {
   }
 
   protected override render(): TemplateResult {
-    const {
-      tagName: TAG_NAME,
-      attributes,
-      hostAttributes,
-    }: LinkRenderVariables = resolveLinkOrStaticRenderVariables(this);
+    const { attributes, hostAttributes }: LinkRenderVariables = resolveLinkRenderVariables(this);
 
     setAttributes(this, hostAttributes);
 
-    /* eslint-disable lit/binding-positions */
     return html`
-      <${unsafeStatic(TAG_NAME)} class="sbb-teaser" ${spread(attributes)}>
+      <a class="sbb-teaser" ${spread(attributes)}>
         <span class="sbb-teaser__container">
           <span class="sbb-teaser__image-wrapper">
             <slot name="image"></slot>
@@ -90,18 +85,15 @@ export class SbbTeaserElement extends SbbLinkBaseElement {
             <span class="sbb-teaser__description">
               <slot></slot>
             </span>
-            ${
-              targetsNewWindow(this)
-                ? html`<span class="sbb-teaser__opens-in-new-window">
-                    . ${i18nTargetOpensInNewWindow[this._language.current]}
-                  </span>`
-                : nothing
-            }
+            ${targetsNewWindow(this)
+              ? html`<span class="sbb-teaser__opens-in-new-window">
+                  . ${i18nTargetOpensInNewWindow[this._language.current]}
+                </span>`
+              : nothing}
           </span>
         </span>
-      </${unsafeStatic(TAG_NAME)}>
+      </a>
     `;
-    /* eslint-disable lit/binding-positions */
   }
 }
 
