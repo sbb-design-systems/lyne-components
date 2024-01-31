@@ -207,10 +207,9 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(LitElement) {
 
   private _renderDefaultMode(): TemplateResult {
     return html`
-      <sbb-button
+      <sbb-button-static
         variant="secondary"
         size="m"
-        is-static
         icon-name="folder-open-small"
         ?disabled=${this.disabled}
         ${ref((el?: Element): void => {
@@ -218,7 +217,7 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(LitElement) {
         })}
       >
         ${i18nFileSelectorButtonLabel[this._language.current]}
-      </sbb-button>
+      </sbb-button-static>
     `;
   }
 
@@ -233,17 +232,16 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(LitElement) {
           ${i18nFileSelectorSubtitleLabel[this._language.current]}
         </span>
         <span class="sbb-file-selector__dropzone-area--button">
-          <sbb-button
+          <sbb-button-static
             variant="secondary"
             size="m"
             ?disabled=${this.disabled}
-            is-static
             ${ref((el?: Element): void => {
               this._loadButton = el as SbbButtonElement;
             })}
           >
             ${i18nFileSelectorButtonLabel[this._language.current]}
-          </sbb-button>
+          </sbb-button-static>
         </span>
       </span>
     `;

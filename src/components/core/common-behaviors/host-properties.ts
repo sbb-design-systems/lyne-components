@@ -12,3 +12,11 @@ export function hostProperties(
       : { 'aria-disabled': undefined, tabIndex: '0' },
   );
 }
+
+/** Sets basic attributes for a non-interactive element (static link/button). */
+export function hostPropertiesStatic(disabled: boolean): Record<string, string> {
+  return {
+    dir: getDocumentWritingMode(),
+    ...(disabled ? { 'aria-disabled': 'true' } : {}),
+  };
+}

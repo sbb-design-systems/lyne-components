@@ -4,43 +4,29 @@ import { html } from 'lit/static-html.js';
 import { waitForLitRender } from '../../core/testing';
 
 import '../../form-field';
-import './button';
+import './button-static';
 
-describe('sbb-button', () => {
-  it('renders a primary button without icon', async () => {
+describe('sbb-button-static', () => {
+  it('renders a primary button-static without icon', async () => {
     const root = await fixture(
-      html` <sbb-button
-        variant="primary"
-        negative
-        size="m"
-        type="button"
-        disabled
-        name="name"
-        value="value"
-        form="formid"
-      >
+      html` <sbb-button-static variant="primary" negative size="m" disabled>
         Label Text
-      </sbb-button>`,
+      </sbb-button-static>`,
     );
 
     expect(root).dom.to.be.equal(`
-      <sbb-button
+      <sbb-button-static
         variant="primary"
         negative
         size="m"
-        type="button"
         disabled
         aria-disabled="true"
-        name="name"
-        value="value"
-        form="formid"
-        role="button"
         dir="ltr"
         data-slot-names="unnamed"
       >
 
         Label Text
-      </sbb-button>
+      </sbb-button-static>
     `);
     expect(root).shadowDom.to.be.equal(`
       <span class="sbb-button">
@@ -53,21 +39,21 @@ describe('sbb-button', () => {
     `);
   });
 
-  it('renders a primary button with slotted icon', async () => {
+  it('renders a primary button-static with slotted icon', async () => {
     const root = await fixture(
-      html`<sbb-button variant="primary">
+      html`<sbb-button-static variant="primary">
         <sbb-icon slot="icon" name="chevron-small-left-small"></sbb-icon>
         Label Text
-      </sbb-button> `,
+      </sbb-button-static> `,
     );
 
     await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(`
-      <sbb-button size="l" variant="primary" role="button" tabindex="0" dir="ltr" data-slot-names="icon unnamed">
+      <sbb-button-static size="l" variant="primary" dir="ltr" data-slot-names="icon unnamed">
         <sbb-icon slot="icon" name="chevron-small-left-small" role="img" aria-hidden="true" data-namespace="default"></sbb-icon>
         Label Text
-      </sbb-button>
+      </sbb-button-static>
     `);
     expect(root).shadowDom.to.be.equal(`
       <span class="sbb-button">
@@ -81,7 +67,9 @@ describe('sbb-button', () => {
 
   it('should detect icon button', async () => {
     const root = await fixture(
-      html`<sbb-button><sbb-icon slot="icon" name="app-icon-medium"></sbb-icon></sbb-button>`,
+      html`<sbb-button-static
+        ><sbb-icon slot="icon" name="app-icon-medium"></sbb-icon
+      ></sbb-button-static>`,
     );
 
     await waitForLitRender(root);
@@ -93,7 +81,9 @@ describe('sbb-button', () => {
 
   it('should detect icon button when there is space around icon', async () => {
     const root = await fixture(
-      html`<sbb-button> <sbb-icon slot="icon" name="app-icon-medium"></sbb-icon> </sbb-button>`,
+      html`<sbb-button-static>
+        <sbb-icon slot="icon" name="app-icon-medium"></sbb-icon>
+      </sbb-button-static>`,
     );
 
     const dataSlots = root.getAttribute('data-slot-names');
@@ -105,10 +95,10 @@ describe('sbb-button', () => {
     const root = await fixture(
       html` <sbb-form-field>
         <input />
-        <sbb-button slot="suffix" icon-name="cross-small"></sbb-button>
+        <sbb-button-static slot="suffix" icon-name="cross-small"></sbb-button-static>
       </sbb-form-field>`,
     );
-    const button = root.querySelector('sbb-button');
+    const button = root.querySelector('sbb-button-static');
     expect(button).to.have.attribute('data-icon-small');
   });
 });

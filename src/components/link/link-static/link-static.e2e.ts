@@ -4,17 +4,17 @@ import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
 
-import { SbbLinkElement } from './link';
+import { SbbLinkStaticElement } from './link-static';
 
-describe('sbb-link', () => {
-  let element: SbbLinkElement;
+describe('sbb-link-static', () => {
+  let element: SbbLinkStaticElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-link href="#" id="focus-id">Link as Button</sbb-link>`);
+    element = await fixture(html`<sbb-link-static id="focus-id">Link static</sbb-link-static>`);
   });
 
   it('renders', async () => {
-    assert.instanceOf(element, SbbLinkElement);
+    assert.instanceOf(element, SbbLinkStaticElement);
   });
 
   describe('events', () => {
@@ -48,18 +48,11 @@ describe('sbb-link', () => {
       expect(clickSpy.count).not.to.be.greaterThan(0);
     });
 
-    it('should dispatch click event on pressing Enter', async () => {
+    it('should not dispatch click event on pressing Enter', async () => {
       const changeSpy = new EventSpy('click');
       element.focus();
       await sendKeys({ press: 'Enter' });
-      expect(changeSpy.count).to.be.greaterThan(0);
-    });
-
-    it('should dispatch click event on pressing Enter with href', async () => {
-      const changeSpy = new EventSpy('click');
-      element.focus();
-      await sendKeys({ press: 'Enter' });
-      expect(changeSpy.count).to.be.greaterThan(0);
+      expect(changeSpy.count).not.to.be.greaterThan(0);
     });
 
     it('should not dispatch click event on pressing Space', async () => {
@@ -67,13 +60,6 @@ describe('sbb-link', () => {
       element.focus();
       await sendKeys({ press: ' ' });
       expect(changeSpy.count).not.to.be.greaterThan(0);
-    });
-
-    it('should receive focus', async () => {
-      await element.focus();
-      await waitForLitRender(element);
-
-      expect(document.activeElement!.id).to.be.equal('focus-id');
     });
   });
 });

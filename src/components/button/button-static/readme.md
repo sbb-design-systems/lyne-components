@@ -1,7 +1,8 @@
-The `sbb-button` component provides the same functionality as a native `<button>` enhanced with the SBB Design.
+The `sbb-button-static` component mimics the look of the `<sbb-button>`,
+and it's meant to be used whenever is required to nest one button inside another without breaking the HTML functionality.
 
 ```html
-<sbb-button>Button text</sbb-button>
+<sbb-button-static>Fake button</sbb-button-static>
 ```
 
 ## Slots
@@ -11,25 +12,14 @@ at the component start using the `iconName` property or via custom content using
 At least one is mandatory, so you can have a `sbb-button` with icon only, text only, or with both.
 
 ```html
-<sbb-button icon-name="info"> Button text </sbb-button>
+<sbb-button-static icon-name="info"> Button text </sbb-button-static>
 
-<sbb-button>
+<sbb-button-static>
   <sbb-icon slot="icon" name="info"></sbb-icon>
   Button text
-</sbb-button>
+</sbb-button-static>
 
-<sbb-button icon-name="info" aria-label="Click for more information."></sbb-button>
-```
-
-## Button properties
-
-The component is internally rendered as a button,
-accepting its associated properties (`type`, `name`, `value` and `form`).
-
-If the component is placed inside an `sbb-form-field`, it renders with the correct styling.
-
-```html
-<sbb-button type="button" name="tickets" form="buy" value="tickets"> Buy tickets </sbb-button>
+<sbb-button-static icon-name="info" aria-label="Click for more information."></sbb-button-static>
 ```
 
 ## Style
@@ -42,13 +32,13 @@ There are two different sizes (`m` and `l`, which is the default) that can be se
 The component can be displayed in `disabled` state using the self-named property.
 
 ```html
-<sbb-button variant="secondary">Button</sbb-button>
-<sbb-button variant="tertiary">Button</sbb-button>
-<sbb-button variant="transparent">Button</sbb-button>
+<sbb-button-static variant="secondary">Button</sbb-button-static>
+<sbb-button-static variant="tertiary">Button</sbb-button-static>
+<sbb-button-static variant="transparent">Button</sbb-button-static>
 
-<sbb-button size="m">Button</sbb-button>
+<sbb-button-static size="m">Button</sbb-button-static>
 
-<sbb-button disabled>Button</sbb-button>
+<sbb-button-static disabled>Button</sbb-button-static>
 ```
 
 ### Focus outline
@@ -64,7 +54,7 @@ sbb-button {
 
 ## Accessibility
 
-Use the accessibility properties in case of an icon-only button to describe the purpose of the `sbb-button` for screen-reader users.
+Use the accessibility properties in case of an icon-only button to describe the purpose of the `sbb-button-static` for screen-reader users.
 
 <!-- Auto Generated Below -->
 
@@ -77,10 +67,6 @@ Use the accessibility properties in case of an icon-only button to describe the 
 | `negative` | `negative`  | public  | `boolean`                    | `false`     | Negative coloring variant flag.                                                                                                  |
 | `disabled` | `disabled`  | public  | `boolean`                    | `false`     | Whether the component is disabled.                                                                                               |
 | `iconName` | `icon-name` | public  | `string \| undefined`        |             | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `type`     | `type`      | public  | `ButtonType \| undefined`    |             | The type attribute to use for the button.                                                                                        |
-| `name`     | `name`      | public  | `string \| undefined`        |             | The name attribute to use for the button.                                                                                        |
-| `value`    | `value`     | public  | `string \| undefined`        |             | The value attribute to use for the button.                                                                                       |
-| `form`     | `form`      | public  | `string \| undefined`        |             | The <form> element to associate the button with.                                                                                 |
 
 ## Slots
 

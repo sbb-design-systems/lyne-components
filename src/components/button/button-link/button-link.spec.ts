@@ -62,56 +62,6 @@ describe('sbb-button-link', () => {
     `);
   });
 
-  it('renders a sbb-button-link inside an anchor as span element', async () => {
-    const root = (
-      await fixture(html`
-        <a href="#">
-          <sbb-button-link variant="secondary" negative href="#">This is a link</sbb-button-link>
-        </a>
-      `)
-    ).querySelector('sbb-button-link');
-
-    expect(root).dom.to.be.equal(`
-      <sbb-button-link variant='secondary' negative href="#" size='l' is-static dir="ltr" data-slot-names="unnamed">
-        This is a link
-      </sbb-button-link>
-    `);
-    expect(root).shadowDom.to.be.equal(`
-      <span class='sbb-button'>
-        <span class="sbb-button__icon">
-          <slot name="icon">
-          </slot>
-        </span>
-        <span class='sbb-button__label'>
-          <slot></slot>
-        </span>
-      </span>
-    `);
-  });
-
-  it('renders a sbb-button as span element by setting is-static property', async () => {
-    const root = await fixture(
-      html`<sbb-button-link variant="secondary" is-static>This is a static link</sbb-button-link>`,
-    );
-
-    expect(root).dom.to.be.equal(`
-      <sbb-button-link variant='secondary' size='l' is-static dir="ltr" data-slot-names="unnamed">
-        This is a static link
-      </sbb-button-link>
-    `);
-    expect(root).shadowDom.to.be.equal(`
-      <span class='sbb-button'>
-        <span class="sbb-button__icon">
-          <slot name="icon">
-          </slot>
-        </span>
-        <span class='sbb-button__label'>
-          <slot></slot>
-        </span>
-      </span>
-    `);
-  });
-
   it('should render form field button variant when inside of a form field', async () => {
     const root = await fixture(
       html` <sbb-form-field>

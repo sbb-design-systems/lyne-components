@@ -77,10 +77,6 @@ const size: InputType = {
   options: ['xs', 's', 'm'],
 };
 
-const isStatic: InputType = {
-  control: { type: 'boolean' },
-};
-
 const iconName: InputType = {
   control: {
     type: 'text',
@@ -157,7 +153,6 @@ const defaultArgTypes: ArgTypes = {
   variant,
   negative,
   size,
-  'is-static': isStatic,
   'icon-name': iconName,
   'icon-placement': iconPlacement,
   type,
@@ -173,7 +168,6 @@ const defaultArgs: Args = {
   variant: variant.options[0],
   negative: false,
   size: size.options[1],
-  'is-static': false,
   'icon-name': undefined,
   'icon-placement': iconPlacement.options[0],
   type: type.options[0],

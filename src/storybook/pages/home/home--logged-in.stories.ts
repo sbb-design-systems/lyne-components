@@ -129,9 +129,9 @@ const Template = (args: Args): TemplateResult => html`
                       ?disable-animation=${isChromatic()}
                     ></sbb-pearl-chain>
                   </span>
-                  <sbb-button variant="secondary" icon-name="qrcode-small" is-static>
+                  <sbb-button-static variant="secondary" icon-name="qrcode-small">
                     Ticket
-                  </sbb-button>
+                  </sbb-button-static>
                 </span>
               </sbb-card>
             </li>
@@ -148,9 +148,9 @@ const Template = (args: Args): TemplateResult => html`
                     <sbb-title level="2" visual-level="6"> Libero day ticket: All zones </sbb-title>
                     <span class="sbb-text-s card-description">Today, Valid 24 hours</span>
                   </span>
-                  <sbb-button variant="secondary" icon-name="qrcode-small" is-static>
+                  <sbb-button-static variant="secondary" icon-name="qrcode-small">
                     Ticket
-                  </sbb-button>
+                  </sbb-button-static>
                 </span>
               </sbb-card>
             </li>
@@ -177,7 +177,7 @@ const Template = (args: Args): TemplateResult => html`
                       ?disable-animation=${isChromatic()}
                     ></sbb-pearl-chain>
                   </span>
-                  <sbb-button variant="secondary" is-static> Details </sbb-button>
+                  <sbb-button-static variant="secondary"> Details </sbb-button-static>
                 </span>
               </sbb-card>
             </li>
@@ -261,7 +261,7 @@ const Template = (args: Args): TemplateResult => html`
                   <sbb-title level="3" visual-level="6"> Generalabonnement </sbb-title>
                   <span class="sbb-text-s card-description">2nd class, valid until 30.11.2022</span>
                 </span>
-                <sbb-button variant="secondary" is-static> Edit subscription </sbb-button>
+                <sbb-button-static variant="secondary"> Edit subscription </sbb-button-static>
               </span>
             </sbb-card>
           </div>

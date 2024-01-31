@@ -39,17 +39,6 @@ describe('sbb-button', () => {
       expect(clickSpy.count).not.to.be.greaterThan(0);
     });
 
-    it('should dispatch event on click if is-static', async () => {
-      element.setAttribute('is-static', 'true');
-
-      await waitForLitRender(element);
-
-      const clickSpy = new EventSpy('click');
-
-      element.click();
-      expect(clickSpy.count).to.be.greaterThan(0);
-    });
-
     it('should dispatch click event on pressing Enter', async () => {
       const clickSpy = new EventSpy('click');
       element.focus();

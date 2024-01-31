@@ -4,17 +4,19 @@ import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
 
-import { SbbButtonElement } from './button';
+import { SbbButtonStaticElement } from './button-static';
 
-describe('sbb-button', () => {
-  let element: SbbButtonElement;
+describe('sbb-button-static', () => {
+  let element: SbbButtonStaticElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-button id="focus-id">I am a button</sbb-button>`);
+    element = await fixture(
+      html`<sbb-button-static id="focus-id">I am a static button</sbb-button-static>`,
+    );
   });
 
   it('renders', async () => {
-    assert.instanceOf(element, SbbButtonElement);
+    assert.instanceOf(element, SbbButtonStaticElement);
   });
 
   describe('events', () => {
@@ -37,20 +39,6 @@ describe('sbb-button', () => {
       expect(clickSpy.count).not.to.be.greaterThan(0);
     });
 
-    it('should dispatch click event on pressing Enter', async () => {
-      const clickSpy = new EventSpy('click');
-      element.focus();
-      await sendKeys({ press: 'Enter' });
-      expect(clickSpy.count).to.be.greaterThan(0);
-    });
-
-    it('should dispatch click event on pressing Space', async () => {
-      const clickSpy = new EventSpy('click');
-      element.focus();
-      await sendKeys({ press: ' ' });
-      expect(clickSpy.count).to.be.greaterThan(0);
-    });
-
     it('should stop propagating host click if disabled', async () => {
       element.disabled = true;
 
@@ -62,11 +50,18 @@ describe('sbb-button', () => {
       expect(clickSpy.count).not.to.be.greaterThan(0);
     });
 
-    it('should receive focus', async () => {
+    it('should not dispatch click event on pressing Enter', async () => {
+      const changeSpy = new EventSpy('click');
       element.focus();
-      await waitForLitRender(element);
+      await sendKeys({ press: 'Enter' });
+      expect(changeSpy.count).not.to.be.greaterThan(0);
+    });
 
-      expect(document.activeElement!.id).to.be.equal('focus-id');
+    it('should not dispatch click event on pressing Space', async () => {
+      const changeSpy = new EventSpy('click');
+      element.focus();
+      await sendKeys({ press: ' ' });
+      expect(changeSpy.count).not.to.be.greaterThan(0);
     });
   });
 });

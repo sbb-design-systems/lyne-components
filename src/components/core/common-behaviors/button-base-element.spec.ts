@@ -1,9 +1,6 @@
 import { expect } from '@open-wc/testing';
 
-import {
-  resolveButtonOrStaticRenderVariables,
-  resolveButtonRenderVariables,
-} from './button-base-element';
+import { resolveButtonRenderVariables } from './button-base-element';
 
 describe('resolveButtonRenderVariables', () => {
   it('disabled', () => {
@@ -24,14 +21,5 @@ describe('resolveButtonRenderVariables', () => {
       tabIndex: '0',
     };
     expect(resolveButtonRenderVariables(false)).to.be.deep.equal(retObj);
-  });
-});
-
-describe('resolveButtonOrStaticRenderVariables', () => {
-  it('static', () => {
-    const retObj: Record<string, string> = {
-      dir: 'ltr',
-    };
-    expect(resolveButtonOrStaticRenderVariables(true, false)).to.be.deep.equal(retObj);
   });
 });

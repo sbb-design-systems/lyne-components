@@ -84,7 +84,10 @@ export function resolveLinkRenderVariables(properties: LinkProperties): LinkRend
   };
 }
 
-/** Sets default render variables for anchor-like elements. */
+/**
+ * Sets default render variables for anchor-like elements.
+ * @deprecated
+ */
 export function resolveLinkOrStaticRenderVariables(
   properties: LinkProperties & Partial<IsStaticProperty>,
 ): LinkRenderVariables {

@@ -8,14 +8,13 @@ import type {
   Decorator,
   StoryContext,
 } from '@storybook/web-components';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
-import './link';
+import './link-static';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative
@@ -28,17 +27,19 @@ const paragraphStyle = (negative: boolean): Record<string, string> => ({
 });
 
 const Template = ({ text, ...args }: Args): TemplateResult =>
-  html`<sbb-link ${sbbSpread(args)}>${text}</sbb-link>`;
+  html`<sbb-link-static ${sbbSpread(args)}>${text}</sbb-link-static>`;
 
 const FixedWidthTemplate = ({ text, ...args }: Args): TemplateResult => html`
-  <sbb-link ${sbbSpread(args)} style=${styleMap({ width: '200px' })}> ${text} </sbb-link>
+  <sbb-link-static ${sbbSpread(args)} style=${styleMap({ width: '200px' })}>
+    ${text}
+  </sbb-link-static>
 `;
 
 const IconSlotTemplate = ({ text, 'icon-name': iconName, ...args }: Args): TemplateResult => html`
-  <sbb-link ${sbbSpread(args)}>
+  <sbb-link-static ${sbbSpread(args)}>
     ${text}
     <sbb-icon slot="icon" name=${iconName}></sbb-icon>
-  </sbb-link>
+  </sbb-link-static>
 `;
 
 const InlineTemplate = ({ text, ...args }: Args): TemplateResult => html`
@@ -46,7 +47,7 @@ const InlineTemplate = ({ text, ...args }: Args): TemplateResult => html`
     Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
     ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
     dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor
-    sit amet. <sbb-link ${sbbSpread(args)}>${text}</sbb-link>
+    sit amet. <sbb-link-static ${sbbSpread(args)}>${text}</sbb-link-static>
   </p>
 `;
 
@@ -95,49 +96,6 @@ const iconPlacement: InputType = {
   },
 };
 
-const hrefs = ['https://www.sbb.ch', 'https://github.com/lyne-design-system/lyne-components'];
-const href: InputType = {
-  options: Object.keys(hrefs),
-  mapping: hrefs,
-  control: {
-    type: 'select',
-    labels: {
-      0: 'sbb.ch',
-      1: 'GitHub Lyne Components',
-    },
-  },
-  table: {
-    category: 'Link',
-  },
-};
-
-const target: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Link',
-  },
-};
-
-const rel: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Link',
-  },
-};
-
-const download: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Link',
-  },
-};
-
 const disabled: InputType = {
   control: {
     type: 'boolean',
@@ -160,10 +118,6 @@ const defaultArgTypes: ArgTypes = {
   size,
   'icon-name': iconName,
   'icon-placement': iconPlacement,
-  href,
-  target,
-  rel,
-  download,
   disabled,
   'aria-label': ariaLabel,
 };
@@ -175,10 +129,6 @@ const defaultArgs: Args = {
   size: size.options[1],
   'icon-name': undefined,
   'icon-placement': iconPlacement.options[0],
-  href: href.options[1],
-  target: '_blank',
-  rel: undefined,
-  download: false,
   disabled: false,
   'aria-label': undefined,
 };
@@ -319,7 +269,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-link',
+  title: 'components/sbb-link-static',
 };
 
 export default meta;

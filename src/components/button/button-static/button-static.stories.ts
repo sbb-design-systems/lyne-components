@@ -9,14 +9,15 @@ import type {
   StoryContext,
 } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { html, type TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
+import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import '../../loading-indicator';
-import './button-link';
+import './button-static';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? '#484040' : 'var(--sbb-color-white-default)',
@@ -28,38 +29,51 @@ const focusStyle = (context: StoryContext): Record<string, string> =>
     : {};
 
 const Template = ({ text, active, focusVisible, ...args }: Args): TemplateResult => html`
-  <sbb-button-link ${sbbSpread(args)} ?data-active=${active} ?data-focus-visible=${focusVisible}>
+  <sbb-button-static ${sbbSpread(args)} ?data-active=${active} ?data-focus-visible=${focusVisible}>
     ${text}
-  </sbb-button-link>
+  </sbb-button-static>
 `;
 
 const IconSlotTemplate = ({ text, 'icon-name': iconName, ...args }: Args): TemplateResult => html`
-  <sbb-button-link ${sbbSpread(args)}>
+  <sbb-button-static ${sbbSpread(args)}>
     ${text}
     <sbb-icon slot="icon" name=${iconName}></sbb-icon>
-  </sbb-button-link>
+  </sbb-button-static>
 `;
 
 const LoadingIndicatorTemplate = ({ text, ...args }: Args): TemplateResult => html`
-  <sbb-button-link ${sbbSpread(args)}>
+  <sbb-button-static ${sbbSpread(args)}>
     <sbb-loading-indicator
       ?disable-animation=${isChromatic()}
       slot="icon"
       variant="circle"
     ></sbb-loading-indicator>
     ${text}
-  </sbb-button-link>
+  </sbb-button-static>
 `;
 
 const FixedWidthTemplate = ({ text, ...args }: Args): TemplateResult => html`
   <div>
     <p>
-      <sbb-button-link ${sbbSpread(args)} style="width: 200px;"> ${text} </sbb-button-link>
+      <sbb-button-static
+        ${sbbSpread(args)}
+        style=${styleMap({
+          width: '200px',
+        })}
+      >
+        ${text}
+      </sbb-button-static>
     </p>
     <p>
-      <sbb-button-link ${sbbSpread(args)} style="max-width: 100%; width: 600px;">
+      <sbb-button-static
+        ${sbbSpread(args)}
+        style=${styleMap({
+          maxWidth: '100%',
+          width: '600px',
+        })}
+      >
         Wide Button
-      </sbb-button-link>
+      </sbb-button-static>
     </p>
   </div>
 `;
@@ -99,49 +113,6 @@ const iconName: InputType = {
   },
 };
 
-const hrefs = ['https://www.sbb.ch', 'https://github.com/lyne-design-system/lyne-components'];
-const href: InputType = {
-  options: Object.keys(hrefs),
-  mapping: hrefs,
-  control: {
-    type: 'select',
-    labels: {
-      0: 'sbb.ch',
-      1: 'GitHub Lyne Components',
-    },
-  },
-  table: {
-    category: 'Link',
-  },
-};
-
-const target: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Link',
-  },
-};
-
-const rel: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Link',
-  },
-};
-
-const download: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Link',
-  },
-};
-
 const disabled: InputType = {
   control: {
     type: 'boolean',
@@ -163,10 +134,6 @@ const defaultArgTypes: ArgTypes = {
   negative,
   size,
   'icon-name': iconName,
-  href,
-  target,
-  rel,
-  download,
   disabled,
   'aria-label': ariaLabel,
 };
@@ -177,10 +144,6 @@ const defaultArgs: Args = {
   negative: false,
   size: size.options[0],
   'icon-name': 'arrow-right-small',
-  href: href.options[0],
-  target: '_blank',
-  rel: 'noopener',
-  download: false,
   disabled: false,
   'aria-label': undefined,
 };
@@ -525,7 +488,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-button-link',
+  title: 'components/sbb-button-static',
 };
 
 export default meta;

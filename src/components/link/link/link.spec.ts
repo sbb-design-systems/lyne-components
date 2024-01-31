@@ -48,62 +48,6 @@ describe('sbb-link', () => {
     `);
   });
 
-  it('renders a link as a span with sbb-icon', async () => {
-    const root = (
-      await fixture(
-        html` <a>
-          <sbb-link icon-placement="end" icon-name="chevron-small-right-small" size="m">
-            Travelcards &amp; tickets.
-          </sbb-link>
-        </a>`,
-      )
-    ).querySelector('sbb-link');
-
-    expect(root).dom.to.be.equal(`
-      <sbb-link
-          icon-placement="end"
-          icon-name="chevron-small-right-small"
-          size="m"
-          variant="block"
-          is-static
-          dir="ltr"
-          data-slot-names="unnamed"
-          >
-
-        Travelcards &amp; tickets.
-      </sbb-link>
-    `);
-    expect(root).shadowDom.to.be.equal(`
-      <span class="sbb-link">
-        <span class="sbb-link__icon">
-          <slot name="icon">
-            <sbb-icon name="chevron-small-right-small" role="img" aria-hidden="true" data-namespace="default"></sbb-icon>
-          </slot>
-        </span>
-        <slot></slot>
-      </span>
-    `);
-  });
-
-  it('renders a link as a span by setting is-static property', async () => {
-    const root = await fixture(html` <sbb-link is-static> Travelcards &amp; tickets. </sbb-link> `);
-
-    expect(root).dom.to.be.equal(`
-      <sbb-link dir="ltr" variant="block" is-static size="s" data-slot-names="unnamed">
-        Travelcards &amp; tickets.
-      </sbb-link>
-    `);
-    expect(root).shadowDom.to.be.equal(`
-      <span class="sbb-link">
-        <span class="sbb-link__icon">
-          <slot name="icon">
-          </slot>
-        </span>
-        <slot></slot>
-      </span>
-    `);
-  });
-
   it('renders the inline variant', async () => {
     const root = await fixture(
       html` <sbb-link variant="inline" size="m" href="#" target="_blank">

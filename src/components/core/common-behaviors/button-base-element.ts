@@ -1,8 +1,6 @@
 import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { getDocumentWritingMode } from '../dom';
-
 import { hostProperties } from './host-properties';
 
 /** Enumeration for type attribute in <button> HTML tag. */
@@ -37,12 +35,4 @@ export function resolveButtonRenderVariables(
   disabled: boolean = false,
 ): Record<string, string | undefined> {
   return hostProperties('button', disabled);
-}
-
-/** Sets default render variables for button-like elements considering the static case. */
-export function resolveButtonOrStaticRenderVariables(
-  isStatic: boolean,
-  disabled: boolean,
-): Record<string, string | undefined> {
-  return isStatic ? { dir: getDocumentWritingMode() } : resolveButtonRenderVariables(disabled);
 }

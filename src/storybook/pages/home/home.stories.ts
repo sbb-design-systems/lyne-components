@@ -103,7 +103,7 @@ const Template = (args: Args): TemplateResult => html`
                 <sbb-title level="2" visual-level="6"> Route map </sbb-title>
                 <span class="sbb-text-s card-description">For regular trips</span>
               </span>
-              <sbb-button size="m" variant="secondary" is-static> Buy </sbb-button>
+              <sbb-button-static size="m" variant="secondary"> Buy </sbb-button-static>
             </span>
           </sbb-card>
 
@@ -118,7 +118,7 @@ const Template = (args: Args): TemplateResult => html`
                   Enjoy unlimited travel with the GA travel card.
                 </sbb-title>
               </span>
-              <sbb-button variant="secondary" is-static> All GAs at a glance </sbb-button>
+              <sbb-button-static variant="secondary"> All GAs at a glance </sbb-button-static>
             </span>
           </sbb-card>
 
@@ -134,7 +134,7 @@ const Template = (args: Args): TemplateResult => html`
                   Travel at half price with the half-fare travel card.
                 </sbb-title>
               </span>
-              <sbb-button variant="secondary" is-static> Ride at half price </sbb-button>
+              <sbb-button-static variant="secondary"> Ride at half price </sbb-button-static>
             </span>
           </sbb-card>
         </div>

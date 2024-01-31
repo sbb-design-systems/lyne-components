@@ -13,9 +13,8 @@ import {
   SbbNegativeMixin,
   NamedSlotStateController,
 } from '../../core/common-behaviors';
-import { ACTION_ELEMENTS, hostContext } from '../../core/dom';
 import { actionElementHandlerAspect, HandlerRepository } from '../../core/eventing';
-import type { IsStaticProperty, SbbIconPlacement } from '../../core/interfaces';
+import type { SbbIconPlacement } from '../../core/interfaces';
 
 import '../../icon';
 
@@ -28,7 +27,6 @@ export declare class SbbLinkCommonElementMixinType
 {
   public variant: 'block' | 'inline';
   public size?: SbbLinkSize;
-  public isStatic: boolean;
   public disabled: boolean;
   public iconName: string;
   public negative: boolean;
@@ -41,7 +39,7 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<LitEleme
 ): AbstractConstructor<SbbLinkCommonElementMixinType> & T => {
   abstract class SbbLinkCommonElement
     extends SbbNegativeMixin(SbbDisabledMixin(SbbIconNameMixin(superClass)))
-    implements Partial<SbbLinkCommonElementMixinType>, IsStaticProperty
+    implements Partial<SbbLinkCommonElementMixinType>
   {
     public static styles: CSSResultGroup = style;
 
@@ -54,27 +52,19 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<LitEleme
      */
     @property({ reflect: true }) public size: SbbLinkSize = 's';
 
-    /**
-     * Set this property to true if you want only a visual representation of a
-     * link, but no interaction (a span instead of a link/button will be rendered).
-     */
-    @property({ attribute: 'is-static', reflect: true, type: Boolean }) public isStatic = false;
-
     /** Moves the icon to the end of the component if set to true. */
     @property({ attribute: 'icon-placement' })
     public iconPlacement?: SbbIconPlacement = 'start';
 
     private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
 
-    public constructor(...args: any[]) {
+    protected constructor(...args: any[]) {
       super(args);
       new NamedSlotStateController(this);
     }
 
     public override connectedCallback(): void {
       super.connectedCallback();
-      // Check if the current element is nested in an action element.
-      this.isStatic = this.isStatic || !!hostContext(ACTION_ELEMENTS, this);
       this._handlerRepository.connect();
     }
 

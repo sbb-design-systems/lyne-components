@@ -1,22 +1,22 @@
-import { nothing, type TemplateResult } from 'lit';
+import { LitElement, nothing, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { resolveButtonRenderVariables, SbbButtonBaseElement } from '../../core/common-behaviors';
+import { hostPropertiesStatic } from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
 import '../../icon';
 import { SbbLinkCommonElementMixin } from '../common/link-common';
 
 /**
- * It displays a link enhanced with the SBB Design, which will behave as a button.
+ * It displays a static link enhanced with the SBB Design.
  *
- * @slot - Use the unnamed slot to add content to the `sbb-link-button`.
+ * @slot - Use the unnamed slot to add content to the `sbb-link-static`.
  * @slot icon - Slot used to display the icon, if one is set.
  */
-@customElement('sbb-link-button')
-export class SbbLinkButtonElement extends SbbLinkCommonElementMixin(SbbButtonBaseElement) {
+@customElement('sbb-link-static')
+export class SbbLinkStaticElement extends SbbLinkCommonElementMixin(LitElement) {
   protected override render(): TemplateResult {
-    setAttributes(this, resolveButtonRenderVariables(this.disabled));
+    setAttributes(this, hostPropertiesStatic(this.disabled));
 
     return html`
       <span class="sbb-link">
@@ -30,6 +30,6 @@ export class SbbLinkButtonElement extends SbbLinkCommonElementMixin(SbbButtonBas
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-link-button': SbbLinkButtonElement;
+    'sbb-link-static': SbbLinkStaticElement;
   }
 }

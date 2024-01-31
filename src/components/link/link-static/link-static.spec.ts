@@ -3,39 +3,26 @@ import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
 
-import './link-button';
+import './link-static';
 
-describe('sbb-link-button', () => {
+describe('sbb-link-static', () => {
   it('renders a plain link-button with no icon', async () => {
     const root = await fixture(html`
-      <sbb-link-button
-        name="name"
-        type="button"
-        form="form"
-        value="value"
-        size="m"
-        aria-label="Travelcards &amp; tickets"
-      >
+      <sbb-link-static size="m" aria-label="Travelcards &amp; tickets">
         Travelcards &amp; tickets.
-      </sbb-link-button>
+      </sbb-link-static>
     `);
 
     expect(root).dom.to.be.equal(`
-      <sbb-link-button
+      <sbb-link-static
         aria-label="Travelcards &amp; tickets"
         data-slot-names="unnamed"
         dir="ltr"
-        form="form"
-        name="name"
-        role="button"
         size="m"
-        tabindex="0"
-        type="button"
-        value="value"
         variant="block"
       >
         Travelcards &amp; tickets.
-      </sbb-link-button>
+      </sbb-link-static>
     `);
     expect(root).shadowDom.to.be.equal(`
       <span class="sbb-link">
@@ -50,32 +37,20 @@ describe('sbb-link-button', () => {
 
   it('renders a negative link-button with provided icon', async () => {
     const root = await fixture(
-      html` <sbb-link-button
-        icon-placement="end"
-        size="m"
-        negative
-        name="name"
-        type="submit"
-        form="formid"
-        disabled
-      >
+      html` <sbb-link-static icon-placement="end" size="m" negative disabled>
         <sbb-icon name="chevron-small-right-small" slot="icon"></sbb-icon>
         Travelcards &amp; tickets.
-      </sbb-link-button>`,
+      </sbb-link-static>`,
     );
 
     await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(`
-      <sbb-link-button
-        role="button"
+      <sbb-link-static
         variant="block"
         icon-placement="end"
         size="m"
         negative
-        name="name"
-        type="submit"
-        form="formid"
         disabled
         aria-disabled="true"
         dir="ltr"
@@ -83,7 +58,7 @@ describe('sbb-link-button', () => {
       >
         <sbb-icon name="chevron-small-right-small" slot="icon" role="img" aria-hidden="true" data-namespace="default"></sbb-icon>
         Travelcards &amp; tickets.
-      </sbb-link-button>
+      </sbb-link-static>
     `);
     expect(root).shadowDom.to.be.equal(`
       <span class="sbb-link">
@@ -97,25 +72,21 @@ describe('sbb-link-button', () => {
 
   it('renders the inline variant', async () => {
     const root = await fixture(
-      html` <sbb-link-button variant="inline" size="m" form="form" value="value">
+      html` <sbb-link-static variant="inline" size="m">
         Travelcards &amp; tickets.
-      </sbb-link-button>`,
+      </sbb-link-static>`,
     );
 
     expect(root).dom.to.be.equal(`
-      <sbb-link-button
+      <sbb-link-static
         size="m"
         variant="inline"
-        form='form'
-        value="value"
-        role="button"
-        tabindex="0"
         dir="ltr"
         data-slot-names="unnamed"
       >
 
         Travelcards &amp; tickets.
-      </sbb-link-button>
+      </sbb-link-static>
     `);
     expect(root).shadowDom.to.be.equal(`
       <span class="sbb-link">

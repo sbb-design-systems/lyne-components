@@ -1,5 +1,9 @@
-The `sbb-link-button` component provides the same functionality as a native `<button>`,
-despite its appearance as a link enhanced with the SBB Design.
+The `sbb-link-static` component mimics the look of the `<sbb-link>`,
+and it's meant to be used whenever is required to nest one link inside another without breaking the HTML functionality.
+
+```html
+<sbb-link-static>Fake link</sbb-link-static>
+```
 
 ## Slots
 
@@ -8,11 +12,11 @@ the `iconName` property or via custom content using the `icon` slot.
 By default, the icon is placed at the component's end, but this can be changed using the `iconPlacement` property.
 
 ```html
-<sbb-link-button value="hilfe"> Help </sbb-link-button>
+<sbb-link-static icon-name="chevron-small-right-small"> Help </sbb-link-static>
 
-<sbb-link-button value="contact" icon-name="chevron-small-left-small" icon-placement="start">
+<sbb-link-static icon-name="chevron-small-left-small" icon-placement="start">
   Contact
-</sbb-link-button>
+</sbb-link-static>
 ```
 
 ## States
@@ -20,18 +24,7 @@ By default, the icon is placed at the component's end, but this can be changed u
 The component can be displayed in `disabled` state using the self-named property.
 
 ```html
-<sbb-link-button disabled>Refunds</sbb-link-button>
-```
-
-## Button properties
-
-The component is internally rendered as a button,
-accepting its associated properties (`type`, `name`, `value` and `form`).
-
-```html
-<sbb-link-button type="button" name="tickets" form="buy" value="tickets">
-  Travel-cards and tickets
-</sbb-link-button>
+<sbb-link-static disabled>Refunds</sbb-link-static>
 ```
 
 ## Style
@@ -40,11 +33,11 @@ The component has two variants (`block`, which is the default, and `inline`), th
 and it has also three sizes (`xs`, `s`, which is the default, and `m`) that are relevant only in `variant='block`'.
 
 ```html
-<sbb-link-button size="m">Refunds</sbb-link-button>
+<sbb-link-static size="m">Refunds</sbb-link-static>
 
 <p>
   Some informative text.
-  <sbb-link-button variant="inline">Show more.</sbb-link-button>
+  <sbb-link-static variant="inline">Show more.</sbb-link-static>
 </p>
 ```
 
@@ -60,14 +53,10 @@ and it has also three sizes (`xs`, `s`, which is the default, and `m`) that are 
 | `negative`      | `negative`       | public  | `boolean`                       | `false`   | Negative coloring variant flag.                                                                                                  |
 | `disabled`      | `disabled`       | public  | `boolean`                       | `false`   | Whether the component is disabled.                                                                                               |
 | `iconName`      | `icon-name`      | public  | `string \| undefined`           |           | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `type`          | `type`           | public  | `ButtonType \| undefined`       |           | The type attribute to use for the button.                                                                                        |
-| `name`          | `name`           | public  | `string \| undefined`           |           | The name attribute to use for the button.                                                                                        |
-| `value`         | `value`          | public  | `string \| undefined`           |           | The value attribute to use for the button.                                                                                       |
-| `form`          | `form`           | public  | `string \| undefined`           |           | The <form> element to associate the button with.                                                                                 |
 
 ## Slots
 
 | Name   | Description                                                   |
 | ------ | ------------------------------------------------------------- |
-|        | Use the unnamed slot to add content to the `sbb-link-button`. |
+|        | Use the unnamed slot to add content to the `sbb-link-static`. |
 | `icon` | Slot used to display the icon, if one is set.                 |

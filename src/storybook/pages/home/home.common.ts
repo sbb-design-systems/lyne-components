@@ -8,7 +8,7 @@ import { sbbSpread } from '../../../components/core/dom';
 import type {
   SbbNavigationElement,
   SbbNavigationMarkerElement,
-  SbbNavigationActionElement,
+  SbbNavigationButtonElement,
 } from '../../../components/navigation';
 import '../../../components/button';
 import '../../../components/card';
@@ -44,7 +44,7 @@ export const timetableInput = (): TemplateResult => html`
 const onNavigationClose = (dialog: SbbNavigationElement): void => {
   dialog?.addEventListener('did-close', () => {
     (document.getElementById('nav-marker') as SbbNavigationMarkerElement).reset();
-    (document.getElementById('nav-1') as SbbNavigationActionElement).setAttribute('active', '');
+    (document.getElementById('nav-1') as SbbNavigationButtonElement).setAttribute('active', '');
   });
 };
 
@@ -186,7 +186,7 @@ export const dailyTicketProduct = (): TemplateResult => html`
         <sbb-title level="2" visual-level="6"> Daily ticket </sbb-title>
         <span class="sbb-text-s card-description">Valid today</span>
       </span>
-      <sbb-button size="m" variant="secondary" is-static> Buy </sbb-button>
+      <sbb-button-static size="m" variant="secondary"> Buy </sbb-button-static>
     </span>
   </sbb-card>
 `;
@@ -203,7 +203,7 @@ export const bikeProduct = (): TemplateResult => html`
         <sbb-title level="2" visual-level="6"> Bike day pass </sbb-title>
         <span class="sbb-text-s card-description">Valid today</span>
       </span>
-      <sbb-button size="m" variant="secondary" is-static> Buy </sbb-button>
+      <sbb-button-static size="m" variant="secondary"> Buy </sbb-button-static>
     </span>
   </sbb-card>
 `;
@@ -220,7 +220,7 @@ export const liberoProduct = (): TemplateResult => html`
         <sbb-title level="2" visual-level="6"> Libero short distance ticket </sbb-title>
         <span class="sbb-text-s card-description">Valid today</span>
       </span>
-      <sbb-button size="m" variant="secondary" is-static> Buy </sbb-button>
+      <sbb-button-static size="m" variant="secondary"> Buy </sbb-button-static>
     </span>
   </sbb-card>
 `;

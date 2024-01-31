@@ -31,10 +31,6 @@ At least one is mandatory, so you can have a `sbb-button-link` with icon only, t
 The component is internally rendered as a link,
 accepting its associated properties (`href`, `target`, `rel` and `download`).
 
-If `isStatic` is set, the component will be rendered as a span without any user interaction.
-The `isStatic` is only considered during initial rendering (connectedCallback), later configuration changes are ignored.
-Please note that if the `sbb-button-link` is placed inside another anchor tag,
-it is internally rendered as a span in order to not break HTML functionality.
 If the component is placed inside an `sbb-form-field`, it renders with the correct styling.
 
 ```html
@@ -81,18 +77,17 @@ Use the accessibility properties in case of an icon-only button to describe the 
 
 ## Properties
 
-| Name       | Attribute   | Privacy | Type                                    | Default     | Description                                                                                                                                            |
-| ---------- | ----------- | ------- | --------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `variant`  | `variant`   | public  | `SbbButtonVariant`                      | `'primary'` | Variant of the button, like primary, secondary etc.                                                                                                    |
-| `size`     | `size`      | public  | `SbbButtonSize \| undefined`            | `'l'`       | Size variant, either l or m.                                                                                                                           |
-| `isStatic` | `is-static` | public  | `boolean`                               | `false`     | Set this property to true if you want only a visual representation of a button, but no interaction (a span instead of a link/button will be rendered). |
-| `negative` | `negative`  | public  | `boolean`                               | `false`     | Negative coloring variant flag.                                                                                                                        |
-| `disabled` | `disabled`  | public  | `boolean`                               | `false`     | Whether the component is disabled.                                                                                                                     |
-| `iconName` | `icon-name` | public  | `string \| undefined`                   |             | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                       |
-| `href`     | `href`      | public  | `string \| undefined`                   |             | The href value you want to link to.                                                                                                                    |
-| `target`   | `target`    | public  | `LinkTargetType \| string \| undefined` |             | Where to display the linked URL.                                                                                                                       |
-| `rel`      | `rel`       | public  | `string \| undefined`                   |             | The relationship of the linked URL as space-separated link types.                                                                                      |
-| `download` | `download`  | public  | `boolean \| undefined`                  |             | Whether the browser will show the download dialog on click.                                                                                            |
+| Name       | Attribute   | Privacy | Type                                    | Default     | Description                                                                                                                      |
+| ---------- | ----------- | ------- | --------------------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `variant`  | `variant`   | public  | `SbbButtonVariant`                      | `'primary'` | Variant of the button, like primary, secondary etc.                                                                              |
+| `size`     | `size`      | public  | `SbbButtonSize \| undefined`            | `'l'`       | Size variant, either l or m.                                                                                                     |
+| `negative` | `negative`  | public  | `boolean`                               | `false`     | Negative coloring variant flag.                                                                                                  |
+| `disabled` | `disabled`  | public  | `boolean`                               | `false`     | Whether the component is disabled.                                                                                               |
+| `iconName` | `icon-name` | public  | `string \| undefined`                   |             | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `href`     | `href`      | public  | `string \| undefined`                   |             | The href value you want to link to.                                                                                              |
+| `target`   | `target`    | public  | `LinkTargetType \| string \| undefined` |             | Where to display the linked URL.                                                                                                 |
+| `rel`      | `rel`       | public  | `string \| undefined`                   |             | The relationship of the linked URL as space-separated link types.                                                                |
+| `download` | `download`  | public  | `boolean \| undefined`                  |             | Whether the browser will show the download dialog on click.                                                                      |
 
 ## Slots
 

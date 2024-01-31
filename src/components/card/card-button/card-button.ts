@@ -22,9 +22,7 @@ export class SbbCardButtonElement extends SbbCardActionCommonElementMixin(SbbBut
     }
 
     setAttribute(this, 'slot', 'action');
-    // ## Migr: Host attributes ##
     setAttributes(this, hostAttributes);
-    // ####
 
     return html`
       <span class="sbb-card-action">

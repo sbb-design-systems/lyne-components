@@ -37,17 +37,6 @@ describe('sbb-link-button', () => {
       expect(changeSpy.count).not.to.be.greaterThan(0);
     });
 
-    it('should dispatch event on click if static', async () => {
-      element.setAttribute('is-static', 'true');
-
-      await waitForLitRender(element);
-
-      const changeSpy = new EventSpy('click');
-
-      await element.click();
-      expect(changeSpy.count).to.be.greaterThan(0);
-    });
-
     it('should stop propagating host click if disabled', async () => {
       element.disabled = true;
 

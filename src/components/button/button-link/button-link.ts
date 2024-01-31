@@ -1,13 +1,12 @@
 import { spread } from '@open-wc/lit-helpers';
 import { nothing, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { html, unsafeStatic } from 'lit/static-html.js';
+import { html } from 'lit/static-html.js';
 
-import type { LinkRenderVariables } from '../../core/common-behaviors';
+import { type LinkRenderVariables, resolveLinkRenderVariables } from '../../core/common-behaviors';
 import {
   LanguageController,
   SbbLinkBaseElement,
-  resolveLinkOrStaticRenderVariables,
   targetsNewWindow,
 } from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
@@ -25,33 +24,23 @@ export class SbbButtonLinkElement extends SbbButtonCommonElementMixin(SbbLinkBas
   private _language = new LanguageController(this);
 
   protected override render(): TemplateResult {
-    const {
-      tagName: TAG_NAME,
-      attributes,
-      hostAttributes,
-    }: LinkRenderVariables = resolveLinkOrStaticRenderVariables(this);
+    const { attributes, hostAttributes }: LinkRenderVariables = resolveLinkRenderVariables(this);
 
-    // ## Migr: Host attributes ##
     setAttributes(this, hostAttributes);
-    // ####
 
-    /* eslint-disable lit/binding-positions */
     return html`
-      <${unsafeStatic(TAG_NAME)} class="sbb-button" ${spread(attributes)}>
+      <a class="sbb-button" ${spread(attributes)}>
         ${this.renderIconSlot()}
         <span class="sbb-button__label">
           <slot></slot>
-          ${
-            targetsNewWindow(this)
-              ? html` <span class="sbb-button__opens-in-new-window">
-                  . ${i18nTargetOpensInNewWindow[this._language.current]}
-                </span>`
-              : nothing
-          }
+          ${targetsNewWindow(this)
+            ? html` <span class="sbb-button__opens-in-new-window">
+                . ${i18nTargetOpensInNewWindow[this._language.current]}
+              </span>`
+            : nothing}
         </span>
-      </${unsafeStatic(TAG_NAME)}>
+      </a>
     `;
-    /* eslint-disable lit/binding-positions */
   }
 }
 

@@ -1,11 +1,11 @@
 import { spread } from '@open-wc/lit-helpers';
 import { nothing, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { html, unsafeStatic } from 'lit/static-html.js';
+import { html } from 'lit/static-html.js';
 
 import { LanguageController, type LinkRenderVariables } from '../../core/common-behaviors';
 import {
-  resolveLinkOrStaticRenderVariables,
+  resolveLinkRenderVariables,
   SbbLinkBaseElement,
   targetsNewWindow,
 } from '../../core/common-behaviors';
@@ -25,31 +25,21 @@ export class SbbLinkElement extends SbbLinkCommonElementMixin(SbbLinkBaseElement
   protected language = new LanguageController(this);
 
   protected override render(): TemplateResult {
-    const {
-      tagName: TAG_NAME,
-      attributes,
-      hostAttributes,
-    }: LinkRenderVariables = resolveLinkOrStaticRenderVariables(this);
+    const { attributes, hostAttributes }: LinkRenderVariables = resolveLinkRenderVariables(this);
 
-    // ## Migr: Host attributes ##
     setAttributes(this, hostAttributes);
-    // ####
 
-    /* eslint-disable lit/binding-positions */
     return html`
-      <${unsafeStatic(TAG_NAME)} class='sbb-link' ${spread(attributes)}>
+      <a class="sbb-link" ${spread(attributes)}>
         ${this.variant !== 'inline' ? this.renderIconSlot() : nothing}
         <slot></slot>
-        ${
-          targetsNewWindow(this)
-            ? html`<span class="sbb-link__opens-in-new-window">
-                . ${i18nTargetOpensInNewWindow[this.language.current]}
-              </span>`
-            : nothing
-        }
-      </${unsafeStatic(TAG_NAME)}>
+        ${targetsNewWindow(this)
+          ? html`<span class="sbb-link__opens-in-new-window">
+              . ${i18nTargetOpensInNewWindow[this.language.current]}
+            </span>`
+          : nothing}
+      </a>
     `;
-    /* eslint-disable lit/binding-positions */
   }
 }
 

@@ -13,9 +13,8 @@ import {
   SbbIconNameMixin,
   SbbNegativeMixin,
 } from '../../core/common-behaviors';
-import { ACTION_ELEMENTS, hostContext, isValidAttribute, toggleDatasetEntry } from '../../core/dom';
+import { isValidAttribute, toggleDatasetEntry } from '../../core/dom';
 import { actionElementHandlerAspect, HandlerRepository } from '../../core/eventing';
-import type { IsStaticProperty } from '../../core/interfaces';
 
 import '../../icon';
 
@@ -29,7 +28,6 @@ export declare class SbbButtonCommonElementMixinType
 {
   public variant: SbbButtonVariant;
   public size?: SbbButtonSize;
-  public isStatic: boolean;
   public disabled: boolean;
   public iconName: string;
   public negative: boolean;
@@ -42,7 +40,7 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<LitEle
 ): AbstractConstructor<SbbButtonCommonElementMixinType> & T => {
   abstract class SbbButtonCommonElement
     extends SbbNegativeMixin(SbbDisabledMixin(SbbIconNameMixin(superClass)))
-    implements Partial<SbbButtonCommonElementMixinType>, IsStaticProperty
+    implements Partial<SbbButtonCommonElementMixinType>
   {
     public static styles: CSSResultGroup = style;
     /** Variant of the button, like primary, secondary etc. */
@@ -51,23 +49,15 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<LitEle
     /** Size variant, either l or m. */
     @property({ reflect: true }) public size?: SbbButtonSize = 'l';
 
-    /**
-     * Set this property to true if you want only a visual representation of a
-     * button, but no interaction (a span instead of a link/button will be rendered).
-     */
-    @property({ attribute: 'is-static', reflect: true, type: Boolean }) public isStatic = false;
-
     private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
 
-    public constructor(...args: any[]) {
+    protected constructor(...args: any[]) {
       super(args);
       new NamedSlotStateController(this);
     }
 
     public override connectedCallback(): void {
       super.connectedCallback();
-      // Check if the current element is nested in an action element.
-      this.isStatic = this.isStatic || !!hostContext(ACTION_ELEMENTS, this);
       this._handlerRepository.connect();
 
       const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
