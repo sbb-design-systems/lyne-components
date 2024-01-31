@@ -74,6 +74,9 @@
   transition-duration: var(--sbb-sticky-bar-animation-duration);
   transition-timing-function: var(--sbb-sticky-bar-animation-easing);
 
+  // To push the .sbb-sticky-bar__intersector up without using absolute position we need a negative block margin.
+  margin-block-end: #{sbb.px-to-rem-build(-1)};
+
   :host(:not([data-expanded])) & {
     @include sbb.page-spacing;
   }
@@ -84,10 +87,7 @@
 }
 
 .sbb-sticky-bar__intersector {
-  position: absolute;
-  width: 100%;
-
   // In order to make the intersection observer work properly on windows the intersector needs to have a defined height
   height: #{sbb.px-to-rem-build(1)};
-  transform: translateY(calc(#{sbb.px-to-rem-build(1)} * -1));
+  width: 100%;
 }

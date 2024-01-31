@@ -62,13 +62,7 @@ export class SbbStickyBarElement extends LitElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div
-        class="sbb-sticky-bar__wrapper"
-        @transitionend=${{
-          handleEvent: () => toggleDatasetEntry(this, 'disableAnimation', false),
-          once: true,
-        }}
-      >
+      <div class="sbb-sticky-bar__wrapper">
         <div class="sbb-sticky-bar">
           <slot></slot>
         </div>
