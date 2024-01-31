@@ -33,7 +33,7 @@
   color: var(--sbb-color-white-default);
 }
 
-:host(:is([disable-animation], [data-disable-animation])) {
+:host([disable-animation]) {
   --sbb-sticky-bar-animation-duration: 0.1ms;
 }
 

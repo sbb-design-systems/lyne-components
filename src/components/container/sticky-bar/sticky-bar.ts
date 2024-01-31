@@ -40,8 +40,6 @@ export class SbbStickyBarElement extends LitElement {
     if (this._intersector) {
       this._observer.observe(this._intersector);
     }
-
-    toggleDatasetEntry(this, 'disableAnimation', true);
   }
 
   protected override firstUpdated(): void {
