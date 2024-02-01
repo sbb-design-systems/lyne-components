@@ -1,5 +1,4 @@
 import type { ButtonProperties, LinkProperties } from '../common-behaviors';
-import type { IsStaticProperty } from '../interfaces';
 
 import type { HandlerAspect } from './handler-repository';
 import { isEventPrevented } from './is-event-prevented';
@@ -24,8 +23,7 @@ async function triggerAnchorWhenNecessary(event: MouseEvent): Promise<void> {
   // We are using dispatchEvent here, instead of just .click() in order to
   // prevent another click event from bubbling up the DOM tree.
   // TODO: The CTRL case does not work exactly the same as with a use interaction PointerEvent
-  // as the newly created tab immediately receives focus, instead of remaining on the current
-  // page.
+  //  as the newly created tab immediately receives focus, instead of remaining on the current page.
   const { altKey, ctrlKey, metaKey, shiftKey } = event;
   target.shadowRoot?.querySelector('a')?.dispatchEvent(
     // We need to use a MouseEvent here, as PointerEvent does not work on Firefox.
@@ -38,25 +36,24 @@ async function triggerAnchorWhenNecessary(event: MouseEvent): Promise<void> {
   );
 }
 
+/** Handle the click logic for a link element. */
 function handleLinkClick(event: MouseEvent): void {
-  const element = event.target as HTMLElement & Partial<LinkProperties & IsStaticProperty>;
-  if (!element.isStatic && element.href) {
-    triggerAnchorWhenNecessary(event);
-  }
-}
-
-/** Handle the click logic for an action element. */
-function handleLinkButtonClick(event: MouseEvent): void {
-  const element = event.target as HTMLElement &
-    Partial<LinkProperties & ButtonProperties & IsStaticProperty>;
-  if (element.isStatic) {
-    return;
-  } else if (element.disabled) {
+  const element = event.target as HTMLElement & LinkProperties;
+  if (element.disabled) {
     event.preventDefault();
     event.stopImmediatePropagation();
     return;
   } else if (element.href) {
     triggerAnchorWhenNecessary(event);
+  }
+}
+
+/** Handle the click logic for a button element. */
+function handleButtonClick(event: MouseEvent): void {
+  const element = event.target as HTMLElement & ButtonProperties;
+  if (element.disabled) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
     return;
   } else if (!element.type || element.type === 'button') {
     return;
@@ -82,10 +79,6 @@ function handleLinkButtonClick(event: MouseEvent): void {
   }
 }
 
-function isButtonSpaceKeyEvent(event: KeyboardEvent): boolean {
-  return event.key === ' ' && !(event.target as Element & { href?: string }).href;
-}
-
 function dispatchClickEvent(event: KeyboardEvent): void {
   const { altKey, ctrlKey, metaKey, shiftKey } = event;
   (event.target as Element).dispatchEvent(
@@ -108,15 +101,15 @@ function dispatchClickEvent(event: KeyboardEvent): void {
  * Also sets data-active attribute.
  * @param event The origin event.
  */
-function preventScrollWhenButtonAndSpaceKeydown(event: KeyboardEvent): void {
-  if (isButtonSpaceKeyEvent(event)) {
+function preventScrollOnSpaceKeydown(event: KeyboardEvent): void {
+  if (event.key === ' ') {
     event.preventDefault();
     (event.target as HTMLElement).dataset.active = '';
   }
 }
 
 /**
- * Dispatches a 'click' PointerEvent, if the original keyboard event is a 'Enter' press.
+ * Dispatches a 'click' PointerEvent if the original keyboard event is a 'Enter' press.
  * As verified with the native button, when 'Enter' is pressed, a 'click' event is dispatched
  * after the 'keypress' event.
  * @param event The origin event.
@@ -132,30 +125,31 @@ function removeActiveMarker(event: Event): void {
 }
 
 /**
- * Dispatches a 'click' PointerEvent, if the original keyboard event is a 'Space' press.
+ * Dispatches a 'click' PointerEvent if the original keyboard event is a 'Space' press.
  * As verified with the native button, when 'Space' is pressed, a 'click' event is dispatched
  * after the 'keyup' event.
  * @param event The origin event.
  */
-function dispatchClickEventWhenButtonAndSpaceKeyup(event: KeyboardEvent): void {
-  if (isButtonSpaceKeyEvent(event)) {
+function dispatchClickEventOnSpaceKeyup(event: KeyboardEvent): void {
+  if (event.key === ' ') {
     removeActiveMarker(event);
     dispatchClickEvent(event);
   }
 }
 
-/** Adds event handlers to enable button/link-like functionality to a web component host. */
-export const actionElementHandlerAspect: HandlerAspect = ({ host, signal }) => {
+/** Adds event handlers to enable button-like functionality to a web component host. */
+export const buttonHandlerAspect: HandlerAspect = ({ host, signal }) => {
   const passiveOptions = { passive: true, signal };
   // capture is necessary here, as this event handler needs to be executed before any other
   // in order to stop immediate propagation in the disabled case.
-  host.addEventListener('click', handleLinkButtonClick, { signal, capture: true });
-  host.addEventListener('keydown', preventScrollWhenButtonAndSpaceKeydown, { signal });
+  host.addEventListener('click', handleButtonClick, { signal, capture: true });
+  host.addEventListener('keydown', preventScrollOnSpaceKeydown, { signal });
   host.addEventListener('keypress', dispatchClickEventWhenEnterKeypress, passiveOptions);
-  host.addEventListener('keyup', dispatchClickEventWhenButtonAndSpaceKeyup, passiveOptions);
+  host.addEventListener('keyup', dispatchClickEventOnSpaceKeyup, passiveOptions);
   host.addEventListener('blur', removeActiveMarker, passiveOptions);
 };
 
+/** Adds event handlers to enable link-like functionality to a web component host. */
 export const linkHandlerAspect: HandlerAspect = ({ host, signal }) => {
   host.addEventListener('click', handleLinkClick, { signal });
   host.addEventListener('keypress', dispatchClickEventWhenEnterKeypress, { passive: true, signal });

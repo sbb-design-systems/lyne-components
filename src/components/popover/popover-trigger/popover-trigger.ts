@@ -8,7 +8,7 @@ import {
   SbbNegativeMixin,
 } from '../../core/common-behaviors';
 import { hostContext, isValidAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
-import { HandlerRepository, actionElementHandlerAspect } from '../../core/eventing';
+import { HandlerRepository, buttonHandlerAspect } from '../../core/eventing';
 
 import style from './popover-trigger.scss?lit&inline';
 import '../../icon';
@@ -32,7 +32,7 @@ export class SbbPopoverTriggerElement extends SbbDisabledMixin(SbbNegativeMixin(
    */
   @property({ attribute: 'icon-name' }) public iconName = 'circle-information-small';
 
-  private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
+  private _handlerRepository = new HandlerRepository(this, buttonHandlerAspect);
 
   public override connectedCallback(): void {
     super.connectedCallback();

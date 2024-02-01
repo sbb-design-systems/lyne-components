@@ -7,7 +7,6 @@ import type {
   SbbIconNameMixinType,
 } from '../../core/common-behaviors';
 import { SbbDisabledMixin, SbbIconNameMixin } from '../../core/common-behaviors';
-import { actionElementHandlerAspect, HandlerRepository } from '../../core/eventing';
 
 import style from './menu-action.scss?lit&inline';
 
@@ -32,18 +31,6 @@ export const SbbMenuActionCommonElementMixin = <T extends AbstractConstructor<Li
 
     /** Value shown as badge at component end. */
     @property() public amount: string | undefined;
-
-    private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
-
-    public override connectedCallback(): void {
-      super.connectedCallback();
-      this._handlerRepository.connect();
-    }
-
-    public override disconnectedCallback(): void {
-      super.disconnectedCallback();
-      this._handlerRepository.disconnect();
-    }
 
     public override renderIconSlot(): TemplateResult {
       return html` <span class="sbb-menu-action__icon"> ${super.renderIconSlot()} </span> `;

@@ -3,11 +3,7 @@ import { property } from 'lit/decorators.js';
 
 import type { AbstractConstructor } from '../../core/common-behaviors';
 import { hostContext } from '../../core/dom';
-import {
-  actionElementHandlerAspect,
-  ConnectedAbortController,
-  HandlerRepository,
-} from '../../core/eventing';
+import { ConnectedAbortController } from '../../core/eventing';
 import type { SbbNavigationButtonElement } from '../navigation-button';
 import type { SbbNavigationLinkElement } from '../navigation-link';
 import type { SbbNavigationMarkerElement } from '../navigation-marker';
@@ -53,8 +49,6 @@ export const SbbNavigationActionCommonElementMixin = <T extends AbstractConstruc
     private _navigationMarker: SbbNavigationMarkerElement | null = null;
     private _abort = new ConnectedAbortController(this);
 
-    private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
-
     public override connectedCallback(): void {
       super.connectedCallback();
       const signal = this._abort.signal;
@@ -67,18 +61,12 @@ export const SbbNavigationActionCommonElementMixin = <T extends AbstractConstruc
         },
         { signal },
       );
-      this._handlerRepository.connect();
 
       // Check if the current element is nested inside a navigation marker.
       this._navigationMarker = hostContext(
         'sbb-navigation-marker',
         this,
       ) as SbbNavigationMarkerElement;
-    }
-
-    public override disconnectedCallback(): void {
-      super.disconnectedCallback();
-      this._handlerRepository.disconnect();
     }
 
     // Check whether the `active` attribute has been added or removed from the DOM

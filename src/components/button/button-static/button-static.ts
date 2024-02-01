@@ -4,6 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import { hostPropertiesStatic } from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
+import { buttonHandlerAspect, HandlerRepository } from '../../core/eventing';
 import { SbbButtonCommonElementMixin } from '../common/button-common';
 import '../../icon';
 
@@ -15,6 +16,18 @@ import '../../icon';
  */
 @customElement('sbb-button-static')
 export class SbbButtonStaticElement extends SbbButtonCommonElementMixin(LitElement) {
+  private _handlerRepository = new HandlerRepository(this, buttonHandlerAspect);
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this._handlerRepository.connect();
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this._handlerRepository.disconnect();
+  }
+
   protected override render(): TemplateResult {
     setAttributes(this, hostPropertiesStatic(this.disabled));
 

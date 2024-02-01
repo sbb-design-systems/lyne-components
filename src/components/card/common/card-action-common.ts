@@ -4,7 +4,6 @@ import { property } from 'lit/decorators.js';
 import { IS_FOCUSABLE_QUERY } from '../../core/a11y';
 import type { AbstractConstructor } from '../../core/common-behaviors';
 import { toggleDatasetEntry } from '../../core/dom';
-import { actionElementHandlerAspect, HandlerRepository } from '../../core/eventing';
 import { AgnosticMutationObserver } from '../../core/observers';
 import type { SbbCardElement } from '../card';
 
@@ -40,7 +39,6 @@ export const SbbCardActionCommonElementMixin = <T extends AbstractConstructor<Li
     private _cardMutationObserver = new AgnosticMutationObserver(() =>
       this._checkForSlottedActions(),
     );
-    private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
 
     private _onActiveChange(): void {
       if (this.card) {
@@ -74,8 +72,6 @@ export const SbbCardActionCommonElementMixin = <T extends AbstractConstructor<Li
           subtree: true,
         });
       }
-
-      this._handlerRepository.connect();
     }
 
     public override disconnectedCallback(): void {
@@ -89,7 +85,6 @@ export const SbbCardActionCommonElementMixin = <T extends AbstractConstructor<Li
           .forEach((el) => el.removeAttribute('data-card-focusable'));
         this.card = null;
       }
-      this._handlerRepository.disconnect();
       this._cardMutationObserver.disconnect();
     }
   }

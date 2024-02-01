@@ -4,6 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import { hostPropertiesStatic } from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
+import { HandlerRepository, linkHandlerAspect } from '../../core/eventing';
 import '../../icon';
 import { SbbLinkCommonElementMixin } from '../common/link-common';
 
@@ -15,6 +16,18 @@ import { SbbLinkCommonElementMixin } from '../common/link-common';
  */
 @customElement('sbb-link-static')
 export class SbbLinkStaticElement extends SbbLinkCommonElementMixin(LitElement) {
+  private _handlerRepository = new HandlerRepository(this, linkHandlerAspect);
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this._handlerRepository.connect();
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this._handlerRepository.disconnect();
+  }
+
   protected override render(): TemplateResult {
     setAttributes(this, hostPropertiesStatic(this.disabled));
 

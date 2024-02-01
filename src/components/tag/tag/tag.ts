@@ -10,12 +10,7 @@ import {
   SbbIconNameMixin,
 } from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
-import {
-  HandlerRepository,
-  actionElementHandlerAspect,
-  EventEmitter,
-  ConnectedAbortController,
-} from '../../core/eventing';
+import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import type {
   SbbCheckedStateChange,
   SbbStateChange,
@@ -100,7 +95,6 @@ export class SbbTagElement extends SbbDisabledMixin(SbbIconNameMixin(SbbButtonBa
   });
 
   private _abort = new ConnectedAbortController(this);
-  private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
 
   public constructor() {
     super();
@@ -111,7 +105,6 @@ export class SbbTagElement extends SbbDisabledMixin(SbbIconNameMixin(SbbButtonBa
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener('click', () => this._handleClick(), { signal });
-    this._handlerRepository.connect();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -121,11 +114,6 @@ export class SbbTagElement extends SbbDisabledMixin(SbbIconNameMixin(SbbButtonBa
     if (changedProperties.has('value')) {
       this._handleValueChange(this.value!, changedProperties.get('value')!);
     }
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
   }
 
   /** Method triggered on button click. Inverts the checked value and emits events. */

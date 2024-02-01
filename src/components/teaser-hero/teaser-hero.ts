@@ -12,7 +12,6 @@ import {
 } from '../core/common-behaviors';
 import type { LinkRenderVariables } from '../core/common-behaviors';
 import { setAttributes } from '../core/dom';
-import { HandlerRepository, linkHandlerAspect } from '../core/eventing';
 import { i18nTargetOpensInNewWindow } from '../core/i18n';
 import '../link';
 import '../image';
@@ -40,17 +39,6 @@ export class SbbTeaserHeroElement extends SbbLinkBaseElement {
   @property({ attribute: 'image-alt' }) public imageAlt?: string;
 
   private _language = new LanguageController(this);
-  private _handlerRepository = new HandlerRepository(this, linkHandlerAspect);
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._handlerRepository.connect();
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
-  }
 
   protected override render(): TemplateResult {
     const { attributes, hostAttributes }: LinkRenderVariables = resolveLinkRenderVariables(this);

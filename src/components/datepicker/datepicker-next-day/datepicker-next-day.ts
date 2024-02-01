@@ -10,11 +10,7 @@ import {
 } from '../../core/common-behaviors';
 import { defaultDateAdapter, type DateAdapter } from '../../core/datetime';
 import { isValidAttribute, setAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
-import {
-  ConnectedAbortController,
-  HandlerRepository,
-  actionElementHandlerAspect,
-} from '../../core/eventing';
+import { ConnectedAbortController } from '../../core/eventing';
 import { i18nNextDay, i18nSelectNextDay, i18nToday } from '../../core/i18n';
 import {
   datepickerControlRegisteredEventFactory,
@@ -45,8 +41,6 @@ export class SbbDatepickerNextDayElement extends SbbNegativeMixin(SbbButtonBaseE
   /** The maximum date as set in the date-picker's input. */
   @state() private _max: string | number | null = null;
 
-  private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
-
   private _datePickerElement?: SbbDatepickerElement | null = null;
 
   private _dateAdapter: DateAdapter<Date> = defaultDateAdapter;
@@ -76,7 +70,6 @@ export class SbbDatepickerNextDayElement extends SbbNegativeMixin(SbbButtonBaseE
   public override connectedCallback(): void {
     super.connectedCallback();
     this.addEventListener('click', () => this._handleClick(), { signal: this._abort.signal });
-    this._handlerRepository.connect();
     this._syncUpstreamProperties();
     if (!this.datePicker) {
       this._init();
@@ -107,7 +100,6 @@ export class SbbDatepickerNextDayElement extends SbbNegativeMixin(SbbButtonBaseE
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._handlerRepository.disconnect();
     this._datePickerController?.abort();
   }
 

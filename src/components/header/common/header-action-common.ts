@@ -5,7 +5,6 @@ import type { CSSResultGroup, LitElement } from 'lit/development';
 import type { AbstractConstructor, SbbIconNameMixinType } from '../../core/common-behaviors';
 import { SbbIconNameMixin } from '../../core/common-behaviors';
 import { isBreakpoint, toggleDatasetEntry } from '../../core/dom';
-import { actionElementHandlerAspect, HandlerRepository } from '../../core/eventing';
 import type { SbbHorizontalFrom } from '../../core/interfaces';
 import { AgnosticResizeObserver } from '../../core/observers';
 
@@ -44,8 +43,6 @@ export const SbbHeaderActionCommonElementMixin = <T extends AbstractConstructor<
 
     private _documentResizeObserver = new AgnosticResizeObserver(() => this._updateExpanded());
 
-    private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
-
     private _updateExpanded(): void {
       toggleDatasetEntry(this, 'expanded', !isBreakpoint('zero', this.expandFrom));
     }
@@ -54,13 +51,11 @@ export const SbbHeaderActionCommonElementMixin = <T extends AbstractConstructor<
       super.connectedCallback();
       this._documentResizeObserver.observe(document.documentElement);
       this._updateExpanded();
-      this._handlerRepository.connect();
     }
 
     public override disconnectedCallback(): void {
       super.disconnectedCallback();
       this._documentResizeObserver.disconnect();
-      this._handlerRepository.disconnect();
     }
 
     public override renderIconSlot(): TemplateResult {

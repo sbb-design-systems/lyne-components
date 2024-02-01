@@ -13,7 +13,6 @@ import {
   SbbNegativeMixin,
   NamedSlotStateController,
 } from '../../core/common-behaviors';
-import { actionElementHandlerAspect, HandlerRepository } from '../../core/eventing';
 import type { SbbIconPlacement } from '../../core/interfaces';
 
 import '../../icon';
@@ -56,21 +55,9 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<LitEleme
     @property({ attribute: 'icon-placement' })
     public iconPlacement?: SbbIconPlacement = 'start';
 
-    private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
-
     protected constructor(...args: any[]) {
       super(args);
       new NamedSlotStateController(this);
-    }
-
-    public override connectedCallback(): void {
-      super.connectedCallback();
-      this._handlerRepository.connect();
-    }
-
-    public override disconnectedCallback(): void {
-      super.disconnectedCallback();
-      this._handlerRepository.disconnect();
     }
 
     public override renderIconSlot(): TemplateResult {

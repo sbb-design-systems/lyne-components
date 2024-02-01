@@ -10,7 +10,7 @@ import {
 } from '../../core/common-behaviors';
 import { setAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
 import {
-  actionElementHandlerAspect,
+  buttonHandlerAspect,
   HandlerRepository,
   EventEmitter,
   ConnectedAbortController,
@@ -45,7 +45,7 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledMixin(SbbIconName
   private _abort = new ConnectedAbortController(this);
   private _namedSlots = new NamedSlotStateController(this, () => this._setDataIconAttribute());
 
-  private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
+  private _handlerRepository = new HandlerRepository(this, buttonHandlerAspect);
 
   public override connectedCallback(): void {
     super.connectedCallback();

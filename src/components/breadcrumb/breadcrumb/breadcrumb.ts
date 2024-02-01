@@ -13,7 +13,6 @@ import {
   targetsNewWindow,
 } from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
-import { actionElementHandlerAspect, HandlerRepository } from '../../core/eventing';
 import { i18nTargetOpensInNewWindow } from '../../core/i18n';
 
 import style from './breadcrumb.scss?lit&inline';
@@ -40,17 +39,6 @@ export class SbbBreadcrumbElement extends SlotChildObserver(SbbLinkBaseElement) 
   @state() private _hasText = false;
 
   private _language = new LanguageController(this);
-  private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._handlerRepository.connect();
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
-  }
 
   protected override checkChildren(): void {
     this._hasText = Array.from(this.childNodes ?? []).some(

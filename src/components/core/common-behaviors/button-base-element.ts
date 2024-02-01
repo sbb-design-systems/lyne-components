@@ -1,6 +1,8 @@
 import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { buttonHandlerAspect, HandlerRepository } from '../eventing';
+
 import { hostProperties } from './host-properties';
 
 /** Enumeration for type attribute in <button> HTML tag. */
@@ -28,6 +30,18 @@ export abstract class SbbButtonBaseElement extends LitElement implements ButtonP
 
   /** The <form> element to associate the button with. */
   @property() public form?: string;
+
+  private _handlerRepository = new HandlerRepository(this, buttonHandlerAspect);
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this._handlerRepository.connect();
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this._handlerRepository.disconnect();
+  }
 }
 
 /** Sets default render variables for button-like elements. */

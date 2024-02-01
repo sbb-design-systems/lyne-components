@@ -1,6 +1,8 @@
 import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { linkHandlerAspect, HandlerRepository } from '../eventing';
+
 import { hostProperties } from './host-properties';
 
 /** Enumeration for 'target' attribute in <a> HTML tag. */
@@ -86,4 +88,16 @@ export abstract class SbbLinkBaseElement extends LitElement implements LinkPrope
 
   /** Whether the browser will show the download dialog on click. */
   @property({ type: Boolean }) public download?: boolean;
+
+  private _handlerRepository = new HandlerRepository(this, linkHandlerAspect);
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this._handlerRepository.connect();
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this._handlerRepository.disconnect();
+  }
 }

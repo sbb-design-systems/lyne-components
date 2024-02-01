@@ -10,7 +10,7 @@ import {
 import { hostContext, isValidAttribute, setAttribute, setAttributes } from '../../core/dom';
 import {
   HandlerRepository,
-  actionElementHandlerAspect,
+  buttonHandlerAspect,
   ConnectedAbortController,
 } from '../../core/eventing';
 import { i18nClearInput } from '../../core/i18n';
@@ -26,7 +26,7 @@ import style from './form-field-clear.scss?lit&inline';
 export class SbbFormFieldClearElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
-  private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
+  private _handlerRepository = new HandlerRepository(this, buttonHandlerAspect);
   private _formField?: SbbFormFieldElement;
   private _abort = new ConnectedAbortController(this);
   private _language = new LanguageController(this);
