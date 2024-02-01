@@ -417,7 +417,7 @@ export const i18nOptional: Record<string, string> = {
 
 export const i18nTargetOpensInNewWindow: Record<string, string> = {
   de: 'Linkziel öffnet in neuem Fenster.',
-  en: 'Link target opens in new window.',
+  en: 'Link target opens in a new window.',
   fr: "Le lien s'ouvre dans une nouvelle fenêtre.",
   it: "L'obiettivo del link si apre in una nuova finestra.",
 };

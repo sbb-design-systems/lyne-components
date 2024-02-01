@@ -22,9 +22,9 @@ describe('sbb-navigation-link', () => {
         tabindex="-1"
       >
         <slot></slot>
-          <span class="sbb-navigation-action__opens-in-new-window">
-           . Link target opens in new window.
-         </span>
+        <sbb-screenreader-only>
+          . Link target opens in a new window.
+        </sbb-screenreader-only>
       </a>
     `);
   });

@@ -1,17 +1,14 @@
 import { spread } from '@open-wc/lit-helpers';
-import { nothing, type TemplateResult } from 'lit';
+import { type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import {
-  LanguageController,
   type LinkRenderVariables,
   resolveLinkRenderVariables,
   SbbLinkBaseElement,
-  targetsNewWindow,
 } from '../../core/common-behaviors';
 import { setAttribute, setAttributes } from '../../core/dom';
-import { i18nTargetOpensInNewWindow } from '../../core/i18n';
 import { SbbCardActionCommonElementMixin } from '../common/card-action-common';
 
 /**
@@ -22,8 +19,6 @@ import { SbbCardActionCommonElementMixin } from '../common/card-action-common';
  */
 @customElement('sbb-card-link')
 export class SbbCardLinkElement extends SbbCardActionCommonElementMixin(SbbLinkBaseElement) {
-  private _language = new LanguageController(this);
-
   protected override render(): TemplateResult {
     const { attributes, hostAttributes }: LinkRenderVariables = resolveLinkRenderVariables(this);
 
@@ -38,9 +33,7 @@ export class SbbCardLinkElement extends SbbCardActionCommonElementMixin(SbbLinkB
       <a ${spread(attributes)} class="sbb-card-action">
         <span class="sbb-card-action__label">
           <slot></slot>
-          ${targetsNewWindow(this)
-            ? html`. ${i18nTargetOpensInNewWindow[this._language.current]}`
-            : nothing}
+          ${super.renderTargetNewWindow()}
         </span>
       </a>
     `;

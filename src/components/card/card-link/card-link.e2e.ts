@@ -14,14 +14,14 @@ describe('sbb-card-link', () => {
   let element: SbbCardElement;
 
   it('should render an sbb-card-link as a link opening in a new window', async () => {
-    element = await fixture(
-      html` <sbb-card>
+    element = await fixture(html`
+      <sbb-card>
         <sbb-card-link href="https://github.com/lyne-design-system/lyne-components" target="_blank"
           >Follow me</sbb-card-link
         >
         Content text
-      </sbb-card>`,
-    );
+      </sbb-card>
+    `);
 
     expect(element).to.have.attribute('data-has-action');
     expect(element).not.to.have.attribute('data-has-active-action');
@@ -38,7 +38,9 @@ describe('sbb-card-link', () => {
       <a class="sbb-card-action" href="https://github.com/lyne-design-system/lyne-components" target="_blank" rel="external noopener nofollow" role="presentation" tabindex="-1">
         <span class="sbb-card-action__label">
           <slot></slot>
-          . Link target opens in new window.
+          <sbb-screenreader-only>
+            . Link target opens in a new window.
+          </sbb-screenreader-only>
         </span>
       </a>
     `);

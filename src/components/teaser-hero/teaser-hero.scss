@@ -52,10 +52,6 @@
   @include sbb.font-smoothing;
 }
 
-.sbb-teaser-hero__opens-in-new-window {
-  @include sbb.screen-reader-only;
-}
-
 ::slotted([slot='image']),
 sbb-image {
   will-change: filter;

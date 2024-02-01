@@ -151,7 +151,3 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
     display: block;
   }
 }
-
-.sbb-header-action__opens-in-new-window {
-  @include sbb.screen-reader-only;
-}

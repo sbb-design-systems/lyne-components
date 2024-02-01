@@ -1,19 +1,15 @@
 import { spread } from '@open-wc/lit-helpers';
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import {
-  LanguageController,
   NamedSlotStateController,
   resolveLinkRenderVariables,
   SbbLinkBaseElement,
-  targetsNewWindow,
 } from '../core/common-behaviors';
 import type { LinkRenderVariables } from '../core/common-behaviors';
 import { setAttributes } from '../core/dom';
-import { i18nTargetOpensInNewWindow } from '../core/i18n';
 import type { TitleLevel } from '../title';
 import '../title';
 import '../chip';
@@ -45,8 +41,6 @@ export class SbbTeaserElement extends SbbLinkBaseElement {
   /** Content of chip. */
   @property({ attribute: 'chip-content', reflect: true }) public chipContent?: string;
 
-  private _language = new LanguageController(this);
-
   public constructor() {
     super();
     new NamedSlotStateController(this);
@@ -54,7 +48,6 @@ export class SbbTeaserElement extends SbbLinkBaseElement {
 
   protected override render(): TemplateResult {
     const { attributes, hostAttributes }: LinkRenderVariables = resolveLinkRenderVariables(this);
-
     setAttributes(this, hostAttributes);
 
     return html`
@@ -73,11 +66,7 @@ export class SbbTeaserElement extends SbbLinkBaseElement {
             <span class="sbb-teaser__description">
               <slot></slot>
             </span>
-            ${targetsNewWindow(this)
-              ? html`<span class="sbb-teaser__opens-in-new-window">
-                  . ${i18nTargetOpensInNewWindow[this._language.current]}
-                </span>`
-              : nothing}
+            ${super.renderTargetNewWindow()}
           </span>
         </span>
       </a>

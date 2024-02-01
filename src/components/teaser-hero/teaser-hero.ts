@@ -4,15 +4,9 @@ import { nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import {
-  LanguageController,
-  resolveLinkRenderVariables,
-  SbbLinkBaseElement,
-  targetsNewWindow,
-} from '../core/common-behaviors';
+import { resolveLinkRenderVariables, SbbLinkBaseElement } from '../core/common-behaviors';
 import type { LinkRenderVariables } from '../core/common-behaviors';
 import { setAttributes } from '../core/dom';
-import { i18nTargetOpensInNewWindow } from '../core/i18n';
 import '../link';
 import '../image';
 
@@ -38,11 +32,8 @@ export class SbbTeaserHeroElement extends SbbLinkBaseElement {
   /** Image alt text will be passed to `sbb-image`. */
   @property({ attribute: 'image-alt' }) public imageAlt?: string;
 
-  private _language = new LanguageController(this);
-
   protected override render(): TemplateResult {
     const { attributes, hostAttributes }: LinkRenderVariables = resolveLinkRenderVariables(this);
-
     setAttributes(this, hostAttributes);
 
     return html`
@@ -71,11 +62,7 @@ export class SbbTeaserHeroElement extends SbbLinkBaseElement {
               ></sbb-image>`
             : nothing}
         </slot>
-        ${targetsNewWindow(this)
-          ? html`<span class="sbb-teaser-hero__opens-in-new-window">
-              . ${i18nTargetOpensInNewWindow[this._language.current]}
-            </span>`
-          : nothing}
+        ${super.renderTargetNewWindow()}
       </a>
     `;
   }

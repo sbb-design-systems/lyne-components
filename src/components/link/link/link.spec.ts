@@ -73,7 +73,9 @@ describe('sbb-link', () => {
     expect(root).shadowDom.to.be.equal(`
       <a class="sbb-link" href="#" rel="external noopener nofollow" role="presentation" tabindex="-1" target="_blank">
         <slot></slot>
-        <span class="sbb-link__opens-in-new-window">. Link target opens in new window.</span>
+        <sbb-screenreader-only>
+          . Link target opens in a new window.
+        </sbb-screenreader-only>
       </a>
     `);
   });

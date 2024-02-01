@@ -47,10 +47,6 @@
   @include sbb.ellipsis;
 }
 
-.sbb-breadcrumb__label--opens-in-new-window {
-  @include sbb.screen-reader-only;
-}
-
 .sbb-breadcrumb__icon,
 ::slotted(*) {
   slot[name='icon'] & {

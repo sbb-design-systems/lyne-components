@@ -1,9 +1,13 @@
-import { LitElement } from 'lit';
+import { html, LitElement, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { linkHandlerAspect, HandlerRepository } from '../eventing';
+import { i18nTargetOpensInNewWindow } from '../i18n';
 
 import { hostProperties } from './host-properties';
+import { LanguageController } from './language-controller';
+
+import '../../screenreader-only';
 
 /** Enumeration for 'target' attribute in <a> HTML tag. */
 export type LinkTargetType = '_blank' | '_self' | '_parent' | '_top';
@@ -89,6 +93,7 @@ export abstract class SbbLinkBaseElement extends LitElement implements LinkPrope
   /** Whether the browser will show the download dialog on click. */
   @property({ type: Boolean }) public download?: boolean;
 
+  protected language = new LanguageController(this);
   private _handlerRepository = new HandlerRepository(this, linkHandlerAspect);
 
   public override connectedCallback(): void {
@@ -99,5 +104,15 @@ export abstract class SbbLinkBaseElement extends LitElement implements LinkPrope
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._handlerRepository.disconnect();
+  }
+
+  protected renderTargetNewWindow(): TemplateResult | typeof nothing {
+    return targetsNewWindow(this)
+      ? html`
+          <sbb-screenreader-only
+            >. ${i18nTargetOpensInNewWindow[this.language.current]}</sbb-screenreader-only
+          >
+        `
+      : nothing;
   }
 }

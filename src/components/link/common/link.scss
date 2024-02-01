@@ -114,7 +114,3 @@
     @include sbb.absolute-center-y;
   }
 }
-
-.sbb-link__opens-in-new-window {
-  @include sbb.screen-reader-only;
-}

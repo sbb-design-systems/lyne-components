@@ -101,7 +101,3 @@
     color: var(--sbb-menu-action-color);
   }
 }
-
-.sbb-menu-action__opens-in-new-window {
-  @include sbb.screen-reader-only;
-}

@@ -64,7 +64,3 @@
     border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
   }
 }
-
-.sbb-navigation-action__opens-in-new-window {
-  @include sbb.screen-reader-only;
-}

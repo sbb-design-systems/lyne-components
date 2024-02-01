@@ -43,9 +43,9 @@ describe('sbb-header-link', () => {
           </span>
           <span class="sbb-header-action__text">
             <slot></slot>
-            <span class="sbb-header-action__opens-in-new-window">
-              . Link target opens in new window.
-            </span>
+            <sbb-screenreader-only>
+              . Link target opens in a new window.
+            </sbb-screenreader-only>
           </span>
         </span>
       </a>

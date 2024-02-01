@@ -4,14 +4,11 @@ import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import {
-  LanguageController,
   type LinkRenderVariables,
   resolveLinkRenderVariables,
   SbbLinkBaseElement,
-  targetsNewWindow,
 } from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
-import { i18nTargetOpensInNewWindow } from '../../core/i18n';
 import '../../icon';
 import { SbbMenuActionCommonElementMixin } from '../common/menu-action-common';
 
@@ -23,8 +20,6 @@ import { SbbMenuActionCommonElementMixin } from '../common/menu-action-common';
  */
 @customElement('sbb-menu-link')
 export class SbbMenuLinkElement extends SbbMenuActionCommonElementMixin(SbbLinkBaseElement) {
-  private _language = new LanguageController(this);
-
   protected override render(): TemplateResult {
     const { attributes, hostAttributes }: LinkRenderVariables = resolveLinkRenderVariables(this);
     setAttributes(this, hostAttributes);
@@ -40,11 +35,7 @@ export class SbbMenuLinkElement extends SbbMenuActionCommonElementMixin(SbbLinkB
             ? html`<span class="sbb-menu-action__amount">${this.amount}</span>`
             : nothing}
         </span>
-        ${targetsNewWindow(this)
-          ? html`<span class="sbb-menu-action__opens-in-new-window">
-              . ${i18nTargetOpensInNewWindow[this._language.current]}
-            </span>`
-          : nothing}
+        ${super.renderTargetNewWindow()}
       </a>
     `;
   }

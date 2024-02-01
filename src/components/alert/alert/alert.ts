@@ -87,7 +87,7 @@ export class SbbAlertElement extends SbbLinkBaseElement {
     SbbAlertElement.events.dismissalRequested,
   );
 
-  private _language = new LanguageController(this);
+  protected override language = new LanguageController(this);
 
   protected override async firstUpdated(): Promise<void> {
     this._open();
@@ -162,7 +162,7 @@ export class SbbAlertElement extends SbbLinkBaseElement {
                     size="m"
                     icon-name="cross-small"
                     @click=${() => this.requestDismissal()}
-                    aria-label=${i18nCloseAlert[this._language.current]}
+                    aria-label=${i18nCloseAlert[this.language.current]}
                     class="sbb-alert__close-button"
                   ></sbb-button>
                 </span>`

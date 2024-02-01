@@ -28,9 +28,9 @@ describe('sbb-button-link', () => {
         </span>
         <span class="sbb-button__label">
           <slot></slot>
-            <span class="sbb-button__opens-in-new-window">
-            . Link target opens in new window.
-            </span>
+          <sbb-screenreader-only>
+            . Link target opens in a new window.
+          </sbb-screenreader-only>
         </span>
       </a>
     `);

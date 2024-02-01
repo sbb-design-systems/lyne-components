@@ -3,14 +3,9 @@ import { nothing, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { LanguageController, type LinkRenderVariables } from '../../core/common-behaviors';
-import {
-  resolveLinkRenderVariables,
-  SbbLinkBaseElement,
-  targetsNewWindow,
-} from '../../core/common-behaviors';
+import { type LinkRenderVariables } from '../../core/common-behaviors';
+import { resolveLinkRenderVariables, SbbLinkBaseElement } from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
-import { i18nTargetOpensInNewWindow } from '../../core/i18n';
 import '../../icon';
 import { SbbLinkCommonElementMixin } from '../common/link-common';
 
@@ -22,22 +17,15 @@ import { SbbLinkCommonElementMixin } from '../common/link-common';
  */
 @customElement('sbb-link')
 export class SbbLinkElement extends SbbLinkCommonElementMixin(SbbLinkBaseElement) {
-  protected language = new LanguageController(this);
-
   protected override render(): TemplateResult {
     const { attributes, hostAttributes }: LinkRenderVariables = resolveLinkRenderVariables(this);
-
     setAttributes(this, hostAttributes);
 
     return html`
       <a class="sbb-link" ${spread(attributes)}>
         ${this.variant !== 'inline' ? this.renderIconSlot() : nothing}
         <slot></slot>
-        ${targetsNewWindow(this)
-          ? html`<span class="sbb-link__opens-in-new-window">
-              . ${i18nTargetOpensInNewWindow[this.language.current]}
-            </span>`
-          : nothing}
+        ${super.renderTargetNewWindow()}
       </a>
     `;
   }

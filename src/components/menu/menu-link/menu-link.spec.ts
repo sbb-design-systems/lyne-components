@@ -46,9 +46,9 @@ describe('sbb-menu-link', () => {
             123456
           </span>
         </span>
-        <span class="sbb-menu-action__opens-in-new-window">
-          . Link target opens in new window.
-        </span>
+        <sbb-screenreader-only>
+          . Link target opens in a new window.
+        </sbb-screenreader-only>
       </a>
     `);
   });

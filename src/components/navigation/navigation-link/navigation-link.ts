@@ -1,17 +1,14 @@
 import { spread } from '@open-wc/lit-helpers';
-import { nothing, type TemplateResult } from 'lit';
+import { type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import {
-  LanguageController,
   type LinkRenderVariables,
   resolveLinkRenderVariables,
   SbbLinkBaseElement,
-  targetsNewWindow,
 } from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
-import { i18nTargetOpensInNewWindow } from '../../core/i18n';
 import { SbbNavigationActionCommonElementMixin } from '../common/navigation-action-common';
 
 /**
@@ -23,21 +20,14 @@ import { SbbNavigationActionCommonElementMixin } from '../common/navigation-acti
 export class SbbNavigationLinkElement extends SbbNavigationActionCommonElementMixin(
   SbbLinkBaseElement,
 ) {
-  private _language = new LanguageController(this);
-
   protected override render(): TemplateResult {
     const { attributes, hostAttributes }: LinkRenderVariables = resolveLinkRenderVariables(this);
-
     setAttributes(this, hostAttributes);
 
     return html`
       <a class="sbb-navigation-action" ${spread(attributes)}>
         <slot></slot>
-        ${targetsNewWindow(this)
-          ? html`<span class="sbb-navigation-action__opens-in-new-window">
-              . ${i18nTargetOpensInNewWindow[this._language.current]}
-            </span>`
-          : nothing}
+        ${super.renderTargetNewWindow()}
       </a>
     `;
   }

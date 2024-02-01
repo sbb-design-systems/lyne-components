@@ -5,15 +5,12 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import {
-  LanguageController,
   type LinkRenderVariables,
   resolveLinkRenderVariables,
   SbbLinkBaseElement,
   SlotChildObserver,
-  targetsNewWindow,
 } from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
-import { i18nTargetOpensInNewWindow } from '../../core/i18n';
 
 import style from './breadcrumb.scss?lit&inline';
 
@@ -38,8 +35,6 @@ export class SbbBreadcrumbElement extends SlotChildObserver(SbbLinkBaseElement) 
 
   @state() private _hasText = false;
 
-  private _language = new LanguageController(this);
-
   protected override checkChildren(): void {
     this._hasText = Array.from(this.childNodes ?? []).some(
       (n) => !(n as Element).slot && n.textContent?.trim(),
@@ -48,7 +43,6 @@ export class SbbBreadcrumbElement extends SlotChildObserver(SbbLinkBaseElement) 
 
   protected override render(): TemplateResult {
     const { attributes, hostAttributes }: LinkRenderVariables = resolveLinkRenderVariables(this);
-
     setAttributes(this, hostAttributes);
 
     return html`
@@ -61,11 +55,7 @@ export class SbbBreadcrumbElement extends SlotChildObserver(SbbLinkBaseElement) 
         <span class="sbb-breadcrumb__label" ?hidden=${!this._hasText}>
           <slot></slot>
         </span>
-        ${targetsNewWindow(this)
-          ? html` <span class="sbb-breadcrumb__label--opens-in-new-window">
-              . ${i18nTargetOpensInNewWindow[this._language.current]}
-            </span>`
-          : nothing}
+        ${super.renderTargetNewWindow()}
       </a>
     `;
   }
