@@ -1,19 +1,6 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-timetable-occupancy-icon renders negative"] = 
-`<span class="sbb-icon-inner">
-  <svg-fake
-    data-name="utilization-medium-negative"
-    height="24"
-    style="width:24px;height:24px"
-    width="24"
-  >
-  </svg-fake>
-</span>
-`;
-/* end snapshot sbb-timetable-occupancy-icon renders negative */
-
 snapshots["sbb-timetable-occupancy-icon renders"] = 
 `<span class="sbb-icon-inner">
   <svg-fake
@@ -39,4 +26,17 @@ snapshots["sbb-timetable-occupancy-icon renders high contrast mode"] =
 </span>
 `;
 /* end snapshot sbb-timetable-occupancy-icon renders high contrast mode */
+
+snapshots["sbb-timetable-occupancy-icon renders negative"] = 
+`<span class="sbb-icon-inner">
+  <svg-fake
+    data-name="utilization-medium-negative"
+    height="24"
+    style="width:24px;height:24px"
+    width="24"
+  >
+  </svg-fake>
+</span>
+`;
+/* end snapshot sbb-timetable-occupancy-icon renders negative */
 
