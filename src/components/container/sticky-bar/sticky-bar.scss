@@ -32,13 +32,6 @@ $intersection-offset: 1;
   --sbb-sticky-bar-sticky-background-color: var(--sbb-color-milk-default);
 }
 
-:host([data-sticking][color='midnight']) {
-  --sbb-sticky-bar-sticky-background-color: var(--sbb-color-midnight-default);
-  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-
-  color: var(--sbb-color-white-default);
-}
-
 :host([disable-animation]) {
   --sbb-sticky-bar-animation-duration: 0.1ms;
 }

@@ -18,7 +18,7 @@ export class SbbStickyBarElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** Color of the container, like transparent, white etc. */
-  @property({ reflect: true }) public color?: 'white' | 'milk' | 'midnight';
+  @property({ reflect: true }) public color?: 'white' | 'milk';
 
   /** Whether the animation is enabled. */
   @property({ attribute: 'disable-animation', reflect: true, type: Boolean })

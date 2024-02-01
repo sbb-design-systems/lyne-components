@@ -30,7 +30,7 @@ const containerColor: InputType = {
   table: {
     category: 'Container',
   },
-  options: ['transparent', 'white', 'milk', 'midnight'],
+  options: ['transparent', 'white', 'milk'],
 };
 
 const color: InputType = {
@@ -40,7 +40,7 @@ const color: InputType = {
   table: {
     category: 'Sticky Bar',
   },
-  options: ['unset', 'white', 'milk', 'midnight'],
+  options: ['unset', 'white', 'milk'],
 };
 
 const disableAnimation: InputType = {
@@ -86,8 +86,8 @@ const actionGroup = (): TemplateResult => html`
   </sbb-action-group>
 `;
 
-const containerContent = (title: string, color: string): TemplateResult => html`
-  <sbb-title level="4" ?negative=${color === 'midnight'}>${title}</sbb-title>
+const containerContent = (title: string): TemplateResult => html`
+  <sbb-title level="4">${title}</sbb-title>
   <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
   <p class="sbb-text-s">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
@@ -95,12 +95,7 @@ const containerContent = (title: string, color: string): TemplateResult => html`
     laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
     voluptate velit esse cillum dolore eu fugiat nulla pariatur.
   </p>
-  <sbb-button
-    variant="secondary"
-    ?negative=${color === 'midnight'}
-    style="margin-block-end: 0.75rem;"
-    >See more</sbb-button
-  >
+  <sbb-button variant="secondary" style="margin-block-end: 0.75rem;">See more</sbb-button>
 `;
 
 const Template = (): TemplateResult =>
@@ -115,10 +110,8 @@ const DefaultTemplate = ({
   ...args
 }: Args): TemplateResult => html`
   <sbb-container ${sbbSpread(args)} color=${containerColor}>
-    ${containerContent('Example title', containerColor)}
-    ${containerContent('Another one', containerColor)}
-    ${containerContent('And another one', containerColor)}
-    ${containerContent('And a last one', containerColor)}
+    ${containerContent('Example title')} ${containerContent('Another one')}
+    ${containerContent('And another one')} ${containerContent('And a last one')}
 
     <sbb-sticky-bar
       color=${color !== 'unset' ? color : nothing}
@@ -136,7 +129,7 @@ const ShortTemplate = ({
   ...args
 }: Args): TemplateResult => html`
   <sbb-container ${sbbSpread(args)} color=${containerColor}>
-    ${containerContent('Example title', containerColor)}
+    ${containerContent('Example title')}
 
     <sbb-sticky-bar
       color=${color !== 'unset' ? color : nothing}
@@ -158,10 +151,8 @@ const WithContentAfterTemplate = ({
     color=${containerColor}
     style=${isChromatic() ? 'max-height: 400px; overflow-y: scroll;' : nothing}
   >
-    ${containerContent('Example title', containerColor)}
-    ${containerContent('Another one', containerColor)}
-    ${containerContent('And another one', containerColor)}
-    ${containerContent('And a last one', containerColor)}
+    ${containerContent('Example title')} ${containerContent('Another one')}
+    ${containerContent('And another one')} ${containerContent('And a last one')}
 
     <sbb-sticky-bar
       color=${color !== 'unset' ? color : nothing}
@@ -172,8 +163,7 @@ const WithContentAfterTemplate = ({
   </sbb-container>
   <sbb-container color="milk">
     <div style="padding-block: 4rem;">
-      ${containerContent('Content after first container', 'milk')}
-      ${containerContent('Another one', 'milk')}
+      ${containerContent('Content after first container')} ${containerContent('Another one')}
     </div>
   </sbb-container>
 `;
@@ -210,12 +200,6 @@ export const Milk: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, color: color.options[2] },
-};
-
-export const Midnight: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[3] },
 };
 
 export const WithContentAfter: StoryObj = {
