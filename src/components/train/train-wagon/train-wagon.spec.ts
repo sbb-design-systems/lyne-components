@@ -78,36 +78,7 @@ describe('sbb-train-wagon', () => {
         </sbb-train-wagon>
       `,
       );
-      expect(root).shadowDom.to.be.equal(
-        `
-          <div class="sbb-train-wagon">
-            <ul aria-label="Train coach" class="sbb-train-wagon__compartment">
-              <li class="sbb-train-wagon__label" aria-hidden="false">
-                <span class="sbb-screenreaderonly">Number, </span>
-                38
-              </li>
-              <li class="sbb-train-wagon__class">
-                <span class="sbb-screenreaderonly">First Class</span>
-                <span aria-hidden="true">1</span>
-              </li>
-              <sbb-timetable-occupancy-icon
-                data-namespace="default"
-                class="sbb-train-wagon__occupancy"
-                role="listitem"
-                aria-label="No occupancy forecast available"
-              ></sbb-timetable-occupancy-icon>
-              <li class="sbb-screenreaderonly">No passage to the previous train coach</li>
-            </ul>
-            <span class="sbb-train-wagon__icons" hidden>
-              <ul
-                aria-label="Additional wagon information"
-                class="sbb-train-wagon__icons-list"
-                role="presentation"></ul>
-              <span hidden><slot></slot></span>
-            </span>
-          </div>
-        `,
-      );
+      await expect(root).shadowDom.to.be.equalSnapshot();
     });
 
     it('should render as type wagon with one icon', async () => {
@@ -129,40 +100,8 @@ describe('sbb-train-wagon', () => {
           </sbb-train-wagon>
         `,
       );
-      expect(root).shadowDom.to.be.equal(
-        `
-          <div class="sbb-train-wagon">
-            <ul
-              aria-label="Train coach"
-              class="sbb-train-wagon__compartment"
-            >
-              <li aria-hidden="true" class="sbb-train-wagon__label"></li>
-              <sbb-timetable-occupancy-icon
-                aria-label="No occupancy forecast available"
-                class="sbb-train-wagon__occupancy"
-                data-namespace="default"
-                role="listitem"
-              >
-              </sbb-timetable-occupancy-icon>
-            </ul>
-            <span class="sbb-train-wagon__icons">
-              <ul
-                aria-label="Additional wagon information"
-                class="sbb-train-wagon__icons-list"
-                role="presentation"
-              >
-                <li>
-                  <slot name="li-0">
-                  </slot>
-                </li>
-              </ul>
-              <span hidden>
-                <slot></slot>
-              </span>
-            </span>
-          </div>
-        `,
-      );
+
+      await expect(root).shadowDom.to.be.equalSnapshot();
     });
 
     it('should render as type wagon with multiple icons', async () => {
@@ -191,38 +130,7 @@ describe('sbb-train-wagon', () => {
         </sbb-train-wagon>
       `,
       );
-      expect(root).shadowDom.to.be.equal(
-        `
-          <div class="sbb-train-wagon">
-            <ul
-              aria-label="Train coach"
-              class="sbb-train-wagon__compartment"
-            >
-              <li aria-hidden="true" class="sbb-train-wagon__label"></li>
-              <sbb-timetable-occupancy-icon
-                aria-label="No occupancy forecast available"
-                class="sbb-train-wagon__occupancy"
-                data-namespace="default"
-                role="listitem"
-              >
-              </sbb-timetable-occupancy-icon>
-            </ul>
-            <span class="sbb-train-wagon__icons">
-              <ul aria-label="Additional wagon information" class="sbb-train-wagon__icons-list">
-                <li>
-                  <slot name="li-0"></slot>
-                </li>
-                <li>
-                  <slot name="li-1"></slot>
-                </li>
-              </ul>
-              <span hidden>
-                <slot></slot>
-              </span>
-            </span>
-          </div>
-        `,
-      );
+      await expect(root).shadowDom.to.be.equalSnapshot();
     });
 
     it('should render as type locomotive', async () => {
@@ -239,22 +147,7 @@ describe('sbb-train-wagon', () => {
           </sbb-train-wagon>
         `,
       );
-      expect(root).shadowDom.to.be.equal(
-        `
-          <div class="sbb-train-wagon">
-            <span class="sbb-train-wagon__compartment">
-              <span class="sbb-screenreaderonly">
-                Locomotive
-              </span>
-              <span aria-hidden="true" class="sbb-train-wagon__label"></span>
-              <svg class="sbb-train-wagon__locomotive" aria-hidden="true" width="80" height="40" viewBox="0 0 80 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.7906 4.42719C19.9743 1.93152 23.129 0.5 26.4452 0.5H53.5548C56.871 0.5 60.0257 1.93152 62.2094 4.4272L76.2094 20.4272C82.7157 27.8629 77.4351 39.5 67.5548 39.5H12.4452C2.56489 39.5 -2.71566 27.8629 3.79058 20.4272L17.7906 4.42719Z" stroke="var(--sbb-train-wagon-shape-color-closed)"></path></svg>
-            </span>
-            <span class="sbb-screenreaderonly">
-              , Top of the train
-            </span>
-          </div>
-        `,
-      );
+      await expect(root).shadowDom.to.be.equalSnapshot();
     });
 
     it('should render as type closed wagon without number', async () => {
@@ -266,18 +159,7 @@ describe('sbb-train-wagon', () => {
           </sbb-train-wagon>
         `,
       );
-      expect(root).shadowDom.to.be.equal(
-        `
-          <div class="sbb-train-wagon">
-            <span class="sbb-train-wagon__compartment">
-              <span class="sbb-screenreaderonly">
-                Closed train coach
-              </span>
-              <span aria-hidden="true" class="sbb-train-wagon__label"></span>
-            </span>
-          </div>
-        `,
-      );
+      await expect(root).shadowDom.to.be.equalSnapshot();
     });
   });
 

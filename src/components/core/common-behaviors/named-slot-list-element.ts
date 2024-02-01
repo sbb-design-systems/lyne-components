@@ -3,6 +3,7 @@ import { LitElement, html, nothing } from 'lit';
 import { state } from 'lit/decorators.js';
 
 import { SlotChildObserver } from './slot-child-observer';
+import '../../screenreader-only';
 
 const SSR_CHILD_COUNT_ATTRIBUTE = 'data-ssr-child-count';
 const SLOTNAME_PREFIX = 'li';
@@ -76,17 +77,28 @@ export abstract class NamedSlotListElement<
   protected renderList(
     attributes: { class?: string; ariaLabel?: string; ariaLabelledby?: string } = {},
   ): TemplateResult {
-    return html`
-      <ul
-        class=${attributes.class || this.tagName.toLowerCase()}
-        aria-label=${attributes.ariaLabel || nothing}
-        aria-labelledby=${attributes.ariaLabelledby || nothing}
-        role=${this.roleOverride()}
-      >
-        ${this.listSlotNames().map((name) => html`<li><slot name=${name}></slot></li>`)}
-      </ul>
-      ${this.renderHiddenSlot()}
-    `;
+    const listSlotNames = this.listSlotNames();
+
+    if (listSlotNames.length >= 2) {
+      return html`
+        <ul
+          class=${attributes.class || this.tagName.toLowerCase()}
+          aria-label=${attributes.ariaLabel || nothing}
+          aria-labelledby=${attributes.ariaLabelledby || nothing}
+        >
+          ${listSlotNames.map((name) => html`<li><slot name=${name}></slot></li>`)}
+        </ul>
+        ${this.renderHiddenSlot()}
+      `;
+    } else if (listSlotNames.length === 1) {
+      return html`<sbb-screenreader-only>${attributes.ariaLabel}</sbb-screenreader-only>
+        <span class=${attributes.class || this.tagName.toLowerCase()}>
+          <span><slot name=${listSlotNames[0]}></slot></span>
+        </span>
+        ${this.renderHiddenSlot()} `;
+    } else {
+      return this.renderHiddenSlot();
+    }
   }
 
   /**
@@ -103,17 +115,6 @@ export abstract class NamedSlotListElement<
       ? this.listChildren
       : Array.from({ length: +(this.getAttribute(SSR_CHILD_COUNT_ATTRIBUTE) ?? 0) });
     return listChildren.map((_, i) => `${SLOTNAME_PREFIX}-${i}`);
-  }
-
-  /**
-   * Returns 'presentation' when less than two children are available.
-   * This is an accessibility improvement, as only lists with more than one
-   * children should be marked as lists.
-   */
-  protected roleOverride(): 'presentation' | typeof nothing {
-    return (this.listChildren.length || +(this.getAttribute(SSR_CHILD_COUNT_ATTRIBUTE) ?? 0)) >= 2
-      ? nothing
-      : 'presentation';
   }
 
   /**

@@ -21,7 +21,7 @@
 .sbb-skiplink-list {
   @include sbb.list-reset;
 
-  li {
+  & > :is(li, span) {
     @include sbb.shadow-level-5-hard;
 
     height: var(--sbb-skiplink-height);

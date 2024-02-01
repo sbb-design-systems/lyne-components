@@ -192,7 +192,7 @@ export class SbbBreadcrumbGroupElement extends NamedSlotListElement<SbbBreadcrum
     setAttribute(this, 'data-state', this._state);
 
     return html`
-      <ol class="sbb-breadcrumb-group" role=${this.roleOverride()}>
+      <ol class="sbb-breadcrumb-group">
         ${this._state === 'collapsed' ? this._renderCollapsed() : this._renderExpanded()}
       </ol>
       ${this.renderHiddenSlot()}

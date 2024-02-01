@@ -14,7 +14,7 @@
 
 // Using ... li selector, because the li generation
 // is handled in the component base class.
-.sbb-tag-group__list li {
+.sbb-tag-group__list > :is(li, span) {
   display: flex;
   max-width: 100%;
 }
