@@ -11,6 +11,7 @@ describe('sbb-navigation-list', () => {
     element = await fixture(html`
       <sbb-navigation-list>
         <sbb-navigation-action>Label</sbb-navigation-action>
+        <sbb-navigation-action>Label 2</sbb-navigation-action>
       </sbb-navigation-list>
     `);
   });
@@ -24,7 +25,7 @@ describe('sbb-navigation-list', () => {
     expect(list.className).to.be.equal('sbb-navigation-list__content');
 
     const listItems = list.querySelectorAll('li');
-    expect(listItems.length).to.equal(1);
+    expect(listItems.length).to.equal(2);
   });
 
   it('force size on children elements', () => {

@@ -124,7 +124,7 @@
 
 // Using ... li selector, because the li generation
 // is handled in the component base class.
-.sbb-train-wagon__icons-list li {
+.sbb-train-wagon__icons-list > :is(li, span) {
   display: inline-flex;
 }
 

@@ -22,16 +22,15 @@ snapshots["sbb-train-formation should render with one train"] =
     </span>
   </div>
   <div class="sbb-train-formation__trains">
-    <ul
-      aria-label="Trains"
-      class="sbb-train-formation__train-list"
-      role="presentation"
-    >
-      <li>
+    <sbb-screenreader-only>
+      Trains
+    </sbb-screenreader-only>
+    <span class="sbb-train-formation__train-list">
+      <span>
         <slot name="li-0">
         </slot>
-      </li>
-    </ul>
+      </span>
+    </span>
     <span hidden="">
       <slot>
       </slot>

@@ -16,27 +16,7 @@ describe('sbb-train', () => {
     expect(root).dom.to.be.equal(
       `<sbb-train direction-label="Driving direction" station="Bern" direction="left"></sbb-train>`,
     );
-    expect(root).shadowDom.to.be.equal(
-      `
-      <div class="sbb-train">
-        <h6 class="sbb-train__direction-label-sr">Train, Driving direction Bern.</h6>
-        <ul class="sbb-train__wagons" aria-label="Coaches of the train" role="presentation"></ul>
-        <span hidden>
-          <slot></slot>
-        </span>
-        <div class="sbb-train__direction" aria-hidden="true">
-          <div class="sbb-train__direction-heading">
-            <span class="sbb-train__direction-label">Driving direction</span>
-            <span class="sbb-train__direction-station">Bern</span>
-          </div>
-          <div class="sbb-train__direction-indicator">
-            <div class="sbb-train__sticky-wrapper">
-              <sbb-icon aria-hidden="true" data-namespace="default" role="img" class="sbb-train__direction-arrow" name="chevron-small-left-small"></sbb-icon>
-            </div>
-          </div>
-        </div>
-      `,
-    );
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
   it('should hide direction label element if not present', async () => {

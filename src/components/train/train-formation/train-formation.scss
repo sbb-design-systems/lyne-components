@@ -108,6 +108,6 @@
 
 // Using ... li selector, because the li generation
 // is handled in the component base class.
-.sbb-train-formation__train-list li {
+.sbb-train-formation__train-list > :is(li, span) {
   display: inline-flex;
 }
