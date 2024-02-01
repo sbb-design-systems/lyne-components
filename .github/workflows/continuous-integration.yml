@@ -52,6 +52,8 @@ jobs:
         run: yarn test
         env:
           NODE_ENV: production
+      - name: 'Assert no new snapshots (run `yarn test --ci` if this fails)'
+        run: git diff --exit-code
       - name: Store coverage
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v4

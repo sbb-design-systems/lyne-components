@@ -73,3 +73,97 @@ snapshots["sbb-selection-panel renders - ShadowDom"] =
 `;
 /* end snapshot sbb-selection-panel renders - ShadowDom */
 
+snapshots["sbb-selection-panel A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "%"
+    },
+    {
+      "role": "text",
+      "name": " "
+    },
+    {
+      "role": "text",
+      "name": "from CHF"
+    },
+    {
+      "role": "text",
+      "name": " "
+    },
+    {
+      "role": "text",
+      "name": "19.99"
+    },
+    {
+      "role": "checkbox",
+      "name": "​ Value one Suffix Subtext , collapsed",
+      "checked": false
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-selection-panel A11y tree Chrome */
+
+snapshots["sbb-selection-panel A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "text leaf",
+      "name": "%"
+    },
+    {
+      "role": "text leaf",
+      "name": "from CHF"
+    },
+    {
+      "role": "text leaf",
+      "name": "19.99"
+    },
+    {
+      "role": "checkbox",
+      "name": "​ Value one Suffix Subtext , collapsed"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-selection-panel A11y tree Firefox */
+
+snapshots["sbb-selection-panel A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "%"
+    },
+    {
+      "role": "text",
+      "name": "from CHF"
+    },
+    {
+      "role": "text",
+      "name": "19.99"
+    },
+    {
+      "role": "checkbox",
+      "name": "​ Value one Suffix Subtext , collapsed",
+      "checked": false
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-selection-panel A11y tree Safari */
+
