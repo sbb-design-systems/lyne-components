@@ -71,7 +71,8 @@ section sbb-title {
   }
 
   sbb-button,
-  sbb-button-link {
+  sbb-button-link,
+  sbb-button-static {
     width: fit-content;
   }
 
@@ -89,7 +90,8 @@ section sbb-title {
   column-gap: var(--sbb-spacing-responsive-xxxs);
 
   sbb-button,
-  sbb-button-link {
+  sbb-button-link,
+  sbb-button-static {
     align-self: start;
     margin-block-start: 1rem;
   }

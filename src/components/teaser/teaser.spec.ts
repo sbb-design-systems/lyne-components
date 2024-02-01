@@ -78,15 +78,5 @@ describe('sbb-teaser', () => {
     await expect(root).shadowDom.to.equalSnapshot();
   });
 
-  it('renders static - DOM', async () => {
-    const root: SbbTeaserElement = await fixture(createTeaser({ alignment: 'after-centered' }));
-    await expect(root).dom.to.equalSnapshot();
-  });
-
-  it('renders static - ShadowDOM', async () => {
-    const root: SbbTeaserElement = await fixture(createTeaser({ alignment: 'after-centered' }));
-    await expect(root).shadowDom.to.equalSnapshot();
-  });
-
   testA11yTreeSnapshot(createTeaser(argsAfterCentered));
 });
