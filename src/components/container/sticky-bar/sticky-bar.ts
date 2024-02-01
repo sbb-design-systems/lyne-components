@@ -37,6 +37,7 @@ export class SbbStickyBarElement extends LitElement {
     const container = this.closest('sbb-container');
     if (container) {
       toggleDatasetEntry(this, 'expanded', container.expanded);
+      toggleDatasetEntry(this, 'transparent', container.color === 'transparent');
     }
     this._observer.observe(this);
   }

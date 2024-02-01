@@ -66,6 +66,10 @@ $intersection-offset: 1;
   transition-duration: var(--sbb-sticky-bar-animation-duration);
   transition-timing-function: var(--sbb-sticky-bar-animation-easing);
 
+  :host([data-transparent]) & {
+    background-color: transparent;
+  }
+
   :host(:not([data-expanded])) & {
     @include sbb.page-spacing;
   }

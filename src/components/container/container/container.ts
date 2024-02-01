@@ -31,13 +31,14 @@ export class SbbContainerElement extends LitElement {
     const stickyBar = this.querySelector?.('sbb-sticky-bar');
     if (stickyBar) {
       toggleDatasetEntry(stickyBar, 'expanded', this.expanded);
+      toggleDatasetEntry(stickyBar, 'transparent', this.color === 'transparent');
     }
   }
 
   protected override willUpdate(
     _changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>,
   ): void {
-    if (_changedProperties.has('expanded')) {
+    if (_changedProperties.has('expanded') || _changedProperties.has('color')) {
       this._updateStickyBar();
     }
   }
