@@ -51,7 +51,7 @@ export class SbbPopoverTriggerElement extends SbbDisabledMixin(SbbNegativeMixin(
   }
 
   protected override render(): TemplateResult {
-    setAttributes(this, resolveButtonRenderVariables(this.disabled));
+    setAttributes(this, resolveButtonRenderVariables({ disabled: this.disabled }));
 
     return html`
       <span class="sbb-popover-trigger">

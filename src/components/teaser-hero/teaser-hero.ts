@@ -1,12 +1,9 @@
 import { spread } from '@open-wc/lit-helpers';
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { nothing } from 'lit';
+import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { resolveLinkRenderVariables, SbbLinkBaseElement } from '../core/common-behaviors';
-import type { LinkRenderVariables } from '../core/common-behaviors';
-import { setAttributes } from '../core/dom';
+import { SbbLinkBaseElement } from '../core/common-behaviors';
 import '../link';
 import '../image';
 
@@ -32,10 +29,7 @@ export class SbbTeaserHeroElement extends SbbLinkBaseElement {
   /** Image alt text will be passed to `sbb-image`. */
   @property({ attribute: 'image-alt' }) public imageAlt?: string;
 
-  protected override render(): TemplateResult {
-    const { attributes, hostAttributes }: LinkRenderVariables = resolveLinkRenderVariables(this);
-    setAttributes(this, hostAttributes);
-
+  protected renderTemplate(attributes: Record<string, string>): TemplateResult {
     return html`
       <a class="sbb-teaser-hero" ${spread(attributes)}>
         <span class="sbb-teaser-hero__panel">
@@ -62,7 +56,7 @@ export class SbbTeaserHeroElement extends SbbLinkBaseElement {
               ></sbb-image>`
             : nothing}
         </slot>
-        ${super.renderTargetNewWindow()}
+        ${this.renderTargetNewWindow()}
       </a>
     `;
   }

@@ -1,6 +1,5 @@
-import { LitElement, nothing, type TemplateResult } from 'lit';
+import { LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { html } from 'lit/static-html.js';
 
 import { hostPropertiesStatic } from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
@@ -30,13 +29,7 @@ export class SbbLinkStaticElement extends SbbLinkCommonElementMixin(LitElement) 
 
   protected override render(): TemplateResult {
     setAttributes(this, hostPropertiesStatic(this.disabled));
-
-    return html`
-      <span class="sbb-link">
-        ${this.variant !== 'inline' ? this.renderIconSlot() : nothing}
-        <slot></slot>
-      </span>
-    `;
+    return this.renderLinkCommonTemplate();
   }
 }
 

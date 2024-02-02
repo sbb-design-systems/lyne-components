@@ -1,11 +1,7 @@
-import { spread } from '@open-wc/lit-helpers';
-import { nothing, type TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { html } from 'lit/static-html.js';
 
-import { type LinkRenderVariables } from '../../core/common-behaviors';
-import { resolveLinkRenderVariables, SbbLinkBaseElement } from '../../core/common-behaviors';
-import { setAttributes } from '../../core/dom';
+import { SbbLinkBaseElement } from '../../core/common-behaviors';
 import '../../icon';
 import { SbbLinkCommonElementMixin } from '../common/link-common';
 
@@ -17,17 +13,8 @@ import { SbbLinkCommonElementMixin } from '../common/link-common';
  */
 @customElement('sbb-link')
 export class SbbLinkElement extends SbbLinkCommonElementMixin(SbbLinkBaseElement) {
-  protected override render(): TemplateResult {
-    const { attributes, hostAttributes }: LinkRenderVariables = resolveLinkRenderVariables(this);
-    setAttributes(this, hostAttributes);
-
-    return html`
-      <a class="sbb-link" ${spread(attributes)}>
-        ${this.variant !== 'inline' ? this.renderIconSlot() : nothing}
-        <slot></slot>
-        ${super.renderTargetNewWindow()}
-      </a>
-    `;
+  protected renderTemplate(attributes: Record<string, string>): TemplateResult {
+    return this.renderLinkCommonTemplate(attributes, this.renderTargetNewWindow());
   }
 }
 

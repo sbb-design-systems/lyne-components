@@ -3,13 +3,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import {
-  NamedSlotStateController,
-  resolveLinkRenderVariables,
-  SbbLinkBaseElement,
-} from '../core/common-behaviors';
-import type { LinkRenderVariables } from '../core/common-behaviors';
-import { setAttributes } from '../core/dom';
+import { NamedSlotStateController, SbbLinkBaseElement } from '../core/common-behaviors';
 import type { TitleLevel } from '../title';
 import '../title';
 import '../chip';
@@ -46,10 +40,7 @@ export class SbbTeaserElement extends SbbLinkBaseElement {
     new NamedSlotStateController(this);
   }
 
-  protected override render(): TemplateResult {
-    const { attributes, hostAttributes }: LinkRenderVariables = resolveLinkRenderVariables(this);
-    setAttributes(this, hostAttributes);
-
+  protected renderTemplate(attributes: Record<string, string>): TemplateResult {
     return html`
       <a class="sbb-teaser" ${spread(attributes)}>
         <span class="sbb-teaser__container">
@@ -66,7 +57,7 @@ export class SbbTeaserElement extends SbbLinkBaseElement {
             <span class="sbb-teaser__description">
               <slot></slot>
             </span>
-            ${super.renderTargetNewWindow()}
+            ${this.renderTargetNewWindow()}
           </span>
         </span>
       </a>

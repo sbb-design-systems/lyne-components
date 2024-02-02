@@ -1,5 +1,7 @@
-import type { CSSResultGroup, LitElement } from 'lit';
+import { spread } from '@open-wc/lit-helpers';
+import { type CSSResultGroup, type LitElement, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
+import { html, unsafeStatic } from 'lit/static-html.js';
 
 import type { AbstractConstructor } from '../../core/common-behaviors';
 import { hostContext } from '../../core/dom';
@@ -15,6 +17,10 @@ export type SbbNavigationActionSize = 's' | 'm' | 'l';
 export declare class SbbNavigationActionCommonElementMixinType {
   public size?: SbbNavigationActionSize;
   public active: boolean;
+  public renderNavigationActionCommonTemplate: (
+    attributes?: Record<string, string>,
+    customTemplate?: TemplateResult | typeof nothing,
+  ) => TemplateResult;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -23,7 +29,7 @@ export const SbbNavigationActionCommonElementMixin = <T extends AbstractConstruc
 ): AbstractConstructor<SbbNavigationActionCommonElementMixinType> & T => {
   abstract class SbbNavigationActionCommonElement
     extends superClass
-    implements Partial<SbbNavigationActionCommonElementMixinType>
+    implements SbbNavigationActionCommonElementMixinType
   {
     public static styles: CSSResultGroup = style;
 
@@ -80,7 +86,26 @@ export const SbbNavigationActionCommonElementMixin = <T extends AbstractConstruc
         this._navigationMarker?.reset();
       }
     }
+
+    /**
+     * @private
+     */
+    public renderNavigationActionCommonTemplate(
+      attributes?: Record<string, string>,
+      customTemplate?: TemplateResult | typeof nothing,
+    ): TemplateResult {
+      const TAG_NAME: string = attributes ? 'a' : 'span';
+
+      /* eslint-disable lit/binding-positions */
+      return html`
+        <${unsafeStatic(TAG_NAME)} class="sbb-navigation-action" ${attributes ? spread(attributes) : nothing}>
+          <slot></slot>
+          ${customTemplate}
+        </${unsafeStatic(TAG_NAME)}>
+      `;
+      /* eslint-enable lit/binding-positions */
+    }
   }
-  return SbbNavigationActionCommonElement as unknown as AbstractConstructor<SbbNavigationActionCommonElementMixinType> &
+  return SbbNavigationActionCommonElement as AbstractConstructor<SbbNavigationActionCommonElementMixinType> &
     T;
 };

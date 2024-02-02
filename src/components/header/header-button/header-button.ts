@@ -1,9 +1,7 @@
 import type { TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { html } from 'lit/static-html.js';
 
-import { resolveButtonRenderVariables, SbbButtonBaseElement } from '../../core/common-behaviors';
-import { setAttributes } from '../../core/dom';
+import { SbbButtonBaseElement } from '../../core/common-behaviors';
 import '../../icon';
 import { SbbHeaderActionCommonElementMixin } from '../common/header-action-common';
 
@@ -17,19 +15,8 @@ import { SbbHeaderActionCommonElementMixin } from '../common/header-action-commo
 export class SbbHeaderButtonElement extends SbbHeaderActionCommonElementMixin(
   SbbButtonBaseElement,
 ) {
-  protected override render(): TemplateResult {
-    setAttributes(this, resolveButtonRenderVariables());
-
-    return html`
-      <span class="sbb-header-action">
-        <span class="sbb-header-action__wrapper">
-          ${this.renderIconSlot()}
-          <span class="sbb-header-action__text">
-            <slot></slot>
-          </span>
-        </span>
-      </span>
-    `;
+  protected renderTemplate(): TemplateResult {
+    return this.renderHeaderActionCommonTemplate();
   }
 }
 

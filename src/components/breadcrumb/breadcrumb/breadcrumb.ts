@@ -4,13 +4,7 @@ import { nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import {
-  type LinkRenderVariables,
-  resolveLinkRenderVariables,
-  SbbLinkBaseElement,
-  SlotChildObserver,
-} from '../../core/common-behaviors';
-import { setAttributes } from '../../core/dom';
+import { SbbLinkBaseElement, SlotChildObserver } from '../../core/common-behaviors';
 
 import style from './breadcrumb.scss?lit&inline';
 
@@ -41,10 +35,7 @@ export class SbbBreadcrumbElement extends SlotChildObserver(SbbLinkBaseElement) 
     );
   }
 
-  protected override render(): TemplateResult {
-    const { attributes, hostAttributes }: LinkRenderVariables = resolveLinkRenderVariables(this);
-    setAttributes(this, hostAttributes);
-
+  protected renderTemplate(attributes: Record<string, string>): TemplateResult {
     return html`
       <a class="sbb-breadcrumb" ${spread(attributes)}>
         <slot name="icon">
@@ -55,7 +46,7 @@ export class SbbBreadcrumbElement extends SlotChildObserver(SbbLinkBaseElement) 
         <span class="sbb-breadcrumb__label" ?hidden=${!this._hasText}>
           <slot></slot>
         </span>
-        ${super.renderTargetNewWindow()}
+        ${this.renderTargetNewWindow()}
       </a>
     `;
   }

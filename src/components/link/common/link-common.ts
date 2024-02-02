@@ -1,5 +1,7 @@
-import { type CSSResultGroup, html, type LitElement, type TemplateResult } from 'lit';
+import { spread } from '@open-wc/lit-helpers';
+import { type CSSResultGroup, type LitElement, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
+import { html, unsafeStatic } from 'lit/static-html.js';
 
 import type {
   AbstractConstructor,
@@ -27,9 +29,13 @@ export declare class SbbLinkCommonElementMixinType
   public variant: 'block' | 'inline';
   public size?: SbbLinkSize;
   public disabled: boolean;
-  public iconName: string;
+  public iconName?: string;
   public negative: boolean;
   public renderIconSlot(): TemplateResult;
+  public renderLinkCommonTemplate: (
+    attributes?: Record<string, string>,
+    customTemplate?: TemplateResult | typeof nothing,
+  ) => TemplateResult;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -38,7 +44,7 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<LitEleme
 ): AbstractConstructor<SbbLinkCommonElementMixinType> & T => {
   abstract class SbbLinkCommonElement
     extends SbbNegativeMixin(SbbDisabledMixin(SbbIconNameMixin(superClass)))
-    implements Partial<SbbLinkCommonElementMixinType>
+    implements SbbLinkCommonElementMixinType
   {
     public static styles: CSSResultGroup = style;
 
@@ -55,14 +61,34 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<LitEleme
     @property({ attribute: 'icon-placement' })
     public iconPlacement?: SbbIconPlacement = 'start';
 
-    protected constructor(...args: any[]) {
+    public constructor(...args: any[]) {
       super(args);
       new NamedSlotStateController(this);
     }
 
-    public override renderIconSlot(): TemplateResult {
-      return html` <span class="sbb-link__icon"> ${super.renderIconSlot()} </span> `;
+    /**
+     * @private
+     */
+    public renderLinkCommonTemplate(
+      attributes?: Record<string, string>,
+      customTemplate?: TemplateResult | typeof nothing,
+    ): TemplateResult {
+      const TAG_NAME: string = attributes ? 'a' : 'span';
+
+      /* eslint-disable lit/binding-positions */
+      return html`
+        <${unsafeStatic(TAG_NAME)} class="sbb-link" ${attributes ? spread(attributes) : nothing}>
+          ${
+            this.variant !== 'inline'
+              ? html` <span class="sbb-link__icon"> ${super.renderIconSlot()} </span> `
+              : nothing
+          }
+          <slot></slot>
+          ${customTemplate}
+        </${unsafeStatic(TAG_NAME)}>
+      `;
+      /* eslint-enable lit/binding-positions */
     }
   }
-  return SbbLinkCommonElement as unknown as AbstractConstructor<SbbLinkCommonElementMixinType> & T;
+  return SbbLinkCommonElement as AbstractConstructor<SbbLinkCommonElementMixinType> & T;
 };

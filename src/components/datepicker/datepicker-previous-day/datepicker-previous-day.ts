@@ -188,16 +188,23 @@ export class SbbDatepickerPreviousDayElement extends SbbNegativeMixin(SbbButtonB
     );
   }
 
-  protected override render(): TemplateResult {
-    toggleDatasetEntry(this, 'disabled', this._disabled || this._inputDisabled);
-    setAttributes(this, resolveButtonRenderVariables(isValidAttribute(this, 'data-disabled')));
-    setAttribute(this, 'slot', 'prefix');
-
+  protected renderTemplate(): TemplateResult {
     return html`
       <span class="sbb-datepicker-previous-day">
         <sbb-icon name="chevron-small-left-small"></sbb-icon>
       </span>
     `;
+  }
+
+  protected override render(): TemplateResult {
+    toggleDatasetEntry(this, 'disabled', this._disabled || this._inputDisabled);
+    setAttributes(
+      this,
+      resolveButtonRenderVariables({ disabled: isValidAttribute(this, 'data-disabled') }),
+    );
+    setAttribute(this, 'slot', 'prefix');
+
+    return this.renderTemplate();
   }
 }
 

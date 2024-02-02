@@ -120,7 +120,7 @@ export class SbbAlertElement extends SbbLinkBaseElement {
     };
   }
 
-  protected override render(): TemplateResult {
+  protected renderTemplate(): TemplateResult {
     return html`
       <div class="sbb-alert__transition-wrapper" @animationend=${this._onAnimationEnd}>
         <!-- sub wrapper needed to properly support fade in animation -->
@@ -171,6 +171,10 @@ export class SbbAlertElement extends SbbLinkBaseElement {
         </div>
       </div>
     `;
+  }
+
+  protected override render(): TemplateResult {
+    return this.renderTemplate();
   }
 }
 

@@ -1,9 +1,7 @@
 import type { TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { html } from 'lit/static-html.js';
 
-import { resolveButtonRenderVariables, SbbButtonBaseElement } from '../../core/common-behaviors';
-import { setAttributes } from '../../core/dom';
+import { SbbButtonBaseElement } from '../../core/common-behaviors';
 import { SbbNavigationActionCommonElementMixin } from '../common/navigation-action-common';
 
 /**
@@ -15,14 +13,8 @@ import { SbbNavigationActionCommonElementMixin } from '../common/navigation-acti
 export class SbbNavigationButtonElement extends SbbNavigationActionCommonElementMixin(
   SbbButtonBaseElement,
 ) {
-  protected override render(): TemplateResult {
-    setAttributes(this, resolveButtonRenderVariables());
-
-    return html`
-      <span class="sbb-navigation-action">
-        <slot></slot>
-      </span>
-    `;
+  protected renderTemplate(): TemplateResult {
+    return this.renderNavigationActionCommonTemplate();
   }
 }
 

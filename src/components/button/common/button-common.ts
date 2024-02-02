@@ -1,5 +1,7 @@
-import { type CSSResultGroup, html, type LitElement, type TemplateResult } from 'lit';
+import { spread } from '@open-wc/lit-helpers';
+import { type CSSResultGroup, type LitElement, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
+import { html, unsafeStatic } from 'lit/static-html.js';
 
 import {
   type AbstractConstructor,
@@ -16,7 +18,6 @@ import {
 import { isValidAttribute, toggleDatasetEntry } from '../../core/dom';
 
 import '../../icon';
-
 import style from './button.scss?lit&inline';
 
 export type SbbButtonSize = 'l' | 'm';
@@ -28,9 +29,13 @@ export declare class SbbButtonCommonElementMixinType
   public variant: SbbButtonVariant;
   public size?: SbbButtonSize;
   public disabled: boolean;
-  public iconName: string;
+  public iconName?: string;
   public negative: boolean;
-  public renderIconSlot: () => TemplateResult;
+  public renderIconSlot(): TemplateResult;
+  public renderButtonCommonTemplate: (
+    attributes?: Record<string, string>,
+    customTemplate?: TemplateResult | typeof nothing,
+  ) => TemplateResult;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -39,7 +44,7 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<LitEle
 ): AbstractConstructor<SbbButtonCommonElementMixinType> & T => {
   abstract class SbbButtonCommonElement
     extends SbbNegativeMixin(SbbDisabledMixin(SbbIconNameMixin(superClass)))
-    implements Partial<SbbButtonCommonElementMixinType>
+    implements SbbButtonCommonElementMixinType
   {
     public static styles: CSSResultGroup = style;
     /** Variant of the button, like primary, secondary etc. */
@@ -48,7 +53,7 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<LitEle
     /** Size variant, either l or m. */
     @property({ reflect: true }) public size?: SbbButtonSize = 'l';
 
-    protected constructor(...args: any[]) {
+    public constructor(...args: any[]) {
       super(args);
       new NamedSlotStateController(this);
     }
@@ -63,10 +68,29 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<LitEle
       }
     }
 
-    public override renderIconSlot(): TemplateResult {
-      return html` <span class="sbb-button__icon"> ${super.renderIconSlot()} </span> `;
+    /**
+     * @private
+     */
+    public renderButtonCommonTemplate(
+      attributes?: Record<string, string>,
+      customTemplate?: TemplateResult | typeof nothing,
+    ): TemplateResult {
+      const TAG_NAME: string = attributes ? 'a' : 'span';
+
+      /* eslint-disable lit/binding-positions */
+      return html`
+        <${unsafeStatic(TAG_NAME)} class="sbb-button" ${attributes ? spread(attributes) : nothing}>
+          <span class="sbb-button__icon">
+            ${super.renderIconSlot()}
+          </span>
+          <span class="sbb-button__label">
+            <slot></slot>
+            ${customTemplate}
+          </span>
+        </${unsafeStatic(TAG_NAME)}>
+      `;
+      /* eslint-enable lit/binding-positions */
     }
   }
-  return SbbButtonCommonElement as unknown as AbstractConstructor<SbbButtonCommonElementMixinType> &
-    T;
+  return SbbButtonCommonElement as AbstractConstructor<SbbButtonCommonElementMixinType> & T;
 };

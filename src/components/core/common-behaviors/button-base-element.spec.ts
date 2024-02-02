@@ -10,7 +10,7 @@ describe('resolveButtonRenderVariables', () => {
       'aria-disabled': 'true',
       tabIndex: undefined,
     };
-    expect(resolveButtonRenderVariables(true)).to.be.deep.equal(retObj);
+    expect(resolveButtonRenderVariables({ disabled: true })).to.be.deep.equal(retObj);
   });
 
   it('not disabled', () => {
@@ -20,6 +20,6 @@ describe('resolveButtonRenderVariables', () => {
       'aria-disabled': undefined,
       tabIndex: '0',
     };
-    expect(resolveButtonRenderVariables(false)).to.be.deep.equal(retObj);
+    expect(resolveButtonRenderVariables({ disabled: false })).to.be.deep.equal(retObj);
   });
 });

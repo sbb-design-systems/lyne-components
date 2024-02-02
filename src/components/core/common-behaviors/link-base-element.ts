@@ -1,6 +1,7 @@
 import { html, LitElement, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { setAttributes } from '../dom';
 import { linkHandlerAspect, HandlerRepository } from '../eventing';
 import { i18nTargetOpensInNewWindow } from '../i18n';
 
@@ -114,5 +115,15 @@ export abstract class SbbLinkBaseElement extends LitElement implements LinkPrope
           >
         `
       : nothing;
+  }
+
+  /** Implement this method to render the link-like component template. */
+  protected abstract renderTemplate(attributes: Record<string, string>): TemplateResult;
+
+  /** Default render method for link-like components. Can be overridden if the LinkRenderVariables are not needed. */
+  protected override render(): TemplateResult {
+    const { attributes, hostAttributes }: LinkRenderVariables = resolveLinkRenderVariables(this);
+    setAttributes(this, hostAttributes);
+    return this.renderTemplate(attributes);
   }
 }

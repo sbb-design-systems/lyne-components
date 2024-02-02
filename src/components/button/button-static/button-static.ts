@@ -1,6 +1,5 @@
 import { LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { html } from 'lit/static-html.js';
 
 import { hostPropertiesStatic } from '../../core/common-behaviors';
 import { setAttributes } from '../../core/dom';
@@ -30,15 +29,7 @@ export class SbbButtonStaticElement extends SbbButtonCommonElementMixin(LitEleme
 
   protected override render(): TemplateResult {
     setAttributes(this, hostPropertiesStatic(this.disabled));
-
-    return html`
-      <span class="sbb-button">
-        ${this.renderIconSlot()}
-        <span class="sbb-button__label">
-          <slot></slot>
-        </span>
-      </span>
-    `;
+    return this.renderButtonCommonTemplate();
   }
 }
 

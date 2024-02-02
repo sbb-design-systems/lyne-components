@@ -1,9 +1,7 @@
 import type { TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { html } from 'lit/static-html.js';
 
-import { SbbButtonBaseElement, resolveButtonRenderVariables } from '../../core/common-behaviors';
-import { setAttributes } from '../../core/dom';
+import { SbbButtonBaseElement } from '../../core/common-behaviors';
 import { SbbButtonCommonElementMixin } from '../common/button-common';
 
 /**
@@ -14,17 +12,8 @@ import { SbbButtonCommonElementMixin } from '../common/button-common';
  */
 @customElement('sbb-button')
 export class SbbButtonElement extends SbbButtonCommonElementMixin(SbbButtonBaseElement) {
-  protected override render(): TemplateResult {
-    setAttributes(this, resolveButtonRenderVariables(this.disabled));
-
-    return html`
-      <span class="sbb-button">
-        ${this.renderIconSlot()}
-        <span class="sbb-button__label">
-          <slot></slot>
-        </span>
-      </span>
-    `;
+  protected renderTemplate(): TemplateResult {
+    return this.renderButtonCommonTemplate();
   }
 }
 

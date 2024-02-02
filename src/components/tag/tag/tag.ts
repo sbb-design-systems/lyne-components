@@ -134,13 +134,7 @@ export class SbbTagElement extends SbbDisabledMixin(SbbIconNameMixin(SbbButtonBa
     this._didChange.emit();
   }
 
-  protected override render(): TemplateResult {
-    const hostAttributes = resolveButtonRenderVariables(this.disabled);
-    // We have to ensure that the value is always present
-    hostAttributes['aria-pressed'] = this.checked.toString();
-
-    setAttributes(this, hostAttributes);
-
+  protected renderTemplate(): TemplateResult {
     return html`
       <span class="sbb-tag">
         <span class="sbb-tag__icon sbb-tag--shift"> ${this.renderIconSlot()} </span>
@@ -152,6 +146,15 @@ export class SbbTagElement extends SbbDisabledMixin(SbbIconNameMixin(SbbButtonBa
         </span>
       </span>
     `;
+  }
+
+  protected override render(): TemplateResult {
+    const hostAttributes = resolveButtonRenderVariables({ disabled: this.disabled });
+    // We have to ensure that the value is always present
+    hostAttributes['aria-pressed'] = this.checked.toString();
+    setAttributes(this, hostAttributes);
+
+    return this.renderTemplate();
   }
 }
 

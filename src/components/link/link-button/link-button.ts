@@ -1,9 +1,7 @@
-import { nothing, type TemplateResult } from 'lit';
+import { type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { html } from 'lit/static-html.js';
 
-import { resolveButtonRenderVariables, SbbButtonBaseElement } from '../../core/common-behaviors';
-import { setAttributes } from '../../core/dom';
+import { SbbButtonBaseElement } from '../../core/common-behaviors';
 import '../../icon';
 import { SbbLinkCommonElementMixin } from '../common/link-common';
 
@@ -15,15 +13,8 @@ import { SbbLinkCommonElementMixin } from '../common/link-common';
  */
 @customElement('sbb-link-button')
 export class SbbLinkButtonElement extends SbbLinkCommonElementMixin(SbbButtonBaseElement) {
-  protected override render(): TemplateResult {
-    setAttributes(this, resolveButtonRenderVariables(this.disabled));
-
-    return html`
-      <span class="sbb-link">
-        ${this.variant !== 'inline' ? this.renderIconSlot() : nothing}
-        <slot></slot>
-      </span>
-    `;
+  protected renderTemplate(): TemplateResult {
+    return this.renderLinkCommonTemplate();
   }
 }
 

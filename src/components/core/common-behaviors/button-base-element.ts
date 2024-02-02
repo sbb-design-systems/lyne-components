@@ -1,6 +1,7 @@
-import { LitElement } from 'lit';
+import { LitElement, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { setAttributes } from '../dom';
 import { buttonHandlerAspect, HandlerRepository } from '../eventing';
 
 import { hostProperties } from './host-properties';
@@ -15,6 +16,13 @@ export interface ButtonProperties {
   value?: string;
   form?: string;
   disabled?: boolean;
+}
+
+/** Sets default render variables for button-like elements. */
+export function resolveButtonRenderVariables(
+  { disabled }: ButtonProperties = { disabled: false },
+): Record<string, string | undefined> {
+  return hostProperties('button', disabled);
 }
 
 /** Button base class. */
@@ -42,11 +50,13 @@ export abstract class SbbButtonBaseElement extends LitElement implements ButtonP
     super.disconnectedCallback();
     this._handlerRepository.disconnect();
   }
-}
 
-/** Sets default render variables for button-like elements. */
-export function resolveButtonRenderVariables(
-  disabled: boolean = false,
-): Record<string, string | undefined> {
-  return hostProperties('button', disabled);
+  /** Implement this method to render the button-like component template. */
+  protected abstract renderTemplate(): TemplateResult;
+
+  /** Default render method for button-like components. Can be overridden if the ButtonRenderVariables are not needed. */
+  protected override render(): TemplateResult {
+    setAttributes(this, resolveButtonRenderVariables(this));
+    return this.renderTemplate();
+  }
 }

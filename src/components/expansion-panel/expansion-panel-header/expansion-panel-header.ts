@@ -85,7 +85,7 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledMixin(SbbIconName
   }
 
   protected override render(): TemplateResult {
-    setAttributes(this, resolveButtonRenderVariables(this.disabled));
+    setAttributes(this, resolveButtonRenderVariables({ disabled: this.disabled }));
     setAttribute(this, 'slot', 'header');
     this._setDataIconAttribute();
 

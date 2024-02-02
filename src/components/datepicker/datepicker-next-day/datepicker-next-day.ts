@@ -185,18 +185,24 @@ export class SbbDatepickerNextDayElement extends SbbNegativeMixin(SbbButtonBaseE
     this.setAttribute('aria-label', i18nSelectNextDay(currentDateString)[this._language.current]);
   }
 
-  protected override render(): TemplateResult {
-    toggleDatasetEntry(this, 'disabled', this._disabled || this._inputDisabled);
-    const hostAttributes = resolveButtonRenderVariables(isValidAttribute(this, 'data-disabled'));
-
-    setAttributes(this, hostAttributes);
-    setAttribute(this, 'slot', 'suffix');
-
+  protected renderTemplate(): TemplateResult {
     return html`
       <span class="sbb-datepicker-next-day">
         <sbb-icon name="chevron-small-right-small"></sbb-icon>
       </span>
     `;
+  }
+
+  protected override render(): TemplateResult {
+    toggleDatasetEntry(this, 'disabled', this._disabled || this._inputDisabled);
+    const hostAttributes = resolveButtonRenderVariables({
+      disabled: isValidAttribute(this, 'data-disabled'),
+    });
+
+    setAttributes(this, hostAttributes);
+    setAttribute(this, 'slot', 'suffix');
+
+    return this.renderTemplate();
   }
 }
 

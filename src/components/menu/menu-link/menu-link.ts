@@ -1,14 +1,7 @@
-import { spread } from '@open-wc/lit-helpers';
-import { nothing, type TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { html } from 'lit/static-html.js';
 
-import {
-  type LinkRenderVariables,
-  resolveLinkRenderVariables,
-  SbbLinkBaseElement,
-} from '../../core/common-behaviors';
-import { setAttributes } from '../../core/dom';
+import { SbbLinkBaseElement } from '../../core/common-behaviors';
 import '../../icon';
 import { SbbMenuActionCommonElementMixin } from '../common/menu-action-common';
 
@@ -20,24 +13,8 @@ import { SbbMenuActionCommonElementMixin } from '../common/menu-action-common';
  */
 @customElement('sbb-menu-link')
 export class SbbMenuLinkElement extends SbbMenuActionCommonElementMixin(SbbLinkBaseElement) {
-  protected override render(): TemplateResult {
-    const { attributes, hostAttributes }: LinkRenderVariables = resolveLinkRenderVariables(this);
-    setAttributes(this, hostAttributes);
-
-    return html`
-      <a class="sbb-menu-action" ${spread(attributes)}>
-        <span class="sbb-menu-action__content">
-          ${this.renderIconSlot()}
-          <span class="sbb-menu-action__label">
-            <slot></slot>
-          </span>
-          ${this.amount && !this.disabled
-            ? html`<span class="sbb-menu-action__amount">${this.amount}</span>`
-            : nothing}
-        </span>
-        ${super.renderTargetNewWindow()}
-      </a>
-    `;
+  protected renderTemplate(attributes: Record<string, string>): TemplateResult {
+    return this.renderMenuActionCommonTemplate(attributes, this.renderTargetNewWindow());
   }
 }
 

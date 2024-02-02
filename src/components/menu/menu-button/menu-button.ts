@@ -1,9 +1,7 @@
-import { nothing, type TemplateResult } from 'lit';
+import { type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { html } from 'lit/static-html.js';
 
-import { resolveButtonRenderVariables, SbbButtonBaseElement } from '../../core/common-behaviors';
-import { setAttributes } from '../../core/dom';
+import { SbbButtonBaseElement } from '../../core/common-behaviors';
 import '../../icon';
 import { SbbMenuActionCommonElementMixin } from '../common/menu-action-common';
 
@@ -15,22 +13,8 @@ import { SbbMenuActionCommonElementMixin } from '../common/menu-action-common';
  */
 @customElement('sbb-menu-button')
 export class SbbMenuButtonElement extends SbbMenuActionCommonElementMixin(SbbButtonBaseElement) {
-  protected override render(): TemplateResult {
-    setAttributes(this, resolveButtonRenderVariables(this.disabled));
-
-    return html`
-      <span class="sbb-menu-action">
-        <span class="sbb-menu-action__content">
-          ${this.renderIconSlot()}
-          <span class="sbb-menu-action__label">
-            <slot></slot>
-          </span>
-          ${this.amount && !this.disabled
-            ? html`<span class="sbb-menu-action__amount">${this.amount}</span>`
-            : nothing}
-        </span>
-      </span>
-    `;
+  protected renderTemplate(): TemplateResult {
+    return this.renderMenuActionCommonTemplate();
   }
 }
 
