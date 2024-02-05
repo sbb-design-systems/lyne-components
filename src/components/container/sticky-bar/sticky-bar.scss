@@ -38,25 +38,6 @@ $intersector-overlapping: 1px;
   display: block;
 }
 
-.sbb-sticky-bar::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background-color: var(--sbb-sticky-bar-sticky-background-color, transparent);
-  transition-property: background-color, box-shadow;
-  transition-duration: var(--sbb-sticky-bar-animation-duration);
-  transition-timing-function: var(--sbb-sticky-bar-animation-easing);
-
-  :host([data-sticking]) & {
-    @include sbb.shadow-level-5-hard;
-
-    @include sbb.if-forced-colors {
-      border-block-start: var(--sbb-border-width-1x) solid CanvasText;
-    }
-  }
-}
-
 .sbb-sticky-bar {
   display: flex;
   padding-block: var(--sbb-sticky-bar-padding-block);
@@ -64,12 +45,39 @@ $intersector-overlapping: 1px;
     --sbb-sticky-bar-sticky-background-color,
     var(--sbb-container-background-color)
   );
-  transition-property: background-color;
-  transition-duration: var(--sbb-sticky-bar-animation-duration);
-  transition-timing-function: var(--sbb-sticky-bar-animation-easing);
+  transition: background-color var(--sbb-sticky-bar-animation-duration)
+    var(--sbb-sticky-bar-animation-easing);
 
   // To push the .sbb-sticky-bar__intersector up without using absolute position we need a negative block margin.
   margin-block-end: -$intersector-overlapping;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  &::before {
+    background-color: var(--sbb-sticky-bar-sticky-background-color, transparent);
+    transition: background-color var(--sbb-sticky-bar-animation-duration)
+      var(--sbb-sticky-bar-animation-easing);
+  }
+
+  &::after {
+    transition: box-shadow var(--sbb-sticky-bar-animation-duration)
+      var(--sbb-sticky-bar-animation-easing);
+    clip-path: polygon(-50% -50%, 150% -50%, 150% 50%, -50% 50%);
+
+    :host([data-sticking]) & {
+      @include sbb.shadow-level-5-hard;
+
+      @include sbb.if-forced-colors {
+        border-block-start: var(--sbb-border-width-1x) solid CanvasText;
+      }
+    }
+  }
 
   :host([data-transparent]) & {
     background-color: transparent;
