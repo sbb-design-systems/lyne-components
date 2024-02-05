@@ -13,13 +13,13 @@ responsibility where possible.
 For progress indication, we use labels to indicate a specific expectation:
 
 - When a pull request is not yet ready for review, add "[WIP]" to the end of the pull request title
-- When a pull request is created or upgraded from draft pull request, the label "peer review required" is automatically added
-- When a pull request is approved by anyone from the team, the label "peer review approved" is automatically added and the label "peer review required" is removed
-- When a pull request should be reviewed by a lead developer, the label "lead review required" should be added by either the pull request owner, a peer reviewer or a lead developer
-- When a pull request is reviewed by a lead developer, the label "lead review approved" is automatically added and the label "lead review required" is removed
-- When a pull request should be reviewed by UX, the label "ux review required" should be added
-- When a pull request is reviewed by UX, the label "ux review approved" is automatically added and the label "ux review required" is removed
-- When a pull request should not be considered/merged/reviewed, add the label "blocked"
+- When a pull request is created or upgraded from draft pull request, the label "pr: peer review required" is automatically added
+- When a pull request is approved by anyone from the team, the label "pr: peer review approved" is automatically added and the label "pr: peer review required" is removed
+- When a pull request should be reviewed by a lead developer, the label "pr: lead review required" should be added by either the pull request owner, a peer reviewer or a lead developer
+- When a pull request is reviewed by a lead developer, the label "pr: lead review approved" is automatically added and the label "pr: lead review required" is removed
+- When a pull request should be reviewed by UX, the label "pr: ux review required" should be added
+- When a pull request is reviewed by UX, the label "pr: ux review approved" is automatically added and the label "pr: ux review required" is removed
+- When a pull request should not be considered/merged/reviewed, add the label "pr: blocked"
 
 ## Review Checks
 
