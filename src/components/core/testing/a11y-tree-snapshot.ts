@@ -1,4 +1,4 @@
-import { expect, fixture } from '@open-wc/testing';
+import { aTimeout, expect, fixture } from '@open-wc/testing';
 import { a11ySnapshot } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
@@ -13,6 +13,7 @@ import { waitForLitRender } from './wait-for-render';
  * and create an html wrapper in order to use the `equalSnapshot` function.
  */
 async function a11yTreeEqualSnapshot(): Promise<void> {
+  await aTimeout(1000);
   const snapshot = await a11ySnapshot({});
 
   const htmlWrapper = await fixture(html`<p>${JSON.stringify(snapshot, null, 2)}</p>`);
