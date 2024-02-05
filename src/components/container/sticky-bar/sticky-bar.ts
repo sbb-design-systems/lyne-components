@@ -24,9 +24,9 @@ export class SbbStickyBarElement extends LitElement {
   @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
   public disableAnimation = false;
 
-  private _observer = new AgnosticIntersectionObserver(
-    (entries) => this._toggleShadowVisibility(entries[0]),
-    { threshold: [1] },
+  private _intersector?: HTMLSpanElement;
+  private _observer = new AgnosticIntersectionObserver((entries) =>
+    this._toggleShadowVisibility(entries[0]),
   );
 
   public override connectedCallback(): void {
@@ -38,6 +38,16 @@ export class SbbStickyBarElement extends LitElement {
     if (container) {
       toggleDatasetEntry(this, 'expanded', container.expanded);
       toggleDatasetEntry(this, 'transparent', container.color === 'transparent');
+    }
+    if (this._intersector) {
+      this._observer.observe(this._intersector);
+    }
+  }
+
+  protected override firstUpdated(): void {
+    if (!this._intersector) {
+      this._intersector = this.shadowRoot!.querySelector('.sbb-sticky-bar__intersector')!;
+      this._observer.observe(this._intersector);
     }
     this._observer.observe(this);
   }
@@ -53,9 +63,12 @@ export class SbbStickyBarElement extends LitElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-sticky-bar">
-        <slot></slot>
+      <div class="sbb-sticky-bar__wrapper">
+        <div class="sbb-sticky-bar">
+          <slot></slot>
+        </div>
       </div>
+      <div class="sbb-sticky-bar__intersector"></div>
     `;
   }
 }
