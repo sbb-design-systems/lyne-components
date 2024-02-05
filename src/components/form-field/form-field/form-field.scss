@@ -318,6 +318,9 @@
   @include sbb.ellipsis;
   @include sbb.input-reset;
 
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
   overflow: var(--sbb-form-field-overflow);
   width: 100%;
   box-sizing: border-box;
