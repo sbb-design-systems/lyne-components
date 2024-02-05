@@ -14,7 +14,10 @@ import { waitForLitRender } from './wait-for-render';
  */
 async function a11yTreeEqualSnapshot(): Promise<void> {
   await aTimeout(1000);
-  const snapshot = await a11ySnapshot({});
+  let snapshot = await a11ySnapshot({});
+
+  await aTimeout(500);
+  snapshot = await a11ySnapshot({});
 
   const htmlWrapper = await fixture(html`<p>${JSON.stringify(snapshot, null, 2)}</p>`);
   await expect(htmlWrapper).to.be.equalSnapshot();
