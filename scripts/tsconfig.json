@@ -7,7 +7,7 @@
     "allowSyntheticDefaultImports": true,
     "target": "es2021",
     "lib": ["es2021"],
-    "strict": true,
+    "strict": true
   },
-  "include": ["*.ts"],
+  "include": ["*.ts"]
 }
