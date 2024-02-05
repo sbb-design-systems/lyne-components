@@ -1,14 +1,13 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
 
-import type { SbbCheckboxElement, SbbCheckboxStateChange } from '../checkbox';
+import type { SbbCheckboxElement } from '../checkbox';
 import { NamedSlotStateController } from '../core/common-behaviors';
 import { setAttribute } from '../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../core/eventing';
 import type { SbbStateChange } from '../core/interfaces';
-import type { SbbRadioButtonElement, SbbRadioButtonStateChange } from '../radio-button';
+import type { SbbRadioButtonElement } from '../radio-button';
 
 import style from './selection-panel.scss?lit&inline';
 import '../divider';
@@ -21,8 +20,8 @@ import '../divider';
  * @slot content - Use this slot to provide custom content for the panel (optional).
  * @event {CustomEvent<void>} willOpen - Emits whenever the content section starts the opening transition.
  * @event {CustomEvent<void>} didOpen - Emits whenever the content section is opened.
- * @event {CustomEvent<{ closeTarget: HTMLElement }>} willClose - Emits whenever the content section begins the closing transition.
- * @event {CustomEvent<{ closeTarget: HTMLElement }>} didClose - Emits whenever the content section is closed.
+ * @event {CustomEvent<void>} willClose - Emits whenever the content section begins the closing transition.
+ * @event {CustomEvent<void>} didClose - Emits whenever the content section is closed.
  */
 @customElement('sbb-selection-panel')
 export class SbbSelectionPanelElement extends LitElement {
@@ -38,7 +37,7 @@ export class SbbSelectionPanelElement extends LitElement {
   @property() public color: 'white' | 'milk' = 'white';
 
   /** Whether the content section is always visible. */
-  @property({ attribute: 'force-open', reflect: true, type: Boolean }) public forceOpen = false;
+  @property({ attribute: 'force-open', type: Boolean }) public forceOpen = false;
 
   /** Whether the unselected panel has a border. */
   @property({ reflect: true, type: Boolean }) public borderless = false;
@@ -48,7 +47,7 @@ export class SbbSelectionPanelElement extends LitElement {
   public disableAnimation = false;
 
   /** The state of the selection panel. */
-  @state() private _state?: 'closed' | 'opening' | 'opened' | 'closing';
+  @state() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'closed';
 
   /** Whether the selection panel is checked. */
   @state() private _checked = false;
@@ -60,59 +59,108 @@ export class SbbSelectionPanelElement extends LitElement {
   private _willOpen: EventEmitter<void> = new EventEmitter(
     this,
     SbbSelectionPanelElement.events.willOpen,
-    {
-      bubbles: true,
-      composed: true,
-    },
   );
 
   /** Emits whenever the content section is opened. */
   private _didOpen: EventEmitter<void> = new EventEmitter(
     this,
     SbbSelectionPanelElement.events.didOpen,
-    {
-      bubbles: true,
-      composed: true,
-    },
   );
 
   /** Emits whenever the content section begins the closing transition. */
-  private _willClose: EventEmitter<{ closeTarget: HTMLElement }> = new EventEmitter(
+  private _willClose: EventEmitter<void> = new EventEmitter(
     this,
     SbbSelectionPanelElement.events.willClose,
-    { bubbles: true, composed: true },
   );
 
   /** Emits whenever the content section is closed. */
-  private _didClose: EventEmitter<{ closeTarget: HTMLElement }> = new EventEmitter(
+  private _didClose: EventEmitter<void> = new EventEmitter(
     this,
     SbbSelectionPanelElement.events.didClose,
-    { bubbles: true, composed: true },
   );
 
-  private _contentElement?: HTMLElement;
-  private _didLoad = false;
   private _abort = new ConnectedAbortController(this);
-  private _namedSlots = new NamedSlotStateController(this);
+  private _initialized: boolean = false;
 
   /**
    * Whether it has an expandable content
    * @internal
    */
   public get hasContent(): boolean {
-    return this._namedSlots.slots.has('content');
+    // We cannot use the NamedSlots because it's too slow to initialize
+    return this.querySelectorAll?.('[slot="content"]').length > 0;
   }
 
-  private get _input(): SbbCheckboxElement | SbbRadioButtonElement {
-    return this.querySelector('sbb-checkbox, sbb-radio-button') as
-      | SbbCheckboxElement
-      | SbbRadioButtonElement;
+  public constructor() {
+    super();
+    new NamedSlotStateController(this);
   }
 
-  private _onInputChange(
-    event: CustomEvent<SbbRadioButtonStateChange | SbbCheckboxStateChange>,
-  ): void {
-    if (!this._state || !this._didLoad) {
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    const signal = this._abort.signal;
+    this.addEventListener('stateChange', this._onInputStateChange.bind(this), { signal });
+    this.addEventListener('checkboxLoaded', this._initFromInput.bind(this), { signal });
+    this.addEventListener('radioButtonLoaded', this._initFromInput.bind(this), { signal });
+  }
+
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    if (changedProperties.has('forceOpen')) {
+      this._updateState();
+    }
+  }
+
+  protected override firstUpdated(): void {
+    this._initialized = true;
+  }
+
+  private _updateState(): void {
+    if (!this.hasContent) {
+      return;
+    }
+
+    this.forceOpen || this._checked ? this._open(!this._initialized) : this._close();
+  }
+
+  private _open(skipAnimation = false): void {
+    if (this._state !== 'closed' && this._state !== 'closing') {
+      return;
+    }
+
+    this._state = 'opening';
+    this._willOpen.emit();
+
+    if (skipAnimation) {
+      this._state = 'opened';
+      this._didOpen.emit();
+    }
+  }
+
+  private _close(): void {
+    if (this._state !== 'opened' && this._state !== 'opening') {
+      return;
+    }
+
+    this._state = 'closing';
+    this._willClose.emit();
+  }
+
+  private _initFromInput(event: Event): void {
+    const input = event.target as SbbCheckboxElement | SbbRadioButtonElement;
+
+    if (!input.isSelectionPanelInput) {
+      return;
+    }
+
+    this._checked = input.checked;
+    this._disabled = input.disabled;
+    this._updateState();
+  }
+
+  private _onInputStateChange(event: CustomEvent<SbbStateChange>): void {
+    const input = event.target as SbbCheckboxElement | SbbRadioButtonElement;
+
+    if (!input.isSelectionPanelInput) {
       return;
     }
 
@@ -124,66 +172,17 @@ export class SbbSelectionPanelElement extends LitElement {
     }
 
     this._checked = event.detail.checked;
+    this._updateState();
+  }
 
-    if (!this._namedSlots.slots.has('content') || this.forceOpen) {
-      return;
+  private _onAnimationEnd(event: AnimationEvent): void {
+    if (event.animationName === 'open-opacity' && this._state === 'opening') {
+      this._state = 'opened';
+      this._didOpen.emit();
+    } else if (event.animationName === 'close' && this._state === 'closing') {
+      this._state = 'closed';
+      this._didClose.emit();
     }
-
-    if (this._checked) {
-      this._state = 'opening';
-      this._willOpen.emit();
-    } else {
-      this._state = 'closing';
-      this._willClose.emit();
-    }
-  }
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener(
-      'stateChange',
-      (e: CustomEvent<SbbStateChange>) =>
-        this._onInputChange(e as CustomEvent<SbbRadioButtonStateChange | SbbCheckboxStateChange>),
-      { signal, passive: true },
-    );
-    this.addEventListener('checkboxLoaded', () => this._updateSelectionPanel(), { signal });
-    this.addEventListener('radioButtonLoaded', () => this._updateSelectionPanel(), { signal });
-  }
-
-  protected override firstUpdated(): void {
-    this._didLoad = true;
-  }
-
-  private _updateSelectionPanel(): void {
-    this._checked = this._input?.checked;
-    this._state =
-      this.forceOpen || (this._namedSlots.slots.has('content') && this._checked)
-        ? 'opened'
-        : 'closed';
-    this._disabled = this._input?.disabled;
-  }
-
-  private _onTransitionEnd(event: TransitionEvent): void {
-    if (event.target !== this._contentElement || event.propertyName !== 'opacity') {
-      return;
-    }
-
-    if (this._checked) {
-      this._handleOpening();
-    } else {
-      this._handleClosing();
-    }
-  }
-
-  private _handleOpening(): void {
-    this._state = 'opened';
-    this._didOpen.emit();
-  }
-
-  private _handleClosing(): void {
-    this._state = 'closed';
-    this._didClose.emit();
   }
 
   protected override render(): TemplateResult {
@@ -202,14 +201,8 @@ export class SbbSelectionPanelElement extends LitElement {
         </div>
         <div
           class="sbb-selection-panel__content--wrapper"
-          ?data-expanded=${this._checked || this.forceOpen}
-          @transitionend=${(event: TransitionEvent) => this._onTransitionEnd(event)}
-          ${ref((el?: Element) => {
-            this._contentElement = el as HTMLElement;
-            if (this._contentElement) {
-              this._contentElement.inert = !this._checked && !this.forceOpen;
-            }
-          })}
+          .inert=${this._state !== 'opened'}
+          @animationend=${(event: AnimationEvent) => this._onAnimationEnd(event)}
         >
           <div class="sbb-selection-panel__content">
             <sbb-divider></sbb-divider>

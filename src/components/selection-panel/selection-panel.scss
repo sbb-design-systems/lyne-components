@@ -4,6 +4,12 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
+// Open/Close animation vars
+$open-anim-rows-from: 0fr;
+$open-anim-rows-to: 1fr;
+$open-anim-opacity-from: 0;
+$open-anim-opacity-to: 1;
+
 :host {
   --sbb-selection-panel-cursor: pointer;
   --sbb-selection-panel-background: var(--sbb-color-white-default);
@@ -14,12 +20,7 @@
   --sbb-selection-panel-input-padding: var(--sbb-spacing-responsive-xs)
     var(--sbb-spacing-responsive-xxs);
   --sbb-selection-panel-content-visibility: hidden;
-  --sbb-selection-panel-content-grid-template-rows: 0fr;
-  --sbb-selection-panel-content-opacity: 0;
   --sbb-selection-panel-content-padding-inline: var(--sbb-spacing-responsive-xxs);
-  --sbb-selection-panel-content-transition: grid-template-rows
-      var(--sbb-selection-panel-animation-duration) var(--sbb-animation-easing),
-    opacity var(--sbb-selection-panel-animation-duration) var(--sbb-animation-easing);
 
   // As the selection panel has always a white/milk background, we have to fix the focus outline color
   // to default color for cases where the selection panel is used in a negative context.
@@ -53,8 +54,7 @@
   --sbb-selection-panel-animation-duration: 0.1ms;
 }
 
-:host([data-slot-names~='content'][force-open]),
-:host([data-slot-names~='content'][data-checked]) {
+:host([data-slot-names~='content']:where([data-state='opening'], [data-state='opened'])) {
   --sbb-selection-panel-input-padding: var(--sbb-spacing-responsive-xs)
     var(--sbb-spacing-responsive-xxs) var(--sbb-spacing-responsive-xxs)
     var(--sbb-spacing-responsive-xxs);
@@ -93,10 +93,28 @@
 
 .sbb-selection-panel__content--wrapper {
   display: grid;
-  grid-template-rows: var(--sbb-selection-panel-content-grid-template-rows);
   visibility: var(--sbb-selection-panel-content-visibility);
-  opacity: var(--sbb-selection-panel-content-opacity);
-  transition: var(--sbb-selection-panel-content-transition);
+  grid-template-rows: #{$open-anim-rows-from};
+  opacity: #{$open-anim-opacity-from};
+
+  :host([data-state='opened']) & {
+    grid-template-rows: #{$open-anim-rows-to};
+    opacity: #{$open-anim-opacity-to};
+  }
+
+  :host([data-state='opening']) & {
+    animation-name: open, open-opacity;
+    animation-fill-mode: forwards;
+    animation-duration: var(--sbb-selection-panel-animation-duration);
+    animation-timing-function: var(--sbb-animation-easing);
+    animation-delay: 0s, var(--sbb-selection-panel-animation-duration);
+  }
+
+  :host([data-state='closing']) & {
+    animation-name: close;
+    animation-duration: var(--sbb-selection-panel-animation-duration);
+    animation-timing-function: var(--sbb-animation-easing);
+  }
 
   :host(:not([data-slot-names~='content'])) & {
     display: none;
@@ -124,5 +142,37 @@ sbb-divider {
     duration: var(--sbb-selection-panel-animation-duration);
     timing-function: var(--sbb-animation-easing);
     property: padding;
+  }
+}
+
+@keyframes open {
+  from {
+    grid-template-rows: #{$open-anim-rows-from};
+  }
+
+  to {
+    grid-template-rows: #{$open-anim-rows-to};
+  }
+}
+
+@keyframes open-opacity {
+  from {
+    opacity: #{$open-anim-opacity-from};
+  }
+
+  to {
+    opacity: #{$open-anim-opacity-to};
+  }
+}
+
+@keyframes close {
+  from {
+    grid-template-rows: #{$open-anim-rows-to};
+    opacity: #{$open-anim-opacity-to};
+  }
+
+  to {
+    grid-template-rows: #{$open-anim-rows-from};
+    opacity: #{$open-anim-opacity-from};
   }
 }

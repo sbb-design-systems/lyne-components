@@ -63,7 +63,7 @@ async function generateChromaticStory(
     return 'no params found';
   }
 
-  const { disableSnapshot, ...chromaticParameters } = parameters?.chromatic ?? {};
+  const { disableSnapshot, fixedHeight, ...chromaticParameters } = parameters?.chromatic ?? {};
   if (!parameters) {
     return 'no params found';
   } else if (disableSnapshot !== undefined) {
@@ -74,14 +74,35 @@ async function generateChromaticStory(
   const relativeImport = basename(storyFile).replace(/\.ts$/, '');
   const chromaticImport = relative(dirname(targetStoryFile), chromaticFile).replace(/\.ts$/, '');
 
+  /**
+   * The `fixedHeight` param forces the height of the snapshot on chromatic.
+   * It might be useful in cases where some content is cut off at the end of a snapshot
+   * The max fixedHeight we can use is 17'000 (17k * 1440 =~ 25kk)
+   * Now, the max snapshot size is 25'000'000px.
+   *
+   * Example:
+   * ```
+   *  ...
+   *  parameters: {
+   *    chromatic: { fixedHeight: '17000px', ... },
+   *    ...
+   *  }
+   * ```
+   */
+  const fixedHeightStyle = fixedHeight ? `style="min-height: ${fixedHeight}"` : '';
+
   const chromaticConfig = Object.entries(chromaticParameters)
     .map(([key, value]) => `${key}: ${JSON.stringify(value)}, `)
     .join('');
   const storyFileContent = `import type { Meta, StoryObj } from '@storybook/web-components';
 import config, * as stories from './${relativeImport}';
 import { combineStories } from '${chromaticImport}';
+import { html } from 'lit';
 
 const meta: Meta = {
+  decorators: [
+    (story) => html\` <div ${fixedHeightStyle}>\${story()}</div> \`,
+  ],
   parameters: {
     backgrounds: {
       disable: true,

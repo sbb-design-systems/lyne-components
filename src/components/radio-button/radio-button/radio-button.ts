@@ -115,7 +115,11 @@ export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
 
   /**
    * Whether the input is the main input of a selection panel.
+   * @internal
    */
+  public get isSelectionPanelInput(): boolean {
+    return this._isSelectionPanelInput;
+  }
   @state() private _isSelectionPanelInput = false;
 
   /**
