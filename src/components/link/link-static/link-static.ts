@@ -1,9 +1,8 @@
 import { LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { hostPropertiesStatic } from '../../core/common-behaviors';
-import { setAttributes } from '../../core/dom';
-import { HandlerRepository, linkHandlerAspect } from '../../core/eventing';
+import { SbbDisabledMixin } from '../../core/common-behaviors';
+import { getDocumentWritingMode } from '../../core/dom';
 import '../../icon';
 import { SbbLinkCommonElementMixin } from '../common/link-common';
 
@@ -14,21 +13,13 @@ import { SbbLinkCommonElementMixin } from '../common/link-common';
  * @slot icon - Slot used to display the icon, if one is set.
  */
 @customElement('sbb-link-static')
-export class SbbLinkStaticElement extends SbbLinkCommonElementMixin(LitElement) {
-  private _handlerRepository = new HandlerRepository(this, linkHandlerAspect);
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._handlerRepository.connect();
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
-  }
-
+export class SbbLinkStaticElement extends SbbLinkCommonElementMixin(SbbDisabledMixin(LitElement)) {
   protected override render(): TemplateResult {
-    setAttributes(this, hostPropertiesStatic(this.disabled));
+    this.setAttribute('dir', getDocumentWritingMode());
+    // FIXME tabindex not wanted so the disabled mixin is used
+    if (this.disabled) {
+      this.setAttribute('aria-disabled', 'true');
+    }
     return this.renderLinkCommonTemplate();
   }
 }

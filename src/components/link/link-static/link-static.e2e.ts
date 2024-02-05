@@ -26,7 +26,7 @@ describe('sbb-link-static', () => {
       expect(changeSpy.count).to.be.equal(1);
     });
 
-    it('should not dispatch event on click if disabled', async () => {
+    it('should dispatch event on click if disabled', async () => {
       element.setAttribute('disabled', 'true');
 
       await waitForLitRender(element);
@@ -34,7 +34,7 @@ describe('sbb-link-static', () => {
       const changeSpy = new EventSpy('click');
 
       await element.click();
-      expect(changeSpy.count).not.to.be.greaterThan(0);
+      expect(changeSpy.count).to.be.greaterThan(0);
     });
 
     it('should stop propagating host click if disabled', async () => {

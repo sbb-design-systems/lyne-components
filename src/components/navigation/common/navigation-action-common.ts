@@ -17,7 +17,7 @@ export type SbbNavigationActionSize = 's' | 'm' | 'l';
 export declare class SbbNavigationActionCommonElementMixinType {
   public size?: SbbNavigationActionSize;
   public active: boolean;
-  public renderNavigationActionCommonTemplate: (
+  protected renderNavigationActionCommonTemplate: (
     attributes?: Record<string, string>,
     customTemplate?: TemplateResult | typeof nothing,
   ) => TemplateResult;
@@ -29,16 +29,14 @@ export const SbbNavigationActionCommonElementMixin = <T extends AbstractConstruc
 ): AbstractConstructor<SbbNavigationActionCommonElementMixinType> & T => {
   abstract class SbbNavigationActionCommonElement
     extends superClass
-    implements SbbNavigationActionCommonElementMixinType
+    implements Partial<SbbNavigationActionCommonElementMixinType>
   {
     public static styles: CSSResultGroup = style;
 
     /** Action size variant. */
     @property({ reflect: true }) public size?: SbbNavigationActionSize = 'l';
 
-    /**
-     * Whether the action is active.
-     */
+    /** Whether the action is active. */
     @property({ reflect: true, type: Boolean })
     public set active(value: boolean) {
       const oldValue = this.active;
@@ -87,10 +85,7 @@ export const SbbNavigationActionCommonElementMixin = <T extends AbstractConstruc
       }
     }
 
-    /**
-     * @private
-     */
-    public renderNavigationActionCommonTemplate(
+    protected renderNavigationActionCommonTemplate(
       attributes?: Record<string, string>,
       customTemplate?: TemplateResult | typeof nothing,
     ): TemplateResult {
@@ -106,6 +101,6 @@ export const SbbNavigationActionCommonElementMixin = <T extends AbstractConstruc
       /* eslint-enable lit/binding-positions */
     }
   }
-  return SbbNavigationActionCommonElement as AbstractConstructor<SbbNavigationActionCommonElementMixinType> &
+  return SbbNavigationActionCommonElement as unknown as AbstractConstructor<SbbNavigationActionCommonElementMixinType> &
     T;
 };

@@ -5,7 +5,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { IS_FOCUSABLE_QUERY } from '../../core/a11y';
 import type { AbstractConstructor } from '../../core/common-behaviors';
-import { toggleDatasetEntry } from '../../core/dom';
+import { setAttribute, toggleDatasetEntry } from '../../core/dom';
 import { AgnosticMutationObserver } from '../../core/observers';
 import type { SbbCardElement } from '../card';
 
@@ -13,8 +13,7 @@ import style from './card-action.scss?lit&inline';
 
 export declare class SbbCardActionCommonElementMixinType {
   public active: boolean;
-  public card: SbbCardElement | null;
-  public renderCardActionCommonTemplate: (
+  protected renderCardActionCommonTemplate: (
     attributes?: Record<string, string>,
     customTemplate?: TemplateResult | typeof nothing,
   ) => TemplateResult;
@@ -26,7 +25,7 @@ export const SbbCardActionCommonElementMixin = <T extends AbstractConstructor<Li
 ): AbstractConstructor<SbbCardActionCommonElementMixinType> & T => {
   abstract class SbbCardActionCommonElement
     extends superClass
-    implements SbbCardActionCommonElementMixinType
+    implements Partial<SbbCardActionCommonElementMixinType>
   {
     public static styles: CSSResultGroup = style;
 
@@ -41,24 +40,21 @@ export const SbbCardActionCommonElementMixin = <T extends AbstractConstructor<Li
     }
     private _active: boolean = false;
 
-    /**
-     * @private
-     */
-    public card: SbbCardElement | null = null;
+    private _card: SbbCardElement | null = null;
     private _cardMutationObserver = new AgnosticMutationObserver(() =>
       this._checkForSlottedActions(),
     );
 
     private _onActiveChange(): void {
-      if (this.card) {
-        toggleDatasetEntry(this.card, 'hasActiveAction', this.active);
+      if (this._card) {
+        toggleDatasetEntry(this._card, 'hasActiveAction', this.active);
       }
     }
 
     private _checkForSlottedActions(): void {
       const cardFocusableAttributeName = 'data-card-focusable';
 
-      Array.from(this.card?.querySelectorAll?.(IS_FOCUSABLE_QUERY) ?? [])
+      Array.from(this._card?.querySelectorAll?.(IS_FOCUSABLE_QUERY) ?? [])
         .filter(
           (el) =>
             el.tagName !== 'SBB-CARD-LINK' &&
@@ -70,13 +66,15 @@ export const SbbCardActionCommonElementMixin = <T extends AbstractConstructor<Li
 
     public override connectedCallback(): void {
       super.connectedCallback();
-      this.card = this.closest?.('sbb-card');
-      if (this.card) {
-        toggleDatasetEntry(this.card, 'hasAction', true);
-        toggleDatasetEntry(this.card, 'hasActiveAction', this.active);
+      this._card = this.closest?.('sbb-card');
+      if (this._card) {
+        toggleDatasetEntry(this._card, 'hasAction', true);
+        toggleDatasetEntry(this._card, 'hasActiveAction', this.active);
+        this._card.dataset.actionRole = this.getAttribute('role')!;
+        setAttribute(this, 'slot', 'action');
 
         this._checkForSlottedActions();
-        this._cardMutationObserver.observe(this.card, {
+        this._cardMutationObserver.observe(this._card, {
           childList: true,
           subtree: true,
         });
@@ -85,22 +83,19 @@ export const SbbCardActionCommonElementMixin = <T extends AbstractConstructor<Li
 
     public override disconnectedCallback(): void {
       super.disconnectedCallback();
-      if (this.card) {
-        toggleDatasetEntry(this.card, 'hasAction', false);
-        toggleDatasetEntry(this.card, 'hasActiveAction', false);
-        toggleDatasetEntry(this.card, 'actionRole', false);
-        this.card
+      if (this._card) {
+        toggleDatasetEntry(this._card, 'hasAction', false);
+        toggleDatasetEntry(this._card, 'hasActiveAction', false);
+        toggleDatasetEntry(this._card, 'actionRole', false);
+        this._card
           .querySelectorAll(`[data-card-focusable]`)
           .forEach((el) => el.removeAttribute('data-card-focusable'));
-        this.card = null;
+        this._card = null;
       }
       this._cardMutationObserver.disconnect();
     }
 
-    /**
-     * @private
-     */
-    public renderCardActionCommonTemplate(
+    protected renderCardActionCommonTemplate(
       attributes?: Record<string, string>,
       customTemplate?: TemplateResult | typeof nothing,
     ): TemplateResult {
@@ -118,5 +113,6 @@ export const SbbCardActionCommonElementMixin = <T extends AbstractConstructor<Li
       /* eslint-enable lit/binding-positions */
     }
   }
-  return SbbCardActionCommonElement as AbstractConstructor<SbbCardActionCommonElementMixinType> & T;
+  return SbbCardActionCommonElement as unknown as AbstractConstructor<SbbCardActionCommonElementMixinType> &
+    T;
 };

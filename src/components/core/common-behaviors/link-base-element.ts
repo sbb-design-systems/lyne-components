@@ -1,14 +1,13 @@
 import { html, LitElement, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { setAttributes } from '../dom';
-import { linkHandlerAspect, HandlerRepository } from '../eventing';
+import { getDocumentWritingMode } from '../dom';
+import { isEventPrevented } from '../eventing';
 import { i18nTargetOpensInNewWindow } from '../i18n';
 
-import { hostProperties } from './host-properties';
-import { LanguageController } from './language-controller';
-
 import '../../screenreader-only';
+import { dispatchClickEventWhenEnterKeypress } from './action-dispatch-click';
+import { LanguageController } from './language-controller';
 
 /** Enumeration for 'target' attribute in <a> HTML tag. */
 export type LinkTargetType = '_blank' | '_self' | '_parent' | '_top';
@@ -58,28 +57,6 @@ function getLinkAttributeList(linkProperties: LinkProperties): Record<string, st
       });
 }
 
-/** A component that implements LinkProperties should use this interface to set useful variables for render function. */
-export interface LinkRenderVariables {
-  /** The tag's attributes. */
-  attributes: Record<string, string>;
-
-  /** The host's attributes. */
-  hostAttributes: Record<string, string | undefined>;
-}
-
-/** Set default render variables for anchor-like elements. */
-export function resolveLinkRenderVariables(properties: LinkProperties): LinkRenderVariables {
-  return {
-    attributes: getLinkAttributeList(properties),
-    hostAttributes: hostProperties('link', properties.disabled),
-  };
-}
-
-/** Returns true, if href is set and target is _blank. */
-export function targetsNewWindow(properties: LinkProperties): boolean {
-  return !!properties.href && properties.target === '_blank';
-}
-
 /** Link base class. */
 export abstract class SbbLinkBaseElement extends LitElement implements LinkProperties {
   /** The href value you want to link to. */
@@ -94,21 +71,67 @@ export abstract class SbbLinkBaseElement extends LitElement implements LinkPrope
   /** Whether the browser will show the download dialog on click. */
   @property({ type: Boolean }) public download?: boolean;
 
-  protected language = new LanguageController(this);
-  private _handlerRepository = new HandlerRepository(this, linkHandlerAspect);
+  /**
+   * Trigger an anchor element click after the event has finished the bubbling phase and
+   * preventDefault() has not been called for the event.
+   */
+  private async _triggerAnchorWhenNecessary(event: MouseEvent): Promise<void> {
+    const target = event.target as Element;
+    const composedTarget = event.composedPath()[0] as Element;
+    // We only want to trigger a click event on the inner anchor element, if the host element is the
+    // event origin, which means the inner anchor element has not actually been activated/clicked.
+    if (
+      !target.tagName.startsWith('SBB-') ||
+      target !== composedTarget ||
+      (await isEventPrevented(event))
+    ) {
+      return;
+    }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._handlerRepository.connect();
+    // We are using dispatchEvent here, instead of just .click() in order to
+    // prevent another click event from bubbling up the DOM tree.
+    // TODO: The CTRL case does not work exactly the same as with a use interaction PointerEvent
+    //  as the newly created tab immediately receives focus, instead of remaining on the current page.
+    const { altKey, ctrlKey, metaKey, shiftKey } = event;
+    target.shadowRoot?.querySelector('a')?.dispatchEvent(
+      // We need to use a MouseEvent here, as PointerEvent does not work on Firefox.
+      new MouseEvent('click', {
+        altKey,
+        ctrlKey,
+        metaKey,
+        shiftKey,
+      }),
+    );
   }
 
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
+  /** Handle the click logic for a link element. */
+  private _handleLinkClick = (event: MouseEvent): void => {
+    if (this.getAttribute('aria-disabled') === 'true') {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      return;
+    } else if (this.href) {
+      this._triggerAnchorWhenNecessary(event);
+    }
+  };
+
+  protected language = new LanguageController(this);
+
+  public constructor() {
+    super();
+    this.addEventListener('click', this._handleLinkClick);
+    this.addEventListener('keypress', dispatchClickEventWhenEnterKeypress, { passive: true });
+  }
+
+  protected override createRenderRoot(): HTMLElement | DocumentFragment {
+    this.setAttribute('role', 'link');
+    this.setAttribute('dir', getDocumentWritingMode());
+    this.setAttribute('tabindex', '0');
+    return super.createRenderRoot();
   }
 
   protected renderTargetNewWindow(): TemplateResult | typeof nothing {
-    return targetsNewWindow(this)
+    return !!this.href && this.target === '_blank'
       ? html`
           <sbb-screenreader-only
             >. ${i18nTargetOpensInNewWindow[this.language.current]}</sbb-screenreader-only
@@ -122,8 +145,6 @@ export abstract class SbbLinkBaseElement extends LitElement implements LinkPrope
 
   /** Default render method for link-like components. Can be overridden if the LinkRenderVariables are not needed. */
   protected override render(): TemplateResult {
-    const { attributes, hostAttributes }: LinkRenderVariables = resolveLinkRenderVariables(this);
-    setAttributes(this, hostAttributes);
-    return this.renderTemplate(attributes);
+    return this.renderTemplate(getLinkAttributeList(this));
   }
 }

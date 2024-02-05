@@ -4,12 +4,10 @@ import { customElement, property } from 'lit/decorators.js';
 
 import {
   NamedSlotStateController,
-  resolveButtonRenderVariables,
-  SbbDisabledMixin,
+  SbbDisabledTabIndexActionMixin,
   SbbButtonBaseElement,
   SbbIconNameMixin,
 } from '../../core/common-behaviors';
-import { setAttributes } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import type {
   SbbCheckedStateChange,
@@ -38,7 +36,9 @@ export type SbbTagStateChange = Extract<
  * @event {CustomEvent<void>} change - Change event emitter
  */
 @customElement('sbb-tag')
-export class SbbTagElement extends SbbDisabledMixin(SbbIconNameMixin(SbbButtonBaseElement)) {
+export class SbbTagElement extends SbbIconNameMixin(
+  SbbDisabledTabIndexActionMixin(SbbButtonBaseElement),
+) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     stateChange: 'stateChange',
@@ -108,6 +108,7 @@ export class SbbTagElement extends SbbDisabledMixin(SbbIconNameMixin(SbbButtonBa
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
     if (changedProperties.has('checked')) {
       this._handleCheckedChange(this.checked, changedProperties.get('checked')!);
     }
@@ -135,6 +136,8 @@ export class SbbTagElement extends SbbDisabledMixin(SbbIconNameMixin(SbbButtonBa
   }
 
   protected renderTemplate(): TemplateResult {
+    // We have to ensure that the value is always present
+    this.setAttribute('aria-pressed', this.checked.toString());
     return html`
       <span class="sbb-tag">
         <span class="sbb-tag__icon sbb-tag--shift"> ${this.renderIconSlot()} </span>
@@ -146,15 +149,6 @@ export class SbbTagElement extends SbbDisabledMixin(SbbIconNameMixin(SbbButtonBa
         </span>
       </span>
     `;
-  }
-
-  protected override render(): TemplateResult {
-    const hostAttributes = resolveButtonRenderVariables({ disabled: this.disabled });
-    // We have to ensure that the value is always present
-    hostAttributes['aria-pressed'] = this.checked.toString();
-    setAttributes(this, hostAttributes);
-
-    return this.renderTemplate();
   }
 }
 

@@ -1,8 +1,7 @@
 import type { TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { resolveButtonRenderVariables, SbbButtonBaseElement } from '../../core/common-behaviors';
-import { setAttribute } from '../../core/dom';
+import { SbbButtonBaseElement } from '../../core/common-behaviors';
 import { SbbCardActionCommonElementMixin } from '../common/card-action-common';
 
 /**
@@ -15,15 +14,6 @@ import { SbbCardActionCommonElementMixin } from '../common/card-action-common';
 export class SbbCardButtonElement extends SbbCardActionCommonElementMixin(SbbButtonBaseElement) {
   protected renderTemplate(): TemplateResult {
     return this.renderCardActionCommonTemplate();
-  }
-
-  protected override render(): TemplateResult {
-    const hostAttributes = resolveButtonRenderVariables();
-    if (this.card) {
-      this.card.dataset.actionRole = hostAttributes.role;
-    }
-    setAttribute(this, 'slot', 'action');
-    return super.render();
   }
 }
 

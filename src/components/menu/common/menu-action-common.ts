@@ -8,18 +8,17 @@ import type {
   SbbDisabledMixinType,
   SbbIconNameMixinType,
 } from '../../core/common-behaviors';
-import { SbbDisabledMixin, SbbIconNameMixin } from '../../core/common-behaviors';
+import { SbbDisabledTabIndexActionMixin, SbbIconNameMixin } from '../../core/common-behaviors';
 
 import style from './menu-action.scss?lit&inline';
 
 export declare class SbbMenuActionCommonElementMixinType
-  implements SbbDisabledMixinType, SbbIconNameMixinType
+  implements SbbDisabledMixinType, Partial<SbbIconNameMixinType>
 {
   public amount?: string;
   public disabled: boolean;
   public iconName?: string;
-  public renderIconSlot(): TemplateResult;
-  public renderMenuActionCommonTemplate: (
+  protected renderMenuActionCommonTemplate: (
     attributes?: Record<string, string>,
     customTemplate?: TemplateResult | typeof nothing,
   ) => TemplateResult;
@@ -30,18 +29,15 @@ export const SbbMenuActionCommonElementMixin = <T extends AbstractConstructor<Li
   superClass: T,
 ): AbstractConstructor<SbbMenuActionCommonElementMixinType> & T => {
   abstract class SbbMenuActionCommonElement
-    extends SbbIconNameMixin(SbbDisabledMixin(superClass))
-    implements SbbMenuActionCommonElementMixinType
+    extends SbbIconNameMixin(SbbDisabledTabIndexActionMixin(superClass))
+    implements Partial<SbbMenuActionCommonElementMixinType>
   {
     public static styles: CSSResultGroup = style;
 
     /** Value shown as badge at component end. */
     @property() public amount: string | undefined;
 
-    /**
-     * @private
-     */
-    public renderMenuActionCommonTemplate(
+    protected renderMenuActionCommonTemplate(
       attributes?: Record<string, string>,
       customTemplate?: TemplateResult | typeof nothing,
     ): TemplateResult {
@@ -69,5 +65,6 @@ export const SbbMenuActionCommonElementMixin = <T extends AbstractConstructor<Li
       /* eslint-enable lit/binding-positions */
     }
   }
-  return SbbMenuActionCommonElement as AbstractConstructor<SbbMenuActionCommonElementMixinType> & T;
+  return SbbMenuActionCommonElement as unknown as AbstractConstructor<SbbMenuActionCommonElementMixinType> &
+    T;
 };

@@ -28,7 +28,7 @@ describe('sbb-button-static', () => {
       expect(clickSpy.count).to.be.equal(1);
     });
 
-    it('should not dispatch event on click if disabled', async () => {
+    it('should dispatch event on click if disabled', async () => {
       element.setAttribute('disabled', 'true');
 
       await waitForLitRender(element);
@@ -36,7 +36,7 @@ describe('sbb-button-static', () => {
       const clickSpy = new EventSpy('click');
 
       element.click();
-      expect(clickSpy.count).not.to.be.greaterThan(0);
+      expect(clickSpy.count).to.be.greaterThan(0);
     });
 
     it('should stop propagating host click if disabled', async () => {

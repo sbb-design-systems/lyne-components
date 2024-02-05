@@ -4,12 +4,11 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import {
   LanguageController,
-  resolveButtonRenderVariables,
   SbbNegativeMixin,
   SbbButtonBaseElement,
 } from '../../core/common-behaviors';
 import { defaultDateAdapter, type DateAdapter } from '../../core/datetime';
-import { isValidAttribute, setAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
+import { isValidAttribute, toggleDatasetEntry } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
 import { i18nNextDay, i18nSelectNextDay, i18nToday } from '../../core/i18n';
 import {
@@ -185,24 +184,25 @@ export class SbbDatepickerNextDayElement extends SbbNegativeMixin(SbbButtonBaseE
     this.setAttribute('aria-label', i18nSelectNextDay(currentDateString)[this._language.current]);
   }
 
+  protected override createRenderRoot(): HTMLElement | DocumentFragment {
+    this.setAttribute('slot', 'suffix');
+    return super.createRenderRoot();
+  }
+
   protected renderTemplate(): TemplateResult {
+    toggleDatasetEntry(this, 'disabled', this._disabled || this._inputDisabled);
+    if (isValidAttribute(this, 'data-disabled')) {
+      this.setAttribute('aria-disabled', 'true');
+      this.removeAttribute('tabindex');
+    } else {
+      this.removeAttribute('aria-disabled');
+      this.setAttribute('tabindex', '0');
+    }
     return html`
       <span class="sbb-datepicker-next-day">
         <sbb-icon name="chevron-small-right-small"></sbb-icon>
       </span>
     `;
-  }
-
-  protected override render(): TemplateResult {
-    toggleDatasetEntry(this, 'disabled', this._disabled || this._inputDisabled);
-    const hostAttributes = resolveButtonRenderVariables({
-      disabled: isValidAttribute(this, 'data-disabled'),
-    });
-
-    setAttributes(this, hostAttributes);
-    setAttribute(this, 'slot', 'suffix');
-
-    return this.renderTemplate();
   }
 }
 

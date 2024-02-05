@@ -10,7 +10,6 @@ import type {
   SbbNegativeMixinType,
 } from '../../core/common-behaviors';
 import {
-  SbbDisabledMixin,
   SbbIconNameMixin,
   SbbNegativeMixin,
   NamedSlotStateController,
@@ -24,15 +23,14 @@ import style from './link.scss?lit&inline';
 export type SbbLinkSize = 'xs' | 's' | 'm';
 
 export declare class SbbLinkCommonElementMixinType
-  implements SbbNegativeMixinType, SbbDisabledMixinType, SbbIconNameMixinType
+  implements SbbNegativeMixinType, SbbDisabledMixinType, Partial<SbbIconNameMixinType>
 {
   public variant: 'block' | 'inline';
   public size?: SbbLinkSize;
   public disabled: boolean;
   public iconName?: string;
   public negative: boolean;
-  public renderIconSlot(): TemplateResult;
-  public renderLinkCommonTemplate: (
+  protected renderLinkCommonTemplate: (
     attributes?: Record<string, string>,
     customTemplate?: TemplateResult | typeof nothing,
   ) => TemplateResult;
@@ -43,8 +41,8 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<LitEleme
   superClass: T,
 ): AbstractConstructor<SbbLinkCommonElementMixinType> & T => {
   abstract class SbbLinkCommonElement
-    extends SbbNegativeMixin(SbbDisabledMixin(SbbIconNameMixin(superClass)))
-    implements SbbLinkCommonElementMixinType
+    extends SbbNegativeMixin(SbbIconNameMixin(superClass))
+    implements Partial<SbbLinkCommonElementMixinType>
   {
     public static styles: CSSResultGroup = style;
 
@@ -66,10 +64,7 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<LitEleme
       new NamedSlotStateController(this);
     }
 
-    /**
-     * @private
-     */
-    public renderLinkCommonTemplate(
+    protected renderLinkCommonTemplate(
       attributes?: Record<string, string>,
       customTemplate?: TemplateResult | typeof nothing,
     ): TemplateResult {
@@ -90,5 +85,5 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<LitEleme
       /* eslint-enable lit/binding-positions */
     }
   }
-  return SbbLinkCommonElement as AbstractConstructor<SbbLinkCommonElementMixinType> & T;
+  return SbbLinkCommonElement as unknown as AbstractConstructor<SbbLinkCommonElementMixinType> & T;
 };

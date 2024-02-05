@@ -1,21 +1,16 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
+import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import {
   NamedSlotStateController,
-  resolveButtonRenderVariables,
-  SbbDisabledMixin,
+  SbbButtonBaseElement,
+  SbbDisabledTabIndexActionMixin,
   SbbIconNameMixin,
 } from '../../core/common-behaviors';
-import { setAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
-import {
-  buttonHandlerAspect,
-  HandlerRepository,
-  EventEmitter,
-  ConnectedAbortController,
-} from '../../core/eventing';
-import type { SbbExpansionPanelElement } from '../expansion-panel';
+import { setAttribute, toggleDatasetEntry } from '../../core/dom';
+import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
+import { type SbbExpansionPanelElement } from '../expansion-panel';
 
 import style from './expansion-panel-header.scss?lit&inline';
 import '../../icon';
@@ -28,7 +23,9 @@ import '../../icon';
  * @event {CustomEvent<void>} toggleExpanded - Notifies that the `sbb-expansion-panel` has to expand.
  */
 @customElement('sbb-expansion-panel-header')
-export class SbbExpansionPanelHeaderElement extends SbbDisabledMixin(SbbIconNameMixin(LitElement)) {
+export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
+  SbbIconNameMixin(SbbButtonBaseElement),
+) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     toggleExpanded: 'toggleExpanded',
@@ -45,20 +42,12 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledMixin(SbbIconName
   private _abort = new ConnectedAbortController(this);
   private _namedSlots = new NamedSlotStateController(this, () => this._setDataIconAttribute());
 
-  private _handlerRepository = new HandlerRepository(this, buttonHandlerAspect);
-
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
-    this._handlerRepository.connect();
     this.addEventListener('click', () => this._emitExpandedEvent(), { signal });
     this.addEventListener('mouseenter', () => this._onMouseMovement(true), { signal });
     this.addEventListener('mouseleave', () => this._onMouseMovement(false), { signal });
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
   }
 
   private _emitExpandedEvent(): void {
@@ -84,11 +73,9 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledMixin(SbbIconName
     setAttribute(this, 'data-icon', !!(this.iconName || this._namedSlots.slots.has('icon')));
   }
 
-  protected override render(): TemplateResult {
-    setAttributes(this, resolveButtonRenderVariables({ disabled: this.disabled }));
+  protected renderTemplate(): TemplateResult {
     setAttribute(this, 'slot', 'header');
     this._setDataIconAttribute();
-
     return html`
       <span class="sbb-expansion-panel-header">
         <span class="sbb-expansion-panel-header__title">

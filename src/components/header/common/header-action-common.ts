@@ -11,11 +11,12 @@ import { AgnosticResizeObserver } from '../../core/observers';
 
 import style from './header-action.scss?lit&inline';
 
-export declare class SbbHeaderActionCommonElementMixinType implements SbbIconNameMixinType {
+export declare class SbbHeaderActionCommonElementMixinType
+  implements Partial<SbbIconNameMixinType>
+{
   public expandFrom: SbbHorizontalFrom;
   public iconName?: string;
-  public renderIconSlot(): TemplateResult;
-  public renderHeaderActionCommonTemplate(
+  protected renderHeaderActionCommonTemplate(
     attributes?: Record<string, string>,
     customTemplate?: TemplateResult | typeof nothing,
   ): TemplateResult;
@@ -27,7 +28,7 @@ export const SbbHeaderActionCommonElementMixin = <T extends AbstractConstructor<
 ): AbstractConstructor<SbbHeaderActionCommonElementMixinType> & T => {
   abstract class SbbHeaderActionCommonElement
     extends SbbIconNameMixin(superClass)
-    implements SbbHeaderActionCommonElementMixinType
+    implements Partial<SbbHeaderActionCommonElementMixinType>
   {
     public static styles: CSSResultGroup = style;
 
@@ -63,10 +64,7 @@ export const SbbHeaderActionCommonElementMixin = <T extends AbstractConstructor<
       this._documentResizeObserver.disconnect();
     }
 
-    /**
-     * @private
-     */
-    public renderHeaderActionCommonTemplate(
+    protected renderHeaderActionCommonTemplate(
       attributes?: Record<string, string>,
       customTemplate?: TemplateResult | typeof nothing,
     ): TemplateResult {
@@ -89,6 +87,6 @@ export const SbbHeaderActionCommonElementMixin = <T extends AbstractConstructor<
       /* eslint-enable lit/binding-positions */
     }
   }
-  return SbbHeaderActionCommonElement as AbstractConstructor<SbbHeaderActionCommonElementMixinType> &
+  return SbbHeaderActionCommonElement as unknown as AbstractConstructor<SbbHeaderActionCommonElementMixinType> &
     T;
 };

@@ -4,12 +4,11 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import {
   LanguageController,
-  resolveButtonRenderVariables,
   SbbNegativeMixin,
   SbbButtonBaseElement,
 } from '../../core/common-behaviors';
 import { defaultDateAdapter, type DateAdapter } from '../../core/datetime';
-import { isValidAttribute, setAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
+import { isValidAttribute, toggleDatasetEntry } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
 import { i18nPreviousDay, i18nSelectPreviousDay, i18nToday } from '../../core/i18n';
 import {
@@ -188,23 +187,25 @@ export class SbbDatepickerPreviousDayElement extends SbbNegativeMixin(SbbButtonB
     );
   }
 
+  protected override createRenderRoot(): HTMLElement | DocumentFragment {
+    this.setAttribute('slot', 'prefix');
+    return super.createRenderRoot();
+  }
+
   protected renderTemplate(): TemplateResult {
+    toggleDatasetEntry(this, 'disabled', this._disabled || this._inputDisabled);
+    if (isValidAttribute(this, 'data-disabled')) {
+      this.setAttribute('aria-disabled', 'true');
+      this.removeAttribute('tabindex');
+    } else {
+      this.removeAttribute('aria-disabled');
+      this.setAttribute('tabindex', '0');
+    }
     return html`
       <span class="sbb-datepicker-previous-day">
         <sbb-icon name="chevron-small-left-small"></sbb-icon>
       </span>
     `;
-  }
-
-  protected override render(): TemplateResult {
-    toggleDatasetEntry(this, 'disabled', this._disabled || this._inputDisabled);
-    setAttributes(
-      this,
-      resolveButtonRenderVariables({ disabled: isValidAttribute(this, 'data-disabled') }),
-    );
-    setAttribute(this, 'slot', 'prefix');
-
-    return this.renderTemplate();
   }
 }
 

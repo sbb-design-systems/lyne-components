@@ -1,12 +1,7 @@
 import { type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import {
-  type LinkRenderVariables,
-  resolveLinkRenderVariables,
-  SbbLinkBaseElement,
-} from '../../core/common-behaviors';
-import { setAttribute } from '../../core/dom';
+import { SbbLinkBaseElement } from '../../core/common-behaviors';
 import { SbbCardActionCommonElementMixin } from '../common/card-action-common';
 
 /**
@@ -19,15 +14,6 @@ import { SbbCardActionCommonElementMixin } from '../common/card-action-common';
 export class SbbCardLinkElement extends SbbCardActionCommonElementMixin(SbbLinkBaseElement) {
   protected renderTemplate(attributes: Record<string, string>): TemplateResult {
     return this.renderCardActionCommonTemplate(attributes, this.renderTargetNewWindow());
-  }
-
-  protected override render(): TemplateResult {
-    const { hostAttributes }: LinkRenderVariables = resolveLinkRenderVariables(this);
-    if (this.card) {
-      this.card.dataset.actionRole = hostAttributes.role;
-    }
-    setAttribute(this, 'slot', 'action');
-    return super.render();
   }
 }
 

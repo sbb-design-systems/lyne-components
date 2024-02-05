@@ -1,14 +1,13 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement, html, nothing } from 'lit';
+import { html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import {
-  resolveButtonRenderVariables,
-  SbbDisabledMixin,
+  SbbButtonBaseElement,
+  SbbDisabledTabIndexActionMixin,
   SbbNegativeMixin,
 } from '../../core/common-behaviors';
-import { hostContext, isValidAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
-import { HandlerRepository, buttonHandlerAspect } from '../../core/eventing';
+import { hostContext, isValidAttribute, toggleDatasetEntry } from '../../core/dom';
 
 import style from './popover-trigger.scss?lit&inline';
 import '../../icon';
@@ -19,11 +18,10 @@ import '../../icon';
  * @slot - Use the unnamed slot to add content to the `sbb-popover-trigger`.
  */
 @customElement('sbb-popover-trigger')
-export class SbbPopoverTriggerElement extends SbbDisabledMixin(SbbNegativeMixin(LitElement)) {
+export class SbbPopoverTriggerElement extends SbbDisabledTabIndexActionMixin(
+  SbbNegativeMixin(SbbButtonBaseElement),
+) {
   public static override styles: CSSResultGroup = style;
-
-  /** The name attribute to use for the button. */
-  @property({ reflect: true }) public name: string | undefined;
 
   /**
    * The icon name we want to use, choose from the small icon variants
@@ -32,11 +30,8 @@ export class SbbPopoverTriggerElement extends SbbDisabledMixin(SbbNegativeMixin(
    */
   @property({ attribute: 'icon-name' }) public iconName = 'circle-information-small';
 
-  private _handlerRepository = new HandlerRepository(this, buttonHandlerAspect);
-
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._handlerRepository.connect();
     const formField = hostContext('sbb-form-field', this) ?? hostContext('[data-form-field]', this);
 
     if (formField) {
@@ -45,14 +40,7 @@ export class SbbPopoverTriggerElement extends SbbDisabledMixin(SbbNegativeMixin(
     }
   }
 
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
-  }
-
-  protected override render(): TemplateResult {
-    setAttributes(this, resolveButtonRenderVariables({ disabled: this.disabled }));
-
+  protected renderTemplate(): TemplateResult {
     return html`
       <span class="sbb-popover-trigger">
         <slot>${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}</slot>

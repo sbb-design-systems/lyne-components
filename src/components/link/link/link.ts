@@ -1,7 +1,7 @@
 import type { TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbLinkBaseElement } from '../../core/common-behaviors';
+import { SbbDisabledTabIndexActionMixin, SbbLinkBaseElement } from '../../core/common-behaviors';
 import '../../icon';
 import { SbbLinkCommonElementMixin } from '../common/link-common';
 
@@ -12,7 +12,9 @@ import { SbbLinkCommonElementMixin } from '../common/link-common';
  * @slot icon - Slot used to display the icon, if one is set.
  */
 @customElement('sbb-link')
-export class SbbLinkElement extends SbbLinkCommonElementMixin(SbbLinkBaseElement) {
+export class SbbLinkElement extends SbbLinkCommonElementMixin(
+  SbbDisabledTabIndexActionMixin(SbbLinkBaseElement),
+) {
   protected renderTemplate(attributes: Record<string, string>): TemplateResult {
     return this.renderLinkCommonTemplate(attributes, this.renderTargetNewWindow());
   }
