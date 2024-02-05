@@ -98,6 +98,12 @@ const containerContent = (title: string): TemplateResult => html`
   <sbb-button variant="secondary" style="margin-block-end: 0.75rem;">See more</sbb-button>
 `;
 
+const containerContentChromatic = (title: string): TemplateResult => html`
+  <sbb-title level="4">${title}</sbb-title>
+  <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
+  <sbb-button variant="secondary" style="margin-block-end: 0.75rem;" size="m">See more</sbb-button>
+`;
+
 const Template = (): TemplateResult =>
   html` <sbb-sticky-bar>
     <sbb-button variant="secondary">Example</sbb-button>
@@ -129,7 +135,9 @@ const ShortTemplate = ({
   ...args
 }: Args): TemplateResult => html`
   <sbb-container ${sbbSpread(args)} color=${containerColor}>
-    ${containerContent('Example title')}
+    ${isChromatic()
+      ? containerContentChromatic('Example title')
+      : containerContent('Example title')}
 
     <sbb-sticky-bar
       color=${color !== 'unset' ? color : nothing}
@@ -172,6 +180,17 @@ export const Standalone: StoryObj = {
   render: Template,
 };
 
+export const ShortContent: StoryObj = {
+  render: ShortTemplate,
+  argTypes: defaultArgTypes,
+  args: defaultArgs,
+};
+export const ShortContentMilk: StoryObj = {
+  render: ShortTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, containerColor: 'milk' },
+};
+
 export const Default: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
@@ -182,12 +201,6 @@ export const Expanded: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, expanded: true },
-};
-
-export const ShortContent: StoryObj = {
-  render: ShortTemplate,
-  argTypes: defaultArgTypes,
-  args: defaultArgs,
 };
 
 export const White: StoryObj = {
