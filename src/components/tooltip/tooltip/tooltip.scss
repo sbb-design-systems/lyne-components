@@ -129,6 +129,7 @@
   outline: none;
   background-color: var(--sbb-tooltip-background);
   overflow: hidden;
+  flex-direction: row-reverse;
 
   :host([data-position='above']) & {
     &::before {

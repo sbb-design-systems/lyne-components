@@ -57,43 +57,29 @@ export class SbbTooltipElement extends LitElement {
    */
   @property() public trigger?: string | HTMLElement;
 
-  /**
-   * Whether the close button should be hidden.
-   */
+  /** Whether the close button should be hidden. */
   @property({ attribute: 'hide-close-button', type: Boolean }) public hideCloseButton?: boolean =
     false;
 
-  /**
-   * Whether the tooltip should be triggered on hover.
-   */
+  /** Whether the tooltip should be triggered on hover. */
   @property({ attribute: 'hover-trigger', type: Boolean }) public hoverTrigger: boolean = false;
 
-  /**
-   * Open the tooltip after a certain delay.
-   */
+  /** Open the tooltip after a certain delay. */
   @property({ attribute: 'open-delay', type: Number }) public openDelay? = 0;
 
-  /**
-   * Close the tooltip after a certain delay.
-   */
+  /** Close the tooltip after a certain delay. */
   @property({ attribute: 'close-delay', type: Number }) public closeDelay? = 0;
 
-  /**
-   * Whether the animation is enabled.
-   */
+  /** Whether the animation is enabled. */
   @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
   public disableAnimation = false;
 
-  /**
-   * This will be forwarded as aria-label to the close button element.
-   */
+  /** This will be forwarded as aria-label to the close button element. */
   @property({ attribute: 'accessibility-close-label' }) public accessibilityCloseLabel:
     | string
     | undefined;
 
-  /**
-   * The state of the tooltip.
-   */
+  /** The state of the tooltip. */
   private set _state(state: SbbOverlayState) {
     if (!this.dataset) {
       return;
@@ -104,9 +90,7 @@ export class SbbTooltipElement extends LitElement {
     return this.dataset.state as SbbOverlayState;
   }
 
-  /**
-   * The alignment of the tooltip relative to the trigger.
-   */
+  /** The alignment of the tooltip relative to the trigger. */
   @state() private _alignment?: Alignment;
 
   /** Emits whenever the `sbb-tooltip` starts the opening transition. */
@@ -131,6 +115,7 @@ export class SbbTooltipElement extends LitElement {
   private _triggerElement?: HTMLElement | null;
   // The element which should receive focus after closing based on where in the backdrop the user clicks.
   private _nextFocusedElement?: HTMLElement;
+  private _skipCloseFocus: boolean = false;
   private _tooltipCloseElement?: HTMLElement;
   private _isPointerDownEventOnTooltip?: boolean;
   private _tooltipController!: AbortController;
@@ -142,9 +127,7 @@ export class SbbTooltipElement extends LitElement {
   private _tooltipId = `sbb-tooltip-${++nextId}`;
   private _language = new LanguageController(this);
 
-  /**
-   * Opens the tooltip on trigger click.
-   */
+  /** Opens the tooltip on trigger click. */
   public open(): void {
     if ((this._state !== 'closed' && this._state !== 'closing') || !this._overlay) {
       return;
@@ -167,11 +150,10 @@ export class SbbTooltipElement extends LitElement {
     this._setTooltipPosition();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
     this._nextFocusedElement = undefined;
+    this._skipCloseFocus = false;
   }
 
-  /**
-   * Closes the tooltip.
-   */
+  /** Closes the tooltip. */
   public close(target?: HTMLElement): void {
     if (this._state !== 'opened' && this._state !== 'opening') {
       return;
@@ -402,11 +384,14 @@ export class SbbTooltipElement extends LitElement {
       this._overlay?.firstElementChild?.scrollTo(0, 0);
       this._overlay?.removeAttribute('tabindex');
 
-      const elementToFocus = this._nextFocusedElement || this._triggerElement;
+      if (!this._skipCloseFocus) {
+        const elementToFocus = this._nextFocusedElement || this._triggerElement;
 
-      setModalityOnNextFocus(elementToFocus);
-      // To enable focusing other element than the trigger, we need to call focus() a second time.
-      elementToFocus?.focus();
+        setModalityOnNextFocus(elementToFocus);
+        // To enable focusing other element than the trigger, we need to call focus() a second time.
+        elementToFocus?.focus();
+      }
+
       this._didClose.emit({ closeTarget: this._tooltipCloseElement });
       this._windowEventsController?.abort();
       this._focusHandler.disconnect();
@@ -434,15 +419,13 @@ export class SbbTooltipElement extends LitElement {
     }
   }
 
-  private _blurListener = (event: FocusEvent): void => {
+  private _blurListener = (): void => {
     // When a blur occurs, we know that the tooltip has to be closed, because there are no interactive elements inside the tooltip.
     // We have to ensure that window / tab change doesn't trigger closing. This can be achieved by checking visibilityState, which only works with setTimeout().
     setTimeout(() => {
       if (document.visibilityState !== 'hidden') {
         this._overlay?.removeAttribute('tabindex');
-        if (event.relatedTarget instanceof HTMLElement) {
-          this._nextFocusedElement = event.relatedTarget;
-        }
+        this._skipCloseFocus = true;
         this.close();
       }
     });
@@ -507,10 +490,10 @@ export class SbbTooltipElement extends LitElement {
             @click=${(event: Event) => this._closeOnSbbTooltipCloseClick(event)}
             class="sbb-tooltip__content"
           >
+            ${!this.hideCloseButton && !this._hoverTrigger ? closeButton : nothing}
             <span>
               <slot>No content</slot>
             </span>
-            ${!this.hideCloseButton && !this._hoverTrigger ? closeButton : nothing}
           </div>
         </div>
       </div>

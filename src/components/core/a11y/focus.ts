@@ -78,6 +78,7 @@ export class FocusHandler {
 
   /**
    * @param element in which the focus should be trapped.
+   * @param options options object.
    * @param options.filter filter function which is applied during searching for focusable element. If an element is filtered, also child elements are filtered.
    * @param options.postFilter filter function which is applied after collecting focusable elements.
    */
@@ -105,6 +106,11 @@ export class FocusHandler {
         const filteredFocusableElements = focusableElements.filter(
           options?.postFilter ?? (() => true),
         );
+
+        if (!filteredFocusableElements.length) {
+          return;
+        }
+
         const firstFocusable = filteredFocusableElements[0] as HTMLElement;
         const lastFocusable = filteredFocusableElements[
           filteredFocusableElements.length - 1
