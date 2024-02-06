@@ -12,8 +12,9 @@ describe('sbb-calendar', () => {
   const selected = new Date(2023, 0, 15).getTime() / 1000;
   let element: SbbCalendarElement;
   const waitForTransition = async (): Promise<void> => {
-    await waitForCondition(() => element.hasAttribute('data-transition') === true);
-    await waitForCondition(() => element.hasAttribute('data-transition') === false);
+    await waitForCondition(() => element.hasAttribute('data-transition'));
+    await waitForLitRender(element);
+    await waitForCondition(() => !element.hasAttribute('data-transition'));
   };
 
   beforeEach(async () => {
