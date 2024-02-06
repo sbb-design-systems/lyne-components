@@ -18,22 +18,22 @@ import { waitForComponentsReady } from '../../../storybook/testing/wait-for-comp
 import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
 import { sbbSpread } from '../../core/dom';
 
+import { SbbPopoverElement } from './popover';
 import readme from './readme.md?raw';
-import { SbbTooltipElement } from './tooltip';
 import '../../link';
 import '../../title';
-import '../tooltip-trigger';
+import '../popover-trigger';
 
 async function commonPlayStory(canvasElement: HTMLElement): Promise<Element> {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
-    canvas.getByTestId('tooltip').shadowRoot!.querySelector('.sbb-tooltip'),
+    canvas.getByTestId('popover').shadowRoot!.querySelector('.sbb-popover'),
   );
 
-  await waitForStablePosition(() => canvas.getByTestId('tooltip-trigger'));
+  await waitForStablePosition(() => canvas.getByTestId('popover-trigger'));
 
-  return canvas.getByTestId('tooltip-trigger');
+  return canvas.getByTestId('popover-trigger');
 }
 
 // Story interaction executed after the story renders
@@ -92,23 +92,23 @@ const defaultArgs: Args = {
   'disable-animation': isChromatic(),
 };
 
-const tooltipTrigger = (position: Record<string, string>): TemplateResult => html`
-  <sbb-tooltip-trigger
-    data-testid="tooltip-trigger"
+const popoverTrigger = (position: Record<string, string>): TemplateResult => html`
+  <sbb-popover-trigger
+    data-testid="popover-trigger"
     style=${styleMap({
       'margin-inline': '2rem',
       position: 'absolute',
       cursor: 'pointer',
       ...position,
     })}
-    id="tooltip-trigger"
-  ></sbb-tooltip-trigger>
+    id="popover-trigger"
+  ></sbb-popover-trigger>
 `;
 
-const tooltip = (args: Args): TemplateResult => html`
-  <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger" ${sbbSpread(args)}>
+const popover = (args: Args): TemplateResult => html`
+  <sbb-popover data-testid="popover" trigger="popover-trigger" ${sbbSpread(args)}>
     <sbb-title level="2" visual-level="6" style="margin-block-start: 0">
-      Simple tooltip with link.
+      Simple popover with link.
     </sbb-title>
     <p style="margin: 0" class="sbb-text-s">
       Some content.
@@ -117,72 +117,72 @@ const tooltip = (args: Args): TemplateResult => html`
         variant="block"
         icon-name="chevron-small-right-small"
         icon-placement="end"
-        sbb-tooltip-close
+        sbb-popover-close
       >
         Learn More
       </sbb-link>
     </p>
-  </sbb-tooltip>
+  </sbb-popover>
 `;
 
-const simpleTooltip = (args: Args): TemplateResult => html`
-  <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger" ${sbbSpread(args)}>
+const simplePopover = (args: Args): TemplateResult => html`
+  <sbb-popover data-testid="popover" trigger="popover-trigger" ${sbbSpread(args)}>
     <sbb-title level="2" visual-level="6" style="margin-block-start: 0">
-      Simple tooltip without any interactive content but a list.
+      Simple popover without any interactive content but a list.
     </sbb-title>
     <ul aria-label="Colors">
       <li>Red</li>
       <li>Green</li>
       <li>Blue</li>
     </ul>
-  </sbb-tooltip>
+  </sbb-popover>
 `;
 
 const StartBelowTemplate = (args: Args): TemplateResult => html`
-  ${tooltipTrigger({ 'inset-inline-start': '2rem' })} ${tooltip(args)}
+  ${popoverTrigger({ 'inset-inline-start': '2rem' })} ${popover(args)}
 `;
 
 const CenterBelowTemplate = (args: Args): TemplateResult => html`
-  ${tooltipTrigger({ 'inset-inline-start': 'calc(50% - 44px)' })} ${tooltip(args)}
+  ${popoverTrigger({ 'inset-inline-start': 'calc(50% - 44px)' })} ${popover(args)}
 `;
 
 const EndBelowTemplate = (args: Args): TemplateResult => html`
-  ${tooltipTrigger({ 'inset-inline-end': '2rem' })} ${tooltip(args)}
+  ${popoverTrigger({ 'inset-inline-end': '2rem' })} ${popover(args)}
 `;
 
 const StartAboveTemplate = (args: Args): TemplateResult => html`
-  ${tooltipTrigger({ 'inset-block-end': '2rem' })} ${tooltip(args)}
+  ${popoverTrigger({ 'inset-block-end': '2rem' })} ${popover(args)}
 `;
 
 const CenterAboveTemplate = (args: Args): TemplateResult => html`
-  ${tooltipTrigger({ 'inset-inline-start': 'calc(50% - 44px)', 'inset-block-end': '2rem' })}
-  ${tooltip(args)}
+  ${popoverTrigger({ 'inset-inline-start': 'calc(50% - 44px)', 'inset-block-end': '2rem' })}
+  ${popover(args)}
 `;
 
 const EndAboveTemplate = (args: Args): TemplateResult => html`
-  ${tooltipTrigger({ 'inset-inline-end': '2rem', 'inset-block-end': '2rem' })} ${tooltip(args)}
+  ${popoverTrigger({ 'inset-inline-end': '2rem', 'inset-block-end': '2rem' })} ${popover(args)}
 `;
 
 const LongContentTemplate = (args: Args): TemplateResult => html`
-  ${tooltipTrigger({ 'inset-inline-start': '2rem' })}
-  <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger" ${sbbSpread(args)}>
+  ${popoverTrigger({ 'inset-inline-start': '2rem' })}
+  <sbb-popover data-testid="popover" trigger="popover-trigger" ${sbbSpread(args)}>
     <sbb-title level="2" visual-level="6" style="margin-block-start: 0">
-      Tooltip with long content.
+      Popover with long content.
     </sbb-title>
     <p style="margin: 0;" class="sbb-text-s">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
       labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
       laboris nisi ut aliquip ex ea commodo consequat.
     </p>
-  </sbb-tooltip>
+  </sbb-popover>
 `;
 
 const HoverTriggerTemplate = (args: Args): TemplateResult => html`
-  ${tooltipTrigger({ 'inset-inline-start': '2rem' })} ${tooltip(args)}
+  ${popoverTrigger({ 'inset-inline-start': '2rem' })} ${popover(args)}
 `;
 
 const WithoutCloseButtonTemplate = (args: Args): TemplateResult => html`
-  ${tooltipTrigger({ 'inset-inline-start': '2rem' })} ${simpleTooltip(args)}
+  ${popoverTrigger({ 'inset-inline-start': '2rem' })} ${simplePopover(args)}
 `;
 
 export const StartBelow: StoryObj = {
@@ -280,10 +280,10 @@ const meta: Meta = {
     chromatic: { disableSnapshot: false },
     actions: {
       handles: [
-        SbbTooltipElement.events.willOpen,
-        SbbTooltipElement.events.didOpen,
-        SbbTooltipElement.events.didClose,
-        SbbTooltipElement.events.willClose,
+        SbbPopoverElement.events.willOpen,
+        SbbPopoverElement.events.didOpen,
+        SbbPopoverElement.events.didClose,
+        SbbPopoverElement.events.willClose,
       ],
     },
     backgrounds: {
@@ -295,7 +295,7 @@ const meta: Meta = {
     },
     layout: 'fullscreen',
   },
-  title: 'components/sbb-tooltip/sbb-tooltip',
+  title: 'components/sbb-popover/sbb-popover',
 };
 
 export default meta;

@@ -12,7 +12,7 @@ import {
 import { LanguageController } from '../../core/common-behaviors';
 import { findReferencedElement, isValidAttribute, setAttribute } from '../../core/dom';
 import { composedPathHasAttribute, EventEmitter } from '../../core/eventing';
-import { i18nCloseTooltip } from '../../core/i18n';
+import { i18nClosePopover } from '../../core/i18n';
 import type { SbbOverlayState } from '../../core/overlay';
 import {
   getElementPosition,
@@ -22,26 +22,26 @@ import {
 } from '../../core/overlay';
 import '../../button';
 
-import style from './tooltip.scss?lit&inline';
+import style from './popover.scss?lit&inline';
 
 const VERTICAL_OFFSET = 16;
 const HORIZONTAL_OFFSET = 32;
 
 let nextId = 0;
 
-const tooltipsRef = new Set<SbbTooltipElement>();
+const popoversRef = new Set<SbbPopoverElement>();
 
 /**
- * It displays contextual information within a tooltip.
+ * It displays contextual information within a popover.
  *
- * @slot - Use the unnamed slot to add content into the tooltip.
- * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-tooltip` starts the opening transition. Can be canceled.
- * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-tooltip` is opened.
- * @event {CustomEvent<{ closeTarget: HTMLElement }>} willClose - Emits whenever the `sbb-tooltip` begins the closing transition. Can be canceled.
- * @event {CustomEvent<{ closeTarget: HTMLElement }>} didClose - Emits whenever the `sbb-tooltip` is closed.
+ * @slot - Use the unnamed slot to add content into the popover.
+ * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-popover` starts the opening transition. Can be canceled.
+ * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-popover` is opened.
+ * @event {CustomEvent<{ closeTarget: HTMLElement }>} willClose - Emits whenever the `sbb-popover` begins the closing transition. Can be canceled.
+ * @event {CustomEvent<{ closeTarget: HTMLElement }>} didClose - Emits whenever the `sbb-popover` is closed.
  */
-@customElement('sbb-tooltip')
-export class SbbTooltipElement extends LitElement {
+@customElement('sbb-popover')
+export class SbbPopoverElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -51,7 +51,7 @@ export class SbbTooltipElement extends LitElement {
   } as const;
 
   /**
-   * The element that will trigger the tooltip overlay.
+   * The element that will trigger the popover overlay.
    * Accepts both a string (id of an element) or an HTML element.
    */
   @property() public trigger?: string | HTMLElement;
@@ -60,13 +60,13 @@ export class SbbTooltipElement extends LitElement {
   @property({ attribute: 'hide-close-button', type: Boolean }) public hideCloseButton?: boolean =
     false;
 
-  /** Whether the tooltip should be triggered on hover. */
+  /** Whether the popover should be triggered on hover. */
   @property({ attribute: 'hover-trigger', type: Boolean }) public hoverTrigger: boolean = false;
 
-  /** Open the tooltip after a certain delay. */
+  /** Open the popover after a certain delay. */
   @property({ attribute: 'open-delay', type: Number }) public openDelay? = 0;
 
-  /** Close the tooltip after a certain delay. */
+  /** Close the popover after a certain delay. */
   @property({ attribute: 'close-delay', type: Number }) public closeDelay? = 0;
 
   /** Whether the animation is enabled. */
@@ -78,7 +78,7 @@ export class SbbTooltipElement extends LitElement {
     | string
     | undefined;
 
-  /** The state of the tooltip. */
+  /** The state of the popover. */
   private set _state(state: SbbOverlayState) {
     if (!this.dataset) {
       return;
@@ -89,22 +89,22 @@ export class SbbTooltipElement extends LitElement {
     return this.dataset.state as SbbOverlayState;
   }
 
-  /** Emits whenever the `sbb-tooltip` starts the opening transition. */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbTooltipElement.events.willOpen);
+  /** Emits whenever the `sbb-popover` starts the opening transition. */
+  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbPopoverElement.events.willOpen);
 
-  /** Emits whenever the `sbb-tooltip` is opened. */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbTooltipElement.events.didOpen);
+  /** Emits whenever the `sbb-popover` is opened. */
+  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbPopoverElement.events.didOpen);
 
-  /** Emits whenever the `sbb-tooltip` begins the closing transition. */
+  /** Emits whenever the `sbb-popover` begins the closing transition. */
   private _willClose: EventEmitter<{ closeTarget?: HTMLElement }> = new EventEmitter(
     this,
-    SbbTooltipElement.events.willClose,
+    SbbPopoverElement.events.willClose,
   );
 
-  /** Emits whenever the `sbb-tooltip` is closed. */
+  /** Emits whenever the `sbb-popover` is closed. */
   private _didClose: EventEmitter<{ closeTarget?: HTMLElement }> = new EventEmitter(
     this,
-    SbbTooltipElement.events.didClose,
+    SbbPopoverElement.events.didClose,
   );
 
   private _overlay!: HTMLDivElement;
@@ -112,9 +112,9 @@ export class SbbTooltipElement extends LitElement {
   // The element which should receive focus after closing based on where in the backdrop the user clicks.
   private _nextFocusedElement?: HTMLElement;
   private _skipCloseFocus: boolean = false;
-  private _tooltipCloseElement?: HTMLElement;
-  private _isPointerDownEventOnTooltip?: boolean;
-  private _tooltipController!: AbortController;
+  private _popoverCloseElement?: HTMLElement;
+  private _isPointerDownEventOnPopover?: boolean;
+  private _popoverController!: AbortController;
   private _windowEventsController!: AbortController;
   private _focusHandler = new FocusHandler();
   private _hoverTrigger = false;
@@ -122,7 +122,7 @@ export class SbbTooltipElement extends LitElement {
   private _closeTimeout?: ReturnType<typeof setTimeout>;
   private _language = new LanguageController(this);
 
-  /** Opens the tooltip on trigger click. */
+  /** Opens the popover on trigger click. */
   public open(): void {
     if ((this._state !== 'closed' && this._state !== 'closing') || !this._overlay) {
       return;
@@ -132,29 +132,29 @@ export class SbbTooltipElement extends LitElement {
       return;
     }
 
-    // Close the other tooltips
-    for (const tooltip of Array.from(tooltipsRef)) {
-      const state = tooltip.getAttribute('data-state') as SbbOverlayState;
+    // Close the other popovers
+    for (const popover of Array.from(popoversRef)) {
+      const state = popover.getAttribute('data-state') as SbbOverlayState;
       if (state && (state === 'opened' || state === 'opening')) {
-        tooltip.close();
+        popover.close();
       }
     }
 
     this._state = 'opening';
     this.inert = true;
-    this._setTooltipPosition();
+    this._setPopoverPosition();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
     this._nextFocusedElement = undefined;
     this._skipCloseFocus = false;
   }
 
-  /** Closes the tooltip. */
+  /** Closes the popover. */
   public close(target?: HTMLElement): void {
     if (this._state !== 'opened' && this._state !== 'opening') {
       return;
     }
 
-    this._tooltipCloseElement = target;
+    this._popoverCloseElement = target;
     if (!this._willClose.emit({ closeTarget: target })) {
       return;
     }
@@ -164,7 +164,7 @@ export class SbbTooltipElement extends LitElement {
     this._triggerElement?.setAttribute('aria-expanded', 'false');
   }
 
-  // Closes the tooltip on "Esc" key pressed and traps focus within the tooltip.
+  // Closes the popover on "Esc" key pressed and traps focus within the popover.
   private _onKeydownEvent(event: KeyboardEvent): void {
     if (this._state !== 'opened') {
       return;
@@ -182,7 +182,7 @@ export class SbbTooltipElement extends LitElement {
     oldValue?: string | HTMLElement,
   ): void {
     if (newValue !== oldValue) {
-      this._tooltipController?.abort();
+      this._popoverController?.abort();
       this._windowEventsController?.abort();
       this._configure();
     }
@@ -191,13 +191,13 @@ export class SbbTooltipElement extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     if (!this.id) {
-      this.id = this.id || `sbb-tooltip-${++nextId}`;
+      this.id = this.id || `sbb-popover-${++nextId}`;
     }
 
     // Validate trigger element and attach event listeners
     this._configure();
     this._state = 'closed';
-    tooltipsRef.add(this as SbbTooltipElement);
+    popoversRef.add(this as SbbPopoverElement);
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -219,10 +219,10 @@ export class SbbTooltipElement extends LitElement {
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._tooltipController?.abort();
+    this._popoverController?.abort();
     this._windowEventsController?.abort();
     this._focusHandler.disconnect();
-    tooltipsRef.delete(this as SbbTooltipElement);
+    popoversRef.delete(this as SbbPopoverElement);
   }
 
   // Check if the trigger is valid and attach click event listeners.
@@ -246,15 +246,15 @@ export class SbbTooltipElement extends LitElement {
     // all non-touchscreen devices.
     this._hoverTrigger = this.hoverTrigger && !window.matchMedia('(pointer: coarse)').matches;
 
-    this._tooltipController?.abort();
-    this._tooltipController = new AbortController();
+    this._popoverController?.abort();
+    this._popoverController = new AbortController();
     if (this._hoverTrigger) {
       this._triggerElement.addEventListener('mouseenter', this._onTriggerMouseEnter, {
-        signal: this._tooltipController.signal,
+        signal: this._popoverController.signal,
       });
 
       this._triggerElement.addEventListener('mouseleave', this._onTriggerMouseLeave, {
-        signal: this._tooltipController.signal,
+        signal: this._popoverController.signal,
       });
 
       this._triggerElement.addEventListener(
@@ -265,7 +265,7 @@ export class SbbTooltipElement extends LitElement {
           }
         },
         {
-          signal: this._tooltipController.signal,
+          signal: this._popoverController.signal,
         },
       );
     } else {
@@ -275,7 +275,7 @@ export class SbbTooltipElement extends LitElement {
           this._state === 'closed' && this.open();
         },
         {
-          signal: this._tooltipController.signal,
+          signal: this._popoverController.signal,
         },
       );
     }
@@ -283,11 +283,11 @@ export class SbbTooltipElement extends LitElement {
 
   private _attachWindowEvents(): void {
     this._windowEventsController = new AbortController();
-    document.addEventListener('scroll', () => this._setTooltipPosition(), {
+    document.addEventListener('scroll', () => this._setPopoverPosition(), {
       passive: true,
       signal: this._windowEventsController.signal,
     });
-    window.addEventListener('resize', () => this._setTooltipPosition(), {
+    window.addEventListener('resize', () => this._setPopoverPosition(), {
       passive: true,
       signal: this._windowEventsController.signal,
     });
@@ -295,7 +295,7 @@ export class SbbTooltipElement extends LitElement {
       signal: this._windowEventsController.signal,
     });
 
-    // Close tooltip on backdrop click
+    // Close popover on backdrop click
     window.addEventListener('pointerdown', this._pointerDownListener, {
       signal: this._windowEventsController.signal,
     });
@@ -304,9 +304,9 @@ export class SbbTooltipElement extends LitElement {
     });
   }
 
-  // Close the tooltip on click of any element that has the 'sbb-tooltip-close' attribute.
-  private _closeOnSbbTooltipCloseClick(event: Event): void {
-    const closeElement = composedPathHasAttribute(event, 'sbb-tooltip-close', this);
+  // Close the popover on click of any element that has the 'sbb-popover-close' attribute.
+  private _closeOnSbbPopoverCloseClick(event: Event): void {
+    const closeElement = composedPathHasAttribute(event, 'sbb-popover-close', this);
 
     if (closeElement && !isValidAttribute(closeElement, 'disabled')) {
       clearTimeout(this._closeTimeout);
@@ -314,14 +314,14 @@ export class SbbTooltipElement extends LitElement {
     }
   }
 
-  // Check if the pointerdown event target is triggered on the tooltip.
+  // Check if the pointerdown event target is triggered on the popover.
   private _pointerDownListener = (event: PointerEvent): void => {
-    this._isPointerDownEventOnTooltip = isEventOnElement(this._overlay, event);
+    this._isPointerDownEventOnPopover = isEventOnElement(this._overlay, event);
   };
 
-  // Close tooltip on backdrop click.
+  // Close popover on backdrop click.
   private _closeOnBackdropClick = (event: PointerEvent): void => {
-    if (!this._isPointerDownEventOnTooltip && !isEventOnElement(this._overlay, event)) {
+    if (!this._isPointerDownEventOnPopover && !isEventOnElement(this._overlay, event)) {
       this._nextFocusedElement = event
         .composedPath()
         .filter((el) => el instanceof window.HTMLElement)
@@ -359,16 +359,16 @@ export class SbbTooltipElement extends LitElement {
     }
   };
 
-  // Set tooltip position (x, y) to '0' once the tooltip is closed and the transition ended to prevent the
-  // viewport from overflowing. And set the focus to the first focusable element once the tooltip is open.
+  // Set popover position (x, y) to '0' once the popover is closed and the transition ended to prevent the
+  // viewport from overflowing. And set the focus to the first focusable element once the popover is open.
   // In rare cases it can be that the animationEnd event is triggered twice.
   // To avoid entering a corrupt state, exit when state is not expected.
-  private _onTooltipAnimationEnd(event: AnimationEvent): void {
+  private _onPopoverAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open' && this._state === 'opening') {
       this._state = 'opened';
       this._didOpen.emit();
       this.inert = false;
-      this._setTooltipFocus();
+      this._setPopoverFocus();
       this._focusHandler.trap(this, {
         postFilter: (el) => el !== this._overlay,
       });
@@ -386,16 +386,16 @@ export class SbbTooltipElement extends LitElement {
         elementToFocus?.focus();
       }
 
-      this._didClose.emit({ closeTarget: this._tooltipCloseElement });
+      this._didClose.emit({ closeTarget: this._popoverCloseElement });
       this._windowEventsController?.abort();
       this._focusHandler.disconnect();
     }
   }
 
   // Set focus on the first focusable element.
-  private _setTooltipFocus(): void {
+  private _setPopoverFocus(): void {
     const firstFocusable =
-      this.shadowRoot!.querySelector<HTMLElement>('[sbb-tooltip-close]') ||
+      this.shadowRoot!.querySelector<HTMLElement>('[sbb-popover-close]') ||
       getFirstFocusableElement(
         Array.from(this.children).filter((e): e is HTMLElement => e instanceof window.HTMLElement),
       );
@@ -408,13 +408,13 @@ export class SbbTooltipElement extends LitElement {
       this._overlay.focus();
       this._overlay.removeEventListener('blur', this._blurListener);
       this._overlay.addEventListener('blur', this._blurListener, {
-        signal: this._tooltipController.signal,
+        signal: this._popoverController.signal,
       });
     }
   }
 
   private _blurListener = (): void => {
-    // When a blur occurs, we know that the tooltip has to be closed, because there are no interactive elements inside the tooltip.
+    // When a blur occurs, we know that the popover has to be closed, because there are no interactive elements inside the popover.
     // We have to ensure that window / tab change doesn't trigger closing. This can be achieved by checking visibilityState, which only works with setTimeout().
     setTimeout(() => {
       if (document.visibilityState !== 'hidden') {
@@ -427,15 +427,15 @@ export class SbbTooltipElement extends LitElement {
     });
   };
 
-  private _setTooltipPosition(): void {
+  private _setPopoverPosition(): void {
     if (!this._overlay || !this._triggerElement) {
       return;
     }
 
-    const tooltipPosition = getElementPosition(
+    const popoverPosition = getElementPosition(
       this._overlay,
       this._triggerElement,
-      this.shadowRoot!.querySelector('.sbb-tooltip__container')!,
+      this.shadowRoot!.querySelector('.sbb-popover__container')!,
       {
         verticalOffset: VERTICAL_OFFSET,
         horizontalOffset: HORIZONTAL_OFFSET,
@@ -444,44 +444,44 @@ export class SbbTooltipElement extends LitElement {
       },
     );
 
-    setAttribute(this, 'data-position', tooltipPosition.alignment.vertical);
+    setAttribute(this, 'data-position', popoverPosition.alignment.vertical);
 
     const arrowXPosition =
       this._triggerElement.getBoundingClientRect().left -
-      tooltipPosition.left +
+      popoverPosition.left +
       this._triggerElement.clientWidth / 2 -
-      8; // half the size of the tooltip arrow
+      8; // half the size of the popover arrow
 
-    this.style.setProperty('--sbb-tooltip-position-x', `${tooltipPosition.left}px`);
-    this.style.setProperty('--sbb-tooltip-position-y', `${tooltipPosition.top}px`);
-    this.style.setProperty('--sbb-tooltip-arrow-position-x', `${arrowXPosition}px`);
+    this.style.setProperty('--sbb-popover-position-x', `${popoverPosition.left}px`);
+    this.style.setProperty('--sbb-popover-position-y', `${popoverPosition.top}px`);
+    this.style.setProperty('--sbb-popover-arrow-position-x', `${arrowXPosition}px`);
   }
 
   protected override render(): TemplateResult {
     const closeButton = html`
-      <span class="sbb-tooltip__close">
+      <span class="sbb-popover__close">
         <sbb-button
-          aria-label=${this.accessibilityCloseLabel || i18nCloseTooltip[this._language.current]}
+          aria-label=${this.accessibilityCloseLabel || i18nClosePopover[this._language.current]}
           variant="secondary"
           size="m"
           type="button"
           icon-name="cross-small"
-          sbb-tooltip-close
+          sbb-popover-close
         ></sbb-button>
       </span>
     `;
 
     return html`
-      <div class="sbb-tooltip__container">
+      <div class="sbb-popover__container">
         <div
-          @animationend=${(event: AnimationEvent) => this._onTooltipAnimationEnd(event)}
-          class="sbb-tooltip"
+          @animationend=${(event: AnimationEvent) => this._onPopoverAnimationEnd(event)}
+          class="sbb-popover"
           role="tooltip"
           ${ref((el?: Element) => (this._overlay = el as HTMLDivElement))}
         >
           <div
-            @click=${(event: Event) => this._closeOnSbbTooltipCloseClick(event)}
-            class="sbb-tooltip__content"
+            @click=${(event: Event) => this._closeOnSbbPopoverCloseClick(event)}
+            class="sbb-popover__content"
           >
             ${!this.hideCloseButton && !this._hoverTrigger ? closeButton : nothing}
             <span>
@@ -497,6 +497,6 @@ export class SbbTooltipElement extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-tooltip': SbbTooltipElement;
+    'sbb-popover': SbbPopoverElement;
   }
 }

@@ -45,7 +45,7 @@
           "no-unknown-slot": "off",
 
           // The following rules cannot be used, due to internal constraints
-          // Reason: We use e.g. sbb-tooltip-close as indicators of close origins for overlays
+          // Reason: We use e.g. sbb-popover-close as indicators of close origins for overlays
           "no-unknown-attribute": "off"
         }
       }

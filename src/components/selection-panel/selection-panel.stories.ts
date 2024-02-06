@@ -20,7 +20,7 @@ import '../form-error';
 import '../icon';
 import '../link';
 import '../radio-button';
-import '../tooltip';
+import '../popover';
 
 const color: InputType = {
   control: {
@@ -245,19 +245,19 @@ const TicketsOptionsExampleTemplate = ({
         <span style="color: var(--sbb-color-granite-default);">
           <div style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x);">
             1 x 0 x Supersaver ticket, Half-Fare Card${' '}
-            <sbb-tooltip-trigger
-              id="tooltip-trigger-1"
+            <sbb-popover-trigger
+              id="popover-trigger-1"
               icon-name="circle-information-small"
-            ></sbb-tooltip-trigger>
+            ></sbb-popover-trigger>
           </div>
           <div>Valid: Thu., 03.11.2022 until Fri., 04.11.2022 05:00</div>
         </span>
-        <sbb-tooltip trigger="tooltip-trigger-1" hover-trigger>
+        <sbb-popover trigger="popover-trigger-1" hover-trigger>
           <sbb-title level="2" visual-level="6" style="margin-block-start: 0"
-            >Tooltip title.</sbb-title
+            >Popover title.</sbb-title
           >
-          <span class="sbb-text-s">Simple tooltip</span>
-        </sbb-tooltip>
+          <span class="sbb-text-s">Simple popover</span>
+        </sbb-popover>
       </div>
     </sbb-selection-panel>
 
@@ -293,19 +293,19 @@ const TicketsOptionsExampleTemplate = ({
         <span style="color: var(--sbb-color-granite-default);">
           <div style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x);">
             1 x 0 x City Ticket incl. City Supplement City, Half-Fare Card${' '}
-            <sbb-tooltip-trigger
-              id="tooltip-trigger-2"
+            <sbb-popover-trigger
+              id="popover-trigger-2"
               icon-name="circle-information-small"
-            ></sbb-tooltip-trigger>
+            ></sbb-popover-trigger>
           </div>
           <div>Valid: Thu., 03.11.2022 until Fri., 04.11.2022 05:00</div>
         </span>
-        <sbb-tooltip trigger="tooltip-trigger-2" hover-trigger>
+        <sbb-popover trigger="popover-trigger-2" hover-trigger>
           <sbb-title level="2" visual-level="6" style="margin-block-start: 0"
-            >Tooltip title.</sbb-title
+            >Popover title.</sbb-title
           >
-          <span class="sbb-text-s">Simple tooltip</span>
-        </sbb-tooltip>
+          <span class="sbb-text-s">Simple popover</span>
+        </sbb-popover>
       </div>
     </sbb-selection-panel>
   </sbb-checkbox-group>

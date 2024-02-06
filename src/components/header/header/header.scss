@@ -133,7 +133,7 @@
   inset: var(--sbb-spacing-fixed-3x) 0;
 }
 
-// Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
+// Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
 ::slotted(
     a[slot='logo']:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])
   )::before {

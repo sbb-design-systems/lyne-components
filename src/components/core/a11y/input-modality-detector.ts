@@ -87,7 +87,7 @@ class SbbInputModalityDetector {
 
   /**
    * The most recent modality must be initialised with the value 'mouse' to cover the case where an action is
-   * performed but no mouse or keyboard event has yet occurred on the page (e.g. `sbb-tooltip` with hover trigger).
+   * performed but no mouse or keyboard event has yet occurred on the page (e.g. `sbb-popover` with hover trigger).
    */
   private _mostRecentModality: SbbInputModality | null = 'mouse';
 

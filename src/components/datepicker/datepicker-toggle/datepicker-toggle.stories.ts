@@ -17,7 +17,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
 import { sbbSpread } from '../../core/dom';
-import type { SbbTooltipTriggerElement } from '../../tooltip';
+import type { SbbPopoverTriggerElement } from '../../popover';
 
 import '../../form-field';
 import '../datepicker';
@@ -56,10 +56,10 @@ const defaultArgs: Args = {
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
   const canvas = within(canvasElement);
-  const queryTrigger = (): SbbTooltipTriggerElement =>
+  const queryTrigger = (): SbbPopoverTriggerElement =>
     canvas
       .getByTestId('toggle')
-      .shadowRoot!.querySelector<SbbTooltipTriggerElement>('sbb-tooltip-trigger')!;
+      .shadowRoot!.querySelector<SbbPopoverTriggerElement>('sbb-popover-trigger')!;
 
   await waitForComponentsReady(queryTrigger);
 

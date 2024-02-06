@@ -6,36 +6,36 @@ import type { SbbButtonElement } from '../../button';
 import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
 
 import '../../link';
-import { SbbTooltipElement } from './tooltip';
+import { SbbPopoverElement } from './popover';
 
-describe('sbb-tooltip', () => {
-  let element: SbbTooltipElement, trigger: SbbButtonElement;
+describe('sbb-popover', () => {
+  let element: SbbPopoverElement, trigger: SbbButtonElement;
 
   describe('with interactive content', () => {
     beforeEach(async () => {
       const content = await fixture(html`
         <span>
-          <sbb-button id="tooltip-trigger">Tooltip trigger</sbb-button>
-          <sbb-tooltip id="tooltip" trigger="tooltip-trigger" disable-animation>
-            Tooltip content.
-            <sbb-link id="tooltip-link" href="#" variant="inline" sbb-tooltip-close>Link</sbb-link>
-          </sbb-tooltip>
+          <sbb-button id="popover-trigger">Popover trigger</sbb-button>
+          <sbb-popover id="popover" trigger="popover-trigger" disable-animation>
+            Popover content.
+            <sbb-link id="popover-link" href="#" variant="inline" sbb-popover-close>Link</sbb-link>
+          </sbb-popover>
           <sbb-link href="#" id="interactive-background-element"
             >Other interactive element</sbb-link
           >
         </span>
       `);
       trigger = content.querySelector<SbbButtonElement>('sbb-button')!;
-      element = content.querySelector<SbbTooltipElement>('sbb-tooltip')!;
+      element = content.querySelector<SbbPopoverElement>('sbb-popover')!;
     });
 
     it('renders', () => {
-      assert.instanceOf(element, SbbTooltipElement);
+      assert.instanceOf(element, SbbPopoverElement);
     });
 
-    it('shows the tooltip', async () => {
-      const willOpenEventSpy = new EventSpy(SbbTooltipElement.events.willOpen);
-      const didOpenEventSpy = new EventSpy(SbbTooltipElement.events.didOpen);
+    it('shows the popover', async () => {
+      const willOpenEventSpy = new EventSpy(SbbPopoverElement.events.willOpen);
+      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
 
       element.open();
 
@@ -49,8 +49,8 @@ describe('sbb-tooltip', () => {
     });
 
     it('shows on trigger click', async () => {
-      const willOpenEventSpy = new EventSpy(SbbTooltipElement.events.willOpen);
-      const didOpenEventSpy = new EventSpy(SbbTooltipElement.events.didOpen);
+      const willOpenEventSpy = new EventSpy(SbbPopoverElement.events.willOpen);
+      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
 
       trigger.click();
 
@@ -63,11 +63,11 @@ describe('sbb-tooltip', () => {
       expect(element).to.have.attribute('data-state', 'opened');
     });
 
-    it('closes the tooltip', async () => {
-      const willOpenEventSpy = new EventSpy(SbbTooltipElement.events.willOpen);
-      const didOpenEventSpy = new EventSpy(SbbTooltipElement.events.didOpen);
-      const willCloseEventSpy = new EventSpy(SbbTooltipElement.events.willClose);
-      const didCloseEventSpy = new EventSpy(SbbTooltipElement.events.didClose);
+    it('closes the popover', async () => {
+      const willOpenEventSpy = new EventSpy(SbbPopoverElement.events.willOpen);
+      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
+      const willCloseEventSpy = new EventSpy(SbbPopoverElement.events.willClose);
+      const didCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose);
 
       element.open();
 
@@ -88,12 +88,12 @@ describe('sbb-tooltip', () => {
       expect(element).to.have.attribute('data-state', 'closed');
     });
 
-    it('closes the tooltip on close button click', async () => {
-      const willOpenEventSpy = new EventSpy(SbbTooltipElement.events.willOpen);
-      const didOpenEventSpy = new EventSpy(SbbTooltipElement.events.didOpen);
-      const willCloseEventSpy = new EventSpy(SbbTooltipElement.events.willClose);
-      const didCloseEventSpy = new EventSpy(SbbTooltipElement.events.didClose);
-      const closeButton = element.shadowRoot!.querySelector<HTMLElement>('[sbb-tooltip-close]')!;
+    it('closes the popover on close button click', async () => {
+      const willOpenEventSpy = new EventSpy(SbbPopoverElement.events.willOpen);
+      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
+      const willCloseEventSpy = new EventSpy(SbbPopoverElement.events.willClose);
+      const didCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose);
+      const closeButton = element.shadowRoot!.querySelector<HTMLElement>('[sbb-popover-close]')!;
 
       element.open();
 
@@ -114,15 +114,15 @@ describe('sbb-tooltip', () => {
 
       expect(element).to.have.attribute('data-state', 'closed');
       expect(trigger).to.have.attribute('data-focus-origin', 'mouse');
-      expect(document.activeElement!.id).to.be.equal('tooltip-trigger');
+      expect(document.activeElement!.id).to.be.equal('popover-trigger');
     });
 
     it('closes on interactive element click', async () => {
-      const willOpenEventSpy = new EventSpy(SbbTooltipElement.events.willOpen);
-      const didOpenEventSpy = new EventSpy(SbbTooltipElement.events.didOpen);
-      const willCloseEventSpy = new EventSpy(SbbTooltipElement.events.willClose);
-      const didCloseEventSpy = new EventSpy(SbbTooltipElement.events.didClose);
-      const tooltipLink = document.querySelector('sbb-tooltip > sbb-link') as HTMLElement;
+      const willOpenEventSpy = new EventSpy(SbbPopoverElement.events.willOpen);
+      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
+      const willCloseEventSpy = new EventSpy(SbbPopoverElement.events.willClose);
+      const didCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose);
+      const popoverLink = document.querySelector('sbb-popover > sbb-link') as HTMLElement;
 
       trigger.click();
 
@@ -133,9 +133,9 @@ describe('sbb-tooltip', () => {
       expect(didOpenEventSpy.count).to.be.equal(1);
 
       expect(element).to.have.attribute('data-state', 'opened');
-      expect(tooltipLink).not.to.be.null;
+      expect(popoverLink).not.to.be.null;
 
-      tooltipLink.click();
+      popoverLink.click();
 
       await waitForCondition(() => willCloseEventSpy.events.length === 1);
       expect(willCloseEventSpy.count).to.be.equal(1);
@@ -145,12 +145,12 @@ describe('sbb-tooltip', () => {
 
       expect(element).to.have.attribute('data-state', 'closed');
       expect(trigger).to.have.attribute('data-focus-origin', 'mouse');
-      expect(document.activeElement!.id).to.be.equal('tooltip-trigger');
+      expect(document.activeElement!.id).to.be.equal('popover-trigger');
     });
 
     it('is correctly positioned on screen', async () => {
-      const willOpenEventSpy = new EventSpy(SbbTooltipElement.events.willOpen);
-      const didOpenEventSpy = new EventSpy(SbbTooltipElement.events.didOpen);
+      const willOpenEventSpy = new EventSpy(SbbPopoverElement.events.willOpen);
+      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
 
       await setViewport({ width: 1200, height: 800 });
 
@@ -175,14 +175,14 @@ describe('sbb-tooltip', () => {
       expect(button.offsetLeft).to.be.equal(0);
 
       // Expect overlay offsetTop to be equal to the trigger height + the overlay offset (8px)
-      const tooltipOverlay = element.shadowRoot!.querySelector<HTMLElement>('.sbb-tooltip')!;
-      expect(tooltipOverlay.offsetTop).to.be.equal(buttonHeightPx + 16);
-      expect(tooltipOverlay.offsetLeft).to.be.equal(0);
+      const popoverOverlay = element.shadowRoot!.querySelector<HTMLElement>('.sbb-popover')!;
+      expect(popoverOverlay.offsetTop).to.be.equal(buttonHeightPx + 16);
+      expect(popoverOverlay.offsetLeft).to.be.equal(0);
     });
 
     it('should set correct focus attribute on trigger after backdrop click', async () => {
-      const didOpenEventSpy = new EventSpy(SbbTooltipElement.events.didOpen);
-      const didCloseEventSpy = new EventSpy(SbbTooltipElement.events.didClose);
+      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
+      const didCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose);
 
       element.open();
 
@@ -195,15 +195,15 @@ describe('sbb-tooltip', () => {
       await waitForCondition(() => didCloseEventSpy.events.length === 1);
 
       expect(trigger).to.have.attribute('data-focus-origin', 'mouse');
-      expect(document.activeElement!.id).to.be.equal('tooltip-trigger');
+      expect(document.activeElement!.id).to.be.equal('popover-trigger');
     });
 
     it('should set correct focus attribute on trigger after backdrop click on an interactive element', async () => {
       const interactiveBackgroundElement = document.querySelector(
         '#interactive-background-element',
       ) as HTMLElement;
-      const didOpenEventSpy = new EventSpy(SbbTooltipElement.events.didOpen);
-      const didCloseEventSpy = new EventSpy(SbbTooltipElement.events.didClose);
+      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
+      const didCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose);
 
       element.open();
 
@@ -223,30 +223,30 @@ describe('sbb-tooltip', () => {
     });
 
     it('closes on interactive element click by keyboard', async () => {
-      const didOpenEventSpy = new EventSpy(SbbTooltipElement.events.didOpen);
-      const didCloseEventSpy = new EventSpy(SbbTooltipElement.events.didClose);
-      const tooltipLink = document.querySelector('sbb-tooltip > sbb-link') as HTMLElement;
+      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
+      const didCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose);
+      const popoverLink = document.querySelector('sbb-popover > sbb-link') as HTMLElement;
 
       trigger.click();
 
       await waitForCondition(() => didOpenEventSpy.events.length === 1);
       expect(didOpenEventSpy.count).to.be.equal(1);
 
-      expect(tooltipLink).not.to.be.null;
+      expect(popoverLink).not.to.be.null;
 
-      tooltipLink.focus();
+      popoverLink.focus();
       await sendKeys({ down: 'Enter' });
 
       await waitForCondition(() => didCloseEventSpy.events.length === 1);
       expect(didCloseEventSpy.count).to.be.equal(1);
 
       expect(trigger).to.have.attribute('data-focus-origin', 'keyboard');
-      expect(document.activeElement!.id).to.be.equal('tooltip-trigger');
+      expect(document.activeElement!.id).to.be.equal('popover-trigger');
     });
 
-    it('sets the focus to the first focusable element when the tooltip is opened by keyboard', async () => {
-      const willOpenEventSpy = new EventSpy(SbbTooltipElement.events.willOpen);
-      const didOpenEventSpy = new EventSpy(SbbTooltipElement.events.didOpen);
+    it('sets the focus to the first focusable element when the popover is opened by keyboard', async () => {
+      const willOpenEventSpy = new EventSpy(SbbPopoverElement.events.willOpen);
+      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
 
       await sendKeys({ down: 'Tab' });
       await sendKeys({ down: 'Enter' });
@@ -258,19 +258,19 @@ describe('sbb-tooltip', () => {
       expect(didOpenEventSpy.count).to.be.equal(1);
       expect(element).to.have.attribute('data-state', 'opened');
 
-      expect(document.activeElement!.id).to.be.equal('tooltip');
+      expect(document.activeElement!.id).to.be.equal('popover');
       expect(
         document.activeElement!.shadowRoot!.activeElement ===
-          document.activeElement!.shadowRoot!.querySelector('[sbb-tooltip-close]'),
+          document.activeElement!.shadowRoot!.querySelector('[sbb-popover-close]'),
       ).to.be.equal(true);
     });
 
-    it('closes the tooltip on close button click by keyboard', async () => {
-      const didOpenEventSpy = new EventSpy(SbbTooltipElement.events.didOpen);
-      const didCloseEventSpy = new EventSpy(SbbTooltipElement.events.didClose);
+    it('closes the popover on close button click by keyboard', async () => {
+      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
+      const didCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose);
       const closeButton = document
-        .querySelector('sbb-tooltip')!
-        .shadowRoot!.querySelector<HTMLElement>('[sbb-tooltip-close]')!;
+        .querySelector('sbb-popover')!
+        .shadowRoot!.querySelector<HTMLElement>('[sbb-popover-close]')!;
 
       element.open();
 
@@ -285,14 +285,14 @@ describe('sbb-tooltip', () => {
       expect(didCloseEventSpy.count).to.be.equal(1);
 
       expect(trigger).to.have.attribute('data-focus-origin', 'keyboard');
-      expect(document.activeElement!.id).to.be.equal('tooltip-trigger');
+      expect(document.activeElement!.id).to.be.equal('popover-trigger');
     });
 
     it('closes on Esc keypress', async () => {
-      const willOpenEventSpy = new EventSpy(SbbTooltipElement.events.willOpen);
-      const didOpenEventSpy = new EventSpy(SbbTooltipElement.events.didOpen);
-      const willCloseEventSpy = new EventSpy(SbbTooltipElement.events.willClose);
-      const didCloseEventSpy = new EventSpy(SbbTooltipElement.events.didClose);
+      const willOpenEventSpy = new EventSpy(SbbPopoverElement.events.willOpen);
+      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
+      const willCloseEventSpy = new EventSpy(SbbPopoverElement.events.willClose);
+      const didCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose);
 
       trigger.click();
 
@@ -315,13 +315,13 @@ describe('sbb-tooltip', () => {
 
       expect(element).to.have.attribute('data-state', 'closed');
       expect(trigger).to.have.attribute('data-focus-origin', 'keyboard');
-      expect(document.activeElement!.id).to.be.equal('tooltip-trigger');
+      expect(document.activeElement!.id).to.be.equal('popover-trigger');
     });
 
     it('does not open if prevented', async () => {
-      const willOpenEventSpy = new EventSpy(SbbTooltipElement.events.willOpen);
+      const willOpenEventSpy = new EventSpy(SbbPopoverElement.events.willOpen);
 
-      element.addEventListener(SbbTooltipElement.events.willOpen, (ev) => ev.preventDefault());
+      element.addEventListener(SbbPopoverElement.events.willOpen, (ev) => ev.preventDefault());
       element.open();
 
       await waitForCondition(() => willOpenEventSpy.events.length === 1);
@@ -332,14 +332,14 @@ describe('sbb-tooltip', () => {
     });
 
     it('does not close if prevented', async () => {
-      const didOpenEventSpy = new EventSpy(SbbTooltipElement.events.didOpen);
-      const willCloseEventSpy = new EventSpy(SbbTooltipElement.events.willClose);
+      const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
+      const willCloseEventSpy = new EventSpy(SbbPopoverElement.events.willClose);
 
       element.open();
       await waitForCondition(() => didOpenEventSpy.events.length === 1);
       await waitForLitRender(element);
 
-      element.addEventListener(SbbTooltipElement.events.willClose, (ev) => ev.preventDefault());
+      element.addEventListener(SbbPopoverElement.events.willClose, (ev) => ev.preventDefault());
       element.close();
 
       await waitForCondition(() => willCloseEventSpy.events.length === 1);
@@ -385,87 +385,87 @@ describe('sbb-tooltip', () => {
     beforeEach(async () => {
       content = await fixture(html`
         <span>
-          <sbb-button id="tooltip-trigger">Tooltip trigger</sbb-button>
-          <sbb-tooltip id="tooltip" trigger="tooltip-trigger" disable-animation hide-close-button>
-            Tooltip content.
-          </sbb-tooltip>
+          <sbb-button id="popover-trigger">Popover trigger</sbb-button>
+          <sbb-popover id="popover" trigger="popover-trigger" disable-animation hide-close-button>
+            Popover content.
+          </sbb-popover>
           <sbb-link href="#" id="interactive-background-element"
             >Other interactive element</sbb-link
           >
         </span>
       `);
       trigger = content.querySelector<SbbButtonElement>('sbb-button')!;
-      element = content.querySelector<SbbTooltipElement>('sbb-tooltip')!;
+      element = content.querySelector<SbbPopoverElement>('sbb-popover')!;
     });
 
     it('should focus content container if no interactive content present', async () => {
-      const tooltipContainer = element.shadowRoot!.querySelector('.sbb-tooltip');
+      const popoverContainer = element.shadowRoot!.querySelector('.sbb-popover');
 
       // When opening by keyboard
       trigger.focus();
       await sendKeys({ press: 'Space' });
 
-      // Then tooltip opens and focuses container
+      // Then popover opens and focuses container
       await waitForCondition(() => element.getAttribute('data-state') === 'opened');
-      expect(document.activeElement!.shadowRoot!.activeElement).to.equal(tooltipContainer);
-      expect(tooltipContainer).to.have.attribute('tabindex', '0');
+      expect(document.activeElement!.shadowRoot!.activeElement).to.equal(popoverContainer);
+      expect(popoverContainer).to.have.attribute('tabindex', '0');
 
       // When tabbing away
       await sendKeys({ press: 'Tab' });
 
-      // Then tooltip should close, next element should be focused and tooltip container be reset.
+      // Then popover should close, next element should be focused and popover container be reset.
       await waitForCondition(() => element.getAttribute('data-state') === 'closed');
       expect(document.activeElement).to.equal(
         content.querySelector('#interactive-background-element'),
       );
-      expect(tooltipContainer).not.to.have.attribute('tabindex');
+      expect(popoverContainer).not.to.have.attribute('tabindex');
     });
 
     it('should remove tabindex when closing with esc', async () => {
-      const tooltipContainer = element.shadowRoot!.querySelector('.sbb-tooltip');
+      const popoverContainer = element.shadowRoot!.querySelector('.sbb-popover');
 
       // When opening by keyboard
       trigger.focus();
       await sendKeys({ press: 'Space' });
 
-      // Then tooltip opens and focuses container
+      // Then popover opens and focuses container
       await waitForCondition(() => element.getAttribute('data-state') === 'opened');
-      expect(document.activeElement!.shadowRoot!.activeElement).to.equal(tooltipContainer);
-      expect(tooltipContainer).to.have.attribute('tabindex', '0');
+      expect(document.activeElement!.shadowRoot!.activeElement).to.equal(popoverContainer);
+      expect(popoverContainer).to.have.attribute('tabindex', '0');
 
       // When pressing escape key
       await sendKeys({ press: 'Escape' });
 
-      // Then tooltip should close, trigger should be focused and tooltip container be reset.
+      // Then popover should close, trigger should be focused and popover container be reset.
       await waitForCondition(() => element.getAttribute('data-state') === 'closed');
       expect(document.activeElement).to.equal(trigger);
-      expect(tooltipContainer).not.to.have.attribute('tabindex');
+      expect(popoverContainer).not.to.have.attribute('tabindex');
     });
   });
 
-  it('should close an open tooltip when another one is opened', async () => {
+  it('should close an open popover when another one is opened', async () => {
     await fixture(html`
       <sbb-link href="#somewhere" id="interactive-background-element"
         >Other interactive element</sbb-link
       >
-      <sbb-button id="tooltip-trigger">Tooltip trigger</sbb-button>
-      <sbb-button id="another-tooltip-trigger">Another tooltip trigger</sbb-button>
-      <sbb-tooltip id="tooltip" trigger="tooltip-trigger" disable-animation>
-        Tooltip content.
-      </sbb-tooltip>
-      <sbb-tooltip id="another-tooltip" trigger="another-tooltip-trigger" disable-animation>
-        Another tooltip content.
-      </sbb-tooltip>
+      <sbb-button id="popover-trigger">Popover trigger</sbb-button>
+      <sbb-button id="another-popover-trigger">Another popover trigger</sbb-button>
+      <sbb-popover id="popover" trigger="popover-trigger" disable-animation>
+        Popover content.
+      </sbb-popover>
+      <sbb-popover id="another-popover" trigger="another-popover-trigger" disable-animation>
+        Another popover content.
+      </sbb-popover>
     `);
-    trigger = document.querySelector<SbbButtonElement>('#tooltip-trigger')!;
-    element = document.querySelector<SbbTooltipElement>('#tooltip')!;
-    const secondTrigger = document.querySelector<SbbButtonElement>('#another-tooltip-trigger');
-    const secondElement = document.querySelector<SbbTooltipElement>('#another-tooltip');
+    trigger = document.querySelector<SbbButtonElement>('#popover-trigger')!;
+    element = document.querySelector<SbbPopoverElement>('#popover')!;
+    const secondTrigger = document.querySelector<SbbButtonElement>('#another-popover-trigger');
+    const secondElement = document.querySelector<SbbPopoverElement>('#another-popover');
 
-    const willOpenEventSpy = new EventSpy(SbbTooltipElement.events.didOpen);
-    const didOpenEventSpy = new EventSpy(SbbTooltipElement.events.didOpen);
-    const willCloseEventSpy = new EventSpy(SbbTooltipElement.events.didClose);
-    const didCloseEventSpy = new EventSpy(SbbTooltipElement.events.didClose, element);
+    const willOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
+    const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
+    const willCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose);
+    const didCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose, element);
 
     expect(secondTrigger).not.to.be.null;
     expect(secondElement).not.to.be.null;
@@ -484,7 +484,7 @@ describe('sbb-tooltip', () => {
     trigger.focus();
     await sendKeys({ press: 'Tab' });
 
-    expect(document.activeElement!.id).to.be.equal('another-tooltip-trigger');
+    expect(document.activeElement!.id).to.be.equal('another-popover-trigger');
 
     await sendKeys({ press: 'Space' });
 

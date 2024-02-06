@@ -8,8 +8,8 @@ import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import '../../link';
-import '../tooltip';
-import './tooltip-trigger';
+import '../popover';
+import './popover-trigger';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative
@@ -63,16 +63,16 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   negative: false,
-  'aria-label': 'Click to open the tooltip',
+  'aria-label': 'Click to open the popover',
   'icon-name': 'circle-information-small',
   disabled: false,
   active: false,
 };
 
-const tooltip = (): TemplateResult => html`
-  <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger">
+const popover = (): TemplateResult => html`
+  <sbb-popover data-testid="popover" trigger="popover-trigger">
     <sbb-title level="2" visual-level="6" style="margin-block-start: 0">
-      Simple tooltip with link.
+      Simple popover with link.
     </sbb-title>
     <p class="sbb-text-s" style="margin: 0;">
       Some content.
@@ -81,34 +81,34 @@ const tooltip = (): TemplateResult => html`
         variant="block"
         icon-name="chevron-small-right-small"
         icon-placement="end"
-        sbb-tooltip-close
+        sbb-popover-close
       >
         Learn More
       </sbb-link>
     </p>
-  </sbb-tooltip>
+  </sbb-popover>
 `;
 
 const Template = ({ active, ...args }: Args): TemplateResult => html`
   <span class="sbb-text-s" style="display: flex; align-items: center;">
     <span style="margin-inline-end: var(--sbb-spacing-fixed-1x);"> This is a demo text. </span>
-    <sbb-tooltip-trigger
-      id="tooltip-trigger"
+    <sbb-popover-trigger
+      id="popover-trigger"
       ?data-active=${active}
       ${sbbSpread(args)}
-    ></sbb-tooltip-trigger>
+    ></sbb-popover-trigger>
   </span>
-  ${tooltip()}
+  ${popover()}
 `;
 
 const TemplateWithCustomContent = (args: Args): TemplateResult => html`
   <div class="sbb-text-xl" style="color: var(--sbb-color-sky-default);">
-    <sbb-tooltip-trigger id="tooltip-trigger" ${sbbSpread(args)}>
-      This is a long tooltip trigger text which should wrap at a certain viewport. It inherits all
+    <sbb-popover-trigger id="popover-trigger" ${sbbSpread(args)}>
+      This is a long popover trigger text which should wrap at a certain viewport. It inherits all
       the font styles from the parent element.
-    </sbb-tooltip-trigger>
+    </sbb-popover-trigger>
   </div>
-  ${tooltip()}
+  ${popover()}
 `;
 
 export const IconSizeS: StoryObj = {
@@ -186,7 +186,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-tooltip/sbb-tooltip-trigger',
+  title: 'components/sbb-popover/sbb-popover-trigger',
 };
 
 export default meta;

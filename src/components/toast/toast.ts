@@ -137,7 +137,7 @@ export class SbbToastElement extends LitElement {
     this._state = 'closing';
   }
 
-  // Close the tooltip on click of any element that has the 'sbb-toast-close' attribute.
+  // Close the toast on click of any element that has the 'sbb-toast-close' attribute.
   private _onClick(event: Event): void {
     const closeElement = composedPathHasAttribute(event, 'sbb-toast-close', this);
 

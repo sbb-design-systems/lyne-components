@@ -40,7 +40,7 @@ export class SbbFormFieldElement extends LitElement {
     'SBB-SLIDER',
   ];
   // List of elements that should not focus input on click
-  private readonly _excludedFocusElements = ['BUTTON', 'SBB-TOOLTIP'];
+  private readonly _excludedFocusElements = ['BUTTON', 'SBB-POPOVER'];
 
   private readonly _floatingLabelSupportedInputElements = ['INPUT', 'SELECT', 'SBB-SELECT'];
 
@@ -463,7 +463,7 @@ export class SbbFormFieldElement extends LitElement {
 
   private _syncNegative(): void {
     this.querySelectorAll?.(
-      'sbb-form-error,sbb-button,sbb-tooltip-trigger,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete',
+      'sbb-form-error,sbb-button,sbb-popover-trigger,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete',
     ).forEach((element) =>
       this.negative ? element.setAttribute('negative', '') : element.removeAttribute('negative'),
     );

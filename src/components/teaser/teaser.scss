@@ -38,7 +38,7 @@
   display: flex;
   text-decoration: none;
 
-  // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
+  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
   :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
     @include sbb.focus-outline;
 

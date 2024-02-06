@@ -1,20 +1,20 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-tooltip renders"] = 
-`<div class="sbb-tooltip__container">
+snapshots["sbb-popover renders"] =
+`<div class="sbb-popover__container">
   <div
-    class="sbb-tooltip"
+    class="sbb-popover"
     role="tooltip"
   >
-    <div class="sbb-tooltip__content">
-      <span class="sbb-tooltip__close">
+    <div class="sbb-popover__content">
+      <span class="sbb-popover__close">
         <sbb-button
           aria-label="Close note"
           dir="ltr"
           icon-name="cross-small"
           role="button"
-          sbb-tooltip-close=""
+          sbb-popover-close=""
           size="m"
           tabindex="0"
           type="button"
@@ -31,5 +31,4 @@ snapshots["sbb-tooltip renders"] =
   </div>
 </div>
 `;
-/* end snapshot sbb-tooltip renders */
-
+/* end snapshot sbb-popover renders */

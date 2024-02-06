@@ -5,7 +5,7 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-tooltip-color: inherit;
+  --sbb-popover-color: inherit;
 
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize css of several frameworks.
@@ -13,17 +13,17 @@
   display: inline-block;
 
   @include sbb.if-forced-colors {
-    --sbb-tooltip-color: ButtonText !important;
+    --sbb-popover-color: ButtonText !important;
   }
 }
 
 @include sbb.hover-mq($hover: true) {
   :host(:hover) {
-    --sbb-tooltip-color: var(--sbb-color-iron-default);
+    --sbb-popover-color: var(--sbb-color-iron-default);
   }
 
   :host(:hover[negative]) {
-    --sbb-tooltip-color: var(--sbb-color-cloud-default);
+    --sbb-popover-color: var(--sbb-color-cloud-default);
   }
 }
 
@@ -32,61 +32,61 @@
 }
 
 :host(:is(:active, [data-active])) {
-  --sbb-tooltip-color: var(--sbb-color-anthracite-default);
+  --sbb-popover-color: var(--sbb-color-anthracite-default);
 }
 
 :host(:is(:active, [data-active])[negative]) {
-  --sbb-tooltip-color: var(--sbb-color-cement-default);
+  --sbb-popover-color: var(--sbb-color-cement-default);
 }
 
 :host([disabled]) {
-  --sbb-tooltip-color: var(--sbb-color-graphite-default);
+  --sbb-popover-color: var(--sbb-color-graphite-default);
 
   @include sbb.if-forced-colors {
-    --sbb-tooltip-color: GrayText !important;
+    --sbb-popover-color: GrayText !important;
   }
 
   pointer-events: none;
 }
 
 :host([disabled][negative]) {
-  --sbb-tooltip-color: var(--sbb-color-smoke-default);
+  --sbb-popover-color: var(--sbb-color-smoke-default);
 }
 
-@include sbb.icon-button-base(':host([data-icon-small])', '.sbb-tooltip-trigger', 'sbb-icon');
+@include sbb.icon-button-base(':host([data-icon-small])', '.sbb-popover-trigger', 'sbb-icon');
 
 :host([data-icon-small][negative]) {
   @include sbb.icon-button-variables-negative;
 }
 
 :host([data-icon-small][disabled]) {
-  @include sbb.icon-button-disabled('.sbb-tooltip-trigger');
+  @include sbb.icon-button-disabled('.sbb-popover-trigger');
 }
 
 :host(
     [data-icon-small]:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])
   ) {
-  @include sbb.icon-button-focus-visible('.sbb-tooltip-trigger');
+  @include sbb.icon-button-focus-visible('.sbb-popover-trigger');
 }
 
 :host([data-icon-small]:not([disabled], :active, [data-active]):hover) {
-  @include sbb.icon-button-hover('.sbb-tooltip-trigger');
+  @include sbb.icon-button-hover('.sbb-popover-trigger');
 }
 
 :host([data-icon-small]:is(:active, [data-active])) {
-  @include sbb.icon-button-active('.sbb-tooltip-trigger');
+  @include sbb.icon-button-active('.sbb-popover-trigger');
 }
 
-.sbb-tooltip-trigger {
+.sbb-popover-trigger {
   :host(:not([data-icon-small])) & {
     @include sbb.text-inherit;
 
     display: flex;
     cursor: pointer;
-    color: var(--sbb-tooltip-color);
+    color: var(--sbb-popover-color);
   }
 
-  // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
+  // Hide focus outline when focus origin is mouse or touch. This is being used in popover as a workaround.
   :host(
       :focus-visible:not(
           [data-icon-small],

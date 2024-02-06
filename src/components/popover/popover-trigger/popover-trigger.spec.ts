@@ -4,19 +4,19 @@ import { html } from 'lit/static-html.js';
 import { waitForLitRender } from '../../core/testing';
 
 import '../../icon';
-import './tooltip-trigger';
+import './popover-trigger';
 
-describe('sbb-tooltip-trigger', () => {
+describe('sbb-popover-trigger', () => {
   it('renders', async () => {
-    const root = await fixture(html`<sbb-tooltip-trigger></sbb-tooltip-trigger>`);
+    const root = await fixture(html`<sbb-popover-trigger></sbb-popover-trigger>`);
 
     await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(
-      `<sbb-tooltip-trigger role="button" tabindex="0" dir="ltr"></sbb-tooltip-trigger>`,
+      `<sbb-popover-trigger role="button" tabindex="0" dir="ltr"></sbb-popover-trigger>`,
     );
     expect(root).shadowDom.to.be.equal(
-      `<span class="sbb-tooltip-trigger">
+      `<span class="sbb-popover-trigger">
         <slot>
           <sbb-icon
             aria-hidden="true"
@@ -31,17 +31,17 @@ describe('sbb-tooltip-trigger', () => {
   });
 
   it('renders with custom content', async () => {
-    const root = await fixture(html`<sbb-tooltip-trigger>Custom Content</sbb-tooltip-trigger>`);
+    const root = await fixture(html`<sbb-popover-trigger>Custom Content</sbb-popover-trigger>`);
 
     await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(
-      `<sbb-tooltip-trigger role="button" tabindex="0" dir="ltr">
+      `<sbb-popover-trigger role="button" tabindex="0" dir="ltr">
         Custom Content
-      </sbb-tooltip-trigger>`,
+      </sbb-popover-trigger>`,
     );
     expect(root).shadowDom.to.be.equal(
-      `<span class="sbb-tooltip-trigger">
+      `<span class="sbb-popover-trigger">
         <slot>
           <sbb-icon
             aria-hidden="true"
