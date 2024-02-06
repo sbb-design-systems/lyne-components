@@ -161,7 +161,6 @@ describe('sbb-tooltip', () => {
 
       await waitForCondition(() => didOpenEventSpy.events.length === 1);
       expect(didOpenEventSpy.count).to.be.equal(1);
-
       expect(element).to.have.attribute('data-state', 'opened');
 
       const buttonHeight = getComputedStyle(document.documentElement).getPropertyValue(
