@@ -43,8 +43,12 @@ export function testA11yTreeSnapshot(title = 'A11y tree', template?: TemplateRes
       await a11yTreeEqualSnapshot();
     });
 
-    (isFirefox() && !isDebugEnvironment() ? it : it.skip)('Firefox', async () => {
-      await a11yTreeEqualSnapshot();
-    });
+    (isFirefox() && !isDebugEnvironment() ? it : it.skip)(
+      'Firefox',
+      async () => {
+        await a11yTreeEqualSnapshot();
+      },
+      5000,
+    );
   });
 }
