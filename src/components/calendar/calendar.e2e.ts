@@ -206,13 +206,10 @@ describe('sbb-calendar', () => {
   describe('navigation', () => {
     it('navigates left via keyboard', async () => {
       element.focus();
-      await waitForLitRender(element);
-
       expect(
         document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
       ).to.be.equal('15 1 2023');
 
-      element.focus();
       await sendKeys({ press: 'ArrowLeft' });
       await waitForLitRender(element);
 
@@ -223,13 +220,10 @@ describe('sbb-calendar', () => {
 
     it('navigates right via keyboard', async () => {
       element.focus();
-      await waitForLitRender(element);
-
       expect(
         document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
       ).to.be.equal('15 1 2023');
 
-      element.focus();
       await sendKeys({ press: 'ArrowRight' });
       await waitForLitRender(element);
 
@@ -240,13 +234,10 @@ describe('sbb-calendar', () => {
 
     it('navigates up via keyboard', async () => {
       element.focus();
-      await waitForLitRender(element);
-
       expect(
         document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
       ).to.be.equal('15 1 2023');
 
-      element.focus();
       await sendKeys({ press: 'ArrowUp' });
       await waitForLitRender(element);
 
@@ -257,13 +248,10 @@ describe('sbb-calendar', () => {
 
     it('navigates down via keyboard', async () => {
       element.focus();
-      await waitForLitRender(element);
-
       expect(
         document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
       ).to.be.equal('15 1 2023');
 
-      element.focus();
       await sendKeys({ press: 'ArrowDown' });
       await waitForLitRender(element);
 
@@ -274,13 +262,10 @@ describe('sbb-calendar', () => {
 
     it('navigates to first day via keyboard', async () => {
       element.focus();
-      await waitForLitRender(element);
-
       expect(
         document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
       ).to.be.equal('15 1 2023');
 
-      element.focus();
       await sendKeys({ press: 'Home' });
       await waitForLitRender(element);
 
@@ -291,13 +276,10 @@ describe('sbb-calendar', () => {
 
     it('navigates to last day via keyboard', async () => {
       element.focus();
-      await waitForLitRender(element);
-
       expect(
         document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
       ).to.be.equal('15 1 2023');
 
-      element.focus();
       await sendKeys({ press: 'End' });
       await waitForLitRender(element);
 
@@ -308,13 +290,10 @@ describe('sbb-calendar', () => {
 
     it('navigates to column start via keyboard', async () => {
       element.focus();
-      await waitForLitRender(element);
-
       expect(
         document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
       ).to.be.equal('15 1 2023');
 
-      element.focus();
       await sendKeys({ press: 'PageUp' });
       await waitForLitRender(element);
 
@@ -325,13 +304,10 @@ describe('sbb-calendar', () => {
 
     it('navigates to column end via keyboard', async () => {
       element.focus();
-      await waitForLitRender(element);
-
       expect(
         document.activeElement!.shadowRoot!.activeElement!.getAttribute('data-day'),
       ).to.be.equal('15 1 2023');
 
-      element.focus();
       await sendKeys({ press: 'PageDown' });
       await waitForLitRender(element);
 
@@ -343,6 +319,10 @@ describe('sbb-calendar', () => {
 
   describe('navigation for year view', () => {
     beforeEach(async () => {
+      element = await fixture(
+        html`<sbb-calendar data-now="1673348400000" selected-date="${selected}"></sbb-calendar>`,
+      );
+
       const yearSelectionButton: HTMLElement = element.shadowRoot!.querySelector(
         '#sbb-calendar__date-selection',
       )!;
