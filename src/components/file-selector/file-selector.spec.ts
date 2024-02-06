@@ -29,5 +29,6 @@ describe('sbb-file-selector', () => {
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
-  testA11yTreeSnapshot(undefined, html`<sbb-file-selector></sbb-file-selector>`);
+  // We skip safari because it has an inconsistent behavior on ci environment
+  testA11yTreeSnapshot(undefined, html`<sbb-file-selector></sbb-file-selector>`, { safari: true });
 });
