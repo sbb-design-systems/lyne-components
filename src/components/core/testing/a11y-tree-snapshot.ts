@@ -27,7 +27,11 @@ async function a11yTreeEqualSnapshot(): Promise<void> {
  * @param title The title of the section
  * @param template The optional html template
  */
-export function testA11yTreeSnapshot(title = 'A11y tree', template?: TemplateResult): void {
+export function testA11yTreeSnapshot(
+  title = 'A11y tree',
+  template?: TemplateResult,
+  skip: { chrome?: boolean; firefox?: boolean; safari?: boolean } = {},
+): void {
   describe(title, () => {
     beforeEach(async () => {
       if (template) {
@@ -36,15 +40,15 @@ export function testA11yTreeSnapshot(title = 'A11y tree', template?: TemplateRes
       await waitForLitRender(document);
     });
 
-    (isChromium() && !isDebugEnvironment() ? it : it.skip)('Chrome', async () => {
+    (!skip.chrome && isChromium() && !isDebugEnvironment() ? it : it.skip)('Chrome', async () => {
       await a11yTreeEqualSnapshot();
     });
 
-    (isSafari() && !isDebugEnvironment() ? it : it.skip)('Safari', async () => {
+    (!skip.safari && isSafari() && !isDebugEnvironment() ? it : it.skip)('Safari', async () => {
       await a11yTreeEqualSnapshot();
     });
 
-    (isFirefox() && !isDebugEnvironment() ? it : it.skip)(
+    (!skip.firefox && isFirefox() && !isDebugEnvironment() ? it : it.skip)(
       'Firefox',
       async function (this: Context) {
         this.timeout(5000);
