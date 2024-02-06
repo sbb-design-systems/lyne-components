@@ -2,6 +2,7 @@ import { aTimeout, expect, fixture } from '@open-wc/testing';
 import { a11ySnapshot } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
 import { isChromium, isDebugEnvironment, isFirefox, isSafari } from '../dom';
 
@@ -45,10 +46,10 @@ export function testA11yTreeSnapshot(title = 'A11y tree', template?: TemplateRes
 
     (isFirefox() && !isDebugEnvironment() ? it : it.skip)(
       'Firefox',
-      async () => {
+      async function (this: Context) {
+        this.timeout(5000);
         await a11yTreeEqualSnapshot();
       },
-      5000,
     );
   });
 }
