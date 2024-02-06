@@ -13,7 +13,7 @@ import { waitForLitRender } from './wait-for-render';
  * and create an html wrapper in order to use the `equalSnapshot` function.
  */
 async function a11yTreeEqualSnapshot(): Promise<void> {
-  await aTimeout(1000);
+  await aTimeout(500);
   const snapshot = await a11ySnapshot({});
 
   const htmlWrapper = await fixture(html`<p>${JSON.stringify(snapshot, null, 2)}</p>`);
