@@ -1,4 +1,3 @@
-import type { TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/common-behaviors';
@@ -12,11 +11,7 @@ import { SbbNavigationActionCommonElementMixin } from '../common/navigation-acti
 @customElement('sbb-navigation-button')
 export class SbbNavigationButtonElement extends SbbNavigationActionCommonElementMixin(
   SbbButtonBaseElement,
-) {
-  protected renderTemplate(): TemplateResult {
-    return this.renderNavigationActionCommonTemplate();
-  }
-}
+) {}
 
 declare global {
   interface HTMLElementTagNameMap {

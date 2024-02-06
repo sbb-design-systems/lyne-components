@@ -1,4 +1,3 @@
-import { spread } from '@open-wc/lit-helpers';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
@@ -40,27 +39,24 @@ export class SbbTeaserElement extends SbbLinkBaseElement {
     new NamedSlotStateController(this);
   }
 
-  protected renderTemplate(attributes: Record<string, string>): TemplateResult {
+  protected override renderTemplate(): TemplateResult {
     return html`
-      <a class="sbb-teaser" ${spread(attributes)}>
-        <span class="sbb-teaser__container">
-          <span class="sbb-teaser__image-wrapper">
-            <slot name="image"></slot>
-          </span>
-          <span class="sbb-teaser__text">
-            <sbb-chip size="xxs" color="charcoal" class="sbb-teaser__chip">
-              <slot name="chip">${this.chipContent}</slot>
-            </sbb-chip>
-            <sbb-title level=${this.titleLevel} visual-level="5" class="sbb-teaser__lead">
-              <slot name="title">${this.titleContent}</slot>
-            </sbb-title>
-            <span class="sbb-teaser__description">
-              <slot></slot>
-            </span>
-            ${this.renderTargetNewWindow()}
+      <span class="sbb-teaser__container">
+        <span class="sbb-teaser__image-wrapper">
+          <slot name="image"></slot>
+        </span>
+        <span class="sbb-teaser__text">
+          <sbb-chip size="xxs" color="charcoal" class="sbb-teaser__chip">
+            <slot name="chip">${this.chipContent}</slot>
+          </sbb-chip>
+          <sbb-title level=${this.titleLevel} visual-level="5" class="sbb-teaser__lead">
+            <slot name="title">${this.titleContent}</slot>
+          </sbb-title>
+          <span class="sbb-teaser__description">
+            <slot></slot>
           </span>
         </span>
-      </a>
+      </span>
     `;
   }
 }

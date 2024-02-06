@@ -1,4 +1,3 @@
-import { type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbLinkBaseElement } from '../../core/common-behaviors';
@@ -12,11 +11,7 @@ import { SbbHeaderActionCommonElementMixin } from '../common/header-action-commo
  * @slot - Use the unnamed slot to add content to the `sbb-header-link`.
  */
 @customElement('sbb-header-link')
-export class SbbHeaderLinkElement extends SbbHeaderActionCommonElementMixin(SbbLinkBaseElement) {
-  protected renderTemplate(attributes: Record<string, string>): TemplateResult {
-    return this.renderHeaderActionCommonTemplate(attributes, this.renderTargetNewWindow());
-  }
-}
+export class SbbHeaderLinkElement extends SbbHeaderActionCommonElementMixin(SbbLinkBaseElement) {}
 
 declare global {
   interface HTMLElementTagNameMap {

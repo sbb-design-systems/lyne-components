@@ -135,18 +135,16 @@ export class SbbTagElement extends SbbIconNameMixin(
     this._didChange.emit();
   }
 
-  protected renderTemplate(): TemplateResult {
+  protected override renderTemplate(): TemplateResult {
     // We have to ensure that the value is always present
     this.setAttribute('aria-pressed', this.checked.toString());
     return html`
-      <span class="sbb-tag">
-        <span class="sbb-tag__icon sbb-tag--shift"> ${this.renderIconSlot()} </span>
-        <span class="sbb-tag__text sbb-tag--shift">
-          <slot></slot>
-        </span>
-        <span class="sbb-tag__amount sbb-tag--shift">
-          <slot name="amount">${this.amount}</slot>
-        </span>
+      <span class="sbb-tag__icon sbb-tag--shift"> ${this.renderIconSlot()} </span>
+      <span class="sbb-tag__text sbb-tag--shift">
+        <slot></slot>
+      </span>
+      <span class="sbb-tag__amount sbb-tag--shift">
+        <slot name="amount">${this.amount}</slot>
       </span>
     `;
   }

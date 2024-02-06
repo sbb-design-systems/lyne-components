@@ -73,25 +73,23 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMix
     setAttribute(this, 'data-icon', !!(this.iconName || this._namedSlots.slots.has('icon')));
   }
 
-  protected renderTemplate(): TemplateResult {
+  protected override renderTemplate(): TemplateResult {
     setAttribute(this, 'slot', 'header');
     this._setDataIconAttribute();
     return html`
-      <span class="sbb-expansion-panel-header">
-        <span class="sbb-expansion-panel-header__title">
-          <span class="sbb-expansion-panel-header__icon"> ${this.renderIconSlot()} </span>
-          <slot></slot>
-        </span>
-        ${!this.disabled
-          ? html`<span class="sbb-expansion-panel-header__toggle">
-              <sbb-icon
-                name="chevron-small-down-medium"
-                class="sbb-expansion-panel-header__toggle-icon"
-              >
-              </sbb-icon>
-            </span>`
-          : nothing}
+      <span class="sbb-expansion-panel-header__title">
+        <span class="sbb-expansion-panel-header__icon"> ${this.renderIconSlot()} </span>
+        <slot></slot>
       </span>
+      ${!this.disabled
+        ? html`<span class="sbb-expansion-panel-header__toggle">
+            <sbb-icon
+              name="chevron-small-down-medium"
+              class="sbb-expansion-panel-header__toggle-icon"
+            >
+            </sbb-icon>
+          </span>`
+        : nothing}
     `;
   }
 }

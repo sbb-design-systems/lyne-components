@@ -1,4 +1,3 @@
-import { spread } from '@open-wc/lit-helpers';
 import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
@@ -29,35 +28,29 @@ export class SbbTeaserHeroElement extends SbbLinkBaseElement {
   /** Image alt text will be passed to `sbb-image`. */
   @property({ attribute: 'image-alt' }) public imageAlt?: string;
 
-  protected renderTemplate(attributes: Record<string, string>): TemplateResult {
+  protected override renderTemplate(): TemplateResult {
     return html`
-      <a class="sbb-teaser-hero" ${spread(attributes)}>
-        <span class="sbb-teaser-hero__panel">
-          <p class="sbb-teaser-hero__panel-text">
-            <slot></slot>
-          </p>
-          ${this.href
-            ? html`<sbb-link-static
-                class="sbb-teaser-hero__panel-link"
-                icon-name="chevron-small-right-small"
-                icon-placement="end"
-                size="m"
-                negative
-              >
-                <slot name="link-content">${this.linkContent}</slot>
-              </sbb-link-static>`
-            : nothing}
-        </span>
-        <slot name="image">
-          ${this.imageSrc
-            ? html`<sbb-image
-                image-src=${this.imageSrc}
-                alt=${this.imageAlt ?? nothing}
-              ></sbb-image>`
-            : nothing}
-        </slot>
-        ${this.renderTargetNewWindow()}
-      </a>
+      <span class="sbb-teaser-hero__panel">
+        <p class="sbb-teaser-hero__panel-text">
+          <slot></slot>
+        </p>
+        ${this.href
+          ? html`<sbb-link-static
+              class="sbb-teaser-hero__panel-link"
+              icon-name="chevron-small-right-small"
+              icon-placement="end"
+              size="m"
+              negative
+            >
+              <slot name="link-content">${this.linkContent}</slot>
+            </sbb-link-static>`
+          : nothing}
+      </span>
+      <slot name="image">
+        ${this.imageSrc
+          ? html`<sbb-image image-src=${this.imageSrc} alt=${this.imageAlt ?? nothing}></sbb-image>`
+          : nothing}
+      </slot>
     `;
   }
 }

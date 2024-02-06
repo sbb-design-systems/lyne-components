@@ -1,4 +1,3 @@
-import type { TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/common-behaviors';
@@ -14,11 +13,7 @@ import { SbbHeaderActionCommonElementMixin } from '../common/header-action-commo
 @customElement('sbb-header-button')
 export class SbbHeaderButtonElement extends SbbHeaderActionCommonElementMixin(
   SbbButtonBaseElement,
-) {
-  protected renderTemplate(): TemplateResult {
-    return this.renderHeaderActionCommonTemplate();
-  }
-}
+) {}
 
 declare global {
   interface HTMLElementTagNameMap {

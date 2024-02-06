@@ -1,4 +1,3 @@
-import { type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement, SbbDisabledTabIndexActionMixin } from '../../core/common-behaviors';
@@ -14,11 +13,7 @@ import { SbbLinkCommonElementMixin } from '../common/link-common';
 @customElement('sbb-link-button')
 export class SbbLinkButtonElement extends SbbLinkCommonElementMixin(
   SbbDisabledTabIndexActionMixin(SbbButtonBaseElement),
-) {
-  protected renderTemplate(): TemplateResult {
-    return this.renderLinkCommonTemplate();
-  }
-}
+) {}
 
 declare global {
   interface HTMLElementTagNameMap {

@@ -1,7 +1,6 @@
-import { spread } from '@open-wc/lit-helpers';
-import { type CSSResultGroup, type LitElement, nothing, type TemplateResult } from 'lit';
+import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
-import { html, unsafeStatic } from 'lit/static-html.js';
+import { html } from 'lit/static-html.js';
 
 import type {
   AbstractConstructor,
@@ -14,6 +13,7 @@ import {
   SbbNegativeMixin,
   NamedSlotStateController,
 } from '../../core/common-behaviors';
+import type { SbbActionBaseElement } from '../../core/common-behaviors/action-base-element';
 import type { SbbIconPlacement } from '../../core/interfaces';
 
 import '../../icon';
@@ -30,14 +30,10 @@ export declare class SbbLinkCommonElementMixinType
   public disabled: boolean;
   public iconName?: string;
   public negative: boolean;
-  protected renderLinkCommonTemplate: (
-    attributes?: Record<string, string>,
-    customTemplate?: TemplateResult | typeof nothing,
-  ) => TemplateResult;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<LitElement>>(
+export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<SbbActionBaseElement>>(
   superClass: T,
 ): AbstractConstructor<SbbLinkCommonElementMixinType> & T => {
   abstract class SbbLinkCommonElement
@@ -64,23 +60,12 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<LitEleme
       new NamedSlotStateController(this);
     }
 
-    protected renderLinkCommonTemplate(
-      attributes?: Record<string, string>,
-      customTemplate?: TemplateResult | typeof nothing,
-    ): TemplateResult {
-      const TAG_NAME: string = attributes ? 'a' : 'span';
-
-      /* eslint-disable lit/binding-positions */
+    protected override renderTemplate(): TemplateResult {
       return html`
-        <${unsafeStatic(TAG_NAME)} class="sbb-link" ${attributes ? spread(attributes) : nothing}>
-          ${
-            this.variant !== 'inline'
-              ? html` <span class="sbb-link__icon"> ${super.renderIconSlot()} </span> `
-              : nothing
-          }
-          <slot></slot>
-          ${customTemplate}
-        </${unsafeStatic(TAG_NAME)}>
+        ${this.variant !== 'inline'
+          ? html` <span class="sbb-link__icon"> ${super.renderIconSlot()} </span> `
+          : nothing}
+        <slot></slot>
       `;
       /* eslint-enable lit/binding-positions */
     }

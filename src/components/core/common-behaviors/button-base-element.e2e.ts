@@ -7,8 +7,8 @@ import { EventSpy, waitForLitRender } from '../testing';
 import { SbbButtonBaseElement } from './button-base-element';
 
 class GenericButton extends SbbButtonBaseElement {
-  protected renderTemplate(): TemplateResult {
-    return html`<span>Button</span>`;
+  protected override renderTemplate(): TemplateResult {
+    return html`Button`;
   }
 }
 customElements.define('generic-button', GenericButton);
@@ -29,7 +29,9 @@ describe('SbbButtonBaseElement', () => {
       expect(element.getAttribute('dir')).to.be.equal('ltr');
       expect(element.getAttribute('role')).to.be.equal('button');
       expect(element.getAttribute('tabindex')).to.be.equal('0');
-      expect(element.shadowRoot!.textContent).to.be.equal('Button');
+      expect(element.shadowRoot!.firstElementChild!.classList.contains('generic-button')).to.be
+        .true;
+      expect(element.shadowRoot!.textContent!.trim()).to.be.equal('Button');
     });
   });
 

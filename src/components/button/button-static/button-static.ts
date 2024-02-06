@@ -1,8 +1,7 @@
-import { LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbDisabledMixin } from '../../core/common-behaviors';
-import { getDocumentWritingMode } from '../../core/dom';
+import { SbbActionBaseElement } from '../../core/common-behaviors/action-base-element';
 import { SbbButtonCommonElementMixin } from '../common/button-common';
 import '../../icon';
 
@@ -14,17 +13,8 @@ import '../../icon';
  */
 @customElement('sbb-button-static')
 export class SbbButtonStaticElement extends SbbButtonCommonElementMixin(
-  SbbDisabledMixin(LitElement),
-) {
-  protected override render(): TemplateResult {
-    this.setAttribute('dir', getDocumentWritingMode());
-    // FIXME tabindex not wanted so the disabled mixin is used
-    if (this.disabled) {
-      this.setAttribute('aria-disabled', 'true');
-    }
-    return this.renderButtonCommonTemplate();
-  }
-}
+  SbbDisabledMixin(SbbActionBaseElement),
+) {}
 
 declare global {
   interface HTMLElementTagNameMap {

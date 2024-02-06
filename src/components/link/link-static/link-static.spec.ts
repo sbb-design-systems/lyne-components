@@ -6,7 +6,7 @@ import { waitForLitRender } from '../../core/testing';
 import './link-static';
 
 describe('sbb-link-static', () => {
-  it('renders a plain link-button with no icon', async () => {
+  it('renders a plain link-static with no icon', async () => {
     const root = await fixture(html`
       <sbb-link-static size="m" aria-label="Travelcards &amp; tickets">
         Travelcards &amp; tickets.
@@ -25,7 +25,7 @@ describe('sbb-link-static', () => {
       </sbb-link-static>
     `);
     expect(root).shadowDom.to.be.equal(`
-      <span class="sbb-link">
+      <span class="sbb-link-static">
         <span class="sbb-link__icon">
           <slot name="icon">
           </slot>
@@ -35,7 +35,7 @@ describe('sbb-link-static', () => {
     `);
   });
 
-  it('renders a negative link-button with provided icon', async () => {
+  it('renders a negative link-static with provided icon', async () => {
     const root = await fixture(
       html` <sbb-link-static icon-placement="end" size="m" negative disabled>
         <sbb-icon name="chevron-small-right-small" slot="icon"></sbb-icon>
@@ -52,7 +52,6 @@ describe('sbb-link-static', () => {
         size="m"
         negative
         disabled
-        aria-disabled="true"
         dir="ltr"
         data-slot-names="icon unnamed"
       >
@@ -61,7 +60,7 @@ describe('sbb-link-static', () => {
       </sbb-link-static>
     `);
     expect(root).shadowDom.to.be.equal(`
-      <span class="sbb-link">
+      <span class="sbb-link-static">
         <span class="sbb-link__icon">
           <slot name="icon"></slot>
         </span>
@@ -70,7 +69,7 @@ describe('sbb-link-static', () => {
     `);
   });
 
-  it('renders the inline variant', async () => {
+  it('renders the static inline variant', async () => {
     const root = await fixture(
       html` <sbb-link-static variant="inline" size="m">
         Travelcards &amp; tickets.
@@ -89,7 +88,7 @@ describe('sbb-link-static', () => {
       </sbb-link-static>
     `);
     expect(root).shadowDom.to.be.equal(`
-      <span class="sbb-link">
+      <span class="sbb-link-static">
         <slot></slot>
       </span>
     `);

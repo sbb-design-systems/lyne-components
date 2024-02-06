@@ -20,7 +20,6 @@ describe('sbb-button-static', () => {
         negative
         size="m"
         disabled
-        aria-disabled="true"
         dir="ltr"
         data-slot-names="unnamed"
       >
@@ -29,7 +28,7 @@ describe('sbb-button-static', () => {
       </sbb-button-static>
     `);
     expect(root).shadowDom.to.be.equal(`
-      <span class="sbb-button">
+      <span class="sbb-button-static">
         <span class="sbb-button__icon">
           <slot name="icon">
           </slot>
@@ -56,7 +55,7 @@ describe('sbb-button-static', () => {
       </sbb-button-static>
     `);
     expect(root).shadowDom.to.be.equal(`
-      <span class="sbb-button">
+      <span class="sbb-button-static">
         <span class="sbb-button__icon">
           <slot name="icon"></slot>
         </span>

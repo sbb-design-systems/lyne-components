@@ -1,8 +1,7 @@
-import { LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbDisabledMixin } from '../../core/common-behaviors';
-import { getDocumentWritingMode } from '../../core/dom';
+import { SbbActionBaseElement } from '../../core/common-behaviors/action-base-element';
 import '../../icon';
 import { SbbLinkCommonElementMixin } from '../common/link-common';
 
@@ -13,16 +12,9 @@ import { SbbLinkCommonElementMixin } from '../common/link-common';
  * @slot icon - Slot used to display the icon, if one is set.
  */
 @customElement('sbb-link-static')
-export class SbbLinkStaticElement extends SbbLinkCommonElementMixin(SbbDisabledMixin(LitElement)) {
-  protected override render(): TemplateResult {
-    this.setAttribute('dir', getDocumentWritingMode());
-    // FIXME tabindex not wanted so the disabled mixin is used
-    if (this.disabled) {
-      this.setAttribute('aria-disabled', 'true');
-    }
-    return this.renderLinkCommonTemplate();
-  }
-}
+export class SbbLinkStaticElement extends SbbLinkCommonElementMixin(
+  SbbDisabledMixin(SbbActionBaseElement),
+) {}
 
 declare global {
   interface HTMLElementTagNameMap {

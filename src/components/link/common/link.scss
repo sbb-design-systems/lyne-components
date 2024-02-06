@@ -41,7 +41,9 @@
   @include sbb.link-variables--button;
 }
 
-.sbb-link {
+.sbb-link,
+.sbb-link-button,
+.sbb-link-static {
   @include sbb.link-base;
 
   display: flex;

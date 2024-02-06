@@ -184,12 +184,7 @@ export class SbbDatepickerNextDayElement extends SbbNegativeMixin(SbbButtonBaseE
     this.setAttribute('aria-label', i18nSelectNextDay(currentDateString)[this._language.current]);
   }
 
-  protected override createRenderRoot(): HTMLElement | DocumentFragment {
-    this.setAttribute('slot', 'suffix');
-    return super.createRenderRoot();
-  }
-
-  protected renderTemplate(): TemplateResult {
+  private _setDisabledRenderAttributes(): void {
     toggleDatasetEntry(this, 'disabled', this._disabled || this._inputDisabled);
     if (isValidAttribute(this, 'data-disabled')) {
       this.setAttribute('aria-disabled', 'true');
@@ -198,11 +193,16 @@ export class SbbDatepickerNextDayElement extends SbbNegativeMixin(SbbButtonBaseE
       this.removeAttribute('aria-disabled');
       this.setAttribute('tabindex', '0');
     }
-    return html`
-      <span class="sbb-datepicker-next-day">
-        <sbb-icon name="chevron-small-right-small"></sbb-icon>
-      </span>
-    `;
+  }
+
+  protected override createRenderRoot(): HTMLElement | DocumentFragment {
+    this.setAttribute('slot', 'suffix');
+    return super.createRenderRoot();
+  }
+
+  protected override renderTemplate(): TemplateResult {
+    this._setDisabledRenderAttributes();
+    return html` <sbb-icon name="chevron-small-right-small"></sbb-icon> `;
   }
 }
 

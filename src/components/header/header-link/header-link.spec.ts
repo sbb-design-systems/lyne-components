@@ -34,7 +34,7 @@ describe('sbb-header-link', () => {
       </sbb-header-link>
     `);
     expect(root).shadowDom.to.be.equal(`
-      <a class="sbb-header-action" href="https://github.com/lyne-design-system/lyne-components" rel="external noopener nofollow" role="presentation" tabindex="-1" target="_blank">
+      <a class="sbb-header-link" href="https://github.com/lyne-design-system/lyne-components" rel="external noopener nofollow" role="presentation" tabindex="-1" target="_blank">
         <span class="sbb-header-action__wrapper">
           <span class="sbb-header-action__icon">
             <slot name="icon">
@@ -43,11 +43,11 @@ describe('sbb-header-link', () => {
           </span>
           <span class="sbb-header-action__text">
             <slot></slot>
-            <sbb-screenreader-only>
-              . Link target opens in a new window.
-            </sbb-screenreader-only>
           </span>
         </span>
+        <sbb-screenreader-only>
+          . Link target opens in a new window.
+        </sbb-screenreader-only>
       </a>
     `);
   });

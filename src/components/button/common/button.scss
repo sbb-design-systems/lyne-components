@@ -203,7 +203,9 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
   --sbb-button-shadow-2-color: var(--sbb-color-black-alpha-0);
 }
 
-.sbb-button {
+.sbb-button,
+.sbb-button-link,
+.sbb-button-static {
   @include sbb.text-xs--bold;
   @include sbb.font-smoothing;
 

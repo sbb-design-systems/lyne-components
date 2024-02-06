@@ -1,4 +1,3 @@
-import { type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/common-behaviors';
@@ -12,11 +11,7 @@ import { SbbMenuActionCommonElementMixin } from '../common/menu-action-common';
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a `sbb-icon` will be used.
  */
 @customElement('sbb-menu-button')
-export class SbbMenuButtonElement extends SbbMenuActionCommonElementMixin(SbbButtonBaseElement) {
-  protected renderTemplate(): TemplateResult {
-    return this.renderMenuActionCommonTemplate();
-  }
-}
+export class SbbMenuButtonElement extends SbbMenuActionCommonElementMixin(SbbButtonBaseElement) {}
 
 declare global {
   interface HTMLElementTagNameMap {

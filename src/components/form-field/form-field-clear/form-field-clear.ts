@@ -56,12 +56,8 @@ export class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElem
     return super.createRenderRoot();
   }
 
-  protected renderTemplate(): TemplateResult {
-    return html`
-      <span class="sbb-form-field-clear">
-        <sbb-icon name="cross-small"></sbb-icon>
-      </span>
-    `;
+  protected override renderTemplate(): TemplateResult {
+    return html` <sbb-icon name="cross-small"></sbb-icon> `;
   }
 }
 

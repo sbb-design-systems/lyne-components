@@ -40,11 +40,9 @@ export class SbbPopoverTriggerElement extends SbbDisabledTabIndexActionMixin(
     }
   }
 
-  protected renderTemplate(): TemplateResult {
+  protected override renderTemplate(): TemplateResult {
     return html`
-      <span class="sbb-popover-trigger">
-        <slot>${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}</slot>
-      </span>
+      <slot>${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}</slot>
     `;
   }
 }

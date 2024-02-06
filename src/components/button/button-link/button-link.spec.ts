@@ -21,17 +21,17 @@ describe('sbb-button-link', () => {
       </sbb-button-link>
     `);
     expect(root).shadowDom.to.be.equal(`
-      <a class="sbb-button" href="#" rel="noopener" role="presentation" tabindex="-1" target="_blank" download>
+      <a class="sbb-button-link" href="#" rel="noopener" role="presentation" tabindex="-1" target="_blank" download>
         <span class="sbb-button__icon">
           <slot name="icon">
           </slot>
         </span>
         <span class="sbb-button__label">
           <slot></slot>
-          <sbb-screenreader-only>
-            . Link target opens in a new window.
-          </sbb-screenreader-only>
         </span>
+        <sbb-screenreader-only>
+          . Link target opens in a new window.
+        </sbb-screenreader-only>
       </a>
     `);
   });
@@ -53,7 +53,7 @@ describe('sbb-button-link', () => {
       </sbb-button-link>
     `);
     expect(root).shadowDom.to.be.equal(`
-      <a class="sbb-button" href="#" role='presentation' tabindex='-1'>
+      <a class="sbb-button-link" href="#" role='presentation' tabindex='-1'>
         <span class="sbb-button__icon">
           <slot name="icon"></slot>
         </span>

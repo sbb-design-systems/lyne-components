@@ -1,10 +1,11 @@
-import { html, LitElement, nothing, type TemplateResult } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { getDocumentWritingMode } from '../dom';
 import { isEventPrevented } from '../eventing';
 import { i18nTargetOpensInNewWindow } from '../i18n';
 
+import { SbbActionBaseElement } from './action-base-element';
 import '../../screenreader-only';
 import { dispatchClickEventWhenEnterKeypress } from './action-dispatch-click';
 import { LanguageController } from './language-controller';
@@ -21,44 +22,8 @@ export interface LinkProperties {
   disabled?: boolean;
 }
 
-function filterUndefined(...objects: Record<string, string | undefined>[]): Record<string, string> {
-  const result: Record<string, string> = {};
-  for (const object of objects) {
-    for (const [key, value] of Object.entries(object)) {
-      if (value !== undefined) {
-        result[key] = value as string;
-      }
-    }
-  }
-  return result;
-}
-
-/**
- * Lists all attributes for a link; undefined/null properties are not set.
- * @param linkProperties link properties
- */
-function getLinkAttributeList(linkProperties: LinkProperties): Record<string, string> {
-  const baseAttributeList = {
-    role: 'presentation',
-    tabIndex: '-1',
-  };
-
-  return !linkProperties.href
-    ? baseAttributeList
-    : filterUndefined(baseAttributeList, {
-        href: linkProperties.href,
-        download: linkProperties.download ? '' : undefined,
-        target: linkProperties.target,
-        rel: linkProperties.rel
-          ? linkProperties.rel
-          : linkProperties.target === '_blank'
-            ? 'external noopener nofollow'
-            : undefined,
-      });
-}
-
 /** Link base class. */
-export abstract class SbbLinkBaseElement extends LitElement implements LinkProperties {
+export abstract class SbbLinkBaseElement extends SbbActionBaseElement implements LinkProperties {
   /** The href value you want to link to. */
   @property() public href?: string;
 
@@ -115,6 +80,10 @@ export abstract class SbbLinkBaseElement extends LitElement implements LinkPrope
     }
   };
 
+  private _evaluateRelAttribute = (): string | typeof nothing => {
+    return this.rel ? this.rel : this.target === '_blank' ? 'external noopener nofollow' : nothing;
+  };
+
   protected language = new LanguageController(this);
 
   public constructor() {
@@ -130,21 +99,25 @@ export abstract class SbbLinkBaseElement extends LitElement implements LinkPrope
     return super.createRenderRoot();
   }
 
-  protected renderTargetNewWindow(): TemplateResult | typeof nothing {
-    return !!this.href && this.target === '_blank'
-      ? html`
-          <sbb-screenreader-only
-            >. ${i18nTargetOpensInNewWindow[this.language.current]}</sbb-screenreader-only
-          >
-        `
-      : nothing;
-  }
-
-  /** Implement this method to render the link-like component template. */
-  protected abstract renderTemplate(attributes: Record<string, string>): TemplateResult;
-
   /** Default render method for link-like components. Can be overridden if the LinkRenderVariables are not needed. */
   protected override render(): TemplateResult {
-    return this.renderTemplate(getLinkAttributeList(this));
+    return html`
+      <a
+        class=${this.tagName.toLowerCase()}
+        role="presentation"
+        tabindex="-1"
+        href=${this.href ?? nothing}
+        ?download=${this.download}
+        target=${this.target ?? nothing}
+        rel=${this._evaluateRelAttribute()}
+      >
+        ${this.renderTemplate()}
+        ${!!this.href && this.target === '_blank'
+          ? html`<sbb-screenreader-only
+              >. ${i18nTargetOpensInNewWindow[this.language.current]}</sbb-screenreader-only
+            >`
+          : nothing}
+      </a>
+    `;
   }
 }

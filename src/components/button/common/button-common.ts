@@ -1,7 +1,6 @@
-import { spread } from '@open-wc/lit-helpers';
-import { type CSSResultGroup, type LitElement, nothing, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
-import { html, unsafeStatic } from 'lit/static-html.js';
+import { html } from 'lit/static-html.js';
 
 import type {
   AbstractConstructor,
@@ -14,6 +13,7 @@ import {
   SbbIconNameMixin,
   SbbNegativeMixin,
 } from '../../core/common-behaviors';
+import type { SbbActionBaseElement } from '../../core/common-behaviors/action-base-element';
 import { isValidAttribute, toggleDatasetEntry } from '../../core/dom';
 
 import '../../icon';
@@ -30,14 +30,10 @@ export declare class SbbButtonCommonElementMixinType
   public disabled: boolean;
   public iconName?: string;
   public negative: boolean;
-  protected renderButtonCommonTemplate: (
-    attributes?: Record<string, string>,
-    customTemplate?: TemplateResult | typeof nothing,
-  ) => TemplateResult;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<LitElement>>(
+export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbActionBaseElement>>(
   superClass: T,
 ): AbstractConstructor<SbbButtonCommonElementMixinType> & T => {
   abstract class SbbButtonCommonElement
@@ -66,25 +62,13 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<LitEle
       }
     }
 
-    protected renderButtonCommonTemplate(
-      attributes?: Record<string, string>,
-      customTemplate?: TemplateResult | typeof nothing,
-    ): TemplateResult {
-      const TAG_NAME: string = attributes ? 'a' : 'span';
-
-      /* eslint-disable lit/binding-positions */
+    protected override renderTemplate(): TemplateResult {
       return html`
-        <${unsafeStatic(TAG_NAME)} class="sbb-button" ${attributes ? spread(attributes) : nothing}>
-          <span class="sbb-button__icon">
-            ${super.renderIconSlot()}
-          </span>
-          <span class="sbb-button__label">
-            <slot></slot>
-            ${customTemplate}
-          </span>
-        </${unsafeStatic(TAG_NAME)}>
+        <span class="sbb-button__icon"> ${super.renderIconSlot()} </span>
+        <span class="sbb-button__label">
+          <slot></slot>
+        </span>
       `;
-      /* eslint-enable lit/binding-positions */
     }
   }
   return SbbButtonCommonElement as unknown as AbstractConstructor<SbbButtonCommonElementMixinType> &

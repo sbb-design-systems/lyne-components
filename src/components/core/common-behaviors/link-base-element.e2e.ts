@@ -7,7 +7,7 @@ import { EventSpy, waitForLitRender } from '../testing';
 import { SbbLinkBaseElement } from './link-base-element';
 
 class GenericLink extends SbbLinkBaseElement {
-  protected renderTemplate(): TemplateResult {
+  protected override renderTemplate(): TemplateResult {
     return html`<span>Link</span>`;
   }
 }
@@ -29,7 +29,8 @@ describe('SbbLinkBaseElement', () => {
       expect(element.getAttribute('dir')).to.be.equal('ltr');
       expect(element.getAttribute('role')).to.be.equal('link');
       expect(element.getAttribute('tabindex')).to.be.equal('0');
-      expect(element.shadowRoot!.textContent).to.be.equal('Link');
+      expect(element.shadowRoot!.firstElementChild!.classList.contains('generic-link')).to.be.true;
+      expect(element.shadowRoot!.textContent!.trim()).to.be.equal('Link');
     });
   });
 

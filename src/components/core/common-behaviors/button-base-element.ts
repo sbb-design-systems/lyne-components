@@ -1,8 +1,6 @@
-import { LitElement, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { getDocumentWritingMode } from '../dom';
-
+import { SbbActionBaseElement } from './action-base-element';
 import { dispatchClickEvent, dispatchClickEventWhenEnterKeypress } from './action-dispatch-click';
 
 /** Enumeration for type attribute in <button> HTML tag. */
@@ -18,7 +16,10 @@ export interface ButtonProperties {
 }
 
 /** Button base class. */
-export abstract class SbbButtonBaseElement extends LitElement implements ButtonProperties {
+export abstract class SbbButtonBaseElement
+  extends SbbActionBaseElement
+  implements ButtonProperties
+{
   /** The type attribute to use for the button. */
   @property() public type?: ButtonType;
 
@@ -103,16 +104,7 @@ export abstract class SbbButtonBaseElement extends LitElement implements ButtonP
 
   protected override createRenderRoot(): HTMLElement | DocumentFragment {
     this.setAttribute('role', 'button');
-    this.setAttribute('dir', getDocumentWritingMode());
     this.setAttribute('tabindex', '0');
     return super.createRenderRoot();
-  }
-
-  /** Implement this method to render the button-like component template. */
-  protected abstract renderTemplate(): TemplateResult;
-
-  /** Default render method for button-like components. Can be overridden if the ButtonRenderVariables are not needed. */
-  protected override render(): TemplateResult {
-    return this.renderTemplate();
   }
 }

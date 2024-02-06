@@ -1,10 +1,10 @@
-import { spread } from '@open-wc/lit-helpers';
-import { type CSSResultGroup, type LitElement, nothing, type TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
-import { html, unsafeStatic } from 'lit/static-html.js';
+import { html } from 'lit/static-html.js';
 
 import { IS_FOCUSABLE_QUERY } from '../../core/a11y';
 import type { AbstractConstructor } from '../../core/common-behaviors';
+import type { SbbActionBaseElement } from '../../core/common-behaviors/action-base-element';
 import { setAttribute, toggleDatasetEntry } from '../../core/dom';
 import { AgnosticMutationObserver } from '../../core/observers';
 import type { SbbCardElement } from '../card';
@@ -13,14 +13,12 @@ import style from './card-action.scss?lit&inline';
 
 export declare class SbbCardActionCommonElementMixinType {
   public active: boolean;
-  protected renderCardActionCommonTemplate: (
-    attributes?: Record<string, string>,
-    customTemplate?: TemplateResult | typeof nothing,
-  ) => TemplateResult;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbCardActionCommonElementMixin = <T extends AbstractConstructor<LitElement>>(
+export const SbbCardActionCommonElementMixin = <
+  T extends AbstractConstructor<SbbActionBaseElement>,
+>(
   superClass: T,
 ): AbstractConstructor<SbbCardActionCommonElementMixinType> & T => {
   abstract class SbbCardActionCommonElement
@@ -95,22 +93,12 @@ export const SbbCardActionCommonElementMixin = <T extends AbstractConstructor<Li
       this._cardMutationObserver.disconnect();
     }
 
-    protected renderCardActionCommonTemplate(
-      attributes?: Record<string, string>,
-      customTemplate?: TemplateResult | typeof nothing,
-    ): TemplateResult {
-      const TAG_NAME: string = attributes ? 'a' : 'span';
-
-      /* eslint-disable lit/binding-positions */
+    protected override renderTemplate(): TemplateResult {
       return html`
-        <${unsafeStatic(TAG_NAME)} class="sbb-card-action" ${attributes ? spread(attributes) : nothing}>
-          <span class="sbb-card-action__label">
+        <span class="sbb-card-action__label">
           <slot></slot>
-          ${customTemplate}
         </span>
-        </${unsafeStatic(TAG_NAME)}>
       `;
-      /* eslint-enable lit/binding-positions */
     }
   }
   return SbbCardActionCommonElement as unknown as AbstractConstructor<SbbCardActionCommonElementMixinType> &

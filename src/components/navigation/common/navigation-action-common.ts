@@ -1,9 +1,9 @@
-import { spread } from '@open-wc/lit-helpers';
-import { type CSSResultGroup, type LitElement, nothing, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
-import { html, unsafeStatic } from 'lit/static-html.js';
+import { html } from 'lit/static-html.js';
 
 import type { AbstractConstructor } from '../../core/common-behaviors';
+import type { SbbActionBaseElement } from '../../core/common-behaviors/action-base-element';
 import { hostContext } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
 import type { SbbNavigationButtonElement } from '../navigation-button';
@@ -17,14 +17,12 @@ export type SbbNavigationActionSize = 's' | 'm' | 'l';
 export declare class SbbNavigationActionCommonElementMixinType {
   public size?: SbbNavigationActionSize;
   public active: boolean;
-  protected renderNavigationActionCommonTemplate: (
-    attributes?: Record<string, string>,
-    customTemplate?: TemplateResult | typeof nothing,
-  ) => TemplateResult;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbNavigationActionCommonElementMixin = <T extends AbstractConstructor<LitElement>>(
+export const SbbNavigationActionCommonElementMixin = <
+  T extends AbstractConstructor<SbbActionBaseElement>,
+>(
   superClass: T,
 ): AbstractConstructor<SbbNavigationActionCommonElementMixinType> & T => {
   abstract class SbbNavigationActionCommonElement
@@ -85,20 +83,8 @@ export const SbbNavigationActionCommonElementMixin = <T extends AbstractConstruc
       }
     }
 
-    protected renderNavigationActionCommonTemplate(
-      attributes?: Record<string, string>,
-      customTemplate?: TemplateResult | typeof nothing,
-    ): TemplateResult {
-      const TAG_NAME: string = attributes ? 'a' : 'span';
-
-      /* eslint-disable lit/binding-positions */
-      return html`
-        <${unsafeStatic(TAG_NAME)} class="sbb-navigation-action" ${attributes ? spread(attributes) : nothing}>
-          <slot></slot>
-          ${customTemplate}
-        </${unsafeStatic(TAG_NAME)}>
-      `;
-      /* eslint-enable lit/binding-positions */
+    protected override renderTemplate(): TemplateResult {
+      return html` <slot></slot> `;
     }
   }
   return SbbNavigationActionCommonElement as unknown as AbstractConstructor<SbbNavigationActionCommonElementMixinType> &

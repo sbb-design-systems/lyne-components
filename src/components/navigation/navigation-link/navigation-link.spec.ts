@@ -14,7 +14,7 @@ describe('sbb-navigation-link', () => {
     `);
     expect(root).shadowDom.to.be.equal(`
       <a
-        class="sbb-navigation-action"
+        class="sbb-navigation-link"
         href="#"
         target='_blank'
         rel="external noopener nofollow"

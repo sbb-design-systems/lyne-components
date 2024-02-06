@@ -19,7 +19,7 @@ describe('sbb-menu-button', () => {
       </sbb-menu-button>
     `);
     expect(root).shadowDom.to.be.equal(`
-      <span class="sbb-menu-action">
+      <span class="sbb-menu-button">
         <span class="sbb-menu-action__content">
           <span class="sbb-menu-action__icon">
             <slot name="icon"></slot>
@@ -47,7 +47,7 @@ describe('sbb-menu-button', () => {
       </sbb-menu-button>
     `);
     expect(root).shadowDom.to.be.equal(`
-      <span class="sbb-menu-action">
+      <span class="sbb-menu-button">
         <span class="sbb-menu-action__content">
           <span class="sbb-menu-action__icon">
             <slot name="icon">

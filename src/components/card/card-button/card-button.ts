@@ -1,4 +1,3 @@
-import type { TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/common-behaviors';
@@ -11,11 +10,7 @@ import { SbbCardActionCommonElementMixin } from '../common/card-action-common';
  *   This is relevant for SEO and screen readers.
  */
 @customElement('sbb-card-button')
-export class SbbCardButtonElement extends SbbCardActionCommonElementMixin(SbbButtonBaseElement) {
-  protected renderTemplate(): TemplateResult {
-    return this.renderCardActionCommonTemplate();
-  }
-}
+export class SbbCardButtonElement extends SbbCardActionCommonElementMixin(SbbButtonBaseElement) {}
 
 declare global {
   interface HTMLElementTagNameMap {

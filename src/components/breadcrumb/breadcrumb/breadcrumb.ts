@@ -1,4 +1,3 @@
-import { spread } from '@open-wc/lit-helpers';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
@@ -35,19 +34,16 @@ export class SbbBreadcrumbElement extends SlotChildObserver(SbbLinkBaseElement) 
     );
   }
 
-  protected renderTemplate(attributes: Record<string, string>): TemplateResult {
+  protected override renderTemplate(): TemplateResult {
     return html`
-      <a class="sbb-breadcrumb" ${spread(attributes)}>
-        <slot name="icon">
-          ${this.iconName
-            ? html`<sbb-icon name="${this.iconName}" class="sbb-breadcrumb__icon"></sbb-icon>`
-            : nothing}
-        </slot>
-        <span class="sbb-breadcrumb__label" ?hidden=${!this._hasText}>
-          <slot></slot>
-        </span>
-        ${this.renderTargetNewWindow()}
-      </a>
+      <slot name="icon">
+        ${this.iconName
+          ? html`<sbb-icon name="${this.iconName}" class="sbb-breadcrumb__icon"></sbb-icon>`
+          : nothing}
+      </slot>
+      <span class="sbb-breadcrumb__label" ?hidden=${!this._hasText}>
+        <slot></slot>
+      </span>
     `;
   }
 }

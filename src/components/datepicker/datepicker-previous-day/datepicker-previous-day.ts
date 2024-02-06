@@ -187,12 +187,7 @@ export class SbbDatepickerPreviousDayElement extends SbbNegativeMixin(SbbButtonB
     );
   }
 
-  protected override createRenderRoot(): HTMLElement | DocumentFragment {
-    this.setAttribute('slot', 'prefix');
-    return super.createRenderRoot();
-  }
-
-  protected renderTemplate(): TemplateResult {
+  private _setDisabledRenderAttributes(): void {
     toggleDatasetEntry(this, 'disabled', this._disabled || this._inputDisabled);
     if (isValidAttribute(this, 'data-disabled')) {
       this.setAttribute('aria-disabled', 'true');
@@ -201,11 +196,16 @@ export class SbbDatepickerPreviousDayElement extends SbbNegativeMixin(SbbButtonB
       this.removeAttribute('aria-disabled');
       this.setAttribute('tabindex', '0');
     }
-    return html`
-      <span class="sbb-datepicker-previous-day">
-        <sbb-icon name="chevron-small-left-small"></sbb-icon>
-      </span>
-    `;
+  }
+
+  protected override createRenderRoot(): HTMLElement | DocumentFragment {
+    this.setAttribute('slot', 'prefix');
+    return super.createRenderRoot();
+  }
+
+  protected override renderTemplate(): TemplateResult {
+    this._setDisabledRenderAttributes();
+    return html` <sbb-icon name="chevron-small-left-small"></sbb-icon> `;
   }
 }
 
