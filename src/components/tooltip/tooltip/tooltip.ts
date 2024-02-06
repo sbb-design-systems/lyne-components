@@ -425,7 +425,9 @@ export class SbbTooltipElement extends LitElement {
     setTimeout(() => {
       if (document.visibilityState !== 'hidden') {
         this._overlay?.removeAttribute('tabindex');
-        this._skipCloseFocus = true;
+        if (this._state === 'opened' || this._state === 'opening') {
+          this._skipCloseFocus = true;
+        }
         this.close();
       }
     });
