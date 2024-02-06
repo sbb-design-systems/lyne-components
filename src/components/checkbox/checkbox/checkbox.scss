@@ -7,7 +7,9 @@
 :host {
   --sbb-checkbox-dimension: var(--sbb-size-icon-ui-small);
   --sbb-checkbox-label-color: var(--sbb-color-charcoal-default);
+  --sbb-checkbox-label-icon-color: var(--sbb-color-charcoal-default);
   --sbb-checkbox-cursor: pointer;
+  --sbb-checkbox-suffix-color: var(--sbb-color-charcoal-default);
   --sbb-checkbox-subtext-color: var(--sbb-color-granite-default);
   --sbb-checkbox-label-gap: var(--sbb-spacing-fixed-2x);
 
@@ -19,13 +21,16 @@
 }
 
 :host([disabled]) {
-  --sbb-checkbox-label-color: var(--sbb-color-charcoal-default);
   --sbb-checkbox-cursor: default;
-  --sbb-checkbox-subtext-color: var(--sbb-color-smoke-default);
+  --sbb-checkbox-label-color: var(--sbb-color-granite-default);
 }
 
 :host([data-is-selection-panel-input]) {
   --sbb-checkbox-label-gap: 0;
+}
+
+slot[name='suffix'] {
+  color: var(--sbb-checkbox-suffix-color);
 }
 
 slot[name='subtext'] {
@@ -64,7 +69,6 @@ slot[name='subtext'] {
   position: relative;
   display: block;
   width: 100%;
-  color: var(--sbb-checkbox-label-color);
   cursor: var(--sbb-checkbox-cursor);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -118,6 +122,8 @@ input[type='checkbox'] {
 }
 
 .sbb-checkbox__label--icon {
+  color: var(--sbb-checkbox-label-icon-color);
+
   :host([icon-placement='end']) & {
     margin-left: auto;
   }
