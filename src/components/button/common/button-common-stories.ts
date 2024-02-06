@@ -10,7 +10,7 @@ import type {
 } from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import { type TemplateResult } from 'lit';
-import { styleMap } from 'lit/directives/style-map';
+import { styleMap } from 'lit/directives/style-map.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { sbbSpread } from '../../core/dom';
