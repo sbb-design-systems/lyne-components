@@ -1,20 +1,19 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { LitElement, html, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { html, LitElement, nothing } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
   FocusHandler,
-  IS_FOCUSABLE_QUERY,
-  assignId,
   getFirstFocusableElement,
+  IS_FOCUSABLE_QUERY,
   setModalityOnNextFocus,
 } from '../../core/a11y';
 import { LanguageController } from '../../core/common-behaviors';
 import { findReferencedElement, isValidAttribute, setAttribute } from '../../core/dom';
-import { EventEmitter, composedPathHasAttribute } from '../../core/eventing';
+import { composedPathHasAttribute, EventEmitter } from '../../core/eventing';
 import { i18nCloseTooltip } from '../../core/i18n';
-import type { Alignment, SbbOverlayState } from '../../core/overlay';
+import type { SbbOverlayState } from '../../core/overlay';
 import {
   getElementPosition,
   isEventOnElement,
@@ -90,9 +89,6 @@ export class SbbTooltipElement extends LitElement {
     return this.dataset.state as SbbOverlayState;
   }
 
-  /** The alignment of the tooltip relative to the trigger. */
-  @state() private _alignment?: Alignment;
-
   /** Emits whenever the `sbb-tooltip` starts the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbTooltipElement.events.willOpen);
 
@@ -124,7 +120,6 @@ export class SbbTooltipElement extends LitElement {
   private _hoverTrigger = false;
   private _openTimeout?: ReturnType<typeof setTimeout>;
   private _closeTimeout?: ReturnType<typeof setTimeout>;
-  private _tooltipId = `sbb-tooltip-${++nextId}`;
   private _language = new LanguageController(this);
 
   /** Opens the tooltip on trigger click. */
@@ -195,6 +190,10 @@ export class SbbTooltipElement extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    if (!this.id) {
+      this.id = this.id || `sbb-tooltip-${++nextId}`;
+    }
+
     // Validate trigger element and attach event listeners
     this._configure();
     this._state = 'closed';
@@ -240,12 +239,7 @@ export class SbbTooltipElement extends LitElement {
       return;
     }
 
-    setAriaOverlayTriggerAttributes(
-      this._triggerElement,
-      'dialog',
-      this.id || this._tooltipId,
-      this._state,
-    );
+    setAriaOverlayTriggerAttributes(this._triggerElement, 'dialog', this.id, this._state);
 
     // Check whether the trigger can be hovered. Some devices might interpret the media query (hover: hover) differently,
     // and not respect the fallback mechanism on the click. Therefore, the following is preferred to identify
@@ -450,7 +444,7 @@ export class SbbTooltipElement extends LitElement {
       },
     );
 
-    this._alignment = tooltipPosition.alignment;
+    setAttribute(this, 'data-position', tooltipPosition.alignment.vertical);
 
     const arrowXPosition =
       this._triggerElement.getBoundingClientRect().left -
@@ -476,9 +470,6 @@ export class SbbTooltipElement extends LitElement {
         ></sbb-button>
       </span>
     `;
-
-    setAttribute(this, 'data-position', this._alignment?.vertical);
-    assignId(() => this._tooltipId)(this);
 
     return html`
       <div class="sbb-tooltip__container">

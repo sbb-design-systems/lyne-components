@@ -62,12 +62,12 @@ describe('sbb-datepicker-toggle', () => {
             icon-name="calendar-small"
             data-icon-small=""
             role="button"
-            aria-controls="sbb-tooltip-4"
+            aria-controls="sbb-tooltip-2"
           ></sbb-tooltip-trigger>
             <sbb-tooltip
               hide-close-button=""
               data-state="closed"
-              id="sbb-tooltip-4"
+              id="sbb-tooltip-2"
             >
               <sbb-calendar></sbb-calendar>
             </sbb-tooltip>
@@ -92,7 +92,7 @@ describe('sbb-datepicker-toggle', () => {
         `
           <sbb-tooltip-trigger
             aria-label="Show calendar"
-            aria-controls="sbb-tooltip-7"
+            aria-controls="sbb-tooltip-3"
             aria-disabled="true"
             aria-expanded="false"
             aria-haspopup="dialog"
@@ -104,7 +104,7 @@ describe('sbb-datepicker-toggle', () => {
           ></sbb-tooltip-trigger>
           <sbb-tooltip
             data-state="closed"
-            id="sbb-tooltip-7"
+            id="sbb-tooltip-3"
             hide-close-button=""
           >
             <sbb-calendar></sbb-calendar>
@@ -137,12 +137,12 @@ describe('sbb-datepicker-toggle', () => {
             icon-name="calendar-small"
             data-icon-small=""
             role="button"
-            aria-controls="sbb-tooltip-10"
+            aria-controls="sbb-tooltip-4"
           ></sbb-tooltip-trigger>
           <sbb-tooltip
             hide-close-button=""
             data-state="closed"
-            id="sbb-tooltip-10"
+            id="sbb-tooltip-4"
           >
             <sbb-calendar wide=""></sbb-calendar>
           </sbb-tooltip>
