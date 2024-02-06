@@ -295,7 +295,7 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
       this.closest('sbb-navigation')!.shadowRoot!.children,
     ) as HTMLElement[];
     const navigationFocusableElements = getFocusableElements(navigationChildren, {
-      filterFunc: (el) => el.nodeName === 'SBB-NAVIGATION-SECTION',
+      filter: (el) => el.nodeName === 'SBB-NAVIGATION-SECTION',
     });
 
     const sectionChildren: HTMLElement[] = Array.from(this.shadowRoot!.children) as HTMLElement[];

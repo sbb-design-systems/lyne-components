@@ -17,23 +17,23 @@ export const IS_FOCUSABLE_QUERY = [
 export function getFocusableElements(
   elements: HTMLElement[],
   properties?: {
-    filterFunc?: (el: HTMLElement) => boolean;
+    filter?: (el: HTMLElement) => boolean;
     findFirstFocusable?: boolean;
     includeInvisibleElements?: boolean;
   },
 ): HTMLElement[] {
   const focusableEls = new Set<HTMLElement>();
 
-  function getFocusables(elements: HTMLElement[], filterFunc?: (el: HTMLElement) => boolean): void {
+  function getFocusables(elements: HTMLElement[], filter?: (el: HTMLElement) => boolean): void {
     for (const el of elements) {
-      if (filterFunc && !filterFunc(el)) {
+      if (filter && !filter(el)) {
         continue;
       }
 
       if (el.nodeName === 'SLOT') {
         getFocusables(
           Array.from((el as HTMLSlotElement).assignedElements()) as HTMLElement[],
-          filterFunc,
+          filter,
         );
         continue;
       }
@@ -53,21 +53,21 @@ export function getFocusableElements(
         const children = Array.from(el.children).length
           ? (Array.from(el.children) as HTMLElement[])
           : (Array.from(el.shadowRoot!.children) as HTMLElement[]);
-        getFocusables(children, filterFunc);
+        getFocusables(children, filter);
       }
     }
   }
-  getFocusables(elements, properties?.filterFunc);
+  getFocusables(elements, properties?.filter);
 
   return [...focusableEls];
 }
 
 export function getFirstFocusableElement(
   elements: HTMLElement[],
-  filterFunc?: (el: HTMLElement) => boolean,
+  filter?: (el: HTMLElement) => boolean,
 ): HTMLElement | null {
   const focusableElements = getFocusableElements(elements, {
-    filterFunc: filterFunc,
+    filter,
     findFirstFocusable: true,
   });
   return focusableElements.length ? focusableElements[0] : null;
@@ -101,7 +101,7 @@ export class FocusHandler {
           element.shadowRoot!.children || [],
         ) as HTMLElement[];
         const focusableElements = getFocusableElements(elementChildren, {
-          filterFunc: options?.filter,
+          filter: options?.filter,
         });
         const filteredFocusableElements = focusableElements.filter(
           options?.postFilter ?? (() => true),
