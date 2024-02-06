@@ -15,6 +15,7 @@ the [sbb-tooltip-trigger](/docs/components-sbb-tooltip-sbb-tooltip-trigger--docs
 <sbb-tooltip-trigger id="tooltip-trigger"></sbb-tooltip-trigger>
 
 <sbb-tooltip id="tooltip" trigger="tooltip-trigger">
+  <sbb-title level="2" visual-level="6" style="margin-block-start: 0">Tooltip Title.</sbb-title>
   <p id="tooltip-content">Tooltip content.</p>
 </sbb-tooltip>
 ```
@@ -32,6 +33,7 @@ it's also possible to hide the default close button using the `hideCloseButton` 
 <sbb-tooltip-trigger id="tooltip-trigger"></sbb-tooltip-trigger>
 
 <sbb-tooltip id="tooltip" trigger="tooltip-trigger" hide-close-button>
+  <sbb-title level="2" visual-level="6" style="margin-block-start: 0">Tooltip Title.</sbb-title>
   <p id="tooltip-content">
     Tooltip content. <sbb-link id="tooltip-link" variant="inline" sbb-tooltip-close>Link</sbb-link>
   </p>
@@ -56,6 +58,7 @@ if neither the trigger element nor the tooltip are on hover or if another action
   open-delay="500"
   close-delay="750"
 >
+  <sbb-title level="2" visual-level="6" style="margin-block-start: 0">Tooltip Title.</sbb-title>
   <p id="tooltip-content">
     Tooltip content. <sbb-link id="tooltip-link" variant="inline">Link</sbb-link>
   </p>
@@ -71,39 +74,9 @@ to specify a custom stack order, the `z-index` can be changed by defining the CS
 ## Accessibility
 
 As the tooltip opens, the focus will automatically be set to the first focusable item within the component.
+If the close button is not hidden, it's the first element and therefore gets focused.
 
-To make screen-readers announce the tooltip content when the trigger is focused,
-associate the trigger with the `sbb-tooltip` via `aria-describedby` and `id` as shown below.
-
-If the tooltip trigger is a `sbb-tooltip-trigger` component, set `role="button"` on it,
-since the `aria-describedby` attribute can be used with semantic HTML elements and with elements
-that have an ARIA `role`.
-
-```html
-<!-- Trigger element -->
-<button id="tooltip-trigger" aria-describedby="tooltip-content">Button with tooltip</button>
-
-<!-- Tooltip component -->
-<sbb-tooltip id="tooltip" trigger="tooltip-trigger">
-  <p id="tooltip-content">
-    Tooltip content. <sbb-link id="tooltip-link" variant="inline">Link</sbb-link>
-  </p>
-</sbb-tooltip>
-
-<!-- Tooltip trigger component -->
-<sbb-tooltip-trigger
-  role="button"
-  aria-describedby="tooltip-content"
-  id="tooltip-trigger"
-></sbb-tooltip-trigger>
-
-<!-- Tooltip component -->
-<sbb-tooltip id="tooltip" trigger="tooltip-trigger">
-  <p id="tooltip-content">
-    Tooltip content. <sbb-link id="tooltip-link" variant="inline">Link</sbb-link>
-  </p>
-</sbb-tooltip>
-```
+Overlays should always contain a heading level 2 title. It can be visually hidden if necessary.
 
 <!-- Auto Generated Below -->
 

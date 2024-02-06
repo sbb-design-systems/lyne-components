@@ -71,8 +71,11 @@ const defaultArgs: Args = {
 
 const tooltip = (): TemplateResult => html`
   <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger">
-    <span id="tooltip-content" class="sbb-text-s">
-      Simple information tooltip with link.
+    <sbb-title level="2" visual-level="6" style="margin-block-start: 0">
+      Simple tooltip with link.
+    </sbb-title>
+    <p class="sbb-text-s" style="margin: 0;">
+      Some content.
       <sbb-link
         size="s"
         variant="block"
@@ -82,7 +85,7 @@ const tooltip = (): TemplateResult => html`
       >
         Learn More
       </sbb-link>
-    </span>
+    </p>
   </sbb-tooltip>
 `;
 

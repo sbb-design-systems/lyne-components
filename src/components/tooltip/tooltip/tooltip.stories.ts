@@ -21,6 +21,7 @@ import { sbbSpread } from '../../core/dom';
 import readme from './readme.md?raw';
 import { SbbTooltipElement } from './tooltip';
 import '../../link';
+import '../../title';
 import '../tooltip-trigger';
 
 async function commonPlayStory(canvasElement: HTMLElement): Promise<Element> {
@@ -106,8 +107,11 @@ const tooltipTrigger = (position: Record<string, string>): TemplateResult => htm
 
 const tooltip = (args: Args): TemplateResult => html`
   <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger" ${sbbSpread(args)}>
-    <p id="tooltip-content" style="margin: 0; font-size: var(--sbb-font-size-text-s);">
-      Simple information tooltip with link.${' '}
+    <sbb-title level="2" visual-level="6" style="margin-block-start: 0">
+      Simple tooltip with link.
+    </sbb-title>
+    <p style="margin: 0" class="sbb-text-s">
+      Some content.
       <sbb-link
         size="s"
         variant="block"
@@ -123,7 +127,9 @@ const tooltip = (args: Args): TemplateResult => html`
 
 const simpleTooltip = (args: Args): TemplateResult => html`
   <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger" ${sbbSpread(args)}>
-    Simple tooltip without any interactive content but a list.
+    <sbb-title level="2" visual-level="6" style="margin-block-start: 0">
+      Simple tooltip without any interactive content but a list.
+    </sbb-title>
     <ul aria-label="Colors">
       <li>Red</li>
       <li>Green</li>
@@ -160,7 +166,10 @@ const EndAboveTemplate = (args: Args): TemplateResult => html`
 const LongContentTemplate = (args: Args): TemplateResult => html`
   ${tooltipTrigger({ 'inset-inline-start': '2rem' })}
   <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger" ${sbbSpread(args)}>
-    <p id="tooltip-content" style="margin: 0; font-size: var(--sbb-font-size-text-s);">
+    <sbb-title level="2" visual-level="6" style="margin-block-start: 0">
+      Tooltip with long content.
+    </sbb-title>
+    <p style="margin: 0;" class="sbb-text-s">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
       labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
       laboris nisi ut aliquip ex ea commodo consequat.

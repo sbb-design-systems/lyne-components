@@ -27,8 +27,11 @@ const TooltipTrigger = (): TemplateResult => html`
     icon-name="circle-information-small"
   ></sbb-tooltip-trigger>
   <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger">
+    <sbb-title level="2" visual-level="6" style="margin-block-start: 0"
+      >Simple info tooltip.</sbb-title
+    >
     <span id="tooltip-content" class="sbb-text-s">
-      Simple info tooltip.
+      Some content.
       <sbb-link
         text-size="s"
         variant="block"

@@ -5,6 +5,7 @@ by pressing or hovering on it.
 <sbb-tooltip-trigger id="tooltip-trigger"></sbb-tooltip-trigger>
 
 <sbb-tooltip trigger="tooltip-trigger">
+  <sbb-title level="2" visual-level="6" style="margin-block-start: 0">Tooltip title.</sbb-title>
   <p>Tooltip content.</p>
 </sbb-tooltip>
 ```
@@ -19,12 +20,14 @@ Moreover, it is possible to override the `sbb-icon` with custom content by slott
 <sbb-tooltip-trigger id="tooltip-trigger" icon-name="pie-small"> </sbb-tooltip-trigger>
 
 <sbb-tooltip trigger="tooltip-trigger">
+  <sbb-title level="2" visual-level="6" style="margin-block-start: 0">Tooltip title.</sbb-title>
   <p>Tooltip content.</p>
 </sbb-tooltip>
 
 <sbb-tooltip-trigger id="tooltip-trigger2"> Custom Content </sbb-tooltip-trigger>
 
 <sbb-tooltip trigger="tooltip-trigger2">
+  <sbb-title level="2" visual-level="6" style="margin-block-start: 0">Tooltip title.</sbb-title>
   <p>Another tooltip content.</p>
 </sbb-tooltip>
 ```
@@ -37,6 +40,7 @@ It is possible to display the component in `disabled` state by using the self-na
 <sbb-tooltip-trigger id="tooltip-trigger" disabled></sbb-tooltip-trigger>
 
 <sbb-tooltip trigger="tooltip-trigger">
+  <sbb-title level="2" visual-level="6" style="margin-block-start: 0">Tooltip title.</sbb-title>
   <p>Tooltip content.</p>
 </sbb-tooltip>
 ```
@@ -58,6 +62,7 @@ associate the tooltip trigger with the tooltip via `aria-describedby` and an `id
 
 <!-- Tooltip component -->
 <sbb-tooltip id="tooltip" trigger="tooltip-trigger">
+  <sbb-title level="2" visual-level="6" style="margin-block-start: 0">Tooltip title.</sbb-title>
   <p id="tooltip-content">
     Tooltip content. <sbb-link id="tooltip-link" variant="inline">Link</sbb-link>
   </p>

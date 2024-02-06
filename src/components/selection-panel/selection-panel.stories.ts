@@ -253,7 +253,10 @@ const TicketsOptionsExampleTemplate = ({
           <div>Valid: Thu., 03.11.2022 until Fri., 04.11.2022 05:00</div>
         </span>
         <sbb-tooltip trigger="tooltip-trigger-1" hover-trigger>
-          <span id="tooltip-content" class="sbb-text-s"> Simple info tooltip. </span>
+          <sbb-title level="2" visual-level="6" style="margin-block-start: 0"
+            >Tooltip title.</sbb-title
+          >
+          <span class="sbb-text-s">Simple tooltip</span>
         </sbb-tooltip>
       </div>
     </sbb-selection-panel>
@@ -298,7 +301,10 @@ const TicketsOptionsExampleTemplate = ({
           <div>Valid: Thu., 03.11.2022 until Fri., 04.11.2022 05:00</div>
         </span>
         <sbb-tooltip trigger="tooltip-trigger-2" hover-trigger>
-          <span id="tooltip-content" class="sbb-text-s"> Simple info tooltip. </span>
+          <sbb-title level="2" visual-level="6" style="margin-block-start: 0"
+            >Tooltip title.</sbb-title
+          >
+          <span class="sbb-text-s">Simple tooltip</span>
         </sbb-tooltip>
       </div>
     </sbb-selection-panel>
