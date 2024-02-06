@@ -28,7 +28,7 @@ The component can optionally display a `sbb-icon` at the component start using t
 
 It's possible to place an action, which by clicking navigates somewhere to display more information.
 This can be done using the `linkContent` property combined with the `href` one.
-The `target`, `rel` and `download` properties are also configurable via the self-named properties.
+The `target` and `rel` properties are also configurable via the self-named properties.
 
 ```html
 <sbb-alert

@@ -1,98 +1,17 @@
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
-import type {
-  Meta,
-  StoryObj,
-  ArgTypes,
-  Args,
-  Decorator,
-  StoryContext,
-} from '@storybook/web-components';
-import { html, type TemplateResult } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
 
-import { sbbSpread } from '../../core/dom';
+import * as LinkCommon from '../common/link-common-stories';
 
 import readme from './readme.md?raw';
 import './link-button';
 
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative
-    ? 'var(--sbb-color-charcoal-default)'
-    : 'var(--sbb-color-white-default)',
-});
-
-const paragraphStyle = (negative: boolean): Record<string, string> => ({
-  color: negative ? 'var(--sbb-color-aluminium-default)' : 'var(--sbb-color-iron-default)',
-});
-
-const Template = ({ text, ...args }: Args): TemplateResult =>
-  html`<sbb-link-button ${sbbSpread(args)}>${text}</sbb-link-button>`;
-
-const FixedWidthTemplate = ({ text, ...args }: Args): TemplateResult => html`
-  <sbb-link-button ${sbbSpread(args)} style=${styleMap({ width: '200px' })}>
-    ${text}
-  </sbb-link-button>
-`;
-
-const IconSlotTemplate = ({ text, 'icon-name': iconName, ...args }: Args): TemplateResult => html`
-  <sbb-link-button ${sbbSpread(args)}>
-    ${text}
-    <sbb-icon slot="icon" name=${iconName}></sbb-icon>
-  </sbb-link-button>
-`;
-
-const InlineTemplate = ({ text, ...args }: Args): TemplateResult => html`
-  <p style=${styleMap(paragraphStyle(args.negative))} class="sbb-text-m">
-    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
-    ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
-    dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor
-    sit amet. <sbb-link ${sbbSpread(args)}>${text}</sbb-link>
-  </p>
-`;
-
-const text: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
-const variant: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['block', 'inline'],
-};
-
-const negative: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
-const size: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['xs', 's', 'm'],
-};
-
-const iconName: InputType = {
+const tag: InputType = {
   control: {
     type: 'text',
   },
   table: {
-    category: 'Icon',
-  },
-};
-
-const iconPlacement: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['start', 'end'],
-  table: {
-    category: 'Icon',
+    disable: true,
   },
 };
 
@@ -142,174 +61,45 @@ const form: InputType = {
   },
 };
 
-const ariaLabel: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
 const defaultArgTypes: ArgTypes = {
-  text,
-  variant,
-  negative,
-  size,
-  'icon-name': iconName,
-  'icon-placement': iconPlacement,
+  ...LinkCommon.defaultArgTypes,
+  tag,
   type,
   disabled,
   name,
   value,
   form,
-  'aria-label': ariaLabel,
 };
 
 const defaultArgs: Args = {
-  text: 'Travelcards & tickets',
-  variant: variant.options[0],
-  negative: false,
-  size: size.options[1],
-  'icon-name': undefined,
-  'icon-placement': iconPlacement.options[0],
+  ...LinkCommon.defaultArgs,
+  tag: 'sbb-link-button',
   type: type.options[0],
   disabled: false,
   name: 'Button name',
   value: undefined,
   form: undefined,
-  'aria-label': undefined,
 };
 
-export const BlockXS: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    size: size.options[0],
-  },
-};
-
-export const BlockS: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    size: size.options[1],
-  },
-};
-
-export const BlockM: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    size: size.options[2],
-  },
-};
-
-export const BlockXSIcon: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    size: size.options[0],
-    'icon-name': 'chevron-small-right-small',
-    'icon-placement': iconPlacement.options[1],
-  },
-};
-
-export const BlockSIcon: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    size: size.options[1],
-    'icon-name': 'chevron-small-right-small',
-    'icon-placement': iconPlacement.options[1],
-  },
-};
-
-export const BlockMIcon: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    size: size.options[2],
-    'icon-name': 'chevron-small-right-small',
-    'icon-placement': iconPlacement.options[1],
-  },
-};
-
-export const BlockIconStart: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    'icon-name': 'chevron-small-left-small',
-  },
-};
-
-export const BlockNegative: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    negative: true,
-    'icon-name': 'chevron-small-right-small',
-    'icon-placement': iconPlacement.options[1],
-  },
-};
-
-export const BlockWithSlottedIcon: StoryObj = {
-  render: IconSlotTemplate,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    'icon-name': 'chevron-small-right-small',
-    'icon-placement': iconPlacement.options[1],
-  },
-};
-
-export const BlockFixedWidth: StoryObj = {
-  render: FixedWidthTemplate,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    text: 'A lot of link text to show what happens if there is not enough space.',
-    'icon-name': 'chevron-small-left-small',
-  },
-};
-
-export const Inline: StoryObj = {
-  render: InlineTemplate,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    text: 'Show more',
-    variant: variant.options[1],
-  },
-};
-
-export const InlineNegative: StoryObj = {
-  render: InlineTemplate,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    text: 'Show more',
-    variant: variant.options[1],
-    negative: true,
-  },
-};
+export const BlockXS: StoryObj = LinkCommon.blockXS;
+export const BlockS: StoryObj = LinkCommon.blockS;
+export const BlockM: StoryObj = LinkCommon.blockM;
+export const BlockXSIcon: StoryObj = LinkCommon.blockXSIcon;
+export const BlockSIcon: StoryObj = LinkCommon.blockSIcon;
+export const BlockMIcon: StoryObj = LinkCommon.blockMIcon;
+export const BlockIconStart: StoryObj = LinkCommon.blockIconStart;
+export const BlockNegative: StoryObj = LinkCommon.blockNegative;
+export const BlockWithSlottedIcon: StoryObj = LinkCommon.blockWithSlottedIcon;
+export const BlockFixedWidth: StoryObj = LinkCommon.blockFixedWidth;
+export const Inline: StoryObj = LinkCommon.inline;
+export const InlineNegative: StoryObj = LinkCommon.inlineNegative;
 
 const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
-    `,
-    withActions as Decorator,
-  ],
+  ...LinkCommon.meta,
+  argTypes: defaultArgTypes,
+  args: defaultArgs,
   parameters: {
-    actions: {
-      handles: ['click'],
-    },
+    ...LinkCommon.meta.parameters,
     docs: {
       extractComponentDescription: () => readme,
     },

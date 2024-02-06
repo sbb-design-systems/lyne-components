@@ -1,43 +1,18 @@
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
-import type {
-  Meta,
-  StoryObj,
-  ArgTypes,
-  Args,
-  Decorator,
-  StoryContext,
-} from '@storybook/web-components';
-import isChromatic from 'chromatic';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
+import { html, type TemplateResult } from 'lit';
 
-import { sbbSpread } from '../../core/dom';
+import * as ButtonCommon from '../common/button-common-stories';
 
 import readme from './readme.md?raw';
 import '../../loading-indicator';
 import './button';
 
-const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? '#484040' : 'var(--sbb-color-white-default)',
-});
-
-const focusStyle = (context: StoryContext): Record<string, string> =>
-  context.args.negative
-    ? { '--sbb-focus-outline-color': 'var(--sbb-focus-outline-color-dark)' }
-    : {};
-
 const RequestSubmitTemplate = ({ text }: Args): TemplateResult => html`
   <form id="my-fake-form" action="/submit" method="post" target="_blank">
     <label
       for="input"
-      style=${styleMap({
-        display: 'flex',
-        'flex-direction': 'column',
-        'align-items': 'flex-start',
-        'padding-block-end': '2rem',
-      })}
+      style="display: flex; flex-direction: column; align-items: flex-start; padding-block-end: 2rem;"
     >
       Input required; submit with empty value is impossible due to 'requestSubmit' API validation.
       <input required id="input" />
@@ -46,88 +21,12 @@ const RequestSubmitTemplate = ({ text }: Args): TemplateResult => html`
   </form>
 `;
 
-const Template = ({ text, active, focusVisible, ...args }: Args): TemplateResult => html`
-  <sbb-button ${sbbSpread(args)} ?data-active=${active} ?data-focus-visible=${focusVisible}>
-    ${text}
-  </sbb-button>
-`;
-
-const IconSlotTemplate = ({ text, 'icon-name': iconName, ...args }: Args): TemplateResult => html`
-  <sbb-button ${sbbSpread(args)}>
-    ${text}
-    <sbb-icon slot="icon" name=${iconName}></sbb-icon>
-  </sbb-button>
-`;
-
-const LoadingIndicatorTemplate = ({ text, ...args }: Args): TemplateResult => html`
-  <sbb-button ${sbbSpread(args)}>
-    <sbb-loading-indicator
-      ?disable-animation=${isChromatic()}
-      slot="icon"
-      variant="circle"
-    ></sbb-loading-indicator>
-    ${text}
-  </sbb-button>
-`;
-
-const FixedWidthTemplate = ({ text, ...args }: Args): TemplateResult => html`
-  <div>
-    <p>
-      <sbb-button
-        ${sbbSpread(args)}
-        style=${styleMap({
-          width: '200px',
-        })}
-      >
-        ${text}
-      </sbb-button>
-    </p>
-    <p>
-      <sbb-button
-        ${sbbSpread(args)}
-        style=${styleMap({
-          maxWidth: '100%',
-          width: '600px',
-        })}
-      >
-        Wide Button
-      </sbb-button>
-    </p>
-  </div>
-`;
-
-const text: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
-const variant: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['primary', 'secondary', 'tertiary', 'transparent'],
-};
-
-const negative: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
-const size: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['l', 'm'],
-};
-
-const iconName: InputType = {
+const tag: InputType = {
   control: {
     type: 'text',
   },
   table: {
-    category: 'Icon',
+    disable: true,
   },
 };
 
@@ -177,386 +76,75 @@ const form: InputType = {
   },
 };
 
-const ariaLabel: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
 const defaultArgTypes: ArgTypes = {
-  text,
-  variant,
-  negative,
-  size,
-  'icon-name': iconName,
+  ...ButtonCommon.defaultArgTypes,
+  tag,
   type,
   disabled,
   name,
   value,
   form,
-  'aria-label': ariaLabel,
 };
 
 const defaultArgs: Args = {
-  text: 'Button',
-  variant: variant.options[0],
-  negative: false,
-  size: size.options[0],
-  'icon-name': 'arrow-right-small',
+  ...ButtonCommon.defaultArgs,
+  tag: 'sbb-button',
   type: type.options[0],
   disabled: false,
   name: 'Button Name',
   value: undefined,
   form: undefined,
-  'aria-label': undefined,
 };
 
-export const Primary: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    variant: variant.options[0],
-  },
-};
-
-export const Secondary: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    variant: variant.options[1],
-  },
-};
-
-export const Tertiary: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    variant: variant.options[2],
-  },
-};
-
-export const Transparent: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    variant: variant.options[3],
-  },
-};
-
-export const PrimaryNegative: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    variant: variant.options[0],
-    negative: true,
-  },
-};
-
-export const SecondaryNegative: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    variant: variant.options[1],
-    negative: true,
-  },
-};
-
-export const TertiaryNegative: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    variant: variant.options[2],
-    negative: true,
-  },
-};
-
-export const TransparentNegative: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    variant: variant.options[3],
-    negative: true,
-  },
-};
-
-export const IconOnly: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    'icon-name': 'arrow-right-small',
-    text: undefined,
-  },
-};
-
-export const PrimaryDisabled: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    variant: variant.options[0],
-    disabled: true,
-  },
-};
-
-export const SecondaryDisabled: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    variant: variant.options[1],
-    disabled: true,
-  },
-};
-
-export const TertiaryDisabled: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    variant: variant.options[2],
-    disabled: true,
-  },
-};
-
-export const TransparentDisabled: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    variant: variant.options[3],
-    disabled: true,
-  },
-};
-
-export const PrimaryNegativeDisabled: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    variant: variant.options[0],
-    negative: true,
-    disabled: true,
-  },
-};
-
-export const SecondaryNegativeDisabled: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    variant: variant.options[1],
-    negative: true,
-    disabled: true,
-  },
-};
-
-export const TertiaryNegativeDisabled: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    variant: variant.options[2],
-    negative: true,
-    disabled: true,
-  },
-};
-
-export const TransparentNegativeDisabled: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    variant: variant.options[3],
-    negative: true,
-    disabled: true,
-  },
-};
-
-export const IconOnlyDisabled: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    'icon-name': 'arrow-right-small',
-    text: undefined,
-    disabled: true,
-  },
-};
-
-export const NoIcon: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'icon-name': undefined },
-};
-
-export const SizeM: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    size: size.options[1],
-  },
-};
-
-export const FixedWidth: StoryObj = {
-  render: FixedWidthTemplate,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    text: 'Button with long text',
-    'icon-name': 'arrow-right-small',
-  },
-};
-
-export const WithSlottedIcon: StoryObj = {
-  render: IconSlotTemplate,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    'icon-name': 'chevron-small-right-small',
-  },
-};
-
-export const PrimaryActive: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    variant: variant.options[0],
-    active: true,
-  },
-};
-
-export const SecondaryActive: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    variant: variant.options[1],
-    active: true,
-  },
-};
-
-export const TertiaryActive: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    variant: variant.options[2],
-    active: true,
-  },
-};
-
-export const TransparentActive: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    variant: variant.options[3],
-    active: true,
-  },
-};
-
-export const PrimaryNegativeActive: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    variant: variant.options[0],
-    negative: true,
-    active: true,
-  },
-};
-
-export const SecondaryNegativeActive: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    variant: variant.options[1],
-    negative: true,
-    active: true,
-  },
-};
-
-export const TertiaryNegativeActive: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    variant: variant.options[2],
-    negative: true,
-    active: true,
-  },
-};
-
-export const TransparentNegativeActive: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    variant: variant.options[3],
-    negative: true,
-    active: true,
-  },
-};
-
-export const PrimaryFocusVisible: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    variant: variant.options[0],
-    focusVisible: true,
-  },
-};
+export const Primary: StoryObj = ButtonCommon.primary;
+export const Secondary: StoryObj = ButtonCommon.secondary;
+export const Tertiary: StoryObj = ButtonCommon.tertiary;
+export const Transparent: StoryObj = ButtonCommon.transparent;
+export const PrimaryNegative: StoryObj = ButtonCommon.primaryNegative;
+export const SecondaryNegative: StoryObj = ButtonCommon.secondaryNegative;
+export const TertiaryNegative: StoryObj = ButtonCommon.tertiaryNegative;
+export const TransparentNegative: StoryObj = ButtonCommon.transparentNegative;
+export const IconOnly: StoryObj = ButtonCommon.iconOnly;
+export const PrimaryDisabled: StoryObj = ButtonCommon.primaryDisabled;
+export const SecondaryDisabled: StoryObj = ButtonCommon.secondaryDisabled;
+export const TertiaryDisabled: StoryObj = ButtonCommon.tertiaryDisabled;
+export const TransparentDisabled: StoryObj = ButtonCommon.transparentDisabled;
+export const PrimaryNegativeDisabled: StoryObj = ButtonCommon.primaryNegativeDisabled;
+export const SecondaryNegativeDisabled: StoryObj = ButtonCommon.secondaryNegativeDisabled;
+export const TertiaryNegativeDisabled: StoryObj = ButtonCommon.tertiaryNegativeDisabled;
+export const TransparentNegativeDisabled: StoryObj = ButtonCommon.transparentNegativeDisabled;
+export const IconOnlyDisabled: StoryObj = ButtonCommon.iconOnlyDisabled;
+export const NoIcon: StoryObj = ButtonCommon.noIcon;
+export const SizeM: StoryObj = ButtonCommon.sizeM;
+export const FixedWidth: StoryObj = ButtonCommon.fixedWidth;
+export const WithSlottedIcon: StoryObj = ButtonCommon.withSlottedIcon;
+export const PrimaryActive: StoryObj = ButtonCommon.primaryActive;
+export const SecondaryActive: StoryObj = ButtonCommon.secondaryActive;
+export const TertiaryActive: StoryObj = ButtonCommon.tertiaryActive;
+export const TransparentActive: StoryObj = ButtonCommon.transparentActive;
+export const PrimaryNegativeActive: StoryObj = ButtonCommon.primaryNegativeActive;
+export const SecondaryNegativeActive: StoryObj = ButtonCommon.secondaryNegativeActive;
+export const TertiaryNegativeActive: StoryObj = ButtonCommon.tertiaryNegativeActive;
+export const TransparentNegativeActive: StoryObj = ButtonCommon.transparentNegativeActive;
+export const PrimaryFocusVisible: StoryObj = ButtonCommon.primaryFocusVisible;
+export const LoadingIndicator: StoryObj = ButtonCommon.loadingIndicator;
 
 export const RequestSubmit: StoryObj = {
   render: RequestSubmitTemplate,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    variant: variant.options[0],
+    variant: ButtonCommon.defaultArgTypes.variant.options[0],
     text: 'Submit form',
   },
 };
 
-export const LoadingIndicator: StoryObj = {
-  render: LoadingIndicatorTemplate,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    disabled: true,
-    variant: variant.options[1],
-  },
-};
-
 const meta: Meta = {
-  excludeStories: /.*(Active|FocusVisible)$/,
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), ...focusStyle(context), padding: '2rem' })}>
-        ${story()}
-      </div>
-    `,
-    withActions as Decorator,
-  ],
+  ...ButtonCommon.meta,
+  args: defaultArgs,
+  argTypes: defaultArgTypes,
   parameters: {
-    actions: {
-      handles: ['click'],
-    },
-    backgrounds: {
-      disable: true,
-    },
+    ...ButtonCommon.meta.parameters,
     docs: {
       extractComponentDescription: () => readme,
     },
