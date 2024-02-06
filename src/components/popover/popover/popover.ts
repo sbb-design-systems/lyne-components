@@ -37,7 +37,8 @@ const popoversRef = new Set<SbbPopoverElement>();
  * @slot - Use the unnamed slot to add content into the popover.
  * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-popover` starts the opening transition. Can be canceled.
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-popover` is opened.
- * @event {CustomEvent<{ closeTarget: HTMLElement }>} willClose - Emits whenever the `sbb-popover` begins the closing transition. Can be canceled.
+ * @event {CustomEvent<{ closeTarget: HTMLElement }>} willClose - Emits whenever the `sbb-popover` begins the closing
+ * transition. Can be canceled.
  * @event {CustomEvent<{ closeTarget: HTMLElement }>} didClose - Emits whenever the `sbb-popover` is closed.
  */
 @customElement('sbb-popover')
@@ -115,7 +116,7 @@ export class SbbPopoverElement extends LitElement {
   private _popoverCloseElement?: HTMLElement;
   private _isPointerDownEventOnPopover?: boolean;
   private _popoverController!: AbortController;
-  private _windowEventsController!: AbortController;
+  private _openStateController!: AbortController;
   private _focusHandler = new FocusHandler();
   private _hoverTrigger = false;
   private _openTimeout?: ReturnType<typeof setTimeout>;
@@ -183,7 +184,7 @@ export class SbbPopoverElement extends LitElement {
   ): void {
     if (newValue !== oldValue) {
       this._popoverController?.abort();
-      this._windowEventsController?.abort();
+      this._openStateController?.abort();
       this._configure();
     }
   }
@@ -220,7 +221,7 @@ export class SbbPopoverElement extends LitElement {
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._popoverController?.abort();
-    this._windowEventsController?.abort();
+    this._openStateController?.abort();
     this._focusHandler.disconnect();
     popoversRef.delete(this as SbbPopoverElement);
   }
@@ -282,25 +283,25 @@ export class SbbPopoverElement extends LitElement {
   }
 
   private _attachWindowEvents(): void {
-    this._windowEventsController = new AbortController();
+    this._openStateController = new AbortController();
     document.addEventListener('scroll', () => this._setPopoverPosition(), {
       passive: true,
-      signal: this._windowEventsController.signal,
+      signal: this._openStateController.signal,
     });
     window.addEventListener('resize', () => this._setPopoverPosition(), {
       passive: true,
-      signal: this._windowEventsController.signal,
+      signal: this._openStateController.signal,
     });
     window.addEventListener('keydown', (event: KeyboardEvent) => this._onKeydownEvent(event), {
-      signal: this._windowEventsController.signal,
+      signal: this._openStateController.signal,
     });
 
     // Close popover on backdrop click
     window.addEventListener('pointerdown', this._pointerDownListener, {
-      signal: this._windowEventsController.signal,
+      signal: this._openStateController.signal,
     });
     window.addEventListener('pointerup', this._closeOnBackdropClick, {
-      signal: this._windowEventsController.signal,
+      signal: this._openStateController.signal,
     });
   }
 
@@ -368,11 +369,11 @@ export class SbbPopoverElement extends LitElement {
       this._state = 'opened';
       this._didOpen.emit();
       this.inert = false;
+      this._attachWindowEvents();
       this._setPopoverFocus();
       this._focusHandler.trap(this, {
         postFilter: (el) => el !== this._overlay,
       });
-      this._attachWindowEvents();
     } else if (event.animationName === 'close' && this._state === 'closing') {
       this._state = 'closed';
       this._overlay?.firstElementChild?.scrollTo(0, 0);
@@ -387,7 +388,7 @@ export class SbbPopoverElement extends LitElement {
       }
 
       this._didClose.emit({ closeTarget: this._popoverCloseElement });
-      this._windowEventsController?.abort();
+      this._openStateController?.abort();
       this._focusHandler.disconnect();
     }
   }
@@ -406,26 +407,33 @@ export class SbbPopoverElement extends LitElement {
       this._overlay.setAttribute('tabindex', '0');
       setModalityOnNextFocus(this._overlay);
       this._overlay.focus();
-      this._overlay.removeEventListener('blur', this._blurListener);
-      this._overlay.addEventListener('blur', this._blurListener, {
-        signal: this._popoverController.signal,
-      });
+
+      // When a blur occurs, we know that the popover has to be closed,
+      // because there are no interactive elements inside the popover.
+      // When a window/tab change occurs, a blur event is also fired. However, when the current window/tab
+      // becomes active again, it focuses once again the popover.
+      // Therefore, we cannot listen to the blur event only once.
+      // To prevent accidentally closing the popover, we need to check for the window/tab state.
+      // We can achieve this by using visibilityState, which only works with setTimeout().
+      this._overlay.addEventListener(
+        'blur',
+        (): void => {
+          setTimeout(() => {
+            if (document.visibilityState !== 'hidden') {
+              this._overlay?.removeAttribute('tabindex');
+              if (this._state === 'opened' || this._state === 'opening') {
+                this._skipCloseFocus = true;
+              }
+              this.close();
+            }
+          });
+        },
+        {
+          signal: this._openStateController.signal,
+        },
+      );
     }
   }
-
-  private _blurListener = (): void => {
-    // When a blur occurs, we know that the popover has to be closed, because there are no interactive elements inside the popover.
-    // We have to ensure that window / tab change doesn't trigger closing. This can be achieved by checking visibilityState, which only works with setTimeout().
-    setTimeout(() => {
-      if (document.visibilityState !== 'hidden') {
-        this._overlay?.removeAttribute('tabindex');
-        if (this._state === 'opened' || this._state === 'opening') {
-          this._skipCloseFocus = true;
-        }
-        this.close();
-      }
-    });
-  };
 
   private _setPopoverPosition(): void {
     if (!this._overlay || !this._triggerElement) {
