@@ -401,8 +401,9 @@ snapshots["sbb-skiplink-list renders with title A11y tree Safari"] =
   "name": "",
   "children": [
     {
-      "role": "text",
-      "name": "Skip to"
+      "role": "heading",
+      "name": "Skip to",
+      "level": 3
     },
     {
       "role": "link",

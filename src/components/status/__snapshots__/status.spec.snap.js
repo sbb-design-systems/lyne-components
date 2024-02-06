@@ -111,8 +111,9 @@ snapshots["sbb-status A11y tree Safari"] =
   "name": "",
   "children": [
     {
-      "role": "text",
-      "name": "Title"
+      "role": "heading",
+      "name": "Title",
+      "level": 3
     },
     {
       "role": "text",

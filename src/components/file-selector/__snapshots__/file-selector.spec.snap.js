@@ -116,18 +116,8 @@ snapshots["sbb-file-selector A11y tree Firefox"] =
       "name": "Choose a file"
     },
     {
-      "role": "group",
-      "name": "",
-      "children": [
-        {
-          "role": "button",
-          "name": "Browse…"
-        },
-        {
-          "role": "text leaf",
-          "name": "…"
-        }
-      ]
+      "role": "button",
+      "name": "Choose a file Browse… …"
     }
   ]
 }
@@ -147,7 +137,7 @@ snapshots["sbb-file-selector A11y tree Safari"] =
     },
     {
       "role": "button",
-      "name": "Choose File",
+      "name": "Choose a file Choose File",
       "roledescription": "file upload button"
     }
   ]

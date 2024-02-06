@@ -172,7 +172,7 @@ snapshots["sbb-teaser-hero should render all properties A11y tree Safari"] =
       "children": [
         {
           "role": "link",
-          "name": "Break out and explore castles and palaces. Find out more . Link target opens in new window.",
+          "name": "Break out and explore castles and palaces. Find out more SBB CFF FFS Employee . Link target opens in new window.",
           "children": [
             {
               "role": "text",

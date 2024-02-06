@@ -212,7 +212,22 @@ snapshots["sbb-notification A11y tree Firefox"] =
 `<p>
   {
   "role": "document",
-  "name": ""
+  "name": "",
+  "children": [
+    {
+      "role": "heading",
+      "name": "Test title",
+      "level": 3
+    },
+    {
+      "role": "text leaf",
+      "name": "Lorem ipsum ..."
+    },
+    {
+      "role": "button",
+      "name": "Close message"
+    }
+  ]
 }
 </p>
 `;
@@ -222,7 +237,22 @@ snapshots["sbb-notification A11y tree Safari"] =
 `<p>
   {
   "role": "WebArea",
-  "name": ""
+  "name": "",
+  "children": [
+    {
+      "role": "heading",
+      "name": "Test title",
+      "level": 3
+    },
+    {
+      "role": "text",
+      "name": "Lorem ipsum ..."
+    },
+    {
+      "role": "button",
+      "name": "Close message"
+    }
+  ]
 }
 </p>
 `;

@@ -212,8 +212,9 @@ snapshots["sbb-alert A11y tree Safari"] =
   "name": "",
   "children": [
     {
-      "role": "text",
-      "name": "Interruption"
+      "role": "heading",
+      "name": "Interruption",
+      "level": 3
     },
     {
       "role": "text",

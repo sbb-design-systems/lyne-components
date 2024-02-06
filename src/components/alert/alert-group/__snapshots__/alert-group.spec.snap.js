@@ -119,12 +119,14 @@ snapshots["sbb-alert-group should render A11y tree Safari"] =
   "name": "",
   "children": [
     {
-      "role": "text",
-      "name": "Disruptions"
+      "role": "heading",
+      "name": "Disruptions",
+      "level": 2
     },
     {
-      "role": "text",
-      "name": "Interruption between Genève and Lausanne"
+      "role": "heading",
+      "name": "Interruption between Genève and Lausanne",
+      "level": 3
     },
     {
       "role": "text",
