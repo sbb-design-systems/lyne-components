@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-popover renders"] =
+snapshots["sbb-popover renders"] = 
 `<div class="sbb-popover__container">
   <div
     class="sbb-popover"
@@ -32,3 +32,4 @@ snapshots["sbb-popover renders"] =
 </div>
 `;
 /* end snapshot sbb-popover renders */
+
