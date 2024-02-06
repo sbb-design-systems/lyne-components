@@ -21,6 +21,7 @@ import '../icon';
 import '../link';
 import '../radio-button';
 import '../popover';
+import '../title';
 
 const color: InputType = {
   control: {

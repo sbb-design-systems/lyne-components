@@ -15,19 +15,7 @@ describe('sbb-popover-trigger', () => {
     expect(root).dom.to.be.equal(
       `<sbb-popover-trigger role="button" tabindex="0" dir="ltr"></sbb-popover-trigger>`,
     );
-    expect(root).shadowDom.to.be.equal(
-      `<span class="sbb-popover-trigger">
-        <slot>
-          <sbb-icon
-            aria-hidden="true"
-            data-namespace="default"
-            name="circle-information-small"
-            role="img">
-          </sbb-icon>
-        </slot>
-      </span>
-    `,
-    );
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
   it('renders with custom content', async () => {
@@ -40,17 +28,6 @@ describe('sbb-popover-trigger', () => {
         Custom Content
       </sbb-popover-trigger>`,
     );
-    expect(root).shadowDom.to.be.equal(
-      `<span class="sbb-popover-trigger">
-        <slot>
-          <sbb-icon
-            aria-hidden="true"
-            data-namespace="default"
-            name="circle-information-small"
-            role="img">
-          </sbb-icon>
-        </slot>
-      </span>`,
-    );
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 });

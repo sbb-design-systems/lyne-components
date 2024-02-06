@@ -13,6 +13,7 @@ import '../form-field-clear';
 import '../../button';
 import '../../form-error';
 import '../../popover';
+import '../../title';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative

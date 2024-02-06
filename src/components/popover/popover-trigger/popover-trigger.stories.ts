@@ -10,6 +10,7 @@ import readme from './readme.md?raw';
 import '../../link';
 import '../popover';
 import './popover-trigger';
+import '../../title';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative
