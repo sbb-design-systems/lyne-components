@@ -126,7 +126,7 @@ async function generateChromaticStories(): Promise<void> {
   console.log(`Generating chromatic story files:`);
   for (const storyFile of walk(
     join(dirname(fileURLToPath(import.meta.url)), '../src'),
-    /.stories.ts$/,
+    /[.]stories.ts$/,
   )) {
     if (storyFile.includes('chromatic')) {
       continue;

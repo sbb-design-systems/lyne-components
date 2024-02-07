@@ -1,8 +1,47 @@
+import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import { html, type TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 
-import * as ButtonCommon from '../common/button-common-stories';
+import {
+  buttonCommonDefaultArgs,
+  buttonCommonDefaultArgTypes,
+  fixedWidth,
+  focusStyle,
+  iconOnly,
+  iconOnlyDisabled,
+  loadingIndicator,
+  noIcon,
+  primary,
+  primaryActive,
+  primaryDisabled,
+  primaryFocusVisible,
+  primaryNegative,
+  primaryNegativeActive,
+  primaryNegativeDisabled,
+  secondary,
+  secondaryActive,
+  secondaryDisabled,
+  secondaryNegative,
+  secondaryNegativeActive,
+  secondaryNegativeDisabled,
+  sizeM,
+  tertiary,
+  tertiaryActive,
+  tertiaryDisabled,
+  tertiaryNegative,
+  tertiaryNegativeActive,
+  tertiaryNegativeDisabled,
+  transparent,
+  transparentActive,
+  transparentDisabled,
+  transparentNegative,
+  transparentNegativeActive,
+  transparentNegativeDisabled,
+  withSlottedIcon,
+  wrapperStyle,
+} from '../common/button-common-stories';
 
 import readme from './readme.md?raw';
 import '../../loading-indicator';
@@ -77,7 +116,7 @@ const form: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  ...ButtonCommon.defaultArgTypes,
+  ...buttonCommonDefaultArgTypes,
   tag,
   type,
   disabled,
@@ -87,7 +126,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  ...ButtonCommon.defaultArgs,
+  ...buttonCommonDefaultArgs,
   tag: 'sbb-button',
   type: type.options[0],
   disabled: false,
@@ -96,55 +135,72 @@ const defaultArgs: Args = {
   form: undefined,
 };
 
-export const Primary: StoryObj = ButtonCommon.primary;
-export const Secondary: StoryObj = ButtonCommon.secondary;
-export const Tertiary: StoryObj = ButtonCommon.tertiary;
-export const Transparent: StoryObj = ButtonCommon.transparent;
-export const PrimaryNegative: StoryObj = ButtonCommon.primaryNegative;
-export const SecondaryNegative: StoryObj = ButtonCommon.secondaryNegative;
-export const TertiaryNegative: StoryObj = ButtonCommon.tertiaryNegative;
-export const TransparentNegative: StoryObj = ButtonCommon.transparentNegative;
-export const IconOnly: StoryObj = ButtonCommon.iconOnly;
-export const PrimaryDisabled: StoryObj = ButtonCommon.primaryDisabled;
-export const SecondaryDisabled: StoryObj = ButtonCommon.secondaryDisabled;
-export const TertiaryDisabled: StoryObj = ButtonCommon.tertiaryDisabled;
-export const TransparentDisabled: StoryObj = ButtonCommon.transparentDisabled;
-export const PrimaryNegativeDisabled: StoryObj = ButtonCommon.primaryNegativeDisabled;
-export const SecondaryNegativeDisabled: StoryObj = ButtonCommon.secondaryNegativeDisabled;
-export const TertiaryNegativeDisabled: StoryObj = ButtonCommon.tertiaryNegativeDisabled;
-export const TransparentNegativeDisabled: StoryObj = ButtonCommon.transparentNegativeDisabled;
-export const IconOnlyDisabled: StoryObj = ButtonCommon.iconOnlyDisabled;
-export const NoIcon: StoryObj = ButtonCommon.noIcon;
-export const SizeM: StoryObj = ButtonCommon.sizeM;
-export const FixedWidth: StoryObj = ButtonCommon.fixedWidth;
-export const WithSlottedIcon: StoryObj = ButtonCommon.withSlottedIcon;
-export const PrimaryActive: StoryObj = ButtonCommon.primaryActive;
-export const SecondaryActive: StoryObj = ButtonCommon.secondaryActive;
-export const TertiaryActive: StoryObj = ButtonCommon.tertiaryActive;
-export const TransparentActive: StoryObj = ButtonCommon.transparentActive;
-export const PrimaryNegativeActive: StoryObj = ButtonCommon.primaryNegativeActive;
-export const SecondaryNegativeActive: StoryObj = ButtonCommon.secondaryNegativeActive;
-export const TertiaryNegativeActive: StoryObj = ButtonCommon.tertiaryNegativeActive;
-export const TransparentNegativeActive: StoryObj = ButtonCommon.transparentNegativeActive;
-export const PrimaryFocusVisible: StoryObj = ButtonCommon.primaryFocusVisible;
-export const LoadingIndicator: StoryObj = ButtonCommon.loadingIndicator;
+export const Primary: StoryObj = primary;
+export const Secondary: StoryObj = secondary;
+export const Tertiary: StoryObj = tertiary;
+export const Transparent: StoryObj = transparent;
+export const PrimaryNegative: StoryObj = primaryNegative;
+export const SecondaryNegative: StoryObj = secondaryNegative;
+export const TertiaryNegative: StoryObj = tertiaryNegative;
+export const TransparentNegative: StoryObj = transparentNegative;
+export const IconOnly: StoryObj = iconOnly;
+export const PrimaryDisabled: StoryObj = primaryDisabled;
+export const SecondaryDisabled: StoryObj = secondaryDisabled;
+export const TertiaryDisabled: StoryObj = tertiaryDisabled;
+export const TransparentDisabled: StoryObj = transparentDisabled;
+export const PrimaryNegativeDisabled: StoryObj = primaryNegativeDisabled;
+export const SecondaryNegativeDisabled: StoryObj = secondaryNegativeDisabled;
+export const TertiaryNegativeDisabled: StoryObj = tertiaryNegativeDisabled;
+export const TransparentNegativeDisabled: StoryObj = transparentNegativeDisabled;
+export const IconOnlyDisabled: StoryObj = iconOnlyDisabled;
+export const NoIcon: StoryObj = noIcon;
+export const SizeM: StoryObj = sizeM;
+export const FixedWidth: StoryObj = fixedWidth;
+export const WithSlottedIcon: StoryObj = withSlottedIcon;
+export const PrimaryActive: StoryObj = primaryActive;
+export const SecondaryActive: StoryObj = secondaryActive;
+export const TertiaryActive: StoryObj = tertiaryActive;
+export const TransparentActive: StoryObj = transparentActive;
+export const PrimaryNegativeActive: StoryObj = primaryNegativeActive;
+export const SecondaryNegativeActive: StoryObj = secondaryNegativeActive;
+export const TertiaryNegativeActive: StoryObj = tertiaryNegativeActive;
+export const TransparentNegativeActive: StoryObj = transparentNegativeActive;
+export const PrimaryFocusVisible: StoryObj = primaryFocusVisible;
+export const LoadingIndicator: StoryObj = loadingIndicator;
 
 export const RequestSubmit: StoryObj = {
   render: RequestSubmitTemplate,
-  argTypes: defaultArgTypes,
   args: {
-    ...defaultArgs,
-    variant: ButtonCommon.defaultArgTypes.variant.options[0],
+    variant: defaultArgTypes.variant.options[0],
     text: 'Submit form',
   },
 };
 
 const meta: Meta = {
-  ...ButtonCommon.meta,
   args: defaultArgs,
   argTypes: defaultArgTypes,
+  excludeStories: /.*(Active|FocusVisible)$/,
+  decorators: [
+    (story, context) => html`
+      <div
+        style=${styleMap({
+          ...wrapperStyle(context),
+          ...focusStyle(context),
+          padding: '2rem',
+        })}
+      >
+        ${story()}
+      </div>
+    `,
+    withActions as Decorator,
+  ],
   parameters: {
-    ...ButtonCommon.meta.parameters,
+    actions: {
+      handles: ['click'],
+    },
+    backgrounds: {
+      disable: true,
+    },
     docs: {
       extractComponentDescription: () => readme,
     },

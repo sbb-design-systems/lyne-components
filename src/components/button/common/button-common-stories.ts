@@ -1,16 +1,7 @@
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
-import type {
-  Args,
-  ArgTypes,
-  Decorator,
-  Meta,
-  StoryContext,
-  StoryObj,
-} from '@storybook/web-components';
+import type { Args, ArgTypes, StoryContext, StoryObj } from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import { type TemplateResult } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { sbbSpread } from '../../core/dom';
@@ -111,7 +102,7 @@ const ariaLabel: InputType = {
   },
 };
 
-export const defaultArgTypes: ArgTypes = {
+export const buttonCommonDefaultArgTypes: ArgTypes = {
   text,
   variant,
   negative,
@@ -120,7 +111,7 @@ export const defaultArgTypes: ArgTypes = {
   'aria-label': ariaLabel,
 };
 
-export const defaultArgs: Args = {
+export const buttonCommonDefaultArgs: Args = {
   text: 'Button',
   variant: variant.options[0],
   negative: false,
@@ -382,31 +373,5 @@ export const loadingIndicator: StoryObj = {
   args: {
     disabled: true,
     variant: variant.options[1],
-  },
-};
-
-export const meta: Meta = {
-  excludeStories: /.*(Active|FocusVisible)$/,
-  decorators: [
-    (story, context) => html`
-      <div
-        style=${styleMap({
-          ...wrapperStyle(context),
-          ...focusStyle(context),
-          padding: '2rem',
-        })}
-      >
-        ${story()}
-      </div>
-    `,
-    withActions as Decorator,
-  ],
-  parameters: {
-    actions: {
-      handles: ['click'],
-    },
-    backgrounds: {
-      disable: true,
-    },
   },
 };

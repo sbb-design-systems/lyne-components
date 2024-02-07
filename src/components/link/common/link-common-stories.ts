@@ -1,13 +1,5 @@
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
-import type {
-  Args,
-  ArgTypes,
-  Decorator,
-  Meta,
-  StoryContext,
-  StoryObj,
-} from '@storybook/web-components';
+import type { Args, ArgTypes, StoryContext, StoryObj } from '@storybook/web-components';
 import { type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
@@ -105,7 +97,7 @@ const ariaLabel: InputType = {
   },
 };
 
-export const defaultArgTypes: ArgTypes = {
+export const linkCommonDefaultArgTypes: ArgTypes = {
   text,
   variant,
   negative,
@@ -115,7 +107,7 @@ export const defaultArgTypes: ArgTypes = {
   'aria-label': ariaLabel,
 };
 
-export const defaultArgs: Args = {
+export const linkCommonDefaultArgs: Args = {
   text: 'Travelcards & tickets',
   variant: variant.options[0],
   negative: false,
@@ -219,19 +211,5 @@ export const inlineNegative: StoryObj = {
     text: 'Show more',
     variant: variant.options[1],
     negative: true,
-  },
-};
-
-export const meta: Meta = {
-  decorators: [
-    (story, context) => html`
-      <div style=${styleMap({ ...wrapperStyle(context), padding: '2rem' })}>${story()}</div>
-    `,
-    withActions as Decorator,
-  ],
-  parameters: {
-    actions: {
-      handles: ['click'],
-    },
   },
 };
