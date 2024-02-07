@@ -25,7 +25,7 @@ export class SbbContainerElement extends LitElement {
   @property({ type: Boolean, reflect: true }) public expanded = false;
 
   /** Color of the container, like transparent, white etc. */
-  @property({ reflect: true }) public color: 'transparent' | 'white' | 'milk' = 'transparent';
+  @property({ reflect: true }) public color: 'transparent' | 'white' | 'milk' = 'white';
 
   private _updateStickyBar(): void {
     const stickyBar = this.querySelector?.('sbb-sticky-bar');

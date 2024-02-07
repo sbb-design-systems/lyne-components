@@ -34,7 +34,7 @@ const color: InputType = {
   control: {
     type: 'select',
   },
-  options: ['transparent', 'white', 'milk'],
+  options: ['white', 'transparent', 'milk'],
 };
 
 const defaultArgTypes: ArgTypes = {
@@ -60,7 +60,7 @@ export const Default: StoryObj = {
   args: { ...defaultArgs },
 };
 
-export const White: StoryObj = {
+export const Transparent: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, color: color.options[1] },
