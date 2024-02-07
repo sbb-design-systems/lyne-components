@@ -47,13 +47,13 @@ const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
   await userEvent.click(button);
 };
 
-const titleLevel: InputType = {
+const level: InputType = {
   control: {
     type: 'inline-radio',
   },
   options: [1, 2, 3, 4, 5, 6],
   table: {
-    category: 'Header',
+    category: 'Title',
   },
 };
 
@@ -62,7 +62,7 @@ const titleBackButton: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Header',
+    category: 'Title',
   },
 };
 
@@ -72,7 +72,7 @@ const hideOnScroll: InputType = {
   },
   options: [false, '', 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
   table: {
-    category: 'Header',
+    category: 'Title',
   },
 };
 
@@ -123,7 +123,7 @@ const backdropAction: InputType = {
 };
 
 const basicArgTypes: ArgTypes = {
-  titleLevel,
+  level,
   titleBackButton,
   hideOnScroll,
   accessibilityCloseLabel,
@@ -135,7 +135,7 @@ const basicArgTypes: ArgTypes = {
 };
 
 const basicArgs: Args = {
-  titleLevel: undefined,
+  level: level.options[0],
   titleBackButton: true,
   hideOnScroll: hideOnScroll.options[1],
   accessibilityCloseLabel: 'Close dialog',
@@ -208,14 +208,14 @@ const textBlockStyle: Args = {
 };
 
 const dialogHeader = (
-  titleLevel: number,
+  level: number,
   titleBackButton: boolean,
   hideOnScroll: any,
   accessibilityCloseLabel: string,
   accessibilityBackLabel: string,
 ): TemplateResult => html`
   <sbb-dialog-title
-    title-level=${titleLevel}
+    level=${level}
     ?title-back-button=${titleBackButton}
     hide-on-scroll=${hideOnScroll}
     accessibility-close-label=${accessibilityCloseLabel}
@@ -234,7 +234,7 @@ const textBlock = (): TemplateResult => html`
 `;
 
 const DefaultTemplate = ({
-  titleLevel,
+  level,
   titleBackButton,
   hideOnScroll,
   accessibilityCloseLabel,
@@ -244,7 +244,7 @@ const DefaultTemplate = ({
   ${triggerButton('my-dialog-1')}
   <sbb-dialog data-testid="dialog" id="my-dialog-1" ${sbbSpread(args)}>
     ${dialogHeader(
-      titleLevel,
+      level,
       titleBackButton,
       hideOnScroll,
       accessibilityCloseLabel,
@@ -257,25 +257,8 @@ const DefaultTemplate = ({
   </sbb-dialog>
 `;
 
-const SlottedTitleTemplate = (args: Args): TemplateResult => html`
-  ${triggerButton('my-dialog-2')}
-  <sbb-dialog data-testid="dialog" id="my-dialog-2" ${sbbSpread(args)}>
-    <span slot="title">
-      <sbb-icon name="book-medium" style=${styleMap({ 'vertical-align': 'sub' })}></sbb-icon>
-      The Catcher in the Rye
-    </span>
-    <p id="dialog-content-2" style=${styleMap({ margin: '0' })}>
-      “What really knocks me out is a book that, when you're all done reading it, you wish the
-      author that wrote it was a terrific friend of yours and you could call him up on the phone
-      whenever you felt like it. That doesn't happen much, though.” ― J.D. Salinger, The Catcher in
-      the Rye
-    </p>
-    ${actionGroup(args.negative)}
-  </sbb-dialog>
-`;
-
 const LongContentTemplate = ({
-  titleLevel,
+  level,
   titleBackButton,
   hideOnScroll,
   accessibilityCloseLabel,
@@ -285,7 +268,7 @@ const LongContentTemplate = ({
   ${triggerButton('my-dialog-3')}
   <sbb-dialog data-testid="dialog" id="my-dialog-3" ${sbbSpread(args)}>
     ${dialogHeader(
-      titleLevel,
+      level,
       titleBackButton,
       hideOnScroll,
       accessibilityCloseLabel,
@@ -313,7 +296,14 @@ const LongContentTemplate = ({
   </sbb-dialog>
 `;
 
-const FormTemplate = (args: Args): TemplateResult => html`
+const FormTemplate = ({
+  level,
+  titleBackButton,
+  hideOnScroll,
+  accessibilityCloseLabel,
+  accessibilityBackLabel,
+  ...args
+}: Args): TemplateResult => html`
   ${triggerButton('my-dialog-4')}
   <div id="returned-value">
     <div style=${styleMap(formDetailsStyle)}>
@@ -325,7 +315,7 @@ const FormTemplate = (args: Args): TemplateResult => html`
     data-testid="dialog"
     id="my-dialog-4"
     @willClose=${(event: CustomEvent) => {
-      if (event.detail) {
+      if (event.detail.returnValue) {
         document.getElementById('returned-value-message')!.innerHTML =
           `${event.detail.returnValue.message?.value}`;
         document.getElementById('returned-value-animal')!.innerHTML =
@@ -334,68 +324,64 @@ const FormTemplate = (args: Args): TemplateResult => html`
     }}
     ${sbbSpread(args)}
   >
-    <div style=${styleMap({ 'margin-block-end': 'var(--sbb-spacing-fixed-4x)' })}>
-      Submit the form below to close the dialog box using the
-      <code style=${styleMap(codeStyle)}>close(result?: any, target?: HTMLElement)</code>
-      method and returning the form values to update the details.
-    </div>
-    <form style=${styleMap(formStyle)} @submit=${(e: SubmitEvent) => e.preventDefault()}>
-      <sbb-form-field error-space="none" size="m">
-        <label>Message</label>
+    ${dialogHeader(
+      level,
+      titleBackButton,
+      hideOnScroll,
+      accessibilityCloseLabel,
+      accessibilityBackLabel,
+    )}
+    <sbb-dialog-content>
+      <div style=${styleMap({ 'margin-block-end': 'var(--sbb-spacing-fixed-4x)' })}>
+        Submit the form below to close the dialog box using the
+        <code style=${styleMap(codeStyle)}>close(result?: any, target?: HTMLElement)</code>
+        method and returning the form values to update the details.
+      </div>
+      <form style=${styleMap(formStyle)} @submit=${(e: SubmitEvent) => e.preventDefault()}>
+        <sbb-form-field error-space="none" size="m">
+          <label>Message</label>
         <input placeholder="Your custom massage" value="Hello 👋" name="message" />
-      </sbb-form-field>
-      <sbb-form-field error-space="none" size="m">
+        </sbb-form-field>
+        <sbb-form-field error-space="none" size="m">
         <label>Favorite animal</label>
-        <select name="animal">
-          <option>Red Panda</option>
-          <option>Cheetah</option>
-          <option>Polar Bear</option>
-          <option>Elephant</option>
-        </select>
-      </sbb-form-field>
-      <sbb-button type="submit" size="m" sbb-dialog-close> Update details </sbb-button>
-    </form>
+          <select name="animal">
+            <option>Red Panda</option>
+            <option>Cheetah</option>
+            <option>Polar Bear</option>
+            <option>Elephant</option>
+          </select>
+        </sbb-form-field>
+        <sbb-button type="submit" size="m" sbb-dialog-close> Update details </sbb-button>
+      </form>
+    </sbb-dialog-content>
   </sbb-dialog>
 `;
 
-const NoFooterTemplate = (args: Args): TemplateResult => html`
+const NoFooterTemplate = ({
+  level,
+  titleBackButton,
+  hideOnScroll,
+  accessibilityCloseLabel,
+  accessibilityBackLabel,
+  ...args
+}: Args): TemplateResult => html`
   ${triggerButton('my-dialog-5')}
   <sbb-dialog data-testid="dialog" id="my-dialog-5" ${sbbSpread(args)}>
-    <p id="dialog-content-5" style=${styleMap({ margin: '0' })}>
-      “What really knocks me out is a book that, when you're all done reading it, you wish the
-      author that wrote it was a terrific friend of yours and you could call him up on the phone
-      whenever you felt like it. That doesn't happen much, though.” ― J.D. Salinger, The Catcher in
-      the Rye
-    </p>
-  </sbb-dialog>
-`;
-
-const FullScreenTemplate = (args: Args): TemplateResult => html`
-  ${triggerButton('my-dialog-6')}
-  <sbb-dialog data-testid="dialog" id="my-dialog-6" ${sbbSpread(args)}>
-    <sbb-title
-      visual-level="2"
-      ?negative=${args.negative}
-      style=${styleMap({ 'margin-block-start': '0' })}
-    >
-      Many Meetings
-    </sbb-title>
-    Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his face
-    like summer-light upon the trees. Near him sat the Lady Arwen. To his surprise Frodo saw that
-    Aragorn stood beside her; his dark cloak was thrown back, and he seemed to be clad in
-    elven-mail, and a star shone on his breast. They spoke together, and then suddenly it seemed to
-    Frodo that Arwen turned towards him, and the light of her eyes fell on him from afar and pierced
-    his heart.
-    <sbb-image
-      style=${styleMap({ 'margin-block': '1rem' })}
-      image-src=${sampleImages[1]}
-      alt="Natural landscape"
-      data-chromatic="ignore"
-    ></sbb-image>
-    He stood still enchanted, while the sweet syllables of the elvish song fell like clear jewels of
-    blended word and melody. 'It is a song to Elbereth,'' said Bilbo. 'They will sing that, and
-    other songs of the Blessed Realm, many times tonight. Come on!’ —J.R.R. Tolkien, The Lord of the
-    Rings: The Fellowship of the Ring, “Many Meetings” ${actionGroup(args.negative)}
+    ${dialogHeader(
+      level,
+      titleBackButton,
+      hideOnScroll,
+      accessibilityCloseLabel,
+      accessibilityBackLabel,
+    )}
+    <sbb-dialog-content>
+      <p id="dialog-content-5" style=${styleMap({ margin: '0' })}>
+        “What really knocks me out is a book that, when you're all done reading it, you wish the
+        author that wrote it was a terrific friend of yours and you could call him up on the phone
+        whenever you felt like it. That doesn't happen much, though.” ― J.D. Salinger, The Catcher
+        in the Rye
+      </p>
+    </sbb-dialog-content>
   </sbb-dialog>
 `;
 
@@ -423,16 +409,6 @@ export const AllowBackdropClick: StoryObj = {
   play: isChromatic() ? playStory : undefined,
 };
 
-export const SlottedTitle: StoryObj = {
-  render: SlottedTitleTemplate,
-  argTypes: basicArgTypes,
-  args: {
-    ...basicArgs,
-    'title-back-button': false,
-  },
-  play: isChromatic() ? playStory : undefined,
-};
-
 export const LongContent: StoryObj = {
   render: LongContentTemplate,
   argTypes: basicArgTypes,
@@ -451,13 +427,6 @@ export const NoFooter: StoryObj = {
   render: NoFooterTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
-  play: isChromatic() ? playStory : undefined,
-};
-
-export const FullScreen: StoryObj = {
-  render: FullScreenTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, 'title-content': undefined },
   play: isChromatic() ? playStory : undefined,
 };
 
