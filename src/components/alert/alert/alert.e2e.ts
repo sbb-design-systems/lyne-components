@@ -14,14 +14,14 @@ describe('sbb-alert', () => {
   });
 
   it('should fire animation events', async () => {
-    const willPresentSpy = new EventSpy(SbbAlertElement.events.willPresent);
-    const didPresentSpy = new EventSpy(SbbAlertElement.events.didPresent);
+    const willOpenSpy = new EventSpy(SbbAlertElement.events.willOpen);
+    const didOpenSpy = new EventSpy(SbbAlertElement.events.didOpen);
 
     await fixture(html`<sbb-alert title-content="disruption">Interruption</sbb-alert>`);
 
-    await waitForCondition(() => willPresentSpy.events.length === 1);
-    expect(willPresentSpy.count).to.be.equal(1);
-    await waitForCondition(() => didPresentSpy.events.length === 1);
-    expect(didPresentSpy.count).to.be.equal(1);
+    await waitForCondition(() => willOpenSpy.events.length === 1);
+    expect(willOpenSpy.count).to.be.equal(1);
+    await waitForCondition(() => didOpenSpy.events.length === 1);
+    expect(didOpenSpy.count).to.be.equal(1);
   });
 });
