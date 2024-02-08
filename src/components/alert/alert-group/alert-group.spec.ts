@@ -19,7 +19,7 @@ describe('sbb-alert-group', () => {
     expect(root).dom.to.be.equal(
       `
         <sbb-alert-group accessibility-title='Disruptions' accessibility-level='3' role='status'>
-          <sbb-alert title-content='Interruption between Genève and Lausanne' href='https://www.sbb.ch' size="m">
+          <sbb-alert title-content='Interruption between Genève and Lausanne' href='https://www.sbb.ch' size="m" data-state="opening">
             The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
           </sbb-alert>
         </sbb-alert-group>
@@ -46,6 +46,7 @@ describe('sbb-alert-group', () => {
         <sbb-alert
           title-content="Interruption between Genève and Lausanne"
           href="https://www.sbb.ch"
+          data-state="opening"
         >
           The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
         </sbb-alert>
@@ -58,7 +59,7 @@ describe('sbb-alert-group', () => {
           <span slot="accessibility-title">
             Interruptions
           </span>
-          <sbb-alert title-content='Interruption between Genève and Lausanne' href='https://www.sbb.ch' size="m">
+          <sbb-alert title-content='Interruption between Genève and Lausanne' href='https://www.sbb.ch' size="m" data-state="opening">
             The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
           </sbb-alert>
         </sbb-alert-group>
