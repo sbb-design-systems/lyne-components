@@ -264,7 +264,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'timetable/sbb-journey-summary (Unfinished)',
+  title: 'timetable/sbb-journey-summary',
 };
 
 export default meta;
