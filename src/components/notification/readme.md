@@ -60,17 +60,13 @@ For example, use `--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0` 
 
 ## Accessibility
 
-The `sbb-notification` component uses the accessibility `role="status"` to indicate its purpose to assistive technology users.
-This role signifies that the notification provides information about the current state of a task or system.
-
-Consumers can override the role's default value by setting it on the component;
-moreover, to announce the notification's content to screen readers as it becomes visible,
-consumers **must** use the `aria-live` attribute with the `off` value on the component's container.
+In order to announce the notification's content to screen readers as it becomes visible,
+consumers **must** use the `aria-live` attribute with the `polite` value on the component's container.
 This ensures that users who rely on screen readers are promptly informed of any relevant updates or changes.
 
 ```html
 <!-- Add here any incoming notification by adding a sbb-notification component. -->
-<div id="notification-container" aria-live="off">
+<div id="notification-container" aria-live="polite">
   <sbb-notification type="success">Task successfully completed.</sbb-notification>
 </div>
 ```
