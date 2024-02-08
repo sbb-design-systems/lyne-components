@@ -79,7 +79,7 @@ describe('sbb-card-link', () => {
     expect(element).not.to.have.attribute('data-action-role', 'button');
   });
 
-  it('should detect added button in slotted content to update focusable elements', async () => {
+  it('should detect added link in slotted content to update focusable elements', async () => {
     element = await fixture(
       html` <sbb-card>
         <sbb-card-link href="#">Click me</sbb-card-link>

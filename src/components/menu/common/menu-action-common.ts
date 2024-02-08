@@ -2,13 +2,14 @@ import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type {
-  AbstractConstructor,
-  SbbDisabledMixinType,
-  SbbIconNameMixinType,
+import {
+  type SbbActionBaseElement,
+  type AbstractConstructor,
+  type SbbDisabledMixinType,
+  type SbbIconNameMixinType,
+  SbbDisabledTabIndexActionMixin,
+  SbbIconNameMixin,
 } from '../../core/common-behaviors';
-import { SbbDisabledTabIndexActionMixin, SbbIconNameMixin } from '../../core/common-behaviors';
-import type { SbbActionBaseElement } from '../../core/common-behaviors/action-base-element';
 
 import style from './menu-action.scss?lit&inline';
 

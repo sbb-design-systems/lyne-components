@@ -1,4 +1,7 @@
-/** Dispatch a `click` event. */
+/**
+ * Dispatch a `click` event.
+ * @param event The origin event.
+ */
 export const dispatchClickEvent = (event: KeyboardEvent): void => {
   const { altKey, ctrlKey, metaKey, shiftKey } = event;
   (event.target as Element).dispatchEvent(

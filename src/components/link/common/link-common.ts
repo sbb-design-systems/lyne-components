@@ -2,18 +2,16 @@ import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type {
-  AbstractConstructor,
-  SbbDisabledMixinType,
-  SbbIconNameMixinType,
-  SbbNegativeMixinType,
-} from '../../core/common-behaviors';
 import {
+  type SbbActionBaseElement,
+  type AbstractConstructor,
+  type SbbDisabledMixinType,
+  type SbbIconNameMixinType,
+  type SbbNegativeMixinType,
   SbbIconNameMixin,
   SbbNegativeMixin,
   NamedSlotStateController,
 } from '../../core/common-behaviors';
-import type { SbbActionBaseElement } from '../../core/common-behaviors/action-base-element';
 import type { SbbIconPlacement } from '../../core/interfaces';
 
 import '../../icon';
@@ -67,7 +65,6 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<SbbActio
           : nothing}
         <slot></slot>
       `;
-      /* eslint-enable lit/binding-positions */
     }
   }
   return SbbLinkCommonElement as unknown as AbstractConstructor<SbbLinkCommonElementMixinType> & T;

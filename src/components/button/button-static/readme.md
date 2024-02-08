@@ -9,7 +9,7 @@ and it's meant to be used whenever is required to nest one button inside another
 
 The button text is provided via an unnamed slot; the component can optionally display a `sbb-icon`
 at the component start using the `iconName` property or via custom content using the `icon` slot.
-At least one is mandatory, so you can have a `sbb-button` with icon only, text only, or with both.
+At least one is mandatory, so you can have a `sbb-button-static` with icon only, text only, or with both.
 
 ```html
 <sbb-button-static icon-name="info"> Button text </sbb-button-static>
@@ -44,10 +44,10 @@ The component can be displayed in `disabled` state using the self-named property
 ### Focus outline
 
 Please make sure that the focus outline appears in the correct color if the component is used on a dark background.
-You can set it by re-defining the css var on `sbb-button` or any parent element:
+You can set it by re-defining the css var on `sbb-button-static` or any parent element:
 
 ```css
-sbb-button {
+sbb-button-static {
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 ```

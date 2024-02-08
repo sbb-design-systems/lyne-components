@@ -1,6 +1,5 @@
 import { spread } from '@open-wc/lit-helpers';
-import { type CSSResultGroup, LitElement, type TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import { type CSSResultGroup, html, LitElement, nothing, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import {

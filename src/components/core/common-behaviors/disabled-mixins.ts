@@ -34,7 +34,8 @@ export const SbbDisabledTabIndexActionMixin = <T extends AbstractConstructor<Lit
         return;
       }
 
-      // FIXME verify if tabindex is ALWAYS used with disabled
+      // FIXME if tabindex is not needed in combination with aria-disabled,
+      //  use the SbbDisabledMixin and implement a different willUpdate method.
       if (this.disabled) {
         this.setAttribute('aria-disabled', 'true');
         this.removeAttribute('tabindex');

@@ -6,7 +6,7 @@ import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing
 
 import { SbbButtonLinkElement } from './button-link';
 
-describe('sbb-button', () => {
+describe('sbb-button-link', () => {
   let element: SbbButtonLinkElement;
 
   beforeEach(async () => {

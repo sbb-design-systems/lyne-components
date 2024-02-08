@@ -2,9 +2,12 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { AbstractConstructor, SbbIconNameMixinType } from '../../core/common-behaviors';
-import { SbbIconNameMixin } from '../../core/common-behaviors';
-import type { SbbActionBaseElement } from '../../core/common-behaviors/action-base-element';
+import {
+  type SbbActionBaseElement,
+  type AbstractConstructor,
+  type SbbIconNameMixinType,
+  SbbIconNameMixin,
+} from '../../core/common-behaviors';
 import { isBreakpoint, toggleDatasetEntry } from '../../core/dom';
 import type { SbbHorizontalFrom } from '../../core/interfaces';
 import { AgnosticResizeObserver } from '../../core/observers';

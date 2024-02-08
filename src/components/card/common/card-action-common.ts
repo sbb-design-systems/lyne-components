@@ -3,8 +3,7 @@ import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import { IS_FOCUSABLE_QUERY } from '../../core/a11y';
-import type { AbstractConstructor } from '../../core/common-behaviors';
-import type { SbbActionBaseElement } from '../../core/common-behaviors/action-base-element';
+import type { AbstractConstructor, SbbActionBaseElement } from '../../core/common-behaviors';
 import { setAttribute, toggleDatasetEntry } from '../../core/dom';
 import { AgnosticMutationObserver } from '../../core/observers';
 import type { SbbCardElement } from '../card';

@@ -2,8 +2,7 @@ import { type CSSResultGroup, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { AbstractConstructor } from '../../core/common-behaviors';
-import type { SbbActionBaseElement } from '../../core/common-behaviors/action-base-element';
+import type { AbstractConstructor, SbbActionBaseElement } from '../../core/common-behaviors';
 import { hostContext } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
 import type { SbbNavigationButtonElement } from '../navigation-button';

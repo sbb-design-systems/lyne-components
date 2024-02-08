@@ -5,7 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 import type { WithListChildren } from '../core/common-behaviors';
 import { NamedSlotListElement, NamedSlotStateController } from '../core/common-behaviors';
 import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
-import type { SbbLinkSize, SbbLinkElement } from '../link';
+import type { SbbLinkElement, SbbLinkSize } from '../link';
 import type { TitleLevel } from '../title';
 
 import style from './link-list.scss?lit&inline';

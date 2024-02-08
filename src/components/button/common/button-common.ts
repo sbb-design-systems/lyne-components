@@ -1,19 +1,17 @@
-import { type CSSResultGroup, type TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type {
-  AbstractConstructor,
-  SbbDisabledMixinType,
-  SbbIconNameMixinType,
-  SbbNegativeMixinType,
-} from '../../core/common-behaviors';
 import {
+  type SbbActionBaseElement,
+  type AbstractConstructor,
+  type SbbDisabledMixinType,
+  type SbbIconNameMixinType,
+  type SbbNegativeMixinType,
   NamedSlotStateController,
   SbbIconNameMixin,
   SbbNegativeMixin,
 } from '../../core/common-behaviors';
-import type { SbbActionBaseElement } from '../../core/common-behaviors/action-base-element';
 import { isValidAttribute, toggleDatasetEntry } from '../../core/dom';
 
 import '../../icon';
@@ -41,6 +39,7 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
     implements Partial<SbbButtonCommonElementMixinType>
   {
     public static styles: CSSResultGroup = style;
+
     /** Variant of the button, like primary, secondary etc. */
     @property({ reflect: true }) public variant: SbbButtonVariant = 'primary';
 
