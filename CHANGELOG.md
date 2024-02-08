@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.45.0](https://github.com/lyne-design-system/lyne-components/compare/v0.44.1...v0.45.0) (2024-02-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **sbb-alert:** renamed `willPresent` event to `willOpen` and `didPresent` to `didOpen`.
+
+### Features
+
+* **a11y:** implemented a11y tree snapshot function ([#2378](https://github.com/lyne-design-system/lyne-components/issues/2378)) ([3484e7b](https://github.com/lyne-design-system/lyne-components/commit/3484e7b19118075d9ea1e90e4cb95c4b6c6e7d27))
+* **sbb-clock:** introduce option to configure color of seconds hand ([#2400](https://github.com/lyne-design-system/lyne-components/issues/2400)) ([b94d92d](https://github.com/lyne-design-system/lyne-components/commit/b94d92da4d6ae20e540fbfe9b018514d0abcdd42))
+* **sbb-container:** first implementation ([#2271](https://github.com/lyne-design-system/lyne-components/issues/2271)) ([7403b67](https://github.com/lyne-design-system/lyne-components/commit/7403b67fb89e4ebd3d301ce084e19766ad7bfc48))
+* **sbb-screenreader-only:** initial implementation ([#2377](https://github.com/lyne-design-system/lyne-components/issues/2377)) ([2e763d4](https://github.com/lyne-design-system/lyne-components/commit/2e763d4454ef71c4707767a3962f6735a9e34f1f))
+* update journey-summary storybook title ([#2390](https://github.com/lyne-design-system/lyne-components/issues/2390)) ([3469654](https://github.com/lyne-design-system/lyne-components/commit/3469654a81e1b33b5b3e5505b547953164ee15c1))
+
+
+### Bug Fixes
+
+* **multiple:** render lists with just one element as span ([#2381](https://github.com/lyne-design-system/lyne-components/issues/2381)) ([e703be1](https://github.com/lyne-design-system/lyne-components/commit/e703be1eb29c73fd8fe5ce4cc033373a0aefab84))
+* **sbb-alert:** refactor animation to properly work in Safari ([#2394](https://github.com/lyne-design-system/lyne-components/issues/2394)) ([30bf7c1](https://github.com/lyne-design-system/lyne-components/commit/30bf7c1f3f9e662f2430b6815f1b3d518e47043b)), closes [#2389](https://github.com/lyne-design-system/lyne-components/issues/2389)
+* **sbb-calendar:** using keyboard navigation loses focus ([#2354](https://github.com/lyne-design-system/lyne-components/issues/2354)) ([68be709](https://github.com/lyne-design-system/lyne-components/commit/68be709fa4530afc505c193112d5fa0e15ea238d))
+* **sbb-form-field:** suppress firefox outline for external framework compatibility ([#2386](https://github.com/lyne-design-system/lyne-components/issues/2386)) ([6374162](https://github.com/lyne-design-system/lyne-components/commit/6374162c465f4c68ca582c75557166f1484b289f))
+* **sbb-notification:** fix accessibility ([#2325](https://github.com/lyne-design-system/lyne-components/issues/2325)) ([00e9540](https://github.com/lyne-design-system/lyne-components/commit/00e9540480758b4cfff690d3ed8ec81018e947ee))
+* **sbb-select:** hide placeholder when using floating label in HCM ([#2399](https://github.com/lyne-design-system/lyne-components/issues/2399)) ([dd38d13](https://github.com/lyne-design-system/lyne-components/commit/dd38d1325415a1297b47a0679cfbe538721d6a5a)), closes [#2326](https://github.com/lyne-design-system/lyne-components/issues/2326)
+
 ## [0.44.1](https://github.com/lyne-design-system/lyne-components/compare/v0.44.0...v0.44.1) (2024-01-24)
 
 
