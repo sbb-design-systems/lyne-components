@@ -20,10 +20,11 @@ const imageSrc: InputType = {
   options: images,
 };
 
-const noBorderRadius: InputType = {
+const borderRadius: InputType = {
   control: {
-    type: 'boolean',
+    type: 'select',
   },
+  options: ['default', 'none', 'round'],
 };
 
 const aspectRatio: InputType = {
@@ -123,7 +124,7 @@ const disableAnimation: InputType = {
 const defaultArgTypes: ArgTypes = {
   alt: {},
   caption: {},
-  'no-border-radius': noBorderRadius,
+  'border-radius': borderRadius,
   'aspect-ratio': aspectRatio,
   copyright,
   'copyright-holder': copyrightHolder,
@@ -142,7 +143,7 @@ const defaultArgs: Args = {
   alt: '',
   caption: undefined,
   // we need a string and not boolean, otherwise storybook add/remove the attribute but don't write the value
-  'no-border-radius': false,
+  'border-radius': 'default',
   'aspect-ratio': aspectRatio.options[0],
   copyright: '',
   'copyright-holder': copyrightHolder.options[0],
@@ -181,7 +182,17 @@ export const NoCaptionNoRadius: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    'no-border-radius': true,
+    'border-radius': 'none',
+  },
+};
+
+export const RoundBorderRadius: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    'border-radius': 'round',
+    'aspect-ratio': '1-1',
   },
 };
 
