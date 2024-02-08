@@ -218,8 +218,8 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbAlertElement.events.willPresent,
-        SbbAlertElement.events.didPresent,
+        SbbAlertElement.events.willOpen,
+        SbbAlertElement.events.didOpen,
         SbbAlertElement.events.dismissalRequested,
       ],
     },

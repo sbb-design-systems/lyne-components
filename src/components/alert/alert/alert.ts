@@ -1,8 +1,6 @@
 import { spread } from '@open-wc/lit-helpers';
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import { type CSSResultGroup, html, LitElement, nothing, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
 
 import { LanguageController } from '../../core/common-behaviors';
 import { EventEmitter } from '../../core/eventing';
@@ -17,22 +15,24 @@ import '../../divider';
 import '../../link';
 import '../../title';
 
+export type SbbAlertState = 'closed' | 'opening' | 'opened';
+
 /**
  * It displays messages which require user's attention.
  *
  * @slot - Use the unnamed slot to add content to the `sbb-alert`.
  * @slot icon - Should be a `sbb-icon` which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.
  * @slot title - Title content.
- * @event {CustomEvent<void>} willPresent - Emits when the fade in animation starts.
- * @event {CustomEvent<void>} didPresent - Emits when the fade in animation ends and the button is displayed.
+ * @event {CustomEvent<void>} willOpen - Emits when the fade in animation starts.
+ * @event {CustomEvent<void>} didOpen - Emits when the fade in animation ends and the button is displayed.
  * @event {CustomEvent<void>} dismissalRequested - Emits when dismissal of an alert was requested.
  */
 @customElement('sbb-alert')
 export class SbbAlertElement extends LitElement implements LinkProperties {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    willPresent: 'willPresent',
-    didPresent: 'didPresent',
+    willOpen: 'willOpen',
+    didOpen: 'didOpen',
     dismissalRequested: 'dismissalRequested',
   } as const;
 
@@ -76,17 +76,19 @@ export class SbbAlertElement extends LitElement implements LinkProperties {
   /** This will be forwarded as aria-label to the relevant nested element. */
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
 
+  /** The state of the alert. */
+  private get _state(): SbbAlertState {
+    return (this.getAttribute('data-state') as SbbAlertState | null) ?? 'closed';
+  }
+  private set _state(value: SbbAlertState) {
+    this.setAttribute('data-state', value);
+  }
+
   /** Emits when the fade in animation starts. */
-  private _willPresent: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbAlertElement.events.willPresent,
-  );
+  private _willOpen: EventEmitter<void> = new EventEmitter(this, SbbAlertElement.events.willOpen);
 
   /** Emits when the fade in animation ends and the button is displayed. */
-  private _didPresent: EventEmitter<void> = new EventEmitter(
-    this,
-    SbbAlertElement.events.didPresent,
-  );
+  private _didOpen: EventEmitter<void> = new EventEmitter(this, SbbAlertElement.events.didOpen);
 
   /** Emits when dismissal of an alert was requested. */
   private _dismissalRequested: EventEmitter<void> = new EventEmitter(
@@ -94,30 +96,10 @@ export class SbbAlertElement extends LitElement implements LinkProperties {
     SbbAlertElement.events.dismissalRequested,
   );
 
-  private _transitionWrapperElement!: HTMLElement;
-  private _alertElement!: HTMLElement;
-
-  private _firstRenderingDone = false;
-
   private _language = new LanguageController(this);
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    // Skip very first render where the animation elements are not yet ready.
-    // Presentation is postponed.
-    if (this._transitionWrapperElement) {
-      this._initFadeInTransitionStyles();
-      this._present();
-    }
-  }
-
-  protected override updated(): void {
-    // During the very first rendering, the animation elements are only present in updated.
-    // So we need to fire the fade in animation later than at connectedCallback().
-    if (!this._firstRenderingDone) {
-      this._present();
-    }
-    this._firstRenderingDone = true;
+  protected override async firstUpdated(): Promise<void> {
+    this._open();
   }
 
   /** Requests dismissal of the alert. */
@@ -125,49 +107,17 @@ export class SbbAlertElement extends LitElement implements LinkProperties {
     this._dismissalRequested.emit();
   }
 
-  /** Present the alert. */
-  private _present(): void {
-    this._willPresent.emit();
-
-    if (this.disableAnimation) {
-      this._onHeightTransitionEnd();
-      return;
-    }
-
-    this._transitionWrapperElement.addEventListener(
-      'transitionend',
-      () => this._onHeightTransitionEnd(),
-      {
-        once: true,
-      },
-    );
-    this._transitionWrapperElement.style.height = `${this._alertElement.offsetHeight}px`;
+  /** Open the alert. */
+  private _open(): void {
+    this._state = 'opening';
+    this._willOpen.emit();
   }
 
-  private _initFadeInTransitionStyles(): void {
-    if (this.disableAnimation) {
-      return;
+  private _onAnimationEnd(event: AnimationEvent): void {
+    if (this._state === 'opening' && event.animationName === 'open-opacity') {
+      this._state = 'opened';
+      this._didOpen.emit();
     }
-    this._transitionWrapperElement.style.height = '0';
-    this._alertElement.style.opacity = '0';
-  }
-
-  private _onHeightTransitionEnd(): void {
-    this._transitionWrapperElement.style.removeProperty('height');
-    this._alertElement.style.removeProperty('opacity');
-
-    if (this.disableAnimation) {
-      this._onOpacityTransitionEnd();
-      return;
-    }
-
-    this._alertElement.addEventListener('transitionend', () => this._onOpacityTransitionEnd(), {
-      once: true,
-    });
-  }
-
-  private _onOpacityTransitionEnd(): void {
-    this._didPresent.emit();
   }
 
   private _linkProperties(): Record<string, string | undefined> {
@@ -181,64 +131,52 @@ export class SbbAlertElement extends LitElement implements LinkProperties {
 
   protected override render(): TemplateResult {
     return html`
-      <div
-        class="sbb-alert__transition-wrapper"
-        ${ref((el?: Element): void => {
-          this._transitionWrapperElement = el as HTMLElement;
-        })}
-      >
-        <div
-          class="sbb-alert"
-          ${ref((el?: Element): void => {
-            const isFirstInitialization = !this._alertElement;
-
-            this._alertElement = el as HTMLElement;
-            if (isFirstInitialization) {
-              this._initFadeInTransitionStyles();
-            }
-          })}
-        >
-          <span class="sbb-alert__icon">
-            <slot name="icon">
-              <sbb-icon name=${this.iconName || 'info'}></sbb-icon>
-            </slot>
-          </span>
-          <span class="sbb-alert__content">
-            <sbb-title
-              class="sbb-alert__title"
-              level=${this.titleLevel}
-              visual-level=${this.size === 'l' ? '3' : '5'}
-              negative
-            >
-              <slot name="title">${this.titleContent}</slot>
-            </sbb-title>
-            <p class="sbb-alert__content-slot">
-              <slot></slot>
-            </p>
-            ${this.href
-              ? html` <sbb-link ${spread(this._linkProperties())} variant="inline" negative>
-                  ${this.linkContent ? this.linkContent : i18nFindOutMore[this._language.current]}
-                </sbb-link>`
+      <div class="sbb-alert__transition-wrapper" @animationend=${this._onAnimationEnd}>
+        <!-- sub wrapper needed to properly support fade in animation -->
+        <div class="sbb-alert__transition-sub-wrapper">
+          <div class="sbb-alert">
+            <span class="sbb-alert__icon">
+              <slot name="icon">
+                <sbb-icon name=${this.iconName || 'info'}></sbb-icon>
+              </slot>
+            </span>
+            <span class="sbb-alert__content">
+              <sbb-title
+                class="sbb-alert__title"
+                level=${this.titleLevel}
+                visual-level=${this.size === 'l' ? '3' : '5'}
+                negative
+              >
+                <slot name="title">${this.titleContent}</slot>
+              </sbb-title>
+              <p class="sbb-alert__content-slot">
+                <slot></slot>
+              </p>
+              ${this.href
+                ? html` <sbb-link ${spread(this._linkProperties())} variant="inline" negative>
+                    ${this.linkContent ? this.linkContent : i18nFindOutMore[this._language.current]}
+                  </sbb-link>`
+                : nothing}
+            </span>
+            ${!this.readonly
+              ? html`<span class="sbb-alert__close-button-wrapper">
+                  <sbb-divider
+                    orientation="vertical"
+                    negative
+                    class="sbb-alert__close-button-divider"
+                  ></sbb-divider>
+                  <sbb-button
+                    variant="transparent"
+                    negative
+                    size="m"
+                    icon-name="cross-small"
+                    @click=${() => this.requestDismissal()}
+                    aria-label=${i18nCloseAlert[this._language.current]}
+                    class="sbb-alert__close-button"
+                  ></sbb-button>
+                </span>`
               : nothing}
-          </span>
-          ${!this.readonly
-            ? html`<span class="sbb-alert__close-button-wrapper">
-                <sbb-divider
-                  orientation="vertical"
-                  negative
-                  class="sbb-alert__close-button-divider"
-                ></sbb-divider>
-                <sbb-button
-                  variant="transparent"
-                  negative
-                  size="m"
-                  icon-name="cross-small"
-                  @click=${() => this.requestDismissal()}
-                  aria-label=${i18nCloseAlert[this._language.current]}
-                  class="sbb-alert__close-button"
-                ></sbb-button>
-              </span>`
-            : nothing}
+          </div>
         </div>
       </div>
     `;
