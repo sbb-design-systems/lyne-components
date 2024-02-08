@@ -3,14 +3,17 @@ export const snapshots = {};
 
 snapshots["sbb-status renders"] = 
 `<div class="sbb-status">
-  <sbb-icon
-    aria-hidden="true"
-    class="sbb-status__icon"
-    data-namespace="default"
-    name="circle-information-small"
-    role="img"
-  >
-  </sbb-icon>
+  <span class="sbb-status__icon">
+    <slot name="icon">
+      <sbb-icon
+        aria-hidden="true"
+        data-namespace="default"
+        name="circle-information-small"
+        role="img"
+      >
+      </sbb-icon>
+    </slot>
+  </span>
   <span class="sbb-status__content">
     <sbb-title
       aria-level="3"
@@ -33,14 +36,17 @@ snapshots["sbb-status renders"] =
 
 snapshots["sbb-status renders with the status title"] = 
 `<div class="sbb-status">
-  <sbb-icon
-    aria-hidden="true"
-    class="sbb-status__icon"
-    data-namespace="default"
-    name="circle-information-small"
-    role="img"
-  >
-  </sbb-icon>
+  <span class="sbb-status__icon">
+    <slot name="icon">
+      <sbb-icon
+        aria-hidden="true"
+        data-namespace="default"
+        name="circle-information-small"
+        role="img"
+      >
+      </sbb-icon>
+    </slot>
+  </span>
   <span class="sbb-status__content">
     <sbb-title
       aria-level="3"
