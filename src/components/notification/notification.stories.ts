@@ -243,7 +243,7 @@ const meta: Meta = {
         <div
           class="notification-container"
           style="display: flex; flex-direction: column;"
-          aria-live="polite"
+          aria-live="off"
         >
           ${story()}
         </div>
