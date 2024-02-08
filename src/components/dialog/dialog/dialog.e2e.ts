@@ -1,12 +1,13 @@
-import { assert, expect } from '@open-wc/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { i18nDialog } from '../core/i18n';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
-import { fixture } from '../core/testing/private';
+import { i18nDialog } from '../../core/i18n';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
 
 import { SbbDialogElement } from './dialog';
+import '../../button';
+import '../../icon';
 import '../dialog-title';
 import '../dialog-content';
 import '../dialog-actions';
@@ -29,22 +30,19 @@ async function openDialog(element: SbbDialogElement): Promise<void> {
   expect(element).to.have.attribute('data-state', 'opened');
 }
 
-describe(`sbb-dialog with ${fixture.name}`, () => {
+describe('sbb-dialog', () => {
   let element: SbbDialogElement, ariaLiveRef: HTMLElement;
 
   beforeEach(async () => {
     await setViewport({ width: 900, height: 600 });
-    element = await fixture(
-      html`
-        <sbb-dialog id="my-dialog-1" disable-animation>
-          <sbb-dialog-title>Title</sbb-dialog-title>
+    element = await fixture(html`
+      <sbb-dialog id="my-dialog-1" disable-animation>
+        <sbb-dialog-title>Title</sbb-dialog-title>
         <sbb-dialog-content>Dialog content</sbb-dialog-content>
-          <sbb-dialog-actions>Action group</sbb-dialog-actions>
-        </sbb-dialog>
-      `,
-      { modules: ['./dialog.ts'] },
-    );
-    ariaLiveRef = element.shadowRoot!.querySelector('sbb-screen-reader-only')!;
+        <sbb-dialog-actions>Action group</sbb-dialog-actions>
+      </sbb-dialog>
+    `);
+    ariaLiveRef = element.shadowRoot!.querySelector('sbb-screenreader-only')!;
   });
 
   it('renders', () => {
@@ -250,22 +248,19 @@ describe(`sbb-dialog with ${fixture.name}`, () => {
   });
 
   it('closes stacked dialogs one by one on ESC key pressed', async () => {
-    element = await fixture(
-      html`
-        <sbb-dialog id="my-dialog-3" disable-animation>
-          <sbb-dialog-title>Title</sbb-dialog-title>
+    element = await fixture(html`
+      <sbb-dialog id="my-dialog-3" disable-animation>
+        <sbb-dialog-title>Title</sbb-dialog-title>
         <sbb-dialog-content>Dialog content</sbb-dialog-content>
-          <sbb-dialog-actions>Action group</sbb-dialog-actions>
-        </sbb-dialog>
-
-        <sbb-dialog id="stacked-dialog" disable-animation>
-        <sbb-dialog-title>Stacked title</sbb-dialog-title>
-          <sbb-dialog-content>Dialog content</sbb-dialog-content>
         <sbb-dialog-actions>Action group</sbb-dialog-actions>
-        </sbb-dialog>
-      `,
-      { modules: ['./dialog.ts'] },
-    );
+      </sbb-dialog>
+
+      <sbb-dialog id="stacked-dialog" disable-animation>
+        <sbb-dialog-title>Stacked title</sbb-dialog-title>
+        <sbb-dialog-content>Dialog content</sbb-dialog-content>
+        <sbb-dialog-actions>Action group</sbb-dialog-actions>
+      </sbb-dialog>
+    `);
 
     const willOpen = new EventSpy(SbbDialogElement.events.willOpen);
     const didOpen = new EventSpy(SbbDialogElement.events.didOpen);
@@ -274,8 +269,7 @@ describe(`sbb-dialog with ${fixture.name}`, () => {
 
     await openDialog(element);
 
-    const stackedDialog =
-      element.parentElement!.querySelector<SbbDialogElement>('#stacked-dialog')!;
+    const stackedDialog = document.querySelector('#stacked-dialog') as SbbDialogElement;
 
     stackedDialog.open();
     await waitForLitRender(element);
@@ -337,9 +331,7 @@ describe(`sbb-dialog with ${fixture.name}`, () => {
           <sbb-dialog-content>Dialog content</sbb-dialog-content>
         </sbb-dialog>
       </sbb-dialog>
-    `,
-    { modules: ['./dialog.ts'] },
-    );
+    `);
     const willOpen = new EventSpy(SbbDialogElement.events.willOpen);
     const didOpen = new EventSpy(SbbDialogElement.events.didOpen);
     const willClose = new EventSpy(SbbDialogElement.events.willClose);

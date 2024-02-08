@@ -3,15 +3,20 @@ import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbFocusHandler, getFirstFocusableElement, setModalityOnNextFocus } from '../core/a11y';
-import { SbbLanguageController, SbbSlotStateController } from '../core/controllers';
-import { hostContext, isValidAttribute, SbbScrollHandler, isBreakpoint } from '../core/dom';
-import { EventEmitter } from '../core/eventing';
-import { i18nDialog } from '../core/i18n';
-import { SbbNegativeMixin } from '../core/mixins';
-import { AgnosticResizeObserver } from '../core/observers';
-import type { SbbOverlayState } from '../core/overlay';
-import { applyInertMechanism, removeInertMechanism } from '../core/overlay';
+import { FocusHandler, getFirstFocusableElement, setModalityOnNextFocus } from '../../core/a11y';
+import { LanguageController, NamedSlotStateController } from '../../core/common-behaviors';
+import {
+  ScrollHandler,
+  toggleDatasetEntry,
+  isValidAttribute,
+  hostContext,
+  isBreakpoint,
+} from '../../core/dom';
+import { EventEmitter } from '../../core/eventing';
+import { i18nDialog } from '../../core/i18n';
+import { AgnosticResizeObserver } from '../../core/observers';
+import type { SbbOverlayState } from '../../core/overlay';
+import { applyInertMechanism, removeInertMechanism } from '../../core/overlay';
 import type { SbbDialogActionsElement } from '../dialog-actions';
 import type { SbbDialogTitleElement } from '../dialog-title';
 
@@ -19,7 +24,7 @@ import style from './dialog.scss?lit&inline';
 
 import '../button/secondary-button';
 import '../button/transparent-button';
-import '../screen-reader-only';
+import '../screenreader-only';
 import '../title';
 
 // A global collection of existing dialogs
@@ -36,12 +41,12 @@ let nextId = 0;
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-dialog` is opened.
  * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-dialog` is closed.
- * @cssprop [--sbb-dialog-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
+ * @cssprop [--sbb-dialog-z-index=var(--sbb-overlay-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
- * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
+ * component is set to `var(--sbb-overlay-z-index)` with a value of `1000`.
  */
 @customElement('sbb-dialog')
-export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
+export class SbbDialogElement extends LitElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -54,6 +59,11 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
    * Backdrop click action.
    */
   @property({ attribute: 'backdrop-action' }) public backdropAction: 'close' | 'none' = 'close';
+
+  /**
+   * Negative coloring variant flag.
+   */
+  @property({ reflect: true, type: Boolean }) public negative = false;
 
   /**
    * This will be forwarded as aria-label to the relevant nested element.
@@ -105,8 +115,8 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   private _dialogCloseElement?: HTMLElement;
   private _dialogController!: AbortController;
   private _openDialogController!: AbortController;
-  private _focusHandler = new SbbFocusHandler();
-  private _scrollHandler = new SbbScrollHandler();
+  private _focusHandler = new FocusHandler();
+  private _scrollHandler = new ScrollHandler();
   private _returnValue: any;
   private _isPointerDownEventOnDialog: boolean = false;
   private _overflows: boolean = false;
@@ -423,15 +433,15 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
     const hideOnScroll = this._dialogTitleElement.hideOnScroll;
     const hideHeader =
       !!hideOnScroll && isBreakpoint('zero', hideOnScroll, { includeMaxBreakpoint: true });
-    this.toggleAttribute('data-hide-header', !hideHeader ? false : value);
-    this._dialogTitleElement.toggleAttribute('data-hide-header', !hideHeader ? false : value);
+    toggleDatasetEntry(this, 'hideHeader', !hideHeader ? false : value);
+    toggleDatasetEntry(this._dialogTitleElement, 'hideHeader', !hideHeader ? false : value);
   }
 
   private _setOverflowsDataAttribute(): void {
-    this.toggleAttribute('data-overflows', this._overflows);
-    this._dialogTitleElement.toggleAttribute('data-overflows', this._overflows);
+    toggleDatasetEntry(this, 'overflows', this._overflows);
+    toggleDatasetEntry(this._dialogTitleElement, 'overflows', this._overflows);
     if (this._dialogActionsElement) {
-      this._dialogActionsElement.toggleAttribute('data-overflows', this._overflows);
+      toggleDatasetEntry(this._dialogActionsElement!, 'overflows', this._overflows);
     }
   }
 
@@ -454,10 +464,10 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
           </div>
         </div>
       </div>
-      <sbb-screen-reader-only
+      <sbb-screenreader-only
         aria-live="polite"
         ${ref((el?: Element) => (this._ariaLiveRef = el as HTMLElement))}
-      ></sbb-screen-reader-only>
+      ></sbb-screenreader-only>
     `;
   }
 }

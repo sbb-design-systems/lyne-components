@@ -14,22 +14,21 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../storybook/helpers/spread';
-import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../storybook/testing/wait-for-stable-position';
-import sampleImages from '../core/images';
+import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
+import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
+import { sbbSpread } from '../../core/dom';
+import sampleImages from '../../core/images';
 import { SbbDialogTitleElement } from '../dialog-title';
 
 import { SbbDialogElement } from './dialog';
 import readme from './readme.md?raw';
 
-import '../button/secondary-button';
-import '../button/button';
-import '../link/block-link';
-import '../title';
-import '../form-field';
-import '../image';
-import '../action-group';
+import '../../button';
+import '../../link';
+import '../../title';
+import '../../form-field';
+import '../../image';
+import '../../action-group';
 import '../dialog-content';
 import '../dialog-actions';
 
@@ -164,7 +163,7 @@ const triggerButton = (dialogId: string): TemplateResult => html`
 
 const actionGroup = (negative: boolean): TemplateResult => html`
   <sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="medium">
-    <sbb-block-link
+    <sbb-link
       align-self="start"
       icon-name="chevron-small-left-small"
       href="https://www.sbb.ch/en/"
@@ -172,9 +171,9 @@ const actionGroup = (negative: boolean): TemplateResult => html`
       sbb-dialog-close
     >
       Link
-    </sbb-block-link>
-    <sbb-secondary-button sbb-dialog-close> Cancel </sbb-secondary-button>
-    <sbb-button sbb-dialog-close> Confirm </sbb-button>
+    </sbb-link>
+    <sbb-button variant="secondary" sbb-dialog-close> Cancel </sbb-button>
+    <sbb-button variant="primary" sbb-dialog-close> Confirm </sbb-button>
   </sbb-dialog-actions>
 `;
 
@@ -188,7 +187,7 @@ const formDetailsStyle: Args = {
   marginTop: 'var(--sbb-spacing-fixed-4x)',
   padding: 'var(--sbb-spacing-fixed-4x)',
   borderRadius: 'var(--sbb-border-radius-8x)',
-  backgroundColor: 'var(--sbb-color-milk)',
+  backgroundColor: 'var(--sbb-color-milk-default)',
 };
 
 const formStyle: Args = {
@@ -338,12 +337,10 @@ const FormTemplate = ({
         method and returning the form values to update the details.
       </div>
       <form style=${styleMap(formStyle)} @submit=${(e: SubmitEvent) => e.preventDefault()}>
-        <sbb-form-field error-space="none" size="m">
-          <label>Message</label>
-        <input placeholder="Your custom massage" value="Hello 👋" name="message" />
+        <sbb-form-field error-space="none" label="Message" size="m">
+          <input placeholder="Your custom massage" value="Hello 👋" name="message" />
         </sbb-form-field>
-        <sbb-form-field error-space="none" size="m">
-        <label>Favorite animal</label>
+        <sbb-form-field error-space="none" label="Favorite animal" size="m">
           <select name="animal">
             <option>Red Panda</option>
             <option>Cheetah</option>
