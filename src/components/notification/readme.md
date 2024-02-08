@@ -58,6 +58,19 @@ If the `sbb-notification` host needs a margin, in order to properly animate it o
 we suggest using the `--sbb-notification-margin` variable to set it.
 For example, use `--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0` to apply a bottom margin.
 
+## Accessibility
+
+In order to announce the notification's content to screen readers as it becomes visible,
+consumers **must** use the `aria-live` attribute with the `polite` value on the component's container.
+This ensures that users who rely on screen readers are promptly informed of any relevant updates or changes.
+
+```html
+<!-- Add here any incoming notification by adding a sbb-notification component. -->
+<div id="notification-container" aria-live="polite">
+  <sbb-notification type="success">Task successfully completed.</sbb-notification>
+</div>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties
