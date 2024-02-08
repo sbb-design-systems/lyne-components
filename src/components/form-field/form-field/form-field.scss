@@ -148,6 +148,10 @@
 
 :host([floating-label]) {
   --sbb-select-placeholder-color: transparent;
+
+  @include sbb.if-forced-colors {
+    --sbb-select-placeholder-color: Canvas;
+  }
 }
 
 // Should be after other definitions to override overflow and background
