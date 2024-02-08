@@ -48,7 +48,7 @@
   left: var(--sbb-popover-arrow-position-x);
   bottom: calc(100% - calc(var(--sbb-popover-arrow-size) / 2));
   background-color: var(--sbb-popover-background);
-  border-radius: #{sbb.px-to-rem-build(4)} 0;
+  border-radius: var(--sbb-border-radius-2x) 0;
   transform: rotate(45deg);
 }
 
@@ -118,6 +118,24 @@
 
   @include sbb.if-forced-colors {
     outline: var(--sbb-border-width-1x) solid CanvasText;
+  }
+
+  // Transparent area which increases hover area in order to not trigger closing too early.
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: transparent;
+
+    :host([data-position='below']) & {
+      inset-block-start: calc(-1 * var(--sbb-spacing-fixed-6x));
+    }
+
+    :host([data-position='above']) & {
+      inset-block-end: calc(-1 * var(--sbb-spacing-fixed-6x));
+    }
   }
 }
 
