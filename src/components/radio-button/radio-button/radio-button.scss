@@ -13,6 +13,7 @@
   --sbb-radio-button-border-color: var(--sbb-color-smoke-default);
   --sbb-radio-button-dimension: var(--sbb-size-icon-ui-small);
   --sbb-radio-button-inner-circle-dimension: #{sbb.px-to-rem-build(10)};
+  --sbb-radio-button-suffix-color: var(--sbb-color-charcoal-default);
   --sbb-radio-button-subtext-color: var(--sbb-color-granite-default);
   --sbb-radio-button-cursor: pointer;
 
@@ -74,8 +75,8 @@
 
 // Disabled definitions have to be after checked definitions
 :host([disabled]) {
+  --sbb-radio-button-label-color: var(--sbb-color-granite-default);
   --sbb-radio-button-background-color: var(--sbb-color-milk-default);
-  --sbb-radio-button-subtext-color: var(--sbb-color-smoke-default);
   --sbb-radio-button-border-style: dashed;
   --sbb-radio-button-inner-circle-color: var(--sbb-color-charcoal-default);
   --sbb-radio-button-cursor: default;
@@ -119,6 +120,10 @@
 
     border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
   }
+}
+
+slot[name='suffix'] {
+  color: var(--sbb-radio-button-suffix-color);
 }
 
 slot[name='subtext'] {
