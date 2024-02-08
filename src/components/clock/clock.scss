@@ -10,6 +10,7 @@
   --sbb-clock-hours-animation-duration: 0s;
   --sbb-clock-seconds-animation-duration: 0s;
   --sbb-clock-animation-play-state: paused;
+  --sbb-clock-seconds-hand-color: var(--sbb-color-red-default);
 }
 
 .sbb-clock {
@@ -66,7 +67,7 @@
   animation-timing-function: linear;
   animation-play-state: var(--sbb-clock-animation-play-state);
   animation-iteration-count: infinite;
-  fill: var(--sbb-color-red-default);
+  fill: var(--sbb-clock-seconds-hand-color);
 }
 
 .sbb-clock__hand-seconds--initial-minute {
