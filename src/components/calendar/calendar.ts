@@ -153,7 +153,7 @@ export class SbbCalendarElement extends LitElement {
   /** A list of buttons corresponding to days, months or years depending on the view. */
   private get _cells(): HTMLButtonElement[] {
     return Array.from(
-      this.shadowRoot!.querySelectorAll?.('.sbb-calendar__cell') ?? [],
+      this.shadowRoot!.querySelectorAll('.sbb-calendar__cell') ?? [],
     ) as HTMLButtonElement[];
   }
 
@@ -552,7 +552,7 @@ export class SbbCalendarElement extends LitElement {
 
   private _setTabIndex(): void {
     Array.from(
-      this.shadowRoot!.querySelectorAll?.('.sbb-calendar__cell[tabindex="0"]') ?? [],
+      this.shadowRoot!.querySelectorAll('.sbb-calendar__cell[tabindex="0"]') ?? [],
     ).forEach((day) => ((day as HTMLElement).tabIndex = -1));
     const firstFocusable = this._getFirstFocusable();
     if (firstFocusable) {
@@ -563,16 +563,16 @@ export class SbbCalendarElement extends LitElement {
   private _getFirstFocusable(): HTMLButtonElement {
     const active = this._selected ? new Date(this._selected) : this._now();
     let firstFocusable =
-      this.shadowRoot!.querySelector?.('.sbb-calendar__selected') ??
-      this.shadowRoot!.querySelector?.(
+      this.shadowRoot!.querySelector('.sbb-calendar__selected') ??
+      this.shadowRoot!.querySelector(
         `[data-day="${active.getDate()} ${
           this._activeDate.getMonth() + 1
         } ${this._activeDate.getFullYear()}"]`,
       ) ??
-      this.shadowRoot!.querySelector?.(`[data-month="${this._activeDate.getMonth()}"]`) ??
-      this.shadowRoot!.querySelector?.(`[data-year="${this._activeDate.getFullYear()}"]`);
+      this.shadowRoot!.querySelector(`[data-month="${this._activeDate.getMonth()}"]`) ??
+      this.shadowRoot!.querySelector(`[data-year="${this._activeDate.getFullYear()}"]`);
     if (!firstFocusable || (firstFocusable as HTMLButtonElement)?.disabled) {
-      firstFocusable = this.shadowRoot!.querySelector?.('.sbb-calendar__cell:not([disabled])');
+      firstFocusable = this.shadowRoot!.querySelector('.sbb-calendar__cell:not([disabled])');
     }
     return (firstFocusable as HTMLButtonElement) || null;
   }
@@ -1203,7 +1203,7 @@ export class SbbCalendarElement extends LitElement {
 
   private _removeTable(): void {
     toggleDatasetEntry(this, 'transition', true);
-    this.shadowRoot!.querySelectorAll?.('table').forEach((e) =>
+    this.shadowRoot!.querySelectorAll('table').forEach((e) =>
       e.classList.toggle('sbb-calendar__table-hide'),
     );
   }
