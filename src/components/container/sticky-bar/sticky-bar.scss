@@ -1,0 +1,98 @@
+@use '../../core/styles' as sbb;
+
+$intersector-overlapping: 1px;
+
+:host {
+  @include sbb.box-sizing;
+
+  --sbb-sticky-bar-padding-block: var(--sbb-spacing-responsive-xxxs);
+  --sbb-sticky-bar-animation-duration: var(--sbb-animation-duration-5x);
+  --sbb-sticky-bar-animation-easing: var(--sbb-animation-easing);
+
+  // Display contents needed to get the sticky bar sticky.
+  display: contents;
+}
+
+:host([data-sticking]) {
+  --sbb-sticky-bar-sticky-background-color: var(
+    --sbb-container-background-color,
+    var(--sbb-color-white-default)
+  );
+}
+
+:host([data-sticking][color='white']) {
+  --sbb-sticky-bar-sticky-background-color: var(--sbb-color-white-default);
+}
+
+:host([data-sticking][color='milk']) {
+  --sbb-sticky-bar-sticky-background-color: var(--sbb-color-milk-default);
+}
+
+:host([disable-animation]) {
+  --sbb-sticky-bar-animation-duration: 0.1ms;
+}
+
+.sbb-sticky-bar__wrapper {
+  position: sticky;
+  inset-block-end: 0;
+  display: block;
+}
+
+.sbb-sticky-bar {
+  display: flex;
+  padding-block: var(--sbb-sticky-bar-padding-block);
+  background-color: var(
+    --sbb-sticky-bar-sticky-background-color,
+    var(--sbb-container-background-color)
+  );
+  transition: background-color var(--sbb-sticky-bar-animation-duration)
+    var(--sbb-sticky-bar-animation-easing);
+
+  // To push the .sbb-sticky-bar__intersector up without using absolute position we need a negative block margin.
+  margin-block-end: -$intersector-overlapping;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  &::before {
+    background-color: var(--sbb-sticky-bar-sticky-background-color, transparent);
+    transition: background-color var(--sbb-sticky-bar-animation-duration)
+      var(--sbb-sticky-bar-animation-easing);
+  }
+
+  &::after {
+    transition: box-shadow var(--sbb-sticky-bar-animation-duration)
+      var(--sbb-sticky-bar-animation-easing);
+    clip-path: polygon(-50% -50%, 150% -50%, 150% 50%, -50% 50%);
+
+    :host([data-sticking]) & {
+      @include sbb.shadow-level-5-hard;
+
+      @include sbb.if-forced-colors {
+        border-block-start: var(--sbb-border-width-1x) solid CanvasText;
+      }
+    }
+  }
+
+  :host([data-transparent]) & {
+    background-color: transparent;
+  }
+
+  :host(:not([data-expanded])) & {
+    @include sbb.page-spacing;
+  }
+
+  :host([data-expanded]) & {
+    @include sbb.page-spacing-expanded;
+  }
+}
+
+.sbb-sticky-bar__intersector {
+  // In order to make the intersection observer work properly on windows the intersector needs to have a defined height
+  height: $intersector-overlapping;
+}
