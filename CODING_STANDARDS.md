@@ -80,37 +80,51 @@ leave it out.
 This applies especially to providing two different APIs to accomplish the same thing. Always
 prefer sticking to a _single_ API for accomplishing something.
 
-#### Click event handling on action elements
+#### Action elements
 
 As we have to "reimplement" button and anchor functionality in order to comply with
 accessibility, we need to consider all native behavior of a native `<button>` and `<anchor>`
 element.
 
-This has been implemented to the best of our know-how in the form of the
-`actionElementHandlerAspect` and `linkHandlerAspect` together with the `HandlerRepository`.
+This has been implemented to the best of our know-how in the form of two "base" classes,
+named `SbbButtonBaseElement` and `SbbLinkBaseElement`,
+which holds all the logic needed to "emulate" the native `<button>` and `<anchor>` elements.
+In detail, the new classes implement:
 
-This can be used as follows:
+- the native component related properties (`form`, `name`... for the button, `href`, `target`... for the link);
+- the interaction logic (like `click`, `keypress` and so on);
+- the accessibility attributes (like `role`);
+- the rendering of the wrapper tag with its attributes (`span` for the button, `a` for the link).
+
+These classes can be used as follows:
+components which require basic button or link functionality have to extend the corresponding "base" class,
+and they need to implement the `renderTemplate` method, which should return the component's inner content.
 
 ```ts
-import { actionElementHandlerAspect, HandlerRepository } from '../core/eventing';
+import { SbbButtonBaseElement } from '../../core/common-behaviors';
+import { html } from 'lit';
 
-class ActionElement implements LinkButtonProperties {
-  private _handlerRepository = new HandlerRepository(this._element, actionElementHandlerAspect);
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._handlerRepository.connect();
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
+@customElement('my-custom-button')
+class MyCustomButtonElement extends SbbButtonBaseElement {
+  protected override renderTemplate(): TemplateResult {
+    return html`<span>My button label</span>`;
   }
 }
 ```
 
-Be aware that this does not cover every functionality of a native button or anchor. Compare with
-existing components (e.g. `<sbb-button>`) to what needs to be done additionally.
+This code will result in the following HTML:
+
+```html
+<my-custom-button role="button" tabindex="0">
+  #shadow-root (open)
+  <span class="my-custom-button">
+    <span>My button label</span>
+  </span>
+</my-custom-button>
+```
+
+Be aware that this does not cover every functionality of a native button or anchor.
+Compare with existing components (e.g. `<sbb-button>`, `<sbb-breadcrumb>`, etc.) to what needs to be done additionally.
 
 #### I18N
 
