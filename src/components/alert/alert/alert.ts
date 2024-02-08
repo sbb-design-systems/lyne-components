@@ -1,7 +1,6 @@
 import { spread } from '@open-wc/lit-helpers';
 import { type CSSResultGroup, html, LitElement, nothing, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import type { AnimationEvent } from 'react';
 
 import { LanguageController } from '../../core/common-behaviors';
 import { EventEmitter } from '../../core/eventing';
