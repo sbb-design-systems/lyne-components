@@ -6,16 +6,16 @@ import { hostContext, isValidAttribute, setAttributes, toggleDatasetEntry } from
 import { HandlerRepository, actionElementHandlerAspect } from '../../core/eventing';
 import { resolveButtonRenderVariables } from '../../core/interfaces';
 
-import style from './tooltip-trigger.scss?lit&inline';
+import style from './popover-trigger.scss?lit&inline';
 import '../../icon';
 
 /**
- * It can be used as a trigger for the `sbb-tooltip` component.
+ * It can be used as a trigger for the `sbb-popover` component.
  *
- * @slot - Use the unnamed slot to add content to the `sbb-tooltip-trigger`.
+ * @slot - Use the unnamed slot to add content to the `sbb-popover-trigger`.
  */
-@customElement('sbb-tooltip-trigger')
-export class SbbTooltipTriggerElement extends LitElement {
+@customElement('sbb-popover-trigger')
+export class SbbPopoverTriggerElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
   /** The name attribute to use for the button. */
@@ -31,7 +31,7 @@ export class SbbTooltipTriggerElement extends LitElement {
    */
   @property({ attribute: 'icon-name' }) public iconName = 'circle-information-small';
 
-  /** Whether the tooltip-trigger is disabled. */
+  /** Whether the popover-trigger is disabled. */
   @property({ reflect: true, type: Boolean }) public disabled: boolean = false;
 
   private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
@@ -58,7 +58,7 @@ export class SbbTooltipTriggerElement extends LitElement {
     setAttributes(this, hostAttributes);
 
     return html`
-      <span class="sbb-tooltip-trigger">
+      <span class="sbb-popover-trigger">
         <slot>${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}</slot>
       </span>
     `;
@@ -68,6 +68,6 @@ export class SbbTooltipTriggerElement extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-tooltip-trigger': SbbTooltipTriggerElement;
+    'sbb-popover-trigger': SbbPopoverTriggerElement;
   }
 }

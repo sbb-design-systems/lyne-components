@@ -471,7 +471,7 @@ export const i18nCloseNavigation: Record<string, string> = {
   it: 'Chiudere la navigazione',
 };
 
-export const i18nCloseTooltip: Record<string, string> = {
+export const i18nClosePopover: Record<string, string> = {
   de: 'Hinweis schliessen',
   en: 'Close note',
   fr: 'Fermer la note',

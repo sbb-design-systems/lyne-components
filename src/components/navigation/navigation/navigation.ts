@@ -205,7 +205,7 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
   }
 
   private _trapFocusFilter = (el: HTMLElement): boolean => {
-    return el.nodeName === 'SBB-NAVIGATION-SECTION' && el.getAttribute('data-state') !== 'opened';
+    return el.nodeName !== 'SBB-NAVIGATION-SECTION' || el.getAttribute('data-state') === 'opened';
   };
 
   // In rare cases it can be that the animationEnd event is triggered twice.
@@ -215,7 +215,7 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
       this._state = 'opened';
       this._didOpen.emit();
       applyInertMechanism(this);
-      this._focusHandler.trap(this, this._trapFocusFilter);
+      this._focusHandler.trap(this, { filter: this._trapFocusFilter });
       this._attachWindowEvents();
       this._setNavigationFocus();
     } else if (event.animationName === 'close' && this._state === 'closing') {

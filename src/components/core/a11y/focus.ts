@@ -17,23 +17,23 @@ export const IS_FOCUSABLE_QUERY = [
 export function getFocusableElements(
   elements: HTMLElement[],
   properties?: {
-    filterFunc?: (el: HTMLElement) => boolean;
+    filter?: (el: HTMLElement) => boolean;
     findFirstFocusable?: boolean;
     includeInvisibleElements?: boolean;
   },
 ): HTMLElement[] {
   const focusableEls = new Set<HTMLElement>();
 
-  function getFocusables(elements: HTMLElement[], filterFunc?: (el: HTMLElement) => boolean): void {
+  function getFocusables(elements: HTMLElement[], filter?: (el: HTMLElement) => boolean): void {
     for (const el of elements) {
-      if (filterFunc?.(el)) {
+      if (filter && !filter(el)) {
         continue;
       }
 
       if (el.nodeName === 'SLOT') {
         getFocusables(
           Array.from((el as HTMLSlotElement).assignedElements()) as HTMLElement[],
-          filterFunc,
+          filter,
         );
         continue;
       }
@@ -53,21 +53,21 @@ export function getFocusableElements(
         const children = Array.from(el.children).length
           ? (Array.from(el.children) as HTMLElement[])
           : (Array.from(el.shadowRoot!.children) as HTMLElement[]);
-        getFocusables(children, filterFunc);
+        getFocusables(children, filter);
       }
     }
   }
-  getFocusables(elements, properties?.filterFunc);
+  getFocusables(elements, properties?.filter);
 
   return [...focusableEls];
 }
 
 export function getFirstFocusableElement(
   elements: HTMLElement[],
-  filterFunc?: (el: HTMLElement) => boolean,
+  filter?: (el: HTMLElement) => boolean,
 ): HTMLElement | null {
   const focusableElements = getFocusableElements(elements, {
-    filterFunc: filterFunc,
+    filter,
     findFirstFocusable: true,
   });
   return focusableElements.length ? focusableElements[0] : null;
@@ -76,7 +76,19 @@ export function getFirstFocusableElement(
 export class FocusHandler {
   private _controller = new AbortController();
 
-  public trap(element: HTMLElement, filterFunc?: (el: HTMLElement) => boolean): void {
+  /**
+   * @param element in which the focus should be trapped.
+   * @param options options object.
+   * @param options.filter filter function which is applied during searching for focusable element. If an element is filtered, also child elements are filtered.
+   * @param options.postFilter filter function which is applied after collecting focusable elements.
+   */
+  public trap(
+    element: HTMLElement,
+    options?: {
+      filter?: (el: HTMLElement) => boolean;
+      postFilter?: (el: HTMLElement) => boolean;
+    },
+  ): void {
     element.addEventListener(
       'keydown',
       (event) => {
@@ -88,9 +100,21 @@ export class FocusHandler {
         const elementChildren: HTMLElement[] = Array.from(
           element.shadowRoot!.children || [],
         ) as HTMLElement[];
-        const focusableElements = getFocusableElements(elementChildren, { filterFunc });
-        const firstFocusable = focusableElements[0] as HTMLElement;
-        const lastFocusable = focusableElements[focusableElements.length - 1] as HTMLElement;
+        const focusableElements = getFocusableElements(elementChildren, {
+          filter: options?.filter,
+        });
+        const filteredFocusableElements = focusableElements.filter(
+          options?.postFilter ?? (() => true),
+        );
+
+        if (!filteredFocusableElements.length) {
+          return;
+        }
+
+        const firstFocusable = filteredFocusableElements[0] as HTMLElement;
+        const lastFocusable = filteredFocusableElements[
+          filteredFocusableElements.length - 1
+        ] as HTMLElement;
 
         const [pivot, next] = event.shiftKey
           ? [firstFocusable, lastFocusable]

@@ -248,7 +248,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
       border-color: var(--sbb-button-color-disabled-border);
     }
 
-    // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
+    // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
     :host(
         :is(
             [data-focus-visible],

@@ -12,7 +12,8 @@ import './form-field';
 import '../form-field-clear';
 import '../../button';
 import '../../form-error';
-import '../../tooltip';
+import '../../popover';
+import '../../title';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative
@@ -20,26 +21,29 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
     : 'var(--sbb-color-white-default)',
 });
 
-const TooltipTrigger = (): TemplateResult => html`
-  <sbb-tooltip-trigger
+const PopoverTrigger = (): TemplateResult => html`
+  <sbb-popover-trigger
     slot="suffix"
-    id="tooltip-trigger"
+    id="popover-trigger"
     icon-name="circle-information-small"
-  ></sbb-tooltip-trigger>
-  <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger">
-    <span id="tooltip-content" class="sbb-text-s">
-      Simple info tooltip.
+  ></sbb-popover-trigger>
+  <sbb-popover data-testid="popover" trigger="popover-trigger">
+    <sbb-title level="2" visual-level="6" style="margin-block-start: 0"
+      >Simple info popover.</sbb-title
+    >
+    <span id="popover-content" class="sbb-text-s">
+      Some content.
       <sbb-link
         text-size="s"
         variant="block"
         icon-name="chevron-small-right-small"
         icon-placement="end"
-        sbb-tooltip-close
+        sbb-popover-close
       >
         Learn More
       </sbb-link>
     </span>
-  </sbb-tooltip>
+  </sbb-popover>
 `;
 
 const TemplateBasicInput = ({
@@ -168,7 +172,7 @@ const TemplateInputWithErrorSpace = (args: Args): TemplateResult => {
 const TemplateInputWithIcons = (args: Args): TemplateResult => html`
   <sbb-form-field ${sbbSpread(args)}>
     <sbb-icon slot="prefix" name="pie-small"></sbb-icon>
-    ${TemplateBasicInput(args)} ${TooltipTrigger()}
+    ${TemplateBasicInput(args)} ${PopoverTrigger()}
   </sbb-form-field>
 `;
 
@@ -274,7 +278,7 @@ const TemplateSelectWithIcons = (args: Args): TemplateResult => html`
       <sbb-icon name="pie-small"></sbb-icon>
     </span>
     ${TemplateBasicSelect(args)}
-    <span slot="suffix">${TooltipTrigger()}</span>
+    <span slot="suffix">${PopoverTrigger()}</span>
   </sbb-form-field>
 `;
 

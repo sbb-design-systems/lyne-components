@@ -14,9 +14,9 @@ describe('sbb-datepicker-toggle', () => {
 
     expect(page).dom.to.equal(`<sbb-datepicker-toggle slot="prefix"></sbb-datepicker-toggle>`);
     expect(page).shadowDom.to.equal(`
-      <sbb-tooltip-trigger
+      <sbb-popover-trigger
         aria-label="Show calendar"
-        aria-controls="sbb-tooltip-1"
+        aria-controls="sbb-popover-1"
         aria-expanded="false"
         aria-haspopup="dialog"
         dir="ltr"
@@ -25,16 +25,15 @@ describe('sbb-datepicker-toggle', () => {
         role="button"
         disabled=""
         data-icon-small=""
-      ></sbb-tooltip-trigger>
-      <sbb-tooltip
+      ></sbb-popover-trigger>
+      <sbb-popover
         hide-close-button=""
         data-state="closed"
         hide-close-button=""
-        id="sbb-tooltip-1"
-        role="tooltip"
+        id="sbb-popover-1"
       >
         <sbb-calendar></sbb-calendar>
-      </sbb-tooltip>
+      </sbb-popover>
     `);
   });
 
@@ -54,7 +53,7 @@ describe('sbb-datepicker-toggle', () => {
       );
       expect(element).shadowDom.to.be.equal(
         `
-          <sbb-tooltip-trigger
+          <sbb-popover-trigger
             tabindex="0"
             aria-label="Show calendar"
             dir="ltr"
@@ -63,16 +62,15 @@ describe('sbb-datepicker-toggle', () => {
             icon-name="calendar-small"
             data-icon-small=""
             role="button"
-            aria-controls="sbb-tooltip-4"
-          ></sbb-tooltip-trigger>
-            <sbb-tooltip
+            aria-controls="sbb-popover-2"
+          ></sbb-popover-trigger>
+            <sbb-popover
               hide-close-button=""
               data-state="closed"
-              id="sbb-tooltip-4"
-              role="tooltip"
+              id="sbb-popover-2"
             >
               <sbb-calendar></sbb-calendar>
-            </sbb-tooltip>
+            </sbb-popover>
           `,
       );
     });
@@ -92,9 +90,9 @@ describe('sbb-datepicker-toggle', () => {
       );
       expect(element).shadowDom.to.be.equal(
         `
-          <sbb-tooltip-trigger
+          <sbb-popover-trigger
             aria-label="Show calendar"
-            aria-controls="sbb-tooltip-7"
+            aria-controls="sbb-popover-3"
             aria-disabled="true"
             aria-expanded="false"
             aria-haspopup="dialog"
@@ -103,15 +101,14 @@ describe('sbb-datepicker-toggle', () => {
             icon-name="calendar-small"
             role="button"
             data-icon-small=""
-          ></sbb-tooltip-trigger>
-          <sbb-tooltip
+          ></sbb-popover-trigger>
+          <sbb-popover
             data-state="closed"
-            id="sbb-tooltip-7"
+            id="sbb-popover-3"
             hide-close-button=""
-            role="tooltip"
           >
             <sbb-calendar></sbb-calendar>
-          </sbb-tooltip>
+          </sbb-popover>
         `,
       );
     });
@@ -131,7 +128,7 @@ describe('sbb-datepicker-toggle', () => {
       );
       expect(element).shadowDom.to.be.equal(
         `
-          <sbb-tooltip-trigger
+          <sbb-popover-trigger
             tabindex="0"
             aria-label="Show calendar"
             dir="ltr"
@@ -140,16 +137,15 @@ describe('sbb-datepicker-toggle', () => {
             icon-name="calendar-small"
             data-icon-small=""
             role="button"
-            aria-controls="sbb-tooltip-10"
-          ></sbb-tooltip-trigger>
-          <sbb-tooltip
+            aria-controls="sbb-popover-4"
+          ></sbb-popover-trigger>
+          <sbb-popover
             hide-close-button=""
             data-state="closed"
-            id="sbb-tooltip-10"
-            role="tooltip"
+            id="sbb-popover-4"
           >
             <sbb-calendar wide=""></sbb-calendar>
-          </sbb-tooltip>
+          </sbb-popover>
         `,
       );
     });

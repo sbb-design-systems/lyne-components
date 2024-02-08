@@ -17,7 +17,7 @@
   z-index: 1;
 }
 
-// Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
+// Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
 :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) {
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize css of several frameworks.
@@ -60,7 +60,7 @@ input[type='radio'] {
 
   // We need to use a ::before pseudo-element to show a single outline wrapping
   // the entire toggle when a toggle option receives :focus-visible.
-  // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
+  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
   :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
     &::before {
       content: '';

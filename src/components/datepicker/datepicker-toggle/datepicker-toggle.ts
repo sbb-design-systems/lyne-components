@@ -8,11 +8,11 @@ import { sbbInputModalityDetector } from '../../core/a11y';
 import { LanguageController } from '../../core/common-behaviors';
 import { isValidAttribute, setAttribute } from '../../core/dom';
 import { i18nShowCalendar } from '../../core/i18n';
-import type { SbbTooltipElement, SbbTooltipTriggerElement } from '../../tooltip';
+import type { SbbPopoverElement, SbbPopoverTriggerElement } from '../../popover';
 import { datepickerControlRegisteredEventFactory, getDatePicker } from '../datepicker';
 import type { SbbDatepickerElement, InputUpdateEvent } from '../datepicker';
 import '../../calendar';
-import '../../tooltip';
+import '../../popover';
 
 import style from './datepicker-toggle.scss?lit&inline';
 
@@ -42,9 +42,9 @@ export class SbbDatepickerToggleElement extends LitElement {
 
   private _calendarElement!: SbbCalendarElement;
 
-  private _triggerElement!: SbbTooltipTriggerElement;
+  private _triggerElement!: SbbPopoverTriggerElement;
 
-  private _tooltipElement!: SbbTooltipElement;
+  private _popoverElement!: SbbPopoverElement;
 
   private _datePickerController!: AbortController;
 
@@ -55,7 +55,7 @@ export class SbbDatepickerToggleElement extends LitElement {
    */
   public open(): void {
     if (!this._triggerElement) {
-      this._triggerElement = this.shadowRoot!.querySelector('sbb-tooltip-trigger')!;
+      this._triggerElement = this.shadowRoot!.querySelector('sbb-popover-trigger')!;
     }
     this._triggerElement.click();
   }
@@ -172,21 +172,21 @@ export class SbbDatepickerToggleElement extends LitElement {
   }
 
   protected override updated(): void {
-    this._tooltipElement.trigger = this._triggerElement;
+    this._popoverElement.trigger = this._triggerElement;
   }
 
   protected override render(): TemplateResult {
     setAttribute(this, 'slot', 'prefix');
     return html`
-      <sbb-tooltip-trigger
+      <sbb-popover-trigger
         icon-name="calendar-small"
         aria-label=${i18nShowCalendar[this._language.current]}
         ?disabled=${!this._datePickerElement || this._disabled}
         ?negative=${this.negative}
         data-icon-small
-        ${ref((el?: Element) => (this._triggerElement = el as SbbTooltipTriggerElement))}
-      ></sbb-tooltip-trigger>
-      <sbb-tooltip
+        ${ref((el?: Element) => (this._triggerElement = el as SbbPopoverTriggerElement))}
+      ></sbb-popover-trigger>
+      <sbb-popover
         @willOpen=${() => this._calendarElement.resetPosition()}
         @didOpen=${() => {
           sbbInputModalityDetector.mostRecentModality === 'keyboard' &&
@@ -195,7 +195,7 @@ export class SbbDatepickerToggleElement extends LitElement {
         .trigger=${this._triggerElement}
         ?disable-animation=${this.disableAnimation}
         hide-close-button
-        ${ref((el?: Element) => (this._tooltipElement = el as SbbTooltipElement))}
+        ${ref((el?: Element) => (this._popoverElement = el as SbbPopoverElement))}
       >
         <sbb-calendar
           data-now=${this._now()?.valueOf() || nothing}
@@ -210,7 +210,7 @@ export class SbbDatepickerToggleElement extends LitElement {
           }}
           ${ref((calendar?: Element) => this._assignCalendar(calendar as SbbCalendarElement))}
         ></sbb-calendar>
-      </sbb-tooltip>
+      </sbb-popover>
     `;
   }
 }

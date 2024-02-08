@@ -17,7 +17,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
 import { sbbSpread } from '../../core/dom';
-import type { SbbTooltipTriggerElement } from '../../tooltip';
+import type { SbbPopoverTriggerElement } from '../../popover';
 
 import { SbbDatepickerElement } from './datepicker';
 import readme from './readme.md?raw';
@@ -307,16 +307,16 @@ const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
-    canvas.getByTestId('toggle').shadowRoot!.querySelector('sbb-tooltip-trigger'),
+    canvas.getByTestId('toggle').shadowRoot!.querySelector('sbb-popover-trigger'),
   );
 
   await waitForStablePosition(
-    () => canvas.getByTestId('toggle').shadowRoot!.querySelector('sbb-tooltip-trigger')!,
+    () => canvas.getByTestId('toggle').shadowRoot!.querySelector('sbb-popover-trigger')!,
   );
 
   const toggle = (await canvas
     .getByTestId('toggle')
-    .shadowRoot!.querySelector<SbbTooltipTriggerElement>('sbb-tooltip-trigger'))!;
+    .shadowRoot!.querySelector<SbbPopoverTriggerElement>('sbb-popover-trigger'))!;
   userEvent.click(toggle);
 };
 

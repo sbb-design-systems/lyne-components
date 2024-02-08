@@ -930,7 +930,7 @@ export class SbbCalendarElement extends LitElement {
             data-day=${dayValue || nothing}
             tabindex="-1"
             @keydown=${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt, day)}
-            sbb-tooltip-close
+            sbb-popover-close
           >
             ${day.dayValue}
           </button>
