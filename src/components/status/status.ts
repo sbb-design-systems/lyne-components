@@ -16,6 +16,7 @@ export type SbbStatusType = 'info' | 'success' | 'warning' | 'error';
  *
  * @slot - Use the unnamed slot to add content to the status message.
  * @slot title - Use this to provide a title for the status (optional).
+ * @slot icon - Use this slot to override the default status icon.
  */
 @customElement('sbb-status')
 export class SbbStatusElement extends LitElement {
@@ -31,6 +32,15 @@ export class SbbStatusElement extends LitElement {
   /** The type of the status. */
   @property({ reflect: true }) public type: SbbStatusType = 'info';
 
+  /**
+   * If iconName is set, it overrides default ones which are bound to status.
+   *
+   * The icon name we want to use, choose from the small icon variants
+   * from the ui-icons category from here
+   * https://icons.app.sbb.ch.
+   */
+  @property({ attribute: 'icon-name' }) public iconName?: string;
+
   /** Content of title. */
   @property({ reflect: true, attribute: 'title-content' }) public titleContent?: string;
 
@@ -45,7 +55,11 @@ export class SbbStatusElement extends LitElement {
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-status">
-        <sbb-icon class="sbb-status__icon" name=${this._statusTypes.get(this.type)!}></sbb-icon>
+        <span class="sbb-status__icon">
+          <slot name="icon">
+            <sbb-icon name=${this.iconName ?? this._statusTypes.get(this.type)!}></sbb-icon>
+          </slot>
+        </span>
         <span class="sbb-status__content">
           <sbb-title class="sbb-status__title" level=${this.titleLevel} visual-level="5">
             <slot name="title">${this.titleContent}</slot>

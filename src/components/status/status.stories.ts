@@ -29,20 +29,34 @@ const text: InputType = {
   },
 };
 
+const iconName: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   type,
   'title-content': titleContent,
   text,
+  'icon-name': iconName,
 };
 
 const defaultArgs: Args = {
   type: 'info',
   'title-content': undefined,
   text: 'Status info text',
+  'icon-name': undefined,
 };
 
 const Template = ({ text, ...args }: Args): TemplateResult => html`
-  <sbb-status ${sbbSpread(args)}> ${text}</sbb-status>
+  <sbb-status ${sbbSpread(args)}>${text}</sbb-status>
+`;
+
+const TemplateIconSlot = ({ text, 'icon-name': iconName, ...args }: Args): TemplateResult => html`
+  <sbb-status ${sbbSpread(args)}>
+    ${text}<sbb-icon name=${iconName} slot="icon"></sbb-icon>
+  </sbb-status>
 `;
 
 export const info: StoryObj = {
@@ -91,6 +105,23 @@ export const errorWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, type: 'error', 'title-content': 'Error!' },
+};
+
+export const successWithCustomIcon: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    type: 'success',
+    'icon-name': 'pen-small',
+    'title-content': 'In progress',
+  },
+};
+
+export const successWithCustomIconSlotted: StoryObj = {
+  render: TemplateIconSlot,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, type: 'success', 'icon-name': 'globe-small' },
 };
 
 const meta: Meta = {
