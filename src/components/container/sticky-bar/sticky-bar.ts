@@ -4,8 +4,6 @@ import { customElement, property } from 'lit/decorators.js';
 import { setAttribute, toggleDatasetEntry } from '../../core/dom';
 import { AgnosticIntersectionObserver } from '../../core/observers';
 
-import '../container';
-
 import style from './sticky-bar.scss?lit&inline';
 
 /**
