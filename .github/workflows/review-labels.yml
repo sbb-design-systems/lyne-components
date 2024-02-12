@@ -9,14 +9,14 @@ permissions:
   pull-requests: write
 
 env:
-  PEER_REQUIRED: "pr: peer review required"
-  PEER_APPROVED: "pr: peer review approved"
-  LEAD_REQUIRED: "pr: lead review required"
-  LEAD_APPROVED: "pr: lead review approved"
-  UX_REQUIRED: "pr: ux review required"
-  UX_APPROVED: "pr: ux review approved"
+  PEER_REQUIRED: 'pr: peer review required'
+  PEER_APPROVED: 'pr: peer review approved'
+  LEAD_REQUIRED: 'pr: lead review required'
+  LEAD_APPROVED: 'pr: lead review approved'
+  UX_REQUIRED: 'pr: ux review required'
+  UX_APPROVED: 'pr: ux review approved'
   GH_TOKEN: ${{ github.token }}
-    
+
 jobs:
   # Workaround for the limitation of being unable to use env in job if block.
   # https://github.com/actions/runner/issues/1189
