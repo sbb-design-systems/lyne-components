@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.46.0](https://github.com/lyne-design-system/lyne-components/compare/v0.45.0...v0.46.0) (2024-02-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* **sbb-popover:** Component `sbb-tooltip` has been renamed to `sbb-popover`. Component `sbb-tooltip-trigger` has been renamed to `sbb-popover-trigger` Attribute `sbb-tooltip-close` has been renamed to `sbb-popover-close`. Every CSS tooltip variable has been renamed from `--sbb-tooltip-*` to `--sbb-popover-*` (including trigger).
+
+### Bug Fixes
+
+* **sbb-popover:** rename tooltip to popover and fix accessibility bugs ([#2368](https://github.com/lyne-design-system/lyne-components/issues/2368)) ([70c1c07](https://github.com/lyne-design-system/lyne-components/commit/70c1c07965e2c4f7eac431628b8a432cea384207)), closes [#2018](https://github.com/lyne-design-system/lyne-components/issues/2018)
+* **sbb-select:** wait for shadow DOM readiness before setup when using nextjs ([#2409](https://github.com/lyne-design-system/lyne-components/issues/2409)) ([fbef967](https://github.com/lyne-design-system/lyne-components/commit/fbef9675929e84d05708d4317704ade3f4f3a732))
+* **sbb-sticky-bar:** remove unnecessary import to container ([#2406](https://github.com/lyne-design-system/lyne-components/issues/2406)) ([c935436](https://github.com/lyne-design-system/lyne-components/commit/c9354363567afe84ecce8cee870ec66fc75bb367))
+
 ## [0.45.0](https://github.com/lyne-design-system/lyne-components/compare/v0.44.1...v0.45.0) (2024-02-08)
 
 
