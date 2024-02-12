@@ -267,7 +267,7 @@ export class SbbImageElement extends LitElement {
   @property({ attribute: 'picture-sizes-config' }) public pictureSizesConfig?: string;
 
   /**
-   * Whether to have no border-radius on the image
+   * Border radius of the image. Choose between a default radius, no radius and a completely round image.
    */
   @property({ attribute: 'border-radius' }) public borderRadius: 'default' | 'none' | 'round' =
     'default';
