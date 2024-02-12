@@ -254,8 +254,9 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
     // which is done after hydration is finished. Due to this we intercept this call
     // in overriding removeAttribute to finish initialization of the sbb-select.
     // https://github.com/lit/lit/blob/main/packages/react/src/create-component.ts#L293-L296
+    // We also need to wait for update complete in order to be sure that the shadow DOM has been rendered.
     if (isNextjs() && qualifiedName === 'defer-hydration' && !this._didLoad) {
-      this._setupSelect();
+      this.updateComplete.then(() => this._setupSelect());
     }
     super.removeAttribute(qualifiedName);
   }
