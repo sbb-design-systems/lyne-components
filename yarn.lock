@@ -12353,7 +12353,7 @@ vite-plugin-dts@3.7.2:
     kolorist "^1.8.0"
     vue-tsc "^1.8.26"
 
-vite-plugin-turbosnap@^1.0.3:
+vite-plugin-turbosnap@1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/vite-plugin-turbosnap/-/vite-plugin-turbosnap-1.0.3.tgz#5519bc7b5f8e9c589e8d11fb6b053ec086f41f0a"
   integrity sha512-p4D8CFVhZS412SyQX125qxyzOgIFouwOcvjZWk6bQbNPR1wtaEzFT6jZxAjf1dejlGqa6fqHcuCvQea6EWUkUA==
