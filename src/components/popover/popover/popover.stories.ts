@@ -14,7 +14,6 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
 import { sbbSpread } from '../../core/dom';
 
@@ -27,9 +26,10 @@ import '../popover-trigger';
 async function commonPlayStory(canvasElement: HTMLElement): Promise<Element> {
   const canvas = within(canvasElement);
 
-  await waitForComponentsReady(() =>
-    canvas.getByTestId('popover').shadowRoot!.querySelector('.sbb-popover'),
-  );
+  await customElements.whenDefined('sbb-link');
+  await customElements.whenDefined('sbb-title');
+  await customElements.whenDefined('sbb-popover-trigger');
+  await customElements.whenDefined('sbb-popover');
 
   await waitForStablePosition(() => canvas.getByTestId('popover-trigger'));
 
