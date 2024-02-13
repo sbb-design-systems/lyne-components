@@ -2,8 +2,8 @@
 export const snapshots = {};
 
 snapshots["sbb-datepicker-toggle renders"] = 
-`<sbb-tooltip-trigger
-  aria-controls="sbb-tooltip-1"
+`<sbb-popover-trigger
+  aria-controls="sbb-popover-1"
   aria-disabled="true"
   aria-expanded="false"
   aria-haspopup="dialog"
@@ -14,22 +14,21 @@ snapshots["sbb-datepicker-toggle renders"] =
   icon-name="calendar-small"
   role="button"
 >
-</sbb-tooltip-trigger>
-<sbb-tooltip
+</sbb-popover-trigger>
+<sbb-popover
   data-state="closed"
   hide-close-button=""
-  id="sbb-tooltip-1"
-  role="tooltip"
+  id="sbb-popover-1"
 >
   <sbb-calendar>
   </sbb-calendar>
-</sbb-tooltip>
+</sbb-popover>
 `;
 /* end snapshot sbb-datepicker-toggle renders */
 
 snapshots["sbb-datepicker-toggle renders in form-field renders in form-field"] = 
-`<sbb-tooltip-trigger
-  aria-controls="sbb-tooltip-3"
+`<sbb-popover-trigger
+  aria-controls="sbb-popover-2"
   aria-expanded="false"
   aria-haspopup="dialog"
   aria-label="Show calendar"
@@ -39,22 +38,21 @@ snapshots["sbb-datepicker-toggle renders in form-field renders in form-field"] =
   role="button"
   tabindex="0"
 >
-</sbb-tooltip-trigger>
-<sbb-tooltip
+</sbb-popover-trigger>
+<sbb-popover
   data-state="closed"
   hide-close-button=""
-  id="sbb-tooltip-3"
-  role="tooltip"
+  id="sbb-popover-2"
 >
   <sbb-calendar>
   </sbb-calendar>
-</sbb-tooltip>
+</sbb-popover>
 `;
 /* end snapshot sbb-datepicker-toggle renders in form-field renders in form-field */
 
 snapshots["sbb-datepicker-toggle renders in form-field renders in disabled form-field"] = 
-`<sbb-tooltip-trigger
-  aria-controls="sbb-tooltip-5"
+`<sbb-popover-trigger
+  aria-controls="sbb-popover-3"
   aria-disabled="true"
   aria-expanded="false"
   aria-haspopup="dialog"
@@ -65,22 +63,21 @@ snapshots["sbb-datepicker-toggle renders in form-field renders in disabled form-
   icon-name="calendar-small"
   role="button"
 >
-</sbb-tooltip-trigger>
-<sbb-tooltip
+</sbb-popover-trigger>
+<sbb-popover
   data-state="closed"
   hide-close-button=""
-  id="sbb-tooltip-5"
-  role="tooltip"
+  id="sbb-popover-3"
 >
   <sbb-calendar>
   </sbb-calendar>
-</sbb-tooltip>
+</sbb-popover>
 `;
 /* end snapshot sbb-datepicker-toggle renders in form-field renders in disabled form-field */
 
 snapshots["sbb-datepicker-toggle renders in form-field renders in form-field with calendar parameters"] = 
-`<sbb-tooltip-trigger
-  aria-controls="sbb-tooltip-7"
+`<sbb-popover-trigger
+  aria-controls="sbb-popover-4"
   aria-expanded="false"
   aria-haspopup="dialog"
   aria-label="Show calendar"
@@ -90,16 +87,15 @@ snapshots["sbb-datepicker-toggle renders in form-field renders in form-field wit
   role="button"
   tabindex="0"
 >
-</sbb-tooltip-trigger>
-<sbb-tooltip
+</sbb-popover-trigger>
+<sbb-popover
   data-state="closed"
   hide-close-button=""
-  id="sbb-tooltip-7"
-  role="tooltip"
+  id="sbb-popover-4"
 >
   <sbb-calendar wide="">
   </sbb-calendar>
-</sbb-tooltip>
+</sbb-popover>
 `;
 /* end snapshot sbb-datepicker-toggle renders in form-field renders in form-field with calendar parameters */
 

@@ -151,7 +151,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="1 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               1
@@ -166,7 +166,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="2 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               2
@@ -179,7 +179,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="3 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               3
@@ -193,7 +193,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__cell-current sbb-calendar__day"
               data-day="4 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               4
@@ -206,7 +206,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="5 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               5
@@ -219,7 +219,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="6 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               6
@@ -232,7 +232,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="7 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               7
@@ -245,7 +245,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="8 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               8
@@ -260,7 +260,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="9 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               9
@@ -273,7 +273,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="10 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               10
@@ -286,7 +286,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="11 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               11
@@ -299,7 +299,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="12 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               12
@@ -312,7 +312,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="13 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               13
@@ -325,7 +325,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="14 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               14
@@ -338,7 +338,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="15 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               15
@@ -353,7 +353,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="16 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               16
@@ -366,7 +366,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="17 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               17
@@ -379,7 +379,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="18 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               18
@@ -392,7 +392,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="19 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               19
@@ -405,7 +405,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="true"
               class="sbb-calendar__cell sbb-calendar__day sbb-calendar__selected"
               data-day="20 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="0"
             >
               20
@@ -418,7 +418,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="21 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               21
@@ -431,7 +431,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="22 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               22
@@ -446,7 +446,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="23 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               23
@@ -459,7 +459,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="24 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               24
@@ -472,7 +472,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="25 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               25
@@ -485,7 +485,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="26 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               26
@@ -498,7 +498,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="27 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               27
@@ -511,7 +511,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="28 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               28
@@ -524,7 +524,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="29 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               29
@@ -539,7 +539,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="30 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               30
@@ -552,7 +552,7 @@ snapshots["sbb-calendar renders"] =
               aria-pressed="false"
               class="sbb-calendar__cell sbb-calendar__day"
               data-day="31 1 2023"
-              sbb-tooltip-close=""
+              sbb-popover-close=""
               tabindex="-1"
             >
               31

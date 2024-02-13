@@ -8,6 +8,7 @@ snapshots["sbb-alert-group should render Dom"] =
   role="status"
 >
   <sbb-alert
+    data-state="opening"
     href="https://www.sbb.ch"
     size="m"
     title-content="Interruption between Genève and Lausanne"
