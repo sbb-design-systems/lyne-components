@@ -13,5 +13,5 @@ describe('sbb-container', () => {
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
-  testA11yTreeSnapshot(undefined, html`<sbb-container></sbb-container>`);
+  testA11yTreeSnapshot(html`<sbb-container></sbb-container>`);
 });

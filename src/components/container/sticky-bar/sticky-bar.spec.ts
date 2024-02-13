@@ -13,5 +13,5 @@ describe('sbb-sticky-bar', () => {
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
-  testA11yTreeSnapshot(undefined, html`<sbb-sticky-bar></sbb-sticky-bar>`);
+  testA11yTreeSnapshot(html`<sbb-sticky-bar></sbb-sticky-bar>`);
 });

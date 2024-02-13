@@ -36,7 +36,6 @@ describe('sbb-status', () => {
   });
 
   testA11yTreeSnapshot(
-    undefined,
     html` <sbb-status type="info" title-content="Title"> Status info text </sbb-status>`,
   );
 });

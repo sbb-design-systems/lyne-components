@@ -43,7 +43,6 @@ describe('sbb-journey-header', () => {
   });
 
   testA11yTreeSnapshot(
-    undefined,
     html`<sbb-journey-header
       level="1"
       size="l"

@@ -160,13 +160,10 @@ describe('sbb-form-field', () => {
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
-  testA11yTreeSnapshot(
-    undefined,
-    html`
-      <sbb-form-field>
-        <label slot="label">Fill input</label>
-        <input class="input" placeholder="This is an input" />
-      </sbb-form-field>
-    `,
-  );
+  testA11yTreeSnapshot(html`
+    <sbb-form-field>
+      <label slot="label">Fill input</label>
+      <input class="input" placeholder="This is an input" />
+    </sbb-form-field>
+  `);
 });

@@ -80,5 +80,5 @@ describe('sbb-breadcrumb', () => {
     await expect(root).shadowDom.to.equalSnapshot();
   });
 
-  testA11yTreeSnapshot(undefined, html` <sbb-breadcrumb href="/test">Breadcrumb</sbb-breadcrumb> `);
+  testA11yTreeSnapshot(html` <sbb-breadcrumb href="/test">Breadcrumb</sbb-breadcrumb> `);
 });

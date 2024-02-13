@@ -32,5 +32,5 @@ describe('sbb-tab-title', () => {
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
-  testA11yTreeSnapshot(undefined, html`<sbb-tab-title>Tab title</sbb-tab-title>`);
+  testA11yTreeSnapshot(html`<sbb-tab-title>Tab title</sbb-tab-title>`);
 });

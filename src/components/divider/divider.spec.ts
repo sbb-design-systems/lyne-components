@@ -34,5 +34,5 @@ describe('sbb-divider', () => {
     expect(element).shadowDom.to.be.equal(`<div class='sbb-divider'></div>`);
   });
 
-  testA11yTreeSnapshot(undefined, html`<sbb-divider></sbb-divider>`);
+  testA11yTreeSnapshot(html`<sbb-divider></sbb-divider>`);
 });

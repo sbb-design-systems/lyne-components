@@ -88,5 +88,5 @@ describe('sbb-teaser', () => {
     await expect(root).shadowDom.to.equalSnapshot();
   });
 
-  testA11yTreeSnapshot(undefined, createTeaser(argsAfterCentered));
+  testA11yTreeSnapshot(createTeaser(argsAfterCentered));
 });

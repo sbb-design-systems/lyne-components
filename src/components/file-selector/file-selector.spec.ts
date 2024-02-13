@@ -30,5 +30,5 @@ describe('sbb-file-selector', () => {
   });
 
   // We skip safari because it has an inconsistent behavior on ci environment
-  testA11yTreeSnapshot(undefined, html`<sbb-file-selector></sbb-file-selector>`, { safari: true });
+  testA11yTreeSnapshot(html`<sbb-file-selector></sbb-file-selector>`, undefined, { safari: true });
 });

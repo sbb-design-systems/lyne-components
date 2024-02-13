@@ -28,8 +28,8 @@ async function a11yTreeEqualSnapshot(): Promise<void> {
  * @param template The optional html template
  */
 export function testA11yTreeSnapshot(
-  title = 'A11y tree',
   template?: TemplateResult,
+  title = 'A11y tree',
   skip: { chrome?: boolean; firefox?: boolean; safari?: boolean } = {},
 ): void {
   describe(title, () => {

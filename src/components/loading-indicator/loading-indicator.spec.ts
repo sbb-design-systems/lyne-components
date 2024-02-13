@@ -91,7 +91,6 @@ describe('sbb-loading-indicator', () => {
   });
 
   testA11yTreeSnapshot(
-    undefined,
     html`<sbb-loading-indicator variant="window" size="m"></sbb-loading-indicator>`,
   );
 });

@@ -73,8 +73,5 @@ describe('sbb-datepicker-previous-day', () => {
     expect(element).to.have.attribute('data-disabled');
   });
 
-  testA11yTreeSnapshot(
-    undefined,
-    html`<sbb-datepicker-previous-day></sbb-datepicker-previous-day>`,
-  );
+  testA11yTreeSnapshot(html`<sbb-datepicker-previous-day></sbb-datepicker-previous-day>`);
 });

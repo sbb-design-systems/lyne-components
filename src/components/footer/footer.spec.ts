@@ -21,5 +21,5 @@ describe('sbb-footer', () => {
     await expect(element).shadowDom.to.be.equalSnapshot();
   });
 
-  testA11yTreeSnapshot(undefined, html`<sbb-footer accessibility-title="Footer"></sbb-footer>`);
+  testA11yTreeSnapshot(html`<sbb-footer accessibility-title="Footer"></sbb-footer>`);
 });

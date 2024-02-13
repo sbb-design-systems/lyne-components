@@ -44,9 +44,6 @@ describe('sbb-option', () => {
       await expect(option).shadowDom.to.be.equalSnapshot();
     });
 
-    testA11yTreeSnapshot(
-      undefined,
-      html`<sbb-option value="1" selected active>Option 1</sbb-option>`,
-    );
+    testA11yTreeSnapshot(html`<sbb-option value="1" selected active>Option 1</sbb-option>`);
   });
 });

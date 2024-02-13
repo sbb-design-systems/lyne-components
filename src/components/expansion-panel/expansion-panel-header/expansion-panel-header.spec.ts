@@ -76,8 +76,5 @@ describe('sbb-expansion-panel-header', () => {
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
-  testA11yTreeSnapshot(
-    undefined,
-    html`<sbb-expansion-panel-header>Header</sbb-expansion-panel-header>`,
-  );
+  testA11yTreeSnapshot(html`<sbb-expansion-panel-header>Header</sbb-expansion-panel-header>`);
 });

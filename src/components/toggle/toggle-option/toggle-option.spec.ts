@@ -69,8 +69,5 @@ describe('sbb-toggle-option', () => {
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
-  testA11yTreeSnapshot(
-    undefined,
-    html`<sbb-toggle-option checked value="Option 1"></sbb-toggle-option>`,
-  );
+  testA11yTreeSnapshot(html`<sbb-toggle-option checked value="Option 1"></sbb-toggle-option>`);
 });

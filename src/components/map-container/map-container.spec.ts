@@ -33,8 +33,5 @@ describe('sbb-map-container', () => {
     await expect(element).shadowDom.to.be.equalSnapshot();
   });
 
-  testA11yTreeSnapshot(
-    undefined,
-    html`<sbb-map-container hide-scroll-up-button></sbb-map-container>`,
-  );
+  testA11yTreeSnapshot(html`<sbb-map-container hide-scroll-up-button></sbb-map-container>`);
 });

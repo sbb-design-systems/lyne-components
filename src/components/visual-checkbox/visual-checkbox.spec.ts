@@ -21,5 +21,5 @@ describe('sbb-visual-checkbox', () => {
     await expect(elem).shadowDom.to.be.equalSnapshot();
   });
 
-  testA11yTreeSnapshot(undefined, html`<sbb-visual-checkbox></sbb-visual-checkbox>`);
+  testA11yTreeSnapshot(html`<sbb-visual-checkbox></sbb-visual-checkbox>`);
 });

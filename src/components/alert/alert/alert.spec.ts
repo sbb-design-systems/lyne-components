@@ -68,17 +68,14 @@ describe('sbb-alert', () => {
     await expect(element).shadowDom.to.equalSnapshot();
   });
 
-  testA11yTreeSnapshot(
-    undefined,
-    html`
-      <sbb-alert
-        disable-animation
-        title-content="Interruption"
-        href="https://www.sbb.ch"
-        accessibility-label="test-a11y-label"
-      >
-        Alert content
-      </sbb-alert>
-    `,
-  );
+  testA11yTreeSnapshot(html`
+    <sbb-alert
+      disable-animation
+      title-content="Interruption"
+      href="https://www.sbb.ch"
+      accessibility-label="test-a11y-label"
+    >
+      Alert content
+    </sbb-alert>
+  `);
 });

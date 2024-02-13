@@ -73,5 +73,5 @@ describe('sbb-datepicker-next-day', () => {
     expect(element).to.have.attribute('data-disabled');
   });
 
-  testA11yTreeSnapshot(undefined, html`<sbb-datepicker-next-day></sbb-datepicker-next-day>`);
+  testA11yTreeSnapshot(html`<sbb-datepicker-next-day></sbb-datepicker-next-day>`);
 });

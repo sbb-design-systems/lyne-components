@@ -14,5 +14,5 @@ describe('sbb-popover', () => {
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
-  testA11yTreeSnapshot(undefined, html`<sbb-popover></sbb-popover>`);
+  testA11yTreeSnapshot(html`<sbb-popover></sbb-popover>`);
 });

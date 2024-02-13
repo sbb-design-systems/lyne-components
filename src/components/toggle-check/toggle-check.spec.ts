@@ -82,5 +82,5 @@ describe('sbb-toggle-check', () => {
     });
   });
 
-  testA11yTreeSnapshot(undefined, html`<sbb-toggle-check></sbb-toggle-check>`);
+  testA11yTreeSnapshot(html`<sbb-toggle-check></sbb-toggle-check>`);
 });

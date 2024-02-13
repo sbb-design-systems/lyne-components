@@ -36,8 +36,5 @@ describe('sbb-expansion-panel-content', () => {
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
-  testA11yTreeSnapshot(
-    undefined,
-    html`<sbb-expansion-panel-content>Content</sbb-expansion-panel-content>`,
-  );
+  testA11yTreeSnapshot(html`<sbb-expansion-panel-content>Content</sbb-expansion-panel-content>`);
 });

@@ -98,7 +98,7 @@ describe('sbb-checkbox', () => {
     });
   });
 
-  testA11yTreeSnapshot('Unchecked - A11y tree', html`<sbb-checkbox>Label</sbb-checkbox>`);
+  testA11yTreeSnapshot(html`<sbb-checkbox>Label</sbb-checkbox>`, 'Unchecked - A11y tree');
 
-  testA11yTreeSnapshot('Checked - A11y tree', html`<sbb-checkbox checked>Label</sbb-checkbox>`);
+  testA11yTreeSnapshot(html`<sbb-checkbox checked>Label</sbb-checkbox>`, 'Checked - A11y tree');
 });

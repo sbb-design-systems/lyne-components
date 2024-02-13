@@ -26,5 +26,5 @@ describe('sbb-clock', () => {
     await expect(element).shadowDom.to.be.equalSnapshot();
   });
 
-  testA11yTreeSnapshot(undefined, html`<sbb-clock></sbb-clock>`);
+  testA11yTreeSnapshot(html`<sbb-clock></sbb-clock>`);
 });

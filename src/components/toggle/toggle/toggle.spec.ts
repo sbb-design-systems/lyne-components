@@ -166,5 +166,5 @@ describe('sbb-toggle', () => {
     });
   });
 
-  testA11yTreeSnapshot(undefined, simpleToggleTemplate);
+  testA11yTreeSnapshot(simpleToggleTemplate);
 });

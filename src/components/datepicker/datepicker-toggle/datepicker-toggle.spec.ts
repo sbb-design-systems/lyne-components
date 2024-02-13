@@ -67,5 +67,5 @@ describe('sbb-datepicker-toggle', () => {
     });
   });
 
-  testA11yTreeSnapshot(undefined, html`<sbb-datepicker-toggle></sbb-datepicker-toggle>`);
+  testA11yTreeSnapshot(html`<sbb-datepicker-toggle></sbb-datepicker-toggle>`);
 });

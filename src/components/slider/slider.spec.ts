@@ -48,5 +48,5 @@ describe('sbb-slider', () => {
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
-  testA11yTreeSnapshot(undefined, html`<sbb-slider value="1"></sbb-slider>`);
+  testA11yTreeSnapshot(html`<sbb-slider value="1"></sbb-slider>`);
 });

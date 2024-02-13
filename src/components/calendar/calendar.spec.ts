@@ -60,11 +60,11 @@ describe('sbb-calendar', () => {
   });
 
   testA11yTreeSnapshot(
-    undefined,
     html`<sbb-calendar
       selected-date="2023-01-20T00:00:00"
       data-now="1672790400000"
     ></sbb-calendar>`,
+    undefined,
     { safari: true }, // We skip safari because it has an inconsistent behavior on ci environment
   );
 });

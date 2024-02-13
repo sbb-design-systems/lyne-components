@@ -84,7 +84,6 @@ describe('sbb-notification', () => {
   });
 
   testA11yTreeSnapshot(
-    undefined,
     html`<sbb-notification disable-animation title-content="Test title"
       >Lorem ipsum ...</sbb-notification
     >`,

@@ -17,5 +17,5 @@ describe('sbb-form-error', () => {
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
-  testA11yTreeSnapshot(undefined, html`<sbb-form-error>Required</sbb-form-error>`);
+  testA11yTreeSnapshot(html`<sbb-form-error>Required</sbb-form-error>`);
 });

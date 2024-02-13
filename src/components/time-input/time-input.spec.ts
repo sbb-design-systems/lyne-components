@@ -22,7 +22,6 @@ describe('sbb-time-input', () => {
   });
 
   testA11yTreeSnapshot(
-    undefined,
     html` <span>
       <sbb-time-input input="id-1"></sbb-time-input>
       <input id="id-1" />

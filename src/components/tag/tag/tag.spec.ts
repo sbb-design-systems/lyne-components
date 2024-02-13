@@ -78,5 +78,5 @@ describe('sbb-tag', () => {
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
-  testA11yTreeSnapshot(undefined, html`<sbb-tag value="Value">Label</sbb-tag>`);
+  testA11yTreeSnapshot(html`<sbb-tag value="Value">Label</sbb-tag>`);
 });

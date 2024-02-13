@@ -14,5 +14,5 @@ describe('sbb-dialog', () => {
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
-  testA11yTreeSnapshot(undefined, html`<sbb-dialog></sbb-dialog>`);
+  testA11yTreeSnapshot(html`<sbb-dialog></sbb-dialog>`);
 });

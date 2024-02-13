@@ -122,5 +122,5 @@ describe('sbb-icon', () => {
     delete (globalThis as any).sbbConfig.icon; // FIXME any type
   });
 
-  testA11yTreeSnapshot(undefined, html`<sbb-icon name="app-icon-medium"></sbb-icon>`);
+  testA11yTreeSnapshot(html`<sbb-icon name="app-icon-medium"></sbb-icon>`);
 });

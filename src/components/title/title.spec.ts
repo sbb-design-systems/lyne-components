@@ -21,8 +21,5 @@ describe('sbb-title', () => {
     `);
   });
 
-  testA11yTreeSnapshot(
-    undefined,
-    html`<sbb-title level="1" visual-level="2">Sample Title Text</sbb-title>`,
-  );
+  testA11yTreeSnapshot(html`<sbb-title level="1" visual-level="2">Sample Title Text</sbb-title>`);
 });

@@ -27,18 +27,15 @@ describe('sbb-datepicker', () => {
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
-  testA11yTreeSnapshot(
-    undefined,
-    html`
-      <sbb-form-field>
-        <input />
-        <sbb-datepicker></sbb-datepicker>
-        <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
-        <sbb-datepicker-next-day></sbb-datepicker-next-day>
-        <sbb-datepicker-toggle></sbb-datepicker-toggle>
-      </sbb-form-field>
-    `,
-  );
+  testA11yTreeSnapshot(html`
+    <sbb-form-field>
+      <input />
+      <sbb-datepicker></sbb-datepicker>
+      <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
+      <sbb-datepicker-next-day></sbb-datepicker-next-day>
+      <sbb-datepicker-toggle></sbb-datepicker-toggle>
+    </sbb-form-field>
+  `);
 });
 
 describe('getDatePicker', () => {
