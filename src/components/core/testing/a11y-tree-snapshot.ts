@@ -6,6 +6,7 @@ import type { Context } from 'mocha';
 
 import { isChromium, isDebugEnvironment, isFirefox, isSafari } from '../dom';
 
+import { testIf } from './mocha-extensions';
 import { waitForLitRender } from './wait-for-render';
 
 /**
@@ -24,6 +25,8 @@ async function a11yTreeEqualSnapshot(): Promise<void> {
 /**
  * The function creates and tests the accessibility tree snapshot on each browser.
  * If a template is passed, it will be instantiated before the snapshot is taken.
+ * Note:
+ * We skip a11yTreeSnashots in debug environment because they not consistent on Puppeteer
  * @param title The title of the section
  * @param template The optional html template
  */
@@ -40,15 +43,16 @@ export function testA11yTreeSnapshot(
       await waitForLitRender(document);
     });
 
-    (!skip.chrome && isChromium() && !isDebugEnvironment() ? it : it.skip)('Chrome', async () => {
+    testIf(!skip.chrome && isChromium() && !isDebugEnvironment(), 'Chrome', async () => {
       await a11yTreeEqualSnapshot();
     });
 
-    (!skip.safari && isSafari() && !isDebugEnvironment() ? it : it.skip)('Safari', async () => {
+    testIf(!skip.safari && isSafari() && !isDebugEnvironment(), 'Safari', async () => {
       await a11yTreeEqualSnapshot();
     });
 
-    (!skip.firefox && isFirefox() && !isDebugEnvironment() ? it : it.skip)(
+    testIf(
+      !skip.firefox && isFirefox() && !isDebugEnvironment(),
       'Firefox',
       async function (this: Context) {
         this.timeout(5000);

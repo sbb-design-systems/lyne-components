@@ -2,7 +2,7 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { isSafari } from '../../core/dom';
-import { waitForLitRender } from '../../core/testing';
+import { describeIf, waitForLitRender } from '../../core/testing';
 import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
 
 import type { SbbOptGroupElement } from './optgroup';
@@ -29,7 +29,7 @@ describe('sbb-optgroup', () => {
         await waitForLitRender(elem);
       });
 
-      (!isSafari() ? describe : describe.skip)('Chrome-Firefox', async () => {
+      describeIf(!isSafari(), 'Chrome-Firefox', async () => {
         it('Dom', async () => {
           await expect(elem).dom.to.be.equalSnapshot();
         });
@@ -39,7 +39,7 @@ describe('sbb-optgroup', () => {
         });
       });
 
-      (isSafari() ? describe : describe.skip)('Safari', async () => {
+      describeIf(isSafari(), 'Safari', async () => {
         it('Dom', async () => {
           await expect(elem).dom.to.be.equalSnapshot();
         });
@@ -69,7 +69,7 @@ describe('sbb-optgroup', () => {
         await waitForLitRender(elem);
       });
 
-      (!isSafari() ? describe : describe.skip)('Chrome-Firefox', async () => {
+      describeIf(!isSafari(), 'Chrome-Firefox', async () => {
         it('Dom', async () => {
           await expect(elem).dom.to.be.equalSnapshot();
         });
@@ -79,7 +79,7 @@ describe('sbb-optgroup', () => {
         });
       });
 
-      (isSafari() ? describe : describe.skip)('Safari', async () => {
+      describeIf(isSafari(), 'Safari', async () => {
         it('Dom', async () => {
           await expect(elem).dom.to.be.equalSnapshot();
         });
