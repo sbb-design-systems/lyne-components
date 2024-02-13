@@ -2,60 +2,41 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import type { SbbFormFieldElement } from '../form-field';
 
+import type { SbbFormFieldClearElement } from './form-field-clear';
 import './form-field-clear';
 import '../form-field';
 
 describe('sbb-form-field-clear', () => {
-  it('renders', async () => {
-    const formField = await fixture(html`
-      <sbb-form-field label="Label">
-        <input type="text" placeholder="Input placeholder" value="Input value" />
-        <sbb-form-field-clear></sbb-form-field-clear>
-      </sbb-form-field>
-    `);
-    await waitForLitRender(formField);
+  describe('renders', () => {
+    let root: SbbFormFieldElement;
+    let element: SbbFormFieldClearElement;
 
-    const formFieldClear = formField.querySelector('sbb-form-field-clear');
+    beforeEach(async () => {
+      root = await fixture(html`
+        <sbb-form-field label="Label">
+          <input type="text" placeholder="Input placeholder" value="Input value" />
+          <sbb-form-field-clear></sbb-form-field-clear>
+        </sbb-form-field>
+      `);
+      element = root.querySelector('sbb-form-field-clear')!;
+      await waitForLitRender(root);
+    });
 
-    expect(formField).dom.to.be.equal(`
-      <sbb-form-field error-space="none" label="Label" size="m" width="default" data-input-type="input" data-slot-names="label suffix unnamed">
-        <label data-creator="SBB-FORM-FIELD" slot="label" for="sbb-form-field-input-0">
-          Label
-        </label>
-        <input placeholder="Input placeholder" type="text" value="Input value" id="sbb-form-field-input-0">
-        <sbb-form-field-clear aria-label="Clear input value" dir="ltr" role="button" slot="suffix" tabindex="0">
-        </sbb-form-field-clear>
-      </sbb-form-field>
-    `);
+    it('Formfield Dom', async () => {
+      await expect(root).dom.to.be.equalSnapshot();
+    });
 
-    expect(formField).shadowDom.to.be.equal(`
-      <div class="sbb-form-field__space-wrapper">
-        <div class="sbb-form-field__wrapper" id="overlay-anchor">
-          <slot name="prefix"></slot>
-          <div class="sbb-form-field__input-container">
-            <span aria-hidden="true" class="sbb-form-field__label-spacer"></span>
-            <span class="sbb-form-field__label">
-              <span class="sbb-form-field__label-ellipsis">
-                <slot name="label"></slot>
-              </span>
-            </span>
-            <div class="sbb-form-field__input">
-              <slot></slot>
-            </div>
-          </div>
-          <slot name="suffix"></slot>
-        </div>
-        <div class="sbb-form-field__error">
-          <slot name="error"></slot>
-        </div>
-      </div>
-    `);
+    it('Formfield ShadowDom', async () => {
+      await expect(root).shadowDom.to.be.equalSnapshot();
+    });
 
-    expect(formFieldClear).shadowDom.to.be.equal(`
-      <span class="sbb-form-field-clear">
-        <sbb-icon name="cross-small" aria-hidden="true" data-namespace="default" role="img"></sbb-icon>
-      </span>
-    `);
+    it('FormfieldClear ShadowDom', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
   });
 });

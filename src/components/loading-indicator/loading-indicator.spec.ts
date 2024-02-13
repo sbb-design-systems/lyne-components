@@ -1,5 +1,8 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
+
 import './loading-indicator';
 
 describe('sbb-loading-indicator', () => {
@@ -14,23 +17,7 @@ describe('sbb-loading-indicator', () => {
         </sbb-loading-indicator>
       `,
     );
-    expect(root).shadowDom.to.be.equal(
-      `
-        <span class="sbb-loading-indicator">
-          <span class="sbb-loading-indicator__animated-element">
-            <span>
-              <span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-              </span>
-            </span>
-          </span>
-        </span>
-      `,
-    );
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
   it('renders with variant `window` and color smoke', async () => {
@@ -41,27 +28,10 @@ describe('sbb-loading-indicator', () => {
     expect(root).dom.to.be.equal(
       `
       <sbb-loading-indicator variant="window" size="m" color="smoke" role="progressbar" aria-busy='true'>
-        
       </sbb-loading-indicator>
     `,
     );
-    expect(root).shadowDom.to.be.equal(
-      `
-        <span class="sbb-loading-indicator">
-          <span class="sbb-loading-indicator__animated-element">
-            <span>
-              <span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-              </span>
-            </span>
-          </span>
-        </span>
-      `,
-    );
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
   it('renders with variant `window` and color white', async () => {
@@ -75,23 +45,7 @@ describe('sbb-loading-indicator', () => {
         </sbb-loading-indicator>
       `,
     );
-    expect(root).shadowDom.to.be.equal(
-      `
-        <span class="sbb-loading-indicator">
-          <span class="sbb-loading-indicator__animated-element">
-            <span>
-              <span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-              </span>
-            </span>
-          </span>
-        </span>
-      `,
-    );
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
   it('renders with variant `circle`', async () => {
@@ -105,13 +59,7 @@ describe('sbb-loading-indicator', () => {
         </sbb-loading-indicator>
       `,
     );
-    expect(root).shadowDom.to.be.equal(
-      `
-        <span class="sbb-loading-indicator">
-          <span class="sbb-loading-indicator__animated-element"></span>
-        </span>
-      `,
-    );
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
   it('renders with variant `circle` and color smoke', async () => {
@@ -125,13 +73,7 @@ describe('sbb-loading-indicator', () => {
         </sbb-loading-indicator>
       `,
     );
-    expect(root).shadowDom.to.be.equal(
-      `
-        <span class="sbb-loading-indicator">
-          <span class="sbb-loading-indicator__animated-element"></span>
-        </span>
-      `,
-    );
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
   it('renders with variant `circle` and color white', async () => {
@@ -145,12 +87,10 @@ describe('sbb-loading-indicator', () => {
         </sbb-loading-indicator>
       `,
     );
-    expect(root).shadowDom.to.be.equal(
-      `
-        <span class="sbb-loading-indicator">
-          <span class="sbb-loading-indicator__animated-element"></span>
-        </span>
-      `,
-    );
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
+
+  testA11yTreeSnapshot(
+    html`<sbb-loading-indicator variant="window" size="m"></sbb-loading-indicator>`,
+  );
 });

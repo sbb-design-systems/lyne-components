@@ -4,6 +4,7 @@ import { html } from 'lit/static-html.js';
 import type { SbbIconConfig } from '../core/config';
 import { readConfig } from '../core/config';
 import { waitForLitRender } from '../core/testing';
+import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
 
 import type { SbbIconElement } from './icon';
 
@@ -120,4 +121,6 @@ describe('sbb-icon', () => {
     // Reset icon config
     delete (globalThis as any).sbbConfig.icon; // FIXME any type
   });
+
+  testA11yTreeSnapshot(html`<sbb-icon name="app-icon-medium"></sbb-icon>`);
 });

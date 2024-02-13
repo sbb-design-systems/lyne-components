@@ -1,7 +1,9 @@
-import './divider';
-
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
+
+import './divider';
 
 describe('sbb-divider', () => {
   it('should render with default values', async () => {
@@ -31,4 +33,6 @@ describe('sbb-divider', () => {
     );
     expect(element).shadowDom.to.be.equal(`<div class='sbb-divider'></div>`);
   });
+
+  testA11yTreeSnapshot(html`<sbb-divider></sbb-divider>`);
 });

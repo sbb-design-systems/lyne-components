@@ -122,3 +122,340 @@ snapshots["sbb-skiplink-list renders with title"] =
 `;
 /* end snapshot sbb-skiplink-list renders with title */
 
+snapshots["sbb-skiplink-list renders Dom"] = 
+`<sbb-skiplink-list data-slot-names="li-0 li-1 li-2">
+  <sbb-link
+    data-slot-names="unnamed"
+    dir="ltr"
+    href="#"
+    negative=""
+    role="link"
+    size="m"
+    slot="li-0"
+    tabindex="0"
+    variant="block"
+  >
+    Link 1
+  </sbb-link>
+  <sbb-link
+    data-slot-names="unnamed"
+    dir="ltr"
+    href="#"
+    negative=""
+    role="link"
+    size="m"
+    slot="li-1"
+    tabindex="0"
+    variant="block"
+  >
+    Link 2
+  </sbb-link>
+  <sbb-link
+    data-slot-names="unnamed"
+    dir="ltr"
+    href="#"
+    negative=""
+    role="link"
+    size="m"
+    slot="li-2"
+    tabindex="0"
+    variant="block"
+  >
+    Link 3
+  </sbb-link>
+</sbb-skiplink-list>
+`;
+/* end snapshot sbb-skiplink-list renders Dom */
+
+snapshots["sbb-skiplink-list renders ShadowDom"] = 
+`<div class="sbb-skiplink-list__wrapper">
+  <sbb-title
+    aria-level="2"
+    class="sbb-link-list-title"
+    id="sbb-skiplink-list-title-id"
+    level="2"
+    negative=""
+    role="heading"
+    visual-level="5"
+    visually-hidden=""
+  >
+    <slot name="title">
+    </slot>
+  </sbb-title>
+  <ul
+    aria-labelledby="sbb-skiplink-list-title-id"
+    class="sbb-skiplink-list"
+  >
+    <li>
+      <slot name="li-0">
+      </slot>
+    </li>
+    <li>
+      <slot name="li-1">
+      </slot>
+    </li>
+    <li>
+      <slot name="li-2">
+      </slot>
+    </li>
+  </ul>
+  <span hidden="">
+    <slot>
+    </slot>
+  </span>
+</div>
+`;
+/* end snapshot sbb-skiplink-list renders ShadowDom */
+
+snapshots["sbb-skiplink-list renders with title Dom"] = 
+`<sbb-skiplink-list
+  data-slot-names="li-0 li-1 li-2"
+  title-content="Skip to"
+  title-level="3"
+>
+  <sbb-link
+    data-slot-names="unnamed"
+    dir="ltr"
+    href="https://www.sbb.ch"
+    negative=""
+    role="link"
+    size="m"
+    slot="li-0"
+    tabindex="0"
+    variant="block"
+  >
+    Link 1
+  </sbb-link>
+  <sbb-link
+    data-slot-names="unnamed"
+    dir="ltr"
+    href="https://www.sbb.ch"
+    negative=""
+    role="link"
+    size="m"
+    slot="li-1"
+    tabindex="0"
+    variant="block"
+  >
+    Link 2
+  </sbb-link>
+  <sbb-link
+    data-slot-names="unnamed"
+    dir="ltr"
+    href="https://www.sbb.ch"
+    negative=""
+    role="link"
+    size="m"
+    slot="li-2"
+    tabindex="0"
+    variant="block"
+  >
+    Link 3
+  </sbb-link>
+</sbb-skiplink-list>
+`;
+/* end snapshot sbb-skiplink-list renders with title Dom */
+
+snapshots["sbb-skiplink-list renders with title ShadowDom"] = 
+`<div class="sbb-skiplink-list__wrapper">
+  <sbb-title
+    aria-level="3"
+    class="sbb-link-list-title"
+    id="sbb-skiplink-list-title-id"
+    level="3"
+    negative=""
+    role="heading"
+    visual-level="5"
+    visually-hidden=""
+  >
+    <slot name="title">
+      Skip to
+    </slot>
+  </sbb-title>
+  <ul
+    aria-labelledby="sbb-skiplink-list-title-id"
+    class="sbb-skiplink-list"
+  >
+    <li>
+      <slot name="li-0">
+      </slot>
+    </li>
+    <li>
+      <slot name="li-1">
+      </slot>
+    </li>
+    <li>
+      <slot name="li-2">
+      </slot>
+    </li>
+  </ul>
+  <span hidden="">
+    <slot>
+    </slot>
+  </span>
+</div>
+`;
+/* end snapshot sbb-skiplink-list renders with title ShadowDom */
+
+snapshots["sbb-skiplink-list renders with title A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "heading",
+      "name": "Skip to",
+      "level": 3
+    },
+    {
+      "role": "link",
+      "name": "Link 1",
+      "children": [
+        {
+          "role": "link",
+          "name": "Link 1"
+        }
+      ]
+    },
+    {
+      "role": "link",
+      "name": "Link 2",
+      "children": [
+        {
+          "role": "link",
+          "name": "Link 2"
+        }
+      ]
+    },
+    {
+      "role": "link",
+      "name": "Link 3",
+      "children": [
+        {
+          "role": "link",
+          "name": "Link 3"
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-skiplink-list renders with title A11y tree Chrome */
+
+snapshots["sbb-skiplink-list renders with title A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "heading",
+      "name": "Skip to",
+      "level": 3
+    },
+    {
+      "role": "link",
+      "name": "Link 1",
+      "children": [
+        {
+          "role": "link",
+          "name": "Link 1",
+          "value": "https://www.sbb.ch/"
+        }
+      ]
+    },
+    {
+      "role": "link",
+      "name": "Link 2",
+      "children": [
+        {
+          "role": "link",
+          "name": "Link 2",
+          "value": "https://www.sbb.ch/"
+        }
+      ]
+    },
+    {
+      "role": "link",
+      "name": "Link 3",
+      "children": [
+        {
+          "role": "link",
+          "name": "Link 3",
+          "value": "https://www.sbb.ch/"
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-skiplink-list renders with title A11y tree Firefox */
+
+snapshots["sbb-skiplink-list renders with title A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "heading",
+      "name": "Skip to",
+      "level": 3
+    },
+    {
+      "role": "link",
+      "name": "",
+      "children": [
+        {
+          "role": "link",
+          "name": "Link 1",
+          "children": [
+            {
+              "role": "text",
+              "name": "Link 1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "role": "link",
+      "name": "",
+      "children": [
+        {
+          "role": "link",
+          "name": "Link 2",
+          "children": [
+            {
+              "role": "text",
+              "name": "Link 2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "role": "link",
+      "name": "",
+      "children": [
+        {
+          "role": "link",
+          "name": "Link 3",
+          "children": [
+            {
+              "role": "text",
+              "name": "Link 3"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-skiplink-list renders with title A11y tree Safari */
+

@@ -1,6 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
 import type { SbbFormFieldElement } from '../../form-field';
 
 import type { SbbDatepickerToggleElement } from './datepicker-toggle';
@@ -13,28 +14,7 @@ describe('sbb-datepicker-toggle', () => {
     const page = await fixture(html`<sbb-datepicker-toggle></sbb-datepicker-toggle>`);
 
     expect(page).dom.to.equal(`<sbb-datepicker-toggle slot="prefix"></sbb-datepicker-toggle>`);
-    expect(page).shadowDom.to.equal(`
-      <sbb-popover-trigger
-        aria-label="Show calendar"
-        aria-controls="sbb-popover-1"
-        aria-expanded="false"
-        aria-haspopup="dialog"
-        dir="ltr"
-        aria-disabled="true"
-        icon-name="calendar-small"
-        role="button"
-        disabled=""
-        data-icon-small=""
-      ></sbb-popover-trigger>
-      <sbb-popover
-        hide-close-button=""
-        data-state="closed"
-        hide-close-button=""
-        id="sbb-popover-1"
-      >
-        <sbb-calendar></sbb-calendar>
-      </sbb-popover>
-    `);
+    await expect(page).shadowDom.to.equalSnapshot();
   });
 
   describe('renders in form-field', () => {
@@ -51,28 +31,7 @@ describe('sbb-datepicker-toggle', () => {
       expect(element).dom.to.be.equal(
         `<sbb-datepicker-toggle slot="prefix"></sbb-datepicker-toggle>`,
       );
-      expect(element).shadowDom.to.be.equal(
-        `
-          <sbb-popover-trigger
-            tabindex="0"
-            aria-label="Show calendar"
-            dir="ltr"
-            aria-haspopup="dialog"
-            aria-expanded="false"
-            icon-name="calendar-small"
-            data-icon-small=""
-            role="button"
-            aria-controls="sbb-popover-2"
-          ></sbb-popover-trigger>
-            <sbb-popover
-              hide-close-button=""
-              data-state="closed"
-              id="sbb-popover-2"
-            >
-              <sbb-calendar></sbb-calendar>
-            </sbb-popover>
-          `,
-      );
+      await expect(element).shadowDom.to.be.equalSnapshot();
     });
 
     it('renders in disabled form-field', async () => {
@@ -88,29 +47,7 @@ describe('sbb-datepicker-toggle', () => {
       expect(element).dom.to.be.equal(
         `<sbb-datepicker-toggle slot="prefix"></sbb-datepicker-toggle>`,
       );
-      expect(element).shadowDom.to.be.equal(
-        `
-          <sbb-popover-trigger
-            aria-label="Show calendar"
-            aria-controls="sbb-popover-3"
-            aria-disabled="true"
-            aria-expanded="false"
-            aria-haspopup="dialog"
-            disabled=""
-            dir="ltr"
-            icon-name="calendar-small"
-            role="button"
-            data-icon-small=""
-          ></sbb-popover-trigger>
-          <sbb-popover
-            data-state="closed"
-            id="sbb-popover-3"
-            hide-close-button=""
-          >
-            <sbb-calendar></sbb-calendar>
-          </sbb-popover>
-        `,
-      );
+      await expect(element).shadowDom.to.be.equalSnapshot();
     });
 
     it('renders in form-field with calendar parameters', async () => {
@@ -126,28 +63,9 @@ describe('sbb-datepicker-toggle', () => {
       expect(element).dom.to.be.equal(
         `<sbb-datepicker-toggle slot="prefix"></sbb-datepicker-toggle>`,
       );
-      expect(element).shadowDom.to.be.equal(
-        `
-          <sbb-popover-trigger
-            tabindex="0"
-            aria-label="Show calendar"
-            dir="ltr"
-            aria-haspopup="dialog"
-            aria-expanded="false"
-            icon-name="calendar-small"
-            data-icon-small=""
-            role="button"
-            aria-controls="sbb-popover-4"
-          ></sbb-popover-trigger>
-          <sbb-popover
-            hide-close-button=""
-            data-state="closed"
-            id="sbb-popover-4"
-          >
-            <sbb-calendar wide=""></sbb-calendar>
-          </sbb-popover>
-        `,
-      );
+      await expect(element).shadowDom.to.be.equalSnapshot();
     });
   });
+
+  testA11yTreeSnapshot(html`<sbb-datepicker-toggle></sbb-datepicker-toggle>`);
 });

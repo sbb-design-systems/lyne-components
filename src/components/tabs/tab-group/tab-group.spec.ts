@@ -2,6 +2,7 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
 
 import type { SbbTabGroupElement } from './tab-group';
 import '.';
@@ -28,17 +29,7 @@ describe('sbb-tab-group', () => {
     const root = await fixture(html`<sbb-tab-group></sbb-tab-group>`);
 
     expect(root).dom.to.be.equal(`<sbb-tab-group></sbb-tab-group>`);
-    expect(root).shadowDom.to.be.equal(
-      `
-        <div class="tab-group" role="tablist">
-          <slot name="tab-bar"></slot>
-        </div>
-
-        <div class="tab-content">
-          <slot></slot>
-        </div>
-      `,
-    );
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
   it('activates tab by index', async () => {
@@ -81,4 +72,6 @@ describe('sbb-tab-group', () => {
       expect(tab).to.have.attribute('active');
     });
   });
+
+  testA11yTreeSnapshot();
 });

@@ -84,3 +84,65 @@ snapshots["sbb-file-selector renders with dropzone area"] =
 `;
 /* end snapshot sbb-file-selector renders with dropzone area */
 
+snapshots["sbb-file-selector A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Choose a file"
+    },
+    {
+      "role": "button",
+      "name": "Choose a file",
+      "value": "No file chosen"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-file-selector A11y tree Chrome */
+
+snapshots["sbb-file-selector A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "text leaf",
+      "name": "Choose a file"
+    },
+    {
+      "role": "button",
+      "name": "Choose a file Browse… …"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-file-selector A11y tree Firefox */
+
+snapshots["sbb-file-selector A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Choose a file"
+    },
+    {
+      "role": "button",
+      "name": "Choose a file Choose File",
+      "roledescription": "file upload button"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-file-selector A11y tree Safari */
+

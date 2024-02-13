@@ -80,3 +80,51 @@ snapshots["sbb-expansion-panel-header renders with slotted icon"] =
 `;
 /* end snapshot sbb-expansion-panel-header renders with slotted icon */
 
+snapshots["sbb-expansion-panel-header A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Header"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-expansion-panel-header A11y tree Chrome */
+
+snapshots["sbb-expansion-panel-header A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Header"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-expansion-panel-header A11y tree Firefox */
+
+snapshots["sbb-expansion-panel-header A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Header"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-expansion-panel-header A11y tree Safari */
+

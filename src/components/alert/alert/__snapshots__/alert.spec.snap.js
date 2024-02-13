@@ -138,3 +138,115 @@ snapshots["sbb-alert should render customized properties"] =
 `;
 /* end snapshot sbb-alert should render customized properties */
 
+snapshots["sbb-alert A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "heading",
+      "name": "Interruption",
+      "level": 3
+    },
+    {
+      "role": "text",
+      "name": "Alert content "
+    },
+    {
+      "role": "link",
+      "name": "test-a11y-label",
+      "children": [
+        {
+          "role": "link",
+          "name": "Find out more"
+        }
+      ]
+    },
+    {
+      "role": "button",
+      "name": "Close message"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-alert A11y tree Chrome */
+
+snapshots["sbb-alert A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "heading",
+      "name": "Interruption",
+      "level": 3
+    },
+    {
+      "role": "text leaf",
+      "name": "Alert content "
+    },
+    {
+      "role": "link",
+      "name": "test-a11y-label",
+      "children": [
+        {
+          "role": "link",
+          "name": "Find out more",
+          "value": "https://www.sbb.ch/"
+        }
+      ]
+    },
+    {
+      "role": "button",
+      "name": "Close message"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-alert A11y tree Firefox */
+
+snapshots["sbb-alert A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "heading",
+      "name": "Interruption",
+      "level": 3
+    },
+    {
+      "role": "text",
+      "name": "Alert content "
+    },
+    {
+      "role": "link",
+      "name": "test-a11y-label",
+      "children": [
+        {
+          "role": "link",
+          "name": "Find out more",
+          "children": [
+            {
+              "role": "text",
+              "name": "Find out more"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "role": "button",
+      "name": "Close message"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-alert A11y tree Safari */
+

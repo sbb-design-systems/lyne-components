@@ -2,6 +2,7 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
 
 import type { SbbAlertElement } from './alert';
 
@@ -14,7 +15,6 @@ describe('sbb-alert', () => {
     element = await fixture(
       html`<sbb-alert disable-animation title-content="Interruption">Alert content</sbb-alert>`,
     );
-
     await waitForLitRender(element);
 
     expect(element).dom.to.be.equal(
@@ -68,11 +68,14 @@ describe('sbb-alert', () => {
     await expect(element).shadowDom.to.equalSnapshot();
   });
 
-  it('should hide close button in readonly mode', async () => {
-    element = await fixture(
-      html`<sbb-alert title-content="Interruption" readonly>Alert content</sbb-alert>`,
-    );
-
-    expect(element.shadowRoot!.querySelector('.sbb-alert__close-button-wrapper')).to.be.null;
-  });
+  testA11yTreeSnapshot(html`
+    <sbb-alert
+      disable-animation
+      title-content="Interruption"
+      href="https://www.sbb.ch"
+      accessibility-label="test-a11y-label"
+    >
+      Alert content
+    </sbb-alert>
+  `);
 });

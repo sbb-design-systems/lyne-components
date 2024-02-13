@@ -222,3 +222,76 @@ snapshots["sbb-teaser renders static - ShadowDOM"] =
 `;
 /* end snapshot sbb-teaser renders static - ShadowDOM */
 
+snapshots["sbb-teaser A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "SBB teaser",
+      "children": [
+        {
+          "role": "link",
+          "name": "​"
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-teaser A11y tree Chrome */
+
+snapshots["sbb-teaser A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "SBB teaser",
+      "children": [
+        {
+          "role": "link",
+          "name": "​",
+          "value": "https://github.com/lyne-design-system/lyne-components"
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-teaser A11y tree Firefox */
+
+snapshots["sbb-teaser A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "SBB teaser",
+      "children": [
+        {
+          "role": "link",
+          "name": "​",
+          "children": [
+            {
+              "role": "text",
+              "name": "​"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-teaser A11y tree Safari */
+

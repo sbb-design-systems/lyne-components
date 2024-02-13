@@ -48,37 +48,7 @@ describe('sbb-journey-summary', () => {
     expect(root).dom.to.be.equal(`
       <sbb-journey-summary data-now="1661806800000">
       </sbb-journey-summary>`);
-    expect(root).shadowDom.to.be.equal(`
-      <div class="sbb-journey-summary">
-        <div>
-          <div class="sbb-journey-summary__via-block">
-            <span class="sbb-journey-summary__via-text">
-              Via
-            </span>
-            <ul class="sbb-journey-summary__vias" role="presentation">
-              <li class="sbb-journey-summary__via">
-                via
-              </li>
-            </ul>
-          </div>
-          <div class="sbb-journey-summary__date">
-            <time datetime="29 8">
-              Mo. 29.08.2022
-            </time>
-            ,
-            <time>
-              <span class="sbb-screenreaderonly">
-                Travel time 1 Hour
-              </span>
-              <span aria-hidden="true">
-                1 h
-              </span>
-            </time>
-          </div>
-          <sbb-pearl-chain-time data-now="1661806800000"></sbb-pearl-chain-time>
-        </div>
-      </div>
-    `);
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
   it('renders without vias', async () => {
@@ -92,27 +62,7 @@ describe('sbb-journey-summary', () => {
     expect(root).dom.to.be.equal(`
       <sbb-journey-summary data-now="1661806800000">
       </sbb-journey-summary>`);
-    expect(root).shadowDom.to.be.equal(`
-      <div class="sbb-journey-summary">
-        <div>
-          <div class="sbb-journey-summary__date">
-            <time datetime="29 8">
-              Mo. 29.08.2022
-            </time>
-            ,
-            <time>
-              <span class="sbb-screenreaderonly">
-                Travel time 1 Hour 40 Minutes
-              </span>
-              <span aria-hidden="true">
-                1 h 40 min
-              </span>
-            </time>
-          </div>
-          <sbb-pearl-chain-time data-now="1661806800000"></sbb-pearl-chain-time>
-        </div>
-      </div>
-    `);
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
   it('renders with second journey', async () => {
@@ -128,56 +78,6 @@ describe('sbb-journey-summary', () => {
     expect(root).dom.to.be.equal(`
       <sbb-journey-summary data-now="1661806800000">
       </sbb-journey-summary>`);
-    expect(root).shadowDom.to.be.equal(`
-      <div class="sbb-journey-summary">
-        <div>
-          <div class="sbb-journey-summary__date">
-            <time datetime="29 8">
-              Mo. 29.08.2022
-            </time>
-            ,
-            <time>
-              <span class="sbb-screenreaderonly">
-                Travel time 1 Hour 40 Minutes
-              </span>
-              <span aria-hidden="true">
-                1 h 40 min
-              </span>
-            </time>
-          </div>
-          <sbb-pearl-chain-time data-now="1661806800000"></sbb-pearl-chain-time>
-        </div>
-        <div>
-          <sbb-divider class="sbb-journey-summary__divider" role="separator" orientation="horizontal" aria-orientation="horizontal"></sbb-divider>
-          <div>
-            <div class="sbb-journey-summary__via-block">
-              <span class="sbb-journey-summary__via-text">
-                Via
-              </span>
-              <ul class="sbb-journey-summary__vias" role="presentation">
-                <li class="sbb-journey-summary__via">
-                  via
-                </li>
-              </ul>
-            </div>
-            <div class="sbb-journey-summary__date">
-              <time datetime="29 8">
-                Mo. 29.08.2022
-              </time>
-              ,
-              <time>
-                <span class="sbb-screenreaderonly">
-                  Travel time 1 Hour
-                </span>
-                <span aria-hidden="true">
-                  1 h
-                </span>
-              </time>
-            </div>
-            <sbb-pearl-chain-time data-now="1661806800000"></sbb-pearl-chain-time>
-          </div>
-        </div>
-      </div>
-    `);
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 });

@@ -24,4 +24,12 @@ describe('sbb-alert', () => {
     await waitForCondition(() => didOpenSpy.events.length === 1);
     expect(didOpenSpy.count).to.be.equal(1);
   });
+
+  it('should hide close button in readonly mode', async () => {
+    alert = await fixture(
+      html`<sbb-alert title-content="Interruption" readonly>Alert content</sbb-alert>`,
+    );
+
+    expect(alert.shadowRoot!.querySelector('.sbb-alert__close-button-wrapper')).to.be.null;
+  });
 });

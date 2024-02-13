@@ -69,3 +69,53 @@ snapshots["sbb-tab-title renders an H1 heading tag if the provided level is grea
 `;
 /* end snapshot sbb-tab-title renders an H1 heading tag if the provided level is greater than 6 */
 
+snapshots["sbb-tab-title A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "heading",
+      "name": "Tab title",
+      "level": 1
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-tab-title A11y tree Chrome */
+
+snapshots["sbb-tab-title A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "heading",
+      "name": "Tab title",
+      "level": 1
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-tab-title A11y tree Firefox */
+
+snapshots["sbb-tab-title A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Tab title"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-tab-title A11y tree Safari */
+

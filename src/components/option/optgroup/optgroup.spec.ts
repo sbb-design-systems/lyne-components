@@ -1,15 +1,21 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
+import { isSafari } from '../../core/dom';
+import { describeIf, waitForLitRender } from '../../core/testing';
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+
+import type { SbbOptGroupElement } from './optgroup';
 import '../../autocomplete';
 import '../option';
 import './optgroup';
-import { isSafari } from '../../core/dom';
 
 describe('sbb-optgroup', () => {
-  describe('autocomplete', function () {
-    it('renders', async () => {
-      const root = (
+  describe('autocomplete', () => {
+    describe('renders', () => {
+      let elem: SbbOptGroupElement;
+
+      beforeEach(async () => {
         await fixture(html`
           <sbb-autocomplete origin="anchor">
             <sbb-optgroup label="Label">
@@ -18,30 +24,38 @@ describe('sbb-optgroup', () => {
             </sbb-optgroup>
           </sbb-autocomplete>
           <div id="anchor"></div>
-        `)
-      ).querySelector('sbb-optgroup');
-      const groupRoleAttr = 'aria-disabled="false" aria-label="Label" role="group"';
+        `);
+        elem = document.querySelector('sbb-optgroup')!;
+        await waitForLitRender(elem);
+      });
 
-      expect(root).dom.to.be.equal(`
-        <sbb-optgroup data-variant="autocomplete" label="Label" ${!isSafari() ? groupRoleAttr : ''}>
-          <sbb-option value="1" aria-disabled="false" aria-selected="false" data-variant="autocomplete" id="sbb-option-1" role="option" data-slot-names="unnamed">1</sbb-option>
-          <sbb-option value="2" aria-disabled="false" aria-selected="false" data-variant="autocomplete" id="sbb-option-2" role="option" data-slot-names="unnamed">2</sbb-option>
-        </sbb-optgroup>
-      `);
-      expect(root).shadowDom.to.be.equal(`
-        <div class="sbb-optgroup__divider">
-          <sbb-divider aria-orientation="horizontal" orientation="horizontal" role="separator"></sbb-divider>
-        </div>
-        <div class="sbb-optgroup__label" aria-hidden="true">
-          <div class="sbb-optgroup__icon-space"></div>
-          <span>Label</span>
-        </div>
-        <slot></slot>
-      `);
+      describeIf(!isSafari(), 'Chrome-Firefox', async () => {
+        it('Dom', async () => {
+          await expect(elem).dom.to.be.equalSnapshot();
+        });
+
+        it('ShadowDom', async () => {
+          await expect(elem).shadowDom.to.be.equalSnapshot();
+        });
+      });
+
+      describeIf(isSafari(), 'Safari', async () => {
+        it('Dom', async () => {
+          await expect(elem).dom.to.be.equalSnapshot();
+        });
+
+        it('ShadowDom', async () => {
+          await expect(elem).shadowDom.to.be.equalSnapshot();
+        });
+      });
+
+      testA11yTreeSnapshot();
     });
 
-    it('renders disabled', async () => {
-      const root = (
+    describe('renders disabled', () => {
+      let elem: SbbOptGroupElement;
+
+      beforeEach(async () => {
         await fixture(html`
           <sbb-autocomplete origin="anchor">
             <sbb-optgroup label="Label" disabled>
@@ -50,29 +64,30 @@ describe('sbb-optgroup', () => {
             </sbb-optgroup>
           </sbb-autocomplete>
           <div id="anchor"></div>
-        `)
-      ).querySelector('sbb-optgroup');
-      const groupRoleAttr = 'aria-disabled="true" aria-label="Label" role="group"';
+        `);
+        elem = document.querySelector('sbb-optgroup')!;
+        await waitForLitRender(elem);
+      });
 
-      expect(root).dom.to.be.equal(`
-        <sbb-optgroup disabled data-variant="autocomplete" label="Label" ${
-          !isSafari() ? groupRoleAttr : ''
-        }>
-          <sbb-option value="1" data-group-disabled aria-disabled="true" aria-selected="false" data-variant="autocomplete" id="sbb-option-7" role="option" data-slot-names="unnamed">1</sbb-option>
-          <sbb-option value="2" data-group-disabled aria-disabled="true" aria-selected="false" data-variant="autocomplete" id="sbb-option-8" role="option" data-slot-names="unnamed">2</sbb-option>
-        </sbb-optgroup>
-      `);
+      describeIf(!isSafari(), 'Chrome-Firefox', async () => {
+        it('Dom', async () => {
+          await expect(elem).dom.to.be.equalSnapshot();
+        });
 
-      expect(root).shadowDom.to.be.equal(`
-        <div class="sbb-optgroup__divider">
-          <sbb-divider aria-orientation="horizontal" orientation="horizontal" role="separator"></sbb-divider>
-        </div>
-        <div class="sbb-optgroup__label" aria-hidden="true">
-          <div class="sbb-optgroup__icon-space"></div>
-          <span>Label</span>
-        </div>
-        <slot></slot>
-      `);
+        it('ShadowDom', async () => {
+          await expect(elem).shadowDom.to.be.equalSnapshot();
+        });
+      });
+
+      describeIf(isSafari(), 'Safari', async () => {
+        it('Dom', async () => {
+          await expect(elem).dom.to.be.equalSnapshot();
+        });
+
+        it('ShadowDom', async () => {
+          await expect(elem).shadowDom.to.be.equalSnapshot();
+        });
+      });
     });
   });
 });

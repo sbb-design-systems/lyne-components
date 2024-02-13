@@ -1,6 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
 import type { SbbFormFieldElement } from '../../form-field';
 
 import type { SbbDatepickerNextDayElement } from './datepicker-next-day';
@@ -34,16 +35,8 @@ describe('sbb-datepicker-next-day', () => {
 
     const element: SbbDatepickerNextDayElement =
       page.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
-    expect(element).dom.to.be.equal(`
-      <sbb-datepicker-next-day
-        date-picker="datepicker"
-        dir="ltr"
-        role="button"
-        slot="suffix"
-        tabindex="0"
-        aria-label="Change to the next day, currently selected December 31, 2022.">
-      </sbb-datepicker-next-day>
-    `);
+
+    await expect(element).dom.to.be.equalSnapshot();
 
     expect(element).shadowDom.to.be.equal(`
       <span class="sbb-datepicker-next-day">
@@ -79,4 +72,6 @@ describe('sbb-datepicker-next-day', () => {
       page.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
     expect(element).to.have.attribute('data-disabled');
   });
+
+  testA11yTreeSnapshot(html`<sbb-datepicker-next-day></sbb-datepicker-next-day>`);
 });

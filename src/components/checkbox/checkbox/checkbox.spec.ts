@@ -2,6 +2,7 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
 
 import './checkbox';
 
@@ -96,4 +97,8 @@ describe('sbb-checkbox', () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
   });
+
+  testA11yTreeSnapshot(html`<sbb-checkbox>Label</sbb-checkbox>`, 'Unchecked - A11y tree');
+
+  testA11yTreeSnapshot(html`<sbb-checkbox checked>Label</sbb-checkbox>`, 'Checked - A11y tree');
 });

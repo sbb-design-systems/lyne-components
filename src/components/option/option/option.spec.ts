@@ -1,12 +1,15 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+
 import '../../autocomplete';
 import './option';
 
 describe('sbb-option', () => {
   describe('autocomplete', () => {
     it('renders selected and active', async () => {
-      const root = (
+      const option = (
         await fixture(html`
           <sbb-autocomplete origin="anchor">
             <sbb-option value="1" selected active>Option 1</sbb-option>
@@ -15,28 +18,16 @@ describe('sbb-option', () => {
         `)
       ).querySelector('sbb-option');
 
-      expect(root).dom.to.be.equal(`
+      expect(option).dom.to.be.equal(`
         <sbb-option selected="" active="" aria-disabled="false" aria-selected="true" data-variant="autocomplete" id="sbb-option-1" role="option" value="1" data-slot-names="unnamed">
           Option 1
         </sbb-option>
       `);
-      expect(root).shadowDom.to.be.equal(`
-        <div class="sbb-option__container">
-          <div class="sbb-option">
-            <span class="sbb-option__icon">
-              <slot name="icon"></slot>
-            </span>
-            <span class="sbb-option__label">
-              <slot></slot>
-              Option 1
-            </span>
-          </div>
-        </div>
-      `);
+      await expect(option).shadowDom.to.be.equalSnapshot();
     });
 
     it('renders disabled', async () => {
-      const root = (
+      const option = (
         await fixture(html`
           <sbb-autocomplete origin="anchor">
             <sbb-option value="1" disabled>Option 1</sbb-option>
@@ -45,24 +36,14 @@ describe('sbb-option', () => {
         `)
       ).querySelector('sbb-option');
 
-      expect(root).dom.to.be.equal(`
+      expect(option).dom.to.be.equal(`
         <sbb-option disabled aria-disabled="true" aria-selected="false" data-variant="autocomplete" id="sbb-option-4" role="option" value="1" data-slot-names="unnamed">
           Option 1
         </sbb-option>
       `);
-      expect(root).shadowDom.to.be.equal(`
-        <div class="sbb-option__container">
-          <div class="sbb-option">
-            <span class="sbb-option__icon">
-              <slot name="icon"></slot>
-            </span>
-            <span class="sbb-option__label">
-              <slot></slot>
-              Option 1
-            </span>
-          </div>
-        </div>
-      `);
+      await expect(option).shadowDom.to.be.equalSnapshot();
     });
+
+    testA11yTreeSnapshot(html`<sbb-option value="1" selected active>Option 1</sbb-option>`);
   });
 });

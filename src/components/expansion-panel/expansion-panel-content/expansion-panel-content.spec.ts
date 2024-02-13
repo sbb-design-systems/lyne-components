@@ -1,5 +1,8 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+
 import './expansion-panel-content';
 
 describe('sbb-expansion-panel-content', () => {
@@ -15,13 +18,7 @@ describe('sbb-expansion-panel-content', () => {
         </sbb-expansion-panel-content>
       `,
     );
-    expect(root).shadowDom.to.be.equal(
-      `
-        <div class="sbb-expansion-panel-content">
-          <slot></slot>
-        </div>
-      `,
-    );
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
 
   it('renders expanded', async () => {
@@ -36,12 +33,8 @@ describe('sbb-expansion-panel-content', () => {
         </sbb-expansion-panel-content>
       `,
     );
-    expect(root).shadowDom.to.be.equal(
-      `
-        <div class="sbb-expansion-panel-content">
-          <slot></slot>
-        </div>
-      `,
-    );
+    await expect(root).shadowDom.to.be.equalSnapshot();
   });
+
+  testA11yTreeSnapshot(html`<sbb-expansion-panel-content>Content</sbb-expansion-panel-content>`);
 });

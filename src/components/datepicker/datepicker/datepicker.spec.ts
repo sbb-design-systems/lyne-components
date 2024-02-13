@@ -3,6 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { NativeDateAdapter } from '../../core/datetime';
 import { findInput } from '../../core/dom';
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
 import type { SbbFormFieldElement } from '../../form-field';
 import type { SbbDatepickerNextDayElement, SbbDatepickerPreviousDayElement } from '../index';
 
@@ -14,6 +15,9 @@ import {
   findNextAvailableDate,
   isDateAvailable,
 } from './datepicker';
+import '../datepicker-next-day';
+import '../datepicker-previous-day';
+import '../datepicker-toggle';
 
 describe('sbb-datepicker', () => {
   it('renders', async () => {
@@ -22,6 +26,16 @@ describe('sbb-datepicker', () => {
     expect(root).dom.to.be.equal(`<sbb-datepicker></sbb-datepicker>`);
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
+
+  testA11yTreeSnapshot(html`
+    <sbb-form-field>
+      <input />
+      <sbb-datepicker></sbb-datepicker>
+      <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
+      <sbb-datepicker-next-day></sbb-datepicker-next-day>
+      <sbb-datepicker-toggle></sbb-datepicker-toggle>
+    </sbb-form-field>
+  `);
 });
 
 describe('getDatePicker', () => {

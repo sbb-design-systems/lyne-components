@@ -1,28 +1,25 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+
+import type { SbbCardBadgeElement } from './card-badge';
 import './card-badge';
 
 describe('sbb-card-badge', () => {
-  it('renders', async () => {
-    const root = await fixture(html`<sbb-card-badge></sbb-card-badge>`);
+  let element: SbbCardBadgeElement;
 
-    expect(root).dom.to.be.equal(
-      `
-        <sbb-card-badge slot="badge" color="charcoal" role="text" dir="ltr">
-        </sbb-card-badge>
-      `,
-    );
-    expect(root).shadowDom.to.be.equal(
-      `
-        <span class="sbb-card-badge-wrapper">
-          <span class="sbb-card-badge">
-            <span class="sbb-card-badge-background" aria-hidden="true"></span>
-            <span class="sbb-card-badge-content">
-              <slot></slot>
-            </span>
-          </span>
-        </span>
-      `,
-    );
+  beforeEach(async () => {
+    element = await fixture(html`<sbb-card-badge>Black Friday Special</sbb-card-badge>`);
   });
+
+  it('renders - Dom', async () => {
+    await expect(element).dom.to.be.equalSnapshot();
+  });
+
+  it('renders - ShadowDom', async () => {
+    await expect(element).shadowDom.to.be.equalSnapshot();
+  });
+
+  testA11yTreeSnapshot();
 });

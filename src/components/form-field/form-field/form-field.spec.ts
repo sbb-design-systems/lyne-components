@@ -2,6 +2,7 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
 
 import './form-field';
 
@@ -158,4 +159,11 @@ describe('sbb-form-field', () => {
     `);
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
+
+  testA11yTreeSnapshot(html`
+    <sbb-form-field>
+      <label slot="label">Fill input</label>
+      <input class="input" placeholder="This is an input" />
+    </sbb-form-field>
+  `);
 });

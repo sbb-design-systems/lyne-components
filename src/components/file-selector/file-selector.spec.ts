@@ -2,6 +2,7 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../core/testing';
+import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
 
 import './file-selector';
 
@@ -27,4 +28,7 @@ describe('sbb-file-selector', () => {
     `);
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
+
+  // We skip safari because it has an inconsistent behavior on ci environment
+  testA11yTreeSnapshot(html`<sbb-file-selector></sbb-file-selector>`, undefined, { safari: true });
 });
