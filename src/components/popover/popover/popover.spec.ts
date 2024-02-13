@@ -1,6 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
 import './popover';
 
 describe('sbb-popover', () => {
@@ -12,4 +13,6 @@ describe('sbb-popover', () => {
     );
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
+
+  testA11yTreeSnapshot(undefined, html`<sbb-popover></sbb-popover>`);
 });

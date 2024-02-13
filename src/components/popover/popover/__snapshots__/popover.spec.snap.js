@@ -33,3 +33,33 @@ snapshots["sbb-popover renders"] =
 `;
 /* end snapshot sbb-popover renders */
 
+snapshots["sbb-popover A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-popover A11y tree Chrome */
+
+snapshots["sbb-popover A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-popover A11y tree Firefox */
+
+snapshots["sbb-popover A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot sbb-popover A11y tree Safari */
+

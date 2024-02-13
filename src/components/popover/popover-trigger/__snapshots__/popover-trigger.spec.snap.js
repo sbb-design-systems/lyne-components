@@ -31,3 +31,51 @@ snapshots["sbb-popover-trigger renders with custom content"] =
 `;
 /* end snapshot sbb-popover-trigger renders with custom content */
 
+snapshots["sbb-popover-trigger A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": ""
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-popover-trigger A11y tree Chrome */
+
+snapshots["sbb-popover-trigger A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": ""
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-popover-trigger A11y tree Firefox */
+
+snapshots["sbb-popover-trigger A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": ""
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-popover-trigger A11y tree Safari */
+
