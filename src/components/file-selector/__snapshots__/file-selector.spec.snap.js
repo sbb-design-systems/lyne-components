@@ -125,24 +125,3 @@ snapshots["sbb-file-selector A11y tree Firefox"] =
 `;
 /* end snapshot sbb-file-selector A11y tree Firefox */
 
-snapshots["sbb-file-selector A11y tree Safari"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "text",
-      "name": "Choose a file"
-    },
-    {
-      "role": "button",
-      "name": "Choose a file Choose File",
-      "roledescription": "file upload button"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-file-selector A11y tree Safari */
-

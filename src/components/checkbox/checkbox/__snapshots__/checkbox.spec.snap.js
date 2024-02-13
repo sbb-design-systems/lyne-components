@@ -62,6 +62,33 @@ snapshots["sbb-checkbox icon position start"] =
 `;
 /* end snapshot sbb-checkbox icon position start */
 
+snapshots["sbb-checkbox icon position with slotted icon"] = 
+`<span class="sbb-checkbox-wrapper">
+  <label class="sbb-checkbox">
+    <input
+      aria-hidden="true"
+      tabindex="-1"
+      type="checkbox"
+    >
+    <span class="sbb-checkbox__inner">
+      <span class="sbb-checkbox__aligner">
+        <sbb-visual-checkbox>
+        </sbb-visual-checkbox>
+      </span>
+      <span class="sbb-checkbox__label">
+        <slot>
+        </slot>
+        <span class="sbb-checkbox__label--icon">
+          <slot name="icon">
+          </slot>
+        </span>
+      </span>
+    </span>
+  </label>
+</span>
+`;
+/* end snapshot sbb-checkbox icon position with slotted icon */
+
 snapshots["sbb-checkbox state checked"] = 
 `<span class="sbb-checkbox-wrapper">
   <label class="sbb-checkbox">
@@ -144,33 +171,6 @@ snapshots["sbb-checkbox state unchecked disabled"] =
 </span>
 `;
 /* end snapshot sbb-checkbox state unchecked disabled */
-
-snapshots["sbb-checkbox icon position with slotted icon"] = 
-`<span class="sbb-checkbox-wrapper">
-  <label class="sbb-checkbox">
-    <input
-      aria-hidden="true"
-      tabindex="-1"
-      type="checkbox"
-    >
-    <span class="sbb-checkbox__inner">
-      <span class="sbb-checkbox__aligner">
-        <sbb-visual-checkbox>
-        </sbb-visual-checkbox>
-      </span>
-      <span class="sbb-checkbox__label">
-        <slot>
-        </slot>
-        <span class="sbb-checkbox__label--icon">
-          <slot name="icon">
-          </slot>
-        </span>
-      </span>
-    </span>
-  </label>
-</span>
-`;
-/* end snapshot sbb-checkbox icon position with slotted icon */
 
 snapshots["sbb-checkbox Unchecked - A11y tree Chrome"] = 
 `<p>

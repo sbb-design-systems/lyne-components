@@ -1,6 +1,12 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
+snapshots["sbb-icon renders"] = 
+`<span class="sbb-icon-inner">
+</span>
+`;
+/* end snapshot sbb-icon renders */
+
 snapshots["sbb-icon renders aria-hidden and no aria-label"] = 
 `<span class="sbb-icon-inner">
   <svg-fake
@@ -39,12 +45,6 @@ snapshots["sbb-icon renders custom aria-label"] =
 </span>
 `;
 /* end snapshot sbb-icon renders custom aria-label */
-
-snapshots["sbb-icon renders"] = 
-`<span class="sbb-icon-inner">
-</span>
-`;
-/* end snapshot sbb-icon renders */
 
 snapshots["sbb-icon registers a custom namespace"] = 
 `<span class="sbb-icon-inner">

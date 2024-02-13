@@ -1,18 +1,6 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-checkbox-group renders - ShadowDom"] = 
-`<div class="sbb-checkbox-group">
-  <slot>
-  </slot>
-</div>
-<div class="sbb-checkbox-group__error">
-  <slot name="error">
-  </slot>
-</div>
-`;
-/* end snapshot sbb-checkbox-group renders - ShadowDom */
-
 snapshots["sbb-checkbox-group renders - Dom"] = 
 `<sbb-checkbox-group
   data-slot-names="unnamed"
@@ -60,6 +48,18 @@ snapshots["sbb-checkbox-group renders - Dom"] =
 </sbb-checkbox-group>
 `;
 /* end snapshot sbb-checkbox-group renders - Dom */
+
+snapshots["sbb-checkbox-group renders - ShadowDom"] = 
+`<div class="sbb-checkbox-group">
+  <slot>
+  </slot>
+</div>
+<div class="sbb-checkbox-group__error">
+  <slot name="error">
+  </slot>
+</div>
+`;
+/* end snapshot sbb-checkbox-group renders - ShadowDom */
 
 snapshots["sbb-checkbox-group A11y tree Chrome"] = 
 `<p>

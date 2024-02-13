@@ -10,6 +10,48 @@ snapshots["sbb-timetable-occupancy renders - DOM"] =
 `;
 /* end snapshot sbb-timetable-occupancy renders - DOM */
 
+snapshots["sbb-timetable-occupancy renders - ShadowDOM"] = 
+`<ul class="sbb-timetable-occupancy__list">
+  <li class="sbb-timetable-occupancy__list-item">
+    <span
+      aria-hidden="true"
+      class="sbb-timetable-occupancy__list-item-class"
+    >
+      1.
+    </span>
+    <span class="sbb-timetable-occupancy__visually-hidden">
+      First Class.
+    </span>
+    <sbb-timetable-occupancy-icon
+      aria-label="Very high occupancy expected"
+      class="sbb-timetable-occupancy__list-item-icon"
+      data-namespace="default"
+      role="img"
+    >
+    </sbb-timetable-occupancy-icon>
+  </li>
+  <li class="sbb-timetable-occupancy__list-item">
+    <span
+      aria-hidden="true"
+      class="sbb-timetable-occupancy__list-item-class"
+    >
+      2.
+    </span>
+    <span class="sbb-timetable-occupancy__visually-hidden">
+      Second Class.
+    </span>
+    <sbb-timetable-occupancy-icon
+      aria-label="Very high occupancy expected"
+      class="sbb-timetable-occupancy__list-item-icon"
+      data-namespace="default"
+      role="img"
+    >
+    </sbb-timetable-occupancy-icon>
+  </li>
+</ul>
+`;
+/* end snapshot sbb-timetable-occupancy renders - ShadowDOM */
+
 snapshots["sbb-timetable-occupancy renders negative - DOM"] = 
 `<sbb-timetable-occupancy
   first-class-occupancy="low"
@@ -19,6 +61,50 @@ snapshots["sbb-timetable-occupancy renders negative - DOM"] =
 </sbb-timetable-occupancy>
 `;
 /* end snapshot sbb-timetable-occupancy renders negative - DOM */
+
+snapshots["sbb-timetable-occupancy renders negative - ShadowDOM"] = 
+`<ul class="sbb-timetable-occupancy__list">
+  <li class="sbb-timetable-occupancy__list-item">
+    <span
+      aria-hidden="true"
+      class="sbb-timetable-occupancy__list-item-class"
+    >
+      1.
+    </span>
+    <span class="sbb-timetable-occupancy__visually-hidden">
+      First Class.
+    </span>
+    <sbb-timetable-occupancy-icon
+      aria-label="Low to medium occupancy expected"
+      class="sbb-timetable-occupancy__list-item-icon"
+      data-namespace="default"
+      negative=""
+      role="img"
+    >
+    </sbb-timetable-occupancy-icon>
+  </li>
+  <li class="sbb-timetable-occupancy__list-item">
+    <span
+      aria-hidden="true"
+      class="sbb-timetable-occupancy__list-item-class"
+    >
+      2.
+    </span>
+    <span class="sbb-timetable-occupancy__visually-hidden">
+      Second Class.
+    </span>
+    <sbb-timetable-occupancy-icon
+      aria-label="High occupancy expected"
+      class="sbb-timetable-occupancy__list-item-icon"
+      data-namespace="default"
+      negative=""
+      role="img"
+    >
+    </sbb-timetable-occupancy-icon>
+  </li>
+</ul>
+`;
+/* end snapshot sbb-timetable-occupancy renders negative - ShadowDOM */
 
 snapshots["sbb-timetable-occupancy renders only first class wagon - DOM"] = 
 `<sbb-timetable-occupancy first-class-occupancy="low">
@@ -85,90 +171,4 @@ snapshots["sbb-timetable-occupancy renders only second class wagon - ShadowDOM"]
 </ul>
 `;
 /* end snapshot sbb-timetable-occupancy renders only second class wagon - ShadowDOM */
-
-snapshots["sbb-timetable-occupancy renders - ShadowDOM"] = 
-`<ul class="sbb-timetable-occupancy__list">
-  <li class="sbb-timetable-occupancy__list-item">
-    <span
-      aria-hidden="true"
-      class="sbb-timetable-occupancy__list-item-class"
-    >
-      1.
-    </span>
-    <span class="sbb-timetable-occupancy__visually-hidden">
-      First Class.
-    </span>
-    <sbb-timetable-occupancy-icon
-      aria-label="Very high occupancy expected"
-      class="sbb-timetable-occupancy__list-item-icon"
-      data-namespace="default"
-      role="img"
-    >
-    </sbb-timetable-occupancy-icon>
-  </li>
-  <li class="sbb-timetable-occupancy__list-item">
-    <span
-      aria-hidden="true"
-      class="sbb-timetable-occupancy__list-item-class"
-    >
-      2.
-    </span>
-    <span class="sbb-timetable-occupancy__visually-hidden">
-      Second Class.
-    </span>
-    <sbb-timetable-occupancy-icon
-      aria-label="Very high occupancy expected"
-      class="sbb-timetable-occupancy__list-item-icon"
-      data-namespace="default"
-      role="img"
-    >
-    </sbb-timetable-occupancy-icon>
-  </li>
-</ul>
-`;
-/* end snapshot sbb-timetable-occupancy renders - ShadowDOM */
-
-snapshots["sbb-timetable-occupancy renders negative - ShadowDOM"] = 
-`<ul class="sbb-timetable-occupancy__list">
-  <li class="sbb-timetable-occupancy__list-item">
-    <span
-      aria-hidden="true"
-      class="sbb-timetable-occupancy__list-item-class"
-    >
-      1.
-    </span>
-    <span class="sbb-timetable-occupancy__visually-hidden">
-      First Class.
-    </span>
-    <sbb-timetable-occupancy-icon
-      aria-label="Low to medium occupancy expected"
-      class="sbb-timetable-occupancy__list-item-icon"
-      data-namespace="default"
-      negative=""
-      role="img"
-    >
-    </sbb-timetable-occupancy-icon>
-  </li>
-  <li class="sbb-timetable-occupancy__list-item">
-    <span
-      aria-hidden="true"
-      class="sbb-timetable-occupancy__list-item-class"
-    >
-      2.
-    </span>
-    <span class="sbb-timetable-occupancy__visually-hidden">
-      Second Class.
-    </span>
-    <sbb-timetable-occupancy-icon
-      aria-label="High occupancy expected"
-      class="sbb-timetable-occupancy__list-item-icon"
-      data-namespace="default"
-      negative=""
-      role="img"
-    >
-    </sbb-timetable-occupancy-icon>
-  </li>
-</ul>
-`;
-/* end snapshot sbb-timetable-occupancy renders negative - ShadowDOM */
 
