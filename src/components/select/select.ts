@@ -236,8 +236,8 @@ export class SbbSelectElement extends UpdateScheduler(LitElement) {
     this.blur = () => this._triggerElement.blur();
 
     // Wait for ssr hydration
-    this.startUpdate();
     if (!isNextjs()) {
+      this.startUpdate();
       this._setupSelect();
     }
   }
