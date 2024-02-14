@@ -127,8 +127,8 @@ jobs:
         run: echo "Number ${length}, title ${title}, data ${data}"
         env:
           data: ${{ toJSON(steps.get_issue_number.outputs.result) }}
-          title: ${{ steps.get_issue_number.outputs.result.data[0].title }}
-          length: ${{steps.get_issue_number.outputs.result.data.length}}
+          title: ${{ steps.get_issue_number.outputs.result.title }}
+          length: ${{ steps.get_issue_number.outputs.result.number }}
 
   chromatic:
     runs-on: ubuntu-latest
