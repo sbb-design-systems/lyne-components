@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.46.3](https://github.com/lyne-design-system/lyne-components/compare/v0.46.2...v0.46.3) (2024-02-14)
+
+
+### Bug Fixes
+
+* **react-wrapper:** avoid writing classname property on a component ([#2421](https://github.com/lyne-design-system/lyne-components/issues/2421)) ([1ee492e](https://github.com/lyne-design-system/lyne-components/commit/1ee492ed303563fb53b525cd79e711796088cc3f))
+* **sbb-container:** container causes interference with overlay components ([#2419](https://github.com/lyne-design-system/lyne-components/issues/2419)) ([099164c](https://github.com/lyne-design-system/lyne-components/commit/099164c1fca0293a951f019ec953f7eaeaa5a845))
+
 ## [0.46.2](https://github.com/lyne-design-system/lyne-components/compare/v0.46.1...v0.46.2) (2024-02-14)
 
 
