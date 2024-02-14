@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.46.2](https://github.com/lyne-design-system/lyne-components/compare/v0.46.1...v0.46.2) (2024-02-14)
+
+
+### Bug Fixes
+
+* **sbb-map-container:** adapt width starting from ultra breakpoint ([#2417](https://github.com/lyne-design-system/lyne-components/issues/2417)) ([3c55d0c](https://github.com/lyne-design-system/lyne-components/commit/3c55d0c8fd5ac0355cf60951c2038abacd269b57))
+
 ## [0.46.1](https://github.com/lyne-design-system/lyne-components/compare/v0.46.0...v0.46.1) (2024-02-13)
 
 
