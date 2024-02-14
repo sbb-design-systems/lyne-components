@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.47.0](https://github.com/lyne-design-system/lyne-components/compare/v0.46.3...v0.47.0) (2024-02-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* **sbb-image:** property `noBorderRadius` has been replaced by `borderRadius` which can receive 'default', 'none' and 'round'.
+
+### Features
+
+* **sbb-image:** introduce support for round variant ([#2401](https://github.com/lyne-design-system/lyne-components/issues/2401)) ([971bd5c](https://github.com/lyne-design-system/lyne-components/commit/971bd5c5a407f5550a633c222195e98eaf89befb))
+* **sbb-status:** allow custom icons ([#2403](https://github.com/lyne-design-system/lyne-components/issues/2403)) ([56b4068](https://github.com/lyne-design-system/lyne-components/commit/56b4068781bdea5540a4fcdb1c43c8a20632d0f4)), closes [#2398](https://github.com/lyne-design-system/lyne-components/issues/2398)
+
+
+### Bug Fixes
+
+* **sbb-pearl-chain-time:** use role paragraph for accessibility reasons ([#2424](https://github.com/lyne-design-system/lyne-components/issues/2424)) ([9009807](https://github.com/lyne-design-system/lyne-components/commit/90098076117c722cad853912b52503b2bc44963b))
+
 ## [0.46.3](https://github.com/lyne-design-system/lyne-components/compare/v0.46.2...v0.46.3) (2024-02-14)
 
 
