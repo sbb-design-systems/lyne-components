@@ -116,19 +116,25 @@ jobs:
         id: get_issue_number
         with:
           script: |
-            return (
-              await github.rest.repos.listPullRequestsAssociatedWithCommit({
-                commit_sha: context.sha,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-              })
-            ).data[0];
+            const pr = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+              commit_sha: context.sha,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            }).data[0];
+
+            return pr ? {
+              number: pr.number,
+              title: pr.title,
+              draft: pr.draft,
+              state: pr.state
+            } : null;
       - name: Debug test
-        run: echo "Number ${length}, title ${title}, data ${data}"
+        run: echo "Number ${number}, isDraft ${isDraft}, title ${title}, data ${data}"
         env:
-          data: ${{ toJSON(steps.get_issue_number.outputs.result) }}
-          title: ${{ steps.get_issue_number.outputs.result }}
-          length: ${{ steps.get_issue_number.outputs.result.number }}
+          data: ${{ steps.get_issue_number.outputs.result }}
+          title: ${{ fromJson(steps.get_issue_number.outputs.result).title }}
+          number: ${{ fromJson(steps.get_issue_number.outputs.result).number }}
+          isDraft: ${{ fromJson(steps.get_issue_number.outputs.result).draft }}
 
   chromatic:
     runs-on: ubuntu-latest
