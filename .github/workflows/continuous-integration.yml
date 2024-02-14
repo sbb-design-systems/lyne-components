@@ -85,10 +85,9 @@ jobs:
           name: storybook
           path: dist/storybook/
 
-  is-pr-open-test:
+  is-pr-open-old:
     runs-on: ubuntu-latest
     if: false
-    needs: [build, lint, test]
     outputs:
       is-PR: ${{ !!steps.findPr.outputs.number }}
       is-draft: ${{ !!steps.findPr.outputs.draft }}
@@ -108,7 +107,6 @@ jobs:
   is-pr-open:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
-    needs: [build, lint, test]
     outputs:
       is-PR: ${{ !!steps.get_issue_number.outputs.data[0].number }}
       #is-draft: ${{ !!steps.findPr.outputs.draft }}
