@@ -54,7 +54,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "18.6.1",
-    "@commitlint/config-conventional": "18.6.0",
+    "@commitlint/config-conventional": "18.6.2",
     "@custom-elements-manifest/analyzer": "0.9.0",
     "@custom-elements-manifest/to-markdown": "0.1.0",
     "@lit/react": "^1.0.1",
