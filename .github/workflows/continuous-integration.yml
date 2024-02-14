@@ -124,10 +124,11 @@ jobs:
               })
             );
       - name: Debug test
-        run: echo "Number ${lenght}, data ${data}"
+        run: echo "Number ${lenght}, title ${title}, data ${data}"
         env:
-          data: ${{ toJSON(steps.get_issue_number.outputs.result) }}
-          lenght: ${{steps.get_issue_number.outputs.result.data.lenght}}
+          data: ${{ toJSON(steps.get_issue_number.outputs.result.data[0]) }}
+          title: ${{ steps.get_issue_number.outputs.result.data[0].title }}
+          lenght: ${{steps.get_issue_number.outputs.result.data.length}}
 
   chromatic:
     runs-on: ubuntu-latest
