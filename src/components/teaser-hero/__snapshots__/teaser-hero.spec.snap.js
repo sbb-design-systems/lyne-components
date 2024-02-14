@@ -32,20 +32,19 @@ snapshots["sbb-teaser-hero should render with slots"] =
       <slot>
       </slot>
     </p>
-    <sbb-link
+    <sbb-link-static
       class="sbb-teaser-hero__panel-link"
       data-slot-names="link-content unnamed"
       dir="ltr"
       icon-name="chevron-small-right-small"
       icon-placement="end"
-      is-static=""
       negative=""
       size="m"
       variant="block"
     >
       <slot name="link-content">
       </slot>
-    </sbb-link>
+    </sbb-link-static>
   </span>
   <slot name="image">
   </slot>
@@ -85,13 +84,12 @@ snapshots["sbb-teaser-hero should render all properties ShadowDom"] =
       <slot>
       </slot>
     </p>
-    <sbb-link
+    <sbb-link-static
       class="sbb-teaser-hero__panel-link"
       data-slot-names="unnamed"
       dir="ltr"
       icon-name="chevron-small-right-small"
       icon-placement="end"
-      is-static=""
       negative=""
       size="m"
       variant="block"
@@ -99,7 +97,7 @@ snapshots["sbb-teaser-hero should render all properties ShadowDom"] =
       <slot name="link-content">
         Find out more
       </slot>
-    </sbb-link>
+    </sbb-link-static>
   </span>
   <slot name="image">
     <sbb-image
@@ -108,9 +106,9 @@ snapshots["sbb-teaser-hero should render all properties ShadowDom"] =
     >
     </sbb-image>
   </slot>
-  <span class="sbb-teaser-hero__opens-in-new-window">
-    . Link target opens in new window.
-  </span>
+  <sbb-screenreader-only>
+    . Link target opens in a new window.
+  </sbb-screenreader-only>
 </a>
 `;
 /* end snapshot sbb-teaser-hero should render all properties ShadowDom */
@@ -127,7 +125,7 @@ snapshots["sbb-teaser-hero should render all properties A11y tree Chrome"] =
       "children": [
         {
           "role": "link",
-          "name": "Break out and explore castles and palaces. Find out more . Link target opens in new window."
+          "name": "Break out and explore castles and palaces. Find out more . Link target opens in a new window."
         }
       ]
     }
