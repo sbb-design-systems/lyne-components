@@ -112,7 +112,7 @@
 
 // full radius
 .image__figure--round .image__wrapper {
-  border-radius: 100%;
+  border-radius: var(--sbb-border-radius-infinity);
 }
 
 // Variant: Hero Teaser
