@@ -74,8 +74,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   }
 }
 
-.sbb-header-button,
-.sbb-header-link {
+:is(.sbb-header-button, .sbb-header-link) {
   @include sbb.text-inherit;
 
   display: flex;

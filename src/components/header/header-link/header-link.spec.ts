@@ -38,7 +38,7 @@ describe('sbb-header-link', () => {
         <span class="sbb-header-action__wrapper">
           <span class="sbb-header-action__icon">
             <slot name="icon">
-              <sbb-icon aria-hidden="true" data-namespace="default" name="pie-small" role="img"></sbb-icon>
+              <sbb-icon name="pie-small"></sbb-icon>
             </slot>
           </span>
           <span class="sbb-header-action__text">

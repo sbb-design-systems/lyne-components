@@ -14,7 +14,6 @@ import {
 } from '../core/eventing';
 
 import style from './toggle-check.scss?lit&inline';
-import '../icon';
 
 /**
  * It displays a toggle checkbox.

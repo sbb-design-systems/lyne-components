@@ -55,7 +55,7 @@ describe('sbb-link-static', () => {
         dir="ltr"
         data-slot-names="icon unnamed"
       >
-        <sbb-icon name="chevron-small-right-small" slot="icon" role="img" aria-hidden="true" data-namespace="default"></sbb-icon>
+        <sbb-icon name="chevron-small-right-small" slot="icon"></sbb-icon>
         Travelcards &amp; tickets.
       </sbb-link-static>
     `);

@@ -11,7 +11,6 @@ import {
 import type { TitleLevel } from '../../title';
 
 import style from './tab-title.scss?lit&inline';
-import '../../icon';
 
 /**
  * Combined with a `sbb-rab-group`, it displays a tab's title.

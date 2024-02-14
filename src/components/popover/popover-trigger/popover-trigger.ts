@@ -10,7 +10,6 @@ import {
 import { hostContext, isValidAttribute, toggleDatasetEntry } from '../../core/dom';
 
 import style from './popover-trigger.scss?lit&inline';
-import '../../icon';
 
 /**
  * It can be used as a trigger for the `sbb-popover` component.

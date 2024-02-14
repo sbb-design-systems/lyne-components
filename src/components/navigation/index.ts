@@ -4,4 +4,4 @@ export * from './navigation-marker';
 export * from './navigation-section';
 export * from './navigation-button';
 export * from './navigation-link';
-export * from './common/navigation-action-common';
+export * from './common';

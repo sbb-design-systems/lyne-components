@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-toast renders Chrome-Safari Dom"] = 
+snapshots["sbb-toast renders Chrome-Safari Dom"] =
 `<sbb-toast
   data-slot-names="unnamed"
   data-state="closed"
@@ -21,12 +21,7 @@ snapshots["sbb-toast renders Chrome-Safari ShadowDom"] =
   <div class="sbb-toast">
     <div class="sbb-toast__icon">
       <slot name="icon">
-        <sbb-icon
-          aria-hidden="true"
-          data-namespace="default"
-          name="circle-tick-small"
-          role="img"
-        >
+        <sbb-icon name="circle-tick-small">
         </sbb-icon>
       </slot>
     </div>
@@ -59,7 +54,7 @@ snapshots["sbb-toast renders Chrome-Safari ShadowDom"] =
 `;
 /* end snapshot sbb-toast renders Chrome-Safari ShadowDom */
 
-snapshots["sbb-toast renders A11y tree Chrome"] = 
+snapshots["sbb-toast renders A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -92,12 +87,7 @@ snapshots["sbb-toast renders Firefox ShadowDom"] =
   >
     <div class="sbb-toast__icon">
       <slot name="icon">
-        <sbb-icon
-          aria-hidden="true"
-          data-namespace="default"
-          name="circle-tick-small"
-          role="img"
-        >
+        <sbb-icon name="circle-tick-small">
         </sbb-icon>
       </slot>
     </div>

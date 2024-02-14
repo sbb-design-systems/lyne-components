@@ -26,12 +26,7 @@ snapshots["sbb-tab-title renders correctly an H2 heading tag"] =
   <h2 class="sbb-tab-title">
     <span class="sbb-tab-title__icon">
       <slot name="icon">
-        <sbb-icon
-          aria-hidden="true"
-          data-namespace="default"
-          name="pie-small"
-          role="img"
-        >
+        <sbb-icon name="pie-small">
         </sbb-icon>
       </slot>
     </span>
@@ -69,7 +64,7 @@ snapshots["sbb-tab-title renders an H1 heading tag if the provided level is grea
 `;
 /* end snapshot sbb-tab-title renders an H1 heading tag if the provided level is greater than 6 */
 
-snapshots["sbb-tab-title A11y tree Chrome"] = 
+snapshots["sbb-tab-title A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",

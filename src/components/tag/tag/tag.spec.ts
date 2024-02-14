@@ -68,7 +68,7 @@ describe('sbb-tag', () => {
     expect(root).dom.to.be.equal(
       `
         <sbb-tag value="foo" aria-pressed="false" role="button" tabindex="0" dir="ltr" data-slot-names="amount icon unnamed">
-          <sbb-icon slot="icon" name="cross-small" aria-hidden="true" data-namespace="default" role="img">
+          <sbb-icon slot="icon" name="cross-small">
           </sbb-icon>
           Info
           <span slot="amount">123</span>

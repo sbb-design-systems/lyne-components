@@ -41,12 +41,7 @@ snapshots["sbb-tag renders disabled with icon and amount"] =
 `<span class="sbb-tag">
   <span class="sbb-tag--shift sbb-tag__icon">
     <slot name="icon">
-      <sbb-icon
-        aria-hidden="true"
-        data-namespace="default"
-        name="circle-information-small"
-        role="img"
-      >
+      <sbb-icon name="circle-information-small">
       </sbb-icon>
     </slot>
   </span>
@@ -81,7 +76,7 @@ snapshots["sbb-tag renders slotted icon and amount"] =
 `;
 /* end snapshot sbb-tag renders slotted icon and amount */
 
-snapshots["sbb-tag A11y tree Chrome"] = 
+snapshots["sbb-tag A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",

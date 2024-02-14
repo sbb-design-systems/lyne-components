@@ -51,12 +51,7 @@ describe('sbb-menu-button', () => {
         <span class="sbb-menu-action__content">
           <span class="sbb-menu-action__icon">
             <slot name="icon">
-              <sbb-icon
-                  aria-hidden="true"
-                  data-namespace="default"
-                  name="menu-small"
-                  role="img"
-                >
+              <sbb-icon name="menu-small">
               </sbb-icon>
             </slot>
           </span>

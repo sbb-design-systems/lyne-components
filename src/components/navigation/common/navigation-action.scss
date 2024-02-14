@@ -32,8 +32,7 @@
   }
 }
 
-.sbb-navigation-button,
-.sbb-navigation-link {
+:is(.sbb-navigation-button, .sbb-navigation-link) {
   @include sbb.title-4($exclude-spacing: true);
 
   cursor: pointer;

@@ -1,7 +1,6 @@
 import { customElement } from 'lit/decorators.js';
 
 import { SbbLinkBaseElement } from '../../core/common-behaviors';
-import '../../icon';
 import { SbbMenuActionCommonElementMixin } from '../common/menu-action-common';
 
 /**

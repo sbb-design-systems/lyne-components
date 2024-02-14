@@ -5,7 +5,6 @@ import { customElement, property } from 'lit/decorators.js';
 import { NamedSlotStateController, SbbIconNameMixin } from '../../core/common-behaviors';
 import { setAttribute } from '../../core/dom';
 import { ConnectedAbortController, EventEmitter } from '../../core/eventing';
-import '../../icon';
 import type { SbbToggleElement, SbbToggleStateChange } from '../toggle';
 
 import style from './toggle-option.scss?lit&inline';

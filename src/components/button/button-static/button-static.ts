@@ -2,7 +2,6 @@ import { customElement } from 'lit/decorators.js';
 
 import { SbbActionBaseElement, SbbDisabledMixin } from '../../core/common-behaviors';
 import { SbbButtonCommonElementMixin } from '../common/button-common';
-import '../../icon';
 
 /**
  * It displays a static button enhanced with the SBB Design.

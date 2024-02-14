@@ -43,8 +43,7 @@
   }
 }
 
-.sbb-menu-button,
-.sbb-menu-link {
+:is(.sbb-menu-button, .sbb-menu-link) {
   text-decoration: none;
   display: block;
   width: 100%;

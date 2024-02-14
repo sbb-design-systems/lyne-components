@@ -20,12 +20,7 @@ snapshots["sbb-toggle-check renders sbb-toggle-check"] =
       <span class="sbb-toggle-check__circle">
         <span class="sbb-toggle-check__icon">
           <slot name="icon">
-            <sbb-icon
-              aria-hidden="true"
-              data-namespace="default"
-              name="tick-small"
-              role="img"
-            >
+            <sbb-icon name="tick-small">
             </sbb-icon>
           </slot>
         </span>
@@ -52,12 +47,7 @@ snapshots["sbb-toggle-check label position renders label before toggle"] =
       <span class="sbb-toggle-check__circle">
         <span class="sbb-toggle-check__icon">
           <slot name="icon">
-            <sbb-icon
-              aria-hidden="true"
-              data-namespace="default"
-              name="tick-small"
-              role="img"
-            >
+            <sbb-icon name="tick-small">
             </sbb-icon>
           </slot>
         </span>
@@ -88,12 +78,7 @@ snapshots["sbb-toggle-check states checked state renders toggle in checked state
       <span class="sbb-toggle-check__circle">
         <span class="sbb-toggle-check__icon">
           <slot name="icon">
-            <sbb-icon
-              aria-hidden="true"
-              data-namespace="default"
-              name="tick-small"
-              role="img"
-            >
+            <sbb-icon name="tick-small">
             </sbb-icon>
           </slot>
         </span>
@@ -124,12 +109,7 @@ snapshots["sbb-toggle-check states disabled state renders toggle in disabled sta
       <span class="sbb-toggle-check__circle">
         <span class="sbb-toggle-check__icon">
           <slot name="icon">
-            <sbb-icon
-              aria-hidden="true"
-              data-namespace="default"
-              name="tick-small"
-              role="img"
-            >
+            <sbb-icon name="tick-small">
             </sbb-icon>
           </slot>
         </span>
@@ -161,12 +141,7 @@ snapshots["sbb-toggle-check states disabled and checked state renders toggle in 
       <span class="sbb-toggle-check__circle">
         <span class="sbb-toggle-check__icon">
           <slot name="icon">
-            <sbb-icon
-              aria-hidden="true"
-              data-namespace="default"
-              name="tick-small"
-              role="img"
-            >
+            <sbb-icon name="tick-small">
             </sbb-icon>
           </slot>
         </span>
@@ -177,7 +152,7 @@ snapshots["sbb-toggle-check states disabled and checked state renders toggle in 
 `;
 /* end snapshot sbb-toggle-check states disabled and checked state renders toggle in disabled and checked state */
 
-snapshots["sbb-toggle-check A11y tree Chrome"] = 
+snapshots["sbb-toggle-check A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",

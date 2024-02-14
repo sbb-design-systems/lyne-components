@@ -18,8 +18,6 @@ import type { SbbTagGroupElement } from '../tag-group';
 
 import style from './tag.scss?lit&inline';
 
-import '../../icon';
-
 export type SbbTagStateChange = Extract<
   SbbStateChange,
   SbbValueStateChange | SbbCheckedStateChange

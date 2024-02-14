@@ -46,12 +46,7 @@ snapshots["sbb-checkbox icon position start"] =
         </slot>
         <span class="sbb-checkbox__label--icon">
           <slot name="icon">
-            <sbb-icon
-              aria-hidden="true"
-              data-namespace="default"
-              name="tickets-class-small"
-              role="img"
-            >
+            <sbb-icon name="tickets-class-small">
             </sbb-icon>
           </slot>
         </span>
@@ -172,7 +167,7 @@ snapshots["sbb-checkbox state unchecked disabled"] =
 `;
 /* end snapshot sbb-checkbox state unchecked disabled */
 
-snapshots["sbb-checkbox Unchecked - A11y tree Chrome"] = 
+snapshots["sbb-checkbox Unchecked - A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -189,7 +184,7 @@ snapshots["sbb-checkbox Unchecked - A11y tree Chrome"] =
 `;
 /* end snapshot sbb-checkbox Unchecked - A11y tree Chrome */
 
-snapshots["sbb-checkbox Checked - A11y tree Chrome"] = 
+snapshots["sbb-checkbox Checked - A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
