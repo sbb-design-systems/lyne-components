@@ -14,7 +14,7 @@
 
 .sbb-container {
   background-color: var(--sbb-container-background-color, transparent);
-  contain: layout;
+  overflow: auto;
 
   :host(:not([expanded])) & {
     @include sbb.page-spacing;
