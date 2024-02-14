@@ -139,7 +139,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-button-static',
+  title: 'components/sbb-button/sbb-button-static',
 };
 
 export default meta;

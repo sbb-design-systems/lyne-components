@@ -74,7 +74,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-link-static',
+  title: 'components/sbb-link/sbb-link-static',
 };
 
 export default meta;
