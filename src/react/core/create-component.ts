@@ -266,6 +266,7 @@ export const createComponent = <I extends HTMLElement, E extends EventNames = {}
         // React does *not* handle `className` for custom elements so
         // coerce it to `class` so it's handled correctly.
         reactProps[k === 'className' ? 'class' : k] = v;
+        continue;
       } else if (eventProps.has(k) || k in elementClass.prototype) {
         const elementProperty = elementProperties?.get(k);
         const toAttribute = (elementProperty?.converter as ComplexAttributeConverter)?.toAttribute;
