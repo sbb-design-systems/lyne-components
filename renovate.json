@@ -39,7 +39,8 @@
     },
     {
       "groupName": "commitlint",
-      "matchPackagePrefixes": ["@commitlint/", "standard-version"]
+      "matchPackagePrefixes": ["@commitlint/", "standard-version"],
+      "enabled": false
     },
     {
       "groupName": "stylelint",
