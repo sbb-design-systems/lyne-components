@@ -127,7 +127,7 @@ jobs:
       - name: Debug test
         run: echo "Number ${lenght}, data ${data}"
         env:
-          data: ${{ toJSON(steps.get_issue_number.outputs.data[0]) }}
+          data: ${{ toJSON(steps.get_issue_number.outputs) }}
           lenght: ${{steps.get_issue_number.outputs.data.lenght}}
 
   chromatic:
