@@ -20,6 +20,10 @@
       var(--sbb-map-container-map-height-small) + var(--sbb-map-container-border-radius)
     );
   }
+
+  @include sbb.mq($from: wide) {
+    --sbb-map-container-sidebar-width: #{sbb.px-to-rem-build(480)};
+  }
 }
 
 .sbb-map-container {
