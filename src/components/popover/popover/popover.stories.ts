@@ -27,11 +27,11 @@ async function commonPlayStory(canvasElement: HTMLElement): Promise<Element> {
   const canvas = within(canvasElement);
 
   await customElements.whenDefined('sbb-link');
-  await customElements.whenDefined('sbb-title');
-  await customElements.whenDefined('sbb-popover-trigger');
   await customElements.whenDefined('sbb-popover');
+  await customElements.whenDefined('sbb-popover-trigger');
+  await customElements.whenDefined('sbb-title');
 
-  await waitForStablePosition(() => canvas.getByTestId('popover-trigger'));
+  await waitForStablePosition(() => canvas.getByTestId('popover-trigger'), 8000);
 
   return canvas.getByTestId('popover-trigger');
 }
