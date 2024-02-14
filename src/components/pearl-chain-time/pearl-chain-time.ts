@@ -9,6 +9,7 @@ import { i18nDeparture, i18nArrival, i18nTransferProcedures } from '../core/i18n
 import type { Leg, PtRideLeg } from '../core/timetable';
 import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable';
 import '../pearl-chain';
+import '../screenreader-only';
 
 import style from './pearl-chain-time.scss?lit&inline';
 
@@ -83,7 +84,7 @@ export class SbbPearlChainTimeElement extends LitElement {
             </time>`
           : nothing}
         ${rideLegs?.length > 1
-          ? html`<span class="sbb-screenreaderonly">
+          ? html`<span class="sbb-screenreaderonly" role="paragraph">
               ${rideLegs?.length - 1} ${i18nTransferProcedures[this._language.current]}
             </span>`
           : nothing}
