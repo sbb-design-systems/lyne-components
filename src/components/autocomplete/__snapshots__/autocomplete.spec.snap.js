@@ -34,6 +34,42 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox Dom"] =
 `;
 /* end snapshot sbb-autocomplete renders standalone Chrome-Firefox Dom */
 
+snapshots["sbb-autocomplete renders standalone Chrome-Firefox ShadowDom"] = 
+`<div class="sbb-autocomplete__gap-fix">
+</div>
+<div class="sbb-autocomplete__container">
+  <div class="sbb-autocomplete__gap-fix">
+    <div class="sbb-gap-fix-wrapper">
+      <div
+        class="sbb-gap-fix-corner"
+        id="left"
+      >
+      </div>
+    </div>
+    <div class="sbb-gap-fix-wrapper">
+      <div
+        class="sbb-gap-fix-corner"
+        id="right"
+      >
+      </div>
+    </div>
+  </div>
+  <div class="sbb-autocomplete__panel">
+    <div class="sbb-autocomplete__wrapper">
+      <div
+        class="sbb-autocomplete__options"
+        id="sbb-autocomplete-2"
+        role="listbox"
+      >
+        <slot>
+        </slot>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+/* end snapshot sbb-autocomplete renders standalone Chrome-Firefox ShadowDom */
+
 snapshots["sbb-autocomplete renders in form field Chrome-Firefox Dom"] = 
 `<sbb-form-field
   data-input-empty=""
@@ -140,42 +176,6 @@ snapshots["sbb-autocomplete renders in form field A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-autocomplete renders in form field A11y tree Chrome */
-
-snapshots["sbb-autocomplete renders standalone Chrome-Firefox ShadowDom"] = 
-`<div class="sbb-autocomplete__gap-fix">
-</div>
-<div class="sbb-autocomplete__container">
-  <div class="sbb-autocomplete__gap-fix">
-    <div class="sbb-gap-fix-wrapper">
-      <div
-        class="sbb-gap-fix-corner"
-        id="left"
-      >
-      </div>
-    </div>
-    <div class="sbb-gap-fix-wrapper">
-      <div
-        class="sbb-gap-fix-corner"
-        id="right"
-      >
-      </div>
-    </div>
-  </div>
-  <div class="sbb-autocomplete__panel">
-    <div class="sbb-autocomplete__wrapper">
-      <div
-        class="sbb-autocomplete__options"
-        id="sbb-autocomplete-2"
-        role="listbox"
-      >
-        <slot>
-        </slot>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-/* end snapshot sbb-autocomplete renders standalone Chrome-Firefox ShadowDom */
 
 snapshots["sbb-autocomplete renders in form field A11y tree Firefox"] = 
 `<p>
