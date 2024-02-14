@@ -83,7 +83,7 @@ export class SbbPearlChainTimeElement extends LitElement {
             </time>`
           : nothing}
         ${rideLegs?.length > 1
-          ? html`<span class="sbb-screenreaderonly">
+          ? html`<span class="sbb-screenreaderonly" role="paragraph">
               ${rideLegs?.length - 1} ${i18nTransferProcedures[this._language.current]}
             </span>`
           : nothing}
