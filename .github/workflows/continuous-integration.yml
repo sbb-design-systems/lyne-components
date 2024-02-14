@@ -81,10 +81,22 @@ jobs:
           name: storybook
           path: dist/storybook/
 
+  chromatic-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jwalton/gh-find-current-pr@master
+        id: findPr
+      # This will echo "Your PR is 7", or be skipped if there is no current PR.
+      - run: echo "Your PR is ${PR}"
+        if: success() && steps.findPr.outputs.number
+        env:
+          PR: ${{ steps.findPr.outputs.pr }}
+
   chromatic:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
-    needs: [build, lint, test]
+    needs: [build, lint, test, chromatic-test]
     steps:
       - uses: actions/checkout@v4
         with:
