@@ -19,6 +19,7 @@ The `sbb-container` content is provided via an unnamed slot.
 By default `sbb-container` uses the `page spacing` defined in the [layout documentation](/docs/styles-layout--docs). Optionally the user can use the `expanded` property (default: `false`) to switch to the `page spacing expanded` layout.
 Spacing options are applied to all of the container's content, including the `sbb-sticky-bar`.
 The component has also four color variants that can be set using the `color` property (default: `white`).
+Since applying padding directly to the host is not a reliable way to style the component the css variable `--sbb-container-padding` can be overwritten to apply a padding to container's content.
 
 ```html
 <sbb-container expanded variant="milk"> ... </sbb-container>
