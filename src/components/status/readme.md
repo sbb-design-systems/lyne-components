@@ -25,6 +25,11 @@ The `sbb-status` supports four types: `info` (default), `success`, `warn` and `e
 <sbb-status type="error">...</sbb-status>
 ```
 
+## Icon
+
+The icon is primarily predefined and bound to the status.
+However, it's possible to override this by using `iconName` property or `icon` slot.
+
 ## Style
 
 The `sbb-status` use default message colors, based on the chosen `type`.
@@ -44,11 +49,12 @@ If needed, the `role="status"` attribute can be added on the component's tag.
 
 ## Properties
 
-| Name           | Attribute       | Privacy | Type                  | Default  | Description                                                                        |
-| -------------- | --------------- | ------- | --------------------- | -------- | ---------------------------------------------------------------------------------- |
-| `type`         | `type`          | public  | `SbbStatusType`       | `'info'` | The type of the status.                                                            |
-| `titleContent` | `title-content` | public  | `string \| undefined` |          | Content of title.                                                                  |
-| `titleLevel`   | `title-level`   | public  | `TitleLevel`          | `'3'`    | Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3. |
+| Name           | Attribute       | Privacy | Type                  | Default  | Description                                                                                                                                                                                               |
+| -------------- | --------------- | ------- | --------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`         | `type`          | public  | `SbbStatusType`       | `'info'` | The type of the status.                                                                                                                                                                                   |
+| `iconName`     | `icon-name`     | public  | `string \| undefined` |          | If iconName is set, it overrides default ones which are bound to status. The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `titleContent` | `title-content` | public  | `string \| undefined` |          | Content of title.                                                                                                                                                                                         |
+| `titleLevel`   | `title-level`   | public  | `TitleLevel`          | `'3'`    | Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3.                                                                                                                        |
 
 ## Slots
 
@@ -56,3 +62,4 @@ If needed, the `role="status"` attribute can be added on the component's tag.
 | ------- | ---------------------------------------------------------- |
 |         | Use the unnamed slot to add content to the status message. |
 | `title` | Use this to provide a title for the status (optional).     |
+| `icon`  | Use this slot to override the default status icon.         |
