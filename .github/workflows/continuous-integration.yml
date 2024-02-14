@@ -83,24 +83,27 @@ jobs:
 
   is-pr-open:
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'
     needs: [build, lint, test]
     outputs:
-      isPR: ${{!!steps.findPr.outputs.number}}
+      is-PR: ${{ !!steps.findPr.outputs.number }}
+      is-draft: ${{ !!steps.findPr.outputs.draft }}
+      PR-title: ${{ steps.findPr.outputs.title }}
     steps:
       - uses: actions/checkout@v4
       - uses: jwalton/gh-find-current-pr@master
         id: findPr
-      # This will echo "Your PR is 7", or be skipped if there is no current PR.
-      - run: echo "Your PR is ${PR}, numenr ${PR-number}, json ${data}"
+      - run: echo "Your PR is ${PR}, title '${PR-title}', draft ${is-draft}"
         if: success() && steps.findPr.outputs.number
         env:
           PR: ${{ steps.findPr.outputs.pr }}
-          PR-number: ${{ steps.findPr.outputs.number }}
-          data: ${{ toJSON(steps.findPr.outputs) }}
+          is-draft: ${{ !!steps.findPr.outputs.draft }}
+          PR-title: ${{ steps.findPr.outputs.title }}
 
   chromatic:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && needs.is-pr-open.outputs.isPR
+    # could also exclude drafts and pr that contains "WIP" in the title
+    if: github.event_name == 'push' && needs.is-pr-open.outputs.is-PR
     needs: [is-pr-open]
     steps:
       - uses: actions/checkout@v4
