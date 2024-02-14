@@ -110,6 +110,11 @@
   border-radius: 0;
 }
 
+// full radius
+.image__figure--round .image__wrapper {
+  border-radius: var(--sbb-border-radius-infinity);
+}
+
 // Variant: Hero Teaser
 .image__figure--teaser-hero .image__wrapper {
   aspect-ratio: 1 / 1;
