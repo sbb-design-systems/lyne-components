@@ -85,9 +85,9 @@ jobs:
           name: storybook
           path: dist/storybook/
 
-  is-pr-open:
+  is-pr-open-test:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    if: false
     needs: [build, lint, test]
     outputs:
       is-PR: ${{ !!steps.findPr.outputs.number }}
@@ -104,6 +104,32 @@ jobs:
           is-draft: ${{ !!steps.findPr.outputs.draft }}
           PR-title: ${{ steps.findPr.outputs.title }}
           data: ${{ toJSON(steps.findPr.outputs) }}
+
+  is-pr-open:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    needs: [build, lint, test]
+    outputs:
+      is-PR: ${{ !!steps.get_issue_number.outputs.data[0].number }}
+      #is-draft: ${{ !!steps.findPr.outputs.draft }}
+      #PR-title: ${{ steps.findPr.outputs.title }}
+    steps:
+      - uses: actions/github-script@v6
+        id: get_issue_number
+        with:
+          script: |
+            return (
+              await github.rest.repos.listPullRequestsAssociatedWithCommit({
+                commit_sha: context.sha,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+              })
+            ).data[0].number;
+          result-encoding: string
+      - name: Debug test
+        run: echo 'Number ${{steps.get_issue_number.outputs.data[0].lenght}}, data ${data}'
+        env:
+          data: ${{ toJSON(steps.get_issue_number.outputs.data[0]) }}
 
   chromatic:
     runs-on: ubuntu-latest
