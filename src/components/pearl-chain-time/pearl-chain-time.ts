@@ -9,7 +9,6 @@ import { i18nDeparture, i18nArrival, i18nTransferProcedures } from '../core/i18n
 import type { Leg, PtRideLeg } from '../core/timetable';
 import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable';
 import '../pearl-chain';
-import '../screenreader-only';
 
 import style from './pearl-chain-time.scss?lit&inline';
 
