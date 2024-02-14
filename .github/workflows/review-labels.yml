@@ -60,7 +60,7 @@ jobs:
 
   approved:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request_review' && github.event.review.state == 'approved'
+    if: github.event_name == 'pull_request_review' && github.event.review.state == 'APPROVED'
     steps:
       - name: Resolve team membership
         id: team
