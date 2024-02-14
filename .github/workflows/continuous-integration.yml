@@ -125,9 +125,10 @@ jobs:
             ).data[0].number;
           result-encoding: string
       - name: Debug test
-        run: echo 'Number ${{steps.get_issue_number.outputs.data[0].lenght}}, data ${data}'
+        run: echo "Number ${lenght}, data ${data}"
         env:
           data: ${{ toJSON(steps.get_issue_number.outputs.data[0]) }}
+          lenght: ${{steps.get_issue_number.outputs.data[0].lenght}}
 
   chromatic:
     runs-on: ubuntu-latest
