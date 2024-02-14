@@ -14,7 +14,9 @@
 
 .sbb-container {
   background-color: var(--sbb-container-background-color, transparent);
-  contain: layout;
+
+  // We use overflow here to support slotted element with a margin-block-start. Otherwise the margin will get applied outside the container.
+  overflow: auto;
 
   :host(:not([expanded])) & {
     @include sbb.page-spacing;
