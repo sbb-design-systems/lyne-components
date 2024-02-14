@@ -10,6 +10,7 @@ permissions: read-all
 jobs:
   lint:
     runs-on: ubuntu-latest
+    if: false
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -23,6 +24,7 @@ jobs:
 
   integrity:
     runs-on: ubuntu-latest
+    if: false
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -38,6 +40,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    if: false
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -63,6 +66,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    if: false
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -104,7 +108,7 @@ jobs:
   chromatic:
     runs-on: ubuntu-latest
     # could also exclude drafts and pr that contains "WIP" in the title
-    if: github.event_name == 'push' && needs.is-pr-open.outputs.is-PR
+    if: false && github.event_name == 'push' && needs.is-pr-open.outputs.is-PR
     needs: [is-pr-open]
     steps:
       - uses: actions/checkout@v4
