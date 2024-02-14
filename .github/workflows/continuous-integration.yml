@@ -93,12 +93,13 @@ jobs:
       - uses: actions/checkout@v4
       - uses: jwalton/gh-find-current-pr@master
         id: findPr
-      - run: echo "Your PR is ${PR}, title '${PR-title}', draft ${is-draft}"
+      - run: echo "Your PR is ${PR}, title '${PR-title}', draft ${is-draft}, json ${data}"
         if: success() && steps.findPr.outputs.number
         env:
           PR: ${{ steps.findPr.outputs.pr }}
           is-draft: ${{ !!steps.findPr.outputs.draft }}
           PR-title: ${{ steps.findPr.outputs.title }}
+          data: ${{ toJSON(steps.findPr.outputs) }}
 
   chromatic:
     runs-on: ubuntu-latest
