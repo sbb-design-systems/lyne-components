@@ -177,57 +177,6 @@ snapshots["sbb-teaser renders below with projected content - ShadowDOM"] =
 `;
 /* end snapshot sbb-teaser renders below with projected content - ShadowDOM */
 
-snapshots["sbb-teaser renders static - DOM"] = 
-`<sbb-teaser
-  alignment="after-centered"
-  dir="ltr"
-  role="link"
-  tabindex="0"
->
-</sbb-teaser>
-`;
-/* end snapshot sbb-teaser renders static - DOM */
-
-snapshots["sbb-teaser renders static - ShadowDOM"] = 
-`<a
-  class="sbb-teaser"
-  role="presentation"
-  tabindex="-1"
->
-  <span class="sbb-teaser__container">
-    <span class="sbb-teaser__image-wrapper">
-      <slot name="image">
-      </slot>
-    </span>
-    <span class="sbb-teaser__text">
-      <sbb-chip
-        class="sbb-teaser__chip"
-        color="charcoal"
-        size="xxs"
-      >
-        <slot name="chip">
-        </slot>
-      </sbb-chip>
-      <sbb-title
-        aria-level="5"
-        class="sbb-teaser__lead"
-        level="5"
-        role="heading"
-        visual-level="5"
-      >
-        <slot name="title">
-        </slot>
-      </sbb-title>
-      <span class="sbb-teaser__description">
-        <slot>
-        </slot>
-      </span>
-    </span>
-  </span>
-</a>
-`;
-/* end snapshot sbb-teaser renders static - ShadowDOM */
-
 snapshots["sbb-teaser A11y tree Chrome"] = 
 `<p>
   {

@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-breadcrumb renders with text"] =
+snapshots["sbb-breadcrumb renders with text"] = 
 `<a
   class="sbb-breadcrumb"
   download=""
@@ -24,7 +24,7 @@ snapshots["sbb-breadcrumb renders with text"] =
 `;
 /* end snapshot sbb-breadcrumb renders with text */
 
-snapshots["sbb-breadcrumb renders with icon"] =
+snapshots["sbb-breadcrumb renders with icon"] = 
 `<a
   class="sbb-breadcrumb"
   href="/"
@@ -52,7 +52,7 @@ snapshots["sbb-breadcrumb renders with icon"] =
 `;
 /* end snapshot sbb-breadcrumb renders with icon */
 
-snapshots["sbb-breadcrumb renders with icon and text"] =
+snapshots["sbb-breadcrumb renders with icon and text"] = 
 `<a
   class="sbb-breadcrumb"
   href="/"
@@ -76,18 +76,6 @@ snapshots["sbb-breadcrumb renders with icon and text"] =
 </a>
 `;
 /* end snapshot sbb-breadcrumb renders with icon and text */
-
-snapshots["sbb-breadcrumb renders as span if no href is provided"] =
-`<span class="sbb-breadcrumb">
-  <slot name="icon">
-  </slot>
-  <span class="sbb-breadcrumb__label">
-    <slot>
-    </slot>
-  </span>
-</span>
-`;
-/* end snapshot sbb-breadcrumb renders as span if no href is provided */
 
 snapshots["sbb-breadcrumb A11y tree Chrome"] = 
 `<p>

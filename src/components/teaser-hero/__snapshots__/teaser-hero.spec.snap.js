@@ -1,25 +1,6 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-teaser-hero should render without link"] = 
-`<span class="sbb-teaser-hero">
-  <span class="sbb-teaser-hero__panel">
-    <p class="sbb-teaser-hero__panel-text">
-      <slot>
-      </slot>
-    </p>
-  </span>
-  <slot name="image">
-    <sbb-image
-      alt="SBB CFF FFS Employee"
-      image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Hoehenrundweg-Gryden-Lenk.jpg"
-    >
-    </sbb-image>
-  </slot>
-</span>
-`;
-/* end snapshot sbb-teaser-hero should render without link */
-
 snapshots["sbb-teaser-hero should render with slots"] = 
 `<a
   class="sbb-teaser-hero"
@@ -147,7 +128,7 @@ snapshots["sbb-teaser-hero should render all properties A11y tree Firefox"] =
       "children": [
         {
           "role": "link",
-          "name": "Break out and explore castles and palaces. Find out more . Link target opens in new window.",
+          "name": "Break out and explore castles and palaces. Find out more . Link target opens in a new window.",
           "value": "https://www.sbb.ch/"
         }
       ]
@@ -170,7 +151,7 @@ snapshots["sbb-teaser-hero should render all properties A11y tree Safari"] =
       "children": [
         {
           "role": "link",
-          "name": "Break out and explore castles and palaces. Find out more SBB CFF FFS Employee . Link target opens in new window.",
+          "name": "Break out and explore castles and palaces. Find out more SBB CFF FFS Employee . Link target opens in a new window.",
           "children": [
             {
               "role": "text",
@@ -190,7 +171,7 @@ snapshots["sbb-teaser-hero should render all properties A11y tree Safari"] =
             },
             {
               "role": "text",
-              "name": "Link target opens in new window."
+              "name": "Link target opens in a new window."
             }
           ]
         }
