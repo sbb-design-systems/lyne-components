@@ -1,13 +1,14 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, state } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbLinkBaseElement, SlotChildObserver } from '../../core/common-behaviors';
+import {
+  SbbIconNameMixin,
+  SbbLinkBaseElement,
+  SlotChildObserver,
+} from '../../core/common-behaviors';
 
 import style from './breadcrumb.scss?lit&inline';
-
-import '../../icon';
 
 /**
  * It displays a link to a page; used within a `sbb-breadcrumb-group` it can display the path to the current page.
@@ -16,15 +17,8 @@ import '../../icon';
  * @slot icon - Use this to display an icon as breadcrumb.
  */
 @customElement('sbb-breadcrumb')
-export class SbbBreadcrumbElement extends SlotChildObserver(SbbLinkBaseElement) {
+export class SbbBreadcrumbElement extends SlotChildObserver(SbbIconNameMixin(SbbLinkBaseElement)) {
   public static override styles: CSSResultGroup = style;
-
-  /**
-   * The icon name we want to use, choose from the small icon variants
-   * from the ui-icons category from here
-   * https://icons.app.sbb.ch.
-   */
-  @property({ attribute: 'icon-name' }) public iconName?: string;
 
   @state() private _hasText = false;
 
@@ -36,11 +30,7 @@ export class SbbBreadcrumbElement extends SlotChildObserver(SbbLinkBaseElement) 
 
   protected override renderTemplate(): TemplateResult {
     return html`
-      <slot name="icon">
-        ${this.iconName
-          ? html`<sbb-icon name="${this.iconName}" class="sbb-breadcrumb__icon"></sbb-icon>`
-          : nothing}
-      </slot>
+      ${this.renderIconSlot('sbb-breadcrumb__icon')}
       <span class="sbb-breadcrumb__label" ?hidden=${!this._hasText}>
         <slot></slot>
       </span>

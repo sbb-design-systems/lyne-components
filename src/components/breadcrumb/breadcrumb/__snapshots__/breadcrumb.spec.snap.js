@@ -33,11 +33,8 @@ snapshots["sbb-breadcrumb renders with icon"] =
 >
   <slot name="icon">
     <sbb-icon
-      aria-hidden="true"
       class="sbb-breadcrumb__icon"
-      data-namespace="default"
       name="house-small"
-      role="img"
     >
     </sbb-icon>
   </slot>
@@ -61,11 +58,8 @@ snapshots["sbb-breadcrumb renders with icon and text"] =
 >
   <slot name="icon">
     <sbb-icon
-      aria-hidden="true"
       class="sbb-breadcrumb__icon"
-      data-namespace="default"
       name="house-small"
-      role="img"
     >
     </sbb-icon>
   </slot>
@@ -77,7 +71,7 @@ snapshots["sbb-breadcrumb renders with icon and text"] =
 `;
 /* end snapshot sbb-breadcrumb renders with icon and text */
 
-snapshots["sbb-breadcrumb A11y tree Chrome"] = 
+snapshots["sbb-breadcrumb A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",

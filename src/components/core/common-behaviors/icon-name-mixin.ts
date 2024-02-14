@@ -5,7 +5,7 @@ import type { AbstractConstructor } from './constructor';
 
 export declare class SbbIconNameMixinType {
   public iconName?: string;
-  protected renderIconSlot(): TemplateResult;
+  protected renderIconSlot(classname?: string): TemplateResult;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -20,10 +20,12 @@ export const SbbIconNameMixin = <T extends AbstractConstructor<LitElement>>(
      */
     @property({ attribute: 'icon-name', reflect: true }) public iconName?: string;
 
-    protected renderIconSlot(): TemplateResult {
+    protected renderIconSlot(classname?: string): TemplateResult {
       return html`
         <slot name="icon">
-          ${this.iconName ? html`<sbb-icon name="${this.iconName}"></sbb-icon>` : nothing}
+          ${this.iconName
+            ? html`<sbb-icon name="${this.iconName}" class=${classname || nothing}></sbb-icon>`
+            : nothing}
         </slot>
       `;
     }
