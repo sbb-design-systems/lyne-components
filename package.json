@@ -45,7 +45,7 @@
     "start": "storybook dev -p 6006",
     "test": "wtr --coverage --group default",
     "test:spec": "wtr --group spec",
-    "test:snapshot": "yarn test --update-snapshots",
+    "test:snapshot": "yarn test --ci --update-snapshots",
     "test:e2e": "wtr --group e2e",
     "prepare": "husky install"
   },
