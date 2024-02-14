@@ -91,11 +91,12 @@ jobs:
       - uses: jwalton/gh-find-current-pr@master
         id: findPr
       # This will echo "Your PR is 7", or be skipped if there is no current PR.
-      - run: echo "Your PR is ${PR}, numenr ${PR-number}, json ${toJson(steps.findPr.outputs)}"
+      - run: echo "Your PR is ${PR}, numenr ${PR-number}, json ${data}"
         if: success() && steps.findPr.outputs.number
         env:
           PR: ${{ steps.findPr.outputs.pr }}
           PR-number: ${{ steps.findPr.outputs.number }}
+          data: ${{ toJSON(steps.findPr.outputs) }}
 
   chromatic:
     runs-on: ubuntu-latest
