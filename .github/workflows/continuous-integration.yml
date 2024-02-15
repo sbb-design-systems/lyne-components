@@ -110,16 +110,27 @@ jobs:
               state: pr.state
             } : null;
       - name: Log
-        run: echo "Number ${number}, isDraft ${isDraft}, title ${title}, data ${data}"
+        run: echo "Number ${number}, isDraft ${isDraft}, title '${title}', data ${data}"
         env:
           data: ${{ steps.get_issue_number.outputs.result }}
           number: ${{ fromJson(steps.get_issue_number.outputs.result).number }}
           title: ${{ fromJson(steps.get_issue_number.outputs.result).title }}
           isDraft: ${{ fromJson(steps.get_issue_number.outputs.result).draft }}
 
+  debug-test:
+    runs-on: ubuntu-latest
+    needs: [is-pr-open]
+    steps:
+      - name: Debug test
+        run: echo "Is PR ${isPR}, isDraft ${isDraft}, title ${title}"
+        env:
+          isPR: ${{ needs.is-pr-open.outputs.is-PR }}
+          title: ${{ needs.is-pr-open.outputs.title }}
+          isDraft: ${{ needs.is-pr-open.outputs.is-draft }}
+
   chromatic:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && needs.is-pr-open.outputs.is-PR && !needs.is-pr-open.outputs.is-draft
+    if: false && github.event_name == 'push' && needs.is-pr-open.outputs.is-PR && !needs.is-pr-open.outputs.is-draft
     needs: [is-pr-open]
     steps:
       - name: Debug test
