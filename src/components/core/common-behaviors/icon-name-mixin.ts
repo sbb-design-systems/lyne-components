@@ -3,6 +3,8 @@ import { property } from 'lit/decorators.js';
 
 import type { AbstractConstructor } from './constructor';
 
+import '../../icon';
+
 export declare class SbbIconNameMixinType {
   public iconName?: string;
   protected renderIconSlot(classname?: string): TemplateResult;

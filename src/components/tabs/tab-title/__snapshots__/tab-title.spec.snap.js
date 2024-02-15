@@ -26,7 +26,12 @@ snapshots["sbb-tab-title renders correctly an H2 heading tag"] =
   <h2 class="sbb-tab-title">
     <span class="sbb-tab-title__icon">
       <slot name="icon">
-        <sbb-icon name="pie-small">
+        <sbb-icon
+          aria-hidden="true"
+          data-namespace="default"
+          name="pie-small"
+          role="img"
+        >
         </sbb-icon>
       </slot>
     </span>

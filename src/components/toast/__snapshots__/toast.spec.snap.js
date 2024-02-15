@@ -21,7 +21,12 @@ snapshots["sbb-toast renders Chrome-Safari ShadowDom"] =
   <div class="sbb-toast">
     <div class="sbb-toast__icon">
       <slot name="icon">
-        <sbb-icon name="circle-tick-small">
+        <sbb-icon
+          aria-hidden="true"
+          data-namespace="default"
+          name="circle-tick-small"
+          role="img"
+        >
         </sbb-icon>
       </slot>
     </div>
@@ -87,7 +92,12 @@ snapshots["sbb-toast renders Firefox ShadowDom"] =
   >
     <div class="sbb-toast__icon">
       <slot name="icon">
-        <sbb-icon name="circle-tick-small">
+        <sbb-icon
+          aria-hidden="true"
+          data-namespace="default"
+          name="circle-tick-small"
+          role="img"
+        >
         </sbb-icon>
       </slot>
     </div>

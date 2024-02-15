@@ -50,7 +50,7 @@ describe('sbb-checkbox', () => {
       expect(root).dom.to.be.equal(`
         <sbb-checkbox aria-checked="false" aria-disabled="false" aria-required="false" icon-placement="end" role="checkbox" size="s" tabindex="0" data-slot-names="icon unnamed">
           Label
-          <sbb-icon slot="icon" name="tickets-class-small"></sbb-icon>
+          <sbb-icon slot="icon" name="tickets-class-small" aria-hidden="true" data-namespace="default" role="img"></sbb-icon>
         </sbb-checkbox>
       `);
 

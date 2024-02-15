@@ -38,7 +38,13 @@ describe('sbb-link-static', () => {
   it('renders a negative link-static with provided icon', async () => {
     const root = await fixture(
       html` <sbb-link-static icon-placement="end" size="m" negative disabled>
-        <sbb-icon name="chevron-small-right-small" slot="icon"></sbb-icon>
+        <sbb-icon
+          aria-hidden="true"
+          data-namespace="default"
+          name="chevron-small-right-small"
+          role="img"
+          slot="icon"
+        ></sbb-icon>
         Travelcards &amp; tickets.
       </sbb-link-static>`,
     );
@@ -55,7 +61,13 @@ describe('sbb-link-static', () => {
         dir="ltr"
         data-slot-names="icon unnamed"
       >
-        <sbb-icon name="chevron-small-right-small" slot="icon"></sbb-icon>
+        <sbb-icon
+          aria-hidden="true"
+          data-namespace="default"
+          name="chevron-small-right-small"
+          role="img"
+          slot="icon"
+        ></sbb-icon>
         Travelcards &amp; tickets.
       </sbb-link-static>
     `);

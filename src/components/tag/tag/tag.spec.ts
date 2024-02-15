@@ -57,7 +57,14 @@ describe('sbb-tag', () => {
   it('renders slotted icon and amount', async () => {
     const root = await fixture(html`
       <sbb-tag value="foo">
-        <sbb-icon slot="icon" name="cross-small"></sbb-icon>
+        <sbb-icon
+          aria-hidden="true"
+          data-namespace="default"
+          name="cross-small"
+          role="img"
+          slot="icon"
+        >
+        </sbb-icon>
         Info
         <span slot="amount">123</span>
       </sbb-tag>
@@ -68,7 +75,13 @@ describe('sbb-tag', () => {
     expect(root).dom.to.be.equal(
       `
         <sbb-tag value="foo" aria-pressed="false" role="button" tabindex="0" dir="ltr" data-slot-names="amount icon unnamed">
-          <sbb-icon slot="icon" name="cross-small">
+          <sbb-icon
+            aria-hidden="true"
+            data-namespace="default"
+            name="cross-small"
+            role="img"
+            slot="icon"
+          >
           </sbb-icon>
           Info
           <span slot="amount">123</span>

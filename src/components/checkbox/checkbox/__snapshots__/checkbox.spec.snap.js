@@ -46,7 +46,12 @@ snapshots["sbb-checkbox icon position start"] =
         </slot>
         <span class="sbb-checkbox__label--icon">
           <slot name="icon">
-            <sbb-icon name="tickets-class-small">
+            <sbb-icon
+              aria-hidden="true"
+              data-namespace="default"
+              name="tickets-class-small"
+              role="img"
+            >
             </sbb-icon>
           </slot>
         </span>

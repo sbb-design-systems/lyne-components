@@ -81,7 +81,14 @@ describe('sbb-link-button', () => {
         dir="ltr"
         data-slot-names="icon unnamed"
       >
-        <sbb-icon name="chevron-small-right-small" slot="icon"></sbb-icon>
+        <sbb-icon
+          aria-hidden="true"
+          data-namespace="default"
+          name="chevron-small-right-small"
+          role="img"
+          slot="icon"
+        ></sbb-icon>
+
         Travelcards &amp; tickets.
       </sbb-link-button>
     `);

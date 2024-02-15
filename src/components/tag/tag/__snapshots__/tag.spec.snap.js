@@ -41,7 +41,12 @@ snapshots["sbb-tag renders disabled with icon and amount"] =
 `<span class="sbb-tag">
   <span class="sbb-tag--shift sbb-tag__icon">
     <slot name="icon">
-      <sbb-icon name="circle-information-small">
+      <sbb-icon
+        aria-hidden="true"
+        data-namespace="default"
+        name="circle-information-small"
+        role="img"
+      >
       </sbb-icon>
     </slot>
   </span>

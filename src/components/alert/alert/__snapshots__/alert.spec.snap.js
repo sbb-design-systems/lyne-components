@@ -7,7 +7,12 @@ snapshots["sbb-alert should render default properties"] =
     <div class="sbb-alert">
       <span class="sbb-alert__icon">
         <slot name="icon">
-          <sbb-icon name="info">
+          <sbb-icon
+            aria-hidden="true"
+            data-namespace="default"
+            name="info"
+            role="img"
+          >
           </sbb-icon>
         </slot>
       </span>
@@ -63,7 +68,12 @@ snapshots["sbb-alert should render customized properties"] =
     <div class="sbb-alert">
       <span class="sbb-alert__icon">
         <slot name="icon">
-          <sbb-icon name="disruption">
+          <sbb-icon
+            aria-hidden="true"
+            data-namespace="default"
+            name="disruption"
+            role="img"
+          >
           </sbb-icon>
         </slot>
       </span>

@@ -4,7 +4,6 @@ import { html } from 'lit/static-html.js';
 import { waitForLitRender } from '../../core/testing';
 
 import './train';
-import '../../icon';
 
 describe('sbb-train', () => {
   it('should render', async () => {

@@ -33,8 +33,11 @@ snapshots["sbb-breadcrumb renders with icon"] =
 >
   <slot name="icon">
     <sbb-icon
+      aria-hidden="true"
       class="sbb-breadcrumb__icon"
+      data-namespace="default"
       name="house-small"
+      role="img"
     >
     </sbb-icon>
   </slot>
@@ -58,8 +61,11 @@ snapshots["sbb-breadcrumb renders with icon and text"] =
 >
   <slot name="icon">
     <sbb-icon
+      aria-hidden="true"
       class="sbb-breadcrumb__icon"
+      data-namespace="default"
       name="house-small"
+      role="img"
     >
     </sbb-icon>
   </slot>
