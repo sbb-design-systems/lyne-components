@@ -18,9 +18,9 @@ import {
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import { AgnosticMutationObserver } from '../../core/observers';
 
-import style from './option.scss?lit&inline';
 import '../../visual-checkbox';
 import '../../icon';
+import style from './option.scss?lit&inline';
 
 let nextId = 0;
 

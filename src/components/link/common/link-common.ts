@@ -13,6 +13,7 @@ import {
 } from '../../core/common-behaviors';
 import type { SbbIconPlacement } from '../../core/interfaces';
 
+import '../../icon';
 import style from './link.scss?lit&inline';
 
 export type SbbLinkSize = 'xs' | 's' | 'm';

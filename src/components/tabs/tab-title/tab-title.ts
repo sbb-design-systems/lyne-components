@@ -10,6 +10,7 @@ import {
 } from '../../core/common-behaviors';
 import type { TitleLevel } from '../../title';
 
+import '../../icon';
 import style from './tab-title.scss?lit&inline';
 
 /**

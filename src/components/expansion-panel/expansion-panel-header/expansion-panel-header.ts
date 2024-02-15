@@ -12,8 +12,8 @@ import { setAttribute, toggleDatasetEntry } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import { type SbbExpansionPanelElement } from '../expansion-panel';
 
-import style from './expansion-panel-header.scss?lit&inline';
 import '../../icon';
+import style from './expansion-panel-header.scss?lit&inline';
 
 /**
  * It acts as a native `summary` tag for the `sbb-expansion-panel` component.

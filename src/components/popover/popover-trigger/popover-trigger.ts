@@ -11,7 +11,6 @@ import {
 import { hostContext, isValidAttribute, toggleDatasetEntry } from '../../core/dom';
 
 import '../../icon';
-
 import style from './popover-trigger.scss?lit&inline';
 
 /**

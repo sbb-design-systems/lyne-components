@@ -7,6 +7,7 @@ import { setAttribute } from '../../core/dom';
 import { ConnectedAbortController, EventEmitter } from '../../core/eventing';
 import type { SbbToggleElement, SbbToggleStateChange } from '../toggle';
 
+import '../../icon';
 import style from './toggle-option.scss?lit&inline';
 
 /**

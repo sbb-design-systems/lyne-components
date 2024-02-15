@@ -26,6 +26,7 @@ import type {
   SbbDisabledStateChange,
 } from '../../core/interfaces';
 import '../../visual-checkbox';
+import '../../icon';
 import type { SbbSelectionPanelElement } from '../../selection-panel';
 import type { SbbCheckboxGroupElement } from '../checkbox-group';
 

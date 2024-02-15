@@ -12,6 +12,7 @@ import { isBreakpoint, toggleDatasetEntry } from '../../core/dom';
 import type { SbbHorizontalFrom } from '../../core/interfaces';
 import { AgnosticResizeObserver } from '../../core/observers';
 
+import '../../icon';
 import style from './header-action.scss?lit&inline';
 
 export declare class SbbHeaderActionCommonElementMixinType

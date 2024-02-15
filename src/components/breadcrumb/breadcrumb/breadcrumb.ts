@@ -8,6 +8,7 @@ import {
   SlotChildObserver,
 } from '../../core/common-behaviors';
 
+import '../../icon';
 import style from './breadcrumb.scss?lit&inline';
 
 /**

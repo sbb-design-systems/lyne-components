@@ -11,6 +11,7 @@ import {
   SbbIconNameMixin,
 } from '../../core/common-behaviors';
 
+import '../../icon';
 import style from './menu-action.scss?lit&inline';
 
 export declare class SbbMenuActionCommonElementMixinType

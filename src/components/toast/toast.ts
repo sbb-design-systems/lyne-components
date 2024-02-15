@@ -15,6 +15,7 @@ import type { SbbOverlayState } from '../core/overlay';
 import type { SbbLinkButtonElement, SbbLinkElement } from '../link';
 import '../button';
 
+import '../icon';
 import style from './toast.scss?lit&inline';
 
 type SbbToastPositionVertical = 'top' | 'bottom';

@@ -16,6 +16,7 @@ import style from './alert.scss?lit&inline';
 
 import '../../button';
 import '../../divider';
+import '../../icon';
 import '../../link';
 import '../../title';
 

@@ -7,6 +7,9 @@ export declare class SbbNegativeMixinType {
   public negative: boolean;
 }
 
+/**
+ * Enhance your component with a negative property.
+ */
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbNegativeMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,

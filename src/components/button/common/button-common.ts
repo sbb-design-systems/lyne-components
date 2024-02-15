@@ -14,6 +14,7 @@ import {
 } from '../../core/common-behaviors';
 import { isValidAttribute, toggleDatasetEntry } from '../../core/dom';
 
+import '../../icon';
 import style from './button.scss?lit&inline';
 
 export type SbbButtonSize = 'l' | 'm';

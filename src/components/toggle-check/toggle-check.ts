@@ -13,6 +13,7 @@ import {
   ConnectedAbortController,
 } from '../core/eventing';
 
+import '../icon';
 import style from './toggle-check.scss?lit&inline';
 
 /**

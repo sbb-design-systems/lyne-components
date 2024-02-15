@@ -7,6 +7,9 @@ export declare class SbbDisabledMixinType {
   public disabled: boolean;
 }
 
+/**
+ * Enhance your component with a disabled property.
+ */
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbDisabledMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,

@@ -16,6 +16,7 @@ import type {
 } from '../../core/interfaces';
 import type { SbbTagGroupElement } from '../tag-group';
 
+import '../../icon';
 import style from './tag.scss?lit&inline';
 
 export type SbbTagStateChange = Extract<
