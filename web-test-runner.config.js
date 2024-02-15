@@ -66,7 +66,7 @@ export default {
 function minimalReporter() {
   const base = dotReporter();
   const log = (result) =>
-    process.stdout.write(result.passed ? '.' : result.skipped ? '/' : '\x1b[31mx\x1b[0m');
+    process.stdout.write(result.passed ? '.' : result.skipped ? '~' : '\x1b[31mx\x1b[0m');
   function logResults(results) {
     results?.tests?.forEach(log);
     results?.suites?.forEach(logResults);

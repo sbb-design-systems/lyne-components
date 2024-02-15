@@ -1,10 +1,11 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import {
   SbbButtonBaseElement,
   SbbDisabledTabIndexActionMixin,
+  SbbIconNameMixin,
   SbbNegativeMixin,
 } from '../../core/common-behaviors';
 import { hostContext, isValidAttribute, toggleDatasetEntry } from '../../core/dom';
@@ -20,7 +21,7 @@ import style from './popover-trigger.scss?lit&inline';
  */
 @customElement('sbb-popover-trigger')
 export class SbbPopoverTriggerElement extends SbbDisabledTabIndexActionMixin(
-  SbbNegativeMixin(SbbButtonBaseElement),
+  SbbNegativeMixin(SbbIconNameMixin(SbbButtonBaseElement)),
 ) {
   public static override styles: CSSResultGroup = style;
 
@@ -29,7 +30,7 @@ export class SbbPopoverTriggerElement extends SbbDisabledTabIndexActionMixin(
    * from the ui-icons category from here
    * https://icons.app.sbb.ch.
    */
-  @property({ attribute: 'icon-name' }) public iconName = 'circle-information-small';
+  @property({ attribute: 'icon-name' }) public override iconName = 'circle-information-small';
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -41,10 +42,16 @@ export class SbbPopoverTriggerElement extends SbbDisabledTabIndexActionMixin(
     }
   }
 
-  protected override renderTemplate(): TemplateResult {
+  protected override renderIconSlot(): TemplateResult {
     return html`
-      <slot>${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}</slot>
+      <slot>
+        <sbb-icon name=${this.iconName}></sbb-icon>
+      </slot>
     `;
+  }
+
+  protected override renderTemplate(): TemplateResult {
+    return this.renderIconSlot();
   }
 }
 
