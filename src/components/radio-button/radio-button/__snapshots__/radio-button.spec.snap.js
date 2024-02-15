@@ -24,7 +24,6 @@ snapshots["sbb-radio-button renders - ShadowDom"] =
     value="radio-value"
   >
   <span class="sbb-radio-button__label-slot">
-    Lorem test
     <slot>
     </slot>
   </span>
@@ -40,7 +39,7 @@ snapshots["sbb-radio-button A11y tree Chrome"] =
   "children": [
     {
       "role": "radio",
-      "name": "Lorem test",
+      "name": "",
       "checked": false
     }
   ]
@@ -57,7 +56,7 @@ snapshots["sbb-radio-button A11y tree Firefox"] =
   "children": [
     {
       "role": "radio",
-      "name": "Lorem test"
+      "name": ""
     }
   ]
 }
@@ -73,7 +72,7 @@ snapshots["sbb-radio-button A11y tree Safari"] =
   "children": [
     {
       "role": "radio",
-      "name": "Lorem test",
+      "name": "",
       "checked": false
     }
   ]

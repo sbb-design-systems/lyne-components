@@ -270,7 +270,6 @@ export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
           class="sbb-radio-button__input"
         />
         <span class="sbb-radio-button__label-slot">
-          Lorem test
           <slot></slot>
           ${this._selectionPanelElement ? html`<slot name="suffix"></slot>` : nothing}
         </span>
