@@ -31,7 +31,7 @@ async function commonPlayStory(canvasElement: HTMLElement): Promise<Element> {
   await customElements.whenDefined('sbb-popover-trigger');
   await customElements.whenDefined('sbb-title');
 
-  await waitForStablePosition(() => canvas.getByTestId('popover-trigger'), 8000);
+  await waitForStablePosition(() => canvas.getByTestId('popover-trigger'));
 
   return canvas.getByTestId('popover-trigger');
 }
@@ -108,7 +108,7 @@ const popoverTrigger = (position: Record<string, string>): TemplateResult => htm
 const popover = (args: Args): TemplateResult => html`
   <sbb-popover data-testid="popover" trigger="popover-trigger" ${sbbSpread(args)}>
     <sbb-title level="2" visual-level="6" style="margin-block-start: 0">
-      Simple popover with link.
+      Popover with link.
     </sbb-title>
     <p style="margin: 0" class="sbb-text-s">
       Some content.
