@@ -15,8 +15,14 @@
 .sbb-container {
   background-color: var(--sbb-container-background-color, transparent);
 
-  // We use overflow here to support slotted element with a margin-block-start. Otherwise the margin will get applied outside the container.
-  overflow: auto;
+  // Placing content before and after the container stops the margin of inner elements from overflowing
+  &::after,
+  &::before {
+    content: '\a0';
+    display: block;
+    visibility: hidden;
+    height: 0;
+  }
 
   :host(:not([expanded])) & {
     @include sbb.page-spacing;
