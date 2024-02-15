@@ -131,7 +131,6 @@ const MountedFormationTemplate = (args: Args): TemplateResult => html`
     >
       <sbb-train-wagon
         type="locomotive"
-        accessibility-label-wagon="Locomotive"
         additional-accessibility-text="Top of the train"
         sector="E"
       ></sbb-train-wagon>

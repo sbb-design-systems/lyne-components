@@ -10,8 +10,7 @@ import './pearl-chain-vertical-item';
 describe('sbb-pearl-chain-vertical-item', () => {
   it('renders component with charcoal standard line and bullet', async () => {
     const element = await fixture<SbbPearlChainVerticalItemElement>(html`
-      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
-      </sbb-pearl-chain-vertical-item>
+      <sbb-pearl-chain-vertical-item></sbb-pearl-chain-vertical-item>
     `);
 
     element.pearlChainVerticalItemAttributes = {
@@ -25,7 +24,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
     };
     await waitForLitRender(element);
     expect(element).dom.to.be.equal(`
-      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes>
+      <sbb-pearl-chain-vertical-item>
       </sbb-pearl-chain-vertical-item>
     `);
     expect(element).shadowDom.to.be.equal(`
@@ -42,8 +41,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
 
   it('renders component with red line and bullet', async () => {
     const element = await fixture<SbbPearlChainVerticalItemElement>(html`
-      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
-      </sbb-pearl-chain-vertical-item>
+      <sbb-pearl-chain-vertical-item> </sbb-pearl-chain-vertical-item>
     `);
 
     element.pearlChainVerticalItemAttributes = {
@@ -57,7 +55,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
     };
     await waitForLitRender(element);
     expect(element).dom.to.be.equal(`
-      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes>
+      <sbb-pearl-chain-vertical-item>
       </sbb-pearl-chain-vertical-item>
     `);
     expect(element).shadowDom.to.be.equal(`
@@ -74,7 +72,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
 
   it('renders component with left slot', async () => {
     const element = await fixture<SbbPearlChainVerticalItemElement>(html`
-      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
+      <sbb-pearl-chain-vertical-item>
         <div slot="left">content</div>
       </sbb-pearl-chain-vertical-item>
     `);
@@ -89,7 +87,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
     };
     await waitForLitRender(element);
     expect(element).dom.to.be.equal(`
-      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes>
+      <sbb-pearl-chain-vertical-item>
         <div slot="left">content</div>
       </sbb-pearl-chain-vertical-item>
     `);
@@ -106,7 +104,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
 
   it('renders component with right slot', async () => {
     const element = await fixture<SbbPearlChainVerticalItemElement>(html`
-      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
+      <sbb-pearl-chain-vertical-item>
         <div slot="right">right content</div>
       </sbb-pearl-chain-vertical-item>
     `);
@@ -121,7 +119,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
     };
     await waitForLitRender(element);
     expect(element).dom.to.be.equal(`
-      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes>
+      <sbb-pearl-chain-vertical-item>
         <div slot="right">right content</div>
       </sbb-pearl-chain-vertical-item>
     `);
@@ -138,7 +136,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
 
   it('renders component with both slots', async () => {
     const element = await fixture<SbbPearlChainVerticalItemElement>(html`
-      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
+      <sbb-pearl-chain-vertical-item>
         <div slot="right">right content</div>
         <div slot="left">left content</div>
       </sbb-pearl-chain-vertical-item>
@@ -154,7 +152,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
     };
     await waitForLitRender(element);
     expect(element).dom.to.be.equal(`
-      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes>
+      <sbb-pearl-chain-vertical-item>
         <div slot="right">right content</div>
         <div slot="left">left content</div>
       </sbb-pearl-chain-vertical-item>
@@ -172,7 +170,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
 
   it('renders a position', async () => {
     const element = await fixture<SbbPearlChainVerticalItemElement>(html`
-      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
+      <sbb-pearl-chain-vertical-item>
         <div slot="right">right content</div>
         <div slot="left">left content</div>
       </sbb-pearl-chain-vertical-item>
@@ -189,7 +187,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
     };
     await waitForLitRender(element);
     expect(element).dom.to.be.equal(`
-      <sbb-pearl-chain-vertical-item pearlchainverticalitemattributes>
+      <sbb-pearl-chain-vertical-item>
         <div slot="right">right content</div>
         <div slot="left">left content</div>
       </sbb-pearl-chain-vertical-item>
@@ -208,7 +206,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
 
   it('renders a crossed-bullet', async () => {
     const element = await fixture<SbbPearlChainVerticalItemElement>(html`
-      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
+      <sbb-pearl-chain-vertical-item>
         <div slot="right">right content</div>
         <div slot="left">left content</div>
       </sbb-pearl-chain-vertical-item>
@@ -225,7 +223,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
     };
     await waitForLitRender(element);
     expect(element).dom.to.be.equal(`
-      <sbb-pearl-chain-vertical-item pearlchainverticalitemattributes>
+      <sbb-pearl-chain-vertical-item>
         <div slot="right">right content</div>
         <div slot="left">left content</div>
       </sbb-pearl-chain-vertical-item>

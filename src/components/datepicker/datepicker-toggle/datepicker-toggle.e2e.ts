@@ -27,7 +27,7 @@ describe('sbb-datepicker-toggle', () => {
   it('renders and opens popover with picker', async () => {
     await fixture(html`
       <sbb-datepicker-toggle date-picker="datepicker"></sbb-datepicker-toggle>
-      <sbb-datepicker input="datepicker-input" id="datepicker" value="01-01-2023"></sbb-datepicker>
+      <sbb-datepicker input="datepicker-input" id="datepicker"></sbb-datepicker>
       <input id="datepicker-input" />
     `);
     const element: SbbDatepickerToggleElement =
@@ -53,7 +53,7 @@ describe('sbb-datepicker-toggle', () => {
   it('renders and opens popover programmatically', async () => {
     await fixture(html`
       <sbb-datepicker-toggle date-picker="datepicker" disable-animation></sbb-datepicker-toggle>
-      <sbb-datepicker input="datepicker-input" id="datepicker" value="01-01-2023"></sbb-datepicker>
+      <sbb-datepicker input="datepicker-input" id="datepicker"></sbb-datepicker>
       <input id="datepicker-input" />
     `);
     const element: SbbDatepickerToggleElement =

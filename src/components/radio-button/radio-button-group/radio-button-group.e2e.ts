@@ -13,7 +13,7 @@ describe('sbb-radio-button-group', () => {
 
   beforeEach(async () => {
     element = await fixture(html`
-      <sbb-radio-button-group name="radio-group-name" value="Value one">
+      <sbb-radio-button-group value="Value one">
         <sbb-radio-button id="sbb-radio-1" value="Value one">Value one</sbb-radio-button>
         <sbb-radio-button id="sbb-radio-2" value="Value two">Value two</sbb-radio-button>
         <sbb-radio-button id="sbb-radio-3" value="Value three" disabled

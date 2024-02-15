@@ -15,7 +15,7 @@ snapshots["sbb-menu renders"] =
   </sbb-link>
   <sbb-menu-action
     dir="ltr"
-    icon="tick-small"
+    icon-name="tick-small"
     role="button"
     tabindex="0"
   >
@@ -26,7 +26,7 @@ snapshots["sbb-menu renders"] =
     aria-disabled="true"
     dir="ltr"
     disabled=""
-    icon="pen-small"
+    icon-name="pen-small"
     role="button"
   >
     Edit
@@ -34,7 +34,7 @@ snapshots["sbb-menu renders"] =
   <sbb-menu-action
     amount="2"
     dir="ltr"
-    icon="swisspass-small"
+    icon-name="swisspass-small"
     role="button"
     tabindex="0"
   >
@@ -44,7 +44,7 @@ snapshots["sbb-menu renders"] =
   </sbb-divider>
   <sbb-menu-action
     dir="ltr"
-    icon="cross-small"
+    icon-name="cross-small"
     role="button"
     tabindex="0"
   >

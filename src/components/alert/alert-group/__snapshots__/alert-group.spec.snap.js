@@ -3,8 +3,8 @@ export const snapshots = {};
 
 snapshots["sbb-alert-group should render Dom"] = 
 `<sbb-alert-group
-  accessibility-level="3"
   accessibility-title="Disruptions"
+  accessibility-title-level="3"
   role="status"
 >
   <sbb-alert
@@ -21,11 +21,11 @@ snapshots["sbb-alert-group should render Dom"] =
 
 snapshots["sbb-alert-group should render ShadowDom"] = 
 `<div class="sbb-alert-group">
-  <h2 class="sbb-alert-group__title">
+  <h3 class="sbb-alert-group__title">
     <slot name="accessibility-title">
       Disruptions
     </slot>
-  </h2>
+  </h3>
   <slot>
   </slot>
 </div>
@@ -41,7 +41,7 @@ snapshots["sbb-alert-group should render A11y tree Chrome"] =
     {
       "role": "heading",
       "name": "Disruptions",
-      "level": 2
+      "level": 3
     },
     {
       "role": "heading",
@@ -81,7 +81,7 @@ snapshots["sbb-alert-group should render A11y tree Firefox"] =
     {
       "role": "heading",
       "name": "Disruptions",
-      "level": 2
+      "level": 3
     },
     {
       "role": "heading",
@@ -122,7 +122,7 @@ snapshots["sbb-alert-group should render A11y tree Safari"] =
     {
       "role": "heading",
       "name": "Disruptions",
-      "level": 2
+      "level": 3
     },
     {
       "role": "heading",

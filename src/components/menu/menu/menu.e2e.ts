@@ -19,15 +19,15 @@ describe('sbb-menu', () => {
       <sbb-button id="menu-trigger">Menu trigger</sbb-button>
       <sbb-menu id="menu" trigger="menu-trigger" disable-animation>
         <sbb-link id="menu-link" href="#" size="xs" variant="block">Profile</sbb-link>
-        <sbb-menu-action id="menu-action-1" icon="tick-small">View</sbb-menu-action>
-        <sbb-menu-action id="menu-action-2" icon="pen-small" amount="1" disabled
+        <sbb-menu-action id="menu-action-1" icon-name="tick-small">View</sbb-menu-action>
+        <sbb-menu-action id="menu-action-2" icon-name="pen-small" amount="1" disabled
           >Edit</sbb-menu-action
         >
-        <sbb-menu-action id="menu-action-3" icon="swisspass-small" amount="2"
+        <sbb-menu-action id="menu-action-3" icon-name="swisspass-small" amount="2"
           >Details</sbb-menu-action
         >
         <sbb-divider id="menu-divider"></sbb-divider>
-        <sbb-menu-action id="menu-action-4" icon="cross-small">Cancel</sbb-menu-action>
+        <sbb-menu-action id="menu-action-4" icon-name="cross-small">Cancel</sbb-menu-action>
       </sbb-menu>
     `);
     trigger = document.querySelector<SbbButtonElement>('sbb-button')!;

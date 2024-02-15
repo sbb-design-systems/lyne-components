@@ -106,12 +106,7 @@ const suffixAndSubtext = (): TemplateResult => html`
 const innerContent = (): TemplateResult => html`
   <div slot="content">
     Inner Content
-    <sbb-link
-      text-size="s"
-      variant="block"
-      icon-name="chevron-small-right-small"
-      icon-placement="end"
-    >
+    <sbb-link variant="block" icon-name="chevron-small-right-small" icon-placement="end">
       Link
     </sbb-link>
   </div>
