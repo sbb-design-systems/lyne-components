@@ -73,8 +73,23 @@ jobs:
             )
             echo "$result"
           }
-          echo "core-member=$(ghTeamMembership 'core' '${{ github.actor }}')" >> "$GITHUB_OUTPUT"
-          echo "ux-member=$(ghTeamMembership 'UX' '${{ github.actor }}')" >> "$GITHUB_OUTPUT"
+          # echo "core-member=$(ghTeamMembership 'core' '${{ github.actor }}')" >> "$GITHUB_OUTPUT"
+          # echo "ux-member=$(ghTeamMembership 'UX' '${{ github.actor }}')" >> "$GITHUB_OUTPUT"
+          # Hard coding this, until the repositories are moved into the new organization.
+          actor="${{ github.actor }}"
+          if [[ "$actor" == "jeripeierSBB" ]] || [[ "$actor" == "kyubisation" ]]; then
+            echo "core-member=maintainer.active" >> "$GITHUB_OUTPUT"
+            echo "ux-member=." >> "$GITHUB_OUTPUT"
+          elif [[ "$actor" == "dauriamarco" ]] || [[ "$actor" == "DavideMininni-Fincons" ]] || [[ "$actor" == "MarioCastigliano" ]] || [[ "$actor" == "TomMenga" ]]; then
+            echo "core-member=member.active" >> "$GITHUB_OUTPUT"
+            echo "ux-member=." >> "$GITHUB_OUTPUT"
+          elif [[ "$actor" == "mcilurzo" ]]; then
+            echo "core-member=." >> "$GITHUB_OUTPUT"
+            echo "ux-member=member.active" >> "$GITHUB_OUTPUT"
+          else
+            echo "core-member=." >> "$GITHUB_OUTPUT"
+            echo "ux-member=." >> "$GITHUB_OUTPUT"
+          fi
       - name: Assign peer review approved label
         if: steps.team.outputs.core-member == 'member.active'
         run: |
