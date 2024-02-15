@@ -107,9 +107,7 @@ const popoverTrigger = (position: Record<string, string>): TemplateResult => htm
 
 const popover = (args: Args): TemplateResult => html`
   <sbb-popover data-testid="popover" trigger="popover-trigger" ${sbbSpread(args)}>
-    <sbb-title level="2" visual-level="6" style="margin-block-start: 0">
-      Popover with link.
-    </sbb-title>
+    <sbb-title level="2" visual-level="6" style="margin-block-start: 0"> Title. </sbb-title>
     <p style="margin: 0" class="sbb-text-s">
       Some content.
       <sbb-link
