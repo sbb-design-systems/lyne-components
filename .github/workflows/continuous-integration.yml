@@ -127,10 +127,13 @@ jobs:
           isPR: ${{ needs.is-pr-open.outputs.is-PR }}
           title: ${{ needs.is-pr-open.outputs.title }}
           isDraft: ${{ needs.is-pr-open.outputs.is-draft }}
+      - name: Test condition
+        if: github.event_name == 'push' && needs.is-pr-open.outputs.is-PR == 'true' && needs.is-pr-open.outputs.is-draft == 'false'
+        run: echo "it works"
 
   chromatic:
     runs-on: ubuntu-latest
-    if: false && github.event_name == 'push' && needs.is-pr-open.outputs.is-PR && !needs.is-pr-open.outputs.is-draft
+    if: false && github.event_name == 'push' && needs.is-pr-open.outputs.is-PR == 'true' && needs.is-pr-open.outputs.is-draft == 'false'
     needs: [is-pr-open]
     steps:
       - name: Debug test
