@@ -463,6 +463,11 @@ export class SbbPopoverElement extends LitElement {
     this.style.setProperty('--sbb-popover-position-x', `${popoverPosition.left}px`);
     this.style.setProperty('--sbb-popover-position-y', `${popoverPosition.top}px`);
     this.style.setProperty('--sbb-popover-arrow-position-x', `${arrowXPosition}px`);
+
+    const node = document.createElement('pre');
+    node.setAttribute('style', 'font-size: 10px');
+    node.innerText = JSON.stringify(popoverPosition, null, 2) + `arrowXPosition ${arrowXPosition}`;
+    this.appendChild(node);
   }
 
   protected override render(): TemplateResult {
