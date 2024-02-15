@@ -14,7 +14,7 @@ describe('sbb-alert-group', () => {
 
     beforeEach(async () => {
       root = await fixture(html`
-        <sbb-alert-group accessibility-title="Disruptions" accessibility-level="3">
+        <sbb-alert-group accessibility-title="Disruptions" accessibility-title-level="3">
           <sbb-alert
             title-content="Interruption between Genève and Lausanne"
             href="https://www.sbb.ch"
@@ -39,7 +39,7 @@ describe('sbb-alert-group', () => {
 
   it('should render with slots', async () => {
     const root = await fixture(html`
-      <sbb-alert-group accessibility-level="3">
+      <sbb-alert-group accessibility-title-level="3">
         <span slot="accessibility-title">Interruptions</span>
         <sbb-alert
           title-content="Interruption between Genève and Lausanne"
@@ -53,7 +53,7 @@ describe('sbb-alert-group', () => {
 
     expect(root).dom.to.be.equal(
       `
-        <sbb-alert-group accessibility-level='3' role='status'>
+        <sbb-alert-group accessibility-title-level='3' role='status'>
           <span slot="accessibility-title">
             Interruptions
           </span>
@@ -66,9 +66,9 @@ describe('sbb-alert-group', () => {
     expect(root).shadowDom.to.be.equal(
       `
         <div class="sbb-alert-group">
-          <h2 class="sbb-alert-group__title">
+          <h3 class="sbb-alert-group__title">
             <slot name="accessibility-title"></slot>
-          </h2>
+          </h3>
           <slot></slot>
         </div>
       `,

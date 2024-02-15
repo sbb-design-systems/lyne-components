@@ -22,8 +22,8 @@ snapshots["sbb-header renders actions and logo Dom"] =
   <sbb-header-action
     href="https://github.com/lyne-design-system/lyne-components"
     icon-name="hamburger-menu-small"
-    text="Menu"
   >
+    Menu
   </sbb-header-action>
   <div slot="logo">
     <circle
@@ -57,7 +57,13 @@ snapshots["sbb-header renders actions and logo A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
-  "name": ""
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Menu"
+    }
+  ]
 }
 </p>
 `;
@@ -67,7 +73,13 @@ snapshots["sbb-header renders actions and logo A11y tree Firefox"] =
 `<p>
   {
   "role": "document",
-  "name": ""
+  "name": "",
+  "children": [
+    {
+      "role": "text leaf",
+      "name": "Menu"
+    }
+  ]
 }
 </p>
 `;
@@ -77,7 +89,13 @@ snapshots["sbb-header renders actions and logo A11y tree Safari"] =
 `<p>
   {
   "role": "WebArea",
-  "name": ""
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Menu"
+    }
+  ]
 }
 </p>
 `;

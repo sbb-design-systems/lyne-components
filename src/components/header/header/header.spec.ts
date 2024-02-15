@@ -24,8 +24,8 @@ describe('sbb-header', () => {
           <sbb-header-action
             icon-name="hamburger-menu-small"
             href="https://github.com/lyne-design-system/lyne-components"
-            text="Menu"
-          ></sbb-header-action>
+            >Menu</sbb-header-action
+          >
           <div slot="logo">
             <circle cx="25" cy="75" r="20"></circle>
           </div>

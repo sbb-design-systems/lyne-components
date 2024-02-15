@@ -34,7 +34,7 @@ const focusStyle = (context: StoryContext): Record<string, string> =>
 const RequestSubmitTemplate = ({ text }: Args): TemplateResult => html`
   <form id="my-fake-form" action="/submit" method="post" target="_blank">
     <label
-      htmlFor="input"
+      for="input"
       style=${styleMap({
         display: 'flex',
         'flex-direction': 'column',

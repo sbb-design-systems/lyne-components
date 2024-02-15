@@ -34,7 +34,6 @@ const PopoverTrigger = (): TemplateResult => html`
     <span id="popover-content" class="sbb-text-s">
       Some content.
       <sbb-link
-        text-size="s"
         variant="block"
         icon-name="chevron-small-right-small"
         icon-placement="end"

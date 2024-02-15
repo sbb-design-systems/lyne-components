@@ -20,9 +20,7 @@ describe('sbb-selection-panel', () => {
     const tagSingle = unsafeStatic(`sbb-${inputType}`);
     /* eslint-disable lit/binding-positions */
     return html`
-      <${tagGroupElement} name="input-group-name" ${
-        inputType === 'radio-button' && 'value="Value one"'
-      }>
+      <${tagGroupElement} ${inputType === 'radio-button' && 'value="Value one"'}>
         <sbb-selection-panel disable-animation id="sbb-selection-panel-1">
           <${tagSingle} id="sbb-input-1" value="Value one" ?checked='${
             inputType === 'checkbox'
@@ -256,7 +254,7 @@ describe('sbb-selection-panel', () => {
   describe('with radio group with no slotted content', () => {
     it('focus selected, the focus and select on keyboard navigation', async () => {
       await fixture(html`
-        <sbb-radio-button-group id="group-no-content" name="input-group-name" value="Value 2">
+        <sbb-radio-button-group id="group-no-content" value="Value 2">
           <sbb-selection-panel disable-animation id="no-content-1">
             <sbb-radio-button id="input-no-content-1" value="Value 1">Value one</sbb-radio-button>
           </sbb-selection-panel>
