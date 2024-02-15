@@ -86,7 +86,7 @@ jobs:
     if: github.event_name == 'push'
     needs: [build, lint, test]
     outputs:
-      is-PR: ${{ !!steps.get_issue_number.outputs.result }}
+      is-PR: ${{ !!fromJson(steps.get_issue_number.outputs.result).number }}
       is-draft: ${{ fromJson(steps.get_issue_number.outputs.result).draft }}
       title: ${{ fromJson(steps.get_issue_number.outputs.result).title }}
     steps:
@@ -105,7 +105,7 @@ jobs:
               title: pr.title,
               draft: pr.draft,
               state: pr.state
-            } : null;
+            } : {};
       - name: Log
         run: echo "Number ${number}, isDraft ${isDraft}, title '${title}', data ${data}"
         env:
