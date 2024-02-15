@@ -85,32 +85,13 @@ jobs:
           name: storybook
           path: dist/storybook/
 
-  is-pr-open-old:
-    runs-on: ubuntu-latest
-    if: false
-    outputs:
-      is-PR: ${{ !!steps.findPr.outputs.number }}
-      is-draft: ${{ !!steps.findPr.outputs.draft }}
-      PR-title: ${{ steps.findPr.outputs.title }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: jwalton/gh-find-current-pr@master
-        id: findPr
-      - run: echo "Your PR is ${PR}, title '${PR-title}', draft ${is-draft}, json ${data}"
-        if: success() && steps.findPr.outputs.number
-        env:
-          PR: ${{ steps.findPr.outputs.pr }}
-          is-draft: ${{ !!steps.findPr.outputs.draft }}
-          PR-title: ${{ steps.findPr.outputs.title }}
-          data: ${{ toJSON(steps.findPr.outputs) }}
-
   is-pr-open:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
     outputs:
-      is-PR: ${{ !!steps.get_issue_number.outputs.data[0].number }}
-      #is-draft: ${{ !!steps.findPr.outputs.draft }}
-      #PR-title: ${{ steps.findPr.outputs.title }}
+      is-PR: ${{ !!steps.get_issue_number.outputs.result }}
+      is-draft: ${{ fromJson(steps.get_issue_number.outputs.result).draft }}
+      title: ${{ fromJson(steps.get_issue_number.outputs.result).title }}
     steps:
       - uses: actions/github-script@v6
         id: get_issue_number
@@ -128,20 +109,25 @@ jobs:
               draft: pr.draft,
               state: pr.state
             } : null;
-      - name: Debug test
+      - name: Log
         run: echo "Number ${number}, isDraft ${isDraft}, title ${title}, data ${data}"
         env:
           data: ${{ steps.get_issue_number.outputs.result }}
-          title: ${{ fromJson(steps.get_issue_number.outputs.result).title }}
           number: ${{ fromJson(steps.get_issue_number.outputs.result).number }}
+          title: ${{ fromJson(steps.get_issue_number.outputs.result).title }}
           isDraft: ${{ fromJson(steps.get_issue_number.outputs.result).draft }}
 
   chromatic:
     runs-on: ubuntu-latest
-    # could also exclude drafts and pr that contains "WIP" in the title
-    if: false && github.event_name == 'push' && needs.is-pr-open.outputs.is-PR
+    if: github.event_name == 'push' && needs.is-pr-open.outputs.is-PR && !needs.is-pr-open.outputs.is-draft
     needs: [is-pr-open]
     steps:
+      - name: Debug test
+        run: echo "Is PR ${isPR}, isDraft ${isDraft}, title ${title}"
+        env:
+          isPR: ${{ needs.is-pr-open.outputs.is-PR }}
+          title: ${{ needs.is-pr-open.outputs.title }}
+          isDraft: ${{ needs.is-pr-open.outputs.is-draft }}
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
