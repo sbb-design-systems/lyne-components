@@ -93,15 +93,15 @@ jobs:
       - name: Assign peer review approved label
         if: steps.team.outputs.core-member == 'member.active'
         run: |
-          gh issue edit ${{ github.event.number }} --repo ${{ github.repository }} --remove-label "$PEER_REQUIRED"
-          gh issue edit ${{ github.event.number }} --repo ${{ github.repository }} --add-label "$PEER_APPROVED"
+          gh issue edit ${{ github.event.pull_request.number }} --repo ${{ github.repository }} --remove-label "$PEER_REQUIRED"
+          gh issue edit ${{ github.event.pull_request.number }} --repo ${{ github.repository }} --add-label "$PEER_APPROVED"
       - name: Assign lead review approved label
         if: steps.team.outputs.core-member == 'maintainer.active'
         run: |
-          gh issue edit ${{ github.event.number }} --repo ${{ github.repository }} --remove-label "$LEAD_REQUIRED"
-          gh issue edit ${{ github.event.number }} --repo ${{ github.repository }} --add-label "$LEAD_APPROVED"
+          gh issue edit ${{ github.event.pull_request.number }} --repo ${{ github.repository }} --remove-label "$LEAD_REQUIRED"
+          gh issue edit ${{ github.event.pull_request.number }} --repo ${{ github.repository }} --add-label "$LEAD_APPROVED"
       - name: Assign ux review approved label
         if: steps.team.outputs.ux-member == 'maintainer.active' || steps.team.outputs.ux-member == 'member.active'
         run: |
-          gh issue edit ${{ github.event.number }} --repo ${{ github.repository }} --remove-label "$UX_REQUIRED"
-          gh issue edit ${{ github.event.number }} --repo ${{ github.repository }} --add-label "$UX_APPROVED"
+          gh issue edit ${{ github.event.pull_request.number }} --repo ${{ github.repository }} --remove-label "$UX_REQUIRED"
+          gh issue edit ${{ github.event.pull_request.number }} --repo ${{ github.repository }} --add-label "$UX_APPROVED"
