@@ -133,14 +133,6 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) implements Lin
     };
   }
 
-  protected override renderIconSlot(): TemplateResult {
-    return html`
-      <slot name="icon">
-        <sbb-icon name=${this.iconName}></sbb-icon>
-      </slot>
-    `;
-  }
-
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-alert__transition-wrapper" @animationend=${this._onAnimationEnd}>

@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { UpdateScheduler } from '../core/common-behaviors/update-scheduler';
+import { UpdateScheduler } from '../core/common-behaviors';
 import { setAttribute } from '../core/dom';
 
 import { getSvgContent } from './icon-request';

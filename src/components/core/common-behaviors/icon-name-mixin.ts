@@ -3,13 +3,16 @@ import { property } from 'lit/decorators.js';
 
 import type { AbstractConstructor } from './constructor';
 
-import '../../icon';
-
 export declare class SbbIconNameMixinType {
   public iconName?: string;
   protected renderIconSlot(classname?: string): TemplateResult;
 }
 
+/**
+ * Enhance your component with an iconName property and provides a template for the icon slot.
+ *
+ * Important: The icon component needs to be imported with every component using this mixin.
+ */
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbIconNameMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
@@ -26,7 +29,7 @@ export const SbbIconNameMixin = <T extends AbstractConstructor<LitElement>>(
       return html`
         <slot name="icon">
           ${this.iconName
-            ? html`<sbb-icon name="${this.iconName}" class=${classname || nothing}></sbb-icon>`
+            ? html`<sbb-icon name=${this.iconName} class=${classname || nothing}></sbb-icon>`
             : nothing}
         </slot>
       `;
