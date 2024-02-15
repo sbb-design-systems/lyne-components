@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.47.1](https://github.com/lyne-design-system/lyne-components/compare/v0.47.0...v0.47.1) (2024-02-15)
+
+
+### Bug Fixes
+
+* **sbb-status:** add index export ([03349f0](https://github.com/lyne-design-system/lyne-components/commit/03349f02408d84f78810c6c8b14e944e188b128a))
+
 ## [0.47.0](https://github.com/lyne-design-system/lyne-components/compare/v0.46.3...v0.47.0) (2024-02-14)
 
 
