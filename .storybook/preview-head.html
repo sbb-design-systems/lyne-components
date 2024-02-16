@@ -79,6 +79,22 @@
       div.append(button);
       document.body.append(div);
     });
+  } else if (inIframe() && !isDev()) {
+    window.onload = () => {
+      const resizeObserver = new ResizeObserver((entries) => {
+        const rect = entries[0].contentRect;
+        window.parent.postMessage(
+          {
+            key: 'iframeheight',
+            height: rect.height + rect.x + rect.y,
+            url: window.location.href,
+            id: new URLSearchParams(window.location.search).get('id'),
+          },
+          '*',
+        );
+      });
+      resizeObserver.observe(document.body);
+    };
   }
 
   function inIframe() {
