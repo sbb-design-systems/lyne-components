@@ -1,10 +1,16 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  LitElement,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import {
-  NamedSlotListElement,
   NamedSlotStateController,
+  SbbNamedSlotListElementMixin,
   type WithListChildren,
 } from '../core/common-behaviors';
 import type { SbbLinkElement } from '../link';
@@ -20,7 +26,10 @@ import '../title';
  * @slot - Use the unnamed slot to add `sbb-link` elements to the `sbb-skiplink-list`.
  */
 @customElement('sbb-skiplink-list')
-export class SbbSkiplinkListElement extends NamedSlotListElement<SbbLinkElement> {
+export class SbbSkiplinkListElement extends SbbNamedSlotListElementMixin<
+  SbbLinkElement,
+  typeof LitElement
+>(LitElement) {
   public static override styles: CSSResultGroup = style;
   protected override readonly listChildTagNames = ['SBB-LINK'];
 

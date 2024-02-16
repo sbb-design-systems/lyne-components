@@ -1,7 +1,7 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { NamedSlotListElement, type WithListChildren } from '../../core/common-behaviors';
+import { SbbNamedSlotListElementMixin, type WithListChildren } from '../../core/common-behaviors';
 import { AgnosticResizeObserver } from '../../core/observers';
 import type { SbbNavigationButtonElement, SbbNavigationLinkElement } from '../index';
 
@@ -13,9 +13,10 @@ import style from './navigation-marker.scss?lit&inline';
  * @slot - Use the unnamed slot to add `sbb-navigation-button`/`sbb-navigation-link` elements into the `sbb-navigation-marker`.
  */
 @customElement('sbb-navigation-marker')
-export class SbbNavigationMarkerElement extends NamedSlotListElement<
-  SbbNavigationButtonElement | SbbNavigationLinkElement
-> {
+export class SbbNavigationMarkerElement extends SbbNamedSlotListElementMixin<
+  SbbNavigationButtonElement | SbbNavigationLinkElement,
+  typeof LitElement
+>(LitElement) {
   public static override styles: CSSResultGroup = style;
   protected override readonly listChildTagNames = ['SBB-NAVIGATION-BUTTON', 'SBB-NAVIGATION-LINK'];
 

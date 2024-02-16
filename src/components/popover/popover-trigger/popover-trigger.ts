@@ -1,6 +1,5 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { type CSSResultGroup, html, type TemplateResult } from 'lit';
+import { customElement } from 'lit/decorators.js';
 
 import {
   SbbButtonBaseElement,
@@ -24,13 +23,6 @@ export class SbbPopoverTriggerElement extends SbbDisabledTabIndexActionMixin(
 ) {
   public static override styles: CSSResultGroup = style;
 
-  /**
-   * The icon name we want to use, choose from the small icon variants
-   * from the ui-icons category from here
-   * https://icons.app.sbb.ch.
-   */
-  @property({ attribute: 'icon-name' }) public override iconName = 'circle-information-small';
-
   public override connectedCallback(): void {
     super.connectedCallback();
     const formField = hostContext('sbb-form-field', this) ?? hostContext('[data-form-field]', this);
@@ -44,7 +36,7 @@ export class SbbPopoverTriggerElement extends SbbDisabledTabIndexActionMixin(
   protected override renderIconSlot(): TemplateResult {
     return html`
       <slot>
-        <sbb-icon name=${this.iconName}></sbb-icon>
+        <sbb-icon name=${this.iconName || 'circle-information-small'}></sbb-icon>
       </slot>
     `;
   }

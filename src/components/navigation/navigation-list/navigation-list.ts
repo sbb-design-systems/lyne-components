@@ -1,10 +1,15 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import {
-  NamedSlotListElement,
   NamedSlotStateController,
+  SbbNamedSlotListElementMixin,
   type WithListChildren,
 } from '../../core/common-behaviors';
 import type { SbbNavigationButtonElement, SbbNavigationLinkElement } from '../index';
@@ -18,9 +23,10 @@ import style from './navigation-list.scss?lit&inline';
  * @slot label - Use this to provide a label element.
  */
 @customElement('sbb-navigation-list')
-export class SbbNavigationListElement extends NamedSlotListElement<
-  SbbNavigationButtonElement | SbbNavigationLinkElement
-> {
+export class SbbNavigationListElement extends SbbNamedSlotListElementMixin<
+  SbbNavigationButtonElement | SbbNavigationLinkElement,
+  typeof LitElement
+>(LitElement) {
   public static override styles: CSSResultGroup = style;
   protected override readonly listChildTagNames = ['SBB-NAVIGATION-BUTTON', 'SBB-NAVIGATION-LINK'];
 

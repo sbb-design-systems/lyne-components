@@ -32,15 +32,6 @@ export class SbbStatusElement extends SbbIconNameMixin(LitElement) {
   /** The type of the status. */
   @property({ reflect: true }) public type: SbbStatusType = 'info';
 
-  /**
-   * If iconName is set, it overrides default ones which are bound to status.
-   *
-   * The icon name we want to use, choose from the small icon variants
-   * from the ui-icons category from here
-   * https://icons.app.sbb.ch.
-   */
-  @property({ attribute: 'icon-name' }) public override iconName?: string;
-
   /** Content of title. */
   @property({ reflect: true, attribute: 'title-content' }) public titleContent?: string;
 

@@ -1,5 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -11,7 +10,7 @@ import {
   isArrowKeyPressed,
   setModalityOnNextFocus,
 } from '../../core/a11y';
-import { NamedSlotListElement } from '../../core/common-behaviors';
+import { SbbNamedSlotListElementMixin } from '../../core/common-behaviors';
 import {
   findReferencedElement,
   isBreakpoint,
@@ -55,9 +54,10 @@ let nextId = 0;
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-menu` is closed.
  */
 @customElement('sbb-menu')
-export class SbbMenuElement extends NamedSlotListElement<
-  SbbMenuButtonElement | SbbMenuLinkElement
-> {
+export class SbbMenuElement extends SbbNamedSlotListElementMixin<
+  SbbMenuButtonElement | SbbMenuLinkElement,
+  typeof LitElement
+>(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
