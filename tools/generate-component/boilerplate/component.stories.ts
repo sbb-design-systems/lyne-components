@@ -1,14 +1,12 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
-import { html, TemplateResult } from 'lit';
+import { html, type TemplateResult } from 'lit';
 
 import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
-import type { __nameUpperCase__ } from './__noPrefixName__';
-
-import './__noPrefixName__';
+import { __nameUpperCase__ } from './__noPrefixName__';
 
 const myProp: InputType = {
   control: {

@@ -1,6 +1,8 @@
-import { CSSResultGroup, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import { type CSSResultGroup, html, LitElement, nothing, type TemplateResult, type PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
+
 import { ConnectedAbortController, EventEmitter } from '../core/eventing';
+
 import style from './__noPrefixName__.scss?lit&inline';
 
 /**
@@ -17,7 +19,7 @@ export class __nameUpperCase__ extends LitElement {
   } as const;
 
   /** myProp documentation */
-  @property({ attribute: 'my-prop', reflect: true }) public myProp: string;
+  @property({ attribute: 'my-prop', reflect: true }) public myProp: string = '';
 
   /** _myState documentation */
   @state() private _myState = false;

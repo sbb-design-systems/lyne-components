@@ -1,6 +1,8 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
 import { EventSpy, waitForLitRender } from '../core/testing';
+
 import { __nameUpperCase__ } from './__noPrefixName__';
 
 describe('__name__', () => {
