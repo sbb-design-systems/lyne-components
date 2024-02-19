@@ -29,14 +29,4 @@ describe('sbb-teaser', () => {
     element.click();
     expect(clickSpy.count).to.be.equal(1);
   });
-
-  it('should dispatch event on click if is-static', async () => {
-    element.setAttribute('is-static', 'true');
-
-    const clickSpy = new EventSpy('click');
-    await waitForLitRender(element);
-
-    element.click();
-    expect(clickSpy.count).to.be.equal(1);
-  });
 });

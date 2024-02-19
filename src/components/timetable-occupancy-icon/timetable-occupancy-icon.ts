@@ -1,7 +1,7 @@
 import type { CSSResultGroup, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { LanguageController } from '../core/common-behaviors';
+import { LanguageController, SbbNegativeMixin } from '../core/common-behaviors';
 import { ConnectedAbortController } from '../core/eventing';
 import { i18nOccupancy } from '../core/i18n';
 import type { SbbOccupancy } from '../core/interfaces';
@@ -13,14 +13,11 @@ import style from './timetable-occupancy-icon.scss?lit&inline';
  * It displays a wagon's occupancy icon.
  */
 @customElement('sbb-timetable-occupancy-icon')
-export class SbbTimetableOccupancyIconElement extends SbbIconBase {
+export class SbbTimetableOccupancyIconElement extends SbbNegativeMixin(SbbIconBase) {
   public static override styles: CSSResultGroup = [SbbIconBase.styles, style];
 
   /** Wagon occupancy. */
   @property() public occupancy!: SbbOccupancy;
-
-  /** Negative coloring variant flag. */
-  @property({ reflect: true, type: Boolean }) public negative: boolean = false;
 
   private _abort = new ConnectedAbortController(this);
   private _language = new LanguageController(this).withHandler(() => this._setAriaLabel());

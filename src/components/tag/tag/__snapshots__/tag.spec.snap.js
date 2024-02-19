@@ -81,7 +81,7 @@ snapshots["sbb-tag renders slotted icon and amount"] =
 `;
 /* end snapshot sbb-tag renders slotted icon and amount */
 
-snapshots["sbb-tag A11y tree Chrome"] = 
+snapshots["sbb-tag A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",

@@ -7,7 +7,6 @@ import type { SbbTrainElement } from '../train';
 import type { SbbTrainWagonElement } from '../train-wagon';
 
 import { SbbTrainFormationElement } from './train-formation';
-import '../../icon';
 import '../train';
 import '../train-wagon';
 import '../train-blocked-passage';

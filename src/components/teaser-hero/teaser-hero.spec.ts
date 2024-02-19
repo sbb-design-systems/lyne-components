@@ -39,27 +39,6 @@ describe('sbb-teaser-hero', () => {
     testA11yTreeSnapshot();
   });
 
-  it('should render without link', async () => {
-    const root = await fixture(
-      html`<sbb-teaser-hero
-        aria-label="label"
-        link-content="Find out more"
-        image-src="${sampleImages[1]}"
-        image-alt="SBB CFF FFS Employee"
-        >Break out and explore castles and palaces.</sbb-teaser-hero
-      >`,
-    );
-
-    expect(root).dom.to.be.equal(
-      `
-      <sbb-teaser-hero aria-label="label" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee" dir="ltr">
-          Break out and explore castles and palaces.
-        </sbb-teaser-hero>
-      `,
-    );
-    await expect(root).shadowDom.to.be.equalSnapshot();
-  });
-
   it('should render with slots', async () => {
     const root = await fixture(
       html`<sbb-teaser-hero aria-label="label" href="https://www.sbb.ch"

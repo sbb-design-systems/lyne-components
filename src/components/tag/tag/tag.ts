@@ -1,27 +1,23 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { NamedSlotStateController } from '../../core/common-behaviors';
-import { setAttributes } from '../../core/dom';
 import {
-  HandlerRepository,
-  actionElementHandlerAspect,
-  EventEmitter,
-  ConnectedAbortController,
-} from '../../core/eventing';
+  NamedSlotStateController,
+  SbbDisabledTabIndexActionMixin,
+  SbbButtonBaseElement,
+  SbbIconNameMixin,
+} from '../../core/common-behaviors';
+import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import type {
-  ButtonProperties,
   SbbCheckedStateChange,
   SbbStateChange,
   SbbValueStateChange,
 } from '../../core/interfaces';
-import { resolveButtonRenderVariables } from '../../core/interfaces';
 import type { SbbTagGroupElement } from '../tag-group';
 
-import style from './tag.scss?lit&inline';
-
 import '../../icon';
+import style from './tag.scss?lit&inline';
 
 export type SbbTagStateChange = Extract<
   SbbStateChange,
@@ -39,7 +35,9 @@ export type SbbTagStateChange = Extract<
  * @event {CustomEvent<void>} change - Change event emitter
  */
 @customElement('sbb-tag')
-export class SbbTagElement extends LitElement implements ButtonProperties {
+export class SbbTagElement extends SbbIconNameMixin(
+  SbbDisabledTabIndexActionMixin(SbbButtonBaseElement),
+) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     stateChange: 'stateChange',
@@ -48,29 +46,11 @@ export class SbbTagElement extends LitElement implements ButtonProperties {
     change: 'change',
   } as const;
 
-  /** The name attribute to use for the button. */
-  @property({ reflect: true }) public name: string | undefined;
-
-  /** Value of the tag. */
-  @property() public value?: string;
-
-  /** The <form> element to associate the button with. */
-  @property() public form?: string;
-
   /** Amount displayed inside the tag. */
   @property({ reflect: true }) public amount?: string;
 
   /** Whether the tag is checked. */
   @property({ reflect: true, type: Boolean }) public checked = false;
-
-  /** Whether the tag is disabled. */
-  @property({ reflect: true, type: Boolean }) public disabled = false;
-
-  /**
-   * The icon name we want to use, choose from the small icon variants from the ui-icons category
-   * from https://icons.app.sbb.ch (optional).
-   */
-  @property({ attribute: 'icon-name', reflect: true }) public iconName?: string;
 
   private _handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
     if (currentValue !== previousValue) {
@@ -114,7 +94,6 @@ export class SbbTagElement extends LitElement implements ButtonProperties {
   });
 
   private _abort = new ConnectedAbortController(this);
-  private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
 
   public constructor() {
     super();
@@ -125,21 +104,16 @@ export class SbbTagElement extends LitElement implements ButtonProperties {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener('click', () => this._handleClick(), { signal });
-    this._handlerRepository.connect();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
     if (changedProperties.has('checked')) {
       this._handleCheckedChange(this.checked, changedProperties.get('checked')!);
     }
     if (changedProperties.has('value')) {
       this._handleValueChange(this.value!, changedProperties.get('value')!);
     }
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
   }
 
   /** Method triggered on button click. Inverts the checked value and emits events. */
@@ -160,26 +134,16 @@ export class SbbTagElement extends LitElement implements ButtonProperties {
     this._didChange.emit();
   }
 
-  protected override render(): TemplateResult {
-    const { hostAttributes } = resolveButtonRenderVariables(this);
+  protected override renderTemplate(): TemplateResult {
     // We have to ensure that the value is always present
-    hostAttributes['aria-pressed'] = this.checked.toString();
-
-    setAttributes(this, hostAttributes);
-
+    this.setAttribute('aria-pressed', this.checked.toString());
     return html`
-      <span class="sbb-tag">
-        <span class="sbb-tag__icon sbb-tag--shift">
-          <slot name="icon">
-            ${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}
-          </slot>
-        </span>
-        <span class="sbb-tag__text sbb-tag--shift">
-          <slot></slot>
-        </span>
-        <span class="sbb-tag__amount sbb-tag--shift">
-          <slot name="amount">${this.amount}</slot>
-        </span>
+      <span class="sbb-tag__icon sbb-tag--shift"> ${this.renderIconSlot()} </span>
+      <span class="sbb-tag__text sbb-tag--shift">
+        <slot></slot>
+      </span>
+      <span class="sbb-tag__amount sbb-tag--shift">
+        <slot name="amount">${this.amount}</slot>
       </span>
     `;
   }

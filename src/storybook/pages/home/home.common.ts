@@ -8,7 +8,7 @@ import { sbbSpread } from '../../../components/core/dom';
 import type {
   SbbNavigationElement,
   SbbNavigationMarkerElement,
-  SbbNavigationActionElement,
+  SbbNavigationButtonElement,
 } from '../../../components/navigation';
 import '../../../components/button';
 import '../../../components/card';
@@ -44,7 +44,7 @@ export const timetableInput = (): TemplateResult => html`
 const onNavigationClose = (dialog: SbbNavigationElement): void => {
   dialog?.addEventListener('did-close', () => {
     (document.getElementById('nav-marker') as SbbNavigationMarkerElement).reset();
-    (document.getElementById('nav-1') as SbbNavigationActionElement).setAttribute('active', '');
+    (document.getElementById('nav-1') as SbbNavigationButtonElement).setAttribute('active', '');
   });
 };
 
@@ -54,58 +54,58 @@ export const navigation = (): TemplateResult => html`
     ${ref((dialog?: Element) => onNavigationClose(dialog as SbbNavigationElement))}
   >
     <sbb-navigation-marker id="nav-marker">
-      <sbb-navigation-action aria-current="page" id="nav-1" active>
+      <sbb-navigation-button aria-current="page" id="nav-1" active>
         Tickets & Offers
-      </sbb-navigation-action>
-      <sbb-navigation-action id="nav-2">Vacations & Recreation</sbb-navigation-action>
-      <sbb-navigation-action id="nav-3">Travel information</sbb-navigation-action>
-      <sbb-navigation-action id="nav-4" href="https://www.sbb.ch/en/">
+      </sbb-navigation-button>
+      <sbb-navigation-button id="nav-2">Vacations & Recreation</sbb-navigation-button>
+      <sbb-navigation-button id="nav-3">Travel information</sbb-navigation-button>
+      <sbb-navigation-link id="nav-4" href="https://www.sbb.ch/en/">
         Help & Contact
-      </sbb-navigation-action>
+      </sbb-navigation-link>
     </sbb-navigation-marker>
 
     <sbb-navigation-marker size="s">
-      <sbb-navigation-action aria-pressed="false" id="nav-5"> Deutsch </sbb-navigation-action>
-      <sbb-navigation-action aria-pressed="false" id="nav-6"> Français </sbb-navigation-action>
-      <sbb-navigation-action aria-pressed="false" id="nav-7"> Italiano </sbb-navigation-action>
-      <sbb-navigation-action aria-pressed="true" id="nav-8" active> English </sbb-navigation-action>
+      <sbb-navigation-button aria-pressed="false" id="nav-5"> Deutsch </sbb-navigation-button>
+      <sbb-navigation-button aria-pressed="false" id="nav-6"> Français </sbb-navigation-button>
+      <sbb-navigation-button aria-pressed="false" id="nav-7"> Italiano </sbb-navigation-button>
+      <sbb-navigation-button aria-pressed="true" id="nav-8" active> English </sbb-navigation-button>
     </sbb-navigation-marker>
 
     <sbb-navigation-section title-content="Title one" trigger="nav-1">
       <sbb-navigation-list label="Label">
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
       </sbb-navigation-list>
 
       <sbb-navigation-list label="Label">
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
       </sbb-navigation-list>
 
       <sbb-navigation-list label="Label">
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
       </sbb-navigation-list>
 
       <sbb-navigation-list label="Label">
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
       </sbb-navigation-list>
 
       <sbb-navigation-list label="Label">
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
       </sbb-navigation-list>
 
       <sbb-navigation-list label="Label">
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
       </sbb-navigation-list>
 
       <sbb-button size="m" class="navigation-button"> All Tickets & Offers </sbb-button>
@@ -113,53 +113,53 @@ export const navigation = (): TemplateResult => html`
 
     <sbb-navigation-section title-content="Title two" trigger="nav-2">
       <sbb-navigation-list label="Label">
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
       </sbb-navigation-list>
 
       <sbb-navigation-list label="Label">
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
       </sbb-navigation-list>
 
       <sbb-navigation-list label="Label">
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
       </sbb-navigation-list>
 
       <sbb-navigation-list label="Label">
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
       </sbb-navigation-list>
 
       <sbb-navigation-list label="Label">
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
       </sbb-navigation-list>
     </sbb-navigation-section>
 
     <sbb-navigation-section title-content="Title three" trigger="nav-3">
       <sbb-navigation-list label="Label">
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
       </sbb-navigation-list>
 
       <sbb-navigation-list label="Label">
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
       </sbb-navigation-list>
 
       <sbb-navigation-list label="Label">
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label</sbb-navigation-action>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label</sbb-navigation-button>
       </sbb-navigation-list>
 
       <sbb-button
@@ -176,9 +176,9 @@ export const navigation = (): TemplateResult => html`
 
 export const dailyTicketProduct = (): TemplateResult => html`
   <sbb-card color="milk" size="s">
-    <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+    <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
       Buy Daily Ticket
-    </sbb-card-action>
+    </sbb-card-link>
 
     <span class="card-product">
       <sbb-icon name="ticket-route-medium"></sbb-icon>
@@ -186,16 +186,16 @@ export const dailyTicketProduct = (): TemplateResult => html`
         <sbb-title level="2" visual-level="6"> Daily ticket </sbb-title>
         <span class="sbb-text-s card-description">Valid today</span>
       </span>
-      <sbb-button size="m" variant="secondary" is-static> Buy </sbb-button>
+      <sbb-button-static size="m" variant="secondary"> Buy </sbb-button-static>
     </span>
   </sbb-card>
 `;
 
 export const bikeProduct = (): TemplateResult => html`
   <sbb-card color="milk" size="s">
-    <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+    <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
       Buy Bike daily pass
-    </sbb-card-action>
+    </sbb-card-link>
 
     <span class="card-product">
       <sbb-icon name="bicycle-medium"></sbb-icon>
@@ -203,16 +203,16 @@ export const bikeProduct = (): TemplateResult => html`
         <sbb-title level="2" visual-level="6"> Bike day pass </sbb-title>
         <span class="sbb-text-s card-description">Valid today</span>
       </span>
-      <sbb-button size="m" variant="secondary" is-static> Buy </sbb-button>
+      <sbb-button-static size="m" variant="secondary"> Buy </sbb-button-static>
     </span>
   </sbb-card>
 `;
 
 export const liberoProduct = (): TemplateResult => html`
   <sbb-card color="milk" size="s">
-    <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+    <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
       Buy Libero short distance ticket
-    </sbb-card-action>
+    </sbb-card-link>
 
     <span class="card-product">
       <sbb-icon name="ticket-route-medium"></sbb-icon>
@@ -220,7 +220,7 @@ export const liberoProduct = (): TemplateResult => html`
         <sbb-title level="2" visual-level="6"> Libero short distance ticket </sbb-title>
         <span class="sbb-text-s card-description">Valid today</span>
       </span>
-      <sbb-button size="m" variant="secondary" is-static> Buy </sbb-button>
+      <sbb-button-static size="m" variant="secondary"> Buy </sbb-button-static>
     </span>
   </sbb-card>
 `;

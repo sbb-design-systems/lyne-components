@@ -68,17 +68,5 @@ describe('sbb-breadcrumb', () => {
     await expect(root).shadowDom.to.equalSnapshot();
   });
 
-  it('renders as span if no href is provided', async () => {
-    const root = await fixture(html`<sbb-breadcrumb>Breadcrumb</sbb-breadcrumb>`);
-
-    expect(root).dom.to.be.equal(`
-      <sbb-breadcrumb dir="ltr">
-        Breadcrumb
-      </sbb-breadcrumb>
-    `);
-
-    await expect(root).shadowDom.to.equalSnapshot();
-  });
-
   testA11yTreeSnapshot(html` <sbb-breadcrumb href="/test">Breadcrumb</sbb-breadcrumb> `);
 });

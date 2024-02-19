@@ -9,7 +9,7 @@ import style from './card.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add content to the card.
  * @slot badge - Use this slot to render a `sbb-card-badge` component.
- * @slot action - Use this slot to render a `sbb-card-action` component.
+ * @slot action - Use this slot to render a `sbb-card-button` or a `sbb-card-link` component.
  */
 @customElement('sbb-card')
 export class SbbCardElement extends LitElement {

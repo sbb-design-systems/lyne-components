@@ -45,35 +45,35 @@ const Template = (args: Args): TemplateResult => html`
 
     <!-- Header section -->
     <sbb-header hide-on-scroll>
-      <sbb-header-action id="hamburger-menu" icon-name="hamburger-menu-small" expand-from="small">
+      <sbb-header-button id="hamburger-menu" icon-name="hamburger-menu-small" expand-from="small">
         Menu
-      </sbb-header-action>
+      </sbb-header-button>
       <div class="sbb-header-spacer"></div>
-      <sbb-header-action icon-name="magnifying-glass-small" href="/"> Search </sbb-header-action>
-      <sbb-header-action
+      <sbb-header-link icon-name="magnifying-glass-small" href="/"> Search </sbb-header-link>
+      <sbb-header-button
         icon-name="user-small"
         id="user-menu-trigger"
         class="sbb-header-shrinkable"
       >
         Christina Müller
-      </sbb-header-action>
+      </sbb-header-button>
       <sbb-menu trigger="user-menu-trigger">
-        <sbb-menu-action icon-name="user-small" href="/"> Account </sbb-menu-action>
-        <sbb-menu-action icon-name="tickets-class-small">Tickets</sbb-menu-action>
-        <sbb-menu-action icon-name="shopping-cart-small" amount="1">
+        <sbb-menu-link icon-name="user-small" href="/"> Account </sbb-menu-link>
+        <sbb-menu-button icon-name="tickets-class-small">Tickets</sbb-menu-button>
+        <sbb-menu-button icon-name="shopping-cart-small" amount="1">
           Shopping cart
-        </sbb-menu-action>
+        </sbb-menu-button>
         <sbb-divider></sbb-divider>
-        <sbb-menu-action icon-name="exit-small">Sign out</sbb-menu-action>
+        <sbb-menu-button icon-name="exit-small">Sign out</sbb-menu-button>
       </sbb-menu>
-      <sbb-header-action icon-name="globe-small" id="language-menu-trigger" class="last-element">
+      <sbb-header-button icon-name="globe-small" id="language-menu-trigger" class="last-element">
         English
-      </sbb-header-action>
+      </sbb-header-button>
       <sbb-menu trigger="language-menu-trigger">
-        <sbb-menu-action aria-pressed="false">Deutsch</sbb-menu-action>
-        <sbb-menu-action aria-pressed="false">Français</sbb-menu-action>
-        <sbb-menu-action aria-pressed="false">Italiano</sbb-menu-action>
-        <sbb-menu-action icon-name="tick-small" aria-pressed="true"> English </sbb-menu-action>
+        <sbb-menu-button aria-pressed="false">Deutsch</sbb-menu-button>
+        <sbb-menu-button aria-pressed="false">Français</sbb-menu-button>
+        <sbb-menu-button aria-pressed="false">Italiano</sbb-menu-button>
+        <sbb-menu-button icon-name="tick-small" aria-pressed="true"> English </sbb-menu-button>
       </sbb-menu>
       <a href="https://www.sbb.ch" slot="logo">
         <sbb-logo protective-room="none"></sbb-logo>
@@ -104,9 +104,9 @@ const Template = (args: Args): TemplateResult => html`
                   <span> on <time datetime="2021-11-25">Black Friday</time> </span>
                 </sbb-card-badge>
 
-                <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+                <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
                   View Ticket
-                </sbb-card-action>
+                </sbb-card-link>
 
                 <span class="card-product">
                   <sbb-icon name="ticket-route-medium"></sbb-icon>
@@ -129,17 +129,17 @@ const Template = (args: Args): TemplateResult => html`
                       ?disable-animation=${isChromatic()}
                     ></sbb-pearl-chain>
                   </span>
-                  <sbb-button variant="secondary" icon-name="qrcode-small" is-static>
+                  <sbb-button-static variant="secondary" icon-name="qrcode-small">
                     Ticket
-                  </sbb-button>
+                  </sbb-button-static>
                 </span>
               </sbb-card>
             </li>
             <li>
               <sbb-card>
-                <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+                <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
                   Buy saver ticket
-                </sbb-card-action>
+                </sbb-card-link>
 
                 <span class="card-product">
                   <sbb-icon name="ticket-route-medium"></sbb-icon>
@@ -148,17 +148,17 @@ const Template = (args: Args): TemplateResult => html`
                     <sbb-title level="2" visual-level="6"> Libero day ticket: All zones </sbb-title>
                     <span class="sbb-text-s card-description">Today, Valid 24 hours</span>
                   </span>
-                  <sbb-button variant="secondary" icon-name="qrcode-small" is-static>
+                  <sbb-button-static variant="secondary" icon-name="qrcode-small">
                     Ticket
-                  </sbb-button>
+                  </sbb-button-static>
                 </span>
               </sbb-card>
             </li>
             <li>
               <sbb-card>
-                <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+                <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
                   Check details of the journey
-                </sbb-card-action>
+                </sbb-card-link>
 
                 <span class="card-product">
                   <span class="content">
@@ -177,7 +177,7 @@ const Template = (args: Args): TemplateResult => html`
                       ?disable-animation=${isChromatic()}
                     ></sbb-pearl-chain>
                   </span>
-                  <sbb-button variant="secondary" is-static> Details </sbb-button>
+                  <sbb-button-static variant="secondary"> Details </sbb-button-static>
                 </span>
               </sbb-card>
             </li>
@@ -251,9 +251,9 @@ const Template = (args: Args): TemplateResult => html`
               Your subscriptions.
             </sbb-title>
             <sbb-card color="milk" size="s">
-              <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+              <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
                 Edit subscription
-              </sbb-card-action>
+              </sbb-card-link>
 
               <span class="card-product-big">
                 <span class="content">
@@ -261,7 +261,7 @@ const Template = (args: Args): TemplateResult => html`
                   <sbb-title level="3" visual-level="6"> Generalabonnement </sbb-title>
                   <span class="sbb-text-s card-description">2nd class, valid until 30.11.2022</span>
                 </span>
-                <sbb-button variant="secondary" is-static> Edit subscription </sbb-button>
+                <sbb-button-static variant="secondary"> Edit subscription </sbb-button-static>
               </span>
             </sbb-card>
           </div>

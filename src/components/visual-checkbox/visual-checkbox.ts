@@ -2,26 +2,22 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { SbbDisabledMixin, SbbNegativeMixin } from '../core/common-behaviors';
+
 import style from './visual-checkbox.scss?lit&inline';
 
 /**
  * It visually displays a non-interactive checkbox.
  */
 @customElement('sbb-visual-checkbox')
-export class SbbVisualCheckboxElement extends LitElement {
+export class SbbVisualCheckboxElement extends SbbDisabledMixin(SbbNegativeMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
 
   /** Checked state. */
   @property({ reflect: true, type: Boolean }) public checked: boolean = false;
 
-  /** Disabled state. */
-  @property({ reflect: true, type: Boolean }) public disabled: boolean = false;
-
   /** Indeterminate state. */
   @property({ reflect: true, type: Boolean }) public indeterminate = false;
-
-  /** Negative coloring variant flag. */
-  @property({ reflect: true, type: Boolean }) public negative = false;
 
   protected override render(): TemplateResult {
     return html`

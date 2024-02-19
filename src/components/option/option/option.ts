@@ -3,7 +3,11 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { assignId } from '../../core/a11y';
-import { NamedSlotStateController } from '../../core/common-behaviors';
+import {
+  NamedSlotStateController,
+  SbbDisabledMixin,
+  SbbIconNameMixin,
+} from '../../core/common-behaviors';
 import {
   isSafari,
   isValidAttribute,
@@ -14,9 +18,9 @@ import {
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import { AgnosticMutationObserver } from '../../core/observers';
 
-import style from './option.scss?lit&inline';
 import '../../visual-checkbox';
 import '../../icon';
+import style from './option.scss?lit&inline';
 
 let nextId = 0;
 
@@ -36,7 +40,7 @@ export type SbbOptionVariant = 'autocomplete' | 'select';
  * @event {CustomEvent<void>} optionSelected - Emits when an option was selected by user.
  */
 @customElement('sbb-option')
-export class SbbOptionElement extends LitElement {
+export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     selectionChange: 'optionSelectionChange',
@@ -46,21 +50,11 @@ export class SbbOptionElement extends LitElement {
   /** Value of the option. */
   @property() public value?: string;
 
-  /**
-   * The icon name we want to use, choose from the small icon variants
-   * from the ui-icons category from here
-   * https://icons.app.sbb.ch.
-   */
-  @property({ attribute: 'icon-name', reflect: true }) public iconName?: string;
-
   /** Whether the option is currently active. */
   @property({ reflect: true, type: Boolean }) public active?: boolean;
 
   /** Whether the option is selected. */
   @property({ reflect: true, type: Boolean }) public selected = false;
-
-  /** Whether the option is disabled. */
-  @property({ reflect: true, type: Boolean }) public disabled?: boolean;
 
   /** Emits when the option selection status changes. */
   private _selectionChange: EventEmitter = new EventEmitter(
@@ -270,11 +264,7 @@ export class SbbOptionElement extends LitElement {
         <div class="sbb-option">
           <!-- Icon -->
           ${!isMultiple
-            ? html` <span class="sbb-option__icon">
-                <slot name="icon">
-                  ${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}
-                </slot>
-              </span>`
+            ? html` <span class="sbb-option__icon"> ${this.renderIconSlot()} </span>`
             : nothing}
 
           <!-- Checkbox -->

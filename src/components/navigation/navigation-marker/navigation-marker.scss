@@ -72,6 +72,6 @@
   }
 }
 
-::slotted(sbb-navigation-action) {
+::slotted(:is(sbb-navigation-button, sbb-navigation-link)) {
   margin-inline-start: var(--sbb-navigation-margin-inline-start);
 }

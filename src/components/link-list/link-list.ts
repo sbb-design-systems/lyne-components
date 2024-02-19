@@ -1,9 +1,13 @@
 import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
-import { html, nothing } from 'lit';
+import { html, nothing, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import type { WithListChildren } from '../core/common-behaviors';
-import { NamedSlotListElement, NamedSlotStateController } from '../core/common-behaviors';
+import {
+  SbbNamedSlotListElementMixin,
+  SbbNegativeMixin,
+  NamedSlotStateController,
+  type WithListChildren,
+} from '../core/common-behaviors';
 import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
 import type { SbbLinkElement, SbbLinkSize } from '../link';
 import type { TitleLevel } from '../title';
@@ -19,9 +23,11 @@ import '../title';
  * @slot title - Use this slot to provide a title.
  */
 @customElement('sbb-link-list')
-export class SbbLinkListElement extends NamedSlotListElement<SbbLinkElement> {
+export class SbbLinkListElement extends SbbNegativeMixin(
+  SbbNamedSlotListElementMixin<SbbLinkElement, typeof LitElement>(LitElement),
+) {
   public static override styles: CSSResultGroup = style;
-  protected override readonly listChildTagNames = ['SBB-LINK'];
+  protected override readonly listChildTagNames = ['SBB-LINK', 'SBB-LINK-BUTTON'];
 
   /** The title text we want to show before the list. */
   @property({ attribute: 'title-content', reflect: true }) public titleContent?: string;
@@ -34,12 +40,6 @@ export class SbbLinkListElement extends NamedSlotListElement<SbbLinkElement> {
    * nested sbb-link instances.
    */
   @property({ reflect: true }) public size: SbbLinkSize = 's';
-
-  /**
-   * Whether to render the link list and nested sbb-link instances as negative. This will overwrite
-   * the negative attribute of nested sbb-link instances.
-   */
-  @property({ reflect: true, type: Boolean }) public negative: boolean = false;
 
   /** Selected breakpoint from which the list is rendered horizontally. */
   @property({ attribute: 'horizontal-from', reflect: true })

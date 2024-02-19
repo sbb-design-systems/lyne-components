@@ -4,7 +4,11 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import type { SbbInputModality } from '../../core/a11y';
 import { sbbInputModalityDetector } from '../../core/a11y';
-import { LanguageController, NamedSlotStateController } from '../../core/common-behaviors';
+import {
+  LanguageController,
+  NamedSlotStateController,
+  SbbNegativeMixin,
+} from '../../core/common-behaviors';
 import { isBrowser, isFirefox, isValidAttribute, toggleDatasetEntry } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
 import { i18nOptional } from '../../core/i18n';
@@ -29,7 +33,7 @@ const supportedPopupTagNames = ['SBB-AUTOCOMPLETE', 'SBB-SELECT'];
  * @slot error - Use this slot to render an error.
  */
 @customElement('sbb-form-field')
-export class SbbFormFieldElement extends LitElement {
+export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   private readonly _supportedNativeInputElements = ['INPUT', 'SELECT'];
@@ -85,9 +89,6 @@ export class SbbFormFieldElement extends LitElement {
   /** Whether the label should float. If activated, the placeholder of the input is hidden. */
   @property({ attribute: 'floating-label', reflect: true, type: Boolean }) public floatingLabel =
     false;
-
-  /** Negative coloring variant flag. */
-  @property({ reflect: true, type: Boolean }) public negative = false;
 
   /** It is used internally to get the `error` slot. */
   @state() private _errorElements: Element[] = [];

@@ -172,7 +172,7 @@ snapshots["sbb-checkbox state unchecked disabled"] =
 `;
 /* end snapshot sbb-checkbox state unchecked disabled */
 
-snapshots["sbb-checkbox Unchecked - A11y tree Chrome"] = 
+snapshots["sbb-checkbox Unchecked - A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -189,7 +189,7 @@ snapshots["sbb-checkbox Unchecked - A11y tree Chrome"] =
 `;
 /* end snapshot sbb-checkbox Unchecked - A11y tree Chrome */
 
-snapshots["sbb-checkbox Checked - A11y tree Chrome"] = 
+snapshots["sbb-checkbox Checked - A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",

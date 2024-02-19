@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { LanguageController } from '../core/common-behaviors';
+import { LanguageController, SbbNegativeMixin } from '../core/common-behaviors';
 import { i18nClass } from '../core/i18n';
 import type { SbbOccupancy } from '../core/interfaces';
 import '../timetable-occupancy-icon';
@@ -13,7 +13,7 @@ import style from './timetable-occupancy.scss?lit&inline';
  * Used in `sbb-timetable-row`, it displays information about wagon occupancy.
  */
 @customElement('sbb-timetable-occupancy')
-export class SbbTimetableOccupancyElement extends LitElement {
+export class SbbTimetableOccupancyElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** Occupancy for first class wagons. */
@@ -21,9 +21,6 @@ export class SbbTimetableOccupancyElement extends LitElement {
 
   /** Occupancy for second class wagons. */
   @property({ attribute: 'second-class-occupancy' }) public secondClassOccupancy?: SbbOccupancy;
-
-  /** Negative coloring variant flag. */
-  @property({ reflect: true, type: Boolean }) public negative = false;
 
   private _language = new LanguageController(this);
 

@@ -2,7 +2,7 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { SbbNavigationListElement } from './navigation-list';
-import '../navigation-action';
+import '../navigation-button';
 
 describe('sbb-navigation-list', () => {
   let element: SbbNavigationListElement;
@@ -10,8 +10,8 @@ describe('sbb-navigation-list', () => {
   beforeEach(async () => {
     element = await fixture(html`
       <sbb-navigation-list>
-        <sbb-navigation-action>Label</sbb-navigation-action>
-        <sbb-navigation-action>Label 2</sbb-navigation-action>
+        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button>Label 2</sbb-navigation-button>
       </sbb-navigation-list>
     `);
   });
@@ -29,7 +29,7 @@ describe('sbb-navigation-list', () => {
   });
 
   it('force size on children elements', () => {
-    const action = element.querySelector('sbb-navigation-action');
+    const action = element.querySelector('sbb-navigation-button');
     expect(action).to.have.attribute('size', 'm');
   });
 });

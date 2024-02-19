@@ -1,19 +1,16 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { LitElement, html } from 'lit';
+import { html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { LanguageController } from '../../core/common-behaviors';
-import type { DateAdapter } from '../../core/datetime';
-import { defaultDateAdapter } from '../../core/datetime';
-import { isValidAttribute, setAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
 import {
-  ConnectedAbortController,
-  HandlerRepository,
-  actionElementHandlerAspect,
-} from '../../core/eventing';
+  LanguageController,
+  SbbNegativeMixin,
+  SbbButtonBaseElement,
+} from '../../core/common-behaviors';
+import { defaultDateAdapter, type DateAdapter } from '../../core/datetime';
+import { isValidAttribute, toggleDatasetEntry } from '../../core/dom';
+import { ConnectedAbortController } from '../../core/eventing';
 import { i18nNextDay, i18nSelectNextDay, i18nToday } from '../../core/i18n';
-import type { ButtonProperties } from '../../core/interfaces';
-import { resolveButtonRenderVariables } from '../../core/interfaces';
 import {
   datepickerControlRegisteredEventFactory,
   findNextAvailableDate,
@@ -28,14 +25,8 @@ import style from './datepicker-next-day.scss?lit&inline';
  * Combined with a `sbb-datepicker`, it can be used to move the date ahead.
  */
 @customElement('sbb-datepicker-next-day')
-export class SbbDatepickerNextDayElement extends LitElement implements ButtonProperties {
+export class SbbDatepickerNextDayElement extends SbbNegativeMixin(SbbButtonBaseElement) {
   public static override styles: CSSResultGroup = style;
-
-  /** The name attribute to use for the button. */
-  @property({ reflect: true }) public name: string | undefined;
-
-  /** Negative coloring variant flag. */
-  @property({ reflect: true, type: Boolean }) public negative = false;
 
   /** Datepicker reference. */
   @property({ attribute: 'date-picker' }) public datePicker?: string | SbbDatepickerElement;
@@ -48,8 +39,6 @@ export class SbbDatepickerNextDayElement extends LitElement implements ButtonPro
 
   /** The maximum date as set in the date-picker's input. */
   @state() private _max: string | number | null = null;
-
-  private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
 
   private _datePickerElement?: SbbDatepickerElement | null = null;
 
@@ -80,7 +69,6 @@ export class SbbDatepickerNextDayElement extends LitElement implements ButtonPro
   public override connectedCallback(): void {
     super.connectedCallback();
     this.addEventListener('click', () => this._handleClick(), { signal: this._abort.signal });
-    this._handlerRepository.connect();
     this._syncUpstreamProperties();
     if (!this.datePicker) {
       this._init();
@@ -111,7 +99,6 @@ export class SbbDatepickerNextDayElement extends LitElement implements ButtonPro
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._handlerRepository.disconnect();
     this._datePickerController?.abort();
   }
 
@@ -197,21 +184,25 @@ export class SbbDatepickerNextDayElement extends LitElement implements ButtonPro
     this.setAttribute('aria-label', i18nSelectNextDay(currentDateString)[this._language.current]);
   }
 
-  protected override render(): TemplateResult {
+  private _setDisabledRenderAttributes(): void {
     toggleDatasetEntry(this, 'disabled', this._disabled || this._inputDisabled);
-    const { hostAttributes } = resolveButtonRenderVariables({
-      ...this,
-      disabled: isValidAttribute(this, 'data-disabled'),
-    });
+    if (isValidAttribute(this, 'data-disabled')) {
+      this.setAttribute('aria-disabled', 'true');
+      this.removeAttribute('tabindex');
+    } else {
+      this.removeAttribute('aria-disabled');
+      this.setAttribute('tabindex', '0');
+    }
+  }
 
-    setAttributes(this, hostAttributes);
-    setAttribute(this, 'slot', 'suffix');
+  protected override createRenderRoot(): HTMLElement | DocumentFragment {
+    this.setAttribute('slot', 'suffix');
+    return super.createRenderRoot();
+  }
 
-    return html`
-      <span class="sbb-datepicker-next-day">
-        <sbb-icon name="chevron-small-right-small"></sbb-icon>
-      </span>
-    `;
+  protected override renderTemplate(): TemplateResult {
+    this._setDisabledRenderAttributes();
+    return html` <sbb-icon name="chevron-small-right-small"></sbb-icon> `;
   }
 }
 

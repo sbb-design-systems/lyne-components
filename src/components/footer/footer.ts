@@ -3,6 +3,7 @@ import { LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
+import { SbbNegativeMixin } from '../core/common-behaviors';
 import type { TitleLevel } from '../title';
 
 import style from './footer.scss?lit&inline';
@@ -13,7 +14,7 @@ import style from './footer.scss?lit&inline';
  * @slot - Use the unnamed slot to add elements like `sbb-link`, `sbb-link-list`, `sbb-divider` and so on.
  */
 @customElement('sbb-footer')
-export class SbbFooterElement extends LitElement {
+export class SbbFooterElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -22,9 +23,6 @@ export class SbbFooterElement extends LitElement {
    * breakpoints.
    */
   @property({ reflect: true }) public variant: 'default' | 'clock-columns' = 'default';
-
-  /** Negative coloring variant flag. */
-  @property({ reflect: true, type: Boolean }) public negative = false;
 
   /**
    * Whether to allow the footer content to stretch to full width.

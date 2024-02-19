@@ -13,7 +13,8 @@ import type { SbbNavigationMarkerElement, SbbNavigationElement } from '../index'
 import readme from './readme.md?raw';
 import '../../button';
 import '../navigation-list';
-import '../navigation-action';
+import '../navigation-button';
+import '../navigation-link';
 import '../navigation-marker';
 import '../navigation';
 
@@ -75,20 +76,20 @@ const triggerButton = (id: string): TemplateResult => html`
 `;
 
 const navigationActionsL = (): TemplateResult => html`
-  <sbb-navigation-action id="nav-1" data-testid="navigation-section-trigger-1">
+  <sbb-navigation-button id="nav-1" data-testid="navigation-section-trigger-1">
     Label
-  </sbb-navigation-action>
-  <sbb-navigation-action id="nav-2" data-testid="navigation-section-trigger-2">
+  </sbb-navigation-button>
+  <sbb-navigation-button id="nav-2" data-testid="navigation-section-trigger-2">
     Label
-  </sbb-navigation-action>
-  <sbb-navigation-action id="nav-3">Label</sbb-navigation-action>
+  </sbb-navigation-button>
+  <sbb-navigation-button id="nav-3">Label</sbb-navigation-button>
 `;
 
 const navigationList = (label: string): TemplateResult => html`
   <sbb-navigation-list label=${label}>
-    <sbb-navigation-action size="m">Label</sbb-navigation-action>
-    <sbb-navigation-action size="m">Label</sbb-navigation-action>
-    <sbb-navigation-action size="m" href="https://www.sbb.ch/en/"> Label </sbb-navigation-action>
+    <sbb-navigation-button size="m">Label</sbb-navigation-button>
+    <sbb-navigation-button size="m">Label</sbb-navigation-button>
+    <sbb-navigation-link size="m" href="https://www.sbb.ch/en/"> Label </sbb-navigation-link>
   </sbb-navigation-list>
 `;
 

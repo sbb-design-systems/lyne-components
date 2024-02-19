@@ -1,13 +1,19 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  LitElement,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import {
-  NamedSlotListElement,
   NamedSlotStateController,
+  SbbNamedSlotListElementMixin,
   type WithListChildren,
 } from '../core/common-behaviors';
-import type { SbbLinkElement } from '../link';
+import type { SbbLinkElement, SbbLinkButtonElement } from '../link';
 import type { TitleLevel } from '../title';
 
 import style from './skiplink-list.scss?lit&inline';
@@ -15,14 +21,17 @@ import style from './skiplink-list.scss?lit&inline';
 import '../title';
 
 /**
- * It displays a list of `sbb-link` which are visible only when focused.
+ * It displays a list of `sbb-link`/`sbb-link-button` which are visible only when focused.
  *
- * @slot - Use the unnamed slot to add `sbb-link` elements to the `sbb-skiplink-list`.
+ * @slot - Use the unnamed slot to add `sbb-link`/`sbb-link-button` elements to the `sbb-skiplink-list`.
  */
 @customElement('sbb-skiplink-list')
-export class SbbSkiplinkListElement extends NamedSlotListElement<SbbLinkElement> {
+export class SbbSkiplinkListElement extends SbbNamedSlotListElementMixin<
+  SbbLinkElement | SbbLinkButtonElement,
+  typeof LitElement
+>(LitElement) {
   public static override styles: CSSResultGroup = style;
-  protected override readonly listChildTagNames = ['SBB-LINK'];
+  protected override readonly listChildTagNames = ['SBB-LINK', 'SBB-LINK-BUTTON'];
 
   /** The title text we want to place before the list. */
   @property({ attribute: 'title-content', reflect: true }) public titleContent?: string;

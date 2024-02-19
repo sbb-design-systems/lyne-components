@@ -1,26 +1,34 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import {
-  NamedSlotListElement,
   NamedSlotStateController,
+  SbbNamedSlotListElementMixin,
   type WithListChildren,
 } from '../../core/common-behaviors';
-import type { SbbNavigationActionElement } from '../navigation-action';
+import type { SbbNavigationButtonElement, SbbNavigationLinkElement } from '../index';
 
 import style from './navigation-list.scss?lit&inline';
 
 /**
- * It can be used as a container for one or more `sbb-navigation-action` within a `sbb-navigation-section`.
+ * It can be used as a container for one or more `sbb-navigation-button`/`sbb-navigation-link` within a `sbb-navigation-section`.
  *
  * @slot - Use the unnamed slot to add content to the `sbb-navigation-list`.
  * @slot label - Use this to provide a label element.
  */
 @customElement('sbb-navigation-list')
-export class SbbNavigationListElement extends NamedSlotListElement<SbbNavigationActionElement> {
+export class SbbNavigationListElement extends SbbNamedSlotListElementMixin<
+  SbbNavigationButtonElement | SbbNavigationLinkElement,
+  typeof LitElement
+>(LitElement) {
   public static override styles: CSSResultGroup = style;
-  protected override readonly listChildTagNames = ['SBB-NAVIGATION-ACTION'];
+  protected override readonly listChildTagNames = ['SBB-NAVIGATION-BUTTON', 'SBB-NAVIGATION-LINK'];
 
   /**
    * The label to be shown before the action list.

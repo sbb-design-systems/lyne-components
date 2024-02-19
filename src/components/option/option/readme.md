@@ -62,10 +62,10 @@ If the label slot contains only a **text node**, it is possible to search for te
 | Name       | Attribute   | Privacy | Type                   | Default | Description                                                                                                                      |
 | ---------- | ----------- | ------- | ---------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | `value`    | `value`     | public  | `string \| undefined`  |         | Value of the option.                                                                                                             |
-| `iconName` | `icon-name` | public  | `string \| undefined`  |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
 | `active`   | `active`    | public  | `boolean \| undefined` |         | Whether the option is currently active.                                                                                          |
 | `selected` | `selected`  | public  | `boolean`              | `false` | Whether the option is selected.                                                                                                  |
-| `disabled` | `disabled`  | public  | `boolean \| undefined` |         | Whether the option is disabled.                                                                                                  |
+| `disabled` | `disabled`  | public  | `boolean`              | `false` | Whether the component is disabled.                                                                                               |
+| `iconName` | `icon-name` | public  | `string \| undefined`  |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
 
 ## Methods
 

@@ -1,17 +1,15 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { html } from 'lit';
+import { customElement } from 'lit/decorators.js';
 
-import { LanguageController } from '../../core/common-behaviors';
-import { hostContext, isValidAttribute, setAttribute, setAttributes } from '../../core/dom';
 import {
-  HandlerRepository,
-  actionElementHandlerAspect,
-  ConnectedAbortController,
-} from '../../core/eventing';
+  LanguageController,
+  SbbButtonBaseElement,
+  SbbNegativeMixin,
+} from '../../core/common-behaviors';
+import { hostContext, isValidAttribute } from '../../core/dom';
+import { ConnectedAbortController } from '../../core/eventing';
 import { i18nClearInput } from '../../core/i18n';
-import type { ButtonProperties } from '../../core/interfaces';
-import { resolveButtonRenderVariables } from '../../core/interfaces';
 import type { SbbFormFieldElement } from '../form-field';
 import '../../icon';
 
@@ -21,13 +19,9 @@ import style from './form-field-clear.scss?lit&inline';
  * Combined with `sbb-form-field`, it displays a button which clears the input value.
  */
 @customElement('sbb-form-field-clear')
-export class SbbFormFieldClearElement extends LitElement {
+export class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElement) {
   public static override styles: CSSResultGroup = style;
 
-  /** Negative coloring variant flag. */
-  @property({ reflect: true, type: Boolean }) public negative = false;
-
-  private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
   private _formField?: SbbFormFieldElement;
   private _abort = new ConnectedAbortController(this);
   private _language = new LanguageController(this);
@@ -36,7 +30,6 @@ export class SbbFormFieldClearElement extends LitElement {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener('click', () => this._handleClick(), { signal });
-    this._handlerRepository.connect();
     this._formField =
       (hostContext('sbb-form-field', this) as SbbFormFieldElement) ??
       (hostContext('[data-form-field]', this) as SbbFormFieldElement);
@@ -44,11 +37,6 @@ export class SbbFormFieldClearElement extends LitElement {
     if (this._formField) {
       this.negative = isValidAttribute(this._formField, 'negative');
     }
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
   }
 
   private async _handleClick(): Promise<void> {
@@ -62,18 +50,14 @@ export class SbbFormFieldClearElement extends LitElement {
     input.dispatchEvent(new Event('change', { bubbles: true }));
   }
 
-  protected override render(): TemplateResult {
-    const { hostAttributes } = resolveButtonRenderVariables(this as ButtonProperties);
+  protected override createRenderRoot(): HTMLElement | DocumentFragment {
+    this.setAttribute('slot', 'suffix');
+    this.setAttribute('aria-label', i18nClearInput[this._language.current]);
+    return super.createRenderRoot();
+  }
 
-    setAttributes(this, hostAttributes);
-    setAttribute(this, 'slot', 'suffix');
-    setAttribute(this, 'aria-label', i18nClearInput[this._language.current]);
-
-    return html`
-      <span class="sbb-form-field-clear">
-        <sbb-icon name="cross-small"></sbb-icon>
-      </span>
-    `;
+  protected override renderTemplate(): TemplateResult {
+    return html` <sbb-icon name="cross-small"></sbb-icon> `;
   }
 }
 

@@ -57,7 +57,7 @@
   --sbb-menu-animation-duration: 0.1ms;
 }
 
-::slotted(:not(sbb-menu-action, sbb-divider)) {
+::slotted(:not(sbb-menu-button, sbb-menu-link, sbb-divider)) {
   display: block;
   padding-inline: var(--sbb-spacing-fixed-5x);
 }

@@ -1,9 +1,13 @@
-import type { CSSResultGroup, TemplateResult, PropertyValueMap } from 'lit';
-import { html } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  LitElement,
+  type PropertyValueMap,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import type { WithListChildren } from '../../core/common-behaviors';
-import { NamedSlotListElement } from '../../core/common-behaviors';
+import { SbbNamedSlotListElementMixin, type WithListChildren } from '../../core/common-behaviors';
 import { setAttribute } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
 import type { SbbStateChange } from '../../core/interfaces';
@@ -17,7 +21,10 @@ import style from './tag-group.scss?lit&inline';
  * @slot - Use the unnamed slot to add one or more 'sbb-tag' elements to the `sbb-tag-group`.
  */
 @customElement('sbb-tag-group')
-export class SbbTagGroupElement extends NamedSlotListElement<SbbTagElement> {
+export class SbbTagGroupElement extends SbbNamedSlotListElementMixin<
+  SbbTagElement,
+  typeof LitElement
+>(LitElement) {
   public static override styles: CSSResultGroup = style;
   // DIV is added here due to special requirements from sbb.ch.
   protected override readonly listChildTagNames = ['SBB-TAG', 'DIV'];

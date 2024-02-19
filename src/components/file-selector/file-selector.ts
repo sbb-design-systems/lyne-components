@@ -6,7 +6,11 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import type { SbbButtonElement } from '../button';
 import { sbbInputModalityDetector } from '../core/a11y';
-import { LanguageController, NamedSlotStateController } from '../core/common-behaviors';
+import {
+  LanguageController,
+  NamedSlotStateController,
+  SbbDisabledMixin,
+} from '../core/common-behaviors';
 import { toggleDatasetEntry } from '../core/dom';
 import { EventEmitter } from '../core/eventing';
 import {
@@ -29,7 +33,7 @@ export type DOMEvent = globalThis.Event;
  * @event {CustomEvent<File[]>} fileChanged - An event which is emitted each time the file list changes.
  */
 @customElement('sbb-file-selector')
-export class SbbFileSelectorElement extends LitElement {
+export class SbbFileSelectorElement extends SbbDisabledMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     fileChangedEvent: 'fileChanged',
@@ -50,9 +54,6 @@ export class SbbFileSelectorElement extends LitElement {
 
   /** The title displayed in `dropzone` variant. */
   @property({ attribute: 'title-content' }) public titleContent?: string;
-
-  /** Whether the component is disabled. */
-  @property({ reflect: true, type: Boolean }) public disabled: boolean = false;
 
   /** This will be forwarded as aria-label to the native input element. */
   @property({ attribute: 'accessibility-label' }) public accessibilityLabel: string | undefined;
@@ -206,10 +207,9 @@ export class SbbFileSelectorElement extends LitElement {
 
   private _renderDefaultMode(): TemplateResult {
     return html`
-      <sbb-button
+      <sbb-button-static
         variant="secondary"
         size="m"
-        is-static
         icon-name="folder-open-small"
         ?disabled=${this.disabled}
         ${ref((el?: Element): void => {
@@ -217,7 +217,7 @@ export class SbbFileSelectorElement extends LitElement {
         })}
       >
         ${i18nFileSelectorButtonLabel[this._language.current]}
-      </sbb-button>
+      </sbb-button-static>
     `;
   }
 
@@ -232,17 +232,16 @@ export class SbbFileSelectorElement extends LitElement {
           ${i18nFileSelectorSubtitleLabel[this._language.current]}
         </span>
         <span class="sbb-file-selector__dropzone-area--button">
-          <sbb-button
+          <sbb-button-static
             variant="secondary"
             size="m"
             ?disabled=${this.disabled}
-            is-static
             ${ref((el?: Element): void => {
               this._loadButton = el as SbbButtonElement;
             })}
           >
             ${i18nFileSelectorButtonLabel[this._language.current]}
-          </sbb-button>
+          </sbb-button-static>
         </span>
       </span>
     `;

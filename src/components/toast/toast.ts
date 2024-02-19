@@ -2,16 +2,20 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import type { SbbButtonElement } from '../button';
-import { LanguageController, NamedSlotStateController } from '../core/common-behaviors';
+import type { SbbButtonElement, SbbButtonLinkElement } from '../button';
+import {
+  LanguageController,
+  NamedSlotStateController,
+  SbbIconNameMixin,
+} from '../core/common-behaviors';
 import { isFirefox, isValidAttribute, setAttribute } from '../core/dom';
 import { composedPathHasAttribute, EventEmitter, ConnectedAbortController } from '../core/eventing';
 import { i18nCloseAlert } from '../core/i18n';
 import type { SbbOverlayState } from '../core/overlay';
-import type { SbbLinkElement } from '../link';
+import type { SbbLinkButtonElement, SbbLinkElement } from '../link';
 import '../button';
-import '../icon';
 
+import '../icon';
 import style from './toast.scss?lit&inline';
 
 type SbbToastPositionVertical = 'top' | 'bottom';
@@ -33,7 +37,7 @@ const toastRefs = new Set<SbbToastElement>();
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-toast` is closed.
  */
 @customElement('sbb-toast')
-export class SbbToastElement extends LitElement {
+export class SbbToastElement extends SbbIconNameMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -47,13 +51,6 @@ export class SbbToastElement extends LitElement {
    * If 0, it stays open indefinitely.
    */
   @property({ type: Number }) public timeout = 6000;
-
-  /**
-   * The name of the icon, choose from the small icon variants
-   * from the ui-icons category from here
-   * https://icons.app.sbb.ch.
-   */
-  @property({ attribute: 'icon-name', reflect: true }) public iconName?: string;
 
   /** The position where to place the toast. */
   @property({ reflect: true }) public position: SbbToastPosition = 'bottom-center';
@@ -187,16 +184,20 @@ export class SbbToastElement extends LitElement {
     const slotNodes = (event.target as HTMLSlotElement).assignedNodes();
 
     // Force the visual state on slotted buttons
-    const buttons = slotNodes.filter((el) => el.nodeName === 'SBB-BUTTON') as SbbButtonElement[];
-    buttons.forEach((btn: SbbButtonElement) => {
+    const buttons: (SbbButtonElement | SbbButtonLinkElement)[] = slotNodes.filter(
+      (el) => el.nodeName === 'SBB-BUTTON' || el.nodeName === 'SBB-BUTTON-LINK',
+    ) as (SbbButtonElement | SbbButtonLinkElement)[];
+    buttons.forEach((btn: SbbButtonElement | SbbButtonLinkElement) => {
       btn.variant = 'transparent';
       btn.negative = true;
       btn.size = 'm';
     });
 
     // Force the visual state on slotted links
-    const links = slotNodes.filter((el) => el.nodeName === 'SBB-LINK') as SbbLinkElement[];
-    links.forEach((link: SbbLinkElement) => {
+    const links: (SbbLinkElement | SbbLinkButtonElement)[] = slotNodes.filter(
+      (el) => el.nodeName === 'SBB-LINK' || el.nodeName === 'SBB-LINK-BUTTON',
+    ) as (SbbLinkElement | SbbLinkButtonElement)[];
+    links.forEach((link: SbbLinkElement | SbbLinkButtonElement) => {
       link.variant = 'inline';
       link.negative = true;
     });
@@ -247,11 +248,7 @@ export class SbbToastElement extends LitElement {
           role=${this._role ?? nothing}
           @animationend=${this._onToastAnimationEnd}
         >
-          <div class="sbb-toast__icon">
-            <slot name="icon">
-              ${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}
-            </slot>
-          </div>
+          <div class="sbb-toast__icon">${this.renderIconSlot()}</div>
 
           <div class="sbb-toast__content" aria-live=${this.politeness}>
             <slot @slotchange=${this._onContentSlotChange}></slot>

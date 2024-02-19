@@ -5,7 +5,6 @@ import { html } from 'lit/static-html.js';
 import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
 
 import '../button';
-import '../icon';
 import { SbbCalendarElement } from './calendar';
 
 describe('sbb-calendar', () => {

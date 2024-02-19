@@ -40,22 +40,22 @@ const Template = (args: Args): TemplateResult => html`
 
     <!-- Header section -->
     <sbb-header hide-on-scroll>
-      <sbb-header-action id="hamburger-menu" icon-name="hamburger-menu-small" expand-from="small">
+      <sbb-header-button id="hamburger-menu" icon-name="hamburger-menu-small" expand-from="small">
         Menu
-      </sbb-header-action>
+      </sbb-header-button>
       <div class="sbb-header-spacer"></div>
-      <sbb-header-action icon-name="magnifying-glass-small" href="/"> Search </sbb-header-action>
-      <sbb-header-action icon-name="user-small" class="sbb-header-shrinkable">
+      <sbb-header-link icon-name="magnifying-glass-small" href="/"> Search </sbb-header-link>
+      <sbb-header-button icon-name="user-small" class="sbb-header-shrinkable">
         Sign in
-      </sbb-header-action>
-      <sbb-header-action icon-name="globe-small" id="language-menu-trigger" class="last-element">
+      </sbb-header-button>
+      <sbb-header-button icon-name="globe-small" id="language-menu-trigger" class="last-element">
         English
-      </sbb-header-action>
+      </sbb-header-button>
       <sbb-menu trigger="language-menu-trigger">
-        <sbb-menu-action aria-pressed="false">Deutsch</sbb-menu-action>
-        <sbb-menu-action aria-pressed="false">Français</sbb-menu-action>
-        <sbb-menu-action aria-pressed="false">Italiano</sbb-menu-action>
-        <sbb-menu-action icon-name="tick-small" aria-pressed="true"> English </sbb-menu-action>
+        <sbb-menu-button aria-pressed="false">Deutsch</sbb-menu-button>
+        <sbb-menu-button aria-pressed="false">Français</sbb-menu-button>
+        <sbb-menu-button aria-pressed="false">Italiano</sbb-menu-button>
+        <sbb-menu-button icon-name="tick-small" aria-pressed="true"> English </sbb-menu-button>
       </sbb-menu>
       <a href="https://www.sbb.ch" slot="logo">
         <sbb-logo protective-room="none"></sbb-logo>
@@ -94,23 +94,23 @@ const Template = (args: Args): TemplateResult => html`
         <div class="top-products-grid">
           ${dailyTicketProduct()} ${bikeProduct()} ${liberoProduct()}
           <sbb-card color="milk" size="s">
-            <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+            <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
               Buy daily ticket
-            </sbb-card-action>
+            </sbb-card-link>
             <span class="card-product">
               <sbb-icon name="ticket-route-medium"></sbb-icon>
               <span class="content">
                 <sbb-title level="2" visual-level="6"> Route map </sbb-title>
                 <span class="sbb-text-s card-description">For regular trips</span>
               </span>
-              <sbb-button size="m" variant="secondary" is-static> Buy </sbb-button>
+              <sbb-button-static size="m" variant="secondary"> Buy </sbb-button-static>
             </span>
           </sbb-card>
 
           <sbb-card color="milk" size="s" class="grid-span-2">
-            <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+            <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
               Show all GAs at a glance
-            </sbb-card-action>
+            </sbb-card-link>
             <span class="card-product-big">
               <span class="content">
                 <sbb-title level="2" visual-level="1"> GA </sbb-title>
@@ -118,14 +118,14 @@ const Template = (args: Args): TemplateResult => html`
                   Enjoy unlimited travel with the GA travel card.
                 </sbb-title>
               </span>
-              <sbb-button variant="secondary" is-static> All GAs at a glance </sbb-button>
+              <sbb-button-static variant="secondary"> All GAs at a glance </sbb-button-static>
             </span>
           </sbb-card>
 
           <sbb-card class="grid-span-2" color="milk" size="s">
-            <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+            <sbb-card-link href="https://github.com/lyne-design-system/lyne-components">
               Buy half price ticket
-            </sbb-card-action>
+            </sbb-card-link>
 
             <span class="card-product-big">
               <span class="content">
@@ -134,7 +134,7 @@ const Template = (args: Args): TemplateResult => html`
                   Travel at half price with the half-fare travel card.
                 </sbb-title>
               </span>
-              <sbb-button variant="secondary" is-static> Ride at half price </sbb-button>
+              <sbb-button-static variant="secondary"> Ride at half price </sbb-button-static>
             </span>
           </sbb-card>
         </div>

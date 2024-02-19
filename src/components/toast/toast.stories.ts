@@ -103,7 +103,7 @@ const defaultArgs: Args = {
 };
 
 const toastTemplate = (
-  args: Args,
+  { timeout, ...args }: Args,
   action: string | null,
   contentLength = 's',
 ): TemplateResult => html`
@@ -112,7 +112,7 @@ const toastTemplate = (
       (event.currentTarget as SbbButtonElement).parentElement!.querySelector('sbb-toast')!.open()}
     >Show toast</sbb-button
   >
-  <sbb-toast ${sbbSpread(args)} data-testid="sbb-toast">
+  <sbb-toast timeout="${timeout}" ${sbbSpread(args)} data-testid="sbb-toast">
     ${contentLength === 's'
       ? 'Lorem ipsum dolor'
       : 'Lorem ipsum dolor sit amet, ipsum consectetur adipiscing elit.'}
@@ -125,7 +125,9 @@ const toastTemplate = (
         ></sbb-button>`
       : nothing}
     ${action === 'link'
-      ? html`<sbb-link slot="action" sbb-toast-close> Link action </sbb-link>`
+      ? html`<sbb-link slot="action" sbb-toast-close href="https://www.sbb.ch" target="_blank">
+          Link action
+        </sbb-link>`
       : nothing}
   </sbb-toast>
 `;

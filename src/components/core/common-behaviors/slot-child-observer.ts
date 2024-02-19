@@ -1,6 +1,6 @@
 import type { LitElement, PropertyValues } from 'lit';
 
-import type { Constructor } from './constructor';
+import type { AbstractConstructor } from './constructor';
 
 // Define the interface for the mixin
 export declare abstract class SlotChildObserverType {
@@ -15,10 +15,10 @@ export declare abstract class SlotChildObserverType {
  * @returns A class extended with the slot child observer functionality.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SlotChildObserver = <T extends Constructor<LitElement>>(
+export const SlotChildObserver = <T extends AbstractConstructor<LitElement>>(
   base: T,
-): Constructor<SlotChildObserverType> & T => {
-  class SlotChildObserverClass extends base implements Partial<SlotChildObserverType> {
+): AbstractConstructor<SlotChildObserverType> & T => {
+  abstract class SlotChildObserverClass extends base implements Partial<SlotChildObserverType> {
     /**
      * Whether the component needs hydration.
      * @see https://github.com/lit/lit/blob/main/packages/labs/ssr-client/src/lit-element-hydrate-support.ts
@@ -83,5 +83,5 @@ export const SlotChildObserver = <T extends Constructor<LitElement>>(
       // Needs to be implemented by inherited classes
     }
   }
-  return SlotChildObserverClass as unknown as Constructor<SlotChildObserverType> & T;
+  return SlotChildObserverClass as unknown as AbstractConstructor<SlotChildObserverType> & T;
 };

@@ -5,16 +5,15 @@ snapshots["sbb-file-selector renders default"] =
 `<div class="sbb-file-selector">
   <div class="sbb-file-selector__input-container">
     <label>
-      <sbb-button
+      <sbb-button-static
         data-slot-names="unnamed"
         dir="ltr"
         icon-name="folder-open-small"
-        is-static=""
         size="m"
         variant="secondary"
       >
         Choose a file
-      </sbb-button>
+      </sbb-button-static>
       <input
         class="sbb-file-selector__visually-hidden"
         type="file"
@@ -54,15 +53,14 @@ snapshots["sbb-file-selector renders with dropzone area"] =
           Drag & Drop your files here
         </span>
         <span class="sbb-file-selector__dropzone-area--button">
-          <sbb-button
+          <sbb-button-static
             data-slot-names="unnamed"
             dir="ltr"
-            is-static=""
             size="m"
             variant="secondary"
           >
             Choose a file
-          </sbb-button>
+          </sbb-button-static>
         </span>
       </span>
       <input

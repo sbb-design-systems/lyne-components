@@ -84,9 +84,9 @@ const meta: Meta = {
     (story) => html`
       <div>
         <sbb-header expanded hide-on-scroll>
-          <sbb-header-action icon-name="hamburger-menu-small" expand-from="small">
+          <sbb-header-button icon-name="hamburger-menu-small" expand-from="small">
             Menu
-          </sbb-header-action>
+          </sbb-header-button>
         </sbb-header>
         ${story()}
       </div>

@@ -1,15 +1,8 @@
-import { spread } from '@open-wc/lit-helpers';
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { html, unsafeStatic } from 'lit/static-html.js';
+import { html } from 'lit/static-html.js';
 
-import { LanguageController, NamedSlotStateController } from '../core/common-behaviors';
-import { setAttributes } from '../core/dom';
-import { HandlerRepository, linkHandlerAspect } from '../core/eventing';
-import { i18nTargetOpensInNewWindow } from '../core/i18n';
-import type { LinkProperties, LinkTargetType } from '../core/interfaces';
-import { resolveLinkOrStaticRenderVariables, targetsNewWindow } from '../core/interfaces';
+import { NamedSlotStateController, SbbLinkBaseElement } from '../core/common-behaviors';
 import type { TitleLevel } from '../title';
 import '../title';
 import '../chip';
@@ -25,7 +18,7 @@ import style from './teaser.scss?lit&inline';
  * @slot - Use the unnamed slot to render the description.
  */
 @customElement('sbb-teaser')
-export class SbbTeaserElement extends LitElement implements LinkProperties {
+export class SbbTeaserElement extends SbbLinkBaseElement {
   public static override styles: CSSResultGroup = style;
 
   /** Teaser variant - define the position and the alignment of the text block. */
@@ -41,71 +34,30 @@ export class SbbTeaserElement extends LitElement implements LinkProperties {
   /** Content of chip. */
   @property({ attribute: 'chip-content', reflect: true }) public chipContent?: string;
 
-  /** The href value you want to link to. */
-  @property() public href: string | undefined;
-
-  /** Where to display the linked URL. */
-  @property() public target?: LinkTargetType | string | undefined;
-
-  /** The relationship of the linked URL as space-separated link types. */
-  @property() public rel?: string | undefined;
-
-  private _language = new LanguageController(this);
-  private _handlerRepository = new HandlerRepository(this, linkHandlerAspect);
-
   public constructor() {
     super();
     new NamedSlotStateController(this);
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._handlerRepository.connect();
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
-  }
-
-  protected override render(): TemplateResult {
-    const {
-      tagName: TAG_NAME,
-      attributes,
-      hostAttributes,
-    } = resolveLinkOrStaticRenderVariables(this);
-
-    setAttributes(this, hostAttributes);
-
-    /* eslint-disable lit/binding-positions */
+  protected override renderTemplate(): TemplateResult {
     return html`
-      <${unsafeStatic(TAG_NAME)} class="sbb-teaser" ${spread(attributes)}>
-        <span class="sbb-teaser__container">
-          <span class="sbb-teaser__image-wrapper">
-            <slot name="image"></slot>
-          </span>
-          <span class="sbb-teaser__text">
-            <sbb-chip size="xxs" color="charcoal" class="sbb-teaser__chip">
-              <slot name="chip">${this.chipContent}</slot>
-            </sbb-chip>
-            <sbb-title level=${this.titleLevel} visual-level="5" class="sbb-teaser__lead">
-              <slot name="title">${this.titleContent}</slot>
-            </sbb-title>
-            <span class="sbb-teaser__description">
-              <slot></slot>
-            </span>
-            ${
-              targetsNewWindow(this)
-                ? html`<span class="sbb-teaser__opens-in-new-window">
-                    . ${i18nTargetOpensInNewWindow[this._language.current]}
-                  </span>`
-                : nothing
-            }
+      <span class="sbb-teaser__container">
+        <span class="sbb-teaser__image-wrapper">
+          <slot name="image"></slot>
+        </span>
+        <span class="sbb-teaser__text">
+          <sbb-chip size="xxs" color="charcoal" class="sbb-teaser__chip">
+            <slot name="chip">${this.chipContent}</slot>
+          </sbb-chip>
+          <sbb-title level=${this.titleLevel} visual-level="5" class="sbb-teaser__lead">
+            <slot name="title">${this.titleContent}</slot>
+          </sbb-title>
+          <span class="sbb-teaser__description">
+            <slot></slot>
           </span>
         </span>
-      </${unsafeStatic(TAG_NAME)}>
+      </span>
     `;
-    /* eslint-disable lit/binding-positions */
   }
 }
 

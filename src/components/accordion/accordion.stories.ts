@@ -18,7 +18,6 @@ import { SbbExpansionPanelElement } from '../expansion-panel';
 
 import readme from './readme.md?raw';
 import './accordion';
-import '../icon';
 
 const numberOfPanels: InputType = {
   control: {

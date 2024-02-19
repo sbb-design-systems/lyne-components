@@ -23,7 +23,8 @@ import readme from './readme.md?raw';
 import '../navigation-section';
 import '../navigation-marker';
 import '../navigation-list';
-import '../navigation-action';
+import '../navigation-button';
+import '../navigation-link';
 import '../../button';
 
 // Story interaction executed after the story renders
@@ -110,35 +111,35 @@ const triggerButton = (id: string): TemplateResult => html`
 `;
 
 const navigationActionsL = (): TemplateResult => html`
-  <sbb-navigation-action id="nav-1" data-testid="navigation-section-trigger-1">
+  <sbb-navigation-button id="nav-1" data-testid="navigation-section-trigger-1">
     Tickets & Offers
-  </sbb-navigation-action>
-  <sbb-navigation-action id="nav-2">Vacations & Recreation</sbb-navigation-action>
-  <sbb-navigation-action id="nav-3">Travel information</sbb-navigation-action>
-  <sbb-navigation-action id="nav-4" href="https://www.sbb.ch/en/">
+  </sbb-navigation-button>
+  <sbb-navigation-button id="nav-2">Vacations & Recreation</sbb-navigation-button>
+  <sbb-navigation-button id="nav-3">Travel information</sbb-navigation-button>
+  <sbb-navigation-link id="nav-4" href="https://www.sbb.ch/en/">
     Help & Contact
-  </sbb-navigation-action>
+  </sbb-navigation-link>
 `;
 
 const navigationActionsS = (): TemplateResult => html`
-  <sbb-navigation-action id="nav-5">Deutsch</sbb-navigation-action>
-  <sbb-navigation-action id="nav-6">Français</sbb-navigation-action>
-  <sbb-navigation-action id="nav-7" active> Italiano </sbb-navigation-action>
-  <sbb-navigation-action id="nav-8">English</sbb-navigation-action>
+  <sbb-navigation-button id="nav-5">Deutsch</sbb-navigation-button>
+  <sbb-navigation-button id="nav-6">Français</sbb-navigation-button>
+  <sbb-navigation-button id="nav-7" active> Italiano </sbb-navigation-button>
+  <sbb-navigation-button id="nav-8">English</sbb-navigation-button>
 `;
 
 const navigationList = (label: string): TemplateResult => html`
   <sbb-navigation-list label=${label}>
-    <sbb-navigation-action size="m">Label</sbb-navigation-action>
-    <sbb-navigation-action size="m">Label</sbb-navigation-action>
-    <sbb-navigation-action size="m" href="https://www.sbb.ch/en/"> Label </sbb-navigation-action>
+    <sbb-navigation-button size="m">Label</sbb-navigation-button>
+    <sbb-navigation-button size="m">Label</sbb-navigation-button>
+    <sbb-navigation-link size="m" href="https://www.sbb.ch/en/"> Label </sbb-navigation-link>
   </sbb-navigation-list>
 `;
 
 const actionLabels = (num: number): TemplateResult[] => {
-  const labels: TemplateResult[] = [html`<sbb-navigation-action>Label</sbb-navigation-action>`];
+  const labels: TemplateResult[] = [html`<sbb-navigation-button>Label</sbb-navigation-button>`];
   for (let i = 1; i <= num; i++) {
-    labels.push(html`<sbb-navigation-action>Label</sbb-navigation-action>`);
+    labels.push(html`<sbb-navigation-button>Label</sbb-navigation-button>`);
   }
   return labels;
 };

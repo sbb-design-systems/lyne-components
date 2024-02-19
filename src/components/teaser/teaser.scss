@@ -115,7 +115,3 @@
   display: inline-block;
   color: var(--sbb-teaser-description-color);
 }
-
-.sbb-teaser__opens-in-new-window {
-  @include sbb.screen-reader-only;
-}

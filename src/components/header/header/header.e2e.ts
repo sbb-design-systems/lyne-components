@@ -4,10 +4,10 @@ import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForLitRender, mockScrollTo, waitForCondition } from '../../core/testing';
 import { SbbMenuElement } from '../../menu';
-import type { SbbHeaderActionElement } from '../header-action';
+import type { SbbHeaderButtonElement } from '../header-button';
 
 import { SbbHeaderElement } from './header';
-import '../header-action';
+import '../header-button';
 
 describe('sbb-header', () => {
   let element: SbbHeaderElement;
@@ -72,8 +72,8 @@ describe('sbb-header', () => {
   it('should hide/show on scroll', async () => {
     await fixture(html`
       <sbb-header hide-on-scroll>
-        <sbb-header-action id="action-1">Action 1</sbb-header-action>
-        <sbb-header-action id="action-2">Action 2</sbb-header-action>
+        <sbb-header-button id="action-1">Action 1</sbb-header-button>
+        <sbb-header-button id="action-2">Action 2</sbb-header-button>
       </sbb-header>
       <div style="height: 2000px;"></div>
     `);
@@ -131,10 +131,10 @@ describe('sbb-header', () => {
   it('should close menu on scroll', async () => {
     await fixture(html`
       <sbb-header hide-on-scroll>
-        <sbb-header-action id="language-menu-trigger">English</sbb-header-action>
+        <sbb-header-button id="language-menu-trigger">English</sbb-header-button>
         <sbb-menu trigger="language-menu-trigger" disable-animation>
-          <sbb-menu-action>Deutsch</sbb-menu-action>
-          <sbb-menu-action>Français</sbb-menu-action>
+          <sbb-menu-button>Deutsch</sbb-menu-button>
+          <sbb-menu-button>Français</sbb-menu-button>
         </sbb-menu>
       </sbb-header>
       <div style="height: 2000px;"></div>
@@ -154,7 +154,7 @@ describe('sbb-header', () => {
     // Open menu
     const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen);
     const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen);
-    const menuTrigger = document.querySelector<SbbHeaderActionElement>('sbb-header-action')!;
+    const menuTrigger = document.querySelector<SbbHeaderButtonElement>('sbb-header-button')!;
     menuTrigger.click();
     await waitForLitRender(element);
     await waitForCondition(() => willOpenEventSpy.events.length === 1);

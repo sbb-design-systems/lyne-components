@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { SlotChildObserver } from '../../core/common-behaviors';
+import { SbbDisabledMixin, SlotChildObserver } from '../../core/common-behaviors';
 import { isSafari, isValidAttribute, toggleDatasetEntry, setAttribute } from '../../core/dom';
 import { AgnosticMutationObserver } from '../../core/observers';
 import type { SbbOptionElement, SbbOptionVariant } from '../option';
@@ -16,14 +16,11 @@ import '../../divider';
  * @slot - Use the unnamed slot to add `sbb-option` elements to the `sbb-optgroup`.
  */
 @customElement('sbb-optgroup')
-export class SbbOptGroupElement extends SlotChildObserver(LitElement) {
+export class SbbOptGroupElement extends SlotChildObserver(SbbDisabledMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
 
   /** Option group label. */
   @property() public label!: string;
-
-  /** Whether the group is disabled. */
-  @property({ reflect: true, type: Boolean }) public disabled = false;
 
   @state() private _negative = false;
 

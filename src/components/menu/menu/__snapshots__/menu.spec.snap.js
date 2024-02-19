@@ -13,15 +13,15 @@ snapshots["sbb-menu renders"] =
   >
     Profile
   </sbb-link>
-  <sbb-menu-action
+  <sbb-menu-button
     dir="ltr"
     icon-name="tick-small"
     role="button"
     tabindex="0"
   >
     View
-  </sbb-menu-action>
-  <sbb-menu-action
+  </sbb-menu-button>
+  <sbb-menu-button
     amount="1"
     aria-disabled="true"
     dir="ltr"
@@ -30,8 +30,8 @@ snapshots["sbb-menu renders"] =
     role="button"
   >
     Edit
-  </sbb-menu-action>
-  <sbb-menu-action
+  </sbb-menu-button>
+  <sbb-menu-button
     amount="2"
     dir="ltr"
     icon-name="swisspass-small"
@@ -39,17 +39,17 @@ snapshots["sbb-menu renders"] =
     tabindex="0"
   >
     Details
-  </sbb-menu-action>
+  </sbb-menu-button>
   <sbb-divider>
   </sbb-divider>
-  <sbb-menu-action
+  <sbb-menu-button
     dir="ltr"
     icon-name="cross-small"
     role="button"
     tabindex="0"
   >
     Cancel
-  </sbb-menu-action>
+  </sbb-menu-button>
 </sbb-menu>
 `;
 /* end snapshot sbb-menu renders */

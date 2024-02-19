@@ -5,7 +5,7 @@ import { ref } from 'lit/directives/ref.js';
 
 import type { SbbCalendarElement } from '../../calendar';
 import { sbbInputModalityDetector } from '../../core/a11y';
-import { LanguageController } from '../../core/common-behaviors';
+import { LanguageController, SbbNegativeMixin } from '../../core/common-behaviors';
 import { isValidAttribute, setAttribute } from '../../core/dom';
 import { i18nShowCalendar } from '../../core/i18n';
 import type { SbbPopoverElement, SbbPopoverTriggerElement } from '../../popover';
@@ -20,7 +20,7 @@ import style from './datepicker-toggle.scss?lit&inline';
  * Combined with a `sbb-datepicker`, it can be used to select a date from a `sbb-calendar`.
  */
 @customElement('sbb-datepicker-toggle')
-export class SbbDatepickerToggleElement extends LitElement {
+export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** Datepicker reference. */
@@ -28,9 +28,6 @@ export class SbbDatepickerToggleElement extends LitElement {
 
   /** Whether the animation is disabled. */
   @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation = false;
-
-  /** Negative coloring variant flag. */
-  @property({ reflect: true, type: Boolean }) public negative = false;
 
   @state() private _disabled = false;
 

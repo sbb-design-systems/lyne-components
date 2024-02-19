@@ -17,7 +17,8 @@ import { sbbSpread } from '../../core/dom';
 import readme from './readme.md?raw';
 import './card';
 import '../card-badge';
-import '../card-action';
+import '../card-button';
+import '../card-link';
 import '../../title';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
@@ -58,10 +59,19 @@ const TemplateWithBadge = ({ size, color }: Args): TemplateResult => html`
   </sbb-card>
 `;
 
+const TemplateAction = ({ label, ...args }: Args): TemplateResult => {
+  if (args.href) {
+    ['type', 'form', 'value', 'name'].forEach((k) => delete args[k]);
+    return html`<sbb-card-link ${sbbSpread(args)}>${label}</sbb-card-link>`;
+  } else {
+    ['href', 'target', 'rel', 'download'].forEach((k) => delete args[k]);
+    return html`<sbb-card-button ${sbbSpread(args)}>${label}</sbb-card-button>`;
+  }
+};
+
 const TemplateCardAction = ({ size, color, label, ...args }: Args): TemplateResult => html`
   <sbb-card ${sbbSpread({ size, color })}>
-    <sbb-card-action ${sbbSpread(args)}>${label}</sbb-card-action>
-    ${Content()}
+    ${TemplateAction({ label, ...args })} ${Content()}
   </sbb-card>
 `;
 
@@ -72,14 +82,13 @@ const TemplateCardActionFixedHeight = ({
   ...args
 }: Args): TemplateResult => html`
   <sbb-card ${sbbSpread({ size, color })} style=${styleMap({ height: '250px' })}>
-    <sbb-card-action ${sbbSpread(args)}>${label}</sbb-card-action>
-    ${Content()}
+    ${TemplateAction({ label, ...args })} ${Content()}
   </sbb-card>
 `;
 
 const TemplateCardActionWithBadge = ({ size, color, label, ...args }: Args): TemplateResult => html`
   <sbb-card ${sbbSpread({ size, color })}>
-    <sbb-card-action ${sbbSpread(args)}>${label}</sbb-card-action>
+    ${TemplateAction({ label, ...args })}
     <sbb-card-badge>
       <span>%</span>
       <span>from CHF</span>
@@ -213,7 +222,17 @@ const defaultArgTypes: ArgTypes = {
   color,
 };
 
-const defaultArgTypesAction: ArgTypes = {
+const defaultArgTypesButton: ArgTypes = {
+  ...defaultArgTypes,
+  active,
+  label,
+  name,
+  type,
+  form,
+  value,
+};
+
+const defaultArgTypesLink: ArgTypes = {
   ...defaultArgTypes,
   active,
   label,
@@ -221,10 +240,6 @@ const defaultArgTypesAction: ArgTypes = {
   download,
   target,
   rel,
-  name,
-  type,
-  form,
-  value,
 };
 
 const defaultArgs: Args = {
@@ -232,7 +247,7 @@ const defaultArgs: Args = {
   color: color.options[0],
 };
 
-const defaultArgsAction = {
+const defaultArgsLink = {
   ...defaultArgs,
   active: false,
   label: 'Click this card to follow the action.',
@@ -247,10 +262,11 @@ const defaultArgsAction = {
 };
 
 const defaultArgsButton = {
-  ...defaultArgsAction,
+  ...defaultArgsLink,
   href: undefined,
   download: undefined,
   target: undefined,
+  rel: undefined,
   name: 'Button name',
   type: type.options[0],
   form: 'form-name',
@@ -402,25 +418,25 @@ export const SizeXXXLWithBadge: StoryObj = {
 
 export const Link: StoryObj = {
   render: TemplateCardAction,
-  argTypes: defaultArgTypesAction,
-  args: { ...defaultArgsAction },
+  argTypes: defaultArgTypesLink,
+  args: { ...defaultArgsLink },
 };
 
 export const Button: StoryObj = {
   render: TemplateCardAction,
-  argTypes: defaultArgTypesAction,
+  argTypes: defaultArgTypesButton,
   args: { ...defaultArgsButton },
 };
 
 export const ButtonActive: StoryObj = {
   render: TemplateCardAction,
-  argTypes: defaultArgTypesAction,
+  argTypes: defaultArgTypesButton,
   args: { ...defaultArgsButton, active: true },
 };
 
 export const ButtonActiveMilk: StoryObj = {
   render: TemplateCardAction,
-  argTypes: defaultArgTypesAction,
+  argTypes: defaultArgTypesButton,
   args: {
     ...defaultArgsButton,
     color: color.options[1],
@@ -430,7 +446,7 @@ export const ButtonActiveMilk: StoryObj = {
 
 export const ButtonActiveTransparentBordered: StoryObj = {
   render: TemplateCardAction,
-  argTypes: defaultArgTypesAction,
+  argTypes: defaultArgTypesButton,
   args: {
     ...defaultArgsButton,
     color: color.options[2],
@@ -440,7 +456,7 @@ export const ButtonActiveTransparentBordered: StoryObj = {
 
 export const ButtonActiveTransparentBorderedDashed: StoryObj = {
   render: TemplateCardAction,
-  argTypes: defaultArgTypesAction,
+  argTypes: defaultArgTypesButton,
   args: {
     ...defaultArgsButton,
     color: color.options[3],
@@ -450,32 +466,32 @@ export const ButtonActiveTransparentBorderedDashed: StoryObj = {
 
 export const ButtonWithSbbBadge: StoryObj = {
   render: TemplateCardActionWithBadge,
-  argTypes: defaultArgTypesAction,
+  argTypes: defaultArgTypesButton,
   args: { ...defaultArgsButton },
 };
 
 export const LinkWithSbbBadge: StoryObj = {
   render: TemplateCardActionWithBadge,
-  argTypes: defaultArgTypesAction,
-  args: { ...defaultArgsAction },
+  argTypes: defaultArgTypesLink,
+  args: { ...defaultArgsLink },
 };
 
 export const LinkActiveWithSbbBadge: StoryObj = {
   render: TemplateCardActionWithBadge,
-  argTypes: defaultArgTypesAction,
-  args: { ...defaultArgsAction, active: true },
+  argTypes: defaultArgTypesLink,
+  args: { ...defaultArgsLink, active: true },
 };
 
 export const FixedHeight: StoryObj = {
   render: TemplateCardActionFixedHeight,
-  argTypes: defaultArgTypesAction,
+  argTypes: defaultArgTypesButton,
   args: { ...defaultArgsButton },
 };
 
 export const Multiple: StoryObj = {
   render: TemplateCardActionMultipleCards,
-  argTypes: defaultArgTypesAction,
-  args: { ...defaultArgsAction },
+  argTypes: defaultArgTypesLink,
+  args: { ...defaultArgsLink },
 };
 
 const meta: Meta = {

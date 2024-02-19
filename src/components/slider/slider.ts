@@ -5,6 +5,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
+import { SbbDisabledMixin } from '../core/common-behaviors';
 import { setAttributes } from '../core/dom';
 import { forwardEventToHost, EventEmitter, ConnectedAbortController } from '../core/eventing';
 
@@ -19,7 +20,7 @@ import '../icon';
  * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  */
 @customElement('sbb-slider')
-export class SbbSliderElement extends LitElement {
+export class SbbSliderElement extends SbbDisabledMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -48,9 +49,6 @@ export class SbbSliderElement extends LitElement {
    * Since the input range does not allow this attribute, it will be merged with the `disabled` one.
    */
   @property({ type: Boolean }) public readonly?: boolean = false;
-
-  /** Disabled state for the inner HTMLInputElement. */
-  @property({ reflect: true, type: Boolean }) public disabled?: boolean = false;
 
   /** Name of the icon at component's start, which will be forward to the nested `sbb-icon`. */
   @property({ attribute: 'start-icon' }) public startIcon?: string;

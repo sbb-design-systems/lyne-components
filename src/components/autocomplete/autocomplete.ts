@@ -4,7 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { assignId, getNextElementIndex } from '../core/a11y';
-import { SlotChildObserver } from '../core/common-behaviors';
+import { SbbNegativeMixin, SlotChildObserver } from '../core/common-behaviors';
 import {
   setAttribute,
   getDocumentWritingMode,
@@ -39,7 +39,7 @@ let nextId = 0;
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-autocomplete` is closed.
  */
 @customElement('sbb-autocomplete')
-export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
+export class SbbAutocompleteElement extends SlotChildObserver(SbbNegativeMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -68,9 +68,6 @@ export class SbbAutocompleteElement extends SlotChildObserver(LitElement) {
   /** Whether the icon space is preserved when no icon is set. */
   @property({ attribute: 'preserve-icon-space', reflect: true, type: Boolean })
   public preserveIconSpace?: boolean;
-
-  /** Negative coloring variant flag. */
-  @property({ reflect: true, type: Boolean }) public negative = false;
 
   /** The state of the autocomplete. */
   @state() private _state: SbbOverlayState = 'closed';

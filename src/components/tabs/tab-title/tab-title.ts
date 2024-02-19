@@ -1,13 +1,17 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement, nothing } from 'lit';
+import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { NamedSlotStateController } from '../../core/common-behaviors';
+import {
+  NamedSlotStateController,
+  SbbDisabledMixin,
+  SbbIconNameMixin,
+} from '../../core/common-behaviors';
 import type { TitleLevel } from '../../title';
 
-import style from './tab-title.scss?lit&inline';
 import '../../icon';
+import style from './tab-title.scss?lit&inline';
 
 /**
  * Combined with a `sbb-rab-group`, it displays a tab's title.
@@ -17,7 +21,7 @@ import '../../icon';
  * @slot amount - Provide a number to show an amount to the right of the title.
  */
 @customElement('sbb-tab-title')
-export class SbbTabTitleElement extends LitElement {
+export class SbbTabTitleElement extends SbbDisabledMixin(SbbIconNameMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -28,16 +32,6 @@ export class SbbTabTitleElement extends LitElement {
 
   /** Active tab state */
   @property({ reflect: true, type: Boolean }) public active?: boolean;
-
-  /** Disabled tab state */
-  @property({ reflect: true, type: Boolean }) public disabled?: boolean;
-
-  /**
-   * The icon name we want to use, choose from the small icon variants
-   * from the ui-icons category from here
-   * https://icons.app.sbb.ch.
-   */
-  @property({ attribute: 'icon-name', reflect: true }) public iconName?: string;
 
   /** Amount displayed inside the tab. */
   @property({ reflect: true }) public amount?: string;
@@ -55,9 +49,7 @@ export class SbbTabTitleElement extends LitElement {
       <div class="sbb-tab-title__wrapper">
         <${unsafeStatic(TAGNAME)} class="sbb-tab-title">
           <span class="sbb-tab-title__icon">
-            <slot name="icon">
-              ${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}
-            </slot>
+            ${this.renderIconSlot()}
           </span>
           <span class="sbb-tab-title__text">
             <slot></slot>

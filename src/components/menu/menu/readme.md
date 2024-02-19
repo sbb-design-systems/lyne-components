@@ -1,6 +1,6 @@
 The `sbb-menu` is a component that can be attached to any element to open and display a custom context menu,
-which allows to perform actions relevant to the current task or to navigate within or outside the application
-by using the [sbb-menu-action](/docs/components-sbb-menu-sbb-menu-action--docs) component along with it.
+which allows to perform actions relevant to the current task by using the [sbb-menu-button](/docs/components-sbb-menu-sbb-menu-button--docs)
+or to navigate within or outside the application by using the [sbb-menu-link](/docs/components-sbb-menu-sbb-menu-link--docs) component along with it.
 
 ## Interactions
 
@@ -18,11 +18,11 @@ Clicking in the backdrop or pressing the `ESC` key closes the menu.
 
 <!-- Menu component with menu actions -->
 <sbb-menu trigger="menu-trigger">
-  <sbb-menu-action icon="link-small" href="https://www.sbb.ch/en">View</sbb-menu-action>
-  <sbb-menu-action icon="pen-small">Edit</sbb-menu-action>
-  <sbb-menu-action icon="swisspass-small" amount="123">Details</sbb-menu-action>
+  <sbb-menu-link icon="link-small" href="https://www.sbb.ch/en">View</sbb-menu-link>
+  <sbb-menu-button icon="pen-small">Edit</sbb-menu-button>
+  <sbb-menu-button icon="swisspass-small" amount="123">Details</sbb-menu-button>
   <sbb-divider></sbb-divider>
-  <sbb-menu-action icon="cross-small">Cancel</sbb-menu-action>
+  <sbb-menu-button icon="cross-small">Cancel</sbb-menu-button>
 </sbb-menu>
 ```
 
@@ -38,17 +38,17 @@ You can also provide custom content inside the `sbb-menu`:
   <span>UIS9057</span>
   <sbb-link href="https://www.sbb.ch/en" negative size="xs" variant="block">Profile</sbb-link>
   <sbb-divider></sbb-divider>
-  <sbb-menu-action icon="link-small" href="https://www.sbb.ch/en">View</sbb-menu-action>
-  <sbb-menu-action icon="pen-small">Edit</sbb-menu-action>
-  <sbb-menu-action icon="swisspass-small" amount="123">Details</sbb-menu-action>
+  <sbb-menu-link icon="link-small" href="https://www.sbb.ch/en">View</sbb-menu-link>
+  <sbb-menu-button icon="pen-small">Edit</sbb-menu-button>
+  <sbb-menu-button icon="swisspass-small" amount="123">Details</sbb-menu-button>
   <sbb-divider></sbb-divider>
-  <sbb-menu-action icon="cross-small">Cancel</sbb-menu-action>
+  <sbb-menu-button icon="cross-small">Cancel</sbb-menu-button>
 </sbb-menu>
 ```
 
 ## Style
 
-If only `sbb-menu-action` components are provided, the items are automatically grouped within a list
+If only `sbb-menu-button`/`sbb-menu-link` components are provided, the items are automatically grouped within a list
 using `<ul>` and `<li>` items, for more complex scenarios the grouping must be done manually.
 
 The default `z-index` of the component is set to `1000`;
@@ -88,6 +88,6 @@ to identify which actions are active and which are not.
 
 ## Slots
 
-| Name | Description                                                                  |
-| ---- | ---------------------------------------------------------------------------- |
-|      | Use the unnamed slot to add `sbb-menu-action` or other elements to the menu. |
+| Name | Description                                                                                  |
+| ---- | -------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add `sbb-menu-button`/`sbb-menu-link` or other elements to the menu. |

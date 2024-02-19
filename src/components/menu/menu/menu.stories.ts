@@ -23,7 +23,8 @@ import readme from './readme.md?raw';
 import '../../button';
 import '../../divider';
 import '../../link';
-import '../menu-action';
+import '../menu-button';
+import '../menu-link';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
@@ -107,15 +108,15 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
     data-testid="menu"
     ?disable-animation=${args['disable-animation']}
   >
-    <sbb-menu-action icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
+    <sbb-menu-link icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
       View
-    </sbb-menu-action>
-    <sbb-menu-action icon-name="pen-small" amount="16" ?disabled=${args.disabled}>
+    </sbb-menu-link>
+    <sbb-menu-button icon-name="pen-small" amount="16" ?disabled=${args.disabled}>
       Edit
-    </sbb-menu-action>
-    <sbb-menu-action icon-name="swisspass-small" amount=${args.amount}> Details </sbb-menu-action>
+    </sbb-menu-button>
+    <sbb-menu-button icon-name="swisspass-small" amount=${args.amount}> Details </sbb-menu-button>
     <sbb-divider></sbb-divider>
-    <sbb-menu-action icon-name="cross-small">Cancel</sbb-menu-action>
+    <sbb-menu-button icon-name="cross-small">Cancel</sbb-menu-button>
   </sbb-menu>
 `;
 
@@ -126,14 +127,14 @@ const ListTemplate = (args: Args): TemplateResult => html`
     data-testid="menu"
     ?disable-animation=${args['disable-animation']}
   >
-    <sbb-menu-action icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
+    <sbb-menu-link icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
       View
-    </sbb-menu-action>
-    <sbb-menu-action icon-name="pen-small" amount="16" ?disabled=${args.disabled}>
+    </sbb-menu-link>
+    <sbb-menu-button icon-name="pen-small" amount="16" ?disabled=${args.disabled}>
       Edit
-    </sbb-menu-action>
-    <sbb-menu-action icon-name="swisspass-small" amount=${args.amount}> Details </sbb-menu-action>
-    <sbb-menu-action icon-name="cross-small">Cancel</sbb-menu-action>
+    </sbb-menu-button>
+    <sbb-menu-button icon-name="swisspass-small" amount=${args.amount}> Details </sbb-menu-button>
+    <sbb-menu-button icon-name="cross-small">Cancel</sbb-menu-button>
   </sbb-menu>
 `;
 
@@ -148,15 +149,15 @@ const CustomContentTemplate = (args: Args): TemplateResult => html`
     <span style=${styleMap(userInfoStyle)}>UIS9057</span>
     <sbb-link href="https://www.sbb.ch/en" negative size="xs" variant="block"> Profile </sbb-link>
     <sbb-divider></sbb-divider>
-    <sbb-menu-action icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
+    <sbb-menu-link icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
       View
-    </sbb-menu-action>
-    <sbb-menu-action icon-name="tickets-class-small" ?disabled=${args.disabled}>
+    </sbb-menu-link>
+    <sbb-menu-button icon-name="tickets-class-small" ?disabled=${args.disabled}>
       Tickets
-    </sbb-menu-action>
-    <sbb-menu-action icon-name="shopping-cart-small" amount=${args.amount}> Cart </sbb-menu-action>
+    </sbb-menu-button>
+    <sbb-menu-button icon-name="shopping-cart-small" amount=${args.amount}> Cart </sbb-menu-button>
     <sbb-divider></sbb-divider>
-    <sbb-menu-action icon-name="exit-small">Log Out</sbb-menu-action>
+    <sbb-menu-button icon-name="exit-small">Log Out</sbb-menu-button>
   </sbb-menu>
 `;
 
@@ -167,37 +168,37 @@ const LongContentTemplate = (args: Args): TemplateResult => html`
     data-testid="menu"
     ?disable-animation=${args['disable-animation']}
   >
-    <sbb-menu-action
+    <sbb-menu-button
       icon-name=${args['icon-name']}
       ?disabled=${args.disabled}
       amount=${args.amount}
     >
       English
-    </sbb-menu-action>
-    <sbb-menu-action>Deutsch</sbb-menu-action>
-    <sbb-menu-action>Français</sbb-menu-action>
-    <sbb-menu-action>Italiano</sbb-menu-action>
-    <sbb-menu-action>Rumantsch</sbb-menu-action>
-    <sbb-menu-action>Español</sbb-menu-action>
-    <sbb-menu-action>Português</sbb-menu-action>
-    <sbb-menu-action>日本語</sbb-menu-action>
-    <sbb-menu-action>한국어</sbb-menu-action>
-    <sbb-menu-action>广州话</sbb-menu-action>
-    <sbb-menu-action>Afrikaans</sbb-menu-action>
-    <sbb-menu-action>Svenska</sbb-menu-action>
-    <sbb-menu-action>Dansk</sbb-menu-action>
-    <sbb-menu-action>Nederlands</sbb-menu-action>
-    <sbb-menu-action>Suomi</sbb-menu-action>
-    <sbb-menu-action>українська мова</sbb-menu-action>
-    <sbb-menu-action>አማርኛ</sbb-menu-action>
-    <sbb-menu-action>ქართული ენა</sbb-menu-action>
-    <sbb-menu-action>Afrikaans</sbb-menu-action>
-    <sbb-menu-action>Svenska</sbb-menu-action>
-    <sbb-menu-action>Dansk</sbb-menu-action>
-    <sbb-menu-action>Nederlands</sbb-menu-action>
-    <sbb-menu-action>Suomi</sbb-menu-action>
+    </sbb-menu-button>
+    <sbb-menu-button>Deutsch</sbb-menu-button>
+    <sbb-menu-button>Français</sbb-menu-button>
+    <sbb-menu-button>Italiano</sbb-menu-button>
+    <sbb-menu-button>Rumantsch</sbb-menu-button>
+    <sbb-menu-button>Español</sbb-menu-button>
+    <sbb-menu-button>Português</sbb-menu-button>
+    <sbb-menu-button>日本語</sbb-menu-button>
+    <sbb-menu-button>한국어</sbb-menu-button>
+    <sbb-menu-button>广州话</sbb-menu-button>
+    <sbb-menu-button>Afrikaans</sbb-menu-button>
+    <sbb-menu-button>Svenska</sbb-menu-button>
+    <sbb-menu-button>Dansk</sbb-menu-button>
+    <sbb-menu-button>Nederlands</sbb-menu-button>
+    <sbb-menu-button>Suomi</sbb-menu-button>
+    <sbb-menu-button>українська мова</sbb-menu-button>
+    <sbb-menu-button>አማርኛ</sbb-menu-button>
+    <sbb-menu-button>ქართული ენა</sbb-menu-button>
+    <sbb-menu-button>Afrikaans</sbb-menu-button>
+    <sbb-menu-button>Svenska</sbb-menu-button>
+    <sbb-menu-button>Dansk</sbb-menu-button>
+    <sbb-menu-button>Nederlands</sbb-menu-button>
+    <sbb-menu-button>Suomi</sbb-menu-button>
     <sbb-divider></sbb-divider>
-    <sbb-menu-action icon-name="cross-small">Cancel</sbb-menu-action>
+    <sbb-menu-button icon-name="cross-small">Cancel</sbb-menu-button>
   </sbb-menu>
 `;
 
@@ -212,16 +213,16 @@ const EllipsisTemplate = (args: Args): TemplateResult => html`
     <span style=${styleMap(userInfoStyle)}>UIS9057</span>
     <sbb-link href="https://www.sbb.ch/en" negative size="xs" variant="block"> Profile </sbb-link>
     <sbb-divider></sbb-divider>
-    <sbb-menu-action icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
+    <sbb-menu-link icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
       View
-    </sbb-menu-action>
-    <sbb-menu-action icon-name="pen-small" ?disabled=${args.disabled}> Edit </sbb-menu-action>
-    <sbb-menu-action icon-name="swisspass-small" amount=${args.amount}>
+    </sbb-menu-link>
+    <sbb-menu-button icon-name="pen-small" ?disabled=${args.disabled}> Edit </sbb-menu-button>
+    <sbb-menu-button icon-name="swisspass-small" amount=${args.amount}>
       Very long label that exceeds the maximum width of the menu, very long label that exceeds the
       maximum width of the menu, very long label that exceeds the maximum width of the menu
-    </sbb-menu-action>
+    </sbb-menu-button>
     <sbb-divider></sbb-divider>
-    <sbb-menu-action icon-name="cross-small">Cancel</sbb-menu-action>
+    <sbb-menu-button icon-name="cross-small">Cancel</sbb-menu-button>
   </sbb-menu>
 `;
 

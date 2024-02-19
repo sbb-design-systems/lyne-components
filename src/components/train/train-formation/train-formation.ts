@@ -1,10 +1,15 @@
-import type { CSSResultGroup, PropertyValueMap, TemplateResult } from 'lit';
-import { html } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  LitElement,
+  type PropertyValueMap,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import type { WithListChildren } from '../../core/common-behaviors';
-import { LanguageController, NamedSlotListElement } from '../../core/common-behaviors';
+import { SbbNamedSlotListElementMixin, type WithListChildren } from '../../core/common-behaviors';
+import { LanguageController } from '../../core/common-behaviors';
 import { ConnectedAbortController } from '../../core/eventing';
 import { i18nSector, i18nSectorShort, i18nTrains } from '../../core/i18n';
 import { AgnosticResizeObserver } from '../../core/observers';
@@ -26,7 +31,10 @@ interface AggregatedSector {
  * @slot - Use the unnamed slot to add 'sbb-train' elements to the `sbb-train-formation`.
  */
 @customElement('sbb-train-formation')
-export class SbbTrainFormationElement extends NamedSlotListElement<SbbTrainElement> {
+export class SbbTrainFormationElement extends SbbNamedSlotListElementMixin<
+  SbbTrainElement,
+  typeof LitElement
+>(LitElement) {
   public static override styles: CSSResultGroup = style;
   protected override readonly listChildTagNames = ['SBB-TRAIN'];
 

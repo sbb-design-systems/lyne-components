@@ -3,7 +3,7 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../core/a11y';
-import { NamedSlotStateController } from '../../core/common-behaviors';
+import { NamedSlotStateController, SbbDisabledMixin } from '../../core/common-behaviors';
 import { toggleDatasetEntry, setAttribute } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import type { SbbHorizontalFrom, SbbOrientation, SbbStateChange } from '../../core/interfaces';
@@ -31,7 +31,7 @@ export type SbbRadioButtonGroupEventDetail = {
  * @event {CustomEvent<SbbRadioButtonGroupEventDetail>} input - Emits whenever the `sbb-radio-group` value changes.
  */
 @customElement('sbb-radio-button-group')
-export class SbbRadioButtonGroupElement extends LitElement {
+export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -44,11 +44,6 @@ export class SbbRadioButtonGroupElement extends LitElement {
    */
   @property({ attribute: 'allow-empty-selection', type: Boolean })
   public allowEmptySelection: boolean = false;
-
-  /**
-   * Whether the radio group is disabled.
-   */
-  @property({ type: Boolean }) public disabled: boolean = false;
 
   /**
    * Whether the radio group is required.

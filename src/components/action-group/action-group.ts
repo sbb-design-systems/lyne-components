@@ -2,9 +2,9 @@ import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import type { SbbButtonElement, SbbButtonSize } from '../button';
+import type { SbbButtonElement, SbbButtonLinkElement, SbbButtonSize } from '../button';
 import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
-import type { SbbLinkElement, SbbLinkSize } from '../link';
+import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkSize } from '../link';
 
 import style from './action-group.scss?lit&inline';
 
@@ -50,9 +50,9 @@ export class SbbActionGroupElement extends LitElement {
   public linkSize: SbbLinkSize = 'm';
 
   private _syncButtons(): void {
-    this.querySelectorAll?.('sbb-button').forEach(
-      (b: SbbButtonElement) => (b.size = this.buttonSize),
-    );
+    this.querySelectorAll?.<SbbButtonElement | SbbButtonLinkElement>(
+      'sbb-button, sbb-button-link',
+    ).forEach((b: SbbButtonElement | SbbButtonLinkElement) => (b.size = this.buttonSize));
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -65,7 +65,9 @@ export class SbbActionGroupElement extends LitElement {
   }
 
   private _syncLinks(): void {
-    this.querySelectorAll?.('sbb-link').forEach((link: SbbLinkElement) => {
+    this.querySelectorAll?.<SbbLinkElement | SbbLinkButtonElement>(
+      'sbb-link, sbb-link-button',
+    ).forEach((link: SbbLinkElement | SbbLinkButtonElement) => {
       link.variant = 'block';
       link.size = this.linkSize;
     });

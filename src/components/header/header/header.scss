@@ -95,9 +95,9 @@
   padding-inline-start: var(--sbb-spacing-responsive-s);
 }
 
-// Fix left offset if first element of the header is a sbb-header-action.
-// The value of the offset is calculated inside sbb-header-action styles.
-::slotted(sbb-header-action:first-child) {
+// Fix left offset if first element of the header is a sbb-header-button/sbb-header-link.
+// The value of the offset is calculated inside sbb-header-button/sbb-header-link styles.
+::slotted(:is(sbb-header-button, sbb-header-link):first-child) {
   margin-inline-start: var(--sbb-header-first-item-margin-inline-start);
 }
 

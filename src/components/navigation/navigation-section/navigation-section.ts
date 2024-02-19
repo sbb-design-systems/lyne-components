@@ -243,7 +243,8 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
     // Check if the element is a navigation action belonging to the same group as the trigger.
     const isActionElement =
       element !== this._triggerElement &&
-      element.nodeName === 'SBB-NAVIGATION-ACTION' &&
+      (element.nodeName === 'SBB-NAVIGATION-BUTTON' ||
+        element.nodeName === 'SBB-NAVIGATION-LINK') &&
       element.parentElement === this._triggerElement?.parentElement;
 
     return (

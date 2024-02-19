@@ -5,7 +5,6 @@ import { EventSpy, waitForLitRender } from '../../core/testing';
 import type { SbbTrainWagonElement } from '../train-wagon';
 
 import { SbbTrainElement } from './train';
-import '../../icon';
 
 describe('sbb-train', () => {
   let element: SbbTrainElement;

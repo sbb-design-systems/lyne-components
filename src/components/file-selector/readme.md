@@ -89,9 +89,9 @@ It's suggested to have a different value for each variant, e.g.:
 | `multipleMode`       | `multiple-mode`       | public  | `'default' \| 'persistent'` | `'default'` | Whether the newly added files should override the previously added ones. |
 | `accept`             | `accept`              | public  | `string \| undefined`       |             | A comma-separated list of allowed unique file type specifiers.           |
 | `titleContent`       | `title-content`       | public  | `string \| undefined`       |             | The title displayed in `dropzone` variant.                               |
-| `disabled`           | `disabled`            | public  | `boolean`                   | `false`     | Whether the component is disabled.                                       |
 | `accessibilityLabel` | `accessibility-label` | public  | `string \| undefined`       |             | This will be forwarded as aria-label to the native input element.        |
 | `files`              | -                     | public  | `File[]`                    |             | Gets the currently selected files.                                       |
+| `disabled`           | `disabled`            | public  | `boolean`                   | `false`     | Whether the component is disabled.                                       |
 
 ## Methods
 

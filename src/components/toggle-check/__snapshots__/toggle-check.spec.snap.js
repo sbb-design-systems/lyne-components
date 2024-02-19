@@ -177,7 +177,7 @@ snapshots["sbb-toggle-check states disabled and checked state renders toggle in 
 `;
 /* end snapshot sbb-toggle-check states disabled and checked state renders toggle in disabled and checked state */
 
-snapshots["sbb-toggle-check A11y tree Chrome"] = 
+snapshots["sbb-toggle-check A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",

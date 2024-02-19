@@ -21,7 +21,8 @@ import { sbbSpread } from '../../core/dom';
 import readme from './readme.md?raw';
 
 import './header';
-import '../header-action';
+import '../header-button';
+import '../header-link';
 import '../../divider';
 import '../../menu';
 
@@ -44,20 +45,22 @@ const HeaderBasicTemplate = (
   template: TemplateResult,
 ): TemplateResult => html`
   <sbb-header ${sbbSpread(args)}>
-    <sbb-header-action icon-name="hamburger-menu-small" expand-from="small">
+    <sbb-header-button icon-name="hamburger-menu-small" expand-from="small">
       Menu
-    </sbb-header-action>
+    </sbb-header-button>
     <div class="sbb-header-spacer"></div>
-    <sbb-header-action icon-name="magnifying-glass-small">Search</sbb-header-action>
+    <sbb-header-link href="https://www.sbb.ch" target="_blank" icon-name="magnifying-glass-small"
+      >Search</sbb-header-link
+    >
     ${template}
-    <sbb-header-action icon-name="globe-small" id="language-menu-trigger" class="last-element">
+    <sbb-header-button icon-name="globe-small" id="language-menu-trigger" class="last-element">
       English
-    </sbb-header-action>
+    </sbb-header-button>
     <sbb-menu trigger="language-menu-trigger" ?disable-animation=${isChromatic()}>
-      <sbb-menu-action>Deutsch</sbb-menu-action>
-      <sbb-menu-action>Français</sbb-menu-action>
-      <sbb-menu-action>Italiano</sbb-menu-action>
-      <sbb-menu-action icon-name="tick-small">English</sbb-menu-action>
+      <sbb-menu-button>Deutsch</sbb-menu-button>
+      <sbb-menu-button>Français</sbb-menu-button>
+      <sbb-menu-button>Italiano</sbb-menu-button>
+      <sbb-menu-button icon-name="tick-small">English</sbb-menu-button>
     </sbb-menu>
   </sbb-header>
   <div ${sbbSpread(attributes)}>${new Array(12).fill(null).map(LoremIpsumTemplate)}</div>
@@ -67,9 +70,9 @@ const Template = (args: Args): TemplateResult => html`
   ${HeaderBasicTemplate(
     args,
     html`
-      <sbb-header-action icon-name="user-small" class="sbb-header-shrinkable">
+      <sbb-header-button icon-name="user-small" class="sbb-header-shrinkable">
         Sign in
-      </sbb-header-action>
+      </sbb-header-button>
     `,
   )}
 `;
@@ -78,26 +81,26 @@ const TemplateWithUserMenu = (args: Args): TemplateResult => html`
   ${HeaderBasicTemplate(
     args,
     html`
-      <sbb-header-action
+      <sbb-header-button
         icon-name="user-small"
         id="user-menu-trigger"
         data-testid="user-menu-trigger"
         class="sbb-header-shrinkable"
       >
         Christina Müller
-      </sbb-header-action>
+      </sbb-header-button>
       <sbb-menu
         trigger="user-menu-trigger"
         ?disable-animation=${isChromatic()}
         data-testid="user-menu"
       >
-        <sbb-menu-action icon-name="user-small" href="/"> Account </sbb-menu-action>
-        <sbb-menu-action icon-name="tickets-class-small">Tickets</sbb-menu-action>
-        <sbb-menu-action icon-name="shopping-cart-small" amount="1">
+        <sbb-menu-link icon-name="user-small" href="/"> Account </sbb-menu-link>
+        <sbb-menu-button icon-name="tickets-class-small">Tickets</sbb-menu-button>
+        <sbb-menu-button icon-name="shopping-cart-small" amount="1">
           Shopping cart
-        </sbb-menu-action>
+        </sbb-menu-button>
         <sbb-divider></sbb-divider>
-        <sbb-menu-action icon-name="exit-small">Sign out</sbb-menu-action>
+        <sbb-menu-button icon-name="exit-small">Sign out</sbb-menu-button>
       </sbb-menu>
     `,
   )}

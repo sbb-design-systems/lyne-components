@@ -9,7 +9,7 @@ import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import './navigation-marker';
-import '../navigation-action';
+import '../navigation-button';
 
 const size: InputType = {
   control: {
@@ -33,19 +33,19 @@ const style: Readonly<StyleInfo> = {
 };
 
 const navigationActionsL = (active: boolean): TemplateResult => html`
-  <sbb-navigation-action id="nav-1">Tickets & Offers</sbb-navigation-action>
-  <sbb-navigation-action id="nav-2" ?active=${active}>
+  <sbb-navigation-button id="nav-1">Tickets & Offers</sbb-navigation-button>
+  <sbb-navigation-button id="nav-2" ?active=${active}>
     Vacations & Recreation
-  </sbb-navigation-action>
-  <sbb-navigation-action id="nav-3">Travel information</sbb-navigation-action>
-  <sbb-navigation-action id="nav-4">Help & Contact</sbb-navigation-action>
+  </sbb-navigation-button>
+  <sbb-navigation-button id="nav-3">Travel information</sbb-navigation-button>
+  <sbb-navigation-button id="nav-4">Help & Contact</sbb-navigation-button>
 `;
 
 const navigationActionsS = (active: boolean): TemplateResult => html`
-  <sbb-navigation-action id="nav-5">Deutsch</sbb-navigation-action>
-  <sbb-navigation-action id="nav-6">Français</sbb-navigation-action>
-  <sbb-navigation-action id="nav-7" ?active=${active}> Italiano </sbb-navigation-action>
-  <sbb-navigation-action id="nav-8">English</sbb-navigation-action>
+  <sbb-navigation-button id="nav-5">Deutsch</sbb-navigation-button>
+  <sbb-navigation-button id="nav-6">Français</sbb-navigation-button>
+  <sbb-navigation-button id="nav-7" ?active=${active}> Italiano </sbb-navigation-button>
+  <sbb-navigation-button id="nav-8">English</sbb-navigation-button>
 `;
 
 const SizeLTemplate = (args: Args): TemplateResult => html`

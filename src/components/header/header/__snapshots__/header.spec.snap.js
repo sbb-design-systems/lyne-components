@@ -19,12 +19,12 @@ snapshots["sbb-header renders"] =
 
 snapshots["sbb-header renders actions and logo Dom"] = 
 `<sbb-header>
-  <sbb-header-action
+  <sbb-header-link
     href="https://github.com/lyne-design-system/lyne-components"
     icon-name="hamburger-menu-small"
   >
     Menu
-  </sbb-header-action>
+  </sbb-header-link>
   <div slot="logo">
     <circle
       cx="25"
@@ -53,7 +53,7 @@ snapshots["sbb-header renders actions and logo ShadowDom"] =
 `;
 /* end snapshot sbb-header renders actions and logo ShadowDom */
 
-snapshots["sbb-header renders actions and logo A11y tree Chrome"] = 
+snapshots["sbb-header renders actions and logo A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",

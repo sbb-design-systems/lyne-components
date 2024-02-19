@@ -7,7 +7,6 @@ import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
 import './notification';
 import '../link';
 import '../button';
-import '../icon';
 import '../divider';
 
 describe('sbb-notification', () => {

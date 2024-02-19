@@ -1,19 +1,15 @@
-import { spread } from '@open-wc/lit-helpers';
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { html, unsafeStatic } from 'lit/static-html.js';
+import { customElement, state } from 'lit/decorators.js';
+import { html } from 'lit/static-html.js';
 
-import { LanguageController, SlotChildObserver } from '../../core/common-behaviors';
-import { setAttributes } from '../../core/dom';
-import { actionElementHandlerAspect, HandlerRepository } from '../../core/eventing';
-import { i18nTargetOpensInNewWindow } from '../../core/i18n';
-import type { LinkTargetType } from '../../core/interfaces';
-import { resolveLinkOrStaticRenderVariables, targetsNewWindow } from '../../core/interfaces';
-
-import style from './breadcrumb.scss?lit&inline';
+import {
+  SbbIconNameMixin,
+  SbbLinkBaseElement,
+  SlotChildObserver,
+} from '../../core/common-behaviors';
 
 import '../../icon';
+import style from './breadcrumb.scss?lit&inline';
 
 /**
  * It displays a link to a page; used within a `sbb-breadcrumb-group` it can display the path to the current page.
@@ -22,42 +18,10 @@ import '../../icon';
  * @slot icon - Use this to display an icon as breadcrumb.
  */
 @customElement('sbb-breadcrumb')
-export class SbbBreadcrumbElement extends SlotChildObserver(LitElement) {
+export class SbbBreadcrumbElement extends SlotChildObserver(SbbIconNameMixin(SbbLinkBaseElement)) {
   public static override styles: CSSResultGroup = style;
 
-  /** The href value you want to link to. */
-  @property() public href?: string;
-
-  /** Where to display the linked URL. */
-  @property() public target?: LinkTargetType | string;
-
-  /** The relationship of the linked URL as space-separated link types. */
-  @property() public rel?: string;
-
-  /** Whether the browser will show the download dialog on click. */
-  @property({ type: Boolean }) public download?: boolean;
-
-  /**
-   * The icon name we want to use, choose from the small icon variants
-   * from the ui-icons category from here
-   * https://icons.app.sbb.ch.
-   */
-  @property({ attribute: 'icon-name' }) public iconName?: string;
-
   @state() private _hasText = false;
-
-  private _language = new LanguageController(this);
-  private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._handlerRepository.connect();
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
-  }
 
   protected override checkChildren(): void {
     this._hasText = Array.from(this.childNodes ?? []).some(
@@ -65,38 +29,13 @@ export class SbbBreadcrumbElement extends SlotChildObserver(LitElement) {
     );
   }
 
-  protected override render(): TemplateResult {
-    const {
-      tagName: TAG_NAME,
-      attributes,
-      hostAttributes,
-    } = resolveLinkOrStaticRenderVariables(this);
-
-    setAttributes(this, hostAttributes);
-
-    /* eslint-disable lit/binding-positions */
+  protected override renderTemplate(): TemplateResult {
     return html`
-      <${unsafeStatic(TAG_NAME)} class="sbb-breadcrumb" ${spread(attributes)}>
-        <slot name="icon">
-          ${
-            this.iconName
-              ? html`<sbb-icon name="${this.iconName}" class="sbb-breadcrumb__icon"></sbb-icon>`
-              : nothing
-          }
-        </slot>
-        <span class="sbb-breadcrumb__label" ?hidden=${!this._hasText}>
-          <slot></slot>
-        </span>
-        ${
-          targetsNewWindow(this)
-            ? html` <span class="sbb-breadcrumb__label--opens-in-new-window">
-                . ${i18nTargetOpensInNewWindow[this._language.current]}
-              </span>`
-            : nothing
-        }
-      </${unsafeStatic(TAG_NAME)}>
+      ${this.renderIconSlot('sbb-breadcrumb__icon')}
+      <span class="sbb-breadcrumb__label" ?hidden=${!this._hasText}>
+        <slot></slot>
+      </span>
     `;
-    /* eslint-disable lit/binding-positions */
   }
 }
 

@@ -8,7 +8,6 @@ import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import './tag';
-import '../../icon';
 
 const checked: InputType = {
   control: {

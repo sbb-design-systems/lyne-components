@@ -22,24 +22,24 @@ or call the `open()` method on the `sbb-navigation` component.
 <!-- Navigation component with navigation sections -->
 <sbb-navigation trigger="nav-trigger">
   <sbb-navigation-marker>
-    <sbb-navigation-action aria-current="page" id="nav-section-1">Label 1</sbb-navigation-action>
-    <sbb-navigation-action id="nav-section-2">Label 2</sbb-navigation-action>
-    <sbb-navigation-action href="https://www.sbb.ch/some/route">Label 3</sbb-navigation-action>
+    <sbb-navigation-button aria-current="page" id="nav-section-1">Label 1</sbb-navigation-button>
+    <sbb-navigation-button id="nav-section-2">Label 2</sbb-navigation-button>
+    <sbb-navigation-link href="https://www.sbb.ch/some/route">Label 3</sbb-navigation-link>
   <sbb-navigation-marker>
 
   <sbb-navigation-marker>
-    <sbb-navigation-action aria-pressed="true">Language 1</sbb-navigation-action>
-    <sbb-navigation-action aria-pressed="false">Language 2</sbb-navigation-action>
-    <sbb-navigation-action aria-pressed="false">Language 3</sbb-navigation-action>
+    <sbb-navigation-button aria-pressed="true">Language 1</sbb-navigation-button>
+    <sbb-navigation-button aria-pressed="false">Language 2</sbb-navigation-button>
+    <sbb-navigation-button aria-pressed="false">Language 3</sbb-navigation-button>
   <sbb-navigation-marker>
 
   <sbb-navigation-section trigger="nav-section-1">
     <span slot="label">Title 1</span>
     <sbb-navigation-list>
       <span slot="label">Label 1.1</span>
-      <sbb-navigation-action href="...">Label 1.1.1</sbb-navigation-action>
-      <sbb-navigation-action href="...">Label 1.1.2</sbb-navigation-action>
-      <sbb-navigation-action href="...">Label 1.1.3</sbb-navigation-action>
+      <sbb-navigation-link href="...">Label 1.1.1</sbb-navigation-link>
+      <sbb-navigation-link href="...">Label 1.1.2</sbb-navigation-link>
+      <sbb-navigation-link href="...">Label 1.1.3</sbb-navigation-link>
     </sbb-navigation-list>
     ...
     <sbb-button>Something</sbb-button>
@@ -86,6 +86,6 @@ Similarly, if a navigation action is marked to indicate a selected option (e.g.,
 
 ## Slots
 
-| Name | Description                                                                                |
-| ---- | ------------------------------------------------------------------------------------------ |
-|      | Use the unnamed slot to add `sbb-navigation-action` elements into the sbb-navigation menu. |
+| Name | Description                                                                                                      |
+| ---- | ---------------------------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add `sbb-navigation-button`/`sbb-navigation-link` elements into the sbb-navigation menu. |

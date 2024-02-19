@@ -2,16 +2,21 @@ import { spread } from '@open-wc/lit-helpers';
 import { type CSSResultGroup, html, LitElement, nothing, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { LanguageController } from '../../core/common-behaviors';
+import {
+  LanguageController,
+  type LinkProperties,
+  type LinkTargetType,
+  SbbIconNameMixin,
+} from '../../core/common-behaviors';
 import { EventEmitter } from '../../core/eventing';
 import { i18nCloseAlert, i18nFindOutMore } from '../../core/i18n';
-import type { LinkProperties, LinkTargetType } from '../../core/interfaces';
 import type { TitleLevel } from '../../title';
 
 import style from './alert.scss?lit&inline';
 
 import '../../button';
 import '../../divider';
+import '../../icon';
 import '../../link';
 import '../../title';
 
@@ -28,7 +33,7 @@ export type SbbAlertState = 'closed' | 'opening' | 'opened';
  * @event {CustomEvent<void>} dismissalRequested - Emits when dismissal of an alert was requested.
  */
 @customElement('sbb-alert')
-export class SbbAlertElement extends LitElement implements LinkProperties {
+export class SbbAlertElement extends SbbIconNameMixin(LitElement) implements LinkProperties {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -53,7 +58,7 @@ export class SbbAlertElement extends LitElement implements LinkProperties {
    * Choose the icons from https://icons.app.sbb.ch.
    * Styling is optimized for icons of type HIM-CUS.
    */
-  @property({ attribute: 'icon-name' }) public iconName?: string;
+  @property({ attribute: 'icon-name' }) public override iconName: string = 'info';
 
   /** Content of title. */
   @property({ attribute: 'title-content' }) public titleContent?: string;
@@ -135,11 +140,7 @@ export class SbbAlertElement extends LitElement implements LinkProperties {
         <!-- sub wrapper needed to properly support fade in animation -->
         <div class="sbb-alert__transition-sub-wrapper">
           <div class="sbb-alert">
-            <span class="sbb-alert__icon">
-              <slot name="icon">
-                <sbb-icon name=${this.iconName || 'info'}></sbb-icon>
-              </slot>
-            </span>
+            <span class="sbb-alert__icon"> ${this.renderIconSlot()} </span>
             <span class="sbb-alert__content">
               <sbb-title
                 class="sbb-alert__title"

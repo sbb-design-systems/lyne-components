@@ -1,5 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -11,7 +10,7 @@ import {
   isArrowKeyPressed,
   setModalityOnNextFocus,
 } from '../../core/a11y';
-import { NamedSlotListElement } from '../../core/common-behaviors';
+import { SbbNamedSlotListElementMixin } from '../../core/common-behaviors';
 import {
   findReferencedElement,
   isBreakpoint,
@@ -29,26 +28,36 @@ import {
   removeInertMechanism,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay';
-import type { SbbMenuActionElement } from '../menu-action';
+import type { SbbMenuButtonElement, SbbMenuLinkElement } from '../index';
 
 import style from './menu.scss?lit&inline';
 
 const MENU_OFFSET = 8;
-const INTERACTIVE_ELEMENTS = ['A', 'BUTTON', 'SBB-BUTTON', 'SBB-LINK'];
+const INTERACTIVE_ELEMENTS = [
+  'A',
+  'BUTTON',
+  'SBB-BUTTON',
+  'SBB-BUTTON-LINK',
+  'SBB-LINK',
+  'SBB-LINK-BUTTON',
+];
 
 let nextId = 0;
 
 /**
  * It displays a contextual menu with one or more action element.
  *
- * @slot - Use the unnamed slot to add `sbb-menu-action` or other elements to the menu.
+ * @slot - Use the unnamed slot to add `sbb-menu-button`/`sbb-menu-link` or other elements to the menu.
  * @event {CustomEvent<void>} willOpen - Emits whenever the `sbb-menu` starts the opening transition. Can be canceled.
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-menu` is opened.
  * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-menu` begins the closing transition. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-menu` is closed.
  */
 @customElement('sbb-menu')
-export class SbbMenuElement extends NamedSlotListElement<SbbMenuActionElement> {
+export class SbbMenuElement extends SbbNamedSlotListElementMixin<
+  SbbMenuButtonElement | SbbMenuLinkElement,
+  typeof LitElement
+>(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -56,7 +65,7 @@ export class SbbMenuElement extends NamedSlotListElement<SbbMenuActionElement> {
     willClose: 'willClose',
     didClose: 'didClose',
   } as const;
-  protected override readonly listChildTagNames = ['SBB-MENU-ACTION'];
+  protected override readonly listChildTagNames = ['SBB-MENU-BUTTON', 'SBB-MENU-LINK'];
 
   /**
    * The element that will trigger the menu overlay.
@@ -150,11 +159,11 @@ export class SbbMenuElement extends NamedSlotListElement<SbbMenuActionElement> {
   }
 
   /**
-   * Handles click and checks if its target is a sbb-menu-action.
+   * Handles click and checks if its target is a sbb-menu-button/sbb-menu-link.
    */
   private _onClick(event: Event): void {
     const target = event.target as HTMLElement | undefined;
-    if (target?.tagName === 'SBB-MENU-ACTION') {
+    if (target?.tagName === 'SBB-MENU-BUTTON' || target?.tagName === 'SBB-MENU-LINK') {
       this.close();
     }
   }
@@ -165,9 +174,11 @@ export class SbbMenuElement extends NamedSlotListElement<SbbMenuActionElement> {
     }
     evt.preventDefault();
 
-    const enabledActions: Element[] = Array.from(this.querySelectorAll('sbb-menu-action')).filter(
-      (el: HTMLElement) => el.tabIndex === 0 && interactivityChecker.isVisible(el),
-    );
+    const enabledActions: Element[] = Array.from(
+      this.querySelectorAll<SbbMenuButtonElement | SbbMenuLinkElement>(
+        'sbb-menu-button, sbb-menu-link',
+      ),
+    ).filter((el: HTMLElement) => el.tabIndex === 0 && interactivityChecker.isVisible(el));
 
     const current = enabledActions.findIndex((e: Element) => e === evt.target);
     const nextIndex = getNextElementIndex(evt, current, enabledActions.length);
@@ -221,10 +232,12 @@ export class SbbMenuElement extends NamedSlotListElement<SbbMenuActionElement> {
   }
 
   protected override checkChildren(): void {
-    // If all children are sbb-menu-action instances, we render them as a list.
+    // If all children are sbb-menu-button/menu-link instances, we render them as a list.
     if (
       this.children?.length &&
-      Array.from(this.children ?? []).every((c) => c.tagName === 'SBB-MENU-ACTION')
+      Array.from(this.children ?? []).every(
+        (c) => c.tagName === 'SBB-MENU-BUTTON' || c.tagName === 'SBB-MENU-LINK',
+      )
     ) {
       super.checkChildren();
     } else if (this.listChildren.length) {
@@ -319,7 +332,9 @@ export class SbbMenuElement extends NamedSlotListElement<SbbMenuActionElement> {
       // Manually focus last focused element
       this._triggerElement?.focus({
         // When inside the sbb-header, we prevent the scroll to avoid the snapping to the top of the page
-        preventScroll: this._triggerElement.tagName === 'SBB-HEADER-ACTION',
+        preventScroll:
+          this._triggerElement.tagName === 'SBB-HEADER-BUTTON' ||
+          this._triggerElement.tagName === 'SBB-HEADER-LINK',
       });
       this._didClose.emit();
       this._windowEventsController?.abort();
@@ -366,7 +381,7 @@ export class SbbMenuElement extends NamedSlotListElement<SbbMenuActionElement> {
   protected override render(): TemplateResult {
     setAttribute(this, 'data-state', this._state);
 
-    // TODO: Handle case with other elements than sbb-menu-action.
+    // TODO: Handle case with other elements than sbb-menu-button/sbb-menu-link.
     return html`
       <div class="sbb-menu__container">
         <div

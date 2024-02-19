@@ -1,10 +1,16 @@
-import type { CSSResultGroup, PropertyValueMap, PropertyValues, TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValueMap,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { html, nothing } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed, sbbInputModalityDetector } from '../../core/a11y';
-import type { WithListChildren } from '../../core/common-behaviors';
-import { LanguageController, NamedSlotListElement } from '../../core/common-behaviors';
+import { SbbNamedSlotListElementMixin, type WithListChildren } from '../../core/common-behaviors';
+import { LanguageController } from '../../core/common-behaviors';
 import { setAttribute } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
 import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n';
@@ -21,7 +27,10 @@ import '../../icon';
  * @slot - Use the unnamed slot to add `sbb-breadcrumb` elements.
  */
 @customElement('sbb-breadcrumb-group')
-export class SbbBreadcrumbGroupElement extends NamedSlotListElement<SbbBreadcrumbElement> {
+export class SbbBreadcrumbGroupElement extends SbbNamedSlotListElementMixin<
+  SbbBreadcrumbElement,
+  typeof LitElement
+>(LitElement) {
   public static override styles: CSSResultGroup = style;
   protected override readonly listChildTagNames = ['SBB-BREADCRUMB'];
 

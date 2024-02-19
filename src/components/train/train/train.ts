@@ -1,10 +1,15 @@
-import type { CSSResultGroup, PropertyValueMap, TemplateResult } from 'lit';
-import { nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  nothing,
+  LitElement,
+  type PropertyValueMap,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import type { WithListChildren } from '../../core/common-behaviors';
-import { LanguageController, NamedSlotListElement } from '../../core/common-behaviors';
+import { SbbNamedSlotListElementMixin, type WithListChildren } from '../../core/common-behaviors';
+import { LanguageController } from '../../core/common-behaviors';
 import { EventEmitter } from '../../core/eventing';
 import { i18nTrain, i18nWagonsLabel } from '../../core/i18n';
 import type { TitleLevel } from '../../title';
@@ -21,9 +26,10 @@ import '../../icon';
  * @slot - Use the unnamed slot to add 'sbb-train-wagon' elements to the `sbb-train`.
  */
 @customElement('sbb-train')
-export class SbbTrainElement extends NamedSlotListElement<
-  SbbTrainWagonElement | SbbTrainBlockedPassageElement
-> {
+export class SbbTrainElement extends SbbNamedSlotListElementMixin<
+  SbbTrainWagonElement | SbbTrainBlockedPassageElement,
+  typeof LitElement
+>(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     trainSlotChange: 'trainSlotChange',

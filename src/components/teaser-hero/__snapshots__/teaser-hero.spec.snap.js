@@ -1,25 +1,6 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-teaser-hero should render without link"] = 
-`<span class="sbb-teaser-hero">
-  <span class="sbb-teaser-hero__panel">
-    <p class="sbb-teaser-hero__panel-text">
-      <slot>
-      </slot>
-    </p>
-  </span>
-  <slot name="image">
-    <sbb-image
-      alt="SBB CFF FFS Employee"
-      image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Hoehenrundweg-Gryden-Lenk.jpg"
-    >
-    </sbb-image>
-  </slot>
-</span>
-`;
-/* end snapshot sbb-teaser-hero should render without link */
-
 snapshots["sbb-teaser-hero should render with slots"] = 
 `<a
   class="sbb-teaser-hero"
@@ -32,20 +13,19 @@ snapshots["sbb-teaser-hero should render with slots"] =
       <slot>
       </slot>
     </p>
-    <sbb-link
+    <sbb-link-static
       class="sbb-teaser-hero__panel-link"
       data-slot-names="link-content unnamed"
       dir="ltr"
       icon-name="chevron-small-right-small"
       icon-placement="end"
-      is-static=""
       negative=""
       size="m"
       variant="block"
     >
       <slot name="link-content">
       </slot>
-    </sbb-link>
+    </sbb-link-static>
   </span>
   <slot name="image">
   </slot>
@@ -85,13 +65,12 @@ snapshots["sbb-teaser-hero should render all properties ShadowDom"] =
       <slot>
       </slot>
     </p>
-    <sbb-link
+    <sbb-link-static
       class="sbb-teaser-hero__panel-link"
       data-slot-names="unnamed"
       dir="ltr"
       icon-name="chevron-small-right-small"
       icon-placement="end"
-      is-static=""
       negative=""
       size="m"
       variant="block"
@@ -99,7 +78,7 @@ snapshots["sbb-teaser-hero should render all properties ShadowDom"] =
       <slot name="link-content">
         Find out more
       </slot>
-    </sbb-link>
+    </sbb-link-static>
   </span>
   <slot name="image">
     <sbb-image
@@ -108,9 +87,9 @@ snapshots["sbb-teaser-hero should render all properties ShadowDom"] =
     >
     </sbb-image>
   </slot>
-  <span class="sbb-teaser-hero__opens-in-new-window">
-    . Link target opens in new window.
-  </span>
+  <sbb-screenreader-only>
+    . Link target opens in a new window.
+  </sbb-screenreader-only>
 </a>
 `;
 /* end snapshot sbb-teaser-hero should render all properties ShadowDom */
@@ -127,7 +106,7 @@ snapshots["sbb-teaser-hero should render all properties A11y tree Chrome"] =
       "children": [
         {
           "role": "link",
-          "name": "Break out and explore castles and palaces. Find out more . Link target opens in new window."
+          "name": "Break out and explore castles and palaces. Find out more . Link target opens in a new window."
         }
       ]
     }
@@ -149,7 +128,7 @@ snapshots["sbb-teaser-hero should render all properties A11y tree Firefox"] =
       "children": [
         {
           "role": "link",
-          "name": "Break out and explore castles and palaces. Find out more . Link target opens in new window.",
+          "name": "Break out and explore castles and palaces. Find out more . Link target opens in a new window.",
           "value": "https://www.sbb.ch/"
         }
       ]
@@ -172,7 +151,7 @@ snapshots["sbb-teaser-hero should render all properties A11y tree Safari"] =
       "children": [
         {
           "role": "link",
-          "name": "Break out and explore castles and palaces. Find out more SBB CFF FFS Employee . Link target opens in new window.",
+          "name": "Break out and explore castles and palaces. Find out more SBB CFF FFS Employee . Link target opens in a new window.",
           "children": [
             {
               "role": "text",
@@ -192,7 +171,7 @@ snapshots["sbb-teaser-hero should render all properties A11y tree Safari"] =
             },
             {
               "role": "text",
-              "name": "Link target opens in new window."
+              "name": "Link target opens in a new window."
             }
           ]
         }

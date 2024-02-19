@@ -17,9 +17,9 @@ snapshots["sbb-breadcrumb renders with text"] =
     <slot>
     </slot>
   </span>
-  <span class="sbb-breadcrumb__label--opens-in-new-window">
-    . Link target opens in new window.
-  </span>
+  <sbb-screenreader-only>
+    . Link target opens in a new window.
+  </sbb-screenreader-only>
 </a>
 `;
 /* end snapshot sbb-breadcrumb renders with text */
@@ -77,19 +77,7 @@ snapshots["sbb-breadcrumb renders with icon and text"] =
 `;
 /* end snapshot sbb-breadcrumb renders with icon and text */
 
-snapshots["sbb-breadcrumb renders as span if no href is provided"] = 
-`<span class="sbb-breadcrumb">
-  <slot name="icon">
-  </slot>
-  <span class="sbb-breadcrumb__label">
-    <slot>
-    </slot>
-  </span>
-</span>
-`;
-/* end snapshot sbb-breadcrumb renders as span if no href is provided */
-
-snapshots["sbb-breadcrumb A11y tree Chrome"] = 
+snapshots["sbb-breadcrumb A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",

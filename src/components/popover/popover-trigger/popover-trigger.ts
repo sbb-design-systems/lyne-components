@@ -1,13 +1,16 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement, html, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { type CSSResultGroup, html, type TemplateResult } from 'lit';
+import { customElement } from 'lit/decorators.js';
 
-import { hostContext, isValidAttribute, setAttributes, toggleDatasetEntry } from '../../core/dom';
-import { HandlerRepository, actionElementHandlerAspect } from '../../core/eventing';
-import { resolveButtonRenderVariables } from '../../core/interfaces';
+import {
+  SbbButtonBaseElement,
+  SbbDisabledTabIndexActionMixin,
+  SbbIconNameMixin,
+  SbbNegativeMixin,
+} from '../../core/common-behaviors';
+import { hostContext, isValidAttribute, toggleDatasetEntry } from '../../core/dom';
 
-import style from './popover-trigger.scss?lit&inline';
 import '../../icon';
+import style from './popover-trigger.scss?lit&inline';
 
 /**
  * It can be used as a trigger for the `sbb-popover` component.
@@ -15,30 +18,13 @@ import '../../icon';
  * @slot - Use the unnamed slot to add content to the `sbb-popover-trigger`.
  */
 @customElement('sbb-popover-trigger')
-export class SbbPopoverTriggerElement extends LitElement {
+export class SbbPopoverTriggerElement extends SbbDisabledTabIndexActionMixin(
+  SbbNegativeMixin(SbbIconNameMixin(SbbButtonBaseElement)),
+) {
   public static override styles: CSSResultGroup = style;
-
-  /** The name attribute to use for the button. */
-  @property({ reflect: true }) public name: string | undefined;
-
-  /** Negative coloring variant flag. */
-  @property({ reflect: true, type: Boolean }) public negative = false;
-
-  /**
-   * The icon name we want to use, choose from the small icon variants
-   * from the ui-icons category from here
-   * https://icons.app.sbb.ch.
-   */
-  @property({ attribute: 'icon-name' }) public iconName = 'circle-information-small';
-
-  /** Whether the popover-trigger is disabled. */
-  @property({ reflect: true, type: Boolean }) public disabled: boolean = false;
-
-  private _handlerRepository = new HandlerRepository(this, actionElementHandlerAspect);
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._handlerRepository.connect();
     const formField = hostContext('sbb-form-field', this) ?? hostContext('[data-form-field]', this);
 
     if (formField) {
@@ -47,20 +33,11 @@ export class SbbPopoverTriggerElement extends LitElement {
     }
   }
 
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
-  }
-
-  protected override render(): TemplateResult {
-    const { hostAttributes } = resolveButtonRenderVariables(this);
-
-    setAttributes(this, hostAttributes);
-
+  protected override renderTemplate(): TemplateResult {
     return html`
-      <span class="sbb-popover-trigger">
-        <slot>${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}</slot>
-      </span>
+      <slot>
+        <sbb-icon name=${this.iconName || 'circle-information-small'}></sbb-icon>
+      </slot>
     `;
   }
 }
