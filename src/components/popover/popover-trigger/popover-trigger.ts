@@ -33,16 +33,12 @@ export class SbbPopoverTriggerElement extends SbbDisabledTabIndexActionMixin(
     }
   }
 
-  protected override renderIconSlot(): TemplateResult {
+  protected override renderTemplate(): TemplateResult {
     return html`
       <slot>
         <sbb-icon name=${this.iconName || 'circle-information-small'}></sbb-icon>
       </slot>
     `;
-  }
-
-  protected override renderTemplate(): TemplateResult {
-    return this.renderIconSlot();
   }
 }
 
