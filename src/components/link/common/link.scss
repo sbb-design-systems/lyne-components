@@ -8,7 +8,6 @@
   // Necessary to forward styles to native link
   @include sbb.text-inherit;
 
-  display: inline-block;
   color: inherit;
 
   // Use !important here to not interfere with Firefox focus ring definition
@@ -20,28 +19,22 @@
   --sbb-link-gap: var(--sbb-spacing-fixed-1x);
 }
 
-:host([variant='block']) {
-  display: block;
-}
-
-// Using :where to be not more specific than inline variant
 :host([negative]) {
   @include sbb.link-variables--negative;
-}
-
-:host([variant='inline']) {
-  @include sbb.link-variables--inline;
-}
-
-:host([variant='inline'][negative]) {
-  @include sbb.link-variables--inline-negative;
 }
 
 :host([role='button']) {
   @include sbb.link-variables--button;
 }
 
-:is(.sbb-link, .sbb-link-button, .sbb-link-static) {
+:is(
+    .sbb-link,
+    .sbb-link-button,
+    .sbb-link-static,
+    .sbb-block-link,
+    .sbb-block-link-button,
+    .sbb-block-link-static
+  ) {
   @include sbb.link-base;
 
   display: flex;
@@ -52,10 +45,6 @@
   cursor: pointer;
   padding: var(--sbb-link-padding, 0);
 
-  :host([variant='inline']) & {
-    @include sbb.link-inline-base;
-  }
-
   :host([disabled]) & {
     pointer-events: none;
     cursor: default;
@@ -63,18 +52,6 @@
     @include sbb.if-forced-colors {
       color: GrayText;
     }
-  }
-
-  :host([size='xs']:not([variant='inline'])) & {
-    @include sbb.text-xs--regular;
-  }
-
-  :host([size='s']:not([variant='inline'])) & {
-    @include sbb.text-s--regular;
-  }
-
-  :host([size='m']:not([variant='inline'])) & {
-    @include sbb.text-m--regular;
   }
 
   // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
@@ -91,26 +68,5 @@
   :host(:is(:active, [data-active]):not([disabled])) & {
     // Active definitions have to be after :hover definitions
     @include sbb.link-active-rules;
-  }
-}
-
-.sbb-link__icon {
-  position: relative;
-  height: calc(var(--sbb-typo-line-height-body-text) * 1em);
-  width: var(--sbb-size-icon-ui-small);
-  flex: 0 0 auto;
-  align-self: start;
-
-  :host(:not([data-slot-names~='icon'], [icon-name])) & {
-    display: none;
-  }
-
-  :host([icon-placement='end']) & {
-    order: 2;
-  }
-
-  ::slotted([slot='icon']),
-  sbb-icon {
-    @include sbb.absolute-center-y;
   }
 }

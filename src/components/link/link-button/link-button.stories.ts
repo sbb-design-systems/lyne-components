@@ -24,6 +24,7 @@ import {
 
 import readme from './readme.md?raw';
 import './link-button';
+import '../block-link-button';
 
 const tag: InputType = {
   control: {
@@ -92,7 +93,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   ...linkCommonDefaultArgs,
-  tag: 'sbb-link-button',
+  tag: 'sbb-block-link-button',
   type: type.options[0],
   disabled: false,
   name: 'Button name',
@@ -110,8 +111,22 @@ export const BlockIconStart: StoryObj = blockIconStart;
 export const BlockNegative: StoryObj = blockNegative;
 export const BlockWithSlottedIcon: StoryObj = blockWithSlottedIcon;
 export const BlockFixedWidth: StoryObj = blockFixedWidth;
-export const Inline: StoryObj = inline;
-export const InlineNegative: StoryObj = inlineNegative;
+
+export const Inline: StoryObj = {
+  ...inline,
+  args: {
+    tag: 'sbb-link-button',
+    text: 'Show more',
+  },
+};
+export const InlineNegative: StoryObj = {
+  ...inlineNegative,
+  args: {
+    tag: 'sbb-link-button',
+    text: 'Show more',
+    negative: true,
+  },
+};
 
 const meta: Meta = {
   argTypes: defaultArgTypes,

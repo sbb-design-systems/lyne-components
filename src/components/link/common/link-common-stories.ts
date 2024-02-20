@@ -52,13 +52,6 @@ const text: InputType = {
   },
 };
 
-const variant: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['block', 'inline'],
-};
-
 const negative: InputType = {
   control: {
     type: 'boolean',
@@ -99,7 +92,6 @@ const ariaLabel: InputType = {
 
 export const linkCommonDefaultArgTypes: ArgTypes = {
   text,
-  variant,
   negative,
   size,
   'icon-name': iconName,
@@ -109,7 +101,6 @@ export const linkCommonDefaultArgTypes: ArgTypes = {
 
 export const linkCommonDefaultArgs: Args = {
   text: 'Travelcards & tickets',
-  variant: variant.options[0],
   negative: false,
   size: size.options[1],
   'icon-name': undefined,
@@ -201,7 +192,6 @@ export const inline: StoryObj = {
   render: InlineTemplate,
   args: {
     text: 'Show more',
-    variant: variant.options[1],
   },
 };
 
@@ -209,7 +199,6 @@ export const inlineNegative: StoryObj = {
   render: InlineTemplate,
   args: {
     text: 'Show more',
-    variant: variant.options[1],
     negative: true,
   },
 };

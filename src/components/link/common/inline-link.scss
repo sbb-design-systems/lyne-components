@@ -1,0 +1,22 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  @include sbb.link-variables--inline;
+
+  display: inline-block;
+}
+
+:host([negative]) {
+  @include sbb.link-variables--inline-negative;
+}
+
+:is(
+    .sbb-link,
+    .sbb-link-button,
+    .sbb-link-static,
+    .sbb-block-link,
+    .sbb-block-link-button,
+    .sbb-block-link-static
+  ) {
+  @include sbb.link-inline-base;
+}
