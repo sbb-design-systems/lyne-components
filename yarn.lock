@@ -1812,10 +1812,10 @@
   resolved "https://registry.yarnpkg.com/@open-wc/dedupe-mixin/-/dedupe-mixin-1.4.0.tgz#b3c58f8699b197bb5e923d624c720e67c9f324d6"
   integrity sha512-Sj7gKl1TLcDbF7B6KUhtvr+1UCxdhMbNY5KxdU5IfMFWqL8oy1ZeAcCANjoB1TL0AJTcPmcCFsCbHf8X2jGDUA==
 
-"@open-wc/lit-helpers@0.6.0":
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/@open-wc/lit-helpers/-/lit-helpers-0.6.0.tgz#05bd6fbffa37cae138f6786141cd40f8359f2970"
-  integrity sha512-9F0Rw18Lupp8hehF299yYozN4cFMTnHeCVNtz0k18/eUkcUUb6DCWerL/ASJ9lZ4bLA/YUPmrkdgZz/xe9cKeg==
+"@open-wc/lit-helpers@0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@open-wc/lit-helpers/-/lit-helpers-0.7.0.tgz#69899f7554424a1ed7d2e12b4328f3d194bc1d82"
+  integrity sha512-4NBlx5ve0EvZplCRJbESm0MdMbRCw16alP2y76KAAAwzmFFXXrUj5hFwhw55+sSg5qaRRx6sY+s7usKgnNo3TQ==
 
 "@open-wc/scoped-elements@^3.0.2":
   version "3.0.5"

@@ -58,7 +58,7 @@
     "@custom-elements-manifest/analyzer": "0.9.2",
     "@custom-elements-manifest/to-markdown": "0.1.0",
     "@lit/react": "^1.0.1",
-    "@open-wc/lit-helpers": "0.6.0",
+    "@open-wc/lit-helpers": "0.7.0",
     "@open-wc/testing": "4.0.0",
     "@sbb-esta/lyne-design-tokens": "0.3.9",
     "@storybook/addon-a11y": "7.6.17",
