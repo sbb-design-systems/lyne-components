@@ -1,7 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import './navigation';
-import '../../button';
+import '../../button/transparent-button';
 
 describe('sbb-navigation', () => {
   it('renders', async () => {
@@ -35,7 +35,7 @@ describe('sbb-navigation', () => {
         <div class="sbb-navigation__container">
           <div class="sbb-navigation" id="sbb-navigation-overlay">
             <div class="sbb-navigation__header">
-              <sbb-button
+              <sbb-transparent-button
                 id="sbb-navigation-close-button"
                 aria-label="Close navigation"
                 aria-controls="sbb-navigation-overlay"
@@ -47,9 +47,8 @@ describe('sbb-navigation', () => {
                 sbb-navigation-close=""
                 size="m"
                 tabindex="0"
-                type="button"
-                variant="transparent">
-              </sbb-button>
+                type="button">
+              </sbb-transparent-button>
             </div>
             <div class="sbb-navigation__wrapper">
               <div class="sbb-navigation__content">

@@ -4,7 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import type { SbbButtonElement } from '../button';
+import { type SbbSecondaryButtonStaticElement } from '../button/secondary-button-static';
 import { sbbInputModalityDetector } from '../core/a11y';
 import {
   LanguageController,
@@ -85,7 +85,7 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(LitElement) {
   // this will require a counter to correctly handle the dragEnter/dragLeave.
   private _counter: number = 0;
 
-  private _loadButton!: SbbButtonElement;
+  private _loadButton!: SbbSecondaryButtonStaticElement;
   private _dragTarget?: HTMLElement;
   private _hiddenInput!: HTMLInputElement;
   private _suffixes: string[] = ['B', 'kB', 'MB', 'GB', 'TB'];
@@ -207,17 +207,16 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(LitElement) {
 
   private _renderDefaultMode(): TemplateResult {
     return html`
-      <sbb-button-static
-        variant="secondary"
+      <sbb-secondary-button-static
         size="m"
         icon-name="folder-open-small"
         ?disabled=${this.disabled}
         ${ref((el?: Element): void => {
-          this._loadButton = el as SbbButtonElement;
+          this._loadButton = el as SbbSecondaryButtonStaticElement;
         })}
       >
         ${i18nFileSelectorButtonLabel[this._language.current]}
-      </sbb-button-static>
+      </sbb-secondary-button-static>
     `;
   }
 
@@ -232,16 +231,15 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(LitElement) {
           ${i18nFileSelectorSubtitleLabel[this._language.current]}
         </span>
         <span class="sbb-file-selector__dropzone-area--button">
-          <sbb-button-static
-            variant="secondary"
+          <sbb-secondary-button-static
             size="m"
             ?disabled=${this.disabled}
             ${ref((el?: Element): void => {
-              this._loadButton = el as SbbButtonElement;
+              this._loadButton = el as SbbSecondaryButtonStaticElement;
             })}
           >
             ${i18nFileSelectorButtonLabel[this._language.current]}
-          </sbb-button-static>
+          </sbb-secondary-button-static>
         </span>
       </span>
     `;
@@ -263,13 +261,12 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(LitElement) {
               <span class="sbb-file-selector__file-name">${file.name}</span>
               <span class="sbb-file-selector__file-size">${this._formatFileSize(file.size)}</span>
             </span>
-            <sbb-button
-              variant="secondary"
+            <sbb-secondary-button
               size="m"
               icon-name="trash-small"
               @click=${() => this._removeFile(file)}
               aria-label=${`${i18nFileSelectorDeleteFile[this._language.current]} - ${file.name}`}
-            ></sbb-button>
+            ></sbb-secondary-button>
           </${unsafeStatic(TAG_NAME.ELEMENT)}>`,
         )}
       </${unsafeStatic(TAG_NAME.WRAPPER)}>

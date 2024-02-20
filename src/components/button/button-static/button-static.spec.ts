@@ -7,16 +7,13 @@ import '../../form-field';
 import './button-static';
 
 describe('sbb-button-static', () => {
-  it('renders a primary button-static without icon', async () => {
+  it('renders a button-static without icon', async () => {
     const root = await fixture(
-      html` <sbb-button-static variant="primary" negative size="m" disabled>
-        Label Text
-      </sbb-button-static>`,
+      html` <sbb-button-static negative size="m" disabled> Label Text </sbb-button-static>`,
     );
 
     expect(root).dom.to.be.equal(`
       <sbb-button-static
-        variant="primary"
         negative
         size="m"
         disabled
@@ -40,7 +37,7 @@ describe('sbb-button-static', () => {
 
   it('renders a primary button-static with slotted icon', async () => {
     const root = await fixture(
-      html`<sbb-button-static variant="primary">
+      html`<sbb-button-static>
         <sbb-icon slot="icon" name="chevron-small-left-small"></sbb-icon>
         Label Text
       </sbb-button-static> `,
@@ -49,7 +46,7 @@ describe('sbb-button-static', () => {
     await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(`
-      <sbb-button-static size="l" variant="primary" dir="ltr" data-slot-names="icon unnamed">
+      <sbb-button-static size="l" dir="ltr" data-slot-names="icon unnamed">
         <sbb-icon slot="icon" name="chevron-small-left-small" role="img" aria-hidden="true" data-namespace="default"></sbb-icon>
         Label Text
       </sbb-button-static>

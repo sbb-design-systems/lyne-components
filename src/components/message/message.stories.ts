@@ -9,7 +9,7 @@ import { sbbSpread } from '../core/dom';
 import images from '../core/images';
 import '../image';
 import '../title';
-import '../button';
+import '../button/secondary-button';
 import './message';
 
 import readme from './readme.md?raw';
@@ -19,12 +19,11 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
     <sbb-image slot="image" image-src=${images[images.length - 1]}></sbb-image>
     <p slot="subtitle">Please reload the page or try your search again later.</p>
     <p slot="legend">Error code: 0001</p>
-    <sbb-button
+    <sbb-secondary-button
       slot="action"
       icon-name="arrows-circle-small"
-      variant="secondary"
       size="m"
-    ></sbb-button>
+    ></sbb-secondary-button>
   </sbb-message>
 `;
 
@@ -32,12 +31,11 @@ const NoImageTemplate = (args: Args): TemplateResult => html`
   <sbb-message ${sbbSpread(args)}>
     <p slot="subtitle">Please reload the page or try your search again later.</p>
     <p slot="legend">Error code: 0001</p>
-    <sbb-button
+    <sbb-secondary-button
       slot="action"
       icon-name="arrows-circle-small"
-      variant="secondary"
       size="m"
-    ></sbb-button>
+    ></sbb-secondary-button>
   </sbb-message>
 `;
 
@@ -45,12 +43,11 @@ const NoErrorCodeTemplate = (args: Args): TemplateResult => html`
   <sbb-message ${sbbSpread(args)}>
     <sbb-image slot="image" image-src=${images[images.length - 1]}></sbb-image>
     <p slot="subtitle">Please reload the page or try your search again later.</p>
-    <sbb-button
+    <sbb-secondary-button
       slot="action"
       icon-name="arrows-circle-small"
-      variant="secondary"
       size="m"
-    ></sbb-button>
+    ></sbb-secondary-button>
   </sbb-message>
 `;
 
@@ -68,7 +65,7 @@ const SlottedTitleTemplate = (): TemplateResult => html`
     <p slot="title">Unfortunately, an error has occurred.</p>
     <p slot="subtitle">Please reload the page or try your search again later.</p>
     <p slot="legend">Error code: 0001</p>
-    <sbb-button slot="action" icon-name="arrows-circle-small" variant="secondary"></sbb-button>
+    <sbb-secondary-button slot="action" icon-name="arrows-circle-small"></sbb-secondary-button>
   </sbb-message>
 `;
 

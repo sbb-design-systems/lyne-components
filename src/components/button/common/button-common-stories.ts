@@ -1,16 +1,25 @@
+import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, StoryContext, StoryObj } from '@storybook/web-components';
+import type {
+  Args,
+  ArgTypes,
+  Decorator,
+  StoryContext,
+  StoryObj,
+  WebComponentsRenderer,
+} from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import { type TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { sbbSpread } from '../../core/dom';
 
-export const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? '#484040' : 'var(--sbb-color-white)',
+const wrapperStyle = (context: StoryContext): Record<string, string> => ({
+  'background-color': context.args.negative ? '#484040' : 'var(--sbb-color-white-default)',
 });
 
-export const focusStyle = (context: StoryContext): Record<string, string> =>
+const focusStyle = (context: StoryContext): Record<string, string> =>
   context.args.negative
     ? { '--sbb-focus-outline-color': 'var(--sbb-focus-outline-color-dark)' }
     : {};
@@ -67,13 +76,6 @@ const text: InputType = {
   },
 };
 
-const variant: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['primary', 'secondary', 'tertiary', 'transparent'],
-};
-
 const negative: InputType = {
   control: {
     type: 'boolean',
@@ -104,7 +106,6 @@ const ariaLabel: InputType = {
 
 export const buttonCommonDefaultArgTypes: ArgTypes = {
   text,
-  variant,
   negative,
   size,
   'icon-name': iconName,
@@ -113,7 +114,6 @@ export const buttonCommonDefaultArgTypes: ArgTypes = {
 
 export const buttonCommonDefaultArgs: Args = {
   text: 'Button',
-  variant: variant.options[0],
   negative: false,
   size: size.options[0],
   'icon-name': 'arrow-right-small',
@@ -122,62 +122,21 @@ export const buttonCommonDefaultArgs: Args = {
 
 export const primary: StoryObj = {
   render: Template,
-  args: {
-    variant: variant.options[0],
-  },
-};
-
-export const secondary: StoryObj = {
-  render: Template,
-  args: {
-    variant: variant.options[1],
-  },
-};
-
-export const tertiary: StoryObj = {
-  render: Template,
-  args: {
-    variant: variant.options[2],
-  },
-};
-
-export const transparent: StoryObj = {
-  render: Template,
-  args: {
-    variant: variant.options[3],
-  },
 };
 
 export const primaryNegative: StoryObj = {
   render: Template,
-  args: {
-    variant: variant.options[0],
-    negative: true,
-  },
+  args: { negative: true },
 };
 
-export const secondaryNegative: StoryObj = {
+export const primaryDisabled: StoryObj = {
   render: Template,
-  args: {
-    variant: variant.options[1],
-    negative: true,
-  },
+  args: { disabled: true },
 };
 
-export const tertiaryNegative: StoryObj = {
+export const primaryNegativeDisabled: StoryObj = {
   render: Template,
-  args: {
-    variant: variant.options[2],
-    negative: true,
-  },
-};
-
-export const transparentNegative: StoryObj = {
-  render: Template,
-  args: {
-    variant: variant.options[3],
-    negative: true,
-  },
+  args: { negative: true, disabled: true },
 };
 
 export const iconOnly: StoryObj = {
@@ -188,71 +147,12 @@ export const iconOnly: StoryObj = {
   },
 };
 
-export const primaryDisabled: StoryObj = {
+export const iconOnlyNegative: StoryObj = {
   render: Template,
   args: {
-    variant: variant.options[0],
-    disabled: true,
-  },
-};
-
-export const secondaryDisabled: StoryObj = {
-  render: Template,
-  args: {
-    variant: variant.options[1],
-    disabled: true,
-  },
-};
-
-export const tertiaryDisabled: StoryObj = {
-  render: Template,
-  args: {
-    variant: variant.options[2],
-    disabled: true,
-  },
-};
-
-export const transparentDisabled: StoryObj = {
-  render: Template,
-  args: {
-    variant: variant.options[3],
-    disabled: true,
-  },
-};
-
-export const primaryNegativeDisabled: StoryObj = {
-  render: Template,
-  args: {
-    variant: variant.options[0],
+    'icon-name': 'arrow-right-small',
+    text: undefined,
     negative: true,
-    disabled: true,
-  },
-};
-
-export const secondaryNegativeDisabled: StoryObj = {
-  render: Template,
-  args: {
-    variant: variant.options[1],
-    negative: true,
-    disabled: true,
-  },
-};
-
-export const tertiaryNegativeDisabled: StoryObj = {
-  render: Template,
-  args: {
-    variant: variant.options[2],
-    negative: true,
-    disabled: true,
-  },
-};
-
-export const transparentNegativeDisabled: StoryObj = {
-  render: Template,
-  args: {
-    variant: variant.options[3],
-    negative: true,
-    disabled: true,
   },
 };
 
@@ -294,84 +194,35 @@ export const withSlottedIcon: StoryObj = {
 
 export const primaryActive: StoryObj = {
   render: Template,
-  args: {
-    variant: variant.options[0],
-    active: true,
-  },
-};
-
-export const secondaryActive: StoryObj = {
-  render: Template,
-  args: {
-    variant: variant.options[1],
-    active: true,
-  },
-};
-
-export const tertiaryActive: StoryObj = {
-  render: Template,
-  args: {
-    variant: variant.options[2],
-    active: true,
-  },
-};
-
-export const transparentActive: StoryObj = {
-  render: Template,
-  args: {
-    variant: variant.options[3],
-    active: true,
-  },
+  args: { active: true },
 };
 
 export const primaryNegativeActive: StoryObj = {
   render: Template,
-  args: {
-    variant: variant.options[0],
-    negative: true,
-    active: true,
-  },
-};
-
-export const secondaryNegativeActive: StoryObj = {
-  render: Template,
-  args: {
-    variant: variant.options[1],
-    negative: true,
-    active: true,
-  },
-};
-
-export const tertiaryNegativeActive: StoryObj = {
-  render: Template,
-  args: {
-    variant: variant.options[2],
-    negative: true,
-    active: true,
-  },
-};
-
-export const transparentNegativeActive: StoryObj = {
-  render: Template,
-  args: {
-    variant: variant.options[3],
-    negative: true,
-    active: true,
-  },
+  args: { negative: true, active: true },
 };
 
 export const primaryFocusVisible: StoryObj = {
   render: Template,
-  args: {
-    variant: variant.options[0],
-    focusVisible: true,
-  },
+  args: { focusVisible: true },
 };
 
 export const loadingIndicator: StoryObj = {
   render: LoadingIndicatorTemplate,
-  args: {
-    disabled: true,
-    variant: variant.options[1],
-  },
+  args: { disabled: true },
 };
+
+export const commonDecorators = [
+  (story: () => WebComponentsRenderer['storyResult'], context: StoryContext) => html`
+    <div
+      style=${styleMap({
+        ...wrapperStyle(context),
+        ...focusStyle(context),
+        padding: '2rem',
+      })}
+    >
+      ${story()}
+    </div>
+  `,
+  withActions as Decorator,
+];

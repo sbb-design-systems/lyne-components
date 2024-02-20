@@ -8,7 +8,7 @@ import { EventEmitter } from '../core/eventing';
 import { i18nCloseNotification } from '../core/i18n';
 import { AgnosticResizeObserver } from '../core/observers';
 import type { SbbTitleLevel } from '../title';
-import '../button';
+import '../button/secondary-button';
 import '../divider';
 import '../icon';
 import '../title';
@@ -226,14 +226,13 @@ export class SbbNotificationElement extends LitElement {
           ${!this.readonly
             ? html`<span class="sbb-notification__close-wrapper">
                 <sbb-divider class="sbb-notification__divider" orientation="vertical"></sbb-divider>
-                <sbb-button
-                  variant="secondary"
+                <sbb-secondary-button
                   size="m"
                   icon-name="cross-small"
                   @click=${() => this.close()}
                   aria-label=${i18nCloseNotification[this._language.current]}
                   class="sbb-notification__close"
-                ></sbb-button>
+                ></sbb-secondary-button>
               </span>`
             : nothing}
         </div>

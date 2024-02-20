@@ -3,7 +3,7 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import type { SbbButtonElement } from '../button';
+import type { SbbTertiaryButtonElement } from '../button/tertiary-button';
 import { LanguageController } from '../core/common-behaviors';
 import { toggleDatasetEntry } from '../core/dom';
 import { i18nMapContainerButtonLabel } from '../core/i18n';
@@ -95,21 +95,20 @@ export class SbbMapContainerElement extends LitElement {
           <slot></slot>
 
           ${!this.hideScrollUpButton
-            ? html`<sbb-button
+            ? html`<sbb-tertiary-button
                 class="sbb-map-container__sidebar-button"
-                variant="tertiary"
                 size="l"
                 icon-name="location-pin-map-small"
                 type="button"
                 @click=${() => this._onScrollButtonClick()}
                 ${ref((ref?: Element) => {
                   if (ref) {
-                    (ref as SbbButtonElement).inert = !this._scrollUpButtonVisible;
+                    (ref as SbbTertiaryButtonElement).inert = !this._scrollUpButtonVisible;
                   }
                 })}
               >
                 ${i18nMapContainerButtonLabel[this._language.current]}
-              </sbb-button>`
+              </sbb-tertiary-button>`
             : nothing}
         </div>
         <div class="sbb-map-container__map">

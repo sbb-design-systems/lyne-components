@@ -4,7 +4,7 @@ export const snapshots = {};
 snapshots["sbb-calendar renders"] = 
 `<div class="sbb-calendar__wrapper">
   <div class="sbb-calendar__controls">
-    <sbb-button
+    <sbb-secondary-button
       aria-label="Change to the previous month"
       dir="ltr"
       icon-name="chevron-small-left-small"
@@ -12,9 +12,8 @@ snapshots["sbb-calendar renders"] =
       role="button"
       size="m"
       tabindex="0"
-      variant="secondary"
     >
-    </sbb-button>
+    </sbb-secondary-button>
     <div class="sbb-calendar__controls-month">
       <button
         aria-label="Choose year and month January 2023"
@@ -38,7 +37,7 @@ snapshots["sbb-calendar renders"] =
         January 2023
       </span>
     </div>
-    <sbb-button
+    <sbb-secondary-button
       aria-label="Change to the next month"
       dir="ltr"
       icon-name="chevron-small-right-small"
@@ -46,9 +45,8 @@ snapshots["sbb-calendar renders"] =
       role="button"
       size="m"
       tabindex="0"
-      variant="secondary"
     >
-    </sbb-button>
+    </sbb-secondary-button>
   </div>
   <div class="sbb-calendar__table-container sbb-calendar__table-day-view">
     <table class="sbb-calendar__table">

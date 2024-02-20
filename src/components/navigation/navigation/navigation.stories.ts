@@ -25,7 +25,7 @@ import '../navigation-marker';
 import '../navigation-list';
 import '../navigation-button';
 import '../navigation-link';
-import '../../button';
+import '../../button/secondary-button';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
@@ -99,15 +99,14 @@ const basicArgs: Args = {
 };
 
 const triggerButton = (id: string): TemplateResult => html`
-  <sbb-button
+  <sbb-secondary-button
     data-testid="navigation-trigger"
     id=${id}
-    variant="secondary"
     size="l"
     icon-name="hamburger-menu-small"
     aria-label="trigger navigation"
     aria-haspopup="true"
-  ></sbb-button>
+  ></sbb-secondary-button>
 `;
 
 const navigationActionsL = (): TemplateResult => html`
@@ -217,14 +216,13 @@ const WithNavigationSectionTemplate = (args: Args): TemplateResult => html`
       ?disable-animation=${args['disable-animation']}
     >
       ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
-      <sbb-button
+      <sbb-secondary-button
         size="m"
-        variant="secondary"
         icon-name="circle-information-small"
         style="width: fit-content;"
       >
         Travel Information
-      </sbb-button>
+      </sbb-secondary-button>
     </sbb-navigation-section>
   </sbb-navigation>
 `;

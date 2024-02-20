@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-action-group renders renders - Dom"] = 
+snapshots["sbb-action-group renders renders - Dom"] =
 `<sbb-action-group
   align-group="start"
   button-size="l"
@@ -9,16 +9,15 @@ snapshots["sbb-action-group renders renders - Dom"] =
   link-size="m"
   orientation="horizontal"
 >
-  <sbb-button
+  <sbb-secondary-button
     data-slot-names="unnamed"
     dir="ltr"
     role="button"
     size="l"
     tabindex="0"
-    variant="secondary"
   >
     Button
-  </sbb-button>
+  </sbb-secondary-button>
   <sbb-block-link
     data-slot-names="unnamed"
     dir="ltr"
@@ -35,7 +34,7 @@ snapshots["sbb-action-group renders renders - Dom"] =
 `;
 /* end snapshot sbb-action-group renders renders - Dom */
 
-snapshots["sbb-action-group renders renders - ShadowDom"] = 
+snapshots["sbb-action-group renders renders - ShadowDom"] =
 `<div class="sbb-action-group">
   <slot>
   </slot>
@@ -43,7 +42,7 @@ snapshots["sbb-action-group renders renders - ShadowDom"] =
 `;
 /* end snapshot sbb-action-group renders renders - ShadowDom */
 
-snapshots["sbb-action-group renders A11y tree Chrome"] = 
+snapshots["sbb-action-group renders A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -69,7 +68,7 @@ snapshots["sbb-action-group renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-action-group renders A11y tree Chrome */
 
-snapshots["sbb-action-group renders A11y tree Firefox"] = 
+snapshots["sbb-action-group renders A11y tree Firefox"] =
 `<p>
   {
   "role": "document",
@@ -96,7 +95,7 @@ snapshots["sbb-action-group renders A11y tree Firefox"] =
 `;
 /* end snapshot sbb-action-group renders A11y tree Firefox */
 
-snapshots["sbb-action-group renders A11y tree Safari"] = 
+snapshots["sbb-action-group renders A11y tree Safari"] =
 `<p>
   {
   "role": "WebArea",

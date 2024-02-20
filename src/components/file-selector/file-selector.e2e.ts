@@ -1,7 +1,7 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbButtonElement } from '../button';
+import type { SbbSecondaryButtonElement } from '../button/secondary-button';
 import { EventSpy, waitForLitRender } from '../core/testing';
 
 import { SbbFileSelectorElement } from './file-selector';
@@ -55,16 +55,17 @@ describe('sbb-file-selector', () => {
             <span class="sbb-file-selector__file-name">hello0.txt</span>
             <span class="sbb-file-selector__file-size">15 B</span>
           </span>
-          <sbb-button aria-label="Remove file - hello0.txt" dir="ltr" icon-name="trash-small"
-                      role="button" size="m" tabindex="0" variant="secondary">
-          </sbb-button>
+          <sbb-secondary-button aria-label="Remove file - hello0.txt" dir="ltr" icon-name="trash-small"
+                      role="button" size="m" tabindex="0">
+          </sbb-secondary-button>
         </span>
       </div>
     `);
 
-    const button: SbbButtonElement = element.shadowRoot!.querySelector<SbbButtonElement>(
-      'sbb-button[icon-name="trash-small"]',
-    )!;
+    const button: SbbSecondaryButtonElement =
+      element.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
+        'sbb-secondary-button[icon-name="trash-small"]',
+      )!;
     expect(button).not.to.be.null;
     button.click();
     await waitForLitRender(element);

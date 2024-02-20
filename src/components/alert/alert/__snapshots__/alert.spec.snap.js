@@ -43,7 +43,7 @@ snapshots["sbb-alert should render default properties"] =
           role="separator"
         >
         </sbb-divider>
-        <sbb-button
+        <sbb-transparent-button
           aria-label="Close message"
           class="sbb-alert__close-button"
           dir="ltr"
@@ -52,9 +52,8 @@ snapshots["sbb-alert should render default properties"] =
           role="button"
           size="m"
           tabindex="0"
-          variant="transparent"
         >
-        </sbb-button>
+        </sbb-transparent-button>
       </span>
     </div>
   </div>
@@ -118,7 +117,7 @@ snapshots["sbb-alert should render customized properties"] =
           role="separator"
         >
         </sbb-divider>
-        <sbb-button
+        <sbb-transparent-button
           aria-label="Close message"
           class="sbb-alert__close-button"
           dir="ltr"
@@ -127,9 +126,8 @@ snapshots["sbb-alert should render customized properties"] =
           role="button"
           size="m"
           tabindex="0"
-          variant="transparent"
         >
-        </sbb-button>
+        </sbb-transparent-button>
       </span>
     </div>
   </div>

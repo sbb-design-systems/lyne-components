@@ -1,7 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbButtonElement } from '../button';
+import { type SbbSecondaryButtonElement } from '../button/secondary-button';
 import { waitForLitRender } from '../core/testing';
 import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
 
@@ -17,7 +17,7 @@ describe('sbb-action-group', () => {
     beforeEach(async () => {
       element = await fixture(html`
         <sbb-action-group align-group="start" orientation="horizontal">
-          <sbb-button variant="secondary">Button</sbb-button>
+          <sbb-secondary-button>Button</sbb-secondary-button>
           <sbb-block-link
             icon-name="chevron-small-left-small"
             href="https://github.com/lyne-design-system/lyne-components"
@@ -43,13 +43,13 @@ describe('sbb-action-group', () => {
   describe('property sync', () => {
     const assertButtons = (
       root: SbbActionGroupElement,
-      assertion: (link: SbbButtonElement) => boolean,
-    ): boolean => Array.from(root.querySelectorAll('sbb-button')).every(assertion);
+      assertion: (link: SbbSecondaryButtonElement) => boolean,
+    ): boolean => Array.from(root.querySelectorAll('sbb-secondary-button')).every(assertion);
 
     it('should sync default button-size property with sbb-button', async () => {
       const root = (await fixture(html`
         <sbb-action-group align-group="start" orientation="horizontal">
-          <sbb-button variant="secondary">Button</sbb-button>
+          <sbb-secondary-button>Button</sbb-secondary-button>
           <sbb-block-link
             icon-name="chevron-small-left-small"
             href="https://github.com/lyne-design-system/lyne-components"
@@ -64,7 +64,7 @@ describe('sbb-action-group', () => {
     it('should sync button-size property with sbb-button', async () => {
       const root = (await fixture(html`
         <sbb-action-group align-group="start" orientation="horizontal" button-size="m">
-          <sbb-button variant="secondary">Button</sbb-button>
+          <sbb-secondary-button>Button</sbb-secondary-button>
           <sbb-block-link
             icon-name="chevron-small-left-small"
             href="https://github.com/lyne-design-system/lyne-components"
@@ -79,7 +79,7 @@ describe('sbb-action-group', () => {
     it('should sync link-size property with sbb-link', async () => {
       const root = (await fixture(html`
         <sbb-action-group align-group="start" orientation="horizontal" link-size="s">
-          <sbb-button variant="secondary">Button</sbb-button>
+          <sbb-secondary-button>Button</sbb-secondary-button>
           <sbb-block-link
             icon-name="chevron-small-left-small"
             href="https://github.com/lyne-design-system/lyne-components"

@@ -5,7 +5,7 @@ import { waitForLitRender } from '../core/testing';
 import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
 
 import './calendar';
-import '../button';
+import '../button/secondary-button';
 
 describe('sbb-calendar', () => {
   it('renders', async () => {
@@ -33,11 +33,11 @@ describe('sbb-calendar', () => {
     );
 
     const buttonPrevDay = page.shadowRoot!.querySelector(
-      "sbb-button[icon-name='chevron-small-left-small']",
+      "sbb-secondary-button[icon-name='chevron-small-left-small']",
     );
     expect(buttonPrevDay).to.have.attribute('disabled');
     const buttonNextDay = page.shadowRoot!.querySelector(
-      "sbb-button[icon-name='chevron-small-right-small']",
+      "sbb-secondary-button[icon-name='chevron-small-right-small']",
     );
     expect(buttonNextDay).to.have.attribute('disabled');
 

@@ -1,7 +1,8 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import { LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
+import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { FocusHandler, IS_FOCUSABLE_QUERY, setModalityOnNextFocus } from '../core/a11y';
 import {
@@ -22,7 +23,8 @@ import { AgnosticResizeObserver } from '../core/observers';
 import type { SbbOverlayState } from '../core/overlay';
 import { applyInertMechanism, removeInertMechanism } from '../core/overlay';
 import type { SbbTitleLevel } from '../title';
-import '../button';
+import '../button/secondary-button';
+import '../button/transparent-button';
 import '../title';
 
 import style from './dialog.scss?lit&inline';
@@ -380,31 +382,33 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   }
 
   protected override render(): TemplateResult {
+    const TAG_NAME = this.negative ? 'sbb-transparent-button' : 'sbb-secondary-button';
+
+    /* eslint-disable lit/binding-positions */
     const closeButton = html`
-      <sbb-button
+      <${unsafeStatic(TAG_NAME)}
         class="sbb-dialog__close"
         aria-label=${this.accessibilityCloseLabel || i18nCloseDialog[this._language.current]}
-        variant=${this.negative ? 'transparent' : 'secondary'}
         ?negative=${this.negative}
         size="m"
         type="button"
         icon-name="cross-small"
         sbb-dialog-close
-      ></sbb-button>
+      ></${unsafeStatic(TAG_NAME)}>
     `;
 
     const backButton = html`
-      <sbb-button
+      <${unsafeStatic(TAG_NAME)}
         class="sbb-dialog__back"
         aria-label=${this.accessibilityBackLabel || i18nGoBack[this._language.current]}
-        variant=${this.negative ? 'transparent' : 'secondary'}
         ?negative=${this.negative}
         size="m"
         type="button"
         icon-name="chevron-small-left-small"
         @click=${() => this._backClick.emit()}
-      ></sbb-button>
+      ></${unsafeStatic(TAG_NAME)}>
     `;
+    /* eslint-enable lit/binding-positions */
 
     const dialogHeader = html`
       <div class="sbb-dialog__header">

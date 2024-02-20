@@ -1,7 +1,7 @@
 import { aTimeout, assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbButtonElement } from '../button';
+import type { SbbSecondaryButtonElement } from '../button/secondary-button';
 import { waitForCondition, EventSpy, waitForLitRender } from '../core/testing';
 
 import { SbbNotificationElement } from './notification';
@@ -54,7 +54,7 @@ describe('sbb-notification', () => {
     const didCloseEventSpy = new EventSpy(SbbNotificationElement.events.didClose);
     const closeButton = element.shadowRoot!.querySelector(
       '.sbb-notification__close',
-    ) as SbbButtonElement;
+    ) as SbbSecondaryButtonElement;
 
     expect(element).not.to.be.null;
     expect(element).to.have.attribute('data-state', 'opened');

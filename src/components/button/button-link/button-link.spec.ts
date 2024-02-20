@@ -8,15 +8,15 @@ import './button-link';
 import '../common/button-common';
 
 describe('sbb-button-link', () => {
-  it('renders a primary sbb-button-link without icon', async () => {
+  it('renders a sbb-button-link without icon', async () => {
     const root = await fixture(html`
-      <sbb-button-link variant="primary" size="m" href="#" target="_blank" rel="noopener" download>
+      <sbb-button-link size="m" href="#" target="_blank" rel="noopener" download>
         Label Text
       </sbb-button-link>
     `);
 
     expect(root).dom.to.be.equal(`
-      <sbb-button-link variant="primary" size="m" href='#' target='_blank' rel='noopener' download dir='ltr' role='link' tabindex='0' data-slot-names="unnamed">
+      <sbb-button-link size="m" href='#' target='_blank' rel='noopener' download dir='ltr' role='link' tabindex='0' data-slot-names="unnamed">
         Label Text
       </sbb-button-link>
     `);
@@ -36,9 +36,9 @@ describe('sbb-button-link', () => {
     `);
   });
 
-  it('renders a disabled primary sbb-button-link with slotted icon', async () => {
+  it('renders a disabled sbb-button-link with slotted icon', async () => {
     const root = await fixture(html`
-      <sbb-button-link variant="primary" href="#" disabled>
+      <sbb-button-link href="#" disabled>
         <sbb-icon slot="icon" name="chevron-small-left-small"></sbb-icon>
         Label Text
       </sbb-button-link>
@@ -47,7 +47,7 @@ describe('sbb-button-link', () => {
     await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(`
-      <sbb-button-link variant="primary" href="#" disabled size="l" role="link" dir="ltr" aria-disabled='true' data-slot-names="icon unnamed">
+      <sbb-button-link href="#" disabled size="l" role="link" dir="ltr" aria-disabled='true' data-slot-names="icon unnamed">
         <sbb-icon slot="icon" name="chevron-small-left-small" role="img" aria-hidden="true" data-namespace="default"></sbb-icon>
         Label Text
       </sbb-button-link>

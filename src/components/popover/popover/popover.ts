@@ -20,7 +20,7 @@ import {
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay';
-import '../../button';
+import '../../button/secondary-button';
 
 import style from './popover.scss?lit&inline';
 
@@ -471,14 +471,13 @@ export class SbbPopoverElement extends LitElement {
   protected override render(): TemplateResult {
     const closeButton = html`
       <span class="sbb-popover__close">
-        <sbb-button
+        <sbb-secondary-button
           aria-label=${this.accessibilityCloseLabel || i18nClosePopover[this._language.current]}
-          variant="secondary"
           size="m"
           type="button"
           icon-name="cross-small"
           sbb-popover-close
-        ></sbb-button>
+        ></sbb-secondary-button>
       </span>
     `;
 

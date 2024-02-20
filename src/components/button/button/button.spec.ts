@@ -7,10 +7,9 @@ import '../../form-field';
 import './button';
 
 describe('sbb-button', () => {
-  it('renders a primary button without icon', async () => {
+  it('renders a button without icon', async () => {
     const root = await fixture(
       html` <sbb-button
-        variant="primary"
         negative
         size="m"
         type="button"
@@ -25,7 +24,6 @@ describe('sbb-button', () => {
 
     expect(root).dom.to.be.equal(`
       <sbb-button
-        variant="primary"
         negative
         size="m"
         type="button"
@@ -53,9 +51,9 @@ describe('sbb-button', () => {
     `);
   });
 
-  it('renders a primary button with slotted icon', async () => {
+  it('renders a button with slotted icon', async () => {
     const root = await fixture(
-      html`<sbb-button variant="primary">
+      html`<sbb-button>
         <sbb-icon slot="icon" name="chevron-small-left-small"></sbb-icon>
         Label Text
       </sbb-button> `,
@@ -64,7 +62,7 @@ describe('sbb-button', () => {
     await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(`
-      <sbb-button size="l" variant="primary" role="button" tabindex="0" dir="ltr" data-slot-names="icon unnamed">
+      <sbb-button size="l" role="button" tabindex="0" dir="ltr" data-slot-names="icon unnamed">
         <sbb-icon slot="icon" name="chevron-small-left-small" role="img" aria-hidden="true" data-namespace="default"></sbb-icon>
         Label Text
       </sbb-button>

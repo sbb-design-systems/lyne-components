@@ -4,7 +4,7 @@ import { type TemplateResult, html, nothing } from 'lit';
 
 import { sbbSpread } from '../../core/dom';
 
-import '../../button';
+import '../../button/secondary-button';
 import '../../title';
 import './container';
 
@@ -19,8 +19,8 @@ const containerContent = (title: string, last = false): TemplateResult => html`
     laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
     voluptate velit esse cillum dolore eu fugiat nulla pariatur.
   </p>
-  <sbb-button variant="secondary" style=${last ? 'margin-block-end: 3rem;' : nothing}
-    >See more</sbb-button
+  <sbb-secondary-button style=${last ? 'margin-block-end: 3rem;' : nothing}
+    >See more</sbb-secondary-button
   >
 `;
 

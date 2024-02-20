@@ -8,7 +8,7 @@ import { sbbSpread } from '../../core/dom';
 import type { SbbBreadcrumbGroupElement } from './breadcrumb-group';
 import readme from './readme.md?raw';
 
-import '../../button';
+import '../../button/secondary-button';
 import './breadcrumb-group';
 import '../breadcrumb';
 
@@ -135,11 +135,11 @@ const Template = (args: Args): TemplateResult => html`
       ${createBreadcrumbs(args)}
     </sbb-breadcrumb-group>
     <div style="margin-block: 2rem; gap: 1rem; display: flex;">
-      <sbb-button variant="secondary" @click=${(event: Event) => addBreadcrumb(event)}
-        >Add</sbb-button
+      <sbb-secondary-button @click=${(event: Event) => addBreadcrumb(event)}
+        >Add</sbb-secondary-button
       >
-      <sbb-button variant="secondary" @click=${(event: Event) => removeBreadcrumb(event)}
-        >Remove</sbb-button
+      <sbb-secondary-button @click=${(event: Event) => removeBreadcrumb(event)}
+        >Remove</sbb-secondary-button
       >
     </div>
   </div>

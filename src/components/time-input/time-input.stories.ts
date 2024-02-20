@@ -18,7 +18,7 @@ import type { SbbFormFieldElement } from '../form-field';
 
 import readme from './readme.md?raw';
 import { SbbTimeInputElement } from './time-input';
-import '../button';
+import '../button/secondary-button';
 import '../form-field';
 import '../form-error';
 
@@ -246,16 +246,12 @@ const TemplateSbbTimeInput = ({
       ${iconEnd ? html`<sbb-icon slot="suffix" name=${iconEnd}></sbb-icon>` : nothing}
     </sbb-form-field>
     <div style="display: flex; gap: 1em; margin-block-start: 2rem;">
-      <sbb-button
-        variant="secondary"
-        size="m"
-        @click=${(event: PointerEvent) => setValueAsDate(event)}
-      >
+      <sbb-secondary-button size="m" @click=${(event: PointerEvent) => setValueAsDate(event)}>
         Set valueAsDate to current datetime
-      </sbb-button>
-      <sbb-button variant="secondary" size="m" @click=${(event: PointerEvent) => setValue(event)}>
+      </sbb-secondary-button>
+      <sbb-secondary-button size="m" @click=${(event: PointerEvent) => setValue(event)}>
         Set value to 00:00
-      </sbb-button>
+      </sbb-secondary-button>
     </div>
     <div style="color: var(--sbb-color-smoke);">
       <div style="margin-block-start: 1rem;">Change time in input:</div>

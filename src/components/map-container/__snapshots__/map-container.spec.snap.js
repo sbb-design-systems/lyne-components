@@ -8,7 +8,7 @@ snapshots["sbb-map-container renders the container with button"] =
     </span>
     <slot>
     </slot>
-    <sbb-button
+    <sbb-tertiary-button
       class="sbb-map-container__sidebar-button"
       data-slot-names="unnamed"
       dir="ltr"
@@ -18,10 +18,9 @@ snapshots["sbb-map-container renders the container with button"] =
       size="l"
       tabindex="0"
       type="button"
-      variant="tertiary"
     >
       Show map
-    </sbb-button>
+    </sbb-tertiary-button>
   </div>
   <div class="sbb-map-container__map">
     <slot name="map">

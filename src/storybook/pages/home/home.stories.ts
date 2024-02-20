@@ -103,7 +103,7 @@ const Template = (args: Args): TemplateResult => html`
                 <sbb-title level="2" visual-level="6"> Route map </sbb-title>
                 <span class="sbb-text-s card-description">For regular trips</span>
               </span>
-              <sbb-button-static size="m" variant="secondary"> Buy </sbb-button-static>
+              <sbb-secondary-button-static size="m"> Buy </sbb-secondary-button-static>
             </span>
           </sbb-card>
 
@@ -118,7 +118,7 @@ const Template = (args: Args): TemplateResult => html`
                   Enjoy unlimited travel with the GA travel card.
                 </sbb-title>
               </span>
-              <sbb-button-static variant="secondary"> All GAs at a glance </sbb-button-static>
+              <sbb-secondary-button-static> All GAs at a glance </sbb-secondary-button-static>
             </span>
           </sbb-card>
 
@@ -134,7 +134,7 @@ const Template = (args: Args): TemplateResult => html`
                   Travel at half price with the half-fare travel card.
                 </sbb-title>
               </span>
-              <sbb-button-static variant="secondary"> Ride at half price </sbb-button-static>
+              <sbb-secondary-button-static> Ride at half price </sbb-secondary-button-static>
             </span>
           </sbb-card>
         </div>
@@ -142,16 +142,12 @@ const Template = (args: Args): TemplateResult => html`
           <sbb-button
             href="https://github.com/lyne-design-system/lyne-components"
             icon-name="qrcode-small"
-            variant="primary"
           >
             My tickets & subscriptions
           </sbb-button>
-          <sbb-button
-            href="https://github.com/lyne-design-system/lyne-components"
-            variant="secondary"
-          >
+          <sbb-secondary-button href="https://github.com/lyne-design-system/lyne-components">
             All Products
-          </sbb-button>
+          </sbb-secondary-button>
         </sbb-action-group>
       </div>
     </section>

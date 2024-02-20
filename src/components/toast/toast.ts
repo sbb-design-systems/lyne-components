@@ -2,7 +2,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import type { SbbButtonElement, SbbButtonLinkElement } from '../button';
+import type { SbbTransparentButtonElement } from '../button/transparent-button';
+import type { SbbTransparentButtonLinkElement } from '../button/transparent-button-link';
 import {
   LanguageController,
   NamedSlotStateController,
@@ -187,11 +188,12 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
     const slotNodes = (event.target as HTMLSlotElement).assignedNodes();
 
     // Force the visual state on slotted buttons
-    const buttons: (SbbButtonElement | SbbButtonLinkElement)[] = slotNodes.filter(
-      (el) => el.nodeName === 'SBB-BUTTON' || el.nodeName === 'SBB-BUTTON-LINK',
-    ) as (SbbButtonElement | SbbButtonLinkElement)[];
-    buttons.forEach((btn: SbbButtonElement | SbbButtonLinkElement) => {
-      btn.variant = 'transparent';
+    const buttons: (SbbTransparentButtonElement | SbbTransparentButtonLinkElement)[] =
+      slotNodes.filter(
+        (el) =>
+          el.nodeName === 'SBB-TRANSPARENT-BUTTON' || el.nodeName === 'SBB-TRANSPARENT-BUTTON-LINK',
+      ) as (SbbTransparentButtonElement | SbbTransparentButtonLinkElement)[];
+    buttons.forEach((btn: SbbTransparentButtonElement | SbbTransparentButtonLinkElement) => {
       btn.negative = true;
       btn.size = 'm';
     });
@@ -259,15 +261,14 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
           <div class="sbb-toast__action">
             <slot name="action" @slotchange=${this._onActionSlotChange}>
               ${this.dismissible
-                ? html` <sbb-button
+                ? html` <sbb-transparent-button
                     class="sbb-toast__action-button"
                     icon-name="cross-small"
-                    variant="transparent"
                     negative
                     size="m"
                     aria-label=${i18nCloseAlert[this._language.current]}
                     sbb-toast-close
-                  ></sbb-button>`
+                  ></sbb-transparent-button>`
                 : nothing}
             </slot>
           </div>

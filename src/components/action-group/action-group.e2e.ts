@@ -1,7 +1,7 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbButtonElement } from '../button';
+import type { SbbSecondaryButtonElement } from '../button/secondary-button';
 import { waitForLitRender } from '../core/testing';
 import type { SbbBlockLinkElement } from '../link';
 
@@ -13,7 +13,7 @@ describe('sbb-action-group', () => {
   beforeEach(async () => {
     element = await fixture(html`
       <sbb-action-group align-group="start" orientation="horizontal">
-        <sbb-button variant="secondary">Button</sbb-button>
+        <sbb-secondary-button>Button</sbb-secondary-button>
         <sbb-block-link
           icon-name="chevron-small-left-small"
           icon-placement="start"
@@ -32,8 +32,8 @@ describe('sbb-action-group', () => {
   describe('property sync', () => {
     it('should sync default size with sbb-button', async () => {
       const links = Array.from(
-        document.querySelectorAll('sbb-action-group sbb-button'),
-      ) as SbbButtonElement[];
+        document.querySelectorAll('sbb-action-group sbb-secondary-button'),
+      ) as SbbSecondaryButtonElement[];
       expect(links.every((l) => l.size === 'l')).to.be.ok;
     });
 
@@ -41,8 +41,8 @@ describe('sbb-action-group', () => {
       element.setAttribute('button-size', 'm');
       await waitForLitRender(element);
       const links = Array.from(
-        document.querySelectorAll('sbb-action-group sbb-button'),
-      ) as SbbButtonElement[];
+        document.querySelectorAll('sbb-action-group sbb-secondary-button'),
+      ) as SbbSecondaryButtonElement[];
       expect(links.every((l) => l.size === 'm')).to.be.ok;
     });
 

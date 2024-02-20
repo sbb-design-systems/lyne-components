@@ -9,7 +9,7 @@ snapshots["sbb-popover renders"] =
   >
     <div class="sbb-popover__content">
       <span class="sbb-popover__close">
-        <sbb-button
+        <sbb-secondary-button
           aria-label="Close note"
           dir="ltr"
           icon-name="cross-small"
@@ -18,9 +18,8 @@ snapshots["sbb-popover renders"] =
           size="m"
           tabindex="0"
           type="button"
-          variant="secondary"
         >
-        </sbb-button>
+        </sbb-secondary-button>
       </span>
       <span>
         <slot>

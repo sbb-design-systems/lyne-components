@@ -129,9 +129,9 @@ const Template = (args: Args): TemplateResult => html`
                       ?disable-animation=${isChromatic()}
                     ></sbb-pearl-chain>
                   </span>
-                  <sbb-button-static variant="secondary" icon-name="qrcode-small">
+                  <sbb-secondary-button-static icon-name="qrcode-small">
                     Ticket
-                  </sbb-button-static>
+                  </sbb-secondary-button-static>
                 </span>
               </sbb-card>
             </li>
@@ -148,9 +148,9 @@ const Template = (args: Args): TemplateResult => html`
                     <sbb-title level="2" visual-level="6"> Libero day ticket: All zones </sbb-title>
                     <span class="sbb-text-s card-description">Today, Valid 24 hours</span>
                   </span>
-                  <sbb-button-static variant="secondary" icon-name="qrcode-small">
+                  <sbb-secondary-button-static icon-name="qrcode-small">
                     Ticket
-                  </sbb-button-static>
+                  </sbb-secondary-button-static>
                 </span>
               </sbb-card>
             </li>
@@ -177,18 +177,17 @@ const Template = (args: Args): TemplateResult => html`
                       ?disable-animation=${isChromatic()}
                     ></sbb-pearl-chain>
                   </span>
-                  <sbb-button-static variant="secondary"> Details </sbb-button-static>
+                  <sbb-secondary-button-static> Details </sbb-secondary-button-static>
                 </span>
               </sbb-card>
             </li>
           </ul>
-          <sbb-button
-            variant="secondary"
+          <sbb-secondary-button
             class="all-purchased-tickets-button"
             @click=${() => (document.getElementById('my-dialog') as SbbDialogElement).open()}
           >
             All purchased tickets
-          </sbb-button>
+          </sbb-secondary-button>
 
           <sbb-dialog id="my-dialog" title-content="My Dialog" title-back-button>
             <p style="margin-top: 0;">
@@ -198,14 +197,13 @@ const Template = (args: Args): TemplateResult => html`
               dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
             </p>
 
-            <sbb-button
-              variant="secondary"
+            <sbb-secondary-button
               size="m"
               @click=${() =>
                 (document.getElementById('my-stacked-dialog') as SbbDialogElement).open()}
             >
               Open stacked dialog
-            </sbb-button>
+            </sbb-secondary-button>
 
             <sbb-action-group
               slot="action-group"
@@ -222,8 +220,8 @@ const Template = (args: Args): TemplateResult => html`
               >
                 Link
               </sbb-block-link>
-              <sbb-button size="m" variant="secondary" sbb-dialog-close> Cancel </sbb-button>
-              <sbb-button size="m" variant="primary" sbb-dialog-close> Button </sbb-button>
+              <sbb-secondary-button size="m" sbb-dialog-close> Cancel </sbb-secondary-button>
+              <sbb-button size="m" sbb-dialog-close> Button </sbb-button>
             </sbb-action-group>
           </sbb-dialog>
 
@@ -261,7 +259,7 @@ const Template = (args: Args): TemplateResult => html`
                   <sbb-title level="3" visual-level="6"> Generalabonnement </sbb-title>
                   <span class="sbb-text-s card-description">2nd class, valid until 30.11.2022</span>
                 </span>
-                <sbb-button-static variant="secondary"> Edit subscription </sbb-button-static>
+                <sbb-secondary-button-static> Edit subscription </sbb-secondary-button-static>
               </span>
             </sbb-card>
           </div>

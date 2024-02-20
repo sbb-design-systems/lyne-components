@@ -43,7 +43,6 @@ snapshots["sbb-message renders Dom"] =
     size="l"
     slot="action"
     tabindex="0"
-    variant="primary"
   >
   </sbb-button>
 </sbb-message>

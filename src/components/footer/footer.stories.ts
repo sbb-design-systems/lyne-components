@@ -2,7 +2,8 @@ import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import '../clock';
-import '../button';
+import '../button/button';
+import '../button/secondary-button';
 import '../divider';
 import '../link/block-link';
 import '../link-list';
@@ -129,7 +130,6 @@ const TemplateClockColumns = ({ ...args }): TemplateResult => html`
       </sbb-link-list>
       <sbb-button
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        variant="primary"
         size="m"
       >
         All help topics
@@ -181,13 +181,12 @@ const TemplateClockColumns = ({ ...args }): TemplateResult => html`
           Our newsletter regularly informs you of attractive offers from SBB via e-mail.
         </p>
       </span>
-      <sbb-button
+      <sbb-secondary-button
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        variant="secondary"
         size="m"
       >
         Subscribe
-      </sbb-button>
+      </sbb-secondary-button>
     </div>
     <sbb-clock
       ${sbbSpread({

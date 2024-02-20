@@ -1,7 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbButtonElement } from '../../button';
+import type { SbbTransparentButtonElement } from '../../button/transparent-button';
 import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing';
 import type { SbbAlertElement } from '../alert';
 
@@ -43,7 +43,9 @@ describe('sbb-alert-group', () => {
     // When clicking on close button of the first alert
     const closeButton = element
       .querySelector<SbbAlertElement>('sbb-alert')!
-      .shadowRoot!.querySelector<SbbButtonElement>('.sbb-alert__close-button-wrapper sbb-button')!;
+      .shadowRoot!.querySelector<SbbTransparentButtonElement>(
+        '.sbb-alert__close-button-wrapper sbb-transparent-button',
+      )!;
 
     closeButton.focus();
     closeButton.click();
@@ -65,7 +67,9 @@ describe('sbb-alert-group', () => {
     // When clicking on close button of the second alert
     element
       .querySelector<SbbAlertElement>('sbb-alert')!
-      .shadowRoot!.querySelector<SbbButtonElement>('.sbb-alert__close-button-wrapper sbb-button')!
+      .shadowRoot!.querySelector<SbbTransparentButtonElement>(
+        '.sbb-alert__close-button-wrapper sbb-transparent-button',
+      )!
       .click();
     await waitForLitRender(element);
 

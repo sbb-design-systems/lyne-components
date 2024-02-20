@@ -19,6 +19,7 @@ import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
 import { SbbToastElement } from './toast';
+import '../button/transparent-button';
 import '../link/link';
 
 // Story interaction executed after the story renders
@@ -117,12 +118,12 @@ const toastTemplate = (
       ? 'Lorem ipsum dolor'
       : 'Lorem ipsum dolor sit amet, ipsum consectetur adipiscing elit.'}
     ${action === 'button'
-      ? html`<sbb-button
+      ? html`<sbb-transparent-button
           slot="action"
           icon-name="clock-small"
           aria-label="Remind me later"
           sbb-toast-close
-        ></sbb-button>`
+        ></sbb-transparent-button>`
       : nothing}
     ${action === 'link'
       ? html`<sbb-link slot="action" sbb-toast-close href="https://www.sbb.ch" target="_blank">

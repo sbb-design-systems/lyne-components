@@ -26,7 +26,7 @@ import {
   i18nYearMonthSelection,
 } from '../core/i18n';
 import type { SbbDateLike } from '../core/interfaces';
-import '../button';
+import '../button/secondary-button';
 import '../icon';
 
 import style from './calendar.scss?lit&inline';
@@ -1088,15 +1088,14 @@ export class SbbCalendarElement extends LitElement {
     ariaLabel: string,
     disabled: boolean,
   ): TemplateResult {
-    return html`<sbb-button
-      variant="secondary"
+    return html`<sbb-secondary-button
       size="m"
       icon-name="chevron-small-${direction}-small"
       aria-label=${ariaLabel}
       @click=${click}
       ?disabled=${disabled}
       id="sbb-calendar__controls-${direction === 'left' ? 'previous' : 'next'}"
-    ></sbb-button>`;
+    ></sbb-secondary-button>`;
   }
 
   /** Creates the label with the year range for the yearly view. */

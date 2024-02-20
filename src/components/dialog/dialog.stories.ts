@@ -22,7 +22,8 @@ import sampleImages from '../core/images';
 import { SbbDialogElement } from './dialog';
 import readme from './readme.md?raw';
 
-import '../button';
+import '../button/secondary-button';
+import '../button/button';
 import '../link/block-link';
 import '../title';
 import '../form-field';
@@ -164,8 +165,8 @@ const actionGroup = (negative: boolean): TemplateResult => html`
     >
       Link
     </sbb-block-link>
-    <sbb-button variant="secondary" sbb-dialog-close> Cancel </sbb-button>
-    <sbb-button variant="primary" sbb-dialog-close> Confirm </sbb-button>
+    <sbb-secondary-button sbb-dialog-close> Cancel </sbb-secondary-button>
+    <sbb-button sbb-dialog-close> Confirm </sbb-button>
   </sbb-action-group>
 `;
 
