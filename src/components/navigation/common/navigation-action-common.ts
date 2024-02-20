@@ -16,6 +16,7 @@ export type SbbNavigationActionSize = 's' | 'm' | 'l';
 export declare class SbbNavigationActionCommonElementMixinType {
   public size?: SbbNavigationActionSize;
   public active: boolean;
+  public navigationMarker: SbbNavigationMarkerElement | null;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -47,8 +48,12 @@ export const SbbNavigationActionCommonElementMixin = <
     }
     private _active = false;
 
-    private _navigationMarker: SbbNavigationMarkerElement | null = null;
     private _abort = new ConnectedAbortController(this);
+    private _navigationMarker: SbbNavigationMarkerElement | null = null;
+
+    public get navigationMarker(): SbbNavigationMarkerElement | null {
+      return this._navigationMarker;
+    }
 
     public override connectedCallback(): void {
       super.connectedCallback();

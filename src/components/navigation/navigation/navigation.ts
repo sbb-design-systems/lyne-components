@@ -97,6 +97,10 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
    */
   @state() private _activeNavigationSection: HTMLElement | null = null;
 
+  public get activeNavigationSection(): HTMLElement | null {
+    return this._activeNavigationSection;
+  }
+
   /** Emits whenever the `sbb-navigation` begins the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(
     this,

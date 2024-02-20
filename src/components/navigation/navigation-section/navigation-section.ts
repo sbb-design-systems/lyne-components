@@ -29,6 +29,7 @@ import {
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay';
 import type { SbbNavigationElement } from '../navigation';
+import type { SbbNavigationButtonElement } from '../navigation-button';
 import type { SbbNavigationMarkerElement } from '../navigation-marker';
 import '../../divider';
 import '../../button/transparent-button';
@@ -97,7 +98,7 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
   private _firstLevelNavigation?: SbbNavigationElement | null = null;
   private _navigationSection!: HTMLElement;
   private _navigationSectionContainerElement!: HTMLElement;
-  private _triggerElement: HTMLElement | null = null;
+  private _triggerElement: SbbNavigationButtonElement | null = null;
   private _navigationSectionController!: AbortController;
   private _windowEventsController!: AbortController;
   private _navigationSectionId = `sbb-navigation-section-${++nextId}`;
@@ -116,11 +117,21 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
       return;
     }
 
+    this._setActiveNavigationAction();
+    this._closePreviousNavigationSection();
     this._state = 'opening';
     this.startUpdate();
     this.inert = true;
     this._renderBackButton = this._isZeroToLargeBreakpoint();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
+  }
+
+  private _setActiveNavigationAction(): void {
+    this._triggerElement?.navigationMarker?.select(this._triggerElement);
+  }
+
+  private _closePreviousNavigationSection(): void {
+    (this._firstLevelNavigation?.activeNavigationSection as SbbNavigationSectionElement)?.close();
   }
 
   /**
@@ -244,15 +255,7 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
   };
 
   private _isCloseElement(element: HTMLElement): boolean {
-    // Check if the element is a navigation action belonging to the same group as the trigger.
-    const isActionElement =
-      element !== this._triggerElement &&
-      (element.nodeName === 'SBB-NAVIGATION-BUTTON' ||
-        element.nodeName === 'SBB-NAVIGATION-LINK') &&
-      element.parentElement === this._triggerElement?.parentElement;
-
     return (
-      isActionElement ||
       element.nodeName === 'A' ||
       (!isValidAttribute(element, 'disabled') &&
         (element.hasAttribute('sbb-navigation-close') ||
