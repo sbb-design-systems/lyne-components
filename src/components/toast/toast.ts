@@ -12,7 +12,7 @@ import { isFirefox, isValidAttribute, setAttribute } from '../core/dom';
 import { composedPathHasAttribute, EventEmitter, ConnectedAbortController } from '../core/eventing';
 import { i18nCloseAlert } from '../core/i18n';
 import type { SbbOverlayState } from '../core/overlay';
-import type { SbbLinkButtonElement, SbbLinkElement } from '../link';
+import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link';
 import '../button';
 
 import '../icon';
@@ -194,11 +194,10 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
     });
 
     // Force the visual state on slotted links
-    const links: (SbbLinkElement | SbbLinkButtonElement)[] = slotNodes.filter(
-      (el) => el.nodeName === 'SBB-LINK' || el.nodeName === 'SBB-LINK-BUTTON',
-    ) as (SbbLinkElement | SbbLinkButtonElement)[];
-    links.forEach((link: SbbLinkElement | SbbLinkButtonElement) => {
-      link.variant = 'inline';
+    const links = slotNodes.filter((el) =>
+      ['SBB-LINK', 'SBB-LINK-BUTTON', 'SBB-LINK-STATIC'].includes(el.nodeName),
+    ) as (SbbLinkElement | SbbLinkButtonElement | SbbLinkStaticElement)[];
+    links.forEach((link) => {
       link.negative = true;
     });
   }

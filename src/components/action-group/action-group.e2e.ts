@@ -55,12 +55,12 @@ describe('sbb-action-group', () => {
       expect(links.every((l) => l.size === 's')).to.be.ok;
     });
 
-    it('should apply variant block to sbb-link', async () => {
-      await waitForLitRender(element);
-      const links = Array.from(
-        document.querySelectorAll('sbb-action-group sbb-link'),
-      ) as SbbLinkElement[];
-      expect(links.every((l) => l.variant === 'block')).to.be.ok;
-    });
+    // it('should apply variant block to sbb-link', async () => {
+    //   await waitForLitRender(element);
+    //   const links = Array.from(
+    //     document.querySelectorAll('sbb-action-group sbb-link'),
+    //   ) as SbbLinkElement[];
+    //   expect(links.every((l) => l.variant === 'block')).to.be.ok;
+    // });
   });
 });

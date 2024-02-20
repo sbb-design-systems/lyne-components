@@ -4,7 +4,12 @@ import { customElement, property } from 'lit/decorators.js';
 
 import type { SbbButtonElement, SbbButtonLinkElement, SbbButtonSize } from '../button';
 import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
-import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkSize } from '../link';
+import type {
+  SbbBlockLinkButtonElement,
+  SbbBlockLinkElement,
+  SbbBlockLinkStaticElement,
+  SbbLinkSize,
+} from '../link';
 
 import style from './action-group.scss?lit&inline';
 
@@ -65,10 +70,9 @@ export class SbbActionGroupElement extends LitElement {
   }
 
   private _syncLinks(): void {
-    this.querySelectorAll?.<SbbLinkElement | SbbLinkButtonElement>(
-      'sbb-link, sbb-link-button',
-    ).forEach((link: SbbLinkElement | SbbLinkButtonElement) => {
-      link.variant = 'block';
+    this.querySelectorAll?.<
+      SbbBlockLinkElement | SbbBlockLinkButtonElement | SbbBlockLinkStaticElement
+    >('sbb-block-link, sbb-block-link-button, sbb-block-link-static').forEach((link) => {
       link.size = this.linkSize;
     });
   }
