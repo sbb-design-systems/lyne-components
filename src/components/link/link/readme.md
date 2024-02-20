@@ -51,18 +51,15 @@ and it has also three sizes (`xs`, `s`, which is the default, and `m`) that are 
 
 ## Properties
 
-| Name            | Attribute        | Privacy | Type                                    | Default   | Description                                                                                                                      |
-| --------------- | ---------------- | ------- | --------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `variant`       | `variant`        | public  | `'block' \| 'inline'`                   | `'block'` | Variant of the link (block or inline).                                                                                           |
-| `size`          | `size`           | public  | `SbbLinkSize`                           | `'s'`     | Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used.       |
-| `iconPlacement` | `icon-placement` | public  | `SbbIconPlacement \| undefined`         | `'start'` | Moves the icon to the end of the component if set to true.                                                                       |
-| `negative`      | `negative`       | public  | `boolean`                               | `false`   | Negative coloring variant flag.                                                                                                  |
-| `iconName`      | `icon-name`      | public  | `string \| undefined`                   |           | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `disabled`      | `disabled`       | public  | `boolean`                               | `false`   | Whether the component is disabled.                                                                                               |
-| `href`          | `href`           | public  | `string \| undefined`                   |           | The href value you want to link to.                                                                                              |
-| `target`        | `target`         | public  | `LinkTargetType \| string \| undefined` |           | Where to display the linked URL.                                                                                                 |
-| `rel`           | `rel`            | public  | `string \| undefined`                   |           | The relationship of the linked URL as space-separated link types.                                                                |
-| `download`      | `download`       | public  | `boolean \| undefined`                  |           | Whether the browser will show the download dialog on click.                                                                      |
+| Name       | Attribute  | Privacy | Type                                    | Default | Description                                                                                                                |
+| ---------- | ---------- | ------- | --------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `size`     | `size`     | public  | `SbbLinkSize`                           | `'s'`   | Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used. |
+| `negative` | `negative` | public  | `boolean`                               | `false` | Negative coloring variant flag.                                                                                            |
+| `disabled` | `disabled` | public  | `boolean`                               | `false` | Whether the component is disabled.                                                                                         |
+| `href`     | `href`     | public  | `string \| undefined`                   |         | The href value you want to link to.                                                                                        |
+| `target`   | `target`   | public  | `LinkTargetType \| string \| undefined` |         | Where to display the linked URL.                                                                                           |
+| `rel`      | `rel`      | public  | `string \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                                                          |
+| `download` | `download` | public  | `boolean \| undefined`                  |         | Whether the browser will show the download dialog on click.                                                                |
 
 ## Slots
 
