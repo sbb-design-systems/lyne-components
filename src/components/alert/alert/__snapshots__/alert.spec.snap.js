@@ -105,7 +105,6 @@ snapshots["sbb-alert should render customized properties"] =
           size="s"
           tabindex="0"
           target="_blank"
-          variant="inline"
         >
           Show much more
         </sbb-link>

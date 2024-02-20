@@ -213,7 +213,7 @@ const Template = (args: Args): TemplateResult => html`
               orientation="vertical"
               horizontal-from="medium"
             >
-              <sbb-link
+              <sbb-block-link
                 size="s"
                 align-self="start"
                 icon-name="chevron-small-left-small"
@@ -221,7 +221,7 @@ const Template = (args: Args): TemplateResult => html`
                 sbb-dialog-close
               >
                 Link
-              </sbb-link>
+              </sbb-block-link>
               <sbb-button size="m" variant="secondary" sbb-dialog-close> Cancel </sbb-button>
               <sbb-button size="m" variant="primary" sbb-dialog-close> Button </sbb-button>
             </sbb-action-group>

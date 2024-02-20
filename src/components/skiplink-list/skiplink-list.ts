@@ -13,7 +13,12 @@ import {
   SbbNamedSlotListElementMixin,
   type WithListChildren,
 } from '../core/common-behaviors';
-import type { SbbLinkElement, SbbLinkButtonElement } from '../link';
+import type {
+  SbbLinkElement,
+  SbbLinkButtonElement,
+  SbbBlockLinkElement,
+  SbbBlockLinkButtonElement,
+} from '../link';
 import type { SbbTitleLevel } from '../title';
 
 import style from './skiplink-list.scss?lit&inline';
@@ -27,11 +32,16 @@ import '../title';
  */
 @customElement('sbb-skiplink-list')
 export class SbbSkiplinkListElement extends SbbNamedSlotListElementMixin<
-  SbbLinkElement | SbbLinkButtonElement,
+  SbbLinkElement | SbbLinkButtonElement | SbbBlockLinkElement | SbbBlockLinkButtonElement,
   typeof LitElement
 >(LitElement) {
   public static override styles: CSSResultGroup = style;
-  protected override readonly listChildTagNames = ['SBB-LINK', 'SBB-LINK-BUTTON'];
+  protected override readonly listChildTagNames = [
+    'SBB-LINK',
+    'SBB-LINK-BUTTON',
+    'SBB-BLOCK-LINK',
+    'SBB-BLOCK-LINK-BUTTON',
+  ];
 
   /** The title text we want to place before the list. */
   @property({ attribute: 'title-content', reflect: true }) public titleContent?: string;

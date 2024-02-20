@@ -193,7 +193,7 @@ export class SbbToastElement extends SbbIconNameMixin(LitElement) {
       btn.size = 'm';
     });
 
-    // Force the visual state on slotted links
+    // Force negative on inline slotted links
     const links = slotNodes.filter((el) =>
       ['SBB-LINK', 'SBB-LINK-BUTTON', 'SBB-LINK-STATIC'].includes(el.nodeName),
     ) as (SbbLinkElement | SbbLinkButtonElement | SbbLinkStaticElement)[];

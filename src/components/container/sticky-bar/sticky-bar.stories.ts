@@ -73,14 +73,14 @@ const actionGroup = (): TemplateResult => html`
     horizontal-from="medium"
     style="width:100%;"
   >
-    <sbb-link
+    <sbb-block-link
       align-self="start"
       icon-name="chevron-small-left-small"
       href="https://www.sbb.ch/en/"
       sbb-dialog-close
     >
       Link
-    </sbb-link>
+    </sbb-block-link>
     <sbb-button variant="secondary" sbb-dialog-close> Cancel </sbb-button>
     <sbb-button variant="primary" sbb-dialog-close> Confirm </sbb-button>
   </sbb-action-group>

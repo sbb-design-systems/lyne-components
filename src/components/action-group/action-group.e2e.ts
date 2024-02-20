@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbButtonElement } from '../button';
 import { waitForLitRender } from '../core/testing';
-import type { SbbLinkElement } from '../link';
+import type { SbbBlockLinkElement } from '../link';
 
 import { SbbActionGroupElement } from './action-group';
 
@@ -14,13 +14,13 @@ describe('sbb-action-group', () => {
     element = await fixture(html`
       <sbb-action-group align-group="start" orientation="horizontal">
         <sbb-button variant="secondary">Button</sbb-button>
-        <sbb-link
+        <sbb-block-link
           icon-name="chevron-small-left-small"
           icon-placement="start"
           href="https://github.com/lyne-design-system/lyne-components"
         >
           Link
-        </sbb-link>
+        </sbb-block-link>
       </sbb-action-group>
     `);
   });
@@ -50,8 +50,8 @@ describe('sbb-action-group', () => {
       element.setAttribute('link-size', 's');
       await waitForLitRender(element);
       const links = Array.from(
-        document.querySelectorAll('sbb-action-group sbb-link'),
-      ) as SbbLinkElement[];
+        document.querySelectorAll('sbb-action-group sbb-block-link'),
+      ) as SbbBlockLinkElement[];
       expect(links.every((l) => l.size === 's')).to.be.ok;
     });
 

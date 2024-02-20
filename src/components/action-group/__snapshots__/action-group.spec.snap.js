@@ -19,18 +19,18 @@ snapshots["sbb-action-group renders renders - Dom"] =
   >
     Button
   </sbb-button>
-  <sbb-link
+  <sbb-block-link
     data-slot-names="unnamed"
     dir="ltr"
     href="https://github.com/lyne-design-system/lyne-components"
     icon-name="chevron-small-left-small"
+    icon-placement="start"
     role="link"
     size="m"
     tabindex="0"
-    variant="block"
   >
     Link
-  </sbb-link>
+  </sbb-block-link>
 </sbb-action-group>
 `;
 /* end snapshot sbb-action-group renders renders - Dom */

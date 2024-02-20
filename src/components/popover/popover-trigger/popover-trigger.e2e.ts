@@ -15,7 +15,7 @@ describe('sbb-popover-trigger', () => {
       <sbb-popover-trigger id="popover-trigger"></sbb-popover-trigger>
       <sbb-popover id="popover" trigger="popover-trigger" disable-animation>
         Popover content.
-        <sbb-link id="popover-link" variant="inline" sbb-popover-close>Link</sbb-link>
+        <sbb-link id="popover-link" sbb-popover-close>Link</sbb-link>
       </sbb-popover>
     `);
     element = document.querySelector<SbbPopoverTriggerElement>('sbb-popover-trigger')!;

@@ -13,7 +13,7 @@ snapshots["sbb-teaser-hero should render with slots"] =
       <slot>
       </slot>
     </p>
-    <sbb-link-static
+    <sbb-block-link-static
       class="sbb-teaser-hero__panel-link"
       data-slot-names="link-content unnamed"
       dir="ltr"
@@ -21,11 +21,10 @@ snapshots["sbb-teaser-hero should render with slots"] =
       icon-placement="end"
       negative=""
       size="m"
-      variant="block"
     >
       <slot name="link-content">
       </slot>
-    </sbb-link-static>
+    </sbb-block-link-static>
   </span>
   <slot name="image">
   </slot>
@@ -65,7 +64,7 @@ snapshots["sbb-teaser-hero should render all properties ShadowDom"] =
       <slot>
       </slot>
     </p>
-    <sbb-link-static
+    <sbb-block-link-static
       class="sbb-teaser-hero__panel-link"
       data-slot-names="unnamed"
       dir="ltr"
@@ -73,12 +72,11 @@ snapshots["sbb-teaser-hero should render all properties ShadowDom"] =
       icon-placement="end"
       negative=""
       size="m"
-      variant="block"
     >
       <slot name="link-content">
         Find out more
       </slot>
-    </sbb-link-static>
+    </sbb-block-link-static>
   </span>
   <slot name="image">
     <sbb-image

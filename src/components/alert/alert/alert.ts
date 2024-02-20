@@ -154,7 +154,7 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) implements Lin
                 <slot></slot>
               </p>
               ${this.href
-                ? html` <sbb-link ${spread(this._linkProperties())} variant="inline" negative>
+                ? html` <sbb-link ${spread(this._linkProperties())} negative>
                     ${this.linkContent ? this.linkContent : i18nFindOutMore[this._language.current]}
                   </sbb-link>`
                 : nothing}

@@ -26,10 +26,7 @@ const Warning = (): TemplateResult => html`
   <span class="sbb-text-s">
     This example only intends to visualize the grid and is not meant to be used as is.
     <br />
-    <sbb-link
-      variant="inline"
-      href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout"
-    >
+    <sbb-link href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout">
       See docs on css grid </sbb-link
     >.
   </span>

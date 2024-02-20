@@ -21,13 +21,13 @@ const buttonTemplate = (alignSelf?: string): TemplateResult => html`
 `;
 
 const linkTemplate = (alignSelf?: string): TemplateResult => html`
-  <sbb-link
+  <sbb-block-link
     align-self=${alignSelf || nothing}
     icon-name="chevron-small-left-small"
     href="https://github.com/lyne-design-system/lyne-components"
   >
     Link
-  </sbb-link>
+  </sbb-block-link>
 `;
 
 const TemplateTwoElements = (

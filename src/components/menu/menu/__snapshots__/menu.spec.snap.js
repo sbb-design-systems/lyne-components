@@ -7,12 +7,9 @@ snapshots["sbb-menu renders"] =
   id="sbb-menu-0"
   trigger="menu-trigger"
 >
-  <sbb-link
-    href="https://www.sbb.ch/en"
-    variant="block"
-  >
+  <sbb-block-link href="https://www.sbb.ch/en">
     Profile
-  </sbb-link>
+  </sbb-block-link>
   <sbb-menu-button
     dir="ltr"
     icon-name="tick-small"

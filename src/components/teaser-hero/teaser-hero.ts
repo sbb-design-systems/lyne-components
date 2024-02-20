@@ -35,7 +35,7 @@ export class SbbTeaserHeroElement extends SbbLinkBaseElement {
           <slot></slot>
         </p>
         ${this.href
-          ? html`<sbb-link-static
+          ? html`<sbb-block-link-static
               class="sbb-teaser-hero__panel-link"
               icon-name="chevron-small-right-small"
               icon-placement="end"
@@ -43,7 +43,7 @@ export class SbbTeaserHeroElement extends SbbLinkBaseElement {
               negative
             >
               <slot name="link-content">${this.linkContent}</slot>
-            </sbb-link-static>`
+            </sbb-block-link-static>`
           : nothing}
       </span>
       <slot name="image">

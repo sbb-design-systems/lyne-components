@@ -2,7 +2,7 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
-import type { SbbLinkElement } from '../link';
+import type { SbbBlockLinkElement } from '../link';
 
 import type { SbbLinkListElement } from './link-list';
 
@@ -94,8 +94,10 @@ describe('sbb-link-list', () => {
   });
 
   describe('property sync', () => {
-    const assertLinks = (root: Element, assertion: (link: SbbLinkElement) => boolean): boolean =>
-      Array.from(root.querySelectorAll('sbb-block-link')).every(assertion);
+    const assertLinks = (
+      root: Element,
+      assertion: (link: SbbBlockLinkElement) => boolean,
+    ): boolean => Array.from(root.querySelectorAll('sbb-block-link')).every(assertion);
 
     it('should render all sbb-link instances with defaults (variant="block", size="s", no negative)', async () => {
       element = await fixture(html` <sbb-link-list> ${sbbLinkSnippet} </sbb-link-list>`);
