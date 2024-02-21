@@ -2,8 +2,8 @@ import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
 
 import {
-  buttonCommonDefaultArgs,
-  buttonCommonDefaultArgTypes,
+  commonDefaultArgs,
+  commonDefaultArgTypes,
   commonDecorators,
   fixedWidth,
   iconOnly,
@@ -20,7 +20,7 @@ import {
   primaryNegativeDisabled,
   sizeM,
   withSlottedIcon,
-} from '../common/button-common-stories';
+} from '../common/common-stories';
 
 import readme from './readme.md?raw';
 import '../../loading-indicator';
@@ -45,13 +45,13 @@ const disabled: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  ...buttonCommonDefaultArgTypes,
+  ...commonDefaultArgTypes,
   tag,
   disabled,
 };
 
 const defaultArgs: Args = {
-  ...buttonCommonDefaultArgs,
+  ...commonDefaultArgs,
   tag: 'sbb-button-static',
   disabled: false,
 };

@@ -1,27 +1,31 @@
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement, SbbDisabledTabIndexActionMixin } from '../../core/common-behaviors';
 import { SbbButtonCommonElementMixin } from '../common/button-common';
 import commonStyle from '../common/button-common.scss?lit&inline';
-import style from '../common/primary-button.scss?lit&inline';
+import style from '../common/mini-button.scss?lit&inline';
 
 /**
- * It displays a button enhanced with the SBB Design in the 'primary' variant.
+ * It displays an icon-only button enhanced with the SBB Design;
+ * it's meant to be used mainly within the sbb-form-field in prefix/suffix slot.
  *
- * @slot - Use the unnamed slot to add content to the button.
  * @slot icon - Slot used to display the icon, if one is set
  */
-@customElement('sbb-button')
-export class SbbButtonElement extends SbbButtonCommonElementMixin(
+@customElement('sbb-mini-button')
+export class SbbMiniButtonElement extends SbbButtonCommonElementMixin(
   SbbDisabledTabIndexActionMixin(SbbButtonBaseElement),
 ) {
   public static override styles: CSSResultGroup = [commonStyle, style];
+
+  protected override renderTemplate(): TemplateResult {
+    return this.renderIcon();
+  }
 }
 
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-button': SbbButtonElement;
+    'sbb-mini-button': SbbMiniButtonElement;
   }
 }

@@ -1,7 +1,7 @@
 import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes } from '@storybook/web-components';
 
-import { buttonCommonDefaultArgs, buttonCommonDefaultArgTypes } from './button-common-stories';
+import { commonDefaultArgs, commonDefaultArgTypes } from './common-stories';
 
 const hrefs = ['https://www.sbb.ch', 'https://github.com/lyne-design-system/lyne-components'];
 const href: InputType = {
@@ -56,7 +56,7 @@ const disabled: InputType = {
 };
 
 export const buttonLinkDefaultArgTypes: ArgTypes = {
-  ...buttonCommonDefaultArgTypes,
+  ...commonDefaultArgTypes,
   href,
   target,
   rel,
@@ -65,7 +65,7 @@ export const buttonLinkDefaultArgTypes: ArgTypes = {
 };
 
 export const buttonLinkDefaultArgs: Args = {
-  ...buttonCommonDefaultArgs,
+  ...commonDefaultArgs,
   href: href.options[0],
   target: '_blank',
   rel: 'noopener',

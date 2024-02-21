@@ -12,7 +12,6 @@ import {
   SbbIconNameMixin,
   SbbNegativeMixin,
 } from '../../core/common-behaviors';
-import { isValidAttribute, toggleDatasetEntry } from '../../core/dom';
 
 import '../../icon';
 
@@ -25,6 +24,7 @@ export declare class SbbButtonCommonElementMixinType
   public disabled: boolean;
   public iconName?: string;
   public negative: boolean;
+  protected renderIcon(): TemplateResult;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -43,19 +43,13 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
       new NamedSlotStateController(this);
     }
 
-    public override connectedCallback(): void {
-      super.connectedCallback();
-
-      const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
-      if (formField) {
-        toggleDatasetEntry(this, 'iconSmall', true);
-        this.negative = isValidAttribute(formField, 'negative');
-      }
+    protected renderIcon(): TemplateResult {
+      return html`<span class="sbb-button__icon"> ${super.renderIconSlot()} </span>`;
     }
 
     protected override renderTemplate(): TemplateResult {
       return html`
-        <span class="sbb-button__icon"> ${super.renderIconSlot()} </span>
+        ${this.renderIcon()}
         <span class="sbb-button__label">
           <slot></slot>
         </span>

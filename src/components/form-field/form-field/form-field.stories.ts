@@ -10,7 +10,7 @@ import type { SbbFormErrorElement } from '../../form-error';
 import readme from './readme.md?raw';
 import './form-field';
 import '../form-field-clear';
-import '../../button';
+import '../../button/mini-button';
 import '../../form-error';
 import '../../popover';
 import '../../title';
@@ -173,7 +173,7 @@ const TemplateInputWithIcons = (args: Args): TemplateResult => html`
   </sbb-form-field>
 `;
 
-const TemplateInputWithButton = ({
+const TemplateInputWithMiniButton = ({
   disabled,
   readonly,
   active,
@@ -181,13 +181,13 @@ const TemplateInputWithButton = ({
 }: Args): TemplateResult => html`
   <sbb-form-field ${sbbSpread(args)}>
     ${TemplateBasicInput({ disabled, readonly, ...args })}
-    <sbb-button
+    <sbb-mini-button
       slot="suffix"
       icon-name="pie-small"
       ?disabled=${disabled || readonly}
       aria-label="Input button"
       ?data-active=${active}
-    ></sbb-button>
+    ></sbb-mini-button>
   </sbb-form-field>
 `;
 
@@ -522,20 +522,20 @@ export const InputOptionalAndIcons: StoryObj = {
   args: { ...basicArgs, optional: true },
 };
 
-export const InputWithButton: StoryObj = {
-  render: TemplateInputWithButton,
+export const InputWithMiniButton: StoryObj = {
+  render: TemplateInputWithMiniButton,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
 };
 
-export const InputWithButtonDisabled: StoryObj = {
-  render: TemplateInputWithButton,
+export const InputWithMiniButtonDisabled: StoryObj = {
+  render: TemplateInputWithMiniButton,
   argTypes: basicArgTypes,
   args: { ...basicArgs, disabled: true },
 };
 
-export const InputWithButtonActive: StoryObj = {
-  render: TemplateInputWithButton,
+export const InputWithMiniButtonActive: StoryObj = {
+  render: TemplateInputWithMiniButton,
   argTypes: basicArgTypes,
   args: { ...basicArgs, active: true },
 };
@@ -685,20 +685,20 @@ export const InputOptionalAndIconsNegative: StoryObj = {
   args: { ...basicArgs, optional: true, negative: true },
 };
 
-export const InputWithButtonNegative: StoryObj = {
-  render: TemplateInputWithButton,
+export const InputWithMiniButtonNegative: StoryObj = {
+  render: TemplateInputWithMiniButton,
   argTypes: basicArgTypes,
   args: { ...basicArgs, negative: true },
 };
 
-export const InputWithButtonDisabledNegative: StoryObj = {
-  render: TemplateInputWithButton,
+export const InputWithMiniButtonDisabledNegative: StoryObj = {
+  render: TemplateInputWithMiniButton,
   argTypes: basicArgTypes,
   args: { ...basicArgs, disabled: true, negative: true },
 };
 
-export const InputWithButtonActiveNegative: StoryObj = {
-  render: TemplateInputWithButton,
+export const InputWithMiniButtonActiveNegative: StoryObj = {
+  render: TemplateInputWithMiniButton,
   argTypes: basicArgTypes,
   args: { ...basicArgs, active: true, negative: true },
 };

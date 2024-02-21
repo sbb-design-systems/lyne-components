@@ -2,6 +2,7 @@ export * from './button';
 export * from './secondary-button';
 export * from './tertiary-button';
 export * from './transparent-button';
+export * from './mini-button';
 export * from './button-link';
 export * from './secondary-button-link';
 export * from './tertiary-button-link';

@@ -61,15 +61,4 @@ describe('sbb-button-link', () => {
       </a>
     `);
   });
-
-  it('should render form field button variant when inside of a form field', async () => {
-    const root = await fixture(
-      html` <sbb-form-field>
-        <input />
-        <sbb-button-link slot="suffix" icon-name="cross-small"></sbb-button-link>
-      </sbb-form-field>`,
-    );
-    const button = root.querySelector('sbb-button-link');
-    expect(button).to.have.attribute('data-icon-small');
-  });
 });

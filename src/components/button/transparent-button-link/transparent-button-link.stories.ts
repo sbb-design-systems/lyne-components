@@ -2,6 +2,10 @@ import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
 
 import {
+  buttonLinkDefaultArgs,
+  buttonLinkDefaultArgTypes,
+} from '../common/button-link-common-stories';
+import {
   commonDecorators,
   fixedWidth,
   iconOnly,
@@ -18,8 +22,7 @@ import {
   primaryNegativeDisabled,
   sizeM,
   withSlottedIcon,
-} from '../common/button-common-stories';
-import { buttonLinkDefaultArgs, buttonLinkDefaultArgTypes } from '../common/button-link-stories';
+} from '../common/common-stories';
 
 import readme from './readme.md?raw';
 import '../../loading-indicator';

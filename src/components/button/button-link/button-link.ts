@@ -4,7 +4,7 @@ import { customElement } from 'lit/decorators.js';
 import { SbbDisabledTabIndexActionMixin, SbbLinkBaseElement } from '../../core/common-behaviors';
 import { SbbButtonCommonElementMixin } from '../common/button-common';
 import commonStyle from '../common/button-common.scss?lit&inline';
-import style from '../common/button.scss?lit&inline';
+import style from '../common/primary-button.scss?lit&inline';
 
 /**
  * It displays a button enhanced with the SBB Design in the 'primary' variant, which will behave as a link.

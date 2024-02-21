@@ -98,15 +98,4 @@ describe('sbb-button', () => {
     expect(dataSlots).to.contain('icon');
     expect(dataSlots).not.to.contain('unnamed');
   });
-
-  it('should render form field button variant when inside of a form field', async () => {
-    const root = await fixture(
-      html` <sbb-form-field>
-        <input />
-        <sbb-button slot="suffix" icon-name="cross-small"></sbb-button>
-      </sbb-form-field>`,
-    );
-    const button = root.querySelector('sbb-button');
-    expect(button).to.have.attribute('data-icon-small');
-  });
 });

@@ -96,38 +96,9 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
   }
 }
 
-:host([data-icon-small]) {
-  @include sbb.icon-button-variables;
-
-  --sbb-button-shadow-1-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
-  --sbb-button-shadow-2-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
-  --sbb-button-shadow-1-blur: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
-  --sbb-button-shadow-2-blur: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
-  --sbb-button-shadow-1-color: var(--sbb-color-black-alpha-0);
-  --sbb-button-shadow-2-color: var(--sbb-color-black-alpha-0);
-}
-
-:host([data-icon-small][negative]) {
-  @include sbb.icon-button-variables-negative;
-
-  --sbb-button-shadow-1-color: var(--sbb-color-black-alpha-0);
-  --sbb-button-shadow-2-color: var(--sbb-color-black-alpha-0);
-}
-
-:is(
-    .sbb-button,
-    .sbb-secondary-button,
-    .sbb-tertiary-button,
-    .sbb-transparent-button,
-    .sbb-button-link,
-    .sbb-secondary-button-link,
-    .sbb-tertiary-button-link,
-    .sbb-transparent-button-link,
-    .sbb-button-static,
-    .sbb-secondary-button-static,
-    .sbb-tertiary-button-static,
-    .sbb-transparent-button-static
-  ) {
+[class$='-link'],
+[class$='-static'],
+[class$='-button'] {
   @include sbb.text-xs--bold;
   @include sbb.font-smoothing;
 
