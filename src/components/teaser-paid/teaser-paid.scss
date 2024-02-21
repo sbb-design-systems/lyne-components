@@ -1,0 +1,33 @@
+@use '../core/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+:host {
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+
+  @include sbb.panel-variables;
+
+  --sbb-teaser-paid-chip-offset: var(--sbb-spacing-responsive-xxxs);
+}
+
+.sbb-teaser-paid {
+  position: relative;
+  display: block;
+  min-height: var(--sbb-panel-height);
+
+  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+    @include sbb.focus-outline;
+  }
+}
+
+::slotted([slot='chip']) {
+  position: absolute;
+  inset-block-start: var(--sbb-teaser-paid-chip-offset);
+  inset-inline-start: var(--sbb-teaser-paid-chip-offset);
+  z-index: 1;
+}
