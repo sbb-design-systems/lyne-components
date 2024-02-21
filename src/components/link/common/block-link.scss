@@ -4,7 +4,7 @@
   display: block;
 }
 
-:is(.sbb-link-base) {
+:is(.sbb-action-base) {
   :host([size='xs']) & {
     @include sbb.text-xs--regular;
   }
