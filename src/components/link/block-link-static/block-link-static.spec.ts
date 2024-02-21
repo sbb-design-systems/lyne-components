@@ -40,7 +40,7 @@ describe('sbb-block-link-static', () => {
       </sbb-block-link-static>
     `);
     expect(root).shadowDom.to.be.equal(`
-      <span class="sbb-block-link-static">
+      <span class="sbb-action-base sbb-block-link-static">
         <span class="sbb-link__icon">
           <slot name="icon"></slot>
         </span>

@@ -2,7 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-popover-trigger renders"] = 
-`<span class="sbb-popover-trigger">
+`<span class="sbb-action-base sbb-popover-trigger">
   <slot>
     <sbb-icon
       aria-hidden="true"
@@ -17,7 +17,7 @@ snapshots["sbb-popover-trigger renders"] =
 /* end snapshot sbb-popover-trigger renders */
 
 snapshots["sbb-popover-trigger renders with custom content"] = 
-`<span class="sbb-popover-trigger">
+`<span class="sbb-action-base sbb-popover-trigger">
   <slot>
     <sbb-icon
       aria-hidden="true"

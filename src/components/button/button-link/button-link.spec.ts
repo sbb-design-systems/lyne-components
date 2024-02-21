@@ -21,7 +21,7 @@ describe('sbb-button-link', () => {
       </sbb-button-link>
     `);
     expect(root).shadowDom.to.be.equal(`
-      <a class="sbb-button-link" href="#" rel="noopener" role="presentation" tabindex="-1" target="_blank" download>
+      <a class="sbb-action-base sbb-button-link" href="#" rel="noopener" role="presentation" tabindex="-1" target="_blank" download>
         <span class="sbb-button__icon">
           <slot name="icon">
           </slot>
@@ -53,7 +53,7 @@ describe('sbb-button-link', () => {
       </sbb-button-link>
     `);
     expect(root).shadowDom.to.be.equal(`
-      <a class="sbb-button-link" href="#" role='presentation' tabindex='-1'>
+      <a class="sbb-action-base sbb-button-link" href="#" role='presentation' tabindex='-1'>
         <span class="sbb-button__icon">
           <slot name="icon"></slot>
         </span>

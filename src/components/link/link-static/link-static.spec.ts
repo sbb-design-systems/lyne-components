@@ -19,7 +19,7 @@ describe('sbb-link-static', () => {
       </sbb-link-static>
     `);
     expect(root).shadowDom.to.be.equal(`
-      <span class="sbb-link-static">
+      <span class="sbb-action-base sbb-link-static">
         <slot></slot>
       </span>
     `);

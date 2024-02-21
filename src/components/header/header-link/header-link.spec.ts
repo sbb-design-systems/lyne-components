@@ -34,7 +34,7 @@ describe('sbb-header-link', () => {
       </sbb-header-link>
     `);
     expect(root).shadowDom.to.be.equal(`
-      <a class="sbb-header-link" href="https://github.com/lyne-design-system/lyne-components" rel="external noopener nofollow" role="presentation" tabindex="-1" target="_blank">
+      <a class="sbb-action-base sbb-header-link" href="https://github.com/lyne-design-system/lyne-components" rel="external noopener nofollow" role="presentation" tabindex="-1" target="_blank">
         <span class="sbb-header-action__wrapper">
           <span class="sbb-header-action__icon">
             <slot name="icon">

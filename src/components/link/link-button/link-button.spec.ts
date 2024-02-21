@@ -35,7 +35,7 @@ describe('sbb-link-button', () => {
       </sbb-link-button>
     `);
     expect(root).shadowDom.to.be.equal(`
-      <span class="sbb-link-button">
+      <span class="sbb-action-base sbb-link-button">
         <slot></slot>
       </span>
     `);

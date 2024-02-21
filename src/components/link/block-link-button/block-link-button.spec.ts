@@ -50,7 +50,7 @@ describe('sbb-block-link-button', () => {
       </sbb-block-link-button>
     `);
     expect(root).shadowDom.to.be.equal(`
-      <span class="sbb-block-link-button">
+      <span class="sbb-action-base sbb-block-link-button">
         <span class="sbb-link__icon">
           <slot name="icon"></slot>
         </span>

@@ -2,7 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-expansion-panel-header renders collapsed"] = 
-`<span class="sbb-expansion-panel-header">
+`<span class="sbb-action-base sbb-expansion-panel-header">
   <span class="sbb-expansion-panel-header__title">
     <span class="sbb-expansion-panel-header__icon">
       <slot name="icon">
@@ -26,7 +26,7 @@ snapshots["sbb-expansion-panel-header renders collapsed"] =
 /* end snapshot sbb-expansion-panel-header renders collapsed */
 
 snapshots["sbb-expansion-panel-header renders with icon"] = 
-`<span class="sbb-expansion-panel-header">
+`<span class="sbb-action-base sbb-expansion-panel-header">
   <span class="sbb-expansion-panel-header__title">
     <span class="sbb-expansion-panel-header__icon">
       <slot name="icon">
@@ -57,7 +57,7 @@ snapshots["sbb-expansion-panel-header renders with icon"] =
 /* end snapshot sbb-expansion-panel-header renders with icon */
 
 snapshots["sbb-expansion-panel-header renders with slotted icon"] = 
-`<span class="sbb-expansion-panel-header">
+`<span class="sbb-action-base sbb-expansion-panel-header">
   <span class="sbb-expansion-panel-header__title">
     <span class="sbb-expansion-panel-header__icon">
       <slot name="icon">

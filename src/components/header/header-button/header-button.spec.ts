@@ -30,7 +30,7 @@ describe('sbb-header-button', () => {
     );
     expect(root).shadowDom.to.be.equal(
       `
-          <span class="sbb-header-button">
+          <span class="sbb-action-base sbb-header-button">
             <span class="sbb-header-action__wrapper">
               <span class="sbb-header-action__icon">
                 <slot name="icon">

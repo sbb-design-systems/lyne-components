@@ -33,7 +33,7 @@ describe('sbb-block-link', () => {
     `);
     expect(root).shadowDom.to.be.equal(`
       <a
-        class="sbb-block-link"
+        class="sbb-action-base sbb-block-link"
         download
         href="https://github.com/lyne-design-system/lyne-components"
         role="presentation"

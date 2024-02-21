@@ -24,7 +24,7 @@ describe('sbb-link', () => {
       </sbb-link>
     `);
     expect(root).shadowDom.to.be.equal(`
-      <a class="sbb-link" href="#" rel="external noopener nofollow" role="presentation" tabindex="-1" target="_blank">
+      <a class="sbb-action-base sbb-link" href="#" rel="external noopener nofollow" role="presentation" tabindex="-1" target="_blank">
         <slot></slot>
         <sbb-screenreader-only>
           . Link target opens in a new window.

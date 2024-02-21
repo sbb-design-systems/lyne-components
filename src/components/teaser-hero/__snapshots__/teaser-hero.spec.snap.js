@@ -3,7 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-teaser-hero should render with slots"] = 
 `<a
-  class="sbb-teaser-hero"
+  class="sbb-action-base sbb-teaser-hero"
   href="https://www.sbb.ch"
   role="presentation"
   tabindex="-1"
@@ -52,7 +52,7 @@ snapshots["sbb-teaser-hero should render all properties Dom"] =
 
 snapshots["sbb-teaser-hero should render all properties ShadowDom"] = 
 `<a
-  class="sbb-teaser-hero"
+  class="sbb-action-base sbb-teaser-hero"
   href="https://www.sbb.ch"
   rel="external"
   role="presentation"

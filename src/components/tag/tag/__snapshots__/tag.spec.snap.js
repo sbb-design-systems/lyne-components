@@ -2,7 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-tag renders unchecked"] = 
-`<span class="sbb-tag">
+`<span class="sbb-action-base sbb-tag">
   <span class="sbb-tag--shift sbb-tag__icon">
     <slot name="icon">
     </slot>
@@ -20,7 +20,7 @@ snapshots["sbb-tag renders unchecked"] =
 /* end snapshot sbb-tag renders unchecked */
 
 snapshots["sbb-tag renders checked"] = 
-`<span class="sbb-tag">
+`<span class="sbb-action-base sbb-tag">
   <span class="sbb-tag--shift sbb-tag__icon">
     <slot name="icon">
     </slot>
@@ -38,7 +38,7 @@ snapshots["sbb-tag renders checked"] =
 /* end snapshot sbb-tag renders checked */
 
 snapshots["sbb-tag renders disabled with icon and amount"] = 
-`<span class="sbb-tag">
+`<span class="sbb-action-base sbb-tag">
   <span class="sbb-tag--shift sbb-tag__icon">
     <slot name="icon">
       <sbb-icon
@@ -64,7 +64,7 @@ snapshots["sbb-tag renders disabled with icon and amount"] =
 /* end snapshot sbb-tag renders disabled with icon and amount */
 
 snapshots["sbb-tag renders slotted icon and amount"] = 
-`<span class="sbb-tag">
+`<span class="sbb-action-base sbb-tag">
   <span class="sbb-tag--shift sbb-tag__icon">
     <slot name="icon">
     </slot>

@@ -16,7 +16,7 @@ snapshots["sbb-teaser renders after centered - DOM"] =
 
 snapshots["sbb-teaser renders after centered - ShadowDOM"] = 
 `<a
-  class="sbb-teaser"
+  class="sbb-action-base sbb-teaser"
   href="https://github.com/lyne-design-system/lyne-components"
   role="presentation"
   tabindex="-1"
@@ -71,7 +71,7 @@ snapshots["sbb-teaser renders after with title level set - DOM"] =
 
 snapshots["sbb-teaser renders after with title level set - ShadowDOM"] = 
 `<a
-  class="sbb-teaser"
+  class="sbb-action-base sbb-teaser"
   href="https://github.com/lyne-design-system/lyne-components"
   role="presentation"
   tabindex="-1"
@@ -138,7 +138,7 @@ snapshots["sbb-teaser renders below with projected content - DOM"] =
 
 snapshots["sbb-teaser renders below with projected content - ShadowDOM"] = 
 `<a
-  class="sbb-teaser"
+  class="sbb-action-base sbb-teaser"
   href="https://github.com/lyne-design-system/lyne-components"
   role="presentation"
   tabindex="-1"
