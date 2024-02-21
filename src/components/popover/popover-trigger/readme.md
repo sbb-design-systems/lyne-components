@@ -63,9 +63,7 @@ associate the popover trigger with the popover via `aria-describedby` and an `id
 <!-- Popover component -->
 <sbb-popover id="popover" trigger="popover-trigger">
   <sbb-title level="2" visual-level="6" style="margin-block-start: 0">Popover title.</sbb-title>
-  <p id="popover-content">
-    Popover content. <sbb-link id="popover-link" variant="inline">Link</sbb-link>
-  </p>
+  <p id="popover-content">Popover content. <sbb-link id="popover-link">Link</sbb-link></p>
 </sbb-popover>
 ```
 

@@ -15,11 +15,11 @@ class (`class="sbb-link-list-button-group"`) to be displayed correctly.
 <!-- 'default' variant -->
 <sbb-footer accessibility-title="Footer">
   <sbb-link-list title-level="2" title-content="List title text">
-    <sbb-link href="#">Link 1</sbb-link>
-    <sbb-link href="#">Link 2</sbb-link>
-    <sbb-link href="#">Link 3</sbb-link>
-    <sbb-link href="#">Link 4</sbb-link>
-    <sbb-link href="#">Link 5</sbb-link>
+    <sbb-block-link href="#">Link 1</sbb-block-link>
+    <sbb-block-link href="#">Link 2</sbb-block-link>
+    <sbb-block-link href="#">Link 3</sbb-block-link>
+    <sbb-block-link href="#">Link 4</sbb-block-link>
+    <sbb-block-link href="#">Link 5</sbb-block-link>
   </sbb-link-list>
 </sbb-footer>
 
@@ -27,29 +27,29 @@ class (`class="sbb-link-list-button-group"`) to be displayed correctly.
 <sbb-footer accessibility-title="Footer" variant="clock-columns">
   <div class="sbb-link-list-button-group">
     <sbb-link-list title-level="2" title-content="Help &amp; Contact.">
-      <sbb-link href="#">Refunds</sbb-link>
-      <sbb-link href="#">Lost property office</sbb-link>
-      <sbb-link href="#">Complaints</sbb-link>
-      <sbb-link href="#">Praise</sbb-link>
-      <sbb-link href="#">Report property damage</sbb-link>
+      <sbb-block-link href="#">Refunds</sbb-block-link>
+      <sbb-block-link href="#">Lost property office</sbb-block-link>
+      <sbb-block-link href="#">Complaints</sbb-block-link>
+      <sbb-block-link href="#">Praise</sbb-block-link>
+      <sbb-block-link href="#">Report property damage</sbb-block-link>
     </sbb-link-list>
     <sbb-button href="#" variant="primary">All help topics</sbb-button>
   </div>
   <sbb-link-list title-level="2" title-content="More SBB.">
-    <sbb-link href="#">Jobs & careers</sbb-link>
-    <sbb-link href="#">Rail traffic information</sbb-link>
-    <sbb-link href="#">SBB News</sbb-link>
-    <sbb-link href="#">SBB Community</sbb-link>
-    <sbb-link href="#">Company</sbb-link>
+    <sbb-block-link href="#">Jobs & careers</sbb-block-link>
+    <sbb-block-link href="#">Rail traffic information</sbb-block-link>
+    <sbb-block-link href="#">SBB News</sbb-block-link>
+    <sbb-block-link href="#">SBB Community</sbb-block-link>
+    <sbb-block-link href="#">Company</sbb-block-link>
   </sbb-link-list>
   ...
   <sbb-divider></sbb-divider>
   <sbb-link-list size="xs" horizontal-from="large">
-    <sbb-link href="#">Refunds</sbb-link>
-    <sbb-link href="#">Lost property office</sbb-link>
-    <sbb-link href="#">Complaints</sbb-link>
-    <sbb-link href="#">Praise</sbb-link>
-    <sbb-link href="#">Report property damage</sbb-link>
+    <sbb-block-link href="#">Refunds</sbb-block-link>
+    <sbb-block-link href="#">Lost property office</sbb-block-link>
+    <sbb-block-link href="#">Complaints</sbb-block-link>
+    <sbb-block-link href="#">Praise</sbb-block-link>
+    <sbb-block-link href="#">Report property damage</sbb-block-link>
   </sbb-link-list>
 </sbb-footer>
 ```
@@ -62,11 +62,11 @@ to the content where needed (e.g. `sbb-link-list`, `sbb-link` and `sbb-divider`)
 ```html
 <sbb-footer negative accessibility-title="Footer">
   <sbb-link-list negative title-level="2" title-content="Help &amp; Contact.">
-    <sbb-link negative href="#">Refunds</sbb-link>
-    <sbb-link negative href="#">Lost property office</sbb-link>
-    <sbb-link negative href="#">Complaints</sbb-link>
-    <sbb-link negative href="#">Praise</sbb-link>
-    <sbb-link negative href="#">Report property damage</sbb-link>
+    <sbb-block-link negative href="#">Refunds</sbb-block-link>
+    <sbb-block-link negative href="#">Lost property office</sbb-block-link>
+    <sbb-block-link negative href="#">Complaints</sbb-block-link>
+    <sbb-block-link negative href="#">Praise</sbb-block-link>
+    <sbb-block-link negative href="#">Report property damage</sbb-block-link>
   </sbb-link-list>
 </sbb-footer>
 ```
@@ -85,6 +85,6 @@ to the content where needed (e.g. `sbb-link-list`, `sbb-link` and `sbb-divider`)
 
 ## Slots
 
-| Name | Description                                                                                     |
-| ---- | ----------------------------------------------------------------------------------------------- |
-|      | Use the unnamed slot to add elements like `sbb-link`, `sbb-link-list`, `sbb-divider` and so on. |
+| Name | Description                                                                                           |
+| ---- | ----------------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add elements like `sbb-block-link`, `sbb-link-list`, `sbb-divider` and so on. |

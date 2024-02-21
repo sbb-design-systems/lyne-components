@@ -14,9 +14,9 @@ import type {
 import style from './action-group.scss?lit&inline';
 
 /**
- * It can be used as a container for one or more action element, like `sbb-button` or `sbb-link`.
+ * It can be used as a container for one or more action element, like `sbb-button` or `sbb-block-link`.
  *
- * @slot - Use the unnamed slot to add `sbb-link` or `sbb-button` elements to the `sbb-action-group`.
+ * @slot - Use the unnamed slot to add `sbb-block-link` or `sbb-button` elements to the `sbb-action-group`.
  */
 @customElement('sbb-action-group')
 export class SbbActionGroupElement extends LitElement {
@@ -48,8 +48,8 @@ export class SbbActionGroupElement extends LitElement {
   public buttonSize: SbbButtonSize = 'l';
 
   /**
-   * Size of the nested sbb-link instances. This will overwrite the size attribute of nested
-   * sbb-link instances.
+   * Size of the nested sbb-block-link instances. This will overwrite the size attribute of nested
+   * sbb-block-link instances.
    */
   @property({ attribute: 'link-size', reflect: true })
   public linkSize: SbbLinkSize = 'm';

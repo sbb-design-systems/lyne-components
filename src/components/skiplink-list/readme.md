@@ -1,4 +1,4 @@
-The `sbb-skiplink-list` is a component that can be used to collect one or more hidden [sbb-link](/docs/components-sbb-link--docs)s,
+The `sbb-skiplink-list` is a component that can be used to collect one or more hidden [sbb-block-link](/docs/components-sbb-block-link--docs)s,
 which become visible only when focused, e.g., using the `Tab` key.
 
 When the component contains multiple link elements, only one of them is shown (the focused one), while the others stay visually hidden.
@@ -8,8 +8,8 @@ and it can be set using the `title-content` property.
 
 ```html
 <sbb-skiplink-list title-level="2" title-content="Title text">
-  <sbb-link href="https://www.sbb.ch/">Content</sbb-link>
-  <sbb-link href="https://www.sbb.ch/en/help-and-contact.html">Contact</sbb-link>
+  <sbb-block-link href="https://www.sbb.ch/">Content</sbb-block-link>
+  <sbb-block-link href="https://www.sbb.ch/en/help-and-contact.html">Contact</sbb-block-link>
   ...
 </sbb-skiplink-list>
 ```
@@ -30,6 +30,6 @@ to specify a custom stack order, the `z-index` can be changed by defining the CS
 
 ## Slots
 
-| Name | Description                                                                                   |
-| ---- | --------------------------------------------------------------------------------------------- |
-|      | Use the unnamed slot to add `sbb-link`/`sbb-link-button` elements to the `sbb-skiplink-list`. |
+| Name | Description                                                                                                                            |
+| ---- | -------------------------------------------------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add `sbb-link`/`sbb-link-button`/`sbb-block-link`/`sbb-block-link-button` elements to the `sbb-skiplink-list`. |

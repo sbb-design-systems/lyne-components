@@ -11,7 +11,7 @@ import style from './footer.scss?lit&inline';
 /**
  * It displays a footer section for the page.
  *
- * @slot - Use the unnamed slot to add elements like `sbb-link`, `sbb-link-list`, `sbb-divider` and so on.
+ * @slot - Use the unnamed slot to add elements like `sbb-block-link`, `sbb-link-list`, `sbb-divider` and so on.
  */
 @customElement('sbb-footer')
 export class SbbFooterElement extends SbbNegativeMixin(LitElement) {

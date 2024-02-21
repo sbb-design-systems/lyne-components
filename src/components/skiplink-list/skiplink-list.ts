@@ -26,9 +26,9 @@ import style from './skiplink-list.scss?lit&inline';
 import '../title';
 
 /**
- * It displays a list of `sbb-link`/`sbb-link-button` which are visible only when focused.
+ * It displays a list of `sbb-link`/`sbb-link-button`/`sbb-block-link`/`sbb-block-link-button` which are visible only when focused.
  *
- * @slot - Use the unnamed slot to add `sbb-link`/`sbb-link-button` elements to the `sbb-skiplink-list`.
+ * @slot - Use the unnamed slot to add `sbb-link`/`sbb-link-button`/`sbb-block-link`/`sbb-block-link-button` elements to the `sbb-skiplink-list`.
  */
 @customElement('sbb-skiplink-list')
 export class SbbSkiplinkListElement extends SbbNamedSlotListElementMixin<

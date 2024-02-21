@@ -76,22 +76,6 @@ describe('sbb-action-group', () => {
       expect(assertButtons(root, (b) => b.size === 'm')).to.be.ok;
     });
 
-    // it('should apply block variant to sbb-link', async () => {
-    //   const root = (await fixture(html`
-    //     <sbb-action-group align-group="start" orientation="horizontal" button-size="m">
-    //       <sbb-button variant="secondary">Button</sbb-button>
-    //       <sbb-block-link
-    //         icon-name="chevron-small-left-small"
-    //         href="https://github.com/lyne-design-system/lyne-components"
-    //       >
-    //         Link
-    //       </sbb-block-link>
-    //     </sbb-action-group>
-    //   `)) as SbbActionGroupElement;
-    //   expect(Array.from(root.querySelectorAll('sbb-block-link')).every((l) => l.variant === 'block')).to
-    //     .be.ok;
-    // });
-
     it('should sync link-size property with sbb-link', async () => {
       const root = (await fixture(html`
         <sbb-action-group align-group="start" orientation="horizontal" link-size="s">

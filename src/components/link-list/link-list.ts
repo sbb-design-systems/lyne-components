@@ -22,9 +22,9 @@ import style from './link-list.scss?lit&inline';
 import '../title';
 
 /**
- * It displays a list of `sbb-link`.
+ * It displays a list of `sbb-block-link`.
  *
- * @slot - Use the unnamed slot to add one or more `sbb-link`.
+ * @slot - Use the unnamed slot to add one or more `sbb-block-link`.
  * @slot title - Use this slot to provide a title.
  */
 @customElement('sbb-link-list')
@@ -48,8 +48,8 @@ export class SbbLinkListElement extends SbbNegativeMixin(
   @property({ attribute: 'title-level' }) public titleLevel: SbbTitleLevel = '2';
 
   /**
-   * Text size of the nested sbb-link instances. This will overwrite the size attribute of
-   * nested sbb-link instances.
+   * Text size of the nested sbb-block-link instances. This will overwrite the size attribute of
+   * nested sbb-block-link instances.
    */
   @property({ reflect: true }) public size: SbbLinkSize = 's';
 
