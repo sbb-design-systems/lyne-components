@@ -127,7 +127,7 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
     )}
   >
     The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
-    dog.&nbsp;<sbb-block-link href="/"> Link one</sbb-block-link>
+    dog.&nbsp;<sbb-link href="/"> Link one</sbb-link>
     <sbb-link href="/"> Link two</sbb-link>
     <sbb-link href="/"> Link three</sbb-link>
   </sbb-notification>
@@ -147,7 +147,7 @@ const MultipleNotificationsTemplate = (args: Args): TemplateResult => html`
     )}
   >
     The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
-    dog.&nbsp;<sbb-block-link href="/"> Link one</sbb-block-link>
+    dog.&nbsp;<sbb-link href="/"> Link one</sbb-link>
     <sbb-link href="/"> Link two</sbb-link>
     <sbb-link href="/"> Link three</sbb-link>
   </sbb-notification>
@@ -172,7 +172,7 @@ const SlottedTitleTemplate = (args: Args): TemplateResult => html`
   >
     <span slot="title">Slotted title</span>
     The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.&nbsp;
-    <sbb-block-link href="/"> Link one </sbb-block-link>
+    <sbb-link href="/"> Link one </sbb-link>
     <sbb-link href="/"> Link two </sbb-link>
     <sbb-link href="/"> Link three </sbb-link>
   </sbb-notification>
