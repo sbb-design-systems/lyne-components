@@ -1,27 +1,27 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+
+import type { SbbLinkStaticElement } from './link-static';
 import './link-static';
 
 describe('sbb-link-static', () => {
-  it('renders', async () => {
-    const root = await fixture(
+  let element: SbbLinkStaticElement;
+
+  beforeEach(async () => {
+    element = await fixture(
       html`<sbb-link-static size="m"> Travelcards &amp; tickets. </sbb-link-static>`,
     );
-
-    expect(root).dom.to.be.equal(`
-      <sbb-link-static
-        size="m"
-        dir="ltr"
-        data-slot-names="unnamed"
-      >
-        Travelcards &amp; tickets.
-      </sbb-link-static>
-    `);
-    expect(root).shadowDom.to.be.equal(`
-      <span class="sbb-action-base sbb-link-static">
-        <slot></slot>
-      </span>
-    `);
   });
+
+  it('renders - DOM', async () => {
+    await expect(element).dom.to.be.equalSnapshot();
+  });
+
+  it('renders - ShadowDOM', async () => {
+    await expect(element).shadowDom.to.be.equalSnapshot();
+  });
+
+  testA11yTreeSnapshot();
 });
