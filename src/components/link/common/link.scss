@@ -27,14 +27,7 @@
   @include sbb.link-variables--button;
 }
 
-:is(
-    .sbb-link,
-    .sbb-link-button,
-    .sbb-link-static,
-    .sbb-block-link,
-    .sbb-block-link-button,
-    .sbb-block-link-static
-  ) {
+:is(.sbb-link-base) {
   @include sbb.link-base;
 
   display: flex;

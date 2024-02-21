@@ -105,7 +105,7 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement implements
   protected override render(): TemplateResult {
     return html`
       <a
-        class=${this.tagName.toLowerCase()}
+        class="sbb-link-base ${this.tagName.toLowerCase()}"
         role="presentation"
         tabindex="-1"
         href=${this.href ?? nothing}

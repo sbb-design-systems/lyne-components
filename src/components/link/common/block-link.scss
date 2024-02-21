@@ -4,14 +4,7 @@
   display: block;
 }
 
-:is(
-    .sbb-link,
-    .sbb-link-button,
-    .sbb-link-static,
-    .sbb-block-link,
-    .sbb-block-link-button,
-    .sbb-block-link-static
-  ) {
+:is(.sbb-link-base) {
   :host([size='xs']) & {
     @include sbb.text-xs--regular;
   }
