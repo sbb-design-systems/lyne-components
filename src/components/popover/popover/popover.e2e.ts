@@ -5,6 +5,7 @@ import { html } from 'lit/static-html.js';
 import type { SbbButtonElement } from '../../button';
 import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
 
+import '../../button';
 import '../../link';
 import { SbbPopoverElement } from './popover';
 
