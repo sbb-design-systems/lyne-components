@@ -3,6 +3,7 @@ import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
+import { SbbHydrationMixin, SlotChildObserver } from '../../core/common-behaviors';
 import { toggleDatasetEntry } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import type { SbbOverlayState } from '../../core/overlay';
@@ -24,7 +25,7 @@ let nextId = 0;
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-expansion-panel` is closed.
  */
 @customElement('sbb-expansion-panel')
-export class SbbExpansionPanelElement extends LitElement {
+export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -130,7 +131,6 @@ export class SbbExpansionPanelElement extends LitElement {
   private _progressiveId = `-${++nextId}`;
   private _headerRef?: SbbExpansionPanelHeaderElement;
   private _contentRef?: SbbExpansionPanelContentElement;
-  private _contentWrapperRef?: HTMLElement | null;
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -146,6 +146,36 @@ export class SbbExpansionPanelElement extends LitElement {
     toggleDatasetEntry(this, 'accordion', false);
   }
 
+  private _handleSlotchange(): void {
+    const children = Array.from(this.children ?? []);
+    const header = children.find(
+      (e): e is SbbExpansionPanelHeaderElement => e.tagName === 'SBB-EXPANSION-PANEL-HEADER',
+    );
+    const content = children.find(
+      (e): e is SbbExpansionPanelContentElement => e.tagName === 'SBB-EXPANSION-PANEL-CONTENT',
+    );
+    if (this._headerRef === header && this._contentRef === content) {
+      return;
+    }
+    if (header && this._headerRef !== header) {
+      header.id ||= `sbb-expansion-panel-header${this._progressiveId}`;
+      header.setAttribute('aria-expanded', String(this.expanded));
+      header.toggleAttribute('disabled', this.disabled);
+    }
+    if (content && this._contentRef !== content) {
+      content.id ||= `sbb-expansion-panel-content${this._progressiveId}`;
+      content.setAttribute('aria-hidden', String(!this.expanded));
+    }
+
+    this._headerRef = header;
+    this._contentRef = content;
+    if (this._headerRef && this._contentRef) {
+      this._headerRef.setAttribute('aria-controls', this._contentRef.id);
+      this._contentRef.setAttribute('aria-labelledby', this._headerRef.id);
+      toggleDatasetEntry(this._contentRef, 'iconSpace', this._headerRef.hasAttribute('data-icon'));
+    }
+  }
+
   private _onOpened(): void {
     this._didOpen.emit();
     this._state = 'opened';
@@ -154,87 +184,6 @@ export class SbbExpansionPanelElement extends LitElement {
   private _onClosed(): void {
     this._didClose.emit();
     this._state = 'closed';
-  }
-
-  private _onHeaderSlotChange(event: Event): void {
-    const elements = (event.target as HTMLSlotElement).assignedElements();
-
-    // Changing titleLevel sometimes triggers a slot change with no assigned elements.
-    if (!elements.length) {
-      return;
-    }
-
-    this._headerRef = elements.find(
-      (e): e is SbbExpansionPanelHeaderElement => e.tagName === 'SBB-EXPANSION-PANEL-HEADER',
-    );
-
-    if (!this._headerRef) {
-      return;
-    }
-
-    this._headerRef.setAttribute('aria-expanded', String(this.expanded));
-    if (this.disabled) {
-      this._headerRef.setAttribute('disabled', String(this.disabled));
-    }
-    this._linkHeaderAndContent();
-  }
-
-  private _onContentSlotChange(event: Event): void {
-    const elements = (event.target as HTMLSlotElement).assignedElements();
-
-    if (!elements.length) {
-      return;
-    }
-
-    this._transitionEventController?.abort();
-
-    this._contentRef = (event.target as HTMLSlotElement)
-      .assignedElements()
-      .find(
-        (e): e is SbbExpansionPanelContentElement => e.tagName === 'SBB-EXPANSION-PANEL-CONTENT',
-      );
-
-    this._contentWrapperRef = this.shadowRoot!.querySelector(
-      '.sbb-expansion-panel__content-wrapper',
-    );
-
-    if (!this._contentRef || !this._contentWrapperRef) {
-      return;
-    }
-
-    this._transitionEventController = new AbortController();
-    this._contentRef.setAttribute('aria-hidden', String(!this.expanded));
-    this._contentWrapperRef.addEventListener(
-      'transitionend',
-      (event) => this._onTransitionEnd(event),
-      {
-        signal: this._transitionEventController.signal,
-      },
-    );
-    this._linkHeaderAndContent();
-  }
-
-  private _linkHeaderAndContent(): void {
-    if (!this._headerRef || !this._contentRef) {
-      return;
-    }
-
-    if (!this._headerRef.id) {
-      this._headerRef.setAttribute('id', `sbb-expansion-panel-header${this._progressiveId}`);
-    }
-    this._headerRef.setAttribute(
-      'aria-controls',
-      this._contentRef.id || `sbb-expansion-panel-content${this._progressiveId}`,
-    );
-
-    if (!this._contentRef.id) {
-      this._contentRef.setAttribute('id', `sbb-expansion-panel-content${this._progressiveId}`);
-    }
-    this._contentRef.setAttribute(
-      'aria-labelledby',
-      this._headerRef.id || `sbb-expansion-panel-header${this._progressiveId}`,
-    );
-    toggleDatasetEntry(this._contentRef, 'iconSpace', this._headerRef.hasAttribute('data-icon'));
   }
 
   private _onTransitionEnd(event: TransitionEvent): void {
@@ -257,13 +206,11 @@ export class SbbExpansionPanelElement extends LitElement {
     return html`
       <div class="sbb-expansion-panel">
         <${unsafeStatic(TAGNAME)} class="sbb-expansion-panel__header">
-          <slot name="header" @slotchange=${(event: Event) =>
-            this._onHeaderSlotChange(event)}></slot>
+          <slot name="header" @slotchange=${this._handleSlotchange}></slot>
         </${unsafeStatic(TAGNAME)}>
-        <div class="sbb-expansion-panel__content-wrapper" >
+        <div class="sbb-expansion-panel__content-wrapper" @transitionend=${this._onTransitionEnd}>
           <span class="sbb-expansion-panel__content">
-            <slot name="content" @slotchange=${(event: Event) =>
-              this._onContentSlotChange(event)}></slot>
+            <slot name="content" @slotchange=${this._handleSlotchange}></slot>
           </span>
         </div>
       </div>

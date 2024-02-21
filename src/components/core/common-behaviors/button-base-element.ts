@@ -1,3 +1,4 @@
+import { isServer } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbActionBaseElement } from './action-base-element';
@@ -92,14 +93,16 @@ export abstract class SbbButtonBaseElement
 
   public constructor() {
     super();
-    const passiveOptions = { passive: true };
-    // capture is necessary here, as this event handler needs to be executed before any other
-    // in order to stop immediate propagation in the disabled case.
-    this.addEventListener('click', this._handleButtonClick, { capture: true });
-    this.addEventListener('keydown', this._preventScrollOnSpaceKeydown);
-    this.addEventListener('keypress', dispatchClickEventWhenEnterKeypress, passiveOptions);
-    this.addEventListener('keyup', this._dispatchClickEventOnSpaceKeyup, passiveOptions);
-    this.addEventListener('blur', this._removeActiveMarker, passiveOptions);
+    if (!isServer) {
+      const passiveOptions = { passive: true };
+      // capture is necessary here, as this event handler needs to be executed before any other
+      // in order to stop immediate propagation in the disabled case.
+      this.addEventListener('click', this._handleButtonClick, { capture: true });
+      this.addEventListener('keydown', this._preventScrollOnSpaceKeydown);
+      this.addEventListener('keypress', dispatchClickEventWhenEnterKeypress, passiveOptions);
+      this.addEventListener('keyup', this._dispatchClickEventOnSpaceKeyup, passiveOptions);
+      this.addEventListener('blur', this._removeActiveMarker, passiveOptions);
+    }
   }
 
   protected override createRenderRoot(): HTMLElement | DocumentFragment {

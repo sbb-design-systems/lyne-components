@@ -1,3 +1,4 @@
+import { Worker } from 'worker_threads';
 import { defaultReporter, dotReporter, summaryReporter } from '@web/test-runner';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { puppeteerLauncher } from '@web/test-runner-puppeteer';
@@ -24,12 +25,34 @@ const browsers = isCIEnvironment
     ? [puppeteerLauncher({ concurrency: 1, launchOptions: { headless: false, devtools: true } })]
     : [playwrightLauncher({ product: 'chromium' })];
 
+const groupNameOverride = process.argv.includes('--ssr-hydrated')
+  ? 'e2e-ssr-hydrated'
+  : process.argv.includes('--ssr-non-hydrated')
+    ? 'e2e-ssr-non-hydrated'
+    : null;
+
+const testRunnerHtml = (testFramework, _config, group) => `
+<html>
+  <head>
+    <meta name="testEnvironment" ${isDebugMode ? 'debug' : ''}>
+    <meta name="testGroup" content="${groupNameOverride ?? group?.name ?? 'default'}">
+    <style type="text/css">${globalCss.css}</style>
+  </head>
+  <body>
+    <script type="module" src="${testFramework}"></script>
+    <script type="module" src="/src/components/core/testing/test-setup.ts"></script>
+  </body>
+</html>
+`;
+
 /** @type {import('@web/test-runner').TestRunnerConfig} */
 export default {
   files: ['src/**/*.{e2e,spec}.ts'],
   groups: [
-    { name: 'spec', files: 'src/**/*.spec.ts' },
-    { name: 'e2e', files: 'src/**/*.e2e.ts' },
+    //{ name: 'spec', files: 'src/**/*.spec.ts' },
+    //{ name: 'e2e', files: 'src/**/*.e2e.ts' },
+    { name: 'e2e-ssr-hydrated', files: 'src/**/*.e2e.ts', testRunnerHtml },
+    { name: 'e2e-ssr-non-hydrated', files: 'src/**/*.e2e.ts', testRunnerHtml },
   ],
   nodeResolve: true,
   reporters: isDebugMode ? [defaultReporter(), summaryReporter()] : [minimalReporter()],
@@ -42,24 +65,10 @@ export default {
       failZero: true,
     },
   },
-  coverageConfig: {
-    exclude: ['**/node_modules/**/*', '**/assets/*.svg', '**/*.scss'],
-  },
   filterBrowserLogs: (log) =>
     log.args[0] !==
     'Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.',
-  testRunnerHtml: (testFramework) => `
-    <html>
-      <head>
-        <meta name="testEnvironment" ${isDebugMode ? 'debug' : ''}>
-        <style type="text/css">${globalCss.css}</style>
-      </head>
-      <body>
-        <script type="module" src="${testFramework}"></script>
-        <script type="module" src="/src/components/core/testing/test-setup.ts"></script>
-      </body>
-    </html>
-  `,
+  testRunnerHtml,
 };
 
 /** @type {import('@web/test-runner-core').Reporter} */
@@ -131,6 +140,7 @@ function minimalReporter() {
 // Reference: https://github.com/remcovaes/web-test-runner-vite-plugin
 function vitePlugin() {
   let viteServer;
+  const litSsrPluginCommand = 'lit-ssr-render';
 
   return {
     name: 'vite-plugin',
@@ -168,7 +178,7 @@ function vitePlugin() {
         // Excluding the dependencies, prevents this from happening at the cost of slightly
         // increased test times.
         optimizeDeps: {
-          disabled: true,
+          noDiscovery: true,
         },
       });
       await viteServer.listen();
@@ -185,6 +195,25 @@ function vitePlugin() {
     },
     async serverStop() {
       return await viteServer.close();
+    },
+    // Reference: https://github.com/lit/lit/blob/main/packages/labs/testing/src/lib/lit-ssr-plugin.ts
+    // This is necessary until https://github.com/privatenumber/tsx/issues/354 is fixed
+    async executeCommand({ command, payload }) {
+      if (command !== litSsrPluginCommand) {
+        return undefined;
+      } else if (!payload) {
+        throw new Error(`Missing payload for ${litSsrPluginCommand} command`);
+      }
+
+      const { template, modules } = payload;
+      const resolvedModules = modules.map((m) => new URL(`.${m}`, import.meta.url).pathname);
+      return new Promise((resolve, reject) => {
+        const worker = new Worker(new URL('./config/lit-ssr-worker.js', import.meta.url), {
+          workerData: { template, modules: resolvedModules },
+        });
+        worker.on('error', reject);
+        worker.on('message', resolve);
+      });
     },
   };
 }

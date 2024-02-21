@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { toggleDatasetEntry } from '../core/dom';
+import { SbbHydrationMixin } from '../core/common-behaviors';
 import { ConnectedAbortController } from '../core/eventing';
 import { SbbExpansionPanelElement } from '../expansion-panel';
 import type { TitleLevel } from '../title';
@@ -15,10 +15,13 @@ import style from './accordion.scss?lit&inline';
  * @slot - Use the unnamed slot to add `sbb-expansion-panel` elements.
  */
 @customElement('sbb-accordion')
-export class SbbAccordionElement extends LitElement {
+export class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
-  /** The heading level for the sbb-expansion-panel-headers within the component. */
+  /**
+   * The heading level for the sbb-expansion-panel-headers within the component.
+   * @controls SbbExpansionPanelElement.titleLevel
+   */
   @property({ attribute: 'title-level' })
   public set titleLevel(value: TitleLevel | null) {
     this._titleLevel = value;
@@ -29,7 +32,10 @@ export class SbbAccordionElement extends LitElement {
   }
   private _titleLevel: TitleLevel | null = null;
 
-  /** Whether the animation should be disabled. */
+  /**
+   * Whether the animation should be disabled.
+   * @controls SbbExpansionPanelElement.disableAnimation
+   */
   @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
   public disableAnimation = false;
 
@@ -78,22 +84,6 @@ export class SbbAccordionElement extends LitElement {
     return Array.from(this.querySelectorAll?.('sbb-expansion-panel') ?? []);
   }
 
-  private _setChildrenParameters(): void {
-    const expansionPanels = this._expansionPanels;
-    if (!expansionPanels || !(expansionPanels.length > 0)) {
-      return;
-    }
-
-    expansionPanels.forEach((panel: SbbExpansionPanelElement) => {
-      panel.titleLevel = this.titleLevel;
-      panel.disableAnimation = this.disableAnimation;
-      toggleDatasetEntry(panel, 'accordionFirst', false);
-      toggleDatasetEntry(panel, 'accordionLast', false);
-    });
-    toggleDatasetEntry(expansionPanels[0], 'accordionFirst', true);
-    toggleDatasetEntry(expansionPanels[expansionPanels.length - 1], 'accordionLast', true);
-  }
-
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
@@ -104,10 +94,21 @@ export class SbbAccordionElement extends LitElement {
     );
   }
 
+  private _handleSlotchange(): void {
+    this._expansionPanels.forEach(
+      (panel: SbbExpansionPanelElement, index: number, array: SbbExpansionPanelElement[]) => {
+        panel.titleLevel = this.titleLevel;
+        panel.disableAnimation = this.disableAnimation;
+        panel.toggleAttribute('data-accordion-first', index === 0);
+        panel.toggleAttribute('data-accordion-last', index === array.length - 1);
+      },
+    );
+  }
+
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-accordion">
-        <slot @slotchange=${() => this._setChildrenParameters()}></slot>
+        <slot @slotchange=${this._handleSlotchange}></slot>
       </div>
     `;
   }
