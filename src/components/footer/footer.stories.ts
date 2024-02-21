@@ -4,7 +4,7 @@ import isChromatic from 'chromatic';
 import '../clock';
 import '../button';
 import '../divider';
-import '../link';
+import '../link/block-link';
 import '../link-list';
 import '../title';
 import './footer';

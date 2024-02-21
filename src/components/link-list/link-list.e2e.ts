@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { waitForLitRender } from '../core/testing';
 
 import { SbbLinkListElement } from './link-list';
-import '../link';
+import '../link/block-link';
 
 describe('sbb-link-list', () => {
   let element: SbbLinkListElement;

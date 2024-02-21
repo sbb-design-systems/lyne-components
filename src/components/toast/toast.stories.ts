@@ -19,7 +19,7 @@ import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
 import { SbbToastElement } from './toast';
-import '../link';
+import '../link/link';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {

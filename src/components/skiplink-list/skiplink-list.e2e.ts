@@ -6,7 +6,7 @@ import type { SbbBlockLinkElement } from '../link';
 
 import { SbbSkiplinkListElement } from './skiplink-list';
 
-import '../link';
+import '../link/block-link';
 
 describe('sbb-skiplink-list', () => {
   let element: SbbSkiplinkListElement;

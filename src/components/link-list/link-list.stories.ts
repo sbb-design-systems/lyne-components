@@ -7,7 +7,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
-import '../link';
+import '../link/block-link';
 import './link-list';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({

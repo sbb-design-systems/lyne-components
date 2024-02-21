@@ -12,7 +12,7 @@ import { sbbSpread } from '../core/dom';
 import readme from './readme.md?raw';
 
 import './skiplink-list';
-import '../link';
+import '../link/block-link';
 
 const titleContent: InputType = {
   control: {

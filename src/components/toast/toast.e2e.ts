@@ -6,7 +6,7 @@ import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
 
 import { SbbToastElement } from './toast';
 
-import '../link';
+import '../link/link-button';
 
 describe('sbb-toast', () => {
   let element: SbbToastElement;

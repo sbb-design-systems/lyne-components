@@ -6,7 +6,7 @@ import type { SbbBlockLinkElement } from '../link';
 
 import type { SbbLinkListElement } from './link-list';
 
-import '../link';
+import '../link/block-link';
 import './link-list';
 
 describe('sbb-link-list', () => {

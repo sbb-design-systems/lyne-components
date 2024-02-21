@@ -3,7 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import { SbbLinkBaseElement } from '../core/common-behaviors';
-import '../link';
+import '../link/block-link-static';
 import '../image';
 
 import style from './teaser-hero.scss?lit&inline';

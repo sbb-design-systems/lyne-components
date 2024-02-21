@@ -23,7 +23,7 @@ import { SbbDialogElement } from './dialog';
 import readme from './readme.md?raw';
 
 import '../button';
-import '../link';
+import '../link/block-link';
 import '../title';
 import '../form-field';
 import '../image';

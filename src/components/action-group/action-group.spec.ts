@@ -8,7 +8,7 @@ import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
 import type { SbbActionGroupElement } from './action-group';
 import './action-group';
 import '../button';
-import '../link';
+import '../link/block-link';
 
 describe('sbb-action-group', () => {
   describe('renders', () => {

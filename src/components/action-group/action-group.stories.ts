@@ -9,7 +9,7 @@ import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
 import './action-group';
-import '../link';
+import '../link/block-link';
 import '../button';
 
 const secondaryButtonTemplate = (alignSelf?: string): TemplateResult => html`

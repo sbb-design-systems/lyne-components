@@ -6,7 +6,7 @@ import { waitForCondition, EventSpy, waitForLitRender } from '../core/testing';
 
 import { SbbNotificationElement } from './notification';
 
-import '../link';
+import '../link/link';
 
 describe('sbb-notification', () => {
   let element: SbbNotificationElement;

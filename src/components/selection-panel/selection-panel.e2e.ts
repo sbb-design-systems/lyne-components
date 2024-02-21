@@ -10,7 +10,7 @@ import type { SbbRadioButtonGroupElement } from '../radio-button';
 import { SbbRadioButtonElement } from '../radio-button';
 
 import { SbbSelectionPanelElement } from './selection-panel';
-import '../link';
+import '../link/block-link-button';
 
 describe('sbb-selection-panel', () => {
   let elements: SbbSelectionPanelElement[];

@@ -18,7 +18,7 @@ import '../checkbox';
 import '../divider';
 import '../form-error';
 import '../icon';
-import '../link';
+import '../link/block-link-button';
 import '../radio-button';
 import '../popover';
 import '../title';

@@ -6,7 +6,7 @@ import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
 
 import type { SbbSkiplinkListElement } from './skiplink-list';
 import './skiplink-list';
-import '../link';
+import '../link/block-link';
 
 describe('sbb-skiplink-list', () => {
   describe('renders', () => {

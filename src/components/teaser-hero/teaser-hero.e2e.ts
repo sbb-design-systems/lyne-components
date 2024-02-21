@@ -6,8 +6,6 @@ import { waitForLitRender } from '../core/testing';
 
 import { SbbTeaserHeroElement } from './teaser-hero';
 import '.';
-import '../link';
-import '../image';
 
 describe('sbb-teaser-hero', () => {
   let element: SbbTeaserHeroElement;

@@ -12,7 +12,7 @@ import { sbbSpread } from '../core/dom';
 import { SbbNotificationElement } from './notification';
 import readme from './readme.md?raw';
 import '../button';
-import '../link';
+import '../link/link';
 
 const titleContent: InputType = {
   control: {
