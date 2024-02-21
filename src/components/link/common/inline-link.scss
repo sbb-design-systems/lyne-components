@@ -7,6 +7,7 @@
 }
 
 :host([negative]) {
+  @include sbb.link-variables--inline; // Needed because of specifity
   @include sbb.link-variables--inline-negative;
 }
 
