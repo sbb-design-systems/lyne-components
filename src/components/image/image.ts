@@ -428,7 +428,7 @@ export class SbbImageElement extends LitElement {
     super.connectedCallback();
     // Check if the current element is nested in an `<sbb-teaser-hero>` element on in an `<sbb-teaser-paid>` element.
     this._variantTeaser =
-      !!hostContext('sbb-teaser-hero', this) || !!hostContext('sbb-teaser-paid', this);
+      !!hostContext('sbb-teaser-hero', this) || !!this.closest('sbb-teaser-paid');
   }
 
   protected override render(): TemplateResult {
