@@ -15,8 +15,8 @@ describe('sbb-teaser-paid', () => {
   beforeEach(async () => {
     element = await fixture(html`
       <sbb-teaser-paid>
-        <sbb-chip>Label</sbb-chip>
-        <sbb-image></sbb-image>
+        <sbb-chip slot="chip">Label</sbb-chip>
+        <sbb-image slot="image"></sbb-image>
       </sbb-teaser-paid>
     `);
   });
