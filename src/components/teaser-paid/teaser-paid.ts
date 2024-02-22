@@ -1,7 +1,6 @@
 import { html, type CSSResultGroup, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import type { SbbChipElement } from '../chip';
 import { SbbLinkBaseElement } from '../core/common-behaviors';
 
 import style from './teaser-paid.scss?lit&inline';
