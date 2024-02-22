@@ -9,15 +9,13 @@
   // which appears in normalize css of several frameworks.
   outline: none !important;
 
-  @include sbb.panel-variables;
-
-  --sbb-teaser-paid-chip-offset: var(--sbb-spacing-responsive-xxxs);
+  --sbb-teaser-paid-chip-inset: var(--sbb-spacing-responsive-xxxs) auto auto
+    var(--sbb-spacing-responsive-xxxs);
 }
 
 .sbb-teaser-paid {
   position: relative;
   display: block;
-  min-height: var(--sbb-panel-height);
 
   // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
   :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
@@ -27,7 +25,6 @@
 
 ::slotted([slot='chip']) {
   position: absolute;
-  inset-block-start: var(--sbb-teaser-paid-chip-offset);
-  inset-inline-start: var(--sbb-teaser-paid-chip-offset);
+  inset: var(--sbb-teaser-paid-chip-inset);
   z-index: 1;
 }

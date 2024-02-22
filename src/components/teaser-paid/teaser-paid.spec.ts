@@ -4,12 +4,11 @@ import './teaser-paid';
 
 describe('sbb-teaser-paid', () => {
   it('renders', async () => {
-    const root = await fixture(html`<sbb-teaser-paid my-prop="Label"></sbb-teaser-paid>`);
+    const root = await fixture(html`<sbb-teaser-paid></sbb-teaser-paid>`);
 
     expect(root).dom.to.be.equal(`
       <sbb-teaser-paid
         dir="ltr"
-        my-prop="Label"
         role="link"
         tabindex="0"
       ></sbb-teaser-paid>

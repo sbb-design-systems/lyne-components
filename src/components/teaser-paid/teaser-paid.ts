@@ -3,7 +3,6 @@ import { customElement } from 'lit/decorators.js';
 
 import type { SbbChipElement } from '../chip';
 import { SbbLinkBaseElement } from '../core/common-behaviors';
-import type { SbbImageElement } from '../image';
 
 import style from './teaser-paid.scss?lit&inline';
 
@@ -17,30 +16,14 @@ import style from './teaser-paid.scss?lit&inline';
 export class SbbTeaserPaidElement extends SbbLinkBaseElement {
   public static override styles: CSSResultGroup = style;
 
-  private get _chip(): SbbChipElement {
-    return this.querySelector('sbb-chip')!;
-  }
-
-  private get _image(): SbbImageElement | null {
-    return this.querySelector('sbb-image');
-  }
-
   private _chipSlotChanged(): void {
-    if (this._chip) {
-      this._chip.color = 'charcoal';
-    }
-  }
-
-  private _imageSlotChanged(): void {
-    if (this._image) {
-      this._image.borderRadius = 'none';
-    }
+    this.querySelector('sbb-chip')?.setAttribute('color', 'charcoal');
   }
 
   protected override renderTemplate(): TemplateResult {
     return html`
       <slot name="chip" @slotchange=${() => this._chipSlotChanged()}></slot>
-      <slot name="image" @slotchange=${() => this._imageSlotChanged()}></slot>
+      <slot name="image"></slot>
     `;
   }
 }

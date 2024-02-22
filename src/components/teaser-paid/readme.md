@@ -2,8 +2,8 @@ The `sbb-teaser-paid` is a component with a background image and a chip with a t
 
 ```html
 <sbb-teaser-paid>
-  <sbb-image slot="image" image-src="https://path-to-source" alt="SBB CFF FFS Employee"></sbb-image>
   <sbb-chip slot="chip">Label</sbb-chip>
+  <sbb-image slot="image" image-src="https://path-to-source" alt="SBB CFF FFS Employee"></sbb-image>
 </sbb-teaser-paid>
 ```
 
