@@ -24,7 +24,6 @@ export declare class SbbButtonCommonElementMixinType
   public disabled: boolean;
   public iconName?: string;
   public negative: boolean;
-  protected renderIcon(): TemplateResult;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -43,13 +42,9 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
       new NamedSlotStateController(this);
     }
 
-    protected renderIcon(): TemplateResult {
-      return html`<span class="sbb-button__icon"> ${super.renderIconSlot()} </span>`;
-    }
-
     protected override renderTemplate(): TemplateResult {
       return html`
-        ${this.renderIcon()}
+        <span class="sbb-button__icon"> ${super.renderIconSlot()} </span>
         <span class="sbb-button__label">
           <slot></slot>
         </span>

@@ -1,8 +1,13 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement, SbbDisabledTabIndexActionMixin } from '../../core/common-behaviors';
-import { SbbButtonCommonElementMixin } from '../common/button-common';
+import {
+  NamedSlotStateController,
+  SbbButtonBaseElement,
+  SbbDisabledTabIndexActionMixin,
+  SbbIconNameMixin,
+  SbbNegativeMixin,
+} from '../../core/common-behaviors';
 import commonStyle from '../common/button-common.scss?lit&inline';
 import style from '../common/mini-button.scss?lit&inline';
 
@@ -13,13 +18,18 @@ import style from '../common/mini-button.scss?lit&inline';
  * @slot icon - Slot used to display the icon, if one is set
  */
 @customElement('sbb-mini-button')
-export class SbbMiniButtonElement extends SbbButtonCommonElementMixin(
-  SbbDisabledTabIndexActionMixin(SbbButtonBaseElement),
+export class SbbMiniButtonElement extends SbbNegativeMixin(
+  SbbIconNameMixin(SbbDisabledTabIndexActionMixin(SbbButtonBaseElement)),
 ) {
   public static override styles: CSSResultGroup = [commonStyle, style];
 
+  public constructor() {
+    super();
+    new NamedSlotStateController(this);
+  }
+
   protected override renderTemplate(): TemplateResult {
-    return this.renderIcon();
+    return html`<span class="sbb-button__icon"> ${super.renderIconSlot()} </span>`;
   }
 }
 
