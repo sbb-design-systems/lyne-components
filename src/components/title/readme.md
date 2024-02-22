@@ -11,7 +11,7 @@ it is possible to use the `visualLevel` property.
 The available values for both `level` and `visualLevel` are the numbers from 1 to 6 (`h1` to `h6`).
 
 ```html
-<sbb-title title="3" visual-level="4">Hi!</sbb-title>
+<sbb-title level="3" visual-level="4">Hi!</sbb-title>
 ```
 
 The component has a `negative` variant which can be set with the self-named property.
