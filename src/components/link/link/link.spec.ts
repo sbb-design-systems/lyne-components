@@ -11,7 +11,9 @@ describe('sbb-link', () => {
 
   beforeEach(async () => {
     element = await fixture(
-      html` <sbb-link size="m" href="#" target="_blank"> Travelcards &amp; tickets. </sbb-link>`,
+      html` <sbb-link size="m" href="sbb.ch" target="_blank">
+        Travelcards &amp; tickets.
+      </sbb-link>`,
     );
   });
 
