@@ -2,12 +2,9 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import {
-  LanguageController,
-  SbbNegativeMixin,
-  SbbButtonBaseElement,
-  hostAttributes,
-} from '../../core/common-behaviors';
+import { SbbMiniButtonElement } from '../../button';
+import { SbbMiniButtonCommonElementMixin } from '../../button/common';
+import { hostAttributes, LanguageController, SbbButtonBaseElement } from '../../core/common-behaviors';
 import { defaultDateAdapter, type DateAdapter } from '../../core/datetime';
 import { isValidAttribute, toggleDatasetEntry } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
@@ -29,8 +26,10 @@ import style from './datepicker-previous-day.scss?lit&inline';
   slot: 'prefix',
 })
 @customElement('sbb-datepicker-previous-day')
-export class SbbDatepickerPreviousDayElement extends SbbNegativeMixin(SbbButtonBaseElement) {
-  public static override styles: CSSResultGroup = style;
+export class SbbDatepickerPreviousDayElement extends SbbMiniButtonCommonElementMixin(
+  SbbButtonBaseElement,
+) {
+  public static override styles: CSSResultGroup = [SbbMiniButtonElement.styles, style];
 
   /** Datepicker reference. */
   @property({ attribute: 'date-picker' }) public datePicker?: string | SbbDatepickerElement;
@@ -202,7 +201,7 @@ export class SbbDatepickerPreviousDayElement extends SbbNegativeMixin(SbbButtonB
     }
   }
 
-  protected override renderTemplate(): TemplateResult {
+  protected override renderIcon(): TemplateResult {
     this._setDisabledRenderAttributes();
     return html` <sbb-icon name="chevron-small-left-small"></sbb-icon> `;
   }

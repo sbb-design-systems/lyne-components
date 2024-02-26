@@ -113,8 +113,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name], [data-icon-only]):not(
             sbb-tertiary-button-link,
             sbb-button-static,
             sbb-secondary-button-static:not([negative]),
-            sbb-tertiary-button-static,
-            sbb-mini-button
+            sbb-tertiary-button-static
           ):not([disabled], :active, [data-active])
       )
       & {

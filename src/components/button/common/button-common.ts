@@ -68,11 +68,6 @@ export const SbbMiniButtonCommonElementMixin = <
   superClass: T,
 ): AbstractConstructor<SbbMiniButtonCommonElementMixinType> & T => {
   abstract class SbbMiniButtonCommonElement extends SbbNegativeMixin(superClass) {
-    public constructor(...args: any[]) {
-      super(args);
-      new NamedSlotStateController(this);
-    }
-
     public override connectedCallback(): void {
       super.connectedCallback();
       toggleDatasetEntry(this, 'iconOnly', true);
@@ -83,7 +78,7 @@ export const SbbMiniButtonCommonElementMixin = <
     }
 
     protected override renderTemplate(): TemplateResult {
-      return html` <span class="sbb-button__icon"> ${this.renderIcon()} </span> `;
+      return this.renderIcon();
     }
   }
   return SbbMiniButtonCommonElement as unknown as AbstractConstructor<SbbMiniButtonCommonElementMixinType> &

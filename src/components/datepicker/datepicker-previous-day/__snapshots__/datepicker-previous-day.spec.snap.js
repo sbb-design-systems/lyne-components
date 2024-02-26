@@ -6,6 +6,7 @@ snapshots["sbb-datepicker-previous-day renders"] =
   aria-disabled="true"
   aria-label="Previous day"
   data-disabled=""
+  data-icon-only=""
   dir="ltr"
   role="button"
   slot="prefix"
@@ -17,6 +18,7 @@ snapshots["sbb-datepicker-previous-day renders"] =
 snapshots["sbb-datepicker-previous-day renders with connected datepicker"] = 
 `<sbb-datepicker-previous-day
   aria-label="Change to the previous day, currently selected December 31, 2022."
+  data-icon-only=""
   date-picker="datepicker"
   dir="ltr"
   role="button"

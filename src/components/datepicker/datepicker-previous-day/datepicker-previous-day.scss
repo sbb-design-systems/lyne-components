@@ -12,9 +12,9 @@
   outline: none !important;
 }
 
-@include sbb.icon-button('.sbb-datepicker-previous-day', 'sbb-icon');
-
 .sbb-datepicker-previous-day {
+  @include sbb.button-base;
+
   margin: auto;
   -webkit-tap-highlight-color: transparent;
 }
