@@ -34,7 +34,7 @@ const href: InputType = {
     },
   },
   table: {
-    category: 'Link',
+    category: 'link',
   },
 };
 
@@ -147,7 +147,7 @@ export const withSlots: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (story) => html` <div style="padding: 1em;">${story()}</div> `,
+    (story) => html` <div style="padding: 2rem;">${story()}</div> `,
     withActions as Decorator,
   ],
   parameters: {
@@ -158,7 +158,6 @@ const meta: Meta = {
     docs: {
       extractComponentDescription: () => readme,
     },
-    layout: 'fullscreen',
   },
   title: 'components/sbb-teaser/sbb-teaser-hero',
 };
