@@ -49,6 +49,7 @@ const testRunnerHtml = (testFramework, _config, group) => `
 export default {
   files: ['src/**/*.{e2e,spec}.ts'],
   groups: [
+    // To discuss
     //{ name: 'spec', files: 'src/**/*.spec.ts' },
     //{ name: 'e2e', files: 'src/**/*.e2e.ts' },
     { name: 'e2e-ssr-hydrated', files: 'src/**/*.e2e.ts', testRunnerHtml },

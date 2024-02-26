@@ -52,14 +52,20 @@ describe(`sbb-accordion ${fixture.name}`, () => {
     let panels: SbbExpansionPanelElement[];
 
     element.querySelector('sbb-expansion-panel')!.remove();
+    await waitForLitRender(element);
+    console.time('updateComplete');
     await element.updateComplete;
+    console.timeEnd('updateComplete');
+    console.time('waitForLitRender');
+    await waitForLitRender(element);
+    console.timeEnd('waitForLitRender');
 
     panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
     expect(panels[0]).to.have.attribute('data-accordion-first');
     expect(panels[1]).to.have.attribute('data-accordion-last');
 
     element.querySelector('sbb-expansion-panel')!.remove();
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     const lastRemainingPanel = element.querySelector('sbb-expansion-panel');
     expect(lastRemainingPanel).to.have.attribute('data-accordion-first');
@@ -67,7 +73,7 @@ describe(`sbb-accordion ${fixture.name}`, () => {
 
     const panel = document.createElement('sbb-expansion-panel');
     element.append(panel);
-    await element.updateComplete;
+    await waitForLitRender(element);
 
     panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
     expect(panels[0]).to.have.attribute('data-accordion-first');

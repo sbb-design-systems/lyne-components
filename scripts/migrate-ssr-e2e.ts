@@ -6,6 +6,10 @@ import * as glob from 'glob';
 import MagicString from 'magic-string';
 import ts from 'typescript';
 
+/*
+ * Convert e2e test files to use the lit fixture, to enable ssr testing.
+ */
+
 function* iterate(node: ts.Node): Generator<ts.Node, void, unknown> {
   yield node;
   const childNodes: ts.Node[] = [];

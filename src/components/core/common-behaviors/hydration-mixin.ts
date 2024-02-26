@@ -14,6 +14,7 @@ export declare abstract class SbbHydrationMixinType {
    * @return A promise of a boolean that resolves to true once the hydration completed.
    */
   public get hydrationComplete(): Promise<boolean>;
+
   /**
    * Called only if Declarative Shadow DOM is detected, during the initialization stage
    * but before the hydration stage.
@@ -90,7 +91,6 @@ export const SbbHydrationMixin = <T extends Constructor<LitElement>>(
         (isServer || !hydrationSuppressed);
       if (!this._hydrationRequired) {
         this._resolveHydration(false);
-        // TODO: this.updateComplete.then(() => this._resolveHydration(false));
       } else {
         const slots = this.shadowRoot?.querySelectorAll('slot');
         if (slots?.length) {

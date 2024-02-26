@@ -3,8 +3,7 @@ import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbHydrationMixin, SlotChildObserver } from '../../core/common-behaviors';
-import { toggleDatasetEntry } from '../../core/dom';
+import { SbbHydrationMixin } from '../../core/common-behaviors';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import type { SbbOverlayState } from '../../core/overlay';
 import type { TitleLevel } from '../../title';
@@ -137,13 +136,13 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
     const signal = this._abort.signal;
     this.addEventListener('toggleExpanded', () => this._toggleExpanded(), { signal });
     const accordion = this.closest?.('sbb-accordion');
-    toggleDatasetEntry(this, 'accordion', !!accordion);
+    this.toggleAttribute('data-accordion', !!accordion);
   }
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._transitionEventController?.abort();
-    toggleDatasetEntry(this, 'accordion', false);
+    this.toggleAttribute('data-accordion', false);
   }
 
   private _handleSlotchange(): void {
@@ -172,7 +171,10 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
     if (this._headerRef && this._contentRef) {
       this._headerRef.setAttribute('aria-controls', this._contentRef.id);
       this._contentRef.setAttribute('aria-labelledby', this._headerRef.id);
-      toggleDatasetEntry(this._contentRef, 'iconSpace', this._headerRef.hasAttribute('data-icon'));
+      this._contentRef.toggleAttribute(
+        'data-icon-space',
+        this._headerRef.hasAttribute('data-icon'),
+      );
     }
   }
 
