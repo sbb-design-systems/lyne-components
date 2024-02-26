@@ -4,7 +4,7 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
-$icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=unnamed])';
+$icon-only: ':where([data-slot-names~=icon], [icon-name], [data-icon-only]):not([data-slot-names~=unnamed])';
 
 :host {
   display: inline-block;
@@ -96,9 +96,11 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
   }
 }
 
+// FIXME these selectors should be fixed in a way that includes every component which extend the base mixin; how?
 [class$='-link'],
 [class$='-static'],
-[class$='-button'] {
+[class$='-button'],
+.sbb-form-field-clear {
   @include sbb.text-xs--bold;
   @include sbb.font-smoothing;
 
@@ -168,6 +170,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
       border-color: var(--sbb-button-color-active-border);
     }
 
+    // FIXME these selectors should be fixed in a way that includes every component which extend the base mixin; how?
     // Only apply shadow definitions where it is really used.
     :host(
         :is(
@@ -179,7 +182,9 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
             sbb-tertiary-button-link,
             sbb-button-static,
             sbb-secondary-button-static:not([negative]),
-            sbb-tertiary-button-static
+            sbb-tertiary-button-static,
+            sbb-mini-button,
+            sbb-form-field-clear
           ):not([disabled], :active, [data-active])
       )
       & {
@@ -232,7 +237,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
 .sbb-button__icon {
   display: flex;
 
-  :host(:not([data-slot-names~='icon'], [icon-name])) & {
+  :host(:not([data-slot-names~='icon'], [icon-name], [data-icon-only])) & {
     display: none;
   }
 }

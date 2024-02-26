@@ -1,20 +1,14 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import {
-  LanguageController,
-  SbbButtonBaseElement,
-  SbbNegativeMixin,
-  hostAttributes,
-} from '../../core/common-behaviors';
-import { hostContext, isValidAttribute } from '../../core/dom';
+import { SbbMiniButtonCommonElementMixin } from '../../button';
+import { hostAttributes, LanguageController, SbbButtonBaseElement } from '../../core/common-behaviors';
+import { hostContext } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
 import { i18nClearInput } from '../../core/i18n';
 import type { SbbFormFieldElement } from '../form-field';
 import '../../icon';
-
-import style from './form-field-clear.scss?lit&inline';
 
 /**
  * Combined with `sbb-form-field`, it displays a button which clears the input value.
@@ -23,9 +17,9 @@ import style from './form-field-clear.scss?lit&inline';
   slot: 'suffix',
 })
 @customElement('sbb-form-field-clear')
-export class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElement) {
-  public static override styles: CSSResultGroup = style;
-
+export class SbbFormFieldClearElement extends SbbMiniButtonCommonElementMixin(
+  SbbButtonBaseElement,
+) {
   private _formField?: SbbFormFieldElement;
   private _abort = new ConnectedAbortController(this);
   private _language = new LanguageController(this);
@@ -37,10 +31,6 @@ export class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElem
     this._formField =
       (hostContext('sbb-form-field', this) as SbbFormFieldElement) ??
       (hostContext('[data-form-field]', this) as SbbFormFieldElement);
-
-    if (this._formField) {
-      this.negative = isValidAttribute(this._formField, 'negative');
-    }
   }
 
   private async _handleClick(): Promise<void> {
@@ -59,7 +49,7 @@ export class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElem
     this.setAttribute('aria-label', i18nClearInput[this._language.current]);
   }
 
-  protected override renderTemplate(): TemplateResult {
+  protected override renderIcon(): TemplateResult {
     return html` <sbb-icon name="cross-small"></sbb-icon> `;
   }
 }

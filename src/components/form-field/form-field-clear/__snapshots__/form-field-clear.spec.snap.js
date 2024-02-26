@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-form-field-clear renders Formfield Dom"] = 
+snapshots["sbb-form-field-clear renders Formfield Dom"] =
 `<sbb-form-field
   data-input-type="input"
   data-slot-names="label suffix unnamed"
@@ -25,6 +25,7 @@ snapshots["sbb-form-field-clear renders Formfield Dom"] =
   >
   <sbb-form-field-clear
     aria-label="Clear input value"
+    data-icon-only=""
     dir="ltr"
     role="button"
     slot="suffix"
@@ -35,7 +36,7 @@ snapshots["sbb-form-field-clear renders Formfield Dom"] =
 `;
 /* end snapshot sbb-form-field-clear renders Formfield Dom */
 
-snapshots["sbb-form-field-clear renders Formfield ShadowDom"] = 
+snapshots["sbb-form-field-clear renders Formfield ShadowDom"] =
 `<div class="sbb-form-field__space-wrapper">
   <div
     class="sbb-form-field__wrapper"
@@ -71,20 +72,22 @@ snapshots["sbb-form-field-clear renders Formfield ShadowDom"] =
 `;
 /* end snapshot sbb-form-field-clear renders Formfield ShadowDom */
 
-snapshots["sbb-form-field-clear renders FormfieldClear ShadowDom"] = 
+snapshots["sbb-form-field-clear renders FormfieldClear ShadowDom"] =
 `<span class="sbb-action-base sbb-form-field-clear">
-  <sbb-icon
-    aria-hidden="true"
-    data-namespace="default"
-    name="cross-small"
-    role="img"
-  >
-  </sbb-icon>
+  <span class="sbb-button__icon">
+    <sbb-icon
+      aria-hidden="true"
+      data-namespace="default"
+      name="cross-small"
+      role="img"
+    >
+    </sbb-icon>
+  </span>
 </span>
 `;
 /* end snapshot sbb-form-field-clear renders FormfieldClear ShadowDom */
 
-snapshots["sbb-form-field-clear renders A11y tree Chrome"] = 
+snapshots["sbb-form-field-clear renders A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -113,7 +116,7 @@ snapshots["sbb-form-field-clear renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-form-field-clear renders A11y tree Chrome */
 
-snapshots["sbb-form-field-clear renders A11y tree Firefox"] = 
+snapshots["sbb-form-field-clear renders A11y tree Firefox"] =
 `<p>
   {
   "role": "document",
@@ -142,7 +145,7 @@ snapshots["sbb-form-field-clear renders A11y tree Firefox"] =
 `;
 /* end snapshot sbb-form-field-clear renders A11y tree Firefox */
 
-snapshots["sbb-form-field-clear renders A11y tree Safari"] = 
+snapshots["sbb-form-field-clear renders A11y tree Safari"] =
 `<p>
   {
   "role": "WebArea",
