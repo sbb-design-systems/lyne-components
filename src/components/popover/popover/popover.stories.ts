@@ -14,7 +14,6 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../../storybook/testing/wait-for-stable-position';
 import { sbbSpread } from '../../core/dom';
 
@@ -27,9 +26,12 @@ import '../popover-trigger';
 async function commonPlayStory(canvasElement: HTMLElement): Promise<Element> {
   const canvas = within(canvasElement);
 
-  await waitForComponentsReady(() =>
-    canvas.getByTestId('popover').shadowRoot!.querySelector('.sbb-popover'),
-  );
+  await Promise.all([
+    customElements.whenDefined('sbb-link'),
+    customElements.whenDefined('sbb-popover'),
+    customElements.whenDefined('sbb-popover-trigger'),
+    customElements.whenDefined('sbb-title'),
+  ]);
 
   await waitForStablePosition(() => canvas.getByTestId('popover-trigger'));
 
@@ -107,9 +109,7 @@ const popoverTrigger = (position: Record<string, string>): TemplateResult => htm
 
 const popover = (args: Args): TemplateResult => html`
   <sbb-popover data-testid="popover" trigger="popover-trigger" ${sbbSpread(args)}>
-    <sbb-title level="2" visual-level="6" style="margin-block-start: 0">
-      Simple popover with link.
-    </sbb-title>
+    <sbb-title level="2" visual-level="6" style="margin-block-start: 0"> Title. </sbb-title>
     <p style="margin: 0" class="sbb-text-s">
       Some content.
       <sbb-link
