@@ -90,6 +90,24 @@ const ariaLabel: InputType = {
   },
 };
 
+const disabled: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
+const tag: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    disable: true,
+  },
+};
+
 export const linkCommonDefaultArgTypes: ArgTypes = {
   text,
   negative,
@@ -97,6 +115,7 @@ export const linkCommonDefaultArgTypes: ArgTypes = {
   'icon-name': iconName,
   'icon-placement': iconPlacement,
   'aria-label': ariaLabel,
+  tag,
 };
 
 export const linkCommonDefaultArgs: Args = {
@@ -106,7 +125,130 @@ export const linkCommonDefaultArgs: Args = {
   'icon-name': undefined,
   'icon-placement': iconPlacement.options[0],
   'aria-label': undefined,
+  tag: 'TBD',
 };
+
+// link params
+
+const hrefs = ['https://www.sbb.ch', 'https://github.com/lyne-design-system/lyne-components'];
+const href: InputType = {
+  options: Object.keys(hrefs),
+  mapping: hrefs,
+  control: {
+    type: 'select',
+    labels: {
+      0: 'sbb.ch',
+      1: 'GitHub Lyne Components',
+    },
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
+const target: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
+const rel: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
+const download: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
+export const linkDefaultArgTypes: ArgTypes = {
+  ...linkCommonDefaultArgTypes,
+  href,
+  target,
+  rel,
+  download,
+  disabled,
+};
+
+export const linkDefaultArgs: Args = {
+  ...linkCommonDefaultArgs,
+  href: href.options[1],
+  target: '_blank',
+  rel: undefined,
+  download: false,
+  disabled: false,
+};
+
+// link-button params
+
+const type: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: ['button', 'reset', 'submit'],
+  table: {
+    category: 'Button',
+  },
+};
+
+const name: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
+const value: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
+const form: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
+export const linkButtonDefaultArgTypes: ArgTypes = {
+  ...linkCommonDefaultArgTypes,
+  type,
+  disabled,
+  name,
+  value,
+  form,
+};
+
+export const linkButtonDefaultArgs: Args = {
+  ...linkCommonDefaultArgs,
+  type: type.options[0],
+  disabled: false,
+  name: 'Button name',
+  value: undefined,
+  form: undefined,
+};
+
+// Stories
 
 export const blockXS: StoryObj = {
   render: Template,

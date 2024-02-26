@@ -4,15 +4,23 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { html } from 'lit/static-html.js';
 
 import {
-  inline,
-  inlineNegative,
+  blockFixedWidth,
+  blockIconStart,
+  blockM,
+  blockMIcon,
+  blockNegative,
+  blockS,
+  blockSIcon,
+  blockWithSlottedIcon,
+  blockXS,
+  blockXSIcon,
   linkButtonDefaultArgs,
   linkButtonDefaultArgTypes,
   wrapperStyle,
 } from '../common/link-common-stories';
 
 import readme from './readme.md?raw';
-import './link-button';
+import './block-link-button';
 
 const defaultArgTypes: ArgTypes = {
   ...linkButtonDefaultArgTypes,
@@ -20,11 +28,19 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   ...linkButtonDefaultArgs,
-  tag: 'sbb-link-button',
+  tag: 'sbb-block-link-button',
 };
 
-export const Inline: StoryObj = inline;
-export const InlineNegative: StoryObj = inlineNegative;
+export const BlockXS: StoryObj = blockXS;
+export const BlockS: StoryObj = blockS;
+export const BlockM: StoryObj = blockM;
+export const BlockXSIcon: StoryObj = blockXSIcon;
+export const BlockSIcon: StoryObj = blockSIcon;
+export const BlockMIcon: StoryObj = blockMIcon;
+export const BlockIconStart: StoryObj = blockIconStart;
+export const BlockNegative: StoryObj = blockNegative;
+export const BlockWithSlottedIcon: StoryObj = blockWithSlottedIcon;
+export const BlockFixedWidth: StoryObj = blockFixedWidth;
 
 const meta: Meta = {
   argTypes: defaultArgTypes,

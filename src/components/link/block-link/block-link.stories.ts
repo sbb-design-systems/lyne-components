@@ -4,27 +4,43 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { html } from 'lit/static-html.js';
 
 import {
-  inline,
-  inlineNegative,
-  linkCommonDefaultArgs,
-  linkCommonDefaultArgTypes,
+  blockFixedWidth,
+  blockIconStart,
+  blockM,
+  blockMIcon,
+  blockNegative,
+  blockS,
+  blockSIcon,
+  blockWithSlottedIcon,
+  blockXS,
+  blockXSIcon,
+  linkDefaultArgs,
+  linkDefaultArgTypes,
   wrapperStyle,
 } from '../common/link-common-stories';
 
 import readme from './readme.md?raw';
-import './link-static';
+import './block-link';
 
 const defaultArgTypes: ArgTypes = {
-  ...linkCommonDefaultArgTypes,
+  ...linkDefaultArgTypes,
 };
 
 const defaultArgs: Args = {
-  ...linkCommonDefaultArgs,
-  tag: 'sbb-link-static',
+  ...linkDefaultArgs,
+  tag: 'sbb-block-link',
 };
 
-export const Inline: StoryObj = inline;
-export const InlineNegative: StoryObj = inlineNegative;
+export const BlockXS: StoryObj = blockXS;
+export const BlockS: StoryObj = blockS;
+export const BlockM: StoryObj = blockM;
+export const BlockXSIcon: StoryObj = blockXSIcon;
+export const BlockSIcon: StoryObj = blockSIcon;
+export const BlockMIcon: StoryObj = blockMIcon;
+export const BlockIconStart: StoryObj = blockIconStart;
+export const BlockNegative: StoryObj = blockNegative;
+export const BlockWithSlottedIcon: StoryObj = blockWithSlottedIcon;
+export const BlockFixedWidth: StoryObj = blockFixedWidth;
 
 const meta: Meta = {
   argTypes: defaultArgTypes,
@@ -43,7 +59,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-link/sbb-link-static',
+  title: 'components/sbb-link/sbb-block-link',
 };
 
 export default meta;
