@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
@@ -15,8 +15,6 @@ import {
 import { toggleDatasetEntry } from '../../core/dom';
 
 import '../../icon';
-import commonStyle from './button-common.scss?lit&inline';
-import style from './mini-button.scss?lit&inline';
 
 export type SbbButtonSize = 'l' | 'm';
 
@@ -70,8 +68,6 @@ export const SbbMiniButtonCommonElementMixin = <
   superClass: T,
 ): AbstractConstructor<SbbMiniButtonCommonElementMixinType> & T => {
   abstract class SbbMiniButtonCommonElement extends SbbNegativeMixin(superClass) {
-    public static styles: CSSResultGroup = [commonStyle, style];
-
     public constructor(...args: any[]) {
       super(args);
       new NamedSlotStateController(this);

@@ -1,13 +1,15 @@
-import type { PropertyValues, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbMiniButtonCommonElementMixin } from '../../button';
+import { SbbMiniButtonCommonElementMixin, SbbMiniButtonElement } from '../../button';
 import { hostAttributes, LanguageController, SbbButtonBaseElement } from '../../core/common-behaviors';
 import { hostContext } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
 import { i18nClearInput } from '../../core/i18n';
 import type { SbbFormFieldElement } from '../form-field';
+
+import style from './form-field-clear.scss?lit&inline';
 import '../../icon';
 
 /**
@@ -20,6 +22,8 @@ import '../../icon';
 export class SbbFormFieldClearElement extends SbbMiniButtonCommonElementMixin(
   SbbButtonBaseElement,
 ) {
+  public static override styles: CSSResultGroup = [SbbMiniButtonElement.styles, style];
+
   private _formField?: SbbFormFieldElement;
   private _abort = new ConnectedAbortController(this);
   private _language = new LanguageController(this);

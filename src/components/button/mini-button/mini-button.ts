@@ -1,4 +1,4 @@
-import { html, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import {
@@ -7,6 +7,9 @@ import {
   SbbIconNameMixin,
 } from '../../core/common-behaviors';
 import { SbbMiniButtonCommonElementMixin } from '../common/button-common';
+import commonStyle from '../common/button-common.scss?lit&inline';
+
+import style from './mini-button.scss?lit&inline';
 
 /**
  * It displays an icon-only button enhanced with the SBB Design;
@@ -18,6 +21,8 @@ import { SbbMiniButtonCommonElementMixin } from '../common/button-common';
 export class SbbMiniButtonElement extends SbbMiniButtonCommonElementMixin(
   SbbIconNameMixin(SbbDisabledTabIndexActionMixin(SbbButtonBaseElement)),
 ) {
+  public static override styles: CSSResultGroup = [commonStyle, style];
+
   protected override renderIcon(): TemplateResult {
     return html`${super.renderIconSlot()}`;
   }

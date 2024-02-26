@@ -21,6 +21,98 @@
   color: inherit;
 }
 
+$icon-only: ':where([data-slot-names~=icon], [icon-name], [data-icon-only]):not([data-slot-names~=unnamed])';
+
+@mixin button-base {
+  @include typo.text-xs--bold;
+  @include typo.font-smoothing;
+
+  // Reset for link variant
+  text-decoration: none;
+  width: 100%;
+  position: relative;
+  display: flex;
+  gap: var(--sbb-button-gap);
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+  transition-duration: var(--sbb-button-transition-duration);
+  transition-timing-function: var(--sbb-button-transition-easing-function);
+  transition-property: color;
+  min-height: var(--sbb-button-min-height);
+  border-radius: var(--sbb-button-border-radius);
+
+  // The padding block value is only a minimal padding to preserve a padding if the content becomes larger than intended.
+  // Positioning of the content is made by flexbox vertical centering.
+  // The real padding displayed is larger than the defined value below.
+  padding-block: var(--sbb-button-padding-block-min);
+  padding-inline: var(--sbb-button-padding-inline);
+  color: var(--sbb-button-color-default-text);
+  cursor: pointer;
+  user-select: none;
+
+  // Renders background and border in the background absolute to enable the hover animation
+  &::before {
+    position: absolute;
+    content: '';
+    inset: var(--sbb-button-inset);
+    border: var(--sbb-button-border-width) solid var(--sbb-button-color-default-border);
+    border-radius: var(--sbb-button-border-radius);
+    background-color: var(--sbb-button-color-default-background);
+    transition-duration: var(--sbb-button-transition-duration);
+    transition-timing-function: var(--sbb-button-transition-easing-function);
+    transition-property: inset, background-color, border-color, box-shadow;
+
+    :host([disabled]) & {
+      background-color: var(--sbb-button-color-disabled-background);
+      border-color: var(--sbb-button-color-disabled-border);
+    }
+
+    // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
+    :host(
+        :is(
+            [data-focus-visible],
+            :focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])
+          )
+      )
+      & {
+      @include a11y.focus-outline;
+    }
+
+    :host(:not([disabled], :active, [data-active]):hover) & {
+      @include mediaqueries.hover-mq($hover: true) {
+        inset: calc(var(--sbb-button-border-width) * -1);
+        background-color: var(--sbb-button-color-hover-background);
+        border-color: var(--sbb-button-color-hover-border);
+      }
+    }
+
+    :host(:not([disabled]):is(:active, [data-active])) & {
+      color: var(--sbb-button-color-active-text);
+      background-color: var(--sbb-button-color-active-background);
+      border-color: var(--sbb-button-color-active-border);
+    }
+  }
+
+  :host(#{$icon-only}) & {
+    width: var(--sbb-button-min-height);
+    justify-content: center;
+  }
+
+  :host([disabled]) & {
+    color: var(--sbb-button-color-disabled-text);
+    cursor: default;
+    pointer-events: none;
+    text-decoration: line-through;
+  }
+
+  :host(:not([disabled], :active, [data-active]):hover) & {
+    @include mediaqueries.hover-mq($hover: true) {
+      color: var(--sbb-button-color-hover-text);
+    }
+  }
+}
+
 // Icon-button style in form-field
 @mixin icon-button($button-selector, $icon-selector) {
   @include icon-button-base(':host', #{$button-selector}, #{$icon-selector});
