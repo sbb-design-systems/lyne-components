@@ -31,7 +31,6 @@ describe(`sbb-accordion ${fixture.name}`, () => {
       `,
       { modules: ['./accordion.ts', '../expansion-panel/index.ts'] },
     );
-    await waitForLitRender(element);
   });
 
   it('renders', () => {
@@ -53,12 +52,6 @@ describe(`sbb-accordion ${fixture.name}`, () => {
 
     element.querySelector('sbb-expansion-panel')!.remove();
     await waitForLitRender(element);
-    console.time('updateComplete');
-    await element.updateComplete;
-    console.timeEnd('updateComplete');
-    console.time('waitForLitRender');
-    await waitForLitRender(element);
-    console.timeEnd('waitForLitRender');
 
     panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
     expect(panels[0]).to.have.attribute('data-accordion-first');

@@ -9,6 +9,8 @@ import { createServer } from 'vite';
 
 const isCIEnvironment = !!process.env.CI || process.argv.includes('--ci');
 const isDebugMode = process.argv.includes('--debug');
+const firefox = process.argv.includes('--firefox');
+const webkit = process.argv.includes('--webkit');
 
 const globalCss = sass.compile('./src/components/core/styles/global.scss', {
   loadPaths: ['.', './node_modules/'],
@@ -21,9 +23,18 @@ const browsers = isCIEnvironment
       playwrightLauncher({ product: 'firefox', concurrency: 1 }),
       playwrightLauncher({ product: 'webkit', concurrency: 1 }),
     ]
-  : isDebugMode
-    ? [puppeteerLauncher({ concurrency: 1, launchOptions: { headless: false, devtools: true } })]
-    : [playwrightLauncher({ product: 'chromium' })];
+  : firefox
+    ? [playwrightLauncher({ product: 'firefox' })]
+    : webkit
+      ? [playwrightLauncher({ product: 'webkit' })]
+      : isDebugMode
+        ? [
+            puppeteerLauncher({
+              concurrency: 1,
+              launchOptions: { headless: false, devtools: true },
+            }),
+          ]
+        : [playwrightLauncher({ product: 'chromium' })];
 
 const groupNameOverride = process.argv.includes('--ssr-hydrated')
   ? 'e2e-ssr-hydrated'
@@ -49,9 +60,6 @@ const testRunnerHtml = (testFramework, _config, group) => `
 export default {
   files: ['src/**/*.{e2e,spec}.ts'],
   groups: [
-    // To discuss
-    //{ name: 'spec', files: 'src/**/*.spec.ts' },
-    //{ name: 'e2e', files: 'src/**/*.e2e.ts' },
     { name: 'e2e-ssr-hydrated', files: 'src/**/*.e2e.ts', testRunnerHtml },
     { name: 'e2e-ssr-non-hydrated', files: 'src/**/*.e2e.ts', testRunnerHtml },
   ],
@@ -61,7 +69,7 @@ export default {
   plugins: [vitePlugin(), a11ySnapshotPlugin()],
   testFramework: {
     config: {
-      timeout: '3000',
+      timeout: '6000',
       slow: '1000',
       failZero: true,
     },

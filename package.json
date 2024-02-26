@@ -44,9 +44,9 @@
     "lint:tsc:components-spec": "tsc --noEmit --project src/components/tsconfig.spec.json",
     "start": "storybook dev -p 6006",
     "test": "wtr --coverage",
-    "test:spec": "wtr --group spec",
     "test:snapshot": "yarn test --ci --update-snapshots",
-    "test:e2e": "wtr --group e2e",
+    "test:ssr:hydrated": "wtr --group e2e-ssr-hydrated",
+    "test:ssr:non-hydrated": "wtr --group e2e-ssr-non-hydrated",
     "prepare": "husky install"
   },
   "dependencies": {

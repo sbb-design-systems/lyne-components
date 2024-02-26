@@ -2,7 +2,7 @@ import { sbbInputModalityDetector } from '../a11y';
 import type { SbbIconConfig } from '../config';
 import { mergeConfig } from '../config';
 
-import { isHydratedSsr, isSsr } from './platform';
+import { isHydratedSsr } from './platform';
 
 function setupIconConfig(): void {
   const icon: SbbIconConfig = {
@@ -25,14 +25,6 @@ function setupIconConfig(): void {
 if (isHydratedSsr()) {
   await import('@lit-labs/ssr-client/lit-element-hydrate-support.js');
 }
-
-before(function () {
-  if (isSsr()) {
-    // We need to increase the timeout due to TypeScript files being dynamically built by vite.
-    // @see config/lit-ssr-worker.js
-    this.timeout(10000);
-  }
-});
 
 beforeEach(() => {
   setupIconConfig();

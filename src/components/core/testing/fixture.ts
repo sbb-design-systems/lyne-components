@@ -14,6 +14,14 @@ import { isHydratedSsr, isNonHydratedSsr } from './platform';
  */
 export const fixture = Object.defineProperty(
   async <T extends HTMLElement>(template: TemplateResult, options: FixtureOptions): Promise<T> => {
+    // PlayWright with WebKit does not include wtr-session-id in stack trace.
+    // As an alternative, we look for the first file in the stack trace that is not part of
+    // node_modules and not in /core/testing/.
+    // See https://github.com/lit/lit/issues/4067
+    const { stack } = new Error();
+    options.base ??= [...stack!.matchAll(/http:\/\/localhost:?[^:)]+/gm)]
+      .map((m) => m[0])
+      .find((u) => !u.includes('/node_modules/') && !u.includes('/core/testing/'));
     const fixtures = await import('@lit-labs/testing/fixtures.js');
     if (isHydratedSsr()) {
       const result = await fixtures.ssrHydratedFixture<T>(template, options);
