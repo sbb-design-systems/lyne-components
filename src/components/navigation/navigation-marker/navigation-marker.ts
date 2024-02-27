@@ -2,6 +2,7 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { SbbNamedSlotListElementMixin, type WithListChildren } from '../../core/common-behaviors';
+import { toggleDatasetEntry } from '../../core/dom';
 import { AgnosticResizeObserver } from '../../core/observers';
 import type { SbbNavigationButtonElement, SbbNavigationLinkElement } from '../index';
 
@@ -44,8 +45,8 @@ export class SbbNavigationMarkerElement extends SbbNamedSlotListElementMixin<
       action.size = this.size;
     }
 
-    this._currentActiveAction = this.listChildren.find(
-      (action) => action.active ?? action.getAttribute('active'),
+    this._currentActiveAction = this.listChildren.find((action) =>
+      action.hasAttribute('data-action-active'),
     );
     this._setMarkerPosition();
   }
@@ -62,7 +63,7 @@ export class SbbNavigationMarkerElement extends SbbNamedSlotListElementMixin<
 
   public select(action: SbbNavigationButtonElement | SbbNavigationLinkElement): void {
     this.reset();
-    action.active = true;
+    toggleDatasetEntry(action, 'actionActive', true);
     this._currentActiveAction = action;
     setTimeout(() => this._setMarkerPosition());
   }
@@ -74,7 +75,7 @@ export class SbbNavigationMarkerElement extends SbbNamedSlotListElementMixin<
 
   public reset(): void {
     if (this._currentActiveAction) {
-      this._currentActiveAction.active = false;
+      toggleDatasetEntry(this._currentActiveAction, 'actionActive', false);
       this._currentActiveAction = undefined;
     }
   }
