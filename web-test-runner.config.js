@@ -3,7 +3,8 @@ import { defaultReporter, dotReporter, summaryReporter } from '@web/test-runner'
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { puppeteerLauncher } from '@web/test-runner-puppeteer';
 import { a11ySnapshotPlugin } from '@web/test-runner-commands/plugins';
-import { existsSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
+import * as glob from 'glob';
 import * as sass from 'sass';
 import { createServer } from 'vite';
 
@@ -56,12 +57,17 @@ const testRunnerHtml = (testFramework, _config, group) => `
 </html>
 `;
 
+// Temporary workaround, until all files are migrated to ssr testing.
+const e2eFiles = glob
+  .sync('**/*.e2e.ts', { cwd: new URL('.', import.meta.url) })
+  .filter((f) => readFileSync(f, 'utf8').includes('${fixture.name}'));
+
 /** @type {import('@web/test-runner').TestRunnerConfig} */
 export default {
   files: ['src/**/*.{e2e,spec}.ts'],
   groups: [
-    { name: 'e2e-ssr-hydrated', files: 'src/**/*.e2e.ts', testRunnerHtml },
-    { name: 'e2e-ssr-non-hydrated', files: 'src/**/*.e2e.ts', testRunnerHtml },
+    { name: 'e2e-ssr-hydrated', files: e2eFiles, testRunnerHtml },
+    { name: 'e2e-ssr-non-hydrated', files: e2eFiles, testRunnerHtml },
   ],
   nodeResolve: true,
   reporters: isDebugMode ? [defaultReporter(), summaryReporter()] : [minimalReporter()],
