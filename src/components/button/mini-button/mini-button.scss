@@ -1,39 +1,15 @@
 @use '../../core/styles' as sbb;
 
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
 :host {
-  @include sbb.icon-button-variables;
+  display: flex;
 
-  --sbb-button-shadow-1-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
-  --sbb-button-shadow-2-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
-  --sbb-button-shadow-1-blur: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
-  --sbb-button-shadow-2-blur: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
-  --sbb-button-shadow-1-color: var(--sbb-color-black-alpha-0);
-  --sbb-button-shadow-2-color: var(--sbb-color-black-alpha-0);
-
-  :first-child {
-    &::before {
-      :host:not([disabled], :active, [data-active]) & {
-        box-shadow:
-          var(--sbb-shadow-elevation-level-3-shadow-2-offset-x) var(--sbb-button-shadow-2-offset-y)
-            var(--sbb-button-shadow-2-blur) var(--sbb-shadow-elevation-level-3-shadow-2-spread)
-            var(--sbb-button-shadow-2-color),
-          var(--sbb-shadow-elevation-level-3-shadow-1-offset-x) var(--sbb-button-shadow-1-offset-y)
-            var(--sbb-button-shadow-1-blur) var(--sbb-shadow-elevation-level-3-shadow-1-spread)
-            var(--sbb-button-shadow-1-color);
-      }
-    }
-
-    sbb-icon {
-      transition: transform var(--sbb-button-transition-duration)
-        var(--sbb-button-transition-easing-function);
-      transform: translateY(var(--sbb-button-translate-y-content-hover, #{sbb.px-to-rem-build(0)}));
-    }
-  }
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
 }
 
-:host([negative]) {
-  @include sbb.icon-button-variables-negative;
-
-  --sbb-button-shadow-1-color: var(--sbb-color-black-alpha-0);
-  --sbb-button-shadow-2-color: var(--sbb-color-black-alpha-0);
-}
+@include sbb.icon-button('.sbb-mini-button', 'sbb-icon');

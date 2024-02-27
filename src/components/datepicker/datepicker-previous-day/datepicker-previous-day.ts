@@ -2,12 +2,11 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { SbbMiniButtonElement } from '../../button';
 import {
   hostAttributes,
   LanguageController,
-  SbbButtonBaseElement,
   SbbNegativeMixin,
+  SbbButtonBaseElement,
 } from '../../core/common-behaviors';
 import { defaultDateAdapter, type DateAdapter } from '../../core/datetime';
 import { isValidAttribute, toggleDatasetEntry } from '../../core/dom';
@@ -31,7 +30,7 @@ import style from './datepicker-previous-day.scss?lit&inline';
 })
 @customElement('sbb-datepicker-previous-day')
 export class SbbDatepickerPreviousDayElement extends SbbNegativeMixin(SbbButtonBaseElement) {
-  public static override styles: CSSResultGroup = [SbbMiniButtonElement.styles, style];
+  public static override styles: CSSResultGroup = style;
 
   /** Datepicker reference. */
   @property({ attribute: 'date-picker' }) public datePicker?: string | SbbDatepickerElement;
@@ -89,6 +88,8 @@ export class SbbDatepickerPreviousDayElement extends SbbNegativeMixin(SbbButtonB
   private _syncUpstreamProperties(): void {
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
     if (formField) {
+      this.negative = isValidAttribute(formField, 'negative');
+
       // We can't use getInputElement of SbbFormFieldElement as async awaiting is not supported in connectedCallback.
       // We here only have to look for input.
       const inputElement = formField.querySelector('input');

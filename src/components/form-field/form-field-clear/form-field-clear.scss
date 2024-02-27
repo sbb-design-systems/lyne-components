@@ -4,6 +4,10 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
-.sbb-form-field-clear {
-  @include sbb.button-base;
+:host {
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
 }
+
+@include sbb.icon-button('.sbb-form-field-clear', 'sbb-icon');

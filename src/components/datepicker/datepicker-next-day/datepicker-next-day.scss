@@ -12,9 +12,9 @@
   outline: none !important;
 }
 
-.sbb-datepicker-next-day {
-  @include sbb.button-base;
+@include sbb.icon-button('.sbb-datepicker-next-day', 'sbb-icon');
 
+.sbb-datepicker-next-day {
   margin: auto;
   -webkit-tap-highlight-color: transparent;
 }

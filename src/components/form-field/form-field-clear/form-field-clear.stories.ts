@@ -17,7 +17,6 @@ import { sbbSpread } from '../../core/dom';
 import readme from './readme.md?raw';
 import './form-field-clear';
 import '../form-field';
-import '../../button/mini-button';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
@@ -61,7 +60,7 @@ const basicArgs: Args = {
 
 const DefaultTemplate = ({ negative, ...args }: Args): TemplateResult => html`
   <sbb-form-field label="Label" ?negative=${negative}>
-    <sbb-mini-button slot="prefix" icon-name="pie-small"></sbb-mini-button>
+    <sbb-icon slot="prefix" name="pie-small"></sbb-icon>
     <input type="text" placeholder="Input placeholder" value="Input value" ${sbbSpread(args)} />
     <sbb-form-field-clear></sbb-form-field-clear>
   </sbb-form-field>
