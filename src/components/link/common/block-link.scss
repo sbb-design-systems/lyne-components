@@ -2,9 +2,13 @@
 
 :host {
   display: block;
+
+  --sbb-link-gap: var(--sbb-spacing-fixed-1x);
 }
 
 .sbb-action-base {
+  gap: var(--sbb-link-gap);
+
   :host([size='xs']) & {
     @include sbb.text-xs--regular;
   }

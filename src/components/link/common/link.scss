@@ -5,9 +5,6 @@
 @include sbb.host-component-properties;
 
 :host {
-  // Necessary to forward styles to native link
-  @include sbb.text-inherit;
-
   color: inherit;
 
   // Use !important here to not interfere with Firefox focus ring definition
@@ -15,8 +12,6 @@
   outline: none !important;
 
   @include sbb.link-variables;
-
-  --sbb-link-gap: var(--sbb-spacing-fixed-1x);
 }
 
 :host([negative]) {
@@ -32,7 +27,6 @@
 
   display: flex;
   align-items: center;
-  gap: var(--sbb-link-gap);
   word-break: break-word;
   width: 100%;
   cursor: pointer;

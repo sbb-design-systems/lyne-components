@@ -1,6 +1,8 @@
 @use '../../core/styles' as sbb;
 
 :host {
+  // Necessary to forward styles to native link
+  @include sbb.text-inherit;
   @include sbb.link-variables--inline;
 
   display: inline-block;
