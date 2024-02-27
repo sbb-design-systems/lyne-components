@@ -9,7 +9,7 @@ and it's meant to be used whenever is required to nest one button inside another
 
 The button text is provided via an unnamed slot; the component can optionally display a `sbb-icon`
 at the component start using the `iconName` property or via custom content using the `icon` slot.
-At least one is mandatory, so you can have a `sbb-button-static` with icon only, text only, or with both.
+At least one is mandatory, so you can have a `sbb-tertiary-button-static` with icon only, text only, or with both.
 
 ```html
 <sbb-tertiary-button-static icon-name="info"> Button text </sbb-tertiary-button-static>
@@ -69,7 +69,7 @@ Use the accessibility properties in case of an icon-only button to describe the 
 
 ## Slots
 
-| Name   | Description                                        |
-| ------ | -------------------------------------------------- |
-|        | Use the unnamed slot to add content to the button. |
-| `icon` | Slot used to display the icon, if one is set       |
+| Name   | Description                                                        |
+| ------ | ------------------------------------------------------------------ |
+|        | Use the unnamed slot to add content to the tertiary-button-static. |
+| `icon` | Slot used to display the icon, if one is set                       |

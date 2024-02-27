@@ -55,6 +55,7 @@ const miniButtonDefaultArgTypes: ArgTypes = {
 const miniButtonDefaultArgs: Args = {
   ...buttonDefaultArgs,
   'icon-name': 'pen-small',
+  slot: slot.options[0],
 };
 
 ['size', 'text'].forEach((e) => {
@@ -64,22 +65,21 @@ const miniButtonDefaultArgs: Args = {
 
 export const Prefix: StoryObj = {
   render: MiniButtonCommonTemplate,
-  args: { slot: slot.options[0] },
 };
 
 export const PrefixNegative: StoryObj = {
   render: MiniButtonCommonTemplate,
-  args: { slot: slot.options[0], negative: true },
+  args: { negative: true },
 };
 
 export const PrefixDisabled: StoryObj = {
   render: MiniButtonCommonTemplate,
-  args: { slot: slot.options[0], disabled: true },
+  args: { disabled: true },
 };
 
 export const PrefixSlottedIcon: StoryObj = {
   render: MiniButtonSlottedIconCommonTemplate,
-  args: { slot: slot.options[0] },
+  args: { 'icon-name': undefined },
 };
 
 export const Suffix: StoryObj = {
@@ -99,7 +99,7 @@ export const SuffixDisabled: StoryObj = {
 
 export const SuffixSlottedIcon: StoryObj = {
   render: MiniButtonSlottedIconCommonTemplate,
-  args: { slot: slot.options[1] },
+  args: { slot: slot.options[1], 'icon-name': undefined },
 };
 
 const meta: Meta = {

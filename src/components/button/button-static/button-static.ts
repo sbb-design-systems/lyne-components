@@ -9,7 +9,7 @@ import style from '../common/primary-button.scss?lit&inline';
 /**
  * It displays a static button enhanced with the SBB Design in the 'primary' variant.
  *
- * @slot - Use the unnamed slot to add content to the button.
+ * @slot - Use the unnamed slot to add content to the button-static.
  * @slot icon - Slot used to display the icon, if one is set
  */
 @customElement('sbb-button-static')

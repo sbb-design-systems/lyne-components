@@ -12,4 +12,4 @@
   outline: none !important;
 }
 
-@include sbb.icon-button('.sbb-mini-button', 'sbb-icon');
+@include sbb.icon-button('.sbb-mini-button', '::slotted(sbb-icon), sbb-icon');

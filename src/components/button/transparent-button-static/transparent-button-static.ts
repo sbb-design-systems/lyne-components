@@ -9,7 +9,7 @@ import style from '../common/transparent-button.scss?lit&inline';
 /**
  * It displays a static button enhanced with the SBB Design in the 'transparent' variant.
  *
- * @slot - Use the unnamed slot to add content to the button.
+ * @slot - Use the unnamed slot to add content to the transparent-button-static.
  * @slot icon - Slot used to display the icon, if one is set
  */
 @customElement('sbb-transparent-button-static')

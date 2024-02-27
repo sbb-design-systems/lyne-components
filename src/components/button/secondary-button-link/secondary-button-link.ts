@@ -9,7 +9,7 @@ import style from '../common/secondary-button.scss?lit&inline';
 /**
  * It displays a button enhanced with the SBB Design in the 'primary' variant, which will behave as a link.
  *
- * @slot - Use the unnamed slot to add content to the button-link.
+ * @slot - Use the unnamed slot to add content to the secondary-button-link.
  * @slot icon - Slot used to display the icon, if one is set
  */
 @customElement('sbb-secondary-button-link')

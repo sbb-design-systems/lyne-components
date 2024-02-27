@@ -71,8 +71,8 @@ This can be done via the `prefix` and `suffix` slots.
 </sbb-form-field>
 ```
 
-It's also possible to slot an icon-only button or button-link using the [sbb-mini-button](/docs/components-sbb-button-sbb-mini-button--docs).
-Please note that when slotting buttons/button-links, only this component is correctly supported in `negative` mode.
+It's also possible to slot an icon-only button using the [sbb-mini-button](/docs/components-sbb-button-sbb-mini-button--docs).
+Please note that only this component is correctly supported when slotting buttons in `negative` mode.
 
 ```html
 <sbb-form-field label="Example">

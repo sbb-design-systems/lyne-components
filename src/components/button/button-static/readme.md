@@ -66,7 +66,7 @@ Use the accessibility properties in case of an icon-only button to describe the 
 
 ## Slots
 
-| Name   | Description                                        |
-| ------ | -------------------------------------------------- |
-|        | Use the unnamed slot to add content to the button. |
-| `icon` | Slot used to display the icon, if one is set       |
+| Name   | Description                                               |
+| ------ | --------------------------------------------------------- |
+|        | Use the unnamed slot to add content to the button-static. |
+| `icon` | Slot used to display the icon, if one is set              |

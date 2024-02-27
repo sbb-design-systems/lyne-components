@@ -9,7 +9,7 @@ despite its appearance as a button enhanced with the SBB Design in the 'secondar
 
 The text is provided via an unnamed slot; the component can optionally display a `sbb-icon`
 at the component start using the `iconName` property or via custom content using the `icon` slot.
-At least one is mandatory, so you can have a `sbb-button-link` with icon only, text only, or with both.
+At least one is mandatory, so you can have a `sbb-secondary-button-link` with icon only, text only, or with both.
 
 ```html
 <sbb-secondary-button-link href="https://www.sbb.ch" icon-name="info">
@@ -92,7 +92,7 @@ Use the accessibility properties in case of an icon-only button to describe the 
 
 ## Slots
 
-| Name   | Description                                             |
-| ------ | ------------------------------------------------------- |
-|        | Use the unnamed slot to add content to the button-link. |
-| `icon` | Slot used to display the icon, if one is set            |
+| Name   | Description                                                       |
+| ------ | ----------------------------------------------------------------- |
+|        | Use the unnamed slot to add content to the secondary-button-link. |
+| `icon` | Slot used to display the icon, if one is set                      |

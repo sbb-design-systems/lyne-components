@@ -9,7 +9,7 @@ import style from '../common/tertiary-button.scss?lit&inline';
 /**
  * It displays a button enhanced with the SBB Design in the 'tertiary' variant.
  *
- * @slot - Use the unnamed slot to add content to the button.
+ * @slot - Use the unnamed slot to add content to the tertiary-button.
  * @slot icon - Slot used to display the icon, if one is set
  */
 @customElement('sbb-tertiary-button')
