@@ -7,10 +7,17 @@ export const describeIf = (
   condition: boolean,
   title: string,
   fn: (this: Suite) => void,
-): Suite | void => (condition ? Mocha.describe(title, fn) : Mocha.describe.skip(title, fn));
+): Suite | void => {
+  if (condition) {
+    return Mocha.describe(title, fn);
+  }
+};
 
 /**
  * Skip the `test` if the condition is not met
  */
-export const testIf = (condition: boolean, title: string, fn?: Func): Test =>
-  condition ? Mocha.test(title, fn) : Mocha.test.skip(title, fn);
+export const testIf = (condition: boolean, title: string, fn?: Func): Test | void => {
+  if (condition) {
+    Mocha.test(title, fn);
+  }
+};
