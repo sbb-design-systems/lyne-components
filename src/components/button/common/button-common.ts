@@ -12,7 +12,6 @@ import {
   SbbIconNameMixin,
   SbbNegativeMixin,
 } from '../../core/common-behaviors';
-import { toggleDatasetEntry } from '../../core/dom';
 
 import '../../icon';
 
@@ -53,34 +52,5 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
     }
   }
   return SbbButtonCommonElement as unknown as AbstractConstructor<SbbButtonCommonElementMixinType> &
-    T;
-};
-
-export declare class SbbMiniButtonCommonElementMixinType implements SbbNegativeMixinType {
-  public negative: boolean;
-  protected renderIcon(): TemplateResult;
-}
-
-// eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbMiniButtonCommonElementMixin = <
-  T extends AbstractConstructor<SbbActionBaseElement>,
->(
-  superClass: T,
-): AbstractConstructor<SbbMiniButtonCommonElementMixinType> & T => {
-  abstract class SbbMiniButtonCommonElement extends SbbNegativeMixin(superClass) {
-    public override connectedCallback(): void {
-      super.connectedCallback();
-      toggleDatasetEntry(this, 'iconOnly', true);
-    }
-
-    protected renderIcon(): TemplateResult {
-      throw new Error('Implementation needed!');
-    }
-
-    protected override renderTemplate(): TemplateResult {
-      return this.renderIcon();
-    }
-  }
-  return SbbMiniButtonCommonElement as unknown as AbstractConstructor<SbbMiniButtonCommonElementMixinType> &
     T;
 };

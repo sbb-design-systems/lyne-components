@@ -3,8 +3,12 @@ import { html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { SbbMiniButtonElement } from '../../button';
-import { SbbMiniButtonCommonElementMixin } from '../../button/common';
-import { hostAttributes, LanguageController, SbbButtonBaseElement } from '../../core/common-behaviors';
+import {
+  hostAttributes,
+  LanguageController,
+  SbbButtonBaseElement,
+  SbbNegativeMixin,
+} from '../../core/common-behaviors';
 import { defaultDateAdapter, type DateAdapter } from '../../core/datetime';
 import { isValidAttribute, toggleDatasetEntry } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
@@ -26,9 +30,7 @@ import style from './datepicker-next-day.scss?lit&inline';
   slot: 'suffix',
 })
 @customElement('sbb-datepicker-next-day')
-export class SbbDatepickerNextDayElement extends SbbMiniButtonCommonElementMixin(
-  SbbButtonBaseElement,
-) {
+export class SbbDatepickerNextDayElement extends SbbNegativeMixin(SbbButtonBaseElement) {
   public static override styles: CSSResultGroup = [SbbMiniButtonElement.styles, style];
 
   /** Datepicker reference. */
@@ -87,8 +89,6 @@ export class SbbDatepickerNextDayElement extends SbbMiniButtonCommonElementMixin
   private _syncUpstreamProperties(): void {
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
     if (formField) {
-      this.negative = isValidAttribute(formField, 'negative');
-
       // We can't use getInputElement of SbbFormFieldElement as async awaiting is not supported in connectedCallback.
       // We here only have to look for input.
       const inputElement = formField.querySelector('input');
@@ -198,7 +198,7 @@ export class SbbDatepickerNextDayElement extends SbbMiniButtonCommonElementMixin
     }
   }
 
-  protected override renderIcon(): TemplateResult {
+  protected override renderTemplate(): TemplateResult {
     this._setDisabledRenderAttributes();
     return html` <sbb-icon name="chevron-small-right-small"></sbb-icon> `;
   }

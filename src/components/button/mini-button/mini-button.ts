@@ -6,8 +6,8 @@ import {
   SbbButtonBaseElement,
   SbbDisabledTabIndexActionMixin,
   SbbIconNameMixin,
+  SbbNegativeMixin,
 } from '../../core/common-behaviors';
-import { SbbMiniButtonCommonElementMixin } from '../common/button-common';
 import commonStyle from '../common/button-common.scss?lit&inline';
 
 import style from './mini-button.scss?lit&inline';
@@ -19,7 +19,7 @@ import style from './mini-button.scss?lit&inline';
  * @slot icon - Slot used to display the icon, if one is set
  */
 @customElement('sbb-mini-button')
-export class SbbMiniButtonElement extends SbbMiniButtonCommonElementMixin(
+export class SbbMiniButtonElement extends SbbNegativeMixin(
   SbbIconNameMixin(SbbDisabledTabIndexActionMixin(SbbButtonBaseElement)),
 ) {
   public static override styles: CSSResultGroup = [commonStyle, style];
@@ -29,7 +29,7 @@ export class SbbMiniButtonElement extends SbbMiniButtonCommonElementMixin(
     new NamedSlotStateController(this);
   }
 
-  protected override renderIcon(): TemplateResult {
+  protected override renderTemplate(): TemplateResult {
     return html`${super.renderIconSlot()}`;
   }
 }

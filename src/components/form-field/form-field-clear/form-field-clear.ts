@@ -2,8 +2,13 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbMiniButtonCommonElementMixin, SbbMiniButtonElement } from '../../button';
-import { hostAttributes, LanguageController, SbbButtonBaseElement } from '../../core/common-behaviors';
+import { SbbMiniButtonElement } from '../../button';
+import {
+  hostAttributes,
+  LanguageController,
+  SbbButtonBaseElement,
+  SbbNegativeMixin,
+} from '../../core/common-behaviors';
 import { hostContext } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
 import { i18nClearInput } from '../../core/i18n';
@@ -19,9 +24,7 @@ import '../../icon';
   slot: 'suffix',
 })
 @customElement('sbb-form-field-clear')
-export class SbbFormFieldClearElement extends SbbMiniButtonCommonElementMixin(
-  SbbButtonBaseElement,
-) {
+export class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElement) {
   public static override styles: CSSResultGroup = [SbbMiniButtonElement.styles, style];
 
   private _formField?: SbbFormFieldElement;
@@ -53,7 +56,7 @@ export class SbbFormFieldClearElement extends SbbMiniButtonCommonElementMixin(
     this.setAttribute('aria-label', i18nClearInput[this._language.current]);
   }
 
-  protected override renderIcon(): TemplateResult {
+  protected override renderTemplate(): TemplateResult {
     return html` <sbb-icon name="cross-small"></sbb-icon> `;
   }
 }

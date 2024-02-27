@@ -6,7 +6,6 @@ snapshots["sbb-datepicker-next-day renders"] =
   aria-disabled="true"
   aria-label="Next day"
   data-disabled=""
-  data-icon-only=""
   dir="ltr"
   role="button"
   slot="suffix"
@@ -18,7 +17,6 @@ snapshots["sbb-datepicker-next-day renders"] =
 snapshots["sbb-datepicker-next-day renders with connected datepicker"] = 
 `<sbb-datepicker-next-day
   aria-label="Change to the next day, currently selected December 31, 2022."
-  data-icon-only=""
   date-picker="datepicker"
   dir="ltr"
   role="button"

@@ -21,7 +21,7 @@
   color: inherit;
 }
 
-$icon-only: ':where([data-slot-names~=icon], [icon-name], [data-icon-only]):not([data-slot-names~=unnamed])';
+$icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=unnamed])';
 
 @mixin button-base {
   @include typo.text-xs--bold;
