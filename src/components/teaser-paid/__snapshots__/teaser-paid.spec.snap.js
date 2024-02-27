@@ -1,40 +1,6 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-teaser-paid renders"] = 
-`<a
-  class="sbb-teaser-paid"
-  role="presentation"
-  tabindex="-1"
->
-  <slot name="chip">
-  </slot>
-  <slot name="image">
-  </slot>
-</a>
-`;
-/* end snapshot sbb-teaser-paid renders */
-
-snapshots["A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot A11y tree Chrome */
-
-snapshots["sbb-teaser-paid A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-teaser-paid A11y tree Chrome */
-
 snapshots["sbb-teaser-paid Dom"] = 
 `<sbb-teaser-paid
   aria-label="label"
@@ -68,4 +34,26 @@ snapshots["sbb-teaser-paid ShadowDom"] =
 </a>
 `;
 /* end snapshot sbb-teaser-paid ShadowDom */
+
+snapshots["sbb-teaser-paid A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "label",
+      "children": [
+        {
+          "role": "link",
+          "name": ". Link target opens in a new window."
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-teaser-paid A11y tree Chrome */
 
