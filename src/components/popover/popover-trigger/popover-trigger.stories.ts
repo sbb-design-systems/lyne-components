@@ -77,14 +77,14 @@ const popover = (): TemplateResult => html`
     </sbb-title>
     <p class="sbb-text-s" style="margin: 0;">
       Some content.
-      <sbb-block-link
+      <sbb-link
         size="s"
         icon-name="chevron-small-right-small"
         icon-placement="end"
         sbb-popover-close
       >
         Learn More
-      </sbb-block-link>
+      </sbb-link>
     </p>
   </sbb-popover>
 `;
