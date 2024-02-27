@@ -11,6 +11,6 @@
   @include sbb.link-variables--inline-negative;
 }
 
-:is(.sbb-action-base) {
+.sbb-action-base {
   @include sbb.link-inline-base;
 }

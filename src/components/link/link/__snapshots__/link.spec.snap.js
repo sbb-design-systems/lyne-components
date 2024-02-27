@@ -5,7 +5,7 @@ snapshots["sbb-link renders - DOM"] =
 `<sbb-link
   data-slot-names="unnamed"
   dir="ltr"
-  href="sbb.ch"
+  href="https://sbb.ch"
   role="link"
   size="m"
   tabindex="0"
@@ -19,7 +19,7 @@ snapshots["sbb-link renders - DOM"] =
 snapshots["sbb-link renders - ShadowDOM"] = 
 `<a
   class="sbb-action-base sbb-link"
-  href="sbb.ch"
+  href="https://sbb.ch"
   rel="external noopener nofollow"
   role="presentation"
   tabindex="-1"
@@ -69,7 +69,7 @@ snapshots["sbb-link A11y tree Firefox"] =
         {
           "role": "link",
           "name": "Travelcards & tickets. . Link target opens in a new window.",
-          "value": "http://localhost:8000/sbb.ch"
+          "value": "https://sbb.ch/"
         }
       ]
     }

@@ -27,7 +27,7 @@
   @include sbb.link-variables--button;
 }
 
-:is(.sbb-action-base) {
+.sbb-action-base {
   @include sbb.link-base;
 
   display: flex;
