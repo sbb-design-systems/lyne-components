@@ -1,30 +1,32 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
+
 import './teaser-paid';
+import type { SbbTeaserPaidElement } from './teaser-paid';
 
 describe('sbb-teaser-paid', () => {
-  it('renders', async () => {
-    const root = await fixture(html`<sbb-teaser-paid></sbb-teaser-paid>`);
+  let element: SbbTeaserPaidElement;
 
-    expect(root).dom.to.be.equal(`
-      <sbb-teaser-paid
-        dir="ltr"
-        role="link"
-        tabindex="0"
-      ></sbb-teaser-paid>
-    `);
-
-    expect(root).shadowDom.to.be.equal(`
-    <a
-      class="sbb-teaser-paid"
-      role="presentation"
-      tabindex="-1"
-    >
-      <slot name="chip">
-      </slot>
-      <slot name="image">
-      </slot>
-    </a>
-    `);
+  beforeEach(async () => {
+    element = await fixture(
+      html`<sbb-teaser-paid
+        aria-label="label"
+        href="https://www.sbb.ch"
+        rel="external"
+        target="_blank"
+      ></sbb-teaser-paid>`,
+    );
   });
+
+  it('Dom', async () => {
+    await expect(element).dom.to.be.equalSnapshot();
+  });
+
+  it('ShadowDom', async () => {
+    await expect(element).shadowDom.to.be.equalSnapshot();
+  });
+
+  testA11yTreeSnapshot();
 });
