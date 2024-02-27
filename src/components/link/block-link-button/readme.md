@@ -1,4 +1,4 @@
-The `sbb-link-button` component provides the same functionality as a native `<button>`,
+The `sbb-block-link-button` component provides the same functionality as a native `<button>`,
 despite its appearance as a link enhanced with the SBB Design.
 
 ## Slots
@@ -8,11 +8,11 @@ the `iconName` property or via custom content using the `icon` slot.
 By default, the icon is placed at the component's end, but this can be changed using the `iconPlacement` property.
 
 ```html
-<sbb-link-button value="hilfe"> Help </sbb-link-button>
+<sbb-block-link-button value="hilfe"> Help </sbb-block-link-button>
 
-<sbb-link-button value="contact" icon-name="chevron-small-left-small" icon-placement="start">
+<sbb-block-link-button value="contact" icon-name="chevron-small-left-small" icon-placement="start">
   Contact
-</sbb-link-button>
+</sbb-block-link-button>
 ```
 
 ## States
@@ -20,7 +20,7 @@ By default, the icon is placed at the component's end, but this can be changed u
 The component can be displayed in `disabled` state using the self-named property.
 
 ```html
-<sbb-link-button disabled>Refunds</sbb-link-button>
+<sbb-block-link-button disabled>Refunds</sbb-block-link-button>
 ```
 
 ## Button properties
@@ -29,23 +29,17 @@ The component is internally rendered as a button,
 accepting its associated properties (`type`, `name`, `value` and `form`).
 
 ```html
-<sbb-link-button type="button" name="tickets" form="buy" value="tickets">
+<sbb-block-link-button type="button" name="tickets" form="buy" value="tickets">
   Travel-cards and tickets
-</sbb-link-button>
+</sbb-block-link-button>
 ```
 
 ## Style
 
-The component has two variants (`block`, which is the default, and `inline`), that can be set using the `variant` property,
-and it has also three sizes (`xs`, `s`, which is the default, and `m`) that are relevant only in `variant='block`'.
+The component has three sizes (`xs`, `s`, which is the default, and `m`).
 
 ```html
-<sbb-link-button size="m">Refunds</sbb-link-button>
-
-<p>
-  Some informative text.
-  <sbb-link-button variant="inline">Show more.</sbb-link-button>
-</p>
+<sbb-block-link-button size="m">Refunds</sbb-block-link-button>
 ```
 
 <!-- Auto Generated Below -->
@@ -65,7 +59,7 @@ and it has also three sizes (`xs`, `s`, which is the default, and `m`) that are 
 
 ## Slots
 
-| Name   | Description                                                   |
-| ------ | ------------------------------------------------------------- |
-|        | Use the unnamed slot to add content to the `sbb-link-button`. |
-| `icon` | Slot used to display the icon, if one is set.                 |
+| Name   | Description                                                         |
+| ------ | ------------------------------------------------------------------- |
+|        | Use the unnamed slot to add content to the `sbb-block-link-button`. |
+| `icon` | Slot used to display the icon, if one is set.                       |

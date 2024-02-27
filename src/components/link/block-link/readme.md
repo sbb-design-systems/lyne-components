@@ -1,4 +1,4 @@
-The `sbb-link` component provides the same functionality as a native `<a>` enhanced with the SBB Design.
+The `sbb-block-link` component provides the same functionality as a native `<a>` enhanced with the SBB Design.
 
 ## Slots
 
@@ -7,11 +7,17 @@ the `iconName` property or via custom content using the `icon` slot.
 By default, the icon is placed at the component's end, but this can be changed using the `iconPlacement` property.
 
 ```html
-<sbb-link href="https://www.sbb.ch" icon-name="chevron-small-right-small"> Help </sbb-link>
+<sbb-block-link href="https://www.sbb.ch" icon-name="chevron-small-right-small">
+  Help
+</sbb-block-link>
 
-<sbb-link href="https://www.sbb.ch" icon-name="chevron-small-left-small" icon-placement="start">
+<sbb-block-link
+  href="https://www.sbb.ch"
+  icon-name="chevron-small-left-small"
+  icon-placement="start"
+>
   Contact
-</sbb-link>
+</sbb-block-link>
 ```
 
 ## States
@@ -19,7 +25,7 @@ By default, the icon is placed at the component's end, but this can be changed u
 The component can be displayed in `disabled` state using the self-named property.
 
 ```html
-<sbb-link href="https://www.sbb.ch" disabled>Refunds</sbb-link>
+<sbb-block-link href="https://www.sbb.ch" disabled>Refunds</sbb-block-link>
 ```
 
 ## Link properties
@@ -28,23 +34,17 @@ The component is internally rendered as a link,
 accepting its associated properties (`href`, `target`, `rel` and `download`).
 
 ```html
-<sbb-link href="https://github.com/lyne-design-system/lyne-components" target="_blank">
+<sbb-block-link href="https://github.com/lyne-design-system/lyne-components" target="_blank">
   Travel-cards and tickets
-</sbb-link>
+</sbb-block-link>
 ```
 
 ## Style
 
-The component has two variants (`block`, which is the default, and `inline`), that can be set using the `variant` property,
-and it has also three sizes (`xs`, `s`, which is the default, and `m`) that are relevant only in `variant='block`'.
+The component has three sizes (`xs`, `s`, which is the default, and `m`).
 
 ```html
-<sbb-link href="https://www.sbb.ch" size="m">Refunds</sbb-link>
-
-<p>
-  Some informative text.
-  <sbb-link variant="inline" href="#info">Show more.</sbb-link>
-</p>
+<sbb-block-link href="https://www.sbb.ch" size="m">Refunds</sbb-block-link>
 ```
 
 <!-- Auto Generated Below -->
@@ -64,7 +64,7 @@ and it has also three sizes (`xs`, `s`, which is the default, and `m`) that are 
 
 ## Slots
 
-| Name   | Description                                            |
-| ------ | ------------------------------------------------------ |
-|        | Use the unnamed slot to add content to the `sbb-link`. |
-| `icon` | Slot used to display the icon, if one is set.          |
+| Name   | Description                                                  |
+| ------ | ------------------------------------------------------------ |
+|        | Use the unnamed slot to add content to the `sbb-block-link`. |
+| `icon` | Slot used to display the icon, if one is set.                |

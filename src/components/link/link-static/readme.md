@@ -7,17 +7,7 @@ and it's meant to be used whenever is required to nest one link inside another w
 
 ## Slots
 
-The text is provided via an unnamed slot; the component can optionally display a `sbb-icon` using
-the `iconName` property or via custom content using the `icon` slot.
-By default, the icon is placed at the component's end, but this can be changed using the `iconPlacement` property.
-
-```html
-<sbb-link-static icon-name="chevron-small-right-small"> Help </sbb-link-static>
-
-<sbb-link-static icon-name="chevron-small-left-small" icon-placement="start">
-  Contact
-</sbb-link-static>
-```
+The text is provided via an unnamed slot.
 
 ## States
 
@@ -25,20 +15,6 @@ The component can be displayed in `disabled` state using the self-named property
 
 ```html
 <sbb-link-static disabled>Refunds</sbb-link-static>
-```
-
-## Style
-
-The component has two variants (`block`, which is the default, and `inline`), that can be set using the `variant` property,
-and it has also three sizes (`xs`, `s`, which is the default, and `m`) that are relevant only in `variant='block`'.
-
-```html
-<sbb-link-static size="m">Refunds</sbb-link-static>
-
-<p>
-  Some informative text.
-  <sbb-link-static variant="inline">Show more.</sbb-link-static>
-</p>
 ```
 
 <!-- Auto Generated Below -->

@@ -1,8 +1,8 @@
-The `sbb-link-static` component mimics the look of the `<sbb-link>`,
+The `sbb-block-link-static` component mimics the look of the `<sbb-link>`,
 and it's meant to be used whenever is required to nest one link inside another without breaking the HTML functionality.
 
 ```html
-<sbb-link-static>Fake link</sbb-link-static>
+<sbb-block-link-static>Fake link</sbb-block-link-static>
 ```
 
 ## Slots
@@ -12,11 +12,11 @@ the `iconName` property or via custom content using the `icon` slot.
 By default, the icon is placed at the component's end, but this can be changed using the `iconPlacement` property.
 
 ```html
-<sbb-link-static icon-name="chevron-small-right-small"> Help </sbb-link-static>
+<sbb-block-link-static icon-name="chevron-small-right-small"> Help </sbb-block-link-static>
 
-<sbb-link-static icon-name="chevron-small-left-small" icon-placement="start">
+<sbb-block-link-static icon-name="chevron-small-left-small" icon-placement="start">
   Contact
-</sbb-link-static>
+</sbb-block-link-static>
 ```
 
 ## States
@@ -24,21 +24,15 @@ By default, the icon is placed at the component's end, but this can be changed u
 The component can be displayed in `disabled` state using the self-named property.
 
 ```html
-<sbb-link-static disabled>Refunds</sbb-link-static>
+<sbb-block-link-static disabled>Refunds</sbb-block-link-static>
 ```
 
 ## Style
 
-The component has two variants (`block`, which is the default, and `inline`), that can be set using the `variant` property,
-and it has also three sizes (`xs`, `s`, which is the default, and `m`) that are relevant only in `variant='block`'.
+The component has three sizes (`xs`, `s`, which is the default, and `m`).
 
 ```html
-<sbb-link-static size="m">Refunds</sbb-link-static>
-
-<p>
-  Some informative text.
-  <sbb-link-static variant="inline">Show more.</sbb-link-static>
-</p>
+<sbb-block-link-static size="m">Refunds</sbb-block-link-static>
 ```
 
 <!-- Auto Generated Below -->
@@ -54,7 +48,7 @@ and it has also three sizes (`xs`, `s`, which is the default, and `m`) that are 
 
 ## Slots
 
-| Name   | Description                                                   |
-| ------ | ------------------------------------------------------------- |
-|        | Use the unnamed slot to add content to the `sbb-link-static`. |
-| `icon` | Slot used to display the icon, if one is set.                 |
+| Name   | Description                                                         |
+| ------ | ------------------------------------------------------------------- |
+|        | Use the unnamed slot to add content to the `sbb-block-link-static`. |
+| `icon` | Slot used to display the icon, if one is set.                       |

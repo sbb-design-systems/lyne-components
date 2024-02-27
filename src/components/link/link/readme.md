@@ -2,17 +2,7 @@ The `sbb-link` component provides the same functionality as a native `<a>` enhan
 
 ## Slots
 
-The text is provided via an unnamed slot; the component can optionally display a `sbb-icon` using
-the `iconName` property or via custom content using the `icon` slot.
-By default, the icon is placed at the component's end, but this can be changed using the `iconPlacement` property.
-
-```html
-<sbb-link href="https://www.sbb.ch" icon-name="chevron-small-right-small"> Help </sbb-link>
-
-<sbb-link href="https://www.sbb.ch" icon-name="chevron-small-left-small" icon-placement="start">
-  Contact
-</sbb-link>
-```
+The text is provided via an unnamed slot.
 
 ## States
 
@@ -31,20 +21,6 @@ accepting its associated properties (`href`, `target`, `rel` and `download`).
 <sbb-link href="https://github.com/lyne-design-system/lyne-components" target="_blank">
   Travel-cards and tickets
 </sbb-link>
-```
-
-## Style
-
-The component has two variants (`block`, which is the default, and `inline`), that can be set using the `variant` property,
-and it has also three sizes (`xs`, `s`, which is the default, and `m`) that are relevant only in `variant='block`'.
-
-```html
-<sbb-link href="https://www.sbb.ch" size="m">Refunds</sbb-link>
-
-<p>
-  Some informative text.
-  <sbb-link variant="inline" href="#info">Show more.</sbb-link>
-</p>
 ```
 
 <!-- Auto Generated Below -->

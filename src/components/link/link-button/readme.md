@@ -3,17 +3,7 @@ despite its appearance as a link enhanced with the SBB Design.
 
 ## Slots
 
-The text is provided via an unnamed slot; the component can optionally display a `sbb-icon` using
-the `iconName` property or via custom content using the `icon` slot.
-By default, the icon is placed at the component's end, but this can be changed using the `iconPlacement` property.
-
-```html
-<sbb-link-button value="hilfe"> Help </sbb-link-button>
-
-<sbb-link-button value="contact" icon-name="chevron-small-left-small" icon-placement="start">
-  Contact
-</sbb-link-button>
-```
+The text is provided via an unnamed slot.
 
 ## States
 
@@ -32,20 +22,6 @@ accepting its associated properties (`type`, `name`, `value` and `form`).
 <sbb-link-button type="button" name="tickets" form="buy" value="tickets">
   Travel-cards and tickets
 </sbb-link-button>
-```
-
-## Style
-
-The component has two variants (`block`, which is the default, and `inline`), that can be set using the `variant` property,
-and it has also three sizes (`xs`, `s`, which is the default, and `m`) that are relevant only in `variant='block`'.
-
-```html
-<sbb-link-button size="m">Refunds</sbb-link-button>
-
-<p>
-  Some informative text.
-  <sbb-link-button variant="inline">Show more.</sbb-link-button>
-</p>
 ```
 
 <!-- Auto Generated Below -->
