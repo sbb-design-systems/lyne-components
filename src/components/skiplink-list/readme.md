@@ -30,6 +30,6 @@ to specify a custom stack order, the `z-index` can be changed by defining the CS
 
 ## Slots
 
-| Name | Description                                                                                                                            |
-| ---- | -------------------------------------------------------------------------------------------------------------------------------------- |
-|      | Use the unnamed slot to add `sbb-link`/`sbb-link-button`/`sbb-block-link`/`sbb-block-link-button` elements to the `sbb-skiplink-list`. |
+| Name | Description                                                                                               |
+| ---- | --------------------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add `sbb-block-link`/`sbb-block-link-button` elements to the `sbb-skiplink-list`. |
