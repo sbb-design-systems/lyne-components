@@ -18,6 +18,6 @@ export const describeIf = (
  */
 export const testIf = (condition: boolean, title: string, fn?: Func): Test | void => {
   if (condition) {
-    Mocha.test(title, fn);
+    return Mocha.test(title, fn);
   }
 };

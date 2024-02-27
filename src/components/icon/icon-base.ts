@@ -1,6 +1,7 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { until } from 'lit/directives/until.js';
 
 import { getSvgContent } from './icon-request';
@@ -76,7 +77,7 @@ export abstract class SbbIconBase extends LitElement {
   protected override render(): TemplateResult {
     return html`<span class="sbb-icon-inner"
       >${until(
-        this._svgIcon,
+        this._svgIcon?.then((v) => unsafeHTML(v)),
         // To reserve space, we need an empty svg to apply dimension to.
         html`<svg width="0" height="0"></svg>`,
       )}</span
