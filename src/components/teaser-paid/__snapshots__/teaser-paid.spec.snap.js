@@ -57,3 +57,58 @@ snapshots["sbb-teaser-paid A11y tree Chrome"] =
 `;
 /* end snapshot sbb-teaser-paid A11y tree Chrome */
 
+snapshots["sbb-teaser-paid A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "label",
+      "children": [
+        {
+          "role": "link",
+          "name": ". Link target opens in a new window.",
+          "value": "https://www.sbb.ch/"
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-teaser-paid A11y tree Firefox */
+
+snapshots["sbb-teaser-paid A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "link",
+      "name": "label",
+      "children": [
+        {
+          "role": "link",
+          "name": ". Link target opens in a new window.",
+          "children": [
+            {
+              "role": "text",
+              "name": ". "
+            },
+            {
+              "role": "text",
+              "name": "Link target opens in a new window."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-teaser-paid A11y tree Safari */
+
