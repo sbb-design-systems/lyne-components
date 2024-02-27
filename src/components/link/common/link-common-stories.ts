@@ -58,32 +58,6 @@ const negative: InputType = {
   },
 };
 
-const size: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['xs', 's', 'm'],
-};
-
-const iconName: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Icon',
-  },
-};
-
-const iconPlacement: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['start', 'end'],
-  table: {
-    category: 'Icon',
-  },
-};
-
 const ariaLabel: InputType = {
   control: {
     type: 'text',
@@ -111,9 +85,6 @@ const tag: InputType = {
 export const linkCommonDefaultArgTypes: ArgTypes = {
   text,
   negative,
-  size,
-  'icon-name': iconName,
-  'icon-placement': iconPlacement,
   'aria-label': ariaLabel,
   tag,
 };
@@ -121,11 +92,48 @@ export const linkCommonDefaultArgTypes: ArgTypes = {
 export const linkCommonDefaultArgs: Args = {
   text: 'Travelcards & tickets',
   negative: false,
+  'aria-label': undefined,
+  tag: 'TBD',
+};
+
+// block-link params
+
+const size: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: ['xs', 's', 'm'],
+};
+
+const iconName: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Icon',
+  },
+};
+
+const iconPlacement: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['start', 'end'],
+  table: {
+    category: 'Icon',
+  },
+};
+
+export const blockLinkCommonDefaultArgTypes: ArgTypes = {
+  size,
+  'icon-name': iconName,
+  'icon-placement': iconPlacement,
+};
+
+export const blockLinkCommonDefaultArgs: Args = {
   size: size.options[1],
   'icon-name': undefined,
   'icon-placement': iconPlacement.options[0],
-  'aria-label': undefined,
-  tag: 'TBD',
 };
 
 // link params

@@ -6,7 +6,7 @@ import { SbbBlockLinkCommonElementMixin } from '../common';
 /**
  * It displays a link enhanced with the SBB Design, which will behave as a button.
  *
- * @slot - Use the unnamed slot to add content to the `sbb-link-button`.
+ * @slot - Use the unnamed slot to add content to the `sbb-block-link-button`.
  * @slot icon - Slot used to display the icon, if one is set.
  */
 @customElement('sbb-block-link-button')

@@ -4,6 +4,8 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { html } from 'lit/static-html.js';
 
 import {
+  blockLinkCommonDefaultArgTypes,
+  blockLinkCommonDefaultArgs,
   blockFixedWidth,
   blockIconStart,
   blockM,
@@ -23,10 +25,12 @@ import readme from './readme.md?raw';
 import './block-link-static';
 
 const defaultArgTypes: ArgTypes = {
+  ...blockLinkCommonDefaultArgTypes,
   ...linkCommonDefaultArgTypes,
 };
 
 const defaultArgs: Args = {
+  ...blockLinkCommonDefaultArgs,
   ...linkCommonDefaultArgs,
   tag: 'sbb-block-link-static',
 };

@@ -6,7 +6,7 @@ import { SbbBlockLinkCommonElementMixin } from '../common';
 /**
  * It displays a static link enhanced with the SBB Design.
  *
- * @slot - Use the unnamed slot to add content to the `sbb-link-static`.
+ * @slot - Use the unnamed slot to add content to the `sbb-block-link-static`.
  * @slot icon - Slot used to display the icon, if one is set.
  */
 @customElement('sbb-block-link-static')
