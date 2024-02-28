@@ -17,6 +17,7 @@ import '../navigation-button';
 import '../navigation-link';
 import '../navigation-marker';
 import '../navigation';
+import './navigation-section';
 
 // Story interaction executed after the story renders
 const playStory = async (trigger: string, canvasElement: HTMLElement): Promise<void> => {
