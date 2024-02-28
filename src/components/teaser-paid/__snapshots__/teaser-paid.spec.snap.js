@@ -17,7 +17,7 @@ snapshots["sbb-teaser-paid Dom"] =
 
 snapshots["sbb-teaser-paid ShadowDom"] = 
 `<a
-  class="sbb-teaser-paid"
+  class="sbb-action-base sbb-teaser-paid"
   href="https://www.sbb.ch"
   rel="external"
   role="presentation"
