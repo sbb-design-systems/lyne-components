@@ -29,7 +29,32 @@ Run `yarn lint --fix` to fix any automatically fixable lint issues and report th
 
 ## Running tests
 
-To run unit tests, run `yarn test`.
+To run unit tests, run `yarn test`. This will run the full test suite with client side rendering
+and server side rendering with and without hydration.
+During development it is preferable to run `yarn test:csr`, which will just run the client side
+rendering.
+
+### Debugging with Visual Studio Code
+
+It is possible to debug tests and/or run them in isolation with Visual Studio Code.
+The following code snippet can be placed in `.vscode/launch.json`.
+Replace `test:csr` with either `test:ssr:hydrated` or `test:ssr:non-hydrated` to test SSR.
+
+```json
+  ...
+  {
+    "name": "Test",
+    "request": "launch",
+    "runtimeArgs": ["test:csr", "${relativeFile}", "--watch"],
+    "runtimeExecutable": "yarn",
+    "skipFiles": ["<node_internals>/**"],
+    "type": "node",
+    "console": "integratedTerminal"
+  },
+  ...
+```
+
+### Debugging with IntelliJ
 
 ## Starting showcase
 
