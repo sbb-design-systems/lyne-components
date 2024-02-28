@@ -14,8 +14,6 @@ type MaybeDisabled = {
 
 export abstract class SbbActionBaseElement extends LitElement {
   protected setupBaseEventHandlers(): void {
-    // capture is necessary here, as this event handler needs to be executed before any other
-    // in order to stop immediate propagation in the disabled case.
     this.addEventListener(
       'click',
       (event) => {
