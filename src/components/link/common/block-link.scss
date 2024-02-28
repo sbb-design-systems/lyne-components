@@ -1,9 +1,15 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  display: block;
+  @include sbb.block-link-variables;
 
   --sbb-link-gap: var(--sbb-spacing-fixed-1x);
+
+  display: block;
+}
+
+:host([negative]) {
+  @include sbb.block-link-variables--negative;
 }
 
 .sbb-action-base {

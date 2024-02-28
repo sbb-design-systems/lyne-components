@@ -5,17 +5,9 @@
 @include sbb.host-component-properties;
 
 :host {
-  color: inherit;
-
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize css of several frameworks.
   outline: none !important;
-
-  @include sbb.link-variables;
-}
-
-:host([negative]) {
-  @include sbb.link-variables--negative;
 }
 
 :host([role='button']) {

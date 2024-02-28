@@ -5,14 +5,14 @@
   @include sbb.text-inherit;
   @include sbb.link-variables--inline;
 
+  color: inherit;
   display: inline-block;
 }
 
 :host([negative]) {
-  @include sbb.link-variables--inline; // Needed because of specifity
   @include sbb.link-variables--inline-negative;
 }
 
 .sbb-action-base {
-  @include sbb.link-inline-base;
+  @include sbb.text-inherit;
 }
