@@ -25,14 +25,14 @@ The component has three different sizes, which can be changed using the `size` p
 
 ## Properties
 
-| Name     | Attribute | Privacy | Type                                   | Default | Description                                      |
-| -------- | --------- | ------- | -------------------------------------- | ------- | ------------------------------------------------ |
-| `size`   | `size`    | public  | `SbbNavigationActionSize \| undefined` | `'l'`   | Action size variant.                             |
-| `active` | `active`  | public  | `boolean`                              | `false` | Whether the action is active.                    |
-| `type`   | `type`    | public  | `ButtonType \| undefined`              |         | The type attribute to use for the button.        |
-| `name`   | `name`    | public  | `string \| undefined`                  |         | The name attribute to use for the button.        |
-| `value`  | `value`   | public  | `string \| undefined`                  |         | The value attribute to use for the button.       |
-| `form`   | `form`    | public  | `string \| undefined`                  |         | The <form> element to associate the button with. |
+| Name     | Attribute | Privacy | Type                                   | Default    | Description                                      |
+| -------- | --------- | ------- | -------------------------------------- | ---------- | ------------------------------------------------ |
+| `size`   | `size`    | public  | `SbbNavigationActionSize \| undefined` | `'l'`      | Action size variant.                             |
+| `active` | `active`  | public  | `boolean`                              | `false`    | Whether the action is active.                    |
+| `type`   | `type`    | public  | `SbbButtonType`                        | `'button'` | The type attribute to use for the button.        |
+| `name`   | `name`    | public  | `string \| undefined`                  |            | The name attribute to use for the button.        |
+| `value`  | `value`   | public  | `string \| undefined`                  |            | The value attribute to use for the button.       |
+| `form`   | `form`    | public  | `string \| undefined`                  |            | The <form> element to associate the button with. |
 
 ## Slots
 

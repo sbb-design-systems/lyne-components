@@ -4,7 +4,6 @@ import { customElement, property } from 'lit/decorators.js';
 
 import {
   LanguageController,
-  type LinkProperties,
   type LinkTargetType,
   SbbIconNameMixin,
 } from '../../core/common-behaviors';
@@ -33,7 +32,7 @@ export type SbbAlertState = 'closed' | 'opening' | 'opened';
  * @event {CustomEvent<void>} dismissalRequested - Emits when dismissal of an alert was requested.
  */
 @customElement('sbb-alert')
-export class SbbAlertElement extends SbbIconNameMixin(LitElement) implements LinkProperties {
+export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',

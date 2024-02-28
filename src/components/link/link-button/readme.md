@@ -32,15 +32,15 @@ accepting its associated properties (`type`, `name`, `value` and `form`).
 
 ## Properties
 
-| Name       | Attribute  | Privacy | Type                      | Default | Description                                                                                                                |
-| ---------- | ---------- | ------- | ------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `size`     | `size`     | public  | `SbbLinkSize`             | `'s'`   | Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used. |
-| `negative` | `negative` | public  | `boolean`                 | `false` | Negative coloring variant flag.                                                                                            |
-| `disabled` | `disabled` | public  | `boolean`                 | `false` | Whether the component is disabled.                                                                                         |
-| `type`     | `type`     | public  | `ButtonType \| undefined` |         | The type attribute to use for the button.                                                                                  |
-| `name`     | `name`     | public  | `string \| undefined`     |         | The name attribute to use for the button.                                                                                  |
-| `value`    | `value`    | public  | `string \| undefined`     |         | The value attribute to use for the button.                                                                                 |
-| `form`     | `form`     | public  | `string \| undefined`     |         | The <form> element to associate the button with.                                                                           |
+| Name       | Attribute  | Privacy | Type                  | Default    | Description                                                                                                                |
+| ---------- | ---------- | ------- | --------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `size`     | `size`     | public  | `SbbLinkSize`         | `'s'`      | Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used. |
+| `negative` | `negative` | public  | `boolean`             | `false`    | Negative coloring variant flag.                                                                                            |
+| `disabled` | `disabled` | public  | `boolean`             | `false`    | Whether the component is disabled.                                                                                         |
+| `type`     | `type`     | public  | `SbbButtonType`       | `'button'` | The type attribute to use for the button.                                                                                  |
+| `name`     | `name`     | public  | `string \| undefined` |            | The name attribute to use for the button.                                                                                  |
+| `value`    | `value`    | public  | `string \| undefined` |            | The value attribute to use for the button.                                                                                 |
+| `form`     | `form`     | public  | `string \| undefined` |            | The <form> element to associate the button with.                                                                           |
 
 ## Slots
 

@@ -31,14 +31,14 @@ accepting its associated properties (`type`, `name`, `value` and `form`).
 
 ## Properties
 
-| Name         | Attribute     | Privacy | Type                      | Default    | Description                                                                                                                                                                              |
-| ------------ | ------------- | ------- | ------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `expandFrom` | `expand-from` | public  | `SbbHorizontalFrom`       | `'medium'` | Used to set the minimum breakpoint from which the text is displayed. E.g. if set to 'large', the text will be visible for breakpoints large, wide, ultra, and hidden for all the others. |
-| `iconName`   | `icon-name`   | public  | `string \| undefined`     |            | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                                                         |
-| `type`       | `type`        | public  | `ButtonType \| undefined` |            | The type attribute to use for the button.                                                                                                                                                |
-| `name`       | `name`        | public  | `string \| undefined`     |            | The name attribute to use for the button.                                                                                                                                                |
-| `value`      | `value`       | public  | `string \| undefined`     |            | The value attribute to use for the button.                                                                                                                                               |
-| `form`       | `form`        | public  | `string \| undefined`     |            | The <form> element to associate the button with.                                                                                                                                         |
+| Name         | Attribute     | Privacy | Type                  | Default    | Description                                                                                                                                                                              |
+| ------------ | ------------- | ------- | --------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expandFrom` | `expand-from` | public  | `SbbHorizontalFrom`   | `'medium'` | Used to set the minimum breakpoint from which the text is displayed. E.g. if set to 'large', the text will be visible for breakpoints large, wide, ultra, and hidden for all the others. |
+| `iconName`   | `icon-name`   | public  | `string \| undefined` |            | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                                                         |
+| `type`       | `type`        | public  | `SbbButtonType`       | `'button'` | The type attribute to use for the button.                                                                                                                                                |
+| `name`       | `name`        | public  | `string \| undefined` |            | The name attribute to use for the button.                                                                                                                                                |
+| `value`      | `value`       | public  | `string \| undefined` |            | The value attribute to use for the button.                                                                                                                                               |
+| `form`       | `form`        | public  | `string \| undefined` |            | The <form> element to associate the button with.                                                                                                                                         |
 
 ## Slots
 
