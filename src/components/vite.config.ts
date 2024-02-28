@@ -63,7 +63,7 @@ export default defineConfig((config) =>
       rollupOptions: {
         external: (source: string, importer: string | undefined) => {
           if (
-            source.match(/(^lit$|^lit\/|^@lit\/)/) ||
+            source.match(/(^lit$|^lit\/|^@lit\/|^@lit-labs\/)/) ||
             (!!importer && source.startsWith('../') && !importer.includes('/node_modules/')) ||
             (!!importer && barrelExports.includes(importer) && source.match(/\.\/[a-z-]+/))
           ) {

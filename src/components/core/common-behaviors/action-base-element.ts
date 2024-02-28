@@ -1,6 +1,6 @@
 import { html, LitElement, type TemplateResult } from 'lit';
 
-import { getDocumentWritingMode } from '../dom';
+import { getDocumentWritingMode, getLocalName } from '../dom';
 
 export abstract class SbbActionBaseElement extends LitElement {
   /** Override this method to render the component template. */
@@ -15,6 +15,8 @@ export abstract class SbbActionBaseElement extends LitElement {
 
   /** Default render method for button-like components. */
   protected override render(): TemplateResult {
-    return html` <span class=${this.tagName.toLowerCase()}> ${this.renderTemplate()} </span> `;
+    return html`
+      <span class=${this.localName ?? getLocalName(this)}> ${this.renderTemplate()} </span>
+    `;
   }
 }

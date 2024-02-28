@@ -1,39 +1,43 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
+import { nothing } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
-import { SbbExpansionPanelElement } from '../expansion-panel';
-import type { SbbExpansionPanelHeaderElement } from '../expansion-panel';
+import { waitForCondition, waitForLitRender, EventSpy, fixture, isSsr } from '../core/testing';
+import { SbbExpansionPanelElement, type SbbExpansionPanelHeaderElement } from '../expansion-panel';
 
 import { SbbAccordionElement } from './accordion';
 
-describe('sbb-accordion', () => {
+describe(`sbb-accordion ${fixture.name}`, () => {
   let element: SbbAccordionElement;
 
-  beforeEach(async () => {
-    element = await fixture(html`
-      <sbb-accordion title-level="4">
-        <sbb-expansion-panel id="panel-1" disable-animation>
-          <sbb-expansion-panel-header id="header-1">Header 1</sbb-expansion-panel-header>
-          <sbb-expansion-panel-content>Content 1</sbb-expansion-panel-content>
-        </sbb-expansion-panel>
-        <sbb-expansion-panel id="panel-2" disable-animation>
-          <sbb-expansion-panel-header id="header-2">Header 2</sbb-expansion-panel-header>
-          <sbb-expansion-panel-content>Content 2</sbb-expansion-panel-content>
-        </sbb-expansion-panel>
-        <sbb-expansion-panel id="panel-3" disable-animation>
-          <sbb-expansion-panel-header id="header-3">Header 3</sbb-expansion-panel-header>
-          <sbb-expansion-panel-content>Content 3</sbb-expansion-panel-content>
-        </sbb-expansion-panel>
-      </sbb-accordion>
-    `);
+  beforeEach(async function () {
+    const ssrTitleLevel = isSsr() ? '4' : nothing;
+    element = await fixture(
+      html`
+        <sbb-accordion title-level="4">
+          <sbb-expansion-panel id="panel-1" disable-animation title-level=${ssrTitleLevel}>
+            <sbb-expansion-panel-header id="header-1">Header 1</sbb-expansion-panel-header>
+            <sbb-expansion-panel-content>Content 1</sbb-expansion-panel-content>
+          </sbb-expansion-panel>
+          <sbb-expansion-panel id="panel-2" disable-animation title-level=${ssrTitleLevel}>
+            <sbb-expansion-panel-header id="header-2">Header 2</sbb-expansion-panel-header>
+            <sbb-expansion-panel-content>Content 2</sbb-expansion-panel-content>
+          </sbb-expansion-panel>
+          <sbb-expansion-panel id="panel-3" disable-animation title-level=${ssrTitleLevel}>
+            <sbb-expansion-panel-header id="header-3">Header 3</sbb-expansion-panel-header>
+            <sbb-expansion-panel-content>Content 3</sbb-expansion-panel-content>
+          </sbb-expansion-panel>
+        </sbb-accordion>
+      `,
+      { modules: ['./accordion.ts', '../expansion-panel/index.ts'] },
+    );
   });
 
-  it('renders', async () => {
+  it('renders', () => {
     assert.instanceOf(element, SbbAccordionElement);
   });
 
-  it('should set accordion context on expansion panel', async () => {
+  it('should set accordion context on expansion panel', () => {
     const panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
 
     expect(panels[0]).to.have.attribute('data-accordion-first');
@@ -70,7 +74,7 @@ describe('sbb-accordion', () => {
     expect(panels[1]).to.have.attribute('data-accordion-last');
   });
 
-  it('should inherit titleLevel prop by panels', async () => {
+  it('should inherit titleLevel prop by panels', () => {
     const panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
     expect(panels.length).to.be.equal(3);
     expect(

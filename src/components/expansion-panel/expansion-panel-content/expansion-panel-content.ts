@@ -2,8 +2,6 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { setAttribute } from '../../core/dom';
-
 import style from './expansion-panel-content.scss?lit&inline';
 
 /**
@@ -15,10 +13,13 @@ import style from './expansion-panel-content.scss?lit&inline';
 export class SbbExpansionPanelContentElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 
-  protected override render(): TemplateResult {
-    setAttribute(this, 'slot', 'content');
-    setAttribute(this, 'role', 'region');
+  protected override createRenderRoot(): HTMLElement | DocumentFragment {
+    this.setAttribute('slot', 'content');
+    this.setAttribute('role', 'region');
+    return super.createRenderRoot();
+  }
 
+  protected override render(): TemplateResult {
     return html`
       <div class="sbb-expansion-panel-content">
         <slot></slot>

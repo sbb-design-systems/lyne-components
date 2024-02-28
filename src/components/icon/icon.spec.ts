@@ -104,7 +104,15 @@ describe('sbb-icon', () => {
       expect(parameters.name).to.be.equal('heart-medium');
       expect(parameters.url).to.be.equal('https://icons.app.sbb.ch/kom/heart-medium.svg');
       interceptorCalled = true;
-      return parameters.request();
+      return Promise.resolve(
+        `<svg-fake
+    data-name="${parameters.name}"
+    height="36"
+    style="width:36px;height:36px"
+    width="36"
+  >
+  </svg-fake>`,
+      );
     };
 
     const root = await fixture(html`<sbb-icon name="kom:heart-medium"></sbb-icon>`);

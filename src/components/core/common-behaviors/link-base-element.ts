@@ -1,4 +1,4 @@
-import { html, nothing, type TemplateResult } from 'lit';
+import { html, isServer, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { getDocumentWritingMode } from '../dom';
@@ -88,8 +88,10 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement implements
 
   public constructor() {
     super();
-    this.addEventListener('click', this._handleLinkClick);
-    this.addEventListener('keypress', dispatchClickEventWhenEnterKeypress, { passive: true });
+    if (!isServer) {
+      this.addEventListener('click', this._handleLinkClick);
+      this.addEventListener('keypress', dispatchClickEventWhenEnterKeypress, { passive: true });
+    }
   }
 
   protected override createRenderRoot(): HTMLElement | DocumentFragment {

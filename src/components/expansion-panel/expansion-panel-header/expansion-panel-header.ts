@@ -8,7 +8,6 @@ import {
   SbbDisabledTabIndexActionMixin,
   SbbIconNameMixin,
 } from '../../core/common-behaviors';
-import { setAttribute, toggleDatasetEntry } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import { type SbbExpansionPanelElement } from '../expansion-panel';
 
@@ -50,6 +49,11 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMix
     this.addEventListener('mouseleave', () => this._onMouseMovement(false), { signal });
   }
 
+  protected override createRenderRoot(): HTMLElement | DocumentFragment {
+    this.setAttribute('slot', 'header');
+    return super.createRenderRoot();
+  }
+
   private _emitExpandedEvent(): void {
     if (!this.disabled) {
       this._toggleExpanded.emit();
@@ -60,7 +64,7 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMix
     const parent: SbbExpansionPanelElement = this.closest('sbb-expansion-panel')!;
     // The `sbb.hover-mq` logic has been removed from scss, but it must be replicated to have the correct behavior on mobile.
     if (!toggleDataAttribute || (parent && window.matchMedia('(any-hover: hover)').matches)) {
-      toggleDatasetEntry(parent, 'toggleHover', toggleDataAttribute);
+      parent.toggleAttribute('data-toggle-hover', toggleDataAttribute);
     }
   }
 
@@ -70,11 +74,10 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMix
    * but after the 'NamedSlotStateController' has run.
    */
   private _setDataIconAttribute(): void {
-    setAttribute(this, 'data-icon', !!(this.iconName || this._namedSlots.slots.has('icon')));
+    this.toggleAttribute('data-icon', !!(this.iconName || this._namedSlots.slots.has('icon')));
   }
 
   protected override renderTemplate(): TemplateResult {
-    setAttribute(this, 'slot', 'header');
     this._setDataIconAttribute();
     return html`
       <span class="sbb-expansion-panel-header__title">

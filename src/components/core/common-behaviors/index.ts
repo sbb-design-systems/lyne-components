@@ -3,6 +3,7 @@ export * from './action-dispatch-click';
 export * from './button-base-element';
 export * from './constructor';
 export * from './disabled-mixins';
+export * from './hydration-mixin';
 export * from './icon-name-mixin';
 export * from './language-controller';
 export * from './link-base-element';

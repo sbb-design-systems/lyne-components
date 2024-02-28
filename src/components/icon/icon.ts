@@ -40,8 +40,8 @@ export class SbbIconElement extends SbbIconBase {
     }
   }
 
-  protected override firstUpdated(_changedProperties: PropertyValues): void {
-    super.firstUpdated(_changedProperties);
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
     if (!this.hasAttribute('aria-hidden')) {
       this.setAttribute('aria-hidden', 'true');
     }
