@@ -1,6 +1,8 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import type { DirectiveResult } from 'lit/directive.js';
+import type { UnsafeHTMLDirective } from 'lit/directives/unsafe-html.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { until } from 'lit/directives/until.js';
 
@@ -16,7 +18,7 @@ export abstract class SbbIconBase extends LitElement {
   /**
    * The icon svg content rendered on the page: <svg>...</svg>.
    */
-  @state() private _svgIcon?: Promise<string>;
+  @state() private _svgIcon?: Promise<DirectiveResult<typeof UnsafeHTMLDirective>>;
 
   /**
    * When set to `true`, SVG content that is HTTP fetched will not be checked
@@ -28,7 +30,7 @@ export abstract class SbbIconBase extends LitElement {
 
   protected override createRenderRoot(): HTMLElement | DocumentFragment {
     this.setAttribute('data-namespace', this._svgNamespace);
-    if (!this.hasAttribute('data-empty')) {
+    if (!this._svgIcon) {
       this.toggleAttribute('data-empty', true);
     }
     return super.createRenderRoot();
@@ -43,10 +45,13 @@ export abstract class SbbIconBase extends LitElement {
     this._svgNamespace = namespace;
     this.setAttribute('data-namespace', this._svgNamespace);
 
-    this._svgIcon = this.fetchSvgIcon(this._svgNamespace, name);
-    this._svgIcon
-      .then((v) => this.toggleAttribute('data-empty', !v))
-      .catch(() => this.toggleAttribute('data-empty', true));
+    const svgIcon = this.fetchSvgIcon(this._svgNamespace, name);
+    this._svgIcon = svgIcon.then((v) => unsafeHTML(v));
+    try {
+      this.toggleAttribute('data-empty', !(await svgIcon));
+    } catch {
+      this.toggleAttribute('data-empty', true);
+    }
   }
 
   protected async fetchSvgIcon(namespace: string, name: string): Promise<string> {
@@ -77,7 +82,7 @@ export abstract class SbbIconBase extends LitElement {
   protected override render(): TemplateResult {
     return html`<span class="sbb-icon-inner"
       >${until(
-        this._svgIcon?.then((v) => unsafeHTML(v)),
+        this._svgIcon,
         // To reserve space, we need an empty svg to apply dimension to.
         html`<svg width="0" height="0"></svg>`,
       )}</span
