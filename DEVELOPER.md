@@ -56,6 +56,17 @@ Replace `test:csr` with either `test:ssr:hydrated` or `test:ssr:non-hydrated` to
 
 ### Debugging with IntelliJ
 
+It is possible to debug tests and/or run them in isolation also with Intellij IDEA.
+From the title bar, open the 'Run' menu, then select 'Edit configuration'.
+Create and save a new `npm` configuration with the following parameters,
+possibly replacing `test:csr` with either `test:ssr:hydrated` or `test:ssr:non-hydrated` to test SSR:
+
+- Command: `run`
+- Scripts: `test:csr`
+- Arguments: `--watch --filter **/$FileName$ --debug`
+
+Finally, open the file you want to test and run the script.
+
 ## Starting showcase
 
 To start the showcase, run `yarn start`. This will run the devserver in watch mode.
