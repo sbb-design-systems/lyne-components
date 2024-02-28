@@ -8,7 +8,7 @@ the `iconName` property or via custom content using the `icon` slot.
 By default, the icon is placed at the component's end, but this can be changed using the `iconPlacement` property.
 
 ```html
-<sbb-block-link-button value="hilfe"> Help </sbb-block-link-button>
+<sbb-block-link-button value="help"> Help </sbb-block-link-button>
 
 <sbb-block-link-button value="contact" icon-name="chevron-small-left-small" icon-placement="start">
   Contact
