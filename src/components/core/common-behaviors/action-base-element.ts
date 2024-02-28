@@ -25,6 +25,8 @@ export abstract class SbbActionBaseElement extends LitElement {
           event.stopImmediatePropagation();
         }
       },
+      // capture is necessary here, as this event handler needs to be executed before any other
+      // in order to stop immediate propagation in the disabled case.
       { capture: true },
     );
     this.addEventListener(
