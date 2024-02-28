@@ -13,7 +13,6 @@ export interface ButtonProperties {
   name?: string;
   value?: string;
   form?: string;
-  disabled?: boolean;
 }
 
 /** Button base class. */

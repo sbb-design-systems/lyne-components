@@ -19,7 +19,6 @@ export interface LinkProperties {
   target?: LinkTargetType | string;
   rel?: string;
   download?: boolean;
-  disabled?: boolean;
 }
 
 /** Link base class. */
