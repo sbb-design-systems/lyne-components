@@ -33,7 +33,6 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
     if (!isServer) {
       this.setupBaseEventHandlers();
       this.addEventListener('click', this._triggerAnchorWhenNecessary);
-      this.addEventListener('keypress', dispatchClickEventWhenEnterKeypress, { passive: true });
     }
   }
 

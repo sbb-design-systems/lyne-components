@@ -80,7 +80,6 @@ export abstract class SbbButtonBaseElement extends SbbActionBaseElement {
       const passiveOptions = { passive: true };
       this.addEventListener('click', this._handleButtonClick);
       this.addEventListener('keydown', this._preventScrollOnSpaceKeydown);
-      this.addEventListener('keypress', dispatchClickEventWhenEnterKeypress, passiveOptions);
       this.addEventListener('keyup', this._dispatchClickEventOnSpaceKeyup, passiveOptions);
       this.addEventListener('blur', this._removeActiveMarker, passiveOptions);
     }
