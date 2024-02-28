@@ -28,8 +28,6 @@ The component can display a `sbb-icon` using the `iconName` property or via cust
 The component is internally rendered as a button,
 accepting its associated properties (`type`, `name`, `value` and `form`).
 
-If the component is placed inside an `sbb-form-field`, it renders with the correct styling.
-
 ```html
 <sbb-form-field label="Tickets">
   <input placeholder="Insert the number of tickets you want to purchase." />
@@ -48,14 +46,10 @@ If the component is placed inside an `sbb-form-field`, it renders with the corre
 
 The component has a negative variant which can be set using the `negative` property.
 
-There are two different sizes (`m` and `l`, which is the default) that can be set using the `size` property.
-
 The component can be displayed in `disabled` state using the self-named property.
 
 ```html
 <sbb-mini-button icon-name="pie-small" negative></sbb-mini-button>
-
-<sbb-mini-button icon-name="pie-small" size="m"></sbb-mini-button>
 
 <sbb-mini-button icon-name="pie-small" disabled></sbb-mini-button>
 ```

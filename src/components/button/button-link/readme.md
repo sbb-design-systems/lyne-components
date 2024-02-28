@@ -31,8 +31,6 @@ At least one is mandatory, so you can have a `sbb-button-link` with icon only, t
 The component is internally rendered as a link,
 accepting its associated properties (`href`, `target`, `rel` and `download`).
 
-If the component is placed inside an `sbb-form-field`, it renders with the correct styling.
-
 ```html
 <sbb-button-link href="https://github.com/lyne-design-system/lyne-components" target="_blank">
   Go to site

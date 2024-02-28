@@ -33,8 +33,6 @@ At least one is mandatory, so you can have a `sbb-secondary-button-link` with ic
 The component is internally rendered as a link,
 accepting its associated properties (`href`, `target`, `rel` and `download`).
 
-If the component is placed inside an `sbb-form-field`, it renders with the correct styling.
-
 ```html
 <sbb-secondary-button-link
   href="https://github.com/lyne-design-system/lyne-components"

@@ -27,8 +27,6 @@ At least one is mandatory, so you can have a `sbb-button` with icon only, text o
 The component is internally rendered as a button,
 accepting its associated properties (`type`, `name`, `value` and `form`).
 
-If the component is placed inside an `sbb-form-field`, it renders with the correct styling.
-
 ```html
 <sbb-button type="submit" name="tickets" form="buy" value="tickets"> Buy tickets </sbb-button>
 ```
