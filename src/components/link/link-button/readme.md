@@ -5,6 +5,10 @@ despite its appearance as a link enhanced with the SBB Design.
 
 The text is provided via an unnamed slot.
 
+```html
+<sbb-link-button value="help"> Help </sbb-link-button>
+```
+
 ## States
 
 The component can be displayed in `disabled` state using the self-named property.

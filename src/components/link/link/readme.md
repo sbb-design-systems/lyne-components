@@ -4,6 +4,10 @@ The `sbb-link` component provides the same functionality as a native `<a>` enhan
 
 The text is provided via an unnamed slot.
 
+```html
+<sbb-link value="help"> Help </sbb-link>
+```
+
 ## States
 
 The component can be displayed in `disabled` state using the self-named property.

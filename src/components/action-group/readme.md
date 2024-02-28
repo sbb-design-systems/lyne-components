@@ -1,5 +1,5 @@
 The `sbb-action-group` component is a generic content container which can contain up to three action items
-([sbb-button](/docs/components-sbb-button--docs) or [sbb-link](/docs/components-sbb-link--docs) or other HTML elements)
+([sbb-button](/docs/components-sbb-button--docs) or [sbb-block-link](/docs/components-sbb-link-sbb-block-link--docs) or other HTML elements)
 in various [allocations](#allocations).
 
 ## Style

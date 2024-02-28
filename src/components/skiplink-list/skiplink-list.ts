@@ -13,12 +13,7 @@ import {
   SbbNamedSlotListElementMixin,
   type WithListChildren,
 } from '../core/common-behaviors';
-import type {
-  SbbLinkElement,
-  SbbLinkButtonElement,
-  SbbBlockLinkElement,
-  SbbBlockLinkButtonElement,
-} from '../link';
+import type { SbbBlockLinkElement, SbbBlockLinkButtonElement } from '../link';
 import type { SbbTitleLevel } from '../title';
 
 import style from './skiplink-list.scss?lit&inline';
@@ -32,7 +27,7 @@ import '../title';
  */
 @customElement('sbb-skiplink-list')
 export class SbbSkiplinkListElement extends SbbNamedSlotListElementMixin<
-  SbbLinkElement | SbbLinkButtonElement | SbbBlockLinkElement | SbbBlockLinkButtonElement,
+  SbbBlockLinkElement | SbbBlockLinkButtonElement,
   typeof LitElement
 >(LitElement) {
   public static override styles: CSSResultGroup = style;

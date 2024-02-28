@@ -1,13 +1,13 @@
 The `sbb-link-static` component mimics the look of the `<sbb-link>`,
 and it's meant to be used whenever is required to nest one link inside another without breaking the HTML functionality.
 
-```html
-<sbb-link-static>Fake link</sbb-link-static>
-```
-
 ## Slots
 
 The text is provided via an unnamed slot.
+
+```html
+<sbb-link-static>Fake link</sbb-link-static>
+```
 
 ## States
 

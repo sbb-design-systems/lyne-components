@@ -1,4 +1,4 @@
-The `sbb-link-list` is a component that can be used to collect and display more [sbb-block-link](/docs/components-sbb-block.link--docs)s.
+The `sbb-link-list` is a component that can be used to collect and display more [sbb-block-link](/docs/components-sbb-link-sbb-block-link--docs).
 
 ```html
 <sbb-link-list>
