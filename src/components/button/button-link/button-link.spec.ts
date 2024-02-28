@@ -2,63 +2,50 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
 
-import '../../form-field';
+import type { SbbButtonLinkElement } from './button-link';
 import './button-link';
 import '../common/button-common';
 
 describe('sbb-button-link', () => {
-  it('renders a sbb-button-link without icon', async () => {
+  describe('renders a sbb-button-link without icon', async () => {
     const root = await fixture(html`
       <sbb-button-link size="m" href="#" target="_blank" rel="noopener" download>
         Label Text
       </sbb-button-link>
     `);
 
-    expect(root).dom.to.be.equal(`
-      <sbb-button-link size="m" href='#' target='_blank' rel='noopener' download dir='ltr' role='link' tabindex='0' data-slot-names="unnamed">
-        Label Text
-      </sbb-button-link>
-    `);
-    expect(root).shadowDom.to.be.equal(`
-      <a class="sbb-action-base sbb-button-link" href="#" rel="noopener" role="presentation" tabindex="-1" target="_blank" download>
-        <span class="sbb-button__icon">
-          <slot name="icon">
-          </slot>
-        </span>
-        <span class="sbb-button__label">
-          <slot></slot>
-        </span>
-        <sbb-screenreader-only>
-          . Link target opens in a new window.
-        </sbb-screenreader-only>
-      </a>
-    `);
+    it('Dom', async () => {
+      await expect(root).dom.to.be.equalSnapshot();
+    });
+
+    it('ShadowDom', async () => {
+      await expect(root).shadowDom.to.be.equalSnapshot();
+    });
   });
 
-  it('renders a disabled sbb-button-link with slotted icon', async () => {
-    const root = await fixture(html`
-      <sbb-button-link href="#" disabled>
-        <sbb-icon slot="icon" name="chevron-small-left-small"></sbb-icon>
-        Label Text
-      </sbb-button-link>
-    `);
+  describe('renders a disabled sbb-button-link with slotted icon', async () => {
+    let root: SbbButtonLinkElement;
 
-    await waitForLitRender(root);
+    beforeEach(async () => {
+      root = await fixture(html`
+        <sbb-button-link href="#" disabled>
+          <sbb-icon slot="icon" name="chevron-small-left-small"></sbb-icon>
+          Label Text
+        </sbb-button-link>
+      `);
+      await waitForLitRender(root);
+    });
 
-    expect(root).dom.to.be.equal(`
-      <sbb-button-link href="#" disabled size="l" role="link" dir="ltr" aria-disabled='true' data-slot-names="icon unnamed">
-        <sbb-icon slot="icon" name="chevron-small-left-small" role="img" aria-hidden="true" data-namespace="default"></sbb-icon>
-        Label Text
-      </sbb-button-link>
-    `);
-    expect(root).shadowDom.to.be.equal(`
-      <a class="sbb-action-base sbb-button-link" href="#" role='presentation' tabindex='-1'>
-        <span class="sbb-button__icon">
-          <slot name="icon"></slot>
-        </span>
-        <span class="sbb-button__label"><slot></slot></span>
-      </a>
-    `);
+    it('Dom', async () => {
+      await expect(root).dom.to.be.equalSnapshot();
+    });
+
+    it('ShadowDom', async () => {
+      await expect(root).shadowDom.to.be.equalSnapshot();
+    });
   });
+
+  testA11yTreeSnapshot();
 });

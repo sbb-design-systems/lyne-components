@@ -2,63 +2,46 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
 
-import '../../form-field';
+import type { SbbButtonStaticElement } from './button-static';
 import './button-static';
 
 describe('sbb-button-static', () => {
-  it('renders a button-static without icon', async () => {
+  describe('renders a button-static without icon', async () => {
     const root = await fixture(
       html` <sbb-button-static negative size="m" disabled> Label Text </sbb-button-static>`,
     );
 
-    expect(root).dom.to.be.equal(`
-      <sbb-button-static
-        negative
-        size="m"
-        disabled
-        dir="ltr"
-        data-slot-names="unnamed"
-      >
+    it('Dom', async () => {
+      await expect(root).dom.to.be.equalSnapshot();
+    });
 
-        Label Text
-      </sbb-button-static>
-    `);
-    expect(root).shadowDom.to.be.equal(`
-      <span class="sbb-action-base sbb-button-static">
-        <span class="sbb-button__icon">
-          <slot name="icon">
-          </slot>
-        </span>
-        <span class="sbb-button__label"><slot></slot></span>
-      </span>
-    `);
+    it('ShadowDom', async () => {
+      await expect(root).shadowDom.to.be.equalSnapshot();
+    });
   });
 
-  it('renders a primary button-static with slotted icon', async () => {
-    const root = await fixture(
-      html`<sbb-button-static>
-        <sbb-icon slot="icon" name="chevron-small-left-small"></sbb-icon>
-        Label Text
-      </sbb-button-static> `,
-    );
+  describe('renders a primary button-static with slotted icon', async () => {
+    let root: SbbButtonStaticElement;
 
-    await waitForLitRender(root);
+    beforeEach(async () => {
+      root = await fixture(html`
+        <sbb-button-static>
+          <sbb-icon slot="icon" name="chevron-small-left-small"></sbb-icon>
+          Label Text
+        </sbb-button-static>
+      `);
+      await waitForLitRender(root);
+    });
 
-    expect(root).dom.to.be.equal(`
-      <sbb-button-static size="l" dir="ltr" data-slot-names="icon unnamed">
-        <sbb-icon slot="icon" name="chevron-small-left-small" role="img" aria-hidden="true" data-namespace="default"></sbb-icon>
-        Label Text
-      </sbb-button-static>
-    `);
-    expect(root).shadowDom.to.be.equal(`
-      <span class="sbb-action-base sbb-button-static">
-        <span class="sbb-button__icon">
-          <slot name="icon"></slot>
-        </span>
-        <span class="sbb-button__label"><slot></slot></span>
-      </span>
-    `);
+    it('Dom', async () => {
+      await expect(root).dom.to.be.equalSnapshot();
+    });
+
+    it('ShadowDom', async () => {
+      await expect(root).shadowDom.to.be.equalSnapshot();
+    });
   });
 
   it('should detect icon button', async () => {
@@ -86,4 +69,6 @@ describe('sbb-button-static', () => {
     expect(dataSlots).to.contain('icon');
     expect(dataSlots).not.to.contain('unnamed');
   });
+
+  testA11yTreeSnapshot();
 });
