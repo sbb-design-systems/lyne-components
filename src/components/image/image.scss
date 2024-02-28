@@ -115,8 +115,8 @@
   border-radius: var(--sbb-border-radius-infinity);
 }
 
-// Variant: Hero Teaser
-.image__figure--teaser-hero .image__wrapper {
+// Variant: Hero Teaser and Paid Teaser
+.image__figure--teaser .image__wrapper {
   aspect-ratio: 1 / 1;
 
   @include sbb.mq($from: small) {

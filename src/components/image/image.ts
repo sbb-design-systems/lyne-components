@@ -71,7 +71,7 @@ export class SbbImageElement extends LitElement {
     nonRetinaQuality: '45',
     retinaQuality: '20',
   };
-  private _variantTeaserHero = false;
+  private _variantTeaser = false;
 
   @state() private _loaded = false;
 
@@ -426,8 +426,9 @@ export class SbbImageElement extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    // Check if the current element is nested in an `<sbb-teaser-hero>` element.
-    this._variantTeaserHero = !!hostContext('sbb-teaser-hero', this);
+    // Check if the current element is nested in an `<sbb-teaser-hero>` element on in an `<sbb-teaser-paid>` element.
+    this._variantTeaser =
+      !!hostContext('sbb-teaser-hero', this) || !!this.closest('sbb-teaser-paid');
   }
 
   protected override render(): TemplateResult {
@@ -465,9 +466,9 @@ export class SbbImageElement extends LitElement {
       <figure
         class=${classMap({
           image__figure: true,
-          [`image__figure--teaser-hero`]: this._variantTeaserHero,
-          [`image__figure--no-radius`]: this.borderRadius === 'none' || this._variantTeaserHero,
-          [`image__figure--round`]: this.borderRadius === 'round' && !this._variantTeaserHero,
+          [`image__figure--teaser`]: this._variantTeaser,
+          [`image__figure--no-radius`]: this.borderRadius === 'none' || this._variantTeaser,
+          [`image__figure--round`]: this.borderRadius === 'round' && !this._variantTeaser,
           [`image__figure--ratio-${this.aspectRatio}`]: true,
           [`image__figure--loaded`]: this._loaded,
         })}

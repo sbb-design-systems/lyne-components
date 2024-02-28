@@ -1,14 +1,16 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import { html, type TemplateResult } from 'lit';
 
 import { sbbSpread } from '../core/dom';
 import sampleImages from '../core/images';
 
 import readme from './readme.md?raw';
-import './teaser-hero';
+
+import '../chip';
+import '../image';
+import './teaser-paid';
 
 const ariaLabel: InputType = {
   control: {
@@ -56,18 +58,6 @@ const target: InputType = {
   },
 };
 
-const content: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
-const linkContent: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
 const imageSrc: InputType = {
   control: {
     type: 'text',
@@ -85,8 +75,6 @@ const defaultArgTypes: ArgTypes = {
   href,
   rel,
   target,
-  content,
-  'link-content': linkContent,
   'image-src': imageSrc,
   'image-alt': imageAlt,
 };
@@ -96,53 +84,30 @@ const defaultArgs: Args = {
   href: href.options[0],
   rel: undefined,
   target: undefined,
-  content: 'Break out and explore castles and palaces.',
-  'link-content': 'Find out more',
   'image-src': sampleImages[1],
   'image-alt': 'SBB CFF FFS Employee',
 };
 
-const TemplateSbbTeaserHeroDefault = ({ content, ...args }: Args): TemplateResult => html`
-  <sbb-teaser-hero ${sbbSpread(args)}>${content}</sbb-teaser-hero>
-`;
-
-const TemplateSbbTeaserWithSlots = ({
-  content,
-  'link-content': linkContent,
+const Template = ({
   'image-src': imageSrc,
   'image-alt': imageAlt,
   ...args
-}: Args): TemplateResult => html`
-  <sbb-teaser-hero ${sbbSpread(args)}>
-    ${content}
-    <span slot="link-content">${linkContent}</span>
-    <sbb-image slot="image" image-src=${imageSrc} alt=${imageAlt}></sbb-image>
-  </sbb-teaser-hero>
-`;
+}: Args): TemplateResult =>
+  html` <sbb-teaser-paid ${sbbSpread(args)}>
+    <sbb-chip slot="chip">Label</sbb-chip>
+    <sbb-image slot="image" image-src=${imageSrc} image-alt=${imageAlt}></sbb-image>
+  </sbb-teaser-paid>`;
 
-export const defaultTeaser: StoryObj = {
-  render: TemplateSbbTeaserHeroDefault,
+export const Default: StoryObj = {
+  render: Template,
   argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-  },
+  args: { ...defaultArgs },
 };
 
-export const openInNewWindow: StoryObj = {
-  render: TemplateSbbTeaserHeroDefault,
+export const OpenInNewWindow: StoryObj = {
+  render: Template,
   argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    target: '_blank',
-  },
-};
-
-export const withSlots: StoryObj = {
-  render: TemplateSbbTeaserWithSlots,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-  },
+  args: { ...defaultArgs, target: '_blank' },
 };
 
 const meta: Meta = {
@@ -151,15 +116,14 @@ const meta: Meta = {
     withActions as Decorator,
   ],
   parameters: {
-    chromatic: { diffThreshold: 0.11, delay: 5000 },
-    actions: {
-      handles: ['click'],
+    backgrounds: {
+      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-teaser/sbb-teaser-hero',
+  title: 'components/sbb-teaser/sbb-teaser-paid',
 };
 
 export default meta;
