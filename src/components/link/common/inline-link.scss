@@ -3,14 +3,14 @@
 :host {
   // Necessary to forward styles to native link
   @include sbb.text-inherit;
-  @include sbb.link-variables--inline;
+  @include sbb.link-variables;
 
   color: inherit;
   display: inline-block;
 }
 
 :host([negative]) {
-  @include sbb.link-variables--inline-negative;
+  @include sbb.link-variables--negative;
 }
 
 .sbb-action-base {

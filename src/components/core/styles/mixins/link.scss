@@ -20,14 +20,14 @@
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
-@mixin link-variables--inline {
+@mixin link-variables {
   --sbb-link-color-normal: inherit;
   --sbb-link-color-hover: var(--sbb-color-red125-default);
   --sbb-link-color-active: var(--sbb-color-red150-default);
   --sbb-link-text-decoration: underline;
 }
 
-@mixin link-variables--inline-negative {
+@mixin link-variables--negative {
   --sbb-link-color-hover: var(--sbb-color-graphite-default);
   --sbb-link-color-active: var(--sbb-color-metal-default);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
@@ -90,12 +90,12 @@
 }
 
 @mixin link {
-  @include link-variables--inline;
+  @include link-variables;
   @include link-consolidation;
 }
 
 @mixin link-negative {
-  @include link-variables--inline;
-  @include link-variables--inline-negative;
+  @include link-variables;
+  @include link-variables--negative;
   @include link-consolidation;
 }
