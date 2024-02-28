@@ -7,6 +7,8 @@ import { EventSpy, waitForLitRender } from '../testing';
 import { SbbButtonBaseElement } from './button-base-element';
 
 class GenericButton extends SbbButtonBaseElement {
+  public disabled = false;
+
   protected override renderTemplate(): TemplateResult {
     return html`Button`;
   }
@@ -42,8 +44,8 @@ describe('SbbButtonBaseElement', () => {
       element = await fixture(html` <generic-button></generic-button> `);
     });
 
-    it('no click dispatch if aria-disabled', async () => {
-      element.setAttribute('aria-disabled', 'true');
+    it('no click dispatch if disabled', async () => {
+      element.disabled = true;
       await waitForLitRender(element);
       const clickSpy = new EventSpy('click');
       element.click();

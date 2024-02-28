@@ -7,6 +7,8 @@ import { EventSpy, waitForLitRender } from '../testing';
 import { SbbLinkBaseElement } from './link-base-element';
 
 class GenericLink extends SbbLinkBaseElement {
+  public disabled = false;
+
   protected override renderTemplate(): TemplateResult {
     return html`<span>Link</span>`;
   }
@@ -41,8 +43,8 @@ describe('SbbLinkBaseElement', () => {
       element = await fixture(html` <generic-link></generic-link> `);
     });
 
-    it('no click dispatch if aria-disabled', async () => {
-      element.setAttribute('aria-disabled', 'true');
+    it('no click dispatch if disabled', async () => {
+      element.disabled = true;
       await waitForLitRender(element);
       const clickSpy = new EventSpy('click');
       element.click();

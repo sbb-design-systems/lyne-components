@@ -1,27 +1,17 @@
 import { isServer } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { isEventPrevented } from '../eventing';
+
 import { SbbActionBaseElement } from './action-base-element';
-import { dispatchClickEvent, dispatchClickEventWhenEnterKeypress } from './action-dispatch-click';
 
 /** Enumeration for type attribute in <button> HTML tag. */
-export type ButtonType = 'button' | 'reset' | 'submit';
-
-/** The interface contains attributes that can be set on a <button> tag.  */
-export interface ButtonProperties {
-  type?: ButtonType;
-  name?: string;
-  value?: string;
-  form?: string;
-}
+export type SbbButtonType = 'button' | 'reset' | 'submit';
 
 /** Button base class. */
-export abstract class SbbButtonBaseElement
-  extends SbbActionBaseElement
-  implements ButtonProperties
-{
+export abstract class SbbButtonBaseElement extends SbbActionBaseElement {
   /** The type attribute to use for the button. */
-  @property() public type?: ButtonType;
+  @property() public type: SbbButtonType = 'button';
 
   /** The name attribute to use for the button. */
   @property({ reflect: true }) public name?: string;
@@ -32,12 +22,8 @@ export abstract class SbbButtonBaseElement
   /** The <form> element to associate the button with. */
   @property() public form?: string;
 
-  private _handleButtonClick = (event: MouseEvent): void => {
-    if (this.getAttribute('aria-disabled') === 'true') {
-      event.preventDefault();
-      event.stopImmediatePropagation();
-      return;
-    } else if (!this.type || this.type === 'button') {
+  private _handleButtonClick = async (event: MouseEvent): Promise<void> => {
+    if (this.type === 'button' || (await isEventPrevented(event))) {
       return;
     }
 
@@ -49,13 +35,9 @@ export abstract class SbbButtonBaseElement
     if (!form) {
       return;
     } else if (this.type === 'submit') {
-      if (form.requestSubmit) {
-        // `form.requestSubmit(element);` seems not to work for CustomElements, so the `element` parameter has been removed;
-        // TODO: Check if solved in any way, see https://github.com/WICG/webcomponents/issues/814#issuecomment-1218452137
-        form.requestSubmit();
-      } else {
-        form.submit();
-      }
+      // `form.requestSubmit(element);` seems not to work for CustomElements, so the `element` parameter has been removed;
+      // TODO: Check if solved in any way, see https://github.com/WICG/webcomponents/issues/814#issuecomment-1218452137
+      form.requestSubmit();
     } else if (this.type === 'reset') {
       form.reset();
     }
@@ -86,17 +68,17 @@ export abstract class SbbButtonBaseElement
   private _dispatchClickEventOnSpaceKeyup = (event: KeyboardEvent): void => {
     if (event.key === ' ') {
       this._removeActiveMarker(event);
-      dispatchClickEvent(event);
+      this.dispatchClickEvent(event);
     }
   };
 
   public constructor() {
     super();
     if (!isServer) {
+      this.setupBaseEventHandlers();
+
       const passiveOptions = { passive: true };
-      // capture is necessary here, as this event handler needs to be executed before any other
-      // in order to stop immediate propagation in the disabled case.
-      this.addEventListener('click', this._handleButtonClick, { capture: true });
+      this.addEventListener('click', this._handleButtonClick);
       this.addEventListener('keydown', this._preventScrollOnSpaceKeydown);
       this.addEventListener('keypress', dispatchClickEventWhenEnterKeypress, passiveOptions);
       this.addEventListener('keyup', this._dispatchClickEventOnSpaceKeyup, passiveOptions);
