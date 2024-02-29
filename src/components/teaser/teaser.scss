@@ -66,6 +66,7 @@
 
 .sbb-teaser__text {
   overflow: hidden;
+  max-width: 100%;
 }
 
 ::slotted([slot='image']) {

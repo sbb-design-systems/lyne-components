@@ -93,6 +93,15 @@ const TemplateDefault = ({ description, ...remainingArgs }: Args): TemplateResul
   `;
 };
 
+const TemplateDefaultFixedWidth = ({ description, ...remainingArgs }: Args): TemplateResult => {
+  return html`
+    <sbb-teaser ${sbbSpread(remainingArgs)} style="width:400px">
+      <img slot="image" src=${placeholderImage} alt="400x300" />
+      ${description}
+    </sbb-teaser>
+  `;
+};
+
 const TemplateCustom = ({ description, ...remainingArgs }: Args): TemplateResult => {
   return html`
     <sbb-teaser ${sbbSpread(remainingArgs)}>
@@ -162,10 +171,30 @@ export const AfterChip: StoryObj = {
   args: { ...defaultArgs, alignment: 'after', 'chip-content': 'This is a chip.' },
 };
 
+export const AfterWithLongContentChip: StoryObj = {
+  render: TemplateDefaultFixedWidth,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    alignment: 'after',
+    'chip-content': 'This is a chip which has a very long content and should receive ellipsis.',
+  },
+};
+
 export const BelowChip: StoryObj = {
   render: TemplateDefault,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, alignment: 'below', 'chip-content': 'This is a chip.' },
+};
+
+export const BelowWithLongContentChip: StoryObj = {
+  render: TemplateDefaultFixedWidth,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    alignment: 'below',
+    'chip-content': 'This is a chip which has a very long content and should receive ellipsis.',
+  },
 };
 
 export const WithLongTextCentered: StoryObj = {
