@@ -61,6 +61,11 @@
   flex-flow: var(--sbb-teaser-flex-direction) nowrap;
   align-items: var(--sbb-teaser-align-items);
   gap: var(--sbb-teaser-gap);
+  max-width: 100%;
+}
+
+.sbb-teaser__text {
+  overflow: hidden;
 }
 
 ::slotted([slot='image']) {
