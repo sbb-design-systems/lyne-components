@@ -31,7 +31,7 @@ The component is internally rendered as a button,
 accepting its associated properties (`type`, `name`, `value` and `form`).
 
 ```html
-<sbb-secondary-button type="button" name="tickets" form="buy" value="tickets">
+<sbb-secondary-button type="submit" name="tickets" form="buy" value="tickets">
   Buy tickets
 </sbb-secondary-button>
 ```
@@ -71,16 +71,16 @@ Use the accessibility properties in case of an icon-only button to describe the 
 
 ## Properties
 
-| Name       | Attribute   | Privacy | Type                         | Default | Description                                                                                                                      |
-| ---------- | ----------- | ------- | ---------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `size`     | `size`      | public  | `SbbButtonSize \| undefined` | `'l'`   | Size variant, either l or m.                                                                                                     |
-| `negative` | `negative`  | public  | `boolean`                    | `false` | Negative coloring variant flag.                                                                                                  |
-| `iconName` | `icon-name` | public  | `string \| undefined`        |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `disabled` | `disabled`  | public  | `boolean`                    | `false` | Whether the component is disabled.                                                                                               |
-| `type`     | `type`      | public  | `ButtonType \| undefined`    |         | The type attribute to use for the button.                                                                                        |
-| `name`     | `name`      | public  | `string \| undefined`        |         | The name attribute to use for the button.                                                                                        |
-| `value`    | `value`     | public  | `string \| undefined`        |         | The value attribute to use for the button.                                                                                       |
-| `form`     | `form`      | public  | `string \| undefined`        |         | The <form> element to associate the button with.                                                                                 |
+| Name       | Attribute   | Privacy | Type                         | Default    | Description                                                                                                                      |
+| ---------- | ----------- | ------- | ---------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `size`     | `size`      | public  | `SbbButtonSize \| undefined` | `'l'`      | Size variant, either l or m.                                                                                                     |
+| `negative` | `negative`  | public  | `boolean`                    | `false`    | Negative coloring variant flag.                                                                                                  |
+| `iconName` | `icon-name` | public  | `string \| undefined`        |            | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `disabled` | `disabled`  | public  | `boolean`                    | `false`    | Whether the component is disabled.                                                                                               |
+| `type`     | `type`      | public  | `SbbButtonType`              | `'button'` | The type attribute to use for the button.                                                                                        |
+| `name`     | `name`      | public  | `string`                     |            | The name of the button element.                                                                                                  |
+| `value`    | `value`     | public  | `string`                     |            | The value of the button element.                                                                                                 |
+| `form`     | `form`      | public  | `string \| undefined`        |            | The <form> element to associate the button with.                                                                                 |
 
 ## Slots
 

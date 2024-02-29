@@ -64,7 +64,7 @@ snapshots["sbb-transparent-button-static A11y tree Safari"] =
 /* end snapshot sbb-transparent-button-static A11y tree Safari */
 
 snapshots["ShadowDom"] = 
-`<span class="sbb-transparent-button-static">
+`<span class="sbb-action-base sbb-transparent-button-static">
   <span class="sbb-button__icon">
     <slot name="icon">
     </slot>
@@ -78,7 +78,7 @@ snapshots["ShadowDom"] =
 /* end snapshot ShadowDom */
 
 snapshots["sbb-transparent-button-static renders a sbb-transparent-button-static with slotted icon ShadowDom"] = 
-`<span class="sbb-transparent-button-static">
+`<span class="sbb-action-base sbb-transparent-button-static">
   <span class="sbb-button__icon">
     <slot name="icon">
     </slot>

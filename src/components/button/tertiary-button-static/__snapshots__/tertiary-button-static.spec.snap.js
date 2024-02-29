@@ -15,7 +15,7 @@ snapshots["Dom"] =
 /* end snapshot Dom */
 
 snapshots["ShadowDom"] = 
-`<span class="sbb-tertiary-button-static">
+`<span class="sbb-action-base sbb-tertiary-button-static">
   <span class="sbb-button__icon">
     <slot name="icon">
     </slot>
@@ -48,7 +48,7 @@ snapshots["sbb-tertiary-button-static renders a sbb-tertiary-button-static with 
 /* end snapshot sbb-tertiary-button-static renders a sbb-tertiary-button-static with slotted icon Dom */
 
 snapshots["sbb-tertiary-button-static renders a sbb-tertiary-button-static with slotted icon ShadowDom"] = 
-`<span class="sbb-tertiary-button-static">
+`<span class="sbb-action-base sbb-tertiary-button-static">
   <span class="sbb-button__icon">
     <slot name="icon">
     </slot>

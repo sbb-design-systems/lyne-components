@@ -20,7 +20,7 @@ snapshots["Dom"] =
 
 snapshots["ShadowDom"] = 
 `<a
-  class="sbb-transparent-button-link"
+  class="sbb-action-base sbb-transparent-button-link"
   download=""
   href="#"
   rel="noopener"
@@ -68,7 +68,7 @@ snapshots["sbb-transparent-button-link renders a disabled sbb-transparent-button
 
 snapshots["sbb-transparent-button-link renders a disabled sbb-transparent-button-link with slotted icon ShadowDom"] = 
 `<a
-  class="sbb-transparent-button-link"
+  class="sbb-action-base sbb-transparent-button-link"
   href="#"
   role="presentation"
   tabindex="-1"

@@ -21,7 +21,7 @@ snapshots["Dom"] =
 /* end snapshot Dom */
 
 snapshots["ShadowDom"] = 
-`<span class="sbb-secondary-button">
+`<span class="sbb-action-base sbb-secondary-button">
   <span class="sbb-button__icon">
     <slot name="icon">
     </slot>
@@ -56,7 +56,7 @@ snapshots["sbb-secondary-button renders a sbb-secondary-button with slotted icon
 /* end snapshot sbb-secondary-button renders a sbb-secondary-button with slotted icon Dom */
 
 snapshots["sbb-secondary-button renders a sbb-secondary-button with slotted icon ShadowDom"] = 
-`<span class="sbb-secondary-button">
+`<span class="sbb-action-base sbb-secondary-button">
   <span class="sbb-button__icon">
     <slot name="icon">
     </slot>
