@@ -21,7 +21,7 @@ import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n';
 import { AgnosticResizeObserver } from '../core/observers';
 import type { SbbOverlayState } from '../core/overlay';
 import { applyInertMechanism, removeInertMechanism } from '../core/overlay';
-import type { TitleLevel } from '../title';
+import type { SbbTitleLevel } from '../title';
 import '../button';
 import '../title';
 
@@ -62,7 +62,7 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   /**
    * Level of title, will be rendered as heading tag (e.g. h1). Defaults to level 1.
    */
-  @property({ attribute: 'title-level' }) public titleLevel: TitleLevel = '1';
+  @property({ attribute: 'title-level' }) public titleLevel: SbbTitleLevel = '1';
 
   /**
    * Whether a back button is displayed next to the title.

@@ -3,7 +3,7 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { NamedSlotStateController, SbbIconNameMixin } from '../core/common-behaviors';
-import type { TitleLevel } from '../title';
+import type { SbbTitleLevel } from '../title';
 
 import '../icon';
 import '../title';
@@ -36,7 +36,7 @@ export class SbbStatusElement extends SbbIconNameMixin(LitElement) {
   @property({ reflect: true, attribute: 'title-content' }) public titleContent?: string;
 
   /** Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3. */
-  @property({ attribute: 'title-level' }) public titleLevel: TitleLevel = '3';
+  @property({ attribute: 'title-level' }) public titleLevel: SbbTitleLevel = '3';
 
   public constructor() {
     super();

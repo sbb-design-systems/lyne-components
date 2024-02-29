@@ -3,7 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import { NamedSlotStateController, SbbLinkBaseElement } from '../core/common-behaviors';
-import type { TitleLevel } from '../title';
+import type { SbbTitleLevel } from '../title';
 import '../title';
 import '../chip';
 
@@ -26,7 +26,7 @@ export class SbbTeaserElement extends SbbLinkBaseElement {
     'after-centered';
 
   /** Heading level of the sbb-title element (e.g. h1-h6). */
-  @property({ attribute: 'title-level' }) public titleLevel: TitleLevel = '5';
+  @property({ attribute: 'title-level' }) public titleLevel: SbbTitleLevel = '5';
 
   /** Content of title. */
   @property({ attribute: 'title-content' }) public titleContent?: string;

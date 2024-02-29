@@ -4,7 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { SbbNegativeMixin } from '../core/common-behaviors';
-import type { TitleLevel } from '../title';
+import type { SbbTitleLevel } from '../title';
 
 import style from './footer.scss?lit&inline';
 
@@ -35,7 +35,7 @@ export class SbbFooterElement extends SbbNegativeMixin(LitElement) {
 
   /** Level of the accessibility title, will be rendered as heading tag (e.g. h1). Defaults to level 1. */
   @property({ attribute: 'accessibility-title-level' })
-  public accessibilityTitleLevel: TitleLevel = '1';
+  public accessibilityTitleLevel: SbbTitleLevel = '1';
 
   protected override render(): TemplateResult {
     const TITLE_TAG_NAME = `h${this.accessibilityTitleLevel}`;

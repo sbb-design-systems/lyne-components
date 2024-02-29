@@ -5,7 +5,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { setAttribute } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
-import type { TitleLevel } from '../../title';
+import type { SbbTitleLevel } from '../../title';
 import { SbbAlertElement } from '../alert';
 
 import style from './alert-group.scss?lit&inline';
@@ -40,7 +40,7 @@ export class SbbAlertGroupElement extends LitElement {
 
   /** Level of the accessibility title, will be rendered as heading tag (e.g. h2). Defaults to level 2. */
   @property({ attribute: 'accessibility-title-level' })
-  public accessibilityTitleLevel: TitleLevel = '2';
+  public accessibilityTitleLevel: SbbTitleLevel = '2';
 
   /** Whether the group currently has any alerts. */
   @state() private _hasAlerts?: boolean;

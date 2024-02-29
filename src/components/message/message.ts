@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import type { TitleLevel } from '../title';
+import type { SbbTitleLevel } from '../title';
 import '../title';
 
 import style from './message.scss?lit&inline';
@@ -24,7 +24,7 @@ export class SbbMessageElement extends LitElement {
   @property({ attribute: 'title-content' }) public titleContent?: string;
 
   /** Level of title, it will be rendered as heading tag (e.g., h3). Defaults to level 3. */
-  @property({ attribute: 'title-level' }) public titleLevel: TitleLevel = '3';
+  @property({ attribute: 'title-level' }) public titleLevel: SbbTitleLevel = '3';
 
   protected override render(): TemplateResult {
     return html`

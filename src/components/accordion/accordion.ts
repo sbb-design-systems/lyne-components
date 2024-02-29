@@ -5,7 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { SbbHydrationMixin } from '../core/common-behaviors';
 import { ConnectedAbortController } from '../core/eventing';
 import { SbbExpansionPanelElement } from '../expansion-panel';
-import type { TitleLevel } from '../title';
+import type { SbbTitleLevel } from '../title';
 
 import style from './accordion.scss?lit&inline';
 
@@ -23,14 +23,14 @@ export class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
    * @controls SbbExpansionPanelElement.titleLevel
    */
   @property({ attribute: 'title-level' })
-  public set titleLevel(value: TitleLevel | null) {
+  public set titleLevel(value: SbbTitleLevel | null) {
     this._titleLevel = value;
     this._setTitleLevelOnChildren();
   }
-  public get titleLevel(): TitleLevel | null {
+  public get titleLevel(): SbbTitleLevel | null {
     return this._titleLevel;
   }
-  private _titleLevel: TitleLevel | null = null;
+  private _titleLevel: SbbTitleLevel | null = null;
 
   /**
    * Whether the animation should be disabled.

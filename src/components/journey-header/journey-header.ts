@@ -5,7 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { LanguageController, SbbNegativeMixin } from '../core/common-behaviors';
 import { getDocumentWritingMode } from '../core/dom';
 import { i18nConnectionFrom, i18nConnectionRoundtrip, i18nConnectionTo } from '../core/i18n';
-import type { TitleLevel } from '../title';
+import type { SbbTitleLevel } from '../title';
 import '../icon';
 import '../title';
 
@@ -30,7 +30,7 @@ export class SbbJourneyHeaderElement extends SbbNegativeMixin(LitElement) {
   @property({ attribute: 'round-trip', type: Boolean }) public roundTrip?: boolean;
 
   /** Heading level of the journey header element (e.g. h1-h6). */
-  @property() public level?: TitleLevel = '3';
+  @property() public level: SbbTitleLevel = '3';
 
   /** Journey header size. */
   @property({ reflect: true }) public size?: JourneyHeaderSize = 'm';

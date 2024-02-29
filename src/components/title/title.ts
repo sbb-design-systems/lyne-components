@@ -8,7 +8,7 @@ import { setAttribute } from '../core/dom';
 
 import style from './title.scss?lit&inline';
 
-export type TitleLevel = '1' | '2' | '3' | '4' | '5' | '6';
+export type SbbTitleLevel = '1' | '2' | '3' | '4' | '5' | '6';
 
 /**
  * It displays a title wrapped into a heading tag.
@@ -20,11 +20,11 @@ export class SbbTitleElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /** Title level */
-  @property({ reflect: true }) public level?: TitleLevel = '1';
+  @property({ reflect: true }) public level: SbbTitleLevel = '1';
 
   /** Visual level for the title. Optional, if not set, the value of level will be used. */
   @property({ attribute: 'visual-level', reflect: true })
-  public visualLevel?: TitleLevel;
+  public visualLevel?: SbbTitleLevel;
 
   /**
    * Sometimes we need a title in the markup to present a proper hierarchy

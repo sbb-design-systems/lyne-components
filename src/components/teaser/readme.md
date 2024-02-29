@@ -55,7 +55,7 @@ Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and
 | Name           | Attribute       | Privacy | Type                                     | Default            | Description                                                               |
 | -------------- | --------------- | ------- | ---------------------------------------- | ------------------ | ------------------------------------------------------------------------- |
 | `alignment`    | `alignment`     | public  | `'after-centered' \| 'after' \| 'below'` | `'after-centered'` | Teaser variant - define the position and the alignment of the text block. |
-| `titleLevel`   | `title-level`   | public  | `TitleLevel`                             | `'5'`              | Heading level of the sbb-title element (e.g. h1-h6).                      |
+| `titleLevel`   | `title-level`   | public  | `SbbTitleLevel`                          | `'5'`              | Heading level of the sbb-title element (e.g. h1-h6).                      |
 | `titleContent` | `title-content` | public  | `string \| undefined`                    |                    | Content of title.                                                         |
 | `chipContent`  | `chip-content`  | public  | `string \| undefined`                    |                    | Content of chip.                                                          |
 | `href`         | `href`          | public  | `string \| undefined`                    |                    | The href value you want to link to.                                       |

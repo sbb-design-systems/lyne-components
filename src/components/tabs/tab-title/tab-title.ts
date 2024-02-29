@@ -8,7 +8,7 @@ import {
   SbbDisabledMixin,
   SbbIconNameMixin,
 } from '../../core/common-behaviors';
-import type { TitleLevel } from '../../title';
+import type { SbbTitleLevel } from '../../title';
 
 import '../../icon';
 import style from './tab-title.scss?lit&inline';
@@ -28,7 +28,7 @@ export class SbbTabTitleElement extends SbbDisabledMixin(SbbIconNameMixin(LitEle
    * The level will correspond to the heading tag generated in the title.
    * Use this property to generate the appropriate header tag, taking SEO into consideration.
    */
-  @property() public level?: TitleLevel = '1';
+  @property() public level: SbbTitleLevel = '1';
 
   /** Active tab state */
   @property({ reflect: true, type: Boolean }) public active?: boolean;
