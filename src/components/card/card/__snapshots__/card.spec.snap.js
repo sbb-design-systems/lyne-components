@@ -130,15 +130,7 @@ snapshots["sbb-card A11y tree Safari"] =
     },
     {
       "role": "text",
-      "name": "%"
-    },
-    {
-      "role": "text",
-      "name": "from CHF"
-    },
-    {
-      "role": "text",
-      "name": "19.99"
+      "name": "% from CHF 19.99"
     }
   ]
 }
