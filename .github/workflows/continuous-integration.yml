@@ -150,3 +150,5 @@ jobs:
           exitZeroOnChanges: true
           zip: true
           onlyChanged: true
+          externals: |
+            - 'src/components/core/styles/**/*.scss'
