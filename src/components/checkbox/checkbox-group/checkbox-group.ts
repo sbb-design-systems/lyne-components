@@ -2,7 +2,7 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y';
+import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y';
 import { NamedSlotStateController, SbbDisabledMixin } from '../../core/common-behaviors';
 import { toggleDatasetEntry } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
@@ -70,8 +70,7 @@ export class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
 
   private _handleKeyDown(evt: KeyboardEvent): void {
     const enabledCheckboxes: SbbCheckboxElement[] = this.checkboxes.filter(
-      (checkbox: SbbCheckboxElement) =>
-        !checkbox.disabled && interactivityChecker.isVisible(checkbox),
+      (checkbox: SbbCheckboxElement) => !checkbox.disabled,
     );
 
     if (

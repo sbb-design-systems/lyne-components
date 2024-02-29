@@ -2,7 +2,7 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../core/a11y';
+import { isArrowKeyPressed, getNextElementIndex } from '../../core/a11y';
 import { NamedSlotStateController, SbbDisabledMixin } from '../../core/common-behaviors';
 import { toggleDatasetEntry, setAttribute } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
@@ -83,7 +83,7 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
 
   private get _enabledRadios(): SbbRadioButtonElement[] | undefined {
     if (!this.disabled) {
-      return this.radioButtons.filter((r) => !r.disabled && interactivityChecker.isVisible(r));
+      return this.radioButtons.filter((r) => !r.disabled);
     }
   }
 
