@@ -42,7 +42,7 @@ export class SbbJourneyHeaderElement extends SbbNegativeMixin(LitElement) {
 
     return html`
       <sbb-title
-        level=${this.level ?? nothing}
+        level=${this.level || nothing}
         ?negative=${this.negative}
         visual-level=${this.size === 'l' ? '4' : '5'}
       >

@@ -59,7 +59,7 @@ export class SbbSkiplinkListElement extends SbbNamedSlotListElementMixin<
       <div class="sbb-skiplink-list__wrapper">
         <sbb-title
           class="sbb-link-list-title"
-          level=${this.titleLevel ?? nothing}
+          level=${this.titleLevel || nothing}
           visual-level="5"
           visually-hidden
           negative

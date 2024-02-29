@@ -146,7 +146,7 @@ export class SbbJourneySummaryElement extends LitElement {
         ${origin
           ? html`<sbb-journey-header
               size="l"
-              .level=${this.headerLevel ?? nothing}
+              .level=${this.headerLevel || nothing}
               .origin=${origin}
               .destination=${destination}
               .roundTrip=${this.roundTrip ?? nothing}

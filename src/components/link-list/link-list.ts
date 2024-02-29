@@ -73,7 +73,7 @@ export class SbbLinkListElement extends SbbNegativeMixin(
       <div class="sbb-link-list-wrapper">
         <sbb-title
           class="sbb-link-list-title"
-          level=${this.titleLevel ?? nothing}
+          level=${this.titleLevel || nothing}
           visual-level="5"
           ?negative=${this.negative}
           id="sbb-link-list-title-id"
