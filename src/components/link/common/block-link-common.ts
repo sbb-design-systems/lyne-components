@@ -1,4 +1,4 @@
-import { type CSSResultGroup, type TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
@@ -10,8 +10,9 @@ import {
 import type { SbbIconPlacement } from '../../core/interfaces';
 
 import '../../icon';
-import blockStyle from './block-link.scss?lit&inline';
 import { SbbLinkCommonElementMixin, type SbbLinkCommonElementMixinType } from './link-common';
+// eslint-disable-next-line import/order
+import blockStyle from './block-link.scss?lit&inline';
 import style from './link.scss?lit&inline';
 
 export declare class SbbBlockLinkCommonElementMixinType extends SbbLinkCommonElementMixinType {

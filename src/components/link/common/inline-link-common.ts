@@ -1,9 +1,10 @@
-import { type CSSResultGroup } from 'lit';
+import type { CSSResultGroup } from 'lit';
 
-import { type SbbActionBaseElement, type AbstractConstructor } from '../../core/common-behaviors';
+import type { SbbActionBaseElement, AbstractConstructor } from '../../core/common-behaviors';
 
-import inlineStyle from './inline-link.scss?lit&inline';
 import { SbbLinkCommonElementMixin, type SbbLinkCommonElementMixinType } from './link-common';
+// eslint-disable-next-line import/order
+import inlineStyle from './inline-link.scss?lit&inline';
 import style from './link.scss?lit&inline';
 
 export declare class SbbInlineLinkCommonElementMixinType extends SbbLinkCommonElementMixinType {}

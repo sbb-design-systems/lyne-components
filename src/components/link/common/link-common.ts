@@ -1,4 +1,4 @@
-import { type CSSResultGroup, type TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
