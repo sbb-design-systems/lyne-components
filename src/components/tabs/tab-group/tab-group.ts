@@ -3,7 +3,7 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../core/a11y';
+import { isArrowKeyPressed, getNextElementIndex } from '../../core/a11y';
 import { isValidAttribute, hostContext, toggleDatasetEntry, setAttribute } from '../../core/dom';
 import { throttle, EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers';
@@ -134,9 +134,7 @@ export class SbbTabGroupElement extends LitElement {
   }
 
   private get _enabledTabs(): InterfaceSbbTabGroupTab[] {
-    return this._tabs.filter(
-      (t) => !isValidAttribute(t, 'disabled') && interactivityChecker.isVisible(t),
-    );
+    return this._tabs.filter((t) => !isValidAttribute(t, 'disabled'));
   }
 
   public override connectedCallback(): void {
