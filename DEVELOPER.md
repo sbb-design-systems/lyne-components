@@ -29,7 +29,45 @@ Run `yarn lint --fix` to fix any automatically fixable lint issues and report th
 
 ## Running tests
 
-To run unit tests, run `yarn test`.
+To run unit tests, run `yarn test`. This will run the full test suite with client side rendering
+and server side rendering with and without hydration.
+During development it is preferable to run `yarn test:csr`, which will just run the client side
+rendering.
+
+### Debugging with Visual Studio Code
+
+It is possible to debug tests and/or run them in isolation with Visual Studio Code.
+The following code snippet can be placed in `.vscode/launch.json`.
+Replace `test:csr` with either `test:ssr:hydrated` or `test:ssr:non-hydrated` to test SSR.
+Add the `--debug` param to enable breakpoint debugging and the detailed test report.
+
+```json
+  ...
+  {
+    "name": "Test",
+    "request": "launch",
+    "runtimeArgs": ["test:csr", "${relativeFile}", "--watch"],
+    "runtimeExecutable": "yarn",
+    "skipFiles": ["<node_internals>/**"],
+    "type": "node",
+    "console": "integratedTerminal"
+  },
+  ...
+```
+
+### Debugging with IntelliJ
+
+It is possible to debug tests and/or run them in isolation also with Intellij IDEA.
+From the title bar, open the 'Run' menu, then select 'Edit configuration'.
+Create and save a new `npm` configuration with the following parameters,
+possibly replacing `test:csr` with either `test:ssr:hydrated` or `test:ssr:non-hydrated` to test SSR:
+
+- Command: `run`
+- Scripts: `test:csr`
+- Arguments: `**/$FileName$ --watch`
+
+Finally, open the file you want to test and run the script.
+Add the `--debug` param to enable breakpoint debugging and the detailed test report.
 
 ## Starting showcase
 
