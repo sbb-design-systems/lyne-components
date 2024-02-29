@@ -18,10 +18,10 @@ describe('sbb-popover', () => {
           <sbb-button id="popover-trigger">Popover trigger</sbb-button>
           <sbb-popover id="popover" trigger="popover-trigger" disable-animation>
             Popover content.
-            <sbb-link id="popover-link" href="#" variant="inline" sbb-popover-close>Link</sbb-link>
+            <sbb-link id="popover-link" href="#" sbb-popover-close>Link</sbb-link>
           </sbb-popover>
-          <sbb-link href="#" id="interactive-background-element"
-            >Other interactive element</sbb-link
+          <sbb-block-link href="#" id="interactive-background-element"
+            >Other interactive element</sbb-block-link
           >
         </span>
       `);
@@ -389,8 +389,8 @@ describe('sbb-popover', () => {
           <sbb-popover id="popover" trigger="popover-trigger" disable-animation hide-close-button>
             Popover content.
           </sbb-popover>
-          <sbb-link href="#" id="interactive-background-element"
-            >Other interactive element</sbb-link
+          <sbb-block-link href="#" id="interactive-background-element"
+            >Other interactive element</sbb-block-link
           >
         </span>
       `);
@@ -445,8 +445,8 @@ describe('sbb-popover', () => {
 
   it('should close an open popover when another one is opened', async () => {
     await fixture(html`
-      <sbb-link href="#somewhere" id="interactive-background-element"
-        >Other interactive element</sbb-link
+      <sbb-block-link href="#somewhere" id="interactive-background-element"
+        >Other interactive element</sbb-block-link
       >
       <sbb-button id="popover-trigger">Popover trigger</sbb-button>
       <sbb-button id="another-popover-trigger">Another popover trigger</sbb-button>

@@ -6,7 +6,7 @@ import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
 
 import type { SbbSkiplinkListElement } from './skiplink-list';
 import './skiplink-list';
-import '../link';
+import '../link/block-link';
 
 describe('sbb-skiplink-list', () => {
   describe('renders', () => {
@@ -15,9 +15,9 @@ describe('sbb-skiplink-list', () => {
     beforeEach(async () => {
       element = await fixture(html`
         <sbb-skiplink-list>
-          <sbb-link href="#">Link 1</sbb-link>
-          <sbb-link href="#">Link 2</sbb-link>
-          <sbb-link href="#">Link 3</sbb-link>
+          <sbb-block-link href="#">Link 1</sbb-block-link>
+          <sbb-block-link href="#">Link 2</sbb-block-link>
+          <sbb-block-link href="#">Link 3</sbb-block-link>
         </sbb-skiplink-list>
       `);
       await waitForLitRender(element);
@@ -38,9 +38,9 @@ describe('sbb-skiplink-list', () => {
     beforeEach(async () => {
       element = await fixture(html`
         <sbb-skiplink-list title-content="Skip to" title-level="3">
-          <sbb-link href="https://www.sbb.ch">Link 1</sbb-link>
-          <sbb-link href="https://www.sbb.ch">Link 2</sbb-link>
-          <sbb-link href="https://www.sbb.ch">Link 3</sbb-link>
+          <sbb-block-link href="https://www.sbb.ch">Link 1</sbb-block-link>
+          <sbb-block-link href="https://www.sbb.ch">Link 2</sbb-block-link>
+          <sbb-block-link href="https://www.sbb.ch">Link 3</sbb-block-link>
         </sbb-skiplink-list>
       `);
       await waitForLitRender(element);

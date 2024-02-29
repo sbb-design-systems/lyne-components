@@ -30,7 +30,7 @@ describe('sbb-card-button', () => {
       </sbb-card-button>
     `);
     expect(cardAction).shadowDom.to.be.equal(`
-      <span class="sbb-card-button">
+      <span class="sbb-action-base sbb-card-button">
         <span class="sbb-card-action__label">
           <slot></slot>
         </span>

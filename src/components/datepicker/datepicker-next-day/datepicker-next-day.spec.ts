@@ -18,7 +18,7 @@ describe('sbb-datepicker-next-day', () => {
     await expect(page).dom.to.be.equalSnapshot();
 
     expect(page).shadowDom.to.be.equal(`
-      <span class="sbb-datepicker-next-day">
+      <span class="sbb-action-base sbb-datepicker-next-day">
         <sbb-icon aria-hidden="true" data-namespace="default" name="chevron-small-right-small" role="img"></sbb-icon>
       </span>
     `);
@@ -39,7 +39,7 @@ describe('sbb-datepicker-next-day', () => {
     await expect(element).dom.to.be.equalSnapshot();
 
     expect(element).shadowDom.to.be.equal(`
-      <span class="sbb-datepicker-next-day">
+      <span class="sbb-action-base sbb-datepicker-next-day">
         <sbb-icon aria-hidden="true" data-namespace="default" name="chevron-small-right-small" role="img"></sbb-icon>
       </span>
     `);

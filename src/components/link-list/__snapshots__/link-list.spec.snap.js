@@ -49,66 +49,66 @@ snapshots["sbb-link-list rendered with a slotted title in light DOM"] =
   <span slot="title">
     Help & Contact
   </span>
-  <sbb-link
+  <sbb-block-link
     data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    icon-placement="start"
     role="link"
     size="s"
     slot="li-0"
     tabindex="0"
-    variant="block"
   >
     Rückerstattungen
-  </sbb-link>
-  <sbb-link
+  </sbb-block-link>
+  <sbb-block-link
     data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    icon-placement="start"
     role="link"
     size="s"
     slot="li-1"
     tabindex="0"
-    variant="block"
   >
     Fundbüro
-  </sbb-link>
-  <sbb-link
+  </sbb-block-link>
+  <sbb-block-link
     data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    icon-placement="start"
     role="link"
     size="s"
     slot="li-2"
     tabindex="0"
-    variant="block"
   >
     Beschwerden
-  </sbb-link>
-  <sbb-link
+  </sbb-block-link>
+  <sbb-block-link
     data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    icon-placement="start"
     role="link"
     size="s"
     slot="li-3"
     tabindex="0"
-    variant="block"
   >
     Lob aussprechen
-  </sbb-link>
-  <sbb-link
+  </sbb-block-link>
+  <sbb-block-link
     data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    icon-placement="start"
     role="link"
     size="s"
     slot="li-4"
     tabindex="0"
-    variant="block"
   >
     Sachbeschädigung melden
-  </sbb-link>
+  </sbb-block-link>
 </sbb-link-list>
 `;
 /* end snapshot sbb-link-list rendered with a slotted title in light DOM */
@@ -177,66 +177,66 @@ snapshots["sbb-link-list rendered with a title from properties in light DOM"] =
   title-content="Help &amp; Contact"
   title-level="2"
 >
-  <sbb-link
+  <sbb-block-link
     data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    icon-placement="start"
     role="link"
     size="s"
     slot="li-0"
     tabindex="0"
-    variant="block"
   >
     Rückerstattungen
-  </sbb-link>
-  <sbb-link
+  </sbb-block-link>
+  <sbb-block-link
     data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    icon-placement="start"
     role="link"
     size="s"
     slot="li-1"
     tabindex="0"
-    variant="block"
   >
     Fundbüro
-  </sbb-link>
-  <sbb-link
+  </sbb-block-link>
+  <sbb-block-link
     data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    icon-placement="start"
     role="link"
     size="s"
     slot="li-2"
     tabindex="0"
-    variant="block"
   >
     Beschwerden
-  </sbb-link>
-  <sbb-link
+  </sbb-block-link>
+  <sbb-block-link
     data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    icon-placement="start"
     role="link"
     size="s"
     slot="li-3"
     tabindex="0"
-    variant="block"
   >
     Lob aussprechen
-  </sbb-link>
-  <sbb-link
+  </sbb-block-link>
+  <sbb-block-link
     data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    icon-placement="start"
     role="link"
     size="s"
     slot="li-4"
     tabindex="0"
-    variant="block"
   >
     Sachbeschädigung melden
-  </sbb-link>
+  </sbb-block-link>
 </sbb-link-list>
 `;
 /* end snapshot sbb-link-list rendered with a title from properties in light DOM */
@@ -294,66 +294,66 @@ snapshots["sbb-link-list rendered without a title in light DOM"] =
   orientation="vertical"
   size="s"
 >
-  <sbb-link
+  <sbb-block-link
     data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    icon-placement="start"
     role="link"
     size="s"
     slot="li-0"
     tabindex="0"
-    variant="block"
   >
     Rückerstattungen
-  </sbb-link>
-  <sbb-link
+  </sbb-block-link>
+  <sbb-block-link
     data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    icon-placement="start"
     role="link"
     size="s"
     slot="li-1"
     tabindex="0"
-    variant="block"
   >
     Fundbüro
-  </sbb-link>
-  <sbb-link
+  </sbb-block-link>
+  <sbb-block-link
     data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    icon-placement="start"
     role="link"
     size="s"
     slot="li-2"
     tabindex="0"
-    variant="block"
   >
     Beschwerden
-  </sbb-link>
-  <sbb-link
+  </sbb-block-link>
+  <sbb-block-link
     data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    icon-placement="start"
     role="link"
     size="s"
     slot="li-3"
     tabindex="0"
-    variant="block"
   >
     Lob aussprechen
-  </sbb-link>
-  <sbb-link
+  </sbb-block-link>
+  <sbb-block-link
     data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    icon-placement="start"
     role="link"
     size="s"
     slot="li-4"
     tabindex="0"
-    variant="block"
   >
     Sachbeschädigung melden
-  </sbb-link>
+  </sbb-block-link>
 </sbb-link-list>
 `;
 /* end snapshot sbb-link-list rendered without a title in light DOM */

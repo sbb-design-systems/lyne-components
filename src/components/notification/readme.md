@@ -15,13 +15,13 @@ The `sbb-notification` is structured in the following way:
 ```html
 <sbb-notification>
   The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
-  <sbb-link variant="inline" href="/">Link one</sbb-link>
-  <sbb-link variant="inline" href="/">Link two</sbb-link>
-  <sbb-link variant="inline" href="/">Link three</sbb-link>
+  <sbb-link href="/">Link one</sbb-link>
+  <sbb-link href="/">Link two</sbb-link>
+  <sbb-link href="/">Link three</sbb-link>
 </sbb-notification>
 ```
 
-Note that the notification only supports inline links, therefore any slotted link will be forced to be a `variant="inline"` link.
+Note that the notification only supports inline links.
 
 ## Variants
 

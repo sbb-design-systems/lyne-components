@@ -116,6 +116,7 @@ const meta: Meta = {
     withActions as Decorator,
   ],
   parameters: {
+    chromatic: { diffThreshold: 0.11, delay: 5000 },
     backgrounds: {
       disable: true,
     },

@@ -2,7 +2,7 @@
 @use './a11y';
 @use '../core/mediaqueries';
 
-@mixin link-variables {
+@mixin block-link-variables {
   --sbb-link-color-normal: var(--sbb-color-granite-default);
   --sbb-link-color-hover: var(--sbb-color-red125-default);
   --sbb-link-color-active: var(--sbb-color-red150-default);
@@ -13,19 +13,21 @@
   }
 }
 
-@mixin link-variables--negative {
+@mixin block-link-variables--negative {
   --sbb-link-color-normal: var(--sbb-color-white-default);
   --sbb-link-color-hover: var(--sbb-color-cloud-default);
   --sbb-link-color-active: var(--sbb-color-silver-default);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
-@mixin link-variables--inline {
+@mixin link-variables {
   --sbb-link-color-normal: inherit;
+  --sbb-link-color-hover: var(--sbb-color-red125-default);
+  --sbb-link-color-active: var(--sbb-color-red150-default);
   --sbb-link-text-decoration: underline;
 }
 
-@mixin link-variables--inline-negative {
+@mixin link-variables--negative {
   --sbb-link-color-hover: var(--sbb-color-graphite-default);
   --sbb-link-color-active: var(--sbb-color-metal-default);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
@@ -43,10 +45,6 @@
   color: var(--sbb-link-color-normal);
   text-decoration: var(--sbb-link-text-decoration);
   user-select: none;
-}
-
-@mixin link-inline-base {
-  @include typo.text-inherit;
 }
 
 @mixin link-focus-visible {
@@ -81,9 +79,9 @@
   }
 }
 
-@mixin link-inline-consolidation {
+@mixin link-consolidation {
   @include link-base;
-  @include link-inline-base;
+  @include typo.text-inherit;
   @include link-focus-visible;
   @include link-hover;
 
@@ -91,16 +89,13 @@
   @include link-active;
 }
 
-@mixin link-inline {
+@mixin link {
   @include link-variables;
-  @include link-variables--inline;
-  @include link-inline-consolidation;
+  @include link-consolidation;
 }
 
-@mixin link-inline-negative {
-  // We don't include link-variables and link-variables--negative here
-  // because they are going to be overridden anyways.
-  @include link-variables--inline;
-  @include link-variables--inline-negative;
-  @include link-inline-consolidation;
+@mixin link-negative {
+  @include link-variables;
+  @include link-variables--negative;
+  @include link-consolidation;
 }

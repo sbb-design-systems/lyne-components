@@ -12,7 +12,7 @@ import { sbbSpread } from '../core/dom';
 import { SbbNotificationElement } from './notification';
 import readme from './readme.md?raw';
 import '../button';
-import '../link';
+import '../link/link';
 
 const titleContent: InputType = {
   control: {
@@ -108,7 +108,7 @@ const pageContent = (): TemplateResult => html`
   <p style="margin: 0;">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
     labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-    <sbb-link href="/" variant="inline"> link </sbb-link>
+    <sbb-link href="/"> link </sbb-link>
     nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
   </p>
 `;
@@ -127,9 +127,9 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
     )}
   >
     The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
-    dog.&nbsp;<sbb-link href="/" variant="block"> Link one</sbb-link>
-    <sbb-link href="/" variant="inline"> Link two</sbb-link>
-    <sbb-link href="/" variant="inline"> Link three</sbb-link>
+    dog.&nbsp;<sbb-link href="/"> Link one</sbb-link>
+    <sbb-link href="/"> Link two</sbb-link>
+    <sbb-link href="/"> Link three</sbb-link>
   </sbb-notification>
 `;
 
@@ -147,9 +147,9 @@ const MultipleNotificationsTemplate = (args: Args): TemplateResult => html`
     )}
   >
     The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
-    dog.&nbsp;<sbb-link href="/" variant="block"> Link one</sbb-link>
-    <sbb-link href="/" variant="inline"> Link two</sbb-link>
-    <sbb-link href="/" variant="inline"> Link three</sbb-link>
+    dog.&nbsp;<sbb-link href="/"> Link one</sbb-link>
+    <sbb-link href="/"> Link two</sbb-link>
+    <sbb-link href="/"> Link three</sbb-link>
   </sbb-notification>
 
   ${simpleNotification(args['disable-animation'], 'success', 'Success')}
@@ -172,9 +172,9 @@ const SlottedTitleTemplate = (args: Args): TemplateResult => html`
   >
     <span slot="title">Slotted title</span>
     The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.&nbsp;
-    <sbb-link href="/" variant="block"> Link one </sbb-link>
-    <sbb-link href="/" variant="inline"> Link two </sbb-link>
-    <sbb-link href="/" variant="inline"> Link three </sbb-link>
+    <sbb-link href="/"> Link one </sbb-link>
+    <sbb-link href="/"> Link two </sbb-link>
+    <sbb-link href="/"> Link three </sbb-link>
   </sbb-notification>
 `;
 

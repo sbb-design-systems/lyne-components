@@ -10,7 +10,7 @@ describe('sbb-link', () => {
   let element: SbbLinkElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-link href="#" id="focus-id">Link as Button</sbb-link>`);
+    element = await fixture(html`<sbb-link href="#" id="focus-id">Inline link</sbb-link>`);
   });
 
   it('renders', async () => {

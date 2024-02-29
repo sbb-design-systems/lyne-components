@@ -10,7 +10,7 @@ import type { SbbRadioButtonGroupElement } from '../radio-button';
 import { SbbRadioButtonElement } from '../radio-button';
 
 import { SbbSelectionPanelElement } from './selection-panel';
-import '../link';
+import '../link/block-link-button';
 
 describe('sbb-selection-panel', () => {
   let elements: SbbSelectionPanelElement[];
@@ -27,28 +27,28 @@ describe('sbb-selection-panel', () => {
           }'>Value one</${tagSingle}>
           <div id="panel-content-1" slot="content">
             Inner Content
-            <sbb-link>Link</sbb-link>
+            <sbb-block-link-button>Link</sbb-block-link-button>
           </div>
         </sbb-selection-panel>
         <sbb-selection-panel disable-animation id="sbb-selection-panel-2">
           <${tagSingle} id="sbb-input-2" value="Value two">Value two</${tagSingle}>
           <div id="panel-content-2" slot="content">
             Inner Content
-            <sbb-link>Link</sbb-link>
+            <sbb-block-link-button>Link</sbb-block-link-button>
           </div>
         </sbb-selection-panel>
         <sbb-selection-panel disable-animation id="sbb-selection-panel-3">
           <${tagSingle} id="sbb-input-3" value="Value three" disabled>Value three</${tagSingle}>
           <div id="panel-content-3" slot="content">
             Inner Content
-            <sbb-link>Link</sbb-link>
+            <sbb-block-link-button>Link</sbb-block-link-button>
           </div>
         </sbb-selection-panel>
         <sbb-selection-panel disable-animation id="sbb-selection-panel-4">
           <${tagSingle} id="sbb-input-4" value="Value four">Value four</${tagSingle}>
           <div id="panel-content-4" slot="content">
             Inner Content
-            <sbb-link>Link</sbb-link>
+            <sbb-block-link-button>Link</sbb-block-link-button>
           </div>
         </sbb-selection-panel>
       </${tagGroupElement}>`;

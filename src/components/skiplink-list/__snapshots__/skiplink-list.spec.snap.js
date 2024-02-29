@@ -43,45 +43,45 @@ snapshots["sbb-skiplink-list should render named slots if data-ssr-child-count a
 
 snapshots["sbb-skiplink-list renders Dom"] = 
 `<sbb-skiplink-list data-slot-names="li-0 li-1 li-2">
-  <sbb-link
+  <sbb-block-link
     data-slot-names="unnamed"
     dir="ltr"
     href="#"
+    icon-placement="start"
     negative=""
     role="link"
     size="m"
     slot="li-0"
     tabindex="0"
-    variant="block"
   >
     Link 1
-  </sbb-link>
-  <sbb-link
+  </sbb-block-link>
+  <sbb-block-link
     data-slot-names="unnamed"
     dir="ltr"
     href="#"
+    icon-placement="start"
     negative=""
     role="link"
     size="m"
     slot="li-1"
     tabindex="0"
-    variant="block"
   >
     Link 2
-  </sbb-link>
-  <sbb-link
+  </sbb-block-link>
+  <sbb-block-link
     data-slot-names="unnamed"
     dir="ltr"
     href="#"
+    icon-placement="start"
     negative=""
     role="link"
     size="m"
     slot="li-2"
     tabindex="0"
-    variant="block"
   >
     Link 3
-  </sbb-link>
+  </sbb-block-link>
 </sbb-skiplink-list>
 `;
 /* end snapshot sbb-skiplink-list renders Dom */
@@ -132,45 +132,45 @@ snapshots["sbb-skiplink-list renders with title Dom"] =
   title-content="Skip to"
   title-level="3"
 >
-  <sbb-link
+  <sbb-block-link
     data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch"
+    icon-placement="start"
     negative=""
     role="link"
     size="m"
     slot="li-0"
     tabindex="0"
-    variant="block"
   >
     Link 1
-  </sbb-link>
-  <sbb-link
+  </sbb-block-link>
+  <sbb-block-link
     data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch"
+    icon-placement="start"
     negative=""
     role="link"
     size="m"
     slot="li-1"
     tabindex="0"
-    variant="block"
   >
     Link 2
-  </sbb-link>
-  <sbb-link
+  </sbb-block-link>
+  <sbb-block-link
     data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch"
+    icon-placement="start"
     negative=""
     role="link"
     size="m"
     slot="li-2"
     tabindex="0"
-    variant="block"
   >
     Link 3
-  </sbb-link>
+  </sbb-block-link>
 </sbb-skiplink-list>
 `;
 /* end snapshot sbb-skiplink-list renders with title Dom */

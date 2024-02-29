@@ -6,7 +6,6 @@ import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
 
 import type { SbbTeaserHeroElement } from './teaser-hero';
 import './teaser-hero';
-import '../link';
 import '../image';
 
 describe('sbb-teaser-hero', () => {

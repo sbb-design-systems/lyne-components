@@ -3,7 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-breadcrumb renders with text"] = 
 `<a
-  class="sbb-breadcrumb"
+  class="sbb-action-base sbb-breadcrumb"
   download=""
   href="/test"
   rel="subsection"
@@ -26,7 +26,7 @@ snapshots["sbb-breadcrumb renders with text"] =
 
 snapshots["sbb-breadcrumb renders with icon"] = 
 `<a
-  class="sbb-breadcrumb"
+  class="sbb-action-base sbb-breadcrumb"
   href="/"
   role="presentation"
   tabindex="-1"
@@ -54,7 +54,7 @@ snapshots["sbb-breadcrumb renders with icon"] =
 
 snapshots["sbb-breadcrumb renders with icon and text"] = 
 `<a
-  class="sbb-breadcrumb"
+  class="sbb-action-base sbb-breadcrumb"
   href="/"
   role="presentation"
   tabindex="-1"

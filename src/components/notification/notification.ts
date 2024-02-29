@@ -7,7 +7,6 @@ import { setAttribute, toggleDatasetEntry } from '../core/dom';
 import { EventEmitter } from '../core/eventing';
 import { i18nCloseNotification } from '../core/i18n';
 import { AgnosticResizeObserver } from '../core/observers';
-import type { SbbLinkButtonElement, SbbLinkElement } from '../link';
 import type { SbbTitleLevel } from '../title';
 import '../button';
 import '../divider';
@@ -130,7 +129,6 @@ export class SbbNotificationElement extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._setInlineLinks();
   }
 
   protected override async firstUpdated(): Promise<void> {
@@ -147,12 +145,6 @@ export class SbbNotificationElement extends LitElement {
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._notificationResizeObserver.disconnect();
-  }
-
-  private _setInlineLinks(): void {
-    this.querySelectorAll?.<SbbLinkElement | SbbLinkButtonElement>(
-      'sbb-link, sbb-link-button',
-    ).forEach((link: SbbLinkElement | SbbLinkButtonElement) => (link.variant = 'inline'));
   }
 
   private _setNotificationHeight(): void {
@@ -226,7 +218,7 @@ export class SbbNotificationElement extends LitElement {
             <sbb-title class="sbb-notification__title" level=${this.titleLevel} visual-level="5">
               <slot name="title">${this.titleContent}</slot>
             </sbb-title>
-            <slot @slotchange=${() => this._setInlineLinks()}></slot>
+            <slot></slot>
           </span>
 
           ${!this.readonly

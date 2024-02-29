@@ -29,7 +29,7 @@ accepting its associated properties (`type`, `name`, `value` and `form`).
 If the component is placed inside an `sbb-form-field`, it renders with the correct styling.
 
 ```html
-<sbb-button type="button" name="tickets" form="buy" value="tickets"> Buy tickets </sbb-button>
+<sbb-button name="tickets" form="buy" value="tickets"> Buy tickets </sbb-button>
 ```
 
 ## Style
@@ -77,7 +77,7 @@ Use the accessibility properties in case of an icon-only button to describe the 
 | `negative` | `negative`  | public  | `boolean`                    | `false`     | Negative coloring variant flag.                                                                                                  |
 | `iconName` | `icon-name` | public  | `string \| undefined`        |             | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
 | `disabled` | `disabled`  | public  | `boolean`                    | `false`     | Whether the component is disabled.                                                                                               |
-| `type`     | `type`      | public  | `ButtonType \| undefined`    |             | The type attribute to use for the button.                                                                                        |
+| `type`     | `type`      | public  | `SbbButtonType`              | `'button'`  | The type attribute to use for the button.                                                                                        |
 | `name`     | `name`      | public  | `string \| undefined`        |             | The name attribute to use for the button.                                                                                        |
 | `value`    | `value`     | public  | `string \| undefined`        |             | The value attribute to use for the button.                                                                                       |
 | `form`     | `form`      | public  | `string \| undefined`        |             | The <form> element to associate the button with.                                                                                 |

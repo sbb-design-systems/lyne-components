@@ -1,16 +1,15 @@
 import { customElement } from 'lit/decorators.js';
 
 import { SbbActionBaseElement, SbbDisabledMixin } from '../../core/common-behaviors';
-import { SbbLinkCommonElementMixin } from '../common/link-common';
+import { SbbInlineLinkCommonElementMixin } from '../common';
 
 /**
  * It displays a static link enhanced with the SBB Design.
  *
  * @slot - Use the unnamed slot to add content to the `sbb-link-static`.
- * @slot icon - Slot used to display the icon, if one is set.
  */
 @customElement('sbb-link-static')
-export class SbbLinkStaticElement extends SbbLinkCommonElementMixin(
+export class SbbLinkStaticElement extends SbbInlineLinkCommonElementMixin(
   SbbDisabledMixin(SbbActionBaseElement),
 ) {}
 

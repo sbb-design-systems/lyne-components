@@ -18,7 +18,7 @@ describe('sbb-menu', () => {
     await fixture(html`
       <sbb-button id="menu-trigger">Menu trigger</sbb-button>
       <sbb-menu id="menu" trigger="menu-trigger" disable-animation>
-        <sbb-link id="menu-link" href="#" size="xs" variant="block">Profile</sbb-link>
+        <sbb-block-link id="menu-link" href="#" size="xs">Profile</sbb-block-link>
         <sbb-menu-button id="menu-action-1" icon-name="tick-small">View</sbb-menu-button>
         <sbb-menu-button id="menu-action-2" icon-name="pen-small" amount="1" disabled
           >Edit</sbb-menu-button
@@ -130,7 +130,7 @@ describe('sbb-menu', () => {
     const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen);
     const willCloseEventSpy = new EventSpy(SbbMenuElement.events.willClose);
     const didCloseEventSpy = new EventSpy(SbbMenuElement.events.didClose);
-    const menuLink = document.querySelector('sbb-menu > sbb-link') as HTMLElement;
+    const menuLink = document.querySelector('sbb-menu > sbb-block-link') as HTMLElement;
 
     trigger.click();
     await waitForLitRender(element);

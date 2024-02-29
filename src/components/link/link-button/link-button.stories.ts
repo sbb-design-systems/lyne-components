@@ -1,115 +1,28 @@
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import { styleMap } from 'lit/directives/style-map.js';
 import { html } from 'lit/static-html.js';
 
 import {
-  blockFixedWidth,
-  blockIconStart,
-  blockM,
-  blockMIcon,
-  blockNegative,
-  blockS,
-  blockSIcon,
-  blockWithSlottedIcon,
-  blockXS,
-  blockXSIcon,
   inline,
   inlineNegative,
-  linkCommonDefaultArgs,
-  linkCommonDefaultArgTypes,
+  linkButtonDefaultArgs,
+  linkButtonDefaultArgTypes,
   wrapperStyle,
 } from '../common/link-common-stories';
 
 import readme from './readme.md?raw';
 import './link-button';
 
-const tag: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    disable: true,
-  },
-};
-
-const type: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['button', 'reset', 'submit'],
-  table: {
-    category: 'Button',
-  },
-};
-
-const disabled: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
-const name: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
-const value: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
-const form: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
 const defaultArgTypes: ArgTypes = {
-  ...linkCommonDefaultArgTypes,
-  tag,
-  type,
-  disabled,
-  name,
-  value,
-  form,
+  ...linkButtonDefaultArgTypes,
 };
 
 const defaultArgs: Args = {
-  ...linkCommonDefaultArgs,
+  ...linkButtonDefaultArgs,
   tag: 'sbb-link-button',
-  type: type.options[0],
-  disabled: false,
-  name: 'Button name',
-  value: undefined,
-  form: undefined,
 };
 
-export const BlockXS: StoryObj = blockXS;
-export const BlockS: StoryObj = blockS;
-export const BlockM: StoryObj = blockM;
-export const BlockXSIcon: StoryObj = blockXSIcon;
-export const BlockSIcon: StoryObj = blockSIcon;
-export const BlockMIcon: StoryObj = blockMIcon;
-export const BlockIconStart: StoryObj = blockIconStart;
-export const BlockNegative: StoryObj = blockNegative;
-export const BlockWithSlottedIcon: StoryObj = blockWithSlottedIcon;
-export const BlockFixedWidth: StoryObj = blockFixedWidth;
 export const Inline: StoryObj = inline;
 export const InlineNegative: StoryObj = inlineNegative;
 

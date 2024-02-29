@@ -36,7 +36,7 @@ You can also provide custom content inside the `sbb-menu`:
 <sbb-menu trigger="menu-trigger">
   <div>Christina Müller</div>
   <span>UIS9057</span>
-  <sbb-link href="https://www.sbb.ch/en" negative size="xs" variant="block">Profile</sbb-link>
+  <sbb-block-link href="https://www.sbb.ch/en" negative size="xs">Profile</sbb-block-link>
   <sbb-divider></sbb-divider>
   <sbb-menu-link icon="link-small" href="https://www.sbb.ch/en">View</sbb-menu-link>
   <sbb-menu-button icon="pen-small">Edit</sbb-menu-button>

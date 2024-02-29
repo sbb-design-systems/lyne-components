@@ -6,7 +6,7 @@ import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
 
 import { SbbToastElement } from './toast';
 
-import '../link';
+import '../link/link-button';
 
 describe('sbb-toast', () => {
   let element: SbbToastElement;
@@ -130,12 +130,11 @@ describe('sbb-toast', () => {
   it('forces state on link actions', async () => {
     element = await fixture(html`
       <sbb-toast>
-        <sbb-link slot="action"></sbb-link>
+        <sbb-link-button slot="action"></sbb-link-button>
       </sbb-toast>
     `);
-    const actionLink = element.querySelector('sbb-link');
+    const actionLink = element.querySelector('sbb-link-button');
 
-    expect(actionLink).to.have.attribute('variant', 'inline');
     expect(actionLink).to.have.attribute('negative');
   });
 

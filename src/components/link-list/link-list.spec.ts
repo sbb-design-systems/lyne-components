@@ -2,36 +2,36 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
-import type { SbbLinkElement } from '../link';
+import type { SbbBlockLinkElement } from '../link';
 
 import type { SbbLinkListElement } from './link-list';
 
-import '../link';
+import '../link/block-link';
 import './link-list';
 
 describe('sbb-link-list', () => {
   let element: SbbLinkListElement;
 
   const sbbLinkSnippet = html`
-    <sbb-link
+    <sbb-block-link
       href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-      >Rückerstattungen</sbb-link
+      >Rückerstattungen</sbb-block-link
     >
-    <sbb-link
+    <sbb-block-link
       href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-      >Fundbüro</sbb-link
+      >Fundbüro</sbb-block-link
     >
-    <sbb-link
+    <sbb-block-link
       href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-      >Beschwerden</sbb-link
+      >Beschwerden</sbb-block-link
     >
-    <sbb-link
+    <sbb-block-link
       href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-      >Lob aussprechen</sbb-link
+      >Lob aussprechen</sbb-block-link
     >
-    <sbb-link
+    <sbb-block-link
       href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-      >Sachbeschädigung melden</sbb-link
+      >Sachbeschädigung melden</sbb-block-link
     >
   `;
 
@@ -94,14 +94,15 @@ describe('sbb-link-list', () => {
   });
 
   describe('property sync', () => {
-    const assertLinks = (root: Element, assertion: (link: SbbLinkElement) => boolean): boolean =>
-      Array.from(root.querySelectorAll('sbb-link')).every(assertion);
+    const assertLinks = (
+      root: Element,
+      assertion: (link: SbbBlockLinkElement) => boolean,
+    ): boolean => Array.from(root.querySelectorAll('sbb-block-link')).every(assertion);
 
     it('should render all sbb-link instances with defaults (variant="block", size="s", no negative)', async () => {
       element = await fixture(html` <sbb-link-list> ${sbbLinkSnippet} </sbb-link-list>`);
 
-      expect(assertLinks(element, (l) => l.variant === 'block' && l.size === 's' && !l.negative)).to
-        .be.true;
+      expect(assertLinks(element, (l) => l.size === 's' && !l.negative)).to.be.true;
     });
 
     it('should render all sbb-link instances with size="m"', async () => {

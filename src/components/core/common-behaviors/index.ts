@@ -1,5 +1,4 @@
 export * from './action-base-element';
-export * from './action-dispatch-click';
 export * from './button-base-element';
 export * from './constructor';
 export * from './disabled-mixins';

@@ -52,18 +52,51 @@ const text: InputType = {
   },
 };
 
-const variant: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['block', 'inline'],
-};
-
 const negative: InputType = {
   control: {
     type: 'boolean',
   },
 };
+
+const ariaLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const disabled: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
+const tag: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    disable: true,
+  },
+};
+
+export const linkCommonDefaultArgTypes: ArgTypes = {
+  text,
+  negative,
+  'aria-label': ariaLabel,
+  tag,
+};
+
+export const linkCommonDefaultArgs: Args = {
+  text: 'Travelcards & tickets',
+  negative: false,
+  'aria-label': undefined,
+  tag: 'TBD',
+};
+
+// block-link params
 
 const size: InputType = {
   control: {
@@ -91,31 +124,139 @@ const iconPlacement: InputType = {
   },
 };
 
-const ariaLabel: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
-export const linkCommonDefaultArgTypes: ArgTypes = {
-  text,
-  variant,
-  negative,
+export const blockLinkCommonDefaultArgTypes: ArgTypes = {
   size,
   'icon-name': iconName,
   'icon-placement': iconPlacement,
-  'aria-label': ariaLabel,
 };
 
-export const linkCommonDefaultArgs: Args = {
-  text: 'Travelcards & tickets',
-  variant: variant.options[0],
-  negative: false,
+export const blockLinkCommonDefaultArgs: Args = {
   size: size.options[1],
   'icon-name': undefined,
   'icon-placement': iconPlacement.options[0],
-  'aria-label': undefined,
 };
+
+// link params
+
+const hrefs = ['https://www.sbb.ch', 'https://github.com/lyne-design-system/lyne-components'];
+const href: InputType = {
+  options: Object.keys(hrefs),
+  mapping: hrefs,
+  control: {
+    type: 'select',
+    labels: {
+      0: 'sbb.ch',
+      1: 'GitHub Lyne Components',
+    },
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
+const target: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
+const rel: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
+const download: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
+export const linkDefaultArgTypes: ArgTypes = {
+  ...linkCommonDefaultArgTypes,
+  href,
+  target,
+  rel,
+  download,
+  disabled,
+};
+
+export const linkDefaultArgs: Args = {
+  ...linkCommonDefaultArgs,
+  href: href.options[1],
+  target: '_blank',
+  rel: undefined,
+  download: false,
+  disabled: false,
+};
+
+// link-button params
+
+const type: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: ['button', 'reset', 'submit'],
+  table: {
+    category: 'Button',
+  },
+};
+
+const name: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
+const value: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
+const form: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Button',
+  },
+};
+
+export const linkButtonDefaultArgTypes: ArgTypes = {
+  ...linkCommonDefaultArgTypes,
+  type,
+  disabled,
+  name,
+  value,
+  form,
+};
+
+export const linkButtonDefaultArgs: Args = {
+  ...linkCommonDefaultArgs,
+  type: type.options[0],
+  disabled: false,
+  name: 'Button name',
+  value: undefined,
+  form: undefined,
+};
+
+// Stories
 
 export const blockXS: StoryObj = {
   render: Template,
@@ -201,7 +342,6 @@ export const inline: StoryObj = {
   render: InlineTemplate,
   args: {
     text: 'Show more',
-    variant: variant.options[1],
   },
 };
 
@@ -209,7 +349,6 @@ export const inlineNegative: StoryObj = {
   render: InlineTemplate,
   args: {
     text: 'Show more',
-    variant: variant.options[1],
     negative: true,
   },
 };

@@ -5,7 +5,6 @@ import { waitForLitRender } from '../core/testing';
 import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
 
 import './notification';
-import '../link';
 import '../button';
 import '../divider';
 

@@ -13,7 +13,7 @@ import {
   SbbNamedSlotListElementMixin,
   type WithListChildren,
 } from '../core/common-behaviors';
-import type { SbbLinkElement, SbbLinkButtonElement } from '../link';
+import type { SbbBlockLinkElement, SbbBlockLinkButtonElement } from '../link';
 import type { SbbTitleLevel } from '../title';
 
 import style from './skiplink-list.scss?lit&inline';
@@ -21,17 +21,17 @@ import style from './skiplink-list.scss?lit&inline';
 import '../title';
 
 /**
- * It displays a list of `sbb-link`/`sbb-link-button` which are visible only when focused.
+ * It displays a list of `sbb-block-link`/`sbb-block-link-button` which are visible only when focused.
  *
- * @slot - Use the unnamed slot to add `sbb-link`/`sbb-link-button` elements to the `sbb-skiplink-list`.
+ * @slot - Use the unnamed slot to add `sbb-block-link`/`sbb-block-link-button` elements to the `sbb-skiplink-list`.
  */
 @customElement('sbb-skiplink-list')
 export class SbbSkiplinkListElement extends SbbNamedSlotListElementMixin<
-  SbbLinkElement | SbbLinkButtonElement,
+  SbbBlockLinkElement | SbbBlockLinkButtonElement,
   typeof LitElement
 >(LitElement) {
   public static override styles: CSSResultGroup = style;
-  protected override readonly listChildTagNames = ['SBB-LINK', 'SBB-LINK-BUTTON'];
+  protected override readonly listChildTagNames = ['SBB-BLOCK-LINK', 'SBB-BLOCK-LINK-BUTTON'];
 
   /** The title text we want to place before the list. */
   @property({ attribute: 'title-content', reflect: true }) public titleContent?: string;

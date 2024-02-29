@@ -43,20 +43,20 @@ const LegendSubSupTemplate = (): TemplateResult => html`
   </span>
 `;
 
-const LinkInlineTemplate = (): TemplateResult => html`
+const LinkTemplate = (): TemplateResult => html`
   <p class="sbb-text-m">
-    A text with a link inside <a href="" class="sbb-link-inline">the text</a>. It should adapt to
-    the text but have an underline and hover colors.
+    A text with a link inside <a href="" class="sbb-link">the text</a>. It should adapt to the text
+    but have an underline and hover colors.
   </p>
 `;
 
-const LinkInlineNegativeTemplate = (): TemplateResult => html`
+const LinkNegativeTemplate = (): TemplateResult => html`
   <p
     class="sbb-text-m"
     style="background-color: var(--sbb-color-charcoal-default); color: var(--sbb-color-white-default); padding: 1rem;"
   >
-    A text with a negative link inside <a href="" class="sbb-link-inline-negative">the text</a>. It
-    should adapt to the text but have an underline and hover colors.
+    A text with a negative link inside <a href="" class="sbb-link-negative">the text</a>. It should
+    adapt to the text but have an underline and hover colors.
   </p>
 `;
 
@@ -69,15 +69,15 @@ export const TextBold: StoryObj = {
 export const LegendSubSup: StoryObj = {
   render: LegendSubSupTemplate,
 };
-export const LinkInline: StoryObj = {
-  render: LinkInlineTemplate,
+export const Link: StoryObj = {
+  render: LinkTemplate,
 };
-export const LinkInlineNegative: StoryObj = {
-  render: LinkInlineNegativeTemplate,
+export const LinkNegative: StoryObj = {
+  render: LinkNegativeTemplate,
 };
 
 const meta: Meta = {
-  // excludeStories: ['LinkInline', 'LinkInlineNegative'],
+  excludeStories: ['Link', 'LinkNegative'],
   decorators: [(story) => html` <div style="padding: 2rem;">${story()}</div> `],
   parameters: {
     docs: {

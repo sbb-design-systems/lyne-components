@@ -147,7 +147,7 @@ const CustomContentTemplate = (args: Args): TemplateResult => html`
   >
     <div style=${styleMap(userNameStyle)}>Christina Müller</div>
     <span style=${styleMap(userInfoStyle)}>UIS9057</span>
-    <sbb-link href="https://www.sbb.ch/en" negative size="xs" variant="block"> Profile </sbb-link>
+    <sbb-block-link href="https://www.sbb.ch/en" negative size="xs"> Profile </sbb-block-link>
     <sbb-divider></sbb-divider>
     <sbb-menu-link icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
       View
@@ -211,7 +211,7 @@ const EllipsisTemplate = (args: Args): TemplateResult => html`
   >
     <div style=${styleMap(userNameStyle)}>Christina Müller</div>
     <span style=${styleMap(userInfoStyle)}>UIS9057</span>
-    <sbb-link href="https://www.sbb.ch/en" negative size="xs" variant="block"> Profile </sbb-link>
+    <sbb-block-link href="https://www.sbb.ch/en" negative size="xs"> Profile </sbb-block-link>
     <sbb-divider></sbb-divider>
     <sbb-menu-link icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
       View

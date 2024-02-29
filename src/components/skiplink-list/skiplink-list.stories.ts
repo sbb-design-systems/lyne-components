@@ -12,7 +12,7 @@ import { sbbSpread } from '../core/dom';
 import readme from './readme.md?raw';
 
 import './skiplink-list';
-import '../link';
+import '../link/block-link';
 
 const titleContent: InputType = {
   control: {
@@ -116,8 +116,8 @@ const Template = ({
   ...args
 }: Args): TemplateResult => html`
   <sbb-skiplink-list ${sbbSpread(args)} data-testid="skiplink">
-    <sbb-link href=${hrefFirstLink}>${labelFirstLink}</sbb-link>
-    <sbb-link href=${hrefSecondLink}>${labelSecondLink}</sbb-link>
+    <sbb-block-link href=${hrefFirstLink}>${labelFirstLink}</sbb-block-link>
+    <sbb-block-link href=${hrefSecondLink}>${labelSecondLink}</sbb-block-link>
   </sbb-skiplink-list>
 `;
 

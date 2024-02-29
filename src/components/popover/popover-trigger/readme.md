@@ -63,9 +63,7 @@ associate the popover trigger with the popover via `aria-describedby` and an `id
 <!-- Popover component -->
 <sbb-popover id="popover" trigger="popover-trigger">
   <sbb-title level="2" visual-level="6" style="margin-block-start: 0">Popover title.</sbb-title>
-  <p id="popover-content">
-    Popover content. <sbb-link id="popover-link" variant="inline">Link</sbb-link>
-  </p>
+  <p id="popover-content">Popover content. <sbb-link id="popover-link">Link</sbb-link></p>
 </sbb-popover>
 ```
 
@@ -73,15 +71,15 @@ associate the popover trigger with the popover via `aria-describedby` and an `id
 
 ## Properties
 
-| Name       | Attribute   | Privacy | Type                      | Default | Description                                                                                                                      |
-| ---------- | ----------- | ------- | ------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `disabled` | `disabled`  | public  | `boolean`                 | `false` | Whether the component is disabled.                                                                                               |
-| `negative` | `negative`  | public  | `boolean`                 | `false` | Negative coloring variant flag.                                                                                                  |
-| `iconName` | `icon-name` | public  | `string \| undefined`     |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `type`     | `type`      | public  | `ButtonType \| undefined` |         | The type attribute to use for the button.                                                                                        |
-| `name`     | `name`      | public  | `string \| undefined`     |         | The name attribute to use for the button.                                                                                        |
-| `value`    | `value`     | public  | `string \| undefined`     |         | The value attribute to use for the button.                                                                                       |
-| `form`     | `form`      | public  | `string \| undefined`     |         | The <form> element to associate the button with.                                                                                 |
+| Name       | Attribute   | Privacy | Type                  | Default    | Description                                                                                                                      |
+| ---------- | ----------- | ------- | --------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled` | `disabled`  | public  | `boolean`             | `false`    | Whether the component is disabled.                                                                                               |
+| `negative` | `negative`  | public  | `boolean`             | `false`    | Negative coloring variant flag.                                                                                                  |
+| `iconName` | `icon-name` | public  | `string \| undefined` |            | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `type`     | `type`      | public  | `SbbButtonType`       | `'button'` | The type attribute to use for the button.                                                                                        |
+| `name`     | `name`      | public  | `string \| undefined` |            | The name attribute to use for the button.                                                                                        |
+| `value`    | `value`     | public  | `string \| undefined` |            | The value attribute to use for the button.                                                                                       |
+| `form`     | `form`      | public  | `string \| undefined` |            | The <form> element to associate the button with.                                                                                 |
 
 ## Slots
 

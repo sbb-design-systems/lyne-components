@@ -72,7 +72,7 @@ snapshots["sbb-form-field-clear renders Formfield ShadowDom"] =
 /* end snapshot sbb-form-field-clear renders Formfield ShadowDom */
 
 snapshots["sbb-form-field-clear renders FormfieldClear ShadowDom"] = 
-`<span class="sbb-form-field-clear">
+`<span class="sbb-action-base sbb-form-field-clear">
   <sbb-icon
     aria-hidden="true"
     data-namespace="default"

@@ -1,5 +1,5 @@
 The `sbb-action-group` component is a generic content container which can contain up to three action items
-([sbb-button](/docs/components-sbb-button--docs) or [sbb-link](/docs/components-sbb-link--docs) or other HTML elements)
+([sbb-button](/docs/components-sbb-button--docs) or [sbb-block-link](/docs/components-sbb-link-sbb-block-link--docs) or other HTML elements)
 in various [allocations](#allocations).
 
 ## Style
@@ -16,30 +16,30 @@ indicate the minimum breakpoint from which the orientation changes to `horizonta
 <sbb-action-group orientation="vertical" horizontal-from="small">
   <sbb-button variant="secondary">Action 1</sbb-button>
   <sbb-button>Action 2</sbb-button>
-  <sbb-link
+  <sbb-block-link
     align-self="end"
     icon-name="chevron-small-left-small"
     href="https://github.com/lyne-design-system/lyne-components"
   >
     Action 3
-  </sbb-link>
+  </sbb-block-link>
 </sbb-action-group>
 ```
 
 ### Button-size and link-size
 
-The two props `button-size` and `link-size` can be used to override, respectively, the size of the inner `sbb-button` and `sbb-link`.
-Default values are `l` for `sbb-button` and `m` for `sbb-link`.
+The two props `button-size` and `link-size` can be used to override, respectively, the size of the inner `sbb-button` and `sbb-block-link`.
+Default values are `l` for `sbb-button` and `m` for `sbb-block-link`.
 
 ```html
 <sbb-action-group button-size="m" link-size="s">
   <sbb-button variant="secondary">Action 1</sbb-button>
-  <sbb-link
+  <sbb-block-link
     icon-name="chevron-small-left-small"
     href="https://github.com/lyne-design-system/lyne-components"
   >
     Action 3
-  </sbb-link>
+  </sbb-block-link>
 </sbb-action-group>
 ```
 
@@ -51,8 +51,8 @@ possible values are `start`, `center`, `stretch` and `end`.
 It is also possible to set the `align-self` attribute on action items in order to move them in the
 opposite direction to the group; possible values are `start`, `center` or `end`.
 
-**NOTE**: The `sbb-action-group` will automatically set variant `block` and will sync the `linkSize`
-property with nested `sbb-link` and the `buttonSize` property with the nested `sbb-button`
+**NOTE**: The `sbb-action-group` will only accept `block-link` and will sync the `linkSize`
+property with nested `sbb-block-link` and the `buttonSize` property with the nested `sbb-button`
 instances.
 
 ```html
@@ -74,12 +74,12 @@ and we consider a template like the following one (possibly removing the link fo
 <sbb-action-group>
   <sbb-button>Button 1</sbb-button>
   <sbb-button>Button 2</sbb-button>
-  <sbb-link
+  <sbb-block-link
     icon-name="chevron-small-left-small"
     href="https://github.com/lyne-design-system/lyne-components"
   >
     Link
-  </sbb-link>
+  </sbb-block-link>
 </sbb-action-group>
 ```
 
@@ -120,16 +120,16 @@ The values for `align-group` and `align-self` for the various allocations are as
 
 ## Properties
 
-| Name             | Attribute         | Privacy | Type                                        | Default        | Description                                                                                                     |
-| ---------------- | ----------------- | ------- | ------------------------------------------- | -------------- | --------------------------------------------------------------------------------------------------------------- |
-| `alignGroup`     | `align-group`     | public  | `'start' \| 'center' \| 'stretch' \| 'end'` | `'start'`      | Set the slotted `<sbb-action-group>` children's alignment.                                                      |
-| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom`                         | `'medium'`     | Overrides the behaviour of `orientation` property.                                                              |
-| `orientation`    | `orientation`     | public  | `SbbOrientation`                            | `'horizontal'` | Indicates the orientation of the components inside the `<sbb-action-group>`.                                    |
-| `buttonSize`     | `button-size`     | public  | `SbbButtonSize`                             | `'l'`          | Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances. |
-| `linkSize`       | `link-size`       | public  | `SbbLinkSize`                               | `'m'`          | Size of the nested sbb-link instances. This will overwrite the size attribute of nested sbb-link instances.     |
+| Name             | Attribute         | Privacy | Type                                        | Default        | Description                                                                                                             |
+| ---------------- | ----------------- | ------- | ------------------------------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `alignGroup`     | `align-group`     | public  | `'start' \| 'center' \| 'stretch' \| 'end'` | `'start'`      | Set the slotted `<sbb-action-group>` children's alignment.                                                              |
+| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom`                         | `'medium'`     | Overrides the behaviour of `orientation` property.                                                                      |
+| `orientation`    | `orientation`     | public  | `SbbOrientation`                            | `'horizontal'` | Indicates the orientation of the components inside the `<sbb-action-group>`.                                            |
+| `buttonSize`     | `button-size`     | public  | `SbbButtonSize`                             | `'l'`          | Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances.         |
+| `linkSize`       | `link-size`       | public  | `SbbLinkSize`                               | `'m'`          | Size of the nested sbb-block-link instances. This will overwrite the size attribute of nested sbb-block-link instances. |
 
 ## Slots
 
-| Name | Description                                                                                |
-| ---- | ------------------------------------------------------------------------------------------ |
-|      | Use the unnamed slot to add `sbb-link` or `sbb-button` elements to the `sbb-action-group`. |
+| Name | Description                                                                                      |
+| ---- | ------------------------------------------------------------------------------------------------ |
+|      | Use the unnamed slot to add `sbb-block-link` or `sbb-button` elements to the `sbb-action-group`. |

@@ -14,7 +14,7 @@ describe('sbb-navigation-button', () => {
     );
     expect(root).shadowDom.to.be.equal(
       `
-        <span class="sbb-navigation-button">
+        <span class="sbb-action-base sbb-navigation-button">
           <slot></slot>
         </span>
       `,

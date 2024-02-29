@@ -6,7 +6,7 @@ import { waitForCondition, EventSpy, waitForLitRender } from '../core/testing';
 
 import { SbbNotificationElement } from './notification';
 
-import '../link';
+import '../link/link';
 
 describe('sbb-notification', () => {
   let element: SbbNotificationElement;
@@ -15,7 +15,7 @@ describe('sbb-notification', () => {
     element = await fixture(html`
       <sbb-notification id="notification" disable-animation>
         The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
-        <sbb-link href="/" variant="inline">Link one</sbb-link>
+        <sbb-link href="/">Link one</sbb-link>
       </sbb-notification>
     `);
   });

@@ -7,7 +7,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
-import '../link';
+import '../link/block-link';
 import './link-list';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
@@ -17,11 +17,11 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
 });
 
 const LinkTemplate = (args: Args): TemplateResult => html`
-  <sbb-link
+  <sbb-block-link
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
   >
     ${args.linkTitle}
-  </sbb-link>
+  </sbb-block-link>
 `;
 
 const links = ['Refunds', 'Lost property office', 'Complaints', 'Praise', 'Report property damage'];

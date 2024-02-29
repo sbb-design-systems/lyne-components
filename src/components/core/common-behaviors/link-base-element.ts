@@ -7,23 +7,13 @@ import { i18nTargetOpensInNewWindow } from '../i18n';
 
 import { SbbActionBaseElement } from './action-base-element';
 import '../../screenreader-only';
-import { dispatchClickEventWhenEnterKeypress } from './action-dispatch-click';
 import { LanguageController } from './language-controller';
 
 /** Enumeration for 'target' attribute in <a> HTML tag. */
 export type LinkTargetType = '_blank' | '_self' | '_parent' | '_top';
 
-/** The interface contains attributes that can be set on an <a> tag. */
-export interface LinkProperties {
-  href?: string;
-  target?: LinkTargetType | string;
-  rel?: string;
-  download?: boolean;
-  disabled?: boolean;
-}
-
 /** Link base class. */
-export abstract class SbbLinkBaseElement extends SbbActionBaseElement implements LinkProperties {
+export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
   /** The href value you want to link to. */
   @property() public href?: string;
 
@@ -36,6 +26,23 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement implements
   /** Whether the browser will show the download dialog on click. */
   @property({ type: Boolean }) public download?: boolean;
 
+  protected language = new LanguageController(this);
+
+  public constructor() {
+    super();
+    if (!isServer) {
+      this.setupBaseEventHandlers();
+      this.addEventListener('click', this._triggerAnchorWhenNecessary);
+    }
+  }
+
+  protected override createRenderRoot(): HTMLElement | DocumentFragment {
+    this.setAttribute('role', 'link');
+    this.setAttribute('dir', getDocumentWritingMode());
+    this.setAttribute('tabindex', '0');
+    return super.createRenderRoot();
+  }
+
   /**
    * Trigger an anchor element click after the event has finished the bubbling phase and
    * preventDefault() has not been called for the event.
@@ -46,6 +53,7 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement implements
     // We only want to trigger a click event on the inner anchor element, if the host element is the
     // event origin, which means the inner anchor element has not actually been activated/clicked.
     if (
+      !this.href ||
       !target.tagName.startsWith('SBB-') ||
       target !== composedTarget ||
       (await isEventPrevented(event))
@@ -69,43 +77,15 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement implements
     );
   }
 
-  /** Handle the click logic for a link element. */
-  private _handleLinkClick = (event: MouseEvent): void => {
-    if (this.getAttribute('aria-disabled') === 'true') {
-      event.preventDefault();
-      event.stopImmediatePropagation();
-      return;
-    } else if (this.href) {
-      this._triggerAnchorWhenNecessary(event);
-    }
-  };
-
   private _evaluateRelAttribute = (): string | typeof nothing => {
     return this.rel ? this.rel : this.target === '_blank' ? 'external noopener nofollow' : nothing;
   };
-
-  protected language = new LanguageController(this);
-
-  public constructor() {
-    super();
-    if (!isServer) {
-      this.addEventListener('click', this._handleLinkClick);
-      this.addEventListener('keypress', dispatchClickEventWhenEnterKeypress, { passive: true });
-    }
-  }
-
-  protected override createRenderRoot(): HTMLElement | DocumentFragment {
-    this.setAttribute('role', 'link');
-    this.setAttribute('dir', getDocumentWritingMode());
-    this.setAttribute('tabindex', '0');
-    return super.createRenderRoot();
-  }
 
   /** Default render method for link-like components. Can be overridden if the LinkRenderVariables are not needed. */
   protected override render(): TemplateResult {
     return html`
       <a
-        class=${this.tagName.toLowerCase()}
+        class="sbb-action-base ${this.tagName.toLowerCase()}"
         role="presentation"
         tabindex="-1"
         href=${this.href ?? nothing}

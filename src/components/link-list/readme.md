@@ -1,12 +1,14 @@
-The `sbb-link-list` is a component that can be used to collect and display more [sbb-link](/docs/components-sbb-link--docs)s.
+The `sbb-link-list` is a component that can be used to collect and display more [sbb-block-link](/docs/components-sbb-link-sbb-block-link--docs).
 
 ```html
 <sbb-link-list>
-  <sbb-link href="https://www.sbb.ch/en/help-and-contact/refunds-compensation/ticket-refunds.html"
-    >Refunds</sbb-link
+  <sbb-block-link
+    href="https://www.sbb.ch/en/help-and-contact/refunds-compensation/ticket-refunds.html"
+    >Refunds</sbb-block-link
   >
-  <sbb-link href="https://www.sbb.ch/en/help-and-contact/lost-found-office/submit-loss-report.html"
-    >Loss Report</sbb-link
+  <sbb-block-link
+    href="https://www.sbb.ch/en/help-and-contact/lost-found-office/submit-loss-report.html"
+    >Loss Report</sbb-block-link
   >
   ...
 </sbb-link-list>
@@ -26,16 +28,18 @@ The title can be set using the `titleContent` property or, alternatively, can be
 
 ## Style
 
-The component will automatically set variant `block` on nested `sbb-link` instances,
+The component will accept only `sbb-block-link` or `sbb-block-link-button` instances,
 and it will sync its `size` and `negative` property with the inner links.
 
 ```html
 <sbb-link-list size="s" negative>
-  <sbb-link href="https://www.sbb.ch/en/help-and-contact/refunds-compensation/ticket-refunds.html"
-    >Refunds</sbb-link
+  <sbb-block-link
+    href="https://www.sbb.ch/en/help-and-contact/refunds-compensation/ticket-refunds.html"
+    >Refunds</sbb-block-link
   >
-  <sbb-link href="https://www.sbb.ch/en/help-and-contact/lost-found-office/submit-loss-report.html"
-    >Loss Report</sbb-link
+  <sbb-block-link
+    href="https://www.sbb.ch/en/help-and-contact/lost-found-office/submit-loss-report.html"
+    >Loss Report</sbb-block-link
   >
   ...
 </sbb-link-list>
@@ -50,11 +54,13 @@ The title will not be displayed in the horizontal orientation.
 
 ```html
 <sbb-link-list horizontal-from="medium">
-  <sbb-link href="https://www.sbb.ch/en/help-and-contact/refunds-compensation/ticket-refunds.html"
-    >Refunds</sbb-link
+  <sbb-block-link
+    href="https://www.sbb.ch/en/help-and-contact/refunds-compensation/ticket-refunds.html"
+    >Refunds</sbb-block-link
   >
-  <sbb-link href="https://www.sbb.ch/en/help-and-contact/lost-found-office/submit-loss-report.html"
-    >Loss Report</sbb-link
+  <sbb-block-link
+    href="https://www.sbb.ch/en/help-and-contact/lost-found-office/submit-loss-report.html"
+    >Loss Report</sbb-block-link
   >
   ...
 </sbb-link-list>
@@ -64,18 +70,18 @@ The title will not be displayed in the horizontal orientation.
 
 ## Properties
 
-| Name             | Attribute         | Privacy | Type                             | Default      | Description                                                                                                      |
-| ---------------- | ----------------- | ------- | -------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------- |
-| `titleContent`   | `title-content`   | public  | `string \| undefined`            |              | The title text we want to show before the list.                                                                  |
-| `titleLevel`     | `title-level`     | public  | `SbbTitleLevel`                  | `'2'`        | The semantic level of the title, e.g. 2 = h2.                                                                    |
-| `size`           | `size`            | public  | `SbbLinkSize`                    | `'s'`        | Text size of the nested sbb-link instances. This will overwrite the size attribute of nested sbb-link instances. |
-| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| undefined` |              | Selected breakpoint from which the list is rendered horizontally.                                                |
-| `orientation`    | `orientation`     | public  | `SbbOrientation`                 | `'vertical'` | The orientation in which the list will be shown vertical or horizontal.                                          |
-| `negative`       | `negative`        | public  | `boolean`                        | `false`      | Negative coloring variant flag.                                                                                  |
+| Name             | Attribute         | Privacy | Type                             | Default      | Description                                                                                                                  |
+| ---------------- | ----------------- | ------- | -------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| `titleContent`   | `title-content`   | public  | `string \| undefined`            |              | The title text we want to show before the list.                                                                              |
+| `titleLevel`     | `title-level`     | public  | `SbbTitleLevel`                  | `'2'`        | The semantic level of the title, e.g. 2 = h2.                                                                                |
+| `size`           | `size`            | public  | `SbbLinkSize`                    | `'s'`        | Text size of the nested sbb-block-link instances. This will overwrite the size attribute of nested sbb-block-link instances. |
+| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| undefined` |              | Selected breakpoint from which the list is rendered horizontally.                                                            |
+| `orientation`    | `orientation`     | public  | `SbbOrientation`                 | `'vertical'` | The orientation in which the list will be shown vertical or horizontal.                                                      |
+| `negative`       | `negative`        | public  | `boolean`                        | `false`      | Negative coloring variant flag.                                                                                              |
 
 ## Slots
 
-| Name    | Description                                         |
-| ------- | --------------------------------------------------- |
-|         | Use the unnamed slot to add one or more `sbb-link`. |
-| `title` | Use this slot to provide a title.                   |
+| Name    | Description                                               |
+| ------- | --------------------------------------------------------- |
+|         | Use the unnamed slot to add one or more `sbb-block-link`. |
+| `title` | Use this slot to provide a title.                         |

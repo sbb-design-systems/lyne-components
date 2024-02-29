@@ -18,7 +18,7 @@ import '../checkbox';
 import '../divider';
 import '../form-error';
 import '../icon';
-import '../link';
+import '../link/block-link-button';
 import '../radio-button';
 import '../popover';
 import '../title';
@@ -106,9 +106,9 @@ const suffixAndSubtext = (): TemplateResult => html`
 const innerContent = (): TemplateResult => html`
   <div slot="content">
     Inner Content
-    <sbb-link variant="block" icon-name="chevron-small-right-small" icon-placement="end">
+    <sbb-block-link-button icon-name="chevron-small-right-small" icon-placement="end">
       Link
-    </sbb-link>
+    </sbb-block-link-button>
   </div>
 `;
 
