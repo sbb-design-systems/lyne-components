@@ -1,27 +1,20 @@
 import { expect, fixture } from '@open-wc/testing';
-import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
 import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import {
+  buttonTestTemplate,
+  buttonIconTestTemplate,
+  buttonSlottedIconTestTemplate,
+  buttonSpaceIconTestTemplate,
+} from '../common/button-test-utils';
 
 import type { SbbButtonElement } from './button';
 import './button';
 
 describe('sbb-button', () => {
-  describe('renders a button without icon', async () => {
-    const root = await fixture(
-      html` <sbb-button
-        negative
-        size="m"
-        type="button"
-        disabled
-        name="name"
-        value="value"
-        form="formid"
-      >
-        Label Text
-      </sbb-button>`,
-    );
+  describe('renders a sbb-button without icon', async () => {
+    const root = await fixture(buttonTestTemplate('sbb-button'));
 
     it('Dom', async () => {
       await expect(root).dom.to.be.equalSnapshot();
@@ -32,16 +25,11 @@ describe('sbb-button', () => {
     });
   });
 
-  describe('renders a button with slotted icon', async () => {
+  describe('renders a sbb-button with slotted icon', async () => {
     let root: SbbButtonElement;
 
     beforeEach(async () => {
-      root = await fixture(
-        html`<sbb-button>
-          <sbb-icon slot="icon" name="chevron-small-left-small"></sbb-icon>
-          Label Text
-        </sbb-button> `,
-      );
+      root = await fixture(buttonSlottedIconTestTemplate('sbb-button'));
       await waitForLitRender(root);
     });
 
@@ -54,23 +42,16 @@ describe('sbb-button', () => {
     });
   });
 
-  it('should detect icon button', async () => {
-    const root = await fixture(
-      html`<sbb-button><sbb-icon slot="icon" name="app-icon-medium"></sbb-icon></sbb-button>`,
-    );
-
+  it('should detect icon in sbb-button', async () => {
+    const root = await fixture(buttonIconTestTemplate('sbb-button'));
     await waitForLitRender(root);
-
     const dataSlots = root.getAttribute('data-slot-names');
     expect(dataSlots).to.contain('icon');
     expect(dataSlots).not.to.contain('unnamed');
   });
 
-  it('should detect icon button when there is space around icon', async () => {
-    const root = await fixture(
-      html`<sbb-button> <sbb-icon slot="icon" name="app-icon-medium"></sbb-icon> </sbb-button>`,
-    );
-
+  it('should detect icon in sbb-button when there is space around icon', async () => {
+    const root = await fixture(buttonSpaceIconTestTemplate('sbb-button'));
     const dataSlots = root.getAttribute('data-slot-names');
     expect(dataSlots).to.contain('icon');
     expect(dataSlots).not.to.contain('unnamed');

@@ -9,12 +9,12 @@ import {
   buttonTestTemplate,
 } from '../common/button-test-utils';
 
-import type { SbbButtonStaticElement } from './button-static';
-import './button-static';
+import type { SbbTransparentButtonStaticElement } from './transparent-button-static';
+import './transparent-button-static';
 
-describe('sbb-button-static', () => {
-  describe('renders a sbb-button-static without icon', async () => {
-    const root = await fixture(buttonTestTemplate('sbb-button-static', true));
+describe('sbb-transparent-button-static', () => {
+  describe('renders a sbb-transparent-button-static without icon', async () => {
+    const root = await fixture(buttonTestTemplate('sbb-transparent-button-static', true));
 
     it('Dom', async () => {
       await expect(root).dom.to.be.equalSnapshot();
@@ -25,11 +25,11 @@ describe('sbb-button-static', () => {
     });
   });
 
-  describe('renders a sbb-button-static with slotted icon', async () => {
-    let root: SbbButtonStaticElement;
+  describe('renders a sbb-transparent-button-static with slotted icon', async () => {
+    let root: SbbTransparentButtonStaticElement;
 
     beforeEach(async () => {
-      root = await fixture(buttonSlottedIconTestTemplate('sbb-button-static'));
+      root = await fixture(buttonSlottedIconTestTemplate('sbb-transparent-button-static'));
       await waitForLitRender(root);
     });
 
@@ -42,16 +42,16 @@ describe('sbb-button-static', () => {
     });
   });
 
-  it('should detect icon in sbb-button-static', async () => {
-    const root = await fixture(buttonIconTestTemplate('sbb-button-static'));
+  it('should detect icon in sbb-transparent-button-static', async () => {
+    const root = await fixture(buttonIconTestTemplate('sbb-transparent-button-static'));
     await waitForLitRender(root);
     const dataSlots = root.getAttribute('data-slot-names');
     expect(dataSlots).to.contain('icon');
     expect(dataSlots).not.to.contain('unnamed');
   });
 
-  it('should detect icon in sbb-button-static when there is space around icon', async () => {
-    const root = await fixture(buttonSpaceIconTestTemplate('sbb-button-static'));
+  it('should detect icon in sbb-transparent-button-static when there is space around icon', async () => {
+    const root = await fixture(buttonSpaceIconTestTemplate('sbb-transparent-button-static'));
     const dataSlots = root.getAttribute('data-slot-names');
     expect(dataSlots).to.contain('icon');
     expect(dataSlots).not.to.contain('unnamed');

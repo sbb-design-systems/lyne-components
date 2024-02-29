@@ -28,7 +28,7 @@ snapshots["ShadowDom"] =
 `;
 /* end snapshot ShadowDom */
 
-snapshots["sbb-button-static renders a primary button-static with slotted icon Dom"] = 
+snapshots["sbb-button-static renders a sbb-button-static with slotted icon Dom"] = 
 `<sbb-button-static
   data-slot-names="icon unnamed"
   dir="ltr"
@@ -45,9 +45,9 @@ snapshots["sbb-button-static renders a primary button-static with slotted icon D
   Label Text
 </sbb-button-static>
 `;
-/* end snapshot sbb-button-static renders a primary button-static with slotted icon Dom */
+/* end snapshot sbb-button-static renders a sbb-button-static with slotted icon Dom */
 
-snapshots["sbb-button-static renders a primary button-static with slotted icon ShadowDom"] = 
+snapshots["sbb-button-static renders a sbb-button-static with slotted icon ShadowDom"] = 
 `<span class="sbb-button-static">
   <span class="sbb-button__icon">
     <slot name="icon">
@@ -59,7 +59,7 @@ snapshots["sbb-button-static renders a primary button-static with slotted icon S
   </span>
 </span>
 `;
-/* end snapshot sbb-button-static renders a primary button-static with slotted icon ShadowDom */
+/* end snapshot sbb-button-static renders a sbb-button-static with slotted icon ShadowDom */
 
 snapshots["sbb-button-static A11y tree Chrome"] = 
 `<p>

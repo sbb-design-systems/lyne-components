@@ -2,7 +2,7 @@
 export const snapshots = {};
 
 snapshots["Dom"] = 
-`<sbb-button
+`<sbb-tertiary-button
   aria-disabled="true"
   data-slot-names="unnamed"
   dir="ltr"
@@ -16,12 +16,12 @@ snapshots["Dom"] =
   value="value"
 >
   Label Text
-</sbb-button>
+</sbb-tertiary-button>
 `;
 /* end snapshot Dom */
 
 snapshots["ShadowDom"] = 
-`<span class="sbb-button">
+`<span class="sbb-tertiary-button">
   <span class="sbb-button__icon">
     <slot name="icon">
     </slot>
@@ -34,8 +34,8 @@ snapshots["ShadowDom"] =
 `;
 /* end snapshot ShadowDom */
 
-snapshots["sbb-button renders a sbb-button with slotted icon Dom"] = 
-`<sbb-button
+snapshots["sbb-tertiary-button renders a sbb-tertiary-button with slotted icon Dom"] = 
+`<sbb-tertiary-button
   data-slot-names="icon unnamed"
   dir="ltr"
   role="button"
@@ -51,12 +51,12 @@ snapshots["sbb-button renders a sbb-button with slotted icon Dom"] =
   >
   </sbb-icon>
   Label Text
-</sbb-button>
+</sbb-tertiary-button>
 `;
-/* end snapshot sbb-button renders a sbb-button with slotted icon Dom */
+/* end snapshot sbb-tertiary-button renders a sbb-tertiary-button with slotted icon Dom */
 
-snapshots["sbb-button renders a sbb-button with slotted icon ShadowDom"] = 
-`<span class="sbb-button">
+snapshots["sbb-tertiary-button renders a sbb-tertiary-button with slotted icon ShadowDom"] = 
+`<span class="sbb-tertiary-button">
   <span class="sbb-button__icon">
     <slot name="icon">
     </slot>
@@ -67,9 +67,9 @@ snapshots["sbb-button renders a sbb-button with slotted icon ShadowDom"] =
   </span>
 </span>
 `;
-/* end snapshot sbb-button renders a sbb-button with slotted icon ShadowDom */
+/* end snapshot sbb-tertiary-button renders a sbb-tertiary-button with slotted icon ShadowDom */
 
-snapshots["sbb-button A11y tree Chrome"] = 
+snapshots["sbb-tertiary-button A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -77,9 +77,9 @@ snapshots["sbb-button A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-button A11y tree Chrome */
+/* end snapshot sbb-tertiary-button A11y tree Chrome */
 
-snapshots["sbb-button A11y tree Firefox"] = 
+snapshots["sbb-tertiary-button A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -87,9 +87,9 @@ snapshots["sbb-button A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-button A11y tree Firefox */
+/* end snapshot sbb-tertiary-button A11y tree Firefox */
 
-snapshots["sbb-button A11y tree Safari"] = 
+snapshots["sbb-tertiary-button A11y tree Safari"] = 
 `<p>
   {
   "role": "WebArea",
@@ -97,5 +97,5 @@ snapshots["sbb-button A11y tree Safari"] =
 }
 </p>
 `;
-/* end snapshot sbb-button A11y tree Safari */
+/* end snapshot sbb-tertiary-button A11y tree Safari */
 
