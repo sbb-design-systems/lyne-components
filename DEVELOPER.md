@@ -39,6 +39,7 @@ rendering.
 It is possible to debug tests and/or run them in isolation with Visual Studio Code.
 The following code snippet can be placed in `.vscode/launch.json`.
 Replace `test:csr` with either `test:ssr:hydrated` or `test:ssr:non-hydrated` to test SSR.
+Add the `--debug` param to enable breakpoint debugging and the detailed test report.
 
 ```json
   ...
@@ -63,9 +64,10 @@ possibly replacing `test:csr` with either `test:ssr:hydrated` or `test:ssr:non-h
 
 - Command: `run`
 - Scripts: `test:csr`
-- Arguments: `--watch --filter **/$FileName$ --debug`
+- Arguments: `**/$FileName$ --watch`
 
 Finally, open the file you want to test and run the script.
+Add the `--debug` param to enable breakpoint debugging and the detailed test report.
 
 ## Starting showcase
 
