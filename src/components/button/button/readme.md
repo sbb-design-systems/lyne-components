@@ -29,7 +29,7 @@ accepting its associated properties (`type`, `name`, `value` and `form`).
 If the component is placed inside an `sbb-form-field`, it renders with the correct styling.
 
 ```html
-<sbb-button type="button" name="tickets" form="buy" value="tickets"> Buy tickets </sbb-button>
+<sbb-button name="tickets" form="buy" value="tickets"> Buy tickets </sbb-button>
 ```
 
 ## Style

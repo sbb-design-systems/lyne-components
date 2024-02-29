@@ -8,7 +8,7 @@ The component is internally rendered as a button,
 accepting its associated properties (`type`, `name`, `value` and `form`).
 
 ```html
-<sbb-navigation-button type="button" value="menu" name="menu">Button</sbb-navigation-button>
+<sbb-navigation-button value="menu" name="menu">Button</sbb-navigation-button>
 ```
 
 ## Style
@@ -16,9 +16,7 @@ accepting its associated properties (`type`, `name`, `value` and `form`).
 The component has three different sizes, which can be changed using the `size` property (`l`, which is the default, `m` and `s`).
 
 ```html
-<sbb-navigation-button type="button" value="menu" name="menu" size="m"
-  >Button</sbb-navigation-button
->
+<sbb-navigation-button value="menu" name="menu" size="m">Button</sbb-navigation-button>
 ```
 
 <!-- Auto Generated Below -->

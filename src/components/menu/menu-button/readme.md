@@ -23,7 +23,7 @@ The component is internally rendered as a button,
 accepting its associated properties (`type`, `name`, `value` and `form`).
 
 ```html
-<sbb-menu-button type="button" value="menu" name="menu">Button</sbb-menu-button>
+<sbb-menu-button value="menu" name="menu">Button</sbb-menu-button>
 ```
 
 ## Style

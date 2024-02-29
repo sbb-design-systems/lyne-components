@@ -23,7 +23,7 @@ The component is internally rendered as a button,
 accepting its associated properties (`type`, `name`, `value` and `form`).
 
 ```html
-<sbb-link-button type="button" name="tickets" form="buy" value="tickets">
+<sbb-link-button name="tickets" form="buy" value="tickets">
   Travel-cards and tickets
 </sbb-link-button>
 ```

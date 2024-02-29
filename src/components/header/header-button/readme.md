@@ -24,7 +24,7 @@ The component is internally rendered as a button,
 accepting its associated properties (`type`, `name`, `value` and `form`).
 
 ```html
-<sbb-header-button type="button" value="menu" name="menu">Button</sbb-header-button>
+<sbb-header-button value="menu" name="menu">Button</sbb-header-button>
 ```
 
 <!-- Auto Generated Below -->
