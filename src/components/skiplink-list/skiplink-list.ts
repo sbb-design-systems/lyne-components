@@ -14,7 +14,7 @@ import {
   type WithListChildren,
 } from '../core/common-behaviors';
 import type { SbbLinkElement, SbbLinkButtonElement } from '../link';
-import type { TitleLevel } from '../title';
+import type { SbbTitleLevel } from '../title';
 
 import style from './skiplink-list.scss?lit&inline';
 
@@ -37,7 +37,7 @@ export class SbbSkiplinkListElement extends SbbNamedSlotListElementMixin<
   @property({ attribute: 'title-content', reflect: true }) public titleContent?: string;
 
   /** The semantic level of the title, e.g. 2 = h2. */
-  @property({ attribute: 'title-level' }) public titleLevel?: TitleLevel = '2';
+  @property({ attribute: 'title-level' }) public titleLevel: SbbTitleLevel = '2';
 
   public constructor() {
     super();

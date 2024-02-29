@@ -10,7 +10,7 @@ import {
 } from '../core/common-behaviors';
 import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
 import type { SbbLinkElement, SbbLinkSize } from '../link';
-import type { TitleLevel } from '../title';
+import type { SbbTitleLevel } from '../title';
 
 import style from './link-list.scss?lit&inline';
 
@@ -33,7 +33,7 @@ export class SbbLinkListElement extends SbbNegativeMixin(
   @property({ attribute: 'title-content', reflect: true }) public titleContent?: string;
 
   /** The semantic level of the title, e.g. 2 = h2. */
-  @property({ attribute: 'title-level' }) public titleLevel?: TitleLevel = '2';
+  @property({ attribute: 'title-level' }) public titleLevel: SbbTitleLevel = '2';
 
   /**
    * Text size of the nested sbb-link instances. This will overwrite the size attribute of
@@ -73,7 +73,7 @@ export class SbbLinkListElement extends SbbNegativeMixin(
       <div class="sbb-link-list-wrapper">
         <sbb-title
           class="sbb-link-list-title"
-          level=${this.titleLevel ?? nothing}
+          level=${this.titleLevel || nothing}
           visual-level="5"
           ?negative=${this.negative}
           id="sbb-link-list-title-id"

@@ -11,7 +11,7 @@ import {
 } from '../core/datetime';
 import { i18nTripDuration } from '../core/i18n';
 import type { Leg } from '../core/timetable';
-import type { TitleLevel } from '../title';
+import type { SbbTitleLevel } from '../title';
 import '../pearl-chain-time';
 import '../journey-header';
 import '../divider';
@@ -52,7 +52,7 @@ export class SbbJourneySummaryElement extends LitElement {
   @property({ attribute: 'round-trip', type: Boolean }) public roundTrip?: boolean;
 
   /** Heading level of the journey header element (e.g. h1-h6). */
-  @property({ attribute: 'header-level' }) public headerLevel?: TitleLevel = '3';
+  @property({ attribute: 'header-level' }) public headerLevel: SbbTitleLevel = '3';
 
   /**
    * Per default, the current location has a pulsating animation. You can
@@ -146,7 +146,7 @@ export class SbbJourneySummaryElement extends LitElement {
         ${origin
           ? html`<sbb-journey-header
               size="l"
-              .level=${this.headerLevel ?? nothing}
+              .level=${this.headerLevel || nothing}
               .origin=${origin}
               .destination=${destination}
               .roundTrip=${this.roundTrip ?? nothing}

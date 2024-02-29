@@ -8,7 +8,7 @@ import { EventEmitter } from '../core/eventing';
 import { i18nCloseNotification } from '../core/i18n';
 import { AgnosticResizeObserver } from '../core/observers';
 import type { SbbLinkButtonElement, SbbLinkElement } from '../link';
-import type { TitleLevel } from '../title';
+import type { SbbTitleLevel } from '../title';
 import '../button';
 import '../divider';
 import '../icon';
@@ -56,7 +56,7 @@ export class SbbNotificationElement extends LitElement {
   /**
    * Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3.
    */
-  @property({ attribute: 'title-level' }) public titleLevel: TitleLevel = '3';
+  @property({ attribute: 'title-level' }) public titleLevel: SbbTitleLevel = '3';
 
   /**
    * Whether the notification is readonly.

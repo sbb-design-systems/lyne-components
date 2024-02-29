@@ -6,7 +6,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import { SbbHydrationMixin } from '../../core/common-behaviors';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import type { SbbOverlayState } from '../../core/overlay';
-import type { TitleLevel } from '../../title';
+import type { SbbTitleLevel } from '../../title';
 import type { SbbExpansionPanelContentElement } from '../expansion-panel-content';
 import type { SbbExpansionPanelHeaderElement } from '../expansion-panel-header';
 
@@ -34,7 +34,7 @@ export class SbbExpansionPanelElement extends SbbHydrationMixin(LitElement) {
   } as const;
 
   /** Heading level; if unset, a `div` will be rendered. */
-  @property({ attribute: 'title-level' }) public titleLevel?: TitleLevel | null;
+  @property({ attribute: 'title-level' }) public titleLevel?: SbbTitleLevel | null;
 
   /** The background color of the panel. */
   @property() public color: 'white' | 'milk' = 'white';

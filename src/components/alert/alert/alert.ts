@@ -10,7 +10,7 @@ import {
 } from '../../core/common-behaviors';
 import { EventEmitter } from '../../core/eventing';
 import { i18nCloseAlert, i18nFindOutMore } from '../../core/i18n';
-import type { TitleLevel } from '../../title';
+import type { SbbTitleLevel } from '../../title';
 
 import style from './alert.scss?lit&inline';
 
@@ -64,7 +64,7 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) implements Lin
   @property({ attribute: 'title-content' }) public titleContent?: string;
 
   /** Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3. */
-  @property({ attribute: 'title-level' }) public titleLevel: TitleLevel = '3';
+  @property({ attribute: 'title-level' }) public titleLevel: SbbTitleLevel = '3';
 
   /** Content of the link. */
   @property({ attribute: 'link-content' }) public linkContent?: string;

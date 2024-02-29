@@ -12,7 +12,7 @@ import { SbbNamedSlotListElementMixin, type WithListChildren } from '../../core/
 import { LanguageController } from '../../core/common-behaviors';
 import { EventEmitter } from '../../core/eventing';
 import { i18nTrain, i18nWagonsLabel } from '../../core/i18n';
-import type { TitleLevel } from '../../title';
+import type { SbbTitleLevel } from '../../title';
 import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage';
 import type { SbbTrainWagonElement } from '../train-wagon';
 
@@ -40,7 +40,7 @@ export class SbbTrainElement extends SbbNamedSlotListElementMixin<
   @property({ attribute: 'direction-label' }) public directionLabel!: string;
 
   /** Heading level of the direction label, used for screen readers. */
-  @property({ attribute: 'direction-label-level' }) public directionLabelLevel: TitleLevel = '6';
+  @property({ attribute: 'direction-label-level' }) public directionLabelLevel: SbbTitleLevel = '6';
 
   /** Label for the destination station of the train. */
   @property() public station?: string;
