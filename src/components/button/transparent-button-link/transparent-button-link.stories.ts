@@ -1,4 +1,3 @@
-import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
 
 import {
@@ -28,19 +27,7 @@ import readme from './readme.md?raw';
 import '../../loading-indicator';
 import './transparent-button-link';
 
-const tag: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    disable: true,
-  },
-};
-
-const defaultArgTypes: ArgTypes = {
-  ...buttonLinkDefaultArgTypes,
-  tag,
-};
+const defaultArgTypes: ArgTypes = { ...buttonLinkDefaultArgTypes };
 
 const defaultArgs: Args = {
   ...buttonLinkDefaultArgs,

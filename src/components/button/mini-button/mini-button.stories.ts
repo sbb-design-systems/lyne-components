@@ -58,7 +58,7 @@ const miniButtonDefaultArgs: Args = {
   slot: slot.options[0],
 };
 
-['size', 'text'].forEach((e) => {
+['size', 'text'].forEach((e: string) => {
   delete miniButtonDefaultArgTypes[e];
   delete miniButtonDefaultArgs[e];
 });

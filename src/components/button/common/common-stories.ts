@@ -104,7 +104,17 @@ const ariaLabel: InputType = {
   },
 };
 
+const tag: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    disable: true,
+  },
+};
+
 export const commonDefaultArgTypes: ArgTypes = {
+  tag,
   text,
   negative,
   size,
@@ -113,6 +123,7 @@ export const commonDefaultArgTypes: ArgTypes = {
 };
 
 export const commonDefaultArgs: Args = {
+  tag: 'TBD',
   text: 'Button',
   negative: false,
   size: size.options[0],

@@ -26,15 +26,6 @@ import readme from './readme.md?raw';
 import '../../loading-indicator';
 import './tertiary-button-static';
 
-const tag: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    disable: true,
-  },
-};
-
 const disabled: InputType = {
   control: {
     type: 'boolean',
@@ -46,7 +37,6 @@ const disabled: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   ...commonDefaultArgTypes,
-  tag,
   disabled,
 };
 
