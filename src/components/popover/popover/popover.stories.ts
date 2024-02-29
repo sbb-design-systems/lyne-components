@@ -112,14 +112,14 @@ const popover = (args: Args): TemplateResult => html`
     <sbb-title level="2" visual-level="6" style="margin-block-start: 0"> Title. </sbb-title>
     <p style="margin: 0" class="sbb-text-s">
       Some content.
-      <sbb-link
+      <sbb-block-link
         size="s"
         icon-name="chevron-small-right-small"
         icon-placement="end"
         sbb-popover-close
       >
         Learn More
-      </sbb-link>
+      </sbb-block-link>
     </p>
   </sbb-popover>
 `;
