@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
@@ -6,6 +6,7 @@ import {
   LanguageController,
   SbbButtonBaseElement,
   SbbNegativeMixin,
+  hostAttributes,
 } from '../../core/common-behaviors';
 import { hostContext, isValidAttribute } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
@@ -18,6 +19,9 @@ import style from './form-field-clear.scss?lit&inline';
 /**
  * Combined with `sbb-form-field`, it displays a button which clears the input value.
  */
+@hostAttributes({
+  slot: 'suffix',
+})
 @customElement('sbb-form-field-clear')
 export class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElement) {
   public static override styles: CSSResultGroup = style;
@@ -40,20 +44,19 @@ export class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElem
   }
 
   private async _handleClick(): Promise<void> {
-    const input = await this._formField?.getInputElement();
+    const input = this._formField?.inputElement;
     if (!input || input.tagName !== 'INPUT') {
       return;
     }
-    await this._formField?.clear();
+    this._formField?.clear();
     input.focus();
     input.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
     input.dispatchEvent(new Event('change', { bubbles: true }));
   }
 
-  protected override createRenderRoot(): HTMLElement | DocumentFragment {
-    this.setAttribute('slot', 'suffix');
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
     this.setAttribute('aria-label', i18nClearInput[this._language.current]);
-    return super.createRenderRoot();
   }
 
   protected override renderTemplate(): TemplateResult {

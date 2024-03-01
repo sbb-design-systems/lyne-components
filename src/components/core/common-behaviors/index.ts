@@ -2,6 +2,7 @@ export * from './action-base-element';
 export * from './button-base-element';
 export * from './constructor';
 export * from './disabled-mixins';
+export * from './host-attributes';
 export * from './hydration-mixin';
 export * from './icon-name-mixin';
 export * from './language-controller';

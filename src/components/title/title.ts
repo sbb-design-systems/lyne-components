@@ -3,7 +3,7 @@ import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbNegativeMixin } from '../core/common-behaviors';
+import { SbbNegativeMixin, hostAttributes } from '../core/common-behaviors';
 
 import style from './title.scss?lit&inline';
 
@@ -14,6 +14,9 @@ export type SbbTitleLevel = '1' | '2' | '3' | '4' | '5' | '6';
  *
  * @slot - Use the unnamed slot to display the title.
  */
+@hostAttributes({
+  role: 'heading',
+})
 @customElement('sbb-title')
 export class SbbTitleElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
@@ -39,11 +42,6 @@ export class SbbTitleElement extends SbbNegativeMixin(LitElement) {
     if (changedProperties.has('level')) {
       this.setAttribute('aria-level', this.level);
     }
-  }
-
-  protected override createRenderRoot(): HTMLElement | DocumentFragment {
-    this.setAttribute('role', 'heading');
-    return super.createRenderRoot();
   }
 
   protected override render(): TemplateResult {

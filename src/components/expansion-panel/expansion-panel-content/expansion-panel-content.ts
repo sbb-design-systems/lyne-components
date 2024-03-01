@@ -2,6 +2,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { hostAttributes } from '../../core/common-behaviors';
+
 import style from './expansion-panel-content.scss?lit&inline';
 
 /**
@@ -9,15 +11,13 @@ import style from './expansion-panel-content.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add content to the `sbb-expansion-panel`.
  */
+@hostAttributes({
+  role: 'region',
+  slot: 'content',
+})
 @customElement('sbb-expansion-panel-content')
 export class SbbExpansionPanelContentElement extends LitElement {
   public static override styles: CSSResultGroup = style;
-
-  protected override createRenderRoot(): HTMLElement | DocumentFragment {
-    this.setAttribute('slot', 'content');
-    this.setAttribute('role', 'region');
-    return super.createRenderRoot();
-  }
 
   protected override render(): TemplateResult {
     return html`
