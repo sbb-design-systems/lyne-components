@@ -183,6 +183,7 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
     );
     this._navigationSectionController?.abort();
     this._navigationSectionController = new AbortController();
+    this._triggerElement.navigationSection = this;
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._navigationSectionController.signal,
     });
@@ -282,11 +283,15 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
 
   // Set focus on the first focusable element.
   private _setNavigationSectionFocus(): void {
-    const firstFocusableElement = getFirstFocusableElement(
-      [this.shadowRoot!.querySelector('#sbb-navigation-section-back-button')]
-        .concat(Array.from(this.children))
-        .filter((e): e is HTMLElement => e instanceof window.HTMLElement),
-    );
+    const firstFocusableElement =
+      (this.querySelector(
+        ':is(sbb-navigation-button, sbb-navigation-link).sbb-active',
+      ) as HTMLElement) ||
+      getFirstFocusableElement(
+        [this.shadowRoot!.querySelector('#sbb-navigation-section-back-button')]
+          .concat(Array.from(this.children))
+          .filter((e): e is HTMLElement => e instanceof window.HTMLElement),
+      );
     if (firstFocusableElement) {
       setModalityOnNextFocus(firstFocusableElement);
       firstFocusableElement.focus();

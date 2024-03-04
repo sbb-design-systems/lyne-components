@@ -10,6 +10,7 @@ import {
   isValidAttribute,
   findReferencedElement,
   setAttribute,
+  toggleDatasetEntry,
 } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import { i18nCloseNavigation } from '../../core/i18n';
@@ -22,6 +23,9 @@ import {
   applyInertMechanism,
   removeInertMechanism,
 } from '../../core/overlay';
+import type { SbbNavigationActionCommonElementMixinType } from '../common';
+import type { SbbNavigationButtonElement } from '../navigation-button';
+import type { SbbNavigationLinkElement } from '../navigation-link';
 import '../../button/transparent-button';
 
 import style from './navigation.scss?lit&inline';
@@ -128,6 +132,7 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
   private _navigation!: HTMLDivElement;
   private _navigationContentElement!: HTMLElement;
   private _triggerElement: HTMLElement | null = null;
+  private _elementToFocus: HTMLElement | null = null;
   private _navigationController!: AbortController;
   private _windowEventsController!: AbortController;
   private _abort = new ConnectedAbortController(this);
@@ -152,11 +157,34 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
       return;
     }
     this._state = 'opening';
+    this._setActiveAction();
     this.startUpdate();
 
     // Disable scrolling for content below the navigation
     this._scrollHandler.disableScroll();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
+  }
+
+  private _setActiveAction(): void {
+    const activeActions = Array.from(
+      this.querySelectorAll(':is(sbb-navigation-button, sbb-navigation-link).sbb-active'),
+    ) as SbbNavigationActionCommonElementMixinType[];
+    activeActions.forEach((action: SbbNavigationActionCommonElementMixinType) => {
+      if (action.navigationSection) {
+        action.navigationSection.open();
+      } else if (action.navigationMarker) {
+        action.navigationMarker.select(
+          action as SbbNavigationButtonElement | SbbNavigationLinkElement,
+        );
+      } else {
+        toggleDatasetEntry(
+          action as SbbNavigationButtonElement | SbbNavigationLinkElement,
+          'actionActive',
+          true,
+        );
+      }
+    });
+    this._elementToFocus = activeActions[0] as HTMLElement;
   }
 
   /**
@@ -277,11 +305,14 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
 
   // Set focus on the first focusable element.
   private _setNavigationFocus(): void {
-    const closeButton = this.shadowRoot!.querySelector(
-      '#sbb-navigation-close-button',
-    ) as HTMLElement;
-    setModalityOnNextFocus(closeButton);
-    closeButton.focus();
+    if (this._activeNavigationSection) {
+      return;
+    }
+    const elementToFocus =
+      this._elementToFocus ||
+      (this.shadowRoot!.querySelector('#sbb-navigation-close-button') as HTMLElement);
+    setModalityOnNextFocus(elementToFocus);
+    elementToFocus.focus();
   }
 
   // Check if the pointerdown event target is triggered on the navigation.

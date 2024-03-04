@@ -23,14 +23,15 @@ The component has three different sizes, which can be changed using the `size` p
 
 ## Properties
 
-| Name               | Attribute | Privacy | Type                                   | Default    | Description                                      |
-| ------------------ | --------- | ------- | -------------------------------------- | ---------- | ------------------------------------------------ |
-| `size`             | `size`    | public  | `SbbNavigationActionSize \| undefined` | `'l'`      | Action size variant.                             |
-| `navigationMarker` | -         | public  | `SbbNavigationMarkerElement \| null`   | `null`     |                                                  |
-| `type`             | `type`    | public  | `SbbButtonType`                        | `'button'` | The type attribute to use for the button.        |
-| `name`             | `name`    | public  | `string`                               |            | The name of the button element.                  |
-| `value`            | `value`   | public  | `string`                               |            | The value of the button element.                 |
-| `form`             | `form`    | public  | `string \| undefined`                  |            | The <form> element to associate the button with. |
+| Name                | Attribute | Privacy | Type                                   | Default    | Description                                      |
+| ------------------- | --------- | ------- | -------------------------------------- | ---------- | ------------------------------------------------ |
+| `size`              | `size`    | public  | `SbbNavigationActionSize \| undefined` | `'l'`      | Action size variant.                             |
+| `navigationMarker`  | -         | public  | `SbbNavigationMarkerElement \| null`   | `null`     |                                                  |
+| `navigationSection` | -         | public  | `SbbNavigationSectionElement \| null`  | `null`     |                                                  |
+| `type`              | `type`    | public  | `SbbButtonType`                        | `'button'` | The type attribute to use for the button.        |
+| `name`              | `name`    | public  | `string`                               |            | The name of the button element.                  |
+| `value`             | `value`   | public  | `string`                               |            | The value of the button element.                 |
+| `form`              | `form`    | public  | `string \| undefined`                  |            | The <form> element to associate the button with. |
 
 ## Slots
 

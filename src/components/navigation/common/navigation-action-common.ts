@@ -3,9 +3,12 @@ import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import type { AbstractConstructor, SbbActionBaseElement } from '../../core/common-behaviors';
-import { hostContext, toggleDatasetEntry } from '../../core/dom';
+import { hostContext } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
+import type { SbbNavigationButtonElement } from '../navigation-button';
+import type { SbbNavigationLinkElement } from '../navigation-link';
 import type { SbbNavigationMarkerElement } from '../navigation-marker';
+import type { SbbNavigationSectionElement } from '../navigation-section';
 
 import style from './navigation-action.scss?lit&inline';
 
@@ -14,6 +17,7 @@ export type SbbNavigationActionSize = 's' | 'm' | 'l';
 export declare class SbbNavigationActionCommonElementMixinType {
   public size?: SbbNavigationActionSize;
   public navigationMarker?: SbbNavigationMarkerElement | null;
+  public navigationSection?: SbbNavigationSectionElement | null;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -33,9 +37,18 @@ export const SbbNavigationActionCommonElementMixin = <
 
     private _abort = new ConnectedAbortController(this);
     private _navigationMarker: SbbNavigationMarkerElement | null = null;
+    private _navigationSection: SbbNavigationSectionElement | null = null;
 
     public get navigationMarker(): SbbNavigationMarkerElement | null {
       return this._navigationMarker;
+    }
+
+    public set navigationSection(navSection: SbbNavigationSectionElement) {
+      this._navigationSection = navSection;
+    }
+
+    public get navigationSection(): SbbNavigationSectionElement | null {
+      return this._navigationSection;
     }
 
     public override connectedCallback(): void {
@@ -44,8 +57,14 @@ export const SbbNavigationActionCommonElementMixin = <
       this.addEventListener(
         'click',
         () => {
-          if (!this.hasAttribute('data-action-active') && this._navigationMarker) {
-            toggleDatasetEntry(this, 'actionActive', true);
+          if (
+            !this.hasAttribute('data-action-active') &&
+            this._navigationMarker &&
+            !this._navigationSection
+          ) {
+            this.navigationMarker?.select(
+              this as unknown as SbbNavigationButtonElement | SbbNavigationLinkElement,
+            );
           }
         },
         { signal },

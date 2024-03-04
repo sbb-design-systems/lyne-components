@@ -12,7 +12,7 @@ import type {
 } from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
 import { sbbSpread } from '../../core/dom';
@@ -113,7 +113,9 @@ const navigationActionsL = (): TemplateResult => html`
   <sbb-navigation-button id="nav-1" data-testid="navigation-section-trigger-1">
     Tickets & Offers
   </sbb-navigation-button>
-  <sbb-navigation-button id="nav-2">Vacations & Recreation</sbb-navigation-button>
+  <sbb-navigation-button id="nav-2" class="sbb-active"
+    >Vacations & Recreation</sbb-navigation-button
+  >
   <sbb-navigation-button id="nav-3">Travel information</sbb-navigation-button>
   <sbb-navigation-link id="nav-4" href="https://www.sbb.ch/en/">
     Help & Contact
@@ -123,15 +125,21 @@ const navigationActionsL = (): TemplateResult => html`
 const navigationActionsS = (): TemplateResult => html`
   <sbb-navigation-button id="nav-5">Deutsch</sbb-navigation-button>
   <sbb-navigation-button id="nav-6">Français</sbb-navigation-button>
-  <sbb-navigation-button id="nav-7" active> Italiano </sbb-navigation-button>
+  <sbb-navigation-button id="nav-7" class="sbb-active">Italiano</sbb-navigation-button>
   <sbb-navigation-button id="nav-8">English</sbb-navigation-button>
 `;
 
-const navigationList = (label: string): TemplateResult => html`
+const navigationList = (label: string, active?: boolean): TemplateResult => html`
   <sbb-navigation-list label=${label}>
     <sbb-navigation-button size="m">Label</sbb-navigation-button>
     <sbb-navigation-button size="m">Label</sbb-navigation-button>
-    <sbb-navigation-link size="m" href="https://www.sbb.ch/en/"> Label </sbb-navigation-link>
+    <sbb-navigation-link
+      size="m"
+      href="https://www.sbb.ch/en/"
+      class=${active ? 'sbb-active' : nothing}
+    >
+      Label
+    </sbb-navigation-link>
   </sbb-navigation-list>
 `;
 
@@ -206,7 +214,7 @@ const WithNavigationSectionTemplate = (args: Args): TemplateResult => html`
       title-content="Title two"
       ?disable-animation=${args['disable-animation']}
     >
-      ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
+      ${navigationList('Label', true)} ${navigationList('Label')} ${navigationList('Label')}
       ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
     </sbb-navigation-section>
 
