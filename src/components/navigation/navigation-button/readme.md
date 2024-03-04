@@ -26,8 +26,7 @@ The component has three different sizes, which can be changed using the `size` p
 | Name               | Attribute | Privacy | Type                                   | Default    | Description                                      |
 | ------------------ | --------- | ------- | -------------------------------------- | ---------- | ------------------------------------------------ |
 | `size`             | `size`    | public  | `SbbNavigationActionSize \| undefined` | `'l'`      | Action size variant.                             |
-| `active`           | `active`  | public  | `boolean`                              | `false`    | Whether the action is active.                    |
-| `navigationMarker` | -         | public  | `SbbNavigationMarkerElement \| null`   | `null`  |                                                  |
+| `navigationMarker` | -         | public  | `SbbNavigationMarkerElement \| null`   | `null`     |                                                  |
 | `type`             | `type`    | public  | `SbbButtonType`                        | `'button'` | The type attribute to use for the button.        |
 | `name`             | `name`    | public  | `string`                               |            | The name of the button element.                  |
 | `value`            | `value`   | public  | `string`                               |            | The value of the button element.                 |
