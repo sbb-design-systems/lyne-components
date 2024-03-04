@@ -18,7 +18,7 @@
   @include sbb.text-xxs--bold;
 
   display: block;
-  color: var(--sbb-color-storm-default);
+  color: var(--sbb-color-storm);
   padding-block-end: var(--sbb-spacing-fixed-2x);
 
   :host(:not([data-slot-names~='label'], [label])) & {

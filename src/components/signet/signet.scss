@@ -5,8 +5,8 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-signet-background-color: var(--sbb-color-red-default);
-  --sbb-signet-icon-color: var(--sbb-color-white-default);
+  --sbb-signet-background-color: var(--sbb-color-red);
+  --sbb-signet-icon-color: var(--sbb-color-white);
   --sbb-signet-aspect-ratio: 2 / 1;
   --sbb-signet-svg-container-height: auto;
 

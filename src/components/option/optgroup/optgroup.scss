@@ -10,7 +10,7 @@
   --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-4x);
   --sbb-optgroup-label-padding-inline: var(--sbb-spacing-fixed-4x);
   --sbb-optgroup-label-font-size: var(--sbb-typo-scale-0-75x);
-  --sbb-optgroup-label-color: var(--sbb-color-metal-default);
+  --sbb-optgroup-label-color: var(--sbb-color-metal);
 }
 
 :host(:first-child) {
@@ -30,7 +30,7 @@
 }
 
 :host([data-negative]) {
-  --sbb-optgroup-label-color: var(--sbb-color-smoke-default);
+  --sbb-optgroup-label-color: var(--sbb-color-smoke);
 }
 
 .sbb-optgroup {

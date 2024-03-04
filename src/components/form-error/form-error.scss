@@ -6,7 +6,7 @@
 
 :host {
   --sbb-form-error-height: calc(var(--sbb-typo-line-height-body-text) * 1em);
-  --sbb-form-error-color: var(--sbb-color-red125-default);
+  --sbb-form-error-color: var(--sbb-color-red125);
 
   // Overrides sbb icon
   --sbb-icon-svg-width: var(--sbb-size-icon-form-error);

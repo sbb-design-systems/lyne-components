@@ -6,9 +6,9 @@
 
 :host {
   --sbb-train-formation-inline-padding: var(--sbb-spacing-fixed-4x);
-  --sbb-train-formation-background-color: var(--sbb-color-white-default);
-  --sbb-train-formation-sector-label-color: var(--sbb-color-metal-default);
-  --sbb-train-formation-sector-line-color: var(--sbb-color-smoke-default);
+  --sbb-train-formation-background-color: var(--sbb-color-white);
+  --sbb-train-formation-sector-label-color: var(--sbb-color-metal);
+  --sbb-train-formation-sector-line-color: var(--sbb-color-smoke);
   --sbb-train-formation-blocked-passage-width: var(--sbb-size-icon-timetable-attribute);
 
   @include sbb.if-forced-colors {

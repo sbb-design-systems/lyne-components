@@ -6,12 +6,12 @@
 
 :host {
   --sbb-tag-border-radius: var(--sbb-border-radius-infinity);
-  --sbb-tag-background-color: var(--sbb-color-white-default);
-  --sbb-tag-border-color: var(--sbb-color-cloud-default);
+  --sbb-tag-background-color: var(--sbb-color-white);
+  --sbb-tag-border-color: var(--sbb-color-cloud);
   --sbb-tag-border-style: solid;
   --sbb-tag-border-width: var(--sbb-border-width-1x);
-  --sbb-tag-text-color: var(--sbb-color-charcoal-default);
-  --sbb-tag-amount-color: var(--sbb-color-metal-default);
+  --sbb-tag-text-color: var(--sbb-color-charcoal);
+  --sbb-tag-amount-color: var(--sbb-color-metal);
   --sbb-tag-height: #{sbb.px-to-rem-build(36)};
   --sbb-tag-inset: 0;
   --sbb-tag-content-shift: translateY(0);
@@ -42,7 +42,7 @@
 
 // Active state
 :host([checked]) {
-  --sbb-tag-border-color: var(--sbb-color-charcoal-default);
+  --sbb-tag-border-color: var(--sbb-color-charcoal);
   --sbb-tag-border-width: var(--sbb-border-width-2x);
 
   @include sbb.if-forced-colors {
@@ -51,10 +51,10 @@
 }
 
 :host([disabled]) {
-  --sbb-tag-text-color: var(--sbb-color-granite-default);
+  --sbb-tag-text-color: var(--sbb-color-granite);
   --sbb-tag-amount-color: var(--sbb-tag-text-color);
-  --sbb-tag-background-color: var(--sbb-color-milk-default);
-  --sbb-tag-border-color: var(--sbb-color-cement-default);
+  --sbb-tag-background-color: var(--sbb-color-milk);
+  --sbb-tag-border-color: var(--sbb-color-cement);
   --sbb-tag-border-style: dashed;
 
   @include sbb.if-forced-colors {
@@ -65,12 +65,12 @@
 }
 
 :host([checked][disabled]) {
-  --sbb-tag-border-color: var(--sbb-color-metal-default);
+  --sbb-tag-border-color: var(--sbb-color-metal);
 }
 
 :host(:hover:not([disabled], :active, [data-active])) {
   @include sbb.hover-mq($hover: true) {
-    --sbb-tag-background-color: var(--sbb-color-milk-default);
+    --sbb-tag-background-color: var(--sbb-color-milk);
     --sbb-tag-inset: calc(var(--sbb-border-width-2x) * -1);
     --sbb-tag-content-shift: translateY(calc(var(--sbb-border-width-1x) * -1));
 
@@ -82,10 +82,10 @@
 
 // Pressed state
 :host(:is(:active, [data-active]):not([disabled])) {
-  --sbb-tag-background-color: var(--sbb-color-milk-default);
-  --sbb-tag-border-color: var(--sbb-color-iron-default);
+  --sbb-tag-background-color: var(--sbb-color-milk);
+  --sbb-tag-border-color: var(--sbb-color-iron);
   --sbb-tag-border-width: var(--sbb-border-width-2x);
-  --sbb-tag-text-color: var(--sbb-color-iron-default);
+  --sbb-tag-text-color: var(--sbb-color-iron);
 
   @include sbb.if-forced-colors {
     --sbb-tag-border-color: Highlight;

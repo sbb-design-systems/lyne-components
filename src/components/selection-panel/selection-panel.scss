@@ -12,8 +12,8 @@ $open-anim-opacity-to: 1;
 
 :host {
   --sbb-selection-panel-cursor: pointer;
-  --sbb-selection-panel-background: var(--sbb-color-white-default);
-  --sbb-selection-panel-border-color: var(--sbb-color-cloud-default);
+  --sbb-selection-panel-background: var(--sbb-color-white);
+  --sbb-selection-panel-border-color: var(--sbb-color-cloud);
   --sbb-selection-panel-animation-duration: var(--sbb-animation-duration-4x);
   --sbb-selection-panel-border-width: var(--sbb-border-width-1x);
   --sbb-selection-panel-input-pointer-events: all;
@@ -30,16 +30,16 @@ $open-anim-opacity-to: 1;
 }
 
 :host([color='milk']) {
-  --sbb-selection-panel-background: var(--sbb-color-milk-default);
+  --sbb-selection-panel-background: var(--sbb-color-milk);
 }
 
 :host([data-checked]:not([data-disabled])) {
-  --sbb-selection-panel-border-color: var(--sbb-color-charcoal-default);
+  --sbb-selection-panel-border-color: var(--sbb-color-charcoal);
 }
 
 :host([data-slot-names~='content'][data-disabled]) {
   --sbb-selection-panel-input-pointer-events: none;
-  --sbb-selection-panel-border-color: var(--sbb-color-cloud-default);
+  --sbb-selection-panel-border-color: var(--sbb-color-cloud);
 }
 
 :host([data-disabled]) {

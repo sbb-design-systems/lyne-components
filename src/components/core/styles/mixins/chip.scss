@@ -3,23 +3,23 @@
 @use './typo';
 
 @mixin chip-variables--color-milk {
-  --sbb-chip-color: var(--sbb-color-granite-default);
-  --sbb-chip-background-color: var(--sbb-color-milk-default);
+  --sbb-chip-color: var(--sbb-color-granite);
+  --sbb-chip-background-color: var(--sbb-color-milk);
 }
 
 @mixin chip-variables--color-charcoal {
-  --sbb-chip-color: var(--sbb-color-white-default);
-  --sbb-chip-background-color: var(--sbb-color-charcoal-default);
+  --sbb-chip-color: var(--sbb-color-white);
+  --sbb-chip-background-color: var(--sbb-color-charcoal);
 }
 
 @mixin chip-variables--color-white {
-  --sbb-chip-color: var(--sbb-color-granite-default);
-  --sbb-chip-background-color: var(--sbb-color-white-default);
+  --sbb-chip-color: var(--sbb-color-granite);
+  --sbb-chip-background-color: var(--sbb-color-white);
 }
 
 @mixin chip-variables--color-granite {
-  --sbb-chip-color: var(--sbb-color-white-default);
-  --sbb-chip-background-color: var(--sbb-color-granite-default);
+  --sbb-chip-color: var(--sbb-color-white);
+  --sbb-chip-background-color: var(--sbb-color-granite);
 }
 
 @mixin chip-variables--size-xxs {

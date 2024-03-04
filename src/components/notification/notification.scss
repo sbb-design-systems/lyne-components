@@ -12,7 +12,7 @@
   --sbb-notification-margin: 0;
   --sbb-notification-padding-block: var(--sbb-spacing-responsive-xxs);
   --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xs);
-  --sbb-notification-color: var(--sbb-color-charcoal-default);
+  --sbb-notification-color: var(--sbb-color-charcoal);
   --sbb-notification-icon-color: var(--sbb-notification-type-color);
   --sbb-notification-border-width: var(--sbb-border-width-1x);
   --sbb-notification-border: var(--sbb-notification-border-width) solid
@@ -60,24 +60,24 @@
 /* Types */
 
 :host([type='info']) {
-  --sbb-notification-type-color: var(--sbb-color-smoke-default);
+  --sbb-notification-type-color: var(--sbb-color-smoke);
   --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-smoke-default, white, 5%)};
   --sbb-notification-icon-color: var(--sbb-notification-color);
 }
 
 :host([type='success']) {
-  --sbb-notification-type-color: var(--sbb-color-green-default);
+  --sbb-notification-type-color: var(--sbb-color-green);
   --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-green-default, white, 5%)};
 }
 
 :host([type='warn']) {
-  --sbb-notification-type-color: var(--sbb-color-peach-default);
+  --sbb-notification-type-color: var(--sbb-color-peach);
   --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-peach-default, white, 5%)};
   --sbb-notification-icon-color: var(--sbb-notification-color);
 }
 
 :host([type='error']) {
-  --sbb-notification-type-color: var(--sbb-color-red-default);
+  --sbb-notification-type-color: var(--sbb-color-red);
   --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-red-default, white, 5%)};
 }
 

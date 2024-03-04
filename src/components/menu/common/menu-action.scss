@@ -13,20 +13,20 @@
   --sbb-menu-action-outer-horizontal-padding: var(--sbb-spacing-fixed-3x);
   --sbb-menu-action-gap: var(--sbb-spacing-fixed-2x);
   --sbb-menu-action-cursor: pointer;
-  --sbb-menu-action-color: var(--sbb-color-white-default);
+  --sbb-menu-action-color: var(--sbb-color-white);
   --sbb-menu-action-forced-color-border-color: CanvasText;
 }
 
 :host(:hover:not([disabled])) {
   @include sbb.hover-mq($hover: true) {
-    --sbb-menu-background-color: var(--sbb-color-iron-default);
+    --sbb-menu-background-color: var(--sbb-color-iron);
     --sbb-menu-action-forced-color-border-color: Highlight;
   }
 }
 
 :host([disabled]) {
   --sbb-menu-action-cursor: default;
-  --sbb-menu-action-color: var(--sbb-color-graphite-default);
+  --sbb-menu-action-color: var(--sbb-color-graphite);
   --sbb-menu-action-forced-color-border-color: GrayText;
 
   pointer-events: none;

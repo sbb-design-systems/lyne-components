@@ -8,8 +8,8 @@
   @include sbb.scrollbar-variables;
 
   --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-5x);
-  --sbb-dialog-color: var(--sbb-color-black-default);
-  --sbb-dialog-background-color: var(--sbb-color-white-default);
+  --sbb-dialog-color: var(--sbb-color-black);
+  --sbb-dialog-background-color: var(--sbb-color-white);
   --sbb-dialog-width: 100%;
   --sbb-dialog-height: 100%;
   --sbb-dialog-max-width: 100%;
@@ -25,7 +25,7 @@
   --sbb-dialog-backdrop-pointer-events: none;
   --sbb-dialog-backdrop-color: transparent;
   --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s) 0;
-  --sbb-dialog-footer-border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default);
+  --sbb-dialog-footer-border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud);
 
   position: fixed;
   inset: var(--sbb-dialog-inset);
@@ -55,7 +55,7 @@
   @include sbb.mq($from: medium) {
     --sbb-dialog-backdrop-visibility: visible;
     --sbb-dialog-backdrop-pointer-events: all;
-    --sbb-dialog-backdrop-color: var(--sbb-color-milk-default);
+    --sbb-dialog-backdrop-color: var(--sbb-color-milk);
   }
 }
 
@@ -69,8 +69,8 @@
   @include sbb.scrollbar-variables--color-negative;
 
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-  --sbb-dialog-color: var(--sbb-color-white-default);
-  --sbb-dialog-background-color: var(--sbb-color-midnight-default);
+  --sbb-dialog-color: var(--sbb-color-white);
+  --sbb-dialog-background-color: var(--sbb-color-midnight);
   --sbb-dialog-footer-border: none;
 }
 
@@ -79,7 +79,7 @@
 }
 
 :host([data-fullscreen]:not([negative])) {
-  --sbb-dialog-background-color: var(--sbb-color-milk-default);
+  --sbb-dialog-background-color: var(--sbb-color-milk);
 }
 
 :host([data-overflows]:not([data-fullscreen])) {

@@ -22,7 +22,7 @@
   --sbb-options-panel-gap-fix-top: calc(
     var(--sbb-options-panel-position-y) - var(--sbb-options-panel-border-radius)
   );
-  --sbb-options-panel-background-color: var(--sbb-color-white-default);
+  --sbb-options-panel-background-color: var(--sbb-color-white);
 
   // As the overlays have always a white background, we have to fix the focus outline color
   // to default color for cases where the overlays are used in a negative context.
@@ -32,7 +32,7 @@
 @mixin options-panel-overlay-negative-variables {
   @include scrollbar.scrollbar-variables--color-negative;
 
-  --sbb-options-panel-background-color: var(--sbb-color-midnight-default);
+  --sbb-options-panel-background-color: var(--sbb-color-midnight);
 
   // As the overlays have always a white background, we have to fix the focus outline color
   // to default color for cases where the overlays are used in a negative context.

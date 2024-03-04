@@ -5,11 +5,11 @@
 @include sbb.host-component-properties;
 
 :host([color='white']) {
-  --sbb-container-background-color: var(--sbb-color-white-default);
+  --sbb-container-background-color: var(--sbb-color-white);
 }
 
 :host([color='milk']) {
-  --sbb-container-background-color: var(--sbb-color-milk-default);
+  --sbb-container-background-color: var(--sbb-color-milk);
 }
 
 .sbb-container {

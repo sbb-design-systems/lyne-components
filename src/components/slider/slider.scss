@@ -11,13 +11,13 @@
   --sbb-slider-knob-size-active: #{sbb.px-to-rem-build(31)};
   --sbb-slider-knob-border-size: #{sbb.px-to-rem-build(3)};
   --sbb-slider-knob-border-style: solid;
-  --sbb-slider-knob-color: var(--sbb-color-white-default);
-  --sbb-slider-knob-border-color: var(--sbb-color-red-default);
-  --sbb-slider-icon-color: var(--sbb-color-black-default);
-  --sbb-slider-selected-line-color: var(--sbb-color-red-default);
-  --sbb-slider-selected-line-disabled-color: var(--sbb-color-smoke-default);
-  --sbb-slider-line-color: var(--sbb-color-smoke-default);
-  --sbb-slider-line-disabled-color: var(--sbb-color-graphite-default);
+  --sbb-slider-knob-color: var(--sbb-color-white);
+  --sbb-slider-knob-border-color: var(--sbb-color-red);
+  --sbb-slider-icon-color: var(--sbb-color-black);
+  --sbb-slider-selected-line-color: var(--sbb-color-red);
+  --sbb-slider-selected-line-disabled-color: var(--sbb-color-smoke);
+  --sbb-slider-line-color: var(--sbb-color-smoke);
+  --sbb-slider-line-disabled-color: var(--sbb-color-graphite);
 
   @include sbb.if-forced-colors {
     --sbb-slider-selected-line-color: Highlight;
@@ -33,14 +33,14 @@
 }
 
 :host([disabled]) {
-  --sbb-slider-icon-color: var(--sbb-color-graphite-default);
-  --sbb-slider-knob-border-color: var(--sbb-color-smoke-default);
+  --sbb-slider-icon-color: var(--sbb-color-graphite);
+  --sbb-slider-knob-border-color: var(--sbb-color-smoke);
   --sbb-slider-knob-border-size: var(--sbb-border-width-2x);
   --sbb-slider-knob-border-style: dashed;
 }
 
 :host([readonly]) {
-  --sbb-slider-icon-color: var(--sbb-color-smoke-default);
+  --sbb-slider-icon-color: var(--sbb-color-smoke);
   --sbb-slider-knob-border-color: var(--sbb-slider-selected-line-disabled-color);
 }
 

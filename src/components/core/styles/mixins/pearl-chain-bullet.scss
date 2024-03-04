@@ -8,10 +8,10 @@
 @mixin pearl-chain-bullet-variables {
   --sbb-pearl-chain-bullet-size-start-end: #{functions.px-to-rem-build(10)};
   --sbb-pearl-chain-bullet-size-stop: #{functions.px-to-rem-build(8)};
-  --sbb-pearl-chain-bullet-color: var(--sbb-color-charcoal-default);
-  --sbb-pearl-chain-bullet-color-past: var(--sbb-color-metal-default);
-  --sbb-pearl-chain-bullet-color-irrelevant: var(--sbb-color-metal-default);
-  --sbb-pearl-chain-bullet-color-disruption: var(--sbb-color-red-default);
+  --sbb-pearl-chain-bullet-color: var(--sbb-color-charcoal);
+  --sbb-pearl-chain-bullet-color-past: var(--sbb-color-metal);
+  --sbb-pearl-chain-bullet-color-irrelevant: var(--sbb-color-metal);
+  --sbb-pearl-chain-bullet-color-disruption: var(--sbb-color-red);
   --sbb-pearl-chain-bullet-border-width: var(--sbb-border-width-2x);
   --sbb-pearl-chain-bullet-animation-duration: 1920ms;
   --sbb-pearl-chain-bullet-animation-easing: ease-out;

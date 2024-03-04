@@ -7,7 +7,7 @@
 .sbb-journey-summary {
   @include sbb.text-s--regular;
 
-  color: var(--sbb-color-iron-default);
+  color: var(--sbb-color-iron);
   display: flex;
   flex-direction: column;
 }

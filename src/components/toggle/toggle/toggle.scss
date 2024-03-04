@@ -9,7 +9,7 @@
   --sbb-toggle-min-width: calc(
     var(--sbb-toggle-padding-inline) * 2 + var(--sbb-size-icon-ui-small)
   );
-  --sbb-toggle-selected-option-border-color: var(--sbb-color-smoke-default);
+  --sbb-toggle-selected-option-border-color: var(--sbb-color-smoke);
   --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xxxs);
   --sbb-toggle-animation-duration: var(--sbb-animation-duration-6x);
   --sbb-toggle-height: #{sbb.px-to-rem-build(28)};
@@ -36,7 +36,7 @@
 }
 
 :host([disabled]) {
-  --sbb-toggle-selected-option-border-color: var(--sbb-color-graphite-default);
+  --sbb-toggle-selected-option-border-color: var(--sbb-color-graphite);
   --sbb-toggle-border-style: dashed;
 
   @include sbb.if-forced-colors {
@@ -71,7 +71,7 @@
   height: var(--sbb-toggle-height);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  background: var(--sbb-color-cloud-default);
+  background: var(--sbb-color-cloud);
   border-radius: var(--sbb-toggle-border-radius);
 
   &::after {
@@ -79,7 +79,7 @@
     padding-inline: var(--sbb-toggle-padding-inline);
     display: inline-block;
     opacity: 1;
-    background-color: var(--sbb-color-white-default);
+    background-color: var(--sbb-color-white);
     border: var(--sbb-toggle-border-width) var(--sbb-toggle-border-style)
       var(--sbb-toggle-selected-option-border-color);
     border-radius: var(--sbb-toggle-border-radius);

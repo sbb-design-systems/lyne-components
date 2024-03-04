@@ -60,7 +60,7 @@
 }
 
 @mixin scrollbar-variables--color-positive-track-visible {
-  --sbb-scrollbar-track-color: var(--sbb-color-cloud-default);
+  --sbb-scrollbar-track-color: var(--sbb-color-cloud);
 }
 
 @mixin scrollbar-variables--color-negative {
@@ -69,7 +69,7 @@
 }
 
 @mixin scrollbar-variables--color-negative-track-visible {
-  --sbb-scrollbar-track-color: var(--sbb-color-iron-default);
+  --sbb-scrollbar-track-color: var(--sbb-color-iron);
 }
 
 @mixin scrollbar-variables--track-invisible {

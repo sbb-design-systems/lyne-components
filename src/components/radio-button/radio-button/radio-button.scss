@@ -5,16 +5,16 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-radio-button-label-color: var(--sbb-color-charcoal-default);
-  --sbb-radio-button-background-color: var(--sbb-color-white-default);
-  --sbb-radio-button-inner-circle-color: var(--sbb-color-white-default);
+  --sbb-radio-button-label-color: var(--sbb-color-charcoal);
+  --sbb-radio-button-background-color: var(--sbb-color-white);
+  --sbb-radio-button-inner-circle-color: var(--sbb-color-white);
   --sbb-radio-button-border-width: var(--sbb-border-width-1x);
   --sbb-radio-button-border-style: solid;
-  --sbb-radio-button-border-color: var(--sbb-color-smoke-default);
+  --sbb-radio-button-border-color: var(--sbb-color-smoke);
   --sbb-radio-button-dimension: var(--sbb-size-icon-ui-small);
   --sbb-radio-button-inner-circle-dimension: #{sbb.px-to-rem-build(10)};
-  --sbb-radio-button-suffix-color: var(--sbb-color-charcoal-default);
-  --sbb-radio-button-subtext-color: var(--sbb-color-granite-default);
+  --sbb-radio-button-suffix-color: var(--sbb-color-charcoal);
+  --sbb-radio-button-subtext-color: var(--sbb-color-granite);
   --sbb-radio-button-cursor: pointer;
 
   // The border in unchecked state should fill the circle.
@@ -62,7 +62,7 @@
 }
 
 :host([checked]) {
-  --sbb-radio-button-inner-circle-color: var(--sbb-color-red-default);
+  --sbb-radio-button-inner-circle-color: var(--sbb-color-red);
   --sbb-radio-button-background-fake-border-width: calc(
     (var(--sbb-radio-button-dimension) - var(--sbb-radio-button-inner-circle-dimension)) / 2
   );
@@ -75,10 +75,10 @@
 
 // Disabled definitions have to be after checked definitions
 :host([disabled]) {
-  --sbb-radio-button-label-color: var(--sbb-color-granite-default);
-  --sbb-radio-button-background-color: var(--sbb-color-milk-default);
+  --sbb-radio-button-label-color: var(--sbb-color-granite);
+  --sbb-radio-button-background-color: var(--sbb-color-milk);
   --sbb-radio-button-border-style: dashed;
-  --sbb-radio-button-inner-circle-color: var(--sbb-color-charcoal-default);
+  --sbb-radio-button-inner-circle-color: var(--sbb-color-charcoal);
   --sbb-radio-button-cursor: default;
 
   @include sbb.if-forced-colors {
