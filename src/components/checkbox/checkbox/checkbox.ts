@@ -13,6 +13,7 @@ import {
   NamedSlotStateController,
   SbbIconNameMixin,
   UpdateScheduler,
+  SbbHydrationMixin,
 } from '../../core/common-behaviors';
 import { EventEmitter } from '../../core/eventing';
 import { i18nCollapsed, i18nExpanded } from '../../core/i18n';
@@ -51,7 +52,7 @@ export type SbbCheckboxSize = 's' | 'm';
  */
 @customElement('sbb-checkbox')
 export class SbbCheckboxElement extends UpdateScheduler(
-  SbbFormAssociatedCheckboxMixin(SbbIconNameMixin(LitElement)),
+  SbbFormAssociatedCheckboxMixin(SbbIconNameMixin(SbbHydrationMixin(LitElement))),
 ) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
@@ -187,8 +188,8 @@ export class SbbCheckboxElement extends UpdateScheduler(
     }
   }
 
-  private _updateExpandedLabel(): void {
-    // TODO: await hydration
+  private async _updateExpandedLabel(): Promise<void> {
+    await this.hydrationComplete;
     if (!this._selectionPanelElement?.hasContent) {
       this._selectionPanelExpandedLabel = '';
       this.removeAttribute('data-has-selection-panel-label');
