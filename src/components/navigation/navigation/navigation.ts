@@ -10,7 +10,6 @@ import {
   isValidAttribute,
   findReferencedElement,
   setAttribute,
-  toggleDatasetEntry,
 } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import { i18nCloseNavigation } from '../../core/i18n';
@@ -172,15 +171,9 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
     activeActions.forEach((action: SbbNavigationActionCommonElementMixinType) => {
       if (action.navigationSection) {
         action.navigationSection.open();
-      } else if (action.navigationMarker) {
-        action.navigationMarker.select(
-          action as SbbNavigationButtonElement | SbbNavigationLinkElement,
-        );
       } else {
-        toggleDatasetEntry(
+        action.navigationMarker?.select(
           action as SbbNavigationButtonElement | SbbNavigationLinkElement,
-          'actionActive',
-          true,
         );
       }
     });

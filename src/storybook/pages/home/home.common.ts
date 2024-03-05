@@ -56,7 +56,7 @@ export const navigation = (): TemplateResult => html`
     ${ref((dialog?: Element) => onNavigationClose(dialog as SbbNavigationElement))}
   >
     <sbb-navigation-marker id="nav-marker">
-      <sbb-navigation-button aria-current="page" id="nav-1" active>
+      <sbb-navigation-button aria-current="page" id="nav-1">
         Tickets & Offers
       </sbb-navigation-button>
       <sbb-navigation-button id="nav-2">Vacations & Recreation</sbb-navigation-button>
@@ -70,7 +70,9 @@ export const navigation = (): TemplateResult => html`
       <sbb-navigation-button aria-pressed="false" id="nav-5"> Deutsch </sbb-navigation-button>
       <sbb-navigation-button aria-pressed="false" id="nav-6"> Français </sbb-navigation-button>
       <sbb-navigation-button aria-pressed="false" id="nav-7"> Italiano </sbb-navigation-button>
-      <sbb-navigation-button aria-pressed="true" id="nav-8" active> English </sbb-navigation-button>
+      <sbb-navigation-button aria-pressed="true" id="nav-8" class="sbb-active">
+        English
+      </sbb-navigation-button>
     </sbb-navigation-marker>
 
     <sbb-navigation-section title-content="Title one" trigger="nav-1">

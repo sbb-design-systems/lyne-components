@@ -1,7 +1,7 @@
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
@@ -34,7 +34,7 @@ const style: Readonly<StyleInfo> = {
 
 const navigationActionsL = (active: boolean): TemplateResult => html`
   <sbb-navigation-button id="nav-1">Tickets & Offers</sbb-navigation-button>
-  <sbb-navigation-button id="nav-2" ?active=${active}>
+  <sbb-navigation-button id="nav-2" class=${active ? 'sbb-active' : nothing}>
     Vacations & Recreation
   </sbb-navigation-button>
   <sbb-navigation-button id="nav-3">Travel information</sbb-navigation-button>
@@ -44,7 +44,9 @@ const navigationActionsL = (active: boolean): TemplateResult => html`
 const navigationActionsS = (active: boolean): TemplateResult => html`
   <sbb-navigation-button id="nav-5">Deutsch</sbb-navigation-button>
   <sbb-navigation-button id="nav-6">Français</sbb-navigation-button>
-  <sbb-navigation-button id="nav-7" ?active=${active}> Italiano </sbb-navigation-button>
+  <sbb-navigation-button id="nav-7" class=${active ? 'sbb-active' : nothing}>
+    Italiano
+  </sbb-navigation-button>
   <sbb-navigation-button id="nav-8">English</sbb-navigation-button>
 `;
 
