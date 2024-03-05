@@ -24,10 +24,10 @@ import '../../title';
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color':
     context.args.color === 'white' || context.args.color === 'transparent-bordered-dashed'
-      ? 'var(--sbb-color-milk-default)'
+      ? 'var(--sbb-color-milk)'
       : context.args.color === 'milk'
-        ? 'var(--sbb-color-white-default)'
-        : '--sbb-color-platinum-default',
+        ? 'var(--sbb-color-white)'
+        : '--sbb-color-platinum',
 });
 
 const ContentText = (): TemplateResult => html`

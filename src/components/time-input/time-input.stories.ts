@@ -23,9 +23,7 @@ import '../form-field';
 import '../form-error';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative
-    ? 'var(--sbb-color-black-default)'
-    : 'var(--sbb-color-white-default)',
+  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
 });
 
 const updateFormError = (event: CustomEvent): void => {
@@ -259,7 +257,7 @@ const TemplateSbbTimeInput = ({
         Set value to 00:00
       </sbb-button>
     </div>
-    <div style="color: var(--sbb-color-smoke-default);">
+    <div style="color: var(--sbb-color-smoke);">
       <div style="margin-block-start: 1rem;">Change time in input:</div>
       <div id="container-value"></div>
     </div>

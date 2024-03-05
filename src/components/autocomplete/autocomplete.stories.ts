@@ -26,9 +26,7 @@ import '../form-field';
 import '../form-error';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative
-    ? 'var(--sbb-color-black-default)'
-    : 'var(--sbb-color-white-default)',
+  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
 });
 
 const negative: InputType = {
@@ -229,8 +227,8 @@ const textBlockStyle: Args = {
   position: 'relative',
   marginBlockStart: '1rem',
   padding: '1rem',
-  backgroundColor: 'var(--sbb-color-milk-default)',
-  border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default)',
+  backgroundColor: 'var(--sbb-color-milk)',
+  border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud)',
   borderRadius: 'var(--sbb-border-radius-4x)',
   zIndex: '100',
 };
@@ -329,7 +327,7 @@ const MixedTemplate = (args: Args): TemplateResult => html`
           <sbb-icon
             slot="icon"
             name=${args.iconName}
-            style=${styleMap({ color: 'var(--sbb-color-sky-default)' })}
+            style=${styleMap({ color: 'var(--sbb-color-sky)' })}
           ></sbb-icon>
           Option Value
         </sbb-option>

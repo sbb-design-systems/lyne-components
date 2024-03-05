@@ -16,14 +16,14 @@ import './loading-indicator';
 const textBlockStyle: Args = {
   marginBlock: '1rem',
   padding: '1rem',
-  backgroundColor: 'var(--sbb-color-milk-default)',
-  border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default)',
+  backgroundColor: 'var(--sbb-color-milk)',
+  border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud)',
   borderRadius: 'var(--sbb-border-radius-4x)',
 };
 
 const negativeBlockStyle: Args = {
-  backgroundColor: 'var(--sbb-color-iron-default)',
-  color: 'var(--sbb-color-white-default)',
+  backgroundColor: 'var(--sbb-color-iron)',
+  color: 'var(--sbb-color-white)',
   padding: '2rem',
 };
 

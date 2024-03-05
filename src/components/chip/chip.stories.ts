@@ -13,8 +13,8 @@ import './chip';
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color':
     context.args.color === 'milk' || context.args.color === 'white'
-      ? 'var(--sbb-color-granite-default)'
-      : 'var(--sbb-color-white-default)',
+      ? 'var(--sbb-color-granite)'
+      : 'var(--sbb-color-white)',
 });
 
 const size: InputType = {

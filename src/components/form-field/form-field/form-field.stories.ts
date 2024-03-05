@@ -16,9 +16,7 @@ import '../../popover';
 import '../../title';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative
-    ? 'var(--sbb-color-black-default)'
-    : 'var(--sbb-color-white-default)',
+  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
 });
 
 const PopoverTrigger = (): TemplateResult => html`
@@ -161,7 +159,7 @@ const TemplateInputWithErrorSpace = (args: Args): TemplateResult => {
           ${sbbFormError}
         </sbb-form-field>
       </div>
-      <div style="color: var(--sbb-color-smoke-default);">
+      <div style="color: var(--sbb-color-smoke);">
         Some text, right below the form-field, inside a div.
       </div>
     </form>
@@ -263,7 +261,7 @@ const TemplateSelectWithErrorSpace = (args: Args): TemplateResult => {
         </sbb-form-field>
       </div>
       <div>
-        <div style=${styleMap({ color: 'var(--sbb-color-smoke-default)' })}>
+        <div style=${styleMap({ color: 'var(--sbb-color-smoke)' })}>
           Some text, right below the form-field, inside a div.
         </div>
       </div>

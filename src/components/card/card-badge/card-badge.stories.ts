@@ -12,9 +12,7 @@ import './card-badge';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color':
-    context.args.color === 'charcoal'
-      ? 'var(--sbb-color-white-default)'
-      : 'var(--sbb-color-charcoal-default)',
+    context.args.color === 'charcoal' ? 'var(--sbb-color-white)' : 'var(--sbb-color-charcoal)',
 });
 
 const ariaLabel: InputType = {

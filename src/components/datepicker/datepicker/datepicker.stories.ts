@@ -28,9 +28,7 @@ import '../datepicker-toggle';
 import '../../form-field';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative
-    ? 'var(--sbb-color-black-default)'
-    : 'var(--sbb-color-white-default)',
+  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
 });
 
 const value: InputType = {
@@ -358,7 +356,7 @@ const Template = ({
     </div>
     <div
       id="container-value"
-      style=${styleMap({ 'margin-block-start': '1rem', color: 'var(--sbb-color-smoke-default)' })}
+      style=${styleMap({ 'margin-block-start': '1rem', color: 'var(--sbb-color-smoke)' })}
     >
       Change date to get the latest value:
     </div>
@@ -407,7 +405,7 @@ const TemplateFormField = ({
     </sbb-form-field>
     <div
       id="container-value"
-      style=${styleMap({ 'margin-block-start': '1rem', color: 'var(--sbb-color-smoke-default)' })}
+      style=${styleMap({ 'margin-block-start': '1rem', color: 'var(--sbb-color-smoke)' })}
     >
       Change date to get the latest value:
     </div>

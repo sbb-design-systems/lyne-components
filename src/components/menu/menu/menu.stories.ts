@@ -92,7 +92,7 @@ const userNameStyle: Args = {
 };
 
 const userInfoStyle: Args = {
-  color: 'var(--sbb-color-graphite-default)',
+  color: 'var(--sbb-color-graphite)',
   fontFamily: 'var(--sbb-typo-type-face-sbb-regular)',
   fontSize: 'var(--sbb-font-size-text-xxs)',
 };

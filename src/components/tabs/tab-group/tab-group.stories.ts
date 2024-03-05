@@ -19,9 +19,7 @@ import { SbbTabGroupElement } from './tab-group';
 import '../tab-title';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative
-    ? 'var(--sbb-color-milk-default)'
-    : 'var(--sbb-color-white-default)',
+  'background-color': context.args.negative ? 'var(--sbb-color-milk)' : 'var(--sbb-color-white)',
 });
 
 const firstTabTitle = (label: string, args: Args): TemplateResult => html`

@@ -168,9 +168,7 @@ export const menuActionButtonEllipsis: StoryObj = {
 const meta: Meta = {
   decorators: [
     (story) => html`
-      <div
-        style=${styleMap({ 'background-color': 'var(--sbb-color-black-default)', width: '320px' })}
-      >
+      <div style=${styleMap({ 'background-color': 'var(--sbb-color-black)', width: '320px' })}>
         ${story()}
       </div>
     `,

@@ -179,7 +179,7 @@ const formDetailsStyle: Args = {
   marginTop: 'var(--sbb-spacing-fixed-4x)',
   padding: 'var(--sbb-spacing-fixed-4x)',
   borderRadius: 'var(--sbb-border-radius-8x)',
-  backgroundColor: 'var(--sbb-color-milk-default)',
+  backgroundColor: 'var(--sbb-color-milk)',
 };
 
 const formStyle: Args = {

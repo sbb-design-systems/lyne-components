@@ -11,8 +11,8 @@ import './divider';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative
-    ? 'var(--sbb-color-charcoal-default)'
-    : 'var(--sbb-color-white-default)',
+    ? 'var(--sbb-color-charcoal)'
+    : 'var(--sbb-color-white)',
 });
 
 const Template = (args: Args): TemplateResult => html`

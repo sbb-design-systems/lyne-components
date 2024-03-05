@@ -40,7 +40,7 @@ const Template = (args: Args): TemplateResult => html`
         (value) => html`
           <div
             style=${styleMap({
-              'background-color': 'var(--sbb-color-milk-default)',
+              'background-color': 'var(--sbb-color-milk)',
               height: '116px',
               display: 'flex',
               'align-items': 'center',

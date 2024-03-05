@@ -98,7 +98,7 @@ const ToggleCheckBlockVariantTemplate = (args: Args): TemplateResult => html`
   <div>
     <sbb-toggle-check ${sbbSpread(args)} style="display: block;">
       <sbb-title level="5" style="margin: 0;"> Accessible Connection. </sbb-title>
-      <span class="sbb-text-s" style="color: var(--sbb-color-iron-default);">
+      <span class="sbb-text-s" style="color: var(--sbb-color-iron);">
         Show connections for accessible journeys.
       </span>
     </sbb-toggle-check>
