@@ -2,6 +2,7 @@ export * from './action-base-element';
 export * from './button-base-element';
 export * from './constructor';
 export * from './disabled-mixins';
+export * from './form-associated-checkbox-mixin';
 export * from './form-associated-mixin';
 export * from './host-attributes';
 export * from './hydration-mixin';

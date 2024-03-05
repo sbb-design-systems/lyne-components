@@ -3,7 +3,7 @@ import { property, state } from 'lit/decorators.js';
 
 import type { Constructor } from './constructor';
 
-export declare abstract class FormAssociatedMixinType {
+export declare abstract class SbbFormAssociatedMixinType {
   protected readonly internals: ElementInternals;
 
   public get form(): HTMLFormElement | null;
@@ -38,12 +38,12 @@ export declare abstract class FormAssociatedMixinType {
  * The FormAssociatedMixin enables native form support for custom controls.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const FormAssociatedMixin = <T extends Constructor<LitElement>>(
+export const SbbFormAssociatedMixin = <T extends Constructor<LitElement>>(
   superClass: T,
-): Constructor<FormAssociatedMixinType> & T => {
-  abstract class FormAssociatedElement
+): Constructor<SbbFormAssociatedMixinType> & T => {
+  abstract class SbbFormAssociatedElement
     extends superClass
-    implements Partial<FormAssociatedMixinType>
+    implements Partial<SbbFormAssociatedMixinType>
   {
     public static formAssociated = true;
 
@@ -185,7 +185,7 @@ export const FormAssociatedMixin = <T extends Constructor<LitElement>>(
     /** Whenever a surrounding form or fieldset is changing its disabled state. */
     @state() protected formDisabled: boolean = false;
   }
-  return FormAssociatedElement as unknown as Constructor<FormAssociatedMixinType> & T;
+  return SbbFormAssociatedElement as unknown as Constructor<SbbFormAssociatedMixinType> & T;
 };
 
 /**

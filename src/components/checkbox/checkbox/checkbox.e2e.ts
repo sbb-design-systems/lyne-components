@@ -186,11 +186,9 @@ describe('sbb-checkbox', () => {
 
       // Form state should always correspond to checked property.
       const formData = new FormData(form);
-      if (assertions.checkedProperty) {
-        expect(formData.get(element.localName)).to.be.ok;
-      } else {
-        expect(formData.get(element.localName)).not.to.be.ok;
-      }
+      expect(formData.get(element.localName)).to.be.equal(
+        assertions.checkedProperty ? element.localName : null,
+      );
     };
 
     ['input', 'sbb-checkbox'].forEach((selector) => {
