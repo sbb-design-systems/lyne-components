@@ -9,6 +9,8 @@ import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import './checkbox';
+import '../../card';
+import '../../button/button';
 
 const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et
@@ -58,6 +60,12 @@ const value: InputType = {
   },
 };
 
+const name: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const icon: InputType = {
   control: {
     type: 'text',
@@ -84,6 +92,7 @@ const defaultArgTypes: ArgTypes = {
   disabled,
   label,
   value,
+  name,
   'icon-name': icon,
   'icon-placement': iconPlacement,
   'aria-label': ariaLabel,
@@ -96,6 +105,7 @@ const defaultArgs: Args = {
   disabled: false,
   label: 'Label',
   value: 'Value',
+  name: 'name',
   'icon-name': undefined,
   'icon-placement': undefined,
   'aria-label': undefined,
@@ -107,6 +117,34 @@ const defaultArgs: Args = {
 
 const Template = ({ label, ...args }: Args): TemplateResult => html`
   <sbb-checkbox ${sbbSpread(args)}>${label}</sbb-checkbox>
+`;
+
+const TemplateWithForm = ({ label, ...args }: Args): TemplateResult => html`
+  <form
+    @submit=${(e: SubmitEvent) => {
+      e.preventDefault();
+      const form = (e.target as HTMLFormElement)!;
+      form.querySelector('#form-data')!.innerHTML = JSON.stringify(
+        Object.fromEntries(new FormData(form)),
+      );
+    }}
+  >
+    <p class="sbb-text-s">In a fieldset:</p>
+    <fieldset>
+      <sbb-checkbox ${sbbSpread(args)}>${label}</sbb-checkbox>
+    </fieldset>
+
+    <p class="sbb-text-s">In a disabled fieldset:</p>
+    <fieldset disabled>
+      <sbb-checkbox ${sbbSpread({ ...args, name: 'disabled' })}>${label}</sbb-checkbox>
+    </fieldset>
+    <div style="margin-block: var(--sbb-spacing-responsive-s)">
+      <sbb-button type="reset" variant="secondary">Reset</sbb-button>
+      <sbb-button type="submit">Submit</sbb-button>
+    </div>
+    <p class="sbb-text-s">Form-Data after click submit:</p>
+    <sbb-card color="milk" id="form-data"></sbb-card>
+  </form>
 `;
 
 export const defaultUnchecked: StoryObj = {
@@ -191,6 +229,12 @@ export const disabledIndeterminate: StoryObj = {
     disabled: true,
     indeterminate: true,
   },
+};
+
+export const withForm: StoryObj = {
+  render: TemplateWithForm,
+  argTypes: defaultArgTypes,
+  args: defaultArgs,
 };
 
 const meta: Meta = {
