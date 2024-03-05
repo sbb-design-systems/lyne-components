@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-selection-panel renders - Dom"] =
+snapshots["sbb-selection-panel renders - Dom"] = 
 `<sbb-selection-panel
   data-slot-names="badge content unnamed"
   data-state="closed"
@@ -42,7 +42,7 @@ snapshots["sbb-selection-panel renders - Dom"] =
 `;
 /* end snapshot sbb-selection-panel renders - Dom */
 
-snapshots["sbb-selection-panel renders - ShadowDom"] =
+snapshots["sbb-selection-panel renders - ShadowDom"] = 
 `<div class="sbb-selection-panel">
   <div class="sbb-selection-panel__badge">
     <slot name="badge">
@@ -71,7 +71,7 @@ snapshots["sbb-selection-panel renders - ShadowDom"] =
 `;
 /* end snapshot sbb-selection-panel renders - ShadowDom */
 
-snapshots["sbb-selection-panel A11y tree Chrome"] =
+snapshots["sbb-selection-panel A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -108,7 +108,7 @@ snapshots["sbb-selection-panel A11y tree Chrome"] =
 `;
 /* end snapshot sbb-selection-panel A11y tree Chrome */
 
-snapshots["sbb-selection-panel A11y tree Firefox"] =
+snapshots["sbb-selection-panel A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -136,7 +136,7 @@ snapshots["sbb-selection-panel A11y tree Firefox"] =
 `;
 /* end snapshot sbb-selection-panel A11y tree Firefox */
 
-snapshots["sbb-selection-panel A11y tree Safari"] =
+snapshots["sbb-selection-panel A11y tree Safari"] = 
 `<p>
   {
   "role": "WebArea",
