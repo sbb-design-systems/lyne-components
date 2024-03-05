@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-checkbox renders"] =
+snapshots["sbb-checkbox renders"] = 
 `<span class="sbb-checkbox-wrapper">
   <span class="sbb-checkbox__inner">
     <span class="sbb-checkbox__aligner">
@@ -27,7 +27,7 @@ snapshots["sbb-checkbox renders"] =
 `;
 /* end snapshot sbb-checkbox renders */
 
-snapshots["sbb-checkbox icon position start"] =
+snapshots["sbb-checkbox icon position start"] = 
 `<span class="sbb-checkbox-wrapper">
   <span class="sbb-checkbox__inner">
     <span class="sbb-checkbox__aligner">
@@ -60,7 +60,7 @@ snapshots["sbb-checkbox icon position start"] =
 `;
 /* end snapshot sbb-checkbox icon position start */
 
-snapshots["sbb-checkbox icon position with slotted icon"] =
+snapshots["sbb-checkbox icon position with slotted icon"] = 
 `<span class="sbb-checkbox-wrapper">
   <span class="sbb-checkbox__inner">
     <span class="sbb-checkbox__aligner">
@@ -86,7 +86,7 @@ snapshots["sbb-checkbox icon position with slotted icon"] =
 `;
 /* end snapshot sbb-checkbox icon position with slotted icon */
 
-snapshots["sbb-checkbox state checked"] =
+snapshots["sbb-checkbox state checked"] = 
 `<span class="sbb-checkbox-wrapper">
   <span class="sbb-checkbox__inner">
     <span class="sbb-checkbox__aligner">
@@ -112,7 +112,7 @@ snapshots["sbb-checkbox state checked"] =
 `;
 /* end snapshot sbb-checkbox state checked */
 
-snapshots["sbb-checkbox state indeterminate"] =
+snapshots["sbb-checkbox state indeterminate"] = 
 `<span class="sbb-checkbox-wrapper">
   <span class="sbb-checkbox__inner">
     <span class="sbb-checkbox__aligner">
@@ -138,7 +138,7 @@ snapshots["sbb-checkbox state indeterminate"] =
 `;
 /* end snapshot sbb-checkbox state indeterminate */
 
-snapshots["sbb-checkbox state unchecked disabled"] =
+snapshots["sbb-checkbox state unchecked disabled"] = 
 `<span class="sbb-checkbox-wrapper">
   <span class="sbb-checkbox__inner">
     <span class="sbb-checkbox__aligner">
@@ -164,7 +164,7 @@ snapshots["sbb-checkbox state unchecked disabled"] =
 `;
 /* end snapshot sbb-checkbox state unchecked disabled */
 
-snapshots["sbb-checkbox Unchecked - A11y tree Chrome"] =
+snapshots["sbb-checkbox Unchecked - A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -181,7 +181,23 @@ snapshots["sbb-checkbox Unchecked - A11y tree Chrome"] =
 `;
 /* end snapshot sbb-checkbox Unchecked - A11y tree Chrome */
 
-snapshots["sbb-checkbox Checked - A11y tree Chrome"] =
+snapshots["sbb-checkbox Unchecked - A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "checkbox",
+      "name": "​ Label"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-checkbox Unchecked - A11y tree Firefox */
+
+snapshots["sbb-checkbox Checked - A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -198,23 +214,7 @@ snapshots["sbb-checkbox Checked - A11y tree Chrome"] =
 `;
 /* end snapshot sbb-checkbox Checked - A11y tree Chrome */
 
-snapshots["sbb-checkbox Unchecked - A11y tree Firefox"] =
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "checkbox",
-      "name": "​ Label"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-checkbox Unchecked - A11y tree Firefox */
-
-snapshots["sbb-checkbox Checked - A11y tree Firefox"] =
+snapshots["sbb-checkbox Checked - A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -231,7 +231,7 @@ snapshots["sbb-checkbox Checked - A11y tree Firefox"] =
 `;
 /* end snapshot sbb-checkbox Checked - A11y tree Firefox */
 
-snapshots["sbb-checkbox Unchecked - A11y tree Safari"] =
+snapshots["sbb-checkbox Unchecked - A11y tree Safari"] = 
 `<p>
   {
   "role": "WebArea",
@@ -248,7 +248,7 @@ snapshots["sbb-checkbox Unchecked - A11y tree Safari"] =
 `;
 /* end snapshot sbb-checkbox Unchecked - A11y tree Safari */
 
-snapshots["sbb-checkbox Checked - A11y tree Safari"] =
+snapshots["sbb-checkbox Checked - A11y tree Safari"] = 
 `<p>
   {
   "role": "WebArea",
