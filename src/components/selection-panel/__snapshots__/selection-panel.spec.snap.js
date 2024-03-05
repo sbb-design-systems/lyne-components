@@ -19,13 +19,11 @@ snapshots["sbb-selection-panel renders - Dom"] =
     </span>
   </sbb-card-badge>
   <sbb-checkbox
-    aria-checked="false"
-    aria-disabled="false"
-    aria-required="false"
+    data-has-selection-panel-label=""
+    data-is-inside-selection-panel=""
     data-is-selection-panel-input=""
     data-slot-names="subtext suffix unnamed"
     icon-placement="end"
-    role="checkbox"
     size="m"
     tabindex="0"
   >
@@ -73,7 +71,7 @@ snapshots["sbb-selection-panel renders - ShadowDom"] =
 `;
 /* end snapshot sbb-selection-panel renders - ShadowDom */
 
-snapshots["sbb-selection-panel A11y tree Chrome"] = 
+snapshots["sbb-selection-panel A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -138,7 +136,7 @@ snapshots["sbb-selection-panel A11y tree Firefox"] =
 `;
 /* end snapshot sbb-selection-panel A11y tree Firefox */
 
-snapshots["sbb-selection-panel A11y tree Safari"] = 
+snapshots["sbb-selection-panel A11y tree Safari"] =
 `<p>
   {
   "role": "WebArea",
@@ -166,4 +164,3 @@ snapshots["sbb-selection-panel A11y tree Safari"] =
 </p>
 `;
 /* end snapshot sbb-selection-panel A11y tree Safari */
-

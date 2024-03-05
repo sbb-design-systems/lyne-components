@@ -31,6 +31,7 @@
     "format": "prettier \"**/*\" --write --ignore-unknown",
     "generate": "tsx tools/generate-component/index.mts",
     "generate:chromatic-stories": "tsx scripts/chromatic-stories-generator.ts",
+    "remove:chromatic-stories": "find . -name '*.chromatic.stories.ts' -delete",
     "integrity": "npm-run-all format docs",
     "lint": "npm-run-all --sequential lint:*",
     "lint:ts": "eslint \"**/*.ts\"",

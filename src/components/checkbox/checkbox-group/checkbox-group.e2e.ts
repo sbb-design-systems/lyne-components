@@ -49,9 +49,7 @@ describe('sbb-checkbox-group', () => {
 
   it('disabled status prevents changes', async () => {
     const checkboxes: SbbCheckboxElement[] = [checkboxOne, checkboxTwo, checkboxThree];
-    checkboxes.forEach((check: SbbCheckboxElement) =>
-      expect(check).not.to.have.attribute('checked'),
-    );
+    checkboxes.forEach((check: SbbCheckboxElement) => expect(check.checked).to.be.false);
 
     element.setAttribute('disabled', 'true');
     await waitForLitRender(element);
@@ -60,9 +58,7 @@ describe('sbb-checkbox-group', () => {
       check.click();
     }
     await waitForLitRender(element);
-    checkboxes.forEach((check: SbbCheckboxElement) =>
-      expect(check).not.to.have.attribute('checked'),
-    );
+    checkboxes.forEach((check: SbbCheckboxElement) => expect(check.checked).to.be.false);
 
     element.removeAttribute('disabled');
     await waitForLitRender(element);
@@ -71,9 +67,9 @@ describe('sbb-checkbox-group', () => {
     }
     await waitForLitRender(element);
 
-    expect(checkboxOne).to.have.attribute('checked');
-    expect(checkboxTwo).not.to.have.attribute('checked');
-    expect(checkboxThree).to.have.attribute('checked');
+    expect(checkboxOne.checked).to.be.true;
+    expect(checkboxTwo.checked).to.be.false;
+    expect(checkboxThree.checked).to.be.true;
   });
 
   it('required status', async () => {

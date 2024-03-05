@@ -1,8 +1,11 @@
 import { expect, fixture } from '@open-wc/testing';
+import { a11ySnapshot } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
 import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+
+import type { SbbCheckboxElement } from './checkbox';
 
 import './checkbox';
 
@@ -11,7 +14,7 @@ describe('sbb-checkbox', () => {
     const root = await fixture(html`<sbb-checkbox>Label</sbb-checkbox>`);
 
     expect(root).dom.to.be.equal(`
-      <sbb-checkbox aria-checked="false" aria-disabled="false" aria-required="false" icon-placement="end" role="checkbox" size="m" tabindex="0" data-slot-names="unnamed">
+      <sbb-checkbox icon-placement="end" size="m" tabindex="0" data-slot-names="unnamed">
         Label
       </sbb-checkbox>
     `);
@@ -31,7 +34,7 @@ describe('sbb-checkbox', () => {
       await waitForLitRender(root);
 
       expect(root).dom.to.be.equal(`
-        <sbb-checkbox aria-checked="false" aria-disabled="false" aria-required="false" icon-name="tickets-class-small" icon-placement="start" role="checkbox" size="s" tabindex="0" data-slot-names="unnamed">
+        <sbb-checkbox icon-name="tickets-class-small" icon-placement="start" size="s" tabindex="0" data-slot-names="unnamed">
           Label
         </sbb-checkbox>
       `);
@@ -48,7 +51,7 @@ describe('sbb-checkbox', () => {
       );
 
       expect(root).dom.to.be.equal(`
-        <sbb-checkbox aria-checked="false" aria-disabled="false" aria-required="false" icon-placement="end" role="checkbox" size="s" tabindex="0" data-slot-names="icon unnamed">
+        <sbb-checkbox icon-placement="end" size="s" tabindex="0" data-slot-names="icon unnamed">
           Label
           <sbb-icon slot="icon" name="tickets-class-small" aria-hidden="true" data-namespace="default" role="img"></sbb-icon>
         </sbb-checkbox>
@@ -63,7 +66,7 @@ describe('sbb-checkbox', () => {
       const root = await fixture(html`<sbb-checkbox checked>Label</sbb-checkbox>`);
 
       expect(root).dom.to.be.equal(`
-        <sbb-checkbox aria-checked="true" aria-disabled="false" aria-required="false" checked icon-placement="end" role="checkbox" size="m" tabindex="0" data-slot-names="unnamed">
+        <sbb-checkbox checked icon-placement="end" size="m" tabindex="0" data-slot-names="unnamed">
           Label
         </sbb-checkbox>
       `);
@@ -72,13 +75,14 @@ describe('sbb-checkbox', () => {
     });
 
     it('indeterminate', async () => {
-      const root = await fixture(html`<sbb-checkbox indeterminate>Label</sbb-checkbox>`);
+      const root: SbbCheckboxElement = await fixture(
+        html`<sbb-checkbox indeterminate>Label</sbb-checkbox>`,
+      );
 
-      const input = root.shadowRoot!.querySelector<HTMLInputElement>('input')!;
-      expect(input.indeterminate).to.be.equal(true);
-
+      const snapshot = (await a11ySnapshot({ selector: 'sbb-checkbox' })) as any;
+      expect(snapshot.checked).to.be.equal('mixed');
       expect(root).dom.to.be.equal(`
-        <sbb-checkbox aria-checked="mixed" aria-disabled="false" aria-required="false" icon-placement="end" indeterminate role="checkbox" size="m" tabindex="0" data-slot-names="unnamed">
+        <sbb-checkbox icon-placement="end" indeterminate size="m" tabindex="0" data-slot-names="unnamed">
           Label
         </sbb-checkbox>
       `);
@@ -89,7 +93,7 @@ describe('sbb-checkbox', () => {
     it('unchecked disabled', async () => {
       const root = await fixture(html`<sbb-checkbox disabled>Label</sbb-checkbox>`);
       expect(root).dom.to.be.equal(`
-        <sbb-checkbox aria-checked="false" aria-disabled="true" aria-required="false" disabled icon-placement="end" size="m" role="checkbox" data-slot-names="unnamed">
+        <sbb-checkbox disabled icon-placement="end" size="m" data-slot-names="unnamed" tabindex="0">
           Label
         </sbb-checkbox>
       `);

@@ -67,10 +67,10 @@ describe('sbb-selection-panel', () => {
       expect(el).to.have.attribute('data-state', 'opened');
     }
 
-    expect(secondInput).not.to.have.attribute('checked');
+    expect(secondInput.checked).to.be.false;
     secondInput.click();
     await waitForLitRender(wrapper);
-    expect(secondInput).to.have.attribute('checked');
+    expect(secondInput.checked).to.be.true;
   };
 
   const preservesDisabled = async (
@@ -83,22 +83,22 @@ describe('sbb-selection-panel', () => {
 
     disabledInput.click();
     await waitForLitRender(wrapper);
-    expect(disabledInput).not.to.have.attribute('checked');
+    expect(disabledInput.checked).to.be.false;
 
     secondInput.click();
     await waitForLitRender(wrapper);
-    expect(secondInput).not.to.have.attribute('checked');
+    expect(secondInput.checked).to.be.false;
 
     wrapper.disabled = false;
     await waitForLitRender(wrapper);
 
     disabledInput.click();
     await waitForLitRender(wrapper);
-    expect(disabledInput).not.to.have.attribute('checked');
+    expect(disabledInput.checked).to.be.false;
 
     secondInput.click();
     await waitForLitRender(wrapper);
-    expect(secondInput).to.have.attribute('checked');
+    expect(secondInput.checked).to.be.true;
   };
 
   const wrapsAround = async (
@@ -110,7 +110,7 @@ describe('sbb-selection-panel', () => {
     secondInput.focus();
     await waitForLitRender(wrapper);
 
-    expect(secondInput).to.have.attribute('checked');
+    expect(secondInput.checked).to.be.true;
     await sendKeys({ down: 'ArrowRight' });
     await sendKeys({ down: 'ArrowRight' });
     await waitForLitRender(wrapper);
@@ -156,10 +156,10 @@ describe('sbb-selection-panel', () => {
 
       await waitForLitRender(wrapper);
 
-      expect(firstInput).not.to.have.attribute('checked');
+      expect(firstInput.checked).to.be.false;
       expect(firstPanel).to.have.attribute('data-state', 'closed');
 
-      expect(secondInput).not.to.have.attribute('checked');
+      expect(secondInput.checked).to.be.false;
       expect(secondPanel).to.have.attribute('data-state', 'closed');
 
       secondInput.click();
@@ -170,9 +170,9 @@ describe('sbb-selection-panel', () => {
 
       expect(willOpenEventSpy.count).to.be.equal(1);
       expect(didOpenEventSpy.count).to.be.equal(1);
-      expect(firstInput).not.to.have.attribute('checked');
+      expect(firstInput.checked).to.be.false;
       expect(firstPanel).to.have.attribute('data-state', 'closed');
-      expect(secondInput).to.have.attribute('checked');
+      expect(secondInput.checked).to.be.true;
       expect(secondPanel).to.have.attribute('data-state', 'opened');
     });
 
@@ -186,15 +186,15 @@ describe('sbb-selection-panel', () => {
 
       secondInput.click();
       await waitForLitRender(wrapper);
-      expect(secondInput).to.have.attribute('checked');
-      expect(firstInput).not.to.have.attribute('checked');
+      expect(secondInput.checked).to.be.true;
+      expect(firstInput.checked).to.be.false;
       expect(changeSpy.count).to.be.equal(1);
       expect(inputSpy.count).to.be.equal(1);
 
       firstInput.click();
       await waitForLitRender(wrapper);
-      expect(secondInput).not.to.have.attribute('checked');
-      expect(firstInput).to.have.attribute('checked');
+      expect(secondInput.checked).to.be.false;
+      expect(firstInput.checked).to.be.true;
       expect(changeSpy.count).to.be.equal(2);
       expect(inputSpy.count).to.be.equal(2);
     });
@@ -202,13 +202,13 @@ describe('sbb-selection-panel', () => {
     it('does not select disabled input on click', async () => {
       firstInput.click();
       await waitForLitRender(wrapper);
-      expect(firstInput).to.have.attribute('checked');
-      expect(disabledInput).not.to.have.attribute('checked');
+      expect(firstInput.checked).to.be.true;
+      expect(disabledInput.checked).to.be.false;
 
       disabledInput.click();
       await waitForLitRender(wrapper);
-      expect(disabledInput).not.to.have.attribute('checked');
-      expect(firstInput).to.have.attribute('checked');
+      expect(disabledInput.checked).to.be.false;
+      expect(firstInput.checked).to.be.true;
     });
 
     it('preserves input button disabled state after being disabled from group', async () => {
@@ -224,12 +224,12 @@ describe('sbb-selection-panel', () => {
       await sendKeys({ down: 'ArrowLeft' });
       await waitForLitRender(wrapper);
       expect(document.activeElement!.id).to.be.equal(fourthInput.id);
-      expect(firstInput).to.have.attribute('checked');
-      expect(fourthInput).not.to.have.attribute('checked');
+      expect(firstInput.checked).to.be.true;
+      expect(fourthInput.checked).to.be.false;
 
       await sendKeys({ press: ' ' });
-      expect(fourthInput).to.have.attribute('checked');
-      expect(firstInput).not.to.have.attribute('checked');
+      expect(fourthInput.checked).to.be.true;
+      expect(firstInput.checked).to.be.false;
     });
 
     it('focuses input on right arrow key pressed and selects it on space key pressed', async () => {
@@ -238,12 +238,12 @@ describe('sbb-selection-panel', () => {
       await sendKeys({ down: 'ArrowRight' });
       await waitForLitRender(wrapper);
       expect(document.activeElement!.id).to.be.equal(secondInput.id);
-      expect(firstInput).to.have.attribute('checked');
-      expect(secondInput).not.to.have.attribute('checked');
+      expect(firstInput.checked).to.be.true;
+      expect(secondInput.checked).to.be.false;
 
       await sendKeys({ press: ' ' });
-      expect(secondInput).to.have.attribute('checked');
-      expect(firstInput).not.to.have.attribute('checked');
+      expect(secondInput.checked).to.be.true;
+      expect(firstInput.checked).to.be.false;
     });
 
     it('wraps around on arrow key navigation', async () => {
@@ -292,26 +292,26 @@ describe('sbb-selection-panel', () => {
       await sendKeys({ down: 'ArrowUp' });
       await waitForLitRender(wrapperNoContent);
       expect(document.activeElement!.id).to.be.equal(firstInputNoContent.id);
-      expect(secondInputNoContent).not.to.have.attribute('checked');
-      expect(firstInputNoContent).to.have.attribute('checked');
+      expect(secondInputNoContent.checked).to.be.false;
+      expect(firstInputNoContent.checked).to.be.true;
 
       await sendKeys({ down: 'ArrowRight' });
       await waitForLitRender(wrapperNoContent);
       expect(document.activeElement!.id).to.be.equal(secondInputNoContent.id);
-      expect(firstInputNoContent).not.to.have.attribute('checked');
-      expect(secondInputNoContent).to.have.attribute('checked');
+      expect(firstInputNoContent.checked).to.be.false;
+      expect(secondInputNoContent.checked).to.be.true;
 
       await sendKeys({ down: 'ArrowDown' });
       await waitForLitRender(wrapperNoContent);
       expect(document.activeElement!.id).to.be.equal(fourthInputNoContent.id);
-      expect(secondInputNoContent).not.to.have.attribute('checked');
-      expect(fourthInputNoContent).to.have.attribute('checked');
+      expect(secondInputNoContent.checked).to.be.false;
+      expect(fourthInputNoContent.checked).to.be.true;
 
       await sendKeys({ down: 'ArrowLeft' });
       await waitForLitRender(wrapperNoContent);
       expect(document.activeElement!.id).to.be.equal(secondInputNoContent.id);
-      expect(fourthInputNoContent).not.to.have.attribute('checked');
-      expect(secondInputNoContent).to.have.attribute('checked');
+      expect(fourthInputNoContent.checked).to.be.false;
+      expect(secondInputNoContent.checked).to.be.true;
     });
   });
 
@@ -430,9 +430,9 @@ describe('sbb-selection-panel', () => {
       expect(didOpenEventSpy.count).to.be.equal(1);
       expect(panel1).to.have.attribute('data-state', 'opened');
       expect(panel2).to.have.attribute('data-state', 'closed');
-      expect(main1).to.have.attribute('checked');
-      expect(main2).not.to.have.attribute('checked');
-      expect(sub1).to.have.attribute('checked');
+      expect(main1.checked).to.be.true;
+      expect(main2.checked).to.be.false;
+      expect(sub1.checked).to.be.true;
 
       main2.checked = true;
 
@@ -446,9 +446,9 @@ describe('sbb-selection-panel', () => {
 
       expect(panel1).to.have.attribute('data-state', 'closed');
       expect(panel2).to.have.attribute('data-state', 'opened');
-      expect(main1).not.to.have.attribute('checked');
-      expect(main2).to.have.attribute('checked');
-      expect(sub1).to.have.attribute('checked');
+      expect(main1.checked).to.be.false;
+      expect(main2.checked).to.be.true;
+      expect(sub1.checked).to.be.true;
     });
   });
 
@@ -482,20 +482,20 @@ describe('sbb-selection-panel', () => {
         document.querySelector('template')!.content.querySelectorAll('sbb-selection-panel'),
       );
 
-      selectionPanels.forEach((el) => radioGroup.appendChild(el as HTMLElement));
+      selectionPanels.forEach((el) => radioGroup.appendChild(el));
       await waitForLitRender(radioGroup);
 
-      const sub1 = document.querySelector("sbb-radio-button[value='sub1']") as HTMLElement;
-      const sub2 = document.querySelector("sbb-radio-button[value='sub2']") as HTMLElement;
+      const sub1 = document.querySelector<SbbRadioButtonElement>("sbb-radio-button[value='sub1']")!;
+      const sub2 = document.querySelector<SbbRadioButtonElement>("sbb-radio-button[value='sub2']")!;
 
-      expect(sub1).to.have.attribute('checked');
-      expect(sub2).not.to.have.attribute('checked');
+      expect(sub1.checked).to.be.true;
+      expect(sub2.checked).to.be.false;
 
       sub2.click();
       await waitForLitRender(radioGroup);
 
-      expect(sub1).not.to.have.attribute('checked');
-      expect(sub2).to.have.attribute('checked');
+      expect(sub1.checked).to.be.false;
+      expect(sub2.checked).to.be.true;
     });
   });
 
@@ -543,9 +543,9 @@ describe('sbb-selection-panel', () => {
       expect(willOpenEventSpy.count).to.be.equal(1);
       expect(didOpenEventSpy.count).to.be.equal(1);
       expect(firstPanel).to.have.attribute('data-state', 'opened');
-      expect(firstInput).to.have.attribute('checked');
+      expect(firstInput.checked).to.be.true;
       expect(secondPanel).to.have.attribute('data-state', 'closed');
-      expect(secondInput).not.to.have.attribute('checked');
+      expect(secondInput.checked).to.be.false;
 
       secondInput.click();
       await waitForLitRender(wrapper);
@@ -553,15 +553,15 @@ describe('sbb-selection-panel', () => {
 
       expect(willOpenEventSpy.count).to.be.equal(2);
       expect(didOpenEventSpy.count).to.be.equal(2);
-      expect(firstInput).to.have.attribute('checked');
+      expect(firstInput.checked).to.be.true;
       expect(firstPanel).to.have.attribute('data-state', 'opened');
-      expect(secondInput).to.have.attribute('checked');
+      expect(secondInput.checked).to.be.true;
       expect(secondPanel).to.have.attribute('data-state', 'opened');
     });
 
     it('deselects input on click and hides related content', async () => {
       await waitForCondition(() => firstPanel.getAttribute('data-state') === 'opened');
-      expect(firstInput).to.have.attribute('checked');
+      expect(firstInput.checked).to.be.true;
       expect(firstPanel).to.have.attribute('data-state', 'opened');
 
       firstInput.click();
@@ -569,7 +569,7 @@ describe('sbb-selection-panel', () => {
       await waitForCondition(() => didCloseEventSpy.events.length === 1);
       expect(willCloseEventSpy.count).to.be.equal(1);
       expect(didCloseEventSpy.count).to.be.equal(1);
-      expect(firstInput).not.to.have.attribute('checked');
+      expect(firstInput.checked).to.be.false;
       expect(firstPanel).to.have.attribute('data-state', 'closed');
     });
 
@@ -583,15 +583,15 @@ describe('sbb-selection-panel', () => {
 
       secondInput.click();
       await waitForLitRender(wrapper);
-      expect(secondInput).to.have.attribute('checked');
-      expect(firstInput).to.have.attribute('checked');
+      expect(secondInput.checked).to.be.true;
+      expect(firstInput.checked).to.be.true;
       expect(changeSpy.count).to.be.equal(1);
       expect(inputSpy.count).to.be.equal(1);
 
       firstInput.click();
       await waitForLitRender(wrapper);
-      expect(firstInput).not.to.have.attribute('checked');
-      expect(secondInput).to.have.attribute('checked');
+      expect(firstInput.checked).to.be.false;
+      expect(secondInput.checked).to.be.true;
       expect(changeSpy.count).to.be.equal(2);
       expect(inputSpy.count).to.be.equal(2);
     });
@@ -599,8 +599,8 @@ describe('sbb-selection-panel', () => {
     it('does not select disabled input on click', async () => {
       disabledInput.click();
       await waitForLitRender(wrapper);
-      expect(disabledInput).not.to.have.attribute('checked');
-      expect(firstInput).to.have.attribute('checked');
+      expect(disabledInput.checked).to.be.false;
+      expect(firstInput.checked).to.be.true;
     });
 
     it('preserves input button disabled state after being disabled from group', async () => {
@@ -616,14 +616,14 @@ describe('sbb-selection-panel', () => {
       await sendKeys({ down: 'ArrowLeft' });
       await waitForLitRender(wrapper);
       expect(document.activeElement!.id).to.be.equal(fourthInput.id);
-      expect(firstInput).not.to.have.attribute('checked');
-      expect(fourthInput).not.to.have.attribute('checked');
+      expect(firstInput.checked).to.be.false;
+      expect(fourthInput.checked).to.be.false;
 
       await sendKeys({ press: ' ' });
 
-      await waitForCondition(() => fourthInput.hasAttribute('checked'));
-      expect(fourthInput).to.have.attribute('checked');
-      expect(firstInput).not.to.have.attribute('checked');
+      await waitForCondition(() => fourthInput.checked);
+      expect(fourthInput.checked).to.be.true;
+      expect(firstInput.checked).to.be.false;
     });
 
     it('focuses input on right arrow key pressed and selects it on space key pressed', async () => {
@@ -632,14 +632,14 @@ describe('sbb-selection-panel', () => {
       await sendKeys({ down: 'ArrowRight' });
       await waitForLitRender(wrapper);
       expect(document.activeElement!.id).to.be.equal(secondInput.id);
-      expect(firstInput).not.to.have.attribute('checked');
-      expect(secondInput).not.to.have.attribute('checked');
+      expect(firstInput.checked).to.be.false;
+      expect(secondInput.checked).to.be.false;
 
       await sendKeys({ press: ' ' });
 
-      await waitForCondition(() => !firstInput.hasAttribute('checked'));
-      expect(firstInput).not.to.have.attribute('checked');
-      expect(secondInput).to.have.attribute('checked');
+      await waitForCondition(() => !firstInput.checked);
+      expect(firstInput.checked).to.be.false;
+      expect(secondInput.checked).to.be.true;
     });
 
     it('wraps around on arrow key navigation', async () => {
@@ -692,7 +692,7 @@ describe('sbb-selection-panel', () => {
 
       expect(mainCheckbox1Label.textContent!.trim()).to.be.equal(', expanded');
       expect(mainCheckbox2Label.textContent!.trim()).to.be.equal(', collapsed');
-      expect(subCheckbox1).to.be.null;
+      expect(subCheckbox1).to.be.empty;
 
       // Deactivate main option 1
       mainCheckbox1.click();
@@ -704,7 +704,7 @@ describe('sbb-selection-panel', () => {
 
       expect(mainCheckbox1Label.textContent!.trim()).to.be.equal(', collapsed');
       expect(mainCheckbox2Label.textContent!.trim()).to.be.equal(', expanded');
-      expect(subCheckbox1).to.be.null;
+      expect(subCheckbox1).to.be.empty;
     });
 
     it('should mark only outer group children as disabled', async () => {

@@ -1,36 +1,44 @@
-import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  defaultConverter,
+  html,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
 
 import {
+  FormAssociatedMixin,
+  type FormRestoreReason,
+  type FormRestoreState,
   LanguageController,
   NamedSlotStateController,
+  SbbDisabledMixin,
   SbbIconNameMixin,
+  SbbRequiredMixin,
   UpdateScheduler,
 } from '../../core/common-behaviors';
-import { setAttributes } from '../../core/dom';
 import {
-  HandlerRepository,
-  formElementHandlerAspect,
-  getEventTarget,
-  forwardEventToHost,
-  EventEmitter,
   ConnectedAbortController,
+  EventEmitter,
+  preventScrollOnSpacebarPress,
 } from '../../core/eventing';
 import { i18nCollapsed, i18nExpanded } from '../../core/i18n';
 import type {
-  SbbIconPlacement,
-  SbbStateChange,
   SbbCheckedStateChange,
   SbbDisabledStateChange,
+  SbbIconPlacement,
+  SbbStateChange,
 } from '../../core/interfaces';
-import '../../visual-checkbox';
-import '../../icon';
 import type { SbbSelectionPanelElement } from '../../selection-panel';
 import type { SbbCheckboxGroupElement } from '../checkbox-group';
 
 import style from './checkbox.scss?lit&inline';
+
+import '../../icon';
+import '../../screenreader-only';
+import '../../visual-checkbox';
 
 export type SbbCheckboxStateChange = Extract<
   SbbStateChange,
@@ -38,6 +46,8 @@ export type SbbCheckboxStateChange = Extract<
 >;
 
 export type SbbCheckboxSize = 's' | 'm';
+
+type SbbCheckedAttributeSetter = { value: boolean; attribute: boolean };
 
 /**
  * It displays a checkbox enhanced with the SBB Design.
@@ -49,7 +59,9 @@ export type SbbCheckboxSize = 's' | 'm';
  * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  */
 @customElement('sbb-checkbox')
-export class SbbCheckboxElement extends UpdateScheduler(SbbIconNameMixin(LitElement)) {
+export class SbbCheckboxElement extends UpdateScheduler(
+  FormAssociatedMixin(SbbDisabledMixin(SbbRequiredMixin(SbbIconNameMixin(LitElement)))),
+) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     didChange: 'didChange',
@@ -57,44 +69,44 @@ export class SbbCheckboxElement extends UpdateScheduler(SbbIconNameMixin(LitElem
     checkboxLoaded: 'checkboxLoaded',
   } as const;
 
-  /** Value of checkbox. */
-  @property() public value?: string;
-
-  /** Whether the checkbox is disabled. */
-  @property({ reflect: true, type: Boolean })
-  public set disabled(value: boolean) {
-    this._disabled = value;
-  }
-  public get disabled(): boolean {
-    return this._disabled || (this.group?.disabled ?? false);
-  }
-  private _disabled = false;
-
-  /** Whether the checkbox is required. */
-  @property({ reflect: true, type: Boolean })
-  public set required(value: boolean) {
-    this._required = value;
-  }
-  public get required(): boolean {
-    return this._required || (this.group?.required ?? false);
-  }
-  private _required = false;
-
-  /** Reference to the connected checkbox group. */
-  public get group(): SbbCheckboxGroupElement | null {
-    return this._group;
-  }
-  private _group: SbbCheckboxGroupElement | null = null;
-
   /** Whether the checkbox is indeterminate. */
-  @property({ reflect: true, type: Boolean }) public indeterminate = false;
+  @property({ type: Boolean }) public indeterminate = false;
 
   /** The label position relative to the labelIcon. Defaults to end */
   @property({ attribute: 'icon-placement', reflect: true })
   public iconPlacement: SbbIconPlacement = 'end';
 
   /** Whether the checkbox is checked. */
-  @property({ reflect: true, type: Boolean }) public checked = false;
+  @property({
+    type: Boolean,
+    converter: {
+      ...defaultConverter,
+      // We need to pass information to the setter so that we know it was called by attribute change.
+      fromAttribute: (value: string | null, type?: unknown): SbbCheckedAttributeSetter => {
+        const result = defaultConverter.fromAttribute?.(value, type);
+        return { value: result, attribute: true } as SbbCheckedAttributeSetter;
+      },
+    },
+  })
+  public set checked(value: boolean) {
+    const attributeSetter =
+      typeof value === 'object' ? (value as unknown as SbbCheckedAttributeSetter).attribute : false;
+    if (attributeSetter) {
+      value = (value as unknown as SbbCheckedAttributeSetter).value;
+    }
+
+    // As soon as mutation was done not by setting attribute,
+    // we need to block syncing attribute.
+    if (this.hasUpdated && !attributeSetter) {
+      this._attributeMutationBlocked = true;
+    }
+    this._checked = Boolean(value);
+    this.updateFormValue();
+  }
+  public get checked(): boolean {
+    return this._checked;
+  }
+  private _checked = false;
 
   /** Label size variant, either m or s. */
   @property({ reflect: true })
@@ -106,30 +118,32 @@ export class SbbCheckboxElement extends UpdateScheduler(SbbIconNameMixin(LitElem
   }
   private _size: SbbCheckboxSize = 'm';
 
+  /** Reference to the connected checkbox group. */
+  public get group(): SbbCheckboxGroupElement | null {
+    return this._group;
+  }
+  private _group: SbbCheckboxGroupElement | null = null;
+
   /**
    * Whether the input is the main input of a selection panel.
    * @internal
    */
   public get isSelectionPanelInput(): boolean {
-    return this._isSelectionPanelInput;
+    return this.hasAttribute('data-is-selection-panel-input');
   }
-  @state() private _isSelectionPanelInput = false;
 
   /** The label describing whether the selection panel is expanded (for screen readers only). */
   @state() private _selectionPanelExpandedLabel!: string;
 
-  private _checkbox: HTMLInputElement | null = null;
-  private _selectionPanelElement: SbbSelectionPanelElement | null = null;
   private _abort: ConnectedAbortController = new ConnectedAbortController(this);
+  private _attributeMutationBlocked: boolean = false;
   private _language = new LanguageController(this);
+  private _selectionPanelElement: SbbSelectionPanelElement | null = null;
 
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
-  private _didChange: EventEmitter = new EventEmitter(this, SbbCheckboxElement.events.didChange, {
-    bubbles: true,
-    cancelable: true,
-  });
+  private _didChange: EventEmitter = new EventEmitter(this, SbbCheckboxElement.events.didChange);
 
   /**
    * @internal
@@ -139,7 +153,6 @@ export class SbbCheckboxElement extends UpdateScheduler(SbbIconNameMixin(LitElem
   private _stateChange: EventEmitter<SbbCheckboxStateChange> = new EventEmitter(
     this,
     SbbCheckboxElement.events.stateChange,
-    { bubbles: true },
   );
 
   /**
@@ -149,27 +162,13 @@ export class SbbCheckboxElement extends UpdateScheduler(SbbIconNameMixin(LitElem
   private _checkboxLoaded: EventEmitter<void> = new EventEmitter(
     this,
     SbbCheckboxElement.events.checkboxLoaded,
-    { bubbles: true },
   );
-
-  private _handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
-    if (this._isSelectionPanelInput && currentValue !== previousValue) {
-      this._stateChange.emit({ type: 'checked', checked: currentValue });
-      this._updateExpandedLabel();
-    }
-  }
-
-  private _handleDisabledChange(currentValue: boolean, previousValue: boolean): void {
-    if (this._isSelectionPanelInput && currentValue !== previousValue) {
-      this._stateChange.emit({ type: 'disabled', disabled: currentValue });
-    }
-  }
-
-  private _handlerRepository = new HandlerRepository(this, formElementHandlerAspect);
 
   public constructor() {
     super();
     new NamedSlotStateController(this);
+    /** @internal */
+    this.internals.role = 'checkbox';
   }
 
   public override connectedCallback(): void {
@@ -177,25 +176,58 @@ export class SbbCheckboxElement extends UpdateScheduler(SbbIconNameMixin(LitElem
     this._group = this.closest('sbb-checkbox-group') as SbbCheckboxGroupElement;
     // We can use closest here, as we expect the parent sbb-selection-panel to be in light DOM.
     this._selectionPanelElement = this.closest?.('sbb-selection-panel');
-    this._isSelectionPanelInput =
-      !!this._selectionPanelElement && !this.closest?.('sbb-selection-panel [slot="content"]');
+    this.toggleAttribute('data-is-inside-selection-panel', !!this._selectionPanelElement);
+    this.toggleAttribute(
+      'data-is-selection-panel-input',
+      !!this._selectionPanelElement && !this.closest?.('sbb-selection-panel [slot="content"]'),
+    );
 
     const signal = this._abort.signal;
-    this.addEventListener('click', (e) => this._handleClick(e), { signal });
-    this.addEventListener('keyup', (e) => this._handleKeyup(e), { signal });
-    this._handlerRepository.connect();
+    this.addEventListener('click', () => this._handleInputEvent(), { signal });
+    this.addEventListener('keydown', (e) => preventScrollOnSpacebarPress(e), { signal });
+    this.addEventListener('keyup', (e) => e.key === ' ' && this._handleInputEvent(), { signal });
     this._checkboxLoaded.emit();
 
     // We need to call requestUpdate to update the reflected attributes
     ['disabled', 'required', 'size'].forEach((p) => this.requestUpdate(p));
   }
 
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+  protected override createRenderRoot(): HTMLElement | DocumentFragment {
+    this.setAttribute('tabindex', '0');
+    return super.createRenderRoot();
+  }
+
+  public override attributeChangedCallback(
+    name: string,
+    old: string | null,
+    value: string | null,
+  ): void {
+    // Attribute should not be interpreted after programmatic or manual state change.
+    if (name !== 'checked' || !this._attributeMutationBlocked) {
+      super.attributeChangedCallback(name, old, value);
+    }
+  }
+
+  protected override async willUpdate(changedProperties: PropertyValues<this>): Promise<void> {
     if (changedProperties.has('checked')) {
-      this._handleCheckedChange(this.checked, changedProperties.get('checked')!);
+      if (this.isSelectionPanelInput && this.checked !== changedProperties.get('checked')!) {
+        this._stateChange.emit({ type: 'checked', checked: this.checked });
+        this._updateExpandedLabel();
+      }
     }
     if (changedProperties.has('disabled')) {
-      this._handleDisabledChange(this.disabled, changedProperties.get('disabled')!);
+      if (this.isSelectionPanelInput && this.disabled !== changedProperties.get('disabled')!) {
+        this._stateChange.emit({ type: 'disabled', disabled: this.disabled });
+      }
+    }
+    if (changedProperties.has('checked') || changedProperties.has('indeterminate')) {
+      this.internals.ariaChecked = this.indeterminate
+        ? 'mixed'
+        : this.checked?.toString() ?? 'false';
+    }
+    if (changedProperties.has('required')) {
+      // Firefox needs explicitly set aria-required value.
+      this.internals.ariaRequired = `${this.required}`;
     }
   }
 
@@ -203,115 +235,106 @@ export class SbbCheckboxElement extends UpdateScheduler(SbbIconNameMixin(LitElem
     // We need to wait for the selection-panel to be fully initialized
     this.startUpdate();
     setTimeout(() => {
-      this._isSelectionPanelInput && this._updateExpandedLabel();
+      this.isSelectionPanelInput && this._updateExpandedLabel();
       this.completeUpdate();
     });
   }
 
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this._handlerRepository.disconnect();
+  protected override isDisabledExternally(): boolean {
+    return this.group?.disabled ?? false;
   }
 
-  // Forward the click on the inner label.
-  private _handleClick(event: MouseEvent): void {
-    if (!this.disabled && getEventTarget(event) === this) {
-      this.shadowRoot!.querySelector('label')?.click();
+  protected override updateFormValue(): void {
+    if (this.checked) {
+      this.internals.setFormValue(this.value, `${this.checked}`);
+    } else {
+      this.internals.setFormValue(null);
     }
-  }
-
-  private _handleKeyup(event: KeyboardEvent): void {
-    // The native checkbox input toggles state on keyup with space.
-    if (!this.disabled && event.key === ' ') {
-      // The toggle needs to happen after the keyup event finishes, so we schedule
-      // it to be triggered after the current event loop.
-      setTimeout(() => this._checkbox?.click());
-    }
-  }
-
-  private _handleChangeEvent(event: Event): void {
-    forwardEventToHost(event, this);
-    this._didChange.emit();
   }
 
   /**
-   * Method triggered on checkbox input event.
-   * If not indeterminate, inverts the value; otherwise sets checked to true.
+   * Is called whenever the form is being reset.
+   *
+   * @internal
    */
-  private _handleInputEvent(): void {
-    if (this.indeterminate) {
-      this.checked = true;
-      this.indeterminate = false;
-    } else {
-      this.checked = this._checkbox?.checked ?? false;
+  public override formResetCallback(): void {
+    this.checked = this.hasAttribute('checked');
+  }
+
+  /**
+   *  Called when the browser is trying to restore element’s state to state in which case
+   *  reason is “restore”, or when the browser is trying to fulfill autofill on behalf of
+   *  user in which case reason is “autocomplete”.
+   *  In the case of “restore”, state is a string, File, or FormData object
+   *  previously set as the second argument to setFormValue.
+   *
+   * @internal
+   */
+  public override formStateRestoreCallback(
+    state: FormRestoreState | null,
+    _reason: FormRestoreReason,
+  ): void {
+    if (state) {
+      this.checked = state === 'true';
     }
   }
 
+  protected override isRequiredExternally(): boolean {
+    return this.group?.required ?? false;
+  }
+
+  // Forward the click on the inner label.
+  /** Method triggered on checkbox click. */
+  private _handleInputEvent(): void {
+    if (this.disabled) {
+      return;
+    }
+    if (this.indeterminate) {
+      this.indeterminate = false;
+    }
+    this.checked = !this.checked;
+    this._attributeMutationBlocked = true;
+
+    this.dispatchEvent(new InputEvent('input', { composed: true, bubbles: true }));
+    this.dispatchEvent(new Event('change', { bubbles: true }));
+    this._didChange.emit();
+  }
+
   private _updateExpandedLabel(): void {
+    // TODO: await hydration
     if (!this._selectionPanelElement?.hasContent) {
       this._selectionPanelExpandedLabel = '';
+      this.removeAttribute('data-has-selection-panel-label');
       return;
     }
 
     this._selectionPanelExpandedLabel = this.checked
       ? ', ' + i18nExpanded[this._language.current]
       : ', ' + i18nCollapsed[this._language.current];
+    this.toggleAttribute('data-has-selection-panel-label', true);
   }
 
   protected override render(): TemplateResult {
-    const attributes: Record<string, string | boolean> = {
-      role: 'checkbox',
-      'aria-checked': this.indeterminate ? 'mixed' : this.checked?.toString() ?? 'false',
-      'aria-required': this.required.toString(),
-      'aria-disabled': this.disabled.toString(),
-      'data-is-selection-panel-input': this._isSelectionPanelInput,
-      ...(this.disabled ? undefined : { tabIndex: '0' }),
-    };
-    setAttributes(this, attributes);
-
     return html`
       <span class="sbb-checkbox-wrapper">
-        <label class="sbb-checkbox">
-          <input
-            type="checkbox"
-            aria-hidden="true"
-            tabindex=${-1}
-            ?disabled=${this.disabled}
-            ?required=${this.required}
-            ?checked=${this.checked}
-            .value=${this.value || nothing}
-            @input=${() => this._handleInputEvent()}
-            @change=${(event: Event) => this._handleChangeEvent(event)}
-            @focus=${() => this.focus()}
-            ${ref((checkbox?: Element) => {
-              if (checkbox) {
-                this._checkbox = checkbox as HTMLInputElement;
-                // Forward indeterminate state to native input. As it is only a property, we have to set it programmatically.
-                this._checkbox.indeterminate = this.indeterminate;
-              }
-            })}
-          />
-          <span class="sbb-checkbox__inner">
-            <span class="sbb-checkbox__aligner">
-              <sbb-visual-checkbox
-                ?checked=${this.checked}
-                ?indeterminate=${this.indeterminate}
-                ?disabled=${this.disabled}
-              ></sbb-visual-checkbox>
-            </span>
-            <span class="sbb-checkbox__label">
-              <slot></slot>
-              <span class="sbb-checkbox__label--icon"> ${this.renderIconSlot()} </span>
-              ${this._selectionPanelElement ? html`<slot name="suffix"></slot>` : nothing}
-            </span>
+        <span class="sbb-checkbox__inner">
+          <span class="sbb-checkbox__aligner">
+            <sbb-visual-checkbox
+              ?checked=${this.checked}
+              ?indeterminate=${this.indeterminate}
+              ?disabled=${this.disabled || this.formDisabled}
+            ></sbb-visual-checkbox>
           </span>
-          ${this._selectionPanelElement ? html`<slot name="subtext"></slot>` : nothing}
-          ${this._isSelectionPanelInput && this._selectionPanelExpandedLabel
-            ? html`<span class="sbb-checkbox__expanded-label"
-                >${this._selectionPanelExpandedLabel}</span
-              >`
-            : nothing}
-        </label>
+          <span class="sbb-checkbox__label">
+            <slot></slot>
+            <span class="sbb-checkbox__label--icon">${this.renderIconSlot()}</span>
+            <slot name="suffix"></slot>
+          </span>
+        </span>
+        <slot name="subtext"></slot>
+        <sbb-screenreader-only class="sbb-checkbox__expanded-label">
+          ${this._selectionPanelExpandedLabel}
+        </sbb-screenreader-only>
       </span>
     `;
   }

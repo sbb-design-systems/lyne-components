@@ -7,12 +7,8 @@ snapshots["sbb-checkbox-group renders - Dom"] =
   orientation="horizontal"
 >
   <sbb-checkbox
-    aria-checked="false"
-    aria-disabled="false"
-    aria-required="false"
     data-slot-names="unnamed"
     icon-placement="end"
-    role="checkbox"
     size="m"
     tabindex="0"
     value="checkbox-1"
@@ -20,12 +16,8 @@ snapshots["sbb-checkbox-group renders - Dom"] =
     Label 1
   </sbb-checkbox>
   <sbb-checkbox
-    aria-checked="false"
-    aria-disabled="false"
-    aria-required="false"
     data-slot-names="unnamed"
     icon-placement="end"
-    role="checkbox"
     size="m"
     tabindex="0"
     value="checkbox-2"
@@ -33,12 +25,8 @@ snapshots["sbb-checkbox-group renders - Dom"] =
     Label 2
   </sbb-checkbox>
   <sbb-checkbox
-    aria-checked="false"
-    aria-disabled="false"
-    aria-required="false"
     data-slot-names="unnamed"
     icon-placement="end"
-    role="checkbox"
     size="m"
     tabindex="0"
     value="checkbox-3"
@@ -61,7 +49,7 @@ snapshots["sbb-checkbox-group renders - ShadowDom"] =
 `;
 /* end snapshot sbb-checkbox-group renders - ShadowDom */
 
-snapshots["sbb-checkbox-group A11y tree Chrome"] = 
+snapshots["sbb-checkbox-group A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -112,7 +100,7 @@ snapshots["sbb-checkbox-group A11y tree Firefox"] =
 `;
 /* end snapshot sbb-checkbox-group A11y tree Firefox */
 
-snapshots["sbb-checkbox-group A11y tree Safari"] = 
+snapshots["sbb-checkbox-group A11y tree Safari"] =
 `<p>
   {
   "role": "WebArea",
@@ -138,4 +126,3 @@ snapshots["sbb-checkbox-group A11y tree Safari"] =
 </p>
 `;
 /* end snapshot sbb-checkbox-group A11y tree Safari */
-
