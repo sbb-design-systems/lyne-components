@@ -5,7 +5,7 @@ snapshots["sbb-breadcrumb renders with text"] =
 `<a
   class="sbb-action-base sbb-breadcrumb"
   download=""
-  href="/test"
+  href="https://example.com/test"
   rel="subsection"
   role="presentation"
   tabindex="-1"
@@ -112,7 +112,7 @@ snapshots["sbb-breadcrumb A11y tree Firefox"] =
         {
           "role": "link",
           "name": "Breadcrumb",
-          "value": "http://localhost:8000/test"
+          "value": "https://example.com/test"
         }
       ]
     }

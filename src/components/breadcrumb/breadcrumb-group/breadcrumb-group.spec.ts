@@ -14,9 +14,9 @@ describe('sbb-breadcrumb-group', () => {
   beforeEach(async () => {
     root = await fixture(html`
       <sbb-breadcrumb-group>
-        <sbb-breadcrumb href="/" icon-name="pie-small"></sbb-breadcrumb>
-        <sbb-breadcrumb href="/one">One</sbb-breadcrumb>
-        <sbb-breadcrumb href="/one">Two</sbb-breadcrumb>
+        <sbb-breadcrumb href="https://example.com" icon-name="pie-small"></sbb-breadcrumb>
+        <sbb-breadcrumb href="https://example.com/one">One</sbb-breadcrumb>
+        <sbb-breadcrumb href="https://example.com/one">Two</sbb-breadcrumb>
       </sbb-breadcrumb-group>
     `);
     await waitForLitRender(root);

@@ -8,7 +8,7 @@ snapshots["sbb-breadcrumb-group renders - Dom"] =
 >
   <sbb-breadcrumb
     dir="ltr"
-    href="/"
+    href="https://example.com"
     icon-name="pie-small"
     role="link"
     slot="li-0"
@@ -17,7 +17,7 @@ snapshots["sbb-breadcrumb-group renders - Dom"] =
   </sbb-breadcrumb>
   <sbb-breadcrumb
     dir="ltr"
-    href="/one"
+    href="https://example.com/one"
     role="link"
     slot="li-1"
     tabindex="0"
@@ -27,7 +27,7 @@ snapshots["sbb-breadcrumb-group renders - Dom"] =
   <sbb-breadcrumb
     aria-current="page"
     dir="ltr"
-    href="/one"
+    href="https://example.com/one"
     role="link"
     slot="li-2"
     tabindex="0"
@@ -131,7 +131,7 @@ snapshots["sbb-breadcrumb-group A11y tree Firefox"] =
         {
           "role": "link",
           "name": "",
-          "value": "http://localhost:8000/"
+          "value": "https://example.com/"
         }
       ]
     },
@@ -142,7 +142,7 @@ snapshots["sbb-breadcrumb-group A11y tree Firefox"] =
         {
           "role": "link",
           "name": "One",
-          "value": "http://localhost:8000/one"
+          "value": "https://example.com/one"
         }
       ]
     },
@@ -153,7 +153,7 @@ snapshots["sbb-breadcrumb-group A11y tree Firefox"] =
         {
           "role": "link",
           "name": "Two",
-          "value": "http://localhost:8000/one"
+          "value": "https://example.com/one"
         }
       ]
     }
