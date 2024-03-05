@@ -61,24 +61,24 @@
 
 :host([type='info']) {
   --sbb-notification-type-color: var(--sbb-color-smoke);
-  --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-smoke-default, white, 5%)};
+  --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-smoke, white, 5%)};
   --sbb-notification-icon-color: var(--sbb-notification-color);
 }
 
 :host([type='success']) {
   --sbb-notification-type-color: var(--sbb-color-green);
-  --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-green-default, white, 5%)};
+  --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-green, white, 5%)};
 }
 
 :host([type='warn']) {
   --sbb-notification-type-color: var(--sbb-color-peach);
-  --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-peach-default, white, 5%)};
+  --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-peach, white, 5%)};
   --sbb-notification-icon-color: var(--sbb-notification-color);
 }
 
 :host([type='error']) {
   --sbb-notification-type-color: var(--sbb-color-red);
-  --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-red-default, white, 5%)};
+  --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-red, white, 5%)};
 }
 
 .sbb-notification__wrapper {
