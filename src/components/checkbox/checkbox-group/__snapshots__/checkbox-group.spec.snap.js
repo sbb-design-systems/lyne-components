@@ -100,7 +100,7 @@ snapshots["sbb-checkbox-group A11y tree Firefox"] =
 `;
 /* end snapshot sbb-checkbox-group A11y tree Firefox */
 
-snapshots["sbb-checkbox-group A11y tree Safari"] =
+snapshots["sbb-checkbox-group A11y tree Safari"] = 
 `<p>
   {
   "role": "WebArea",
@@ -126,3 +126,4 @@ snapshots["sbb-checkbox-group A11y tree Safari"] =
 </p>
 `;
 /* end snapshot sbb-checkbox-group A11y tree Safari */
+
