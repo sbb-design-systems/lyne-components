@@ -4872,10 +4872,10 @@ chownr@^2.0.0:
   resolved "https://registry.yarnpkg.com/chownr/-/chownr-2.0.0.tgz#15bfbe53d2eab4cf70f18a8cd68ebe5b3cb1dece"
   integrity sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==
 
-chromatic@11.0.0:
-  version "11.0.0"
-  resolved "https://registry.yarnpkg.com/chromatic/-/chromatic-11.0.0.tgz#3fcd5129a01c9b6bbd5ed46a11795ad5ac0731d3"
-  integrity sha512-utzRVqdMrpzYwZNf7dHWU0z0/rx6SH/FUVNozQxYHDtQfYUdEj+Ro4OSch5+Wsk2FoUmznJyLkaC2J839z1N7A==
+chromatic@11.0.1:
+  version "11.0.1"
+  resolved "https://registry.yarnpkg.com/chromatic/-/chromatic-11.0.1.tgz#da7e14739b7ed98ee3c1c8ab61706e9ba1e8f978"
+  integrity sha512-E3olv32xNJMFXN86I0OEQTvfiGjZkEwhGbvgLJq8TYgFl4Fdp7+FT89XG/jZhanaDBnHeWyQzQjkA8PM0GnJIg==
 
 chrome-launcher@^0.15.0:
   version "0.15.2"
