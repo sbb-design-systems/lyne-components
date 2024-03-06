@@ -56,9 +56,8 @@ the current state can be read from `event.target.checked`, while the value from 
 
 ## Accessibility
 
-The component uses an internal `<input type="checkbox"/>` element to provide an accessible experience.
+The component provides the same accessibility features as the native checkbox.
 
-This internal checkbox receives focus and is automatically labeled by the text content of the `sbb-checkbox` element.
 Avoid adding other interactive controls into the content of `sbb-checkbox`, as this degrades the experience for users of assistive technology.
 
 Always provide an accessible label via `aria-label` for checkboxes without descriptive text content.
@@ -74,14 +73,16 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 
 | Name            | Attribute        | Privacy | Type                              | Default | Description                                                                                                                      |
 | --------------- | ---------------- | ------- | --------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `value`         | `value`          | public  | `string \| undefined`             |         | Value of checkbox.                                                                                                               |
-| `disabled`      | `disabled`       | public  | `boolean`                         | `false` | Whether the checkbox is disabled.                                                                                                |
-| `required`      | `required`       | public  | `boolean`                         | `false` | Whether the checkbox is required.                                                                                                |
-| `group`         | -                | public  | `SbbCheckboxGroupElement \| null` | `null`  | Reference to the connected checkbox group.                                                                                       |
 | `indeterminate` | `indeterminate`  | public  | `boolean`                         | `false` | Whether the checkbox is indeterminate.                                                                                           |
 | `iconPlacement` | `icon-placement` | public  | `SbbIconPlacement`                | `'end'` | The label position relative to the labelIcon. Defaults to end                                                                    |
-| `checked`       | `checked`        | public  | `boolean`                         | `false` | Whether the checkbox is checked.                                                                                                 |
 | `size`          | `size`           | public  | `SbbCheckboxSize`                 | `'m'`   | Label size variant, either m or s.                                                                                               |
+| `group`         | -                | public  | `SbbCheckboxGroupElement \| null` | `null`  | Reference to the connected checkbox group.                                                                                       |
+| `checked`       | `checked`        | public  | `boolean`                         | `false` | Whether the checkbox is checked.                                                                                                 |
+| `disabled`      | `disabled`       | public  | `boolean`                         | `false` | Whether the component is disabled.                                                                                               |
+| `required`      | `required`       | public  | `boolean`                         | `false` | Whether the component is required.                                                                                               |
+| `form`          | -                | public  | `HTMLFormElement \| null`         |         | Returns the form owner of internals target element.                                                                              |
+| `name`          | `name`           | public  | `string`                          |         | Name of the form element. Will be read from name attribute.                                                                      |
+| `value`         | `value`          | public  | `string \| null`                  | `null`  | Value of the form element.                                                                                                       |
 | `iconName`      | `icon-name`      | public  | `string \| undefined`             |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
 
 ## Events
@@ -89,6 +90,8 @@ If you don't want the label to appear next to the checkbox, you can use `aria-la
 | Name        | Type                | Description                                                                      | Inherited From |
 | ----------- | ------------------- | -------------------------------------------------------------------------------- | -------------- |
 | `didChange` | `CustomEvent<void>` | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
+| `change`    | `Event`             | Event fired on change.                                                           |                |
+| `input`     | `InputEvent`        | Event fired on input.                                                            |                |
 
 ## Slots
 

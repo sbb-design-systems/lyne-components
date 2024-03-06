@@ -9,6 +9,8 @@ import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import './checkbox';
+import '../../card';
+import '../../button/button';
 
 const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et
@@ -16,10 +18,6 @@ lacus sollicitudin, quis malesuada lorem vehicula. Suspendisse at augue quis tel
 velit, varius nec est ac, mollis efficitur lorem. Quisque non nisl eget massa interdum tempus. Praesent vel feugiat
 metus. Donec pharetra odio at turpis bibendum, vel commodo dui vulputate. Aenean congue nec nisl vel bibendum.
 Praesent sit amet lorem augue. Suspendisse ornare a justo sagittis fermentum.`;
-
-/* ************************************************* */
-/* Storybook controls                                */
-/* ************************************************* */
 
 const size: InputType = {
   control: {
@@ -58,6 +56,12 @@ const value: InputType = {
   },
 };
 
+const name: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const icon: InputType = {
   control: {
     type: 'text',
@@ -84,6 +88,7 @@ const defaultArgTypes: ArgTypes = {
   disabled,
   label,
   value,
+  name,
   'icon-name': icon,
   'icon-placement': iconPlacement,
   'aria-label': ariaLabel,
@@ -96,17 +101,46 @@ const defaultArgs: Args = {
   disabled: false,
   label: 'Label',
   value: 'Value',
+  name: 'name',
   'icon-name': undefined,
   'icon-placement': undefined,
   'aria-label': undefined,
 };
 
-/* ************************************************* */
-/* Storybook templates                               */
-/* ************************************************* */
+// We use property and attribute for `checked` to provide consistency to storybook controls.
+// Otherwise, after first user manipulation, the storybook control gets ignored.
+// If only using property, the reset mechanism does not work as expected.
 
-const Template = ({ label, ...args }: Args): TemplateResult => html`
-  <sbb-checkbox ${sbbSpread(args)}>${label}</sbb-checkbox>
+const Template = ({ label, checked, ...args }: Args): TemplateResult => html`
+  <sbb-checkbox .checked=${checked} ?checked=${checked} ${sbbSpread(args)}>${label}</sbb-checkbox>
+`;
+
+const TemplateWithForm = (args: Args): TemplateResult => html`
+  <form
+    @submit=${(e: SubmitEvent) => {
+      e.preventDefault();
+      const form = (e.target as HTMLFormElement)!;
+      form.querySelector('#form-data')!.innerHTML = JSON.stringify(
+        Object.fromEntries(new FormData(form)),
+      );
+    }}
+  >
+    <fieldset>
+      <legend class="sbb-text-s">&nbsp;fieldset&nbsp;</legend>
+      ${Template(args)}
+    </fieldset>
+
+    <fieldset disabled>
+      <legend class="sbb-text-s">&nbsp;disabled fieldset&nbsp;</legend>
+      ${Template({ ...args, name: 'disabled' })}
+    </fieldset>
+    <div style="margin-block: var(--sbb-spacing-responsive-s)">
+      <sbb-button type="reset" variant="secondary">Reset</sbb-button>
+      <sbb-button type="submit">Submit</sbb-button>
+    </div>
+    <p class="sbb-text-s">Form-Data after click submit:</p>
+    <sbb-card color="milk" id="form-data"></sbb-card>
+  </form>
 `;
 
 export const defaultUnchecked: StoryObj = {
@@ -191,6 +225,12 @@ export const disabledIndeterminate: StoryObj = {
     disabled: true,
     indeterminate: true,
   },
+};
+
+export const withForm: StoryObj = {
+  render: TemplateWithForm,
+  argTypes: defaultArgTypes,
+  args: defaultArgs,
 };
 
 const meta: Meta = {

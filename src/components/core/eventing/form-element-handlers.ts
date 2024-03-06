@@ -4,7 +4,7 @@ import type { HandlerAspect } from './handler-repository';
  * Prevents scrolling from pressing Space
  * @param event The origin event.
  */
-function preventScrollOnSpacebarPress(event: KeyboardEvent): void {
+export function preventScrollOnSpacebarPress(event: KeyboardEvent): void {
   if (event.key === ' ') {
     event.preventDefault();
   }

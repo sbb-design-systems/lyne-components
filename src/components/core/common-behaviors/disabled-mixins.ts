@@ -4,7 +4,9 @@ import { property } from 'lit/decorators.js';
 import type { AbstractConstructor } from './constructor';
 
 export declare class SbbDisabledMixinType {
-  public disabled: boolean;
+  public set disabled(value: boolean);
+  public get disabled(): boolean;
+  protected isDisabledExternally(): boolean;
 }
 
 /**
@@ -14,12 +16,29 @@ export declare class SbbDisabledMixinType {
 export const SbbDisabledMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
 ): AbstractConstructor<SbbDisabledMixinType> & T => {
-  abstract class SbbDisabled extends superClass implements SbbDisabledMixinType {
+  abstract class SbbDisabled extends superClass implements Partial<SbbDisabledMixinType> {
     /** Whether the component is disabled. */
-    @property({ reflect: true, type: Boolean }) public disabled: boolean = false;
+    @property({ reflect: true, type: Boolean })
+    public set disabled(value: boolean) {
+      // To provide the same behavior as the native disabled state,
+      // any value is converted to a boolean.
+      this._disabled = Boolean(value);
+    }
+    public get disabled(): boolean {
+      return this._disabled || this.isDisabledExternally();
+    }
+    private _disabled: boolean = false;
+
+    /**
+     * Will be used as 'or' check to the current disabled state.
+     * Can e.g. be used to read disabled state of a group.
+     */
+    protected isDisabledExternally(): boolean {
+      return false;
+    }
   }
 
-  return SbbDisabled as AbstractConstructor<SbbDisabledMixinType> & T;
+  return SbbDisabled as unknown as AbstractConstructor<SbbDisabledMixinType> & T;
 };
 
 // eslint-disable-next-line @typescript-eslint/naming-convention

@@ -4,97 +4,70 @@ import { html } from 'lit/static-html.js';
 import { waitForLitRender } from '../../core/testing';
 import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
 
+import type { SbbCheckboxElement } from './checkbox';
+
 import './checkbox';
 
 describe('sbb-checkbox', () => {
-  it('renders', async () => {
-    const root = await fixture(html`<sbb-checkbox>Label</sbb-checkbox>`);
+  let element: SbbCheckboxElement;
 
-    expect(root).dom.to.be.equal(`
-      <sbb-checkbox aria-checked="false" aria-disabled="false" aria-required="false" icon-placement="end" role="checkbox" size="m" tabindex="0" data-slot-names="unnamed">
-        Label
-      </sbb-checkbox>
-    `);
-
-    await waitForLitRender(root);
-    await expect(root).shadowDom.to.be.equalSnapshot();
-  });
-
-  describe('icon position', () => {
-    it('start', async () => {
-      const root = await fixture(
-        html`<sbb-checkbox icon-name="tickets-class-small" icon-placement="start" size="s"
-          >Label</sbb-checkbox
-        >`,
-      );
-
-      await waitForLitRender(root);
-
-      expect(root).dom.to.be.equal(`
-        <sbb-checkbox aria-checked="false" aria-disabled="false" aria-required="false" icon-name="tickets-class-small" icon-placement="start" role="checkbox" size="s" tabindex="0" data-slot-names="unnamed">
-          Label
-        </sbb-checkbox>
-      `);
-
-      await expect(root).shadowDom.to.be.equalSnapshot();
+  describe('should render unchecked', async () => {
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-checkbox>Label</sbb-checkbox>`);
+      await waitForLitRender(element);
     });
 
-    it('with slotted icon', async () => {
-      const root = await fixture(
-        html`<sbb-checkbox size="s">
-          Label
-          <sbb-icon slot="icon" name="tickets-class-small"></sbb-icon>
-        </sbb-checkbox>`,
-      );
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
 
-      expect(root).dom.to.be.equal(`
-        <sbb-checkbox aria-checked="false" aria-disabled="false" aria-required="false" icon-placement="end" role="checkbox" size="s" tabindex="0" data-slot-names="icon unnamed">
-          Label
-          <sbb-icon slot="icon" name="tickets-class-small" aria-hidden="true" data-namespace="default" role="img"></sbb-icon>
-        </sbb-checkbox>
-      `);
-
-      await expect(root).shadowDom.to.be.equalSnapshot();
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
     });
   });
 
-  describe('state', () => {
-    it('checked', async () => {
-      const root = await fixture(html`<sbb-checkbox checked>Label</sbb-checkbox>`);
-
-      expect(root).dom.to.be.equal(`
-        <sbb-checkbox aria-checked="true" aria-disabled="false" aria-required="false" checked icon-placement="end" role="checkbox" size="m" tabindex="0" data-slot-names="unnamed">
-          Label
-        </sbb-checkbox>
-      `);
-
-      await expect(root).shadowDom.to.be.equalSnapshot();
+  describe('should render checked', async () => {
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-checkbox checked>Label</sbb-checkbox>`);
+      await waitForLitRender(element);
     });
 
-    it('indeterminate', async () => {
-      const root = await fixture(html`<sbb-checkbox indeterminate>Label</sbb-checkbox>`);
-
-      const input = root.shadowRoot!.querySelector<HTMLInputElement>('input')!;
-      expect(input.indeterminate).to.be.equal(true);
-
-      expect(root).dom.to.be.equal(`
-        <sbb-checkbox aria-checked="mixed" aria-disabled="false" aria-required="false" icon-placement="end" indeterminate role="checkbox" size="m" tabindex="0" data-slot-names="unnamed">
-          Label
-        </sbb-checkbox>
-      `);
-
-      await expect(root).shadowDom.to.be.equalSnapshot();
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
     });
 
-    it('unchecked disabled', async () => {
-      const root = await fixture(html`<sbb-checkbox disabled>Label</sbb-checkbox>`);
-      expect(root).dom.to.be.equal(`
-        <sbb-checkbox aria-checked="false" aria-disabled="true" aria-required="false" disabled icon-placement="end" size="m" role="checkbox" data-slot-names="unnamed">
-          Label
-        </sbb-checkbox>
-      `);
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+  });
 
-      await expect(root).shadowDom.to.be.equalSnapshot();
+  describe('should render indeterminate', async () => {
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-checkbox indeterminate>Label</sbb-checkbox>`);
+      await waitForLitRender(element);
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+  });
+
+  describe('should render unchecked disabled', async () => {
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-checkbox disabled>Label</sbb-checkbox>`);
+      await waitForLitRender(element);
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
     });
   });
 

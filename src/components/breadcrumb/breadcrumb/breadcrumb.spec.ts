@@ -9,7 +9,7 @@ import './breadcrumb';
 describe('sbb-breadcrumb', () => {
   it('renders with text', async () => {
     const root = await fixture(html`
-      <sbb-breadcrumb href="/test" target="_blank" download rel="subsection"
+      <sbb-breadcrumb href="https://example.com/test" target="_blank" download rel="subsection"
         >Breadcrumb</sbb-breadcrumb
       >
     `);
@@ -19,7 +19,7 @@ describe('sbb-breadcrumb', () => {
         dir="ltr"
         role="link"
         tabindex="0"
-        href="/test"
+        href="https://example.com/test"
         target="_blank"
         download
         rel="subsection">
@@ -68,5 +68,7 @@ describe('sbb-breadcrumb', () => {
     await expect(root).shadowDom.to.equalSnapshot();
   });
 
-  testA11yTreeSnapshot(html` <sbb-breadcrumb href="/test">Breadcrumb</sbb-breadcrumb> `);
+  testA11yTreeSnapshot(html`
+    <sbb-breadcrumb href="https://example.com/test">Breadcrumb</sbb-breadcrumb>
+  `);
 });

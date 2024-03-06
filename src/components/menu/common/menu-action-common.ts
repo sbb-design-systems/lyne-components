@@ -15,7 +15,7 @@ import '../../icon';
 import style from './menu-action.scss?lit&inline';
 
 export declare class SbbMenuActionCommonElementMixinType
-  implements SbbDisabledMixinType, Partial<SbbIconNameMixinType>
+  implements Partial<SbbDisabledMixinType>, Partial<SbbIconNameMixinType>
 {
   public amount?: string;
   public disabled: boolean;

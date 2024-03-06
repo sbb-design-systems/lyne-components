@@ -1,14 +1,21 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-checkbox renders"] = 
+snapshots["sbb-checkbox should render unchecked DOM"] = 
+`<sbb-checkbox
+  data-slot-names="unnamed"
+  icon-placement="end"
+  size="m"
+  tabindex="0"
+>
+  Label
+</sbb-checkbox>
+`;
+/* end snapshot sbb-checkbox should render unchecked DOM */
+
+snapshots["sbb-checkbox should render unchecked Shadow DOM"] = 
 `<span class="sbb-checkbox-wrapper">
-  <label class="sbb-checkbox">
-    <input
-      aria-hidden="true"
-      tabindex="-1"
-      type="checkbox"
-    >
+  <span class="sbb-checkbox">
     <span class="sbb-checkbox__inner">
       <span class="sbb-checkbox__aligner">
         <sbb-visual-checkbox>
@@ -21,83 +28,35 @@ snapshots["sbb-checkbox renders"] =
           <slot name="icon">
           </slot>
         </span>
-      </span>
-    </span>
-  </label>
-</span>
-`;
-/* end snapshot sbb-checkbox renders */
-
-snapshots["sbb-checkbox icon position start"] = 
-`<span class="sbb-checkbox-wrapper">
-  <label class="sbb-checkbox">
-    <input
-      aria-hidden="true"
-      tabindex="-1"
-      type="checkbox"
-    >
-    <span class="sbb-checkbox__inner">
-      <span class="sbb-checkbox__aligner">
-        <sbb-visual-checkbox>
-        </sbb-visual-checkbox>
-      </span>
-      <span class="sbb-checkbox__label">
-        <slot>
+        <slot name="suffix">
         </slot>
-        <span class="sbb-checkbox__label--icon">
-          <slot name="icon">
-            <sbb-icon
-              aria-hidden="true"
-              data-namespace="default"
-              name="tickets-class-small"
-              role="img"
-            >
-            </sbb-icon>
-          </slot>
-        </span>
       </span>
     </span>
-  </label>
+    <slot name="subtext">
+    </slot>
+    <sbb-screenreader-only class="sbb-checkbox__expanded-label">
+    </sbb-screenreader-only>
+  </span>
 </span>
 `;
-/* end snapshot sbb-checkbox icon position start */
+/* end snapshot sbb-checkbox should render unchecked Shadow DOM */
 
-snapshots["sbb-checkbox icon position with slotted icon"] = 
-`<span class="sbb-checkbox-wrapper">
-  <label class="sbb-checkbox">
-    <input
-      aria-hidden="true"
-      tabindex="-1"
-      type="checkbox"
-    >
-    <span class="sbb-checkbox__inner">
-      <span class="sbb-checkbox__aligner">
-        <sbb-visual-checkbox>
-        </sbb-visual-checkbox>
-      </span>
-      <span class="sbb-checkbox__label">
-        <slot>
-        </slot>
-        <span class="sbb-checkbox__label--icon">
-          <slot name="icon">
-          </slot>
-        </span>
-      </span>
-    </span>
-  </label>
-</span>
+snapshots["sbb-checkbox should render checked DOM"] = 
+`<sbb-checkbox
+  checked=""
+  data-slot-names="unnamed"
+  icon-placement="end"
+  size="m"
+  tabindex="0"
+>
+  Label
+</sbb-checkbox>
 `;
-/* end snapshot sbb-checkbox icon position with slotted icon */
+/* end snapshot sbb-checkbox should render checked DOM */
 
-snapshots["sbb-checkbox state checked"] = 
+snapshots["sbb-checkbox should render checked Shadow DOM"] = 
 `<span class="sbb-checkbox-wrapper">
-  <label class="sbb-checkbox">
-    <input
-      aria-hidden="true"
-      checked=""
-      tabindex="-1"
-      type="checkbox"
-    >
+  <span class="sbb-checkbox">
     <span class="sbb-checkbox__inner">
       <span class="sbb-checkbox__aligner">
         <sbb-visual-checkbox checked="">
@@ -110,21 +69,35 @@ snapshots["sbb-checkbox state checked"] =
           <slot name="icon">
           </slot>
         </span>
+        <slot name="suffix">
+        </slot>
       </span>
     </span>
-  </label>
+    <slot name="subtext">
+    </slot>
+    <sbb-screenreader-only class="sbb-checkbox__expanded-label">
+    </sbb-screenreader-only>
+  </span>
 </span>
 `;
-/* end snapshot sbb-checkbox state checked */
+/* end snapshot sbb-checkbox should render checked Shadow DOM */
 
-snapshots["sbb-checkbox state indeterminate"] = 
+snapshots["sbb-checkbox should render indeterminate DOM"] = 
+`<sbb-checkbox
+  data-slot-names="unnamed"
+  icon-placement="end"
+  indeterminate=""
+  size="m"
+  tabindex="0"
+>
+  Label
+</sbb-checkbox>
+`;
+/* end snapshot sbb-checkbox should render indeterminate DOM */
+
+snapshots["sbb-checkbox should render indeterminate Shadow DOM"] = 
 `<span class="sbb-checkbox-wrapper">
-  <label class="sbb-checkbox">
-    <input
-      aria-hidden="true"
-      tabindex="-1"
-      type="checkbox"
-    >
+  <span class="sbb-checkbox">
     <span class="sbb-checkbox__inner">
       <span class="sbb-checkbox__aligner">
         <sbb-visual-checkbox indeterminate="">
@@ -137,22 +110,35 @@ snapshots["sbb-checkbox state indeterminate"] =
           <slot name="icon">
           </slot>
         </span>
+        <slot name="suffix">
+        </slot>
       </span>
     </span>
-  </label>
+    <slot name="subtext">
+    </slot>
+    <sbb-screenreader-only class="sbb-checkbox__expanded-label">
+    </sbb-screenreader-only>
+  </span>
 </span>
 `;
-/* end snapshot sbb-checkbox state indeterminate */
+/* end snapshot sbb-checkbox should render indeterminate Shadow DOM */
 
-snapshots["sbb-checkbox state unchecked disabled"] = 
+snapshots["sbb-checkbox should render unchecked disabled DOM"] = 
+`<sbb-checkbox
+  data-slot-names="unnamed"
+  disabled=""
+  icon-placement="end"
+  size="m"
+  tabindex="0"
+>
+  Label
+</sbb-checkbox>
+`;
+/* end snapshot sbb-checkbox should render unchecked disabled DOM */
+
+snapshots["sbb-checkbox should render unchecked disabled Shadow DOM"] = 
 `<span class="sbb-checkbox-wrapper">
-  <label class="sbb-checkbox">
-    <input
-      aria-hidden="true"
-      disabled=""
-      tabindex="-1"
-      type="checkbox"
-    >
+  <span class="sbb-checkbox">
     <span class="sbb-checkbox__inner">
       <span class="sbb-checkbox__aligner">
         <sbb-visual-checkbox disabled="">
@@ -165,14 +151,20 @@ snapshots["sbb-checkbox state unchecked disabled"] =
           <slot name="icon">
           </slot>
         </span>
+        <slot name="suffix">
+        </slot>
       </span>
     </span>
-  </label>
+    <slot name="subtext">
+    </slot>
+    <sbb-screenreader-only class="sbb-checkbox__expanded-label">
+    </sbb-screenreader-only>
+  </span>
 </span>
 `;
-/* end snapshot sbb-checkbox state unchecked disabled */
+/* end snapshot sbb-checkbox should render unchecked disabled Shadow DOM */
 
-snapshots["sbb-checkbox Unchecked - A11y tree Chrome"] =
+snapshots["sbb-checkbox Unchecked - A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -189,23 +181,6 @@ snapshots["sbb-checkbox Unchecked - A11y tree Chrome"] =
 `;
 /* end snapshot sbb-checkbox Unchecked - A11y tree Chrome */
 
-snapshots["sbb-checkbox Checked - A11y tree Chrome"] =
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "checkbox",
-      "name": "​ Label",
-      "checked": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-checkbox Checked - A11y tree Chrome */
-
 snapshots["sbb-checkbox Unchecked - A11y tree Firefox"] = 
 `<p>
   {
@@ -221,6 +196,23 @@ snapshots["sbb-checkbox Unchecked - A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-checkbox Unchecked - A11y tree Firefox */
+
+snapshots["sbb-checkbox Checked - A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "checkbox",
+      "name": "​ Label",
+      "checked": true
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-checkbox Checked - A11y tree Chrome */
 
 snapshots["sbb-checkbox Checked - A11y tree Firefox"] = 
 `<p>

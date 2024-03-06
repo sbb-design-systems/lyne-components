@@ -21,7 +21,7 @@ export type SbbButtonSize = 'l' | 'm';
 export type SbbButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'transparent';
 
 export declare class SbbButtonCommonElementMixinType
-  implements SbbNegativeMixinType, SbbDisabledMixinType, Partial<SbbIconNameMixinType>
+  implements SbbNegativeMixinType, Partial<SbbDisabledMixinType>, Partial<SbbIconNameMixinType>
 {
   public variant: SbbButtonVariant;
   public size?: SbbButtonSize;
