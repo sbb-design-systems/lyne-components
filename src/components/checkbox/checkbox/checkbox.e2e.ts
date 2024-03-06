@@ -146,6 +146,21 @@ describe('sbb-checkbox', () => {
 
       expect(element.checked).to.be.false;
     });
+
+    it('should ignore interaction when disabled', async () => {
+      const inputSpy = new EventSpy('input', element);
+      const changeSpy = new EventSpy('change', element);
+      element.disabled = true;
+      await waitForLitRender(element);
+
+      element.focus();
+      element.click();
+      await sendKeys({ up: 'Space' });
+
+      expect(inputSpy.count).to.be.equal(0);
+      expect(changeSpy.count).to.be.equal(0);
+      expect(element.checked).to.be.false;
+    });
   });
 
   describe('comparing with native checkbox', () => {
