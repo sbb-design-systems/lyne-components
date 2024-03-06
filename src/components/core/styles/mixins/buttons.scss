@@ -50,16 +50,16 @@
 @mixin icon-button-variables {
   --sbb-button-color-default-background: var(--sbb-color-black-alpha-0);
   --sbb-button-color-default-border: var(--sbb-color-black-alpha-0);
-  --sbb-button-color-default-text: var(--sbb-color-charcoal-default);
-  --sbb-button-color-hover-background: var(--sbb-color-milk-default);
-  --sbb-button-color-hover-border: var(--sbb-color-milk-default);
-  --sbb-button-color-hover-text: var(--sbb-color-charcoal-default);
-  --sbb-button-color-active-background: var(--sbb-color-cloud-default);
-  --sbb-button-color-active-border: var(--sbb-color-cloud-default);
-  --sbb-button-color-active-text: var(--sbb-color-charcoal-default);
-  --sbb-button-color-disabled-background: var(--sbb-color-milk-default);
-  --sbb-button-color-disabled-border: var(--sbb-color-milk-default);
-  --sbb-button-color-disabled-text: var(--sbb-color-granite-default);
+  --sbb-button-color-default-text: var(--sbb-color-charcoal);
+  --sbb-button-color-hover-background: var(--sbb-color-milk);
+  --sbb-button-color-hover-border: var(--sbb-color-milk);
+  --sbb-button-color-hover-text: var(--sbb-color-charcoal);
+  --sbb-button-color-active-background: var(--sbb-color-cloud);
+  --sbb-button-color-active-border: var(--sbb-color-cloud);
+  --sbb-button-color-active-text: var(--sbb-color-charcoal);
+  --sbb-button-color-disabled-background: var(--sbb-color-milk);
+  --sbb-button-color-disabled-border: var(--sbb-color-milk);
+  --sbb-button-color-disabled-text: var(--sbb-color-granite);
   --sbb-button-border-width: #{functions.px-to-rem-build(0)};
   --sbb-button-border-radius: var(--sbb-border-radius-infinity);
   --sbb-button-transition-duration: var(--sbb-animation-duration-2x);
