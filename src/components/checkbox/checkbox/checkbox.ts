@@ -106,6 +106,7 @@ export class SbbCheckboxElement extends UpdateScheduler(
   private _stateChange: EventEmitter<SbbCheckboxStateChange> = new EventEmitter(
     this,
     SbbCheckboxElement.events.stateChange,
+    { bubbles: true },
   );
 
   /**
@@ -115,6 +116,7 @@ export class SbbCheckboxElement extends UpdateScheduler(
   private _checkboxLoaded: EventEmitter<void> = new EventEmitter(
     this,
     SbbCheckboxElement.events.checkboxLoaded,
+    { bubbles: true },
   );
 
   public constructor() {
@@ -154,9 +156,7 @@ export class SbbCheckboxElement extends UpdateScheduler(
       }
     }
     if (changedProperties.has('checked') || changedProperties.has('indeterminate')) {
-      this.internals.ariaChecked = this.indeterminate
-        ? 'mixed'
-        : this.checked?.toString() ?? 'false';
+      this.internals.ariaChecked = this.indeterminate ? 'mixed' : `${this.checked}`;
     }
   }
 

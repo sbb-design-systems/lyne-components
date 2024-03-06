@@ -49,7 +49,7 @@ export class SbbToggleCheckElement extends SbbFormAssociatedCheckboxMixin(
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('checked')) {
-      this.internals.ariaChecked = this.checked?.toString() ?? 'false';
+      this.internals.ariaChecked = `${this.checked}`;
       this.toggleAttribute('data-checked', this.checked);
     }
   }
