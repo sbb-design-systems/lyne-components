@@ -1,18 +1,23 @@
 import { html, isServer, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { getDocumentWritingMode } from '../dom';
 import { isEventPrevented } from '../eventing';
 import { i18nTargetOpensInNewWindow } from '../i18n';
 
 import { SbbActionBaseElement } from './action-base-element';
-import '../../screenreader-only';
+import { hostAttributes } from './host-attributes';
 import { LanguageController } from './language-controller';
+
+import '../../screenreader-only';
 
 /** Enumeration for 'target' attribute in <a> HTML tag. */
 export type LinkTargetType = '_blank' | '_self' | '_parent' | '_top';
 
 /** Link base class. */
+@hostAttributes({
+  role: 'link',
+  tabindex: '0',
+})
 export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
   /** The href value you want to link to. */
   @property() public href?: string;
@@ -34,13 +39,6 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
       this.setupBaseEventHandlers();
       this.addEventListener('click', this._triggerAnchorWhenNecessary);
     }
-  }
-
-  protected override createRenderRoot(): HTMLElement | DocumentFragment {
-    this.setAttribute('role', 'link');
-    this.setAttribute('dir', getDocumentWritingMode());
-    this.setAttribute('tabindex', '0');
-    return super.createRenderRoot();
   }
 
   /**

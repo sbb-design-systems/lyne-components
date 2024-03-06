@@ -6,6 +6,7 @@ import {
   LanguageController,
   SbbNegativeMixin,
   SbbButtonBaseElement,
+  hostAttributes,
 } from '../../core/common-behaviors';
 import { defaultDateAdapter, type DateAdapter } from '../../core/datetime';
 import { isValidAttribute, toggleDatasetEntry } from '../../core/dom';
@@ -24,6 +25,9 @@ import style from './datepicker-previous-day.scss?lit&inline';
 /**
  * Combined with a `sbb-datepicker`, it can be used to move the date back.
  */
+@hostAttributes({
+  slot: 'prefix',
+})
 @customElement('sbb-datepicker-previous-day')
 export class SbbDatepickerPreviousDayElement extends SbbNegativeMixin(SbbButtonBaseElement) {
   public static override styles: CSSResultGroup = style;
@@ -196,11 +200,6 @@ export class SbbDatepickerPreviousDayElement extends SbbNegativeMixin(SbbButtonB
       this.removeAttribute('aria-disabled');
       this.setAttribute('tabindex', '0');
     }
-  }
-
-  protected override createRenderRoot(): HTMLElement | DocumentFragment {
-    this.setAttribute('slot', 'prefix');
-    return super.createRenderRoot();
   }
 
   protected override renderTemplate(): TemplateResult {

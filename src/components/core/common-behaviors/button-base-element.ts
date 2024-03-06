@@ -4,11 +4,16 @@ import { property } from 'lit/decorators.js';
 import { isEventPrevented } from '../eventing';
 
 import { SbbActionBaseElement } from './action-base-element';
+import { hostAttributes } from './host-attributes';
 
 /** Enumeration for type attribute in <button> HTML tag. */
 export type SbbButtonType = 'button' | 'reset' | 'submit';
 
 /** Button base class. */
+@hostAttributes({
+  role: 'button',
+  tabindex: '0',
+})
 export abstract class SbbButtonBaseElement extends SbbActionBaseElement {
   /** The type attribute to use for the button. */
   @property() public type: SbbButtonType = 'button';
@@ -83,11 +88,5 @@ export abstract class SbbButtonBaseElement extends SbbActionBaseElement {
       this.addEventListener('keyup', this._dispatchClickEventOnSpaceKeyup, passiveOptions);
       this.addEventListener('blur', this._removeActiveMarker, passiveOptions);
     }
-  }
-
-  protected override createRenderRoot(): HTMLElement | DocumentFragment {
-    this.setAttribute('role', 'button');
-    this.setAttribute('tabindex', '0');
-    return super.createRenderRoot();
   }
 }

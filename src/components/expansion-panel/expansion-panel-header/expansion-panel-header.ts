@@ -7,6 +7,7 @@ import {
   SbbButtonBaseElement,
   SbbDisabledTabIndexActionMixin,
   SbbIconNameMixin,
+  hostAttributes,
 } from '../../core/common-behaviors';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import { type SbbExpansionPanelElement } from '../expansion-panel';
@@ -21,6 +22,9 @@ import style from './expansion-panel-header.scss?lit&inline';
  * @slot icon - Slot used to render the `sbb-expansion-panel-header` icon.
  * @event {CustomEvent<void>} toggleExpanded - Notifies that the `sbb-expansion-panel` has to expand.
  */
+@hostAttributes({
+  slot: 'header',
+})
 @customElement('sbb-expansion-panel-header')
 export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
   SbbIconNameMixin(SbbButtonBaseElement),
@@ -47,11 +51,6 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMix
     this.addEventListener('click', () => this._emitExpandedEvent(), { signal });
     this.addEventListener('mouseenter', () => this._onMouseMovement(true), { signal });
     this.addEventListener('mouseleave', () => this._onMouseMovement(false), { signal });
-  }
-
-  protected override createRenderRoot(): HTMLElement | DocumentFragment {
-    this.setAttribute('slot', 'header');
-    return super.createRenderRoot();
   }
 
   private _emitExpandedEvent(): void {

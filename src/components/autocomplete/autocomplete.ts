@@ -4,7 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { assignId, getNextElementIndex } from '../core/a11y';
-import { SbbNegativeMixin, SlotChildObserver } from '../core/common-behaviors';
+import { hostAttributes, SbbNegativeMixin, SlotChildObserver } from '../core/common-behaviors';
 import {
   setAttribute,
   getDocumentWritingMode,
@@ -38,6 +38,9 @@ let nextId = 0;
  * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-autocomplete` begins the closing transition. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-autocomplete` is closed.
  */
+@hostAttributes({
+  dir: getDocumentWritingMode(),
+})
 @customElement('sbb-autocomplete')
 export class SbbAutocompleteElement extends SlotChildObserver(SbbNegativeMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
@@ -549,7 +552,6 @@ export class SbbAutocompleteElement extends SlotChildObserver(SbbNegativeMixin(L
   protected override render(): TemplateResult {
     setAttribute(this, 'data-state', this._state);
     setAttribute(this, 'role', this._ariaRoleOnHost ? 'listbox' : null);
-    setAttribute(this, 'dir', getDocumentWritingMode());
     this._ariaRoleOnHost && assignId(() => this._overlayId)(this);
 
     return html`

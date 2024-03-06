@@ -3,8 +3,12 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { isArrowKeyPressed, getNextElementIndex } from '../../core/a11y';
-import { NamedSlotStateController, SbbDisabledMixin } from '../../core/common-behaviors';
-import { toggleDatasetEntry, setAttribute } from '../../core/dom';
+import {
+  hostAttributes,
+  NamedSlotStateController,
+  SbbDisabledMixin,
+} from '../../core/common-behaviors';
+import { toggleDatasetEntry } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import type { SbbHorizontalFrom, SbbOrientation, SbbStateChange } from '../../core/interfaces';
 import type { SbbSelectionPanelElement } from '../../selection-panel';
@@ -30,6 +34,9 @@ export type SbbRadioButtonGroupEventDetail = {
  * @event {CustomEvent<SbbRadioButtonGroupEventDetail>} change - Emits whenever the `sbb-radio-group` value changes.
  * @event {CustomEvent<SbbRadioButtonGroupEventDetail>} input - Emits whenever the `sbb-radio-group` value changes.
  */
+@hostAttributes({
+  role: 'radiogroup',
+})
 @customElement('sbb-radio-button-group')
 export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
@@ -269,8 +276,6 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'role', 'radiogroup');
-
     return html`
       <div class="sbb-radio-group">
         <slot @slotchange=${() => this._updateRadios()}></slot>

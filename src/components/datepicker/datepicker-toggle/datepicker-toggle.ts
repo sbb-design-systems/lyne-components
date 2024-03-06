@@ -5,8 +5,8 @@ import { ref } from 'lit/directives/ref.js';
 
 import type { SbbCalendarElement } from '../../calendar';
 import { sbbInputModalityDetector } from '../../core/a11y';
-import { LanguageController, SbbNegativeMixin } from '../../core/common-behaviors';
-import { isValidAttribute, setAttribute } from '../../core/dom';
+import { hostAttributes, LanguageController, SbbNegativeMixin } from '../../core/common-behaviors';
+import { isValidAttribute } from '../../core/dom';
 import { i18nShowCalendar } from '../../core/i18n';
 import type { SbbPopoverElement, SbbPopoverTriggerElement } from '../../popover';
 import { datepickerControlRegisteredEventFactory, getDatePicker } from '../datepicker';
@@ -19,6 +19,9 @@ import style from './datepicker-toggle.scss?lit&inline';
 /**
  * Combined with a `sbb-datepicker`, it can be used to select a date from a `sbb-calendar`.
  */
+@hostAttributes({
+  slot: 'prefix',
+})
 @customElement('sbb-datepicker-toggle')
 export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
@@ -173,7 +176,6 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'slot', 'prefix');
     return html`
       <sbb-popover-trigger
         icon-name="calendar-small"

@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbNegativeMixin } from '../core/common-behaviors';
+import { hostAttributes, SbbNegativeMixin } from '../core/common-behaviors';
 import { setAttribute } from '../core/dom';
 import type { SbbOrientation } from '../core/interfaces';
 
@@ -11,6 +11,9 @@ import style from './divider.scss?lit&inline';
 /**
  * It displays a divider between sections.
  */
+@hostAttributes({
+  role: 'separator',
+})
 @customElement('sbb-divider')
 export class SbbDividerElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
@@ -19,7 +22,6 @@ export class SbbDividerElement extends SbbNegativeMixin(LitElement) {
   @property({ reflect: true }) public orientation?: SbbOrientation = 'horizontal';
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'role', 'separator');
     setAttribute(this, 'aria-orientation', this.orientation);
 
     return html` <div class="sbb-divider"></div> `;

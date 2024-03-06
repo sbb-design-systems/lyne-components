@@ -2,6 +2,8 @@ import { html, LitElement, type TemplateResult } from 'lit';
 
 import { getDocumentWritingMode, getLocalName } from '../dom';
 
+import { hostAttributes } from './host-attributes';
+
 /**
  * Whenever an element can be disabled it has disabled property
  * or formDisabled if it's a form element.
@@ -12,6 +14,9 @@ type MaybeDisabled = {
   formDisabled?: boolean;
 };
 
+@hostAttributes({
+  dir: getDocumentWritingMode(),
+})
 export abstract class SbbActionBaseElement extends LitElement {
   protected setupBaseEventHandlers(): void {
     this.addEventListener(
@@ -58,11 +63,6 @@ export abstract class SbbActionBaseElement extends LitElement {
   /** Override this method to render the component template. */
   protected renderTemplate(): TemplateResult {
     throw new Error('Implementation needed!');
-  }
-
-  protected override createRenderRoot(): HTMLElement | DocumentFragment {
-    this.setAttribute('dir', getDocumentWritingMode());
-    return super.createRenderRoot();
   }
 
   /** Default render method for button-like components. */

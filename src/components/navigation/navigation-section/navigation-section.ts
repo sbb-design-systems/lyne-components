@@ -11,6 +11,7 @@ import {
   setModalityOnNextFocus,
 } from '../../core/a11y';
 import {
+  hostAttributes,
   LanguageController,
   NamedSlotStateController,
   UpdateScheduler,
@@ -41,6 +42,9 @@ let nextId = 0;
  *
  * @slot - Use the unnamed slot to add content into the `sbb-navigation-section`.
  */
+@hostAttributes({
+  slot: 'navigation-section',
+})
 @customElement('sbb-navigation-section')
 export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
   public static override styles: CSSResultGroup = style;
@@ -356,7 +360,6 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
       accessibilityAttributes = { 'aria-label': this.accessibilityLabel };
     }
 
-    setAttribute(this, 'slot', 'navigation-section');
     setAttribute(this, 'data-state', this._state);
     setAttribute(this, 'aria-hidden', this._state !== 'opened' ? 'true' : null);
     assignId(() => this._navigationSectionId)(this);

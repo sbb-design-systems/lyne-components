@@ -6,9 +6,15 @@ import type { UnsafeHTMLDirective } from 'lit/directives/unsafe-html.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { until } from 'lit/directives/until.js';
 
+import { hostAttributes } from '../core/common-behaviors';
+
 import { getSvgContent } from './icon-request';
 import style from './icon.scss?lit&inline';
 
+@hostAttributes({
+  'data-namespace': SbbIconBase._defaultNamespace,
+  'data-empty': '',
+})
 export abstract class SbbIconBase extends LitElement {
   public static override styles: CSSResultGroup = style;
   private static readonly _defaultNamespace = 'default';
@@ -27,14 +33,6 @@ export abstract class SbbIconBase extends LitElement {
    * @default false
    */
   @property({ attribute: 'no-sanitize', type: Boolean }) public noSanitize = false;
-
-  protected override createRenderRoot(): HTMLElement | DocumentFragment {
-    this.setAttribute('data-namespace', this._svgNamespace);
-    if (!this._svgIcon) {
-      this.toggleAttribute('data-empty', true);
-    }
-    return super.createRenderRoot();
-  }
 
   protected async loadSvgIcon(iconName: string): Promise<void> {
     if (!iconName) {

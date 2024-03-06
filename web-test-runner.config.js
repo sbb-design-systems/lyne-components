@@ -7,6 +7,7 @@ import { existsSync, readFileSync } from 'fs';
 import * as glob from 'glob';
 import * as sass from 'sass';
 import { createServer } from 'vite';
+import { cpus } from 'node:os';
 
 const isCIEnvironment = !!process.env.CI || process.argv.includes('--ci');
 const isDebugMode = process.argv.includes('--debug');
@@ -62,6 +63,13 @@ const e2eFiles = glob
   .sync('**/*.e2e.ts', { cwd: new URL('.', import.meta.url) })
   .filter((f) => readFileSync(f, 'utf8').includes('${fixture.name}'));
 
+// Slow down fast cpus to not run into too much fetches
+function resolveConcurrency() {
+  const localCpus = cpus();
+  const factor = localCpus.some((el) => el.model.includes('Apple M')) ? 4 : 2;
+  return Math.floor(localCpus.length / factor);
+}
+
 /** @type {import('@web/test-runner').TestRunnerConfig} */
 export default {
   files: ['src/**/*.{e2e,spec}.ts'],
@@ -70,6 +78,7 @@ export default {
     { name: 'e2e-ssr-non-hydrated', files: e2eFiles, testRunnerHtml },
   ],
   nodeResolve: true,
+  concurrency: resolveConcurrency(),
   reporters: isDebugMode ? [defaultReporter(), summaryReporter()] : [minimalReporter()],
   browsers: browsers,
   plugins: [vitePlugin(), a11ySnapshotPlugin()],
