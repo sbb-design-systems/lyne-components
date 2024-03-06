@@ -9,9 +9,8 @@ $has-title: ':is([data-slot-names~=title], [title-content])';
 :host {
   --sbb-status-gap: var(--sbb-spacing-fixed-1x);
   --sbb-status-icon-color: var(--sbb-color-iron);
-  --_sbb-status-icon-font-size: var(--sbb-font-size-text-s);
   --sbb-status-text-color: var(--sbb-color-iron);
-  --sbb-status-text-size: var(--sbb-font-size-text-s);
+  --_sbb-status-icon-font-size: var(--sbb-font-size-text-s);
 }
 
 :host([type='error']) {
@@ -40,14 +39,14 @@ $has-title: ':is([data-slot-names~=title], [title-content])';
   --sbb-status-icon-color: var(--sbb-color-charcoal);
   --sbb-status-gap: var(--sbb-spacing-responsive-xxxs);
   --_sbb-status-icon-font-size: var(--sbb-font-size-title-5);
-  --sbb-status-text-size: var(--sbb-typo-scale-0-875x);
 }
 
 .sbb-status {
+  @include sbb.text-s--regular;
+
   display: flex;
   gap: var(--sbb-status-gap);
   color: var(--sbb-status-text-color);
-  font-size: var(--sbb-status-text-size);
 }
 
 .sbb-status__icon {
