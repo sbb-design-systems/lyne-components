@@ -5,7 +5,7 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-loading-indicator-color: var(--sbb-color-red-default);
+  --sbb-loading-indicator-color: var(--sbb-color-red);
 
   display: inline-block;
   line-height: 0;
@@ -17,11 +17,11 @@
 }
 
 :host([color='smoke']) {
-  --sbb-loading-indicator-color: var(--sbb-color-smoke-default);
+  --sbb-loading-indicator-color: var(--sbb-color-smoke);
 }
 
 :host([color='white']) {
-  --sbb-loading-indicator-color: var(--sbb-color-white-default);
+  --sbb-loading-indicator-color: var(--sbb-color-white);
 }
 
 :host([variant='circle']) {
@@ -29,7 +29,7 @@
   --sbb-loading-indicator-width: var(--sbb-size-icon-ui-small);
   --sbb-loading-indicator-padding: var(--sbb-border-width-2x);
   --sbb-loading-indicator-duration: 1.5s;
-  --sbb-loading-indicator-background-color: var(--sbb-color-white-default);
+  --sbb-loading-indicator-background-color: var(--sbb-color-white);
   --sbb-loading-indicator-circle-background: conic-gradient(
     from 90deg,
     var(--sbb-loading-indicator-background-color),
@@ -41,7 +41,7 @@
 }
 
 :host([color='white'][variant='circle']) {
-  --sbb-loading-indicator-background-color: var(--sbb-color-iron-default);
+  --sbb-loading-indicator-background-color: var(--sbb-color-iron);
 }
 
 :host([variant='circle']) .sbb-loading-indicator {
@@ -100,7 +100,7 @@
 
 :host([color='white'][variant='circle']) .sbb-loading-indicator__animated-element::after {
   @include sbb.if-forced-colors {
-    --sbb-loading-indicator-color: var(--sbb-color-white-default);
+    --sbb-loading-indicator-color: var(--sbb-color-white);
   }
 }
 

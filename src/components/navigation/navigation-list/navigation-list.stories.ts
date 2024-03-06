@@ -33,7 +33,7 @@ const navigationActions = (): TemplateResult => html`
 `;
 
 const style: Readonly<StyleInfo> = {
-  'background-color': 'var(--sbb-color-midnight-default)',
+  'background-color': 'var(--sbb-color-midnight)',
   width: 'max-content',
   padding: '2rem',
 };

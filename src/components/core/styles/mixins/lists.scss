@@ -22,7 +22,7 @@
       margin: 0;
       padding: 0;
       padding-inline-start: var(--sbb-list-padding-inline-start);
-      color: var(--sbb-color-iron-default);
+      color: var(--sbb-color-iron);
 
       > li {
         + li {
@@ -116,7 +116,7 @@
   > li {
     position: relative;
     counter-increment: steps;
-    background-color: var(--sbb-color-milk-default);
+    background-color: var(--sbb-color-milk);
     border-radius: var(--sbb-border-radius-4x);
     padding-block: calc(
         var(--sbb-step-list-padding-block) + var(--sbb-step-list-text-to-marker-block-offset)
@@ -143,9 +143,9 @@
       width: var(--sbb-step-list-marker-dimensions);
       margin-block-start: calc(-1 * var(--sbb-step-list-text-to-marker-block-offset));
       inset-inline-start: var(--sbb-step-list-padding-inline);
-      border: var(--sbb-border-width-1x) solid var(--sbb-color-cement-default);
+      border: var(--sbb-border-width-1x) solid var(--sbb-color-cement);
       border-radius: 50%;
-      color: var(--sbb-color-charcoal-default);
+      color: var(--sbb-color-charcoal);
     }
 
     + li {
@@ -176,7 +176,7 @@
     // Ensure that description is always attached to the label
     grid-template-columns: auto minmax(20%, 1fr);
     gap: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x);
-    color: var(--sbb-color-iron-default);
+    color: var(--sbb-color-iron);
 
     :is(dt, dd) {
       margin: 0;

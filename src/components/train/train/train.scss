@@ -9,9 +9,9 @@
   --sbb-train-direction-label-padding: var(--sbb-spacing-fixed-1x);
   --sbb-train-direction-station-padding: var(--sbb-spacing-fixed-3x);
   --sbb-train-direction-line-width: var(--sbb-border-width-1x);
-  --sbb-train-direction-line-color: var(--sbb-color-smoke-default);
-  --sbb-train-direction-label-color: var(--sbb-color-metal-default);
-  --sbb-train-direction-label-background: var(--sbb-color-white-default);
+  --sbb-train-direction-line-color: var(--sbb-color-smoke);
+  --sbb-train-direction-label-color: var(--sbb-color-metal);
+  --sbb-train-direction-label-background: var(--sbb-color-white);
 
   // Static value from design specs
   --sbb-train-direction-indicator-end-height: #{sbb.px-to-rem-build(12)};

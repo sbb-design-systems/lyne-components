@@ -10,7 +10,7 @@
 // -----------------------------------------------------------------------------
 
 @mixin card-variables {
-  --sbb-card-background-color: var(--sbb-color-white-default);
+  --sbb-card-background-color: var(--sbb-color-white);
   --sbb-card-border-radius: var(--sbb-border-radius-4x);
   --sbb-card-animation-duration: var(--sbb-animation-duration-1x);
   --sbb-card-animation-easing: var(--sbb-animation-easing);
@@ -29,27 +29,27 @@
 }
 
 @mixin card-variables--milk {
-  --sbb-card-background-color: var(--sbb-color-milk-default);
+  --sbb-card-background-color: var(--sbb-color-milk);
   --sbb-card-border-color: transparent;
 }
 
 @mixin card-variables--transparent-bordered {
   --sbb-card-background-color: transparent;
-  --sbb-card-border-color: var(--sbb-color-cloud-default);
+  --sbb-card-border-color: var(--sbb-color-cloud);
   --sbb-card-border-width: var(--sbb-border-width-1x);
   --sbb-focus-outline-color: inherit;
 }
 
 @mixin card-variables--transparent-bordered-dashed {
   --sbb-card-background-color: transparent;
-  --sbb-card-border-color: var(--sbb-color-cement-default);
+  --sbb-card-border-color: var(--sbb-color-cement);
   --sbb-card-border-width: var(--sbb-border-width-1x);
   --sbb-card-border-style: dashed;
   --sbb-focus-outline-color: inherit;
 }
 
 @mixin card-variables--active {
-  --sbb-card-border-color: var(--sbb-color-smoke-default);
+  --sbb-card-border-color: var(--sbb-color-smoke);
   --sbb-card-border-width: var(--sbb-border-width-2x);
   --sbb-card-border-style: solid;
 

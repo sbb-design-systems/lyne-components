@@ -118,7 +118,7 @@ li {
 }
 
 .sbb-timetable__row-quay--changed {
-  color: var(--sbb-color-red-default);
+  color: var(--sbb-color-red);
 }
 
 .sbb-timetable__row-transport-wrapper,
@@ -152,7 +152,7 @@ li {
 
 .sbb-loading__row,
 .sbb-loading__badge {
-  background: var(--sbb-color-cloud-default);
+  background: var(--sbb-color-cloud);
   animation: skeleton-pulse var(--sbb-timetable-row-skeleton-pulse-duration) ease-out infinite;
 }
 
@@ -176,22 +176,22 @@ li {
 
 @keyframes skeleton-pulse {
   0% {
-    background: var(--sbb-color-cloud-default);
+    background: var(--sbb-color-cloud);
   }
 
   17% {
-    background: var(--sbb-color-cloud-default);
+    background: var(--sbb-color-cloud);
   }
 
   50% {
-    background: var(--sbb-color-milk-default);
+    background: var(--sbb-color-milk);
   }
 
   67% {
-    background: var(--sbb-color-milk-default);
+    background: var(--sbb-color-milk);
   }
 
   100% {
-    background: var(--sbb-color-cloud-default);
+    background: var(--sbb-color-cloud);
   }
 }

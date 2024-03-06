@@ -27,9 +27,7 @@ import '../form-error';
 import '../form-field';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative
-    ? 'var(--sbb-color-black-default)'
-    : 'var(--sbb-color-white-default)',
+  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
 });
 
 // Story interaction executed after the story renders
@@ -217,8 +215,8 @@ const textBlockStyle: Readonly<StyleInfo> = {
   position: 'relative',
   marginBlockStart: '1rem',
   padding: '1rem',
-  backgroundColor: 'var(--sbb-color-milk-default)',
-  border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default)',
+  backgroundColor: 'var(--sbb-color-milk)',
+  border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud)',
   borderRadius: 'var(--sbb-border-radius-4x)',
   zIndex: '100',
 };
@@ -316,10 +314,7 @@ const FormFieldTemplate = ({
     </sbb-form-field>
     ${textBlock()}
   </div>
-  <div
-    id="container-value"
-    style="margin-block-start: 2rem; color: var(--sbb-color-smoke-default);"
-  ></div>
+  <div id="container-value" style="margin-block-start: 2rem; color: var(--sbb-color-smoke);"></div>
 `;
 
 const SelectEllipsisTemplate = ({
@@ -363,7 +358,7 @@ const SelectEllipsisTemplate = ({
     </div>
     <div
       id="container-value"
-      style="margin-block-start: 2rem; color: var(--sbb-color-smoke-default);"
+      style="margin-block-start: 2rem; color: var(--sbb-color-smoke);"
     ></div>
   `;
 };
@@ -450,10 +445,7 @@ const KeyboardInteractionTemplate = ({
     </sbb-select>
   </sbb-form-field>
   ${textBlock('Focus the select and type letters with closed or open panel.')}
-  <div
-    id="container-value"
-    style="margin-block-start: 2rem; color: var(--sbb-color-smoke-default);"
-  ></div>
+  <div id="container-value" style="margin-block-start: 2rem; color: var(--sbb-color-smoke);"></div>
 `;
 
 export const SingleSelect: StoryObj = {

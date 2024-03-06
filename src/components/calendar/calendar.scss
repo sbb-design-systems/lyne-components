@@ -8,13 +8,13 @@
   --sbb-calendar-cell-size: #{sbb.px-to-rem-build(40)};
   --sbb-calendar-hover-shift: #{sbb.px-to-rem-build(1)};
   --sbb-calendar-wide-cell-size: #{sbb.px-to-rem-build(70)};
-  --sbb-calendar-cell-disabled-color: var(--sbb-color-granite-default);
-  --sbb-calendar-header-color: var(--sbb-color-granite-default);
+  --sbb-calendar-cell-disabled-color: var(--sbb-color-granite);
+  --sbb-calendar-header-color: var(--sbb-color-granite);
   --sbb-calendar-cell-background-color: transparent;
   --sbb-calendar-cell-padding: #{sbb.px-to-rem-build(2)};
-  --sbb-calendar-cell-color: var(--sbb-color-charcoal-default);
-  --sbb-calendar-cell-selected-color: var(--sbb-color-white-default);
-  --sbb-calendar-cell-selected-background-color: var(--sbb-color-charcoal-default);
+  --sbb-calendar-cell-color: var(--sbb-color-charcoal);
+  --sbb-calendar-cell-selected-color: var(--sbb-color-white);
+  --sbb-calendar-cell-selected-background-color: var(--sbb-color-charcoal);
   --sbb-calendar-cell-disabled-height: #{sbb.px-to-rem-build(1.5)};
   --sbb-calendar-cell-disabled-width: #{sbb.px-to-rem-build(25.5)};
   --sbb-calendar-cell-transition-duration: var(--sbb-animation-duration-2x);
@@ -24,8 +24,8 @@
   --sbb-calendar-table-animation-duration: 0.1ms;
   --sbb-calendar-table-column-spaces: 12;
   --sbb-calendar-control-view-change-height: #{sbb.px-to-rem-build(44)};
-  --sbb-calendar-control-view-change-color: var(--sbb-color-charcoal-default);
-  --sbb-calendar-control-view-change-background: var(--sbb-color-white-default);
+  --sbb-calendar-control-view-change-color: var(--sbb-color-charcoal);
+  --sbb-calendar-control-view-change-background: var(--sbb-color-white);
 
   @include sbb.mq($from: micro) {
     --sbb-calendar-cell-size: #{sbb.px-to-rem-build(44)};
@@ -81,7 +81,7 @@
   transition-property: background-color, padding-block-end;
 
   &:disabled {
-    --sbb-calendar-control-view-change-background: var(--sbb-color-milk-default);
+    --sbb-calendar-control-view-change-background: var(--sbb-color-milk);
     --sbb-calendar-control-view-change-color: var(--sbb-calendar-cell-disabled-color);
 
     cursor: unset;
@@ -100,7 +100,7 @@
   }
 
   &:not(:disabled):active {
-    --sbb-calendar-control-view-change-background: var(--sbb-color-milk-default);
+    --sbb-calendar-control-view-change-background: var(--sbb-color-milk);
   }
 }
 
@@ -208,7 +208,7 @@
 
   @include sbb.hover-mq($hover: true) {
     &:not(.sbb-calendar__selected, :active, :disabled):hover {
-      --sbb-calendar-cell-background-color: var(--sbb-color-milk-default);
+      --sbb-calendar-cell-background-color: var(--sbb-color-milk);
 
       padding-block-end: var(--sbb-calendar-hover-shift);
 
@@ -231,7 +231,7 @@
   }
 
   &:not(.sbb-calendar__selected, :disabled):active {
-    --sbb-calendar-cell-background-color: var(--sbb-color-cloud-default);
+    --sbb-calendar-cell-background-color: var(--sbb-color-cloud);
 
     &::before {
       @include sbb.if-forced-colors {

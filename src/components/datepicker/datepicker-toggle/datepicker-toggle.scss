@@ -6,7 +6,7 @@
 
 :host {
   --sbb-datepicker-control-radius: var(--sbb-border-radius-4x);
-  --sbb-datepicker-control-color: var(--sbb-color-black-default);
+  --sbb-datepicker-control-color: var(--sbb-color-black);
 }
 
 sbb-popover-trigger {
@@ -18,5 +18,5 @@ sbb-popover-trigger {
 }
 
 sbb-icon {
-  color: var(--sbb-color-graphite-default);
+  color: var(--sbb-color-graphite);
 }

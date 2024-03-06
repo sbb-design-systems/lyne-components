@@ -63,7 +63,7 @@
 }
 
 ::slotted(sbb-divider) {
-  --sbb-divider-color: var(--sbb-color-iron-default);
+  --sbb-divider-color: var(--sbb-color-iron);
 
   margin-block: var(--sbb-spacing-fixed-2x);
 }
@@ -104,10 +104,10 @@
   inset-block-start: unset;
   inset-block-end: 0;
   inset-inline-end: unset;
-  color: var(--sbb-color-white-default);
+  color: var(--sbb-color-white);
   border: none;
   border-radius: var(--sbb-menu-border-radius) var(--sbb-menu-border-radius) 0 0;
-  background-color: var(--sbb-color-black-default);
+  background-color: var(--sbb-color-black);
   padding: 0;
   overflow: hidden;
 

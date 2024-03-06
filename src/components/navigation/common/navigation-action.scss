@@ -9,11 +9,11 @@
   // which appears in normalize css of several frameworks.
   outline: none !important;
 
-  --sbb-navigation-action-color: var(--sbb-color-cloud-default);
+  --sbb-navigation-action-color: var(--sbb-color-cloud);
 }
 
 :host([active]) {
-  --sbb-navigation-action-color: var(--sbb-color-storm-default);
+  --sbb-navigation-action-color: var(--sbb-color-storm);
 
   @include sbb.if-forced-colors {
     --sbb-navigation-action-color: Highlight;
@@ -22,7 +22,7 @@
 
 @include sbb.hover-mq($hover: true) {
   :host(:hover) {
-    --sbb-navigation-action-color: var(--sbb-color-storm-default);
+    --sbb-navigation-action-color: var(--sbb-color-storm);
   }
 }
 

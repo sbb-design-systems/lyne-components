@@ -5,7 +5,7 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-timetable-occupancy-color: var(--sbb-color-charcoal-default);
+  --sbb-timetable-occupancy-color: var(--sbb-color-charcoal);
   --sbb-icon-svg-width: #{sbb.px-to-rem-build(14.25)};
   --sbb-icon-svg-height: v#{sbb.px-to-rem-build(12)};
 
@@ -18,7 +18,7 @@
 }
 
 :host([negative]) {
-  --sbb-timetable-occupancy-color: var(--sbb-color-white-default);
+  --sbb-timetable-occupancy-color: var(--sbb-color-white);
 }
 
 .sbb-timetable-occupancy__list {

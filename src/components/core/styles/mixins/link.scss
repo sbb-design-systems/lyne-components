@@ -3,9 +3,9 @@
 @use '../core/mediaqueries';
 
 @mixin block-link-variables {
-  --sbb-link-color-normal: var(--sbb-color-granite-default);
-  --sbb-link-color-hover: var(--sbb-color-red125-default);
-  --sbb-link-color-active: var(--sbb-color-red150-default);
+  --sbb-link-color-normal: var(--sbb-color-granite);
+  --sbb-link-color-hover: var(--sbb-color-red125);
+  --sbb-link-color-active: var(--sbb-color-red150);
   --sbb-link-text-decoration: none;
 
   @include a11y.if-forced-colors {
@@ -14,22 +14,22 @@
 }
 
 @mixin block-link-variables--negative {
-  --sbb-link-color-normal: var(--sbb-color-white-default);
-  --sbb-link-color-hover: var(--sbb-color-cloud-default);
-  --sbb-link-color-active: var(--sbb-color-silver-default);
+  --sbb-link-color-normal: var(--sbb-color-white);
+  --sbb-link-color-hover: var(--sbb-color-cloud);
+  --sbb-link-color-active: var(--sbb-color-silver);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
 @mixin link-variables {
   --sbb-link-color-normal: inherit;
-  --sbb-link-color-hover: var(--sbb-color-red125-default);
-  --sbb-link-color-active: var(--sbb-color-red150-default);
+  --sbb-link-color-hover: var(--sbb-color-red125);
+  --sbb-link-color-active: var(--sbb-color-red150);
   --sbb-link-text-decoration: underline;
 }
 
 @mixin link-variables--negative {
-  --sbb-link-color-hover: var(--sbb-color-graphite-default);
-  --sbb-link-color-active: var(--sbb-color-metal-default);
+  --sbb-link-color-hover: var(--sbb-color-graphite);
+  --sbb-link-color-active: var(--sbb-color-metal);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 

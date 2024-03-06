@@ -19,11 +19,11 @@
 
 @include sbb.hover-mq($hover: true) {
   :host(:hover) {
-    --sbb-popover-color: var(--sbb-color-iron-default);
+    --sbb-popover-color: var(--sbb-color-iron);
   }
 
   :host(:hover[negative]) {
-    --sbb-popover-color: var(--sbb-color-cloud-default);
+    --sbb-popover-color: var(--sbb-color-cloud);
   }
 }
 
@@ -32,15 +32,15 @@
 }
 
 :host(:is(:active, [data-active])) {
-  --sbb-popover-color: var(--sbb-color-anthracite-default);
+  --sbb-popover-color: var(--sbb-color-anthracite);
 }
 
 :host(:is(:active, [data-active])[negative]) {
-  --sbb-popover-color: var(--sbb-color-cement-default);
+  --sbb-popover-color: var(--sbb-color-cement);
 }
 
 :host([disabled]) {
-  --sbb-popover-color: var(--sbb-color-graphite-default);
+  --sbb-popover-color: var(--sbb-color-graphite);
 
   @include sbb.if-forced-colors {
     --sbb-popover-color: GrayText !important;
@@ -50,7 +50,7 @@
 }
 
 :host([disabled][negative]) {
-  --sbb-popover-color: var(--sbb-color-smoke-default);
+  --sbb-popover-color: var(--sbb-color-smoke);
 }
 
 @include sbb.icon-button-base(':host([data-icon-small])', '.sbb-popover-trigger', 'sbb-icon');

@@ -210,7 +210,7 @@ const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color':
     context.args.color === 'white' && context.args.borderless
       ? '#bdbdbd'
-      : 'var(--sbb-color-white-default)',
+      : 'var(--sbb-color-white)',
 });
 
 const meta: Meta = {

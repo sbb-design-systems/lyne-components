@@ -7,11 +7,11 @@
   // Grab css vars defined by `@sbb-esta/lyne-design-tokens` npm package
   @extend %lyne-design-tokens-css-variables;
 
-  --sbb-font-default-color: var(--sbb-color-charcoal-default);
+  --sbb-font-default-color: var(--sbb-color-charcoal);
 
   // Focus outline
-  --sbb-focus-outline-color-default: var(--sbb-color-black-default);
-  --sbb-focus-outline-color-dark: var(--sbb-color-white-default);
+  --sbb-focus-outline-color-default: var(--sbb-color-black);
+  --sbb-focus-outline-color-dark: var(--sbb-color-white);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
   --sbb-focus-outline-width: var(--sbb-border-width-1x);
 

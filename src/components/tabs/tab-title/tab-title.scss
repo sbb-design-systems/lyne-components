@@ -6,9 +6,9 @@
 
 :host {
   --sbb-tab-title-height: var(--sbb-spacing-fixed-12x);
-  --sbb-tab-title-color: var(--sbb-color-granite-default);
-  --sbb-tab-title-icon-color: var(--sbb-color-black-default);
-  --sbb-tab-title-background-color: var(--sbb-color-white-default);
+  --sbb-tab-title-color: var(--sbb-color-granite);
+  --sbb-tab-title-icon-color: var(--sbb-color-black);
+  --sbb-tab-title-background-color: var(--sbb-color-white);
   --sbb-tab-title-cursor: pointer;
   --sbb-tab-title-pointer-events: unset;
   --sbb-tab-title-inset: 0;
@@ -16,7 +16,7 @@
   --sbb-tab-title-text-decoration: none;
   --sbb-tab-title-animation-duration: var(--sbb-animation-duration-2x);
   --sbb-tab-title-animation-easing: var(--sbb-animation-easing);
-  --sbb-tab-title-amount-color: var(--sbb-color-metal-default);
+  --sbb-tab-title-amount-color: var(--sbb-color-metal);
 
   display: inline-block;
   max-width: 100%;
@@ -39,8 +39,8 @@
 }
 
 :host([disabled]) {
-  --sbb-tab-title-icon-color: var(--sbb-color-granite-default);
-  --sbb-tab-title-background-color: var(--sbb-color-milk-default);
+  --sbb-tab-title-icon-color: var(--sbb-color-granite);
+  --sbb-tab-title-background-color: var(--sbb-color-milk);
   --sbb-tab-title-cursor: unset;
   --sbb-tab-title-pointer-events: none;
   --sbb-tab-title-text-decoration: line-through;
@@ -54,9 +54,9 @@
 
 // If active and not disabled
 :host([active]:not([disabled])) {
-  --sbb-tab-title-color: var(--sbb-color-charcoal-default);
+  --sbb-tab-title-color: var(--sbb-color-charcoal);
   --sbb-tab-title-icon-color: var(--sbb-tab-title-color);
-  --sbb-tab-title-background-color: var(--sbb-color-black-default);
+  --sbb-tab-title-background-color: var(--sbb-color-black);
   --sbb-tab-title-cursor: unset;
   --sbb-tab-title-pointer-events: none;
   --sbb-tab-title-marker-transform: scale(1);
@@ -76,7 +76,7 @@
 
 // Pressed/active state
 :host(:is([data-active], :active)) {
-  --sbb-tab-title-color: var(--sbb-color-charcoal-default);
+  --sbb-tab-title-color: var(--sbb-color-charcoal);
 }
 
 .sbb-tab-title__wrapper {
@@ -118,7 +118,7 @@
       inset-block-end: 0;
       width: var(--sbb-tab-group-width);
       height: var(--sbb-border-width-1x);
-      background-color: var(--sbb-color-cloud-default);
+      background-color: var(--sbb-color-cloud);
     }
   }
 

@@ -16,16 +16,16 @@ $intersector-overlapping: 1px;
 :host([data-sticking]) {
   --sbb-sticky-bar-sticky-background-color: var(
     --sbb-container-background-color,
-    var(--sbb-color-white-default)
+    var(--sbb-color-white)
   );
 }
 
 :host([data-sticking][color='white']) {
-  --sbb-sticky-bar-sticky-background-color: var(--sbb-color-white-default);
+  --sbb-sticky-bar-sticky-background-color: var(--sbb-color-white);
 }
 
 :host([data-sticking][color='milk']) {
-  --sbb-sticky-bar-sticky-background-color: var(--sbb-color-milk-default);
+  --sbb-sticky-bar-sticky-background-color: var(--sbb-color-milk);
 }
 
 :host([disable-animation]) {

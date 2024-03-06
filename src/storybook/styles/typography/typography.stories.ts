@@ -53,7 +53,7 @@ const LinkTemplate = (): TemplateResult => html`
 const LinkNegativeTemplate = (): TemplateResult => html`
   <p
     class="sbb-text-m"
-    style="background-color: var(--sbb-color-charcoal-default); color: var(--sbb-color-white-default); padding: 1rem;"
+    style="background-color: var(--sbb-color-charcoal); color: var(--sbb-color-white); padding: 1rem;"
   >
     A text with a negative link inside <a href="" class="sbb-link-negative">the text</a>. It should
     adapt to the text but have an underline and hover colors.

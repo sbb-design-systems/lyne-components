@@ -5,12 +5,12 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-option-color: var(--sbb-color-charcoal-default);
+  --sbb-option-color: var(--sbb-color-charcoal);
   --sbb-option-background-color: inherit;
-  --sbb-option-background-color-hover: var(--sbb-color-milk-default);
-  --sbb-option-background-color-active: var(--sbb-color-cloud-default);
-  --sbb-option-disabled-border-color: var(--sbb-color-graphite-default);
-  --sbb-option-disabled-background-color: var(--sbb-color-milk-default);
+  --sbb-option-background-color-hover: var(--sbb-color-milk);
+  --sbb-option-background-color-active: var(--sbb-color-cloud);
+  --sbb-option-disabled-border-color: var(--sbb-color-graphite);
+  --sbb-option-disabled-background-color: var(--sbb-color-milk);
   --sbb-option-padding-inline: var(--sbb-spacing-responsive-xxxs);
   --sbb-option-padding-block: calc(var(--sbb-spacing-fixed-2x) + var(--sbb-border-width-2x));
   --sbb-option-column-gap: var(--sbb-spacing-responsive-xxxs);
@@ -18,16 +18,16 @@
   --sbb-option-min-height: var(--sbb-size-button-m-min-height);
   --sbb-option-cursor: pointer;
   --sbb-option-border-radius: var(--sbb-border-radius-4x);
-  --sbb-option-icon-color: var(--sbb-color-metal-default);
+  --sbb-option-icon-color: var(--sbb-color-metal);
 }
 
 :host([data-negative]) {
-  --sbb-option-color: var(--sbb-color-milk-default);
-  --sbb-option-icon-color: var(--sbb-color-smoke-default);
-  --sbb-option-background-color-hover: var(--sbb-color-charcoal-default);
-  --sbb-option-background-color-active: var(--sbb-color-iron-default);
-  --sbb-option-disabled-border-color: var(--sbb-color-smoke-default);
-  --sbb-option-disabled-background-color: var(--sbb-color-charcoal-default);
+  --sbb-option-color: var(--sbb-color-milk);
+  --sbb-option-icon-color: var(--sbb-color-smoke);
+  --sbb-option-background-color-hover: var(--sbb-color-charcoal);
+  --sbb-option-background-color-active: var(--sbb-color-iron);
+  --sbb-option-disabled-border-color: var(--sbb-color-smoke);
+  --sbb-option-disabled-background-color: var(--sbb-color-charcoal);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 

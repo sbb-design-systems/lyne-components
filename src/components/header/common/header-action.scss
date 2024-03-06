@@ -9,7 +9,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 
 :host {
   --sbb-header-action-padding-inline: 0;
-  --sbb-header-action-color: var(--sbb-color-black-default);
+  --sbb-header-action-color: var(--sbb-color-black);
   --sbb-header-action-background-color: transparent;
   --sbb-header-action-min-height: var(--sbb-size-button-m-min-height);
   --sbb-header-action-min-width: var(--sbb-header-action-min-height);
@@ -50,7 +50,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 
 @include sbb.hover-mq($hover: true) {
   :host(:hover:not(:active, [data-active], [aria-expanded='true'])) {
-    --sbb-header-action-background-color: var(--sbb-color-milk-default);
+    --sbb-header-action-background-color: var(--sbb-color-milk);
     --sbb-header-action-translate-y: #{sbb.px-to-rem-build(-1)};
     --sbb-header-action-background-inset: calc(var(--sbb-border-width-2x) * -1);
 
@@ -61,7 +61,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 }
 
 :host(:is(:active, [data-active])) {
-  --sbb-header-action-background-color: var(--sbb-color-cloud-default);
+  --sbb-header-action-background-color: var(--sbb-color-cloud);
 
   @include sbb.if-forced-colors {
     --sbb-header-action-border-color: Highlight;

@@ -234,7 +234,7 @@ export const NoAnimation: StoryObj = {
 };
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.borderless ? '#bdbdbd' : 'var(--sbb-color-white-default)',
+  'background-color': context.args.borderless ? '#bdbdbd' : 'var(--sbb-color-white)',
 });
 
 const meta: Meta = {

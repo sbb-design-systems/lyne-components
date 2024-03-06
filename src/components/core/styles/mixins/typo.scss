@@ -82,7 +82,7 @@
 }
 
 @mixin title--negative {
-  --sbb-title-text-color-normal: var(--sbb-color-milk-default);
+  --sbb-title-text-color-normal: var(--sbb-color-milk);
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -198,8 +198,8 @@
 }
 
 @mixin placeholder {
-  color: var(--sbb-color-metal-default);
-  -webkit-text-fill-color: var(--sbb-color-metal-default);
+  color: var(--sbb-color-metal);
+  -webkit-text-fill-color: var(--sbb-color-metal);
   opacity: 1;
 }
 
@@ -213,7 +213,7 @@
 @mixin legend {
   @include text-xs--regular;
 
-  color: var(--sbb-color-granite-default);
+  color: var(--sbb-color-granite);
 }
 
 %sub-sup {

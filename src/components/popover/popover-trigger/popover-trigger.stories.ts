@@ -13,12 +13,8 @@ import './popover-trigger';
 import '../../title';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative
-    ? 'var(--sbb-color-black-default)'
-    : 'var(--sbb-color-white-default)',
-  color: context.args.negative
-    ? 'var(--sbb-color-white-default)'
-    : 'var(--sbb-color-black-default)',
+  'background-color': context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+  color: context.args.negative ? 'var(--sbb-color-white)' : 'var(--sbb-color-black)',
 });
 
 const negative: InputType = {
@@ -102,7 +98,7 @@ const Template = ({ active, ...args }: Args): TemplateResult => html`
 `;
 
 const TemplateWithCustomContent = (args: Args): TemplateResult => html`
-  <div class="sbb-text-xl" style="color: var(--sbb-color-sky-default);">
+  <div class="sbb-text-xl" style="color: var(--sbb-color-sky);">
     <sbb-popover-trigger id="popover-trigger" ${sbbSpread(args)}>
       This is a long popover trigger text which should wrap at a certain viewport. It inherits all
       the font styles from the parent element.

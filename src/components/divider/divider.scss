@@ -5,7 +5,7 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-divider-color: var(--sbb-color-cloud-default);
+  --sbb-divider-color: var(--sbb-color-cloud);
   --sbb-divider-border-width: var(--sbb-border-width-1x);
 }
 
@@ -14,7 +14,7 @@
 }
 
 :host([negative]) {
-  --sbb-divider-color: var(--sbb-color-iron-default);
+  --sbb-divider-color: var(--sbb-color-iron);
 }
 
 .sbb-divider {

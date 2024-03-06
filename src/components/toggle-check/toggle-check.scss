@@ -11,12 +11,12 @@
   // which appears in normalize css of several frameworks.
   outline: none !important;
 
-  --sbb-toggle-check-checked-color: var(--sbb-color-red-default);
-  --sbb-toggle-check-background-color: var(--sbb-color-cloud-default);
+  --sbb-toggle-check-checked-color: var(--sbb-color-red);
+  --sbb-toggle-check-background-color: var(--sbb-color-cloud);
   --sbb-toggle-check-icon-color: var(--sbb-toggle-check-checked-color);
   --sbb-toggle-check-icon-opacity: 0;
-  --sbb-toggle-check-circle-background-color: var(--sbb-color-white-default);
-  --sbb-toggle-check-circle-border-color: var(--sbb-color-smoke-default);
+  --sbb-toggle-check-circle-background-color: var(--sbb-color-white);
+  --sbb-toggle-check-circle-border-color: var(--sbb-color-smoke);
   --sbb-toggle-check-circle-border-style: solid;
   --sbb-toggle-check-circle-diameter: #{sbb.px-to-rem-build(28)};
   --sbb-toggle-check-overall-height: var(--sbb-toggle-check-circle-diameter);
@@ -57,11 +57,11 @@
 }
 
 :host([disabled]) {
-  --sbb-toggle-check-background-color: var(--sbb-color-cloud-default);
-  --sbb-toggle-check-circle-border-color: var(--sbb-color-smoke-default);
+  --sbb-toggle-check-background-color: var(--sbb-color-cloud);
+  --sbb-toggle-check-circle-border-color: var(--sbb-color-smoke);
   --sbb-toggle-check-circle-border-style: dashed;
-  --sbb-toggle-check-circle-background-color: var(--sbb-color-milk-default);
-  --sbb-toggle-check-icon-color: var(--sbb-color-granite-default);
+  --sbb-toggle-check-circle-background-color: var(--sbb-color-milk);
+  --sbb-toggle-check-icon-color: var(--sbb-color-granite);
   --sbb-toggle-check-cursor: default;
 
   @include sbb.if-forced-colors {
@@ -72,7 +72,7 @@
 }
 
 :host([checked][disabled]) {
-  --sbb-toggle-check-circle-background-color: var(--sbb-color-white-default);
+  --sbb-toggle-check-circle-background-color: var(--sbb-color-white);
 }
 
 :host([label-position='before']) {
@@ -85,7 +85,7 @@
 
   position: relative;
   display: flex;
-  color: var(--sbb-color-charcoal-default);
+  color: var(--sbb-color-charcoal);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   cursor: var(--sbb-toggle-check-cursor);

@@ -7,17 +7,17 @@
 :host {
   display: flex;
 
-  --sbb-breadcrumb-color: var(--sbb-color-granite-default);
+  --sbb-breadcrumb-color: var(--sbb-color-granite);
 }
 
 @include sbb.hover-mq($hover: true) {
   :host(:hover) {
-    --sbb-breadcrumb-color: var(--sbb-color-charcoal-default);
+    --sbb-breadcrumb-color: var(--sbb-color-charcoal);
   }
 }
 
 :host(:is(:active, [data-active])) {
-  --sbb-breadcrumb-color: var(--sbb-color-anthracite-default);
+  --sbb-breadcrumb-color: var(--sbb-color-anthracite);
 }
 
 // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.

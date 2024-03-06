@@ -11,8 +11,8 @@ import './title';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative
-    ? 'var(--sbb-color-charcoal-default)'
-    : 'var(--sbb-color-white-default)',
+    ? 'var(--sbb-color-charcoal)'
+    : 'var(--sbb-color-white)',
 });
 
 // we don't need to pass the args.text to the <sbb-title> tag, but Storybook wants all in it.

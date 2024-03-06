@@ -136,8 +136,8 @@
   border: none;
   pointer-events: none;
   height: var(--sbb-navigation-height);
-  color: var(--sbb-color-white-default);
-  background-color: var(--sbb-color-midnight-default);
+  color: var(--sbb-color-white);
+  background-color: var(--sbb-color-midnight);
 
   &::before {
     @include transition(width);
@@ -146,7 +146,7 @@
     position: absolute;
     width: var(--sbb-navigation-expanded-width);
     height: var(--sbb-navigation-height);
-    background: var(--sbb-color-midnight-default);
+    background: var(--sbb-color-midnight);
   }
 
   :host([data-state]:not([data-state='closed'])) & {
