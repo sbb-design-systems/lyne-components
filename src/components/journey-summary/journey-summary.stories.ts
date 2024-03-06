@@ -16,6 +16,7 @@ import {
 import readme from './readme.md?raw';
 
 import './journey-summary';
+import '../button/button';
 import '../button/secondary-button';
 
 const disableAnimation: InputType = {

@@ -91,3 +91,51 @@ snapshots["sbb-transparent-button-static renders a sbb-transparent-button-static
 `;
 /* end snapshot sbb-transparent-button-static renders a sbb-transparent-button-static with slotted icon ShadowDom */
 
+snapshots["sbb-transparent-button-static renders a sbb-transparent-button-static with slotted icon A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Label Text"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-transparent-button-static renders a sbb-transparent-button-static with slotted icon A11y tree Chrome */
+
+snapshots["sbb-transparent-button-static renders a sbb-transparent-button-static with slotted icon A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "text leaf",
+      "name": "Label Text "
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-transparent-button-static renders a sbb-transparent-button-static with slotted icon A11y tree Firefox */
+
+snapshots["sbb-transparent-button-static renders a sbb-transparent-button-static with slotted icon A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Label Text"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-transparent-button-static renders a sbb-transparent-button-static with slotted icon A11y tree Safari */
+

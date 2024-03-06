@@ -40,6 +40,8 @@ describe('sbb-transparent-button-static', () => {
     it('ShadowDom', async () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
+
+    testA11yTreeSnapshot();
   });
 
   it('should detect icon in sbb-transparent-button-static', async () => {
@@ -56,6 +58,4 @@ describe('sbb-transparent-button-static', () => {
     expect(dataSlots).to.contain('icon');
     expect(dataSlots).not.to.contain('unnamed');
   });
-
-  testA11yTreeSnapshot();
 });

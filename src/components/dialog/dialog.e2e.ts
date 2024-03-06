@@ -6,7 +6,6 @@ import { i18nDialog } from '../core/i18n';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
 
 import { SbbDialogElement } from './dialog';
-import '../button';
 import '../title';
 
 async function openDialog(element: SbbDialogElement): Promise<void> {

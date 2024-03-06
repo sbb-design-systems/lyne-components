@@ -19,6 +19,7 @@ import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
 import { SbbToastElement } from './toast';
+import '../button/button';
 import '../button/transparent-button';
 import '../link/link';
 

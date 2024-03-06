@@ -99,3 +99,51 @@ snapshots["sbb-secondary-button A11y tree Safari"] =
 `;
 /* end snapshot sbb-secondary-button A11y tree Safari */
 
+snapshots["sbb-secondary-button renders a sbb-secondary-button with slotted icon A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Label Text"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-secondary-button renders a sbb-secondary-button with slotted icon A11y tree Chrome */
+
+snapshots["sbb-secondary-button renders a sbb-secondary-button with slotted icon A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Label Text"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-secondary-button renders a sbb-secondary-button with slotted icon A11y tree Firefox */
+
+snapshots["sbb-secondary-button renders a sbb-secondary-button with slotted icon A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Label Text"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-secondary-button renders a sbb-secondary-button with slotted icon A11y tree Safari */
+

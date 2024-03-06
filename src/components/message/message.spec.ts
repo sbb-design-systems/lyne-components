@@ -6,7 +6,7 @@ import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
 import type { SbbMessageElement } from './message';
 import './message';
 import '../image';
-import '../button';
+import '../button/button';
 
 describe('sbb-message', () => {
   describe('renders', () => {

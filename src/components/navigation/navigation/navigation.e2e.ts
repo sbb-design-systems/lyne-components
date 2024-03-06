@@ -3,7 +3,7 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import '../navigation-marker';
-import type { SbbButtonElement } from '../../button';
+import type { SbbButtonElement } from '../../button/button';
 import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
 import type { SbbNavigationButtonElement } from '../navigation-button';
 import '../navigation-button';

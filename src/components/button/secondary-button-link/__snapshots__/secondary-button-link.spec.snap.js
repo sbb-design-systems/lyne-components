@@ -6,7 +6,7 @@ snapshots["Dom"] =
   data-slot-names="unnamed"
   dir="ltr"
   download=""
-  href="#"
+  href="https://www.sbb.ch"
   rel="noopener"
   role="link"
   size="m"
@@ -22,7 +22,7 @@ snapshots["ShadowDom"] =
 `<a
   class="sbb-action-base sbb-secondary-button-link"
   download=""
-  href="#"
+  href="https://www.sbb.ch"
   rel="noopener"
   role="presentation"
   tabindex="-1"
@@ -49,7 +49,7 @@ snapshots["sbb-secondary-button-link renders a disabled sbb-secondary-button-lin
   data-slot-names="icon unnamed"
   dir="ltr"
   disabled=""
-  href="#"
+  href="https://www.sbb.ch"
   role="link"
   size="l"
 >
@@ -69,7 +69,7 @@ snapshots["sbb-secondary-button-link renders a disabled sbb-secondary-button-lin
 snapshots["sbb-secondary-button-link renders a disabled sbb-secondary-button-link with slotted icon ShadowDom"] = 
 `<a
   class="sbb-action-base sbb-secondary-button-link"
-  href="#"
+  href="https://www.sbb.ch"
   role="presentation"
   tabindex="-1"
 >
@@ -114,4 +114,34 @@ snapshots["sbb-secondary-button-link A11y tree Safari"] =
 </p>
 `;
 /* end snapshot sbb-secondary-button-link A11y tree Safari */
+
+snapshots["A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot A11y tree Chrome */
+
+snapshots["A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot A11y tree Firefox */
+
+snapshots["A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": ""
+}
+</p>
+`;
+/* end snapshot A11y tree Safari */
 

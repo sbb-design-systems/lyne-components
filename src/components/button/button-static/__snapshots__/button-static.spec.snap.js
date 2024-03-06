@@ -91,3 +91,51 @@ snapshots["sbb-button-static A11y tree Safari"] =
 `;
 /* end snapshot sbb-button-static A11y tree Safari */
 
+snapshots["sbb-button-static renders a sbb-button-static with slotted icon A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Label Text"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-button-static renders a sbb-button-static with slotted icon A11y tree Chrome */
+
+snapshots["sbb-button-static renders a sbb-button-static with slotted icon A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "text leaf",
+      "name": "Label Text "
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-button-static renders a sbb-button-static with slotted icon A11y tree Firefox */
+
+snapshots["sbb-button-static renders a sbb-button-static with slotted icon A11y tree Safari"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "text",
+      "name": "Label Text"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-button-static renders a sbb-button-static with slotted icon A11y tree Safari */
+

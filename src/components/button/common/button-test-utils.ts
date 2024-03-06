@@ -39,7 +39,7 @@ export const buttonSpaceIconTestTemplate = (tag: string): TemplateResult => {
 
 export const buttonLinkTestTemplate = (tag: string): TemplateResult => {
   return html`
-    <${unsafeStatic(tag)} size="m" href="#" target="_blank" rel="noopener" download>
+    <${unsafeStatic(tag)} size="m" href="https://www.sbb.ch" target="_blank" rel="noopener" download>
       Label Text
     </${unsafeStatic(tag)}>
   `;
@@ -47,7 +47,7 @@ export const buttonLinkTestTemplate = (tag: string): TemplateResult => {
 
 export const buttonLinkIconTestTemplate = (tag: string): TemplateResult => {
   return html`
-    <${unsafeStatic(tag)} href="#" disabled>
+    <${unsafeStatic(tag)} href="https://www.sbb.ch" disabled>
       <sbb-icon slot="icon" name="chevron-small-left-small"></sbb-icon>
       Label Text
     </${unsafeStatic(tag)}>

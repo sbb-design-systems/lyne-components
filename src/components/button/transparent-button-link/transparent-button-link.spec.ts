@@ -18,6 +18,8 @@ describe('sbb-transparent-button-link', () => {
     it('ShadowDom', async () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
+
+    testA11yTreeSnapshot();
   });
 
   describe('renders a disabled sbb-transparent-button-link with slotted icon', async () => {
@@ -36,6 +38,4 @@ describe('sbb-transparent-button-link', () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
   });
-
-  testA11yTreeSnapshot();
 });

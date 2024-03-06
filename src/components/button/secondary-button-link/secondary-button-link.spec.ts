@@ -18,6 +18,8 @@ describe('sbb-secondary-button-link', () => {
     it('ShadowDom', async () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
+
+    testA11yTreeSnapshot();
   });
 
   describe('renders a disabled sbb-secondary-button-link with slotted icon', async () => {
@@ -36,6 +38,4 @@ describe('sbb-secondary-button-link', () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
   });
-
-  testA11yTreeSnapshot();
 });

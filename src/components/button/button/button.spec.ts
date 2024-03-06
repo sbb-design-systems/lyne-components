@@ -40,6 +40,8 @@ describe('sbb-button', () => {
     it('ShadowDom', async () => {
       await expect(root).shadowDom.to.be.equalSnapshot();
     });
+
+    testA11yTreeSnapshot();
   });
 
   it('should detect icon in sbb-button', async () => {
@@ -56,6 +58,4 @@ describe('sbb-button', () => {
     expect(dataSlots).to.contain('icon');
     expect(dataSlots).not.to.contain('unnamed');
   });
-
-  testA11yTreeSnapshot();
 });

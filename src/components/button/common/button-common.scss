@@ -96,9 +96,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
   }
 }
 
-[class$='-link'],
-[class$='-static'],
-[class$='-button'] {
+.sbb-action-base {
   @include sbb.text-xs--bold;
   @include sbb.font-smoothing;
 

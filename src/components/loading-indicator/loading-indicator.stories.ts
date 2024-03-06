@@ -10,7 +10,7 @@ import { sbbSpread } from '../core/dom';
 
 import type { SbbLoadingIndicatorElement } from './loading-indicator';
 import readme from './readme.md?raw';
-import '../button';
+import '../button/button';
 import './loading-indicator';
 
 const textBlockStyle: Args = {
