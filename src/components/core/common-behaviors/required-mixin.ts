@@ -43,7 +43,6 @@ export const SbbRequiredMixin = <
     /**
      * Will be used as 'or' check to the current required state.
      * Can e.g. be used to read required state of a group.
-     * @protected
      */
     protected isRequiredExternally(): boolean {
       return false;

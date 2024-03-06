@@ -20,8 +20,7 @@ describe('sbb-checkbox', () => {
     let element: SbbCheckboxElement;
 
     beforeEach(async () => {
-      await fixture(html`<sbb-checkbox name="name" value="value">Label</sbb-checkbox>`);
-      element = document.querySelector<SbbCheckboxElement>('sbb-checkbox')!;
+      element = await fixture(html`<sbb-checkbox name="name" value="value">Label</sbb-checkbox>`);
     });
 
     it('should render', async () => {
@@ -40,8 +39,10 @@ describe('sbb-checkbox', () => {
       it('emit event on click', async () => {
         expect(element).not.to.have.attribute('checked');
         const changeSpy = new EventSpy('change');
+
         element.click();
         await waitForLitRender(element);
+
         expect(changeSpy.count).to.be.greaterThan(0);
         expect(element).not.to.have.attribute('checked');
         expect(element.checked).to.equal(true);
@@ -49,8 +50,10 @@ describe('sbb-checkbox', () => {
 
       it('emit event on keypress', async () => {
         const changeSpy = new EventSpy('change');
+
         element.focus();
         await sendKeys({ press: 'Space' });
+
         await waitForCondition(() => changeSpy.count === 1);
         expect(changeSpy.count).to.be.greaterThan(0);
       });
@@ -65,12 +68,14 @@ describe('sbb-checkbox', () => {
         </div>`,
       );
       element = root.querySelector<SbbCheckboxElement>('sbb-checkbox')!;
-      expect(element).not.to.have.attribute('checked');
+
+      expect(element.checked).to.be.false;
       expect(root.scrollTop).to.be.equal(0);
 
       element.focus();
       await sendKeys({ press: ' ' });
       await waitForLitRender(element);
+
       await waitForCondition(() => element.checked);
       expect(root.scrollTop).to.be.equal(0);
     });

@@ -32,7 +32,6 @@ export const SbbDisabledMixin = <T extends AbstractConstructor<LitElement>>(
     /**
      * Will be used as 'or' check to the current disabled state.
      * Can e.g. be used to read disabled state of a group.
-     * @protected
      */
     protected isDisabledExternally(): boolean {
       return false;

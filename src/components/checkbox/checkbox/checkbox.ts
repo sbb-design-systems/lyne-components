@@ -139,11 +139,6 @@ export class SbbCheckboxElement extends UpdateScheduler(
     ['disabled', 'required', 'size'].forEach((p) => this.requestUpdate(p));
   }
 
-  protected override createRenderRoot(): HTMLElement | DocumentFragment {
-    this.setAttribute('tabindex', '0');
-    return super.createRenderRoot();
-  }
-
   protected override async willUpdate(changedProperties: PropertyValues<this>): Promise<void> {
     super.willUpdate(changedProperties);
 

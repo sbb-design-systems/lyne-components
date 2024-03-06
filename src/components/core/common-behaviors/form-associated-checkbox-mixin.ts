@@ -89,6 +89,11 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
       this.internals.role = 'checkbox';
     }
 
+    protected override createRenderRoot(): HTMLElement | DocumentFragment {
+      this.setAttribute('tabindex', '0');
+      return super.createRenderRoot();
+    }
+
     public override connectedCallback(): void {
       super.connectedCallback();
 
@@ -143,6 +148,10 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
       }
     }
 
+    /**
+     * Additional logic which is being executed when user
+     * interaction happens and state is not disabled.
+     */
     protected withUserInteraction?(): void;
 
     protected override updateFormValue(): void {

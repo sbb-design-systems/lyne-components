@@ -37,7 +37,7 @@
   --sbb-toggle-check-overall-height: calc(1em * var(--sbb-typo-line-height-body-text));
 }
 
-:host([checked]) {
+:host([data-checked]) {
   --sbb-toggle-check-background-color: var(--sbb-toggle-check-checked-color);
   --sbb-toggle-check-circle-border-color: var(--sbb-toggle-check-background-color);
   --sbb-toggle-check-icon-opacity: 1;
@@ -56,7 +56,7 @@
   }
 }
 
-:host([disabled]) {
+:host(:disabled) {
   --sbb-toggle-check-background-color: var(--sbb-color-cloud);
   --sbb-toggle-check-circle-border-color: var(--sbb-color-smoke);
   --sbb-toggle-check-circle-border-style: dashed;
@@ -71,7 +71,7 @@
   }
 }
 
-:host([checked][disabled]) {
+:host([data-checked]:disabled) {
   --sbb-toggle-check-circle-background-color: var(--sbb-color-white);
 }
 
@@ -98,10 +98,6 @@
   }
 }
 
-input[type='checkbox'] {
-  @include sbb.screen-reader-only;
-}
-
 .sbb-toggle-check__container {
   @include sbb.text-s--regular;
 
@@ -121,6 +117,10 @@ input[type='checkbox'] {
   padding-block-start: calc(
     (var(--sbb-toggle-check-circle-diameter) - (var(--sbb-typo-line-height-body-text) * 1em)) / 2
   );
+
+  :host(:not([data-slot-names~='unnamed'])) & {
+    display: none;
+  }
 }
 
 .sbb-toggle-check__track {

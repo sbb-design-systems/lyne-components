@@ -8,12 +8,23 @@ import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
 import './toggle-check';
+import '../button/button';
+import '../card';
+import '../icon';
+import '../title';
 
 const longLabel = `For this example we need a very long label, like lorem ipsum dolor sit amet, consectetur adipiscing elit.
   Cras nec dolor eget leo porttitor ultrices. Mauris sed erat nec justo posuere elementum.
   In pharetra ante vel fringilla tincidunt. Fusce congue accumsan arcu dictum porttitor.
   Pellentesque urna justo, lacinia at velit eu, sagittis tempus nibh.
   Quisque vitae massa et turpis fermentum tristique.`;
+
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['s', 'm'],
+};
 
 const checked: InputType = {
   control: {
@@ -33,17 +44,22 @@ const label: InputType = {
   },
 };
 
-const iconName: InputType = {
+const value: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const size: InputType = {
+const name: InputType = {
   control: {
-    type: 'inline-radio',
+    type: 'text',
   },
-  options: ['s', 'm'],
+};
+
+const iconName: InputType = {
+  control: {
+    type: 'text',
+  },
 };
 
 const labelPosition: InputType = {
@@ -60,43 +76,54 @@ const ariaLabel: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
+  size,
   checked,
   disabled,
-  size,
-  'label-position': labelPosition,
   label,
+  value,
+  name,
   'icon-name': iconName,
+  'label-position': labelPosition,
   'aria-label': ariaLabel,
 };
 
 const defaultArgs: Args = {
+  size: size.options[1],
   checked: false,
   disabled: false,
-  size: size.options[0],
-  'label-position': labelPosition.options[1],
   label: 'Label',
+  value: 'Value',
+  name: 'name',
   'icon-name': undefined,
+  'label-position': labelPosition.options[1],
   'aria-label': undefined,
 };
 
-const ToggleCheckDefaultTemplate = ({ label, ...args }: Args): TemplateResult => html`
-  <sbb-toggle-check ${sbbSpread(args)}>${label}</sbb-toggle-check>
+// We use property and attribute for `checked` to provide consistency to storybook controls.
+// Otherwise, after first user manipulation, the storybook control gets ignored.
+// If only using property, the reset mechanism does not work as expected.
+
+const Template = ({ label, checked, ...args }: Args): TemplateResult => html`
+  <sbb-toggle-check .checked=${checked} ?checked=${checked} ${sbbSpread(args)}
+    >${label}</sbb-toggle-check
+  >
 `;
 
-const ToggleCheckWithoutLabelTemplate = (args: Args): TemplateResult => html`
-  <sbb-toggle-check ${sbbSpread(args)}></sbb-toggle-check>
-`;
-
-const ToggleCheckCustomIconTemplate = ({ label, ...args }: Args): TemplateResult => html`
-  <sbb-toggle-check ${sbbSpread(args)}>
+const CustomIconTemplate = ({ label, checked, ...args }: Args): TemplateResult => html`
+  <sbb-toggle-check .checked=${checked} ?checked=${checked} ${sbbSpread(args)}>
     <sbb-icon slot="icon" name="eye-small"></sbb-icon>
     ${label}
   </sbb-toggle-check>
 `;
 
-const ToggleCheckBlockVariantTemplate = (args: Args): TemplateResult => html`
+const BlockVariantTemplate = ({ checked, ...args }: Args): TemplateResult => html`
   <div>
-    <sbb-toggle-check ${sbbSpread(args)} style="display: block;">
+    <sbb-toggle-check
+      .checked=${checked}
+      ?checked=${checked}
+      ${sbbSpread(args)}
+      style="display: block;"
+    >
       <sbb-title level="5" style="margin: 0;"> Accessible Connection. </sbb-title>
       <span class="sbb-text-s" style="color: var(--sbb-color-iron);">
         Show connections for accessible journeys.
@@ -109,8 +136,36 @@ const ToggleCheckBlockVariantTemplate = (args: Args): TemplateResult => html`
   </div>
 `;
 
+const TemplateWithForm = (args: Args): TemplateResult => html`
+  <form
+    @submit=${(e: SubmitEvent) => {
+      e.preventDefault();
+      const form = (e.target as HTMLFormElement)!;
+      form.querySelector('#form-data')!.innerHTML = JSON.stringify(
+        Object.fromEntries(new FormData(form)),
+      );
+    }}
+  >
+    <fieldset>
+      <legend class="sbb-text-s">&nbsp;fieldset&nbsp;</legend>
+      ${Template(args)}
+    </fieldset>
+
+    <fieldset disabled>
+      <legend class="sbb-text-s">&nbsp;disabled fieldset&nbsp;</legend>
+      ${Template({ ...args, name: 'disabled' })}
+    </fieldset>
+    <div style="margin-block: var(--sbb-spacing-responsive-s)">
+      <sbb-button type="reset" variant="secondary">Reset</sbb-button>
+      <sbb-button type="submit">Submit</sbb-button>
+    </div>
+    <p class="sbb-text-s">Form-Data after click submit:</p>
+    <sbb-card color="milk" id="form-data"></sbb-card>
+  </form>
+`;
+
 export const SbbToggleCheckDefault: StoryObj = {
-  render: ToggleCheckDefaultTemplate,
+  render: Template,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
@@ -118,7 +173,7 @@ export const SbbToggleCheckDefault: StoryObj = {
 };
 
 export const SbbToggleCheckDefaultSizeM: StoryObj = {
-  render: ToggleCheckDefaultTemplate,
+  render: Template,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
@@ -127,7 +182,7 @@ export const SbbToggleCheckDefaultSizeM: StoryObj = {
 };
 
 export const SbbToggleCheckDefaultChecked: StoryObj = {
-  render: ToggleCheckDefaultTemplate,
+  render: Template,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
@@ -136,7 +191,7 @@ export const SbbToggleCheckDefaultChecked: StoryObj = {
 };
 
 export const SbbToggleCheckDefaultLongLabel: StoryObj = {
-  render: ToggleCheckDefaultTemplate,
+  render: Template,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
@@ -145,7 +200,7 @@ export const SbbToggleCheckDefaultLongLabel: StoryObj = {
 };
 
 export const SbbToggleCheckDefaultLongLabelSizeM: StoryObj = {
-  render: ToggleCheckDefaultTemplate,
+  render: Template,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
@@ -155,7 +210,7 @@ export const SbbToggleCheckDefaultLongLabelSizeM: StoryObj = {
 };
 
 export const SbbToggleCheckLabelBefore: StoryObj = {
-  render: ToggleCheckDefaultTemplate,
+  render: Template,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
@@ -164,15 +219,16 @@ export const SbbToggleCheckLabelBefore: StoryObj = {
 };
 
 export const SbbToggleCheckWithoutLabel: StoryObj = {
-  render: ToggleCheckWithoutLabelTemplate,
+  render: Template,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
+    label: undefined,
   },
 };
 
 export const SbbToggleCheckDisabled: StoryObj = {
-  render: ToggleCheckDefaultTemplate,
+  render: Template,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
@@ -181,7 +237,7 @@ export const SbbToggleCheckDisabled: StoryObj = {
 };
 
 export const SbbToggleCheckDisabledChecked: StoryObj = {
-  render: ToggleCheckDefaultTemplate,
+  render: Template,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
@@ -191,7 +247,7 @@ export const SbbToggleCheckDisabledChecked: StoryObj = {
 };
 
 export const SbbToggleCheckCustomIcon: StoryObj = {
-  render: ToggleCheckDefaultTemplate,
+  render: Template,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
@@ -201,7 +257,7 @@ export const SbbToggleCheckCustomIcon: StoryObj = {
 };
 
 export const SbbToggleCheckCustomIconSlotted: StoryObj = {
-  render: ToggleCheckCustomIconTemplate,
+  render: CustomIconTemplate,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
@@ -211,7 +267,7 @@ export const SbbToggleCheckCustomIconSlotted: StoryObj = {
 };
 
 export const SbbToggleCheckBlockVariant: StoryObj = {
-  render: ToggleCheckBlockVariantTemplate,
+  render: BlockVariantTemplate,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
@@ -220,20 +276,26 @@ export const SbbToggleCheckBlockVariant: StoryObj = {
   },
 };
 
+export const withForm: StoryObj = {
+  render: TemplateWithForm,
+  argTypes: defaultArgTypes,
+  args: defaultArgs,
+};
+
 const meta: Meta = {
-  title: 'components/sbb-toggle/sbb-toggle-check',
   decorators: [withActions as Decorator],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
     actions: {
       handles: ['change', 'input'],
+    },
+    backgrounds: {
+      disable: true,
     },
     docs: {
       extractComponentDescription: () => readme,
     },
   },
+  title: 'components/sbb-toggle/sbb-toggle-check',
 };
 
 export default meta;

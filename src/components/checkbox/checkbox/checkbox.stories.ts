@@ -19,10 +19,6 @@ velit, varius nec est ac, mollis efficitur lorem. Quisque non nisl eget massa in
 metus. Donec pharetra odio at turpis bibendum, vel commodo dui vulputate. Aenean congue nec nisl vel bibendum.
 Praesent sit amet lorem augue. Suspendisse ornare a justo sagittis fermentum.`;
 
-/* ************************************************* */
-/* Storybook controls                                */
-/* ************************************************* */
-
 const size: InputType = {
   control: {
     type: 'inline-radio',
@@ -111,15 +107,15 @@ const defaultArgs: Args = {
   'aria-label': undefined,
 };
 
-/* ************************************************* */
-/* Storybook templates                               */
-/* ************************************************* */
+// We use property and attribute for `checked` to provide consistency to storybook controls.
+// Otherwise, after first user manipulation, the storybook control gets ignored.
+// If only using property, the reset mechanism does not work as expected.
 
-const Template = ({ label, ...args }: Args): TemplateResult => html`
-  <sbb-checkbox ${sbbSpread(args)}>${label}</sbb-checkbox>
+const Template = ({ label, checked, ...args }: Args): TemplateResult => html`
+  <sbb-checkbox .checked=${checked} ?checked=${checked} ${sbbSpread(args)}>${label}</sbb-checkbox>
 `;
 
-const TemplateWithForm = ({ label, ...args }: Args): TemplateResult => html`
+const TemplateWithForm = (args: Args): TemplateResult => html`
   <form
     @submit=${(e: SubmitEvent) => {
       e.preventDefault();
@@ -129,14 +125,14 @@ const TemplateWithForm = ({ label, ...args }: Args): TemplateResult => html`
       );
     }}
   >
-    <p class="sbb-text-s">In a fieldset:</p>
     <fieldset>
-      <sbb-checkbox ${sbbSpread(args)}>${label}</sbb-checkbox>
+      <legend class="sbb-text-s">&nbsp;fieldset&nbsp;</legend>
+      ${Template(args)}
     </fieldset>
 
-    <p class="sbb-text-s">In a disabled fieldset:</p>
     <fieldset disabled>
-      <sbb-checkbox ${sbbSpread({ ...args, name: 'disabled' })}>${label}</sbb-checkbox>
+      <legend class="sbb-text-s">&nbsp;disabled fieldset&nbsp;</legend>
+      ${Template({ ...args, name: 'disabled' })}
     </fieldset>
     <div style="margin-block: var(--sbb-spacing-responsive-s)">
       <sbb-button type="reset" variant="secondary">Reset</sbb-button>
