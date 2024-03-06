@@ -4,6 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import { assignId } from '../../core/a11y';
 import {
+  hostAttributes,
   NamedSlotStateController,
   SbbDisabledMixin,
   SbbIconNameMixin,
@@ -39,6 +40,9 @@ export type SbbOptionVariant = 'autocomplete' | 'select';
  * @event {CustomEvent<void>} optionSelectionChange - Emits when the option selection status changes.
  * @event {CustomEvent<void>} optionSelected - Emits when an option was selected by user.
  */
+@hostAttributes({
+  role: 'option',
+})
 @customElement('sbb-option')
 export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
@@ -250,7 +254,6 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
 
   protected override render(): TemplateResult {
     const isMultiple = this._isMultiple;
-    setAttribute(this, 'role', 'option');
     setAttribute(this, 'tabindex', isAndroid() && !this.disabled && 0);
     setAttribute(this, 'data-variant', this._variant);
     setAttribute(this, 'data-multiple', isMultiple);

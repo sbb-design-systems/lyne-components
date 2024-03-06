@@ -2,7 +2,11 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { NamedSlotStateController, SbbIconNameMixin } from '../../core/common-behaviors';
+import {
+  hostAttributes,
+  NamedSlotStateController,
+  SbbIconNameMixin,
+} from '../../core/common-behaviors';
 import { setAttribute } from '../../core/dom';
 import { ConnectedAbortController, EventEmitter } from '../../core/eventing';
 import type { SbbToggleElement, SbbToggleStateChange } from '../toggle';
@@ -16,6 +20,9 @@ import style from './toggle-option.scss?lit&inline';
  * @slot - Use the unnamed slot to add content to the label of the toggle option.
  * @slot icon - Slot used to render the `sbb-icon`.
  */
+@hostAttributes({
+  role: 'radio',
+})
 @customElement('sbb-toggle-option')
 export class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
@@ -141,7 +148,6 @@ export class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
   protected override render(): TemplateResult {
     setAttribute(this, 'aria-checked', (!!this.checked).toString());
     setAttribute(this, 'aria-disabled', this.disabled);
-    setAttribute(this, 'role', 'radio');
 
     return html`
       <input

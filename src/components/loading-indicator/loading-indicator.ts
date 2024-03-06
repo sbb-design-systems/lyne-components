@@ -2,13 +2,17 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { setAttribute } from '../core/dom';
+import { hostAttributes } from '../core/common-behaviors';
 
 import style from './loading-indicator.scss?lit&inline';
 
 /**
  * It displays a loading indicator.
  */
+@hostAttributes({
+  role: 'progressbar',
+  'aria-busy': 'true',
+})
 @customElement('sbb-loading-indicator')
 export class SbbLoadingIndicatorElement extends LitElement {
   public static override styles: CSSResultGroup = style;
@@ -27,9 +31,6 @@ export class SbbLoadingIndicatorElement extends LitElement {
   public disableAnimation = false;
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'role', 'progressbar');
-    setAttribute(this, 'aria-busy', 'true');
-
     return html`
       <span class="sbb-loading-indicator">
         <span class="sbb-loading-indicator__animated-element">

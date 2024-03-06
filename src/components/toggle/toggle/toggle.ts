@@ -4,7 +4,8 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../core/a11y';
-import { toggleDatasetEntry, setAttribute, isBrowser } from '../../core/dom';
+import { hostAttributes } from '../../core/common-behaviors';
+import { toggleDatasetEntry, isBrowser } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import type {
   SbbCheckedStateChange,
@@ -28,6 +29,9 @@ export type SbbToggleStateChange = Extract<
  * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  * @event {CustomEvent<void>} change - Emits whenever the toggle value changes.
  */
+@hostAttributes({
+  role: 'radiogroup',
+})
 @customElement('sbb-toggle')
 export class SbbToggleElement extends LitElement {
   public static override styles: CSSResultGroup = style;
@@ -260,7 +264,6 @@ export class SbbToggleElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'role', 'radiogroup');
     return html`
       <div class="sbb-toggle" ${ref((toggle) => (this._toggleElement = toggle as HTMLElement))}>
         <slot @slotchange=${() => this._updateToggle()}></slot>

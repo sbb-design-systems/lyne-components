@@ -3,6 +3,7 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import {
+  hostAttributes,
   LanguageController,
   NamedSlotStateController,
   UpdateScheduler,
@@ -39,6 +40,9 @@ export type SbbRadioButtonSize = 's' | 'm';
  * @slot subtext - Slot used to render a subtext under the label (only visible within a `sbb-selection-panel`).
  * @slot suffix - Slot used to render additional content after the label (only visible within a `sbb-selection-panel`).
  */
+@hostAttributes({
+  role: 'radio',
+})
 @customElement('sbb-radio-button')
 export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
   public static override styles: CSSResultGroup = style;
@@ -249,7 +253,6 @@ export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
 
   protected override render(): TemplateResult {
     const attributes = {
-      role: 'radio',
       'aria-checked': this.checked?.toString() ?? 'false',
       'aria-required': this.required.toString(),
       'aria-disabled': this.disabled.toString(),

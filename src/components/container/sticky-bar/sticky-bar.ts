@@ -1,7 +1,8 @@
 import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { setAttribute, toggleDatasetEntry } from '../../core/dom';
+import { hostAttributes } from '../../core/common-behaviors';
+import { toggleDatasetEntry } from '../../core/dom';
 import { AgnosticIntersectionObserver } from '../../core/observers';
 
 import style from './sticky-bar.scss?lit&inline';
@@ -11,6 +12,9 @@ import style from './sticky-bar.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add content to the sticky bar.
  */
+@hostAttributes({
+  slot: 'sticky-bar',
+})
 @customElement('sbb-sticky-bar')
 export class SbbStickyBarElement extends LitElement {
   public static override styles: CSSResultGroup = style;
@@ -29,8 +33,6 @@ export class SbbStickyBarElement extends LitElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-
-    setAttribute(this, 'slot', 'sticky-bar');
 
     const container = this.closest('sbb-container');
     if (container) {

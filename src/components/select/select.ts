@@ -4,7 +4,12 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { getNextElementIndex, assignId } from '../core/a11y';
-import { SbbDisabledMixin, SbbNegativeMixin, UpdateScheduler } from '../core/common-behaviors';
+import {
+  hostAttributes,
+  SbbDisabledMixin,
+  SbbNegativeMixin,
+  UpdateScheduler,
+} from '../core/common-behaviors';
 import {
   isSafari,
   isValidAttribute,
@@ -39,6 +44,9 @@ export interface SelectChange {
  * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-select` begins the closing transition. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-select` is closed.
  */
+@hostAttributes({
+  dir: getDocumentWritingMode(),
+})
 @customElement('sbb-select')
 export class SbbSelectElement extends UpdateScheduler(
   SbbDisabledMixin(SbbNegativeMixin(LitElement)),
@@ -688,7 +696,6 @@ export class SbbSelectElement extends UpdateScheduler(
     setAttribute(this, 'data-state', this._state);
     setAttribute(this, 'data-multiple', this.multiple);
     setAttribute(this, 'role', this._ariaRoleOnHost ? 'listbox' : null);
-    setAttribute(this, 'dir', getDocumentWritingMode());
     this._ariaRoleOnHost && assignId(() => this._overlayId)(this);
 
     return html`

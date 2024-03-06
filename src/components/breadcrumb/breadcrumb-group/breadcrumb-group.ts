@@ -9,7 +9,11 @@ import { html, nothing } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed, sbbInputModalityDetector } from '../../core/a11y';
-import { SbbNamedSlotListElementMixin, type WithListChildren } from '../../core/common-behaviors';
+import {
+  hostAttributes,
+  SbbNamedSlotListElementMixin,
+  type WithListChildren,
+} from '../../core/common-behaviors';
 import { LanguageController } from '../../core/common-behaviors';
 import { setAttribute } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
@@ -26,6 +30,9 @@ import '../../icon';
  *
  * @slot - Use the unnamed slot to add `sbb-breadcrumb` elements.
  */
+@hostAttributes({
+  role: 'navigation',
+})
 @customElement('sbb-breadcrumb-group')
 export class SbbBreadcrumbGroupElement extends SbbNamedSlotListElementMixin<
   SbbBreadcrumbElement,
@@ -197,7 +204,6 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListElementMixin<
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'role', 'navigation');
     setAttribute(this, 'data-state', this._state);
 
     return html`

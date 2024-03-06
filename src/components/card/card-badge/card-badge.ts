@@ -2,7 +2,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { toggleDatasetEntry, getDocumentWritingMode, setAttribute } from '../../core/dom';
+import { hostAttributes } from '../../core/common-behaviors';
+import { toggleDatasetEntry, getDocumentWritingMode } from '../../core/dom';
 
 import style from './card-badge.scss?lit&inline';
 
@@ -12,6 +13,11 @@ import style from './card-badge.scss?lit&inline';
  * @slot - Use the unnamed slot to add content to the badge.
  *   Content parts should be wrapped in `<span>` tags to achieve correct spacings.
  */
+@hostAttributes({
+  slot: 'badge',
+  role: 'text',
+  dir: getDocumentWritingMode(),
+})
 @customElement('sbb-card-badge')
 export class SbbCardBadgeElement extends LitElement {
   public static override styles: CSSResultGroup = style;
@@ -38,10 +44,6 @@ export class SbbCardBadgeElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'slot', 'badge');
-    setAttribute(this, 'dir', getDocumentWritingMode());
-    setAttribute(this, 'role', 'text');
-
     return html`
       <span class="sbb-card-badge-wrapper">
         <span class="sbb-card-badge">

@@ -3,9 +3,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { LanguageController } from '../core/common-behaviors';
+import { hostAttributes, LanguageController } from '../core/common-behaviors';
 import { removeTimezoneFromISOTimeString, durationToTime } from '../core/datetime';
-import { setAttribute } from '../core/dom';
 import {
   i18nArrival,
   i18nClass,
@@ -270,7 +269,10 @@ export const handleNotices = (notices: Notice[]): Notice[] => {
 
 /**
  * It displays information about the trip, acting as a container for all the `sbb-timetable-*` components.
- * */
+ */
+@hostAttributes({
+  role: 'rowgroup',
+})
 @customElement('sbb-timetable-row')
 export class SbbTimetableRowElement extends LitElement {
   public static override styles: CSSResultGroup = style;
@@ -544,7 +546,6 @@ export class SbbTimetableRowElement extends LitElement {
     const noticeAttributes = notices && handleNotices(notices);
 
     const durationObj = duration ? durationToTime(duration, this._language.current) : null;
-    setAttribute(this, 'role', 'rowgroup');
 
     return html`
       <sbb-card size="l" id=${id}>

@@ -4,7 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { FocusHandler, assignId, setModalityOnNextFocus } from '../../core/a11y';
-import { LanguageController, UpdateScheduler } from '../../core/common-behaviors';
+import { hostAttributes, LanguageController, UpdateScheduler } from '../../core/common-behaviors';
 import {
   ScrollHandler,
   isValidAttribute,
@@ -43,6 +43,9 @@ let nextId = 0;
  * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-navigation` begins the closing transition. Can be canceled.
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-navigation` is closed.
  */
+@hostAttributes({
+  role: 'navigation',
+})
 @customElement('sbb-navigation')
 export class SbbNavigationElement extends UpdateScheduler(LitElement) {
   public static override styles: CSSResultGroup = style;
@@ -344,7 +347,6 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
       ></sbb-button>
     `;
 
-    setAttribute(this, 'role', 'navigation');
     setAttribute(this, 'data-has-navigation-section', !!this._activeNavigationSection);
     setAttribute(this, 'data-state', this._state);
     assignId(() => this._navigationId)(this);
