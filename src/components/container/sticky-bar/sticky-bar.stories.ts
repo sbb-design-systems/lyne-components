@@ -171,7 +171,7 @@ const WithContentAfterTemplate = ({
       ${actionGroup()}
     </sbb-sticky-bar>
   </sbb-container>
-  <sbb-container color=${containerColor} aria-hidden>
+  <sbb-container color=${containerColor} aria-hidden="true">
     <div style="height: var(--sbb-spacing-responsive-l);"></div>
   </sbb-container>
   <sbb-container color="white">
