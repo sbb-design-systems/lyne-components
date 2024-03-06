@@ -11,6 +11,7 @@ import {
   type FormRestoreReason,
   type FormRestoreState,
 } from './form-associated-mixin';
+import { hostAttributes } from './host-attributes';
 import { SbbRequiredMixin, type SbbRequiredMixinType } from './required-mixin';
 
 type CheckedSetterValue = { value: boolean; attribute: boolean };
@@ -45,6 +46,9 @@ export declare abstract class SbbFormAssociatedCheckboxMixinType
 export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>>(
   superClass: T,
 ): Constructor<SbbFormAssociatedCheckboxMixinType> & T => {
+  @hostAttributes({
+    tabindex: '0',
+  })
   abstract class SbbFormAssociatedCheckboxElement
     extends SbbDisabledMixin(SbbRequiredMixin(SbbFormAssociatedMixin(superClass)))
     implements Partial<SbbFormAssociatedCheckboxMixinType>
@@ -87,11 +91,6 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
       super();
       /** @internal */
       this.internals.role = 'checkbox';
-    }
-
-    protected override createRenderRoot(): HTMLElement | DocumentFragment {
-      this.setAttribute('tabindex', '0');
-      return super.createRenderRoot();
     }
 
     public override connectedCallback(): void {
