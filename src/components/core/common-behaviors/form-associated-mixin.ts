@@ -170,7 +170,7 @@ export const SbbFormAssociatedMixin = <T extends Constructor<LitElement>>(
     ): void;
 
     /**
-     * Called when the associated form element changes to form.
+     * Called when the associated form element changes.
      * ElementInternals.form returns the associated from element.
      *
      * @internal
