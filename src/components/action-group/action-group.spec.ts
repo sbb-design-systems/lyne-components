@@ -1,13 +1,13 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { type SbbSecondaryButtonElement } from '../button/secondary-button';
+import type { SbbSecondaryButtonElement } from '../button/secondary-button';
 import { waitForLitRender } from '../core/testing';
 import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
 
 import type { SbbActionGroupElement } from './action-group';
 import './action-group';
-import '../button';
+import '../button/secondary-button';
 import '../link/block-link';
 
 describe('sbb-action-group', () => {

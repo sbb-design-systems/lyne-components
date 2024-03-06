@@ -1,6 +1,6 @@
 import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, StoryObj } from '@storybook/web-components';
-import { type TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { commonDefaultArgs, commonDefaultArgTypes } from './common-stories';

@@ -1,11 +1,12 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { type SbbTransparentButtonElement } from '../button/transparent-button';
+import type { SbbTransparentButtonElement } from '../button/transparent-button';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
 
 import { SbbToastElement } from './toast';
 
+import '../button/transparent-button';
 import '../link/link-button';
 
 describe('sbb-toast', () => {

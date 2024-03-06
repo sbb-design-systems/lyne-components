@@ -5,6 +5,7 @@ import type { SbbSecondaryButtonElement } from '../button/secondary-button';
 import { EventSpy, waitForLitRender } from '../core/testing';
 
 import { SbbFileSelectorElement } from './file-selector';
+import '../button/secondary-button';
 
 function addFilesToComponentInput(
   elem: SbbFileSelectorElement,

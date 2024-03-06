@@ -4,7 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { type SbbSecondaryButtonStaticElement } from '../button/secondary-button-static';
+import type { SbbSecondaryButtonStaticElement } from '../button/secondary-button-static';
 import { sbbInputModalityDetector } from '../core/a11y';
 import {
   LanguageController,
@@ -19,7 +19,7 @@ import {
   i18nFileSelectorDeleteFile,
   i18nFileSelectorSubtitleLabel,
 } from '../core/i18n';
-import '../button';
+import '../button/secondary-button-static';
 import '../icon';
 
 import style from './file-selector.scss?lit&inline';

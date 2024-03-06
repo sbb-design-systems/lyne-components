@@ -10,7 +10,7 @@ import {
   hostAttributes,
 } from '../../core/common-behaviors';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
-import { type SbbExpansionPanelElement } from '../expansion-panel';
+import type { SbbExpansionPanelElement } from '../expansion-panel';
 
 import '../../icon';
 import style from './expansion-panel-header.scss?lit&inline';

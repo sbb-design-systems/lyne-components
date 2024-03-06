@@ -21,7 +21,7 @@
   color: inherit;
 }
 
-// Icon-button style in form-field
+// Icon-button style
 @mixin icon-button($button-selector, $icon-selector) {
   @include icon-button-base(':host', #{$button-selector}, #{$icon-selector});
 

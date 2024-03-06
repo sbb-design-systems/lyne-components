@@ -14,7 +14,7 @@ import { composedPathHasAttribute, EventEmitter, ConnectedAbortController } from
 import { i18nCloseAlert } from '../core/i18n';
 import type { SbbOverlayState } from '../core/overlay';
 import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link';
-import '../button';
+import '../button/transparent-button-link';
 
 import '../icon';
 import style from './toast.scss?lit&inline';

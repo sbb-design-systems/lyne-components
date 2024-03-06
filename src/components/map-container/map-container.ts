@@ -8,7 +8,7 @@ import { LanguageController } from '../core/common-behaviors';
 import { toggleDatasetEntry } from '../core/dom';
 import { i18nMapContainerButtonLabel } from '../core/i18n';
 import { AgnosticIntersectionObserver } from '../core/observers';
-import '../button';
+import '../button/tertiary-button';
 
 import style from './map-container.scss?lit&inline';
 

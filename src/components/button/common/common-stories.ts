@@ -9,7 +9,7 @@ import type {
   WebComponentsRenderer,
 } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import { type TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
