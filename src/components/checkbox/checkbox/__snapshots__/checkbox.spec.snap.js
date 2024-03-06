@@ -15,26 +15,28 @@ snapshots["sbb-checkbox should render unchecked DOM"] =
 
 snapshots["sbb-checkbox should render unchecked Shadow DOM"] = 
 `<span class="sbb-checkbox-wrapper">
-  <span class="sbb-checkbox__inner">
-    <span class="sbb-checkbox__aligner">
-      <sbb-visual-checkbox>
-      </sbb-visual-checkbox>
-    </span>
-    <span class="sbb-checkbox__label">
-      <slot>
-      </slot>
-      <span class="sbb-checkbox__label--icon">
-        <slot name="icon">
+  <span class="sbb-checkbox">
+    <span class="sbb-checkbox__inner">
+      <span class="sbb-checkbox__aligner">
+        <sbb-visual-checkbox>
+        </sbb-visual-checkbox>
+      </span>
+      <span class="sbb-checkbox__label">
+        <slot>
+        </slot>
+        <span class="sbb-checkbox__label--icon">
+          <slot name="icon">
+          </slot>
+        </span>
+        <slot name="suffix">
         </slot>
       </span>
-      <slot name="suffix">
-      </slot>
     </span>
+    <slot name="subtext">
+    </slot>
+    <sbb-screenreader-only class="sbb-checkbox__expanded-label">
+    </sbb-screenreader-only>
   </span>
-  <slot name="subtext">
-  </slot>
-  <sbb-screenreader-only class="sbb-checkbox__expanded-label">
-  </sbb-screenreader-only>
 </span>
 `;
 /* end snapshot sbb-checkbox should render unchecked Shadow DOM */
@@ -54,26 +56,28 @@ snapshots["sbb-checkbox should render checked DOM"] =
 
 snapshots["sbb-checkbox should render checked Shadow DOM"] = 
 `<span class="sbb-checkbox-wrapper">
-  <span class="sbb-checkbox__inner">
-    <span class="sbb-checkbox__aligner">
-      <sbb-visual-checkbox checked="">
-      </sbb-visual-checkbox>
-    </span>
-    <span class="sbb-checkbox__label">
-      <slot>
-      </slot>
-      <span class="sbb-checkbox__label--icon">
-        <slot name="icon">
+  <span class="sbb-checkbox">
+    <span class="sbb-checkbox__inner">
+      <span class="sbb-checkbox__aligner">
+        <sbb-visual-checkbox checked="">
+        </sbb-visual-checkbox>
+      </span>
+      <span class="sbb-checkbox__label">
+        <slot>
+        </slot>
+        <span class="sbb-checkbox__label--icon">
+          <slot name="icon">
+          </slot>
+        </span>
+        <slot name="suffix">
         </slot>
       </span>
-      <slot name="suffix">
-      </slot>
     </span>
+    <slot name="subtext">
+    </slot>
+    <sbb-screenreader-only class="sbb-checkbox__expanded-label">
+    </sbb-screenreader-only>
   </span>
-  <slot name="subtext">
-  </slot>
-  <sbb-screenreader-only class="sbb-checkbox__expanded-label">
-  </sbb-screenreader-only>
 </span>
 `;
 /* end snapshot sbb-checkbox should render checked Shadow DOM */
@@ -93,26 +97,28 @@ snapshots["sbb-checkbox should render indeterminate DOM"] =
 
 snapshots["sbb-checkbox should render indeterminate Shadow DOM"] = 
 `<span class="sbb-checkbox-wrapper">
-  <span class="sbb-checkbox__inner">
-    <span class="sbb-checkbox__aligner">
-      <sbb-visual-checkbox indeterminate="">
-      </sbb-visual-checkbox>
-    </span>
-    <span class="sbb-checkbox__label">
-      <slot>
-      </slot>
-      <span class="sbb-checkbox__label--icon">
-        <slot name="icon">
+  <span class="sbb-checkbox">
+    <span class="sbb-checkbox__inner">
+      <span class="sbb-checkbox__aligner">
+        <sbb-visual-checkbox indeterminate="">
+        </sbb-visual-checkbox>
+      </span>
+      <span class="sbb-checkbox__label">
+        <slot>
+        </slot>
+        <span class="sbb-checkbox__label--icon">
+          <slot name="icon">
+          </slot>
+        </span>
+        <slot name="suffix">
         </slot>
       </span>
-      <slot name="suffix">
-      </slot>
     </span>
+    <slot name="subtext">
+    </slot>
+    <sbb-screenreader-only class="sbb-checkbox__expanded-label">
+    </sbb-screenreader-only>
   </span>
-  <slot name="subtext">
-  </slot>
-  <sbb-screenreader-only class="sbb-checkbox__expanded-label">
-  </sbb-screenreader-only>
 </span>
 `;
 /* end snapshot sbb-checkbox should render indeterminate Shadow DOM */
@@ -132,26 +138,28 @@ snapshots["sbb-checkbox should render unchecked disabled DOM"] =
 
 snapshots["sbb-checkbox should render unchecked disabled Shadow DOM"] = 
 `<span class="sbb-checkbox-wrapper">
-  <span class="sbb-checkbox__inner">
-    <span class="sbb-checkbox__aligner">
-      <sbb-visual-checkbox disabled="">
-      </sbb-visual-checkbox>
-    </span>
-    <span class="sbb-checkbox__label">
-      <slot>
-      </slot>
-      <span class="sbb-checkbox__label--icon">
-        <slot name="icon">
+  <span class="sbb-checkbox">
+    <span class="sbb-checkbox__inner">
+      <span class="sbb-checkbox__aligner">
+        <sbb-visual-checkbox disabled="">
+        </sbb-visual-checkbox>
+      </span>
+      <span class="sbb-checkbox__label">
+        <slot>
+        </slot>
+        <span class="sbb-checkbox__label--icon">
+          <slot name="icon">
+          </slot>
+        </span>
+        <slot name="suffix">
         </slot>
       </span>
-      <slot name="suffix">
-      </slot>
     </span>
+    <slot name="subtext">
+    </slot>
+    <sbb-screenreader-only class="sbb-checkbox__expanded-label">
+    </sbb-screenreader-only>
   </span>
-  <slot name="subtext">
-  </slot>
-  <sbb-screenreader-only class="sbb-checkbox__expanded-label">
-  </sbb-screenreader-only>
 </span>
 `;
 /* end snapshot sbb-checkbox should render unchecked disabled Shadow DOM */

@@ -200,24 +200,26 @@ export class SbbCheckboxElement extends UpdateScheduler(
   protected override render(): TemplateResult {
     return html`
       <span class="sbb-checkbox-wrapper">
-        <span class="sbb-checkbox__inner">
-          <span class="sbb-checkbox__aligner">
-            <sbb-visual-checkbox
-              ?checked=${this.checked}
-              ?indeterminate=${this.indeterminate}
-              ?disabled=${this.disabled || this.formDisabled}
-            ></sbb-visual-checkbox>
+        <span class="sbb-checkbox">
+          <span class="sbb-checkbox__inner">
+            <span class="sbb-checkbox__aligner">
+              <sbb-visual-checkbox
+                ?checked=${this.checked}
+                ?indeterminate=${this.indeterminate}
+                ?disabled=${this.disabled || this.formDisabled}
+              ></sbb-visual-checkbox>
+            </span>
+            <span class="sbb-checkbox__label">
+              <slot></slot>
+              <span class="sbb-checkbox__label--icon">${this.renderIconSlot()}</span>
+              <slot name="suffix"></slot>
+            </span>
           </span>
-          <span class="sbb-checkbox__label">
-            <slot></slot>
-            <span class="sbb-checkbox__label--icon">${this.renderIconSlot()}</span>
-            <slot name="suffix"></slot>
-          </span>
+          <slot name="subtext"></slot>
+          <sbb-screenreader-only class="sbb-checkbox__expanded-label">
+            ${this._selectionPanelExpandedLabel}
+          </sbb-screenreader-only>
         </span>
-        <slot name="subtext"></slot>
-        <sbb-screenreader-only class="sbb-checkbox__expanded-label">
-          ${this._selectionPanelExpandedLabel}
-        </sbb-screenreader-only>
       </span>
     `;
   }
