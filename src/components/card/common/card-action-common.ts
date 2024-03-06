@@ -3,8 +3,12 @@ import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import { IS_FOCUSABLE_QUERY } from '../../core/a11y';
-import type { AbstractConstructor, SbbActionBaseElement } from '../../core/common-behaviors';
-import { setAttribute, toggleDatasetEntry } from '../../core/dom';
+import {
+  type AbstractConstructor,
+  hostAttributes,
+  type SbbActionBaseElement,
+} from '../../core/common-behaviors';
+import { toggleDatasetEntry } from '../../core/dom';
 import { AgnosticMutationObserver } from '../../core/observers';
 import type { SbbCardElement } from '../card';
 
@@ -20,6 +24,9 @@ export const SbbCardActionCommonElementMixin = <
 >(
   superClass: T,
 ): AbstractConstructor<SbbCardActionCommonElementMixinType> & T => {
+  @hostAttributes({
+    slot: 'action',
+  })
   abstract class SbbCardActionCommonElement
     extends superClass
     implements Partial<SbbCardActionCommonElementMixinType>
@@ -68,7 +75,6 @@ export const SbbCardActionCommonElementMixin = <
         toggleDatasetEntry(this._card, 'hasAction', true);
         toggleDatasetEntry(this._card, 'hasActiveAction', this.active);
         this._card.dataset.actionRole = this.getAttribute('role')!;
-        setAttribute(this, 'slot', 'action');
 
         this._checkForSlottedActions();
         this._cardMutationObserver.observe(this._card, {
