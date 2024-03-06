@@ -95,4 +95,20 @@ $intersector-overlapping: 1px;
 .sbb-sticky-bar__intersector {
   // In order to make the intersection observer work properly on windows the intersector needs to have a defined height
   height: $intersector-overlapping;
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: var(--sbb-sticky-bar-bottom-overlapping-height, 0);
+    background-color: transparent;
+    pointer-events: none;
+    transition: background-color var(--sbb-sticky-bar-animation-duration)
+      var(--sbb-sticky-bar-animation-easing);
+
+    :host([data-sticking]) & {
+      background-color: var(--sbb-sticky-bar-sticky-background-color);
+    }
+  }
 }
