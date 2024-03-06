@@ -88,7 +88,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  size: size.options[1],
+  size: size.options[0],
   checked: false,
   disabled: false,
   label: 'Label',
