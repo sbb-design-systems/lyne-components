@@ -12,6 +12,8 @@ import { toggleDatasetEntry } from '../../core/dom';
 import { AgnosticMutationObserver } from '../../core/observers';
 import type { SbbCardElement } from '../card';
 
+import '../../screenreader-only';
+
 import style from './card-action.scss?lit&inline';
 
 export declare class SbbCardActionCommonElementMixinType {
@@ -100,9 +102,9 @@ export const SbbCardActionCommonElementMixin = <
 
     protected override renderTemplate(): TemplateResult {
       return html`
-        <span class="sbb-card-action__label">
+        <sbb-screenreader-only>
           <slot></slot>
-        </span>
+        </sbb-screenreader-only>
       `;
     }
   }

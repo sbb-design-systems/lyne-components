@@ -34,16 +34,7 @@ describe('sbb-card-link', () => {
         Follow me
       </sbb-card-link>
     `);
-    expect(cardAction).shadowDom.to.be.equal(`
-      <a class="sbb-action-base sbb-card-link" href="https://github.com/lyne-design-system/lyne-components" target="_blank" rel="external noopener nofollow" role="presentation" tabindex="-1">
-        <span class="sbb-card-action__label">
-          <slot></slot>
-        </span>
-        <sbb-screenreader-only>
-          . Link target opens in a new window.
-        </sbb-screenreader-only>
-      </a>
-    `);
+    await expect(cardAction).shadowDom.to.be.equalSnapshot();
   });
 
   it('should correctly toggle active state', async () => {
