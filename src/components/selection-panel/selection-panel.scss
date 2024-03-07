@@ -75,11 +75,6 @@ $open-anim-opacity-to: 1;
   position: relative;
   width: 100%;
   background-color: var(--sbb-selection-panel-background);
-  transition: {
-    duration: var(--sbb-selection-panel-animation-duration);
-    timing-function: var(--sbb-animation-easing);
-    property: border-color;
-  }
 
   &::after {
     content: '';
@@ -89,6 +84,12 @@ $open-anim-opacity-to: 1;
     pointer-events: none;
     border: var(--sbb-selection-panel-border-width) solid var(--sbb-selection-panel-border-color);
     border-radius: var(--sbb-selection-panel-border-radius);
+
+    transition: {
+      duration: var(--sbb-selection-panel-animation-duration);
+      timing-function: var(--sbb-animation-easing);
+      property: border-color;
+    }
   }
 }
 
