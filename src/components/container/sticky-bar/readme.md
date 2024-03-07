@@ -29,10 +29,10 @@ Optionally the user can set the `color` property on the `sbb-sticky-bar` in orde
 
 ## CSS Properties
 
-| Name                                         | Default                              | Description                                                                                                                                                                                     |
-| -------------------------------------------- | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--sbb-sticky-bar-padding-block`             | `var(--sbb-spacing-responsive-xxxs)` | Block padding of the sticky bar.                                                                                                                                                                |
-| `--sbb-sticky-bar-bottom-overlapping-height` | `0px`                                | Define an additional area where the sticky bar overlaps the following content on the bottom. This area becomes visible when the sticky bar transitions from sticky to the normal document flow. |
+| Name                                         | Default                            | Description                                                                                                                                                                                     |
+| -------------------------------------------- | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--sbb-sticky-bar-padding-block`             | `var(--sbb-spacing-responsive-xs)` | Block padding of the sticky bar.                                                                                                                                                                |
+| `--sbb-sticky-bar-bottom-overlapping-height` | `0px`                              | Define an additional area where the sticky bar overlaps the following content on the bottom. This area becomes visible when the sticky bar transitions from sticky to the normal document flow. |
 
 ## Slots
 
