@@ -9,7 +9,7 @@ import style from './sticky-bar.scss?lit&inline';
 /**
  * A container that sticks to the bottom of the page if slotted into `sbb-container`.
  *
- * @cssprop [--sbb-sticky-bar-padding-block=var(--sbb-spacing-responsive-xxxs)] - Block padding of the sticky bar.
+ * @cssprop [--sbb-sticky-bar-padding-block=var(--sbb-spacing-responsive-xs)] - Block padding of the sticky bar.
  * @cssprop [--sbb-sticky-bar-bottom-overlapping-height=0px] - Define an additional
  * area where the sticky bar overlaps the following content on the bottom.
  * This area becomes visible when the sticky bar transitions from sticky to the normal document flow.

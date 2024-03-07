@@ -5,7 +5,7 @@ $intersector-overlapping: 1px;
 :host {
   @include sbb.box-sizing;
 
-  --sbb-sticky-bar-padding-block: var(--sbb-spacing-responsive-xxxs);
+  --sbb-sticky-bar-padding-block: var(--sbb-spacing-responsive-xs);
   --sbb-sticky-bar-animation-duration: var(--sbb-animation-duration-5x);
   --sbb-sticky-bar-animation-easing: var(--sbb-animation-easing);
 
@@ -71,7 +71,7 @@ $intersector-overlapping: 1px;
     clip-path: polygon(-50% -50%, 150% -50%, 150% 50%, -50% 50%);
 
     :host([data-sticking]) & {
-      @include sbb.shadow-level-5-hard;
+      @include sbb.shadow-level-9-soft;
 
       @include sbb.if-forced-colors {
         border-block-start: var(--sbb-border-width-1x) solid CanvasText;
