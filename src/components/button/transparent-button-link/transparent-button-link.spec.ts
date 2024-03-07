@@ -9,7 +9,11 @@ import './transparent-button-link';
 
 describe('sbb-transparent-button-link', () => {
   describe('renders a sbb-transparent-button-link without icon', async () => {
-    const root = await fixture(buttonLinkTestTemplate('sbb-transparent-button-link'));
+    let root: SbbTransparentButtonLinkElement;
+
+    beforeEach(async () => {
+      root = await fixture(buttonLinkTestTemplate('sbb-transparent-button-link'));
+    });
 
     it('Dom', async () => {
       await expect(root).dom.to.be.equalSnapshot();

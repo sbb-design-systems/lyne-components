@@ -9,7 +9,11 @@ import './tertiary-button-link';
 
 describe('sbb-tertiary-button-link', () => {
   describe('renders a sbb-tertiary-button-link without icon', async () => {
-    const root = await fixture(buttonLinkTestTemplate('sbb-tertiary-button-link'));
+    let root: SbbTertiaryButtonLinkElement;
+
+    beforeEach(async () => {
+      root = await fixture(buttonLinkTestTemplate('sbb-tertiary-button-link'));
+    });
 
     it('Dom', async () => {
       await expect(root).dom.to.be.equalSnapshot();

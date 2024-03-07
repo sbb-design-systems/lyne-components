@@ -9,7 +9,11 @@ import './button-link';
 
 describe('sbb-button-link', () => {
   describe('renders a sbb-button-link without icon', async () => {
-    const root = await fixture(buttonLinkTestTemplate('sbb-button-link'));
+    let root: SbbButtonLinkElement;
+
+    beforeEach(async () => {
+      root = await fixture(buttonLinkTestTemplate('sbb-button-link'));
+    });
 
     it('Dom', async () => {
       await expect(root).dom.to.be.equalSnapshot();
