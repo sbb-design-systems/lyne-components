@@ -11,6 +11,10 @@ import { hostAttributes } from '../core/common-behaviors';
 import { getSvgContent } from './icon-request';
 import style from './icon.scss?lit&inline';
 
+/**
+ * @cssprop [--sbb-icon-svg-width=auto] - Can be used to set a custom width.
+ * @cssprop [--sbb-icon-svg-height=auto] - Can be used to set a custom height.
+ */
 @hostAttributes({
   'data-namespace': SbbIconBase._defaultNamespace,
   'data-empty': '',

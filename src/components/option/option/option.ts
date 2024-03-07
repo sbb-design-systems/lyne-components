@@ -39,6 +39,8 @@ export type SbbOptionVariant = 'autocomplete' | 'select';
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
  * @event {CustomEvent<void>} optionSelectionChange - Emits when the option selection status changes.
  * @event {CustomEvent<void>} optionSelected - Emits when an option was selected by user.
+ * @cssprop [--sbb-option-icon-container-display=none] - Can be used to reserve space even
+ * when preserve-icon-space on autocomplete is not set or iconName is not set.
  */
 @hostAttributes({
   role: 'option',

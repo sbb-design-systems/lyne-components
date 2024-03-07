@@ -48,11 +48,6 @@ or call the `open()` method on the `sbb-navigation` component.
 </sbb-navigation>
 ```
 
-## Style
-
-The default `z-index` of the component is set to `1000`;
-to specify a custom stack order, the `z-index` can be changed by defining the CSS variable `--sbb-navigation-z-index`.
-
 ## Accessibility
 
 When a navigation action is marked to indicate the user is currently on that page, `aria-current="page"` should be set on that action.
@@ -83,6 +78,12 @@ Similarly, if a navigation action is marked to indicate a selected option (e.g.,
 | `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-navigation` is opened.                                      |                |
 | `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-navigation` begins the closing transition. Can be canceled. |                |
 | `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-navigation` is closed.                                      |                |
+
+## CSS Properties
+
+| Name                       | Default                      | Description                                                                                                                                                                                           |
+| -------------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--sbb-navigation-z-index` | `var(--sbb-overlay-z-index)` | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-z-index)` with a value of `1000`. |
 
 ## Slots
 

@@ -26,11 +26,6 @@ accepting its associated properties (`href`, `target`, `rel` and `download`).
 <sbb-menu-link href="#info" target="_blank">Link</sbb-menu-link>
 ```
 
-## Style
-
-For cases where smaller outer paddings are needed,
-you can set the css variable `--sbb-menu-action-outer-horizontal-padding` to your desired outer padding.
-
 <!-- Auto Generated Below -->
 
 ## Properties
@@ -44,6 +39,12 @@ you can set the css variable `--sbb-menu-action-outer-horizontal-padding` to you
 | `target`   | `target`    | public  | `LinkTargetType \| string \| undefined` |         | Where to display the linked URL.                                                                                                 |
 | `rel`      | `rel`       | public  | `string \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                                                                |
 | `download` | `download`  | public  | `boolean \| undefined`                  |         | Whether the browser will show the download dialog on click.                                                                      |
+
+## CSS Properties
+
+| Name                                         | Default                       | Description                               |
+| -------------------------------------------- | ----------------------------- | ----------------------------------------- |
+| `--sbb-menu-action-outer-horizontal-padding` | `var(--sbb-spacing-fixed-3x)` | Can be used to modify horizontal padding. |
 
 ## Slots
 

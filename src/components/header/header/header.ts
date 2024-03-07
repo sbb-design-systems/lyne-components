@@ -16,6 +16,8 @@ const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
  *
  * @slot - Use the unnamed slot to add actions or content to the header.
  * @slot logo - Slot used to render the logo on the right side (sbb-logo as default).
+ * @cssprop [--sbb-header-z-index=10] - Can be used to modify the z-index of the header.
+ * @cssprop [--sbb-header-height=zero-small:var(--sbb-spacing-fixed-14x);medium-ultra:var(--sbb-spacing-fixed-24x)] - Can be used to modify height of the header.
  */
 @customElement('sbb-header')
 export class SbbHeaderElement extends SlotChildObserver(LitElement) {

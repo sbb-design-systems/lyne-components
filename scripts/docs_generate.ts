@@ -128,7 +128,6 @@ const markdown: string = customElementsManifestToMarkdown(manifest, {
   omitDeclarations: ['exports'],
   omitSections: [
     'super-class',
-    'css-properties',
     'css-parts',
     'main-heading',
     'static-fields',

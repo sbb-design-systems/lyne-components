@@ -5,7 +5,6 @@ The `sbb-option` is a component which can be used to display items in components
 
 It is possible to provide a label via an unnamed slot; the component can optionally display a `sbb-icon`
 at the component start using the `iconName` property or via custom content using the `icon` slot.
-Icon space can be reserved even if the `iconName` property is not set by overriding the `--sbb-option-icon-container-display` variable.
 
 ```html
 <sbb-option>Option label</sbb-option>
@@ -79,6 +78,12 @@ If the label slot contains only a **text node**, it is possible to search for te
 | ----------------------- | ------------------- | ----------------------------------------------- | -------------- |
 | `optionSelectionChange` | `CustomEvent<void>` | Emits when the option selection status changes. |                |
 | `optionSelected`        | `CustomEvent<void>` | Emits when an option was selected by user.      |                |
+
+## CSS Properties
+
+| Name                                  | Default | Description                                                                                                   |
+| ------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------- |
+| `--sbb-option-icon-container-display` | `none`  | Can be used to reserve space even when preserve-icon-space on autocomplete is not set or iconName is not set. |
 
 ## Slots
 

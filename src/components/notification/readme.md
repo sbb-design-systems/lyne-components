@@ -98,6 +98,12 @@ This ensures that users who rely on screen readers are promptly informed of any 
 | `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-notification` begins the closing transition. |                |
 | `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-notification` is closed.                     |                |
 
+## CSS Properties
+
+| Name                        | Default | Description                                                                                                    |
+| --------------------------- | ------- | -------------------------------------------------------------------------------------------------------------- |
+| `--sbb-notification-margin` | `0`     | Can be used to modify the margin in order to get a smoother animation. See style section for more information. |
+
 ## Slots
 
 | Name    | Description                                                      |

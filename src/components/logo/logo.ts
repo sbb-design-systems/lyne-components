@@ -9,6 +9,8 @@ import style from './logo.scss?lit&inline';
 
 /**
  * It displays the SBB logo.
+ *
+ * @cssprop [--sbb-logo-height=auto] - Can be used to set the height of the logo.
  */
 @customElement('sbb-logo')
 export class SbbLogoElement extends SbbNegativeMixin(LitElement) {

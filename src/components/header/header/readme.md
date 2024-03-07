@@ -22,13 +22,9 @@ and it can contain a logo, which by default is the [sbb-logo](/docs/components-s
 
 Setting the `expanded` property will cause the `sbb-header` component to take up the full width of the page.
 
-The height of the header can be overridden by re-defining the css variable `--sbb-header-height`.
 To avoid that tabbed/focused elements get hidden behind the header,
 it's recommended to set on the `<html>` tag the CSS property `scroll-padding-top` to `var(--sbb-header-height)` or to a greater value.
 With this, it's ensured that content will be visible all the time.
-
-The default `z-index` of the component is set to `10`; to specify a custom stack order, the `z-index` can
-be changed by defining the CSS variable `--sbb-header-z-index`.
 
 ### Positioning and visibility
 
@@ -111,6 +107,13 @@ so they were wrapped into a `style` tag and added to the Storybook's configurati
 | `expanded`     | `expanded`       | public  | `boolean`                           | `false` | Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size. |
 | `scrollOrigin` | `scroll-origin`  | public  | `string \| HTMLElement \| Document` |         | The element's id or the element on which the scroll listener is attached.                                            |
 | `hideOnScroll` | `hide-on-scroll` | public  | `boolean`                           | `false` | Whether the header should hide and show on scroll.                                                                   |
+
+## CSS Properties
+
+| Name                   | Default                                                                             | Description                                      |
+| ---------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------ |
+| `--sbb-header-z-index` | `10`                                                                                | Can be used to modify the z-index of the header. |
+| `--sbb-header-height`  | `zero-small:var(--sbb-spacing-fixed-14x);medium-ultra:var(--sbb-spacing-fixed-24x)` | Can be used to modify height of the header.      |
 
 ## Slots
 

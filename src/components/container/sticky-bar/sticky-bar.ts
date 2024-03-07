@@ -11,6 +11,7 @@ import style from './sticky-bar.scss?lit&inline';
  * A container that sticks to the bottom of the page if slotted into `sbb-container`.
  *
  * @slot - Use the unnamed slot to add content to the sticky bar.
+ * @cssprop [--sbb-sticky-bar-padding-block=var(--sbb-spacing-responsive-xxxs)] - Block padding of the sticky bar.
  */
 @hostAttributes({
   slot: 'sticky-bar',
