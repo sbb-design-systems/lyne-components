@@ -4,8 +4,6 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
-$button-selectors: 'sbb-button, sbb-button-link, sbb-button-static, sbb-secondary-button, sbb-secondary-button-link, sbb-secondary-button-static, sbb-tertiary-button, sbb-tertiary-button-link, sbb-tertiary-button-static, sbb-transparent-button, sbb-transparent-button-link, sbb-transparent-button-static';
-
 :host {
   --sbb-navigation-section-display: none;
   --sbb-navigation-section-column: 1 / 5;
@@ -95,7 +93,7 @@ $button-selectors: 'sbb-button, sbb-button-link, sbb-button-static, sbb-secondar
 }
 
 // Always place the sbb-button on a new row
-::slotted(:is(#{$button-selectors})) {
+::slotted(:is(#{sbb.$button-selectors})) {
   grid-column-start: 1;
 }
 

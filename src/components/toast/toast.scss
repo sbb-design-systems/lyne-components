@@ -4,8 +4,6 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
-$button-selectors: 'sbb-button, sbb-button-link, sbb-button-static, sbb-secondary-button, sbb-secondary-button-link, sbb-secondary-button-static, sbb-tertiary-button, sbb-tertiary-button-link, sbb-tertiary-button-static, sbb-transparent-button, sbb-transparent-button-link, sbb-transparent-button-static';
-
 :host {
   --sbb-toast-max-width: #{sbb.px-to-rem-build(400)};
   --sbb-toast-animation-duration: var(--sbb-animation-duration-6x);
@@ -132,7 +130,7 @@ $button-selectors: 'sbb-button, sbb-button-link, sbb-button-static, sbb-secondar
   }
 }
 
-::slotted(:is(#{$button-selectors})),
+::slotted(:is(#{sbb.$button-selectors})),
 .sbb-toast__action-button {
   margin-inline: var(--sbb-spacing-fixed-2x);
   position: absolute;

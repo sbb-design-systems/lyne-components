@@ -32,6 +32,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
   --sbb-button-padding-inline: var(--sbb-spacing-fixed-8x);
   --sbb-button-gap: var(--sbb-spacing-fixed-2x);
   --sbb-button-inset: 0;
+  --sbb-button-box-shadow: transparent;
 
   @include sbb.mq($from: medium) {
     --sbb-button-padding-inline: var(--sbb-spacing-fixed-10x);
@@ -135,6 +136,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
     transition-duration: var(--sbb-button-transition-duration);
     transition-timing-function: var(--sbb-button-transition-easing-function);
     transition-property: inset, background-color, border-color, box-shadow;
+    box-shadow: var(--sbb-button-box-shadow);
 
     :host([disabled]) & {
       background-color: var(--sbb-button-color-disabled-background);
@@ -164,30 +166,6 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
       color: var(--sbb-button-color-active-text);
       background-color: var(--sbb-button-color-active-background);
       border-color: var(--sbb-button-color-active-border);
-    }
-
-    // Only apply shadow definitions where it is really used.
-    :host(
-        :is(
-            sbb-button,
-            sbb-secondary-button:not([negative]),
-            sbb-tertiary-button,
-            sbb-button-link,
-            sbb-secondary-button-link:not([negative]),
-            sbb-tertiary-button-link,
-            sbb-button-static,
-            sbb-secondary-button-static:not([negative]),
-            sbb-tertiary-button-static
-          ):not([disabled], :active, [data-active])
-      )
-      & {
-      box-shadow:
-        var(--sbb-shadow-elevation-level-3-shadow-2-offset-x) var(--sbb-button-shadow-2-offset-y)
-          var(--sbb-button-shadow-2-blur) var(--sbb-shadow-elevation-level-3-shadow-2-spread)
-          var(--sbb-button-shadow-2-color),
-        var(--sbb-shadow-elevation-level-3-shadow-1-offset-x) var(--sbb-button-shadow-1-offset-y)
-          var(--sbb-button-shadow-1-blur) var(--sbb-shadow-elevation-level-3-shadow-1-spread)
-          var(--sbb-button-shadow-1-color);
     }
   }
 

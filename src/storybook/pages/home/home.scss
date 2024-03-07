@@ -1,7 +1,6 @@
 @use '../../../components/core/styles' as sbb;
 
 $timetable-margin-block: 7vh;
-$button-selectors: 'sbb-button, sbb-button-link, sbb-button-static, sbb-secondary-button, sbb-secondary-button-link, sbb-secondary-button-static, sbb-tertiary-button, sbb-tertiary-button-link, sbb-tertiary-button-static, sbb-transparent-button, sbb-transparent-button-link, sbb-transparent-button-static';
 
 section sbb-title {
   margin: 0;
@@ -71,7 +70,7 @@ section sbb-title {
     margin-block-start: var(--sbb-spacing-fixed-2x);
   }
 
-  #{$button-selectors} {
+  #{sbb.$button-selectors} {
     width: fit-content;
   }
 
@@ -88,7 +87,7 @@ section sbb-title {
   width: 100%;
   column-gap: var(--sbb-spacing-responsive-xxxs);
 
-  #{$button-selectors} {
+  #{sbb.$button-selectors} {
     align-self: start;
     margin-block-start: 1rem;
   }
@@ -100,7 +99,7 @@ section sbb-title {
       flex-grow: 1;
     }
 
-    #{$button-selectors} {
+    #{sbb.$button-selectors} {
       align-self: end;
     }
   }

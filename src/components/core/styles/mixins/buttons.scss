@@ -3,6 +3,8 @@
 @use '../core/functions.scss';
 @use './typo.scss';
 
+$button-selectors: 'sbb-button, sbb-button-link, sbb-button-static, sbb-secondary-button, sbb-secondary-button-link, sbb-secondary-button-static, sbb-tertiary-button, sbb-tertiary-button-link, sbb-tertiary-button-static, sbb-transparent-button, sbb-transparent-button-link, sbb-transparent-button-static';
+
 // ----------------------------------------------------------------------------------------------------
 // Buttons Mixins
 // ----------------------------------------------------------------------------------------------------
