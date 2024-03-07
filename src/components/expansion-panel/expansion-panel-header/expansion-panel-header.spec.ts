@@ -16,7 +16,7 @@ describe('sbb-expansion-panel-header', () => {
 
     expect(root).dom.to.be.equal(
       `
-        <sbb-expansion-panel-header slot='header' dir="ltr" role="button" slot="header" tabindex="0" data-slot-names="unnamed">
+        <sbb-expansion-panel-header slot='header' dir="ltr" role="button" slot="header" tabindex="0" data-slot-names="unnamed" data-action data-button>
           Header
         </sbb-expansion-panel-header>
       `,
@@ -40,6 +40,8 @@ describe('sbb-expansion-panel-header', () => {
           role="button"
           slot="header"
           tabindex="0"
+          data-action
+          data-button
           data-icon
           data-slot-names="unnamed"
         >
@@ -62,12 +64,12 @@ describe('sbb-expansion-panel-header', () => {
 
     expect(root).dom.to.be.equal(
       `
-        <sbb-expansion-panel-header slot='header' dir="ltr" role="button" slot="header" tabindex="0" data-icon data-slot-names="icon unnamed">
-          <sbb-icon 
-            aria-hidden="true" 
-            data-namespace="default" 
-            role="img" 
-            slot='icon' 
+        <sbb-expansion-panel-header slot='header' dir="ltr" role="button" slot="header" tabindex="0" data-icon data-slot-names="icon unnamed" data-action data-button>
+          <sbb-icon
+            aria-hidden="true"
+            data-namespace="default"
+            role="img"
+            slot='icon'
             name='pie-medium'></sbb-icon>
           Header
         </sbb-expansion-panel-header>

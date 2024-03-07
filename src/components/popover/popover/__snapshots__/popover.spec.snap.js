@@ -11,6 +11,9 @@ snapshots["sbb-popover renders"] =
       <span class="sbb-popover__close">
         <sbb-secondary-button
           aria-label="Close note"
+          data-action=""
+          data-button=""
+          data-sbb-button=""
           dir="ltr"
           icon-name="cross-small"
           role="button"

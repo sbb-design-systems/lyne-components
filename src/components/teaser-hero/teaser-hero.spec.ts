@@ -52,7 +52,7 @@ describe('sbb-teaser-hero', () => {
 
     expect(root).dom.to.be.equal(
       `
-      <sbb-teaser-hero aria-label="label" href="https://www.sbb.ch" role="link" tabindex="0" dir="ltr">
+      <sbb-teaser-hero aria-label="label" href="https://www.sbb.ch" role="link" tabindex="0" dir="ltr" data-action data-link>
           Break out and explore castles and palaces.
           <span slot="link-content">Find out more</span>
           <sbb-image slot="image" image-src="${sampleImages[1]}" alt="SBB CFF FFS Employee"></sbb-image>

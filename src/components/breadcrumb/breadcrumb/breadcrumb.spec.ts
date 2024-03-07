@@ -18,6 +18,8 @@ describe('sbb-breadcrumb', () => {
       <sbb-breadcrumb
         dir="ltr"
         role="link"
+        data-action
+        data-link
         tabindex="0"
         href="https://example.com/test"
         target="_blank"
@@ -41,6 +43,8 @@ describe('sbb-breadcrumb', () => {
         dir="ltr"
         role="link"
         tabindex="0"
+        data-action
+        data-link
         href="/"
         icon-name="house-small"></sbb-breadcrumb>
     `);
@@ -58,6 +62,8 @@ describe('sbb-breadcrumb', () => {
       <sbb-breadcrumb
         dir="ltr"
         role="link"
+        data-action
+        data-link
         tabindex="0"
         href="/"
         icon-name="house-small">

@@ -9,7 +9,7 @@ describe('sbb-navigation-link', () => {
     );
 
     expect(root).dom.to.be.equal(`
-      <sbb-navigation-link href='#' target='_blank' size="l" role="link" tabindex="0" dir="ltr">
+      <sbb-navigation-link href='#' target='_blank' size="l" role="link" tabindex="0" dir="ltr" data-action data-link>
       </sbb-navigation-link>
     `);
     expect(root).shadowDom.to.be.equal(`

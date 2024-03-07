@@ -29,6 +29,8 @@ describe('sbb-header-link', () => {
        role="link"
        tabindex="0"
        target="_blank"
+       data-action
+       data-link
        >
         Action
       </sbb-header-link>

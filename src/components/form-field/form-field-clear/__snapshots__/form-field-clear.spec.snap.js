@@ -25,6 +25,8 @@ snapshots["sbb-form-field-clear renders Formfield Dom"] =
   >
   <sbb-form-field-clear
     aria-label="Clear input value"
+    data-action=""
+    data-button=""
     dir="ltr"
     role="button"
     slot="suffix"

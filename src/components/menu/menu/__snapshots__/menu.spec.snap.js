@@ -11,6 +11,8 @@ snapshots["sbb-menu renders"] =
     Profile
   </sbb-block-link>
   <sbb-menu-button
+    data-action=""
+    data-button=""
     dir="ltr"
     icon-name="tick-small"
     role="button"
@@ -21,6 +23,8 @@ snapshots["sbb-menu renders"] =
   <sbb-menu-button
     amount="1"
     aria-disabled="true"
+    data-action=""
+    data-button=""
     dir="ltr"
     disabled=""
     icon-name="pen-small"
@@ -30,6 +34,8 @@ snapshots["sbb-menu renders"] =
   </sbb-menu-button>
   <sbb-menu-button
     amount="2"
+    data-action=""
+    data-button=""
     dir="ltr"
     icon-name="swisspass-small"
     role="button"
@@ -40,6 +46,8 @@ snapshots["sbb-menu renders"] =
   <sbb-divider>
   </sbb-divider>
   <sbb-menu-button
+    data-action=""
+    data-button=""
     dir="ltr"
     icon-name="cross-small"
     role="button"

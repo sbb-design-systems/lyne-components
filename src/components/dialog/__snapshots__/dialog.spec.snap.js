@@ -23,6 +23,9 @@ snapshots["sbb-dialog renders"] =
         <sbb-secondary-button
           aria-label="Close secondary window"
           class="sbb-dialog__close"
+          data-action=""
+          data-button=""
+          data-sbb-button=""
           dir="ltr"
           icon-name="cross-small"
           role="button"

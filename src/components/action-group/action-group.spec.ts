@@ -54,8 +54,8 @@ describe('sbb-action-group', () => {
             icon-name="chevron-small-left-small"
             href="https://github.com/lyne-design-system/lyne-components"
           >
-            Link
-          </sbb-block-link>
+            Link </sbb-block-link
+          >˙
         </sbb-action-group>
       `)) as SbbActionGroupElement;
       expect(assertButtons(root, (b) => b.size === 'l')).to.be.ok;

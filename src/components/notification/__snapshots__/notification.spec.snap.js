@@ -37,6 +37,9 @@ snapshots["sbb-notification renders"] =
       <sbb-secondary-button
         aria-label="Close message"
         class="sbb-notification__close"
+        data-action=""
+        data-button=""
+        data-sbb-button=""
         dir="ltr"
         icon-name="cross-small"
         role="button"
@@ -87,6 +90,9 @@ snapshots["sbb-notification renders with a title"] =
       <sbb-secondary-button
         aria-label="Close message"
         class="sbb-notification__close"
+        data-action=""
+        data-button=""
+        data-sbb-button=""
         dir="ltr"
         icon-name="cross-small"
         role="button"
@@ -136,6 +142,9 @@ snapshots["sbb-notification renders with a slotted title"] =
       <sbb-secondary-button
         aria-label="Close message"
         class="sbb-notification__close"
+        data-action=""
+        data-button=""
+        data-sbb-button=""
         dir="ltr"
         icon-name="cross-small"
         role="button"

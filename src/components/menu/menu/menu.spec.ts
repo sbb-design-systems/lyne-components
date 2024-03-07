@@ -51,16 +51,16 @@ describe('sbb-menu', () => {
       `
     <sbb-menu data-state="closed" id="sbb-menu-1" trigger="menu-trigger">
 
-      <sbb-menu-button dir="ltr" icon-name="tick-small" role="button" slot="li-0" tabindex="0">
+      <sbb-menu-button dir="ltr" icon-name="tick-small" role="button" slot="li-0" tabindex="0" data-action data-button>
         View
       </sbb-menu-button>
-      <sbb-menu-button aria-disabled="true" dir="ltr" amount="1" disabled icon-name="pen-small" role="button" slot="li-1">
+      <sbb-menu-button aria-disabled="true" dir="ltr" amount="1" disabled icon-name="pen-small" role="button" data-action data-button slot="li-1">
         Edit
       </sbb-menu-button>
-      <sbb-menu-button dir="ltr" amount="2" icon-name="swisspass-small" role="button" slot="li-2" tabindex="0">
+      <sbb-menu-button dir="ltr" amount="2" icon-name="swisspass-small" role="button" slot="li-2" tabindex="0" data-action data-button>
         Details
       </sbb-menu-button>
-      <sbb-menu-button dir="ltr" icon-name="cross-small" role="button" slot="li-3" tabindex="0">
+      <sbb-menu-button dir="ltr" icon-name="cross-small" role="button" slot="li-3" tabindex="0" data-action data-button>
         Cancel
       </sbb-menu-button>
     </sbb-menu>

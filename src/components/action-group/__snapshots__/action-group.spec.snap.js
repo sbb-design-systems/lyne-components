@@ -10,6 +10,9 @@ snapshots["sbb-action-group renders renders - Dom"] =
   orientation="horizontal"
 >
   <sbb-secondary-button
+    data-action=""
+    data-button=""
+    data-sbb-button=""
     data-slot-names="unnamed"
     dir="ltr"
     role="button"
@@ -19,6 +22,9 @@ snapshots["sbb-action-group renders renders - Dom"] =
     Button
   </sbb-secondary-button>
   <sbb-block-link
+    data-action=""
+    data-link=""
+    data-sbb-link=""
     data-slot-names="unnamed"
     dir="ltr"
     href="https://github.com/lyne-design-system/lyne-components"

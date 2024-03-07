@@ -46,6 +46,9 @@ describe('sbb-navigation', () => {
                 role="button"
                 sbb-navigation-close=""
                 size="m"
+                data-action
+                data-button
+                data-sbb-button
                 tabindex="0"
                 type="button">
               </sbb-transparent-button>

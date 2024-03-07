@@ -10,6 +10,9 @@ snapshots["sbb-map-container renders the container with button"] =
     </slot>
     <sbb-tertiary-button
       class="sbb-map-container__sidebar-button"
+      data-action=""
+      data-button=""
+      data-sbb-button=""
       data-slot-names="unnamed"
       dir="ltr"
       icon-name="location-pin-map-small"

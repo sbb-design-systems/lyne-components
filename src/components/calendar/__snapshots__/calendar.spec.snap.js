@@ -6,6 +6,9 @@ snapshots["sbb-calendar renders"] =
   <div class="sbb-calendar__controls">
     <sbb-secondary-button
       aria-label="Change to the previous month"
+      data-action=""
+      data-button=""
+      data-sbb-button=""
       dir="ltr"
       icon-name="chevron-small-left-small"
       id="sbb-calendar__controls-previous"
@@ -39,6 +42,9 @@ snapshots["sbb-calendar renders"] =
     </div>
     <sbb-secondary-button
       aria-label="Change to the next month"
+      data-action=""
+      data-button=""
+      data-sbb-button=""
       dir="ltr"
       icon-name="chevron-small-right-small"
       id="sbb-calendar__controls-next"

@@ -46,6 +46,9 @@ snapshots["sbb-alert should render default properties"] =
         <sbb-transparent-button
           aria-label="Close message"
           class="sbb-alert__close-button"
+          data-action=""
+          data-button=""
+          data-sbb-button=""
           dir="ltr"
           icon-name="cross-small"
           negative=""
@@ -95,6 +98,9 @@ snapshots["sbb-alert should render customized properties"] =
         </p>
         <sbb-link
           aria-label="label"
+          data-action=""
+          data-link=""
+          data-sbb-link=""
           data-slot-names="unnamed"
           dir="ltr"
           href="https://www.sbb.ch"
@@ -120,6 +126,9 @@ snapshots["sbb-alert should render customized properties"] =
         <sbb-transparent-button
           aria-label="Close message"
           class="sbb-alert__close-button"
+          data-action=""
+          data-button=""
+          data-sbb-button=""
           dir="ltr"
           icon-name="cross-small"
           negative=""

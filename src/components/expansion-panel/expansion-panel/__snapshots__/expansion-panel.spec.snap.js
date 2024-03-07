@@ -6,6 +6,8 @@ snapshots["sbb-expansion-panel renders Dom"] =
   <sbb-expansion-panel-header
     aria-controls="sbb-expansion-panel-content-1"
     aria-expanded="false"
+    data-action=""
+    data-button=""
     data-slot-names="unnamed"
     dir="ltr"
     id="sbb-expansion-panel-header-1"
@@ -65,6 +67,8 @@ snapshots["sbb-expansion-panel renders with level set Dom"] =
   <sbb-expansion-panel-header
     aria-controls="sbb-expansion-panel-content-4"
     aria-expanded="false"
+    data-action=""
+    data-button=""
     data-slot-names="unnamed"
     dir="ltr"
     id="sbb-expansion-panel-header-4"

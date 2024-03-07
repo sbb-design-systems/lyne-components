@@ -3,6 +3,9 @@ export const snapshots = {};
 
 snapshots["sbb-link renders - DOM"] = 
 `<sbb-link
+  data-action=""
+  data-link=""
+  data-sbb-link=""
   data-slot-names="unnamed"
   dir="ltr"
   href="https://sbb.ch"

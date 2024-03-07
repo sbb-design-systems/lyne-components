@@ -4,6 +4,9 @@ export const snapshots = {};
 snapshots["Dom"] = 
 `<sbb-tertiary-button
   aria-disabled="true"
+  data-action=""
+  data-button=""
+  data-sbb-button=""
   data-slot-names="unnamed"
   dir="ltr"
   disabled=""
@@ -36,6 +39,9 @@ snapshots["ShadowDom"] =
 
 snapshots["sbb-tertiary-button renders a sbb-tertiary-button with slotted icon Dom"] = 
 `<sbb-tertiary-button
+  data-action=""
+  data-button=""
+  data-sbb-button=""
   data-slot-names="icon unnamed"
   dir="ltr"
   role="button"

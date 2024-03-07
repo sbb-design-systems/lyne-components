@@ -21,7 +21,7 @@ describe('sbb-menu-link', () => {
     await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(`
-      <sbb-menu-link amount="123456" icon-name="menu-small" href="https://github.com/lyne-design-system/lyne-components" target="_blank" role="link" tabindex="0" dir="ltr">
+      <sbb-menu-link amount="123456" icon-name="menu-small" href="https://github.com/lyne-design-system/lyne-components" target="_blank" role="link" tabindex="0" dir="ltr" data-action data-link>
         <span>Action</span>
       </sbb-menu-link>
     `);

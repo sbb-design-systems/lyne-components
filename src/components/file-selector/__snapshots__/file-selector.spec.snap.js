@@ -6,6 +6,8 @@ snapshots["sbb-file-selector renders default"] =
   <div class="sbb-file-selector__input-container">
     <label>
       <sbb-secondary-button-static
+        data-action=""
+        data-sbb-button=""
         data-slot-names="unnamed"
         dir="ltr"
         icon-name="folder-open-small"
@@ -53,6 +55,8 @@ snapshots["sbb-file-selector renders with dropzone area"] =
         </span>
         <span class="sbb-file-selector__dropzone-area--button">
           <sbb-secondary-button-static
+            data-action=""
+            data-sbb-button=""
             data-slot-names="unnamed"
             dir="ltr"
             size="m"

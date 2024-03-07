@@ -13,7 +13,7 @@ describe('sbb-popover-trigger', () => {
     await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(
-      `<sbb-popover-trigger role="button" tabindex="0" dir="ltr"></sbb-popover-trigger>`,
+      `<sbb-popover-trigger role="button" tabindex="0" dir="ltr" data-action data-button></sbb-popover-trigger>`,
     );
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
@@ -24,7 +24,7 @@ describe('sbb-popover-trigger', () => {
     await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(
-      `<sbb-popover-trigger role="button" tabindex="0" dir="ltr">
+      `<sbb-popover-trigger role="button" tabindex="0" dir="ltr" data-action data-button>
         Custom Content
       </sbb-popover-trigger>`,
     );

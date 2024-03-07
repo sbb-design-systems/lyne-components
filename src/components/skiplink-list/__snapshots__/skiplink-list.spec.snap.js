@@ -44,6 +44,9 @@ snapshots["sbb-skiplink-list should render named slots if data-ssr-child-count a
 snapshots["sbb-skiplink-list renders Dom"] = 
 `<sbb-skiplink-list data-slot-names="li-0 li-1 li-2">
   <sbb-block-link
+    data-action=""
+    data-link=""
+    data-sbb-link=""
     data-slot-names="unnamed"
     dir="ltr"
     href="#"
@@ -57,6 +60,9 @@ snapshots["sbb-skiplink-list renders Dom"] =
     Link 1
   </sbb-block-link>
   <sbb-block-link
+    data-action=""
+    data-link=""
+    data-sbb-link=""
     data-slot-names="unnamed"
     dir="ltr"
     href="#"
@@ -70,6 +76,9 @@ snapshots["sbb-skiplink-list renders Dom"] =
     Link 2
   </sbb-block-link>
   <sbb-block-link
+    data-action=""
+    data-link=""
+    data-sbb-link=""
     data-slot-names="unnamed"
     dir="ltr"
     href="#"
@@ -133,6 +142,9 @@ snapshots["sbb-skiplink-list renders with title Dom"] =
   title-level="3"
 >
   <sbb-block-link
+    data-action=""
+    data-link=""
+    data-sbb-link=""
     data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch"
@@ -146,6 +158,9 @@ snapshots["sbb-skiplink-list renders with title Dom"] =
     Link 1
   </sbb-block-link>
   <sbb-block-link
+    data-action=""
+    data-link=""
+    data-sbb-link=""
     data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch"
@@ -159,6 +174,9 @@ snapshots["sbb-skiplink-list renders with title Dom"] =
     Link 2
   </sbb-block-link>
   <sbb-block-link
+    data-action=""
+    data-link=""
+    data-sbb-link=""
     data-slot-names="unnamed"
     dir="ltr"
     href="https://www.sbb.ch"

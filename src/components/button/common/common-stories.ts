@@ -16,7 +16,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import { sbbSpread } from '../../core/dom';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
-  'background-color': context.args.negative ? '#484040' : 'var(--sbb-color-white-default)',
+  'background-color': context.args.negative ? '#484040' : 'var(--sbb-color-white)',
 });
 
 const focusStyle = (context: StoryContext): Record<string, string> =>

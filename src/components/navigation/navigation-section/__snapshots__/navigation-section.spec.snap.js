@@ -21,6 +21,9 @@ snapshots["sbb-navigation-section renders"] =
           <sbb-transparent-button
             aria-label="Go back"
             class="sbb-navigation-section__back"
+            data-action=""
+            data-button=""
+            data-sbb-button=""
             dir="ltr"
             icon-name="chevron-small-left-small"
             id="sbb-navigation-section-back-button"

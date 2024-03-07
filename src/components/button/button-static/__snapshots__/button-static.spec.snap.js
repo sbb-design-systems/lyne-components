@@ -3,6 +3,8 @@ export const snapshots = {};
 
 snapshots["Dom"] = 
 `<sbb-button-static
+  data-action=""
+  data-sbb-button=""
   data-slot-names="unnamed"
   dir="ltr"
   disabled=""
@@ -30,6 +32,8 @@ snapshots["ShadowDom"] =
 
 snapshots["sbb-button-static renders a sbb-button-static with slotted icon Dom"] = 
 `<sbb-button-static
+  data-action=""
+  data-sbb-button=""
   data-slot-names="icon unnamed"
   dir="ltr"
   size="l"

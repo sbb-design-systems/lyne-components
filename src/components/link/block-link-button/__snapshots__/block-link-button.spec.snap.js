@@ -3,6 +3,9 @@ export const snapshots = {};
 
 snapshots["sbb-block-link-button renders - DOM"] = 
 `<sbb-block-link-button
+  data-action=""
+  data-button=""
+  data-sbb-link=""
   data-slot-names="icon unnamed"
   dir="ltr"
   form="formid"

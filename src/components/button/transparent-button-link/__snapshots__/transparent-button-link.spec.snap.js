@@ -46,6 +46,9 @@ snapshots["ShadowDom"] =
 snapshots["sbb-transparent-button-link renders a disabled sbb-transparent-button-link with slotted icon Dom"] = 
 `<sbb-transparent-button-link
   aria-disabled="true"
+  data-action=""
+  data-link=""
+  data-sbb-button=""
   data-slot-names="icon unnamed"
   dir="ltr"
   disabled=""
@@ -147,6 +150,9 @@ snapshots["A11y tree Safari"] =
 
 snapshots["sbb-transparent-button-link renders a sbb-transparent-button-link without icon Dom"] = 
 `<sbb-transparent-button-link
+  data-action=""
+  data-link=""
+  data-sbb-button=""
   data-slot-names="unnamed"
   dir="ltr"
   download=""

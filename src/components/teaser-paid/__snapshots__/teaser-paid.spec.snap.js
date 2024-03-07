@@ -4,6 +4,8 @@ export const snapshots = {};
 snapshots["sbb-teaser-paid Dom"] = 
 `<sbb-teaser-paid
   aria-label="label"
+  data-action=""
+  data-link=""
   dir="ltr"
   href="https://www.sbb.ch"
   rel="external"
