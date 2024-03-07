@@ -17,6 +17,11 @@ import style from './map-container.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add content to the sidebar.
  * @slot map - Used for slotting the map.
+ * @cssprop [--sbb-map-container-margin-start=var(--sbb-header-height)] - The component
+ * comes along with a height calculation that subtracts the height of the header.
+ * For specific use cases, this variable can be used to modify the preset height.
+ * @cssprop [--sbb-map-container-sidebar-width=zero-large:400px;wide-ultra:480px] - Can be used
+ * to modify the width of the left sidebar.
  */
 @customElement('sbb-map-container')
 export class SbbMapContainerElement extends LitElement {

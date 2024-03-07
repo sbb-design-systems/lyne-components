@@ -8,6 +8,8 @@ import { SbbMenuActionCommonElementMixin } from '../common/menu-action-common';
  *
  * @slot - Use the unnamed slot to add content to the `sbb-menu-link`.
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a `sbb-icon` will be used.
+ * @cssprop [--sbb-menu-action-outer-horizontal-padding=var(--sbb-spacing-fixed-3x)] - Can be used
+ * to modify horizontal padding.
  */
 @customElement('sbb-menu-link')
 export class SbbMenuLinkElement extends SbbMenuActionCommonElementMixin(SbbLinkBaseElement) {}

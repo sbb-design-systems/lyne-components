@@ -14,11 +14,6 @@ and it can be set using the `title-content` property.
 </sbb-skiplink-list>
 ```
 
-## Style
-
-The default `z-index` of the component is set to `1000`;
-to specify a custom stack order, the `z-index` can be changed by defining the CSS variable `--sbb-skiplink-z-index`.
-
 <!-- Auto Generated Below -->
 
 ## Properties
@@ -27,6 +22,12 @@ to specify a custom stack order, the `z-index` can be changed by defining the CS
 | -------------- | --------------- | ------- | --------------------- | ------- | ------------------------------------------------ |
 | `titleContent` | `title-content` | public  | `string \| undefined` |         | The title text we want to place before the list. |
 | `titleLevel`   | `title-level`   | public  | `SbbTitleLevel`       | `'2'`   | The semantic level of the title, e.g. 2 = h2.    |
+
+## CSS Properties
+
+| Name                          | Default                      | Description                                                                                                                                                                                           |
+| ----------------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--sbb-skiplink-list-z-index` | `var(--sbb-overlay-z-index)` | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-z-index)` with a value of `1000`. |
 
 ## Slots
 

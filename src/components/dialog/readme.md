@@ -74,9 +74,6 @@ You can also set the property `titleBackButton` to display the back button in th
 
 It's possible to display the component in `negative` variant using the self-named property.
 
-The default `z-index` of the component is set to `1000`; to specify a custom stack order, the
-`z-index` can be changed by defining the CSS variable `--sbb-dialog-z-index`.
-
 <!-- Auto Generated Below -->
 
 ## Properties
@@ -109,6 +106,12 @@ The default `z-index` of the component is set to `1000`; to specify a custom sta
 | `willClose`         | `CustomEvent<void>` | Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled. |                |
 | `didClose`          | `CustomEvent<void>` | Emits whenever the `sbb-dialog` is closed.                                      |                |
 | `requestBackAction` | `CustomEvent<void>` | Emits whenever the back button is clicked.                                      |                |
+
+## CSS Properties
+
+| Name                   | Default                      | Description                                                                                                                                                                                           |
+| ---------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--sbb-dialog-z-index` | `var(--sbb-overlay-z-index)` | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-z-index)` with a value of `1000`. |
 
 ## Slots
 

@@ -31,6 +31,8 @@ const notificationTypes = new Map([
  * @event {CustomEvent<void>} didOpen - Emits whenever the `sbb-notification` is opened.
  * @event {CustomEvent<void>} willClose - Emits whenever the `sbb-notification` begins the closing transition.
  * @event {CustomEvent<void>} didClose - Emits whenever the `sbb-notification` is closed.
+ * @cssprop [--sbb-notification-margin=0] - Can be used to modify the margin in order to get a smoother animation.
+ * See style section for more information.
  */
 @customElement('sbb-notification')
 export class SbbNotificationElement extends LitElement {

@@ -51,9 +51,6 @@ You can also provide custom content inside the `sbb-menu`:
 If only `sbb-menu-button`/`sbb-menu-link` components are provided, the items are automatically grouped within a list
 using `<ul>` and `<li>` items, for more complex scenarios the grouping must be done manually.
 
-The default `z-index` of the component is set to `1000`;
-to specify a custom stack order, the `z-index` can be changed by defining the CSS variable `--sbb-menu-z-index`.
-
 ## Accessibility
 
 As the menu opens, the focus will automatically be set to the first focusable item within the component.
@@ -85,6 +82,12 @@ to identify which actions are active and which are not.
 | `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-menu` is opened.                                      |                |
 | `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-menu` begins the closing transition. Can be canceled. |                |
 | `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-menu` is closed.                                      |                |
+
+## CSS Properties
+
+| Name                 | Default                      | Description                                                                                                                                                                                           |
+| -------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--sbb-menu-z-index` | `var(--sbb-overlay-z-index)` | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-z-index)` with a value of `1000`. |
 
 ## Slots
 

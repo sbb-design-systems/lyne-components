@@ -66,8 +66,6 @@ if neither the trigger element nor the popover are on hover or if another action
 ## Style
 
 The `sbb-popover` automatically calculates where it should place itself, based on available space. Default is below and center.
-The default `z-index` of the component is set to `1000`;
-to specify a custom stack order, the `z-index` can be changed by defining the CSS variable `--sbb-popover-z-index`.
 
 ## Accessibility
 
@@ -105,6 +103,12 @@ Overlays should always contain a heading level 2 title. It can be visually hidde
 | `didOpen`   | `CustomEvent<void>`                         | Emits whenever the `sbb-popover` is opened.                                      |                |
 | `willClose` | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the `sbb-popover` begins the closing transition. Can be canceled. |                |
 | `didClose`  | `CustomEvent<{ closeTarget: HTMLElement }>` | Emits whenever the `sbb-popover` is closed.                                      |                |
+
+## CSS Properties
+
+| Name                    | Default                      | Description                                                                                                                                                                                           |
+| ----------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--sbb-popover-z-index` | `var(--sbb-overlay-z-index)` | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-z-index)` with a value of `1000`. |
 
 ## Slots
 

@@ -26,11 +26,6 @@ accepting its associated properties (`type`, `name`, `value` and `form`).
 <sbb-menu-button value="menu" name="menu">Button</sbb-menu-button>
 ```
 
-## Style
-
-For cases where smaller outer paddings are needed,
-you can set the css variable `--sbb-menu-action-outer-horizontal-padding` to your desired outer padding.
-
 <!-- Auto Generated Below -->
 
 ## Properties
@@ -44,6 +39,12 @@ you can set the css variable `--sbb-menu-action-outer-horizontal-padding` to you
 | `name`     | `name`      | public  | `string \| undefined` |            | The name attribute to use for the button.                                                                                        |
 | `value`    | `value`     | public  | `string \| undefined` |            | The value attribute to use for the button.                                                                                       |
 | `form`     | `form`      | public  | `string \| undefined` |            | The <form> element to associate the button with.                                                                                 |
+
+## CSS Properties
+
+| Name                                         | Default                       | Description                               |
+| -------------------------------------------- | ----------------------------- | ----------------------------------------- |
+| `--sbb-menu-action-outer-horizontal-padding` | `var(--sbb-spacing-fixed-3x)` | Can be used to modify horizontal padding. |
 
 ## Slots
 

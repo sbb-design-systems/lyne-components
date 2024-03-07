@@ -34,3 +34,9 @@ Possible values are `ideal` (default), `minimal` and `none`.
 | `protectiveRoom`     | `protective-room`     | public  | `SbbProtectiveRoom \| undefined` | `'ideal'` | Visual protective room around logo.                          |
 | `accessibilityLabel` | `accessibility-label` | public  | `string`                         | `'Logo'`  | Accessibility label which will be forwarded to the SVG logo. |
 | `negative`           | `negative`            | public  | `boolean`                        | `false`   | Negative coloring variant flag.                              |
+
+## CSS Properties
+
+| Name                | Default | Description                                |
+| ------------------- | ------- | ------------------------------------------ |
+| `--sbb-logo-height` | `auto`  | Can be used to set the height of the logo. |

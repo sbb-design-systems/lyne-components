@@ -27,6 +27,12 @@ Optionally the user can set the `color` property on the `sbb-sticky-bar` in orde
 | `color`            | `color`             | public  | `'white' \| 'milk' \| undefined` |         | Color of the container, like transparent, white etc. |
 | `disableAnimation` | `disable-animation` | public  | `boolean`                        | `false` | Whether the animation is enabled.                    |
 
+## CSS Properties
+
+| Name                             | Default                              | Description                      |
+| -------------------------------- | ------------------------------------ | -------------------------------- |
+| `--sbb-sticky-bar-padding-block` | `var(--sbb-spacing-responsive-xxxs)` | Block padding of the sticky bar. |
+
 ## Slots
 
 | Name | Description                                            |
