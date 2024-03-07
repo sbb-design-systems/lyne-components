@@ -2,7 +2,6 @@ import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit'
 import { customElement, property } from 'lit/decorators.js';
 
 import { hostAttributes } from '../../core/common-behaviors';
-import { toggleDatasetEntry } from '../../core/dom';
 import { AgnosticIntersectionObserver } from '../../core/observers';
 
 import style from './sticky-bar.scss?lit&inline';
@@ -41,8 +40,8 @@ export class SbbStickyBarElement extends LitElement {
 
     const container = this.closest('sbb-container');
     if (container) {
-      toggleDatasetEntry(this, 'expanded', container.expanded);
-      toggleDatasetEntry(this, 'transparent', container.color === 'transparent');
+      this.toggleAttribute('data-expanded', container.expanded);
+      this.toggleAttribute('data-transparent', container.color === 'transparent');
     }
     if (this._intersector) {
       this._observer.observe(this._intersector);
@@ -58,7 +57,10 @@ export class SbbStickyBarElement extends LitElement {
   }
 
   private _toggleShadowVisibility(entry: IntersectionObserverEntry): void {
-    toggleDatasetEntry(this, 'sticking', !entry.isIntersecting && entry.boundingClientRect.top > 0);
+    this.toggleAttribute(
+      'data-sticking',
+      !entry.isIntersecting && entry.boundingClientRect.top > 0,
+    );
   }
 
   public override disconnectedCallback(): void {
