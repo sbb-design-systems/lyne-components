@@ -40,7 +40,6 @@ export class SbbStickyBarElement extends LitElement {
     const container = this.closest('sbb-container');
     if (container) {
       this.toggleAttribute('data-expanded', container.expanded);
-      this.toggleAttribute('data-transparent', container.color === 'transparent');
     }
     if (this._intersector) {
       this._observer.observe(this._intersector);
