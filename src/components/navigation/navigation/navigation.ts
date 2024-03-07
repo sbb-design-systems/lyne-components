@@ -22,9 +22,7 @@ import {
   applyInertMechanism,
   removeInertMechanism,
 } from '../../core/overlay';
-import type { SbbNavigationActionCommonElementMixinType } from '../common';
 import type { SbbNavigationButtonElement } from '../navigation-button';
-import type { SbbNavigationLinkElement } from '../navigation-link';
 import '../../button/transparent-button';
 
 import style from './navigation.scss?lit&inline';
@@ -156,7 +154,7 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
       return;
     }
     this._state = 'opening';
-    this._setActiveAction();
+    this._checkActiveSection();
     this.startUpdate();
 
     // Disable scrolling for content below the navigation
@@ -164,20 +162,12 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
     this._triggerElement?.setAttribute('aria-expanded', 'true');
   }
 
-  private _setActiveAction(): void {
-    const activeActions = Array.from(
-      this.querySelectorAll(':is(sbb-navigation-button, sbb-navigation-link).sbb-active'),
-    ) as SbbNavigationActionCommonElementMixinType[];
-    activeActions.forEach((action: SbbNavigationActionCommonElementMixinType) => {
-      if (action.navigationSection) {
-        action.navigationSection.open();
-      } else {
-        action.navigationMarker?.select(
-          action as SbbNavigationButtonElement | SbbNavigationLinkElement,
-        );
-      }
-    });
-    this._elementToFocus = activeActions[0] as HTMLElement;
+  private _checkActiveSection(): void {
+    const activeAction = this.querySelector(
+      'sbb-navigation-button[data-action-active]',
+    ) as SbbNavigationButtonElement;
+    activeAction?.connectedSection?.open();
+    this._elementToFocus = activeAction as HTMLElement;
   }
 
   /**

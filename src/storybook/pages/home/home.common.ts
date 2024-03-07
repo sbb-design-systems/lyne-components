@@ -2,14 +2,8 @@ import type { Args, StoryContext } from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { ref } from 'lit/directives/ref.js';
 
 import { sbbSpread } from '../../../components/core/dom';
-import type {
-  SbbNavigationElement,
-  SbbNavigationMarkerElement,
-  SbbNavigationButtonElement,
-} from '../../../components/navigation';
 import '../../../components/button/button';
 import '../../../components/button/secondary-button';
 import '../../../components/button/secondary-button-static';
@@ -43,18 +37,8 @@ export const timetableInput = (): TemplateResult => html`
   </section>
 `;
 
-const onNavigationClose = (dialog: SbbNavigationElement): void => {
-  dialog?.addEventListener('did-close', () => {
-    (document.getElementById('nav-marker') as SbbNavigationMarkerElement).reset();
-    (document.getElementById('nav-1') as SbbNavigationButtonElement).setAttribute('active', '');
-  });
-};
-
 export const navigation = (): TemplateResult => html`
-  <sbb-navigation
-    trigger="hamburger-menu"
-    ${ref((dialog?: Element) => onNavigationClose(dialog as SbbNavigationElement))}
-  >
+  <sbb-navigation trigger="hamburger-menu">
     <sbb-navigation-marker id="nav-marker">
       <sbb-navigation-button aria-current="page" id="nav-1">
         Tickets & Offers

@@ -30,7 +30,6 @@ import {
 } from '../../core/overlay';
 import type { SbbNavigationElement } from '../navigation';
 import type { SbbNavigationButtonElement } from '../navigation-button';
-import type { SbbNavigationMarkerElement } from '../navigation-marker';
 import '../../divider';
 import '../../button/transparent-button';
 
@@ -127,7 +126,7 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
   }
 
   private _setActiveNavigationAction(): void {
-    this._triggerElement?.navigationMarker?.select(this._triggerElement);
+    this._triggerElement?.marker?.select(this._triggerElement);
   }
 
   private _closePreviousNavigationSection(): void {
@@ -142,7 +141,6 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
       return;
     }
 
-    this._resetMarker();
     this._state = 'closing';
     this.startUpdate();
     this.inert = true;
@@ -183,7 +181,7 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
     );
     this._navigationSectionController?.abort();
     this._navigationSectionController = new AbortController();
-    this._triggerElement.navigationSection = this;
+    this._triggerElement.connectedSection = this;
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._navigationSectionController.signal,
     });
@@ -268,12 +266,6 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
     return isBreakpoint('zero', 'large');
   }
 
-  private _resetMarker(): void {
-    if (this._isZeroToLargeBreakpoint()) {
-      (this._triggerElement?.parentElement as SbbNavigationMarkerElement)?.reset();
-    }
-  }
-
   // Closes the navigation on "Esc" key pressed.
   private _onKeydownEvent(event: KeyboardEvent): void {
     if (this._state === 'opened' && event.key === 'Escape') {
@@ -283,10 +275,12 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
 
   // Set focus on the first focusable element.
   private _setNavigationSectionFocus(): void {
+    const activeAction = this.querySelector(
+      ':is(sbb-navigation-button, sbb-navigation-link).sbb-active',
+    ) as HTMLElement;
+    activeAction?.toggleAttribute('data-action-active', true);
     const firstFocusableElement =
-      (this.querySelector(
-        ':is(sbb-navigation-button, sbb-navigation-link).sbb-active',
-      ) as HTMLElement) ||
+      activeAction ||
       getFirstFocusableElement(
         [this.shadowRoot!.querySelector('#sbb-navigation-section-back-button')]
           .concat(Array.from(this.children))

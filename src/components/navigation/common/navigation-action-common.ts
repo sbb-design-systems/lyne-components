@@ -3,7 +3,6 @@ import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import type { AbstractConstructor, SbbActionBaseElement } from '../../core/common-behaviors';
-import { hostContext } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
 import type { SbbNavigationButtonElement } from '../navigation-button';
 import type { SbbNavigationLinkElement } from '../navigation-link';
@@ -16,8 +15,9 @@ export type SbbNavigationActionSize = 's' | 'm' | 'l';
 
 export declare class SbbNavigationActionCommonElementMixinType {
   public size?: SbbNavigationActionSize;
-  public navigationMarker?: SbbNavigationMarkerElement | null;
-  public navigationSection?: SbbNavigationSectionElement | null;
+  public get marker(): SbbNavigationMarkerElement | null;
+  public get section(): SbbNavigationSectionElement | null;
+  public connectedSection: SbbNavigationSectionElement | null;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -35,21 +35,19 @@ export const SbbNavigationActionCommonElementMixin = <
     /** Action size variant. */
     @property({ reflect: true }) public size?: SbbNavigationActionSize = 'l';
 
-    private _abort = new ConnectedAbortController(this);
-    private _navigationMarker: SbbNavigationMarkerElement | null = null;
-    private _navigationSection: SbbNavigationSectionElement | null = null;
+    public connectedSection: SbbNavigationSectionElement | null = null;
 
-    public get navigationMarker(): SbbNavigationMarkerElement | null {
+    public get marker(): SbbNavigationMarkerElement | null {
       return this._navigationMarker;
     }
 
-    public set navigationSection(navSection: SbbNavigationSectionElement) {
-      this._navigationSection = navSection;
-    }
-
-    public get navigationSection(): SbbNavigationSectionElement | null {
+    public get section(): SbbNavigationSectionElement | null {
       return this._navigationSection;
     }
+
+    private _abort = new ConnectedAbortController(this);
+    private _navigationMarker: SbbNavigationMarkerElement | null = null;
+    private _navigationSection: SbbNavigationSectionElement | null = null;
 
     public override connectedCallback(): void {
       super.connectedCallback();
@@ -62,7 +60,7 @@ export const SbbNavigationActionCommonElementMixin = <
             this._navigationMarker &&
             !this._navigationSection
           ) {
-            this.navigationMarker?.select(
+            this.marker?.select(
               this as unknown as SbbNavigationButtonElement | SbbNavigationLinkElement,
             );
           }
@@ -71,10 +69,10 @@ export const SbbNavigationActionCommonElementMixin = <
       );
 
       // Check if the current element is nested inside a navigation marker.
-      this._navigationMarker = hostContext(
-        'sbb-navigation-marker',
-        this,
-      ) as SbbNavigationMarkerElement;
+      this._navigationMarker = this.closest('sbb-navigation-marker');
+
+      // Check if the current element is nested inside a navigation section.
+      this._navigationSection = this.closest('sbb-navigation-section');
     }
 
     protected override renderTemplate(): TemplateResult {

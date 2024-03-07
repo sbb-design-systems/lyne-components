@@ -23,15 +23,16 @@ The component has three different sizes, which can be changed using the `size` p
 
 ## Properties
 
-| Name                | Attribute  | Privacy | Type                                    | Default | Description                                                       |
-| ------------------- | ---------- | ------- | --------------------------------------- | ------- | ----------------------------------------------------------------- |
-| `size`              | `size`     | public  | `SbbNavigationActionSize \| undefined`  | `'l'`   | Action size variant.                                              |
-| `navigationMarker`  | -          | public  | `SbbNavigationMarkerElement \| null`    | `null`  |                                                                   |
-| `navigationSection` | -          | public  | `SbbNavigationSectionElement \| null`   | `null`  |                                                                   |
-| `href`              | `href`     | public  | `string \| undefined`                   |         | The href value you want to link to.                               |
-| `target`            | `target`   | public  | `LinkTargetType \| string \| undefined` |         | Where to display the linked URL.                                  |
-| `rel`               | `rel`      | public  | `string \| undefined`                   |         | The relationship of the linked URL as space-separated link types. |
-| `download`          | `download` | public  | `boolean \| undefined`                  |         | Whether the browser will show the download dialog on click.       |
+| Name               | Attribute  | Privacy | Type                                    | Default | Description                                                       |
+| ------------------ | ---------- | ------- | --------------------------------------- | ------- | ----------------------------------------------------------------- |
+| `size`             | `size`     | public  | `SbbNavigationActionSize \| undefined`  | `'l'`   | Action size variant.                                              |
+| `connectedSection` | -          | public  | `SbbNavigationSectionElement \| null`   | `null`  |                                                                   |
+| `marker`           | -          | public  | `SbbNavigationMarkerElement \| null`    |         |                                                                   |
+| `section`          | -          | public  | `SbbNavigationSectionElement \| null`   |         |                                                                   |
+| `href`             | `href`     | public  | `string \| undefined`                   |         | The href value you want to link to.                               |
+| `target`           | `target`   | public  | `LinkTargetType \| string \| undefined` |         | Where to display the linked URL.                                  |
+| `rel`              | `rel`      | public  | `string \| undefined`                   |         | The relationship of the linked URL as space-separated link types. |
+| `download`         | `download` | public  | `boolean \| undefined`                  |         | Whether the browser will show the download dialog on click.       |
 
 ## Slots
 

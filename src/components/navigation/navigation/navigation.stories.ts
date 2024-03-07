@@ -16,7 +16,6 @@ import { html, nothing } from 'lit';
 
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
 import { sbbSpread } from '../../core/dom';
-import type { SbbNavigationMarkerElement } from '../navigation-marker';
 
 import { SbbNavigationElement } from './navigation';
 import readme from './readme.md?raw';
@@ -151,21 +150,12 @@ const actionLabels = (num: number): TemplateResult[] => {
   return labels;
 };
 
-const onNavigationClose = (event: CustomEvent): void => {
-  (
-    (event.currentTarget as SbbNavigationElement).querySelector(
-      '#nav-marker',
-    ) as SbbNavigationMarkerElement
-  ).reset();
-};
-
 const DefaultTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('navigation-trigger-1')}
   <sbb-navigation
     data-testid="navigation"
     id="navigation"
     trigger="navigation-trigger-1"
-    @didClose=${onNavigationClose}
     ${sbbSpread(args)}
   >
     <sbb-navigation-marker id="nav-marker">${navigationActionsL()}</sbb-navigation-marker>
@@ -192,7 +182,6 @@ const WithNavigationSectionTemplate = (args: Args): TemplateResult => html`
     data-testid="navigation"
     id="navigation"
     trigger="navigation-trigger-1"
-    @didClose=${onNavigationClose}
     ${sbbSpread(args)}
   >
     <sbb-navigation-marker id="nav-marker">${navigationActionsL()}</sbb-navigation-marker>
