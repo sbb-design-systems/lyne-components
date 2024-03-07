@@ -2,11 +2,7 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import {
-  COMBINED_BUTTON_AND_BUTTON_LINK_TAGS,
-  type CombinedButtonAndButtonLinkElements,
-  type SbbButtonSize,
-} from '../button';
+import type { SbbButtonCommonElement, SbbButtonSize } from '../button';
 import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
 import type {
   SbbBlockLinkButtonElement,
@@ -59,9 +55,9 @@ export class SbbActionGroupElement extends LitElement {
   public linkSize: SbbLinkSize = 'm';
 
   private _syncButtons(): void {
-    this.querySelectorAll?.<CombinedButtonAndButtonLinkElements>(
-      COMBINED_BUTTON_AND_BUTTON_LINK_TAGS,
-    ).forEach((b: CombinedButtonAndButtonLinkElements) => (b.size = this.buttonSize));
+    this.querySelectorAll?.<SbbButtonCommonElement>('[data-sbb-button]').forEach(
+      (b) => (b.size = this.buttonSize),
+    );
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

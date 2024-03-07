@@ -25,10 +25,5 @@
 }
 
 :host(:not([disabled], :active, [data-active])) {
-  --sbb-button-box-shadow: var(--sbb-shadow-elevation-level-3-shadow-2-offset-x)
-      var(--sbb-button-shadow-2-offset-y) var(--sbb-button-shadow-2-blur)
-      var(--sbb-shadow-elevation-level-3-shadow-2-spread) var(--sbb-button-shadow-2-color),
-    var(--sbb-shadow-elevation-level-3-shadow-1-offset-x) var(--sbb-button-shadow-1-offset-y)
-      var(--sbb-button-shadow-1-blur) var(--sbb-shadow-elevation-level-3-shadow-1-spread)
-      var(--sbb-button-shadow-1-color);
+  --sbb-button-box-shadow: var(--sbb-button-box-shadow-definition);
 }

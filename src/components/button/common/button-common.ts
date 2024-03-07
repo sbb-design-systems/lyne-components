@@ -4,6 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import {
   type AbstractConstructor,
+  hostAttributes,
   NamedSlotStateController,
   type SbbActionBaseElement,
   type SbbDisabledMixinType,
@@ -12,30 +13,10 @@ import {
   SbbNegativeMixin,
   type SbbNegativeMixinType,
 } from '../../core/common-behaviors';
-import type {
-  SbbButtonElement,
-  SbbButtonLinkElement,
-  SbbSecondaryButtonElement,
-  SbbSecondaryButtonLinkElement,
-  SbbTertiaryButtonElement,
-  SbbTertiaryButtonLinkElement,
-  SbbTransparentButtonElement,
-  SbbTransparentButtonLinkElement,
-} from '../index';
 
 import '../../icon';
 
-export const COMBINED_BUTTON_AND_BUTTON_LINK_TAGS: string =
-  'sbb-button, sbb-secondary-button, sbb-tertiary-button, sbb-transparent-button, sbb-button-link, sbb-secondary-button-link, sbb-tertiary-button-link, sbb-transparent-button-link';
-export type CombinedButtonAndButtonLinkElements =
-  | SbbButtonElement
-  | SbbSecondaryButtonElement
-  | SbbTertiaryButtonElement
-  | SbbTransparentButtonElement
-  | SbbButtonLinkElement
-  | SbbSecondaryButtonLinkElement
-  | SbbTertiaryButtonLinkElement
-  | SbbTransparentButtonLinkElement;
+export type SbbButtonCommonElement = SbbButtonCommonElementMixinType & SbbActionBaseElement;
 
 export type SbbButtonSize = 'l' | 'm';
 
@@ -52,14 +33,17 @@ export declare class SbbButtonCommonElementMixinType
 export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbActionBaseElement>>(
   superClass: T,
 ): AbstractConstructor<SbbButtonCommonElementMixinType> & T => {
-  abstract class SbbButtonCommonElement
+  @hostAttributes({
+    'data-sbb-button': '',
+  })
+  abstract class SbbButtonCommonElementClass
     extends SbbNegativeMixin(SbbIconNameMixin(superClass))
     implements Partial<SbbButtonCommonElementMixinType>
   {
     /** Size variant, either l or m. */
     @property({ reflect: true }) public size?: SbbButtonSize = 'l';
 
-    public constructor(...args: any[]) {
+    protected constructor(...args: any[]) {
       super(args);
       new NamedSlotStateController(this);
     }
@@ -73,6 +57,6 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
       `;
     }
   }
-  return SbbButtonCommonElement as unknown as AbstractConstructor<SbbButtonCommonElementMixinType> &
+  return SbbButtonCommonElementClass as unknown as AbstractConstructor<SbbButtonCommonElementMixinType> &
     T;
 };

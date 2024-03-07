@@ -17,6 +17,7 @@ export type LinkTargetType = '_blank' | '_self' | '_parent' | '_top';
 @hostAttributes({
   role: 'link',
   tabindex: '0',
+  'data-link': '',
 })
 export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
   /** The href value you want to link to. */
