@@ -40,8 +40,8 @@ When the element is clicked, the `toggleExpanded` event is emitted.
 | `disabled` | `disabled`  | public  | `boolean`             | `false`    | Whether the component is disabled.                                                                                               |
 | `iconName` | `icon-name` | public  | `string \| undefined` |            | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
 | `type`     | `type`      | public  | `SbbButtonType`       | `'button'` | The type attribute to use for the button.                                                                                        |
-| `name`     | `name`      | public  | `string \| undefined` |            | The name attribute to use for the button.                                                                                        |
-| `value`    | `value`     | public  | `string \| undefined` |            | The value attribute to use for the button.                                                                                       |
+| `name`     | `name`      | public  | `string`              |            | The name of the button element.                                                                                                  |
+| `value`    | `value`     | public  | `string`              |            | The value of the button element.                                                                                                 |
 | `form`     | `form`      | public  | `string \| undefined` |            | The <form> element to associate the button with.                                                                                 |
 
 ## Events
