@@ -13,7 +13,7 @@ accepting its associated properties (`href`, `target`, `rel` and `download`).
 
 ## State
 
-The navigation button can have an initial active state the can be set by using the class `.sbb-active`.
+The navigation button can have an initial active state which can be set by using the class `.sbb-active`.
 
 ```html
 <sbb-navigation-link class="sbb-active" href="#info" target="_blank">Link</sbb-navigation-link>

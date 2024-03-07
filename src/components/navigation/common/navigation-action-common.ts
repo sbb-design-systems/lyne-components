@@ -58,7 +58,7 @@ export const SbbNavigationActionCommonElementMixin = <
           if (
             !this.hasAttribute('data-action-active') &&
             this._navigationMarker &&
-            !this._navigationSection
+            !this.connectedSection
           ) {
             this.marker?.select(
               this as unknown as SbbNavigationButtonElement | SbbNavigationLinkElement,

@@ -60,7 +60,9 @@ export class SbbNavigationMarkerElement extends SbbNamedSlotListElementMixin<
     const activeAction = this.querySelector(
       ':is(sbb-navigation-button, sbb-navigation-link).sbb-active',
     ) as SbbNavigationButtonElement | SbbNavigationLinkElement;
-    activeAction && this.select(activeAction);
+    if (activeAction) {
+      this.select(activeAction);
+    }
   }
 
   public override disconnectedCallback(): void {
@@ -86,6 +88,7 @@ export class SbbNavigationMarkerElement extends SbbNamedSlotListElementMixin<
   public reset(): void {
     if (this._currentActiveAction) {
       this._currentActiveAction.toggleAttribute('data-action-active', false);
+      this._currentActiveAction.connectedSection?.close();
       this._currentActiveAction = undefined;
     }
   }

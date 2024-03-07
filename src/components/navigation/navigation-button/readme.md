@@ -13,7 +13,7 @@ accepting its associated properties (`type`, `name`, `value` and `form`).
 
 ## State
 
-The navigation button can have an initial active state the can be set by using the class `.sbb-active`.
+The navigation button can have an initial active state which can be set by using the class `.sbb-active`.
 
 ```html
 <sbb-navigation-button class="sbb-active" value="menu" name="menu">Button</sbb-navigation-button>

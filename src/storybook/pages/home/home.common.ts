@@ -40,7 +40,7 @@ export const timetableInput = (): TemplateResult => html`
 export const navigation = (): TemplateResult => html`
   <sbb-navigation trigger="hamburger-menu">
     <sbb-navigation-marker id="nav-marker">
-      <sbb-navigation-button aria-current="page" id="nav-1">
+      <sbb-navigation-button aria-current="page" id="nav-1" class="sbb-active">
         Tickets & Offers
       </sbb-navigation-button>
       <sbb-navigation-button id="nav-2">Vacations & Recreation</sbb-navigation-button>
