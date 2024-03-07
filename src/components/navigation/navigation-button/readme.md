@@ -11,6 +11,14 @@ accepting its associated properties (`type`, `name`, `value` and `form`).
 <sbb-navigation-button value="menu" name="menu">Button</sbb-navigation-button>
 ```
 
+## State
+
+The navigation button can have an initial active state the can be set by using the class `.sbb-active`.
+
+```html
+<sbb-navigation-button class="sbb-active" value="menu" name="menu">Button</sbb-navigation-button>
+```
+
 ## Style
 
 The component has three different sizes, which can be changed using the `size` property (`l`, which is the default, `m` and `s`).

@@ -5,7 +5,7 @@ Some of its features are:
 - uses a native dialog element;
 - creates a backdrop for disabling interaction below the navigation;
 - disables scrolling of the page content while open;
-- manages focus properly by setting it on the first focusable element;
+- manages focus properly by setting it on the first focusable element or the first action with the `.sbb-active` class;
 - can act as a host for components as [sbb-navigation-list](/docs/components-sbb-navigation-sbb-navigation-list--docs),
   [sbb-navigation-marker](/docs/components-sbb-navigation-sbb-navigation-marker--docs)
   and [sbb-navigation-section](/docs/components-sbb-navigation-sbb-navigation-section--docs);
@@ -50,6 +50,7 @@ or call the `open()` method on the `sbb-navigation` component.
 
 ## Accessibility
 
+On opening, the focus will be automatically set on the first focusable element or the first action with the `.sbb-active` class and, if the action with this class has a connected section, the section will be opened and the focus will be set on the first focusable element or the first action with the `.sbb-active` class in the section.
 When a navigation action is marked to indicate the user is currently on that page, `aria-current="page"` should be set on that action.
 Similarly, if a navigation action is marked to indicate a selected option (e.g., the selected language) `aria-pressed` should be set on that action.
 
