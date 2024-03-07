@@ -74,12 +74,20 @@ $open-anim-opacity-to: 1;
   position: relative;
   width: 100%;
   background-color: var(--sbb-selection-panel-background);
-  border: var(--sbb-selection-panel-border-width) solid var(--sbb-selection-panel-border-color);
-  border-radius: var(--sbb-border-radius-4x);
   transition: {
     duration: var(--sbb-selection-panel-animation-duration);
     timing-function: var(--sbb-animation-easing);
     property: border-color;
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border: var(--sbb-selection-panel-border-width) solid var(--sbb-selection-panel-border-color);
+    border-radius: var(--sbb-border-radius-4x);
   }
 }
 
@@ -88,7 +96,7 @@ $open-anim-opacity-to: 1;
   pointer-events: none;
   position: absolute;
   inset: 0;
-  border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-selection-panel-border-width));
+  border-radius: calc(var(--sbb-border-radius-4x));
   overflow: hidden;
 }
 
