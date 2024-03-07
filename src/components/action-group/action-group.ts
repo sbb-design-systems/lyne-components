@@ -1,17 +1,11 @@
-import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import type {
-  SbbButtonElement,
-  SbbButtonLinkElement,
-  SbbButtonSize,
-  SbbSecondaryButtonElement,
-  SbbSecondaryButtonLinkElement,
-  SbbTertiaryButtonElement,
-  SbbTertiaryButtonLinkElement,
-  SbbTransparentButtonElement,
-  SbbTransparentButtonLinkElement,
+import {
+  COMBINED_BUTTON_AND_BUTTON_LINK_TAGS,
+  type CombinedButtonAndButtonLinkElements,
+  type SbbButtonSize,
 } from '../button';
 import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces';
 import type {
@@ -22,18 +16,6 @@ import type {
 } from '../link';
 
 import style from './action-group.scss?lit&inline';
-
-const ALLOWED_BUTTON_TAGS: string =
-  'sbb-button, sbb-secondary-button, sbb-tertiary-button, sbb-transparent-button, sbb-button-link, sbb-secondary-button-link, sbb-tertiary-button-link, sbb-transparent-button-link';
-type CombinedButtonAndButtonLinkElement =
-  | SbbButtonElement
-  | SbbSecondaryButtonElement
-  | SbbTertiaryButtonElement
-  | SbbTransparentButtonElement
-  | SbbButtonLinkElement
-  | SbbSecondaryButtonLinkElement
-  | SbbTertiaryButtonLinkElement
-  | SbbTransparentButtonLinkElement;
 
 /**
  * It can be used as a container for one or more action element, like `sbb-button` or `sbb-block-link`.
@@ -77,9 +59,9 @@ export class SbbActionGroupElement extends LitElement {
   public linkSize: SbbLinkSize = 'm';
 
   private _syncButtons(): void {
-    this.querySelectorAll?.<CombinedButtonAndButtonLinkElement>(ALLOWED_BUTTON_TAGS).forEach(
-      (b: CombinedButtonAndButtonLinkElement) => (b.size = this.buttonSize),
-    );
+    this.querySelectorAll?.<CombinedButtonAndButtonLinkElements>(
+      COMBINED_BUTTON_AND_BUTTON_LINK_TAGS,
+    ).forEach((b: CombinedButtonAndButtonLinkElements) => (b.size = this.buttonSize));
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

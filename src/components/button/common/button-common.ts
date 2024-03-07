@@ -3,17 +3,39 @@ import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import {
-  type SbbActionBaseElement,
   type AbstractConstructor,
-  type SbbDisabledMixinType,
-  type SbbIconNameMixinType,
-  type SbbNegativeMixinType,
   NamedSlotStateController,
+  type SbbActionBaseElement,
+  type SbbDisabledMixinType,
   SbbIconNameMixin,
+  type SbbIconNameMixinType,
   SbbNegativeMixin,
+  type SbbNegativeMixinType,
 } from '../../core/common-behaviors';
+import type {
+  SbbButtonElement,
+  SbbButtonLinkElement,
+  SbbSecondaryButtonElement,
+  SbbSecondaryButtonLinkElement,
+  SbbTertiaryButtonElement,
+  SbbTertiaryButtonLinkElement,
+  SbbTransparentButtonElement,
+  SbbTransparentButtonLinkElement,
+} from '../index';
 
 import '../../icon';
+
+export const COMBINED_BUTTON_AND_BUTTON_LINK_TAGS: string =
+  'sbb-button, sbb-secondary-button, sbb-tertiary-button, sbb-transparent-button, sbb-button-link, sbb-secondary-button-link, sbb-tertiary-button-link, sbb-transparent-button-link';
+export type CombinedButtonAndButtonLinkElements =
+  | SbbButtonElement
+  | SbbSecondaryButtonElement
+  | SbbTertiaryButtonElement
+  | SbbTransparentButtonElement
+  | SbbButtonLinkElement
+  | SbbSecondaryButtonLinkElement
+  | SbbTertiaryButtonLinkElement
+  | SbbTransparentButtonLinkElement;
 
 export type SbbButtonSize = 'l' | 'm';
 
