@@ -1,7 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbTransparentButtonElement } from '../../button/transparent-button';
+import type { SbbTransparentButtonElement } from '../../button';
 import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing';
 import type { SbbAlertElement } from '../alert';
 

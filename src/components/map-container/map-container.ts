@@ -3,7 +3,7 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import type { SbbTertiaryButtonElement } from '../button/tertiary-button';
+import type { SbbTertiaryButtonElement } from '../button';
 import { LanguageController } from '../core/common-behaviors';
 import { toggleDatasetEntry } from '../core/dom';
 import { i18nMapContainerButtonLabel } from '../core/i18n';

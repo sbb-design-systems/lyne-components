@@ -1,7 +1,7 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbSecondaryButtonElement } from '../button/secondary-button';
+import type { SbbSecondaryButtonElement } from '../button';
 import { waitForLitRender } from '../core/testing';
 import type { SbbBlockLinkElement } from '../link';
 import '../button/secondary-button';

@@ -14,7 +14,7 @@ import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 
 import { waitForComponentsReady } from '../../storybook/testing/wait-for-components-ready';
-import type { SbbButtonElement } from '../button/button';
+import type { SbbButtonElement } from '../button';
 import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';

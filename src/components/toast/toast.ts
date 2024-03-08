@@ -2,8 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import type { SbbTransparentButtonElement } from '../button/transparent-button';
-import type { SbbTransparentButtonLinkElement } from '../button/transparent-button-link';
+import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button';
 import {
   LanguageController,
   NamedSlotStateController,
