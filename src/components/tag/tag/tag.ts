@@ -97,12 +97,9 @@ export class SbbTagElement extends SbbIconNameMixin(
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
-    const tagGroup = this.closest('sbb-tag-group');
+    const tagGroup = this.closest?.('sbb-tag-group');
     if (tagGroup && !tagGroup.multiple && changedProperties.has('checked') && this.checked) {
-      for (const tag of tagGroup?.tags.filter((t) => t !== this) ?? []) {
-        tag.checked = false;
-        tag.requestUpdate('checked');
-      }
+      tagGroup?.tags.filter((t) => t !== this).forEach((t) => (t.checked = false));
     }
   }
 
