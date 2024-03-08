@@ -14,7 +14,6 @@ import type {
   SbbStateChange,
   SbbValueStateChange,
 } from '../../core/interfaces';
-import type { SbbTagGroupElement } from '../tag-group';
 
 import '../../icon';
 import style from './tag.scss?lit&inline';
@@ -40,7 +39,6 @@ export class SbbTagElement extends SbbIconNameMixin(
 ) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
-    stateChange: 'stateChange',
     input: 'input',
     didChange: 'didChange',
     change: 'change',
@@ -51,31 +49,6 @@ export class SbbTagElement extends SbbIconNameMixin(
 
   /** Whether the tag is checked. */
   @property({ reflect: true, type: Boolean }) public checked = false;
-
-  private _handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
-    if (currentValue !== previousValue) {
-      this._stateChange.emit({ type: 'checked', checked: currentValue });
-    }
-  }
-
-  private _handleValueChange(currentValue: string, previousValue: string): void {
-    if (this.checked && currentValue !== previousValue) {
-      this._stateChange.emit({ type: 'value', value: currentValue });
-    }
-  }
-
-  /**
-   * @internal
-   * Internal event that emits whenever the state of the tag
-   * in relation to the parent toggle changes.
-   */
-  private _stateChange: EventEmitter<SbbTagStateChange> = new EventEmitter(
-    this,
-    SbbTagElement.events.stateChange,
-    {
-      bubbles: true,
-    },
-  );
 
   /** Input event emitter */
   private _input: EventEmitter = new EventEmitter(this, SbbTagElement.events.input, {
@@ -102,18 +75,7 @@ export class SbbTagElement extends SbbIconNameMixin(
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener('click', () => this._handleClick(), { signal });
-  }
-
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-    if (changedProperties.has('checked')) {
-      this._handleCheckedChange(this.checked, changedProperties.get('checked')!);
-    }
-    if (changedProperties.has('value')) {
-      this._handleValueChange(this.value!, changedProperties.get('value')!);
-    }
+    this.addEventListener('click', () => this._handleClick(), { signal: this._abort.signal });
   }
 
   /** Method triggered on button click. Inverts the checked value and emits events. */
@@ -122,9 +84,8 @@ export class SbbTagElement extends SbbIconNameMixin(
       return;
     }
 
-    const tagGroup = this.closest('sbb-tag-group') as SbbTagGroupElement;
-
     // Prevent deactivating on exclusive / radio mode
+    const tagGroup = this.closest('sbb-tag-group');
     if (tagGroup && !tagGroup.multiple && this.checked) {
       return;
     }
@@ -132,6 +93,14 @@ export class SbbTagElement extends SbbIconNameMixin(
     this._input.emit();
     this._change.emit();
     this._didChange.emit();
+  }
+
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+    const tagGroup = this.closest?.('sbb-tag-group');
+    if (tagGroup && !tagGroup.multiple && changedProperties.has('checked') && this.checked) {
+      tagGroup?.tags.filter((t) => t !== this).forEach((t) => (t.checked = false));
+    }
   }
 
   protected override renderTemplate(): TemplateResult {

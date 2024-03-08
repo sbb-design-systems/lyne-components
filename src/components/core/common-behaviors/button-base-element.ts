@@ -18,11 +18,23 @@ export abstract class SbbButtonBaseElement extends SbbActionBaseElement {
   /** The type attribute to use for the button. */
   @property() public type: SbbButtonType = 'button';
 
-  /** The name attribute to use for the button. */
-  @property({ reflect: true }) public name?: string;
+  /** The name of the button element. */
+  @property()
+  public set name(name: string) {
+    this.setAttribute('name', `${name}`);
+  }
+  public get name(): string {
+    return this.getAttribute('name') ?? '';
+  }
 
-  /** The value attribute to use for the button. */
-  @property() public value?: string;
+  /** The value of the button element. */
+  @property()
+  public set value(value: string) {
+    this.setAttribute('value', `${value}`);
+  }
+  public get value(): string {
+    return this.getAttribute('value') ?? '';
+  }
 
   /** The <form> element to associate the button with. */
   @property() public form?: string;

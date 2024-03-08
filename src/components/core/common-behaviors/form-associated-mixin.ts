@@ -86,19 +86,13 @@ export const SbbFormAssociatedMixin = <T extends Constructor<LitElement>>(
       return this.internals.form;
     }
 
-    /**
-     * Name of the form element. Will be read from name attribute.
-     * @attr
-     */
+    /** Name of the form element. Will be read from name attribute. */
+    @property()
+    public set name(name: string) {
+      this.setAttribute('name', `${name}`);
+    }
     public get name(): string {
       return this.getAttribute('name') ?? '';
-    }
-    public set name(name: string) {
-      if (!name) {
-        this.removeAttribute('name');
-      } else {
-        this.setAttribute('name', `${name}`);
-      }
     }
 
     /** @internal */

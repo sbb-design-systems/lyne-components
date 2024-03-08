@@ -4,14 +4,12 @@ import {
   LitElement,
   type PropertyValueMap,
   type TemplateResult,
+  isServer,
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { SbbNamedSlotListElementMixin, type WithListChildren } from '../../core/common-behaviors';
-import { setAttribute } from '../../core/dom';
-import { ConnectedAbortController } from '../../core/eventing';
-import type { SbbStateChange } from '../../core/interfaces';
-import type { SbbTagElement, SbbTagStateChange } from '../tag';
+import type { SbbTagElement } from '../tag';
 
 import style from './tag-group.scss?lit&inline';
 
@@ -49,115 +47,65 @@ export class SbbTagGroupElement extends SbbNamedSlotListElementMixin<
    */
   @property()
   public set value(value: string | string[] | null) {
-    this._value = value;
-    this._valueChanged(this._value);
+    const tags = this.tags;
+    if (isServer) {
+      this._value = value;
+    } else if (value === null) {
+      tags.forEach((t) => (t.checked = false));
+    } else if (this.multiple) {
+      if (!Array.isArray(value) && tags.every((t) => t.value !== value)) {
+        try {
+          // If it is multiple mode and no tag matches the value, we try to parse the value as JSON.
+          // This allows server side rendering to use array values to be passed to the client side.
+          value = JSON.parse(value);
+        } catch {
+          /* empty */
+        }
+      }
+      const valueAsArray = Array.isArray(value) ? value : [value];
+      tags.forEach((t) => (t.checked = valueAsArray.includes(t.value ?? t.getAttribute('value'))));
+    } else {
+      if (Array.isArray(value)) {
+        console.warn('value must not be set as an array in singular mode.', value);
+        return;
+      }
+      tags.forEach((t) => (t.checked = (t.value ?? t.getAttribute('value')) === value));
+    }
   }
   public get value(): string | string[] | null {
-    return this._value;
+    return isServer
+      ? this._value
+      : this.multiple
+        ? this.tags.filter((t) => t.checked).map((t) => t.value)
+        : this.tags.find((t) => t.checked)?.value ?? null;
   }
   private _value: string | string[] | null = null;
 
-  private _abort = new ConnectedAbortController(this);
-
-  private _valueChanged(value: string | string[] | null): void {
-    if (this._tags.some((tag) => !tag.value)) {
-      return;
-    }
-
-    if (Array.isArray(value) && !this.multiple) {
-      console.warn(
-        'Trying to set array value for sbb-tag-group but multiple mode is not activated.',
-        value,
-      );
-      return;
-    } else if (!Array.isArray(value) && this.multiple) {
-      try {
-        // If possible, try to parse JSON and restart to assign value.
-        this.value = JSON.parse(value!);
-      } catch {
-        console.warn(
-          'Expected value to be an array because sbb-tag-group multiple mode is activated.',
-          value,
-        );
-      }
-      return;
-    }
-
-    const isChecked: (tag: SbbTagElement) => boolean = this.multiple
-      ? (t) => value!.includes(t.value!)
-      : (t) => t.value === value;
-
-    this._tags.forEach((tag) => (tag.checked = isChecked(tag)));
-  }
-
-  private _ensureOnlyOneTagSelected(): void {
-    if (this.multiple) {
-      return;
-    }
-
-    // Ensure only one tag checked
-    this._tags
-      .filter((tag) => tag.checked)
-      .slice(1)
-      .forEach((tag) => (tag.checked = false));
-  }
-
-  private _handleStateChange(event: CustomEvent<SbbTagStateChange>): void {
-    const target = event.target as SbbTagElement;
-    event.stopPropagation();
-
-    if (this.multiple || (event.detail.type === 'checked' && !event.detail.checked)) {
-      // If multiple or if value was unchecked, read state from toggles
-      this._updateValueByReadingTags();
-    } else if (event.detail.type === 'value') {
-      // If a value has changed in exclusive mode (only checked are reported), directly assign it.
-      this.value = event.detail.value;
-    } else if (event.detail.type === 'checked' && event.detail.checked) {
-      // If a value was checked in exclusive mode, assign this value directly.
-      this.value = target.value!;
-    }
-  }
-
-  private _updateValueByReadingTags(): void {
-    if (this.multiple) {
-      this.value = this._tags.filter((tag) => tag.checked).map((tag) => tag.value!);
-    } else {
-      this.value = this._tags.find((tag) => tag.checked)?.value || null;
-    }
-  }
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener(
-      'stateChange',
-      (e: CustomEvent<SbbStateChange>) =>
-        this._handleStateChange(e as CustomEvent<SbbTagStateChange>),
-      {
-        signal,
-        passive: true,
-      },
-    );
-    if (this.value) {
-      this._valueChanged(this.value);
-    }
-  }
-
-  private get _tags(): SbbTagElement[] {
+  /** The child instances of sbb-tag as an array. */
+  public get tags(): SbbTagElement[] {
     return Array.from(this.querySelectorAll?.('sbb-tag') ?? []) as SbbTagElement[];
   }
 
   protected override willUpdate(changedProperties: PropertyValueMap<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
-    if (changedProperties.has('listChildren')) {
-      this._ensureOnlyOneTagSelected();
-      this._updateValueByReadingTags();
+    if (
+      (changedProperties.has('listChildren') || changedProperties.has('multiple')) &&
+      !this.multiple
+    ) {
+      // Ensure only one tag checked
+      this.tags
+        .filter((tag) => tag.checked)
+        .slice(1)
+        .forEach((tag) => (tag.checked = false));
+    }
+    if (changedProperties.has('listAccessibilityLabel') && this.listAccessibilityLabel) {
+      this.removeAttribute('role');
+    } else {
+      this.setAttribute('role', 'group');
     }
   }
 
   protected override render(): TemplateResult {
-    setAttribute(this, 'role', this.listAccessibilityLabel ? '' : 'group');
-
     return html`
       <div class="sbb-tag-group">
         ${this.renderList({

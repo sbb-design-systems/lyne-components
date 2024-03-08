@@ -192,12 +192,21 @@ describe('sbb-tag-group', () => {
         expect(element.querySelector('sbb-tag#sbb-tag-3')).to.have.attribute('checked');
       });
 
-      it('should ignore because value is not an array', async () => {
-        element = await fixture(html` <sbb-tag-group multiple></sbb-tag-group> `);
-        element.value = 'invalid';
+      it('should coerce non-array value to array value', async () => {
+        element = await fixture(html`
+          <sbb-tag-group multiple>
+            <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
+            <sbb-tag id="sbb-tag-2" value="tag2">Tag 2</sbb-tag>
+            <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
+          </sbb-tag-group>
+        `);
+        element.value = 'tag1';
         await waitForLitRender(element);
 
-        expect(element.value).to.be.equal('invalid');
+        expect(element.value).to.be.eql(['tag1']);
+        expect(element.querySelector('sbb-tag#sbb-tag-1')).to.have.attribute('checked');
+        expect(element.querySelector('sbb-tag#sbb-tag-2')).not.to.have.attribute('checked');
+        expect(element.querySelector('sbb-tag#sbb-tag-3')).not.to.have.attribute('checked');
       });
     });
 
@@ -480,7 +489,7 @@ describe('sbb-tag-group', () => {
         element.value = [];
         await waitForLitRender(element);
 
-        expect(element.value).to.be.an('array').that.is.empty;
+        expect(element.value).to.be.null;
       });
 
       it('should ensure only first option selected', async () => {

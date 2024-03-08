@@ -26,8 +26,8 @@ as it is used for search engines and screen-reader users.
 | -------- | --------- | ------- | --------------------- | ---------- | ------------------------------------------------ |
 | `active` | `active`  | public  | `boolean`             | `false`    | Whether the card is active.                      |
 | `type`   | `type`    | public  | `SbbButtonType`       | `'button'` | The type attribute to use for the button.        |
-| `name`   | `name`    | public  | `string \| undefined` |            | The name attribute to use for the button.        |
-| `value`  | `value`   | public  | `string \| undefined` |            | The value attribute to use for the button.       |
+| `name`   | `name`    | public  | `string`              |            | The name of the button element.                  |
+| `value`  | `value`   | public  | `string`              |            | The value of the button element.                 |
 | `form`   | `form`    | public  | `string \| undefined` |            | The <form> element to associate the button with. |
 
 ## Slots
