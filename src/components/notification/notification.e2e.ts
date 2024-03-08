@@ -1,23 +1,26 @@
-import { aTimeout, assert, expect, fixture } from '@open-wc/testing';
+import { aTimeout, assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import type { SbbSecondaryButtonElement } from '../button';
-import { waitForCondition, EventSpy, waitForLitRender } from '../core/testing';
+import { waitForCondition, EventSpy, waitForLitRender, fixture } from '../core/testing';
 
 import { SbbNotificationElement } from './notification';
 
 import '../link/link';
 
-describe('sbb-notification', () => {
+describe(`sbb-notification with ${fixture.name}`, () => {
   let element: SbbNotificationElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
-      <sbb-notification id="notification" disable-animation>
-        The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
-        <sbb-link href="/">Link one</sbb-link>
-      </sbb-notification>
-    `);
+    element = await fixture(
+      html`
+        <sbb-notification id="notification" disable-animation>
+          The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+          <sbb-link href="/">Link one</sbb-link>
+        </sbb-notification>
+      `,
+      { modules: ['./notification.ts', '../link/index.ts'] },
+    );
   });
 
   it('renders', async () => {

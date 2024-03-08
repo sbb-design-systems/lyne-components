@@ -1,15 +1,18 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
+import { EventSpy, waitForCondition, waitForLitRender, fixture } from '../../core/testing';
 
 import { SbbToggleOptionElement } from './toggle-option';
 
-describe('sbb-toggle-option', () => {
+describe(`sbb-toggle-option with ${fixture.name}`, () => {
   let element: SbbToggleOptionElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-toggle-option value="Value">Value label</sbb-toggle-option>`);
+    element = await fixture(
+      html`<sbb-toggle-option value="Value">Value label</sbb-toggle-option>`,
+      { modules: ['./toggle-option.ts'] },
+    );
   });
 
   it('renders', async () => {

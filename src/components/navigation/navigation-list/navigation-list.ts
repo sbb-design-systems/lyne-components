@@ -9,7 +9,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import {
   NamedSlotStateController,
-  SbbNamedSlotListElementMixin,
+  SbbNamedSlotListMixin,
   type WithListChildren,
 } from '../../core/common-behaviors';
 import type { SbbNavigationButtonElement, SbbNavigationLinkElement } from '../index';
@@ -23,7 +23,7 @@ import style from './navigation-list.scss?lit&inline';
  * @slot label - Use this to provide a label element.
  */
 @customElement('sbb-navigation-list')
-export class SbbNavigationListElement extends SbbNamedSlotListElementMixin<
+export class SbbNavigationListElement extends SbbNamedSlotListMixin<
   SbbNavigationButtonElement | SbbNavigationLinkElement,
   typeof LitElement
 >(LitElement) {

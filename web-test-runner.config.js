@@ -3,8 +3,7 @@ import { defaultReporter, dotReporter, summaryReporter } from '@web/test-runner'
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { puppeteerLauncher } from '@web/test-runner-puppeteer';
 import { a11ySnapshotPlugin } from '@web/test-runner-commands/plugins';
-import { existsSync, readFileSync } from 'fs';
-import * as glob from 'glob';
+import { existsSync } from 'fs';
 import * as sass from 'sass';
 import { createServer } from 'vite';
 import { cpus } from 'node:os';
@@ -58,11 +57,6 @@ const testRunnerHtml = (testFramework, _config, group) => `
 </html>
 `;
 
-// Temporary workaround, until all files are migrated to ssr testing.
-const e2eFiles = glob
-  .sync('**/*.e2e.ts', { cwd: new URL('.', import.meta.url) })
-  .filter((f) => readFileSync(f, 'utf8').includes('${fixture.name}'));
-
 // Slow down fast cpus to not run into too much fetches
 function resolveConcurrency() {
   const localCpus = cpus();
@@ -74,8 +68,8 @@ function resolveConcurrency() {
 export default {
   files: ['src/**/*.{e2e,spec}.ts'],
   groups: [
-    { name: 'e2e-ssr-hydrated', files: e2eFiles, testRunnerHtml },
-    { name: 'e2e-ssr-non-hydrated', files: e2eFiles, testRunnerHtml },
+    { name: 'e2e-ssr-hydrated', files: 'src/**/*.e2e.ts', testRunnerHtml },
+    { name: 'e2e-ssr-non-hydrated', files: 'src/**/*.e2e.ts', testRunnerHtml },
   ],
   nodeResolve: true,
   concurrency: resolveConcurrency(),
@@ -84,7 +78,7 @@ export default {
   plugins: [vitePlugin(), a11ySnapshotPlugin()],
   testFramework: {
     config: {
-      timeout: '6000',
+      timeout: '10000',
       slow: '1000',
       failZero: true,
     },

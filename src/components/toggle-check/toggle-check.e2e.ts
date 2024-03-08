@@ -1,9 +1,9 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { isChromium, isFirefox } from '../core/dom';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
+import { EventSpy, fixture, waitForCondition, waitForLitRender } from '../core/testing';
 
 import { SbbToggleCheckElement } from './toggle-check';
 
@@ -14,13 +14,16 @@ interface ToggleCheckAccessibilitySnapshot {
   required: boolean;
 }
 
-describe('sbb-toggle-check', () => {
+describe(`sbb-toggle-check with ${fixture.name}`, () => {
   describe('general', () => {
     let element: SbbToggleCheckElement;
 
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-toggle-check id="focus-id" name="name" value="value"></sbb-toggle-check>`,
+        {
+          modules: ['./toggle-check.ts'],
+        },
       );
     });
 
@@ -59,6 +62,7 @@ describe('sbb-toggle-check', () => {
             <sbb-toggle-check></sbb-toggle-check>
           </div>
         </div>`,
+        { modules: ['./toggle-check.ts'] },
       );
       element = root.querySelector<SbbToggleCheckElement>('sbb-toggle-check')!;
 
@@ -231,6 +235,7 @@ describe('sbb-toggle-check', () => {
                 </fieldset>
                 <button type="reset">reset</button>
               </form>`,
+              { modules: ['./toggle-check.ts'] },
             );
             await waitForLitRender(form);
 
@@ -605,6 +610,7 @@ describe('sbb-toggle-check', () => {
                 </fieldset>
                 <button type="reset">reset</button>
               </form>`,
+              { modules: ['./toggle-check.ts'] },
             );
             await waitForLitRender(form);
 

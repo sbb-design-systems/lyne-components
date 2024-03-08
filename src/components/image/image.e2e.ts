@@ -1,19 +1,21 @@
-import { aTimeout, assert, expect, fixture } from '@open-wc/testing';
+import { aTimeout, assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
 import images from '../core/images';
-import { waitForCondition, waitForLitRender } from '../core/testing';
+import { waitForCondition, waitForLitRender, fixture, isNonHydratedSsr } from '../core/testing';
 
 import { SbbImageElement } from './image';
 
-describe('sbb-image', () => {
+describe(`sbb-image with ${fixture.name}`, () => {
   let element: SbbImageElement;
 
   it('renders', async function (this: Context) {
     this.timeout(8000);
     const url = images[0];
-    element = await fixture(html`<sbb-image image-src="${url}"></sbb-image>`);
+    element = await fixture(html`<sbb-image image-src="${url}"></sbb-image>`, {
+      modules: ['./image.ts'],
+    });
 
     assert.instanceOf(element, SbbImageElement);
     await waitForLitRender(element);
@@ -25,7 +27,7 @@ describe('sbb-image', () => {
     await aTimeout(1000);
 
     expect(element).dom.to.be.equal(`
-      <sbb-image image-src="${url}"></sbb-image>
+      <sbb-image image-src="${url}" ${isNonHydratedSsr() ? 'defer-hydration' : ''}></sbb-image>
     `);
 
     expect(element).shadowDom.to.be.equal(`

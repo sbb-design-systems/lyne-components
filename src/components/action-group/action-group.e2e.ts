@@ -1,30 +1,36 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import type { SbbSecondaryButtonElement } from '../button';
-import { waitForLitRender } from '../core/testing';
+import { fixture, waitForLitRender } from '../core/testing';
 import type { SbbBlockLinkElement } from '../link';
 import '../button/secondary-button';
 import '../link/block-link';
 
 import { SbbActionGroupElement } from './action-group';
 
-describe('sbb-action-group', () => {
+import '../button';
+import '../link';
+
+describe(`sbb-action-group with ${fixture.name}`, () => {
   let element: SbbActionGroupElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
-      <sbb-action-group align-group="start" orientation="horizontal">
-        <sbb-secondary-button>Button</sbb-secondary-button>
-        <sbb-block-link
-          icon-name="chevron-small-left-small"
-          icon-placement="start"
-          href="https://github.com/lyne-design-system/lyne-components"
-        >
-          Link
-        </sbb-block-link>
-      </sbb-action-group>
-    `);
+    element = await fixture(
+      html`
+        <sbb-action-group align-group="start" orientation="horizontal">
+          <sbb-secondary-button>Button</sbb-secondary-button>
+          <sbb-block-link
+            icon-name="chevron-small-left-small"
+            icon-placement="start"
+            href="https://github.com/lyne-design-system/lyne-components"
+          >
+            Link
+          </sbb-block-link>
+        </sbb-action-group>
+      `,
+      { modules: ['./action-group.ts', '../button/index.ts', '../link/index.ts'] },
+    );
     await waitForLitRender(element);
   });
 

@@ -10,7 +10,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import {
   NamedSlotStateController,
-  SbbNamedSlotListElementMixin,
+  SbbNamedSlotListMixin,
   type WithListChildren,
 } from '../core/common-behaviors';
 import type { SbbBlockLinkElement, SbbBlockLinkButtonElement } from '../link';
@@ -29,7 +29,7 @@ import '../title';
  * component is set to `var(--sbb-overlay-z-index)` with a value of `1000`.
  */
 @customElement('sbb-skiplink-list')
-export class SbbSkiplinkListElement extends SbbNamedSlotListElementMixin<
+export class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
   SbbBlockLinkElement | SbbBlockLinkButtonElement,
   typeof LitElement
 >(LitElement) {

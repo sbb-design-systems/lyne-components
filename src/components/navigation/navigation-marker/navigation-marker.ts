@@ -1,7 +1,7 @@
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { SbbNamedSlotListElementMixin, type WithListChildren } from '../../core/common-behaviors';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/common-behaviors';
 import { AgnosticResizeObserver } from '../../core/observers';
 import type { SbbNavigationButtonElement, SbbNavigationLinkElement } from '../index';
 
@@ -13,7 +13,7 @@ import style from './navigation-marker.scss?lit&inline';
  * @slot - Use the unnamed slot to add `sbb-navigation-button`/`sbb-navigation-link` elements into the `sbb-navigation-marker`.
  */
 @customElement('sbb-navigation-marker')
-export class SbbNavigationMarkerElement extends SbbNamedSlotListElementMixin<
+export class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
   SbbNavigationButtonElement | SbbNavigationLinkElement,
   typeof LitElement
 >(LitElement) {

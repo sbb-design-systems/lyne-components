@@ -1,8 +1,14 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
+import {
+  EventSpy,
+  waitForCondition,
+  waitForLitRender,
+  fixture,
+  isNonHydratedSsr,
+} from '../../core/testing';
 import type { SbbCardElement } from '../card';
 
 import type { SbbCardButtonElement } from './card-button';
@@ -10,12 +16,13 @@ import type { SbbCardButtonElement } from './card-button';
 import '../card';
 import './card-button';
 
-describe('sbb-card-button', () => {
+describe(`sbb-card-button with ${fixture.name}`, () => {
   let element: SbbCardElement;
 
   it('should render an active sbb-card-button', async () => {
     element = await fixture(
       html`<sbb-card><sbb-card-button active>Click me</sbb-card-button>Content</sbb-card>`,
+      { modules: ['../card/index.ts', './card-button.ts'] },
     );
 
     expect(element).to.have.attribute('data-has-action');
@@ -25,7 +32,15 @@ describe('sbb-card-button', () => {
     const cardAction = element.querySelector('sbb-card-button');
 
     expect(cardAction).dom.to.be.equal(`
-      <sbb-card-button role="button" dir="ltr" tabindex="0" data-action data-button slot="action" active>
+      <sbb-card-button
+        role="button"
+        dir="ltr"
+        tabindex="0"
+        data-action
+        data-button
+        slot="action"
+        active
+        ${isNonHydratedSsr() ? 'defer-hydration' : ''}>
         Click me
       </sbb-card-button>
     `);
@@ -35,6 +50,7 @@ describe('sbb-card-button', () => {
   it('should correctly toggle active state', async () => {
     element = await fixture(
       html`<sbb-card><sbb-card-button>Click me</sbb-card-button>Content</sbb-card>`,
+      { modules: ['../card/index.ts', './card-button.ts'] },
     );
     expect(element).not.to.have.attribute('data-has-active-action');
 
@@ -52,6 +68,7 @@ describe('sbb-card-button', () => {
           <button>Content</button>
         </span>
       </sbb-card>`,
+      { modules: ['../card/index.ts', './card-button.ts'] },
     );
 
     expect(element).to.have.attribute('data-has-action');
@@ -75,6 +92,7 @@ describe('sbb-card-button', () => {
           <button>Content</button>
         </span>
       </sbb-card>`,
+      { modules: ['../card/index.ts', './card-button.ts'] },
     );
     expect(document.querySelector('button')).to.have.attribute('data-card-focusable');
 
@@ -105,6 +123,7 @@ describe('sbb-card-button', () => {
         <sbb-card-button>Click me</sbb-card-button>
         <span id="content"></span>
       </sbb-card>`,
+      { modules: ['../card/index.ts', './card-button.ts'] },
     );
 
     // Add a button to slot
@@ -122,6 +141,7 @@ describe('sbb-card-button', () => {
       html` <sbb-card>
         <span id="content"><button></button></span>
       </sbb-card>`,
+      { modules: ['../card/index.ts'] },
     );
 
     // Add a sbb-card-button
@@ -140,6 +160,7 @@ describe('sbb-card-button', () => {
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-card><sbb-card-button id="focus-id">Card</sbb-card-button>Content</sbb-card>`,
+        { modules: ['../card/index.ts', './card-button.ts'] },
       );
       action = document.querySelector<SbbCardButtonElement>('sbb-card-button')!;
     });

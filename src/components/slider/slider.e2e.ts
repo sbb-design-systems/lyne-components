@@ -1,8 +1,8 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForLitRender } from '../core/testing';
+import { EventSpy, waitForLitRender, fixture } from '../core/testing';
 
 import { SbbSliderElement } from './slider';
 
@@ -18,19 +18,22 @@ const keyboardPressTimes = async (
   await waitForLitRender(slider);
 };
 
-describe('sbb-slider', () => {
+describe(`sbb-slider with ${fixture.name}`, () => {
   let element: SbbSliderElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
-      <sbb-slider
-        start-icon="walk-slow-small"
-        end-icon="walk-fast-small"
-        max="500"
-        min="100"
-        value="400"
-      ></sbb-slider>
-    `);
+    element = await fixture(
+      html`
+        <sbb-slider
+          start-icon="walk-slow-small"
+          end-icon="walk-fast-small"
+          max="500"
+          min="100"
+          value="400"
+        ></sbb-slider>
+      `,
+      { modules: ['./slider.ts'] },
+    );
   });
 
   it('renders', async () => {

@@ -1,17 +1,18 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
+import { waitForCondition, waitForLitRender, EventSpy, fixture } from '../../core/testing';
 
 import { SbbNavigationLinkElement } from './navigation-link';
 
-describe('sbb-navigation-link', () => {
+describe(`sbb-navigation-link with ${fixture.name}`, () => {
   let element: SbbNavigationLinkElement;
 
   beforeEach(async () => {
     element = await fixture(
       html`<sbb-navigation-link href="#" id="focus-id">Navigation Action</sbb-navigation-link>`,
+      { modules: ['./navigation-link.ts'] },
     );
   });
 

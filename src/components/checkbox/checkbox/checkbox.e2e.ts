@@ -1,9 +1,9 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { isChromium, isFirefox } from '../../core/dom';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
+import { EventSpy, fixture, waitForCondition, waitForLitRender } from '../../core/testing';
 import type { SbbVisualCheckboxElement } from '../../visual-checkbox';
 
 import { SbbCheckboxElement } from './checkbox';
@@ -15,12 +15,14 @@ interface CheckboxAccessibilitySnapshot {
   required: boolean;
 }
 
-describe('sbb-checkbox', () => {
+describe(`sbb-checkbox with ${fixture.name}`, () => {
   describe('general', () => {
     let element: SbbCheckboxElement;
 
     beforeEach(async () => {
-      element = await fixture(html`<sbb-checkbox name="name" value="value">Label</sbb-checkbox>`);
+      element = await fixture(html`<sbb-checkbox name="name" value="value">Label</sbb-checkbox>`, {
+        modules: ['./checkbox.ts'],
+      });
     });
 
     it('should render', async () => {
@@ -66,6 +68,7 @@ describe('sbb-checkbox', () => {
             <sbb-checkbox></sbb-checkbox>
           </div>
         </div>`,
+        { modules: ['./checkbox.ts'] },
       );
       element = root.querySelector<SbbCheckboxElement>('sbb-checkbox')!;
 
@@ -233,6 +236,7 @@ describe('sbb-checkbox', () => {
                 </fieldset>
                 <button type="reset">reset</button>
               </form>`,
+              { modules: ['./checkbox.ts'] },
             );
             await waitForLitRender(form);
 
@@ -713,6 +717,7 @@ describe('sbb-checkbox', () => {
                 </fieldset>
                 <button type="reset">reset</button>
               </form>`,
+              { modules: ['./checkbox.ts'] },
             );
             await waitForLitRender(form);
 

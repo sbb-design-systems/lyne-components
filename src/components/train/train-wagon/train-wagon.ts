@@ -2,7 +2,7 @@ import { type CSSResultGroup, LitElement, nothing, type TemplateResult } from 'l
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { LanguageController, SbbNamedSlotListElementMixin } from '../../core/common-behaviors';
+import { LanguageController, SbbNamedSlotListMixin } from '../../core/common-behaviors';
 import { setAttribute } from '../../core/dom';
 import { EventEmitter } from '../../core/eventing';
 import {
@@ -17,6 +17,8 @@ import {
 } from '../../core/i18n';
 import type { SbbOccupancy } from '../../core/interfaces';
 import type { SbbIconElement } from '../../icon';
+
+import '../../icon';
 import '../../timetable-occupancy-icon';
 
 import style from './train-wagon.scss?lit&inline';
@@ -27,10 +29,9 @@ import style from './train-wagon.scss?lit&inline';
  * @slot - Use the unnamed slot to add one or more `sbb-icon` for meta-information of the `sbb-train-wagon`.
  */
 @customElement('sbb-train-wagon')
-export class SbbTrainWagonElement extends SbbNamedSlotListElementMixin<
-  SbbIconElement,
-  typeof LitElement
->(LitElement) {
+export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof LitElement>(
+  LitElement,
+) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     sectorChange: 'sectorChange',

@@ -22,6 +22,7 @@ export const fixture = Object.defineProperty(
     options.base ??= [...stack!.matchAll(/http:\/\/localhost:?[^:)]+/gm)]
       .map((m) => m[0])
       .find((u) => !u.includes('/node_modules/') && !u.includes('/core/testing/'));
+    options.modules.unshift('/src/components/core/testing/test-setup-ssr.ts');
     const fixtures = await import('@lit-labs/testing/fixtures.js');
     if (isHydratedSsr()) {
       const result = await fixtures.ssrHydratedFixture<T>(template, options);

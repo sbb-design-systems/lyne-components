@@ -2,7 +2,7 @@ import { isServer, type LitElement, type PropertyValues } from 'lit';
 
 import { forwardEventToHost } from '../eventing';
 
-import type { Constructor } from './constructor';
+import type { AbstractConstructor } from './constructor';
 
 // Define the interface for the mixin
 export declare abstract class SbbHydrationMixinType {
@@ -52,10 +52,10 @@ const hydrationSuppressed =
  * @returns A class extended with the hydration check functionality.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbHydrationMixin = <T extends Constructor<LitElement>>(
+export const SbbHydrationMixin = <T extends AbstractConstructor<LitElement>>(
   base: T,
-): Constructor<SbbHydrationMixinType> & T => {
-  class SbbHydrationMixinClass extends base implements Partial<SbbHydrationMixinType> {
+): AbstractConstructor<SbbHydrationMixinType> & T => {
+  abstract class SbbHydrationMixinClass extends base implements Partial<SbbHydrationMixinType> {
     private _hydrationRequired = false;
     private _hydrationComplete = new Promise<boolean>(
       (resolve) => (this._resolveHydration = resolve),
@@ -141,5 +141,5 @@ export const SbbHydrationMixin = <T extends Constructor<LitElement>>(
       return value;
     }
   }
-  return SbbHydrationMixinClass as unknown as Constructor<SbbHydrationMixinType> & T;
+  return SbbHydrationMixinClass as unknown as AbstractConstructor<SbbHydrationMixinType> & T;
 };

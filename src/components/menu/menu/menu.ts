@@ -10,7 +10,7 @@ import {
   isArrowKeyPressed,
   setModalityOnNextFocus,
 } from '../../core/a11y';
-import { SbbNamedSlotListElementMixin } from '../../core/common-behaviors';
+import { SbbNamedSlotListMixin } from '../../core/common-behaviors';
 import {
   findReferencedElement,
   isBreakpoint,
@@ -59,7 +59,7 @@ let nextId = 0;
  * component is set to `var(--sbb-overlay-z-index)` with a value of `1000`.
  */
 @customElement('sbb-menu')
-export class SbbMenuElement extends SbbNamedSlotListElementMixin<
+export class SbbMenuElement extends SbbNamedSlotListMixin<
   SbbMenuButtonElement | SbbMenuLinkElement,
   typeof LitElement
 >(LitElement) {
@@ -220,6 +220,10 @@ export class SbbMenuElement extends SbbNamedSlotListElementMixin<
     const signal = this._abort.signal;
     this.addEventListener('click', (e) => this._onClick(e), { signal });
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
+    this.shadowRoot?.addEventListener('slotchange', (e) => this._checkListCase(e), {
+      signal,
+      capture: true,
+    });
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
 
@@ -236,7 +240,7 @@ export class SbbMenuElement extends SbbNamedSlotListElementMixin<
     removeInertMechanism();
   }
 
-  protected override checkChildren(): void {
+  private _checkListCase(event: Event): void {
     // If all children are sbb-menu-button/menu-link instances, we render them as a list.
     if (
       this.children?.length &&
@@ -244,8 +248,11 @@ export class SbbMenuElement extends SbbNamedSlotListElementMixin<
         (c) => c.tagName === 'SBB-MENU-BUTTON' || c.tagName === 'SBB-MENU-LINK',
       )
     ) {
-      super.checkChildren();
-    } else if (this.listChildren.length) {
+      return;
+    }
+
+    event.stopImmediatePropagation();
+    if (this.listChildren.length) {
       this.listChildren.forEach((c) => c.removeAttribute('slot'));
       this.listChildren = [];
     }

@@ -1,19 +1,25 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
+import { fixture } from '../../core/testing';
+
 import { SbbNavigationListElement } from './navigation-list';
+
 import '../navigation-button';
 
-describe('sbb-navigation-list', () => {
+describe(`sbb-navigation-list with ${fixture.name}`, () => {
   let element: SbbNavigationListElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
-      <sbb-navigation-list>
-        <sbb-navigation-button>Label</sbb-navigation-button>
-        <sbb-navigation-button>Label 2</sbb-navigation-button>
-      </sbb-navigation-list>
-    `);
+    element = await fixture(
+      html`
+        <sbb-navigation-list>
+          <sbb-navigation-button>Label</sbb-navigation-button>
+          <sbb-navigation-button>Label 2</sbb-navigation-button>
+        </sbb-navigation-list>
+      `,
+      { modules: ['./navigation-list.ts', '../navigation-button/index.ts'] },
+    );
   });
 
   it('renders', () => {

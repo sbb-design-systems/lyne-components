@@ -1,14 +1,14 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
+import { waitForCondition, waitForLitRender, EventSpy, fixture } from '../core/testing';
 
 import { SbbCalendarElement } from './calendar';
 
 import '../button';
 
-describe(`sbb-calendar`, () => {
+describe(`sbb-calendar with ${fixture.name}`, () => {
   let element: SbbCalendarElement;
   const waitForTransition = async (): Promise<void> => {
     await waitForLitRender(element);
@@ -18,10 +18,11 @@ describe(`sbb-calendar`, () => {
   beforeEach(async () => {
     element = await fixture(
       html`<sbb-calendar data-now="1673348400000" selected="1673744400"></sbb-calendar>`,
+      { modules: ['./calendar.ts'] },
     );
   });
 
-  it('renders', async () => {
+  it.only('renders', async () => {
     assert.instanceOf(element, SbbCalendarElement);
   });
 
@@ -324,7 +325,8 @@ describe(`sbb-calendar`, () => {
   describe('navigation for year view', () => {
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-calendar data-now="1673348400000" selected="1673737200"></sbb-calendar>`,
+        html`<sbb-calendar data-now="1673348400000" selected="1673744400"></sbb-calendar>`,
+        { modules: ['./calendar.ts'] },
       );
 
       const yearSelectionButton: HTMLElement = element.shadowRoot!.querySelector(

@@ -1,8 +1,8 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, type TemplateResult } from 'lit';
 
-import { EventSpy, waitForLitRender } from '../testing';
+import { EventSpy, waitForLitRender, fixture } from '../testing';
 
 import { SbbButtonBaseElement } from './button-base-element';
 
@@ -15,12 +15,12 @@ class GenericButton extends SbbButtonBaseElement {
 }
 customElements.define('generic-button', GenericButton);
 
-describe('SbbButtonBaseElement', () => {
+describe(`SbbButtonBaseElement with ${fixture.name}`, () => {
   describe('template', () => {
     let element: GenericButton;
 
     beforeEach(async () => {
-      element = await fixture(html`<generic-button></generic-button>`);
+      element = await fixture(html`<generic-button></generic-button>`, { modules: [] });
     });
 
     it('renders', async () => {
@@ -41,7 +41,7 @@ describe('SbbButtonBaseElement', () => {
     let element: GenericButton;
 
     beforeEach(async () => {
-      element = await fixture(html` <generic-button></generic-button> `);
+      element = await fixture(html` <generic-button></generic-button> `, { modules: [] });
     });
 
     it('no click dispatch if disabled', async () => {

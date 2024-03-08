@@ -1,8 +1,14 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
+import {
+  EventSpy,
+  waitForCondition,
+  waitForLitRender,
+  fixture,
+  isNonHydratedSsr,
+} from '../../core/testing';
 import type { SbbCardElement } from '../card';
 
 import type { SbbCardLinkElement } from './card-link';
@@ -10,18 +16,23 @@ import type { SbbCardLinkElement } from './card-link';
 import '../card';
 import './card-link';
 
-describe('sbb-card-link', () => {
+describe(`sbb-card-link with ${fixture.name}`, () => {
   let element: SbbCardElement;
 
   it('should render an sbb-card-link as a link opening in a new window', async () => {
-    element = await fixture(html`
-      <sbb-card>
-        <sbb-card-link href="https://github.com/lyne-design-system/lyne-components" target="_blank"
-          >Follow me</sbb-card-link
-        >
-        Content text
-      </sbb-card>
-    `);
+    element = await fixture(
+      html`
+        <sbb-card>
+          <sbb-card-link
+            href="https://github.com/lyne-design-system/lyne-components"
+            target="_blank"
+            >Follow me</sbb-card-link
+          >
+          Content text
+        </sbb-card>
+      `,
+      { modules: ['../card/index.ts', './card-link.ts'] },
+    );
 
     expect(element).to.have.attribute('data-has-action');
     expect(element).not.to.have.attribute('data-has-active-action');
@@ -30,7 +41,16 @@ describe('sbb-card-link', () => {
     const cardAction = element.querySelector('sbb-card-link');
 
     expect(cardAction).dom.to.be.equal(`
-      <sbb-card-link href="https://github.com/lyne-design-system/lyne-components" target="_blank" role="link" dir="ltr" tabindex="0" data-action data-link slot="action">
+      <sbb-card-link
+        href="https://github.com/lyne-design-system/lyne-components"
+        target="_blank"
+        role="link"
+        dir="ltr"
+        tabindex="0"
+        data-action
+        data-link
+        slot="action"
+        ${isNonHydratedSsr() ? 'defer-hydration' : ''}>
         Follow me
       </sbb-card-link>
     `);
@@ -40,6 +60,7 @@ describe('sbb-card-link', () => {
   it('should correctly toggle active state', async () => {
     element = await fixture(
       html`<sbb-card><sbb-card-link href="#">Click me</sbb-card-link>Content</sbb-card>`,
+      { modules: ['../card/index.ts', './card-link.ts'] },
     );
     expect(element).not.to.have.attribute('data-has-active-action');
 
@@ -55,6 +76,7 @@ describe('sbb-card-link', () => {
         ><sbb-card-link active href="#">Click me</sbb-card-link
         ><span><button>Content</button></span></sbb-card
       >`,
+      { modules: ['../card/index.ts', './card-link.ts'] },
     );
 
     expect(element).to.have.attribute('data-has-action');
@@ -78,6 +100,7 @@ describe('sbb-card-link', () => {
           <button>Content</button>
         </span>
       </sbb-card>`,
+      { modules: ['../card/index.ts', './card-link.ts'] },
     );
     expect(document.querySelector('button')).to.have.attribute('data-card-focusable');
 
@@ -108,6 +131,7 @@ describe('sbb-card-link', () => {
         <sbb-card-link href="#">Click me</sbb-card-link>
         <span id="content"></span>
       </sbb-card>`,
+      { modules: ['../card/index.ts', './card-link.ts'] },
     );
 
     // Add a button to slot
@@ -127,6 +151,7 @@ describe('sbb-card-link', () => {
           <button></button>
         </span>
       </sbb-card>`,
+      { modules: ['../card/index.ts'] },
     );
 
     // Add a sbb-card-link
@@ -143,12 +168,15 @@ describe('sbb-card-link', () => {
     let action: SbbCardLinkElement;
 
     beforeEach(async () => {
-      element = await fixture(html`
-        <sbb-card>
-          <sbb-card-link id="focus-id" href="#">Card</sbb-card-link>
-          Content
-        </sbb-card>
-      `);
+      element = await fixture(
+        html`
+          <sbb-card>
+            <sbb-card-link id="focus-id" href="#">Card</sbb-card-link>
+            Content
+          </sbb-card>
+        `,
+        { modules: ['../card/index.ts', './card-link.ts'] },
+      );
       action = document.querySelector<SbbCardLinkElement>('sbb-card-link')!;
     });
 

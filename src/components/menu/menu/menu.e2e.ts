@@ -1,35 +1,47 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import type { SbbButtonElement } from '../../button';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
+import { EventSpy, waitForCondition, waitForLitRender, fixture } from '../../core/testing';
 
 import { SbbMenuElement } from './menu';
+
 import '../../button/button';
 import '../menu-button';
 import '../../link';
 import '../../divider';
 
-describe('sbb-menu', () => {
+describe(`sbb-menu with ${fixture.name}`, () => {
   let element: SbbMenuElement, trigger: SbbButtonElement;
 
   beforeEach(async () => {
-    await fixture(html`
-      <sbb-button id="menu-trigger">Menu trigger</sbb-button>
-      <sbb-menu id="menu" trigger="menu-trigger" disable-animation>
-        <sbb-block-link id="menu-link" href="#" size="xs">Profile</sbb-block-link>
-        <sbb-menu-button id="menu-action-1" icon-name="tick-small">View</sbb-menu-button>
-        <sbb-menu-button id="menu-action-2" icon-name="pen-small" amount="1" disabled
-          >Edit</sbb-menu-button
-        >
-        <sbb-menu-button id="menu-action-3" icon-name="swisspass-small" amount="2"
-          >Details</sbb-menu-button
-        >
-        <sbb-divider id="menu-divider"></sbb-divider>
-        <sbb-menu-button id="menu-action-4" icon-name="cross-small">Cancel</sbb-menu-button>
-      </sbb-menu>
-    `);
+    await fixture(
+      html`
+        <sbb-button id="menu-trigger">Menu trigger</sbb-button>
+        <sbb-menu id="menu" trigger="menu-trigger" disable-animation>
+          <sbb-block-link id="menu-link" href="#" size="xs" variant="block">Profile</sbb-block-link>
+          <sbb-menu-button id="menu-action-1" icon-name="tick-small">View</sbb-menu-button>
+          <sbb-menu-button id="menu-action-2" icon-name="pen-small" amount="1" disabled
+            >Edit</sbb-menu-button
+          >
+          <sbb-menu-button id="menu-action-3" icon-name="swisspass-small" amount="2"
+            >Details</sbb-menu-button
+          >
+          <sbb-divider id="menu-divider"></sbb-divider>
+          <sbb-menu-button id="menu-action-4" icon-name="cross-small">Cancel</sbb-menu-button>
+        </sbb-menu>
+      `,
+      {
+        modules: [
+          './menu.ts',
+          '../../button/index.ts',
+          '../../divider/index.ts',
+          '../../link/index.ts',
+          '../menu-button/index.ts',
+        ],
+      },
+    );
     trigger = document.querySelector<SbbButtonElement>('sbb-button')!;
     element = document.querySelector<SbbMenuElement>('sbb-menu')!;
   });

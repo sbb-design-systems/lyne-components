@@ -1,8 +1,11 @@
 import { type LitElement, html, nothing, type TemplateResult } from 'lit';
 import { state } from 'lit/decorators.js';
 
+import { getLocalName } from '../dom';
+
 import type { AbstractConstructor } from './constructor';
-import { SlotChildObserver } from './slot-child-observer';
+import { SbbHydrationMixin, type SbbHydrationMixinType } from './hydration-mixin';
+
 import '../../screenreader-only';
 
 const SSR_CHILD_COUNT_ATTRIBUTE = 'data-ssr-child-count';
@@ -20,14 +23,15 @@ const SLOTNAME_PREFIX = 'li';
  * }
  */
 export type WithListChildren<
-  T extends NamedSlotListElementMixinType<C>,
+  T extends SbbNamedSlotListMixinType<C>,
   C extends HTMLElement = HTMLElement,
 > = T & { listChildren: C[] };
 
-export declare abstract class NamedSlotListElementMixinType<C extends HTMLElement> {
+export declare abstract class SbbNamedSlotListMixinType<
+  C extends HTMLElement,
+> extends SbbHydrationMixinType {
   protected abstract readonly listChildTagNames: string[];
   @state() protected listChildren: C[];
-  protected checkChildren(): void;
   protected renderList(attributes?: {
     class?: string;
     ariaLabel?: string;
@@ -38,20 +42,20 @@ export declare abstract class NamedSlotListElementMixinType<C extends HTMLElemen
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbNamedSlotListElementMixin = <
+export const SbbNamedSlotListMixin = <
   C extends HTMLElement,
   T extends AbstractConstructor<LitElement>,
 >(
   superClass: T,
-): AbstractConstructor<NamedSlotListElementMixinType<C>> & T => {
+): AbstractConstructor<SbbNamedSlotListMixinType<C>> & T => {
   /**
    * This base class provides named slot list observer functionality.
    * This allows using the pattern of rendering a named slot for each child, which allows
    * wrapping children in a ul/li list.
    */
   abstract class NamedSlotListElement<C extends HTMLElement = HTMLElement>
-    extends SlotChildObserver(superClass)
-    implements Partial<NamedSlotListElementMixinType<C>>
+    extends SbbHydrationMixin(superClass)
+    implements Partial<SbbNamedSlotListMixinType<C>>
   {
     /** A list of upper-cased tag names to match against. (e.g. SBB-LINK) */
     protected abstract readonly listChildTagNames: string[];
@@ -63,7 +67,17 @@ export const SbbNamedSlotListElementMixin = <
      */
     @state() protected listChildren: C[] = [];
 
-    protected override checkChildren(): void {
+    public override connectedCallback(): void {
+      super.connectedCallback();
+      this.shadowRoot?.addEventListener('slotchange', this._handleSlotchange, { passive: true });
+    }
+
+    public override disconnectedCallback(): void {
+      super.disconnectedCallback();
+      this.shadowRoot?.removeEventListener('slotchange', this._handleSlotchange);
+    }
+
+    private _handleSlotchange = (): void => {
       const listChildren = Array.from(this.children ?? []).filter((e): e is C =>
         this.listChildTagNames.includes(e.tagName),
       );
@@ -86,7 +100,7 @@ export const SbbNamedSlotListElementMixin = <
 
       // Remove the ssr attribute, once we have actually initialized the children elements.
       this.removeAttribute(SSR_CHILD_COUNT_ATTRIBUTE);
-    }
+    };
 
     /**
      * Renders list and list slots for slotted children or an amount of list slots
@@ -105,7 +119,7 @@ export const SbbNamedSlotListElementMixin = <
       if (listSlotNames.length >= 2) {
         return html`
           <ul
-            class=${attributes.class || this.tagName.toLowerCase()}
+            class=${attributes.class || (this.localName ?? getLocalName(this))}
             aria-label=${attributes.ariaLabel || nothing}
             aria-labelledby=${attributes.ariaLabelledby || nothing}
           >
@@ -115,7 +129,7 @@ export const SbbNamedSlotListElementMixin = <
         `;
       } else if (listSlotNames.length === 1) {
         return html`<sbb-screenreader-only>${attributes.ariaLabel}</sbb-screenreader-only>
-          <span class=${attributes.class || this.tagName.toLowerCase()}>
+          <span class=${attributes.class || (this.localName ?? getLocalName(this))}>
             <span><slot name=${listSlotNames[0]}></slot></span>
           </span>
           ${this.renderHiddenSlot()} `;
@@ -150,6 +164,5 @@ export const SbbNamedSlotListElementMixin = <
     }
   }
 
-  return NamedSlotListElement as unknown as AbstractConstructor<NamedSlotListElementMixinType<C>> &
-    T;
+  return NamedSlotListElement as unknown as AbstractConstructor<SbbNamedSlotListMixinType<C>> & T;
 };

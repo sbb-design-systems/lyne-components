@@ -8,7 +8,7 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbNamedSlotListElementMixin, type WithListChildren } from '../../core/common-behaviors';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/common-behaviors';
 import type { SbbTagElement } from '../tag';
 
 import style from './tag-group.scss?lit&inline';
@@ -19,10 +19,9 @@ import style from './tag-group.scss?lit&inline';
  * @slot - Use the unnamed slot to add one or more 'sbb-tag' elements to the `sbb-tag-group`.
  */
 @customElement('sbb-tag-group')
-export class SbbTagGroupElement extends SbbNamedSlotListElementMixin<
-  SbbTagElement,
-  typeof LitElement
->(LitElement) {
+export class SbbTagGroupElement extends SbbNamedSlotListMixin<SbbTagElement, typeof LitElement>(
+  LitElement,
+) {
   public static override styles: CSSResultGroup = style;
   // DIV is added here due to special requirements from sbb.ch.
   protected override readonly listChildTagNames = ['SBB-TAG', 'DIV'];

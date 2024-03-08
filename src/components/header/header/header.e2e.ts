@@ -1,15 +1,21 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForLitRender, mockScrollTo, waitForCondition } from '../../core/testing';
+import {
+  EventSpy,
+  waitForLitRender,
+  mockScrollTo,
+  waitForCondition,
+  fixture,
+} from '../../core/testing';
 import { SbbMenuElement } from '../../menu';
 import type { SbbHeaderButtonElement } from '../header-button';
 
 import { SbbHeaderElement } from './header';
 import '../header-button';
 
-describe('sbb-header', () => {
+describe(`sbb-header with ${fixture.name}`, () => {
   let element: SbbHeaderElement;
 
   beforeEach(async () => {
@@ -17,15 +23,18 @@ describe('sbb-header', () => {
   });
 
   it('renders', async () => {
-    element = await fixture(html`<sbb-header></sbb-header>`);
+    element = await fixture(html`<sbb-header></sbb-header>`, { modules: ['./header.ts'] });
     assert.instanceOf(element, SbbHeaderElement);
   });
 
   it('should be fixed on scroll', async () => {
-    await fixture(html`
-      <sbb-header></sbb-header>
-      <div style="height: 2000px;"></div>
-    `);
+    await fixture(
+      html`
+        <sbb-header></sbb-header>
+        <div style="height: 2000px;"></div>
+      `,
+      { modules: ['./header.ts'] },
+    );
     element = document.querySelector<SbbHeaderElement>('sbb-header')!;
 
     mockScrollTo({ top: 200 });
@@ -34,10 +43,13 @@ describe('sbb-header', () => {
   });
 
   it('should hide/show on scroll', async () => {
-    await fixture(html`
-      <sbb-header hide-on-scroll></sbb-header>
-      <div style="height: 2000px;"></div>
-    `);
+    await fixture(
+      html`
+        <sbb-header hide-on-scroll></sbb-header>
+        <div style="height: 2000px;"></div>
+      `,
+      { modules: ['./header.ts'] },
+    );
 
     element = document.querySelector<SbbHeaderElement>('sbb-header')!;
     expect(element.scrollOrigin).not.to.be.undefined;
@@ -70,13 +82,16 @@ describe('sbb-header', () => {
   });
 
   it('should hide/show on scroll', async () => {
-    await fixture(html`
-      <sbb-header hide-on-scroll>
-        <sbb-header-button id="action-1">Action 1</sbb-header-button>
-        <sbb-header-button id="action-2">Action 2</sbb-header-button>
-      </sbb-header>
-      <div style="height: 2000px;"></div>
-    `);
+    await fixture(
+      html`
+        <sbb-header hide-on-scroll>
+          <sbb-header-button id="action-1">Action 1</sbb-header-button>
+          <sbb-header-button id="action-2">Action 2</sbb-header-button>
+        </sbb-header>
+        <div style="height: 2000px;"></div>
+      `,
+      { modules: ['./header.ts', '../header-button/index.ts'] },
+    );
 
     element = document.querySelector('sbb-header')!;
     expect(element.scrollOrigin).not.to.be.undefined;
@@ -129,16 +144,26 @@ describe('sbb-header', () => {
   });
 
   it('should close menu on scroll', async () => {
-    await fixture(html`
-      <sbb-header hide-on-scroll>
-        <sbb-header-button id="language-menu-trigger">English</sbb-header-button>
-        <sbb-menu trigger="language-menu-trigger" disable-animation>
-          <sbb-menu-button>Deutsch</sbb-menu-button>
-          <sbb-menu-button>Français</sbb-menu-button>
-        </sbb-menu>
-      </sbb-header>
-      <div style="height: 2000px;"></div>
-    `);
+    await fixture(
+      html`
+        <sbb-header hide-on-scroll>
+          <sbb-header-button id="language-menu-trigger">English</sbb-header-button>
+          <sbb-menu trigger="language-menu-trigger" disable-animation>
+            <sbb-menu-button>Deutsch</sbb-menu-button>
+            <sbb-menu-button>Français</sbb-menu-button>
+          </sbb-menu>
+        </sbb-header>
+        <div style="height: 2000px;"></div>
+      `,
+      {
+        modules: [
+          './header.ts',
+          '../header-button/index.ts',
+          '../../menu/index.ts',
+          '../../menu/index.ts',
+        ],
+      },
+    );
 
     element = document.querySelector<SbbHeaderElement>('sbb-header')!;
 

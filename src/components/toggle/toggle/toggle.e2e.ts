@@ -1,23 +1,30 @@
-import { assert, expect, fixture, nextFrame } from '@open-wc/testing';
+import { assert, expect, nextFrame } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
+import { EventSpy, waitForCondition, waitForLitRender, fixture } from '../../core/testing';
 import type { SbbToggleOptionElement } from '../toggle-option';
 import '../toggle-option';
 
 import { SbbToggleElement } from './toggle';
 
-describe('sbb-toggle', () => {
+describe(`sbb-toggle with ${fixture.name}`, () => {
   let element: SbbToggleElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
-      <sbb-toggle value="Value one">
-        <sbb-toggle-option id="sbb-toggle-option-1" value="Value one">Value one</sbb-toggle-option>
-        <sbb-toggle-option id="sbb-toggle-option-2" value="Value two">Value two</sbb-toggle-option>
-      </sbb-toggle>
-    `);
+    element = await fixture(
+      html`
+        <sbb-toggle value="Value one">
+          <sbb-toggle-option id="sbb-toggle-option-1" value="Value one"
+            >Value one</sbb-toggle-option
+          >
+          <sbb-toggle-option id="sbb-toggle-option-2" value="Value two"
+            >Value two</sbb-toggle-option
+          >
+        </sbb-toggle>
+      `,
+      { modules: ['./toggle.ts', '../toggle-option/index.ts'] },
+    );
   });
 
   it('renders', () => {

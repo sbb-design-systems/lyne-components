@@ -1,5 +1,7 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html, type TemplateResult } from 'lit';
+
+import { fixture } from '../testing';
 
 import { SbbActionBaseElement } from './action-base-element';
 
@@ -10,12 +12,12 @@ class GenericAction extends SbbActionBaseElement {
 }
 customElements.define('generic-action', GenericAction);
 
-describe('SbbActionBaseElement', () => {
+describe(`SbbActionBaseElement with ${fixture.name}`, () => {
   describe('template', () => {
     let element: GenericAction;
 
     beforeEach(async () => {
-      element = await fixture(html`<generic-action></generic-action>`);
+      element = await fixture(html`<generic-action></generic-action>`, { modules: [] });
     });
 
     it('renders', async () => {

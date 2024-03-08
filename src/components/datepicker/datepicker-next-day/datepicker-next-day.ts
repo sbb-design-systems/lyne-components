@@ -156,7 +156,7 @@ export class SbbDatepickerNextDayElement extends SbbNegativeMixin(SbbButtonBaseE
   }
 
   private _setDisabledState(datepicker: SbbDatepickerElement | null | undefined): void {
-    const pickerValueAsDate = datepicker?.getValueAsDate();
+    const pickerValueAsDate = datepicker?.getValueAsDate?.();
 
     if (!pickerValueAsDate) {
       this._disabled = true;

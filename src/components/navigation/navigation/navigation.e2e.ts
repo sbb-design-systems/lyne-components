@@ -1,10 +1,10 @@
-import { assert, expect, fixture, nextFrame } from '@open-wc/testing';
+import { assert, expect, nextFrame } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import '../navigation-marker';
 import type { SbbButtonElement } from '../../button';
-import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
+import { waitForCondition, waitForLitRender, EventSpy, fixture } from '../../core/testing';
 import type { SbbNavigationButtonElement } from '../navigation-button';
 import '../navigation-button';
 import type { SbbNavigationSectionElement } from '../navigation-section';
@@ -12,29 +12,39 @@ import '../navigation-section';
 
 import { SbbNavigationElement } from './navigation';
 
-describe('sbb-navigation', () => {
+describe(`sbb-navigation with ${fixture.name}`, () => {
   let element: SbbNavigationElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
-      <sbb-navigation id="navigation" disable-animation>
-        <sbb-navigation-marker>
-          <sbb-navigation-button id="action-1">Tickets & Offers</sbb-navigation-button>
-          <sbb-navigation-button id="action-2">Vacations & Recreation</sbb-navigation-button>
-          <sbb-navigation-button>Travel information</sbb-navigation-button>
-          <sbb-navigation-button sbb-navigation-close>Help & Contact</sbb-navigation-button>
-        </sbb-navigation-marker>
+    element = await fixture(
+      html`
+        <sbb-navigation id="navigation" disable-animation>
+          <sbb-navigation-marker>
+            <sbb-navigation-button id="action-1">Tickets & Offers</sbb-navigation-button>
+            <sbb-navigation-button id="action-2">Vacations & Recreation</sbb-navigation-button>
+            <sbb-navigation-button>Travel information</sbb-navigation-button>
+            <sbb-navigation-button sbb-navigation-close>Help & Contact</sbb-navigation-button>
+          </sbb-navigation-marker>
 
-        <sbb-navigation-section trigger="action-1" id="first-section" disable-animation>
-          <sbb-navigation-button sbb-navigation-section-close>Label</sbb-navigation-button>
-          <sbb-navigation-button>Label</sbb-navigation-button>
-        </sbb-navigation-section>
-        <sbb-navigation-section trigger="action-2" id="second-section" disable-animation>
-          <sbb-navigation-button>Label</sbb-navigation-button>
-          <sbb-navigation-button>Label</sbb-navigation-button>
-        </sbb-navigation-section>
-      </sbb-navigation>
-    `);
+          <sbb-navigation-section trigger="action-1" id="first-section" disable-animation>
+            <sbb-navigation-button sbb-navigation-section-close>Label</sbb-navigation-button>
+            <sbb-navigation-button>Label</sbb-navigation-button>
+          </sbb-navigation-section>
+          <sbb-navigation-section trigger="action-2" id="second-section" disable-animation>
+            <sbb-navigation-button>Label</sbb-navigation-button>
+            <sbb-navigation-button>Label</sbb-navigation-button>
+          </sbb-navigation-section>
+        </sbb-navigation>
+      `,
+      {
+        modules: [
+          './navigation.ts',
+          '../navigation-marker/index.ts',
+          '../navigation-button/index.ts',
+          '../navigation-section/index.ts',
+        ],
+      },
+    );
   });
 
   it('renders', () => {

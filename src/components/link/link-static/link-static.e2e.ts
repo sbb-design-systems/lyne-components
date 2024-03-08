@@ -1,16 +1,18 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
+import { EventSpy, waitForCondition, waitForLitRender, fixture } from '../../core/testing';
 
 import { SbbLinkStaticElement } from './link-static';
 
-describe('sbb-link-static', () => {
+describe(`sbb-link-static with ${fixture.name}`, () => {
   let element: SbbLinkStaticElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-link-static id="focus-id">Link static</sbb-link-static>`);
+    element = await fixture(html`<sbb-link-static id="focus-id">Link static</sbb-link-static>`, {
+      modules: ['./link-static.ts'],
+    });
   });
 
   it('renders', async () => {

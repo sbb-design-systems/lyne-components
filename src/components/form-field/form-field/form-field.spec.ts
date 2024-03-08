@@ -16,7 +16,7 @@ describe('sbb-form-field', () => {
 
     expect(root).dom.to.be.equal(`
       <sbb-form-field error-space="none" size="m" label="Fill input" width="default" data-input-empty data-input-type="input" data-slot-names="label unnamed">
-        <label data-creator="SBB-FORM-FIELD" slot="label" for="sbb-form-field-input-0">
+        <label data-creator="sbb-form-field" slot="label" for="sbb-form-field-input-0">
           Fill input
         </label>
         <input placeholder="This is an input" id="sbb-form-field-input-0">
@@ -62,7 +62,7 @@ describe('sbb-form-field', () => {
         data-input-empty
         data-input-type="input"
         data-slot-names="label unnamed">
-        <label for="sbb-form-field-input-2" data-creator="SBB-FORM-FIELD" slot="label">
+        <label for="sbb-form-field-input-2" data-creator="sbb-form-field" slot="label">
           Fill input
         </label>
         <input class="input" disabled="" placeholder="This is an input" id="sbb-form-field-input-2">
@@ -90,7 +90,7 @@ describe('sbb-form-field', () => {
         data-input-type="input"
         data-readonly
         data-slot-names="error label unnamed">
-        <label for="sbb-form-field-input-3" data-creator="SBB-FORM-FIELD" slot="label">
+        <label for="sbb-form-field-input-3" data-creator="sbb-form-field" slot="label">
           Fill input
         </label>
         <input
@@ -147,7 +147,7 @@ describe('sbb-form-field', () => {
 
     expect(root).dom.to.be.equal(`
       <sbb-form-field error-space="none" size="m" label="Select option:" optional borderless width="default" data-input-type="select" data-slot-names="label unnamed">
-        <label data-creator="SBB-FORM-FIELD" slot="label" for="sbb-form-field-input-4">
+        <label data-creator="sbb-form-field" slot="label" for="sbb-form-field-input-4">
           Select option:
         </label>
         <select id="sbb-form-field-input-4">

@@ -1,15 +1,17 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
+import { waitForCondition, waitForLitRender, EventSpy, fixture } from '../../core/testing';
 
 import { SbbRadioButtonElement } from './radio-button';
 
-describe('sbb-radio-button', () => {
+describe(`sbb-radio-button with ${fixture.name}`, () => {
   let element: SbbRadioButtonElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-radio-button value="Value">Value label</sbb-radio-button>`);
+    element = await fixture(html`<sbb-radio-button value="Value">Value label</sbb-radio-button>`, {
+      modules: ['./radio-button.ts'],
+    });
   });
 
   it('renders', async () => {

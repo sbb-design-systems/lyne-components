@@ -1,27 +1,32 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
 import { i18nDateChangedTo } from '../../core/i18n';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
+import { EventSpy, waitForCondition, waitForLitRender, fixture } from '../../core/testing';
 
 import { SbbDatepickerElement } from './datepicker';
 
 import '../../form-field';
 
-describe('sbb-datepicker', () => {
+describe(`sbb-datepicker with ${fixture.name}`, () => {
   it('renders', async () => {
-    const element = await fixture(html`<sbb-datepicker></sbb-datepicker>`);
+    const element = await fixture(html`<sbb-datepicker></sbb-datepicker>`, {
+      modules: ['./datepicker.ts'],
+    });
     assert.instanceOf(element, SbbDatepickerElement);
   });
 
   it('renders and formats date', async () => {
-    await fixture(html`
-      <input id="datepicker-input" value="01-01-2023" />
-      <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
-    `);
+    await fixture(
+      html`
+        <input id="datepicker-input" value="01-01-2023" />
+        <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
+      `,
+      { modules: ['./datepicker.ts'] },
+    );
 
     const input: HTMLInputElement = document.querySelector<HTMLInputElement>('input')!;
 
@@ -29,10 +34,13 @@ describe('sbb-datepicker', () => {
   });
 
   it('renders and interprets iso string date', async () => {
-    await fixture(html`
-      <input id="datepicker-input" value="2021-12-20" />
-      <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
-    `);
+    await fixture(
+      html`
+        <input id="datepicker-input" value="2021-12-20" />
+        <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
+      `,
+      { modules: ['./datepicker.ts'] },
+    );
 
     const input: HTMLInputElement = document.querySelector<HTMLInputElement>('input')!;
 
@@ -40,10 +48,13 @@ describe('sbb-datepicker', () => {
   });
 
   it('renders and interprets timestamp', async () => {
-    await fixture(html`
-      <input id="datepicker-input" value="1594512000000" />
-      <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
-    `);
+    await fixture(
+      html`
+        <input id="datepicker-input" value="1594512000000" />
+        <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
+      `,
+      { modules: ['./datepicker.ts'] },
+    );
 
     const input: HTMLInputElement = document.querySelector<HTMLInputElement>('input')!;
 
@@ -54,7 +65,7 @@ describe('sbb-datepicker', () => {
     let element: SbbDatepickerElement, input: HTMLInputElement, button: HTMLButtonElement;
 
     beforeEach(async () => {
-      await fixture(template);
+      await fixture(template, { modules: [] });
       element = document.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
       input = document.querySelector<HTMLInputElement>('input')!;
       button = document.querySelector<HTMLButtonElement>('button')!;
@@ -327,7 +338,7 @@ describe('sbb-datepicker', () => {
     `;
 
     it('renders', async () => {
-      const page = await fixture(template);
+      const page = await fixture(template, { modules: [] });
       assert.instanceOf(page.querySelector('sbb-datepicker'), SbbDatepickerElement);
       expect(document.querySelector('input')).dom.to.be.equal(
         '<input id="datepicker-input" type="text" placeholder="DD.MM.YYYY">',
@@ -347,7 +358,7 @@ describe('sbb-datepicker', () => {
     `;
 
     it('renders', async () => {
-      const page = await fixture(template);
+      const page = await fixture(template, { modules: [] });
       assert.instanceOf(page.querySelector('sbb-datepicker'), SbbDatepickerElement);
       expect(document.querySelector('input')).dom.to.be.equal(
         '<input id="datepicker-input" placeholder="DD.MM.YYYY" type="text">',

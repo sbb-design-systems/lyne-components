@@ -1,18 +1,18 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import type { SbbCheckboxGroupElement } from '../checkbox';
 import { SbbCheckboxElement } from '../checkbox';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
+import { EventSpy, waitForCondition, waitForLitRender, fixture } from '../core/testing';
 import type { SbbRadioButtonGroupElement } from '../radio-button';
 import { SbbRadioButtonElement } from '../radio-button';
 
 import { SbbSelectionPanelElement } from './selection-panel';
 import '../link/block-link-button';
 
-describe('sbb-selection-panel', () => {
+describe(`sbb-selection-panel with ${fixture.name}`, () => {
   let elements: SbbSelectionPanelElement[];
 
   const getPageContent = (inputType: string): TemplateResult => {
@@ -132,7 +132,7 @@ describe('sbb-selection-panel', () => {
       willOpenEventSpy = new EventSpy(SbbSelectionPanelElement.events.willOpen);
       didOpenEventSpy = new EventSpy(SbbSelectionPanelElement.events.didOpen);
 
-      await fixture(getPageContent('radio-button'));
+      await fixture(getPageContent('radio-button'), { modules: [] });
       elements = Array.from(document.querySelectorAll('sbb-selection-panel'));
       wrapper = document.querySelector<SbbRadioButtonGroupElement>('sbb-radio-button-group')!;
       firstPanel = document.querySelector<SbbSelectionPanelElement>('#sbb-selection-panel-1')!;
@@ -253,24 +253,31 @@ describe('sbb-selection-panel', () => {
 
   describe('with radio group with no slotted content', () => {
     it('focus selected, the focus and select on keyboard navigation', async () => {
-      await fixture(html`
-        <sbb-radio-button-group id="group-no-content" value="Value 2">
-          <sbb-selection-panel disable-animation id="no-content-1">
-            <sbb-radio-button id="input-no-content-1" value="Value 1">Value one</sbb-radio-button>
-          </sbb-selection-panel>
-          <sbb-selection-panel disable-animation id="no-content-2">
-            <sbb-radio-button id="input-no-content-2" value="Value 2">Value two</sbb-radio-button>
-          </sbb-selection-panel>
-          <sbb-selection-panel disable-animation id="no-content-3">
-            <sbb-radio-button id="input-no-content-3" value="Value 3" disabled
-              >Value three</sbb-radio-button
-            >
-          </sbb-selection-panel>
-          <sbb-selection-panel disable-animation id="no-content-4">
-            <sbb-radio-button id="input-no-content-4" value="Value 4">Value four</sbb-radio-button>
-          </sbb-selection-panel>
-        </sbb-radio-button-group>
-      `);
+      await fixture(
+        html`
+          <sbb-radio-button-group id="group-no-content" value="Value 2">
+            <sbb-selection-panel disable-animation id="no-content-1">
+              <sbb-radio-button id="input-no-content-1" value="Value 1">Value one</sbb-radio-button>
+            </sbb-selection-panel>
+            <sbb-selection-panel disable-animation id="no-content-2">
+              <sbb-radio-button id="input-no-content-2" value="Value 2">Value two</sbb-radio-button>
+            </sbb-selection-panel>
+            <sbb-selection-panel disable-animation id="no-content-3">
+              <sbb-radio-button id="input-no-content-3" value="Value 3" disabled
+                >Value three</sbb-radio-button
+              >
+            </sbb-selection-panel>
+            <sbb-selection-panel disable-animation id="no-content-4">
+              <sbb-radio-button id="input-no-content-4" value="Value 4"
+                >Value four</sbb-radio-button
+              >
+            </sbb-selection-panel>
+          </sbb-radio-button-group>
+        `,
+        {
+          modules: ['../radio-button/index.ts', './selection-panel.ts', '../radio-button/index.ts'],
+        },
+      );
       const wrapperNoContent =
         document.querySelector<SbbRadioButtonGroupElement>('#group-no-content')!;
       const firstInputNoContent: SbbRadioButtonElement =
@@ -330,25 +337,30 @@ describe('sbb-selection-panel', () => {
       willCloseEventSpy = new EventSpy(SbbSelectionPanelElement.events.willClose);
       didCloseEventSpy = new EventSpy(SbbSelectionPanelElement.events.didClose);
 
-      nestedElement = await fixture(html`
-        <sbb-radio-button-group orientation="vertical" horizontal-from="large">
-          <sbb-selection-panel disable-animation id="panel1">
-            <sbb-radio-button value="main1" checked> Main Option 1 </sbb-radio-button>
-            <sbb-radio-button-group orientation="vertical" slot="content">
-              <sbb-radio-button value="sub1" checked>Suboption 1</sbb-radio-button>
-              <sbb-radio-button value="sub2">Suboption 2</sbb-radio-button>
-            </sbb-radio-button-group>
-          </sbb-selection-panel>
+      nestedElement = await fixture(
+        html`
+          <sbb-radio-button-group orientation="vertical" horizontal-from="large">
+            <sbb-selection-panel disable-animation id="panel1">
+              <sbb-radio-button value="main1" checked> Main Option 1 </sbb-radio-button>
+              <sbb-radio-button-group orientation="vertical" slot="content">
+                <sbb-radio-button value="sub1" checked>Suboption 1</sbb-radio-button>
+                <sbb-radio-button value="sub2">Suboption 2</sbb-radio-button>
+              </sbb-radio-button-group>
+            </sbb-selection-panel>
 
-          <sbb-selection-panel disable-animation id="panel2">
-            <sbb-radio-button value="main2"> Main Option 2 </sbb-radio-button>
-            <sbb-radio-button-group orientation="vertical" slot="content">
-              <sbb-radio-button value="sub3">Suboption 3</sbb-radio-button>
-              <sbb-radio-button value="sub4">Suboption 4</sbb-radio-button>
-            </sbb-radio-button-group>
-          </sbb-selection-panel>
-        </sbb-radio-button-group>
-      `);
+            <sbb-selection-panel disable-animation id="panel2">
+              <sbb-radio-button value="main2"> Main Option 2 </sbb-radio-button>
+              <sbb-radio-button-group orientation="vertical" slot="content">
+                <sbb-radio-button value="sub3">Suboption 3</sbb-radio-button>
+                <sbb-radio-button value="sub4">Suboption 4</sbb-radio-button>
+              </sbb-radio-button-group>
+            </sbb-selection-panel>
+          </sbb-radio-button-group>
+        `,
+        {
+          modules: ['../radio-button/index.ts', './selection-panel.ts', '../radio-button/index.ts'],
+        },
+      );
       panel1 = nestedElement.querySelector<SbbSelectionPanelElement>('#panel1')!;
       panel2 = nestedElement.querySelector<SbbSelectionPanelElement>('#panel2')!;
       await waitForLitRender(nestedElement);
@@ -454,27 +466,32 @@ describe('sbb-selection-panel', () => {
 
   describe('with template tag manipulation', () => {
     it('should initialize the group correctly after append', async () => {
-      await fixture(html`
-        <template>
-          <sbb-selection-panel disable-animation>
-            <sbb-radio-button value="main1" checked="true"> Main Option 1 </sbb-radio-button>
-            <sbb-radio-button-group orientation="vertical" slot="content">
-              <sbb-radio-button value="sub1" checked>Suboption 1</sbb-radio-button>
-              <sbb-radio-button value="sub2">Suboption 2</sbb-radio-button>
-            </sbb-radio-button-group>
-          </sbb-selection-panel>
+      await fixture(
+        html`
+          <template>
+            <sbb-selection-panel disable-animation>
+              <sbb-radio-button value="main1" checked="true"> Main Option 1 </sbb-radio-button>
+              <sbb-radio-button-group orientation="vertical" slot="content">
+                <sbb-radio-button value="sub1" checked>Suboption 1</sbb-radio-button>
+                <sbb-radio-button value="sub2">Suboption 2</sbb-radio-button>
+              </sbb-radio-button-group>
+            </sbb-selection-panel>
 
-          <sbb-selection-panel disable-animation>
-            <sbb-radio-button value="main2"> Main Option 2 </sbb-radio-button>
-            <sbb-radio-button-group orientation="vertical" slot="content">
-              <sbb-radio-button value="sub3">Suboption 3</sbb-radio-button>
-              <sbb-radio-button value="sub4">Suboption 4</sbb-radio-button>
-            </sbb-radio-button-group>
-          </sbb-selection-panel>
-        </template>
+            <sbb-selection-panel disable-animation>
+              <sbb-radio-button value="main2"> Main Option 2 </sbb-radio-button>
+              <sbb-radio-button-group orientation="vertical" slot="content">
+                <sbb-radio-button value="sub3">Suboption 3</sbb-radio-button>
+                <sbb-radio-button value="sub4">Suboption 4</sbb-radio-button>
+              </sbb-radio-button-group>
+            </sbb-selection-panel>
+          </template>
 
-        <sbb-radio-button-group value="main1"></sbb-radio-button-group>
-      `);
+          <sbb-radio-button-group value="main1"></sbb-radio-button-group>
+        `,
+        {
+          modules: ['./selection-panel.ts', '../radio-button/index.ts', '../radio-button/index.ts'],
+        },
+      );
 
       const radioGroup: SbbRadioButtonGroupElement =
         document.querySelector<SbbRadioButtonGroupElement>('sbb-radio-button-group')!;
@@ -517,7 +534,7 @@ describe('sbb-selection-panel', () => {
       willCloseEventSpy = new EventSpy(SbbSelectionPanelElement.events.willClose);
       didCloseEventSpy = new EventSpy(SbbSelectionPanelElement.events.didClose);
 
-      await fixture(getPageContent('checkbox'));
+      await fixture(getPageContent('checkbox'), { modules: [] });
       elements = Array.from(document.querySelectorAll('sbb-selection-panel'));
       wrapper = document.querySelector<SbbCheckboxGroupElement>('sbb-checkbox-group')!;
       firstPanel = document.querySelector<SbbSelectionPanelElement>('#sbb-selection-panel-1')!;
@@ -651,25 +668,28 @@ describe('sbb-selection-panel', () => {
     let nestedElement: SbbCheckboxGroupElement;
 
     beforeEach(async () => {
-      nestedElement = await fixture(html`
-        <sbb-checkbox-group orientation="vertical" horizontal-from="large">
-          <sbb-selection-panel disable-animation>
-            <sbb-checkbox value="main1" checked> Main Option 1 </sbb-checkbox>
-            <sbb-checkbox-group orientation="vertical" slot="content">
-              <sbb-checkbox value="sub1" checked>Suboption 1</sbb-checkbox>
-              <sbb-checkbox value="sub2">Suboption 2</sbb-checkbox>
-            </sbb-checkbox-group>
-          </sbb-selection-panel>
+      nestedElement = await fixture(
+        html`
+          <sbb-checkbox-group orientation="vertical" horizontal-from="large">
+            <sbb-selection-panel disable-animation>
+              <sbb-checkbox value="main1" checked> Main Option 1 </sbb-checkbox>
+              <sbb-checkbox-group orientation="vertical" slot="content">
+                <sbb-checkbox value="sub1" checked>Suboption 1</sbb-checkbox>
+                <sbb-checkbox value="sub2">Suboption 2</sbb-checkbox>
+              </sbb-checkbox-group>
+            </sbb-selection-panel>
 
-          <sbb-selection-panel disable-animation>
-            <sbb-checkbox value="main2"> Main Option 2 </sbb-checkbox>
-            <sbb-checkbox-group orientation="vertical" slot="content">
-              <sbb-checkbox value="sub3">Suboption 3</sbb-checkbox>
-              <sbb-checkbox value="sub4">Suboption 4</sbb-checkbox>
-            </sbb-checkbox-group>
-          </sbb-selection-panel>
-        </sbb-checkbox-group>
-      `);
+            <sbb-selection-panel disable-animation>
+              <sbb-checkbox value="main2"> Main Option 2 </sbb-checkbox>
+              <sbb-checkbox-group orientation="vertical" slot="content">
+                <sbb-checkbox value="sub3">Suboption 3</sbb-checkbox>
+                <sbb-checkbox value="sub4">Suboption 4</sbb-checkbox>
+              </sbb-checkbox-group>
+            </sbb-selection-panel>
+          </sbb-checkbox-group>
+        `,
+        { modules: ['../checkbox/index.ts', './selection-panel.ts', '../checkbox/index.ts'] },
+      );
       await waitForLitRender(nestedElement);
     });
 

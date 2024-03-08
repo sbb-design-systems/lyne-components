@@ -219,19 +219,23 @@ export class SbbSelectElement extends UpdateScheduler(
   private _onValueChanged(newValue: string | string[]): void {
     const options = this._filteredOptions;
     if (!Array.isArray(newValue)) {
-      const optionElement = options.find((e) => e.value === newValue);
+      const optionElement = options.find((o) => (o.value ?? o.getAttribute('value')) === newValue);
       if (optionElement) {
         optionElement.selected = true;
       }
       options
-        .filter((option) => option.value !== newValue)
-        .forEach((option) => (option.selected = false));
+        .filter((o) => (o.value ?? o.getAttribute('value')) !== newValue)
+        .forEach((o) => (o.selected = false));
       this._displayValue = optionElement?.textContent || null;
     } else {
-      options.filter((opt) => !newValue.includes(opt.value!)).forEach((e) => (e.selected = false));
-      const selectedOptionElements = options.filter((opt) => newValue.includes(opt.value!));
-      selectedOptionElements.forEach((e) => (e.selected = true));
-      this._displayValue = selectedOptionElements.map((e) => e.textContent).join(', ') || null;
+      options
+        .filter((o) => !newValue.includes(o.value ?? o.getAttribute('value')))
+        .forEach((e) => (e.selected = false));
+      const selectedOptionElements = options.filter((o) =>
+        newValue.includes(o.value ?? o.getAttribute('value')),
+      );
+      selectedOptionElements.forEach((o) => (o.selected = true));
+      this._displayValue = selectedOptionElements.map((o) => o.textContent).join(', ') || null;
     }
     this._stateChange.emit({ type: 'value', value: newValue });
   }

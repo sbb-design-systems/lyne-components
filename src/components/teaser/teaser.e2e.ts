@@ -1,15 +1,17 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForLitRender } from '../core/testing';
+import { EventSpy, waitForLitRender, fixture } from '../core/testing';
 
 import { SbbTeaserElement } from './teaser';
 
-describe('sbb-teaser', () => {
+describe(`sbb-teaser with ${fixture.name}`, () => {
   let element: SbbTeaserElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-teaser id="focus-id" href="#">Content</sbb-teaser>`);
+    element = await fixture(html`<sbb-teaser id="focus-id" href="#">Content</sbb-teaser>`, {
+      modules: ['./teaser.ts'],
+    });
     await waitForLitRender(element);
   });
 

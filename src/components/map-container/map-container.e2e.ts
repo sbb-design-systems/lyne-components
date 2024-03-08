@@ -1,13 +1,15 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import type { SbbTertiaryButtonElement } from '../button';
-import { waitForCondition } from '../core/testing';
+import { fixture, waitForCondition } from '../core/testing';
 
 import { SbbMapContainerElement } from './map-container';
 
-describe('sbb-map-container', () => {
+import '../title';
+
+describe(`sbb-map-container with ${fixture.name}`, () => {
   let element: SbbMapContainerElement;
 
   it('should react to scrolling', async () => {
@@ -17,17 +19,20 @@ describe('sbb-map-container', () => {
       html` <sbb-map-container>
         <div>
           <sbb-title level="4">Operations & Disruptions</sbb-title>
-          ${[...Array(10).keys()].map(
-            (value) =>
-              html` <div>
-                <p>Situation ${value}</p>
-              </div>`,
-          )}
+          <div><p>Situation 1</p></div>
+          <div><p>Situation 2</p></div>
+          <div><p>Situation 3</p></div>
+          <div><p>Situation 4</p></div>
+          <div><p>Situation 5</p></div>
+          <div><p>Situation 6</p></div>
+          <div><p>Situation 7</p></div>
+          <div><p>Situation 8</p></div>
         </div>
         <div slot="map">
           <div style="height: 1200px">map</div>
         </div>
       </sbb-map-container>`,
+      { modules: ['./map-container.ts', '../title/index.ts'] },
     );
     element = document.querySelector<SbbMapContainerElement>('sbb-map-container')!;
     assert.instanceOf(element, SbbMapContainerElement);

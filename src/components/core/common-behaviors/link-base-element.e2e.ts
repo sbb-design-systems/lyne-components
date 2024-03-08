@@ -1,8 +1,8 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, type TemplateResult } from 'lit';
 
-import { EventSpy, waitForLitRender } from '../testing';
+import { EventSpy, waitForLitRender, fixture } from '../testing';
 
 import { SbbLinkBaseElement } from './link-base-element';
 
@@ -15,12 +15,12 @@ class GenericLink extends SbbLinkBaseElement {
 }
 customElements.define('generic-link', GenericLink);
 
-describe('SbbLinkBaseElement', () => {
+describe(`SbbLinkBaseElement with ${fixture.name}`, () => {
   describe('template', () => {
     let element: GenericLink;
 
     beforeEach(async () => {
-      element = await fixture(html`<generic-link></generic-link>`);
+      element = await fixture(html`<generic-link></generic-link>`, { modules: [] });
     });
 
     it('renders', async () => {
@@ -40,7 +40,7 @@ describe('SbbLinkBaseElement', () => {
     let element: GenericLink;
 
     beforeEach(async () => {
-      element = await fixture(html` <generic-link></generic-link> `);
+      element = await fixture(html` <generic-link></generic-link> `, { modules: [] });
     });
 
     it('no click dispatch if disabled', async () => {

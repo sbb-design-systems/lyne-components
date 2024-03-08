@@ -1,25 +1,28 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../core/testing';
+import { waitForLitRender, fixture } from '../core/testing';
 import type { SbbBlockLinkElement } from '../link';
 
 import { SbbSkiplinkListElement } from './skiplink-list';
 
 import '../link/block-link';
 
-describe('sbb-skiplink-list', () => {
+describe(`sbb-skiplink-list with ${fixture.name}`, () => {
   let element: SbbSkiplinkListElement;
 
   beforeEach(async () => {
-    element = await fixture(html`
-      <sbb-skiplink-list>
-        <sbb-block-link href="#" id="link-1">Link 1</sbb-block-link>
-        <sbb-block-link href="#" id="link-2">Link 2</sbb-block-link>
-        <sbb-block-link href="#" id="link-3">Link 3</sbb-block-link>
-      </sbb-skiplink-list>
-      <button id="button">Focus me</button>
-    `);
+    element = await fixture(
+      html`
+        <sbb-skiplink-list>
+          <sbb-block-link href="#" id="link-1">Link 1</sbb-block-link>
+          <sbb-block-link href="#" id="link-2">Link 2</sbb-block-link>
+          <sbb-block-link href="#" id="link-3">Link 3</sbb-block-link>
+        </sbb-skiplink-list>
+        <button id="button">Focus me</button>
+      `,
+      { modules: ['./skiplink-list.ts', '../link/index.ts'] },
+    );
   });
 
   it('renders', async () => {
@@ -47,7 +50,9 @@ describe('sbb-skiplink-list', () => {
   });
 
   it('should detected later added links', async () => {
-    element = await fixture(html`<sbb-skiplink-list></sbb-skiplink-list>`);
+    element = await fixture(html`<sbb-skiplink-list></sbb-skiplink-list>`, {
+      modules: ['./skiplink-list.ts'],
+    });
 
     element.innerHTML = `
         <sbb-block-link href='1'>Link 1</sbb-block-link>

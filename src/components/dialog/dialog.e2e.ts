@@ -1,9 +1,9 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { i18nDialog } from '../core/i18n';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
+import { EventSpy, waitForCondition, waitForLitRender, fixture } from '../core/testing';
 
 import { SbbDialogElement } from './dialog';
 import '../title';
@@ -26,17 +26,20 @@ async function openDialog(element: SbbDialogElement): Promise<void> {
   expect(element).to.have.attribute('data-state', 'opened');
 }
 
-describe('sbb-dialog', () => {
+describe(`sbb-dialog with ${fixture.name}`, () => {
   let element: SbbDialogElement, ariaLiveRef: HTMLElement;
 
   beforeEach(async () => {
     await setViewport({ width: 900, height: 600 });
-    element = await fixture(html`
-      <sbb-dialog id="my-dialog-1" title-content="Title" disable-animation>
-        Dialog content.
-        <div slot="action-group">Action group</div>
-      </sbb-dialog>
-    `);
+    element = await fixture(
+      html`
+        <sbb-dialog id="my-dialog-1" title-content="Title" disable-animation>
+          Dialog content.
+          <div slot="action-group">Action group</div>
+        </sbb-dialog>
+      `,
+      { modules: ['./dialog.ts'] },
+    );
     ariaLiveRef = element.shadowRoot!.querySelector('sbb-screenreader-only')!;
   });
 
@@ -247,12 +250,15 @@ describe('sbb-dialog', () => {
   });
 
   it('renders in fullscreen mode if no title is provided', async () => {
-    element = await fixture(html`
-      <sbb-dialog id="my-dialog-2" disable-animation>
-        Dialog content.
-        <div slot="action-group">Action group</div>
-      </sbb-dialog>
-    `);
+    element = await fixture(
+      html`
+        <sbb-dialog id="my-dialog-2" disable-animation>
+          Dialog content.
+          <div slot="action-group">Action group</div>
+        </sbb-dialog>
+      `,
+      { modules: ['./dialog.ts'] },
+    );
     ariaLiveRef = element.shadowRoot!.querySelector('sbb-screenreader-only')!;
 
     await openDialog(element);
@@ -263,16 +269,19 @@ describe('sbb-dialog', () => {
   });
 
   it('closes stacked dialogs one by one on ESC key pressed', async () => {
-    element = await fixture(html`
-      <sbb-dialog id="my-dialog-3" title-content="Title" disable-animation>
-        Dialog content.
-        <div slot="action-group">Action group</div>
-      </sbb-dialog>
+    element = await fixture(
+      html`
+        <sbb-dialog id="my-dialog-3" title-content="Title" disable-animation>
+          Dialog content.
+          <div slot="action-group">Action group</div>
+        </sbb-dialog>
 
-      <sbb-dialog id="stacked-dialog" disable-animation title-content="Stacked title">
-        Stacked dialog.
-      </sbb-dialog>
-    `);
+        <sbb-dialog id="stacked-dialog" disable-animation title-content="Stacked title">
+          Stacked dialog.
+        </sbb-dialog>
+      `,
+      { modules: ['./dialog.ts'] },
+    );
 
     const willOpen = new EventSpy(SbbDialogElement.events.willOpen);
     const didOpen = new EventSpy(SbbDialogElement.events.didOpen);
@@ -333,16 +342,19 @@ describe('sbb-dialog', () => {
 
   it('does not close the dialog on other overlay click', async () => {
     await setViewport({ width: 900, height: 600 });
-    element = await fixture(html`
-      <sbb-dialog id="my-dialog-4" title-content="Title" disable-animation>
-        Dialog content.
-        <div slot="action-group">Action group</div>
-        <sbb-dialog id="inner-dialog" title-content="Inner Dialog title" disable-animation>
+    element = await fixture(
+      html`
+        <sbb-dialog id="my-dialog-4" title-content="Title" disable-animation>
           Dialog content.
           <div slot="action-group">Action group</div>
+          <sbb-dialog id="inner-dialog" title-content="Inner Dialog title" disable-animation>
+            Dialog content.
+            <div slot="action-group">Action group</div>
+          </sbb-dialog>
         </sbb-dialog>
-      </sbb-dialog>
-    `);
+      `,
+      { modules: ['./dialog.ts'] },
+    );
     const willOpen = new EventSpy(SbbDialogElement.events.willOpen);
     const didOpen = new EventSpy(SbbDialogElement.events.didOpen);
     const willClose = new EventSpy(SbbDialogElement.events.willClose);

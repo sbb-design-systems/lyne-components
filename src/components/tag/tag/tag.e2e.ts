@@ -1,16 +1,16 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender, EventSpy } from '../../core/testing';
+import { waitForLitRender, EventSpy, fixture } from '../../core/testing';
 
 import { SbbTagElement } from './tag';
 
-describe('sbb-tag', () => {
+describe(`sbb-tag with ${fixture.name}`, () => {
   let element: SbbTagElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-tag value="tag">Tag</sbb-tag>`);
+    element = await fixture(html`<sbb-tag value="tag">Tag</sbb-tag>`, { modules: ['./tag.ts'] });
   });
 
   it('renders', async () => {
@@ -61,7 +61,9 @@ describe('sbb-tag', () => {
   });
 
   it('should be unchecked after "Space" keypress', async () => {
-    element = await fixture(html`<sbb-tag value="tag" checked>Tag</sbb-tag>`);
+    element = await fixture(html`<sbb-tag value="tag" checked>Tag</sbb-tag>`, {
+      modules: ['./tag.ts'],
+    });
 
     const changeSpy = new EventSpy('change');
     const inputSpy = new EventSpy('input');

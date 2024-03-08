@@ -1,13 +1,15 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition } from '../../core/testing';
+import { EventSpy, waitForCondition, fixture } from '../../core/testing';
 import type { SbbTabTitleElement } from '../tab-title';
 
 import { SbbTabGroupElement } from './tab-group';
 
-describe('sbb-tab-group', () => {
+import '../tab-title';
+
+describe(`sbb-tab-group with ${fixture.name}`, () => {
   let element: SbbTabGroupElement;
 
   beforeEach(async () => {
@@ -21,6 +23,7 @@ describe('sbb-tab-group', () => {
         <div>Test tab content 3</div>
         <sbb-tab-title id="sbb-tab-4">Test tab label 4</sbb-tab-title>
       </sbb-tab-group>`,
+      { modules: ['./tab-group.ts', '../tab-title/index.ts'] },
     );
   });
 
@@ -114,6 +117,7 @@ describe('sbb-tab-group', () => {
         <sbb-tab-title id="sbb-tab-2">Test tab label 2</sbb-tab-title>
         <div>Test tab content 2</div>
       </sbb-tab-group>`,
+      { modules: ['./tab-group.ts', '../tab-title/index.ts'] },
     );
     const tab = element.querySelector('sbb-tab-title#sbb-tab-1');
     expect(tab).to.have.attribute('active');
@@ -127,6 +131,7 @@ describe('sbb-tab-group', () => {
         <sbb-tab-title id="sbb-tab-2">Test tab label 2</sbb-tab-title>
         <div>Test tab content 2</div>
       </sbb-tab-group>`,
+      { modules: ['./tab-group.ts', '../tab-title/index.ts'] },
     );
     const tab = element.querySelector('sbb-tab-title#sbb-tab-2');
     expect(tab).to.have.attribute('active');

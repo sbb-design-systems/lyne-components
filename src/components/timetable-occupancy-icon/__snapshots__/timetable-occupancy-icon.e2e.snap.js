@@ -1,20 +1,31 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-timetable-occupancy-icon renders"] = 
+snapshots["sbb-timetable-occupancy-icon with csrFixture renders"] = 
 `<span class="sbb-icon-inner">
-  <svg-fake
-    data-name="utilization-low"
-    height="24"
-    style="width:24px;height:24px"
-    width="24"
-  >
-  </svg-fake>
 </span>
 `;
-/* end snapshot sbb-timetable-occupancy-icon renders */
+/* end snapshot sbb-timetable-occupancy-icon with csrFixture renders */
 
-snapshots["sbb-timetable-occupancy-icon renders high contrast mode"] = 
+snapshots["sbb-timetable-occupancy-icon with csrFixture renders high contrast mode"] = 
+`<span class="sbb-icon-inner">
+</span>
+`;
+/* end snapshot sbb-timetable-occupancy-icon with csrFixture renders high contrast mode */
+
+snapshots["sbb-timetable-occupancy-icon with csrFixture renders negative"] = 
+`<span class="sbb-icon-inner">
+</span>
+`;
+/* end snapshot sbb-timetable-occupancy-icon with csrFixture renders negative */
+
+snapshots["sbb-timetable-occupancy-icon with ssrHydratedFixture renders"] = 
+`<span class="sbb-icon-inner">
+</span>
+`;
+/* end snapshot sbb-timetable-occupancy-icon with ssrHydratedFixture renders */
+
+snapshots["sbb-timetable-occupancy-icon with ssrHydratedFixture renders high contrast mode"] = 
 `<span class="sbb-icon-inner">
   <svg-fake
     data-name="utilization-medium-high-contrast"
@@ -25,9 +36,9 @@ snapshots["sbb-timetable-occupancy-icon renders high contrast mode"] =
   </svg-fake>
 </span>
 `;
-/* end snapshot sbb-timetable-occupancy-icon renders high contrast mode */
+/* end snapshot sbb-timetable-occupancy-icon with ssrHydratedFixture renders high contrast mode */
 
-snapshots["sbb-timetable-occupancy-icon renders negative"] = 
+snapshots["sbb-timetable-occupancy-icon with ssrHydratedFixture renders negative"] = 
 `<span class="sbb-icon-inner">
   <svg-fake
     data-name="utilization-medium-negative"
@@ -38,5 +49,23 @@ snapshots["sbb-timetable-occupancy-icon renders negative"] =
   </svg-fake>
 </span>
 `;
-/* end snapshot sbb-timetable-occupancy-icon renders negative */
+/* end snapshot sbb-timetable-occupancy-icon with ssrHydratedFixture renders negative */
+
+snapshots["sbb-timetable-occupancy-icon with ssrNonHydratedFixture renders"] = 
+`<span class="sbb-icon-inner">
+</span>
+`;
+/* end snapshot sbb-timetable-occupancy-icon with ssrNonHydratedFixture renders */
+
+snapshots["sbb-timetable-occupancy-icon with ssrNonHydratedFixture renders high contrast mode"] = 
+`<span class="sbb-icon-inner">
+</span>
+`;
+/* end snapshot sbb-timetable-occupancy-icon with ssrNonHydratedFixture renders high contrast mode */
+
+snapshots["sbb-timetable-occupancy-icon with ssrNonHydratedFixture renders negative"] = 
+`<span class="sbb-icon-inner">
+</span>
+`;
+/* end snapshot sbb-timetable-occupancy-icon with ssrNonHydratedFixture renders negative */
 
