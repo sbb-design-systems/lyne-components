@@ -14,7 +14,7 @@ describe('sbb-menu-button', () => {
     `);
 
     expect(root).dom.to.be.equal(`
-      <sbb-menu-button  form="formid" name="name" type="submit" role="button" tabindex="0" dir="ltr">
+      <sbb-menu-button  form="formid" name="name" type="submit" role="button" tabindex="0" dir="ltr" data-action data-button>
         <span>Action</span>
       </sbb-menu-button>
     `);
@@ -42,7 +42,7 @@ describe('sbb-menu-button', () => {
     await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(`
-      <sbb-menu-button amount="123456" icon-name="menu-small" role="button" tabindex="0" dir="ltr">
+      <sbb-menu-button amount="123456" icon-name="menu-small" role="button" tabindex="0" dir="ltr" data-action data-button>
         <span>Action</span>
       </sbb-menu-button>
     `);

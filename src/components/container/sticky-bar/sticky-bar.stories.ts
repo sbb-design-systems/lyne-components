@@ -6,7 +6,8 @@ import { html, nothing, type TemplateResult } from 'lit';
 import { sbbSpread } from '../../core/dom';
 
 import '../../action-group';
-import '../../button';
+import '../../button/button';
+import '../../button/secondary-button';
 import '../../link';
 import '../../title';
 import '../container';
@@ -81,8 +82,8 @@ const actionGroup = (): TemplateResult => html`
     >
       Link
     </sbb-block-link>
-    <sbb-button variant="secondary" sbb-dialog-close> Cancel </sbb-button>
-    <sbb-button variant="primary" sbb-dialog-close> Confirm </sbb-button>
+    <sbb-secondary-button sbb-dialog-close> Cancel </sbb-secondary-button>
+    <sbb-button sbb-dialog-close> Confirm </sbb-button>
   </sbb-action-group>
 `;
 
@@ -95,18 +96,18 @@ const containerContent = (title: string): TemplateResult => html`
     laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
     voluptate velit esse cillum dolore eu fugiat nulla pariatur.
   </p>
-  <sbb-button variant="secondary" style="margin-block-end: 0.75rem;">See more</sbb-button>
+  <sbb-secondary-button style="margin-block-end: 0.75rem;">See more</sbb-secondary-button>
 `;
 
 const containerContentChromatic = (title: string): TemplateResult => html`
   <sbb-title level="4">${title}</sbb-title>
   <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
-  <sbb-button variant="secondary" style="margin-block-end: 0.75rem;" size="m">See more</sbb-button>
+  <sbb-secondary-button style="margin-block-end: 0.75rem;" size="m">See more</sbb-secondary-button>
 `;
 
 const Template = (): TemplateResult =>
   html` <sbb-sticky-bar>
-    <sbb-button variant="secondary">Example</sbb-button>
+    <sbb-secondary-button>Example</sbb-secondary-button>
   </sbb-sticky-bar>`;
 
 const DefaultTemplate = ({

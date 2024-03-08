@@ -14,7 +14,7 @@ indicate the minimum breakpoint from which the orientation changes to `horizonta
 
 ```html
 <sbb-action-group orientation="vertical" horizontal-from="small">
-  <sbb-button variant="secondary">Action 1</sbb-button>
+  <sbb-secondary-button>Action 1</sbb-secondary-button>
   <sbb-button>Action 2</sbb-button>
   <sbb-block-link
     align-self="end"
@@ -33,7 +33,7 @@ Default values are `l` for `sbb-button` and `m` for `sbb-block-link`.
 
 ```html
 <sbb-action-group button-size="m" link-size="s">
-  <sbb-button variant="secondary">Action 1</sbb-button>
+  <sbb-secondary-button>Action 1</sbb-secondary-button>
   <sbb-block-link
     icon-name="chevron-small-left-small"
     href="https://github.com/lyne-design-system/lyne-components"
@@ -57,8 +57,8 @@ instances.
 
 ```html
 <sbb-action-group align-group="end">
-  <sbb-button align-self="start" variant="secondary">Action 1</sbb-button>
-  <sbb-button variant="secondary">Action 2</sbb-button>
+  <sbb-secondary-button align-self="start">Action 1</sbb-secondary-button>
+  <sbb-secondary-button>Action 2</sbb-secondary-button>
   <sbb-button>Action 3</sbb-button>
 </sbb-action-group>
 ```

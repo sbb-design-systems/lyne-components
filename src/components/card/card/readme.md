@@ -72,7 +72,7 @@ The component has four different values to choose from for the `color` property;
 Normally, a `sbb-card` should be a single action, however, it's possible to place other interactive elements
 in the card content. Interactive content will automatically be detected and made accessible to click / focus.
 In cases where there should be only a visual button or link inside the card content without a different action, the
-`is-static` attribute should be set (e.g. `<sbb-button is-static></sbb-button>`).
+static component should be used (e.g. `<sbb-button-static></sbb-button-static>`).
 
 ### Windows High Contrast Notes
 

@@ -1,11 +1,12 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbButtonElement } from '../button';
+import type { SbbTransparentButtonElement } from '../button';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
 
 import { SbbToastElement } from './toast';
 
+import '../button/transparent-button';
 import '../link/link-button';
 
 describe('sbb-toast', () => {
@@ -68,7 +69,8 @@ describe('sbb-toast', () => {
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
 
-    const dismissBtn = element.shadowRoot!.querySelector<SbbButtonElement>('sbb-button')!;
+    const dismissBtn =
+      element.shadowRoot!.querySelector<SbbTransparentButtonElement>('sbb-transparent-button')!;
     dismissBtn.click();
 
     await waitForLitRender(element);
@@ -86,10 +88,10 @@ describe('sbb-toast', () => {
   it('closes by marked action element', async () => {
     element = await fixture(html`
       <sbb-toast>
-        <sbb-button slot="action" sbb-toast-close></sbb-button>
+        <sbb-transparent-button slot="action" sbb-toast-close></sbb-transparent-button>
       </sbb-toast>
     `);
-    const actionBtn = element.querySelector('sbb-button') as HTMLElement;
+    const actionBtn = element.querySelector('sbb-transparent-button') as HTMLElement;
 
     const didOpenEventSpy = new EventSpy(SbbToastElement.events.didOpen);
     const willCloseEventSpy = new EventSpy(SbbToastElement.events.willClose);
@@ -116,13 +118,12 @@ describe('sbb-toast', () => {
   it('forces state on button actions', async () => {
     element = await fixture(html`
       <sbb-toast>
-        <sbb-button slot="action"></sbb-button>
+        <sbb-transparent-button slot="action"></sbb-transparent-button>
       </sbb-toast>
     `);
 
-    const actionBtn = element.querySelector('sbb-button');
+    const actionBtn = element.querySelector('sbb-transparent-button');
 
-    expect(actionBtn).to.have.attribute('variant', 'transparent');
     expect(actionBtn).to.have.attribute('size', 'm');
     expect(actionBtn).to.have.attribute('negative');
   });

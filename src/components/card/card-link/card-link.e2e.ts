@@ -30,7 +30,7 @@ describe('sbb-card-link', () => {
     const cardAction = element.querySelector('sbb-card-link');
 
     expect(cardAction).dom.to.be.equal(`
-      <sbb-card-link href="https://github.com/lyne-design-system/lyne-components" target="_blank" role="link" dir="ltr" tabindex="0" slot="action">
+      <sbb-card-link href="https://github.com/lyne-design-system/lyne-components" target="_blank" role="link" dir="ltr" tabindex="0" data-action data-link slot="action">
         Follow me
       </sbb-card-link>
     `);

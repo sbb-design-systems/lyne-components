@@ -25,7 +25,7 @@ describe('sbb-card-button', () => {
     const cardAction = element.querySelector('sbb-card-button');
 
     expect(cardAction).dom.to.be.equal(`
-      <sbb-card-button role="button" dir="ltr" tabindex="0" slot="action" active>
+      <sbb-card-button role="button" dir="ltr" tabindex="0" data-action data-button slot="action" active>
         Click me
       </sbb-card-button>
     `);

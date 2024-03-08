@@ -1,29 +1,28 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import {
-  type SbbActionBaseElement,
   type AbstractConstructor,
-  type SbbDisabledMixinType,
-  type SbbIconNameMixinType,
-  type SbbNegativeMixinType,
+  hostAttributes,
   NamedSlotStateController,
+  type SbbActionBaseElement,
+  type SbbDisabledMixinType,
   SbbIconNameMixin,
+  type SbbIconNameMixinType,
   SbbNegativeMixin,
+  type SbbNegativeMixinType,
 } from '../../core/common-behaviors';
-import { isValidAttribute, toggleDatasetEntry } from '../../core/dom';
 
 import '../../icon';
-import style from './button.scss?lit&inline';
+
+export type SbbButtonCommonElement = SbbButtonCommonElementMixinType & SbbActionBaseElement;
 
 export type SbbButtonSize = 'l' | 'm';
-export type SbbButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'transparent';
 
 export declare class SbbButtonCommonElementMixinType
   implements SbbNegativeMixinType, Partial<SbbDisabledMixinType>, Partial<SbbIconNameMixinType>
 {
-  public variant: SbbButtonVariant;
   public size?: SbbButtonSize;
   public disabled: boolean;
   public iconName?: string;
@@ -34,31 +33,19 @@ export declare class SbbButtonCommonElementMixinType
 export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbActionBaseElement>>(
   superClass: T,
 ): AbstractConstructor<SbbButtonCommonElementMixinType> & T => {
-  abstract class SbbButtonCommonElement
+  @hostAttributes({
+    'data-sbb-button': '',
+  })
+  abstract class SbbButtonCommonElementClass
     extends SbbNegativeMixin(SbbIconNameMixin(superClass))
     implements Partial<SbbButtonCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = style;
-
-    /** Variant of the button, like primary, secondary etc. */
-    @property({ reflect: true }) public variant: SbbButtonVariant = 'primary';
-
     /** Size variant, either l or m. */
     @property({ reflect: true }) public size?: SbbButtonSize = 'l';
 
-    public constructor(...args: any[]) {
+    protected constructor(...args: any[]) {
       super(args);
       new NamedSlotStateController(this);
-    }
-
-    public override connectedCallback(): void {
-      super.connectedCallback();
-
-      const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
-      if (formField) {
-        toggleDatasetEntry(this, 'iconSmall', true);
-        this.negative = isValidAttribute(formField, 'negative');
-      }
     }
 
     protected override renderTemplate(): TemplateResult {
@@ -70,6 +57,6 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
       `;
     }
   }
-  return SbbButtonCommonElement as unknown as AbstractConstructor<SbbButtonCommonElementMixinType> &
+  return SbbButtonCommonElementClass as unknown as AbstractConstructor<SbbButtonCommonElementMixinType> &
     T;
 };

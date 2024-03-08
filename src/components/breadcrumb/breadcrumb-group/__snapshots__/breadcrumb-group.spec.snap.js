@@ -7,6 +7,8 @@ snapshots["sbb-breadcrumb-group renders - Dom"] =
   role="navigation"
 >
   <sbb-breadcrumb
+    data-action=""
+    data-link=""
     dir="ltr"
     href="https://example.com"
     icon-name="pie-small"
@@ -16,6 +18,8 @@ snapshots["sbb-breadcrumb-group renders - Dom"] =
   >
   </sbb-breadcrumb>
   <sbb-breadcrumb
+    data-action=""
+    data-link=""
     dir="ltr"
     href="https://example.com/one"
     role="link"
@@ -26,6 +30,8 @@ snapshots["sbb-breadcrumb-group renders - Dom"] =
   </sbb-breadcrumb>
   <sbb-breadcrumb
     aria-current="page"
+    data-action=""
+    data-link=""
     dir="ltr"
     href="https://example.com/one"
     role="link"

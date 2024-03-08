@@ -40,7 +40,7 @@
   }
 }
 
-::slotted(:is(sbb-link, sbb-link-button, sbb-block-link, sbb-block-link-button)) {
+::slotted([data-sbb-link]) {
   --sbb-focus-outline-color: transparent;
   --sbb-link-padding: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-responsive-xxs);
 }

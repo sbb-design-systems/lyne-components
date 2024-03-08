@@ -23,7 +23,7 @@ describe('sbb-header-button', () => {
 
     expect(root).dom.to.be.equal(
       `
-      <sbb-header-button icon-name='pie-small' expand-from="zero" name="test" type="reset" value="value" role="button" tabindex="0" data-expanded dir="ltr">
+      <sbb-header-button icon-name='pie-small' expand-from="zero" name="test" type="reset" value="value" role="button" tabindex="0" data-expanded dir="ltr" data-action data-button>
         Action
       </sbb-header-button>
     `,

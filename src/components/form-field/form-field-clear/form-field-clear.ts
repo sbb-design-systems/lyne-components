@@ -3,10 +3,10 @@ import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import {
+  hostAttributes,
   LanguageController,
   SbbButtonBaseElement,
   SbbNegativeMixin,
-  hostAttributes,
 } from '../../core/common-behaviors';
 import { hostContext, isValidAttribute } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';

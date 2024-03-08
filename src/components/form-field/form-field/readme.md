@@ -63,11 +63,6 @@ on the `sbb-form-field` will reserve space for a single line of an error message
 It is possible to add content as a prefix or suffix in a `sbb-form-field`.
 This can be done via the `prefix` and `suffix` slots.
 
-Some components, like the [sbb-form-field-clear](/docs/components-sbb-form-field-sbb-form-field-clear--docs) or the
-[sbb-slider](/docs/components-sbb-slider--docs), when used within the form field, will automatically occupy
-one or both of these slots.
-Please refer to their documentation for more details.
-
 ```html
 <sbb-form-field label="Example">
   <sbb-icon slot="prefix" name="pie-small"></sbb-icon>
@@ -75,6 +70,21 @@ Please refer to their documentation for more details.
   <sbb-icon slot="suffix" name="circle-information-small"></sbb-icon>
 </sbb-form-field>
 ```
+
+It's also possible to slot an icon-only button using the [sbb-mini-button](/docs/components-sbb-button-sbb-mini-button--docs).
+Please note that only this component is correctly supported when slotting buttons in `negative` mode.
+
+```html
+<sbb-form-field label="Example">
+  <input />
+  <sbb-mini-button slot="suffix" icon-name="pen-small"></sbb-mini-button>
+</sbb-form-field>
+```
+
+Some components, like the [sbb-form-field-clear](/docs/components-sbb-form-field-sbb-form-field-clear--docs) or the
+[sbb-slider](/docs/components-sbb-slider--docs), when used within the form field, will automatically occupy
+one or both of these slots.
+Please refer to their documentation for more details.
 
 ## Style
 

@@ -39,19 +39,15 @@ snapshots["sbb-toast renders Chrome-Safari ShadowDom"] =
     </div>
     <div class="sbb-toast__action">
       <slot name="action">
-        <sbb-button
+        <sbb-transparent-button
           aria-label="Close message"
           class="sbb-toast__action-button"
-          dir="ltr"
           icon-name="cross-small"
           negative=""
-          role="button"
           sbb-toast-close=""
           size="m"
-          tabindex="0"
-          variant="transparent"
         >
-        </sbb-button>
+        </sbb-transparent-button>
       </slot>
     </div>
   </div>
@@ -110,19 +106,15 @@ snapshots["sbb-toast renders Firefox ShadowDom"] =
     </div>
     <div class="sbb-toast__action">
       <slot name="action">
-        <sbb-button
+        <sbb-transparent-button
           aria-label="Close message"
           class="sbb-toast__action-button"
-          dir="ltr"
           icon-name="cross-small"
           negative=""
-          role="button"
           sbb-toast-close=""
           size="m"
-          tabindex="0"
-          variant="transparent"
         >
-        </sbb-button>
+        </sbb-transparent-button>
       </slot>
     </div>
   </div>

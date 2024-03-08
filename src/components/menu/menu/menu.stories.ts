@@ -20,7 +20,7 @@ import { waitForStablePosition } from '../../../storybook/testing/wait-for-stabl
 import { SbbMenuElement } from './menu';
 import readme from './readme.md?raw';
 
-import '../../button';
+import '../../button/button';
 import '../../divider';
 import '../../link';
 import '../menu-button';

@@ -3,10 +3,10 @@ import { html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import {
+  hostAttributes,
   LanguageController,
   SbbNegativeMixin,
   SbbButtonBaseElement,
-  hostAttributes,
 } from '../../core/common-behaviors';
 import { defaultDateAdapter, type DateAdapter } from '../../core/datetime';
 import { isValidAttribute, toggleDatasetEntry } from '../../core/dom';

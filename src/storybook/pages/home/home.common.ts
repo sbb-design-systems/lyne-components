@@ -10,7 +10,9 @@ import type {
   SbbNavigationMarkerElement,
   SbbNavigationButtonElement,
 } from '../../../components/navigation';
-import '../../../components/button';
+import '../../../components/button/button';
+import '../../../components/button/secondary-button';
+import '../../../components/button/secondary-button-static';
 import '../../../components/card';
 import '../../../components/clock';
 import '../../../components/divider';
@@ -162,14 +164,9 @@ export const navigation = (): TemplateResult => html`
         <sbb-navigation-button>Label</sbb-navigation-button>
       </sbb-navigation-list>
 
-      <sbb-button
-        size="m"
-        variant="secondary"
-        icon-name="circle-information-small"
-        class="navigation-button"
-      >
+      <sbb-secondary-button size="m" icon-name="circle-information-small" class="navigation-button">
         Travel Information
-      </sbb-button>
+      </sbb-secondary-button>
     </sbb-navigation-section>
   </sbb-navigation>
 `;
@@ -186,7 +183,7 @@ export const dailyTicketProduct = (): TemplateResult => html`
         <sbb-title level="2" visual-level="6"> Daily ticket </sbb-title>
         <span class="sbb-text-s card-description">Valid today</span>
       </span>
-      <sbb-button-static size="m" variant="secondary"> Buy </sbb-button-static>
+      <sbb-secondary-button-static size="m"> Buy </sbb-secondary-button-static>
     </span>
   </sbb-card>
 `;
@@ -203,7 +200,7 @@ export const bikeProduct = (): TemplateResult => html`
         <sbb-title level="2" visual-level="6"> Bike day pass </sbb-title>
         <span class="sbb-text-s card-description">Valid today</span>
       </span>
-      <sbb-button-static size="m" variant="secondary"> Buy </sbb-button-static>
+      <sbb-secondary-button-static size="m"> Buy </sbb-secondary-button-static>
     </span>
   </sbb-card>
 `;
@@ -220,7 +217,7 @@ export const liberoProduct = (): TemplateResult => html`
         <sbb-title level="2" visual-level="6"> Libero short distance ticket </sbb-title>
         <span class="sbb-text-s card-description">Valid today</span>
       </span>
-      <sbb-button-static size="m" variant="secondary"> Buy </sbb-button-static>
+      <sbb-secondary-button-static size="m"> Buy </sbb-secondary-button-static>
     </span>
   </sbb-card>
 `;
@@ -276,7 +273,6 @@ export const footer = (args: Args): TemplateResult => html`
       </sbb-link-list>
       <sbb-button
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        variant="primary"
         size="m"
       >
         All help topics
@@ -323,13 +319,12 @@ export const footer = (args: Args): TemplateResult => html`
           Our newsletter regularly informs you of attractive offers from SBB via e-mail.
         </p>
       </span>
-      <sbb-button
+      <sbb-secondary-button
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        variant="secondary"
         size="m"
       >
         Subscribe
-      </sbb-button>
+      </sbb-secondary-button>
     </div>
     <sbb-clock
       ${sbbSpread(

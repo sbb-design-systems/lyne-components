@@ -37,13 +37,15 @@ snapshots["sbb-message renders Dom"] =
     Error code: 0001
   </p>
   <sbb-button
+    data-action=""
+    data-button=""
+    data-sbb-button=""
     dir="ltr"
     icon-name="arrows-circle-small"
     role="button"
     size="l"
     slot="action"
     tabindex="0"
-    variant="primary"
   >
   </sbb-button>
 </sbb-message>

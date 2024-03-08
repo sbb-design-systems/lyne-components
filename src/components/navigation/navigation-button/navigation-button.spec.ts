@@ -8,7 +8,7 @@ describe('sbb-navigation-button', () => {
 
     expect(root).dom.to.be.equal(
       `
-        <sbb-navigation-button size="l" role="button" tabindex="0" dir="ltr">
+        <sbb-navigation-button size="l" role="button" tabindex="0" dir="ltr" data-action data-button>
         </sbb-navigation-button>
       `,
     );

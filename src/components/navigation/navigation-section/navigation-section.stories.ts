@@ -11,12 +11,13 @@ import { sbbSpread } from '../../core/dom';
 import type { SbbNavigationMarkerElement, SbbNavigationElement } from '../index';
 
 import readme from './readme.md?raw';
-import '../../button';
+import '../../button/secondary-button';
 import '../navigation-list';
 import '../navigation-button';
 import '../navigation-link';
 import '../navigation-marker';
 import '../navigation';
+import './navigation-section';
 
 // Story interaction executed after the story renders
 const playStory = async (trigger: string, canvasElement: HTMLElement): Promise<void> => {
@@ -66,13 +67,12 @@ const basicArgs: Args = {
 };
 
 const triggerButton = (id: string): TemplateResult => html`
-  <sbb-button
+  <sbb-secondary-button
     data-testid="navigation-trigger"
     id=${id}
-    variant="secondary"
     size="l"
     icon-name="hamburger-menu-small"
-  ></sbb-button>
+  ></sbb-secondary-button>
 `;
 
 const navigationActionsL = (): TemplateResult => html`
@@ -131,9 +131,9 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
       ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
       ${navigationList('Label')} ${navigationList('Label')}
 
-      <sbb-button size="m" variant="secondary" style="width: fit-content;" sbb-navigation-close>
+      <sbb-secondary-button size="m" style="width: fit-content;" sbb-navigation-close>
         Close navigation
-      </sbb-button>
+      </sbb-secondary-button>
     </sbb-navigation-section>
   </sbb-navigation>
 `;

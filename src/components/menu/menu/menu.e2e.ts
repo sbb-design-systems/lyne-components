@@ -6,7 +6,7 @@ import type { SbbButtonElement } from '../../button';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
 
 import { SbbMenuElement } from './menu';
-import '../../button';
+import '../../button/button';
 import '../menu-button';
 import '../../link';
 import '../../divider';

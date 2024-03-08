@@ -13,6 +13,7 @@ export type SbbButtonType = 'button' | 'reset' | 'submit';
 @hostAttributes({
   role: 'button',
   tabindex: '0',
+  'data-button': '',
 })
 export abstract class SbbButtonBaseElement extends SbbActionBaseElement {
   /** The type attribute to use for the button. */

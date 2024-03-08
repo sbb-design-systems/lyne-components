@@ -37,7 +37,11 @@ A `sbb-toast` can also be given a custom action that, if marked with the `sbb-to
 <sbb-toast position="bottom-left">
   Toast content
   <!-- Toast action can be a button -->
-  <sbb-button slot="action" icon-name="clock-small" sbb-toast-close></sbb-button>
+  <sbb-transparent-button
+    slot="action"
+    icon-name="clock-small"
+    sbb-toast-close
+  ></sbb-transparent-button>
   <!-- Or a link -->
   <sbb-link-button slot="action">Link action</sbb-link-button>
 </sbb-toast>

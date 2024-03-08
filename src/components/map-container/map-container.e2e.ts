@@ -2,7 +2,7 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbButtonElement } from '../button';
+import type { SbbTertiaryButtonElement } from '../button';
 import { waitForCondition } from '../core/testing';
 
 import { SbbMapContainerElement } from './map-container';
@@ -34,7 +34,7 @@ describe('sbb-map-container', () => {
 
     function getInert(): boolean {
       return element
-        .shadowRoot!.querySelector<SbbButtonElement>('sbb-button')!
+        .shadowRoot!.querySelector<SbbTertiaryButtonElement>('sbb-tertiary-button')!
         .hasAttribute('inert');
     }
 

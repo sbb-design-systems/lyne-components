@@ -13,7 +13,7 @@ import type { SbbTitleLevel } from '../../title';
 
 import style from './alert.scss?lit&inline';
 
-import '../../button';
+import '../../button/transparent-button';
 import '../../divider';
 import '../../icon';
 import '../../link';
@@ -165,15 +165,14 @@ export class SbbAlertElement extends SbbIconNameMixin(LitElement) {
                     negative
                     class="sbb-alert__close-button-divider"
                   ></sbb-divider>
-                  <sbb-button
-                    variant="transparent"
+                  <sbb-transparent-button
                     negative
                     size="m"
                     icon-name="cross-small"
                     @click=${() => this.requestDismissal()}
                     aria-label=${i18nCloseAlert[this._language.current]}
                     class="sbb-alert__close-button"
-                  ></sbb-button>
+                  ></sbb-transparent-button>
                 </span>`
               : nothing}
           </div>

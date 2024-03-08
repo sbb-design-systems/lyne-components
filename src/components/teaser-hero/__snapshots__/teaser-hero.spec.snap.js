@@ -15,6 +15,8 @@ snapshots["sbb-teaser-hero should render with slots"] =
     </p>
     <sbb-block-link-static
       class="sbb-teaser-hero__panel-link"
+      data-action=""
+      data-sbb-link=""
       data-slot-names="link-content unnamed"
       dir="ltr"
       icon-name="chevron-small-right-small"
@@ -35,6 +37,8 @@ snapshots["sbb-teaser-hero should render with slots"] =
 snapshots["sbb-teaser-hero should render all properties Dom"] = 
 `<sbb-teaser-hero
   aria-label="label"
+  data-action=""
+  data-link=""
   dir="ltr"
   href="https://www.sbb.ch"
   image-alt="SBB CFF FFS Employee"
@@ -66,6 +70,8 @@ snapshots["sbb-teaser-hero should render all properties ShadowDom"] =
     </p>
     <sbb-block-link-static
       class="sbb-teaser-hero__panel-link"
+      data-action=""
+      data-sbb-link=""
       data-slot-names="unnamed"
       dir="ltr"
       icon-name="chevron-small-right-small"

@@ -24,17 +24,14 @@ At least one is mandatory, so you can have a `sbb-button-static` with icon only,
 
 ## Style
 
-The component has four color variants that can be set using the `variant` property (default: `primary`),
-and it has also a negative one which can be set using the `negative` property.
+The component has a negative variant which can be set using the `negative` property.
 
 There are two different sizes (`m` and `l`, which is the default) that can be set using the `size` property.
 
 The component can be displayed in `disabled` state using the self-named property.
 
 ```html
-<sbb-button-static variant="secondary">Button</sbb-button-static>
-<sbb-button-static variant="tertiary">Button</sbb-button-static>
-<sbb-button-static variant="transparent">Button</sbb-button-static>
+<sbb-button-static negative>Button</sbb-button-static>
 
 <sbb-button-static size="m">Button</sbb-button-static>
 
@@ -60,17 +57,16 @@ Use the accessibility properties in case of an icon-only button to describe the 
 
 ## Properties
 
-| Name       | Attribute   | Privacy | Type                         | Default     | Description                                                                                                                      |
-| ---------- | ----------- | ------- | ---------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `variant`  | `variant`   | public  | `SbbButtonVariant`           | `'primary'` | Variant of the button, like primary, secondary etc.                                                                              |
-| `size`     | `size`      | public  | `SbbButtonSize \| undefined` | `'l'`       | Size variant, either l or m.                                                                                                     |
-| `negative` | `negative`  | public  | `boolean`                    | `false`     | Negative coloring variant flag.                                                                                                  |
-| `iconName` | `icon-name` | public  | `string \| undefined`        |             | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `disabled` | `disabled`  | public  | `boolean`                    | `false`     | Whether the component is disabled.                                                                                               |
+| Name       | Attribute   | Privacy | Type                         | Default | Description                                                                                                                      |
+| ---------- | ----------- | ------- | ---------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `size`     | `size`      | public  | `SbbButtonSize \| undefined` | `'l'`   | Size variant, either l or m.                                                                                                     |
+| `negative` | `negative`  | public  | `boolean`                    | `false` | Negative coloring variant flag.                                                                                                  |
+| `iconName` | `icon-name` | public  | `string \| undefined`        |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `disabled` | `disabled`  | public  | `boolean`                    | `false` | Whether the component is disabled.                                                                                               |
 
 ## Slots
 
-| Name   | Description                                        |
-| ------ | -------------------------------------------------- |
-|        | Use the unnamed slot to add content to the button. |
-| `icon` | Slot used to display the icon, if one is set       |
+| Name   | Description                                               |
+| ------ | --------------------------------------------------------- |
+|        | Use the unnamed slot to add content to the button-static. |
+| `icon` | Slot used to display the icon, if one is set              |

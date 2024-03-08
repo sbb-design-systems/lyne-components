@@ -10,10 +10,10 @@ import { sbbSpread } from '../core/dom';
 import readme from './readme.md?raw';
 import './action-group';
 import '../link/block-link';
-import '../button';
+import '../button/secondary-button';
 
 const secondaryButtonTemplate = (alignSelf?: string): TemplateResult => html`
-  <sbb-button align-self=${alignSelf || nothing} variant="secondary"> Button 1 </sbb-button>
+  <sbb-secondary-button align-self=${alignSelf || nothing}> Button 1 </sbb-secondary-button>
 `;
 
 const buttonTemplate = (alignSelf?: string): TemplateResult => html`

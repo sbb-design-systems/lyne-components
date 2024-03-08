@@ -43,18 +43,20 @@ snapshots["sbb-alert should render default properties"] =
           role="separator"
         >
         </sbb-divider>
-        <sbb-button
+        <sbb-transparent-button
           aria-label="Close message"
           class="sbb-alert__close-button"
+          data-action=""
+          data-button=""
+          data-sbb-button=""
           dir="ltr"
           icon-name="cross-small"
           negative=""
           role="button"
           size="m"
           tabindex="0"
-          variant="transparent"
         >
-        </sbb-button>
+        </sbb-transparent-button>
       </span>
     </div>
   </div>
@@ -96,6 +98,9 @@ snapshots["sbb-alert should render customized properties"] =
         </p>
         <sbb-link
           aria-label="label"
+          data-action=""
+          data-link=""
+          data-sbb-link=""
           data-slot-names="unnamed"
           dir="ltr"
           href="https://www.sbb.ch"
@@ -118,18 +123,20 @@ snapshots["sbb-alert should render customized properties"] =
           role="separator"
         >
         </sbb-divider>
-        <sbb-button
+        <sbb-transparent-button
           aria-label="Close message"
           class="sbb-alert__close-button"
+          data-action=""
+          data-button=""
+          data-sbb-button=""
           dir="ltr"
           icon-name="cross-small"
           negative=""
           role="button"
           size="m"
           tabindex="0"
-          variant="transparent"
         >
-        </sbb-button>
+        </sbb-transparent-button>
       </span>
     </div>
   </div>

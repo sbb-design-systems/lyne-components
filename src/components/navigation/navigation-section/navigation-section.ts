@@ -31,7 +31,7 @@ import {
 import type { SbbNavigationElement } from '../navigation';
 import type { SbbNavigationMarkerElement } from '../navigation-marker';
 import '../../divider';
-import '../../button';
+import '../../button/transparent-button';
 
 import style from './navigation-section.scss?lit&inline';
 
@@ -341,17 +341,16 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
 
   protected override render(): TemplateResult {
     const backButton = html`
-      <sbb-button
+      <sbb-transparent-button
         id="sbb-navigation-section-back-button"
         class="sbb-navigation-section__back"
         aria-label=${this.accessibilityBackLabel || i18nGoBack[this._language.current]}
-        variant="transparent"
         negative
         size="m"
         type="button"
         icon-name="chevron-small-left-small"
         sbb-navigation-section-close
-      ></sbb-button>
+      ></sbb-transparent-button>
     `;
 
     // Accessibility label should win over aria-labelledby

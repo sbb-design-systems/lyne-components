@@ -14,20 +14,9 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
   outline: none !important;
 
   --sbb-button-icon-size: var(--sbb-size-icon-ui-small);
-
-  // we use primary button styles as default values
-  --sbb-button-color-active-background: var(--sbb-color-red150);
-  --sbb-button-color-active-border: var(--sbb-color-red150);
-  --sbb-button-color-active-text: var(--sbb-color-cloud);
-  --sbb-button-color-default-background: var(--sbb-color-red);
-  --sbb-button-color-default-border: var(--sbb-color-red);
-  --sbb-button-color-default-text: var(--sbb-color-white);
   --sbb-button-color-disabled-background: var(--sbb-color-milk);
   --sbb-button-color-disabled-border: var(--sbb-color-cloud);
   --sbb-button-color-disabled-text: var(--sbb-color-granite);
-  --sbb-button-color-hover-background: var(--sbb-color-red125);
-  --sbb-button-color-hover-border: var(--sbb-color-red125);
-  --sbb-button-color-hover-text: var(--sbb-color-milk);
   --sbb-button-shadow-1-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-offset-y);
   --sbb-button-shadow-2-offset-y: var(--sbb-shadow-elevation-level-3-shadow-2-offset-y);
   --sbb-button-shadow-1-blur: var(--sbb-shadow-elevation-level-3-shadow-1-blur);
@@ -43,6 +32,13 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
   --sbb-button-padding-inline: var(--sbb-spacing-fixed-8x);
   --sbb-button-gap: var(--sbb-spacing-fixed-2x);
   --sbb-button-inset: 0;
+  --sbb-button-box-shadow: transparent;
+  --sbb-button-box-shadow-definition: var(--sbb-shadow-elevation-level-3-shadow-2-offset-x)
+      var(--sbb-button-shadow-2-offset-y) var(--sbb-button-shadow-2-blur)
+      var(--sbb-shadow-elevation-level-3-shadow-2-spread) var(--sbb-button-shadow-2-color),
+    var(--sbb-shadow-elevation-level-3-shadow-1-offset-x) var(--sbb-button-shadow-1-offset-y)
+      var(--sbb-button-shadow-1-blur) var(--sbb-shadow-elevation-level-3-shadow-1-spread)
+      var(--sbb-button-shadow-1-color);
 
   @include sbb.mq($from: medium) {
     --sbb-button-padding-inline: var(--sbb-spacing-fixed-10x);
@@ -58,84 +54,6 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
   --sbb-button-color-disabled-background: var(--sbb-color-anthracite);
   --sbb-button-color-disabled-border: var(--sbb-color-granite);
   --sbb-button-color-disabled-text: var(--sbb-color-aluminium);
-}
-
-:host([variant='primary'][negative]) {
-  --sbb-button-color-active-background: var(--sbb-color-cloud);
-  --sbb-button-color-active-border: var(--sbb-color-cloud);
-  --sbb-button-color-active-text: var(--sbb-color-red150);
-  --sbb-button-color-default-background: var(--sbb-color-white);
-  --sbb-button-color-default-border: var(--sbb-color-white);
-  --sbb-button-color-default-text: var(--sbb-color-red);
-  --sbb-button-color-hover-background: var(--sbb-color-milk);
-  --sbb-button-color-hover-border: var(--sbb-color-milk);
-  --sbb-button-color-hover-text: var(--sbb-color-red125);
-  --sbb-button-shadow-1-color: var(--sbb-color-smoke-alpha-20);
-  --sbb-button-shadow-2-color: var(--sbb-color-metal-alpha-20);
-}
-
-:host([variant='secondary']) {
-  --sbb-button-color-active-background: var(--sbb-color-milk);
-  --sbb-button-color-active-border: var(--sbb-color-cloud);
-  --sbb-button-color-active-text: var(--sbb-color-anthracite);
-  --sbb-button-color-default-background: var(--sbb-color-white);
-  --sbb-button-color-default-border: var(--sbb-color-cloud);
-  --sbb-button-color-default-text: var(--sbb-color-charcoal);
-  --sbb-button-color-hover-background: var(--sbb-color-white);
-  --sbb-button-color-hover-border: var(--sbb-color-cloud);
-  --sbb-button-color-hover-text: var(--sbb-color-iron);
-  --sbb-button-shadow-1-color: var(--sbb-color-platinum-alpha-20);
-  --sbb-button-shadow-2-color: var(--sbb-color-cement-alpha-20);
-}
-
-:host([variant='secondary'][negative]) {
-  --sbb-button-color-active-background: transparent;
-  --sbb-button-color-active-border: var(--sbb-color-cloud);
-  --sbb-button-color-active-text: var(--sbb-color-cloud);
-  --sbb-button-color-default-background: transparent;
-  --sbb-button-color-default-border: var(--sbb-color-white);
-  --sbb-button-color-default-text: var(--sbb-color-white);
-  --sbb-button-color-hover-background: transparent;
-  --sbb-button-color-hover-border: var(--sbb-color-milk);
-  --sbb-button-color-hover-text: var(--sbb-color-milk);
-}
-
-:host([variant='tertiary']) {
-  --sbb-button-color-active-background: var(--sbb-color-black);
-  --sbb-button-color-active-border: var(--sbb-color-cloud);
-  --sbb-button-color-active-text: var(--sbb-color-cloud);
-  --sbb-button-color-default-background: var(--sbb-color-charcoal);
-  --sbb-button-color-default-border: var(--sbb-color-cloud);
-  --sbb-button-color-default-text: var(--sbb-color-white);
-  --sbb-button-color-hover-background: var(--sbb-color-midnight);
-  --sbb-button-color-hover-border: var(--sbb-color-cloud);
-  --sbb-button-color-hover-text: var(--sbb-color-milk);
-  --sbb-button-shadow-1-color: var(--sbb-color-platinum-alpha-20);
-  --sbb-button-shadow-2-color: var(--sbb-color-cement-alpha-20);
-}
-
-:host([variant='transparent']) {
-  --sbb-button-color-active-background: var(--sbb-color-cloud);
-  --sbb-button-color-active-border: var(--sbb-color-cloud);
-  --sbb-button-color-active-text: var(--sbb-color-black);
-  --sbb-button-color-default-background: transparent;
-  --sbb-button-color-default-border: transparent;
-  --sbb-button-color-default-text: var(--sbb-color-black);
-  --sbb-button-color-hover-background: var(--sbb-color-milk);
-  --sbb-button-color-hover-border: var(--sbb-color-milk);
-  --sbb-button-color-hover-text: var(--sbb-color-black);
-}
-
-:host([variant='transparent'][negative]) {
-  --sbb-button-color-active-background: var(--sbb-color-iron);
-  --sbb-button-color-active-border: var(--sbb-color-iron);
-  --sbb-button-color-active-text: var(--sbb-color-white);
-  --sbb-button-color-default-background: transparent;
-  --sbb-button-color-default-border: transparent;
-  --sbb-button-color-default-text: var(--sbb-color-white);
-  --sbb-button-color-hover-background: var(--sbb-color-charcoal);
-  --sbb-button-color-hover-border: var(--sbb-color-charcoal);
-  --sbb-button-color-hover-text: var(--sbb-color-white);
 }
 
 :host([size='m']) {
@@ -185,25 +103,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
   }
 }
 
-:host([data-icon-small]) {
-  @include sbb.icon-button-variables;
-
-  --sbb-button-shadow-1-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
-  --sbb-button-shadow-2-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
-  --sbb-button-shadow-1-blur: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
-  --sbb-button-shadow-2-blur: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
-  --sbb-button-shadow-1-color: var(--sbb-color-black-alpha-0);
-  --sbb-button-shadow-2-color: var(--sbb-color-black-alpha-0);
-}
-
-:host([data-icon-small][negative]) {
-  @include sbb.icon-button-variables-negative;
-
-  --sbb-button-shadow-1-color: var(--sbb-color-black-alpha-0);
-  --sbb-button-shadow-2-color: var(--sbb-color-black-alpha-0);
-}
-
-:is(.sbb-button, .sbb-button-link, .sbb-button-static) {
+.sbb-action-base {
   @include sbb.text-xs--bold;
   @include sbb.font-smoothing;
 
@@ -242,6 +142,7 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
     transition-duration: var(--sbb-button-transition-duration);
     transition-timing-function: var(--sbb-button-transition-easing-function);
     transition-property: inset, background-color, border-color, box-shadow;
+    box-shadow: var(--sbb-button-box-shadow);
 
     :host([disabled]) & {
       background-color: var(--sbb-button-color-disabled-background);
@@ -271,24 +172,6 @@ $icon-only: ':where([data-slot-names~=icon], [icon-name]):not([data-slot-names~=
       color: var(--sbb-button-color-active-text);
       background-color: var(--sbb-button-color-active-background);
       border-color: var(--sbb-button-color-active-border);
-    }
-
-    // Only apply shadow definitions where it is really used.
-    :host(
-        :is([variant='primary'], [variant='secondary']:not([negative]), [variant='tertiary']):not(
-            [disabled],
-            :active,
-            [data-active]
-          )
-      )
-      & {
-      box-shadow:
-        var(--sbb-shadow-elevation-level-3-shadow-2-offset-x) var(--sbb-button-shadow-2-offset-y)
-          var(--sbb-button-shadow-2-blur) var(--sbb-shadow-elevation-level-3-shadow-2-spread)
-          var(--sbb-button-shadow-2-color),
-        var(--sbb-shadow-elevation-level-3-shadow-1-offset-x) var(--sbb-button-shadow-1-offset-y)
-          var(--sbb-button-shadow-1-blur) var(--sbb-shadow-elevation-level-3-shadow-1-spread)
-          var(--sbb-button-shadow-1-color);
     }
   }
 

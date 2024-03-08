@@ -6,12 +6,12 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { ref } from 'lit/directives/ref.js';
 
-import type { SbbButtonElement } from '../button';
+import type { SbbSecondaryButtonElement } from '../button';
 import { sbbSpread } from '../core/dom';
 
 import { SbbNotificationElement } from './notification';
 import readme from './readme.md?raw';
-import '../button';
+import '../button/secondary-button';
 import '../link/link';
 
 const titleContent: InputType = {
@@ -65,21 +65,20 @@ const appendNotification = (event: Event, args: Args): void => {
   newNotification.disableAnimation = args['disable-animation'];
   newNotification.innerHTML =
     'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.';
-  (event.target as SbbButtonElement).parentElement
+  (event.target as SbbSecondaryButtonElement).parentElement
     ?.querySelector('.notification-container')
     ?.append(newNotification);
 };
 
 const trigger = (args: Args): TemplateResult => html`
-  <sbb-button
+  <sbb-secondary-button
     size="m"
-    variant="secondary"
     style="max-width: fit-content"
     @click=${(event: Event) => appendNotification(event, args)}
     icon-name="circle-plus-small"
   >
     Add notification
-  </sbb-button>
+  </sbb-secondary-button>
 `;
 
 const simpleNotification = (

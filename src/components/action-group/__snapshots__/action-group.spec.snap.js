@@ -9,17 +9,22 @@ snapshots["sbb-action-group renders renders - Dom"] =
   link-size="m"
   orientation="horizontal"
 >
-  <sbb-button
+  <sbb-secondary-button
+    data-action=""
+    data-button=""
+    data-sbb-button=""
     data-slot-names="unnamed"
     dir="ltr"
     role="button"
     size="l"
     tabindex="0"
-    variant="secondary"
   >
     Button
-  </sbb-button>
+  </sbb-secondary-button>
   <sbb-block-link
+    data-action=""
+    data-link=""
+    data-sbb-link=""
     data-slot-names="unnamed"
     dir="ltr"
     href="https://github.com/lyne-design-system/lyne-components"
@@ -43,7 +48,7 @@ snapshots["sbb-action-group renders renders - ShadowDom"] =
 `;
 /* end snapshot sbb-action-group renders renders - ShadowDom */
 
-snapshots["sbb-action-group renders A11y tree Chrome"] = 
+snapshots["sbb-action-group renders A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",

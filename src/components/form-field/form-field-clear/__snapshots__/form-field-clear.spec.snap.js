@@ -25,6 +25,8 @@ snapshots["sbb-form-field-clear renders Formfield Dom"] =
   >
   <sbb-form-field-clear
     aria-label="Clear input value"
+    data-action=""
+    data-button=""
     dir="ltr"
     role="button"
     slot="suffix"
@@ -84,7 +86,7 @@ snapshots["sbb-form-field-clear renders FormfieldClear ShadowDom"] =
 `;
 /* end snapshot sbb-form-field-clear renders FormfieldClear ShadowDom */
 
-snapshots["sbb-form-field-clear renders A11y tree Chrome"] = 
+snapshots["sbb-form-field-clear renders A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",

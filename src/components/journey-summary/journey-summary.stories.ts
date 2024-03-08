@@ -16,7 +16,8 @@ import {
 import readme from './readme.md?raw';
 
 import './journey-summary';
-import '../button';
+import '../button/button';
+import '../button/secondary-button';
 
 const disableAnimation: InputType = {
   control: {
@@ -92,7 +93,7 @@ const Template = ({ trip, tripBack, ...args }: Args): TemplateResult => html`
       })}
       slot="content"
     >
-      <sbb-button variant="secondary" icon-name="context-menu-small"></sbb-button>
+      <sbb-secondary-button icon-name="context-menu-small"></sbb-secondary-button>
       <sbb-button>Button label</sbb-button>
     </div>
   </sbb-journey-summary>

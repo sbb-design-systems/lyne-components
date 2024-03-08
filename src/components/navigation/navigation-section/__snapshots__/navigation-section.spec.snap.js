@@ -18,9 +18,12 @@ snapshots["sbb-navigation-section renders"] =
         >
         </sbb-divider>
         <div class="sbb-navigation-section__header">
-          <sbb-button
+          <sbb-transparent-button
             aria-label="Go back"
             class="sbb-navigation-section__back"
+            data-action=""
+            data-button=""
+            data-sbb-button=""
             dir="ltr"
             icon-name="chevron-small-left-small"
             id="sbb-navigation-section-back-button"
@@ -30,9 +33,8 @@ snapshots["sbb-navigation-section renders"] =
             size="m"
             tabindex="0"
             type="button"
-            variant="transparent"
           >
-          </sbb-button>
+          </sbb-transparent-button>
           <span
             class="sbb-navigation-section__title"
             id="title"

@@ -1,5 +1,5 @@
 The `sbb-button-link` component provides the same functionality as a native `<a>`,
-despite its appearance as a button enhanced with the SBB Design.
+despite its appearance as a button enhanced with the SBB Design in the 'primary' variant.
 
 ```html
 <sbb-button-link href="https://www.sbb.ch">Button text</sbb-button-link>
@@ -31,8 +31,6 @@ At least one is mandatory, so you can have a `sbb-button-link` with icon only, t
 The component is internally rendered as a link,
 accepting its associated properties (`href`, `target`, `rel` and `download`).
 
-If the component is placed inside an `sbb-form-field`, it renders with the correct styling.
-
 ```html
 <sbb-button-link href="https://github.com/lyne-design-system/lyne-components" target="_blank">
   Go to site
@@ -41,17 +39,14 @@ If the component is placed inside an `sbb-form-field`, it renders with the corre
 
 ## Style
 
-The component has four color variants that can be set using the `variant` property (default: `primary`),
-and it has also a negative one which can be set using the `negative` property.
+The component has a negative variant which can be set using the `negative` property.
 
 There are two different sizes (`m` and `l`, which is the default) that can be set using the `size` property.
 
 The component can be displayed in `disabled` state using the self-named property.
 
 ```html
-<sbb-button-link href="https://www.sbb.ch" variant="secondary">Button</sbb-button-link>
-<sbb-button-link href="https://www.sbb.ch" variant="tertiary">Button</sbb-button-link>
-<sbb-button-link href="https://www.sbb.ch" variant="transparent">Button</sbb-button-link>
+<sbb-button-link href="https://www.sbb.ch" negative>Button</sbb-button-link>
 
 <sbb-button-link href="https://www.sbb.ch" size="m">Button</sbb-button-link>
 
@@ -77,17 +72,16 @@ Use the accessibility properties in case of an icon-only button to describe the 
 
 ## Properties
 
-| Name       | Attribute   | Privacy | Type                                    | Default     | Description                                                                                                                      |
-| ---------- | ----------- | ------- | --------------------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `variant`  | `variant`   | public  | `SbbButtonVariant`                      | `'primary'` | Variant of the button, like primary, secondary etc.                                                                              |
-| `size`     | `size`      | public  | `SbbButtonSize \| undefined`            | `'l'`       | Size variant, either l or m.                                                                                                     |
-| `negative` | `negative`  | public  | `boolean`                               | `false`     | Negative coloring variant flag.                                                                                                  |
-| `iconName` | `icon-name` | public  | `string \| undefined`                   |             | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `disabled` | `disabled`  | public  | `boolean`                               | `false`     | Whether the component is disabled.                                                                                               |
-| `href`     | `href`      | public  | `string \| undefined`                   |             | The href value you want to link to.                                                                                              |
-| `target`   | `target`    | public  | `LinkTargetType \| string \| undefined` |             | Where to display the linked URL.                                                                                                 |
-| `rel`      | `rel`       | public  | `string \| undefined`                   |             | The relationship of the linked URL as space-separated link types.                                                                |
-| `download` | `download`  | public  | `boolean \| undefined`                  |             | Whether the browser will show the download dialog on click.                                                                      |
+| Name       | Attribute   | Privacy | Type                                    | Default | Description                                                                                                                      |
+| ---------- | ----------- | ------- | --------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `size`     | `size`      | public  | `SbbButtonSize \| undefined`            | `'l'`   | Size variant, either l or m.                                                                                                     |
+| `negative` | `negative`  | public  | `boolean`                               | `false` | Negative coloring variant flag.                                                                                                  |
+| `iconName` | `icon-name` | public  | `string \| undefined`                   |         | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `disabled` | `disabled`  | public  | `boolean`                               | `false` | Whether the component is disabled.                                                                                               |
+| `href`     | `href`      | public  | `string \| undefined`                   |         | The href value you want to link to.                                                                                              |
+| `target`   | `target`    | public  | `LinkTargetType \| string \| undefined` |         | Where to display the linked URL.                                                                                                 |
+| `rel`      | `rel`       | public  | `string \| undefined`                   |         | The relationship of the linked URL as space-separated link types.                                                                |
+| `download` | `download`  | public  | `boolean \| undefined`                  |         | Whether the browser will show the download dialog on click.                                                                      |
 
 ## Slots
 

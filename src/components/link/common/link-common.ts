@@ -8,6 +8,7 @@ import {
   type SbbNegativeMixinType,
   SbbNegativeMixin,
   NamedSlotStateController,
+  hostAttributes,
 } from '../../core/common-behaviors';
 
 import '../../icon';
@@ -23,6 +24,7 @@ export declare class SbbLinkCommonElementMixinType extends SbbNegativeMixinType 
 export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<SbbActionBaseElement>>(
   superClass: T,
 ): AbstractConstructor<SbbLinkCommonElementMixinType> & T => {
+  @hostAttributes({ 'data-sbb-link': '' })
   abstract class SbbLinkCommonElement
     extends SbbNegativeMixin(superClass)
     implements Partial<SbbLinkCommonElementMixinType>

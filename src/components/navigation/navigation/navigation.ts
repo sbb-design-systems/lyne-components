@@ -22,7 +22,7 @@ import {
   applyInertMechanism,
   removeInertMechanism,
 } from '../../core/overlay';
-import '../../button';
+import '../../button/transparent-button';
 
 import style from './navigation.scss?lit&inline';
 
@@ -336,18 +336,17 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
 
   protected override render(): TemplateResult {
     const closeButton = html`
-      <sbb-button
+      <sbb-transparent-button
         id="sbb-navigation-close-button"
         class="sbb-navigation__close"
         aria-label=${this.accessibilityCloseLabel || i18nCloseNavigation[this._language.current]}
         aria-controls="sbb-navigation-overlay"
-        variant="transparent"
         negative
         size="m"
         type="button"
         icon-name="cross-small"
         sbb-navigation-close
-      ></sbb-button>
+      ></sbb-transparent-button>
     `;
 
     setAttribute(this, 'data-has-navigation-section', !!this._activeNavigationSection);

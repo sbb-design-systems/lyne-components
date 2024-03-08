@@ -34,17 +34,19 @@ snapshots["sbb-notification renders"] =
         role="separator"
       >
       </sbb-divider>
-      <sbb-button
+      <sbb-secondary-button
         aria-label="Close message"
         class="sbb-notification__close"
+        data-action=""
+        data-button=""
+        data-sbb-button=""
         dir="ltr"
         icon-name="cross-small"
         role="button"
         size="m"
         tabindex="0"
-        variant="secondary"
       >
-      </sbb-button>
+      </sbb-secondary-button>
     </span>
   </div>
 </div>
@@ -85,17 +87,19 @@ snapshots["sbb-notification renders with a title"] =
         role="separator"
       >
       </sbb-divider>
-      <sbb-button
+      <sbb-secondary-button
         aria-label="Close message"
         class="sbb-notification__close"
+        data-action=""
+        data-button=""
+        data-sbb-button=""
         dir="ltr"
         icon-name="cross-small"
         role="button"
         size="m"
         tabindex="0"
-        variant="secondary"
       >
-      </sbb-button>
+      </sbb-secondary-button>
     </span>
   </div>
 </div>
@@ -135,17 +139,19 @@ snapshots["sbb-notification renders with a slotted title"] =
         role="separator"
       >
       </sbb-divider>
-      <sbb-button
+      <sbb-secondary-button
         aria-label="Close message"
         class="sbb-notification__close"
+        data-action=""
+        data-button=""
+        data-sbb-button=""
         dir="ltr"
         icon-name="cross-small"
         role="button"
         size="m"
         tabindex="0"
-        variant="secondary"
       >
-      </sbb-button>
+      </sbb-secondary-button>
     </span>
   </div>
 </div>

@@ -16,6 +16,7 @@ type MaybeDisabled = {
 
 @hostAttributes({
   dir: getDocumentWritingMode(),
+  'data-action': '',
 })
 export abstract class SbbActionBaseElement extends LitElement {
   protected setupBaseEventHandlers(): void {

@@ -1,4 +1,5 @@
-The `sbb-button` component provides the same functionality as a native `<button>` enhanced with the SBB Design.
+The `sbb-button` component provides the same functionality as a native `<button>`
+enhanced with the SBB Design in the 'primary' variant.
 
 ```html
 <sbb-button>Button text</sbb-button>
@@ -26,25 +27,20 @@ At least one is mandatory, so you can have a `sbb-button` with icon only, text o
 The component is internally rendered as a button,
 accepting its associated properties (`type`, `name`, `value` and `form`).
 
-If the component is placed inside an `sbb-form-field`, it renders with the correct styling.
-
 ```html
-<sbb-button name="tickets" form="buy" value="tickets"> Buy tickets </sbb-button>
+<sbb-button type="submit" name="tickets" form="buy" value="tickets"> Buy tickets </sbb-button>
 ```
 
 ## Style
 
-The component has four color variants that can be set using the `variant` property (default: `primary`),
-and it has also a negative one which can be set using the `negative` property.
+The component has a negative variant which can be set using the `negative` property.
 
 There are two different sizes (`m` and `l`, which is the default) that can be set using the `size` property.
 
 The component can be displayed in `disabled` state using the self-named property.
 
 ```html
-<sbb-button variant="secondary">Button</sbb-button>
-<sbb-button variant="tertiary">Button</sbb-button>
-<sbb-button variant="transparent">Button</sbb-button>
+<sbb-button negative>Button</sbb-button>
 
 <sbb-button size="m">Button</sbb-button>
 
@@ -70,17 +66,16 @@ Use the accessibility properties in case of an icon-only button to describe the 
 
 ## Properties
 
-| Name       | Attribute   | Privacy | Type                         | Default     | Description                                                                                                                      |
-| ---------- | ----------- | ------- | ---------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `variant`  | `variant`   | public  | `SbbButtonVariant`           | `'primary'` | Variant of the button, like primary, secondary etc.                                                                              |
-| `size`     | `size`      | public  | `SbbButtonSize \| undefined` | `'l'`       | Size variant, either l or m.                                                                                                     |
-| `negative` | `negative`  | public  | `boolean`                    | `false`     | Negative coloring variant flag.                                                                                                  |
-| `iconName` | `icon-name` | public  | `string \| undefined`        |             | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `disabled` | `disabled`  | public  | `boolean`                    | `false`     | Whether the component is disabled.                                                                                               |
-| `type`     | `type`      | public  | `SbbButtonType`              | `'button'`  | The type attribute to use for the button.                                                                                        |
-| `name`     | `name`      | public  | `string`                     |             | The name of the button element.                                                                                                  |
-| `value`    | `value`     | public  | `string`                     |             | The value of the button element.                                                                                                 |
-| `form`     | `form`      | public  | `string \| undefined`        |             | The <form> element to associate the button with.                                                                                 |
+| Name       | Attribute   | Privacy | Type                         | Default    | Description                                                                                                                      |
+| ---------- | ----------- | ------- | ---------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `size`     | `size`      | public  | `SbbButtonSize \| undefined` | `'l'`      | Size variant, either l or m.                                                                                                     |
+| `negative` | `negative`  | public  | `boolean`                    | `false`    | Negative coloring variant flag.                                                                                                  |
+| `iconName` | `icon-name` | public  | `string \| undefined`        |            | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `disabled` | `disabled`  | public  | `boolean`                    | `false`    | Whether the component is disabled.                                                                                               |
+| `type`     | `type`      | public  | `SbbButtonType`              | `'button'` | The type attribute to use for the button.                                                                                        |
+| `name`     | `name`      | public  | `string`                     |            | The name of the button element.                                                                                                  |
+| `value`    | `value`     | public  | `string`                     |            | The value of the button element.                                                                                                 |
+| `form`     | `form`      | public  | `string \| undefined`        |            | The <form> element to associate the button with.                                                                                 |
 
 ## Slots
 

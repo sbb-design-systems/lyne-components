@@ -11,6 +11,7 @@ import readme from './readme.md?raw';
 import './checkbox';
 import '../../card';
 import '../../button/button';
+import '../../button/secondary-button';
 
 const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et
@@ -135,7 +136,7 @@ const TemplateWithForm = (args: Args): TemplateResult => html`
       ${Template({ ...args, name: 'disabled' })}
     </fieldset>
     <div style="margin-block: var(--sbb-spacing-responsive-s)">
-      <sbb-button type="reset" variant="secondary">Reset</sbb-button>
+      <sbb-secondary-button type="reset">Reset</sbb-secondary-button>
       <sbb-button type="submit">Submit</sbb-button>
     </div>
     <p class="sbb-text-s">Form-Data after click submit:</p>

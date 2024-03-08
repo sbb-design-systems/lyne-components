@@ -1,114 +1,61 @@
 import { expect, fixture } from '@open-wc/testing';
-import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import {
+  buttonTestTemplate,
+  buttonIconTestTemplate,
+  buttonSlottedIconTestTemplate,
+  buttonSpaceIconTestTemplate,
+} from '../common/button-test-utils';
 
-import '../../form-field';
+import type { SbbButtonElement } from './button';
 import './button';
 
 describe('sbb-button', () => {
-  it('renders a primary button without icon', async () => {
-    const root = await fixture(
-      html` <sbb-button
-        variant="primary"
-        negative
-        size="m"
-        type="button"
-        disabled
-        name="name"
-        value="value"
-        form="formid"
-      >
-        Label Text
-      </sbb-button>`,
-    );
+  describe('renders a sbb-button without icon', async () => {
+    const root = await fixture(buttonTestTemplate('sbb-button'));
 
-    expect(root).dom.to.be.equal(`
-      <sbb-button
-        variant="primary"
-        negative
-        size="m"
-        type="button"
-        disabled
-        aria-disabled="true"
-        name="name"
-        value="value"
-        form="formid"
-        role="button"
-        dir="ltr"
-        data-slot-names="unnamed"
-      >
+    it('Dom', async () => {
+      await expect(root).dom.to.be.equalSnapshot();
+    });
 
-        Label Text
-      </sbb-button>
-    `);
-    expect(root).shadowDom.to.be.equal(`
-      <span class="sbb-action-base sbb-button">
-        <span class="sbb-button__icon">
-          <slot name="icon">
-          </slot>
-        </span>
-        <span class="sbb-button__label"><slot></slot></span>
-      </span>
-    `);
+    it('ShadowDom', async () => {
+      await expect(root).shadowDom.to.be.equalSnapshot();
+    });
   });
 
-  it('renders a primary button with slotted icon', async () => {
-    const root = await fixture(
-      html`<sbb-button variant="primary">
-        <sbb-icon slot="icon" name="chevron-small-left-small"></sbb-icon>
-        Label Text
-      </sbb-button> `,
-    );
+  describe('renders a sbb-button with slotted icon', async () => {
+    let root: SbbButtonElement;
 
-    await waitForLitRender(root);
+    beforeEach(async () => {
+      root = await fixture(buttonSlottedIconTestTemplate('sbb-button'));
+      await waitForLitRender(root);
+    });
 
-    expect(root).dom.to.be.equal(`
-      <sbb-button size="l" variant="primary" role="button" tabindex="0" dir="ltr" data-slot-names="icon unnamed">
-        <sbb-icon slot="icon" name="chevron-small-left-small" role="img" aria-hidden="true" data-namespace="default"></sbb-icon>
-        Label Text
-      </sbb-button>
-    `);
-    expect(root).shadowDom.to.be.equal(`
-      <span class="sbb-action-base sbb-button">
-        <span class="sbb-button__icon">
-          <slot name="icon"></slot>
-        </span>
-        <span class="sbb-button__label"><slot></slot></span>
-      </span>
-    `);
+    it('Dom', async () => {
+      await expect(root).dom.to.be.equalSnapshot();
+    });
+
+    it('ShadowDom', async () => {
+      await expect(root).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
   });
 
-  it('should detect icon button', async () => {
-    const root = await fixture(
-      html`<sbb-button><sbb-icon slot="icon" name="app-icon-medium"></sbb-icon></sbb-button>`,
-    );
-
+  it('should detect icon in sbb-button', async () => {
+    const root = await fixture(buttonIconTestTemplate('sbb-button'));
     await waitForLitRender(root);
-
     const dataSlots = root.getAttribute('data-slot-names');
     expect(dataSlots).to.contain('icon');
     expect(dataSlots).not.to.contain('unnamed');
   });
 
-  it('should detect icon button when there is space around icon', async () => {
-    const root = await fixture(
-      html`<sbb-button> <sbb-icon slot="icon" name="app-icon-medium"></sbb-icon> </sbb-button>`,
-    );
-
+  it('should detect icon in sbb-button when there is space around icon', async () => {
+    const root = await fixture(buttonSpaceIconTestTemplate('sbb-button'));
     const dataSlots = root.getAttribute('data-slot-names');
     expect(dataSlots).to.contain('icon');
     expect(dataSlots).not.to.contain('unnamed');
-  });
-
-  it('should render form field button variant when inside of a form field', async () => {
-    const root = await fixture(
-      html` <sbb-form-field>
-        <input />
-        <sbb-button slot="suffix" icon-name="cross-small"></sbb-button>
-      </sbb-form-field>`,
-    );
-    const button = root.querySelector('sbb-button');
-    expect(button).to.have.attribute('data-icon-small');
   });
 });

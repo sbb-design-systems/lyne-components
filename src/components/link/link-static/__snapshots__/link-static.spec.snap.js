@@ -3,6 +3,8 @@ export const snapshots = {};
 
 snapshots["sbb-link-static renders - DOM"] = 
 `<sbb-link-static
+  data-action=""
+  data-sbb-link=""
   data-slot-names="unnamed"
   dir="ltr"
   size="m"
