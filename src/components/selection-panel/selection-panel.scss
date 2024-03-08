@@ -21,6 +21,7 @@ $open-anim-opacity-to: 1;
     var(--sbb-spacing-responsive-xxs);
   --sbb-selection-panel-content-visibility: hidden;
   --sbb-selection-panel-content-padding-inline: var(--sbb-spacing-responsive-xxs);
+  --sbb-selection-panel-border-radius: var(--sbb-border-radius-4x);
 
   // As the selection panel has always a white/milk background, we have to fix the focus outline color
   // to default color for cases where the selection panel is used in a negative context.
@@ -35,6 +36,7 @@ $open-anim-opacity-to: 1;
 
 :host([data-checked]:not([data-disabled])) {
   --sbb-selection-panel-border-color: var(--sbb-color-charcoal);
+  --sbb-selection-panel-border-width: var(--sbb-border-width-2x);
 }
 
 :host([data-slot-names~='content'][data-disabled]) {
@@ -73,12 +75,21 @@ $open-anim-opacity-to: 1;
   position: relative;
   width: 100%;
   background-color: var(--sbb-selection-panel-background);
-  border: var(--sbb-selection-panel-border-width) solid var(--sbb-selection-panel-border-color);
-  border-radius: var(--sbb-border-radius-4x);
-  transition: {
-    duration: var(--sbb-selection-panel-animation-duration);
-    timing-function: var(--sbb-animation-easing);
-    property: border-color;
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border: var(--sbb-selection-panel-border-width) solid var(--sbb-selection-panel-border-color);
+    border-radius: var(--sbb-selection-panel-border-radius);
+
+    transition: {
+      duration: var(--sbb-selection-panel-animation-duration);
+      timing-function: var(--sbb-animation-easing);
+      property: border-color;
+    }
   }
 }
 
@@ -87,7 +98,7 @@ $open-anim-opacity-to: 1;
   pointer-events: none;
   position: absolute;
   inset: 0;
-  border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-selection-panel-border-width));
+  border-radius: var(--sbb-selection-panel-border-radius);
   overflow: hidden;
 }
 
