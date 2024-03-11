@@ -77,7 +77,7 @@
     "@storybook/web-components-vite": "7.6.17",
     "@types/glob": "8.1.0",
     "@types/mocha": "^10.0.4",
-    "@types/node": "20.11.25",
+    "@types/node": "20.11.26",
     "@types/react": "18.2.64",
     "@types/react-dom": "^18.2.15",
     "@typescript-eslint/eslint-plugin": "7.1.1",
@@ -126,7 +126,7 @@
     "vite-plugin-turbosnap": "1.0.3"
   },
   "resolutions": {
-    "@types/node": "20.11.25",
+    "@types/node": "20.11.26",
     "jackspeak": "2.1.1",
     "lit": "3.1.2"
   },
