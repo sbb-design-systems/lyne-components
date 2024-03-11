@@ -6,7 +6,8 @@ $intersector-overlapping: 1px;
   @include sbb.box-sizing;
 
   --sbb-sticky-bar-padding-block: var(--sbb-spacing-responsive-xs);
-  --sbb-sticky-bar-animation-duration: var(--sbb-animation-duration-5x);
+  --sbb-sticky-bar-fade-in-animation-duration: var(--sbb-animation-duration-5x);
+  --sbb-sticky-bar-fade-out-animation-duration: var(--sbb-animation-duration-2x);
   --sbb-sticky-bar-animation-easing: var(--sbb-animation-easing);
   --sbb-sticky-bar-border-radius: var(--sbb-border-radius-8x);
 
@@ -30,7 +31,8 @@ $intersector-overlapping: 1px;
 }
 
 :host([disable-animation]) {
-  --sbb-sticky-bar-animation-duration: 0.1ms;
+  --sbb-sticky-bar-fade-in-animation-duration: 0.1ms;
+  --sbb-sticky-bar-fade-out-animation-duration: 0.1ms;
 }
 
 .sbb-sticky-bar__wrapper {
@@ -67,13 +69,15 @@ $intersector-overlapping: 1px;
   // Color and border radius when sticky
   &::after {
     background-color: var(--sbb-sticky-bar-sticky-background-color, transparent);
-    transition: background-color var(--sbb-sticky-bar-animation-duration)
+    transition: background-color var(--sbb-sticky-bar-fade-out-animation-duration)
       var(--sbb-sticky-bar-animation-easing);
     border-start-start-radius: var(--sbb-sticky-bar-border-radius);
     border-start-end-radius: var(--sbb-sticky-bar-border-radius);
 
     // Display a border on high contrast mode.
     :host([data-sticking]) & {
+      transition-duration: var(--sbb-sticky-bar-fade-in-animation-duration);
+
       @include sbb.if-forced-colors {
         border-block-start: var(--sbb-border-width-1x) solid CanvasText;
         border-radius: 0;
@@ -97,7 +101,7 @@ $intersector-overlapping: 1px;
     z-index: -1;
     border-start-start-radius: var(--sbb-sticky-bar-border-radius);
     border-start-end-radius: var(--sbb-sticky-bar-border-radius);
-    transition: box-shadow var(--sbb-sticky-bar-animation-duration)
+    transition: box-shadow var(--sbb-sticky-bar-fade-out-animation-duration)
       var(--sbb-sticky-bar-animation-easing);
     clip-path: polygon(
       -50% calc(-1 * var(--sbb-shadow-elevation-level-11-shadow-1-blur)),
@@ -108,6 +112,8 @@ $intersector-overlapping: 1px;
 
     :host([data-sticking]) & {
       @include sbb.shadow-level-11-soft;
+
+      transition-duration: var(--sbb-sticky-bar-fade-in-animation-duration);
     }
   }
 
@@ -132,10 +138,11 @@ $intersector-overlapping: 1px;
     height: calc(var(--sbb-sticky-bar-bottom-overlapping-height, 0) + $intersector-overlapping);
     background-color: transparent;
     pointer-events: none;
-    transition: background-color var(--sbb-sticky-bar-animation-duration)
+    transition: background-color var(--sbb-sticky-bar-fade-out-animation-duration)
       var(--sbb-sticky-bar-animation-easing);
 
     :host([data-sticking]) & {
+      transition-duration: var(--sbb-sticky-bar-fade-in-animation-duration);
       background-color: var(--sbb-sticky-bar-sticky-background-color);
     }
   }
