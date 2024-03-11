@@ -218,7 +218,11 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
     const labelNodes = slotNodes.filter((el) => el.nodeType === Node.TEXT_NODE) as Text[];
 
     // Disable the highlight if the slot contain more than just text nodes
-    if (labelNodes.length === 0 || slotNodes.length !== labelNodes.length) {
+    if (
+      labelNodes.length === 0 ||
+      slotNodes.filter((n) => !(n instanceof Element) || n.localName !== 'template').length !==
+        labelNodes.length
+    ) {
       this._disableLabelHighlight = true;
       return;
     }

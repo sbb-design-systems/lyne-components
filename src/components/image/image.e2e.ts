@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
 import images from '../core/images';
-import { waitForCondition, waitForLitRender, fixture, isNonHydratedSsr } from '../core/testing';
+import { waitForCondition, waitForLitRender, fixture } from '../core/testing';
 
 import { SbbImageElement } from './image';
 
@@ -26,11 +26,15 @@ describe(`sbb-image with ${fixture.name}`, () => {
     await waitForCondition(() => img.complete, 30, 6000);
     await aTimeout(1000);
 
-    expect(element).dom.to.be.equal(`
-      <sbb-image image-src="${url}" ${isNonHydratedSsr() ? 'defer-hydration' : ''}></sbb-image>
-    `);
+    expect(element).dom.to.be.equal(
+      `
+      <sbb-image image-src="${url}"></sbb-image>
+    `,
+      { ignoreAttributes: ['defer-hydration'], ignoreTags: ['template'] },
+    );
 
-    expect(element).shadowDom.to.be.equal(`
+    expect(element).shadowDom.to.be.equal(
+      `
       <figure class="image__figure image__figure--loaded image__figure--ratio-16-9">
         <div class="image__wrapper">
           <img alt="" class="image__blur-hash" decoding="auto" height="562" loading="eager" src="${url}?blur=100&amp;w=100&amp;h=56" width="1000">
@@ -42,6 +46,7 @@ describe(`sbb-image with ${fixture.name}`, () => {
           </picture>
         </div>
       </figure>
-    `);
+    `,
+    );
   });
 });

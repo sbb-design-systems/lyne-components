@@ -2,13 +2,7 @@ import { expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import {
-  EventSpy,
-  waitForCondition,
-  waitForLitRender,
-  fixture,
-  isNonHydratedSsr,
-} from '../../core/testing';
+import { EventSpy, waitForCondition, waitForLitRender, fixture } from '../../core/testing';
 import type { SbbCardElement } from '../card';
 
 import type { SbbCardButtonElement } from './card-button';
@@ -31,7 +25,8 @@ describe(`sbb-card-button with ${fixture.name}`, () => {
 
     const cardAction = element.querySelector('sbb-card-button');
 
-    expect(cardAction).dom.to.be.equal(`
+    expect(cardAction).dom.to.be.equal(
+      `
       <sbb-card-button
         role="button"
         dir="ltr"
@@ -39,11 +34,12 @@ describe(`sbb-card-button with ${fixture.name}`, () => {
         data-action
         data-button
         slot="action"
-        active
-        ${isNonHydratedSsr() ? 'defer-hydration' : ''}>
+        active>
         Click me
       </sbb-card-button>
-    `);
+    `,
+      { ignoreAttributes: ['defer-hydration'], ignoreTags: ['template'] },
+    );
     await expect(cardAction).shadowDom.to.be.equalSnapshot();
   });
 

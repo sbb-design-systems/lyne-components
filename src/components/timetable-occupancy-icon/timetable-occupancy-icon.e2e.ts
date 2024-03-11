@@ -1,10 +1,10 @@
-import { assert, expect } from '@open-wc/testing';
+import { aTimeout, assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import type { SinonStub } from 'sinon';
 import { stub } from 'sinon';
 
 import { i18nOccupancy } from '../core/i18n';
-import { fixture } from '../core/testing';
+import { fixture, waitForLitRender } from '../core/testing';
 
 import { SbbTimetableOccupancyIconElement } from './timetable-occupancy-icon';
 
@@ -46,6 +46,8 @@ describe(`sbb-timetable-occupancy-icon with ${fixture.name}`, () => {
     );
     assert.instanceOf(element, SbbTimetableOccupancyIconElement);
     expect(element.getAttribute('aria-label')).to.equal(i18nOccupancy.low.en);
+    await aTimeout(1);
+    await waitForLitRender(element);
     await expect(element).shadowDom.to.equalSnapshot();
   });
 
@@ -66,6 +68,8 @@ describe(`sbb-timetable-occupancy-icon with ${fixture.name}`, () => {
     );
     assert.instanceOf(element, SbbTimetableOccupancyIconElement);
     expect(element.getAttribute('aria-label')).to.equal(i18nOccupancy.medium.en);
+    await aTimeout(1);
+    await waitForLitRender(element);
     await expect(element).shadowDom.to.equalSnapshot();
   });
 
@@ -86,6 +90,8 @@ describe(`sbb-timetable-occupancy-icon with ${fixture.name}`, () => {
     );
     assert.instanceOf(element, SbbTimetableOccupancyIconElement);
     expect(element.getAttribute('aria-label')).to.equal(i18nOccupancy.medium.en);
+    await aTimeout(1);
+    await waitForLitRender(element);
     await expect(element).shadowDom.to.equalSnapshot();
   });
 });

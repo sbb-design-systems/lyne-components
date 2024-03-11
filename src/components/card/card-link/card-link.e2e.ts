@@ -2,13 +2,7 @@ import { expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import {
-  EventSpy,
-  waitForCondition,
-  waitForLitRender,
-  fixture,
-  isNonHydratedSsr,
-} from '../../core/testing';
+import { EventSpy, waitForCondition, waitForLitRender, fixture } from '../../core/testing';
 import type { SbbCardElement } from '../card';
 
 import type { SbbCardLinkElement } from './card-link';
@@ -40,7 +34,8 @@ describe(`sbb-card-link with ${fixture.name}`, () => {
 
     const cardAction = element.querySelector('sbb-card-link');
 
-    expect(cardAction).dom.to.be.equal(`
+    expect(cardAction).dom.to.be.equal(
+      `
       <sbb-card-link
         href="https://github.com/lyne-design-system/lyne-components"
         target="_blank"
@@ -49,11 +44,12 @@ describe(`sbb-card-link with ${fixture.name}`, () => {
         tabindex="0"
         data-action
         data-link
-        slot="action"
-        ${isNonHydratedSsr() ? 'defer-hydration' : ''}>
+        slot="action">
         Follow me
       </sbb-card-link>
-    `);
+    `,
+      { ignoreAttributes: ['defer-hydration'], ignoreTags: ['template'] },
+    );
     await expect(cardAction).shadowDom.to.be.equalSnapshot();
   });
 
