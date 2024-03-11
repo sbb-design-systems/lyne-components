@@ -2,7 +2,6 @@ import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit'
 import { customElement, property } from 'lit/decorators.js';
 
 import { hostAttributes } from '../../core/common-behaviors';
-import { toggleDatasetEntry } from '../../core/dom';
 import { AgnosticIntersectionObserver } from '../../core/observers';
 
 import style from './sticky-bar.scss?lit&inline';
@@ -11,7 +10,10 @@ import style from './sticky-bar.scss?lit&inline';
  * A container that sticks to the bottom of the page if slotted into `sbb-container`.
  *
  * @slot - Use the unnamed slot to add content to the sticky bar.
- * @cssprop [--sbb-sticky-bar-padding-block=var(--sbb-spacing-responsive-xxxs)] - Block padding of the sticky bar.
+ * @cssprop [--sbb-sticky-bar-padding-block=var(--sbb-spacing-responsive-xs)] - Block padding of the sticky bar.
+ * @cssprop [--sbb-sticky-bar-bottom-overlapping-height=0px] - Define an additional area where
+ * the sticky bar overlaps the following content on the bottom.
+ * This area becomes visible when the sticky bar transitions from sticky to the normal document flow.
  */
 @hostAttributes({
   slot: 'sticky-bar',
@@ -37,8 +39,7 @@ export class SbbStickyBarElement extends LitElement {
 
     const container = this.closest('sbb-container');
     if (container) {
-      toggleDatasetEntry(this, 'expanded', container.expanded);
-      toggleDatasetEntry(this, 'transparent', container.color === 'transparent');
+      this.toggleAttribute('data-expanded', container.expanded);
     }
     if (this._intersector) {
       this._observer.observe(this._intersector);
@@ -54,7 +55,10 @@ export class SbbStickyBarElement extends LitElement {
   }
 
   private _toggleShadowVisibility(entry: IntersectionObserverEntry): void {
-    toggleDatasetEntry(this, 'sticking', !entry.isIntersecting && entry.boundingClientRect.top > 0);
+    this.toggleAttribute(
+      'data-sticking',
+      !entry.isIntersecting && entry.boundingClientRect.top > 0,
+    );
   }
 
   public override disconnectedCallback(): void {

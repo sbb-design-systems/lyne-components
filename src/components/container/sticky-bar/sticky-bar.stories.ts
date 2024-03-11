@@ -166,11 +166,15 @@ const WithContentAfterTemplate = ({
     <sbb-sticky-bar
       color=${color !== 'unset' ? color : nothing}
       ?disable-animation=${disableAnimation}
+      style="--sbb-sticky-bar-bottom-overlapping-height: var(--sbb-spacing-responsive-l);"
     >
       ${actionGroup()}
     </sbb-sticky-bar>
   </sbb-container>
-  <sbb-container color="milk">
+  <sbb-container color=${containerColor} aria-hidden="true">
+    <div style="height: var(--sbb-spacing-responsive-l);"></div>
+  </sbb-container>
+  <sbb-container color="white">
     <div style="padding-block: 4rem;">
       ${containerContent('Content after first container')} ${containerContent('Another one')}
     </div>
@@ -219,7 +223,7 @@ export const Milk: StoryObj = {
 export const WithContentAfter: StoryObj = {
   render: WithContentAfterTemplate,
   argTypes: defaultArgTypes,
-  args: defaultArgs,
+  args: { ...defaultArgs, containerColor: 'milk', color: 'white' },
 };
 
 export const MilkContainer: StoryObj = {
