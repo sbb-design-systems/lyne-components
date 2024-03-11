@@ -210,6 +210,7 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
       this._attachWindowEvents();
       this._setNavigationInert();
       this._setNavigationSectionFocus();
+      this._checkActiveAction();
     } else if (event.animationName === 'close' && this._state === 'closing') {
       this._state = 'closed';
       this._navigationSectionContainerElement.scrollTo(0, 0);
@@ -275,21 +276,23 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
 
   // Set focus on the first focusable element.
   private _setNavigationSectionFocus(): void {
-    const activeAction = this.querySelector(
-      ':is(sbb-navigation-button, sbb-navigation-link).sbb-active',
-    ) as HTMLElement;
-    activeAction?.toggleAttribute('data-action-active', true);
-    const firstFocusableElement =
-      activeAction ||
-      getFirstFocusableElement(
-        [this.shadowRoot!.querySelector('#sbb-navigation-section-back-button')]
-          .concat(Array.from(this.children))
-          .filter((e): e is HTMLElement => e instanceof window.HTMLElement),
-      );
+    const firstFocusableElement = getFirstFocusableElement(
+      [this.shadowRoot!.querySelector('#sbb-navigation-section-back-button')]
+        .concat(Array.from(this.children))
+        .filter((e): e is HTMLElement => e instanceof window.HTMLElement),
+    );
     if (firstFocusableElement) {
       setModalityOnNextFocus(firstFocusableElement);
       firstFocusableElement.focus();
     }
+  }
+
+  private _checkActiveAction(): void {
+    (
+      this.querySelector(
+        ':is(sbb-navigation-button, sbb-navigation-link).sbb-active',
+      ) as HTMLElement
+    )?.toggleAttribute('data-action-active', true);
   }
 
   private _handleNavigationSectionFocus(event: KeyboardEvent): void {

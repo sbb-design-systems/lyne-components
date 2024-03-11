@@ -129,7 +129,6 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
   private _navigation!: HTMLDivElement;
   private _navigationContentElement!: HTMLElement;
   private _triggerElement: HTMLElement | null = null;
-  private _elementToFocus: HTMLElement | null = null;
   private _navigationController!: AbortController;
   private _windowEventsController!: AbortController;
   private _abort = new ConnectedAbortController(this);
@@ -167,7 +166,6 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
       'sbb-navigation-button[data-action-active]',
     ) as SbbNavigationButtonElement;
     activeAction?.connectedSection?.open();
-    this._elementToFocus = activeAction as HTMLElement;
   }
 
   /**
@@ -288,14 +286,11 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
 
   // Set focus on the first focusable element.
   private _setNavigationFocus(): void {
-    if (this._activeNavigationSection) {
-      return;
-    }
-    const elementToFocus =
-      this._elementToFocus ||
-      (this.shadowRoot!.querySelector('#sbb-navigation-close-button') as HTMLElement);
-    setModalityOnNextFocus(elementToFocus);
-    elementToFocus.focus();
+    const closeButton = this.shadowRoot!.querySelector(
+      '#sbb-navigation-close-button',
+    ) as HTMLElement;
+    setModalityOnNextFocus(closeButton);
+    closeButton.focus();
   }
 
   // Check if the pointerdown event target is triggered on the navigation.

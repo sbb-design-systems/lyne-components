@@ -54,7 +54,7 @@ describe('sbb-navigation', () => {
     expect(element).to.have.attribute('data-state', 'opened');
   });
 
-  it('sets the initial active actions and focuses on the first one', async () => {
+  it('sets the initial active actions', async () => {
     element = await fixture(html`
       <sbb-navigation id="navigation" disable-animation>
         <sbb-navigation-marker>
@@ -94,10 +94,9 @@ describe('sbb-navigation', () => {
 
     expect(action2).to.have.attribute('data-action-active');
     expect(action3).to.have.attribute('data-action-active');
-    expect(document.activeElement?.id).to.be.equal('action-active-1');
   });
 
-  it('sets the initial active action, opens the connected section and focuses on the first active action in the section', async () => {
+  it('sets the initial active action ans opens the connected section', async () => {
     element = await fixture(html`
       <sbb-navigation id="navigation" disable-animation>
         <sbb-navigation-marker>
@@ -144,7 +143,6 @@ describe('sbb-navigation', () => {
     expect(actionActive).to.have.attribute('data-action-active');
     expect(sectionActionActive).to.have.attribute('data-action-active');
     expect(activeSection).to.have.attribute('data-state', 'opened');
-    expect(document.activeElement?.id).to.be.equal('section-action-active');
   });
 
   it('closes the navigation', async () => {
