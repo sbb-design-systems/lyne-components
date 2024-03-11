@@ -88,7 +88,7 @@ $open-anim-opacity-to: 1;
     transition: {
       duration: var(--sbb-selection-panel-animation-duration);
       timing-function: var(--sbb-animation-easing);
-      property: border-color;
+      property: border-color, border-width;
     }
   }
 }
