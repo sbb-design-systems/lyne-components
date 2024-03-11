@@ -29,13 +29,7 @@ describe('sbb-card-button', () => {
         Click me
       </sbb-card-button>
     `);
-    expect(cardAction).shadowDom.to.be.equal(`
-      <span class="sbb-action-base sbb-card-button">
-        <span class="sbb-card-action__label">
-          <slot></slot>
-        </span>
-      </span>
-    `);
+    await expect(cardAction).shadowDom.to.be.equalSnapshot();
   });
 
   it('should correctly toggle active state', async () => {

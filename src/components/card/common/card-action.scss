@@ -24,7 +24,3 @@
     @include sbb.focus-outline;
   }
 }
-
-.sbb-card-action__label {
-  @include sbb.screen-reader-only;
-}
