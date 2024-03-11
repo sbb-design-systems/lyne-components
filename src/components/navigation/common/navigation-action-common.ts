@@ -35,12 +35,15 @@ export const SbbNavigationActionCommonElementMixin = <
     /** Action size variant. */
     @property({ reflect: true }) public size?: SbbNavigationActionSize = 'l';
 
+    /** The section that is beign controlled by the action, if any. */
     public connectedSection: SbbNavigationSectionElement | null = null;
 
+    /** The navigation marker in which the action is nested. */
     public get marker(): SbbNavigationMarkerElement | null {
       return this._navigationMarker;
     }
 
+    /** The section in which the action is nested. */
     public get section(): SbbNavigationSectionElement | null {
       return this._navigationSection;
     }

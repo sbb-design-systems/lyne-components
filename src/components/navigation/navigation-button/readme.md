@@ -31,16 +31,16 @@ The component has three different sizes, which can be changed using the `size` p
 
 ## Properties
 
-| Name               | Attribute | Privacy | Type                                   | Default    | Description                                      |
-| ------------------ | --------- | ------- | -------------------------------------- | ---------- | ------------------------------------------------ |
-| `size`             | `size`    | public  | `SbbNavigationActionSize \| undefined` | `'l'`      | Action size variant.                             |
-| `connectedSection` | -         | public  | `SbbNavigationSectionElement \| null`  | `null`     |                                                  |
-| `marker`           | -         | public  | `SbbNavigationMarkerElement \| null`   |            |                                                  |
-| `section`          | -         | public  | `SbbNavigationSectionElement \| null`  |            |                                                  |
-| `type`             | `type`    | public  | `SbbButtonType`                        | `'button'` | The type attribute to use for the button.        |
-| `name`             | `name`    | public  | `string`                               |            | The name of the button element.                  |
-| `value`            | `value`   | public  | `string`                               |            | The value of the button element.                 |
-| `form`             | `form`    | public  | `string \| undefined`                  |            | The <form> element to associate the button with. |
+| Name               | Attribute | Privacy | Type                                   | Default    | Description                                                 |
+| ------------------ | --------- | ------- | -------------------------------------- | ---------- | ----------------------------------------------------------- |
+| `size`             | `size`    | public  | `SbbNavigationActionSize \| undefined` | `'l'`      | Action size variant.                                        |
+| `connectedSection` | -         | public  | `SbbNavigationSectionElement \| null`  | `null`     | The section that is beign controlled by the action, if any. |
+| `marker`           | -         | public  | `SbbNavigationMarkerElement \| null`   |            | The navigation marker in which the action is nested.        |
+| `section`          | -         | public  | `SbbNavigationSectionElement \| null`  |            | The section in which the action is nested.                  |
+| `type`             | `type`    | public  | `SbbButtonType`                        | `'button'` | The type attribute to use for the button.                   |
+| `name`             | `name`    | public  | `string`                               |            | The name of the button element.                             |
+| `value`            | `value`   | public  | `string`                               |            | The value of the button element.                            |
+| `form`             | `form`    | public  | `string \| undefined`                  |            | The <form> element to associate the button with.            |
 
 ## Slots
 
