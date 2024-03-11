@@ -24,6 +24,7 @@ import '../navigation-marker';
 import '../navigation-list';
 import '../navigation-button';
 import '../navigation-link';
+import '../../button/button';
 import '../../button/secondary-button';
 
 // Story interaction executed after the story renders

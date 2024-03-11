@@ -381,11 +381,6 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
         >
           <div class="sbb-navigation-section__wrapper">
             <div class="sbb-navigation-section__content">
-              <sbb-divider
-                class="sbb-navigation-section__divider"
-                orientation="vertical"
-                negative
-              ></sbb-divider>
               <div class="sbb-navigation-section__header">
                 ${this._renderBackButton ? backButton : nothing}
                 <span class="sbb-navigation-section__title" id="title">
