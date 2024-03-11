@@ -75,20 +75,28 @@ $open-anim-opacity-to: 1;
   position: relative;
   width: 100%;
   background-color: var(--sbb-selection-panel-background);
+  border-radius: var(--sbb-selection-panel-border-radius);
 
-  &::after {
-    content: '';
-    display: block;
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    border: var(--sbb-selection-panel-border-width) solid var(--sbb-selection-panel-border-color);
-    border-radius: var(--sbb-selection-panel-border-radius);
+  // To provide a smooth transition of width, we use box-shadow to imitate border.
+  box-shadow: inset 0 0 0 var(--sbb-selection-panel-border-width)
+    var(--sbb-selection-panel-border-color);
 
-    transition: {
-      duration: var(--sbb-selection-panel-animation-duration);
-      timing-function: var(--sbb-animation-easing);
-      property: border-color, border-width;
+  transition: {
+    duration: var(--sbb-selection-panel-animation-duration);
+    timing-function: var(--sbb-animation-easing);
+    property: box-shadow;
+  }
+
+  // For high contrast mode we need a real border
+  @include sbb.if-forced-colors {
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border: var(--sbb-selection-panel-border-width) solid var(--sbb-selection-panel-border-color);
+      border-radius: var(--sbb-selection-panel-border-radius);
     }
   }
 }
