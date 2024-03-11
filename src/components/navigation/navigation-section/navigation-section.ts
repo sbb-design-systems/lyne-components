@@ -239,7 +239,7 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
       () => {
         this._renderBackButton = this._isZeroToLargeBreakpoint();
       },
-      { signal: this._windowEventsController.signal },
+      { passive: true, signal: this._windowEventsController.signal },
     );
   }
 
