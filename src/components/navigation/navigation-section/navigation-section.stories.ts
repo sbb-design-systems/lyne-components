@@ -8,7 +8,6 @@ import { html } from 'lit';
 
 import { waitForComponentsReady } from '../../../storybook/testing/wait-for-components-ready';
 import { sbbSpread } from '../../core/dom';
-import type { SbbNavigationMarkerElement, SbbNavigationElement } from '../index';
 
 import readme from './readme.md?raw';
 import '../../button/secondary-button';
@@ -100,12 +99,6 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
     id="navigation"
     trigger="navigation-trigger-1"
     ?disable-animation=${args['disable-animation']}
-    @didClose=${(event: CustomEvent) =>
-      (
-        (event.currentTarget as SbbNavigationElement).querySelector(
-          '#nav-marker',
-        ) as SbbNavigationMarkerElement
-      ).reset()}
   >
     <sbb-navigation-marker id="nav-marker">${navigationActionsL()}</sbb-navigation-marker>
 

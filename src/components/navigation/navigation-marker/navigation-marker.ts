@@ -44,8 +44,8 @@ export class SbbNavigationMarkerElement extends SbbNamedSlotListElementMixin<
       action.size = this.size;
     }
 
-    this._currentActiveAction = this.listChildren.find(
-      (action) => action.active ?? action.getAttribute('active'),
+    this._currentActiveAction = this.listChildren.find((action) =>
+      action.hasAttribute('data-action-active'),
     );
     this._setMarkerPosition();
   }
@@ -53,6 +53,16 @@ export class SbbNavigationMarkerElement extends SbbNamedSlotListElementMixin<
   public override connectedCallback(): void {
     super.connectedCallback();
     this._navigationMarkerResizeObserver.observe(this);
+    this._checkActiveAction();
+  }
+
+  private _checkActiveAction(): void {
+    const activeAction = this.querySelector(
+      ':is(sbb-navigation-button, sbb-navigation-link).sbb-active',
+    ) as SbbNavigationButtonElement | SbbNavigationLinkElement;
+    if (activeAction) {
+      this.select(activeAction);
+    }
   }
 
   public override disconnectedCallback(): void {
@@ -61,8 +71,11 @@ export class SbbNavigationMarkerElement extends SbbNamedSlotListElementMixin<
   }
 
   public select(action: SbbNavigationButtonElement | SbbNavigationLinkElement): void {
+    if (!action) {
+      return;
+    }
     this.reset();
-    action.active = true;
+    action.toggleAttribute('data-action-active', true);
     this._currentActiveAction = action;
     setTimeout(() => this._setMarkerPosition());
   }
@@ -74,7 +87,8 @@ export class SbbNavigationMarkerElement extends SbbNamedSlotListElementMixin<
 
   public reset(): void {
     if (this._currentActiveAction) {
-      this._currentActiveAction.active = false;
+      this._currentActiveAction.toggleAttribute('data-action-active', false);
+      this._currentActiveAction.connectedSection?.close();
       this._currentActiveAction = undefined;
     }
   }

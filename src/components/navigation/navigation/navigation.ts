@@ -22,6 +22,7 @@ import {
   applyInertMechanism,
   removeInertMechanism,
 } from '../../core/overlay';
+import type { SbbNavigationButtonElement } from '../navigation-button';
 import '../../button/transparent-button';
 
 import style from './navigation.scss?lit&inline';
@@ -97,6 +98,10 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
    */
   @state() private _activeNavigationSection: HTMLElement | null = null;
 
+  public get activeNavigationSection(): HTMLElement | null {
+    return this._activeNavigationSection;
+  }
+
   /** Emits whenever the `sbb-navigation` begins the opening transition. */
   private _willOpen: EventEmitter<void> = new EventEmitter(
     this,
@@ -124,6 +129,7 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
   private _navigation!: HTMLDivElement;
   private _navigationContentElement!: HTMLElement;
   private _triggerElement: HTMLElement | null = null;
+  private _elementToFocus: HTMLElement | null = null;
   private _navigationController!: AbortController;
   private _windowEventsController!: AbortController;
   private _abort = new ConnectedAbortController(this);
@@ -148,11 +154,20 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
       return;
     }
     this._state = 'opening';
+    this._checkActiveSection();
     this.startUpdate();
 
     // Disable scrolling for content below the navigation
     this._scrollHandler.disableScroll();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
+  }
+
+  private _checkActiveSection(): void {
+    const activeAction = this.querySelector(
+      'sbb-navigation-button[data-action-active]',
+    ) as SbbNavigationButtonElement;
+    activeAction?.connectedSection?.open();
+    this._elementToFocus = activeAction as HTMLElement;
   }
 
   /**
@@ -273,11 +288,14 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
 
   // Set focus on the first focusable element.
   private _setNavigationFocus(): void {
-    const closeButton = this.shadowRoot!.querySelector(
-      '#sbb-navigation-close-button',
-    ) as HTMLElement;
-    setModalityOnNextFocus(closeButton);
-    closeButton.focus();
+    if (this._activeNavigationSection) {
+      return;
+    }
+    const elementToFocus =
+      this._elementToFocus ||
+      (this.shadowRoot!.querySelector('#sbb-navigation-close-button') as HTMLElement);
+    setModalityOnNextFocus(elementToFocus);
+    elementToFocus.focus();
   }
 
   // Check if the pointerdown event target is triggered on the navigation.

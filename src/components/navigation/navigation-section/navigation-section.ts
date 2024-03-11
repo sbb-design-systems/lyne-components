@@ -29,7 +29,7 @@ import {
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay';
 import type { SbbNavigationElement } from '../navigation';
-import type { SbbNavigationMarkerElement } from '../navigation-marker';
+import type { SbbNavigationButtonElement } from '../navigation-button';
 import '../../divider';
 import '../../button/transparent-button';
 
@@ -97,7 +97,7 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
   private _firstLevelNavigation?: SbbNavigationElement | null = null;
   private _navigationSection!: HTMLElement;
   private _navigationSectionContainerElement!: HTMLElement;
-  private _triggerElement: HTMLElement | null = null;
+  private _triggerElement: SbbNavigationButtonElement | null = null;
   private _navigationSectionController!: AbortController;
   private _windowEventsController!: AbortController;
   private _navigationSectionId = `sbb-navigation-section-${++nextId}`;
@@ -116,11 +116,21 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
       return;
     }
 
+    this._setActiveNavigationAction();
+    this._closePreviousNavigationSection();
     this._state = 'opening';
     this.startUpdate();
     this.inert = true;
     this._renderBackButton = this._isZeroToLargeBreakpoint();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
+  }
+
+  private _setActiveNavigationAction(): void {
+    this._triggerElement?.marker?.select(this._triggerElement);
+  }
+
+  private _closePreviousNavigationSection(): void {
+    (this._firstLevelNavigation?.activeNavigationSection as SbbNavigationSectionElement)?.close();
   }
 
   /**
@@ -131,7 +141,6 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
       return;
     }
 
-    this._resetMarker();
     this._state = 'closing';
     this.startUpdate();
     this.inert = true;
@@ -172,6 +181,7 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
     );
     this._navigationSectionController?.abort();
     this._navigationSectionController = new AbortController();
+    this._triggerElement.connectedSection = this;
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._navigationSectionController.signal,
     });
@@ -229,7 +239,7 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
       () => {
         this._renderBackButton = this._isZeroToLargeBreakpoint();
       },
-      { signal: this._windowEventsController.signal },
+      { passive: true, signal: this._windowEventsController.signal },
     );
   }
 
@@ -244,15 +254,7 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
   };
 
   private _isCloseElement(element: HTMLElement): boolean {
-    // Check if the element is a navigation action belonging to the same group as the trigger.
-    const isActionElement =
-      element !== this._triggerElement &&
-      (element.nodeName === 'SBB-NAVIGATION-BUTTON' ||
-        element.nodeName === 'SBB-NAVIGATION-LINK') &&
-      element.parentElement === this._triggerElement?.parentElement;
-
     return (
-      isActionElement ||
       element.nodeName === 'A' ||
       (!isValidAttribute(element, 'disabled') &&
         (element.hasAttribute('sbb-navigation-close') ||
@@ -264,12 +266,6 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
     return isBreakpoint('zero', 'large');
   }
 
-  private _resetMarker(): void {
-    if (this._isZeroToLargeBreakpoint()) {
-      (this._triggerElement?.parentElement as SbbNavigationMarkerElement)?.reset();
-    }
-  }
-
   // Closes the navigation on "Esc" key pressed.
   private _onKeydownEvent(event: KeyboardEvent): void {
     if (this._state === 'opened' && event.key === 'Escape') {
@@ -279,11 +275,17 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
 
   // Set focus on the first focusable element.
   private _setNavigationSectionFocus(): void {
-    const firstFocusableElement = getFirstFocusableElement(
-      [this.shadowRoot!.querySelector('#sbb-navigation-section-back-button')]
-        .concat(Array.from(this.children))
-        .filter((e): e is HTMLElement => e instanceof window.HTMLElement),
-    );
+    const activeAction = this.querySelector(
+      ':is(sbb-navigation-button, sbb-navigation-link).sbb-active',
+    ) as HTMLElement;
+    activeAction?.toggleAttribute('data-action-active', true);
+    const firstFocusableElement =
+      activeAction ||
+      getFirstFocusableElement(
+        [this.shadowRoot!.querySelector('#sbb-navigation-section-back-button')]
+          .concat(Array.from(this.children))
+          .filter((e): e is HTMLElement => e instanceof window.HTMLElement),
+      );
     if (firstFocusableElement) {
       setModalityOnNextFocus(firstFocusableElement);
       firstFocusableElement.focus();
