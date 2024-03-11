@@ -90,7 +90,7 @@ $intersector-overlapping: 1px;
     clip-path: polygon(-50% -50%, 150% -50%, 150% 50%, -50% 50%);
 
     :host([data-sticking]) & {
-      @include sbb.shadow-level-9-soft;
+      @include sbb.shadow-level-11-soft;
 
       @include sbb.if-forced-colors {
         border-block-start: var(--sbb-border-width-1x) solid CanvasText;

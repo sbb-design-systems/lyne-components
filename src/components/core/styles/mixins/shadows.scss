@@ -165,3 +165,59 @@
       var(--sbb-shadow-elevation-level-9-shadow-1-spread)
       var(--sbb-shadow-elevation-level-9-hard-negative-1-color);
 }
+
+@mixin shadow-level-11-soft {
+  box-shadow:
+    var(--sbb-shadow-elevation-level-11-shadow-2-offset-x)
+      var(--sbb-shadow-elevation-level-11-shadow-2-offset-y)
+      var(--sbb-shadow-elevation-level-11-shadow-2-blur)
+      var(--sbb-shadow-elevation-level-11-shadow-2-spread)
+      var(--sbb-shadow-elevation-level-11-soft-2-color),
+    var(--sbb-shadow-elevation-level-11-shadow-1-offset-x)
+      var(--sbb-shadow-elevation-level-11-shadow-1-offset-y)
+      var(--sbb-shadow-elevation-level-11-shadow-1-blur)
+      var(--sbb-shadow-elevation-level-11-shadow-1-spread)
+      var(--sbb-shadow-elevation-level-11-soft-1-color);
+}
+
+@mixin shadow-level-11-soft-negative {
+  box-shadow:
+    var(--sbb-shadow-elevation-level-11-shadow-2-offset-x)
+      var(--sbb-shadow-elevation-level-11-shadow-2-offset-y)
+      var(--sbb-shadow-elevation-level-11-shadow-2-blur)
+      var(--sbb-shadow-elevation-level-11-shadow-2-spread)
+      var(--sbb-shadow-elevation-level-11-soft-negative-2-color),
+    var(--sbb-shadow-elevation-level-11-shadow-1-offset-x)
+      var(--sbb-shadow-elevation-level-11-shadow-1-offset-y)
+      var(--sbb-shadow-elevation-level-11-shadow-1-blur)
+      var(--sbb-shadow-elevation-level-11-shadow-1-spread)
+      var(--sbb-shadow-elevation-level-11-soft-negative-1-color);
+}
+
+@mixin shadow-level-11-hard {
+  box-shadow:
+    var(--sbb-shadow-elevation-level-11-shadow-2-offset-x)
+      var(--sbb-shadow-elevation-level-11-shadow-2-offset-y)
+      var(--sbb-shadow-elevation-level-11-shadow-2-blur)
+      var(--sbb-shadow-elevation-level-11-shadow-2-spread)
+      var(--sbb-shadow-elevation-level-11-hard-2-color),
+    var(--sbb-shadow-elevation-level-11-shadow-1-offset-x)
+      var(--sbb-shadow-elevation-level-11-shadow-1-offset-y)
+      var(--sbb-shadow-elevation-level-11-shadow-1-blur)
+      var(--sbb-shadow-elevation-level-11-shadow-1-spread)
+      var(--sbb-shadow-elevation-level-11-hard-1-color);
+}
+
+@mixin shadow-level-11-hard-negative {
+  box-shadow:
+    var(--sbb-shadow-elevation-level-11-shadow-2-offset-x)
+      var(--sbb-shadow-elevation-level-11-shadow-2-offset-y)
+      var(--sbb-shadow-elevation-level-11-shadow-2-blur)
+      var(--sbb-shadow-elevation-level-11-shadow-2-spread)
+      var(--sbb-shadow-elevation-level-11-hard-negative-2-color),
+    var(--sbb-shadow-elevation-level-11-shadow-1-offset-x)
+      var(--sbb-shadow-elevation-level-11-shadow-1-offset-y)
+      var(--sbb-shadow-elevation-level-11-shadow-1-blur)
+      var(--sbb-shadow-elevation-level-11-shadow-1-spread)
+      var(--sbb-shadow-elevation-level-11-hard-negative-1-color);
+}
