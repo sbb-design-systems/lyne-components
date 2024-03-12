@@ -67,6 +67,13 @@ export default defineConfig((config) =>
             (!!importer && source.startsWith('../') && !importer.includes('/node_modules/')) ||
             (!!importer && barrelExports.includes(importer) && source.match(/\.\/[a-z-]+/))
           ) {
+            if (source.includes('.scss')) {
+              throw Error(`Do not import scss from another directory.
+               Re export sass via barrel export (index.ts). See button/common/index.ts.
+               Source: ${source}.
+               Importer: ${importer}.`);
+            }
+
             return true;
           }
         },
