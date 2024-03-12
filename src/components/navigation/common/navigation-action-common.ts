@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import { nothing, type CSSResultGroup, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
@@ -8,6 +8,8 @@ import type { SbbNavigationButtonElement } from '../navigation-button';
 import type { SbbNavigationLinkElement } from '../navigation-link';
 import type { SbbNavigationMarkerElement } from '../navigation-marker';
 import type { SbbNavigationSectionElement } from '../navigation-section';
+
+import '../../icon';
 
 import style from './navigation-action.scss?lit&inline';
 
@@ -79,7 +81,11 @@ export const SbbNavigationActionCommonElementMixin = <
     }
 
     protected override renderTemplate(): TemplateResult {
-      return html` <slot></slot> `;
+      return html`
+        ${this._navigationSection && this.classList.contains('sbb-active')
+          ? html`<sbb-icon name="minus-small"></sbb-icon>`
+          : nothing} <slot></slot>
+      `;
     }
   }
   return SbbNavigationActionCommonElement as unknown as AbstractConstructor<SbbNavigationActionCommonElementMixinType> &

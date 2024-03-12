@@ -30,6 +30,7 @@ import {
 } from '../../core/overlay';
 import type { SbbNavigationElement } from '../navigation';
 import type { SbbNavigationButtonElement } from '../navigation-button';
+import type { SbbNavigationLinkElement } from '../navigation-link';
 import '../../divider';
 import '../../button/transparent-button';
 
@@ -215,6 +216,7 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
       this._state = 'closed';
       this._navigationSectionContainerElement.scrollTo(0, 0);
       this._windowEventsController?.abort();
+      this._resetLists();
       this._setNavigationInert();
       if (this._isZeroToLargeBreakpoint() && this._triggerElement) {
         setModalityOnNextFocus(this._triggerElement);
@@ -222,6 +224,13 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
       }
     }
     this.completeUpdate();
+  }
+
+  private _resetLists(): void {
+    const activeActions = Array.from(
+      this.querySelectorAll('[data-section-action][data-action-active]'),
+    ) as (SbbNavigationButtonElement | SbbNavigationLinkElement)[];
+    activeActions?.forEach((action) => action.toggleAttribute('data-action-active', false));
   }
 
   private _attachWindowEvents(): void {

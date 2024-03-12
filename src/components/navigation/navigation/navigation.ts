@@ -154,6 +154,7 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
       return;
     }
     this._state = 'opening';
+    this._checkActiveActions();
     this._checkActiveSection();
     this.startUpdate();
 
@@ -167,6 +168,14 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
       'sbb-navigation-button.sbb-active',
     ) as SbbNavigationButtonElement;
     activeAction?.connectedSection?.open();
+  }
+
+  private _checkActiveActions(): void {
+    const activeActions = Array.from(this.querySelectorAll('sbb-navigation-button.sbb-active')) as (
+      | SbbNavigationButtonElement
+      | SbbNavigationLinkElement
+    )[];
+    activeActions?.forEach((action) => action.marker?.select(action));
   }
 
   /**
@@ -258,9 +267,9 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
 
   private _resetMarkers(): void {
     const activeActions = Array.from(
-      this.querySelectorAll('sbb-navigation-button[data-action-active]'),
+      this.querySelectorAll('sbb-navigation-button[data-action-active]:not(.sbb-active)'),
     ) as (SbbNavigationButtonElement | SbbNavigationLinkElement)[];
-    activeActions?.forEach((action) => action.marker?.reset());
+    activeActions?.forEach((action) => action.toggleAttribute('data-action-active', false));
   }
 
   private _attachWindowEvents(): void {
