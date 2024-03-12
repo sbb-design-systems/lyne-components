@@ -61,7 +61,7 @@ export const navigation = (): TemplateResult => html`
 
     <sbb-navigation-section title-content="Title one" trigger="nav-1">
       <sbb-navigation-list label="Label">
-        <sbb-navigation-button>Label</sbb-navigation-button>
+        <sbb-navigation-button aria-current="page" class="sbb-active">Label</sbb-navigation-button>
         <sbb-navigation-button>Label</sbb-navigation-button>
         <sbb-navigation-button>Label</sbb-navigation-button>
       </sbb-navigation-list>
