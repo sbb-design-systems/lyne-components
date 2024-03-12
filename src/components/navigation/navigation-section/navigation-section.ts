@@ -1,6 +1,6 @@
 import { spread } from '@open-wc/lit-helpers';
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -93,8 +93,6 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
    */
   @state() private _state: SbbOverlayState = 'closed';
 
-  @state() private _renderBackButton = this._isZeroToLargeBreakpoint();
-
   private _firstLevelNavigation?: SbbNavigationElement | null = null;
   private _navigationSection!: HTMLElement;
   private _navigationSectionContainerElement!: HTMLElement;
@@ -122,7 +120,6 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
     this._state = 'opening';
     this.startUpdate();
     this.inert = true;
-    this._renderBackButton = this._isZeroToLargeBreakpoint();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
   }
 
@@ -243,14 +240,6 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
     window.addEventListener('click', this._handleNavigationSectionClose, {
       signal: this._windowEventsController.signal,
     });
-
-    window.addEventListener(
-      'resize',
-      () => {
-        this._renderBackButton = this._isZeroToLargeBreakpoint();
-      },
-      { passive: true, signal: this._windowEventsController.signal },
-    );
   }
 
   // Check if the click was triggered on an element that should close the section.
@@ -354,19 +343,6 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
   }
 
   protected override render(): TemplateResult {
-    const backButton = html`
-      <sbb-transparent-button
-        id="sbb-navigation-section-back-button"
-        class="sbb-navigation-section__back"
-        aria-label=${this.accessibilityBackLabel || i18nGoBack[this._language.current]}
-        negative
-        size="m"
-        type="button"
-        icon-name="chevron-small-left-small"
-        sbb-navigation-section-close
-      ></sbb-transparent-button>
-    `;
-
     // Accessibility label should win over aria-labelledby
     let accessibilityAttributes: Record<string, string> = { 'aria-labelledby': 'title' };
     if (this.accessibilityLabel) {
@@ -394,7 +370,18 @@ export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
           <div class="sbb-navigation-section__wrapper">
             <div class="sbb-navigation-section__content">
               <div class="sbb-navigation-section__header">
-                ${this._renderBackButton ? backButton : nothing}
+                <!-- Back button -->
+                <sbb-transparent-button
+                  id="sbb-navigation-section-back-button"
+                  class="sbb-navigation-section__back"
+                  aria-label=${this.accessibilityBackLabel || i18nGoBack[this._language.current]}
+                  negative
+                  size="m"
+                  type="button"
+                  icon-name="chevron-small-left-small"
+                  sbb-navigation-section-close
+                ></sbb-transparent-button>
+
                 <span class="sbb-navigation-section__title" id="title">
                   <slot name="title">${this.titleContent}</slot>
                 </span>
