@@ -23,6 +23,7 @@ import {
   removeInertMechanism,
 } from '../../core/overlay';
 import type { SbbNavigationButtonElement } from '../navigation-button';
+import type { SbbNavigationLinkElement } from '../navigation-link';
 import '../../button/transparent-button';
 
 import style from './navigation.scss?lit&inline';
@@ -129,7 +130,6 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
   private _navigation!: HTMLDivElement;
   private _navigationContentElement!: HTMLElement;
   private _triggerElement: HTMLElement | null = null;
-  private _elementToFocus: HTMLElement | null = null;
   private _navigationController!: AbortController;
   private _windowEventsController!: AbortController;
   private _abort = new ConnectedAbortController(this);
@@ -164,10 +164,9 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
 
   private _checkActiveSection(): void {
     const activeAction = this.querySelector(
-      'sbb-navigation-button[data-action-active]',
+      'sbb-navigation-button.sbb-active',
     ) as SbbNavigationButtonElement;
     activeAction?.connectedSection?.open();
-    this._elementToFocus = activeAction as HTMLElement;
   }
 
   /**
@@ -247,6 +246,7 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
       // To enable focusing other element than the trigger, we need to call focus() a second time.
       this._triggerElement?.focus();
       this._didClose.emit();
+      this._resetMarkers();
       this._windowEventsController?.abort();
       this._focusHandler.disconnect();
 
@@ -254,6 +254,13 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
       this._scrollHandler.enableScroll();
     }
     this.completeUpdate();
+  }
+
+  private _resetMarkers(): void {
+    const activeActions = Array.from(
+      this.querySelectorAll('sbb-navigation-button[data-action-active]'),
+    ) as (SbbNavigationButtonElement | SbbNavigationLinkElement)[];
+    activeActions?.forEach((action) => action.marker?.reset());
   }
 
   private _attachWindowEvents(): void {
@@ -288,14 +295,11 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
 
   // Set focus on the first focusable element.
   private _setNavigationFocus(): void {
-    if (this._activeNavigationSection) {
-      return;
-    }
-    const elementToFocus =
-      this._elementToFocus ||
-      (this.shadowRoot!.querySelector('#sbb-navigation-close-button') as HTMLElement);
-    setModalityOnNextFocus(elementToFocus);
-    elementToFocus.focus();
+    const closeButton = this.shadowRoot!.querySelector(
+      '#sbb-navigation-close-button',
+    ) as HTMLElement;
+    setModalityOnNextFocus(closeButton);
+    closeButton.focus();
   }
 
   // Check if the pointerdown event target is triggered on the navigation.

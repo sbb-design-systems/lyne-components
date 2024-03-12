@@ -54,7 +54,7 @@ describe('sbb-navigation', () => {
     expect(element).to.have.attribute('data-state', 'opened');
   });
 
-  it('sets the initial active actions and focuses on the first one', async () => {
+  it('sets the initial active actions and focuses on the close button', async () => {
     element = await fixture(html`
       <sbb-navigation id="navigation" disable-animation>
         <sbb-navigation-marker>
@@ -94,10 +94,10 @@ describe('sbb-navigation', () => {
 
     expect(action2).to.have.attribute('data-action-active');
     expect(action3).to.have.attribute('data-action-active');
-    expect(document.activeElement?.id).to.be.equal('action-active-1');
+    expect(element.shadowRoot?.activeElement?.id).to.be.equal('sbb-navigation-close-button');
   });
 
-  it('sets the initial active action, opens the connected section and focuses on the first active action in the section', async () => {
+  it('sets the initial active action and opens the connected section', async () => {
     element = await fixture(html`
       <sbb-navigation id="navigation" disable-animation>
         <sbb-navigation-marker>
@@ -144,7 +144,85 @@ describe('sbb-navigation', () => {
     expect(actionActive).to.have.attribute('data-action-active');
     expect(sectionActionActive).to.have.attribute('data-action-active');
     expect(activeSection).to.have.attribute('data-state', 'opened');
-    expect(document.activeElement?.id).to.be.equal('section-action-active');
+  });
+
+  it('resets the markers on navigation close', async () => {
+    element = await fixture(html`
+      <sbb-navigation id="navigation" disable-animation>
+        <sbb-navigation-marker>
+          <sbb-navigation-button id="first-action">Tickets & Offers</sbb-navigation-button>
+          <sbb-navigation-button id="second-action" class="sbb-active"
+            >Vacations & Recreation</sbb-navigation-button
+          >
+        </sbb-navigation-marker>
+
+        <sbb-navigation-marker>
+          <sbb-navigation-button id="third-action" class="sbb-active"
+            >English</sbb-navigation-button
+          >
+          <sbb-navigation-button id="forth-action">German</sbb-navigation-button>
+        </sbb-navigation-marker>
+      </sbb-navigation>
+    `);
+
+    const didCloseEventSpy = new EventSpy(SbbNavigationElement.events.didClose);
+    const didOpenEventSpy = new EventSpy(SbbNavigationElement.events.didOpen);
+    const action1: SbbNavigationButtonElement =
+      document.querySelector<SbbNavigationButtonElement>('#first-action')!;
+    const action2: SbbNavigationButtonElement =
+      document.querySelector<SbbNavigationButtonElement>('#second-action')!;
+    const action3: SbbNavigationButtonElement =
+      document.querySelector<SbbNavigationButtonElement>('#third-action')!;
+    const action4: SbbNavigationButtonElement =
+      document.querySelector<SbbNavigationButtonElement>('#forth-action')!;
+
+    element.open();
+    await waitForLitRender(element);
+
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    expect(didOpenEventSpy.count).to.be.equal(1);
+    await waitForLitRender(element);
+
+    expect(element).to.have.attribute('data-state', 'opened');
+
+    await waitForLitRender(element);
+
+    expect(action2).to.have.attribute('data-action-active');
+    expect(action3).to.have.attribute('data-action-active');
+
+    action1.click();
+    action4.click();
+
+    await waitForLitRender(element);
+
+    expect(action1).to.have.attribute('data-action-active');
+    expect(action4).to.have.attribute('data-action-active');
+
+    expect(action2).not.to.have.attribute('data-action-active');
+    expect(action3).not.to.have.attribute('data-action-active');
+
+    element.close();
+    await waitForLitRender(element);
+
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    expect(didCloseEventSpy.count).to.be.equal(1);
+    await waitForLitRender(element);
+
+    expect(element).to.have.attribute('data-state', 'closed');
+
+    element.open();
+    await waitForLitRender(element);
+
+    await waitForCondition(() => didOpenEventSpy.events.length === 2);
+    expect(didOpenEventSpy.count).to.be.equal(2);
+    await waitForLitRender(element);
+
+    expect(element).to.have.attribute('data-state', 'opened');
+
+    await waitForLitRender(element);
+
+    expect(action1).not.to.have.attribute('data-action-active');
+    expect(action4).not.to.have.attribute('data-action-active');
   });
 
   it('closes the navigation', async () => {

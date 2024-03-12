@@ -113,7 +113,7 @@ const navigationActionsL = (): TemplateResult => html`
   <sbb-navigation-button id="nav-1" data-testid="navigation-section-trigger-1">
     Tickets & Offers
   </sbb-navigation-button>
-  <sbb-navigation-button id="nav-2" class="sbb-active"
+  <sbb-navigation-button id="nav-2" class="sbb-active" aria-current="page"
     >Vacations & Recreation</sbb-navigation-button
   >
   <sbb-navigation-button id="nav-3">Travel information</sbb-navigation-button>
@@ -123,10 +123,12 @@ const navigationActionsL = (): TemplateResult => html`
 `;
 
 const navigationActionsS = (): TemplateResult => html`
-  <sbb-navigation-button id="nav-5">Deutsch</sbb-navigation-button>
-  <sbb-navigation-button id="nav-6">Français</sbb-navigation-button>
-  <sbb-navigation-button id="nav-7" class="sbb-active">Italiano</sbb-navigation-button>
-  <sbb-navigation-button id="nav-8">English</sbb-navigation-button>
+  <sbb-navigation-button id="nav-5" aria-pressed="false">Deutsch</sbb-navigation-button>
+  <sbb-navigation-button id="nav-6" aria-pressed="false">Français</sbb-navigation-button>
+  <sbb-navigation-button id="nav-7" aria-pressed="true" class="sbb-active"
+    >Italiano</sbb-navigation-button
+  >
+  <sbb-navigation-button id="nav-8" aria-pressed="false">English</sbb-navigation-button>
 `;
 
 const navigationList = (label: string, active?: boolean): TemplateResult => html`
@@ -137,6 +139,7 @@ const navigationList = (label: string, active?: boolean): TemplateResult => html
       size="m"
       href="https://www.sbb.ch/en/"
       class=${active ? 'sbb-active' : nothing}
+      aria-current=${active ? 'page' : nothing}
     >
       Label
     </sbb-navigation-link>
