@@ -2,52 +2,38 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
 
+import type { SbbHeaderButtonElement } from './header-button';
 import './header-button';
 
 describe('sbb-header-button', () => {
-  it('renders the component as a button with icon', async () => {
-    const root = await fixture(html`
-      <sbb-header-button
-        icon-name="pie-small"
-        name="test"
-        type="reset"
-        value="value"
-        expand-from="zero"
-      >
-        Action
-      </sbb-header-button>
-    `);
+  describe('renders the component as a button with icon', () => {
+    let element: SbbHeaderButtonElement;
 
-    await waitForLitRender(root);
+    beforeEach(async () => {
+      element = await fixture(html`
+        <sbb-header-button
+          icon-name="pie-small"
+          name="test"
+          type="reset"
+          value="value"
+          expand-from="zero"
+        >
+          Action
+        </sbb-header-button>
+      `);
+      await waitForLitRender(element);
+    });
 
-    expect(root).dom.to.be.equal(
-      `
-      <sbb-header-button icon-name='pie-small' expand-from="zero" name="test" type="reset" value="value" role="button" tabindex="0" data-expanded dir="ltr" data-action data-button>
-        Action
-      </sbb-header-button>
-    `,
-    );
-    expect(root).shadowDom.to.be.equal(
-      `
-          <span class="sbb-action-base sbb-header-button">
-            <span class="sbb-header-action__wrapper">
-              <span class="sbb-header-action__icon">
-                <slot name="icon">
-                  <sbb-icon
-                    aria-hidden="true"
-                    data-namespace="default"
-                    name="pie-small"
-                    role="img"
-                  >
-                </slot>
-              </span>
-              <span class="sbb-header-action__text">
-                <slot></slot>
-              </span>
-            </span>
-          </span>
-        `,
-    );
+    it('Light DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
   });
 });
