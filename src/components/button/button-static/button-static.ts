@@ -2,9 +2,7 @@ import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbActionBaseElement, SbbDisabledMixin } from '../../core/common-behaviors';
-import { SbbButtonCommonElementMixin } from '../common/button-common';
-import commonStyle from '../common/button-common.scss?lit&inline';
-import style from '../common/primary-button.scss?lit&inline';
+import { buttonCommonStyle, buttonPrimaryStyle, SbbButtonCommonElementMixin } from '../common';
 
 /**
  * It displays a static button enhanced with the SBB Design in the 'primary' variant.
@@ -16,7 +14,7 @@ import style from '../common/primary-button.scss?lit&inline';
 export class SbbButtonStaticElement extends SbbButtonCommonElementMixin(
   SbbDisabledMixin(SbbActionBaseElement),
 ) {
-  public static override styles: CSSResultGroup = [commonStyle, style];
+  public static override styles: CSSResultGroup = [buttonCommonStyle, buttonPrimaryStyle];
 }
 
 declare global {

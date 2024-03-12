@@ -1,7 +1,7 @@
 import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/common-behaviors';
-import { SbbCardActionCommonElementMixin } from '../common/card-action-common';
+import { SbbCardActionCommonElementMixin } from '../common';
 
 /**
  * It turns the `sbb-card` into a button element.

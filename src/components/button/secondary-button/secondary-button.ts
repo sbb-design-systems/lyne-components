@@ -2,9 +2,7 @@ import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement, SbbDisabledTabIndexActionMixin } from '../../core/common-behaviors';
-import { SbbButtonCommonElementMixin } from '../common/button-common';
-import commonStyle from '../common/button-common.scss?lit&inline';
-import style from '../common/secondary-button.scss?lit&inline';
+import { buttonCommonStyle, buttonSecondaryStyle, SbbButtonCommonElementMixin } from '../common';
 
 /**
  * It displays a button enhanced with the SBB Design in the 'secondary' variant.
@@ -16,7 +14,7 @@ import style from '../common/secondary-button.scss?lit&inline';
 export class SbbSecondaryButtonElement extends SbbButtonCommonElementMixin(
   SbbDisabledTabIndexActionMixin(SbbButtonBaseElement),
 ) {
-  public static override styles: CSSResultGroup = [commonStyle, style];
+  public static override styles: CSSResultGroup = [buttonCommonStyle, buttonSecondaryStyle];
 }
 
 declare global {

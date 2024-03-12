@@ -1,7 +1,7 @@
 import { customElement } from 'lit/decorators.js';
 
 import { SbbLinkBaseElement } from '../../core/common-behaviors';
-import { SbbNavigationActionCommonElementMixin } from '../common/navigation-action-common';
+import { SbbNavigationActionCommonElementMixin } from '../common';
 
 /**
  * It displays a link element that can be used in the `sbb-navigation` component.
