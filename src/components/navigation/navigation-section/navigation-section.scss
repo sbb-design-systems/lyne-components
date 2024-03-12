@@ -182,17 +182,6 @@
   }
 }
 
-.sbb-navigation-section__divider {
-  display: none;
-
-  @include sbb.mq($from: wide) {
-    display: block;
-    position: absolute;
-    inset-block: 0;
-    inset-inline-start: 0;
-  }
-}
-
 .sbb-navigation-section__content {
   display: grid;
   grid-template-columns: 1fr;

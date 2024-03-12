@@ -9,14 +9,6 @@ snapshots["sbb-navigation-section renders"] =
   >
     <div class="sbb-navigation-section__wrapper">
       <div class="sbb-navigation-section__content">
-        <sbb-divider
-          aria-orientation="vertical"
-          class="sbb-navigation-section__divider"
-          negative=""
-          orientation="vertical"
-          role="separator"
-        >
-        </sbb-divider>
         <div class="sbb-navigation-section__header">
           <sbb-transparent-button
             aria-label="Go back"
