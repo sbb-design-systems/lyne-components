@@ -2,6 +2,92 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.48.0](https://github.com/lyne-design-system/lyne-components/compare/v0.47.2...v0.48.0) (2024-03-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* **sbb-navigation:** The `active` property of `<sbb-navigation-button>`/`<sbb-navigation-link>` (former `<sbb-navigation-action>`) has been removed. Add the CSS class `sbb-active` to the corresponding button/link, to mark it as active. Additionally, whenever `sbb-active` class is set in navigation, the corresponding navigation section, if one is connected, automatically opens.
+* The action element refactoring brings a couple of breaking changes:
+    - The following components have been split into two components. One with pure button and one with pure link behavior:
+        - `sbb-card-action`: split in `sbb-card-button` and `sbb-card-link`
+        - `sbb-header-action`: split in `sbb-header-button` and `sbb-header-link`
+        - `sbb-menu-action`: split in `sbb-menu-button` and `sbb-menu-link`
+        - `sbb-navigation-action`: split in `sbb-navigation-button` and `sbb-navigation-link`
+    - The `isStatic` flag has been removed from buttons and links; since the static case was automatically detected when action elements were nested in other action elements, now you need to check for usage of nested buttons/links in other action elements and possibly fix them using the new static variants.
+    - `sbb-button`: the `variant` property has been removed and for each value, a new component has been created (e.g. `sbb-button`, `sbb-secondary-button`, `sbb-tertiary-button`, `sbb-transparent-button`); each of them has been further divided considering the behavior: 
+      - If the component was used as a button (no `href` set), replace it with `<sbb{-variant}-button>`
+      - If the component was used as a link (`href` set), replace it with `<sbb{-variant}-button-link>`
+      - If the component was nested into another action element (`isStatic` set), replace it with `<sbb{-variant}-button-static>`
+    - The usage of an icon-only `sbb-button` in a `sbb-form-field` is not supported anymore; a new component named `sbb-mini-button` has been created to handle this specific case
+    - Check and replace any `sbb-button` in `sbb-toast` with the new `sbb-transparent-button`/`sbb-transparent-button-link`, since the variant is not automatically set anymore
+    - `sbb-link` has been split into nine components, based on type and variant:
+      - If `sbb-link` had an `[href="..."]`, it migrates to `<sbb{-variant}-link>`:
+        - `<sbb-link href="...">` should be replaced with `<sbb-block-link href="...">`
+        - `<sbb-link href="..." variant="block">` should be replaced with `<sbb-block-link href="...">`
+        - `<sbb-link href="..." variant="inline" >` should be replaced with `<sbb-link href="...">` 
+      - If `sbb-link` did not have an `[href="..."]`, it migrates to `<sbb{-variant}-link-button>`
+        - `<sbb-link>` should be replaced with `<sbb-block-link-button>`
+        - `<sbb-link variant="block">` should be replaced with `<sbb-block-link-button>`
+        - `<sbb-link variant="inline">` should be replaced with `<sbb-link-button>`
+      - If `sbb-link` had an `[is-static]`, it migrates to `<sbb{-variant}-link-static>`
+        - `<sbb-link is-static>` should be replaced with `<sbb-block-link-static>`
+        - `<sbb-link is-static variant="block">` should be replaced with `<sbb-block-link-static>`
+        - `<sbb-link is-static variant="inline">` should be replaced with `<sbb-link-static>`
+    - `sbb-action-group` now only accepts `sbb-block-link | sbb-block-link-button` besides any `<sbb-button>` variant
+    - `sbb-link-list` now only accepts `sbb-block-link | sbb-block-link-button`
+    - `sbb-skiplink-list` now only accepts `sbb-block-link | sbb-block-link-button`
+    - `sbb-toast` now only accepts `sbb-link | sbb-link-button | sbb-transparent-button | sbb-transparent-button-link`
+    - SASS mixin renamings:
+      - `link-variables` SASS mixin renamed to `block-link-variables`,
+      - `link-variables--negative` SASS mixin renamed to `block-link-variables--negative`,
+      - `link-variables--inline` SASS mixin renamed to `link-variables`,
+      - `link-variables--inline-negative` SASS mixin renamed to `link-variables--negative`
+      - `link-inline-consolidation` SASS mixin renamed to `link-consolidation`,
+      - `link-inline` SASS mixin renamed to `link`,
+      - `link-inline-negative` SASS mixin renamed to `link-negative`
+* **color:** Removed 'default' suffix from color tokens (e.g. `--sbb-color-iron-default` => `--sbb-color-iron` and `SbbColorIronDefault` => `SbbColorIron`).
+* **multiple:** rename type `TitleLevel` to `SbbTitleLevel`
+
+### Features
+
+* button variant refactoring ([98ea7f5](https://github.com/lyne-design-system/lyne-components/commit/98ea7f541e457da982f0c23a427e324aba9332cf))
+* implement initial support for SSR ([#2437](https://github.com/lyne-design-system/lyne-components/issues/2437)) ([39d37ca](https://github.com/lyne-design-system/lyne-components/commit/39d37ca31112617b206bdd15053cafd89886267f))
+* increase `--sbb-font-size-title-5` for zero to small breakpoints ([#2448](https://github.com/lyne-design-system/lyne-components/issues/2448)) ([15b786a](https://github.com/lyne-design-system/lyne-components/commit/15b786aae95fbd92cb4b9584d3b37b959df9bc27))
+* **sbb-card:** introduce new color for active state ([#2462](https://github.com/lyne-design-system/lyne-components/issues/2462)) ([6553d6b](https://github.com/lyne-design-system/lyne-components/commit/6553d6b1f21d3f05aa8be2c514fa12a4a61da7a7))
+* **sbb-checkbox, sbb-toggle-check:** introduce native form support ([#2456](https://github.com/lyne-design-system/lyne-components/issues/2456)) ([c9549a1](https://github.com/lyne-design-system/lyne-components/commit/c9549a10abb527812caefb03b637817bc426e02a))
+* **sbb-navigation:** remove navigation section divider ([#2473](https://github.com/lyne-design-system/lyne-components/issues/2473)) ([71c1412](https://github.com/lyne-design-system/lyne-components/commit/71c141212be8aaea32e3c471830420de93f4366e))
+* **sbb-selection-panel:** increase border width for active state ([#2463](https://github.com/lyne-design-system/lyne-components/issues/2463)) ([4c4bf5c](https://github.com/lyne-design-system/lyne-components/commit/4c4bf5c2f1487d1667833dff4575786fbe176152)), closes [#2461](https://github.com/lyne-design-system/lyne-components/issues/2461)
+* **sbb-sticky-bar:** allow overlapping to the following content ([#2459](https://github.com/lyne-design-system/lyne-components/issues/2459)) ([9518dfd](https://github.com/lyne-design-system/lyne-components/commit/9518dfd82c6660f0601dac5bcb63898ed0499170))
+* **sbb-teaser-paid:** first implementation ([#2434](https://github.com/lyne-design-system/lyne-components/issues/2434)) ([68f807a](https://github.com/lyne-design-system/lyne-components/commit/68f807ad39f18d1e50094c1162c931e88cb0d3ea))
+
+
+### Bug Fixes
+
+* fix imports of common styles ([#2475](https://github.com/lyne-design-system/lyne-components/issues/2475)) ([fda1960](https://github.com/lyne-design-system/lyne-components/commit/fda1960be53fe0884f105dea8cdeef2215cfd787))
+* **layout:** apply max-width only for ultra screen size ([#2458](https://github.com/lyne-design-system/lyne-components/issues/2458)) ([cce71b2](https://github.com/lyne-design-system/lyne-components/commit/cce71b2cf062a47a8beb24d77d26f5c842133647))
+* **sbb-navigation:** fix active and focus handling ([#2471](https://github.com/lyne-design-system/lyne-components/issues/2471)) ([ea81790](https://github.com/lyne-design-system/lyne-components/commit/ea81790cb49dfd2f05d93df1cbd93702c1757274))
+* **sbb-radio-group, sbb-tab-group:** avoid incorrect setup if component is invisible during init ([#2446](https://github.com/lyne-design-system/lyne-components/issues/2446)) ([1586137](https://github.com/lyne-design-system/lyne-components/commit/158613728058d084c9c89d91a571d6a5311d876a))
+* **sbb-selection-panel:** fix transition of border-width ([#2468](https://github.com/lyne-design-system/lyne-components/issues/2468)) ([8300b7f](https://github.com/lyne-design-system/lyne-components/commit/8300b7f072ac78f68943de57c972ec63b6ea1a51))
+* **sbb-selection-panel:** fix transition of border-width [second attempt] ([#2469](https://github.com/lyne-design-system/lyne-components/issues/2469)) ([942bf45](https://github.com/lyne-design-system/lyne-components/commit/942bf4548f8c1ae0498700d24697f45de00de98c))
+* **sbb-status:** fix text styling ([#2457](https://github.com/lyne-design-system/lyne-components/issues/2457)) ([292d316](https://github.com/lyne-design-system/lyne-components/commit/292d316ca94db90ba5ea1a87f40c4a3d1aaf0b54))
+* **sbb-teaser:** prevent overlapping chip if including long content ([#2450](https://github.com/lyne-design-system/lyne-components/issues/2450)) ([b78b3ce](https://github.com/lyne-design-system/lyne-components/commit/b78b3ce68aa2480885dc77b0dc446eed3374b39e))
+
+
+### Documentation
+
+* **multiple:** remove undefined type from titleLevel ([#2447](https://github.com/lyne-design-system/lyne-components/issues/2447)) ([c2532cd](https://github.com/lyne-design-system/lyne-components/commit/c2532cdd5a1aa3ca574f8d1a711b4ca3ac68ba12))
+
+
+### Styles
+
+* **color:** remove 'default' suffix from color tokens ([77454de](https://github.com/lyne-design-system/lyne-components/commit/77454de9e1fae3e9ef5c4dc39d0bc4c9f5f63ea8))
+
+
+### Code Refactoring
+
+* **sbb-navigation:** improve active handling and focus ([4f8f309](https://github.com/lyne-design-system/lyne-components/commit/4f8f3099e6864e711a80027f5bce4b079dd6902f))
+
 ## [0.47.2](https://github.com/lyne-design-system/lyne-components/compare/v0.47.1...v0.47.2) (2024-02-15)
 
 
