@@ -51,6 +51,7 @@ $has-title: ':is([data-slot-names~=title], [title-content])';
 
 .sbb-status__icon {
   display: flex;
+  flex-shrink: 0;
   color: var(--sbb-status-icon-color);
   margin-block-start: calc(
     (
