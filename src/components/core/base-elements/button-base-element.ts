@@ -1,8 +1,11 @@
-import { isServer } from 'lit';
+import { isServer, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { SbbIconNameMixin } from '../../icon.js';
+import { SbbSlotStateController } from '../controllers.js';
 import { hostAttributes } from '../decorators.js';
 import { isEventPrevented } from '../eventing.js';
+import { SbbNegativeMixin } from '../mixins.js';
 
 import { SbbActionBaseElement } from './action-base-element.js';
 
@@ -101,5 +104,18 @@ export abstract class SbbButtonBaseElement extends SbbActionBaseElement {
       this.addEventListener('keyup', this._dispatchClickEventOnSpaceKeyup, passiveOptions);
       this.addEventListener('blur', this._removeActiveMarker, passiveOptions);
     }
+  }
+}
+
+export abstract class SbbMiniButtonBaseElement extends SbbNegativeMixin(
+  SbbIconNameMixin(SbbButtonBaseElement),
+) {
+  public constructor() {
+    super();
+    new SbbSlotStateController(this);
+  }
+
+  protected override renderTemplate(): TemplateResult {
+    return super.renderIconSlot();
   }
 }
