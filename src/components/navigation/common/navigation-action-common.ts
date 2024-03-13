@@ -83,7 +83,7 @@ export const SbbNavigationActionCommonElementMixin = <
     protected override renderTemplate(): TemplateResult {
       return html`
         ${this._navigationSection && this.classList.contains('sbb-active')
-          ? html`<sbb-icon name="minus-small"></sbb-icon>`
+          ? html`<sbb-icon name="dash-small"></sbb-icon>`
           : nothing} <slot></slot>
       `;
     }
