@@ -8,7 +8,7 @@ import {
   type SbbIconNameMixinType,
   SbbIconNameMixin,
 } from '../../core/common-behaviors';
-import { isBreakpoint, toggleDatasetEntry } from '../../core/dom';
+import { isBreakpoint } from '../../core/dom';
 import type { SbbHorizontalFrom } from '../../core/interfaces';
 import { AgnosticResizeObserver } from '../../core/observers';
 
@@ -52,7 +52,7 @@ export const SbbHeaderActionCommonElementMixin = <
     private _documentResizeObserver = new AgnosticResizeObserver(() => this._updateExpanded());
 
     private _updateExpanded(): void {
-      toggleDatasetEntry(this, 'expanded', !isBreakpoint('zero', this.expandFrom));
+      this.toggleAttribute('data-expanded', !isBreakpoint('zero', this.expandFrom));
     }
 
     public override connectedCallback(): void {

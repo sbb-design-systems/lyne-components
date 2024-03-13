@@ -4,7 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import { FocusHandler, FocusVisibleWithinController } from '../../core/a11y';
 import { SlotChildObserver } from '../../core/common-behaviors';
-import { findReferencedElement, isBrowser, toggleDatasetEntry } from '../../core/dom';
+import { findReferencedElement, isBrowser } from '../../core/dom';
 
 import style from './header.scss?lit&inline';
 import '../../logo';
@@ -119,7 +119,7 @@ export class SbbHeaderElement extends SlotChildObserver(LitElement) {
       return;
     }
 
-    toggleDatasetEntry(this, 'shadow', currentScroll !== 0);
+    this.toggleAttribute('data-shadow', currentScroll !== 0);
 
     // Close open overlays when scrolling down if the header is scrolled out of sight.
     if (
@@ -134,14 +134,14 @@ export class SbbHeaderElement extends SlotChildObserver(LitElement) {
       this._headerOnTop = false;
       if (currentScroll > 0 && this._lastScroll < currentScroll) {
         // Scrolling down
-        toggleDatasetEntry(this, 'shadow', false);
-        toggleDatasetEntry(this, 'visible', false);
+        this.toggleAttribute('data-shadow', false);
+        this.toggleAttribute('data-visible', false);
       } else {
         // Scrolling up
-        toggleDatasetEntry(this, 'fixed', true);
-        toggleDatasetEntry(this, 'shadow', true);
-        toggleDatasetEntry(this, 'animated', true);
-        toggleDatasetEntry(this, 'visible', true);
+        this.toggleAttribute('data-fixed', true);
+        this.toggleAttribute('data-shadow', true);
+        this.toggleAttribute('data-animated', true);
+        this.toggleAttribute('data-visible', true);
       }
     } else {
       // Check if header in its original position, scroll position < header height.
@@ -150,10 +150,10 @@ export class SbbHeaderElement extends SlotChildObserver(LitElement) {
         this._headerOnTop = true;
       }
       if (this._headerOnTop) {
-        toggleDatasetEntry(this, 'shadow', false);
-        toggleDatasetEntry(this, 'animated', false);
-        toggleDatasetEntry(this, 'fixed', false);
-        toggleDatasetEntry(this, 'visible', false);
+        this.toggleAttribute('data-shadow', false);
+        this.toggleAttribute('data-animated', false);
+        this.toggleAttribute('data-fixed', false);
+        this.toggleAttribute('data-visible', false);
       }
     }
     // `currentScroll` can be negative, e.g. on mobile; this is not allowed.
@@ -162,7 +162,7 @@ export class SbbHeaderElement extends SlotChildObserver(LitElement) {
 
   /** Apply the shadow if the element/document has been scrolled down. */
   private _scrollShadowListener(): void {
-    toggleDatasetEntry(this, 'shadow', this._getCurrentScrollProperty('scrollTop') !== 0);
+    this.toggleAttribute('data-shadow', this._getCurrentScrollProperty('scrollTop') !== 0);
   }
 
   private _closeOpenOverlays(): void {

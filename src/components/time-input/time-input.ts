@@ -4,7 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { LanguageController } from '../core/common-behaviors';
-import { findInput, isValidAttribute, toggleDatasetEntry } from '../core/dom';
+import { findInput, isValidAttribute } from '../core/dom';
 import { forwardEventToHost, EventEmitter } from '../core/eventing';
 import { i18nTimeInputChange } from '../core/i18n';
 import type { ValidationChangeEvent, SbbDateLike } from '../core/interfaces';
@@ -125,7 +125,7 @@ export class SbbTimeInputElement extends LitElement {
     this._abortController = new AbortController();
 
     // Configure input
-    toggleDatasetEntry(this._inputElement, 'sbbTimeInput', true);
+    this._inputElement.toggleAttribute('data-sbb-time-input', true);
     this._inputElement.type = 'text';
     this._inputElement.inputMode = 'numeric';
     this._inputElement.maxLength = 5;
@@ -180,7 +180,7 @@ export class SbbTimeInputElement extends LitElement {
     }
 
     const wasValid = !isValidAttribute(this._inputElement, 'data-sbb-invalid');
-    toggleDatasetEntry(this._inputElement, 'sbbInvalid', !isEmptyOrValid);
+    this._inputElement.toggleAttribute('data-sbb-invalid', !isEmptyOrValid);
     if (wasValid !== isEmptyOrValid) {
       this._validationChange.emit({ valid: isEmptyOrValid });
     }

@@ -5,7 +5,7 @@ import { ref } from 'lit/directives/ref.js';
 
 import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../core/a11y';
 import { hostAttributes } from '../../core/common-behaviors';
-import { toggleDatasetEntry, isBrowser } from '../../core/dom';
+import { isBrowser } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import type {
   SbbCheckedStateChange,
@@ -176,7 +176,7 @@ export class SbbToggleElement extends LitElement {
       return;
     }
 
-    toggleDatasetEntry(this, 'disableAnimationOnResizing', resizing);
+    this.toggleAttribute('data-disable-animation-on-resizing', resizing);
 
     const firstOption = options[0];
     const isFirstChecked = firstOption.checked;

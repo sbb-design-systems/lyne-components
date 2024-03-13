@@ -3,7 +3,7 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { LanguageController, NamedSlotStateController } from '../core/common-behaviors';
-import { setAttribute, toggleDatasetEntry } from '../core/dom';
+import { setAttribute } from '../core/dom';
 import { EventEmitter } from '../core/eventing';
 import { i18nCloseNotification } from '../core/i18n';
 import { AgnosticResizeObserver } from '../core/observers';
@@ -166,12 +166,12 @@ export class SbbNotificationElement extends LitElement {
       clearTimeout(this._resizeObserverTimeout);
     }
 
-    toggleDatasetEntry(this, 'resizeDisableAnimation', true);
+    this.toggleAttribute('data-resize-disable-animation', true);
     this._setNotificationHeight();
 
     // Disable the animation when resizing the notification to avoid strange height transition effects.
     this._resizeObserverTimeout = setTimeout(
-      () => toggleDatasetEntry(this, 'resizeDisableAnimation', false),
+      () => this.toggleAttribute('data-resize-disable-animation', false),
       150,
     );
   }

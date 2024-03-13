@@ -11,7 +11,6 @@ import {
   findReferencedElement,
   isSafari,
   isValidAttribute,
-  toggleDatasetEntry,
   isBrowser,
 } from '../core/dom';
 import { ConnectedAbortController, EventEmitter } from '../core/eventing';
@@ -269,7 +268,7 @@ export class SbbAutocompleteElement extends SlotChildObserver(SbbNegativeMixin(L
 
     this.querySelectorAll?.<SbbOptionElement | SbbOptGroupElement>(
       'sbb-option, sbb-optgroup',
-    ).forEach((element) => toggleDatasetEntry(element, 'negative', this.negative));
+    ).forEach((element) => element.toggleAttribute('data-negative', this.negative));
   }
 
   public override disconnectedCallback(): void {
@@ -286,9 +285,8 @@ export class SbbAutocompleteElement extends SlotChildObserver(SbbNegativeMixin(L
     this._openPanelEventsController?.abort();
 
     this._originElement = undefined;
-    toggleDatasetEntry(
-      this,
-      'optionPanelOriginBorderless',
+    this.toggleAttribute(
+      'data-option-panel-origin-borderless',
       !!this.closest?.('sbb-form-field')?.hasAttribute('borderless'),
     );
 

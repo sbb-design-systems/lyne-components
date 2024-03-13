@@ -7,8 +7,6 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { toggleDatasetEntry } from '../../core/dom';
-
 import style from './container.scss?lit&inline';
 
 /**
@@ -30,7 +28,7 @@ export class SbbContainerElement extends LitElement {
   private _updateStickyBar(): void {
     const stickyBar = this.querySelector?.('sbb-sticky-bar');
     if (stickyBar) {
-      toggleDatasetEntry(stickyBar, 'expanded', this.expanded);
+      stickyBar.toggleAttribute('data-expanded', this.expanded);
     }
   }
 

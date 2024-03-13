@@ -4,7 +4,6 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y';
 import { NamedSlotStateController, SbbDisabledMixin } from '../../core/common-behaviors';
-import { toggleDatasetEntry } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces';
 import type { SbbCheckboxElement, SbbCheckboxSize } from '../checkbox';
@@ -53,7 +52,7 @@ export class SbbCheckboxGroupElement extends SbbDisabledMixin(LitElement) {
     super.connectedCallback();
     const signal = this._abort.signal;
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
-    toggleDatasetEntry(this, 'hasSelectionPanel', !!this.querySelector?.('sbb-selection-panel'));
+    this.toggleAttribute('data-has-selection-panel', !!this.querySelector?.('sbb-selection-panel'));
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
