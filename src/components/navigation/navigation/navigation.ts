@@ -173,10 +173,9 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
   }
 
   private _checkActiveActions(): void {
-    const activeActions = Array.from(this.querySelectorAll('sbb-navigation-button.sbb-active')) as (
-      | SbbNavigationButtonElement
-      | SbbNavigationLinkElement
-    )[];
+    const activeActions = Array.from(
+      this.querySelectorAll(':is(sbb-navigation-button, sbb-navigation-link).sbb-active'),
+    ) as (SbbNavigationButtonElement | SbbNavigationLinkElement)[];
     activeActions?.forEach((action) => action.marker?.select(action));
   }
 
