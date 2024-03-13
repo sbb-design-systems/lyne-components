@@ -92,10 +92,10 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
     SbbOptionElement.events.optionSelected,
   );
 
-  /** Wheter to apply the negative styling */
+  /** Whether to apply the negative styling */
   @state() private _negative = false;
 
-  /** Whether the component must be set disabled due disabled attribute on sbb-checkbox-group. */
+  /** Whether the component must be set disabled due disabled attribute on sbb-optgroup. */
   @state() private _disabledFromGroup = false;
 
   @state() private _label?: string;
