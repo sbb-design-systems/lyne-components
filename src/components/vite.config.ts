@@ -35,7 +35,20 @@ export default defineConfig((config) =>
             dts({
               entryRoot: '.',
               include: `**/*.ts`,
-              exclude: ['**/*.{stories,spec,e2e}.ts', 'vite.config.ts'],
+              exclude: ['**/*[.-]{stories,spec,e2e,test-utils}.ts', 'vite.config.ts'],
+
+              beforeWriteFile: (filePath, content) => {
+                if (content.includes('.scss?lit&inline') || content.includes('.scss?inline&lit')) {
+                  return {
+                    filePath,
+                    // Remove lines with scss modules
+                    content: content.replace(
+                      /export \{[^}]+\}\s+from\s+'[^']+\.scss\?(lit&inline|inline&lit)';\n?/gm,
+                      '',
+                    ),
+                  };
+                }
+              },
             }),
             customElementsManifest(),
             packageJsonTemplate({
