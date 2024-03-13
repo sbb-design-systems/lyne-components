@@ -37,16 +37,7 @@ export default defineConfig((config) =>
               include: `**/*.ts`,
               exclude: ['**/*[.-]{stories,spec,e2e,test-utils}.ts', 'vite.config.ts'],
 
-              beforeWriteFile: (
-                filePath: string,
-                content: string,
-              ):
-                | void
-                | false
-                | {
-                    filePath?: string;
-                    content?: string;
-                  } => {
+              beforeWriteFile: (filePath, content) => {
                 if (content.includes('.scss?lit&inline') || content.includes('.scss?inline&lit')) {
                   return {
                     filePath,
