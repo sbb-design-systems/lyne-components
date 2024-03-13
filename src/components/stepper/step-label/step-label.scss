@@ -5,9 +5,52 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-step-label-some-color-var: var(--color-black);
+  --sbb-step-label-color: var(--sbb-color-iron);
+  --sbb-step-label-prefix-size: #{sbb.px-to-rem-build(36)};
+  --sbb-step-label-prefix-background-color: var(--sbb-color-white);
+
+  position: relative;
+}
+
+:host([data-selected]) {
+  --sbb-step-label-color: var(--sbb-color-charcoal);
+}
+
+:host([disabled]) {
+  --sbb-step-label-prefix-background-color: var(--sbb-color-milk);
+}
+
+:host([data-vertical]) {
+  --sbb-step-label-prefix-size: #{sbb.px-to-rem-build(32)};
 }
 
 .sbb-step-label {
-  color: var(--sbb-step-label-some-color-var);
+  display: flex;
+  align-items: center;
+  gap: var(--sbb-spacing-fixed-4x);
+  color: var(--sbb-step-label-color);
+
+  :host(:not([data-selected])) & {
+    @include sbb.text-l--regular;
+  }
+
+  :host([data-selected]) & {
+    @include sbb.text-l--bold;
+  }
+}
+
+.sbb-step-label__prefix {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--sbb-step-label-prefix-size);
+  min-height: var(--sbb-step-label-prefix-size);
+  border-radius: 50%;
+  border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud);
+  background-color: var(--sbb-step-label-prefix-background-color);
+}
+
+sbb-icon {
+  background-color: var(--sbb-step-label-prefix-background-color);
+  z-index: 1;
 }

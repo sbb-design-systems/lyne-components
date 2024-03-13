@@ -2,11 +2,10 @@ import {
   type CSSResultGroup,
   html,
   LitElement,
-  nothing,
   type TemplateResult,
   type PropertyValues,
 } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
 import { ConnectedAbortController, EventEmitter } from '../../core/eventing';
 
@@ -27,9 +26,6 @@ export class SbbStepperElement extends LitElement {
 
   /** myProp documentation */
   @property({ attribute: 'my-prop', reflect: true }) public myProp: string = '';
-
-  /** _myState documentation */
-  @state() private _myState = false;
 
   private _abort = new ConnectedAbortController(this);
   private _myEvent: EventEmitter<any> = new EventEmitter(
@@ -61,7 +57,10 @@ export class SbbStepperElement extends LitElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-stepper">${this._myState ? html`<slot></slot>` : nothing} ${this.myProp}</div>
+      <div class="sbb-stepper">
+        <slot name="step-label"></slot>
+        <slot name="step"></slot>
+      </div>
     `;
   }
 }

@@ -1,68 +1,38 @@
-import {
-  type CSSResultGroup,
-  html,
-  LitElement,
-  nothing,
-  type TemplateResult,
-  type PropertyValues,
-} from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { type CSSResultGroup, html, type TemplateResult } from 'lit';
+import { customElement } from 'lit/decorators.js';
 
-import { ConnectedAbortController, EventEmitter } from '../../core/eventing';
+import {
+  SbbButtonBaseElement,
+  SbbDisabledTabIndexActionMixin,
+  SbbIconNameMixin,
+  hostAttributes,
+} from '../../core/common-behaviors';
 
 import style from './step-label.scss?lit&inline';
 
+import '../../icon';
+
 /**
- * Describe the purpose of the component with a single short sentence.
+ * Combined with a `sbb-stepper`, it displays a step's label.
  *
- * @slot - Use the unnamed slot to add `sbb-TODO` elements.
- * @event {CustomEvent<any>} myEventName - TODO: Document this event
+ * @slot - Use the unnamed slot to provide a label.
  */
+
+@hostAttributes({
+  slot: 'step-label',
+  role: 'tab',
+})
 @customElement('sbb-step-label')
-export class SbbStepLabelElement extends LitElement {
+export class SbbStepLabelElement extends SbbIconNameMixin(
+  SbbDisabledTabIndexActionMixin(SbbButtonBaseElement),
+) {
   public static override styles: CSSResultGroup = style;
-  public static readonly events: Record<string, string> = {
-    myEventName: 'myEventName',
-  } as const;
-
-  /** myProp documentation */
-  @property({ attribute: 'my-prop', reflect: true }) public myProp: string = '';
-
-  /** _myState documentation */
-  @state() private _myState = false;
-
-  private _abort = new ConnectedAbortController(this);
-  private _myEvent: EventEmitter<any> = new EventEmitter(
-    this,
-    SbbStepLabelElement.events.myEventName,
-  );
-
-  private _onClickFn(): void {
-    this._myEvent.emit();
-  }
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener('click', () => this._onClickFn(), { signal });
-    // do stuff
-  }
-
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    if (changedProperties.has('myProp')) {
-      // do stuff
-    }
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    // do stuff
-  }
 
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-step-label">
-        ${this._myState ? html`<slot></slot>` : nothing} ${this.myProp}
+        <div class="sbb-step-label__prefix">${this.renderIconSlot()}</div>
+        <slot></slot>
       </div>
     `;
   }

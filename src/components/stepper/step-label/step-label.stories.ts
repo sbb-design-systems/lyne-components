@@ -6,24 +6,24 @@ import { html, type TemplateResult } from 'lit';
 import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
-import { SbbStepLabelElement } from './step-label';
+import './step-label';
 
-const myProp: InputType = {
+const iconName: InputType = {
   control: {
     type: 'text',
   },
 };
 
 const defaultArgTypes: ArgTypes = {
-  'my-prop': myProp,
+  'icon-name': iconName,
 };
 
 const defaultArgs: Args = {
-  'my-prop': 'Label',
+  'icon-name': 'tick-small',
 };
 
 const Template = (args: Args): TemplateResult =>
-  html`<sbb-step-label ${sbbSpread(args)}></sbb-step-label>`;
+  html`<sbb-step-label ${sbbSpread(args)}>Label</sbb-step-label>`;
 
 export const Default: StoryObj = {
   render: Template,
@@ -37,9 +37,6 @@ const meta: Meta = {
     withActions as Decorator,
   ],
   parameters: {
-    actions: {
-      handles: [SbbStepLabelElement.events.myEventName],
-    },
     backgrounds: {
       disable: true,
     },

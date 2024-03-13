@@ -6,8 +6,28 @@
 
 :host {
   --sbb-stepper-some-color-var: var(--color-black);
+
+  counter-reset: step-label;
 }
 
 .sbb-stepper {
   color: var(--sbb-stepper-some-color-var);
+}
+
+::slotted(sbb-step-label) {
+  @include sbb.text-xxs--regular;
+
+  &::before {
+    content: counter(step-label);
+    counter-increment: step-label;
+    position: absolute;
+    inset-block-start: calc(var(--sbb-step-label-prefix-size) / 2);
+    inset-inline-start: calc(var(--sbb-step-label-prefix-size) / 2);
+    transform: translate(-50%, -50%);
+    line-height: 1;
+  }
+}
+
+::slotted(sbb-step-label[data-selected]) {
+  @include sbb.text-xxs--bold;
 }
