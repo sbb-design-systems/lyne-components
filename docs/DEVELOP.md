@@ -125,7 +125,7 @@ Git Guardian is activated for this repo: https://dashboard.gitguardian.com/
 
 ### Code Coverage
 
-Codecoverage is evalauted from Jest's --coverage output via https://codecov.io/
+Codecoverage is evalauted with --coverage output via https://codecov.io/
 
 ### Additional Code Checks
 

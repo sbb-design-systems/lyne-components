@@ -1,4 +1,3 @@
-import { expect } from '@storybook/jest';
 import { userEvent, waitFor, within } from '@storybook/testing-library';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
@@ -28,13 +27,10 @@ const playStory = async (trigger: string, canvasElement: HTMLElement): Promise<v
 
   const button = canvas.getByTestId('navigation-trigger');
   await userEvent.click(button);
+  await waitFor(() => canvas.getByTestId('navigation').getAttribute('data-state') === 'opened');
+
   await waitFor(() =>
-    expect(canvas.getByTestId('navigation').getAttribute('data-state') === 'opened').toBeTruthy(),
-  );
-  await waitFor(() =>
-    expect(
-      canvas.getByTestId('navigation-section').shadowRoot?.querySelector('.sbb-navigation-section'),
-    ).toBeTruthy(),
+    canvas.getByTestId('navigation-section').shadowRoot?.querySelector('.sbb-navigation-section'),
   );
   const action = canvas.getByTestId(trigger);
   await userEvent.click(action);

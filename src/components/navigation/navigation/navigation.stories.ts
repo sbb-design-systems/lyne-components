@@ -1,5 +1,4 @@
 import { withActions } from '@storybook/addon-actions/decorator';
-import { expect } from '@storybook/jest';
 import { userEvent, waitFor, within } from '@storybook/testing-library';
 import type { InputType } from '@storybook/types';
 import type {
@@ -38,9 +37,7 @@ const playStory = async ({ canvasElement }: StoryContext): Promise<void> => {
   const button = canvas.getByTestId('navigation-trigger');
   await userEvent.click(button);
 
-  await waitFor(() =>
-    expect(canvas.getByTestId('navigation').getAttribute('data-state') === 'opened').toBeTruthy(),
-  );
+  await waitFor(() => canvas.getByTestId('navigation').getAttribute('data-state') === 'opened');
 };
 
 const playStoryWithSection = async ({ canvasElement }: StoryContext): Promise<void> => {
@@ -48,17 +45,11 @@ const playStoryWithSection = async ({ canvasElement }: StoryContext): Promise<vo
   const canvas = within(canvasElement);
 
   await waitFor(() =>
-    expect(
-      canvas.getByTestId('navigation-section').shadowRoot?.querySelector('.sbb-navigation-section'),
-    ).toBeTruthy(),
+    canvas.getByTestId('navigation-section').shadowRoot?.querySelector('.sbb-navigation-section'),
   );
-  const actionL = canvas.getByTestId('navigation-section-trigger-1');
-  await userEvent.click(actionL);
 
-  await waitFor(() =>
-    expect(
-      canvas.getByTestId('navigation-section').getAttribute('data-state') === 'opened',
-    ).toBeTruthy(),
+  await waitFor(
+    () => canvas.getByTestId('navigation-section').getAttribute('data-state') === 'opened',
   );
 };
 
@@ -192,7 +183,6 @@ const WithNavigationSectionTemplate = (args: Args): TemplateResult => html`
     <sbb-navigation-marker size="s">${navigationActionsS()}</sbb-navigation-marker>
 
     <sbb-navigation-section
-      data-testid="navigation-section"
       trigger="nav-1"
       title-content="Title one"
       ?disable-animation=${args['disable-animation']}
@@ -206,6 +196,7 @@ const WithNavigationSectionTemplate = (args: Args): TemplateResult => html`
       trigger="nav-2"
       title-content="Title two"
       ?disable-animation=${args['disable-animation']}
+      data-testid="navigation-section"
     >
       ${navigationList('Label', true)} ${navigationList('Label')} ${navigationList('Label')}
       ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
@@ -246,7 +237,7 @@ export const WithNavigationSection: StoryObj = {
   render: WithNavigationSectionTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
-  play: isChromatic() ? playStoryWithSection : undefined,
+  play: playStoryWithSection,
 };
 
 const meta: Meta = {

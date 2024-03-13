@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/naming-convention, import/no-unresolved  */
 import type { TSESLint, TSESTree } from '@typescript-eslint/utils';
 import { ESLintUtils, AST_NODE_TYPES } from '@typescript-eslint/utils';
 
@@ -49,7 +49,7 @@ export const rule: TSESLint.RuleModule<'customElementClassName', never[]> = crea
   meta: {
     docs: {
       description: 'Components class name should start with `Sbb` and end with `Element`',
-      recommended: 'error',
+      recommended: 'recommended',
     },
     messages: {
       customElementClassName:

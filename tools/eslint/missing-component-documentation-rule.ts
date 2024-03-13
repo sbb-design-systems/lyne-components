@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/naming-convention, import/no-unresolved  */
 import type { TSESLint, TSESTree } from '@typescript-eslint/utils';
 import { ESLintUtils } from '@typescript-eslint/utils';
 import { parse, stringify } from 'comment-parser';
@@ -217,7 +217,7 @@ export const rule: TSESLint.RuleModule<'missingEventDocs', never[]> = createRule
   meta: {
     docs: {
       description: 'Components should have jsdoc documentation.',
-      recommended: 'error',
+      recommended: 'recommended',
     },
     messages: {
       missingJsDoc: 'jsdoc is missing',
