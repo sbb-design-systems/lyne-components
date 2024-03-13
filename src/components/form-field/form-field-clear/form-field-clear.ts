@@ -19,10 +19,10 @@ import style from './form-field-clear.scss?lit&inline';
 /**
  * Combined with `sbb-form-field`, it displays a button which clears the input value.
  */
+@customElement('sbb-form-field-clear')
 @hostAttributes({
   slot: 'suffix',
 })
-@customElement('sbb-form-field-clear')
 export class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElement) {
   public static override styles: CSSResultGroup = style;
 

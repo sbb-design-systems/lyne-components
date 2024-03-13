@@ -40,10 +40,10 @@ let nextId = 0;
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-z-index)` with a value of `1000`.
  */
+@customElement('sbb-autocomplete')
 @hostAttributes({
   dir: getDocumentWritingMode(),
 })
-@customElement('sbb-autocomplete')
 export class SbbAutocompleteElement extends SlotChildObserver(SbbNegativeMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {

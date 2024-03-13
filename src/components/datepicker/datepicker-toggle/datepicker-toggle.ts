@@ -19,10 +19,10 @@ import style from './datepicker-toggle.scss?lit&inline';
 /**
  * Combined with a `sbb-datepicker`, it can be used to select a date from a `sbb-calendar`.
  */
+@customElement('sbb-datepicker-toggle')
 @hostAttributes({
   slot: 'prefix',
 })
-@customElement('sbb-datepicker-toggle')
 export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 

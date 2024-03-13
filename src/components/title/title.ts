@@ -16,10 +16,10 @@ export type SbbTitleLevel = '1' | '2' | '3' | '4' | '5' | '6';
  * @cssprop [--sbb-title-margin-block-start=var(--sbb-spacing-responsive-m)] - Margin block start of the title.
  * @cssprop [--sbb-title-margin-block-end=var(--sbb-spacing-responsive-s)] - Margin block end of the title.
  */
+@customElement('sbb-title')
 @hostAttributes({
   role: 'heading',
 })
-@customElement('sbb-title')
 export class SbbTitleElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 

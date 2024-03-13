@@ -19,10 +19,10 @@ import '../icon';
  * @slot suffix - Use this slot to render an icon on the right side of the input.
  * @event {CustomEvent<void>} didChange - Deprecated. used for React. Will probably be removed once React 19 is available.
  */
+@customElement('sbb-slider')
 @hostAttributes({
   role: 'slider',
 })
-@customElement('sbb-slider')
 export class SbbSliderElement extends SbbDisabledMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {

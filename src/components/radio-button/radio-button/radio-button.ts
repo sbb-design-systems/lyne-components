@@ -40,10 +40,10 @@ export type SbbRadioButtonSize = 's' | 'm';
  * @slot subtext - Slot used to render a subtext under the label (only visible within a `sbb-selection-panel`).
  * @slot suffix - Slot used to render additional content after the label (only visible within a `sbb-selection-panel`).
  */
+@customElement('sbb-radio-button')
 @hostAttributes({
   role: 'radio',
 })
-@customElement('sbb-radio-button')
 export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {

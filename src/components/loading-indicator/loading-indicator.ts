@@ -9,11 +9,11 @@ import style from './loading-indicator.scss?lit&inline';
 /**
  * It displays a loading indicator.
  */
+@customElement('sbb-loading-indicator')
 @hostAttributes({
   role: 'progressbar',
   'aria-busy': 'true',
 })
-@customElement('sbb-loading-indicator')
 export class SbbLoadingIndicatorElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 

@@ -33,10 +33,10 @@ export type SbbRadioButtonGroupEventDetail = {
  * @event {CustomEvent<SbbRadioButtonGroupEventDetail>} change - Emits whenever the `sbb-radio-group` value changes.
  * @event {CustomEvent<SbbRadioButtonGroupEventDetail>} input - Emits whenever the `sbb-radio-group` value changes.
  */
+@customElement('sbb-radio-button-group')
 @hostAttributes({
   role: 'radiogroup',
 })
-@customElement('sbb-radio-button-group')
 export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {

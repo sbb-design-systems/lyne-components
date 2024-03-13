@@ -42,10 +42,10 @@ let nextId = 0;
  *
  * @slot - Use the unnamed slot to add content into the `sbb-navigation-section`.
  */
+@customElement('sbb-navigation-section')
 @hostAttributes({
   slot: 'navigation-section',
 })
-@customElement('sbb-navigation-section')
 export class SbbNavigationSectionElement extends UpdateScheduler(LitElement) {
   public static override styles: CSSResultGroup = style;
 
