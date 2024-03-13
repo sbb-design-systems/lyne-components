@@ -47,8 +47,6 @@ const playStoryWithSection = async ({ canvasElement }: StoryContext): Promise<vo
   await waitFor(() =>
     canvas.getByTestId('navigation-section').shadowRoot?.querySelector('.sbb-navigation-section'),
   );
-  const actionL = canvas.getByTestId('navigation-section-trigger-1');
-  await userEvent.click(actionL);
 
   await waitFor(
     () => canvas.getByTestId('navigation-section').getAttribute('data-state') === 'opened',
@@ -185,7 +183,6 @@ const WithNavigationSectionTemplate = (args: Args): TemplateResult => html`
     <sbb-navigation-marker size="s">${navigationActionsS()}</sbb-navigation-marker>
 
     <sbb-navigation-section
-      data-testid="navigation-section"
       trigger="nav-1"
       title-content="Title one"
       ?disable-animation=${args['disable-animation']}
@@ -199,6 +196,7 @@ const WithNavigationSectionTemplate = (args: Args): TemplateResult => html`
       trigger="nav-2"
       title-content="Title two"
       ?disable-animation=${args['disable-animation']}
+      data-testid="navigation-section"
     >
       ${navigationList('Label', true)} ${navigationList('Label')} ${navigationList('Label')}
       ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
@@ -239,7 +237,7 @@ export const WithNavigationSection: StoryObj = {
   render: WithNavigationSectionTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
-  play: isChromatic() ? playStoryWithSection : undefined,
+  play: playStoryWithSection,
 };
 
 const meta: Meta = {
