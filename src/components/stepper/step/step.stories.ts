@@ -6,7 +6,7 @@ import { html, type TemplateResult } from 'lit';
 import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
-import { SbbStepElement } from './step';
+import './step';
 
 const myProp: InputType = {
   control: {
@@ -36,9 +36,6 @@ const meta: Meta = {
     withActions as Decorator,
   ],
   parameters: {
-    actions: {
-      handles: [SbbStepElement.events.myEventName],
-    },
     backgrounds: {
       disable: true,
     },

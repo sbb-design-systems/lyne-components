@@ -11,7 +11,16 @@
 }
 
 .sbb-stepper {
+  width: 100%;
   color: var(--sbb-stepper-some-color-var);
+}
+
+.sbb-stepper__labels {
+  display: flex;
+  justify-content: space-between;
+  padding-block-end: var(--sbb-spacing-fixed-4x);
+  margin-block-end: var(--sbb-spacing-responsive-m);
+  border-block-end: var(--sbb-border-width-1x) solid var(--sbb-color-cloud);
 }
 
 ::slotted(sbb-step-label) {

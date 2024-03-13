@@ -4,35 +4,34 @@ import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-c
 import { html, type TemplateResult } from 'lit';
 
 import { sbbSpread } from '../../core/dom';
+import { SbbStepElement } from '../step';
 
 import readme from './readme.md?raw';
-import { SbbStepperElement } from './stepper';
 
-import '../step';
+import './stepper';
 import '../step-label';
 import '../../button/button';
 import '../../button/secondary-button';
 
-const myProp: InputType = {
+const linear: InputType = {
   control: {
-    type: 'text',
+    type: 'boolean',
   },
 };
 
 const defaultArgTypes: ArgTypes = {
-  'my-prop': myProp,
+  linear,
 };
 
 const defaultArgs: Args = {
-  'my-prop': 'Label',
+  linear: true,
 };
 
 const Template = (args: Args): TemplateResult => html`
   <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow">
     <sbb-step-label data-selected>Step 1</sbb-step-label>
-    <sbb-step>
+    <sbb-step data-selected>
       First step content.
-      <sbb-secondary-button sbb-stepper-previous>Go back</sbb-secondary-button>
       <sbb-button sbb-stepper-next>Go to next</sbb-button>
     </sbb-step>
 
@@ -46,6 +45,13 @@ const Template = (args: Args): TemplateResult => html`
     <sbb-step-label icon-name="tick-small">Step 3</sbb-step-label>
     <sbb-step>
       Third step content.
+      <sbb-secondary-button sbb-stepper-previous>Go back</sbb-secondary-button>
+      <sbb-button sbb-stepper-next>Go to next</sbb-button>
+    </sbb-step>
+
+    <sbb-step-label>Step 4</sbb-step-label>
+    <sbb-step>
+      Forth step content.
       <sbb-secondary-button sbb-stepper-previous>Go back</sbb-secondary-button>
       <sbb-button sbb-stepper-next>Submit</sbb-button>
     </sbb-step>
@@ -65,7 +71,7 @@ const meta: Meta = {
   ],
   parameters: {
     actions: {
-      handles: [SbbStepperElement.events.myEventName],
+      handles: [SbbStepElement.events.validate],
     },
     backgrounds: {
       disable: true,

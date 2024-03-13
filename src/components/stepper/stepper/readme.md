@@ -45,9 +45,21 @@ The `sbb-stepper` is a component . . .
 
 ## Properties
 
-| Name     | Attribute | Privacy | Type     | Default | Description          |
-| -------- | --------- | ------- | -------- | ------- | -------------------- |
-| `myProp` | `my-prop` | public  | `string` | `''`    | myProp documentation |
+| Name             | Attribute         | Privacy | Type                             | Default        | Description                                                                       |
+| ---------------- | ----------------- | ------- | -------------------------------- | -------------- | --------------------------------------------------------------------------------- |
+| `linear`         | `linear`          | public  | `boolean`                        | `false`        | If set to true, only the current and previous labels can be clicked and selected. |
+| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| undefined` |                | Overrides the behaviour of `orientation` property.                                |
+| `orientation`    | `orientation`     | public  | `SbbOrientation`                 | `'horizontal'` | Steps orientation, either horizontal or vertical.                                 |
+| `selected`       | -                 | public  | `SbbStepElement \| undefined`    |                |                                                                                   |
+| `selectedIndex`  | -                 | public  | `number \| undefined`            |                |                                                                                   |
+| `steps`          | -                 | public  | `SbbStepElement[]`               |                |                                                                                   |
+
+## Methods
+
+| Name       | Privacy | Description | Parameters | Return | Inherited From |
+| ---------- | ------- | ----------- | ---------- | ------ | -------------- |
+| `next`     | public  |             |            | `void` |                |
+| `previous` | public  |             |            | `void` |                |
 
 ## Events
 

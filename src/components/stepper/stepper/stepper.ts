@@ -1,13 +1,8 @@
-import {
-  type CSSResultGroup,
-  html,
-  LitElement,
-  type TemplateResult,
-  type PropertyValues,
-} from 'lit';
+import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { ConnectedAbortController, EventEmitter } from '../../core/eventing';
+import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces';
+import type { SbbStepElement } from '../step/step';
 
 import style from './stepper.scss?lit&inline';
 
@@ -20,46 +15,118 @@ import style from './stepper.scss?lit&inline';
 @customElement('sbb-stepper')
 export class SbbStepperElement extends LitElement {
   public static override styles: CSSResultGroup = style;
-  public static readonly events: Record<string, string> = {
-    myEventName: 'myEventName',
-  } as const;
 
-  /** myProp documentation */
-  @property({ attribute: 'my-prop', reflect: true }) public myProp: string = '';
+  /**
+   * If set to true, only the current and previous labels can be clicked and selected.
+   */
+  @property({ type: Boolean }) public linear = false;
 
-  private _abort = new ConnectedAbortController(this);
-  private _myEvent: EventEmitter<any> = new EventEmitter(
-    this,
-    SbbStepperElement.events.myEventName,
-  );
+  /**
+   * Overrides the behaviour of `orientation` property.
+   */
+  @property({ attribute: 'horizontal-from', reflect: true })
+  public horizontalFrom?: SbbHorizontalFrom;
 
-  private _onClickFn(): void {
-    this._myEvent.emit();
+  /**
+   * Steps orientation, either horizontal or vertical.
+   */
+  @property({ reflect: true })
+  public orientation: SbbOrientation = 'horizontal';
+
+  public get selected(): SbbStepElement | undefined {
+    return this.querySelector<SbbStepElement>('sbb-step[data-selected]') ?? undefined;
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    const signal = this._abort.signal;
-    this.addEventListener('click', () => this._onClickFn(), { signal });
-    // do stuff
+  public set selected(step: SbbStepElement) {
+    this._select(step);
   }
 
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    if (changedProperties.has('myProp')) {
-      // do stuff
+  public get selectedIndex(): number | undefined {
+    return this.selected ? this.steps.indexOf(this.selected) : undefined;
+  }
+
+  public set selectedIndex(index: number) {
+    this._select(this.steps[index]);
+  }
+
+  public get steps(): SbbStepElement[] {
+    return Array.from(this.querySelectorAll('sbb-step'));
+  }
+
+  public next(): void {
+    if (this.selectedIndex !== undefined) {
+      this._select(this.steps[this.selectedIndex + 1]);
     }
   }
 
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    // do stuff
+  public previous(): void {
+    if (this.selectedIndex !== undefined) {
+      this._select(this.steps[this.selectedIndex - 1]);
+    }
+  }
+
+  private _isValidStep(step: SbbStepElement): boolean {
+    if (!step || step === this.selected || step.hasAttribute('disabled')) {
+      return false;
+    }
+
+    if (this.linear && !this.selected) {
+      return step === this.steps[0];
+    }
+
+    if (this.linear && this.selectedIndex !== undefined) {
+      const index = this.steps.indexOf(step);
+      return index < this.selectedIndex || index === this.selectedIndex + 1;
+    }
+
+    return true;
+  }
+
+  private _select(step: SbbStepElement): void {
+    if (!this._isValidStep(step)) {
+      return;
+    }
+    const validatePayload = {
+      currentIndex: this.selectedIndex,
+      currentStep: this.selected,
+      nextIndex: this.selectedIndex !== undefined && this.selectedIndex + 1,
+      nextStep: this.selectedIndex !== undefined && this.steps[this.selectedIndex + 1],
+    };
+    if (!this.selected?.validate(validatePayload)) {
+      return;
+    }
+    const current = this.selected;
+    if (current) {
+      current.toggleAttribute('data-selected', false);
+      current.label?.setAttribute('aria-selected', 'false');
+      current.label?.toggleAttribute('data-selected', false);
+    }
+    step.toggleAttribute('data-selected', true);
+    step.label?.setAttribute('aria-selected', 'true');
+    step.label?.toggleAttribute('data-selected', true);
+  }
+
+  private _configure(): void {
+    const steps = this.steps;
+    steps.forEach((step, index) => {
+      step.label?.setAttribute('aria-posinset', `${index + 1}`);
+      step.label?.setAttribute('aria-setsize', `${steps.length}`);
+    });
+  }
+
+  protected override firstUpdated(): void {
+    this._configure();
   }
 
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-stepper">
-        <slot name="step-label"></slot>
-        <slot name="step"></slot>
+        <div class="sbb-stepper__labels">
+          <slot name="step-label"></slot>
+        </div>
+        <div class="sbb-stepper__steps">
+          <slot name="step"></slot>
+        </div>
       </div>
     `;
   }

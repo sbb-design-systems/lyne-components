@@ -43,20 +43,8 @@ The `sbb-step` is a component . . .
 
 <!-- Auto Generated Below -->
 
-## Properties
-
-| Name     | Attribute | Privacy | Type     | Default | Description          |
-| -------- | --------- | ------- | -------- | ------- | -------------------- |
-| `myProp` | `my-prop` | public  | `string` | `''`    | myProp documentation |
-
-## Events
-
-| Name          | Type               | Description               | Inherited From |
-| ------------- | ------------------ | ------------------------- | -------------- |
-| `myEventName` | `CustomEvent<any>` | TODO: Document this event |                |
-
 ## Slots
 
-| Name | Description                                      |
-| ---- | ------------------------------------------------ |
-|      | Use the unnamed slot to add `sbb-TODO` elements. |
+| Name | Description                                |
+| ---- | ------------------------------------------ |
+|      | Use the unnamed slot to provide a content. |

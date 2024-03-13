@@ -5,9 +5,13 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-step-some-color-var: var(--color-black);
+  --sbb-step-display: none;
+}
+
+:host([data-selected]) {
+  --sbb-step-display: block;
 }
 
 .sbb-step {
-  color: var(--sbb-step-some-color-var);
+  display: var(--sbb-step-display);
 }
