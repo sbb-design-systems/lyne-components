@@ -10,13 +10,7 @@ import {
   NamedSlotStateController,
   SbbNegativeMixin,
 } from '../core/common-behaviors';
-import {
-  ScrollHandler,
-  toggleDatasetEntry,
-  isValidAttribute,
-  hostContext,
-  setAttribute,
-} from '../core/dom';
+import { ScrollHandler, isValidAttribute, hostContext, setAttribute } from '../core/dom';
 import { EventEmitter } from '../core/eventing';
 import { i18nCloseDialog, i18nDialog, i18nGoBack } from '../core/i18n';
 import { AgnosticResizeObserver } from '../core/observers';
@@ -374,9 +368,8 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
   }
 
   private _setOverflowAttribute(): void {
-    toggleDatasetEntry(
-      this,
-      'overflows',
+    this.toggleAttribute(
+      'data-overflows',
       this._dialogContentElement.scrollHeight > this._dialogContentElement.clientHeight,
     );
   }

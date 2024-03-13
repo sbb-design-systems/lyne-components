@@ -7,7 +7,7 @@ import {
   SbbIconNameMixin,
   SbbNegativeMixin,
 } from '../../core/common-behaviors';
-import { hostContext, isValidAttribute, toggleDatasetEntry } from '../../core/dom';
+import { hostContext, isValidAttribute } from '../../core/dom';
 
 import '../../icon';
 import style from './popover-trigger.scss?lit&inline';
@@ -28,7 +28,7 @@ export class SbbPopoverTriggerElement extends SbbDisabledTabIndexActionMixin(
     const formField = hostContext('sbb-form-field', this) ?? hostContext('[data-form-field]', this);
 
     if (formField) {
-      toggleDatasetEntry(this, 'iconSmall', true);
+      this.toggleAttribute('data-icon-small', true);
       this.negative = isValidAttribute(formField as HTMLElement, 'negative');
     }
   }

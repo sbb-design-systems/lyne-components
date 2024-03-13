@@ -8,7 +8,6 @@ import {
   NamedSlotStateController,
   SbbDisabledMixin,
 } from '../../core/common-behaviors';
-import { toggleDatasetEntry } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import type { SbbHorizontalFrom, SbbOrientation, SbbStateChange } from '../../core/interfaces';
 import type { SbbSelectionPanelElement } from '../../selection-panel';
@@ -150,7 +149,7 @@ export class SbbRadioButtonGroupElement extends SbbDisabledMixin(LitElement) {
     );
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
     this._hasSelectionPanel = !!this.querySelector?.('sbb-selection-panel');
-    toggleDatasetEntry(this, 'hasSelectionPanel', this._hasSelectionPanel);
+    this.toggleAttribute('data-has-selection-panel', this._hasSelectionPanel);
     this._updateRadios(this.value);
   }
 

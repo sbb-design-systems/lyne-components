@@ -1,21 +1,18 @@
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 
-import { toggleDatasetEntry } from '../dom';
-
 import { sbbInputModalityDetector } from './input-modality-detector';
 
 // Determine whether the element has a visible focus within.
 export class FocusVisibleWithinController implements ReactiveController {
   private _focusinHanlder = (): void => {
-    toggleDatasetEntry(
-      this._host,
-      'hasVisibleFocusWithin',
+    this._host.toggleAttribute(
+      'data-has-visible-focus-within',
       sbbInputModalityDetector.mostRecentModality === 'keyboard',
     );
   };
 
   private _focusoutHanlder = (): void => {
-    toggleDatasetEntry(this._host, 'hasVisibleFocusWithin', false);
+    this._host.toggleAttribute('data-has-visible-focus-within', false);
   };
 
   public constructor(private _host: ReactiveControllerHost & HTMLElement) {

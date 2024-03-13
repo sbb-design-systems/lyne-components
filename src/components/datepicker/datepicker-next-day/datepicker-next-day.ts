@@ -9,7 +9,7 @@ import {
   SbbButtonBaseElement,
 } from '../../core/common-behaviors';
 import { defaultDateAdapter, type DateAdapter } from '../../core/datetime';
-import { isValidAttribute, toggleDatasetEntry } from '../../core/dom';
+import { isValidAttribute } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
 import { i18nNextDay, i18nSelectNextDay, i18nToday } from '../../core/i18n';
 import {
@@ -189,7 +189,7 @@ export class SbbDatepickerNextDayElement extends SbbNegativeMixin(SbbButtonBaseE
   }
 
   private _setDisabledRenderAttributes(): void {
-    toggleDatasetEntry(this, 'disabled', this._disabled || this._inputDisabled);
+    this.toggleAttribute('data-disabled', this._disabled || this._inputDisabled);
     if (isValidAttribute(this, 'data-disabled')) {
       this.setAttribute('aria-disabled', 'true');
       this.removeAttribute('tabindex');

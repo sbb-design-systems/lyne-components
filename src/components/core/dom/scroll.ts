@@ -1,4 +1,3 @@
-import { toggleDatasetEntry } from './dataset';
 import { isValidAttribute } from './is-valid-attribute';
 
 export function pageScrollDisabled(): boolean {
@@ -31,7 +30,7 @@ export class ScrollHandler {
     document.body.style.marginInlineEnd = `${scrollbarWidth}px`;
     document.body.style.setProperty('--sbb-scrollbar-width', `${scrollbarWidth}px`);
 
-    toggleDatasetEntry(document.body, 'sbbScrollDisabled', true);
+    document.body.toggleAttribute('data-sbb-scroll-disabled', true);
   }
 
   public enableScroll(): void {
@@ -45,6 +44,6 @@ export class ScrollHandler {
     document.body.style.marginInlineEnd = this._marginInlineEnd || '';
     document.body.style.setProperty('--sbb-scrollbar-width', '0');
 
-    toggleDatasetEntry(document.body, 'sbbScrollDisabled', false);
+    document.body.toggleAttribute('data-sbb-scroll-disabled', false);
   }
 }

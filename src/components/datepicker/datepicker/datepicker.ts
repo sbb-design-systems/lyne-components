@@ -6,12 +6,7 @@ import { LanguageController } from '../../core/common-behaviors';
 import { readConfig } from '../../core/config';
 import type { DateAdapter } from '../../core/datetime';
 import { defaultDateAdapter } from '../../core/datetime';
-import {
-  findInput,
-  findReferencedElement,
-  isValidAttribute,
-  toggleDatasetEntry,
-} from '../../core/dom';
+import { findInput, findReferencedElement, isValidAttribute } from '../../core/dom';
 import { ConnectedAbortController, EventEmitter } from '../../core/eventing';
 import { i18nDateChangedTo, i18nDatePickerPlaceholder } from '../../core/i18n';
 import type { SbbDateLike, ValidationChangeEvent } from '../../core/interfaces';
@@ -421,7 +416,7 @@ export class SbbDatepickerElement extends LitElement {
             this._inputElement?.max,
           ));
       const wasValid = !isValidAttribute(this._inputElement, 'data-sbb-invalid');
-      toggleDatasetEntry(this._inputElement, 'sbbInvalid', !isEmptyOrValid);
+      this._inputElement.toggleAttribute('data-sbb-invalid', !isEmptyOrValid);
       if (wasValid !== isEmptyOrValid) {
         this._validationChange.emit({ valid: isEmptyOrValid });
       }

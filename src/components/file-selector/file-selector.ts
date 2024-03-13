@@ -11,7 +11,6 @@ import {
   NamedSlotStateController,
   SbbDisabledMixin,
 } from '../core/common-behaviors';
-import { toggleDatasetEntry } from '../core/dom';
 import { EventEmitter } from '../core/eventing';
 import {
   i18nFileSelectorButtonLabel,
@@ -138,13 +137,13 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(LitElement) {
 
   private _onFocus(): void {
     if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-      toggleDatasetEntry(this._loadButton, 'focusVisible', true);
+      this._loadButton.toggleAttribute('data-focus-visible', true);
     }
   }
 
   private _onBlur(): void {
     if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-      toggleDatasetEntry(this._loadButton, 'focusVisible', false);
+      this._loadButton.toggleAttribute('data-focus-visible', false);
     }
   }
 
@@ -153,8 +152,8 @@ export class SbbFileSelectorElement extends SbbDisabledMixin(LitElement) {
     isDragEnter: boolean = false,
   ): void {
     this._dragTarget = dragTarget;
-    toggleDatasetEntry(this, 'active', isDragEnter);
-    toggleDatasetEntry(this._loadButton, 'active', isDragEnter);
+    this.toggleAttribute('data-active', isDragEnter);
+    this._loadButton.toggleAttribute('data-active', isDragEnter);
   }
 
   private _readFiles(event: DOMEvent): void {

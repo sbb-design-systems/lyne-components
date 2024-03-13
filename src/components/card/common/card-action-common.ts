@@ -8,7 +8,6 @@ import {
   hostAttributes,
   type SbbActionBaseElement,
 } from '../../core/common-behaviors';
-import { toggleDatasetEntry } from '../../core/dom';
 import { AgnosticMutationObserver } from '../../core/observers';
 import type { SbbCardElement } from '../card';
 
@@ -53,7 +52,7 @@ export const SbbCardActionCommonElementMixin = <
 
     private _onActiveChange(): void {
       if (this._card) {
-        toggleDatasetEntry(this._card, 'hasActiveAction', this.active);
+        this._card.toggleAttribute('data-has-active-action', this.active);
       }
     }
 
@@ -74,8 +73,8 @@ export const SbbCardActionCommonElementMixin = <
       super.connectedCallback();
       this._card = this.closest?.('sbb-card');
       if (this._card) {
-        toggleDatasetEntry(this._card, 'hasAction', true);
-        toggleDatasetEntry(this._card, 'hasActiveAction', this.active);
+        this._card.toggleAttribute('data-has-action', true);
+        this._card.toggleAttribute('data-has-active-action', this.active);
         this._card.dataset.actionRole = this.getAttribute('role')!;
 
         this._checkForSlottedActions();
@@ -89,9 +88,9 @@ export const SbbCardActionCommonElementMixin = <
     public override disconnectedCallback(): void {
       super.disconnectedCallback();
       if (this._card) {
-        toggleDatasetEntry(this._card, 'hasAction', false);
-        toggleDatasetEntry(this._card, 'hasActiveAction', false);
-        toggleDatasetEntry(this._card, 'actionRole', false);
+        this._card.toggleAttribute('data-has-action', false);
+        this._card.toggleAttribute('data-has-active-action', false);
+        this._card.toggleAttribute('data-action-role', false);
         this._card
           .querySelectorAll(`[data-card-focusable]`)
           .forEach((el) => el.removeAttribute('data-card-focusable'));

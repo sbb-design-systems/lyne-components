@@ -3,7 +3,7 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { hostAttributes } from '../../core/common-behaviors';
-import { toggleDatasetEntry, getDocumentWritingMode } from '../../core/dom';
+import { getDocumentWritingMode } from '../../core/dom';
 
 import style from './card-badge.scss?lit&inline';
 
@@ -31,14 +31,14 @@ export class SbbCardBadgeElement extends LitElement {
     super.connectedCallback();
     this._parentElement = this.parentElement;
     if (this._parentElement) {
-      toggleDatasetEntry(this._parentElement, 'hasCardBadge', true);
+      this._parentElement.toggleAttribute('data-has-card-badge', true);
     }
   }
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     if (this._parentElement) {
-      toggleDatasetEntry(this._parentElement, 'hasCardBadge', false);
+      this._parentElement.toggleAttribute('data-has-card-badge', false);
     }
     this._parentElement = undefined;
   }

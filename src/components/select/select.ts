@@ -13,7 +13,6 @@ import {
 import {
   isSafari,
   isValidAttribute,
-  toggleDatasetEntry,
   getDocumentWritingMode,
   setAttribute,
   isNextjs,
@@ -322,7 +321,7 @@ export class SbbSelectElement extends UpdateScheduler(
     this.querySelectorAll?.<SbbOptionElement | SbbOptGroupElement>(
       'sbb-option, sbb-optgroup',
     ).forEach((element: SbbOptionElement | SbbOptGroupElement) =>
-      toggleDatasetEntry(element, 'negative', this.negative),
+      element.toggleAttribute('data-negative', this.negative),
     );
   }
 
@@ -339,9 +338,8 @@ export class SbbSelectElement extends UpdateScheduler(
     this._originElement =
       formField?.shadowRoot?.querySelector?.('#overlay-anchor') ?? this.parentElement!;
     if (this._originElement) {
-      toggleDatasetEntry(
-        this,
-        'optionPanelOriginBorderless',
+      this.toggleAttribute(
+        'data-option-panel-origin-borderless',
         !!formField?.hasAttribute?.('borderless'),
       );
     }

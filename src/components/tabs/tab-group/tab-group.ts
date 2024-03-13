@@ -4,7 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { isArrowKeyPressed, getNextElementIndex } from '../../core/a11y';
-import { isValidAttribute, hostContext, toggleDatasetEntry, setAttribute } from '../../core/dom';
+import { isValidAttribute, hostContext, setAttribute } from '../../core/dom';
 import { throttle, EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers';
 import type { SbbTabTitleElement } from '../tab-title';
@@ -231,9 +231,8 @@ export class SbbTabGroupElement extends LitElement {
       ).assignedElements() as SbbTabTitleElement[];
 
       for (const tab of tabTitles) {
-        toggleDatasetEntry(
-          tab,
-          'hasDivider',
+        tab.toggleAttribute(
+          'data-has-divider',
           tab === tabTitles[0] || tab.offsetLeft === tabTitles[0].offsetLeft,
         );
         this.style.setProperty('--sbb-tab-group-width', `${this._tabGroupElement.clientWidth}px`);

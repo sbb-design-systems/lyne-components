@@ -13,7 +13,7 @@ import {
   YEARS_PER_PAGE,
   YEARS_PER_ROW,
 } from '../core/datetime';
-import { isBreakpoint, toggleDatasetEntry } from '../core/dom';
+import { isBreakpoint } from '../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../core/eventing';
 import {
   i18nCalendarDateSelection,
@@ -1196,19 +1196,19 @@ export class SbbCalendarElement extends LitElement {
       this._resetFocus = true;
       this._calendarView = this._nextCalendarView;
     } else if (event.animationName === 'show') {
-      toggleDatasetEntry(this, 'transition', false);
+      this.toggleAttribute('data-transition', false);
     }
   }
 
   private _removeTable(): void {
-    toggleDatasetEntry(this, 'transition', true);
+    this.toggleAttribute('data-transition', true);
     this.shadowRoot!.querySelectorAll('table').forEach((e) =>
       e.classList.toggle('sbb-calendar__table-hide'),
     );
   }
 
   protected override render(): TemplateResult {
-    toggleDatasetEntry(this, 'wide', this._wide);
+    this.toggleAttribute('data-wide', this._wide);
     return html`<div class="sbb-calendar__wrapper">${this._getView}</div>`;
   }
 }

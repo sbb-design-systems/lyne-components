@@ -1,8 +1,6 @@
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { toggleDatasetEntry } from '../dom';
-
 export type SbbOverlayState = 'closed' | 'opening' | 'opened' | 'closing';
 const IS_OPEN_OVERLAY_QUERY = `:is(sbb-dialog, sbb-navigation, sbb-menu)[data-state='opened']`;
 
@@ -47,13 +45,13 @@ const setSbbInert = (el: HTMLElement): void => {
     if (el.matches(IS_OPEN_OVERLAY_QUERY)) {
       el.dataset.sbbInert = `${+el.dataset.sbbInert! + 1 || 0}`;
     } else {
-      toggleDatasetEntry(el, 'sbbInert', true);
+      el.toggleAttribute('data-sbb-inert', true);
     }
   }
 
   if (!el.hasAttribute('aria-hidden')) {
     el.setAttribute('aria-hidden', 'true');
-    toggleDatasetEntry(el, 'sbbAriaHidden', true);
+    el.toggleAttribute('data-sbb-aria-hidden', true);
   }
 };
 
@@ -63,12 +61,12 @@ const setSbbInert = (el: HTMLElement): void => {
 const removeSbbInert = (el: HTMLElement): void => {
   if (el.hasAttribute('data-sbb-inert')) {
     el.inert = false;
-    toggleDatasetEntry(el, 'sbbInert', false);
+    el.toggleAttribute('data-sbb-inert', false);
   }
 
   if (el.hasAttribute('data-sbb-aria-hidden')) {
     el.removeAttribute('aria-hidden');
-    toggleDatasetEntry(el, 'sbbAriaHidden', false);
+    el.toggleAttribute('data-sbb-aria-hidden', false);
   }
 };
 

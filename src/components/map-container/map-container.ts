@@ -5,7 +5,6 @@ import { ref } from 'lit/directives/ref.js';
 
 import type { SbbTertiaryButtonElement } from '../button';
 import { LanguageController } from '../core/common-behaviors';
-import { toggleDatasetEntry } from '../core/dom';
 import { i18nMapContainerButtonLabel } from '../core/i18n';
 import { AgnosticIntersectionObserver } from '../core/observers';
 import '../button/tertiary-button';
@@ -54,7 +53,7 @@ export class SbbMapContainerElement extends LitElement {
   private _toggleButtonVisibilityOnIntersect(entries: IntersectionObserverEntry[]): void {
     entries.forEach((entry) => {
       const mapIsHidden = !entry.isIntersecting;
-      toggleDatasetEntry(this, 'scrollUpButtonVisible', mapIsHidden);
+      this.toggleAttribute('data-scroll-up-button-visible', mapIsHidden);
       this._scrollUpButtonVisible = mapIsHidden;
     });
   }

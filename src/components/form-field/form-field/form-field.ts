@@ -9,7 +9,7 @@ import {
   NamedSlotStateController,
   SbbNegativeMixin,
 } from '../../core/common-behaviors';
-import { isBrowser, isFirefox, isValidAttribute, toggleDatasetEntry } from '../../core/dom';
+import { isBrowser, isFirefox, isValidAttribute } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
 import { i18nOptional } from '../../core/i18n';
 import { AgnosticMutationObserver } from '../../core/observers';
@@ -178,13 +178,13 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
 
   private _onPopupOpen({ target }: CustomEvent<void>): void {
     if (supportedPopupTagNames.includes((target as HTMLElement).nodeName)) {
-      toggleDatasetEntry(this, 'hasPopupOpen', true);
+      this.toggleAttribute('data-has-popup-open', true);
     }
   }
 
   private _onPopupClose({ target }: CustomEvent<void>): void {
     if (supportedPopupTagNames.includes((target as HTMLElement).nodeName)) {
-      toggleDatasetEntry(this, 'hasPopupOpen', false);
+      this.toggleAttribute('data-has-popup-open', false);
     }
   }
 
@@ -316,7 +316,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
     inputFocusElement.addEventListener(
       'focusin',
       () => {
-        toggleDatasetEntry(this, 'inputFocused', true);
+        this.toggleAttribute('data-input-focused', true);
         (this.dataset.focusOrigin as SbbInputModality) =
           sbbInputModalityDetector.mostRecentModality;
       },
@@ -329,7 +329,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
       'focusout',
       () => {
         delete this.dataset.focusOrigin;
-        toggleDatasetEntry(this, 'inputFocused', false);
+        this.toggleAttribute('data-input-focused', false);
       },
       {
         signal: this._inputAbortController.signal,
@@ -345,9 +345,8 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
   }
 
   private _checkAndUpdateInputEmpty(): void {
-    toggleDatasetEntry(
-      this,
-      'inputEmpty',
+    this.toggleAttribute(
+      'data-input-empty',
       this._floatingLabelSupportedInputElements.includes(this._input?.tagName as string) &&
         this._isInputEmpty(),
     );
@@ -384,11 +383,10 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
     if (!this._input) {
       return;
     }
-    toggleDatasetEntry(this, 'readonly', isValidAttribute(this._input, 'readonly'));
-    toggleDatasetEntry(this, 'disabled', isValidAttribute(this._input, 'disabled'));
-    toggleDatasetEntry(
-      this,
-      'invalid',
+    this.toggleAttribute('data-readonly', isValidAttribute(this._input, 'readonly'));
+    this.toggleAttribute('data-disabled', isValidAttribute(this._input, 'disabled'));
+    this.toggleAttribute(
+      'data-invalid',
       this._input.hasAttribute('data-sbb-invalid') ||
         this._input.classList.contains('sbb-invalid') ||
         (this._input.classList.contains('ng-touched') &&
@@ -417,7 +415,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
       }
     }
     this._applyAriaDescribedby();
-    toggleDatasetEntry(this, 'hasError', !!this._errorElements.length);
+    this.toggleAttribute('data-has-error', !!this._errorElements.length);
     this._syncNegative();
   }
 
