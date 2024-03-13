@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.48.1](https://github.com/lyne-design-system/lyne-components/compare/v0.48.0...v0.48.1) (2024-03-13)
+
+
+### Bug Fixes
+
+* fix unresolved sass imports ([#2483](https://github.com/lyne-design-system/lyne-components/issues/2483)) ([964ab42](https://github.com/lyne-design-system/lyne-components/commit/964ab421bcbfb67061fe13dbe4970bae857e92c7))
+* **sbb-status:** fix flex behavior in Firefox ([#2479](https://github.com/lyne-design-system/lyne-components/issues/2479)) ([92d7492](https://github.com/lyne-design-system/lyne-components/commit/92d74927bf02b4873c468b2c641d861ab5cbacb1))
+
 ## [0.48.0](https://github.com/lyne-design-system/lyne-components/compare/v0.47.2...v0.48.0) (2024-03-12)
 
 
