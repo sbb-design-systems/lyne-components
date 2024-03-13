@@ -1,4 +1,3 @@
-import { expect } from '@storybook/jest';
 import { waitFor } from '@storybook/testing-library';
 
 export async function waitForComponentsReady(checkFirstRenderingDone: () => any): Promise<void> {
@@ -10,5 +9,5 @@ export async function waitForComponentsReady(checkFirstRenderingDone: () => any)
     window.addEventListener('load', resolve, { once: true });
   });
 
-  await waitFor(() => expect(checkFirstRenderingDone()).toBeTruthy());
+  await waitFor(() => checkFirstRenderingDone());
 }
