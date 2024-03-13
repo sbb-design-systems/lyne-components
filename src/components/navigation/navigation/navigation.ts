@@ -270,9 +270,11 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
 
   private _resetMarkers(): void {
     const activeActions = Array.from(
-      this.querySelectorAll('sbb-navigation-button[data-action-active]:not(.sbb-active)'),
+      this.querySelectorAll(
+        ':is(sbb-navigation-button, sbb-navigation-link)[data-action-active]:not(.sbb-active)',
+      ),
     ) as (SbbNavigationButtonElement | SbbNavigationLinkElement)[];
-    activeActions?.forEach((action) => action.toggleAttribute('data-action-active', false));
+    activeActions?.forEach((action) => action.marker?.reset());
   }
 
   private _attachWindowEvents(): void {
