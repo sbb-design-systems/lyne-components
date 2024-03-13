@@ -1,4 +1,4 @@
-import { nothing, type CSSResultGroup, type TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
@@ -78,14 +78,11 @@ export const SbbNavigationActionCommonElementMixin = <
 
       // Check if the current element is nested inside a navigation section.
       this._navigationSection = this.closest('sbb-navigation-section');
+      this.toggleAttribute('data-section-action', !!this._navigationSection);
     }
 
     protected override renderTemplate(): TemplateResult {
-      return html`
-        ${this._navigationSection && this.classList.contains('sbb-active')
-          ? html`<sbb-icon name="dash-small"></sbb-icon>`
-          : nothing} <slot></slot>
-      `;
+      return html`<sbb-icon name="dash-small"></sbb-icon> <slot></slot>`;
     }
   }
   return SbbNavigationActionCommonElement as unknown as AbstractConstructor<SbbNavigationActionCommonElementMixinType> &

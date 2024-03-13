@@ -10,6 +10,11 @@
   outline: none !important;
 
   --sbb-navigation-action-color: var(--sbb-color-cloud);
+  --sbb-navigation-action-icon-display: none;
+}
+
+:host([data-section-action][data-action-active].sbb-active) {
+  --sbb-navigation-action-icon-display: block;
 }
 
 :host([data-action-active]) {
@@ -21,10 +26,11 @@
 }
 
 sbb-icon {
-  display: flex;
-  align-items: center;
-  padding-inline-end: #{sbb.px-to-rem-build(7)};
-  margin-inline-start: calc((var(--sbb-size-icon-ui-small) + #{sbb.px-to-rem-build(7)}) * -1);
+  display: var(--sbb-navigation-action-icon-display);
+  position: absolute;
+  inset-inline-start: calc((var(--sbb-size-icon-ui-small) + var(--sbb-spacing-fixed-1x)) * -1);
+  inset-block-start: 50%;
+  transform: translateY(-50%);
 }
 
 @include sbb.hover-mq($hover: true) {
@@ -43,6 +49,7 @@ sbb-icon {
   @include sbb.title-4($exclude-spacing: true);
 
   cursor: pointer;
+  position: relative;
   text-decoration: none;
   display: flex;
   user-select: none;
