@@ -35,6 +35,7 @@ const navigationObserverConfig: MutationObserverInit = {
 };
 
 let nextId = 0;
+const DEBOUNCE_TIME = 150;
 
 /**
  * It displays a navigation menu, wrapping one or more `sbb-navigation-*` components.
@@ -360,7 +361,7 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
     // Disable the animation when resizing the navigation to avoid strange height transition effects.
     this._resizeObserverTimeout = setTimeout(
       () => this.toggleAttribute('data-resize-disable-animation', false),
-      150,
+      DEBOUNCE_TIME,
     );
   }
 
