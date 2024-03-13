@@ -108,7 +108,7 @@
     "react": "18.2.0",
     "react-dom": "^18.2.0",
     "rollup-plugin-postcss-lit": "2.1.0",
-    "sass": "1.71.1",
+    "sass": "1.72.0",
     "sinon": "17.0.1",
     "standard-version": "^9.5.0",
     "storybook": "7.6.17",
