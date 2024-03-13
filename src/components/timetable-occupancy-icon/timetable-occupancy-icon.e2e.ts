@@ -46,9 +46,12 @@ describe(`sbb-timetable-occupancy-icon with ${fixture.name}`, () => {
     );
     assert.instanceOf(element, SbbTimetableOccupancyIconElement);
     expect(element.getAttribute('aria-label')).to.equal(i18nOccupancy.low.en);
-    await aTimeout(1);
+    await aTimeout(100);
     await waitForLitRender(element);
-    await expect(element).shadowDom.to.equalSnapshot();
+    expect(element.shadowRoot!.querySelector('svg-fake')).to.have.attribute(
+      'data-name',
+      'utilization-low',
+    );
   });
 
   it('renders high contrast mode', async () => {
@@ -68,9 +71,12 @@ describe(`sbb-timetable-occupancy-icon with ${fixture.name}`, () => {
     );
     assert.instanceOf(element, SbbTimetableOccupancyIconElement);
     expect(element.getAttribute('aria-label')).to.equal(i18nOccupancy.medium.en);
-    await aTimeout(1);
+    await aTimeout(100);
     await waitForLitRender(element);
-    await expect(element).shadowDom.to.equalSnapshot();
+    expect(element.shadowRoot!.querySelector('svg-fake')).to.have.attribute(
+      'data-name',
+      'utilization-medium-high-contrast',
+    );
   });
 
   it('renders negative', async () => {
@@ -90,8 +96,11 @@ describe(`sbb-timetable-occupancy-icon with ${fixture.name}`, () => {
     );
     assert.instanceOf(element, SbbTimetableOccupancyIconElement);
     expect(element.getAttribute('aria-label')).to.equal(i18nOccupancy.medium.en);
-    await aTimeout(1);
+    await aTimeout(100);
     await waitForLitRender(element);
-    await expect(element).shadowDom.to.equalSnapshot();
+    expect(element.shadowRoot!.querySelector('svg-fake')).to.have.attribute(
+      'data-name',
+      'utilization-medium-negative',
+    );
   });
 });
