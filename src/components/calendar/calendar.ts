@@ -1,5 +1,5 @@
 import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import { html, isServer, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
@@ -133,7 +133,7 @@ export class SbbCalendarElement extends LitElement {
   private _weekdays!: Weekday[];
 
   /** Grid of calendar cells representing the dates of the month. */
-  private _weeks!: Day[][];
+  private _weeks: Day[][] = [];
 
   /** Grid of calendar cells representing months. */
   private _months!: Month[][];
@@ -166,11 +166,30 @@ export class SbbCalendarElement extends LitElement {
   /** Whether the focus should be reset on focusCell. */
   private _resetFocus = false;
 
+  private _initialized = false;
+
   private _abort = new ConnectedAbortController(this);
   private _language = new LanguageController(this).withHandler(() => {
     this._monthNames = this._dateAdapter.getMonthNames('long');
     this._createMonthRows();
   });
+
+  public constructor() {
+    super();
+    this._createMonthRows();
+    this._setWeekdays();
+
+    // Workaround to execute initialization immediately after hydration
+    // If no hydration is needed, will be executed before the first rendering
+    this.addController({
+      hostConnected: () => {
+        this._convertMinDate(this.min);
+        this._convertMaxDate(this.max);
+        this._setDates();
+        this._init();
+      },
+    });
+  }
 
   private _convertMinDate(newMin?: SbbDateLike): void {
     this._min = this._dateAdapter.deserializeDate(newMin);
@@ -216,15 +235,13 @@ export class SbbCalendarElement extends LitElement {
       passive: true,
       signal: this._abort.signal,
     });
-    this._convertMinDate(this.min);
-    this._convertMaxDate(this.max);
-    this._setDates();
-    this._createMonthRows();
-    this._setWeekdays();
-    this._init();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    if (!this._initialized) {
+      return;
+    }
+
     if (changedProperties.has('min')) {
       this._convertMinDate(this.min);
     }
@@ -253,6 +270,11 @@ export class SbbCalendarElement extends LitElement {
 
   /** Initializes the component. */
   private _init(activeDate?: Date): void {
+    //Due to its complexity, the caledar is only initialized on client side
+    if (isServer) {
+      return;
+    }
+
     if (activeDate) {
       this._assignActiveDate(activeDate);
     }
@@ -272,6 +294,7 @@ export class SbbCalendarElement extends LitElement {
       );
       this._nextMonthYears = this._createYearRows(YEARS_PER_PAGE);
     }
+    this._initialized = true;
   }
 
   /** Focuses on a day cell prioritizing the selected day, the current day, and lastly, the first selectable day. */
