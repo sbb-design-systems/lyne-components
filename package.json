@@ -71,7 +71,7 @@
     "@storybook/addon-links": "8.0.0",
     "@storybook/blocks": "8.0.0",
     "@storybook/builder-vite": "8.0.0",
-    "@storybook/testing-library": "0.2.2",
+    "@storybook/test": "8.0.0",
     "@storybook/web-components": "8.0.0",
     "@storybook/web-components-vite": "8.0.0",
     "@types/glob": "8.1.0",
