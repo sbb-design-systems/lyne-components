@@ -24,18 +24,16 @@ function setupIconConfig(): void {
     },
   };
 
-  mergeConfig({
-    icon,
-  });
+  mergeConfig({ icon });
 }
+
+setupIconConfig();
 
 if (isHydratedSsr()) {
   await import('@lit-labs/ssr-client/lit-element-hydrate-support.js');
 }
 
 beforeEach(() => {
-  setupIconConfig();
-
   sbbInputModalityDetector.reset();
 });
 

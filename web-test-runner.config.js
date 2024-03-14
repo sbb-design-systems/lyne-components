@@ -51,8 +51,8 @@ const testRunnerHtml = (testFramework, _config, group) => `
     <style type="text/css">${globalCss.css}</style>
   </head>
   <body>
-    <script type="module" src="${testFramework}"></script>
     <script type="module" src="/src/components/core/testing/test-setup.ts"></script>
+    <script type="module" src="${testFramework}"></script>
   </body>
 </html>
 `;

@@ -1,7 +1,7 @@
 import { aTimeout, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import type { SbbIconConfig } from '../core/config';
+import { mergeConfig, type SbbIconConfig } from '../core/config';
 import { readConfig } from '../core/config';
 import { waitForLitRender } from '../core/testing';
 import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
@@ -11,6 +11,16 @@ import type { SbbIconElement } from './icon';
 import './icon';
 
 describe('sbb-icon', () => {
+  let iconConfig: SbbIconConfig;
+
+  beforeEach(() => {
+    iconConfig = readConfig().icon!;
+  });
+
+  afterEach(() => {
+    mergeConfig({ icon: iconConfig });
+  });
+
   it('renders', async () => {
     const root = await fixture(html`<sbb-icon></sbb-icon>`);
 
