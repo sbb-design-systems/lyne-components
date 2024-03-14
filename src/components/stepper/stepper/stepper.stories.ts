@@ -40,13 +40,13 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  linear: true,
+  linear: false,
   orientation: 'horizontal',
   'horizontal-from': 'unset',
 };
 
 const Template = (args: Args): TemplateResult => html`
-  <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow">
+  <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow" selected-index="0">
     <sbb-step-label>Step 1</sbb-step-label>
     <sbb-step>
       First step content. &nbsp;
@@ -80,6 +80,18 @@ export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
+};
+
+export const Linear: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, linear: true },
+};
+
+export const Vertical: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, orientation: orientation.options[1] },
 };
 
 const meta: Meta = {

@@ -135,7 +135,7 @@ export class SbbStepperElement extends LitElement {
   protected override async firstUpdated(): Promise<void> {
     this._configure();
     await this.updateComplete;
-    this.selectedIndex = 0;
+    this.selectedIndex = !this.linear ? Number(this.getAttribute('selected-index')) || 0 : 0;
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
