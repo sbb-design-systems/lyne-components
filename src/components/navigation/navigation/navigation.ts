@@ -13,7 +13,7 @@ import {
 } from '../../core/dom';
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import { i18nCloseNavigation } from '../../core/i18n';
-import { AgnosticMutationObserver } from '../../core/observers';
+import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../core/observers';
 import type { SbbOverlayState } from '../../core/overlay';
 import {
   removeAriaOverlayTriggerAttributes,
@@ -35,6 +35,7 @@ const navigationObserverConfig: MutationObserverInit = {
 };
 
 let nextId = 0;
+const DEBOUNCE_TIME = 150;
 
 /**
  * It displays a navigation menu, wrapping one or more `sbb-navigation-*` components.
@@ -137,9 +138,11 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
   private _focusHandler = new FocusHandler();
   private _scrollHandler = new ScrollHandler();
   private _isPointerDownEventOnNavigation: boolean = false;
+  private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
   private _navigationObserver = new AgnosticMutationObserver((mutationsList: MutationRecord[]) =>
     this._onNavigationSectionChange(mutationsList),
   );
+  private _navigationResizeObserver = new AgnosticResizeObserver(() => this._onNavigationResize());
   private _navigationId = `sbb-navigation-${++nextId}`;
 
   /**
@@ -154,6 +157,7 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
       return;
     }
     this._state = 'opening';
+    this._checkActiveActions();
     this._checkActiveSection();
     this.startUpdate();
 
@@ -167,6 +171,13 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
       'sbb-navigation-button.sbb-active',
     ) as SbbNavigationButtonElement;
     activeAction?.connectedSection?.open();
+  }
+
+  private _checkActiveActions(): void {
+    const activeActions = Array.from(
+      this.querySelectorAll(':is(sbb-navigation-button, sbb-navigation-link).sbb-active'),
+    ) as (SbbNavigationButtonElement | SbbNavigationLinkElement)[];
+    activeActions?.forEach((action) => action.marker?.select(action));
   }
 
   /**
@@ -234,6 +245,7 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
     if (event.animationName === 'open' && this._state === 'opening') {
       this._state = 'opened';
       this._didOpen.emit();
+      this._navigationResizeObserver.observe(this);
       applyInertMechanism(this);
       this._focusHandler.trap(this, { filter: this._trapFocusFilter });
       this._attachWindowEvents();
@@ -246,6 +258,7 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
       // To enable focusing other element than the trigger, we need to call focus() a second time.
       this._triggerElement?.focus();
       this._didClose.emit();
+      this._navigationResizeObserver.unobserve(this);
       this._resetMarkers();
       this._windowEventsController?.abort();
       this._focusHandler.disconnect();
@@ -258,7 +271,9 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
 
   private _resetMarkers(): void {
     const activeActions = Array.from(
-      this.querySelectorAll('sbb-navigation-button[data-action-active]'),
+      this.querySelectorAll(
+        ':is(sbb-navigation-button, sbb-navigation-link)[data-action-active]:not(.sbb-active)',
+      ),
     ) as (SbbNavigationButtonElement | SbbNavigationLinkElement)[];
     activeActions?.forEach((action) => action.marker?.reset());
   }
@@ -332,6 +347,24 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
     }
   }
 
+  private _onNavigationResize(): void {
+    if (this._state !== 'opened') {
+      return;
+    }
+
+    if (this._resizeObserverTimeout) {
+      clearTimeout(this._resizeObserverTimeout);
+    }
+
+    this.toggleAttribute('data-resize-disable-animation', true);
+
+    // Disable the animation when resizing the navigation to avoid strange height transition effects.
+    this._resizeObserverTimeout = setTimeout(
+      () => this.toggleAttribute('data-resize-disable-animation', false),
+      DEBOUNCE_TIME,
+    );
+  }
+
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
@@ -353,6 +386,7 @@ export class SbbNavigationElement extends UpdateScheduler(LitElement) {
     this._windowEventsController?.abort();
     this._focusHandler.disconnect();
     this._navigationObserver.disconnect();
+    this._navigationResizeObserver.disconnect();
     removeInertMechanism();
   }
 

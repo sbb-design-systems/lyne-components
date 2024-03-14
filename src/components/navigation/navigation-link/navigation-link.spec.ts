@@ -21,6 +21,13 @@ describe('sbb-navigation-link', () => {
         role="presentation"
         tabindex="-1"
       >
+        <sbb-icon
+          aria-hidden="true"
+          data-namespace="default"
+          name="dash-small"
+          role="img"
+        >
+        </sbb-icon>
         <slot></slot>
         <sbb-screenreader-only>
           . Link target opens in a new window.

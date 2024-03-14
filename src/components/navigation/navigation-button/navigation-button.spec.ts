@@ -15,6 +15,13 @@ describe('sbb-navigation-button', () => {
     expect(root).shadowDom.to.be.equal(
       `
         <span class="sbb-action-base sbb-navigation-button">
+          <sbb-icon
+            aria-hidden="true"
+            data-namespace="default"
+            name="dash-small"
+            role="img"
+          >
+          </sbb-icon>
           <slot></slot>
         </span>
       `,

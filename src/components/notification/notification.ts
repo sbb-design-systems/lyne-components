@@ -22,6 +22,8 @@ const notificationTypes = new Map([
   ['error', 'circle-cross-small'],
 ]);
 
+const DEBOUNCE_TIME = 150;
+
 /**
  * It displays messages which require a user's attention without interrupting its tasks.
  *
@@ -172,7 +174,7 @@ export class SbbNotificationElement extends LitElement {
     // Disable the animation when resizing the notification to avoid strange height transition effects.
     this._resizeObserverTimeout = setTimeout(
       () => this.toggleAttribute('data-resize-disable-animation', false),
-      150,
+      DEBOUNCE_TIME,
     );
   }
 

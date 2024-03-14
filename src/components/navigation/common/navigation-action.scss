@@ -10,14 +10,27 @@
   outline: none !important;
 
   --sbb-navigation-action-color: var(--sbb-color-cloud);
+  --sbb-navigation-action-icon-display: none;
 }
 
-:host(:is([data-action-active])) {
+:host([data-section-action][data-action-active].sbb-active) {
+  --sbb-navigation-action-icon-display: block;
+}
+
+:host([data-action-active]) {
   --sbb-navigation-action-color: var(--sbb-color-storm);
 
   @include sbb.if-forced-colors {
     --sbb-navigation-action-color: Highlight;
   }
+}
+
+sbb-icon {
+  display: var(--sbb-navigation-action-icon-display);
+  position: absolute;
+  inset-inline-start: calc((var(--sbb-size-icon-ui-small) + var(--sbb-spacing-fixed-1x)) * -1);
+  inset-block-start: calc(1em * (var(--sbb-typo-line-height-body-text) / 2));
+  transform: translateY(-50%);
 }
 
 @include sbb.hover-mq($hover: true) {
@@ -36,6 +49,7 @@
   @include sbb.title-4($exclude-spacing: true);
 
   cursor: pointer;
+  position: relative;
   text-decoration: none;
   display: flex;
   user-select: none;

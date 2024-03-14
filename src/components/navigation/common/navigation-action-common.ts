@@ -9,6 +9,8 @@ import type { SbbNavigationLinkElement } from '../navigation-link';
 import type { SbbNavigationMarkerElement } from '../navigation-marker';
 import type { SbbNavigationSectionElement } from '../navigation-section';
 
+import '../../icon';
+
 import style from './navigation-action.scss?lit&inline';
 
 export type SbbNavigationActionSize = 's' | 'm' | 'l';
@@ -76,10 +78,11 @@ export const SbbNavigationActionCommonElementMixin = <
 
       // Check if the current element is nested inside a navigation section.
       this._navigationSection = this.closest('sbb-navigation-section');
+      this.toggleAttribute('data-section-action', !!this._navigationSection);
     }
 
     protected override renderTemplate(): TemplateResult {
-      return html` <slot></slot> `;
+      return html`<sbb-icon name="dash-small"></sbb-icon> <slot></slot>`;
     }
   }
   return SbbNavigationActionCommonElement as unknown as AbstractConstructor<SbbNavigationActionCommonElementMixinType> &
