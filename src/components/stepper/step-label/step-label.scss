@@ -7,6 +7,7 @@
 :host {
   --sbb-step-label-color: var(--sbb-color-iron);
   --sbb-step-label-prefix-size: #{sbb.px-to-rem-build(36)};
+  --sbb-step-label-prefix-border-style: solid;
   --sbb-step-label-prefix-background-color: var(--sbb-color-white);
 
   position: relative;
@@ -17,27 +18,28 @@
 }
 
 :host([disabled]) {
-  --sbb-step-label-prefix-background-color: var(--sbb-color-milk);
+  --sbb-step-label-color: var(--sbb-color-granite);
+  --sbb-step-label-prefix-border-style: dashed;
 }
 
 :host([data-vertical]) {
   --sbb-step-label-prefix-size: #{sbb.px-to-rem-build(32)};
 }
 
+:host(:hover:not([disabled])) {
+  @include sbb.hover-mq($hover: true) {
+    --sbb-step-label-prefix-background-color: var(--sbb-color-milk);
+  }
+}
+
 .sbb-step-label {
+  @include sbb.text-l--bold;
+
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: var(--sbb-spacing-fixed-4x);
   color: var(--sbb-step-label-color);
-
-  :host(:not([data-selected])) & {
-    @include sbb.text-l--regular;
-  }
-
-  :host([data-selected]) & {
-    @include sbb.text-l--bold;
-  }
 }
 
 .sbb-step-label__prefix {
@@ -47,11 +49,14 @@
   min-width: var(--sbb-step-label-prefix-size);
   min-height: var(--sbb-step-label-prefix-size);
   border-radius: 50%;
-  border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud);
+  border: var(--sbb-border-width-1x) var(--sbb-step-label-prefix-border-style)
+    var(--sbb-color-cloud);
   background-color: var(--sbb-step-label-prefix-background-color);
+  transition: background-color var(--sbb-animation-duration-6x) ease;
 }
 
 sbb-icon {
-  background-color: var(--sbb-step-label-prefix-background-color);
   z-index: 1;
+  background-color: var(--sbb-step-label-prefix-background-color);
+  transition: background-color var(--sbb-animation-duration-6x) ease;
 }
