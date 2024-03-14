@@ -1,4 +1,4 @@
-import { waitFor } from '@storybook/testing-library';
+import { waitFor } from '@storybook/test';
 
 export async function waitForStablePosition(
   elementCallback: () => HTMLElement | Promise<HTMLElement>,
