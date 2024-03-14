@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.48.2](https://github.com/lyne-design-system/lyne-components/compare/v0.48.1...v0.48.2) (2024-03-14)
+
+
+### Bug Fixes
+
+* fix button dts files ([#2485](https://github.com/lyne-design-system/lyne-components/issues/2485)) ([2228a02](https://github.com/lyne-design-system/lyne-components/commit/2228a0255cdd205c3891dc6a12278e39584fc793))
+* fix order of class decorators ([#2489](https://github.com/lyne-design-system/lyne-components/issues/2489)) ([580b56f](https://github.com/lyne-design-system/lyne-components/commit/580b56fbfcb020c21b96d639ecec45f717c7abdd))
+* **sbb-navigation:** fix navigation actions contrast ratio ([#2481](https://github.com/lyne-design-system/lyne-components/issues/2481)) ([f605a1e](https://github.com/lyne-design-system/lyne-components/commit/f605a1ed48d27df4a3cc5dfe4f4cdddff36d8b5f))
+
 ## [0.48.1](https://github.com/lyne-design-system/lyne-components/compare/v0.48.0...v0.48.1) (2024-03-13)
 
 
