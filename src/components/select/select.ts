@@ -46,10 +46,10 @@ export interface SelectChange {
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-z-index)` with a value of `1000`.
  */
+@customElement('sbb-select')
 @hostAttributes({
   dir: getDocumentWritingMode(),
 })
-@customElement('sbb-select')
 export class SbbSelectElement extends UpdateScheduler(
   SbbDisabledMixin(SbbNegativeMixin(LitElement)),
 ) {

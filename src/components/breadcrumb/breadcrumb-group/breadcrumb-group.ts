@@ -30,10 +30,10 @@ import '../../icon';
  *
  * @slot - Use the unnamed slot to add `sbb-breadcrumb` elements.
  */
+@customElement('sbb-breadcrumb-group')
 @hostAttributes({
   role: 'navigation',
 })
-@customElement('sbb-breadcrumb-group')
 export class SbbBreadcrumbGroupElement extends SbbNamedSlotListElementMixin<
   SbbBreadcrumbElement,
   typeof LitElement

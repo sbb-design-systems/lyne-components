@@ -25,10 +25,10 @@ import style from './datepicker-next-day.scss?lit&inline';
 /**
  * Combined with a `sbb-datepicker`, it can be used to move the date ahead.
  */
+@customElement('sbb-datepicker-next-day')
 @hostAttributes({
   slot: 'suffix',
 })
-@customElement('sbb-datepicker-next-day')
 export class SbbDatepickerNextDayElement extends SbbNegativeMixin(SbbButtonBaseElement) {
   public static override styles: CSSResultGroup = style;
 

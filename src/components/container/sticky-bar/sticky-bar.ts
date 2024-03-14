@@ -15,10 +15,10 @@ import style from './sticky-bar.scss?lit&inline';
  * the sticky bar overlaps the following content on the bottom.
  * This area becomes visible when the sticky bar transitions from sticky to the normal document flow.
  */
+@customElement('sbb-sticky-bar')
 @hostAttributes({
   slot: 'sticky-bar',
 })
-@customElement('sbb-sticky-bar')
 export class SbbStickyBarElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 

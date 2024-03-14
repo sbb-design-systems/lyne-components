@@ -13,12 +13,12 @@ import style from './card-badge.scss?lit&inline';
  * @slot - Use the unnamed slot to add content to the badge.
  *   Content parts should be wrapped in `<span>` tags to achieve correct spacings.
  */
+@customElement('sbb-card-badge')
 @hostAttributes({
   slot: 'badge',
   role: 'text',
   dir: getDocumentWritingMode(),
 })
-@customElement('sbb-card-badge')
 export class SbbCardBadgeElement extends LitElement {
   public static override styles: CSSResultGroup = style;
 

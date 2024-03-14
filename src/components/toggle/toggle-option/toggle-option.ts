@@ -20,10 +20,10 @@ import style from './toggle-option.scss?lit&inline';
  * @slot - Use the unnamed slot to add content to the label of the toggle option.
  * @slot icon - Slot used to render the `sbb-icon`.
  */
+@customElement('sbb-toggle-option')
 @hostAttributes({
   role: 'radio',
 })
-@customElement('sbb-toggle-option')
 export class SbbToggleOptionElement extends SbbIconNameMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {

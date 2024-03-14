@@ -36,10 +36,10 @@ export type SbbOptionVariant = 'autocomplete' | 'select';
  * @cssprop [--sbb-option-icon-container-display=none] - Can be used to reserve space even
  * when preserve-icon-space on autocomplete is not set or iconName is not set.
  */
+@customElement('sbb-option')
 @hostAttributes({
   role: 'option',
 })
-@customElement('sbb-option')
 export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {

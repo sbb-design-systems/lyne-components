@@ -11,10 +11,10 @@ import style from './divider.scss?lit&inline';
 /**
  * It displays a divider between sections.
  */
+@customElement('sbb-divider')
 @hostAttributes({
   role: 'separator',
 })
-@customElement('sbb-divider')
 export class SbbDividerElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 

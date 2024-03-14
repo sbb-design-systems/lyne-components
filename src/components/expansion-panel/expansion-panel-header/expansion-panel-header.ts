@@ -22,10 +22,10 @@ import style from './expansion-panel-header.scss?lit&inline';
  * @slot icon - Slot used to render the `sbb-expansion-panel-header` icon.
  * @event {CustomEvent<void>} toggleExpanded - Notifies that the `sbb-expansion-panel` has to expand.
  */
+@customElement('sbb-expansion-panel-header')
 @hostAttributes({
   slot: 'header',
 })
-@customElement('sbb-expansion-panel-header')
 export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
   SbbIconNameMixin(SbbButtonBaseElement),
 ) {
