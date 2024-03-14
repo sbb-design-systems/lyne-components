@@ -33,11 +33,13 @@ if (isHydratedSsr()) {
   await import('@lit-labs/ssr-client/lit-element-hydrate-support.js');
 }
 
-beforeEach(() => {
-  sbbInputModalityDetector.reset();
-});
+document.addEventListener('DOMContentLoaded', () => {
+  beforeEach(() => {
+    sbbInputModalityDetector.reset();
+  });
 
-afterEach(async () => {
-  const fixtures = await import('@lit-labs/testing/fixtures.js');
-  fixtures.cleanupFixtures();
+  afterEach(async () => {
+    const fixtures = await import('@lit-labs/testing/fixtures.js');
+    fixtures.cleanupFixtures();
+  });
 });
