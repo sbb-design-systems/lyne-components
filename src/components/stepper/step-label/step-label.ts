@@ -21,7 +21,6 @@ let nextId = 0;
  *
  * @slot - Use the unnamed slot to provide a label.
  */
-
 @hostAttributes({
   slot: 'step-label',
   role: 'tab',
