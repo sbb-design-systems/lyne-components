@@ -270,7 +270,7 @@ export class SbbCalendarElement extends LitElement {
 
   /** Initializes the component. */
   private _init(activeDate?: Date): void {
-    //Due to its complexity, the caledar is inited only on client side
+    //Due to its complexity, the caledar is only initialized on client side
     if (isServer) {
       return;
     }
