@@ -89,8 +89,8 @@ export class SbbStepperElement extends LitElement {
     const validatePayload = {
       currentIndex: this.selectedIndex,
       currentStep: this.selected,
-      nextIndex: this.selectedIndex !== undefined && this.selectedIndex + 1,
-      nextStep: this.selectedIndex !== undefined && this.steps[this.selectedIndex + 1],
+      nextIndex: this.selectedIndex !== undefined ? this.selectedIndex + 1 : undefined,
+      nextStep: this.selectedIndex !== undefined ? this.steps[this.selectedIndex + 1] : undefined,
     };
     if (this.selected && !this.selected.validate(validatePayload)) {
       return;

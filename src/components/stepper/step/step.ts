@@ -11,6 +11,13 @@ import style from './step.scss?lit&inline';
 
 let nextId = 0;
 
+type ValidateEventDetails = {
+  currentIndex?: number;
+  currentStep?: SbbStepElement;
+  nextIndex?: number;
+  nextStep?: SbbStepElement;
+};
+
 /**
  * Combined with a `sbb-stepper`, it displays a step's content.
  *
@@ -41,7 +48,7 @@ export class SbbStepElement extends LitElement {
     return this._label;
   }
 
-  public validate(eventData: any): boolean {
+  public validate(eventData: ValidateEventDetails): boolean {
     return !!this._validate.emit(eventData);
   }
 
