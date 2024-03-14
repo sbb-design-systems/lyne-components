@@ -43,6 +43,24 @@ The `sbb-step` is a component . . .
 
 <!-- Auto Generated Below -->
 
+## Properties
+
+| Name    | Attribute | Privacy | Type                          | Default | Description |
+| ------- | --------- | ------- | ----------------------------- | ------- | ----------- |
+| `label` | -         | public  | `SbbStepLabelElement \| null` | `null`  |             |
+
+## Methods
+
+| Name       | Privacy | Description | Parameters                        | Return    | Inherited From |
+| ---------- | ------- | ----------- | --------------------------------- | --------- | -------------- |
+| `validate` | public  |             | `eventData: ValidateEventDetails` | `boolean` |                |
+
+## Events
+
+| Name       | Type                | Description                                               | Inherited From |
+| ---------- | ------------------- | --------------------------------------------------------- | -------------- |
+| `validate` | `CustomEvent<void>` | Emits whenever step switch is triggered. Can be canceled. |                |
+
 ## Slots
 
 | Name | Description                                |
