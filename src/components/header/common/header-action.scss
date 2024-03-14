@@ -122,15 +122,7 @@
   @include sbb.text-xs--bold;
   @include sbb.ellipsis;
 
-  display: flex;
-
-  // This is a workaround to fix styling after orientation change on iOS.
-  // If the display value changes comparing to the base state (display: flex),
-  // it re-renders and displays everything correctly.
-  // Without this workaround, elements are overlapping each other.
-  :host([data-expanded]) & {
-    display: block;
-  }
+  display: block;
 }
 
 // TODO: reevaluate this once 'CSS container queries' is supported
@@ -149,6 +141,12 @@
 
       .sbb-header-action__text {
         @include sbb.screen-reader-only;
+
+        // This is a workaround to fix styling after orientation change on iOS.
+        // If the display value changes comparing to the base state (display: flex),
+        // it re-renders and displays everything correctly.
+        // Without this workaround, elements are overlapping each other.
+        display: flex;
       }
     }
   }
