@@ -11,7 +11,7 @@ import type {
 import { html, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread';
 
 import readme from './readme.md?raw';
 import './autocomplete-grid-button';
@@ -89,13 +89,13 @@ const ariaLabel: InputType = {
 
 const active: InputType = {
   control: {
-    type: 'text',
+    type: 'boolean',
   },
 };
 
 const focusVisible: InputType = {
   control: {
-    type: 'text',
+    type: 'boolean',
   },
 };
 

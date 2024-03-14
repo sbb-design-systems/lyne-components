@@ -1,7 +1,7 @@
 import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { hostAttributes } from '../../core/common-behaviors';
+import { hostAttributes } from '../../core/decorators';
 import type { SbbAutocompleteGridButtonElement } from '../index';
 
 import style from './autocomplete-grid-actions.scss?lit&inline';
@@ -9,7 +9,7 @@ import style from './autocomplete-grid-actions.scss?lit&inline';
 /**
  * A wrapper component for autocomplete-grid action buttons.
  *
- * @slot - Use the unnamed slot to add `sbb-mini-button` elements.
+ * @slot - Use the unnamed slot to add `sbb-autocomplete-grid-button` elements.
  */
 @customElement('sbb-autocomplete-grid-actions')
 @hostAttributes({

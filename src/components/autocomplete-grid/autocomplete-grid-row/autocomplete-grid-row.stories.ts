@@ -2,7 +2,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import { html, type TemplateResult } from 'lit';
 
-import { sbbSpread } from '../../core/dom';
+import { sbbSpread } from '../../../storybook/helpers/spread';
 
 import readme from './readme.md?raw';
 
