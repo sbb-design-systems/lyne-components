@@ -5,22 +5,37 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-stepper-some-color-var: var(--color-black);
+  --sbb-stepper-marker-width: 0;
+  --sbb-stepper-animation-duration: var(--sbb-animation-duration-6x);
 
+  position: relative;
   counter-reset: step-label;
 }
 
 .sbb-stepper {
   width: 100%;
-  color: var(--sbb-stepper-some-color-var);
+  text-wrap: nowrap;
 }
 
 .sbb-stepper__labels {
   display: flex;
+  gap: var(--sbb-spacing-fixed-4x);
+  position: relative;
   justify-content: space-between;
   padding-block-end: var(--sbb-spacing-fixed-4x);
   margin-block-end: var(--sbb-spacing-responsive-m);
   border-block-end: var(--sbb-border-width-1x) solid var(--sbb-color-cloud);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-end: 0;
+    height: #{sbb.px-to-rem-build(3)};
+    width: var(--sbb-stepper-marker-width);
+    background-color: var(--sbb-color-charcoal);
+    transition: width var(--sbb-animation-duration-6x) ease-in-out;
+  }
 }
 
 ::slotted(sbb-step-label) {

@@ -92,7 +92,7 @@ export class SbbStepperElement extends LitElement {
       nextIndex: this.selectedIndex !== undefined && this.selectedIndex + 1,
       nextStep: this.selectedIndex !== undefined && this.steps[this.selectedIndex + 1],
     };
-    if (!this.selected?.validate(validatePayload)) {
+    if (this.selected && !this.selected.validate(validatePayload)) {
       return;
     }
     const current = this.selected;
@@ -104,6 +104,17 @@ export class SbbStepperElement extends LitElement {
     step.toggleAttribute('data-selected', true);
     step.label?.setAttribute('aria-selected', 'true');
     step.label?.toggleAttribute('data-selected', true);
+    this._setMarkerWidth();
+  }
+
+  private _setMarkerWidth(): void {
+    if (!this.selected || !this.selected.label) {
+      return;
+    }
+    this.style?.setProperty(
+      '--sbb-stepper-marker-width',
+      `${this.selected.label.offsetLeft + this.selected.label.offsetWidth}px`,
+    );
   }
 
   private _configure(): void {
@@ -114,8 +125,10 @@ export class SbbStepperElement extends LitElement {
     });
   }
 
-  protected override firstUpdated(): void {
+  protected override async firstUpdated(): Promise<void> {
     this._configure();
+    await this.updateComplete;
+    this.selectedIndex = 0;
   }
 
   protected override render(): TemplateResult {

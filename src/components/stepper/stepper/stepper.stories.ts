@@ -29,8 +29,8 @@ const defaultArgs: Args = {
 
 const Template = (args: Args): TemplateResult => html`
   <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow">
-    <sbb-step-label data-selected>Step 1</sbb-step-label>
-    <sbb-step data-selected>
+    <sbb-step-label>Step 1</sbb-step-label>
+    <sbb-step>
       First step content.
       <sbb-button sbb-stepper-next>Go to next</sbb-button>
     </sbb-step>
