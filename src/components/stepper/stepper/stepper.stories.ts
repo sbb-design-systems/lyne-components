@@ -19,41 +19,59 @@ const linear: InputType = {
   },
 };
 
+const orientation: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['horizontal', 'vertical'],
+};
+
+const horizontalFrom: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: ['unset', 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
+};
+
 const defaultArgTypes: ArgTypes = {
   linear,
+  orientation,
+  'horizontal-from': horizontalFrom,
 };
 
 const defaultArgs: Args = {
   linear: true,
+  orientation: 'horizontal',
+  'horizontal-from': 'unset',
 };
 
 const Template = (args: Args): TemplateResult => html`
   <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow">
     <sbb-step-label>Step 1</sbb-step-label>
     <sbb-step>
-      First step content.
-      <sbb-button sbb-stepper-next>Go to next</sbb-button>
+      First step content. &nbsp;
+      <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
     </sbb-step>
 
     <sbb-step-label>Step 2</sbb-step-label>
     <sbb-step>
-      Second step content.
-      <sbb-secondary-button sbb-stepper-previous>Go back</sbb-secondary-button>
-      <sbb-button sbb-stepper-next>Go to next</sbb-button>
+      Second step content. &nbsp;
+      <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
+      <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
     </sbb-step>
 
     <sbb-step-label icon-name="tick-small">Step 3</sbb-step-label>
     <sbb-step>
-      Third step content.
-      <sbb-secondary-button sbb-stepper-previous>Go back</sbb-secondary-button>
-      <sbb-button sbb-stepper-next>Go to next</sbb-button>
+      Third step content. &nbsp;
+      <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
+      <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
     </sbb-step>
 
     <sbb-step-label>Step 4</sbb-step-label>
     <sbb-step>
-      Forth step content.
-      <sbb-secondary-button sbb-stepper-previous>Go back</sbb-secondary-button>
-      <sbb-button sbb-stepper-next>Submit</sbb-button>
+      Forth step content. &nbsp;
+      <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
+      <sbb-button size="m" sbb-stepper-next>Submit</sbb-button>
     </sbb-step>
   </sbb-stepper>
 `;

@@ -1,4 +1,10 @@
-import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  LitElement,
+  type TemplateResult,
+  type PropertyValues,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces';
@@ -104,17 +110,18 @@ export class SbbStepperElement extends LitElement {
     step.toggleAttribute('data-selected', true);
     step.label?.setAttribute('aria-selected', 'true');
     step.label?.toggleAttribute('data-selected', true);
-    this._setMarkerWidth();
+    this._setMarkerSize();
   }
 
-  private _setMarkerWidth(): void {
+  private _setMarkerSize(): void {
     if (!this.selected || !this.selected.label) {
       return;
     }
-    this.style?.setProperty(
-      '--sbb-stepper-marker-width',
-      `${this.selected.label.offsetLeft + this.selected.label.offsetWidth}px`,
-    );
+    const offset =
+      this.orientation === 'horizontal'
+        ? this.selected.label.offsetLeft + this.selected.label.offsetWidth
+        : this.selected.label.offsetTop + this.selected.label.offsetHeight;
+    this.style?.setProperty('--sbb-stepper-marker-size', `${offset}px`);
   }
 
   private _configure(): void {
@@ -129,6 +136,15 @@ export class SbbStepperElement extends LitElement {
     this._configure();
     await this.updateComplete;
     this.selectedIndex = 0;
+  }
+
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    if (changedProperties.has('orientation')) {
+      this.steps.forEach(
+        (s) => (s.slot = this.orientation === 'horizontal' ? 'step' : 'step-label'),
+      );
+      this._setMarkerSize();
+    }
   }
 
   protected override render(): TemplateResult {
