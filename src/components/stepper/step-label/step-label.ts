@@ -21,11 +21,11 @@ let nextId = 0;
  *
  * @slot - Use the unnamed slot to provide a label.
  */
+@customElement('sbb-step-label')
 @hostAttributes({
   slot: 'step-label',
   role: 'tab',
 })
-@customElement('sbb-step-label')
 export class SbbStepLabelElement extends SbbIconNameMixin(
   SbbDisabledTabIndexActionMixin(SbbButtonBaseElement),
 ) {
