@@ -33,7 +33,7 @@ describe(`sbb-tab-group with ${fixture.name}`, () => {
 
   it('renders tab content', async () => {
     const content = document.querySelector<HTMLDivElement>(
-      'sbb-tab-group > sbb-tab-title:first-child + div',
+      'sbb-tab-group > sbb-tab-title:first-of-type + div',
     )!;
 
     expect(content.textContent).to.be.equal('Test tab content 1');

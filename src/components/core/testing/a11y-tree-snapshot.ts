@@ -6,7 +6,6 @@ import { html } from 'lit/static-html.js';
 import { isChromium, isFirefox, isSafari } from '../dom';
 
 import { testIf } from './mocha-extensions';
-import { isDebugEnvironment } from './platform';
 import { waitForLitRender } from './wait-for-render';
 
 /**
@@ -35,8 +34,7 @@ export function testA11yTreeSnapshot(
   title = 'A11y tree',
   exclude: { chrome?: boolean; firefox?: boolean; safari?: boolean } = {},
 ): void {
-  const conditionalDescribe = isDebugEnvironment() ? describe.skip : describe;
-  conditionalDescribe(title, () => {
+  describe(title, () => {
     beforeEach(async () => {
       if (template) {
         await fixture(template);

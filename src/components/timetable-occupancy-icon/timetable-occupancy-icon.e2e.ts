@@ -1,4 +1,4 @@
-import { aTimeout, assert, expect } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import type { SinonStub } from 'sinon';
 import { stub } from 'sinon';
@@ -46,7 +46,6 @@ describe(`sbb-timetable-occupancy-icon with ${fixture.name}`, () => {
     );
     assert.instanceOf(element, SbbTimetableOccupancyIconElement);
     expect(element.getAttribute('aria-label')).to.equal(i18nOccupancy.low.en);
-    await aTimeout(100);
     await waitForLitRender(element);
     expect(element.shadowRoot!.querySelector('svg-fake')).to.have.attribute(
       'data-name',
@@ -71,7 +70,6 @@ describe(`sbb-timetable-occupancy-icon with ${fixture.name}`, () => {
     );
     assert.instanceOf(element, SbbTimetableOccupancyIconElement);
     expect(element.getAttribute('aria-label')).to.equal(i18nOccupancy.medium.en);
-    await aTimeout(100);
     await waitForLitRender(element);
     expect(element.shadowRoot!.querySelector('svg-fake')).to.have.attribute(
       'data-name',
@@ -96,7 +94,6 @@ describe(`sbb-timetable-occupancy-icon with ${fixture.name}`, () => {
     );
     assert.instanceOf(element, SbbTimetableOccupancyIconElement);
     expect(element.getAttribute('aria-label')).to.equal(i18nOccupancy.medium.en);
-    await aTimeout(100);
     await waitForLitRender(element);
     expect(element.shadowRoot!.querySelector('svg-fake')).to.have.attribute(
       'data-name',

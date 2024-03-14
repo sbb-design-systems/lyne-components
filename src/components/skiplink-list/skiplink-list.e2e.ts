@@ -36,12 +36,12 @@ describe(`sbb-skiplink-list with ${fixture.name}`, () => {
     expect(listItemLinks[0]).to.have.style('height', '0px');
     expect(listItemLinks[0]).to.have.style('overflow', 'hidden');
 
-    const firstLink: SbbBlockLinkElement = element.querySelector('sbb-block-link:nth-child(1)')!;
+    const firstLink: SbbBlockLinkElement = element.querySelector('sbb-block-link:first-of-type')!;
     firstLink.focus();
     expect(listItemLinks[0]).not.to.have.style('height', '0px');
     expect(listItemLinks[0]).to.have.style('overflow', 'visible');
 
-    const secondLink: SbbBlockLinkElement = element.querySelector('sbb-block-link:nth-child(2)')!;
+    const secondLink: SbbBlockLinkElement = element.querySelector('sbb-block-link:nth-of-type(2)')!;
     secondLink.focus();
     expect(listItemLinks[0]).to.have.style('height', '0px');
     expect(listItemLinks[0]).to.have.style('overflow', 'hidden');
