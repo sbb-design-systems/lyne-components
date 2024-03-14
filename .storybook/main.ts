@@ -1,5 +1,5 @@
 import type { StorybookConfig } from '@storybook/web-components-vite';
-import { BuildOptions, UserConfig, mergeConfig } from 'vite';
+import { type BuildOptions, type UserConfig, mergeConfig } from 'vite';
 import turbosnap from 'vite-plugin-turbosnap';
 
 const config: StorybookConfig = {
