@@ -94,6 +94,16 @@ export const Vertical: StoryObj = {
   args: { ...defaultArgs, orientation: orientation.options[1] },
 };
 
+export const HorizontalFromSmall: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    orientation: orientation.options[1],
+    'horizontal-from': horizontalFrom.options[3],
+  },
+};
+
 const meta: Meta = {
   decorators: [
     (story) => html` <div style="padding: 2rem;">${story()}</div> `,

@@ -7,7 +7,7 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { isBreakpoint } from '../../core/dom';
+import { breakpoints, isBreakpoint } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces';
 import type { SbbStepElement } from '../step/step';
@@ -33,7 +33,16 @@ export class SbbStepperElement extends LitElement {
    * Overrides the behaviour of `orientation` property.
    */
   @property({ attribute: 'horizontal-from', reflect: true })
-  public horizontalFrom?: SbbHorizontalFrom;
+  public get horizontalFrom(): SbbHorizontalFrom | undefined {
+    return this._horizontalFrom;
+  }
+  public set horizontalFrom(value: SbbHorizontalFrom) {
+    this._horizontalFrom = breakpoints.includes(value) ? value : undefined;
+    if (this._horizontalFrom) {
+      this._checkOrientation();
+    }
+  }
+  private _horizontalFrom?: SbbHorizontalFrom | undefined;
 
   /**
    * Steps orientation, either horizontal or vertical.
@@ -169,9 +178,6 @@ export class SbbStepperElement extends LitElement {
         (s) => (s.slot = this.orientation === 'horizontal' ? 'step' : 'step-label'),
       );
       this._setMarkerSize();
-    }
-    if (changedProperties.has('horizontalFrom')) {
-      this._checkOrientation();
     }
   }
 
