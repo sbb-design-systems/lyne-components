@@ -7,6 +7,8 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { isBreakpoint } from '../../core/dom';
+import { ConnectedAbortController } from '../../core/eventing';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces';
 import type { SbbStepElement } from '../step/step';
 
@@ -70,6 +72,8 @@ export class SbbStepperElement extends LitElement {
       this._select(this.steps[this.selectedIndex - 1]);
     }
   }
+
+  private _abort = new ConnectedAbortController(this);
 
   private _isValidStep(step: SbbStepElement): boolean {
     if (!step || step === this.selected || step.hasAttribute('disabled')) {
@@ -136,6 +140,23 @@ export class SbbStepperElement extends LitElement {
     });
   }
 
+  private _checkOrientation(): void {
+    this.orientation = isBreakpoint(this.horizontalFrom) ? 'horizontal' : 'vertical';
+    this.steps.forEach((s) => (s.slot = this.orientation === 'horizontal' ? 'step' : 'step-label'));
+    setTimeout(() => this._setMarkerSize(), 0);
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    const signal = this._abort.signal;
+    if (this.horizontalFrom) {
+      window.addEventListener('resize', () => this._checkOrientation(), {
+        signal,
+        passive: true,
+      });
+    }
+  }
+
   protected override async firstUpdated(): Promise<void> {
     this._configure();
     await this.updateComplete;
@@ -143,11 +164,14 @@ export class SbbStepperElement extends LitElement {
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    if (changedProperties.has('orientation')) {
+    if (changedProperties.has('orientation') && !this.horizontalFrom) {
       this.steps.forEach(
         (s) => (s.slot = this.orientation === 'horizontal' ? 'step' : 'step-label'),
       );
       this._setMarkerSize();
+    }
+    if (changedProperties.has('horizontalFrom')) {
+      this._checkOrientation();
     }
   }
 
