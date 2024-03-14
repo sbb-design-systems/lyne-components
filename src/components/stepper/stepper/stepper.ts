@@ -102,15 +102,17 @@ export class SbbStepperElement extends LitElement {
       return;
     }
     const current = this.selected;
-    if (current) {
+    if (current && current.label) {
       current.toggleAttribute('data-selected', false);
-      current.label?.setAttribute('aria-selected', 'false');
-      current.label?.toggleAttribute('data-selected', false);
+      current.label.internals.ariaSelected = 'false';
+      current.label.toggleAttribute('data-selected', false);
     }
-    step.toggleAttribute('data-selected', true);
-    step.label?.setAttribute('aria-selected', 'true');
-    step.label?.toggleAttribute('data-selected', true);
-    this._setMarkerSize();
+    if (step && step.label) {
+      step.toggleAttribute('data-selected', true);
+      step.label.internals.ariaSelected = 'true';
+      step.label.toggleAttribute('data-selected', true);
+      this._setMarkerSize();
+    }
   }
 
   private _setMarkerSize(): void {
@@ -127,8 +129,10 @@ export class SbbStepperElement extends LitElement {
   private _configure(): void {
     const steps = this.steps;
     steps.forEach((step, index) => {
-      step.label?.setAttribute('aria-posinset', `${index + 1}`);
-      step.label?.setAttribute('aria-setsize', `${steps.length}`);
+      if (step.label) {
+        step.label.internals.ariaPosInSet = `${index + 1}`;
+        step.label.internals.ariaSetSize = `${steps.length}`;
+      }
     });
   }
 
@@ -150,7 +154,7 @@ export class SbbStepperElement extends LitElement {
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-stepper">
-        <div class="sbb-stepper__labels">
+        <div class="sbb-stepper__labels" role="tablist">
           <slot name="step-label"></slot>
         </div>
         <div class="sbb-stepper__steps">

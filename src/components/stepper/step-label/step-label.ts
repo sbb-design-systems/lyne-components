@@ -31,6 +31,9 @@ export class SbbStepLabelElement extends SbbIconNameMixin(
 ) {
   public static override styles: CSSResultGroup = style;
 
+  /** @internal */
+  public readonly internals: ElementInternals = this.attachInternals();
+
   public get step(): SbbStepElement | null {
     return this._step;
   }
