@@ -74,6 +74,7 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(SbbIconNameM
   private _abort = new SbbConnectedAbortController(this);
   protected abstract selectByClick(event: MouseEvent): void;
   protected abstract setupHighlightHandler(event: Event): void;
+  protected abstract setAttributeFromParent(): void;
 
   protected updateDisableHighlight(disabled: boolean): void {
     this.disableLabelHighlight = disabled;
@@ -112,23 +113,10 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(SbbIconNameM
 
   public override connectedCallback(): void {
     super.connectedCallback();
-
     this.id ||= `${this.optionId}-${nextId++}`;
-
-    const signal = this._abort.signal;
-    const parentGroup = this.closest?.('sbb-autocomplete-grid-optgroup');
-    if (parentGroup) {
-      this.disabledFromGroup = parentGroup.disabled;
-      this._updateAriaDisabled();
-    }
+    this.setAttributeFromParent();
     this._optionAttributeObserver.observe(this, optionObserverConfig);
-
-    this.negative = !!this.closest?.(
-      // :is() selector not possible due to test environment
-      `sbb-autocomplete-grid[negative],sbb-form-field[negative]`,
-    );
-    this.toggleAttribute('data-group-negative', this.negative);
-
+    const signal = this._abort.signal;
     this.addEventListener('click', (e: MouseEvent) => this.selectByClick(e), {
       signal,
       passive: true,
@@ -140,7 +128,7 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(SbbIconNameM
 
     if (changedProperties.has('disabled')) {
       setOrRemoveAttribute(this, 'tabindex', isAndroid() && !this.disabled && 0);
-      this._updateAriaDisabled();
+      this.updateAriaDisabled();
     }
   }
 
@@ -156,12 +144,13 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(SbbIconNameM
     this._optionAttributeObserver.disconnect();
   }
 
-  private _updateAriaDisabled(): void {
+  protected updateAriaDisabled(): void {
     setOrRemoveAttribute(
       this,
       'aria-disabled',
       this.disabled || this.disabledFromGroup ? 'true' : null,
-    );  }
+    );
+  }
 
   private _updateAriaSelected(): void {
     this.setAttribute('aria-selected', `${this.selected}`);
@@ -172,7 +161,7 @@ export abstract class SbbOptionBaseElement extends SbbDisabledMixin(SbbIconNameM
     for (const mutation of mutationsList) {
       if (mutation.attributeName === 'data-group-disabled') {
         this.disabledFromGroup = this.hasAttribute('data-group-disabled');
-        this._updateAriaDisabled();
+        this.updateAriaDisabled();
       } else if (mutation.attributeName === 'data-negative') {
         this.negative = this.hasAttribute('data-negative');
       }

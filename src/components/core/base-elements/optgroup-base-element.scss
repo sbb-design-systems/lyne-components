@@ -1,8 +1,7 @@
-@use '../../core/styles' as sbb;
+@use '../styles/index' as sbb;
 
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
-@include sbb.host-component-properties;
+// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
+@include sbb.box-sizing;
 
 :host {
   --sbb-optgroup-divider-display: block;
@@ -11,11 +10,24 @@
   --sbb-optgroup-label-padding-inline: var(--sbb-spacing-fixed-4x);
   --sbb-optgroup-label-font-size: var(--sbb-typo-scale-0-75x);
   --sbb-optgroup-label-color: var(--sbb-color-metal);
+
+  display: block;
 }
 
 :host(:first-child) {
   --sbb-optgroup-divider-display: none;
   --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-2x);
+}
+
+:host([data-variant='select']) {
+  --sbb-optgroup-divider-spacing: var(--sbb-spacing-fixed-4x);
+  --sbb-optgroup-label-padding-inline: var(--sbb-spacing-responsive-xxxs);
+  --sbb-optgroup-label-padding-start: 0;
+  --sbb-optgroup-label-font-size: inherit;
+}
+
+:host([data-variant='select']:first-child) {
+  --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-4x);
 }
 
 :host([data-negative]) {
@@ -36,6 +48,12 @@
   -webkit-text-fill-color: var(--sbb-optgroup-label-color);
   padding-inline: var(--sbb-optgroup-label-padding-inline);
   padding-block: var(--sbb-optgroup-label-padding-start) var(--sbb-spacing-fixed-2x);
+
+  :host([data-variant='select'][data-multiple]) & {
+    @include sbb.text-xs--regular;
+
+    padding-inline-start: calc(var(--sbb-spacing-responsive-xxxs) + var(--sbb-spacing-fixed-8x));
+  }
 }
 
 .sbb-optgroup__divider {

@@ -65,6 +65,22 @@ export class SbbOptionElement extends SbbOptionBaseElement {
     return !!this.closest?.('sbb-select[multiple]');
   }
 
+  protected setAttributeFromParent(): void {
+    const parentGroup = this.closest?.('sbb-optgroup');
+    if (parentGroup) {
+      this.disabledFromGroup = parentGroup.disabled;
+      this.updateAriaDisabled();
+    }
+
+    this.negative = !!this.closest?.(
+      // :is() selector not possible due to test environment
+      `sbb-autocomplete[negative],sbb-form-field[negative]`,
+    );
+    this.toggleAttribute('data-group-negative', this.negative);
+
+    this.toggleAttribute('data-multiple', this._isMultiple);
+  }
+
   protected selectByClick(event: MouseEvent): void {
     if (this.disabled || this.disabledFromGroup) {
       event.stopPropagation();
