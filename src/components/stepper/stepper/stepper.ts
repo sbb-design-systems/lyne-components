@@ -143,11 +143,14 @@ export class SbbStepperElement extends LitElement {
   }
 
   private _configure(): void {
-    const steps = this.steps;
-    steps.forEach((step, index) => {
-      if (step.label) {
-        step.label.internals.ariaPosInSet = `${index + 1}`;
-        step.label.internals.ariaSetSize = `${steps.length}`;
+    console.log('configure...');
+
+    const labels = this.steps.map((s) => s.label);
+    let posInSet = 0;
+    labels.forEach((label) => {
+      if (label) {
+        label.internals.ariaPosInSet = `${++posInSet}`;
+        label.internals.ariaSetSize = `${labels.length}`;
       }
     });
   }
@@ -177,7 +180,6 @@ export class SbbStepperElement extends LitElement {
   }
 
   protected override async firstUpdated(): Promise<void> {
-    this._configure();
     await this.updateComplete;
     this.selectedIndex = !this.linear ? Number(this.getAttribute('selected-index')) || 0 : 0;
     this._checkOrientation();
@@ -194,7 +196,7 @@ export class SbbStepperElement extends LitElement {
     return html`
       <div class="sbb-stepper">
         <div class="sbb-stepper__labels" role="tablist">
-          <slot name="step-label"></slot>
+          <slot name="step-label" @slotchange=${this._configure}></slot>
         </div>
         <div class="sbb-stepper__steps">
           <slot name="step"></slot>
