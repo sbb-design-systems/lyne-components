@@ -62,6 +62,10 @@
   transition: background-color var(--sbb-animation-duration-6x) ease;
 }
 
+.sbb-step-label__text {
+  text-wrap: nowrap;
+}
+
 sbb-icon {
   z-index: 1;
   background-color: var(--sbb-step-label-prefix-background-color);

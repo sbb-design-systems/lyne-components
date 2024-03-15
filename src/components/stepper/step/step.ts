@@ -4,6 +4,7 @@ import { customElement } from 'lit/decorators.js';
 import { hostAttributes } from '../../core/common-behaviors';
 import { isValidAttribute } from '../../core/dom';
 import { ConnectedAbortController, EventEmitter } from '../../core/eventing';
+import { AgnosticResizeObserver } from '../../core/observers';
 import type { SbbStepLabelElement } from '../step-label';
 import type { SbbStepperElement } from '../stepper';
 
@@ -43,6 +44,9 @@ export class SbbStepElement extends LitElement {
   private _abort = new ConnectedAbortController(this);
   private _stepper: SbbStepperElement | null = null;
   private _label: SbbStepLabelElement | null = null;
+  private _stepResizeObserver = new AgnosticResizeObserver((entries) =>
+    this._onStepElementResize(entries),
+  );
 
   public get label(): SbbStepLabelElement | null {
     return this._label;
@@ -71,6 +75,16 @@ export class SbbStepElement extends LitElement {
     return element.hasAttribute('sbb-stepper-previous') && !isValidAttribute(element, 'disabled');
   }
 
+  private _onStepElementResize(entries: ResizeObserverEntry[]): void {
+    if (!this.hasAttribute('data-selected')) {
+      return;
+    }
+    for (const entry of entries) {
+      const contentHeight = Math.floor(entry.contentRect.height);
+      this._stepper?.style?.setProperty('--sbb-stepper-content-height', `${contentHeight}px`);
+    }
+  }
+
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
@@ -83,15 +97,23 @@ export class SbbStepElement extends LitElement {
   }
 
   protected override firstUpdated(): void {
+    this._stepResizeObserver.observe(this.shadowRoot!.querySelector('.sbb-step')!);
     if (this.label) {
       this.setAttribute('aria-labelledby', this.label.id);
     }
   }
 
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this._stepResizeObserver.disconnect();
+  }
+
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-step">
-        <slot></slot>
+      <div class="sbb-step--wrapper">
+        <div class="sbb-step">
+          <slot></slot>
+        </div>
       </div>
     `;
   }

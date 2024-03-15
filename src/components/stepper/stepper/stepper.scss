@@ -19,7 +19,6 @@
 
 .sbb-stepper {
   width: 100%;
-  text-wrap: nowrap;
 }
 
 .sbb-stepper__labels {
@@ -45,7 +44,7 @@
       inset-block-end: 0;
       height: #{sbb.px-to-rem-build(3)};
       width: var(--sbb-stepper-marker-size);
-      transition: width var(--sbb-animation-duration-6x) ease-in-out;
+      transition: width var(--sbb-stepper-animation-duration) var(--sbb-animation-easing);
     }
   }
 
@@ -57,22 +56,44 @@
       inset-block-start: 0;
       width: #{sbb.px-to-rem-build(3)};
       height: var(--sbb-stepper-marker-size);
-      transition: height var(--sbb-animation-duration-6x) ease-in-out;
+      transition: height var(--sbb-stepper-animation-duration) var(--sbb-animation-easing);
     }
+  }
+}
+
+.sbb-stepper__steps {
+  position: relative;
+
+  :host([orientation='horizontal']) & {
+    height: var(--sbb-stepper-content-height);
+    transition: height var(--sbb-stepper-animation-duration) var(--sbb-animation-easing);
   }
 }
 
 ::slotted(sbb-step-label) {
   @include sbb.text-xxs--regular;
 
+  max-width: fit-content;
+
+  :host([orientation='vertical']) & {
+    transition: margin var(--sbb-stepper-animation-duration) var(--sbb-animation-easing);
+  }
+
   &::before {
     content: counter(step-label);
     counter-increment: step-label;
+    cursor: pointer;
     position: absolute;
     inset-block-start: calc(var(--sbb-step-label-prefix-size) / 2);
     inset-inline-start: calc(var(--sbb-step-label-prefix-size) / 2);
     transform: translate(-50%, -50%);
     line-height: 1;
+  }
+}
+
+::slotted(sbb-step) {
+  :host([orientation='vertical']) & {
+    transition: margin var(--sbb-stepper-animation-duration) var(--sbb-animation-easing);
   }
 }
 

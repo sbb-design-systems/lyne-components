@@ -2,6 +2,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
 import { html, type TemplateResult } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../core/dom';
 import { SbbStepElement } from '../step';
@@ -45,31 +46,71 @@ const defaultArgs: Args = {
   'horizontal-from': 'unset',
 };
 
+const textBlockStyle: Args = {
+  position: 'relative',
+  marginBlockStart: 'var(--sbb-spacing-fixed-8x)',
+  padding: 'var(--sbb-spacing-fixed-4x)',
+  backgroundColor: 'var(--sbb-color-milk)',
+  border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud)',
+  borderRadius: 'var(--sbb-border-radius-4x)',
+  zIndex: '100',
+};
+
+const textBlock = (): TemplateResult => html`
+  <div style=${styleMap(textBlockStyle)}>
+    Page content: lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+    tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+  </div>
+`;
+
 const Template = (args: Args): TemplateResult => html`
   <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow" selected-index="0">
     <sbb-step-label>Step 1</sbb-step-label>
     <sbb-step>
-      First step content. &nbsp;
+      <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
+        First step content: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+        eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
+        eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+        sanctus est Lorem ipsum dolor sit amet.
+      </div>
       <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
     </sbb-step>
 
     <sbb-step-label>Step 2</sbb-step-label>
     <sbb-step>
-      Second step content. &nbsp;
+      <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
+        Second step content: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+        nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+        vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+        takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
+        sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
+        erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
+        kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      </div>
       <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
       <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
     </sbb-step>
 
     <sbb-step-label icon-name="tick-small">Step 3</sbb-step-label>
     <sbb-step>
-      Third step content. &nbsp;
+      <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
+        Third step content: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+        eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+      </div>
       <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
       <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
     </sbb-step>
 
     <sbb-step-label>Step 4</sbb-step-label>
     <sbb-step>
-      Forth step content. &nbsp;
+      <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
+        Forth step content: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+        eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
+        eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+        sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
+        elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
+        diam voluptua.
+      </div>
       <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
       <sbb-button size="m" sbb-stepper-next>Submit</sbb-button>
     </sbb-step>
@@ -106,7 +147,7 @@ export const HorizontalFromSmall: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (story) => html` <div style="padding: 2rem;">${story()}</div> `,
+    (story) => html` <div style="padding: 2rem;">${story()} ${textBlock()}</div> `,
     withActions as Decorator,
   ],
   parameters: {

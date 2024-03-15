@@ -129,14 +129,17 @@ export class SbbStepperElement extends LitElement {
   }
 
   private _setMarkerSize(): void {
-    if (!this.selected || !this.selected.label) {
+    if (!this.selected || this.selectedIndex === undefined || !this.selected.label) {
       return;
     }
     const offset =
       this.orientation === 'horizontal'
         ? this.selected.label.offsetLeft + this.selected.label.offsetWidth
-        : this.selected.label.offsetTop + this.selected.label.offsetHeight;
-    this.style?.setProperty('--sbb-stepper-marker-size', `${offset}px`);
+        : this.selected.label.offsetHeight * (this.selectedIndex + 1) +
+          parseFloat(getComputedStyle(this).getPropertyValue('--sbb-spacing-responsive-m')) *
+            16 *
+            this.selectedIndex;
+    this.style.setProperty('--sbb-stepper-marker-size', `${offset}px`);
   }
 
   private _configure(): void {
@@ -150,33 +153,37 @@ export class SbbStepperElement extends LitElement {
   }
 
   private _checkOrientation(): void {
-    this.orientation = isBreakpoint(this.horizontalFrom) ? 'horizontal' : 'vertical';
-    this.steps.forEach((s) => (s.slot = this.orientation === 'horizontal' ? 'step' : 'step-label'));
+    if (this.horizontalFrom) {
+      this.orientation = isBreakpoint(this.horizontalFrom) ? 'horizontal' : 'vertical';
+      this.steps.forEach(
+        (s) => (s.slot = this.orientation === 'horizontal' ? 'step' : 'step-label'),
+      );
+    }
     setTimeout(() => this._setMarkerSize(), 0);
   }
 
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
-    if (this.horizontalFrom) {
-      window.addEventListener('resize', () => this._checkOrientation(), {
-        signal,
-        passive: true,
-      });
-    }
+    window.addEventListener('resize', () => this._checkOrientation(), {
+      signal,
+      passive: true,
+    });
   }
 
   protected override async firstUpdated(): Promise<void> {
     this._configure();
     await this.updateComplete;
     this.selectedIndex = !this.linear ? Number(this.getAttribute('selected-index')) || 0 : 0;
+    this._checkOrientation();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('orientation') && !this.horizontalFrom) {
-      this.steps.forEach(
-        (s) => (s.slot = this.orientation === 'horizontal' ? 'step' : 'step-label'),
-      );
+      this.steps.forEach((step) => {
+        step.slot = this.orientation === 'horizontal' ? 'step' : 'step-label';
+        step.setAttribute('data-orientation', this.orientation);
+      });
       this._setMarkerSize();
     }
   }
