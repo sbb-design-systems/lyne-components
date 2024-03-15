@@ -22,7 +22,7 @@ describe(`sbb-calendar with ${fixture.name}`, () => {
     );
   });
 
-  it.only('renders', async () => {
+  it('renders', async () => {
     assert.instanceOf(element, SbbCalendarElement);
   });
 

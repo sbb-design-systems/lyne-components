@@ -27,6 +27,7 @@ describe('sbb-calendar', () => {
         max="2023-01-29T00:00:00"
       ></sbb-calendar>`,
     );
+    await waitForLitRender(page);
 
     const buttonPrevDay = page.shadowRoot!.querySelector(
       "sbb-secondary-button[icon-name='chevron-small-left-small']",

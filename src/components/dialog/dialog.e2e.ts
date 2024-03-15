@@ -290,7 +290,8 @@ describe(`sbb-dialog with ${fixture.name}`, () => {
 
     await openDialog(element);
 
-    const stackedDialog = element.querySelector('#stacked-dialog') as SbbDialogElement;
+    const stackedDialog =
+      element.parentElement!.querySelector<SbbDialogElement>('#stacked-dialog')!;
 
     stackedDialog.open();
     await waitForLitRender(element);

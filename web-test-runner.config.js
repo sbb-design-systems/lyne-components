@@ -44,6 +44,7 @@ const groupNameOverride = process.argv.includes('--ssr-hydrated')
     : null;
 
 const testRunnerHtml = (testFramework, _config, group) => `
+<!DOCTYPE html>
 <html>
   <head>
     <meta name="testEnvironment" ${isDebugMode ? 'debug' : ''}>

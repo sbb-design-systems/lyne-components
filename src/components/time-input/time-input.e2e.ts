@@ -112,7 +112,6 @@ describe(`sbb-time-input with ${fixture.name}`, () => {
   });
 
   it('should interpret valid values', async function (this: Context) {
-    this.timeout(5000);
     const testCases = [
       { value: '0', interpretedAs: '00:00' },
       { value: '1', interpretedAs: '01:00' },
