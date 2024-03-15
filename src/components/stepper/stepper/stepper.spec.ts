@@ -1,17 +1,14 @@
-// import { expect, fixture } from '@open-wc/testing';
-// import { html } from 'lit/static-html.js';
-// import './stepper';
+import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
 
-// describe('sbb-stepper', () => {
-//   it('renders', async () => {
-//     const root = await fixture(html`<sbb-stepper my-prop="Label"></sbb-stepper>`);
+import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import '.';
 
-//     expect(root).dom.to.be.equal(`<sbb-stepper my-prop="Label"></sbb-stepper>`);
-
-//     expect(root).shadowDom.to.be.equal(`
-//       <div class="sbb-stepper">
-//         Label
-//       </div>
-//     `);
-//   });
-// });
+describe('sbb-stepper', () => {
+  it('renders', async () => {
+    const root = await fixture(html`<sbb-stepper></sbb-stepper>`);
+    expect(root).dom.to.be.equal(`<sbb-stepper orientation="horizontal"></sbb-stepper>`);
+    await expect(root).shadowDom.to.be.equalSnapshot();
+  });
+  testA11yTreeSnapshot();
+});

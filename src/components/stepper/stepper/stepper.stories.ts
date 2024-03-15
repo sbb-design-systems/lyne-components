@@ -73,7 +73,7 @@ const textBlock = (): TemplateResult => html`
   </div>
 `;
 
-const WithFormTemplate = (args: Args): TemplateResult => {
+const WithSingleFormTemplate = (args: Args): TemplateResult => {
   const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
   sbbFormError.setAttribute('slot', 'error');
   sbbFormError.textContent = 'This is a required field.';
@@ -177,6 +177,100 @@ const WithFormTemplate = (args: Args): TemplateResult => {
   `;
 };
 
+const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
+  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
+  sbbFormError.setAttribute('slot', 'error');
+  sbbFormError.textContent = 'This is a required field.';
+
+  return html`
+    <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow" selected-index="0">
+      <sbb-step-label icon-name="pen-small">Step 1</sbb-step-label>
+      <sbb-step
+        @validate=${(e: CustomEvent) => {
+          if (e.detail.currentStep.querySelector('sbb-form-field').hasAttribute('data-invalid')) {
+            e.preventDefault();
+          }
+        }}
+      >
+        <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
+          <form
+            @reset=${() => {
+              setTimeout(() =>
+                document.querySelector('input[name="name"]')?.dispatchEvent(new Event('input')),
+              );
+            }}
+          >
+            <sbb-form-field error-space="reserve" label="Name" size="m">
+              <input
+                @input=${(event: KeyboardEvent) => {
+                  const input = event.currentTarget as HTMLInputElement;
+                  if (input.value !== '') {
+                    sbbFormError.remove();
+                    input.classList.remove('sbb-invalid');
+                  } else {
+                    input.closest('sbb-form-field')!.append(sbbFormError);
+                    input.classList.add('sbb-invalid');
+                  }
+                }}
+                placeholder="Your name"
+                name="name"
+                class="sbb-invalid"
+              />
+              ${sbbFormError}
+            </sbb-form-field>
+          </form>
+        </div>
+        <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
+      </sbb-step>
+
+      <sbb-step-label>Step 2</sbb-step-label>
+      <sbb-step>
+        <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
+          <form>
+            <sbb-form-field error-space="none" label="Favorite number" size="m">
+              <input type="number" placeholder="Your lucky number" name="number" value="75" />
+            </sbb-form-field>
+          </form>
+        </div>
+        <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
+        <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
+      </sbb-step>
+
+      <sbb-step-label icon-name="dog-small">Step 3</sbb-step-label>
+      <sbb-step>
+        <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
+          <form>
+            <sbb-form-field error-space="none" label="Favorite animal" size="m">
+              <select name="animal">
+                <option>Panda 🐼</option>
+                <option>Jellyfish 🪼</option>
+                <option>Fox 🦊</option>
+                <option>Dragon 🐲</option>
+              </select>
+            </sbb-form-field>
+          </form>
+        </div>
+        <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
+        <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
+      </sbb-step>
+
+      <sbb-step-label icon-name="tick-small">Step 4</sbb-step-label>
+      <sbb-step>
+        <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">You are now done.</div>
+        <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
+        <sbb-button size="m" sbb-stepper-next>Submit</sbb-button>
+        <sbb-block-link-button
+          style="display: inline-block; margin-inline-start: var(--sbb-spacing-fixed-2x); vertical-align: middle;"
+          icon-name="arrow-circle-small"
+          @click=${() => document.querySelector('sbb-stepper')?.reset()}
+          >Reset</sbb-block-link-button
+        >
+      </sbb-step>
+    </sbb-stepper>
+    ${textBlock()}
+  `;
+};
+
 const Template = (args: Args): TemplateResult => html`
   <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow" selected-index="0">
     <sbb-step-label>Step 1</sbb-step-label>
@@ -273,8 +367,14 @@ const LongLabelsTemplate = (args: Args): TemplateResult => html`
   ${textBlock()}
 `;
 
-export const WithForm: StoryObj = {
-  render: WithFormTemplate,
+export const WithSingleForm: StoryObj = {
+  render: WithSingleFormTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const WithMultipleForms: StoryObj = {
+  render: WithMultipleFormsTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };

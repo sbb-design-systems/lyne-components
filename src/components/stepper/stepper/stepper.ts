@@ -83,7 +83,12 @@ export class SbbStepperElement extends LitElement {
   }
 
   public reset(): void {
-    this.closest('form')?.reset();
+    const closestForm = this.closest('form');
+    if (closestForm) {
+      closestForm.reset();
+    } else {
+      this.querySelectorAll('form').forEach((form) => form.reset());
+    }
     this.selectedIndex = 0;
   }
 
