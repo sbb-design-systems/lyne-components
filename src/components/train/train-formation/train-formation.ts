@@ -87,7 +87,8 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
         const currentAggregatedSector = aggregatedSectors[aggregatedSectors.length - 1];
 
         if (item.tagName === 'SBB-TRAIN-WAGON') {
-          const sectorAttribute = (item as SbbTrainWagonElement).sector;
+          const sectorAttribute =
+            (item as SbbTrainWagonElement).sector ?? item.getAttribute('sector');
 
           if (!currentAggregatedSector.label && sectorAttribute) {
             currentAggregatedSector.label = sectorAttribute;

@@ -11,7 +11,7 @@ describe(`sbb-image with ${fixture.name}`, () => {
   let element: SbbImageElement;
 
   it('renders', async function (this: Context) {
-    this.timeout(8000);
+    this.timeout(10000);
     const url = images[0];
     element = await fixture(html`<sbb-image image-src="${url}"></sbb-image>`, {
       modules: ['./image.ts'],

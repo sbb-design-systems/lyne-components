@@ -6,6 +6,7 @@ import type { Context } from 'mocha';
 import { i18nTimeInputChange } from '../core/i18n';
 import type { ValidationChangeEvent } from '../core/interfaces';
 import { EventSpy, waitForLitRender, fixture } from '../core/testing';
+import { clearElement, typeInElement } from '../core/testing/private';
 
 import { SbbTimeInputElement } from './time-input';
 
@@ -166,8 +167,12 @@ describe(`sbb-time-input with ${fixture.name}`, () => {
       // Clear input
       input.value = '';
 
-      input.focus();
-      await sendKeys({ type: testCase.value });
+      if (testCase.value) {
+        typeInElement(input, testCase.value);
+      } else {
+        clearElement(input);
+      }
+      //await sendKeys({ type: testCase.value });
       input.blur();
       await waitForLitRender(element);
       expect(input.value).to.be.equal(testCase.interpretedAs);
