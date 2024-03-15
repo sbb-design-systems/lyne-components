@@ -92,7 +92,7 @@
     "eslint-plugin-import": "npm:eslint-plugin-i@latest",
     "eslint-plugin-lit": "1.11.0",
     "eslint-plugin-lyne": "file:tools/eslint/link/",
-    "eslint-plugin-react": "7.34.0",
+    "eslint-plugin-react": "7.34.1",
     "eslint-plugin-storybook": "0.8.0",
     "eslint-plugin-yaml": "0.5.0",
     "glob": "10.3.10",
