@@ -22,10 +22,8 @@ describe(`sbb-navigation-button with ${fixture.name}`, () => {
 
   describe('events', () => {
     it('dispatches event on click', async () => {
-      const navigationButton =
-        document.querySelector<SbbNavigationButtonElement>('sbb-navigation-button')!;
       const changeSpy = new EventSpy('click');
-      navigationButton.click();
+      element.click();
       await waitForCondition(() => changeSpy.events.length === 1);
       expect(changeSpy.count).to.be.equal(1);
     });

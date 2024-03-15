@@ -41,7 +41,7 @@ describe(`sbb-action-group with ${fixture.name}`, () => {
   describe('property sync', () => {
     it('should sync default size with sbb-button', async () => {
       const buttons = Array.from(
-        document.querySelectorAll('sbb-action-group sbb-secondary-button'),
+        element.querySelectorAll('sbb-secondary-button'),
       ) as SbbSecondaryButtonElement[];
       expect(buttons.length).to.be.greaterThan(0);
       expect(buttons.every((l) => l.size === 'l')).to.be.ok;
@@ -51,7 +51,7 @@ describe(`sbb-action-group with ${fixture.name}`, () => {
       element.setAttribute('button-size', 'm');
       await waitForLitRender(element);
       const buttons = Array.from(
-        document.querySelectorAll('sbb-action-group sbb-secondary-button'),
+        element.querySelectorAll('sbb-secondary-button'),
       ) as SbbSecondaryButtonElement[];
       expect(buttons.length).to.be.greaterThan(0);
       expect(buttons.every((l) => l.size === 'm')).to.be.ok;
@@ -60,9 +60,7 @@ describe(`sbb-action-group with ${fixture.name}`, () => {
     it('should update attributes with link-size="s"', async () => {
       element.setAttribute('link-size', 's');
       await waitForLitRender(element);
-      const links = Array.from(
-        document.querySelectorAll('sbb-action-group sbb-block-link'),
-      ) as SbbBlockLinkElement[];
+      const links = Array.from(element.querySelectorAll('sbb-block-link')) as SbbBlockLinkElement[];
       expect(links.length).to.be.greaterThan(0);
       expect(links.every((l) => l.size === 's')).to.be.ok;
     });

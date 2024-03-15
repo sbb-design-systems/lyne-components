@@ -13,18 +13,20 @@ describe(`sbb-popover-trigger with ${fixture.name}`, () => {
   let element: SbbPopoverTriggerElement, popover: SbbPopoverElement;
 
   beforeEach(async () => {
-    await fixture(
+    const root = await fixture(
       html`
-        <sbb-popover-trigger id="popover-trigger"></sbb-popover-trigger>
-        <sbb-popover id="popover" trigger="popover-trigger" disable-animation>
-          Popover content.
-          <sbb-link id="popover-link" sbb-popover-close>Link</sbb-link>
-        </sbb-popover>
+        <div>
+          <sbb-popover-trigger id="popover-trigger"></sbb-popover-trigger>
+          <sbb-popover id="popover" trigger="popover-trigger" disable-animation>
+            Popover content.
+            <sbb-link id="popover-link" sbb-popover-close>Link</sbb-link>
+          </sbb-popover>
+        </div>
       `,
       { modules: ['./popover-trigger.ts', '../popover/index.ts', '../../link/index.ts'] },
     );
-    element = document.querySelector<SbbPopoverTriggerElement>('sbb-popover-trigger')!;
-    popover = document.querySelector<SbbPopoverElement>('sbb-popover')!;
+    element = root.querySelector<SbbPopoverTriggerElement>('sbb-popover-trigger')!;
+    popover = root.querySelector<SbbPopoverElement>('sbb-popover')!;
   });
 
   it('renders', () => {

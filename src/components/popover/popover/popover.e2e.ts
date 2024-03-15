@@ -127,7 +127,7 @@ describe(`sbb-popover with ${fixture.name}`, () => {
       const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
       const willCloseEventSpy = new EventSpy(SbbPopoverElement.events.willClose);
       const didCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose);
-      const popoverLink = document.querySelector('sbb-popover > sbb-link') as HTMLElement;
+      const popoverLink = element.querySelector(':scope > sbb-link') as HTMLElement;
 
       trigger.click();
 
@@ -174,10 +174,9 @@ describe(`sbb-popover with ${fixture.name}`, () => {
       expect(buttonHeight.trim()).to.be.equal('3.5rem');
 
       const buttonHeightPx = parseFloat(buttonHeight) * 16;
-      const button = document.querySelector<SbbButtonElement>('sbb-button')!;
-      expect(button.offsetHeight).to.be.equal(buttonHeightPx);
-      expect(button.offsetTop).to.be.equal(0);
-      expect(button.offsetLeft).to.be.equal(0);
+      expect(trigger.offsetHeight).to.be.equal(buttonHeightPx);
+      expect(trigger.offsetTop).to.be.equal(0);
+      expect(trigger.offsetLeft).to.be.equal(0);
 
       // Expect overlay offsetTop to be equal to the trigger height + the overlay offset (8px)
       const popoverOverlay = element.shadowRoot!.querySelector<HTMLElement>('.sbb-popover')!;
@@ -204,7 +203,7 @@ describe(`sbb-popover with ${fixture.name}`, () => {
     });
 
     it('should set correct focus attribute on trigger after backdrop click on an interactive element', async () => {
-      const interactiveBackgroundElement = document.querySelector(
+      const interactiveBackgroundElement = element.parentElement!.querySelector(
         '#interactive-background-element',
       ) as HTMLElement;
       const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
@@ -230,7 +229,7 @@ describe(`sbb-popover with ${fixture.name}`, () => {
     it('closes on interactive element click by keyboard', async () => {
       const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
       const didCloseEventSpy = new EventSpy(SbbPopoverElement.events.didClose);
-      const popoverLink = document.querySelector('sbb-popover > sbb-link') as HTMLElement;
+      const popoverLink = element.querySelector(':scope > sbb-link') as HTMLElement;
 
       trigger.click();
 
@@ -452,26 +451,28 @@ describe(`sbb-popover with ${fixture.name}`, () => {
   });
 
   it('should close an open popover when another one is opened', async () => {
-    await fixture(
+    const root = await fixture(
       html`
-        <sbb-block-link href="#somewhere" id="interactive-background-element"
-          >Other interactive element</sbb-block-link
-        >
-        <sbb-button id="popover-trigger">Popover trigger</sbb-button>
-        <sbb-button id="another-popover-trigger">Another popover trigger</sbb-button>
-        <sbb-popover id="popover" trigger="popover-trigger" disable-animation>
-          Popover content.
-        </sbb-popover>
-        <sbb-popover id="another-popover" trigger="another-popover-trigger" disable-animation>
-          Another popover content.
-        </sbb-popover>
+        <div>
+          <sbb-block-link href="#somewhere" id="interactive-background-element"
+            >Other interactive element</sbb-block-link
+          >
+          <sbb-button id="popover-trigger">Popover trigger</sbb-button>
+          <sbb-button id="another-popover-trigger">Another popover trigger</sbb-button>
+          <sbb-popover id="popover" trigger="popover-trigger" disable-animation>
+            Popover content.
+          </sbb-popover>
+          <sbb-popover id="another-popover" trigger="another-popover-trigger" disable-animation>
+            Another popover content.
+          </sbb-popover>
+        </div>
       `,
       { modules: ['../../link/index.ts', '../../button/index.ts', './popover.ts'] },
     );
-    trigger = document.querySelector<SbbButtonElement>('#popover-trigger')!;
-    element = document.querySelector<SbbPopoverElement>('#popover')!;
-    const secondTrigger = document.querySelector<SbbButtonElement>('#another-popover-trigger');
-    const secondElement = document.querySelector<SbbPopoverElement>('#another-popover');
+    trigger = root.querySelector<SbbButtonElement>('#popover-trigger')!;
+    element = root.querySelector<SbbPopoverElement>('#popover')!;
+    const secondTrigger = root.querySelector<SbbButtonElement>('#another-popover-trigger');
+    const secondElement = root.querySelector<SbbPopoverElement>('#another-popover');
 
     const willOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);
     const didOpenEventSpy = new EventSpy(SbbPopoverElement.events.didOpen);

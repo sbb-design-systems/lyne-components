@@ -25,7 +25,6 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
     });
 
     it('should remove the label element if no label is configured', async () => {
-      expect(document.querySelectorAll('sbb-form-field label').length).to.be.equal(0);
       expect(element.querySelector('label')).to.be.null;
 
       element.setAttribute('label', 'Label');
@@ -87,7 +86,7 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
     it('should assign id to input and reference it in the label', async () => {
       element.setAttribute('label', 'Example');
       await waitForLitRender(element);
-      const label = document.querySelector('label');
+      const label = element.querySelector('label');
 
       await waitForLitRender(element);
 
@@ -153,7 +152,7 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
         `,
         { modules: ['./form-field.ts', '../../select/index.ts', '../../option/index.ts'] },
       );
-      select = document.querySelector<SbbSelectElement>('sbb-select')!;
+      select = element.querySelector<SbbSelectElement>('sbb-select')!;
       await waitForLitRender(element);
     });
 
@@ -178,7 +177,7 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
     it('should open select on form field click', async () => {
       expect(element).not.to.have.attribute('data-input-focused');
 
-      const label = document.querySelector('label')!;
+      const label = element.querySelector('label')!;
       label.click();
       await waitForLitRender(element);
 
@@ -191,7 +190,7 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
 
       expect(element).not.to.have.attribute('data-input-focused');
 
-      const label = document.querySelector('label')!;
+      const label = element.querySelector('label')!;
       label.click();
       await waitForLitRender(element);
 
@@ -201,7 +200,7 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
     it('should assign id to label and reference it in the sbb-select', async () => {
       element.setAttribute('label', 'Example');
       await waitForLitRender(element);
-      const label = document.querySelector('label')!;
+      const label = element.querySelector('label')!;
 
       expect(label.id).to.match(/^sbb-form-field-label-/);
       expect(select).to.have.attribute('aria-labelledby', label.id);
@@ -282,7 +281,7 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
     });
 
     it('should update floating label after clearing', async () => {
-      const element: SbbFormFieldElement = await fixture(
+      const element = await fixture<SbbFormFieldElement>(
         html` <sbb-form-field floating-label>
           <sbb-select>
             <sbb-option value="1" selected>Displayed Value</sbb-option>
@@ -291,7 +290,7 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
         { modules: ['./form-field.ts', '../../select/index.ts', '../../option/index.ts'] },
       );
 
-      document.querySelector<SbbSelectElement>('sbb-select')!.value = '';
+      element.querySelector<SbbSelectElement>('sbb-select')!.value = '';
       await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-input-empty');
@@ -330,8 +329,7 @@ describe(`sbb-form-field with ${fixture.name}`, () => {
         `,
         { modules: ['./form-field.ts'] },
       );
-
-      const input = document.querySelector<HTMLInputElement>('input')!;
+      const input = element.querySelector<HTMLInputElement>('input')!;
 
       input.focus();
       await sendKeys({ type: 'test' });

@@ -24,9 +24,9 @@ describe(`sbb-checkbox-group with ${fixture.name}`, () => {
       `,
       { modules: ['./checkbox-group.ts', '../checkbox/index.ts'] },
     );
-    checkboxOne = document.querySelector<SbbCheckboxElement>('#checkbox-1')!;
-    checkboxTwo = document.querySelector<SbbCheckboxElement>('#checkbox-2')!;
-    checkboxThree = document.querySelector<SbbCheckboxElement>('#checkbox-3')!;
+    checkboxOne = element.querySelector<SbbCheckboxElement>('#checkbox-1')!;
+    checkboxTwo = element.querySelector<SbbCheckboxElement>('#checkbox-2')!;
+    checkboxThree = element.querySelector<SbbCheckboxElement>('#checkbox-3')!;
   });
 
   it('renders', async () => {

@@ -33,7 +33,7 @@ if (isHydratedSsr()) {
   await import('@lit-labs/ssr-client/lit-element-hydrate-support.js');
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function globalTestingSetup(): void {
   beforeEach(() => {
     sbbInputModalityDetector.reset();
   });
@@ -42,4 +42,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const fixtures = await import('@lit-labs/testing/fixtures.js');
     fixtures.cleanupFixtures();
   });
-});
+}
+
+if (document.readyState === 'loading') {
+  // Loading hasn't finished yet
+  document.addEventListener('DOMContentLoaded', globalTestingSetup);
+} else {
+  setTimeout(globalTestingSetup);
+}

@@ -33,11 +33,9 @@ describe(`sbb-toggle with ${fixture.name}`, () => {
 
   describe('events', () => {
     it('selects option on click', async () => {
-      const firstOption = document.querySelector(
-        'sbb-toggle > sbb-toggle-option#sbb-toggle-option-1',
-      );
-      const secondOption = document.querySelector(
-        'sbb-toggle > sbb-toggle-option#sbb-toggle-option-2',
+      const firstOption = element.querySelector(':scope > sbb-toggle-option#sbb-toggle-option-1');
+      const secondOption = element.querySelector(
+        ':scope > sbb-toggle-option#sbb-toggle-option-2',
       ) as SbbToggleOptionElement;
 
       expect(firstOption).to.have.attribute('checked');
@@ -51,12 +49,8 @@ describe(`sbb-toggle with ${fixture.name}`, () => {
     });
 
     it('selects option on checked attribute change', async () => {
-      const firstOption = document.querySelector(
-        'sbb-toggle > sbb-toggle-option#sbb-toggle-option-1',
-      );
-      const secondOption = document.querySelector(
-        'sbb-toggle > sbb-toggle-option#sbb-toggle-option-2',
-      )!;
+      const firstOption = element.querySelector(':scope > sbb-toggle-option#sbb-toggle-option-1');
+      const secondOption = element.querySelector(':scope > sbb-toggle-option#sbb-toggle-option-2')!;
 
       expect(firstOption).to.have.attribute('checked');
 
@@ -68,11 +62,11 @@ describe(`sbb-toggle with ${fixture.name}`, () => {
     });
 
     it('dispatches event on option change', async () => {
-      const firstOption = document.querySelector(
-        'sbb-toggle > sbb-toggle-option#sbb-toggle-option-1',
+      const firstOption = element.querySelector(
+        ':scope > sbb-toggle-option#sbb-toggle-option-1',
       ) as SbbToggleOptionElement;
-      const secondOption = document.querySelector(
-        'sbb-toggle > sbb-toggle-option#sbb-toggle-option-2',
+      const secondOption = element.querySelector(
+        ':scope > sbb-toggle-option#sbb-toggle-option-2',
       ) as SbbToggleOptionElement;
       const changeSpy = new EventSpy('change');
       const inputSpy = new EventSpy('input');
@@ -89,11 +83,11 @@ describe(`sbb-toggle with ${fixture.name}`, () => {
     });
 
     it('prevents selection with disabled state', async () => {
-      const firstOption = document.querySelector(
-        'sbb-toggle > sbb-toggle-option#sbb-toggle-option-1',
+      const firstOption = element.querySelector(
+        ':scope > sbb-toggle-option#sbb-toggle-option-1',
       ) as SbbToggleOptionElement;
-      const secondOption = document.querySelector(
-        'sbb-toggle > sbb-toggle-option#sbb-toggle-option-2',
+      const secondOption = element.querySelector(
+        ':scope > sbb-toggle-option#sbb-toggle-option-2',
       ) as SbbToggleOptionElement;
 
       element.disabled = true;
@@ -116,11 +110,11 @@ describe(`sbb-toggle with ${fixture.name}`, () => {
     it('selects option on left arrow key pressed', async () => {
       const changeSpy = new EventSpy('change');
       const inputSpy = new EventSpy('input');
-      const firstOption = document.querySelector(
-        'sbb-toggle > sbb-toggle-option#sbb-toggle-option-1',
+      const firstOption = element.querySelector(
+        ':scope > sbb-toggle-option#sbb-toggle-option-1',
       ) as SbbToggleOptionElement;
-      const secondOption = document.querySelector(
-        'sbb-toggle > sbb-toggle-option#sbb-toggle-option-2',
+      const secondOption = element.querySelector(
+        ':scope > sbb-toggle-option#sbb-toggle-option-2',
       ) as SbbToggleOptionElement;
 
       firstOption.focus();
@@ -142,11 +136,11 @@ describe(`sbb-toggle with ${fixture.name}`, () => {
     it('selects option on right arrow key pressed', async () => {
       const changeSpy = new EventSpy('change');
       const inputSpy = new EventSpy('input');
-      const firstOption = document.querySelector(
-        'sbb-toggle > sbb-toggle-option#sbb-toggle-option-1',
+      const firstOption = element.querySelector(
+        ':scope > sbb-toggle-option#sbb-toggle-option-1',
       ) as SbbToggleOptionElement;
-      const secondOption = document.querySelector(
-        'sbb-toggle > sbb-toggle-option#sbb-toggle-option-2',
+      const secondOption = element.querySelector(
+        ':scope > sbb-toggle-option#sbb-toggle-option-2',
       ) as SbbToggleOptionElement;
 
       firstOption.focus();

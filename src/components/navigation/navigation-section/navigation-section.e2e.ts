@@ -12,7 +12,7 @@ describe(`sbb-navigation-section with ${fixture.name}`, () => {
   let element: SbbNavigationSectionElement;
 
   beforeEach(async () => {
-    await fixture(
+    const root = await fixture(
       html`
         <sbb-navigation disable-animation>
           <sbb-navigation-section disable-animation>
@@ -34,7 +34,7 @@ describe(`sbb-navigation-section with ${fixture.name}`, () => {
         ],
       },
     );
-    element = document.querySelector<SbbNavigationSectionElement>('sbb-navigation-section')!;
+    element = root.querySelector<SbbNavigationSectionElement>('sbb-navigation-section')!;
   });
 
   it('renders', async () => {

@@ -20,43 +20,49 @@ describe(`sbb-datepicker with ${fixture.name}`, () => {
   });
 
   it('renders and formats date', async () => {
-    await fixture(
+    const element = await fixture(
       html`
-        <input id="datepicker-input" value="01-01-2023" />
-        <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
+        <div>
+          <input id="datepicker-input" value="01-01-2023" />
+          <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
+        </div>
       `,
       { modules: ['./datepicker.ts'] },
     );
 
-    const input: HTMLInputElement = document.querySelector<HTMLInputElement>('input')!;
+    const input: HTMLInputElement = element.querySelector<HTMLInputElement>('input')!;
 
     expect(input.value).to.be.equal('Su, 01.01.2023');
   });
 
   it('renders and interprets iso string date', async () => {
-    await fixture(
+    const element = await fixture(
       html`
-        <input id="datepicker-input" value="2021-12-20" />
-        <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
+        <div>
+          <input id="datepicker-input" value="2021-12-20" />
+          <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
+        </div>
       `,
       { modules: ['./datepicker.ts'] },
     );
 
-    const input: HTMLInputElement = document.querySelector<HTMLInputElement>('input')!;
+    const input: HTMLInputElement = element.querySelector<HTMLInputElement>('input')!;
 
     expect(input.value).to.be.equal('Mo, 20.12.2021');
   });
 
   it('renders and interprets timestamp', async () => {
-    await fixture(
+    const element = await fixture(
       html`
-        <input id="datepicker-input" value="1594512000000" />
-        <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
+        <div>
+          <input id="datepicker-input" value="1594512000000" />
+          <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
+        </div>
       `,
       { modules: ['./datepicker.ts'] },
     );
 
-    const input: HTMLInputElement = document.querySelector<HTMLInputElement>('input')!;
+    const input: HTMLInputElement = element.querySelector<HTMLInputElement>('input')!;
 
     expect(input.value).to.be.equal('Su, 12.07.2020');
   });
@@ -65,11 +71,20 @@ describe(`sbb-datepicker with ${fixture.name}`, () => {
     let element: SbbDatepickerElement, input: HTMLInputElement, button: HTMLButtonElement;
 
     beforeEach(async () => {
-      await fixture(template, { modules: [] });
-      element = document.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
-      input = document.querySelector<HTMLInputElement>('input')!;
-      button = document.querySelector<HTMLButtonElement>('button')!;
+      const root = await fixture(template, {
+        modules: ['./datepicker.ts', '../../form-field/index.ts'],
+      });
+      element = root.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
+      input = root.querySelector<HTMLInputElement>('input')!;
+      button = root.querySelector<HTMLButtonElement>('button')!;
       await waitForLitRender(element);
+    });
+
+    it('renders', async () => {
+      assert.instanceOf(element, SbbDatepickerElement);
+      expect(input).dom.to.be.equal(
+        '<input id="datepicker-input" placeholder="DD.MM.YYYY" type="text">',
+      );
     });
 
     it('renders and emit event on value change', async function (this: Context) {
@@ -329,42 +344,24 @@ describe(`sbb-datepicker with ${fixture.name}`, () => {
   };
 
   describe('with input', () => {
-    const template = html`
+    commonBehaviorTest(html`
       <div>
         <sbb-datepicker input="datepicker-input"></sbb-datepicker>
         <input id="datepicker-input" />
         <button></button>
       </div>
-    `;
-
-    it('renders', async () => {
-      const page = await fixture(template, { modules: [] });
-      assert.instanceOf(page.querySelector('sbb-datepicker'), SbbDatepickerElement);
-      expect(document.querySelector('input')).dom.to.be.equal(
-        '<input id="datepicker-input" type="text" placeholder="DD.MM.YYYY">',
-      );
-    });
-
-    commonBehaviorTest(template);
+    `);
   });
 
   describe('with form-field', () => {
-    const template = html`
-      <sbb-form-field>
-        <sbb-datepicker></sbb-datepicker>
-        <input id="datepicker-input" />
-      </sbb-form-field>
-      <button></button>
-    `;
-
-    it('renders', async () => {
-      const page = await fixture(template, { modules: [] });
-      assert.instanceOf(page.querySelector('sbb-datepicker'), SbbDatepickerElement);
-      expect(document.querySelector('input')).dom.to.be.equal(
-        '<input id="datepicker-input" placeholder="DD.MM.YYYY" type="text">',
-      );
-    });
-
-    commonBehaviorTest(template);
+    commonBehaviorTest(html`
+      <div>
+        <sbb-form-field>
+          <sbb-datepicker></sbb-datepicker>
+          <input id="datepicker-input" />
+        </sbb-form-field>
+        <button></button>
+      </div>
+    `);
   });
 });

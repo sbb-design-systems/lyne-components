@@ -17,7 +17,7 @@ describe(`sbb-select with ${fixture.name}`, () => {
     comboBoxElement: HTMLElement;
 
   beforeEach(async () => {
-    await fixture(
+    const root = await fixture(
       html`
         <div id="parent">
           <sbb-select placeholder="Placeholder" disable-animation>
@@ -29,10 +29,10 @@ describe(`sbb-select with ${fixture.name}`, () => {
       `,
       { modules: ['./select.ts', '../option/index.ts'] },
     );
-    element = document.querySelector<SbbSelectElement>('sbb-select')!;
+    element = root.querySelector<SbbSelectElement>('sbb-select')!;
     await waitForLitRender(element);
 
-    comboBoxElement = document.querySelector('[role="combobox"]')!;
+    comboBoxElement = root.querySelector('[role="combobox"]')!;
     focusableElement = comboBoxElement;
     firstOption = element.querySelector<SbbOptionElement>('#option-1')!;
     secondOption = element.querySelector<SbbOptionElement>('#option-2')!;

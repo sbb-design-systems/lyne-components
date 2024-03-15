@@ -98,16 +98,16 @@ describe(`sbb-card-link with ${fixture.name}`, () => {
       </sbb-card>`,
       { modules: ['../card/index.ts', './card-link.ts'] },
     );
-    expect(document.querySelector('button')).to.have.attribute('data-card-focusable');
+    expect(element.querySelector('button')).to.have.attribute('data-card-focusable');
 
     // Add a second button in content
-    document
-      .getElementById('content')!
-      .insertBefore(document.createElement('button'), document.querySelector('button'));
+    element
+      .querySelector('#content')!
+      .insertBefore(document.createElement('button'), element.querySelector('button'));
 
     // Both buttons should be marked as focusable
     await waitForLitRender(element);
-    const buttons = document.querySelectorAll('button');
+    const buttons = element.querySelectorAll('button');
     expect(buttons.length).to.be.equal(2);
     expect(
       Array.from(buttons).every((el) => el.getAttribute('data-card-focusable') !== null),
@@ -118,7 +118,7 @@ describe(`sbb-card-link with ${fixture.name}`, () => {
     await waitForLitRender(element);
 
     // Card should not have marker anymore
-    expect(document.querySelectorAll('button').length).to.be.equal(0);
+    expect(element.querySelectorAll('button').length).to.be.equal(0);
   });
 
   it('should detect added second element of slot to update focusable elements', async () => {
@@ -133,11 +133,11 @@ describe(`sbb-card-link with ${fixture.name}`, () => {
     // Add a button to slot
     document
       .querySelector<SbbCardElement>('sbb-card')!
-      .insertBefore(document.createElement('button'), document.getElementById('content'));
+      .insertBefore(document.createElement('button'), element.querySelector('#content'));
     await waitForLitRender(element);
 
     // Button should be marked as focusable
-    expect(document.querySelector('button')).to.have.attribute('data-card-focusable');
+    expect(element.querySelector('button')).to.have.attribute('data-card-focusable');
   });
 
   it('should detect focusable elements when action was added at later point', async () => {
@@ -153,11 +153,11 @@ describe(`sbb-card-link with ${fixture.name}`, () => {
     // Add a sbb-card-link
     const link = document.createElement('sbb-card-link');
     link.setAttribute('href', '#');
-    document.querySelector<SbbCardElement>('sbb-card')!.appendChild(link);
+    element.appendChild(link);
     await waitForLitRender(element);
 
     // Button should be marked as focusable
-    expect(document.querySelector('button')).to.have.attribute('data-card-focusable');
+    expect(element.querySelector('button')).to.have.attribute('data-card-focusable');
   });
 
   describe('events', () => {
@@ -173,7 +173,7 @@ describe(`sbb-card-link with ${fixture.name}`, () => {
         `,
         { modules: ['../card/index.ts', './card-link.ts'] },
       );
-      action = document.querySelector<SbbCardLinkElement>('sbb-card-link')!;
+      action = element.querySelector<SbbCardLinkElement>('sbb-card-link')!;
     });
 
     it('dispatches event on click', async () => {

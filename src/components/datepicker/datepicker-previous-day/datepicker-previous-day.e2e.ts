@@ -23,19 +23,20 @@ describe(`sbb-datepicker-previous-day with ${fixture.name}`, () => {
 
   describe('with picker', () => {
     it('renders and click', async () => {
-      await fixture(
+      const root = await fixture(
         html`
-          <input id="datepicker-input" value="01-01-2023" />
-          <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-previous-day>
-          <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
+          <div>
+            <input id="datepicker-input" value="01-01-2023" />
+            <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-previous-day>
+            <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
+          </div>
         `,
         { modules: ['./datepicker-previous-day.ts', '../datepicker/index.ts'] },
       );
-      const element: SbbDatepickerPreviousDayElement = document.querySelector(
+      const element: SbbDatepickerPreviousDayElement = root.querySelector(
         'sbb-datepicker-previous-day',
       )!;
-      const input: HTMLInputElement = document.querySelector<HTMLInputElement>('input')!;
-      await waitForLitRender(element);
+      const input: HTMLInputElement = root.querySelector<HTMLInputElement>('input')!;
       assert.instanceOf(element, SbbDatepickerPreviousDayElement);
       expect(input.value).to.be.equal('Su, 01.01.2023');
 
@@ -63,10 +64,7 @@ describe(`sbb-datepicker-previous-day with ${fixture.name}`, () => {
 
       const prevButton: SbbDatepickerPreviousDayElement =
         doc.querySelector<SbbDatepickerPreviousDayElement>('sbb-datepicker-previous-day')!;
-      const inputUpdated: EventSpy<Event> = new EventSpy(
-        'inputUpdated',
-        document.querySelector('#parent'),
-      );
+      const inputUpdated: EventSpy<Event> = new EventSpy('inputUpdated', doc);
       // there's no datepicker, so no event and the button is disabled due _datePickerElement not set
       expect(prevButton).not.to.be.null;
       expect(inputUpdated.count).to.be.equal(0);
@@ -85,23 +83,25 @@ describe(`sbb-datepicker-previous-day with ${fixture.name}`, () => {
     });
 
     it('datepicker is created after the component with different parent', async () => {
-      const doc = await fixture(
+      const root = await fixture(
         html`
-          <div id="parent">
-            <input id="datepicker-input" value="01-01-2023" />
-            <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-previous-day>
+          <div>
+            <div id="parent">
+              <input id="datepicker-input" value="01-01-2023" />
+              <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-previous-day>
+            </div>
+            <div id="other"></div>
           </div>
-          <div id="other"></div>
         `,
         { modules: ['./datepicker-previous-day.ts'] },
       );
-      await waitForLitRender(doc);
+      await waitForLitRender(root);
 
       const prevButton: SbbDatepickerPreviousDayElement =
-        doc.querySelector<SbbDatepickerPreviousDayElement>('sbb-datepicker-previous-day')!;
+        root.querySelector<SbbDatepickerPreviousDayElement>('sbb-datepicker-previous-day')!;
       const inputUpdated: EventSpy<Event> = new EventSpy(
         'inputUpdated',
-        document.querySelector('#parent'),
+        root.querySelector('#parent'),
       );
       // there's no datepicker, so no event and the button is disabled due _datePickerElement not set
       expect(prevButton).not.to.be.null;
@@ -112,8 +112,8 @@ describe(`sbb-datepicker-previous-day with ${fixture.name}`, () => {
       picker.setAttribute('input', 'datepicker-input');
       picker.setAttribute('id', 'datepicker');
       picker.setAttribute('value', '01-01-2023');
-      document.querySelector<HTMLDivElement>('#other')!.appendChild(picker);
-      await waitForLitRender(doc);
+      root.querySelector<HTMLDivElement>('#other')!.appendChild(picker);
+      await waitForLitRender(root);
 
       // the datepicker is connected on a different parent, so no changes are triggered
       expect(inputUpdated.count).to.be.equal(0);
@@ -191,7 +191,7 @@ describe(`sbb-datepicker-previous-day with ${fixture.name}`, () => {
 
     it('disabled due disabled picker', async () => {
       expect(input.value).to.be.equal('Fr, 20.01.2023');
-      document.querySelector<HTMLInputElement>('input')!.setAttribute('disabled', '');
+      input.setAttribute('disabled', '');
       await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-disabled');

@@ -10,11 +10,9 @@ import '../train';
 import '../train-wagon';
 import '../train-blocked-passage';
 
-function extractAggregatedSectors(): Record<string, string>[] {
+function extractAggregatedSectors(element: SbbTrainFormationElement): Record<string, string>[] {
   return Array.from(
-    document
-      .querySelector<SbbTrainFormationElement>('sbb-train-formation')!
-      .shadowRoot!.querySelectorAll<HTMLSpanElement>('.sbb-train-formation__sector') || [],
+    element.shadowRoot!.querySelectorAll<HTMLSpanElement>('.sbb-train-formation__sector') || [],
   ).map((sector) => {
     const computedStyles = getComputedStyle(sector);
 
@@ -49,7 +47,7 @@ describe(`sbb-train-formation with ${fixture.name}`, () => {
 
   describe('sectors building', () => {
     it('should collect wagons with one sector', async () => {
-      await fixture(
+      element = await fixture<SbbTrainFormationElement>(
         html`
           <sbb-train-formation>
             <sbb-train>
@@ -63,7 +61,7 @@ describe(`sbb-train-formation with ${fixture.name}`, () => {
         { modules: ssrModules },
       );
 
-      const aggregatedSectors = extractAggregatedSectors();
+      const aggregatedSectors = extractAggregatedSectors(element);
       expect(aggregatedSectors).to.be.eql([
         {
           label: 'Sector A',
@@ -74,7 +72,7 @@ describe(`sbb-train-formation with ${fixture.name}`, () => {
     });
 
     it('should collect wagons with two sectors', async () => {
-      await fixture(
+      element = await fixture<SbbTrainFormationElement>(
         html`
           <sbb-train-formation>
             <sbb-train>
@@ -88,7 +86,7 @@ describe(`sbb-train-formation with ${fixture.name}`, () => {
         { modules: ssrModules },
       );
 
-      const aggregatedSectors = extractAggregatedSectors();
+      const aggregatedSectors = extractAggregatedSectors(element);
       expect(aggregatedSectors).to.be.eql([
         {
           label: 'Sec. A',
@@ -104,7 +102,7 @@ describe(`sbb-train-formation with ${fixture.name}`, () => {
     });
 
     it('should collect wagons when a middle sector name is missing', async () => {
-      await fixture(
+      element = await fixture<SbbTrainFormationElement>(
         html`
           <sbb-train-formation>
             <sbb-train>
@@ -117,7 +115,7 @@ describe(`sbb-train-formation with ${fixture.name}`, () => {
         { modules: ssrModules },
       );
 
-      const aggregatedSectors = extractAggregatedSectors();
+      const aggregatedSectors = extractAggregatedSectors(element);
       expect(aggregatedSectors).to.be.eql([
         {
           label: 'Sector A',
@@ -133,7 +131,7 @@ describe(`sbb-train-formation with ${fixture.name}`, () => {
     });
 
     it('should collect wagons when the first sector name is missing', async () => {
-      await fixture(
+      element = await fixture<SbbTrainFormationElement>(
         html`
           <sbb-train-formation>
             <sbb-train>
@@ -147,7 +145,7 @@ describe(`sbb-train-formation with ${fixture.name}`, () => {
         { modules: ssrModules },
       );
 
-      const aggregatedSectors = extractAggregatedSectors();
+      const aggregatedSectors = extractAggregatedSectors(element);
       expect(aggregatedSectors).to.be.eql([
         {
           label: 'Sector B',
@@ -158,7 +156,7 @@ describe(`sbb-train-formation with ${fixture.name}`, () => {
     });
 
     it('should collect wagons when skipping a wagon in the middle', async () => {
-      await fixture(
+      element = await fixture<SbbTrainFormationElement>(
         html`
           <sbb-train-formation>
             <sbb-train>
@@ -170,7 +168,7 @@ describe(`sbb-train-formation with ${fixture.name}`, () => {
         { modules: ssrModules },
       );
 
-      const aggregatedSectors = extractAggregatedSectors();
+      const aggregatedSectors = extractAggregatedSectors(element);
       expect(aggregatedSectors).to.be.eql([
         {
           label: 'Sector A',
@@ -181,7 +179,7 @@ describe(`sbb-train-formation with ${fixture.name}`, () => {
     });
 
     it('should collect over multiple trains', async () => {
-      await fixture(
+      element = await fixture<SbbTrainFormationElement>(
         html`
           <sbb-train-formation>
             <sbb-train>
@@ -195,7 +193,7 @@ describe(`sbb-train-formation with ${fixture.name}`, () => {
         { modules: ['./train-formation.ts', '../train/index.ts', '../train-wagon/index.ts'] },
       );
 
-      expect(extractAggregatedSectors()).to.be.eql([
+      expect(extractAggregatedSectors(element)).to.be.eql([
         {
           label: 'Sec. A',
           wagonCount: '1',
@@ -223,7 +221,7 @@ describe(`sbb-train-formation with ${fixture.name}`, () => {
         { modules: ['./train-formation.ts', '../train/index.ts', '../train-wagon/index.ts'] },
       );
 
-      expect(extractAggregatedSectors()).to.be.eql([
+      expect(extractAggregatedSectors(element)).to.be.eql([
         {
           label: 'Sector A',
           wagonCount: '3',
@@ -234,7 +232,7 @@ describe(`sbb-train-formation with ${fixture.name}`, () => {
       element.querySelector<SbbTrainWagonElement>('sbb-train-wagon')!.sector = 'Z';
       await waitForLitRender(element);
 
-      expect(extractAggregatedSectors()).to.be.eql([
+      expect(extractAggregatedSectors(element)).to.be.eql([
         {
           label: 'Sec. Z',
           wagonCount: '1',
@@ -262,7 +260,7 @@ describe(`sbb-train-formation with ${fixture.name}`, () => {
         { modules: ['./train-formation.ts', '../train/index.ts', '../train-wagon/index.ts'] },
       );
 
-      expect(extractAggregatedSectors()).to.be.eql([
+      expect(extractAggregatedSectors(element)).to.be.eql([
         {
           label: 'Sector A',
           wagonCount: '3',
@@ -273,7 +271,7 @@ describe(`sbb-train-formation with ${fixture.name}`, () => {
       element.querySelector<SbbTrainWagonElement>('sbb-train-wagon')!.setAttribute('sector', 'Z');
       await waitForLitRender(element);
 
-      expect(extractAggregatedSectors()).to.be.eql([
+      expect(extractAggregatedSectors(element)).to.be.eql([
         {
           label: 'Sec. Z',
           wagonCount: '1',
@@ -304,7 +302,7 @@ describe(`sbb-train-formation with ${fixture.name}`, () => {
       element.querySelector<SbbTrainWagonElement>('sbb-train-wagon')!.remove();
       await waitForLitRender(element);
 
-      expect(extractAggregatedSectors()).to.be.eql([
+      expect(extractAggregatedSectors(element)).to.be.eql([
         {
           label: 'Sec. B',
           wagonCount: '1',
@@ -337,7 +335,7 @@ describe(`sbb-train-formation with ${fixture.name}`, () => {
       element.querySelector<SbbTrainElement>('sbb-train')!.remove();
       await waitForLitRender(element);
 
-      expect(extractAggregatedSectors()).to.be.eql([
+      expect(extractAggregatedSectors(element)).to.be.eql([
         {
           label: 'Sec. B',
           wagonCount: '1',

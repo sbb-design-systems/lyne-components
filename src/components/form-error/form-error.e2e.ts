@@ -9,9 +9,9 @@ describe(`sbb-form-error with ${fixture.name}`, () => {
   let element: SbbFormErrorElement;
 
   it('renders', async () => {
-    await fixture(html`<sbb-form-error></sbb-form-error>`, { modules: ['./form-error.ts'] });
-
-    element = document.querySelector<SbbFormErrorElement>('sbb-form-error')!;
+    element = await fixture(html`<sbb-form-error></sbb-form-error>`, {
+      modules: ['./form-error.ts'],
+    });
     assert.instanceOf(element, SbbFormErrorElement);
   });
 });

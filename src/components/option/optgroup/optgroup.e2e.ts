@@ -28,9 +28,9 @@ describe(`sbb-optgroup with ${fixture.name}`, () => {
   });
 
   it('disabled status is inherited', async () => {
-    const optionOne = document.querySelector('sbb-optgroup > sbb-option#option-1');
-    const optionTwo = document.querySelector('sbb-optgroup > sbb-option#option-2');
-    const optionThree = document.querySelector('sbb-optgroup > sbb-option#option-3');
+    const optionOne = element.querySelector(':scope > sbb-option#option-1');
+    const optionTwo = element.querySelector(':scope > sbb-option#option-2');
+    const optionThree = element.querySelector(':scope > sbb-option#option-3');
     element.setAttribute('disabled', '');
     await waitForLitRender(element);
 
@@ -47,15 +47,9 @@ describe(`sbb-optgroup with ${fixture.name}`, () => {
   });
 
   it('disabled status prevents changes', async () => {
-    const optionOne: SbbOptionElement = document.querySelector<SbbOptionElement>(
-      'sbb-optgroup > sbb-option#option-1',
-    )!;
-    const optionTwo: SbbOptionElement = document.querySelector<SbbOptionElement>(
-      'sbb-optgroup > sbb-option#option-2',
-    )!;
-    const optionThree: SbbOptionElement = document.querySelector<SbbOptionElement>(
-      'sbb-optgroup > sbb-option#option-3',
-    )!;
+    const optionOne = element.querySelector<SbbOptionElement>(':scope > sbb-option#option-1')!;
+    const optionTwo = element.querySelector<SbbOptionElement>(':scope > sbb-option#option-2')!;
+    const optionThree = element.querySelector<SbbOptionElement>(':scope > sbb-option#option-3')!;
     const options = [optionOne, optionTwo, optionThree];
 
     options.forEach((opt) => expect(opt).not.to.have.attribute('selected'));

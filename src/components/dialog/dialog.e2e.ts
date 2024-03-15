@@ -290,7 +290,7 @@ describe(`sbb-dialog with ${fixture.name}`, () => {
 
     await openDialog(element);
 
-    const stackedDialog = document.querySelector('#stacked-dialog') as SbbDialogElement;
+    const stackedDialog = element.querySelector('#stacked-dialog') as SbbDialogElement;
 
     stackedDialog.open();
     await waitForLitRender(element);

@@ -9,8 +9,7 @@ describe(`sbb-title with ${fixture.name}`, () => {
   let element: SbbTitleElement;
 
   it('renders', async () => {
-    await fixture(html`<sbb-title></sbb-title>`, { modules: ['./title.ts'] });
-    element = document.querySelector<SbbTitleElement>('sbb-title')!;
+    element = await fixture(html`<sbb-title></sbb-title>`, { modules: ['./title.ts'] });
     assert.instanceOf(element, SbbTitleElement);
   });
 });

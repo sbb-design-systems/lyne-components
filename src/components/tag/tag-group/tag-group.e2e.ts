@@ -38,7 +38,7 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
       it('should emit events and update value by checking manually', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag1 = document.querySelector<SbbTagElement>('sbb-tag')!;
+        const tag1 = element.querySelector<SbbTagElement>('sbb-tag')!;
 
         expect(tag1).not.to.have.attribute('checked');
         expect(tag1.checked).to.be.equal(false);
@@ -58,7 +58,7 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
       it('should not emit events by setting checked programmatically [prop]', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag1 = document.querySelector<SbbTagElement>('sbb-tag')!;
+        const tag1 = element.querySelector<SbbTagElement>('sbb-tag')!;
 
         tag1.checked = true;
         await waitForLitRender(element);
@@ -72,7 +72,7 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
       it('should not emit events by setting checked programmatically [attribute]', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag1 = document.querySelector<SbbTagElement>('sbb-tag')!;
+        const tag1 = element.querySelector<SbbTagElement>('sbb-tag')!;
 
         tag1.setAttribute('checked', 'true');
         await waitForLitRender(element);
@@ -106,7 +106,7 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
       it('should emit events and update value by unchecking manually', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag2 = document.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
+        const tag2 = element.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
 
         expect(tag2).to.have.attribute('checked');
         expect(tag2.checked).to.be.equal(true);
@@ -126,7 +126,7 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
       it('should not emit events by setting checked programmatically [prop]', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag2 = document.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
+        const tag2 = element.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
 
         tag2.checked = false;
         await waitForLitRender(element);
@@ -140,7 +140,7 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
       it('should not emit events by setting checked programmatically [attribute]', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag2 = document.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
+        const tag2 = element.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
 
         tag2.removeAttribute('checked');
         await waitForLitRender(element);
@@ -293,7 +293,7 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
       it('should emit events and update value by checking manually', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag1 = document.querySelector<SbbTagElement>('sbb-tag')!;
+        const tag1 = element.querySelector<SbbTagElement>('sbb-tag')!;
 
         expect(tag1).not.to.have.attribute('checked');
         expect(tag1.checked).to.be.equal(false);
@@ -313,7 +313,7 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
       it('should not emit events by setting checked programmatically [prop]', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag1 = document.querySelector<SbbTagElement>('sbb-tag')!;
+        const tag1 = element.querySelector<SbbTagElement>('sbb-tag')!;
 
         tag1.checked = true;
         await waitForLitRender(element);
@@ -327,7 +327,7 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
       it('should not emit events by setting checked programmatically [attribute]', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag1 = document.querySelector<SbbTagElement>('sbb-tag')!;
+        const tag1 = element.querySelector<SbbTagElement>('sbb-tag')!;
 
         tag1.setAttribute('checked', 'true');
         await waitForLitRender(element);
@@ -361,7 +361,7 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
       it('should avoid unchecking manually', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag2 = document.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
+        const tag2 = element.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
 
         expect(tag2).to.have.attribute('checked');
         expect(tag2.checked).to.be.equal(true);
@@ -379,7 +379,7 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
       it('should not emit events by setting checked programmatically to false [prop]', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag2 = document.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
+        const tag2 = element.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
 
         tag2.checked = false;
         await waitForLitRender(element);
@@ -394,7 +394,7 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
       it('should not emit events by setting checked programmatically to false [attribute]', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag2 = document.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
+        const tag2 = element.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
 
         tag2.removeAttribute('checked');
         await waitForLitRender(element);
@@ -409,8 +409,8 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
       it('should select another tag manually and uncheck others', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag2 = document.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
-        const tag3 = document.querySelector('sbb-tag#sbb-tag-3') as SbbTagElement;
+        const tag2 = element.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
+        const tag3 = element.querySelector('sbb-tag#sbb-tag-3') as SbbTagElement;
 
         tag3.click();
         await waitForLitRender(element);
@@ -428,14 +428,14 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
         expect(changeSpy.count).to.be.equal(1);
 
         expect(element.value).to.be.equal('tag3');
-        expect(document.querySelectorAll('sbb-tag[checked]').length).to.be.equal(1);
+        expect(element.querySelectorAll('sbb-tag[checked]').length).to.be.equal(1);
       });
 
       it('should select another tag (before) manually and uncheck others', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag1 = document.querySelector('sbb-tag#sbb-tag-1') as SbbTagElement;
-        const tag2 = document.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
+        const tag1 = element.querySelector('sbb-tag#sbb-tag-1') as SbbTagElement;
+        const tag2 = element.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
 
         tag1.click();
         await waitForLitRender(element);
@@ -453,14 +453,14 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
         expect(changeSpy.count).to.be.equal(1);
 
         expect(element.value).to.be.equal('tag1');
-        expect(document.querySelectorAll('sbb-tag[checked]').length).to.be.equal(1);
+        expect(element.querySelectorAll('sbb-tag[checked]').length).to.be.equal(1);
       });
 
       it('should select another tag programmatically and uncheck others', async () => {
         const changeSpy = new EventSpy('change');
         const inputSpy = new EventSpy('input');
-        const tag2 = document.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
-        const tag3 = document.querySelector('sbb-tag#sbb-tag-3') as SbbTagElement;
+        const tag2 = element.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
+        const tag3 = element.querySelector('sbb-tag#sbb-tag-3') as SbbTagElement;
 
         tag3.checked = true;
         await waitForLitRender(element);
@@ -475,7 +475,7 @@ describe(`sbb-tag-group with ${fixture.name}`, () => {
         expect(changeSpy.count).not.to.be.greaterThan(0);
 
         expect(element.value).to.be.equal('tag3');
-        expect(document.querySelectorAll('sbb-tag[checked]').length).to.be.equal(1);
+        expect(element.querySelectorAll('sbb-tag[checked]').length).to.be.equal(1);
       });
     });
 

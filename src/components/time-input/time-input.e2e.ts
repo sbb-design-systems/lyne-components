@@ -15,7 +15,7 @@ describe(`sbb-time-input with ${fixture.name}`, () => {
   let element: SbbTimeInputElement, input: HTMLInputElement;
 
   beforeEach(async () => {
-    await fixture(
+    element = await fixture(
       html`
         <sbb-time-input input="input-1"></sbb-time-input>
         <input id="input-1" />
@@ -23,8 +23,7 @@ describe(`sbb-time-input with ${fixture.name}`, () => {
       { modules: ['./time-input.ts'] },
     );
 
-    element = document.querySelector<SbbTimeInputElement>('sbb-time-input')!;
-    input = document.querySelector<HTMLInputElement>('input')!;
+    input = element.nextElementSibling! as HTMLInputElement;
   });
 
   it('renders', async () => {

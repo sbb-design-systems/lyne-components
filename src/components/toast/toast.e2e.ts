@@ -149,7 +149,7 @@ describe(`sbb-toast with ${fixture.name}`, () => {
   });
 
   it('closes other toasts on open', async () => {
-    await fixture(
+    const toast1 = await fixture<SbbToastElement>(
       html`
         <sbb-toast id="toast1" disable-animation></sbb-toast>
         <sbb-toast id="toast2" disable-animation></sbb-toast>
@@ -157,8 +157,7 @@ describe(`sbb-toast with ${fixture.name}`, () => {
       { modules: ['./toast.ts'] },
     );
 
-    const toast1: SbbToastElement = document.querySelector<SbbToastElement>('#toast1')!;
-    const toast2: SbbToastElement = document.querySelector<SbbToastElement>('#toast2')!;
+    const toast2 = toast1.nextElementSibling! as SbbToastElement;
 
     // Open the first toast
     toast1.open();

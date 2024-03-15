@@ -240,9 +240,9 @@ describe(`sbb-checkbox with ${fixture.name}`, () => {
             );
             await waitForLitRender(form);
 
-            element = document.querySelector(selector)!;
-            fieldset = document.querySelector<HTMLFieldSetElement>('fieldset')!;
-            formResetButton = document.querySelector<HTMLButtonElement>(`button[type='reset']`)!;
+            element = form.querySelector(selector)!;
+            fieldset = form.querySelector<HTMLFieldSetElement>('fieldset')!;
+            formResetButton = form.querySelector<HTMLButtonElement>(`button[type='reset']`)!;
             inputSpy = new EventSpy('input', element);
             changeSpy = new EventSpy('change', element);
           });
@@ -529,7 +529,7 @@ describe(`sbb-checkbox with ${fixture.name}`, () => {
                 expect(element).not.to.have.attribute('disabled');
               }
 
-              const disabledElements = Array.from(document.querySelectorAll(':disabled'));
+              const disabledElements = Array.from(form.querySelectorAll(':disabled'));
 
               expect(disabledElements.includes(element), ':disabled selector').to.be.equal(
                 assertions.disabledSelector,
@@ -721,9 +721,9 @@ describe(`sbb-checkbox with ${fixture.name}`, () => {
             );
             await waitForLitRender(form);
 
-            element = document.querySelector(selector)!;
-            fieldset = document.querySelector<HTMLFieldSetElement>('fieldset')!;
-            formResetButton = document.querySelector<HTMLButtonElement>(`button[type='reset']`)!;
+            element = form.querySelector(selector)!;
+            fieldset = form.querySelector<HTMLFieldSetElement>('fieldset')!;
+            formResetButton = form.querySelector<HTMLButtonElement>(`button[type='reset']`)!;
             inputSpy = new EventSpy('input', element);
             changeSpy = new EventSpy('change', element);
           });

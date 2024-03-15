@@ -2,6 +2,7 @@ import type { FixtureOptions } from '@lit-labs/testing/lib/fixtures/fixture-opti
 import type { TemplateResult } from 'lit';
 
 import { isHydratedSsr, isNonHydratedSsr } from './platform';
+import { waitForLitRender } from './wait-for-render';
 
 /**
  * We want to dynamically use the correct fixture from Lit testing for the current context.
@@ -24,17 +25,20 @@ export const fixture = Object.defineProperty(
       .find((u) => !u.includes('/node_modules/') && !u.includes('/core/testing/'));
     options.modules.unshift('/src/components/core/testing/test-setup-ssr.ts');
     const fixtures = await import('@lit-labs/testing/fixtures.js');
+    let result: T;
     if (isHydratedSsr()) {
-      const result = await fixtures.ssrHydratedFixture<T>(template, options);
+      result = await fixtures.ssrHydratedFixture<T>(template, options);
       result
-        .querySelectorAll('[defer-hydration]')
+        .parentElement!.querySelectorAll('[defer-hydration]')
         .forEach((e) => e.removeAttribute('defer-hydration'));
       return result;
     } else if (isNonHydratedSsr()) {
-      return await fixtures.ssrNonHydratedFixture<T>(template, options);
+      result = await fixtures.ssrNonHydratedFixture<T>(template, options);
     } else {
-      return await fixtures.csrFixture<T>(template, options);
+      result = await fixtures.csrFixture<T>(template, options);
     }
+    await waitForLitRender(result);
+    return result;
   },
   'name',
   {

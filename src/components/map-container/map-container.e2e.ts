@@ -15,7 +15,7 @@ describe(`sbb-map-container with ${fixture.name}`, () => {
   it('should react to scrolling', async () => {
     await setViewport({ width: 320, height: 600 });
 
-    await fixture(
+    element = await fixture(
       html` <sbb-map-container>
         <div>
           <sbb-title level="4">Operations & Disruptions</sbb-title>
@@ -34,7 +34,6 @@ describe(`sbb-map-container with ${fixture.name}`, () => {
       </sbb-map-container>`,
       { modules: ['./map-container.ts', '../title/index.ts'] },
     );
-    element = document.querySelector<SbbMapContainerElement>('sbb-map-container')!;
     assert.instanceOf(element, SbbMapContainerElement);
 
     function getInert(): boolean {
