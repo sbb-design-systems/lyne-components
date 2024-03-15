@@ -1,33 +1,14 @@
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { Decorator, Meta, StoryObj } from '@storybook/web-components';
 import { html, type TemplateResult } from 'lit';
-
-import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
 import './step';
 
-const myProp: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
-const defaultArgTypes: ArgTypes = {
-  'my-prop': myProp,
-};
-
-const defaultArgs: Args = {
-  'my-prop': 'Label',
-};
-
-const Template = (args: Args): TemplateResult => html`<sbb-step ${sbbSpread(args)}></sbb-step>`;
+const Template = (): TemplateResult => html`<sbb-step data-selected>Step content.</sbb-step>`;
 
 export const Default: StoryObj = {
   render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
 };
 
 const meta: Meta = {

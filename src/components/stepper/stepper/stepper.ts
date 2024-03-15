@@ -83,6 +83,7 @@ export class SbbStepperElement extends LitElement {
   }
 
   public reset(): void {
+    this.closest('form')?.reset();
     this.selectedIndex = 0;
   }
 

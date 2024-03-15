@@ -14,11 +14,19 @@ const iconName: InputType = {
   },
 };
 
+const disabled: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
+  disabled,
   'icon-name': iconName,
 };
 
 const defaultArgs: Args = {
+  disabled: false,
   'icon-name': 'tick-small',
 };
 
@@ -29,6 +37,18 @@ export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
+};
+
+export const Selected: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'data-selected': true },
+};
+
+export const Disabled: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disabled: true },
 };
 
 const meta: Meta = {
