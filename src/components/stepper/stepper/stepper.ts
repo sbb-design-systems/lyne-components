@@ -152,12 +152,17 @@ export class SbbStepperElement extends LitElement {
     });
   }
 
+  private _updateLabels(): void {
+    this.steps.forEach((step) => {
+      step.slot = this.orientation === 'horizontal' ? 'step' : 'step-label';
+      step.setAttribute('data-orientation', this.orientation);
+    });
+  }
+
   private _checkOrientation(): void {
     if (this.horizontalFrom) {
       this.orientation = isBreakpoint(this.horizontalFrom) ? 'horizontal' : 'vertical';
-      this.steps.forEach(
-        (s) => (s.slot = this.orientation === 'horizontal' ? 'step' : 'step-label'),
-      );
+      this._updateLabels();
     }
     setTimeout(() => this._setMarkerSize(), 0);
   }
@@ -180,10 +185,7 @@ export class SbbStepperElement extends LitElement {
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('orientation') && !this.horizontalFrom) {
-      this.steps.forEach((step) => {
-        step.slot = this.orientation === 'horizontal' ? 'step' : 'step-label';
-        step.setAttribute('data-orientation', this.orientation);
-      });
+      this._updateLabels();
       this._setMarkerSize();
     }
   }
