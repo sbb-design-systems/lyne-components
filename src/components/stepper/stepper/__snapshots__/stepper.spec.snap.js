@@ -18,7 +18,7 @@ snapshots["sbb-stepper renders"] =
 `;
 /* end snapshot sbb-stepper renders */
 
-snapshots["sbb-tab-group A11y tree Chrome"] = 
+snapshots["sbb-stepper A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -35,29 +35,24 @@ snapshots["sbb-tab-group A11y tree Chrome"] =
     },
     {
       "role": "tab",
-      "name": "Test step label 3"
+      "name": "Test step label 3",
+      "disabled": true
     },
     {
       "role": "tab",
       "name": "Test step label 4"
     },
     {
-      "role": "tabpanel",
-      "name": "",
-      "children": [
-        {
-          "role": "text",
-          "name": "Test step content 1"
-        }
-      ]
+      "role": "text",
+      "name": "Test step content 1"
     }
   ]
 }
 </p>
 `;
-/* end snapshot sbb-tab-group A11y tree Chrome */
+/* end snapshot sbb-stepper A11y tree Chrome */
 
-snapshots["sbb-tab-group A11y tree Firefox"] = 
+snapshots["sbb-stepper A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -65,83 +60,79 @@ snapshots["sbb-tab-group A11y tree Firefox"] =
   "children": [
     {
       "role": "tab",
-      "name": "Test step label 1",
+      "name": "1 Test step label 1",
       "selected": true
     },
     {
       "role": "tab",
-      "name": "Test step label 2"
+      "name": "2 Test step label 2"
     },
     {
       "role": "tab",
-      "name": "Test step label 3"
+      "name": "3 Test step label 3",
+      "disabled": true
     },
     {
       "role": "tab",
-      "name": "Test step label 4"
+      "name": "4 Test step label 4"
+    },
+    {
+      "role": "text leaf",
+      "name": "Test step content 1"
     },
     {
       "role": "tabpanel",
-      "name": "",
-      "children": [
-        {
-          "role": "text leaf",
-          "name": "Test step content 1"
-        }
-      ]
+      "name": "2 Test step label 2"
+    },
+    {
+      "role": "tabpanel",
+      "name": "3 Test step label 3"
     }
   ]
 }
 </p>
 `;
-/* end snapshot sbb-tab-group A11y tree Firefox */
+/* end snapshot sbb-stepper A11y tree Firefox */
 
-snapshots["sbb-tab-group A11y tree Safari"] = 
+snapshots["sbb-stepper A11y tree Safari"] = 
 `<p>
   {
   "role": "WebArea",
   "name": "",
   "children": [
     {
+      "role": "tabpanel",
+      "name": "3 Test step label 3"
+    },
+    {
+      "role": "tabpanel",
+      "name": "2 Test step label 2"
+    },
+    {
+      "role": "text",
+      "name": "Test step content 1"
+    },
+    {
       "role": "tab",
-      "name": "Test step label 1",
+      "name": "1 Test step label 1",
       "selected": true
     },
     {
       "role": "tab",
-      "name": "Test step label 2"
+      "name": "2 Test step label 2"
     },
     {
       "role": "tab",
-      "name": "Test step label 3"
+      "name": "3 Test step label 3",
+      "disabled": true
     },
     {
       "role": "tab",
-      "name": "Test step label 4"
-    },
-    {
-      "role": "tabpanel",
-      "name": "",
-      "children": [
-        {
-          "role": "text",
-          "name": "Test step content 1"
-        }
-      ]
+      "name": "4 Test step label 4"
     }
   ]
 }
 </p>
 `;
-/* end snapshot sbb-tab-group A11y tree Safari */
-
-snapshots["sbb-stepper A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-stepper A11y tree Chrome */
+/* end snapshot sbb-stepper A11y tree Safari */
 
