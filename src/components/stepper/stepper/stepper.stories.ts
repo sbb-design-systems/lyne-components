@@ -117,6 +117,46 @@ const Template = (args: Args): TemplateResult => html`
   </sbb-stepper>
 `;
 
+const LongLabelsTemplate = (args: Args): TemplateResult => html`
+  <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow" selected-index="0">
+    <sbb-step-label
+      >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+      invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</sbb-step-label
+    >
+    <sbb-step>
+      <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">First step content.</div>
+      <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
+    </sbb-step>
+    <sbb-step-label
+      >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+      invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</sbb-step-label
+    >
+    <sbb-step>
+      <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">Second step content.</div>
+      <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
+      <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
+    </sbb-step>
+    <sbb-step-label
+      >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+      invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</sbb-step-label
+    >
+    <sbb-step>
+      <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">Third step content.</div>
+      <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
+      <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
+    </sbb-step>
+    <sbb-step-label
+      >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+      invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</sbb-step-label
+    >
+    <sbb-step>
+      <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">Forth step content.</div>
+      <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
+      <sbb-button size="m" sbb-stepper-next>Submit</sbb-button>
+    </sbb-step>
+  </sbb-stepper>
+`;
+
 export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -143,6 +183,12 @@ export const HorizontalFromSmall: StoryObj = {
     orientation: orientation.options[1],
     'horizontal-from': horizontalFrom.options[3],
   },
+};
+
+export const LongLabels: StoryObj = {
+  render: LongLabelsTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
 };
 
 const meta: Meta = {

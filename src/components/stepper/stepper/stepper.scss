@@ -73,6 +73,8 @@
 ::slotted(sbb-step-label) {
   @include sbb.text-xxs--regular;
 
+  position: relative;
+  min-width: 0;
   max-width: fit-content;
 
   :host([orientation='vertical']) & {

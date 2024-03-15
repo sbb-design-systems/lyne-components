@@ -9,8 +9,6 @@
   --sbb-step-label-prefix-size: #{sbb.px-to-rem-build(36)};
   --sbb-step-label-prefix-border-style: solid;
   --sbb-step-label-prefix-background-color: var(--sbb-color-white);
-
-  position: relative;
 }
 
 :host([data-selected]) {
@@ -63,6 +61,8 @@
 }
 
 .sbb-step-label__text {
+  @include sbb.ellipsis;
+
   text-wrap: nowrap;
 }
 
