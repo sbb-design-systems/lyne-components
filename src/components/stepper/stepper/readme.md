@@ -60,6 +60,7 @@ The `sbb-stepper` is a component . . .
 | ---------- | ------- | ----------- | ---------- | ------ | -------------- |
 | `next`     | public  |             |            | `void` |                |
 | `previous` | public  |             |            | `void` |                |
+| `reset`    | public  |             |            | `void` |                |
 
 ## Events
 

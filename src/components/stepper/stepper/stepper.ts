@@ -82,6 +82,10 @@ export class SbbStepperElement extends LitElement {
     }
   }
 
+  public reset(): void {
+    this.selectedIndex = 0;
+  }
+
   private _abort = new ConnectedAbortController(this);
 
   private _isValidStep(step: SbbStepElement): boolean {
@@ -143,8 +147,6 @@ export class SbbStepperElement extends LitElement {
   }
 
   private _configure(): void {
-    console.log('configure...');
-
     const labels = this.steps.map((s) => s.label);
     let posInSet = 0;
     labels.forEach((label) => {

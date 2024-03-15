@@ -5,14 +5,18 @@ import { html, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { sbbSpread } from '../../core/dom';
+import type { SbbFormErrorElement } from '../../form-error';
 import { SbbStepElement } from '../step';
 
 import readme from './readme.md?raw';
 
 import './stepper';
 import '../step-label';
+import '../../link/block-link-button';
 import '../../button/button';
 import '../../button/secondary-button';
+import '../../form-field';
+import '../../form-error';
 
 const linear: InputType = {
   control: {
@@ -56,12 +60,122 @@ const textBlockStyle: Args = {
   zIndex: '100',
 };
 
+const codeStyle: Args = {
+  padding: 'var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x)',
+  borderRadius: 'var(--sbb-border-radius-4x)',
+  backgroundColor: 'var(--sbb-color-smoke-alpha-20)',
+};
+
 const textBlock = (): TemplateResult => html`
   <div style=${styleMap(textBlockStyle)}>
-    Page content: lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-    tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+    First step content: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
   </div>
 `;
+
+const WithFormTemplate = (args: Args): TemplateResult => {
+  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
+  sbbFormError.setAttribute('slot', 'error');
+  sbbFormError.textContent = 'This is a required field.';
+
+  return html`
+    <form
+      @submit=${(e: SubmitEvent) => {
+        e.preventDefault();
+        const formData = new FormData(e.target as HTMLFormElement);
+        for (const [name, value] of formData) {
+          document.querySelector(`.text-block-${name}`)!.textContent = value.toString();
+        }
+      }}
+      @reset=${() => {
+        setTimeout(() =>
+          document.querySelector('input[name="name"]')?.dispatchEvent(new Event('input')),
+        );
+      }}
+    >
+      <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow" selected-index="0">
+        <sbb-step-label icon-name="pen-small">Step 1</sbb-step-label>
+        <sbb-step
+          @validate=${(e: CustomEvent) => {
+            if (e.detail.currentStep.querySelector('sbb-form-field').hasAttribute('data-invalid')) {
+              e.preventDefault();
+            }
+          }}
+        >
+          <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
+            <sbb-form-field error-space="reserve" label="Name" size="m">
+              <input
+                @input=${(event: KeyboardEvent) => {
+                  const input = event.currentTarget as HTMLInputElement;
+                  if (input.value !== '') {
+                    sbbFormError.remove();
+                    input.classList.remove('sbb-invalid');
+                  } else {
+                    input.closest('sbb-form-field')!.append(sbbFormError);
+                    input.classList.add('sbb-invalid');
+                  }
+                }}
+                placeholder="Your name"
+                name="name"
+                class="sbb-invalid"
+              />
+              ${sbbFormError}
+            </sbb-form-field>
+          </div>
+          <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
+        </sbb-step>
+
+        <sbb-step-label>Step 2</sbb-step-label>
+        <sbb-step>
+          <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
+            <sbb-form-field error-space="none" label="Favorite number" size="m">
+              <input type="number" placeholder="Your lucky number" name="number" value="75" />
+            </sbb-form-field>
+          </div>
+          <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
+          <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
+        </sbb-step>
+
+        <sbb-step-label icon-name="dog-small">Step 3</sbb-step-label>
+        <sbb-step>
+          <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
+            <sbb-form-field error-space="none" label="Favorite animal" size="m">
+              <select name="animal">
+                <option>Panda 🐼</option>
+                <option>Jellyfish 🪼</option>
+                <option>Fox 🦊</option>
+                <option>Dragon 🐲</option>
+              </select>
+            </sbb-form-field>
+          </div>
+          <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
+          <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
+        </sbb-step>
+
+        <sbb-step-label icon-name="tick-small">Step 4</sbb-step-label>
+        <sbb-step>
+          <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">You are now done.</div>
+          <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
+          <sbb-button type="submit" size="m" sbb-stepper-next>Submit</sbb-button>
+          <sbb-block-link-button
+            type="reset"
+            style="display: inline-block; margin-inline-start: var(--sbb-spacing-fixed-2x); vertical-align: middle;"
+            icon-name="arrow-circle-small"
+            @click=${() => document.querySelector('sbb-stepper')?.reset()}
+            >Reset</sbb-block-link-button
+          >
+        </sbb-step>
+      </sbb-stepper>
+    </form>
+    <div style=${styleMap(textBlockStyle)}>
+      Hi <code style=${styleMap(codeStyle)} class="text-block-name">&nbsp; &nbsp;</code>! 👋 Your
+      lucky number is
+      <code style=${styleMap(codeStyle)} class="text-block-number">&nbsp; &nbsp;</code> 🍀 and your
+      favourite animal is
+      <code style=${styleMap(codeStyle)} class="text-block-animal">&nbsp; &nbsp;</code>.
+    </div>
+  `;
+};
 
 const Template = (args: Args): TemplateResult => html`
   <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow" selected-index="0">
@@ -115,6 +229,7 @@ const Template = (args: Args): TemplateResult => html`
       <sbb-button size="m" sbb-stepper-next>Submit</sbb-button>
     </sbb-step>
   </sbb-stepper>
+  ${textBlock()}
 `;
 
 const LongLabelsTemplate = (args: Args): TemplateResult => html`
@@ -155,7 +270,14 @@ const LongLabelsTemplate = (args: Args): TemplateResult => html`
       <sbb-button size="m" sbb-stepper-next>Submit</sbb-button>
     </sbb-step>
   </sbb-stepper>
+  ${textBlock()}
 `;
+
+export const WithForm: StoryObj = {
+  render: WithFormTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
 
 export const Default: StoryObj = {
   render: Template,
@@ -193,7 +315,7 @@ export const LongLabels: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (story) => html` <div style="padding: 2rem;">${story()} ${textBlock()}</div> `,
+    (story) => html` <div style="padding: 2rem;">${story()}</div> `,
     withActions as Decorator,
   ],
   parameters: {
