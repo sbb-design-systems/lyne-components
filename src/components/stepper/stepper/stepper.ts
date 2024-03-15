@@ -15,10 +15,10 @@ import type { SbbStepElement } from '../step/step';
 import style from './stepper.scss?lit&inline';
 
 /**
- * Describe the purpose of the component with a single short sentence.
+ * Provides a structured, step-by-step workflow for user interactions.
  *
- * @slot - Use the unnamed slot to add `sbb-TODO` elements.
- * @event {CustomEvent<any>} myEventName - TODO: Document this event
+ * @slot step-label - Use this slot to provide an `sbb-step-label`.
+ * @slot step - Use this slot to provide an `sbb-step`.
  */
 @customElement('sbb-stepper')
 export class SbbStepperElement extends LitElement {
@@ -50,6 +50,9 @@ export class SbbStepperElement extends LitElement {
   @property({ reflect: true })
   public orientation: SbbOrientation = 'horizontal';
 
+  /**
+   * The currently selected step.
+   */
   public get selected(): SbbStepElement | undefined {
     return this.querySelector<SbbStepElement>('sbb-step[data-selected]') ?? undefined;
   }
@@ -58,6 +61,9 @@ export class SbbStepperElement extends LitElement {
     this._select(step);
   }
 
+  /**
+   * The currently selected step index.
+   */
   public get selectedIndex(): number | undefined {
     return this.selected ? this.steps.indexOf(this.selected) : undefined;
   }
@@ -66,22 +72,33 @@ export class SbbStepperElement extends LitElement {
     this._select(this.steps[index]);
   }
 
+  /**
+   * The steps of the stepper.
+   */
   public get steps(): SbbStepElement[] {
     return Array.from(this.querySelectorAll('sbb-step'));
   }
 
+  /**
+   * Selects the next step.
+   */
   public next(): void {
     if (this.selectedIndex !== undefined) {
       this._select(this.steps[this.selectedIndex + 1]);
     }
   }
-
+  /**
+   * Selects the previous step.
+   */
   public previous(): void {
     if (this.selectedIndex !== undefined) {
       this._select(this.steps[this.selectedIndex - 1]);
     }
   }
 
+  /**
+   * Resets the form in which the stepper is nested or every form of each step, if any.
+   */
   public reset(): void {
     const closestForm = this.closest('form');
     if (closestForm) {

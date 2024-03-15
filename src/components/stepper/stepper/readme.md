@@ -1,45 +1,72 @@
-> Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
-> If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
-> For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
-> The following list of paragraphs is only suggested; remove, create and adapt as needed.
+The `sbb-stepper` is a component that visually guides a user through a sequential, multi-step process. It breaks down complex forms, flows, or other linear interactions into smaller, easier-to-follow steps. The current step is highlighted, and a progress bar connects the steps to visually represent progress.
 
-The `sbb-stepper` is a component . . .
+Use it with [sbb-step-label](/docs/components-sbb-stepper-sbb-step-label--docs) and [sbb-step](/docs/components-sbb-stepper-sbb-step--docs).
 
 ```html
-<sbb-stepper></sbb-stepper>
+<sbb-stepper aria-label="Purpose of this flow">
+  <sbb-step-label>Step label 1</sbb-step-label>
+  <sbb-step>Step content 1</sbb-step>
+
+  <sbb-step-label>Step label 2</sbb-step-label>
+  <sbb-step>Step content 2</sbb-step>
+</sbb-stepper>
 ```
-
-## Slots
-
-> Describe slot naming and usage and provide an example of slotted content.
-
-## States
-
-> Describe the component states (`disabled`, `readonly`, etc.) and provide examples.
-
-## Style
-
-> Describe the properties which change the component visualization (`size`, `negative`, etc.) and provide examples.
 
 ## Interactions
 
-> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
+There are two attributes to support navigation between different steps that can be used on elements inside an `sbb-step` to select the next or the previous step when clicked: `sbb-stepper-next` and `sbb-stepper-previous`.
+
+### Linear stepper
+
+The `linear` property can be set to create a linear stepper that requires the user to complete previous steps before proceeding to following steps.
+
+## Forms
+
+There are two possible approaches. One is using a single form for the stepper, and the other is using a different form for each step.
+
+### Single form
+
+```html
+<form>
+  <sbb-stepper aria-label="Purpose of this flow">
+    <sbb-step-label>Step label 1</sbb-step-label>
+    <sbb-step>Step content 1: <sbb-form-field>...</sbb-form-field></sbb-step>
+
+    <sbb-step-label>Step label 2</sbb-step-label>
+    <sbb-step>Step content 2: <sbb-form-field>...</sbb-form-field></sbb-step>
+  </sbb-stepper>
+</form>
+```
+
+### Multiple forms
+
+```html
+<sbb-stepper aria-label="Purpose of this flow">
+  <sbb-step-label>Step label 1</sbb-step-label>
+  <sbb-step>
+    <form>
+      <sbb-form-field>...</sbb-form-field>
+    </form>
+  </sbb-step>
+
+  <sbb-step-label>Step label 2</sbb-step-label>
+  <sbb-step>
+    <form>
+      <sbb-form-field>...</sbb-form-field>
+    </form>
+  </sbb-step>
+</sbb-stepper>
+```
+
+Calling the `reset()` method on the `sbb-stepper`, will reset the wrapping form or every form of each step and select the first step.
 
 ## Events
 
-> Describe events triggered by the component and possibly how to get information from the payload.
-
-## Keyboard interaction
-
-> If the component has logic for keyboard navigation (as the `sbb-calendar` or the `sbb-select`) describe it.
-
-| Keyboard       | Action        |
-| -------------- | ------------- |
-| <kbd>Key</kbd> | What it does. |
+See the `validate` event of the [sbb-step](/docs/components-sbb-stepper-sbb-step--docs).
 
 ## Accessibility
 
-> Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
+Use an `aria-label` attribute to describe the purpose of the stepper. The `sbb-stepper` also sets other attributes on the steps and the step labels like `aria-setsize`, `aria-posinset`, `aria-controls`, `aria-labelledby`.
 
 <!-- Auto Generated Below -->
 
@@ -50,26 +77,21 @@ The `sbb-stepper` is a component . . .
 | `linear`         | `linear`          | public  | `boolean`                        | `false`        | If set to true, only the current and previous labels can be clicked and selected. |
 | `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| undefined` |                | Overrides the behaviour of `orientation` property.                                |
 | `orientation`    | `orientation`     | public  | `SbbOrientation`                 | `'horizontal'` | Steps orientation, either horizontal or vertical.                                 |
-| `selected`       | -                 | public  | `SbbStepElement \| undefined`    |                |                                                                                   |
-| `selectedIndex`  | -                 | public  | `number \| undefined`            |                |                                                                                   |
-| `steps`          | -                 | public  | `SbbStepElement[]`               |                |                                                                                   |
+| `selected`       | -                 | public  | `SbbStepElement \| undefined`    |                | The currently selected step.                                                      |
+| `selectedIndex`  | -                 | public  | `number \| undefined`            |                | The currently selected step index.                                                |
+| `steps`          | -                 | public  | `SbbStepElement[]`               |                | The steps of the stepper.                                                         |
 
 ## Methods
 
-| Name       | Privacy | Description | Parameters | Return | Inherited From |
-| ---------- | ------- | ----------- | ---------- | ------ | -------------- |
-| `next`     | public  |             |            | `void` |                |
-| `previous` | public  |             |            | `void` |                |
-| `reset`    | public  |             |            | `void` |                |
-
-## Events
-
-| Name          | Type               | Description               | Inherited From |
-| ------------- | ------------------ | ------------------------- | -------------- |
-| `myEventName` | `CustomEvent<any>` | TODO: Document this event |                |
+| Name       | Privacy | Description                                                                        | Parameters | Return | Inherited From |
+| ---------- | ------- | ---------------------------------------------------------------------------------- | ---------- | ------ | -------------- |
+| `next`     | public  | Selects the next step.                                                             |            | `void` |                |
+| `previous` | public  | Selects the previous step.                                                         |            | `void` |                |
+| `reset`    | public  | Resets the form in which the stepper is nested or every form of each step, if any. |            | `void` |                |
 
 ## Slots
 
-| Name | Description                                      |
-| ---- | ------------------------------------------------ |
-|      | Use the unnamed slot to add `sbb-TODO` elements. |
+| Name         | Description                                   |
+| ------------ | --------------------------------------------- |
+| `step-label` | Use this slot to provide an `sbb-step-label`. |
+| `step`       | Use this slot to provide an `sbb-step`.       |

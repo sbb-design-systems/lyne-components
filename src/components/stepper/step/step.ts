@@ -48,6 +48,9 @@ export class SbbStepElement extends LitElement {
     this._onStepElementResize(entries),
   );
 
+  /**
+   * The label of the step.
+   */
   public get label(): SbbStepLabelElement | null {
     return this._label;
   }

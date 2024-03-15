@@ -68,8 +68,8 @@ const codeStyle: Args = {
 
 const textBlock = (): TemplateResult => html`
   <div style=${styleMap(textBlockStyle)}>
-    First step content: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+    Page content: lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+    tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
   </div>
 `;
 
