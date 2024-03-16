@@ -23,7 +23,9 @@ describe('sbb-stepper', () => {
 
   it('renders', async () => {
     const root = await fixture(html`<sbb-stepper></sbb-stepper>`);
-    expect(root).dom.to.be.equal(`<sbb-stepper orientation="horizontal"></sbb-stepper>`);
+    expect(root).dom.to.be.equal(
+      `<sbb-stepper orientation="horizontal" data-disable-animation></sbb-stepper>`,
+    );
     await expect(root).shadowDom.to.be.equalSnapshot();
   });
   testA11yTreeSnapshot();
