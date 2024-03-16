@@ -413,6 +413,12 @@ export const LongLabels: StoryObj = {
   args: { ...defaultArgs },
 };
 
+export const LongLabelsVertical: StoryObj = {
+  render: LongLabelsTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, orientation: orientation.options[1] },
+};
+
 const meta: Meta = {
   decorators: [
     (story) => html` <div style="padding: 2rem;">${story()}</div> `,

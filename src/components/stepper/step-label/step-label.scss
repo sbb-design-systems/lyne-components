@@ -47,29 +47,39 @@
   @include sbb.text-l--bold;
 
   cursor: pointer;
+  position: relative;
   display: flex;
-  align-items: center;
   gap: var(--sbb-spacing-fixed-4x);
   color: var(--sbb-step-label-color);
 }
 
 .sbb-step-label__prefix {
+  position: relative;
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  min-width: var(--sbb-step-label-prefix-size);
-  min-height: var(--sbb-step-label-prefix-size);
+  width: var(--sbb-step-label-prefix-size);
+  height: var(--sbb-step-label-prefix-size);
   border-radius: 50%;
   border: var(--sbb-border-width-1x) var(--sbb-step-label-prefix-border-style)
     var(--sbb-step-label-prefix-border-color);
   background-color: var(--sbb-step-label-prefix-background-color);
+  inset-block-start: calc(
+    1em * (var(--sbb-typo-line-height-body-text) / 2) + (var(--sbb-border-width-1x) / 2) -
+      (var(--sbb-step-label-prefix-size) / 2)
+  );
   transition: background-color var(--sbb-animation-duration-6x) ease;
+
+  &::before {
+    content: var(--sbb-step-label-counter);
+  }
 }
 
 .sbb-step-label__text {
-  @include sbb.ellipsis;
-
-  text-wrap: nowrap;
+  :host([data-orientation='horizontal']) & {
+    @include sbb.ellipsis;
+  }
 }
 
 sbb-icon {

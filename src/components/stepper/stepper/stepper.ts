@@ -201,6 +201,7 @@ export class SbbStepperElement extends LitElement {
     this.steps.forEach((step) => {
       step.slot = this.orientation === 'horizontal' ? 'step' : 'step-label';
       step.setAttribute('data-orientation', this.orientation);
+      step.label?.setAttribute('data-orientation', this.orientation);
     });
   }
 
