@@ -10,9 +10,12 @@ import { customElement, property } from 'lit/decorators.js';
 import { breakpoints, isBreakpoint } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces';
+import { AgnosticResizeObserver } from '../../core/observers';
 import type { SbbStepElement } from '../step/step';
 
 import style from './stepper.scss?lit&inline';
+
+const DEBOUNCE_TIME = 150;
 
 /**
  * Provides a structured, step-by-step workflow for user interactions.
@@ -109,7 +112,10 @@ export class SbbStepperElement extends LitElement {
     this.selectedIndex = 0;
   }
 
+  private _loaded: boolean = false;
   private _abort = new ConnectedAbortController(this);
+  private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
+  private _stepperResizeObserver = new AgnosticResizeObserver(() => this._onStepperResize());
 
   private _isValidStep(step: SbbStepElement): boolean {
     if (!step || step === this.selected || step.hasAttribute('disabled')) {
@@ -152,6 +158,10 @@ export class SbbStepperElement extends LitElement {
       step.label.internals.ariaSelected = 'true';
       step.label.toggleAttribute('data-selected', true);
       this._setMarkerSize();
+
+      if (this._loaded) {
+        step.label.focus();
+      }
     }
   }
 
@@ -167,6 +177,7 @@ export class SbbStepperElement extends LitElement {
             16 *
             this.selectedIndex;
     this.style.setProperty('--sbb-stepper-marker-size', `${offset}px`);
+    console.log('setting marker size...', this._loaded);
   }
 
   private _configure(): void {
@@ -195,6 +206,20 @@ export class SbbStepperElement extends LitElement {
     setTimeout(() => this._setMarkerSize(), 0);
   }
 
+  private _onStepperResize(): void {
+    if (this._resizeObserverTimeout) {
+      clearTimeout(this._resizeObserverTimeout);
+    }
+
+    this.toggleAttribute('data-disable-animation', true);
+
+    // Disable the animation when resizing to avoid strange transition effects.
+    this._resizeObserverTimeout = setTimeout(
+      () => this.toggleAttribute('data-disable-animation', false),
+      DEBOUNCE_TIME,
+    );
+  }
+
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
@@ -208,6 +233,8 @@ export class SbbStepperElement extends LitElement {
     await this.updateComplete;
     this.selectedIndex = !this.linear ? Number(this.getAttribute('selected-index')) || 0 : 0;
     this._checkOrientation();
+    this._loaded = true;
+    this._stepperResizeObserver.observe(this.shadowRoot!.querySelector('.sbb-stepper__labels')!);
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -215,6 +242,11 @@ export class SbbStepperElement extends LitElement {
       this._updateLabels();
       this._setMarkerSize();
     }
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this._stepperResizeObserver.disconnect();
   }
 
   protected override render(): TemplateResult {

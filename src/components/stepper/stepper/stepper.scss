@@ -18,6 +18,10 @@
   }
 }
 
+:host([data-disable-animation]) {
+  --sbb-stepper-animation-duration: 0;
+}
+
 :host([orientation='vertical']) {
   --sbb-stepper-orientation: column;
 }
