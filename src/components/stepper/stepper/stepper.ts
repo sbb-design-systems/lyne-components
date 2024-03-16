@@ -185,6 +185,7 @@ export class SbbStepperElement extends LitElement {
     let posInSet = 0;
     labels.forEach((label) => {
       if (label) {
+        label.internals.ariaSelected = (this.selected?.label === label).toString();
         label.internals.ariaPosInSet = `${++posInSet}`;
         label.internals.ariaSetSize = `${labels.length}`;
       }
