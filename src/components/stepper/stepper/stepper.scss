@@ -8,9 +8,14 @@
   --sbb-stepper-orientation: row;
   --sbb-stepper-marker-size: 0;
   --sbb-stepper-animation-duration: var(--sbb-animation-duration-6x);
+  --sbb-stepper-marker-color: var(--sbb-color-charcoal);
 
   position: relative;
   counter-reset: step-label;
+
+  @include sbb.if-forced-colors {
+    --sbb-stepper-marker-color: ButtonText;
+  }
 }
 
 :host([orientation='vertical']) {
@@ -32,7 +37,7 @@
     content: '';
     position: absolute;
     inset-inline-start: 0;
-    background-color: var(--sbb-color-charcoal);
+    background-color: var(--sbb-stepper-marker-color);
   }
 
   :host([orientation='horizontal']) & {
@@ -86,6 +91,7 @@
     counter-increment: step-label;
     cursor: pointer;
     position: absolute;
+    color: var(--sbb-step-label-color);
     inset-block-start: calc(var(--sbb-step-label-prefix-size) / 2);
     inset-inline-start: calc(var(--sbb-step-label-prefix-size) / 2);
     transform: translate(-50%, -50%);

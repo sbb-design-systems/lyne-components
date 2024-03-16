@@ -8,7 +8,13 @@
   --sbb-step-label-color: var(--sbb-color-iron);
   --sbb-step-label-prefix-size: #{sbb.px-to-rem-build(36)};
   --sbb-step-label-prefix-border-style: solid;
+  --sbb-step-label-prefix-border-color: var(--sbb-color-cloud);
   --sbb-step-label-prefix-background-color: var(--sbb-color-white);
+
+  @include sbb.if-forced-colors {
+    --sbb-step-label-color: ButtonText;
+    --sbb-step-label-prefix-border-color: ButtonText;
+  }
 }
 
 :host([data-selected]) {
@@ -55,7 +61,7 @@
   min-height: var(--sbb-step-label-prefix-size);
   border-radius: 50%;
   border: var(--sbb-border-width-1x) var(--sbb-step-label-prefix-border-style)
-    var(--sbb-color-cloud);
+    var(--sbb-step-label-prefix-border-color);
   background-color: var(--sbb-step-label-prefix-background-color);
   transition: background-color var(--sbb-animation-duration-6x) ease;
 }
