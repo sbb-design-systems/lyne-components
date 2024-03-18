@@ -23,7 +23,7 @@ type ValidateEventDetails = {
  * Combined with a `sbb-stepper`, it displays a step's content.
  *
  * @slot - Use the unnamed slot to provide a content.
- * @event {CustomEvent<void>} validate - Emits whenever step switch is triggered. Can be canceled.
+ * @event {CustomEvent<ValidateEventDetails>} validate - Emits whenever step switch is triggered. Can be canceled.
  */
 @customElement('sbb-step')
 @hostAttributes({
@@ -39,7 +39,10 @@ export class SbbStepElement extends LitElement {
   /**
    * Emits whenever step switch is triggered.
    */
-  private _validate: EventEmitter = new EventEmitter(this, SbbStepElement.events.validate);
+  private _validate: EventEmitter<ValidateEventDetails> = new EventEmitter(
+    this,
+    SbbStepElement.events.validate,
+  );
 
   private _abort = new ConnectedAbortController(this);
   private _stepper: SbbStepperElement | null = null;

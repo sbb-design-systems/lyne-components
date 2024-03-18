@@ -32,9 +32,9 @@ The aria attribute `aria-labelledby` is set automatically.
 
 ## Events
 
-| Name       | Type                | Description                                               | Inherited From |
-| ---------- | ------------------- | --------------------------------------------------------- | -------------- |
-| `validate` | `CustomEvent<void>` | Emits whenever step switch is triggered. Can be canceled. |                |
+| Name       | Type                                | Description                                               | Inherited From |
+| ---------- | ----------------------------------- | --------------------------------------------------------- | -------------- |
+| `validate` | `CustomEvent<ValidateEventDetails>` | Emits whenever step switch is triggered. Can be canceled. |                |
 
 ## Slots
 
