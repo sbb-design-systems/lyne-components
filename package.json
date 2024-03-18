@@ -23,7 +23,7 @@
     "postinstall": "yarn playwright install",
     "build:components": "vite build --config src/components/vite.config.ts",
     "build:react": "vite build --config src/react/vite.config.ts",
-    "build:storybook": "storybook build --quiet --output-dir dist/storybook",
+    "build:storybook": "storybook build --quiet --output-dir dist/storybook --stats-json",
     "build": "npm-run-all --sequential build:components build:react build:storybook",
     "docs": "npm-run-all --sequential docs:manifest docs:to-md",
     "docs:manifest": "custom-elements-manifest analyze --config config/custom-elements-manifest.config.js",
@@ -119,8 +119,7 @@
     "tsx": "4.7.1",
     "typescript": "5.4.2",
     "vite": "5.1.6",
-    "vite-plugin-dts": "3.7.3",
-    "vite-plugin-turbosnap": "1.0.3"
+    "vite-plugin-dts": "3.7.3"
   },
   "resolutions": {
     "@types/node": "20.11.28",
