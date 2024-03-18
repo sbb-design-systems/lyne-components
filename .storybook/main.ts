@@ -1,6 +1,5 @@
 import type { StorybookConfig } from '@storybook/web-components-vite';
 import { type BuildOptions, type UserConfig, mergeConfig } from 'vite';
-import turbosnap from 'vite-plugin-turbosnap';
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.ts'],
@@ -30,14 +29,6 @@ const config: StorybookConfig = {
     return mergeConfig(config, <UserConfig>{
       assetsInclude: ['src/**/*.md'],
       build,
-      plugins: process.env.CHROMATIC
-        ? [
-            // Creates the webpack-stats.json file which is needed by chromatic
-            turbosnap({
-              rootDir: config.root ?? process.cwd(),
-            }),
-          ]
-        : [],
     });
   },
 };
