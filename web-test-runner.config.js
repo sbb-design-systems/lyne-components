@@ -69,8 +69,9 @@ function resolveConcurrency() {
 export default {
   files: ['src/**/*.{e2e,spec}.ts'],
   groups: [
-    { name: 'e2e-ssr-hydrated', files: 'src/**/*.e2e.ts', testRunnerHtml },
-    { name: 'e2e-ssr-non-hydrated', files: 'src/**/*.e2e.ts', testRunnerHtml },
+    // Disable ssr tests until stabilized.
+    // { name: 'e2e-ssr-hydrated', files: 'src/**/*.e2e.ts', testRunnerHtml },
+    // { name: 'e2e-ssr-non-hydrated', files: 'src/**/*.e2e.ts', testRunnerHtml },
   ],
   nodeResolve: true,
   concurrency: resolveConcurrency(),

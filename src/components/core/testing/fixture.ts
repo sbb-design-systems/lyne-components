@@ -14,7 +14,10 @@ import { waitForLitRender } from './wait-for-render';
  * of the original fixture.
  */
 export const fixture = Object.defineProperty(
-  async <T extends HTMLElement>(template: TemplateResult, options: FixtureOptions): Promise<T> => {
+  async <T extends HTMLElement>(
+    template: TemplateResult,
+    options: FixtureOptions = { modules: [] },
+  ): Promise<T> => {
     // PlayWright with WebKit does not include wtr-session-id in stack trace.
     // As an alternative, we look for the first file in the stack trace that is not part of
     // node_modules and not in /core/testing/.

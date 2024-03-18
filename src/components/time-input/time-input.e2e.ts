@@ -43,8 +43,7 @@ describe(`sbb-time-input with ${fixture.name}`, () => {
     const changeSpy = new EventSpy('change', element);
     const inputSpy = new EventSpy('input', element);
 
-    input.focus();
-    await sendKeys({ press: '1' });
+    typeInElement(input, '1');
     input.blur();
     await waitForLitRender(element);
 
@@ -59,8 +58,7 @@ describe(`sbb-time-input with ${fixture.name}`, () => {
     );
 
     // When entering 99
-    input.focus();
-    await sendKeys({ type: '99' });
+    typeInElement(input, '99');
     input.blur();
 
     // Then validation event should emit with false
@@ -70,7 +68,7 @@ describe(`sbb-time-input with ${fixture.name}`, () => {
     // When adding another 9 (999)
     input.focus();
     await sendKeys({ press: 'ArrowRight' }); // Fix for Firefox: de-highlight text
-    await sendKeys({ press: '9' });
+    typeInElement(input, '9');
     input.blur();
 
     // Then validation event should not be emitted a second time
@@ -91,8 +89,7 @@ describe(`sbb-time-input with ${fixture.name}`, () => {
 
   it('should emit valid validation change event when empty', async () => {
     // Creating invalid entry
-    input.focus();
-    await sendKeys({ type: '99' });
+    typeInElement(input, '99');
     input.blur();
     await waitForLitRender(element);
 
@@ -141,8 +138,7 @@ describe(`sbb-time-input with ${fixture.name}`, () => {
       // Clear input
       input.value = '';
 
-      input.focus();
-      await sendKeys({ type: testCase.value });
+      typeInElement(input, testCase.value);
       input.blur();
       await waitForLitRender(element);
       expect(input.value).to.be.equal(testCase.interpretedAs);
@@ -172,7 +168,7 @@ describe(`sbb-time-input with ${fixture.name}`, () => {
       } else {
         clearElement(input);
       }
-      //await sendKeys({ type: testCase.value });
+
       input.blur();
       await waitForLitRender(element);
       expect(input.value).to.be.equal(testCase.interpretedAs);
@@ -183,12 +179,7 @@ describe(`sbb-time-input with ${fixture.name}`, () => {
   });
 
   it('should prevent char insertion', async () => {
-    input.focus();
-    await sendKeys({ press: '1' });
-
-    // Inserting invalid key
-    await sendKeys({ press: 'V' });
-
+    typeInElement(input, '1V');
     expect(input.value).to.be.equal('1');
   });
 

@@ -125,13 +125,20 @@ export function typeInElement(element: HTMLElement, ...modifiersAndKeys: any[]):
     (element as HTMLInputElement).value = keys.reduce((value, key) => value + (key.key || ''), '');
   }
 
+  let lastChangeValue = '';
   for (const key of keys) {
-    dispatchKeyboardEvent(element, 'keydown', key.keyCode, key.key, modifiers);
-    dispatchKeyboardEvent(element, 'keypress', key.keyCode, key.key, modifiers);
-    if (isInput && key.key && key.key.length === 1) {
-      if (enterValueIncrementally) {
-        (element as HTMLInputElement | HTMLTextAreaElement).value += key.key;
-        dispatchFakeEvent(element, 'input');
+    if (
+      !dispatchKeyboardEvent(element, 'keydown', key.keyCode, key.key, modifiers).defaultPrevented
+    ) {
+      dispatchKeyboardEvent(element, 'keypress', key.keyCode, key.key, modifiers);
+      if (isInput && key.key) {
+        if (key.key.length === 1 && enterValueIncrementally) {
+          (element as HTMLInputElement | HTMLTextAreaElement).value += key.key;
+          dispatchFakeEvent(element, 'input');
+        } else if (key.key === 'Enter' && element.value !== lastChangeValue) {
+          lastChangeValue = element.value;
+          dispatchFakeEvent(element, 'change');
+        }
       }
     }
     dispatchKeyboardEvent(element, 'keyup', key.keyCode, key.key, modifiers);
@@ -140,6 +147,10 @@ export function typeInElement(element: HTMLElement, ...modifiersAndKeys: any[]):
   // Since we weren't dispatching `input` events while sending the keys, we have to do it now.
   if (!enterValueIncrementally) {
     dispatchFakeEvent(element, 'input');
+  }
+
+  if (isInput && element.value !== lastChangeValue) {
+    element.addEventListener('blur', () => dispatchFakeEvent(element, 'change'), { once: true });
   }
 }
 

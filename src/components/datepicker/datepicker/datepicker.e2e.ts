@@ -6,6 +6,7 @@ import type { Context } from 'mocha';
 
 import { i18nDateChangedTo } from '../../core/i18n';
 import { EventSpy, waitForCondition, waitForLitRender, fixture } from '../../core/testing';
+import { typeInElement } from '../../core/testing/private';
 
 import { SbbDatepickerElement } from './datepicker';
 
@@ -88,11 +89,8 @@ describe(`sbb-datepicker with ${fixture.name}`, () => {
     });
 
     it('renders and emit event on value change', async function (this: Context) {
-      // This test is flaky on Firefox, so we retry a few times.
-      this.retries(3);
       const changeSpy = new EventSpy('change', element);
-      input.focus();
-      await sendKeys({ type: '20/01/2023' });
+      typeInElement(input, '20/01/2023');
       button.focus();
       await waitForCondition(() => changeSpy.events.length === 1);
       expect(input.value).to.be.equal('Fr, 20.01.2023');
@@ -100,11 +98,8 @@ describe(`sbb-datepicker with ${fixture.name}`, () => {
     });
 
     it('renders and interpret two digit year correctly in 2000s', async function (this: Context) {
-      // This test is flaky on Firefox, so we retry a few times.
-      this.retries(3);
       const changeSpy = new EventSpy('change', element);
-      input.focus();
-      await sendKeys({ type: '20/01/12' });
+      typeInElement(input, '20/01/12');
       button.focus();
       await waitForCondition(() => changeSpy.events.length === 1);
       expect(input.value).to.be.equal('Fr, 20.01.2012');
@@ -112,11 +107,8 @@ describe(`sbb-datepicker with ${fixture.name}`, () => {
     });
 
     it('renders and interpret two digit year correctly in 1900s', async function (this: Context) {
-      // This test is flaky on Firefox, so we retry a few times.
-      this.retries(3);
       const changeSpy = new EventSpy('change', element);
-      input.focus();
-      await sendKeys({ type: '20/01/99' });
+      typeInElement(input, '20/01/99');
       button.focus();
       await waitForCondition(() => changeSpy.events.length === 1);
       expect(input.value).to.be.equal('We, 20.01.1999');
@@ -125,8 +117,7 @@ describe(`sbb-datepicker with ${fixture.name}`, () => {
 
     it('renders and detects missing month error', async () => {
       const changeSpy = new EventSpy('change', element);
-      input.focus();
-      await sendKeys({ type: '20..2012' });
+      typeInElement(input, '20..2012');
       button.focus();
       await waitForCondition(() => changeSpy.events.length === 1);
       expect(input).to.have.attribute('data-sbb-invalid');
@@ -135,8 +126,7 @@ describe(`sbb-datepicker with ${fixture.name}`, () => {
 
     it('renders and detects missing year error', async () => {
       const changeSpy = new EventSpy('change', element);
-      input.focus();
-      await sendKeys({ type: '20.05.' });
+      typeInElement(input, '20.05.');
       button.focus();
       await waitForCondition(() => changeSpy.events.length === 1);
       expect(input).to.have.attribute('data-sbb-invalid');
@@ -145,8 +135,7 @@ describe(`sbb-datepicker with ${fixture.name}`, () => {
 
     it('renders and detects invalid month error', async () => {
       const changeSpy = new EventSpy('change', element);
-      input.focus();
-      await sendKeys({ type: '20.00.2012' });
+      typeInElement(input, '20.00.2012');
       button.focus();
       await waitForCondition(() => changeSpy.events.length === 1);
       expect(input).to.have.attribute('data-sbb-invalid');
@@ -155,8 +144,7 @@ describe(`sbb-datepicker with ${fixture.name}`, () => {
 
     it('renders and detects invalid day error', async () => {
       const changeSpy = new EventSpy('change', element);
-      input.focus();
-      await sendKeys({ type: '00.05.2020' });
+      typeInElement(input, '00.05.2020');
       button.focus();
       await waitForCondition(() => changeSpy.events.length === 1);
       expect(input).to.have.attribute('data-sbb-invalid');
@@ -165,9 +153,7 @@ describe(`sbb-datepicker with ${fixture.name}`, () => {
 
     it('renders with errors when typing letters', async () => {
       expect(input.value).to.be.equal('');
-      input.focus();
-      await sendKeys({ type: 'invalid' });
-      await sendKeys({ press: 'Enter' });
+      typeInElement(input, 'invalid', { key: 'Enter', keyCode: 13 });
       await waitForLitRender(element);
       expect(input.value).to.be.equal('invalid');
       expect(input).to.have.attribute('data-sbb-invalid');
@@ -204,9 +190,7 @@ describe(`sbb-datepicker with ${fixture.name}`, () => {
         return `${weekday}, ${date}`;
       };
       await waitForLitRender(element);
-      input.focus();
-      await sendKeys({ type: '7.8' });
-      await sendKeys({ press: 'Enter' });
+      typeInElement(input, '7.8', { key: 'Enter', keyCode: 13 });
       await waitForCondition(() => changeSpy.events.length === 1);
       await waitForLitRender(element);
       expect(input.value).to.be.equal('Mo, 07.08');
@@ -216,9 +200,7 @@ describe(`sbb-datepicker with ${fixture.name}`, () => {
     it('should emit validation change event', async () => {
       let validationChangeSpy = new EventSpy('validationChange', element);
 
-      // When entering 99
-      input.focus();
-      await sendKeys({ type: '20' });
+      typeInElement(input, '20');
       input.blur();
       await waitForLitRender(element);
 
@@ -228,8 +210,7 @@ describe(`sbb-datepicker with ${fixture.name}`, () => {
       expect(input).to.have.attribute('data-sbb-invalid');
 
       // When adding valid date
-      input.focus();
-      await sendKeys({ press: '.' });
+      typeInElement(input, '.');
       await sendKeys({ press: 'Tab' });
 
       // Then validation event should not be emitted a second time
@@ -240,8 +221,7 @@ describe(`sbb-datepicker with ${fixture.name}`, () => {
       validationChangeSpy = new EventSpy('validationChange', element);
 
       // When adding missing parts of a valid date
-      input.focus();
-      await sendKeys({ type: '8.23' });
+      typeInElement(input, '8.23');
       input.blur();
 
       // Then validation event should be emitted with true
@@ -251,8 +231,6 @@ describe(`sbb-datepicker with ${fixture.name}`, () => {
     });
 
     it('should interpret valid values and set accessibility labels', async function (this: Context) {
-      // This test is flaky on Firefox, so we retry a few times.
-      this.retries(3);
       const testCases = [
         {
           value: '5.5.0',
@@ -300,8 +278,7 @@ describe(`sbb-datepicker with ${fixture.name}`, () => {
         // Clear input
         input.value = '';
 
-        input.focus();
-        await sendKeys({ type: testCase.value });
+        typeInElement(input, testCase.value);
         input.blur();
         await waitForLitRender(element);
 
@@ -316,8 +293,6 @@ describe(`sbb-datepicker with ${fixture.name}`, () => {
     });
 
     it('should not touch invalid values', async function (this: Context) {
-      // This test is flaky on Firefox, so we retry a few times.
-      this.retries(3);
       const testCases = [
         { value: '.12.2020', interpretedAs: '.12.2020' },
         { value: '24..1995', interpretedAs: '24..1995' },
@@ -331,8 +306,7 @@ describe(`sbb-datepicker with ${fixture.name}`, () => {
         // Clear input
         input.value = '';
 
-        input.focus();
-        await sendKeys({ type: testCase.value });
+        typeInElement(input, testCase.value);
         await sendKeys({ press: 'Tab' });
         expect(input.value).to.be.equal(testCase.interpretedAs);
         const paragraphElement = document

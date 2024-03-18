@@ -2,7 +2,6 @@ import { aTimeout, assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import images from '../core/images';
 import { waitForCondition, waitForLitRender, fixture } from '../core/testing';
 
 import { SbbImageElement } from './image';
@@ -12,7 +11,7 @@ describe(`sbb-image with ${fixture.name}`, () => {
 
   it('renders', async function (this: Context) {
     this.timeout(10000);
-    const url = images[0];
+    const url = 'http://localhost:8000/src/components/clock/assets/sbb_clock_face.svg';
     element = await fixture(html`<sbb-image image-src="${url}"></sbb-image>`, {
       modules: ['./image.ts'],
     });
