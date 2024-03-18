@@ -1667,10 +1667,10 @@
     node-fetch "^3.2.8"
     parse5 "^7.1.1"
 
-"@lit-labs/testing@0.2.3":
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/@lit-labs/testing/-/testing-0.2.3.tgz#15e9c3a9e2967ce9b90abfe1c69b89539c316a16"
-  integrity sha512-UVXQf8GoovKYAsMyVP/X7UlI449lR961asXmNrpoCwh6ac7ErqlNDaHBAmJ8Ya+iMgLWkCAOu2UfBmsKXqXM0A==
+"@lit-labs/testing@0.2.4":
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/@lit-labs/testing/-/testing-0.2.4.tgz#941071637b3dc3aff52d1d04262a45f0e6d6c044"
+  integrity sha512-NasNKbELasyfA1vIcfMwM0H/2mE98uFsyf/yDWtcl9fAEsTpRRWrmPdQDrHDyim5LKnsQutCzBP3Fof83hSCIA==
   dependencies:
     "@lit-labs/ssr" "^3.1.8"
     "@lit-labs/ssr-client" "^1.1.4"
@@ -12061,11 +12061,6 @@ vite-plugin-dts@3.7.3:
     debug "^4.3.4"
     kolorist "^1.8.0"
     vue-tsc "^1.8.26"
-
-vite-plugin-turbosnap@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/vite-plugin-turbosnap/-/vite-plugin-turbosnap-1.0.3.tgz#5519bc7b5f8e9c589e8d11fb6b053ec086f41f0a"
-  integrity sha512-p4D8CFVhZS412SyQX125qxyzOgIFouwOcvjZWk6bQbNPR1wtaEzFT6jZxAjf1dejlGqa6fqHcuCvQea6EWUkUA==
 
 vite@5.1.6:
   version "5.1.6"
