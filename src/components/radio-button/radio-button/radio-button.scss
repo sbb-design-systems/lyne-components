@@ -88,10 +88,6 @@
   }
 }
 
-.sbb-radio-button__input {
-  @include sbb.screen-reader-only;
-}
-
 // One radio button per line
 .sbb-radio-button {
   @include sbb.text-m--regular;
@@ -179,6 +175,6 @@ slot[name='subtext'] {
   }
 }
 
-.sbb-radio-button__expanded-label {
+.sbb-screenreader-only {
   @include sbb.screen-reader-only;
 }

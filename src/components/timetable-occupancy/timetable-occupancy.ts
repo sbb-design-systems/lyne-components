@@ -5,9 +5,11 @@ import { customElement, property } from 'lit/decorators.js';
 import { LanguageController, SbbNegativeMixin } from '../core/common-behaviors';
 import { i18nClass } from '../core/i18n';
 import type { SbbOccupancy } from '../core/interfaces';
-import '../timetable-occupancy-icon';
 
 import style from './timetable-occupancy.scss?lit&inline';
+
+import '../screenreader-only';
+import '../timetable-occupancy-icon';
 
 /**
  * Used in `sbb-timetable-row`, it displays information about wagon occupancy.
@@ -39,13 +41,13 @@ export class SbbTimetableOccupancyElement extends SbbNegativeMixin(LitElement) {
                 <span class="sbb-timetable-occupancy__list-item-class" aria-hidden="true">
                   ${this.firstClassOccupancy && index === 0 ? '1' : '2'}.
                 </span>
-                <span class="sbb-timetable-occupancy__visually-hidden">
+                <sbb-screenreader-only>
                   ${`${
                     i18nClass[this.firstClassOccupancy && index === 0 ? 'first' : 'second'][
                       this._language.current
                     ]
                   }.`}
-                </span>
+                </sbb-screenreader-only>
                 <sbb-timetable-occupancy-icon
                   class="sbb-timetable-occupancy__list-item-icon"
                   ?negative=${this.negative}

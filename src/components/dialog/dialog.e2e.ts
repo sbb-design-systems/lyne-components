@@ -37,7 +37,7 @@ describe('sbb-dialog', () => {
         <div slot="action-group">Action group</div>
       </sbb-dialog>
     `);
-    ariaLiveRef = element.shadowRoot!.querySelector('span.sbb-screen-reader-only')!;
+    ariaLiveRef = element.shadowRoot!.querySelector('sbb-screenreader-only')!;
   });
 
   it('renders', () => {
@@ -253,7 +253,7 @@ describe('sbb-dialog', () => {
         <div slot="action-group">Action group</div>
       </sbb-dialog>
     `);
-    ariaLiveRef = element.shadowRoot!.querySelector('span.sbb-screen-reader-only')!;
+    ariaLiveRef = element.shadowRoot!.querySelector('sbb-screenreader-only')!;
 
     await openDialog(element);
 

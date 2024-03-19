@@ -35,7 +35,3 @@ sbb-icon {
     }
   }
 }
-
-.sbb-journey-header__connection--visually-hidden {
-  @include sbb.screen-reader-only;
-}

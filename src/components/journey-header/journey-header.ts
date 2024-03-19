@@ -6,10 +6,12 @@ import { LanguageController, SbbNegativeMixin } from '../core/common-behaviors';
 import { getDocumentWritingMode } from '../core/dom';
 import { i18nConnectionFrom, i18nConnectionRoundtrip, i18nConnectionTo } from '../core/i18n';
 import type { SbbTitleLevel } from '../title';
-import '../icon';
-import '../title';
 
 import style from './journey-header.scss?lit&inline';
+
+import '../icon';
+import '../screenreader-only';
+import '../title';
 
 export type JourneyHeaderSize = 'm' | 'l';
 
@@ -48,21 +50,21 @@ export class SbbJourneyHeaderElement extends SbbNegativeMixin(LitElement) {
       >
         <span class="sbb-journey-header" dir=${getDocumentWritingMode()}>
           <span class="sbb-journey-header__origin">
-            <span class="sbb-journey-header__connection--visually-hidden">
+            <sbb-screenreader-only>
               ${i18nConnectionFrom[this._language.current]}&nbsp;
-            </span>
+            </sbb-screenreader-only>
             ${this.origin}
           </span>
           <sbb-icon name=${iconName}></sbb-icon>
           <span class="sbb-journey-header__destination">
-            <span class="sbb-journey-header__connection--visually-hidden">
+            <sbb-screenreader-only>
               &nbsp;${i18nConnectionTo[this._language.current]}&nbsp;
-            </span>
+            </sbb-screenreader-only>
             ${this.destination}
             ${this.roundTrip
-              ? html` <span class="sbb-journey-header__connection--visually-hidden">
+              ? html` <sbb-screenreader-only>
                   ${i18nConnectionRoundtrip(this.origin)[this._language.current]}
-                </span>`
+                </sbb-screenreader-only>`
               : nothing}
           </span>
         </span>

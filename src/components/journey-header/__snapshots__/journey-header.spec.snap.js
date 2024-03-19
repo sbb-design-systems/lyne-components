@@ -13,9 +13,9 @@ snapshots["sbb-journey-header renders"] =
     dir="ltr"
   >
     <span class="sbb-journey-header__origin">
-      <span class="sbb-journey-header__connection--visually-hidden">
+      <sbb-screenreader-only>
         Connection from
-      </span>
+      </sbb-screenreader-only>
       A
     </span>
     <sbb-icon
@@ -26,9 +26,9 @@ snapshots["sbb-journey-header renders"] =
     >
     </sbb-icon>
     <span class="sbb-journey-header__destination">
-      <span class="sbb-journey-header__connection--visually-hidden">
+      <sbb-screenreader-only>
         to
-      </span>
+      </sbb-screenreader-only>
       B
     </span>
   </span>
@@ -49,9 +49,9 @@ snapshots["sbb-journey-header renders H1 L-sized round-trip negative"] =
     dir="ltr"
   >
     <span class="sbb-journey-header__origin">
-      <span class="sbb-journey-header__connection--visually-hidden">
+      <sbb-screenreader-only>
         Connection from
-      </span>
+      </sbb-screenreader-only>
       B
     </span>
     <sbb-icon
@@ -62,13 +62,13 @@ snapshots["sbb-journey-header renders H1 L-sized round-trip negative"] =
     >
     </sbb-icon>
     <span class="sbb-journey-header__destination">
-      <span class="sbb-journey-header__connection--visually-hidden">
+      <sbb-screenreader-only>
         to
-      </span>
+      </sbb-screenreader-only>
       C
-      <span class="sbb-journey-header__connection--visually-hidden">
+      <sbb-screenreader-only>
         and back to B.
-      </span>
+      </sbb-screenreader-only>
     </span>
   </span>
 </sbb-title>

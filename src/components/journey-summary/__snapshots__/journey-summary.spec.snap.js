@@ -23,9 +23,9 @@ snapshots["sbb-journey-summary renders"] =
       </time>
       ,
       <time>
-        <span class="sbb-screenreaderonly">
+        <sbb-screenreader-only>
           Travel time 1 Hour
-        </span>
+        </sbb-screenreader-only>
         <span aria-hidden="true">
           1 h
         </span>
@@ -47,9 +47,9 @@ snapshots["sbb-journey-summary renders without vias"] =
       </time>
       ,
       <time>
-        <span class="sbb-screenreaderonly">
+        <sbb-screenreader-only>
           Travel time 1 Hour 40 Minutes
-        </span>
+        </sbb-screenreader-only>
         <span aria-hidden="true">
           1 h 40 min
         </span>
@@ -71,9 +71,9 @@ snapshots["sbb-journey-summary renders with second journey"] =
       </time>
       ,
       <time>
-        <span class="sbb-screenreaderonly">
+        <sbb-screenreader-only>
           Travel time 1 Hour 40 Minutes
-        </span>
+        </sbb-screenreader-only>
         <span aria-hidden="true">
           1 h 40 min
         </span>
@@ -110,9 +110,9 @@ snapshots["sbb-journey-summary renders with second journey"] =
         </time>
         ,
         <time>
-          <span class="sbb-screenreaderonly">
+          <sbb-screenreader-only>
             Travel time 1 Hour
-          </span>
+          </sbb-screenreader-only>
           <span aria-hidden="true">
             1 h
           </span>
