@@ -2,7 +2,8 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender, EventSpy, fixture } from '../../core/testing';
+import { waitForLitRender, EventSpy } from '../../core/testing';
+import { fixture } from '../../core/testing/private';
 
 import { SbbTagElement } from './tag';
 

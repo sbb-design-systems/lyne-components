@@ -3,7 +3,8 @@ import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { i18nDialog } from '../core/i18n';
-import { EventSpy, waitForCondition, waitForLitRender, fixture } from '../core/testing';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
+import { fixture } from '../core/testing/private';
 
 import { SbbDialogElement } from './dialog';
 import '../title';

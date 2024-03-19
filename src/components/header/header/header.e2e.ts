@@ -2,13 +2,8 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import {
-  EventSpy,
-  waitForLitRender,
-  mockScrollTo,
-  waitForCondition,
-  fixture,
-} from '../../core/testing';
+import { EventSpy, waitForLitRender, mockScrollTo, waitForCondition } from '../../core/testing';
+import { fixture } from '../../core/testing/private';
 import { SbbMenuElement } from '../../menu';
 import type { SbbHeaderButtonElement } from '../header-button';
 

@@ -2,7 +2,8 @@ import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import type { SbbSecondaryButtonElement } from '../button';
-import { EventSpy, fixture, waitForLitRender } from '../core/testing';
+import { EventSpy, waitForLitRender } from '../core/testing';
+import { fixture } from '../core/testing/private';
 
 import { SbbFileSelectorElement } from './file-selector';
 import '../button/secondary-button';

@@ -2,7 +2,8 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, type TemplateResult } from 'lit';
 
-import { EventSpy, waitForLitRender, fixture } from '../testing';
+import { EventSpy, waitForLitRender } from '../testing';
+import { fixture } from '../testing/private';
 
 import { SbbButtonBaseElement } from './button-base-element';
 

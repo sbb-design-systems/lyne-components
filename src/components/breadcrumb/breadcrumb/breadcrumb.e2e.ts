@@ -1,7 +1,8 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, EventSpy, waitForLitRender, fixture } from '../../core/testing';
+import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing';
+import { fixture } from '../../core/testing/private';
 
 import { SbbBreadcrumbElement } from './breadcrumb';
 

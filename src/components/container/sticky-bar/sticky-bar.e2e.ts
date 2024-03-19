@@ -2,7 +2,8 @@ import { assert, expect } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit';
 
-import { waitForCondition, waitForLitRender, fixture } from '../../core/testing';
+import { waitForCondition, waitForLitRender } from '../../core/testing';
+import { fixture } from '../../core/testing/private';
 import type { SbbContainerElement } from '../container';
 
 import { SbbStickyBarElement } from './sticky-bar';

@@ -2,7 +2,8 @@ import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import type { SbbTransparentButtonElement } from '../../button';
-import { waitForCondition, EventSpy, waitForLitRender, fixture } from '../../core/testing';
+import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing';
+import { fixture } from '../../core/testing/private';
 import type { SbbAlertElement } from '../alert';
 
 import { SbbAlertGroupElement } from './alert-group';

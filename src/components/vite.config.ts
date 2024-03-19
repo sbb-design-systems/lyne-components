@@ -35,7 +35,11 @@ export default defineConfig((config) =>
             dts({
               entryRoot: '.',
               include: `**/*.ts`,
-              exclude: ['**/*[.-]{stories,spec,e2e,test-utils}.ts', 'vite.config.ts'],
+              exclude: [
+                '**/*[.-]{stories,spec,e2e,test-utils}.ts',
+                '**/private/*',
+                'vite.config.ts',
+              ],
 
               beforeWriteFile: (filePath, content) => {
                 if (content.includes('.scss?lit&inline') || content.includes('.scss?inline&lit')) {

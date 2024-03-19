@@ -2,7 +2,8 @@ import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import type { SbbCalendarElement } from '../../calendar';
-import { EventSpy, waitForCondition, waitForLitRender, fixture } from '../../core/testing';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
+import { fixture } from '../../core/testing/private';
 import type { SbbFormFieldElement } from '../../form-field';
 import type { SbbPopoverTriggerElement } from '../../popover';
 import { SbbPopoverElement } from '../../popover';

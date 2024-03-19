@@ -4,7 +4,8 @@ import type { SinonStub } from 'sinon';
 import { stub } from 'sinon';
 
 import { i18nOccupancy } from '../core/i18n';
-import { fixture, waitForLitRender } from '../core/testing';
+import { waitForLitRender } from '../core/testing';
+import { fixture } from '../core/testing/private';
 
 import { SbbTimetableOccupancyIconElement } from './timetable-occupancy-icon';
 

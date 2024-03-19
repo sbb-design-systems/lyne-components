@@ -1,7 +1,8 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, fixture } from '../../core/testing';
+import { EventSpy } from '../../core/testing';
+import { fixture } from '../../core/testing/private';
 
 import { SbbExpansionPanelHeaderElement } from './expansion-panel-header';
 

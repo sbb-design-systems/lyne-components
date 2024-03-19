@@ -1,9 +1,14 @@
-import { aTimeout, expect, fixture } from '@open-wc/testing';
+import { aTimeout, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { fixture } from '../../core/testing/private';
 import './menu';
 import '../menu-button';
+import '../../button';
+import '../../divider';
+import '../../link';
 
-describe('sbb-menu', () => {
+describe(`sbb-menu`, () => {
   it('renders', async () => {
     await fixture(html`
       <sbb-button id="menu-trigger">Menu trigger</sbb-button>

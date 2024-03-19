@@ -2,7 +2,7 @@ import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import type { SbbChipElement } from '../chip';
-import { fixture } from '../core/testing';
+import { fixture } from '../core/testing/private';
 import type { SbbImageElement } from '../image';
 
 import { SbbTeaserPaidElement } from './teaser-paid';

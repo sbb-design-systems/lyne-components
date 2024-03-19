@@ -1,6 +1,8 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import type { TemplateResult } from 'lit';
 import { html, LitElement, render } from 'lit';
+
+import { fixture } from '../testing/private';
 
 import { sbbSpread } from './spread';
 
@@ -30,7 +32,7 @@ class SpreadDirectiveTestOnlyElement extends LitElement {
 
 customElements.define('spread-test-only', SpreadDirectiveTestOnlyElement);
 
-describe('sbbSpread', () => {
+describe(`sbbSpread`, () => {
   it('should spread attributes', async () => {
     const attributes: Record<string, any> = {
       truthy: true,

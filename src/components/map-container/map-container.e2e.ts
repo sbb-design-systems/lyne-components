@@ -3,7 +3,8 @@ import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import type { SbbTertiaryButtonElement } from '../button';
-import { fixture, waitForCondition } from '../core/testing';
+import { waitForCondition } from '../core/testing';
+import { fixture } from '../core/testing/private';
 
 import { SbbMapContainerElement } from './map-container';
 

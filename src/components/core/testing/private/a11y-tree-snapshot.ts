@@ -3,10 +3,9 @@ import { a11ySnapshot } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { isChromium, isFirefox, isSafari } from '../dom';
-
-import { testIf } from './mocha-extensions';
-import { waitForLitRender } from './wait-for-render';
+import { isChromium, isFirefox, isSafari } from '../../dom';
+import { testIf } from '../mocha-extensions';
+import { waitForLitRender } from '../wait-for-render';
 
 /**
  * Get the a11y tree snapshot and tests its snapshot.

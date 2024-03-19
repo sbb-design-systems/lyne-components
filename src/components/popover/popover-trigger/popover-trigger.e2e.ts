@@ -2,12 +2,14 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, EventSpy, waitForLitRender, fixture } from '../../core/testing';
+import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing';
+import { fixture } from '../../core/testing/private';
 import { SbbPopoverElement } from '../popover';
 
 import { SbbPopoverTriggerElement } from './popover-trigger';
 
 import '../../icon';
+import '../../link/link';
 
 describe(`sbb-popover-trigger with ${fixture.name}`, () => {
   let element: SbbPopoverTriggerElement, popover: SbbPopoverElement;

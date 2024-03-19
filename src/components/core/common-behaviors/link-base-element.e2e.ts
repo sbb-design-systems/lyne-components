@@ -2,7 +2,8 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, type TemplateResult } from 'lit';
 
-import { EventSpy, waitForLitRender, fixture } from '../testing';
+import { EventSpy, waitForLitRender } from '../testing';
+import { fixture } from '../testing/private';
 
 import { SbbLinkBaseElement } from './link-base-element';
 
@@ -20,7 +21,7 @@ describe(`SbbLinkBaseElement with ${fixture.name}`, () => {
     let element: GenericLink;
 
     beforeEach(async () => {
-      element = await fixture(html`<generic-link></generic-link>`, { modules: [] });
+      element = await fixture(html`<generic-link></generic-link>`);
     });
 
     it('renders', async () => {
@@ -40,7 +41,7 @@ describe(`SbbLinkBaseElement with ${fixture.name}`, () => {
     let element: GenericLink;
 
     beforeEach(async () => {
-      element = await fixture(html` <generic-link></generic-link> `, { modules: [] });
+      element = await fixture(html` <generic-link></generic-link> `);
     });
 
     it('no click dispatch if disabled', async () => {

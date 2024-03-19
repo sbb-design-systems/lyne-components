@@ -1,15 +1,16 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
 import { sbbSpread } from '../core/dom';
 import images from '../core/images';
-import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
 
 import type { SbbTeaserElement } from './teaser';
+
 import './teaser';
 
-describe('sbb-teaser', () => {
+describe(`sbb-teaser`, () => {
   const createTeaser = (args: Record<string, string>): TemplateResult => {
     return html`<sbb-teaser ${sbbSpread(args)}></sbb-teaser>`;
   };

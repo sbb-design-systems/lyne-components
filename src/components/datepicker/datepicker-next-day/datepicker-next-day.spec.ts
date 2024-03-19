@@ -1,15 +1,16 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 import type { SbbFormFieldElement } from '../../form-field';
 
 import type { SbbDatepickerNextDayElement } from './datepicker-next-day';
 
-import '../datepicker';
 import './datepicker-next-day';
+import '../datepicker';
+import '../../form-field';
 
-describe('sbb-datepicker-next-day', () => {
+describe(`sbb-datepicker-next-day`, () => {
   it('renders', async () => {
     const page: SbbDatepickerNextDayElement = await fixture(
       html`<sbb-datepicker-next-day></sbb-datepicker-next-day>`,

@@ -1,10 +1,11 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
+import { fixture } from '../../core/testing/private';
 
 import type { SbbTrainWagonElement } from './train-wagon';
-import '.';
+import './train-wagon';
 import '../../icon';
 import '../../timetable-occupancy-icon';
 
@@ -59,7 +60,7 @@ async function extractAriaLabels(
   );
 }
 
-describe('sbb-train-wagon', () => {
+describe(`sbb-train-wagon`, () => {
   describe('render', () => {
     it('should render as type wagon', async () => {
       const root = await fixture(

@@ -2,15 +2,17 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import '../../autocomplete';
 import type { SbbAutocompleteElement } from '../../autocomplete';
-import { waitForLitRender, EventSpy, fixture } from '../../core/testing';
+import { waitForLitRender, EventSpy } from '../../core/testing';
+import { fixture } from '../../core/testing/private';
 import type { SbbFormFieldElement } from '../../form-field';
-import '../../form-field';
-import '../optgroup';
 import type { SbbOptGroupElement } from '../optgroup';
 
 import { SbbOptionElement } from './option';
+
+import '../../autocomplete';
+import '../../form-field';
+import '../optgroup';
 
 describe(`sbb-option with ${fixture.name}`, () => {
   describe('autocomplete', () => {

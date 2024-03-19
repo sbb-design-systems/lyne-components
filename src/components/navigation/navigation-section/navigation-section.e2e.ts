@@ -1,9 +1,11 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender, fixture } from '../../core/testing';
+import { waitForCondition, waitForLitRender } from '../../core/testing';
+import { fixture } from '../../core/testing/private';
 
 import { SbbNavigationSectionElement } from './navigation-section';
+
 import '../navigation';
 import '../navigation-list';
 import '../navigation-button';

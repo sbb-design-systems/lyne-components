@@ -163,3 +163,39 @@ snapshots["sbb-button renders a sbb-button with slotted icon A11y tree Safari"] 
 `;
 /* end snapshot sbb-button renders a sbb-button with slotted icon A11y tree Safari */
 
+snapshots["sbb-button renders a sbb-button without icon Dom"] = 
+`<sbb-button
+  aria-disabled="true"
+  data-action=""
+  data-button=""
+  data-sbb-button=""
+  data-slot-names="unnamed"
+  dir="ltr"
+  disabled=""
+  form="formid"
+  name="name"
+  negative=""
+  role="button"
+  size="m"
+  type="button"
+  value="value"
+>
+  Label Text
+</sbb-button>
+`;
+/* end snapshot sbb-button renders a sbb-button without icon Dom */
+
+snapshots["sbb-button renders a sbb-button without icon ShadowDom"] = 
+`<span class="sbb-action-base sbb-button">
+  <span class="sbb-button__icon">
+    <slot name="icon">
+    </slot>
+  </span>
+  <span class="sbb-button__label">
+    <slot>
+    </slot>
+  </span>
+</span>
+`;
+/* end snapshot sbb-button renders a sbb-button without icon ShadowDom */
+

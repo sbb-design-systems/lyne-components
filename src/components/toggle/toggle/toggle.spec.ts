@@ -1,15 +1,15 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 import type { SbbToggleOptionElement } from '../toggle-option';
 
 import type { SbbToggleElement } from './toggle';
 import './toggle';
 import '../toggle-option';
 
-describe('sbb-toggle', () => {
+describe(`sbb-toggle`, () => {
   let option: SbbToggleOptionElement, page: SbbToggleElement;
   const simpleToggleTemplate = html`
     <sbb-toggle>

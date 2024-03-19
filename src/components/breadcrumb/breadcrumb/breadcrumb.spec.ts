@@ -1,12 +1,12 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 
 import './breadcrumb';
 
-describe('sbb-breadcrumb', () => {
+describe(`sbb-breadcrumb`, () => {
   it('renders with text', async () => {
     const root = await fixture(html`
       <sbb-breadcrumb href="https://example.com/test" target="_blank" download rel="subsection"

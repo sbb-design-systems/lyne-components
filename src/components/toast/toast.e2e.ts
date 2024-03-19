@@ -2,7 +2,8 @@ import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import type { SbbTransparentButtonElement } from '../button';
-import { EventSpy, fixture, waitForCondition, waitForLitRender } from '../core/testing';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
+import { fixture } from '../core/testing/private';
 
 import { SbbToastElement } from './toast';
 

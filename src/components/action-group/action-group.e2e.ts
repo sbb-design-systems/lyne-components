@@ -2,15 +2,14 @@ import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import type { SbbSecondaryButtonElement } from '../button';
-import { fixture, waitForLitRender } from '../core/testing';
+import { waitForLitRender } from '../core/testing';
+import { fixture } from '../core/testing/private';
 import type { SbbBlockLinkElement } from '../link';
-import '../button/secondary-button';
-import '../link/block-link';
 
 import { SbbActionGroupElement } from './action-group';
 
-import '../button';
-import '../link';
+import '../button/secondary-button';
+import '../link/block-link';
 
 describe(`sbb-action-group with ${fixture.name}`, () => {
   let element: SbbActionGroupElement;

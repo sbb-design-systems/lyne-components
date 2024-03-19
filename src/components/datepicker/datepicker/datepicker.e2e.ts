@@ -5,8 +5,8 @@ import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
 import { i18nDateChangedTo } from '../../core/i18n';
-import { EventSpy, waitForCondition, waitForLitRender, fixture } from '../../core/testing';
-import { typeInElement } from '../../core/testing/private';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
+import { fixture, typeInElement } from '../../core/testing/private';
 
 import { SbbDatepickerElement } from './datepicker';
 

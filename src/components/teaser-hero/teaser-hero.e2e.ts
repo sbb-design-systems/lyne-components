@@ -2,10 +2,10 @@ import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import images from '../core/images';
-import { waitForLitRender, fixture } from '../core/testing';
+import { waitForLitRender } from '../core/testing';
+import { fixture } from '../core/testing/private';
 
 import { SbbTeaserHeroElement } from './teaser-hero';
-import '.';
 
 describe(`sbb-teaser-hero with ${fixture.name}`, () => {
   let element: SbbTeaserHeroElement;

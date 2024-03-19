@@ -2,7 +2,8 @@ import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import type { SbbCardElement } from '../card';
-import { EventSpy, waitForCondition, fixture } from '../core/testing';
+import { EventSpy, waitForCondition } from '../core/testing';
+import { fixture } from '../core/testing/private';
 
 import { SbbTimetableRowElement } from './timetable-row';
 

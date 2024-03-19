@@ -1,12 +1,13 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 
 import './expansion-panel-header';
+import '../../icon';
 
-describe('sbb-expansion-panel-header', () => {
+describe(`sbb-expansion-panel-header`, () => {
   it('renders collapsed', async () => {
     const root = await fixture(
       html`<sbb-expansion-panel-header>Header</sbb-expansion-panel-header>`,

@@ -3,14 +3,15 @@ import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import type { SbbButtonElement } from '../../button';
-import { EventSpy, waitForCondition, waitForLitRender, fixture } from '../../core/testing';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
+import { fixture } from '../../core/testing/private';
 
 import { SbbMenuElement } from './menu';
 
 import '../../button/button';
-import '../menu-button';
 import '../../link';
 import '../../divider';
+import '../menu-button';
 
 describe(`sbb-menu with ${fixture.name}`, () => {
   let element: SbbMenuElement, trigger: SbbButtonElement;

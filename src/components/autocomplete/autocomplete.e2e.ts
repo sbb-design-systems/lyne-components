@@ -2,7 +2,8 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender, EventSpy, fixture } from '../core/testing';
+import { waitForCondition, waitForLitRender, EventSpy } from '../core/testing';
+import { fixture } from '../core/testing/private';
 import { SbbFormFieldElement } from '../form-field';
 import { SbbOptionElement } from '../option';
 

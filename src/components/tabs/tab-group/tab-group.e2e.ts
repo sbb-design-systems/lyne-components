@@ -2,7 +2,8 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { EventSpy, waitForCondition, fixture } from '../../core/testing';
+import { EventSpy, waitForCondition } from '../../core/testing';
+import { fixture } from '../../core/testing/private';
 import type { SbbTabTitleElement } from '../tab-title';
 
 import { SbbTabGroupElement } from './tab-group';

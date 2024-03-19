@@ -1,9 +1,14 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './navigation';
-import '../../button/transparent-button';
 
-describe('sbb-navigation', () => {
+import { fixture } from '../../core/testing/private';
+
+import './navigation';
+import '../navigation-button';
+import '../navigation-marker';
+import '../../button/button';
+
+describe(`sbb-navigation`, () => {
   it('renders', async () => {
     await fixture(html`
       <sbb-button id="nav-trigger">Navigation trigger</sbb-button>
@@ -19,11 +24,11 @@ describe('sbb-navigation', () => {
     expect(nav).dom.to.be.equal(
       `
         <sbb-navigation trigger="nav-trigger" role="navigation" data-state="closed" id="sbb-navigation-1">
-          <sbb-navigation-marker>
-            <sbb-navigation-button id="nav-1">
+          <sbb-navigation-marker size="l">
+            <sbb-navigation-button id="nav-1" data-action data-button dir="ltr" role="button" size="l" slot="li-0" tabindex="0">
               Tickets &amp; Offers
             </sbb-navigation-button>
-            <sbb-navigation-button id="nav-2">
+            <sbb-navigation-button id="nav-2" data-action data-button dir="ltr" role="button" size="l" slot="li-1" tabindex="0">
               Vacations &amp; Recreation
             </sbb-navigation-button>
           </sbb-navigation-marker>

@@ -12,6 +12,7 @@ const isCIEnvironment = !!process.env.CI || process.argv.includes('--ci');
 const isDebugMode = process.argv.includes('--debug');
 const firefox = process.argv.includes('--firefox');
 const webkit = process.argv.includes('--webkit');
+const concurrency = process.argv.includes('--parallel') ? {} : { concurrency: 1 };
 
 const globalCss = sass.compile('./src/components/core/styles/global.scss', {
   loadPaths: ['.', './node_modules/'],
@@ -20,9 +21,9 @@ const globalCss = sass.compile('./src/components/core/styles/global.scss', {
 const browsers = isCIEnvironment
   ? [
       // Parallelism has problems, we need force concurrency to 1
-      playwrightLauncher({ product: 'chromium', concurrency: 1 }),
-      playwrightLauncher({ product: 'firefox', concurrency: 1 }),
-      playwrightLauncher({ product: 'webkit', concurrency: 1 }),
+      playwrightLauncher({ product: 'chromium', ...concurrency }),
+      playwrightLauncher({ product: 'firefox', ...concurrency }),
+      playwrightLauncher({ product: 'webkit', ...concurrency }),
     ]
   : firefox
     ? [playwrightLauncher({ product: 'firefox' })]
@@ -31,8 +32,8 @@ const browsers = isCIEnvironment
       : isDebugMode
         ? [
             puppeteerLauncher({
-              concurrency: 1,
               launchOptions: { headless: false, devtools: true },
+              ...concurrency,
             }),
           ]
         : [playwrightLauncher({ product: 'chromium' })];

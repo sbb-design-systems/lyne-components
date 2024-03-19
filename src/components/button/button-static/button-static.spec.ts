@@ -1,7 +1,6 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 
-import { waitForLitRender } from '../../core/testing';
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 import {
   buttonIconTestTemplate,
   buttonSlottedIconTestTemplate,
@@ -10,11 +9,16 @@ import {
 } from '../common/button-test-utils';
 
 import type { SbbButtonStaticElement } from './button-static';
+
 import './button-static';
 
-describe('sbb-button-static', () => {
+describe(`sbb-button-static`, () => {
   describe('renders a sbb-button-static without icon', async () => {
-    const root = await fixture(buttonTestTemplate('sbb-button-static', true));
+    let root: SbbButtonStaticElement;
+
+    beforeEach(async () => {
+      root = await fixture(buttonTestTemplate('sbb-button-static', true));
+    });
 
     it('Dom', async () => {
       await expect(root).dom.to.be.equalSnapshot();
@@ -30,7 +34,6 @@ describe('sbb-button-static', () => {
 
     beforeEach(async () => {
       root = await fixture(buttonSlottedIconTestTemplate('sbb-button-static'));
-      await waitForLitRender(root);
     });
 
     it('Dom', async () => {
@@ -46,7 +49,6 @@ describe('sbb-button-static', () => {
 
   it('should detect icon in sbb-button-static', async () => {
     const root = await fixture(buttonIconTestTemplate('sbb-button-static'));
-    await waitForLitRender(root);
     const dataSlots = root.getAttribute('data-slot-names');
     expect(dataSlots).to.contain('icon');
     expect(dataSlots).not.to.contain('unnamed');

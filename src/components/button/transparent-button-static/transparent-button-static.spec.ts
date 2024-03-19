@@ -1,7 +1,6 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 
-import { waitForLitRender } from '../../core/testing';
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 import {
   buttonIconTestTemplate,
   buttonSlottedIconTestTemplate,
@@ -12,9 +11,13 @@ import {
 import type { SbbTransparentButtonStaticElement } from './transparent-button-static';
 import './transparent-button-static';
 
-describe('sbb-transparent-button-static', () => {
+describe(`sbb-transparent-button-static`, () => {
   describe('renders a sbb-transparent-button-static without icon', async () => {
-    const root = await fixture(buttonTestTemplate('sbb-transparent-button-static', true));
+    let root: SbbTransparentButtonStaticElement;
+
+    beforeEach(async () => {
+      root = await fixture(buttonTestTemplate('sbb-transparent-button-static', true));
+    });
 
     it('Dom', async () => {
       await expect(root).dom.to.be.equalSnapshot();
@@ -30,7 +33,6 @@ describe('sbb-transparent-button-static', () => {
 
     beforeEach(async () => {
       root = await fixture(buttonSlottedIconTestTemplate('sbb-transparent-button-static'));
-      await waitForLitRender(root);
     });
 
     it('Dom', async () => {
@@ -46,7 +48,6 @@ describe('sbb-transparent-button-static', () => {
 
   it('should detect icon in sbb-transparent-button-static', async () => {
     const root = await fixture(buttonIconTestTemplate('sbb-transparent-button-static'));
-    await waitForLitRender(root);
     const dataSlots = root.getAttribute('data-slot-names');
     expect(dataSlots).to.contain('icon');
     expect(dataSlots).not.to.contain('unnamed');

@@ -3,7 +3,8 @@ import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { isChromium, isFirefox } from '../core/dom';
-import { EventSpy, fixture, waitForCondition, waitForLitRender } from '../core/testing';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
+import { fixture } from '../core/testing/private';
 
 import { SbbToggleCheckElement } from './toggle-check';
 

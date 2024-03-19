@@ -1,11 +1,12 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
+import { fixture } from '../../core/testing/private';
 
 import './menu-link';
 
-describe('sbb-menu-link', () => {
+describe(`sbb-menu-link`, () => {
   it('renders component with icon and amount', async () => {
     const root = await fixture(html`
       <sbb-menu-link

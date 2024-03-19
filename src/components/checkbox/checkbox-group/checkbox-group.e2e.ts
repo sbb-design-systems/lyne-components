@@ -2,7 +2,8 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender, fixture } from '../../core/testing';
+import { waitForLitRender } from '../../core/testing';
+import { fixture } from '../../core/testing/private';
 import { SbbCheckboxElement } from '../checkbox';
 
 import { SbbCheckboxGroupElement } from './checkbox-group';

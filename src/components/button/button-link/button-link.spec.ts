@@ -1,13 +1,13 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 
 import { waitForLitRender } from '../../core/testing';
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 import { buttonLinkIconTestTemplate, buttonLinkTestTemplate } from '../common/button-test-utils';
 
 import type { SbbButtonLinkElement } from './button-link';
 import './button-link';
 
-describe('sbb-button-link', () => {
+describe(`sbb-button-link`, () => {
   describe('renders a sbb-button-link without icon', async () => {
     let root: SbbButtonLinkElement;
 

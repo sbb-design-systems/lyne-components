@@ -1,11 +1,11 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
 
 import './visual-checkbox';
 
-describe('sbb-visual-checkbox', () => {
+describe(`sbb-visual-checkbox`, () => {
   it('renders unchecked', async () => {
     const elem = await fixture(html`<sbb-visual-checkbox></sbb-visual-checkbox>`);
     await expect(elem).shadowDom.to.be.equalSnapshot();

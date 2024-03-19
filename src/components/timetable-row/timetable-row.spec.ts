@@ -1,7 +1,8 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../core/testing';
+import { fixture } from '../core/testing/private';
 import type { ITripItem, Notice, PtSituation } from '../core/timetable';
 
 import type { SbbTimetableRowElement } from './timetable-row';
@@ -16,7 +17,7 @@ import '.';
 
 const now = new Date('2022-08-16T15:00:00Z').valueOf();
 
-describe('sbb-timetable-row', () => {
+describe(`sbb-timetable-row`, () => {
   let element: SbbTimetableRowElement;
 
   describe('sbb-timetable-row with defaultTrip', () => {
@@ -237,7 +238,7 @@ describe('sortSituation', () => {
   });
 });
 
-describe('getHimIcon', () => {
+describe(`getHimIcon`, () => {
   it('should return replacementbus', () => {
     const situation: PtSituation = {
       cause: 'TRAIN_REPLACEMENT_BY_BUS',
@@ -256,7 +257,7 @@ describe('getHimIcon', () => {
   });
 });
 
-describe('getCus', () => {
+describe(`getCus`, () => {
   it('should return cancellation', () => {
     expect(getCus(partiallyCancelled as ITripItem, 'en')).to.be.eql({
       name: 'cancellation',
@@ -265,7 +266,7 @@ describe('getCus', () => {
   });
 });
 
-describe('filterNotices', () => {
+describe(`filterNotices`, () => {
   it('should return sa-rr', () => {
     expect(filterNotices(walkTimeTrip?.notices as Notice[])).to.be.eql([]);
   });

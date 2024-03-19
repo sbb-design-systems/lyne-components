@@ -5,7 +5,8 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import type { SbbCheckboxGroupElement } from '../checkbox';
 import { SbbCheckboxElement } from '../checkbox';
-import { EventSpy, waitForCondition, waitForLitRender, fixture } from '../core/testing';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
+import { fixture } from '../core/testing/private';
 import type { SbbRadioButtonGroupElement } from '../radio-button';
 import { SbbRadioButtonElement } from '../radio-button';
 

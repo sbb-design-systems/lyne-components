@@ -1,13 +1,14 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 
 import type { SbbHeaderElement } from './header';
 import './header';
+import '../header-link';
 
-describe('sbb-header', () => {
+describe(`sbb-header`, () => {
   it('renders', async () => {
     const root = await fixture(html`<sbb-header></sbb-header>`);
 

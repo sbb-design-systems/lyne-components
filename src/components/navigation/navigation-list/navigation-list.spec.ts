@@ -1,8 +1,12 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import './navigation-list';
 
-describe('sbb-navigation-list', () => {
+import { fixture } from '../../core/testing/private';
+
+import './navigation-list';
+import '../navigation-button';
+
+describe(`sbb-navigation-list`, () => {
   it('renders', async () => {
     const root = await fixture(
       html` <sbb-navigation-list>
@@ -16,16 +20,16 @@ describe('sbb-navigation-list', () => {
     expect(root).dom.to.be.equal(
       `
         <sbb-navigation-list data-slot-names="li-0 li-1 li-2 li-3">
-          <sbb-navigation-button slot="li-0">
+          <sbb-navigation-button data-action data-button dir="ltr" role="button" size="m" tabindex="0" slot="li-0">
             Tickets &amp; Offers
           </sbb-navigation-button>
-          <sbb-navigation-button slot="li-1">
+          <sbb-navigation-button data-action data-button dir="ltr" role="button" size="m" tabindex="0" slot="li-1">
             Vacations &amp; Recreation
           </sbb-navigation-button>
-          <sbb-navigation-button slot="li-2">
+          <sbb-navigation-button data-action data-button dir="ltr" role="button" size="m" tabindex="0" slot="li-2">
             Travel information
           </sbb-navigation-button>
-          <sbb-navigation-button slot="li-3">
+          <sbb-navigation-button data-action data-button dir="ltr" role="button" size="m" tabindex="0" slot="li-3">
             Help &amp; Contact
           </sbb-navigation-button>
         </sbb-navigation-list>

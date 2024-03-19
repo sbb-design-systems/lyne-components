@@ -2,7 +2,8 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender, EventSpy, fixture } from '../../core/testing';
+import { waitForCondition, waitForLitRender, EventSpy } from '../../core/testing';
+import { fixture } from '../../core/testing/private';
 import type { SbbRadioButtonElement } from '../radio-button';
 import '../radio-button';
 

@@ -5,8 +5,8 @@ import type { Context } from 'mocha';
 
 import { i18nTimeInputChange } from '../core/i18n';
 import type { ValidationChangeEvent } from '../core/interfaces';
-import { EventSpy, waitForLitRender, fixture } from '../core/testing';
-import { clearElement, typeInElement } from '../core/testing/private';
+import { EventSpy, waitForLitRender } from '../core/testing';
+import { clearElement, fixture, typeInElement } from '../core/testing/private';
 
 import { SbbTimeInputElement } from './time-input';
 
