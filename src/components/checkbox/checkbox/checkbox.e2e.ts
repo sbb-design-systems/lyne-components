@@ -88,7 +88,7 @@ describe('sbb-checkbox', () => {
       expect(snapshot.required).to.be.undefined;
     });
 
-    it('should reflect accessibility tree setting required attribute', async () => {
+    it('should reflect accessibility tree setting required attribute to true', async () => {
       element.toggleAttribute('required', true);
       await waitForLitRender(element);
 
@@ -100,18 +100,23 @@ describe('sbb-checkbox', () => {
       if (!isChromium()) {
         expect(snapshot.required).to.be.true;
       }
+    });
+
+    it('should reflect accessibility tree setting required attribute to false', async () => {
+      element.toggleAttribute('required', true);
+      await waitForLitRender(element);
 
       element.removeAttribute('required');
       await waitForLitRender(element);
 
-      const snapshotAfterRemoved = (await a11ySnapshot({
+      const snapshot = (await a11ySnapshot({
         selector: 'sbb-checkbox',
       })) as unknown as CheckboxAccessibilitySnapshot;
 
-      expect(snapshotAfterRemoved.required).not.to.be.ok;
+      expect(snapshot.required).not.to.be.ok;
     });
 
-    it('should reflect accessibility tree setting required property', async () => {
+    it('should reflect accessibility tree setting required property to true', async () => {
       element.required = true;
       await waitForLitRender(element);
 
@@ -123,15 +128,20 @@ describe('sbb-checkbox', () => {
       if (!isChromium()) {
         expect(snapshot.required).to.be.true;
       }
+    });
+
+    it('should reflect accessibility tree setting required property to false', async () => {
+      element.required = true;
+      await waitForLitRender(element);
 
       element.required = false;
       await waitForLitRender(element);
 
-      const snapshotAfterRemoved = (await a11ySnapshot({
+      const snapshot = (await a11ySnapshot({
         selector: 'sbb-checkbox',
       })) as unknown as CheckboxAccessibilitySnapshot;
 
-      expect(snapshotAfterRemoved.required).not.to.be.ok;
+      expect(snapshot.required).not.to.be.ok;
     });
 
     it('should should restore form state on formStateRestoreCallback()', async () => {
@@ -270,7 +280,7 @@ describe('sbb-checkbox', () => {
             });
           });
 
-          it('should reflect state after programmatic change ', async () => {
+          it('should reflect state after programmatic change', async () => {
             element.checked = true;
             await waitForLitRender(form);
 
@@ -296,13 +306,64 @@ describe('sbb-checkbox', () => {
             });
           });
 
-          it('should no longer interpret attribute after programmatic change ', async () => {
+          it('should no longer interpret attribute after programmatic change', async () => {
             element.checked = true;
             await waitForLitRender(form);
 
             element.checked = false;
             await waitForLitRender(form);
 
+            element.toggleAttribute('checked', true);
+            await waitForLitRender(form);
+
+            await assertState({
+              ariaChecked: false,
+              checkedAttribute: true,
+              checkedProperty: false,
+              indeterminateProperty: false,
+              inputEventCount: 0,
+              changeEventCount: 0,
+            });
+          });
+
+          it('should interpret attribute after programmatic change and reset', async () => {
+            // Simulate programmatic change (according to previous test, now attribute mutation is blocked)
+            element.checked = true;
+            await waitForLitRender(form);
+
+            // When resetting the form
+            formResetButton.click();
+            await waitForLitRender(form);
+
+            // State should be reset
+            await assertState({
+              ariaChecked: false,
+              checkedAttribute: false,
+              checkedProperty: false,
+              indeterminateProperty: false,
+              inputEventCount: 0,
+              changeEventCount: 0,
+            });
+
+            // When performing
+            element.toggleAttribute('checked', true);
+            await waitForLitRender(form);
+
+            // Attribute should be considered
+            await assertState({
+              ariaChecked: true,
+              checkedAttribute: true,
+              checkedProperty: true,
+              indeterminateProperty: false,
+              inputEventCount: 0,
+              changeEventCount: 0,
+            });
+
+            // When we are manipulating again
+            element.checked = false;
+            await waitForLitRender(form);
+
+            // Attribute mutation should be blocked again
             element.toggleAttribute('checked', true);
             await waitForLitRender(form);
 
@@ -699,7 +760,7 @@ describe('sbb-checkbox', () => {
             });
           });
 
-          it('should reflect state after programmatic change ', async () => {
+          it('should reflect state after programmatic change', async () => {
             element.checked = false;
             await waitForLitRender(form);
 
@@ -725,12 +786,63 @@ describe('sbb-checkbox', () => {
             });
           });
 
-          it('should no longer interpret attribute after programmatic change ', async () => {
+          it('should no longer interpret attribute after programmatic change', async () => {
             element.checked = false;
             await waitForLitRender(form);
 
             element.checked = true;
             element.removeAttribute('checked');
+            await waitForLitRender(form);
+
+            await assertState({
+              ariaChecked: true,
+              checkedAttribute: false,
+              checkedProperty: true,
+              indeterminateProperty: false,
+              inputEventCount: 0,
+              changeEventCount: 0,
+            });
+          });
+
+          it('should interpret attribute after programmatic change and reset', async () => {
+            // Simulate programmatic change (according to previous test, now attribute mutation is blocked)
+            element.checked = false;
+            await waitForLitRender(form);
+
+            // When resetting the form
+            formResetButton.click();
+            await waitForLitRender(form);
+
+            // State should be reset
+            await assertState({
+              ariaChecked: true,
+              checkedAttribute: true,
+              checkedProperty: true,
+              indeterminateProperty: false,
+              inputEventCount: 0,
+              changeEventCount: 0,
+            });
+
+            // When performing
+            element.toggleAttribute('checked', false);
+            await waitForLitRender(form);
+
+            // Attribute should be considered
+            await assertState({
+              ariaChecked: false,
+              checkedAttribute: false,
+              checkedProperty: false,
+              indeterminateProperty: false,
+              inputEventCount: 0,
+              changeEventCount: 0,
+            });
+
+            // When we are manipulating again
+            element.checked = true;
+            await waitForLitRender(form);
+
+            // Attribute mutation should be blocked again
+            element.toggleAttribute('checked', false);
             await waitForLitRender(form);
 
             await assertState({

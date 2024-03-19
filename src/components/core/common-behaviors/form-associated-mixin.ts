@@ -4,8 +4,6 @@ import { property, state } from 'lit/decorators.js';
 import type { Constructor } from './constructor';
 
 export declare abstract class SbbFormAssociatedMixinType {
-  protected readonly internals: ElementInternals;
-
   public get form(): HTMLFormElement | null;
   public get name(): string;
   public set name(value: string);
@@ -17,11 +15,13 @@ export declare abstract class SbbFormAssociatedMixinType {
   public get validationMessage(): string;
   public get willValidate(): boolean;
 
+  protected formDisabled: boolean;
+  protected readonly internals: ElementInternals;
+
   public checkValidity(): boolean;
   public reportValidity(): boolean;
 
   public formAssociatedCallback?(form: HTMLFormElement | null): void;
-
   public formDisabledCallback(disabled: boolean): void;
   public abstract formResetCallback(): void;
   public abstract formStateRestoreCallback(
@@ -30,8 +30,6 @@ export declare abstract class SbbFormAssociatedMixinType {
   ): void;
 
   protected updateFormValue(): void;
-
-  protected formDisabled: boolean;
 }
 
 /**
@@ -46,38 +44,6 @@ export const SbbFormAssociatedMixin = <T extends Constructor<LitElement>>(
     implements Partial<SbbFormAssociatedMixinType>
   {
     public static formAssociated = true;
-
-    /** @internal */
-    protected readonly internals: ElementInternals = this.attachInternals();
-
-    /**
-     * Returns the ValidityState object for internals target element.
-     *
-     * @internal
-     */
-    public get validity(): ValidityState {
-      return this.internals.validity;
-    }
-
-    /**
-     * Returns the error message that would be shown to the user
-     * if internals target element was to be checked for validity.
-     *
-     * @internal
-     */
-    public get validationMessage(): string {
-      return this.internals.validationMessage;
-    }
-
-    /**
-     * Returns true if internals target element will be validated
-     * when the form is submitted; false otherwise.
-     *
-     * @internal
-     */
-    public get willValidate(): boolean {
-      return this.internals.willValidate;
-    }
 
     /**
      * Returns the form owner of internals target element.
@@ -112,6 +78,41 @@ export const SbbFormAssociatedMixin = <T extends Constructor<LitElement>>(
     private _value: string | null = null;
 
     /**
+     * Returns the ValidityState object for internals target element.
+     *
+     * @internal
+     */
+    public get validity(): ValidityState {
+      return this.internals.validity;
+    }
+
+    /**
+     * Returns the error message that would be shown to the user
+     * if internals target element was to be checked for validity.
+     *
+     * @internal
+     */
+    public get validationMessage(): string {
+      return this.internals.validationMessage;
+    }
+
+    /**
+     * Returns true if internals target element will be validated
+     * when the form is submitted; false otherwise.
+     *
+     * @internal
+     */
+    public get willValidate(): boolean {
+      return this.internals.willValidate;
+    }
+
+    /** @internal */
+    protected readonly internals: ElementInternals = this.attachInternals();
+
+    /** Whenever a surrounding form or fieldset is changing its disabled state. */
+    @state() protected formDisabled: boolean = false;
+
+    /**
      * Returns true if internals target element has no validity problems; false otherwise.
      * Fires an invalid event at the element in the latter case.
      *
@@ -131,6 +132,14 @@ export const SbbFormAssociatedMixin = <T extends Constructor<LitElement>>(
     public reportValidity(): boolean {
       return this.internals.reportValidity();
     }
+
+    /**
+     * Called when the associated form element changes.
+     * ElementInternals.form returns the associated from element.
+     *
+     * @internal
+     */
+    public formAssociatedCallback?(form: HTMLFormElement | null): void;
 
     /**
      * Is called whenever a surrounding form / fieldset changes disabled state.
@@ -163,21 +172,10 @@ export const SbbFormAssociatedMixin = <T extends Constructor<LitElement>>(
       reason: FormRestoreReason,
     ): void;
 
-    /**
-     * Called when the associated form element changes.
-     * ElementInternals.form returns the associated from element.
-     *
-     * @internal
-     */
-    public formAssociatedCallback?(form: HTMLFormElement | null): void;
-
     /** Should be called when form value is changed. */
     protected updateFormValue(): void {
       this.internals.setFormValue(this.value);
     }
-
-    /** Whenever a surrounding form or fieldset is changing its disabled state. */
-    @state() protected formDisabled: boolean = false;
   }
   return SbbFormAssociatedElement as unknown as Constructor<SbbFormAssociatedMixinType> & T;
 };
