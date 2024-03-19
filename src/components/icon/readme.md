@@ -4,12 +4,15 @@ The component will dynamically load an SVG for each icon, avoiding multiple requ
 The icon components are not tied to specific icon sets; you can register custom namespaces
 and then provide the `sbb-icon` with the `name` property in the format `name="icon-name"` or `name="namespace:icon-name"`.
 
-Note that if you do not provide a namespace, the default namespace will be used pointing to the `SBB Icons CDN` (Work in progress).
+Note that if you do not provide a namespace, the default namespace will be used pointing to the `SBB Icons CDN`.
 
 ```html
 <!-- Will use the default namespace -->
 <sbb-icon name="app-icon-medium"></sbb-icon>
 ```
+
+If using the SBB CDN, ensure that the icon name has the size suffix.
+E.g. if in the Design (Figma) the icon is called 'circle-plus', the icon name will be either 'circle-plus-small' or 'circle-plus-medium'.
 
 ## Accessibility
 
