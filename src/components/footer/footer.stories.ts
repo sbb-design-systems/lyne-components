@@ -1,14 +1,6 @@
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import isChromatic from 'chromatic';
-import '../clock';
-import '../button/button';
-import '../button/secondary-button';
-import '../divider';
-import '../link/block-link';
-import '../link-list';
-import '../title';
-import './footer';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -16,6 +8,14 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { sbbSpread } from '../core/dom';
 
 import readme from './readme.md?raw';
+
+import '../clock';
+import '../button';
+import '../divider';
+import '../link';
+import '../link-list';
+import '../title';
+import './footer';
 
 const variant: InputType = {
   control: {
@@ -128,12 +128,12 @@ const TemplateClockColumns = ({ ...args }): TemplateResult => html`
           Report property damage
         </sbb-block-link>
       </sbb-link-list>
-      <sbb-button
+      <sbb-button-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
         size="m"
       >
         All help topics
-      </sbb-button>
+      </sbb-button-link>
     </div>
     <sbb-link-list title-level="2" title-content="More SBB." ?negative=${args.negative}>
       <sbb-block-link
@@ -181,12 +181,12 @@ const TemplateClockColumns = ({ ...args }): TemplateResult => html`
           Our newsletter regularly informs you of attractive offers from SBB via e-mail.
         </p>
       </span>
-      <sbb-secondary-button
+      <sbb-secondary-button-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
         size="m"
       >
         Subscribe
-      </sbb-secondary-button>
+      </sbb-secondary-button-link>
     </div>
     <sbb-clock
       ${sbbSpread({
