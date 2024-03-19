@@ -88,7 +88,7 @@ describe('sbb-checkbox', () => {
       expect(snapshot.required).to.be.undefined;
     });
 
-    it('should reflect accessibility tree setting required attribute', async () => {
+    it('should reflect accessibility tree setting required attribute to true', async () => {
       element.toggleAttribute('required', true);
       await waitForLitRender(element);
 
@@ -100,18 +100,23 @@ describe('sbb-checkbox', () => {
       if (!isChromium()) {
         expect(snapshot.required).to.be.true;
       }
+    });
+
+    it('should reflect accessibility tree setting required attribute to false', async () => {
+      element.toggleAttribute('required', true);
+      await waitForLitRender(element);
 
       element.removeAttribute('required');
       await waitForLitRender(element);
 
-      const snapshotAfterRemoved = (await a11ySnapshot({
+      const snapshot = (await a11ySnapshot({
         selector: 'sbb-checkbox',
       })) as unknown as CheckboxAccessibilitySnapshot;
 
-      expect(snapshotAfterRemoved.required).not.to.be.ok;
+      expect(snapshot.required).not.to.be.ok;
     });
 
-    it('should reflect accessibility tree setting required property', async () => {
+    it('should reflect accessibility tree setting required property to true', async () => {
       element.required = true;
       await waitForLitRender(element);
 
@@ -123,15 +128,20 @@ describe('sbb-checkbox', () => {
       if (!isChromium()) {
         expect(snapshot.required).to.be.true;
       }
+    });
+
+    it('should reflect accessibility tree setting required property to false', async () => {
+      element.required = true;
+      await waitForLitRender(element);
 
       element.required = false;
       await waitForLitRender(element);
 
-      const snapshotAfterRemoved = (await a11ySnapshot({
+      const snapshot = (await a11ySnapshot({
         selector: 'sbb-checkbox',
       })) as unknown as CheckboxAccessibilitySnapshot;
 
-      expect(snapshotAfterRemoved.required).not.to.be.ok;
+      expect(snapshot.required).not.to.be.ok;
     });
 
     it('should should restore form state on formStateRestoreCallback()', async () => {
