@@ -13,9 +13,11 @@ import { isSafari, isValidAttribute, isAndroid, setAttribute } from '../../core/
 import { EventEmitter, ConnectedAbortController } from '../../core/eventing';
 import { AgnosticMutationObserver } from '../../core/observers';
 
-import '../../visual-checkbox';
-import '../../icon';
 import style from './option.scss?lit&inline';
+
+import '../../icon';
+import '../../screenreader-only';
+import '../../visual-checkbox';
 
 let nextId = 0;
 
@@ -284,9 +286,7 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
               ? this._getHighlightedLabel()
               : nothing}
             ${this._inertAriaGroups && this._groupLabel
-              ? html` <span class="sbb-option__group-label--visually-hidden">
-                  (${this._groupLabel})</span
-                >`
+              ? html` <sbb-screenreader-only>(${this._groupLabel})</sbb-screenreader-only>`
               : nothing}
           </span>
 

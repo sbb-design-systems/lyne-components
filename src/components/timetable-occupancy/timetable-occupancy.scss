@@ -47,7 +47,3 @@
 .sbb-timetable-occupancy__list-item-icon {
   display: flex;
 }
-
-.sbb-timetable-occupancy__visually-hidden {
-  @include sbb.screen-reader-only;
-}

@@ -17,11 +17,13 @@ import { AgnosticResizeObserver } from '../core/observers';
 import type { SbbOverlayState } from '../core/overlay';
 import { applyInertMechanism, removeInertMechanism } from '../core/overlay';
 import type { SbbTitleLevel } from '../title';
-import '../button/secondary-button';
-import '../button/transparent-button';
-import '../title';
 
 import style from './dialog.scss?lit&inline';
+
+import '../button/secondary-button';
+import '../button/transparent-button';
+import '../screenreader-only';
+import '../title';
 
 // A global collection of existing dialogs
 const dialogRefs: SbbDialogElement[] = [];
@@ -453,11 +455,10 @@ export class SbbDialogElement extends SbbNegativeMixin(LitElement) {
           </div>
         </div>
       </div>
-      <span
+      <sbb-screenreader-only
         aria-live="polite"
-        class="sbb-screen-reader-only"
         ${ref((el?: Element) => (this._ariaLiveRef = el as HTMLElement))}
-      ></span>
+      ></sbb-screenreader-only>
     `;
   }
 }

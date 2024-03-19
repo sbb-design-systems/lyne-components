@@ -18,7 +18,7 @@ snapshots["sbb-radio-button renders - ShadowDom"] =
 `<label class="sbb-radio-button">
   <input
     aria-hidden="true"
-    class="sbb-radio-button__input"
+    class="sbb-screenreader-only"
     tabindex="-1"
     type="radio"
     value="radio-value"

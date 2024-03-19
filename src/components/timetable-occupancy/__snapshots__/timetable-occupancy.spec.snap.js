@@ -19,9 +19,9 @@ snapshots["sbb-timetable-occupancy renders - ShadowDOM"] =
     >
       1.
     </span>
-    <span class="sbb-timetable-occupancy__visually-hidden">
+    <sbb-screenreader-only>
       First Class.
-    </span>
+    </sbb-screenreader-only>
     <sbb-timetable-occupancy-icon
       aria-label="Very high occupancy expected"
       class="sbb-timetable-occupancy__list-item-icon"
@@ -37,9 +37,9 @@ snapshots["sbb-timetable-occupancy renders - ShadowDOM"] =
     >
       2.
     </span>
-    <span class="sbb-timetable-occupancy__visually-hidden">
+    <sbb-screenreader-only>
       Second Class.
-    </span>
+    </sbb-screenreader-only>
     <sbb-timetable-occupancy-icon
       aria-label="Very high occupancy expected"
       class="sbb-timetable-occupancy__list-item-icon"
@@ -71,9 +71,9 @@ snapshots["sbb-timetable-occupancy renders negative - ShadowDOM"] =
     >
       1.
     </span>
-    <span class="sbb-timetable-occupancy__visually-hidden">
+    <sbb-screenreader-only>
       First Class.
-    </span>
+    </sbb-screenreader-only>
     <sbb-timetable-occupancy-icon
       aria-label="Low to medium occupancy expected"
       class="sbb-timetable-occupancy__list-item-icon"
@@ -90,9 +90,9 @@ snapshots["sbb-timetable-occupancy renders negative - ShadowDOM"] =
     >
       2.
     </span>
-    <span class="sbb-timetable-occupancy__visually-hidden">
+    <sbb-screenreader-only>
       Second Class.
-    </span>
+    </sbb-screenreader-only>
     <sbb-timetable-occupancy-icon
       aria-label="High occupancy expected"
       class="sbb-timetable-occupancy__list-item-icon"
@@ -124,9 +124,9 @@ snapshots["sbb-timetable-occupancy renders only first class wagon - ShadowDOM"] 
     >
       1.
     </span>
-    <span class="sbb-timetable-occupancy__visually-hidden">
+    <sbb-screenreader-only>
       First Class.
-    </span>
+    </sbb-screenreader-only>
     <sbb-timetable-occupancy-icon
       aria-label="Low to medium occupancy expected"
       class="sbb-timetable-occupancy__list-item-icon"
@@ -157,9 +157,9 @@ snapshots["sbb-timetable-occupancy renders only second class wagon - ShadowDOM"]
     >
       2.
     </span>
-    <span class="sbb-timetable-occupancy__visually-hidden">
+    <sbb-screenreader-only>
       Second Class.
-    </span>
+    </sbb-screenreader-only>
     <sbb-timetable-occupancy-icon
       aria-label="No occupancy forecast available"
       class="sbb-timetable-occupancy__list-item-icon"

@@ -283,10 +283,6 @@
   }
 }
 
-.sbb-calendar__visually-hidden {
-  @include sbb.screen-reader-only;
-}
-
 @keyframes show {
   from {
     opacity: 0;

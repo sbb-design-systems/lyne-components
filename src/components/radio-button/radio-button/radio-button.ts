@@ -270,7 +270,7 @@ export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
           ?required=${this.required}
           ?checked=${this.checked}
           value=${this.value || nothing}
-          class="sbb-radio-button__input"
+          class="sbb-screenreader-only"
         />
         <span class="sbb-radio-button__label-slot">
           <slot></slot>
@@ -278,9 +278,7 @@ export class SbbRadioButtonElement extends UpdateScheduler(LitElement) {
         </span>
         ${this._selectionPanelElement ? html`<slot name="subtext"></slot>` : nothing}
         ${this._isSelectionPanelInput && this._selectionPanelExpandedLabel
-          ? html`<span class="sbb-radio-button__expanded-label">
-              ${this._selectionPanelExpandedLabel}
-            </span>`
+          ? html`<span class="sbb-screenreader-only"> ${this._selectionPanelExpandedLabel} </span>`
           : nothing}
       </label>
     `;

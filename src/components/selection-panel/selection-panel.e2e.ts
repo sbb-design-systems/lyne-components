@@ -359,17 +359,17 @@ describe('sbb-selection-panel', () => {
         "sbb-radio-button[value='main1']",
       )!;
       const mainRadioButton1Label = mainRadioButton1.shadowRoot!.querySelector(
-        '.sbb-radio-button__expanded-label',
+        '.sbb-screenreader-only:not(input)',
       )!;
       const mainRadioButton2: SbbRadioButtonElement = document.querySelector<SbbRadioButtonElement>(
         "sbb-radio-button[value='main2']",
       )!;
       const mainRadioButton2Label = mainRadioButton2.shadowRoot!.querySelector(
-        '.sbb-radio-button__expanded-label',
+        '.sbb-screenreader-only:not(input)',
       )!;
       const subRadioButton1 = document
         .querySelector("sbb-radio-button[value='sub1']")!
-        .shadowRoot!.querySelector('.sbb-radio-button__expanded-label');
+        .shadowRoot!.querySelector('.sbb-screenreader-only:not(input)');
 
       await waitForCondition(() => didOpenEventSpy.count === 1);
       expect(willOpenEventSpy.count).to.be.equal(1);

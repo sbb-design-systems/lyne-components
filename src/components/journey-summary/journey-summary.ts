@@ -12,11 +12,13 @@ import {
 import { i18nTripDuration } from '../core/i18n';
 import type { Leg } from '../core/timetable';
 import type { SbbTitleLevel } from '../title';
-import '../pearl-chain-time';
-import '../journey-header';
-import '../divider';
 
 import style from './journey-summary.scss?lit&inline';
+
+import '../divider';
+import '../journey-header';
+import '../pearl-chain-time';
+import '../screenreader-only';
 
 export interface InterfaceSbbJourneySummaryAttributes {
   legs: Leg[];
@@ -87,9 +89,9 @@ export class SbbJourneySummaryElement extends LitElement {
           ${dateAdapter.format(departureTime).replace(',', '.')}</time
         >${duration && duration > 0
           ? html`,<time>
-                <span class="sbb-screenreaderonly">
+                <sbb-screenreader-only>
                   ${i18nTripDuration[this._language.current]} ${durationObj!.long}
-                </span>
+                </sbb-screenreader-only>
                 <span aria-hidden="true">${durationObj!.short}</span>
               </time>`
           : nothing}
