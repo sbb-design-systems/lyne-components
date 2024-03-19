@@ -95,7 +95,7 @@ const Template = ({
 }: Args): TemplateResult =>
   html` <sbb-teaser-paid ${sbbSpread(args)}>
     <sbb-chip slot="chip">Label</sbb-chip>
-    <sbb-image slot="image" image-src=${imageSrc} image-alt=${imageAlt}></sbb-image>
+    <sbb-image slot="image" image-src=${imageSrc} alt=${imageAlt}></sbb-image>
   </sbb-teaser-paid>`;
 
 export const Default: StoryObj = {

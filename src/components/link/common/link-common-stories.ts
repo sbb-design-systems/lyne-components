@@ -6,6 +6,8 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { sbbSpread } from '../../core/dom';
 
+import '../../icon';
+
 export const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative
     ? 'var(--sbb-color-charcoal)'

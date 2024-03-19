@@ -40,14 +40,16 @@
         "rules": {
           // The following rules are broken
           "no-incompatible-type-binding": "off",
-          "no-property-visibility-mismatch": "off",
-          "no-missing-import": "off",
-          "no-unknown-slot": "off",
-
-          // The following rules cannot be used, due to internal constraints
-          // Reason: We use e.g. sbb-popover-close as indicators of close origins for overlays
-          "no-unknown-attribute": "off"
-        }
+          "no-missing-import": "off"
+        },
+        "globalAttributes": [
+          "align-self",
+          "sbb-dialog-close",
+          "sbb-navigation-close",
+          "sbb-navigation-section-close",
+          "sbb-popover-close",
+          "sbb-toast-close"
+        ]
       }
     ]
   },

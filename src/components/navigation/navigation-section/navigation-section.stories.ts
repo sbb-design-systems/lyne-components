@@ -9,7 +9,7 @@ import { waitForComponentsReady } from '../../../storybook/testing/wait-for-comp
 import { sbbSpread } from '../../core/dom';
 
 import readme from './readme.md?raw';
-import '../../button/secondary-button';
+import '../../button';
 import '../navigation-list';
 import '../navigation-button';
 import '../navigation-link';

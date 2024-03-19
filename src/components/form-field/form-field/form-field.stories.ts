@@ -12,6 +12,7 @@ import './form-field';
 import '../form-field-clear';
 import '../../button/mini-button';
 import '../../form-error';
+import '../../link';
 import '../../popover';
 import '../../title';
 
@@ -31,14 +32,9 @@ const PopoverTrigger = (): TemplateResult => html`
     >
     <span id="popover-content" class="sbb-text-s">
       Some content.
-      <sbb-link
-        variant="block"
-        icon-name="chevron-small-right-small"
-        icon-placement="end"
-        sbb-popover-close
-      >
+      <sbb-block-link icon-name="chevron-small-right-small" icon-placement="end" sbb-popover-close>
         Learn More
-      </sbb-link>
+      </sbb-block-link>
     </span>
   </sbb-popover>
 `;

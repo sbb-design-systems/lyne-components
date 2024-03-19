@@ -18,6 +18,7 @@ import {
   i18nFileSelectorDeleteFile,
   i18nFileSelectorSubtitleLabel,
 } from '../core/i18n';
+import '../button/secondary-button';
 import '../button/secondary-button-static';
 import '../icon';
 
