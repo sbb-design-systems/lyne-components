@@ -1,7 +1,6 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
-import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
@@ -32,12 +31,6 @@ import './timetable-row';
 const cardActionLabel: InputType = {
   control: {
     type: 'text',
-  },
-};
-
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
   },
 };
 
@@ -88,7 +81,6 @@ const price: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   'card-action-label': cardActionLabel,
-  'disable-animation': disableAnimation,
   'loading-trip': loadingTrip,
   'loading-price': loadingPrice,
   'accessibility-expanded': accessibilityExpanded,
@@ -100,7 +92,6 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   'card-action-label': '',
-  'disable-animation': isChromatic(),
   'loading-trip': false,
   'loading-price': false,
   'accessibility-expanded': false,
@@ -207,17 +198,6 @@ export const Position: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    trip: progressTrip,
-    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
-  },
-};
-
-export const PositionDisabledAnimation: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    'disable-animation': true,
     trip: progressTrip,
     'data-now': new Date('2022-12-05T12:11:00').valueOf(),
   },

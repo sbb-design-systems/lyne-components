@@ -41,12 +41,6 @@ export class SbbPearlChainTimeElement extends LitElement {
   /** Optional prop to render the walk time (in minutes) after arrival */
   @property({ attribute: 'arrival-walk', type: Number }) public arrivalWalk?: number;
 
-  /**
-   * Per default, the current location has a pulsating animation. You can
-   * disable the animation with this property.
-   */
-  @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
-
   private _language = new LanguageController(this);
 
   private _now(): number {
@@ -90,7 +84,6 @@ export class SbbPearlChainTimeElement extends LitElement {
         <sbb-pearl-chain
           class="sbb-pearl-chain__time-chain"
           .legs=${this.legs}
-          .disableAnimation=${this.disableAnimation}
           data-now=${this._now()}
         ></sbb-pearl-chain>
         ${arrival

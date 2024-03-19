@@ -1,6 +1,5 @@
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -18,12 +17,6 @@ import readme from './readme.md?raw';
 import './journey-summary';
 import '../button/button';
 import '../button/secondary-button';
-
-const disableAnimation: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
 
 const roundTrip: InputType = {
   control: {
@@ -66,7 +59,6 @@ const tripBack: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  'disable-animation': disableAnimation,
   'data-now': now,
   'round-trip': roundTrip,
   'header-level': headerLevel,
@@ -75,7 +67,6 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  'disable-animation': isChromatic(),
   'data-now': new Date('2022-12-05T12:11:00').valueOf(),
   'round-trip': false,
   'header-level': headerLevel.options[2],

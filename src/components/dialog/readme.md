@@ -87,7 +87,6 @@ It's possible to display the component in `negative` variant using the self-name
 | `accessibilityLabel`      | `accessibility-label`       | public  | `string \| undefined`        |           | This will be forwarded as aria-label to the relevant nested element.            |
 | `accessibilityCloseLabel` | `accessibility-close-label` | public  | `\| string     \| undefined` |           | This will be forwarded as aria-label to the close button element.               |
 | `accessibilityBackLabel`  | `accessibility-back-label`  | public  | `\| string     \| undefined` |           | This will be forwarded as aria-label to the back button element.                |
-| `disableAnimation`        | `disable-animation`         | public  | `boolean`                    | `false`   | Whether the animation is enabled.                                               |
 | `negative`                | `negative`                  | public  | `boolean`                    | `false`   | Negative coloring variant flag.                                                 |
 
 ## Methods

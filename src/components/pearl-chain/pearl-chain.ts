@@ -29,12 +29,6 @@ export class SbbPearlChainElement extends LitElement {
    */
   @property({ type: Array }) public legs?: (Leg | PtRideLeg)[];
 
-  /**
-   * Per default, the current location has a pulsating animation. You can
-   * disable the animation with this property.
-   */
-  @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
-
   private _now(): number {
     const dataNow = +(this.dataset?.now as string);
     return isNaN(dataNow) ? Date.now() : dataNow;
@@ -108,12 +102,7 @@ export class SbbPearlChainElement extends LitElement {
       };
     };
 
-    const animation = this.disableAnimation ? 'sbb-pearl-chain__position--no-animation' : '';
-
-    return html`<span
-      style=${styleMap(statusStyle())}
-      class="sbb-pearl-chain__position ${animation}"
-    ></span>`;
+    return html`<span style=${styleMap(statusStyle())} class="sbb-pearl-chain__position"></span>`;
   }
 
   protected override render(): TemplateResult {

@@ -56,12 +56,6 @@ export class SbbJourneySummaryElement extends LitElement {
   /** Heading level of the journey header element (e.g. h1-h6). */
   @property({ attribute: 'header-level' }) public headerLevel: SbbTitleLevel = '3';
 
-  /**
-   * Per default, the current location has a pulsating animation. You can
-   * disable the animation with this property.
-   */
-  @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
-
   private _hasContentSlot: boolean = false;
   private _language = new LanguageController(this);
 
@@ -134,7 +128,6 @@ export class SbbJourneySummaryElement extends LitElement {
           .departureWalk=${departureWalk}
           .arrivalWalk=${arrivalWalk}
           .legs=${legs}
-          .disableAnimation=${this.disableAnimation}
           data-now=${this._now()}
         ></sbb-pearl-chain-time>
       </div>

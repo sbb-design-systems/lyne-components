@@ -21,7 +21,10 @@
   --sbb-notification-border-radius: calc(var(--sbb-notification-base-radius) / 2)
     var(--sbb-notification-base-radius) var(--sbb-notification-base-radius)
     calc(var(--sbb-notification-base-radius) / 2);
-  --sbb-notification-animation-duration: var(--sbb-animation-duration-4x);
+  --sbb-notification-animation-duration: var(
+    --sbb-disable-animation-zero-time,
+    var(--sbb-animation-duration-4x)
+  );
   --sbb-notification-timing-function: ease-in;
   --sbb-notification-transition: max-height var(--sbb-notification-animation-duration)
       var(--sbb-animation-duration-2x) var(--sbb-notification-timing-function),
@@ -53,8 +56,8 @@
       var(--sbb-notification-timing-function);
 }
 
-:host(:is([data-resize-disable-animation], [disable-animation])) {
-  --sbb-notification-animation-duration: 0.1ms;
+:host([data-resize-disable-animation]) {
+  @include sbb.disable-animation;
 }
 
 /* Types */
