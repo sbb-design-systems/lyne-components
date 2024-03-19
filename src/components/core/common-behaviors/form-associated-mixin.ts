@@ -4,8 +4,6 @@ import { property, state } from 'lit/decorators.js';
 import type { Constructor } from './constructor';
 
 export declare abstract class SbbFormAssociatedMixinType {
-  protected readonly internals: ElementInternals;
-
   public get form(): HTMLFormElement | null;
   public get name(): string;
   public set name(value: string);
@@ -29,9 +27,9 @@ export declare abstract class SbbFormAssociatedMixinType {
     reason: FormRestoreReason,
   ): void;
 
-  protected updateFormValue(): void;
-
+  protected readonly internals: ElementInternals;
   protected formDisabled: boolean;
+  protected updateFormValue(): void;
 }
 
 /**
@@ -46,9 +44,6 @@ export const SbbFormAssociatedMixin = <T extends Constructor<LitElement>>(
     implements Partial<SbbFormAssociatedMixinType>
   {
     public static formAssociated = true;
-
-    /** @internal */
-    protected readonly internals: ElementInternals = this.attachInternals();
 
     /**
      * Returns the ValidityState object for internals target element.
@@ -171,13 +166,16 @@ export const SbbFormAssociatedMixin = <T extends Constructor<LitElement>>(
      */
     public formAssociatedCallback?(form: HTMLFormElement | null): void;
 
+    /** @internal */
+    protected readonly internals: ElementInternals = this.attachInternals();
+
+    /** Whenever a surrounding form or fieldset is changing its disabled state. */
+    @state() protected formDisabled: boolean = false;
+
     /** Should be called when form value is changed. */
     protected updateFormValue(): void {
       this.internals.setFormValue(this.value);
     }
-
-    /** Whenever a surrounding form or fieldset is changing its disabled state. */
-    @state() protected formDisabled: boolean = false;
   }
   return SbbFormAssociatedElement as unknown as Constructor<SbbFormAssociatedMixinType> & T;
 };

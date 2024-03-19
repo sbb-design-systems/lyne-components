@@ -127,6 +127,7 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
      */
     public override formResetCallback(): void {
       this.checked = this.hasAttribute('checked');
+      this._attributeMutationBlocked = false;
     }
 
     /**
