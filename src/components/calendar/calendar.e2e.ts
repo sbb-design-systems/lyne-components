@@ -8,7 +8,7 @@ import { SbbCalendarElement } from './calendar';
 
 import '../button';
 
-describe(`sbb-calendar`, () => {
+describe(`sbb-calendar with ${fixture.name}`, () => {
   let element: SbbCalendarElement;
   const waitForTransition = async (): Promise<void> => {
     await waitForLitRender(element);
