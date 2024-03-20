@@ -134,7 +134,7 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
 
   private _datePickerChanged(event: Event): void {
     this._datePickerElement = event.target as SbbDatepickerElement;
-    this._calendarElement.selectedDate = this._datePickerElement.getValueAsDate();
+    this._calendarElement.selected = this._datePickerElement.getValueAsDate();
   }
 
   private _assignCalendar(calendar: SbbCalendarElement): void {
@@ -149,7 +149,7 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
     ) {
       return;
     }
-    this._calendarElement.selectedDate = this._datePickerElement.getValueAsDate();
+    this._calendarElement.selected = this._datePickerElement.getValueAsDate();
     this._configureCalendar(this._calendarElement, this._datePickerElement);
     this._calendarElement.resetPosition();
   }
@@ -204,7 +204,7 @@ export class SbbDatepickerToggleElement extends SbbNegativeMixin(LitElement) {
           .dateFilter=${this._datePickerElement?.dateFilter}
           @dateSelected=${(d: CustomEvent<Date>) => {
             const newDate = new Date(d.detail);
-            this._calendarElement.selectedDate = newDate;
+            this._calendarElement.selected = newDate;
             this._datePickerElement?.setValueAsDate(newDate);
           }}
           ${ref((calendar?: Element) => this._assignCalendar(calendar as SbbCalendarElement))}

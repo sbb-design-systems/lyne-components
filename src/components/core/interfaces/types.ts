@@ -1,6 +1,6 @@
 export type SbbLanguage = 'de' | 'en' | 'fr' | 'it';
 
-export type SbbDateLike = Date | string | number;
+export type SbbDateLike<T = Date> = T | string | number;
 
 export type SbbHorizontalFrom = 'zero' | 'micro' | 'small' | 'medium' | 'large' | 'wide' | 'ultra';
 

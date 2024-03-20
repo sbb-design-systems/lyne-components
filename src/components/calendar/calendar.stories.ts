@@ -22,9 +22,9 @@ const getCalendarAttr = (min: Date | string, max: Date | string): Record<string,
   return attr;
 };
 
-const Template = ({ min, max, selectedDate, dateFilter, ...args }: Args): TemplateResult => html`
+const Template = ({ min, max, selected, dateFilter, ...args }: Args): TemplateResult => html`
   <sbb-calendar
-    .selectedDate=${new Date(selectedDate)}
+    .selected=${new Date(selected)}
     .dateFilter=${dateFilter}
     ${sbbSpread(getCalendarAttr(min, max))}
     ${sbbSpread(args)}
@@ -34,13 +34,13 @@ const Template = ({ min, max, selectedDate, dateFilter, ...args }: Args): Templa
 const TemplateDynamicWidth = ({
   min,
   max,
-  selectedDate,
+  selected,
   dateFilter,
   ...args
 }: Args): TemplateResult => html`
   <sbb-calendar
     style=${styleMap({ width: '900px' })}
-    .selectedDate=${new Date(selectedDate)}
+    .selected=${new Date(selected)}
     .dateFilter=${dateFilter}
     ${sbbSpread(getCalendarAttr(min, max))}
     ${sbbSpread(args)}
@@ -56,7 +56,7 @@ const wide: InputType = {
   },
 };
 
-const selectedDate: InputType = {
+const selected: InputType = {
   control: {
     type: 'date',
   },
@@ -119,7 +119,7 @@ const dateFilter: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   wide,
-  selectedDate,
+  selected,
   min,
   max,
   dateFilter,
@@ -131,7 +131,7 @@ today.setDate(today.getDate() >= 15 ? 8 : 18);
 
 const defaultArgs: Args = {
   wide: false,
-  selectedDate: isChromatic() ? new Date(2023, 0, 20) : today,
+  selected: isChromatic() ? new Date(2023, 0, 20) : today,
   dataNow: isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : undefined,
 };
 

@@ -87,7 +87,7 @@ export function findPreviousAvailableDate(
   min: string | number | null,
 ): Date {
   const previousDate = getAvailableDate(date, -1, dateFilter, dateAdapter);
-  const dateMin = dateAdapter.deserializeDate(min);
+  const dateMin = dateAdapter.deserialize(min);
 
   if (
     !dateMin ||
@@ -113,7 +113,7 @@ export function findNextAvailableDate(
   max: string | number | null,
 ): Date {
   const nextDate = getAvailableDate(date, 1, dateFilter, dateAdapter);
-  const dateMax = dateAdapter.deserializeDate(max);
+  const dateMax = dateAdapter.deserialize(max);
 
   if (
     !dateMax ||
@@ -140,8 +140,8 @@ export function isDateAvailable(
 ): boolean {
   // TODO: Get date adapter from config
   const dateAdapter: DateAdapter<Date> = defaultDateAdapter;
-  const dateMin = dateAdapter.deserializeDate(min);
-  const dateMax = dateAdapter.deserializeDate(max);
+  const dateMin = dateAdapter.deserialize(min);
+  const dateMax = dateAdapter.deserialize(max);
 
   if (
     (dateAdapter.isValid(dateMin) && dateAdapter.compareDate(date, dateMin!) < 0) ||
@@ -476,9 +476,7 @@ export class SbbDatepickerElement extends LitElement {
   }
 
   private _parse(value: string): Date | undefined {
-    return this.dateParser
-      ? this.dateParser(value)
-      : this._dateAdapter.parseDate(value, this.now());
+    return this.dateParser ? this.dateParser(value) : this._dateAdapter.parse(value, this.now());
   }
 
   private _format(date: Date): string {
