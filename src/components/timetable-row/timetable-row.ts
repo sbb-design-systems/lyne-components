@@ -25,7 +25,7 @@ import {
   i18nTripQuayChange,
 } from '../core/i18n';
 import type { SbbOccupancy } from '../core/interfaces';
-import type { ITripItem, Notice, PtRideLeg, PtSituation, VehicleModeEnum } from '../core/timetable';
+import type { ITripItem, Notice, PtRideLeg, PtSituation } from '../core/timetable';
 import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable';
 import '../card';
 import '../icon';
@@ -51,45 +51,6 @@ export interface Price {
   text?: string;
   isDiscount?: boolean;
 }
-
-export const getTransportIcon = (
-  vehicleMode: VehicleModeEnum,
-  vehicleSubMode: string,
-  language: string,
-): string => {
-  // As there are no English pictograms, we fall back to German
-  const normalizedLanguage = language.replace('en', 'de');
-
-  if (vehicleMode === 'BUS') {
-    return 'bus-right';
-  } else if (vehicleMode === 'CABLEWAY') {
-    return 'funicular-railway-right';
-  } else if (vehicleMode === 'CHAIRLIFT') {
-    return 'chair-lift-right';
-  } else if (vehicleMode === 'COG_RAILWAY') {
-    return 'cog-railway-right';
-  } else if (vehicleMode === 'GONDOLA' && vehicleSubMode === 'PB') {
-    return 'cableway-right';
-  } else if (vehicleMode === 'GONDOLA') {
-    return 'gondola-lift-right';
-  } else if (vehicleMode === 'METRO') {
-    return `metro-right-${normalizedLanguage}`;
-  } else if (vehicleMode === 'PLANE') {
-    return 'aeroplane-right';
-  } else if (vehicleMode === 'SHIP') {
-    return 'jetty-right';
-  } else if (vehicleMode === 'TAXI') {
-    return 'taxi-right';
-  } else if (vehicleMode === 'TRAIN') {
-    return 'train-right';
-  } else if (vehicleMode === 'TRAMWAY') {
-    return 'tram-right';
-  } else if (vehicleMode === 'ELEVATOR') {
-    return 'lift';
-  } else {
-    return '';
-  }
-};
 
 export const renderIconProduct = (icon: string, name: string): TemplateResult => {
   return html`<span class="sbb-timetable__row-transport">
@@ -544,33 +505,20 @@ export class SbbTimetableRowElement extends LitElement {
         <div class="sbb-timetable__row" role="row">
           <div class="sbb-timetable__row-header" role="gridcell">
             <div class="sbb-timetable__row-details">
-              ${product &&
-              getTransportIcon(
-                product.vehicleMode,
-                product.vehicleSubModeShortName || '',
-                this._language.current,
-              )
-                ? html`<span class="sbb-timetable__row-transport-wrapper">
-                    <sbb-icon
-                      class="sbb-timetable__row-transport-icon"
-                      name=${'picto:' +
-                      getTransportIcon(
-                        product.vehicleMode,
-                        product.vehicleSubModeShortName || '',
-                        this._language.current,
-                      )}
-                    ></sbb-icon>
-                    <span class="sbb-screenreaderonly">
-                      ${product &&
-                      product.vehicleMode &&
-                      i18nMeansOfTransport[product.vehicleMode.toLowerCase()] &&
-                      i18nMeansOfTransport[product.vehicleMode.toLowerCase()][
-                        this._language.current
-                      ]}
-                      &nbsp;
-                    </span>
-                  </span>`
-                : nothing}
+              ${product?.corporateIdentityPictogram &&
+              html`<span class="sbb-timetable__row-transport-wrapper">
+                <sbb-icon
+                  class="sbb-timetable__row-transport-icon"
+                  name=${'picto:${product.corporateIdentityPictogram}'}
+                ></sbb-icon>
+                <span class="sbb-screenreaderonly">
+                  ${product &&
+                  product.vehicleMode &&
+                  i18nMeansOfTransport[product.vehicleMode.toLowerCase()] &&
+                  i18nMeansOfTransport[product.vehicleMode.toLowerCase()][this._language.current]}
+                  &nbsp;
+                </span>
+              </span>`}
               ${product &&
               (product.corporateIdentityIcon
                 ? renderIconProduct(product.corporateIdentityIcon, product.name)

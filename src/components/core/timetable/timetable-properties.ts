@@ -187,11 +187,11 @@ export type Occupancy = {
  * provided and operated by a certain Operator allocated to a concrete ServiceJourney
  */
 export type ServiceProduct = {
-  /**
-   * Corporate Identity Icon for e.g. Train 'SBB_oev_b_t02'
-   * // TODO - Ist diese Info zum Icon nützlich oder wäre die Art des Transportmittel (ZUg, Bus, ..) nützlicher
-   */
+  /** Icon-identifier to represent the specific submode  e.g. the symbol for an EC 1 */
   corporateIdentityIcon?: string | null;
+
+  /** Corporate Identity Pictogram for e.g. Train 'SBB_oev_b_t02' */
+  corporateIdentityPictogram?: string;
   /**
    * Usually referring to a specific commercial PT route (where direction might be either way), shown on vehicle displays. If this value is missing, it is probably a single-journey (de:Einzelfahrt)
    * example: 1
