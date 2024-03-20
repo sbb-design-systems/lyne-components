@@ -65,6 +65,6 @@ export const parameters = {
 
 export const decorators: Decorator[] = [
   (story) => html`
-    <div sbb-eee class=${isChromatic() ? 'sbb-disable-animation' : nothing}>${story()}</div>
+    <div class=${isChromatic() ? 'sbb-disable-animation' : nothing}>${story()}</div>
   `,
 ];
