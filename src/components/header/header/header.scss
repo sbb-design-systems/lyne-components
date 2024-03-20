@@ -65,7 +65,7 @@
     timing-function: var(--sbb-header-transition-timing);
   }
 
-  :host(:is([data-shadow], [data-has-visible-focus-within])) & {
+  :host(:is([data-shadow], [data-has-visible-focus-within][data-fixed])) & {
     @include sbb.shadow-level-9-soft;
   }
 
