@@ -10,7 +10,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { breakpoints, isBreakpoint } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces';
-import type { SbbStepElement } from '../step/step';
+import type { SbbStepElement, SbbStepValidateEventDetails } from '../step/step';
 
 import style from './stepper.scss?lit&inline';
 
@@ -136,7 +136,7 @@ export class SbbStepperElement extends LitElement {
     if (!this._isValidStep(step)) {
       return;
     }
-    const validatePayload = {
+    const validatePayload: SbbStepValidateEventDetails = {
       currentIndex: this.selectedIndex,
       currentStep: this.selected,
       nextIndex: this.selectedIndex !== undefined ? this.selectedIndex + 1 : undefined,
@@ -146,20 +146,11 @@ export class SbbStepperElement extends LitElement {
       return;
     }
     const current = this.selected;
-    if (current && current.label) {
-      current.toggleAttribute('data-selected', false);
-      current.label.internals.ariaSelected = 'false';
-      current.label.toggleAttribute('data-selected', false);
-    }
-    if (step && step.label) {
-      step.toggleAttribute('data-selected', true);
-      step.label.internals.ariaSelected = 'true';
-      step.label.toggleAttribute('data-selected', true);
-      this._setMarkerSize();
-
-      if (this._loaded) {
-        step.label.focus();
-      }
+    current?.deselect();
+    step.select();
+    this._setMarkerSize();
+    if (this._loaded) {
+      step.label?.focus();
     }
   }
 
@@ -175,25 +166,36 @@ export class SbbStepperElement extends LitElement {
     const offset =
       this.orientation === 'horizontal'
         ? this.selected.label.offsetLeft + this.selected.label.offsetWidth
-        : this.selected.label.offsetHeight * (this.selectedIndex + 1) +
-          parseFloat(getComputedStyle(this).getPropertyValue('--sbb-spacing-responsive-m')) *
-            16 *
-            this.selectedIndex;
-    this.style.setProperty('--sbb-stepper-marker-size', `${offset}px`);
+        : this._calculateLabelOffsetTop();
 
-    // Remove [data-disable-animation] after the first marker size setting
-    setTimeout(() => this.toggleAttribute('data-disable-animation', false), DEBOUNCE_TIME);
+    this.style.setProperty('--sbb-stepper-marker-size', `${offset}px`);
+  }
+
+  private _calculateLabelOffsetTop(): number | undefined {
+    if (this.selectedIndex === undefined) {
+      return;
+    }
+    let offset = 0;
+    for (const step of this.steps) {
+      if (step === this.selected) {
+        break;
+      }
+      offset = step.label!.offsetHeight + offset;
+    }
+    return (
+      offset +
+      this.selected!.label!.offsetHeight! +
+      parseFloat(getComputedStyle(this).getPropertyValue('--sbb-spacing-responsive-m')) *
+        16 *
+        this.selectedIndex
+    );
   }
 
   private _configure(): void {
-    const labels = this.steps.map((s) => s.label);
-    let posInSet = 0;
-    labels.forEach((label) => {
-      if (label) {
-        label.internals.ariaSelected = (this.selected?.label === label).toString();
-        label.internals.ariaPosInSet = `${++posInSet}`;
-        label.internals.ariaSetSize = `${labels.length}`;
-      }
+    const labels = this.steps.filter((s) => s.label).map((s) => s.label!);
+
+    labels.forEach((label, i) => {
+      label.configure(this.selected?.label === label, i + 1, labels.length);
     });
   }
 
@@ -215,11 +217,7 @@ export class SbbStepperElement extends LitElement {
 
   private _onStepperResize(): void {
     this._checkOrientation();
-
-    if (this._resizeObserverTimeout) {
-      clearTimeout(this._resizeObserverTimeout);
-    }
-
+    clearTimeout(this._resizeObserverTimeout!);
     this.toggleAttribute('data-disable-animation', true);
 
     // Disable the animation when resizing to avoid strange transition effects.
@@ -246,6 +244,9 @@ export class SbbStepperElement extends LitElement {
       this._checkOrientation();
     }
     this._loaded = true;
+
+    // Remove [data-disable-animation] after component init
+    setTimeout(() => this.toggleAttribute('data-disable-animation', false), DEBOUNCE_TIME);
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

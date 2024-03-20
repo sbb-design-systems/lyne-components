@@ -20,6 +20,19 @@ There are two attributes to support navigation between different steps that can 
 
 The `linear` property can be set to create a linear stepper that requires the user to complete previous steps before proceeding to following steps.
 
+```html
+<sbb-stepper aria-label="Purpose of this flow" linear>
+  <sbb-step-label>Step label 1</sbb-step-label>
+  <sbb-step>Step content 1</sbb-step>
+
+  <sbb-step-label>Step label 2</sbb-step-label>
+  <sbb-step>Step content 2</sbb-step>
+
+  <sbb-step-label>Step label 3</sbb-step-label>
+  <sbb-step>Step content 3</sbb-step>
+</sbb-stepper>
+```
+
 ## Forms
 
 There are two possible approaches. One is using a single form for the stepper, and the other is using a different form for each step.

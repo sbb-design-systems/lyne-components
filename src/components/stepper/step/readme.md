@@ -26,15 +26,15 @@ The aria attribute `aria-labelledby` is set automatically.
 
 ## Methods
 
-| Name       | Privacy | Description | Parameters                        | Return    | Inherited From |
-| ---------- | ------- | ----------- | --------------------------------- | --------- | -------------- |
-| `validate` | public  |             | `eventData: ValidateEventDetails` | `boolean` |                |
+| Name       | Privacy | Description | Parameters                               | Return    | Inherited From |
+| ---------- | ------- | ----------- | ---------------------------------------- | --------- | -------------- |
+| `validate` | public  |             | `eventData: SbbStepValidateEventDetails` | `boolean` |                |
 
 ## Events
 
-| Name       | Type                                | Description                                               | Inherited From |
-| ---------- | ----------------------------------- | --------------------------------------------------------- | -------------- |
-| `validate` | `CustomEvent<ValidateEventDetails>` | Emits whenever step switch is triggered. Can be canceled. |                |
+| Name       | Type                                       | Description                                               | Inherited From |
+| ---------- | ------------------------------------------ | --------------------------------------------------------- | -------------- |
+| `validate` | `CustomEvent<SbbStepValidateEventDetails>` | Emits whenever step switch is triggered. Can be canceled. |                |
 
 ## Slots
 

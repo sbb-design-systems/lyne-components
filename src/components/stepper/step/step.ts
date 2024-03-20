@@ -12,7 +12,7 @@ import style from './step.scss?lit&inline';
 
 let nextId = 0;
 
-type ValidateEventDetails = {
+export type SbbStepValidateEventDetails = {
   currentIndex?: number;
   currentStep?: SbbStepElement;
   nextIndex?: number;
@@ -23,7 +23,7 @@ type ValidateEventDetails = {
  * Combined with a `sbb-stepper`, it displays a step's content.
  *
  * @slot - Use the unnamed slot to provide a content.
- * @event {CustomEvent<ValidateEventDetails>} validate - Emits whenever step switch is triggered. Can be canceled.
+ * @event {CustomEvent<SbbStepValidateEventDetails>} validate - Emits whenever step switch is triggered. Can be canceled.
  */
 @customElement('sbb-step')
 @hostAttributes({
@@ -39,7 +39,7 @@ export class SbbStepElement extends LitElement {
   /**
    * Emits whenever step switch is triggered.
    */
-  private _validate: EventEmitter<ValidateEventDetails> = new EventEmitter(
+  private _validate: EventEmitter<SbbStepValidateEventDetails> = new EventEmitter(
     this,
     SbbStepElement.events.validate,
   );
@@ -58,7 +58,31 @@ export class SbbStepElement extends LitElement {
     return this._label;
   }
 
-  public validate(eventData: ValidateEventDetails): boolean {
+  /**
+   * Selects and configures the step.
+   * @internal
+   */
+  public select(): void {
+    if (!this.label) {
+      return;
+    }
+    this.toggleAttribute('data-selected', true);
+    this.label.select();
+  }
+
+  /**
+   * Deselects and configures the step.
+   * @internal
+   */
+  public deselect(): void {
+    if (!this.label) {
+      return;
+    }
+    this.toggleAttribute('data-selected', false);
+    this.label.deselect();
+  }
+
+  public validate(eventData: SbbStepValidateEventDetails): boolean {
     return !!this._validate.emit(eventData);
   }
 

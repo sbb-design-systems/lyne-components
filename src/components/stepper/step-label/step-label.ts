@@ -32,13 +32,41 @@ export class SbbStepLabelElement extends SbbIconNameMixin(
   public static override styles: CSSResultGroup = style;
 
   /** @internal */
-  public readonly internals: ElementInternals = this.attachInternals();
+  private readonly _internals: ElementInternals = this.attachInternals();
 
   /**
    * The step controlled by the label.
    */
   public get step(): SbbStepElement | null {
     return this._step;
+  }
+
+  /**
+   * Selects and configures the step label.
+   * @internal
+   */
+  public select(): void {
+    this._internals.ariaSelected = 'true';
+    this.toggleAttribute('data-selected', true);
+  }
+
+  /**
+   * Deselects and configures the step label.
+   * @internal
+   */
+  public deselect(): void {
+    this._internals.ariaSelected = 'false';
+    this.toggleAttribute('data-selected', false);
+  }
+
+  /**
+   * Configures the step label.
+   * @internal
+   */
+  public configure(selected: boolean, posInSet: number, setSize: number): void {
+    this._internals.ariaSelected = selected.toString();
+    this._internals.ariaPosInSet = `${posInSet}`;
+    this._internals.ariaSetSize = `${setSize}`;
   }
 
   private _abort = new ConnectedAbortController(this);

@@ -14,6 +14,7 @@
   --sbb-step-animation-delay: 0;
 
   display: contents;
+  position: relative;
 }
 
 :host([data-selected]) {

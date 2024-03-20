@@ -289,11 +289,7 @@ const Template = (args: Args): TemplateResult => html`
       <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
         Second step content: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
         nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
-        vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-        takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-        sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-        erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
-        kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+        vero eos et accusam et justo duo dolores et ea rebum.
       </div>
       <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
       <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
@@ -337,8 +333,8 @@ const LongLabelsTemplate = (args: Args): TemplateResult => html`
       <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
     </sbb-step>
     <sbb-step-label
-      >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-      invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</sbb-step-label
+      >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+      tempor.</sbb-step-label
     >
     <sbb-step>
       <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">Second step content.</div>
@@ -355,8 +351,8 @@ const LongLabelsTemplate = (args: Args): TemplateResult => html`
       <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
     </sbb-step>
     <sbb-step-label
-      >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-      invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</sbb-step-label
+      >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+      tempor.</sbb-step-label
     >
     <sbb-step>
       <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">Forth step content.</div>
