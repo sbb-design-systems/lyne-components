@@ -91,39 +91,10 @@ export const getTransportIcon = (
   }
 };
 
-export const isProductIcon = (transport: string): boolean => {
-  const possibleTransportTypes = [
-    'bex',
-    'cnl',
-    'ec',
-    'en',
-    'gex',
-    'ic',
-    'ice',
-    'icn',
-    'ir',
-    'nj',
-    'ogv',
-    'pe',
-    're',
-    'rj',
-    'rjx',
-    'rx',
-    'sn',
-    'rgv',
-    'vae',
-    'tgv',
-  ];
-
-  return possibleTransportTypes.includes(transport);
-};
-
-export const renderIconProduct = (transport: string, line?: string | null): TemplateResult => {
-  const dashLine = line ? '-' + line : '';
-
+export const renderIconProduct = (icon: string, name: string): TemplateResult => {
   return html`<span class="sbb-timetable__row-transport">
-    <sbb-icon name=${transport.toLowerCase() + dashLine}></sbb-icon>
-    <span class="sbb-screenreaderonly"> ${transport.toLowerCase() + dashLine}</span>
+    <sbb-icon name="picto:${icon}"></sbb-icon>
+    <span class="sbb-screenreaderonly">${name}</span>
   </span>`;
 };
 
@@ -601,10 +572,10 @@ export class SbbTimetableRowElement extends LitElement {
                   </span>`
                 : nothing}
               ${product &&
-              product.vehicleSubModeShortName &&
-              (isProductIcon(product?.vehicleSubModeShortName?.toLocaleLowerCase())
-                ? renderIconProduct(product.vehicleSubModeShortName, product.line)
-                : renderStringProduct(product.vehicleSubModeShortName, product?.line))}
+              (product.corporateIdentityIcon
+                ? renderIconProduct(product.corporateIdentityIcon, product.name)
+                : product.vehicleSubModeShortName &&
+                  renderStringProduct(product.vehicleSubModeShortName, product?.line))}
             </div>
             ${direction
               ? html`<p>${`${i18nDirection[this._language.current]} ${direction}`}</p>`
