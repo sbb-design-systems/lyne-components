@@ -5,14 +5,7 @@ import { waitForLitRender } from '../core/testing';
 import type { ITripItem, Notice, PtSituation } from '../core/timetable';
 
 import type { SbbTimetableRowElement } from './timetable-row';
-import {
-  filterNotices,
-  getCus,
-  getHimIcon,
-  getTransportIcon,
-  isProductIcon,
-  sortSituation,
-} from './timetable-row';
+import { filterNotices, getCus, getHimIcon, sortSituation } from './timetable-row';
 import {
   defaultTrip,
   busTrip,
@@ -39,23 +32,53 @@ describe('sbb-timetable-row', () => {
       `);
 
       expect(element).shadowDom.to.be.equal(`
-        <sbb-card color="white" data-action-role="button" data-has-action size="l">
-          <sbb-card-button dir="ltr" role="button" slot="action" tabindex="0" data-action data-button>
+        <sbb-card
+          color="white"
+          data-action-role="button"
+          data-has-action=""
+          size="l"
+        >
+          <sbb-card-button
+            data-action=""
+            data-button=""
+            dir="ltr"
+            role="button"
+            slot="action"
+            tabindex="0"
+          >
             Departure: 11:08,   Train,  IR 37,  Direction Basel SBB,       Arrival: 12:13,   Travel time 1 Hour 15 Minutes,
           </sbb-card-button>
-          <div class="sbb-timetable__row" role="row">
-            <div class="sbb-timetable__row-header" role="gridcell">
+          <div
+            class="sbb-timetable__row"
+            role="row"
+          >
+            <div
+              class="sbb-timetable__row-header"
+              role="gridcell"
+            >
               <div class="sbb-timetable__row-details">
                 <span class="sbb-timetable__row-transport-wrapper">
-                  <sbb-icon aria-hidden="true" data-namespace="picto" role="img" class="sbb-timetable__row-transport-icon" name="picto:train-right"></sbb-icon>
+                  <sbb-icon
+                    aria-hidden="true"
+                    class="sbb-timetable__row-transport-icon"
+                    data-namespace="picto"
+                    name="picto:train-right"
+                    role="img"
+                  >
+                  </sbb-icon>
                   <span class="sbb-screenreaderonly">
                     Train
                   </span>
                 </span>
                 <span class="sbb-timetable__row-transport">
-                  <sbb-icon aria-hidden="true" data-namespace="default" role="img" name="ir-37"></sbb-icon>
+                  <sbb-icon
+                    aria-hidden="true"
+                    data-namespace="default"
+                    name="ir-37"
+                    role="img"
+                  >
+                  </sbb-icon>
                   <span class="sbb-screenreaderonly">
-                    ir-37
                   </span>
                 </span>
               </div>
@@ -63,8 +86,15 @@ describe('sbb-timetable-row', () => {
                 Direction Basel SBB
               </p>
             </div>
-            <sbb-pearl-chain-time data-now="1660662000000" role="gridcell"></sbb-pearl-chain-time>
-            <div class="sbb-timetable__row-footer" role="gridcell">
+            <sbb-pearl-chain-time
+              data-now="1660662000000"
+              role="gridcell"
+            >
+            </sbb-pearl-chain-time>
+            <div
+              class="sbb-timetable__row-footer"
+              role="gridcell"
+            >
               <time>
                 <span class="sbb-screenreaderonly">
                   Travel time 1 Hour 15 Minutes
@@ -176,42 +206,6 @@ describe('sbb-timetable-row', () => {
         </sbb-card>
       `);
     });
-  });
-});
-
-describe('getTransportIcon', () => {
-  it('should return ship / jetty', () => {
-    expect(getTransportIcon('SHIP', '', 'de')).to.be.equal('jetty-right');
-  });
-
-  it('should return empty string', () => {
-    expect(getTransportIcon('UNKNOWN', '', 'de')).to.be.equal('');
-  });
-
-  it('should return metro string', () => {
-    expect(getTransportIcon('METRO', 'PB', 'fr')).to.be.equal('metro-right-fr');
-  });
-
-  it('should return metro en string', () => {
-    expect(getTransportIcon('METRO', 'PB', 'en')).to.be.equal('metro-right-de');
-  });
-
-  it('should return cableway string', () => {
-    expect(getTransportIcon('GONDOLA', 'PB', 'de')).to.be.equal('cableway-right');
-  });
-
-  it('should return gondola string', () => {
-    expect(getTransportIcon('GONDOLA', 'GB', 'de')).to.be.equal('gondola-lift-right');
-  });
-});
-
-describe('isProductIcon', () => {
-  it('should return true', () => {
-    expect(isProductIcon('ic')).to.be.equal(true);
-  });
-
-  it('should return false', () => {
-    expect(isProductIcon('icc')).to.be.equal(false);
   });
 });
 

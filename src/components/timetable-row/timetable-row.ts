@@ -54,7 +54,7 @@ export interface Price {
 
 export const renderIconProduct = (icon: string, name: string): TemplateResult => {
   return html`<span class="sbb-timetable__row-transport">
-    <sbb-icon name="picto:${icon}"></sbb-icon>
+    <sbb-icon name="${icon}"></sbb-icon>
     <span class="sbb-screenreaderonly">${name}</span>
   </span>`;
 };
@@ -509,7 +509,7 @@ export class SbbTimetableRowElement extends LitElement {
               html`<span class="sbb-timetable__row-transport-wrapper">
                 <sbb-icon
                   class="sbb-timetable__row-transport-icon"
-                  name=${'picto:${product.corporateIdentityPictogram}'}
+                  name="picto:${product.corporateIdentityPictogram}"
                 ></sbb-icon>
                 <span class="sbb-screenreaderonly">
                   ${product &&
