@@ -74,6 +74,10 @@ You can also set the property `titleBackButton` to display the back button in th
 
 It's possible to display the component in `negative` variant using the self-named property.
 
+## Animation
+
+Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
+
 <!-- Auto Generated Below -->
 
 ## Properties
