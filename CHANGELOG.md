@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.48.3](https://github.com/lyne-design-system/lyne-components/compare/v0.48.2...v0.48.3) (2024-03-21)
+
+
+### Bug Fixes
+
+* **sbb-checkbox, sbb-toggle-check:** enable attribute mutation after form reset ([#2505](https://github.com/lyne-design-system/lyne-components/issues/2505)) ([6bd8924](https://github.com/lyne-design-system/lyne-components/commit/6bd892499aa3745ffa9dc52fecc3d8a392a35914))
+* **sbb-header:** fix header shadow on keyboard navigation ([#2508](https://github.com/lyne-design-system/lyne-components/issues/2508)) ([3eefbea](https://github.com/lyne-design-system/lyne-components/commit/3eefbea158d28d54ed18b2a650c7ae7155fd1c42))
+* **sbb-navigation-section:** ensure `sbb-active` initializes correctly ([#2493](https://github.com/lyne-design-system/lyne-components/issues/2493)) ([baede50](https://github.com/lyne-design-system/lyne-components/commit/baede50909c745f5d74d55722c0bc6db12701454))
+
 ## [0.48.2](https://github.com/lyne-design-system/lyne-components/compare/v0.48.1...v0.48.2) (2024-03-14)
 
 
