@@ -73,7 +73,7 @@ Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and
 
 ## Animation
 
-Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
+By default, the `sbb-alert` does not have an open animation. Add the `.sbb-animate` class to the element to enable a fade-in animation.
 
 <!-- Auto Generated Below -->
 
