@@ -54,7 +54,7 @@ export interface Price {
 
 export const renderIconProduct = (icon: string, name: string): TemplateResult => {
   return html`<span class="sbb-timetable__row-transport">
-    <sbb-icon name="${icon}"></sbb-icon>
+    <sbb-icon name=${icon}></sbb-icon>
     <span class="sbb-screenreaderonly">${name}</span>
   </span>`;
 };
