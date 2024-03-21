@@ -6,18 +6,19 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
+import { defaultDateAdapter } from '../core/datetime';
 import { sbbSpread } from '../core/dom';
 
 import { SbbCalendarElement } from './calendar';
 import readme from './readme.md?raw';
 
-const getCalendarAttr = (min: Date | string, max: Date | string): Record<string, Date> => {
-  const attr: Record<string, Date> = {};
+const getCalendarAttr = (min: Date | string, max: Date | string): Record<string, string> => {
+  const attr: Record<string, string> = {};
   if (min) {
-    attr.min = new Date(min);
+    attr.min = defaultDateAdapter.toIso8601(new Date(min));
   }
   if (max) {
-    attr.max = new Date(max);
+    attr.max = defaultDateAdapter.toIso8601(new Date(max));
   }
   return attr;
 };
