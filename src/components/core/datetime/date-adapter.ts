@@ -87,10 +87,7 @@ export abstract class DateAdapter<T = any> {
    * Attempts to deserialize a value to a valid date object. This is different from parsing in that
    * deserialize should only accept non-ambiguous, locale-independent formats (e.g. a ISO 8601
    * string). The default implementation does not allow any deserialization, it simply checks that
-   * the given value is already a valid date object or null. The `<mat-datepicker>` will call this
-   * method on all of its `@Input()` properties that accept dates. It is therefore possible to
-   * support passing values from your backend directly to these properties by overriding this method
-   * to also deserialize the format used by your backend.
+   * the given value is already a valid date object or null.
    * @param date Either Date, ISOString, Unix Timestamp (number of seconds since Jan 1, 1970).
    * @returns The date if the input is valid, `null` otherwise.
    * */
