@@ -1,14 +1,16 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import type { Args } from '@storybook/web-components';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
 import { sbbSpread } from '../core/dom';
+import { fixture } from '../core/testing/private';
 
 import type { SbbTimetableOccupancyElement } from './timetable-occupancy';
+
 import './timetable-occupancy';
 
-describe('sbb-timetable-occupancy', () => {
+describe(`sbb-timetable-occupancy`, () => {
   const renderComponent: (args: Args) => TemplateResult = (args: Args) => {
     return html`<sbb-timetable-occupancy ${sbbSpread(args)}></sbb-timetable-occupancy>`;
   };

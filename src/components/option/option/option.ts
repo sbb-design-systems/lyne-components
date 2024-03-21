@@ -50,13 +50,25 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
   } as const;
 
   /** Value of the option. */
-  @property() public value?: string;
+  @property()
+  public set value(value: string) {
+    this.setAttribute('value', `${value}`);
+  }
+  public get value(): string {
+    return this.getAttribute('value') ?? '';
+  }
 
   /** Whether the option is currently active. */
   @property({ reflect: true, type: Boolean }) public active?: boolean;
 
   /** Whether the option is selected. */
-  @property({ reflect: true, type: Boolean }) public selected = false;
+  @property({ type: Boolean })
+  public set selected(value: boolean) {
+    this.toggleAttribute('selected', value);
+  }
+  public get selected(): boolean {
+    return this.hasAttribute('selected');
+  }
 
   /** Emits when the option selection status changes. */
   private _selectionChange: EventEmitter = new EventEmitter(
@@ -83,8 +95,6 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
 
   /** Disable the highlight of the label. */
   @state() private _disableLabelHighlight: boolean = false;
-
-  @state() private _groupLabel: string | null = null;
 
   private _optionId = `sbb-option-${++nextId}`;
   private _variant!: SbbOptionVariant;
@@ -124,14 +134,6 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
    */
   public highlight(value: string): void {
     this._highlightString = value;
-  }
-
-  /**
-   * Set the option group label (used for a11y)
-   * @param value the label of the option group
-   */
-  public setGroupLabel(value: string): void {
-    this._groupLabel = value;
   }
 
   /**
@@ -216,7 +218,11 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
     const labelNodes = slotNodes.filter((el) => el.nodeType === Node.TEXT_NODE) as Text[];
 
     // Disable the highlight if the slot contain more than just text nodes
-    if (labelNodes.length === 0 || slotNodes.length !== labelNodes.length) {
+    if (
+      labelNodes.length === 0 ||
+      slotNodes.filter((n) => !(n instanceof Element) || n.localName !== 'template').length !==
+        labelNodes.length
+    ) {
       this._disableLabelHighlight = true;
       return;
     }
@@ -285,8 +291,10 @@ export class SbbOptionElement extends SbbDisabledMixin(SbbIconNameMixin(LitEleme
             ${this._isAutocomplete && this._label && !this._disableLabelHighlight
               ? this._getHighlightedLabel()
               : nothing}
-            ${this._inertAriaGroups && this._groupLabel
-              ? html` <sbb-screenreader-only>(${this._groupLabel})</sbb-screenreader-only>`
+            ${this._inertAriaGroups && this.getAttribute('data-group-label')
+              ? html` <sbb-screenreader-only>
+                  (${this.getAttribute('data-group-label')})</sbb-screenreader-only
+                >`
               : nothing}
           </span>
 

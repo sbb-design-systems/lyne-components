@@ -1,9 +1,10 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { isChromium, isFirefox } from '../core/dom';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing';
+import { fixture } from '../core/testing/private';
 
 import { SbbToggleCheckElement } from './toggle-check';
 
@@ -14,13 +15,16 @@ interface ToggleCheckAccessibilitySnapshot {
   required: boolean;
 }
 
-describe('sbb-toggle-check', () => {
+describe(`sbb-toggle-check with ${fixture.name}`, () => {
   describe('general', () => {
     let element: SbbToggleCheckElement;
 
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-toggle-check id="focus-id" name="name" value="value"></sbb-toggle-check>`,
+        {
+          modules: ['./toggle-check.ts'],
+        },
       );
     });
 
@@ -59,6 +63,7 @@ describe('sbb-toggle-check', () => {
             <sbb-toggle-check></sbb-toggle-check>
           </div>
         </div>`,
+        { modules: ['./toggle-check.ts'] },
       );
       element = root.querySelector<SbbToggleCheckElement>('sbb-toggle-check')!;
 
@@ -231,12 +236,13 @@ describe('sbb-toggle-check', () => {
                 </fieldset>
                 <button type="reset">reset</button>
               </form>`,
+              { modules: ['./toggle-check.ts'] },
             );
             await waitForLitRender(form);
 
-            element = document.querySelector(selector)!;
-            fieldset = document.querySelector<HTMLFieldSetElement>('fieldset')!;
-            formResetButton = document.querySelector<HTMLButtonElement>(`button[type='reset']`)!;
+            element = form.querySelector(selector)!;
+            fieldset = form.querySelector<HTMLFieldSetElement>('fieldset')!;
+            formResetButton = form.querySelector<HTMLButtonElement>(`button[type='reset']`)!;
             inputSpy = new EventSpy('input', element);
             changeSpy = new EventSpy('change', element);
           });
@@ -448,7 +454,7 @@ describe('sbb-toggle-check', () => {
                 expect(element).not.to.have.attribute('disabled');
               }
 
-              const disabledElements = Array.from(document.querySelectorAll(':disabled'));
+              const disabledElements = Array.from(form.querySelectorAll(':disabled'));
 
               expect(disabledElements.includes(element), ':disabled selector').to.be.equal(
                 assertions.disabledSelector,
@@ -605,12 +611,13 @@ describe('sbb-toggle-check', () => {
                 </fieldset>
                 <button type="reset">reset</button>
               </form>`,
+              { modules: ['./toggle-check.ts'] },
             );
             await waitForLitRender(form);
 
-            element = document.querySelector(selector)!;
-            fieldset = document.querySelector<HTMLFieldSetElement>('fieldset')!;
-            formResetButton = document.querySelector<HTMLButtonElement>(`button[type='reset']`)!;
+            element = form.querySelector(selector)!;
+            fieldset = form.querySelector<HTMLFieldSetElement>('fieldset')!;
+            formResetButton = form.querySelector<HTMLButtonElement>(`button[type='reset']`)!;
             inputSpy = new EventSpy('input', element);
             changeSpy = new EventSpy('change', element);
           });

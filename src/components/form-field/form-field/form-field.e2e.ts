@@ -1,20 +1,23 @@
-import { assert, expect, fixture, nextFrame } from '@open-wc/testing';
+import { assert, expect, nextFrame } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { waitForCondition, waitForLitRender } from '../../core/testing';
+import { fixture } from '../../core/testing/private';
 import { SbbOptionElement } from '../../option';
 import { SbbSelectElement } from '../../select';
 
 import { SbbFormFieldElement } from './form-field';
 
-describe('sbb-form-field', () => {
+describe(`sbb-form-field with ${fixture.name}`, () => {
   describe('with input', () => {
     let element: SbbFormFieldElement;
     let input: HTMLInputElement;
 
     beforeEach(async () => {
-      element = await fixture(html`<sbb-form-field><input /></sbb-form-field>`);
+      element = await fixture(html`<sbb-form-field><input /></sbb-form-field>`, {
+        modules: ['./form-field.ts'],
+      });
       input = element.querySelector<HTMLInputElement>('input')!;
     });
 
@@ -23,7 +26,6 @@ describe('sbb-form-field', () => {
     });
 
     it('should remove the label element if no label is configured', async () => {
-      expect(document.querySelectorAll('sbb-form-field label').length).to.be.equal(0);
       expect(element.querySelector('label')).to.be.null;
 
       element.setAttribute('label', 'Label');
@@ -59,10 +61,13 @@ describe('sbb-form-field', () => {
     });
 
     it('should react to focus state', async () => {
-      element = await fixture(html`
-        <sbb-form-field><input /></sbb-form-field>
-        <button></button>
-      `);
+      element = await fixture(
+        html`
+          <sbb-form-field><input /></sbb-form-field>
+          <button></button>
+        `,
+        { modules: ['./form-field.ts'] },
+      );
       input = element.querySelector<HTMLInputElement>('input')!;
 
       expect(element).not.to.have.attribute('data-input-focused');
@@ -82,7 +87,7 @@ describe('sbb-form-field', () => {
     it('should assign id to input and reference it in the label', async () => {
       element.setAttribute('label', 'Example');
       await waitForLitRender(element);
-      const label = document.querySelector('label');
+      const label = element.querySelector('label');
 
       await waitForLitRender(element);
 
@@ -140,12 +145,15 @@ describe('sbb-form-field', () => {
     let select: SbbSelectElement;
 
     beforeEach(async () => {
-      element = await fixture(html`
-        <sbb-form-field label="Example">
-          <sbb-select><sbb-option>Test</sbb-option></sbb-select>
-        </sbb-form-field>
-      `);
-      select = document.querySelector<SbbSelectElement>('sbb-select')!;
+      element = await fixture(
+        html`
+          <sbb-form-field label="Example">
+            <sbb-select><sbb-option>Test</sbb-option></sbb-select>
+          </sbb-form-field>
+        `,
+        { modules: ['./form-field.ts', '../../select/index.ts', '../../option/index.ts'] },
+      );
+      select = element.querySelector<SbbSelectElement>('sbb-select')!;
       await waitForLitRender(element);
     });
 
@@ -170,7 +178,7 @@ describe('sbb-form-field', () => {
     it('should open select on form field click', async () => {
       expect(element).not.to.have.attribute('data-input-focused');
 
-      const label = document.querySelector('label')!;
+      const label = element.querySelector('label')!;
       label.click();
       await waitForLitRender(element);
 
@@ -183,7 +191,7 @@ describe('sbb-form-field', () => {
 
       expect(element).not.to.have.attribute('data-input-focused');
 
-      const label = document.querySelector('label')!;
+      const label = element.querySelector('label')!;
       label.click();
       await waitForLitRender(element);
 
@@ -193,7 +201,7 @@ describe('sbb-form-field', () => {
     it('should assign id to label and reference it in the sbb-select', async () => {
       element.setAttribute('label', 'Example');
       await waitForLitRender(element);
-      const label = document.querySelector('label')!;
+      const label = element.querySelector('label')!;
 
       expect(label.id).to.match(/^sbb-form-field-label-/);
       expect(select).to.have.attribute('aria-labelledby', label.id);
@@ -202,87 +210,104 @@ describe('sbb-form-field', () => {
 
   describe('with floating label', () => {
     it('should read native empty select state', async () => {
-      const element = await fixture(html`
-        <sbb-form-field floating-label>
-          <select>
-            <option value="0"></option>
-            <option value="1">Displayed Value</option>
-          </select>
-        </sbb-form-field>
-      `);
+      const element = await fixture(
+        html`
+          <sbb-form-field floating-label>
+            <select>
+              <option value="0"></option>
+              <option value="1">Displayed Value</option>
+            </select>
+          </sbb-form-field>
+        `,
+        { modules: ['./form-field.ts'] },
+      );
 
       expect(element).to.have.attribute('data-input-empty');
     });
 
     it('should not read native empty select state', async () => {
-      const element = await fixture(html`
-        <sbb-form-field floating-label>
-          <select>
-            <option value="" selected>Empty Value</option>
-            <option value="1">Displayed Value</option>
-          </select>
-        </sbb-form-field>
-      `);
+      const element = await fixture(
+        html`
+          <sbb-form-field floating-label>
+            <select>
+              <option value="" selected>Empty Value</option>
+              <option value="1">Displayed Value</option>
+            </select>
+          </sbb-form-field>
+        `,
+        { modules: ['./form-field.ts'] },
+      );
       expect(element).not.to.have.attribute('data-input-empty');
     });
 
     it('should never be empty if input type is date', async () => {
       const element: SbbFormFieldElement = await fixture(
         html`<sbb-form-field floating-label><input type="date" /></sbb-form-field>`,
+        { modules: ['./form-field.ts'] },
       );
 
       expect(element).not.to.have.attribute('data-input-empty');
     });
 
     it('should read sbb-select empty state', async () => {
-      const element: SbbFormFieldElement = await fixture(html`
-        <sbb-form-field floating-label>
-          <sbb-select value="0">
-            <sbb-option value="0"></sbb-option>
-            <sbb-option value="1">Displayed Value</sbb-option>
-          </sbb-select>
-        </sbb-form-field>
-      `);
+      const element: SbbFormFieldElement = await fixture(
+        html`
+          <sbb-form-field floating-label>
+            <sbb-select value="0">
+              <sbb-option value="0"></sbb-option>
+              <sbb-option value="1">Displayed Value</sbb-option>
+            </sbb-select>
+          </sbb-form-field>
+        `,
+        { modules: ['./form-field.ts', '../../select/index.ts', '../../option/index.ts'] },
+      );
 
       expect(element).to.have.attribute('data-input-empty');
     });
 
     it('should not read sbb-select empty state', async () => {
-      const element = await fixture(html`
-        <sbb-form-field floating-label>
-          <sbb-select>
-            <sbb-option value="" selected>Empty Value</sbb-option>
-            <sbb-option value="1">Displayed Value</sbb-option>
-          </sbb-select>
-        </sbb-form-field>
-      `);
+      const element = await fixture(
+        html`
+          <sbb-form-field floating-label>
+            <sbb-select>
+              <sbb-option value="" selected>Empty Value</sbb-option>
+              <sbb-option value="1">Displayed Value</sbb-option>
+            </sbb-select>
+          </sbb-form-field>
+        `,
+        { modules: ['./form-field.ts', '../../select/index.ts', '../../option/index.ts'] },
+      );
 
       expect(element).not.to.have.attribute('data-input-empty');
     });
 
     it('should update floating label after clearing', async () => {
-      const element: SbbFormFieldElement = await fixture(
+      const element = await fixture<SbbFormFieldElement>(
         html` <sbb-form-field floating-label>
           <sbb-select>
             <sbb-option value="1" selected>Displayed Value</sbb-option>
           </sbb-select>
         </sbb-form-field>`,
+        { modules: ['./form-field.ts', '../../select/index.ts', '../../option/index.ts'] },
       );
 
-      document.querySelector<SbbSelectElement>('sbb-select')!.value = '';
+      element.querySelector<SbbSelectElement>('sbb-select')!.value = '';
       await waitForLitRender(element);
 
       expect(element).to.have.attribute('data-input-empty');
     });
 
     it('should update floating label when resetting form', async () => {
-      const form = (await fixture(html`
-        <form>
-          <sbb-form-field floating-label>
-            <input />
-          </sbb-form-field>
-        </form>
-      `)) as HTMLFormElement;
+      const form = (await fixture(
+        html`
+          <form>
+            <sbb-form-field floating-label>
+              <input />
+            </sbb-form-field>
+          </form>
+        `,
+        { modules: ['./form-field.ts'] },
+      )) as HTMLFormElement;
       const element = form.querySelector<SbbFormFieldElement>('sbb-form-field')!;
       form.querySelector('input')!.focus();
       await sendKeys({ type: 'test' });
@@ -297,13 +322,15 @@ describe('sbb-form-field', () => {
     });
 
     it('should reset floating label when calling reset of sbb-form-field', async () => {
-      const element: SbbFormFieldElement = await fixture(html`
-        <sbb-form-field floating-label>
-          <input />
-        </sbb-form-field>
-      `);
-
-      const input = document.querySelector<HTMLInputElement>('input')!;
+      const element: SbbFormFieldElement = await fixture(
+        html`
+          <sbb-form-field floating-label>
+            <input />
+          </sbb-form-field>
+        `,
+        { modules: ['./form-field.ts'] },
+      );
+      const input = element.querySelector<HTMLInputElement>('input')!;
 
       input.focus();
       await sendKeys({ type: 'test' });

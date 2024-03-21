@@ -1,15 +1,15 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { isFirefox } from '../core/dom';
 import { describeIf, waitForLitRender } from '../core/testing';
-import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
 
 import type { SbbToastElement } from './toast';
 
 import './toast';
 
-describe('sbb-toast', () => {
+describe(`sbb-toast`, () => {
   describe('renders', () => {
     let elem: SbbToastElement;
 

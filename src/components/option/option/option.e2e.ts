@@ -1,32 +1,37 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import '../../autocomplete';
 import type { SbbAutocompleteElement } from '../../autocomplete';
 import { waitForLitRender, EventSpy } from '../../core/testing';
+import { fixture } from '../../core/testing/private';
 import type { SbbFormFieldElement } from '../../form-field';
-import '../../form-field';
-import '../optgroup';
 import type { SbbOptGroupElement } from '../optgroup';
 
 import { SbbOptionElement } from './option';
 
-describe('sbb-option', () => {
+import '../../autocomplete';
+import '../../form-field';
+import '../optgroup';
+
+describe(`sbb-option with ${fixture.name}`, () => {
   describe('autocomplete', () => {
     let element: SbbFormFieldElement;
 
     beforeEach(async () => {
-      element = await fixture(html`
-        <sbb-form-field>
-          <input />
-          <sbb-autocomplete>
-            <sbb-option id="option-1" value="1">Option 1</sbb-option>
-            <sbb-option id="option-2" value="2">Option 2</sbb-option>
-            <sbb-option id="option-3" value="3">Option 3</sbb-option>
-          </sbb-autocomplete>
-        </sbb-form-field>
-      `);
+      element = await fixture(
+        html`
+          <sbb-form-field>
+            <input />
+            <sbb-autocomplete>
+              <sbb-option id="option-1" value="1">Option 1</sbb-option>
+              <sbb-option id="option-2" value="2">Option 2</sbb-option>
+              <sbb-option id="option-3" value="3">Option 3</sbb-option>
+            </sbb-autocomplete>
+          </sbb-form-field>
+        `,
+        { modules: ['../../form-field/index.ts', '../../autocomplete/index.ts', './option.ts'] },
+      );
     });
 
     it('renders', async () => {
@@ -158,16 +163,26 @@ describe('sbb-option', () => {
     });
 
     it('highlight later added options in sbb-optgroup', async () => {
-      element = await fixture(html`
-        <sbb-form-field>
-          <input />
-          <sbb-autocomplete>
-            <sbb-optgroup>
-              <sbb-option id="option-1" value="1">Option 1</sbb-option>
-            </sbb-optgroup>
-          </sbb-autocomplete>
-        </sbb-form-field>
-      `);
+      element = await fixture(
+        html`
+          <sbb-form-field>
+            <input />
+            <sbb-autocomplete>
+              <sbb-optgroup>
+                <sbb-option id="option-1" value="1">Option 1</sbb-option>
+              </sbb-optgroup>
+            </sbb-autocomplete>
+          </sbb-form-field>
+        `,
+        {
+          modules: [
+            '../../form-field/index.ts',
+            '../../autocomplete/index.ts',
+            '../optgroup/index.ts',
+            './option.ts',
+          ],
+        },
+      );
 
       const input = element.querySelector<HTMLInputElement>('input')!;
       const optgroup = element.querySelector<SbbOptGroupElement>('sbb-optgroup')!;

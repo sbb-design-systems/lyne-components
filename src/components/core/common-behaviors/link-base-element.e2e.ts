@@ -1,8 +1,9 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, type TemplateResult } from 'lit';
 
 import { EventSpy, waitForLitRender } from '../testing';
+import { fixture } from '../testing/private';
 
 import { SbbLinkBaseElement } from './link-base-element';
 
@@ -15,7 +16,7 @@ class GenericLink extends SbbLinkBaseElement {
 }
 customElements.define('generic-link', GenericLink);
 
-describe('SbbLinkBaseElement', () => {
+describe(`SbbLinkBaseElement with ${fixture.name}`, () => {
   describe('template', () => {
     let element: GenericLink;
 

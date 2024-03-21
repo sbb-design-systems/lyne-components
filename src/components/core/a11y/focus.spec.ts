@@ -1,9 +1,14 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
+import { html } from 'lit';
+
+import { fixture } from '../testing/private';
 
 import { FocusHandler, getFirstFocusableElement, getFocusableElements } from './focus';
 
-describe('getFocusables', () => {
+import '../../button';
+
+describe(`getFocusables`, () => {
   let lightDOM: HTMLElement, shadowDOM: HTMLElement;
 
   customElements.define(
@@ -18,20 +23,18 @@ describe('getFocusables', () => {
   );
 
   beforeEach(async () => {
-    lightDOM = await fixture(`
-    <div>
-      <sbb-button tabindex="0" id="sbb-button">Button</sbb-button>
-      <a href="#" id="a">Link</a>
+    lightDOM = await fixture(html`
       <div>
-        <input id="input" />
-        <button style="visibility: hidden" id="hidden-button">Button</button>
+        <sbb-button tabindex="0" id="sbb-button">Button</sbb-button>
+        <a href="#" id="a">Link</a>
+        <div>
+          <input id="input" />
+          <button style="visibility: hidden" id="hidden-button">Button</button>
+        </div>
       </div>
-    </div>
     `);
 
-    shadowDOM = await fixture(`
-    <my-custom-element></my-custom-element>
-    `);
+    shadowDOM = await fixture(html` <my-custom-element></my-custom-element> `);
   });
 
   it('should retrieve focusable elements', () => {
@@ -82,7 +85,7 @@ describe('getFocusables', () => {
   });
 });
 
-describe('focus trap', () => {
+describe(`focus trap`, () => {
   let element: HTMLElement;
 
   customElements.define(
@@ -105,8 +108,8 @@ describe('focus trap', () => {
   );
 
   beforeEach(async () => {
-    element = await fixture(`
-    <my-container-element><button id="slotted-button">Button</button></my-container-element>
+    element = await fixture(html`
+      <my-container-element><button id="slotted-button">Button</button></my-container-element>
     `);
   });
 

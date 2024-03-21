@@ -86,7 +86,10 @@ export class SbbAlertGroupElement extends LitElement {
 
   private _slotChanged(event: Event): void {
     const hadAlerts = this._hasAlerts;
-    this._hasAlerts = (event.target as HTMLSlotElement).assignedElements().length > 0;
+    this._hasAlerts =
+      (event.target as HTMLSlotElement)
+        .assignedElements()
+        .filter((e) => e instanceof Element && e.localName === 'sbb-alert').length > 0;
     if (!this._hasAlerts && hadAlerts) {
       this._empty.emit();
     }

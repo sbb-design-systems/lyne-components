@@ -10,8 +10,8 @@ import { customElement, state } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed, sbbInputModalityDetector } from '../../core/a11y';
 import {
+  SbbNamedSlotListMixin,
   hostAttributes,
-  SbbNamedSlotListElementMixin,
   type WithListChildren,
 } from '../../core/common-behaviors';
 import { LanguageController } from '../../core/common-behaviors';
@@ -34,7 +34,7 @@ import '../../icon';
 @hostAttributes({
   role: 'navigation',
 })
-export class SbbBreadcrumbGroupElement extends SbbNamedSlotListElementMixin<
+export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
   SbbBreadcrumbElement,
   typeof LitElement
 >(LitElement) {

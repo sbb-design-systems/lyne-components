@@ -1,14 +1,15 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 
 import type { SbbExpansionPanelElement } from './expansion-panel';
+
 import './expansion-panel';
 import '../expansion-panel-header';
 import '../expansion-panel-content';
 
-describe('sbb-expansion-panel', () => {
+describe(`sbb-expansion-panel`, () => {
   describe('renders', () => {
     let element: SbbExpansionPanelElement;
 

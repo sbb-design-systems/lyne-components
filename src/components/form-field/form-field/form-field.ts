@@ -9,7 +9,7 @@ import {
   NamedSlotStateController,
   SbbNegativeMixin,
 } from '../../core/common-behaviors';
-import { isBrowser, isFirefox, isValidAttribute } from '../../core/dom';
+import { getLocalName, isBrowser, isFirefox, isValidAttribute } from '../../core/dom';
 import { ConnectedAbortController } from '../../core/eventing';
 import { i18nOptional } from '../../core/i18n';
 import { AgnosticMutationObserver } from '../../core/observers';
@@ -160,16 +160,17 @@ export class SbbFormFieldElement extends SbbNegativeMixin(LitElement) {
       | HTMLLabelElement
       | undefined;
 
-    if (!newValue && labelElement?.dataset.creator === this.tagName) {
+    const localName = this.localName ?? getLocalName(this);
+    if (!newValue && labelElement?.dataset.creator === localName) {
       labelElement.remove();
     } else if (
-      labelElement?.dataset.creator === this.tagName &&
+      labelElement?.dataset.creator === localName &&
       labelElement.textContent !== newValue
     ) {
       labelElement.textContent = newValue;
     } else if (!labelElement && newValue) {
       labelElement = this.ownerDocument.createElement('label');
-      labelElement.dataset.creator = this.tagName;
+      labelElement.dataset.creator = localName;
       labelElement.setAttribute('slot', 'label');
       labelElement.textContent = newValue;
       this.insertBefore(labelElement, this.firstChild);

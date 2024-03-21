@@ -1,9 +1,11 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
-import { parentPort, workerData } from 'worker_threads';
-import { render } from '@lit-labs/ssr';
-import { build } from 'vite';
 import { createHash } from 'crypto';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { dirname, join, relative, resolve } from 'path';
+import { parentPort, workerData } from 'worker_threads';
+
+import { render } from '@lit-labs/ssr';
+import * as esbuild from 'esbuild';
+import { sassPlugin } from 'esbuild-sass-plugin';
 
 if (parentPort === null) {
   throw new Error('worker.js must only be run in a worker thread');
@@ -50,6 +52,28 @@ async function buildModules(buildCacheOutDir) {
     .join('\n');
   writeFileSync(entry, importStatement, 'utf8');
 
+  await esbuild.build({
+    entryPoints: [entry],
+    outdir: buildCacheOutDir.pathname,
+    bundle: true,
+    format: 'esm',
+    platform: 'node',
+    target: 'node20',
+    external: Object.keys({ ...pkg.dependencies, ...pkg.devDependencies }),
+    logLevel: 'warning',
+    plugins: [
+      sassPlugin({
+        type: 'lit-css',
+        loadPaths: [
+          new URL('../', import.meta.url).pathname,
+          new URL('../node_modules/', import.meta.url).pathname,
+        ],
+      }),
+    ],
+  });
+
+  /*
+  // Vite build config. It is slower by about a factor of 3.
   await build({
     root: new URL('..', import.meta.url).pathname,
     mode: 'development',
@@ -66,6 +90,7 @@ async function buildModules(buildCacheOutDir) {
       sourcemap: 'inline',
     },
   });
+  */
 }
 
 /** Generate a hash from the contents of the given modules and their import chain. */

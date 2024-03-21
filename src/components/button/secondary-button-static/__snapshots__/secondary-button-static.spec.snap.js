@@ -143,3 +143,32 @@ snapshots["sbb-secondary-button-static renders a sbb-secondary-button-static wit
 `;
 /* end snapshot sbb-secondary-button-static renders a sbb-secondary-button-static with slotted icon A11y tree Safari */
 
+snapshots["sbb-secondary-button-static renders a sbb-secondary-button-static without icon Dom"] = 
+`<sbb-secondary-button-static
+  data-action=""
+  data-sbb-button=""
+  data-slot-names="unnamed"
+  dir="ltr"
+  disabled=""
+  negative=""
+  size="m"
+>
+  Label Text
+</sbb-secondary-button-static>
+`;
+/* end snapshot sbb-secondary-button-static renders a sbb-secondary-button-static without icon Dom */
+
+snapshots["sbb-secondary-button-static renders a sbb-secondary-button-static without icon ShadowDom"] = 
+`<span class="sbb-action-base sbb-secondary-button-static">
+  <span class="sbb-button__icon">
+    <slot name="icon">
+    </slot>
+  </span>
+  <span class="sbb-button__label">
+    <slot>
+    </slot>
+  </span>
+</span>
+`;
+/* end snapshot sbb-secondary-button-static renders a sbb-secondary-button-static without icon ShadowDom */
+

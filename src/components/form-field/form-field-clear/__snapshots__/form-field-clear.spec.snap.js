@@ -11,7 +11,7 @@ snapshots["sbb-form-field-clear renders Formfield Dom"] =
   width="default"
 >
   <label
-    data-creator="SBB-FORM-FIELD"
+    data-creator="sbb-form-field"
     for="sbb-form-field-input-0"
     slot="label"
   >

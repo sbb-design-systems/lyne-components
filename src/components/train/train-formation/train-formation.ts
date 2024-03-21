@@ -8,7 +8,7 @@ import {
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { SbbNamedSlotListElementMixin, type WithListChildren } from '../../core/common-behaviors';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/common-behaviors';
 import { LanguageController } from '../../core/common-behaviors';
 import { ConnectedAbortController } from '../../core/eventing';
 import { i18nSector, i18nSectorShort, i18nTrains } from '../../core/i18n';
@@ -31,7 +31,7 @@ interface AggregatedSector {
  * @slot - Use the unnamed slot to add 'sbb-train' elements to the `sbb-train-formation`.
  */
 @customElement('sbb-train-formation')
-export class SbbTrainFormationElement extends SbbNamedSlotListElementMixin<
+export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
   SbbTrainElement,
   typeof LitElement
 >(LitElement) {
@@ -87,7 +87,8 @@ export class SbbTrainFormationElement extends SbbNamedSlotListElementMixin<
         const currentAggregatedSector = aggregatedSectors[aggregatedSectors.length - 1];
 
         if (item.tagName === 'SBB-TRAIN-WAGON') {
-          const sectorAttribute = (item as SbbTrainWagonElement).sector;
+          const sectorAttribute =
+            (item as SbbTrainWagonElement).sector ?? item.getAttribute('sector');
 
           if (!currentAggregatedSector.label && sectorAttribute) {
             currentAggregatedSector.label = sectorAttribute;

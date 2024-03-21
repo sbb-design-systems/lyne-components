@@ -1,13 +1,14 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 
 import type { SbbCheckboxGroupElement } from './checkbox-group';
+
 import './checkbox-group';
 import '../checkbox';
 
-describe('sbb-checkbox-group', () => {
+describe(`sbb-checkbox-group`, () => {
   let element: SbbCheckboxGroupElement;
 
   beforeEach(async () => {

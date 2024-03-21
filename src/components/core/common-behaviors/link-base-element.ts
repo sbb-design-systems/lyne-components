@@ -1,6 +1,7 @@
 import { html, isServer, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { getLocalName } from '../dom';
 import { isEventPrevented } from '../eventing';
 import { i18nTargetOpensInNewWindow } from '../i18n';
 
@@ -84,7 +85,7 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
   protected override render(): TemplateResult {
     return html`
       <a
-        class="sbb-action-base ${this.tagName.toLowerCase()}"
+        class="sbb-action-base ${this.localName ?? getLocalName(this)}"
         role="presentation"
         tabindex="-1"
         href=${this.href ?? nothing}

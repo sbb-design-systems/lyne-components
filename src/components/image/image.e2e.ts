@@ -1,19 +1,21 @@
-import { aTimeout, assert, expect, fixture } from '@open-wc/testing';
+import { aTimeout, assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import images from '../core/images';
 import { waitForCondition, waitForLitRender } from '../core/testing';
+import { fixture } from '../core/testing/private';
 
 import { SbbImageElement } from './image';
 
-describe('sbb-image', () => {
+describe(`sbb-image with ${fixture.name}`, () => {
   let element: SbbImageElement;
 
   it('renders', async function (this: Context) {
-    this.timeout(8000);
-    const url = images[0];
-    element = await fixture(html`<sbb-image image-src="${url}"></sbb-image>`);
+    this.timeout(10000);
+    const url = 'http://localhost:8000/src/components/clock/assets/sbb_clock_face.svg';
+    element = await fixture(html`<sbb-image image-src="${url}"></sbb-image>`, {
+      modules: ['./image.ts'],
+    });
 
     assert.instanceOf(element, SbbImageElement);
     await waitForLitRender(element);
@@ -24,11 +26,15 @@ describe('sbb-image', () => {
     await waitForCondition(() => img.complete, 30, 6000);
     await aTimeout(1000);
 
-    expect(element).dom.to.be.equal(`
+    expect(element).dom.to.be.equal(
+      `
       <sbb-image image-src="${url}"></sbb-image>
-    `);
+    `,
+      { ignoreAttributes: ['defer-hydration'], ignoreTags: ['template'] },
+    );
 
-    expect(element).shadowDom.to.be.equal(`
+    expect(element).shadowDom.to.be.equal(
+      `
       <figure class="image__figure image__figure--loaded image__figure--ratio-16-9">
         <div class="image__wrapper">
           <img alt="" class="image__blur-hash" decoding="auto" height="562" loading="eager" src="${url}?blur=100&amp;w=100&amp;h=56" width="1000">
@@ -40,6 +46,7 @@ describe('sbb-image', () => {
           </picture>
         </div>
       </figure>
-    `);
+    `,
+    );
   });
 });

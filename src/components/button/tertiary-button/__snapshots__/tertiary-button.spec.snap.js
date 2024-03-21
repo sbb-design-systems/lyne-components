@@ -153,3 +153,39 @@ snapshots["sbb-tertiary-button renders a sbb-tertiary-button with slotted icon A
 `;
 /* end snapshot sbb-tertiary-button renders a sbb-tertiary-button with slotted icon A11y tree Safari */
 
+snapshots["sbb-tertiary-button renders a sbb-tertiary-button without icon Dom"] = 
+`<sbb-tertiary-button
+  aria-disabled="true"
+  data-action=""
+  data-button=""
+  data-sbb-button=""
+  data-slot-names="unnamed"
+  dir="ltr"
+  disabled=""
+  form="formid"
+  name="name"
+  negative=""
+  role="button"
+  size="m"
+  type="button"
+  value="value"
+>
+  Label Text
+</sbb-tertiary-button>
+`;
+/* end snapshot sbb-tertiary-button renders a sbb-tertiary-button without icon Dom */
+
+snapshots["sbb-tertiary-button renders a sbb-tertiary-button without icon ShadowDom"] = 
+`<span class="sbb-action-base sbb-tertiary-button">
+  <span class="sbb-button__icon">
+    <slot name="icon">
+    </slot>
+  </span>
+  <span class="sbb-button__label">
+    <slot>
+    </slot>
+  </span>
+</span>
+`;
+/* end snapshot sbb-tertiary-button renders a sbb-tertiary-button without icon ShadowDom */
+

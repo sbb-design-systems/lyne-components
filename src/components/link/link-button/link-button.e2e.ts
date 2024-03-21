@@ -1,16 +1,19 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
+import { fixture } from '../../core/testing/private';
 
 import { SbbLinkButtonElement } from './link-button';
 
-describe('sbb-link-button', () => {
+describe(`sbb-link-button with ${fixture.name}`, () => {
   let element: SbbLinkButtonElement;
 
   beforeEach(async () => {
-    element = await fixture(html`<sbb-link-button id="focus-id">Link as Button</sbb-link-button>`);
+    element = await fixture(html`<sbb-link-button id="focus-id">Link as Button</sbb-link-button>`, {
+      modules: ['./link-button.ts'],
+    });
   });
 
   it('renders', async () => {

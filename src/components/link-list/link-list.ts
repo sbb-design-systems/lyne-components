@@ -3,7 +3,7 @@ import { html, nothing, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import {
-  SbbNamedSlotListElementMixin,
+  SbbNamedSlotListMixin,
   SbbNegativeMixin,
   NamedSlotStateController,
   type WithListChildren,
@@ -29,7 +29,7 @@ import '../title';
  */
 @customElement('sbb-link-list')
 export class SbbLinkListElement extends SbbNegativeMixin(
-  SbbNamedSlotListElementMixin<
+  SbbNamedSlotListMixin<
     SbbBlockLinkElement | SbbBlockLinkButtonElement | SbbBlockLinkStaticElement,
     typeof LitElement
   >(LitElement),

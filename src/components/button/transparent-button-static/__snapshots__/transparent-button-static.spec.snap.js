@@ -143,3 +143,32 @@ snapshots["sbb-transparent-button-static renders a sbb-transparent-button-static
 `;
 /* end snapshot sbb-transparent-button-static renders a sbb-transparent-button-static with slotted icon A11y tree Safari */
 
+snapshots["sbb-transparent-button-static renders a sbb-transparent-button-static without icon Dom"] = 
+`<sbb-transparent-button-static
+  data-action=""
+  data-sbb-button=""
+  data-slot-names="unnamed"
+  dir="ltr"
+  disabled=""
+  negative=""
+  size="m"
+>
+  Label Text
+</sbb-transparent-button-static>
+`;
+/* end snapshot sbb-transparent-button-static renders a sbb-transparent-button-static without icon Dom */
+
+snapshots["sbb-transparent-button-static renders a sbb-transparent-button-static without icon ShadowDom"] = 
+`<span class="sbb-action-base sbb-transparent-button-static">
+  <span class="sbb-button__icon">
+    <slot name="icon">
+    </slot>
+  </span>
+  <span class="sbb-button__label">
+    <slot>
+    </slot>
+  </span>
+</span>
+`;
+/* end snapshot sbb-transparent-button-static renders a sbb-transparent-button-static without icon ShadowDom */
+

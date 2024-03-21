@@ -3,8 +3,7 @@ import { defaultReporter, dotReporter, summaryReporter } from '@web/test-runner'
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { puppeteerLauncher } from '@web/test-runner-puppeteer';
 import { a11ySnapshotPlugin } from '@web/test-runner-commands/plugins';
-import { existsSync, readFileSync } from 'fs';
-import * as glob from 'glob';
+import { existsSync } from 'fs';
 import * as sass from 'sass';
 import { createServer } from 'vite';
 import { cpus } from 'node:os';
@@ -13,6 +12,7 @@ const isCIEnvironment = !!process.env.CI || process.argv.includes('--ci');
 const isDebugMode = process.argv.includes('--debug');
 const firefox = process.argv.includes('--firefox');
 const webkit = process.argv.includes('--webkit');
+const concurrency = process.argv.includes('--parallel') ? {} : { concurrency: 1 };
 
 const globalCss = sass.compile('./src/components/core/styles/global.scss', {
   loadPaths: ['.', './node_modules/'],
@@ -21,9 +21,9 @@ const globalCss = sass.compile('./src/components/core/styles/global.scss', {
 const browsers = isCIEnvironment
   ? [
       // Parallelism has problems, we need force concurrency to 1
-      playwrightLauncher({ product: 'chromium', concurrency: 1 }),
-      playwrightLauncher({ product: 'firefox', concurrency: 1 }),
-      playwrightLauncher({ product: 'webkit', concurrency: 1 }),
+      playwrightLauncher({ product: 'chromium', ...concurrency }),
+      playwrightLauncher({ product: 'firefox', ...concurrency }),
+      playwrightLauncher({ product: 'webkit', ...concurrency }),
     ]
   : firefox
     ? [playwrightLauncher({ product: 'firefox' })]
@@ -32,8 +32,8 @@ const browsers = isCIEnvironment
       : isDebugMode
         ? [
             puppeteerLauncher({
-              concurrency: 1,
               launchOptions: { headless: false, devtools: true },
+              ...concurrency,
             }),
           ]
         : [playwrightLauncher({ product: 'chromium' })];
@@ -45,6 +45,7 @@ const groupNameOverride = process.argv.includes('--ssr-hydrated')
     : null;
 
 const testRunnerHtml = (testFramework, _config, group) => `
+<!DOCTYPE html>
 <html>
   <head>
     <meta name="testEnvironment" ${isDebugMode ? 'debug' : ''}>
@@ -52,16 +53,11 @@ const testRunnerHtml = (testFramework, _config, group) => `
     <style type="text/css">${globalCss.css}</style>
   </head>
   <body>
-    <script type="module" src="${testFramework}"></script>
     <script type="module" src="/src/components/core/testing/test-setup.ts"></script>
+    <script type="module" src="${testFramework}"></script>
   </body>
 </html>
 `;
-
-// Temporary workaround, until all files are migrated to ssr testing.
-const e2eFiles = glob
-  .sync('**/*.e2e.ts', { cwd: new URL('.', import.meta.url) })
-  .filter((f) => readFileSync(f, 'utf8').includes('${fixture.name}'));
 
 // Slow down fast cpus to not run into too much fetches
 function resolveConcurrency() {
@@ -74,17 +70,21 @@ function resolveConcurrency() {
 export default {
   files: ['src/**/*.{e2e,spec}.ts'],
   groups: [
-    { name: 'e2e-ssr-hydrated', files: e2eFiles, testRunnerHtml },
-    { name: 'e2e-ssr-non-hydrated', files: e2eFiles, testRunnerHtml },
+    // Disable ssr tests until stabilized.
+    // { name: 'e2e-ssr-hydrated', files: 'src/**/*.e2e.ts', testRunnerHtml },
+    // { name: 'e2e-ssr-non-hydrated', files: 'src/**/*.e2e.ts', testRunnerHtml },
   ],
   nodeResolve: true,
   concurrency: resolveConcurrency(),
-  reporters: isDebugMode ? [defaultReporter(), summaryReporter()] : [minimalReporter()],
+  reporters:
+    isDebugMode || !isCIEnvironment
+      ? [defaultReporter(), patchedSummaryReporter()]
+      : [minimalReporter()],
   browsers: browsers,
   plugins: [vitePlugin(), a11ySnapshotPlugin()],
   testFramework: {
     config: {
-      timeout: '6000',
+      timeout: '10000',
       slow: '1000',
       failZero: true,
     },
@@ -160,6 +160,48 @@ function minimalReporter() {
       }
       console.groupEnd();
       base.onTestRunFinished(args);
+    },
+  };
+}
+
+// See https://github.com/modernweb-dev/web/issues/2325
+/** @type {import('@web/test-runner-core').Reporter} */
+function patchedSummaryReporter() {
+  // https://github.com/modernweb-dev/web/blob/master/packages/test-runner/src/logger/TestRunnerLogger.ts
+  class TestRunnerLogger {
+    loggedSyntaxErrors = new Map();
+    debugLogging = false;
+
+    log = (...messages) => console.log(...messages);
+    debug = (...messages) => this.debugLogging && console.debug(...messages);
+    error = (...messages) => console.error(...messages);
+    warn = (...messages) => console.warn(...messages);
+    group = () => console.group();
+    groupEnd = () => console.groupEnd();
+    logSyntaxError(error) {
+      const { message, code, filePath, column, line } = error;
+      let errors = this.loggedSyntaxErrors.get(filePath);
+      if (!errors) {
+        errors = [];
+        this.loggedSyntaxErrors.set(filePath, errors);
+      } else if (
+        errors.find(
+          (e) => e.code === code && e.message === message && e.column === column && e.line === line,
+        )
+      ) {
+        // dedupe syntax errors we already logged
+        return;
+      }
+      errors.push(error);
+    }
+    clearLoggedSyntaxErrors = () => (this.loggedSyntaxErrors = new Map());
+  }
+  const base = summaryReporter();
+  const logger = new TestRunnerLogger();
+  return {
+    ...base,
+    reportTestFileResults(args) {
+      base.reportTestFileResults({ ...args, logger });
     },
   };
 }

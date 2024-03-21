@@ -4,7 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { assignId, getNextElementIndex } from '../core/a11y';
-import { hostAttributes, SbbNegativeMixin, SlotChildObserver } from '../core/common-behaviors';
+import { SbbHydrationMixin, SbbNegativeMixin, hostAttributes } from '../core/common-behaviors';
 import {
   setAttribute,
   getDocumentWritingMode,
@@ -44,7 +44,7 @@ let nextId = 0;
 @hostAttributes({
   dir: getDocumentWritingMode(),
 })
-export class SbbAutocompleteElement extends SlotChildObserver(SbbNegativeMixin(LitElement)) {
+export class SbbAutocompleteElement extends SbbNegativeMixin(SbbHydrationMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
   public static readonly events = {
     willOpen: 'willOpen',
@@ -257,10 +257,6 @@ export class SbbAutocompleteElement extends SlotChildObserver(SbbNegativeMixin(L
     super.firstUpdated(changedProperties);
     this._componentSetup();
     this._didLoad = true;
-  }
-
-  public override checkChildren(): void {
-    this._highlightOptions(this.triggerElement?.value);
   }
 
   private _syncNegative(): void {
@@ -550,6 +546,10 @@ export class SbbAutocompleteElement extends SlotChildObserver(SbbNegativeMixin(L
     removeAriaComboBoxAttributes(element);
   }
 
+  private _handleSlotchange(): void {
+    this._highlightOptions(this.triggerElement?.value);
+  }
+
   protected override render(): TemplateResult {
     setAttribute(this, 'data-state', this._state);
     setAttribute(this, 'role', this._ariaRoleOnHost ? 'listbox' : null);
@@ -572,7 +572,7 @@ export class SbbAutocompleteElement extends SlotChildObserver(SbbNegativeMixin(L
               id=${!this._ariaRoleOnHost ? this._overlayId : nothing}
               ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
             >
-              <slot></slot>
+              <slot @slotchange=${this._handleSlotchange}></slot>
             </div>
           </div>
         </div>

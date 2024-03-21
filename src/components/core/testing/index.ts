@@ -1,5 +1,4 @@
 export * from './event-spy';
-export * from './fixture';
 export * from './mocha-extensions';
 export * from './platform';
 export * from './scroll';

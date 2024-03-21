@@ -1,12 +1,13 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { waitForLitRender } from '../../core/testing';
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 
 import './tag';
+import '../../icon';
 
-describe('sbb-tag', () => {
+describe(`sbb-tag`, () => {
   it('renders unchecked', async () => {
     const root = await fixture(
       html`<sbb-tag value="all" aria-label="Check to remove filters">All</sbb-tag>`,

@@ -1,25 +1,34 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing';
+import { fixture } from '../../core/testing/private';
 import { SbbPopoverElement } from '../popover';
 
 import { SbbPopoverTriggerElement } from './popover-trigger';
 
-describe('sbb-popover-trigger', () => {
+import '../../icon';
+import '../../link/link';
+
+describe(`sbb-popover-trigger with ${fixture.name}`, () => {
   let element: SbbPopoverTriggerElement, popover: SbbPopoverElement;
 
   beforeEach(async () => {
-    await fixture(html`
-      <sbb-popover-trigger id="popover-trigger"></sbb-popover-trigger>
-      <sbb-popover id="popover" trigger="popover-trigger" disable-animation>
-        Popover content.
-        <sbb-link id="popover-link" sbb-popover-close>Link</sbb-link>
-      </sbb-popover>
-    `);
-    element = document.querySelector<SbbPopoverTriggerElement>('sbb-popover-trigger')!;
-    popover = document.querySelector<SbbPopoverElement>('sbb-popover')!;
+    const root = await fixture(
+      html`
+        <div>
+          <sbb-popover-trigger id="popover-trigger"></sbb-popover-trigger>
+          <sbb-popover id="popover" trigger="popover-trigger" disable-animation>
+            Popover content.
+            <sbb-link id="popover-link" sbb-popover-close>Link</sbb-link>
+          </sbb-popover>
+        </div>
+      `,
+      { modules: ['./popover-trigger.ts', '../popover/index.ts', '../../link/index.ts'] },
+    );
+    element = root.querySelector<SbbPopoverTriggerElement>('sbb-popover-trigger')!;
+    popover = root.querySelector<SbbPopoverElement>('sbb-popover')!;
   });
 
   it('renders', () => {

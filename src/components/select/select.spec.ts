@@ -1,15 +1,15 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { isSafari } from '../core/dom';
 import { describeIf, waitForLitRender } from '../core/testing';
-import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
 
 import type { SbbSelectElement } from './select';
 import './select';
 import '../option';
 
-describe('sbb-select', () => {
+describe(`sbb-select`, () => {
   describe('renders', () => {
     let elem: SbbSelectElement;
 

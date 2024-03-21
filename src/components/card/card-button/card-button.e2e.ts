@@ -1,8 +1,9 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
+import { fixture } from '../../core/testing/private';
 import type { SbbCardElement } from '../card';
 
 import type { SbbCardButtonElement } from './card-button';
@@ -10,12 +11,13 @@ import type { SbbCardButtonElement } from './card-button';
 import '../card';
 import './card-button';
 
-describe('sbb-card-button', () => {
+describe(`sbb-card-button with ${fixture.name}`, () => {
   let element: SbbCardElement;
 
   it('should render an active sbb-card-button', async () => {
     element = await fixture(
       html`<sbb-card><sbb-card-button active>Click me</sbb-card-button>Content</sbb-card>`,
+      { modules: ['../card/index.ts', './card-button.ts'] },
     );
 
     expect(element).to.have.attribute('data-has-action');
@@ -24,17 +26,28 @@ describe('sbb-card-button', () => {
 
     const cardAction = element.querySelector('sbb-card-button');
 
-    expect(cardAction).dom.to.be.equal(`
-      <sbb-card-button role="button" dir="ltr" tabindex="0" data-action data-button slot="action" active>
+    expect(cardAction).dom.to.be.equal(
+      `
+      <sbb-card-button
+        role="button"
+        dir="ltr"
+        tabindex="0"
+        data-action
+        data-button
+        slot="action"
+        active>
         Click me
       </sbb-card-button>
-    `);
+    `,
+      { ignoreAttributes: ['defer-hydration'], ignoreTags: ['template'] },
+    );
     await expect(cardAction).shadowDom.to.be.equalSnapshot();
   });
 
   it('should correctly toggle active state', async () => {
     element = await fixture(
       html`<sbb-card><sbb-card-button>Click me</sbb-card-button>Content</sbb-card>`,
+      { modules: ['../card/index.ts', './card-button.ts'] },
     );
     expect(element).not.to.have.attribute('data-has-active-action');
 
@@ -52,6 +65,7 @@ describe('sbb-card-button', () => {
           <button>Content</button>
         </span>
       </sbb-card>`,
+      { modules: ['../card/index.ts', './card-button.ts'] },
     );
 
     expect(element).to.have.attribute('data-has-action');
@@ -75,17 +89,18 @@ describe('sbb-card-button', () => {
           <button>Content</button>
         </span>
       </sbb-card>`,
+      { modules: ['../card/index.ts', './card-button.ts'] },
     );
-    expect(document.querySelector('button')).to.have.attribute('data-card-focusable');
+    expect(element.querySelector('button')).to.have.attribute('data-card-focusable');
 
     // Add a second button in content
-    document
-      .getElementById('content')!
-      .insertBefore(document.createElement('button'), document.querySelector('button'));
+    element
+      .querySelector('#content')!
+      .insertBefore(document.createElement('button'), element.querySelector('button'));
 
     // Both buttons should be marked as focusable
     await waitForLitRender(element);
-    const buttons = document.querySelectorAll('button');
+    const buttons = element.querySelectorAll('button');
     expect(buttons.length).to.be.equal(2);
     expect(
       Array.from(buttons).every((el) => el.getAttribute('data-card-focusable') !== null),
@@ -96,7 +111,7 @@ describe('sbb-card-button', () => {
     await waitForLitRender(element);
 
     // Card should not have marker anymore
-    expect(document.querySelectorAll('button').length).to.be.equal(0);
+    expect(element.querySelectorAll('button').length).to.be.equal(0);
   });
 
   it('should detect added second element of slot to update focusable elements', async () => {
@@ -105,16 +120,17 @@ describe('sbb-card-button', () => {
         <sbb-card-button>Click me</sbb-card-button>
         <span id="content"></span>
       </sbb-card>`,
+      { modules: ['../card/index.ts', './card-button.ts'] },
     );
 
     // Add a button to slot
     document
       .querySelector<SbbCardElement>('sbb-card')!
-      .insertBefore(document.createElement('button'), document.getElementById('content'));
+      .insertBefore(document.createElement('button'), element.querySelector('#content'));
     await waitForLitRender(element);
 
     // Button should be marked as focusable
-    expect(document.querySelector('button')).to.have.attribute('data-card-focusable');
+    expect(element.querySelector('button')).to.have.attribute('data-card-focusable');
   });
 
   it('should detect focusable elements when action was added at later point', async () => {
@@ -122,6 +138,7 @@ describe('sbb-card-button', () => {
       html` <sbb-card>
         <span id="content"><button></button></span>
       </sbb-card>`,
+      { modules: ['../card/index.ts'] },
     );
 
     // Add a sbb-card-button
@@ -131,7 +148,7 @@ describe('sbb-card-button', () => {
     await waitForLitRender(element);
 
     // Button should be marked as focusable
-    expect(document.querySelector('button')).to.have.attribute('data-card-focusable');
+    expect(element.querySelector('button')).to.have.attribute('data-card-focusable');
   });
 
   describe('events', () => {
@@ -140,8 +157,9 @@ describe('sbb-card-button', () => {
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-card><sbb-card-button id="focus-id">Card</sbb-card-button>Content</sbb-card>`,
+        { modules: ['../card/index.ts', './card-button.ts'] },
       );
-      action = document.querySelector<SbbCardButtonElement>('sbb-card-button')!;
+      action = element.querySelector<SbbCardButtonElement>('sbb-card-button')!;
     });
 
     it('dispatches event on click', async () => {

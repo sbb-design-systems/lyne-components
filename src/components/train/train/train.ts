@@ -8,7 +8,7 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbNamedSlotListElementMixin, type WithListChildren } from '../../core/common-behaviors';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/common-behaviors';
 import { LanguageController } from '../../core/common-behaviors';
 import { EventEmitter } from '../../core/eventing';
 import { i18nTrain, i18nWagonsLabel } from '../../core/i18n';
@@ -26,7 +26,7 @@ import '../../icon';
  * @slot - Use the unnamed slot to add 'sbb-train-wagon' elements to the `sbb-train`.
  */
 @customElement('sbb-train')
-export class SbbTrainElement extends SbbNamedSlotListElementMixin<
+export class SbbTrainElement extends SbbNamedSlotListMixin<
   SbbTrainWagonElement | SbbTrainBlockedPassageElement,
   typeof LitElement
 >(LitElement) {

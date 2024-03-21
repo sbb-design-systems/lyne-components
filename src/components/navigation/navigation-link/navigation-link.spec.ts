@@ -1,8 +1,11 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { fixture } from '../../core/testing/private';
+
 import './navigation-link';
 
-describe('sbb-navigation-link', () => {
+describe(`sbb-navigation-link`, () => {
   it('renders', async () => {
     const root = await fixture(
       html`<sbb-navigation-link href="#" target="_blank"></sbb-navigation-link>`,

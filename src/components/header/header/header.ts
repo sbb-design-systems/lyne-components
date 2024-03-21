@@ -2,8 +2,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { FocusHandler, FocusVisibleWithinController } from '../../core/a11y';
-import { SlotChildObserver } from '../../core/common-behaviors';
+import { FocusVisibleWithinController } from '../../core/a11y';
+import { SbbHydrationMixin } from '../../core/common-behaviors';
 import { findReferencedElement, isBrowser } from '../../core/dom';
 
 import style from './header.scss?lit&inline';
@@ -20,7 +20,7 @@ const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
  * @cssprop [--sbb-header-height=zero-small:var(--sbb-spacing-fixed-14x);medium-ultra:var(--sbb-spacing-fixed-24x)] - Can be used to modify height of the header.
  */
 @customElement('sbb-header')
-export class SbbHeaderElement extends SlotChildObserver(LitElement) {
+export class SbbHeaderElement extends SbbHydrationMixin(LitElement) {
   public static override styles: CSSResultGroup = style;
 
   /**
@@ -51,7 +51,6 @@ export class SbbHeaderElement extends SlotChildObserver(LitElement) {
   private _scrollEventsController!: AbortController;
   private _scrollFunction: (() => void) | undefined;
   private _lastScroll = 0;
-  private _focusHandler = new FocusHandler();
 
   private _updateScrollOrigin(
     newValue: string | HTMLElement | Document,
@@ -76,7 +75,6 @@ export class SbbHeaderElement extends SlotChildObserver(LitElement) {
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._scrollEventsController?.abort();
-    this._focusHandler.disconnect();
   }
 
   /** Sets the value of `_scrollElement` and `_scrollFunction` and possibly adds the function on the correct element. */
@@ -179,10 +177,6 @@ export class SbbHeaderElement extends SlotChildObserver(LitElement) {
         overlay.close();
       }
     }
-  }
-
-  protected override checkChildren(): void {
-    this._focusHandler.disconnect();
   }
 
   protected override render(): TemplateResult {

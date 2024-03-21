@@ -2,7 +2,8 @@ import { assert, expect } from '@open-wc/testing';
 import { nothing } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { waitForCondition, waitForLitRender, EventSpy, fixture, isSsr } from '../core/testing';
+import { waitForCondition, waitForLitRender, EventSpy, isSsr } from '../core/testing';
+import { fixture } from '../core/testing/private';
 import { SbbExpansionPanelElement, type SbbExpansionPanelHeaderElement } from '../expansion-panel';
 
 import { SbbAccordionElement } from './accordion';

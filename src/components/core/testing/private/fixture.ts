@@ -1,7 +1,8 @@
 import type { FixtureOptions } from '@lit-labs/testing/lib/fixtures/fixture-options';
 import type { TemplateResult } from 'lit';
 
-import { isHydratedSsr, isNonHydratedSsr } from './platform';
+import { isHydratedSsr, isNonHydratedSsr } from '../platform';
+import { waitForLitRender } from '../wait-for-render';
 
 /**
  * We want to dynamically use the correct fixture from Lit testing for the current context.
@@ -13,7 +14,10 @@ import { isHydratedSsr, isNonHydratedSsr } from './platform';
  * of the original fixture.
  */
 export const fixture = Object.defineProperty(
-  async <T extends HTMLElement>(template: TemplateResult, options: FixtureOptions): Promise<T> => {
+  async <T extends HTMLElement>(
+    template: TemplateResult,
+    options: FixtureOptions = { modules: [] },
+  ): Promise<T> => {
     // PlayWright with WebKit does not include wtr-session-id in stack trace.
     // As an alternative, we look for the first file in the stack trace that is not part of
     // node_modules and not in /core/testing/.
@@ -22,18 +26,22 @@ export const fixture = Object.defineProperty(
     options.base ??= [...stack!.matchAll(/http:\/\/localhost:?[^:)]+/gm)]
       .map((m) => m[0])
       .find((u) => !u.includes('/node_modules/') && !u.includes('/core/testing/'));
+    options.modules.unshift('/src/components/core/testing/test-setup-ssr.ts');
     const fixtures = await import('@lit-labs/testing/fixtures.js');
+    let result: T;
     if (isHydratedSsr()) {
-      const result = await fixtures.ssrHydratedFixture<T>(template, options);
+      result = await fixtures.ssrHydratedFixture<T>(template, options);
       result
-        .querySelectorAll('[defer-hydration]')
+        .parentElement!.querySelectorAll('[defer-hydration]')
         .forEach((e) => e.removeAttribute('defer-hydration'));
       return result;
     } else if (isNonHydratedSsr()) {
-      return await fixtures.ssrNonHydratedFixture<T>(template, options);
+      result = await fixtures.ssrNonHydratedFixture<T>(template, options);
     } else {
-      return await fixtures.csrFixture<T>(template, options);
+      result = await fixtures.csrFixture<T>(template, options);
     }
+    await waitForLitRender(result);
+    return result;
   },
   'name',
   {

@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult, PropertyValues } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { SbbDisabledMixin, SlotChildObserver } from '../../core/common-behaviors';
+import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/common-behaviors';
 import { isSafari, isValidAttribute, setAttribute } from '../../core/dom';
 import { AgnosticMutationObserver } from '../../core/observers';
 import type { SbbOptionElement, SbbOptionVariant } from '../option';
@@ -16,7 +16,7 @@ import '../../divider';
  * @slot - Use the unnamed slot to add `sbb-option` elements to the `sbb-optgroup`.
  */
 @customElement('sbb-optgroup')
-export class SbbOptGroupElement extends SlotChildObserver(SbbDisabledMixin(LitElement)) {
+export class SbbOptGroupElement extends SbbDisabledMixin(SbbHydrationMixin(LitElement)) {
   public static override styles: CSSResultGroup = style;
 
   /** Option group label. */
@@ -83,7 +83,7 @@ export class SbbOptGroupElement extends SlotChildObserver(SbbDisabledMixin(LitEl
     }
   }
 
-  protected override checkChildren(): void {
+  private _handleSlotchange(): void {
     this._proxyDisabledToOptions();
     this._proxyGroupLabelToOptions();
     this._highlightOptions();
@@ -92,9 +92,17 @@ export class SbbOptGroupElement extends SlotChildObserver(SbbDisabledMixin(LitEl
   private _proxyGroupLabelToOptions(): void {
     if (!this._inertAriaGroups) {
       return;
+    } else if (this.label) {
+      for (const option of this._options) {
+        option.setAttribute('data-group-label', this.label);
+        option.requestUpdate?.();
+      }
+    } else {
+      for (const option of this._options) {
+        option.removeAttribute('data-group-label');
+        option.requestUpdate?.();
+      }
     }
-
-    this._options.forEach((opt) => opt.setGroupLabel(this.label));
   }
 
   private _proxyDisabledToOptions(): void {
@@ -134,7 +142,7 @@ export class SbbOptGroupElement extends SlotChildObserver(SbbDisabledMixin(LitEl
         <div class="sbb-optgroup__icon-space"></div>
         <span>${this.label}</span>
       </div>
-      <slot></slot>
+      <slot @slotchange=${this._handleSlotchange}></slot>
     `;
   }
 }

@@ -1,7 +1,7 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 
 import { waitForLitRender } from '../../core/testing';
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 import {
   buttonTestTemplate,
   buttonIconTestTemplate,
@@ -12,9 +12,13 @@ import {
 import type { SbbTertiaryButtonElement } from './tertiary-button';
 import './tertiary-button';
 
-describe('sbb-tertiary-button', () => {
+describe(`sbb-tertiary-button`, () => {
   describe('renders a sbb-tertiary-button without icon', async () => {
-    const root = await fixture(buttonTestTemplate('sbb-tertiary-button'));
+    let root: SbbTertiaryButtonElement;
+
+    beforeEach(async () => {
+      root = await fixture(buttonTestTemplate('sbb-tertiary-button'));
+    });
 
     it('Dom', async () => {
       await expect(root).dom.to.be.equalSnapshot();
@@ -30,7 +34,6 @@ describe('sbb-tertiary-button', () => {
 
     beforeEach(async () => {
       root = await fixture(buttonSlottedIconTestTemplate('sbb-tertiary-button'));
-      await waitForLitRender(root);
     });
 
     it('Dom', async () => {

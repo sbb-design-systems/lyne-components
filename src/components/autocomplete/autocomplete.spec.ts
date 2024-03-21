@@ -1,9 +1,9 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { isSafari } from '../core/dom';
 import { describeIf, waitForLitRender } from '../core/testing';
-import { testA11yTreeSnapshot } from '../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
 import type { SbbFormFieldElement } from '../form-field';
 
 import type { SbbAutocompleteElement } from './autocomplete';
@@ -11,7 +11,7 @@ import '../form-field';
 import '../option';
 import './autocomplete';
 
-describe('sbb-autocomplete', () => {
+describe(`sbb-autocomplete`, () => {
   describe('renders standalone', async () => {
     let elem: SbbAutocompleteElement;
 

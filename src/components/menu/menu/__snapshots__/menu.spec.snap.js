@@ -7,7 +7,18 @@ snapshots["sbb-menu renders"] =
   id="sbb-menu-0"
   trigger="menu-trigger"
 >
-  <sbb-block-link href="https://www.sbb.ch/en">
+  <sbb-block-link
+    data-action=""
+    data-link=""
+    data-sbb-link=""
+    data-slot-names="unnamed"
+    dir="ltr"
+    href="https://www.sbb.ch/en"
+    icon-placement="start"
+    role="link"
+    size="s"
+    tabindex="0"
+  >
     Profile
   </sbb-block-link>
   <sbb-menu-button
@@ -43,7 +54,11 @@ snapshots["sbb-menu renders"] =
   >
     Details
   </sbb-menu-button>
-  <sbb-divider>
+  <sbb-divider
+    aria-orientation="horizontal"
+    orientation="horizontal"
+    role="separator"
+  >
   </sbb-divider>
   <sbb-menu-button
     data-action=""

@@ -1,15 +1,16 @@
-import { expect, fixture } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { testA11yTreeSnapshot } from '../../core/testing/a11y-tree-snapshot';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 import type { SbbFormFieldElement } from '../../form-field';
 
 import type { SbbDatepickerToggleElement } from './datepicker-toggle';
 
-import '../datepicker';
 import './datepicker-toggle';
+import '../datepicker';
+import '../../form-field';
 
-describe('sbb-datepicker-toggle', () => {
+describe(`sbb-datepicker-toggle`, () => {
   it('renders', async () => {
     const page = await fixture(html`<sbb-datepicker-toggle></sbb-datepicker-toggle>`);
 
