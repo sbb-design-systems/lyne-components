@@ -220,6 +220,9 @@ export class SbbMenuElement extends SbbNamedSlotListMixin<
     const signal = this._abort.signal;
     this.addEventListener('click', (e) => this._onClick(e), { signal });
     this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
+    // Due to the fact that menu can both be a list and just a container, we need to check its
+    // state before the SbbNamedSlotListMixin handles the slotchange event, in order to avoid
+    // it interpreting the non list case as a list.
     this.shadowRoot?.addEventListener('slotchange', (e) => this._checkListCase(e), {
       signal,
       capture: true,
