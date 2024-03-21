@@ -146,6 +146,15 @@ input[data-sbb-time-input] {
   @include a11y.disable-animation;
 }
 
+// TODO: help me find a better name for it :|
+.sbb-disable-animation-specific {
+  @include a11y.disable-animation;
+
+  & > * {
+    @include a11y.enable-animation;
+  }
+}
+
 .sbb-enable-animation {
   @include a11y.enable-animation;
 }
