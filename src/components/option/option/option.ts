@@ -1,4 +1,4 @@
-import type { TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
@@ -9,6 +9,7 @@ import { EventEmitter } from '../../core/eventing.js';
 import '../../icon.js';
 import '../../screen-reader-only.js';
 import '../../visual-checkbox.js';
+import style from './option.scss?lit&inline';
 
 export type SbbOptionVariant = 'autocomplete' | 'select';
 
@@ -27,6 +28,7 @@ export type SbbOptionVariant = 'autocomplete' | 'select';
   role: 'option',
 })
 export class SbbOptionElement extends SbbOptionBaseElement {
+  public static override styles: CSSResultGroup = style;
   public static readonly events = {
     selectionChange: 'optionSelectionChange',
     optionSelected: 'optionSelected',
@@ -76,7 +78,7 @@ export class SbbOptionElement extends SbbOptionBaseElement {
       // :is() selector not possible due to test environment
       `sbb-autocomplete[negative],sbb-form-field[negative]`,
     );
-    this.toggleAttribute('data-group-negative', this.negative);
+    this.toggleAttribute('data-negative', this.negative);
 
     this.toggleAttribute('data-multiple', this._isMultiple);
   }
@@ -118,7 +120,7 @@ export class SbbOptionElement extends SbbOptionBaseElement {
     const slotNodes = (event.target as HTMLSlotElement).assignedNodes();
     const labelNodes = slotNodes.filter((el) => el.nodeType === Node.TEXT_NODE) as Text[];
 
-    // Disable the highlight if the slot contain more than just text nodes
+    // Disable the highlight if the slot contains more than just text nodes
     if (
       labelNodes.length === 0 ||
       slotNodes.filter((n) => !(n instanceof Element) || n.localName !== 'template').length !==

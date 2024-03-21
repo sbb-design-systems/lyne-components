@@ -1,4 +1,4 @@
-import type { TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbOptionBaseElement } from '../../core/base-elements/option-base-element';
@@ -6,6 +6,8 @@ import { hostAttributes } from '../../core/decorators';
 import { EventEmitter } from '../../core/eventing';
 
 import '../../icon';
+import '../../screenreader-only';
+import style from './autocomplete-grid-option.scss?lit&inline';
 
 /**
  * It displays on option item which can be used in `sbb-autocomplete-grid`.
@@ -22,6 +24,7 @@ import '../../icon';
   role: 'gridcell',
 })
 export class SbbAutocompleteGridOptionElement extends SbbOptionBaseElement {
+  public static override styles: CSSResultGroup = style;
   public static readonly events = {
     selectionChange: 'autocompleteOptionSelectionChange',
     optionSelected: 'autocompleteOptionSelected',
@@ -41,18 +44,34 @@ export class SbbAutocompleteGridOptionElement extends SbbOptionBaseElement {
     SbbAutocompleteGridOptionElement.events.optionSelected,
   );
 
+  public override willUpdate(changedProperties: PropertyValues<this>): void {
+    if (changedProperties.has('active')) {
+      this.closest?.('sbb-autocomplete-grid-row')?.toggleAttribute('data-active');
+    }
+    if (changedProperties.has('disabled')) {
+      this.closest?.('sbb-autocomplete-grid-row')?.toggleAttribute(
+        'data-disabled',
+        this.disabled || this.disabledFromGroup,
+      );
+    }
+  }
+
   protected setAttributeFromParent(): void {
     const parentGroup = this.closest?.('sbb-autocomplete-grid-optgroup');
     if (parentGroup) {
       this.disabledFromGroup = parentGroup.disabled;
       this.updateAriaDisabled();
     }
+    this.closest?.('sbb-autocomplete-grid-row')?.toggleAttribute(
+      'data-disabled',
+      this.disabled || this.disabledFromGroup,
+    );
 
     this.negative = !!this.closest?.(
       // :is() selector not possible due to test environment
       `sbb-autocomplete-grid[negative],sbb-form-field[negative]`,
     );
-    this.toggleAttribute('data-group-negative', this.negative);
+    this.toggleAttribute('data-negative', this.negative);
   }
 
   protected selectByClick(event: MouseEvent): void {

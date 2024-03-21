@@ -1,4 +1,4 @@
-import { type CSSResultGroup, html, LitElement, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import { html, LitElement, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
 import { SbbIconNameMixin } from '../../icon';
@@ -7,8 +7,6 @@ import { isAndroid, isSafari, setOrRemoveAttribute } from '../dom';
 import type { EventEmitter } from '../eventing';
 import { SbbDisabledMixin } from '../mixins';
 import { AgnosticMutationObserver } from '../observers';
-
-import style from './option-base-element.scss?lit&inline';
 
 let nextId = 0;
 
@@ -25,8 +23,6 @@ const optionObserverConfig: MutationObserverInit = {
 };
 
 export abstract class SbbOptionBaseElement extends SbbDisabledMixin(SbbIconNameMixin(LitElement)) {
-  public static override styles: CSSResultGroup = style;
-
   protected abstract optionId: string;
 
   /** Value of the option. */
