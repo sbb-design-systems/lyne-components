@@ -17,7 +17,7 @@ using the two properties named `min` and `max`. For these three properties, the 
 It's recommended to set the time to 00:00:00.
 
 ```html
-<sbb-calendar min="1600000000" max="1700000000" selected-date="1650000000"></sbb-calendar>
+<sbb-calendar min="1600000000" max="1700000000" selected="1650000000"></sbb-calendar>
 ```
 
 ## Style
@@ -25,7 +25,7 @@ It's recommended to set the time to 00:00:00.
 The component displays one month by default; two months can be displayed setting the `wide` property to `true`.
 
 ```html
-<sbb-calendar wide="true" selected-date="1650000000"></sbb-calendar>
+<sbb-calendar wide="true" selected="1650000000"></sbb-calendar>
 ```
 
 It's also possible to filter out unwanted date using the `dateFilter` function property.
@@ -64,13 +64,13 @@ This is helpful if you need a specific state of the component.
 
 ## Properties
 
-| Name           | Attribute       | Privacy | Type                                           | Default | Description                                                                                                     |
-| -------------- | --------------- | ------- | ---------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------- |
-| `wide`         | `wide`          | public  | `boolean`                                      | `false` | If set to true, two months are displayed                                                                        |
-| `min`          | `min`           | public  | `SbbDateLike \| undefined`                     |         | The minimum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). |
-| `max`          | `max`           | public  | `SbbDateLike \| undefined`                     |         | The maximum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). |
-| `dateFilter`   | `date-filter`   | public  | `(date: Date \| null) => boolean \| undefined` |         | A function used to filter out dates.                                                                            |
-| `selectedDate` | `selected-date` | public  | `SbbDateLike \| undefined`                     |         | The selected date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970).      |
+| Name         | Attribute     | Privacy | Type                                        | Default | Description                                                                                                  |
+| ------------ | ------------- | ------- | ------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------ |
+| `wide`       | `wide`        | public  | `boolean`                                   | `false` | If set to true, two months are displayed                                                                     |
+| `min`        | `min`         | public  | `T \| null`                                 |         | The minimum valid date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). |
+| `max`        | `max`         | public  | `T \| null`                                 |         | The maximum valid date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). |
+| `selected`   | `selected`    | public  | `T \| null`                                 |         | The selected date. Takes T Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970).      |
+| `dateFilter` | `date-filter` | public  | `(date: T \| null) => boolean \| undefined` |         | A function used to filter out dates.                                                                         |
 
 ## Methods
 
@@ -80,6 +80,6 @@ This is helpful if you need a specific state of the component.
 
 ## Events
 
-| Name           | Type                | Description                      | Inherited From |
-| -------------- | ------------------- | -------------------------------- | -------------- |
-| `dateSelected` | `CustomEvent<Date>` | Event emitted on date selection. |                |
+| Name           | Type             | Description                      | Inherited From |
+| -------------- | ---------------- | -------------------------------- | -------------- |
+| `dateSelected` | `CustomEvent<T>` | Event emitted on date selection. |                |
