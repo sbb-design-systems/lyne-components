@@ -453,7 +453,7 @@ export class SbbCalendarElement<T = Date> extends LitElement {
       return true;
     }
 
-    const firstOfYear = this._dateAdapter.createDate(year, 0, 1)!;
+    const firstOfYear = this._dateAdapter.createDate(year, 1, 1)!;
     for (
       let date: T = firstOfYear;
       this._dateAdapter.getYear(date) == year;
