@@ -63,8 +63,7 @@ export class SbbStepLabelElement extends SbbIconNameMixin(
    * Configures the step label.
    * @internal
    */
-  public configure(selected: boolean, posInSet: number, setSize: number): void {
-    this._internals.ariaSelected = selected.toString();
+  public configure(posInSet: number, setSize: number): void {
     this._internals.ariaPosInSet = `${posInSet}`;
     this._internals.ariaSetSize = `${setSize}`;
   }
@@ -77,6 +76,7 @@ export class SbbStepLabelElement extends SbbIconNameMixin(
     super.connectedCallback();
     const signal = this._abort.signal;
     this.id = this.id || `sbb-step-label-${nextId++}`;
+    this._internals.ariaSelected = 'false';
     this._stepper = this.closest('sbb-stepper');
     if (this.nextElementSibling?.tagName === 'SBB-STEP') {
       this._step = this.nextElementSibling as SbbStepElement;

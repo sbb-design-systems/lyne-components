@@ -195,7 +195,7 @@ export class SbbStepperElement extends LitElement {
     const labels = this.steps.filter((s) => s.label).map((s) => s.label!);
 
     labels.forEach((label, i) => {
-      label.configure(this.selected?.label === label, i + 1, labels.length);
+      label.configure(i + 1, labels.length);
     });
   }
 
