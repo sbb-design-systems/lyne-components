@@ -26,10 +26,12 @@ import {
   i18nYearMonthSelection,
 } from '../core/i18n';
 import type { SbbDateLike } from '../core/interfaces';
-import '../button/secondary-button';
-import '../icon';
 
 import style from './calendar.scss?lit&inline';
+
+import '../button/secondary-button';
+import '../icon';
+import '../screenreader-only';
 
 /**
  * In keyboard navigation, the cell's index and the element's index in its month / year batch must be distinguished;
@@ -817,9 +819,9 @@ export class SbbCalendarElement<T = Date> extends LitElement {
         <div class="sbb-calendar__controls-month">
           ${this._createLabelForDayView(this._activeDate)}
           ${this._wide ? this._createLabelForDayView(nextMonthActiveDate!) : nothing}
-          <span role="status" class="sbb-calendar__visually-hidden">
+          <sbb-screenreader-only role="status">
             ${this._createAriaLabelForDayView(this._activeDate, nextMonthActiveDate!)}
-          </span>
+          </sbb-screenreader-only>
         </div>
         ${this._getArrow(
           'right',
@@ -897,7 +899,7 @@ export class SbbCalendarElement<T = Date> extends LitElement {
     return this._weekdays.map(
       (day: Weekday) => html`
         <th class="sbb-calendar__table-header">
-          <span class="sbb-calendar__visually-hidden">${day.long}</span>
+          <sbb-screenreader-only>${day.long}</sbb-screenreader-only>
           <span aria-hidden="true">${day.narrow}</span>
         </th>
       `,
@@ -1007,7 +1009,7 @@ export class SbbCalendarElement<T = Date> extends LitElement {
         ${this._chosenYear} ${this._wide ? ` - ${this._chosenYear! + 1}` : nothing}
         <sbb-icon name="chevron-small-up-small"></sbb-icon>
       </button>
-      <span role="status" class="sbb-calendar__visually-hidden"> ${this._chosenYear} </span>`;
+      <sbb-screenreader-only role="status"> ${this._chosenYear} </sbb-screenreader-only>`;
   }
 
   /** Creates the table for the month selection view. */
@@ -1154,7 +1156,7 @@ export class SbbCalendarElement<T = Date> extends LitElement {
         ${yearLabel}
         <sbb-icon name="chevron-small-up-small"></sbb-icon>
       </button>
-      <span role="status" class="sbb-calendar__visually-hidden"> ${yearLabel} </span>
+      <sbb-screenreader-only role="status"> ${yearLabel} </sbb-screenreader-only>
     `;
   }
 
