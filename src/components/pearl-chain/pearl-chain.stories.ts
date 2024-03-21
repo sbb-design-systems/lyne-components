@@ -1,5 +1,6 @@
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
+import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
@@ -17,6 +18,12 @@ import {
 import readme from './readme.md?raw';
 import './pearl-chain';
 
+const disableAnimation: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const now: InputType = {
   control: {
     type: 'date',
@@ -24,10 +31,12 @@ const now: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
+  'disable-animation': disableAnimation,
   'data-now': now,
 };
 
 const defaultArgs: Args = {
+  'disable-animation': isChromatic(),
   'data-now': new Date('2022-12-01T12:11:00').valueOf(),
 };
 

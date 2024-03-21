@@ -1,5 +1,6 @@
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
+import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
@@ -33,6 +34,12 @@ const arrivalTime: InputType = {
   },
 };
 
+const disableAnimation: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const now: InputType = {
   control: {
     type: 'date',
@@ -44,6 +51,7 @@ const defaultArgTypes: ArgTypes = {
   'arrival-walk': arrivalWalk,
   'arrival-time': arrivalTime,
   'departure-time': departureTime,
+  'disable-animation': disableAnimation,
   'data-now': now,
 };
 
@@ -51,6 +59,7 @@ const defaultArgs: Args = {
   legs: [progressLeg],
   'arrival-time': '2022-12-11T14:11:00',
   'departure-time': '2022-12-11T12:11:00',
+  'disable-animation': isChromatic(),
   'data-now': new Date('2022-12-01T12:11:00').valueOf(),
 };
 

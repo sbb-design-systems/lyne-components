@@ -213,6 +213,10 @@ export class SbbTimetableRowElement extends LitElement {
   /** The price Prop, which consists of the data for the badge. */
   @property({ type: Object }) public price?: Price;
 
+  /** This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated. */
+  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
+  public disableAnimation?: boolean;
+
   /** This will be forwarded to the notices section */
   @property({ type: Object }) public boarding?: Boarding;
 
@@ -532,6 +536,7 @@ export class SbbTimetableRowElement extends LitElement {
             .arrivalTime=${arrival?.time}
             .departureWalk=${departureWalk}
             .arrivalWalk=${arrivalWalk}
+            ?disable-animation=${this.disableAnimation}
             data-now=${this._now()}
           ></sbb-pearl-chain-time>
           <div class="sbb-timetable__row-footer" role="gridcell">

@@ -44,10 +44,6 @@ _`tripProp` property_
 To specify a specific date for the current datetime, you can use the `data-now` attribute (timestamp in milliseconds).
 This is helpful if you need a specific state of the component.
 
-## Animation
-
-Add the `sbb-disable-animation` class to disable animation and transition effects for the element and all its children.
-
 <!-- Auto Generated Below -->
 
 ## Properties
@@ -56,6 +52,7 @@ Add the `sbb-disable-animation` class to disable animation and transition effect
 | ----------------------- | ------------------------ | ------- | ----------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `trip`                  | `trip`                   | public  | `ITripItem`             |         | The trip Prop.                                                                                                                                                                                |
 | `price`                 | `price`                  | public  | `Price \| undefined`    |         | The price Prop, which consists of the data for the badge.                                                                                                                                     |
+| `disableAnimation`      | `disable-animation`      | public  | `boolean \| undefined`  |         | This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated.                                                                                             |
 | `boarding`              | `boarding`               | public  | `Boarding \| undefined` |         | This will be forwarded to the notices section                                                                                                                                                 |
 | `loadingTrip`           | `loading-trip`           | public  | `boolean \| undefined`  |         | The loading state - when this is true it will be render skeleton with an idling animation                                                                                                     |
 | `loadingPrice`          | `loading-price`          | public  | `boolean \| undefined`  |         | The loading state - when this is true it will be render skeleton with an idling animation                                                                                                     |

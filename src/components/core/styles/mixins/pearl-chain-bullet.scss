@@ -13,7 +13,7 @@
   --sbb-pearl-chain-bullet-color-irrelevant: var(--sbb-color-metal);
   --sbb-pearl-chain-bullet-color-disruption: var(--sbb-color-red);
   --sbb-pearl-chain-bullet-border-width: var(--sbb-border-width-2x);
-  --sbb-pearl-chain-bullet-animation-duration: var(--sbb-disable-animation-time, 1920ms);
+  --sbb-pearl-chain-bullet-animation-duration: 1920ms;
   --sbb-pearl-chain-bullet-animation-easing: ease-out;
   --sbb-pearl-chain-bullet-crossed-width: #{functions.px-to-rem-build(14.14)};
   --sbb-pearl-chain-bullet-crossed-height: #{functions.px-to-rem-build(3.5)};

@@ -209,6 +209,10 @@
   inset-inline-start: var(--sbb-pearl-chain-status-position);
 }
 
+.sbb-pearl-chain__position--no-animation {
+  animation: unset;
+}
+
 .sbb-screen-reader-only {
   @include sbb.screen-reader-only;
 }

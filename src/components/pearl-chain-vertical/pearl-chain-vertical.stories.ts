@@ -1,5 +1,6 @@
 import type { InputType } from '@storybook/types';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
+import isChromatic from 'chromatic';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
@@ -39,6 +40,15 @@ const position: InputType = {
   control: { type: 'number' },
 };
 
+const disableAnimation: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'PearlChainVerticalItem',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   lineType,
   lineColor,
@@ -47,6 +57,7 @@ const defaultArgTypes: ArgTypes = {
   hideLine,
   minHeight,
   position,
+  disableAnimation,
 };
 
 const defaultArgs: Args = {
@@ -57,12 +68,16 @@ const defaultArgs: Args = {
   hideLine: false,
   bulletSize: bulletSize.options[0],
   position: 0,
+  disableAnimation: isChromatic(),
 };
 
-const Template = (args: Args): TemplateResult => {
+const Template = ({ disableAnimation, ...args }: Args): TemplateResult => {
   return html`
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-vertical-item .pearlChainVerticalItemAttributes=${args}>
+      <sbb-pearl-chain-vertical-item
+        .pearlChainVerticalItemAttributes=${args}
+        ?disable-animation=${disableAnimation}
+      >
         <div
           slot="right"
           style="--sbb-pearl-chain-vertical-right-item-block-start: -10px; --sbb-pearl-chain-vertical-right-item-inline-start: 10px;"
@@ -79,20 +94,24 @@ const Template = (args: Args): TemplateResult => {
   `;
 };
 
-const TemplateWithoutContent = (args: Args): TemplateResult => {
+const TemplateWithoutContent = ({ disableAnimation, ...args }: Args): TemplateResult => {
   return html`
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-vertical-item
         .pearlChainVerticalItemAttributes=${args}
+        ?disable-animation=${disableAnimation}
       ></sbb-pearl-chain-vertical-item>
     </sbb-pearl-chain-vertical>
   `;
 };
 
-const TemplateLeftSlot = (args: Args): TemplateResult => {
+const TemplateLeftSlot = ({ disableAnimation, ...args }: Args): TemplateResult => {
   return html`
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-vertical-item .pearlChainVerticalItemAttributes=${args}>
+      <sbb-pearl-chain-vertical-item
+        .pearlChainVerticalItemAttributes=${args}
+        ?disable-animation=${disableAnimation}
+      >
         <div slot="left" style="--sbb-pearl-chain-vertical-left-item-inline-end: 10px;">
           slot for content
         </div>
@@ -101,10 +120,13 @@ const TemplateLeftSlot = (args: Args): TemplateResult => {
   `;
 };
 
-const TemplateTwoDots = (args: Args): TemplateResult => {
+const TemplateTwoDots = ({ disableAnimation, ...args }: Args): TemplateResult => {
   return html`
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-vertical-item .pearlChainVerticalItemAttributes=${args}>
+      <sbb-pearl-chain-vertical-item
+        .pearlChainVerticalItemAttributes=${args}
+        ?disable-animation=${disableAnimation}
+      >
         <div
           slot="right"
           style="--sbb-pearl-chain-vertical-right-item-block-start: -10px; --sbb-pearl-chain-vertical-right-item-inline-start: 10px;"
@@ -118,6 +140,7 @@ const TemplateTwoDots = (args: Args): TemplateResult => {
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
+        ?disable-animation=${disableAnimation}
         .pearlChainVerticalItemAttributes=${{
           lineType: 'standard',
           lineColor: 'disruption',
@@ -133,10 +156,13 @@ const TemplateTwoDots = (args: Args): TemplateResult => {
   `;
 };
 
-const TemplateLeftSecondSlot = (args: Args): TemplateResult => {
+const TemplateLeftSecondSlot = ({ disableAnimation, ...args }: Args): TemplateResult => {
   return html`
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-vertical-item .pearlChainVerticalItemAttributes=${args as any}>
+      <sbb-pearl-chain-vertical-item
+        .pearlChainVerticalItemAttributes=${args as any}
+        ?disable-animation=${disableAnimation}
+      >
         <div
           slot="right"
           style="--sbb-pearl-chain-vertical-right-item-block-start: -8px; --sbb-pearl-chain-vertical-right-item-inline-start: 10px;"
@@ -156,6 +182,7 @@ const TemplateLeftSecondSlot = (args: Args): TemplateResult => {
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
+        ?disable-animation=${disableAnimation}
         .pearlChainVerticalItemAttributes=${{
           lineType: 'standard',
           lineColor: 'disruption',
@@ -178,10 +205,13 @@ const TemplateLeftSecondSlot = (args: Args): TemplateResult => {
   `;
 };
 
-const connectionDetailTemplate = (args: Args): TemplateResult => {
+const connectionDetailTemplate = ({ disableAnimation, ...args }: Args): TemplateResult => {
   return html`
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-vertical-item .pearlChainVerticalItemAttributes=${args}>
+      <sbb-pearl-chain-vertical-item
+        .pearlChainVerticalItemAttributes=${args}
+        ?disable-animation=${disableAnimation}
+      >
         <div
           slot="right"
           style="--sbb-pearl-chain-vertical-right-item-block-start: -8px; --sbb-pearl-chain-vertical-right-item-inline-start: 10px;"
@@ -211,6 +241,7 @@ const connectionDetailTemplate = (args: Args): TemplateResult => {
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
+        ?disable-animation=${disableAnimation}
         .pearlChainVerticalItemAttributes=${{
           lineType: 'standard',
           lineColor: 'disruption',
@@ -245,10 +276,11 @@ const connectionDetailTemplate = (args: Args): TemplateResult => {
   `;
 };
 
-const thirdLevelTemplate = (args: Args): TemplateResult => {
+const thirdLevelTemplate = ({ disableAnimation, ...args }: Args): TemplateResult => {
   return html`
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-vertical-item
+        ?disable-animation=${disableAnimation}
         .pearlChainVerticalItemAttributes=${{
           lineType: 'thin',
           lineColor: 'past',
@@ -264,7 +296,10 @@ const thirdLevelTemplate = (args: Args): TemplateResult => {
           10:31
         </div>
       </sbb-pearl-chain-vertical-item>
-      <sbb-pearl-chain-vertical-item .pearlChainVerticalItemAttributes=${args}>
+      <sbb-pearl-chain-vertical-item
+        .pearlChainVerticalItemAttributes=${args}
+        ?disable-animation=${disableAnimation}
+      >
         <div
           slot="right"
           style="--sbb-pearl-chain-vertical-right-item-block-start: -10px; --sbb-pearl-chain-vertical-right-item-inline-start: 10px;"
@@ -290,6 +325,7 @@ const thirdLevelTemplate = (args: Args): TemplateResult => {
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
+        ?disable-animation=${disableAnimation}
         .pearlChainVerticalItemAttributes=${{
           lineType: 'standard',
           lineColor: 'default',
@@ -325,6 +361,7 @@ const thirdLevelTemplate = (args: Args): TemplateResult => {
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
+        ?disable-animation=${disableAnimation}
         .pearlChainVerticalItemAttributes=${{
           lineType: 'thin',
           lineColor: 'past',
@@ -353,6 +390,7 @@ const thirdLevelTemplate = (args: Args): TemplateResult => {
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
+        ?disable-animation=${disableAnimation}
         .pearlChainVerticalItemAttributes=${{
           lineType: 'thin',
           lineColor: 'past',
@@ -386,6 +424,7 @@ const TimetableChange = (): TemplateResult => {
   return html`
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-vertical-item
+        ?disable-animation=${disableAnimation}
         .pearlChainVerticalItemAttributes=${{
           lineType: 'dotted',
           lineColor: 'walk',
@@ -425,6 +464,7 @@ const TimetableChange = (): TemplateResult => {
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
+        ?disable-animation=${disableAnimation}
         .pearlChainVerticalItemAttributes=${{
           lineType: 'dotted',
           lineColor: 'walk',

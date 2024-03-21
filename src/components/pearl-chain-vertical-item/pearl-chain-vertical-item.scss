@@ -181,4 +181,8 @@ slot[name='right']::slotted(*) {
   @include sbb.absolute-center-x;
 
   inset-block-start: var(--sbb-pearl-chain-vertical-item-position);
+
+  :host([disable-animation]) & {
+    animation: unset !important;
+  }
 }
