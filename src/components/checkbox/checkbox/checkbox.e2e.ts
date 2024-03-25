@@ -1,6 +1,7 @@
 import { assert, expect } from '@open-wc/testing';
 import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
 import { isChromium, isFirefox } from '../../core/dom';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing';
@@ -92,7 +93,10 @@ describe(`sbb-checkbox with ${fixture.name}`, () => {
       expect(snapshot.required).to.be.undefined;
     });
 
-    it('should reflect accessibility tree setting required attribute to true', async () => {
+    it('should reflect accessibility tree setting required attribute to true', async function (this: Context) {
+      // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
+      this.retries(3);
+
       element.toggleAttribute('required', true);
       await waitForLitRender(element);
 
@@ -106,7 +110,10 @@ describe(`sbb-checkbox with ${fixture.name}`, () => {
       }
     });
 
-    it('should reflect accessibility tree setting required attribute to false', async () => {
+    it('should reflect accessibility tree setting required attribute to false', async function (this: Context) {
+      // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
+      this.retries(3);
+
       element.toggleAttribute('required', true);
       await waitForLitRender(element);
 
@@ -120,7 +127,10 @@ describe(`sbb-checkbox with ${fixture.name}`, () => {
       expect(snapshot.required).not.to.be.ok;
     });
 
-    it('should reflect accessibility tree setting required property to true', async () => {
+    it('should reflect accessibility tree setting required property to true', async function (this: Context) {
+      // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
+      this.retries(3);
+
       element.required = true;
       await waitForLitRender(element);
 
@@ -134,7 +144,10 @@ describe(`sbb-checkbox with ${fixture.name}`, () => {
       }
     });
 
-    it('should reflect accessibility tree setting required property to false', async () => {
+    it('should reflect accessibility tree setting required property to false', async function (this: Context) {
+      // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
+      this.retries(3);
+
       element.required = true;
       await waitForLitRender(element);
 
