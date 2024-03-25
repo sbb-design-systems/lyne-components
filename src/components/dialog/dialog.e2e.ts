@@ -41,7 +41,7 @@ describe(`sbb-dialog with ${fixture.name}`, () => {
       `,
       { modules: ['./dialog.ts'] },
     );
-    ariaLiveRef = element.shadowRoot!.querySelector('sbb-screenreader-only')!;
+    ariaLiveRef = element.shadowRoot!.querySelector('sbb-screen-reader-only')!;
   });
 
   it('renders', () => {
@@ -260,7 +260,7 @@ describe(`sbb-dialog with ${fixture.name}`, () => {
       `,
       { modules: ['./dialog.ts'] },
     );
-    ariaLiveRef = element.shadowRoot!.querySelector('sbb-screenreader-only')!;
+    ariaLiveRef = element.shadowRoot!.querySelector('sbb-screen-reader-only')!;
 
     await openDialog(element);
 

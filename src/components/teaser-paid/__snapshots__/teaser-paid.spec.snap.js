@@ -30,9 +30,9 @@ snapshots["sbb-teaser-paid ShadowDom"] =
   </slot>
   <slot name="image">
   </slot>
-  <sbb-screenreader-only>
+  <sbb-screen-reader-only>
     . Link target opens in a new window.
-  </sbb-screenreader-only>
+  </sbb-screen-reader-only>
 </a>
 `;
 /* end snapshot sbb-teaser-paid ShadowDom */

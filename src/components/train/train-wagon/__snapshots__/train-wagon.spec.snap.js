@@ -11,13 +11,13 @@ snapshots["sbb-train-wagon render should render as type wagon"] =
       aria-hidden="false"
       class="sbb-train-wagon__label"
     >
-      <span class="sbb-screenreaderonly">
+      <span class="sbb-screen-reader-only">
         Number,
       </span>
       38
     </li>
     <li class="sbb-train-wagon__class">
-      <span class="sbb-screenreaderonly">
+      <span class="sbb-screen-reader-only">
         First Class
       </span>
       <span aria-hidden="true">
@@ -31,7 +31,7 @@ snapshots["sbb-train-wagon render should render as type wagon"] =
       role="listitem"
     >
     </sbb-timetable-occupancy-icon>
-    <li class="sbb-screenreaderonly">
+    <li class="sbb-screen-reader-only">
       No passage to the previous train coach
     </li>
   </ul>
@@ -68,9 +68,9 @@ snapshots["sbb-train-wagon render should render as type wagon with one icon"] =
     </sbb-timetable-occupancy-icon>
   </ul>
   <span class="sbb-train-wagon__icons">
-    <sbb-screenreader-only>
+    <sbb-screen-reader-only>
       Additional wagon information
-    </sbb-screenreader-only>
+    </sbb-screen-reader-only>
     <span class="sbb-train-wagon__icons-list">
       <span>
         <slot name="li-0">
@@ -131,7 +131,7 @@ snapshots["sbb-train-wagon render should render as type wagon with multiple icon
 snapshots["sbb-train-wagon render should render as type locomotive"] = 
 `<div class="sbb-train-wagon">
   <span class="sbb-train-wagon__compartment">
-    <span class="sbb-screenreaderonly">
+    <span class="sbb-screen-reader-only">
       Locomotive
     </span>
     <span
@@ -140,7 +140,7 @@ snapshots["sbb-train-wagon render should render as type locomotive"] =
     >
     </span>
   </span>
-  <span class="sbb-screenreaderonly">
+  <span class="sbb-screen-reader-only">
     , Top of the train
   </span>
 </div>
@@ -150,7 +150,7 @@ snapshots["sbb-train-wagon render should render as type locomotive"] =
 snapshots["sbb-train-wagon render should render as type closed wagon without number"] = 
 `<div class="sbb-train-wagon">
   <span class="sbb-train-wagon__compartment">
-    <span class="sbb-screenreaderonly">
+    <span class="sbb-screen-reader-only">
       Closed train coach
     </span>
     <span

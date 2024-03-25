@@ -9,7 +9,7 @@ import { SbbActionBaseElement } from './action-base-element';
 import { hostAttributes } from './host-attributes';
 import { LanguageController } from './language-controller';
 
-import '../../screenreader-only';
+import '../../screen-reader-only';
 
 /** Enumeration for 'target' attribute in <a> HTML tag. */
 export type LinkTargetType = '_blank' | '_self' | '_parent' | '_top';
@@ -95,8 +95,8 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
       >
         ${this.renderTemplate()}
         ${!!this.href && this.target === '_blank'
-          ? html`<sbb-screenreader-only
-              >. ${i18nTargetOpensInNewWindow[this.language.current]}</sbb-screenreader-only
+          ? html`<sbb-screen-reader-only
+              >. ${i18nTargetOpensInNewWindow[this.language.current]}</sbb-screen-reader-only
             >`
           : nothing}
       </a>

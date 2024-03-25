@@ -10,7 +10,7 @@ import type { SbbTitleLevel } from '../title';
 import style from './journey-header.scss?lit&inline';
 
 import '../icon';
-import '../screenreader-only';
+import '../screen-reader-only';
 import '../title';
 
 export type JourneyHeaderSize = 'm' | 'l';
@@ -50,21 +50,21 @@ export class SbbJourneyHeaderElement extends SbbNegativeMixin(LitElement) {
       >
         <span class="sbb-journey-header" dir=${getDocumentWritingMode()}>
           <span class="sbb-journey-header__origin">
-            <sbb-screenreader-only>
+            <sbb-screen-reader-only>
               ${i18nConnectionFrom[this._language.current]}&nbsp;
-            </sbb-screenreader-only>
+            </sbb-screen-reader-only>
             ${this.origin}
           </span>
           <sbb-icon name=${iconName}></sbb-icon>
           <span class="sbb-journey-header__destination">
-            <sbb-screenreader-only>
+            <sbb-screen-reader-only>
               &nbsp;${i18nConnectionTo[this._language.current]}&nbsp;
-            </sbb-screenreader-only>
+            </sbb-screen-reader-only>
             ${this.destination}
             ${this.roundTrip
-              ? html` <sbb-screenreader-only>
+              ? html` <sbb-screen-reader-only>
                   ${i18nConnectionRoundtrip(this.origin)[this._language.current]}
-                </sbb-screenreader-only>`
+                </sbb-screen-reader-only>`
               : nothing}
           </span>
         </span>

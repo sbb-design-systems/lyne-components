@@ -18,7 +18,7 @@ import style from './journey-summary.scss?lit&inline';
 import '../divider';
 import '../journey-header';
 import '../pearl-chain-time';
-import '../screenreader-only';
+import '../screen-reader-only';
 
 export interface InterfaceSbbJourneySummaryAttributes {
   legs: Leg[];
@@ -89,9 +89,9 @@ export class SbbJourneySummaryElement extends LitElement {
           ${dateAdapter.format(departureTime).replace(',', '.')}</time
         >${duration && duration > 0
           ? html`,<time>
-                <sbb-screenreader-only>
+                <sbb-screen-reader-only>
                   ${i18nTripDuration[this._language.current]} ${durationObj!.long}
-                </sbb-screenreader-only>
+                </sbb-screen-reader-only>
                 <span aria-hidden="true">${durationObj!.short}</span>
               </time>`
           : nothing}

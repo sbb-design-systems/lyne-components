@@ -6,7 +6,7 @@ import { getLocalName } from '../dom';
 import type { AbstractConstructor } from './constructor';
 import { SbbHydrationMixin, type SbbHydrationMixinType } from './hydration-mixin';
 
-import '../../screenreader-only';
+import '../../screen-reader-only';
 
 const SSR_CHILD_COUNT_ATTRIBUTE = 'data-ssr-child-count';
 const SLOTNAME_PREFIX = 'li';
@@ -128,7 +128,7 @@ export const SbbNamedSlotListMixin = <
           ${this.renderHiddenSlot()}
         `;
       } else if (listSlotNames.length === 1) {
-        return html`<sbb-screenreader-only>${attributes.ariaLabel}</sbb-screenreader-only>
+        return html`<sbb-screen-reader-only>${attributes.ariaLabel}</sbb-screen-reader-only>
           <span class=${attributes.class || (this.localName ?? getLocalName(this))}>
             <span><slot name=${listSlotNames[0]}></slot></span>
           </span>

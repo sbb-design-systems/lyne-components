@@ -17,9 +17,9 @@ snapshots["sbb-breadcrumb renders with text"] =
     <slot>
     </slot>
   </span>
-  <sbb-screenreader-only>
+  <sbb-screen-reader-only>
     . Link target opens in a new window.
-  </sbb-screenreader-only>
+  </sbb-screen-reader-only>
 </a>
 `;
 /* end snapshot sbb-breadcrumb renders with text */

@@ -11,7 +11,7 @@ import {
 import { AgnosticMutationObserver } from '../../core/observers';
 import type { SbbCardElement } from '../card';
 
-import '../../screenreader-only';
+import '../../screen-reader-only';
 
 import style from './card-action.scss?lit&inline';
 
@@ -101,9 +101,9 @@ export const SbbCardActionCommonElementMixin = <
 
     protected override renderTemplate(): TemplateResult {
       return html`
-        <sbb-screenreader-only>
+        <sbb-screen-reader-only>
           <slot></slot>
-        </sbb-screenreader-only>
+        </sbb-screen-reader-only>
       `;
     }
   }

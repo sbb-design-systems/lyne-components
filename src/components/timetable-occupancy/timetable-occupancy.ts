@@ -8,7 +8,7 @@ import type { SbbOccupancy } from '../core/interfaces';
 
 import style from './timetable-occupancy.scss?lit&inline';
 
-import '../screenreader-only';
+import '../screen-reader-only';
 import '../timetable-occupancy-icon';
 
 /**
@@ -41,13 +41,13 @@ export class SbbTimetableOccupancyElement extends SbbNegativeMixin(LitElement) {
                 <span class="sbb-timetable-occupancy__list-item-class" aria-hidden="true">
                   ${this.firstClassOccupancy && index === 0 ? '1' : '2'}.
                 </span>
-                <sbb-screenreader-only>
+                <sbb-screen-reader-only>
                   ${`${
                     i18nClass[this.firstClassOccupancy && index === 0 ? 'first' : 'second'][
                       this._language.current
                     ]
                   }.`}
-                </sbb-screenreader-only>
+                </sbb-screen-reader-only>
                 <sbb-timetable-occupancy-icon
                   class="sbb-timetable-occupancy__list-item-icon"
                   ?negative=${this.negative}
