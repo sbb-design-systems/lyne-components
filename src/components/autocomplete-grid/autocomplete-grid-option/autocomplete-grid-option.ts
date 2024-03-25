@@ -6,7 +6,7 @@ import { hostAttributes } from '../../core/decorators';
 import { EventEmitter } from '../../core/eventing';
 
 import '../../icon';
-import '../../screenreader-only';
+import '../../screen-reader-only';
 import style from './autocomplete-grid-option.scss?lit&inline';
 
 /**
