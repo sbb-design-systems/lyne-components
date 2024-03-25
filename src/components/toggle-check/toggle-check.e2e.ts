@@ -89,6 +89,7 @@ describe(`sbb-toggle-check with ${fixture.name}`, () => {
     });
 
     it('should reflect accessibility tree setting required attribute to true', async function (this: Context) {
+      // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
       this.retries(3);
 
       element.toggleAttribute('required', true);
@@ -105,6 +106,7 @@ describe(`sbb-toggle-check with ${fixture.name}`, () => {
     });
 
     it('should reflect accessibility tree setting required attribute to false', async function (this: Context) {
+      // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
       this.retries(3);
 
       element.toggleAttribute('required', true);
@@ -120,6 +122,7 @@ describe(`sbb-toggle-check with ${fixture.name}`, () => {
     });
 
     it('should reflect accessibility tree setting required property to true', async function (this: Context) {
+      // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
       this.retries(3);
 
       element.required = true;
@@ -136,6 +139,7 @@ describe(`sbb-toggle-check with ${fixture.name}`, () => {
     });
 
     it('should reflect accessibility tree setting required property to false', async function (this: Context) {
+      // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
       this.retries(3);
 
       element.required = true;
