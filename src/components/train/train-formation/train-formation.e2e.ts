@@ -301,6 +301,7 @@ describe(`sbb-train-formation with ${fixture.name}`, () => {
       );
 
       element.querySelector<SbbTrainWagonElement>('sbb-train-wagon')!.remove();
+      await waitForLitRender(element);
 
       expect(extractAggregatedSectors(element)).to.be.eql([
         {
