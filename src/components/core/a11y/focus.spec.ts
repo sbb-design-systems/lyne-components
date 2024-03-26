@@ -25,8 +25,8 @@ describe('focus', () => {
       await customElements.whenDefined('my-custom-element');
       lightDOM = await fixture(html`
         <div>
-          <span tabindex="0" id="sbb-button">Button</span>
-          <a href="#" id="a">Link</a>
+          <custom-button tabindex="0" id="custom-button">Button</custom-button>
+          <custom-link tabindex="0" href="#" id="custom-link">Link</custom-link>
           <div>
             <input id="input" />
             <button style="visibility: hidden" id="hidden-button">Button</button>
@@ -41,8 +41,8 @@ describe('focus', () => {
       const elements = getFocusableElements([lightDOM, shadowDOM]);
 
       expect(elements.map((el) => el.id)).to.deep.equal([
-        'sbb-button',
-        'a',
+        'custom-button',
+        'custom-link',
         'input',
         'shadow-button',
       ]);
@@ -54,8 +54,8 @@ describe('focus', () => {
       });
 
       expect(elements.map((el) => el.id)).to.deep.equal([
-        'sbb-button',
-        'a',
+        'custom-button',
+        'custom-link',
         'input',
         'hidden-button',
         'shadow-button',
@@ -64,10 +64,10 @@ describe('focus', () => {
 
     it('should retrieve filtered focusable elements', () => {
       const elements = getFocusableElements([lightDOM, shadowDOM], {
-        filter: (el) => ['div', 'a'].includes(el.localName),
+        filter: (el) => ['div', 'custom-link'].includes(el.localName),
       });
 
-      expect(elements.map((el) => el.id)).to.deep.equal(['a']);
+      expect(elements.map((el) => el.id)).to.deep.equal(['custom-link']);
     });
 
     it('should prefer slotted over shadow DOM', () => {
@@ -81,7 +81,7 @@ describe('focus', () => {
     it('should retrieve first focusable element', () => {
       const element = getFirstFocusableElement([lightDOM, shadowDOM]);
 
-      expect(element!.id).to.equal('sbb-button');
+      expect(element!.id).to.equal('custom-button');
     });
   });
 
@@ -95,8 +95,8 @@ describe('focus', () => {
           super();
           const shadowRoot = this.attachShadow({ mode: 'open' });
           shadowRoot.innerHTML = `
-          <span tabindex="0" id="sbb-button">Button</span>
-          <a href="#" id="a">Link</a>
+          <custom-button tabindex="0" id="custom-button">Button</custom-button>
+          <custom-link tabindex="0" href="#" id="custom-link">Link</custom-link>
           <div>
             <input id="input" />
             <button style="visibility: hidden" id="hidden-button">Button</button>
@@ -118,11 +118,11 @@ describe('focus', () => {
       const focusHandler = new FocusHandler();
       focusHandler.trap(element);
 
-      element.shadowRoot!.querySelector<HTMLSpanElement>('#sbb-button')!.focus();
-      expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('sbb-button');
+      element.shadowRoot!.querySelector<HTMLElement>('#custom-button')!.focus();
+      expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('custom-button');
 
       await sendKeys({ press: 'Tab' });
-      expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('a');
+      expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('custom-link');
 
       await sendKeys({ press: 'Tab' });
 
@@ -134,7 +134,7 @@ describe('focus', () => {
 
       // Wrap around
       await sendKeys({ press: 'Tab' });
-      expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('sbb-button');
+      expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('custom-button');
     });
 
     it('should focus next element with filter', async () => {
@@ -153,17 +153,17 @@ describe('focus', () => {
     it('should focus next element with post filter', async () => {
       const focusHandler = new FocusHandler();
       focusHandler.trap(element, {
-        postFilter: (el) => ['sbb-button', 'a'].includes(el.id),
+        postFilter: (el) => ['custom-button', 'custom-link'].includes(el.id),
       });
 
-      element.shadowRoot!.querySelector<HTMLSpanElement>('#sbb-button')!.focus();
-      expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('sbb-button');
+      element.shadowRoot!.querySelector<HTMLElement>('#custom-button')!.focus();
+      expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('custom-button');
 
       await sendKeys({ press: 'Tab' });
-      expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('a');
+      expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('custom-link');
 
       await sendKeys({ press: 'Tab' });
-      expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('sbb-button');
+      expect(document.activeElement!.shadowRoot!.activeElement!.id).to.equal('custom-button');
     });
   });
 });
