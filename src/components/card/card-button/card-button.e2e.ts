@@ -124,9 +124,7 @@ describe(`sbb-card-button with ${fixture.name}`, () => {
     );
 
     // Add a button to slot
-    document
-      .querySelector<SbbCardElement>('sbb-card')!
-      .insertBefore(document.createElement('button'), element.querySelector('#content'));
+    element.insertBefore(document.createElement('button'), element.querySelector('#content'));
     await waitForLitRender(element);
 
     // Button should be marked as focusable
@@ -142,9 +140,7 @@ describe(`sbb-card-button with ${fixture.name}`, () => {
     );
 
     // Add a sbb-card-button
-    document
-      .querySelector<SbbCardElement>('sbb-card')!
-      .appendChild(document.createElement('sbb-card-button'));
+    element.appendChild(document.createElement('sbb-card-button'));
     await waitForLitRender(element);
 
     // Button should be marked as focusable

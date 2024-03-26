@@ -16,16 +16,18 @@ describe(`sbb-optgroup`, () => {
       let elem: SbbOptGroupElement;
 
       beforeEach(async () => {
-        await fixture(html`
-          <sbb-autocomplete origin="anchor">
-            <sbb-optgroup label="Label">
-              <sbb-option value="1">1</sbb-option>
-              <sbb-option value="2">2</sbb-option>
-            </sbb-optgroup>
-          </sbb-autocomplete>
-          <div id="anchor"></div>
+        const testFixture = await fixture(html`
+          <div>
+            <sbb-autocomplete origin="anchor">
+              <sbb-optgroup label="Label">
+                <sbb-option value="1">1</sbb-option>
+                <sbb-option value="2">2</sbb-option>
+              </sbb-optgroup>
+            </sbb-autocomplete>
+            <div id="anchor"></div>
+          </div>
         `);
-        elem = document.querySelector('sbb-optgroup')!;
+        elem = testFixture.querySelector('sbb-optgroup')!;
         await waitForLitRender(elem);
       });
 
@@ -56,16 +58,18 @@ describe(`sbb-optgroup`, () => {
       let elem: SbbOptGroupElement;
 
       beforeEach(async () => {
-        await fixture(html`
-          <sbb-autocomplete origin="anchor">
-            <sbb-optgroup label="Label" disabled>
-              <sbb-option value="1">1</sbb-option>
-              <sbb-option value="2">2</sbb-option>
-            </sbb-optgroup>
-          </sbb-autocomplete>
-          <div id="anchor"></div>
+        const testFixture = await fixture(html`
+          <div>
+            <sbb-autocomplete origin="anchor">
+              <sbb-optgroup label="Label" disabled>
+                <sbb-option value="1">1</sbb-option>
+                <sbb-option value="2">2</sbb-option>
+              </sbb-optgroup>
+            </sbb-autocomplete>
+            <div id="anchor"></div>
+          </div>
         `);
-        elem = document.querySelector('sbb-optgroup')!;
+        elem = testFixture.querySelector('sbb-optgroup')!;
         await waitForLitRender(elem);
       });
 
