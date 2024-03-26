@@ -21,6 +21,7 @@ import {
   primaryNegativeActive,
   primaryNegativeDisabled,
   sizeM,
+  withHiddenSlottedIcon,
   withSlottedIcon,
 } from '../common/common-stories';
 
@@ -51,6 +52,8 @@ export const NegativeActive: StoryObj = primaryNegativeActive;
 export const FocusVisible: StoryObj = primaryFocusVisible;
 export const LoadingIndicator: StoryObj = loadingIndicator;
 export const RequestSubmit: StoryObj = requestSubmit;
+
+export const WithHiddenSlottedIcon: StoryObj = withHiddenSlottedIcon;
 
 const meta: Meta = {
   args: defaultArgs,
