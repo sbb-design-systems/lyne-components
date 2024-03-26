@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-toast renders Chrome-Safari Dom"] =
+snapshots["sbb-toast renders Chrome-Safari Dom"] = 
 `<sbb-toast
   data-slot-names="unnamed"
   data-state="closed"
@@ -61,7 +61,7 @@ snapshots["sbb-toast renders Chrome-Safari ShadowDom"] =
 `;
 /* end snapshot sbb-toast renders Chrome-Safari ShadowDom */
 
-snapshots["sbb-toast renders A11y tree Chrome"] =
+snapshots["sbb-toast renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",

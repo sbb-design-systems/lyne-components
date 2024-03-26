@@ -86,7 +86,7 @@ snapshots["sbb-form-field-clear renders FormfieldClear ShadowDom"] =
 `;
 /* end snapshot sbb-form-field-clear renders FormfieldClear ShadowDom */
 
-snapshots["sbb-form-field-clear renders A11y tree Chrome"] =
+snapshots["sbb-form-field-clear renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",

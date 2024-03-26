@@ -77,7 +77,7 @@ snapshots["sbb-breadcrumb renders with icon and text"] =
 `;
 /* end snapshot sbb-breadcrumb renders with icon and text */
 
-snapshots["sbb-breadcrumb A11y tree Chrome"] =
+snapshots["sbb-breadcrumb A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",

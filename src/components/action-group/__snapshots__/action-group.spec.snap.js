@@ -48,7 +48,7 @@ snapshots["sbb-action-group renders renders - ShadowDom"] =
 `;
 /* end snapshot sbb-action-group renders renders - ShadowDom */
 
-snapshots["sbb-action-group renders A11y tree Chrome"] =
+snapshots["sbb-action-group renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",

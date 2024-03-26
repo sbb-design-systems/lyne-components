@@ -49,7 +49,7 @@ snapshots["sbb-checkbox-group renders - ShadowDom"] =
 `;
 /* end snapshot sbb-checkbox-group renders - ShadowDom */
 
-snapshots["sbb-checkbox-group A11y tree Chrome"] =
+snapshots["sbb-checkbox-group A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
