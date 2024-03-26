@@ -492,7 +492,7 @@ export const InputHiddenLabel: StoryObj = {
   args: { ...basicArgs, 'hidden-label': true },
 };
 
-export const InputWithSlottedLabel: StoryObj = {
+export const InputWithSlottedSpanLabel: StoryObj = {
   render: TemplateInputWithSlottedSpanLabel,
   argTypes: basicArgTypes,
   args: { ...basicArgs, value: 'Random value' },
@@ -655,7 +655,7 @@ export const InputNegative: StoryObj = {
   },
 };
 
-export const InputWithSlottedLabelNegative: StoryObj = {
+export const InputWithSlottedSpanLabelNegative: StoryObj = {
   render: TemplateInputWithSlottedSpanLabel,
   argTypes: basicArgTypes,
   args: { ...basicArgs, value: 'Random value', negative: true },
