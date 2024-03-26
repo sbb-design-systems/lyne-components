@@ -65,7 +65,6 @@ describe(`sbb-datepicker-next-day with ${fixture.name}`, () => {
         `,
         { modules: ['./datepicker-next-day.ts'] },
       );
-      await waitForLitRender(element);
 
       const nextButton: SbbDatepickerNextDayElement =
         element.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
@@ -100,7 +99,6 @@ describe(`sbb-datepicker-next-day with ${fixture.name}`, () => {
         `,
         { modules: ['./datepicker-next-day.ts'] },
       );
-      await waitForLitRender(element);
 
       const nextButton: SbbDatepickerNextDayElement =
         element.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
@@ -181,11 +179,7 @@ describe(`sbb-datepicker-next-day with ${fixture.name}`, () => {
         },
       );
       input = form.querySelector<HTMLInputElement>('input')!;
-      await waitForLitRender(element);
-
       expect(input.value).to.be.equal('Sa, 21.01.2023');
-      await waitForLitRender(element);
-
       expect(form.querySelector('sbb-datepicker-next-day')).to.have.attribute('data-disabled');
 
       element.click();

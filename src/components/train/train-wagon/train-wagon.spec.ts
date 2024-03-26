@@ -86,8 +86,6 @@ describe(`sbb-train-wagon`, () => {
       const root = await fixture(
         html`<sbb-train-wagon><sbb-icon name="sa-rs"></sbb-icon></sbb-train-wagon>`,
       );
-
-      await waitForLitRender(root);
       expect(root).dom.to.be.equal(
         `
           <sbb-train-wagon data-has-visible-wagon-content type="wagon">
@@ -112,7 +110,6 @@ describe(`sbb-train-wagon`, () => {
         ></sbb-train-wagon>`,
       );
 
-      await waitForLitRender(root);
       expect(root).dom.to.be.equal(
         `
         <sbb-train-wagon data-has-visible-wagon-content type="wagon">

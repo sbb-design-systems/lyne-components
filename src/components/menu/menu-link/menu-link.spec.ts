@@ -1,7 +1,6 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
 import { fixture } from '../../core/testing/private';
 
 import './menu-link';
@@ -18,8 +17,6 @@ describe(`sbb-menu-link`, () => {
         <span>Action</span>
       </sbb-menu-link>
     `);
-
-    await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(`
       <sbb-menu-link amount="123456" icon-name="menu-small" href="https://github.com/lyne-design-system/lyne-components" target="_blank" role="link" tabindex="0" dir="ltr" data-action data-link>

@@ -2,7 +2,7 @@ import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { isSafari } from '../../core/dom';
-import { describeIf, waitForLitRender } from '../../core/testing';
+import { describeIf } from '../../core/testing';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 
 import type { SbbOptGroupElement } from './optgroup';
@@ -28,7 +28,6 @@ describe(`sbb-optgroup`, () => {
           </div>
         `);
         elem = testFixture.querySelector('sbb-optgroup')!;
-        await waitForLitRender(elem);
       });
 
       describeIf(!isSafari(), 'Chrome-Firefox', async () => {
@@ -70,7 +69,6 @@ describe(`sbb-optgroup`, () => {
           </div>
         `);
         elem = testFixture.querySelector('sbb-optgroup')!;
-        await waitForLitRender(elem);
       });
 
       describeIf(!isSafari(), 'Chrome-Firefox', async () => {

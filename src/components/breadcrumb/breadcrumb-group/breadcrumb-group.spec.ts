@@ -1,7 +1,6 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 
 import type { SbbBreadcrumbGroupElement } from './breadcrumb-group';
@@ -20,7 +19,6 @@ describe(`sbb-breadcrumb-group`, () => {
         <sbb-breadcrumb href="https://example.com/one">Two</sbb-breadcrumb>
       </sbb-breadcrumb-group>
     `);
-    await waitForLitRender(root);
   });
 
   it('renders - Dom', async () => {

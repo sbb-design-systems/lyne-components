@@ -30,7 +30,6 @@ describe(`sbb-action-group with ${fixture.name}`, () => {
       `,
       { modules: ['./action-group.ts', '../button/index.ts', '../link/index.ts'] },
     );
-    await waitForLitRender(element);
   });
 
   it('renders', async () => {

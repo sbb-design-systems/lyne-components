@@ -2,7 +2,7 @@ import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { isFirefox } from '../core/dom';
-import { describeIf, waitForLitRender } from '../core/testing';
+import { describeIf } from '../core/testing';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
 
 import type { SbbToastElement } from './toast';
@@ -17,7 +17,6 @@ describe(`sbb-toast`, () => {
       elem = await fixture(html`
         <sbb-toast icon-name="circle-tick-small" dismissible> 'Lorem ipsum dolor' </sbb-toast>
       `);
-      await waitForLitRender(elem);
     });
 
     describeIf(!isFirefox(), 'Chrome-Safari', async () => {

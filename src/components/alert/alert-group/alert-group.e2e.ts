@@ -35,9 +35,6 @@ describe(`sbb-alert-group with ${fixture.name}`, () => {
     const didDismissAlertSpy = new EventSpy(SbbAlertGroupElement.events.didDismissAlert);
     const emptySpy = new EventSpy(SbbAlertGroupElement.events.empty);
 
-    // When rendering initially
-    await waitForLitRender(element);
-
     // Then two alerts should be rendered and accessibility title should be displayed
     expect(element.querySelectorAll('sbb-alert').length).to.be.equal(2);
     const alertGroupTitle = element.shadowRoot!.querySelector('.sbb-alert-group__title')!;

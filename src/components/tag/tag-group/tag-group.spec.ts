@@ -1,7 +1,6 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 
 import type { SbbTagGroupElement } from './tag-group';
@@ -20,7 +19,6 @@ describe(`sbb-tag-group`, () => {
         <sbb-tag value="tag-3">Third tag</sbb-tag>
       </sbb-tag-group>
     `);
-    await waitForLitRender(element);
   });
 
   it('renders - Dom', async () => {

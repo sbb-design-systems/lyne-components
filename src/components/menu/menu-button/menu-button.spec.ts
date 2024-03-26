@@ -1,7 +1,6 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
 import { fixture } from '../../core/testing/private';
 
 import './menu-button';
@@ -39,8 +38,6 @@ describe(`sbb-menu-button`, () => {
         <span>Action</span>
       </sbb-menu-button>
     `);
-
-    await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(`
       <sbb-menu-button amount="123456" icon-name="menu-small" role="button" tabindex="0" dir="ltr" data-action data-button>

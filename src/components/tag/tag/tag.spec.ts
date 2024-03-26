@@ -1,7 +1,6 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 
 import './tag';
@@ -43,8 +42,6 @@ describe(`sbb-tag`, () => {
       </sbb-tag>
     `);
 
-    await waitForLitRender(root);
-
     expect(root).dom.to.be.equal(
       `
         <sbb-tag amount="123" aria-disabled="true" aria-pressed="false" disabled icon-name="circle-information-small" role="button" value="information" dir="ltr" data-slot-names="unnamed" data-action data-button>
@@ -70,8 +67,6 @@ describe(`sbb-tag`, () => {
         <span slot="amount">123</span>
       </sbb-tag>
     `);
-
-    await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(
       `

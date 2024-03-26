@@ -30,7 +30,6 @@ describe(`sbb-notification`, () => {
         >The quick brown fox jumps over the lazy dog.</sbb-notification
       >`,
     );
-    await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(
       `
@@ -48,7 +47,6 @@ describe(`sbb-notification`, () => {
         The quick brown fox jumps over the lazy dog.
       </sbb-notification>`,
     );
-    await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(
       `
@@ -68,7 +66,6 @@ describe(`sbb-notification`, () => {
         >The quick brown fox jumps over the lazy dog.</sbb-notification
       >`,
     );
-    await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(
       `

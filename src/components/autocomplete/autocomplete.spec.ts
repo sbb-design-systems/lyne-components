@@ -2,7 +2,7 @@ import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { isSafari } from '../core/dom';
-import { describeIf, waitForLitRender } from '../core/testing';
+import { describeIf } from '../core/testing';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
 import type { SbbFormFieldElement } from '../form-field';
 
@@ -26,7 +26,6 @@ describe(`sbb-autocomplete`, () => {
           </sbb-autocomplete>
         </div> `,
       );
-      await waitForLitRender(testFixture);
       element = testFixture.querySelector('sbb-autocomplete')!;
     });
 
@@ -64,7 +63,6 @@ describe(`sbb-autocomplete`, () => {
           </sbb-autocomplete>
         </sbb-form-field>
       `);
-      await waitForLitRender(root);
     });
 
     describeIf(!isSafari(), 'Chrome-Firefox', async () => {

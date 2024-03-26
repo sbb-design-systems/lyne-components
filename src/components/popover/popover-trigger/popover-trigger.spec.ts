@@ -1,7 +1,6 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 
 import './popover-trigger';
@@ -9,8 +8,6 @@ import './popover-trigger';
 describe(`sbb-popover-trigger`, () => {
   it('renders', async () => {
     const root = await fixture(html`<sbb-popover-trigger></sbb-popover-trigger>`);
-
-    await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(
       `<sbb-popover-trigger role="button" tabindex="0" dir="ltr" data-action data-button></sbb-popover-trigger>`,
@@ -20,8 +17,6 @@ describe(`sbb-popover-trigger`, () => {
 
   it('renders with custom content', async () => {
     const root = await fixture(html`<sbb-popover-trigger>Custom Content</sbb-popover-trigger>`);
-
-    await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(
       `<sbb-popover-trigger role="button" tabindex="0" dir="ltr" data-action data-button>

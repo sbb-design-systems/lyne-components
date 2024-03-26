@@ -251,7 +251,6 @@ describe(`sbb-toggle-check with ${fixture.name}`, () => {
               </form>`,
               { modules: ['./toggle-check.ts'] },
             );
-            await waitForLitRender(form);
 
             element = form.querySelector(selector)!;
             fieldset = form.querySelector<HTMLFieldSetElement>('fieldset')!;
@@ -626,7 +625,6 @@ describe(`sbb-toggle-check with ${fixture.name}`, () => {
               </form>`,
               { modules: ['./toggle-check.ts'] },
             );
-            await waitForLitRender(form);
 
             element = form.querySelector(selector)!;
             fieldset = form.querySelector<HTMLFieldSetElement>('fieldset')!;

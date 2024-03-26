@@ -1,7 +1,6 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 
 import type { SbbAlertGroupElement } from './alert-group';
@@ -23,7 +22,6 @@ describe(`sbb-alert-group`, () => {
           </sbb-alert>
         </sbb-alert-group>
       `);
-      await waitForLitRender(root);
     });
 
     it('Dom', async () => {

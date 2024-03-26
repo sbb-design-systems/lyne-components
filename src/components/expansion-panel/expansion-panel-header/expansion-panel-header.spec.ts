@@ -1,7 +1,6 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 
 import './expansion-panel-header';
@@ -12,8 +11,6 @@ describe(`sbb-expansion-panel-header`, () => {
     const root = await fixture(
       html`<sbb-expansion-panel-header>Header</sbb-expansion-panel-header>`,
     );
-
-    await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(
       `
@@ -29,8 +26,6 @@ describe(`sbb-expansion-panel-header`, () => {
     const root = await fixture(
       html`<sbb-expansion-panel-header icon-name="pie-medium">Header</sbb-expansion-panel-header>`,
     );
-
-    await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(
       `
@@ -60,8 +55,6 @@ describe(`sbb-expansion-panel-header`, () => {
         Header
       </sbb-expansion-panel-header>
     `);
-
-    await waitForLitRender(root);
 
     expect(root).dom.to.be.equal(
       `

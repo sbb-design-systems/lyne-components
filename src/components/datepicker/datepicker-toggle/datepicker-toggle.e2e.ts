@@ -48,7 +48,6 @@ describe(`sbb-datepicker-toggle with ${fixture.name}`, () => {
     const popover: SbbPopoverElement =
       element.shadowRoot!.querySelector<SbbPopoverElement>('sbb-popover')!;
 
-    await waitForLitRender(element);
     expect(popoverTrigger).not.to.have.attribute('disabled');
     expect(popover).to.have.attribute('data-state', 'closed');
 
@@ -98,7 +97,6 @@ describe(`sbb-datepicker-toggle with ${fixture.name}`, () => {
       `,
       { modules: ['./datepicker-toggle.ts'] },
     );
-    await waitForLitRender(root);
 
     const toggle: SbbDatepickerToggleElement =
       root.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;

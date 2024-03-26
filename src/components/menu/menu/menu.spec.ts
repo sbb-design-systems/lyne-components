@@ -1,7 +1,6 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../../core/testing';
 import { fixture } from '../../core/testing/private';
 
 import type { SbbMenuElement } from './menu';
@@ -30,7 +29,6 @@ describe(`sbb-menu`, () => {
           </sbb-menu>
         </div>
       `);
-      await waitForLitRender(testFixture);
       element = testFixture.querySelector('sbb-menu')!;
     });
 
@@ -58,7 +56,6 @@ describe(`sbb-menu`, () => {
           </sbb-menu>
         </div>`,
       );
-      await waitForLitRender(testFixture);
       element = testFixture.querySelector('sbb-menu')!;
     });
 

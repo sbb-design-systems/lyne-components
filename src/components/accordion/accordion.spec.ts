@@ -1,7 +1,6 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../core/testing';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
 
 import type { SbbAccordionElement } from './accordion';
@@ -24,7 +23,6 @@ describe(`sbb-accordion`, () => {
         </sbb-expansion-panel>
       </sbb-accordion>
     `);
-    await waitForLitRender(element);
   });
 
   it('renders - Dom', async () => {

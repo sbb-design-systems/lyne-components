@@ -2,7 +2,7 @@ import { aTimeout, assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import { waitForCondition, waitForLitRender } from '../core/testing';
+import { waitForCondition } from '../core/testing';
 import { fixture } from '../core/testing/private';
 
 import { SbbImageElement } from './image';
@@ -18,7 +18,6 @@ describe(`sbb-image with ${fixture.name}`, () => {
     });
 
     assert.instanceOf(element, SbbImageElement);
-    await waitForLitRender(element);
 
     // Wait until the image is successfully be loaded
     const img: HTMLImageElement =

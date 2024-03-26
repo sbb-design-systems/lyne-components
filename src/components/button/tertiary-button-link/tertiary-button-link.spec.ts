@@ -1,6 +1,5 @@
 import { expect } from '@open-wc/testing';
 
-import { waitForLitRender } from '../../core/testing';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private';
 import { buttonLinkIconTestTemplate, buttonLinkTestTemplate } from '../common/button-test-utils';
 
@@ -31,7 +30,6 @@ describe(`sbb-tertiary-button-link`, () => {
 
     beforeEach(async () => {
       root = await fixture(buttonLinkIconTestTemplate('sbb-tertiary-button-link'));
-      await waitForLitRender(root);
     });
 
     it('Dom', async () => {

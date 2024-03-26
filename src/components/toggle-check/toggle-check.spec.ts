@@ -1,7 +1,6 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { waitForLitRender } from '../core/testing';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private';
 
 import type { SbbToggleCheckElement } from './toggle-check';
@@ -14,7 +13,6 @@ describe(`sbb-toggle-check`, () => {
 
     beforeEach(async () => {
       element = await fixture(html`<sbb-toggle-check checked></sbb-toggle-check>`);
-      await waitForLitRender(element);
     });
 
     it('DOM', async () => {

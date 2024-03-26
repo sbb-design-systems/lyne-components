@@ -13,7 +13,6 @@ describe(`sbb-teaser with ${fixture.name}`, () => {
     element = await fixture(html`<sbb-teaser id="focus-id" href="#">Content</sbb-teaser>`, {
       modules: ['./teaser.ts'],
     });
-    await waitForLitRender(element);
   });
 
   it('should render', async () => {

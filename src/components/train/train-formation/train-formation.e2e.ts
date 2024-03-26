@@ -301,7 +301,6 @@ describe(`sbb-train-formation with ${fixture.name}`, () => {
       );
 
       element.querySelector<SbbTrainWagonElement>('sbb-train-wagon')!.remove();
-      await waitForLitRender(element);
 
       expect(extractAggregatedSectors(element)).to.be.eql([
         {
@@ -331,7 +330,6 @@ describe(`sbb-train-formation with ${fixture.name}`, () => {
         `,
         { modules: ['./train-formation.ts', '../train/index.ts', '../train-wagon/index.ts'] },
       );
-      await waitForLitRender(element);
 
       element.querySelector<SbbTrainElement>('sbb-train')!.remove();
       await waitForLitRender(element);
